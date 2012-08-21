@@ -1,0 +1,5 @@
+h1 Keyword: #{@keyword}
+
+ul
+  - for page in @pages
+    li==link_to page.metadata[:page]["title"], page.url
