@@ -1,8 +1,8 @@
-h1. HTTP MapReduce
+# HTTP MapReduce
 
 [[MapReduce]] is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.
 
-h2. Request
+## Request
 
 ```bash
 POST /mapred
@@ -16,7 +16,7 @@ Optional query parameters:
 
 _+This request must include an entity (body), which is the JSON form of the MapReduce query.+_
 
-h2. Response
+## Response
 
 Normal status codes:
 * @200 OK@
@@ -29,7 +29,7 @@ Typical error codes:
 Important headers:
 * @Content-Type@ - @application/json@ when @chunked@ is not true, otherwise @multipart/mixed@ with @application/json@ sections.
 
-h2. Example
+## Example
 
 ```bash
 $ curl -v -d '{"inputs":"test", "query":[{"link":{"bucket":"test"}},{"map":{"language":"javascript","name":"Riak.mapValuesJson"}}]}' -H "Content-Type: application/json" http://127.0.0.1:8098/mapred

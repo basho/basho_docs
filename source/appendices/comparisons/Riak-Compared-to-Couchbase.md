@@ -1,8 +1,6 @@
 This is intended to be a brief, objective and technical comparison of Riak and Couchbase (i.e. Couchbase Server).  The Couchbase version described is 2.0. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please "fix it":https://github.com/basho/riak_wiki/issues/new or send an email to **docs@basho.com**.
 
-
-h2. At A Very High Level
-
+## At A Very High Level
 
 * Riak is Apache 2.0 licensed; Couchbase Community (free version) is licensed under a [["community agreement"|http://www.couchbase.com/agreement/community]] (its backend, CouchDB is Apache 2.0 licensed).
 * Riak is written primarily in Erlang with some bits in C; Couchbase is written in Erlang and C/C++
@@ -11,7 +9,7 @@ h2. At A Very High Level
 
 <div class="note"><div class="title">Couchbase 2.0</div>As of the time of this writing, Couchbase 2.0 is still in developer preview, so some of these points may change between now and the final release. <i>Caveat emptor</i></div>
 
-h2. Feature/Capability Comparison
+## Feature/Capability Comparison
 
 The table below gives a high level comparison of Riak and Couchbase features/capabilities.  To keep this page relevant in the face of rapid development on both sides, low level details are found in links to Riak and Couchbase online documentation.
 

@@ -5,7 +5,7 @@ The Riak Community is developing at a break-neck pace, and the number of communi
 
 <div id="toc"></div>
 
-h2. Client Libraries and Frameworks
+## Client Libraries and Frameworks
 
 *C/C++*
 * [[riak-cpp|https://github.com/ajtack/riak-cpp]] - A C++ Riak client library for use with C++11 compilers
@@ -116,7 +116,7 @@ h2. Client Libraries and Frameworks
 * [[Phriak|http://www.squeaksource.com/Phriak/]] - a Riak client for Pharo Smalltalk based on Runar Jordan's EpigentRiakInterface
 * [[EpigentRiakInterface|http://www.squeaksource.com/EpigentRiakInterface/]] - A Pharo Smalltalk interface to Riak. (There is also a blog post with some additional info about the client [[here|http://blog.epigent.com/2011/03/riak-interface-for-pharo-smalltalk.html]].)
 
-h2. Monitoring, Management, and GUI Tools
+## Monitoring, Management, and GUI Tools
 
 * [[riak_node (for Munin)|https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_node]] - Munin plugin for monitoring GET and PUT traffic
 * [[riak_memory (for Munin)|https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_memory]] - Munin plugin for monitoring memory allocation
@@ -130,11 +130,11 @@ h2. Monitoring, Management, and GUI Tools
 * [[app-karyn|https://github.com/tempire/app-karyn]] - Simple command line utility for working with Riak objects
 * [[Briak|http://github.com/johnthethird/Briak]] - A Sinatra-based web front-end browser for Riak
         
-h2. Backup Tools
+## Backup Tools
 
 * [[Brackup|http://code.google.com/p/brackup/]] - A modern net-based backup system that supports de-duplication, intelligent chunking, and gpg-based-encryption
 
-h2. riak_core
+## riak_core
 
 * [[Misultin Riak Core VNode Dispatcher|https://github.com/jbrisbin/misultin-riak-core-vnode-dispatcher]]
 * [[ecnty|https://github.com/benmmurphy/ecnty]] - Partitioned Counter Based on Riak Core 
@@ -144,7 +144,7 @@ h2. riak_core
 * [[riak_zab_example|https://github.com/jtuple/riak_zab_example]] - an example application that allows you to build a multi-node cluster using riak_zab
 
 
-h2. Riak and RabbitMQ 
+## Riak and RabbitMQ 
 
 * [[Riak/RabbitMQ Commit Hook|https://github.com/jbrisbin/riak-rabbitmq-commit-hooks]] - A Post-Commit hook that sends entries into a RabbitMQ broker using the Erlang AMQP client
 * [[riak-exchange|https://github.com/jbrisbin/riak-exchange]] - Custom RabbitMQ exchange type for sticking messages in Riak 
@@ -152,13 +152,13 @@ h2. Riak and RabbitMQ
 * [[msg_store_bitcask_index|https://github.com/videlalvaro/msg_store_bitcask_index]] - RabbitMQ message store index with Bitcask Backend
 * [[RabbitMQ-Riak Core Vnode Dispatcher|https://github.com/jbrisbin/rabbitmq-riak_core-vnode-dispatcher]]
 
-h2. Lager 
+## Lager 
 
 * [[Lager AMQP Backend|https://github.com/jbrisbin/lager_amqp_backend]]
 
         
 
-h2. Recipes, Cookbooks, and Configurations
+## Recipes, Cookbooks, and Configurations
 
 * [[Scalarium-Riak|https://github.com/mattmatt/scalarium-riak]] - Riak Cookbooks for Scalarium Platform
 * [[Riak Chef Recipe|https://github.com/basho/riak-chef-cookbook]] - Vanilla Chef Recipe for installing and configuring Riak
@@ -169,7 +169,7 @@ h2. Recipes, Cookbooks, and Configurations
 * [[Sample HA Proxy Configuration for Protocol Buffers Interface|http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html]] (courtesy of Bob Feldbauer)
 
 
-h2. Other Tools and Projects
+## Other Tools and Projects
 
 * [[ldapjs-riak|https://github.com/mcavage/node-ldapjs-riak]] - A Riak backend for [[ldapjs|http://ldapjs.org]]
 * [[otto|https://github.com/ncode/otto]] - S3 Clone built on top of Cyclone with support for Riak

@@ -10,7 +10,7 @@ The Riak package and all of its dependencies (including the base Erlang) can be 
 
 (The following commands are assumed to be run as root)
 
-h2. Add the Riak zypper repository
+## Add the Riak zypper repository
 
 ```bash
 $ zypper ar http://download.opensuse.org/repositories/server:/database/$distro Riak
@@ -24,7 +24,7 @@ Where $distro is one of:
 NOTE: The first time you try to use the repository after adding it to your
 system, you may be asked to accept the GPG key for the repo.
 
-h2. Install the Riak package
+## Install the Riak package
 
 ```bash
 $ zypper in riak
@@ -33,13 +33,13 @@ $ zypper in riak
 This should automatically pull in its dependencies, including erlang if you do
 not already have it installed.
 
-h2. (Optional) Enable "refresh" on the riak repository to receive updates
+## (Optional) Enable "refresh" on the riak repository to receive updates
 
 ```bash
 $ zypper mr -r Riak
 ```
 
-h2. Next Steps?
+## Next Steps?
 
 From here you might want to check out:
 * [[Riak Fast Track|The-Riak-Fast-Track]]: a guide for setting up a 4 node cluster and exploring Riak's main features.

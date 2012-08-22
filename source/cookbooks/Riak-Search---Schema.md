@@ -4,7 +4,7 @@ That said, Riak Search does provide the ability to define a custom schema. This 
 
 <div id="toc"></div>
 
-h2. The Default Schema
+## The Default Schema
 
 The default schema treats all fields as strings, unless you suffix your field name as follows:
 
@@ -18,7 +18,7 @@ The default schema treats all fields as strings, unless you suffix your field na
 
 The default field is named *value*.
 
-h2. Defining a Schema
+## Defining a Schema
 
 The schema definition for an index is stored in the Riak bucket @_rs_schema@, with a key of the same name as the index. For example, the schema for the "books" index is stored under @_rs_schema/books@. Writing to the @_rs_schema@ bucket is highly discouraged.
 
@@ -93,7 +93,7 @@ Below is an example schema file. The schema is formatted as an Erlang term. Spac
 ```
 
 
-h2. Schema-level Properties
+## Schema-level Properties
 
 The following properties are defined at a schema level:
 
@@ -103,7 +103,7 @@ The following properties are defined at a schema level:
 * *n_val* - Optional. Set the number of replicas of search data. Defaults to 3.
 * *analyzer_factory* - Optional. Defaults to "com.basho.search.analysis.DefaultAnalyzerFactory"
 
-h2. Fields and Field-Level Properties
+## Fields and Field-Level Properties
 
 Fields can either by static or dynamic. A static field is denoted with @field@ at the start of the field definition, whereas a dynamic field is denoted with @dynamic_field@ at the start of the field definition.
 
@@ -124,11 +124,11 @@ The following properties are defined at a field level, and apply to both static 
 * *padding_size* - Optional. Values are padded up to this size. Defaults to 0 for string types, 10 for integer types.
 * *inline* - Optional. Valid values are "true", "false", and "only" (default is "false"). When "only", the field will not be searchable by itself but can be used as a "filter" for searches on other fields. This will enhance the performance of some queries (such as ranges in some cases) but will consume more storage space because the field value is stored "inline" with the indexes for other fields.  When "true", the field will be stored normally in addition to inline. Filtering on inline fields is currently only supported via the [[Solr|Riak Search - Querying#Querying-via-the-Solr-Interface]] interface. 
 
-h2. Analyzers
+## Analyzers
 
 Riak Search ships with a number of different analyzer factories:
 
-h2. Whitespace Analyzer Factory
+## Whitespace Analyzer Factory
 
 The Whitespace Analyzer Factory tokenizes a field by splitting the text according to whitespace, including spaces, tabs, newlines, carriage returns, etc.
 
@@ -141,7 +141,7 @@ To use the whitespace analyzer, set the *analyzer_factory* setting as seen below
 ```
 
 
-h2. Standard Analyzer Factory
+## Standard Analyzer Factory
 
 The Standard Analyzer Factory mimics the Java/Lucene Standard Tokenizer. The Standard Analyzer is useful for full-text searches across documents written in English. It tokenizes a field according to the following rules:
 
@@ -160,7 +160,7 @@ To use the standard analyzer, set the *analyzer_factory* setting as seen below:
 ```
 
 
-h2. Integer Analyzer Factory
+## Integer Analyzer Factory
 
 The Integer Analyzer Factory tokenizes a field by finding any integers within the field. An integer is defined as as string of numbers without any punctuation between them, possibly starting with a '-' to indicate a negative number.
 
@@ -172,7 +172,7 @@ To use the integer analyzer, set the *analyzer_factory* setting as seen below:
 {analyzer_factory, {erlang, text_analyzers, integer_analyzer_factory}}}
 ```
 
-h2. No-Op Analyzer Factory
+## No-Op Analyzer Factory
 
 The No-Op Analyzer Factory doesn't tokenize a field, it simply returns back the full value of the field. For this reason, it is useful for identity fields.
 
@@ -184,7 +184,7 @@ To use the no-op analyzer, set the *analyzer_factory* setting as seen below:
 {analyzer_factory, {erlang, text_analyzers, noop_analyzer_factory}}}
 ```
 
-h2. Custom Analyzers
+## Custom Analyzers
 
 You can create your own custom analyzers in Erlang.
 

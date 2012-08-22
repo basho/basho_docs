@@ -1,13 +1,13 @@
 This is intended to be a brief, objective and technical comparison of Riak and CouchDB.  The CouchDB version described is 1.2.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please "fix it":https://github.com/basho/riak_wiki/issues/new or send an email to **docs@basho.com**.
 
 
-h2. At A Very High Level
+## At A Very High Level
 
 
 * Riak and CouchDB are both Apache 2.0 licensed
 * Riak is written primarily in Erlang with some bits in C; CouchDB is written in Erlang
 
-h2. Feature/Capability Comparison
+## Feature/Capability Comparison
 
 The table below gives a high level comparison of Riak and CouchDB features/capabilities.  To keep this page relevant in the face of rapid development on both sides, low level details are found in links to Riak and CouchDB online documentation.
 

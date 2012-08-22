@@ -4,7 +4,7 @@ Riak Search now supports indexing and querying of data stored in Riak KV.  Out o
 
 <div class="info"><div class="title">Riak Search and MapReduce</div>Riak Search isn't just able to index data from Riak KV, it can also be used to [[feed data into Riak's MapReduce|Riak-Search---Querying#Querying-Integrated-with-Map-Reduce]].</div>
 
-h2. Setting up Indexing
+## Setting up Indexing
 
 Riak Search indexing of KV data must be enabled on a per-KV-bucket basis.  To enable indexing for a bucket, simply add the Search precommit hook to that bucket's properties.
 
@@ -30,11 +30,11 @@ Note, though, that you may want to read the bucket properties first, so you don'
 
 With the precommit hook installed, Riak Search will index your data each time that data is written.
 
-h2. Datatypes
+## Datatypes
 
 Riak Search is able to handle several standard data encodings with zero configuration.  Simply set the Content-Type metadata on your objects to the appropriate mime-type.  Out of the box, XML, JSON, and plain-text encodings are supported.
 
-h2. JSON Encoded Data
+## JSON Encoded Data
 
 If your data is in JSON format, set your Content-Type to "application/json", "application/x-javascript", "text/javascript", "text/x-javascript", or "text/x-json".
 
@@ -58,7 +58,7 @@ For example, storing the following JSON object in a Search-enabled bucket:
 
 Would cause four fields to be indexed: "name", "bio", "favorites_book", and "favorites_album".  You could later query this data with queries like, "bio:engineer AND favorites_album:mystery".
 
-h2. XML Encoded Data
+## XML Encoded Data
 
 If your data is in XML format, set your Content-Type to "application/xml" or "text/xml".
 
@@ -81,17 +81,17 @@ For example, storing the following XML object in a Search-enabled bucket:
 
 Would cause four fields to be indexed: "person_name", "person_bio", "person_favorites_item", and "person_favorite_item@type".  The values of the "..._item" and "..._item@type" fields will be the concatenation of the two distinct elements in the object ("The Moon is a Harsh Mistress Magical Mystery Tour" and "book album", respectively).  You could later query this data with queries like, "person_bio:engineer AND person_favorites_item:mystery".
 
-h2. Erlang Data
+## Erlang Data
 
 If your object contains Erlang terms, you can set your Content-Type to "application/x-erlang". This expects either an Erlang term that is a proplist or a nested proplist. In the case of a proplist, the key is used as the field name, and the value as the field value. When the object's value is a nested proplist, field names are constructed by concatenating the nested keys together with underscores in between.
 
-h2. Plain-text Data
+## Plain-text Data
 
 If your data is plain text, set your Content-Type to "text/plain". The plain-text decoder is also used if no Content-Type is found.
 
 Specifying that your data is in plain-text format will cause Riak Search to index all of the text in the object's value under a single field, named "value".  Queries can be explicit about searching this field, as in "value:seven AND value:score", or omit the default field name, as in "seven AND score".
 
-h2. Other Data Encodings
+## Other Data Encodings
 
 If your data is not in JSON, XML, or plain-text, or you would like field name or value extraction to behave differently, you may also write your own extractor.
 
@@ -115,7 +115,7 @@ An extractor should export a function @extract@ which takes two arguments.  The 
 
 The modules @riak_search_kv_json_extractor@, @riak_search_kv_xml_extractor@, and @riak_search_kv_raw_extractor@ should be referred to for examples.
 
-h2. Field Types
+## Field Types
 
 If you read the "Other Data Encodings" section about writing your own encoder, you may have been surprised to find that all fields should be extracted as strings.  The reason for this is that it's the schema's job to say what the types of the fields are.
 

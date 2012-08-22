@@ -1,4 +1,4 @@
-h2. Enabling Riak Search 
+## Enabling Riak Search 
 
 As of Riak 1.0, Riak Search is now enabled in the [[app.config|Configuration-Files#app.config]] file. Simply change the setting to "true" in Riak Search Config section (shown below).
 

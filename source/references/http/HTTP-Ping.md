@@ -1,19 +1,19 @@
-h1. HTTP Ping
+# HTTP Ping
 
 Checks if the server is alive. This is useful for monitoring tools, load-balancers and automated scripts.
 
-h2. Request
+## Request
 
 ```bash
 GET /ping
 ```
 
-h2. Response
+## Response
 
 Normal status codes:
 * @200 OK@
 
-h2. Example
+## Example
 
 ```bash
 curl -v http://127.0.0.1:8098/ping

@@ -10,7 +10,7 @@ There are numerous ways to index a document in Riak Search.
 
 <div id="toc"></div>
 
-h2. Indexing from the Command Line
+## Indexing from the Command Line
 
 The easiest way to index documents stored on the filesystem is to use the "search-cmd" command line tool:
 
@@ -34,7 +34,7 @@ bin/search-cmd index my_index files/to/index/*.txt
 The documents will be indexed into the default field defined by the Index's schema, using the base filename plus extension as the document ID.
 
 
-h2. Deleting from the Command Line
+## Deleting from the Command Line
 
 To remove previously indexed files from the command line, use the "search-cmd" command line tool:
 
@@ -59,7 +59,7 @@ bin/search-cmd delete my_index files/to/index/*.txt
 
 Any documents matching the base filename plus extension of the files found will be removed from the index. The actual contents of the files are ignored during this operation.
 
-h2. Indexing using the Erlang API
+## Indexing using the Erlang API
 
 The following Erlang functions will index documents stored on the filesystem:
 
@@ -110,7 +110,7 @@ For example:
 search:index_doc(<<"my_index">>, <<"my_doc">>, [{<<"title">>, <<"The Title">>}, {<<"content">>, <<"The Content">>}])
 ```
 
-h2. Deleting using the Erlang API
+## Deleting using the Erlang API
 
 The following Erlang functions will remove documents from the index:
 
@@ -154,7 +154,7 @@ Parameters:
 * *Index* - The name of the index.
 * *DocID* - The document ID of the document to delete.
 
-h2. Indexing using the Solr Interface
+## Indexing using the Solr Interface
 
 Riak Search supports a Solr-compatible interface for indexing documents via HTTP. Documents must be formatted as simple Solr XML documents, for example:
 
@@ -201,7 +201,7 @@ Alternatively, you can index Solr files on the command line:
 bin/search-cmd solr my_index path/to/solrfile.xml
 ```
 
-h2. Deleting using the Solr Interface
+## Deleting using the Solr Interface
 
 Documents can also be deleted through the Solr interface via two methods, either by Document ID or by Query.
 
@@ -231,11 +231,11 @@ To delete documents by Query, post the following XML to the update endpoint:
 
 Any documents that match the provided queries will be deleted.
 
-h2. Behind the Scenes
+## Behind the Scenes
 
 The details of how Riak Search works, and how it manages your indexes, are generally not something you'll be concerned with.  It's important, however, to be aware of the more "opinionated" aspects of Riak Search, which are very similar to those found in Solr itself.
 
-h2. Stop Words
+## Stop Words
 
 Riak Search implements Stop Words, much as you might find in Solr itself:
 

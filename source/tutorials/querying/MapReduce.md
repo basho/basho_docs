@@ -1,30 +1,30 @@
 <div id="toc"></div>
 
-h2. Introduction
+## Introduction
 
 MapReduce (M/R) is a technique for dividing work across a distributed system. This takes advantage of the parallel processing power of distributed systems, and also reduces network bandwidth as the algorithm is passed around to where the data lives, rather than a potentially huge dataset transfered to a client algorithm. Developers can use MapReduce for things like filtering documents by tags, counting words in documents, and extracting links to related data.
 
 In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the protobufs API. Also, note that Riak MapReduce is intended for batch processing, not real-time querying.
 
-h2. Features  
+## Features  
 
 * Map phases execute in parallel with data locality   
 * Reduce phases execute in parallel on the node where the job was submitted 
 * Javascript MapReduce support 
 * Erlang MapReduce support   
 
-h2. When to Use MapReduce 
+## When to Use MapReduce 
 
 * When you know the set of objects you want to MapReduce over (the bucket-key pairs) 
 * When you want to return actual objects or pieces of the object – not just the keys, as do Search & Secondary Indexes 
 * When you need utmost flexibility in querying your data. MapReduce gives you full access to your object and lets you pick it apart any way you want.
 
-h2. When Not to Use MapReduce  
+## When Not to Use MapReduce  
 
 * When you want to query data of an entire bucket. MapReduce uses a list of keys, which can place a lot of demand on the cluster.  
 * When you want latency to be as predictable as possible. 
 
-h2. How it Works   
+## How it Works   
 
 The MapReduce framework helps developers divide a query into steps, divide the dataset into chunks, and then run those step/chunk pairs in separate physical hosts.
 
@@ -46,11 +46,11 @@ The client makes a request to Riak. The node the client contacts to make the req
 
 After running the map function, the results are sent back to the coordinating node. The coordinating node concatenates the list and then passes that information over to a reduce phase on the same coordinating node (assuming reduce is the next phase in the list).
 
-h2. Examples   
+## Examples   
 
 In this example we will create four objects with the text "pizza" sometimes repeated. Javascript MapReduce will be used to count the occurrences of the word "pizza".  
 
-h3. Data object input commands:  
+### Data object input commands:  
 
 ```bash
 curl -XPUT http://localhost:8091/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'  
@@ -59,7 +59,7 @@ curl -XPUT http://localhost:8091/buckets/training/keys/baz -H 'Content-Type: tex
 curl -XPUT http://localhost:8091/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'   
 ```
 
-h3. MapReduce script and deployment:   
+### MapReduce script and deployment:   
 
 ```bash
 curl -XPOST http://localhost:8091/mapred -H 'Content-Type: application/json' -d '{
@@ -71,7 +71,7 @@ curl -XPOST http://localhost:8091/mapred -H 'Content-Type: application/json' -d 
  		 }"}}]}'   
 ```
 
-h3. Output 
+### Output 
 
 The output is the key of each  object, followed by the count of the word  "pizza" for that object.  It looks like:  
 
@@ -79,11 +79,11 @@ The output is the key of each  object, followed by the count of the word  "pizza
 [["foo",1],["baz",0],["bar",4],["bam",3]]   
 ```
 
-h3. Recap   
+### Recap   
 
 We use the 'training' bucket as the input data; we run a Javascript MapReduce function; the function takes each riakObject that exists in the 'training' bucket and searches the text for the  word  "pizza"; 'm' is the result of the  search, which includes zero or more results that matches for "pizza";" the function returns the key of the riakObject and the number of matches.
 
-h2. Further Reading
+## Further Reading
 
 [[MapReduce Implementation]] - details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details.
 [[Key Filters]] - Key filters are a way to pre-process MapReduce inputs from a full bucket query simply by examining the key. 

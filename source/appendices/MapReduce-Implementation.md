@@ -10,7 +10,7 @@ If you're new to MapReduce in Riak, check out the
 * [[Riak Function Contrib|http://contrib.basho.com]]
 </div>
 
-h2. How Riak Spreads Processing
+## How Riak Spreads Processing
 
 When processing a large dataset, it's often much more efficient to take the computation to the data than it is to bring the data to the computation.  In practice, your MapReduce job code is likely less than 10 kilobytes, it is more efficient to send the code to the gigs of data being processed, than to stream gigabytes of data to your 10k of code.
 
@@ -18,7 +18,7 @@ It is Riak's solution to the data-locality problem that determines how Riak spre
 
 Put more simply: Riak runs map-step functions right on the node holding the input data for those functions, and it runs reduce-step functions on the node coordinating the MapReduce query.
 
-h2. How Riak's MapReduce Queries Are Specified
+## How Riak's MapReduce Queries Are Specified
 
 MapReduce queries in Riak have two components: a list of inputs and a list of "steps", or "phases".
 
@@ -28,11 +28,11 @@ Each element of the phases list is a description of a map function, a reduce fun
 
 The phase list describes the chain of operations each input will flow through.  That is, the initial inputs will be fed to the first phase in the list, and the output of that phase will be fed as input to the next phase in the list.  This stream will continue through the final phase.
 
-h2. How a Map Phase Works in Riak
+## How a Map Phase Works in Riak
 
 The input list to a map phase must be a list of (possibly annotated) bucket-key pairs.  For each pair, Riak will send the request to evaluate the map function to the partition that is responsible for storing the data for that bucket-key.  The vnode hosting that partition will lookup the object stored under that bucket-key, and evaluates the map function with the object as an argument.  The other arguments to the function will be the annotation, if any is included, with the bucket-key, and the static data for the phase, as specified in the query.
 
-h2. How a Reduce Phase Works in Riak
+## How a Reduce Phase Works in Riak
 
 Reduce phases accept any list of data as input, and produce any list of data as output.  They also receive a phase-static value, specified in the query definition.
 
@@ -46,13 +46,13 @@ One strategy is to implement the phase preceeding the reduce phase, such that it
 
 An alternate strategy is to make the output of a reduce phase recognizable, such that it can be extracted from the input list on subsequent applications.  For example, if inputs from the preceeding phase are numbers, outputs from the reduce phase could be objects or strings.  This would allow the function to find the previous result, and apply new inputs to it.
 
-h3. How a Link Phase Works in Riak
+### How a Link Phase Works in Riak
 
 Link phases find links matching patterns specified in the query definition.  The patterns specify which buckets and tags links must have.
 
 "Following a link" means adding it to the output list of this phase.  The output of this phase is often most useful as input to a map phase, or another reduce phase.
 
-h2. MapReduce via the [[HTTP API]]
+## MapReduce via the [[HTTP API]]
 
 Riak supports writing MapReduce query functions in JavaScript and Erlang, as well as specifying query execution over HTTP.
 
@@ -60,11 +60,11 @@ Riak supports writing MapReduce query functions in JavaScript and Erlang, as wel
 <div class="note"><div class="title">"bad encoding" error</div>If you receive an error "bad encoding" from a MapReduce query that includes phases in Javascript, verify that your data does not contain incorrect Unicode escape sequences.  Data being transferred into the Javascript VM must be in Unicode format.</div>
 
 
-h3. HTTP Example
+### HTTP Example
 
 This example will store several chunks of text in Riak, and then compute word counts on the set of documents, using MapReduce via the HTTP API.
 
-h4. Load data
+#### Load data
 
 We will use the Riak HTTP interface to store the texts we want to process:
 
@@ -98,7 +98,7 @@ EOF
 ```
 
 
-h4. Run query
+#### Run query
 
 With data loaded, we can now run a query:
 
@@ -142,7 +142,7 @@ And we end up with the word counts for the three documents.
 ```
 
 
-h4. Explanation
+#### Explanation
 
 For more details about what each bit of syntax means, and other syntax options, read the following sections.  As a quick explanation of how this example map/reduce query worked, though:
 
@@ -193,7 +193,7 @@ Map/Reduce queries have a default timeout of 60000 milliseconds (60 seconds). Th
 
 When the timeout hits, the node coordinating the MapReduce request cancels it and returns an error to the client. When and if you are going to hit the default timeout depends on the size of the data involved and on the general load of your cluster. If you find yourself hitting the timeout regularly, consider increasing it even more or reduce the amount of data required to run the MapReduce request.
 
-h4. Inputs
+#### Inputs
 
 The list of input objects is given as a list of 2-element lists of the form @[Bucket,Key]@ or 3-element lists of the form @[Bucket,Key,KeyData]@.
 
@@ -203,7 +203,7 @@ If you're using Riak Search, the list of inputs can also [[reference a search qu
 
 If you've enabled Secondary Indexes, the list of inputs can also [[reference a Secondary Index query|Secondary-Indexes#Examples]].
 
-h4. Query
+#### Query
 
 The query is given as a list of phases, each phase being of the form @{PhaseType:{...spec...}}@.  Valid @{PhaseType}@ values are "map", "reduce", and "link".
 
@@ -288,7 +288,7 @@ Riak also supports invoking MapReduce queries via the Erlang API.
 
 <div class="note"><div class="title">Distributing Erlang MapReduce Code</div>Any modules and functions you use in your Erlang MapReduce calls must be available on all nodes in the cluster.  You can add them in Erlang applications by specifying the *-pz* option in [[vm.args|Configuration Files]] or by adding the path to the *add_paths* setting in @app.config@.</div>
 
-h3. Erlang Example
+### Erlang Example
 
 You can use the local Riak client to run MapReduce queries. Before we do, let's create some objects to run them on.
 
@@ -322,15 +322,15 @@ Now that we have a client and some data, let's run a query and count how many oc
 
 Given the lists of groceries we created, the sequence of commands above would result in L being bound to @[{"bread",1},{"eggs",1},{"bacon",2}]@.
 
-h3. Erlang Query Syntax
+### Erlang Query Syntax
 
 @riak_client:mapred/2@ takes two lists as arguments.  The first list contains bucket-key pairs, inputs to the MapReduce query.  The second list contains the phases of the query.
 
-h4. Inputs
+#### Inputs
 
 The input objects are given as a list of tuples in the format @{Bucket, Key}@ or @{{Bucket, Key}, KeyData}@. @Bucket@ and @Key@ should be binaries, and @KeyData@ can be any Erlang term.  The former form is equivalent to @{{Bucket,Key},undefined}@.
 
-h4. Query
+#### Query
 
 The query is given as a list of map, reduce and link phases. Map and reduce phases are each expressed as tuples in the following form:
 
@@ -362,15 +362,15 @@ Link phases are expressed in the following form:
 
 <div class="info">There is a small group of prebuilt Erlang MapReduce functions available with Riak. Check them out here: [[https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl|https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl]]</div>
 
-h2. Streaming MapReduce
+## Streaming MapReduce
 
 Because Riak distributes the map phases across the cluster to increase data-locality, you can gain access to the results of those individual computations as they finish via streaming.  Streaming can be very helpful when getting access to results from a high latency MapReduce job that only contains map phases.  Streaming of results from reduce phases isn't as useful, but if your map phases return data (keep: true), they will be returned to the client even if the reduce phases haven't executed.  This will let you use streaming with a reduce phase to collect the results of the map phases while the jobs are run and then get the result to the reduce phase at the end.
 
-h3. Streaming via the HTTP API
+### Streaming via the HTTP API
 
 You can enable streaming with MapReduce jobs submitted to the @/mapred@ resource by adding @?chunked=true@ to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with @Content-Type: multipart/mixed@.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries your that serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
 
-h3. Streaming via the Erlang API
+### Streaming via the Erlang API
 
 You can use streaming with Erlang via the Riak local client or the Erlang protobuffs API.  In either case, you will provide the call to @mapred_stream@ with a @Pid@ that will receive the streaming results.
 
@@ -378,11 +378,11 @@ For examples, see:
 1. [[MapReduce localstream.erl]]
 2. [[MapReduce pbstream.erl]]
 
-h2. Phase functions
+## Phase functions
 
 MapReduce phase functions have the same properties, arguments and return values whether you write them in Javascript or Erlang.
 
-h3. Map phase functions
+### Map phase functions
 
 *Map functions take three arguments* (in Erlang, arity-3 is required).  Those arguments are:
 
@@ -411,7 +411,7 @@ h3. Map phase functions
 
 *A map phase should produce a list of results.* You will see errors if the output of your map function is not a list.  Return the empty list if your map function chooses not to produce output. If your map phase is followed by another map phase, the output of the function must be compatible with the input to a map phase - a list of bucket-key pairs or @bucket-key-keydata@ triples.
 
-h4. Map function examples
+#### Map function examples
 
 These map functions return the value (data) of the object being mapped:
 
@@ -453,7 +453,7 @@ function(value, keydata, arg){
 
 
 
-h3. Reduce phase functions
+### Reduce phase functions
 
 *Reduce functions take two arguments.* Those arguments are:
 
@@ -470,7 +470,7 @@ h3. Reduce phase functions
 ```
 
 
-h4. Reduce function examples
+#### Reduce function examples
 
 These reduce functions assume the values in the input are numbers and sum them:
 
@@ -503,7 +503,7 @@ function(valueList, arg){
 }
 ```
 
-h2. Debugging Javascript Map Reduce Phases
+## Debugging Javascript Map Reduce Phases
 
 There are currently two facilities for debugging map reduce phases. If there was an exception in the Javascript VM you can view the error in the @log/sasl-error.log@ file. In addition to viewing exceptions you can write to a specific log file from your map or reduce phases using the ejsLog function.
 
@@ -513,7 +513,7 @@ ejsLog('/tmp/map_reduce.log', JSON.stringify(value))
 
 Note that when used from a map phase the ejsLog function will create a file on each node on which the map phase runs. The output of a reduce phase will be located on the node you queried with your map reduce function.
 
-h2. Configuration Tuning for Javascript
+## Configuration Tuning for Javascript
 
 If you load larger JSON objects in your buckets there is a possibility you might encounter an error like the following:
 
@@ -536,7 +536,7 @@ becomes
 
 In addition to increasing the amount of memory allocated to the stack you can increase the heap size as well by increasing the @js_max_vm_mem@ from the default of 8MB. If you are collecting a large amount of results in a reduce phase you may need to increase this setting.
 
-h2. Configuration for Riak 1.0
+## Configuration for Riak 1.0
 
 Riak 1.0 is the first release including the new MapReduce subsystem known as Riak Pipe.  By default, new Riak clusters will use Riak Pipe to power their MapReduce queries.  Existing Riak clusters that are upgraded to Riak 1.0 will continue to use the legacy MapReduce system unless the following line is added to the riak_kv section of each node's app.config:
 
@@ -554,11 +554,11 @@ Other than speed and stability of the cluster, the choice of MapReduce subsystem
 {mapred_system, legacy},
 ```
 
-h2. Configuration Tuning for Reduce Phases
+## Configuration Tuning for Reduce Phases
 
 If you are using Riak 1.0 and the Riak Pipe subsystem for MapReduce queries, you have additional options for tuning your reduce phases.
 
-h3. Batch Size
+### Batch Size
 
 By default, Riak will evaluate a reduce function every time its phase receives 20 new inputs.  If your reduce phases would run more efficiently with more or fewer new inputs, you may change this default by adding the following to the riak_kv section of your app.config:
 
@@ -597,7 +597,7 @@ Similarly, in Erlang:
 
 <div class="note">Warning: A known bug in Riak 1.0.0 means that it is possible a reduce function may run more often than specified if handoff happens while the phase is accumulating inputs.  This bug was fixed in 1.0.1.</div>
 
-h3. Pre-Reduce
+### Pre-Reduce
 
 If your reduce functions can benefit from parallel execution, it is possible to request that the outputs of a preceding map phase be reduced local to the partition that produced them, before being sent, as usual, to the final aggregate reduce.
 

@@ -1,12 +1,12 @@
 <div id="toc"></div>
 
-h2. Introduction
+## Introduction
 
 Riak Search is a distributed, full-text search engine that is built on Riak Core and included as part of Riak open source. Search provides the most advanced query capability next to MapReduce, but is far more concise; easier to use, and in most cases puts far less load on the cluster.
 
 Search indexes Riak KV objects as they're written using a precommit hook. Based on the object’s mime type and the Search schema you’ve set for its bucket, the hook will automatically extract and analyze your data and build indexes from it. The Riak Client API is used to invoke Search queries that return a list of bucket/key pairs matching the query. Currently the PHP, Python, Ruby, and Erlang client libraries support integration with Riak Search.
 
-h2. Features
+## Features
 
 * Support for various mime types (JSON, XML, plain text, Erlang, Erlang binaries) for automatic data extraction
 * Support for various analyzers (to break text into tokens) including a white space analyzer, an integer analyzer, and a no-op analyzer
@@ -23,19 +23,19 @@ h2. Features
 * Scoring and ranking for most relevant results
 * Search queries as input for MapReduce jobs
 
-h2. When to Use Search 
+## When to Use Search 
 
 * When collecting, parsing, and storing data like user bios, blog posts, journal articles, etc. to facilitate fast and accurate information retrieval in addition to some reasonable form of ranking.
 * When indexing JSON data. Extractors pull the data apart depending on mime type, analyzers tokenize the fields, and the schema describes what fields to index, how to analyze them and how to store them.
 * When fast information retrieval with a powerful query language is needed.
 
-h2. When Not to Use Search 
+## When Not to Use Search 
 
 * When only simple tagging of data is needed with exact match and range queries. In this case [[Secondary Indexes|Secondary-Indexes]] would be easier.
 * When the data is not easily analyzed by Search. For example mp3, video, or some other binary format. In this case a Secondary Index interface is recommended.
 * When built-in anti-entropy/consistency is required. At this time Search has no read-repair mechanism. If Search index data is lost, the entire data set must be re-indexed.
 
-h2. Query Interfaces and Examples
+## Query Interfaces and Examples
 
 _Querying via the Command Line_
 
@@ -47,10 +47,10 @@ _Querying via the Solr-like Interface_
 *  curl http://localhost:8098/solr/customers/select?q=first_name:john
 This will search the “customers” bucket for objects that had the text “john” in their “first_name”
 
-h2. How It Works 
+## How It Works 
 
 
-h3. Architecture, Partitioning and Indexing
+### Architecture, Partitioning and Indexing
 
 When Search is enabled on your Riak cluster, another set of vnodes, equal to the number of KV vnodes, will be started which will be used to handle Search requests. Search is enabled on a per-bucket basis by setting the search property to true. If search is enabled for a bucket, indexes are generated on all objects as they are written to it using the pre-commit hook. Index data stored on Search vnodes is replicated across the cluster using the same general mechanism as Riak KV, but using timestamps rather than vector clocks to increase performance.
 
@@ -64,11 +64,11 @@ At index time, Riak Search analyzes a document and stores postings in the index.
 
 After analyzing a document into an index, the system uses a consistent hash to partition the index entries (called postings) by term across the cluster. This is called term-based partitioning and is a key difference from other commonly used distributed indexes. Term-based partitioning was chosen because it can provide higher query throughput and does currently outperform 2i in that regard. (This can come at the expense of higher-latency queries for especially large result sets.)
 
-h3. Persistence
+### Persistence
 
 For a backing store, the Riak Search team developed merge\_index. The merge\_index store takes inspiration from the Lucene file format, Bitcask (our standard backing store for Riak KV), and SSTables (from Google's BigTable paper), and was designed to have a simple, easily-recoverable data structure, to allow simultaneous reads and writes with no performance degredation, and to be forgiving of write bursts while taking advantage of low-write periods to perform data compactions and optimizations.
 
-h3. Replication
+### Replication
 
 A search index has an @n_val@ setting that determines how many copies of the data exist. Copies are written across different partitions located on different physical nodes.
 
@@ -78,13 +78,13 @@ The underlying data for Riak Search lives in Riak KV and replicates in precisely
 * Riak Search does not use quorum values when writing (indexing) data. The data is written in a fire and forget model. Riak Search *does* use hinted-handoff to remain write-available when a node goes offline.
 * Riak Search does not use quorum values when reading (querying) data. Only one copy of the data is read, and the partition is chosen based on what will create the most efficient query plan overall.
 
-h2. Operations 
+## Operations 
 
 Operationally, Riak Search is very similar to Riak KV. An administrator can add nodes to a cluster on the fly with simple commands to increase performance or capacity. Index and query operations can be run from any node. Multiple replicas of data are stored, allowing the cluster to continue serving full results in the face of machine failure. Partitions are handed off and replicated across clusters using the same mechanisms as Riak KV.
 
 Riak Search is a superset of Riak KV, so if you are running Riak Search, then you are automatically running a Riak KV cluster. You don't need to set up a separate Riak KV cluster to use Riak Search.
 
-h2. Major Components
+## Major Components
 
 Riak Search is comprised of:
 
@@ -97,7 +97,7 @@ Riak Search is comprised of:
 ** *Riak Solr* - Adds a subset of Solr HTTP interface capabilities to Riak Search.
 
 
-h2. Further Reading
+## Further Reading
 
 [[Riak Search - Schema]]
 [[Riak Search - Indexing]]

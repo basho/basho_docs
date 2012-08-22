@@ -1,6 +1,6 @@
 <div id="toc"></div>
 
-h2. Overview 
+## Overview 
 
 Pre- and Post- Commit hooks are invoked before or after a riak_object is persisted and can greatly enhance the functionality of any application. Commit hooks can:
 
@@ -12,7 +12,7 @@ Post-commit hooks are notified after the fact and should not modify the riak_obj
 
 Pre- and post-commit hooks are defined on a per-bucket basis and are stored in the target bucket's properties. They are run once per successful response to the client.
 
-h2. Configuration
+## Configuration
 
 Configuring either pre- or post-commit hooks is very easy. Simply add a reference to your hook function to the list of functions stored in the correct bucket property. Pre-commit hooks are stored under the bucket property *precommit*. Post-commit hooks use the bucket property *postcommit*.
 
@@ -25,9 +25,9 @@ Post-commit hooks can be implemented in Erlang only. The reason for this restric
 
 See the map/reduce documentation for steps to define your own pre-defined Javascript named functions.
 
-h2. Pre-Commit Hooks
+## Pre-Commit Hooks
 
-h3. API & Behavior
+### API & Behavior
 
 Pre-commit hook functions should take a single argument, the riak_object being modified. Remember that deletes are also considered "writes" so pre-commit hooks will be fired when a delete occurs. Hook functions will need to inspect the object for the *X-Riak-Deleted* metadata entry to determine when a delete is occurring.
 
@@ -75,11 +75,11 @@ function precommitMustBeJSON(object){
 ```
 
 
-h3. Chaining
+### Chaining
 
 The default value of the bucket *precommit* property is an empty list. Adding one or more pre-commit hook functions, as documented above, to the list will cause Riak to start evaluating those hook functions when bucket entries are created, updated, or deleted. Riak stops evaluating pre-commit hooks when a hook function fails the commit.
 
-h3. Pre-commit Validation Example
+### Pre-commit Validation Example
 
 Pre-commit hooks can be used in many ways in Riak. One such way to use pre-commmit hooks is to validate data before it is written to Riak.  Below is an example that uses Javascript to validate a JSON object before it is written to Riak.
 
@@ -139,9 +139,9 @@ function validateData(data){
 }
 ```
 
-h2. Post-Commit Hooks
+## Post-Commit Hooks
 
-h3. API & Behavior
+### API & Behavior
 
 Post-commit hooks are run after the write has completed successfully. Specifically, the hook function is called by riak_kv_put_fsm immediately before the calling process is notified of the successful write. Hook functions must accept a single argument, the riak_object instance just written. The return value of the function is ignored. As with pre-commit hooks, deletes are considered writes so post-commit hook functions will need to inspect object metadata for the presence of *X-Riak-Deleted* to determine when a delete has occurred.  Errors that occur when processing post-commit hooks will be reported in the @sasl-error.log@ file with lines that start with "problem invoking hook".
 
@@ -174,6 +174,6 @@ postcommit_index_on_email(Object) ->
 ```
 
 
-h3. Chaining
+### Chaining
 
 The default value of the bucket *postcommit* property is an empty list. Adding one or more post-commit hook functions, as documented above, to the list will cause Riak to start evaluating those hook functions immediately after data has been created, updated, or deleted. Each post-commit hook function runs in a separate process so it's possible for several hook functions, triggered by the same update, to execute in parallel. _All post-commit hook functions are executed for each create, update, or delete._

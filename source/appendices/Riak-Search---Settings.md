@@ -1,6 +1,6 @@
 Riak Search has all of the same operational properties as Riak.
 
-h3. Default Ports
+### Default Ports
 
 By default, Riak Search uses the following ports:
 
@@ -10,7 +10,7 @@ By default, Riak Search uses the following ports:
 
 Be sure to take the necessary security precautions to prevent exposing these ports to the outside world.
 
-h3. Merge Index Settings
+### Merge Index Settings
 
 These settings can be found in the Riak Search app.config file under the "merge_index" section.
 

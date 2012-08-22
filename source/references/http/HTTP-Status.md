@@ -1,10 +1,10 @@
-h1. HTTP Status
+# HTTP Status
 
 Reports about the performance and configuration of the Riak node to which it was requested. You must have the @{riak_kv_stat,true}@ configuration setting in app.config for this endpoint to be active. This is equivalent to the [[riak-admin status|Command-Line Tools#status]] command.
 
 <div id="toc"></div>
 
-h2. Request
+## Request
 
 ```bash
 GET /stats
@@ -14,7 +14,7 @@ Important headers:
 
 * @Accept@ - determines whether the response will be formatted in @application/json@ or @text/plain@.
 
-h2. Response
+## Response
 
 Normal status codes:
 * @200 OK@
@@ -25,7 +25,7 @@ Typical error codes:
 Important headers:
 * @Content-Type@ - @application/json@ or @text/plain@ (JSON with added line-breaks)
 
-h2. Example
+## Example
 
 ```bash
 $ curl -v http://127.0.0.1:8098/stats -H "Accept: text/plain"
@@ -115,12 +115,12 @@ $ curl -v http://127.0.0.1:8098/stats -H "Accept: text/plain"
 * Closing connection #0
 ```
 
-h2. Output Explanation
+## Output Explanation
 
 The output of @/stats@ contains a number of configuration and performance details. An explanation of these details follows.
 
 
-h2. CPU and Memory
+## CPU and Memory
 
 CPU statistics are taken directly from Erlang's cpu\_sup module.  Documentation for which can be found at [[ErlDocs: cpu_sup|http://erldocs.com/R14B04/os_mon/cpu_sup.html]].
 
@@ -145,7 +145,7 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * @mem_allocated@: Total memory allocated for this node
 
 
-h2. Node, Cluster & System
+## Node, Cluster & System
 
 * @nodename@: The name of the node that produced the stats output
 * @connected_nodes@: List of nodes connected to this node
@@ -203,7 +203,7 @@ h2. Node, Cluster & System
 * @stdlib_version@: Version of Standard Library application in use
 * @kernel_version@: Version of Kernel application in use
 
-h3. Node & VNode Counters
+### Node & VNode Counters
 
 * @vnode_gets@: Number of GET operations coordinated by vnodes on this node within the last minute
 * @vnode_puts@: Number of PUT operations coordinated by vnodes on this node within the last minute
@@ -212,7 +212,7 @@ h3. Node & VNode Counters
 * @node_gets@: Combined number of local and non-local GET operations coordinated by this node in the last minute
 * @node_gets_total@: Combined number of local and non-local GET operations coordinated by this node since node was started
 
-h3. Microsecond Timers
+### Microsecond Timers
 
 * @node_get_fsm_time_mean@: Mean time between reception of client GET request and subsequent response to client
 * @node_get_fsm_time_median@: Median time between reception of client GET request and subsequent response to client
@@ -227,7 +227,7 @@ h3. Microsecond Timers
 * @node_put_fsm_time_99@: 99th percentile time between reception of client PUT request and subsequent response to client
 * @node_put_fsm_time_100@: 100th percentile time between reception of client PUT request and subsequent response to client
 
-h3. Object, Index & Sibling Metrics
+### Object, Index & Sibling Metrics
 
 * @node_get_fsm_objsize_mean@: Mean object size encountered by this node within the last minute
 * @node_get_fsm_objsize_median@: Median object size encountered by this node within the last minute
