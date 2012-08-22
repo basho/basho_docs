@@ -1,0 +1,12 @@
+---
+title: Basic FAQs
+project: riak
+version: 1.2+
+document: cookbook
+audience: beginner
+keywords: [faq, cookbook]
+---
+
+Q: What is Riak?
+A:
+  Riak is an open source, highly scalable, fault-tolerant distributed database. You can learn more by following the [Riak Fast Track](../tutorials/fast-track/index.html) tutorial.

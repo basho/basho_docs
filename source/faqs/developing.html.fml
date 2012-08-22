@@ -1,0 +1,24 @@
+---
+title: Developing on Riak FAQs
+project: riak
+version: 1.2+
+document: cookbook
+audience: intermediate
+keywords: [faq, cookbook]
+---
+
+Q: How can I automatically expire a key from Riak?
+  I want to regularly purge items from Riak that are older than a certain timestamp, but MapReduce times out on large numbers of items. Can I expire data automatically?
+A:
+  If you're using Bitcask, the default storage backend, and you want items to expire at a consistent interval (assuming they are not updated), set the expiry_secs option in app.config. Items past this threshold will not be returned on get/fetch operations and will eventually be removed from disk by Bitcask's merging process.
+  
+  Example:
+  
+  ```erlang
+  {bitcask, [
+      {data_root, "data/bitcask"},
+      {expiry_secs, 86400} %% Expire after a day
+   ]}, 
+  ```
+  
+  There is no limit on how large or small the expiry_secs setting can be as long as it is greater than 0. Please see the wiki for additional details on [configuring Bitcask](/Bitcask.html).

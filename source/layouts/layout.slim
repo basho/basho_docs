@@ -7,7 +7,7 @@ doctype html
   html class="no-js lt-ie9" lang="en"
 /![if gt IE 8]>
   <!--> <html class="no-js" lang="en"> <!--<![endif]
-head
+head(class=data.page.document)
   meta charset="utf-8"
   meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
   meta content="width=device-width" name="viewport"
@@ -20,7 +20,9 @@ body class==page_classes
     article
       header
         h1== data.page.title
+      == partial "layouts/tutorial_nav"
       == yield
+      == partial "layouts/tutorial_nav"
       footer
         - if data.page.keywords.present?
           span.label keywords 

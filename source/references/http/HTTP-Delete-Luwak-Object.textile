@@ -1,0 +1,35 @@
+h1. HTTP Delete Luwak Object
+
+Deletes an object from Luwak.
+
+<div class="info">This feature is deprecated for Riak versions 1.1+.</div>
+
+h2. Request
+
+```bash
+DELETE /luwak/key
+```
+
+h2. Response
+
+Normal response codes:
+* @204 No Content@
+* @404 Not Found@
+
+Typical error codes:
+* @400 Bad Request@
+
+Like [[HTTP Delete Object]], @404 Not Found@ is a normal response in the sense that DELETE operations are idempotent and not finding the object has the same effect as deleting it.
+
+h2. Example
+
+```bash
+$ curl -i -X DELETE http://127.0.0.1:8098/luwak/file.json
+HTTP/1.1 204 No Content
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: application/json
+Content-Length: 0
+
+```
