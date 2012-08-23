@@ -10,7 +10,7 @@ up:   ["The Riak Fast Track", "index.html"]
 next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
 ---
 
-Riak provides various ways to query your data beyond the basic key/value operations: [Full-Text Search](Riak-Search.html), [MapReduce](MapReduce.html), [Secondary Indexes](Secondary-Indexes.html), and [Link Walking](Links.html).
+Riak provides various ways to query your data beyond the basic key/value operations: [[Full-Text Search|Riak Search]], [[MapReduce]], [[Secondary Indexes]], and [[Link Walking|Links]].
 
 This section will walk you through loading some sample data (that we've borrowed from Google) into Riak and then using JSON over HTTP interface with Curl to perform some MapReduce queries on that data.
 

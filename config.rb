@@ -64,9 +64,57 @@ Middleman::Application.register Middleman::Renderers::FAQML
 #   end
 # end
 
+class ::Middleman::Sitemap::Resource
+  alias_method :old_render, :render
+
+  def extract_name(path)
+    path.to_s.scan(/([^\/]+)(?:\/|\.\w+)$/).first.first
+  end
+
+  def format_name(name)
+    name.to_s.downcase.gsub(/\s/, '-')
+  end
+
+  def sitemap_pages
+    $sitemap_pages = {}
+    store.resources.each do |resource|
+      name = format_name(extract_name(resource.url))
+      $sitemap_pages[name] = resource.url
+      title = resource.metadata[:page]["title"]
+      next if title.blank?
+      title = format_name(title)
+      $sitemap_pages[title] = resource.url
+    end
+    $sitemap_pages
+  end
+
+  def render(opts={}, locs={}, &block)
+    data = old_render
+    $sitemap_pages ||= sitemap_pages
+    # name = format_name(extract_name(self.url))
+    data.gsub!(/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/m) do
+      link_name = $2 || $1
+      link_label = $1 || link_name
+      anchor = nil
+      link_name, anchor = link_name.split('#', 2) if link_name.include?('#')
+      link_url = $sitemap_pages[format_name(link_name)]
+      # heuristic that an unfound url, is probably not a link
+      # if link_url.blank? && $1 == $2 && !link_name.include?('.')
+      if link_url.blank? && link_name.scan(/[.\/]/).empty?
+        "[[#{link_label}]]"
+      else
+        link_url ||= link_name
+        link_url += '#' + anchor unless anchor.blank?
+        "<a href=\"#{link_url}\">#{link_label}</a>"
+      end
+    end
+    data
+  end
+
+end
+
 #############
 # override tha languages to manage versions!?
-
 
 def build_keyword_pages
   keyword_pages = {}
@@ -118,7 +166,7 @@ set :images_dir, 'images'
 
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true,
-               :autolink => true, 
+               # :autolink => true, 
                :smartypants => true,
                :with_toc_data => true
 

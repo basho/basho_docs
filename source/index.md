@@ -18,9 +18,9 @@ keywords: []
 
 * Querying
   * MapReduce
-     * MapReduce
-     * Key-Filters
-     * MapReduce-Search-2i-Comparison
+     * [[MapReduce]]
+     * [[Key-Filters]]
+     * [[MapReduce-Search-2i-Comparison]]
   * Search
      * Riak-Search—-Indexing
      * Riak-Search—-Schema
