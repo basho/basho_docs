@@ -14,59 +14,59 @@ keywords: []
 * [Querying](/tutorials/querying/index.html)
 * [FAQs for Getting Started](/faqs/basics.html)
 
-## Using
+
+## Developing with Riak
 
 * Querying
+  * [[MapReduce/Search/2i Comparison]]
   * MapReduce
      * [[MapReduce]]
-     * [[Key-Filters]]
-     * [[MapReduce-Search-2i-Comparison]]
+     * [[Key Filters]]
   * Search
-     * Riak-Search—-Indexing
-     * Riak-Search—-Schema
-     * Riak-Search—-Querying
-     * Riak-Search—-Indexing-and-Querying-Riak-KV-Data
-     * MapReduce-Search-2i-Comparison
-     * Command-Line-Tools—-search-cmd
+     * [[Indexing|Riak-Search - Indexing]]
+     * [[Schema|Riak-Search - Schema]]
+     * [[Querying|Riak-Search - Querying]]
+     * [[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]
+     * [[search-cmd|Command-Line-Tools - search-cmd]] *(Command-Line Tool)*
   * Secondary Indexes
-     * Secondary-Indexes—-Configuration-and-Examples
-     * MapReduce-Search-2i-Comparison
+     * [[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]
 * References
-  * APIs
-  * Command-Line-Tools—-riak
-  * Client-Libraries
-  * Community-Developed-Libraries-and-Projects
+  * [[APIs]]
+  * [[riak|Command-Line-Tools - riak]] *(Command-Line Tool)*
+  * [[Client Libraries]]
+     * [[Community Developed Libraries and Projects]]
 * [FAQs for Using Riak](/faqs/developing.html)
 
-## Administrating
+
+## Operating Riak
 
 * [Installing and Upgrading](/tutorials/installation/index.html)
 * Planning
-  * Choosing a Backend
-     * Bitcask
-     * LevelDB
-     * Memory
-     * Multi
-  * System Requirements
-  * Custer Capacity Planning
-  * Bitcask Capacity Planning
+  * [[Choosing a Backend]]
+     * [[Bitcask]]
+     * [[LevelDB]]
+     * [[Memory]]
+     * [[Multi]]
+  * [[System Requirements]]
+  * [[Cluster Capacity Planning]]
+  * [[Bitcask Capacity Planning]]
 * Managing Clusters
-  * Basic Cluster Setup
-  * Adding an Removing Nodes
-  * Replacing a Node
+  * [[Basic Cluster Setup]]
+  * [[Adding and Removing Nodes]]
+  * [[Replacing a Node]]
 * Operations
-  * Configuration Files
-  * File System Tuning
-  * Backups
-  * Network Security and Firewall Configurations
+  * [[Configuration Files]]
+  * [[File System Tuning]]
+  * [[Backups]]
+  * [[Network Security and Firewall Configurations]]
 * Search
-  * Riak-Search---Enabling-Search
-  * Riak-Search---Operations and Troubleshooting
-  * MapReduce-Search-2iComparison
+  * [[Enabling Search|Riak-Search - Enabling-Search]]
+  * [[Settings|Riak-Search - Settings]]
+  * [[MapReduce/Search/2i Comparison]]
 * Secondary Indexes
-  * Secondary-Indexes—-Configuration-and-Examples
-  * MapReduce-Search-2i-Comparison
-* [Troubleshooting](cookbooks/troubleshooting.html)
+  * [[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]
+  * [[MapReduce/Search/2i Comparison]]
+* [[Troubleshooting]]
 * References
-  * Command-Line-Tools—-riak-admin
+  * [[riak-admin|Command-Line-Tools - riak]] *(Command-Line Tool)*
 * [FAQs for Operating Riak](/faqs/operations.html)

@@ -64,6 +64,11 @@ Middleman::Application.register Middleman::Renderers::FAQML
 #   end
 # end
 
+
+# If the page contains a TOC, scan for <h2>'s and generate it
+# <div id="toc"></div>
+
+
 class ::Middleman::Sitemap::Resource
   alias_method :old_render, :render
 
@@ -72,7 +77,7 @@ class ::Middleman::Sitemap::Resource
   end
 
   def format_name(name)
-    name.to_s.downcase.gsub(/\s/, '-')
+    name.to_s.downcase.gsub(/[\s\/?]|(&mdash;)/, '-').gsub(/\-+/, '-')
   end
 
   def sitemap_pages
@@ -91,7 +96,6 @@ class ::Middleman::Sitemap::Resource
   def render(opts={}, locs={}, &block)
     data = old_render
     $sitemap_pages ||= sitemap_pages
-    # name = format_name(extract_name(self.url))
     data.gsub!(/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/m) do
       link_name = $2 || $1
       link_label = $1 || link_name
@@ -99,12 +103,14 @@ class ::Middleman::Sitemap::Resource
       link_name, anchor = link_name.split('#', 2) if link_name.include?('#')
       link_url = $sitemap_pages[format_name(link_name)]
       # heuristic that an unfound url, is probably not a link
-      # if link_url.blank? && $1 == $2 && !link_name.include?('.')
       if link_url.blank? && link_name.scan(/[.\/]/).empty?
         "[[#{link_label}]]"
       else
+        # no html inside of the link or label
+        link_label.gsub!(/\<[^\>]+\>/, '_')
         link_url ||= link_name
         link_url += '#' + anchor unless anchor.blank?
+        link_url.gsub!(/\<[^\>]+\>/, '_')
         "<a href=\"#{link_url}\">#{link_label}</a>"
       end
     end

@@ -20,6 +20,9 @@ body class==page_classes
     article
       header
         h1== data.page.title
+        #js-toc.toc
+          h1#js-toc-heading.toc-heading Guides
+          ul#js-toc-items
       == partial "layouts/tutorial_nav"
       == yield
       == partial "layouts/tutorial_nav"

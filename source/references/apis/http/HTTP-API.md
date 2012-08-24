@@ -55,7 +55,7 @@ Object". The operations below affect individual objects in Riak.
 * [[HTTP MapReduce]]
 * [[HTTP Secondary Indexes]]
 
-## Luwak Operations (Large Objects)
+<!-- ## Luwak Operations (Large Objects)
 
 Luwak is an optional interface that automatically segments large files across
 multiple Riak Objects.
@@ -65,7 +65,7 @@ multiple Riak Objects.
 * [[HTTP Fetch Luwak Object]]
 * [[HTTP Store Luwak Object]]
 * [[HTTP Delete Luwak Object]]
-
+ -->
 ## Server Operations
 
 * [[HTTP Ping]]
