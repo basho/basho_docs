@@ -1,6 +1,8 @@
-Riak Search now supports indexing and querying of data stored in Riak KV.  Out of the box, simple indexing of plain text, XML, and JSON data can be enabled in an instant.
+---
+toc: true
+---
 
-<div id="toc"></div>
+Riak Search now supports indexing and querying of data stored in Riak KV.  Out of the box, simple indexing of plain text, XML, and JSON data can be enabled in an instant.
 
 <div class="info"><div class="title">Riak Search and MapReduce</div>Riak Search isn't just able to index data from Riak KV, it can also be used to [[feed data into Riak's MapReduce|Riak-Search---Querying#Querying-Integrated-with-Map-Reduce]].</div>
 

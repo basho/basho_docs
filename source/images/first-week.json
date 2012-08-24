@@ -1,0 +1,7 @@
+{"inputs":[["goog","2010-01-04"],
+           ["goog","2010-01-05"],
+           ["goog","2010-01-06"],
+           ["goog","2010-01-07"],
+           ["goog","2010-01-08"]],
+   "query":[{"map":{"language":"javascript","name":"Riak.mapValuesJson","keep":true}}]
+}

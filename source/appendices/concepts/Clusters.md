@@ -1,4 +1,11 @@
-# Clusters
+---
+title: Clusters
+project: riak
+version: 0+
+document: appendix
+audience: intermediate
+keywords: [appendix, concepts]
+---
 
 Riak's default mode of operation is in a cluster. A Riak cluster is
 generally run on a set of well-connected physical hosts.  Each host in

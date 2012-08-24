@@ -1,8 +1,16 @@
+---
+title: PBC API
+project: riak
+version: 1.2+
+document: api
+toc: true
+audience: advanced
+keywords: [api, protocol-buffer]
+---
+
 This is an overview of the operations you can perform over the Protocol Buffers
 Client (PBC) interface to Riak, and can be used as a guide for developing a
 compliant client.
-
-<div id="toc"></div>
 
 ## Protocol
 
@@ -87,7 +95,6 @@ message RpbErrorResp {
 }
 ```
 
-
 Values:
 
 * **errmsg** - a string representation of what went wrong
@@ -118,5 +125,3 @@ Values:
 * [[PBC Get Client ID]]
 * [[PBC Set Client ID]]
 * [[PBC Server Info]]
-
-

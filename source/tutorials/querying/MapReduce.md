@@ -1,4 +1,7 @@
-<div id="toc"></div>
+---
+title: Map Reduce
+toc: true
+---
 
 ## Introduction
 

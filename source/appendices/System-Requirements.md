@@ -1,8 +1,8 @@
+---
+toc: true
+---
+
 These are some recommendations for how to design and configure your hosting setup for Riak.
-
-
-<div id="toc"></div>
-
 
 ## Operating System
 

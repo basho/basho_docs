@@ -12,8 +12,6 @@ next: ["Running MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.
 
 For this module, we are going to work with the Riak HTTP API. 
 
-<div id="toc"></div>
-
 ## Object/Key Operations
 
 Riak organizes data into Buckets, Keys, and Values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.

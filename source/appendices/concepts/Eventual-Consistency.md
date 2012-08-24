@@ -1,6 +1,14 @@
-An introduction to eventual consistency and what it means in terms of handling data with Riak.
+---
+title: Eventual Consistency
+project: riak
+version: 0+
+document: appendix
+toc: true
+audience: intermediate
+keywords: [appendix, concepts]
+---
 
-<div id="toc"></div>
+An introduction to eventual consistency and what it means in terms of handling data with Riak.
 
 In a distributed and fault-tolerant environment like Riak, the
 unexpected is expected. That means that nodes may leave and join the

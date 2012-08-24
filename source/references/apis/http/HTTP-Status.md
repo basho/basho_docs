@@ -1,8 +1,9 @@
-# HTTP Status
+---
+title: HTTP Status
+toc: true
+---
 
 Reports about the performance and configuration of the Riak node to which it was requested. You must have the @{riak_kv_stat,true}@ configuration setting in app.config for this endpoint to be active. This is equivalent to the [[riak-admin status|Command-Line Tools#status]] command.
-
-<div id="toc"></div>
 
 ## Request
 

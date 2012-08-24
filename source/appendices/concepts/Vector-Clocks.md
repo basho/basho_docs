@@ -1,4 +1,12 @@
-<div id="toc"></div>
+---
+title: Vector Clocks
+project: riak
+version: 0+
+document: appendix
+toc: true
+audience: intermediate
+keywords: [appendix, concepts]
+---
 
 ## Overview
 
@@ -138,13 +146,14 @@ $ curl -v -X PUT -H "Content-Type: application/json" -d '{"dishes":11}' \
 http://127.0.0.1:8098/riak/kitchen/sink?returnbody=true
 ```
 
-<div class="note"><div class="title">Concurrent conflict resolution</div>
-  It should be noted that if you are trying to resolve conflicts automatically,
-  you can end up in a condition with which two clients are simultaneously
-  resolving and creating new conflicts.  To avoid a pathological divergence you
-  should be sure to limit the number of reconciliations and fail once that limit
-  has been exceeded.
-  </div></div>
+<div class="note">
+<div class="title">Concurrent conflict resolution</div>
+It should be noted that if you are trying to resolve conflicts automatically,
+you can end up in a condition with which two clients are simultaneously
+resolving and creating new conflicts.  To avoid a pathological divergence you
+should be sure to limit the number of reconciliations and fail once that limit
+has been exceeded.
+</div>
 
 
 ### Sibling Explosion
@@ -186,11 +195,9 @@ better performance. Some use-cases where you might want to use
 updates).
 
 <div class="note">
-
 The combination of bucket properties <code>allow_mult=true</code> and
 <code>last_write_wins=true</code> has undefined behavior and should not be
 used.
-
 </div>
 
 ## Vector Clock Pruning
@@ -221,7 +228,7 @@ the vector clock list. If the length of the list is smaller than
 `small_vclock` it will not be pruned. If the length is greater than
 `big_vclock` it will be pruned.
 
-[[/attachments/vclock-pruning.png|align=center]]
+![Vclock Pruning](/images/vclock-pruning.png)
 
 The `young_vclock` and `old_vclock` parameters refer to the timestamp
 per vclock entry. If the list length is between `small_vclock` and

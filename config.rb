@@ -67,12 +67,13 @@ Middleman::Application.register Middleman::Renderers::FAQML
 # end
 
 
-
 class ::Middleman::Sitemap::Resource
   alias_method :old_render, :render
 
   def extract_name(path)
     path.to_s.scan(/([^\/]+)(?:\/|\.\w+)$/).first.first
+  rescue
+    path
   end
 
   def format_name(name)
@@ -143,7 +144,6 @@ ready do
   end
 end
 
-
 ###
 # Helpers
 ###
@@ -171,8 +171,11 @@ set :images_dir, 'images'
 
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true,
-               # :autolink => true, 
-               :smartypants => true
+               :smartypants => true,
+               :tables => true,
+               :no_intra_emphasis => true,
+               :lax_html_blocks => true
+               # :autolink => true,
                # :with_toc_data => true
 
 # Build-specific configuration

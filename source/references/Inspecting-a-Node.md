@@ -1,3 +1,7 @@
+---
+toc: true
+---
+
 When inspection of a Riak node to gather metrics on performance or
 potential issues is desired, a number of tools are available to help,
 and are either included with Riak itself or made available through the
@@ -5,8 +9,6 @@ Riak community.
 
 This guide provides starting points and details on some of the available
 tools for inspecting a Riak node.
-
-<div id="toc"></div>
 
 riak-admin status
 -----------------

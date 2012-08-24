@@ -1,0 +1,5 @@
+{"inputs":"goog",
+ "query":[{"map":{"language":"javascript",
+                  "source":"function(value, keyData, arg) { var data = Riak.mapValuesJson(value)[0]; if(data.Close < data.Open) return [value.key]; else return [];}",
+                  "keep":true}}]
+}

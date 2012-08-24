@@ -1,3 +1,7 @@
+---
+toc: true
+---
+
 To avoid downtime of a Riak cluster we suggest performing upgrades in a rolling
 fashion. This process involves stopping, upgrading, and restarting one node at a
 time. This process is known to work as of Riak 0.13 (i.e. upgrading 0.13 or 0.14
@@ -39,8 +43,6 @@ re-issue the command.</p>
 platform specific
 instructions.</p>
 </div>
-
-<div id="toc"></div>
 
 ## Debian/Ubuntu
 

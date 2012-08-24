@@ -358,3 +358,14 @@ details.question > summary {
     cursor: pointer;
   }
 }
+
+a[href^="#"] {
+  color:black;
+}
+nav#toc {
+  ul#toc-items li {
+    a {
+      color:darkgreen;
+    }
+  }
+}

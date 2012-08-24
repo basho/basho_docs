@@ -1,39 +1,30 @@
+---
+toc: true
+---
+
 As of Riak 1.0, Riak Search has been integrated into Riak. A few
 considerations must be kept in mind when transitioning.
 
 <div class="note">
-<p>
-
 Rolling upgrade is guaranteed to work with Search only if upgrading
 from the 0.14.2 version.  Even in this case there are caveats which
 are explained below.  You may try a rolling upgrade from previous
 versions but the behavior is undefined.  Rather, it is suggested to
 stop the entire cluster and upgrade all nodes offline.
-
-</p>
 </div>
-
-
-<div id="toc"></div>
 
 ## Upgrading from Riak Search 0.14.2
 
 <div class="note">
-<p>
-
 There are some extra steps that must be taking while installing the
 new package.
-
-</p>
 </div>
 
-<div class="note"><p>
-
+<div class="note">
 While in a mixed cluster state some queries will return incorrect
 results or timeout.  Once all nodes are upgraded to the 1.0.0 version
 queries will return correct results.
-
-</p></div>
+</div>
 
 ### Migration of Old Data
 

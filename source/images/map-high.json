@@ -1,0 +1,10 @@
+{"inputs":[["goog","2010-01-04"],
+           ["goog","2010-01-05"],
+           ["goog","2010-01-06"],
+           ["goog","2010-01-07"],
+           ["goog","2010-01-08"]],
+ "query":[{"map":{"language":"javascript",
+                  "source":"function(value,keyData,arg){ var data = Riak.mapValuesJson(value)[0]; return [data.High];}"
+                 }},
+          {"reduce":{"language":"javascript","name":"Riak.reduceMax","keep":true}}]
+}

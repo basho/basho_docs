@@ -1,4 +1,11 @@
-# Buckets
+---
+title: Buckets
+project: riak
+version: 0+
+document: appendix
+audience: intermediate
+keywords: [appendix, concepts]
+---
 
 Buckets are used to define a virtual keyspace and provide the ability to define
 isolated non-default configuration. Buckets might be compared to tables or

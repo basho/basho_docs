@@ -1,0 +1,8 @@
+{"inputs":"goog",
+ "query":[{"map":{"language":"javascript",
+                  "source":"function(value, keyData, arg){ var data = Riak.mapValuesJson(value)[0]; var month = value.key.split('-').slice(0,2).join('-'); var obj = {}; obj[month] = data.High - data.Low; return [ obj ];}"}},
+         {"reduce":{"language":"javascript",
+                    "source":"function(values, arg){ return [ values.reduce(function(acc, item){ for(var month in item){ if(acc[month]) { acc[month] = (acc[month] < item[month]) ? item[month] : acc[month]; } else { acc[month] = item[month]; } } return acc;  }) ];}",
+                    "keep":true}}
+         ]
+}

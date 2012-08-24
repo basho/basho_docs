@@ -1,6 +1,14 @@
-Below is a list of terms and their applicability within the context of Riak:
+---
+title: The Riak Glossary
+project: riak
+version: 0+
+document: appendix
+toc: true
+audience: intermediate
+keywords: [appendix, concepts]
+---
 
-<div id="toc"></div>
+Below is a list of terms and their applicability within the context of Riak:
 
 ## Bucket
 

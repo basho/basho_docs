@@ -1,3 +1,12 @@
+---
+title: Keys and Objects
+project: riak
+version: 0+
+document: appendix
+audience: intermediate
+keywords: [appendix, concepts]
+---
+
 # Keys and Objects
 
 In an RDBMS, data is organized by tables that are individually

@@ -1,6 +1,8 @@
-This is intended to be a brief, objective and technical comparison of Riak and Neo4j.
+---
+toc: true
+---
 
-<div id="toc"></div>
+This is intended to be a brief, objective and technical comparison of Riak and Neo4j.
 
 ## High Level Differences
 

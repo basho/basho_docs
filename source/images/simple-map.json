@@ -1,0 +1,6 @@
+{"inputs":"goog",
+  "query":[{"map":{"language":"javascript",
+                   "name":"Riak.mapValuesJson",
+                   "keep":true}}
+          ]
+}

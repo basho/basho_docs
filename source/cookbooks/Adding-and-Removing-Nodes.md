@@ -1,8 +1,10 @@
+---
+toc: true
+---
+
 This page describes the process of adding and removing nodes to and from
 a Riak cluster. We'll look at how you join nodes together into a
 cluster, and what happens when you add or remove nodes.
-
-<div id="toc"/></div>
 
 Preconditions
 -------------

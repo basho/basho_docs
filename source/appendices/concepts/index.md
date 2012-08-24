@@ -1,7 +1,15 @@
+---
+title: Concepts
+project: riak
+version: 0+
+document: appendix
+toc: true
+audience: intermediate
+keywords: [appendix, concepts]
+---
+
 This section is a high level overview of concepts, technology choices,
 and implementation details that are at work in Riak.
-
-<div id="toc"></div>
 
 What is Riak
 ------------
@@ -21,18 +29,14 @@ There was more interest in the datastore technology than the
 applications built on it so Basho decided to build a business around
 Riak itself.
 
-Riak is heavily influenced by Dr. Eric Brewer’s [[CAP
-Theorem|http://en.wikipedia.org/wiki/CAP_theorem]] and [[Amazon’s
-Dynamo
-Paper|http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf]].
-Most of the core team comes from Akamai which informed Riak’s focus on
-operational ease and fault tolerance.
+Riak is heavily influenced by Dr. Eric Brewer’s [[CAP Theorem|http://en.wikipedia.org/wiki/CAP_theorem]] and [[Amazon’s Dynamo Paper|http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf]].
+Most of the core team comes from Akamai which informed Riak’s focus on operational ease and fault tolerance.
 
 The Riak APIs
 -------------
 
 The team that wrote Riak is also responsible for the Erlang REST
-framework [[Webmachine]], so it’s not surprising Riak uses [[a REST
+framework [Webmachine](http://webmachine.basho.com), so it’s not surprising Riak uses [[a REST
 API|HTTP API]] for one of the two ways you can access data in Riak.
 Storage operations use HTTP PUTs or POSTs and fetches use HTTP GETs.
 Storage operations are submitted to a pre-defined URL which defaults to
@@ -48,12 +52,10 @@ Client Libraries
 Basho and the Riak community support and develop a wide variety of
 client libraries that connect to Riak.
 
-Currently Basho [[supports libraries|Client Libraries\
-]] for Ruby, Java, Erlang, Python, PHP, and C/C++.
+Currently Basho [[supports libraries|Client Libraries]] for Ruby, Java, Erlang, Python, PHP, and C/C++.
 
 The [[Riak Community writes and supports|Community Developed Libraries
-and Projects\
-]] client code for languages and frameworks like Node.js, Go, Groovy,
+and Projects]] client code for languages and frameworks like Node.js, Go, Groovy,
 Haskell, and much more.
 
 Buckets, Keys, and Values
@@ -81,7 +83,7 @@ More simply put, a ring with 32 partitions, composed of four physical
 nodes, will have approximately eight vnodes per node. This setup is
 represented in the diagram below.
 
-[[/attachments/riak-ring.png|width=550px|align=center]]
+![Riak Ring](/images/riak-ring.png)
 
 Nodes can be added and removed from the cluster dynamically and Riak
 will redistribute the data accordingly.
@@ -127,7 +129,7 @@ is the default setting). When you store a datum in a bucket with an N
 value of three, the datum will replicated to three separate partitions
 on the Riak Ring.
 
-[[/attachments/riak-data-distribution.png|width=550px|align=center]]
+![Riak Data Distribution](/images/riak-data-distribution.png)
 
 Riak uses a technique called ‘hinted handoff’ to compensate for failed
 nodes in a cluster. Neighbors of a failed node will pick up the slack
@@ -195,7 +197,7 @@ Local Disk Storage and Pluggable Backends
 
 Riak uses a [[backend API]] to interact with its storage subsystem. The
 API allows Riak to support multiple backends which can be selected based
-on use-cases. See the [[Storage Backends]] page for full list of what we
+on use-cases. See [[Choosing a backend]] for a full list of what we
 currently support. The two most heavily-used backend are Bitcask and
 LevelDB.
 
@@ -203,13 +205,12 @@ As of the 0.12 release, [[Bitcask]] is the default backend for Riak.
 Bitcask is a simple yet powerful local key/value store that serves as
 Riak’s low latency, high throughput storage back end.
 
-</div>
 <div class="info">
 <div class="title">More on Bitcask</div>
-<ul>
-  	<li>[[Hello, Bitcask (from the Basho Blog)|http://blog.basho.com/2010/04/27/hello-bitcask/]]</li>
-	<li>[[An Architectural Overview of Bitcask (PDF)|http://downloads.basho.com/papers/bitcask-intro.pdf]]</li>
-</ul>
+
+* [[Hello, Bitcask (from the Basho Blog)|http://blog.basho.com/2010/04/27/hello-bitcask/]]
+* [[An Architectural Overview of Bitcask (PDF)|http://downloads.basho.com/papers/bitcask-intro.pdf]]
+
 </div>
 
 [[LevelDB]] is an open source library release by Google. It has

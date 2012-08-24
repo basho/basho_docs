@@ -1,6 +1,8 @@
+---
+toc: true
+---
+
 This page details how Riak implements MapReduce, the programming paradigm popularized by [[Google|http://labs.google.com/papers/mapreduce.html]]. It covers how Riak spreads processing across the cluster, the mechanics of how queries are specified and run, how to run MapReduce queries through the HTTP and Erlang APIs, streaming MapReduce, phase functions, and configuration details. 
-<br>
-<div id="toc"></div>
 
 <div class="info">
 <div class="title">Hands On Resources</div>

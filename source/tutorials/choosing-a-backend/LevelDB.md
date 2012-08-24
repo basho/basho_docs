@@ -1,6 +1,6 @@
-# LevelDB
-
-<div id="toc"></div>
+---
+toc: true
+---
 
 ## Overview
 

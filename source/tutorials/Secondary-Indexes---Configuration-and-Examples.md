@@ -1,13 +1,14 @@
-
-<div id="toc"></div>
+---
+toc: true
+---
 
 ## Configuration
 
 As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the ELevelDB backend `riak_kv_eleveldb_backend`. Currently, the ELevelDB backend is the only index-capable backend.  
 
 <div class="info">
-	<div class="title">Using Secondary Indexes with Multi-Backend</div>
-	The only local storage backend that supports Secondary Indexes is ELevelDB. However, as of Riak 1.1.x, you can use the <a href="http://wiki.basho.com/Multi.html">Mulit-Backend</a> configuration to use other backends in the same cluster that is using Secondary Indexing.  
+<div class="title">Using Secondary Indexes with Multi-Backend</div>
+The only local storage backend that supports Secondary Indexes is ELevelDB. However, as of Riak 1.1.x, you can use the [[Mulit Backend|Multi]] configuration to use other backends in the same cluster that is using Secondary Indexing.  
 </div>	
 
 Open the `app.config` configuration file in an editor, and change the `storage_backend` setting to `riak_kv_eleveldb_backend`.

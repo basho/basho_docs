@@ -1,8 +1,16 @@
+---
+title: Links
+project: riak
+version: 0+
+document: appendix
+toc: true
+audience: intermediate
+keywords: [appendix, concepts]
+---
+
 Links are metadata that establish one-way relationships between objects
 in Riak. They can be used to loosely model graph like relationships
 between objects in Riak.
-
-<div id="toc"></div>
 
 The Link Header
 ---------------

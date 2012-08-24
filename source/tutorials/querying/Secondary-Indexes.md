@@ -1,4 +1,7 @@
-<div id="toc"></div>
+---
+title: Secondary Indexes
+toc: true
+---
 
 ## Introduction
 Secondary Indexing (2i) in Riak gives developers the ability, at write time, to tag an object stored in Riak with one or more queryable values.
@@ -30,7 +33,7 @@ Since the KV data is completely opaque to 2i, the user must tell 2i exactly what
 
 Secondary Indexes use document-based partitioning — also known as a local index, wherein the indexes reside with each document, local to the vnode. Secondary indexes are a list of key/value pairs that are similar to http headers. At write time, objects are tagged with index entries consisting of key/value metadata. This metadata can be queried to get the matching keys. 
 
-<img class="centered_img" src="/images/Secondary-index-example.png" />
+![Secondary Index](/images/Secondary-index-example.png)
 
 Indexes reside across multiple machines. Covering a set of vnodes must be queried and the results merged. Since indexes for an object are stored on the same partition as the object itself, query-time performance issues might occur. When issuing a query, the system must read from a "covering" set of partitions. The system looks at how many replicas of data are stored (n value) and determines the minimum number of partitions that it must examine (1/n) to retrieve a full set of results, also taking into account any offline nodes.
 

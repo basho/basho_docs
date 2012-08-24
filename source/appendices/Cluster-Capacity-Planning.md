@@ -1,10 +1,12 @@
+---
+toc: true
+---
+
 This is a short document that outlines the various elements and
 variables that should be considered when planning your Riak cluster.
 Your use case and environment variables will obviously be specific to
 what you're building, but this document should set you on the right path
 to planning and launching the suitable Riak cluster.
-
-<div id="toc"></div>
 
 RAM
 ---

@@ -1,3 +1,7 @@
+---
+toc: true
+---
+
 Indexing a document is the act of:
 
 1. Reading a document.
@@ -7,8 +11,6 @@ Indexing a document is the act of:
 5. Writing the {Field, Term, DocumentID} postings to an index.
 
 There are numerous ways to index a document in Riak Search.
-
-<div id="toc"></div>
 
 ## Indexing from the Command Line
 

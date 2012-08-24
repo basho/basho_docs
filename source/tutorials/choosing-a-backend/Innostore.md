@@ -1,12 +1,11 @@
-# Innostore
+---
+toc: true
+---
 
 <div class="note">
-	<div class="title">Warning</div>
-		As of Riak version 1.2, the Innostore backend is deprecated and no longer supported.
+<div class="title">Warning</div>
+As of Riak version 1.2, the Innostore backend is deprecated and no longer supported.
 </div>
-
-
-<div id="toc"/></div>
 
 ## Overview
 

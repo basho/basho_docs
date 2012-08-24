@@ -1,3 +1,7 @@
+---
+toc: true
+---
+
 Riak has two configuration files located in `etc/` if you are using a source
 install and in `/etc/riak` if you used a binary install. The files are
 `app.config` and `vm.args`.
@@ -6,7 +10,6 @@ The `app.config` file is used to set various attributes for the node such as the
 backend the node will use to store data. The `vm.args` file is used to pass
 parameters to the Erlang node such as the name or cookie of the Erlang node.
 
-<div id="toc"></div>
 ## app.config
 Riak and the Erlang applications it depends on are configured by settings in the app.config file in the etc directory of the Riak node.
 

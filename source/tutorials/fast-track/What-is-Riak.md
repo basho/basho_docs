@@ -26,7 +26,7 @@ How does consistent hashing work? Riak stores data using a simple key/value sche
 
 How? Riak divides the integer space into equally-sized partitions (default is 64). Each partition owns the given range of values on the ring, and is responsible for all buckets and keys that, when hashed, fall into that range. Each partition is managed by a process called a virtual node (or "vnode"). Physical machines evenly divide responsibility for vnodes. Let's say you have a 4 node cluster with 32 partitions, managed by 32 vnode processes. Each of the four physical machines claim eight vnodes as illustrated below. Each physical machine thus becomes responsible for all keys represented by its eight vnodes. 
 
-![A Riak Ring](/attachments/riak-ring.png)
+![A Riak Ring](/images/riak-ring.png)
 
 Due to the even distribution created by the hashing function and how physical nodes share responsibility for keys, Riak ensures data is evenly dispersed.   
 
@@ -34,7 +34,7 @@ Due to the even distribution created by the hashing function and how physical no
 
 Riak's replication scheme means that if nodes go down, you can still read, write and update data. Riak allows you to set a replication number, "n". An _n_ value of 3 (default) means that each object is replicated 3 times. When an object's key is mapped onto a given partition, Riak won't stop there - it automatically replicates the data onto the next two partitions as well.
 
-![A Riak Ring](/attachments/riak-data-distribution.png)
+![A Riak Ring](/images/riak-data-distribution.png)
 
 ### Riak Automatically Re-Distributes Data When Capacity is Added
 

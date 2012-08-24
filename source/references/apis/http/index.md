@@ -1,3 +1,13 @@
+---
+title: HTTP API
+project: riak
+version: 1.2+
+document: api
+toc: true
+audience: advanced
+keywords: [api, http]
+---
+
 Riak has a rich, full-featured HTTP 1.1 API.  This is an overview of the
 operations you can perform via HTTP and can be used as a guide for developing a
 compliant client.  All URLs assume the default configuration values where

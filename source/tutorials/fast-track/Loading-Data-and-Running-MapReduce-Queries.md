@@ -42,9 +42,9 @@ $ chmod +x load_data
 
 Download the CSV file of stock data linked below and place it in the "dev" directory where we've been working.
 
-* [[goog.csv|/attachments/goog.csv]] - Google historical stock data
-* [[load_stocks.rb|/attachments/load_stocks.rb]] - Alternative script in Ruby to load the data
-* [[load_data|/attachments/load_data]] - Erlang script to load data (as shown in snippet)
+* [[goog.csv|/images/goog.csv]] - Google historical stock data
+* [[load_stocks.rb|/images/load_stocks.rb]] - Alternative script in Ruby to load the data
+* [[load_data|/images/load_data]] - Erlang script to load data (as shown in snippet)
 
 Now load the data into Riak.
 
@@ -153,13 +153,13 @@ With the syntax and query design fresh in your mind, take a few minutes to watch
 Here are some of the jobs we submitted in the screencast:
 
 <dl>
-<dt>[[simple-map.json|/attachments/simple-map.json]]</dt>
+<dt>[[simple-map.json|/images/simple-map.json]]</dt>
 <dd>A simple map-only job that returns the entire data set.</dd>
-<dt>[[map-high.json|/attachments/map-high.json]]</dt>
+<dt>[[map-high.json|/images/map-high.json]]</dt>
 <dd>A map-reduce job that returns the maximum high sell value in the first week of January.</dd>
-<dt>[[map-highs-by-month.json|/attachments/map-highs-by-month.json]]</dt>
+<dt>[[map-highs-by-month.json|/images/map-highs-by-month.json]]</dt>
 <dd>A more complicated map-reduce job that collects the max high by month.</dd>
-<dt>[[first-week.json|/attachments/first-week.json]]</dt>
+<dt>[[first-week.json|/images/first-week.json]]</dt>
 <dd>A simple map-only job that returns the values for the first week of January 2010.</dd>
 </dl>
 
@@ -201,7 +201,7 @@ function(value, keyData, arg) {
 }
 ```
 
-[[sample-highs-over-600.json|/attachments/sample-highs-over-600.json]]
+[[sample-highs-over-600.json|/images/sample-highs-over-600.json]]
 
 ### Map: find the days where the close is lower than open
 
@@ -227,7 +227,7 @@ function(value, keyData, arg) {
 }
 ```
 
-[[sample-close-lt-open.json|/attachments/sample-close-lt-open.json]]
+[[sample-close-lt-open.json|/images/sample-close-lt-open.json]]
 
 ### Map and Reduce: find the maximum daily variance in price by month
 
@@ -271,7 +271,7 @@ function(values, arg){
 ```
 
 <!-- TODO: replace with a gist link -->
-[sample-max-variance-by-month.json](/attachments/sample-max-variance-by-month.json)
+[sample-max-variance-by-month.json](/images/sample-max-variance-by-month.json)
 
 ## A MapReduce Challenge
 

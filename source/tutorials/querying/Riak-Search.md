@@ -1,4 +1,7 @@
-<div id="toc"></div>
+---
+title: Riak Search
+toc: true
+---
 
 ## Introduction
 

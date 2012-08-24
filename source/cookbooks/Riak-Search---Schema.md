@@ -1,8 +1,10 @@
+---
+toc: true
+---
+
 Riak Search was designed to work seamlessly with Riak. As a result, it retains many of the same properties as Riak, including a schema-free design. In other words, you can start adding data to a new index without having to explicitly define the index fields.
 
 That said, Riak Search does provide the ability to define a custom schema. This allows you to specify required fields and custom analyzer factories, among other things.
-
-<div id="toc"></div>
 
 ## The Default Schema
 

@@ -1,3 +1,7 @@
+---
+toc: true
+---
+
 Basho Bench is a benchmarking tool created to conduct accurate and
 repeatable performance tests and stress tests, and produce performance
 graphs.
@@ -7,8 +11,6 @@ key/value datastore, it exposes a pluggable driver interface and has
 been extended to serve as a benchmarking tool against a variety of
 projects. New drivers can be written in Erlang and are generally less
 than 200 lines of code.
-
-<div id="toc"></div>
 
 Download
 --------

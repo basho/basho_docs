@@ -1,8 +1,10 @@
+---
+toc: true
+---
+
 <div class="note"><div class="title">Added in Riak 0.14</div> Key filters are only available in Riak KV 0.14 and later.</div>
 
 Key filters are a way to pre-process [[MapReduce]] inputs from a full bucket query simply by examining the key &mdash; without loading the object first. This is especially useful if your keys are composed of domain-specific information that can be analyzed at query-time.
-
-<div id="toc"></div>
 
 ## Understanding key filters
 
