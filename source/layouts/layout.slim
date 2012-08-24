@@ -20,9 +20,9 @@ body class==page_classes
     article
       header
         h1== data.page.title
-        nav#toc
-          ul#toc-items
       == partial "layouts/tutorial_nav"
+      nav#toc
+        ul#toc-items
       == yield
       == partial "layouts/tutorial_nav"
       footer
