@@ -193,8 +193,8 @@ configure :build do
   # activate :relative_assets
   
   # Compress PNGs after build
-  require "middleman-smusher"
-  activate :smusher
+  # require "middleman-smusher"
+  # activate :smusher
   
   # Or use a different image path
   # set :http_path, "/Content/images/"
