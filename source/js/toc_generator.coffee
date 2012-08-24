@@ -1,9 +1,9 @@
 $ ->
   $("article").each ->
     article = $(this)
-    toc = $("#js-toc")
-    toc_items = $("#js-toc-items")
-    toc_heading_link = $("#js-toc-heading-link")
+    toc = $("#toc")
+    toc_items = $("#toc-items")
+    # toc_heading_link = $("#toc-heading-link")
 
     article.find('h2').each ->
       content = $(this).html()
@@ -15,4 +15,4 @@ $ ->
       $(this).html(anchor)
       toc_items.append("<li><a href=\"##{name}\">#{content}</a></li>")
 
-    $("#js-toc").append(toc_items)
+    $("#toc").append(toc_items)

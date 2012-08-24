@@ -9,9 +9,9 @@ keywords: []
 
 ## Getting Started
 
-* [The Riak Fast Track](/tutorials/fast-track/index.html)
-* [Installing and Upgrading](/tutorials/installation/index.html)
-* [Querying](/tutorials/querying/index.html)
+* [[The Riak Fast Track]]
+* [[Installing and Upgrading|installation]]
+* [[Querying]]
 * [FAQs for Getting Started](/faqs/basics.html)
 
 
@@ -40,7 +40,7 @@ keywords: []
 
 ## Operating Riak
 
-* [Installing and Upgrading](/tutorials/installation/index.html)
+* [[Installing and Upgrading|installation]]
 * Planning
   * [[Choosing a Backend]]
      * [[Bitcask]]

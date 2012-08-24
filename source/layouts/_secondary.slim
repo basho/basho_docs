@@ -2,7 +2,7 @@ aside.secondary role="complementary"
   nav role="nav"
     h3 These May Also Interest You
     ul
-      - if (pages = similar_pages(current_page)).present?
+      - if (pages = similar_pages(current_resource)).present?
         - for page in pages[0..5]
           li==link_to page.metadata[:page]["title"], page.url
       - else

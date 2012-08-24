@@ -33,6 +33,8 @@
 #   @which_fake_page = "Rendering a fake page with a variable"
 # end
 
+# page "/tutorials/*", :layout => 'layouts/layout'
+
 # Register the FML plugin to middleman
 module Middleman::Renderers::FAQML
   def registered(app)
@@ -65,9 +67,6 @@ Middleman::Application.register Middleman::Renderers::FAQML
 # end
 
 
-# If the page contains a TOC, scan for <h2>'s and generate it
-# <div id="toc"></div>
-
 
 class ::Middleman::Sitemap::Resource
   alias_method :old_render, :render
@@ -94,7 +93,7 @@ class ::Middleman::Sitemap::Resource
   end
 
   def render(opts={}, locs={}, &block)
-    data = old_render
+    data = old_render(opts, locs, &block)
     $sitemap_pages ||= sitemap_pages
     data.gsub!(/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/m) do
       link_name = $2 || $1
@@ -173,8 +172,8 @@ set :images_dir, 'images'
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true,
                # :autolink => true, 
-               :smartypants => true,
-               :with_toc_data => true
+               :smartypants => true
+               # :with_toc_data => true
 
 # Build-specific configuration
 configure :build do
