@@ -1,0 +1,38 @@
+---
+title: 
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+index: true
+audience: advanced
+keywords: [reference, api]
+---
+
+h1 [[HTTP API]]
+- api_index('http').each do |group, pages|
+  h3= group
+  ul
+    - pages.each do |page|
+      - metadata = page.metadata[:page] || {}
+      li
+        == link_to metadata["title"], page.url
+        span.version  #{metadata["version"]}
+        | ([#{metadata["version"]}])
+
+| (#[0.14.0+])
+
+hr
+
+h1 [[PBC API]]
+- api_index('protocol-buffers').each do |group, pages|
+  h3= group
+  ul
+    - pages.each do |page|
+      - metadata = page.metadata[:page] || {}
+      li
+        == link_to metadata["title"], page.url
+        span.version  #{metadata["version"]}
+        | ([#{metadata["version"]}])
+
+| (/[0.14.0+])

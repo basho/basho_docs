@@ -20,7 +20,7 @@ Most of the interactions you'll have with Riak will be setting or retrieving the
 
 ### Required Knowledge
 
-* *Client ID* - All requests should include the *X-Riak-ClientId* header, which can be any string that uniquely identifies the client, for purposes of tracing object modifications using [vector clocks](Riak-Glossary.html#Vector Clock).
+* *Client ID* - All requests should include the *X-Riak-ClientId* header, which can be any string that uniquely identifies the client, for purposes of tracing object modifications using [[vector clocks|Riak Glossary#Vector Clock]].
 * *URL Escaping* - Buckets, keys, and link specifications may not contain unescaped slashes. Use a URL-escaping library or replace slashes with %2F.
 
 ### Read an Object
@@ -33,7 +33,7 @@ GET /riak/bucket/key
 
 The body of the response will contain the contents of the object (if it exists).
 
-Riak understands many HTTP-defined headers, like *Accept* for content-type negotiation (relevant when dealing with siblings, see [the sibling examples for the HTTP API](HTTP-Fetch-Object.html#Siblings examples), and *If-None-Match*/*ETag* and *If-Modified-Since*/*Last-Modified* for conditional requests.
+Riak understands many HTTP-defined headers, like *Accept* for content-type negotiation (relevant when dealing with siblings, see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings examples]], and *If-None-Match*/*ETag* and *If-Modified-Since*/*Last-Modified* for conditional requests.
 
 Riak also accepts many query parameters, including *r* for setting the R-value for this GET request (R Values describe how many replicas need to agree when retrieving an existing object in order to return a successful response. R values will be explained more in the final section of the Fast Track Tutorial). If you omit the the *r* query parameter, Riak defaults to *r=2*.
 
@@ -73,7 +73,7 @@ Some request headers are required for PUTs:
 
 Other request headers are optional for PUTs:
 * *X-Riak-Meta-_YourHeader_* any additional metadata headers that should be stored with the object.
-* *Link* user and system-defined links to other resources. [Read more about Links](Links.html)
+* *Link* user and system-defined links to other resources. Read more about [[Links]].
 
 Similar to how GET requests support the "r" query parameter, PUT requests also support these parameters:
 * *r* how many replicas need to agree when retrieving an existing object before the write (integer value, default is 2)
@@ -196,7 +196,7 @@ Again, quite simple. (Are you starting to see a pattern?)
 The optional query parameters are:
 
 * *props=true|false* - whether to return the bucket properties (defaults to "true")
-* *keys=true|false|stream* - whether to return the keys stored in the bucket (defaults to "false"); see the [HTTP API's list keys](HTTP-List-Keys.html) for details about dealing with a *keys=stream* response
+* *keys=true|false|stream* - whether to return the keys stored in the bucket (defaults to "false"); see the [[HTTP API's list keys|HTTP List Keys]] for details about dealing with a *keys=stream* response
 
 
 With that in mind, go ahead and run this command. This will GET the bucket information that we just set with the sample command above:
@@ -213,9 +213,9 @@ So, that's the basics of how the HTTP API works. An in depth reading of the HTTP
 
 <div class="title">Additional Reading for this Section</div>
 
-* [The HTTP API In Depth](HTTP-API.html)
-* [Protocol Buffers API](PBC-API.html)
-* [Replication in Depth](Replication.html)
+* [[The HTTP API In Depth|HTTP API]]
+* [[Protocol Buffers API|PBC API]]
+* [[Replication in Depth|Replication]]
 * [Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
 * [Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
 

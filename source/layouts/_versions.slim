@@ -1,0 +1,6 @@
+- project = data.page.project || 'riak'
+ol.versions
+  - version_bar(project).each do |versions|
+    - version = versions.first
+    li(class=(is_version?(project, version) ? 'current' : ''))
+      == link_to version, "/#{project}/#{version}#{current_page.url}"

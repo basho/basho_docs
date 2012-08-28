@@ -1,4 +1,13 @@
-# HTTP Secondary Indexes
+---
+title: HTTP Secondary Indexes
+project: riak
+version: 1.0.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Query Operations"
+---
 
 [[Secondary Indexes]] allows an application to tag a Riak object with one or more field/value pairs. The object is indexed under these field/value pairs, and the application can later query the index to retrieve a list of matching keys.
 

@@ -2,8 +2,7 @@ Configuration of a Riak cluster requires instructing a node to listen on
 a non-local interface (i.e., not `127.0.0.1`), and then joining nodes
 together for cluster participation.
 
-Begin by editing the `app.config` file. The
-[app.config](http://wiki.basho.com/Configuration-Files.html#app.config)
+Begin by editing the `app.config` file. The [[app.config|Configuration Files#app.config]]
 file will be located in your `rel/riak/etc/` directory if you compiled
 from source, and `/etc/riak/` if you used a binary install of Riak.
 

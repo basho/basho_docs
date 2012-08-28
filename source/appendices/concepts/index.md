@@ -165,8 +165,7 @@ request.
 
 ### Vector Clocks
 
-Each update to a Riak object is tracked by a [vector
-clock](http://wiki.basho.com/Vector-Clocks.html). Vector clocks allow
+Each update to a Riak object is tracked by a [[vector clock|vector clocks]]. Vector clocks allow
 Riak to determine causal ordering and detect conflicts in a distributed
 system.
 

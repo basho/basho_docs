@@ -20,6 +20,7 @@ body class==page_classes
     article
       header
         h1== data.page.title
+      == partial "layouts/versions"
       == partial "layouts/tutorial_nav"
       nav#toc
         ul#toc-items
@@ -28,7 +29,7 @@ body class==page_classes
       footer
         - if data.page.keywords.present?
           span.label keywords 
-          == data.page.keywords.map{|kw| "<a href=\"/keywords/"+kw+".html\">"+kw+"</a>"}.join(', ')
+          == data.page.keywords.map{|kw| "<a href=\"/keywords/"+kw+"\">"+kw+"</a>"}.join(', ')
   == partial "layouts/primary"
   == partial "layouts/secondary"
   == partial "layouts/footer"

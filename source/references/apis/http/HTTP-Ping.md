@@ -1,4 +1,13 @@
-# HTTP Ping
+---
+title: HTTP Ping
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Server Operations"
+---
 
 Checks if the server is alive. This is useful for monitoring tools, load-balancers and automated scripts.
 
@@ -11,7 +20,8 @@ GET /ping
 ## Response
 
 Normal status codes:
-* @200 OK@
+
+* `200 OK`
 
 ## Example
 

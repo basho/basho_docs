@@ -1,3 +1,14 @@
+---
+title: HTTP Delete Object
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Object/Key Operations"
+---
+
 Deletes an object from the specified bucket / key.
 
 ## Request

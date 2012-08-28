@@ -1,8 +1,21 @@
+---
+title: HTTP List Keys
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Bucket Operations"
+---
+
 Lists keys in a bucket.
 
-<div class="note"><div class="title">Not for production use</div>
-<p>This operation requires traversing all keys stored in the cluster and should
-not be used in production.</p>
+<div class="note">
+<div class="title">Not for production use</div>
+
+This operation requires traversing all keys stored in the cluster and should not be used in production.
+
 </div>
 
 ## Request

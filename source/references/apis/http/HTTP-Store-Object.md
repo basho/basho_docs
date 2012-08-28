@@ -1,3 +1,14 @@
+---
+title: HTTP Store Object
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Object/Key Operations"
+---
+
 Stores an object under the specified bucket / key. Storing an object comes in
 two forms, depending on whether you want to use a key of your choosing, or let
 Riak assign a key to a new object.

@@ -5,7 +5,8 @@ version: 1.2+
 document: api
 toc: true
 audience: advanced
-keywords: [api, http]
+keywords: [reference, api, http]
+index: true
 ---
 
 Riak has a rich, full-featured HTTP 1.1 API.  This is an overview of the
@@ -45,6 +46,8 @@ other words, buckets using the default bucket properties are free.</p>
 the keys in a bucket, you'll need to delete them all individually.</P>
 </div>
 
+## Bucket Operations
+
 * [[HTTP List Buckets]]
 * [[HTTP List Keys]]
 * [[HTTP Get Bucket Properties]]
@@ -76,6 +79,7 @@ multiple Riak Objects.
 * [[HTTP Store Luwak Object]]
 * [[HTTP Delete Luwak Object]]
  -->
+
 ## Server Operations
 
 * [[HTTP Ping]]

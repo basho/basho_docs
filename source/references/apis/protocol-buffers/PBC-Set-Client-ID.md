@@ -1,3 +1,14 @@
+---
+title: PBC Set Client ID
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Server Operations"
+---
+
 Set the client id for this connection.  A library may want to set the client id
 if it has a good way to uniquely identify actors across reconnects. This will
 reduce vector clock bloat.

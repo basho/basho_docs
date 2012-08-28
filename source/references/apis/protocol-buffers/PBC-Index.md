@@ -1,3 +1,14 @@
+---
+title: PBC Index
+project: riak
+version: 1.2.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Query Operations"
+---
+
 Request a set of keys that match a secondary index query.
 
 ## Request

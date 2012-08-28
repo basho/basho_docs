@@ -1,3 +1,14 @@
+---
+title: PBC Set Buckets Properties
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Bucket Operations"
+---
+
 Set the properties for a bucket
 
 <div class="note"><p>The PBC interface does not currently support all bucket

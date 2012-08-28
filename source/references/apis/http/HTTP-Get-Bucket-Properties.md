@@ -1,3 +1,14 @@
+---
+title: HTTP Get Bucket Properties
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Bucket Operations"
+---
+
 Reads the bucket properties.
 
 ## Request

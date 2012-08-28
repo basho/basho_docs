@@ -1,9 +1,21 @@
+---
+title: PBC List Buckets
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Bucket Operations"
+---
+
 List all of the bucket names available
 
+<div class="note">
+<div class="title">Caution</div>
 
-<div class="note"><div class="title">Caution</div>
-<p>This call can be expensive for the server - do not use in performance
-sensitive code</p>
+This call can be expensive for the server - do not use in performance sensitive code
+
 </div>
 
 

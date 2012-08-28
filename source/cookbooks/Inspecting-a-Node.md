@@ -284,4 +284,4 @@ Related Resources
 -   [Configuration and Management: Command Line Tools:
     riak-admin](https://help.basho.com/entries/21394723-configuration-and-management-command-line-tools-riak-admin)
 -   [Riaknostic](http://riaknostic.basho.com/)
--   [HTTP API status](https://wiki.basho.com/HTTP-Status.html)
+-   [[HTTP API status|HTTP Status]]

@@ -284,7 +284,7 @@ Here is a scenario involving the data you already have loaded up. If you have a 
 
 #### Additional Reading for this Section
 
-* [MapReduce In Depth](MapReduce.html)
+* [[MapReduce In Depth|MapReduce]]
 * [Erlang MapReduce](MapReduce#MapReduce via the Erlang API)
 * [A Longer MapReduce Screencast](http://blog.basho.com/2010/02/03/the-release-riak-0.8-and-javascript-mapreduce/)
 * [A list of prebuilt JavaScript MapReduce Functions that ship with Riak](https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js)

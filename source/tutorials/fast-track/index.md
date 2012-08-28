@@ -25,9 +25,9 @@ The Fast Track is designed for people with little or no experience with Riak, bu
 
 The Fast Track takes you through the following sections:  
 
-* [What is Riak?](What-is-Riak.html): A High Level Overview of Riak and its Architecture.
-* [Building a Development Environment](Building-a-Development-Environment.html): Instructions on setting up a Development Cluster on your Machine.
-* [Basic API Operations](Basic-Riak-API-Operations.html):  A review of standard API Operations.
-* [Loading Data and Running MapReduce Queries](Loading-Data-and-Running-MapReduce-Queries.html): Importing Data and Running Simple MapReduce Queries.
-* [Links and Link Walking](Links-and-Link-Walking.html):  How links operate in Riak.
-* [Tunable CAP Controls in Riak](Tunable-CAP-Controls-in-Riak.html):  How to tune Riak for consistency and availability.
+* [[What is Riak?|What is Riak]]: A High Level Overview of Riak and its Architecture.
+* [[Building a Development Environment]]: Instructions on setting up a Development Cluster on your Machine.
+* [[Basic Riak API Operations]]:  A review of standard API Operations.
+* [[Loading Data and Running MapReduce Queries]]: Importing Data and Running Simple MapReduce Queries.
+* [[Links and Link Walking]]:  How links operate in Riak.
+* [[Tunable CAP Controls in Riak]]:  How to tune Riak for consistency and availability.

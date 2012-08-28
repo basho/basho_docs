@@ -8,7 +8,7 @@ keywords: [faq, cookbook]
 ---
 
 Q: When upgrading Riak on a Redhat-based system, I get errors from "chcon", saying "can't apply partial context to unlabeled file".
-  ```
+  ```bash
   rpm -Uvh /tmp/riak-0.14.1-1.el5.x86_64.rpm 
   Preparing... ########################################### [100%] 
   1:riak ########################################### [100%] 

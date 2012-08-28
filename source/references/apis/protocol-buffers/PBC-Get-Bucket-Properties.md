@@ -1,3 +1,14 @@
+---
+title: PBC Bucket Properties
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Bucket Operations"
+---
+
 Get the properties for a bucket
 
 ## Request

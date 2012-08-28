@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, fast-track]
 ---
 
-[The Riak Fast Track](The-Riak-Fast-Track.html) is constantly improving thanks to the help of all who review it and send their feedback. This is a list of those people.
+[[The Riak Fast Track]] is constantly improving thanks to the help of all who review it and send their feedback. This is a list of those people.
 
 So, in no particular order, *Thank You!*
 

@@ -6,6 +6,7 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
+index: true
 ---
 
 This is an overview of the operations you can perform over the Protocol Buffers

@@ -234,13 +234,18 @@ cluster.
 
 Similarly to joining a node, after executing `riak-admin cluster leave`, the cluster plan must be reviewed with `riak-admin cluster plan`, and the changes committed with `riak-admin cluster commit`.
 
-<div class="info"><div class="title">Riak 1.2 Cluster Administration</div> Learn more about the new <a href="/Command-Line-Tools---riak-admin.html#cluster">cluster command</a> introduced in Riak version 1.2</div>
+<div class="info">
+<div class="title">Riak 1.2 Cluster Administration</div>
+
+Learn more about the new [[cluster command|Command-Line Tools - riak-admin#cluster]] introduced in Riak version 1.2.
+
+</div>
 
 The other command is `riak-admin cluster leave <node>`, where `<node>` is an
 Erlang node name as specified in the node's vm.args file, e.g.
 
 ```bash
-    riak-admin cluster leave riak@192.168.2.1
+riak-admin cluster leave riak@192.168.2.1
 ```
 
 This command can be run from any other node in the cluster.

@@ -386,10 +386,10 @@ article {
           display:none;
         }
         &.prev::before {
-          content: '<< ';
+          content: '« ';
         }
         &.next::after {
-          content: ' >>';
+          content: ' »';
         }
       }
     }
@@ -404,5 +404,34 @@ pre {
   code {
     white-space:pre;
     display:block;
+  }
+}
+
+ol.versions,
+ol.versions li {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+  float:left;
+}
+ol.versions {
+  width: 100%;
+  clear:both;
+  margin-bottom:1em;
+  li {
+    font-size:8pt;
+    padding:1px;
+    border:1px solid #ccc;
+    border-right:0px;
+    &:last-child {
+      border-right:1px solid #ccc;
+    }
+    &.current {
+      background-color:blue;
+      a {
+        color:white;
+      }
+    }
   }
 }

@@ -1,3 +1,14 @@
+---
+title: HTTP Fetch Objects
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Object/Key Operations"
+---
+
 Reads an object from the specified bucket / key.
 
 ## Request
@@ -12,8 +23,7 @@ Important headers:
 * `Accept` - When `multipart/mixed` is the preferred content-type, objects with
 siblings will return all siblings in single request. See [[Get all siblings in
 one request|HTTP Fetch Object#Get all siblings in one request]] example. See
-also RFC 2616 - [[Accept header
-definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]].
+also RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]].
 
 Optional headers:
 
@@ -21,8 +31,7 @@ Optional headers:
 matching on the `ETag` and `Last-Modified` of the object, respectively.  If the
 object fails one of the tests (that is, if the ETag is equal or the object is
 unmodified since the supplied timestamp), Riak will return a `304 Not Modified`
-response. See also RFC 2616 - [[304 Not
-Modified|http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5]].
+response. See also RFC 2616 - [[304 Not Modified|http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5]].
 
 Optional query parameters:
 
@@ -36,8 +45,7 @@ and you get 2 errors and a success `basic_quorum=true` would return an error)
 * `notfound_ok` - whether to treat notfounds as successful reads for the
 purposes of R ([[default is defined by the bucket|HTTP Set Bucket Properties]])
 * `vtag` - when accessing an object with siblings, which sibling to retrieve.
-Scroll down to the [[Manually requesting siblings|HTTP Fetch Object#Manually 
-requesting siblings]] example for more information.
+Scroll down to the [[Manually requesting siblings|HTTP Fetch Object#Manually requesting siblings]] example for more information.
 
 ## Response
 

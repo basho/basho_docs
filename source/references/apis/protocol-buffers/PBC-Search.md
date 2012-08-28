@@ -1,3 +1,14 @@
+---
+title: PBC Search
+project: riak
+version: 1.2.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Query Operations"
+---
+
 Send a Search request to retrieve a list of documents, along with a few stats.
 
 ## Request

@@ -1,8 +1,6 @@
 <div class="info">The following steps have been tested to work with Riak on Debian version 6.05 and Ubuntu version 12.04.</div>
 
-Riak can be installed on Debian or Ubuntu based systems with
-a binary package or by [compiling Riak from source
-code](https://wiki.basho.com/Installing-Riak-from-Source.html).
+Riak can be installed on Debian or Ubuntu based systems with a binary package or by [[compiling Riak from source code|Installing Riak from Source]].
 
 Installing From Package
 -----------------------
@@ -69,8 +67,7 @@ First, install Riak dependencies using apt:
 
 Riak requires [Erlang](http://www.erlang.org/) R15B01 or later. If
 Erlang is not already installed, install it before continuing (see:
-[Installing Erlang](https://wiki.basho.com/Installing-Erlang.html) for more
-information).
+[[Installing Erlang]] for more information).
 
 With Erlang installed, proceed to downloading and installing Riak:
 
@@ -89,10 +86,8 @@ Next Steps?
 
 Now that Riak is installed, check out the following resources:
 
--   [Riak Fast Track](https://wiki.basho.com/The-Riak-Fast-Track.html): a
-    guide for setting up a 3 node cluster and exploring Riak's main
-    features.
--   [Basic Cluster
-    Setup](https://wiki.basho.com/Basic-Cluster-Setup.html):
+-   [[The Riak Fast Track]]: a
+    guide for setting up a 3 node cluster and exploring Riak's main features.
+-   [[Basic Cluster Setup]]:
     a guide that will show you how to go from one node to bigger than
     Google!

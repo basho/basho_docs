@@ -1,3 +1,14 @@
+---
+title: PBC List Keys
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Bucket Operations"
+---
+
 List all of the keys in a bucket. This is a streaming call, with multiple response messages sent for each request.
 
 <div class="note"><div class="title">Not for production use</div>

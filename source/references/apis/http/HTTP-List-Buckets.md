@@ -1,5 +1,15 @@
-Lists all known buckets (ones that have keys stored in them). *This feature is
-new in Riak 0.14.*
+---
+title: HTTP List Buckes
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Bucket Operations"
+---
+
+Lists all known buckets (ones that have keys stored in them).
 
 <div class="note"><div class="title">Not for production use</div>
 <p>Similar to the list keys operation, this requires traversing all keys stored

@@ -1,3 +1,15 @@
+require 'aws/s3'
+require 'versionomy'
+require './lib/version_router'
+require './lib/faqml'
+require './lib/deploy'
+require './lib/sitemap_render_override'
+
+$versions = { :riak => ENV['RIAK_VERSION'].presence }
+
+use Rack::Middleman::VersionRouter if $versions[:riak].present?
+
+
 ### 
 # Compass
 ###
@@ -36,88 +48,8 @@
 # page "/tutorials/*", :layout => 'layouts/layout'
 
 # Register the FML plugin to middleman
-module Middleman::Renderers::FAQML
-  def registered(app)
-    # FAQML is not included in the default gems,
-    # but we'll support it if available.
-    begin
-      # Load gem
-      require "faqml"
-
-      app.before_configuration do
-        template_extensions :fml => :html
-      end
-
-      # Setup FAQML options to work with partials
-      ::FAQML::Engine.set_default_options(
-        :buffer    => '@_out_buf', 
-        :generator => ::Temple::Generators::StringBuffer
-      )
-    rescue LoadError
-    end
-  end
-end
 Middleman::Application.register Middleman::Renderers::FAQML
 
-# HACK: patch until we can ensure FML is a valid current_resource
-# module Middleman::CoreExtensions::DefaultHelpers::Helpers
-#   def current_resource
-#     sitemap.find_resource_by_destination_path(current_path) || sitemap.resources.first
-#   end
-# end
-
-
-class ::Middleman::Sitemap::Resource
-  alias_method :old_render, :render
-
-  def extract_name(path)
-    path.to_s.scan(/([^\/]+)(?:\/|\.\w+)$/).first.first
-  rescue
-    path
-  end
-
-  def format_name(name)
-    name.to_s.downcase.gsub(/[\s\/?]|(&mdash;)/, '-').gsub(/\-+/, '-')
-  end
-
-  def sitemap_pages
-    $sitemap_pages = {}
-    store.resources.each do |resource|
-      name = format_name(extract_name(resource.url))
-      $sitemap_pages[name] = resource.url
-      title = resource.metadata[:page]["title"]
-      next if title.blank?
-      title = format_name(title)
-      $sitemap_pages[title] = resource.url
-    end
-    $sitemap_pages
-  end
-
-  def render(opts={}, locs={}, &block)
-    data = old_render(opts, locs, &block)
-    $sitemap_pages ||= sitemap_pages
-    data.gsub!(/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/m) do
-      link_name = $2 || $1
-      link_label = $1 || link_name
-      anchor = nil
-      link_name, anchor = link_name.split('#', 2) if link_name.include?('#')
-      link_url = $sitemap_pages[format_name(link_name)]
-      # heuristic that an unfound url, is probably not a link
-      if link_url.blank? && link_name.scan(/[.\/]/).empty?
-        "[[#{link_label}]]"
-      else
-        # no html inside of the link or label
-        link_label.gsub!(/\<[^\>]+\>/, '_')
-        link_url ||= link_name
-        link_url += '#' + anchor unless anchor.blank?
-        link_url.gsub!(/\<[^\>]+\>/, '_')
-        "<a href=\"#{link_url}\">#{link_label}</a>"
-      end
-    end
-    data
-  end
-
-end
 
 #############
 # override tha languages to manage versions!?
@@ -142,6 +74,15 @@ ready do
       @pages = pages
     end
   end
+
+
+  # generate versions
+  # sitemap.pages.group_by {|p| p.data["category"] }.each do |category, pages|
+  #   page "/categories/#{category}.html", :proxy => "category.html" do
+  #     @category = category
+  #     @pages = pages
+  #   end
+  # end
 end
 
 ###
@@ -160,10 +101,41 @@ helpers do
     end
     pages.delete_if{|g| g.url == page.url }.to_a
   end
+
+  def version_bar(project)
+    versions = YAML::load(File.open('versions.yml'))
+    versions[project.to_s] || []
+  end
+
+  def is_version?(project, version)
+    version == $versions[project.to_sym]
+  end
+
+  def api_index(api_dir_name)
+    apis_path = current_path.sub(/(\w+\.html)$/, '')
+    dir = sitemap.find_resource_by_destination_path("#{apis_path}#{api_dir_name}/index.html").source_file.sub(/([^\/]+)$/, '')
+    groups = {}
+    for file in Dir.glob("#{dir}*")
+      page = sitemap.find_resource_by_path(sitemap.file_to_path(file))
+      metadata = page.metadata[:page] || {}
+      next if metadata["index"].to_s =~ /true/i
+      (groups[metadata["group_by"]] ||= []) << page
+    end
+    groups
+  end
+
 end
 
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
+
+# require 'rack/codehighlighter'
+# require "pygments"
+# use Rack::Codehighlighter, 
+#   :pygments,
+#   :element => "pre>code",
+#   :pattern => /\A:::([-_+\w]+)\s*\n/,
+#   :markdown => true
 
 set :css_dir, 'css'
 set :js_dir, 'js'
@@ -178,8 +150,12 @@ set :markdown, :fenced_code_blocks => true,
                # :autolink => true,
                # :with_toc_data => true
 
+activate :directory_indexes
+
 # Build-specific configuration
 configure :build do
+  activate Middleman::Features::ProductionCheck
+
   # For example, change the Compass output style for deployment
   activate :minify_css
   
@@ -198,4 +174,6 @@ configure :build do
   
   # Or use a different image path
   # set :http_path, "/Content/images/"
+
+  activate Middleman::Features::Deploy
 end

@@ -12,7 +12,7 @@ keywords: []
 * [[The Riak Fast Track]]
 * [[Installing and Upgrading|installation]]
 * [[Querying]]
-* [FAQs for Getting Started](/faqs/basics.html)
+* [FAQs for Getting Started](/faqs/basics)
 
 
 ## Developing with Riak
@@ -35,7 +35,7 @@ keywords: []
   * [[riak|Command-Line-Tools - riak]] *(Command-Line Tool)*
   * [[Client Libraries]]
      * [[Community Developed Libraries and Projects]]
-* [FAQs for Using Riak](/faqs/developing.html)
+* [FAQs for Using Riak](/faqs/developing)
 
 
 ## Operating Riak
@@ -69,4 +69,4 @@ keywords: []
 * [[Troubleshooting]]
 * References
   * [[riak-admin|Command-Line-Tools - riak]] *(Command-Line Tool)*
-* [FAQs for Operating Riak](/faqs/operations.html)
+* [FAQs for Operating Riak](/faqs/operations)

@@ -1,3 +1,14 @@
+---
+title: PBC Get Client I
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Server Operations"
+---
+
 Get the client id used for this connection.  Client ids are used for conflict
 resolution and each unique actor in the system should be assigned one.  A client
 id is assigned randomly when the socket is connected and can be changed using

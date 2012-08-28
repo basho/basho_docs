@@ -1,3 +1,14 @@
+---
+title: HTTP List Resources
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Server Operations"
+---
+
 List available HTTP resources for the Riak node. This can be used by clients to 
 automatically recognize the location of the resources for specific operations.
 

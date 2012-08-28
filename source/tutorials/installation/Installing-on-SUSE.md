@@ -1,6 +1,7 @@
 The following steps should get you up and running with Riak on SuSE.
 
 Riak may be unofficially installed on the following x86/x86_64 flavors of SuSE via community provided support:
+
 * SLES11-SP1
 * OpenSUSE 11.2
 * OpenSUSE 11.3
@@ -21,8 +22,7 @@ Where $distro is one of:
 * openSUSE_11.3
 * openSUSE_11.4
 
-NOTE: The first time you try to use the repository after adding it to your
-system, you may be asked to accept the GPG key for the repo.
+_NOTE: The first time you try to use the repository after adding it to your system, you may be asked to accept the GPG key for the repo._
 
 ## Install the Riak package
 
@@ -42,5 +42,6 @@ $ zypper mr -r Riak
 ## Next Steps?
 
 From here you might want to check out:
+
 * [[Riak Fast Track|The-Riak-Fast-Track]]: a guide for setting up a 4 node cluster and exploring Riak's main features.
 * [[Basic Cluster Setup|Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!

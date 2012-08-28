@@ -1,4 +1,13 @@
-# HTTP MapReduce
+---
+title: HTTP MapReduce
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, http]
+group_by: "Query Operations"
+---
 
 [[MapReduce]] is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.
 

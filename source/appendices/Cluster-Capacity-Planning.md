@@ -172,9 +172,7 @@ cluster performs under load for an extended period of time. Doing so
 will help you size your cluster for future growth and lead to optimal
 performance.
 
-Basho recommends using [Basho
-Bench](http://wiki.basho.com/Benchmarking.html) for
-benchmarking the performance of your cluster.
+Basho recommends using [[Basho Bench|Benchmarking]] for benchmarking the performance of your cluster.
 
 ### Bandwidth
 

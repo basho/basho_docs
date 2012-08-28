@@ -14,7 +14,7 @@ In this section, we’ll install Riak and build a four node cluster running on y
 
 ## Dependencies
 
-Building Riak from source requires Erlang R15B01 or later. Basho's pre-packaged Riak binaries, the latest versions of which can be found in our [Downloads Directory](http://basho.com/resources/downloads/), embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, see [Installing Erlang](Installing-Erlang.html) for instructions on how to do this.
+Building Riak from source requires Erlang R15B01 or later. Basho's pre-packaged Riak binaries, the latest versions of which can be found in our [Downloads Directory](http://basho.com/resources/downloads/), embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, see [[Installing Erlang]] for instructions on how to do this.
 
 For those of you like videos, here's a short video of installing Erlang from source on Linux. 
 
@@ -24,11 +24,11 @@ For those of you like videos, here's a short video of installing Erlang from sou
 
 The below links provide platform-specific instructions for downloading and installing Riak from source.
 
-* [Debian and Ubuntu](Installing-on-Debian-and-Ubuntu.html#From-source)
-* [RHEL and CentOS](Installing-on-RHEL-and-CentOS.html#From-source)
-* [Mac OS X](Installing-on-Mac-OS-X.html#From-source)
-* [SUSE](Installing-on-SUSE.html#From-source)
-* [From Source](Installing-from-Source.html#From-source) (to be used on an unlisted-operating system)
+* [[Debian and Ubuntu|Installing on Debian and Ubuntu#Installing Riak From Source]]
+* [[RHEL and CentOS|Installing on RHEL and CentOS#Installing From Source]]
+* [[Mac OS X|Installing on Mac OS X#From Source]]
+* [[SUSE|Installing on SUSE]]
+* [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 * [Riak on Github](http://github.com/basho/riak)
 
 ## Build Riak
@@ -68,7 +68,12 @@ Each directory starting with `dev` is a complete package containing a Riak node.
 $ dev1/bin/riak start
 ```
 
-<div class="note"><div class="title">ulimit warning</div>At this point you may receive a warning message to increase the number of open file handles (ulimit).  See [Open Files Limit](/Open-Files-Limit.html) for platform-specific instructions on doing this.</div>
+<div class="note">
+<div class="title">ulimit warning</div>
+
+At this point you may receive a warning message to increase the number of open file handles (ulimit).  See [[Open Files Limit]] for platform-specific instructions on doing this.
+
+</div>
 
 Then do the same for `dev2`, `dev3`, and `dev4`
 
@@ -148,13 +153,14 @@ Finally, you can commit the batch.
 $ dev2/bin/riak-admin cluster commit
 ```
 
-<div class="info"><div class="title">About riak-admin</div>
+<div class="info">
+<div class="title">About riak-admin</div>
+
 riak-admin is Riak's administrative tool. It's used to do any operational tasks
 other than starting and stopping node, e.g. to join and leave a cluster, to back
-up data, and to manage general cluster operations. For more information on
-riak-admin, check our <a
-href="http://wiki.basho.com/Command-Line-Tools.html#riak-admin">page dedicated
-to the command line tools</a> that come with Riak.
+up data, and to manage general cluster operations. You can read more about
+[[riak-admin|Command Line Tools#riak-admin]].
+
 </div>
 
 ## Test the cluster and add some data to verify the cluster is working

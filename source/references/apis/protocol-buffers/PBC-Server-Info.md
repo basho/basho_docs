@@ -1,3 +1,14 @@
+---
+title: PBC Server Info
+project: riak
+version: 0.14.0+
+document: api
+toc: true
+audience: advanced
+keywords: [reference, api, protocol-buffer]
+group_by: "Server Operations"
+---
+
 ## Request
 
 Just the RpbGetServerInfoReq message code. No request message defined.
