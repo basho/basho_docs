@@ -9,9 +9,9 @@ module Rack::Middleman
     end
 
     def call(env)
-      env["PATH_INFO"] = env["PATH_INFO"].sub(/\/riak\/[^\/]+/, '') if env.include? "PATH_INFO"
-      env["REQUEST_PATH"] = env["REQUEST_PATH"].sub(/\/riak\/[^\/]+/, '') if env.include? "REQUEST_PATH"
-      env["REQUEST_URI"] = env["REQUEST_URI"].sub(/\/riak\/[^\/]+/, '') if env.include? "REQUEST_URI"
+      env["PATH_INFO"] = env["PATH_INFO"].sub(/\/(?:riak|shared)\/[^\/]+/, '') if env.include? "PATH_INFO"
+      env["REQUEST_PATH"] = env["REQUEST_PATH"].sub(/\/(?:riak|shared)\/[^\/]+/, '') if env.include? "REQUEST_PATH"
+      env["REQUEST_URI"] = env["REQUEST_URI"].sub(/\/(?:riak|shared)\/[^\/]+/, '') if env.include? "REQUEST_URI"
       status, @headers, @body = @app.call(env)
       [status, @headers, @body]
     end

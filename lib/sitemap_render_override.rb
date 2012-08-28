@@ -99,11 +99,27 @@ class ::Middleman::Sitemap::Resource
   # replace all absolute links with localized links
   def localize_links!(data)
     depth_to_root = dir_depth(url)
-    data.gsub!(/(\<(?:script|link|a)\s.*?(?:href|src)\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
+    data.gsub!(/(\<a\s.*?href\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
+      # yuck.
       if $2.start_with?("/riak/")
         "#{$1}#{$2}#{$3}"
+      # elsif $2.start_with?("/riakcs/")
+      #   "#{$1}#{$2}#{$3}"
       else
         "#{$1}#{prepend_dir_depth($2, depth_to_root)}#{$3}"
+      end
+    end
+
+
+    # shared resources (css, js, images, etc) are put under /shared/version
+    project = (metadata[:page]["project"] || 'riak').to_sym
+    if version_str = $versions[project]
+      data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
+        "#{$1}/shared/#{version_str}#{$2}#{$3}"
+      end
+
+      data.gsub!(/(\<img\s.*?src\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
+        "#{$1}/shared/#{version_str}#{$2}#{$3}"
       end
     end
   end

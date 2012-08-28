@@ -28,7 +28,14 @@ module Middleman::Features::Deploy
         files.each do |f|
           next if File.directory?(f)
 
-          key = f.gsub(/\.\/build\//, "version/#{version}/")
+          # anything under images, js, css goes to "shared"
+          if f =~ /^\.\/build\/(?:images|js|css)\//
+            key = f.sub(/\.\/build\//, "shared/#{version}/")
+          else
+            # TODO: dig into the file to see what project it belongs under
+            project = "riak"
+            key = f.sub(/\.\/build\//, "#{project}/#{version}/")
+          end
           puts " upload %s" % key
 
           attrs = {
