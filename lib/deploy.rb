@@ -12,13 +12,12 @@ end
 
 module Middleman::Features::Deploy
   S3_BUCKET = 'riakdocstest'
-  ACCESS_KEY_ID = '1MVSE635X3492PBWMC82'
-  SECRET_ACCESS_KEY = '+zzpzbZnD/nhfMvmUR5TdNt6nzPG6wHtVOSv3pUm'
+  ACCESS_KEY_ID = ENV['RIAK_DOCS_ACCESS_KEY']
+  SECRET_ACCESS_KEY = ENV['RIAK_DOCS_SECRET_KEY']
   CLOUD_DIST_ID = ''
 
   class << self
     def registered(app)
-      version = "1.2.0"
       app.after_build do
         puts "moving to S3"
         files = Dir['./build/**/*']
@@ -28,20 +27,31 @@ module Middleman::Features::Deploy
         files.each do |f|
           next if File.directory?(f)
 
-          # anything under images, js, css goes to "shared"
-          if f =~ /^\.\/build\/(?:images|js|css)\//
-            key = f.sub(/\.\/build\//, "shared/#{version}/")
-          else
-            # TODO: dig into the file to see what project it belongs under
-            project = "riak"
-            key = f.sub(/\.\/build\//, "#{project}/#{version}/")
-          end
-          puts " upload %s" % key
-
           attrs = {
             :access => :public_read,
             'Cache-Control' => 'max-age=315360000'
           }
+
+          # anything under images, js, css goes to "shared"
+          if f =~ /^\.\/build\/(?:images|js|css)\//
+            # TODO: upload for all project versions, if a distinction exists
+            project = "riak"
+            version = $versions[project.to_sym]
+            key = f.sub(/\.\/build\//, "shared/#{version}/")
+          else
+            # TODO: dig into the file to see what project it belongs under
+            project = "riak"
+            version = $versions[project.to_sym]
+
+            if f =~ /^\.\/build\/current-index.html\//
+              # generate an index with fully absolute links
+              key = f.sub(/^\.\/build\/latest-index.html\//, 'index.html')
+            else
+              key = f.sub(/\.\/build\//, "#{project}/#{version}/")
+            end
+          end
+          puts " upload %s" % key
+
           # # compress files
           # if f =~ /\.(html|js|css)$/
           #   `gzip #{f} && mv #{f}.gz #{f}`

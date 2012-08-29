@@ -5,6 +5,7 @@ require './lib/faqml'
 require './lib/deploy'
 require './lib/sitemap_render_override'
 
+# TODO: ignore pages that are less than this version
 $versions = { :riak => ENV['RIAK_VERSION'].presence }
 
 use Rack::Middleman::VersionRouter if $versions[:riak].present?

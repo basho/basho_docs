@@ -1,7 +1,7 @@
 ---
 title: Keys and Objects
 project: riak
-version: 0+
+version: 0.10.0+
 document: appendix
 audience: intermediate
 keywords: [appendix, concepts]

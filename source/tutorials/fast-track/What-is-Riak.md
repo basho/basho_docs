@@ -1,7 +1,7 @@
 ---
 title: What is Riak
 project: riak
-version: 0+
+version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]

@@ -1,5 +1,5 @@
 ---
-title: Repair Search Indexes
+title: Repair KV Indexes
 project: riak
 version: 1.2.0+
 document: tutorial
@@ -9,15 +9,15 @@ audience: advanced
 keywords: [user]
 ---
 
-Riak Search indexes currently have no form of anti-entropy (such as read-repair). Furthermore, for performance and load balancing reasons, Search reads from 1 random node. This means that when a replica loss has occurred, inconsistent results may be returned.
+Riak Secondary indexes (2i) currently have no form of anti-entropy (such as read-repair). Furthermore, for performance and load balancing reasons, 2i reads from 1 random node. This means that when a replica loss has occurred, inconsistent results may be returned.
 
 ## Running a Repair
 
-If a replica loss has occurred, you need to run the repair command. This command repairs objects from a node's adjacent partitions on the ring, consequently fixing the search index.
+If a replica loss has occurred, you need to run the repair command. This command repairs objects from a node's adjacent partitions on the ring, consequently fixing the index.
 
 This is done as efficiently as possible by generating a hash range for all the buckets and thus avoiding a preflist calculation for each key. Only a hash of each key is done, its range determined from a bucket->range map, and then the hash is checked against the range.
 
-This code will force all keys in each partition on a node to be reread, thus rebuilding the search index properly.
+This code will force all keys in each partition on a node to be reread, thus rebuilding the index properly.
 
 <ol>
 <li>From a cluster node with Riak installed, attach to the Riak console:
@@ -48,7 +48,7 @@ _Details Note: The above is an [Erlang list comprehension](http://www.erlang.org
 <li>Execute repair on all the partitions. Executing them all at once like this will cause a lot of `{shutdown,max_concurrency}` spam but it's not anything to worry about. That is just the transfers mechanism enforcing an upper limit on the number of concurrent transactions.
 
 ```erlang
-> [riak_search_vnode:repair(P) || P <- Partitions].
+> [riak_kv_vnode:repair(P) || P <- Partitions].
 ```
 </li>
 <li>When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
@@ -60,7 +60,7 @@ _Details Note: The above is an [Erlang list comprehension](http://www.erlang.org
 The above Repair command can be slow, so if you reattach to the console, you can run the repair_status function. You can use the `Partitions` variable defined above to get the status of every partition.
 
 ```erlang
-> [{P, riak_search_vnode:repair_status(P)} || P <- Partitions].
+> [{P, riak_kv_vnode:repair_status(P)} || P <- Partitions].
 ```
 
 When you're done, press `Ctrl-D` to disconnect the console.

@@ -3,6 +3,8 @@ title: FAQs
 project: riak
 version: 1.2+
 document: cookbook
+toc: false
+index: true
 audience: beginner
 keywords: [faq, cookbook]
 ---

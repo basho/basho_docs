@@ -2,6 +2,10 @@ This is a description of the Riak command-line tools and their subcommands.
 These tools are located in the `bin` directory of an embedded node, and the path
 when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
 
+This is a description of the Riak command-line tools and their subcommands.
+These tools are located in the `bin` directory of an embedded node, and the path
+when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
+
 ## riak
 
 `[[riak|Command Line Tools - riak]]` is the primary script for controlling the
@@ -31,16 +35,16 @@ subcommands are supported:
 * [[test|Command Line Tools - riak-admin#test]]
 * [[status|Command Line Tools - riak-admin#status]]
 * [[reip|Command Line Tools - riak-admin#reip]]
-* [[js_reload|Command Line Tools - riak-admin#js_reload]]
+* [[js-reload|Command Line Tools - riak-admin#js_reload]]
 * [[wait-for-service|Command Line Tools - riak-admin#wait-for-service]]
 * [[services|Command Line Tools - riak-admin#services]]
 * [[ringready|Command Line Tools - riak-admin#ringready]]
 * [[transfers|Command Line Tools - riak-admin#transfers]]
 * [[force-remove|Command Line Tools - riak-admin#force-remove]]
 * [[down|Command Line Tools - riak-admin#down]]
-* [[cluster_info|Command Line Tools - riak-admin#cluster_info]]
-* [[member_status|Command Line Tools - riak-admin#member_status]]
-* [[ring_status|Command Line Tools - riak-admin#ring_status]]
+* [[cluster-info|Command Line Tools - riak-admin#cluster-info]]
+* [[member-status|Command Line Tools - riak-admin#member-status]]
+* [[ring-status|Command Line Tools - riak-admin#ring-status]]
 * [[vnode-status|Command Line Tools - riak-admin#vnode-status]]
 
 ## search-cmd
