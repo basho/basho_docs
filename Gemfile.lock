@@ -12,6 +12,7 @@ GEM
     blockenspiel (0.4.5)
     builder (3.0.0)
     chunky_png (1.2.6)
+    coderay (1.0.7)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -154,6 +155,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-s3
+  coderay
   faqml (>= 0.2.1)
   github-markdown
   growl_notify

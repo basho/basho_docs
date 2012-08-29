@@ -22,8 +22,9 @@ body class==page_classes
         h1== data.page.title
       == partial "layouts/versions"
       == partial "layouts/tutorial_nav"
-      nav#toc
-        ul#toc-items
+      - unless data.page.toc == false
+        nav#toc
+          ul#toc-items
       == yield
       == partial "layouts/tutorial_nav"
       footer

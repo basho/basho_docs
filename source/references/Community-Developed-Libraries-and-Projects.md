@@ -1,11 +1,20 @@
 ---
+title: Community Developed Libraries and Projects
+project: riak
+version: 0.10.0+
+document: reference
 toc: true
+index: true
+audience: intermediate
+keywords: [client, drivers]
 ---
 
 The Riak Community is developing at a break-neck pace, and the number of community-contributed libraries and drivers is growing right along side it. Here is a list of projects that may suit your programming needs or curiosities. If you know of something that needs to be added or are developing something that you wish to see added to this list, please fork the "Riak Wiki repo on GitHub":https://github.com/basho/riak_wiki and send us a pull request.
 
 <div class="info">
+
 All of these projects and libraries are at various stages of completeness and may not suit your application's needs based on their level of maturity and activity.
+
 </div>
 
 ## Client Libraries and Frameworks

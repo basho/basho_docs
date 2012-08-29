@@ -1,12 +1,11 @@
 aside role="complementary"
   nav#primary-nav role="nav"
-    h3 Navigation
-    ul
-      li== link_to 'Start Here', '/index.html'
-      li== link_to 'Users', '/users'
-      li== link_to 'Operators', '/operators'
+    - data.global_nav.each do |section|
+      h3==section['title']
+      ==build_nav(section['sub'])
+  
   nav#shortcut-nav role="nav"
     h3 Shortcuts
     ul
-      li== link_to 'FAQs', '/faqs'
+      li== link_to 'FAQs', '/guides/cookbooks/faqs'
       li== link_to 'APIs', '/references/apis'

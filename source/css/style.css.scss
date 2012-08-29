@@ -319,6 +319,13 @@ body {
       right:0px;
     }
 
+    #primary-nav {
+      h4 {
+        margin: 0;
+        font-weight: bold;
+      }
+    }
+
     //#similar-nav,
     //#primary-nav {
     //  outline:1px solid #ccc;
@@ -434,4 +441,9 @@ ol.versions {
       }
     }
   }
+}
+
+ul.depth-2,
+ul.depth-3 {
+  display:none;
 }

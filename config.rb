@@ -125,6 +125,20 @@ helpers do
     groups
   end
 
+
+  def build_nav(section, depth=1)
+    nav = "<ul class=\"depth-#{depth}\">"
+    section.each do |sub|
+      if sub.class == String
+        nav += "<li>#{sub}</li>"
+      else
+        nav += "<li><h4>#{sub['title']}</h4>#{build_nav(sub['sub'], depth+1)}</li>"
+      end
+    end
+    nav += "</ul>"
+    nav
+  end
+
 end
 
 # Automatic image dimensions on image_tag helper

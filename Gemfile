@@ -12,6 +12,7 @@ gem "faqml", ">= 0.2.1"
 gem "versionomy"
 gem "aws-s3"
 gem "ruby-hmac"
+gem "coderay"
 
 # gem "rack-codehighlighter", :git => "git://github.com/wbzyl/rack-codehighlighter.git"
 # gem "pygments.rb", :git => "git://github.com/tmm1/pygments.rb.git"

@@ -1,0 +1,68 @@
+- title: "[[Getting Started|/index.html]]"
+  sub:
+  - "[[The Riak Fast Track]]"
+  - "[[Installing and Upgrading|installation]]"
+  - "[[Querying]]"
+
+- title: "Querying"
+  sub:
+    - "[[MapReduce/Search/2i Comparison]]"
+    - title: "MapReduce"
+      sub:
+        - "[[MapReduce]]"
+        - "[[Key Filters]]"
+    - title: "Search"
+      sub:
+        - "[[Indexing|Riak-Search - Indexing]]"
+        - "[[Schema|Riak-Search - Schema]]"
+        - "[[Querying|Riak-Search - Querying]]"
+        - "[[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]"
+    - title: "Secondary Indexes"
+      sub:
+        - "[[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]"
+
+- title: "Operations"
+  sub:
+    - "[[Installing and Upgrading|installation]]"
+    - title: "Planning"
+      sub:
+        - title: "[[Choosing a Backend]]"
+          sub:
+            - "[[Bitcask]]"
+            - "[[LevelDB]]"
+            - "[[Memory]]"
+            - "[[Multi]]"
+        - "[[System Requirements]]"
+        - "[[Cluster Capacity Planning]]"
+        - "[[Bitcask Capacity Planning]]"
+    - title: "Managing Clusters"
+      sub:
+        - "[[Basic Cluster Setup]]"
+        - "[[Adding and Removing Nodes]]"
+        - "[[Replacing a Node]]"
+    - title: "Operations"
+      sub:
+        - "[[Configuration Files]]"
+        - "[[File System Tuning]]"
+        - "[[Backups]]"
+        - "[[Network Security and Firewall Configurations]]"
+    - title: "Search"
+      sub:
+        - "[[Enabling Search|Riak-Search - Enabling Search]]"
+        - "[[Settings|Riak-Search - Settings]]"
+    - title: "Secondary Indexes"
+      sub:
+        - "[[Configuration &amp; Examples|Secondary-Indexes - Configuration and Examples]]"
+    - "[[Troubleshooting]]"
+
+- title: "References"
+  sub:
+    - "[[MapReduce/Search/2i Comparison]]"
+    - "[[APIs]]"
+    - title: "[[Command-Line Tools]]"
+      sub:
+        - "[[riak-admin|Command-Line-Tools - riak]]"
+        - "[[riak-admin|Command-Line-Tools - riak-admin]]"
+        - "[[search-cmd|Command-Line-Tools - search-cmd]]"
+    - "[[Client Libraries]]"
+    - "[[Community Developed Libraries and Projects]]"

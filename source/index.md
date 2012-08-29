@@ -3,9 +3,10 @@ title: Riak
 project: riak
 version: 0.10.0+
 document: tutorial
+toc: true
+index: true
 audience: beginner
 keywords: []
-index: true
 ---
 
 ## Getting Started
