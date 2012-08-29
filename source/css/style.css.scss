@@ -377,6 +377,10 @@ nav#toc {
   }
 }
 
+img {
+  max-width: 100%;
+}
+
 article {
   nav.tutorial {
     ul {
@@ -403,15 +407,32 @@ article {
   }
 }
 
-pre {
-  overflow-x:auto;
-  background-color: #ddd;
-  border:1px solid black;
-  padding:2px;
-  code {
-    white-space:pre;
-    display:block;
+code {
+  background: #eee;
+  padding: 0 3px;
+  border-radius: 4px;
+}
+
+.code {
+  pre {
+    overflow-x:auto;
+    border: 1px solid #A6ABB4;
+    padding:2px;
+    padding: 15px 10px;
+    background: #eee;
+    background-size: 100% 8px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    box-shadow: inset 0 -1px 0 white,0 0 1px rgba(156, 165, 181, 0.6),0 1px 1px rgba(156, 165, 181, 0.5);
+    border-radius: 4px;
+    color: #333;
+
+    code {
+      white-space:pre;
+      display:block;
+    }
   }
+  // overflow-x: scroll;
 }
 
 ol.versions,

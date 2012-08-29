@@ -66,13 +66,13 @@ Any documents matching the base filename plus extension of the files found will 
 The following Erlang functions will index documents stored on the filesystem:
 
 
-```bash
+```erlang
 search:index_dir(Path).
 ```
 
 
 
-```bash
+```erlang
 search:index_dir(Index, Path).
 ```
 
@@ -84,7 +84,7 @@ Parameters:
 For example:
 
 
-```bash
+```erlang
 search:index_dir(<<"my_index">>, "files/to/index/*.txt").
 ```
 
@@ -108,7 +108,7 @@ Parameters:
 For example:
 
 
-```bash
+```erlang
 search:index_doc(<<"my_index">>, <<"my_doc">>, [{<<"title">>, <<"The Title">>}, {<<"content">>, <<"The Content">>}])
 ```
 
@@ -117,13 +117,13 @@ search:index_doc(<<"my_index">>, <<"my_doc">>, [{<<"title">>, <<"The Title">>}, 
 The following Erlang functions will remove documents from the index:
 
 
-```bash
+```erlang
 search:delete_dir(Path).
 ```
 
 
 
-```bash
+```erlang
 search:delete_dir(Index, Path).
 ```
 
@@ -136,7 +136,7 @@ Parameters:
 For example:
 
 
-```bash
+```erlang
 search:delete_dir(<<"my_index">>, "files/to/index/*.txt").
 ```
 
@@ -146,7 +146,7 @@ Any documents matching the base filename plus extension of the files found will 
 Alternatively, you can delete a document by it's id:
 
 
-```bash
+```erlang
 search:delete_doc(<<"my_index">>, <<"my_doc">>).
 ```
 
@@ -250,7 +250,7 @@ The source code for Riak Search's "default analyzer factory" can be found here:
 In short, the following words will be skipped when indexing. The official list is maintained in the source file, linked above:
 
 
-```bash
+```erlang
 is_stopword(Term) when length(Term) == 2 ->
     ordsets:is_element(Term, ["an", "as", "at", "be", "by", "if", "in", "is", "it", "no", "of", "on", "or", "to"]);
 is_stopword(Term) when length(Term) == 3 ->

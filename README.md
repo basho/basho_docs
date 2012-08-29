@@ -103,6 +103,13 @@ Will render as this for version 1.1.0:
 
 * PBC MapReduce
 
+### Navigation
+
+There is a file named `ROOT/data/global_nav.yml`. Change this file to alter the global navigation menu.
+
+Beyond the global navigation, there is also a secondary navigation of pages that are related to the current page. So if you are reading an FAQ, other FAQs will be listed as well. It currently populates based on matching keywords, however, it could be improved to be based on social or traffic metrics.
+
+Finally, there is the keyword-based navigation. Every page with a keyword contains a link to
 
 # Deploying
 

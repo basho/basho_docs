@@ -1,3 +1,6 @@
+require 'coderay'
+require 'cgi'
+
 class ::Middleman::Sitemap::Resource
   alias_method :old_render, :render
 
@@ -57,6 +60,17 @@ class ::Middleman::Sitemap::Resource
     Versionomy.parse(range) == version
   end
 
+  # prepends X directories from the top, eg:
+  # trim_dir_depth('/a', 2) => '../../a'
+  def prepend_dir_depth(path, dir_depth)
+    ('../' * dir_depth) + path.sub(/^[\/]/, '')
+  end
+
+  def dir_depth(path)
+    depth = path.sub(/[^\/]+\.\w+$/, '').split('/').size - 1
+    depth <= 0 ? 0 : depth
+  end
+
   # replace [[...]] with local links, wiki-style
   def wiki_links!(data)
     data.gsub!(/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/m) do
@@ -110,7 +124,6 @@ class ::Middleman::Sitemap::Resource
       end
     end
 
-
     # shared resources (css, js, images, etc) are put under /shared/version
     project = (metadata[:page]["project"] || 'riak').to_sym
     if version_str = $versions[project]
@@ -124,15 +137,19 @@ class ::Middleman::Sitemap::Resource
     end
   end
 
-  # prepends X directories from the top, eg:
-  # trim_dir_depth('/a', 2) => '../../a'
-  def prepend_dir_depth(path, dir_depth)
-    ('../' * dir_depth) + path.sub(/^[\/]/, '')
-  end
-
-  def dir_depth(path)
-    depth = path.sub(/[^\/]+\.\w+$/, '').split('/').size - 1
-    depth <= 0 ? 0 : depth
+  def colorize_code!(data)
+    data.gsub!(/\<pre(?:\s.*?)?\>\s*\<code(?:\s.*?)?(class\s*\=\s*["'][^"'>]+["'])?[^\>]*\>(.*?)\<\/code\>\s*<\/pre\>/m) do
+      code = $2
+      given_code_type = $1.to_s.sub(/class\s*\=\s*["']([^"'>]+)["'][^\>]*/, "\\1")
+      code_type = (given_code_type.presence || :text).to_s.to_sym
+      # these are unfortunate hacks to deal with an incomplete coderay
+      code_type = code_type == :bash ? :php : code_type
+      code_type = code_type == :erlang ? :python : code_type
+      # code = CodeRay.scan(CGI.unescapeHTML(code), code_type).div(:line_numbers => :table)
+      code = CodeRay.scan(CGI.unescapeHTML(code), code_type).div #(:css => :class)
+      # "<pre><code class=\"#{given_code_type}\">#{code}</code></pre>"
+      code
+    end
   end
 
   def render(opts={}, locs={}, &block)
@@ -143,6 +160,7 @@ class ::Middleman::Sitemap::Resource
     wiki_links!(data)
     strip_versions!(data)
     localize_links!(data)
+    colorize_code!(data)
 
     data
   end
