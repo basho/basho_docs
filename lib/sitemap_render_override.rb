@@ -20,11 +20,13 @@ class ::Middleman::Sitemap::Resource
       # we only want "wiki" links, not images, etc
       next unless resource.url =~ /(html|[\/])$/
       name = format_name(extract_name(resource.url))
-      $sitemap_pages[name] = resource.url
+      project = resource.metadata[:page]["project"]
+      value = {:url => resource.url, :project => project}
+      $sitemap_pages[name] ||= value
       title = resource.metadata[:page]["title"]
       next if title.blank?
       title = format_name(title)
-      $sitemap_pages[title] = resource.url
+      $sitemap_pages[title] = value
     end
     $sitemap_pages
   end
@@ -68,6 +70,8 @@ class ::Middleman::Sitemap::Resource
 
   def dir_depth(path)
     depth = path.sub(/[^\/]+\.\w+$/, '').split('/').size - 1
+    # HACK to deal with the riak*-index name change
+    # depth -= 1 if path =~ /riak[^\/\-]*?\-index/
     depth <= 0 ? 0 : depth
   end
 
@@ -78,17 +82,20 @@ class ::Middleman::Sitemap::Resource
       link_label = $1 || link_name
       anchor = nil
       link_name, anchor = link_name.split('#', 2) if link_name.include?('#')
-      link_url = $sitemap_pages[format_name(link_name)]
+      link_data = $sitemap_pages[format_name(link_name)] || {}
       # heuristic that an unfound url, is probably not a link
+      link_url = link_data[:url]
+      link_project = link_data[:project] || 'riak'
       if link_url.blank? && link_name.scan(/[.\/]/).empty?
         "[[#{link_label}]]"
       else
         # no html inside of the link or label
         link_label.gsub!(/\<[^\>]+\>/, '_')
         link_url ||= link_name
+        link_url = '/' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
         link_url += '#' + anchor unless anchor.blank?
         link_url.gsub!(/\<[^\>]+\>/, '_')
-        "<a href=\"#{link_url}\">#{link_label}</a>"
+        "<a href=\"#{link_url}\" class=\"#{link_project}\">#{link_label}</a>"
       end
     end
   end
@@ -111,22 +118,39 @@ class ::Middleman::Sitemap::Resource
   end
 
   # replace all absolute links with localized links
+  # except in the case of cross projects
   def localize_links!(data)
     depth_to_root = dir_depth(url)
-    data.gsub!(/(\<a\s.*?href\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
-      # yuck.
-      if $2.start_with?("/riak/")
-        "#{$1}#{$2}#{$3}"
-      # elsif $2.start_with?("/riakcs/")
-      #   "#{$1}#{$2}#{$3}"
+    project = (metadata[:page]["project"] || 'riak').to_sym
+    version_str = $versions[project]
+
+    # data.gsub!(/(\<a\s.*?href\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*?>)/m) do
+    data.gsub!(/\<a\s+([^\>]*?)\>/m) do
+      anchor = $1
+
+      href = (anchor.scan(/href\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s
+      
+      # keep it the same
+      if version_str.blank? || href =~ /^\/riak[^\/]*\// || href =~ /^http[s]?\:/ 
+        "<a #{anchor}>"
       else
-        "#{$1}#{prepend_dir_depth($2, depth_to_root)}#{$3}"
+        classes = (anchor.scan(/class\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s.split
+
+        # HACK hardcoding projects
+        link_project = (%w{riak riakcs riakee}.find{|proj| classes.include?(proj)} || 'riak').to_sym
+
+        # make it absolute if outside this project, otherwise relative
+        if link_project != project
+          url = "/#{link_project}/1.2.0#{href}"
+        else
+          url = prepend_dir_depth(href, depth_to_root)
+        end
+        "<a #{anchor.gsub(href, url)}>"
       end
     end
 
     # shared resources (css, js, images, etc) are put under /shared/version
-    project = (metadata[:page]["project"] || 'riak').to_sym
-    if version_str = $versions[project]
+    if version_str
       data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
         "#{$1}/shared/#{version_str}#{$2}#{$3}"
       end

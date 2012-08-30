@@ -38,4 +38,4 @@ keywords: [operator]
 * [[Troubleshooting]]
 * References
   * [[riak-admin|Command-Line-Tools - riak]] *(Command-Line Tool)*
-* [FAQs for Operating Riak](/faqs/operations)
+* [[Operating Riak FAQs]]

@@ -9,11 +9,18 @@ module Rack::Middleman
     end
 
     def call(env)
-      env["PATH_INFO"] = env["PATH_INFO"].sub(/\/(?:riak|shared)\/[^\/]+/, '') if env.include? "PATH_INFO"
-      env["REQUEST_PATH"] = env["REQUEST_PATH"].sub(/\/(?:riak|shared)\/[^\/]+/, '') if env.include? "REQUEST_PATH"
-      env["REQUEST_URI"] = env["REQUEST_URI"].sub(/\/(?:riak|shared)\/[^\/]+/, '') if env.include? "REQUEST_URI"
+      %w{PATH_INFO REQUEST_PATH REQUEST_URI}.each{|v| alter_route(env, v) }
       status, @headers, @body = @app.call(env)
       [status, @headers, @body]
+    end
+
+    def alter_route(env, var)
+      # HACK to deal with the riak*-index name change
+      if env[var] =~ /\/(riak[^\/]*?)\/[^\/]+\/?(index\.html)?$/
+        env[var].sub!($2, '') if $2
+        env[var] += "#{$1}-index" if $1
+      end
+      env[var] = env[var].sub(/\/(?:riak[^\/]*?|shared)\/[^\/]+/, '') if env.include?(var)
     end
   end
 end

@@ -5,8 +5,11 @@ require './lib/faqml'
 require './lib/deploy'
 require './lib/sitemap_render_override'
 
-# TODO: ignore pages that are less than this version
-$versions = { :riak => ENV['RIAK_VERSION'].presence }
+$versions = {
+  :riak => ENV['RIAK_VERSION'].presence,
+  :riakcs => ENV['RIAKCS_VERSION'].presence || ENV['RIAK_VERSION'].presence,
+  :riakee => ENV['RIAKEE_VERSION'].presence || ENV['RIAK_VERSION'].presence
+}
 
 use Rack::Middleman::VersionRouter if $versions[:riak].present?
 
@@ -104,7 +107,7 @@ helpers do
   end
 
   def version_bar(project)
-    versions = YAML::load(File.open('versions.yml'))
+    versions = YAML::load(File.open('data/versions.yml'))
     versions[project.to_s] || []
   end
 
@@ -125,6 +128,16 @@ helpers do
     groups
   end
 
+  def current_projects()
+    projects = {}
+    data.versions.each do |project, versions|
+      projects[project] = {
+        :deployment => $versions[project.to_sym],
+        :latest => versions.last.last
+      }
+    end
+    projects
+  end
 
   def build_nav(section, depth=1)
     nav = "<ul class=\"depth-#{depth}\">"
@@ -167,6 +180,13 @@ set :markdown, :fenced_code_blocks => true,
 
 activate :directory_indexes
 
+page "/riak-index.html", :directory_index => false
+page "/riakcs-index.html", :directory_index => false
+page "/riakee-index.html", :directory_index => false
+
+# page "/riak/1.2.0.html", :proxy => "/riak-index.html"
+
+
 # Build-specific configuration
 configure :build do
   activate Middleman::Features::ProductionCheck
@@ -190,5 +210,5 @@ configure :build do
   # Or use a different image path
   # set :http_path, "/Content/images/"
 
-  activate Middleman::Features::Deploy
+  # activate Middleman::Features::Deploy
 end

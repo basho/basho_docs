@@ -9,6 +9,6 @@ audience: beginner
 keywords: [faq, cookbook]
 ---
 
-* [Getting Started FAQs](/faqs/basics)
-* [Developing on Riak FAQs](/faqs/developing)
-* [Operating Riak FAQs](/faqs/operations)
+* [[Getting Started FAQs|Basic FAQs]]
+* [[Developing on Riak FAQs|Developing on Riak FAQs]]
+* [[Operating Riak FAQs]]

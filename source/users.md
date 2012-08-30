@@ -27,4 +27,4 @@ keywords: [user]
   * [[riak|Command-Line-Tools - riak]] *(Command-Line Tool)*
   * [[Client Libraries]]
      * [[Community Developed Libraries and Projects]]
-* [FAQs for Using Riak](/faqs/developing)
+* [[FAQs for Using Riak|Developing on Riak FAQs]]

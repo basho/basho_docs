@@ -36,20 +36,23 @@ At the top of every document is a metadata block. This allows us to append any i
 
 ```
 ---
-title: Operating Riak
+title: Loading Data and Running MapReduce
 project: riak
 version: 0.10.0+
 document: tutorial
 toc: true
-index: true
-audience: intermediate
-keywords: [operator]
+index: false
+audience: beginner
+keywords: [tutorial, fast-track]
+prev: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
+up:   ["The Riak Fast Track", "index.html"]
+next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
 ---
 ```
 
 The title will dictate the page name, rather than the old method of using the file name. This allows us more flexibility in our urls and specify names for wiki-links (which will first use title, before dropping back to the file name). The title will appear at the top of the document.
 
-The `project` assocates this file with a particular project, most of that time that is riak. It could also be riakcs, or riakeds.
+The `project` assocates this file with a particular project, most of that time that is riak. It could also be `riakcs`, or `riakee`.
 
 The `version` is a range for which this document is true. This allows the system to trim out any unnecessary documents if we render earlier or later versions (eg. if we render documents for version 1.3.0, but a document is no longer valid, it won't exist for that version). The ranges are specified using either greater/less than signs, plus/minus, or a version range.
 
@@ -61,13 +64,15 @@ The `version` is a range for which this document is true. This allows the system
 
 The `document` labels what kind of document this is. So far I've been using: `tutorial`, `cookbook`, `reference`, `api`, `appendix`. These allow alternative look/feel for different kinds of pages.
 
-Set `toc` to false if you do not want a table-of-contents generated for this page. Otherwise, a list of links will be generated for every `h2` tag on the main page.
+Set `toc` to false if you do not want a table-of-contents generated for this page. Otherwise, a list of links will be generated for every `h2` tag on the main article.
 
 The `index` flag is just a marker that this page is largely an index page for navigation, and not really a content page. It's useful for downgrading it's importance in code generation (see the HTTP/PBC API page).
 
 The `audience` value is either `beginner`, `intermediate`, or `advanced`. We're not doing much with this yet, but it's a good note and reminder on who this document is meant for, for future updates.
 
 `keywords` is an array of words associated with this page. There can be any number of them. Then, each keyword links to a page that is an index of all other pages with that matching keyword. Eg. Commit-Hooks and Eventual-Consistency pages both have the keyword "concepts", so they both get generated with a link to a page /keywords/concepts, that just lists out and links to these two pages along with others.
+
+`prev`, `next`, and `up` are indended for multi-page tutorial navigation. They corrospond to the previous page, the next page, and moving up to the index (generally, the start of the tutorial). They accept an array with two values, the first is the link text, the second is a relative link.
 
 ### Versioning
 
@@ -103,13 +108,21 @@ Will render as this for version 1.1.0:
 
 * PBC MapReduce
 
+Finally, there is a file `data/version.yml` that give a list of all project versions. This is used to generate a link bar where readers can click to view older versions of a document.
+
 ### Navigation
 
 There is a file named `ROOT/data/global_nav.yml`. Change this file to alter the global navigation menu.
 
 Beyond the global navigation, there is also a secondary navigation of pages that are related to the current page. So if you are reading an FAQ, other FAQs will be listed as well. It currently populates based on matching keywords, however, it could be improved to be based on social or traffic metrics.
 
-Finally, there is the keyword-based navigation. Every page with a keyword contains a link to
+Tutorials optionally have multi-page navigation. They can be specified by the `prev`, `next`, and `up` meta data values.
+
+There is the time-based version navigation mentioned previously (this may be rewritten to be generated on the client-side by javascript).
+
+Each page can optionally generate an inline table-of-contents (see the `toc` setting above). A list of links will be generated for every `h2` tag on the main article.
+
+Finally, there is the keyword-based navigation. Every page with a keyword contains a link to an index, which lists other links to pages sharing that keyword.
 
 # Deploying
 

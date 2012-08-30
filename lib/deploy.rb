@@ -43,9 +43,13 @@ module Middleman::Features::Deploy
             project = "riak"
             version = $versions[project.to_sym]
 
-            if f =~ /^\.\/build\/current-index.html\//
+            # HACK to deal with the riak*-index name change
+
+            if f =~ /^\.\/build\/index.html\//
               # generate an index with fully absolute links
-              key = f.sub(/^\.\/build\/latest-index.html\//, 'index.html')
+              key = 'index.html'
+            elsif f =~ /^\.\/build\/riak[^\/\-]*?\-index.html\//
+              key = "#{project}/#{version}/index.html"
             else
               key = f.sub(/\.\/build\//, "#{project}/#{version}/")
             end
@@ -99,7 +103,7 @@ module Middleman::Features::ProductionCheck
   class << self
     def registered(app)
       # $production = true
-      raise "RIAK_VERSION required to deploy" unless ENV['RIAK_VERSION']
+      raise "RIAK_VERSION required to deploy" unless $versions[:riak]
     end
   end
 end

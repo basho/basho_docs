@@ -21,6 +21,7 @@ body class==page_classes
       header
         h1== data.page.title
       == partial "layouts/versions"
+      == partial "layouts/breadcrumb_nav"
       == partial "layouts/tutorial_nav"
       - unless data.page.toc == false
         nav#toc

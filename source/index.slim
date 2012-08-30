@@ -1,0 +1,17 @@
+---
+title: Riak
+project: riak
+version: 0.10.0+
+document: tutorial
+toc: false
+index: true
+audience: beginner
+keywords: []
+---
+
+h3 Welcome to Riak docs
+h4 Pick a project
+
+ul
+  - current_projects.each do |project, version|
+    li== link_to project, (version[:deployment] ? "/#{project}/#{version[:deployment]}/" : "/#{project}-index")
