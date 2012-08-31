@@ -180,11 +180,17 @@ set :markdown, :fenced_code_blocks => true,
 
 activate :directory_indexes
 
-page "/riak-index.html", :directory_index => false
-page "/riakcs-index.html", :directory_index => false
-page "/riakee-index.html", :directory_index => false
+# page "/riak-index.html", :directory_index => false
+# page "/riakcs-index.html", :directory_index => false
+# page "/riakee-index.html", :directory_index => false
 
-# page "/riak/1.2.0.html", :proxy => "/riak-index.html"
+%w{riak riakcs riakee}.each do |project|
+  version = $versions[project.to_sym] || '1.2.0'
+  page "/#{project}/#{version}/index.html", :proxy => "/#{project}-index.html", :directory_index => false
+end
+
+# add a redirect to */index.html only if version isn't given
+# page "/riak/1.2.0/"
 
 
 # Build-specific configuration

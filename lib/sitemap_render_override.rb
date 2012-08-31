@@ -69,9 +69,10 @@ class ::Middleman::Sitemap::Resource
   end
 
   def dir_depth(path)
+    puts path
     depth = path.sub(/[^\/]+\.\w+$/, '').split('/').size - 1
     # HACK to deal with the riak*-index name change
-    # depth -= 1 if path =~ /riak[^\/\-]*?\-index/
+    depth -= 1 if path =~ /riak[^\/\-]*?\-index/
     depth <= 0 ? 0 : depth
   end
 

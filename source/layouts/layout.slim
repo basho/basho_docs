@@ -31,7 +31,7 @@ body class==page_classes
       footer
         - if data.page.keywords.present?
           span.label keywords 
-          == data.page.keywords.map{|kw| "<a href=\"/keywords/"+kw+"\">"+kw+"</a>"}.join(', ')
+          == data.page.keywords.map{|kw| "<a href=\"/keywords/"+kw+"/\">"+kw+"</a>"}.join(', ')
   == partial "layouts/primary"
   == partial "layouts/secondary"
   == partial "layouts/footer"
