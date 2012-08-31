@@ -14,4 +14,4 @@ h4 Pick a project
 
 ul
   - current_projects.each do |project, version|
-    li== link_to project, (version[:deployment] ? "/#{project}/#{version[:deployment]}/" : "/#{project}-index")
+    li=="<a href=\"#{version[:deployment] ? "/#{project}/#{version[:deployment]}/" : "/#{project}/1.2.0/index.html"}\">#{project}</a>"

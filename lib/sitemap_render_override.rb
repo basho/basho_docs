@@ -69,7 +69,7 @@ class ::Middleman::Sitemap::Resource
   end
 
   def dir_depth(path)
-    puts path
+    # puts path
     depth = path.sub(/[^\/]+\.\w+$/, '').split('/').size - 1
     # HACK to deal with the riak*-index name change
     depth -= 1 if path =~ /riak[^\/\-]*?\-index/
@@ -93,7 +93,7 @@ class ::Middleman::Sitemap::Resource
         # no html inside of the link or label
         link_label.gsub!(/\<[^\>]+\>/, '_')
         link_url ||= link_name
-        link_url = '/' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
+        link_url = '/index.html' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
         link_url += '#' + anchor unless anchor.blank?
         link_url.gsub!(/\<[^\>]+\>/, '_')
         "<a href=\"#{link_url}\" class=\"#{link_project}\">#{link_label}</a>"

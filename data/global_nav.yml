@@ -95,6 +95,24 @@ riak:
           - "[[Riak Compared to Neo4j]]"
       - "[[Release Notes]]"
 
+  - title: "Community"
+    sub:
+      - title: "[[Community Resources]]"
+        sub:
+          - "[[Overviews and Introductions]]"
+          - "[[Production Deployment]]"
+          - "[[Developing with Riak]]"
+          - "[[Searching and Accessing Data]]"
+          - "[[Riak Comparisons]]"
+          - "[[Riak Sample Applications]]"
+      - "[[Code Submission and Integration]]"
+      - "[[Contributing to the Riak Wiki]]"
+      - "[[Contributors]]"
+      - "[[Critical Issues]]"
+      - "[[How to Report a Bug]]"
+      - "[[Security]]"
+      - "[[Logos]]"
+      - "[[We Run Riak Badges]]"
 
   - title: "Shortcuts"
     sub:
