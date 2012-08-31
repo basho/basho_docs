@@ -106,12 +106,12 @@ class ::Middleman::Sitemap::Resource
       version = Versionomy.parse(version_str)
 
       # if it's a different version, remove the entire block
-      data.gsub!(/\(\#\[([^\]]+)\]\)(.*?)\(\/\[([^\]]+)\]\)/m) do
+      data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/([^\}]+)\}\}/m) do
         in_version_range?($1, version) ? $2 : ''
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
-      data.gsub!(/(\<li.*?\>.*?)\(\[([^\]]+)\]\)(\.*?<\/li\>)/m) do
+      data.gsub!(/(\<li.*?\>.*?)\{\{([^\}]+)\}\}(\.*?<\/li\>)/m) do
         in_version_range?($2, version) ? $1 + $3 : ''
       end
     end
