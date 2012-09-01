@@ -112,8 +112,13 @@ class ::Middleman::Sitemap::Resource
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
-      data.gsub!(/(\<li.*?\>.*?)\{\{([^\}]+)\}\}(\.*?<\/li\>)/m) do
-        in_version_range?($2, version) ? $1 + $3 : ''
+      data.gsub!(/(\<li[^\>]*\>.*?)\{\{([^\}]+)\}\}(.*?<\/li\>)/m) do
+        startli, liversion, endli = $1, $2, $3
+        if liversion =~ /^(?:[<>][\=]?)?[\d\.-]+?[\+\-]?$/
+          in_version_range?(liversion, version) ? startli + endli : ''
+        else
+          startli + endli
+        end
       end
     end
   end
@@ -133,6 +138,8 @@ class ::Middleman::Sitemap::Resource
       
       # keep it the same
       if version_str.blank? || href =~ /^\/riak[^\/]*\// || href =~ /^http[s]?\:/ 
+        "<a #{anchor}>"
+      elsif href =~ /^\/index\.html$/
         "<a #{anchor}>"
       else
         classes = (anchor.scan(/class\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s.split
