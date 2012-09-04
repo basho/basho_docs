@@ -1,0 +1,3 @@
+- if data.page.keywords.present?
+  span.label keywords 
+  == data.page.keywords.map{|kw| "<a href=\"/keywords/"+kw+"/\">"+kw+"</a>"}.join(', ')
