@@ -29,9 +29,7 @@ body class==page_classes
       == yield
       == partial "layouts/tutorial_nav"
       footer
-        - if data.page.keywords.present?
-          span.label keywords 
-          == data.page.keywords.map{|kw| "<a href=\"/keywords/"+kw+"/\">"+kw+"</a>"}.join(', ')
+        == partial "layouts/keywords"
   == partial "layouts/primary"
   == partial "layouts/secondary"
   == partial "layouts/footer"

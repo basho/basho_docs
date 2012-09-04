@@ -1,22 +1,13 @@
 require 'coderay'
 require 'cgi'
 
-class ::Middleman::Sitemap::Resource
-  alias_method :old_render, :render
-
-  def extract_name(path)
-    path.to_s.scan(/([^\/]+)(?:\/|\.\w+)$/).first.first
-  rescue
-    path
-  end
-
-  def format_name(name)
-    name.to_s.downcase.gsub(/[\s\/?]|(&mdash;)/, '-').gsub(/\-+/, '-')
-  end
+module SitemapRenderOverride
 
   def sitemap_pages
+    return $sitemap_pages if $sitemap_pages
     $sitemap_pages = {}
-    store.resources.each do |resource|
+    source = defined?(store) ? store : sitemap
+    source.resources.each do |resource|
       # we only want "wiki" links, not images, etc
       next unless resource.url =~ /(html|[\/])$/
       name = format_name(extract_name(resource.url))
@@ -29,6 +20,22 @@ class ::Middleman::Sitemap::Resource
       $sitemap_pages[title] = value
     end
     $sitemap_pages
+  end
+
+  def sitemap_page_key(page)
+    name = format_name(page.metadata[:page]["title"]).presence
+    name ||= format_name(extract_name(page.url))
+    name
+  end
+
+  def extract_name(path)
+    path.to_s.scan(/([^\/]+)(?:\/|\.\w+)$/).first.first
+  rescue
+    path
+  end
+
+  def format_name(name)
+    name.to_s.downcase.gsub(/[\s\/?]|(&mdash;)/, '-').gsub(/\-+/, '-')
   end
 
   def in_version_range?(range, version)
@@ -184,8 +191,7 @@ class ::Middleman::Sitemap::Resource
     end
   end
 
-  def render(opts={}, locs={}, &block)
-    data = old_render(opts, locs, &block)
+  def process_data!(data)
     $sitemap_pages ||= sitemap_pages
 
     # process the generated html
@@ -195,5 +201,18 @@ class ::Middleman::Sitemap::Resource
     colorize_code!(data)
 
     data
+  end
+end
+
+
+class ::Middleman::Sitemap::Resource
+  include SitemapRenderOverride
+
+  alias_method :old_render, :render
+
+  # accepts the rendered data, and then does some crazy shit to it
+  def render(opts={}, locs={}, &block)
+    data = old_render(opts, locs, &block)
+    process_data!(data)
   end
 end

@@ -1,4 +1,4 @@
-Click the link for your operating system to see instructions on how to install Riak:
+Click the link for your operating system to see instructions on how to install Riak. But first, you must [[Install Erlang|Installing Erlang]].
 
   * [[Installing on Debian and Ubuntu]]
   * [[Installing on RHEL and CentOS]]

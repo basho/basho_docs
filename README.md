@@ -12,7 +12,7 @@ bundle install
 bundle exec middleman server
 ```
 
-Optionally, run with specifying a version of the docs to generate
+Optionally, run with specifying a version of the docs to run that version locally.
 
 ```
 RIAK_VERSION=1.2.0 bundle exec middleman server

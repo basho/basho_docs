@@ -94,6 +94,8 @@ end
 ###
 
 helpers do
+  include ::SitemapRenderOverride
+
   # get all pages that match this page's keywords
   def similar_pages(page)
     return [] if page.blank?
@@ -137,6 +139,57 @@ helpers do
       }
     end
     projects
+  end
+
+  # used to convert global nav wiki links into real links
+  def wiki_to_link(wiki_link)
+    link_found = ($wiki_links ||= {})[wiki_link]
+    return link_found if link_found
+    if wiki_link =~ (/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/)
+      link_name = $2 || $1
+      link_label = $1 || link_name
+      anchor = nil
+      link_name, anchor = link_name.split('#', 2) if link_name.include?('#')
+      sitemap_key = format_name(link_name)
+      link_data = sitemap_pages[sitemap_key] || {}
+      # heuristic that an unfound url, is probably not a link
+      link_url = link_data[:url]
+      unless link_url.blank? && link_name.scan(/[.\/]/).empty?
+        # no html inside of the link or label
+        link_label.gsub!(/\<[^\>]+\>/, '_')
+        link_url ||= link_name
+        link_url = '/index.html' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
+        link_url += '#' + anchor unless anchor.blank?
+        link_url.gsub!(/\<[^\>]+\>/, '_')
+        return $wiki_links[wiki_link] = {:name => link_label, :url => link_url, :key => sitemap_key}
+      end
+    end
+    {}
+  end
+
+  # generate reverse breadcrumbs
+  def build_breadcrumbs(parent, searching)
+    parent.each do |child|
+      if child.class == String
+        link_data = wiki_to_link(child)
+        return [{}] if searching == link_data[:key]
+      elsif child.include?('title')
+        link_data = wiki_to_link(child['title'])
+        if (response = build_breadcrumbs(child['sub'], searching)).present?
+          return [link_data] + response
+        elsif searching == link_data[:key]
+          return [{}]
+        end
+      end
+    end
+    []
+  end
+
+  def bread_crumbs(page)
+    return [] if page.blank?
+    page_key = sitemap_page_key(page)
+    project = page.metadata[:page]["project"] || 'riak'
+    build_breadcrumbs(data.global_nav[project], page_key)
   end
 
   def build_nav(section, depth=1)
