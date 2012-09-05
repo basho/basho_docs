@@ -41,10 +41,12 @@ module ::Middleman::Features::Deploy
 
           # anything under images, js, css goes to "shared"
           if f =~ /^\.\/build\/(?:images|js|css)\//
-            # upload for all project versions, if a distinction exists?
-            project = "riak"
-            version = $versions[project.to_sym]
-            key = f.sub(/\.\/build\//, "shared/#{version}/")
+            # upload shared for all given project versions
+            $versions.values.uniq.each do |version|
+              key = f.sub(/\.\/build\//, "shared/#{version}/")
+              AWS::S3::S3Object.store(key, File.open(f), S3_BUCKET, attrs)
+            end
+            next
           elsif f == "./build/favicon.ico"
             key = "/favicon.ico"
           else

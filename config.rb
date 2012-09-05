@@ -2,6 +2,7 @@ require 'aws/s3'
 require 'versionomy'
 require './lib/version_router'
 require './lib/faqml'
+require './lib/dr_rockzo'
 require './lib/deploy'
 require './lib/sitemap_render_override'
 
@@ -55,6 +56,7 @@ use Rack::Middleman::VersionRouter #if $versions[:riak].present?
 
 # Register the FML plugin to middleman
 Middleman::Application.register Middleman::Renderers::FAQML
+# Middleman::Application.register Middleman::Renderers::DrRockzo
 
 
 #############
@@ -148,6 +150,7 @@ helpers do
   end
 
   # used to convert global nav wiki links into real links
+  # TODO: extract this into reuable method
   def wiki_to_link(wiki_link)
     link_found = ($wiki_links ||= {})[wiki_link]
     return link_found if link_found
@@ -164,7 +167,6 @@ helpers do
         # no html inside of the link or label
         link_label.gsub!(/\<[^\>]+\>/, '_')
         link_url ||= link_name
-        # link_url = '/index.html' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
         link_url += '#' + anchor unless anchor.blank?
         link_url.gsub!(/\<[^\>]+\>/, '_')
         return $wiki_links[wiki_link] = {:name => link_label, :url => link_url, :key => sitemap_key}
@@ -199,16 +201,26 @@ helpers do
   end
 
   def build_nav(section, depth=1)
-    nav = "<ul class=\"depth-#{depth}\">"
+    active = false
+    nav = ''
     section.each do |sub|
       if sub.class == String
-        nav += "<li>#{sub}</li>"
+        link_data = wiki_to_link(sub)
+        current_link = link_data[:url] == current_page.url
+        active ||= current_link
+        nav += "<li#{current_link ? ' class="active current"' : ''}>#{sub}</li>"
       else
-        nav += "<li><h4>#{sub['title']}</h4>#{build_nav(sub['sub'], depth+1)}</li>"
+        nested, sub_active = build_nav(sub['sub'], depth+1)
+        link_data = wiki_to_link(sub['title'])
+        current_link = link_data[:url] == current_page.url
+        active ||= sub_active || current_link
+        active_class = active ? ' class="active"' : ''
+        current_class = current_link ? ' class="active current"' : ''
+        nav += "<li#{active_class}><h4#{current_class}>#{sub['title']}</h4>#{nested}</li>"
       end
     end
-    nav += "</ul>"
-    nav
+    nav = "<ul class=\"depth-#{depth} #{active ? 'active' : ''}\">" + nav + "</ul>"
+    [nav, active]
   end
 
 end
