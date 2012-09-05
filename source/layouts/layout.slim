@@ -11,6 +11,8 @@ head(class=data.page.document)
   meta charset="utf-8"
   meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
   meta content="width=device-width" name="viewport"
+  meta content="project" name=(data.page.project || 'riak')
+  meta content="version" name=current_version
   title== data.page.title || "Riak Documents"
   == stylesheet_link_tag "style"
   == javascript_include_tag "all"

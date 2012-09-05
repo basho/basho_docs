@@ -4,7 +4,7 @@ ol.versions
     - version = versions.first
     li(class=(is_version?(project, version) ? 'current' : ''))
       - # HACK to deal with the riak*-index name change
-      - if current_page.url =~ /riak[^\/\-]*?\-index/
+      - if current_page.url =~ /\/riak[^\/]*?\/[^\/]+\/?(index\.html)?$/
         == link_to version, "/#{project}/#{version}/"
       - else
         == link_to version, "/#{project}/#{version}#{current_page.url}"

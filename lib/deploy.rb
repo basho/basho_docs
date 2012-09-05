@@ -10,7 +10,7 @@ module Middleman
   end
 end
 
-module Middleman::Features::Deploy
+module ::Middleman::Features::Deploy
   S3_BUCKET = 'riakdocstest'
   ACCESS_KEY_ID = ENV['RIAK_DOCS_ACCESS_KEY']
   SECRET_ACCESS_KEY = ENV['RIAK_DOCS_SECRET_KEY']
@@ -19,6 +19,13 @@ module Middleman::Features::Deploy
   class << self
     def registered(app)
       app.after_build do
+        # dig into the file to see what project it belongs under
+        def get_project(file)
+          # puts file
+          File.readlines(file).join.to_s =~ /\<meta\s+content\s*\=\s*["']project["']\s+name\s*\=\s*["']([^"']+)["']/
+          $1 || "riak"
+        end
+
         puts "moving to S3"
         files = Dir['./build/**/*']
 
@@ -34,22 +41,20 @@ module Middleman::Features::Deploy
 
           # anything under images, js, css goes to "shared"
           if f =~ /^\.\/build\/(?:images|js|css)\//
-            # TODO: upload for all project versions, if a distinction exists
+            # upload for all project versions, if a distinction exists?
             project = "riak"
             version = $versions[project.to_sym]
             key = f.sub(/\.\/build\//, "shared/#{version}/")
+          elsif f == "./build/favicon.ico"
+            key = "/favicon.ico"
           else
-            # TODO: dig into the file to see what project it belongs under
-            project = "riak"
+            project = get_project(f)
             version = $versions[project.to_sym]
 
-            # HACK to deal with the riak*-index name change
-
             if f =~ /^\.\/build\/index.html\//
-              # generate an index with fully absolute links
               key = 'index.html'
-            elsif f =~ /^\.\/build\/riak[^\/\-]*?\-index.html\//
-              key = "#{project}/#{version}/index.html"
+            elsif f =~ /\/(riak[^\/\-]*?\/#{version}\/index\.html)$/
+              key = $1
             else
               key = f.sub(/\.\/build\//, "#{project}/#{version}/")
             end
@@ -99,10 +104,12 @@ module Middleman::Features::Deploy
   end
 end
 
-module Middleman::Features::ProductionCheck
+$production = false
+
+module ::Middleman::Features::ProductionCheck
   class << self
     def registered(app)
-      # $production = true
+      $production = true
       raise "RIAK_VERSION required to deploy" unless $versions[:riak]
     end
   end

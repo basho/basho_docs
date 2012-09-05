@@ -5,13 +5,15 @@ require './lib/faqml'
 require './lib/deploy'
 require './lib/sitemap_render_override'
 
+DEFAULT_VERSION = '1.2.0'
+
 $versions = {
   :riak => ENV['RIAK_VERSION'].presence,
   :riakcs => ENV['RIAKCS_VERSION'].presence || ENV['RIAK_VERSION'].presence,
   :riakee => ENV['RIAKEE_VERSION'].presence || ENV['RIAK_VERSION'].presence
 }
 
-use Rack::Middleman::VersionRouter if $versions[:riak].present?
+use Rack::Middleman::VersionRouter #if $versions[:riak].present?
 
 
 ### 
@@ -108,6 +110,10 @@ helpers do
     pages.delete_if{|g| g.url == page.url }.to_a
   end
 
+  def current_version
+    $versions[(data.page.project || 'riak').to_sym] || DEFAULT_VERSION
+  end
+
   def version_bar(project)
     versions = YAML::load(File.open('data/versions.yml'))
     versions[project.to_s] || []
@@ -158,7 +164,7 @@ helpers do
         # no html inside of the link or label
         link_label.gsub!(/\<[^\>]+\>/, '_')
         link_url ||= link_name
-        link_url = '/index.html' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
+        # link_url = '/index.html' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
         link_url += '#' + anchor unless anchor.blank?
         link_url.gsub!(/\<[^\>]+\>/, '_')
         return $wiki_links[wiki_link] = {:name => link_label, :url => link_url, :key => sitemap_key}
@@ -233,17 +239,10 @@ set :markdown, :fenced_code_blocks => true,
 
 activate :directory_indexes
 
-# page "/riak-index.html", :directory_index => false
-# page "/riakcs-index.html", :directory_index => false
-# page "/riakee-index.html", :directory_index => false
-
 %w{riak riakcs riakee}.each do |project|
-  version = $versions[project.to_sym] || '1.2.0'
-  page "/#{project}/#{version}/index.html", :proxy => "/#{project}-index.html", :directory_index => false
+  version = $versions[project.to_sym] || DEFAULT_VERSION
+  page "/#{project}/#{version}/index.html", :proxy => "/#{project}-index.html", :directory_index => false, :ignore => true
 end
-
-# add a redirect to */index.html only if version isn't given
-# page "/riak/1.2.0/"
 
 
 # Build-specific configuration
@@ -269,5 +268,5 @@ configure :build do
   # Or use a different image path
   # set :http_path, "/Content/images/"
 
-  # activate Middleman::Features::Deploy
+  activate Middleman::Features::Deploy
 end
