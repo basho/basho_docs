@@ -141,6 +141,13 @@ module SitemapRenderOverride
       anchor = $1
 
       href = (anchor.scan(/href\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s
+
+      if url =~ /\/http\/single/
+        if href.include?('#')
+          next "<a #{anchor}>"
+        end
+      end
+
       
       # keep it the same
       if version_str.blank? || href =~ /^\/riak[^\/]*\// || href =~ /^http[s]?\:/ 

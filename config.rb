@@ -2,7 +2,7 @@ require 'aws/s3'
 require 'versionomy'
 require './lib/version_router'
 require './lib/faqml'
-require './lib/dr_rockzo'
+require './lib/rocco'
 require './lib/deploy'
 require './lib/sitemap_render_override'
 
@@ -15,6 +15,15 @@ $versions = {
 }
 
 use Rack::Middleman::VersionRouter #if $versions[:riak].present?
+
+# this is not optimal. Hook it into the "watch" mechanism
+puts "Generating API"
+for api in Dir.glob("**/*.api")
+  r = Rocco.new(api, [], :language => 'bash', :template_file => './source/layouts/api.mustache') #{File.read(api)}
+  File.open(api.sub(/\.api$/, '.html.erb'), 'w') do |html|
+    html.write(r.to_html)
+  end
+end
 
 
 ### 
@@ -56,7 +65,7 @@ use Rack::Middleman::VersionRouter #if $versions[:riak].present?
 
 # Register the FML plugin to middleman
 Middleman::Application.register Middleman::Renderers::FAQML
-# Middleman::Application.register Middleman::Renderers::DrRockzo
+# Middleman::Application.register Middleman::Renderers::Rocco
 
 
 #############
@@ -83,14 +92,10 @@ ready do
     end
   end
 
+  for api in Dir.glob("**/*.api")
+    page api.sub(/\.?\/?source/, '').sub(/\.api$/, '.html'), :layout => false
+  end
 
-  # generate versions
-  # sitemap.pages.group_by {|p| p.data["category"] }.each do |category, pages|
-  #   page "/categories/#{category}.html", :proxy => "category.html" do
-  #     @category = category
-  #     @pages = pages
-  #   end
-  # end
 end
 
 ###
@@ -127,9 +132,11 @@ helpers do
 
   def api_index(api_dir_name)
     apis_path = current_path.sub(/(\w+\.html)$/, '')
+    # apis_path = "/references/apis/"
     dir = sitemap.find_resource_by_destination_path("#{apis_path}#{api_dir_name}/index.html").source_file.sub(/([^\/]+)$/, '')
     groups = {}
     for file in Dir.glob("#{dir}*")
+      next if file =~ /(?:html|:api)$/
       page = sitemap.find_resource_by_path(sitemap.file_to_path(file))
       metadata = page.metadata[:page] || {}
       next if metadata["index"].to_s =~ /true/i

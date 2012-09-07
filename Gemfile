@@ -9,6 +9,7 @@ gem "github-markdown"
 gem "org-ruby"  # org mode
 gem "slim"
 gem "faqml", ">= 0.2.1"
+gem "rocco"
 gem "versionomy"
 gem "aws-s3"
 gem "ruby-hmac"
