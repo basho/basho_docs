@@ -22,3 +22,20 @@ A:
   ```
   
   There is no limit on how large or small the expiry_secs setting can be as long as it is greater than 0. Please see the wiki for additional details on [configuring Bitcask](/Bitcask.html).
+
+Q: Is there better performance for a few objects in many buckets, or many objects in a few buckets?
+A:
+  Generally speaking, it does not matter if you have many buckets with a small number of objects or a small number of buckets with a large number of objects. Buckets that use the cluster's default bucket properties (which can be set in your app.config file) are essentially free. 
+
+  However, if the buckets require different bucket properties, those custom properties incur some cost because changes in bucket properties must be gossiped around the cluster. If you create many, many buckets with custom properties the cost can have an impact.
+
+Q: Can I list buckets or keys in production
+A:
+  It is not recommended to perform a bucket listing in production because whether or not the bucket has a small number of objects it is a costly operation.
+  
+  One important thing to keep in mind about buckets is that they are less like directories on a file system or tables in a database, and more like logical properties applied to objects. That is, there is no actual separation of objects by bucket.
+
+  The impact of this design is that in order to determine all objects that are in a bucket, first all of the objects must be listed, and then all of the objects that are not in that bucket are filtered out. The intention for buckets is to be able to apply different parameters to objects such as, for example, how many replicas of the object to keep. 
+
+  The solution in this case would be to keep track of objects which need to be grouped or listed in this manner using a strategy such as storing an object with the list of objects, secondary indexing, or search. Depending on your application requirements these options have different pros and cons
+

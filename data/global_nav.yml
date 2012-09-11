@@ -61,6 +61,7 @@ riak:
           - "[[Open Files Limit]]"
           - "[[Recovering a Failed Node]]"
           - "[[Benchmarking]]"
+          - "[[Statistics and Monitoring]]"
           - "[[Inspecting a Node]]"
           - "[[Repairing Search Indexes]]"
           - "[[Repairing KV Indexes]]"
@@ -141,10 +142,26 @@ riakcs:
   - title: "[[All Riak Projects|/index.html]]"
     sub: []
   - title: "[[Getting Started|Riak CS]]"
+    sub: []
+  - title: "[[Installing|Installing Riak CS]]"
     sub:
-    - "[[Installation|Installing Riak CS]]"
-    # - "[[Querying]]"
-
+      - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
+      - "[[Installing With Chef|Riak CS Using Chef]]"
+      - "[[Installation Video|Riak CS Installation Video]]"
+  - title: "[[Configuring|Configuring Riak CS Overview]]"
+    sub:
+      - "[[Configuring Riak]]"
+      - "[[Configuring Riak CS]]"
+      - "[[Configuring Stanchion]]"
+      - "[[Configuring an S3 client]]"
+  - title: "[[System Features]]"
+    sub:
+      - "[[Access Control Lists]]"
+      - "[[Authentication]]"
+      - "[[Monitoring and Metrics]]"
+      - "[[Querying Access Statistics]]"
+      - "[[Querying Storage Statistics]]"
+      - "[[Usage and Billing Data]]"
   - title: "Shortcuts"
     sub:
       - "[[FAQs|Riak CS FAQs]]"

@@ -4,7 +4,7 @@ project: riak
 version: 0.10.0+
 document: appendix
 toc: true
-keywords: [community, resources]
+keywords: [community, resources, videos]
 ---
 
 This is a collection of videos from across the Riak community. They range from Basho webinars, to meeetup presentations, to conference talks.
@@ -12,8 +12,6 @@ This is a collection of videos from across the Riak community. They range from B
 ## Videos
 
 <table class="vid_table">
-
-
     <tr>
         <td class="vid_td"><a href="http://player.vimeo.com/video/42744689" target="_blank" title="Scaling Riak at Kiip">
 		   <img class="vid_img"src="http://b.vimeocdn.com/ts/296/624/296624215_200.jpg"/>

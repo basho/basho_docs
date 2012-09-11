@@ -12,7 +12,6 @@ This page is a collection of videos, slides, papers, and other media discussing 
 
 _If you have a video to add, please fork the [Riak Wiki Repo on GitHub](https://github.com/basho/riak_wiki) and do so._
 
-
 ## Videos
 
 <table class="vid_table">
@@ -55,5 +54,3 @@ _If you have a Slide Deck to add, please fork the [Riak Wiki Repo on GitHub](htt
 * [[Configure a Riak Cluster|http://www.slideshare.net/mbbx6spp/link-walking-with-riak]] - Describe how to create, manage and traverse links in Riak KV. 
 * [[Link Walking with Riak|http://www.slideshare.net/seancribbs/riakjs-javascript-turtles-all-the-way-down]] - riak-js is an awesome client driver for the Riak distributed datastore.
 * [[Riak with node.js|http://www.slideshare.net/seancribbs/riak-with-nodejs]] - Learn how to use Riak with node.js applications.
-
-

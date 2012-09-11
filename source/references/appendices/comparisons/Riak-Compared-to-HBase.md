@@ -70,7 +70,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
         <td>HBase communicates primarily through code that runs on the JVM (Java, Jython, Groovy, etc.). Alternatively, HBase provides external protocols; either REST or Thrift (a cross-language data service format).
 			<ul>
 				<li>[[Java Interface|http://hbase.apache.org/book/architecture.html|]]</li>
-				<li>[[REST|http://wiki.apache.org/hadoop/HBase/Stargate]]</li>
+				<li>[[REST|http://wiki.apache.org/hadoop/Hbase/Stargate]]</li>
 				<li>[[Thrift|http://thrift.apache.org/]]</li>
 			</ul>
 	 </td>
@@ -184,7 +184,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
         <td>HBase has a few community supported graphical tools, and a command-line admin console.
     	<ul>
     	<li>[[Admin Console Tools|http://hbase.apache.org/book/ops_mgt.html#tools]]</li>
-    	<li>[[Eclipse Dev Plugin|http://wiki.apache.org/hadoop/HBase/EclipseEnvironment]]</li>
+    	<li>[[Eclipse Dev Plugin|http://wiki.apache.org/hadoop/Hbase/EclipseEnvironment]]</li>
     	<li>[[HBase Manager|http://sourceforge.net/projects/hbasemanagergui/]]</li>
     	<li>[[GUI Admin|https://github.com/zaharije/hbase-gui-admin]]</li>
         </ul>

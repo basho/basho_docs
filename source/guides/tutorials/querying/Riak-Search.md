@@ -103,7 +103,6 @@ Riak Search is comprised of:
 ** *Bitcask* -  Default storage backend used by Riak KV.
 * *Riak Search* - Distributed index and full-text search engine.
 ** *Merge Index* - Storage backend used by Riak Search. This is a pure Erlang storage format based roughly on ideas borrowed from other storage formats including log structured merge trees, sstables, bitcask, and the Lucene file format.
-** *Qilr* - Library for parsing queries into execution plans and documents into terms.
 ** *Riak Solr* - Adds a subset of Solr HTTP interface capabilities to Riak Search.
 
 

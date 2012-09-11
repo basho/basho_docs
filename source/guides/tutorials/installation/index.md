@@ -21,6 +21,10 @@ Click the link for your operating system to see instructions on how to install R
   * [[Rolling Upgrades]]
   * [[Upgrading from Riak Search]] {{<1.0.0}}
 
+### Cookbooks
+
+  * [[Installing With Chef]]
+
 ## Starting up
 
 To start up a Riak node, change directory as necessary to where you installed Riak (in the source directory, it's `rel/riak/bin` and run the riak command like so:

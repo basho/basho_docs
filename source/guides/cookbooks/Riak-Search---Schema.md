@@ -198,7 +198,7 @@ You can create your own custom analyzers in Erlang.
 
 Some tips:
 
-* Model your custom analyzer after an existing analyzer.  See "apps/qilr/src/text_analyzers.erl" for sample code.
+* Model your custom analyzer after an existing analyzer.  See [[https://github.com/basho/riak_search/blob/master/src/text_analyzers.erl]] for sample code.
  
 * The analyzer should take a string and configuration parameters and return a list of tokens. The order of tokens is important for proximity searching.
   

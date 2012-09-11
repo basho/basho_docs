@@ -22,6 +22,8 @@ All of these projects and libraries are at various stages of completeness and ma
 *C/C++*
 * [[riak-cpp|https://github.com/ajtack/riak-cpp]] - A C++ Riak client library for use with C++11 compilers
 * [[Riak C Driver|https://github.com/fenek/riak-c-driver]]
+* [[Riack|https://github.com/trifork/riack]] - A simple C client library
+* [[Riack++|https://github.com/TriKaspar/riack_cpp]] - A C++ wrapper around riack
 
 *Clojure*
 * [[knockbox|https://github.com/reiddraper/knockbox]] - An eventual-consistency toolbox for Clojure 
@@ -77,9 +79,10 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Node.js*
 * [[node_riak|https://github.com/mranney/node_riak]] - Voxer's production Node.js client for Riak. 
+* [[nodiak|https://github.com/Coradine/nodiak]] - Supports bulk get/save/delete, sibling auto-resolution, MapReduce chaining, Search, and 2i's.
 * [[resourceful-riak|https://github.com/admazely/resourceful-riak]] - A Riak engine to the [[resourceful|https://github.com/flatiron/resourceful/]] model framework from [[flatiron|https://github.com/flatiron/]].
 * [[Connect-Riak|https://github.com/frank06/connect-riak]] - Riak Session Store for Connect backed by [[Riak-js|http://riakjs.org/]]
-* [[Riak-js|http://riakjs.org/]] - Node.js client for Riak with support for HTTP and Protocol Buffers
+* [[Riak-js|http://riakjs.com]] - Node.js client for Riak with support for HTTP and Protocol Buffers
 * [[Riakjs-model|https://github.com/dandean/riakjs-model]] - a model abstraction around riak-js
 * [[Node-Riak|http://github.com/orlandov/node-riak]]
 * [[Nori|https://github.com/sgonyea/nori]] - Experimental Riak HTTP Library for Node.js modeled after Ripple

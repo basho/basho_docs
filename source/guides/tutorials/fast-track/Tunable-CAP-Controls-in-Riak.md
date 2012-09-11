@@ -89,7 +89,7 @@ Congratulations. If you're reading this and have done the Fast Track in order, i
 
 But, there is always more Riak learning to be done, so here is a list of next steps you may want to take if you are still interested in Riak. Whatever you do, if you have a moment, send an email to _mark@basho.com_ with your thoughts on what you thought we did well, and, more importantly, how we can make the Riak Fast Track better.
 
-* If you'd like more general information about Riak, check out our collections of [[Publications]], [[Slides|Slide Decks]], and [[Videos]]
+* If you'd like more general information about Riak, check out our collections of [[Publications]] and [[Slides|Slide Decks]].
 * For more info on how to interact with Riak from your language of choice, start with [[Client Libraries]]
 * To download a platform-specific package of Riak, check out [[Getting Started|Installation]]
 * If you're interested in knowing how Riak stacks up to a few other databases, have a look at [[Riak Comparisons|Riak Comparisons]]

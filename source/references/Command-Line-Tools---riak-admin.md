@@ -1,7 +1,7 @@
 ---
 title: riak-admin Command Line
 project: riak
-version: 0.10.0+
+version: 1.2.0+
 document: reference
 toc: true
 audience: beginner
@@ -35,16 +35,14 @@ The following commands stage changes to cluster membership. These commands
 do not take effect immediately. After staging a set of changes, the staged
 plan must be committed using the staging commands to take effect:
 
-### Cluster Commands
-
-#### cluster join
+## cluster join
 Join this node to the cluster containing &lt;node&gt;.
 
 ```bash
 riak-admin cluster join <node>
 ```
 
-#### cluster leave
+## cluster leave
 Instruct this node to hand off its data partitions, leave the cluster and shutdown.
 
 ```bash
@@ -56,20 +54,20 @@ Instruct &lt;node&gt; to hand off its data partitions, leave the cluster and shu
 ```bash
 riak-admin cluster leave <node>
 ```
-#### cluster force-remove
+## cluster force-remove
 Remove &lt;node&gt; from the cluster without first handing off data partitions. This command is designed for crashed, unrecoverable nodes, and should be used with caution.
 
 ```bash
 riak-admin cluster force-remove <node>
 ```
-#### cluster replace
+## cluster replace
 Instruct &lt;node1&gt; to transfer all data partitions to &lt;node2&gt;, then leave the cluster and shutdown.
 
 ```bash
 riak-admin cluster replace <node1> <node2>
 ```
 
-#### cluster force-replace
+## cluster force-replace
 Reassign all partitions owned by &lt;node1&gt; to &lt;node2&gt; without first handing off data, and then remove &lt;node1&gt; from the cluster.
 
 ```bash
@@ -163,16 +161,13 @@ By default this is set to "riak" in the [[vm.args|Configuration Files#vm.args]] 
 * &lt;filename&gt; is the file where the backup is stored. _This should be the
 full path to the file._
 
-
 ```bash
 riak-admin restore <node> <cookie> <filename>
 ```
 
-
 ## test
 
 Runs a test of a few standard Riak operations against the running node.
-
 
 ```
 riak-admin test
@@ -180,21 +175,20 @@ riak-admin test
 
 ## reip
 
+_This will likely be removed in future versions. Instead use `riak-admin cluster replace`._
+
 Renames a node. The current ring state will be backed up in the process. **The
 node must NOT be running for this to work.**
-
 
 ```bash
 riak-admin reip <old nodename> <new nodename>
 ```
-
 
 ## js-reload
 
 Forces the embedded Javascript virtual machines to be restarted. This is useful
 when deploying new custom built-in [[MapReduce]] functions. (_This needs to be
 run on all nodes in the cluster_.)
-
 
 ```bash
 riak-admin js-reload
@@ -214,11 +208,9 @@ Waits on a specific watchable service to be available (typically _riak_kv_).
 This is useful when (re-)starting a node while the cluster is under load. Use
 "services" to see what services are available on a running node.
 
-
 ```
 riak-admin wait-for-service <service> <nodename>
 ```
-
 
 ## ringready
 
@@ -226,18 +218,15 @@ Checks whether all nodes in the cluster agree on the ring state. Prints "FALSE"
 if the nodes do not agree. This is useful after changing cluster membership to
 make sure that ring state has settled.
 
-
 ```bash
 riak-admin ringready
 ```
-
 
 ## transfers
 
 Identifies nodes that are awaiting transfer of one or more partitions. This
 usually occurs when partition ownership has changed (after adding or removing a
 node) or after node recovery.
-
 
 ```bash
 riak-admin transfers
@@ -251,11 +240,11 @@ Change the handoff_concurrency limit.
 riak-admin transfer-limit <node> <limit>
 ```
 
-
 ## force-remove
 
-<div class="note"><div class="title">Deprecation Notice</title></div>
-  <p>As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new <a href="#cluster"><tt>riak-admin cluster force-remove</tt></a> command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
+<div class="note">
+<div class="title">Deprecation Notice</title></div>
+As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new <a href="#cluster"><code>riak-admin cluster force-remove</code></a> command. The command can still be used by providing a <code>-f</code> option, however.
 </div>
 
 Immediately removes a node from the cluster without ensuring handoff of its replicas. This is a dangerous command, and is designed to only be used in cases were the normal, safe leave behavior cannot be used -- e.g. when the node you are removing had a major hardware failure and is unrecoverable. Using this command will result in a loss of all replicas living on the removed node which will then need to be recovered through other means such as [[read repair|Replication#Read-Repair]]. It's recommended that you use the [[riak-admin leave|http://wiki.basho.com/Command-Line-Tools---riak-admin.html#leave]] command whenever possible.

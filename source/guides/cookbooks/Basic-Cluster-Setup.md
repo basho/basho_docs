@@ -1,7 +1,7 @@
 ---
 title: Basic Cluster Setup
 project: riak
-version: 0.10.0+
+version: 1.2.0+
 document: cookbook
 toc: true
 audience: beginner
@@ -57,9 +57,10 @@ becomes
     -name riak@192.168.1.10
 
 <div class="info">
-<strong>Node Names</strong><br/>
-<p>Use fully qualified domain names (FQDNs) rather than IP addresses
-for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred.</p></div>
+<strong>Node Names</strong>
+Use fully qualified domain names (FQDNs) rather than IP addresses
+for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred.
+</div>
 
 Start the Riak node:
 
@@ -78,14 +79,23 @@ Add a Second Node to Your Cluster
 ---------------------------------
 
 Repeat the above steps for a second host on the same network. Once the
-second node has started, use `riak-admin join` to join the second node
+second node has started, use `riak-admin cluster join` to join the second node
 to the first node, thereby creating an initial Riak cluster.
 
-    bin/riak-admin join riak@192.168.1.10
+    bin/riak-admin cluster join riak@192.168.1.10
 
 Output from the above should resemble:
 
-    Sent join request to riak@192.168.1.10.
+Success: staged join request for `riak@192.168.1.11` to `riak@192.168.1.10`
+
+Next, plan and commit the changes:
+
+    bin/riak-admin cluster plan
+    bin/riak-admin cluster commit
+
+After the last command, you should see:
+
+    Cluster changes committed
 
 If your output was similar, then the second Riak node is now part of the cluster and has begun syncing with the first node. Riak provides several ways to determine the cluster ring status; here are two ways to examine your Riak cluster's ring:
 
@@ -106,6 +116,8 @@ Using the `riak attach` command:
     ['riak@192.168.1.10','riak@192.168.1.11']
 
 To join additional nodes to your cluster, repeat the above steps.
+You can also find more detailed instructions about [[Adding and Removing Nodes]]
+from a cluster.
 
 <div class="info"><strong>Ring Creation Size</strong>
 <p>All nodes in the cluster must have the same initial <code>ring_creation_size</code> setting in order to join, and participate in cluster activity. This setting can be adjusted in app.config.</p>
@@ -131,11 +143,8 @@ To run multiple nodes, make copies of the `riak` directory.
 Presuming that you copied `./rel/riak` into `./rel/riak1`,
 `./rel/riak2`, `./rel/riak3`, and so on:
 
--   In the `app.config` file for each node, change `handoff_port`,
-    `pb_port`, and the port number specified in the `http{}` section to
-    unique ports for each node.
--   In `vm.args`, change the line that says `-name riak`127.0.0.1@ to a
-    unique name for each node, for example: `-name riak1`127.0.0.1@.
+* In the `app.config` file for each node, change `handoff_port`, `pb_port`, and the port number specified in the `http{}` section to unique ports for each node.
+* In `vm.args`, change the line that says `-name riak@127.0.0.1` to a unique name for each node, for example: `-name riak1@127.0.0.1`.
 
 Now, start the nodes, changing path names and nodes as appropriate:
 
@@ -146,8 +155,10 @@ Now, start the nodes, changing path names and nodes as appropriate:
 
 Next, join the nodes into a cluster:
 
-    ./rel/riak2/bin/riak-admin join riak1@127.0.0.1
-    ./rel/riak3/bin/riak-admin join riak1@127.0.0.1
+    ./rel/riak2/bin/riak-admin cluster join riak1@127.0.0.1
+    ./rel/riak3/bin/riak-admin cluster join riak1@127.0.0.1
+    ./rel/riak2/bin/riak-admin cluster plan
+    ./rel/riak2/bin/riak-admin cluster commit
 
 Make a Developer Release
 ------------------------

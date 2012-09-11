@@ -39,6 +39,11 @@ The node must be running for most of these commands to work. The following
 subcommands are supported:
 
 * [[cluster|Command Line Tools - riak-admin#cluster]]
+  * [[cluster join|Command Line Tools - riak-admin#cluster join]]
+  * [[cluster leave|Command Line Tools - riak-admin#cluster leave]]
+  * [[cluster force-remove|Command Line Tools - riak-admin#cluster force-remove]]
+  * [[cluster replace|Command Line Tools - riak-admin#cluster replace]]
+  * [[cluster force-replace|Command Line Tools - riak-admin#cluster force-replace]]
 * [[join|Command Line Tools - riak-admin#join]]
 * [[leave|Command Line Tools - riak-admin#leave]]
 * [[backup|Command Line Tools - riak-admin#backup]]
@@ -46,7 +51,7 @@ subcommands are supported:
 * [[test|Command Line Tools - riak-admin#test]]
 * [[status|Command Line Tools - riak-admin#status]]
 * [[reip|Command Line Tools - riak-admin#reip]]
-* [[js-reload|Command Line Tools - riak-admin#js_reload]]
+* [[js-reload|Command Line Tools - riak-admin#js-reload]]
 * [[wait-for-service|Command Line Tools - riak-admin#wait-for-service]]
 * [[services|Command Line Tools - riak-admin#services]]
 * [[ringready|Command Line Tools - riak-admin#ringready]]

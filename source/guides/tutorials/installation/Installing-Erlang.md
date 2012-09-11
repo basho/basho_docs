@@ -18,6 +18,7 @@ The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS in
 </div>
 
 ## Install using kerl
+
 You can install different Erlang versions in a simple manner with the [kerl](https://github.com/spawngrid/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following command:
 
 ```bash

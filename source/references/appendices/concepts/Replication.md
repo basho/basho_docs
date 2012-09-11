@@ -29,7 +29,7 @@ Changing the N value after a bucket has data in it is **not recommended**. If yo
 ## Read Repair
 Read repair occurs when a successful read occurs — that is, the quorum was met — but not all replicas from which the object was requested agreed on the value. There are two possibilities here for the errant nodes:
 
-  1. The node responded with a “not found” for the object, meaning it doesn`t have a copy.
+  1. The node responded with a “not found” for the object, meaning it doesn't have a copy.
   2. The node responded with a vector clock that is an ancestor of the vector clock of the successful read.
 
 When this situation occurs, Riak will force the errant nodes to update their object values based on the value of the successful read.
@@ -47,7 +47,7 @@ As nodes are added and removed from the cluster, the ownership of partitions cha
 For cases where the number of nodes is less than the N value, data will likely be duplicated on some nodes. For example, with N=3 and 2 nodes in the cluster, one node will likely have one replica, and the other node will have two replicas.
 
 ## Understanding replication by example
-To better understand how data is replicated in Riak let`s take a look at a put request for the bucket/key pair <<"my_bucket">>/<<"my_key">>. Specifically we`ll focus on two parts of the request, routing an object to a set of partitions and storing an object on a partition.
+To better understand how data is replicated in Riak let's take a look at a put request for the bucket/key pair <<"my_bucket">>/<<"my_key">>. Specifically we`ll focus on two parts of the request, routing an object to a set of partitions and storing an object on a partition.
 
 ### Routing an object to a set of partitions
 

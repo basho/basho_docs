@@ -75,7 +75,7 @@ Link-walking
 ------------
 
 Link-walking (traversal) is a special case of
-[[MapReduce|MapReduce\#Link phases]] querying, and can be accessed
+[[MapReduce|MapReduce]] querying, and can be accessed
 through the [[HTTP Link Walking]]. Link-walks start at a single input
 object and follow links on that object to find other objects that match
 the submitted specifications. More than one traversal may be specified

@@ -251,7 +251,7 @@ Riak Search implements Stop Words, much as you might find in Solr itself:
 
 The source code for Riak Search's "default analyzer factory" can be found here:
 
-[[http://github.com/basho/riak_search/blob/master/apps/qilr/src/text_analyzers.erl]]
+[[http://github.com/basho/riak_search/blob/master/src/text_analyzers.erl]]
 
 In short, the following words will be skipped when indexing. The official list is maintained in the source file, linked above:
 

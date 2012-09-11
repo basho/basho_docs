@@ -36,6 +36,13 @@ keywords: [operator]
   * [[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]
   * [[MapReduce/Search/2i Comparison]]
 * [[Troubleshooting]]
+  * [[Open Files Limit]]
+  * [[Recovering a Failed Node]]
+  * [[Benchmarking]]
+  * [[Statistics and Monitoring]]
+  * [[Inspecting a Node]]
+  * [[Repairing Search Indexes]]
+  * [[Repairing KV Indexes]]
 * References
   * [[riak-admin|Command-Line-Tools - riak]] *(Command-Line Tool)*
 * [[Operating Riak FAQs]]
