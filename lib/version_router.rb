@@ -17,8 +17,8 @@ module Rack::Middleman
     end
 
     def alter_route(env, var)
-      unless env[var] =~ /\/(riak[^\/]*?\/[^\/]+)\/?(index\.html)?$/
-        env[var] = env[var].sub(/\/(?:riak[^\/]*?|shared)\/[^\/]+/, '') if env.include?(var)
+      unless env[var] =~ /\/(riak[^\/]*?\/[\d\.]+)\/?(index\.html)?$/
+        env[var] = env[var].sub(/\/(?:riak[^\/]*?|shared)\/[\d\.]+/, '') if env.include?(var)
       else
         env[var] = "/#{$1}/index.html"
       end

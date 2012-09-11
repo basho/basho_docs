@@ -14,6 +14,36 @@ $versions = {
   :riakee => ENV['RIAKEE_VERSION'].presence || ENV['RIAK_VERSION'].presence
 }
 
+module VersionifyPaths
+  class << self
+    def registered(app)
+      app.after_configuration do
+        sitemap.register_resource_list_manipulator(
+          :versionify,
+          VersionifyPathsManipulator.new(self),
+          false
+        )
+      end
+    end
+    alias :included :registered
+  end
+
+  class VersionifyPathsManipulator
+    def initialize(app)
+      @app = app
+    end
+
+    def manipulate_resource_list(resources)
+      resources.each do |resource|
+        path = resource.destination_path
+        next if path =~ /^riak[^\/]*\/[\d\.]+\/index\.html/
+        resource.destination_path = path.sub(/^(riak[^\/]*)\//, '')
+      end
+    end
+  end
+end
+::Middleman::Extensions.register(:versionify, VersionifyPaths)
+
 use Rack::Middleman::VersionRouter #if $versions[:riak].present?
 
 # this is not optimal. Hook it into the "watch" mechanism
@@ -54,6 +84,7 @@ end
 # with_layout :admin do
 #   page "/admin/*"
 # end
+
 
 # Proxy (fake) files
 # page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
@@ -116,8 +147,19 @@ helpers do
     pages.delete_if{|g| g.url == page.url }.to_a
   end
 
-  def current_version
-    $versions[(data.page.project || 'riak').to_sym] || DEFAULT_VERSION
+  def current_version(default_proj='riak')
+    $versions[(data.page.project || default_proj).to_sym] || DEFAULT_VERSION
+  end
+
+  def project_version_path(page)
+    project = (page.metadata[:page] || {})['project'] || 'riak'
+    version = current_version(project)
+    current_project = (current_page.metadata[:page] || {})['project'] || 'riak'
+    url = page.url.sub(/\.html/, '/')
+    if project != current_project
+      url = "/#{project}/#{version}#{url}"
+    end
+    url
   end
 
   def version_bar(project)
@@ -256,6 +298,7 @@ set :markdown, :fenced_code_blocks => true,
                # :with_toc_data => true
 
 activate :directory_indexes
+activate :versionify
 
 %w{riak riakcs riakee}.each do |project|
   version = $versions[project.to_sym] || DEFAULT_VERSION

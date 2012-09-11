@@ -1,8 +1,8 @@
 ---
-title: Inspecting a Node
+title: Inspecting a Riak Node
 project: riak
 version: 0.10.0+
-document: reference
+document: appendix
 toc: true
 audience: intermediate
 keywords: [operator, status, riaknostic]

@@ -2,4 +2,4 @@ h1 Keyword: #{@keyword}
 
 ul
   - for page in @pages
-    li==link_to page.metadata[:page]["title"], page.url
+    li==link_to page.metadata[:page]["title"], project_version_path(page)

@@ -148,10 +148,9 @@ module SitemapRenderOverride
           next "<a #{anchor}>"
         end
       end
-
       
       # keep it the same
-      if version_str.blank? || href =~ /^\/riak[^\/]*\// || href =~ /^http[s]?\:/ 
+      if version_str.blank? || href =~ /^\/riak[^\/]*\/[\d\.]+\// || href =~ /^http[s]?\:/ 
         "<a #{anchor}>"
       elsif href =~ /^\/index\.html$/
         "<a #{anchor}>"
