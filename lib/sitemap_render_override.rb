@@ -53,12 +53,12 @@ module SitemapRenderOverride
       end
     # less than range
     elsif range =~ /\-$/ || range =~ /^\</
-      if range.sub!(/(?:\<\=)|\-/, '')
+      if range.sub!(/(?:\<\=)/, '')
         return version <= Versionomy.parse(range)
       # # drop bottom range and compare
       # elsif range.sub!(/\<\~/, '')
       else
-        range.sub!(/[<]/, '')
+        range.sub!(/[<]|[-]/, '')
         return version < Versionomy.parse(range)
       end
     # between range
@@ -118,9 +118,10 @@ module SitemapRenderOverride
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
-      data.gsub!(/(\<li[^\>]*\>.*?)\{\{([^\}]+)\}\}(.*?<\/li\>)/m) do
+      data.gsub!(/(\<li(?:\s[^\>]*?)?\>.*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/) do
         startli, liversion, endli = $1, $2, $3
-        if liversion =~ /^(?:[<>][\=]?)?[\d\.-]+?[\+\-]?$/
+        liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?[\+\-]?$/
           in_version_range?(liversion, version) ? startli + endli : ''
         else
           startli + endli

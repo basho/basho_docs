@@ -1,4 +1,11 @@
-# Riak Security
+---
+title: Riak Security
+project: riak
+version: 0.10.0+
+document: appendix
+toc: true
+keywords: [community, security]
+---
 
 ## Riak
 

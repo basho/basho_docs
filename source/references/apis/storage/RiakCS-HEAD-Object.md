@@ -6,7 +6,7 @@ document: api
 toc: true
 index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `HEAD Object` operation retrieves metadata from an object without returning the object.

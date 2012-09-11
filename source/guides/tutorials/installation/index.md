@@ -1,11 +1,28 @@
+---
+title: Installing and Upgrading
+project: riak
+version: 0.10.0+
+document: tutorial
+audience: beginner
+keywords: [tutorial, installing, upgrading]
+next: ["Installing Erlang", "Installing-Erlang.html"]
+---
+
 Click the link for your operating system to see instructions on how to install Riak. But first, you must [[Install Erlang|Installing Erlang]].
 
   * [[Installing on Debian and Ubuntu]]
   * [[Installing on RHEL and CentOS]]
   * [[Installing on Mac OS X]]
+  * [[Installing on SUSE]]
   * [[Installing Riak from Source]]
 
+### Upgrading
+
+  * [[Rolling Upgrades]]
+  * [[Upgrading from Riak Search]] {{<1.0.0}}
+
 ## Starting up
+
 To start up a Riak node, change directory as necessary to where you installed Riak (in the source directory, it's `rel/riak/bin` and run the riak command like so:
 
 ```bash

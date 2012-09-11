@@ -1,7 +1,10 @@
 ---
 title: Riak Slide Decks
 project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+keywords: [community, resources]
 ---
 
 This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide.

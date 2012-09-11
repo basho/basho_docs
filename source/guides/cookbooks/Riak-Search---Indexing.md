@@ -1,5 +1,11 @@
 ---
+title: Indexing Search
+project: riak
+version: 0.14.0+
+document: cookbook
 toc: true
+audience: intermediate
+keywords: [search, 2i]
 ---
 
 Indexing a document is the act of:

@@ -1,5 +1,10 @@
 ---
+title: Cluster Capacity Planning
+project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+keywords: [planning, cluster]
 ---
 
 This is a short document that outlines the various elements and
@@ -24,9 +29,9 @@ needs. Though Riak has pluggable backend storage, it ships with Bitcask
 by default, and this is the recommended production backend. Why? Because
 it's purpose built for:
 
--   low latency request times
--   high throughput
--   the ability to handle data sets much larger than RAM w/o degradation
+* low latency request times
+*  high throughput
+*  the ability to handle data sets much larger than RAM w/o degradation
 
 Bitcask's one major requirement, however, is that it must keep the
 entire “keydir” in memory. The “keydir” is a hash table that maps each
@@ -64,9 +69,9 @@ in bytes) * estimate total number of keys * n_val</p>
 
 Example:
 
--   50,000,000 keys in your cluster to start
--   approximately 30 bytes for each bucket+key name
--   default n_val of 3
+* 50,000,000 keys in your cluster to start
+* approximately 30 bytes for each bucket+key name
+* default n_val of 3
 
 The amount of RAM you would need for Bitcask is about **9.78 GBs across
 your entire cluster.**
@@ -105,9 +110,9 @@ Estimated Total Objects * Average Object Size * n_val
 </div>
 For example with:
 
--   50,000,000 objects
--   an average object size of two kilobytes (2,048 bytes)
--   the default n_val of 3
+* 50,000,000 objects
+* an average object size of two kilobytes (2,048 bytes)
+* the default n_val of 3
 
 then you would need just over approximately **286 GBs** of disk space in
 the entire cluster to accommodate your data.

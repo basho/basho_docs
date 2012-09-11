@@ -5,7 +5,7 @@ version: 1.2.0+
 document: api
 toc: true
 audience: advanced
-keywords: [reference, api, protocol-buffer]
+keywords: [api, protocol-buffer]
 group_by: "Query Operations"
 ---
 

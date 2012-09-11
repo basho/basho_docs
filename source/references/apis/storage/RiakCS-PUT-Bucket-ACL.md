@@ -6,7 +6,7 @@ document: api
 toc: true
 index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `PUT Bucket acl` operation uses the `acl` subresource to set the permissions on an existing bucket using an access control list (ACL).

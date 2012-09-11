@@ -1,7 +1,10 @@
 ---
 title: Riak Videos
 project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+keywords: [community, resources]
 ---
 
 This is a collection of videos from across the Riak community. They range from Basho webinars, to meeetup presentations, to conference talks.

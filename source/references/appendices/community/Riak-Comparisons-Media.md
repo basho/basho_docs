@@ -1,6 +1,10 @@
 ---
 title: Riak Comparisons in Media
+project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+keywords: [community, resources, comparison]
 ---
 
 This page is a collection of videos, slides, papers, and other media introducing Riak and its features.

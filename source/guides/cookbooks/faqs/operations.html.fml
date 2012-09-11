@@ -4,7 +4,7 @@ project: riak
 version: 1.2+
 document: cookbook
 audience: intermediate
-keywords: [faq, cookbook]
+keywords: [faq, operator]
 ---
 
 Q: When upgrading Riak on a Redhat-based system, I get errors from "chcon", saying "can't apply partial context to unlabeled file".

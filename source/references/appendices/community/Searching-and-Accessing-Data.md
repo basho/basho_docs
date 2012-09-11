@@ -1,7 +1,10 @@
 ---
 title: Searching and Accessing Data
 project: riak
+version: 0.14.0+
+document: appendix
 toc: true
+keywords: [community, resources, search]
 ---
 
 This page is a collection of videos, slides, papers, and other media on searching and accessing data in Riak.

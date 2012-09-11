@@ -1,8 +1,14 @@
 ---
+title: Java Client Benchmark
+project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+audience: intermediate
+keywords: [drivers, benchmark]
 ---
 
-This article describes some comparative benchmarks for the [[riak-java-client|http://github.com/basho/riak-java-client]] undertaken as part of our ongoing development effort.
+This article describes some comparative benchmarks for the [riak-java-client](http://github.com/basho/riak-java-client) undertaken as part of our ongoing development effort.
 
 ## Hardware
 

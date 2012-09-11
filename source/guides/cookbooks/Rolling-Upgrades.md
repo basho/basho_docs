@@ -1,16 +1,21 @@
 ---
+title: Rolling Upgrades
+project: riak
+version: 1.2.0+
+document: cookbook
 toc: true
+audience: advanced
+keywords: [upgrading]
 ---
 
-To avoid downtime of a Riak cluster we suggest performing upgrades in a rolling
+<!-- To avoid downtime of a Riak cluster we suggest performing upgrades in a rolling
 fashion. This process involves stopping, upgrading, and restarting one node at a
 time. This process is known to work as of Riak 0.13 (i.e. upgrading 0.13 or 0.14
 to 1.0).
+ -->
+Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
 
-<div class="info"><div class="title">Riak 1.2 Capabilities Negotiation</div>
-<p>As of version 1.2, Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.</p>
-<p>In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak.</p>
-</div>
+In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak.
 
 <div class="note"><div class="title">Note on upgrading from Riak Search</div>
 <p>If you are upgrading from Riak Search, please read

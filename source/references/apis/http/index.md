@@ -5,7 +5,7 @@ version: 1.2+
 document: api
 toc: true
 audience: advanced
-keywords: [reference, api, http]
+keywords: [api, http]
 index: true
 ---
 

@@ -1,7 +1,21 @@
+---
+title: Installing Erlang
+project: riak
+version: 0.10.0+
+document: tutorial
+audience: beginner
+keywords: [tutorial, installing, erlang]
+prev: ["Installing and Upgrading", "index.html"]
+up:   ["Installing and Upgrading", "index.html"]
+next: ["Installing on Debian and Ubuntu", "Installing-on-Debian-and-Ubuntu.html"]
+---
+
 Riak 1.2 requires [[Erlang|http://erlang.org/]] R15B01 or later. Riak 1.0 requires [[Erlang|http://erlang.org]] R14B03 or later. Riak versions prior to 1.0 will not function on the R14B02 or later. Riak versions prior to 0.12 will not function on the R14 series of Erlang. For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of ncurses and openssl.
 
-
-<div class="note"><div class="title">Erlang Version Note</div>The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS include an Erlang distribution, and do not require that you build Erlang from source. However, <strong>you must download and install Erlang if you are planning on completing [[The Riak Fast Track]]</strong>.</div>
+<div class="note">
+<div class="title">Erlang Version Note</div>
+The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS include an Erlang distribution, and do not require that you build Erlang from source. However, <strong>you must download and install Erlang if you are planning on completing [[The Riak Fast Track]]</strong>.
+</div>
 
 ## Install using kerl
 You can install different Erlang versions in a simple manner with the [kerl](https://github.com/spawngrid/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following command:

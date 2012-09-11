@@ -1,5 +1,13 @@
 ---
+title: Multi
+project: riak
+version: 1.2.0-
+document: tutorials
 toc: true
+audience: intermediate
+keywords: [backends, innostore]
+prev: ["Multi", "Multi.html"]
+up:   ["Choosing a Backend", "index.html"]
 ---
 
 <div class="note">

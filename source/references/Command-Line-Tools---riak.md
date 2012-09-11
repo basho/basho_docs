@@ -1,3 +1,13 @@
+---
+title: riak Command Line
+project: riak
+version: 0.10.0+
+document: reference
+toc: true
+audience: beginner
+keywords: [command-line, riak]
+---
+
 # Command Line Tools - `riak`
 
 This is the primary script for controlling the Riak node process.

@@ -1,10 +1,19 @@
 ---
+title: Indexing and Querying KV Data
+project: riak
+version: 0.14.0+
+document: cookbook
 toc: true
+audience: intermediate
+keywords: [search, 2i]
 ---
 
 Riak Search now supports indexing and querying of data stored in Riak KV.  Out of the box, simple indexing of plain text, XML, and JSON data can be enabled in an instant.
 
-<div class="info"><div class="title">Riak Search and MapReduce</div>Riak Search isn't just able to index data from Riak KV, it can also be used to [[feed data into Riak's MapReduce|Riak-Search---Querying#Querying-Integrated-with-Map-Reduce]].</div>
+<div class="info">
+<div class="title">Riak Search and MapReduce</div>
+Riak Search isn't just able to index data from Riak KV, it can also be used to [[feed data into Riak's MapReduce|Riak-Search---Querying#Querying Integrated with Map/Reduce]].
+</div>
 
 ## Setting up Indexing
 
@@ -17,16 +26,13 @@ Adding the Search precommit hook to a bucket from the command line is easy:
 bin/search-cmd install my_bucket_name
 ```
 
-
 Any other method you would normally use to set bucket properties can also be used to enable the Search precommit hook as well.  For example, using curl to install over HTTP:
-
 
 ```bash
 curl -X PUT -H "content-type:application/json" http://localhost:8098/riak/demo2 --data @-
 {"props":{"precommit":[{"mod":"riak_search_kv_hook","fun":"precommit"}]}}
 ^D
 ```
-
 
 Note, though, that you may want to read the bucket properties first, so you don't clobber any precommit hook already in place.
 
@@ -42,9 +48,7 @@ If your data is in JSON format, set your Content-Type to "application/json", "ap
 
 Specifying that your data is in JSON format will cause Riak Search to use the field names of the JSON object as index field names.  Nested objects will use underscore ('_') as a field name separator. (The underscore was chosen because the character is not currently reserved by Lucene syntax. People have suggested using a period, but we have that reserved for other things.)
 
-
 For example, storing the following JSON object in a Search-enabled bucket:
-
 
 ```javascript
 {
@@ -56,7 +60,6 @@ For example, storing the following JSON object in a Search-enabled bucket:
              }
 }
 ```
-
 
 Would cause four fields to be indexed: "name", "bio", "favorites_book", and "favorites_album".  You could later query this data with queries like, "bio:engineer AND favorites_album:mystery".
 

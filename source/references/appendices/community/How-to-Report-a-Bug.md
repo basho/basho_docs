@@ -1,3 +1,13 @@
+---
+title: How to Report a Bug
+project: riak
+version: 0.10.0+
+toc: true
+document: appendix
+audience: intermediate
+keywords: [community, issues]
+---
+
 Bugs happen. We do our best to find them all but will inevitably miss some. Here's the protocol to follow for when you think you might have found something that needs reporting.
 
 ## Before You File a Bug or Issue

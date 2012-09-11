@@ -1,5 +1,11 @@
 ---
+title: Basho Bench
+project: riak
+version: 0.10.0+
+document: cookbook
 toc: true
+audience: beginner
+keywords: [operator, benchmark]
 ---
 
 Basho Bench is a benchmarking tool created to conduct accurate and
@@ -21,10 +27,8 @@ Documentation
 -------------
 
 <div class="info">
-<div class="title">
-Note on Documentation
+<div class="title">Note on Documentation</div>
 
-</div>
 This wiki topic replaces the documentation that was in the basho_bench
 repository under `docs/Documentation.org` prior to February 2011.
 </div>

@@ -1,5 +1,11 @@
 ---
+title: Riak Search Schema
+project: riak
+version: 0.14.0+
+document: cookbook
 toc: true
+audience: intermediate
+keywords: [search, schema]
 ---
 
 Riak Search was designed to work seamlessly with Riak. As a result, it retains many of the same properties as Riak, including a schema-free design. In other words, you can start adding data to a new index without having to explicitly define the index fields.

@@ -1,5 +1,14 @@
 ---
+title: Multi
+project: riak
+version: 1.0.0+
+document: tutorials
 toc: true
+audience: intermediate
+keywords: [backends, multi, leveldb, memory, bitcask]
+prev: ["Memory", "Memory.html"]
+up:   ["Choosing a Backend", "index.html"]
+next: ["Innostore", "Innostore.html"]
 ---
 
 ## Overview

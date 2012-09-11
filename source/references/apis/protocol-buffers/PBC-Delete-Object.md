@@ -5,7 +5,7 @@ version: 0.14.0+
 document: api
 toc: true
 audience: advanced
-keywords: [reference, api, protocol-buffer]
+keywords: [api, protocol-buffer]
 group_by: "Object/Key Operations"
 ---
 

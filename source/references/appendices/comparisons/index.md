@@ -1,5 +1,9 @@
 ---
 title: Riak Comparisons
+project: riak
+version: 0.10.0+
+document: appendix
+toc: true
 index: true
 keywords: [comparisons]
 ---
@@ -15,7 +19,7 @@ The NoSQL space, as well as the database space in general, is growing ever-crowd
 
 _Disclaimer: We tried to get this right, but software is complicated, and it changes rapidly. If you think we have made an error, please kindly correct us, and we will be happy to make the change._
 
-h2. Slide Decks
+## Slide Decks
 
 This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide. *(If you have a Slide Deck to add, please fork the "Riak Wiki Repo on GitHub":https://github.com/basho/riak_wiki and do so.)*
 

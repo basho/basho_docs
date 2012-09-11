@@ -1,5 +1,11 @@
 ---
+title: Adding and Removing Nodes
+project: riak
+version: 0.10.0+
+document: cookbook
 toc: true
+audience: intermediate
+keywords: [operator]
 ---
 
 This page describes the process of adding and removing nodes to and from

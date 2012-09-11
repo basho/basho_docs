@@ -1,3 +1,13 @@
+---
+title: Basic Cluster Setup
+project: riak
+version: 0.10.0+
+document: cookbook
+toc: true
+audience: beginner
+keywords: [operator, cluster]
+---
+
 Configuration of a Riak cluster requires instructing a node to listen on
 a non-local interface (i.e., not `127.0.0.1`), and then joining nodes
 together for cluster participation.

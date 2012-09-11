@@ -4,9 +4,8 @@ project: riak
 version: 1.2.0+
 document: tutorial
 toc: true
-index: true
 audience: advanced
-keywords: [user]
+keywords: [kv, 2i, troubleshooting]
 ---
 
 Riak Secondary indexes (2i) currently have no form of anti-entropy (such as read-repair). Furthermore, for performance and load balancing reasons, 2i reads from 1 random node. This means that when a replica loss has occurred, inconsistent results may be returned.

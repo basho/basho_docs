@@ -1,6 +1,10 @@
 ---
 title: Overviews and Introductions
+project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+keywords: [community, resources]
 ---
 
 This page is a collection of videos, slides, papers, and other media introducing Riak and its features.  

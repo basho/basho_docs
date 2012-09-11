@@ -1,3 +1,13 @@
+---
+title: Recovering a Failed Node
+project: riak
+version: 0.10.0+
+document: cookbook
+toc: true
+audience: advanced
+keywords: [troubleshooting]
+---
+
 Restarting a node after a failure may result in a slower than normal
 startup time. The longer startup time associated with
 recovery may lead to other problems;

@@ -6,7 +6,7 @@ document: api
 toc: true
 index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `GET Object` operation retrieves objects from the Riak CS storage.

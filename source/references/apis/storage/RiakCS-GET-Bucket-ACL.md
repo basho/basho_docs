@@ -6,7 +6,7 @@ document: api
 toc: true
 index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `GET Bucket acl` operation uses the `acl` subresource to return the access control list (ACL) of a bucket.

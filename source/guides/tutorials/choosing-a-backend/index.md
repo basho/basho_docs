@@ -1,3 +1,14 @@
+---
+title: Choosing a Backend
+project: riak
+version: 0.10.0+
+document: tutorials
+toc: true
+audience: intermediate
+keywords: [backends]
+next: ["Bitcask", "Bitcask.html"]
+---
+
 A key feature of Riak KV is the pluggable storage backends. These allow the
 ability to choose a low-level storage engine that suits specific operational
 needs. For example, if one needs maximum throughput coupled with data
@@ -5,9 +16,10 @@ persistence and has a bounded keyspace, Bitcask is a good choice. On the other h
 
 As of Riak version 1.2, four backends are supported:
 
-- [[Bitcask]]
-- [[LevelDB]]
-- [[Memory]]
-- [[Multi]]
+* [[Bitcask]]
+* [[LevelDB]]
+* [[Memory]]
+* [[Multi]]
+* [[Innostore]] {{1.2.0-}}
 
-Riak supports the use of custom storage backends as well. See the storage [[Backend API|Backend-API]] for more details.
+Riak supports the use of custom storage backends as well. See the storage [[Backend API|Backend API]] for more details.

@@ -1,3 +1,13 @@
+---
+title: Riak Search Settings
+project: riak
+version: 0.10.0+
+document: appendix
+toc: true
+audience: intermediate
+keywords: [search]
+---
+
 Riak Search has all of the same operational properties as Riak.
 
 ### Default Ports

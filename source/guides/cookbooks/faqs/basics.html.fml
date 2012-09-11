@@ -4,7 +4,7 @@ project: riak
 version: 1.2+
 document: cookbook
 audience: beginner
-keywords: [faq, cookbook]
+keywords: [faq, basics]
 ---
 
 Q: What is Riak?

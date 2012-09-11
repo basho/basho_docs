@@ -1,5 +1,11 @@
 ---
+title: Configuration Files
+project: riak
+version: 0.10.0+
+document: reference
 toc: true
+audience: intermediate
+keywords: [operator]
 ---
 
 Riak has two configuration files located in `etc/` if you are using a source

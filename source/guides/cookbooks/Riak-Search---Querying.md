@@ -1,4 +1,12 @@
-<div id="toc"></div>
+---
+title: Querying Riak Search
+project: riak
+version: 0.14.0+
+document: cookbook
+toc: true
+audience: beginner
+keywords: [search]
+---
 
 ## Query Syntax
 

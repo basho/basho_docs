@@ -1,3 +1,13 @@
+---
+title: Riak Compared to Cassandra
+project: riak
+version: 1.1.0+
+document: appendix
+toc: true
+index: true
+keywords: [comparisons, cassandra]
+---
+
 This is intended to be a brief, objective and technical comparison of Riak and Cassandra.  The Cassandra version described is 1.1.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/riak_wiki/issues/new) or send an email to **docs@basho.com**.
 
 
@@ -5,13 +15,11 @@ This is intended to be a brief, objective and technical comparison of Riak and C
 
 * Both Riak and Cassandra are Apache 2.0 licensed databases based on Amazon’s Dynamo paper. 
 * Riak is a faithful implementation of Dynamo, with the addition of functionality like links, MapReduce, indexes, full-text Search. Cassandra departs from the Dynamo paper slightly by omitting vector clocks and moving from partition-based consistent hashing to key ranges, while adding functionality like order-preserving partitioners and range queries.	
-* Riak is written primarily in Erlang with some bits in C. Cassandra is written in Java. 
+* Riak is written primarily in Erlang with some bits in C. Cassandra is written in Java.
 
 ## Feature/Capability Comparison
 
 The table below gives a high level comparison of Riak and Cassandra features/capabilities.  To keep this page relevant in the face of rapid development on both sides, low level details are found in links to Riak and Cassandra online documentation.
-
-<br></br>
 
 <table>
     <tr>

@@ -1,5 +1,11 @@
 ---
+title: Client Implementation Guide
+project: riak
+version: 1.2.0+
+document: tutorials
 toc: true
+audience: advanced
+keywords: [2i]
 ---
 
 ## Configuration

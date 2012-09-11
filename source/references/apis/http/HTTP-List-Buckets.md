@@ -5,7 +5,7 @@ version: 0.14.0+
 document: api
 toc: true
 audience: advanced
-keywords: [reference, api, http]
+keywords: [api, http]
 group_by: "Bucket Operations"
 ---
 

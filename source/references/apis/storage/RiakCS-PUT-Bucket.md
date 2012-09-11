@@ -6,7 +6,7 @@ document: api
 toc: true
 index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `PUT Bucket` operation creates a new bucket. The user who sends the request to create the bucket becomes the bucket owner. Anonymous requests can't create buckets.

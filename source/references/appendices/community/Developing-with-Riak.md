@@ -1,6 +1,11 @@
 ---
 title: Developing with Riak
+project: riak
+version: 0.10.0+
 toc: true
+document: appendix
+audience: intermediate
+keywords: [community, resources]
 ---
 
 This page is a collection of videos, slides, papers, and other media discussing developing with Riak (general guidelines, using client libraries, etc.).

@@ -6,7 +6,7 @@ document: tutorial
 toc: true
 index: true
 audience: intermediate
-keywords: [user]
+keywords: [developer]
 ---
 
 * Querying

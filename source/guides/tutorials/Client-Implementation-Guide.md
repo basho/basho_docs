@@ -1,4 +1,12 @@
-# Client Implementation Guide
+---
+title: Client Implementation Guide
+project: riak
+version: 1.2.0+
+document: tutorials
+toc: true
+audience: advanced
+keywords: [interface, client]
+---
 
 This section details aspects of the Riak client interfaces and can be
 used as a guide for understanding how to interact with Riak and how to

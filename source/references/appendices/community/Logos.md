@@ -1,5 +1,10 @@
 ---
 title: Logos
+project: riak
+version: 0.10.0+
+document: appendix
+toc: true
+keywords: [community]
 ---
 
 Need a high resolution Basho or Riak Logo for a presentation or slide deck?

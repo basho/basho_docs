@@ -1,5 +1,11 @@
 ---
+title: Upgrading from Riak Search
+project: riak
+version: 0.14.2+
+document: cookbook
 toc: true
+audience: advanced
+keywords: [search, upgrading]
 ---
 
 As of Riak 1.0, Riak Search has been integrated into Riak. A few

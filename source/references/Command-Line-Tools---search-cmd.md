@@ -1,3 +1,13 @@
+---
+title: search Command Line
+project: riak
+version: 0.10.0+
+document: reference
+toc: true
+audience: beginner
+keywords: [command-line, search]
+---
+
 # Command Line Tools - `search-cmd`
 
 This script is used to interact with the Search functionality included with

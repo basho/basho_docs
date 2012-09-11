@@ -1,3 +1,13 @@
+---
+title: riak-admin Command Line
+project: riak
+version: 0.10.0+
+document: reference
+toc: true
+audience: beginner
+keywords: [command-line, riak-admin]
+---
+
 # Command Line Tools - `riak-admin`
 
 This script performs operations not related to node-liveness, including node

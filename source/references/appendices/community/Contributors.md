@@ -1,9 +1,17 @@
+---
+title: Riak Contributors
+project: riak
+version: 0.10.0+
+document: appendix
+audience: intermediate
+keywords: [community]
+---
+
 There are many ways to contribute to Riak and the community that backs it. The two primary avenues for contribution are code and wiki documentation.{excerpt} (If you have another idea on how you'd like to contribute, great! Email _mark@basho.com_ with what you have in mind.)
 
 This page is a listing of people who have contributed or are currently contributing to our code base and our wiki. We just wanted to say "Thanks!"
 
-
-For more information on how to contribute, have a look at [[Code Submission and Integration]] and [[Contributing to the Riak Wiki]].
+For more information on how to contribute, look through the [[Riak Community FAQs]].
 
 ### Code Contributors
 

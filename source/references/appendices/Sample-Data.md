@@ -1,3 +1,13 @@
+---
+title: Sample Data
+project: riak
+version: 0.10.0+
+document: appendix
+toc: true
+audience: beginner
+keywords: [api, benchmark, troubleshooting]
+---
+
 When learning how to use a database, reading tutorials and blogs and watching videos will only take a user so far. At some point, you actually have to use the database! And, essential to using any database is having sample data to put into it.
 
 This page is intended to be a repository of sample data for that exact purpose. We will be expanding it as often as possible with different types of data that are suitable for different types of application testing.

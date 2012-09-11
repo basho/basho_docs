@@ -1,7 +1,10 @@
 ---
 title: Community Resources
 project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+index: true
 keywords: [community]
 ---
 
@@ -72,8 +75,7 @@ Here's a list of the current Meetups:
 
 ## Community Processes
 
-* [[Code Submission and Integration]]
-* [[Contributing to the Riak Wiki]]
+* [[Riak Community FAQs]]
 * [[How to Report a Bug]]
 
 ## Contributors

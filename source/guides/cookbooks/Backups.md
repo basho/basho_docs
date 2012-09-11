@@ -1,3 +1,13 @@
+---
+title: Backing up Riak
+project: riak
+version: 0.10.0+
+document: cookbook
+toc: true
+audience: intermediate
+keywords: [operator]
+---
+
 Choosing how to backup your Riak nodes will depend on the backend configuration of your nodes.
 In many cases Riak will be able to conform to your already established backup methodologies. When backing up a node it is important to backup both the ring and data directories that pertain
 to your configured backend.  In addition it is useful to backup your configuration at the same time to make

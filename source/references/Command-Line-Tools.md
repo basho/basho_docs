@@ -1,3 +1,14 @@
+---
+title: Command Line Tools
+project: riak
+version: 0.10.0+
+document: reference
+toc: true
+index: true
+audience: beginner
+keywords: [command-line]
+---
+
 This is a description of the Riak command-line tools and their subcommands.
 These tools are located in the `bin` directory of an embedded node, and the path
 when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).

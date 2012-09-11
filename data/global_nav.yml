@@ -1,4 +1,6 @@
 riak:
+  - title: "[[All Riak Projects|/index.html]]"
+    sub: []
   - title: "[[Getting Started|Riak]]"
     sub:
     - "[[The Riak Fast Track]]"
@@ -54,7 +56,14 @@ riak:
       - title: "Secondary Indexes"
         sub:
           - "[[Configuration &amp; Examples|Secondary-Indexes - Configuration and Examples]]"
-      - "[[Troubleshooting]]"
+      - title: "[[Troubleshooting]]"
+        sub:
+          - "[[Open Files Limit]]"
+          - "[[Recovering a Failed Node]]"
+          - "[[Benchmarking]]"
+          - "[[Inspecting a Node]]"
+          - "[[Repairing Search Indexes]]"
+          - "[[Repairing KV Indexes]]"
 
   - title: "References"
     sub:
@@ -62,7 +71,7 @@ riak:
       - "[[APIs]]"
       - title: "[[Command-Line Tools]]"
         sub:
-          - "[[riak-admin|Command-Line Tools - riak]]"
+          - "[[riak|Command-Line Tools - riak]]"
           - "[[riak-admin|Command-Line Tools - riak-admin]]"
           - "[[search-cmd|Command-Line Tools - search-cmd]]"
       - "[[Client Libraries]]"
@@ -105,8 +114,7 @@ riak:
           - "[[Searching and Accessing Data]]"
           - "[[Riak Comparisons]]"
           - "[[Riak Sample Applications]]"
-      - "[[Code Submission and Integration]]"
-      - "[[Contributing to the Riak Wiki]]"
+      - "[[Riak Community FAQs]]"
       - "[[Contributors]]"
       - "[[Critical Issues]]"
       - "[[How to Report a Bug]]"
@@ -121,6 +129,8 @@ riak:
 
 
 riakee:
+  - title: "[[All Riak Projects|/index.html]]"
+    sub: []
   - title: "[[Getting Started|Riak Enterprise]]"
     sub:
     - "[[The Riak Fast Track]]"
@@ -128,6 +138,8 @@ riakee:
     - "[[Querying]]"
 
 riakcs:
+  - title: "[[All Riak Projects|/index.html]]"
+    sub: []
   - title: "[[Getting Started|Riak CS]]"
     sub:
     - "[[Installation|Installing Riak CS]]"
@@ -137,3 +149,10 @@ riakcs:
     sub:
       - "[[FAQs|Riak CS FAQs]]"
       - "[[APIs|RiakCS Storage API]]"
+
+shared:
+  - title: "[[All Riak Projects|/index.html]]"
+    sub:
+      - "[[Riak]]"
+      - "[[Riak Enterprise]]"
+      - "[[Riak CS]]"

@@ -1,6 +1,13 @@
 ---
-title: Riak Search
+title: Searching
+project: riak
+version: 0.14.0+
+document: tutorials
 toc: true
+audience: beginner
+keywords: [querying, mapreduce]
+prev: ["Secondary Indexes", "Secondary-Indexes.html"]
+up:   ["Querying Riak", "index.html"]
 ---
 
 ## Introduction

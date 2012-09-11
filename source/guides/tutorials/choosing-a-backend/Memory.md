@@ -1,5 +1,14 @@
 ---
+title: Memory
+project: riak
+version: 1.0.0+
+document: tutorials
 toc: true
+audience: intermediate
+keywords: [backends, memory]
+prev: ["LevelDB", "LevelDB.html"]
+up:   ["Choosing a Backend", "index.html"]
+next: ["Multi", "Multi.html"]
 ---
 
 ## Overview

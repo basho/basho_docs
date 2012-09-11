@@ -6,7 +6,7 @@ document: api
 toc: true
 index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `GET Bucket` operation returns a list of objects (all or up to 1,000) in a bucket.

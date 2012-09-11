@@ -1,3 +1,13 @@
+---
+title: Replacing a Node
+project: riak
+version: 0.10.0+
+document: cookbook
+toc: true
+audience: advanced
+keywords: [operator]
+---
+
 At some point, for various reasons, you might need to replace a node in your cluster (which is different from [[recovering a failed node|Recovering a failed node]]). Here is the recommended way to go about doing that:
 
 * Tar up your data directory on the node in question (which should be found at `riak/data`).

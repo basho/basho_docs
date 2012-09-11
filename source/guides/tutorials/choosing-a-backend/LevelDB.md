@@ -1,5 +1,14 @@
 ---
+title: LevelDB
+project: riak
+version: 1.0.0+
+document: tutorials
 toc: true
+audience: intermediate
+keywords: [backends, leveldb]
+prev: ["Bitcask", "Bitcask.html"]
+up:   ["Choosing a Backend", "index.html"]
+next: ["Memory", "Memory.html"]
 ---
 
 ## Overview

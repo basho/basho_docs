@@ -56,9 +56,9 @@ keywords: []
   * [[Basic Cluster Setup]]
   * [[Adding and Removing Nodes]]
   * [[Replacing a Node]]
-* Operations
+* [[Operations|operators]]
   * [[Configuration Files]]
-  * [[File System Tuning]]
+  * [[File System Tuning]] {{0.14.0+}}
   * [[Backups]]
   * [[Network Security and Firewall Configurations]]
 * Search

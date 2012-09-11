@@ -7,6 +7,7 @@ audience: beginner
 keywords: [tutorial, fast-track]
 prev: ["Links and Link Walking", "Links-and-Link-Walking.html"]
 up:   ["The Riak Fast Track", "index.html"]
+next: ["Thank Yous", "Thank-You.html"]
 ---
 
 So, we've come a long way. If you've done the Fast Track in order, that means you've had a short intro to Riak, set up a three node cluster on your local machine, worked a bit with the HTTP interface, and performed some MapReduce queries.

@@ -4,9 +4,8 @@ project: riakcs
 version: 1.2.0+
 document: api
 toc: true
-index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `PUT Object` operation adds an object to a bucket. The PUT Object operation does not add partial objects, so a success response indicates that the entire object was added to the bucket.

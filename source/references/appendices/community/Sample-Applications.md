@@ -1,7 +1,10 @@
 ---
 title: Riak Sample Applications
 project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+keywords: [community, resources]
 ---
 
 This a collection of sample applications built on Riak and Riak Core.

@@ -1,6 +1,14 @@
 ---
 title: Map Reduce
+project: riak
+version: 0.10.0+
+document: tutorials
 toc: true
+audience: beginner
+keywords: [querying, mapreduce]
+prev: ["Querying Riak", "index.html"]
+up:   ["Querying Riak", "index.html"]
+next: ["Secondary Indexes", "Secondary-Indexes.html"]
 ---
 
 ## Introduction

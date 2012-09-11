@@ -1,5 +1,16 @@
-The following steps are known to work with Mac OS X 10.5 and 10.6. You can install from source or download a precompiled tarball.
+---
+title: Installing on Mac OS X
+project: riak
+version: 0.10.0+
+document: tutorial
+audience: beginner
+keywords: [tutorial, installing, osx]
+prev: ["Installing on RHEL and CentOS", "Installing-on-RHEL-and-CentOS.html"]
+up:   ["Installing and Upgrading", "index.html"]
+next: ["Installing on SUSE", "Installing-on-SUSE.html"]
+---
 
+The following steps are known to work with Mac OS X 10.5 and 10.6. You can install from source or download a precompiled tarball.
 
 <div class="note"><div class="title">ulimit on OS X</div>OS X gives you a very small limit on open file handles, so even with a backend that uses very few file handles, it's possible to run out. See Open Files Limit for more information about changing the limit.</div>
 

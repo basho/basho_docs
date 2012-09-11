@@ -1,3 +1,12 @@
+---
+title: Bitcask Capacity Planning
+project: riak
+version: 0.10.0+
+document: appendix
+toc: true
+keywords: [planning, bitcask]
+---
+
 These calculators will assist you in sizing your cluster if you plan to use the
 default [[Bitcask]] storage back end.
 

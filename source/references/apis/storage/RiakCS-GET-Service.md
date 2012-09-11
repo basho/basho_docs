@@ -6,7 +6,7 @@ document: api
 toc: true
 index: false
 audience: advanced
-keywords: [reference, api]
+keywords: [api, http]
 ---
 
 The `GET Service` operation returns a list of all buckets owned by the *authenticated* user who sent sent the request.

@@ -1,6 +1,10 @@
 ---
 title: Book and Articles
+project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+keywords: [community, resources]
 ---
 
 If you're looking for some reading material on Riak, here is where to start. This is a partial list of papers, book titles, and other publications that influenced Riak's design and architectural decisions. 

@@ -1,5 +1,11 @@
 ---
+title: Inspecting a Node
+project: riak
+version: 0.10.0+
+document: appendix
 toc: true
+audience: intermediate
+keywords: [operator, status, riaknostic]
 ---
 
 When inspection of a Riak node to gather metrics on performance or

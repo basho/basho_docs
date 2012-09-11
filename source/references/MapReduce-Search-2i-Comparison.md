@@ -1,4 +1,12 @@
-# Comparing MapReduce, RiakSearch, and Secondary Indexes
+---
+title: Comparing MapReduce, RiakSearch, and Secondary Indexes
+project: riak
+version: 0.10.0+
+document: reference
+toc: true
+audience: intermediate
+keywords: [mapreduce, search, indexes, comparison]
+---
 
 <table>
     <tr>

@@ -1,9 +1,17 @@
+---
+title: Enabling Search
+project: riak
+version: 1.0.0+
+document: cookbook
+audience: beginner
+keywords: [search]
+---
+
 ## Enabling Riak Search 
 
-As of Riak 1.0, Riak Search is now enabled in the [[app.config|Configuration-Files#app.config]] file. Simply change the setting to "true" in Riak Search Config section (shown below).
+Riak Search is enabled in the [[app.config|Configuration-Files#app.config]] file. Simply change the setting to "true" in Riak Search Config section (shown below).
 
 ```erlang 
-
 %% Riak Search Config
 {riak_search, [
                %% To enable Search functionality set this 'true'.

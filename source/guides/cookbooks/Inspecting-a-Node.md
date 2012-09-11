@@ -1,6 +1,14 @@
 ---
+title: Inspecting a Riak Node
+project: riak
+version: 0.10.0+
+document: cookbook
 toc: true
+audience: advanced
+keywords: [operator, status, riaknostic]
 ---
+
+<!-- leans toward an appendix/manual -->
 
 When inspection of a Riak node to gather metrics on performance or
 potential issues is desired, a number of tools are available to help,

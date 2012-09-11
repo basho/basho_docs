@@ -1,3 +1,12 @@
+---
+title: Backend API
+project: riak
+version: 1.0.0+
+document: appendix
+toc: true
+keywords: [api, backends]
+---
+
 As of the 1.0 release, Riak's storage API has been overhauled and
 uniformly applied to all of the
 [[supported backends|Storage-Backends]]. This page presents the
@@ -12,7 +21,6 @@ below is the function export list that can be pasted directly into a
 custom storage backend module.
 
 ```erlang
-
 %% Riak Storage Backend API
 -export([api_version/0,
          start/2,

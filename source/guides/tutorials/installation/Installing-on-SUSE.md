@@ -1,3 +1,15 @@
+---
+title: Installing on SUSE
+project: riak
+version: 0.10.0+
+document: tutorial
+audience: beginner
+keywords: [tutorial, installing, suse]
+prev: ["Installing on Mac OS X", "Installing-on-Mac-OS-X.html"]
+up:   ["Installing and Upgrading", "index.html"]
+next: ["Installing Riak from Source", "Installing-Riak-from-Source.html"]
+---
+
 The following steps should get you up and running with Riak on SuSE.
 
 Riak may be unofficially installed on the following x86/x86_64 flavors of SuSE via community provided support:
