@@ -44,6 +44,7 @@ module ::Middleman::Features::Deploy
             # upload shared for all given project versions
             $versions.values.uniq.each do |version|
               key = f.sub(/\.\/build\//, "shared/#{version}/")
+              puts " upload %s" % key
               AWS::S3::S3Object.store(key, File.open(f), S3_BUCKET, attrs)
             end
             next
@@ -53,7 +54,7 @@ module ::Middleman::Features::Deploy
             project = get_project(f)
             version = $versions[project.to_sym]
 
-            if f =~ /^\.\/build\/index.html\//
+            if f =~ /^\.\/build\/index\.html$/
               key = 'index.html'
             elsif f =~ /\/(riak[^\/\-]*?\/#{version}\/index\.html)$/
               key = $1

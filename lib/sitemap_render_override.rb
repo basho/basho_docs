@@ -171,7 +171,8 @@ module SitemapRenderOverride
     end
 
     # shared resources (css, js, images, etc) are put under /shared/version
-    if version_str
+    if version_str || project == :shared
+      version_str ||= $versions[:riak]
       data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
         "#{$1}/shared/#{version_str}#{$2}#{$3}"
       end
