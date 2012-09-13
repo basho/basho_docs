@@ -46,7 +46,7 @@ Reduce phases accept any list of data as input, and produce any list of data as 
 
 The important thing to understand is that the function defining the reduce phase may be evaluated multiple times, and the input of later evaluations will include the output of earlier evaluations.
 
-For example, a reduce phase may implement the <a href="http://en.wikipedia.org/wiki/Union_(set_theory)#Definition" target="_blank">set-union</a> function.  In that case, the first set of inputs might be @[1,2,2,3]@, and the output would be @[1,2,3]@.  When the phase receives more inputs, say @[3,4,5]@, the function will be called with the concatenation of the two lists: @[1,2,3,3,4,5]@.
+For example, a reduce phase may implement the <a href="http://en.wikipedia.org/wiki/Union_(set_theory)#Definition" target="_blank">set-union</a> function.  In that case, the first set of inputs might be `[1,2,2,3]`, and the output would be `[1,2,3]`.  When the phase receives more inputs, say `[3,4,5]`, the function will be called with the concatenation of the two lists: `[1,2,3,3,4,5]`.
 
 Other systems refer to the second application of the reduce function as a "re-reduce".  There are at least a couple of reduce-query implementation strategies that work with Riak's model.
 
@@ -60,9 +60,9 @@ Link phases find links matching patterns specified in the query definition.  The
 
 "Following a link" means adding it to the output list of this phase.  The output of this phase is often most useful as input to a map phase, or another reduce phase.
 
-## MapReduce via the [[HTTP API]]
+## MapReduce via the HTTP API
 
-Riak supports writing MapReduce query functions in JavaScript and Erlang, as well as specifying query execution over HTTP.
+Riak supports writing MapReduce query functions in JavaScript and Erlang, as well as specifying query execution over the [[HTTP API]].
 
 
 <div class="note"><div class="title">"bad encoding" error</div>If you receive an error "bad encoding" from a MapReduce query that includes phases in Javascript, verify that your data does not contain incorrect Unicode escape sequences.  Data being transferred into the Javascript VM must be in Unicode format.</div>
@@ -154,8 +154,8 @@ And we end up with the word counts for the three documents.
 
 For more details about what each bit of syntax means, and other syntax options, read the following sections.  As a quick explanation of how this example map/reduce query worked, though:
 
-# The objects named *p1*, *p2*, and *p5* from the @alice@ bucket were given as inputs to the query.
-# The map function from the phase was run on each object.  The function:
+* The objects named *p1*, *p2*, and *p5* from the `alice` bucket were given as inputs to the query.
+* The map function from the phase was run on each object.  The function:
 
 ```javascript
 function(v) {
@@ -173,7 +173,8 @@ function(v) {
 ```
 
 creates a list of JSON objects, one for each word (non-unique) in the text.  The object has as a key, the word, and as the value for that key, the integer 1.
-# The reduce function from the phase was run on the outputs of the map functions.  The function:
+
+* The reduce function from the phase was run on the outputs of the map functions.  The function:
 
 ```javascript
 function(values) {
@@ -191,21 +192,22 @@ function(values) {
 ```
 
 looks at each JSON object in the input list.  It steps through each key in each object, and produces a new object. That new object has a key for each key in every other object, the value of that key being the sum of the values of that key in the other objects.  It returns this new object in a list, because it may be run a second time on a list including that object and more inputs from the map phase.
-# The final output is a list with one element: a JSON object with a key for each word in all of the documents (unique), with the value of that key being the number of times the word appeared in the documents.
 
-h3(#rest). HTTP Query Syntax
+* The final output is a list with one element: a JSON object with a key for each word in all of the documents (unique), with the value of that key being the number of times the word appeared in the documents.
 
-Map/Reduce queries are issued over HTTP via a *POST* to the @/mapred@ resource.  The body should be @application/json@ of the form @{"inputs":[...inputs...],"query":[...query...]}@
+### HTTP Query Syntax
 
-Map/Reduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document @{"inputs":[...inputs...],"query":[...query...],"timeout": 90000}@
+Map/Reduce queries are issued over HTTP via a *POST* to the `/mapred` resource.  The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`
+
+Map/Reduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document `{"inputs":[...inputs...],"query":[...query...],"timeout": 90000}`
 
 When the timeout hits, the node coordinating the MapReduce request cancels it and returns an error to the client. When and if you are going to hit the default timeout depends on the size of the data involved and on the general load of your cluster. If you find yourself hitting the timeout regularly, consider increasing it even more or reduce the amount of data required to run the MapReduce request.
 
 #### Inputs
 
-The list of input objects is given as a list of 2-element lists of the form @[Bucket,Key]@ or 3-element lists of the form @[Bucket,Key,KeyData]@.
+The list of input objects is given as a list of 2-element lists of the form `[Bucket,Key]` or 3-element lists of the form `[Bucket,Key,KeyData]`.
 
-You may also pass just the name of a bucket @({"inputs":"mybucket",...})@, which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a map/reduce across the whole bucket").  You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly. A bucket input may also be combined with [[Key Filters]] to limit the number of objects processed by the first query phase.
+You may also pass just the name of a bucket `({"inputs":"mybucket",...})`, which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a map/reduce across the whole bucket").  You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly. A bucket input may also be combined with [[Key Filters]] to limit the number of objects processed by the first query phase.
 
 If you're using Riak Search, the list of inputs can also [[reference a search query|Riak-Search---Querying#Querying-Integrated-with-Map-Reduce]] to be used as inputs.
 
@@ -213,11 +215,11 @@ If you've enabled Secondary Indexes, the list of inputs can also [[reference a S
 
 #### Query
 
-The query is given as a list of phases, each phase being of the form @{PhaseType:{...spec...}}@.  Valid @{PhaseType}@ values are "map", "reduce", and "link".
+The query is given as a list of phases, each phase being of the form `{PhaseType:{...spec...}}`.  Valid `{PhaseType}` values are "map", "reduce", and "link".
 
-Every phase spec may include a @keep@ field, which must have a boolean value: @true@ means that the results of this phase should be included in the final result of the map/reduce, @false@ means the results of this phase should be used only by the next phase. Omitting the @keep@ field accepts its default value, which is @false@ for all phases except the final phase (Riak assumes that you were most interested in the results of the last phase of your map/reduce query).
+Every phase spec may include a `keep` field, which must have a boolean value: `true` means that the results of this phase should be included in the final result of the map/reduce, `false` means the results of this phase should be used only by the next phase. Omitting the `keep` field accepts its default value, which is `false` for all phases except the final phase (Riak assumes that you were most interested in the results of the last phase of your map/reduce query).
 
-h5. Map
+##### Map
 
 Map phases must be told where to find the code for the function to execute, and what language that function is in.
 
@@ -240,21 +242,21 @@ would run the Javascript function given in the spec, and include the results in 
 ```
 
 
-would run the Javascript function declared in the content of the Riak object under *mymap* in the @myjs@ bucket, and the results of the function would not be included in the final output of the m/r query.
+would run the Javascript function declared in the content of the Riak object under *mymap* in the `myjs` bucket, and the results of the function would not be included in the final output of the m/r query.
 
 
 ```javascript
    {"map":{"language":"javascript","name":"Riak.mapValuesJson"}}
 ```
 
-would run the builtin JavaScript function @mapValuesJson@.
+would run the builtin JavaScript function `mapValuesJson`.
 
 
 ```javascript
 {"map":{"language":"erlang","module":"riak_mapreduce","function":"map_object_value"}}
 ```
 
-would run the Erlang function @riak_mapreduce:map_object_value/3@.
+would run the Erlang function `riak_mapreduce:map_object_value/3`.
 
 Map phases may also be passed static arguments by using the "arg" spec field.
 
@@ -276,25 +278,25 @@ For example, the following map function will perform a regex match on object val
 }
 ```
 
-h5. Reduce
+##### Reduce
 
 Reduce phases look exactly like map phases, but are labeled "reduce".
 
-h5. Link
+##### Link
 
-Link phases accept @bucket@ and @tag@ fields that specify which links match the link query.  The string @_@ (underscore) in each field means "match all", while any other string means "match exactly this string".  If either field is left out, it is considered to be set to @_@ (match all).
+Link phases accept `bucket` and `tag` fields that specify which links match the link query.  The string `_` (underscore) in each field means "match all", while any other string means "match exactly this string".  If either field is left out, it is considered to be set to `_` (match all).
 
-The following example would follow all links pointing to objects in the @foo@ bucket, regardless of their tag:
+The following example would follow all links pointing to objects in the `foo` bucket, regardless of their tag:
 
 ```javascript
 {"link":{"bucket":"foo","keep":false}}
 ```
 
-h2(#erlang). MapReduce via the Erlang API
+## MapReduce via the Erlang API
 
 Riak also supports invoking MapReduce queries via the Erlang API.
 
-<div class="note"><div class="title">Distributing Erlang MapReduce Code</div>Any modules and functions you use in your Erlang MapReduce calls must be available on all nodes in the cluster.  You can add them in Erlang applications by specifying the *-pz* option in [[vm.args|Configuration Files]] or by adding the path to the *add_paths* setting in @app.config@.</div>
+<div class="note"><div class="title">Distributing Erlang MapReduce Code</div>Any modules and functions you use in your Erlang MapReduce calls must be available on all nodes in the cluster.  You can add them in Erlang applications by specifying the *-pz* option in [[vm.args|Configuration Files]] or by adding the path to the *add_paths* setting in `app.config`.</div>
 
 ### Erlang Example
 
@@ -328,15 +330,15 @@ Now that we have a client and some data, let's run a query and count how many oc
 9> L = dict:to_list(R).
 ```
 
-Given the lists of groceries we created, the sequence of commands above would result in L being bound to @[{"bread",1},{"eggs",1},{"bacon",2}]@.
+Given the lists of groceries we created, the sequence of commands above would result in L being bound to `[{"bread",1},{"eggs",1},{"bacon",2}]`.
 
 ### Erlang Query Syntax
 
-@riak_client:mapred/2@ takes two lists as arguments.  The first list contains bucket-key pairs, inputs to the MapReduce query.  The second list contains the phases of the query.
+`riak_client:mapred/2` takes two lists as arguments.  The first list contains bucket-key pairs, inputs to the MapReduce query.  The second list contains the phases of the query.
 
 #### Inputs
 
-The input objects are given as a list of tuples in the format @{Bucket, Key}@ or @{{Bucket, Key}, KeyData}@. @Bucket@ and @Key@ should be binaries, and @KeyData@ can be any Erlang term.  The former form is equivalent to @{{Bucket,Key},undefined}@.
+The input objects are given as a list of tuples in the format `{Bucket, Key}` or `{{Bucket, Key}, KeyData}`. `Bucket` and `Key` should be binaries, and `KeyData` can be any Erlang term.  The former form is equivalent to `{{Bucket,Key},undefined}`.
 
 #### Query
 
@@ -351,11 +353,11 @@ The query is given as a list of map, reduce and link phases. Map and reduce phas
 
 *FunTerm* is a reference to the function that the phase will execute and takes any of the following forms:
 
-* @{modfun, Module, Function}@ where *Module* and *Function* are atoms that name an Erlang function in a specific module.
-* @{qfun,Fun}@ where *Fun* is a callable fun term (closure or anonymous function).
-* @{jsfun,Name}@ where *Name* is a binary that, when evaluated in Javascript, points to a built-in Javascript function.
-* @{jsanon, Source}@ where *Source* is a binary that, when evaluated in Javascript is an anonymous function.
-* @{jsanon, {Bucket, Key}}@ where the object at @{Bucket, Key}@ contains the source for an anonymous Javascript function.
+* `{modfun, Module, Function}` where *Module* and *Function* are atoms that name an Erlang function in a specific module.
+* `{qfun,Fun}` where *Fun* is a callable fun term (closure or anonymous function).
+* `{jsfun,Name}` where *Name* is a binary that, when evaluated in Javascript, points to a built-in Javascript function.
+* `{jsanon, Source}` where *Source* is a binary that, when evaluated in Javascript is an anonymous function.
+* `{jsanon, {Bucket, Key}}` where the object at `{Bucket, Key}` contains the source for an anonymous Javascript function.
 
 Link phases are expressed in the following form:
 
@@ -365,7 +367,7 @@ Link phases are expressed in the following form:
 ```
 
 
-@Bucket@ is either a binary name of a bucket to match, or the atom @_@, which matches any bucket. @Tag@ is either a binary tag to match, or the atom @_@, which matches any tag. @Keep@ has the same meaning as in map and reduce phases.
+`Bucket` is either a binary name of a bucket to match, or the atom `_`, which matches any bucket. `Tag` is either a binary tag to match, or the atom `_`, which matches any tag. `Keep` has the same meaning as in map and reduce phases.
 
 
 <div class="info">There is a small group of prebuilt Erlang MapReduce functions available with Riak. Check them out here: [[https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl|https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl]]</div>
@@ -376,11 +378,11 @@ Because Riak distributes the map phases across the cluster to increase data-loca
 
 ### Streaming via the HTTP API
 
-You can enable streaming with MapReduce jobs submitted to the @/mapred@ resource by adding @?chunked=true@ to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with @Content-Type: multipart/mixed@.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries your that serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
+You can enable streaming with MapReduce jobs submitted to the `/mapred` resource by adding `?chunked=true` to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with `Content-Type: multipart/mixed`.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries your that serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
 
 ### Streaming via the Erlang API
 
-You can use streaming with Erlang via the Riak local client or the Erlang protobuffs API.  In either case, you will provide the call to @mapred_stream@ with a @Pid@ that will receive the streaming results.
+You can use streaming with Erlang via the Riak local client or the Erlang protobuffs API.  In either case, you will provide the call to `mapred_stream` with a `Pid` that will receive the streaming results.
 
 For examples, see:
 1. [[MapReduce localstream.erl]]
@@ -417,7 +419,7 @@ MapReduce phase functions have the same properties, arguments and return values 
 # *KeyData* : key data that was submitted with the inputs to the query or phase.
 # *Arg* : a static argument for the entire phase that was submitted with the query.
 
-*A map phase should produce a list of results.* You will see errors if the output of your map function is not a list.  Return the empty list if your map function chooses not to produce output. If your map phase is followed by another map phase, the output of the function must be compatible with the input to a map phase - a list of bucket-key pairs or @bucket-key-keydata@ triples.
+*A map phase should produce a list of results.* You will see errors if the output of your map function is not a list.  Return the empty list if your map function chooses not to produce output. If your map phase is followed by another map phase, the output of the function must be compatible with the input to a map phase - a list of bucket-key pairs or `bucket-key-keydata` triples.
 
 #### Map function examples
 
@@ -468,7 +470,7 @@ function(value, keydata, arg){
 # *ValueList*: the list of values produced by the preceding phase in the MapReduce query.
 # *Arg* : a static argument for the entire phase that was submitted with the query.
 
-*A reduce function should produce a list of values*, but it must also be true that the function is commutative, associative, and idempotent. That is, if the input list @[a,b,c,d]@ is valid for a given F, then all of the following must produce the same result:
+*A reduce function should produce a list of values*, but it must also be true that the function is commutative, associative, and idempotent. That is, if the input list `[a,b,c,d]` is valid for a given F, then all of the following must produce the same result:
 
 
 ```erlang
@@ -513,7 +515,7 @@ function(valueList, arg){
 
 ## Debugging Javascript Map Reduce Phases
 
-There are currently two facilities for debugging map reduce phases. If there was an exception in the Javascript VM you can view the error in the @log/sasl-error.log@ file. In addition to viewing exceptions you can write to a specific log file from your map or reduce phases using the ejsLog function.
+There are currently two facilities for debugging map reduce phases. If there was an exception in the Javascript VM you can view the error in the `log/sasl-error.log` file. In addition to viewing exceptions you can write to a specific log file from your map or reduce phases using the ejsLog function.
 
 ```javascript
 ejsLog('/tmp/map_reduce.log', JSON.stringify(value))
@@ -542,7 +544,7 @@ becomes
 {js_thread_stack, 32},
 ```
 
-In addition to increasing the amount of memory allocated to the stack you can increase the heap size as well by increasing the @js_max_vm_mem@ from the default of 8MB. If you are collecting a large amount of results in a reduce phase you may need to increase this setting.
+In addition to increasing the amount of memory allocated to the stack you can increase the heap size as well by increasing the `js_max_vm_mem` from the default of 8MB. If you are collecting a large amount of results in a reduce phase you may need to increase this setting.
 
 ## Configuration for Riak 1.0
 

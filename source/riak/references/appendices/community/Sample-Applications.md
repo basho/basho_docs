@@ -13,7 +13,7 @@ This a collection of sample applications built on Riak and Riak Core.
 
 * [[yakriak|http://github.com/seancribbs/yakriak]] - Riak-powered Ajax-polling chatroom
 * [[riaktant|https://github.com/basho/riaktant]] - A full- blown node.js app that stores and makes syslog messages searchable in Riak Search
-* [[selusuh|https://github.com/OJ/selusuh]] - Riak application which presents JSON slide decks (thanks, "OJ":http://twitter.com/#!/thecolonial!)
+* [[selusuh|https://github.com/OJ/selusuh]] - Riak application which presents JSON slide decks (thanks, [OJ](http://twitter.com/thecolonial)!)
 * [[Rekon|https://github.com/adamhunter/rekon]] - A Riak data browser, built as totally self-containted Riak application
 * [[Slideblast|https://github.com/rustyio/SlideBlast]] - share and control slide presentation for the web
 * [[riak_php_app|http://github.com/schofield/riak_php_app]] - a small PHP app that shows some basic usage of the Riak PHP library

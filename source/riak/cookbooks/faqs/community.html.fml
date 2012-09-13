@@ -4,17 +4,17 @@ project: riak
 version: 1.2+
 document: cookbook
 audience: advanced
-keywords: [faq, community, docs]
+keywords: [faq, community]
 ---
 
 Q: How do I submit my code to Basho?
 A:
   There are several ways to submit a piece of code to the core Basho Team:
-
+  
   * Basho hosts its code on [[GitHub|http://github.com/basho]]. Sending us a pull request for one of these repos is our preferred method to receive code contributions and fixes.
   * You can send a patch as an attachment to the [[Riak Mailing List|http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com]]. Be sure to include any additional information we'll need to asses and integrate your code.
   * Lastly, you can file a new ticket via our [[issue tracker|https://issues.basho.com/]] with the code attached and a detailed write up of what you're sending us.
-
+  
   <div class="info">
   If you haven't done so already, we kindly ask that you read over the [[Bug Reporting Guidelines|How to Report a Bug]] before you submit a bug or patch.
   </div>
@@ -35,15 +35,15 @@ A:
 
 Q: How can I fix these docs?
 A:
-  Basho maintains all of the content in the Riak Docs in a public GitHub repo. What this means is that if you have a change you think needs to be made, all you need to do is fork the [[Riak Docs Repo|https://github.com/basho/basho_docs]] and send a pull request with your changes. Chances are we will merge them in short order. If we have any questions, we'll comment on the pull request.
+  Basho maintains all of the content in the Riak Docs in a public GitHub repo. What this means is that if you have a change you think needs to be made, all you need to do is fork the [Riak Docs Repo](https://github.com/basho/basho_docs) and send a pull request with your changes. Chances are we will merge them in short order. If we have any questions, we'll comment on the pull request.
 
-Q: Who Maintains the Docs?
+Q: Who maintains the docs?
 A:
-  The Riak Docs are maintained primarily by the Basho Development and Support Teams. However, we do invite developers from outside Basho to have commit access to the Riak Wiki Repo on GitHub. (You can still contribute if you don't have commit access. You'll just need a committer to review your changes.)
+  The Riak Docs are maintained primarily by the Basho Development and Support Teams. However, we do invite developers from outside Basho to have commit access to the [Doc Repo on GitHub](https://github.com/basho/basho_docs). (You can still contribute if you don't have commit access. You'll just need a committer to review your changes.)
+  
+  There is a process by which community members will be granted commit access to the Riak docs directly. Those who are granted access will join a group called the *Community Docs Committers*.
 
-  There is a process by which community members will be granted commit access to the Riak docs directly. Those who are granted access will join a group called the "Community Wiki Committers."
-
-Q: Who will be considered for being a Community Wiki Committers?
+Q: Who will be considered for being a docs committer?
 A:
   * Those who come forward and ask for privileges. To do this, simply send an email to _+wiki@basho.com+_ and tell us why you want to edit the docs and where precisely you can shine as a Community Editor.
   * Community Members who are nominated by a member of the Riak Development or Support teams
@@ -52,7 +52,7 @@ Q: How will individuals be evaluated?
 A:
   * Those who come forward and ask for commit rights will be evaluated on their Riak knowledge and previous contributions to the Riak Community including, but not limited to, Mailing List and IRC activity, Libraries and Projects created, and patches and code submissions.
   * In the case of a member of the Riak team nominating a community member, the nominator will outline their reason for said nomination.
-
+  
   In both cases, members of the Basho Development and Support teams will hold a vote, via email, to approve the nominee.   Upon acceptance, the nominee will be notified via email.
-
+  
   [[See a list of current Community Wiki Committers|Contributors]]

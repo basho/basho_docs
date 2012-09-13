@@ -9,4 +9,10 @@ keywords: [faq]
 
 Q: What is Riak CS?
 A:
-  Riak CS is liquid awesome.
+  Riak CS is [multi-tenant](http://en.wikipedia.org/wiki/Multitenancy) cloud storage software for public and private clouds. Built on Basho's distributed database [[Riak]], Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3-API compatible and supports per-tenant reporting for billing and metering use cases.
+
+Q: Can users share data?
+A:
+  Data is by default private.  Users can manipulate ACLs (Access Control Lists) to grant access for their buckets or objects to other users, or even unauthenticated requesters.
+  
+  For implementation details see the [[Access Control Lists]] documentation.

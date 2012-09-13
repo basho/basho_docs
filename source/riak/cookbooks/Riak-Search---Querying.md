@@ -311,6 +311,6 @@ $ curl http://localhost:8098/solr/customers/select?q=first_name:john
 
 ## Query Scoring
 
-Documents are scored using roughly the same formulas described "here":http://lucene.apache.org/java/3_0_2/api/core/org/apache/lucene/search/Similarity.html
+Documents are scored using roughly [these formulas](http://lucene.apache.org/java/3_0_2/api/core/org/apache/lucene/search/Similarity.html)
 
 The key difference is in how Riak Search calculates the Inverse Document Frequency. The equations described on the /Similarity/ page require knowledge of the total number of documents in a collection. Riak Search does not maintain this information for a collection, so instead uses the count of the total number of documents associated with each term in the query.

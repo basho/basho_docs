@@ -24,7 +24,7 @@ All official clients use the integrated issue tracker on Github for bug reportin
 
 In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries
-and related projects [[../Community-Developed-Libraries-and-Projects][provided by the community]].
+and related projects [[references/Community-Developed-Libraries-and-Projects/][provided by the community]].
 
 | Language            | Source                 |
 |---------------------+------------------------|

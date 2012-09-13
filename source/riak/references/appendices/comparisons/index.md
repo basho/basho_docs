@@ -21,7 +21,7 @@ _Disclaimer: We tried to get this right, but software is complicated, and it cha
 
 ## Slide Decks
 
-This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide. *(If you have a Slide Deck to add, please fork the "Riak Wiki Repo on GitHub":https://github.com/basho/riak_wiki and do so.)*
+This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide. *(If you have a Slide Deck to add, please fork the [Riak Docs Repo on GitHub](https://github.com/basho/basho_docs) and do so.)*
 
 
 * [[Choosing The Right NoSQL Database - 4Developers|http://www.slideshare.net/juokaz/choosing-the-right-nosql-database-4developers]] - A whirlwind tour of a few NoSQL solutions, learning the very different ways they represent data and seeing their unique strengths and weaknesses in various kinds of applications. Along the way, we'll learn why new technologies must be introduced to address today's scaling challenges, and what compromises we'll have to make if we want to abandon the databases of our youth.

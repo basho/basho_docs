@@ -1,10 +1,20 @@
+---
+title: Network Security and Firewall Configurations
+project: riak
+version: 0.10.0+
+document: cookbook
+toc: true
+audience: advanced
+keywords: [troubleshooting, security]
+---
+
 The following article discusses standard configurations and port
 settings to use when thinking about how to secure a Riak Cluster.
 
 There are two classes of access control for Riak:
 
--   Other Riak nodes participating in the cluster
--   Clients making use of the Riak cluster
+* Other Riak nodes participating in the cluster
+* Clients making use of the Riak cluster
 
 The settings for both access groups are located in `app.config`. The
 configuration directives for client access all end in *ip* and *port*:
@@ -45,14 +55,14 @@ through 7999 from whichever network(s) contain your Riak nodes.
 **Riak nodes in a cluster need to be able to communicate freely with one
 another on the following ports:**
 
--   The epmd listener: TCP:4369
--   The handoff\_port listener: TCP:8099
--   The range of ports specified in `app.config`
+* epmd listener: TCP:4369
+* handoff_port listener: TCP:8099
+* range of ports specified in `app.config`
 
 **Riak clients must be able to contact at least one machine in a Riak
 cluster on the following ports:**
 
--   The web\_port: TCP:8098
--   The pb\_port: TCP:8087
+* web_port: TCP:8098
+* pb_port: TCP:8087
 
 <div class="info"><div class="title">Important note</div>The epmd process will continue to run on a given node even after all Erlang interpreters have exited. If <tt>inet_dist_listen_min</tt> and <tt>inet_dist_listen_max</tt> are added to <tt>app.config</tt>, epmd must be killed so that it will pick up the new settings.</div>

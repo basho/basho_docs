@@ -1,5 +1,5 @@
 ---
-title: Riak Security
+title: Riak Security Community
 project: riak
 version: 0.10.0+
 document: appendix

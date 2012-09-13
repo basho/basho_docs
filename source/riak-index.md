@@ -11,7 +11,7 @@ keywords: []
 
 ## Getting Started
 
-Are you new to Riak? You can get started with these tutorials. Take a look at the [[FAQs]] as you have specific questions.
+Are you new to Riak? You can get started with these tutorials. Look through the [[FAQs]] if you have questions.
 
 * [[The Riak Fast Track]]
 * [[Installing and Upgrading|installation]]
@@ -38,9 +38,9 @@ If you are a Riak user wanting to develop on an existing installation, look thro
      * [[Examples|Secondary-Indexes - Examples]]
 * References
   * [[APIs]]
-  * [[riak|Command-Line-Tools - riak]] *(Command-Line Tool)*
   * [[Client Libraries]]
-     * [[Community Developed Libraries and Projects]]
+  * [[Community Developed Projects|Community Developed Libraries and Projects]]
+  * [[riak|Command-Line-Tools - riak]] *(Command-Line Tool)*
 
 ---
 

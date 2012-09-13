@@ -36,7 +36,7 @@ This is a collection of videos from across the Riak community. They range from B
 
 ## Slide Decks
 
-This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide. *(If you have a Slide Deck to add, please fork the "Riak Wiki Repo on GitHub":https://github.com/basho/riak_wiki and do so.)*
+This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide. *(If you have a Slide Deck to add, please fork the [Riak Docs Repo on GitHub](https://github.com/basho/basho_docs) and do so.)*
 
 * [[Introducing Riak and Ripple|http://www.slideshare.net/seancribbs/introducing-riak-and-ripple]] - This is a great overview of working with Riak and Ripple from Sean Cribbs, the author of Ripple.
 * [[Getting Started with Riak - Nosql Live 2010 Boston|http://www.slideshare.net/rklophaus/getting-started-with-riak-nosql-live-2010-boston]] - Delivered by Rusty Klophaus, this is a very high level overview of Riak and includes basic Python code snippets.

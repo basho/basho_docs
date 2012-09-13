@@ -42,7 +42,7 @@ riak:
           - "[[Basic Cluster Setup]]"
           - "[[Adding and Removing Nodes]]"
           - "[[Replacing a Node]]"
-      - title: "Operations"
+      - title: "[[Operations]]"
         sub:
           - "[[Configuration Files]]"
           - "[[File System Tuning]]"
@@ -134,6 +134,11 @@ riakee:
     - "[[The Riak Fast Track]]"
     - "[[Installing and Upgrading|installation]]"
     - "[[Querying]]"
+  - title: "Shortcuts"
+    sub:
+      - "[[Riak Enterprise FAQs]]"
+      - "[[Riak FAQs|FAQs]]"
+      - "[[APIs|/references/apis/]]"
 
 riakcs:
   - title: "[[All Riak Projects|/index.html]]"

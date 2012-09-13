@@ -14,9 +14,9 @@ Bugs happen. We do our best to find them all but will inevitably miss some. Here
 
 Before you file a bug or issue, we ask that you put in the necessary time and research to ensure that what you are reporting is in fact a bonafide bug and not the result of some other configuration, operating system or application problem. To ensure your bug report is worth filing, please attempt do the following:
 
-# Search through the existing issues for the code in question on the relevant GitHub repo. Basho uses GitHub for the development of "all of our code":https://github.com/basho/. 
-# Search the "Riak Mailing List Archives":http://riak.markmail.org/ for similar issues and possible resolution paths. (The Mailman archives of the list archives can also be accessed "here.":http://lists.basho.com/pipermail/riak-users_lists.basho.com/)
-# Email the "Riak Mailing List":http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com with your issue to see if there is a simple path to resolution. 
+* Search through the existing issues for the code in question on the relevant GitHub repo. Basho uses GitHub for the development of [all of our code](https://github.com/basho/). 
+* Search the [Riak Mailing List Archives](http://riak.markmail.org/) for similar issues and possible resolution paths. (The [Mailman archives](http://lists.basho.com/pipermail/riak-users_lists.basho.com/) of the list archives can also be accessed)
+* Email the [Riak Mailing List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com) with your issue to see if there is a simple path to resolution. 
 
 ## Writing and Filing Your Bug Report
 

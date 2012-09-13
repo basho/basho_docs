@@ -9,19 +9,18 @@ audience: intermediate
 keywords: [developer]
 ---
 
-* Querying
-  * [[MapReduce/Search/2i Comparison]]
-  * MapReduce
-     * [[MapReduce]]
+* [[Querying Riak]]
+  * [[MapReduce]]
      * [[Key Filters]]
-  * Search
+  * [[Secondary Indexes]]
+     * [[Examples|Secondary Indexes - Examples]]
+     * [[Configuration|Secondary Indexes - Configuration]]
+  * [[Search|Riak Search]]
      * [[Indexing|Riak-Search - Indexing]]
      * [[Schema|Riak-Search - Schema]]
      * [[Querying|Riak-Search - Querying]]
      * [[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]
      * [[search-cmd|Command-Line-Tools - search-cmd]] *(Command-Line Tool)*
-  * Secondary Indexes
-     * [[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]
 * References
   * [[APIs]]
   * [[riak|Command-Line-Tools - riak]] *(Command-Line Tool)*
