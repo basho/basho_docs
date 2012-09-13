@@ -3,7 +3,7 @@ title: Riak
 project: riak
 version: 0.10.0+
 document: tutorial
-toc: true
+toc: false
 index: true
 audience: beginner
 keywords: []
@@ -11,16 +11,19 @@ keywords: []
 
 ## Getting Started
 
+Are you new to Riak? You can get started with these tutorials. Take a look at the [[FAQs]] as you have specific questions.
+
 * [[The Riak Fast Track]]
 * [[Installing and Upgrading|installation]]
-* [[Querying]]
-* [[FAQs for Getting Started|Basic FAQs]]
+* [[Querying Riak]]
 
+---
 
 ## Developing with Riak
 
-* Querying
-  * [[MapReduce/Search/2i Comparison]]
+If you are a Riak user wanting to develop on an existing installation, look through these resources. Also check out the [[FAQs for Using Riak|Developing on Riak FAQs]].
+
+* [[Querying|Querying Riak]]
   * MapReduce
      * [[MapReduce]]
      * [[Key Filters]]
@@ -31,27 +34,29 @@ keywords: []
      * [[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]
      * [[search-cmd|Command-Line-Tools - search-cmd]] *(Command-Line Tool)*
   * Secondary Indexes
-     * [[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]
+     * [[Configuration|Secondary-Indexes - Configuration]]
+     * [[Examples|Secondary-Indexes - Examples]]
 * References
   * [[APIs]]
   * [[riak|Command-Line-Tools - riak]] *(Command-Line Tool)*
   * [[Client Libraries]]
      * [[Community Developed Libraries and Projects]]
-* [[FAQs for Using Riak|Developing on Riak FAQs]]
 
+---
 
 ## Operating Riak
 
-* [[Installing and Upgrading|installation]]
-* Planning
+If you are a Riak administrator needing to configure, deploy, and manage an installation, these links are for you. There are also some good [[Operating Riak FAQs]].
+
+* [[Planning|System Planning]]
   * [[Choosing a Backend]]
      * [[Bitcask]]
      * [[LevelDB]]
      * [[Memory]]
      * [[Multi]]
-  * [[System Requirements]]
   * [[Cluster Capacity Planning]]
   * [[Bitcask Capacity Planning]]
+* [[Installing and Upgrading|installation]]
 * Managing Clusters
   * [[Basic Cluster Setup]]
   * [[Adding and Removing Nodes]]
@@ -61,14 +66,11 @@ keywords: []
   * [[File System Tuning]] {{0.14.0+}}
   * [[Backups]]
   * [[Network Security and Firewall Configurations]]
-* Search
-  * [[Enabling Search|Riak-Search - Enabling-Search]]
-  * [[Settings|Riak-Search - Settings]]
-  * [[MapReduce/Search/2i Comparison]]
-* Secondary Indexes
-  * [[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]
-  * [[MapReduce/Search/2i Comparison]]
+  * [[Riak Control GUI|Riak Control]] {{1.0.0+}}
+* [[Query Options|Querying Riak]]
+  * MapReduce
+  * [[Configuring Search|Riak-Search - Settings]]
+  * [[Configuring Secondary Indexes|Secondary Indexes Configuration]]
 * [[Troubleshooting]]
 * References
   * [[riak-admin|Command-Line-Tools - riak]] *(Command-Line Tool)*
-* [[Operating Riak FAQs]]

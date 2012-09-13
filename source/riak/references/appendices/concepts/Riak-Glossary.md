@@ -22,6 +22,7 @@ A Riak cluster is a 160-bit integer space which is divided into equally-sized pa
 ## Consistent Hashing
 
 Consistent hashing is a technique used to limit the reshuffling of keys when a hash-table data structure is rebalanced (when slots are added or removed). Riak uses consistent hashing to organize its data storage and replication. Specifically, the vnodes in the Riak Ring responsible for storing each object are determined using the consistent hashing technique.
+
 * [[More on Consistent Hashing|http://en.wikipedia.org/wiki/Consistent_hashing]]
 
 ## Gossiping
@@ -70,8 +71,8 @@ Partitions are the spaces into which a Riak cluster is divided. Each vnode in Ri
 
 Quorum in Riak has two meanings:
 
-# The quantity of replicas that must respond to a read or write request before it is considered successful. This is defined as a bucket property or as one of the relevant parameters to a single request (R,W,DW,RW).
-# A symbolic quantity for the above, "quorum", which is equivalent to *n_val / 2 + 1*. With Riak's default settings, this is *2*.
+* The quantity of replicas that must respond to a read or write request before it is considered successful. This is defined as a bucket property or as one of the relevant parameters to a single request (R,W,DW,RW).
+* A symbolic quantity for the above, `quorum`, which is equivalent to `n_val / 2 + 1`. With Riak's default settings, this is `2`.
 
 ## Read Repair
 
@@ -109,7 +110,7 @@ The Riak Ring is a 160-bit integer space. This space is equally divided into par
 
 Secondary Indexing in Riak gives developers the ability to tag an object stored in Riak with one or more values which can then be queried. 
 
-* [[More about Secondary Indexes|Secondary Indexes]]*
+* [[More about Secondary Indexes|Secondary Indexes]]
 
 ## Value
 

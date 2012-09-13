@@ -2,59 +2,72 @@
 Markdown = RedcarpetCompat unless defined? Markdown
 require 'rocco'
 
-# def gen_document(data)
-#   comment_block, document = false, []
-#   data.split(/\r?\n/).each do |line|
-#     line.strip!
-#     comment_line = line =~ /^\/\//
-#     line = line.sub(/^\/\//, '').strip
-#     document << {:comments => [], :doc => []} if comment_line && !comment_block
-#     if comment_block = comment_line
-#       document.last[:comments] << line
-#     else
-#       document.last[:doc] << ((line.length == 0 && document.last[:doc].length > 0) ? '</p><p>' : line)
-#     end
-#   end
-# end
+class DocRocco < Rocco
 
-# def render(document)
-#   output = ''
-#   document.each_with_index do |rows, index|
-#     output << "<tr id=\"section-#{index}\">"
-#     output << "<td class=\"docs\">"
-#     output << "<div class=\"pilwrap\"><a class=\"pilcrow\" href=\"#section-#{index}\">&#182;</a></div>"
-#     output << "<p>#{rows[:comments].join("\n")}</p>"
-#     output << "</td>"
-#     output << "<td class=\"code\">"
-#     output << "<p>#{rows[:doc].join("\n")}</p>"
-#     output << "</td>"
-#   end
-#   output
-# end
+  def highlight(blocks)
+    docs_blocks, code_blocks = blocks
 
-# # doc = gen_document(data)
-# # render(doc)
+    # Pre-process Docblock @annotations.
+    docs_blocks = docblock(docs_blocks) if @options[:docblocks]
 
-# module ::Middleman::Renderers::Rocco
-#   def registered(app)
-#     # FAQML is not included in the default gems,
-#     # but we'll support it if available.
-#     begin
-#       # Load gem
-#       # require "faqml"
-#       require "rocco"
+    # Combine all docs blocks into a single big markdown document with section
+    # dividers and run through the Markdown processor. Then split it back out
+    # into separate sections.
+    markdown = docs_blocks.join("\n\n##### DIVIDER\n\n")
+    docs_html = process_markdown(markdown).split(/\n*<h5>DIVIDER<\/h5>\n*/m)
 
-#       app.before_configuration do
-#         template_extensions :api => :html
-#       end
+    # Combine all code blocks into a single big stream with section dividers and
+    # run through either `pygmentize(1)` or <http://pygments.appspot.com>
+    span, espan = '<span class="c.?">', '</span>'
+    if @options[:comment_chars][:single]
+      front = @options[:comment_chars][:single]
+      divider_input  = "\n\n#{front} DIVIDER\n\n"
+      divider_output = Regexp.new(
+        [ "\\n*",
+          span,
+          Regexp.escape(CGI.escapeHTML(front)),
+          ' DIVIDER',
+          espan,
+          "\\n*"
+        ].join, Regexp::MULTILINE
+      )
+    else
+      front = @options[:comment_chars][:multi][:start]
+      back  = @options[:comment_chars][:multi][:end]
+      divider_input  = "\n\n#{front}\nDIVIDER\n#{back}\n\n"
+      divider_output = Regexp.new(
+        [ "\\n*",
+          span, Regexp.escape(CGI.escapeHTML(front)), espan,
+          "\\n",
+          span, "DIVIDER", espan,
+          "\\n",
+          span, Regexp.escape(CGI.escapeHTML(back)), espan,
+          "\\n*"
+        ].join, Regexp::MULTILINE
+      )
+    end
 
-#       # # Setup FAQML options to work with partials
-#       # ::FAQML::Engine.set_default_options(
-#       #   :buffer    => '@_out_buf', 
-#       #   :generator => ::Temple::Generators::StringBuffer
-#       # )
-#       "DERP"
-#     rescue LoadError
-#     end
-#   end
-# end
+    code_stream = code_blocks.join(divider_input)
+
+    code_html = code_stream
+
+    # code_html =
+    #   if pygmentize?
+    #     highlight_pygmentize(code_stream)
+    #   else
+    #     highlight_webservice(code_stream)
+    #   end
+
+    # Do some post-processing on the pygments output to split things back
+    # into sections and remove partial `<pre>` blocks.
+    code_html = process_markdown(code_html).
+      split("<h1>DIVIDER</h1>").
+      # split("# DIVIDER").
+      map { |code| code.sub(/\n?<div class="highlight"><pre>/m, '') }.
+      map { |code| code.sub(/\n?<\/pre><\/div>\n/m, '') }
+
+    # Lastly, combine the docs and code lists back into a list of two-tuples.
+    docs_html.zip(code_html)
+  end
+
+end

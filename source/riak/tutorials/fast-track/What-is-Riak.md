@@ -10,7 +10,7 @@ up:   ["The Riak Fast Track", "index.html"]
 next: ["Building a Dev Environment", "Building-a-Development-Environment.html"]
 ---
 
-This page introduces the architecture behind Riak's core principles: availability, fault-tolerance, operational simplicity and predictable scaling. If you already know this, *[go build a four-node cluster](Building-a-Development-Environment.html)*. 
+This page introduces the architecture behind Riak's core principles: availability, fault-tolerance, operational simplicity and predictable scaling. If you already know this, you can skip it and [[go build a four-node cluster|Building a Development Environment]]. 
 
 ## How Does a Riak Cluster Work?
 

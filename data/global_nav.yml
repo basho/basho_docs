@@ -7,9 +7,8 @@ riak:
     - "[[Installing and Upgrading|installation]]"
     - "[[Querying]]"
 
-  - title: "Querying"
+  - title: "[[Querying Riak]]"
     sub:
-      - "[[MapReduce/Search/2i Comparison]]"
       - title: "MapReduce"
         sub:
           - "[[MapReduce]]"
@@ -22,12 +21,13 @@ riak:
           - "[[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]"
       - title: "Secondary Indexes"
         sub:
-          - "[[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]"
+          - "[[Configuration|Secondary-Indexes - Configuration]]"
+          - "[[Examples|Secondary-Indexes - Examples]]"
 
   - title: "Operations"
     sub:
       - "[[Installing and Upgrading|installation]]"
-      - title: "Planning"
+      - title: "[[Planning|System Planning]]"
         sub:
           - title: "[[Choosing a Backend]]"
             sub:
@@ -35,7 +35,6 @@ riak:
               - "[[LevelDB]]"
               - "[[Memory]]"
               - "[[Multi]]"
-          - "[[System Requirements]]"
           - "[[Cluster Capacity Planning]]"
           - "[[Bitcask Capacity Planning]]"
       - title: "Managing Clusters"
@@ -51,11 +50,10 @@ riak:
           - "[[Network Security and Firewall Configurations]]"
       - title: "Search"
         sub:
-          - "[[Enabling Search|Riak-Search - Enabling Search]]"
           - "[[Settings|Riak-Search - Settings]]"
       - title: "Secondary Indexes"
         sub:
-          - "[[Configuration &amp; Examples|Secondary-Indexes - Configuration and Examples]]"
+          - "[[Configuration|Secondary-Indexes - Configuration]]"
       - title: "[[Troubleshooting]]"
         sub:
           - "[[Open Files Limit]]"
@@ -68,7 +66,6 @@ riak:
 
   - title: "References"
     sub:
-      - "[[MapReduce/Search/2i Comparison]]"
       - "[[APIs]]"
       - title: "[[Command-Line Tools]]"
         sub:
@@ -77,7 +74,6 @@ riak:
           - "[[search-cmd|Command-Line Tools - search-cmd]]"
       - "[[Client Libraries]]"
       - "[[Community Developed Libraries and Projects]]"
-
       - "[[Client Libraries]]"
       - "[[MapReduce Implementation]]"
       - "[[Backend API]]"
@@ -104,6 +100,7 @@ riak:
           - "[[Riak Compared to MongoDB]]"
           - "[[Riak Compared to Neo4j]]"
       - "[[Release Notes]]"
+      - "[[Riak and Dynamo|/references/dynamo/]]"
 
   - title: "Community"
     sub:

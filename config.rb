@@ -1,6 +1,6 @@
 require 'aws/s3'
 require 'versionomy'
-require './lib/version_router'
+require './lib/versionify'
 require './lib/faqml'
 require './lib/rocco'
 require './lib/deploy'
@@ -14,43 +14,19 @@ $versions = {
   :riakee => ENV['RIAKEE_VERSION'].presence || ENV['RIAK_VERSION'].presence
 }
 
-module VersionifyPaths
-  class << self
-    def registered(app)
-      app.after_configuration do
-        sitemap.register_resource_list_manipulator(
-          :versionify,
-          VersionifyPathsManipulator.new(self),
-          false
-        )
-      end
-    end
-    alias :included :registered
-  end
-
-  class VersionifyPathsManipulator
-    def initialize(app)
-      @app = app
-    end
-
-    def manipulate_resource_list(resources)
-      resources.each do |resource|
-        path = resource.destination_path
-        next if path =~ /^riak[^\/]*\/[\d\.]+\/index\.html/
-        resource.destination_path = path.sub(/^(riak[^\/]*)\//, '')
-      end
-    end
-  end
-end
-::Middleman::Extensions.register(:versionify, VersionifyPaths)
-
 use Rack::Middleman::VersionRouter #if $versions[:riak].present?
 
 # this is not optimal. Hook it into the "watch" mechanism
-puts "Generating API"
+puts "== Generating API"
 for api in Dir.glob("**/*.api")
   r = Rocco.new(api, [], :language => 'bash', :template_file => './source/layouts/api.mustache') #{File.read(api)}
   File.open(api.sub(/\.api$/, '.html.erb'), 'w') do |html|
+    html.write(r.to_html)
+  end
+end
+for api in Dir.glob("**/*.roc")
+  r = DocRocco.new(api, [], :language => 'bash', :template_file => './source/layouts/roc.mustache') #{File.read(api)}
+  File.open(api.sub(/\.roc$/, '.html.erb'), 'w') do |html|
     html.write(r.to_html)
   end
 end
@@ -124,6 +100,10 @@ ready do
 
   for api in Dir.glob("**/*.api")
     page api.sub(/\.?\/?source/, '').sub(/\.api$/, '.html'), :layout => false
+  end
+
+  for api in Dir.glob("**/*.roc")
+    page api.sub(/\.?\/?source/, '').sub(/\.roc$/, '.html'), :layout => false
   end
 
 end

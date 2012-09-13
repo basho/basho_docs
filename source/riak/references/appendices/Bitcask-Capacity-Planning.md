@@ -1,5 +1,5 @@
 ---
-title: Bitcask Capacity Planning
+title: Bitcask Capacity Calculator
 project: riak
 version: 0.10.0+
 document: appendix

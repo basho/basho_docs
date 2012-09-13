@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorials
 toc: true
 audience: intermediate
-keywords: [backends]
+keywords: [backends, planning]
 next: ["Bitcask", "Bitcask.html"]
 ---
 
@@ -14,7 +14,7 @@ ability to choose a low-level storage engine that suits specific operational
 needs. For example, if one needs maximum throughput coupled with data
 persistence and has a bounded keyspace, Bitcask is a good choice. On the other hand, if one needs to store a large number of keys, then LevelDB would be a better backend recommendation.
 
-As of Riak version 1.2, four backends are supported:
+These backends are supported:
 
 * [[Bitcask]]
 * [[LevelDB]]

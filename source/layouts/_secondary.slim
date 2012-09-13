@@ -4,7 +4,7 @@ aside.secondary role="complementary"
     ul
       - if (pages = similar_pages(current_resource)).present?
         - for page in pages[0..5]
-          li==link_to page.metadata[:page]["title"], page.url
+          li== "[[#{page.metadata[:page]['title']}]]"
       - else
         li== link_to 'All Riak Projects', '/index.html'
     / h3 Shortcuts

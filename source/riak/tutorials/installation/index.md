@@ -10,11 +10,11 @@ next: ["Installing Erlang", "Installing-Erlang.html"]
 
 Click the link for your operating system to see instructions on how to install Riak. But first, you must [[Install Erlang|Installing Erlang]].
 
-  * [[Installing on Debian and Ubuntu]]
-  * [[Installing on RHEL and CentOS]]
-  * [[Installing on Mac OS X]]
-  * [[Installing on SUSE]]
-  * [[Installing Riak from Source]]
+  * [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
+  * [[RHEL and CentOS|Installing on RHEL and CentOS]]
+  * [[Mac OS X|Installing on Mac OS X]]
+  * [[SUSE|Installing on SUSE]]
+  * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
 ### Upgrading
 

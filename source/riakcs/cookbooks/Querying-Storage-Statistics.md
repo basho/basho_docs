@@ -13,14 +13,11 @@ slices of time. Querying these statistics is done via the
 `/usage/$USER_KEY_ID` resource.
 
 **Note**: Storage statistics are not calculated by default. Please read
-[Usage and
-Billing](Usage-and-Billing-Data.html)
-for details about how to enable storage calculation archival.
+[[Usage and Billing Data]] for details about how to enable storage calculation archival.
 
 The basics of querying storage statistics, including the URL used and
 the parameters for specifying the time slice, are the same as they are
-for [Querying Access
-Statistics](Querying-Access-Statistics.html).
+for [[Querying Access Statistics]].
 
 Please refer to the descriptions there for more details.
 

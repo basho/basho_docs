@@ -232,3 +232,14 @@ thead th h1 {
   padding-bottom:30px;
 }
 */
+
+.code h1 {
+  margin-top: 40px;
+}
+.code h2 {
+  margin-top: 32px;
+}
+
+img {
+  max-width:100%;
+}

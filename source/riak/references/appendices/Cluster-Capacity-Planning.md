@@ -144,7 +144,7 @@ Ring Size/Number of Partitions
 Ring size is the number of partitions that make up your Riak Cluster.
 This is a number that is configured before you cluster is started, and
 is set in your app.config file under the
-[[ring_creation_size|Configuration Files#ring_creation_size]]
+[[ring_creation_size|Configuration Files#app.config]]
 parameter.
 
 The default number of partitions in a Riak cluster is 64. This works for

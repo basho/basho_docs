@@ -5,7 +5,6 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Tunable CAP Controls in Riak", "Tunable-CAP-Controls-in-Riak.html"]
 up:   ["The Riak Fast Track", "index.html"]
 ---
 

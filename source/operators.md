@@ -9,16 +9,15 @@ audience: intermediate
 keywords: [operator]
 ---
 
-* [[Installing and Upgrading|installation]]
-* Planning
+* [[Planning|System Planning]]
   * [[Choosing a Backend]]
      * [[Bitcask]]
      * [[LevelDB]]
      * [[Memory]]
      * [[Multi]]
-  * [[System Requirements]]
   * [[Cluster Capacity Planning]]
   * [[Bitcask Capacity Planning]]
+* [[Installing and Upgrading|installation]]
 * Managing Clusters
   * [[Basic Cluster Setup]]
   * [[Adding and Removing Nodes]]
@@ -28,13 +27,11 @@ keywords: [operator]
   * [[File System Tuning]] {{0.14.0+}}
   * [[Backups]]
   * [[Network Security and Firewall Configurations]]
-* Search
-  * [[Enabling Search|Riak-Search - Enabling-Search]]
-  * [[Settings|Riak-Search - Settings]]
-  * [[MapReduce/Search/2i Comparison]]
-* Secondary Indexes
-  * [[Configuration &amp; Examples|Secondary-Indexes - Configuration-and-Examples]]
-  * [[MapReduce/Search/2i Comparison]]
+  * [[Riak Control GUI|Riak Control]] {{1.0.0+}}
+* [[Query Options|Querying Riak]]
+  * MapReduce
+  * [[Configuring Search|Riak-Search - Settings]]
+  * [[Configuring Secondary Indexes|Secondary Indexes Configuration]]
 * [[Troubleshooting]]
   * [[Open Files Limit]]
   * [[Recovering a Failed Node]]

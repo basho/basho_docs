@@ -1,16 +1,31 @@
 ---
-title: System Requirements
+title: Planning for a Riak System
 project: riak
 version: 0.10.0+
-document: appendix
+document: tutorials
 toc: true
 audience: intermediate
 keywords: [planning, os]
 ---
 
-These are some recommendations for how to design and configure your hosting setup for Riak.
+Here are some steps and recommendations designing and configureing your Riak cluster.
 
-## Operating System
+## Backend
+
+A Riak backend is the mechanism by which values are persisted. Different backends have strengths and weaknesses, so if you are unsure of which backend you need, read through the [[Choosing a Backend]] tutorial.
+
+* [[Bitcask]]
+* [[LevelDB]]
+* [[Memory]]
+* [[Multi]]
+
+## Capacity
+
+[[Cluster Capacity Planning]] outlines the various elements and variables that should be considered when planning your Riak cluster.
+
+If you have chosen [[Bitcask]] as your backend, you will also want to run through the [[Bitcask Capacity Calculator]] to help you calculate a reasonable capacity.
+
+## Operating Systems
 
 We recommend deploying Riak on a mainstream Unix-like operating system. Mainstream distributions have larger support communities making solutions to common problems easier to find. Basho provides binary packages of Riak for the following distributions:
 
@@ -38,7 +53,7 @@ Like most datastores, **Riak will run best when not virtualized**. Virtual machi
 * **Choose the Largest VM You can Afford** - Better hardware means better performance.  Larger virtual machines are less likely to share hardware resources with other customers' virtual machines.
 * **Deploy VMs Within the Same Datacenter or Region Where Possible** - Some hosting providers allow you to choose the location of your servers. Choosing to provision within the same datacenter or region will usually reduce network latency and increase throughput, resulting in greater performance.
 
-## Network Configuration and Load-Balancing
+## Network Configuration / Load Balancing
 
 There are at least two acceptable strategies for load-balancing requests across your Riak cluster, **virtual IPs** and **reverse-proxy**.
 
@@ -52,8 +67,3 @@ For **reverse-proxy** configurations (HTTP interface), any one of these should w
 * nginx
 * lighttpd
 * Apache
-
-## Additional Resources
-
-* [[Cluster Capacity Planning]]
-* [[Bitcask Capacity Planning]]

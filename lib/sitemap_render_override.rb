@@ -143,7 +143,7 @@ module SitemapRenderOverride
 
       href = (anchor.scan(/href\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s
 
-      if url =~ /\/http\/single/
+      if url =~ /\/http\/single/ || url =~ /\/references\/dynamo/
         if href.include?('#')
           next "<a #{anchor}>"
         end

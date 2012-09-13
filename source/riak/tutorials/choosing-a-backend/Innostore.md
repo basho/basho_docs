@@ -5,7 +5,7 @@ version: 1.2.0-
 document: tutorials
 toc: true
 audience: intermediate
-keywords: [backends, innostore]
+keywords: [backends, planning, innostore]
 prev: ["Multi", "Multi.html"]
 up:   ["Choosing a Backend", "index.html"]
 ---

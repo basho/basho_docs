@@ -10,7 +10,7 @@ keywords: [operator, troubleshooting]
 
 ## Statistics from Riak
 
-Riak provides data related to current operating status, which includes statistics in the form of counters and histograms. These statistics are made available through the HTTP API via the [`/stats`](https://wiki.basho.com/HTTP-Status.html) endpoint, or through the [`riak-admin status`](http://wiki.basho.com/Inspecting-a-Node.html#riak-admin-status) command.
+Riak provides data related to current operating status, which includes statistics in the form of counters and histograms. These statistics are made available through the HTTP API via the `[[/stats|HTTP Status]]` endpoint, or through the `[[riak-admin status|Inspecting a Node#riak-admin-status]]` command.
 
 This page presents the most commonly monitored and gathered statistics, as well as numerous solutions for monitoring and gathering statistics that our customers and community report using successfully in Riak cluster environments. You can learn more about the specific Riak statistics provided in the [[Inspecting a Node]] documentation.
 
@@ -74,7 +74,7 @@ While Riak Control does not currently offer specific monitoring and statistics a
 #### Ganglia
 [Ganglia](http://ganglia.info) is a monitoring system specifically designed for large, high-performance groups of computers, such as clusters and grids. Customers and community members using Riak have reported success in using Ganglia to monitor Riak clusters.
 
-A [Riak Ganglia module](https://github.com/jnewland/gmond_python_modules/tree/master/riak/) for collecting statistics from the Riak HTTP [`/stats`](https://wiki.basho.com/HTTP-Status.html) endpoint is also available.
+A [Riak Ganglia module](https://github.com/jnewland/gmond_python_modules/tree/master/riak/) for collecting statistics from the Riak HTTP `[[/stats|HTTP Status]]` endpoint is also available.
 
 #### Nagios
 [Nagios](http://www.nagios.org) is a monitoring and alerting solution that can provide information on the status of Riak cluster nodes, in addition to various types of alerting when particular events occur. Nagios also offers logging and reporting of events and can be used for identifying trends and capacity planning.
@@ -104,7 +104,7 @@ Need more information on this one...
 -->
 
 #### Splunk
-[Splunk](http://www.splunk.com) is available as downloadable software or as a service, and provides tools for visualization of machine generated data such as log files. It can be connected to Riak's HTTP statistics [`/stats`](https://wiki.basho.com/HTTP-Status.html) endpoint.
+[Splunk](http://www.splunk.com) is available as downloadable software or as a service, and provides tools for visualization of machine generated data such as log files. It can be connected to Riak's HTTP statistics `[[/stats|HTTP Status]]` endpoint.
 
 Splunk can be used to aggregate all Riak cluster node operational log files, including operating system and Riak-specific logs and Riak statistics data. These data are then available for real-time graphing, search, and other visualization ideal for troubleshooting complex issues and spotting trends.
 

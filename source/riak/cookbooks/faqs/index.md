@@ -1,5 +1,5 @@
 ---
-title: FAQs
+title: Riak FAQs
 project: riak
 version: 1.2+
 document: cookbook

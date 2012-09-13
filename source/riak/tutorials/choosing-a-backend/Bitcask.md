@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorials
 toc: true
 audience: intermediate
-keywords: [backends, bitcask]
+keywords: [backends, planning, bitcask]
 prev: ["Choosing a Backend", "index.html"]
 up:   ["Choosing a Backend", "index.html"]
 next: ["LevelDB", "LevelDB.html"]

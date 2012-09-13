@@ -67,10 +67,13 @@ Start the Riak node:
     bin/riak start
 
 If the Riak node has been previously started, you must use
-`riak-admin reip` to change the node name and update the node's ring
-file.
+`riak-admin cluster replace` to change the node name and
+update the node's ring file.
 
-    bin/riak-admin reip riak@127.0.0.1 riak@192.168.1.10
+    bin/riak-admin cluster replace riak@127.0.0.1 riak@192.168.1.10
+
+As with all cluster changes, you need to view the plan `riak-admin cluster plan`,
+then run `riak-admin cluster commit` to finalize the changes.
 
 The node is now properly configured to join other nodes for cluster
 participation. Proceed to adding a second node to the cluster.

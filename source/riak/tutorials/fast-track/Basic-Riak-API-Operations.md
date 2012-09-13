@@ -16,7 +16,7 @@ For this module, we are going to work with the Riak HTTP API.
 
 Riak organizes data into Buckets, Keys, and Values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
 
-Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. This section describes how to do that using the Riak HTTP API. We also offer a native Erlang interface, and a HTTP Protocol Buffers Client interface. We also offer [supported client libraries](Client-Libraries.html) for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [community-supported projects](Community-Developed-Libraries-and-Projects.html) for .NET, Node.js, Python (and Twisted), Griffon, Small Talk, Perl, Scala, Clojure, and many others.
+Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. This section describes how to do that using the Riak HTTP API. We also offer [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Community Developed Libraries and Projects]] for .NET, Node.js, Python (and Twisted), Griffon, Small Talk, Perl, Scala, Clojure, and many others.
 
 ### Required Knowledge
 

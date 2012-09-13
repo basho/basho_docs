@@ -15,10 +15,11 @@ h1 [[HTTP API]]
   ul
     - pages.each do |page|
       - metadata = page.metadata[:page] || {}
-      li
-        == link_to metadata["title"], page.url
-        span.version  #{metadata["version"]}
-        | {{#{metadata['version']}}}
+      - if metadata["title"].present?
+        li
+          == link_to metadata["title"], page.url
+          span.version  #{metadata["version"]}
+          | {{#{metadata['version']}}}
 
 | {{#0.14.0+}}
 
@@ -30,9 +31,10 @@ h1 [[PBC API]]
   ul
     - pages.each do |page|
       - metadata = page.metadata[:page] || {}
-      li
-        == link_to metadata["title"], page.url
-        span.version  #{metadata["version"]}
-        | {{#{metadata["version"]}}}
+      - if metadata["title"].present?
+        li
+          == link_to metadata["title"], page.url
+          span.version  #{metadata["version"]}
+          | {{#{metadata["version"]}}}
 
 | {{/0.14.0+}}

@@ -29,7 +29,6 @@ The below links provide platform-specific instructions for downloading and insta
 * [[Mac OS X|Installing on Mac OS X#From Source]]
 * [[SUSE|Installing on SUSE]]
 * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
-* [Riak on Github](http://github.com/basho/riak)
 
 ## Build Riak
 

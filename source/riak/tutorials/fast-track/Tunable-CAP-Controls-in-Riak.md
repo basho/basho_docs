@@ -7,7 +7,6 @@ audience: beginner
 keywords: [tutorial, fast-track]
 prev: ["Links and Link Walking", "Links-and-Link-Walking.html"]
 up:   ["The Riak Fast Track", "index.html"]
-next: ["Thank Yous", "Thank-You.html"]
 ---
 
 So, we've come a long way. If you've done the Fast Track in order, that means you've had a short intro to Riak, set up a three node cluster on your local machine, worked a bit with the HTTP interface, and performed some MapReduce queries.
@@ -94,3 +93,6 @@ But, there is always more Riak learning to be done, so here is a list of next st
 * To download a platform-specific package of Riak, check out [[Getting Started|Installation]]
 * If you're interested in knowing how Riak stacks up to a few other databases, have a look at [[Riak Comparisons|Riak Comparisons]]
 * If you want to have a look at the Riak Source you can do so on [[GitHub|http://github.com/basho/riak]]
+
+
+And finally, a big [[Thank You]] to everyone who helped create, update and fix this tutorial.
