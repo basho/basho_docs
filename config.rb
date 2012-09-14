@@ -4,6 +4,7 @@ require './lib/versionify'
 require './lib/faqml'
 require './lib/rocco'
 require './lib/deploy'
+require './lib/index'
 require './lib/sitemap_render_override'
 
 DEFAULT_VERSION = '1.2.0'
@@ -106,6 +107,10 @@ ready do
     page api.sub(/\.?\/?source/, '').sub(/\.roc$/, '.html'), :layout => false
   end
 
+  if ENV.include?('INDEX')
+    puts "== Indexing"
+    build_yokozuna_index(sitemap.resources)
+  end
 end
 
 ###

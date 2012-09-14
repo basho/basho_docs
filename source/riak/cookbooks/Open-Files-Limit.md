@@ -22,7 +22,7 @@ for i in {1..100}
     riak stop
     riak start
     sleep 3
-    curl http://localhost:8098/riak/test -XPOST -d "x" \
+    curl http://localhost:8098/riak/test -X POST -d "x" \
       -H "Content-Type: text/plain"
     ls data/bitcask/*/* | wc -l
 done

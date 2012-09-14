@@ -186,7 +186,7 @@ A:
   
   See the [[Command-Line Tools]] for all options.
 
-Q: What's the difference between the riak_kv_cache_backend_ttl and riak_kv_cache_backend_max_ttl?
+Q: What's the difference between the `riak_kv_cache_backend_ttl` and `riak_kv_cache_backend_max_ttl`?
 A:
   `riak_kv_cache_backend_ttl` sets the lifespan in seconds of an object after being accessed
   
@@ -324,7 +324,7 @@ A:
   It is not currently possible. Often Riak log messages (mostly backtraces and warnings) are much longer than can be fit into a syslog message. However, all the log files are compatible with rotation (with the exception of the erlang.log.* files which are automatically rotated by Riak itself). If you're looking for a way to keep track of old log files, your logrotated script could be configured to archive or upload the rotated-out file to another machine.
 
 
-Q: I see errors in the Riak logs that contain "{error,emfile}" in the message, what do they mean?
+Q: I see errors in the Riak logs that contain `{error,emfile}` in the message, what do they mean?
   Riak is to run and start as expected but under load the logs contain messages that contain the following:
   ```
   {{badmatch,{error,emfile}},

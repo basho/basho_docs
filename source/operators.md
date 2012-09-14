@@ -29,9 +29,9 @@ keywords: [operator]
   * [[Network Security and Firewall Configurations]]
   * [[Riak Control GUI|Riak Control]] {{1.0.0+}}
 * [[Query Options|Querying Riak]]
-  * MapReduce
-  * [[Configuring Search|Riak-Search - Settings]]
-  * [[Configuring Secondary Indexes|Secondary Indexes Configuration]]
+  * [[MapReduce Configuration|MapReduce - Settings]]
+  * [[Search Configuration|Riak-Search - Settings]]
+  * [[Secondary Indexes Configuration]]
 * [[Troubleshooting]]
   * [[Open Files Limit]]
   * [[Recovering a Failed Node]]

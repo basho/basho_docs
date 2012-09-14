@@ -42,15 +42,18 @@ riak:
           - "[[Basic Cluster Setup]]"
           - "[[Adding and Removing Nodes]]"
           - "[[Replacing a Node]]"
-      - title: "[[Operations]]"
+      - title: "[[Operations|Operators]]"
         sub:
           - "[[Configuration Files]]"
           - "[[File System Tuning]]"
           - "[[Backups]]"
           - "[[Network Security and Firewall Configurations]]"
+      - title: "MapReduce"
+        sub:
+          - "[[Configuration|MapReduce - Settings]]"
       - title: "Search"
         sub:
-          - "[[Settings|Riak-Search - Settings]]"
+          - "[[Configuration|Riak-Search - Settings]]"
       - title: "Secondary Indexes"
         sub:
           - "[[Configuration|Secondary-Indexes - Configuration]]"

@@ -485,7 +485,7 @@ partition's data however there are no Bitcask-specific files as yet.
 
 After performing one "put" (write) into the Riak cluster running Bitcask.
 ```bash
-curl http://localhost:8098/riak/test/test -XPUT -d 'hello' -H 'content-type: text/plain'
+curl http://localhost:8098/riak/test/test -X PUT -d 'hello' -H 'content-type: text/plain'
 ```
 
 The "N" value for this cluster is 3 so you'll see that the three vnode

@@ -31,21 +31,26 @@ module ::Middleman::Features::Deploy
 
         AWS::S3::Base.establish_connection!(access_key_id: ACCESS_KEY_ID, secret_access_key: SECRET_ACCESS_KEY)
 
-        files.each do |f|
-          next if File.directory?(f)
-
+        def upload(key, f)
           attrs = {
             :access => :public_read,
             'Cache-Control' => 'max-age=315360000'
           }
+          puts " upload %s" % key
+          AWS::S3::S3Object.store(key, File.open(f), S3_BUCKET, attrs)
+        end
+
+        files.each do |f|
+          next if File.directory?(f)
+
+          # a copy of the full site to reflect the latest values
 
           # anything under images, js, css goes to "shared"
           if f =~ /^\.\/build\/(?:images|js|css)\//
             # upload shared for all given project versions
             $versions.values.uniq.each do |version|
               key = f.sub(/\.\/build\//, "shared/#{version}/")
-              puts " upload %s" % key
-              AWS::S3::S3Object.store(key, File.open(f), S3_BUCKET, attrs)
+              upload(key, f)
             end
             next
           elsif f == "./build/favicon.ico"
@@ -62,15 +67,12 @@ module ::Middleman::Features::Deploy
               key = f.sub(/\.\/build\//, "#{project}/#{version}/")
             end
           end
-          puts " upload %s" % key
 
-          # # compress files
-          # if f =~ /\.(html|js|css)$/
-          #   `gzip #{f} && mv #{f}.gz #{f}`
-          #   attrs[:content_encoding] = 'gzip'
-          # end
+          upload(key, f)
 
-          AWS::S3::S3Object.store(key, File.open(f), S3_BUCKET, attrs)
+          # upload twice... once under version, and once with "latest"
+          key = key.sub(/(riak[^\/\-]*?\/)[^\/]+(\/.*?)/, '\1latest\2')
+          upload(key, f)
         end
 
 

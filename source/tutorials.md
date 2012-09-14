@@ -8,7 +8,7 @@ index: true
 keywords: []
 ---
 
-Hello, this is tutorials
+Here are some Riak tutorials, either to get you started, or to learn more about your options.
 
 * [[The Riak Fast Track]]
 * [[Installing and Upgrading]]
