@@ -9,12 +9,6 @@ Easy:
 ```
 gem install bundler
 bundle install
-bundle exec middleman server
-```
-
-Optionally, run with specifying a version of the docs to run that version locally.
-
-```
 RIAK_VERSION=1.2.0 bundle exec middleman server
 ```
 
@@ -161,4 +155,12 @@ Then to deploy, simply run middleman build with a riak version:
 
 ```
 RIAK_VERSION=1.2.0 middleman build
+```
+
+## Deploying the Search Index
+
+This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
+
+```
+RIAK_VERSION=1.2.0 INDEX=true middleman build
 ```
