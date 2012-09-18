@@ -29,7 +29,7 @@ module ::Middleman::Features::Deploy
         puts "moving to S3"
         files = Dir['./build/**/*']
 
-        AWS::S3::Base.establish_connection!(access_key_id: ACCESS_KEY_ID, secret_access_key: SECRET_ACCESS_KEY)
+        AWS::S3::Base.establish_connection!(:access_key_id => ACCESS_KEY_ID, :secret_access_key => SECRET_ACCESS_KEY)
 
         def upload(key, f)
           attrs = {
