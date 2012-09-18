@@ -14,11 +14,15 @@ head(class=data.page.document)
   meta content="project" name=(data.page.project || 'riak')
   meta content="version" name=current_version
   title== data.page.title || "Riak Documents"
-  == stylesheet_link_tag "style"
+  == stylesheet_link_tag "boilerplate"
+  == stylesheet_link_tag "fonts"
+  == stylesheet_link_tag "common"
   == javascript_include_tag "all"
 body class==page_classes
-  == partial "layouts/header"
+  == partial "layouts/primary"
   div(role="main")
+    == partial "layouts/header"
+    div#nav-toggle
     article
       header
         h1== data.page.title
@@ -32,7 +36,6 @@ body class==page_classes
       == partial "layouts/tutorial_nav"
       footer
         == partial "layouts/keywords"
-  == partial "layouts/primary"
-  == partial "layouts/secondary"
+    == partial "layouts/secondary"
   == partial "layouts/footer"
 | </html>
