@@ -7,7 +7,7 @@ gem "github-markdown", "~>0.5.1"
 # gem "RedCloth"  # textile
 gem "org-ruby", "~>0.7.1"
 gem "slim", "~>1.2.2"
-gem "faqml", ">= 0.2.1"
+gem "faqml", ">= 0.2.2"
 gem "rocco", "=0.8.2"
 gem "versionomy", "~>0.4.4"
 gem "aws-s3", "~>0.6.3"

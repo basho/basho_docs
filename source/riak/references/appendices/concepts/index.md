@@ -29,7 +29,7 @@ There was more interest in the datastore technology than the
 applications built on it so Basho decided to build a business around
 Riak itself.
 
-Riak is heavily influenced by Dr. Eric Brewer’s [[CAP Theorem|http://en.wikipedia.org/wiki/CAP_theorem]] and [[Amazon’s Dynamo Paper|http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf]].
+Riak is heavily influenced by Dr. Eric Brewer’s [[CAP Theorem|http://en.wikipedia.org/wiki/CAP_theorem]] and [[Amazon’s Dynamo Paper|Dynamo]].
 Most of the core team comes from Akamai which informed Riak’s focus on operational ease and fault tolerance.
 
 The Riak APIs

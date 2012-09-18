@@ -30,7 +30,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
         <td>Data Model</td>
         <td>Riak stores key/value pairs in a higher level namespsace called a bucket.
 			<ul>
-			  <li>[[Buckets, Keys, and Values|Concepts#Buckets%2C-Keys%2C-and-Values]] </li>
+			  <li>[[Buckets, Keys, and Values|Concepts#Buckets, Keys, and Values]] </li>
 			</ul>
 		</td>
         <td>HBase stores data in a pre-defined column family format (each grouping of data has a key, and any number of column attributes which may be versioned individually). Data in HBase is sorted, sparse, and physically grouped by column family (rather than by row, as in a relational database). HBase calls their groupings "tables".
@@ -77,13 +77,12 @@ The table below gives a high level comparison of Riak and HBase features and cap
     </tr>
     <tr>
         <td>Query Types and Query-ability</td>
-        <td>There are currently four ways to query data in Riak.
+        <td>There are currently four ways to [[query Riak|Querying Riak]].
 			<ul>
 			<li>Primary key operations (GET, PUT, DELETE, UPDATE)</li>
 			<li>[[MapReduce]]</li>
 			<li>[[Secondary Indexes]]</li>
 			<li>[[Riak Search]]</li>
-			<li>[[MapReduce Search 2i Comparison]]</li>
 			</ul>
 
 	</td>
@@ -133,7 +132,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
 
 			The Riak APIs expose tunable consistency and availability parameters that let you select which level of configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
 				<ul>
-					<li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
+					<li>[[Reading, Writing, and Updating Data|Concepts#Reading, Writing, and Updating Data]]</li>
 				</ul>
 	 </td>
         <td>HBase supports in-cluster and between-cluster replication. In-cluster replication is handled by HDFS and replicates underlying data files according to Hadoop's settings. Between-cluster replicates by an eventually consistent master/slave push, or more recently added (experimental) master/master and cyclic (where each node plays the role of master and slave) replication.

@@ -1,5 +1,5 @@
 ---
-title: Developing with Riak
+title: Developers
 project: riak
 version: 0.10.0+
 document: tutorial
