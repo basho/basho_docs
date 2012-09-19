@@ -2,10 +2,14 @@
 /* =============================================================================
    Variables
    ========================================================================== */
+
+$headerColor : #616366;
+$textColor   : #515151;
+$linkBlue    : #2984a9;
    
-$subtleGray : #eaeaea;
-$lightGreen : #a7c7bf;
-$fadedGreen : #6f8a86;
+$subtleGray  : #eaeaea;
+$lightGreen  : #a7c7bf;
+$fadedGreen  : #6f8a86;
 
 /* =============================================================================
    Mixins
@@ -13,6 +17,10 @@ $fadedGreen : #6f8a86;
 
 @mixin bgPattern($url, $color: transparent) {
   background : url($url) left top repeat $color
+}
+
+@mixin bgImage($url, $color: transparent) {
+  background : url($url) center top no-repeat $color;
 }
 
 @mixin size($width: auto, $height: auto) {
@@ -33,6 +41,16 @@ $fadedGreen : #6f8a86;
 
 @mixin boxShadow($args) {
   @include vendor('box-shadow', $args);
+}
+
+@mixin allCorners($radius: 5px) {
+  @include vendor('border-radius', $radius);
+}
+
+@mixin corner($horiz, $vert, $radius: 5px) {
+  -webkit-border-#{$vert}-#{$horiz}-radius : $radius;
+  -moz-border-radius-#{$vert}#{$horiz}     : $radius;
+  border-#{$vert}-#{$horiz}-radius         : $radius;
 }
 
 /* =============================================================================
@@ -63,6 +81,14 @@ $fadedGreen : #6f8a86;
   text-shadow : 0 2px 2px #000;
 }
 
+.block {
+  display : block;
+}
+
+.inline-block {
+  display : inline-block;
+}
+
 /* =============================================================================
    Wireframe Structure
    ========================================================================== */
@@ -76,7 +102,6 @@ body {
   #nav-container {
     @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
     @include size(222px, 100%);
-    @include boxShadow(inset -10px 0 15px #333);
     overflow : auto;
     position : fixed;
     top      : 0;
@@ -96,31 +121,148 @@ body {
     position : absolute;
     z-index  : 2;
   }
-  
-  #nav-toggle {
-    @include size(50px, 50px);
-    background : red;
-  }
 }
 
 
 /* =============================================================================
-   Elements
+   Element Styles
    ========================================================================== */
 
 #nav-container {
   @extend .sans;
+  @include boxShadow(inset -10px 0 15px #333);
   color : $subtleGray;
 
   a {
+    @extend .block;
     @include bgPattern('/images/layout/nav-li-bg.jpg', #393939);
-    display   : block;
-    font-size : 90%;
-    color     : #fff;
-    padding   : 7px 12px;
+    font-size       : 90%;
+    color           : #fff;
+    padding         : 7px 12px;
+    border-left     : 4px solid $fadedGreen;
+    margin-bottom   : 1px;
     text-decoration : none;
+    
+    &:hover {
+      background        : #515151;
+      background        : rgba(255, 255, 255, .12);
+      border-left-color : $lightGreen;
+    }
   }
   
+  h3, h4 {
+    @extend .text-shadow;
+    margin : 10px 0 0;
+    
+    a {
+      @include bgPattern('/images/layout/nav-header-bg.jpg', transparent);
+    }
+  }
+  
+  h3 {
+    font-size  : 125%;
+    margin-top : 15px;
+  }
+  
+  h4 {
+    font-size : 115%;
+  }
+  
+  li:last-child {
+    margin-bottom : 10px;
+  }
+}
+
+div[role="main"] {
+  @extend .sans;
+  color     : $textColor;
+  font-size : 110%;
+  overflow  : visible;
+  
+  &.closed {
+    @include boxShadow(-10px 0 10px #333);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color : $headerColor;
+  }
+  
+  h1, h4, h5, h6 {
+    @extend .sans-bold;
+  }
+  
+  h1 {
+    font-size : 285%;
+  }
+  
+  h2 {
+    @extend .sans;
+    font-size : 200%;
+  }
+  
+  h3 {
+    @extend .sans;
+    font-size : 175%;
+  }
+  
+  h4 {
+    font-size : 125%;
+  }
+  
+  a {
+    color           : $linkBlue;
+    text-decoration : underline;
+    white-space     : nowrap;
+    
+    &:hover {
+      color : lighten($linkBlue, 15%);
+    }
+  }
+  
+  > header {
+    padding    : 1em 1em 0 0;
+    text-align : center;
+    overflow   : visible;
+
+    .logo {
+      @extend .block;
+      @include size(312px, 69px);
+      @include bgImage('/images/layout/logo.png');
+    }
+    
+    .tagline {
+      @extend .block;
+      text-align : left;
+      margin     : -5px 0 0 78px;
+    }
+    
+    .shadow-divider {
+      @include size(100%, 36px);
+      padding : 1.8em 0 0 .5em;
+    }
+    
+  }
+    
+  > article {
+    position : relative;
+    padding  : 0 20px;
+    
+    #nav-toggle {
+      @include size(30px, 38px);
+      @include bgImage('/images/layout/nav-toggle-sprite.png');
+      position : absolute;
+      top      : 1em;
+      left     : -25px;     
+    
+      &.closed {
+        background-position : left bottom;
+      }
+    }
+  }
+}
+
+.secondary {
+
 }
 
 /* =============================================================================

@@ -17,13 +17,12 @@ head(class=data.page.document)
   == stylesheet_link_tag "boilerplate"
   == stylesheet_link_tag "fonts"
   == stylesheet_link_tag "common"
-  == javascript_include_tag "all"
 body class==page_classes
   == partial "layouts/primary"
   div(role="main")
     == partial "layouts/header"
-    div#nav-toggle
     article
+      div#nav-toggle
       header
         h1== data.page.title
       == partial "layouts/versions"
@@ -37,5 +36,6 @@ body class==page_classes
       footer
         == partial "layouts/keywords"
     == partial "layouts/secondary"
-  == partial "layouts/footer"
+    == partial "layouts/footer"
+  == javascript_include_tag "all"
 | </html>

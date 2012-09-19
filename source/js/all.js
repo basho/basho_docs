@@ -7,28 +7,40 @@
       contentMargin;
       
   function getContentMargin() {
-    contentMargin = $('div[role=main]').css('margin-left');
+    var margin = $('div[role=main]').css('margin-left');
+    contentMargin = (margin === '24px') ? contentMargin : margin;
   }
   getContentMargin();
   
-  function closeNav() {
-    $('#primary-nav').fadeOut();
-    $('div[role=main]').animate({marginLeft: '24px'}, {queue: false, duration: 300});
+  function reverseToggle() {
+    $('#nav-toggle, div[role=main]').toggleClass('closed');
   }
   
-  function openNav() {
+  function closeNav(callback) {
+    $('#primary-nav').fadeOut();
+    $('div[role=main]').animate({marginLeft: '24px'}, {queue: false, duration: 300, complete: callback});
+  }
+  
+  function openNav(callback) {
     var cm = contentMargin;
     $('#primary-nav').fadeIn();
-    $('div[role=main]').animate({marginLeft: cm}, {queue: false, duration: 300});
+    $('div[role=main]').animate({marginLeft: cm}, {queue: false, duration: 300, complete: callback});
   }
   
   $(window).on('resize', getContentMargin);
+
   $(document).on('click', '#nav-toggle', function () {
     if ($('#primary-nav').is(':hidden')) {
-      openNav();
+      openNav(reverseToggle);
     } else {
-      closeNav();
+      closeNav(reverseToggle);
     }
   });
+  
+  
+  // Special display cases
+  if ($('body').hasClass('index')) {
+    $('.secondary').hide();
+  }
 
 });
