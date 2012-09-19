@@ -2,13 +2,18 @@
 
 // Don't throw an error if jQuery doesn't load
 (typeof jQuery !== 'function') ? null : jQuery(function () {
+  
+  var options = {
+    closedNavMargin : '12px',
+    navSpeed        : 300
+  };
 
   var $ = jQuery,
       contentMargin;
       
   function getContentMargin() {
     var margin = $('div[role=main]').css('margin-left');
-    contentMargin = (margin === '24px') ? contentMargin : margin;
+    contentMargin = (margin === options.closedNavMargin) ? contentMargin : margin;
   }
   getContentMargin();
   
@@ -18,13 +23,25 @@
   
   function closeNav(callback) {
     $('#primary-nav').fadeOut();
-    $('div[role=main]').animate({marginLeft: '24px'}, {queue: false, duration: 300, complete: callback});
+    $('div[role=main]').animate({
+      marginLeft: options.closedNavMargin
+    }, {
+      queue: false, 
+      duration: options.navSpeed, 
+      complete: callback
+    });
   }
   
   function openNav(callback) {
     var cm = contentMargin;
     $('#primary-nav').fadeIn();
-    $('div[role=main]').animate({marginLeft: cm}, {queue: false, duration: 300, complete: callback});
+    $('div[role=main]').animate({
+      marginLeft: cm
+    }, {
+      queue: false,
+      duration: options.navSpeed,
+      complete: callback
+    });
   }
   
   $(window).on('resize', getContentMargin);
