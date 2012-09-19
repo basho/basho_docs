@@ -220,25 +220,25 @@ div[role="main"] {
   }
   
   > header {
-    padding    : 1em 1em 0 0;
+    padding    : 1.5em 1em 0 0;
     text-align : center;
     overflow   : visible;
 
     .logo {
       @extend .block;
-      @include size(312px, 69px);
+      @include size(270px, 44px);
       @include bgImage('/images/layout/logo.png');
     }
     
     .tagline {
       @extend .block;
       text-align : left;
-      margin     : -5px 0 0 78px;
+      margin     : 8px 0 0 3px;
     }
     
     .shadow-divider {
       @include size(100%, 36px);
-      padding : 1.8em 0 0 .5em;
+      padding : 1.5em 0 0 .5em;
     }
     
   }
