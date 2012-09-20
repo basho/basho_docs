@@ -23,8 +23,9 @@ body class=(data.page.project || 'riak')
     == partial "layouts/header"
     article
       div#nav-toggle
-      header
-        h1== data.page.title
+      - unless !data.page.title
+        header
+          h1== data.page.title  
       == partial "layouts/versions"
       == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
       == partial "layouts/tutorial_nav"
@@ -35,7 +36,8 @@ body class=(data.page.project || 'riak')
       == partial "layouts/tutorial_nav"
       footer
         == partial "layouts/keywords"
-    == partial "layouts/secondary"
+    - unless !data.page.title
+      == partial "layouts/secondary"
     == partial "layouts/footer"
   == javascript_include_tag "all"
 | </html>

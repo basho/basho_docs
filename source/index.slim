@@ -1,5 +1,4 @@
 ---
-title: Riak
 project: shared
 version: 0.10.0+
 document: tutorial
@@ -9,9 +8,13 @@ audience: beginner
 keywords: []
 ---
 
-h3 Welcome to Riak docs
-h4 Pick a project
+h1.center-text.extra-large
+  | Welcome&nbsp;
+  span.sans to the Docs!
+h3.center-text Pick a project to get started:
 
-ul
+div#select-project
   - current_projects.each do |project, version|
-    li=="<a href=\"#{version[:deployment] ? "/#{project}/#{version[:deployment]}/" : "/#{project}/1.2.0/index.html"}\">#{project}</a>"
+    - ref = version[:deployment] ? "/#{project}/#{version[:deployment]}/" : "/#{project}/1.2.0/index.html"
+    | <a class="big-project-link" id="#{project}" href="#{ref}"><span><img alt="#{project}" src="../images/layout/#{project}-white.png"/></span></a>
+

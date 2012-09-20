@@ -89,6 +89,10 @@ $fadedGreen  : #6f8a86;
   display : inline-block;
 }
 
+.center-text {
+  text-align : center;
+}
+
 /* =============================================================================
    Wireframe Structure
    ========================================================================== */
@@ -193,6 +197,11 @@ div[role="main"] {
   
   h1 {
     font-size : 285%;
+    
+    &.extra-large {
+      font-size   : 350%;
+      line-height : 1.1;
+    }
   }
   
   h2 {
@@ -256,6 +265,52 @@ div[role="main"] {
     
       &.closed {
         background-position : left bottom;
+      }
+    }
+  }
+  
+  #select-project {
+    @include size(auto, 35em);
+    position  : relative;
+    min-width : 46em;
+    
+    .big-project-link {
+      @include bgPattern('/images/layout/light-green-bg.jpg');
+      @include allCorners(50%);
+      padding  : .4em;
+      position : absolute;
+      display  : block;
+      
+      span {
+        @include bgPattern('/images/layout/dark-green-bg.jpg');
+        @include allCorners(50%);
+        display : block;
+      }
+      
+      &#riak {
+        top  : 3em;
+        left : 9em;
+        
+        span {
+          padding : 6.4em 2em 7em;
+        }
+      }
+      
+      &#riakee {
+        top  : 19em;
+        left : 1em;
+        
+        span {
+          padding : 4em 2em 4em 1.5em;
+        }
+      }
+      
+      &#riakcs {
+        top  : 11em;
+        left : 28em;
+        span {
+          padding : 5.4em 1.8em 6.2em 2.2em;
+        }
       }
     }
   }
