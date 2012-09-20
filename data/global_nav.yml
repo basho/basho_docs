@@ -5,9 +5,9 @@ riak:
     sub:
     - "[[The Riak Fast Track]]"
     - "[[Installing and Upgrading|installation]]"
-    - "[[Querying]]"
+    - "[[Query Choices|Querying Riak]]"
 
-  - title: "[[Querying Riak]]"
+  - title: "Using Riak"
     sub:
       - title: "MapReduce"
         sub:
