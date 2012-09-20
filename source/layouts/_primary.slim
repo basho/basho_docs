@@ -1,5 +1,5 @@
-aside role="complementary"
-  nav#primary-nav role="nav"
+aside#nav-container role="complementary"
+  nav.overview#primary-nav role="nav"
     - project = data.page.project || 'riak'
     - data.global_nav[project].each do |section|
       - nav_data, active = build_nav(section['sub'])

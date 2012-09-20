@@ -1,0 +1,394 @@
+
+/* =============================================================================
+   Variables
+   ========================================================================== */
+
+$headerColor : #616366;
+$textColor   : #515151;
+$linkBlue    : #2984a9;
+   
+$subtleGray  : #eaeaea;
+$lightGreen  : #a7c7bf;
+$fadedGreen  : #6f8a86;
+
+/* =============================================================================
+   Mixins
+   ========================================================================== */
+
+@mixin bgPattern($url, $color: transparent) {
+  background : url($url) left top repeat $color
+}
+
+@mixin bgImage($url, $color: transparent) {
+  background : url($url) center top no-repeat $color;
+}
+
+@mixin size($width: auto, $height: auto) {
+  width  : $width;
+  height : $height;
+}
+
+@mixin minSize($width: auto, $height: auto) {
+  min-width  : $width;
+  min-height : $height;
+}
+
+@mixin vendor($prop, $args) {
+  -webkit-#{$prop} : $args;
+  -moz-#{$prop}    : $args;
+  #{$prop}         : $args;
+}
+
+@mixin boxShadow($args) {
+  @include vendor('box-shadow', $args);
+}
+
+@mixin allCorners($radius: 5px) {
+  @include vendor('border-radius', $radius);
+}
+
+@mixin corner($horiz, $vert, $radius: 5px) {
+  -webkit-border-#{$vert}-#{$horiz}-radius : $radius;
+  -moz-border-radius-#{$vert}#{$horiz}     : $radius;
+  border-#{$vert}-#{$horiz}-radius         : $radius;
+}
+
+/* =============================================================================
+   Convenient Extensible Classes
+   ========================================================================== */
+
+.sans {
+  font-family : 'titillium', verdana, arial, sans-serif;
+  font-weight : normal;
+}
+
+.serif {
+  font-family : 'notica', serif;
+  font-weight : normal;
+}
+
+.sans-bold {
+  @extend .sans;
+  font-weight : bold;
+}
+
+.serif-italic {
+  @extend .serif;
+  font-style : italic;
+}
+
+.text-shadow {
+  text-shadow : 0 2px 2px #000;
+}
+
+.block {
+  display : block;
+}
+
+.inline-block {
+  display : inline-block;
+}
+
+/* =============================================================================
+   Wireframe Structure
+   ========================================================================== */
+
+html {
+  @include bgPattern('/images/layout/content-bg.jpg', $subtleGray);
+}
+
+body {
+  
+  #nav-container {
+    @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
+    @include size(222px, 100%);
+    overflow : auto;
+    position : fixed;
+    top      : 0;
+    left     : 0;
+    z-index  : 1;
+    
+    #primary-nav {
+      padding : 5px 12px;
+    }
+  }
+  
+  div[role="main"] {
+    @include bgPattern('/images/layout/content-bg.jpg', $subtleGray);
+    @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
+    padding  : 0 25px;
+    margin   : 0 0 0 222px;
+    position : absolute;
+    z-index  : 2;
+  }
+}
+
+
+/* =============================================================================
+   Element Styles
+   ========================================================================== */
+
+#nav-container {
+  @extend .sans;
+  @include boxShadow(inset -10px 0 15px #333);
+  color : $subtleGray;
+
+  a {
+    @extend .block;
+    @include bgPattern('/images/layout/nav-li-bg.jpg', #393939);
+    font-size       : 90%;
+    color           : #fff;
+    padding         : 7px 12px;
+    border-left     : 4px solid $fadedGreen;
+    margin-bottom   : 1px;
+    text-decoration : none;
+    
+    &:hover {
+      background        : #515151;
+      background        : rgba(255, 255, 255, .12);
+      border-left-color : $lightGreen;
+    }
+  }
+  
+  h3, h4 {
+    @extend .text-shadow;
+    margin : 10px 0 0;
+    
+    a {
+      @include bgPattern('/images/layout/nav-header-bg.jpg', transparent);
+    }
+  }
+  
+  h3 {
+    font-size  : 125%;
+    margin-top : 15px;
+  }
+  
+  h4 {
+    font-size : 115%;
+  }
+  
+  li:last-child {
+    margin-bottom : 10px;
+  }
+}
+
+div[role="main"] {
+  @extend .sans;
+  color     : $textColor;
+  font-size : 110%;
+  overflow  : visible;
+  
+  &.closed {
+    @include boxShadow(-10px 0 10px #333);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color : $headerColor;
+  }
+  
+  h1, h4, h5, h6 {
+    @extend .sans-bold;
+  }
+  
+  h1 {
+    font-size : 285%;
+  }
+  
+  h2 {
+    @extend .sans;
+    font-size : 200%;
+  }
+  
+  h3 {
+    @extend .sans;
+    font-size : 175%;
+  }
+  
+  h4 {
+    font-size : 125%;
+  }
+  
+  a {
+    color           : $linkBlue;
+    text-decoration : underline;
+    white-space     : nowrap;
+    
+    &:hover {
+      color : lighten($linkBlue, 15%);
+    }
+  }
+  
+  > header {
+    padding    : 1.5em 1em 0 0;
+    text-align : center;
+    overflow   : visible;
+
+    .logo {
+      @extend .block;
+      @include size(270px, 44px);
+      @include bgImage('/images/layout/logo.png');
+    }
+    
+    .tagline {
+      @extend .block;
+      text-align : left;
+      margin     : 8px 0 0 3px;
+    }
+    
+    .shadow-divider {
+      @include size(100%, 36px);
+      padding : 1.5em 0 0 .5em;
+    }
+    
+  }
+    
+  > article {
+    position : relative;
+    padding  : 0 20px;
+    
+    #nav-toggle {
+      @include size(30px, 38px);
+      @include bgImage('/images/layout/nav-toggle-sprite.png');
+      position : absolute;
+      top      : 1em;
+      left     : -25px;     
+    
+      &.closed {
+        background-position : left bottom;
+      }
+    }
+  }
+}
+
+.secondary {
+
+}
+
+/* =============================================================================
+   FAQ
+   ========================================================================== */
+   
+details summary::-webkit-details-marker {
+  display:none;
+}
+details.question > summary {
+  outline: none;
+  color:blue;
+  text-decoration:underline;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+a[href^="#"] {
+  color:black;
+}
+nav#toc {
+  ul#toc-items li {
+    a {
+      color:darkgreen;
+    }
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+article {
+  nav.tutorial {
+    ul {
+      width:100%;
+      float:left;
+      li {
+        float:left;
+        padding:5px;
+        border-right: 1px solid black;
+        &:last-child {
+          border-right: 0px;
+        }
+        .label {
+          display:none;
+        }
+        &.prev::before {
+          content: '« ';
+        }
+        &.next::after {
+          content: ' »';
+        }
+      }
+    }
+  }
+}
+
+code {
+  background: #eee;
+  padding: 0 3px;
+  border-radius: 4px;
+}
+
+.code {
+  pre {
+    overflow-x:auto;
+    border: 1px solid #A6ABB4;
+    padding:2px;
+    padding: 15px 10px;
+    background: #eee;
+    background-size: 100% 8px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    box-shadow: inset 0 -1px 0 white,0 0 1px rgba(156, 165, 181, 0.6),0 1px 1px rgba(156, 165, 181, 0.5);
+    border-radius: 4px;
+    color: #333;
+
+    code {
+      white-space:pre;
+      display:block;
+    }
+  }
+  // overflow-x: scroll;
+}
+
+ol.versions,
+ol.versions li {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+  float:left;
+}
+ol.versions {
+  width: 100%;
+  clear:both;
+  margin-bottom:1em;
+  li {
+    font-size:8pt;
+    padding:1px;
+    border:1px solid #ccc;
+    border-right:0px;
+    &:last-child {
+      border-right:1px solid #ccc;
+    }
+    &.current {
+      background-color:blue;
+      a {
+        color:white;
+      }
+    }
+  }
+}
+
+/*
+ul.depth-2,
+ul.depth-3 {
+  display:none;
+}
+*/
+
+.active {
+  background-color:#FDD;
+}
+.current {
+  background-color:red;
+}

@@ -99,13 +99,13 @@ ready do
     end
   end
 
-  for api in Dir.glob("**/*.api")
-    page api.sub(/\.?\/?source/, '').sub(/\.api$/, '.html'), :layout => false
-  end
+  # for api in Dir.glob("**/*.api")
+  #   page api.sub(/\.?\/?source/, '').sub(/\.api$/, '.html'), :layout => false
+  # end
 
-  for api in Dir.glob("**/*.roc")
-    page api.sub(/\.?\/?source/, '').sub(/\.roc$/, '.html'), :layout => false
-  end
+  # for api in Dir.glob("**/*.roc")
+  #   page api.sub(/\.?\/?source/, '').sub(/\.roc$/, '.html'), :layout => false
+  # end
 
   if ENV.include?('INDEX')
     puts "== Indexing"
