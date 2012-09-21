@@ -16,5 +16,5 @@ h3.center-text Pick a project to get started:
 div#select-project
   - current_projects.each do |project, version|
     - ref = version[:deployment] ? "/#{project}/#{version[:deployment]}/" : "/#{project}/1.2.0/index.html"
-    | <a class="big-project-link" id="#{project}" href="#{ref}"><span><img alt="#{project}" src="/images/layout/#{project}-white.png"/></span></a>
+    | <a class="big-project-link" id="#{project}" href="#{ref}"><span><img alt="#{project}" src="/images/layout/#{project}-circle.png"/></span></a>
 
