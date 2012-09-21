@@ -17,6 +17,7 @@ head(class=data.page.document)
   == stylesheet_link_tag "boilerplate"
   == stylesheet_link_tag "fonts"
   == stylesheet_link_tag "common"
+  == javascript_include_tag "all"
 body class=(data.page.project || 'riak')
   == partial "layouts/primary"
   div(role="main")
@@ -38,6 +39,5 @@ body class=(data.page.project || 'riak')
         == partial "layouts/keywords"
     - unless !data.page.title
       == partial "layouts/secondary"
-  == partial "layouts/footer"
-  == javascript_include_tag "all"
+    == partial "layouts/footer"
 | </html>

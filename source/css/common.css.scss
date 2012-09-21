@@ -128,12 +128,16 @@ body {
     @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
     padding  : 0 25px;
     margin   : 0 0 0 222px;
-    position : absolute;
+    position : relative;
     z-index  : 2;
   }
   
-  footer {
+  .mastfooter {
     @include bgPattern('/images/layout/footer-bg.jpg');
+    @include size(100%, auto);
+    padding  : 25px 0;
+    position : absolute;
+    margin   : 0 -25px;
   }
 }
 
@@ -194,7 +198,7 @@ div[role="main"] {
   overflow  : visible;
   
   &.closed {
-    @include boxShadow(-10px 0 10px #333);
+    @include boxShadow(-10px -10px 10px #333);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -288,16 +292,60 @@ div[role="main"] {
     @include size(auto, 35em);
     position  : relative;
     min-width : 46em;
+    max-width : 46em;
+    margin    : 0 auto;
     @media screen and (max-width: 1100px) {
+      @include size(66%, 30em);
       min-width : 36em;
     }
     @media screen and (max-width: 925px) {
+      height    : 25em;
       min-width : 30em;
     }
     @media screen and (max-width: 810px) {
+      @include size(100%, auto);
       text-align  : center;
       min-width   : 0;
       padding-top : 10px;
+      margin      : 15px auto;
+    }
+    
+    #right-connector, #left-connector {
+      position : absolute;
+    }
+    
+    #right-connector {
+      top  : 13em;
+      left : 21em;
+      @media screen and (max-width: 1100px) {
+        @include size(209px, 86px); // 80% of full size
+        top  : 10em;
+        left : 17em;
+      }
+      @media screen and (max-width: 925px) {
+        top  : 9em;
+        left : 13.5em;
+      }
+      @media screen and (max-width: 810px) {
+        display : none;
+      }
+    }
+    
+    #left-connector {
+      top  : 14em;
+      left : 6em;
+      @media screen and (max-width: 1100px) {
+        @include size(148px, 175px); // 80% of full size
+        top  : 10em;
+        left : 6em;
+      }
+      @media screen and (max-width: 925px) {
+        top  : 9em;
+        left : 3em;
+      }
+      @media screen and (max-width: 810px) {
+        display : none;
+      }
     }
     
     .big-project-link {
@@ -342,7 +390,7 @@ div[role="main"] {
           left : 1em;
         }
         @media screen and (max-width: 925px) {
-          @include size(140px, 140px);
+          @include size(162px, 162px);
           top  : 13em;
           left : 0;
         }
@@ -382,6 +430,12 @@ div[role="main"] {
       }
     }
   }
+}
+
+.mastfooter {
+  @extend .center-text;
+  color     : #fff;
+  font-size : 80%;
 }
 
 .secondary {
