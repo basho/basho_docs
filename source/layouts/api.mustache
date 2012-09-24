@@ -3,7 +3,7 @@ title: HTTP API
 toc: false
 ---
 
-<div id='container'>
+<div id="container">
   <div id="background"></div>
   {{#sources?}}
   <div id="jump_to">
@@ -17,21 +17,25 @@ toc: false
     </div>
   </div>
   {{/sources?}}
-  <table cellspacing=0 cellpadding=0>
+  <table cellspacing=0 cellpadding=0 class="docco">
+  <!--
   <thead>
     <tr>
-    	<!-- {{ title }} -->
+    	
       <th class=docs><h1>HTTP API</h1></th>
       <th class=code></th>
     </tr>
   </thead>
+  -->
   <tbody>
     {{#sections}}
     <tr id='section-{{ section_id }}'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-{{ section_id }}">&#182;</a>
         </div>
+        -->
         {{{ docs }}}
       </td>
       <td class=code>

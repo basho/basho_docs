@@ -3,22 +3,26 @@ title: HTTP API
 toc: false
 ---
 
-<div id='container'>
+<div id="container">
   <div id="background"></div>
-  <table cellspacing=0 cellpadding=0>
+  <table cellspacing=0 cellpadding=0 class="docco">
+  <!--
   <thead>
     <tr>
-    	<!-- single.api -->
+    	
       <th class=docs><h1>HTTP API</h1></th>
       <th class=code></th>
     </tr>
   </thead>
+  -->
   <tbody>
     <tr id='section-Bucket_Operations'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Bucket_Operations">&#182;</a>
         </div>
+        -->
         <h2>Bucket Operations</h2>
       </td>
       <td class=code>
@@ -27,9 +31,11 @@ toc: false
     </tr>
     <tr id='section-2'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-List_Buckets">List Buckets</a></p>
       </td>
       <td class=code>
@@ -38,9 +44,11 @@ toc: false
     </tr>
     <tr id='section-3'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-List_Keys">List Keys</a> (all)</p>
       </td>
       <td class=code>
@@ -49,9 +57,11 @@ toc: false
     </tr>
     <tr id='section-4'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-List_Keys">List Keys</a> (stream)</p>
       </td>
       <td class=code>
@@ -60,9 +70,11 @@ toc: false
     </tr>
     <tr id='section-5'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-Get_Bucket_Properties">Get Bucket Properties</a></p>
       </td>
       <td class=code>
@@ -71,9 +83,11 @@ toc: false
     </tr>
     <tr id='section-Object/Key_Operations'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Object/Key_Operations">&#182;</a>
         </div>
+        -->
         <h2>Object/Key Operations</h2>
       </td>
       <td class=code>
@@ -82,9 +96,11 @@ toc: false
     </tr>
     <tr id='section-7'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-Fetch_Object">Fetch Object</a></p>
       </td>
       <td class=code>
@@ -93,9 +109,11 @@ toc: false
     </tr>
     <tr id='section-8'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-Delete_Object">Delete Object</a></p>
       </td>
       <td class=code>
@@ -104,9 +122,11 @@ toc: false
     </tr>
     <tr id='section-Query_Operations'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Query_Operations">&#182;</a>
         </div>
+        -->
         <h2>Query Operations</h2>
       </td>
       <td class=code>
@@ -115,9 +135,11 @@ toc: false
     </tr>
     <tr id='section-10'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-Link_Walking">Link Walking</a></p>
       </td>
       <td class=code>
@@ -126,9 +148,11 @@ toc: false
     </tr>
     <tr id='section-Server_Operations'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Server_Operations">&#182;</a>
         </div>
+        -->
         <h2>Server Operations</h2>
       </td>
       <td class=code>
@@ -137,9 +161,11 @@ toc: false
     </tr>
     <tr id='section-12'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
+        -->
         <p>● <a href="#section-List_Resources">List Resources</a></p>
       </td>
       <td class=code>
@@ -148,9 +174,11 @@ toc: false
     </tr>
     <tr id='section-List_Buckets'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-List_Buckets">&#182;</a>
         </div>
+        -->
         <h1>List Buckets</h1>
 
 <p>Lists all known buckets (ones that have keys stored in them).</p>
@@ -164,9 +192,11 @@ GET /buckets?buckets<span class="o">=</span><span class="nb">true</span>    <spa
     </tr>
     <tr id='section-Request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request">&#182;</a>
         </div>
+        -->
         <h2>Request</h2>
 
 <p>Required query parameter:</p>
@@ -181,9 +211,11 @@ GET /buckets?buckets<span class="o">=</span><span class="nb">true</span>    <spa
     </tr>
     <tr id='section-Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Response">&#182;</a>
         </div>
+        -->
         <h2>Response</h2>
 
 <p>Normal status codes:</p>
@@ -214,9 +246,11 @@ Content-Length: 21
     </tr>
     <tr id='section-List_Keys'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-List_Keys">&#182;</a>
         </div>
+        -->
         <h1>List Keys</h1>
 
 <p>Lists keys in a bucket.</p>
@@ -232,9 +266,11 @@ GET /buckets/bucket/keys?keys<span class="o">=</span>stream  <span class="c"># S
     </tr>
     <tr id='section-Request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request">&#182;</a>
         </div>
+        -->
         <h2>Request</h2>
 
 <p>Required query parameters:</p>
@@ -255,9 +291,11 @@ GET /buckets/bucket/keys?keys<span class="o">=</span>stream  <span class="c"># S
     </tr>
     <tr id='section-Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Response">&#182;</a>
         </div>
+        -->
         <h2>Response</h2>
 
 <p>Normal response codes:</p>
@@ -302,9 +340,11 @@ Content-Length: 239
     </tr>
     <tr id='section-Get_Bucket_Properties'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Get_Bucket_Properties">&#182;</a>
         </div>
+        -->
         <h1>Get Bucket Properties</h1>
 
 <p>Reads the bucket properties.</p>
@@ -316,9 +356,11 @@ GET /buckets/bucket/props       <span class="c"># New format</span></pre></div>
     </tr>
     <tr id='section-Request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request">&#182;</a>
         </div>
+        -->
         <h2>Request</h2>
 
 <p>Optional query parameters (only valid for the old format):</p>
@@ -334,9 +376,11 @@ GET /buckets/bucket/props       <span class="c"># New format</span></pre></div>
     </tr>
     <tr id='section-Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Response">&#182;</a>
         </div>
+        -->
         <h2>Response</h2>
 
 <p>Normal status codes:</p>
@@ -383,9 +427,11 @@ OpenSSL/0.9.8l zlib/1.2.3
     </tr>
     <tr id='section-Fetch_Object'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Fetch_Object">&#182;</a>
         </div>
+        -->
         <h1>Fetch Object</h1>
 
 <p>Reads an object from the specified bucket / key.</p>
@@ -397,9 +443,11 @@ GET /buckets/bucket/keys/key    <span class="c"># New format</span></pre></div>
     </tr>
     <tr id='section-Important_headers:'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Important_headers:">&#182;</a>
         </div>
+        -->
         <h3>Important headers:</h3>
 
 <ul>
@@ -428,9 +476,11 @@ GET /buckets/bucket/keys/key    <span class="c"># New format</span></pre></div>
     </tr>
     <tr id='section-Request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request">&#182;</a>
         </div>
+        -->
         <h2>Request</h2>
       </td>
       <td class=code>
@@ -439,9 +489,11 @@ GET /buckets/bucket/keys/key    <span class="c"># New format</span></pre></div>
     </tr>
     <tr id='section-Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Response">&#182;</a>
         </div>
+        -->
         <h2>Response</h2>
 
 <h3>Normal response codes:</h3>
@@ -500,9 +552,11 @@ GET /buckets/bucket/keys/key    <span class="c"># New format</span></pre></div>
     </tr>
     <tr id='section-Manually_requesting_siblings'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Manually_requesting_siblings">&#182;</a>
         </div>
+        -->
         <h3>Manually requesting siblings</h3>
 
 <p>When <code>allow_mult</code> is set to true in the bucket properties, concurrent updates are allowed to create &quot;sibling&quot; objects, meaning that the object has any number of different values that are related to one another by the vector clock.  This allows your application to use its own conflict resolution technique.</p>
@@ -540,9 +594,11 @@ Siblings:
     </tr>
     <tr id='section-Request_a_single_sibling'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request_a_single_sibling">&#182;</a>
         </div>
+        -->
         <h3>Request a single sibling</h3>
 
 <p>Use <code>vtag</code> that matches one of the siblings above</p>
@@ -575,9 +631,11 @@ Siblings:
     </tr>
     <tr id='section-Get_all_sibling_values_in_one_request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Get_all_sibling_values_in_one_request">&#182;</a>
         </div>
+        -->
         <h3>Get all sibling values in one request</h3>
 
 <p>Signal that you want the entire multipart message by passing in this header: <code>Accept: multipart/mixed</code></p>
@@ -636,9 +694,11 @@ Last-Modified: Wed, 10 Mar 2010 17:55:03 GMT
     </tr>
     <tr id='section-Delete_Object'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Delete_Object">&#182;</a>
         </div>
+        -->
         <h1>Delete Object</h1>
 
 <p>Deletes an object from the specified bucket / key.</p>
@@ -650,9 +710,11 @@ DELETE /buckets/bucket/keys/key   <span class="c"># New format</span></pre></div
     </tr>
     <tr id='section-Request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request">&#182;</a>
         </div>
+        -->
         <h2>Request</h2>
 
 <p>Optional query parameters:</p>
@@ -672,9 +734,11 @@ DELETE /buckets/bucket/keys/key   <span class="c"># New format</span></pre></div
     </tr>
     <tr id='section-Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Response">&#182;</a>
         </div>
+        -->
         <h2>Response</h2>
 
 <p>Normal response codes:</p>
@@ -721,9 +785,11 @@ the [[vector clock|Vector Clocks]].</p>
     </tr>
     <tr id='section-Link_Walking'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Link_Walking">&#182;</a>
         </div>
+        -->
         <h1>Link Walking</h1>
 
 <p>Link walking (traversal) finds and returns objects by following links attached to them, starting from the object specified by the bucket and key portion.  It is a special case of [[MapReduce]], and can be expressed more verbosely as such. [[Read more about Links|Links]].</p>
@@ -735,9 +801,11 @@ GET /buckets/bucket/keys/key/<span class="o">[</span>bucket<span class="o">]</sp
     </tr>
     <tr id='section-Request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request">&#182;</a>
         </div>
+        -->
         <h2>Request</h2>
 
 <h3>Link filters</h3>
@@ -758,9 +826,11 @@ GET /buckets/bucket/keys/key/<span class="o">[</span>bucket<span class="o">]</sp
     </tr>
     <tr id='section-Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Response">&#182;</a>
         </div>
+        -->
         <h2>Response</h2>
 
 <p>Normal status codes:</p>
@@ -838,9 +908,11 @@ Last-Modified: Wed, 10 Mar 2010 18:11:41 GMT
     </tr>
     <tr id='section-List_Resources'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-List_Resources">&#182;</a>
         </div>
+        -->
         <h1>List Resources</h1>
 
 <p>List available HTTP resources for the Riak node. This can be used by clients to 
@@ -852,9 +924,11 @@ automatically recognize the location of the resources for specific operations.</
     </tr>
     <tr id='section-Request'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request">&#182;</a>
         </div>
+        -->
         <h2>Request</h2>
 
 <p>Headers:</p>
@@ -869,9 +943,11 @@ automatically recognize the location of the resources for specific operations.</
     </tr>
     <tr id='section-Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Response">&#182;</a>
         </div>
+        -->
         <h2>Response</h2>
 
 <p>Normal status codes:</p>
@@ -920,9 +996,11 @@ Content-Length: 143
     </tr>
     <tr id='section-Request_an_HTML_response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-Request_an_HTML_response">&#182;</a>
         </div>
+        -->
         <h3>Request an HTML response</h3>
       </td>
       <td class=code>
@@ -931,9 +1009,11 @@ Content-Length: 143
     </tr>
     <tr id='section-HTML_Response'>
       <td class=docs>
+        <!--
         <div class="pilwrap">
           <a class="pilcrow" href="#section-HTML_Response">&#182;</a>
         </div>
+        -->
         <h3>HTML Response</h3>
 
       </td>

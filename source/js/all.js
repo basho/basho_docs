@@ -70,7 +70,7 @@
    * Animates the sidebar nav into the closed position
    */
   function closeNav(callback) {
-    options.navContent.fadeOut();
+    options.navContent.fadeOut(options.navSpeed / 2);
     options.contentWell.animate({marginLeft: options.closedNavMargin}, animConfig(callback));
     options.navContainer.animate({width: options.closedNavMargin}, animConfig());
   }
@@ -81,7 +81,7 @@
    */
   function openNav(callback) {
     var cm = contentMargin;
-    options.navContent.fadeIn();
+    options.navContent.fadeIn(options.navSpeed / 2);
     options.contentWell.animate({marginLeft: cm}, animConfig(callback));
     options.navContainer.animate({width: cm}, animConfig());
   }
