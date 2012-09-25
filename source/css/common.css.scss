@@ -99,6 +99,23 @@ $fadedGreen  : #6f8a86;
   clear : both;
 }
 
+.clear-left {
+  clear : left;
+}
+
+.clear-right {
+  clear : right;
+}
+
+.green-link {
+  display         : block;
+  color           : darken(saturate($fadedGreen, 25%), 18%);
+  padding         : 2px 0 0 0;
+  text-decoration : none;
+  text-align      : center;
+  width           : 4.2em;
+}
+
 /* =============================================================================
    Wireframe Structure
    ========================================================================== */
@@ -145,6 +162,10 @@ body {
 /* =============================================================================
    Main Element Styles
    ========================================================================== */
+
+body {
+  font-size : 90%;
+}
 
 #nav-container {
   @extend .sans;
@@ -214,7 +235,6 @@ div[role="main"] {
   }
   
   p, li, footer {
-    font-size   : 90%;
     line-height : 1.5;
   }
   
@@ -268,7 +288,7 @@ div[role="main"] {
     white-space     : nowrap;
     
     &:hover {
-      color : lighten($linkBlue, 15%);
+      color : lighten($orange, 5%);
     }
   }
   
@@ -294,6 +314,32 @@ div[role="main"] {
       padding : 1.5em 0 0 .5em;
     }
     
+    #top-nav {
+      float      : right;
+      text-align : center;
+      
+      a {
+        @extend .green-link;
+        @extend .block;
+        @include bgPattern('/images/layout/light-green-bg.jpg');
+        @include size(100%, auto);
+        padding : 0 5px; 
+        margin  : 0 0 1px 0;
+        border  : 1px solid darken($lightGreen, 10%);
+        text-decoration : none;
+        
+        &:hover {
+          background : $orange;
+          border     : 1px solid darken($orange, 15%);
+          color      : #fff;
+        }
+        
+        &:first-child {
+          margin-top : 10px;
+        }
+      }
+    }
+    
   }
     
   .mainarticle {
@@ -313,8 +359,38 @@ div[role="main"] {
     }
   }
   
+  aside.secondary {
+    @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
+    @include allCorners();
+    @include boxShadow(inset 0 0 25px #333);
+    float   : right;
+    margin  : 10px 0 15px 15px;
+    padding : 25px;
+    color   : #f1f1f1;
+    border-bottom : 1px solid #f1f1f1;
+    
+    h1, h2, h3, h4, h5, h6 {
+      @extend .text-shadow;
+      color : #f1f1f1;
+    }
+    
+    ul {
+      margin     : 5px 0 15px 0;
+      list-style : square;
+      padding    : 0 0 0 2em;
+    }
+    
+    a {
+      color : lighten($linkBlue, 20%);
+      &:hover {
+        color : lighten($orange, 5%);
+      }
+    }
+  }
+  
   #select-project {
     @include size(auto, 35em);
+    font-size : 110%;
     position  : relative;
     min-width : 46em;
     max-width : 46em;
@@ -586,11 +662,9 @@ img {
 article {
   nav.tutorial {
     ul {
-      width:100%;
-      float:left;
+
       li {
-        float:left;
-        padding:5px;
+        padding:5px 0;
         border-right: 1px solid black;
         &:last-child {
           border-right: 0px;
@@ -645,24 +719,52 @@ ol.versions li {
   list-style-image: none;
   margin: 0;
   padding: 0;
-  float:left;
 }
 ol.versions {
-  width: 100%;
-  clear:both;
-  margin-bottom:1em;
+  clear         : left;
+  margin-bottom : 1em;
+  
   li {
-    font-size:8pt;
-    padding:1px;
-    border:1px solid #ccc;
-    border-right:0px;
-    &:last-child {
-      border-right:1px solid #ccc;
+    @include bgPattern('/images/layout/light-green-bg.jpg');
+    border        : 1px solid darken($lightGreen, 10%);
+    display       : inline-block;
+    font-size     : 8pt;
+    margin-right  : 1px;
+    margin-bottom : 1px;
+    
+    &:hover {
+      background : $orange;
+      border     : 1px solid darken($orange, 15%);
     }
+    
+    &:first-child {
+      @include corner(left, top);
+      @include corner(left, bottom);
+    }
+    
+    &:last-child {
+      @include corner(right, top);
+      @include corner(right, bottom);
+    }
+    
     &.current {
-      background-color:blue;
+      background : $orange;
+      border     : 1px solid darken($orange, 15%);
+      
       a {
-        color:white;
+        color : #fff;
+        
+        &:hover {
+          color : #fff;
+        }
+      }
+    }
+    
+    a {
+      @extend .green-link;
+      
+      &:hover {
+        color : #fff;
       }
     }
   }

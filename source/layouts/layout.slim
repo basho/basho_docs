@@ -23,6 +23,8 @@ body class=(data.page.project || 'riak')
   div(role="main")
     == partial "layouts/header"
     article.mainarticle
+      - unless !data.page.title
+        == partial "layouts/secondary"
       div#nav-toggle
       - unless !data.page.title
         header
@@ -35,9 +37,5 @@ body class=(data.page.project || 'riak')
           ul#toc-items
       == yield
       == partial "layouts/tutorial_nav"
-      footer
-        == partial "layouts/keywords"
-    - unless !data.page.title
-      == partial "layouts/secondary"
     == partial "layouts/footer"
 | </html>

@@ -7,6 +7,7 @@ aside.secondary role="complementary"
           li== "[[#{page.metadata[:page]['title']}]]"
       - else
         li== link_to 'All Riak Projects', '/index.html'
+    == partial "layouts/keywords"
     / h3 Shortcuts
     / ul
     /   li [[FAQs]]
