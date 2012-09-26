@@ -51,14 +51,14 @@
   function animConfig(queue, duration, complete) {
     var obj = {};
     if (arguments.length === 1 && typeof queue === 'function') {
-      obj.queue = false;
+      obj.queue    = false;
       obj.duration = options.navSpeed;
       obj.complete = queue;
     } else if (!arguments.length) {
-      obj.queue = false;
+      obj.queue    = false;
       obj.duration = options.navSpeed;
     } else {
-      obj.queue = queue;
+      obj.queue    = queue;
       obj.duration = duration;
       obj.complete = complete;
     }
@@ -110,6 +110,69 @@
    * open or close the nav as appropriate.
    */
   $(document).on('click', '#nav-toggle', determineNavAction);
+  
+  /*----------------------------------------------------------*/
+  
+  /*
+   * openMenu()
+   * Animates the a nav menu into the open position
+   */
+  function openMenu(toggler, menu) {
+    menu.slideDown('fast');
+    toggler.toggleClass('open');
+  }
+  
+  
+  /*
+   * closeMenu()
+   * Animates the a nav menu into the closed position
+   */
+  function closeMenu(toggler, menu) {
+    menu.slideUp('fast');
+    toggler.toggleClass('open');
+  }
+  
+  /*
+   * determineMenuAction()
+   * Determines whether a nav menu should be opened or closed
+   * at any given time.
+   */
+  function determineMenuAction() {
+    var that = $(this),
+        correspondingUl = that.parent().next();
+    if (correspondingUl.is(':hidden')) {
+      openMenu(that, correspondingUl);
+    } else {
+      closeMenu(that, correspondingUl);
+    }
+  }
+  
+  /*
+   * addNavMenuToggles()
+   * For every h3 or h4, check if the corresponding nav menu has items in it.
+   * If so, give that h tag a toggle button.
+   */
+  function addNavMenuToggles(index, item) {
+    var that         = $(this),
+        nextItem     = that.next(),
+        nextItemIsUl = (nextItem[0].tagName.toLowerCase() === 'ul'),
+        classes      = 'menu-toggle ';
+    if (that.find('a').length) {
+      console.log(that)
+      classes += 'extra-margin';
+    }
+    if (nextItemIsUl && nextItem.find('li').length) {
+      that.prepend('<span class="' + classes + '"></span>');
+    }
+  }
+  // Call this on the docready to add nav menu toggle buttons where needed
+  options.navContent.find('h3, h4').each(addNavMenuToggles);
+  
+  /*
+   * Any time a nav menu toggle button gets clicked
+   * open or close the nav menu as appropriate.
+   */
+  $(document).on('click', '.menu-toggle', determineMenuAction);
   
 
 });

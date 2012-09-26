@@ -55,6 +55,11 @@ $fadedGreen  : #6f8a86;
   border-#{$vert}-#{$horiz}-radius         : $radius;
 }
 
+@mixin opaque($dec: 1) {
+  opacity : $dec;
+  filter  : unquote('alpha(opacity=' + ($dec * 100) + ')');
+}
+
 /* =============================================================================
    Convenient Extensible Classes
    ========================================================================== */
@@ -175,7 +180,6 @@ body {
   a {
     @extend .block;
     @include bgPattern('/images/layout/nav-li-bg.jpg', #393939);
-    font-size       : 90%;
     color           : #fff;
     padding         : 7px 12px;
     border-left     : 4px solid $fadedGreen;
@@ -189,13 +193,32 @@ body {
     }
   }
   
+  span.menu-toggle {
+    @extend .block;
+    @include size(21px, 21px);
+    background : url('/images/layout/menu-opener.png') left center no-repeat transparent;
+    float      : right;
+    margin     : 1px 0 0 0;
+    
+    &.open {
+      background-position : -138px center;
+    }
+    
+    &.extra-margin {
+      margin-top : 10px;
+    }
+  }
+  
   .current a {
+    @include bgPattern('/images/layout/nav-li-bg.jpg', #393939);
     border-left : 4px solid $orange;
+    cursor      : default;
   }
   
   h3, h4 {
     @extend .text-shadow;
-    margin : 10px 0 0;
+    margin   : 10px 0 0;
+    overflow : hidden;
     
     a {
       @include bgPattern('/images/layout/nav-header-bg.jpg', transparent);
@@ -203,12 +226,17 @@ body {
   }
   
   h3 {
-    font-size  : 125%;
+    font-size  : 135%;
     margin-top : 15px;
   }
   
   h4 {
+    @extend .sans;
     font-size : 115%;
+  }
+  
+  ul {
+    display : none;
   }
   
   li:last-child {
@@ -242,7 +270,7 @@ div[role="main"] {
     font-size : 285%;
     
     &.extra-large {
-      font-size   : 350%;
+      font-size   : 425%;
       line-height : 1.1;
       
       @media screen and (max-width: 810px) {
