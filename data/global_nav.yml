@@ -1,13 +1,14 @@
 riak:
   - title: "[[All Riak Projects|/index.html]]"
     sub: []
-  - title: "[[Getting Started|Riak]]"
+  - title: "Start Here"
     sub:
+    - "[[Getting Started with Riak|Riak]]"
     - "[[The Riak Fast Track]]"
     - "[[Installing and Upgrading|installation]]"
     - "[[Query Choices|Querying Riak]]"
 
-  - title: "Using Riak"
+  - title: "Querying Riak"
     sub:
       - title: "MapReduce"
         sub:
@@ -24,13 +25,15 @@ riak:
           - "[[Configuration|Secondary-Indexes - Configuration]]"
           - "[[Examples|Secondary-Indexes - Examples]]"
 
-  - title: "Operations"
+  - title: "Operating Riak"
     sub:
       - "[[Installing and Upgrading|installation]]"
-      - title: "[[Planning|System Planning]]"
+      - title: "Planning"
         sub:
-          - title: "[[Choosing a Backend]]"
+          - "[[Start Planning|System Planning]]"
+          - title: "Choosing a Backend"
             sub:
+              - "[[Choosing a Backend]]"
               - "[[Bitcask]]"
               - "[[LevelDB]]"
               - "[[Memory]]"
@@ -42,22 +45,28 @@ riak:
           - "[[Basic Cluster Setup]]"
           - "[[Adding and Removing Nodes]]"
           - "[[Replacing a Node]]"
-      - title: "[[Operations|Operators]]"
+      - title: "Operations"
         sub:
+          # - "[[Operating Riak]]" # what to do? I like this page, but it's just a list of links
           - "[[Configuration Files]]"
           - "[[File System Tuning]]"
           - "[[Backups]]"
           - "[[Network Security and Firewall Configurations]]"
-      - title: "MapReduce"
+      - title: "Query Configuration"
         sub:
-          - "[[Configuration|MapReduce - Settings]]"
-      - title: "Search"
-        sub:
-          - "[[Configuration|Riak-Search - Settings]]"
-      - title: "Secondary Indexes"
-        sub:
-          - "[[Configuration|Secondary-Indexes - Configuration]]"
-      - title: "[[Troubleshooting]]"
+          - "[[MapReduce|MapReduce - Settings]]"
+          - "[[Search|Riak-Search - Settings]]"
+          - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
+      # - title: "MapReduce"
+      #   sub:
+      #     - "[[Configuration|MapReduce - Settings]]"
+      # - title: "Search"
+      #   sub:
+      #     - "[[Configuration|Riak-Search - Settings]]"
+      # - title: "Secondary Indexes"
+      #   sub:
+      #     - "[[Configuration|Secondary-Indexes - Configuration]]"
+      - title: "Troubleshooting"  # "[[Troubleshooting]]"
         sub:
           - "[[Open Files Limit]]"
           - "[[Recovering a Failed Node]]"
@@ -70,8 +79,9 @@ riak:
   - title: "References"
     sub:
       - "[[APIs]]"
-      - title: "[[Command-Line Tools]]"
+      - title: "Command-Line Tools"
         sub:
+          - "[[Command-Line Overview|Command-Line Tools]]"
           - "[[riak|Command-Line Tools - riak]]"
           - "[[riak-admin|Command-Line Tools - riak-admin]]"
           - "[[search-cmd|Command-Line Tools - search-cmd]]"
@@ -83,8 +93,9 @@ riak:
       - "[[Java Client Benchmark]]"
       - "[[Client Implementation Guide]]"
       - "[[Sample Data]]"
-      - title: "[[Concepts]]"
+      - title: "Concepts"
         sub:
+          - "[[Concepts Overview|Concepts]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
           - "[[Commit Hooks]]"
@@ -94,8 +105,9 @@ riak:
           - "[[Replication]]"
           - "[[Vector-Clocks]]"
           - "[[Riak Glossary]]"
-      - title: "[[Riak Comparisons]]"
+      - title: "Riak Comparisons"
         sub:
+          - "[[Riak Comparisons Overview|Riak Comparisons]]"
           - "[[Riak Compared to Cassandra]]"
           - "[[Riak Compared to Couchbase]]"
           - "[[Riak Compared to CouchDB]]"
@@ -107,8 +119,9 @@ riak:
 
   - title: "Community"
     sub:
-      - title: "[[Community Resources]]"
+      - title: "Community Resources"
         sub:
+          - "[[Resources Overview|Community Resources]]"
           - "[[Overviews and Introductions]]"
           - "[[Production Deployment]]"
           - "[[Developing with Riak]]"
