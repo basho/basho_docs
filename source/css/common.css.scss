@@ -372,7 +372,7 @@ div[role="main"] {
     
   .mainarticle {
     position : relative;
-    padding  : 0 20px;
+    padding  : 0 0 0 20px;
     
     #nav-toggle {
       @include size(30px, 38px);
@@ -586,7 +586,7 @@ div[role=main] {
 
   .docs {
     padding   : 0 25px 0 0;
-    min-width : 20em;
+    min-width : 22em;
     
     h1 {
       font-size   : 225%;
@@ -650,6 +650,10 @@ div[role=main] {
       @include corner(left, bottom);
       @include corner(right, bottom);
       border-bottom : 1px solid #f0f0f0;
+    }
+    
+    pre {
+      margin : 0;
     }
   }
 }
