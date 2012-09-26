@@ -6,7 +6,9 @@
  */
 (typeof jQuery !== 'function') ? null : jQuery(function () {
   
-  var $ = jQuery, contentMargin;
+  var $ = jQuery, contentMargin, i;
+  
+  
   
   /*
    * Global config options
@@ -14,13 +16,33 @@
    * process every time we select them
    */
   var options = {
-    navContainer    : $('#nav-container'),
-    navContent      : $('#primary-nav'),
-    contentWell     : $('div[role=main]'),
-    navToggle       : $('#nav-toggle'),
-    closedNavMargin : '12px',
-    navSpeed        : 300
+    
+    selectors : {
+      navContainer : '#nav-container',
+      navContent   : '#primary-nav',
+      contentWell  : 'div[role=main]',
+      navToggle    : '#nav-toggle',
+    },
+    
+    params : {
+      closedNavMargin : '12px',
+      navSpeed        : 300
+    }
   };
+  
+  for (i in options.selectors) {
+    if (Object.prototype.hasOwnProperty.call(options.selectors, i)) {
+      options.jq = options.jq || {};
+      options.jq[i] = $(options.selectors[i]);
+    }
+  }
+
+
+
+  
+  /*----------------------------------------------------------*/
+  // Code for opening and closing the sidebar
+  /*----------------------------------------------------------*/
   
   /*
    * getContentMargin()
@@ -28,8 +50,8 @@
    * the nav should open up.
    */
   function getContentMargin() {
-    var margin = options.contentWell.css('margin-left');
-    contentMargin = (margin === options.closedNavMargin) ? contentMargin : margin;
+    var margin = options.jq.contentWell.css('margin-left');
+    contentMargin = (margin === options.params.closedNavMargin) ? contentMargin : margin;
   }
   // Call this the first time on the docready to get the initial value
   getContentMargin();
@@ -39,8 +61,8 @@
    * Makes the arrows on the nav opener/closer flip back and forth
    */
   function reverseToggle() {
-    options.contentWell.toggleClass('closed');
-    options.navToggle.toggleClass('closed');
+    options.jq.contentWell.toggleClass('closed');
+    options.jq.navToggle.toggleClass('closed');
   }
   
   /*
@@ -52,11 +74,11 @@
     var obj = {};
     if (arguments.length === 1 && typeof queue === 'function') {
       obj.queue    = false;
-      obj.duration = options.navSpeed;
+      obj.duration = options.params.navSpeed;
       obj.complete = queue;
     } else if (!arguments.length) {
       obj.queue    = false;
-      obj.duration = options.navSpeed;
+      obj.duration = options.params.navSpeed;
     } else {
       obj.queue    = queue;
       obj.duration = duration;
@@ -70,9 +92,9 @@
    * Animates the sidebar nav into the closed position
    */
   function closeNav(callback) {
-    options.navContent.fadeOut(options.navSpeed / 2);
-    options.contentWell.animate({marginLeft: options.closedNavMargin}, animConfig(callback));
-    options.navContainer.animate({width: options.closedNavMargin}, animConfig());
+    options.jq.navContent.fadeOut(options.params.navSpeed / 2);
+    options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, animConfig(callback));
+    options.jq.navContainer.animate({width: options.params.closedNavMargin}, animConfig());
   }
   
   /*
@@ -81,9 +103,9 @@
    */
   function openNav(callback) {
     var cm = contentMargin;
-    options.navContent.fadeIn(options.navSpeed / 2);
-    options.contentWell.animate({marginLeft: cm}, animConfig(callback));
-    options.navContainer.animate({width: cm}, animConfig());
+    options.jq.navContent.fadeIn(options.params.navSpeed / 2);
+    options.jq.contentWell.animate({marginLeft: cm}, animConfig(callback));
+    options.jq.navContainer.animate({width: cm}, animConfig());
   }
   
   /*
@@ -92,7 +114,7 @@
    * at any given time.
    */
   function determineNavAction() {
-    if (options.navContent.is(':hidden')) {
+    if (options.jq.navContent.is(':hidden')) {
       openNav(reverseToggle);
     } else {
       closeNav(reverseToggle);
@@ -110,7 +132,13 @@
    * open or close the nav as appropriate.
    */
   $(document).on('click', '#nav-toggle', determineNavAction);
-  
+
+
+
+
+
+  /*----------------------------------------------------------*/
+  // Code for the animations in the left side bar
   /*----------------------------------------------------------*/
   
   /*
@@ -155,24 +183,45 @@
   function addNavMenuToggles(index, item) {
     var that         = $(this),
         nextItem     = that.next(),
-        nextItemIsUl = (nextItem[0].tagName.toLowerCase() === 'ul'),
-        classes      = 'menu-toggle ';
-    if (that.find('a').length) {
-      console.log(that)
-      classes += 'extra-margin';
-    }
+        nextItemIsUl = (nextItem[0].tagName.toLowerCase() === 'ul');
     if (nextItemIsUl && nextItem.find('li').length) {
-      that.prepend('<span class="' + classes + '"></span>');
+      that.prepend('<span class="menu-toggle"></span>');
     }
   }
   // Call this on the docready to add nav menu toggle buttons where needed
-  options.navContent.find('h3, h4').each(addNavMenuToggles);
+  options.jq.navContent.find('h3, h4').each(addNavMenuToggles);
+  
   
   /*
-   * Any time a nav menu toggle button gets clicked
-   * open or close the nav menu as appropriate.
+   * checkForToggler()
+   * Determines whether a nav header is open-able or not.
+   * If so, calls determineMenuAction() to open or close as needed.
    */
-  $(document).on('click', '.menu-toggle', determineMenuAction);
+  function checkForToggler() {
+    var toggler = $(this).find('.menu-toggle');
+    if (toggler.length) {
+      determineMenuAction.call(toggler[0]);
+    }
+  }
+  
+  /*
+   * Any time a nav header or menu toggle button gets clicked
+   * check to see if it is open-able.  Then open or close as needed.
+   */
+  $(document).on('click', (options.selectors.navContent + ' h3, ' + options.selectors.navContent + ' h4'), checkForToggler);
+  
+  
+
+
+
+  /*----------------------------------------------------------*/
+  // Extra helpers
+  /*----------------------------------------------------------*/
+  
+  /*
+   * Disable linking to the page you're already on.
+   */
+  $(document).on('click', '.current a', function () {return false;});
   
 
 });

@@ -179,11 +179,10 @@ body {
 
   a {
     @extend .block;
-    @include bgPattern('/images/layout/nav-li-bg.jpg', #393939);
+    @include bgPattern('/images/layout/nav-li-bg6.jpg', #393939);
     color           : #fff;
     padding         : 7px 12px;
     border-left     : 4px solid $fadedGreen;
-    margin-bottom   : 1px;
     text-decoration : none;
     
     &:hover {
@@ -193,12 +192,77 @@ body {
     }
   }
   
+  .current a {
+    border-left : 4px solid $orange;
+    cursor      : default;
+  }
+  .current a:hover {
+    @include bgPattern('/images/layout/nav-li-bg6.jpg', #393939);
+  }
+  
+  h3, h4 {
+    @extend .text-shadow;
+    @include bgPattern('/images/layout/nav-header-bg.jpg', transparent);
+    border-left : 4px solid $fadedGreen;
+    padding     : 5px 5px 5px 10px;
+    overflow    : visible;
+    
+    a {
+      background : none;
+      padding    : 0;
+      border     : 0;
+      
+      &:hover {
+        background : none;
+      }
+    }
+  }
+  
+  .depth-1 h3, .depth-2 h3, .depth-3 h3,
+  .depth-1 h4, .depth-2 h4, .depth-3 h4 {
+    margin-right : 0;
+  }
+  
+  h3 {
+    font-size  : 135%;
+    margin-top : 7px;
+    
+    &:first-child {
+      margin-top : 25px;
+    }
+  }
+  
+  h4 {
+    @extend .sans;
+    font-size : 115%;
+  }
+  
+  ul {
+    display : none;
+    
+    &.depth-2, &.depth-3 {
+      margin-right : 0;
+    }
+  }
+  
+  .depth-1 li {
+    border-left : 4px solid $fadedGreen;
+  }
+  
+  li:last-child {
+    margin-bottom : 8px;
+  }
+  
+  .depth-2, .depth-3 {
+    margin-left : 0px;
+  }
+  
   span.menu-toggle {
     @extend .block;
     @include size(21px, 21px);
-    background : url('/images/layout/menu-opener.png') left center no-repeat transparent;
+    background : url('/images/layout/menu-opener2.png') left center no-repeat transparent;
     float      : right;
-    margin     : 1px 0 0 0;
+    margin     : 3px -5px 0 0;
     
     &.open {
       background-position : -138px center;
@@ -209,38 +273,8 @@ body {
     }
   }
   
-  .current a {
-    @include bgPattern('/images/layout/nav-li-bg.jpg', #393939);
-    border-left : 4px solid $orange;
-    cursor      : default;
-  }
-  
-  h3, h4 {
-    @extend .text-shadow;
-    margin   : 10px 0 0;
-    overflow : hidden;
-    
-    a {
-      @include bgPattern('/images/layout/nav-header-bg.jpg', transparent);
-    }
-  }
-  
-  h3 {
-    font-size  : 135%;
-    margin-top : 15px;
-  }
-  
-  h4 {
-    @extend .sans;
-    font-size : 115%;
-  }
-  
-  ul {
-    display : none;
-  }
-  
-  li:last-child {
-    margin-bottom : 10px;
+  .depth-1 .menu-toggle, .depth-2 .menu-toggle, .depth-3 .menu-toggle {
+    //margin-right : -33px;
   }
 }
 
