@@ -145,8 +145,9 @@ riak:
 riakee:
   - title: "[[All Riak Projects|/index.html]]"
     sub: []
-  - title: "[[Getting Started|Riak Enterprise]]"
+  - title: "Start Here"
     sub:
+    - "[[Getting Started with RiakEDS|Riak Enterprise]]"
     - "[[The Riak Fast Track]]"
     - "[[Installing and Upgrading|installation]]"
     - "[[Querying]]"
@@ -159,21 +160,25 @@ riakee:
 riakcs:
   - title: "[[All Riak Projects|/index.html]]"
     sub: []
-  - title: "[[Getting Started|Riak CS]]"
-    sub: []
-  - title: "[[Installing|Installing Riak CS]]"
+  - title: "Start Here"
     sub:
+    - "[[Getting Started with RiakCS|Riak CS]]"
+  - title: "Installing and Upgrading"
+    sub:
+      - "[[Installing Riak CS]]"
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
       - "[[Installing With Chef|Riak CS Using Chef]]"
       - "[[Installation Video|Riak CS Installation Video]]"
-  - title: "[[Configuring|Configuring Riak CS Overview]]"
+  - title: "Configuring"
     sub:
+      - "[[Configuring Riak CS Overview]]"
       - "[[Configuring Riak]]"
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
       - "[[Configuring an S3 client]]"
-  - title: "[[System Features]]"
+  - title: "System Features"
     sub:
+      # - "[[System Features Overview|System Features]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
       - "[[Monitoring and Metrics]]"
