@@ -3,7 +3,8 @@ aside#nav-container role="complementary"
     - project = data.page.project || 'riak'
     - data.global_nav[project].each do |section|
       - nav_data, active = build_nav(section['sub'])
-      h3(class=(active ? 'active' : ''))==section['title']
+      h3(class=(active ? 'active' : ''))
+        span==section['title']
       ==nav_data
   
   / nav#shortcut-nav role="nav"

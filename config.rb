@@ -249,7 +249,7 @@ helpers do
         active ||= sub_active || current_link
         active_class = active ? ' class="active"' : ''
         current_class = current_link ? ' class="active current"' : ''
-        nav += "<li#{active_class}><h4#{current_class}>#{sub['title']}</h4>#{nested}</li>"
+        nav += "<li#{active_class}><h4#{current_class}><span>#{sub['title']}</span></h4>#{nested}</li>"
       end
     end
     nav = "<ul class=\"depth-#{depth} #{active ? 'active' : ''}\">" + nav + "</ul>"
