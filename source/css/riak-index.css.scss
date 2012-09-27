@@ -1,30 +1,48 @@
 // TODO: merge css files
 $orange : #f99d33;
+@mixin vendor($prop, $args) {
+  -webkit-#{$prop} : $args;
+  -moz-#{$prop}    : $args;
+  #{$prop}         : $args;
+}
+@mixin boxShadow($args) {
+  @include vendor('box-shadow', $args);
+}
+@mixin allCorners($radius: 5px) {
+  @include vendor('border-radius', $radius);
+}
 
 #riak-index {
   article > section {
-    border:1px solid #F1F1F1;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    margin: 0.25em 0em 0.35em 0em;
-    box-shadow: inset 0 0 20px #A1A1A1;
-    padding: 18px;
-    border-bottom: 1px solid #F1F1F1;
+    @include allCorners(8px);
+    @include boxShadow(inset 0 0 20px #A1A1A1);
+    background    : rgba(0, 0, 0, .05);
+    border        : 1px solid #F1F1F1;
+    margin        : 0.25em 0em 0.35em 0em;
+    padding       : 10px 18px;
+    border-bottom : 1px solid #F1F1F1;
     
     header {
       a.command {
-        display:block;
-        text-decoration:none;
+        display         : block;
+        text-decoration : none;
+        
+        &:hover {
+          color           : #616366;
+        }
       }
+      
+      .more {
+        border-top : 1px dashed silver;
+      }
+      
       .more a {
-        width: 0; 
-        height: 0; 
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid #666;
-        margin: 0;
-        margin: auto;
+        width        : 0; 
+        height       : 0; 
+        border-left  : 10px solid transparent;
+        border-right : 10px solid transparent;
+        border-top   : 10px solid #666;
+        margin       : 5px auto 0;
         /*
         white-space: nowrap;
         font-size:25px;
@@ -45,7 +63,7 @@ $orange : #f99d33;
     }
 
     .content {
-      display:none;
+      display : none;
     }
     /*
     &#getting-started {
@@ -55,17 +73,16 @@ $orange : #f99d33;
     }
     */
     &:hover {
-      border:1px solid #F1F1FF;
-      box-shadow: inset 0 0 20px $orange;
+      border     : 1px solid #F1F1FF;
+      box-shadow : inset 0 0 20px lighten($orange, 15%);
     }
   }
   hr {
-    width: 0; 
-    height: 0; 
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #666;
-    margin: 0;
-    margin: auto;
+    width        : 0; 
+    height       : 0; 
+    border-left  : 10px solid transparent;
+    border-right : 10px solid transparent;
+    border-top   : 10px solid #666;
+    margin       : 0 auto;
   }
 }
