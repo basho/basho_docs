@@ -1,0 +1,56 @@
+---
+title: Log Messages FAQs
+project: riak
+version: 1.2+
+document: cookbook
+audience: intermediate
+keywords: [faq, operator]
+---
+
+Q: Where are the log files?
+A:
+  Log files are written to '/var/log/riak' on Linux and '/opt/riak/log' on Solaris.
+
+Q: How can I change where Riak logs are stored?
+A:
+  The logging directory cannot be changed from `app.config`, but you can edit `/usr/sbin/riak` and `/usr/sbin/riak-admin` and change the `RUNNER_LOG_DIR` variable to point to the path where you want logs to be written. You will need to do this on every node (or copy the scripts to the other nodes after changing). The `RUNNER_LOG_DIR` variable must point to a path that is writable by the riak user.
+
+Q: Can I make Riak use syslog, instead of file?
+A:
+  It is not currently possible. Often Riak log messages (mostly backtraces and warnings) are much longer than can be fit into a syslog message. However, all the log files are compatible with rotation (with the exception of the erlang.log.* files which are automatically rotated by Riak itself). If you're looking for a way to keep track of old log files, your logrotated script could be configured to archive or upload the rotated-out file to another machine.
+
+Q: I see errors in the Riak logs that contain `{error,emfile}` in the message, what do they mean?
+  Riak is to run and start as expected but under load the logs contain messages that contain the following:
+  ```
+  {{badmatch,{error,emfile}},
+  ```
+A:
+  This error usually signifies a problem with the max number of open file handles that a process is allowed to allocate. In most cases the default setting of 1024 isn't sufficient to run a Riak node.
+  
+  You can find out more information on increasing the ulimit on your system's [[Open Files Limit]].
+
+
+Q: I see several messages in my Riak logs related to `busy_dist_port`. What can be done about these messages?
+A:
+  As of version 1.0.3, Riak now logs `busy_dist_port` messages on the Erlang console and to the logs when distributed Erlang is overloaded.
+  
+  If the message is being logged frequently, the buffer used for distributed erlang can be increased by adding `+zdbbl <KBytes>` in the `/etc/riak/vm.args` file or `/opt/riak/etc/vm.args` file, depending on platform.
+  
+  More information about editing `vm.args` is available in the [[Configuration Files]] section of the Riak [[Operations]] documentation.
+
+Q: Riak crashes with errors producing "emfile" in the logs on OSX.
+A:
+  The default `ulimit -n` on Mac OS/X is 256, which is generally too small for Riak. You can set the per-session limit (within the current shell) by executing this command:
+  
+  ```bash
+  ulimit -n 1024
+  ```
+  
+  If you want to set the limit for future sessions, use 'launchctl':
+  
+  ```bash
+  launchctl limit maxfiles 1024 1024
+  ```
+  
+  For more information, see the [[Open File Limit]] page or the 'man' pages for 'ulimit' and 'launchctl'
+
