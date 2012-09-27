@@ -12,6 +12,8 @@ bundle install
 RIAK_VERSION=1.2.0 bundle exec middleman server
 ```
 
+Now point a browser at http://localhost:4567
+
 ## Writing Docs
 
 ### Structure
