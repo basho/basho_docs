@@ -17,24 +17,26 @@ head(class=data.page.document)
   == stylesheet_link_tag "boilerplate"
   == stylesheet_link_tag "fonts"
   == stylesheet_link_tag "common"
+  == stylesheet_link_tag "riak-index"
   == javascript_include_tag "all"
-body class=(data.page.project || 'riak')
+body class=(data.page.project || 'riak') id=data.page.body_id
   == partial "layouts/primary"
   div(role="main")
     == partial "layouts/header"
     article.mainarticle
-      - unless !data.page.title
+      - unless !data.page.title || data.page.simple
         == partial "layouts/secondary"
       div#nav-toggle
-      - unless !data.page.title
+      - unless !data.page.title || data.page.simple
         header
-          h1== data.page.title  
-      == partial "layouts/versions"
-      == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
-      - unless data.page.toc == false
-        nav#toc
-          h2 Contents
-          ul#toc-items
+          h1== data.page.title
+      - unless data.page.simple
+        == partial "layouts/versions"
+        == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
+        - unless data.page.toc == false
+          nav#toc
+            h2 Contents
+            ul#toc-items
       == yield
       == partial "layouts/tutorial_nav"
     == partial "layouts/footer"

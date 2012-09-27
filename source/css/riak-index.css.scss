@@ -1,0 +1,71 @@
+// TODO: merge css files
+$orange : #f99d33;
+
+#riak-index {
+  article > section {
+    border:1px solid #F1F1F1;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    margin: 0.25em 0em 0.35em 0em;
+    box-shadow: inset 0 0 20px #A1A1A1;
+    padding: 18px;
+    border-bottom: 1px solid #F1F1F1;
+    
+    header {
+      a.command {
+        display:block;
+        text-decoration:none;
+      }
+      .more a {
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #666;
+        margin: 0;
+        margin: auto;
+        /*
+        white-space: nowrap;
+        font-size:25px;
+        text-shadow: 0px 1px 6px #666;
+        text-align:center;
+        line-height:1;
+        margin:-0.8em 0 0 0;
+        padding:0;
+        a {
+          color: #666;
+          &:hover {
+            color: $orange;
+            text-shadow: 0px 1px 6px $orange;
+          }
+        }
+        */
+      }
+    }
+
+    .content {
+      display:none;
+    }
+    /*
+    &#getting-started {
+      .content {
+        display:block;
+      }
+    }
+    */
+    &:hover {
+      border:1px solid #F1F1FF;
+      box-shadow: inset 0 0 20px $orange;
+    }
+  }
+  hr {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #666;
+    margin: 0;
+    margin: auto;
+  }
+}

@@ -314,5 +314,7 @@ configure :build do
   # Or use a different image path
   # set :http_path, "/Content/images/"
 
-  activate Middleman::Features::Deploy
+  if ENV.include?('DEPLOY')
+    activate Middleman::Features::Deploy
+  end
 end

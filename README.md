@@ -9,7 +9,13 @@ Easy:
 ```
 gem install bundler
 bundle install
-RIAK_VERSION=1.2.0 bundle exec middleman server
+RIAK_VERSION=1.2.0 middleman
+```
+
+If that didn't work, try adding `bundle exec`
+
+```
+RIAK_VERSION=1.2.0 bundle exec middleman
 ```
 
 Now point a browser at http://localhost:4567
@@ -124,6 +130,8 @@ Finally, there is the keyword-based navigation. Every page with a keyword contai
 
 ## Testing deploy mode
 
+_Note that the layout will look ugly. At the moment shared files, like css or js, won't show up here because of the way deployment pushes to production._
+
 To try out the thin server in the way production functions, first build the static files:
 
 ```
@@ -139,14 +147,18 @@ RIAK_VERSION=1.2.0 bundle exec middleman build
 Then you can run the thin server locally:
 
 ```
-bundle exec thin start -p 3000
+thin start -p 4567
 ```
+
+_(or `bundle exec thin start -p 4567`)_
 
 To have MiddleMan auto-build on each save, we use the Watchr gem. It will auto-build on each save in the source directory:
 
 ```
-bundle exec watchr ./Watchrfile
+watchr ./Watchrfile
 ```
+
+_(or `bundle exec watchr ./Watchrfile`)_
 
 ## Deploying to S3
 
@@ -162,7 +174,7 @@ export RIAK_DOCS_SECRET_KEY="XXXXX"
 Then to deploy, simply run middleman build with a riak version:
 
 ```
-RIAK_VERSION=1.2.0 middleman build
+RIAK_VERSION=1.2.0 DEPLOY=true middleman build
 ```
 
 ## Deploying the Search Index
@@ -170,5 +182,5 @@ RIAK_VERSION=1.2.0 middleman build
 This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
 
 ```
-RIAK_VERSION=1.2.0 INDEX=true middleman build
+RIAK_VERSION=1.2.0 INDEX=true DEPLOY=true middleman build
 ```

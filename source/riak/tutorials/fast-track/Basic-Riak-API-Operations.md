@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, fast-track]
 prev: ["Building a Dev Environment", "Building-a-Development-Environment.html"]
 up:   ["The Riak Fast Track", "index.html"]
-next: ["Running MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
+next: ["MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
 ---
 
 For this module, we are going to work with the Riak HTTP API. 
