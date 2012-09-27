@@ -16,5 +16,7 @@ $ ->
         $(this).attr('id', name)
         $(this).html(anchor)
         toc_items.append("<li><a href=\"##{name}\">#{content}</a></li>")
-
-      $("#toc").append(toc_items)
+        
+      toc.append(toc_items)
+    else
+      toc.remove()

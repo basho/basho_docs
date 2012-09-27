@@ -22,10 +22,11 @@ body class=(data.page.project || 'riak')
   == partial "layouts/primary"
   div(role="main")
     == partial "layouts/header"
+    
     article.mainarticle
+      div#nav-toggle
       - unless !data.page.title
         == partial "layouts/secondary"
-      div#nav-toggle
       - unless !data.page.title
         header
           h1== data.page.title  
