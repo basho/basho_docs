@@ -87,6 +87,7 @@ GEM
     padrino-helpers (0.10.7)
       i18n (~> 0.6)
       padrino-core (= 0.10.7)
+    pygmentize (0.0.3)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -149,6 +150,7 @@ DEPENDENCIES
   growl_notify (~> 0.0.3)
   middleman (= 3.0.0)
   org-ruby (~> 0.7.1)
+  pygmentize (= 0.0.3)
   rb-fsevent (~> 0.9.1)
   redcarpet (~> 2.1.1)
   rocco (= 0.8.2)

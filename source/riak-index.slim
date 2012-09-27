@@ -1,0 +1,115 @@
+---
+title: Riak
+project: riak
+version: 0.10.0+
+document: tutorial
+toc: false
+index: true
+audience: beginner
+keywords: []
+body_id: riak-index
+simple: true
+---
+
+section#getting-started
+  header
+    h1 
+      a.command(href='#getting-started') Getting Started
+    p Are you new to Riak? You can get started with these tutorials. Then look through the [[FAQs]] if you have more questions.
+    .more
+      a.command(href='#getting-started') &nbsp;
+  .content
+    ul
+      li [[The Riak Fast Track]]
+      li [[Installing and Upgrading|installation]]
+      li [[Querying Riak]]
+
+
+section#developing
+  header
+    h1 
+      a.command(href='#developing') Developing with Riak
+    p If you are a Riak user wanting to develop on an existing installation, look through these resources. Also check out the [[FAQs for Using Riak|Developing on Riak FAQs]].
+    .more
+      a.command(href='#developing') &nbsp;
+  .content
+    section
+      h4 [[Querying|Querying Riak]]
+      li
+        | MapReduce
+        ul
+          li [[MapReduce]]
+          li [[Key Filters]]
+      li
+        | Search
+        ul
+          li [[Indexing|Riak-Search - Indexing]]
+          li [[Schema|Riak-Search - Schema]]
+          li [[Querying|Riak-Search - Querying]]
+          li [[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]
+          li [[search-cmd|Command-Line-Tools - search-cmd]] <em>(Command-Line Tool)</em>
+      li
+        | Secondary Indexes
+        ul
+          li [[Configuration|Secondary-Indexes - Configuration]]
+          li [[Examples|Secondary-Indexes - Examples]]
+    section
+      h4 References
+      ul
+        li [[APIs]]
+        li [[Client Libraries]]
+        li [[Community Developed Projects|Community Developed Libraries and Projects]]
+        li [[riak|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>
+
+section#operating
+  header
+    h1
+      a.command(href='#operating') Operating Riak
+    p If you are a Riak administrator needing to configure, deploy, and manage an installation, these links are for you. There are also some good [[Operating Riak FAQs]].
+    .more
+      a.command(href='#operating') &nbsp;
+  .content
+    section
+      h4 Starting
+      ul
+        li
+          | [[Planning|System Planning]]
+          ul
+            li
+              | [[Choosing a Backend]]
+              ul
+                li [[Bitcask]]
+                li [[LevelDB]]
+                li [[Memory]]
+                li [[Multi]]
+            li [[Cluster Capacity Planning]]
+            li [[Bitcask Capacity Planning]]
+        li [[Installing and Upgrading|installation]]
+    section
+      h4 Operations
+      ul
+        li
+          | Managing Clusters
+          ul
+            li [[Basic Cluster Setup]]
+            li [[Adding and Removing Nodes]]
+            li [[Replacing a Node]]
+        li
+          | [[Operations|operators]]
+          ul
+            li [[Configuration Files]]
+            li [[File System Tuning]] {{0.14.0+}}
+            li [[Backups]]
+            li [[Network Security and Firewall Configurations]]
+            li [[Riak Control GUI|Riak Control]] {{1.0.0+}}
+        li
+          | [[Query Options|Querying Riak]]
+          ul
+            li [[MapReduce Configuration|MapReduce - Settings]]
+            li [[Search Configuration|Riak-Search - Settings]]
+            li [[Secondary Indexes Configuration]]
+        li [[Troubleshooting]]
+    section
+      h4 References
+      ul
+        li [[riak-admin|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>

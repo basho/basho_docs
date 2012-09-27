@@ -2,6 +2,7 @@ $ ->
   $("article").each ->
     article = $(this)
     toc = $("#toc")
+    return if toc.length == 0
     toc_items = $("#toc-items")
 
     # no need for a TOC with 3 or less sections

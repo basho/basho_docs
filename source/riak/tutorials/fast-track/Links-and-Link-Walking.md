@@ -5,9 +5,9 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Running MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
+prev: ["MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
 up:   ["The Riak Fast Track", "index.html"]
-next: ["Tunable CAP Controls in Riak", "Tunable-CAP-Controls-in-Riak.html"]
+next: ["Tunable CAP Controls", "Tunable-CAP-Controls-in-Riak.html"]
 ---
 
 Now that you've done some Mapping and Reducing, it's time to introduce you to "Links."

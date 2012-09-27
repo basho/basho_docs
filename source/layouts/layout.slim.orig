@@ -23,11 +23,19 @@ body class=(data.page.project || 'riak') id=data.page.body_id
   == partial "layouts/primary"
   div(role="main")
     == partial "layouts/header"
+    
     article.mainarticle
+<<<<<<< HEAD
       div#nav-toggle
+      - unless !data.page.title
+        == partial "layouts/secondary"
+      - unless !data.page.title
+=======
       - unless !data.page.title || data.page.simple
         == partial "layouts/secondary"
+      div#nav-toggle
       - unless !data.page.title || data.page.simple
+>>>>>>> ec23f3ce922086455117e5ddbc6ed6f29dc94134
         header
           h1== data.page.title
       - unless data.page.simple
