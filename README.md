@@ -125,7 +125,13 @@ Finally, there is the keyword-based navigation. Every page with a keyword contai
 To try out the thin server in the way production functions, first build the static files:
 
 ```
-bundle exec middleman build
+RIAK_VERSION=1.2.0 middleman build
+```
+
+If that doesn't work, try adding bundle exec
+
+```
+RIAK_VERSION=1.2.0 bundle exec middleman build
 ```
 
 Then you can run the thin server locally:
