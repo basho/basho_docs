@@ -27,7 +27,9 @@
     params : {
       closedNavMargin : '12px',
       navSpeed        : 300
-    }
+    },
+    
+    openMenus : ['all riak projects', 'start here', 'shortcuts']
   };
   
   for (i in options.selectors) {
@@ -175,6 +177,22 @@
     }
   }
   
+  
+  /*
+   * checkOpenMenu()
+   * Checks menu titles to see if they should be open at page load
+   * If so, returns true.
+   */
+  function checkOpenMenu(text) {
+    var len = options.openMenus.length;
+    for (i = 0; i < len; i += 1) {
+      if (text === options.openMenus[i].toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   /*
    * addNavMenuToggles()
    * For every h3 or h4, check if the corresponding nav menu has items in it.
@@ -183,9 +201,16 @@
   function addNavMenuToggles(index, item) {
     var that         = $(this),
         nextItem     = that.next(),
-        nextItemIsUl = (nextItem[0].tagName.toLowerCase() === 'ul');
+        nextItemIsUl = (nextItem[0].tagName.toLowerCase() === 'ul'),
+        text;
     if (nextItemIsUl && nextItem.find('li').length) {
-      that.prepend('<span class="menu-toggle"></span>');
+      text = that.text().toLowerCase();
+      if (checkOpenMenu(text)) {
+        nextItem.show();
+        that.prepend('<span class="menu-toggle open"></span>');
+      } else {
+        that.prepend('<span class="menu-toggle"></span>');
+      }
     }
   }
   // Call this on the docready to add nav menu toggle buttons where needed

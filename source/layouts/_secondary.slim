@@ -1,14 +1,17 @@
-aside.secondary role="complementary"
-  nav role="nav"
-    h4 These May Also Interest You
-    ul
-      - if (pages = similar_pages(current_resource)).present?
-        - for page in pages[0..5]
-          li== "[[#{page.metadata[:page]['title']}]]"
-      - else
-        li== link_to 'All Riak Projects', '/index.html'
-    == partial "layouts/keywords"
-    / h3 Shortcuts
-    / ul
-    /   li [[FAQs]]
-    /   li [[APIs|/references/apis/]]
+
+section.right-sidebar
+  == partial "layouts/tutorial_nav"
+  aside.secondary role="complementary"
+    nav role="nav"
+      h4 These May Also Interest You
+      ul
+        - if (pages = similar_pages(current_resource)).present?
+          - for page in pages[0..5]
+            li== "[[#{page.metadata[:page]['title']}]]"
+        - else
+          li== link_to 'All Riak Projects', '/index.html'
+      == partial "layouts/keywords"
+      / h3 Shortcuts
+      / ul
+      /   li [[FAQs]]
+      /   li [[APIs|/references/apis/]]
