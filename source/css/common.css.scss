@@ -159,7 +159,7 @@ body {
     @include size(100%, auto);
     padding  : 25px 0;
     position : absolute;
-    margin   : 0 -25px;
+    margin   : 25px -25px 0;
   }
 }
 
@@ -216,6 +216,18 @@ body {
         background : none;
       }
     }
+    
+    span {
+      padding-right : 5px;
+    }
+    
+    span.menu-toggle {
+      padding-right : 0;
+    }
+  }
+  
+  h3 span a {
+    display : inline-block;
   }
   
   .depth-1 h3, .depth-2 h3, .depth-3 h3,
@@ -276,6 +288,11 @@ body {
   .depth-1 .menu-toggle, .depth-2 .menu-toggle, .depth-3 .menu-toggle {
     //margin-right : -33px;
   }
+}
+
+ul {
+  list-style : square;
+  margin     : .5em 0
 }
 
 div[role="main"] {
@@ -421,14 +438,19 @@ div[role="main"] {
     }
   }
   
+  section.right-sidebar {
+    float      : right;
+    margin     : 10px 0 15px 15px;
+    text-align : center;
+  }
+  
   aside.secondary {
     @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
     @include allCorners();
     @include boxShadow(inset 0 0 25px #333);
-    float   : right;
-    margin  : 10px 0 15px 15px;
-    padding : 25px;
-    color   : #f1f1f1;
+    padding       : 25px;
+    color         : #f1f1f1;
+    text-align    : left;
     border-bottom : 1px solid #f1f1f1;
     
     h1, h2, h3, h4, h5, h6 {
@@ -645,7 +667,7 @@ div[role=main] {
       padding-left : 25px;
     }
     
-    li {
+    > li {
       padding-bottom : 10px;
     }
   }
@@ -714,38 +736,59 @@ a[href^="#"] {
   color:black;
 }
 nav#toc {
-  ul#toc-items li {
-    a {
-      color:darkgreen;
-    }
+  ul#toc-items  {
+    margin-bottom : 25px;
+    list-style : square;
+    padding-left : 2em;
   }
 }
 
 img {
+  @include allCorners();
   max-width: 100%;
+}
+
+iframe {
+  @include boxShadow(0 2px 6px #888);
 }
 
 article {
   nav.tutorial {
+    text-align : center;
+    margin : 25px 0;
     ul {
-
+      padding    : 5px 5px 10px;
+      border-top : 1px dashed silver;
+      
       li {
-        padding:5px 0;
-        border-right: 1px solid black;
+        display : inline;
+        padding : 5px 0;
+        
+        &::before {
+          content : ' | ';
+        }
+        
+        &:first-child::before {
+          content : ''; 
+        }
+        
         &:last-child {
-          border-right: 0px;
+          border-right : 0px;
         }
         .label {
-          display:none;
+          display : none;
         }
         &.prev::before {
-          content: '« ';
+          content : '« ';
         }
         &.next::after {
-          content: ' »';
+          content : ' »';
         }
       }
     }
+  }
+  .right-sidebar nav.tutorial {
+    margin : 0;
   }
 }
 

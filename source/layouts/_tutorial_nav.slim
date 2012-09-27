@@ -1,14 +1,16 @@
-nav.tutorial
-  ul
-    - if data.page.prev.present?
-      li.prev
-        span.label Prev 
-        ==link_to data.page.prev.first, data.page.prev.last
-    - if data.page.up.present?
-      li.up
-        span.label Up 
-        ==link_to data.page.up.first, data.page.up.last
-    - if data.page.next.present?
-      li.next
-        span.label Next 
-        ==link_to data.page.next.first, data.page.next.last
+- if data.page.prev.present? || data.page.up.present? || data.page.next.present?
+  nav.tutorial
+    h4 Tutorial Items
+    ul
+      - if data.page.prev.present?
+        li.prev
+          span.label Prev 
+          ==link_to data.page.prev.first, data.page.prev.last
+      - if data.page.up.present?
+        li.up
+          span.label Up 
+          ==link_to data.page.up.first, data.page.up.last
+      - if data.page.next.present?
+        li.next
+          span.label Next 
+          ==link_to data.page.next.first, data.page.next.last
