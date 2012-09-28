@@ -171,10 +171,10 @@ export RIAK_DOCS_SECRET_KEY="XXXXX"
 
 **Keep it secret. Keep it safe.**
 
-Then to deploy, simply run middleman build with a riak version:
+Then to deploy, run the deploy.rb scripts with a riak version:
 
 ```
-RIAK_VERSION=1.2.0 DEPLOY=true middleman build
+./deploy 1.2.0
 ```
 
 ## Deploying the Search Index

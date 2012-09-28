@@ -5,7 +5,7 @@ if ARGV.length == 0
   exit(0)
 end
 
-# `rm -rf build`
+`rm -rf build`
 ENV['RIAK_VERSION'] = ARGV[0]
 ENV['DEPLOY'] = 'true'
 exec "bundle exec middleman build"
