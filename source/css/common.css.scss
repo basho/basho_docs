@@ -664,12 +664,6 @@ div[role="main"] {
     }
   }
   
-  section.right-sidebar {
-    //@media screen and (max-width: 960px) {
-    //  display : none;
-    //}
-  }
-  
   aside.secondary {
     @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
     @include allCorners();
