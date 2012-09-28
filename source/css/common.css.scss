@@ -665,13 +665,9 @@ div[role="main"] {
   }
   
   section.right-sidebar {
-    float      : right;
-    margin     : 10px 0 15px 25px;
-    text-align : center;
-    
-    @media screen and (max-width: 960px) {
-      display : none;
-    }
+    //@media screen and (max-width: 960px) {
+    //  display : none;
+    //}
   }
   
   aside.secondary {
@@ -1023,7 +1019,7 @@ a[href^="#"] {
 article {
   nav.tutorial {
     text-align : center;
-    margin : 25px 0;
+    margin : 25px 0 5px;
     
     .up a {
       font-size : 90%;
