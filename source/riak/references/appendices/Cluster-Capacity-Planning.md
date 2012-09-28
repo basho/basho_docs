@@ -125,7 +125,7 @@ calculation assumes you'll be keeping the entire data set on disk.)
 Many of the considerations taken when configuring a machine to serve a
 database can be applied to configuring a node for Riak as well. Mounting
 disks with noatime and having separate disks for your OS and Riak data
-lead to much better performance. See [[System Requirements]] for more
+lead to much better performance. See [[System Planning]] for more
 information.
 
 Read/Write Profile
@@ -205,5 +205,5 @@ latency possible using SATA Drives or SSDs, for example.
 Additional resources
 --------------------
 
-* [[System Requirements]]
+* [[System Planning]]
 * [[Basho Bench|Benchmarking]]

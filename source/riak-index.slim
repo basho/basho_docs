@@ -19,10 +19,12 @@ section#getting-started
     .more
       a.command(href='#getting-started') &nbsp;
   .content
-    ul
-      li [[The Riak Fast Track]]
-      li [[Installing and Upgrading|installation]]
-      li [[Querying Riak]]
+    section
+      ul
+        li [[The Riak Fast Track]]
+        li [[Installing and Upgrading]]
+        li [[Querying Riak]]
+    .clear
 
 
 section#developing
@@ -34,32 +36,31 @@ section#developing
       a.command(href='#developing') &nbsp;
   .content
     section
-      h4 [[Querying|Querying Riak]]
-      li
-        | MapReduce
-        ul
-          li [[MapReduce]]
-          li [[Key Filters]]
-      li
-        | Search
-        ul
-          li [[Indexing|Riak-Search - Indexing]]
-          li [[Schema|Riak-Search - Schema]]
-          li [[Querying|Riak-Search - Querying]]
-          li [[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]
-          li [[search-cmd|Command-Line-Tools - search-cmd]] <em>(Command-Line Tool)</em>
-      li
-        | Secondary Indexes
-        ul
-          li [[Configuration|Secondary-Indexes - Configuration]]
-          li [[Examples|Secondary-Indexes - Examples]]
+      h4 [[Query Choices|Querying Riak]]
+      h5 MapReduce
+      ul
+        li [[MapReduce]]
+        li [[Key Filters]]
+      h5 Search
+      ul
+        li [[Indexing|Riak-Search - Indexing]]
+        li [[Schema|Riak-Search - Schema]]
+        li [[Querying|Riak-Search - Querying]]
+        li [[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]
+        li [[search-cmd|Command-Line-Tools - search-cmd]] <em>(Command-Line Tool)</em>
     section
+      h5 Secondary Indexes
+      ul
+        li [[Configuration|Secondary-Indexes - Configuration]]
+        li [[Examples|Secondary-Indexes - Examples]]
       h4 References
       ul
         li [[APIs]]
+        li [[Developing on Riak FAQs]]
         li [[Client Libraries]]
         li [[Community Developed Projects|Community Developed Libraries and Projects]]
         li [[riak|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>
+    .clear
 
 section#operating
   header
@@ -70,8 +71,9 @@ section#operating
       a.command(href='#operating') &nbsp;
   .content
     section
-      h4 Starting
+      h4 Launching Riak
       ul
+        li [[Installing and Upgrading|installation]]
         li
           | [[Planning|System Planning]]
           ul
@@ -84,7 +86,9 @@ section#operating
                 li [[Multi]]
             li [[Cluster Capacity Planning]]
             li [[Bitcask Capacity Planning]]
-        li [[Installing and Upgrading|installation]]
+      h4 References
+      ul
+        li [[riak-admin|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>
     section
       h4 Operations
       ul
@@ -100,7 +104,7 @@ section#operating
             li [[Configuration Files]]
             li [[File System Tuning]] {{0.14.0+}}
             li [[Backups]]
-            li [[Network Security and Firewall Configurations]]
+            li [[Network Security and Firewall Config|Network Security and Firewall Configurations]]
             li [[Riak Control GUI|Riak Control]] {{1.0.0+}}
         li
           | [[Query Options|Querying Riak]]
@@ -109,7 +113,4 @@ section#operating
             li [[Search Configuration|Riak-Search - Settings]]
             li [[Secondary Indexes Configuration]]
         li [[Troubleshooting]]
-    section
-      h4 References
-      ul
-        li [[riak-admin|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>
+    .clear
