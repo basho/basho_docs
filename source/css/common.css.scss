@@ -8,10 +8,11 @@ $textColor   : #515151;
 $linkBlue    : #2984a9;
 $orange      : #f99d33;
 $lightOrange : #fcc07f;
-   
+$darkOrange  : darken($orange, 15%);
 $subtleGray  : #eaeaea;
 $lightGreen  : #a7c7bf;
-$fadedGreen  : #6f8a86;
+$fadedGreen  : darken(saturate(#6f8a86, 3%), 8%);
+$darkGreen   : darken($lightGreen, 10%);
 
 /* =============================================================================
    Mixins
@@ -70,7 +71,7 @@ $fadedGreen  : #6f8a86;
 }
 
 .serif {
-  font-family : 'notica', serif;
+  font-family : 'noticia', serif;
   font-weight : normal;
 }
 
@@ -170,6 +171,65 @@ body {
 
 body {
   font-size : 90%;
+}
+
+ul {
+  list-style : square;
+  margin     : .5em 0
+}
+
+table {
+  @include boxShadow(0 1px 3px #999);
+  border : 5px solid #fff;
+}
+
+tr {
+  &:nth-child(even) {
+    background : #f1f1f1;
+  }
+  &:nth-child(odd) {
+    background : #dfdfdf;
+  }
+}
+
+th {
+  @include bgPattern('/images/layout/light-green-bg.jpg');
+  border-bottom : 1px solid $darkGreen;
+  text-align : left;
+  padding    : 5px 10px;
+  color      : $fadedGreen;
+}
+
+td {
+  padding        : 10px;
+  vertical-align : top;
+  border-right   : 1px solid #ccc;
+  
+  &:last-child {
+    border-right : 0;
+  }
+}
+
+pre {
+  margin : 0;
+}
+
+em {
+  @extend .serif-italic;
+  font-size : 95%;
+}
+
+blockquote {
+  @extend .serif-italic;
+  @include allCorners();
+  @include boxShadow(inset 0 2px 3px lighten($orange, 25%));
+  margin      : 2em 40px;
+  background  : lighten($orange, 30%);
+  border      : 1px solid lighten($orange, 15%);
+  padding     : 7px 15px;
+  font-style  : italic;
+  font-size   : 95%;
+  color       : $darkOrange;
 }
 
 #nav-container {
@@ -284,16 +344,8 @@ body {
       margin-top : 10px;
     }
   }
-  
-  .depth-1 .menu-toggle, .depth-2 .menu-toggle, .depth-3 .menu-toggle {
-    //margin-right : -33px;
-  }
 }
 
-ul {
-  list-style : square;
-  margin     : .5em 0
-}
 
 div[role="main"] {
   @extend .sans;
@@ -337,7 +389,9 @@ div[role="main"] {
   
   h2 {
     @extend .sans;
-    font-size : 200%;
+    font-size   : 200%;
+    line-height : 1.2;
+    padding     : .7em 0;
     
     a {
       color : $headerColor;
@@ -404,12 +458,12 @@ div[role="main"] {
         @include size(100%, auto);
         padding : 0 5px; 
         margin  : 0 0 1px 0;
-        border  : 1px solid darken($lightGreen, 10%);
+        border  : 1px solid $darkGreen;
         text-decoration : none;
         
         &:hover {
           background : $orange;
-          border     : 1px solid darken($orange, 15%);
+          border     : 1px solid $darkOrange;
           color      : #fff;
         }
         
@@ -428,9 +482,9 @@ div[role="main"] {
     #nav-toggle {
       @include size(30px, 38px);
       @include bgImage('/images/layout/nav-toggle-sprite.png');
-      position : absolute;
-      top      : 1em;
-      left     : -25px;     
+      position : fixed;
+      top      : 10.8em;
+      margin-left : -45px;     
     
       &.closed {
         background-position : left bottom;
@@ -440,7 +494,7 @@ div[role="main"] {
   
   section.right-sidebar {
     float      : right;
-    margin     : 10px 0 15px 15px;
+    margin     : 10px 0 15px 25px;
     text-align : center;
   }
   
@@ -688,12 +742,19 @@ div[role=main] {
     padding       : 0 25px;
   }
   
-  .docco {
+  table.docco {
+    @include boxShadow(none);
+    border : 0;
+    
     .code {
       @include allCorners(0px);
       @include boxShadow(none);
       border-left    : 1px solid #d8d9da;
       border-right   : 1px solid #d8d9da;
+    }
+    
+    tr {
+      background : none;
     }
 
     tr:first-child .code {
@@ -705,11 +766,11 @@ div[role=main] {
     tr:last-child .code {
       @include corner(left, bottom);
       @include corner(right, bottom);
-      border-bottom : 1px solid #f0f0f0;
+      border-bottom : 1px solid #d8d9da;
     }
     
     pre {
-      margin : 0;
+      margin-bottom : 15px;
     }
   }
 }
@@ -756,6 +817,17 @@ article {
   nav.tutorial {
     text-align : center;
     margin : 25px 0;
+    
+    .up a {
+      font-size : 90%;
+      text-decoration : none;
+      color : $linkBlue;
+      
+      &:hover {
+        color : $orange;
+      }
+    }
+    
     ul {
       padding    : 5px 5px 10px;
       border-top : 1px dashed silver;
@@ -798,29 +870,7 @@ code {
   border-radius: 4px;
 }
 
-/*
-.code {
-  pre {
-    overflow-x:auto;
-    border: 1px solid #A6ABB4;
-    padding:2px;
-    padding: 15px 10px;
-    background: #eee;
-    background-size: 100% 8px;
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    box-shadow: inset 0 -1px 0 white,0 0 1px rgba(156, 165, 181, 0.6),0 1px 1px rgba(156, 165, 181, 0.5);
-    border-radius: 4px;
-    color: #333;
 
-    code {
-      white-space:pre;
-      display:block;
-    }
-  }
-  // overflow-x: scroll;
-}
-*/
 
 ol.versions,
 ol.versions li {
@@ -835,7 +885,7 @@ ol.versions {
   
   li {
     @include bgPattern('/images/layout/light-green-bg.jpg');
-    border        : 1px solid darken($lightGreen, 10%);
+    border        : 1px solid $darkGreen;
     display       : inline-block;
     font-size     : 8pt;
     margin-right  : 1px;
@@ -843,7 +893,7 @@ ol.versions {
     
     &:hover {
       background : $orange;
-      border     : 1px solid darken($orange, 15%);
+      border     : 1px solid $darkOrange;
     }
     
     &:first-child {
@@ -858,7 +908,7 @@ ol.versions {
     
     &.current {
       background : $orange;
-      border     : 1px solid darken($orange, 15%);
+      border     : 1px solid $darkOrange;
       
       a {
         color : #fff;

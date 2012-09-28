@@ -46,45 +46,11 @@ and some more about Bitcask in general, go
 [here](http://downloads.basho.com/papers/bitcask-intro.pdf). (You should
 read these.)
 
+When you calculate that your RAM needs will exceed your hardware resources,
+(In other words, if you can't afford the RAM to enable you to use Bitcask.),
+we recommend you use LevelDB.
 
-<div class="info">
-  <div class="title">Bitcask RAM Calculation</div>
-<p>With the above information in mind, the following variables will factor into your RAM
-calculation:</p>
-  <ol>
-    <li>Static bitcask per key overhead* - 22 bytes per key</li>
-    <li>Estimated average bucket+key length* - this is the combined number
-of characters your bucket+keynames will require (on average). We'll
-assume 1 byte per character.</li>
-    <li>Estimated Total Objects* - the total number of key/value pairs your
-cluster will have when started</li>
-    <li>_Replication Value (n_val)_ - the number of times each key will be
-replicated when written to Riak; defaults to 3</li>
-   </ol>
-<p><strong>And the actual equation</strong>:</p>
-<p>Approximate RAM
-Needed for Bitcask = (static bitcask per key overhead + estimated average bucket+key length
-in bytes) * estimate total number of keys * n_val</p>
-</div>
-
-Example:
-
-* 50,000,000 keys in your cluster to start
-* approximately 30 bytes for each bucket+key name
-* default n_val of 3
-
-The amount of RAM you would need for Bitcask is about **9.78 GBs across
-your entire cluster.**
-
-Additionally, Bitcask relies on your operating system's filesystem cache
-to deliver high performance reads. So, when sizing your cluster take
-this into account and plan on having several more gigabytes of RAM
-available for your filesystem cache.
-
-The only time we recommend against using Bitcask is when you calculate
-that your RAM needs will exceed your hardware resources. (In other
-words, if you can't afford the RAM to enable you to use Bitcask.) When
-this is the case, we recommend you use LevelDB.
+Check out [[Bitcask Capacity Planning]] for more details on designing a bitcask backed cluster.
 
 ### LevelDB
 

@@ -236,8 +236,7 @@
   $(document).on('click', (options.selectors.navContent + ' h3, ' + options.selectors.navContent + ' h4'), checkForToggler);
   
   
-
-
+  
 
   /*----------------------------------------------------------*/
   // Extra helpers
@@ -248,5 +247,9 @@
    */
   $(document).on('click', '.current a', function () {return false;});
   
+  /*
+   * Don't let people jack up tables
+   */
+  $('table, tr, th, td, tbody, thead, tfoot').removeAttr('style');
 
 });
