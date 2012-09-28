@@ -78,21 +78,12 @@ riak:
 
   - title: "References"
     sub:
-      - "[[APIs]]"
-      - title: "Command-Line Tools"
+      - title: "Command-Line"
         sub:
           - "[[Command-Line Overview|Command-Line Tools]]"
           - "[[riak|Command-Line Tools - riak]]"
           - "[[riak-admin|Command-Line Tools - riak-admin]]"
           - "[[search-cmd|Command-Line Tools - search-cmd]]"
-      - "[[Client Libraries]]"
-      - "[[Community Developed Libraries and Projects]]"
-      - "[[Client Libraries]]"
-      - "[[MapReduce Implementation]]"
-      - "[[Backend API]]"
-      - "[[Java Client Benchmark]]"
-      - "[[Client Implementation Guide]]"
-      - "[[Sample Data]]"
       - title: "Concepts"
         sub:
           - "[[Concepts Overview|Concepts]]"
@@ -105,6 +96,15 @@ riak:
           - "[[Replication]]"
           - "[[Vector-Clocks]]"
           - "[[Riak Glossary]]"
+      - "[[APIs]]"
+      - "[[Client Libraries]]"
+      - "[[Community Developed Libraries and Projects]]"
+      - "[[Client Libraries]]"
+      - "[[MapReduce Implementation]]"
+      - "[[Backend API]]"
+      - "[[Java Client Benchmark]]"
+      - "[[Client Implementation Guide]]"
+      - "[[Sample Data]]"
       - title: "Riak Comparisons"
         sub:
           - "[[Riak Comparisons Overview|Riak Comparisons]]"
@@ -119,10 +119,10 @@ riak:
 
   - title: "Community"
     sub:
-      - title: "Community Resources"
+      - title: "Resources"
         sub:
-          - "[[Resources Overview|Community Resources]]"
-          - "[[Overviews and Introductions]]"
+          - "[[Community Overview|Community Resources]]"
+          - "[[Introductions|Overviews and Introductions]]"
           - "[[Production Deployment]]"
           - "[[Developing with Riak]]"
           - "[[Searching and Accessing Data]]"

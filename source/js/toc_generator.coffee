@@ -9,6 +9,7 @@ $ ->
     h2s = article.find('h2')
     if h2s.length >= 3
       h2s.each ->
+        return if $(this).hasClass('title')
         content = $(this).html()
         name = content
         # name = content.replace(' ', '+')

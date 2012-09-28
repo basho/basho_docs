@@ -127,13 +127,13 @@ $darkGreen   : darken($lightGreen, 10%);
    ========================================================================== */
 
 html {
-  @include bgPattern('/images/layout/content-bg.jpg', $subtleGray);
+  @include bgPattern('../images/layout/content-bg.jpg', $subtleGray);
 }
 
 body {
   
   aside#nav-container {
-    @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
+    @include bgPattern('../images/layout/nav-bg.jpg', #4f4f50);
     @include size(222px, 100%);
     overflow : auto;
     position : fixed;
@@ -171,7 +171,7 @@ body {
   }
   
   div[role="main"] {
-    @include bgPattern('/images/layout/content-bg.jpg', $subtleGray);
+    @include bgPattern('../images/layout/content-bg.jpg', $subtleGray);
     @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
     padding  : 0 25px;
     margin   : 0 0 0 222px;
@@ -193,7 +193,7 @@ body {
   }
   
   .mastfooter {
-    @include bgPattern('/images/layout/footer-bg.jpg');
+    @include bgPattern('../images/layout/footer-bg.jpg');
     @include size(100%, auto);
     padding  : 25px 0;
     position : absolute;
@@ -234,7 +234,7 @@ tr {
 }
 
 th {
-  @include bgPattern('/images/layout/light-green-bg.jpg');
+  @include bgPattern('../images/layout/light-green-bg.jpg');
   border-bottom : 1px solid $darkGreen;
   text-align : left;
   padding    : 5px 10px;
@@ -299,7 +299,7 @@ iframe {
 
   a {
     @extend .block;
-    @include bgPattern('/images/layout/nav-li-bg6.jpg', #393939);
+    @include bgPattern('../images/layout/nav-li-bg6.jpg', #393939);
     color           : #fff;
     padding         : 7px 12px;
     border-left     : 4px solid $fadedGreen;
@@ -317,7 +317,7 @@ iframe {
     cursor      : default;
   }
   .current a:hover {
-    @include bgPattern('/images/layout/nav-li-bg6.jpg', #393939);
+    @include bgPattern('../images/layout/nav-li-bg6.jpg', #393939);
   }
   
   h2.responsive-link {
@@ -352,7 +352,7 @@ iframe {
   
   h3, h4 {
     @extend .text-shadow;
-    @include bgPattern('/images/layout/nav-header-bg2.jpg', transparent);
+    @include bgPattern('../images/layout/nav-header-bg2.jpg', transparent);
     border-left : 4px solid $fadedGreen;
     padding     : 5px 5px 5px 10px;
     overflow    : visible;
@@ -438,7 +438,7 @@ iframe {
   span.menu-toggle {
     @extend .block;
     @include size(21px, 21px);
-    background : url('/images/layout/menu-opener2.png') left center no-repeat transparent;
+    background : url('../images/layout/menu-opener2.png') left center no-repeat transparent;
     float      : right;
     margin     : 3px -5px 0 0;
     
@@ -455,7 +455,7 @@ iframe {
 .responsive-toggle {
   display : none;
   @media screen and (max-width: 700px) {
-    @include bgImage('/images/layout/toggle-button.png');
+    @include bgImage('../images/layout/toggle-button.png');
     @include size(40px, 27px);
     display : block;
     float   : right;
@@ -553,7 +553,7 @@ div[role="main"] {
     
     @media screen and (max-width: 700px) {
       @include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
-      @include bgPattern('/images/layout/content-bg.jpg');
+      @include bgPattern('../images/layout/content-bg.jpg');
       position : fixed;
       width    : 100%;
       top      : 0;
@@ -564,14 +564,14 @@ div[role="main"] {
     }
     
     .responsive-toggle {
-      @include bgImage('/images/layout/toggle-button-light.png');
+      @include bgImage('../images/layout/toggle-button-light.png');
       margin : 8px 12px 0 0;
     }
 
     .logo {
       @extend .block;
       @include size(270px, 44px);
-      //@include bgImage('/images/layout/logo.png');
+      //@include bgImage('../images/layout/logo.png');
       
       img {
         @extend .block;
@@ -614,7 +614,7 @@ div[role="main"] {
       a {
         @extend .green-link;
         @extend .block;
-        @include bgPattern('/images/layout/light-green-bg.jpg');
+        @include bgPattern('../images/layout/light-green-bg.jpg');
         @include size(auto, auto);
         padding : 0 15px; 
         margin  : 0 0 1px 0;
@@ -645,7 +645,7 @@ div[role="main"] {
     
     #nav-toggle {
       @include size(30px, 38px);
-      @include bgImage('/images/layout/nav-toggle-sprite.png');
+      @include bgImage('../images/layout/nav-toggle-sprite.png');
       position : fixed;
       top      : 10.8em;
       margin-left : -45px;     
@@ -665,7 +665,7 @@ div[role="main"] {
   }
   
   aside.secondary {
-    @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
+    @include bgPattern('../images/layout/nav-bg.jpg', #4f4f50);
     @include allCorners();
     @include boxShadow(inset 0 0 25px #333);
     padding       : 25px;
@@ -907,7 +907,7 @@ div[role=main] {
   }
   
   .code {
-    @include bgPattern('/images/layout/code-bg.jpg');
+    @include bgPattern('../images/layout/code-bg.jpg');
     @include allCorners();
     @include boxShadow(inset 0 1px 4px #aeb9b6);
     font-size     : 80%;
@@ -1075,12 +1075,14 @@ ol.versions li {
   padding: 0;
 }
 ol.versions {
-  clear         : left;
-  margin-bottom : 1em;
-  padding-top   : 15px;
+  float: right;
+  margin-top: 2.1em;
+  //clear         : left;
+  //margin-bottom : 1em;
+  //padding-top   : 15px;
   
   li {
-    @include bgPattern('/images/layout/light-green-bg.jpg');
+    @include bgPattern('../images/layout/light-green-bg.jpg');
     border        : 1px solid $darkGreen;
     display       : inline-block;
     font-size     : 8pt;
@@ -1125,3 +1127,8 @@ ol.versions {
   }
 }
 
+@media screen and (max-width: 700px) {
+  ol.versions { 
+    display:none;
+  }
+}

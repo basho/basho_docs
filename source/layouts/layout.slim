@@ -33,7 +33,7 @@ body class=(data.page.project || 'riak') id=data.page.body_id
         == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
         - unless data.page.toc == false
           nav#toc
-            h2 Contents
+            h2.title Contents
             ul#toc-items
       == yield
       == partial "layouts/tutorial_nav"
