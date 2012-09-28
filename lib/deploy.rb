@@ -46,7 +46,7 @@ module ::Middleman::Features::Deploy
           # a copy of the full site to reflect the latest values
 
           # anything under images, js, css goes to "shared"
-          if f =~ /^\.\/build\/(?:images|js|css)\//
+          if f =~ /^\.\/build\/(?:images|js|css|fonts)\//
             # upload shared for all given project versions
             $versions.values.uniq.each do |version|
               key = f.sub(/\.\/build\//, "shared/#{version}/")
