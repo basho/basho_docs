@@ -1,7 +1,7 @@
 //= require_tree .
 
 /*
- * Overy-paranoid jQuery docready call
+ * Overly-paranoid jQuery docready call
  * Won't produce an error if jQuery doesn't load
  */
 (typeof jQuery !== 'function') ? null : jQuery(function () {
@@ -18,20 +18,26 @@
   var options = {
     
     selectors : {
-      navContainer : '#nav-container',
-      navContent   : '#primary-nav',
-      contentWell  : 'div[role=main]',
-      navToggle    : '#nav-toggle',
+      navContainer     : '#nav-container',
+      navContent       : '#primary-nav',
+      contentWell      : 'div[role=main]',
+      navToggle        : '#nav-toggle',
+      responsiveToggle : '.responsive-toggle'
     },
     
     params : {
       closedNavMargin : '12px',
-      navSpeed        : 300
+      navSpeed        : 300,
+      responsiveWidth : 700
     },
     
     openMenus : ['all riak projects', 'start here', 'shortcuts']
   };
   
+  
+  /*
+   * Create real selections from the items contained in options.selectors
+   */
   for (i in options.selectors) {
     if (Object.prototype.hasOwnProperty.call(options.selectors, i)) {
       options.jq = options.jq || {};
@@ -110,6 +116,37 @@
     options.jq.navContainer.animate({width: cm}, animConfig());
   }
   
+  
+  /*
+   * openNav_responsive()
+   * Animates the sidebar nav into the open position in the responsive layout
+   */
+  function openNav_responsive() {
+    options.jq.contentWell.css({
+      position : 'absolute',
+      top      : 0,
+      left     : 0,
+      height   : '100%',
+      overflow : 'hidden'
+    });
+    options.jq.navContainer.animate({marginLeft: 0}, animConfig());
+    options.jq.contentWell.animate({left: '100%'}, animConfig(function () {
+      options.jq.contentWell.hide();
+    }));
+  }
+  
+  /*
+   * closeNav_responsive()
+   * Animates the sidebar nav into the closed position in the responsive layout
+   */
+  function closeNav_responsive() {
+    options.jq.contentWell.show().animate({left: 0}, animConfig());
+    options.jq.navContainer.animate({marginLeft: '-100%'}, animConfig(function () {
+      options.jq.contentWell.removeAttr('style');
+      options.jq.navContainer.removeAttr('style');
+    }));
+  }
+  
   /*
    * determineNavAction()
    * Determines whether the nav should be opened or closed
@@ -124,16 +161,48 @@
   }
   
   /*
+   * determineNavAction_responsive()
+   * The same as devermineNavAction but for the responsive layout
+   */
+  function determineNavAction_responsive() {
+    if (options.jq.contentWell.is(':hidden')) {
+      closeNav_responsive();
+    } else {
+      openNav_responsive();
+    }
+  }
+  
+  /*
+   * fixResponsiveArtifacts()
+   * Animations in the resopnsive layout sometimes hide elements.
+   * This will clear out any artifact style tag attributes when we
+   * leave the responsive layout.
+   */
+  function fixResponsiveArtifacts(evnt) {
+    if ($(this).width() > options.params.responsiveWidth) {
+      options.jq.contentWell.removeAttr('style');
+      options.jq.navContainer.removeAttr('style');
+    }
+  }
+  
+  /*
    * Any time the screen is resized, re-assess how wide
    * the nav should be able to open
    */
   $(window).on('resize', getContentMargin);
+  
+  /*
+   * Any time the screen is resized, check to see if there are
+   * any responsiveness artifacts to be removed
+   */
+  $(window).on('resize', fixResponsiveArtifacts);
 
   /*
    * Any time the nav controller button gets clicked
    * open or close the nav as appropriate.
    */
-  $(document).on('click', '#nav-toggle', determineNavAction);
+  $(document).on('click', options.selectors.navToggle, determineNavAction);
+  $(document).on('click', options.selectors.responsiveToggle, determineNavAction_responsive);
 
 
 
@@ -183,10 +252,10 @@
    * Checks menu titles to see if they should be open at page load
    * If so, returns true.
    */
-  function checkOpenMenu(text) {
+  function checkOpenMenu(text, correspondingUl) {
     var len = options.openMenus.length;
     for (i = 0; i < len; i += 1) {
-      if (text === options.openMenus[i].toLowerCase()) {
+      if (text === options.openMenus[i].toLowerCase() || correspondingUl.find('.current').length) {
         return true;
       }
     }
@@ -205,7 +274,7 @@
         text;
     if (nextItemIsUl && nextItem.find('li').length) {
       text = that.text().toLowerCase();
-      if (checkOpenMenu(text)) {
+      if (checkOpenMenu(text, nextItem)) {
         nextItem.show();
         that.prepend('<span class="menu-toggle open"></span>');
       } else {
@@ -251,5 +320,6 @@
    * Don't let people jack up tables
    */
   $('table, tr, th, td, tbody, thead, tfoot').removeAttr('style');
+  
 
 });

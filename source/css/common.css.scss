@@ -132,7 +132,7 @@ html {
 
 body {
   
-  #nav-container {
+  aside#nav-container {
     @include bgPattern('/images/layout/nav-bg.jpg', #4f4f50);
     @include size(222px, 100%);
     overflow : auto;
@@ -143,6 +143,30 @@ body {
     
     #primary-nav {
       padding : 5px 12px;
+      
+      @media screen and (max-width: 700px) {
+        /*
+         * Important is necessary here in order to override the inline style attribute which
+         * gets manipulated by JavaScript when animations run
+         */
+        display  : block !important;
+        padding  : 0 10px 10px;
+        overflow : auto;
+      }
+    }
+    
+    @media screen and (max-width: 700px) {
+      /*
+       * Important is necessary here in order to override the inline style attribute which
+       * gets manipulated by JavaScript when animations run
+       */
+      width    : 100% !important;
+      height   : 100%;
+      z-index  : 3;
+      position : absolute;
+      
+      float : left;
+      margin-left : -100%;
     }
   }
   
@@ -153,6 +177,19 @@ body {
     margin   : 0 0 0 222px;
     position : relative;
     z-index  : 2;
+    
+    @media screen and (max-width: 700px) {
+      /*
+       * Important is necessary here in order to override the inline style attribute which
+       * gets manipulated by JavaScript when animations run
+       */
+      margin  : 0 !important;
+      z-index : -1;
+      
+      padding : 0;
+      width   : 100%;
+      float   : left;
+    }
   }
   
   .mastfooter {
@@ -161,6 +198,10 @@ body {
     padding  : 25px 0;
     position : absolute;
     margin   : 25px -25px 0;
+    
+    @media screen and (max-width: 700px) {
+      margin : 0;
+    }
   }
 }
 
@@ -214,6 +255,12 @@ pre {
   margin : 0;
 }
 
+code {
+  background    : #eee;
+  padding       : 0 3px;
+  border-radius : 4px;
+}
+
 em {
   @extend .serif-italic;
   font-size : 95%;
@@ -223,19 +270,32 @@ blockquote {
   @extend .serif-italic;
   @include allCorners();
   @include boxShadow(inset 0 2px 3px lighten($orange, 25%));
-  margin      : 2em 40px;
-  background  : lighten($orange, 30%);
-  border      : 1px solid lighten($orange, 15%);
-  padding     : 7px 15px;
-  font-style  : italic;
-  font-size   : 95%;
-  color       : $darkOrange;
+  margin     : 2em 40px;
+  background : lighten($orange, 30%);
+  border     : 1px solid lighten($orange, 15%);
+  padding    : 7px 15px;
+  font-style : italic;
+  font-size  : 95%;
+  color      : $darkOrange;
+}
+
+img {
+  @include allCorners();
+  max-width: 100%;
+}
+
+iframe {
+  @include boxShadow(0 2px 6px #888);
 }
 
 #nav-container {
   @extend .sans;
   @include boxShadow(inset -10px 0 15px #333);
   color : $subtleGray;
+  
+  @media screen and (max-width: 700px) {
+    @include boxShadow(none);
+  }
 
   a {
     @extend .block;
@@ -260,9 +320,39 @@ blockquote {
     @include bgPattern('/images/layout/nav-li-bg6.jpg', #393939);
   }
   
+  h2.responsive-link {
+    display : none;
+    @media screen and (max-width: 700px) {
+      display : block;
+    }
+  }
+  
+  h3.responsive-link {
+    display : none;
+    
+    &.visit-basho {
+      @include allCorners();
+      background : lighten($orange, 30%); // fallback value for no rgba support
+      background : rgba(249, 157, 51, .2);
+      border     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+      border     : 1px solid rgba(249, 157, 51, .4);
+      
+      a {
+        color : $darkOrange; // fallback value for no rgba support
+        color : rgba(255, 255, 255, 1);
+        text-shadow : none; // fallback value for no rgba support
+        text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
+      }
+    }
+    
+    @media screen and (max-width: 700px) {
+      display : block;
+    }
+  }
+  
   h3, h4 {
     @extend .text-shadow;
-    @include bgPattern('/images/layout/nav-header-bg.jpg', transparent);
+    @include bgPattern('/images/layout/nav-header-bg2.jpg', transparent);
     border-left : 4px solid $fadedGreen;
     padding     : 5px 5px 5px 10px;
     overflow    : visible;
@@ -288,6 +378,7 @@ blockquote {
   
   h3 span a {
     display : inline-block;
+    width   : 100%;
   }
   
   .depth-1 h3, .depth-2 h3, .depth-3 h3,
@@ -295,12 +386,27 @@ blockquote {
     margin-right : 0;
   }
   
+  h2 {
+    @extend .sans;
+    margin-top  : 10px;
+    color       : #fff;
+    text-shadow : 0 1px 2px #000;
+  }
+  
   h3 {
     font-size  : 135%;
     margin-top : 7px;
     
+    @media screen and (max-width: 700px) {
+      font-size : 115%;
+    }
+    
     &:first-child {
       margin-top : 25px;
+      
+      @media screen and (max-width: 700px) {
+        margin-top : 10px;
+      }
     }
   }
   
@@ -346,6 +452,16 @@ blockquote {
   }
 }
 
+.responsive-toggle {
+  display : none;
+  @media screen and (max-width: 700px) {
+    @include bgImage('/images/layout/toggle-button.png');
+    @include size(40px, 27px);
+    display : block;
+    float   : right;
+  }
+}
+
 
 div[role="main"] {
   @extend .sans;
@@ -358,7 +474,8 @@ div[role="main"] {
   }
   
   h1, h2, h3, h4, h5, h6 {
-    color : $headerColor;
+    color       : $headerColor;
+    line-height : 1.2;
   }
   
   h1, h4, h5, h6 {
@@ -425,26 +542,69 @@ div[role="main"] {
     }
   }
   
+  h1 a {
+    white-space : normal;
+  }
+  
   .masthead {
     padding    : 1.5em 1em 0 0;
     text-align : center;
     overflow   : visible;
+    
+    @media screen and (max-width: 700px) {
+      @include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
+      @include bgPattern('/images/layout/content-bg.jpg');
+      position : fixed;
+      width    : 100%;
+      top      : 0;
+      left     : 0;
+      padding  : 12px 0 18px;
+      z-index  : 3;
+      border-bottom : 6px solid $headerColor;
+    }
+    
+    .responsive-toggle {
+      @include bgImage('/images/layout/toggle-button-light.png');
+      margin : 8px 12px 0 0;
+    }
 
     .logo {
       @extend .block;
       @include size(270px, 44px);
-      @include bgImage('/images/layout/logo.png');
+      //@include bgImage('/images/layout/logo.png');
+      
+      img {
+        @extend .block;
+        @include size(100%, 100%);
+      }
+      
+      @media screen and (max-width: 700px) {
+        padding-left : 12px;
+      }
+      
+      @media screen and (max-width: 500px) {
+        @include size(202.5px, 33px);
+        padding-top : 5px;
+      }
     }
     
     .tagline {
       @extend .block;
       text-align : left;
       margin     : 8px 0 0 3px;
+      
+      @media screen and (max-width: 700px) {
+        display : none;
+      }
     }
     
     .shadow-divider {
       @include size(100%, 36px);
       padding : 1.5em 0 0 .5em;
+      
+      @media screen and (max-width: 700px) {
+        display : none;
+      }
     }
     
     #top-nav {
@@ -455,8 +615,8 @@ div[role="main"] {
         @extend .green-link;
         @extend .block;
         @include bgPattern('/images/layout/light-green-bg.jpg');
-        @include size(100%, auto);
-        padding : 0 5px; 
+        @include size(auto, auto);
+        padding : 0 15px; 
         margin  : 0 0 1px 0;
         border  : 1px solid $darkGreen;
         text-decoration : none;
@@ -470,6 +630,10 @@ div[role="main"] {
         &:first-child {
           margin-top : 10px;
         }
+      }
+      
+      @media screen and (max-width: 700px) {
+        display : none;
       }
     }
     
@@ -489,6 +653,14 @@ div[role="main"] {
       &.closed {
         background-position : left bottom;
       }
+      
+      @media screen and (max-width: 700px) {
+        display : none;
+      }
+    }
+    
+    @media screen and (max-width: 700px) {
+      padding : 95px 12px 12px 12px;
     }
   }
   
@@ -496,6 +668,10 @@ div[role="main"] {
     float      : right;
     margin     : 10px 0 15px 25px;
     text-align : center;
+    
+    @media screen and (max-width: 960px) {
+      display : none;
+    }
   }
   
   aside.secondary {
@@ -509,7 +685,8 @@ div[role="main"] {
     
     h1, h2, h3, h4, h5, h6 {
       @extend .text-shadow;
-      color : #f1f1f1;
+      color       : #f1f1f1;
+      line-height : 1.2;
     }
     
     ul {
@@ -671,6 +848,16 @@ div[role="main"] {
   }
 }
 
+nav#toc {
+  display : inline-block;
+  
+  ul#toc-items  {
+    margin-bottom : 25px;
+    list-style : square;
+    padding-left : 2em;
+  }
+}
+
 .mastfooter {
   @extend .center-text;
   color     : #fff;
@@ -697,6 +884,9 @@ div[role=main] {
   .docs {
     padding   : 0 25px 0 0;
     min-width : 22em;
+    @media screen and (max-width: 709px) {
+      min-width : 17em;
+    }
     
     h1 {
       font-size   : 225%;
@@ -784,34 +974,51 @@ div[role=main] {
 details summary::-webkit-details-marker {
   display:none;
 }
+
 details.question > summary {
-  outline: none;
-  color:blue;
-  text-decoration:underline;
-  &:hover {
-    cursor: pointer;
+  @extend .sans-bold;
+  outline : none;
+  color   : $linkBlue;
+  padding : 5px 0;
+  
+  &::before {
+    content : 'Q: ';
   }
+  
+  &::after {
+    content : ' »';
+  }
+  
+  &:hover {
+    cursor : pointer;
+    color  : $orange;
+  }
+  
+  p {
+    display : inline;
+  }
+}
+
+details.question[open] > summary {
+  &::after {
+    content : ' (close)';
+  }
+}
+
+details.answer {
+  padding-left  : 25px;
+  border-bottom : 1px dashed silver;
+  margin-bottom : 25px;
 }
 
 a[href^="#"] {
   color:black;
 }
-nav#toc {
-  ul#toc-items  {
-    margin-bottom : 25px;
-    list-style : square;
-    padding-left : 2em;
-  }
-}
 
-img {
-  @include allCorners();
-  max-width: 100%;
-}
 
-iframe {
-  @include boxShadow(0 2px 6px #888);
-}
+/* =============================================================================
+   Tutorial Nav
+   ========================================================================== */
 
 article {
   nav.tutorial {
@@ -864,12 +1071,10 @@ article {
   }
 }
 
-code {
-  background: #eee;
-  padding: 0 3px;
-  border-radius: 4px;
-}
 
+/* =============================================================================
+   Version Bar
+   ========================================================================== */
 
 
 ol.versions,
@@ -882,6 +1087,7 @@ ol.versions li {
 ol.versions {
   clear         : left;
   margin-bottom : 1em;
+  padding-top   : 15px;
   
   li {
     @include bgPattern('/images/layout/light-green-bg.jpg');
@@ -929,9 +1135,3 @@ ol.versions {
   }
 }
 
-/*
-ul.depth-2,
-ul.depth-3 {
-  display:none;
-}
-*/

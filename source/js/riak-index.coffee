@@ -1,5 +1,5 @@
 $ ->
-  $("#riak-index article section header a.command").click ->
+  $("#riak-index article section header .command").click ->
     section = $(this).parents("section")
     content = section.find(".content")
     return false if content.is(":visible")

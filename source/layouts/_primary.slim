@@ -1,5 +1,12 @@
 aside#nav-container role="complementary"
   nav.overview#primary-nav role="nav"
+    h2.responsive-link
+      | Navigation
+      span.responsive-toggle
+    h3.responsive-link.visit-basho
+      a href="http://www.basho.com" Visit Basho
+    h3.responsive-link
+      a href="./index.html" Home
     - project = data.page.project || 'riak'
     - data.global_nav[project].each do |section|
       - nav_data, active = build_nav(section['sub'])
