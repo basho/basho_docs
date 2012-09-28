@@ -24,7 +24,6 @@ $orange : #f99d33;
     background    : rgba(0, 0, 0, .05);
     border        : 1px solid #F1F1F1;
     margin        : 0.25em 0em 0.35em 0em;
-    //padding       : 10px 18px;
     border-bottom : 1px solid #F1F1F1;
 
     header {
@@ -72,53 +71,50 @@ $orange : #f99d33;
 
     .content {
       display : none;
-      padding-left:1.68em;
-      padding-top:0.68em;
+      padding : 15px 25px 25px;
+      
       h5 {
-       margin:0.5em 0;
-       font-size: 100%;
+       margin    : 0.5em 0;
+       font-size : 100%;
       }
       ul, li {
-        list-style: none;
-        margin:0;
-        padding:0;
+        //list-style : none;
+        margin     : 0;
+        padding    : 0;
       }
       ul {
-        padding-left:1.4em;
-        margin:0.5em 0;
+        padding-left : 1.4em;
+        margin       : 0.5em 0;
       }
       section {
-        min-width: 50%;
-        float:left;
-      }
-      .clear {
-        clear:both;
+        min-width : 50%;
+        float     : left;
       }
     }
     
     &#getting-started {
       .content {
-        display:block;
+        display : block;
       }
       .more {
-        display:none;
+        display : none;
       }
     }
     
     &:hover {
-      border     : 1px solid #F1F1FF;
-      //box-shadow : inset 0 0 20px lighten($orange, 15%);
+      border : 1px solid #F1F1FF;
     }
 
     &#getting-started {
       .content {
         section {
-          width:100%;
+          width : 100%;
+        }
+        ul {
+          list-style : square;
         }
         ul li {
-          float:left;
-          min-width:30%;
-          text-align:center;
+          display    : list-item;
         }
       }
     }
