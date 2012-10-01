@@ -15,7 +15,7 @@ h1 [[HTTP API]]
   ul
     - pages.each do |page|
       - metadata = page.metadata[:page] || {}
-      - if metadata["title"].present?
+      - if metadata["title"].present? && metadata["version"].present?
         li
           == link_to metadata["title"], page.url
           span.version  #{metadata["version"]}
@@ -31,7 +31,7 @@ h1 [[PBC API]]
   ul
     - pages.each do |page|
       - metadata = page.metadata[:page] || {}
-      - if metadata["title"].present?
+      - if metadata["title"].present? && metadata["version"].present?
         li
           == link_to metadata["title"], page.url
           span.version  #{metadata["version"]}

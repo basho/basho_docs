@@ -7,9 +7,10 @@ toc: true
 index: true
 audience: beginner
 keywords: []
+simple: true
 ---
 
-## Getting Started
+# Riak Enterprise Edition
 
 * [[The Riak Fast Track]]
 * [[Installing and Upgrading|installation]]

@@ -1,7 +1,7 @@
 source :rubygems
 
 gem "middleman", "=3.0.0"
-# gem "middleman-smusher"
+gem "middleman-smusher"
 gem "redcarpet", "~>2.1.1"
 gem "github-markdown", "~>0.5.1"
 # gem "RedCloth"  # textile

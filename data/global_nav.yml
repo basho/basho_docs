@@ -190,7 +190,7 @@ riakcs:
       - "[[FAQs|Riak CS FAQs]]"
       - "[[APIs|RiakCS Storage API]]"
 
-shared:
+root:
   - title: "All Riak Projects"
     sub:
       - "[[Riak]]"

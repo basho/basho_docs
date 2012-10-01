@@ -290,29 +290,28 @@ activate :versionify
   page "/#{project}/#{version}/index.html", :proxy => "/#{project}-index.html", :directory_index => false, :ignore => true
 end
 
+activate :cache_buster
+activate :relative_assets
 
 # Build-specific configuration
 configure :build do
   activate Middleman::Features::ProductionCheck
 
-  # For example, change the Compass output style for deployment
   activate :minify_css
-  
-  # Minify Javascript on build
   activate :minify_javascript
+  # activate :gzip
   
-  # Enable cache buster
-  # activate :cache_buster
-  
-  # Use relative URLs
-  # activate :relative_assets
+  activate :cache_buster
+  activate :relative_assets
   
   # Compress PNGs after build
-  # require "middleman-smusher"
-  # activate :smusher
+  require "middleman-smusher"
+  activate :smusher
   
   # Or use a different image path
   # set :http_path, "/Content/images/"
+  
+  ignore "source/images/layout/*.png"
 
   if ENV.include?('DEPLOY')
     activate Middleman::Features::Deploy

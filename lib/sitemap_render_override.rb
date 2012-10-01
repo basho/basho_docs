@@ -140,7 +140,7 @@ module SitemapRenderOverride
     # data.gsub!(/(\<a\s.*?href\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*?>)/m) do
     data.gsub!(/\<a\s+([^\>]*?)\>/m) do
       anchor = $1
-
+      
       href = (anchor.scan(/href\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s
 
       if url =~ /\/http\/single/ || url =~ /\/references\/dynamo/
@@ -150,7 +150,7 @@ module SitemapRenderOverride
       end
       
       # keep it the same
-      if version_str.blank? || href.blank? || href =~ /^\/riak[^\/]*\/[\d\.]+\// || href =~ /^http[s]?\:/ 
+      if version_str.blank? || href.blank? || href =~ /^\/riak[^\/]*?\/[\d\.]+\// || href =~ /^http[s]?\:/ 
         "<a #{anchor}>"
       elsif href =~ /^\/index\.html$/
         "<a #{anchor}>"
@@ -173,12 +173,16 @@ module SitemapRenderOverride
     # shared resources (css, js, images, etc) are put under /shared/version
     if version_str || project == :shared
       version_str ||= $versions[:riak]
-      data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
-        "#{$1}/shared/#{version_str}#{$2}#{$3}"
+      data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/m) do
+        base, href, cap = $1, $2, $3
+        href.sub!(/^\.{2}\/\.{2}/, '')
+        "#{base}/shared/#{version_str}#{href}#{cap}"
       end
 
-      data.gsub!(/(\<img\s.*?src\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*>)/m) do
-        "#{$1}/shared/#{version_str}#{$2}#{$3}"
+      data.gsub!(/(\<img\s.*?src\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/m) do
+        base, href, cap = $1, $2, $3
+        href.sub!(/^\.{2}\/\.{2}/, '')
+        "#{base}/shared/#{version_str}#{href}#{cap}"
       end
     end
   end

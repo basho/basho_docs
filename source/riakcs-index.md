@@ -7,6 +7,7 @@ toc: true
 index: true
 audience: beginner
 keywords: []
+simple: true
 ---
 
 ![Riak CS Logo](/images/riak-cs-logo.png)

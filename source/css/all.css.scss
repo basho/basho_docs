@@ -1,9 +1,9 @@
 @import "compass";
-// @import "../images/layout/*.png";
-// @include all-iamges-sprites;
+@import "layout/*.png";
+@include all-layout-sprites;
 
+@import "settings";
 @import "boilerplate";
 @import "common";
-@import "docco";
 @import "fonts";
 @import "riak-index";

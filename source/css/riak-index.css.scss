@@ -1,22 +1,3 @@
-// TODO: merge css files
-$orange : #f99d33;
-@mixin vendor($prop, $args) {
-  -webkit-#{$prop} : $args;
-  -moz-#{$prop}    : $args;
-  #{$prop}         : $args;
-}
-@mixin boxShadow($args) {
-  @include vendor('box-shadow', $args);
-}
-@mixin allCorners($radius: 5px) {
-  @include vendor('border-radius', $radius);
-}
-@mixin corner($horiz, $vert, $radius: 5px) {
-  -webkit-border-#{$vert}-#{$horiz}-radius : $radius;
-  -moz-border-radius-#{$vert}#{$horiz}     : $radius;
-  border-#{$vert}-#{$horiz}-radius         : $radius;
-}
-
 #riak-index {
   article > section {
     @include allCorners(8px);

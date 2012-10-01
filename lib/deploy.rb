@@ -31,7 +31,8 @@ module ::Middleman::Features::Deploy
 
         AWS::S3::Base.establish_connection!(:access_key_id => ACCESS_KEY_ID, :secret_access_key => SECRET_ACCESS_KEY)
 
-        def upload(key, f)
+        # first check
+        def upload(key, f, force=false)
           attrs = {
             :access => :public_read,
             'Cache-Control' => 'max-age=315360000'

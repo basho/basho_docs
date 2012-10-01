@@ -1,5 +1,5 @@
 ---
-project: shared
+project: root
 version: 0.10.0+
 document: tutorial
 toc: false
@@ -17,6 +17,5 @@ div#select-project
   img id="left-connector" src="/images/layout/left-connector.png"
   img id="right-connector" src="/images/layout/right-connector.png"
   - current_projects.each do |project, version|
-    - ref = version[:deployment] ? "/#{project}/#{version[:deployment]}/" : "/#{project}/1.2.0/index.html"
-    | <a class="big-project-link" id="#{project}" href="#{ref}"><img alt="#{project}" src="/images/layout/#{project}-circle.png"/></a>
-
+    a.big-project-link(id=project href="/#{project}/#{version[:deployment]}/")
+      img(alt=project src="/images/layout/#{project}-circle.png")

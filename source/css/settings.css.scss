@@ -1,0 +1,61 @@
+/* =============================================================================
+   Variables
+   ========================================================================== */
+
+$headerColor : #616366;
+$textColor   : #515151;
+$linkBlue    : #2984a9;
+$orange      : #f99d33;
+$lightOrange : #fcc07f;
+$darkOrange  : darken($orange, 15%);
+$subtleGray  : #eaeaea;
+$lightGreen  : #a7c7bf;
+$fadedGreen  : darken(saturate(#6f8a86, 3%), 8%);
+$darkGreen   : darken($lightGreen, 10%);
+
+/* =============================================================================
+   Mixins
+   ========================================================================== */
+
+@mixin bgPattern($url, $color: transparent) {
+  background : image-url('/images/layout/' + $url) left top repeat $color
+}
+
+@mixin bgImage($url, $color: transparent) {
+  background : image-url('/images/layout/' + $url) center top no-repeat $color;
+}
+
+@mixin size($width: auto, $height: auto) {
+  width  : $width;
+  height : $height;
+}
+
+@mixin minSize($width: auto, $height: auto) {
+  min-width  : $width;
+  min-height : $height;
+}
+
+@mixin vendor($prop, $args) {
+  -webkit-#{$prop} : $args;
+  -moz-#{$prop}    : $args;
+  #{$prop}         : $args;
+}
+
+@mixin boxShadow($args) {
+  @include vendor('box-shadow', $args);
+}
+
+@mixin allCorners($radius: 5px) {
+  @include vendor('border-radius', $radius);
+}
+
+@mixin corner($horiz, $vert, $radius: 5px) {
+  -webkit-border-#{$vert}-#{$horiz}-radius : $radius;
+  -moz-border-radius-#{$vert}#{$horiz}     : $radius;
+  border-#{$vert}-#{$horiz}-radius         : $radius;
+}
+
+@mixin opaque($dec: 1) {
+  opacity : $dec;
+  filter  : unquote('alpha(opacity=' + ($dec * 100) + ')');
+}
