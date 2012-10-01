@@ -14,10 +14,7 @@ head(class=data.page.document)
   meta content="project" name=(data.page.project || 'riak')
   meta content="version" name=current_version
   title== data.page.title || "Riak Documents"
-  == stylesheet_link_tag "boilerplate"
-  == stylesheet_link_tag "fonts"
-  == stylesheet_link_tag "common"
-  == stylesheet_link_tag "riak-index"
+  == stylesheet_link_tag "all"
   == javascript_include_tag "all"
 body class=(data.page.project || 'riak') id=data.page.body_id
   == partial "layouts/primary"

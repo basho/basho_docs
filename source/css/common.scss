@@ -320,6 +320,10 @@ iframe {
     @include bgPattern('../images/layout/nav-li-bg6.jpg', #393939);
   }
   
+  h3, h4 {
+    cursor : pointer;
+  }
+
   h2.responsive-link {
     display : none;
     @media screen and (max-width: 700px) {

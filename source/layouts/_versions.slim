@@ -1,7 +1,7 @@
 - project = data.page.project || 'riak'
 - bar = version_bar(project)
 
-- unless bar.length == 0
+- unless bar.length <= 1
   ol.versions
     - bar.each do |versions|
       - version = versions.first
