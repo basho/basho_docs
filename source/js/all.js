@@ -27,7 +27,7 @@
     
     params : {
       closedNavMargin : '12px',
-      navSpeed        : 300,
+      navSpeed        : 175,
       responsiveWidth : 700
     },
     

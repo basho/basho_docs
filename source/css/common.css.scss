@@ -452,13 +452,15 @@ iframe {
   }
 }
 
-.responsive-toggle {
+a.responsive-toggle, #nav-container a.responsive-toggle {
   display : none;
   @media screen and (max-width: 700px) {
     @include bgImage('../images/layout/toggle-button.png');
     @include size(40px, 27px);
     display : block;
     float   : right;
+    border  : 0;
+    padding : 0;
   }
 }
 
@@ -563,9 +565,10 @@ div[role="main"] {
       border-bottom : 6px solid $headerColor;
     }
     
-    .responsive-toggle {
+    a.responsive-toggle {
       @include bgImage('../images/layout/toggle-button-light.png');
-      margin : 8px 12px 0 0;
+      display : block;
+      margin  : 8px 12px 0 0;
     }
 
     .logo {
