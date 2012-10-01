@@ -202,7 +202,12 @@
    * open or close the nav as appropriate.
    */
   $(document).on('click', options.selectors.navToggle, determineNavAction);
-  $(document).on('click', options.selectors.responsiveToggle, determineNavAction_responsive);
+  
+  /*
+   * We use .click instead of .on('click') here because mobile Safari
+   * doesn't register live click handlers.
+   */
+  $(options.selectors.responsiveToggle).click(determineNavAction_responsive);
 
 
 
@@ -301,9 +306,10 @@
   /*
    * Any time a nav header or menu toggle button gets clicked
    * check to see if it is open-able.  Then open or close as needed.
+   * Use .click instead of .on('click') because mobile Safari doesn't register
+   * live click handlers.
    */
-  $(document).on('click', (options.selectors.navContent + ' h3, ' + options.selectors.navContent + ' h4'), checkForToggler);
-  
+  $(options.selectors.navContent + ' h3, ' + options.selectors.navContent + ' h4').click(checkForToggler);
   
   
 
