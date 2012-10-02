@@ -83,5 +83,5 @@ Response...
 
 ## Further Reading
 
-[[Configuration and Examples|Secondary Indexes - Configuration and Examples]]
-
+* [[Configuration|Secondary Indexes - Configuration]]
+* [[Examples|Secondary Indexes - Examples]]

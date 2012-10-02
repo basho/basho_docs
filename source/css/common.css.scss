@@ -812,13 +812,27 @@ nav#toc {
    Code Styles
    ========================================================================== */
 
+/*
+pre {
+  overflow-x: auto;
+}
+*/
+
 div[role=main] {
   
+  pre {
+    margin : 0;
+    padding: 8px;
+    overflow-x: auto;
+  }
+
   code {
     font-size   : 90%;
     background  : #dfdfdf;
     border      : 1px solid #c9c9c9;
+    //display: block;
     white-space : nowrap;
+    //white-space: pre;
   }
 
   .docs {
@@ -861,7 +875,7 @@ div[role=main] {
     @include allCorners();
     @include boxShadow(inset 0 1px 4px #aeb9b6);
     font-size     : 80%;
-    padding       : 15px;
+    padding       : 7px;
     border-bottom : 1px solid #f0f0f0;
     margin-bottom : 20px;
   }
@@ -926,7 +940,7 @@ details.question > summary {
   }
   
   &::after {
-    content : ' »';
+    content : ' >>';
   }
   
   &:hover {
@@ -998,10 +1012,10 @@ article {
           display : none;
         }
         &.prev::before {
-          content : '« ';
+          content : '<< ';
         }
         &.next::after {
-          content : ' »';
+          content : ' >>';
         }
       }
     }
