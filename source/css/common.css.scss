@@ -72,7 +72,7 @@ body {
   
   aside#nav-container {
     @include bgPattern('nav-bg.jpg', #4f4f50);
-    @include size(222px, 100%);
+    @include size(232px, 100%);
     overflow : auto;
     position : fixed;
     top      : 0;
@@ -112,7 +112,7 @@ body {
     @include bgPattern('content-bg.jpg', $subtleGray);
     @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
     padding  : 0 25px;
-    margin   : 0 0 0 222px;
+    margin   : 0 0 0 232px;
     position : relative;
     z-index  : 2;
     
@@ -589,14 +589,19 @@ div[role="main"] {
     padding  : 0 0 0 20px;
     
     #nav-toggle {
-      @include size(30px, 38px);
+      @include size(38px, 38px);
       @include bgImage('nav-toggle-sprite.png');
       position : fixed;
       top      : 10.8em;
-      margin-left : -45px;     
-    
+      margin-left : -58px;
+
+      display:block;
+      border-radius:23px;
+      border:4px solid $subtleGray;
+      background-color:#616366;
+
       &.closed {
-        background-position : left bottom;
+        background-position : center bottom;
       }
       
       @media screen and (max-width: 700px) {

@@ -7,7 +7,10 @@ toc: false
 index: true
 audience: beginner
 keywords: [faq]
+simple: true
 ---
+
+# Riak FAQs
 
 * [[Getting Started FAQs|Basic FAQs]]
 * [[Developing on Riak FAQs|Developing on Riak FAQs]]
