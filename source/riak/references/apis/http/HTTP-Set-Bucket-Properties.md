@@ -71,7 +71,7 @@ If successful, no content will be returned in the response body.
 ## Example
 
 ```bash
-$ curl -v -X PUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}'
+$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}'
 http://127.0.0.1:8098/riak/test
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected

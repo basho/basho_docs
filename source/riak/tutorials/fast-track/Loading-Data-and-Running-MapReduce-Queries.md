@@ -28,7 +28,7 @@ main([Filename]) ->
 
 format_and_insert(Line) ->
     JSON = io_lib:format("{\\"Date\\":\\"~s\\",\\"Open\\":~s,\\"High\\":~s,\\"Low\\":~s,\\"Close\\":~s,\\"Volume\\":~s,\\"Adj. Close\\":~s}", Line),
-    Command = io_lib:format("curl -X PUT http://127.0.0.1:8091/riak/goog/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
+    Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/riak/goog/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
     io:format("Inserting: ~s~n", [hd(Line)]),
     os:cmd(Command).
 ```
@@ -193,7 +193,7 @@ function(value, keyData, arg) {
 
 *Complete Job*
 
-```javascript
+```json
 {"inputs":"goog",
  "query":[{"map":{"language":"javascript",
                   "source":"function(value, keyData, arg) { var data = Riak.mapValuesJson(value)[0]; if(data.High && parseFloat(data.High) > 600.00) return [value.key]; else return [];}",
@@ -219,7 +219,7 @@ function(value, keyData, arg) {
 
 *Complete Job*
 
-```javascript
+```json
 {"inputs":"goog",
  "query":[{"map":{"language":"javascript",
                   "source":"function(value, keyData, arg) { var data = Riak.mapValuesJson(value)[0]; if(data.Close < data.Open) return [value.key]; else return [];}",
@@ -259,7 +259,7 @@ function(values, arg){
 
 *Complete Job*
 
-```javascript
+```json
 {"inputs":"goog",
  "query":[{"map":{"language":"javascript",
                   "source":"function(value, keyData, arg){ var data = Riak.mapValuesJson(value)[0]; var month = value.key.split('-').slice(0,2).join('-'); var obj = {}; obj[month] = data.High - data.Low; return [ obj ];}"}},

@@ -594,16 +594,20 @@ div[role="main"] {
       position : fixed;
       top      : 10.8em;
       margin-left : -58px;
-
       display:block;
       border-radius:23px;
       border:4px solid $subtleGray;
       background-color:#616366;
+      cursor: pointer;
 
       &.closed {
         background-position : center bottom;
       }
       
+      &:hover {
+        border:4px solid $orange;
+      }
+
       @media screen and (max-width: 700px) {
         display : none;
       }

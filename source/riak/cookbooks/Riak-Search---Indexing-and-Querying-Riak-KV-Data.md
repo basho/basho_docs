@@ -29,7 +29,7 @@ bin/search-cmd install my_bucket_name
 Any other method you would normally use to set bucket properties can also be used to enable the Search precommit hook as well.  For example, using curl to install over HTTP:
 
 ```bash
-curl -X PUT -H "content-type:application/json" http://localhost:8098/riak/demo2 --data @-
+curl -XPUT -H "content-type:application/json" http://localhost:8098/riak/demo2 --data @-
 {"props":{"precommit":[{"mod":"riak_search_kv_hook","fun":"precommit"}]}}
 ^D
 ```
@@ -103,7 +103,7 @@ If your data is not in JSON, XML, or plain-text, or you would like field name or
 To set the extractor via HTTP
 
 ```bash
-curl -X PUT -H 'content-type: application/json' \
+curl -XPUT -H 'content-type: application/json' \
     http://host:port/riak/bucket \
     -d '{"props":{"search_extractor":{"mod":"my_extractor", "fun":"extract", "arg":"my_arg"}}}'
 ```

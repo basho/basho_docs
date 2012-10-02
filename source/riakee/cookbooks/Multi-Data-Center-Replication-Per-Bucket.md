@@ -19,7 +19,7 @@ These option values are only available in Riak EE version 1.2 and above:
 ### Example of Disabling
 
 ```
-curl -v -X PUT -H "Content-Type: application/json" \
+curl -v -XPUT -H "Content-Type: application/json" \
 -d '{"props":{"repl":false}}' \
 http://127.0.0.1:8091/riak/my_bucket
 ```
@@ -27,7 +27,7 @@ http://127.0.0.1:8091/riak/my_bucket
 ### Example of Enabling
 
 ```
-curl -v -X PUT -H "Content-Type: application/json" \
+curl -v -XPUT -H "Content-Type: application/json" \
 -d '{"props":{"repl":true}}' \
 http://127.0.0.1:8091/riak/my_bucket
 ```

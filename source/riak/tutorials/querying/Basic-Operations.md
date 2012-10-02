@@ -96,7 +96,7 @@ If `returnbody=true`, any of the response headers expected from a GET request ma
 Try running this in a terminal.
 
 ```bash
-$ curl -v -X PUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
+$ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
   http://127.0.0.1:8091/riak/test/doc?returnbody=true
 ```

@@ -162,7 +162,7 @@ up data, and to manage general cluster operations. You can read more about
 
 </div>
 
-## Test the cluster and add some data to verify the cluster is working
+## Test the cluster and add some data
 
 Now we now a have a running four node Riak cluster. Let's make sure it's working correctly. For this we have a couple options. A simple option is to run the member-status command.
 
@@ -193,7 +193,7 @@ $ cp ~/image/location/image_name.jpg .
 We can then PUT that image into Riak using a curl command:
 
 ```bash
-$ curl -X PUT HTTP://127.0.0.1:8091/riak/images/1.jpg \
+$ curl -XPUT HTTP://127.0.0.1:8091/riak/images/1.jpg \
   -H "Content-type: image/jpeg" --data-binary @image_name.jpg
 ```
 

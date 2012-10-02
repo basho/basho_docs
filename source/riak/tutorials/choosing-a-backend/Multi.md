@@ -106,7 +106,7 @@ $ riak attach
     You can also connect to Riak using the HTTP API and change the bucket
     properties.
 ```
-$ curl -X PUT -H "Content-Type: application/json" -d '{"props":{"backend":"memory_mult"}}' \
+$ curl -XPUT -H "Content-Type: application/json" -d '{"props":{"backend":"memory_mult"}}' \
  http://riaknode:8098/riak/transient_example_bucketname
 ```
 

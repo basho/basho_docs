@@ -92,7 +92,7 @@ Let's give it a shot. Try running this in a terminal.
 
 
 ```bash
-$ curl -v -X PUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
+$ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
   http://127.0.0.1:8091/riak/test/doc?returnbody=true
 ```
@@ -179,7 +179,7 @@ The most important properties to consider for your bucket are:
 Let's go ahead and alter the properties of a Bucket. The following PUT will create a new bucket called "test" with a modified n_val of 5.
 
 ```bash
-$ curl -v -X PUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' \
+$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' \
   http://127.0.0.1:8091/riak/test
 ```
 

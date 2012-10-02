@@ -33,7 +33,7 @@ So what's actually happening here? In the angle brackets, we have the URL the li
 Here is what a full PUT request through CURL with the link header would look like:
 
 ```bash
-$ curl -v -X PUT -H 'Link: </riak/people/dhh>; riaktag="friend"' \
+$ curl -v -XPUT -H 'Link: </riak/people/dhh>; riaktag="friend"' \
   -H "content-type: text/plain" http://127.0.0.1:8091/riak/people/timoreilly \
   -d 'I am an excellent public speaker.'
 ```
@@ -55,7 +55,7 @@ Look for the "Link" field in the response headers. This will show you your link 
 Alright. We've stored the "timoreilly" object with a "friend" tag pointing to the "dhh" object. Now we need to store the "dhh" object to which "timoreilly" is linked:
 
 ```bash
-$ curl -v -X PUT -H "content-type: text/plain" http://127.0.0.1:8091/riak/people/dhh \
+$ curl -v -XPUT -H "content-type: text/plain" http://127.0.0.1:8091/riak/people/dhh \
   -d 'I drive a Zonda.'
 ```
 
@@ -92,8 +92,10 @@ Each step you walk is referred to as a phase, because under the hood a link walk
 By default, Riak will only include the objects found by the last step. This could be interesting if you want e.g. to build a graph of how the original object ("timoreilly" in this case) relates to the ones found traversing the links. To see how this works out in practice, let's add another object to the mix, "davethomas", who is friends with "timoreilly".
 
 ```bash
-$ curl -v -X PUT -H 'Link: </riak/people/timoreilly>; riaktag="friend"' -H "content-type: text/plain" \
-  http://127.0.0.1:8091/riak/people/davethomas -d 'I publish books'
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
+  -H 'Link: </riak/people/timoreilly>; riaktag="friend"' \
+  -H "content-type: text/plain" \
+  -d 'I publish books'
 ```
 
 Now we can walk from "davethomas" to "dhh" in one go, and you'll see the last parameter in action:
@@ -113,8 +115,10 @@ When you try this out yourself you'll notice that the output has gotten slightly
 As a final sugar sprinkle on top, we can make "dhh" friends with "davethomas" directly, so we have a real graph and not just a single path.
 
 ```bash
-$ curl -v -X PUT -H 'Link: </riak/people/davethomas>; riaktag="friend"' -H "content-type: text/plain" \
-  http://127.0.0.1:8091/riak/people/dhh -d 'I drive a Zonda.'
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh
+  -H 'Link: </riak/people/davethomas>; riaktag="friend"' \
+  -H "content-type: text/plain" \
+  -d 'I drive a Zonda.'
 ```
 
 You can add more link phases to the request, or you can walk from "dhh" to "timoreilly" through "davethomas", or even from "davethomas" to "davethomas", by adding another step to Link Walking specification.
@@ -125,9 +129,9 @@ $ curl -v localhost:8091/riak/people/davethomas/_,friend,_/_,friend,_/_,friend,_
 
 So, let's review what we just did:
 
-# Stored an object with a link attached to it.
-# Stored the object to which the link pointed.
-# Performed a link walking query to traverse the link from one object to another, and across a whole set of objects.
+1. Stored an object with a link attached to it.
+2. Stored the object to which the link pointed.
+3. Performed a link walking query to traverse the link from one object to another, and across a whole set of objects.
 
 This is some pretty powerful stuff! And we've only just scratched the surface of what links can do and what they can be used for.
 
@@ -193,7 +197,7 @@ Have fun!
 
 Additional Reading for this Section
 
-* [More on Links](Links.html)
+* [[More on Links|Links]]
 * [Link Walking By Example](http://blog.basho.com/2010/02/24/link-walking-by-example)
 * [Link-Map-Reduce with Riak at inagist.com](http://blog.inagist.com/link-map-reduce-in-riak-an-example-from-inagi)
 * [IETF "Web Linking" Draft](http://tools.ietf.org/html/draft-nottingham-http-link-header-10)

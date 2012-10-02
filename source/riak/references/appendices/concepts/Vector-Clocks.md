@@ -62,7 +62,7 @@ Siblings in action:
 
 ```bash
 # create a bucket with allow_mult true (if its not already)
-$ curl -v -X PUT -H "Content-Type: application/json" -d '{"props":{"allow_mult":true}}' \
+$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"allow_mult":true}}' \
 http://127.0.0.1:8098/riak/kitchen
 
 # create an object we will create a sibling of
@@ -71,7 +71,7 @@ http://127.0.0.1:8098/riak/kitchen/sink?returnbody=true
 
 # the easiest way to create a sibling is update the object without
 # providing a vector clock in the headers
-$ curl -v -X PUT -H "Content-Type: application/json" -d '{"dishes":9}' \
+$ curl -v -XPUT -H "Content-Type: application/json" -d '{"dishes":9}' \
 http://127.0.0.1:8098/riak/kitchen/sink?returnbody=true
 ```
 
@@ -141,7 +141,7 @@ different but it should look similar to this:
 Once you have the vector clock you can update with the correct value.
 
 ```bash
-$ curl -v -X PUT -H "Content-Type: application/json" -d '{"dishes":11}' \
+$ curl -v -XPUT -H "Content-Type: application/json" -d '{"dishes":11}' \
 -H "X-Riak-Vclock: a85hYGBgzmDKBVIsTFUPPmcwJTLmsTIcmsJ1nA8qzK7HcQwqfB0hzNacxCYWcA1ZIgsA=" \
 http://127.0.0.1:8098/riak/kitchen/sink?returnbody=true
 ```

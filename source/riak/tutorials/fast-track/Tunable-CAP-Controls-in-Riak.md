@@ -30,7 +30,7 @@ All data stored in Riak will be replicated to a number of nodes in the cluster a
 To change the N value for a bucket (to something different than the default) issue a PUT request to the bucket with the new N value. If you still have your three node Riak cluster running, try this:
 
 ```bash
-$ curl -v -X PUT -H "Content-Type: application/json" -d '{"props":{"n_val":2}}' \
+$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":2}}' \
   http://127.0.0.1:8091/riak/another_bucket
 ```
 
@@ -59,7 +59,7 @@ Riak also allows the client to supply a "W value" on each update. The W value re
 In this PUT operation, you can see the w value set to 3.
 
 ```bash
-$ curl -v -X PUT http://127.0.0.1:8091/riak/docs/story.txt?w=3 \
+$ curl -v -XPUT http://127.0.0.1:8091/riak/docs/story.txt?w=3 \
   -H "Content-type: text/plain" --data-binary @story.txt
 ```
 
