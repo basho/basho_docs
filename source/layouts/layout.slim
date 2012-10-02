@@ -32,7 +32,8 @@ body class=(data.page.project || 'riak') id=data.page.body_id
         - unless data.page.toc == false
           nav#toc
             h2.title Contents
-            ul#toc-items
+            div#toc-wrapper
+              ol#toc-items
       == yield
       == partial "layouts/tutorial_nav"
       div.clear

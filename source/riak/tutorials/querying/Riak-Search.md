@@ -80,7 +80,7 @@ For a backing store, the Riak Search team developed merge\_index. The merge\_ind
 
 ### Replication
 
-A search index has an @n_val@ setting that determines how many copies of the data exist. Copies are written across different partitions located on different physical nodes.
+A search index has an `n_val` setting that determines how many copies of the data exist. Copies are written across different partitions located on different physical nodes.
 
 The underlying data for Riak Search lives in Riak KV and replicates in precisely the same manner. However, the Search index, created from the underlying data, replicates differently for technical reasons.
 
@@ -100,17 +100,17 @@ Riak Search is comprised of:
 
 * *Riak Core* -  Dynamo-inspired distributed-systems framework
 * *Riak KV* - Distributed Key/Value store inspired by Amazon's Dynamo.
-** *Bitcask* -  Default storage backend used by Riak KV.
+  * *Bitcask* -  Default storage backend used by Riak KV.
 * *Riak Search* - Distributed index and full-text search engine.
-** *Merge Index* - Storage backend used by Riak Search. This is a pure Erlang storage format based roughly on ideas borrowed from other storage formats including log structured merge trees, sstables, bitcask, and the Lucene file format.
-** *Riak Solr* - Adds a subset of Solr HTTP interface capabilities to Riak Search.
+  * *Merge Index* - Storage backend used by Riak Search. This is a pure Erlang storage format based roughly on ideas borrowed from other storage formats including log structured merge trees, sstables, bitcask, and the Lucene file format.
+  * *Riak Solr* - Adds a subset of Solr HTTP interface capabilities to Riak Search.
 
 
 ## Further Reading
 
-[[Riak Search - Schema]]
-[[Riak Search - Indexing]]
-[[Riak Search - Querying]]
-[[Riak Search - Indexing and Querying Riak KV Data]]
-[[Riak Search - Operations and Troubleshooting]]
+* [[Riak Search - Schema]]
+* [[Riak Search - Indexing]]
+* [[Riak Search - Querying]]
+* [[Riak Search - Indexing and Querying Riak KV Data]]
+* [[Riak Search - Operations and Troubleshooting]]
 

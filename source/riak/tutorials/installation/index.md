@@ -89,4 +89,4 @@ You have a working Riak system! From here you might want to check out:
   * Get some [[Sample Data]]
   * [[Add more nodes|Basic Cluster Setup]] to your Riak cluster
   * [[Learn about the high level concepts of Riak|Concepts]]
-  * [[Learn more about day-to-day system operations|Operations]]
+  * [[Learn more about day-to-day system operations|Operators]]

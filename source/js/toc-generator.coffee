@@ -18,7 +18,7 @@ $ ->
         $(this).attr('id', name)
         $(this).html(anchor)
         toc_items.append("<li><a href=\"##{name}\">#{content}</a></li>")
-        
-      toc.append(toc_items)
+       
+      $('#toc-wrapper').addClass('multi') if h2s.length >= 6
     else
       toc.remove()
