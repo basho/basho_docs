@@ -316,6 +316,16 @@ iframe {
     span.menu-toggle {
       padding-right : 0;
     }
+    
+    &:hover {
+      span.menu-toggle {
+        background-position : 1px -102px;
+        
+        &.open {
+          background-position : -137px -102px;
+        }
+      }
+    }
   }
   
   h3 span a {
@@ -380,12 +390,12 @@ iframe {
   span.menu-toggle {
     @extend .block;
     @include size(21px, 21px);
-    background : image-url('/images/layout/menu-opener2.png') left center no-repeat transparent;
+    background : url('/images/layout/menu-opener3.png') left top no-repeat transparent;
     float      : right;
     margin     : 3px -5px 0 0;
     
     &.open {
-      background-position : -138px center;
+      background-position : -138px top;
     }
     
     &.extra-margin {
@@ -591,14 +601,14 @@ div[role="main"] {
     #nav-toggle {
       @include size(38px, 38px);
       @include bgImage('nav-toggle-sprite.png');
-      position : fixed;
-      top      : 10.8em;
-      margin-left : -58px;
-      display:block;
-      border-radius:23px;
-      border:4px solid $subtleGray;
-      background-color:#616366;
-      cursor: pointer;
+      background-color : #616366;
+      position         : fixed;
+      top              : 10.8em;
+      margin-left      : -56px;
+      display          : block;
+      border-radius    : 23px;
+      border           : 4px solid $subtleGray;
+      cursor           : pointer;
 
       &.closed {
         background-position : center bottom;
