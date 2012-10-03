@@ -111,8 +111,8 @@ module VersionDirs
               # key = f.sub(/\.\/build\//, "shared/#{version}/")
               move_to = f.sub(/\.\/build\//, "./build/shared/#{version}/")
               copy(f, move_to)
-              FileUtils.rm(f)
             end
+            FileUtils.rm(f)
             next
           # favico, root index stay put
           elsif f == "./build/favicon.ico" || f =~ /^\.\/build\/index\.html$/
