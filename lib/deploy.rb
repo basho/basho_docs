@@ -5,10 +5,8 @@ require 'hmac-sha1'
 require 'net/https'
 require 'base64'
 
-# ACCESS_KEY_ID = "AKIAIWN7MTGXYFI56OAQ"
-# SECRET_ACCESS_KEY = "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"
-ACCESS_KEY_ID = ENV['RIAK_DOCS_ACCESS_KEY']
-SECRET_ACCESS_KEY = ENV['RIAK_DOCS_SECRET_KEY']
+ACCESS_KEY_ID = ENV['AWS_ACCESS_KEY_ID']
+SECRET_ACCESS_KEY = ENV['AWS_SECRET_ACCESS_KEY']
 CLOUD_DIST_ID = 'E2Q6TQ5O0XT58T'
 S3_BUCKETS = {:en => 'riakdocs.en'}
 
@@ -27,7 +25,11 @@ module S3Deploy
             'Cache-Control' => 'max-age=315360000'
           }
           puts " upload %s" % key
-          AWS::S3::S3Object.store(key, File.open(f), S3_BUCKETS[:en], attrs)
+          begin
+            AWS::S3::S3Object.store(key, File.open(f), S3_BUCKETS[:en], attrs)
+          rescue
+            $stderr << "Failed to upload #{f}\n"
+          end
         end
 
         Dir['./build/**/*'].each do |f|
@@ -46,39 +48,59 @@ module InvalidateCloudfront
   class << self
     def registered(app)
       app.after_build do
-        puts "invalidate cloudfront"
-        paths = ""
-        count = 0
-        Dir['./build/**/*'].each do |f|
-          next if File.directory?(f)
-          key = f.gsub(/\.\/build\//, '/')
-          paths += "<Path>#{key}</Path>"
-          count += 1
+        puts " == Invalidating cloudfront"
+        
+        # you can only invalidate in batches of 1000
+        def invalidate(first=0, last=1000)
+          paths = ""
+          total = 0
+          
+          Dir['./build/**/*'].each do |f|
+            next if File.directory?(f)
+            total += 1
+            next if total <= first
+            key = f.gsub(/\.\/build\//, '/')
+            paths += "<Path>#{key}</Path>"
+            break if total >= last
+          end
+
+          count = (total < last ? total : last) - first
+          
+          paths = "<Paths><Quantity>#{count}</Quantity><Items>#{paths}</Items></Paths>"
+
+          digest = HMAC::SHA1.new(SECRET_ACCESS_KEY)
+          digest << date = Time.now.utc.strftime("%a, %d %b %Y %H:%M:%S %Z")
+
+          uri = URI.parse("https://cloudfront.amazonaws.com/2012-07-01/distribution/#{CLOUD_DIST_ID}/invalidation")
+          header = {
+            'x-amz-date' => date,
+            'Content-Type' => 'text/xml',
+            'Authorization' => "AWS %s:%s" % [ACCESS_KEY_ID, Base64.encode64(digest.digest)]
+          }
+          # p header
+          req = Net::HTTP::Post.new(uri.path)
+          req.initialize_http_header(header)
+          body = "<InvalidationBatch xmlns=\"http://cloudfront.amazonaws.com/doc/2012-07-01/\">#{paths}<CallerReference>ref_#{Time.now.utc.to_i}</CallerReference></InvalidationBatch>"
+          # puts body
+          req.body = body
+
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          res = http.request(req)
+
+          puts res.code == '201' ? 'CloudFront reloaded' : "Failed #{res.code}"
+          puts res.body if res.code != '201'
+
+          puts last
+          puts total
+
+          if last <= total
+            invalidate(last, last+1000)
+          end
         end
 
-        paths = "<Paths><Quantity>#{count}</Quantity><Items>#{paths}</Items></Paths>"
-
-        digest = HMAC::SHA1.new(SECRET_ACCESS_KEY)
-        digest << date = Time.now.utc.strftime("%a, %d %b %Y %H:%M:%S %Z")
-
-        uri = URI.parse("https://cloudfront.amazonaws.com/2012-07-01/distribution/#{CLOUD_DIST_ID}/invalidation")
-        req = Net::HTTP::Post.new(uri.path)
-        req.initialize_http_header({
-          'x-amz-date' => date,
-          'Content-Type' => 'text/xml',
-          'Authorization' => "AWS %s:%s" % [ACCESS_KEY_ID, Base64.encode64(digest.digest)]
-        })
-        body = "<InvalidationBatch xmlns=\"http://cloudfront.amazonaws.com/doc/2012-07-01/\">#{paths}<CallerReference>ref_#{Time.now.utc.to_i}</CallerReference></InvalidationBatch>"
-        puts body
-        req.body = body
-
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        res = http.request(req)
-
-        puts res.body
-        puts res.code == '201' ? 'CloudFront reloaded' : "Failed #{res.code}"
+        invalidate()
       end
     end
     alias :included :registered

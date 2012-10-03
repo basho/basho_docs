@@ -76,7 +76,7 @@ module VersionDirs
 
         def copy(f, dest)
           puts " moving %s" % dest
-          puts dest.sub(/\/[^\/]+\.\w+$/, '')
+          # puts dest.sub(/\/[^\/]+\.\w+$/, '')
           FileUtils.mkdir_p(dest.sub(/\/[^\/]+\.\w+$/, ''))
           FileUtils.cp_r(f, dest) #, :verbose => true)
         end

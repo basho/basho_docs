@@ -99,7 +99,6 @@ riak:
       - "[[APIs]]"
       - "[[Client Libraries]]"
       - "[[Community Developed Libraries and Projects]]"
-      - "[[Client Libraries]]"
       - "[[MapReduce Implementation]]"
       - "[[Backend API]]"
       - "[[Java Client Benchmark]]"

@@ -16,7 +16,7 @@ This section will walk you through loading some sample data (that we've borrowed
 
 ## Sample Data
 
-This Erlang script will load historical stock-price data for Google (ticker symbol "GOOG") into your existing Riak cluster so we can use it.  Paste the code below into a file called "load_data" inside the "dev" directory (or download it below).
+This Erlang script will load historical stock-price data for Google (ticker symbol "GOOG") into your existing Riak cluster so we can use it.  Paste the code below into a file called `load_data` inside the `dev` directory (or download it below).
 
 ```erlang
 #!/usr/bin/env escript
@@ -44,7 +44,7 @@ Download the CSV file of stock data linked below and place it in the "dev" direc
 
 * [[goog.csv|/images/goog.csv]] - Google historical stock data
 * [[load_stocks.rb|/images/load_stocks.rb]] - Alternative script in Ruby to load the data
-* [[load_data|/images/load_data]] - Erlang script to load data (as shown in snippet)
+* [[load_data|/images/load_data.erl]] - Erlang script to load data (as shown in snippet)
 
 Now load the data into Riak.
 
