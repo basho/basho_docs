@@ -1,3 +1,13 @@
+---
+title: SNMP Configuration
+project: riakee
+version: 1.0.0+
+document: cookbook
+toc: true
+audience: intermediate
+keywords: [snmp]
+---
+
 <div class="info"><div class="title">Riak Enterprise Only</div>This documentation applies only to Riak Enterprise, Basho's commercial extension to <a href="http://wiki.basho.com/Riak.html">Riak</a>. To learn more about the differences between Riak and Riak Enterprise, <a href="http://basho.com/products/riak-overview/">read here</a>.  To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.</div>
 
 Riak Enterprise provides a built in SNMP server that allows an external system, such as Hyperic, to query the Riak node for statistics such as the average get and put times as well as the number of puts and gets. This document only covers SNMP v2c support at this time.

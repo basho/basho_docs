@@ -1,3 +1,13 @@
+---
+title: "Multi Data Center Replication: Scheduling Full Sync"
+project: riakee
+version: 1.0.0+
+document: cookbook
+toc: true
+audience: intermediate
+keywords: [mdc, repl]
+---
+
 <div class="info"><div class="title">Riak Enterprise Only</div>This documentation applies only to Riak Enterprise, Basho's commercial extension to <a href="http://wiki.basho.com/Riak.html">Riak</a>. To learn more about the differences between Riak and Riak Enterprise, <a href="http://basho.com/products/riak-overview/">read here</a>.  To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.</div>
 
 ## Scheduling Full Synchronization

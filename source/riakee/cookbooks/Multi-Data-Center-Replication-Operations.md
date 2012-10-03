@@ -1,3 +1,12 @@
+---
+title: "Multi Data Center Replication: Operations"
+project: riakee
+version: 1.0.0+
+document: cookbook
+toc: true
+audience: intermediate
+keywords: [mdc, repl, operator]
+---
 
 ## The riak-repl Command
 Replication is controlled by the `riak-repl` command. Usage:

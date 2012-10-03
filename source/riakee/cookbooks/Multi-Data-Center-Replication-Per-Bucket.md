@@ -1,3 +1,12 @@
+---
+title: "Multi Data Center Replication: Per Bucket"
+project: riakee
+version: 1.0.0+
+document: cookbook
+toc: true
+audience: intermediate
+keywords: [mdc, repl, bucket]
+---
 
 <div class="note"><div class="title">This feature is available in Riak Enterprise 1.1+</div></div>
 

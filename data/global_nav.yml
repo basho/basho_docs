@@ -146,10 +146,26 @@ riakee:
     sub: []
   - title: "Start Here"
     sub:
-    - "[[Getting Started with RiakEDS|Riak Enterprise]]"
-    - "[[The Riak Fast Track]]"
-    - "[[Installing and Upgrading|installation]]"
-    - "[[Querying]]"
+      - "[[Getting Started with RiakEDS|Riak Enterprise]]"
+      - "[[The Riak Fast Track]]"
+      - "[[Rolling Upgrade to Enterprise]]"
+      - "[[Querying]]"
+  - title: "Multi Data Center"
+    sub:
+      - "[[Concepts|Multi Data Center Replication Concepts]]"
+      - "[[Configuration|Multi Data Center Replication Configuration]]"
+      - "[[Operations|Multi Data Center Replication Operations]]"
+      - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
+      - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync]]"
+      - "[[SSL|Multi Data Center Replication SSL]]"
+      - "[[System Tuning|Multi Data Center Replication System Tuning]]"
+      - "[[With NAT|Multi Data Center Replication With NAT]]"
+  - title: "Operating RiakEDS"
+    sub:
+      - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
+      - "[[JMX Monitoring]]"
+      - "[[SNMP Configuration]]"
+      - "[[SNMP Counters]]"
   - title: "Shortcuts"
     sub:
       - "[[Riak Enterprise FAQs]]"

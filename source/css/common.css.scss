@@ -563,6 +563,7 @@ div[role="main"] {
       .logo {
         margin-top : 5px;
         @include size(200px, 33px);
+        // Deprecated behavior, but what other options do we have?
         @include layout-sprite(logo2);
       }
     }

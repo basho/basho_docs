@@ -22,10 +22,6 @@ $darkGreen   : darken($lightGreen, 10%);
   background : inline-image('layout/' + $url) left top repeat $color;
 }
 
-@mixin bgImage($url, $color: transparent) {
-  background : image-url('/images/layout/' + $url) center top no-repeat $color;
-}
-
 @mixin size($width: auto, $height: auto) {
   width  : $width;
   height : $height;
