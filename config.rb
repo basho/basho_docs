@@ -62,6 +62,7 @@ end
 #   page "/admin/*"
 # end
 
+page "/404.html", :directory_index => false
 
 # Proxy (fake) files
 # page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
@@ -308,12 +309,13 @@ configure :build do
   # require "middleman-smusher"
   # activate :smusher
   
-  # Or use a different image path
-  # set :http_path, "/Content/images/"
-  
   ignore "source/images/layout/*.png"
 
+  activate :version_dirs
+
   if ENV.include?('DEPLOY')
-    activate Middleman::Features::Deploy
+    activate :s3_deploy
+    activate :invalidate_cloudfront
   end
+
 end

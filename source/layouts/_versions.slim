@@ -10,5 +10,6 @@
         - if current_page.url =~ /\/riak[^\/]*?\/[^\/]+\/?(index\.html)?$/
           == link_to version, "/#{project}/#{version}/"
         - else
-          == link_to version, "/#{project}/#{version}#{current_page.url}"
+          / == link_to version, "/#{project}/#{version}#{current_page.url}"
+          | <a href="/#{project}/#{version}#{current_page.url}" class="versioned">#{version}</a>
   div.clear-left

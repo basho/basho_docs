@@ -17,5 +17,6 @@ div#select-project
   img id="left-connector" src="/images/layout/left-connector.png"
   img id="right-connector" src="/images/layout/right-connector.png"
   - current_projects.each do |project, version|
-    a.big-project-link(id=project href="/#{project}/#{version[:deployment]}/")
+    - version = $production ? "latest" : version[:deployment]
+    a.big-project-link(id=project href="/#{project}/#{version}/")
       img(alt=project src="/images/layout/#{project}-circle.png")

@@ -130,6 +130,10 @@ module SitemapRenderOverride
     end
   end
 
+  def extract_classes(anchor)
+    (anchor.scan(/class\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s.split
+  end
+
   # replace all absolute links with localized links
   # except in the case of cross projects
   def localize_links!(data)
@@ -143,26 +147,40 @@ module SitemapRenderOverride
       
       href = (anchor.scan(/href\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s
 
+      # XXX: This is a terrible way to get the # links in the API to work
       if url =~ /\/http\/single/ || url =~ /\/references\/dynamo/
         if href.include?('#')
           next "<a #{anchor}>"
         end
       end
-      
+
+      # force the root page to point to the latest projcets
+      if $production && project == :root && href =~ /^\/(riak[^\/]*?)\/[\d\.]+\/$/
+        "<a href=\"/#{$1}/latest/\">"
+      # /riak*/version/ links should be relative, unless they cross projects
+      elsif href =~ /^\/(riak[^\/]*?)\/[\d\.]+\/$/
+        if ($1 || 'riak').to_sym == project
+          url = prepend_dir_depth('', depth_to_root)
+          "<a #{anchor.gsub(href, url)}>"
+        else
+          "<a #{anchor}>"
+        end
       # keep it the same
-      if version_str.blank? || href.blank? || href =~ /^\/riak[^\/]*?\/[\d\.]+\// || href =~ /^http[s]?\:/ 
+      elsif version_str.blank? || href.blank? || href =~ /^http[s]?\:/
         "<a #{anchor}>"
       elsif href =~ /^\/index\.html$/
         "<a #{anchor}>"
       else
-        classes = (anchor.scan(/class\s*\=\s*['"]([^'"]+)['"]/).first || []).first.to_s.split
+        classes = extract_classes(anchor)
 
         # HACK hardcoding projects
         link_project = (%w{riak riakcs riakee}.find{|proj| classes.include?(proj)} || 'riak').to_sym
 
         # make it absolute if outside this project, otherwise relative
         if link_project != project
-          url = "/#{link_project}/1.2.0#{href}"
+          url = "/#{link_project}/#{version_str}#{href}"
+        elsif classes.include?('versioned')
+          next "<a #{anchor}>"
         else
           url = prepend_dir_depth(href, depth_to_root)
         end
