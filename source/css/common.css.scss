@@ -446,12 +446,20 @@ div[role="main"] {
     &.extra-large {
       font-size   : 425%;
       line-height : 1.1;
+      padding-top : .1em;
+      
+      @media screen and (max-width: 1300px) {
+        font-size   : 325%;
+        line-height : 1.1;
+        padding-top : 0;
+      }
       
       @media screen and (max-width: 810px) {
         font-size   : 275%;
         padding-top : .2em;
       }
     }
+    
     
     a {
       color : $headerColor;
@@ -501,7 +509,7 @@ div[role="main"] {
   }
   
   .masthead {
-    padding    : 1.5em 1em 0 0;
+    padding    : .8em 1em 0 0;
     text-align : center;
     overflow   : visible;
     
@@ -526,11 +534,15 @@ div[role="main"] {
     .logo {
       @extend .block;
       @include size(270px, 44px);
-      //@include bgImage('logo.png');
       
       img {
         @extend .block;
         @include size(100%, 100%);
+      }
+      
+      @media screen and (max-width: 1300px) {
+        @include size(200px, 33px);
+        padding-left : 12px;
       }
       
       @media screen and (max-width: 700px) {
@@ -538,7 +550,6 @@ div[role="main"] {
       }
       
       @media screen and (max-width: 500px) {
-        @include size(202.5px, 33px);
         padding-top : 5px;
       }
     }
@@ -546,7 +557,7 @@ div[role="main"] {
     .tagline {
       @extend .block;
       text-align : left;
-      margin     : 8px 0 0 3px;
+      margin     : 4px 0 0 3px;
       
       @media screen and (max-width: 700px) {
         display : none;
@@ -554,8 +565,8 @@ div[role="main"] {
     }
     
     .shadow-divider {
-      @include size(100%, 36px);
-      padding : 1.5em 0 0 .5em;
+      @include size(100%, 26px);
+      padding : 1.2em 0 0 .5em;
       
       @media screen and (max-width: 700px) {
         display : none;
@@ -603,7 +614,7 @@ div[role="main"] {
       @include bgImage('nav-toggle-sprite.png');
       background-color : #616366;
       position         : fixed;
-      top              : 10.8em;
+      top              : 8.8em;
       margin-left      : -56px;
       display          : block;
       border-radius    : 23px;
@@ -664,8 +675,8 @@ div[role="main"] {
     min-width : 46em;
     max-width : 46em;
     margin    : 0 auto;
-    @media screen and (max-width: 1100px) {
-      @include size(66%, 30em);
+    @media screen and (max-width: 1300px) {
+      @include size(66%, 27em);
       min-width : 36em;
     }
     @media screen and (max-width: 925px) {
@@ -687,7 +698,7 @@ div[role="main"] {
     #right-connector {
       top  : 13em;
       left : 21em;
-      @media screen and (max-width: 1100px) {
+      @media screen and (max-width: 1300px) {
         @include size(209px, 86px); // 80% of full size
         top  : 10em;
         left : 17em;
@@ -704,7 +715,7 @@ div[role="main"] {
     #left-connector {
       top  : 14em;
       left : 6em;
-      @media screen and (max-width: 1100px) {
+      @media screen and (max-width: 1300px) {
         @include size(148px, 175px); // 80% of full size
         top  : 10em;
         left : 6em;
@@ -732,7 +743,7 @@ div[role="main"] {
         @include size(317px, 317px);
         top  : 3em;
         left : 9em;
-        @media screen and (max-width: 1100px) {
+        @media screen and (max-width: 1300px) {
           @include size(260px, 260px);
           top  : 2em;
           left : 8em;
@@ -754,7 +765,7 @@ div[role="main"] {
         @include size(230px, 230px);
         top  : 19em;
         left : 1em;
-        @media screen and (max-width: 1100px) {
+        @media screen and (max-width: 1300px) {
           @include size(180px, 180px);
           top  : 14em;
           left : 1em;
@@ -776,7 +787,7 @@ div[role="main"] {
         @include size(274px, 274px);
         top  : 11em;
         left : 28em;
-        @media screen and (max-width: 1100px) {
+        @media screen and (max-width: 1300px) {
           @include size(225px, 225px);
           top  : 8em;
           left : 23em;
