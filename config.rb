@@ -302,8 +302,8 @@ configure :build do
   activate :minify_javascript
   # activate :gzip
   
-  activate :cache_buster
-  activate :relative_assets
+  # activate :cache_buster
+  # activate :relative_assets
   
   # Compress PNGs after build
   # require "middleman-smusher"

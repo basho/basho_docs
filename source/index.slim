@@ -14,9 +14,9 @@ h1.center-text.extra-large
 h3.center-text Pick a project to get started:
 
 div#select-project
-  img id="left-connector" src="/images/layout/left-connector.png"
-  img id="right-connector" src="/images/layout/right-connector.png"
+  img id="left-connector" src="/images/left-connector.png"
+  img id="right-connector" src="/images/right-connector.png"
   - current_projects.each do |project, version|
     - version = $production ? "latest" : version[:deployment]
     a.big-project-link(id=project href="/#{project}/#{version}/")
-      img(alt=project src="/images/layout/#{project}-circle.png")
+      img(alt=project src="/images/#{project}-circle.png")

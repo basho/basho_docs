@@ -319,10 +319,10 @@ iframe {
     
     &:hover {
       span.menu-toggle {
-        background-position : 1px -102px;
+        @include layout-sprite(menu-closed-hover);
         
         &.open {
-          background-position : -137px -102px;
+          @include layout-sprite(menu-open-hover);
         }
       }
     }
@@ -390,12 +390,12 @@ iframe {
   span.menu-toggle {
     @extend .block;
     @include size(21px, 21px);
-    background : url('/images/layout/menu-opener3.png') left top no-repeat transparent;
+    @include layout-sprite(menu-closed);
     float      : right;
     margin     : 3px -5px 0 0;
     
     &.open {
-      background-position : -138px top;
+      @include layout-sprite(menu-open);
     }
     
     &.extra-margin {
@@ -406,13 +406,18 @@ iframe {
 
 a.responsive-toggle, #nav-container a.responsive-toggle {
   display : none;
+  
+  @include layout-sprite(toggle-button);
+  @include size(40px, 27px);
+  float   : right;
+  border  : 0;
+  padding : 0;
+  &:hover {
+    @include layout-sprite(toggle-button);
+  }
+
   @media screen and (max-width: 700px) {
-    @include bgImage('toggle-button.png');
-    @include size(40px, 27px);
     display : block;
-    float   : right;
-    border  : 0;
-    padding : 0;
   }
 }
 
@@ -513,6 +518,11 @@ div[role="main"] {
     text-align : center;
     overflow   : visible;
     
+    a.responsive-toggle {
+      @include layout-sprite(toggle-button-light);
+      margin  : 8px 12px 0 0;
+    }
+
     @media screen and (max-width: 700px) {
       @include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
       @include bgPattern('content-bg.jpg');
@@ -523,34 +533,37 @@ div[role="main"] {
       padding  : 12px 0 18px;
       z-index  : 3;
       border-bottom : 6px solid $headerColor;
+
+      a.responsive-toggle {
+        display : block;
+      }
     }
     
-    a.responsive-toggle {
-      @include bgImage('toggle-button-light.png');
-      display : block;
-      margin  : 8px 12px 0 0;
-    }
-
     .logo {
       @extend .block;
       @include size(270px, 44px);
+      @include layout-sprite(logo);
       
-      img {
-        @extend .block;
-        @include size(100%, 100%);
+      h1 {
+        display:none;
       }
-      
+
       @media screen and (max-width: 1300px) {
-        @include size(200px, 33px);
-        padding-left : 12px;
+        @include size(270px, 44px);
+        margin-left : 12px;
       }
       
       @media screen and (max-width: 700px) {
-        padding-left : 12px;
+        margin-left : 12px;
       }
       
-      @media screen and (max-width: 500px) {
-        padding-top : 5px;
+    }
+
+    @media screen and (max-width: 500px) {
+      .logo {
+        margin-top : 5px;
+        @include size(200px, 33px);
+        @include layout-sprite(logo2);
       }
     }
     
@@ -567,6 +580,9 @@ div[role="main"] {
     .shadow-divider {
       @include size(100%, 26px);
       padding : 1.2em 0 0 .5em;
+
+      //@include layout-sprite(shadow-divider);
+      //margin : 1.2em 0 0 .5em;
       
       @media screen and (max-width: 700px) {
         display : none;
@@ -611,8 +627,8 @@ div[role="main"] {
     
     #nav-toggle {
       @include size(38px, 38px);
-      @include bgImage('nav-toggle-sprite.png');
-      background-color : #616366;
+      @include layout-sprite(nav-toggle-left);
+      background-color : #515356;
       position         : fixed;
       top              : 8.8em;
       margin-left      : -56px;
@@ -622,7 +638,8 @@ div[role="main"] {
       cursor           : pointer;
 
       &.closed {
-        background-position : center bottom;
+        @include layout-sprite(nav-toggle-right);
+        background-color : #515356;
       }
       
       &:hover {

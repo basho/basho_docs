@@ -18,7 +18,8 @@ $darkGreen   : darken($lightGreen, 10%);
    ========================================================================== */
 
 @mixin bgPattern($url, $color: transparent) {
-  background : image-url('/images/layout/' + $url) left top repeat $color
+  //background : image-url('/images/layout/' + $url) left top repeat $color
+  background : inline-image('layout/' + $url) left top repeat $color;
 }
 
 @mixin bgImage($url, $color: transparent) {

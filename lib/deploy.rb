@@ -9,6 +9,7 @@ ACCESS_KEY_ID = ENV['AWS_ACCESS_KEY_ID']
 SECRET_ACCESS_KEY = ENV['AWS_SECRET_ACCESS_KEY']
 CLOUD_DIST_ID = 'E2Q6TQ5O0XT58T'
 S3_BUCKETS = {:en => 'riakdocs.en'}
+CF_BATCH_SIZE = 1000
 
 module S3Deploy
   class << self
@@ -48,13 +49,13 @@ module InvalidateCloudfront
   class << self
     def registered(app)
       app.after_build do
-        puts " == Invalidating cloudfront"
+        puts " == Invalidating CloudFront"
         
         # you can only invalidate in batches of 1000
-        def invalidate(first=0, last=1000)
+        def invalidate(first=0, last=CF_BATCH_SIZE)
           paths = ""
           total = 0
-          
+
           Dir['./build/**/*'].each do |f|
             next if File.directory?(f)
             total += 1
@@ -89,14 +90,11 @@ module InvalidateCloudfront
           http.verify_mode = OpenSSL::SSL::VERIFY_NONE
           res = http.request(req)
 
-          puts res.code == '201' ? 'CloudFront reloaded' : "Failed #{res.code}"
+          puts res.code == '201' ? "CloudFront reloading #{count}" : "Failed #{res.code}"
           puts res.body if res.code != '201'
 
-          puts last
-          puts total
-
-          if last <= total
-            invalidate(last, last+1000)
+          if first + count <= total
+            invalidate(last, last+CF_BATCH_SIZE)
           end
         end
 
