@@ -67,6 +67,8 @@ module InvalidateCloudfront
 
           count = (total < last ? total : last) - first
           
+          return if count < 1
+
           paths = "<Paths><Quantity>#{count}</Quantity><Items>#{paths}</Items></Paths>"
 
           digest = HMAC::SHA1.new(SECRET_ACCESS_KEY)
@@ -92,8 +94,10 @@ module InvalidateCloudfront
 
           puts res.code == '201' ? "CloudFront reloading #{count}" : "Failed #{res.code}"
           puts res.body if res.code != '201'
+          return if res.code == 400
 
-          if first + count <= total
+          if count == CF_BATCH_SIZE
+            #first + count <= total
             invalidate(last, last+CF_BATCH_SIZE)
           end
         end
