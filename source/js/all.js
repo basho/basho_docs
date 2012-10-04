@@ -31,7 +31,7 @@
       responsiveWidth : 700
     },
     
-    openMenus : ['all riak projects', 'start here', 'shortcuts']
+    openMenus : ['all riak projects', 'start here']
   };
   
   
@@ -328,6 +328,14 @@
    * Don't let people jack up tables
    */
   $('table, tr, th, td, tbody, thead, tfoot').removeAttr('style');
+  
+  /*
+   * Put the info icons inside the info boxes.
+   * Doing this with JavaScript because the box requires two background images
+   * and not enough browsers support that yet.  This way the user doesn't have
+   * to build extra html just to get the icon in there.
+   */
+  $(options.selectors.contentWell + ' .info').prepend('<span class="info-icon"></span>');
   
 
 });

@@ -621,6 +621,36 @@ div[role="main"] {
     }
     
   }
+  
+  .info {
+    @extend .serif-italic;
+    @include allCorners();
+    background  : url('/images/layout/info-bg.jpg') left top repeat transparent;
+    margin      : 2em 0;
+    border      : 1px solid #9ec6df;
+    padding     : 15px 15px 15px 40px;
+    font-style  : italic;
+    font-size   : 90%;
+    color       : #616366;
+    line-height : 1.5;
+    position    : relative;
+    
+    .title {
+      @extend .sans-bold;
+      font-style : normal;
+      font-size  : 135%;
+      padding-bottom : 10px;
+    }
+    
+    .info-icon {
+      @include size(24px, 24px);
+      display     : block;
+      background  : url('/images/layout/info.png') left top no-repeat transparent;
+      position    : absolute;
+      top         : 15px;
+      left        : 9px;
+    }
+  }
     
   .mainarticle {
     position : relative;
