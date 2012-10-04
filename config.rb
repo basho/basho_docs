@@ -9,6 +9,11 @@ require './lib/sitemap_render_override'
 
 DEFAULT_VERSION = '1.2.0'
 
+if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.]+/
+  $stderr << "RIAK_VERSION is required and must be a valid version (eg 1.2.0)\n"
+  exit(1)
+end
+
 $versions = {
   :riak => ENV['RIAK_VERSION'].presence,
   :riakcs => ENV['RIAKCS_VERSION'].presence || ENV['RIAK_VERSION'].presence,
