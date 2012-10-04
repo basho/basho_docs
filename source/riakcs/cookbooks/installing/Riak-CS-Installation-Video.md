@@ -8,4 +8,6 @@ audience: intermediate
 keywords: [operator, installing]
 ---
 
-[[This video|http://player.vimeo.com/video/42654313]] demonstrates a typical Riak CS installation.
+<iframe src="http://player.vimeo.com/video/42654313" width="500" height="269" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+This video demonstrates a [typical Riak CS installation](http://player.vimeo.com/video/42654313).

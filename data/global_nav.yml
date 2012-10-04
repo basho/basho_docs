@@ -181,7 +181,7 @@ riakcs:
   - title: "Start Here"
     sub:
     - "[[Getting Started with RiakCS|Riak CS]]"
-  - title: "Installing and Upgrading"
+  - title: "Installing"
     sub:
       - "[[Installing Riak CS]]"
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"

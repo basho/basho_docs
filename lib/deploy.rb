@@ -52,21 +52,14 @@ module InvalidateCloudfront
         puts " == Invalidating CloudFront"
         
         # you can only invalidate in batches of 1000
-        def invalidate(first=0, last=CF_BATCH_SIZE)
-          paths = ""
-          total = 0
+        def invalidate(files, pos=0)
+          paths, count = "", 0
 
-          Dir['./build/**/*'].each do |f|
-            next if File.directory?(f)
-            total += 1
-            next if total <= first
-            key = f.gsub(/\.\/build\//, '/')
+          files[pos...(pos+CF_BATCH_SIZE)].each do |key|
+            count += 1
             paths += "<Path>#{key}</Path>"
-            break if total >= last
           end
 
-          count = (total < last ? total : last) - first
-          
           return if count < 1
 
           paths = "<Paths><Quantity>#{count}</Quantity><Items>#{paths}</Items></Paths>"
@@ -80,29 +73,37 @@ module InvalidateCloudfront
             'Content-Type' => 'text/xml',
             'Authorization' => "AWS %s:%s" % [ACCESS_KEY_ID, Base64.encode64(digest.digest)]
           }
-          # p header
           req = Net::HTTP::Post.new(uri.path)
           req.initialize_http_header(header)
           body = "<InvalidationBatch xmlns=\"http://cloudfront.amazonaws.com/doc/2012-07-01/\">#{paths}<CallerReference>ref_#{Time.now.utc.to_i}</CallerReference></InvalidationBatch>"
-          # puts body
           req.body = body
 
           http = Net::HTTP.new(uri.host, uri.port)
           http.use_ssl = true
           http.verify_mode = OpenSSL::SSL::VERIFY_NONE
           res = http.request(req)
-
           puts res.code == '201' ? "CloudFront reloading #{count}" : "Failed #{res.code}"
           puts res.body if res.code != '201'
           return if res.code == 400
 
           if count == CF_BATCH_SIZE
-            #first + count <= total
-            invalidate(last, last+CF_BATCH_SIZE)
+            invalidate(files, pos+count)
           end
         end
 
-        invalidate()
+        # total = 0
+        files = Dir['./build/**/*'].delete_if {|f| File.directory?(f) }
+        dirs = []
+        files.each do |f|
+          # total += 1
+          # total += 1 if f =~ /\/index\.html$/
+          dirs << f.gsub(/\/index\.html$/, '/')
+        end
+        files += dirs
+        files.uniq!
+        files.map! {|f| f.gsub(/\.\/build\//, '/') }
+
+        invalidate(files)
       end
     end
     alias :included :registered

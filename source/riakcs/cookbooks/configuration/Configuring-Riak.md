@@ -1,5 +1,5 @@
 ---
-title: Configuring Riak
+title: Configuring Riak for CS
 project: riakcs
 version: 1.2.0+
 document: cookbook

@@ -177,6 +177,14 @@ Then to deploy, run the deploy.rb scripts with a riak version:
 ./deploy 1.2.0
 ```
 
+If you need to deploy riak and riakcs with different versions, add the CS version at the end. This would be riak 1.2 and riakcs 1.1.
+
+```
+./deploy 1.2.0 1.1.0
+```
+
+Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) cache, our CDN. Even if all the files are successfully pushed to S3, until CF is invalidated, you'll not see the new files on http://docs.basho.com.
+
 ## Deploying the Search Index
 
 This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
