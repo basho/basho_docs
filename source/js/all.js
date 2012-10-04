@@ -182,6 +182,8 @@
     if ($(this).width() > options.params.responsiveWidth) {
       options.jq.contentWell.removeAttr('style');
       options.jq.navContainer.removeAttr('style');
+      options.jq.navContent.removeAttr('style');
+      options.jq.navToggle.removeClass('open, closed');
     }
   }
   
