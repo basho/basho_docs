@@ -7,8 +7,6 @@ require './lib/deploy'
 require './lib/index'
 require './lib/sitemap_render_override'
 
-DEFAULT_VERSION = '1.2.0'
-
 if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.]+/
   $stderr << "RIAK_VERSION is required and must be a valid version (eg 1.2.0)\n"
   exit(1)
@@ -139,7 +137,7 @@ helpers do
   end
 
   def current_version(default_proj='riak')
-    $versions[(data.page.project || default_proj).to_sym] || DEFAULT_VERSION
+    $versions[(data.page.project || default_proj).to_sym] || ENV['RIAK_VERSION']
   end
 
   def project_version_path(page)
@@ -292,7 +290,7 @@ activate :directory_indexes
 activate :versionify
 
 %w{riak riakcs riakee}.each do |project|
-  version = $versions[project.to_sym] || DEFAULT_VERSION
+  version = $versions[project.to_sym] || ENV['RIAK_VERSION']
   page "/#{project}/#{version}/index.html", :proxy => "/#{project}-index.html", :directory_index => false, :ignore => true
 end
 

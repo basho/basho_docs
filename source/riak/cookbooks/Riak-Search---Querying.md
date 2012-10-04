@@ -187,7 +187,7 @@ bin/search-cmd search books "title:\\"See spot run\\""
 ```
 
 
-This will display a list of Document ID values matching the query. To conduct a document search, use the @search-doc@ command. For example:
+This will display a list of Document ID values matching the query. To conduct a document search, use the `search-doc` command. For example:
 
 
 ```bash
@@ -198,7 +198,7 @@ bin/search-cmd search-doc books "title:\\"See spot run\\""
 
 ## Querying via the Erlang Command Line
 
-To run a query from the Erlang shell, use @search:search(Query)@ or @search:search(Index, Query)@. For example:
+To run a query from the Erlang shell, use `search:search(Query)` or `search:search(Index, Query)`. For example:
 
 
 ```erlang
@@ -218,9 +218,9 @@ search:search_doc(<<"books">>, <<"author:joyce">>).
 
 ## Querying via the Solr Interface
 
-Riak Search supports a Solr-compatible interface for searching documents via HTTP. By default, the select endpoint is located at @http://hostname:8098/solr/select@.
+Riak Search supports a Solr-compatible interface for searching documents via HTTP. By default, the select endpoint is located at `http://hostname:8098/solr/select`.
 
-Alternatively, the index can be included in the URL, for example @http://hostname:8098/solr/INDEX/select@.
+Alternatively, the index can be included in the URL, for example `http://hostname:8098/solr/INDEX/select`.
 
 The following parameters are supported:
 

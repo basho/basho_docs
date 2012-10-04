@@ -136,7 +136,7 @@ search:delete_dir(Index, Path).
 
 Parameters:
 
-* *Index* - The name of the index. Defaults to @search@.
+* *Index* - The name of the index. Defaults to `search`.
 * *Path* - Relative or absolute path to the files or directories to recursively delete. Wildcards are permitted.
 
 For example:

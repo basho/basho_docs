@@ -1,5 +1,5 @@
 ---
-title: Basic Operations
+title: Basic Requests
 project: riak
 version: 0.10.0+
 document: tutorials

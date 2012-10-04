@@ -16,7 +16,7 @@ And, if you have sample data that you can spare or pointers to some data of whic
 
 ### Google Historical Stock Data
 
-This *[[.csv|http://wiki.basho.com/images/goog.csv]]* of GOOG historical stock data was originally used for [[MapReduce examples in The Riak Fast Track|Loading Data and Running MapReduce Queries]].
+This *[.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv)* of GOOG historical stock data was originally used for [[MapReduce examples in The Riak Fast Track|Loading Data and Running MapReduce Queries]].
 
 ### Compressed Twitter Data
 

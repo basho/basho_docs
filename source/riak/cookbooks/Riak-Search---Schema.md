@@ -28,7 +28,7 @@ The default field is named *value*.
 
 ## Defining a Schema
 
-The schema definition for an index is stored in the Riak bucket @_rs_schema@, with a key of the same name as the index. For example, the schema for the "books" index is stored under @_rs_schema/books@. Writing to the @_rs_schema@ bucket is highly discouraged.
+The schema definition for an index is stored in the Riak bucket `_rs_schema`, with a key of the same name as the index. For example, the schema for the "books" index is stored under `_rs_schema/books`. Writing to the `_rs_schema` bucket is highly discouraged.
 
 Alternatively, you can set or retrieve the schema for an index
 using command line tools:
@@ -113,7 +113,7 @@ The following properties are defined at a schema level:
 
 ## Fields and Field-Level Properties
 
-Fields can either by static or dynamic. A static field is denoted with @field@ at the start of the field definition, whereas a dynamic field is denoted with @dynamic_field@ at the start of the field definition.
+Fields can either by static or dynamic. A static field is denoted with `field` at the start of the field definition, whereas a dynamic field is denoted with `dynamic_field` at the start of the field definition.
 
 The difference is that a static field will perform an exact string match on a field name, and a dynamic field will perform a wildcard match on the string name. The wildcard can appear anywhere within the field, but it usually occurs at the beginning or end. (The default schema, described above, uses dynamic fields, allowing you to use fieldname suffixes to create fields of different data types.)
 

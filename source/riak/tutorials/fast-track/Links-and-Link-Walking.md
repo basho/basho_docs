@@ -148,8 +148,8 @@ In this screencast, Basho Hacker Sean Cribbs will take you through link walking 
 In the above screencast, Sean makes use of several scripts to demonstrate some deeper relationships expressed with links in Riak. Here are these scripts:
 
 <dl>
-<dt>[[load_people.sh|/images/load_people.sh]]</dt>
-<dt>[[people_queries.sh|/images/people_queries.sh]]</dt>
+<dt>[[load_people.sh|https://github.com/basho/basho_docs/raw/master/source/data/load_people.sh]]</dt>
+<dt>[[people_queries.sh|https://github.com/basho/basho_docs/raw/master/source/data/people_queries.sh]]</dt>
 </dl>
 
 If you watched the video, it's apparent how these scripts are used to demonstrate link walking. For those of you who didn't watch or who want to run and tweak the scripts themselves, check out this graphic:
