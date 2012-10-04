@@ -108,7 +108,7 @@ curl -XPUT -H 'content-type: application/json' \
     -d '{"props":{"search_extractor":{"mod":"my_extractor", "fun":"extract", "arg":"my_arg"}}}'
 ```
 
-An extractor should export a function @extract@ which takes two arguments.  The first is the Riak object to index.  The second is the static argument specified in the @search_extractor@ property value or @undefined@ if none is given.  The function should return a list of 2-tuples which represent field-name/value pairs.  Both the field-name and value should be of type binary.
+An extractor should export a function `extract` which takes two arguments.  The first is the Riak object to index.  The second is the static argument specified in the `search_extractor` property value or `undefined` if none is given.  The function should return a list of 2-tuples which represent field-name/value pairs.  Both the field-name and value should be of type binary.
 
 ```erlang
 [
@@ -118,7 +118,7 @@ An extractor should export a function @extract@ which takes two arguments.  The 
 ```
 
 
-The modules @riak_search_kv_json_extractor@, @riak_search_kv_xml_extractor@, and @riak_search_kv_raw_extractor@ should be referred to for examples.
+The modules `riak_search_kv_json_extractor`, `riak_search_kv_xml_extractor`, and `riak_search_kv_raw_extractor` should be referred to for examples.
 
 ## Field Types
 

@@ -10,18 +10,21 @@ riak:
 
   - title: "Querying Riak"
     sub:
+      - "[[Basic Requests]]"
       - title: "MapReduce"
         sub:
-          - "[[MapReduce]]"
+          - "[[Overview|MapReduce]]"
           - "[[Key Filters]]"
       - title: "Search"
         sub:
-          - "[[Indexing|Riak-Search - Indexing]]"
-          - "[[Schema|Riak-Search - Schema]]"
-          - "[[Querying|Riak-Search - Querying]]"
-          - "[[Indexing and Querying KV|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]"
+          - "[[Overview|Riak Search]]"
+          - "[[Indexing|Riak Search - Indexing]]"
+          - "[[Schema|Riak Search - Schema]]"
+          - "[[Querying|Riak Search - Querying]]"
+          - "[[Indexing and Querying KV|Riak Search - Indexing and Querying Riak KV Data]]"
       - title: "Secondary Indexes"
         sub:
+          - "[[Overview|Secondary Indexes]]"
           - "[[Configuration|Secondary-Indexes - Configuration]]"
           - "[[Examples|Secondary-Indexes - Examples]]"
 

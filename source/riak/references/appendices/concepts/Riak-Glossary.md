@@ -12,7 +12,7 @@ Below is a list of terms and their applicability within the context of Riak:
 
 ## Bucket
 
-A Bucket is a container and keyspace for data stored in Riak, with a set of common properties for its contents (the number of replicas, or *n_val*, for instance).  Buckets are accessed at the top of the URL hierarchy under "riak", e.g. @/riak/bucket@.
+A Bucket is a container and keyspace for data stored in Riak, with a set of common properties for its contents (the number of replicas, or *n_val*, for instance).  Buckets are accessed at the top of the URL hierarchy under "riak", e.g. `/riak/bucket`.
 * [[Take a more in-depth look at Bucket Operations|HTTP API#Bucket Operations]]
 
 ## Cluster

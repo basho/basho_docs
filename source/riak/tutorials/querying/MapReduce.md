@@ -44,7 +44,7 @@ There are two steps in a MapReduce query:
 * Map – data collection phase. Map breaks up large chunks of work into smaller ones and then takes action on each chunk.   
 * Reduce – data collation or processing phase. Reduce combines the many results from the map step into a single output _(this step is optional)_.
 
-<img class="centered_img" src="/images/MapReduce-diagram.png" />
+![MapReduce Diagram](/images/MapReduce-diagram.png)
 
 Riak MapReduce queries have two components: 
 

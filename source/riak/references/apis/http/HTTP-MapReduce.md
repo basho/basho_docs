@@ -18,25 +18,25 @@ POST /mapred
 ```
 
 Important headers:
-* @Content-Type@ - must always be @application/json@.  The format of the request body is described in detail on the [[MapReduce]] page.
+* `Content-Type` - must always be `application/json`.  The format of the request body is described in detail on the [[MapReduce]] page.
 
 Optional query parameters:
-* @chunked@ - when set to @true@, results will be returned as they are received in @multipart/mixed@ format using chunked-encoding.
+* `chunked` - when set to `true`, results will be returned as they are received in `multipart/mixed` format using chunked-encoding.
 
 _+This request must include an entity (body), which is the JSON form of the MapReduce query.+_
 
 ## Response
 
 Normal status codes:
-* @200 OK@
+* `200 OK`
 
 Typical error codes:
-* @400 Bad Request@ - if an invalid job is submitted.
-* @500 Internal Server Error@ - if there was an error in processing a map or reduce function
-* @503 Service Unavailable@ - if the job timed out before it could complete
+* `400 Bad Request` - if an invalid job is submitted.
+* `500 Internal Server Error` - if there was an error in processing a map or reduce function
+* `503 Service Unavailable` - if the job timed out before it could complete
 
 Important headers:
-* @Content-Type@ - @application/json@ when @chunked@ is not true, otherwise @multipart/mixed@ with @application/json@ sections.
+* `Content-Type` - `application/json` when `chunked` is not true, otherwise `multipart/mixed` with `application/json` sections.
 
 ## Example
 

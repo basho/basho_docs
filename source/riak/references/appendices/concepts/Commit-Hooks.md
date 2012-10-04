@@ -26,8 +26,8 @@ Configuring either pre- or post-commit hooks is very easy. Simply add a referenc
 
 Pre-commit hooks can be implemented as named Javascript functions or as Erlang functions. The configuration for each is given below:
 
-Javascript: @{"name": "Foo.beforeWrite"}@
-Erlang: @{"mod": "foo", "fun": "beforeWrite"}@
+Javascript: `{"name": "Foo.beforeWrite"}`
+Erlang: `{"mod": "foo", "fun": "beforeWrite"}`
 
 Post-commit hooks can be implemented in Erlang only. The reason for this restriction is Javascript cannot call Erlang code and, thus, is prevented from doing anything useful. This restriction will be revisited when the state of Erlang/Javascript integration is improved. Post-commit hooks use the same function reference syntax as pre-commit hooks.
 
@@ -42,10 +42,10 @@ Pre-commit hook functions should take a single argument, the riak_object being m
 Erlang pre-commit functions are allowed three possible return values:
 
 # A riak_object -- This can either be the same object passed to the function or an updated version. This allows hooks to modify the object before they are written.
-# @fail@ -- The atom *fail* will cause Riak to fail the write and send a 403 Forbidden along with a generic error message about why the write was blocked.
-# @{fail, Reason}@ -- The tuple @{fail, Reason}@ will cause the same behavior as in #2 with the addition of @Reason@ used as the error text.
+# `fail` -- The atom *fail* will cause Riak to fail the write and send a 403 Forbidden along with a generic error message about why the write was blocked.
+# `{fail, Reason}` -- The tuple `{fail, Reason}` will cause the same behavior as in #2 with the addition of `Reason` used as the error text.
 
-Errors that occur when processing Erlang pre-commit hooks will be reported in the @sasl-error.log@ file with lines that start with "problem invoking hook".
+Errors that occur when processing Erlang pre-commit hooks will be reported in the `sasl-error.log` file with lines that start with "problem invoking hook".
 
 *Erlang Pre-commit Example*:
 
@@ -64,8 +64,8 @@ Javascript pre-commit functions should also take a single argument, the JSON enc
 
 # A JSON encoded Riak object -- Aside from using JSON, this is exactly the
 same as #1 for Erlang functions. Riak will automatically convert it back to it's native format before writing.
-# @fail@ -- The Javascript string "fail" will cause Riak to fail the write in exactly the same way as #2 for Erlang functions.
-# @{"fail": Reason}@  -- The JSON hash will have the same effect as #3 for Erlang functions. Reason must be a Javascript string.
+# `fail` -- The Javascript string "fail" will cause Riak to fail the write in exactly the same way as #2 for Erlang functions.
+# `{"fail": Reason}`  -- The JSON hash will have the same effect as #3 for Erlang functions. Reason must be a Javascript string.
 
 *Javascript Pre-commit Example*
 
@@ -151,7 +151,7 @@ function validateData(data){
 
 ### API & Behavior
 
-Post-commit hooks are run after the write has completed successfully. Specifically, the hook function is called by riak_kv_put_fsm immediately before the calling process is notified of the successful write. Hook functions must accept a single argument, the riak_object instance just written. The return value of the function is ignored. As with pre-commit hooks, deletes are considered writes so post-commit hook functions will need to inspect object metadata for the presence of *X-Riak-Deleted* to determine when a delete has occurred.  Errors that occur when processing post-commit hooks will be reported in the @sasl-error.log@ file with lines that start with "problem invoking hook".
+Post-commit hooks are run after the write has completed successfully. Specifically, the hook function is called by riak_kv_put_fsm immediately before the calling process is notified of the successful write. Hook functions must accept a single argument, the riak_object instance just written. The return value of the function is ignored. As with pre-commit hooks, deletes are considered writes so post-commit hook functions will need to inspect object metadata for the presence of *X-Riak-Deleted* to determine when a delete has occurred.  Errors that occur when processing post-commit hooks will be reported in the `sasl-error.log` file with lines that start with "problem invoking hook".
 
 *Post-commit Example (Erlang)*:
 
