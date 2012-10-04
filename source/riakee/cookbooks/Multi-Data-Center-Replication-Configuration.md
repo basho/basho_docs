@@ -8,8 +8,6 @@ audience: intermediate
 keywords: [mdc, repl, configuration]
 ---
 
-<div class="info"><div class="title">Riak Enterprise Only</div>This documentation applies only to Riak Enterprise, Basho's commercial extension to <a href="http://wiki.basho.com/Riak.html">Riak</a>. To learn more about the differences between Riak and Riak Enterprise, <a href="http://basho.com/products/riak-overview/">read here</a>.  To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.</div>
-
 The configuration for replication is kept in the riak_repl section of `etc/app.config`.
 
     {riak_repl, [

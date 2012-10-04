@@ -8,8 +8,6 @@ audience: intermediate
 keywords: [mdc, repl, os]
 ---
 
-<div class="info"><div class="title">Riak Enterprise Only</div>This documentation applies only to Riak Enterprise, Basho's commercial extension to <a href="http://wiki.basho.com/Riak.html">Riak</a>. To learn more about the differences between Riak and Riak Enterprise, <a href="http://basho.com/products/riak-overview/">read here</a>.  To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.</div>
-
 Depending on the size of your objects, and your replication latency needs, you may need to configure your kernel settings to optimize throughput.
 
 ## Linux
