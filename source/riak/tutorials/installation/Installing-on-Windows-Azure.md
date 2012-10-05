@@ -73,9 +73,7 @@ Once the virtual machine is created you must configure endpoints in order to rem
 
 1. In the Management Portal, click "Virtual Machines", then click the name of your new VM, then click "Endpoints".
 
-2. Click "Edit Endpoint" at the bottom of the page, and edit the SSH endpoint so that its Public Port is 22.
-
-3. **If this is the first node**, click "Add Endpoint", leave "Add Endpoint" checked, hit the right arrow and fill out the next form as follows:
+2. **If this is the first node**, click "Add Endpoint", leave "Add Endpoint" checked, hit the right arrow and fill out the next form as follows:
 	- Name: riak_web
 	- Protocol: leave set to 'TCP'
 	- Public Port: 8098
