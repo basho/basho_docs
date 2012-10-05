@@ -139,7 +139,7 @@ The buffer size for the site (client) socket measured in bytes.
   * *Available:* Riak Enterprise (1.1+)
 
 **vnode_gets**  
-If true, repl will do a direct get against the vnode, rather than use a GET finate state machine.
+If true, repl will do a direct get against the vnode, rather than use a GET finite state machine.
 
   * *Value:* true | false
   * *Default:* true

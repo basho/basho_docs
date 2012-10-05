@@ -9,6 +9,7 @@ audience: intermediate
 keywords: [operator, troubleshooting]
 ---
 
+* [[Failure and Recovery]]
 * [[Open Files Limit]]
 * [[Recovering a Failed Node]]
 * [[Benchmarking]]

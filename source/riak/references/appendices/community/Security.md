@@ -31,7 +31,7 @@ For example, Riak does not have fine-grained role-base security. Though it can b
 
 If you discover a potential security issue, please email us at security@basho.com, and allow us 48 hours to reply.
 
-We prefer to be contacted first, rather than searching for blog posts over the internet. This allows us to open a
+We prefer to be contacted first, rather than searching for blog posts over the Internet. This allows us to open a
 dialog with the security community on how best to handle a possible exploit without putting any users at risk.
 
 For sensitive topics, you may send a secure message. The security team's GPG key is:
@@ -81,6 +81,6 @@ Many of the Riak drivers support HTTP basic auth, though this is not a role-base
 
 ### Multi Data Center Replication
 
-For those versions of Riak that support Multi Data Center (MDC) Replication, you can configure Riak 1.2+ to communicate over SSL, to seemlessly encrypt the message traffic.
+For those versions of Riak that support Multi Data Center (MDC) Replication, you can configure Riak 1.2+ to communicate over SSL, to seamlessly encrypt the message traffic.
 
 *No link here yet until the EDS docs are published*

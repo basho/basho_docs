@@ -45,3 +45,5 @@ backend.
 A failed node that's using Bitcask as storage backend can be started
 normally using `riak start` or the Riak init.d scripts and should
 recover on its own.
+
+More information can be found on [[Failure and Recovery]].

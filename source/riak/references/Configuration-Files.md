@@ -117,7 +117,7 @@ You can override the default SSL key and certificate settings (default: etc/cert
 The highest n_val that you generally intend to use. This affects how partitions are distributed amongst the cluster and how preflists are calculated, helping ensure that data is never stored to the same physical node more than once. You will only need to change this setting in rare circumstances.
 
 Assuming ring_creation_size is a power of 2, the ideal value for this setting is both greater than or equal to the largest n_val of any bucket, and an even divisor of the number of partitions in your ring (ring_creation_size).
-The default value is 4. For this to be effective at preventing hotspots, your cluster size (number of physical nodes) must be equal to or larger than target_n_val.
+The default value is 4. For this to be effective at preventing hot spots, your cluster size (number of physical nodes) must be equal to or larger than target_n_val.
 
  * **wants_claim_fun**
 {Module, Function} that returns boolean - true if this node wants to claim more vnodes.
@@ -170,7 +170,7 @@ Determines how Riak treats URL encoded buckets, keys, and links over the REST AP
 When set to true uses vnode-based vclocks rather than client ids. This significantly reduces the number of vclock entries. Only set true if all nodes in the cluster are upgraded to 1.0. (default: false)
 
  * **legacy_keylisting**
-This option enables compatability of bucket and key listing with 0.14 and earlier versions. Once a rolling upgrade to a version >= 1.0 is completed for a cluster, this should be set to false for improved performance for bucket and key listing operations. (default: true)
+This option enables compatibility of bucket and key listing with 0.14 and earlier versions. Once a rolling upgrade to a version >= 1.0 is completed for a cluster, this should be set to false for improved performance for bucket and key listing operations. (default: true)
 
  * **pb_ip**
 The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
@@ -179,7 +179,7 @@ The IP address that the Protocol Buffers interface will bind to. (default: "127.
 The port that the Protocol Buffers interface will bind to. (default: 8087)
 
  * **pb_backlog**
-The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialised simultaneously, set this number higher. (default: 5)
+The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5)
 
  * **raw_name**
 The base of the path in the URL exposing Riak's HTTP interface (default: "riak")

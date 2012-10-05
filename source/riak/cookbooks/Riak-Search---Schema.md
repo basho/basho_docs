@@ -42,7 +42,7 @@ bin/search-cmd set-schema Index SchemaFile
 bin/search-cmd show-schema Index
 ```
 
-Note that changes to the Schema File *will not* affect previously indexed data. It is recommended that if you change field definitions, especially settings such as "type" or "analyzer_factory", that you re-index your documents.
+Note that changes to the Schema File *will not* affect previously indexed data. It is recommended that if you change field definitions, especially settings such as "type" or "analyzer_factory", that you re-index your documents by listing the appropriate keys, reading and rewriting that document to Riak.
 
 Below is an example schema file. The schema is formatted as an Erlang term. Spacing does not matter, but it is important to match opening and closing brackets and braces, to include commas between all list items, and to include the final period after the last brace:
 

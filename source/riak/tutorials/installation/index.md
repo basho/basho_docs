@@ -14,6 +14,7 @@ Click the link for your operating system to see instructions on how to install R
   * [[RHEL and CentOS|Installing on RHEL and CentOS]]
   * [[Mac OS X|Installing on Mac OS X]]
   * [[SUSE|Installing on SUSE]]
+  * [[Windows Azure|Installing on Windows Azure]]
   * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
 ### Upgrading

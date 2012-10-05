@@ -10,17 +10,21 @@ keywords: []
 simple: true
 ---
 
-# Riak Enterprise Edition
+<div class="info"><div class="title">Riak Enterprise Only</div>This documentation applies only to Riak Enterprise, Basho's commercial extension to <a href="http://wiki.basho.com/Riak.html">Riak</a>. To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.</div>
 
-* [[The Riak Fast Track]]
-* [[Installing and Upgrading|installation]]
-* [[Querying]]
-* [[FAQs for Getting Started|Basic FAQs]]
+Riak Enterprise is a commercially distributed product built on Riak (Apache 2.0-licensed) that extends Riak's capabilities with [[multi-datacenter replication|Multi Data Center Replication Architecture]], [[SNMP monitoring|SNMP Configuration]], [[JMX-Monitoring]], and 24x7 support. 
 
-Riak Enterprise is built on Apache 2.0-licensed Riak and is commercially distributed by Basho Technologies. Riak Enterprise extends Riak with the following features:
+In multi-datacenter replication, one cluster acts as a "primary cluster". The primary cluster replicates its data to one or more "secondary clusters" in a [[full or real-time sync|Multi Data Center Replication Architecture]] process. Data transfer is unidirectional (primary -> secondary). However, bidirectional synchronization can be achieved by configuring a pair of connections between clusters.
 
-* [[Masterless multi-site replication|Multi Data Center Replication Concepts]]
-* [[SNMP monitoring|SNMP Configuration]]
-* Industry-leading support
+Multi-datacenter features can be used for: 
 
-For more information on Riak Enterprise, visit the [Product Overview](http://www.basho.com/products_riak_overview.php) or <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">contact Basho</a>. 
+* data locality
+* disaster recovery 
+* global load balancing  
+* active backups
+* secondary analytics clusters 
+* meeting regulatory requirements
+
+If you prefer a video, check out this webcast with an overview.
+
+<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/43235103"></div>

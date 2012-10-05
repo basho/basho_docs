@@ -91,15 +91,8 @@ module InvalidateCloudfront
           end
         end
 
-        # total = 0
         files = Dir['./build/**/*'].delete_if {|f| File.directory?(f) }
-        dirs = []
-        files.each do |f|
-          # total += 1
-          # total += 1 if f =~ /\/index\.html$/
-          dirs << f.gsub(/\/index\.html$/, '/')
-        end
-        files += dirs
+        files += files.map {|f| f.gsub(/\/index\.html$/, '/') }
         files.uniq!
         files.map! {|f| f.gsub(/\.\/build\//, '/') }
 

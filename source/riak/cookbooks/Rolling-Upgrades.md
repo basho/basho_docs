@@ -22,6 +22,8 @@ In previous Riak versions, users were required to disable new features during th
 [[Upgrading from Riak Search]] before performing a rolling upgrade.</p>
 </div>
 
+{{#1.1.0-}}
+
 <div class="note"><div class="title">Note on upgrading to Riak 1.0</div>
 <p>Rolling upgrades should work when moving from Riak 0.13 or later to Riak 1.0
 following the OS specific instructions below, but there are a few considerations
@@ -48,6 +50,8 @@ re-issue the command.</p>
 platform specific
 instructions.</p>
 </div>
+
+{{/1.1.0-}}
 
 ## Debian/Ubuntu
 
@@ -111,6 +115,8 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
+{{#1.1.0-}}
+
 <div class="note">Only perform the following two steps if you are upgrading to
 Riak 1.0 from an earlier release.
 </div>
@@ -139,6 +145,8 @@ commands:
 > application:set_env(riak_kv, mapred_system, pipe).
 > application:set_env(riak_kv, vnode_vclocks, true).
 ```
+
+{{/1.1.0-}}
 
 ## RHEL/Centos
 
@@ -275,20 +283,17 @@ sudo pkgrm BASHOriak
 sudo pkgadd -d <riak_package_name>.pkg
 ```
 
-
-
+{{#1.1.0-}}
 <div class="note">If you are upgrading from Riak 0.12 you will have to restore
 the etc directory from the backups made in step 2. The 0.12 package removes the
 etc files when uninstalled.</div>
-
+{{/1.1.0-}}
 
 4\. Restart Riak
 
 ```bash
 riak start
 ```
-
-
 
 <div class="note">If you are using the SMF you should start Riak via "svcadm":
 <br /><br />
@@ -327,6 +332,8 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
+{{#1.1.0-}}
+
 <div class="note">Only perform the following two steps if you are upgrading to
 Riak 1.0 from an earlier release.
 </div>
@@ -355,3 +362,5 @@ commands:
 > application:set_env(riak_kv, mapred_system, pipe).
 > application:set_env(riak_kv, vnode_vclocks, true).
 ```
+
+{{/1.1.0-}}

@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, installing, suse]
 prev: ["Installing on Mac OS X", "Installing-on-Mac-OS-X.html"]
 up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing Riak from Source", "Installing-Riak-from-Source.html"]
+next: ["Installing on Windows Azure", "Installing-on-Windows-Azure.html"]
 ---
 
 The following steps should get you up and running with Riak on SuSE.

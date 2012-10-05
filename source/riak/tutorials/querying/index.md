@@ -66,8 +66,7 @@ next: ["Basic Operations", "Basic-Operations.html"]
     <tr>
         <td><em>Anti-Entropy / Fault Tolerance</em></td>
         <td>N/A</td>
-        <td>No anti-entropy features. If a search partition is lost, the entire
-            search index needs to be rebuilt</td>
+        <td>If a Search partition is lost or corrupted, the "repair" feature in Riak Console will rebuild partition data from adjacent indexes.</td>
         <td>Anti-entropy is carried over from KV; if a partition is lost,
             secondary indexes will be rebuilt along side the KV data by read 
             repair</td>

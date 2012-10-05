@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [community]
 ---
 
-There are many ways to contribute to Riak and the community that backs it. The two primary avenues for contribution are code and wiki documentation.{excerpt} (If you have another idea on how you'd like to contribute, great! Email _mark@basho.com_ with what you have in mind.)
+There are many ways to contribute to Riak and the community that backs it. The two primary avenues for contribution are code and documentation.
 
 This page is a listing of people who have contributed or are currently contributing to our code base and our wiki. We just wanted to say "Thanks!"
 

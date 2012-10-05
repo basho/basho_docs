@@ -28,9 +28,13 @@ If Search is enabled, the following resources will also be included:
 * `riak_solr_searcher_wm` - [[Solr search|Riak Search - Querying#Querying via the Solr Interface]]
 * `riak_solr_indexer_wm` - [[Solr indexing|Riak Search - Indexing#Indexing using the Solr Interface]]
 
+{{#1.0.0-}}
+
 If Luwak is enabled, the following resource will also be included:
 
 * `luwak_wm_file` - [[Luwak Operations|HTTP API#Luwak Operations (Large Objects)]]
+
+{{/1.0.0-}}
 
 ## Request
 

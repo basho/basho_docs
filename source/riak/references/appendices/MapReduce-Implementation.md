@@ -385,8 +385,9 @@ You can enable streaming with MapReduce jobs submitted to the `/mapred` resource
 You can use streaming with Erlang via the Riak local client or the Erlang protobuffs API.  In either case, you will provide the call to `mapred_stream` with a `Pid` that will receive the streaming results.
 
 For examples, see:
-1. [[MapReduce localstream.erl]]
-2. [[MapReduce pbstream.erl]]
+
+1. [MapReduce localstream.erl](/data/MapReduce-localstream.erl)
+2. [MapReduce pbstream.erl](/data/MapReduce-pbstream.erl)
 
 ## Phase functions
 

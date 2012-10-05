@@ -118,7 +118,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Python*
 
-* [[RiakKit|https://github.com/ultimatebuster/riakkit]] - A small Python ORM that sits on top of riak-python-client similar to mongokit and couchdbkit
+* [[RiakKit|http://shuhaowu.com/riakkit]] - A small Python ORM that sits on top of riak-python-client similar to mongokit and couchdbkit
 * [[riakalchemy|https://github.com/Linux2Go/riakalchemy]] - Object mapper for Riak written in Python
 * [[riak_crdt|https://github.com/ericmoritz/riak_crdt]] - A CRDT (Conflict-Free Replicated Data Type) loader for Riak using the [[crdt API|https://github.com/ericmoritz/crdt]]
 * [[txriak|https://launchpad.net/txriak]]- a Twisted module for communicating with Riak via the HTTP interface
@@ -133,7 +133,7 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Shogun|https://github.com/krainboltgreene/shogun]] - A light weight, powerful Ruby web application framework with first class support for Riak.
 * [[Risky|https://github.com/aphyr/risky]] - A lightweight Ruby ORM for Riak 
 * [[Riak Model|http://github.com/botanicus/riak-model]]
-* [[Riak DataObjects adapter|http://github.com/botanicus/do_riak]]
+* [[Riak DataObjects adapter|https://rubygems.org/gems/do_riak]]
 * [[Riak Sessions for rack|http://github.com/igorgue/riak_sessions]]
 * [[Riaktor|http://github.com/benmyles/riaktor]] - Ruby client and object mapper for Riak
 * [[DataMapper Adapter for Riak|http://github.com/mikeric/dm-riak-adapter]]
@@ -196,7 +196,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 ## Recipes, Cookbooks, and Configurations
 
-* [[Scalarium-Riak|https://github.com/mattmatt/scalarium-riak]] - Riak Cookbooks for Scalarium Platform
+* [[Scalarium-Riak|https://github.com/roidrage/scalarium-riak]] - Riak Cookbooks for Scalarium Platform
 * [[Riak Chef Recipe|https://github.com/basho/riak-chef-cookbook]] - Vanilla Chef Recipe for installing and configuring Riak
 * [[Custom Chef Recipe for running Riak on the Engine Yard AppCloud| https://github.com/engineyard/ey-cloud-recipes/tree/master/cookbooks/riak]]
 * [[RiakAWS|http://github.com/roder/riakaws]] - A simple way to deploy a Riak cluster in the Amazon Cloud
@@ -209,7 +209,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 * [[ldapjs-riak|https://github.com/mcavage/node-ldapjs-riak]] - A Riak backend for [[ldapjs|http://ldapjs.org]]
 * [[otto|https://github.com/ncode/otto]] - S3 Clone built on top of Cyclone with support for Riak
-* [[Riaktivity|https://github.com/mattmatt/riaktivity]] - A Ruby library for storing timelines in Riak
+* [[Riaktivity|https://github.com/roidrage/riaktivity]] - A Ruby library for storing timelines in Riak
 * [[Timak|https://github.com/bretthoerner/timak]] - A Python library for storing timelines (activity streams) in Riak
 * [[Statebox_Riak|https://github.com/mochi/statebox_riak ]] - Convenience library that makes it easier to use [[Statebox|https://github.com/mochi/statebox]] with Riak. (There is a great blog post from the Mochi Team about how this is used in production [[here|http://labs.mochimedia.com/archive/2011/05/08/statebox/]].  )
 * [[bitcask-ruby|https://github.com/aphyr/bitcask-ruby]] - An interface to the Bitcask storage system
@@ -221,7 +221,7 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Couch to Riak|http://github.com/mattsta/couchdb/tree/couch_file-to-riak]]
 * [[Chimera|http://github.com/benmyles/chimera]] - An object mapper for Riak and Redis
 * [[Riak_Redis Backend|http://github.com/cstar/riak_redis_backend]]
-* [[Riak Homebrew Formula|http://github.com/mattmatt/homebrew]]
+* [[Riak Homebrew Formula|http://github.com/roidrage/homebrew]]
 * [[Riak-fuse - A FUSE Driver for Riak|http://github.com/johnthethird/riak-fuse]]
 * [[riakfuse|http://github.com/crucially/riakfuse]] - A distributed filesystem that uses riak as its backend store
 * [[ebot|http://www.redaelli.org/matteo-blog/projects/ebot/]] - A scalable Web Crawler that supports Riak as a backend

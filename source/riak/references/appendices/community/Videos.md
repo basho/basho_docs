@@ -114,7 +114,7 @@ Using Riak with Ruby on Rails.
 * [[Riak with Rails|http://vimeo.com/13924929]] - Using Riak with Ruby on Rails.
 * [[MapReduce Querying in Riak|http://vimeo.com/13554436]] - Basics and best-practices for MapReduce querying in Riak.
 * [[NoSQL Performance in the Cloud; Riak on Joyent|http://blog.basho.com/2010/09/16/nosql-performance-in-the-cloud-webinar/]]
-* [[MapReducing Big Data With Luwak|http://vimeo.com/20074937]] - Using Riak's MapReduce with Luwak, our large file storage component.
+* [[MapReducing Big Data With Luwak|http://vimeo.com/20074937]] - Using Riak's MapReduce with Luwak, our large file storage component. {{1.0.0-}}
 * [[Schema Design for Riak|http://vimeo.com/17604126]] - A discussion of strategies for designing application schemas that use the Riak distributed key-value store.
 * [[Riak Operations|http://vimeo.com/22448110]] - This webinar covers the various operational aspects of running a production Riak cluster.
 * [[Riak and Scala at Yammer|http://blog.basho.com/2011/03/28/Riak-and-Scala-at-Yammer/]] - An overview of how Yammer is using Riak and Scala from Engineers Coda Hale and Ryan Kennedy

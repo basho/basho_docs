@@ -125,7 +125,7 @@ When you first navigate to the Riak Control UI, you will land on the Snapshot pa
 
 ![The Snapshot Page](/images/control_snapshot.png)
 
-Immediately obvious is whether or not your cluster is "healthy". If this is your first time firing up Riak, then you should be presented with a comforting green checkmark indicating that everything is okay. In the event that something isn't quite right (or has the potential to cause problems in the near future) the checkmark will turn into a red X and there will be a list of reasons for the concern, each linking you to a page where you can get more information or even correct the problem.
+Immediately obvious is whether or not your cluster is "healthy". If this is your first time firing up Riak, then you should be presented with a comforting green check mark indicating that everything is okay. In the event that something isn't quite right (or has the potential to cause problems in the near future) the check mark will turn into a red X and there will be a list of reasons for the concern, each linking you to a page where you can get more information or even correct the problem.
 
 ### The Cluster View
 

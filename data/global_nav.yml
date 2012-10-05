@@ -30,7 +30,16 @@ riak:
 
   - title: "Operating Riak"
     sub:
-      - "[[Installing and Upgrading|installation]]"
+      - title: "Installation"
+        sub:
+          - "[[Installing and Upgrading|installation]]"
+          - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
+          - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
+          - "[[Mac OS X|Installing on Mac OS X]]"
+          - "[[SUSE|Installing on SUSE]]"
+          - "[[Windows Azure|Installing on Windows Azure]]"
+          - "[[From Source|Installing Riak from Source]]"
+
       - title: "Planning"
         sub:
           - "[[Start Planning|System Planning]]"
@@ -48,13 +57,17 @@ riak:
           - "[[Basic Cluster Setup]]"
           - "[[Adding and Removing Nodes]]"
           - "[[Replacing a Node]]"
+      - title: "Performance"
+        sub:
+          - "[[File System Tuning]]"
+          - "[[Linux Performance Tuning]]"
+          - "[[Performance Tuning AWS]]"
       - title: "Operations"
         sub:
           # - "[[Operating Riak]]" # what to do? I like this page, but it's just a list of links
           - "[[Configuration Files]]"
-          - "[[File System Tuning]]"
-          - "[[Backups]]"
           - "[[Network Security and Firewall Configurations]]"
+          - "[[Backups]]"
       - title: "Query Configuration"
         sub:
           - "[[MapReduce|MapReduce - Settings]]"
@@ -71,6 +84,7 @@ riak:
       #     - "[[Configuration|Secondary-Indexes - Configuration]]"
       - title: "Troubleshooting"  # "[[Troubleshooting]]"
         sub:
+          - "[[Failure and Recovery]]"
           - "[[Open Files Limit]]"
           - "[[Recovering a Failed Node]]"
           - "[[Benchmarking]]"
@@ -155,12 +169,13 @@ riakee:
       - "[[Querying]]"
   - title: "Multi Data Center"
     sub:
-      - "[[Concepts|Multi Data Center Replication Concepts]]"
+      - "[[Architecture|Multi Data Center Replication Architecture]]"
       - "[[Configuration|Multi Data Center Replication Configuration]]"
       - "[[Operations|Multi Data Center Replication Operations]]"
       - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
       - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync]]"
       - "[[SSL|Multi Data Center Replication SSL]]"
+      - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
       - "[[System Tuning|Multi Data Center Replication System Tuning]]"
       - "[[With NAT|Multi Data Center Replication With NAT]]"
   - title: "Operating RiakEDS"
@@ -180,15 +195,18 @@ riakcs:
     sub: []
   - title: "Start Here"
     sub:
-    - "[[Getting Started with RiakCS|Riak CS]]"
+      - "[[Riak CS]]"
+      - "[[Riak CS Quick Start Guide]]"
   - title: "Installing"
     sub:
       - "[[Installing Riak CS]]"
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
+      - "[[Designating an Admin User]]"
       - "[[Installing With Chef|Riak CS Using Chef]]"
       - "[[Installation Video|Riak CS Installation Video]]"
   - title: "Configuring"
     sub:
+      - "[[Account Management]]"
       - "[[Configuring Riak CS Overview]]"
       - "[[Configuring Riak]]"
       - "[[Configuring Riak CS]]"

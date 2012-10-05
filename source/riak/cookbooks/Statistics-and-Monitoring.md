@@ -22,7 +22,7 @@ GET/PUT counters are provided for both nodes and vnodes. These counters are comm
 
 * `node_gets`: Number of GETs coordinated by this node within the last minute, including GETs to non-local vnodes on this node 
 * `node_gets_total`: Number of GETs coordinated by this node since startup, including GETs to non-local vnodes
-* `node_puts`: Number of PUTs coordinated by this node, including PUTs to non-local vnodes on this node within the last minut
+* `node_puts`: Number of PUTs coordinated by this node, including PUTs to non-local vnodes on this node within the last minute
 * `node_puts_total`: Number of PUTs coordinated by this node since startup, including PUTs to non-local vnodes
 * `vnode_gets`: Number of GET operations coordinated by vnodes on this node within the last minute
 * `vnode_gets_total`: Number of GETs coordinated by local vnodes since node startup

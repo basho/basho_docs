@@ -33,12 +33,13 @@ body class=(data.page.project || 'riak') id=data.page.body_id
           .info
             span.info-icon
             .title Riak CS Only
-            | Riak CS is multi-tenant cloud storage software for public and private clouds. Built on Basho's distributed database Riak, Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3-API compatible and supports per-tenant reporting for billing and metering use cases.  To try out Riak CS, sign up for a <a href="http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html">developer trial</a>.
+            | To try out Riak CS, sign up for a <a href="http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html">developer trial</a>.
+
         - if data.page.project == 'riakee'
           .info
             span.info-icon
             .title Riak Enterprise Only
-            | This documentation applies only to Riak Enterprise, Basho’s commercial extension to [[Riak]]. To learn more about the differences between Riak and Riak Enterprise, <a href="http://basho.com/products/riak-overview/">read here</a>.  To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.
+            | This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise, <a href="http://info.basho.com/Wiki_Contact.html">let us know</a>.
 
         - unless data.page.toc == false
           nav#toc

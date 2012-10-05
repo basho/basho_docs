@@ -89,7 +89,22 @@ Replace `<stanchion-package.deb>` with the actual file name for the package you 
 
 **Step 3: Set service configurations and start the services**
 
-First, Riak ships with Bitcask as the default backend. We need to change this to the custom Riak CS backend.
+We need to make some changes to the Riak configuration. We'll be editing
+`/etc/riak/app.config`. First, we need to add this line to the
+`riak_core` section, which starts off like:
+
+```erlang
+{riak_core, [
+```
+
+We'll add this line to that section:
+
+```erlang
+{default_bucket_props, [{allow_mult, true}]},
+```
+
+Next, Riak ships with Bitcask as the default backend.
+We need to change this to the custom Riak CS backend.
 
 Change the following line in `/etc/riak/app.config`
 
@@ -110,6 +125,10 @@ to
             {data_root, "/var/lib/riak/bitcask"}
         ]}
     ]},
+
+Next, add this to the **riak_core** section of `app.config`:
+
+    {default_bucket_props, [{allow_mult, true}]},
 
 Next, we set our interface IP addresses in the app.config files. In a production environment, you will likely have multiple NICs, but for this test cluster, we are going to assume one NIC with an example IP address of 10.0.2.10.
 
@@ -209,6 +228,23 @@ two inputs:
 
 We can create the admin user with the following `curl` command:
 
+To create an admin user, we need to grant permission to create new
+users to the "anonymous" user.
+This configuration setting is only required on a single Riak CS node.
+
+Add this entry to
+`/etc/riak-cs/app.config` immediately before the `{moss_ip, ...}`
+entry:
+
+    {anonymous_user_creation, true},
+
+Then run `riak-cs restart` to put the new config setting into effect.
+
+We can create the admin user with the following `curl` command, on the
+same Riak CS machine where the `anonymous_user_creation` configuration
+option was enabled:
+
+
 ```bash
 curl -H 'Content-Type: application/json' \
   -X POST http://localhost:8080/riak-cs/user \
@@ -233,7 +269,7 @@ keys in the Riak CS and Stanchion `app.config` files.
 
 <div class="note"><div class="title">Note</div>The same admin keys will need to be set on all nodes of the cluster.</div>
 
-Change the following lines in `/etc/riak-cs/app.config`
+Change the following lines in `/etc/riak-cs/app.config` on all Riak CS machines:
 
     {admin_key, "admin-key"}
     {admin_secret, "admin-secret"}
@@ -243,6 +279,7 @@ to
     {admin_key, "5N2STDSXNV-US8BWF1TH"}
     {admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
 
+<div class="note"><div class="title">Note</div>Do not forget to remove the `anonymous_user_creation` setting!.</div>
 
 Change the following lines in `/etc/stanchion/app.config`
 

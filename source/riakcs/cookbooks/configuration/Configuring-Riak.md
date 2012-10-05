@@ -43,6 +43,10 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 
 where **X.Y.Z** is the version of Riak CS you have installed.
 
+Next, add this to the **riak_core** section of `app.config`:
+
+    {default_bucket_props, [{allow_mult, true}]},
+
 Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak and connect to its console (using `riak attach`), then run:
 
 ```
@@ -60,7 +64,7 @@ By setting the Riak IP address you ensure that your Riak nodes have unique IP ad
 Initially, the line that specifies the riak node IP address is set to the local host, as follows:
 
 ```
--name riak@127.0.0.1     
+-name riak@127.0.0.1
 ```
 
 Replace 127.0.0.1 with the IP address for the Riak node.

@@ -200,9 +200,13 @@ module SitemapRenderOverride
 
       data.gsub!(/(\<img\s.*?src\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/m) do
         base, href, cap = $1, $2, $3
-        href.gsub!(/\.{2}\//, '')
-        href = "/" + href unless href =~ /^\//
-        "#{base}/shared/#{version_str}#{href}#{cap}"
+        if href =~ /^http[s]?\:/
+          "#{base}#{href}#{cap}"
+        else
+          href.gsub!(/\.{2}\//, '')
+          href = "/" + href unless href =~ /^\//
+          "#{base}/shared/#{version_str}#{href}#{cap}"
+        end
       end
     end
   end

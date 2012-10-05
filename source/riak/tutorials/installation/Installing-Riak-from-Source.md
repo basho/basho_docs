@@ -30,6 +30,29 @@ cd riak-1.2.0
 make rel
 ```
 
+<div class='note'> If you see the error `fatal: unable to connect to github.com` see the following instructions for building on systems with no internet availability </div>
+
+### Installation on Closed Networks
+The error `fatal: unable to connect to github.com` when building from source is caused by building on a system with no network connection to Github. Either the port is turned off for security reasons, or the source build is happening on a computer with no outside internet access.  To rectify this problem, an additional file will need to be deployed along with the source tarball.
+
+Download the following `leveldb` archive for the version of Riak you are using:
+
+  * Riak 1.2   - https://github.com/basho/leveldb/zipball/2aebdd9173a7840f9307e30146ac95f49fbe8e64
+  * Riak 1.1.4 - https://github.com/basho/leveldb/zipball/14478f170bbe3d13bc0119d41b70e112b3925453
+
+The instructions going forward will assume Riak 1.2.0, replace the appropriate file for your version.
+
+Deploy the file to the system with the build error and run the following commands.
+
+```bash
+$ mv 2aebdd9173a7840f9307e30146ac95f49fbe8e64 riak-1.2.0/deps/eleveldb/c_src/leveldb.zip
+$ cd riak-1.2.0/deps/eleveldb/c_src/
+$ unzip leveldb.zip
+$ mv basho-leveldb-* leveldb
+$ cd ../../../
+$ make rel
+```
+
 ### Installing from GitHub
 The [[Riak Github repository|http://github.com/basho/riak]] has much more information on building and installing Riak from source. To clone and and build Riak from source, follow these steps:
 
