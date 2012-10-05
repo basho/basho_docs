@@ -2,7 +2,7 @@
 
 *It's been a long time a-comin', baby...*
 
-## Develoment Mode
+## Development Mode
 
 Easy:
 

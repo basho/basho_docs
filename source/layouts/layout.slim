@@ -16,7 +16,9 @@ head(class=data.page.document)
   title== data.page.title || "Riak Documents"
   == stylesheet_link_tag "all"
   == javascript_include_tag "all"
-body class=(data.page.project || 'riak') id=data.page.body_id
+- classnames = [(data.page.project || 'riak')]
+- classnames << 'dual' if data.page.dual
+body class=classnames.join(' ') id=data.page.body_id
   == partial "layouts/primary"
   div(role="main")
     == partial "layouts/header"

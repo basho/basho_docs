@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [api, http]
+keywords: [querying, api, http]
 prev: ["Querying Riak", "index.html"]
 up:   ["Querying Riak", "index.html"]
 next: ["Map Reduce", "MapReduce.html"]

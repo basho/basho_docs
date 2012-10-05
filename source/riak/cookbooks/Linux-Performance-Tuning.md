@@ -5,7 +5,7 @@ version: 1.0.0+
 document: cookbook
 toc: true
 audience: advanced
-keywords: [operator, performance]
+keywords: [operator, performance, os]
 ---
 
 This guide describes recommended performance and

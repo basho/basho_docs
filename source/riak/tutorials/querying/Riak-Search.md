@@ -5,7 +5,7 @@ version: 0.14.0+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [querying, mapreduce]
+keywords: [querying, search]
 prev: ["Secondary Indexes", "Secondary-Indexes.html"]
 up:   ["Querying Riak", "index.html"]
 ---
