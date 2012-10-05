@@ -26,11 +26,11 @@ Now point a browser at http://localhost:4567
 
 All documents and resources (like images, css/scss, javascript/coffeescript) live under the `source` directory.
 
-Since part of the goal of this rewrite is to be more deliberate about the type of documents we produce, docs are seperated into directories according to their types. A document should either be a fully realized "reference", or a "guide" (thumb through [A Short Guide to Writing Guides](https://github.com/basho/internal_wiki/wiki/A-Short-Guide-to-Writing-Guides) for more on this idea). Further distinction can then be placed under subdirectories. `references` contains `apis`, `appendices`; `guides` contains `tutorials`, `cookbooks`.
+Since part of the goal of this rewrite is to be more deliberate about the type of documents we produce, docs are separated into directories according to their types. A document should either be a fully realized "reference", or a "guide" (thumb through [A Short Guide to Writing Guides](https://github.com/basho/internal_wiki/wiki/A-Short-Guide-to-Writing-Guides) for more on this idea). Further distinction can then be placed under subdirectories. `references` contains `apis`, `appendices`; `guides` contains `tutorials`, `cookbooks`.
 
 ### Wiki Links
 
-Besides the standard link styles relative to the given document type (markdown, slim, org, etc), you can use wiki-style links, eg: `[[The Riak Fast Track]]` or `[[The Fast Track|The Riak Fast Track]]`. Note that this if you have a name collision, it will just link to a random one.
+Besides the standard link styles relative to the given document type (markdown, slim, org, etc), you can use wiki-style links, eg: `[[The Riak Fast Track]]` or `[[The Fast Track|The Riak Fast Track]]`. Note that if you have a name collision, it will just link to a random one.
 
 ### Document Metadata
 
@@ -52,9 +52,9 @@ next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
 ---
 ```
 
-The title will dictate the page name, rather than the old method of using the file name. This allows us more flexibility in our urls and specify names for wiki-links (which will first use title, before dropping back to the file name). The title will appear at the top of the document.
+The title will dictate the page name, rather than the old method of using the file name. This allows us more flexibility in our urls and specifying names for wiki-links (which will first use title, before dropping back to the file name). The title will appear at the top of the document.
 
-The `project` assocates this file with a particular project, most of that time that is riak. It could also be `riakcs`, or `riakee`.
+The `project` associates this file with a particular project, most of that time that is riak. It could also be `riakcs`, or `riakee`.
 
 The `version` is a range for which this document is true. This allows the system to trim out any unnecessary documents if we render earlier or later versions (eg. if we render documents for version 1.3.0, but a document is no longer valid, it won't exist for that version). The ranges are specified using either greater/less than signs, plus/minus, or a version range.
 
@@ -68,17 +68,17 @@ The `document` labels what kind of document this is. So far I've been using: `tu
 
 Set `toc` to false if you do not want a table-of-contents generated for this page. Otherwise, a list of links will be generated for every `h2` tag on the main article.
 
-The `index` flag is just a marker that this page is largely an index page for navigation, and not really a content page. It's useful for downgrading it's importance in code generation (see the HTTP/PBC API page).
+The `index` flag is just a marker that this page is largely an index page for navigation, and not really a content page. It's useful for downgrading its importance in code generation (see the HTTP/PBC API page).
 
 The `audience` value is either `beginner`, `intermediate`, or `advanced`. We're not doing much with this yet, but it's a good note and reminder on who this document is meant for, for future updates.
 
 `keywords` is an array of words associated with this page. There can be any number of them. Then, each keyword links to a page that is an index of all other pages with that matching keyword. Eg. Commit-Hooks and Eventual-Consistency pages both have the keyword "concepts", so they both get generated with a link to a page /keywords/concepts, that just lists out and links to these two pages along with others.
 
-`prev`, `next`, and `up` are indended for multi-page tutorial navigation. They corrospond to the previous page, the next page, and moving up to the index (generally, the start of the tutorial). They accept an array with two values, the first is the link text, the second is a relative link.
+`prev`, `next`, and `up` are intended for multi-page tutorial navigation. They correspond to the previous page, the next page, and moving up to the index (generally, the start of the tutorial). They accept an array with two values, the first is the link text, the second is a relative link.
 
 ### Versioning
 
-A big change in this rewrite was how we handle document versions. Each version of the documents will be generated and deployed seperately into it's own directory structure. This provides a few advantages:
+A big change in this rewrite was how we handle document versions. Each version of the documents will be generated and deployed separately into its own directory structure. This provides a few advantages:
 
 * Clarify to users exactly what version a given document is valid for, without making little footnotes in the pages
 * Add/remove documents without breaking SEO

@@ -10,6 +10,13 @@ keywords: [search]
 
 ## Enabling Riak Search
 
+{{#1.2.0}}
+<div class="info">
+<div class="title">Critical Bug in Riak Search 1.2.0</div>
+There is a [bug in merge_index](https://github.com/basho/merge_index/pull/24) that breaks handoff.  When triggered handoff will fail indefinitely and the cluster will stay in a stuck state.  It may also be correlated with corruption of merge_index data but that is speculation based on user logs.  This is patched in the 1.2.1 release.
+</div>
+{{/1.2.0}}
+
 Riak Search is enabled in the [[app.config|Configuration-Files#app.config]] file. Simply change the setting to "true" in Riak Search Config section (shown below).
 
 ```erlang 
