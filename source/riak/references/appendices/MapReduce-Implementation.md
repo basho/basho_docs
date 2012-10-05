@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [implementation, mapreduce]
 ---
 
-This page details how Riak implements MapReduce, the programming paradigm popularized by [[Google|http://research.google.com/archive/mapreduce.html]]. It covers how Riak spreads processing across the cluster, the mechanics of how queries are specified and run, how to run MapReduce queries through the HTTP and Erlang APIs, streaming MapReduce, phase functions, and configuration details. 
+This page details how Riak implements MapReduce, the programming paradigm popularized by [[Google|http://research.google.com/archive/mapreduce.html]]. It covers how Riak spreads processing across the cluster, the mechanics of how queries are specified and run, how to run MapReduce queries through the HTTP and Erlang APIs, streaming MapReduce, phase functions, and configuration details.
 
 <div class="info">
 <div class="title">Hands On Resources</div>
@@ -133,7 +133,7 @@ function(v) {
   var r = {};
   for(var i in v) {
     for(var w in v[i]) {
-      if(w in r) r[w] += v[i][w]; 
+      if(w in r) r[w] += v[i][w];
       else r[w] = v[i][w];
     }
   }
@@ -397,28 +397,28 @@ MapReduce phase functions have the same properties, arguments and return values 
 
 *Map functions take three arguments* (in Erlang, arity-3 is required).  Those arguments are:
 
-# *Value* : the value found at a key.  This will be a Riak object, which in Erlang is defined and manipulated by the *riak_object* module.  In Javascript, a Riak object looks like this: 
-```javascript
-{
- "bucket":BucketAsString,
- "key":KeyAsString,
- "vclock":VclockAsString,
- "values":[
-           {
-            "metadata":{
-                        "X-Riak-VTag":VtagAsString,
-                        "X-riak-Last-Modified":LastModAsString,
-                        "Links":[...List of link objects],
-                        ...other metadata...
-                       },
-            "data":ObjectData
-           },
-           ...other metadata/data values (siblings)...
-          ]
-}
-```
-# *KeyData* : key data that was submitted with the inputs to the query or phase.
-# *Arg* : a static argument for the entire phase that was submitted with the query.
+1. *Value* : the value found at a key.  This will be a Riak object, which in Erlang is defined and manipulated by the *riak_object* module.  In Javascript, a Riak object looks like this:
+<br><pre>
+    {
+     "bucket":BucketAsString,
+     "key":KeyAsString,
+     "vclock":VclockAsString,
+     "values":[
+               {
+                "metadata":{
+                            "X-Riak-VTag":VtagAsString,
+                            "X-riak-Last-Modified":LastModAsString,
+                            "Links":[...List of link objects],
+                            ...other metadata...
+                           },
+                "data":ObjectData
+               },
+               ...other metadata/data values (siblings)...
+              ]
+    }
+  </pre>
+2. *KeyData* : key data that was submitted with the inputs to the query or phase.
+3. *Arg* : a static argument for the entire phase that was submitted with the query.
 
 *A map phase should produce a list of results.* You will see errors if the output of your map function is not a list.  Return the empty list if your map function chooses not to produce output. If your map phase is followed by another map phase, the output of the function must be compatible with the input to a map phase - a list of bucket-key pairs or `bucket-key-keydata` triples.
 
@@ -468,8 +468,8 @@ function(value, keydata, arg){
 
 *Reduce functions take two arguments.* Those arguments are:
 
-# *ValueList*: the list of values produced by the preceding phase in the MapReduce query.
-# *Arg* : a static argument for the entire phase that was submitted with the query.
+1. *ValueList*: the list of values produced by the preceding phase in the MapReduce query.
+2. *Arg* : a static argument for the entire phase that was submitted with the query.
 
 *A reduce function should produce a list of values*, but it must also be true that the function is commutative, associative, and idempotent. That is, if the input list `[a,b,c,d]` is valid for a given F, then all of the following must produce the same result:
 
