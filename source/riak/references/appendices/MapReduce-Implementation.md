@@ -13,6 +13,7 @@ This page details how Riak implements MapReduce, the programming paradigm popula
 <div class="info">
 <div class="title">Hands On Resources</div>
 If you're new to MapReduce in Riak, check out the
+
 * [[Main MapReduce page|MapReduce]]
 * [[Loading Data and Running MapReduce Queries]] on [[The Riak Fast Track]]
 * [[Riak Function Contrib|http://contrib.basho.com]]
@@ -26,7 +27,7 @@ It is Riak's solution to the data-locality problem that determines how Riak spre
 
 Put more simply: Riak runs map-step functions right on the node holding the input data for those functions, and it runs reduce-step functions on the node coordinating the MapReduce query.
 
-## How Riak's MapReduce Queries Are Specified
+## How Riak's MR Queries Are Specified
 
 MapReduce queries in Riak have two components: a list of inputs and a list of "steps", or "phases".
 
@@ -397,8 +398,11 @@ MapReduce phase functions have the same properties, arguments and return values 
 
 *Map functions take three arguments* (in Erlang, arity-3 is required).  Those arguments are:
 
-1. *Value* : the value found at a key.  This will be a Riak object, which in Erlang is defined and manipulated by the *riak_object* module.  In Javascript, a Riak object looks like this:
-<br><pre>
+  1. *Value* : the value found at a key.  This will be a Riak object, which
+    in Erlang is defined and manipulated by the *riak_object* module.
+    In Javascript, a Riak object looks like this:
+    
+    ```
     {
      "bucket":BucketAsString,
      "key":KeyAsString,
@@ -416,9 +420,9 @@ MapReduce phase functions have the same properties, arguments and return values 
                ...other metadata/data values (siblings)...
               ]
     }
-  </pre>
-2. *KeyData* : key data that was submitted with the inputs to the query or phase.
-3. *Arg* : a static argument for the entire phase that was submitted with the query.
+    ```
+  2. *KeyData* : key data that was submitted with the inputs to the query or phase.
+  3. *Arg* : a static argument for the entire phase that was submitted with the query.
 
 *A map phase should produce a list of results.* You will see errors if the output of your map function is not a list.  Return the empty list if your map function chooses not to produce output. If your map phase is followed by another map phase, the output of the function must be compatible with the input to a map phase - a list of bucket-key pairs or `bucket-key-keydata` triples.
 
