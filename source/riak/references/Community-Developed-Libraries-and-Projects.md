@@ -227,3 +227,4 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[ebot|http://www.redaelli.org/matteo-blog/projects/ebot/]] - A scalable Web Crawler that supports Riak as a backend
 * [[riak-jscouch|https://github.com/jimpick/riak-jscouch]] - JSCouch examples done with Riak
 * [[riak_tokyo_cabinet|http://github.com/jebu/riak_tokyo_cabinet]] - A Tokyo Cabinet back end for Riak
+* [[Qi4j Riak EntityStore|http://qi4j.org/extension-es-riak.html]] - Qi4j EntityStore service backed by a Riak bucket
