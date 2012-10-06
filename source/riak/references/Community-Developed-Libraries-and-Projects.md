@@ -207,6 +207,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 ## Other Tools and Projects
 
+* [[Qi4j Riak EntityStore|http://qi4j.org/extension-es-riak.html]] - Qi4j EntityStore service backed by a Riak bucket
 * [[ldapjs-riak|https://github.com/mcavage/node-ldapjs-riak]] - A Riak backend for [[ldapjs|http://ldapjs.org]]
 * [[otto|https://github.com/ncode/otto]] - S3 Clone built on top of Cyclone with support for Riak
 * [[Riaktivity|https://github.com/roidrage/riaktivity]] - A Ruby library for storing timelines in Riak
