@@ -16,7 +16,9 @@ See the below video for a quick introduction to Riak Control and its features.
 
 ## Requirements
 
-Though Riak Control [is maintained as a separate application](https://github.com/basho/riak_control), the necessary code for Control ships with versions of Riak 1.1 and greater and requires no additional downloads outside of your preferred package or source build. It also requires that SSL be enabled in the [[Configuration Files]].
+Though Riak Control [is maintained as a separate application](https://github.com/basho/riak_control), the necessary code for Control ships with versions of Riak 1.1 and greater and requires no additional downloads outside of your preferred package or source build. 
+
+It is strongly recommended that SSL be enabled for riak-control, and SSL is requied unless you set {auth, none}.  SSL can be enabled in the [[Configuration Files]].
 
 ## Setting Up Riak Control
 
