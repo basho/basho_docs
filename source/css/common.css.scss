@@ -594,7 +594,7 @@ div[role="main"] {
       float      : right;
       text-align : center;
       
-      a {
+      a, input {
         @extend .green-link;
         @extend .block;
         @include bgPattern('light-green-bg.jpg');
@@ -612,6 +612,31 @@ div[role="main"] {
         
         &:first-child {
           margin-top : 10px;
+        }
+      }
+
+      input {
+        background: #FFF;
+        font-weight:normal;
+        font-family: 'titillium', verdana, arial, sans-serif;
+        color: #24514A;
+        width:4em;
+        -webkit-transition: width 0.5s ease;
+        -moz-transition: width 0.5s ease;
+        -ms-transition: width 0.5s ease;
+        &::-webkit-input-placeholder,
+        &::-moz-placeholder,
+        &::-ms-input-placeholder,
+        &::input-placeholder {
+          color: #24514A;
+        }
+        &:focus {
+          /* position:absolute; */
+          width:8em;
+        }
+        &:hover {
+          background: #FFF;
+          color: #24514A;
         }
       }
       

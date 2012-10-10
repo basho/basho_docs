@@ -1,11 +1,14 @@
-ROOT_URL = "http://localhost:8091/riak/docs"
+ROOT_URL = "http://ec2-54-242-92-147.compute-1.amazonaws.com:8098/riak/riakdoc2"
 
-def make_riak_key(resource)
-  resource.url.gsub(/(^\/)|(\.html$)/, '').gsub(/[\/\-\.]+/, '_')
+def make_riak_key(resource, project)
+  url = resource.url.gsub(/(^\/)|(\.html$)/, '/')
+  url = "/#{project}/latest#{url}"
+  url.gsub(/[\/]+/, '%2F')
 end
 
 # we only index html pages
 def build_yokozuna_index(resources)
+  count = 0
   for resource in resources
     next unless resource.url =~ /\.(?:html)$/
     next if %w{/404.html /index.html}.include?(resource.url)
@@ -13,12 +16,17 @@ def build_yokozuna_index(resources)
     metadata = resource.metadata[:page] || {}
     metadata['url'] = resource.url.sub(/\.html/, '/')
 
-    key = make_riak_key(resource)
+    key = make_riak_key(resource, metadata['project'] || 'riak')
     body = File.read(resource.source_file)
     data = body
 
-    # # remove the top metadata
-    # data.sub!(/^\-{3}$.*?^\-{3}$/m, '')
+    # remove the top metadata
+    data.sub!(/^\-{3}$.*?^\-{3}$/m, '')
+
+    data = metadata['title'].to_s + data
+
+    # inject into header yaml
+    url = metadata['url']
 
     # xml = Builder::XmlMarkup.new(:target=>'')
     # # xml.instruct!(:xml, :encoding => "UTF-8")
@@ -35,12 +43,22 @@ def build_yokozuna_index(resources)
     # end
     # data = xml.target!
 
+    # application/riakdoc
+
+    # -H 'X-Riak-Title:#{metadata['title']}' \
+
     command = <<-CURL
-    curl '#{ROOT_URL}/#{key}' \
-    -H 'content-type:text/plain' -X PUT --data-binary @-<<\\YNFCM
-    #{data}
+    curl -XPUT '#{ROOT_URL}/#{key}' \
+    -H 'content-type:text/plain' \
+    --data-binary @-<<\\YNFCM
+#{data}
     YNFCM
     CURL
+
+    # if (count += 1) == 2
+    #   puts command
+    #   return
+    # end
 
     puts "  Indexing #{key}"
     %x"#{command}"
