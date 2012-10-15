@@ -28,7 +28,7 @@ curl -O https://raw.github.com/spawngrid/kerl/master/kerl; chmod a+x kerl
 To compile Erlang as 64-bit on Mac OS X, you need to instruct kerl to pass the correct flags to the `configure` command. The easiest way to do this is by creating a `~/.kerlrc` file with the following contents:
 
 ```text
-KERL_CONFIGURE_OPTIONS="--enable-hipe --enable-smp-support --enable-threads
+KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
                         --enable-kernel-poll  --enable-darwin-64bit"
 ```
 
@@ -99,7 +99,7 @@ If you're on Lion (OS X 10.7) you can use LLVM (the default) or GCC to compile E
 Using LLVM:
 
 ```text
-CFLAGS=-O0 ./configure --enable-hipe --enable-smp-support --enable-threads \
+CFLAGS=-O0 ./configure --disable-hipe --enable-smp-support --enable-threads \
 --enable-kernel-poll --enable-darwin-64bit
 ```
 
@@ -107,7 +107,7 @@ If you prefer GCC:
 
 ```text
 CC=gcc-4.2 CPPFLAGS='-DNDEBUG' MAKEFLAGS='-j 3' \
-./configure --enable-hipe --enable-smp-support --enable-threads \
+./configure --disable-hipe --enable-smp-support --enable-threads \
 --enable-kernel-poll --enable-darwin-64bit
 ```
 
@@ -115,14 +115,14 @@ CC=gcc-4.2 CPPFLAGS='-DNDEBUG' MAKEFLAGS='-j 3' \
 If you're on Snow Leopard (OS X 10.6) or Leopard (OS X 10.5) with an Intel processor:
 
 ```bash
-./configure --enable-hipe --enable-smp-support --enable-threads \
+./configure --disable-hipe --enable-smp-support --enable-threads \
 --enable-kernel-poll  --enable-darwin-64bit
 ```
 
 If you're on a non-Intel processor or older version of OS X:
 
 ```bash
-./configure --enable-hipe --enable-smp-support --enable-threads \
+./configure --disable-hipe --enable-smp-support --enable-threads \
 --enable-kernel-poll
 ```
 
