@@ -13,13 +13,6 @@ A:
   
   * Basho hosts its code on [[GitHub|http://github.com/basho]]. Sending us a pull request for one of these repos is our preferred method to receive code contributions and fixes.
   * You can send a patch as an attachment to the [[Riak Mailing List|http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com]]. Be sure to include any additional information we'll need to asses and integrate your code.
-  * Lastly, you can file a new ticket via our [[issue tracker|https://issues.basho.com/]] with the code attached and a detailed write up of what you're sending us.
-  
-  <div class="info">
-  If you haven't done so already, we kindly ask that you read over the [[Bug Reporting Guidelines|How to Report a Bug]] before you submit a bug or patch.
-  </div>
-  
-  There is no limit on how large or small the expiry_secs setting can be as long as it is greater than 0. Please see the docs for additional details on [configuring Bitcask](/Bitcask.html).
 
 Q: What happens after my code is submitted?
 A:
