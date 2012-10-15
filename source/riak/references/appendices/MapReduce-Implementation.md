@@ -360,6 +360,17 @@ The query is given as a list of map, reduce and link phases. Map and reduce phas
 * `{jsanon, Source}` where *Source* is a binary that, when evaluated in Javascript is an anonymous function.
 * `{jsanon, {Bucket, Key}}` where the object at `{Bucket, Key}` contains the source for an anonymous Javascript function.
 
+<div class="info"><div class="title">qfun Note</div>
+Using `qfun` can be a fragile operation. Please keep the following points in mind.
+
+1. The module in which the function is defined must be present and **exactly the same version** on both the client and Riak nodes.
+
+2. Any modules and functions used by this function (or any function in the resulting call stack) must also be present on the Riak nodes.
+
+Errors about failures to ensure both 1 and 2 are often surprising, usually seen as opaque **missing-function** or **function-clause** errors. Especially in the case of differing module versions, this can be difficult to diagnose without expecting the issue and knowing of `Module:info/0`.
+
+</div>
+
 Link phases are expressed in the following form:
 
 

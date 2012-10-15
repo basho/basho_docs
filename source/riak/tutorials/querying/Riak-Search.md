@@ -22,12 +22,12 @@ Search indexes Riak KV objects as they're written using a precommit hook. Based 
 * Support for various analyzers (to break text into tokens) including a white space analyzer, an integer analyzer, and a no-op analyzer
 * Robust, easy-to-use query language
 * Exact match queries
-- Wildcards
-- Inclusive/exclusive range queries o AND/OR/NOT support
-- Grouping
-- Prefix matching
-- Proximity searches
-- Term boosting
+  * Wildcards
+  * Inclusive/exclusive range queries o AND/OR/NOT support
+  * Grouping
+  * Prefix matching
+  * Proximity searches
+  * Term boosting
 * Solr-like interface via HTTP (not [[Solr|http://lucene.apache.org/solr]] compatible)
 * Protocol buffers interface
 * Scoring and ranking for most relevant results
@@ -112,5 +112,4 @@ Riak Search is comprised of:
 * [[Riak Search - Indexing]]
 * [[Riak Search - Querying]]
 * [[Riak Search - Indexing and Querying Riak KV Data]]
-* [[Riak Search - Operations and Troubleshooting]]
-
+* [[Riak Search - Settings]]
