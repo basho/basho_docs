@@ -93,6 +93,19 @@ body {
       }
     }
     
+    .submissions-note {
+      border-width: 1px;
+      padding: 5px 12px;
+      margin: 0px;
+      display: block;
+      line-height: 1.4em;
+      font-size: 80%;
+      a {
+        border-left:0px;
+        border:1px solid #444;
+      }
+    }
+
     @media screen and (max-width: 700px) {
       /*
        * Important is necessary here in order to override the inline style attribute which
