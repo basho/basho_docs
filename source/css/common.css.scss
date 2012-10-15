@@ -93,6 +93,19 @@ body {
       }
     }
     
+    .submissions-note {
+      border-width: 1px;
+      padding: 5px 12px;
+      margin: 0px;
+      display: block;
+      line-height: 1.4em;
+      font-size: 80%;
+      a {
+        border-left:0px;
+        border:1px solid #444;
+      }
+    }
+
     @media screen and (max-width: 700px) {
       /*
        * Important is necessary here in order to override the inline style attribute which
@@ -130,13 +143,18 @@ body {
     }
   }
   
-  .mastfooter {
+  footer.mastfooter {
     @include bgPattern('footer-bg.jpg');
     @include size(100%, auto);
     padding  : 25px 0;
     position : absolute;
     margin   : 25px -25px 0;
     
+    a {
+      color:white;
+      font-size:80%;
+    }
+
     @media screen and (max-width: 700px) {
       margin : 0;
     }
@@ -647,7 +665,7 @@ div[role="main"] {
     
   }
   
-  .info {
+  .info, .note {
     @extend .serif-italic;
     @include allCorners();
     background  : url('/images/layout/info-bg.jpg') left top repeat transparent;

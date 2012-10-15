@@ -25,8 +25,7 @@ object (default is set at the bucket level)
 * `r` - (read quorum) how many replicas need to agree when retrieving the object
 * `pr` - (primary read quorum) works like `r` but requires that the nodes
 read from are not fallback nodes
-* `w` - (write quorum) how many replicas to write to before returning a
-successful responseå
+* `w` - (write quorum) how many replicas must confirm receiving writes before returning a successful response
 * `dw` - (durable write quorum) how many replicas to commit to durable storage
 before returning a successful response
 * `pw` - (primary write quorum) how many replicas to commit to primary nodes
