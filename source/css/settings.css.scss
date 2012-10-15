@@ -12,6 +12,7 @@ $subtleGray  : #eaeaea;
 $lightGreen  : #a7c7bf;
 $fadedGreen  : darken(saturate(#6f8a86, 3%), 8%);
 $darkGreen   : darken($lightGreen, 10%);
+$inactiveText: #AAA;
 
 /* =============================================================================
    Mixins
