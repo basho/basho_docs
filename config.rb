@@ -66,6 +66,8 @@ end
 # end
 
 page "/404.html", :directory_index => false
+page "/js/standalone/version-bar.js", :proxy => "js/standalone/version-bar.html", :directory_index => false, :ignore => true
+
 
 # Proxy (fake) files
 # page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
@@ -149,15 +151,6 @@ helpers do
       url = "/#{project}/#{version}#{url}"
     end
     url
-  end
-
-  def version_bar(project)
-    versions = YAML::load(File.open('data/versions.yml'))
-    versions[project.to_s] || []
-  end
-
-  def is_version?(project, version)
-    version == $versions[project.to_sym]
   end
 
   def api_index(api_dir_name)

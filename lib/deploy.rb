@@ -7,8 +7,8 @@ require 'base64'
 
 ACCESS_KEY_ID = ENV['AWS_ACCESS_KEY_ID']
 SECRET_ACCESS_KEY = ENV['AWS_SECRET_ACCESS_KEY']
-CLOUD_DIST_ID = 'E2Q6TQ5O0XT58T'
-S3_BUCKETS = {:en => 'riakdocs.en'}
+CLOUD_DIST_ID = ENV['AWS_CLOUDFRONT_DIST_ID']
+S3_BUCKET = ENV['AWS_S3_BUCKET']
 CF_BATCH_SIZE = 1000
 
 module S3Deploy
@@ -27,7 +27,7 @@ module S3Deploy
           }
           puts " upload %s" % key
           begin
-            AWS::S3::S3Object.store(key, File.open(f), S3_BUCKETS[:en], attrs)
+            AWS::S3::S3Object.store(key, File.open(f), S3_BUCKET, attrs)
           rescue
             $stderr << "Failed to upload #{f}\n"
           end
