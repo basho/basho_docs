@@ -19,11 +19,10 @@ Please see the [[THANKS file in the Riak repo on GitHub|https://github.com/basho
 
 ### Community Wiki Committers
 
-Community Wiki Committers are non-basho hackers who have commits access to the [[Riak Wiki Repo on GitHub|https://github.com/basho/riak_wiki]].
+Community Wiki Committers are non-Basho hackers who have commits access to the [[Riak Wiki Repo on GitHub|https://github.com/basho/riak_wiki]].
 
 * [[Scott Gonyea|http://twitter.com/acts_as]]
 * [[Mårten Gustafson|http://twitter.com/martengustafson]]
 * [[Seth Falcon|http://twitter.com/sfalcon]]
 * [[Alexander Sicular|http://twitter.com/siculars]]
-* [[Ryan Zezeski|https://github.com/rzezeski]]
 * [[Eric Moritz|http://twitter.com/ericmoritz]]
