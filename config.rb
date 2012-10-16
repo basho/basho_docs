@@ -184,7 +184,7 @@ helpers do
   def wiki_to_link(wiki_link)
     link_found = ($wiki_links ||= {})[wiki_link]
     return link_found if link_found
-    if wiki_link =~ (/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/)
+    if wiki_link =~ (/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/u)
       link_name = $2 || $1
       link_label = $1 || link_name
       anchor = nil
@@ -195,10 +195,10 @@ helpers do
       link_url = link_data[:url]
       unless link_url.blank? && link_name.scan(/[.\/]/).empty?
         # no html inside of the link or label
-        link_label.gsub!(/\<[^\>]+\>/, '_')
+        link_label.gsub!(/\<[^\>]+\>/u, '_')
         link_url ||= link_name
         link_url += '#' + anchor unless anchor.blank?
-        link_url.gsub!(/\<[^\>]+\>/, '_')
+        link_url.gsub!(/\<[^\>]+\>/u, '_')
         return $wiki_links[wiki_link] = {:name => link_label, :url => link_url, :key => sitemap_key}
       end
     end

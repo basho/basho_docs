@@ -928,6 +928,10 @@ nav#toc {
   #toc-items  {
     list-style-type: decimal;
     padding-left : 2em;
+
+    a {
+      white-space:normal;
+    }
   }
 }
 
