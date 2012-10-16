@@ -17,6 +17,7 @@ module S3Deploy
       app.after_build do
         puts "moving to S3"
 
+        AWS::S3::DEFAULT_HOST.replace "s3-ap-northeast-1.amazonaws.com"
         AWS::S3::Base.establish_connection!(:access_key_id => ACCESS_KEY_ID, :secret_access_key => SECRET_ACCESS_KEY)
 
         # first check
