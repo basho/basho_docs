@@ -70,7 +70,7 @@ module VersionDirs
 
       app.after_build do |builder|
         def get_project(file)
-          File.readlines(file).join.to_s =~ /\<meta\s+content\s*\=\s*["']project["']\s+name\s*\=\s*["']([^"']+)["']/
+          File.readlines(file).join.to_s =~ /\<meta\s+content\s*\=\s*["']([^"']+)["']\s+name\s*\=\s*["']project["']/
           $1 || "riak"
         end
 
@@ -104,8 +104,11 @@ module VersionDirs
 
           # a copy of the full site to reflect the latest values
 
+          # leave it
+          if f =~ /^\.\/build\/.+?\/standalone\//
+            next
           # anything under images, js, css goes to "shared"
-          if f =~ /^\.\/build\/(?:images|js|css|fonts|data)\//
+          elsif f =~ /^\.\/build\/(?:images|js|css|fonts|data)\//
             # upload shared for all given project versions
             $versions.values.uniq.each do |version|
               # key = f.sub(/\.\/build\//, "shared/#{version}/")

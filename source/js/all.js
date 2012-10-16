@@ -1,4 +1,5 @@
-//= require_tree .
+//= require_tree ./libs
+//= require_tree ./docs
 
 /*
  * Overly-paranoid jQuery docready call

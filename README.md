@@ -162,11 +162,15 @@ _(or `bundle exec watchr ./Watchrfile`)_
 
 ## Deploying to S3
 
-Before deployment you must specify an env var with Basho's S3 access/secret key. In bash, something like this in your ~/.bash_login file should do it.
+Before deployment you must specify an env var with Basho's S3 access/secret key. You also must specify the S3 bucket we're deploying to, and the cloudfront id (the CDN we must invalidate to force a publication to be found).
+
+In bash, something like this in your ~/.bash_login file should do it.
 
 ```bash
 export RIAK_DOCS_ACCESS_KEY="XXXXX"
 export RIAK_DOCS_SECRET_KEY="XXXXX"
+export AWS_S3_BUCKET='riakdocs.en'
+export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
 ```
 
 **Keep it secret. Keep it safe.**

@@ -1191,6 +1191,22 @@ ol.versions {
       border     : 1px solid $darkOrange;
     }
     
+    &.inactive {
+      background : #DDD;
+      border     : 1px solid #BBB;
+      &:hover {
+        background : #DDD;
+        border     : 1px solid #BBB;
+      }
+      a {
+        cursor : default;
+        color : $inactiveText;
+        &:hover {
+          color : $inactiveText;
+        }
+      }
+    }
+
     &:first-child {
       @include corner(left, top);
       @include corner(left, bottom);
