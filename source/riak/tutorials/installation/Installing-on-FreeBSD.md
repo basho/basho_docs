@@ -115,14 +115,14 @@ gmake devrel
 ## Next Steps?
 From here you might want to check out:
 
-* [The Riak Fast Track](http://wiki.basho.com/The-Riak-Fast-Track.html): a guide for setting up a 3 node cluster and exploring Riak’s main features.
-* [Basic Cluster Setup](http://wiki.basho.com/Basic-Cluster-Setup.html): a guide that will show you how to go from one node to bigger than Google!
+* [[The Riak Fast Track]]: a guide for setting up a 3 node cluster and exploring Riak’s main features.
+* [[Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!
 
 ## References
 
 * [Basho Downloads](http://basho.com/resources/downloads/)
 * [[Riak Command Line Tools|Command-Line-Tools]]
-* [[Riak Installation|Installation.html]]
+* [[Installing and Upgrading]]
 * [[Installing Erlang]]
 * [Using the FreeBSD Package System](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/packages-using.html)
 * [Using the FreeBSD Ports Collection](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html)
