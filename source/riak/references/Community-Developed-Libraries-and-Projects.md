@@ -101,6 +101,9 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Nori|https://github.com/sgonyea/nori]] - Experimental Riak HTTP Library for Node.js modeled after Ripple
 * [[OrionNodeRiak|http://github.com/mauritslamers/OrionNodeRiak]] - Node-based server and database-frontend for Sproutcore
 
+*OCaml*
+* [[Riak OCaml Client|http://metadave.github.com/riak-ocaml-client/]] - Riak OCaml Client
+
 *Perl*
 
 * [[Net::Riak|http://search.cpan.org/~franckc/Net-Riak/]]
