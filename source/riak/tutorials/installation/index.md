@@ -13,6 +13,7 @@ Click the link for your operating system to see instructions on how to install R
   * [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
   * [[RHEL and CentOS|Installing on RHEL and CentOS]]
   * [[Mac OS X|Installing on Mac OS X]]
+  * [[FreeBSD|Installing on FreeBSD]]
   * [[SUSE|Installing on SUSE]]
   * [[Windows Azure|Installing on Windows Azure]]
   * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
