@@ -1,5 +1,6 @@
 require 'aws/s3'
 require 'versionomy'
+require './lib/org'
 require './lib/versionify'
 require './lib/faqml'
 require './lib/rocco'
