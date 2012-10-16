@@ -173,6 +173,14 @@ export AWS_S3_BUCKET='riakdocs.en'
 export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
 ```
 
+_The bucket and Cloudfront values are per language._
+
+language | bucket      | cloudfront id
+---------|-------------|---------------
+English  | riakdocs.en | E2Q6TQ5O0XT58T
+Japanese | riakdocs.jp | ENDQVZ5Y7OVJN
+
+
 **Keep it secret. Keep it safe.**
 
 Then to deploy, run the deploy.rb scripts with a riak version:
