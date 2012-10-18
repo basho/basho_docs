@@ -37,7 +37,7 @@ The error `fatal: unable to connect to github.com` when building from source is 
 
 Download the following `leveldb` archive for the version of Riak you are using:
 
-  * Riak 1.2.1 - https://github.com/basho/leveldb/zipball/1.2.2p5
+  * Riak 1.2.1 - https://github.com/basho/leveldb/zipball/1.2.2p5 {{1.2.1+}}
   * Riak 1.2.0 - https://github.com/basho/leveldb/zipball/2aebdd9173a7840f9307e30146ac95f49fbe8e64
   * Riak 1.1.4 - https://github.com/basho/leveldb/zipball/14478f170bbe3d13bc0119d41b70e112b3925453
 
