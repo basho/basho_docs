@@ -11,7 +11,7 @@ $ ->
       h2s.each ->
         return if $(this).hasClass('title')
         content = $(this).html()
-        name = content
+        name = content.replace(' ', '_', 'g')
         # name = content.replace(' ', '+')
         # name = encodeURI(content)
         anchor = "<a href=\"##{name}\">#{content}</a>";
