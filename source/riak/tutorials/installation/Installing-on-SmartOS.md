@@ -80,9 +80,8 @@ Next Steps?
 
 Now that Riak is installed, check out the following resources:
 
--   [[fast-track|Riak Fast Track]]: A
+-   [[The Riak Fast Track]]: A
     guide for setting up a 4 node cluster and exploring Riak's main
     features.
--   [[Basic Cluster
-    Setup]]: A  guide that will show you how to go from one node to bigger
-     than Google!
+-   [[Basic Cluster Setup]]: A  guide that will show you how to go from one
+    node to bigger than Google!
