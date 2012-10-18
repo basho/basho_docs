@@ -132,7 +132,7 @@ riak:
           - "[[Riak Compared to MongoDB]]"
           - "[[Riak Compared to Neo4j]]"
       - "[[Release Notes]]"
-      - "[[Riak and Dynamo|/references/dynamo/]]"
+      - "[[Riak and Dynamo|Dynamo]]"
 
   - title: "Community"
     sub:
