@@ -30,21 +30,21 @@ tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
   /var/lib/riak/bitcask /var/lib/riak/ring /etc/riak
 ```
 
-You can read more about [[Bitcask here]].
+You can read more about [[Bitcask here|Bitcask]].
 
 ## LevelDB Backups
 Similar to Bitcask, LevelDB uses a log-structured file format and can be backed up using a variety of methods to facilitate
 backups. A copy of the leveldb data directory will be all that is needed to restore a failed node.
 
 On a standard Linux install of Riak using packages a simple cron job running the following could be used to
-create a backup of your LevelDB and ring directories as well as your Riak configuration:
+create a backup of your leveldb and ring directories as well as your Riak configuration:
 
 ```bash
 tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
   /var/lib/riak/leveldb /var/lib/riak/ring /etc/riak
 ```
 
-You can read more about [[LevelDB here]].
+You can read more about [[LevelDB here|LevelDB]].
 
 ## Restoring a Node
 
