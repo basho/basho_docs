@@ -77,9 +77,9 @@ curl -X POST http://localhost:8091/mapred -H 'Content-Type: application/json' -d
 	     "inputs":"training",
 	     "query":[{"map":{"language":"javascript",
 	     "source":"function(riakObject) {   
-		 var m =  riakObject.values[0].data.match(\\"pizza\\");
-         return  [[riakObject.key, (m ? m.length : 0 )]];     
- 		 }"}}]}'   
+		 var m =  riakObject.values[0].data.match(\"pizza\");
+         return  [[riakObject.key, (m ? m.length : 0 )]];
+ 		 }"}}]}'
 ```
 
 ### Output 

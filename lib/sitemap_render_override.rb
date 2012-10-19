@@ -93,7 +93,7 @@ module SitemapRenderOverride
       # heuristic that an unfound url, is probably not a link
       link_url = link_data[:url]
       link_project = link_data[:project] || 'riak'
-      if link_url.blank? && link_name.scan(/[.\/]/u).empty?
+      if link_url.blank? && link_name !~ /^([.]?\/|https?\:)/
         "[[#{link_label}]]"
       else
         # no html inside of the link or label

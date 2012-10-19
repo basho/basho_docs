@@ -89,7 +89,7 @@ you want support for more options, add them in `attributes/eleveldb.rb`.
     node[:riak][:kv][:riak_kv_eleveldb_backend_root] = "/var/lib/riak/leveldb"
 
 ### Lager
-[[Lager]] is the logging framework used within Riak. It can also be used with erlang/OTP.
+[Lager](https://github.com/basho/lager) is the logging framework used within Riak. It can also be used with erlang/OTP.
 
     node[:riak][:lager][:handlers][:lager_console_backend]= :info
     node[:riak][:lager][:crash_log] = "/var/log/riak/crash.log"
