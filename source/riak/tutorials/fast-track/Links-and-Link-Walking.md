@@ -38,7 +38,7 @@ $ curl -v -XPUT -H 'Link: </riak/people/dhh>; riaktag="friend"' \
   -d 'I am an excellent public speaker.'
 ```
 
-In this request we are attaching 'Link: </riak/people/dhh>; riaktag="friend"' to the key "timoreilly" located in the "people" bucket.
+In this request we are attaching 'Link: &lt;/riak/people/dhh&gt;; riaktag="friend"' to the key "timoreilly" located in the "people" bucket.
 
 Try it. It's easy, right? You've just attached a link to an object in Riak!
 
