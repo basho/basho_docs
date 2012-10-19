@@ -32,6 +32,18 @@ Riak and the Erlang applications it depends on are configured by settings in the
     %% Other application configurations...
 ].
 ```
+{{1.2.0+}}
+### riak_api settings
+
+ * **pb_ip**
+The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
+
+ * **pb_port**
+The port that the Protocol Buffers interface will bind to. (default: 8087)
+
+ * **pb_backlog**
+The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5)
+{{/1.2.0+}}
 
 ### riak_core settings
 * **choose_claim_fun**
@@ -110,6 +122,7 @@ By default, each Riak node will own ring_creation_size/(number of nodes in the c
 <div class="title">Basho Tip</div>
 The ring_creation_size should be established before your cluster is started, and should not be changed thereafter.
 </div>
+
  * **ssl**
 You can override the default SSL key and certificate settings (default: etc/cert.pem, etc/key.pem)
 
@@ -172,6 +185,7 @@ When set to true uses vnode-based vclocks rather than client ids. This significa
  * **legacy_keylisting**
 This option enables compatibility of bucket and key listing with 0.14 and earlier versions. Once a rolling upgrade to a version >= 1.0 is completed for a cluster, this should be set to false for improved performance for bucket and key listing operations. (default: true)
 
+{{<1.2.0}}
  * **pb_ip**
 The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
 
@@ -180,6 +194,7 @@ The port that the Protocol Buffers interface will bind to. (default: 8087)
 
  * **pb_backlog**
 The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5)
+{{/<1.2.0}}
 
  * **raw_name**
 The base of the path in the URL exposing Riak's HTTP interface (default: "riak")
