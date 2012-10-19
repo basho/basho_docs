@@ -32,7 +32,7 @@ Riak and the Erlang applications it depends on are configured by settings in the
     %% Other application configurations...
 ].
 ```
-{{1.2.0+}}
+{{#1.2.0+}}
 ### riak_api settings
 
  * **pb_ip**
@@ -185,7 +185,7 @@ When set to true uses vnode-based vclocks rather than client ids. This significa
  * **legacy_keylisting**
 This option enables compatibility of bucket and key listing with 0.14 and earlier versions. Once a rolling upgrade to a version >= 1.0 is completed for a cluster, this should be set to false for improved performance for bucket and key listing operations. (default: true)
 
-{{<1.2.0}}
+{{#<1.2.0}}
  * **pb_ip**
 The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
 
