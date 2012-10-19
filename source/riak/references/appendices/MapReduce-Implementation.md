@@ -297,7 +297,7 @@ The following example would follow all links pointing to objects in the `foo` bu
 
 Riak also supports invoking MapReduce queries via the Erlang API.
 
-<div class="note"><div class="title">Distributing Erlang MapReduce Code</div>Any modules and functions you use in your Erlang MapReduce calls must be available on all nodes in the cluster.  You can add them in Erlang applications by specifying the *-pz* option in [[vm.args|Configuration Files]] or by adding the path to the *add_paths* setting in `app.config`.</div>
+<div class="note"><div class="title">Distributing Erlang MapReduce Code</div>Any modules and functions you use in your Erlang MapReduce calls must be available on all nodes in the cluster.  You can add them in Erlang applications by specifying the *-pz* option in [[vm.args|Configuration Files]] or by adding the path to the `add_paths` setting in `app.config`.</div>
 
 ### Erlang Example
 
