@@ -1181,7 +1181,22 @@ ol.versions {
   //clear         : left;
   //margin-bottom : 1em;
   //padding-top   : 15px;
+
+  //margin: 0;
+  //padding: 0;
   
+  > li {
+    &:first-child {
+      @include corner(left, top);
+      @include corner(left, bottom);
+    }
+    
+    &:last-child {
+      @include corner(right, top);
+      @include corner(right, bottom);
+    }
+  }
+
   li {
     @include bgPattern('light-green-bg.jpg');
     border        : 1px solid $darkGreen;
@@ -1190,9 +1205,25 @@ ol.versions {
     margin-right  : 1px;
     margin-bottom : 1px;
     
+    ol {
+      display:none;
+      margin:0;
+      margin-left:-1px;
+      padding:2px 0;
+      position: absolute;
+      max-width:5em;
+      li {
+        z-index:500;
+      }
+    }
+
     &:hover {
       background : $orange;
       border     : 1px solid $darkOrange;
+
+      & > ol { 
+        display:block;
+      }
     }
     
     &.inactive {
@@ -1211,21 +1242,11 @@ ol.versions {
       }
     }
 
-    &:first-child {
-      @include corner(left, top);
-      @include corner(left, bottom);
-    }
-    
-    &:last-child {
-      @include corner(right, top);
-      @include corner(right, bottom);
-    }
-    
     &.current {
       background : $orange;
       border     : 1px solid $darkOrange;
       
-      a {
+      > a {
         color : #fff;
         
         &:hover {
