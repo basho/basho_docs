@@ -114,7 +114,9 @@ module SitemapRenderOverride
 
       # if it's a different version, remove the entire block
       data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/([^\}]+)\}\}/m) do
-        in_version_range?($1, version) ? $2 : ''
+        liversion, block = $1, $2
+        liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
+        in_version_range?(liversion, version) ? block : ''
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
