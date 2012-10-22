@@ -23,12 +23,23 @@ The following instructions generate a complete, self-contained build of Riak in 
 ### Installing from source package
 Download the Riak source package from the [[Download Center|http://basho.com/resources/downloads/]] and build:
 
+{{#1.2.0}}
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.0.tar.gz
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/riak-1.2.0.tar.gz
 tar zxvf riak-1.2.0.tar.gz
 cd riak-1.2.0
 make rel
 ```
+{{/1.2.0}}
+
+{{#1.2.1}}
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
+tar zxvf riak-1.2.1.tar.gz
+cd riak-1.2.1
+make rel
+```
+{{/1.2.1}}
 
 <div class='note'> If you see the error `fatal: unable to connect to github.com` see the following instructions for building on systems with no internet availability </div>
 
