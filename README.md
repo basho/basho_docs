@@ -167,8 +167,8 @@ Before deployment you must specify an env var with Basho's S3 access/secret key.
 In bash, something like this in your ~/.bash_login file should do it.
 
 ```bash
-export RIAK_DOCS_ACCESS_KEY="XXXXX"
-export RIAK_DOCS_SECRET_KEY="XXXXX"
+export AWS_ACCESS_KEY_ID="XXXXX"
+export AWS_SECRET_ACCESS_KEY="XXXXX"
 export AWS_S3_BUCKET='riakdocs.en'
 export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
 ```
