@@ -61,6 +61,28 @@ $ ->
     v2num = (v2.major * 10000) + (v2.minor * 100) + v2.patch
     v2num - v1num
 
+  # construct an object that represents a
+  # drop-down version list
+  buildLists = (project, base_url)->
+    lists = []
+    for vs in ($versions[project] || [])
+      innerlists = []
+      showV = null
+      currentBlock = false
+      for vsi in vs
+        vsp = parseVersion(vsi)
+        if inVersionRange(vsp, range)
+          current = compareVersions(currentVersion, vsp) == 0
+          currentBlock ||= current
+          vData = {current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
+          innerlists.push(vData)
+          showV = vData if current
+        else
+          innerlists.push({current:false, href:"#", text:vsi})
+      lists.push({current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
+    lists
+
+
   return if $('.mainarticle .versions').length == 0
 
   project = $('meta[name=project]').attr('content')
@@ -74,14 +96,27 @@ $ ->
   currentVersion = parseVersion(version)
   range = parseVersionRange(version_range)
 
-  lists = []
-  for vs in ($versions[project] || [])
-    vsp = parseVersion(vs[0])
-    if inVersionRange(vsp, range)
-      currentClass = if compareVersions(currentVersion, vsp) == 0 then " class=\"current\"" else ""
-      lists.push("<li#{currentClass}><a class=\"versioned\" href=\"/#{project}/#{vs[0]}#{base_url}\">#{vs[0]}</a></li>")
-    else
-      lists.push("<li class=\"inactive\"><a class=\"versioned\" href=\"#\">#{vs[0]}</a></li>")
+  lists = buildLists(project, base_url)
 
-  $('.mainarticle .versions').html(lists.join(''))
+  currentClass = (li)->
+    if li.current then " class=\"current\"" else ""
+
+  liLink = (li)->
+    "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"
+
+  output = ""
+  for vmli in lists
+    output += "<li#{currentClass(vmli)}>"
+    output += liLink(vmli.show)
+    output += "<ol>"
+    if vmli.inner?.length > 1
+      for vpli in vmli.inner
+        output += "<li#{currentClass(vpli)}>"
+        output += liLink(vpli)
+        output += "</li>"
+    output += "</ol>"
+    output += "</li>"
+
+
+  $('.mainarticle .versions').html(output)
 
