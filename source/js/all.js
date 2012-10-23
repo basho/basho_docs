@@ -323,7 +323,7 @@
   /*
    * Disable linking to the page you're already on.
    */
-  $(document).on('click', '.current a', function () {return false;});
+  $(document).on('click', '.current > a', function () {return false;});
   
   /*
    * Don't let people jack up tables
