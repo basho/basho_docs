@@ -9,21 +9,21 @@ keywords: [api, http]
 group_by: "Server Operations"
 ---
 
-Checks if the server is alive. This is useful for monitoring tools, load-balancers and automated scripts.
+サーバが生きているかをチェックする。モニタリングツール、ロードバランサ、自動スクリプトなどで使用できる。
 
-## Request
+## リクエスト
 
 ```bash
 GET /ping
 ```
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 
 * `200 OK`
 
-## Example
+## サンプル
 
 ```bash
 curl -v http://127.0.0.1:8098/ping

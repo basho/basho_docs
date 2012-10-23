@@ -1,5 +1,5 @@
 ---
-title: RiakCS GET Service
+title: RiakCS サービスを取得
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,13 +9,13 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `GET Service` operation returns a list of all buckets owned by the *authenticated* user who sent sent the request.
+`GET Service` は *authenticated* でリクエストを送信したユーザが所有し、*認証(authenticated)* されている、すべてのバケットのリストを返します。
 
-*Note:* The GET Service operation doesn't list buckets created by other users. It also doesn't list buckets for anonymous requests.
+*ノート:* GET Service では、他のユーザが作成したバケットのリストは取得できません。同様に匿名で作られたバケットもリストされません。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 GET / HTTP/1.1
@@ -24,56 +24,56 @@ Date: date
 Authorization: signature_value
 ```
 
-## Response Elements
+## レスポンスの要素
 
-**Bucket** - Container for bucket information.
+**Bucket** - バケット情報のコンテナ
 
-* *Type*: Container
-* *Children*: Name,CreationDate
-* *Ancestor*: ListAllMyBucketsResult.Buckets
+* *種別*: コンテナ
+* *子*: Name,CreationDate
+* *継承*: ListAllMyBucketsResult.Buckets
 
-**Buckets** - Container for one or more buckets.
+**Buckets** - 1つ以上のバケットのコンテナ
 
-* *Type*: Container
-* *Children*: Bucket
-* *Ancestor*: ListAllMyBucketsResult
+* *種別*: コンテナ
+* *子*: バケット
+* *継承*: ListAllMyBucketsResult
 
-**CreationDate** - Date the bucket was created.
+**CreationDate** - バケットが作成された日付
 
-* *Type*: date (format yyyy-mm-ddThh:mm:ss.timezone, e.g., 2012-06-03T15:4548:02.000Z)
-* *Ancestor*: ListAllMyBucketsResult.Buckets.Bucket
+* *種別*: 日付 (フォーマット yyyy-mm-ddThh:mm:ss.timezone, 例: 2012-06-03T15:4548:02.000Z)
+* *継承*: ListAllMyBucketsResult.Buckets.Bucket
 
-**DisplayName** - Bucket owner's display name.
+**DisplayName** - バケット オーナの表示名
 
-* *Type*: String
-* *Ancestor*: ListAllMyBucketsResult.Owner
+* *種別*: 文字列
+* *継承*: ListAllMyBucketsResult.Owner
 
-**ID** - Bucket owner's user ID.
+**ID** - バケット オーナのユーザID
 
-* *Type*: String
-* *Ancestor*: ListAllMyBucketsResult.Owner
+* *種別*: 文字列
+* *継承*: ListAllMyBucketsResult.Owner
 
-**ListAllMyBucketsResult** - Container for response.
+**ListAllMyBucketsResult** - レスポンス用のコンテナ
 
-* *Type*: Container
-* *Children*: Owner, Buckets
-* *Ancestor*: None
+* *種別*: コンテナ
+* *子*: Owner, Buckets
+* *継承*: なし
 
-**Name** - Bucket's name.
+**Name** - バケットの名前
 
-* *Type*: String
-* *Ancestor*: ListAllMyBucketsResult.Buckets.Bucket
+* *種別*: 文字列
+* *継承*: ListAllMyBucketsResult.Buckets.Bucket
 
-**Owner** - Container for bucket owner information.
+**Owner** - バケットのオーナ情報用のコンテナ
 
-* *Type*: Container
-* *Ancestor*: ListAllMyBucketsResult
+* *種別*: コンテナ
+* *継承*: ListAllMyBucketsResult
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-The GET operation on the Service endpoint (data.basho.com in this example) returns a list of all of the buckets owned by the authenticated sender of the request.
+サービス エンドポイント(この例では data.basho.com)上でのGET操作で、リクエストの送信者が所有する全てのバケットのリストが返される。
 
 ```
 Host: data.basho.com
@@ -81,7 +81,7 @@ Date: Wed, 06 Jun 2012 20:47:15 +0000
 Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```xml
   <?xml version="1.0" encoding="UTF-8"?>

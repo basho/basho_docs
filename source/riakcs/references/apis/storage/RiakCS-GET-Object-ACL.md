@@ -1,5 +1,5 @@
 ---
-title: RiakCS GET Object ACL
+title: RiakCS オブジェクトのACLを取得する
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,13 +9,13 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `GET Object acl` operation uses the `acl` subresource to return the access control list (ACL) of an object.
+`GET Object acl` は、オブジェクトのアクセスコントロールリスト(ACL)を返すために、`acl` というサブリソースを使用します。
 
-*Note:* You must have READ_ACP access to the object to use this operation.
+*ノート:* この操作を行うためには、オブジェクトに対する READ_ACP アクセス権限が必要です。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 GET /ObjectName?acl HTTP/1.1
@@ -24,58 +24,58 @@ Date: date
 Authorization: signature_value
 ```
 
-### Request Parameters
+### リクエスト パラメータ
 
-The GET Object acl operation doesn't use request parameters.
+GET Object acl ではリクエスト パラメータを使用しません。
 
-## Response Elements
+## レスポンスの要素
 
-**AccessControlList** - Container for ACL information (Grant, Grantee, and Permission).
+**AccessControlList** - ACL情報のコンテナ (Grant, Grantee, Permission)
 
-* *Type*: Container
-* *Ancestors*: AccessControlPolicy
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
 
-**AccessControlPolicy** - Contains the elements that set the ACL permissions for each grantee.
+**AccessControlPolicy** - ACL権限に設定する要素
 
-* *Type*: String
-* *Ancestors*: None
+* *種別*: 文字列
+* *継承*: なし
 
-**DisplayName** - Bucket owner's display name.
+**DisplayName** - バケット オーナの表示名
 
-* *Type*: String
-* *Ancestors*: AccessControlPolicy.Owner
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner
 
-**Grant** - Container for `Grantee` and `Permission`.
+**Grant** - `Grantee` および `Permission` 用のコンテナ
 
-* *Type*: Container
-* *Ancestors*: AccessControlPolicy.AccessControlList
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy.AccessControlList
 
-**Grantee** - The `ID`, `Emailaddress`, or `uri` of the subject who is being granted permissions.
+**Grantee** - 権限を与えられるユーザの `ID`、`Emailaddress`、サブジェクトの`uri`
 
-* *Type*: String
-* *Ancestors*: AccessControlPolicy.AccessControlList.Grant
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.AccessControlList.Grant
 
-**ID** - Bucket owner's ID.
+**ID** - バケット オーナのID
 
-* *Type*: String
-* *Ancestors*: AccessControlPolicy.Owner|AccessControlPolicy.AccessControlList.Grant
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner|AccessControlPolicy.AccessControlList.Grant
 
-**Owner** - Container for bucket owner information.
+**Owner** - バケット オーナ情報のコンテナ
 
-* *Type*: Container
-* *Ancestors*: AccessControlPolicy
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
 
-**Permission** - Permission granted to the `Grantee` for bucket.
+**Permission** - `Grantee` に与えるバケットの権限
 
-* *Type*: String
-* *Valid Values*: FULL_CONTROL|WRITE|READ_ACP
-* *Ancestors*: AccessControlPolicy.AccessControlList.Grant
+* *種別*: 文字列
+* *有効な値*: FULL_CONTROL|WRITE|READ_ACP
+* *継承*: AccessControlPolicy.AccessControlList.Grant
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-This request returns the ACL of the object, `basho-process.jpg`.
+このリクエストでは、`basho-process.jpg` というオブジェクtのACLを返します。
 
 ```
 GET /basho-process.jpg?acl HTTP/1.1
@@ -84,7 +84,7 @@ Date: Wed, 06 Jun 2012 20:47:15 +0000
 Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK

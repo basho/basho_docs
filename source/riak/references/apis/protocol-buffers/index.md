@@ -9,22 +9,20 @@ keywords: [api, protocol-buffer]
 index: true
 ---
 
-This is an overview of the operations you can perform over the Protocol Buffers
-Client (PBC) interface to Riak, and can be used as a guide for developing a
-compliant client.
+これはRiakのプロトコル バッファ クライアント(PBC)インタフェースを使ってできる操作の概要を紹介し、また、クライアントを開発するときのガイドとすることができます。
 
-## Protocol
+## プロトコル
 
-Riak listens on a TCP port (8087 by default) for incoming connections. Once
-connected the client can send a stream of requests on the same connection.
+Riakはインカミング コネクションとしてTCPポート(デフォルトは8087)をリッスンしています。
+コネクションが成立すると、クライアントは同じポートを使ってリクエストのストリームを送信できます。
 
-Each operation consists of a request message and one or more response messages.
-Messages are all encoded the same way
-* 32-bit length of message code + protocol buffer message in network order
-* 8-bit message code to identify the protocol buffer message
-* N-bytes of protocol buffers encoded message
+それぞれのオペレーションは、1つのリクエストメッセージと、1つ以上の応答メッセージから成ります。
+すべてのメッセージは同じ方法でエンコードされます。
+* ネットワークバイトオーダの、32ビット長のメッセージコード ＋ プロトコルバッファ メッセージ
+* プロトコルバッファ メッセージを表す8ビット メッセージ コード
+* プロトコルバッファのエンコード済みメッセージ Nバイト
 
-### Example
+### サンプル
 
 
 ```bash
@@ -41,7 +39,7 @@ key: "k"
 ```
 
 
-### Message Codes
+### メッセージ コード
 
 <table>
 <tr><td>0</td><td>RpbErrorResp</td></tr>
@@ -76,18 +74,14 @@ key: "k"
 </table>
 
 
-<div class="info"><div class="title">Message Definitions</div>
-<p>All Protocol Buffers messages can be found defined in the
-[[riak.proto|https://github.com/basho/riak_pb/blob/master/src/riak.proto]] and other .proto files in the RiakPB project.</p>
+<div class="info"><div class="title">メッセージの定義</div>
+<p>すべてのプロトコルバッファ メッセージは、[[riak.proto|https://github.com/basho/riak_pb/blob/master/src/riak.proto]] で定義されています。また、他の .proto ファイルは RiakPB プロジェクトにあります。</p>
 </div>
 
 
-### Error Response
+### エラー レスポンス
 
-If the server experiences an error processing a request it will return an
-RpbErrorResp message instead of the response expected for the given request
-(e.g. RbpGetResp is the expected response to RbpGetReq).  Error messages contain
-an error string and an error code.
+サーバがリクエストの処理中にエラーが発生すると、リクエストに対するレスポンスではなく、RpbErrorRespというメッセージが返ります(たとえば、RpbGetReqの本来のレスポンスはRpbGetRespです)。エラーメッセージはエラーストリングとエラーコードを含みます。
 
 ```bash
 message RpbErrorResp {
@@ -96,33 +90,33 @@ message RpbErrorResp {
 }
 ```
 
-Values:
+値:
 
-* **errmsg** - a string representation of what went wrong
-* **errcode** - a numeric code. Currently only RIAKC_ERR_GENERAL=1 is defined.
+* **errmsg** - 何が悪いかを表す文字列
+* **errcode** - 数値によるコード。現在は RIAKC_ERR_GENERAL=1 のみが定義されている
 
-## Bucket Operations
+## バケット操作
 
-* [[PBC List Buckets]]
-* [[PBC List Keys]]
-* [[PBC Get Bucket Properties]]
-* [[PBC Set Bucket Properties]]
+* [[PBC バケットのリスト|PBC List Buckets]]
+* [[PBC キーのリスト|PBC List Keys]]
+* [[PBC バケット プロパティを得る|PBC Get Bucket Properties]]
+* [[PBC バケット プロパティを設定する|PBC Set Bucket Properties]]
 
-## Object/Key Operations
+## オブジェクト / キー 操作
 
-* [[PBC Fetch Object]]
-* [[PBC Store Object]]
-* [[PBC Delete Object]]
+* [[PBC オブジェクトのフェッチ|PBC Fetch Object]]
+* [[PBC オブジェクトを格納する|PBC Store Object]]
+* [[PBC オブジェクトを削除する|PBC Delete Object]]
 
-## Query Operations
+## クエリ 操作
 
 * [[PBC MapReduce]]
-* [[PBC Index]]
-* [[PBC Search]]
+* [[PBC インデクス|PBC Index]]
+* [[PBC サーチ|PBC Search]]
 
-## Server Operations
+## サーバ操作
 
 * [[PBC Ping]]
-* [[PBC Get Client ID]]
-* [[PBC Set Client ID]]
-* [[PBC Server Info]]
+* [[PBC クライアントIDを得る|PBC Get Client ID]]
+* [[PBC クライアントIDを設定する|PBC Set Client ID]]
+* [[PBC サーバ情報|PBC Server Info]]

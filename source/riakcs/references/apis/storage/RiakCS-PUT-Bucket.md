@@ -1,5 +1,5 @@
 ---
-title: RiakCS PUT Bucket
+title: RiakCS バケットを格納
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,33 +9,33 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `PUT Bucket` operation creates a new bucket. The user who sends the request to create the bucket becomes the bucket owner. Anonymous requests can't create buckets.
+`PUT Bucket` は新しいバケットを作成します。バケット作成のリクエストを行ったユーザが、バケットのオーナになります。匿名リクエストではバケットを作成することはできません。
 
-*Note:* To create a bucket, you must have a valid Key ID, which is used to authenticate requests.
+*ノート:* バケットを作成するには、認証リクエストに必要な、有効なキーIDが必要です。
 
-## Bucket Naming
+## バケットに名前をつける
 
-A best practice is to use DNS-compliant bucket names. DNS-compliant bucket names ensure that virtual hosted-style requests can locate buckets.
+いちばんいいのは、DNSに準拠したバケット名を付けることです。DNS準拠のバケット名は、仮想ホストスタイルのリクエストでバケットを確定できます。
 
-A bucket name must obey the following rules, which produces a DNS-compliant bucket name:
+DNS準拠のバケット名とするためには、以下のルールに則る必要があります。
 
-* Must be from 3 to 63 characters.
-* Must be one or more labels, each separated by a period (.). Each label:
-* Must start with a lowercase letter or a number. Must end with a lowercase letter or a number. Can contain lowercase letters, numbers and dashes.
-* Must not be formatted as an IP address (e.g., 192.168.9.2).
+* 3文字以上63文字以内にすること
+* 1つ以上のラベルをつけ、ラベル間はピリオド(.)で区切ること
+* 小文字または数字で始めること。小文字または数字で終わること。小文字、数字、ダッシュが使用できる。
+* IPアドレス(例 192.168.9.2)みたいなものは不可
 
-## Access Permissions
+## アクセス パーミッション
 
-PUT Bucket offers the option to specify the permissions you want to grant to specific accounts or groups for the bucket. You can grant permissions to accounts or groups with request headers, using one of the following two methods:
+PUB Bucket は、指定したアカウントまたはグループにバケットのパーミッションを指定することができます。以下の2つの方法で、リクエストヘッダでアカウントまたはグループを指定してパーミッションを与えることができます。
 
-* Specify a predefined ACL using the x-amz-acl request header. More information about predefined ACLs is available [[here|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL]].
-* Specify access permissions explicitly using the x-amz-grant-read, x-amz-grant-write, x-amz-grant-read-acp, x-amz-grant-write-acp, x-amz-grant-full-control headers, which map to the set of ACL permissions supported by Amazon S3.
+* リクエストヘッダの x-amz-acl に定義済みのACLを指定する。定義済みACLについての詳細は [[here|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL]] 参照
+* ヘッダで、Amzaon S3 互換のACLパーミッションに対応した x-amz-grant-read、x-amz-grant-write、x-amz-grant-read-acp、x-amz-grant-write-acp、x-amz-grant-full-control を明示する
 
-*Note*: You can use either a predefined ACL or specify access permissions explicitly, not both.
+*ノート*: 定義済みのACLを指定するか、アクセスパーミッションを明示するかのいずれかを使います。両方ではありません。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 PUT / HTTP/1.1
@@ -48,30 +48,30 @@ Authorization: signature_value
 	  <LocationConstraint>BucketRegion</LocationConstraint>
 	</CreateBucketConfiguration>
 ```
-<div class="note"><div class="title">Note</div>This example includes some request headers. The Request Headers section contains the complete list of headers.</div>
+<div class="note"><div class="title">ノート</div>このサンプルには複数のリクエストヘッダが含まれています。リクエストヘッダ セクションには完全なヘッダのリストがあります。</div>
 
-### Request Parameters
+### リクエスト パラメータ
 
-This operation does not use request parameters.
+この操作ではリクエスト パラメータを使用しません。
 
-### Request Headers
+### リクエストヘッダ
 
-PUT Bucket offers the following request headers in addition to the request headers common to all operations.
+PUT Bucket は、全ての操作に共通なリクエストヘッダに加えて、次のリクエストヘッダを提供します。
 
-**x-amz-acl** - This request header specifies a predefined ACL to apply to the bucket being created. A predefined ACL grants specific permissions to individual accounts or predefined groups.
+**x-amz-acl** - このリクエストヘッダは、バケット作成時に、定義済みのACLを指定します。定義済みACLは、個々のアカウントまたは定められたグループに、指定したパーミッションを与えます。
 
-* *Type*: String
-* *Valid Values*: private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
+* *種別*: 文字列
+* *有効な値*: private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
 
-### Response Elements
+### レスポンスの要素
 
-PUT Bucket does not return response elements.
+PUT Bucket はレスポンス要素を返しません。
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-A request that creates a bucket named `basho_docs`.
+`basho_docs` という名前のバケットを作成するリクエストです。
 
 ```
 PUT / HTTP/1.1
@@ -81,7 +81,7 @@ Date: Fri, 01 Jun  2012 12:00:00 GMT
 Authorization: AWS AKIAIOSFODNN7EXAMPLE:xQE0diMbLRepdf3YB+FIEXAMPLE=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK
@@ -91,9 +91,9 @@ Connection: close
 Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
 ```
 
-### Sample Request to Configure Access Permission Using Predefined ACL
+### 定義済みACLを使ってアクセスパーミッションを設定するリクエストのサンプル
 
-This request creates a bucket named `basho_docs` and sets the ACL to private.
+このリクエストでは `basho_docs` という名前のバケットを作成し、ACL を private に設定します。
 
 ```
 PUT / HTTP/1.1
@@ -104,7 +104,7 @@ Date: Fri, 01 Jun  2012 12:00:00 GMT
 Authorization: AWS AKIAIOSFODNN7EXAMPLE:xQE0diMbLRepdf3YB+FIEXAMPLE=
 ```
 
-### Sample Response For Bucket with Predefined ACL
+### 定義済みACLをバケットに与えたときのレスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK

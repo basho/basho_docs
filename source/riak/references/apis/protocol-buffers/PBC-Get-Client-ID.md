@@ -1,5 +1,5 @@
 ---
-title: PBC Get Client I
+title: PBC クライアントID取得
 project: riak
 version: 0.14.0+
 document: api
@@ -9,23 +9,19 @@ keywords: [api, protocol-buffer]
 group_by: "Server Operations"
 ---
 
-Get the client id used for this connection.  Client ids are used for conflict
-resolution and each unique actor in the system should be assigned one.  A client
-id is assigned randomly when the socket is connected and can be changed using
-[[Set Client ID|PBC Set Client ID]].
+このコネクションで使用しているクライアントIDを取得します。
+クライアントIDは競合を解決するために使われ、システムによって割り当てられたユニークな値です。
+クライアントIDは、ソケットがコネクトしたときにランダムに割り当てられ、[[クライアントIDのセット|PBC Set Client ID]] で変更することができます。
 
-<div class="note"><div class="title">Client IDs in 1.0</div>
-<p>All requests to Riak &lt;1.0 or Riak 1.0 without <code>vnode_vclocks</code>
-enabled should set the Client ID, which can be any string that uniquely
-identifies the client, for purposes of tracing object modifications in the
-[[vector clock|Vector Clocks]].</p>
+<div class="note"><div class="title">Riak 1.0 におけるクライアントID</div>
+<p>Riak 1.0 より前、および Riak 1.0 への全てのリクエストは、<code>vnode_vclocks</code> が有効なときを除いて、クライアントIDをセットすべきで、これはクライアントがユニークに識別できればどんな文字列でも構いません。これは [[ベクトルクロック}Vector Clocks]] でオブジェクトの変更を追跡するためのものです。</p>
 </div>
 
-## Request
+## リクエスト
 
-Just the RpbGetClientIdReq message code. No request message defined.
+これは RpbGetClientIdReq メッセージであり、リクエストメッセージは定義されていません。
 
-## Response
+## レスポンス
 
 
 ```bash
@@ -37,9 +33,9 @@ message RpbGetClientIdResp {
 ```
 
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex     00 00 00 01 03
@@ -47,7 +43,7 @@ Erlang  <<0,0,0,1,3>>
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex     00 00 00 07 04 0A 04 01 65 01 B5

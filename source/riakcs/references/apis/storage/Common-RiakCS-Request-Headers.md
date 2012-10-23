@@ -1,5 +1,5 @@
 ---
-title: RiakCS Common Request Headers
+title: RiakCS 共通リクエストヘッダ
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,24 +9,24 @@ audience: advanced
 keywords: [api, http]
 ---
 
-These are the headers that are common to all Riak CS REST requests.
+Riak CS の REST リクエストすべてに共通なヘッダを示します。
 
-**Authorization** - Information required to request authentication. This header is not required for anonymous requests.
+**Authorization** - 認証リクエストに必要な情報。このヘッダは匿名リクエストの場合には必要がない。
 
-**Content-Length** - Length of message without headers according to RFC 2616. This header is required for PUTs and operations that load XML.
+**Content-Length** - RFC 2616 に従ったヘッダが無いメッセージの長さ。このヘッダは、XML をロードする操作および PUT で必要となる。
 
-**Content-Type** - The content type of the resource.
+**Content-Type** - リソースのコンテントタイプ。
 
-**Content-MD5** - The base64-encoded 128-bit MD5 digest of the message without the headers according to RFC 1864. Although this header is optional, the Content-MD5 header can be used to confirm that the data is the same as what was originally sent.
+**Content-MD5** - RFC 1864 に従ったヘッダが無いメッセージの、base-64 でエンコードした 128 ビット MD5 ダイジェスト。このヘッダはオプションではあるが、Content-MD5 ヘッダは、データが元のデータと相違ないことを確認するために利用できる。
 
-**Date** - The current data and time according to the requester, for example, Fri, 01 Jun 2012 12:00:00 GMT. With the `Authorization` header, you must specify either `x-amz-date` or `Date` header.
+**Date** - リクエスト側の現在の日時。たとえば Fri, 01 Jun 2012 12:00:00 GMT。`Authorization` ヘッダを使うときには `x-amz-date` または `Date` ヘッダを使用しなければならない。
 
-**Expect** - When you use `100-continue` in your application, it doesn't send the request body until it receives an acknowledgement. That way, the body of the message isn't sent if the message is rejected based on the headers.
+**Expect** - アプリケーション中で `100-continue` を使用すると、肯定的応答を受けるまでリクエストボディは送信されない。すなわち、メッセージがヘッダ上で拒否された場合はメッセージボディは送信されない。
 
-* *Valid Values*: 100-continue
+* *有効な値*: 100-continue
 
-**Host** - For path-style requests, the value is something like `data.basho.com`. For virtual-style requests, the value is something like `bucketname.data.basho.com`.
+**Host** - パス形式のリクエストでは、値は `data.basho.com` のようになる。仮想形式のリクエストでは、値は `backetname.data.basho.com` のようになる。
 
-This header is optional for HTTP/1.0 requests, but is required for HTTP 1.1.
+このヘッダは、HTTP/1.0 のリクエストではオプションですが、HTTP 1.1では必要です。
 
-**x-amz-date** - The current data and time according to the requester, for example, Fri, 01 Jun 2012 12:00:00 GMT. With the `Authorization` header, you must specify either `x-amz-date` or `Date` header. If you specify both, the value for this header takes precedence.
+**x-amz-date** - リクエスト側の現在の日時。たとえば Fri, 01 Jun 2012 12:00:00 GMT。`Authorization` ヘッダを使うときは、`x-amz-date` または `Date` ヘッダを使用しなければならない。両方が指定された場合は、このヘッダの値が優先される。

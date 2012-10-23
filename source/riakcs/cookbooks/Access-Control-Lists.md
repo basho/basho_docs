@@ -1,5 +1,5 @@
 ---
-title: Access Control Lists
+title: アクセスコントロールリスト
 project: riakcs
 version: 1.2.0+
 document: tutorial
@@ -9,12 +9,12 @@ audience: beginner
 keywords: [installing]
 ---
 
-Access Control Lists (ACL) are a means to grant and deny access to buckets and objects. Each bucket and object will have an ACL associated with it. A default ACL is created when a bucket or object is created that grants full control to the creating party and denies access to all other parties. The Riak CS ACLs are modeled after S3 ACLs. For more information, see the Amazon  [[Access Control List Overview|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html]] documentation.
+アクセスコントロールリスト (ACL) は、バケットやオブジェクトにアクセス権を与えたり、取り上げたりするためのものです。各バケットやオブジェクトは ACL を持っています。バケットやオブジェクトが作成されたときには、それを作成したグループへフルコントロールを、他のグループへはアクセス禁止がデフォルト ACL として割り当てられています。Riak CS の ACL は S3 の ACL を元にしています。より詳しいことは、Amazon の [[Access Control List Overview|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html]] ドキュメントを参照してください。
 
-## Representations
-XML is the only supported external format for ACLs. In the future other formats such as [[JSON|http://www.json.org]] may be supported.
+## 記述法
+ACL とのやり取りできるフォーマットは XML のみです。将来的には [[JSON|http://www.json.org]] もサポートする予定です。
 
-Example XML representation of an ACL:
+XML による ACL の記述例:
 
 ```xml
 <xml version="1.0" encoding="UTF-8">
@@ -35,27 +35,27 @@ Example XML representation of an ACL:
 </AccessControlPolicy>
 ```
 
-## Permissions
+## パーミッション
 
-### Bucket Permissions
-* **READ** - Grantee may list the objects in the bucket
-* **READ_ACP** - Grantee may read the bucket ACL
-* **WRITE** - Grantee may create, overwrite, and delete any object in the bucket
-* **WRITE_ACP** - Grantee may write the ACL for the applicable bucket
-* **FULL_CONTROL** - Grantee has **READ**, **WRITE**, **READ_ACP**, and **WRITE_ACP** permissions on the bucket
+### バケットのパーミッション
+* **READ** - バケットのオブジェクトのリストを得られます
+* **READ_ACP** - バケットの ACL を読むことができます
+* **WRITE** - バケット内のすべてのオブジェクトを、作成し、書き換え、削除することができます
+* **WRITE_ACP** - アプリケーションのバケットのために ACL を書きこむことができます
+* **FULL_CONTROL** - バケットに対して **READ**、**WRITE**、**READ_ACP**、**WRITE_ACP** のパーミッションを持ちます
 
-### Object Permissions
-* **READ** - Grantee may read the object data and its metadata
-* **READ_ACP** - Grantee may read the object ACL.  **Note:** The object owner may read the object ACL even if not explicitly granted  **READ_ACP** permission.
-* **WRITE_ACP** - Grantee may write the ACL for the applicable object.  **Note:** The object owner may write the object ACL even if not explicitly granted  **WRITE_ACP** permission.
-* **FULL_CONTROL** - Grantee has  **READ**,  **READ_ACP**, and  **WRITE_ACP** permissions on the object
+### オブジェクトのパーミッション
+* **READ** - オブジェクトのデータおよびそのメタデータを読むことができます
+* **READ_ACP** - オブジェクトの ACL を読むことができます  **ノート:** オブジェクトのオーナは、**READ_ACP** パーミッションを明示的に与えなくても、ACL を読むことができます
+* **WRITE_ACP** - 適切なオブジェクトの ACL を書きこむ事ができます  **ノート:** オブジェクトのオーナは、**WRITE_ACP** パーミッションを明示的に与えなくても、ACL に書きこむことができます
+* **FULL_CONTROL** - オブジェクトに対して **READ**、**READ_ACP**、**WRITE_ACP** のパーミッションを持ちます
 
-## Buckets
-Bucket names **must** be globally unique. To avoid conflicts all bucket creation requests are made to an application called **stanchion**; therefore, all requests for modification of a bucket ACL **should be** serialized through **stanchion**. While this will cause undesirable serialization of these requests, we believe it is appropriate based on the following statement from this [[documentation on bucket restrictions|http://docs.amazonwebservices.com/AmazonS3/2006-03-01/dev/BucketRestrictions.html]] from Amazon regarding restrictions on bucket operations:
+## バケット
+バケット名は全体的にユニーク **でなければいけません**。競合を避けるために、すべてのバケット作成リクエストは、**stanchion** と呼ばれるアプリケーションで行われます。このため、バケット ACL を変更するすべてのリクエストは **stanchion** 経由でシリアル化 **されるべき** です。これらのリクエストを望ましくないシリアル化を引き起こすかもしれませんが、Amazon による [[バケット上の規制についてのドキュメント|http://docs.amazonwebservices.com/AmazonS3/2006-03-01/dev/BucketRestrictions.html]] で述べられている、バケット操作の制限に該当すると考えています。
 
-<blockquote>Because bucket operations work against a centralized, global resource space, it is not appropriate to make bucket create or delete calls on the high availability code path of your application.</blockquote>
+<blockquote>バケット操作は集中化、全体的なリソーススペースを妨害するので、アプリケーション上で高可用性を想定してバケットの作成や削除を呼び出すのは望ましいことではありません。</blockquote>
 
-This statement only directly references create or delete calls, but we have taken a more broad interpretation to include requests that modify the ACL.
+この条項は作成および削除呼び出しにのみ直接関わります。しかし私たちは、ACL 変更のリクエストも含むように、より幅広い解釈を行いました。
 
-## Objects
-The object ACL is stored with each object as a metadata field. If no ACL information is present in the object creation request a default ACL is created granting the creator both ownership and full access control and denying access to all other parties.
+## オブジェクト
+オブジェクトの ACL は各オブジェクトのメタデータフィールドに格納されます。オブジェクト作成リクエストに ACL 情報がなければ、デフォルトの ACL として、作成者は所有権とフルアクセスコントロールを持ち、他のグループはアクセス禁止が与えられます。

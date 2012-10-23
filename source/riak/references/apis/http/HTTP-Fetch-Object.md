@@ -1,5 +1,5 @@
 ---
-title: HTTP Fetch Objects
+title: HTTP オブジェクトを取得する
 project: riak
 version: 0.10.0+
 document: api
@@ -9,91 +9,66 @@ keywords: [api, http]
 group_by: "Object/Key Operations"
 ---
 
-Reads an object from the specified bucket / key.
+指定されたバケット / キーからオブジェクトを読み出す
 
-## Request
+## リクエスト
 
 ```bash
-GET /riak/bucket/key            # Old format
-GET /buckets/bucket/keys/key    # New format
+GET /riak/bucket/key            # 旧フォーマット
+GET /buckets/bucket/keys/key    # 新フォーマット
 ```
 
-Important headers:
+重要なヘッダ:
 
-* `Accept` - When `multipart/mixed` is the preferred content-type, objects with
-siblings will return all siblings in single request. See [[Get all siblings in
-one request|HTTP Fetch Object#Get all siblings in one request]] example. See
-also RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]].
+* `Accept` - content-type が `multipart/mixed` の時、オブジェクトに兄弟があれば1度のリクエストですべての兄弟を返します。[[1つのリクエストで全部を取得する|HTTPFetch Object#Get all siblings in one request]] のサンプルを参照してください。RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]] も参照してください。
 
-Optional headers:
+オプションヘッダ:
 
-* `If-None-Match` and `If-Modified-Since` invoke conditional request semantics,
-matching on the `ETag` and `Last-Modified` of the object, respectively.  If the
-object fails one of the tests (that is, if the ETag is equal or the object is
-unmodified since the supplied timestamp), Riak will return a `304 Not Modified`
-response. See also RFC 2616 - [[304 Not Modified|http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5]].
+* `If-None-Match` と `If-Modified-Since` は、オブジェクトの `ETag` と `Last-Modified` のそれぞれにマッチする条件付きリクエストです。オブジェクトがテストに通らないとき(つまり、ETag が equal またはオブジェクトが与えられたタイムスタンプの時点から変更されていないとき)、Riakは `304 Not Modified` というレスポンスを返します。RFC 2616 - [[304 Not Modified|http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5]] も参照してください。
 
-Optional query parameters:
+オプション クエリ パラメータ:
 
-* `r` - (read quorum) how many replicas need to agree when retrieving the
-object ([[default is defined by the bucket|HTTP Set Bucket Properties]])
-* `pr` - how many primary replicas need to be online when doing the read
-([[default is defined by the bucket|HTTP Set Bucket Properties]])
-* `basic_quorum` - whether to return early in some failure cases (eg. when r=1
-and you get 2 errors and a success `basic_quorum=true` would return an error)
-([[default is defined by the bucket|HTTP Set Bucket Properties]])
-* `notfound_ok` - whether to treat notfounds as successful reads for the
-purposes of R ([[default is defined by the bucket|HTTP Set Bucket Properties]])
-* `vtag` - when accessing an object with siblings, which sibling to retrieve.
-Scroll down to the [[Manually requesting siblings|HTTP Fetch Object#Manually requesting siblings]] example for more information.
+* `r` - オブジェクトの取得が成功するために必要なレプリカの数(read quorum)。([[デフォルトはバケットで指定される|HTTPSet Bucket Properties]])
+* `pr` - 読み出しの際にオンラインでなければならないプライマリレプリカの数([[デフォルトはバケットで指定される|HTTP Set Bucket Properties]])
+* `basic_quorum` - フェイルがいくつか起きたらリターンする(r=1 のときに2つのエラーがあっても、`basic_quorum=true` であれば、エラーを返す)。([[デフォルトはバケットで指定される|HTTP Set Bucket Properties]])
+* `notfound_ok` - notfound を読み出し成功とみなす([[デフォルトはバケットで指定される|HTTPSet Bucket Properties]])
+* `vtag` - 兄弟のあるオブジェクトにアクセスしたときに、どの兄弟を返すかを指定する。
+詳しくは [[Manually requesting siblings|HTTP Fetch Object#Manually requesting siblings]] のサンプルを参照
 
-## Response
+## レスポンス
 
-Normal response codes:
+正常時のレスポンスコード:
 
 * `200 OK`
 * `300 Multiple Choices`
-* `304 Not Modified` (when using conditional request semantics)
+* `304 Not Modified` (条件付きリクエスト使用時)
 
-Typical error codes:
+主なエラーコード:
 
-* `400 Bad Request` - e.g. when r parameter is invalid (> N)
-* `404 Not Found` - the object could not be found on enough partitions
-* `503 Service Unavailable` - the request timed out internally
+* `400 Bad Request` - r パラメータが不正 (> N) など
+* `404 Not Found` - 十分なパーティション中にオブジェクトが見つからない
+* `503 Service Unavailable` - リクエストが内部でタイムエラー
 
-Important headers:
+重要なヘッダ:
 
-* `Content-Type` - the media type/format
-* `X-Riak-Vclock` - the opaque vector clock for the object
-* `X-Riak-Meta-*` - any user-defined metadata defined when storing the object
-* `ETag` - the entity tag for the object, useful for conditional GET operations
-and validation-based caching
-* `Last-Modified` - a timestamp for when the object was last written, in HTTP
-datetime format
-* `Link` - user- and system-defined links to other resources. [[Read more about
-Links.|Links]]
+* `Content-Type` - メディアのタイプ/フォーマット
+* `X-Riak-Vclock` - オブジェクトのベクトルクロック
+* `X-Riak-Meta-*` - オブジェクトを格納するための、ユーザ定義のメタデータ定義
+* `ETag` - オブジェクトの独立タグ、条件付き GET オペレーションとvalidation-basedキャッシュで使用する
+* `Last-Modified` - オブジェクトが最後に書きこまれたときの、HTTP datetime フォーマットのタイムスタンプ
+* `Link` - ユーザおよびシステム定義の、他のリソースへのリンク [[リンクについての詳細|Links]]
 
-The body of the response will be the contents of the object except when siblings
-are present.
+オブジェクトの兄弟があるとき以外は、レスポンスのボディはオブジェクトの内容となります。
 
-<div class="note"><div class="title">Siblings</div>
-<p>When `allow_mult` is set to true in the bucket properties, concurrent updates
-are allowed to create "sibling" objects, meaning that the object has any number
-of different values that are related to one another by the vector clock.  This
-allows your application to use its own conflict resolution technique.</p>
+<div class="note"><div class="title">兄弟</div>
+<p>バケットのプロパティで `allow_mult` が true のとき、"兄弟"オブジェクトの作成を同時更新することができます。つまり、オブジェクトはベクトルクロックに関連した別々の値を持ちます。これによってアプリケーションは、自分で競合回避を行うことができるのです。</p>
 
-<p>An object with multiple sibling values will result in a `300 Multiple
-Choices` response.  If the `Accept` header prefers `multipart/mixed`, all
-siblings will be returned in a single request as sections of the
-`multipart/mixed` response body.  Otherwise, a list of "vtags" will be given in
-a simple text format. You can request individual siblings by adding the `vtag`
-query parameter. Scroll down to the 'manually requesting siblings' example below for more information.</p>
+<p>複数の兄弟を持つオブジェクトは `300 Multiple Choices` というレスポンスになります。`Accept` ヘッダが `multipart/mixed` を許せば、1つのリクエストのレスポンスボディに `multipart/mixed` セクションとしてすべての兄弟が返されます。あるいは、単純なテキスト形式で "vtags" のリストが返されます。クエリパラメータに `vtag` を追加して、個別の兄弟をリクエストすることができます。以下のサンプルの '兄弟をマニュアルでリクエスト' を参照してください。</p>
 
-<p>To resolve the conflict, store the resolved version with the `X-Riak-Vclock`
-given in the response.</p>
+<p>競合を解決するためには、レスポンスに `X-Riak-Vclock` を追加してください。</p>
 </div>
 
-## Simple Example
+## 簡単なサンプル
 
 ```bash
 $ curl -v http://127.0.0.1:8098/riak/test/doc2
@@ -122,9 +97,9 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc2
 ```
 
 
-## Siblings examples
+## 兄弟のサンプル
 
-### Manually requesting siblings
+### 兄弟をマニュアルでリクエスト
 
 ```bash
 $ curl -v http://127.0.0.1:8098/riak/test/doc
@@ -177,7 +152,7 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f
 {"bar":"baz"}
 ```
 
-### Get all siblings in one request
+### 1つのリクエストですべての兄弟を得る
 
 ```bash
 $ curl -v http://127.0.0.1:8098/riak/test/doc -H "Accept: multipart/mixed"

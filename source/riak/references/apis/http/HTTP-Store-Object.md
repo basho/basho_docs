@@ -1,5 +1,5 @@
 ---
-title: HTTP Store Object
+title: HTTP オブジェクトを格納する
 project: riak
 version: 0.10.0+
 document: api
@@ -9,11 +9,10 @@ keywords: [api, http]
 group_by: "Object/Key Operations"
 ---
 
-Stores an object under the specified bucket / key. Storing an object comes in
-two forms, depending on whether you want to use a key of your choosing, or let
-Riak assign a key to a new object.
+指定されたバケット / キーにオブジェクトを格納する。
+オブジェクトの格納方法には、選択したキーを使うのか、Riakが新しいオブジェクトにキーをアサインするのかという2つの方法がある。
 
-## Request
+## リクエスト
 
 ```bash
 POST /riak/bucket               # Riak-defined key, old format
@@ -22,70 +21,54 @@ PUT /riak/bucket/key            # User-defined key, old format
 PUT /buckets/bucket/keys/key    # User-defined key, new format
 ```
 
-For the sake of compatibility with older clients, `POST` is also acceptable in
-the form where the key is specified.
+古いクライアントとの互換性のために、`POST`はキーの指定による方法も受け付けます。
 
-Important headers:
+重要なヘッダ:
 
-* `Content-Type` must be set for the stored object. Set what you expect to
-receive back when next requesting it.
-* `X-Riak-Vclock` if the object already exists, the vector clock attached to the
-object when read.
-* `X-Riak-Meta-*` - any additional metadata headers that should be stored with
-the object.
-* `X-Riak-Index-*` - index entries under which this object should be indexed.
-[[Read more about Secondary Indexing.|HTTP Secondary Indexes]]
-* `Link` - user and system-defined links to other resources. [[Read more about
-Links.|Links]]
+* `Content-Type` 格納するオブジェクトがセットされていなければならない。次のリクエストで受け取れるように、セットしておくこと。
+* `X-Riak-Vclock` オブジェクトが既に存在するとき、ベクトルクロック オブジェクトが読み出しに付加される。
+* `X-Riak-Meta-*` - オブジェクトと共に格納される任意の追加メタデータ ヘッダ
+* `X-Riak-Index-*` - インデクスと作るべきオブジェクトのインデクスエントリ
+[[セカンダリインデクスについての詳細|HTTP Secondary Indexes]]
+* `Link` - 他のリソースへの、ユーザおよびシステム定義のリンク [[リンクについて知る|Links]]
 
-Optional headers (only valid on `PUT`):
+オプショナルヘッダ (`PUT`に対してのみ有効):
 
-* `If-None-Match`, `If-Match`, `If-Modified-Since`, and `If-Unmodified-Since`
-invoke conditional request semantics, matching on the `ETag` and `Last-Modified`
-of the existing object.  These can be used to prevent overwriting a modified
-object.  If the test fails, you will receive a `412 Precondition Failed`
-response. This does not prevent concurrent writes; it is possible for the
-condition to evaluate to true for multiple requests if the requests occur at the
-same time.
+* `If-None-Match`、`If-Match`、`If-Modified-Since`、`If-Unmodified-Since`は、条件付きリクエスト セマンティクスを呼び出し、既存のオブジェクトの`ETag`および`Last-Modified`とマッチします。
+これらは修正されたオブジェクトが上書きされるのを防止することができます。
+比較に失敗したときは、`412 Precondition Failed`が返ります。これは同時書き込みを妨げるものではありません。つまり、複数のリクエストが同時に行われたとして、すべて true の場合のみ有効です。
 
-Optional query parameters:
+オプショナル クエリ パラメータ:
 
-* `w` (write quorum) how many replicas to write to before returning a successful
-response (default is defined by the bucket level)
-* `dw` (durable write quorum) how many replicas to commit to durable storage
-before returning a successful response (default is defined at the bucket level)
-* `pw` how many primary replicas must be online to attempt a write (default is
-defined at the bucket level)
-* `returnbody=[true|false]` whether to return the contents of the stored object.
+* `w` (write quorum) 書き込み成功のレスポンスを返す前に、何個のレプリカが書き込まれなければならないか(デフォルトはバケット レベルで定義される)
+* `dw` (durable write quorum) 成功のレスポンスを返す前に、何個のレプリカが確実に格納されたか(デフォルトはバケット レベルで定義される)
+* `pw` 書き込みを行う前に何個のプライマリ レプリカがオンラインにならなくてはいけないか(デフォルトはバケット レベルで定義される)
+* `returnbody=[true|false]` 格納されたオブジェクトの内容を返すか否か
 
-*<ins>This request must include a body (entity).</ins>*
+*<ins>このリクエストはボディ(エンティティ)を含まなくてはならない</ins>*
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 
-* `201 Created` (when submitting without a key)
+* `201 Created` (キー無しで指定された場合y)
 * `200 OK`
 * `204 No Content`
 * `300 Multiple Choices`
 
-Typical error codes:
+主なエラーコード:
 
-* `400 Bad Request` - e.g. when r, w, or dw parameters are invalid (> N)
-* `412 Precondition Failed` if one of the conditional request headers failed to
-match (see above)
+* `400 Bad Request` - たとえば、r、ｗ、dw パラメータが無効(> N)なとき
+* `412 Precondition Failed` じうけんリクエストヘッダのどれかが一致しなかった場合(上述)
 
-Important headers:
+重要なヘッダ:
 
-* `Location` a relative URL to the newly-created object (when submitting without
-a key)
+* `Location` 新しく作られたオブジェクトへの相対URL(キー無しで指定されたとき)
 
-If `returnbody=true`, any of the response headers expected from [[HTTP Fetch
-Object|HTTP-Fetch-Object]] may be present. Like when fetching the object, `300 Multiple Choices`
-may be returned if siblings existed or were created as part of the operation,
-and the response can be dealt with similarly.
+`returnbody=true`のとき、すべてのレスポンスヘッダは [[HTTPフェッチオブジェクト|HTTP-Fetch-Object]] があることを期待しています。
+オブジェクトをフェッチするときのように、兄弟が存在する、あるいは操作中に作成されると、`300 Multiple Choices`が返り、レスポンスは同じようにしょりされます。
 
-## Example: Storing Without Key
+## サンプル: キー無しで保存する
 
 ```bash
 $ curl -v -d 'this is a test' -H "Content-Type: text/plain" http://127.0.0.1:8098/riak/test
@@ -111,7 +94,7 @@ $ curl -v -d 'this is a test' -H "Content-Type: text/plain" http://127.0.0.1:809
 * Closing connection #0
 ```
 
-## Example: Storing With Key
+## サンプル: キーありで格納する
 
 ```bash
 $ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" http://127.0.0.1:8098/riak/test/doc?returnbody=true

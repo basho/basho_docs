@@ -9,26 +9,26 @@ keywords: [api, protocol-buffer]
 group_by: "Server Operations"
 ---
 
-Check if the server is alive
+サーバが生きているかをチェックする
 
-## Request
+## リクエスト
 
-Just the RpbPingReq message code. No request message defined.
+RpbPingReq メッセージだけです。リクエストメッセージは定義されていません。
 
-## Response
+## レスポンス
 
-Just the RpbPingResp message code. No response message defined.
+RpbPingResp メッセージだけです。レスポンスメッセージは定義されていません。
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex    00 00 00 01 01
 Erlang <<0,0,0,1,1>>
 ```
 
-Response
+レスポンス
 
 ```bash
 Hex    00 00 00 01 02

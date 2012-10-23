@@ -10,30 +10,32 @@ keywords: [api, http]
 ---
 
 
-The storage API is compatabile with the Amazon S3 REST API which means that any of the operations listed can be executed using any of the commonly available S3 libraries or tools.
+ストレージAPIはAmazon S3 REST APIと互換性があります。これはリストにあるオペレーションは、一般的なS3ライブラリやツールを使って実行できるということです。
 
-## Service-level Operations
+## サービスレベル オペレーション
 
-* [[GET Service|RiakCS GET Service]] - Returns a list of all buckets owned by the user who sent the request
+* [[サービスを取得|RiakCS GET Service]] - リクエストを送ったユーザがオーナであるすべてのバケットのリストを返す
 
-## Bucket-level Operations
+## バケットレベル オペレーション
 
-* [[GET Bucket|RiakCS GET Bucket]] - Returns a list of the objects within a bucket
-* [[GET Bucket ACL|RiakCS GET Bucket ACL]] - Returns the ACL associated with a bucket
-* [[PUT Bucket|RiakCS PUT Bucket]] - Creates a new bucket
-* [[PUT Bucket ACL|RiakCS PUT Bucket ACL]] - Sets the ACL permissions for a bucket
-* [[DELETE Bucket|RiakCS DELETE Bucket]] - Deletes a bucket
+* [[バケットを取得|RiakCS GET Bucket]] - バケット内のオブジェクトのリストを返す
+* [[バケットのACLを取得|RiakCS GET Bucket ACL]] - バケットに関連付けられているACLを返す
+* [[バケットを格納|RiakCS PUT Bucket]] - 新規バケットを作成する
+* [[バケットのACLを格納|RiakCS PUT Bucket ACL]] - バケットにACLパーミッションを設定する
+* [[バケットを削除|RiakCS DELETE Bucket]] - バケットを削除する
 
-## Object-level Operations
+## オブジェクトレベル オペレーション
 
-* [[GET Object|RiakCS GET Object]]- Retrieves an object
-* [[GET Object ACL|RiakCS GET Object ACL]] - Returns the ACLs associated with an object
-* [[PUT Object|RiakCS PUT Object]] - Stores an object to a bucket
-* [[PUT Object ACL|RiakCS PUT Object ACL]] - Sets the ACLs associated with an object
-* [[HEAD Object|RiakCS HEAD Object]] - Retrieves object metadata (not the full content of the object)
-* [[DELETE Object|RiakCS DELETE Object]]- Deletes an object
+* [[オブジェクトを取得|RiakCS GET Object]]- オブジェクトを取得する
+* [[オブジェクトのACLを取得|RiakCS GET Object ACL]] - オブジェクトに関連付けられているACLを返す
+* [[オブジェクトを格納|RiakCS PUT Object]] - バケットにオブジェクトを格納する
+* [[オブジェクトのACLを格納|RiakCS PUT Object ACL]] - オブジェクトに関連付けられているACLを設定する
+* [[オブジェクトのヘッダを取得|RiakCS HEAD Object]] - オブジェクトのメタデータ(オブジェクトの内容すべてではない)を取得する
+* [[オブジェクトを削除|RiakCS DELETE Object]]- オブジェクトを削除する
 
-## Common Headers
+## 共通ヘッダ
 
-* [[Common RiakCS Request Headers]]
-* [[Common RiakCS Response Headers]]
+* [[RiakCS 共通リクエストヘッダ|Common RiakCS Request Headers]]
+* [[RiakCS 共通レスポンスヘッダ|Common RiakCS Response Headers]]
+
+

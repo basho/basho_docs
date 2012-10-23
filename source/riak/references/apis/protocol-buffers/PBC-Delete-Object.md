@@ -1,5 +1,5 @@
 ---
-title: PBC Delete Object
+title: PBC オブジェクトを削除する
 project: riak
 version: 0.14.0+
 document: api
@@ -9,9 +9,10 @@ keywords: [api, protocol-buffer]
 group_by: "Object/Key Operations"
 ---
 
-Deletes an object from the specified bucket / key.
+指定されたバケット / キーからオブジェクトを削除する
 
-## Request
+
+## リクエスト
 
 ```bash
 message RpbDelReq {
@@ -27,43 +28,23 @@ message RpbDelReq {
 }
 ```
 
-Optional Parameters
+オプション パラメータ
 
-* **rw** - how many replicas to delete before returning a successful
-response; possible values include a special number to denote 'one'
-(4294967295-1), 'quorum' (4294967295-2), 'all' (4294967295-3),
-'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **vclock** - opaque vector clock provided by an earlier RpbGetResp message.
-Use to prevent deleting of objects that have been modified since the last get request
-* **r** - (read quorum) how many replicas need to agree when retrieving the object; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **w** - (write quorum) how many replicas to write to before returning a successful response; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **pr** - (primary read quorum) how many primary replicas need to be available when retrieving the object; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **pw** - how many primary nodes must be up when the write is attempted; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **dw** - how many replicas to commit to durable storage before returning a successful response; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
+* **rw** - 成功のレスポンスが返る前に何個のレプリカを削除するか; 指定できる値は次の特殊な値 'one'(4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|(PBCAPI#Set Bucket Properties]]) 以下の任意の整数です。
+* **vclock** - 以前の RpbGetResp メッセージで提供された、見えないベクトルクロック。これは最後のGetリクエストから後で変更されたオブジェクトを削除してしまうことを防止するために使われます。
+* **r** - (read quorum) オブジェクトを取得する際に、何個のレプリカが必要か; 指定できる値は次の特殊な値'one' (4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]]) 以下の任意の整数です。
+* **w** - (write quorum) 成功のレスポンスが返る前に何個のレプリカに書きこむか; 指定できる値は次の特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]]) 以下の任意の整数です。
+* **pr** - (primary read quorum) オブジェクトを取得する際に、何個のプライマリレプリカが必要か; 指定できる値は次の特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]]) 以下の任意の整数です。
+* **pw** - 書き込みを行う時に何個のプライマリノードが動作していなければならないか; 指定できる値は次の特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]]) 以下の任意の整数です。
+* **dw** - 成功のレスポンスを返す前に、何個のレプリカが確実にコミットされていなければならないか; 指定できる値は次の特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]]) 以下の任意の整数です。
 
-## Response
+## レスポンス
 
-Only the message code is returned.
+メッセージコードだけが返ります。
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 12 0D 0A 0A 6E 6F 74 61 62 75 63 6B 65
@@ -78,7 +59,7 @@ rw: 1
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex      00 00 00 01 0E

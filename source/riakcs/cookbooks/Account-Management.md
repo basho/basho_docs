@@ -1,5 +1,5 @@
 ---
-title: Account Management
+title: アカウントの管理
 project: riakcs
 version: 1.2.0+
 document: cookbook
@@ -8,21 +8,21 @@ audience: intermediate
 keywords: [operator]
 ---
 
-## Creating a User Account
+## ユーザアカウントを作成する
 
-Create a user account by performing an HTTP POST or PUT with a unique email address and username. For example:
+ユーザアカウントの作成は、HTTP POST または PUT で、ユニークな email アドレスとユーザ名を使って行います。たとえば、
 
 ```bash
 curl -H 'Content-Type: application/json' -X POST http://localhost:8080/riak-cs/user --data '{"email":"foobar@example.com", "name":"foo bar"}'
 ```
 
-<div class="note"><div class="title">Note</div>
-By default, only the admin user may create new user accounts. If you need to create a user account without authenticating yourself, you must set <tt>{anonymous_user_creation, true}</tt> in the Riak CS <tt>app.config</tt>.
+<div class="note"><div class="title">ノート</div>
+デフォルトでは、管理者のみが新しいユーザアカウントを作成することができます。もしも、認証なしにユーザアカウントを作る必要があるなら、Riak CS の <tt>app.config</tt> に、<tt>{anonymous_user_creation, true}</tt> をセットしなければなりません。
 </div>
 
-The submitted user document may be either JSON or XML, but the type should match the value of the Content-Type header used.
+ユーザのデータは JSON か XML で提出します。このとき、その形式と Content-Type ヘッダの値とは一致させるべきです。
 
-Here are some examples for JSON and XML input formats.
+JSON と XML による入力フォームのサンプルを示します。
 
 JSON:
 
@@ -42,7 +42,7 @@ XML:
 </User>
 ```
 
-The response will be in JSON or XML, and resembles the following examples.
+レスポンスは JSON か XML で、次のようになるはずです。
 
 JSON:
 
@@ -72,45 +72,45 @@ XML:
 </User>
 ```
 
-Once the user account exists, you can use the `key_id` and `key_secret` to authenticate requests with Riak CS. To do that, add the key_id and key_secret values to your s3cmd configuration file, which is located by default in the `~/.s3cmd` folder:
+ユーザアカウントができたら、Riak CS に認証リクエストを行うために `key_id` と `key_secret` を使うことができます。それには、デフォルトでは `~/.s3cmd` フォルダにある、s3cmd 設定ファイルに、key_id と key_secret 値を追加します。
 
 * JSON \`key_id\` -> \`~/.s3cmd\` \`access_key\` key_id_value_here
 * JSON \`key_secret\` -> \`~/.s3cmd\` \`secret_key\` key_secret_value_here
 
-The canonical id represented by the `id` field can be used as an alternative to an email address for user identification when granting or revoking ACL permissions, for example with the `--acl-grant` or `--acl-revoke` options to `s3cmd setacl`:
+`id` フィールドで示された正規の ID は、ACL パーミッションが与えられたとき、あるいは無効にされたときに、ユーザの email アドレスを識別する代替手段として使うことができます。たとえば `--acl-grant` や、`--acl-revoke` オプションを `s3cmd setacl` にしたときなどです。
 
 * JSON `id` -> `USER_CANONICAL_ID`
 
-## Retrieving User Account Information
-A user may retrieve their account information by sending a properly signed request to the **riak-cs/user** resource. Additionally, the admin user may request the information for any individual user on the system as part of their role as administrator. Users are only permitted to retrieve information for their account.
+## ユーザ アカウント情報を取得する
+正しく署名されたリクエストを **riak-cs/user** リソースに送信することで、ユーザが自身のアカウント情報を得ることができます。さらに、管理者は、管理者権限でもって、システム内のあらゆるユーザの情報をリクエストできます。ユーザは自分自身のアカウントの情報取得だけが許可されています。
 
-Assuming the proper credentials were set in the `.s3cfg` file, an s3cmd request to retrieve this information would look like this:
+適切な証明書が `.s3cfg` ファイルに設定されていると仮定すると、s3cmd リクエストでは次のような情報が取得できます。
 
     s3cmd get s3://riak-cs/user -
 
-Using the admin credentials to retrieve another user's info would look like this:
+管理者証明を使うと他のユーザの情報も次のように所得できます。
 
     s3cmd -c ~./s3cfg-admin get s3://riak-cs/user/XQKMYF4UL_MMTDFD6NCN
 
-In this example, XQKMYF4UL_MMTDFD6NCN is the key_id of the user whose information the administrator wishes to retrieve.
+この例では、XQKMYF4UL_MMTDFD6NCN というのが、管理者が取得しようとしているユーザの key_id です。
 
-## Retrieving a List of All Users
-The admin user may retrieve a list of all user accounts on the system. This accomplished via a properly signed HTTP GET request to the **riak-cs/users** resource. Any non-admin user request for the user list is rejected and a 403 Forbidden error is returned. This request does not properly work with s3cmd, but can be performed using a less dogmatic tool such as s3-curl.
+## すべてのユーザのリストを取得する
+管理者はシステム内の全てのユーザアカウントのリストを取得することができます。これを実行するには、正しい署名付きの HTTP GET リクエストを **riak-cs/users** リソースに送ります。管理者以外のユーザからのユーザリスト取得リクエストは、拒否され、403 Forbidden エラーが返ります。このリクエストは s3cmd では正しく動きませんが、s3-curl のように特化しすぎていないツールを使って実行できます。
 
-A sample URL for a user listing request looks like this:
+ユーザリストをリクエストする URL の例はこのようになります。
 
     GET http://data.example.com/riak-cs/users -
 
-An example using s3-curl that assumes properly specified credentials for the admin user in the .s3curl configuration file with an id of admin is as follows:
+.s3curl 設定ファイルで管理者の ID が正しく証明されているとして、s3-curl を使うには次のようにします。
 
     s3curl --id admin -- http://data.mystorage.me/riak-cs/users
 
-By default the listing of all users includes accounts that are both enabled and disabled. The list can be filtered to only include enabled or disabled accounts by using the status query parameter with a value of enabled or disabled respectively.
+デフォルトでは、すべてのユーザのリストには、有効なアカウントと無効なアカウントの両方が含まれます。ステータスクエリのパラメータで有効、または無効を指定して、有効/無効なアカウントだけにフィルタすることができます。
 
-## Enabling and Disabling a User Account
-A user may use a PUT to **/riak-cs/user** to disabled their account. The put must include a document with a status field whose value is disabled. JSON or XML formats are supported for this document. Samples of each are shown below. The Content-Type header should also be set appropriately. The admin user may also disable or reenable a user's account via a PUT to **/riak-cs/user/<user-key-id>**. Users may not reenable their own account once it is disabled.
+## ユーザアカウントを有効/無効にする
+ユーザは **/riak-cs/user** へ PUT することで、自身のアカウントを無効にすることができます。この PUT には、status フィールドに disabled という値を持たせなければなりません。JSON フォーマットと XML フォーマットが利用できます。それぞれの例を示します。Content-Type ヘッダは適切に指定しておいてください。管理ユーザは **/riak-cs/user/<user-key-id>** に PUT して、ユーザアカウントを無効にしたり、再び有効にしたりすることができます。ユーザは、いったん無効にした自分のアカウントを有効にし直すことはできません。
 
-Sample JSON status update document:
+JSON によるステータス更新の例:
 
 ```json
 {
@@ -118,7 +118,7 @@ Sample JSON status update document:
 }
 ```
 
-Sample XML status update document:
+XML によるステータス更新の例:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -127,18 +127,18 @@ Sample XML status update document:
 </UserUpdate>
 ```
 
-## Issuing New User Credentials
-The key_secret for a user account can be reissued by a PUT to **/riak-cs/user** with the appropriate JSON or XML document. For admin users the PUT would be to **/riak-cs/user/<key-id>**.
+## 新規ユーザの証明書を発行する
+**/riak-cs/user** に適切な JSON か XML ドキュメントを PUT して、ユーザアカウントの key_secret を再発行することができます。管理ユーザは **/riak-cs/user/<key-id>** への PUT が可能です。
 
-The documents should resemble the following examples.
+ドキュメントは次のようになります。
 
-JSON example:
+JSON の例:
 
 ```json
 {"new_key_secret":true}
 ```
 
-XML example:
+XML の例:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -148,6 +148,6 @@ XML example:
 ```
 
 <div class="note">
-<div class="title">Note</div>
-The `new_key_secret` field may be combined with other user update fields in the same request. Currently, the only other supported field is status, but more may be added in the future. Unsupported fields are ignored.
+<div class="title">ノート</div>
+`new_key_secret` フィールドは、同じリクエストの中で、他のユーザの更新情報と結合されてしまうことがあります。現時点では、これ以外にサポートしているフィールドは status だけですが、将来はもっと追加される予定です。未サポートのフィールドは無視されます。
 </div>

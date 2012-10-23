@@ -1,5 +1,5 @@
 ---
-title: HTTP Link Walking
+title: HTTP リンクウォーキング
 project: riak
 version: 0.10.0+
 document: api
@@ -9,63 +9,54 @@ keywords: [api, http]
 group_by: "Query Operations"
 ---
 
-Link walking (traversal) finds and returns objects by following links attached
-to them, starting from the object specified by the bucket and key portion.  It
-is a special case of [[MapReduce]], and can be expressed more verbosely as such.
-[[Read more about Links|Links]].
+リンクウォーキングは、バケットとキーの部分で指定されたオブジェクトからリンクを辿っていき、オブジェクトを返します。
+これは [[MapReduce]] の特殊なケースで、より細かく処理を行うことができます。[[リンクに付いての詳細|Links]]
 
-## Request
+## リクエスト
 
 ```bash
-GET /riak/bucket/key/[bucket],[tag],[keep]            # Old format
-GET /buckets/bucket/keys/key/[bucket],[tag],[keep]    # New format
+GET /riak/bucket/key/[bucket],[tag],[keep]            # 旧フォーマット
+GET /buckets/bucket/keys/key/[bucket],[tag],[keep]    # 新フォーマット
 ```
 
-<div class="info"><div class="title">Link filters</div>
-<p>A link filter within the request URL is made of three parts, separated by
-commas:</p>
+<div class="info"><div class="title">リンクフィルタ</div>
+<p>リクエストURL内のリンクフィルタはカンマで3つの部分に分けられます。</p>
 
 <ul>
-<li>Bucket - a bucket name to limit the links to</li>
-<li>Tag - a "riaktag" to limit the links to</li>
-<li>Keep - 0 or 1, whether to return results from this phase</li>
+<li>Bucket - リンクの範囲を制限するためのバケット名</li>
+<li>Tag - リンクを制限するための "rinktag"</li>
+<li>Keep - 0 または 1、このフェーズからリザルトを返すかどうか</li>
 </ul>
 
-<p>Any of the three parts may be replaced with <code>_</code> (underscore),
-signifying that any value is valid. Multiple phases of links can be followed by
-adding additional path segments to the URL, separating the link filters by
-slashes. The final phase in the link-walking query implicitly returns its
-results.</p>
+<p>これら3つの部分は <code>_</code> (アンダースコア) に置き換えることができ、これはどんな値でも良いことを意味します。
+URLの後ろにパスを続けてリンクの複数のフェーズを指定することができます。リンクフィルタはスラッシュで区切ります。
+リンクウォーキング クエリの最後のフェーズで、暗黙のうちにリザルトが返されます。</p>
 </div>
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 
 * `200 OK`
 
-Typical error codes:
+主なエラーコード:
 
-* `400 Bad Request` - if the format of the query in the URL is invalid
-* `404 Not Found` - if the origin object of the walk was missing
+* `400 Bad Request` - URL内のクエリのフォーマットが不正
+* `404 Not Found` - リンクウォークを開始するオブジェクトがない
 
-Important headers:
+重要なヘッダ:
 
-* `Content-Type` - always `multipart/mixed`, with a boundary specified
+* `Content-Type` - 常に `multipart/mixed` とし、境界を指定する
 
-<div class="note"><div class="title">Understanding the response body</div>
-<p>The response body will always be <code>multipart/mixed</code>, with each
-chunk representing a single phase of the link-walking query. Each phase will
-also be encoded in <code>multipart/mixed</code>, with each chunk representing a
-single object that was found. If no objects were found or "keep" was not set on
-the phase, no chunks will be present in that phase.  Objects inside phase
-results will include <code>Location</code> headers that can be used to determine
-bucket and key. In fact, you can treat each object-chunk similarly to a complete
-response from [[fetching the object|HTTP Fetch Object]], without the status
-code.</p>
+<div class="note"><div class="title">レスポンスボディについて</div>
+<p>レスポンスボディは常に <code>multipart/mixed</code> で、各チャンクは1回のリンクウォーキング クエリの結果となります。
+各フェーズは <code>multipart/mixed</code> としてエンコードされ、各チャンクが1つのオブジェクトとなります。
+オブジェクトが見つからない、あるいは "keep" がセットされていなければ、そのフェーズにチャンクは現れません。
+フェーズのリザルト内には <code>Location</code> というヘッダでバケットとキーが決定できます。
+実際に各オブジェクトのチャンクを、ステータスコードなしで [[オブジェクトのフェッチ|HTTP FETCH OBJECT]] するのと同様に完全なレスポンスを得ることができます。</P>
 </div>
 
-## Example
+## サンプル
 
 ```bash
 $ curl -v http://127.0.0.1:8098/riak/test/doc3/test,_,1/_,next,1

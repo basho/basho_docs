@@ -1,5 +1,5 @@
 ---
-title: RiakCS GET Bucket
+title: RiakCS バケットを取得
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,13 +9,13 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `GET Bucket` operation returns a list of objects (all or up to 1,000) in a bucket.
+`GET Bucket` ではバケット内のオブジェクトのリスト(すべて、または1,000まで)を返します。
 
-*Note:* You must have READ access to the bucket to use this operation.
+*ノート:* この操作を行うためには、READアクセス権限がなければいけません。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 GET / HTTP/1.1
@@ -24,121 +24,121 @@ Date: date
 Authorization: signature_value
 ```
 
-### Request Parameters
+### リクエストのパラメータ
 
-GET Bucket uses the following parameters to return a subset of the objects in a bucket.
+バケット内のオブジェクトの一部を返すために次のパラメータを使用します。
 
-**prefix** - A string with which keys must begin to be included in the response.
+**prefix** - どの文字列から始まるキーを返すかを指定する
 
-You can use prefixes to separate the objects in a bucket into groupings of keys.
+キーの先頭の文字で、バケット内のオブジェクトをグループ分けすることができます。
 
-* *Type*: String
-* *Default*: None
+* *種別*: 文字列
+* *デフォルト*: なし
 
-## Response Elements
+## レスポンスの要素
 
-**Contents** - Metadata about each object returned in the response.
+**Contents** - レスポンスとして返される、オブジェクトのメタデータ
 
-* *Type*: XML metadata
-* *Ancestry*: ListBucketResult
+* *種別*: XMLメタデータ
+* *継承*: ListBucketResult
 
-**CommonPrefixes** - Keys, if any, between the `Prefix` and the next occurrence of the `delimiter` string.
+**CommonPrefixes** - もしあるなら、`Prefix`と、その次の部分を分ける`delimiter`文字列
 
-A response contains `CommonPrefixes` only if the request includes a `delimiter`. `CommonPrefixes` lists keys that act like subdirectories in the directory specified by `Prefix`. If `Prefix` is *projects/* and `delimiter` is */*, the common prefix in *projects/marketing/2012* is *projects/marketing/*. The keys rolled up into a common prefix represent a single return for the calculation of the number of returns (which is limited by `MaxKeys`).
-
-
-* *Type*: String
-* *Ancestry*: ListBucketResult
-
-**Delimiter** - Keys that contain the same string between the `prefix` and the first occurrence of the `delimiter` are rolled up into a single result in the `CommonPrefixes` collection and aren't returned anywhere else in the response.
+リクエストに`delimiter`が含まれていた場合は、`CommonPrefixes`を含むレスポンスのみが返されます。`CommonPrefixes`は、`Prefix`で指定されたキーを、ディレクトリにおけるサブディレクトリのようにしてキーをリストします。たとえば`Prefix`が、*projects/* で、`delimiter` が */* だとすると、*projects/marketing/2012* の共通前置部(common prefix)は *projects/marketing/* となります。共通前置部を持つキーが一気に返され、その数が数えられます(`MaxKeys`で制限されます)。
 
 
-* *Type*: String
-* *Ancestry*: ListBucketResult
+* *種別*: String
+* *継承*: ListBucketResult
 
-**DisplayName** - Object owner's display name.
-
-
-* *Type*: String
-* *Ancestry*: ListBucketResult.Contents.Owner
-
-**ETag** - The entity tag is an MD5 hash of the object and reflects only changes to the object contents, not the object's metadata.
+**Delimiter** - `prefix`と`delimiter`の最初の部分が一致したキーが、`CommonPrefixes`の集合として、1回のリザルトで一気に返されます。それ以外の者についてはレスポンスに返りません。
 
 
-* *Type*: String
-* *Ancestry*: ListBucketResult.Contents
+* *種別*: 文字列
+* *継承*: ListBucketResult
 
-**ID** - Object owner's user ID.
-
-
-* *Type*: String
-* *Ancestry*: ListBucketResult.Contents.Owner
-
-**IsTruncated** - Indicates whether all of the results were returned (`true`) or only a subset (`false`) because the number of results returned exceeded the maximum specified by `MaxKeys`.
+**DisplayName** - オブジェクトのオーナの表示名
 
 
-* *Type*: String
-* *Ancestry*: boolean
+* *種別*: 文字列
+* *継承*: ListBucketResult.Contents.Owner
 
-**Key** - The object key.
-
-
-* *Type*: String
-* *Ancestry*: ListBucketResult.Contents
-
-**LastModified** - The date and time that the object was last modified.
+**ETag** - エントリタグはオブジェクトのMD5ハッシュで、オブジェクトのメタデータではなく、内容の変化を反映します。
 
 
-* *Type*: Date
-* *Ancestry*: ListBucketResult.Contents
+* *種別*: 文字列
+* *継承*: ListBucketResult.Contents
 
-**Marker** - The starting location in the bucket for the list of objects.
-
-
-* *Type*: String
-* *Ancestry*: ListBucketResult
-
-**MaxKeys** - The maximum number of keys returned in the response body.
+**ID** - オブジェクトのオーナのユーザID
 
 
-* *Type*: String
-* *Ancestry*: ListBucketResult
+* *種別*: 文字列
+* *継承*: ListBucketResult.Contents.Owner
 
-**Name** - Bucket's name.
-
-
-* *Type*: String
-* *Ancestry*: ListBucketResult
-
-**Owner** - Bucket owner.
+**IsTruncated** - すべてのリザルトを返した(`true`)のか、一部だけ(`false`)なのかを示します。これは`MaxKeys`によってリザルトとして返せる上限が制限されるからです。
 
 
-* *Type*: String
-* *Children*: DisplayName, ID
-* *Ancestry*: ListBucketResult.Contents|CommonPrefixes
+* *種別*: 文字列
+* *継承*: boolean
 
-**Prefix** - Keys that begin with the indicated prefix.
-
-
-* *Type*: String
-* *Ancestry*: ListBucketResult
-
-**Size** - The object's size in bytes.
+**Key** - オブジェクトのキー
 
 
-* *Type*: String
-* *Ancestry*: ListBucketResult.Contents
+* *種別*: 文字列
+* *継承*: ListBucketResult.Contents
 
-**StorageClass** - Always STANDARD.
+**LastModified** - オブジェクトが最後に変更されたときの日付と時刻
 
 
-* *Type*: String
-* *Ancestry*: ListBucketResult.Contents
+* *種別*: Date
+* *継承*: ListBucketResult.Contents
 
-## Examples
+**Marker** - バケット内での、オブジェクトのリストの開始位置
 
-### Sample Request
-A request that returns the objects in the bucket, `projects`.
+
+* *種別*: 文字列
+* *継承*: ListBucketResult
+
+**MaxKeys** - レスポンスボディで返されるキーの最大数
+
+
+* *種別*: 文字列
+* *継承*: ListBucketResult
+
+**Name** - バケットの名前
+
+
+* *種別*: 文字列
+* *継承*: ListBucketResult
+
+**Owner** - バケットのオーナ
+
+
+* *種別*: 文字列
+* *子*: DisplayName, ID
+* *継承*: ListBucketResult.Contents|CommonPrefixes
+
+**Prefix** - 前置部で始まるキー
+
+
+* *種別*: 文字列
+* *継承*: ListBucketResult
+
+**Size** - オブジェクトのバイト サイズ
+
+
+* *種別*: 文字列
+* *継承*: ListBucketResult.Contents
+
+**StorageClass** - 常に STANDARD とする
+
+
+* *種別*: 文字列
+* *継承*: ListBucketResult.Contents
+
+## サンプル
+
+### リザルトのサンプル
+`projects` というバケット内のオブジェクトを返させるためのリクエストです。
 
 ```
 GET / HTTP/1.1
@@ -148,7 +148,7 @@ Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 Content-Type: text/plain
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```xml
   <?xml version="1.0" encoding="UTF-8"?>
@@ -183,9 +183,9 @@ Content-Type: text/plain
   </ListBucketResult>
 ```
 
-### Sample Request Using Request Parameters
+### リクエスト パラメータを使用した、リクエストのサンプル
 
-This sample request lists up to 100 keys in the `projects` bucket that start with `IT` and occur after the key that begins with `ITdb`.
+このサンプルリクエストは、`projects` バケット内で、`IT`で始まるキーを最大100個リストさせるリクエストで、結果として`ITdb`からのキーが返ります。
 
 ```
 GET ?prefix=IT HTTP/1.1
@@ -194,7 +194,7 @@ Date: Wed, 06 Jun 2012 20:47:15 +0000
 Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 ```
 
-### Sample Response Based on Request Parameters
+### リクエスト パラメータで返るレスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK

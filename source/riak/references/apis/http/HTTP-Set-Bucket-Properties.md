@@ -1,5 +1,5 @@
 ---
-title: HTTP Bucket Properties
+title: HTTP バケットのプロパティ
 project: riak
 version: 0.10.0+
 document: api
@@ -9,66 +9,61 @@ keywords: [api, http]
 group_by: "Bucket Operations"
 ---
 
-Sets bucket properties like "n_val" and "allow_mult".
+"n_val" や "allow_mult" といったバケットプロパティをセットする
 
-## Request
+## リクエスト
 
 ```bash
-PUT /riak/bucket                # Old format
-PUT /buckets/bucket/props       # New format
+PUT /riak/bucket                # 旧フォーマット
+PUT /buckets/bucket/props       # 新フォーマット
 ```
 
-Important headers:
+重要なヘッダ:
 
 * `Content-Type` - `application/json`
 
-The body of the request should be a JSON object with a single entry "props". 
-Unmodified bucket properties may be omitted.
+リクエストボディは"props"というエントリを1つ含むJSONオブジェクトにすべきである。
+変更されていないバケットのプロパティは省略される場合がある。
 
-Available properties:
+有効なプロパティ:
 
-* `n_val` (integer > 0) - the number of replicas for objects in this bucket
-* `allow_mult` (true or false) - whether to allow sibling objects to be created
-(concurrent updates)
-* `last_write_wins` (true or false) - whether to ignore object history (vector
-clock) when writing
-* `precommit` - [[precommit hooks|Pre- and Post-Commit Hooks]]
-* `postcommit` - [[postcommit hooks|Pre- and Post-Commit Hooks]]
-* `r, w, dw, rw` - default quorum values for operations on keys in the bucket.
-Valid values are:
-  * `"all"` - all nodes must respond
-  * `"quorum"` - (n_val/2) + 1 nodes must respond. *This is the default.*
-  * `"one"` - equivalent to 1
-  * *Any integer* - must be less than or equal to n_val
-* `backend` - when using `riak_kv_multi_backend`, which named backend to use for
-the bucket
+* `n_val` (整数 > 0) - このバケット内のオブジェクトのレプリカ数
+* `allow_mult` (true または false) - 作成時に兄弟オブジェクトを許すかどうか
+(同時アップデート)
+* `last_write_wins` (true または false) - 書き込み時にオブジェクト履歴(ベクトルクロック)を無視するかどうか
+* `precommit` - [[プレコミットフック|Pre- and Post-Commit Hooks]]
+* `postcommit` - [[ポストコミットフック|Pre- and Post-Commit Hooks]]
+* `r, w, dw, rw` - バケット内のキーオペレーションでのデフォルト値
+有効な値:
+  * `"all"` - すべてのノードは応答できなければならない
+  * `"quorum"` - (n_val/2) + 1 個のノードが応答できなければならない *デフォルト*
+  * `"one"` - 1 と同じ
+  * *整数* - n_val 未満でなければならない
+* `backend` - `riak_kv_multi_backend` のときに、バケットが使用するバックエンドの名前
 
-Other properties do exist but are not commonly modified.
+他にもプロパティがありますが、通常は変更しません。
 
 <div class="note">
-<div class="title">Property types</div>
-<p>Make sure you use the proper types for attributes like <strong>n_val</strong>
-and <strong>allow_mult</strong>. If you use strings instead of integers and
-booleans respectively, you may see some odd errors in your logs, saying
-something like
+<div class="title">プロパティのタイプ</div>
+<p><strong>n_val</strong> や <strong>allow_mult</strong> のように適切なタイプの属性を使用してください。
+整数値やブール値ではなく文字列を使用すると、ログの中に次のような奇妙なエラーが残っているかもしれません。
 <code>"{badarith,[{riak_kv_util,normalize_rw_value,2},]}"</code>.</p>
 </div>
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 
 * `204 No Content`
 
-Typical error codes:
+主なエラーコード:
 
-* `400 Bad Request` - if the submitted JSON is invalid
-* `415 Unsupported Media Type` - if the Content-Type was not set to
-application/json in the request
+* `400 Bad Request` - JSON が不正
+* `415 Unsupported Media Type` - リクエストの Content-Type が application/json になっていない
 
-If successful, no content will be returned in the response body.
+正常終了すれば、空のレスポンスボディが返ります。
 
-## Example
+## サンプル
 
 ```bash
 $ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}'

@@ -1,5 +1,5 @@
 ---
-title: PBC List Buckets
+title: PBC バケットのリスト
 project: riak
 version: 0.14.0+
 document: api
@@ -9,21 +9,21 @@ keywords: [api, protocol-buffer]
 group_by: "Bucket Operations"
 ---
 
-List all of the bucket names available
+有効なすべてのバケットの名前のリスト
 
 <div class="note">
-<div class="title">Caution</div>
+<div class="title">注意</div>
 
-This call can be expensive for the server - do not use in performance sensitive code
+この処理はサーバに取って高価な作業です。大切な処理の途中で実行してはいけません。
 
 </div>
 
 
-## Request
+## リクエスト
 
-Only the message code is required.
+メッセージコードのみ
 
-## Response
+## レスポンス
 
 
 ```bash
@@ -33,13 +33,13 @@ message RpbListBucketsResp {
 ```
 
 
-Values
+値
 
-* **buckets** - buckets on the server
+* **buckets** - サーバのバケット
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 01 0F
@@ -49,7 +49,7 @@ RpbListBucketsReq - only message code defined
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex      00 00 00 2A 10 0A 02 62 31 0A 02 62 35 0A 02 62

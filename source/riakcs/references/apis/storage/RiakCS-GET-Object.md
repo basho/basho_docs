@@ -1,5 +1,5 @@
 ---
-title: RiakCS GET Object
+title: RiakCS オブジェクトを取得する
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,15 +9,15 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `GET Object` operation retrieves objects from the Riak CS storage.
+`GET Object` ではRiak CSのストレージからオブジェクトを取得します。
 
-*Note:* You must have READ access to the object to use this operation. If the anonymous user has READ access, you can retrieve an object without using an authorization header.
+*ノート:* この操作を行うためには、オブジェクトに対する READ アクセス権限が必要です。匿名ユーザが READ アクセス権限を持つと、認証ヘッダを使わずにオブジェクトを取得することができます。
 
-GET Object retrieves an object.
+Get Objectはオブジェクトを取得します。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 GET /objectName HTTP/1.1
@@ -27,11 +27,11 @@ Authorization: signature_value
 Range:bytes=byte_range
 ```
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-The following request returns the object, `basho-process.jpg`.
+以下のリクエストでは、`basho-process.jpg` というオブジェクトが返ります。
 
 ```
 GET /basho-process.jpg HTTP/1.1
@@ -40,7 +40,7 @@ Date: Wed, 06 Jun 2012 20:47:15 +0000
 Authorization: AWS AKIAIOSFODNN7EXAMPLE:0RQf4/cRonhpaBX5sCYVf1bNRuU=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK

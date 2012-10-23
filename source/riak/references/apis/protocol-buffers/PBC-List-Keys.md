@@ -1,5 +1,5 @@
 ---
-title: PBC List Keys
+title: PBC キーのリスト
 project: riak
 version: 0.14.0+
 document: api
@@ -9,14 +9,13 @@ keywords: [api, protocol-buffer]
 group_by: "Bucket Operations"
 ---
 
-List all of the keys in a bucket. This is a streaming call, with multiple response messages sent for each request.
+バケット内の全てのキーのリストです。これはストリーミング呼び出しで、各リクエストに複数のメッセージが返ります。
 
-<div class="note"><div class="title">Not for production use</div>
-<p>This operation requires traversing all keys stored in the cluster and should
-not be used in production.</p>
+<div class="note"><div class="title">プロダクションでの使用禁止</div>
+<p>この操作はクラスタ内のすべてのキーを参照するため、プロダクションで使用してはいけません。</p>
 </div>
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -26,11 +25,11 @@ message RpbListKeysReq {
 ```
 
 
-Optional Parameters
+オプション パラメータ
 
-* **bucket** - bucket to get keys from
+* **bucket** - キーを取得したいバケット
 
-## Response
+## レスポンス
 
 
 ```bash
@@ -41,14 +40,14 @@ message RpbListKeysResp {
 ```
 
 
-Values
+値
 
-* **keys** - batch of keys in the bucket.
-* **done** - set true on the last response packet
+* **keys** - バケット内のキーの一部
+* **done** - 最後のレスポンス パケットで true になる
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 0B 11 0A 08 6C 69 73 74 6B 65 79 73

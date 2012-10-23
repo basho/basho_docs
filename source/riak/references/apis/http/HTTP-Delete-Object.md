@@ -1,5 +1,5 @@
 ---
-title: HTTP Delete Object
+title: HTTP オブジェクトを削除する
 project: riak
 version: 0.10.0+
 document: api
@@ -9,50 +9,44 @@ keywords: [api, http]
 group_by: "Object/Key Operations"
 ---
 
-Deletes an object from the specified bucket / key.
+指定したバケット / キーからオブジェクトを削除する
 
-## Request
+## リクエスト
 
 ```
-DELETE /riak/bucket/key           # Old format
-DELETE /buckets/bucket/keys/key   # New format
+DELETE /riak/bucket/key           # 旧フォーマット
+DELETE /buckets/bucket/keys/key   # 新フォーマット
 ```
 
-Optional query parameters:
+オプション クエリ パラメータ:
 
-* `rw` - quorum for both operations (get and put) involved in deleting an
-object (default is set at the bucket level)
-* `r` - (read quorum) how many replicas need to agree when retrieving the object
-* `pr` - (primary read quorum) works like `r` but requires that the nodes
-read from are not fallback nodes
-* `w` - (write quorum) how many replicas must confirm receiving writes before returning a successful response
-* `dw` - (durable write quorum) how many replicas to commit to durable storage
-before returning a successful response
-* `pw` - (primary write quorum) how many replicas to commit to primary nodes
-before returning a successful response
+* `rw` - get および put の両方で、削除するオブジェクト(デフォルトはバケットレベル)に関する指定を行う
+* `r` - オブジェクトの取得が成功するために必要なレプリカの数(read quorum)
+* `pr` - 'r'と同様だが、読み出すノードはフォールバックノードであってはならない(primary read quorum)
+* `w` - 書き込みに成功するために必要なレプリカの数(write quorum)
+* `dw` - 書き込みが成功するために、確実に書き込めたレプリカの数(durable write quorum)
+* `pw` - 書き込みが成功するために、プライマリノードに書き込めたレプリカの数(primary write quorum)
 
-## Response
+## レスポンス
 
-<div class="note"><div class="title">Client ID</div>
-<p>All requests to Riak &lt;1.0 or Riak 1.0 without `vnode_vclocks` enabled
-should include the `X-Riak-ClientId` header, which can be any string that
-uniquely identifies the client, for purposes of tracing object modifications in
-the [[vector clock|Vector Clocks]].</p>
+<div class="note"><div class="title">クライアントID</div>
+<p>Riak &lt;1.0 または、'vnode_vclocks' が有効でない Riak 1.0 には 'X-Riak-ClientId' ヘッダをインクルードするべきです。
+これはクライアントをユニークに識別できればどんな文字列でも構いません。
+これは [[ベクトルクロック|Vector Clocks]] がオブジェクトの変化を追跡するために用いられます。</p>
 </div>
 
-Normal response codes:
+正常時のレスポンス:
 
 * `204 No Content`
 * `404 Not Found`
 
-Typical error codes:
+主なエラーコード:
 
-* `400 Bad Request` - e.g. when rw parameter is invalid (> N)
+* `400 Bad Request` - rw パラメータが不正 (> N) なときなど
 
-`404` responses are "normal" in the sense that DELETE operations are idempotent
-and not finding the resource has the same effect as deleting it.
+`404` は「正常」な戻り値です。というのも、DELETEオペレーションの結果オブジェクトは削除されるので、リソースが見つからなかったのと等価だからです。
 
-## Example
+## サンプル
 
 ```bash
 $ curl -v -X DELETE http://127.0.0.1:8098/riak/test/test2

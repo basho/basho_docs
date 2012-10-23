@@ -9,108 +9,108 @@ audience: beginner
 keywords: [installing]
 ---
 
-The following instructions will guide you through installing a Riak CS test environment. This guide does not cover system/service tuning,
-nor does it attempt to optimize your installation given your particular architecture.
+以下にRiak CSをテスト環境にインストールする際のガイドを示します。このガイドではシステム/サービスのチューニングについて説明しませんし、
+特定の環境対してのインストールの最適化も行いません。
 
-## Installing Your First Node
-**Step 1: Raise your system's open file limits**
+## 1番目のノードをインストールする
+**ステップ 1: システムのファイルオープンの上限を上げる**
 
-Riak can consume a large number of open file handles during normal operation. See the [[Open Files Limit|Open-Files-Limit]] documentation for more information on how to increase your system's open files limit.
+Riakは通常のオペレーション中に多数のファイルハンドルをオープンすることができます。システムのオープンファイル数を増やす方法の詳細は [[オープンファイルの制限|Open-Files-Limit]] ドキュメントを参照してください。
 
-If you are the root user, you can increase the system's open files limit *for the current session* with this command:
+あなたがルートユーザであれば、次のコマンドで *現在のセッション* に対して、システムのオープンファイル数を増やすことができます。
 
     ulimit -n 65536
 
-For this setting to persist, we also need to save it for the root and riak users in `/etc/security/limits.conf`:
+ルートおよび riak ユーザのために、この設定を恒久的にしたいときは `/etc/security/limits.conf` に保存する必要があります。
 
-    # ulimit settings for Riak CS
+    # Riak CS のための ulimit 設定
     root soft nofile 65536
     root hard nofile 65536
     riak soft nofile 65536
     riak hard nofile 65536
 
-**Step 2: Download and install packages**
+**ステップ 2: パッケージをダウンロードし、インストール**
 
-This guide uses `curl` for downloading packages and interacting with the Riak CS API so let's make sure it's installed:
+このガイドではパッケージのダウンロード、および Riak CS API との対話に `curl` を使用しますので、それがインストールされているのかを確認しましょう。
 
     sudo apt-get install -y curl
 
-If you are running Ubuntu 11.10 or later, you will also need the `libssl0.9.8` package. See  [[Installing on Debian and Ubuntu|Installing-on-Debian-and-Ubuntu]] for more information.
+Ubuntu 11.10 以降を使用しているのであれば、`libssl0.9.8` パッケージも必要です。詳しいことは [[Debian および Ubuntu でのインストール|Installing-on-Debian-and-Ubuntu]] を参照してください。
 
     sudo apt-get install -y libssl0.9.8
 
-Now let's grab the Riak and Riak CS packages. Since this is our first node, we'll also be installing the Stanchion package as well.
+さあ、Riak と Riak CS パッケージを取りましょう。これが最初のノードになるので、Stanchion (支柱) パッケージもインストールしましょう。
 
-As a licensed Riak CS customer, you can use your Basho provided credentials to access Riak CS from the [downloads](https://help.basho.com/forums/20747106-riak-cs-downloads) section of the Basho help desk website.
+ライセンス版の Riak CS カスタマは、Basho のヘルプデスク ウェブサイトの [downloads](https://help.basho.com/forums/20747106-riak-cs-downloads) セクションから、Basho が提供している証明書を Riak CS に適用することができます。
 
-After downloading Riak EE, Stanchion, and Riak CS, install them using your operating system's package management commands.
+Riak EE、Stanchion、Riak CS をダウンロードしたら、オペレーティングシステムのパッケージ管理コマンドを使ってそれらをインストールしてください。
 
-First install Riak EE:
+最初に Riak EE をインストールします:
 
 **RHEL6**:
 
     rpm -Uvh <riak-ee-package.rpm>
 
-Replace `<riak-ee-package.rpm>` with the actual file name for the package you are installing.
+`<riak-ee-package.rpm>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
 **Ubuntu Lucid**:
 
     sudo dpkg -i <riak-ee-package.deb>
 
-Replace `<riak-ee-package.deb>` with the actual file name for the package you are installing.
+`<riak-ee-package.deb>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
-Next, install Riak CS:
+次に、Riak CS をインストールします:
 
 RHEL6:
 
     rpm -Uvh <riak-cs-package.rpm>
 
-Replace `<riak-cs-package.rpm>` with the actual file name for the package you are installing.
+`<riak-cs-package.rpm>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
 Ubuntu Lucid:
 
     sudo dpkg -i <riak-cs-package.deb>
 
-Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
+`<riak-cs-package.deb>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
-Finally, install Stanchion:
+最後に Stanchion をインストールします:
 
 RHEL 6:
 
     sudo rpm -Uvh <stanchion-package.rpm>
 
-Replace `<stanchion-package.rpm>` with the actual file name for the package you are installing.
+`<stanchion-package.rpm>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
 Ubuntu Lucid:
 
     sudo dpkg -i <stanchion-package.deb>
 
-Replace `<stanchion-package.deb>` with the actual file name for the package you are installing.
+`<stanchion-package.deb>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
-**Step 3: Set service configurations and start the services**
+**ステップ 3: サービスの設定を行い、サービスとして起動する**
 
-We need to make some changes to the Riak configuration. We'll be editing
-`/etc/riak/app.config`. First, we need to add this line to the
-`riak_core` section, which starts off like:
+Riak 設定のためにいくつかすることがあります。`/etc/riak/app.config` を編集します。
+まず、`riak_core` セクションに次の行を追加する必要があります。
+セクションはこのように始まっています。
 
 ```erlang
 {riak_core, [
 ```
 
-We'll add this line to that section:
+このセクションに、このような行を追加します。
 
 ```erlang
 {default_bucket_props, [{allow_mult, true}]},
 ```
 
-Next, Riak ships with Bitcask as the default backend.
-We need to change this to the custom Riak CS backend.
+次に、Riak は Ritcask がデフォルトのバックエンドとして設定されています。
+これを Riak CS のカスタム バックエンドに変える必要があります。
 
-Change the following line in `/etc/riak/app.config`
+`/etc/riak/app.config` の次の行を変更します。
 
     {storage_backend, riak_kv_bitcask_backend}
 
-to
+このようにします。
 
     {add_paths, ["/usr/lib64/riak-cs/lib/riak_moss-1.0.1/ebin"]},
     {storage_backend, riak_cs_kv_multi_backend},
@@ -126,123 +126,118 @@ to
         ]}
     ]},
 
-Next, add this to the **riak_core** section of `app.config`:
+`app.config` の **riak_core** セクションにこれを追加します:
 
     {default_bucket_props, [{allow_mult, true}]},
 
-Next, we set our interface IP addresses in the app.config files. In a production environment, you will likely have multiple NICs, but for this test cluster, we are going to assume one NIC with an example IP address of 10.0.2.10.
+app.config ファイルにインタフェース IP アドレスを設定します。プロダクション環境では、複数の NIC を使っていることでしょうが、今はテストクラスタだけなので、10.0.2.10 という IP アドレスの NIC が1台だけだと仮定します。
 
-Change the following lines in `/etc/riak/app.config`
+`/etc/riak/app.config` の次の行を変更します。
 
     {http, [ {"127.0.0.1", 8098 } ]}
     {pb_ip,   "127.0.0.1" }
 
-to
+このようにします。
 
-    {http, [ {"10.0.2.10", 8098 } ]}
+	{http, [ {"10.0.2.10", 8098 } ]}
     {pb_ip,   "10.0.2.10" }
 
 
-Change the following lines in `/etc/riak-cs/app.config`
+`/etc/riak-cs/app.config` の次の行を変更します。
 
     {moss_ip, "127.0.0.1"}
     {riak_ip, "127.0.0.1"}
     {stanchion_ip, "127.0.0.1"}
 
-to
+このようにします。
 
-    {moss_ip, "10.0.2.10"}
+	{moss_ip, "10.0.2.10"}
     {riak_ip, "10.0.2.10"}
     {stanchion_ip, "10.0.2.10"}
 
 
-The moss_ip could also be set to 0.0.0.0 if you prefer Riak CS to listen on all interfaces.
+Riak CS に全てのインタフェースをリスンさせたいのであれば、moss_ip を 0.0.0.0 にしても構いません。
 
 
-Change the following lines in `/etc/stanchion/app.config`
+`/etc/stanchion/app.config` の次の行を変更します。
 
     {stanchion_ip, "127.0.0.1"}
     {riak_ip, "127.0.0.1"}
 
-to
+このようにします。
 
     {stanchion_ip, "10.0.2.10"}
     {riak_ip, "10.0.2.10"}
 
 
-Next, we set our service names. You can either use the local IP address for this or set hostnames. If you choose to set hostnames, you should ensure that the hostnames are resolvable by DNS or set in `/etc/hosts` on all nodes.
+次は、サービス名を設定します。ローカル　IP アドレスを使ってもいいし、ホスト名を使っても構いません。ホスト名を使うのであれば、DNS あるいはすべてのノードの `/etc/hosts` でホスト名が解決するようにしておいてください。
 
-<div class="note"><div class="title">Note</div>Service names require at least one period in the name.</div>
+<div class="note"><div class="title">ノート</div>サービス名には最低限1つのピリオドが必要です。</div>
 
-Change the following line in `/etc/riak/vm.args`
+`/etc/riak/vm.args` の次の行を変更します。
 
     -name riak@127.0.0.1
 
-to
+このようにします。
 
     -name riak@10.0.2.10
 
 
-Change the following line in `/etc/riak-cs/vm.args`
+`/etc/riak-cs/vm.args` の次の行を変更します。
 
     -name riak-cs@127.0.0.1
 
-to
+このようにします。
 
     -name riak-cs@10.0.2.10
 
 
-Change the following line in `/etc/stanchion/vm.args`
+`/etc/stanchion/vm.args` の次の行を変更します。
 
     -name stanchion@127.0.0.1
 
-to
+このようにします。
 
     -name stanchion@10.0.2.10
 
 
-That is the minimum amount of service configuration required to start a complete node. To start the services, type:
+以上がノードを起動するために必要な最低限のサービス設定です。サービスを起動するためには、次のようにタイプします。
 
     sudo riak start
     sudo stanchion start
     sudo riak-cs start
 
-<div class="info"><div class="title">Basho Tip</div>The order in which you start the services is important as each is a dependency for the next.</div>
+<div class="info"><div class="title">Basho Tip</div>それぞれが前のものに依存しているので、サービスをどの順で起動するかは重要です。</div>
 
-Finally, you can check the liveness of your Riak CS installation with the `riak-cs ping` command, which should return `pong` if Riak CS is up and able to successfully communicate with Riak.
+最後に、`riak-cs ping` コマンドを使って、インストールした Riak CS が動いているかをチェックすることができます。これを使うと、Riak CS が起動していれば `pong` を返し、Riak と正常に通信が可能です。
 
 ```bash
 riak-cs ping
 ```
 
-<div class="note"><div class="title">Note</div>The <tt>riak-cs ping</tt> command will fail if the Riak CS node is not able to communicate with the supporting Riak node. Ensure all components of the Riak CS system are running before checking liveness with <tt>riak-cs ping</tt>.</div>
+<div class="note"><div class="title">ノート</div>Riak CS が Riak ノードと通信できないときに、<tt>riak-cs ping</tt> コマンドは失敗します。<tt>riak-cs ping</tt> を使って生きているかをチェックする前に、Riak CS システムのすべてのコンポーネントを確認して下さい。</div>
 
-**Step 4: Create the admin user**
+**ステップ 4: 管理ユーザを作る**
 
-Creating the admin user is an optional step, but it's a good test of our new services. Creating a Riak CS user requires
-two inputs:
+管理ユーザの作成は、任意ですが、新しいサービスをテストするのに良い機会です。Riak CS のユーザを作成するには、2つの入力が要ります。
 
-1. Name - a URL encoded string. Example: "admin%20user"
+1. Name - URL エンコードされた文字列。例えば "admin%20user"
 
-2. Email - a unique email address. Example: "admin@admin.com"
+2. Email - ユニークな email アドレス。例えば "admin@admin.com"
 
-We can create the admin user with the following `curl` command:
+管理ユーザは次のようにして `curl` コマンドから作成できます:
 
-To create an admin user, we need to grant permission to create new
-users to the "anonymous" user.
-This configuration setting is only required on a single Riak CS node.
+管理ユーザを作成するために、新しいユーザを "anonymous" ユーザとして作成し、パーミッションを与えます。
+この設定には Riak CS のノードが1つだけ必要です。
 
-Add this entry to
-`/etc/riak-cs/app.config` immediately before the `{moss_ip, ...}`
-entry:
+`/etc/riak-cs/app.config` の `{moss_ip, ...}` のすぐ前に次のエントリを追加します。
 
     {anonymous_user_creation, true},
 
-Then run `riak-cs restart` to put the new config setting into effect.
+それから、新しい設定を有効にするために `riak-cs restart` を実行します。
 
-We can create the admin user with the following `curl` command, on the
-same Riak CS machine where the `anonymous_user_creation` configuration
-option was enabled:
+`anonymous_user_creation` オプションが有効になっているのと同じ Riak CS マシン上に、
+管理ユーザを、次のような `curl` コマンドを使って作成します。
 
 
 ```bash
@@ -251,103 +246,102 @@ curl -H 'Content-Type: application/json' \
   --data '{"email":"admin@admin.com", "name":"admin"}'
 ```
 
-The output of this command will be a JSON object that looks like this:
+このコマンドの出力結果は、次のような JSON オブジェクトとなります。
 
 ```bash
 {"email":"admin@admin.com","display_name":"admin","name":"admin user","key_id":"5N2STDSXNV-US8BWF1TH","key_secret":"RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==","id":"4b823566a2db0b7f50f59ad5e43119054fecf3ea47a5052d3c575ac8f990eda7"}
 ```
 
-The user's access key and secret key are returned in the `key_id` and `key_secret` fields respectively.
+ユーザのアクセスキーおよび秘密キーは、それぞれ `key_id` と `key_secret` に返ります。
 
-In this case, those keys are:
+ここではキーはこのようになっています。
 
     Access key: 5N2STDSXNV-US8BWF1TH
     Secret key: RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
 
-You can use this same process to create additional Riak CS users. To make this user the admin user, we set these
-keys in the Riak CS and Stanchion `app.config` files.
+同じ操作を使って、Riak CS のユーザを追加することができます。このユーザを管理ユーザにするために、Riak CS および `app.config` ファイルに次のキーを送ります。
 
-<div class="note"><div class="title">Note</div>The same admin keys will need to be set on all nodes of the cluster.</div>
+<div class="note"><div class="title">ノート</div>クラスタ内のすべてのノードに、同じ管理キーをセットする必要があります。</div>
 
-Change the following lines in `/etc/riak-cs/app.config` on all Riak CS machines:
-
-    {admin_key, "admin-key"}
-    {admin_secret, "admin-secret"}
-
-to
-
-    {admin_key, "5N2STDSXNV-US8BWF1TH"}
-    {admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
-
-<div class="note"><div class="title">Note</div>Do not forget to remove the `anonymous_user_creation` setting!.</div>
-
-Change the following lines in `/etc/stanchion/app.config`
+すべての Riak CS マシンの `/etc/riak-cs/app.config` の、以下の行を変更します:
 
     {admin_key, "admin-key"}
     {admin_secret, "admin-secret"}
 
-to
+このようにします。
+
+    {admin_key, "5N2STDSXNV-US8BWF1TH"}
+    {admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
+
+<div class="note"><div class="title">ノート</div>`anonymous_user_creation` 設定を削除することを忘れてはいけません。</div>
+
+`/etc/stanchion/app.config` の以下の行を変更します。
+
+    {admin_key, "admin-key"}
+    {admin_secret, "admin-secret"}
+
+このようにします。
 
     {admin_key, "5N2STDSXNV-US8BWF1TH"}
     {admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
 
 
-Now we have to restart the services for the change to take effect:
+変更結果を有効にするために、サービスをリスタートする必要があります:
 
     sudo stanchion restart
     sudo riak-cs restart
 
-**Step 5: Testing the installation**
+**ステップ 5: 確認テスト**
 
-The simplest way to test the installation is using the `s3cmd` script. We can install it by typing:
+インストール結果をテストする最も簡単な方法は、`s3cmd` スクリプトを使うことです。次のようにしてスクリプトをインストールします。
 
     sudo apt-get -y install s3cmd
 
-We need to configure `s3cmd` to use our Riak CS server rather than S3 as well as our user keys. To do that interactively, type:
+`s3cmd` が S3 にではなく、Riak CS サーバを使うように設定する必要があります。対話的にそれを行うには、次のようにタイプします。
 
     s3cmd --configure
 
-There are 4 default settings you should change:
+次の4つのデフォルト値を変更してください:
 
-* Access Key - use the Riak CS user access key you generated above.
-* Secret Key - use the Riak CS user secret key you generated above.
-* Proxy Server - use your Riak CS IP. Example: 10.0.2.10
-* Proxy Port - the default Riak CS port is 8080
+* Access Key - Riak CS のユーザアクセスキーを使うようにする
+* Secret Key - Riak CS のユーザ秘密キーを使うようにする
+* Proxy Server - Riak CS の IP アドレスを使うようにする。例: 10.0.2.10
+* Proxy Port - デフォルトの Riak CS ポートは 8080
 
-Once `s3cmd` is configured, we can use it to create a test bucket:
+`s3cmd` が設定されたら、テスト用のバケットを作成できるようになります:
 
     s3cmd mb s3://test_bucket
 
-We can see if it was created by typing:
+作成できたかどうかは、次のようにタイプします:
 
     s3cmd ls
 
-We can now upload a test file to that bucket:
+これでテストファイルをバケットにアップロードできます:
 
     dd if=/dev/zero of=test_file bs=1M count=2 # Create a test file
     s3cmd put test_file s3://test_bucket
 
-We can see if it was uploaded by typing:
+アップロードできたかどうかは、次のようにタイプします:
 
     s3cmd ls s3://test_bucket
 
-We can now download the test file:
+テストファイルをダウンロードします:
 
     rm test_file # remove the local test file
     s3cmd get s3://test_bucket/test_file
 
 
-## Installing Additional Nodes
-The process for installing additional nodes is identical to your first node with two exceptions:
+## 追加のノードをインストールする
+2つの相違点を除いて、追加ノードのインストールは、最初のノードのときと同じです。
 
-1. Stanchion only needs to be installed on your first node; there is no need to install it again on each node. The `stanchion_ip` setting in your
-    Riak CS `app.config` files should be set to the `stanchion_ip` from your first node.
-2. To add additional nodes to the Riak cluster, use the following command:
+1. 最初のノードには Stanchion がインストールされている必要がありますが、他のノードにはこれをインストールし直す必要はありません。
+Riak CS の `app.config` ファイルの `stanchion_ip` には、最初のノードの `stanchion_ip` をセットしておきます。
+2. Riak クラスタにノードを追加するには、以下のコマンドを使います:
 
         sudo riak-admin cluster join riak@10.0.2.10
 
-    Where `riak@10.0.2.10` is the Riak node name set in your first node's `/etc/riak/vm.args` file
+    ここで `riak@10.0.2.10` は Riak の最初のノードの `/etc/riak/vm.args` ファイルで設定したノードの名前です。
 
-You will then need to verify the cluster plan with the `riak-admin cluster plan` command, and commit the cluster changes with `riak-admin cluster commit` to complete the join process. More information is available in the [[Command Line Tools|Command-Line-Tools---riak-admin#cluster]] documentation.
+この後は、`riak-admin cluster plan` コマンドとでクラスタのプランを未直し、`riak-admin cluster commit` でクラスタの変更をコミットし、ジョイン プロセスを完了してください。詳しいことは [[コマンドライン ツール|Command-Line-Tools---riak-admin#cluster]] のドキュメントにあります。
 
-<div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and should not be operated in a manner which exposes it directly to the public internet</strong>. Instead, consider a load balancing solution, such as dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.</div>
+<div class="note"><div class="title">ノート</div><strong>Riak CS は TCP ポート 80 を直接扱うようには設計されていません。また、直接それを公共のインターネットに公開するような運用をしてはいけません。</strong>その代わりに、Riak CS と外の世界とを、専用のデバイスや、<a href="http://haproxy.1wt.eu">HAProxy</a> や <a href="http://wiki.nginx.org/Main">Nginx</a> といったロードバランサつなぐといった解決を考慮してください。</div>

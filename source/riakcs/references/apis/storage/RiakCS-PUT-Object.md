@@ -1,5 +1,5 @@
 ---
-title: RiakCS PUT Object
+title: RiakCS オブジェクトを格納
 project: riakcs
 version: 1.2.0+
 document: api
@@ -8,30 +8,30 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `PUT Object` operation adds an object to a bucket. The PUT Object operation does not add partial objects, so a success response indicates that the entire object was added to the bucket.
+`PUT Object` はバケットにオブジェクトを追加します。PUT Object は部分的なオブジェクトを追加するのではいので、成功のレスポンスがあればそれは、オブジェクト全体がバケットに追加されたことを意味します。
 
-*Note:* You must have WRITE permission on a bucket to use this operation.
+*ノート:* この操作を行うためには、オブジェクトに対する WRITE パーミッションが必要です。
 
-Riak CS is a distributed system. If it receives multiple write requests for the same object at the same time, the system will overwrite all but the last object written. If necessary, you can build versioning or object locking into your application.
+Riak CS は分散型システムです。複数のオブジェクトから同時に書き込みのリクエストを受けると、システムは全てを書こうとしますが、最後のオブジェクトだけが書きこまれます。必要であれば、バージョニング機能か、アプリケーションでのオブジェクトのロック機能を構築してください。
 
-To prevent the storage of data corrupted during transmission over a network, the Content-MD5 header instructs Riak CS to compare the object to the MD5 value provided. If the values don't match, the operation returns an error. In addition, if the PUT Object operation calculates the MD5, you can compare the ETag that is returned to the calculated MD5 value.
+ネットワークで転送中にデータが壊れることを防止するために、Content-MD5 ヘッダを使って、Riak CS にオブジェクトのMD5値を比較させることができます。値が一致しなければ、そのオペレーションはエラーを返します。さらに、PUT Object 操作は MD5 を計算し、返された MD5 と ETag を比較することができます。
 
-*Note*: You can configure an application to use the `100-continue` HTTP status code, which sends the Request Headers prior to sending the request body. Doing so prevents sending the message body when the message is rejected based on the headers, for example, due to authentication failure or redirect).
+*ノート*: リクエストボディに先駆けて送られるリクエストヘッダで、HTTP ステータスコードの `100-continue` を使うようにアプリケーションを作ることができます。これによって、認証エラーやリダイレクトのように、メッセージがヘッダで拒否されたときに、メッセージボディを送信しないですみます。
 
-## Access Permissions
-PUT Object offers the option to specify the permissions you want to grant to specific accounts or groups for the object. You can grant permissions to accounts or groups with request headers, using one of the following two methods:
+## アクセス パーミッション
+PUT Object は、特定のアカウントやグループに、オブジェクトに対する指定したパーミッションを与えます。リクエストヘッダを使い、以下の2つの方法でアカウントやグループにパーミッションを与えることができます。
 
-* Specify a predefined ACL using the x-amz-acl request header. More information about predefined ACLs is available [[here|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL]].
-* Specify access permissions explicitly using the x-amz-grant-read, x-amz-grant-write, x-amz-grant-read-acp, x-amz-grant-write-acp, x-amz-grant-full-control headers, which map to the set of ACL permissions supported by Amazon S3.
+* x-amz-acl リクエストヘッダに定義済みの ACL を指定する。定義済み ACL についての詳細は [[here|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL]] を参照。
+* Amzon S3 で使われている ACL パーミッションと対応している、x-amz-grant-read、x-amz-grant-write、x-amz-grant-read-acp、x-amz-grant-write-acp、x-amz-grant-full-control というヘッダで、明示的にアクセスパーミッションを指定する。
 
 <div class="note">
 <div class="title">Note</div>
-You can use either a predefined ACL or specify access permissions explicitly, not both.
+定義済みの ACL または明示的なアクセスパーミッション設定のいずれかを使います。両方ではありません。
 </div>
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 PUT /ObjectName HTTP/1.1
@@ -40,55 +40,55 @@ Date: date
 Authorization: signature_value
 ```
 
-### Request Headers
+### リクエストのヘッダ
 
-PUT Object offers the following request headers in addition to request headers common to all operations:
+PUT Object は、すべての操作に共通なリクエストヘッダに加えて、次のリクエストヘッダを提供します。
 
-**Content-Length** - The size of the object in bytes. This header is required.
+**Content-Length** - オブジェクトのバイト サイズ。このヘッダは必要である。
 
-* *Type*: String
-* *Default*: None
-* *Constraints*: None
+* *種別*: 文字列
+* *デフォルト*: なし
+* *制約*: なし
 
-**Content-MD5** - The base64-encoded 128-bit MD5 digest of the message without the headers according to RFC 1864. Although this header is optional, the Content-MD5 header can be used to confirm that the data is the same as what was originally sent.
+**Content-MD5** - RFC 1864 に従ったヘッダが無いメッセージの、base-64 でエンコードした、128 ビットの MD5 ダイジェスト。このヘッダはオプションではあるが、Content-MD5 ヘッダは、データが元のデータと相違ないことを確認するために利用できる。
 
-* *Type*: String
-* *Default*: None
-* *Constraints*: None
+* *種別*: 文字列
+* *デフォルト*: なし
+* *制約*: なし
 
-**Content-Type** - A standard MIME type that describes the content format.
+**Content-Type** - コンテントのフォーマットを表す、標準的な MIME タイプ。
 
-* *Type*: String
-* *Default*: binary/octet-stream
-* *Valid Values*: 100-continue
-* *Constraints*: None
+* *種別*: 文字列
+* *デフォルト*: binary/octet-stream
+* *有効な値*: 100-continue
+* *制約*: なし
 
-**Expect** - When you use `100-continue` in your application, it doesn't send the request body until it receives an acknowledgement. That way, the body of the message isn't sent if the message is rejected based on the headers.
+**Expect** - アプリケーション中で `100-continue` を使用すると、肯定的応答を受けるまでリクエストボディは送信されない。すなわち、メッセージがヘッダ上で拒否された場合はメッセージボディは送信されない。
 
-* *Type*: String
-* *Default*: None
-* *Valid Values*: 100-continue
-* *Constraints*: None
+* *種別*: 文字列
+* *デフォルト*: なし
+* *有効な値*: 100-continue
+* *制約*: なし
 
-**x-amz-meta-*** - User specified metadata fields which can be stored with the object.
+**x-amz-meta-*** - オブジェクトに格納される、ユーザ指定のメタデータフィールド。
 
-* *Type*: String
-* *Default*: None
-* *Constraints*: None
+* *種別*: 文字列
+* *デフォルト*: なし
+* *制約*: なし
 
-#### Permission Request Headers
+#### パーミッション リクエストヘッダ
 
-**x-amz-acl** - This request header specifies a predefined ACL to apply to the object being created. A predefined ACL grants specific permissions to individual accounts or predefined groups.
+**x-amz-acl** - このリクエストヘッダは、バケット作成時に、定義済みの ACL を指定します。定義済み ACL は、個々のアカウントまたは定められたグループに、指定したパーミッションを与えます。
 
-* *Type*: String
-* *Valid Values*: private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
-* *Constraints*: None
+* *種別*: 文字列
+* *有効な値*: private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
+* *制約*: なし
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-A request that stores the object, `basho-process.jpg` in the bucket, `basho_docs`.
+`basho_docs` というバケットに、`basho-process.jpg` というオブジェクトを格納するためのリクエストです。
 
 ```
 PUT /basho-process.jpg HTTP/1.1
@@ -101,7 +101,7 @@ Expect: 100-continue
 [201445 bytes of object data]
 ```
 
-### Sample Response
+### リクエストのサンプル
 
 ```
 HTTP/1.1 200 OK
@@ -112,9 +112,9 @@ Connection: close
 Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
 ```
 
-### Sample Request with Predefined Access Permissions
+### 定義済みアクセス パーミッションでリクエストする例
 
-This request uses an `x-amz-acl` header to specify a predefined ACL to grant READ permission to the public.
+このリクエストでは `x-amz-acl` ヘッダを使って定義済み ACL を指定して、全員に READ パーいっションを与えます。
 
 ```
 ...Object data in the body...
@@ -130,7 +130,7 @@ Connection: Keep-Alive
 ...Object data in the body...
 ```
 
-### Sample Response for Predefined Access Permissions
+### 定義済みアクセス パーミッションのレスポンス例
 
 ```
 HTTP/1.1 200 OK

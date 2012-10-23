@@ -9,36 +9,36 @@ keywords: [api, http]
 group_by: "Query Operations"
 ---
 
-[[MapReduce]] is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.
+[[MapReduce]] は入力を指定し、マップを作成し、リデュースし、データ集めるという、Riakにおける標準的なクエリ方法です。
 
-## Request
+## リクエスト
 
 ```bash
 POST /mapred
 ```
 
-Important headers:
-* `Content-Type` - must always be `application/json`.  The format of the request body is described in detail on the [[MapReduce]] page.
+重要なヘッダ:
+* `Content-Type` - 常に `application/json` でなければならない。リクエストボディのフォーマットは [[MapReduce]] のページで説明する。
 
-Optional query parameters:
-* `chunked` - when set to `true`, results will be returned as they are received in `multipart/mixed` format using chunked-encoding.
+オプション クエリ パラメータ:
+* `chunked` - `true` のときは、リザルトは `multipart/mixed` として、チャンクに分割されて返される。
 
-_+This request must include an entity (body), which is the JSON form of the MapReduce query.+_
+_+このリクエストは、MapReduceクエリとしてJSONのフォーマットでリクエストを内部(ボディ)に含まねばならない。+_
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 * `200 OK`
 
-Typical error codes:
-* `400 Bad Request` - if an invalid job is submitted.
-* `500 Internal Server Error` - if there was an error in processing a map or reduce function
-* `503 Service Unavailable` - if the job timed out before it could complete
+主なエラーコード:
+* `400 Bad Request` - 無理なジョブが与えられた
+* `500 Internal Server Error` - マップまたはリデュース処理中にエラーが発生した
+* `503 Service Unavailable` - ジョブ完了前にタイムアウトが発生した
 
-Important headers:
-* `Content-Type` - `application/json` when `chunked` is not true, otherwise `multipart/mixed` with `application/json` sections.
+重要なヘッダ:
+* `Content-Type` - `chunked` が true でないときは `application/json` とし、そうでないときは `application/json` セクションは `multipart/mixed` となる
 
-## Example
+## サンプル
 
 ```bash
 $ curl -v -d '{"inputs":"test", "query":[{"link":{"bucket":"test"}},{"map":{"language":"javascript","name":"Riak.mapValuesJson"}}]}' -H "Content-Type: application/json" http://127.0.0.1:8098/mapred

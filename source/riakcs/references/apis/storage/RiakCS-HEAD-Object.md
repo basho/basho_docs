@@ -1,5 +1,5 @@
 ---
-title: RiakCS HEAD Object
+title: RiakCS オブジェクトのヘッダを取得
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,15 +9,15 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `HEAD Object` operation retrieves metadata from an object without returning the object.
+`HEAD Object` は、オブジェクトごとではなく、オブジェクトのメタデータだけを返します。
 
-*Note:* You must have READ access to the object to use this operation.
+*ノート:* この操作を行うためには READ アクセス権限が必要です。
 
-A HEAD request has the same options as a GET operation on an object, and the HEAD response is identical to the GET response, except that there is no response body.
+HEADリクエストは、オブジェクトへのGETオペレーションと同じオプションを持ちますが、HEADのレスポンスとGETのレスポンスの違いは、レスポンスボディが空だとうことです。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 HEAD /ObjectName HTTP/1.1
@@ -26,11 +26,11 @@ Date: date
 Authorization: signature_value
 ```
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-The following request returns the metadata of an object.
+このリクエストで、オブジェクトのメタデータが返ります。
 
 ```
 HEAD /basho-process.jpg HTTP/1.1
@@ -39,7 +39,7 @@ Date: Wed, 06 Jun 2012 20:47:15 +0000
 Authorization: AWS AKIAIOSFODNN7EXAMPLE:0RQf4/cRonhpaBX5sCYVf1bNRuU=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK

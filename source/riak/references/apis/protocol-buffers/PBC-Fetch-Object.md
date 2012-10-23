@@ -1,5 +1,5 @@
 ---
-title: PBC Fetch Object
+title: PBC オブジェクトをフェッチする
 project: riak
 version: 0.14.0+
 document: api
@@ -9,9 +9,9 @@ keywords: [api, protocol-buffer]
 group_by: "Object/Key Operations"
 ---
 
-Fetch an object from Riak
+Riakからオブジェクトをフェッチする
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -29,32 +29,20 @@ message RpbGetReq {
 ```
 
 
-Optional Parameters
+オプション パラメータ
 
-* **r** - (read quorum) how many replicas need to agree when
-retrieving the object; possible values include a special number to
-denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **pr** - (primary read quorum) how many primary replicas need to be
-available when retrieving the object; possible values include a
-special number to denote 'one' (4294967295-1), 'quorum'
-(4294967295-2), 'all' (4294967295-3), 'default' (4294967295-4), or any
-integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **basic_quorum** - whether to return early in some failure cases (eg. when r=1
-and you get 2 errors and a success basic_quorum=true would return an error)
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
+* **r** - (read quorum) オブジェクトを取得する際に何個のレプリカが同意する必要があるか; 指定できる値は次の特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]]) 以下の任意の整数です。
+* **pr** - (primary read quorum) オブジェクトを取得する際に何このプライマリ レプリカが利用できる必要があるか; 指定できる値は次の特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、'all' (4294967295-3)、'default' (4294967295-4)、および N ([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]]) 以下の任意の整数です。
+* **basic_quorum** - いくつかエラーが起きれば、ただちに返るかどうか(たとえば r=1 で、エラーが2つあった場合、basic_quorum=true であればエラーを返します)。
+([[デフォルトではバケットごとに定義|PBC API#Set Bucket Properties]])
 * **notfound_ok** - whether to treat notfounds as successful reads for the
 purposes of R ([[default is defined per the bucket|PBC API#Set Bucket
 Properties]])
-* **if_modified** - when a vclock is supplied as this option only return the
-object if the vclocks don't match
-* **head** - return the object with the value(s) set as empty - allows you to
-get the metadata without a potentially large value
-* **deletedvclock** - return the tombstone's vclock, if applicable
+* **if_modified** - vclockが与えられているが、一致しなかった場合、このオプションはオブジェクトを返すだけです。
+* **head** - 値を空にしてオブジェクトを返します - 巨大なメタデータが返って来ないようにできます
+* **deletedvclock** - vclockがあれば、それを無効にします。
 
-## Response
+## レスポンス
 
 
 ```bash
@@ -66,17 +54,13 @@ message RpbGetResp {
 ```
 
 
-Values
+値
 
-* **content** - value+metadata entries for the object. If there are siblings
-there will be more than one entry. If the key is not found, content will be
-empty.
-* **vclock** - vclock Opaque vector clock that must be included in *RpbPutReq*
-to resolve the siblings.
-* **unchanged** - if if_modified was specified in the get request but the object
-has not been modified, this will be set to true
+* **content** - オブジェクトの value + metadata エントリです。兄弟があるときには複数のエントリになります。キーが見つからない時、中身は空になります。
+* **vclock** - vclockの暗黙のベクタクロックは、兄弟を解決するために *RpbPutReq* を含まなくてはいけません。
+* **unchanged** - GETリクエスト中に if_modified が指定されているが、オブジェクトは変更されていないとき、true がセットされます。
 
-The content entries hold the object value and any metadata
+content エントリにはオブジェクトや、あらゆるメタデータを持たせることができます。
 
 
 ```bash
@@ -97,10 +81,7 @@ message RpbContent {
 ```
 
 
-Each object can contain user-supplied metadata (X-Riak-Meta-\* in the HTTP
-interface) consisting of a key/value pair. (e.g. key=X-Riak-Meta-ACL
-value=users:r,administrators:f would allow an application to store access
-control information for it to enforce (*not* Riak)).
+各オブジェクトには、ユーザがキー/バリュー ペアの形でメタデータ(HTTPインタフェース内の X-Riak-Meta\*)を持たせることができます。(たとえば、key=X-Riak-Meta-ACL value=users:r,administrators:f として、アプリケーションが(Riakが、*ではない*)アクセス制御情報を格納させることができます)。
 
 
 ```bash
@@ -112,8 +93,7 @@ message RpbPair {
 ```
 
 
-Links store references to related bucket/keys and can be accessed through link
-walking in map/reduce.
+リンクには関連したバケット/キーへの参照を格納し、マップ/リデュース処理でリンクをたどるのに利用されます。
 
 
 ```bash
@@ -127,17 +107,15 @@ message RpbLink {
 
 
 
-<div class="note"><div class="title">Missing keys</div>
-<p>Remember - if a key is not stored in Riak an RpbGetResp without content and
-vclock fields will be returned. This should be mapped to whatever convention the
-client language uses to return not found, e.g. the erlang client returns an atom
-<code>{error, notfound}</code></p>
+<div class="note"><div class="title">キーがなかった場合</div>
+<p>重要 - キーがRiakに格納されていないとき、RpbGetRespは空のコンテントおよびvclockフィールドを返します。
+これは、どんなクライアント言語に対しても、見つからなかったことを知らせるために行わなければならない慣例です。たとえば、Erlangクライアントは、<code>{error, notfound}</code> というアトムを返します。</p>
 </div>
 
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 07 09 0A 01 62 12 01 6B
@@ -149,7 +127,7 @@ key: "k"
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex      00 00 00 4A 0A 0A 26 0A 02 76 32 2A 16 33 53 44

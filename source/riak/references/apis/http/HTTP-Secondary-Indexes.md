@@ -1,5 +1,5 @@
 ---
-title: HTTP Secondary Indexes
+title: HTTP セカンダリインデクス
 project: riak
 version: 1.0.0+
 document: api
@@ -9,34 +9,35 @@ keywords: [api, http]
 group_by: "Query Operations"
 ---
 
-[[Secondary Indexes]] allows an application to tag a Riak object with one or more field/value pairs. The object is indexed under these field/value pairs, and the application can later query the index to retrieve a list of matching keys.
+[[セカンダリインデクス|Secondary Indexes]] はRiakオブジェクトのフィールド/バリュー ペアをタグとしてアプリケーションから利用することができる。
+オブジェクトはこれらのフィールド/バリュー ペアを元にしてインデクスが作られ、アプリケーションからの問い合わせによって一致するキーを検索する。
 
-## Request
+## リクエスト
 
-Exact Match:
+完全一致:
 
 ```bash
 GET /buckets/mybucket/index/myindex_bin/value
 ```
 
-Or Range Query:
+範囲検索:
 ```
 GET /buckets/mybucket/index/myindex_bin/start/end
 ```
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 
 + `200 OK`
 
-Typical error codes:
+主なエラーコード:
 
-+ `400 Bad Request` - if the index name or index value is invalid.
-+ `500 Internal Server Error` - if there was an error in processing a map or reduce function, or if indexing is not supported by the system.
-+ `503 Service Unavailable` - if the job timed out before it could complete
++ `400 Bad Request` - インデクス名または値が不正
++ `500 Internal Server Error` - マップまたはレディース処理中にエラーが発生した、あるいはシステムがインデクスをサポートしていない
++ `503 Service Unavailable` - ジョブが完了前にタイムアウトした
 
-## Example
+## サンプル
 
 ```bash
 $ curl -v http://localhost:8098/buckets/mybucket/index/field1_bin/val1

@@ -1,5 +1,5 @@
 ---
-title: RiakCS PUT Object ACL
+title: RiakCS オブジェクトのACLを格納
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,22 +9,22 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `PUT Object acl` operation uses the `acl` subresource to set the access control list (ACL) permissions for an existing object in a bucket.
+`PUT Object acl` は、バケット内の既存のオブジェクトにアクセスコントローリリスト(ACL)パーミッションを設定するために、`acl` サブクラスを使用します。
 
-*Note:* You must have WRITE_ACP access to the object to use this operation.
+*ノート:* この操作を行うために、オブジェクトに対する WRITE_ACP アクセス権限が必要です。
 
-`PUT Object acl` offers two methods for setting an object's permissions:
+`PUT Object acl` はオブジェクトのパーミッションを設定するために2つの方法を用意しています。
 
-* Specify the ACL in the request body
-* Specify permissions using request headers
+* リクエストボディで ACL を指定する
+* リクエストヘッダを使ってパーミッションを指定する
 
-*Note*: You can specify an ACL in the request body or with request headers, not both.
+*ノート*: リクエストボディで ACL を指定するか、リクエストヘッダを使うかのいずれか一方です。同時ではありません。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
-This example shows the syntax for setting the ACL in the request body. The Request Headers section contain a list of headers you can use instead.
+ここでは ACL をリクエストボディで設定するときの書式を示します。ヘッダセクションにはコレで使う以外のヘッダが含まれています。
 
 ```
 PUT /ObjectName?acl HTTP/1.1
@@ -50,69 +50,69 @@ Authorization: signatureValue
   </AccessControlPolicy>
 ```
 
-### Request Parameters
+### リクエストパラメータ
 
-This operation does not use request parameters.
+この操作ではリクエストパラメータを使用しません。
 
-### Request Headers
+### リクエストヘッダ
 
-`PUT Object acl` offers the following request headers in addition to the request headers common to all operations.
+`PUT Object acl` では、すべての操作に共通なリクエストヘッダに加えて、次のリクエストヘッダを提供します。
 
-**x-amz-acl** - This request header specifies a predefined ACL to apply to the object being created. A predefined ACL grants specific permissions to individual accounts or predefined groups.
+**x-amz-acl** - 今リクエストヘッダは、オブジェクト作成時に、定義済みの ACL を指定します。定義済み ACL は、個々のアカウントまたは定められたグループに、指定したパーミッションを与えます。
 
-* *Type*: String
-* *Valid Values*: private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
-* *Default*: private
+* *種別*: 文字列
+* *有効な値*: private | public-read | public-read-write | authenticated-read | bucket-owner-read | bucket-owner-full-control
+* *デフォルト*: private
 
-### Request Elements
+### リクエストの要素
 
-If you specify the ACL using the request body, you must use the following elements:
+リクエストボディで ACL を指定するときは、以下の要素を使わなければいけません。
 
-**AccessControlList** - Container for ACL information (Grant, Grantee, and Permission).
+**AccessControlList** - ACL 情報用のコンテナ (Grant, Grantee, Permission).
 
-* *Type*: Container
-* *Ancestors*: AccessControlPolicy
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
 
-**AccessControlPolicy** - Contains the elements that set the ACL permissions for each grantee.
+**AccessControlPolicy** - 設定する ACL パーミッションの要素を入れる
 
-* *Type*: Container
-* *Ancestors*: None
+* *種別*: コンテナ
+* *継承*: なし
 
-**DisplayName** - Object owner's display name.
+**DisplayName** - オブジェクト オーナの表示名
 
-* *Type*: String
-* *Ancestors*: AccessControlPolicy.Owner
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner
 
-**Grant** - Container for `Grantee` and `Permission`.
+**Grant** - `Grantee` と `Permission` 用のコンテナ
 
-* *Type*: Container
-* *Ancestors*: AccessControlPolicy.AccessControlList
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy.AccessControlList
 
-**Grantee** - The subject who is being granted permissions.
+**Grantee** - 誰がパーミッションを受け取るかというサブジェクトThe subject who is being granted permissions.
 
-* *Type*: String
-* *Valid Values*: DisplayName|EmailAddress|AuthenticatedUser
-* *Ancestors*: AccessControlPolicy.AccessControlList.Grant
+* *種別*: 文字列
+* *有効な値*: DisplayName|EmailAddress|AuthenticatedUser
+* *継承*: AccessControlPolicy.AccessControlList.Grant
 
-**ID** - Object owner's ID.
+**ID** - オブジェクト オーナの ID
 
-* *Type*: String
-* *Ancestors*: AccessControlPolicy.Owner|AccessControlPolicy.AccessControlList.Grant
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner|AccessControlPolicy.AccessControlList.Grant
 
-**Owner** - Container for object owner information.
+**Owner** - オブジェクト オーナの情報
 
-* *Type*: Container
-* *Ancestors*: AccessControlPolicy
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
 
-**Permission** - Permission granted to the `Grantee`.
+**Permission** - `Grantee` に与えられるパーミッション
 
-* *Type*: String
-* *Valid Values*: FULL_CONTROL|WRITE_ACP|READ|READ_ACP
-* *Ancestors*: AccessControlPolicy.AccessControlList.Grant
+* *種別*: 文字列
+* *有効な値*: FULL_CONTROL|WRITE_ACP|READ|READ_ACP
+* *継承*: AccessControlPolicy.AccessControlList.Grant
 
-In request elements, you can specify the grantee to whom you are granting permissions in the following ways:
+リクエストの要素では、次の方法で誰にパーミッションを与えるのかを指定します。
 
-* *emailAddress*: The email address of an account
+* *emailAddress*: アカウントのメールアドレス
 
 ```
   <Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CustomerByEmail">
@@ -120,9 +120,9 @@ In request elements, you can specify the grantee to whom you are granting permis
   </Grantee>
 ```
 
-From the email address, the grantee is resolved to the CanonicalUser. The response to a `GET Object acl` request displays the grantee as the CanonicalUser.
+ユーザはメールアドレスから CanonicalUser として解決されます。`GET Object acl` のレスポンスでは、ユーザが CanonicalUser として示されます。
 
-* *id*: The user ID of an account
+* *id*: アカウントのユーザID
 
 ```
   <Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser">
@@ -131,9 +131,9 @@ From the email address, the grantee is resolved to the CanonicalUser. The respon
   </Grantee>
 ```
 
-For the id method, DisplayName is optional and ignored in the request.
+ID方式では、DisplayName はオプションで、リクエスト内では無視されます。
 
-* *uri*: The uri that defines a group
+* *uri*: グループを定義する URI
 
 ```
   <Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group">
@@ -141,15 +141,15 @@ For the id method, DisplayName is optional and ignored in the request.
   </Grantee>
 ```
 
-### Response Elements
+### レスポンスの要素
 
-PUT Bucket acl does not return response elements.
+PUT Bucket acl はレスポンス要素を返しません。
 
-## Examples
+## サンプル
 
-### Sample Request with Access Permission Specified in Request Body
+### リクエストボディにアクセスパーミッションを指定した例
 
-This sample request grants access permission to an existing object, named `basho-process.jpg`, by specifying the ACL in the request body. In addition to granting full control to the bucket owner, grant full control to an account identified by its canonical user ID.
+このサンプルでは、リクエストボディの ACL で `basho-process.jpg` という既存のオブジェクトにアクセスパーミッションを割り当てます。さらに、バケットオーナはフルコントロールできるように、ユーザIDで特定されるアカウントにフルコントロールの権限を与えます。
 
 ```
 PUT /basho-process.jpg?acl HTTP/1.1
@@ -175,9 +175,9 @@ Content-Length: 124
   </AccessControlPolicy>
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
-This is the sample response when versioning is enabled.
+バージョン管理が有効な場合のレスポンスのサンプルです。
 
 ```
 HTTP/1.1 200 OK
@@ -188,9 +188,9 @@ Connection: close
 Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
 ```
 
-### Sample Request Setting Access Permissions with Headers
+### ヘッダでアクセス パーミッションを設定するためのリクエストの例
 
-The following request uses ACL-specific request headers, x-amz-acl, and specifies a predefined ACL (public_read) to grant object read access to everyone.
+以下は、全員にオブジェクトの読み出しアクセスを与えるために、x-amz-acl というリクエストヘッダに、定義済みの ACL (public_read) を設定しています。
 
 ```
 PUT basho-process.jpg?acl HTTP/1.1
@@ -202,7 +202,7 @@ Host: data.basho.com
 Connection: Keep-Alive
 ```
 
-### Sample Response to Setting Permissions with Headers
+### ヘッダでパーミッションを設定したときのレスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK

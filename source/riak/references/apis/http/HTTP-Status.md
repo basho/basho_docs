@@ -1,5 +1,5 @@
 ---
-title: HTTP Status
+title: HTTP ステータス
 project: riak
 version: 0.10.0+
 document: api
@@ -9,30 +9,32 @@ keywords: [api, http]
 group_by: "Server Operations"
 ---
 
-Reports about the performance and configuration of the Riak node to which it was requested. You must have the `{riak_kv_stat,true}` configuration setting in app.config for this endpoint to be active. This is equivalent to the [[riak-admin status|Command-Line Tools#status]] command.
+リクエストされたRiakノードのパフォーマンスおよび設定情報のレポートを作成する。
+これを使うためには app.config で `{riak_kv_stat,true}` を設定する必要がある。
+この機能は [[riak-admin status|Command-Line Tools#status]] コマンドと同等である。
 
-## Request
+## リクエスト
 
 ```bash
 GET /stats
 ```
 
-Important headers:
+重要なヘッダ:
 
-* `Accept` - determines whether the response will be formatted in `application/json` or `text/plain`.
+* `Accept` - レスポンスのフォーマットを `application/json` にするか、`text/plain` にするかを決める
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 * `200 OK`
 
-Typical error codes:
-* `404 Not Found` - if `riak_kv_stat` is not enabled
+主なエラーコード:
+* `404 Not Found` - `riak_kv_stat` が有効でない
 
-Important headers:
-* `Content-Type` - `application/json` or `text/plain` (JSON with added line-breaks)
+重要なヘッダ:
+* `Content-Type` - `application/json` または `text/plain` (JSON は改行で区切られる)
 
-## Example
+## サンプル
 
 ```bash
 $ curl -v http://127.0.0.1:8098/stats -H "Accept: text/plain"
@@ -122,133 +124,132 @@ $ curl -v http://127.0.0.1:8098/stats -H "Accept: text/plain"
 * Closing connection #0
 ```
 
-## Output Explanation
+## 出力の説明
 
-The output of `/stats` contains a number of configuration and performance details. An explanation of these details follows.
-
-
-## CPU and Memory
-
-CPU statistics are taken directly from Erlang's cpu\_sup module.  Documentation for which can be found at [[ErlDocs: cpu_sup|http://erldocs.com/R14B04/os_mon/cpu_sup.html]].
-
-* `cpu_nprocs`: Number of operating system processes
-* `cpu_avg1`: The average number of active processes for the last 1 minute (equivalent to top(1) command's load average when divided by 256()
-* `cpu_avg5`: The average number of active processes for the last 5 minutes (equivalent to top(1) command's load average when divided by 256()
-* `cpu_avg15`: The average number of active processes for the last 15 minutes (equivalent to top(1) command's load average when divided by 256()
+出力結果の `/stats` には、設定とパフォーマンスについての詳細が含まれます。詳細は以下のとおりです。
 
 
-Memory statistics are taken directly from the Erlang virtual machine. Documentation for which can be found at [[ErlDocs: Memory|http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0]].
+## CPU とメモリ
 
-* `memory_total`: Total allocated memory (sum of processes and system)
-* `memory_processes`: Total amount of memory allocated for Erlang processes
-* `memory_processes_used`: Total amount of memory used by Erlang processes
-* `memory_system`: Total allocated memory that is not directly related to an Erlang process
-* `memory_atom`: Total amount of memory currently allocated for atom storage
-* `memory_atom_used`: Total amount of memory currently used for atom storage
-* `memory_binary`: Total amount of memory used for binaries
-* `memory_code`: Total amount of memory allocated for Erlang code
-* `memory_ets`: Total memory allocated for Erlang Term Storage
-* `mem_total`: Total available system memory
-* `mem_allocated`: Total memory allocated for this node
+CPUの統計情報はErlangの cpu\_sup モジュールから直接得ています。これに関するドキュメントは [[ErlDocs: cpu_sup|http://erldocs.com/R14B04/os_mon/cpu_sup.html]] にあります。
+
+* `cpu_nprocs`: オペレーティングシステムのプロセス数
+* `cpu_avg1`: 過去1分間における有効なプロセスの平均数(top(1)コマンドの平均ロード数を256で割ったものと同等)
+* `cpu_avg5`: 過去5分間における有効なプロセスの平均数(top(1)コマンドの平均ロード数を256で割ったものと同等)
+* `cpu_avg15`: 過去15分における有効なプロセスの平均数(top(1)コマンドの平均ロード数を256で割ったものと同等)
+
+メモリの統計情報はErlangバーチャルマシンから直接得ています。これに関するドキュメントは [[ErlDocs: Memory|http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0]] にあります。
+
+* `memory_total`: アロケート済みメモリの合計(プロセスおよびシステムの合計)
+* `memory_processes`: Erlangのプロセスとしてアロケートされているメモリの総計
+* `memory_processes_used`: Erlangのプロセスが使用しているメモリの総計
+* `memory_system`: Erlangのプロセスとして直接使われていないメモリの合計
+* `memory_atom`: 現在アトムストレージとしてアロケートされているメモリの合計
+* `memory_atom_used`: 現在アトムストレージとして使用しているメモリの合計
+* `memory_binary`: バイナリが使用しているメモリの合計
+* `memory_code`: Erlangのコードにアロケートされているメモリの合計
+* `memory_ets`: ErlangのTermストレージにアロケートされているメモリの合計
+* `mem_total`: 使用可能なシステムメモリの合計
+* `mem_allocated`: このノードにアロケートされているメモリの合計
 
 
-## Node, Cluster & System
+## ノード、クラスタ、システム
 
-* `nodename`: The name of the node that produced the stats output
-* `connected_nodes`: List of nodes connected to this node
-* `read_repairs`: Number of read repair operations this this node has coordinated in the last minute
-* `read_repairs_total`: Number of read repair operations this this node has coordinated since node was started
-* `coord_redirs_total`: Number of requests this node has redirected to other nodes for coordination since node was started
-* `ring_members`: List of nodes which are members of the ring
-* `ring_num_partitions`: Number of partitions in the ring
-* `ring_ownership`: List of all nodes in the ring and their associated partition ownership
-* `ring_creation_size`: Number of partitions this node is configured to own
-* `ignored_gossip_total`: Total number of ignored gossip messages since node was started
-* `handoff_timeouts`: Number of handoff timeouts encountered by this node
-* `coord_redirs_total`: Number of requests this node has redirected to other nodes for coordination since startup
-* `precommit_fail`: Number of pre commit hook failures
-* `postcommit_fail`: Number of post commit hook failures
-* `sys_driver_version`: String representing the Erlang driver version in use by the runtime system
-* `sys_global_heaps_size`: Current size of the shared global heap
-* `sys_heap_type`: String representing the heap type in use (one of private, shared, hybrid)
-* `sys_logical_processors`: Number of logical processors available on the system
-* `sys_otp_release`: Erlang OTP release version in use on the node
-* `sys_process_count`: Number of processes existing on this node
-* `sys_smp_support`: Boolean value representing whether symmetric multi-processing (SMP) is available
-* `sys_system_version`: Detailed Erlang version information
-* `sys_system_architecture`: The node operating system and hardware architecture
-* `sys_threads_enabled`: Boolean value representing whether threads are enabled
-* `sys_thread_pool_size`: Number of threads in the asynchronous thread pool
-* `sys_wordsize`: Size of Erlang term words in bytes as an integer, for examples, on 32-bit architectures 4 is returned and on 64-bit architectures 8 is returned
-* `storage_backend`: Name of the active storage backend
-* `pbc_connects_total`: Number of protocol buffers connections since node was started
-* `pbc_connects`: Number of protocol buffers connections in the last minute
-* `pbc_active`: Number of active protocol buffers connections
-* `ssl_version`: Version of secure sockets layer (SSL) application in use
-* `public_key_version`: Version of public key application in use
-* `runtime_tools_version`: Version of runtime tools application in use
-* `basho_stats_version`: Version of Basho stats application in use
-* `riak_search_version`: Version of Riak Search application in use
-* `riak_kv_version`: Version of Riak KV application in use
-* `bitcask_version`: Version of Bitcask backend application in use
-* `luke_version`: Version of Luke application in use
-* `erlang_js_version`: Version of Erlang JS application in use
-* `mochiweb_version`: Version of MochiWeb application in use
-* `inets_version`: Version of Inets application in use
-* `riak_pipe_version`: Version of Riak Pipe application in use
-* `merge_index_version`: Version of Merge Index application in use
-* `cluster_info_version`: Version of Cluster Information application in use
-* `basho_metrics_version`: Version of Basho Metrics application in use
-* `riak_control_version`: Version of Riak Control application in use
-* `riak_core_version`: Version of Riak Core application in use
-* `lager_version`: Version of Lager application in use
-* `riak_sysmon_version`: Version of Riak System Monitor application in use
-* `webmachine_version`: Version of Webmachine application in use
-* `crypto_version`: Version of Cryptography application in use
-* `os_mon_version`: Version of Operating System Monitor application in use
-* `sasl_version`: Version of SASL application in use
-* `stdlib_version`: Version of Standard Library application in use
-* `kernel_version`: Version of Kernel application in use
+* `nodename`: ステータス出力に使われているノードの名前
+* `connected_nodes`: このノードに接続されているノードのリスト
+* `read_repairs`: このノードが最後に扱ったリードリペア オペレーションの数
+* `read_repairs_total`: ノードが作られてからの、このノードが扱っているリードリペア オペレーションの数
+* `coord_redirs_total`: ノードが作られてからの、他のノードを扱っているノードのリクエストの数
+* `ring_members`: リングのメンバーであるノードのリスト
+* `ring_num_partitions`: リング内のパーティションの数
+* `ring_ownership`: リング内の、パーティションのオーナである全ノードのリスト
+* `ring_creation_size`: ノードに所有権のあるパーティションの数
+* `ignored_gossip_total`: ノードが作られた時点からの、無視したゴシップメッセージの合計数
+* `handoff_timeouts`: このノードで起きたハンドオフ タイムアウトの数
+* `coord_redirs_total`: 起動時店からの、このノードから他のノードへリダイレクトしたリクエストの数
+* `precommit_fail`: プレコミットフックのエラー数
+* `postcommit_fail`: ポストコミットフックのエラー数
+* `sys_driver_version`: ランタイムシステムによって使われているErlangドライバのバージョンを表す文字列
+* `sys_global_heaps_size`: 共有グローバルヒープの現在のサイズ
+* `sys_heap_type`: 使用中のヒープ型(private、shared、hybridのいずれか)を表す文字列
+* `sys_logical_processors`: システムで有効な論理プロセサの数
+* `sys_otp_release`: ノードで使用しているErlang OTPのリリースバージョン
+* `sys_process_count`: このノードに存在するプロセスの数
+* `sys_smp_support`: 対称マルチプロセッサ(SMP)が有効かどうかを表すブール値
+* `sys_system_version`: 詳細なErlangのバージョン情報
+* `sys_system_architecture`: ノードのオペレーティングシステムとハードウェアのアーキテクチャ
+* `sys_threads_enabled`: スレッドが有効であることを表すブール値
+* `sys_thread_pool_size`: 非同期スレッドプールにあるスレッドの数
+* `sys_wordsize`: Erlangにおけるワードのバイト長、たとえば32ビットアーキテクチャでは4、64ビットアーキテクチャでは8となる
+* `storage_backend`: 有効なストレージバックエンドの名前
+* `pbc_connects_total`: ノードが作られてからのプロトコルバッファのコネクション数
+* `pbc_connects`: 最近のプロトコルバッファのコネクション数
+* `pbc_active`: 有効なプロトコルバッファのコネクション数
+* `ssl_version`: 使用中のセキュア ソケット レイヤ(SSL)アプリケーションのバージョン
+* `public_key_version`: パブリック キー アプリケーションのバージョン
+* `runtime_tools_version`: 使用中のランタイム ツール アプリケーションのバージョン
+* `basho_stats_version`: 使用中のBasho統計アプリケーションのバージョン
+* `riak_search_version`: 使用中のRiak Searchアプリケーションのバージョン
+* `riak_kv_version`: 使用中のRiak KVアプリケーションのバージョン
+* `bitcask_version`: 使用中のBitcaskアプリケーションのバージョン
+* `luke_version`: 使用中のLukeアプリケーションのバージョン
+* `erlang_js_version`: 使用中のErlang JSアプリケーションのバージョン
+* `mochiweb_version`: 使用中のMochiWebアプリケーションのバージョン
+* `inets_version`: 使用中のInetsアプリケーションのバージョン
+* `riak_pipe_version`: 使用中のRiak Pipeアプリケーションのバージョン
+* `merge_index_version`: 使用中のMerge Indexアプリケーションのバージョン
+* `cluster_info_version`: 使用中のクラスタ情報アプリケーションのバージョン
+* `basho_metrics_version`: 使用中のBasho Metricsアプリケーションのバージョン
+* `riak_control_version`: 使用中のRiak Controlアプリケーションのバージョン
+* `riak_core_version`: 使用中のRiak Coreアプリケーションのバージョン
+* `lager_version`: 使用中のLagerアプリケーションのバージョン
+* `riak_sysmon_version`: 使用中のRiakシステムモニタ アプリケーションのバージョン
+* `webmachine_version`: 使用中のWebmachineアプリケーションのバージョン
+* `crypto_version`: 庄祐のCryptographyアプリケーションのバージョン
+* `os_mon_version`: 使用中のオペレーティングシステム モニタ アプリケーションのバージョン
+* `sasl_version`: 使用中のSASLアプリケーションのバージョン
+* `stdlib_version`: 使用中の標準ライブラリ アプリケーションのバージョン
+* `kernel_version`: 使用中のカーネル アプリケーションのバージョン
 
-### Node & VNode Counters
+### ノードおよびＶノード カウンタ
 
-* `vnode_gets`: Number of GET operations coordinated by vnodes on this node within the last minute
-* `vnode_puts`: Number of PUT operations coordinated by vnodes on this node within the last minute
-* `vnode_gets_total`: Number of GET operations coordinated by vnodes on this node since node was started
-* `vnode_puts_total`: Number of PUT operations coordinated by vnodes on this node since node was started
-* `node_gets`: Combined number of local and non-local GET operations coordinated by this node in the last minute
-* `node_gets_total`: Combined number of local and non-local GET operations coordinated by this node since node was started
+* `vnode_gets`: このノード上のＶノードが、最近扱ったGETオペレーションの数
+* `vnode_puts`: このノード上のＶノードが、最近扱ったPUTオペレーションの数
+* `vnode_gets_total`: ノードが作られてからの、このノード上のＶノードが扱ったGETオペレーションの数
+* `vnode_puts_total`: ノードが作られてからの、このノード上のＶノードが扱ったPUTオペレーションの数
+* `node_gets`: このノードが最近扱った、ローカルおよび非ローカルGETオペレーションを合わせた数
+* `node_gets_total`: ノードが作られてからの、このノードが扱った、ローカルおよび非ローカルGETオペレーションを合わせた数
 
-### Microsecond Timers
+### マイクロ秒タイマ
 
-* `node_get_fsm_time_mean`: Mean time between reception of client GET request and subsequent response to client
-* `node_get_fsm_time_median`: Median time between reception of client GET request and subsequent response to client
-* `node_get_fsm_time_95`: 95th percentile time between reception of client GET request and subsequent response to client
-* `node_get_fsm_time_99` 99th percentile time between reception of client GET request and subsequent response to client
-* `node_get_fsm_time_100` 100th percentile time between reception of client GET request and subsequent response to client
-* `node_puts`: Combined number of local and non-local PUT operations coordinated by this node in the last minute
-* `node_puts_total`: Combined number of local and non-local PUT operations coordinated by this node since node was started
-* `node_put_fsm_time_mean`: Mean time between reception of client PUT request and subsequent response to client
-* `node_put_fsm_time_median`: Median time between reception of client PUT request and subsequent response to client
-* `node_put_fsm_time_95`: 95th percentile time between reception of client PUT request and subsequent response to client
-* `node_put_fsm_time_99`: 99th percentile time between reception of client PUT request and subsequent response to client
-* `node_put_fsm_time_100`: 100th percentile time between reception of client PUT request and subsequent response to client
+* `node_get_fsm_time_mean`: クライアントのGETリクエストからレスポンスが返るまでの平均時間
+* `node_get_fsm_time_median`: クライアントのGETリクエストからレスポンスが返るまでの時間の中央値
+* `node_get_fsm_time_95`: クライアントのGETリクエストからレスポンスが返るまでの時間の100分の95番目
+* `node_get_fsm_time_99` クライアントのGETリクエストからレスポンスが返るまでの時間の100分の99番目
+* `node_get_fsm_time_100` クライアントのGETリクエストからレスポンスが返るまでの時間の100分の100番目
+* `node_puts`: このノードが最近扱った、ローカルおよび非ローカルPUTオペレーションを合わせた数
+* `node_puts_total`: ノードが作られてからの、このノードが扱った、ローカルおよび非ローカルPUTオペレーションの数
+* `node_put_fsm_time_mean`: クライアントのPUTリクエストからレスポンスが返るまでの平均時間
+* `node_put_fsm_time_median`: クライアントのPUTリクエストからレスポンスが返るまでの時間の中央値
+* `node_put_fsm_time_95`: クライアントのPUTリクエストからレスポンスが返るまでの時間の100分の95番目
+* `node_put_fsm_time_99`: クライアントのPUTリクエストからレスポンスが返るまでの時間の100分の99番目
+* `node_put_fsm_time_100`: クライアントのPUTリクエストからレスポンスが返るまでの時間の100分の100番目
 
-### Object, Index & Sibling Metrics
+### オブジェクト、インデクス、兄弟メトリクス
 
-* `node_get_fsm_objsize_mean`: Mean object size encountered by this node within the last minute
-* `node_get_fsm_objsize_median`: Median object size encountered by this node within the last minute
-* `node_get_fsm_objsize_95`: 95th percentile object size encountered by this node within the last minute
-* `node_get_fsm_objsize_99`: 99th percentile object size encountered by this node within the last minute
-* `node_get_fsm_objsize_100` 100th percentile object size encountered by this node within the last minute
-* `vnode_index_reads`: Number of vnode index read operations performed in the last minute
-* `vnode_index_writes`: Number of vnode index write operations performed in the last minute
-* `vnode_index_deletes`: Number of vnode index delete operations performed in the last minute
-* `vnode_index_reads_total`: Number of vnode index read operations performed since the node was started
-* `vnode_index_writes_total`: Number of vnode index write operations performed since the node was started
-* `vnode_index_deletes_total`: Number of vnode index delete operations performed since the node was started
-* `node_get_fsm_siblings_mean`: Mean number of siblings encountered during all GET operations by this node within the last minute
-* `node_get_fsm_siblings_median`: Median number of siblings encountered during all GET operations by this node within the last minute
-* `node_get_fsm_siblings_95`: 95th percentile of siblings encountered during all GET operations by this node within the last minute
-* `node_get_fsm_siblings_99`: 99th percentile of siblings encountered during all GET operations by this node within the last minute
-* `node_get_fsm_siblings_100`: 100th percentile of siblings encountered during all GET operations by this node within the last minute
+* `node_get_fsm_objsize_mean`: 最近の、このノードに到達したオブジェクトサイズの平均
+* `node_get_fsm_objsize_median`: 最近の、このノードに到達したオブジェクトサイズの中央値
+* `node_get_fsm_objsize_95`: 最近の、このノードに到達したオブジェクトサイズの100分の95番目
+* `node_get_fsm_objsize_99`: 最近の、このノードに到達したオブジェクトサイズの100分の99番目
+* `node_get_fsm_objsize_100` 最近の、このノードに到達したオブジェクトサイズの100分の100番目
+* `vnode_index_reads`: 最新の、Ｖノードによるインデクス読み出しオペレーションの数
+* `vnode_index_writes`: 最新の、Ｖノードによるインデクス書き込みオペレーションの数
+* `vnode_index_deletes`: 最新の、Ｖノードによるインデクス削除オペレーションの数
+* `vnode_index_reads_total`: ノードが作られてからの、Ｖノードによるインデクス読み出しオペレーションの数
+* `vnode_index_writes_total`: ノードが作られてからの、Ｖノードによるインデクス書き込みオペレーションの数
+* `vnode_index_deletes_total`: ノードが作られてからの、Ｖノードによるインデクス削除オペレーションの数
+* `node_get_fsm_siblings_mean`: 最新の、このノードによる兄弟への全てのGETオペレーションの平均数
+* `node_get_fsm_siblings_median`: 最新の、このノードによる兄弟への全てのGETオペレーション数の中央値
+* `node_get_fsm_siblings_95`: 最新の、このノードによる兄弟への全てのGETオペレーション数の100分の95番目
+* `node_get_fsm_siblings_99`: 最新の、このノードによる兄弟への全てのGETオペレーション数の100分の99番目
+* `node_get_fsm_siblings_100`: 最新の、このノードによる兄弟への全てのGETオペレーション数の100分の100番目

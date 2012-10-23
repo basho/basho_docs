@@ -1,5 +1,5 @@
 ---
-title: PBC Bucket Properties
+title: PBC バケットのプロパティ
 project: riak
 version: 0.14.0+
 document: api
@@ -9,9 +9,9 @@ keywords: [api, protocol-buffer]
 group_by: "Bucket Operations"
 ---
 
-Get the properties for a bucket
+バケットのプロパティを得る
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -21,11 +21,11 @@ message RpbGetBucketReq {
 ```
 
 
-Required Parameters
+必要なパラメータ
 
-* **bucket** - bucket to retrieve properties for
+* **bucket** - プロパティの取得対象のバケット
 
-## Response
+## レスポンス
 
 
 ```bash
@@ -40,15 +40,14 @@ message RpbBucketProps {
 ```
 
 
-Values
+値
 
-* **n_val** - current n_val for the bucket
-* **allow_mult** - set allow_mult to true if conflicts should be returned to
-clients
+* **n_val** - バケットの現在の n_val
+* **allow_mult** - クライアントに競合を返すときは、allow_mult を true にする
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 0B 13 0A 08 6D 79 62 75 63 6B 65 74
@@ -60,7 +59,7 @@ bucket: "mybucket"
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex      00 00 00 07 14 0A 04 08 05 10 01

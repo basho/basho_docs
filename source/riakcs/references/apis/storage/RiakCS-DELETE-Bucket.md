@@ -1,5 +1,5 @@
 ---
-title: RiakCS DELETE Bucket
+title: RiakCS バケットを削除
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,13 +9,13 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `DELETE Bucket` operation deletes the bucket specified in the URI.
+`DELETE Bucket` は、URIで指定されたバケットを削除します。
 
-<div class="note"><div clas="title">Note</div>All objects in the bucket must be deleted before you can delete the bucket.</div>
+<div class="note"><div clas="title">ノート</div>バケットを削除する前に、バケット内のすべてのオブジェクトを削除しておくこと</div>
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 DELETE / HTTP/1.1
@@ -24,15 +24,15 @@ Date: date
 Authorization: signature_value
 ```
 
-## Responses
+## レスポンス
 
-DELETE Bucket uses only common response headers and doesn't return any response elements.
+バケットの削除では、共通のレスポンスヘッダのみを使用し、いかなるレスポンス エレメントも返しません。
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-The DELETE Bucket operation deletes the bucket name "projects".
+"projects" という名前のバケットを削除します。
 
 ```
 DELETE / HTTP/1.1
@@ -41,7 +41,7 @@ Date: Wed, 06 Jun 2012 20:47:15 +0000
 Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```
 HTTP/1.1 204 No Content

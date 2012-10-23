@@ -1,5 +1,5 @@
 ---
-title: HTTP Get Bucket Properties
+title: HTTP バケットのプロパティを得る
 project: riak
 version: 0.10.0+
 document: api
@@ -9,39 +9,35 @@ keywords: [api, http]
 group_by: "Bucket Operations"
 ---
 
-Reads the bucket properties.
+バケットのプロパティを読む
 
-## Request
+## リクエスト
 
 ```bash
-GET /riak/bucket                # Old format
-GET /buckets/bucket/props       # New format
+GET /riak/bucket                # 旧フォーマット
+GET /buckets/bucket/props       # 新フォーマット
 ```
 
-Optional query parameters (only valid for the old format):
+オプション クエリ パラメータ (旧フォーマットでのみ有効):
 
-* `props` - whether to return the bucket properties (`true` is the default)
-* `keys` - whether to return the keys stored in the bucket. (`false` is the
-default). See also [[HTTP List Keys]].
+* `props` - バケットプロパティを返す (デフォルトは `true`)
+* `keys` - バケットに格納されているキーを返す (デフォルトは `false`)　[[HTTP List Keys|HTTP List Keys]] 参照
 
-## Response
+## レスポンス
 
-Normal status codes:
+正常ステータスコード:
 
 * `200 OK`
 
-Important headers:
+重要なヘッダ:
 
 * `Content-Type` - `application/json`
 
-The JSON object in the response will contain up to two entries, `"props"` and
-`"keys"`, which are present or missing, according to the optional query
-parameters.  The default is for only `"props"` to be present.
+レスポンス内の JSON オブジェクトは、`"props"` と `"keys"` というエントリを2つまで含むことができます。オプション クエリ パラメータで、付けるか付けないかのいずれかです。デフォルトは `"props"` だけが付けられています。
 
-See [[HTTP Set Bucket Properties]] for more information about the available
-bucket properties.
+有効なバケットプロパティの詳細は [[HTTP バケットプロパティのセット|HTTP Set Bucket Properties]] を参照してください。
 
-## Example
+## サンプル
 
 ```bash
 $ curl -v http://127.0.0.1:8098/riak/test

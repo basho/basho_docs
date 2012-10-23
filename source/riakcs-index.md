@@ -13,35 +13,34 @@ simple: true
 ![Riak CS Logo](/images/riak-cs-logo.png)
 
 <br>
-Riak CS is multi-tenant cloud storage software for public and private clouds. Built on Basho's distributed database Riak, Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3-API compatible and supports per-tenant reporting for billing and metering use cases.  To try out Riak CS, sign up for a [developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html).
+Riak CS はパブリックおよびプライベートクラウド向けのマルチテナント クラウド ストレージ ソフトウェアです。Riak CS は Basho の分散型データベースである Riak 上に構築された、シンプルで、アベイラブルな、どんなスケールにも対応した分散型クラウドストレージです。Riak CS は S3-API と互換性があり、テナントごとの課金情報、使用状況を確認することができます。Riak CS をご試用になるためには、[開発者トライアル|developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html) に登録してください。
 
-## Notable Riak CS Features
+## 特筆すべき Riak CS の機能
 
 <table style="width: 100%; border-spacing: 0px;">
 <tbody>
 <tr align="left" valign="top">
-<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>Amazon S3-API Compatibility</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>Amazon S3-API 互換</strong></td>
 <td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
-<p>Riak CS has a built-in S3 interface with support for S3&nbsp;ACL so you can use existing S3 tools and frameworks&nbsp;or import and extract Amazon data. The HTTP REST&nbsp;API supports service, bucket and object-level&nbsp;operations to easily store and retrieve data.&nbsp;</p>
+<p>Riak CS には S3 ACL をサポートする S3 インタフェースが組み込まれているので、既存の S3 ツールやフレームワーク、さらに Amazon のデータをインポート / エクスポートすることができます。HTTP REST API は、サービス、バケット、オブジェクトレベルの操作をサポートし、データを簡単に格納し、取得することができます。</p>
 </td>
 </tr>
 <tr align="left" valign="top">
-<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Per-Tenant Visibility</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>テナント単位の可視性</strong></td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
-<p>With the Riak CS Reporting API, you get per-tenant&nbsp;usage data and statistics on network I/O. This&nbsp;reporting functionality supports use cases including&nbsp;accounting, subscription, chargebacks, plugins with&nbsp;billing systems or efficient multi-department&nbsp;utilization.</p>
+<p>Riak CSのリポートAPIを使うと、テナントごとのデータ使用量やネットワークI/Oの統計情報などを取得することができます。このリポート機能を使うことで、経理、売買、キャンセル、課金システムプラグイン、効率的な多部門利用などが実現できます。</p>
 </td>
 </tr>
 <tr align="left" valign="top">
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
-<p><strong>Supports Objects of Arbitrary&nbsp;Content Type Up to 5GB, Plus&nbsp;Metadata</strong></p>
+<p><strong>最大5GBの任意の形式のオブジェクト、およびメタデータをサポート</strong></p>
 </td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
-<p>Store images, text, video, documents, database&nbsp;backups, software binaries and other content up to&nbsp;5GB as a single, easily retrievable object.&nbsp;&nbsp;Riak CS also&nbsp;supports standard Amazon metadata headers.</p>
+<p>画像、テキスト、ビデオ、ドキュメント、データベースのバックアップ、ソフトウェアのバイナリ、その他を最大5GBの、アクセスしやすい単一オブジェクトとして格納できます。Riak CS は標準的な Amazon メタデータヘッダもサポートしています。</p>
 </td>
 </tr>
 </tbody>
 </table>
 
 <blockquote>
-Note: Not all Riak EDS features are currently compatible with Riak CS, including multi-datacenter replication.
-</blockquote>
+ノート: 現時点では、マルチデータセンタ レプリケーションを含む、Riak EDS 機能のすべてが Riak CS 互換というわけではありません。</blockquote>

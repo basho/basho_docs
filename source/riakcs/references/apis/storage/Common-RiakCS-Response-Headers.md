@@ -1,5 +1,5 @@
 ---
-title: RiakCS Common Response Headers
+title: RiakCS 共通レスポンスヘッダ
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,30 +9,30 @@ audience: advanced
 keywords: [api, http]
 ---
 
-These are the headers that are common to all Riak CS REST responses.
+Riak CS の REST レスポンス全てに共通なヘッダを示します。
 
-**Content-Length** - The length in bytes of the response body.
+**Content-Length** - レスポンスボディのバイトサイズ
 
-* *Type*: String
-* *Default*: None
+* *種別*: 文字列
+* *デフォルト*: なし
 
-**Connection** - Whether the connection to the server is open or closed.
+**Connection** - サーバへの接続がオープンか、クローズか
 
-* *Type*: Enum
+* *種別*: Enum
 * *Valid Values*: open|close
-* *Default*: None
+* *デフォルト*: なし
 
-**Date** - The date and time that Riak CS responded, for example, Fri, 01 Jun 2012 12:00:00 GMT.
+**Date** - Riak CS が応答した日付と時間。たとえば Fri, 01 Jun 2012 12:00:00 GMT
 
-* *Type*: String
-* *Default*: None
+* *種別*: 文字列
+* *デフォルト*: なし
 
-**ETag** - The entity tag is an MD5 hash of the object and reflects only changes to the object contents, not the object's metadata. The ETag is set when an object is created.
+**ETag** - エンティティ タグは、オブジェクトの MD5 ハッシュで、メタデータではなくオブジェクトの内容が変化したことを示すものです。ETag は、オブジェクトが作成されたときにセットされます。
 
 
-* *Type*: String
+* *種別*: 文字列
 
-**Server** - The name of the server that created the response.
+**Server** - レスポンスを行ったサーバの名前
 
-* *Type*: String
-* *Default*: None
+* *種別*: 文字列
+* *デフォルト*: なし

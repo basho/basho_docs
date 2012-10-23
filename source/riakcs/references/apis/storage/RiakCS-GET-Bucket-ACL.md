@@ -1,5 +1,5 @@
 ---
-title: RiakCS GET Bucket ACL
+title: RiakCS バケットのACLを取得
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,13 +9,13 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `GET Bucket acl` operation uses the `acl` subresource to return the access control list (ACL) of a bucket.
+`GET Bucket acl` は、バケットのアクセスコントロールリスト(ACL)を返すために、`acl` というサブリソースを使用します。
 
-*Note:* You must have READ_ACP access to the bucket to use this operation. If the anonymous user has READ_ACP permission, this operation will return the ACL of the bucket without an authorization header.
+*ノート:* この操作を行うためには、バケットに対する READ_ACP アクセス権限が必要です。匿名ユーザが READ_ACP 権限を持っていると、認証ヘッダなしで、バケットのACLを返してしまいます。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 GET /?acl HTTP/1.1
@@ -24,106 +24,106 @@ Date: date
 Authorization: signature_value
 ```
 
-### Request Parameters
+### リクエスト パラメータ
 
-The GET Bucket acl operation doesn't use request parameters.
+Get Bucket acl では、リクエスト パラメータを使用しません。
 
-## Response Elements
+## レスポンスの要素
 
-**AccessControlList** - Container for ACL information.
+**AccessControlList** - ACL情報コンテナ
 
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
 
-**AccessControlPolicy** - Container for the response.
+**AccessControlPolicy** - レスポンス用のコンテナ
 
-* *Type*: Container
-* *Ancestry*: None
+* *種別*: コンテナ
+* *継承*: なし
 
-**DisplayName** - Bucket owner's display name.
+**DisplayName** - バケット オーナの表示名
 
-*Note*: The operation returns the `DisplayName` only if the owner's e-mail address can be determined from the `ID`.
+*ノート*: オーナのEメールアドレスが `ID` から分かる場合は、`DisplayName` のみを返します。
 
-* *Type*: String
-* *Ancestry*: AccessControlPolicy.Owner
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner
 
-**Grant** - Container for `Grantee` and `Permission`.
+**Grant** - `Grantee` および `Permission` のコンテナ
 
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy.AccessControlList
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy.AccessControlList
 
-**Grantee** - Container for `DisplayName` and `ID` of the person who is being granted permissions.
+**Grantee** - 権限を持つ人の `DisplayName` と `ID` 用のコンテナ
 
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy.AccessControlList.Grant
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy.AccessControlList.Grant
 
-**ID** - Bucket owner's ID.
+**ID** - バケット オーナのID
 
-* *Type*: String
-* *Ancestry*: AccessControlPolicy.Owner
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner
 
-**Owner** - Container for bucket owner information.
+**Owner** - バケット オーナの情報用のコンテナ
 
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
 
-**Permission** - Permission granted to the `Grantee` for bucket.
+**Permission** - バケットの `Grantee` に許可を与える
 
-* *Type*: String
+* *種別*: 文字列
 * *TypeValid Values*: FULL_CONTROL|WRITE|WRITE_ACP|READ|READ_ACP
 
-*Ancestry*: AccessControlPolicy.AccessControlList.Grant**AccessControlList** - Container for ACL information.
+*継承*: AccessControlPolicy.AccessControlList.Grant**AccessControlList** - ACL情報用のコンテナ
 
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
 
-**AccessControlPolicy** - Container for the response.
+**AccessControlPolicy** - レスポンス用のコンテナ
 
-* *Type*: Container
-* *Ancestry*: None
+* *種別*: コンテナ
+* *継承*: なし
 
-**DisplayName** - Bucket owner's display name.
+**DisplayName** - バケット オーナの表示名
 
-*Note*: The operation returns the `DisplayName` only if the owner's e-mail address can be determined from the `ID`.
+*ノート*: オーナのEメールアドレスが `ID` から分かる場合は、`DisplayName` のみを返します。
 
-* *Type*: String
-* *Ancestry*: AccessControlPolicy.Owner
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner
 
-**Grant** - Container for `Grantee` and `Permission`.
+**Grant** - `Grantee` および `Permission` 用のコンテナ
 
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy.AccessControlList
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy.AccessControlList
 
-**Grantee** - Container for `DisplayName` and `ID` of the person who is being granted permissions.
-
-
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy.AccessControlList.Grant
-
-**ID** - Bucket owner's ID.
+**Grantee** - 権限を与える対象者の `DisplayName` と `ID` 用のコンテナ
 
 
-* *Type*: String
-* *Ancestry*: AccessControlPolicy.Owner
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy.AccessControlList.Grant
 
-**Owner** - Container for bucket owner information.
-
-
-* *Type*: Container
-* *Ancestry*: AccessControlPolicy
-
-**Permission** - Permission granted to the `Grantee` for bucket.
+**ID** - バケット オーナのID
 
 
-* *Type*: String
-* *Valid Values*: FULL_CONTROL|WRITE|WRITE_ACP|READ|READ_ACP
-* *Ancestry*: AccessControlPolicy.AccessControlList.Grant
+* *種別*: 文字列
+* *継承*: AccessControlPolicy.Owner
 
-## Examples
+**Owner** - バケット オーナ情報用のコンテナ
 
-### Sample Request
 
-This request returns the ACL of the specified bucket.
+* *種別*: コンテナ
+* *継承*: AccessControlPolicy
+
+**Permission** - バケットの権限を `Grantee` に与える
+
+
+* *種別*: 文字列
+* *有効な値*: FULL_CONTROL|WRITE|WRITE_ACP|READ|READ_ACP
+* *継承*: AccessControlPolicy.AccessControlList.Grant
+
+## サンプル
+
+### リクエストのサンプル
+
+このリクエストによって、指定したバケットのACLが返ります。
 
 ```
 GET ?acl HTTP/1.1
@@ -132,7 +132,7 @@ Date: Wed, 06 Jun 2012 20:47:15 +0000
 Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```
 HTTP/1.1 200 OK

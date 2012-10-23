@@ -1,5 +1,5 @@
 ---
-title: PBC Index
+title: PBC インデクス
 project: riak
 version: 1.2.0+
 document: api
@@ -9,9 +9,9 @@ keywords: [api, protocol-buffer]
 group_by: "Query Operations"
 ---
 
-Request a set of keys that match a secondary index query.
+セカンダリインデクスのクエリで比較されるキーのセットを要求する
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -30,28 +30,27 @@ message RpbIndexReq {
 ```
 
 
-Required Parameters
+必要なパラメータ
 
-* **bucket** - the bucket the index is for
-* **index** - specify the index to use
-* **qtype** - an IndexQueryType of either 0 (eq) or 1 (range)
+* **bucket** - インデクスを得るバケット
+* **index** - 使用するインデクス
+* **qtype** - IndexQueryType を 0 (一致) または 1 (範囲) で指定する
 
-Index queries are one of two types
+インデクス クエリの方法は2種類あります。
 
-* **eq** - Exactly match the query for the given `key`
-* **range** - Match over a min and max range (`range_min`, `range_max`)
+* **eq** - 与えられた `key` と完全に一致
+* **range** - 最小値と最大値の範囲内 (`range_min`, `range_max`)
 
-Optional Parameters
+オプション パラメータ
 
-* **key** - the exact value to match by. only used if qtype is eq
-* **range_min** - the minimum value for a range query to match. only used if qtype is range
-* **range_max** - the maximum value for a range query to match. only used if qtype is range
+* **key** - 比較する値。qtype が eq の時にのみ使用される
+* **range_min** - 比較範囲の最小値。qtype が range の時にのみ使用される
+* **range_max** - 比較範囲の最大値。qtype が range の時ののみ使用される
 
 
-## Response
+## レスポンス
 
-The results of a Secondary Index query are returned as a repeating list of
-0 or more keys that match the given request parameters.
+セカンダリインデクス クエリのリザルトは、リクエストパラメータと一致した、0個以上のキーの繰り返しリストとなります。
 
 
 ```bash
@@ -60,16 +59,16 @@ message RpbIndexResp {
 }
 ```
 
-Values
+値
 
-* **keys** - a list of keys that match the index request
+* **keys** - インデクス リクエストと一致したキーのリスト
 
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
-Here we look for any exact matches of "chicken" on an "animal_bin" index for a bucket named "farm".
+ここでは "farm" という名前のバケットで、"animal_bin" というインデクスにある "chicken" と一致するものを探します。
 
 ```bash
 RpbIndexReq protoc decode:
@@ -85,7 +84,7 @@ Erlang  <<0,0,0,30,25,10,10,4,102,97,114,109,18,10,97,110,105,
           101,110>>
 ```
 
-Response
+レスポンス
 
 ```bash
 Hex     00 00 00 0F 1A 0A 03 68 65 6E 0A 07 72 6F 6F 73 74 65 72

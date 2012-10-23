@@ -9,64 +9,56 @@ keywords: [api, http]
 index: true
 ---
 
-Riak has a rich, full-featured HTTP 1.1 API.  This is an overview of the
-operations you can perform via HTTP and can be used as a guide for developing a
-compliant client.  All URLs assume the default configuration values where
-applicable. All examples use `curl` to interact with Riak.
+Riakには完全な機能を豊富に持つHTTP 1.1 APIがあります。
+これはHTTPを使ってできる操作の概要を紹介し、また、クライアントを開発するときのガイドとすることができます。
+すべてのURLは、デフォルトで適切に設定された値を期待しています。
+すべてのサンプルは、Riakと対話するために`curl`を使っています。
 
 <div class="note"><div class="title">Client ID</div>
-<p>All requests to Riak &lt;1.0 or Riak 1.0 without `vnode_vclocks` enabled
-should include the `X-Riak-ClientId` header, which can be any string that
-uniquely identifies the client, for purposes of tracing object modifications in
-the [[vector clock|Vector Clocks]].</p>
+<p>Riak 1.0より前、あるいは`vnode_vclock`を有効にしていないRiak 1.0へのすべてのリクエストは、`X-Riak-ClientId`というヘッダを付加しなければいけません。これはクライアントをユニークに識別できればどんな文字列でもかまいません。オブジェクトの変更を追跡する [[ベクトルクロック|Vector Clocks]] に使用します。</p>
 </div>
 
-<div class="note"><div class="title">URL Escaping</div>
-<p>Buckets, keys, and link specifications may not contain unescaped slashes. Use
-a URL-escaping library or replace slashes with `%2F`.</p>
+<div class="note"><div class="title">URL エスケープ</div>
+<p>バケット、キー、リンクの仕様ではエスケープしていないスラッシュを含めません。URLエスケープライブラリを使用するか、スラッシュを `%2F` に置き換えてください。</p>
 </div>
 
-## Bucket Operations
+## バケットの操作
 
-Buckets in Riak are a virtual concept. They exist primarily as a namespace
-mechanism and as a mechanism to isolate specific behavior changes that deviate
-from the default bucket settings. For example, you may augment the [[number of
-replicas|Replication#Selecting-an-N-value-(n_val)]], the specific storage
-backend and [[commit hooks|Pre- and Post-Commit Hooks]] at the bucket level. 
+Riakのバケットは仮想の概念です。
+これらは主にネームスペース メカニズムであり、デフォルトのバケット設定から逸脱した設定変更から分離するためのメカニズムとして働きます。
+たとえば、あなたが [[レプリカの数|Replication#Selecting-an-N-value-(n_val)]] を増やしてしまうかもしれませんし、特定のストレージバックエンドや [[コミットフック|Pre- and Post-Commit Hooks]] をバケット レベルで行うかもしれません。
 
-<div class="info"><div class="title">How Many Buckets Can I Have?</div>
-<p>Currently, buckets come with virtually no cost except for when you modify the
-default bucket properties. Modified Bucket properties are gossiped around the
-cluster and therefore add to the amount of data sent around the network. In
-other words, buckets using the default bucket properties are free.</p>
+<div class="info"><div class="title">何個のバケットを使えますか？</div>
+<p>今のところ、デフォルトのバケット プロパティを変更しない限り、バケットにはいかなるコストも発生しません。
+バケット プロパティを変更すると、それが周囲のクラスタに伝播し、結果としてネットワークを流れるデータの送料が増えます。
+言い換えると、デフォルトのバケット プロパティにはコストがかかりません。</p>
 </div>
 
-<div class="note"><div class="title">Delete Buckets</div>
-<p>There is no straightforward way to delete an entire Bucket. To delete all
-the keys in a bucket, you'll need to delete them all individually.</P>
+<div class="note"><div class="title">バケットを削除する</div>
+<p>全てのバケットを一気に削除する方法はありません。バケット内の全てのキーを削除するには、それぞれをひとつづつ削除する必要があります。</P>
 </div>
 
-## Bucket Operations
+## バケットの操作
 
-* [[HTTP List Buckets]]
-* [[HTTP List Keys]]
-* [[HTTP Get Bucket Properties]]
-* [[HTTP Set Bucket Properties]]
+* [[HTTP バケットのリスト|HTTP List Buckets]]
+* [[HTTP キーのリスト|HTTP List Keys]]
+* [[HTTP バケットのプロパティを得る|HTTP Get Bucket Properties]]
+* [[HTTP バケットのプロパティを設定する|HTTP Set Bucket Properties]]
 
-## Object/Key Operations 
+## オブジェクト / キーの操作
 
-The combination of bucket, key, value and metadata are referred to as a "Riak
-Object". The operations below affect individual objects in Riak.
+バケット、キー、バリュー、メタデータを組み合わせたものは、"Riakオブジェクト" と呼ばれます。
+以下の操作は、それぞれのオブジェクトを操作します。
 
-* [[HTTP Fetch Object]]
-* [[HTTP Store Object]]
-* [[HTTP Delete Object]]
+* [[HTTP オブジェクトのフェッチ|HTTP Fetch Object]]
+* [[HTTP オブジェクトを格納する|HTTP Store Object]]
+* [[HTTP オブジェクトを削除する|HTTP Delete Object]]
 
-## Query Operations
+## クエリ操作
 
-* [[HTTP Link Walking]]
+* [[HTTP リンクウォーキング|HTTP Link Walking]]
 * [[HTTP MapReduce]]
-* [[HTTP Secondary Indexes]]
+* [[HTTP セカンダリインデクス|HTTP Secondary Indexes]]
 
 <!-- ## Luwak Operations (Large Objects)
 
@@ -80,8 +72,8 @@ multiple Riak Objects.
 * [[HTTP Delete Luwak Object]]
  -->
 
-## Server Operations
+## サーバ操作
 
 * [[HTTP Ping]]
-* [[HTTP Status]]
-* [[HTTP List Resources]]
+* [[HTTP ステータス|HTTP Status]]
+* [[HTTP リソースのリスト|HTTP List Resources]]

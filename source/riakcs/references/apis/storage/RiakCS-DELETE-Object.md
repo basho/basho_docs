@@ -1,5 +1,5 @@
 ---
-title: RiakCS DELETE Object
+title: RiakCS オブジェクトを削除
 project: riakcs
 version: 1.2.0+
 document: api
@@ -9,11 +9,11 @@ audience: advanced
 keywords: [api, http]
 ---
 
-The `DELETE Object` operation removes an object, if one exists.
+`DELETE Object` は、オブジェクトがあれば、それを削除します。
 
-## Requests
+## リクエスト
 
-### Request Syntax
+### リクエストの書式
 
 ```
 DELETE /ObjectName HTTP/1.1
@@ -23,11 +23,11 @@ Content-Length: length
 Authorization: signature_value
 ```
 
-## Examples
+## サンプル
 
-### Sample Request
+### リクエストのサンプル
 
-The DELETE Object operation deletes the object, `projects-schedule.jpg`.
+`projects-schedule.jpg` というオブジェクトを削除します。
 
 ```
 DELETE /projects-schedule.jpg HTTP/1.1
@@ -36,7 +36,7 @@ Date: Wed, 06 Jun 2012 20:47:15 GMT
 Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 ```
 
-### Sample Response
+### レスポンスのサンプル
 
 ```
 HTTP/1.1 204 No Content

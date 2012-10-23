@@ -1,5 +1,5 @@
 ---
-title: HTTP List Keys
+title: HTTP キーのリスト
 project: riak
 version: 0.10.0+
 document: api
@@ -9,53 +9,47 @@ keywords: [api, http]
 group_by: "Bucket Operations"
 ---
 
-Lists keys in a bucket.
+バケット内のキーをリストする
 
 <div class="note">
-<div class="title">Not for production use</div>
+<div class="title">プロダクションで使用してはならない</div>
 
-This operation requires traversing all keys stored in the cluster and should not be used in production.
+クラスタに格納されている全てのキーを走査する。プロダクションに使用してはならない。
 
 </div>
 
-## Request
+## リクエスト
 
 ```bash
-GET /riak/bucket?keys=true            # List all keys, old format
-GET /buckets/bucket/keys?keys=true    # List all keys, new format
-GET /riak/bucket?keys=stream          # Stream keys to the client, old format
-GET /buckets/bucket/keys?keys=stream  # Stream keys to the client, new format
+GET /riak/bucket?keys=true            # 全てのキーをリストする　旧フォーマット
+GET /buckets/bucket/keys?keys=true    # 全てのキーをリストする　新フォーマット
+GET /riak/bucket?keys=stream          # キーをクライアントにストリームする　旧フォーマット
+GET /buckets/bucket/keys?keys=stream  # キーをクライアントにストリームする　新フォーマット
 ```
 
-Required query parameters:
+必要なクエリパラメータ:
 
-* `keys` - defaults to `false`. When set to `true` all keys will be returned in
-a single payload.  When set to `stream`, keys will be returned in
-chunked-encoding.
+* `keys` - デフォルトは 'false'。'true' の場合は単一のペイロードに全てのキーが返される。'stream' の場合はキーはチャンクに分割されて返される。
 
-Optional query parameters:
+オプション クエリ パラメータ:
 
-* `props` - defaults to `true`, which will also return [[bucket properties|HTTP-Get-Bucket-Properties]] in the response. Set to `false` to suppress properties
-in the response.
+* `props` - デフォルトは 'true' で、[[バケットのプロパティ|HTTP-Get-Bucket-Properties]] をレスポンスとして返す。'false' の時にはプロパティを返さない。
 
-## Response
+## レスポンス
 
-Normal response codes:
+正常なレスポンスコード:
 
 * `200 OK`
 
-Important headers:
+重要なヘッダ:
 
 * `Content-Type` - `application/json`
-* `Transfer-Encoding` - `chunked` when the `keys` query parameter is set to
-`stream`.
+* `Transfer-Encoding` - `keys` クエリパラメータが `stream` の時には、`chunked` で返される。
 
-The JSON object in the response will contain up to two entries, `"props"` and
-`"keys"` which are present or missing according to the query parameters.  If
-`keys=stream` in the query parameters, multiple JSON objects in chunked-encoding
-will be returned containing `"keys"` entries.
+レスポンスの JSON オブジェクトには、クエリパラメータに応じて `"props"` と `"keys"` という2つのエントリを持つことができます。
+クエリパラメータが `keys=stream` のときは、`"keys"` というエントリを含む複数のJOSONオブジェクトがチャンクとして返ります。
 
-## Example
+## サンプル
 
 ```bash
 $ curl -i http://localhost:8098/riak/jsconf?keys=true\&props=false

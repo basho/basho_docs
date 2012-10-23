@@ -15,7 +15,7 @@ head(class=data.page.document)
   meta name="version" content=current_version
   meta name="version-range" content=(data.page.version || '0.0.0+')
   meta name="base-url" content==current_page.url
-  title== data.page.title || "Riak Documents"
+  title== data.page.title || "Riakドキュメント"
   == stylesheet_link_tag "all"
   == javascript_include_tag "all"
   == javascript_include_tag "standalone/version-bar"
@@ -37,8 +37,8 @@ body class=classnames.join(' ') id=data.page.body_id
         - if data.page.project == 'riakcs'
           .info
             span.info-icon
-            .title Riak CS Only
-            | To try out Riak CS, sign up for a <a href="http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html">developer trial</a>.
+            .title Riak CS のみ
+            | Riak CS をご試用になるためには、<a href="http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html">開発者トライアル</a> に登録してください。
 
         - if data.page.project == 'riakee'
           .info
@@ -48,7 +48,7 @@ body class=classnames.join(' ') id=data.page.body_id
 
         - unless data.page.toc == false
           nav#toc
-            h2.title Contents
+            h2.title 目次
             div#toc-wrapper
               ol#toc-items
       == yield

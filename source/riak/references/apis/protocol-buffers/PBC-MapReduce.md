@@ -9,9 +9,9 @@ keywords: [api, protocol-buffer]
 group_by: "Query Operations"
 ---
 
-Execute a MapReduce job.
+MapReduce ジョブを実行する
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -22,24 +22,22 @@ message RpbMapRedReq {
 ```
 
 
-Required Parameters
+必要なパラメータ
 
-* **request** - MapReduce job
-* **content_type** - encoding for MapReduce job
+* **request** - MapReduce ジョブ
+* **content_type** - MapReduce ジョブのためのエンコード
 
-Mapreduce jobs can be encoded in two different ways
+MapReduce ジョブは2つの方法でエンコードできます。
 
-* **application/json** - JSON-encoded map/reduce job
-* **application/x-erlang-binary** - Erlang external term format
+* **application/json** - マップ/リデュース ジョブを JSON でエンコード
+* **application/x-erlang-binary** - Erlang 外部項形式
 
-The JSON encoding is the same as [[REST API|MapReduce#rest]] and the external
-term format is the same as the [[local Erlang API|MapReduce#erlang]]
+JSONエンコードは [[RESTAPI|MapReduce#rest]] と同じで、外部項形式は [[ローカル Erlang API|MapReduce#erlang]] と同じです。
 
-## Response
+## レスポンス
 
-The results of the MapReduce job is returned for each phase that generates a
-result, encoded in the same format the job was submitted in. Multiple response
-messages will be returned followed by a final message at the end of the job.
+MapReduce ジョブのリザルトは、リザルトが生じる各フェーズから、指示された時と同じフォーマットでエンコードされ、返ります。
+ジョブ終了の最後のメッセージに続いて、複数のレスポンスメッセージが返ります。
 
 
 ```bash
@@ -51,16 +49,15 @@ message RpbMapRedResp {
 ```
 
 
-Values
+値
 
-* **phase** - phase number of the MapReduce job
-* **response** - response encoded with the content_type submitted
-* **done** - set true on the last response packet
+* **phase** - MapReduce ジョブのフェーズ番号
+* **response** - content_type で指定した方法でエンコードされたレスポンス
+* **done** - 最後のレスポンス パケットで true になる
 
-## Example
+## サンプル
 
-Here is how submitting a JSON encoded job to sum up a bucket full of JSON
-encoded values.
+どのようにJSONエンコード ジョブを、バケットいっぱいのJSONエンコード値にまとめるかを以下に示します。
 
 ```bash
 {"inputs": "bucket_501653",
@@ -76,7 +73,7 @@ encoded values.
 ```
 
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 F8 17 0A E2 01 7B 22 69 6E 70 75 74 73
