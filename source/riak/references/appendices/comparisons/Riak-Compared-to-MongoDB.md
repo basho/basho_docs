@@ -190,6 +190,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
         <td>MongoDB can be configured to run in multiple datacenters via various options. 
 		
 			<ul>
+			        <li><a href="http://www.mongodb.org/display/DOCS/Data+Center+Awareness">Datacenter Awareness</a></li>    
 			</ul>
 	
 	</td>
