@@ -78,13 +78,18 @@ multiple backends.
 ]},
 ```
 
-<div class="note"><div class="title">Multi Backend Memory Use</div>Each backend
+<div class="note"><div class="title">Multi-Backend Memory Use</div>Each backend
 has settings for how much memory the backend can use. It might be for caching,
 like in LevelDB, or for the entire set of data, like in the Memory Backend. Each
 of these backends suggests allocating up to 50% of available memory for this.
 When using Multi Backend, it is important that the sum of all backend memory
 use is at 50% or less. Three backends each set to use 50% of available memory
 would cause problems.</div>
+
+<div class="note"><div class="title">Multi-Backend settings</div> 
+Certain settings, such as Bitcask's `merge_window`, are set per-node, 
+rather than per-backend, and as such must be set in the top level backend
+sections of your `app.config`.</div>
 
 Once configured start the Riak cluster.  Riak will use the
 `multi_backend_default` for all new bucket storage unless you configure a

@@ -233,6 +233,14 @@ sync) with dirty buffers not yet written to stable storage.</div>
 ]}
 ```
 
+<div class="note"><div class="title"> `merge_window` and Multi-Backend</div>
+When using Bitcask with [[Multi-Backend|Multi]], please note that if you 
+wish to use a merge window, you *must* set it in the global `bitcask` 
+section of your `app.config`.  `merge_window` settings in per-backend 
+sections are ignored.
+</div>
+
+
   * __Merge Triggers__
 
     Merge triggers determine under what conditions merging will be
