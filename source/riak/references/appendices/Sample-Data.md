@@ -24,7 +24,7 @@ Need some Twitter data to play with? Linked *[[at the bottom of this great blog 
 
 ### Enron Email Dataset
 
-What better to test with than the emails of corrupt corporate officials? *[[Hosted here courtesy of the Carnegie Melon CS Department|http://www.cs.cmu.edu/~enron/]]*, the complete Enron Email Corpus is about 0.5M messages from around 150 different users, organized into folders for your testing convenience.
+What better to test with than the emails of corrupt corporate officials? *[[Hosted here courtesy of the Carnegie Mellon CS Department|http://www.cs.cmu.edu/~enron/]]*, the complete Enron Email Corpus is about 0.5M messages from around 150 different users, organized into folders for your testing convenience.
 
 ### WindyCityDB NoSQL Lab Sample Data
 
