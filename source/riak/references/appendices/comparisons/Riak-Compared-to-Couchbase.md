@@ -50,7 +50,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			  <li>[[Riak Supported Storage Backends|Storage-Backends]]</li>
 			</ul>
 		
-		You can also write you own storage backend for Riak using our [[backend API|Backend API]].			
+		You can also write your own storage backend for Riak using our [[backend API|Backend API]].			
 	 </td>
         <td>Couchbase 2.0 is largely memory-based, asynchronously persisting data using a CouchDB fork and C library "couchstore" (prior versions of Couchbase use the SQLite storage engine).
 			<ul>
@@ -180,7 +180,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
     <tr>
         <td>Multi-Datacenter Replication and Awareness</td>
 
-		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters). 
+		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters). 
 		
 		<ul>
 			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
