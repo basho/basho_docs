@@ -91,7 +91,7 @@ $ ->
   version_range = $('meta[name=version-range]').attr('content')
 
   return unless project? || base_url? || version? || version_range?
-  return if $versions[project].length <= 1
+  return if $versions[project]?.length <= 1
 
   currentVersion = parseVersion(version)
   range = parseVersionRange(version_range)

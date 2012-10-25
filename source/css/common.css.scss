@@ -280,6 +280,13 @@ iframe {
     cursor : pointer;
   }
 
+  h3.start {
+    border:1px solid $fadedGreen;
+    border-left:4px solid $fadedGreen;
+    @include corner(right, top);
+    //color: $orange;
+  }
+
   h2.responsive-link {
     display : none;
     @media screen and (max-width: 700px) {
@@ -493,8 +500,8 @@ div[role="main"] {
     @extend .sans;
     font-size   : 200%;
     line-height : 1.2;
-    padding     : .7em 0;
-    
+    padding     : .7em 0 .1em 0;
+
     a {
       color : $headerColor;
     }
@@ -503,7 +510,8 @@ div[role="main"] {
   h3 {
     @extend .sans;
     font-size : 175%;
-    
+    padding-top: .3em;
+
     a {
       color : $headerColor;
     }
@@ -738,7 +746,8 @@ div[role="main"] {
     color         : #f1f1f1;
     text-align    : left;
     border-bottom : 1px solid #f1f1f1;
-    
+    margin-top: 1em;
+
     h1, h2, h3, h4, h5, h6 {
       @extend .text-shadow;
       color       : #f1f1f1;
