@@ -70,7 +70,7 @@ package was extracted.
 Due to Riak's eventually consistent nature, backups can become slightly
 inconsistent from node to node. Data could exist on some nodes and not
 others at the exact time a backup is made. Any inconsistency will be
-corrected at read time with Riak's [[read-repair|Replication#Read-Repair]] system, however and this should not be cause for alarm.
+corrected at read time with Riak's [[read-repair|Replication#Read-Repair]] system, however.
 </div>
 
 ## Bitcask Backups
@@ -101,14 +101,14 @@ A simple cron job such as the following example is sufficient for creating
 a backup of your LevelDB data, ring, and Riak configuration directories
 for a binary package based Riak Linux installation
 
-**FIXME**
+The basic process for getting a backup of LevelDB from a node is as follows:
 
-```bash
-riak stop # somehow
-tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
-  /var/lib/riak/leveldb /var/lib/riak/ring /etc/riak
-riak start # how?
-```
+1. Stop the node
+2. Back up the appropriate data, ring, and configuration directories as
+   relevant to your operating system.
+3. Start the node
+
+<div class="info">One handy means to avoid excessive downtime is to store Riak data on a file system with snapshot capabilities, such as ZFS. The process would be to stop the node, take a snapshot of the data directory and start the node. You can then dump the snapshot and delete it later.</div>
 
 Consult the [[LevelDB]] documentation to learn more about this backend.
 
