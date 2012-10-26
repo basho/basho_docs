@@ -132,11 +132,6 @@ is **not started** on any node during steps 1-7:
    You should see the node name as part of the prompt as in the example
    below. Once you've verified the correct node name, exit the console
    with CTRL-D.
-    riak start
-    riak attach
-    x.
-    (riak@riak1.example.com)2>
-    ^D
 9. Execute `riak-admin member-status` on the node and verify that it
    returns expected output.
 10. Start each of the remaining nodes, verifying the details in the same
