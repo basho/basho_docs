@@ -142,7 +142,7 @@ This will create a results file in `tests/current/summary.png`.
 You can also run this manually:
 
 ```bash
-priv/summary.r ~~i tests/current
+priv/summary.r -i tests/current
 ```
 
 ## Configuration
