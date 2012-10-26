@@ -210,6 +210,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 ## Other Tools and Projects
 
+* [[riak_mapreduce_utils|http://github.com/whitenode/riak_mapreduce_utils]] - A library of mapreduce utility functions developed in Erlang
 * [[riakbloom|http://github.com/whitenode/riakbloom]] - A solution allowing Bloom filters to be created and used in mapreduce jobs
 * [[Qi4j Riak EntityStore|http://qi4j.org/extension-es-riak.html]] - Qi4j EntityStore service backed by a Riak bucket
 * [[ldapjs-riak|https://github.com/mcavage/node-ldapjs-riak]] - A Riak backend for [[ldapjs|http://ldapjs.org]]
