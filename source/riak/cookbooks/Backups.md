@@ -11,7 +11,7 @@ keywords: [operator]
 Choosing your Riak backup strategy will largely depend on the backend
 configuration of your nodes. In many cases, Riak will conform to your
 already established backup methodologies. When backing up a node, it is
-important to backup both the ring and data directories that pertain
+important to backup both the `ring` and `data` directories that pertain
 to your configured backend.
 
 In addition to data and ring directories, it is useful to backup your
