@@ -26,7 +26,7 @@ For simple retrieval of a specific account, a user id (plus perhaps a secondary 
 		 </a></td>
 	    <td class="vid_td"><a href="https://player.vimeo.com/video/47535803" target="_blank" title="Riak at Braintree">Riak at Braintree</a>
 		<br>
-		Ben Mills, a developer at Braintree, discusses how their backend team came to find and begin to integrate Riak into their production environment, including their model and repository framework for Ruby, Curator. Check out more details and slides on the <a href="http://basho.com/blog/technical/2012/08/14/riak-at-braintree/" class="riak">Riak blog.</a>
+		Ben Mills, a developer at Braintree, discusses how their backend team came to find and begin to integrate Riak into their production environment. They also cover their model and repository framework for Ruby, Curator. Check out more details and slides on the <a href="http://basho.com/blog/technical/2012/08/14/riak-at-braintree/" class="riak">Riak blog.</a>
 		</td>	    
 	</tr>
 </table>
