@@ -16,3 +16,17 @@ User accounts are pretty straight-forward -- the usual practice is to store JSON
 ## Complex Case
 
 For simple retrieval of a specific account, a user id (plus perhaps a secondary index on a username/email) is enough. If you foresee the need to make queries on additional user attributes (creation time, user type, region), plan ahead and either set up additional Secondary Indexes, or consider using Riak Search to index the JSON contents of the user account.
+
+## Community Examples
+
+<table class="vid_table">
+	<tr>
+	    <td class="vid_td"><a href="https://player.vimeo.com/video/47535803" target="_blank" title="Riak at Braintree">
+		   <img class="vid_img"src="http://b.vimeocdn.com/ts/329/711/329711886_960.jpg"/>
+		 </a></td>
+	    <td class="vid_td"><a href="https://player.vimeo.com/video/47535803" target="_blank" title="Riak at Braintree">Riak at Braintree</a>
+		<br>
+		Ben Mills, a developer at Braintree, discusses how their backend team came to find and begin to integrate Riak into their production environment, including their model and repository framework for Ruby, Curator. Check out more details and slides on the <a href="http://basho.com/blog/technical/2012/08/14/riak-at-braintree/" class="riak">Riak blog.</a>
+		</td>	    
+	</tr>
+</table>

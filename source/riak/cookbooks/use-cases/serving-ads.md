@@ -21,7 +21,7 @@ In the advertising industry, being able to serve ads quickly to many users and p
 <table class="vid_table">
 	<tr>
 	    <td class="vid_td"><a href="http://player.vimeo.com/video/49775483" target="_blank" title="Riak at OpenX">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/343/417/343417336_1280.jpg"/>
+		   <img class="vid_img"src="http://b.vimeocdn.com/ts/343/417/343417336_960.jpg"/>
 		 </a></td>
 	    <td class="vid_td"><a href="http://player.vimeo.com/video/49775483" target="_blank" title="Riak at OpenX">Riak at OpenX</a>
 		<br>
