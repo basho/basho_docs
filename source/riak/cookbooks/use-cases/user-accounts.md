@@ -22,7 +22,7 @@ For simple retrieval of a specific account, a user id (plus perhaps a secondary 
 <table class="vid_table">
 	<tr>
 	    <td class="vid_td"><a href="https://player.vimeo.com/video/47535803" target="_blank" title="Riak at Braintree">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/329/711/329711886_960.jpg"/>
+		   <img class="vid_img"src="http://b.vimeocdn.com/ts/329/711/329711886_640.jpg"/>
 		 </a></td>
 	    <td class="vid_td"><a href="https://player.vimeo.com/video/47535803" target="_blank" title="Riak at Braintree">Riak at Braintree</a>
 		<br>

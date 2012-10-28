@@ -18,4 +18,4 @@ For storing a large amount of log data that is frequently writing data to Riak, 
 
 ## Community Examples
 
-Simon Buckle on <a href="http://www.simonbuckle.com/2011/08/27/analyzing-apache-logs-with-riak/" class="riak">analyzing Apache logs with Riak.</a>
+Simon Buckle on <a href="http://www.simonbuckle.com/2011/08/27/analyzing-apache-logs-with-riak/" class="riak" target="_blank">analyzing Apache logs with Riak.</a>

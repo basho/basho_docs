@@ -19,8 +19,8 @@ Setting up a data model for content gets more complex based on the querying and 
 
 ## Community Examples
 
-Clipboard on <a href="http://blog.clipboard.com/2012/03/18/0-Milking-Performance-From-Riak-Search" class="riak">storing and searching data in Riak.</a>
+Clipboard on <a href="http://blog.clipboard.com/2012/03/18/0-Milking-Performance-From-Riak-Search" class="riak" link target="_blank">storing and searching data in Riak.</a>
 
-Linkinfluence case study on using Riak to <a href="http://media.basho.com/pdf/Linkfluence-Case-Study-v2-1.pdf" class="riak">store social web content (PDF).</a>
+Linkinfluence case study on using Riak to <a href="http://media.basho.com/pdf/Linkfluence-Case-Study-v2-1.pdf" class="riak" target="_blank">store social web content (PDF).</a>
 
-ideeli case study on <a href="http://basho.com/assets/Basho-Case-Study-ideeli.pdf" class="riak">serving web pages with Riak (PDF).</a>
+ideeli case study on <a href="http://basho.com/assets/Basho-Case-Study-ideeli.pdf" class="riak" target="_blank">serving web pages with Riak (PDF).</a>
