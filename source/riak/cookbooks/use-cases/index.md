@@ -37,6 +37,8 @@ is only meant to be illustrative.
 * [[User Subscriptions/Events/Timelines|User Events Timelines]]
 * [[Blog Posts, Articles and Other Content|Blogs]]
 
+<!--
+
 ## Common SQL Design Patterns
 
 *Reproducing common SQL models/queries in Riak*
@@ -44,3 +46,4 @@ is only meant to be illustrative.
 * [[Counting]]
 * [[Conditional Summation]]
 
+ -->

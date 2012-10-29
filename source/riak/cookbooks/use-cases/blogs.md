@@ -19,8 +19,21 @@ Setting up a data model for content gets more complex based on the querying and 
 
 ## Community Examples
 
-Clipboard on <a href="http://blog.clipboard.com/2012/03/18/0-Milking-Performance-From-Riak-Search" class="riak" link target="_blank">storing and searching data in Riak.</a>
+<table class="links">
+  <tr>
+    <td><a href="http://blog.clipboard.com/2012/03/18/0-Milking-Performance-From-Riak-Search" class="vid_img" target="_blank"><img src="/images/milking-perf-from-riak.png" title="Milking Performance"></a>
+    </td>
+    <td>Clipboard on <a href="http://blog.clipboard.com/2012/03/18/0-Milking-Performance-From-Riak-Search" target="_blank">storing and searching data in Riak.</a>
+  </tr>
+  <tr>
+    <td><a href="http://media.basho.com/pdf/Linkfluence-Case-Study-v2-1.pdf" class="vid_img" link target="_blank"><img src="/images/linkfluence-case-study.png" title="Milking Performance"></a>
+    </td>
+    <td>Linkfluence case study on using Riak to <a href="http://media.basho.com/pdf/Linkfluence-Case-Study-v2-1.pdf" target="_blank">store social web content</a>.
+  </tr>
+  <tr>
+    <td><a href="http://basho.com/assets/Basho-Case-Study-ideeli.pdf" class="vid_img" link target="_blank"><img src="/images/ideeli-case-study.png" title="Milking Performance"></a>
+    </td>
+    <td>ideeli case study on <a href="http://basho.com/assets/Basho-Case-Study-ideeli.pdf" target="_blank">serving web pages with Riak</a>.
+  </tr>
+</table>
 
-Linkfluence case study on using Riak to <a href="http://media.basho.com/pdf/Linkfluence-Case-Study-v2-1.pdf" class="riak" target="_blank">store social web content (PDF).</a>
-
-ideeli case study on <a href="http://basho.com/assets/Basho-Case-Study-ideeli.pdf" class="riak" target="_blank">serving web pages with Riak (PDF).</a>

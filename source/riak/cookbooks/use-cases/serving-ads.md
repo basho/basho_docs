@@ -18,14 +18,13 @@ In the advertising industry, being able to serve ads quickly to many users and p
 
 ## Community Examples
 
-<table class="vid_table">
-	<tr>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/49775483" target="_blank" title="Riak at OpenX">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/343/417/343417336_960.jpg"/>
-		 </a></td>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/49775483" target="_blank" title="Riak at OpenX">Riak at OpenX</a>
-		<br>
-	Los Angeles-based OpenX will serve around four trillion ads this year. In this talk, Anthony Molinaro, Engineer at OpenX, goes in-depth on their architecture, how they've built their system, and why/how they are switching to Riak and Riak Core for data storage after using databases like CouchDB and Cassandra in production.
-		</td>	    
-	</tr>
+<table class="links">
+  <tr>
+    <td><a href="http://player.vimeo.com/video/49775483" target="_blank" title="Riak at OpenX"><img src="http://b.vimeocdn.com/ts/343/417/343417336_960.jpg"/></a>
+    </td>
+    <td><a href="http://player.vimeo.com/video/49775483" target="_blank" title="Riak at OpenX">Riak at OpenX</a>
+    <br>
+    Los Angeles-based OpenX will serve around four trillion ads this year. In this talk, Anthony Molinaro, Engineer at OpenX, goes in-depth on their architecture, how they've built their system, and why/how they are switching to Riak and Riak Core for data storage after using databases like CouchDB and Cassandra in production.
+    </td>
+  </tr>
 </table>

@@ -19,12 +19,12 @@ Riak has other features that enable more complex session storage use cases.  The
 
 ## Community Examples
 
-<table class="vid_table">
+<table class="links">
 	<tr>
-	    <td class="vid_td"><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Scaling Riak at Kiip">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/296/624/296624215_960.jpg"/>
+	    <td><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Scaling Riak at Kiip">
+		   <img src="http://b.vimeocdn.com/ts/296/624/296624215_960.jpg"/>
 		 </a></td>
-	    <td class="vid_td"><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Riak at OpenX">Scaling Riak at Kiip</a>
+	    <td><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Riak at OpenX">Scaling Riak at Kiip</a>
 		<br>
 	In this talk, recorded at the May 2012 San Francisco Riak Meetup, Armon Dadgar and Mitchell Hashimoto of Kiip give an overview of how and why they are using Riak in production, and the road they took to get there. One of the first subsystems they switched over to Riak was Sessions. You can also read the blog post and catch the slides <a href="http://basho.com/blog/technical/2012/05/25/Scaling-Riak-At-Kiip/" class="riak" target="_blank">here.</a>
 		</td>	    

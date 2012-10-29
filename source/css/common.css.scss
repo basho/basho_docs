@@ -1032,6 +1032,16 @@ div[role=main] {
     padding       : 0 25px;
   }
   
+  table.links {
+    width:100%;
+    td:first-child {
+      width:30%;
+    }
+    td:last-child {
+      width:70%;
+    }
+  }
+
   table.docco {
     @include boxShadow(none);
     border : 0;
