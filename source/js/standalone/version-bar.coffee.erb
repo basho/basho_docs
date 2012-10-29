@@ -69,17 +69,19 @@ $ ->
       innerlists = []
       showV = null
       currentBlock = false
+      active = false
       for vsi in vs
         vsp = parseVersion(vsi)
         if inVersionRange(vsp, range)
           current = compareVersions(currentVersion, vsp) == 0
           currentBlock ||= current
-          vData = {current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
+          active ||= true
+          vData = {active:true, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
           innerlists.push(vData)
           showV = vData if current
         else
-          innerlists.push({current:false, href:"#", text:vsi})
-      lists.push({current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
+          innerlists.push({active:false, current:false, href:"#", text:vsi})
+      lists.push({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
     lists
 
 
@@ -99,7 +101,10 @@ $ ->
   lists = buildLists(project, base_url)
 
   currentClass = (li)->
-    if li.current then " class=\"current\"" else ""
+    unless li.active
+      " class=\"inactive\""
+    else
+      if li.current then " class=\"current\"" else ""
 
   liLink = (li)->
     "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"

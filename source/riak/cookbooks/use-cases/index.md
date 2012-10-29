@@ -1,7 +1,7 @@
 ---
 title: Use Cases
 project: riak
-version: 1.2.0+
+version: 1.2.1+
 document: cookbook
 index: true
 toc: false

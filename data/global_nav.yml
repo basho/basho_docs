@@ -43,10 +43,10 @@ riak:
               - "[[User Settings/Preferences|Settings Preferences]]"
               - "[[User Subscriptions/Events/Timelines|User Events Timelines]]"
               - "[[Blog Posts, Articles and Other Content|Blogs]]"
-          - title: "SQL Design Patterns"
-            sub:
-              - "[[Counting]]"
-              - "[[Conditional Summation]]"
+          # - title: "SQL Design Patterns"
+          #   sub:
+          #     - "[[Counting]]"
+          #     - "[[Conditional Summation]]"
 
 
   - title: "Operating Riak"
