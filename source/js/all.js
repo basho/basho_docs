@@ -30,9 +30,7 @@
       closedNavMargin : '12px',
       navSpeed        : 175,
       responsiveWidth : 700
-    },
-    
-    openMenus : ['all riak projects', 'start here']
+    }
   };
   
   
@@ -261,12 +259,8 @@
    * If so, returns true.
    */
   function checkOpenMenu(text, correspondingUl) {
-    var len = options.openMenus.length;
-    for (i = 0; i < len; i += 1) {
-      if (text === options.openMenus[i].toLowerCase() || correspondingUl.find('.current').length) {
-        return true;
-      }
-    }
+    if(correspondingUl.find('.current').length) {return true;}
+    if(correspondingUl.prev('.active').length){return true;}
     return false;
   }
   
