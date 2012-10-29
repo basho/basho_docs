@@ -9,19 +9,19 @@ audience: beginner
 keywords: [installing]
 ---
 
-以下にRiak CSをテスト環境にインストールする際のガイドを示します。このガイドではシステム/サービスのチューニングについて説明しませんし、
-特定の環境対してのインストールの最適化も行いません。
+以下に Riak CS をテスト環境にインストールする際のガイドを示します。このガイドではシステム / サービスのチューニングについて説明しません。また、
+特定の環境に対してのインストールの最適化も行いません。
 
-## 1番目のノードをインストールする
-**ステップ 1: システムのファイルオープンの上限を上げる**
+## 1番目のノードをインストール
+**ステップ １: システムのファイルオープンの上限を上げる**
 
-Riakは通常のオペレーション中に多数のファイルハンドルをオープンすることができます。システムのオープンファイル数を増やす方法の詳細は [[オープンファイルの制限|Open-Files-Limit]] ドキュメントを参照してください。
+Riak は通常のオペレーション中に多数のファイルハンドルをオープンします。システムのオープンファイル数を増やす方法の詳細は [[オープンファイルの制限|Open-Files-Limit]] ドキュメントを参照してください。
 
 あなたがルートユーザであれば、次のコマンドで *現在のセッション* に対して、システムのオープンファイル数を増やすことができます。
 
     ulimit -n 65536
 
-ルートおよび riak ユーザのために、この設定を恒久的にしたいときは `/etc/security/limits.conf` に保存する必要があります。
+ルートおよび riak ユーザのために、この設定を恒久的にしておきたいときは `/etc/security/limits.conf` に保存する必要があります。
 
     # Riak CS のための ulimit 設定
     root soft nofile 65536
@@ -29,9 +29,9 @@ Riakは通常のオペレーション中に多数のファイルハンドルを�
     riak soft nofile 65536
     riak hard nofile 65536
 
-**ステップ 2: パッケージをダウンロードし、インストール**
+**ステップ ２: パッケージをダウンロードし、インストール**
 
-このガイドではパッケージのダウンロード、および Riak CS API との対話に `curl` を使用しますので、それがインストールされているのかを確認しましょう。
+このガイドではパッケージのダウンロード、および Riak CS API との対話に `curl` を使用しますので、確実にインストールしておきましょう。
 
     sudo apt-get install -y curl
 
@@ -39,7 +39,7 @@ Ubuntu 11.10 以降を使用しているのであれば、`libssl0.9.8` パッ�
 
     sudo apt-get install -y libssl0.9.8
 
-さあ、Riak と Riak CS パッケージを取りましょう。これが最初のノードになるので、Stanchion (支柱) パッケージもインストールしましょう。
+さあ、Riak と Riak CS パッケージを取りましょう。これが最初のノードになるので、Stanchion パッケージもインストールしましょう。
 
 ライセンス版の Riak CS カスタマは、Basho のヘルプデスク ウェブサイトの [downloads](https://help.basho.com/forums/20747106-riak-cs-downloads) セクションから、Basho が提供している証明書を Riak CS に適用することができます。
 
@@ -87,7 +87,7 @@ Ubuntu Lucid:
 
 `<stanchion-package.deb>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
-**ステップ 3: サービスの設定を行い、サービスとして起動する**
+**ステップ ３: サービスの設定を行い、サービスとして起動する**
 
 Riak 設定のためにいくつかすることがあります。`/etc/riak/app.config` を編集します。
 まず、`riak_core` セクションに次の行を追加する必要があります。
@@ -103,7 +103,7 @@ Riak 設定のためにいくつかすることがあります。`/etc/riak/app.
 {default_bucket_props, [{allow_mult, true}]},
 ```
 
-次に、Riak は Ritcask がデフォルトのバックエンドとして設定されています。
+次に、Riak は Bitcask がデフォルトのバックエンドとして設定されています。
 これを Riak CS のカスタム バックエンドに変える必要があります。
 
 `/etc/riak/app.config` の次の行を変更します。
@@ -156,7 +156,7 @@ app.config ファイルにインタフェース IP アドレスを設定しま�
     {stanchion_ip, "10.0.2.10"}
 
 
-Riak CS に全てのインタフェースをリスンさせたいのであれば、moss_ip を 0.0.0.0 にしても構いません。
+Riak CS に全てのインタフェースをリッスンさせたいのであれば、moss_ip を 0.0.0.0 にしても構いません。
 
 
 `/etc/stanchion/app.config` の次の行を変更します。
@@ -172,7 +172,7 @@ Riak CS に全てのインタフェースをリスンさせたいのであれば
 
 次は、サービス名を設定します。ローカル　IP アドレスを使ってもいいし、ホスト名を使っても構いません。ホスト名を使うのであれば、DNS あるいはすべてのノードの `/etc/hosts` でホスト名が解決するようにしておいてください。
 
-<div class="note"><div class="title">ノート</div>サービス名には最低限1つのピリオドが必要です。</div>
+<div class="note"><div class="title">ノート</div>サービス名には最低限 1 つのピリオドが必要です。</div>
 
 `/etc/riak/vm.args` の次の行を変更します。
 
@@ -207,9 +207,9 @@ Riak CS に全てのインタフェースをリスンさせたいのであれば
     sudo stanchion start
     sudo riak-cs start
 
-<div class="info"><div class="title">Basho Tip</div>それぞれが前のものに依存しているので、サービスをどの順で起動するかは重要です。</div>
+<div class="info"><div class="title">Basho Tip</div>それぞれが前のものに依存しているので、どの順でサービスを起動するかは重要です。</div>
 
-最後に、`riak-cs ping` コマンドを使って、インストールした Riak CS が動いているかをチェックすることができます。これを使うと、Riak CS が起動していれば `pong` を返し、Riak と正常に通信が可能です。
+最後に、`riak-cs ping` コマンドを使って、インストールした Riak CS が動いているかをチェックします。Riak CS が起動していて、正常に通信ができれば `pong` を返します。
 
 ```bash
 riak-cs ping
@@ -217,18 +217,18 @@ riak-cs ping
 
 <div class="note"><div class="title">ノート</div>Riak CS が Riak ノードと通信できないときに、<tt>riak-cs ping</tt> コマンドは失敗します。<tt>riak-cs ping</tt> を使って生きているかをチェックする前に、Riak CS システムのすべてのコンポーネントを確認して下さい。</div>
 
-**ステップ 4: 管理ユーザを作る**
+**ステップ ４: 管理ユーザを作る**
 
-管理ユーザの作成は、任意ですが、新しいサービスをテストするのに良い機会です。Riak CS のユーザを作成するには、2つの入力が要ります。
+管理ユーザの作成は任意ですが、新しいサービスをテストするのに良い機会です。Riak CS のユーザを作成するには、2つの入力が要ります。
 
 1. Name - URL エンコードされた文字列。例えば "admin%20user"
 
 2. Email - ユニークな email アドレス。例えば "admin@admin.com"
 
-管理ユーザは次のようにして `curl` コマンドから作成できます:
+管理ユーザは次のようにして `curl` コマンドで作成できます:
 
 管理ユーザを作成するために、新しいユーザを "anonymous" ユーザとして作成し、パーミッションを与えます。
-この設定には Riak CS のノードが1つだけ必要です。
+この設定には Riak CS のノードが 1 つだけ必要です。
 
 `/etc/riak-cs/app.config` の `{moss_ip, ...}` のすぐ前に次のエントリを追加します。
 
@@ -291,7 +291,7 @@ curl -H 'Content-Type: application/json' \
     sudo stanchion restart
     sudo riak-cs restart
 
-**ステップ 5: 確認テスト**
+**ステップ ５: 確認テスト**
 
 インストール結果をテストする最も簡単な方法は、`s3cmd` スクリプトを使うことです。次のようにしてスクリプトをインストールします。
 
@@ -342,6 +342,6 @@ Riak CS の `app.config` ファイルの `stanchion_ip` には、最初のノー
 
     ここで `riak@10.0.2.10` は Riak の最初のノードの `/etc/riak/vm.args` ファイルで設定したノードの名前です。
 
-この後は、`riak-admin cluster plan` コマンドとでクラスタのプランを未直し、`riak-admin cluster commit` でクラスタの変更をコミットし、ジョイン プロセスを完了してください。詳しいことは [[コマンドライン ツール|Command-Line-Tools---riak-admin#cluster]] のドキュメントにあります。
+この後は、`riak-admin cluster plan` コマンドとでクラスタのプランを見直し、`riak-admin cluster commit` でクラスタの変更をコミットし、ジョイン プロセスを完了してください。詳しいことは [[コマンドライン ツール|Command-Line-Tools---riak-admin#cluster]] のドキュメントにあります。
 
 <div class="note"><div class="title">ノート</div><strong>Riak CS は TCP ポート 80 を直接扱うようには設計されていません。また、直接それを公共のインターネットに公開するような運用をしてはいけません。</strong>その代わりに、Riak CS と外の世界とを、専用のデバイスや、<a href="http://haproxy.1wt.eu">HAProxy</a> や <a href="http://wiki.nginx.org/Main">Nginx</a> といったロードバランサつなぐといった解決を考慮してください。</div>
