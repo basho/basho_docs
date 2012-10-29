@@ -143,6 +143,13 @@ A list of paths to add to the Erlang code path.
 
 This setting is especially useful for allowing Riak to use external modules during MapReduce queries.
 
+ * **delete_mode** Specifies behavior for the window of time between Riak
+identifying an object for deletion and actual deletion of the object.
+There are three modes of operation: *delay* (in milliseconds),
+*immediate*, and *keep*. Delay of 3 seconds is the default mode. Setting
+delete_mode to immediate removes the tombstone for the object when the delete request is received. Setting delete_mode to keep disables tombstone
+removal altogether.
+
  * **mapred_name**
 The base of the path in the URL exposing MapReduce via HTTP. (default: "mapred")
 
