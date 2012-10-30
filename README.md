@@ -126,6 +126,15 @@ Each page can optionally generate an inline table-of-contents (see the `toc` set
 
 Finally, there is the keyword-based navigation. Every page with a keyword contains a link to an index, which lists other links to pages sharing that keyword.
 
+### Style Guide
+
+#### Notes and Asides
+
+Inline notes and conversational asides should be denoted by italics (in Markdown, single asterisk): `*Note: Keep also in mind ... etc*`.
+
+Paragraph level block notes should use a div with class ```note```:
+```<div class="note">my note</div>```
+
 # Deploying
 
 ## Testing deploy mode
