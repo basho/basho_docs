@@ -9,13 +9,13 @@ Easy:
 ```
 gem install bundler
 bundle install
-RIAK_VERSION=1.2.0 middleman
+middleman
 ```
 
 If that didn't work, try adding `bundle exec`
 
 ```
-RIAK_VERSION=1.2.0 bundle exec middleman
+bundle exec middleman
 ```
 
 Now point a browser at http://localhost:4567
@@ -135,13 +135,13 @@ _Note that the layout will look ugly. At the moment shared files, like css or js
 To try out the thin server in the way production functions, first build the static files:
 
 ```
-RIAK_VERSION=1.2.0 middleman build
+RIAK_VERSION=1.2.1 middleman build
 ```
 
 If that doesn't work, try adding bundle exec
 
 ```
-RIAK_VERSION=1.2.0 bundle exec middleman build
+RIAK_VERSION=1.2.1 bundle exec middleman build
 ```
 
 Then you can run the thin server locally:
@@ -202,5 +202,5 @@ Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) 
 This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
 
 ```
-RIAK_VERSION=1.2.0 INDEX=true DEPLOY=true middleman build
+RIAK_VERSION=1.2.1 INDEX=true DEPLOY=true middleman build
 ```
