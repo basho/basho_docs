@@ -676,7 +676,7 @@ div[role="main"] {
   .info, .note {
     @extend .serif-italic;
     @include allCorners();
-    background  : url('/images/layout/info-bg.jpg') left top repeat transparent;
+    background  : inline-image('layout/info-bg.jpg') left top repeat transparent;
     margin      : 2em 0;
     border      : 1px solid #9ec6df;
     padding     : 15px 15px 15px 40px;
@@ -695,8 +695,8 @@ div[role="main"] {
     
     .info-icon {
       @include size(24px, 24px);
+      @include layout-sprite(info);
       display     : block;
-      background  : url('/images/layout/info.png') left top no-repeat transparent;
       position    : absolute;
       top         : 15px;
       left        : 9px;
