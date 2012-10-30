@@ -12,11 +12,11 @@ This page details how Riak implements MapReduce, the programming paradigm popula
 
 <div class="info">
 <div class="title">Hands On Resources</div>
-If you're new to MapReduce in Riak, check out the
+If you're new to MapReduce in Riak, check out these resources.
 
-* [[Main MapReduce page|MapReduce]]
+* [[Starting With MapReduce|MapReduce]]
 * [[Loading Data and Running MapReduce Queries]] on [[The Riak Fast Track]]
-* [[Riak Function Contrib|http://contrib.basho.com]]
+* [[Riak Contributed Functions|http://contrib.basho.com]]
 </div>
 
 ## How Riak Spreads Processing
