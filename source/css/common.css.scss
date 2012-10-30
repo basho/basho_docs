@@ -1036,6 +1036,9 @@ div[role=main] {
     width:100%;
     td:first-child {
       width:30%;
+      img {
+        width:100%;
+      }
     }
     td:last-child {
       width:70%;
