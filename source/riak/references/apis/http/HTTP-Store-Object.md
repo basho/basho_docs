@@ -9,8 +9,8 @@ keywords: [api, http]
 group_by: "Object/Key Operations"
 ---
 
-指定されたバケット / キーにオブジェクトを格納する。
-オブジェクトの格納方法には、選択したキーを使うのか、Riakが新しいオブジェクトにキーをアサインするのかという2つの方法がある。
+指定されたバケット / キーにオブジェクトを格納します。
+オブジェクトの格納方法には、選択したキーを使うのか、Riak が新しいオブジェクトにキーをアサインするのかという 2 つの方法があります。
 
 ## リクエスト
 
@@ -26,17 +26,17 @@ PUT /buckets/bucket/keys/key    # User-defined key, new format
 重要なヘッダ:
 
 * `Content-Type` 格納するオブジェクトがセットされていなければならない。次のリクエストで受け取れるように、セットしておくこと。
-* `X-Riak-Vclock` オブジェクトが既に存在するとき、ベクトルクロック オブジェクトが読み出しに付加される。
+* `X-Riak-Vclock` オブジェクトが既に存在するとき、ベクタークロック オブジェクトが読み出しに付加される。
 * `X-Riak-Meta-*` - オブジェクトと共に格納される任意の追加メタデータ ヘッダ
-* `X-Riak-Index-*` - インデクスと作るべきオブジェクトのインデクスエントリ
-[[セカンダリインデクスについての詳細|HTTP Secondary Indexes]]
+* `X-Riak-Index-*` - インデックスと作るべきオブジェクトのインデックスエントリ
+[[セカンダリインデックスについての詳細|HTTP Secondary Indexes]]
 * `Link` - 他のリソースへの、ユーザおよびシステム定義のリンク [[リンクについて知る|Links]]
 
 オプショナルヘッダ (`PUT`に対してのみ有効):
 
-* `If-None-Match`、`If-Match`、`If-Modified-Since`、`If-Unmodified-Since`は、条件付きリクエスト セマンティクスを呼び出し、既存のオブジェクトの`ETag`および`Last-Modified`とマッチします。
+* `If-None-Match`、`If-Match`、`If-Modified-Since`、`If-Unmodified-Since` は、条件付きリクエスト セマンティクスを呼び出し、既存のオブジェクトの `ETag` および `Last-Modified` とマッチします。
 これらは修正されたオブジェクトが上書きされるのを防止することができます。
-比較に失敗したときは、`412 Precondition Failed`が返ります。これは同時書き込みを妨げるものではありません。つまり、複数のリクエストが同時に行われたとして、すべて true の場合のみ有効です。
+比較に失敗したときは、`412 Precondition Failed` が返ります。これは同時書き込みを妨げるものではありません。つまり、複数のリクエストが同時に行われたとして、すべて true の場合のみ有効です。
 
 オプショナル クエリ パラメータ:
 
@@ -58,17 +58,17 @@ PUT /buckets/bucket/keys/key    # User-defined key, new format
 
 主なエラーコード:
 
-* `400 Bad Request` - たとえば、r、ｗ、dw パラメータが無効(> N)なとき
-* `412 Precondition Failed` じうけんリクエストヘッダのどれかが一致しなかった場合(上述)
+* `400 Bad Request` - たとえば、r、ｗ、dw パラメータが無効 (> N) なとき
+* `412 Precondition Failed` 条件リクエストヘッダのどれかが一致しなかった場合(上述)
 
 重要なヘッダ:
 
-* `Location` 新しく作られたオブジェクトへの相対URL(キー無しで指定されたとき)
+* `Location` 新しく作られたオブジェクトへの相対 URL (キー無しで指定されたとき)
 
 `returnbody=true`のとき、すべてのレスポンスヘッダは [[HTTPフェッチオブジェクト|HTTP-Fetch-Object]] があることを期待しています。
-オブジェクトをフェッチするときのように、兄弟が存在する、あるいは操作中に作成されると、`300 Multiple Choices`が返り、レスポンスは同じようにしょりされます。
+オブジェクトをフェッチするときのように、Sibling が存在する、あるいは操作中に作成されると、`300 Multiple Choices`が返り、レスポンスは同じように処理されます。
 
-## サンプル: キー無しで保存する
+## サンプル: キーなしで保存する
 
 ```bash
 $ curl -v -d 'this is a test' -H "Content-Type: text/plain" http://127.0.0.1:8098/riak/test

@@ -38,9 +38,9 @@ message RpbGetReq {
 * **notfound_ok** - whether to treat notfounds as successful reads for the
 purposes of R ([[default is defined per the bucket|PBC API#Set Bucket
 Properties]])
-* **if_modified** - vclockが与えられているが、一致しなかった場合、このオプションはオブジェクトを返すだけです。
+* **if_modified** - vclock が与えられているが、一致しなかった場合、このオプションはオブジェクトを返すだけです。
 * **head** - 値を空にしてオブジェクトを返します - 巨大なメタデータが返って来ないようにできます
-* **deletedvclock** - vclockがあれば、それを無効にします。
+* **deletedvclock** - vclock があれば、それを無効にします。
 
 ## レスポンス
 
@@ -56,9 +56,9 @@ message RpbGetResp {
 
 値
 
-* **content** - オブジェクトの value + metadata エントリです。兄弟があるときには複数のエントリになります。キーが見つからない時、中身は空になります。
-* **vclock** - vclockの暗黙のベクタクロックは、兄弟を解決するために *RpbPutReq* を含まなくてはいけません。
-* **unchanged** - GETリクエスト中に if_modified が指定されているが、オブジェクトは変更されていないとき、true がセットされます。
+* **content** - オブジェクトの value + metadata エントリです。Sibling があるときには複数のエントリになります。キーが見つからない時、中身は空になります。
+* **vclock** - vclock の暗黙のベクタークロックは、Sibling を解決するために *RpbPutReq* を含まなくてはいけません。
+* **unchanged** - GET リクエスト中に if_modified が指定されているが、オブジェクトは変更されていないとき、true がセットされます。
 
 content エントリにはオブジェクトや、あらゆるメタデータを持たせることができます。
 
@@ -81,7 +81,7 @@ message RpbContent {
 ```
 
 
-各オブジェクトには、ユーザがキー/バリュー ペアの形でメタデータ(HTTPインタフェース内の X-Riak-Meta\*)を持たせることができます。(たとえば、key=X-Riak-Meta-ACL value=users:r,administrators:f として、アプリケーションが(Riakが、*ではない*)アクセス制御情報を格納させることができます)。
+各オブジェクトには、ユーザがキー/バリュー ペアの形でメタデータ(HTTPインタフェース内の X-Riak-Meta\*)を持たせることができます。(たとえば、key=X-Riak-Meta-ACL value=users:r,administrators:f として、アプリケーションが(Riak が、*ではない*)アクセス制御情報を格納させることができます)。
 
 
 ```bash
@@ -93,7 +93,7 @@ message RpbPair {
 ```
 
 
-リンクには関連したバケット/キーへの参照を格納し、マップ/リデュース処理でリンクをたどるのに利用されます。
+リンクには関連したバケット/キーへの参照を格納し、map/reduce 処理でリンクをたどるのに利用されます。
 
 
 ```bash
@@ -108,8 +108,8 @@ message RpbLink {
 
 
 <div class="note"><div class="title">キーがなかった場合</div>
-<p>重要 - キーがRiakに格納されていないとき、RpbGetRespは空のコンテントおよびvclockフィールドを返します。
-これは、どんなクライアント言語に対しても、見つからなかったことを知らせるために行わなければならない慣例です。たとえば、Erlangクライアントは、<code>{error, notfound}</code> というアトムを返します。</p>
+<p>重要 - キーが Riak に格納されていないとき、RpbGetResp は空のコンテントおよび vclock フィールドを返します。
+これは、どんなクライアント言語に対しても、見つからなかったことを知らせるために行わなければならない慣例です。たとえば、Erlang クライアントは、<code>{error, notfound}</code> というアトムを返します。</p>
 </div>
 
 

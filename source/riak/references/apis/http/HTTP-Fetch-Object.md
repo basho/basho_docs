@@ -20,7 +20,7 @@ GET /buckets/bucket/keys/key    # 新フォーマット
 
 重要なヘッダ:
 
-* `Accept` - content-type が `multipart/mixed` の時、オブジェクトに兄弟があれば1度のリクエストですべての兄弟を返します。[[1つのリクエストで全部を取得する|HTTPFetch Object#Get all siblings in one request]] のサンプルを参照してください。RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]] も参照してください。
+* `Accept` - content-type が `multipart/mixed` の時、オブジェクトに Sibling があれば1度のリクエストですべての Sibling を返します。[[1つのリクエストで全部を取得する|HTTPFetch Object#Get all siblings in one request]] のサンプルを参照してください。RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]] も参照してください。
 
 オプションヘッダ:
 
@@ -28,11 +28,11 @@ GET /buckets/bucket/keys/key    # 新フォーマット
 
 オプション クエリ パラメータ:
 
-* `r` - オブジェクトの取得が成功するために必要なレプリカの数(read quorum)。([[デフォルトはバケットで指定される|HTTPSet Bucket Properties]])
-* `pr` - 読み出しの際にオンラインでなければならないプライマリレプリカの数([[デフォルトはバケットで指定される|HTTP Set Bucket Properties]])
-* `basic_quorum` - フェイルがいくつか起きたらリターンする(r=1 のときに2つのエラーがあっても、`basic_quorum=true` であれば、エラーを返す)。([[デフォルトはバケットで指定される|HTTP Set Bucket Properties]])
-* `notfound_ok` - notfound を読み出し成功とみなす([[デフォルトはバケットで指定される|HTTPSet Bucket Properties]])
-* `vtag` - 兄弟のあるオブジェクトにアクセスしたときに、どの兄弟を返すかを指定する。
+* `r` - オブジェクトの取得が成功するために必要なレプリカの数 (read quorum) です。([[デフォルトはバケットで指定される|HTTPSet Bucket Properties]])
+* `pr` - 読み出しの際にオンラインでなければならないプライマリレプリカの数 ([[デフォルトはバケットで指定される|HTTP Set Bucket Properties]]) です。
+* `basic_quorum` - フェイルがいくつか起きたらリターンします (r=1 のときに 2 つのエラーがあっても、`basic_quorum=true` であれば、エラーを返します)。([[デフォルトはバケットで指定されます|HTTP Set Bucket Properties]])
+* `notfound_ok` - notfound を読み出し成功とみなすします ([[デフォルトはバケットで指定されます|HTTPSet Bucket Properties]])
+* `vtag` - Sibling のあるオブジェクトにアクセスしたときに、どの Sibling を返すかを指定します。
 詳しくは [[Manually requesting siblings|HTTP Fetch Object#Manually requesting siblings]] のサンプルを参照
 
 ## レスポンス
@@ -52,18 +52,18 @@ GET /buckets/bucket/keys/key    # 新フォーマット
 重要なヘッダ:
 
 * `Content-Type` - メディアのタイプ/フォーマット
-* `X-Riak-Vclock` - オブジェクトのベクトルクロック
+* `X-Riak-Vclock` - オブジェクトのベクタークロック
 * `X-Riak-Meta-*` - オブジェクトを格納するための、ユーザ定義のメタデータ定義
 * `ETag` - オブジェクトの独立タグ、条件付き GET オペレーションとvalidation-basedキャッシュで使用する
 * `Last-Modified` - オブジェクトが最後に書きこまれたときの、HTTP datetime フォーマットのタイムスタンプ
 * `Link` - ユーザおよびシステム定義の、他のリソースへのリンク [[リンクについての詳細|Links]]
 
-オブジェクトの兄弟があるとき以外は、レスポンスのボディはオブジェクトの内容となります。
+オブジェクトの Sibling があるとき以外は、レスポンスのボディはオブジェクトの内容となります。
 
-<div class="note"><div class="title">兄弟</div>
-<p>バケットのプロパティで `allow_mult` が true のとき、"兄弟"オブジェクトの作成を同時更新することができます。つまり、オブジェクトはベクトルクロックに関連した別々の値を持ちます。これによってアプリケーションは、自分で競合回避を行うことができるのです。</p>
+<div class="note"><div class="title">Sibling</div>
+<p>バケットのプロパティで `allow_mult` が true のとき、"Sibling" オブジェクトの作成を同時更新することができます。つまり、オブジェクトはベクタークロックに関連した別々の値を持ちます。これによってアプリケーションは、自分で競合回避を行うことができるのです。</p>
 
-<p>複数の兄弟を持つオブジェクトは `300 Multiple Choices` というレスポンスになります。`Accept` ヘッダが `multipart/mixed` を許せば、1つのリクエストのレスポンスボディに `multipart/mixed` セクションとしてすべての兄弟が返されます。あるいは、単純なテキスト形式で "vtags" のリストが返されます。クエリパラメータに `vtag` を追加して、個別の兄弟をリクエストすることができます。以下のサンプルの '兄弟をマニュアルでリクエスト' を参照してください。</p>
+<p>複数の Sibling を持つオブジェクトは `300 Multiple Choices` というレスポンスになります。`Accept` ヘッダが `multipart/mixed` を許せば、1つのリクエストのレスポンスボディに `multipart/mixed` セクションとしてすべての Sibling が返されます。あるいは、単純なテキスト形式で "vtags" のリストが返されます。クエリパラメータに `vtag` を追加して、個別の Sibling をリクエストすることができます。以下のサンプルの 'Sibling をマニュアルでリクエスト' を参照してください。</p>
 
 <p>競合を解決するためには、レスポンスに `X-Riak-Vclock` を追加してください。</p>
 </div>
@@ -97,9 +97,9 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc2
 ```
 
 
-## 兄弟のサンプル
+## Sibling のサンプル
 
-### 兄弟をマニュアルでリクエスト
+### Sibling をマニュアルでリクエスト
 
 ```bash
 $ curl -v http://127.0.0.1:8098/riak/test/doc
@@ -152,7 +152,7 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f
 {"bar":"baz"}
 ```
 
-### 1つのリクエストですべての兄弟を得る
+### 1 つのリクエストですべての Sibling を得る
 
 ```bash
 $ curl -v http://127.0.0.1:8098/riak/test/doc -H "Accept: multipart/mixed"
