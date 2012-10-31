@@ -49,7 +49,7 @@ These settings can be found in the Riak Search app.config file under the "merge_
 * `buffer_rollover_size` - Maximum size of the in-memory buffer before it is transformed to a segment and written to disk. Higher numbers will result in faster indexing but more memory usage.
 * `buffer_delayed_write_size` - Bytes to accumulate in the write-ahead log before flushing to disk.
 * `buffer_delayed_write_ms` - Interval to flush write-ahead log to disk.
-* `max_compact_segments` - The maximum number of segments to compact during a compaction. Smaller values will to quicker compactions and a more balanced number of files in each partition, at the expense of more frequent compactions, and a higher likelihood of compacting the same data multiple times.
+* `max_compact_segments` - The maximum number of segments to compact during a compaction. Smaller values will result in quicker compactions and a more balanced number of files in each partition, at the expense of more frequent compactions, and a higher likelihood of compacting the same data multiple times.
 * `segment_query_read_ahead_size` - Size of the file read-ahead buffer, in bytes, to use when looking up results in a query.
 * `segment_compact_read_ahead_size` - Size of the file read-ahead buffer, in bytes, to use when reading a segment for compaction.
 * `segment_file_buffer_size` - Amount of segment compaction data to batch, in bytes, before writing to the file handle. This should be less than or equal to segment_delayed_write_size, otherwise that setting will have no effect.
