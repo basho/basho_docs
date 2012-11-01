@@ -55,7 +55,9 @@ You must have XCode tools installed from the CD that came with your Mac or from 
 
 <div class="note">Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 
-Riak requires [[Erlang|http://www.erlang.org/]] R15B01 or later. If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
+Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*. 
+
+If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
 
 Next, download and unpack the source distribution.
 
