@@ -11,37 +11,37 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 
 1.	Download a copy of the docs to your local machine:
 
-```
-git clone https://github.com/basho/basho_docs.git
-```
+	```
+	git clone https://github.com/basho/basho_docs.git
+	```
 
 2.	Install middleman
 
-Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch the middleman API.  
+	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch 							the middleman API.  
 
-```
-gem install bundler
-bundle install
-RIAK_VERSION=1.2.0 middleman
-```
-If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/welcome/) is a good place to start.
+	```
+	gem install bundler
+	bundle install
+	RIAK_VERSION=1.2.0 middleman
+	```
+	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/welcome/) is a good place to 	start.
 
-Now point a browser at http://localhost:4567.  Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
+	Now point a browser at http://localhost:4567.  Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
 
 
 3. 	Create a new Branch:
 
-```
-        git checkout -b <branch-name>
-```
+	```
+    git checkout -b <branch-name>
+	```
 
 4. 	Make changes on your branch.
 
 5.	Review your changes locally 
 
-```
-RIAK_VERSION=1.2.0 middleman
-```
+	```
+	RIAK_VERSION=1.2.0 middleman
+	```
 
 6.	Send us a pull request
 
