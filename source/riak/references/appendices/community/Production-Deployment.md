@@ -88,7 +88,7 @@ Oct. 11, 2011 Kresten Krab Thorup discusses a MySQL project that was moved to Ri
 
 ## Slide Decks
 
-This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide. *(If you have a Slide Deck to add, please fork the [Riak Wiki Repo on GitHub](https://github.com/basho/riak_wiki) and do so.)*
+This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide. *(If you have a Slide Deck to add, please fork the [Riak Wiki Repo on GitHub](https://github.com/basho/basho_docs) and do so.)*
 
 * [[Riak at Posterous|http://www.slideshare.net/capotej/riak-at-posterous]] - Posterous recently deployed Riak to serve as their content cache. In this talk, Julio Capote will cover why the engineering team chose Riak for the use case. He'll also share some details on the old post cache and its problems, what solutions they evaluated, and how they settled on Riak.
 * [[Scaling with Riak at Showyou|http://www.slideshare.net/jmuellerleile/scaling-with-riak-at-showyou]] - A presentation on how Showyou uses the Riak datastore at Showyou.com, as well as work we've been doing on a custom Riak backend for search and analytics.
