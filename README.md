@@ -9,7 +9,7 @@ We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generat
 You can treat the basho_docs repo much like you would a code repo.  You can contribute in two ways: 1) submit a new [issue](https://github.com/basho/basho_docs/issues), or 2) (bonus points) make a change and submit a pull request.  To make a change (be it a typo fix or entirely new page full of Python client code snippets) follow these instructions:
 
 
-1.	Download a copy of the docs to your local machine:
+1.	Download a copy of the docs to your local machine
 
 	```
 	git clone https://github.com/basho/basho_docs.git
@@ -22,20 +22,20 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 	```
 	gem install bundler
 	bundle install
-	RIAK_VERSION=1.2.0 middleman
+	middleman
 	```
 	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/welcome/) is a good place to 	start.
 
 	Now point a browser at http://localhost:4567.  Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
 
 
-3. 	Create a new Branch:
+3. 	Create a new branch
 
 	```
     git checkout -b <branch-name>
 	```
 
-4. 	Make changes on your branch.
+4. 	Make changes on your branch
 
 5.	Review your changes locally 
 
