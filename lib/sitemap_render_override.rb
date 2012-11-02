@@ -156,6 +156,12 @@ module SitemapRenderOverride
         end
       end
 
+      # if this is data, make absolute, not relative
+      if href =~ /^\/data\/(.+)$/
+        url = "/shared/#{version_str}/data/#{$1}"
+        next "<a #{anchor.gsub(href, url)}>"
+      end
+
       # force the root page to point to the latest projcets
       if $production && project == :root && href =~ /^\/(riak[^\/]*?)\/[\d\.]+\/$/
         "<a href=\"/#{$1}/latest/\">"
