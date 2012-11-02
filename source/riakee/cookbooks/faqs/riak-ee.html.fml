@@ -35,6 +35,25 @@ A:
   
   Yes, this means that ZZ% of the key-space was synced across the wire; that is, the client/slave reported differences for ZZ% of its partition and requested those differences be sent by the server.
 
+Q: I'm trying to restart my Riak EE node and I'm getting this error:
+
+```
+hh:mm:ss.sss [notice] "riak_repl couldn't create log dir \"data/riak_repl/logs\": enoent\n"
+hh:mm:ss.sss [notice] "riak_repl couldn't create work dir \"data/riak_repl/work/20978041\": enoent\n"
+hh:mm:ss.sss [error] CRASH REPORT Process <x.yyyy.z> with 0 neighbours exited with reason: no match of right hand value {error,enoent} in riak_repl_app:start/2 line 20 in application_master:init/4 line 138
+```
+
+A:
+  This happens when the `riak_repl` configuration section is removed from a Riak EE nodes `/etc/riak/app.config` file.  You will need to provide the following configuration information as a minimum:
+
+  ```erlang
+  {riak_repl, [
+    {data_root, "./data/riak_repl/"}
+   ]}
+  ```
+
+`./data/riak_repl/` is the default path from the installation package. 
+
 Q: How do I enable JMX?
 A:
   In the `/etc/riak/app.config` file, there should be a section like so:
@@ -60,4 +79,6 @@ A:
   ```
 
   Substitute `50110` with whatever port you want it to run on.
+
+
 
