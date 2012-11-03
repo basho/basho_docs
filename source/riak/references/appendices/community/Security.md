@@ -15,8 +15,6 @@ Riak is a powerful open-source distributed database focused on scaling predictab
 
 Data security is an important and sensitive issue to many of our users. A real-world approach to security allows us to balance appropriate levels of security and related overhead while creating a fast, scalable, and operationally straightforward database.
 
-*An executive-level quote about our commitment to security would be good here*
-
 ### Continuous Improvement
 
 Though we make every effort to thwart security vulnerabilities whenever possible (including through independent reviews), no system is completely secure. We will never claim that Riak is 100% secure (and you should seriously doubt anyone who claims their solution is). What we can promise is that we openly accept all vulnerabilities from the community. When appropriate, we'll publish and make every attempt to quickly address these concerns.
