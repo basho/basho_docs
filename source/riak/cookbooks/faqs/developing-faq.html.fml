@@ -31,7 +31,7 @@ A:
 
   However, if the buckets require different bucket properties, those custom properties incur some cost because changes in bucket properties must be gossiped around the cluster. If you create many, many buckets with custom properties the cost can have an impact.
 
-Q: Can I list buckets or keys in production
+Q: Can I list buckets or keys in production?
 A:
   It is not recommended to perform a bucket listing in production because whether or not the bucket has a small number of objects it is a costly operation.
   
@@ -194,7 +194,7 @@ A:
   It's not guaranteed, but you are extremely unlikely to get collisions. Riak generates keys using an Erlang-generated unique ID and a timestamp hashed with SHA-1 and base-62 encoded for URL safety.
 
 
-Q: Where are bucket properties stored
+Q: Where are bucket properties stored?
 A:
   The bucket properties are stored in the ring (metadata stored in each node about the cluster).
   
@@ -247,8 +247,8 @@ A:
   If Riak was never restarted the merge would eventually happen when writes roll over to a new data file. Bitcask rolls writes over to a new data file once the currently active file has exceeded a certain size (2 GB by default).
 
 
-Q: When retrieving a list of siblings, I am getting the same vtag multiple times
-  When retrieving a list of siblings via the REST interface, I am getting the same vtag appearing multiple times. Is this normal? I thought vtags were unique? Are they referring to the same sibling?
+Q: When retrieving a list of siblings, I am getting the same vtag multiple times.
+  When retrieving a list of siblings via the REST interface, I am getting the same vtag appearing multiple times. Is this normal? I thought vtags were unique. Are they referring to the same sibling?
 A:
   The vtag is calculated on a PUT based on the vclock and is stored as part of the object's meta data.
   
@@ -299,7 +299,7 @@ A:
   More on [[Bucket Properties|Basic Riak API Operations]].
 
 
-Q: Is it possible to configure a single bucket's properties in app.config
+Q: Is it possible to configure a single bucket's properties in app.config?
 A:
   Not a specific bucket, only the defaults. However, you should only need to change them once, since after that it'll be in the ring state.
   
