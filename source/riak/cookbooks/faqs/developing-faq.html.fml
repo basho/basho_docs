@@ -276,7 +276,7 @@ A:
 
 
 Q: Is there a way to enforce a schema on data in a given bucket?
-  Suppose I'd like to set up a bucket from which to store data adhering to a particular schema. Is there any way to set this up with riak? This way, when an attempt to store on a particular bucket, it will check with this schema first before storing it. Otherwise, it will produce an error.
+  Suppose I'd like to set up a bucket from which to store data adhering to a particular schema. Is there any way to set this up with Riak? This way, when an attempt to store on a particular bucket, it will check with this schema first before storing it. Otherwise, it will produce an error.
 A:
   Riak does not implement any form of schema validation. A pre-commit hook can be used in this scenario but would have to be written by your development team. You can read more about pre-commit hooks on the wiki. The wiki provides two pre-commit hook examples; one in Erlang that restricts objects that are too large and one in Javascript that restricts non-JSON content.
 
