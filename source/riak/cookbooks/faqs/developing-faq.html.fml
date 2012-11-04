@@ -33,13 +33,13 @@ A:
 
 Q: Can I list buckets or keys in production?
 A:
-  It is not recommended to perform a bucket listing in production because whether or not the bucket has a small number of objects it is a costly operation.
+  It is not recommended to list the buckets in production because it is a costly operation regardless of bucket size.
   
-  One important thing to keep in mind about buckets is that they are less like directories on a file system or tables in a database, and more like logical properties applied to objects. That is, there is no actual separation of objects by bucket.
+  Buckets are not like directories on a file system or tables in a database; rather, they are logical properties applied to objects. That is, there is no actual separation of objects by bucket.
 
-  The impact of this design is that in order to determine all objects that are in a bucket, first all of the objects must be listed, and then all of the objects that are not in that bucket are filtered out. The intention for buckets is to be able to apply different parameters to objects such as, for example, how many replicas of the object to keep. 
+  A filter must be applied to all of the objects in the system in order to find those in a particular bucket. Buckets are intended for configuration purposes (e.g., replication properties) rather than for general queries.
 
-  The solution in this case would be to keep track of objects which need to be grouped or listed in this manner using a strategy such as storing an object with the list of objects, secondary indexing, or search. Depending on your application requirements these options have different pros and cons
+  To keep track of objects which need to be grouped or listed, store an object with the list of objects, or use secondary indexing or search. Depending on your application requirements these options have different pros and cons.
 
 Q: Why does secondary index (2I) return inconsistent results after using force-remove to drop a node from the cluster?
 A:
