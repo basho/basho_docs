@@ -208,7 +208,7 @@ A:
 
 Q: Can I run my own Erlang applications in the same VM as Riak?
 A:
-  We do not recommend running your application inside the same virtual machine as Riak, for a couple reasons. If they are kept seperate:
+  We do not recommend running your application inside the same virtual machine as Riak, for a couple reasons. If they are kept separate:
   
   1. Your application and Riak will not compete for the same resources and thus are less likely to affect each others' performance and availability.
   2. You will be able to upgrade Riak and your application independent of one another.
