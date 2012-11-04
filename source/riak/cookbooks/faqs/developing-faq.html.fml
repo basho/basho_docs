@@ -73,6 +73,7 @@ A:
   In this new 4-node configuration any 2 nodes will constitute a coverage set.  However until consistency is restored via read-repair, not all vnodes will contain the data that would otherwise be present.
   
   So making a few assumptions for demonstration purposes:
+
   1 - The keys a,b, and c are stored in partitions 0, 1, and 2 respectively
   2 - The cluster is not loaded, so no get or put operations are being performed
   
