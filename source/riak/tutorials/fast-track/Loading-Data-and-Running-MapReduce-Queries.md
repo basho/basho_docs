@@ -128,7 +128,7 @@ Map phases may also be passed static arguments by using the "arg" spec field.
 
 Reduce phases look exactly like map phases, but are labeled "reduce".
 
-<div class="info">For more information on map and reduce functions please refer to the [[MapReduce|MapReduce#Phasefunctions]] section of the wiki which includes a description of the arguments passed to these functions.</div>
+<div class="info">For more information on map and reduce functions please refer to the [[MapReduce|MapReduce#Phasefunctions]] section of the docs which includes a description of the arguments passed to these functions.</div>
 
 #### Link
 

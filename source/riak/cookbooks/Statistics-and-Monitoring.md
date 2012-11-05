@@ -64,7 +64,7 @@ The following are solutions which customers and community members have reported 
 Riaknostic integrates into the `riak-admin` command via a `diag` subcommand, and is a great first step in the process of diagnosing and troubleshooting issues on Riak nodes.
 
 #### Riak Control
-[Riak Control](http://wiki.basho.com/Riak-Control.html) is Basho's REST-driven user-interface for managing Riak clusters. It is designed to give you quick insight into the health of your cluster and allow for easy management of nodes.
+[[Riak Control]] is Basho's REST-driven user-interface for managing Riak clusters. It is designed to give you quick insight into the health of your cluster and allow for easy management of nodes.
 
 While Riak Control does not currently offer specific monitoring and statistics aggregation or analysis functionality, it does offer features which provide immediate insight into overall cluster health, node status, and handoff operations.
 
@@ -111,13 +111,13 @@ Splunk can be used to aggregate all Riak cluster node operational log files, inc
 ## Summary
 Riak exposes numerous forms of vital statistic information which can be aggregated, monitored, analyzed, graphed, and reported on in a variety of ways using numerous open source and commercial solutions.
 
-If you use a solution not listed here with Riak and would like to include it (or would otherwise like to update the information on this page), feel free to fork the wiki, add it in the appropriate section, and send a pull request to the [Riak wiki project](https://github.com/basho/riak_wiki).
+If you use a solution not listed here with Riak and would like to include it (or would otherwise like to update the information on this page), feel free to fork the docs, add it in the appropriate section, and send a pull request to the [Riak Docs project](https://github.com/basho/basho_docs).
 
 ## References
 
-* [Inspecting a Node](http://wiki.basho.com/Inspecting-a-Node.html)
+* [[Inspecting a Node]]
 * [Riaknostic](http://riaknostic.basho.com)
-* [Riak Control](http://wiki.basho.com/Riak-Control.html)
+* [[Riak Control]]
 * [collectd](http://collectd.org)
 * [Ganglia](http://ganglia.info)
 * [Nagio](http://www.nagios.org)
@@ -129,4 +129,4 @@ If you use a solution not listed here with Riak and would like to include it (or
 * [Folsom Backed Stats Riak 1.2](http://basho.com/blog/technical/2012/07/02/folsom-backed-stats-riak-1-2/)
 * [Circonus](http://circonus.com)
 * [Splunk](http://www.splunk.com)
-* [Riak Wiki Github](https://github.com/basho/riak_wiki)
+* [Riak Docs Github](https://github.com/basho/basho_docs)

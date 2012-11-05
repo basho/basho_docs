@@ -15,6 +15,7 @@ riak:
       - title: "MapReduce"
         sub:
           - "[[Overview|MapReduce]]"
+          - "[[Implementing|MapReduce Implementation]]"
           - "[[Key Filters]]"
       - title: "Search"
         sub:
@@ -139,7 +140,6 @@ riak:
       - "[[APIs]]"
       - "[[Client Libraries]]"
       - "[[Community Developed Libraries and Projects]]"
-      - "[[MapReduce Implementation]]"
       - "[[Backend API]]"
       - "[[Java Client Benchmark]]"
       - "[[Client Implementation Guide]]"

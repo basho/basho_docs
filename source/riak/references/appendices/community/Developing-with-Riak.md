@@ -10,7 +10,7 @@ keywords: [community, resources]
 
 This page is a collection of videos, slides, papers, and other media discussing developing with Riak (general guidelines, using client libraries, etc.).
 
-_If you have a video to add, please fork the [Riak Wiki Repo on GitHub](https://github.com/basho/riak_wiki) and do so._
+_If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://github.com/basho/basho_docs) and do so._
 
 ## Videos
 
@@ -47,7 +47,7 @@ _If you have a video to add, please fork the [Riak Wiki Repo on GitHub](https://
 
 This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide.
 
-_If you have a Slide Deck to add, please fork the [Riak Wiki Repo on GitHub](https://github.com/basho/riak_wiki) and do so._
+_If you have a Slide Deck to add, please fork the [Riak Docs Repo on GitHub](https://github.com/basho/basho_docs) and do so._
 
 * [[riak-js: Javascript Turtles All the Way Down|http://www.slideshare.net/seancribbs/riakjs-javascript-turtles-all-the-way-down]] - riak-js is an awesome client driver for the Riak distributed datastore.
 * [[Building Distributed Systems With Riak and Riak Core|http://www.slideshare.net/argv0/riak-coredevnation]] - My talk from DevNationSF 2010 
