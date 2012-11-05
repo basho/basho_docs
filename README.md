@@ -1,24 +1,51 @@
-# Riak Docs 2.0
+# Basho Docs (Wiki)
 
-*It's been a long time a-comin', baby...*
+This repo holds all the content (and other bits) for the most-excellent [riak/docs](http://docs.basho.com), home of documentation for Riak, Riak CS, and Riak Enterprise.  This document tells you how to contribute to the docs (please do!), and deploy them, should you have our secret key.
 
-## Development Mode
+We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generator, to generate [riak/docs](http://docs.basho.com).  
 
-Easy:
+## How to Contribute 
 
-```
-gem install bundler
-bundle install
-middleman
-```
+You can treat the basho_docs repo much like you would a code repo.  You can contribute in two ways: 1) submit a new [issue](https://github.com/basho/basho_docs/issues), or 2) (bonus points) make a change and submit a pull request.  To make a change (be it a typo fix or entirely new page full of Python client code snippets) follow these instructions:
 
-If that didn't work, try adding `bundle exec`
 
-```
-bundle exec middleman
-```
+1.	Download a copy of the docs to your local machine
 
-Now point a browser at http://localhost:4567
+	```
+	git clone https://github.com/basho/basho_docs.git
+	```
+
+2.	Install middleman
+
+	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch 							the middleman API.  
+
+	```
+	gem install bundler
+	bundle install
+	middleman
+	```
+	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/welcome/) is a good place to 	start.
+
+	Now point a browser at http://localhost:4567.  Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
+
+
+3. 	Create a new branch
+
+	```
+    git checkout -b <branch-name>
+	```
+
+4. 	Make changes on your branch
+
+5.	Review your changes locally 
+
+	```
+	RIAK_VERSION=1.2.0 middleman
+	```
+
+6.	Send us a pull request
+
+If it's a small or obvious change, we're likely to merge it right away.  If we have questions, we'll communicate with you using the pull request's issue page.
 
 ## Writing Docs
 
