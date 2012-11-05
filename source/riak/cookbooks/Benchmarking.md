@@ -29,7 +29,7 @@ Documentation
 <div class="info">
 <div class="title">Note on Documentation</div>
 
-This wiki topic replaces the documentation that was in the basho_bench
+This topic replaces the documentation that was in the basho_bench
 repository under `docs/Documentation.org` prior to February 2011.
 </div>
 

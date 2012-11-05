@@ -12,7 +12,7 @@ When learning how to use a database, reading tutorials and blogs and watching vi
 
 This page is intended to be a repository of sample data for that exact purpose. We will be expanding it as often as possible with different types of data that are suitable for different types of application testing.
 
-And, if you have sample data that you can spare or pointers to some data of which you are particularly fond, shoot an email to _wiki@basho.com_ and we'll add it to the page and expand the list.
+And, if you have sample data that you can spare or pointers to some data of which you are particularly fond, shoot an email to _docs@basho.com_ and we'll add it to the page and expand the list.
 
 ### Google Historical Stock Data
 

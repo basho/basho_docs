@@ -8,7 +8,7 @@
 
 # In the right column, you'll find the paper reprinted in its entirety, images and all. 
 # In this, the left column, you have Riak specifics that relate to a given section of the paper; 
-# anything from links to the Riak wiki, to code references, to explanations of why and how
+# anything from links to the Riak docs, to code references, to explanations of why and how
 # we did what we did when we did it. There is also some work to do to make Riak more like Dynamo in some 
 # ways. This is noted, too. 
 
@@ -723,7 +723,7 @@ possibility of multiple versions of the same data (in order to never lose any up
 # As you've probably figured out already, Riak uses vector clocks for object versioning, too.
 # Here are a whole host of resources to keep you busy for a while:
 # <ul>
-# <li><a href ="http://wiki.basho.com/display/RIAK/Riak+Glossary#RiakGlossary-VectorClock">Vector Clocks on the Riak Wiki</a></li>
+# <li>[[Vector Clock on Riak Glossary|Riak Glossary#Vector-Clock]]</li>
 # <li><a href="http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/">Why Vector Clocks are Easy</a></li>
 # <li><a href="http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/">Why Vector Clocks are Hard</a></li>
 # <li><a href="http://en.wikipedia.org/wiki/Vector_clock">Vector Clocks on Wikipedia</a></li>
@@ -825,8 +825,8 @@ the preference list are accessed.
 #
 # Some more resources on R and W:
 # <ul>
-# <li><a href ="http://wiki.basho.com/display/RIAK/REST+API">Riak's REST API</a></li>
-# <li><a href="http://wiki.basho.com/display/RIAK/An+Introduction+to+Riak#AnIntroductiontoRiak-ReadingData"> Reading and Writing Data</a></li>
+# <li>[[Riak&#39;s REST API|HTTP API]]</li>
+# <li>[[Reading and Writing Data|Basic Requests]]</a></li>
 # </ul>
 To maintain consistency among its replicas, Dynamo uses a consistency protocol similar to those used in 
 quorum systems. This protocol has two key configurable values: R and W. R is the minimum number of nodes 
