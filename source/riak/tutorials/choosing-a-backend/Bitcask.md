@@ -354,7 +354,7 @@ requests. Writing to a key will set a new modification timestamp on the value
 and prevent it from being expired.</p></div>
 
 
-    By default, Bitcask with trigger a merge whenever a data file contains
+    By default, Bitcask will trigger a merge whenever a data file contains
     an expired key. This may result in excessive merging under some usage
     patterns. To prevent this you can set the `expiry_grace_time` option.
     Bitcask will defer triggering a merge solely for key expiry by the 
@@ -362,6 +362,7 @@ and prevent it from being expired.</p></div>
     each cask to merging for expiry once per hour.
 
     Default is: 0
+
 ```erlang
 {bitcask, [
 	    ...,
