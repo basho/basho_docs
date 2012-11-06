@@ -1,8 +1,8 @@
-# Basho Docs (Wiki)
+# Riak Docs
 
-This repo holds all the content (and other bits) for the most-excellent [riak/docs](http://docs.basho.com), home of documentation for Riak, Riak CS, and Riak Enterprise.  This document tells you how to contribute to the docs (please do!), and deploy them, should you have our secret key.
+This repo holds all the content (and other bits) for the most-excellent [Riak Docs](http://docs.basho.com), home of documentation for Riak, Riak CS, and Riak Enterprise.  This document tells you how to contribute to the docs (please do!), and deploy them, should you have our secret key.
 
-We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generator, to generate [riak/docs](http://docs.basho.com).  
+We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generator, to generate [Riak Docs](http://docs.basho.com).  
 
 ## How to Contribute 
 
