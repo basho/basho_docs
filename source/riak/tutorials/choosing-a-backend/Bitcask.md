@@ -353,8 +353,22 @@ immediately</i>, but the data will become immediately inaccessible to client
 requests. Writing to a key will set a new modification timestamp on the value
 and prevent it from being expired.</p></div>
 
-<div class="note"><p>Space occupied by expired keys is not counted as dead
-bytes and so, by itself, does not trigger the merge process.</p></div>
+
+    By default, Bitcask with trigger a merge whenever a data file contains
+    an expired key. This may result in excessive merging under some usage
+    patterns. To prevent this you can set the `expiry_grace_time` option.
+    Bitcask will defer triggering a merge solely for key expiry by the 
+    configured number of seconds. Setting this to `3600` effectively limits
+    each cask to merging for expiry once per hour.
+
+    Default is: 0
+```erlang
+{bitcask, [
+	    ...,
+	    {expiry_grace_time, 3600}, %% Limit rate of expiry merging
+	    ...
+]}
+```
 
 ## Tuning Bitcask
 
