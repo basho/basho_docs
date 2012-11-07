@@ -44,8 +44,15 @@ body.dual {
           }
         }
       }
-      th.docs {
-        background:transparent;
+      th.docs, th.code {
+        border-bottom: 1px solid $subtleGray;
+        h2 {
+          font-size:28pt;
+          padding: 5px;
+        }
+        &.docs {
+          background:transparent;
+        }
       }
       td {
         h1, h2 {

@@ -387,8 +387,10 @@ runs on. e.g. the work distribution must be proportional to the capabilities of 
 servers. This is essential in adding new nodes with higher capacity without having to upgrade all 
 hosts at once.
 
-# Blurb about how this section is a wonderful study in some technology and how it should be read when
-# you have a moment. 
+# This section is not strictly necessary to read for an understanding of how a Dynamo
+# distributed database functions, especially Riak. It's still an excellent study of
+# other distributed systems, in some cases ones that helped inspire Dynamo. When
+# you have a moment, we highly recommend you read this section.
 
 <h1>3. Related Work</h1>
 
@@ -402,7 +404,9 @@ find as many peers as possible that share the data. P2P systems evolved to the n
 what is widely known as structured P2P networks. These networks employ a globally consistent protocol 
 to ensure that any node can efficiently route a search query to some peer that has the desired data. 
 Systems like Pastry [16] and Chord [20] use routing mechanisms to ensure that queries can be answered 
-within a bounded number of hops. To reduce the additional latency introduced by multi-hop routing, some
+within a bounded number of hops.
+# Riak gossip protocol communicates between nodes with O(1) routing, and maintains local routing information.
+To reduce the additional latency introduced by multi-hop routing, some
 P2P systems (e.g., [14]) employ O(1) routing where each peer maintains enough routing information locally
 so that it can route requests (to access a data item) to the appropriate peer within a constant number of hops.
 
@@ -434,7 +438,9 @@ that allows disconnected operations and provides eventual data consistency [21].
 Among these systems, Bayou, Coda and Ficus allow disconnected operations and are resilient to 
 issues such as network partitions and outages. These systems differ on their conflict resolution 
 procedures. For instance, Coda and Ficus perform system level conflict resolution and Bayou allows 
-application level resolution. All of them, however, guarantee eventual consistency. Similar to these 
+application level resolution. All of them, however, guarantee eventual consistency. 
+# This whole paragraph also applies to Riak.
+Similar to these 
 systems, Dynamo allows read and write operations to continue even during network partitions and 
 resolves updated conflicts using different conflict resolution mechanisms. Distributed block storage 
 systems like FAB [18] split large size objects into smaller blocks and stores each block in a highly 
@@ -649,7 +655,7 @@ for a particular key may be owned by less than N distinct physical nodes (i.e. a
 of the first N positions). To address this, the preference list for a key is constructed by skipping 
 positions in the ring to ensure that the list contains only distinct physical nodes.
 
-# Data Versioning
+# **Data Versioning**
 
 <h2>4.4 Data Versioning</h2>
 
@@ -696,7 +702,7 @@ reconciliation). A typical example of a collapse operation is “merging” diff
 shopping cart. Using this reconciliation mechanism, an “add to cart” operation is never lost. However, 
 deleted items can resurface.
 
-# Ditto
+# Ditto.
 
 It is important to understand that certain failure modes can potentially result in the system having not 
 just two but several versions of the same data. Updates in the presence of network partitions and node 
@@ -704,7 +710,7 @@ failures can potentially result in an object having distinct version sub-histori
 need to reconcile in the future. This requires us to design applications that explicitly acknowledge the 
 possibility of multiple versions of the same data (in order to never lose any updates).
 
-# As you've probably figured out already, Riak uses vector clocks for object versioning, too.
+# As you may have already figured out, Riak uses vector clocks for object versioning, too.
 # Here are a whole host of resources to keep you busy for a while:
 # <ul>
 # <li>[[Vector Clock on Riak Glossary|Riak Glossary#Vector-Clock]]</li>
@@ -819,12 +825,13 @@ participate in a successful write operation. Setting R and W such that R + W > N
 system. In this model, the latency of a get (or put) operation is dictated by the slowest of the R (or W) 
 replicas. For this reason, R and W are usually configured to be less than N, to provide better latency.
 
-# Check on this
+# In Riak a write is considered successful when the total number of responding writes equals W. This need
+# not be a durable write, which is a seperate value in Riak labeled DW.
 Upon receiving a put() request for a key, the coordinator generates the vector clock for the new version and 
 writes the new version locally. The coordinator then sends the new version (along with the new vector clock) 
 to the N highest-ranked reachable nodes. If at least W-1 nodes respond then the write is considered successful.
 
-# Check on this
+# Same for Riak. Reconciled divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].
 Similarly, for a get() request, the coordinator requests all existing versions of data for that key from the 
 N highest-ranked reachable nodes in the preference list for that key, and then waits for R responses 
 before returning the result to the client. If the coordinator ends up gathering multiple versions of 

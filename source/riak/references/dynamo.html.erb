@@ -11,7 +11,7 @@ dual: true
   <div class="info">
   <div class="title">This is a work in progress.</div>
   <p>
-  This is a modified version of Amazon's Dynamo Paper, annotated with information about Riak and how its design compares to Dynamo. Basho Technologies built Riak based on many (but not all) of the ideas and design decisions set forth in this paper. We often get questions about how closely we adhered to the principles and design decisions put forth in the paper. I thought it would be worthwhile to annotate it with Riak specifics.
+  This is a modified version of <a href="http://www.read.seas.harvard.edu/~kohler/class/cs239-w08/decandia07dynamo.pdf">Amazon's Dynamo Paper</a>, annotated with information about Riak and how its design compares to Dynamo. Basho Technologies built Riak based on many (but not all) of the ideas and design decisions set forth in this paper. We often get questions about how closely we adhered to the principles and design decisions put forth in the paper. I thought it would be worthwhile to annotate it with Riak specifics.
   </p>
   <p>
   The goal for this resource is to simplify the Dynamo paper in the context of Riak and better introduce Riak's design principles to developers and technologists. I hope you enjoy it and find it useful.
@@ -641,8 +641,10 @@ hosts at once.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-21">&#182;</a>
         </div>
-        <p>Blurb about how this section is a wonderful study in some technology and how it should be read when
-you have a moment. </p>
+        <p>This section is not strictly necessary to read for an understanding of how a Dynamo
+distributed database functions, especially Riak. It&#39;s still an excellent study of
+other distributed systems, in some cases ones that helped inspire Dynamo. When
+you have a moment, we highly recommend you read this section.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -659,7 +661,22 @@ find as many peers as possible that share the data. P2P systems evolved to the n
 what is widely known as structured P2P networks. These networks employ a globally consistent protocol 
 to ensure that any node can efficiently route a search query to some peer that has the desired data. 
 Systems like Pastry [16] and Chord [20] use routing mechanisms to ensure that queries can be answered 
-within a bounded number of hops. To reduce the additional latency introduced by multi-hop routing, some
+within a bounded number of hops.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-22'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-22">&#182;</a>
+        </div>
+        <p>Riak gossip protocol communicates between nodes with O(1) routing, and maintains local routing information.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
+<p>To reduce the additional latency introduced by multi-hop routing, some
 P2P systems (e.g., [14]) employ O(1) routing where each peer maintains enough routing information locally
 so that it can route requests (to access a data item) to the appropriate peer within a constant number of hops.</p>
 
@@ -691,7 +708,22 @@ that allows disconnected operations and provides eventual data consistency [21].
 <p>Among these systems, Bayou, Coda and Ficus allow disconnected operations and are resilient to 
 issues such as network partitions and outages. These systems differ on their conflict resolution 
 procedures. For instance, Coda and Ficus perform system level conflict resolution and Bayou allows 
-application level resolution. All of them, however, guarantee eventual consistency. Similar to these 
+application level resolution. All of them, however, guarantee eventual consistency. </p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-23'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-23">&#182;</a>
+        </div>
+        <p>This whole paragraph also applies to Riak.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
+<p>Similar to these 
 systems, Dynamo allows read and write operations to continue even during network partitions and 
 resolves updated conflicts using different conflict resolution mechanisms. Distributed block storage 
 systems like FAB [18] split large size objects into smaller blocks and stores each block in a highly 
@@ -732,10 +764,10 @@ routing information locally to route a request to the appropriate node directly.
 </div>
       </td>
     </tr>
-    <tr id='section-22'>
+    <tr id='section-24'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-22">&#182;</a>
+          <a class="pilcrow" href="#section-24">&#182;</a>
         </div>
         <p><strong>System Architecture</strong></p>
       </td>
@@ -747,10 +779,10 @@ routing information locally to route a request to the appropriate node directly.
 </div>
       </td>
     </tr>
-    <tr id='section-23'>
+    <tr id='section-25'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-23">&#182;</a>
+          <a class="pilcrow" href="#section-25">&#182;</a>
         </div>
         <p>This is truly the meat of the Dynamo paper. Stick around. It gets good. Trust me.</p>
       </td>
@@ -805,10 +837,10 @@ Dynamo uses and their respective advantages.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-24'>
+    <tr id='section-26'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-24">&#182;</a>
+          <a class="pilcrow" href="#section-26">&#182;</a>
         </div>
         <p>Whereas Dynamo only has the concept of keys, we added a higher level of organization called a &quot;bucket.&quot;
 Keys are stored in buckets and buckets are the level at which several Riak properties can be configured 
@@ -836,10 +868,10 @@ supplied in the put request.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-25'>
+    <tr id='section-27'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-25">&#182;</a>
+          <a class="pilcrow" href="#section-27">&#182;</a>
         </div>
         <p>Riak concatenates the bucket with the key and runs it through the SHA1 hash to generate a 160 bit identifier 
 which is then used to determine where in the database each datum is stored. Riak treats data as an opaque
@@ -855,10 +887,10 @@ responsible for serving the key.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-26'>
+    <tr id='section-28'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-26">&#182;</a>
+          <a class="pilcrow" href="#section-28">&#182;</a>
         </div>
         <p><strong>Partitioning in Riak</strong></p>
       </td>
@@ -870,10 +902,10 @@ responsible for serving the key.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-27'>
+    <tr id='section-29'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-27">&#182;</a>
+          <a class="pilcrow" href="#section-29">&#182;</a>
         </div>
         <p>As mentioned above, Riak uses consistent hashing to distribute data around ring to partitions responsible
 for storing data. The ring has a maximum key space of 2^160. Each bucket+key (and its associated value)
@@ -900,10 +932,10 @@ arrival of a node only affects its immediate neighbors and other nodes remain un
 </div>
       </td>
     </tr>
-    <tr id='section-28'>
+    <tr id='section-30'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-28">&#182;</a>
+          <a class="pilcrow" href="#section-30">&#182;</a>
         </div>
         <p>Riak also has the concept of virtual nodes and they are used to the same end as they are in Dynamo. 
 Phycical storage nodes are responsible for partitions, and each partition a vnode.</p>
@@ -923,10 +955,10 @@ in the ring. The process of fine-tuning Dynamo’s partitioning scheme is discus
 </div>
       </td>
     </tr>
-    <tr id='section-29'>
+    <tr id='section-31'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-29">&#182;</a>
+          <a class="pilcrow" href="#section-31">&#182;</a>
         </div>
         <p>All of these properties for vnodes in Dynamo hold true for Riak, too. </p>
       </td>
@@ -944,10 +976,10 @@ a roughly equivalent amount of load from each of the other available nodes.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-30'>
+    <tr id='section-32'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-30">&#182;</a>
+          <a class="pilcrow" href="#section-32">&#182;</a>
         </div>
         <p><u>Further Reading on Partitioning in Riak</u>
 <ul>
@@ -963,10 +995,10 @@ heterogeneity in the physical infrastructure.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-31'>
+    <tr id='section-33'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-31">&#182;</a>
+          <a class="pilcrow" href="#section-33">&#182;</a>
         </div>
         <p><strong>Replication</strong></p>
       </td>
@@ -978,10 +1010,10 @@ heterogeneity in the physical infrastructure.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-32'>
+    <tr id='section-34'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-32">&#182;</a>
+          <a class="pilcrow" href="#section-34">&#182;</a>
         </div>
         <p>Replication in Riak, like in Dynamo, is fundamental and automatic. Remember above I introduced the 
 concept of a bucket? In Riak, the replication parameter, &quot;N&quot; (also called &quot;n&#95;val&quot;),
@@ -1008,10 +1040,10 @@ ranges (A, B], (B, C], and (C, D].</p>
 </div>
       </td>
     </tr>
-    <tr id='section-33'>
+    <tr id='section-35'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-33">&#182;</a>
+          <a class="pilcrow" href="#section-35">&#182;</a>
         </div>
         <p>This diagram is applicable to Riak and the manner in which it replicates data.
 The preference list is present in Riak, too, and is the reason why any node in the ring
@@ -1032,12 +1064,12 @@ positions in the ring to ensure that the list contains only distinct physical no
 </div>
       </td>
     </tr>
-    <tr id='section-34'>
+    <tr id='section-36'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-34">&#182;</a>
+          <a class="pilcrow" href="#section-36">&#182;</a>
         </div>
-        <p>Data Versioning</p>
+        <p><strong>Data Versioning</strong></p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1047,10 +1079,10 @@ positions in the ring to ensure that the list contains only distinct physical no
 </div>
       </td>
     </tr>
-    <tr id='section-35'>
+    <tr id='section-37'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-35">&#182;</a>
+          <a class="pilcrow" href="#section-37">&#182;</a>
         </div>
         <p>Riak is an &quot;eventually consistent&quot; database. All replication is done asynchronously,
 as you can expect, could result in a datum being returned to the client that is out of
@@ -1069,10 +1101,10 @@ updates may not arrive at all replicas for an extended period of time.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-36'>
+    <tr id='section-38'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-36">&#182;</a>
+          <a class="pilcrow" href="#section-38">&#182;</a>
         </div>
         <p>Much like Dynamo was suited to the design of the shopping cart, Riak, and its tradeoffs, 
 are appropriate for a certain set of use cases. We happen to feel that <em>most</em> use cases
@@ -1094,10 +1126,10 @@ to (or removed from) the older version and the divergent versions are reconciled
 </div>
       </td>
     </tr>
-    <tr id='section-37'>
+    <tr id='section-39'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-37">&#182;</a>
+          <a class="pilcrow" href="#section-39">&#182;</a>
         </div>
         <p>The same holds true for Riak. If, by way of some failure and concurrent update 
 (rare but quite possible), there come to exist multiple versions of the same object, 
@@ -1123,12 +1155,12 @@ deleted items can resurface.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-38'>
+    <tr id='section-40'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-38">&#182;</a>
+          <a class="pilcrow" href="#section-40">&#182;</a>
         </div>
-        <p>Ditto</p>
+        <p>Ditto.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1142,12 +1174,12 @@ possibility of multiple versions of the same data (in order to never lose any up
 </div>
       </td>
     </tr>
-    <tr id='section-39'>
+    <tr id='section-41'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-39">&#182;</a>
+          <a class="pilcrow" href="#section-41">&#182;</a>
         </div>
-        <p>As you&#39;ve probably figured out already, Riak uses vector clocks for object versioning, too.
+        <p>As you may have already figured out, Riak uses vector clocks for object versioning, too.
 Here are a whole host of resources to keep you busy for a while:
 <ul>
 <li>[[Vector Clock on Riak Glossary|Riak Glossary#Vector-Clock]]</li>
@@ -1205,10 +1237,10 @@ data D5 will have the following clock: [(Sx, 3), (Sy, 1), (Sz, 1)].</p>
 </div>
       </td>
     </tr>
-    <tr id='section-40'>
+    <tr id='section-42'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-40">&#182;</a>
+          <a class="pilcrow" href="#section-42">&#182;</a>
         </div>
         <p>Riak does a certain amount of vector clock pruning to ensure their growth is kept under control.  </p>
       </td>
@@ -1230,10 +1262,10 @@ has not surfaced in production and therefore this issue has not been thoroughly 
 </div>
       </td>
     </tr>
-    <tr id='section-41'>
+    <tr id='section-43'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-41">&#182;</a>
+          <a class="pilcrow" href="#section-43">&#182;</a>
         </div>
         <p><strong>Execution of get () and put () operations</strong></p>
       </td>
@@ -1245,10 +1277,10 @@ has not surfaced in production and therefore this issue has not been thoroughly 
 </div>
       </td>
     </tr>
-    <tr id='section-42'>
+    <tr id='section-44'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-42">&#182;</a>
+          <a class="pilcrow" href="#section-44">&#182;</a>
         </div>
         <p>Any node in the Riak ring can coordinate a request. The Riak information in this section 
 applies to a failure-free environment. </p>
@@ -1282,10 +1314,10 @@ the preference list are accessed.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-43'>
+    <tr id='section-45'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-43">&#182;</a>
+          <a class="pilcrow" href="#section-45">&#182;</a>
         </div>
         <p>Riak makes use of the same values. But, thanks to our concept of buckets, we made it a bit more
 customizable. The default R and W values are set at the bucket level but can be configured at 
@@ -1311,12 +1343,13 @@ replicas. For this reason, R and W are usually configured to be less than N, to 
 </div>
       </td>
     </tr>
-    <tr id='section-44'>
+    <tr id='section-46'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-44">&#182;</a>
+          <a class="pilcrow" href="#section-46">&#182;</a>
         </div>
-        <p>Check on this</p>
+        <p>In Riak a write is considered successful when the total number of responding writes equals W. This need
+not be a durable write, which is a seperate value in Riak labeled DW.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1328,12 +1361,12 @@ to the N highest-ranked reachable nodes. If at least W-1 nodes respond then the 
 </div>
       </td>
     </tr>
-    <tr id='section-45'>
+    <tr id='section-47'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-45">&#182;</a>
+          <a class="pilcrow" href="#section-47">&#182;</a>
         </div>
-        <p>Check on this</p>
+        <p>Same for Riak. Reconciled divergent versions in Riak is called [[Read Repair|Riak Glossary#Read-Repair]].</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1347,10 +1380,10 @@ then reconciled and the reconciled version superseding the current versions is w
 </div>
       </td>
     </tr>
-    <tr id='section-46'>
+    <tr id='section-48'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-46">&#182;</a>
+          <a class="pilcrow" href="#section-48">&#182;</a>
         </div>
         <p>Annotate this  </p>
       </td>
@@ -1392,10 +1425,10 @@ center failures without a data outage.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-47'>
+    <tr id='section-49'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-47">&#182;</a>
+          <a class="pilcrow" href="#section-49">&#182;</a>
         </div>
         <p>All of this</p>
       </td>
@@ -1434,10 +1467,10 @@ This issue is addressed, however, by the refined partitioning scheme described i
 </div>
       </td>
     </tr>
-    <tr id='section-48'>
+    <tr id='section-50'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-48">&#182;</a>
+          <a class="pilcrow" href="#section-50">&#182;</a>
         </div>
         <p>All of 4.8</p>
       </td>
@@ -1505,10 +1538,10 @@ detected by the individual nodes when they fail to communicate with others (whil
 </div>
       </td>
     </tr>
-    <tr id='section-49'>
+    <tr id='section-51'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-49">&#182;</a>
+          <a class="pilcrow" href="#section-51">&#182;</a>
         </div>
         <p>Annoate all of 4.9 </p>
       </td>
@@ -1541,10 +1574,10 @@ failure detection, and a local persistence engine. All these components are impl
 </div>
       </td>
     </tr>
-    <tr id='section-50'>
+    <tr id='section-52'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-50">&#182;</a>
+          <a class="pilcrow" href="#section-52">&#182;</a>
         </div>
         <p>We use Bitcask as default and also offer x, y and z.</p>
 
@@ -1604,10 +1637,10 @@ patterns in which Dynamo is used:</p>
 </div>
       </td>
     </tr>
-    <tr id='section-51'>
+    <tr id='section-53'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-51">&#182;</a>
+          <a class="pilcrow" href="#section-53">&#182;</a>
         </div>
         <p>This paragraph</p>
       </td>
@@ -1719,10 +1752,10 @@ over a period of 24 hours. The intervals between consecutive ticks in the x-axis
 </div>
       </td>
     </tr>
-    <tr id='section-52'>
+    <tr id='section-54'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-52">&#182;</a>
+          <a class="pilcrow" href="#section-54">&#182;</a>
         </div>
         <p>This following paragraph</p>
       </td>
@@ -1813,10 +1846,10 @@ indicate the token locations for various nodes.</figcaption>
 </div>
       </td>
     </tr>
-    <tr id='section-53'>
+    <tr id='section-55'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-53">&#182;</a>
+          <a class="pilcrow" href="#section-55">&#182;</a>
         </div>
         <p>Next two paragraphs</p>
       </td>
@@ -1877,10 +1910,10 @@ and number of replicas are based on the typical configuration deployed for major
 </div>
       </td>
     </tr>
-    <tr id='section-54'>
+    <tr id='section-56'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-54">&#182;</a>
+          <a class="pilcrow" href="#section-56">&#182;</a>
         </div>
         <p>Next two paragraphs</p>
       </td>
@@ -1915,10 +1948,10 @@ rarely by humans. This issue is not discussed in detail due to the sensitive nat
 </div>
       </td>
     </tr>
-    <tr id='section-55'>
+    <tr id='section-57'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-55">&#182;</a>
+          <a class="pilcrow" href="#section-57">&#182;</a>
         </div>
         <p>Next paragraph </p>
       </td>
@@ -1999,10 +2032,10 @@ response time, the gain in response time is higher for the 99.9th percentile tha
 </div>
       </td>
     </tr>
-    <tr id='section-56'>
+    <tr id='section-58'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-56">&#182;</a>
+          <a class="pilcrow" href="#section-58">&#182;</a>
         </div>
         <p>Riak does this, too. Explain explain. </p>
 
