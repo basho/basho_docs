@@ -445,8 +445,8 @@ data.
 
 ## FAQ
 
-  * [Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?](https://help.basho.com/entries/20141178-why-does-it-seem-that-bitcask-merging-is-only-triggered-when-a-riak-node-is-restarted)
-  * [If the size of key index exceeds the amount of memory, how does Bitcask handle it?](https://help.basho.com/entries/335865-if-the-size-of-key-index-exceeds-the-amount-of-memory-how-does-bitcask-handle-it)
+  * [[Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?|Developing FAQ#why-does-it-seem-that-bitc]]
+  * [[If the size of key index exceeds the amount of memory, how does Bitcask handle it?|Operations FAQ#if-the-size-of-key-index-e]]
   * [[Bitcask Capacity Planning]] Guide
 
 ## Bitcask Implementation Details
