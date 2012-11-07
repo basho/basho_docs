@@ -490,7 +490,6 @@ div[role="main"] {
       }
     }
     
-    
     a {
       color : $headerColor;
     }
@@ -532,6 +531,17 @@ div[role="main"] {
     
     &:hover {
       color : lighten($orange, 5%);
+    }
+
+    &[href^="http://"], &[href^="https://"] {
+      @include size(10px, 10px);
+      background: url("../images/external.png") no-repeat right;
+      padding-right: 12px;
+    }
+    &[href$=".pdf"], &[href$=".PDF"] {
+      @include size(14px, 16px);
+      background: url("../images/pdf.png") no-repeat right;
+      padding-right: 16px;
     }
   }
   
