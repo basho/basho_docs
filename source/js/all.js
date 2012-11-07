@@ -332,5 +332,15 @@
    */
   $(options.selectors.contentWell + ' .info').prepend('<span class="info-icon"></span>');
   
+  // if this is a "dual style" screen, use as much as we can
+  if($('body.dual').length > 0) {
+    closeNav(function(){
+      options.jq.contentWell.toggleClass('closed');
+      options.jq.navToggle.toggleClass('closed');
+      if(!!window.location.hash) {
+        $(window.location.hash)[0].scrollIntoView();
+      }
+    });
+  }
 
 });

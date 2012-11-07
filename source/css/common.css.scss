@@ -958,12 +958,6 @@ nav#toc {
    Code Styles
    ========================================================================== */
 
-/*
-pre {
-  overflow-x: auto;
-}
-*/
-
 div[role=main] {
   
   pre {
@@ -1026,12 +1020,6 @@ div[role=main] {
     margin-bottom : 20px;
   }
   
-  .docco .code {
-    border-bottom : 0;
-    margin-bottom : 0;
-    padding       : 0 25px;
-  }
-  
   table.links {
     width:100%;
     td:first-child {
@@ -1042,38 +1030,6 @@ div[role=main] {
     }
     td:last-child {
       width:70%;
-    }
-  }
-
-  table.docco {
-    @include boxShadow(none);
-    border : 0;
-    
-    .code {
-      @include allCorners(0px);
-      @include boxShadow(none);
-      border-left    : 1px solid #d8d9da;
-      border-right   : 1px solid #d8d9da;
-    }
-    
-    tr {
-      background : none;
-    }
-
-    tr:first-child .code {
-      @include corner(left, top);
-      @include corner(right, top);
-      border-top : 1px solid #cacaca;
-    }
-
-    tr:last-child .code {
-      @include corner(left, bottom);
-      @include corner(right, bottom);
-      border-bottom : 1px solid #d8d9da;
-    }
-    
-    pre {
-      margin-bottom : 15px;
     }
   }
 }
