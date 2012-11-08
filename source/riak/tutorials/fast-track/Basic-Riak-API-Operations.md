@@ -68,20 +68,24 @@ PUT /riak/bucket/key
 Remember, buckets are automatically created when you add keys to them. There is no need to explicitly "create" a bucket (more on buckets and their properties further down the page.)
 
 Some request headers are required for PUTs:
+
 * *Content-Type* must be set for the stored object. Set what you expect to receive back when next requesting it.
 * *X-Riak-Vclock* if the object already exists, the vector clock attached to the object when read; if the object is new, this header may be omitted
 
 Other request headers are optional for PUTs:
+
 * *X-Riak-Meta-_YourHeader_* any additional metadata headers that should be stored with the object.
 * *Link* user and system-defined links to other resources. Read more about [[Links]].
 
 Similar to how GET requests support the "r" query parameter, PUT requests also support these parameters:
+
 * *r* how many replicas need to agree when retrieving an existing object before the write (integer value, default is 2)
 * *w* how many replicas to write to before returning a successful response (integer value, default is 2).
 * *dw* how many replicas to commit to durable storage before returning a successful response (integer value, default is 0)
 * *returnbody* whether to return the contents of the stored object (boolean string, default is "false")
 
 Normal status codes:
+
 * *200 OK*
 * *204 No Content*
 * *300 Multiple Choices*
@@ -110,6 +114,7 @@ If you don't pass Riak a "key" name after the bucket, it will know to create one
 Supported headers are the same as for bucket/key PUT requests, though *X-Riak-Vclock* will never be relevant for these POST requests.  Supported query parameters are also the same as for bucket/key PUT requests.
 
 Normal status codes:
+
 * *201 Created*
 
 This command will store an object, in the bucket "test" and assign it a key:
@@ -166,6 +171,7 @@ PUT /riak/bucket
 The body of the request should be a JSON object with a single entry "props."  Unmodified bucket properties may be omitted.
 
 Important headers:
+
 * Content-Type: *application/json*
 
 The most important properties to consider for your bucket are:

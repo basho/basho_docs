@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, installing, osx]
 prev: ["Installing on RHEL and CentOS", "Installing-on-RHEL-and-CentOS.html"]
 up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on SUSE", "Installing-on-SUSE.html"]
+next: ["Installing on FreeBSD", "Installing-on-FreeBSD.html"]
 ---
 
 The following steps are known to work with Mac OS X 10.5 and 10.6. You can install from source or download a precompiled tarball.
@@ -24,14 +24,14 @@ To run Riak from our precompiled tarball, run these commands for the appropriate
 
 ### 64-bit
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/osx/10.4/riak-1.2.0-osx-x86_64.tar.gz
-tar xzvf riak-1.2.0-osx-x86_64.tar.gz
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/osx/10.4/riak-1.2.1-osx-x86_64.tar.gz
+tar xzvf riak-1.2.1-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/osx/10.4/riak-1.2.0-osx-i386.tar.gz
-tar xzvf riak-1.2.0-osx-i386.tar.gz
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/osx/10.4/riak-1.2.1-osx-i386.tar.gz
+tar xzvf riak-1.2.1-osx-i386.tar.gz
 ```
 
 After the release is untared you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
@@ -55,14 +55,16 @@ You must have XCode tools installed from the CD that came with your Mac or from 
 
 <div class="note">Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 
-Riak requires [[Erlang|http://www.erlang.org/]] R15B01 or later. If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
+Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*. 
+
+If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
 
 Next, download and unpack the source distribution.
 
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.0.tar.gz
-tar zxvf riak-1.2.0.tar.gz
-cd riak-1.2.0
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.1.tar.gz
+tar zxvf riak-1.2.1.tar.gz
+cd riak-1.2.1
 make rel
 ```
 

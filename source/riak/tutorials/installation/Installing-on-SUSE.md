@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, suse]
-prev: ["Installing on Mac OS X", "Installing-on-Mac-OS-X.html"]
+prev: ["Installing on SmartOS", "Installing-on-SmartOS.html"]
 up:   ["Installing and Upgrading", "index.html"]
 next: ["Installing on Windows Azure", "Installing-on-Windows-Azure.html"]
 ---

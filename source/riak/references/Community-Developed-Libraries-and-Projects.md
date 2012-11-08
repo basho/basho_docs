@@ -9,7 +9,7 @@ audience: intermediate
 keywords: [client, drivers]
 ---
 
-The Riak Community is developing at a break-neck pace, and the number of community-contributed libraries and drivers is growing right along side it. Here is a list of projects that may suit your programming needs or curiosities. If you know of something that needs to be added or are developing something that you wish to see added to this list, please fork the [Riak Wiki repo on GitHub](https://github.com/basho/riak_wiki) and send us a pull request.
+The Riak Community is developing at a break-neck pace, and the number of community-contributed libraries and drivers is growing right along side it. Here is a list of projects that may suit your programming needs or curiosities. If you know of something that needs to be added or are developing something that you wish to see added to this list, please fork the [Riak Docs repo on GitHub](https://github.com/basho/basho_docs) and send us a pull request.
 
 <div class="info">
 All of these projects and libraries are at various stages of completeness and may not suit your application's needs based on their level of maturity and activity.
@@ -100,6 +100,9 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Node-Riak|http://github.com/orlandov/node-riak]]
 * [[Nori|https://github.com/sgonyea/nori]] - Experimental Riak HTTP Library for Node.js modeled after Ripple
 * [[OrionNodeRiak|http://github.com/mauritslamers/OrionNodeRiak]] - Node-based server and database-frontend for Sproutcore
+
+*OCaml*
+* [[Riak OCaml Client|http://metadave.github.com/riak-ocaml-client/]] - Riak OCaml Client
 
 *Perl*
 
@@ -207,6 +210,8 @@ All of these projects and libraries are at various stages of completeness and ma
 
 ## Other Tools and Projects
 
+* [[riak_mapreduce_utils|http://github.com/whitenode/riak_mapreduce_utils]] - A library of mapreduce utility functions developed in Erlang
+* [[riakbloom|http://github.com/whitenode/riakbloom]] - A solution allowing Bloom filters to be created and used in mapreduce jobs
 * [[Qi4j Riak EntityStore|http://qi4j.org/extension-es-riak.html]] - Qi4j EntityStore service backed by a Riak bucket
 * [[ldapjs-riak|https://github.com/mcavage/node-ldapjs-riak]] - A Riak backend for [[ldapjs|http://ldapjs.org]]
 * [[otto|https://github.com/ncode/otto]] - S3 Clone built on top of Cyclone with support for Riak
@@ -228,3 +233,4 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[ebot|http://www.redaelli.org/matteo-blog/projects/ebot/]] - A scalable Web Crawler that supports Riak as a backend
 * [[riak-jscouch|https://github.com/jimpick/riak-jscouch]] - JSCouch examples done with Riak
 * [[riak_tokyo_cabinet|http://github.com/jebu/riak_tokyo_cabinet]] - A Tokyo Cabinet back end for Riak
+

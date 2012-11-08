@@ -2,6 +2,7 @@ riak:
   - title: "[[All Riak Projects|/index.html]]"
     sub: []
   - title: "Start Here"
+    class: "start"
     sub:
     - "[[Getting Started with Riak|Riak]]"
     - "[[The Riak Fast Track]]"
@@ -14,6 +15,7 @@ riak:
       - title: "MapReduce"
         sub:
           - "[[Overview|MapReduce]]"
+          - "[[Implementing|MapReduce Implementation]]"
           - "[[Key Filters]]"
       - title: "Search"
         sub:
@@ -27,6 +29,26 @@ riak:
           - "[[Overview|Secondary Indexes]]"
           - "[[Configuration|Secondary-Indexes - Configuration]]"
           - "[[Examples|Secondary-Indexes - Examples]]"
+      - title: "Use Cases"
+        sub:
+          - "[[Overview|Use Cases]]"
+          - title: "High Read/Write"
+            sub:
+              - "[[Session Storage]]"
+              - "[[Serving Ads]]"
+              - "[[Log Data]]"
+              - "[[Sensor Data]]"
+          - title: "Relationship Modeling"
+            sub:
+              - "[[User Accounts]]"
+              - "[[User Settings/Preferences|Settings Preferences]]"
+              - "[[User Subscriptions/Events/Timelines|User Events Timelines]]"
+              - "[[Blog Posts, Articles and Other Content|Blogs]]"
+          # - title: "SQL Design Patterns"
+          #   sub:
+          #     - "[[Counting]]"
+          #     - "[[Conditional Summation]]"
+
 
   - title: "Operating Riak"
     sub:
@@ -36,6 +58,8 @@ riak:
           - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
           - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
           - "[[Mac OS X|Installing on Mac OS X]]"
+          - "[[FreeBSD|Installing on FreeBSD]]"
+          - "[[SmartOS|Installing on SmartOS]]"
           - "[[SUSE|Installing on SUSE]]"
           - "[[Windows Azure|Installing on Windows Azure]]"
           - "[[From Source|Installing Riak from Source]]"
@@ -116,7 +140,6 @@ riak:
       - "[[APIs]]"
       - "[[Client Libraries]]"
       - "[[Community Developed Libraries and Projects]]"
-      - "[[MapReduce Implementation]]"
       - "[[Backend API]]"
       - "[[Java Client Benchmark]]"
       - "[[Client Implementation Guide]]"
@@ -131,7 +154,7 @@ riak:
           - "[[Riak Compared to MongoDB]]"
           - "[[Riak Compared to Neo4j]]"
       - "[[Release Notes]]"
-      - "[[Riak and Dynamo|/references/dynamo/]]"
+      - "[[Riak and Dynamo|Dynamo]]"
 
   - title: "Community"
     sub:
@@ -153,6 +176,7 @@ riak:
       - "[[We Run Riak Badges]]"
 
   - title: "Shortcuts"
+    class: "active"
     sub:
       - "[[FAQs]]"
       - "[[APIs|/references/apis/]]"
@@ -185,6 +209,7 @@ riakee:
       - "[[SNMP Configuration]]"
       - "[[SNMP Counters]]"
   - title: "Shortcuts"
+    class: "active"
     sub:
       - "[[Riak Enterprise FAQs]]"
       - "[[Riak FAQs|FAQs]]"
@@ -222,12 +247,14 @@ riakcs:
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
   - title: "Shortcuts"
+    class: "active"
     sub:
       - "[[FAQs|Riak CS FAQs]]"
       - "[[APIs|RiakCS Storage API]]"
 
 root:
   - title: "All Riak Projects"
+    class: "active"
     sub:
       - "[[Riak]]"
       - "[[Riak Enterprise]]"

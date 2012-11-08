@@ -1,5 +1,6 @@
 require 'aws/s3'
 require 'versionomy'
+require './lib/org'
 require './lib/versionify'
 require './lib/faqml'
 require './lib/rocco'
@@ -8,8 +9,12 @@ require './lib/index'
 require './lib/sitemap_render_override'
 
 if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.]+/
-  $stderr << "RIAK_VERSION is required and must be a valid version (eg 1.2.0)\n"
-  exit(1)
+  versions = YAML::load(File.open('data/versions.yml'))
+  for proj, vs in versions
+    proj = proj.upcase
+    ENV["#{proj}_VERSION"] = vs.last.last
+    puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
+  end
 end
 
 $versions = {
@@ -66,6 +71,8 @@ end
 # end
 
 page "/404.html", :directory_index => false
+page "/js/standalone/version-bar.js", :proxy => "js/standalone/version-bar.html", :directory_index => false, :ignore => true
+
 
 # Proxy (fake) files
 # page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
@@ -151,15 +158,6 @@ helpers do
     url
   end
 
-  def version_bar(project)
-    versions = YAML::load(File.open('data/versions.yml'))
-    versions[project.to_s] || []
-  end
-
-  def is_version?(project, version)
-    version == $versions[project.to_sym]
-  end
-
   def api_index(api_dir_name)
     apis_path = current_path.sub(/(\w+\.html)$/, '')
     # apis_path = "/references/apis/"
@@ -191,7 +189,7 @@ helpers do
   def wiki_to_link(wiki_link)
     link_found = ($wiki_links ||= {})[wiki_link]
     return link_found if link_found
-    if wiki_link =~ (/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/)
+    if wiki_link =~ (/\[\[([^\]]+?)(?:\|([^\]]+))?\]\]/u)
       link_name = $2 || $1
       link_label = $1 || link_name
       anchor = nil
@@ -202,10 +200,10 @@ helpers do
       link_url = link_data[:url]
       unless link_url.blank? && link_name.scan(/[.\/]/).empty?
         # no html inside of the link or label
-        link_label.gsub!(/\<[^\>]+\>/, '_')
+        link_label.gsub!(/\<[^\>]+\>/u, '_')
         link_url ||= link_name
         link_url += '#' + anchor unless anchor.blank?
-        link_url.gsub!(/\<[^\>]+\>/, '_')
+        link_url.gsub!(/\<[^\>]+\>/u, '_')
         return $wiki_links[wiki_link] = {:name => link_label, :url => link_url, :key => sitemap_key}
       end
     end

@@ -93,6 +93,19 @@ body {
       }
     }
     
+    .submissions-note {
+      border-width: 1px;
+      padding: 5px 12px;
+      margin: 0px;
+      display: block;
+      line-height: 1.4em;
+      font-size: 80%;
+      a {
+        border-left:0px;
+        border:1px solid #444;
+      }
+    }
+
     @media screen and (max-width: 700px) {
       /*
        * Important is necessary here in order to override the inline style attribute which
@@ -130,13 +143,18 @@ body {
     }
   }
   
-  .mastfooter {
+  footer.mastfooter {
     @include bgPattern('footer-bg.jpg');
     @include size(100%, auto);
     padding  : 25px 0;
     position : absolute;
     margin   : 25px -25px 0;
     
+    a {
+      color:white;
+      font-size:80%;
+    }
+
     @media screen and (max-width: 700px) {
       margin : 0;
     }
@@ -260,6 +278,12 @@ iframe {
   
   h3, h4 {
     cursor : pointer;
+  }
+
+  h3.start {
+    border      : 1px solid $fadedGreen;
+    border-left : 4px solid $fadedGreen;
+    @include corner(right, top);
   }
 
   h2.responsive-link {
@@ -475,8 +499,8 @@ div[role="main"] {
     @extend .sans;
     font-size   : 200%;
     line-height : 1.2;
-    padding     : .7em 0;
-    
+    padding     : .7em 0 .1em 0;
+
     a {
       color : $headerColor;
     }
@@ -485,7 +509,8 @@ div[role="main"] {
   h3 {
     @extend .sans;
     font-size : 175%;
-    
+    padding-top: .3em;
+
     a {
       color : $headerColor;
     }
@@ -543,6 +568,7 @@ div[role="main"] {
       @extend .block;
       @include size(270px, 44px);
       @include layout-sprite(logo);
+      margin-top : 11px;
       
       h1 {
         display:none;
@@ -555,6 +581,7 @@ div[role="main"] {
       
       @media screen and (max-width: 700px) {
         margin-left : 12px;
+        margin-top  : auto;
       }
       
     }
@@ -593,12 +620,14 @@ div[role="main"] {
     #top-nav {
       float      : right;
       text-align : center;
+      position   : relative;
+      padding    : 32px 0 0 0;
       
-      a, input {
+      a {
         @extend .green-link;
         @extend .block;
         @include bgPattern('light-green-bg.jpg');
-        @include size(auto, auto);
+        @include size(4.2em, auto);
         padding : 0 15px; 
         margin  : 0 0 1px 0;
         border  : 1px solid $darkGreen;
@@ -616,27 +645,33 @@ div[role="main"] {
       }
 
       input {
-        background: #FFF;
-        font-weight:normal;
-        font-family: 'titillium', verdana, arial, sans-serif;
-        color: #24514A;
-        width:4em;
-        -webkit-transition: width 0.5s ease;
-        -moz-transition: width 0.5s ease;
-        -ms-transition: width 0.5s ease;
+        @include allCorners(15px);
+        @include transition(width 0.3s ease);
+        border      : 1px solid silver;
+        padding     : 2px 12px;
+        background  : url('../images/layout/small-search-icon.png') right 3px no-repeat #FFF;
+        font-weight : normal;
+        font-family : 'titillium', verdana, arial, sans-serif;
+        color       : #24514A;
+        width       : 5em;
+        position    : absolute;
+        top         : 0;
+        right       : -3px;
+        
         &::-webkit-input-placeholder,
         &::-moz-placeholder,
         &::-ms-input-placeholder,
         &::input-placeholder {
-          color: #24514A;
+          color : #24514A;
         }
+        
         &:focus {
-          /* position:absolute; */
-          width:8em;
+          width   : 10em;
+          outline : none;
         }
+
         &:hover {
-          background: #FFF;
-          color: #24514A;
+          color      : #24514A;
         }
       }
       
@@ -647,10 +682,10 @@ div[role="main"] {
     
   }
   
-  .info {
+  .info, .note {
     @extend .serif-italic;
     @include allCorners();
-    background  : url('/images/layout/info-bg.jpg') left top repeat transparent;
+    background  : inline-image('layout/info-bg.jpg') left top repeat transparent;
     margin      : 2em 0;
     border      : 1px solid #9ec6df;
     padding     : 15px 15px 15px 40px;
@@ -669,8 +704,8 @@ div[role="main"] {
     
     .info-icon {
       @include size(24px, 24px);
+      @include layout-sprite(info);
       display     : block;
-      background  : url('/images/layout/info.png') left top no-repeat transparent;
       position    : absolute;
       top         : 15px;
       left        : 9px;
@@ -720,7 +755,8 @@ div[role="main"] {
     color         : #f1f1f1;
     text-align    : left;
     border-bottom : 1px solid #f1f1f1;
-    
+    margin-top: 1em;
+
     h1, h2, h3, h4, h5, h6 {
       @extend .text-shadow;
       color       : #f1f1f1;
@@ -910,6 +946,10 @@ nav#toc {
   #toc-items  {
     list-style-type: decimal;
     padding-left : 2em;
+
+    a {
+      white-space:normal;
+    }
   }
 }
 
@@ -1001,6 +1041,19 @@ div[role=main] {
     padding       : 0 25px;
   }
   
+  table.links {
+    width:100%;
+    td:first-child {
+      width:30%;
+      img {
+        width:100%;
+      }
+    }
+    td:last-child {
+      width:70%;
+    }
+  }
+
   table.docco {
     @include boxShadow(none);
     border : 0;
@@ -1159,20 +1212,11 @@ ol.versions {
   //clear         : left;
   //margin-bottom : 1em;
   //padding-top   : 15px;
+
+  //margin: 0;
+  //padding: 0;
   
-  li {
-    @include bgPattern('light-green-bg.jpg');
-    border        : 1px solid $darkGreen;
-    display       : inline-block;
-    font-size     : 8pt;
-    margin-right  : 1px;
-    margin-bottom : 1px;
-    
-    &:hover {
-      background : $orange;
-      border     : 1px solid $darkOrange;
-    }
-    
+  > li {
     &:first-child {
       @include corner(left, top);
       @include corner(left, bottom);
@@ -1182,12 +1226,58 @@ ol.versions {
       @include corner(right, top);
       @include corner(right, bottom);
     }
+  }
+
+  li {
+    @include bgPattern('light-green-bg.jpg');
+    border        : 1px solid $darkGreen;
+    display       : inline-block;
+    font-size     : 8pt;
+    margin-right  : 1px;
+    margin-bottom : 1px;
     
+    ol {
+      display:none;
+      margin:0;
+      margin-left:-1px;
+      padding:2px 0;
+      position: absolute;
+      max-width:5em;
+      li {
+        z-index:500;
+      }
+    }
+
+    &:hover {
+      background : $orange;
+      border     : 1px solid $darkOrange;
+
+      & > ol { 
+        display:block;
+      }
+    }
+    
+    &.inactive {
+      background : #DDD;
+      border     : 1px solid #BBB;
+      &:hover {
+        background : #DDD;
+        border     : 1px solid #BBB;
+      }
+      a {
+        cursor : default;
+        color : $inactiveText;
+        &:hover {
+          color : $inactiveText;
+        }
+      }
+    }
+
     &.current {
       background : $orange;
       border     : 1px solid $darkOrange;
       
-      a {
+      > a {
         color : #fff;
         
         &:hover {

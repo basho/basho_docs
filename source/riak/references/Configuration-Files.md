@@ -32,6 +32,18 @@ Riak and the Erlang applications it depends on are configured by settings in the
     %% Other application configurations...
 ].
 ```
+{{#1.2.0+}}
+### riak_api settings
+
+ * **pb_ip**
+The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
+
+ * **pb_port**
+The port that the Protocol Buffers interface will bind to. (default: 8087)
+
+ * **pb_backlog**
+The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5)
+{{/1.2.0+}}
 
 ### riak_core settings
 * **choose_claim_fun**
@@ -110,6 +122,7 @@ By default, each Riak node will own ring_creation_size/(number of nodes in the c
 <div class="title">Basho Tip</div>
 The ring_creation_size should be established before your cluster is started, and should not be changed thereafter.
 </div>
+
  * **ssl**
 You can override the default SSL key and certificate settings (default: etc/cert.pem, etc/key.pem)
 
@@ -129,6 +142,17 @@ The default value is 4. For this to be effective at preventing hot spots, your c
 A list of paths to add to the Erlang code path.
 
 This setting is especially useful for allowing Riak to use external modules during MapReduce queries.
+
+{{#1.0.0+}}
+
+ * **delete_mode** Specifies behavior for the window of time between Riak
+identifying an object for deletion and actual deletion of the object.
+There are three modes of operation: *delay* (in milliseconds),
+*immediate*, and *keep*. Delay of 3 seconds is the default mode. Setting
+delete_mode to immediate removes the tombstone for the object when the delete request is received. Setting delete_mode to keep disables tombstone
+removal altogether.
+
+{{/1.0.0+}}
 
  * **mapred_name**
 The base of the path in the URL exposing MapReduce via HTTP. (default: "mapred")
@@ -172,14 +196,11 @@ When set to true uses vnode-based vclocks rather than client ids. This significa
  * **legacy_keylisting**
 This option enables compatibility of bucket and key listing with 0.14 and earlier versions. Once a rolling upgrade to a version >= 1.0 is completed for a cluster, this should be set to false for improved performance for bucket and key listing operations. (default: true)
 
- * **pb_ip**
-The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
+ * **pb_ip** The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started. {{1.2.0-}}
 
- * **pb_port**
-The port that the Protocol Buffers interface will bind to. (default: 8087)
+ * **pb_port** The port that the Protocol Buffers interface will bind to. (default: 8087) {{1.2.0-}}
 
- * **pb_backlog**
-The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5)
+ * **pb_backlog** The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5) {{1.2.0-}}
 
  * **raw_name**
 The base of the path in the URL exposing Riak's HTTP interface (default: "riak")

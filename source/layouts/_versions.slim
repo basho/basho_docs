@@ -1,14 +1,2 @@
-- project = data.page.project || 'riak'
-- bar = version_bar(project)
-
-- unless bar.length <= 1
-  ol.versions
-    - bar.each do |versions|
-      - version = versions.first
-      li(class=(is_version?(project, version) ? 'current' : ''))
-        - # HACK to deal with the riak*-index name change
-        - if current_page.url =~ /\/riak[^\/]*?\/[^\/]+\/?(index\.html)?$/
-          == link_to version, "/#{project}/#{version}/"
-        - else
-          == link_to version, "/#{project}/#{version}#{current_page.url}", :class=>"versioned"
-  div.clear-left
+ol.versions
+div.clear-left

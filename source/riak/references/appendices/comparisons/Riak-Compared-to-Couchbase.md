@@ -12,7 +12,7 @@ This is intended to be a brief, objective and technical comparison of Riak and C
 
 ## At A Very High Level
 
-* Riak is Apache 2.0 licensed; Couchbase Community (free version) is licensed under a [["community agreement"|http://www.couchbase.com/agreement/community]] (its backend, CouchDB is Apache 2.0 licensed).
+* Riak is Apache 2.0 licensed; According to Couchbase, they have two free versions: Couchbase open source is Apache 2.0 licensed; Couchbase Server Community Edition (free version) is licensed under a [community agreement](http://www.couchbase.com/agreement/community)
 * Riak is written primarily in Erlang with some bits in C; Couchbase is written in Erlang and C/C++
 
 <div class="note"><div class="title">Couchbase vs CouchDB</div>Keep in mind that Couchbase and CouchDB are two seperate database projects.  CouchDB is a document database providing replication, MapReduce and an HTTP API.  Couchbase uses CouchDB as its backend, "wrapping" it with advanced features like caching, and is designed to be clustered.</div>
@@ -39,7 +39,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 		</td>
         <td>Couchbase is a JSON-based document datastore. Like other document datastores, records have no intrinsic relationships, and are stored in buckets. Value size is limited to 20Mbyte.
 			<ul>
-			    <li>[[How Should I Store and Object?|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-developing-bestpractices-objectstorage-how.html]]</li>
+			    <li>[[How Should I Store an Object?|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-developing-bestpractices-objectstorage-how.html]]</li>
 			</ul>
 		</td>
     </tr>
@@ -50,7 +50,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			  <li>[[Riak Supported Storage Backends|Storage-Backends]]</li>
 			</ul>
 		
-		You can also write you own storage backend for Riak using our [[backend API|Backend API]].			
+		You can also write your own storage backend for Riak using our [[backend API|Backend API]].			
 	 </td>
         <td>Couchbase 2.0 is largely memory-based, asynchronously persisting data using a CouchDB fork and C library "couchstore" (prior versions of Couchbase use the SQLite storage engine).
 			<ul>
@@ -97,7 +97,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			<li>[[MapReduce Views|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-views-basics.html]]</li>
 			<li>[[UnQL|http://www.couchbase.com/press-releases/unql-query-language]]</li>
 			</ul>
-        	Hadoop support is also possible through a plugin that steams data to a Hadoop Distributed File System (HDFS) or Hive for processing.
+        	Hadoop support is also possible through a plugin that streams data to a Hadoop Distributed File System (HDFS) or Hive for processing.
 			<ul>
 			<li>[[Hadoop Connector|http://www.couchbase.com/develop/connectors/hadoop]]</li>
 			<ul>	
@@ -126,7 +126,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
         <td> In Riak, any node in the cluster can coordinate a read/write operation for any other node. Riak stresses availability for writes and reads, and puts the burden of resolution on the client at read time.
 		 </td>
 		
-        <td>Couchbase claims to be ACID complient on a per-item basis, but has no multi-operation transactions. Couchbase clients connect to a server list (or via a proxy) where keys are sharded across the nodes. Couchbase nodes inherit memcached's default (and recommended) connection limit of 10k.
+        <td>Couchbase claims to be ACID-compliant on a per-item basis, but has no multi-operation transactions. Couchbase clients connect to a server list (or via a proxy) where keys are sharded across the nodes. Couchbase nodes inherit memcached's default (and recommended) connection limit of 10k.
 	
 		<ul>
 		<li>[[Transaction and concurrency|http://www.couchbase.com/forums/thread/transaction-and-concurency]]</li>
@@ -138,13 +138,13 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
     </tr>
     <tr>
         <td>Replication</td>
-        <td>Riak's replication system is heavily influence by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
+        <td>Riak's replication system is heavily influenced by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
 			<ul>
 			  <li>[[Replication]]</li>
 			  <li>[[Clustering|Concepts#Clustering]]</li>
 			</ul>
 			
-			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for you use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
+			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
 				<ul>
 					<li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
 				</ul>	
@@ -178,16 +178,16 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 	</td>
     </tr>
     <tr>
-        <td>Multi-Data Center Replication and Awareness</td>
+        <td>Multi-Datacenter Replication and Awareness</td>
 
-		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one data center over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Data Center deployments (meaning the ability to run active Riak clusters in N data centers). 
+		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters). 
 		
 		<ul>
 			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
 		</ul>
 		
 		</td>	
-        <td>Couchbase 2.0 supports cross data center replication (XDCR).
+        <td>Couchbase 2.0 supports cross-datacenter replication (XDCR).
 
 		<ul>
 		<li>[[Stabilizing Couchbase Server 2.0|http://blog.couchbase.com/stabilizing-couchbase-server-2-dot-0]]</li>

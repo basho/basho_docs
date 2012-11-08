@@ -1,0 +1,127 @@
+$versions = <%= YAML::load(File.open('data/versions.yml')).to_json %>
+
+$ ->
+  infinity = {
+      major: Infinity
+      minor: Infinity
+      patch: Infinity
+    }
+  zeros = {
+      major: 0
+      minor: 0
+      patch: 0
+    }
+
+  parseVersion = (str)->
+    v = /^[<>]?[=]?(\d+)\.?(\d+)?\.?(\d+)?/.exec(str)
+    {
+      major: parseInt(v[1]) || 0
+      minor: parseInt(v[2]) || 0
+      patch: parseInt(v[3]) || 0
+    }
+
+  # X+, >=X, >X
+  # X-, <=X, <X
+  # X-Y
+  parseVersionRange = (str)->
+    # greater than or equal to
+    if str.match(/\+$/) or str.match(/^\>\=/)
+      return [parseVersion(str), infinity]
+    # greater than
+    if str.match(/^\>/)
+      version = parseVersion(str)
+      # don't include this version, so bump it up
+      version.patch++
+      return [version, infinity]
+    # less than or equal to
+    if str.match(/^\<\=/)
+      return [zeros, parseVersion(str)]
+    # less than
+    if str.match(/\-$/) or str.match(/^\</)
+      version = parseVersion(str)
+      # don't include this version, so drop it down
+      version.patch--
+      return [zeros, version]
+    if str.match(/.+?\-.+?/)
+      vs = str.split('-')
+      return [parseVersion(vs[0]), parseVersion(vs[1])]
+    else
+      version = parseVersion(str)
+      return [version, version]
+
+  # all comparisons are inclusive
+  inVersionRange = (version, range)->
+    # false if less than 0 or greater than 1
+    return false if compareVersions(version, range[0]) > 0
+    return false if compareVersions(version, range[1]) < 0
+    true
+
+  compareVersions = (v1, v2)->
+    v1num = (v1.major * 10000) + (v1.minor * 100) + v1.patch
+    v2num = (v2.major * 10000) + (v2.minor * 100) + v2.patch
+    v2num - v1num
+
+  # construct an object that represents a
+  # drop-down version list
+  buildLists = (project, base_url)->
+    lists = []
+    for vs in ($versions[project] || [])
+      innerlists = []
+      showV = null
+      currentBlock = false
+      active = false
+      for vsi in vs
+        vsp = parseVersion(vsi)
+        if inVersionRange(vsp, range)
+          current = compareVersions(currentVersion, vsp) == 0
+          currentBlock ||= current
+          active ||= true
+          vData = {active:true, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
+          innerlists.push(vData)
+          showV = vData if current
+        else
+          innerlists.push({active:false, current:false, href:"#", text:vsi})
+      lists.push({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
+    lists
+
+
+  return if $('.mainarticle .versions').length == 0
+
+  project = $('meta[name=project]').attr('content')
+  base_url = $('meta[name=base-url]').attr('content')
+  version = $('meta[name=version]').attr('content')
+  version_range = $('meta[name=version-range]').attr('content')
+
+  return unless project? || base_url? || version? || version_range?
+  return if $versions[project]?.length <= 1
+
+  currentVersion = parseVersion(version)
+  range = parseVersionRange(version_range)
+
+  lists = buildLists(project, base_url)
+
+  currentClass = (li)->
+    unless li.active
+      " class=\"inactive\""
+    else
+      if li.current then " class=\"current\"" else ""
+
+  liLink = (li)->
+    "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"
+
+  output = ""
+  for vmli in lists
+    output += "<li#{currentClass(vmli)}>"
+    output += liLink(vmli.show)
+    output += "<ol>"
+    if vmli.inner?.length > 1
+      for vpli in vmli.inner
+        output += "<li#{currentClass(vpli)}>"
+        output += liLink(vpli)
+        output += "</li>"
+    output += "</ol>"
+    output += "</li>"
+
+
+  $('.mainarticle .versions').html(output)
+

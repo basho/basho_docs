@@ -12,6 +12,7 @@ $subtleGray  : #eaeaea;
 $lightGreen  : #a7c7bf;
 $fadedGreen  : darken(saturate(#6f8a86, 3%), 8%);
 $darkGreen   : darken($lightGreen, 10%);
+$inactiveText: #AAA;
 
 /* =============================================================================
    Mixins
@@ -55,4 +56,10 @@ $darkGreen   : darken($lightGreen, 10%);
 @mixin opaque($dec: 1) {
   opacity : $dec;
   filter  : unquote('alpha(opacity=' + ($dec * 100) + ')');
+}
+
+@mixin transition($args) {
+  -webkit-transition : $args;
+  -moz-transition    : $args;
+  -ms-transition     : width 0.5s ease;
 }

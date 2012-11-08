@@ -8,7 +8,7 @@ index: true
 keywords: [comparisons, hbase]
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and HBase. The HBase version described is 0.94.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/riak_wiki/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective and technical comparison of Riak and HBase. The HBase version described is 0.94.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
@@ -28,7 +28,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
     </tr>
     <tr>
         <td>Data Model</td>
-        <td>Riak stores key/value pairs in a higher level namespsace called a bucket.
+        <td>Riak stores key/value pairs in a higher level namespace called a bucket.
 			<ul>
 			  <li>[[Buckets, Keys, and Values|Concepts#Buckets, Keys, and Values]] </li>
 			</ul>
@@ -46,7 +46,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
 			<ul>
 			  <li>[[Riak Supported Storage Backends|Storage-Backends]]</li>
 			</ul>
-		You can also write you own storage backend for Riak using our [[backend API|Backend API]].
+		You can also write your own storage backend for Riak using our [[backend API|Backend API]].
 	 </td>
         <td>Hadoop Distributed File System (HDFS) is the storage system used by HBase. Data is stored in MemStores and StoreFiles, where data is streamed to disk (implemented via HFiles, a format based on BigTable's SSTable). Implementations generally use the native JVM-managed I/O file stream.
 			<ul>
@@ -158,15 +158,15 @@ The table below gives a high level comparison of Riak and HBase features and cap
 	</td>
     </tr>
     <tr>
-        <td>Multi-Data Center Replication and Awareness</td>
+        <td>Multi-Datacenter Replication and Awareness</td>
 
-		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one data center over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Data Center deployments (meaning the ability to run active Riak clusters in N data centers).
+		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
 		<ul>
 			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
 		</ul>
 
 		</td>
-        <td>HBase shards by way of regions, that themselves may be replicated across multiple data centers.
+        <td>HBase shards by way of regions, that themselves may be replicated across multiple datacenters.
 			<ul>
 			  <li>[[Node Management|http://hbase.apache.org/replication.html]]</li>
 			</ul>

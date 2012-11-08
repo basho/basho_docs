@@ -85,6 +85,7 @@ default storage engine and no separate installation is required.
 
 The default configuration values found in the `app.config` for Bitcask are as
 follows:
+
 ```erlang
  %% Bitcask Config
  {bitcask, [
@@ -143,7 +144,7 @@ in your [[app.config|Configuration Files]].
 ]}
 ```
 
-<div class="note"><div class="title">Bitcask does't actually set O_SYNC on
+<div class="note"><div class="title">Bitcask doesn't actually set O_SYNC on
 Linux</div><p>At the time of this writing, due to an unresolved Linux <a
 href="http://permalink.gmane.org/gmane.linux.kernel/1123952">kernel issue</a>
 related to the <a
@@ -199,6 +200,7 @@ sync) with dirty buffers not yet written to stable storage.</div>
     be surprised by larger than working set on disk data sizes.
 
     Default is: `16#80000000` which is 2GB in bytes
+
 ```erlang
 {bitcask, [
 	    ...,
@@ -221,7 +223,8 @@ sync) with dirty buffers not yet written to stable storage.</div>
     cluster has quiet periods in which little storage activity occurs, you may
     want to change this setting from the default.
 
-    Default is: always
+    Default is: `always`
+
 ```erlang
 {bitcask, [
 	    ...,
@@ -229,6 +232,14 @@ sync) with dirty buffers not yet written to stable storage.</div>
 	    ...
 ]}
 ```
+
+<div class="note"><div class="title"> `merge_window` and Multi-Backend</div>
+When using Bitcask with [[Multi-Backend|Multi]], please note that if you 
+wish to use a merge window, you *must* set it in the global `bitcask` 
+section of your `app.config`.  `merge_window` settings in per-backend 
+sections are ignored.
+</div>
+
 
   * __Merge Triggers__
 
@@ -242,7 +253,7 @@ sync) with dirty buffers not yet written to stable storage.</div>
       setting. Increasing this value will cause merging to occur less often,
       whereas decreasing the value will cause merging to happen more often.
 
-      Default is: 60
+      Default is: `60`
 
     * _Dead Bytes_: The `dead_bytes_merge_trigger` setting describes how much
       data stored for dead keys in a single file will trigger merging. The
@@ -254,7 +265,8 @@ sync) with dirty buffers not yet written to stable storage.</div>
       When either of these constraints are met by any file in the directory,
       Bitcask will attempt to merge files.
 
-      Default is: 536870912 which is 512MB in bytes
+      Default is: `536870912` which is 512MB in bytes
+
 ```erlang
 {bitcask, [
 	    ...,
@@ -278,14 +290,14 @@ sync) with dirty buffers not yet written to stable storage.</div>
       files to be merged, decreasing the value will cause more files to be
       merged.
 
-      Default is: 40
+      Default is: `40`
 
     * _Dead Bytes_: The `dead_bytes_threshold` setting describes the minimum
       amount of data occupied by dead keys in a file to cause it to be included
       in the merge. Increasing the value will cause fewer files to be merged,
       decreasing the value will cause more files to be merged.
 
-      Default is: 134217728 which is 128MB in bytes
+      Default is: `134217728` which is 128MB in bytes
 
     * _Small File_: The `small_file_threshold` setting describes the minimum
       size a file must have to be _excluded_ from the merge. Files smaller
@@ -293,10 +305,11 @@ sync) with dirty buffers not yet written to stable storage.</div>
       _more_ files to be merged, decreasing the value will cause _fewer_ files
       to be merged.
 
-      Default is: 10485760 while is 10MB in bytes
+      Default is: `10485760` while is 10MB in bytes
 
       When any of these constraints are met for a single file, it will be
       included in the merge operation.
+
 ```erlang
 {bitcask, [
 	    ...,
@@ -338,7 +351,7 @@ merging.</p></div>
     set the `expiry_secs` option. If you needed to purge data automatically
     after 1 day, set the value to `86400`.
 
-    Default is: -1 which disables automatic expiration
+    Default is: `-1` which disables automatic expiration
 
 ```erlang
 {bitcask, [
@@ -398,7 +411,7 @@ data.
     access times but you'd like some of the benefits of this optimization
     you can try `relatime`.
 
-```bash
+```
 /dev/sda5    /data           ext3    noatime  1 1
 /dev/sdb1    /data/inno-log  ext3    noatime  1 2
 ```
@@ -484,7 +497,7 @@ Below there are two directory listings showing what you would expect to find on
 disk when using Bitcask. In this example we use a 64 partition ring which
 results in 64 separate directories, each with their own Bitcask database.
 
-```bash
+```
 bitcask/
 |-- 0-131678707860265
 |-- 1004782375664995756265033322492444576013453623296-1316787078215038
@@ -499,14 +512,15 @@ Note that when starting up the directories are created for each vnode
 partition's data however there are no Bitcask-specific files as yet.
 
 After performing one "put" (write) into the Riak cluster running Bitcask.
-```bash
+
+```
 curl http://localhost:8098/riak/test/test -XPUT -d 'hello' -H 'content-type: text/plain'
 ```
 
 The "N" value for this cluster is 3 so you'll see that the three vnode
 partitions responsible for this data now have Bitcask database files.
 
-```bash
+```
 bitcask/
 
 ... etc ...
@@ -539,8 +553,7 @@ bitcask/
 As more data is written to the cluseter, more Bitcask files are created until
 merges are triggered.
 
-```bash
-gburd@toe:~/Projects/riak/dev/dev1/data$ tree bitcask/
+```
 bitcask/
 |-- 0-1317147619996589
 |   |-- 1317147974.bitcask.data

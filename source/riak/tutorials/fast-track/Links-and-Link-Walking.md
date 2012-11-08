@@ -38,7 +38,7 @@ $ curl -v -XPUT -H 'Link: </riak/people/dhh>; riaktag="friend"' \
   -d 'I am an excellent public speaker.'
 ```
 
-In this request we are attaching 'Link: </riak/people/dhh>; riaktag="friend"' to the key "timoreilly" located in the "people" bucket.
+In this request we are attaching 'Link: &lt;/riak/people/dhh&gt;; riaktag="friend"' to the key "timoreilly" located in the "people" bucket.
 
 Try it. It's easy, right? You've just attached a link to an object in Riak!
 
@@ -75,9 +75,9 @@ $ curl -v http://127.0.0.1:8091/riak/people/timoreilly/people,friend,1
 
 You'll notice that at the end of that request we've tacked on "/people,friend,1" That is the link specification. It's composed of three parts:
 
-# Bucket - a bucket name to limit the links to (in the above request it's 'people')
-# Tag - the "riaktag" to limit the links ('friend' is the tag in the above request)
-# Keep - 0 or 1, whether to return results from this step or phase
+* Bucket - a bucket name to limit the links to (in the above request it's 'people')
+* Tag - the "riaktag" to limit the links ('friend' is the tag in the above request)
+* Keep - 0 or 1, whether to return results from this step or phase
 
 If all went well, the response body from the above request should include the record for the "dhh" object.
 
