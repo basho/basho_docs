@@ -281,10 +281,9 @@ iframe {
   }
 
   h3.start {
-    border:1px solid $fadedGreen;
-    border-left:4px solid $fadedGreen;
+    border      : 1px solid $fadedGreen;
+    border-left : 4px solid $fadedGreen;
     @include corner(right, top);
-    //color: $orange;
   }
 
   h2.responsive-link {
@@ -569,6 +568,7 @@ div[role="main"] {
       @extend .block;
       @include size(270px, 44px);
       @include layout-sprite(logo);
+      margin-top : 11px;
       
       h1 {
         display:none;
@@ -581,6 +581,7 @@ div[role="main"] {
       
       @media screen and (max-width: 700px) {
         margin-left : 12px;
+        margin-top  : auto;
       }
       
     }
@@ -619,12 +620,14 @@ div[role="main"] {
     #top-nav {
       float      : right;
       text-align : center;
+      position   : relative;
+      padding    : 32px 0 0 0;
       
-      a, input {
+      a {
         @extend .green-link;
         @extend .block;
         @include bgPattern('light-green-bg.jpg');
-        @include size(auto, auto);
+        @include size(4.2em, auto);
         padding : 0 15px; 
         margin  : 0 0 1px 0;
         border  : 1px solid $darkGreen;
@@ -642,27 +645,33 @@ div[role="main"] {
       }
 
       input {
-        background: #FFF;
-        font-weight:normal;
-        font-family: 'titillium', verdana, arial, sans-serif;
-        color: #24514A;
-        width:4em;
-        -webkit-transition: width 0.5s ease;
-        -moz-transition: width 0.5s ease;
-        -ms-transition: width 0.5s ease;
+        @include allCorners(15px);
+        @include transition(width 0.3s ease);
+        border      : 1px solid silver;
+        padding     : 2px 12px;
+        background  : url('../images/layout/small-search-icon.png') right 3px no-repeat #FFF;
+        font-weight : normal;
+        font-family : 'titillium', verdana, arial, sans-serif;
+        color       : #24514A;
+        width       : 5em;
+        position    : absolute;
+        top         : 0;
+        right       : -3px;
+        
         &::-webkit-input-placeholder,
         &::-moz-placeholder,
         &::-ms-input-placeholder,
         &::input-placeholder {
-          color: #24514A;
+          color : #24514A;
         }
+        
         &:focus {
-          /* position:absolute; */
-          width:8em;
+          width   : 10em;
+          outline : none;
         }
+
         &:hover {
-          background: #FFF;
-          color: #24514A;
+          color      : #24514A;
         }
       }
       
