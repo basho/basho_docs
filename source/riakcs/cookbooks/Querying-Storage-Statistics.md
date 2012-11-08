@@ -22,7 +22,8 @@ for [[Querying Access Statistics]].
 Please refer to the descriptions there for more details.
 
 ## Enable Storage Results
-<div class="note"><div class="title">Note</div>Queries to the usage resources
+
+<div class="note"><div class="title">Authentication Required</div>Queries to the usage resources
 described here must be authenticated as described in the
 [[Authentication documentation|Authentication]]. Keep this in mind when using
 <tt>curl</tt>. Authentication credentials for <tt>s3cmd</tt> or
