@@ -144,7 +144,7 @@ in your [[app.config|Configuration Files]].
 ]}
 ```
 
-<div class="note"><div class="title">Bitcask does't actually set O_SYNC on
+<div class="note"><div class="title">Bitcask doesn't actually set O_SYNC on
 Linux</div><p>At the time of this writing, due to an unresolved Linux <a
 href="http://permalink.gmane.org/gmane.linux.kernel/1123952">kernel issue</a>
 related to the <a
