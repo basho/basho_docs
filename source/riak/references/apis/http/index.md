@@ -52,6 +52,7 @@ the keys in a bucket, you'll need to delete them all individually.</P>
 * [[HTTP List Keys]]
 * [[HTTP Get Bucket Properties]]
 * [[HTTP Set Bucket Properties]]
+* [[HTTP Reset Bucket Properties]]
 
 ## Object/Key Operations 
 
