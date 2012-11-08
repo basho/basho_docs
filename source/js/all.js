@@ -330,7 +330,7 @@
    * and not enough browsers support that yet.  This way the user doesn't have
    * to build extra html just to get the icon in there.
    */
-  $(options.selectors.contentWell + ' .info').prepend('<span class="info-icon"></span>');
+  $(options.selectors.contentWell + ' .info, ' + options.selectors.contentWell + ' .note').prepend('<span class="info-icon"></span>');
   
 
 });
