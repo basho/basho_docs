@@ -42,7 +42,12 @@ The IP address that the Protocol Buffers interface will bind to. (default: "127.
 The port that the Protocol Buffers interface will bind to. (default: 8087)
 
  * **pb_backlog**
-The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5)
+The maximum length to which the queue of pending *simultaneous*
+protocol buffers connections may grow. If set, it must be an integer >= 0.
+If you anticipate a larger number of connections than the default being
+simultaneously initialized, set this number to a higher value accordingly.
+You should adjust this value to meet your anticipated simultaneous
+connection demand or if experiencing connection resets. (default: 5)
 {{/1.2.0+}}
 
 ### riak_core settings
