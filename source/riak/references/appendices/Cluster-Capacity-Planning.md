@@ -104,6 +104,19 @@ certain portion of keys is accessed regularly, such as a [pareto
 distribution](http://en.wikipedia.org/wiki/Pareto_distribution), you
 won't need as much RAM available to cache those keys' values.
 
+Number of Nodes
+---------------
+The number of nodes (i.e. physical servers) in your Riak Cluster depends
+on the number of times data is [[Replicated|Replication]] across the cluster.  
+To ensure that the cluster is always available to respond to read and write requests, Basho recommends
+a "sane default" of N=3 replicas.  This requirement can be met with a three
+or four node cluster (as implemented in [[The Riak Fast Track|fast-track]]).
+However, for production deployments we recommend using no fewer than 5 nodes, as node failures
+in smaller clusters can compromise the fault-tolerance of the system.  Additionally, in clusters smaller than
+5 nodes, a high percentage of the nodes (75-100% of them) will need to respond to each request, putting undue load on the 
+cluster that may degrade performance.  For more details on this recommendation, see this [blog post](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/).
+
+
 Ring Size/Number of Partitions
 ------------------------------
 
