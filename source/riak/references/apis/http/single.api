@@ -158,8 +158,7 @@ $ curl -v http://127.0.0.1:8098/riak/test
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
 > GET /riak/test HTTP/1.1
-> User-Agent: curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7
-OpenSSL/0.9.8l zlib/1.2.3
+> User-Agent: curl/7.19.7 libcurl/7.19.7 zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
 >
@@ -235,7 +234,7 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc2
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
 > GET /riak/test/doc2 HTTP/1.1
-> User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
 >
@@ -268,12 +267,14 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
 > GET /riak/test/doc HTTP/1.1
-> User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
 >
 < HTTP/1.1 300 Multiple Choices
-< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3pt5HlsgCAA==
+< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+3pt5HlsgCAA==
 < Vary: Accept, Accept-Encoding
 < Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
 < Date: Fri, 30 Sep 2011 15:24:35 GMT
@@ -296,12 +297,14 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
 > GET /riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f HTTP/1.1
-> User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
 >
 < HTTP/1.1 200 OK
-< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3pt5HlsgCAA==
+< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+3pt5HlsgCAA==
 < Vary: Accept-Encoding
 < Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
 < Link: </riak/test>; rel="up"
@@ -323,12 +326,14 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc -H "Accept: multipart/mixed"
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
 > GET /riak/test/doc HTTP/1.1
-> User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: multipart/mixed
 >
 < HTTP/1.1 300 Multiple Choices
-< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3pt5HlsgCAA==
+< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+3pt5HlsgCAA==
 < Vary: Accept, Accept-Encoding
 < Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
 < Date: Fri, 30 Sep 2011 15:24:35 GMT
@@ -411,7 +416,7 @@ $ curl -v -X DELETE http://127.0.0.1:8098/riak/test/test2
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
 > DELETE /riak/test/test2 HTTP/1.1
-> User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
 >
@@ -469,7 +474,7 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc3/test,_,1/_,next,1
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
 > GET /riak/test/doc3/test,_,1/_,next,1 HTTP/1.1
-> User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
 >
@@ -485,7 +490,9 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc3/test,_,1/_,next,1
 Content-Type: multipart/mixed; boundary=OjZ8Km9J5vbsmxtcn1p48J91cJP
 
 --OjZ8Km9J5vbsmxtcn1p48J91cJP
-X-Riak-Vclock: a85hYGDgymDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3pt7HlGBhnqejARXmq0QyZnnxE6jwVJBwFgA=
+X-Riak-Vclock: a85hYGDgymDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0c
+IszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3p
+t7HlGBhnqejARXmq0QyZnnxE6jwVJBwFgA=
 Location: /riak/test/doc
 Content-Type: application/json
 Link: </riak/test>; rel="up", </riak/test/doc2>; riaktag="next"
@@ -557,12 +564,15 @@ $ curl -i http://localhost:8098 -H "Accept: application/json"
 HTTP/1.1 200 OK
 Vary: Accept
 Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>; rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>; rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
+Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>;
+rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>;
+rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
 Date: Fri, 30 Sep 2011 15:24:35 GMT
 Content-Type: application/json
 Content-Length: 143
 
-{"riak_kv_wm_link_walker":"/riak","riak_kv_wm_mapred":"/mapred","riak_kv_wm_ping":"/ping","riak_kv_wm_raw":"/riak","riak_kv_wm_stats":"/stats"}
+{"riak_kv_wm_link_walker":"/riak","riak_kv_wm_mapred":"/mapred",
+"riak_kv_wm_ping":"/ping","riak_kv_wm_raw":"/riak","riak_kv_wm_stats":"/stats"}
 
 # ### Request an HTML response
 curl -i http://localhost:8098 -H "Accept: text/html"
@@ -571,11 +581,16 @@ curl -i http://localhost:8098 -H "Accept: text/html"
 HTTP/1.1 200 OK
 Vary: Accept
 Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>; rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>; rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
+Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>;
+rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>;
+rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
 Date: Fri, 30 Sep 2011 15:24:35 GMT
 Content-Type: text/html
 Content-Length: 267
 
-<html><body><ul><li><a href="/riak">riak_kv_wm_link_walker</a></li><li><a href="/mapred">riak_kv_wm_mapred</a></li><li><a href="/ping">riak_kv_wm_ping</a></li><li><a href="/riak">riak_kv_wm_raw</a></li><li><a href="/stats">riak_kv_wm_stats</a></li></ul></body></html>
-
-
+<html><body><ul><li><a href="/riak">riak_kv_wm_link_walker</a></li>
+<li><a href="/mapred">riak_kv_wm_mapred</a></li>
+<li><a href="/ping">riak_kv_wm_ping</a></li>
+<li><a href="/riak">riak_kv_wm_raw</a></li>
+<li><a href="/stats">riak_kv_wm_stats</a></li>
+</ul></body></html>
