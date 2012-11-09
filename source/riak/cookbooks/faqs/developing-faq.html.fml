@@ -39,7 +39,7 @@ A:
 
   A filter must be applied to all of the objects in the system in order to find those in a particular bucket. Buckets are intended for configuration purposes (e.g., replication properties) rather than for general queries.
 
-  To keep track of objects which need to be grouped or listed, store an object with the list of objects, or use secondary indexing or search. Depending on your application requirements these options have different pros and cons.
+  To keep track of groups of objects there are several options with various trade-offs: secondary indexing, search, or a list using links.
 
 Q: Why does secondary index (2I) return inconsistent results after using force-remove to drop a node from the cluster?
 A:
