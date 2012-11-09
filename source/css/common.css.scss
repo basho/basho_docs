@@ -489,7 +489,6 @@ div[role="main"] {
       }
     }
     
-    
     a {
       color : $headerColor;
     }
@@ -531,6 +530,17 @@ div[role="main"] {
     
     &:hover {
       color : lighten($orange, 5%);
+    }
+
+    &[href^="http://"], &[href^="https://"] {
+      @include size(10px, 10px);
+      background: url("../images/external.png") no-repeat right;
+      padding-right: 12px;
+    }
+    &[href$=".pdf"], &[href$=".PDF"] {
+      @include size(14px, 16px);
+      background: url("../images/pdf.png") no-repeat right;
+      padding-right: 16px;
     }
   }
   
@@ -967,12 +977,6 @@ nav#toc {
    Code Styles
    ========================================================================== */
 
-/*
-pre {
-  overflow-x: auto;
-}
-*/
-
 div[role=main] {
   
   pre {
@@ -1035,12 +1039,6 @@ div[role=main] {
     margin-bottom : 20px;
   }
   
-  .docco .code {
-    border-bottom : 0;
-    margin-bottom : 0;
-    padding       : 0 25px;
-  }
-  
   table.links {
     width:100%;
     td:first-child {
@@ -1051,38 +1049,6 @@ div[role=main] {
     }
     td:last-child {
       width:70%;
-    }
-  }
-
-  table.docco {
-    @include boxShadow(none);
-    border : 0;
-    
-    .code {
-      @include allCorners(0px);
-      @include boxShadow(none);
-      border-left    : 1px solid #d8d9da;
-      border-right   : 1px solid #d8d9da;
-    }
-    
-    tr {
-      background : none;
-    }
-
-    tr:first-child .code {
-      @include corner(left, top);
-      @include corner(right, top);
-      border-top : 1px solid #cacaca;
-    }
-
-    tr:last-child .code {
-      @include corner(left, bottom);
-      @include corner(right, bottom);
-      border-bottom : 1px solid #d8d9da;
-    }
-    
-    pre {
-      margin-bottom : 15px;
     }
   }
 }
@@ -1190,114 +1156,5 @@ article {
   }
   .right-sidebar nav.tutorial {
     margin : 0;
-  }
-}
-
-
-/* =============================================================================
-   Version Bar
-   ========================================================================== */
-
-
-ol.versions,
-ol.versions li {
-  list-style: none;
-  list-style-image: none;
-  margin: 0;
-  padding: 0;
-}
-ol.versions {
-  float: right;
-  margin-top: 2.1em;
-  //clear         : left;
-  //margin-bottom : 1em;
-  //padding-top   : 15px;
-
-  //margin: 0;
-  //padding: 0;
-  
-  > li {
-    &:first-child {
-      @include corner(left, top);
-      @include corner(left, bottom);
-    }
-    
-    &:last-child {
-      @include corner(right, top);
-      @include corner(right, bottom);
-    }
-  }
-
-  li {
-    @include bgPattern('light-green-bg.jpg');
-    border        : 1px solid $darkGreen;
-    display       : inline-block;
-    font-size     : 8pt;
-    margin-right  : 1px;
-    margin-bottom : 1px;
-    
-    ol {
-      display:none;
-      margin:0;
-      margin-left:-1px;
-      padding:2px 0;
-      position: absolute;
-      max-width:5em;
-      li {
-        z-index:500;
-      }
-    }
-
-    &:hover {
-      background : $orange;
-      border     : 1px solid $darkOrange;
-
-      & > ol { 
-        display:block;
-      }
-    }
-    
-    &.inactive {
-      background : #DDD;
-      border     : 1px solid #BBB;
-      &:hover {
-        background : #DDD;
-        border     : 1px solid #BBB;
-      }
-      a {
-        cursor : default;
-        color : $inactiveText;
-        &:hover {
-          color : $inactiveText;
-        }
-      }
-    }
-
-    &.current {
-      background : $orange;
-      border     : 1px solid $darkOrange;
-      
-      > a {
-        color : #fff;
-        
-        &:hover {
-          color : #fff;
-        }
-      }
-    }
-    
-    a {
-      @extend .green-link;
-      
-      &:hover {
-        color : #fff;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 700px) {
-  ol.versions { 
-    display:none;
   }
 }
