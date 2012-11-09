@@ -1,5 +1,5 @@
 ---
-title: モニタリングとメトリクスMonitoring and Metrics
+title: モニタリングとメトリクス
 project: riakcs
 version: 1.2.0+
 document: cookbook
@@ -8,14 +8,10 @@ audience: intermediate
 keywords: [operator, troubleshooting]
 ---
 
-Riak CS は、Folsom Statistics ライブラリを使った
-統計の取得が可能です。
-Riak CS provides operational statistics which can be useful for monitoring through the Folsom statistics library, and initial probes for analysis of the running system with [[DTrace|http://dtrace.org/blogs/about/]].
+Riak CS は、Folsom Statistics ライブラリを使ったオペレーション統計の取得が可能です。さらに、稼働中のシステムの解析には [[DTrace|http://dtrace.org/blogs/about/]] が用意されています。
 
 ## オペレーションの統計
-Riak と同様に、Riak CS は
-一般的なモニタリング、警告、trend analysis といったクリティカルな統計を取ることができます。これらの統計は、次のリソースへの HTTP リクエストとしてアクセスすることができます。
-Much like Riak, Riak CS exposes statistics on critical operations which are commonly used for monitoring, alerting, and trend analysis. These statistics can be accessed through HTTP requests to the following resource:
+Riak と同様に、Riak CS は一般的なモニタリング、警告、trend analysis といったクリティカルな統計を取ることができます。これらの統計は、次のリソースへの HTTP リクエストとしてアクセスすることができます。これらの統計は HTTP リクエストを使って、次のようなリソースsにアクセスすることができます:
 
 ```
 /riak-cs/stats
