@@ -32,7 +32,7 @@ DELETE /buckets/bucket/keys/key   # 新フォーマット
 <div class="note"><div class="title">クライアントID</div>
 <p>Riak &lt;1.0 または、'vnode_vclocks' が有効でない Riak 1.0 には 'X-Riak-ClientId' ヘッダをインクルードするべきです。
 これはクライアントをユニークに識別できればどんな文字列でも構いません。
-これは [[ベクトルクロック|Vector Clocks]] がオブジェクトの変化を追跡するために用いられます。</p>
+これは [[ベクタークロック|Vector Clocks]] がオブジェクトの変化を追跡するために用いられます。</p>
 </div>
 
 正常時のレスポンス:

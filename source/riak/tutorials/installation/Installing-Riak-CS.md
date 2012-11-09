@@ -1,5 +1,5 @@
 ---
-title: Installing Riak CS
+title: Riak CS のインストール
 project: riakcs
 version: 0.10.0+
 document: tutorial
@@ -9,61 +9,61 @@ audience: beginner
 keywords: [installing]
 ---
 
-A fully functional Riak CS system is comprised of Riak CS, Stanchion, and Riak. Riak CS runs only on 64-bit platforms. The supported operating systems include Ubuntu 10.04, Ubuntu 11.04, CentOS 5, and CentOS 6. Riak CS is not supported on Microsoft Windows. You can install Riak CS on a single node or using an automated deployment tool.
+完全に動作する Riak CS システムには、Riak CS、Stanchion、および Riak が含まれています。Riak CS は 64 ビット プラットフォームでのみ動作します。サポートしているオペレーティングシステムは、Ubuntu 10.04、Ubuntu 11.04、CentOS 5、CentOS 6 です。Riak CS は Microsoft Windows には対応していません。Riak CS はシングルノードとしてインストールしても、自動デプロイ ツールを使用しても構いません。
 
-For those of you like videos, here's a [[video|http://player.vimeo.com/video/42654313]] that demonstrates a typical Riak CS installation.
+ビデオがお好きであれば、こちらの [[ビデオ|http://player.vimeo.com/video/42654313]] で、Riak CS の一般的なインストールのデモをご覧いただけます。
 
-## Installing Riak CS on a Node
-As a licensed Riak CS customer, you can use your Basho provided credentials to access Riak CS from the [downloads](https://help.basho.com/forums/20747106-riak-cs-downloads) section of the Basho help desk website.
+## Riak CS をノードにインストール
+ライセンス版の Riak CS カスタマは、Basho のヘルプデスク ウェブサイトの [downloads](https://help.basho.com/forums/20747106-riak-cs-downloads) セクションから、Basho が提供している証明書を Riak CS に適用することができます。
 
-After downloading Riak EE, Stanchion, and Riak CS, install them using your operating system's package management commands.
+Riak EE、Stanchion、Riak CS をダウンロードしたら、オペレーティングシステムのパッケージ管理コマンドを使ってそれらをインストールして下さい。
 
-<div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and it should not be operated in a manner which exposes it directly to the public internet</strong>. Instead, consider a load balancing solution, such as dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.</div>
+<div class="note"><div class="title">ノート</div><strong>Riak CS は TCP ポート 80 を直接扱うようには設計されていません。また、直接それを公共のインターネットに公開するような運用をしてはいけません。</strong>その代わりに、Riak CS と外の世界とを、専用のデバイスや、<a href="http://haproxy.1wt.eu">HAProxy</a> や <a href="http://wiki.nginx.org/Main">Nginx</a> といったロードバランサつなぐといった解決を考慮してください。</div>
 
-### Installing Riak CS on Ubuntu
-The following command installs Riak CS on a machine running either Debian or Ubuntu.
+### Ubuntu 上に Riak CS をインストールする
+以下のコマンドで、Debian または Ubuntu が走っているマシンに Riak CS をインストールできます。
 
 ```bash
 sudo dpkg -i <riak-cs-package.deb>
 ```
 
-Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
+`<riak-ee-package.deb>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
-### Installing Riak CS on CentOS
-The following command installs Riak CS on a machine running CentOS.
+### CentOS 上に Riak CS をインストールする
+以下のコマンドで、CentOS が走っているマシンに Riak CS をインストールできます。
 
 ```bash
 rpm -Uvh <riak-cs-package.rpm>
 ```
 
-Replace `<riak-cs-package.rpm>` with the actual file name for the package you are installing.
+`<riak-cs-package.rpm>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
-## Installing Stanchion
-In a Riak CS system, Stanchion is installed on only one of the nodes in the system. Running Stanchion on more than one node can lead to problems if Riak CS nodes are configured to communicate using multiple Stanchion nodes. In this situation, the uniqueness of bucket names and user email addresses might not be enforced, which, in turn, could lead to unexpected behavior. Use the commands in the section for your operating system to install a pre-built Stanchion package on the node you choose for Stanchion.
+## Stanchion のインストール
+Riak CS システムでは、Stanchion はシステム内の１つのノードにだけインストールします。複数のノードで Stanchion が走っていると、Riak CS のノードが複数の Stanchion ノードと通信するように設定されているときに問題を引き起こす可能性があります。この場合、バケット名およびユーザの email アドレスのユニークさが阻害され、その結果、予期せぬ動作が起きる可能性があります。ご使用のオペレーティングシステムに該当するセクションのコマンドを使って、Stanchion をインストールしたいノードに Stanchion パッケージのバイナリをインストールして下さい。
 
-### Installing Stanchion on Ubuntu
-The following command installs Stanchion on a machine running Ubuntu.
+### Ubuntu 上に Stanchion をインストールする
+以下のコマンドで、Ubuntu が走っているマシンに Stanchion をインストールできます。
 
 ```bash
 sudo dpkg -i <riak-cs-package.deb>
 ```
-Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
+`<riak-cs-package.deb>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
-### Installing Riak CS on CentOS
+### CentOS 上に Stanchion をインストールする
 
-The following command installs Stanchion on a machine running either Red Hat linux or CentOS.
+以下のコマンドで、Red Had linux または CentOS が走っているマシン上に Stanchion をインストールできます。
 
 ```bash
 sudo rpm -Uvh <stanchion-package.rpm>
 ```
 
-Replace `<stanchion-package.rpm>` with the actual file name for the package you are installing.
+`<stanchion-package.rpm>` を、インストールするパッケージの実際のファイル名に置き換えてください。
 
 
-<div class="note"><div class="title">Note</div>CentOS enables Security-Enhanced Linux (SELinux) by default. If you encounter errors during installation, try disabling SELinux.</div>
+<div class="note"><div class="title">ノート</div>CentOS はデフォルトで Security-Enhanced Linux (SELinux) が有効になっています。インストール中にエラーが発生したときは、SELinux を無効にしてみてください。</div>
 
-## Installing Riak
-If you have not yet installed Riak, follow the [[Riak Installation|http://wiki.basho.com/Installation.html]] documentation to do so.
+## Riak のインストール
+まだ Riak をインストールしたことがなければ、[[Riak Installation|http://wiki.basho.com/Installation.html]] のドキュメントに従ってください。
 
-## What's Next?
-Once you've completed installation of Riak CS and Riak, you're ready to learn more about the [[Configuration of Riak CS|Configuration]].
+## 次にすること
+Riak CS と Riak のインストールが完了したら、[[Riak CS の設定|Configuration]] を学んでください。

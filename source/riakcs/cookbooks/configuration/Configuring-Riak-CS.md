@@ -1,5 +1,5 @@
 ---
-title: Configuring Riak CS
+title: Riak CS の設定
 project: riakcs
 version: 1.2.0+
 document: cookbook
@@ -8,15 +8,15 @@ audience: intermediate
 keywords: [operator, configuration]
 ---
 
-## Specifying the Admin User
+## 管理ユーザを指定する
 
-The admin user is authorized to perform actions such as creating buckets or obtaining billing statistics. An admin user account is no different than any other user account.
+管理ユーザは、バケットの作成、課金情報の取得などの権限を持っています。それ以外は他のユーザアカウントと違いはありません。
 
-<div class="note"><div class="title">Note</div>
-Before creating an admin user, you must first set <tt>{anonymous_user_creation, true}</tt> in the Riak CS <tt>app.config</tt>. You may disable this again once the admin user has been created.
+<div class="note"><div class="title">ノート</div>
+管理ユーザを作る前に、まず Riak CS の <tt>app.config</tt> で <tt>{anonymous_user_creation, true}</tt> をセットしてください。管理ユーザを作成後は、これを disable にするべきです。
 </div>
 
-To create an account for the admin user, use an HTTP POST with the username you want for the admin account. The following is an example:
+管理ユーザのアカウントを作るには、管理ユーザにしたいアカウントから HTTP POST を行います。以下に例を示します:
 
 ```
 curl -H 'Content-Type: application/json' \
@@ -24,7 +24,7 @@ curl -H 'Content-Type: application/json' \
   --data '{"email":"foobar@example.com", "name":"admin user"}'
 ```
 
-The JSON response looks something like:
+JSON でのレスポンスは次のようになります:
 
 ```json
 {
@@ -38,9 +38,9 @@ The JSON response looks something like:
 }
 ```
 
-You can optionally send and receive XML, if you set the `Content-Type` to `application/xml`.
+`Content-Type` を `application/xml` とすることで、オプションで XML を送信、受信することができます。
 
-Once the admin user exists, you must specify the credentials of the admin user on each node in the Riak CS system. The admin user credential settings reside in the Riak CS `app.config` file, which is located in the `etc/riak-cs` directory. The settings appear in the Riak CS config section of the file. Paste the `key_id` string between the quotes for the `admin_key`. Paste the `key_secret` string into the `admin_secret` variable, as shown here:
+管理ユーザができたら、Riak CS システム内の各ノードに管理ユーザの証明を指定しなければなりません。管理ユーザの証明書は `etc/riak-cs` ディレクトリにある `app.config` ファイルにて行います。`admin_key` にダブルクォートでくくった `key_id` の文字列を貼り付けます。`admin_secret` 変数には以下のように `key_secret` 文字列を貼り付けます。
 
 ```
 %% Admin user credentials
@@ -48,49 +48,49 @@ Once the admin user exists, you must specify the credentials of the admin user o
  {admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
 ```
 
-## Listening on a Public Address
+## パブリックアドレスでのリッスン
 
-If you have a single node, you don't have to change the settings for the address to listen on, because Riak CS simply listens to the requests from the local host. If your system has multiple nodes, you set the IP address and port that Riak CS listens on for requests from other nodes.
+ノードが 1 つであれば、リッスンするアドレスの設定を変える必要はありません。Riak CS は単純にローカルホストからのリクエストをリッスンしているからです。システムに複数のノードがあるのなら、Riak CS が他のノードからのリクエストをリッスンできるように、IP アドレスとポートを設定します。
 
-The public address settings reside in the Riak CS `app.config` file, which is located in the` /etc/riak-cs` directory. The settings appear in the Riak CS config section of the file.
+パブリックアドレスの設定は、`/etc/riak-cs` ディレクトリ内の Riak CS の `app.config` ファイルにあります。設定は、このファイルの Riak CS の設定セクションにあります。
 
-__riak_ip__: Replace 127.0.0.1 with the IP address of the Riak node you want Riak CS to connect to.
+__riak_ip__: 127.0.0.1 から、接続したい Riak ノードの IP アドレスに書き換えます。
 
-If you configured Riak to use a different port for protocol buffers, you must change the following port setting:
+プロトコルバッファを使うために別なポートに設定するのであれば、以下のポート設定を変更しなければなりません:
 
-__riak_pb_port__: Replace 8087 with the port number set in the variable `pb_port` in the Riak `app.config` file.
+__riak_pb_port__: 8087 から、`app.config` ファイルの `pb_port` 変数にあるポート番号に書き換えます。
 
-<div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the pb_ip variable in the Riak app.config file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set riak_ip to "0.0.0.0".</div>
+<div class="note"><div class="title">ノート</div>ここで設定した IP アドレスは、app.config ファイルの pb_ip 変数の値と一致していなければなりません。サーバに複数のネットワーク インタフェース カード(NIC)があるときは、どれか 1 つの NIC の IP アドレスを使います。すべてに対してリッスンさせたいのなら、riak_ip を "0.0.0.0" にしてください。</div> 
 
-After modifying the port numbers, restart Riak if is already running.
+ポート番号を変更したら、Riak をリスタートしてください。
 
-## Specifying the Stanchion Node
-If you have a single node, you don't have to change the Stanchion settings, because Stanchion runs on the local host. If your Riak CS system has multiple nodes, you set the IP address and port for the Stanchion node and whether SSL is enabled.
+## Stanchion ノードを指定する
+ノードが 1 つであれば、Stanchion の設定を変更する必要はありません。Stanchion はローカルホストで動いているからです。システムに複数のノードがあるなら、Stanchion ノード用に IP アドレスとポート、さらに SSL を有効にするかどうかを設定します。
 
-The Stanchion settings reside in the Riak CS app.config file, which is located in the /etc/Riak-CS directory. The settings appear in the Riak CS config section of the file.
+Stanchion 設定は、/etc/Riak-CS ディレクトリ内の app.config ファイルにあります。設定は、このファイルの Riak CS の設定セクションにあります。
 
-__stanchion_ip__: Replace 127.0.0.1 with the IP address of the Stanchion node.
+__stanchion_ip__: 127.0.0.1 から、Stanchion ノードの IP アドレスに書き換えます。
 
-If you configured Stanchion to use a different port, you must change the following port setting:
+別なポートを使うように Stanchion を設定したければ、以下のポート設定を変更しなければなりません:
 
-__stanchion_port__: Replace 8085 with the port number set in the variable stanchion_port in the Stanchion `app.config` file.
+__stanchion_port__: 8085 から、`app.config` ファイルの `stanchion_port` 変数にあるポート番号に書き換えます。
 
-The __stanchion_ssl__ variable is set to false by default. If you want to use SSL, change this variable to true.
+__stanchion_ssl__ 変数は、デフォルトでは false になっています。SSL を使いたいのならば、この変数を true に変更してください。
 
-## Specifying the Node IP Address
-You can also set the IP address for the Riak CS node, which is helpful if you must debug code or identify the node from which requests originate. The Riak CS IP address setting resides in the Riak CS `vm.args` configuration file, which is located in the `/etc/riak-cs` directory.
+## ノードの IP アドレスを指定する
+Riak CS のノードの IP アドレスを設定することができます。コードをデバッグするとき、どのようなリクエストから派生したノードなのかを識別したい時に便利です。IP アドレスの設定は、`/etc/riak-cs` ディレクトリ内の `vm.args` 設定ファイルで行います。
 
-Initially, the line that specifies the Riak CS node IP address is set to the localhost, as follows:
+初期状態では、Riak CS のノード IP アドレスは、次のようにローカルホストとして設定されています。
 
 ```
 ## Name of the riak node
 -name riak_cs@127.0.0.1
 ```
 
-Replace 127.0.0.1 with the IP address for the Riak CS node.
+127.0.0.1 を Riak CS のノードの IP アドレスに置き換えます。
 
-## Enabling SSL in Riak CS
-In the Riak CS `app.config` file, first uncomment the following lines:
+## SSL を有効にする
+`app.config` ファイルの以下の行のコメントを外します:
 
 ```erlang
 %%{ssl, [
@@ -99,7 +99,7 @@ In the Riak CS `app.config` file, first uncomment the following lines:
 %%   ]},
 ```
 
-Replace the text in quotes with the path and filename for your SSL encryption files.
+ダブルクォート内のテキストを SSL エンクリプションファイルのパスおよびファイル名に置き換えます。
 
-## Other Riak CS Settings
-The `app.config` file includes other settings, such as whether to create log files and where to store them. These settings have default values that work in most cases.
+## その他の設定
+`app.config` ファイルには、ログファイルを作るか否か、それをどこに保存するのかといった、その他の設定項目があります。デフォルトは通常の使用でよく使われる値になっています。

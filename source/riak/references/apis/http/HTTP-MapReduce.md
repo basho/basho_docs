@@ -9,7 +9,7 @@ keywords: [api, http]
 group_by: "Query Operations"
 ---
 
-[[MapReduce]] は入力を指定し、マップを作成し、リデュースし、データ集めるという、Riakにおける標準的なクエリ方法です。
+[[MapReduce]] は入力を指定し、map を作成し、reduce し、データ集めるという、Riak における標準的なクエリ方法です。
 
 ## リクエスト
 
@@ -32,7 +32,7 @@ _+このリクエストは、MapReduceクエリとしてJSONのフォーマッ�
 
 主なエラーコード:
 * `400 Bad Request` - 無理なジョブが与えられた
-* `500 Internal Server Error` - マップまたはリデュース処理中にエラーが発生した
+* `500 Internal Server Error` - map または reduce 処理中にエラーが発生した
 * `503 Service Unavailable` - ジョブ完了前にタイムアウトが発生した
 
 重要なヘッダ:

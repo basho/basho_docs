@@ -1,5 +1,5 @@
 ---
-title: HTTP セカンダリインデクス
+title: HTTP セカンダリインデックス
 project: riak
 version: 1.0.0+
 document: api
@@ -9,8 +9,8 @@ keywords: [api, http]
 group_by: "Query Operations"
 ---
 
-[[セカンダリインデクス|Secondary Indexes]] はRiakオブジェクトのフィールド/バリュー ペアをタグとしてアプリケーションから利用することができる。
-オブジェクトはこれらのフィールド/バリュー ペアを元にしてインデクスが作られ、アプリケーションからの問い合わせによって一致するキーを検索する。
+[[セカンダリインデックス|Secondary Indexes]] はRiakオブジェクトのフィールド/バリュー ペアをタグとしてアプリケーションから利用することができます。
+オブジェクトはこれらのフィールド/バリュー ペアを元にしてインデックスが作られ、アプリケーションからの問い合わせによって一致するキーを検索します。
 
 ## リクエスト
 
@@ -33,8 +33,8 @@ GET /buckets/mybucket/index/myindex_bin/start/end
 
 主なエラーコード:
 
-+ `400 Bad Request` - インデクス名または値が不正
-+ `500 Internal Server Error` - マップまたはレディース処理中にエラーが発生した、あるいはシステムがインデクスをサポートしていない
++ `400 Bad Request` - インデックス名または値が不正
++ `500 Internal Server Error` - map または reduce 処理中にエラーが発生した、あるいはシステムがインデックスをサポートしていない
 + `503 Service Unavailable` - ジョブが完了前にタイムアウトした
 
 ## サンプル
