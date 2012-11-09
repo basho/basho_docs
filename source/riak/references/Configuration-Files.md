@@ -252,6 +252,7 @@ Enable Search functionality. (default: false)
 
  * **max_search_results**
 Maximum number of results to accumulate before erroring. (Prevent, reduce memory exhaustion that could bring down the entire VM.) (default: 100000)
+
 ```erlang
 %% Riak Search Config
 {riak_search, [
@@ -280,6 +281,7 @@ Maximum size in bytes of events in the crash log. (default: 65536)
 Whether to redirect sasl error_logger messages into lager. (default: true)
 
 The default lager options are like so:
+
 ```erlang
 {lager, [
     {handlers, [
