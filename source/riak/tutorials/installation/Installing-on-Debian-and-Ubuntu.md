@@ -40,21 +40,21 @@ for the target platform:
 
 ### Riak 64-bit Installation
 
-#### Ubuntu Lucid
+#### Ubuntu Lucid Lynx (10.04)
 
 ```bash
     $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.1-1_amd64.deb
     $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
-#### Ubuntu Natty  
+#### Ubuntu Natty Narwhal (11.04)
 
 ```bash
     $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/natty/riak_1.2.1-1_amd64.deb
     $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
-#### Ubuntu Precise
+#### Ubuntu Precise Pangolin (12.04)
 
 ```bash
     $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/precise/riak_1.2.1-1_amd64.deb
