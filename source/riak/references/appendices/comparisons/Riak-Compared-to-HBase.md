@@ -50,7 +50,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
 	 </td>
         <td>Hadoop Distributed File System (HDFS) is the storage system used by HBase. Data is stored in MemStores and StoreFiles, where data is streamed to disk (implemented via HFiles, a format based on BigTable's SSTable). Implementations generally use the native JVM-managed I/O file stream.
 			<ul>
-			 <li>[[HDFS|http://hadoop.apache.org/hdfs/]]</li>
+			 <li>[[HDFS|http://en.wikipedia.org/wiki/Apache_Hadoop#Hadoop_Distributed_File_System]]</li>
 			 <li>[[Hadoop Uses HDFS|http://hbase.apache.org/book/arch.hdfs.html]]</li>
 			</ul>
 		</td>
@@ -69,7 +69,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
 			</td>
         <td>HBase communicates primarily through code that runs on the JVM (Java, Jython, Groovy, etc.). Alternatively, HBase provides external protocols; either REST or Thrift (a cross-language data service format).
 			<ul>
-				<li>[[Java Interface|http://hbase.apache.org/book/architecture.html|]]</li>
+				<li>[[Java Interface|http://hbase.apache.org/book/architecture.html]]</li>
 				<li>[[REST|http://wiki.apache.org/hadoop/Hbase/Stargate]]</li>
 				<li>[[Thrift|http://thrift.apache.org/]]</li>
 			</ul>
