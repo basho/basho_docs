@@ -27,9 +27,9 @@ message RpbMapRedReq {
 * **request** - MapReduce ジョブ
 * **content_type** - MapReduce ジョブのためのエンコード
 
-MapReduce ジョブは2つの方法でエンコードできます。
+MapReduce ジョブは 2 つの方法でエンコードできます。
 
-* **application/json** - マップ/リデュース ジョブを JSON でエンコード
+* **application/json** - map/reduce ジョブを JSON でエンコード
 * **application/x-erlang-binary** - Erlang 外部項形式
 
 JSONエンコードは [[RESTAPI|MapReduce#rest]] と同じで、外部項形式は [[ローカル Erlang API|MapReduce#erlang]] と同じです。

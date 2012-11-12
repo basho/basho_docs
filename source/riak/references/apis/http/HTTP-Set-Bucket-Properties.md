@@ -22,15 +22,15 @@ PUT /buckets/bucket/props       # 新フォーマット
 
 * `Content-Type` - `application/json`
 
-リクエストボディは"props"というエントリを1つ含むJSONオブジェクトにすべきである。
-変更されていないバケットのプロパティは省略される場合がある。
+リクエストボディは "props" というエントリを 1 つ含む JSON オブジェクトにすべきです。
+変更されていないバケットのプロパティは省略される場合があります。
 
 有効なプロパティ:
 
 * `n_val` (整数 > 0) - このバケット内のオブジェクトのレプリカ数
-* `allow_mult` (true または false) - 作成時に兄弟オブジェクトを許すかどうか
+* `allow_mult` (true または false) - 作成時に Siblings オブジェクトを許すかどうか
 (同時アップデート)
-* `last_write_wins` (true または false) - 書き込み時にオブジェクト履歴(ベクトルクロック)を無視するかどうか
+* `last_write_wins` (true または false) - 書き込み時にオブジェクト履歴(ベクタークロック)を無視するかどうか
 * `precommit` - [[プレコミットフック|Pre- and Post-Commit Hooks]]
 * `postcommit` - [[ポストコミットフック|Pre- and Post-Commit Hooks]]
 * `r, w, dw, rw` - バケット内のキーオペレーションでのデフォルト値

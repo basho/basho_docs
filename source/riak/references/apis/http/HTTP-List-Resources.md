@@ -9,24 +9,24 @@ keywords: [api, http]
 group_by: "Server Operations"
 ---
 
-Riakノードのために、利用出来るHTTPリソースをリストする。
-これは特定のオペレーションに使うリソースの位置を自動的に認識するために、クライアントが使用することができる。
+Riak ノードのために、利用出来る HTTP リソースをリストします。
+これは特定のオペレーションに使うリソースの位置を自動的に認識するために、クライアントが使用することができます。
 
 標準リソース:
 
 * `riak_kv_wm_buckets` - [[バケットのオペレーション|HTTP API#Bucket Operations]]
-* `riak_kv_wm_index` - [[HTTPセカンダリインデクス|HTTP Secondary Indexes]]
+* `riak_kv_wm_index` - [[HTTPセカンダリインデックス|HTTP Secondary Indexes]]
 * `riak_kv_wm_link_walker` - [[HTTPリンクウォーキング|HTTP Link Walking]]
 * `riak_kv_wm_mapred` - [[HTTP MapReduce]]
 * `riak_kv_wm_object`- [[オブジェクト / キー オペレーション|HTTP API#Object/Key Operations]]
 * `riak_kv_wm_ping` - [[HTTP Ping]]
 * `riak_kv_wm_props` - [[HTTP バケット プロパティのセット|HTTP Set Bucket Properties]]
-* `riak_kv_wm_stats` - [[HTTPステータス|HTTP Status]]
+* `riak_kv_wm_stats` - [[HTTP ステータス|HTTP Status]]
 
 サーチが有効であれば、以下のリソースも含まれます。
 
 * `riak_solr_searcher_wm` - [[Solr サーチh|Riak Search - Querying#Querying via the Solr Interface]]
-* `riak_solr_indexer_wm` - [[Solr インデクス|Riak Search - Indexing#Indexing using the Solr Interface]]
+* `riak_solr_indexer_wm` - [[Solr インデックス|Riak Search - Indexing#Indexing using the Solr Interface]]
 
 {{#1.0.0-}}
 

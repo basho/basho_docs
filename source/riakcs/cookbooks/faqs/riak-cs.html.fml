@@ -7,21 +7,20 @@ audience: beginner
 keywords: [faq]
 ---
 
-Q: What is Riak CS?
+Q: Riak CS とは何ですか？
 A:
-  Riak CS is [multi-tenant](http://en.wikipedia.org/wiki/Multitenancy) cloud storage software for public and private clouds. Built on Basho's distributed database [[Riak]], Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3-API compatible and supports per-tenant reporting for billing and metering use cases.
+  Riak CS とはパブリックおよびプライベート向けの [マルチテナント](http://en.wikipedia.org/wiki/Multitenancy) なクラウドストレージ ソフトウェアです。Riak CS は Basho の分散型データベースである [[Riak]] で構築された、シンプル、アベイラブル、どんなスケールにも対応する分散型クラウドストレージ用にデザインされた商用ソフトウェアです。Riak CS は S3-API 互換で、テナントごとに課金情報や利用量のレポートもサポートしています。
 
-Q: Can users share data?
+Q: ユーザはデータを共用できますか？
 A:
-  Data is by default private.  Users can manipulate ACLs (Access Control Lists) to grant access for their buckets or objects to other users, or even unauthenticated requesters.
+  デフォルトではデータはプライベートになっています。ユーザは ACL (Access Control Lists) を操作して、バケットやオブジェクトのアクセス権を他のユーザや、非承認の者に分け与えることができます。
 
-  For implementation details see the [[Access Control Lists]] documentation.
+  詳細については [[Access Control Lists]] のドキュメントを参照してください。
 
-Q: Is it possible to specify a file system where my Riak CS buckets will live?
-A: You can specify the location of **all** Riak CS bucket data by changing the settings for Riak's backends to a path on a particular filesystem. If this is your goal, you can configure Riak to suit your environment.
+Q: Riak CS のバケットが格納されているファイルシステムを指定することができますか？
+A: Riak のバックエンド設定を指定のファイルシステムに変更することで、**すべての** Riak CS バケットの場所を変更することができます。こういうことをやりたいのであれば、環境に合わせて Riak を設定することができます。
 
-  If you look at our example Riak `app.config` backend definition from the
-  [[Configuring Riak]] section, it looks like this:
+  Riak の `app.config` の [[Configuring Riak]] セクションのバックエンド定義の例をご覧いただくと、次のようになっています:
 
   ```erlang
   {add_paths, ["/usr/lib/riak-cs/lib/riak_moss-X.Y.Z/ebin"]},
@@ -39,12 +38,12 @@ A: You can specify the location of **all** Riak CS bucket data by changing the s
   ]},
   ```
 
-  What you need to change are the two `data_root` values, substituting
-  `/var/lib/riak` as shown in the above example with the path to the filesystem
-  you prefer. Please note that you should do this before starting Riak for the
-  first time; if you do make these changes after you've started Riak, the
-  previous data will not be available unless you manually move it to to the new
-  location.
+  変更すべき箇所は 2 箇所の `data_root` の値で、
+  上記の例では `/var/lib/riak` を使用したいファイルシステムのパスに置き換えます。
+  これは Riak を使い始める前に行うべきだということに気をつけてください。
+  もしも Riak を使い始めた後で、これを行いたいときは、
+  既存のデータを手動で新しい場所に移動しておかなければ、
+  失われてしまいます。
 
-  This will allow you to change the location of all bucket data. Riak CS
-  does not yet currently support specifying per bucket filesystem granularity.
+  これによって全てのバケットのデータの場所を変更できます。
+  現時点では、Riak CS はバケットごとに特定のファイルシステムへ格納するという機能はサポートしていません。

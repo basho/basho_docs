@@ -1,5 +1,5 @@
 ---
-title: PBC インデクス
+title: PBC インデックス
 project: riak
 version: 1.2.0+
 document: api
@@ -9,7 +9,7 @@ keywords: [api, protocol-buffer]
 group_by: "Query Operations"
 ---
 
-セカンダリインデクスのクエリで比較されるキーのセットを要求する
+セカンダリインデックスのクエリで比較されるキーのセットを要求します。
 
 ## リクエスト
 
@@ -32,11 +32,11 @@ message RpbIndexReq {
 
 必要なパラメータ
 
-* **bucket** - インデクスを得るバケット
-* **index** - 使用するインデクス
+* **bucket** - インデックスを得るバケット
+* **index** - 使用するインデックス
 * **qtype** - IndexQueryType を 0 (一致) または 1 (範囲) で指定する
 
-インデクス クエリの方法は2種類あります。
+インデックス クエリの方法は2種類あります。
 
 * **eq** - 与えられた `key` と完全に一致
 * **range** - 最小値と最大値の範囲内 (`range_min`, `range_max`)
@@ -50,7 +50,7 @@ message RpbIndexReq {
 
 ## レスポンス
 
-セカンダリインデクス クエリのリザルトは、リクエストパラメータと一致した、0個以上のキーの繰り返しリストとなります。
+セカンダリインデックス クエリのリザルトは、リクエストパラメータと一致した、0 個以上のキーの繰り返しリストとなります。
 
 
 ```bash
@@ -61,14 +61,14 @@ message RpbIndexResp {
 
 値
 
-* **keys** - インデクス リクエストと一致したキーのリスト
+* **keys** - インデックス リクエストと一致したキーのリスト
 
 
 ## サンプル
 
 リクエスト
 
-ここでは "farm" という名前のバケットで、"animal_bin" というインデクスにある "chicken" と一致するものを探します。
+ここでは "farm" という名前のバケットで、"animal_bin" というインデックスにある "chicken" と一致するものを探します。
 
 ```bash
 RpbIndexReq protoc decode:

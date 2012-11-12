@@ -9,19 +9,19 @@ audience: intermediate
 keywords: [operator, configuration]
 ---
 
-In a Riak CS storage system, three components work in conjunction, so you must configure each component to work with the others:
+Riak CS ストレージシステムでは、3 つのコンポーネントが連携して動作しているので、他のものと協調できるように各コンポーネントの設定を行わなければなりません。
 
-* Riak - The database system that acts as the backend storage.
-* Riak CS - The cloud storage layer over Riak which exposes the storage and  billing APIs, storing files and metadata in Riak, and streaming them back to  users.
-* Stanchion - Manages requests involving globally unique system entities, such as  buckets and users sent to a Riak instance, for example, to create users or to create or delete buckets.
+* Riak - バックエンド ストレージとして動作する、データベースシステム
+* Riak CS - Riak の、クラウド ストレージ レイヤで、ストレージおよび課金 API を提供し、Riak へのファイルおよびメタデータの格納を行い、ユーザへのデータストリーミングを行う
+* Stanchion - Riak のインスタンスに送られたバケットやユーザなどの、システム全体でユニークなエンティティを含むリクエストを管理します。たとえばユーザの作成や、バケットの作成 / 削除などです。
 
-In addition, you must also configure the S3 client you use to communicate with your Riak CS system.
+さらに、Riak CS システムとコミュニケートするためには、S3 クライアントの設定を行わなければなりません。
 
-You should plan on having one Riak node for every Riak CS node in your system. Riak and Riak CS nodes can be run on separate physical machines, but in many cases it is preferable to run one Riak and one Riak CS node on the same physical machine. Assuming the single physical machine has sufficient capacity to meet the needs of both a Riak and a Riak CS node you will typically see better performance due to reduced network latency.
+システム内の各 Riak CS ノードごとに 1 つの Riak ノードを用意するべきです。Riak および Riak CS ノードを、別々の物理マシン上で走らせることができますが、多くの場合、Riak と Riak CS のノードは同一の物理マシンで動かすことが望まれます。1 台の物理マシンに、Riak と Riak CS のノードが必要とする十分な能力があるとすると、ネットワークのレイテンシを低くすることができ、パフォーマンスが向上します。
 
-If your system consists of several nodes, configuration primarily represents setting up the communication between components. Other settings, such as where log files are stored, are set to default values and need to be changed only if you want to use non-default values.
+システムが複数のノードから構成されるなら、コンポーネント間のコミュニケーションを第一に考えて設定します。ログファイルなどのその他の設定は、必要な場合にのみデフォルトから変更します。
 
-## Configuration of System Components
+## システムコンポーネントの設定
 
 * [[Configuring Riak]]
 * [[Configuring Riak CS]]
