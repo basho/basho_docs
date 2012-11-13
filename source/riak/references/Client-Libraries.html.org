@@ -134,7 +134,7 @@ and related projects [[references/Community-Developed-Libraries-and-Projects/][p
     | Secondary index integration            | ✗                         | ✓    | partial | ✓       | ✓             |
     | Search integration                     | ✗                         | ✓    | ✗       | ✓       | ✗             |
 
-    Various [[../Community-Developed-Libraries-and-Projects][community projects]] provide support for domain types and
+    Various [[/references/Community-Developed-Libraries-and-Projects][community projects]] provide support for domain types and
     object mapping in Python and Ruby. The values in the table above
     represent the aggregate features of the projects listed below:
 

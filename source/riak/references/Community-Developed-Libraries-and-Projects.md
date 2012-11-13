@@ -204,8 +204,8 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Custom Chef Recipe for running Riak on the Engine Yard AppCloud| https://github.com/engineyard/ey-cloud-recipes/tree/master/cookbooks/riak]]
 * [[RiakAWS|http://github.com/roder/riakaws]] - A simple way to deploy a Riak cluster in the Amazon Cloud
 * [[Using Nginx as a front-end for Riak|http://rigelgroupllc.com/wp/blog/using-nginx-as-a-front-end-for-riak]]
-* [[Sample HA Proxy Configuration for Protocol Buffers Interface|http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html]] (courtesy of Scott M. Likens)
-* [[Sample HA Proxy Configuration for Protocol Buffers Interface|http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html]] (courtesy of Bob Feldbauer)
+* [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html)  (courtesy of Scott M. Likens)
+* [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html)  (courtesy of Bob Feldbauer)
 
 
 ## Other Tools and Projects

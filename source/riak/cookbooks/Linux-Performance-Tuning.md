@@ -22,7 +22,7 @@ In any case, proper benchmarking and tuning are needed to achieve the desired
 level of performance. Following the information in this guide should help you
 with both.
 
-<div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see <a href="/Performance-Tuning-AWS.html">Performance Tuning for AWS</a>.</div>
+<div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see <a href="/cookbooks/Performance-Tuning-AWS">Performance Tuning for AWS</a>.</div>
  
 ## Linux Tuning
 

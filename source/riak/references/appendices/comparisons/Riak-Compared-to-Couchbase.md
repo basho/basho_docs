@@ -8,7 +8,7 @@ index: true
 keywords: [comparisons, couchbase]
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and Couchbase (i.e. Couchbase Server).  The Couchbase version described is 2.0. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/riak_wiki/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective and technical comparison of Riak and Couchbase (i.e. Couchbase Server).  The Couchbase version described is 2.0. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
