@@ -97,8 +97,8 @@ cd otp_src_R15B01
 
 Next, configure Erlang.
 
-**Lion (OS X 10.7)**
-If you're on Lion (OS X 10.7) you can use LLVM (the default) or GCC to compile Erlang.
+**Mountain Lion (OS X 10.8) and **Lion (OS X 10.7)**
+If you're on Mountain Lion (OS X 10.8) or Lion (OS X 10.7) you can use LLVM (the default) or GCC to compile Erlang.
 
 Using LLVM:
 
