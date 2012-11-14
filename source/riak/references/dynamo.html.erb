@@ -169,7 +169,7 @@ Dynamo provides a simple primary-key only interface to meet the requirements of 
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>Like Dynamo, Riak employs consistent hashing to partition and replicate date around
+        <p>Like Dynamo, Riak employs consistent hashing to partition and replicate data around
 the ring. For the consistent hashing that takes place in riak_core, Basho chose
 the SHA1 hash.</p>
 
@@ -185,7 +185,7 @@ the SHA1 hash.</p>
 <li>[[Gossip Protocol|Riak Glossary#RiakGlossary-Gossiping]]</li>
 </ul>
 
-<p>And, nodes can added and removed from your Riak cluster as needed.</p>
+<p>And, nodes can be added and removed from your Riak cluster as needed.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -243,8 +243,8 @@ provided through aggregate measures instead of absolute details.</p>
           <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
         <p>Basho Technologies started to develop Riak back in 2007 to solve an internal problem. We were, 
-at the time, builing a web application that would require a database layer that afforded higher 
-availability and scale out properties than any technology we knew of. So, we (primary Justin Sheehy, Andy 
+at the time, building a web application that would require a database layer that afforded higher 
+availability and scale out properties than any technology we knew of. So, we (primary Justin Sheehy, 
 Andy Gross, and Bryan Fink at the time) rolled our own. </p>
 
 <p>After using Riak in production for several successful applications that generated revenue, we decided
@@ -269,7 +269,7 @@ retrieve data by primary key and do not require the complex querying and managem
 offered by an RDBMS. This excess functionality requires expensive hardware and highly skilled 
 personnel for its operation, making it a very inefficient solution. In addition, the available replication 
 technologies are limited and typically choose consistency over availability. Although many advances have 
-been made in the recent years, it is still not easy to scale-out databases or use smart partitioning 
+been made in the recent years, it is still not easy to scale out databases or use smart partitioning 
 schemes for load balancing. </p>
 
 </div>
@@ -285,7 +285,7 @@ describe where Riak&#39;s design decisions emulated and diverged from Dynamo&#39
 
 <p>Riak has offers several query methods in addition to the standard key/value interface, 
 is made to be highly-avaible, is efficient in its resource uses, and has a simple scale out 
-story accompany data and traffic growth. </p>
+story to accompany data and traffic growth. </p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -328,7 +328,7 @@ rates. Each service that uses Dynamo runs its own Dynamo instances.</p>
 <ol>
 <li>Standard key/value access (GET, PUT, DELETE)</li>
 <li>MapReduce querying</li>
-<li>Links and Link Walking (which is analogous to relationships in GraphDBs and is a form or MapReduce under the hood)</li>
+<li>Links and Link Walking (which is analogous to relationships in GraphDBs and is a form of MapReduce under the hood)</li>
 <li>Secondary Indexing</li>
 <li>Full-text Search</li>
 </ol>
@@ -357,7 +357,7 @@ relational schema. Dynamo targets applications that need to store objects that a
         <p><strong>ACID?</strong></p>
 
 <p>Riak offers no traditional &quot;ACID&quot; semantics around transactions. Instead, it&#39;s built to 
-be &quot;evenutually consistent.&quot; We did this because we were of the opinion (and our users proved this)
+be &quot;eventually consistent.&quot; We did this because we were of the opinion (and our users proved this)
 that most applications don&#39;t require heavy transactions. (Even ATMs are eventually consistent.)</p>
       </td>
       <td class=code>
@@ -509,7 +509,7 @@ and to let services make their own tradeoffs between functionality, performance 
           <a class="pilcrow" href="#section-16">&#182;</a>
         </div>
         <p>Availability under any circumstances was something we stressed when 
-designing Riak, too. Most database didn&#39;t enable developers to do this in a simple way
+designing Riak, too. Most databases don&#39;t enable developers to do this in a simple way
 so we set out to change this.</p>
       </td>
       <td class=code>
@@ -623,15 +623,15 @@ to as “node”) at a time, with minimal impact on both operators of the system
         <div class="pilwrap">
           <a class="pilcrow" href="#section-21">&#182;</a>
         </div>
-        <p>Again, we agree. Each storage nope is the same at its neighbor. Any node can coordinate 
-a request and, in the event that a node goes does, its neighbors can cover for it until 
+        <p>Again, we agree. Each storage node is the same at its neighbor. Any node can coordinate 
+a request and, in the event that a node goes down, its neighbors can cover for it until 
 it&#39;s restarted or decommissioned. </p>
       </td>
       <td class=code>
         <div class='highlight'>
 
 <p>Symmetry: Every node in Dynamo should have the same set of responsibilities as its peers; 
-there should be no distinguished node or nodes that take special roles or extra set of responsibilities. 
+there should be no distinguished node or nodes that take special roles or an extra set of responsibilities. 
 In our experience, symmetry simplifies the process of system provisioning and maintenance.</p>
 
 </div>
@@ -913,12 +913,12 @@ responsible for serving the key.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-30">&#182;</a>
         </div>
-        <p>As mentioned above, Riak uses consistent hashing to distribute data around ring to partitions responsible
+        <p>As mentioned above, Riak uses consistent hashing to distribute data around the ring to partitions responsible
 for storing data. The ring has a maximum key space of 2^160. Each bucket+key (and its associated value)
 is hashed to a location on the ring. </p>
 
 <p>Riak also breaks the ring into a set number of partitions. This number is configured when a cluster is first built.
-Each node will be repsonsible for storing the data hashed to a set number of partitions. 
+Each node will be responsible for storing the data hashed to a set number of partitions. 
 Each storage node will optimisitically handle an equal number of partitions. </p>
       </td>
       <td class=code>
@@ -944,7 +944,7 @@ arrival of a node only affects its immediate neighbors and other nodes remain un
           <a class="pilcrow" href="#section-31">&#182;</a>
         </div>
         <p>Riak also has the concept of virtual nodes and they are used to the same end as they are in Dynamo. 
-Phycical storage nodes are responsible for partitions, and each partition a vnode.</p>
+Physical storage nodes are responsible for partitions, and each partition a vnode.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1091,7 +1091,7 @@ positions in the ring to ensure that the list contains only distinct physical no
           <a class="pilcrow" href="#section-38">&#182;</a>
         </div>
         <p>Riak is an &quot;eventually consistent&quot; database. All replication is done asynchronously,
-as you can expect, could result in a datum being returned to the client that is out of
+and as you can expect, could result in a datum being returned to the client that is out of
 date. But don&#39;t worry. We built in some mechanisms to address this.</p>
       </td>
       <td class=code>
@@ -1137,7 +1137,7 @@ to (or removed from) the older version and the divergent versions are reconciled
         <div class="pilwrap">
           <a class="pilcrow" href="#section-40">&#182;</a>
         </div>
-        <p>The same holds true for Riak. If, by way of some failure and concurrent update 
+        <p>The same holds true for Riak. If, due to some failure or a concurrent update 
 (rare but quite possible), there come to exist multiple versions of the same object, 
 Riak will push this decision down to the client (who are we to tell you which is the 
 authoritative object?). All that said, if your application doesn&#39;t need this level of 
