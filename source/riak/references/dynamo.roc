@@ -1219,7 +1219,7 @@ this strategy are: (i) decoupling of partitioning and partition placement, and (
 possibility of changing the placement scheme at runtime.
 
 <figure id="figure-7">
-<img src="/images/dynamo/figure7.png">
+<img src="/images/dynamo/figure7-small.png">
 <figcaption>Figure 7: Partitioning and placement of keys in the three strategies. A, B, and C depict the three 
 unique nodes that form the preference list for the key k1 on the consistent hashing ring (N=3). The 
 shaded area indicates the key range for which nodes A, B, and C form the preference list. Dark arrows 
