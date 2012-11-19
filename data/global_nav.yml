@@ -246,11 +246,14 @@ riakcs:
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
+  - title: APIs
+    sub:
+      - "[[RiakCS Storage API]]"
   - title: "Shortcuts"
     class: "active"
     sub:
       - "[[FAQs|Riak CS FAQs]]"
-      - "[[APIs|RiakCS Storage API]]"
+      
 
 root:
   - title: "All Riak Projects"
