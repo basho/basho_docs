@@ -139,4 +139,4 @@ and related projects [[references/Community-Developed-Libraries-and-Projects/][p
     represent the aggregate features of the projects listed below:
 
     - *Ruby*: [[https://github.com/basho/ripple][ripple]], [[https://github.com/aphyr/risky][risky]], and [[https://github.com/braintree/curator][curator]].
-    - *Python*: [[https://github.com/ultimatebuster/riakkit][riakkit]], [[https://github.com/Linux2Go/riakalchemy][riakalchemy]], and [[https://github.com/oubiwann/django-riak-engine][django-riak-engine]].
+    - *Python*: [[https://github.com/shuhaowu/riakkit][riakkit]], [[https://github.com/Linux2Go/riakalchemy][riakalchemy]], and [[https://github.com/oubiwann/django-riak-engine][django-riak-engine]].
