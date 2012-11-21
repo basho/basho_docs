@@ -20,27 +20,29 @@ In order to launch a Riak virtual machine via the AWS Marketplace, you will firs
 
 3. Set your desired AWS region, EC2 instance type, firewall settings, and key pair
 
-	![](/images/aws-marketplace-settings.png)
+	![AWS Marketplace Instance Settings](/images/aws-marketplace-settings.png)
 
 4. Click the "Accept Terms and Launch with 1-Click" button.
 
 ### Security Group Settings
 
-Once the virtual machine is created you should verify your selected EC2 security group is configured properly for Riak.  Click [here] (http://docs.texto.com/riak/latest/cookbooks/Network-Security-and-Firewall-Configurations/) for more information on Riak network security and firewall configurations.
+Once the virtual machine is created you should verify your selected EC2 security group is configured properly for Riak.  
 
 1. In the AWS EC2 Management Console, click "Security Groups", then click the name of the security group for your Riak VM.
 
 2. Click on the "Inbound" tab in the lower pane.  Your port settings should include the following rules:
 
-	![](/images/aws-marketplace-security-group.png)
+	![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
 
 3. If you are missing any rules, add them in the lower panel and click the "Apply Rule Changes" button. 
+
+You can read more about Riak's [[Network Security and Firewall Configurations]].
 
 ## Clustering Riak on AWS
 
 You will need need to launch at least 3 instances to form a Riak cluster.  When the instances have been provisioned and the security group is configured you can connect to them using SSH or PuTTY as the ec2-user. 
 
- More information on connecting to an Amazon EC2 instance can be found [here] (http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html)
+ You can find more information on connecting to an instance on the official [Amazon EC2 instance guide] (http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html).
 
 1. On the first node obtain the internal IP address:
 
