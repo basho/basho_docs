@@ -9,9 +9,9 @@ keywords: [api, protocol-buffer]
 group_by: "Query Operations"
 ---
 
-Send a Search request to retrieve a list of documents, along with a few stats.
+ドキュメントのリストと統計情報を取得するために検索リクエストを送信します。
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -29,30 +29,29 @@ message RpbSearchQueryReq {
 }
 ```
 
-Required Parameters
+必要なパラメータ
 
-* **q** - the bucket the index is for
-* **index** - the name of the index to search
+* **q** - インデックスが示すバケット
+* **index** - 検索するインデックスの名前
 
-Optional Parameters
+オプション パラメータ
 
-* **rows** - the maximum number of rows to return
-* **start** - a start offset. the number of keys to skip before returning values
-* **sort** - how the search results are to be sorted
-* **filter** - filters search with additional query scoped to inline fields
-* **df** - override the `default_field` setting in the schema file
-* **op** - "and" or "or", to override the `default_op` operation setting in the schema file
-* **fl** - return the fields limit
-* **presort** - presort (key / score)
+* **rows** - 結果の最大行数
+* **start** - 開始オフセット。値を返す際に指定した数のキーがスキップされる
+* **sort** - 検索結果のソート方法
+* **filter** - インラインフィールドにクエリを追加してフィルタ サーチを行う
+* **df** - スキーマファイルの `default_field` をオーバライドする
+* **op** - スキーマファイルの `default_op` の設定を "and" または "or" でオーバライドする
+* **fl** - フィールドの制限を返す return the fields limit
+* **presort** - プリソート (key / score)
 
 
-## Response
+## レスポンス
 
-The results of a search query are returned as a repeating list of
-0 or more RpbSearchDocs. RpbSearchDocs themselves are composed of
-0 or more key/value pairs (RpbPair) that match the given request
-parameters. It also returns the maximum search score and the number
-of results.
+サーチ クエリは RpbSearchDocs リストの 0 個以上の繰り返しとして結果が返ります。
+RpbSearchDocs は、リクエスト パラメータに基づく、
+0 個以上の key/value ペア (RpbPair) となります。
+さらに、検索スコアの最大値と結果の数を返します。
 
 
 ```bash
@@ -71,19 +70,19 @@ message RpbSearchQueryResp {
 }
 ```
 
-Values
+値
 
-* **docs** - a list of docs that match the search request
-* **max_score** - the top score returned
-* **num_found** - returns the total number of values matched by this search
+* **docs** - 検索条件に一致したドキュメントのリスト
+* **max_score** - 最大値
+* **num_found** - 検索条件に一致した値の合計が返される
 
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
-Here we search for any animals that being with the string `pig`. We only
-want the first 100, and sort the values by a `name` field.
+ここでは `pig` という文字の入った動物を検索します。
+検索対象は先頭の 100 個で、`name` フィールドで結果をソートします。
 
 ```bash
 RpbSearchQueryReq protoc decode:
@@ -100,7 +99,7 @@ Erlang  <<0,0,0,26,27,10,4,112,105,103,42,18,7,97,110,
           109,101>>
 ```
 
-Response
+レスポンス
 
 ```bash
 Hex     00 00 00 36 1B 0A 1D 0A 0D 0A 06 61 6E 69 6D

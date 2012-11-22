@@ -18,11 +18,11 @@ riak:
       - title: "検索"
         sub:
           - "[[概要|Riak Search]]"
-          - "[[インデクス|Riak Search - Indexing]]"
+          - "[[インデックス|Riak Search - Indexing]]"
           - "[[スキーマ|Riak Search - Schema]]"
           - "[[クエリ|Riak Search - Querying]]"
-          - "[[KVのインデクスとクエリ|Riak Search - Indexing and Querying Riak KV Data]]"
-      - title: "セカンダリインデクス"
+          - "[[KVのインデックスとクエリ|Riak Search - Indexing and Querying Riak KV Data]]"
+      - title: "セカンダリインデックス"
         sub:
           - "[[概要|Secondary Indexes]]"
           - "[[設定|Secondary-Indexes - Configuration]]"
@@ -73,14 +73,14 @@ riak:
         sub:
           - "[[MapReduce|MapReduce - Settings]]"
           - "[[検索|Riak-Search - Settings]]"
-          - "[[セカンダリインデクス|Secondary-Indexes - Configuration]]"
+          - "[[セカンダリインデックス|Secondary-Indexes - Configuration]]"
       # - title: "MapReduce"
       #   sub:
       #     - "[[設定|MapReduce - Settings]]"
       # - title: "検索"
       #   sub:
       #     - "[[設定|Riak-Search - Settings]]"
-      # - title: "セカンダリインデクス"
+      # - title: "セカンダリインデックス"
       #   sub:
       #     - "[[設定|Secondary-Indexes - Configuration]]"
       - title: "トラブルシューティング"  # "[[Troubleshooting]]"
@@ -91,8 +91,8 @@ riak:
           - "[[ベンチマーク|Benchmarking]]"
           - "[[統計とモニタリング|Statistics and Monitoring]]"
           - "[[ノードの監視|Inspecting a Node]]"
-          - "[[検索インデクスの修復|Repairing Search Indexes]]"
-          - "[[KVインデクスの修復|Repairing KVIndexes]]"
+          - "[[検索インデックスの修復|Repairing Search Indexes]]"
+          - "[[KVインデックスの修復|Repairing KVIndexes]]"
 
   - title: "リファレンス"
     sub:
@@ -108,7 +108,7 @@ riak:
           - "[[バケット|Buckets]]"
           - "[[クラスタ|Clusters]]"
           - "[[コミットフック|Commit Hooks]]"
-          - "[[いつかは一貫性|Eventual Consistency]]"
+          - "[[結果統合性|Eventual Consistency]]"
           - "[[キーとオブジェクト|Keys and Objects]]"
           - "[[リンク|Links]]"
           - "[[レプリケーション|Replication]]"

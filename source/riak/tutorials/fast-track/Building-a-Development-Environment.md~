@@ -1,5 +1,5 @@
 ---
-title: 開発環境を構築する
+title: Building a Development Environment
 project: riak
 version: 0.10.0+
 document: tutorial
@@ -10,11 +10,10 @@ up:   ["The Riak Fast Track", "index.html"]
 next: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
 ---
 
-このセクションではローカルマシンに Riak をインストールして、4 つのノードのクラスタを作ります。プロダクションの開発に対して Basho は [最低 5 つのノードを推奨していますrecommends a minimum of five nodes](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/)。はっきり言うと、このチュートリアルでは 4 にしています。
+In this section, we’ll install Riak and build a four node cluster running on your local machine.  For production deployments, Basho [recommends a minimum of five nodes](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/). For simplicity, this tutorial uses four.
 
-## 依存性
+## Dependencies
 
-Riak をソースからビルドするには、Erlang R15B01 以降が必要です。Basho によるビルド済 Riak パッケージの最新版は、[ダウンロードディレクトリDownloads Directory](http://basho.com/resources/downloads/) にあり、この中には Erlang のランタイムも組み込まれています。
 Building Riak from source requires Erlang R15B01 or later. Basho's pre-packaged Riak binaries, the latest versions of which can be found in our [Downloads Directory](http://basho.com/resources/downloads/), embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, see [[Installing Erlang]] for instructions on how to do this.
 
 For those of you like videos, here's a short video of installing Erlang from source on Linux. 

@@ -1,5 +1,5 @@
 ---
-title: Riak CS Using Chef
+title: Chef を使うRiak CS Using Chef
 project: riakcs
 version: 1.2.0+
 document: cookbook
