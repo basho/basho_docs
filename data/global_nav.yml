@@ -62,6 +62,7 @@ riak:
           - "[[SmartOS|Installing on SmartOS]]"
           - "[[SUSE|Installing on SUSE]]"
           - "[[Windows Azure|Installing on Windows Azure]]"
+          - "[[AWS Marketplace|Installing on AWS Marketplace]]"
           - "[[From Source|Installing Riak from Source]]"
 
       - title: "Planning"

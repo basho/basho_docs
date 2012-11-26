@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, installing, windows, azure]
 prev: ["Installing on SUSE", "Installing-on-SUSE.html"]
 up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing Riak from Source", "Installing-Riak-from-Source.html"]
+next: ["Installing on AWS Marketplace", "Installing-on-AWS-Marketplace.html"]
 ---
 
 Steps to install Riak on Centos VMs using the Windows Azure platform.
