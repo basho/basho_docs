@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, suse]
-prev: ["Installing on SUSE", "Installing-on-SUSE.html"]
+prev: ["Installing on AWS Marketplace", "Installing-on-AWS-Marketplace.html"]
 up:   ["Installing and Upgrading", "index.html"]
 next: ["Rolling Upgrades", "Rolling-Upgrades.html"]
 ---

@@ -16,6 +16,7 @@ Click the link for your operating system to see instructions on how to install R
   * [[FreeBSD|Installing on FreeBSD]]
   * [[SUSE|Installing on SUSE]]
   * [[Windows Azure|Installing on Windows Azure]]
+  * [[AWS Marketplace|Installing on AWS Marketplace]]
   * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
 ### Upgrading
