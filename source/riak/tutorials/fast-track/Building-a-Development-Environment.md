@@ -18,7 +18,7 @@ Building Riak from source requires Erlang R15B01. *Note: don't use Erlang versio
 
 Basho's pre-packaged Riak binaries, the latest versions of which can be found in our [Downloads Directory](http://basho.com/resources/downloads/), embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, see [[Installing Erlang]] for instructions on how to do this.
 
-For those of you like videos, here's a short video of installing Erlang from source on Linux. 
+For those of you like videos, here's a short video of installing Erlang from source on Linux.
 
 <iframe src="http://player.vimeo.com/video/42421349" width="500" height="269" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
@@ -60,7 +60,7 @@ $ cd dev; ls
 That should give you the following:
 
 ```bash
-dev1       dev2       dev3       dev4  
+dev1       dev2       dev3       dev4
 ```
 
 Each directory starting with `dev` is a complete package containing a Riak node. We now need to start each node. Let's start with `dev1`
@@ -195,7 +195,7 @@ $ cp ~/image/location/image_name.jpg .
 We can then PUT that image into Riak using a curl command:
 
 ```bash
-$ curl -XPUT HTTP://127.0.0.1:8091/riak/images/1.jpg \
+$ curl -XPUT HTTP://127.0.0.1:10018/riak/images/1.jpg \
   -H "Content-type: image/jpeg" --data-binary @image_name.jpg
 ```
 
@@ -203,7 +203,7 @@ You can then verify that image was in fact stored. To do this, simply copy the U
 
 You should now have a running, four node Riak cluster. Congratulations! That didn't take so long, did it?
 
-<div class="note"><div class="title">HTTP interface ports</div>The above configuration sets up nodes with HTTP interfaces listening on ports `8091-8093`. The default port for nodes to listen on is `8098` and users will need to take note of this when trying to use any of the default other-language client settings.</div>
+<div class="note"><div class="title">HTTP interface ports</div>The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for dev1, dev2, dev3 and dev4, respectively. The default port for nodes to listen on is `8098` and users will need to take note of this when trying to use any of the default other-language client settings.</div>
 
 
 Additional Reading
