@@ -1,5 +1,6 @@
 require 'aws/s3'
 require 'versionomy'
+require './lib/org'
 require './lib/versionify'
 require './lib/faqml'
 require './lib/rocco'
@@ -8,8 +9,12 @@ require './lib/index'
 require './lib/sitemap_render_override'
 
 if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.]+/
-  $stderr << "RIAK_VERSION is required and must be a valid version (eg 1.2.0)\n"
-  exit(1)
+  versions = YAML::load(File.open('data/versions.yml'))
+  for proj, vs in versions
+    proj = proj.upcase
+    ENV["#{proj}_VERSION"] = vs.last.last
+    puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
+  end
 end
 
 $versions = {

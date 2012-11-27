@@ -57,3 +57,9 @@ $inactiveText: #AAA;
   opacity : $dec;
   filter  : unquote('alpha(opacity=' + ($dec * 100) + ')');
 }
+
+@mixin transition($args) {
+  -webkit-transition : $args;
+  -moz-transition    : $args;
+  -ms-transition     : width 0.5s ease;
+}

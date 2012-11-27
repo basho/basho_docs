@@ -2,6 +2,7 @@ riak:
   - title: "[[全Riakプロジェクト|/index.html]]"
     sub: []
   - title: "スタート"
+    class: "start"
     sub:
     - "[[Riakをはじめる|Riak]]"
     - "[[Riak Fast Track|The Riak Fast Track]]"
@@ -14,19 +15,40 @@ riak:
       - title: "MapReduce"
         sub:
           - "[[概要|MapReduce]]"
+          - "[[Implementing|MapReduce Implementation]]"
           - "[[キーフィルタ|Key Filters]]"
       - title: "検索"
         sub:
           - "[[概要|Riak Search]]"
-          - "[[インデクス|Riak Search - Indexing]]"
+          - "[[インデックス|Riak Search - Indexing]]"
           - "[[スキーマ|Riak Search - Schema]]"
           - "[[クエリ|Riak Search - Querying]]"
-          - "[[KVのインデクスとクエリ|Riak Search - Indexing and Querying Riak KV Data]]"
-      - title: "セカンダリインデクス"
+          - "[[KVのインデックスとクエリ|Riak Search - Indexing and Querying Riak KV Data]]"
+      - title: "セカンダリインデックス"
         sub:
           - "[[概要|Secondary Indexes]]"
           - "[[設定|Secondary-Indexes - Configuration]]"
           - "[[サンプル|Secondary-Indexes - Examples]]"
+      - title: "Use Cases"
+        sub:
+          - "[[Overview|Use Cases]]"
+          - title: "High Read/Write"
+            sub:
+              - "[[Session Storage]]"
+              - "[[Serving Ads]]"
+              - "[[Log Data]]"
+              - "[[Sensor Data]]"
+          - title: "Relationship Modeling"
+            sub:
+              - "[[User Accounts]]"
+              - "[[User Settings/Preferences|Settings Preferences]]"
+              - "[[User Subscriptions/Events/Timelines|User Events Timelines]]"
+              - "[[Blog Posts, Articles and Other Content|Blogs]]"
+          # - title: "SQL Design Patterns"
+          #   sub:
+          #     - "[[Counting]]"
+          #     - "[[Conditional Summation]]"
+
 
   - title: "Riakのオペレーション"
     sub:
@@ -37,6 +59,7 @@ riak:
           - "[[RHELとCentOS|Installing on RHEL and CentOS]]"
           - "[[Mac OS X|Installing on Mac OS X]]"
           - "[[FreeBSD|Installing on FreeBSD]]"
+          - "[[SmartOS|Installing on SmartOS]]"
           - "[[SUSE|Installing on SUSE]]"
           - "[[Windows Azure|Installing on Windows Azure]]"
           - "[[ソースから|Installing Riak from Source]]"
@@ -73,14 +96,14 @@ riak:
         sub:
           - "[[MapReduce|MapReduce - Settings]]"
           - "[[検索|Riak-Search - Settings]]"
-          - "[[セカンダリインデクス|Secondary-Indexes - Configuration]]"
+          - "[[セカンダリインデックス|Secondary-Indexes - Configuration]]"
       # - title: "MapReduce"
       #   sub:
       #     - "[[設定|MapReduce - Settings]]"
       # - title: "検索"
       #   sub:
       #     - "[[設定|Riak-Search - Settings]]"
-      # - title: "セカンダリインデクス"
+      # - title: "セカンダリインデックス"
       #   sub:
       #     - "[[設定|Secondary-Indexes - Configuration]]"
       - title: "トラブルシューティング"  # "[[Troubleshooting]]"
@@ -91,8 +114,8 @@ riak:
           - "[[ベンチマーク|Benchmarking]]"
           - "[[統計とモニタリング|Statistics and Monitoring]]"
           - "[[ノードの監視|Inspecting a Node]]"
-          - "[[検索インデクスの修復|Repairing Search Indexes]]"
-          - "[[KVインデクスの修復|Repairing KVIndexes]]"
+          - "[[検索インデックスの修復|Repairing Search Indexes]]"
+          - "[[KVインデックスの修復|Repairing KVIndexes]]"
 
   - title: "リファレンス"
     sub:
@@ -108,21 +131,13 @@ riak:
           - "[[バケット|Buckets]]"
           - "[[クラスタ|Clusters]]"
           - "[[コミットフック|Commit Hooks]]"
-          - "[[いつかは一貫性|Eventual Consistency]]"
+          - "[[結果統合性|Eventual Consistency]]"
           - "[[キーとオブジェクト|Keys and Objects]]"
           - "[[リンク|Links]]"
           - "[[レプリケーション|Replication]]"
           - "[[ベクトルクロック|Vector-Clocks]]"
           - "[[Riak用語集|Riak Glossary]]"
-      - "[[API|APIs]]"
-      - "[[クライアントライブラリ|Client Libraries]]"
-      - "[[コミュニティで作られたライブラリとプロジェクト|Community Developed Libraries and Projects]]"
-      - "[[MapReduceのインプリメント|MapReduce Implementation]]"
-      - "[[バックエンドAPI|Backend API]]"
-      - "[[Javaクライアントのベンチマーク|Java Client Benchmark]]"
-      - "[[クライアントのインプリメントガイド|Client Implementation Guide]]"
-      - "[[サンプルデータ|Sample Data]]"
-      - title: "Riakの比較"
+      - title: "Riak Comparisons"
         sub:
           - "[[Riakの比較の概要|Riak Comparisons]]"
           - "[[Cassandraとの比較|Riak Compared to Cassandra]]"
@@ -131,6 +146,13 @@ riak:
           - "[[HBaseとの比較|Riak Compared to HBase]]"
           - "[[MongoDBとの比較|Riak Compared to MongoDB]]"
           - "[[Neo4jとの比較|Riak Compared to Neo4j]]"
+      - "[[API|APIs]]"
+      - "[[クライアントライブラリ|Client Libraries]]"
+      - "[[コミュニティで作られたライブラリとプロジェクト|Community Developed Libraries and Projects]]"
+      - "[[バックエンドAPI|Backend API]]"
+      - "[[Javaクライアントのベンチマーク|Java Client Benchmark]]"
+      - "[[クライアントのインプリメントガイド|Client Implementation Guide]]"
+      - "[[サンプルデータ|Sample Data]]"
       - "[[リリースノート|Release Notes]]"
       - "[[RiakとDynamo|/references/dynamo/]]"
 
@@ -154,13 +176,14 @@ riak:
       - "[[We Run Riakバッジ|We Run Riak Badges]]"
 
   - title: "ショートカット"
+    class: "active"
     sub:
       - "[[FAQ|FAQs]]"
       - "[[API|/references/apis/]]"
 
 
 riakee:
-  - title: "[[Riak|/index.html]]"
+  - title: "[[全Riakプロジェクト|/index.html]]"
     sub: []
   - title: "スタート"
     sub:
@@ -186,6 +209,7 @@ riakee:
       - "[[SNMPの設定|SNMP Configuration]]"
       - "[[SNMPカウンタ|SNMP Counters]]"
   - title: "ショートカット"
+    class: "active"
     sub:
       - "[[Riak EnterpriseのFAQ|Riak Enterprise FAQs]]"
       - "[[Riak FAQ|FAQs]]"
@@ -223,13 +247,14 @@ riakcs:
       - "[[ストレージ統計をクエリ|Querying Storage Statistics]]"
       - "[[使用法と課金データ|Usage and Billing Data]]"
   - title: "ショートカット"
+    class: "active"
     sub:
       - "[[FAQ|Riak CS FAQs]]"
       - "[[API|RiakCS Storage API]]"
 
-
 root:
   - title: "全Riakプロジェクト"
+    class: "active"
     sub:
       - "[[Riak]]"
       - "[[Riak Enterprise]]"

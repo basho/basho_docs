@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [planning, os]
 ---
 
-Here are some steps and recommendations designing and configureing your Riak cluster.
+Here are some steps and recommendations designing and configuring your Riak cluster.
 
 ## Backend
 

@@ -16,80 +16,14 @@ next: ["Basic Operations", "Basic-Operations.html"]
 
 ## Comparing MapReduce, RiakSearch, and Secondary Indexes
 
-<table>
-    <tr>
-        <th>&nbsp;</th>
-        <th>MapReduce</th>
-        <th>Riak Search</th>
-        <th>Secondary Indexes</th>
-    </tr>
-    <tr>
-        <td><em>Query Types</em></td>
-        <td>Ad-hoc queries composed of an arbitrary number of Map phases and
-            Reduce phases</td>
-        <td>SOLR style queries supporting combinations of free-text, wildcards, 
-            proximity, and boolean operators</td>
-        <td>Equality and range query support</td>
-    </tr>
-    <tr>
-        <td><em>Index Locality</em></td>
-        <td>N/A</td>
-        <td>Indexes for terms are replicated to N vnodes (i.e. term-based 
-            partitioning) and stored in a merge index backend, regardless of the 
-            Riak KV backend used</td>
-        <td>Indexes are located on the same vnodes as the object (i.e. 
-            document-based partitioning) and stored in the LevelDB backend along 
-            with the document</td>
-    </tr>
-    <tr>
-        <td><em>Vnodes Queried</em></td>
-        <td>Depends on input</td>
-        <td>1 per term queried; 1/N for trailing wildcard</td>
-        <td>1/N of all KV vnodes per a request</td>
-    </tr>
-    <tr>
-        <td><em>Supported Data Types</em></td>
-        <td>Any datatype with Erlang MapReduce functions; valid UTF8 JSON with
-            Javascript functions. [[Links]] per the specification</td>
-        <td>Integer, Date, and Text</td>
-        <td>Binary and Integer</td>
-    </tr>
-    <tr>
-        <td><em>Extraction</em></td>
-        <td>Map phases can be used to extract data for later Map and Reduce
-            phases</td>
-        <td>Tokenization performed by one of the provided analyzers (Whitespace, 
-            Standard, Integer, and No-Op) or a Custom Analyzer</td>
-        <td>Indexed values are submitted as metadata on the object, thus the 
-            application is responsible for tokenization</td>
-    </tr>
-    <tr>
-        <td><em>Anti-Entropy / Fault Tolerance</em></td>
-        <td>N/A</td>
-        <td>If a Search partition is lost or corrupted, the "repair" feature in Riak Console will rebuild partition data from adjacent indexes.</td>
-        <td>Anti-entropy is carried over from KV; if a partition is lost,
-            secondary indexes will be rebuilt along side the KV data by read 
-            repair</td>
-    </tr>
-    <tr>
-        <td><em>Limitations</em></td>
-        <td>MapReduce operations are performed in memory and must be completed 
-            within the timeout period</td>
-        <td>Querying low cardinality terms could tax a small subset of vnodes; 
-            composite queries are expensive; documents must be structured (JSON 
-            or XML) or plain text</td>
-        <td>Only available with the LevelDB backend; no composite queries</td>
-    </tr>
-    <tr>
-        <td><em>Suggested Use Cases</em></td>
-        <td>Performing calculations based on a known set of bucket-key pairs</td>
-        <td>Searching objects with full-text data</td>
-        <td>Retrieving all objects tagged with a particular term</td>
-    </tr>
-    <tr>
-        <td><em>Poor Use Cases</em></td>
-        <td>Performing complex operations on large numbers of objects (e.g. analyzing every object in a bucket)</td>
-        <td>Searching for common (low cardinality) terms in documents</td>
-        <td>Searching prosaic text</td>
-    </tr>
-</table>
+&nbsp; | MapReduce | Riak Search | Secondary Indexes
+-------|----------|-------------|------------------
+*Query Types* | Ad-hoc queries composed of an arbitrary number of Map phases and Reduce phases | SOLR style queries supporting combinations of free-text, wildcards, proximity, and boolean operators | Equality and range query support
+*Index Locality* | N/A | Indexes for terms are replicated to N vnodes (i.e. term-based partitioning) and stored in a merge index backend, regardless of the Riak KV backend used | Indexes are located on the same vnodes as the object (i.e. document-based partitioning) and stored in the LevelDB backend along with the document
+*Vnodes Queried* | Depends on input 1 per term queried; 1/N for trailing wildcard | 1/N of all KV vnodes per a request
+*Supported Data Types* | Any datatype with Erlang MapReduce functions; valid UTF8 JSON with Javascript functions. [[Links]] per the specification | Integer, Date, and Text | Binary and Integer
+*Extraction* | Map phases can be used to extract data for later Map and Reduce phases | Tokenization performed by one of the provided analyzers (Whitespace, Standard, Integer, and No-Op) or a Custom Analyzer | Indexed values are submitted as metadata on the object, thus the application is responsible for tokenization
+*Anti-Entropy / Fault Tolerance* | N/A | If a Search partition is lost or corrupted, the "repair" feature in Riak Console will rebuild partition data from adjacent indexes. | Anti-entropy is carried over from KV; if a partition is lost, secondary indexes will be rebuilt along side the KV data by read repair
+*Limitations* | MapReduce operations are performed in memory and must be completed within the timeout period | Querying low cardinality terms could tax a small subset of vnodes; composite queries are expensive; documents must be structured (JSON or XML) or plain text | Only available with the LevelDB backend; no composite queries
+*Suggested Use Cases* | Performing calculations based on a known set of bucket-key pairs | Searching objects with full-text data | Retrieving all objects tagged with a particular term
+*Poor Use Cases* | Performing complex operations on large numbers of objects (e.g. analyzing every object in a bucket) | Searching for common (low cardinality) terms in documents | Searching prosaic text

@@ -15,3 +15,6 @@
 
 # Ignore .DS_Store
 .DS_Store
+
+*.tmp
+*.md~

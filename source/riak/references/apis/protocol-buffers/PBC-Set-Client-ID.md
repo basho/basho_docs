@@ -1,5 +1,5 @@
 ---
-title: PBC Set Client ID
+title: PBC クライアント ID のセット
 project: riak
 version: 0.14.0+
 document: api
@@ -9,18 +9,17 @@ keywords: [api, protocol-buffer]
 group_by: "Server Operations"
 ---
 
-Set the client id for this connection.  A library may want to set the client id
-if it has a good way to uniquely identify actors across reconnects. This will
-reduce vector clock bloat.
+このコネクションのためのクライアント ID をセットします。
+再コネクトのときにユニークに要素を識別できるうまい方法があれば、ライブラリはクライアント ID をセットしたほうが良いでしょう。
+これによってベクタークロックの肥大化を抑えることができます。
 
-<div class="note"><div class="title">Client IDs in 1.0</div>
-<p>All requests to Riak &lt;1.0 or Riak 1.0 without <code>vnode_vclocks</code>
-enabled should set the Client ID, which can be any string that uniquely
-identifies the client, for purposes of tracing object modifications in the
-[[vector clock|Vector Clocks]].</p>
+<div class="note"><div class="title">1.0 でのクライアント ID</div>
+<p>Riak &lt; 1.0 または <code>vnode_clocks</code> を使わない Riak 1.0 への全てのリクエストは
+クライアント ID をセットすべきです。これは [[ベクタークロック|Vector Clocks]] としてオブジェクトの変化を追跡するために、
+クライアントをユニークに識別できるどんな文字列でも構いません。</p>
 </div>
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -30,13 +29,13 @@ message RpbSetClientIdReq {
 ```
 
 
-## Response
+## レスポンス
 
-Just the RpbSetClientIdResp message code.
+RpbSetClientIdResp メッセージコードのみです。
 
-## Example
+## サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 07 05 0A 04 01 65 01 B6
@@ -48,11 +47,11 @@ client_id: "001e001266"
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex      00 00 00 01 06
 Erlang <<0,0,0,1,6>>
 
-RpbSetClientIdResp - only message code defined
+RpbSetClientIdResp - メッセージコードのみが示されます。
 ```

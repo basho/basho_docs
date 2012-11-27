@@ -1,5 +1,5 @@
 ---
-title: Basic Riak API Operations
+title: Riak 基本 API の操作
 project: riak
 version: 0.10.0+
 document: tutorial
@@ -10,89 +10,89 @@ up:   ["The Riak Fast Track", "index.html"]
 next: ["MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
 ---
 
-For this module, we are going to work with the Riak HTTP API. 
+このモジュールでは、Riak HTTP API を使用します。
 
-## Object/Key Operations
+## オブジェクト/キー操作
 
-Riak organizes data into Buckets, Keys, and Values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
+Riak はデータをバケット、キー、バリューとして管理します。バリュー(またはオブジェクト)はユニークなキーで識別され、各キー/バリュー ペアはバケットに格納されます。バケットは基本的に Riak 内のフラットなネームスペースです。複数のバケットに同一のキーネームを許したり、バケットごとにレプリケーションファクタや、pre/post-commit フックを設定する、ということにはあまり意味はありません。
 
-Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. This section describes how to do that using the Riak HTTP API. We also offer [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Community Developed Libraries and Projects]] for .NET, Node.js, Python (and Twisted), Griffon, Small Talk, Perl, Scala, Clojure, and many others.
+Riak での操作のほとんどが、キーのバリューをセットするか、取得することです。このセクションでは、Riak HTTP API をどのように使うのかを説明します。また、Erlan、Java、PHP、Python、Ruby、C/C++ 用に[[サポートされているクライアントライブラリ|Client Libraries]]についても説明します。さらに[[コミュニティでサポートしているプロジェクト|Community Developed Libraries and Projects]]として、.NET、Node.js、Python(および Twisted)、Griffon、Small Talk、Perl、Scala、Clojure、その他もろもろがあります。
 
-### Required Knowledge
+### 必要な知識
 
-* *Client ID* - All requests should include the *X-Riak-ClientId* header, which can be any string that uniquely identifies the client, for purposes of tracing object modifications using [[vector clocks|Riak Glossary#Vector Clock]].
-* *URL Escaping* - Buckets, keys, and link specifications may not contain unescaped slashes. Use a URL-escaping library or replace slashes with %2F.
+* *Client ID* - すべてのリクエストには *X-Riak-ClientId* ヘッダを含むべきで、これはクライアントをユニークに識別できるいかなる文字列でも構いません。[[ベクタークロック|Riak Glossary#Vercor Clock]] でオブジェクトの変化を追跡するのに使用します。
+* *URL Escaping* - バケット、キー、リンク指定には、エスケープなしのスラッシュを含めてはいけません。URSエスケープ ライブラリを使うか、スラッシュを %2F に置き換えてください。
 
-### Read an Object
+### オブジェクトを読む
 
-Here is the basic command formation for retrieving a specific key from a bucket.
+バケットから指定したキーを取得するときは、このようになります。
 
 ```bash
 GET /riak/bucket/key
 ```
 
-The body of the response will contain the contents of the object (if it exists).
+レスポンスのボディにはオブジェクトの内容が含まれます(もしあれば)。
 
-Riak understands many HTTP-defined headers, like *Accept* for content-type negotiation (relevant when dealing with siblings, see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings examples]], and *If-None-Match*/*ETag* and *If-Modified-Since*/*Last-Modified* for conditional requests.
+Riak は content-type ネゴシエーションの *Accept* のような、多くの HTTP 定義のヘッダを認識します。siblings を取り扱うときは、[[HTTP API における sibling のサンプル|HTTP Fetch Object#Siblings examples]] を、さらに条件つきリクエストには *If-None-Mach*/*ETag*、*If-Modified-Since*/*Last-Modified* を参照してください。
 
-Riak also accepts many query parameters, including *r* for setting the R-value for this GET request (R Values describe how many replicas need to agree when retrieving an existing object in order to return a successful response. R values will be explained more in the final section of the Fast Track Tutorial). If you omit the the *r* query parameter, Riak defaults to *r=2*.
+Riak はさまざまなクエリパラメータも受け付けます。GET リクエストにおける R-value は *r* で設定します(R value というのは、オブジェクトを取得する際に、レスポンスが成功するにはなんこのレプリカの一致が必要かを示すものです。R value については、Fast Track チュートリアルの最後のセクションで詳しく説明します)。*r* クエリパラメータを省略すると、Riak はデフォルトの *r=2* を採用します。
 
-Normal response codes:
+正常時のレスポンスコード:
 
 * *200 OK*
 * *300 Multiple Choices*
 * *304 Not Modified*
 
-Typical error codes:
+主なエラーコード:
 
 * *404 Not Found*
 
-So, with that in mind, try this command. This will request (GET) the key "doc2" from the bucket "test."
+早い話、このコマンドを試してみてください。これは "test" というバケットから "doc2" というキーをリクエスト(GET)します。
 
 ```bash
 $ curl -v http://127.0.0.1:8091/riak/test/doc2
 ```
 
-This should return a *404 Not Found* as the key "doc2" does not exist (you haven't created it yet!). 
+ここでは *404 Not Found* が返り、"doc2" というキーがない(まだ作っていませんから！)ことを示します。
 
-### Store an object with existing or user-defined key
+### 既存、またはユーザ定義のキーでオブジェクトを格納する
 
-Your application will often have its own method of generating the keys for its data.  If so, storing that data is easy.  The basic request looks like this.
+アプリケーションはしばしば、独自の方法でデータのキーを生成します。このとき、データの格納は簡単です。リクエストはこのようになります。
 
 ```bash
 PUT /riak/bucket/key
 ```
 
-<div class="info"><code>POST</code> is also a valid verb, for compatibility's sake.</div>
+<div class="info"><code>POST</code> は互換性のために残されている、有効な動詞です。</div>
 
-Remember, buckets are automatically created when you add keys to them. There is no need to explicitly "create" a bucket (more on buckets and their properties further down the page.)
+キーを追加すると、バケットが自動的に作成されることに注意してください。バケットを明示的に "create" する必要はありません(バケットおよびそのプロパティについては、このページの後のほうで説明します)。
 
-Some request headers are required for PUTs:
+PUT にはリクエストヘッダが必要です:
 
-* *Content-Type* must be set for the stored object. Set what you expect to receive back when next requesting it.
-* *X-Riak-Vclock* if the object already exists, the vector clock attached to the object when read; if the object is new, this header may be omitted
+* *Content-Type* は、オブジェクトを格納するためにセットしなければなりません。次回のリクエストでどのような形で受け取りたいのかをセットします。
+* *X-Riak-Vclock* オブジェクトがすでに存在すれば、読み出しの際にベクタークロックが付加されます。新規オブジェクトの場合は、このヘッダは無視されます。
 
-Other request headers are optional for PUTs:
+その他のリクエストヘッダはオプションです:
 
-* *X-Riak-Meta-_YourHeader_* any additional metadata headers that should be stored with the object.
-* *Link* user and system-defined links to other resources. Read more about [[Links]].
+* *X-Riak-Meta-_YourHeader_* オブジェクトと共に格納できる任意のメタデータ ヘッダです。
+* *Link* ユーザおよびシステム定義済みの、他のリソースへのリンクです。[[リンク|links]] についての詳細。
 
-Similar to how GET requests support the "r" query parameter, PUT requests also support these parameters:
+GET リクエストでの "r" クエリパラメータと同様に、PUT リクエストでもこれらのパラメータをサポートしています:
 
-* *r* how many replicas need to agree when retrieving an existing object before the write (integer value, default is 2)
-* *w* how many replicas to write to before returning a successful response (integer value, default is 2).
-* *dw* how many replicas to commit to durable storage before returning a successful response (integer value, default is 0)
-* *returnbody* whether to return the contents of the stored object (boolean string, default is "false")
+* *r* 書き込みの前にオブジェクトを取得するとき、何個のレプリカが一致する必要があるか(整数値、デフォルトは 2)
+* *w* 成功のレスポンスを返す前に何個のレプリカへ書きこむか(整数値、デフォルトは 2)
+* *dw* 成功のレスポンスを返す前に何個のレプリカを耐久記憶として保証するか(整数値、デフォルトは 0)
+* *returnbody* 格納されているオブジェクトのコンテンツを返すか否か(ブーリアン文字列、デフォルトは "false")
 
-Normal status codes:
+正常時のステータスコード:
 
 * *200 OK*
 * *204 No Content*
 * *300 Multiple Choices*
 
-If *returnbody=true*, any of the response headers expected from a GET request may be present. Like a GET request, *300 Multiple Choices* may be returned if siblings existed or were created as part of the operation, and the response can be dealt with similarly.
+*returnbody=true* のとき、GET リクエストではなんらかのレスポンスへっだがあることを期待しています。siblings があったとき、あるいは操作の結果生成されたとき、レスポンスが同じだったときには GET リクエストのように、*300 Multiple Choices* を返します。
 
-Let's give it a shot. Try running this in a terminal.
+それではここで、ターミナルで試してみましょう。
 
 
 ```bash
@@ -101,127 +101,126 @@ $ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
   http://127.0.0.1:8091/riak/test/doc?returnbody=true
 ```
 
-### Store a new object and assign random key
+### 神きオブジェクトを格納し、ランダムキーをアサインする
 
-If your application would rather leave key-generation up to Riak, issue a POST request to the bucket URL instead of a PUT to a bucket/key pair:
+Riak に渡すキーを、アプリケーションで生成しない場合は、バケット/キー ペアではなく、バケットの URL に POST リクエストを発行します。
 
 ```bash
 POST /riak/bucket
 ```
 
-If you don't pass Riak a "key" name after the bucket, it will know to create one for you.
+バケットの後に "key" を与えなければ、あなたの代わりにキーを生成しろということになります。
 
-Supported headers are the same as for bucket/key PUT requests, though *X-Riak-Vclock* will never be relevant for these POST requests.  Supported query parameters are also the same as for bucket/key PUT requests.
+サポートしているヘッダは、バケット / キーの PUT リクエストと同様で、*X-Riak-Vclock* は PUT リクエストに影響を与えません。サポートしているクエリパラメータも、バケット/キー リクエストと同様です。
 
-Normal status codes:
+正常時のステータスコード:
 
 * *201 Created*
 
-This command will store an object, in the bucket "test" and assign it a key:
+このコマンドは、バケット "test" の中にオブジェクトを格納し、キーをアサインします:
 
 ```bash
 $ curl -v -d 'this is a test' -H "Content-Type: text/plain" \
   http://127.0.0.1:8091/riak/test
 ```
 
-In the output, the *Location* header will give the you key for that object. To view the newly created object, go to `http://127.0.0.1:8091/*_Location_*` in your browser.
+出力内で、*Location* ヘッダでオブジェクトのキーを返します。作成された最新のオブジェクトを見るには、ブラウザで `http://127.0.0.1:8091/*_Location_*` にアクセスしてください。
 
-If you've done it correctly, you should see the value (which is "this is a test").
+正しくできていれば、バリュー(ここでは "this is a test") を確認できるはずです。
 
-### Delete an object
+### オブジェクトを削除する
 
-Lastly, you'll need to know how to delete keys.
+最後に、キーの削除方法を知っておく必要があります。
 
-The command, as you can probably guess, follows a predictable pattern and looks like this:
+推測通り、そのコマンドは、前に出てきたとおりで、このようになります:
 
 ```bash
 DELETE /riak/bucket/key
 ```
 
-The normal response codes for a DELETE operations are *204 No Content* and *404 Not Found*
+DELETE 操作時の正常レスポンスコードは *204 No Content* および *404 Not Found* です。
 
-404 responses are "normal" in the sense that DELETE operations are idempotent and not finding the resource has the same effect as deleting it.
+404 レスポンスは "normal" で、DELETE 操作の結果、リソースが削除されたために見つからないという意味です。
 
-Try this:
+試してください:
 
 ```bash
 $ curl -v -X DELETE http://127.0.0.1:8091/riak/test/test2
 ```
 
-## Bucket Properties and Operations
+## バケットのプロパティと操作
 
-Buckets are essentially a flat namespace in Riak. They allow the same key name to exist in multiple buckets and provide some per-bucket configurability.
+バケット基本的に Riak 内のフラットなネームスペースです。複数のバケットに同一のキーネームを許したり、バケットごとに設定可能です。
 
-<div class="info"><div class="title">How Many Buckets Can I Have?</div>
-Currently, buckets come with virtually no cost except for when you modify the default bucket properties. Modified Bucket properties are gossiped around the cluster and therefore add to the amount of data sent around the network. In other words, buckets using the default bucket properties are free.
+<div class="info"><div class="title">バケットをいくつまで作れますか？</div>
+現在のところ、バケットにはコストがかからないと想定されています、デフォルトのバケットプロパティを変更しない限りは。バケットのプロパティを変更すると、ゴシップとして周囲のクラスタに伝播する、つまりネットワーク中にデータが流れることになります。言い換えれば、デフォルトのバケットプロパティを使えば、フリーです。
 </div>
 
-### Setting a bucket's properties
+### バケットのプロパティを変更する
 
-There is no need to "create" buckets in Riak.  They pop into existence when keys are added to them, and dissappear when all keys have been removed from them.
+バケットを "create" する必要はありません。キーが追加された時に作られ、すべてのキーが削除された時に消え去ります。
 
-However, in addition to providing a namespace for keys, the properties of a bucket also define some of the behaviors that Riak will implement for the values stored in the bucket.
+キーにネームスペースを割り当てることに加えて、バケットへのバリューの格納方法といった、バケットのプロパティも定義します。
 
-To set these properties, issue a PUT to the bucket's URL:
+プロパティをセットするには、バケットの URL に PUT を発行します:
 
 ```bash
 PUT /riak/bucket
 ```
 
-The body of the request should be a JSON object with a single entry "props."  Unmodified bucket properties may be omitted.
+リクエストボディは "props" というエントリ 1 つの JSON オブジェクトにしてください。未定義のバケットプロパティは無視されます。
 
-Important headers:
+重要なヘッダ:
 
 * Content-Type: *application/json*
 
-The most important properties to consider for your bucket are:
+バケットで気をつけなければならない重要なプロパティ:
 
-* *n_val* - the number of replicas for objects in this bucket (defaults to 3); *n_val* should be an integer greater than 0 and less than the number of partitions in the ring.
+* *n_val* - バケット内にいくつのレプリカを作るか(デフォルトは 3)。*n_val* は 0 以上、リング内のパーティション数以下の整数値です。
 
-<div class="note">Changing *n_val* after keys have been added to the bucket is not advisable as it may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
+<div class="note">バケットにキーを追加した後になって *n_val* を変更することは、失敗する原因となり、望ましくありません。というのは、新しいバリューはまだ、所定のパーティションにレプリカが作られていないかもしれません。</div>
 
-* *allow_mult* - _true_ or _false_ (defaults to _false_ ); Riak maintains any sibling objects caused by things like concurrent writes or network partitions. With *allow_mult* set to false, clients will only get the most-recent-by-timestamp object.
+* *allow_mult* - _true_ または _false_ (デフォルトは _false_ )。Riak は、同時書き込みやネットワークのパーティショニングなどに起因する、あらゆる sibling オブジェクトを管理します。*allow_mult* を false にすると、クライアントが受け取るのは、タイムスタンプが最も新しいオブジェクトのみとなります。
 
-Let's go ahead and alter the properties of a Bucket. The following PUT will create a new bucket called "test" with a modified n_val of 5.
+それではバケットのプロパティを変えてみましょう。以下を PUT すると、"test" という名前の新しいバケットを作成し、n_val は 5 に変更されます。
 
 ```bash
 $ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' \
   http://127.0.0.1:8091/riak/test
 ```
 
-### GET Buckets
+### バケットを GET
 
-Here is how you use the HTTP API to retrieve (or "GET") the bucket properties and/or keys:
+HTTP API を使って、バケットプロパティ および/または キーを取得("GET")する方法です:
 
 ```bash
 GET /riak/bucket_name
 ```
 
-Again, quite simple. (Are you starting to see a pattern?)
+簡単ですね(パターンがわかりましたか？)
 
-The optional query parameters are:
+オプション クエリ パラメータ:
 
-* *props=true|false* - whether to return the bucket properties (defaults to "true")
-* *keys=true|false|stream* - whether to return the keys stored in the bucket (defaults to "false"); see the [[HTTP API's list keys|HTTP List Keys]] for details about dealing with a *keys=stream* response
+* *props=true|false* - バケットプロパティを返すか否か(デフォルトは "true")
+* *keys=true|false|stream* - バケットに格納されているキーを返すか否か(デフォルトは "false")。*keys=stream* レスポンスの振る舞いの詳細は [[HTTP API's list keys|HTTP List Keys]] を参照
 
-
-With that in mind, go ahead and run this command. This will GET the bucket information that we just set with the sample command above:
+次はこのコマンドを実行してください。ここでは、さっきセットしたばかりのバケット情報を GET してみます。
 
 
 ```bash
 $ curl -v http://127.0.0.1:8091/riak/test
 ```
 
-You can also view this Bucket information through any browser by going to `http://127.0.0.1:8091/riak/test`
+ブラウザで `http://127.0.0.1:8091/riak/test` にアクセスすれば、バケットの情報を見ることができます。
 
-So, that's the basics of how the HTTP API works. An in depth reading of the HTTP API page (linked below) is highly recommended. This will give you details on the headers, parameters, and status that you should keep in mind when using the HTTP Interface. 
+以上が HTTP API がどのように働くのかの基本です。HTTP API のページ(下記のリンク)を熟読されることを強くお勧めします。そこには HTTP インタフェースを使用するにあたって、覚えておくべきヘッダ、パラメータ、ステータスについての詳細が記載されています。
 
 
-<div class="title">Additional Reading for this Section</div>
+<div class="title">このセクションのさらなる解説</div>
 
-* [[The HTTP API In Depth|HTTP API]]
-* [[Protocol Buffers API|PBC API]]
-* [[Replication in Depth|Replication]]
-* [Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
-* [Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
+* [[HTTP API の詳細|HTTP API]]
+* [[プロトコルバッファ API|PBC API]]
+* [[レプリケーションの詳細|Replication]]
+* [どうしてベクタークロックが簡単なのか|Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
+* [どうしてベクタークロックはややこしいのか|Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
 

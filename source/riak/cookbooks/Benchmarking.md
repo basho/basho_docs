@@ -29,7 +29,7 @@ Documentation
 <div class="info">
 <div class="title">Note on Documentation</div>
 
-This wiki topic replaces the documentation that was in the basho_bench
+This topic replaces the documentation that was in the basho_bench
 repository under `docs/Documentation.org` prior to February 2011.
 </div>
 
@@ -80,8 +80,8 @@ Installation
 
 ### Prerequisites
 
--   Erlang R13B04 or later - [[http://erlang.org/download.html]]
--   R - [[http://www.r-project.org/]] (for graphing)
+-   Erlang must be installed. See [[Installing Erlang]] for instructions and versioning requirements.
+-   [R statistics language](http://www.r-project.org/) must be installed if you wish to generate graphs (see the [[Generating Benchmark Graphs|Benchmarking#Generating-Benchmark-Graphs]] section, below).
 
 ### Building from Source
 
@@ -122,7 +122,7 @@ The output of basho_bench can be used to create graphs showing:
 
 ### Prerequisites
 
-The R statistics language is needed to generate graphs.
+The R statistics language is needed to generate graphs. Note: If necessary, R can be installed on a different machine than the one running basho_bench, and the performance data can be copied (via rsync, for example) from the load testing machine to the one that will be generating and viewing the graphs (such as a desktop).
 
 -   More information: [[http://www.r-project.org/]]
 -   Download R: [[http://cran.r-project.org/mirrors.html]]
@@ -142,7 +142,7 @@ This will create a results file in `tests/current/summary.png`.
 You can also run this manually:
 
 ```bash
-priv/summary.r ~~i tests/current
+priv/summary.r -i tests/current
 ```
 
 ## Configuration

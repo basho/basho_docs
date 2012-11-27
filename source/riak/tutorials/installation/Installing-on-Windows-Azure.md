@@ -117,21 +117,21 @@ Execute:
 
 Execute:
 
-	riak cluster join riak@<ip.of.first.node>
+	riak-admin cluster join riak@<ip.of.first.node>
 
 ## Cluster Riak & load test data
 
 After all the nodes are installed, and joined using the steps above, connect to one of the nodes using SSH or PuTTY and execute the following:
 
-	riak cluster plan
+	riak-admin cluster plan
 
 If this looks good:
 
-	riak cluster commit
+	riak-admin cluster commit
 
 To check the status of clustering use:
 
-	riak member_status
+	riak-admin member_status
 
 You now have a Riak cluster on Azure
 

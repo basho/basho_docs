@@ -8,7 +8,7 @@ index: true
 keywords: [comparisons, cassandra]
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and Cassandra.  The Cassandra version described is 1.1.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/riak_wiki/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective and technical comparison of Riak and Cassandra.  The Cassandra version described is 1.1.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 
 ## At A Very High Level
@@ -49,7 +49,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 		
 		You can also write you own storage backend for Riak using our [[backend API|Backend API]].			
 	 </td>
-        <td> Cassandra's write path starts with a write to a commit log followed by a subsequent write to an in-memory structure called a memtable. Writes are then batched to a persistent table structure called an sorted string table (SST). 
+        <td> Cassandra's write path starts with a write to a commit log followed by a subsequent write to an in-memory structure called a memtable. Writes are then batched to a persistent table structure called a sorted string table (SST). 
 			<ul>
 			  <li><a href="http://wiki.apache.org/cassandra/ArchitectureCommitLog">Commit Log</a></li>
 			<li><a href="http://wiki.apache.org/cassandra/MemtableSSTable">Memtable</a></li>
@@ -119,7 +119,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
     </tr>
 		</tr>
 	        <td>Concurrency</td>
-	        <td>In Riak, any node in the cluster can coordinate a read/write operation for any other node. Riak stresses availability for on writes and reads, and puts the burden of resolution on the client at read time. 
+	        <td>In Riak, any node in the cluster can coordinate a read/write operation for any other node. Riak stresses availability for writes and reads, and puts the burden of resolution on the client at read time. 
 			</td>
 
 	        <td>All nodes in Cassandra are peers. A client read or write request can go to any node in the cluster. When a client connects to a node and issues a read or write request, that node serves as the coordinator for that particular client operation.
@@ -142,7 +142,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 				</ul>	
 			
 	 </td>
-        <td>Replication in Cassandra starts when a user chooses a partitioner. Partitioners include Random Partitioner (which also relies on consistent hashing for data storage) and various Ordered Partitioner options. Under the hood, physical nodes are assigned tokens which determine a nodes's position on the ring and and the range of data for which it's responsible. 
+        <td>Replication in Cassandra starts when a user chooses a partitioner. Partitioners include Random Partitioner (which also relies on consistent hashing for data storage) and various Ordered Partitioner options. Under the hood, physical nodes are assigned tokens which determine a nodes's position on the ring and the range of data for which it's responsible. 
 			<ul>
 			  <li>[[Replication|http://www.datastax.com/docs/1.0/cluster_architecture/replication]]</li>
 			</ul>
@@ -163,24 +163,24 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 		<li>[[Command Line Tools]]</li>
 	</ul>
 	
-        <td>Cassandra allows you add new nodes dynamically with the exception of manually calculating a node's token (though users can elect to let Cassandra calculate this). It's recommended that you double the size of your cluster to add capacity. If this isn't feasible, you can elect to either add a number of nodes (which requires token recalculation for all existing nodes), or to add one node at a time, which means leaving the initial token blank and "will probably not result in a perfectly balanced ring but it will alleviate hot spots". 
+        <td>Cassandra allows you to add new nodes dynamically with the exception of manually calculating a node's token (though users can elect to let Cassandra calculate this). It's recommended that you double the size of your cluster to add capacity. If this isn't feasible, you can elect to either add a number of nodes (which requires token recalculation for all existing nodes), or to add one node at a time, which means leaving the initial token blank and "will probably not result in a perfectly balanced ring but it will alleviate hot spots". 
 			<ul>
 			  <li>[[Adding Capacity to an Existing Cluster|http://www.datastax.com/docs/1.1/operations/cluster_management#adding-capacity-to-an-existing-cluster]]</li>
 			</ul>
 	</td>
     </tr>
     <tr>
-        <td>Multi-Data Center Replication</td>
+        <td>Multi-Datacenter Replication</td>
 
-		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one data center over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi Data Center deployments (meaning the ability to run active Riak clusters in N data centers). 
+		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters). 
 		
 		<ul>
 			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
 		<ul>
 			
-        <td>Cassandra has the ability to spread nodes over multiple data centers via various configuration parameters. 
+        <td>Cassandra has the ability to spread nodes over multiple datacenters via various configuration parameters. 
 			<ul>
-			  <li>[[Multiple Data Centers|http://www.datastax.com/docs/1.0/cluster_architecture/cluster_planning#multiple-data-centers]]</li>
+			  <li>[[Multiple Datacenters|http://www.datastax.com/docs/1.0/cluster_architecture/cluster_planning#multiple-data-centers]]</li>
 			</ul>
 	
 	</td>

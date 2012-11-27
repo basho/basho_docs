@@ -84,6 +84,14 @@ Below is an example schema file. The schema is formatted as an Erlang term. Spac
             {padding_size, 10}
         ]},
 
+        %% Alias a field
+        {field, [
+            {name, "name"},
+            {analyzer_factory, {erlang, text_analyzers, standard_analyzer_factory}},
+            {alias, "LastName"},
+            {alias, "FirstName"}
+        ]},
+
         %% A dynamic field. Anything ending in "_text" will use the standard_analyzer_factory.
         {dynamic_field, [
             {name, "*_text"},
@@ -128,9 +136,15 @@ The following properties are defined at a field level, and apply to both static 
 * *type* - Optional. The type of field, either "string" or "integer". If "integer" is specified, and no field-level analyzer_factory is defined, then the field will use the Whitespace analyzer. Defaults to "string".
 * *analyzer_factory* - Optional. Specify the analyzer factory to use when parsing the field. If not specified, defaults to the analyzer factory for the schema. (Unless the field is an integer type. See above.)
 * *skip* - Optional. When "true", the field is stored, but not indexed. Defaults to "false".
-* *aliases* - Optional. A list of aliases that should be mapped to the current field definition, effectively indexing multiple fields of different names into the same field. Defaults to an empty list.
+* *alias* - Optional. An alias that should be mapped to the current field definition, effectively indexing multiple fields of different names into the same field. You can add as many `alias` settings as you like.
 * *padding_size* - Optional. Values are padded up to this size. Defaults to 0 for string types, 10 for integer types.
 * *inline* - Optional. Valid values are "true", "false", and "only" (default is "false"). When "only", the field will not be searchable by itself but can be used as a "filter" for searches on other fields. This will enhance the performance of some queries (such as ranges in some cases) but will consume more storage space because the field value is stored "inline" with the indexes for other fields.  When "true", the field will be stored normally in addition to inline. Filtering on inline fields is currently only supported via the [[Solr|Riak Search - Querying#Querying-via-the-Solr-Interface]] interface. 
+
+<div class="info"><div class="title">A Note on Aliases</div>
+
+1. You should never attempt to give an alias the same name as a field name. Attempting to do so will cause a field value to be indexed under an undetermined name.
+2. Multiple aliases will be concatenated with a space. If Name has two aliases, the value {LastName:"Smith", FirstName:"Dave"} would store as "Smith Dave".
+</div>
 
 ## Analyzers
 

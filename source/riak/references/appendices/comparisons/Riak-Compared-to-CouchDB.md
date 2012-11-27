@@ -8,7 +8,7 @@ index: true
 keywords: [comparisons, couchdb]
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and CouchDB.  The CouchDB version described is 1.2.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/riak_wiki/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective and technical comparison of Riak and CouchDB.  The CouchDB version described is 1.2.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
@@ -46,7 +46,7 @@ The table below gives a high level comparison of Riak and CouchDB features/capab
 			  <li>[[Riak Supported Storage Backends|Storage-Backends]]</li>
 			</ul>
 		
-		You can also write you own storage backend for Riak using our [[backend API|Backend API]].			
+		You can also write your own storage backend for Riak using our [[backend API|Backend API]].			
 	 </td>
         <td>CouchDB stores data to disk by "append-only" files. As the files continue to grow, they require occasional compaction.
 			<ul>
@@ -93,7 +93,7 @@ The table below gives a high level comparison of Riak and CouchDB features/capab
 			</ul>
 	
 	</td>
-        <td>CouchDB is generally queried by direct ID lookups, or by creating MapReduce "views" that CouchDB runs to create a queryable index for querying by or computing other attributes. In addition, the ChangesAPI shows documents in the order they were last modified. Finally, there exist some community plugins to expand CouchDB's queryability, such as the couchdb-lucene full-text search plugin.
+        <td>CouchDB is generally queried by direct ID lookups, or by creating MapReduce "views" that CouchDB runs to create a queryable index for querying by or computing other attributes. In addition, the ChangesAPI shows documents in the order they were last modified. Finally, there exist some community plugins to expand CouchDB's queryability, such as the CouchDB-Lucene full-text search plugin.
 
 			<ul>
 			<li>[[Views|http://wiki.apache.org/couchdb/HTTP_view_API]]</li>	
@@ -132,13 +132,13 @@ The table below gives a high level comparison of Riak and CouchDB features/capab
     </tr>
     <tr>
         <td>Replication</td>
-        <td>Riak's replication system is heavily influence by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
+        <td>Riak's replication system is heavily influenced by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
 			<ul>
 			  <li>[[Replication]]</li>
 			  <li>[[Clustering|Concepts#Clustering]]</li>
 			</ul>
 			
-			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for you use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
+			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
 				<ul>
 					<li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
 				</ul>	
@@ -169,16 +169,16 @@ The table below gives a high level comparison of Riak and CouchDB features/capab
 	</td>
     </tr>
     <tr>
-        <td>Multi-Data Center Replication and Awareness</td>
+        <td>Multi-Datacenter Replication and Awareness</td>
 
-		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one data center over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Data Center deployments (meaning the ability to run active Riak clusters in N data centers). 
+		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters). 
 		
 		<ul>
 			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
 		</ul>
 		
 		</td>	
-        <td>CouchDB can be configured to run in multiple data centers. Robust awareness will generally require a third part solution, or by developing replication filters.
+        <td>CouchDB can be configured to run in multiple datacenters. Robust awareness will generally require a third part solution, or by developing replication filters.
 		
 			<ul>
 			<li>[[Filtered Replication|http://wiki.apache.org/couchdb/Replication#Filtered_Replication]]</li>

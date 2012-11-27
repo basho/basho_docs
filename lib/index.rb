@@ -1,4 +1,5 @@
-ROOT_URL = "http://ec2-54-242-92-147.compute-1.amazonaws.com:8098/riak/riakdoc2"
+# ROOT_URL = "http://ec2-54-242-92-147.compute-1.amazonaws.com:8098/riak/riakdoc2"
+ROOT_URL = "http://localhost:8091/riak/rdt1"
 
 def make_riak_key(resource, project)
   url = resource.url.gsub(/(^\/)|(\.html$)/, '/')
@@ -21,9 +22,8 @@ def build_yokozuna_index(resources)
     data = body
 
     # remove the top metadata
-    data.sub!(/^\-{3}$.*?^\-{3}$/m, '')
-
-    data = metadata['title'].to_s + data
+    # data.sub!(/^\-{3}$.*?^\-{3}$/m, '')
+    # data = metadata['title'].to_s + data
 
     # inject into header yaml
     url = metadata['url']
@@ -46,10 +46,11 @@ def build_yokozuna_index(resources)
     # application/riakdoc
 
     # -H 'X-Riak-Title:#{metadata['title']}' \
+    # -H 'content-type:text/plain' \
 
     command = <<-CURL
     curl -XPUT '#{ROOT_URL}/#{key}' \
-    -H 'content-type:text/plain' \
+    -H 'content-type:application/riakdoc' \
     --data-binary @-<<\\YNFCM
 #{data}
     YNFCM
@@ -64,3 +65,4 @@ def build_yokozuna_index(resources)
     %x"#{command}"
   end
 end
+# yz_extractor:register("application/riakdoc", yz_riakdoc_extractor).
