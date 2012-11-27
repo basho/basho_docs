@@ -15,12 +15,9 @@ riak:
       - title: "MapReduce"
         sub:
           - "[[概要|MapReduce]]"
+          - "[[Implementing|MapReduce Implementation]]"
           - "[[キーフィルタ|Key Filters]]"
       - title: "検索"
-          - "[[Overview|MapReduce]]"
-          - "[[Implementing|MapReduce Implementation]]"
-          - "[[Key Filters]]"
-      - title: "Search"
         sub:
           - "[[概要|Riak Search]]"
           - "[[インデックス|Riak Search - Indexing]]"
