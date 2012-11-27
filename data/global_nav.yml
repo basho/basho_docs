@@ -2,6 +2,7 @@ riak:
   - title: "[[全Riakプロジェクト|/index.html]]"
     sub: []
   - title: "スタート"
+    class: "start"
     sub:
     - "[[Riakをはじめる|Riak]]"
     - "[[Riak Fast Track|The Riak Fast Track]]"
@@ -16,6 +17,10 @@ riak:
           - "[[概要|MapReduce]]"
           - "[[キーフィルタ|Key Filters]]"
       - title: "検索"
+          - "[[Overview|MapReduce]]"
+          - "[[Implementing|MapReduce Implementation]]"
+          - "[[Key Filters]]"
+      - title: "Search"
         sub:
           - "[[概要|Riak Search]]"
           - "[[インデックス|Riak Search - Indexing]]"
