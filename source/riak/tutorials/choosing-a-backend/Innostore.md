@@ -1,5 +1,5 @@
 ---
-title: Multi
+title: Innostore
 project: riak
 version: 1.2.0-
 document: tutorials

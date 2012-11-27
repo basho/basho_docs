@@ -9,7 +9,7 @@ audience: intermediate
 keywords: [client, drivers]
 ---
 
-The Riak Community is developing at a break-neck pace, and the number of community-contributed libraries and drivers is growing right along side it. Here is a list of projects that may suit your programming needs or curiosities. If you know of something that needs to be added or are developing something that you wish to see added to this list, please fork the [Riak Wiki repo on GitHub](https://github.com/basho/riak_wiki) and send us a pull request.
+The Riak Community is developing at a break-neck pace, and the number of community-contributed libraries and drivers is growing right along side it. Here is a list of projects that may suit your programming needs or curiosities. If you know of something that needs to be added or are developing something that you wish to see added to this list, please fork the [Riak Docs repo on GitHub](https://github.com/basho/basho_docs) and send us a pull request.
 
 <div class="info">
 All of these projects and libraries are at various stages of completeness and may not suit your application's needs based on their level of maturity and activity.
@@ -204,12 +204,14 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Custom Chef Recipe for running Riak on the Engine Yard AppCloud| https://github.com/engineyard/ey-cloud-recipes/tree/master/cookbooks/riak]]
 * [[RiakAWS|http://github.com/roder/riakaws]] - A simple way to deploy a Riak cluster in the Amazon Cloud
 * [[Using Nginx as a front-end for Riak|http://rigelgroupllc.com/wp/blog/using-nginx-as-a-front-end-for-riak]]
-* [[Sample HA Proxy Configuration for Protocol Buffers Interface|http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html]] (courtesy of Scott M. Likens)
-* [[Sample HA Proxy Configuration for Protocol Buffers Interface|http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html]] (courtesy of Bob Feldbauer)
+* [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html)  (courtesy of Scott M. Likens)
+* [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html)  (courtesy of Bob Feldbauer)
 
 
 ## Other Tools and Projects
 
+* [[riak_mapreduce_utils|http://github.com/whitenode/riak_mapreduce_utils]] - A library of mapreduce utility functions developed in Erlang
+* [[riakbloom|http://github.com/whitenode/riakbloom]] - A solution allowing Bloom filters to be created and used in mapreduce jobs
 * [[Qi4j Riak EntityStore|http://qi4j.org/extension-es-riak.html]] - Qi4j EntityStore service backed by a Riak bucket
 * [[ldapjs-riak|https://github.com/mcavage/node-ldapjs-riak]] - A Riak backend for [[ldapjs|http://ldapjs.org]]
 * [[otto|https://github.com/ncode/otto]] - S3 Clone built on top of Cyclone with support for Riak
@@ -231,3 +233,4 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[ebot|http://www.redaelli.org/matteo-blog/projects/ebot/]] - A scalable Web Crawler that supports Riak as a backend
 * [[riak-jscouch|https://github.com/jimpick/riak-jscouch]] - JSCouch examples done with Riak
 * [[riak_tokyo_cabinet|http://github.com/jebu/riak_tokyo_cabinet]] - A Tokyo Cabinet back end for Riak
+

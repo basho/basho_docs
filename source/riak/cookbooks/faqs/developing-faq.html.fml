@@ -31,15 +31,15 @@ A:
 
   However, if the buckets require different bucket properties, those custom properties incur some cost because changes in bucket properties must be gossiped around the cluster. If you create many, many buckets with custom properties the cost can have an impact.
 
-Q: Can I list buckets or keys in production
+Q: Can I list buckets or keys in production?
 A:
-  It is not recommended to perform a bucket listing in production because whether or not the bucket has a small number of objects it is a costly operation.
+  It is not recommended to list the buckets in production because it is a costly operation regardless of bucket size.
   
-  One important thing to keep in mind about buckets is that they are less like directories on a file system or tables in a database, and more like logical properties applied to objects. That is, there is no actual separation of objects by bucket.
+  Buckets are not like directories on a file system or tables in a database; rather, they are logical properties applied to objects. That is, there is no actual separation of objects by bucket.
 
-  The impact of this design is that in order to determine all objects that are in a bucket, first all of the objects must be listed, and then all of the objects that are not in that bucket are filtered out. The intention for buckets is to be able to apply different parameters to objects such as, for example, how many replicas of the object to keep. 
+  A filter must be applied to all of the objects in the system in order to find those in a particular bucket. Buckets are intended for configuration purposes (e.g., replication properties) rather than for general queries.
 
-  The solution in this case would be to keep track of objects which need to be grouped or listed in this manner using a strategy such as storing an object with the list of objects, secondary indexing, or search. Depending on your application requirements these options have different pros and cons
+  To keep track of groups of objects there are several options with various trade-offs: secondary indexing, search, or a list using links.
 
 Q: Why does secondary index (2I) return inconsistent results after using force-remove to drop a node from the cluster?
 A:
@@ -73,6 +73,7 @@ A:
   In this new 4-node configuration any 2 nodes will constitute a coverage set.  However until consistency is restored via read-repair, not all vnodes will contain the data that would otherwise be present.
   
   So making a few assumptions for demonstration purposes:
+
   1 - The keys a,b, and c are stored in partitions 0, 1, and 2 respectively
   2 - The cluster is not loaded, so no get or put operations are being performed
   
@@ -194,7 +195,7 @@ A:
   It's not guaranteed, but you are extremely unlikely to get collisions. Riak generates keys using an Erlang-generated unique ID and a timestamp hashed with SHA-1 and base-62 encoded for URL safety.
 
 
-Q: Where are bucket properties stored
+Q: Where are bucket properties stored?
 A:
   The bucket properties are stored in the ring (metadata stored in each node about the cluster).
   
@@ -208,7 +209,7 @@ A:
 
 Q: Can I run my own Erlang applications in the same VM as Riak?
 A:
-  We do not recommend running your application inside the same virtual machine as Riak, for a couple reasons. If they are kept seperate:
+  We do not recommend running your application inside the same virtual machine as Riak, for a couple reasons. If they are kept separate:
   
   1. Your application and Riak will not compete for the same resources and thus are less likely to affect each others' performance and availability.
   2. You will be able to upgrade Riak and your application independent of one another.
@@ -247,8 +248,8 @@ A:
   If Riak was never restarted the merge would eventually happen when writes roll over to a new data file. Bitcask rolls writes over to a new data file once the currently active file has exceeded a certain size (2 GB by default).
 
 
-Q: When retrieving a list of siblings, I am getting the same vtag multiple times
-  When retrieving a list of siblings via the REST interface, I am getting the same vtag appearing multiple times. Is this normal? I thought vtags were unique? Are they referring to the same sibling?
+Q: When retrieving a list of siblings, I am getting the same vtag multiple times.
+  When retrieving a list of siblings via the REST interface, I am getting the same vtag appearing multiple times. Is this normal? I thought vtags were unique. Are they referring to the same sibling?
 A:
   The vtag is calculated on a PUT based on the vclock and is stored as part of the object's meta data.
   
@@ -276,9 +277,9 @@ A:
 
 
 Q: Is there a way to enforce a schema on data in a given bucket?
-  Suppose I'd like to set up a bucket from which to store data adhering to a particular schema. Is there any way to set this up with riak? This way, when an attempt to store on a particular bucket, it will check with this schema first before storing it. Otherwise, it will produce an error.
+  Suppose I'd like to set up a bucket from which to store data adhering to a particular schema. Is there any way to set this up with Riak? This way, when an attempt to store on a particular bucket, it will check with this schema first before storing it. Otherwise, it will produce an error.
 A:
-  Riak does not implement any form of schema validation. A pre-commit hook can be used in this scenario but would have to be written by your development team. You can read more about pre-commit hooks on the wiki. The wiki provides two pre-commit hook examples; one in Erlang that restricts objects that are too large and one in Javascript that restricts non-JSON content.
+  Riak does not implement any form of schema validation. A pre-commit hook can be used in this scenario but would have to be written by your development team. You can read more about pre-commit hooks on the docs. The docs provides two pre-commit hook examples; one in Erlang that restricts objects that are too large and one in Javascript that restricts non-JSON content.
 
 
 Q: How does the Erlang Riak Client manage node failures?
@@ -299,7 +300,7 @@ A:
   More on [[Bucket Properties|Basic Riak API Operations]].
 
 
-Q: Is it possible to configure a single bucket's properties in app.config
+Q: Is it possible to configure a single bucket's properties in app.config?
 A:
   Not a specific bucket, only the defaults. However, you should only need to change them once, since after that it'll be in the ring state.
   

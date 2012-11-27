@@ -1,0 +1,48 @@
+/* =============================================================================
+   FAQ
+   ========================================================================== */
+
+details summary::-webkit-details-marker,
+details summary::marker {
+  display:none;
+}
+
+details.question > summary {
+  @extend .sans-bold;
+  outline : none;
+  color   : $linkBlue;
+  padding : 5px 0;
+  
+  &::before {
+    content : 'Q: ';
+  }
+  
+  &::after {
+    content : ' >>';
+  }
+  
+  &:hover {
+    cursor : pointer;
+    color  : $orange;
+  }
+  
+  p {
+    display : inline;
+  }
+}
+
+details.question[open] > summary {
+  &::after {
+    content : ' <<';
+  }
+}
+
+details.answer {
+  padding-left  : 25px;
+  border-bottom : 1px dashed silver;
+  margin-bottom : 25px;
+}
+
+a[href^="#"] {
+  color:black;
+}

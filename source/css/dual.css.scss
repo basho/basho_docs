@@ -1,0 +1,102 @@
+
+body.dual {
+  table.docco {
+    @include boxShadow(none);
+    border        : 0;
+    margin-bottom : 0;
+    padding       : 0 25px;
+    
+    tr {
+      background : none;
+    }
+    pre {
+      margin-bottom : 15px;
+    }
+  }
+
+  table {
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+    border: 0px;
+    width:100%;
+
+    tr {
+      &:nth-child(odd), &:nth-child(even) {
+        background:transparent;
+      }
+      th.docs, th.code, td.code {
+        -webkit-box-shadow: 0 0 0;
+        -moz-box-shadow: 0 0 0;
+        box-shadow: 0 0 0;
+        font-size: 80%;
+        padding: 7px;
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+      td.code {
+        width:100%;
+        font-size: 100%;
+        .highlight {
+          width:100%;
+          pre {
+            font-size: 80%;
+          }
+        }
+      }
+      th.docs, th.code {
+        border-bottom: 1px solid $subtleGray;
+        h2 {
+          font-size:28pt;
+          padding: 5px;
+        }
+        &.docs {
+          background:transparent;
+        }
+      }
+      td {
+        h1, h2 {
+          padding-top:0;
+        }
+        p {
+          margin-top: 0;
+        }
+        .pilwrap {
+          position:relative;
+          .pilcrow {
+            position:absolute;
+            left: -14px;
+            top:1px;
+            padding: 1px 2px;
+            font: 18px Arial;
+            -webkit-transition: opacity 0.2s linear;
+            opacity:0;
+            color: $linkBlue;
+            text-decoration:none;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        &.docs:hover .pilcrow {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  figure {
+    margin: 10px;
+  }
+  caption, figcaption {
+    text-align:center;
+    font-weight:bold;
+    font-size:80%;
+  }
+  table.table {
+    caption {
+      caption-side:bottom;
+    }
+    margin:10px;
+  }
+}

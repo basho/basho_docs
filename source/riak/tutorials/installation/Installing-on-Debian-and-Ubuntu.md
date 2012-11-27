@@ -40,32 +40,32 @@ for the target platform:
 
 ### Riak 64-bit Installation
 
-#### Ubuntu Lucid
+#### Ubuntu Lucid Lynx (10.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.0-1_amd64.deb
-    $ sudo dpkg -i riak_1.2.0-1_amd64.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.1-1_amd64.deb
+    $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
-#### Ubuntu Natty  
+#### Ubuntu Natty Narwhal (11.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/natty/riak_1.2.0-1_amd64.deb
-    $ sudo dpkg -i riak_1.2.0-1_amd64.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/natty/riak_1.2.1-1_amd64.deb
+    $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
-#### Ubuntu Precise
+#### Ubuntu Precise Pangolin (12.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/precise/riak_1.2.0-1_amd64.deb
-    $ sudo dpkg -i riak_1.2.0-1_amd64.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/precise/riak_1.2.1-1_amd64.deb
+    $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 ### Riak 32-bit Installation
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.0-1_i386.deb
-    $ sudo dpkg -i riak_1.2.0-1_i386.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.1-1_i386.deb
+    $ sudo dpkg -i riak_1.2.1-1_i386.deb
 ```
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
 
@@ -79,16 +79,16 @@ First, install Riak dependencies using apt:
     $ sudo apt-get install build-essential libc6-dev-i386 git
 ```
 
-Riak requires [Erlang](http://www.erlang.org/) R15B01 or later. If
-Erlang is not already installed, install it before continuing (see:
+Riak requires [Erlang](http://www.erlang.org/) R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*. 
+If Erlang is not already installed, install it before continuing (see:
 [[Installing Erlang]] for more information).
 
 With Erlang installed, proceed to downloading and installing Riak:
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.0.tar.gz
-    $ tar zxvf riak-1.2.0.tar.gz
-    $ cd riak-1.2.0
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.1.tar.gz
+    $ tar zxvf riak-1.2.1.tar.gz
+    $ cd riak-1.2.1
     $ make rel
 ```
 

@@ -286,7 +286,7 @@ Please see the definitions in the **Client Statistics** section.
 
 ## Bounded Queue
 
-   * The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [Riak EE MDC Replication Configuration](http://wiki.basho.com/Multi-Data-Center-Replication-Configuration.html) guide for more information. 
+   * The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication Configuration]] guide for more information. 
    * Please note that these values are only available in Riak EE 1.2.1+.
    
   - **queue_pid** 

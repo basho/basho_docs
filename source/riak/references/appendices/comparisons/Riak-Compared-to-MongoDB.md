@@ -8,7 +8,7 @@ index: true
 keywords: [comparisons, mongodb]
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and MongoDB.  The MongoDB version described is 2.2.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/riak_wiki/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective and technical comparison of Riak and MongoDB.  The MongoDB version described is 2.2.x. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
@@ -28,7 +28,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
     </tr>
     <tr>
         <td>Data Model</td>
-        <td>Riak stores key/value pairs in a higher level namespsace called a bucket. 
+        <td>Riak stores key/value pairs in a higher level namespace called a bucket. 
 			<ul>
 			  <li>[[Buckets, Keys, and Values|Concepts#Buckets%2C-Keys%2C-and-Values]] </li>
 			</ul>
@@ -48,7 +48,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
 			  <li>[[Riak Supported Storage Backends|Storage-Backends]]</li>
 			</ul>
 		
-		You can also write you own storage backend for Riak using our [[backend API|Backend API]].			
+		You can also write your own storage backend for Riak using our [[backend API|Backend API]].			
 	 </td>
         <td> MongoDB's default storage system is the Memory-Mapped Storage Engine. It uses memory mapped files for all disk I/O.  It is the responsibility of the OS to manage flushing data to disk and paging data in and out. 
 			<ul>
@@ -132,13 +132,13 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
     </tr>
     <tr>
         <td>Replication</td>
-        <td>Riak's replication system is heavily influence by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
+        <td>Riak's replication system is heavily influenced by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
 			<ul>
 			  <li>[[Replication]]</li>
 			  <li>[[Clustering|Concepts#Clustering]]</li>
 			</ul>
 			
-			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for you use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
+			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
 				<ul>
 					<li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
 				</ul>	
@@ -178,19 +178,19 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
 	</td>
     </tr>
     <tr>
-        <td>Multi-Data Center Replication and Awareness</td>
+        <td>Multi-Datacenter Replication and Awareness</td>
 
-		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one data center over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Data Center deployments (meaning the ability to run active Riak clusters in N data centers). 
+		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters). 
 		
 		<ul>
 			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
 		</ul>
 		
 		</td>	
-        <td>MongoDB can be configured to run in multiple data centers via various options. 
+        <td>MongoDB can be configured to run in multiple datacenters via various options. 
 		
 			<ul>
-			  <li><a href="http://www.mongodb.org/display/DOCS/Data+Center+Awareness">Data Center Awareness</a></li>		
+			        <li><a href="http://www.mongodb.org/display/DOCS/Data+Center+Awareness">Datacenter Awareness</a></li>    
 			</ul>
 	
 	</td>

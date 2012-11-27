@@ -12,7 +12,7 @@ simple: true
 
 ![Riak CS Logo](/images/riak-cs-logo.png)
 
-<br>
+***Learn more about Riak CS in our Intro to Riak CS webcast, Wednesday, November 7 (<a href="http://info.basho.com/IntroToRiakCSNov7.html" target="_blank">register here</a>)***<br>
 Riak CS はパブリックおよびプライベートクラウド向けのマルチテナント クラウド ストレージ ソフトウェアです。Riak CS は Basho の分散型データベースである Riak 上に構築された、シンプルで、アベイラブルな、どんなスケールにも対応した分散型クラウドストレージです。Riak CS は S3-API と互換性があり、テナントごとの課金情報、利用状況を確認することができます。Riak CS をご試用になるためには、[開発者トライアル](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html) に登録してください。
 
 ## 特筆すべき Riak CS の機能

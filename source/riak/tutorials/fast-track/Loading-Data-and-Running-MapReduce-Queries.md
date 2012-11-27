@@ -27,7 +27,7 @@ main([Filename]) ->
     lists:foreach(fun(L) -> LS = re:split(L, ","), format_and_insert(LS) end, Lines).
 
 format_and_insert(Line) ->
-    JSON = io_lib:format("{\\"Date\\":\\"~s\\",\\"Open\\":~s,\\"High\\":~s,\\"Low\\":~s,\\"Close\\":~s,\\"Volume\\":~s,\\"Adj. Close\\":~s}", Line),
+    JSON = io_lib:format("{\"Date\":\"~s\",\"Open\":~s,\"High\":~s,\"Low\":~s,\"Close\":~s,\"Volume\":~s,\"Adj. Close\":~s}", Line),
     Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/riak/goog/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
     io:format("Inserting: ~s~n", [hd(Line)]),
     os:cmd(Command).
@@ -128,7 +128,7 @@ Map phases may also be passed static arguments by using the "arg" spec field.
 
 Reduce phases look exactly like map phases, but are labeled "reduce".
 
-<div class="info">For more information on map and reduce functions please refer to the [[MapReduce|MapReduce#Phasefunctions]] section of the wiki which includes a description of the arguments passed to these functions.</div>
+<div class="info">For more information on map and reduce functions please refer to the [[MapReduce|MapReduce#Phasefunctions]] section of the docs which includes a description of the arguments passed to these functions.</div>
 
 #### Link
 

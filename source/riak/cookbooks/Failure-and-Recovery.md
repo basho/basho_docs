@@ -17,7 +17,7 @@ When a failure occurs, collect as much information as possible. Check
 monitoring systems, backup log and configuration files if they are
 available, including system logs like `dmesg` and syslog. Make sure that
 the other nodes in the Riak cluster are still operating normally and are
-not affected by a wider problem like a virtualization or network outage. 
+not affected by a wider problem like a virtualization or network outage.
 Try to determine the cause of the problem from the data you have collected.
 
 ## Data Loss
@@ -104,3 +104,43 @@ more MapReduce timeouts simply because many other requests are being
 serviced as well. Adding nodes to the cluster can reduce MapReduce
 failure in the long-term by spreading load and increasing available CPU
 and IOPS.
+
+## Cluster Recovery From Backups
+The general procedure for recovering a cluster from catastrophic failure
+involves installation of Riak on the new nodes to establish a cluster with
+the same number of nodes, restoration of the original configuration, and
+restoration of previous data.
+
+Specifically, you should follow this basic process, ensuring that Riak
+is **not started** on any node during steps 1-7:
+
+1. Establish replacement cluster configured with the same number of nodes.
+2. Restore the Riak configuration to each of the nodes.
+3. Ensure that Riak is not running on any of the nodes.
+4. Remove any previous Riak data (e.g., from `/var/lib/riak`) to ensure that
+   the node is not started with no data present.
+5. Restore the backup data to each node's data root (e.g, `/var/lib/riak`)
+6. If you are restoring in an environment where the new nodes will have new
+   network addresses (such as with AWS for example) or you will otherwise
+   need to give the nodes new names, you need to execute `riak-admin reip`
+   to change the network name for every node in the cluster from each node.
+7. After renaming the nodes with `riak-admin reip` if necessary, you should
+   check the `vm.args` configuration file to ensure that each node has the
+   updated name.
+8. Start the first node and check that its name is correct; one way to do
+   this is to start the node, then attach to the node with `riak attach`.
+   You should see the node name as part of the prompt as in the example
+   below. Once you've verified the correct node name, exit the console
+   with CTRL-D.
+9. Execute `riak-admin member-status` on the node and verify that it
+   returns expected output.
+10. Start each of the remaining nodes, verifying the details in the same
+    manner as the first node.
+
+<div class="info"><div class="title">Tip</div> If you are a licensed
+  Riak EDS or CS customer and require assistance or further advice with a
+  cluster recovery, please file a ticket with the
+  <a href="https://help.basho.com">Basho Helpdesk</a>.</div>
+
+
+

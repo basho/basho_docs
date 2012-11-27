@@ -1,24 +1,51 @@
-# Riak Docs 2.0
+# Riak Docs
 
-*It's been a long time a-comin', baby...*
+This repo holds all the content (and other bits) for the most-excellent [Riak Docs](http://docs.basho.com), home of documentation for Riak, Riak CS, and Riak Enterprise.  This document tells you how to contribute to the docs (please do!), and deploy them, should you have our secret key.
 
-## Development Mode
+We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generator, to generate [Riak Docs](http://docs.basho.com).  
 
-Easy:
+## How to Contribute 
 
-```
-gem install bundler
-bundle install
-RIAK_VERSION=1.2.0 middleman
-```
+You can treat the basho_docs repo much like you would a code repo.  You can contribute in two ways: 1) submit a new [issue](https://github.com/basho/basho_docs/issues), or 2) (bonus points) make a change and submit a pull request.  To make a change (be it a typo fix or entirely new page full of Python client code snippets) follow these instructions:
 
-If that didn't work, try adding `bundle exec`
 
-```
-RIAK_VERSION=1.2.0 bundle exec middleman
-```
+1.	Download a copy of the docs to your local machine
 
-Now point a browser at http://localhost:4567
+	```
+	git clone https://github.com/basho/basho_docs.git
+	```
+
+2.	Install middleman
+
+	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch 							the middleman API.  
+
+	```
+	gem install bundler
+	bundle install
+	middleman
+	```
+	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/welcome/) is a good place to 	start.
+
+	Now point a browser at http://localhost:4567.  Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
+
+
+3. 	Create a new branch
+
+	```
+    git checkout -b <branch-name>
+	```
+
+4. 	Make changes on your branch
+
+5.	Review your changes locally 
+
+	```
+	RIAK_VERSION=1.2.0 middleman
+	```
+
+6.	Send us a pull request
+
+If it's a small or obvious change, we're likely to merge it right away.  If we have questions, we'll communicate with you using the pull request's issue page.
 
 ## Writing Docs
 
@@ -126,6 +153,15 @@ Each page can optionally generate an inline table-of-contents (see the `toc` set
 
 Finally, there is the keyword-based navigation. Every page with a keyword contains a link to an index, which lists other links to pages sharing that keyword.
 
+### Style Guide
+
+#### Notes and Asides
+
+Inline notes and conversational asides should be denoted by italics (in Markdown, single asterisk): `*Note: Keep also in mind ... etc*`.
+
+Paragraph level block notes should use a div with class ```note```:
+```<div class="note">my note</div>```
+
 # Deploying
 
 ## Testing deploy mode
@@ -135,13 +171,13 @@ _Note that the layout will look ugly. At the moment shared files, like css or js
 To try out the thin server in the way production functions, first build the static files:
 
 ```
-RIAK_VERSION=1.2.0 middleman build
+RIAK_VERSION=1.2.1 middleman build
 ```
 
 If that doesn't work, try adding bundle exec
 
 ```
-RIAK_VERSION=1.2.0 bundle exec middleman build
+RIAK_VERSION=1.2.1 bundle exec middleman build
 ```
 
 Then you can run the thin server locally:
@@ -202,5 +238,5 @@ Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) 
 This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
 
 ```
-RIAK_VERSION=1.2.0 INDEX=true DEPLOY=true middleman build
+RIAK_VERSION=1.2.1 INDEX=true DEPLOY=true middleman build
 ```

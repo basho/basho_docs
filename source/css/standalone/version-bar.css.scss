@@ -1,0 +1,124 @@
+@import "compass";
+$layout-layout:smart;
+@import "layout/*.png";
+@include all-layout-sprites;
+
+@import "settings";
+
+/* =============================================================================
+   Version Bar
+   ========================================================================== */
+
+
+.green-link {
+  display         : block;
+  color           : darken(saturate($fadedGreen, 25%), 18%);
+  padding         : 2px 0 0 0;
+  text-decoration : none;
+  text-align      : center;
+  width           : 4.2em;
+}
+
+
+ol.versions,
+ol.versions li {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+ol.versions {
+  float: right;
+  margin-top: 2.1em;
+  //clear         : left;
+  //margin-bottom : 1em;
+  //padding-top   : 15px;
+
+  //margin: 0;
+  //padding: 0;
+  
+  > li {
+    &:first-child {
+      @include corner(left, top);
+      @include corner(left, bottom);
+    }
+    
+    &:last-child {
+      @include corner(right, top);
+      @include corner(right, bottom);
+    }
+  }
+
+  li {
+    @include bgPattern('light-green-bg.jpg');
+    border        : 1px solid $darkGreen;
+    display       : inline-block;
+    font-size     : 8pt;
+    margin-right  : 1px;
+    margin-bottom : 1px;
+    
+    ol {
+      display:none;
+      margin:0;
+      margin-left:-1px;
+      padding:2px 0;
+      position: absolute;
+      max-width:5em;
+      li {
+        z-index:500;
+      }
+    }
+
+    &:hover {
+      background : $orange;
+      border     : 1px solid $darkOrange;
+
+      & > ol { 
+        display:block;
+      }
+    }
+    
+    &.inactive {
+      background : #DDD;
+      border     : 1px solid #BBB;
+      &:hover {
+        background : #DDD;
+        border     : 1px solid #BBB;
+      }
+      a {
+        cursor : default;
+        color : $inactiveText;
+        &:hover {
+          color : $inactiveText;
+        }
+      }
+    }
+
+    &.current {
+      background : $orange;
+      border     : 1px solid $darkOrange;
+      
+      > a {
+        color : #fff;
+        
+        &:hover {
+          color : #fff;
+        }
+      }
+    }
+    
+    a {
+      @extend .green-link;
+      
+      &:hover {
+        color : #fff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  ol.versions { 
+    display:none;
+  }
+}

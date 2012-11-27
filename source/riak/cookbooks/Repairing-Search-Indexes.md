@@ -27,7 +27,7 @@ $ riak attach
 
 You may have to hit enter again to get an console prompt.
 </li>
-<li>Get a list of partitions owned by the node that needs repaired:
+<li>Get a list of partitions owned by the node that needs repair:
 
 ```erlang
 > {ok, Ring} = riak_core_ring_manager:get_my_ring().
@@ -70,7 +70,7 @@ Currently there is no easy way to kill an individual repair.  The only
 option is to kill all repairs targeting a given node.  This is done by
 running `riak_core_vnode_manager:kill_repairs(Reason)` on the node
 undergoing repair.  This means you'll either have to be attached to
-that nodes console or you can use the `rpc` module to make a remote
+that node's console or you can use the `rpc` module to make a remote
 call.  Here is an example of killing all repairs targeting partitions
 on the local node.
 

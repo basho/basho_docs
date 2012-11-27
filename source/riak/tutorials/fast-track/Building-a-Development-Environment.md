@@ -10,72 +10,71 @@ up:   ["The Riak Fast Track", "index.html"]
 next: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
 ---
 
-このセクションではローカルマシンに Riak をインストールして、4 つのノードのクラスタを作ります。プロダクションの開発に対して Basho は [最低 5 つのノードを推奨していますrecommends a minimum of five nodes](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/)。はっきり言うと、このチュートリアルでは 4 にしています。
+このセクションではローカルマシンに Riak をインストールして、4 つのノードのクラスタを作ります。プロダクションの開発に対して Basho は [最低 5 つのノードを推奨しています](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/)。はっきり言うと、このチュートリアルでは 4 にしています。
 
 ## 依存性
 
-Riak をソースからビルドするには、Erlang R15B01 以降が必要です。Basho によるビルド済 Riak パッケージの最新版は、[ダウンロードディレクトリDownloads Directory](http://basho.com/resources/downloads/) にあり、この中には Erlang のランタイムも組み込まれています。
-Building Riak from source requires Erlang R15B01 or later. Basho's pre-packaged Riak binaries, the latest versions of which can be found in our [Downloads Directory](http://basho.com/resources/downloads/), embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, see [[Installing Erlang]] for instructions on how to do this.
+Riak をソースからビルドするには、Erlang R15B01 以降が必要です。Basho によるビルド済 Riak パッケージの最新版は、[ダウンロードディレクトリ](http://basho.com/resources/downloads/) にあり、この中には Erlang のランタイムも組み込まれています。とはいえ、このチュートリアルではソースからのビルドを行いますので、Erlang をまだインストールしていない場合は、[[Erlang のインストール|Installing Erlang] を参照してください。
 
-For those of you like videos, here's a short video of installing Erlang from source on Linux. 
+ビデオでの解説をお望みでしたら、こちらに Linux 上で Erlang をソースからインストールした様子のビデオがあります。
 
 <iframe src="http://player.vimeo.com/video/42421349" width="500" height="269" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 
-## Download and Install Riak From Source
+## Riak ソースのダウンロードとインストール
 
-The below links provide platform-specific instructions for downloading and installing Riak from source.
+以下のリンクはプラットフォーム別のダウンロードとインストール方法です。
 
-* [[Debian and Ubuntu|Installing on Debian and Ubuntu#Installing Riak From Source]]
-* [[RHEL and CentOS|Installing on RHEL and CentOS#Installing From Source]]
+* [[Debian および Ubuntu|Installing on Debian and Ubuntu#Installing Riak From Source]]
+* [[RHEL および CentOS|Installing on RHEL and CentOS#Installing From Source]]
 * [[Mac OS X|Installing on Mac OS X#From Source]]
 * [[SUSE|Installing on SUSE]]
-* [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
+* [[ソースから|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
-## Build Riak
+## Riak をビルドする
 
-So now you have a copy of Riak. Time to build it. Do this by accessing the `riak` directory and running `make all`
+Riak をコピーしました。それではビルドしましょう。`riak` ディレクトリに行き、`make all` を実行してください。
 
 ```bash
 $ cd riak-1.2.0
 $ make all
 ```
 
-`make all` grabs all the Riak dependencies for you so that you don't have to chase them down. This will take a few moments.
+`make all` はあなたに代わって Riak の依存関係を調べるので、手間が省けます。これには少々時間がかかります。
 
-## Use Rebar to Start Up Four Nodes
+## Rebar を使って 4 つのノードを開始する
 
-Now that Riak is built, we are going to use [Rebar](https://github.com/basho/rebar), a packaging and build system for Erlang applications, to get four self-contained Riak nodes running on your machine. Tomorrow, when you put Riak into production, Rebar will enable you to ship a pre-built Riak package to your deployment machines. But for now, we will just stick to the four nodes. To start these up, run:
+Riak のビルドが完了しました。Erlang アプリケーションのパッケージおよびビルドシステムである [Rebar](https://github.com/basho/rebar) を使って、4 つの自己内蔵型 Riak ノードを作ります。後日、Riak をプロダクションに移行するとき、Rebar はビルド済の Riak パッケージをデプロイ用マシンに展開してくれます。でも今回は、4つのノードを作るだけにしましょう。以上のことを行うには、次のようにします。
 
 ```bash
 $ make devrel
 ```
 
-You have just generated a `dev` directory. Let's go into that directory to check out its contents:
+`dev` ディレクトリができました。そのディレクトリへ移り、中身を確認して下さい。
 
 ```bash
 $ cd dev; ls
 ```
 
-That should give you the following:
+次のようになるはずです。
 
 ```bash
 dev1       dev2       dev3       dev4  
 ```
 
-Each directory starting with `dev` is a complete package containing a Riak node. We now need to start each node. Let's start with `dev1`
+`dev` で始まる各ディレクトリは、Riak ノードを含む完全なパッケージです。各ノードを動かす必要があります。`dev1` を動かしましょう。
 
 ```bash
 $ dev1/bin/riak start
 ```
 
 <div class="note">
-<div class="title">ulimit warning</div>
+<div class="title">ulimit の警告</div>
 
-At this point you may receive a warning message to increase the number of open file handles (ulimit).  See [[Open Files Limit]] for platform-specific instructions on doing this.
+このとき、オープンファイルハンドル(ulimit)の数を増やすようにという警告メッセージが出るはずです。プラットフォーム別の操作方法について [[オープンファイルの制限|Open Files Limit]] を参照してください。
 
 </div>
 
-Then do the same for `dev2`, `dev3`, and `dev4`
+続いて `dev2`、`dev3`、`dev4` で同じようにします。
 
 ```bash
 $ dev2/bin/riak start
@@ -83,19 +82,19 @@ $ dev3/bin/riak start
 $ dev4/bin/riak start
 ```
 
-## Test to see the running Riak nodes
+## Riak ノードが動いているかテストする
 
-After you have the nodes up and running, it's time to test them and make sure they are available. You can do this by taking a quick look at your process list. To do this, run:
+用意したノードを走らせたら、次はそれらがきちんと動いているかどうかをテストします。それにはプロセスリストを見るだけです。次のようにします。
 
 ```bash
 $ ps aux | grep beam
 ```
 
-This should give you details on four running Riak nodes.
+Riak ノード 4つの詳細が出るはずです。
 
-## Join the nodes to make a cluster
+## ノードをクラスタに join させる
 
-The next step is to join these four nodes together to form a cluster. You can do this using the Riak Admin tool. Specifically, what we want to do is join `dev2`, `dev3`, and `dev4` to `dev1`:
+次のステップは、4つのノードを 1つのクラスタに join させることです。これには Riak Admin ツールを使います。具体的には、`dev2`、`dev3`、`dev4`を`dev1`に join させます。
 
 ```bash
 $ dev2/bin/riak-admin cluster join dev1@127.0.0.1
@@ -103,17 +102,13 @@ $ dev3/bin/riak-admin cluster join dev1@127.0.0.1
 $ dev4/bin/riak-admin cluster join dev1@127.0.0.1
 ```
 
-If you're familiar with versions of Riak prior to 1.2, you might expect this to be the end of your
-efforts. In order to give node administrators more control in matching their actions, Riak Admin
-cluster commands like `join` become a queue of commands. To make the above joins take effect,
-you first must review the `plan`.
+Riak 1.2 以前をご存知なら、これがどんなに大変かわかるはずです。それぞれの動作を一致させるために、ノードの管理者はいろいろと操作しなければなりません。`join`のような Riak Admin のクラスタコマンドは、複数のコマンドを並べたものになります。上記のジョインを行うには、まず`plan`を行わねばなりません。
 
 ```bash
 $ dev2/bin/riak-admin cluster plan
 ```
 
-The plan will print out a synposis of what it plans to do, and how the cluster will look
-after this is completed.
+plan は何をするべきかの概要と、実行後のクラスタの状態を表示します。
 
 ```bash
 =============================== Staged Changes ================================
@@ -147,31 +142,28 @@ Transfers resulting from cluster changes: 48
   16 transfers from 'dev1@127.0.0.1' to 'dev2@127.0.0.1'
 ```
 
-Finally, you can commit the batch.
+最後に、バッチをコミットします。
 
 ```bash
 $ dev2/bin/riak-admin cluster commit
 ```
 
 <div class="info">
-<div class="title">About riak-admin</div>
+<div class="title">riak-admin について</div>
 
-riak-admin is Riak's administrative tool. It's used to do any operational tasks
-other than starting and stopping node, e.g. to join and leave a cluster, to back
-up data, and to manage general cluster operations. You can read more about
-[[riak-admin|Command Line Tools#riak-admin]].
+riak-admin は Riak の管理ツールです。これはノードのスタートとストップ以外のあらゆる操作、たとえばクラスタを join させたり、leave させたり、データのバックアップ、さらに一般的なクラスタの操作をするのに使われます。詳しくは [[riak-admin|Command Line Tools#riak-admin]] をお読みください。
 
 </div>
 
-## Test the cluster and add some data
+## クラスタのテストとデータの追加
 
-Now we now a have a running four node Riak cluster. Let's make sure it's working correctly. For this we have a couple options. A simple option is to run the member-status command.
+これで 4つの Riak クラスタが動きました。次はこれらが正しく働いているか確認をしましょう。これにはいくつかの方法があります。簡単な方法は、member-status コマンドを使うことです。
 
 ```bash
 $ dev2/bin/riak-admin member-status
 ```
 
-This will give us a high-level view of our cluster, and what percentage of a ring each node manages.
+これによっておおまかなクラスタの様子と、各ノードが管理するリングの割合が表示されます。
 
 ```bash
 ================================= Membership ==================================
@@ -185,26 +177,26 @@ valid      25.0%      --      'dev4@127.0.0.1'
 Valid:4 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 ```
 
-If you want, you can add a file to your Riak cluster and test it's working properly. Let's say, for instance, we wanted to add an image and make sure it was accessible. First, copy an image to your directory if you don't already have one:
+お望みであれば、Riak クラスタにファイルを追加し、正しく動いていることをテストしてください。たとえば画像を追加し、それがアクセスできるかを確認します。初めに画像をコピーします、まだ用意していなければ。
 
 ```bash
 $ cp ~/image/location/image_name.jpg .
 ```
 
-We can then PUT that image into Riak using a curl command:
+この画像を curl コマンドで Riak に PUT します。
 
 ```bash
 $ curl -XPUT HTTP://127.0.0.1:8091/riak/images/1.jpg \
   -H "Content-type: image/jpeg" --data-binary @image_name.jpg
 ```
 
-You can then verify that image was in fact stored. To do this, simply copy the URL where we PUT the image and paste it into a browser. Your image should appear.
+それから、画像が格納されたかを確認します。これには画像を PUTで したときの URL をコピーして、ブラウザにペーストするだけです。画像が現れるはずです。
 
-You should now have a running, four node Riak cluster. Congratulations! That didn't take so long, did it?
+これで 4つのノードの Riak クラスタが動いているはずです。おめでとうございます！　それほど難しくなかったですよね？
 
-<div class="note"><div class="title">HTTP interface ports</div>The above configuration sets up nodes with HTTP interfaces listening on ports `8091-8093`. The default port for nodes to listen on is `8098` and users will need to take note of this when trying to use any of the default other-language client settings.</div>
+<div class="note"><div class="title">HTTP インタフェースのポート</div>上記の設定では、HTTP インタフェースがポート `8091-8093` をリッスンするようにノードをセットしています。ノードのデフォルトポートは`8098`です。デフォルト以外を使うのであれば、他の言語クライアントにそれを知らせる必要があります。</div>
 
 
-Additional Reading
+参考
 
-* [Rebar Documentation](https://github.com/basho/rebar/wiki)
+* [Rebar ドキュメント](https://github.com/basho/rebar/wiki)

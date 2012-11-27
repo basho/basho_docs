@@ -9,11 +9,11 @@ keywords: [api, protocol-buffer]
 group_by: "Server Operations"
 ---
 
-## �ꥯ������
+## リクエスト
 
-ñ�ʤ� RpbGetServerInfoReq �Υ�å������Ǥ����ꥯ������ ��å��������������Ƥ��ޤ���
+単なる RpbGetServerInfoReq のメッセージです。リクエスト メッセージは定義されていません。
 
-## �쥹�ݥ�
+## レスポンス
 
 
 ```bash
@@ -23,19 +23,19 @@ message RpbGetServerInfoResp {
 }
 ```
 
-## ����ץ�
+## サンプル
 
-�ꥯ������
+リクエスト
 
 ```bash
 Hex      00 00 00 01 07
 Erlang <<0,0,0,1,7>>
 
-RpbGetServerInfoReq - ��å����� �����ɤΤߤ��������Ƥ��ޤ�
+RpbGetServerInfoReq - メッセージ コードのみが定義されています
 ```
 
 
-�쥹�ݥ�
+レスポンス
 
 ```bash
 Hex      00 00 00 17 08 0A 0E 72 69 61 6B 40 31 32 37 2E
