@@ -91,6 +91,7 @@ riak:
           - "[[Adding and Removing Nodes]]"
           - "[[Replacing a Node]]"
           - "[[Backups]]"
+          - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
       - title: "Configuration"
         sub:
           - "[[Configuration Files]]"
