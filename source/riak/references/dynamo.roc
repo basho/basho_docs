@@ -94,7 +94,7 @@ Dynamo provides a simple primary-key only interface to meet the requirements of 
 # the ring. For the consistent hashing that takes place in riak_core, Basho chose
 # the SHA1 hash.
 #
-# * [[Consistent Hashing|Riak Glossary#RiakGlossary-ConsistentHashing]]
+# * [[Consistent Hashing|Riak Glossary#ConsistentHashing]]
 #
 # Riak uses vector clocks for object versioning. Scroll down to section 4.4 to read up on this in depth.
 #
