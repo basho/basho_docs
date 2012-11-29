@@ -247,6 +247,9 @@ riakcs:
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
+  - title: "Tools"
+    sub:
+      - "[[Ruby Fog|Fog on RiakCS]]"
   - title: "Shortcuts"
     class: "active"
     sub:
