@@ -240,7 +240,12 @@ riakcs:
       - "[[Configuring Riak]]"
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
+      # - "[[Configuring Multi Data Center|Configuring MDC]]"
       - "[[Configuring an S3 client]]"
+  - title: "Multi Data Center"
+    sub:
+      - "[[Overview|MDC Overview]]"
+      - "[[Configuration|Configuring MDC]]"
   - title: "References"
     sub:
       # - "[[System Features Overview|System Features]]"
