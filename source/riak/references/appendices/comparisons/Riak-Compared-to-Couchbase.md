@@ -74,7 +74,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			</td>
         <td>Couchbase provides drivers in several languages to access data through its binary memcached protocol. Couchbase also provides a REST API to monitor and manage a cluster (though it is not used to directly manage stored data).
 			<ul>	
-				<li>[[Memcached Protocol|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-architecture-apis-memcached-protocol.html]]</li>
+				<li>[[Client Interface|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-introduction-architecture-clientinterface.html]]</li>
 				<li>[[Client-Libraries|http://www.couchbase.com/develop]]</li>
 				<li>[[Management REST API|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-admin-restapi.html]]</li>
 			</ul>		

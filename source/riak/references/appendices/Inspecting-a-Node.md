@@ -288,6 +288,6 @@ Related Resources
 -----------------
 
 -   [Configuration and Management: Command Line Tools:
-    riak-admin](https://help.basho.com/entries/21394723-configuration-and-management-command-line-tools-riak-admin)
+    riak-admin](http://docs.basho.com/riak/1.2.0/references/Command-Line-Tools---riak-admin/)
 -   [Riaknostic](http://riaknostic.basho.com/)
 -   [[HTTP API status|HTTP Status]]
