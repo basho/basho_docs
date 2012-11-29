@@ -10,7 +10,127 @@ keywords: [api, http]
 ---
 
 
-ストレージAPIはAmazon S3 REST APIと互換性があります。これはリストにあるオペレーションは、一般的なS3ライブラリやツールを使って実行できるということです。
+ストレージ API は Amazon S3 REST API と互換性があります。これはリストにあるオペレーションは、一般的な S3 ライブラリやツールを使って実行できるということです。
+
+## API 機能の比較
+
+以下の表は現時点での Amazon S3 機能の対応状況です。
+
+<table>
+    <tr>
+        <th WIDTH="50%">機能</th>
+        <th WIDTH="20%">状況</th>
+        <th WIDTH="30%">メモ</th>
+    </tr>
+    <tr>
+        <td>GET Service(認証ユーザが全てのバケットのリストを取る)</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>DELETE Bucket</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>PUT Bucket</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+
+
+
+    <tr>
+        <td>Bucket Lifecycle</td>
+        <td>非対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Policy (Buckets, Objects)</td>
+        <td>近日</td>
+        <td>今後のリリースにて</td>
+    </tr>
+    <tr>
+        <td>Bucket Website</td>
+        <td>非対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Bucket ACLs (GET, PUT)</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Bucket Location</td>
+        <td>非対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Bucket Notification</td>
+        <td>非対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Bucket Object Versions</td>
+        <td>非対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>GET Bucket Info (HEAD)</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Bucket Request Payment</td>
+        <td>非対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>PUT Object</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>PUT Object (Copy)</td>
+        <td>近日</td>
+        <td>今後のリリースにて</td>
+    </tr>
+    <tr>
+        <td>DELETE Object</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>GET Object</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Object ACLs (GET, PUT)</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>HEAD Object</td>
+        <td>対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>POST Object</td>
+        <td>非対応</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Copy Object</td>
+        <td>近日</td>
+        <td>今後のリリースにて</td>
+    </tr>
+    <tr>
+        <td>Multipart Uploads</td>
+        <td>近日</td>
+        <td>今後のリリースにて</td>
+    </tr>
+</table>
 
 ## サービスレベル オペレーション
 

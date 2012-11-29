@@ -93,7 +93,7 @@ module SitemapRenderOverride
       # heuristic that an unfound url, is probably not a link
       link_url = link_data[:url]
       link_project = link_data[:project] || 'riak'
-      if link_url.blank? && link_name.scan(/[.\/]/u).empty?
+      if link_url.blank? && link_name !~ /^([.]?\/|https?\:)/
         "[[#{link_label}]]"
       else
         # no html inside of the link or label
@@ -114,7 +114,9 @@ module SitemapRenderOverride
 
       # if it's a different version, remove the entire block
       data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/([^\}]+)\}\}/m) do
-        in_version_range?($1, version) ? $2 : ''
+        liversion, block = $1, $2
+        liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
+        in_version_range?(liversion, version) ? block : ''
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
@@ -152,6 +154,12 @@ module SitemapRenderOverride
         if href.include?('#')
           next "<a #{anchor}>"
         end
+      end
+
+      # if this is data, make absolute, not relative
+      if href =~ /^\/data\/(.+)$/
+        url = "/shared/#{version_str}/data/#{$1}"
+        next "<a #{anchor.gsub(href, url)}>"
       end
 
       # force the root page to point to the latest projcets

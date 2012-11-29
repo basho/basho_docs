@@ -12,9 +12,9 @@ keywords: [appendix, concepts]
 
 Pre- and Post- Commit hooks are invoked before or after a riak_object is persisted and can greatly enhance the functionality of any application. Commit hooks can:
 
-# allow a write to occur with an unmodified object
-# modify the object
-# Fail the update and prevent any modifications
+- allow a write to occur with an unmodified object
+- modify the object
+- Fail the update and prevent any modifications
 
 Post-commit hooks are notified after the fact and should not modify the riak_object. Updating riak_objects in post-commit hooks can cause nasty feedback loops which will wedge the hook into an infinite cycle unless the hook functions are carefully written to detect and short-circuit such cycles.
 
@@ -41,9 +41,9 @@ Pre-commit hook functions should take a single argument, the riak_object being m
 
 Erlang pre-commit functions are allowed three possible return values:
 
-# A riak_object -- This can either be the same object passed to the function or an updated version. This allows hooks to modify the object before they are written.
-# `fail` -- The atom *fail* will cause Riak to fail the write and send a 403 Forbidden along with a generic error message about why the write was blocked.
-# `{fail, Reason}` -- The tuple `{fail, Reason}` will cause the same behavior as in #2 with the addition of `Reason` used as the error text.
+- A riak_object -- This can either be the same object passed to the function or an updated version. This allows hooks to modify the object before they are written.
+- `fail` -- The atom *fail* will cause Riak to fail the write and send a 403 Forbidden along with a generic error message about why the write was blocked.
+- `{fail, Reason}` -- The tuple `{fail, Reason}` will cause the same behavior as in #2 with the addition of `Reason` used as the error text.
 
 Errors that occur when processing Erlang pre-commit hooks will be reported in the `sasl-error.log` file with lines that start with "problem invoking hook".
 
@@ -62,10 +62,10 @@ precommit_limit_size(Object) ->
 
 Javascript pre-commit functions should also take a single argument, the JSON encoded version of the riak_object being modified. The JSON format is exactly the same as Riak's map/reduce. Javascript pre-commit functions are allowed three possible return values:
 
-# A JSON encoded Riak object -- Aside from using JSON, this is exactly the
+- A JSON encoded Riak object -- Aside from using JSON, this is exactly the
 same as #1 for Erlang functions. Riak will automatically convert it back to it's native format before writing.
-# `fail` -- The Javascript string "fail" will cause Riak to fail the write in exactly the same way as #2 for Erlang functions.
-# `{"fail": Reason}`  -- The JSON hash will have the same effect as #3 for Erlang functions. Reason must be a Javascript string.
+- `fail` -- The Javascript string "fail" will cause Riak to fail the write in exactly the same way as #2 for Erlang functions.
+- `{"fail": Reason}`  -- The JSON hash will have the same effect as #3 for Erlang functions. Reason must be a Javascript string.
 
 *Javascript Pre-commit Example*
 

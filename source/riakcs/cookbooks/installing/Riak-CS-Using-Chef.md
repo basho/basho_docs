@@ -1,5 +1,5 @@
 ---
-title: Riak CS Using Chef
+title: Chef を使う
 project: riakcs
 version: 1.2.0+
 document: cookbook
@@ -8,22 +8,22 @@ audience: intermediate
 keywords: [operator, installing, chef]
 ---
 
-With Chef, you can use a recipe to automatically install Riak CS on all the nodes in your system. A recipe contains a collection of resources for configuring a system, which are executed in order.
+Chef を使えば、システム内のすべてのノードに Riak CS を自動的にインストールさせることができます。このレシピにはシステムを構成するリソースが集められ、順番通りに処理されます。
 
-To learn more about configuring a Chef server and its clients, use the following links to access the OpsCode Wiki. OpsCode also offers a hosted Chef Platform that you can use.
+Chef サーバおよびクライアントについての詳細は、以下のリンクの OpsCode Wiki を参照してください。OpsCode には、Chef が利用可能なホストプラットフォームについての情報も掲載されています。
 
 * [[http://wiki.opscode.com]]
 * [[http://www.opscode.com/hosted-chef]]
 
-<div class="note">This section assumes that you have a working knowledge of Chef.</div>
+<div class="note">このセクションでは、すでに Chef についてご存知であることを仮定しています。</div>
 
-## Cookbooks for Riak CS
+## Riak CS での使用法Cookbooks for Riak CS
 
 <div class="info">
-This section currently requires that you are a customer with access to the Chef cookbooks. If you do not already have the cookbooks, please look in [Enterprise downloads](https://help.basho.com/forums/20749257-riak-enterprise-downloads), or contact <a href="http://help.basho.com">support</a> to receive them.
+このセクションでは、Chef cookbooks へアクセスのできることが必要です。まだ cookbooks をお持ち出なければ、[Enterprise downloads](https://help.basho.com/forums/20749257-riak-enterprise-downloads) を参照するか、<a href="http://help.basho.com">サポート</a> にご連絡いただき、ご入手ください。
 </div>
 
-This section describes at a high level the two Chef Cookbooks that you should use to properly install a Riak CS system.
+このセクションでは Riak CS システムを正しくインストールするために、2 つの Chef Cookbooks の高度な説明を行います。
 
 ### Riak EDS Cookbook
 

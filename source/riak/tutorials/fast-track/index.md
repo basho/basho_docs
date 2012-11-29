@@ -8,26 +8,26 @@ keywords: [tutorial, fast-track]
 next: ["What is Riak?", "What-is-Riak.html"]
 ---
 
-Riak is a distributed database architected for:
+Riak の分散型データベースのアーキテクチャ:
 
-* Availability: Riak replicates and retrieves data intelligently so it is available for read and write operations, even in failure conditions;  
-* Fault-tolerance: you can lose access to many nodes due to network partition or hardware failure and never lose data; 
-* Operational simplicity: add new machines to your Riak cluster easily without incurring a larger operational burden - the same ops tasks apply to small clusters as large clusters; 
-* Scalability: Riak automatically distributes data around the cluster and yields a near-linear performance increase as you add capacity.
+* アベイラビリティ: Riak はデータをインテリジェントにレプリケートおよび取得できます。つまりフェイルが発生しても、読み出し、書き込みの操作がアベイラブルだといえます。
+* フォールトトレランス: ネットワークのパーティショニングやハードウェアエラーなどによりノードの喪失が起きても、決してデータは失われません。
+* シンプルなオペレーション: Riak クラスタに新しいマシンを導入するときも、ややこしい操作は不要です。小さなクラスタの時にも、大きなクラスタの時にも操作は同じです。
+* スケーラビリティ: Riak は自動的にデータを周囲のクラスタに分散させます。さらに容量を追加すればほぼリニアにパフォーマンスが向上します。
 
-## What is the Riak Fast Track?
+## Riak の Fast Track とは？
 
-The Riak Fast Track aims to get you up and running with Riak as quickly as possible, so that you can learn by doing.  It presents a series of modules that walk you through installing Riak, getting a four node cluster up and running, and performing basic operations that illustrate Riak’s core concepts. 
+Riak の Fast Track の目的は Riak をできるだけ素早く立ち上げ、動作させることにあります。ぜひこれを動かし、学んでください。これには Riak をインストールするための一連のモジュールがあり、4 つのノード クラスタを動かし、基本的な操作と、Riak のコアコンセプトを明らかにします。
 
-The Fast Track is designed for people with little or no experience with Riak, but can still be useful for more experienced users as well. From start to finish, this will probably take you around 45 minutes. 
+Fast Track は Riak についての経験が無いか、あるいは少しだけといった人を対象にしています。もちろん経験のある人にも役に立ちます。最初から最後まで、およそ 45 分間かかります。
 
-## What does the Fast Track Cover?
+## Fast Track のカバー範囲は？
 
-The Fast Track takes you through the following sections:  
+Fast Track には以下のセクションがあります。
 
-* [[What is Riak?|What is Riak]]: A High Level Overview of Riak and its Architecture.
-* [[Building a Development Environment]]: Instructions on setting up a Development Cluster on your Machine.
-* [[Basic Riak API Operations]]:  A review of standard API Operations.
-* [[Loading Data and Running MapReduce Queries]]: Importing Data and Running Simple MapReduce Queries.
-* [[Links and Link Walking]]:  How links operate in Riak.
-* [[Tunable CAP Controls in Riak]]:  How to tune Riak for consistency and availability.
+* [[Riak とは？|What is Riak]]: Riak の概要とアーキテクチャについて
+* [[開発環境を作る|Building a Development Environment]]: マシンに開発用クラスタをインストールする
+* [[Riak の基本 API の操作|Basic Riak API Operations]]:  標準 API の操作について
+* [[データの読み出しと MapReduce クエリ|Loading Data and Running MapReduce Queries]]: データをインポートし、簡単な MapReduce クエリを実行する
+* [[リンクとリンクウォーキング|Links and Link Walking]]:  Riak でのリンク操作方法
+* [[Riak での CAP コントロール|Tunable CAP Controls in Riak]]:  整合性とアベイラビリティの調整方法

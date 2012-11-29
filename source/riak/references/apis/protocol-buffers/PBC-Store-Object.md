@@ -1,5 +1,5 @@
 ---
-title: PBC Store Object
+title: PBC オブジェクトを格納する
 project: riak
 version: 0.14.0+
 document: api
@@ -9,11 +9,11 @@ keywords: [api, protocol-buffer]
 group_by: "Object/Key Operations"
 ---
 
-Stores an object under the specified bucket / key. Storing an object comes in
-two forms, depending on whether you want to use a key of your choosing, or let
-Riak assign a key to a new object.
+バケット / キーで示されたオブジェクトを格納します。
+オブジェクトの格納には、自分で選択したキーを使う方法と、新しいオブジェクトを割り当てるときに Riak にキーを決めさせるのと、
+2 つの方法があります。
 
-#### Request
+#### リクエスト
 
 ```bash
 message RpbPutReq {
@@ -32,43 +32,43 @@ message RpbPutReq {
 ```
 
 
-Required Parameters
+必要なパラメータ
 
-* **bucket** - bucket key resides in
-* **content** - new/updated content for object - uses the same RpbContent
-message RpbGetResp returns data in and consists of metadata and a value.
+* **bucket** - 属しているバケット キー
+* **content** - オブジェクトを、新規/更新する内容 - 同じ RpbContent メッセージを使い、
+RpbGetRespの中にメタデータとバリューとを格納して返す
 
-Optional Parameters
+オプションパラメータ
 
-* **key** - key to create/update. If this is not specified the server will
-generate one.
-* **vclock** - opaque vector clock provided by an earlier RpbGetResp message.
-Omit if this is a new key or you deliberately want to create a sibling
-* **w** - (write quorum) how many replicas to write to before
-returning a successful response; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **dw** - how many replicas to commit to durable storage before
-returning a successful response; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **return_body** - whether to return the contents of the stored object.
-Defaults to false.
-* **pw** - how many primary nodes must be up when the write is
- attempted; possible values include a special number to denote 'one'
- (4294967295-1), 'quorum' (4294967295-2), 'all' (4294967295-3),
- 'default' (4294967295-4), or any integer <= N
- ([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **if_not_modified** - update the value only if the vclock in the supplied
-object matches the one in the database
-* **if_none_match** - store the value only if this bucket/key combination are
-not already defined
-* **return_head** - like *return_body" except that the value(s) in the object
-are blank to avoid returning potentially large value(s)
+* **key** - 作成/更新するキー。これが指定されなければ、
+サーバが生成する。
+* **vclock** - 以前の RpbGetResp メッセージで与えられた、暗黙のベクタークロック
+これが新しいキー、あるいはあえて Sibling を作りたい時には指定しない。
+* **w** - (write quorum) 書き込み成功のレスポンスを返すために、
+いくつのレプリカを作らなければならないかを指定する;
+指定できるのは、N ([[デフォルトではバケットごとに指定される|PBC API#Set Bucket Properties]]) 以下の整数、
+あるいは特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、
+'all' (4294967295-3)、'default' (4294967295-4) である
+* **dw** - 耐久記憶のために成功のレスポンスを返すために、
+いくつのレプリカを保証しなければならないかを指定する;
+指定できるのは、N ([[デフォルトではバケットごとに指定される|PBC API#Set Bucket Properties]]) 以下の整数、
+あるいは特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、
+'all' (4294967295-3)、'default' (4294967295-4) である
+* **return_body** - 格納されたオブジェクトの内容を返すか否か。
+デフォルトは false である
+* **pw** - 書き込みを行おうとするときに、
+いくつのプライマリノードが動作していなければならないか;
+指定できるのは、N ([[デフォルトではバケットごとに指定される|PBC API#Set Bucket Properties]]) 以下の整数、
+あるいは特殊な値 'one' (4294967295-1)、'quorum' (4294967295-2)、
+'all' (4294967295-3)、'default' (4294967295-4) である
+* **if_not_modified** - 与えられたオブジェクトの vclock がデータベース内のデータと一致したときにのみ、
+値を更新する
+* **if_none_match** - バケット/キーの組み合わせがまだ定義されていないときにのみ、
+値を格納する
+* **return_head** - オブジェクト内の値が空白の時を除いて、*return_body" と同じで、
+巨大な値を返すのを回避する
 
-#### Response
+#### レスポンス
 
 
 ```bash
@@ -80,20 +80,19 @@ message RpbPutResp {
 ```
 
 
-If returnbody is set to true on the put request, the RpbPutResp will contain the
-current object after the put completes. The key parameter will be set only if
-the server generated a key for the object but it will be set regardless of
-returnbody. If returnbody is not set and no key is generated, the put response
-is empty.
+put リクエスト中の returnbody が true のとき、RpbPutResp には put が完了したオブジェクトの
+次の、現在のオブジェクトを含みます。
+key パラメータは、オブジェクトのキーをサーバが生成したときのみ、セットされますが、
+returnbody には無条件でセットされます。
+もしも returnbody がセットされておらず、キーが生成されなければ、put のレスポンスは空になります。
 
 
-<div class="note"><p>N.B. this could contain siblings just like an RpbGetResp
-does.</p></div>
+<div class="note"><p>特に注意: RpbGetResp のときと同様に siblings を含むことがあります。</p></div>
 
 
-#### Example
+#### サンプル
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 1C 0B 0A 01 62 12 01 6B 22 0F 0A 0D 7B
@@ -113,7 +112,7 @@ return_body: true
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex      00 00 00 62 0C 0A 31 0A 0D 7B 22 66 6F 6F 22 3A

@@ -154,7 +154,7 @@ A:
   1. **File system cache**. An active Riak node will have most of its free RAM consumed by the file system cache, which on Linux can be found as the "Cached" line in '/proc/meminfo' or the "cached" column when running the 'free -m' command. A healthy size for this metric is 20-30% of available RAM.
   2. **Virtual memory size of the Riak process**.  Also known as VSZ, when this metric approaches the amount of available RAM, the Riak node may be unable to allocate more memory (depending on whether you have swap enabled).  You can read this metric on Linux from the output of 'ps aux', and is measured in KB.
   
-  Adding those to your monitoring system will improve your ability to detect when nodes should be added to the cluster or the RAM upgraded. For more information about planning the size of your cluster, read the wiki pages on the subject.
+  Adding those to your monitoring system will improve your ability to detect when nodes should be added to the cluster or the RAM upgraded. For more information about planning the size of your cluster, read the docs on the subject.
 
 
 Q: What is the recommended procedure to add multiple new nodes?

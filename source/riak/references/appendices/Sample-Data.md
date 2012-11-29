@@ -12,7 +12,7 @@ When learning how to use a database, reading tutorials and blogs and watching vi
 
 This page is intended to be a repository of sample data for that exact purpose. We will be expanding it as often as possible with different types of data that are suitable for different types of application testing.
 
-And, if you have sample data that you can spare or pointers to some data of which you are particularly fond, shoot an email to _wiki@basho.com_ and we'll add it to the page and expand the list.
+And, if you have sample data that you can spare or pointers to some data of which you are particularly fond, shoot an email to _docs@basho.com_ and we'll add it to the page and expand the list.
 
 ### Google Historical Stock Data
 
@@ -24,7 +24,7 @@ Need some Twitter data to play with? Linked *[[at the bottom of this great blog 
 
 ### Enron Email Dataset
 
-What better to test with than the emails of corrupt corporate officials? *[[Hosted here courtesy of the Carnegie Melon CS Department|http://www.cs.cmu.edu/~enron/]]*, the complete Enron Email Corpus is about 0.5M messages from around 150 different users, organized into folders for your testing convenience.
+What better to test with than the emails of corrupt corporate officials? *[[Hosted here courtesy of the Carnegie Mellon CS Department|http://www.cs.cmu.edu/~enron/]]*, the complete Enron Email Corpus is about 0.5M messages from around 150 different users, organized into folders for your testing convenience.
 
 ### WindyCityDB NoSQL Lab Sample Data
 

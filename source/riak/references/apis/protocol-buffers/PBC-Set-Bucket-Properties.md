@@ -1,5 +1,5 @@
 ---
-title: PBC Set Buckets Properties
+title: PBC バケットのプロパティ設定
 project: riak
 version: 0.14.0+
 document: api
@@ -9,16 +9,16 @@ keywords: [api, protocol-buffer]
 group_by: "Bucket Operations"
 ---
 
-Set the properties for a bucket
+バケットのプロパティを設定する
 
-<div class="note"><p>The PBC interface does not currently support all bucket
-properties. It is currently limited to <code>allow_mult</code> and
-<code>n_val</code>; other bucket properties would need to be set with the [[HTTP
-API|HTTP Set Bucket Properties]].</p>
+<div class="note"><p>現時点では、PBC インタフェースは全てのバケットのプロパティに対応してはいません。
+それは、現時点では、<code>allow_mult</code> と <code>n_val</code> に制限されています。
+その他のバケットのプロパティは [[HTTP API|HTTP Set Bucket Properties]] で設定される必要があります。
+</p>
 </div>
 
 
-## Request
+## リクエスト
 
 
 ```bash
@@ -34,22 +34,22 @@ message RpbBucketProps {
 ```
 
 
-Required Parameters
+必要なパラメータ
 
-* **bucket** - bucket to set properties for
-* **props** - updated properties - only set properties to change
-* **n_val** - current n_val for the bucket
-* **allow_mult** - allow_mult set true if conflicts are returned to clients
+* **bucket** - プロパティを設定するバケット
+* **props** - 更新するプロパティ ｰ 変更したいプロパティのみをセットする
+* **n_val** - バケットの現在の n_val
+* **allow_mult** - allow_mult を true にすると、クライアントに競合が返る
 
-## Response
+## レスポンス
 
-Only the message code is returned.
+メッセージコードのみが返ります。
 
-## Example
+## サンプル
 
-Change `allow_mult` to true for bucket "friends"
+バケット "friends" の `allow_mult` が true になります。
 
-Request
+リクエスト
 
 ```bash
 Hex      00 00 00 0E 15 0A 07 66 72 69 65 6E 64 73 12 02
@@ -65,11 +65,11 @@ props {
 ```
 
 
-Response
+レスポンス
 
 ```bash
 Hex      00 00 00 01 16
 Erlang <<0,0,0,1,22>>
 
-RpbSetBucketResp - only message code defined
+RpbSetBucketResp - メッセージコードのみが示されます
 ```

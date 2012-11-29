@@ -17,6 +17,7 @@ Additionally, the Riak CS storage calculation system uses Riak's MapReduce to su
 A few other settings must be modified to configure a Riak node as part of a Riak CS system: the node IP address and the IP address and port to use for communicating through protocol buffers. Other settings can be modified if necessary. The following sections describe how to configure a Riak node to work as part of a Riak CS system.
 
 ## Setting up the Proper Riak Backend
+
 First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv `section. The `app.config `file can be found in the `/etc/riak` directory. The default setting is for the Bitcask backend and would look like this:
 
 ```
@@ -42,6 +43,8 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 ```
 
 where **X.Y.Z** is the version of Riak CS you have installed.
+
+Note that this assumes Riak and RiakCS packages are installed on the same machine. If the RiakCS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_moss-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
 Next, add this to the **riak_core** section of `app.config`:
 

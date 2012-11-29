@@ -30,9 +30,7 @@
       closedNavMargin : '12px',
       navSpeed        : 175,
       responsiveWidth : 700
-    },
-    
-    openMenus : ['all riak projects', 'start here']
+    }
   };
   
   
@@ -261,12 +259,8 @@
    * If so, returns true.
    */
   function checkOpenMenu(text, correspondingUl) {
-    var len = options.openMenus.length;
-    for (i = 0; i < len; i += 1) {
-      if (text === options.openMenus[i].toLowerCase() || correspondingUl.find('.current').length) {
-        return true;
-      }
-    }
+    if(correspondingUl.find('.current').length) {return true;}
+    if(correspondingUl.prev('.active').length){return true;}
     return false;
   }
   
@@ -323,7 +317,7 @@
   /*
    * Disable linking to the page you're already on.
    */
-  $(document).on('click', '.current a', function () {return false;});
+  $(document).on('click', '.current > a', function () {return false;});
   
   /*
    * Don't let people jack up tables
@@ -336,7 +330,17 @@
    * and not enough browsers support that yet.  This way the user doesn't have
    * to build extra html just to get the icon in there.
    */
-  $(options.selectors.contentWell + ' .info').prepend('<span class="info-icon"></span>');
+  $(options.selectors.contentWell + ' .info, ' + options.selectors.contentWell + ' .note').prepend('<span class="info-icon"></span>');
   
+  // if this is a "dual style" screen, use as much as we can
+  if($('body.dual').length > 0) {
+    closeNav(function(){
+      options.jq.contentWell.toggleClass('closed');
+      options.jq.navToggle.toggleClass('closed');
+      if(!!window.location.hash) {
+        $(window.location.hash)[0].scrollIntoView();
+      }
+    });
+  }
 
 });

@@ -33,6 +33,26 @@ Riak and the Erlang applications it depends on are configured by settings in the
 ].
 ```
 
+{{#1.2.0+}}
+
+### riak_api settings
+
+ * **pb_ip**
+The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
+
+ * **pb_port**
+The port that the Protocol Buffers interface will bind to. (default: 8087)
+
+ * **pb_backlog**
+The maximum length to which the queue of pending *simultaneous*
+protocol buffers connections may grow. If set, it must be an integer >= 0.
+If you anticipate a larger number of connections than the default being
+simultaneously initialized, set this number to a higher value accordingly.
+You should adjust this value to meet your anticipated simultaneous
+connection demand or if experiencing connection resets. (default: 5)
+
+{{/1.2.0+}}
+
 ### riak_core settings
 * **choose_claim_fun**
 {Module, Function} to claim vnodes from the passed in ring and return the resulting ring.
@@ -110,6 +130,7 @@ By default, each Riak node will own ring_creation_size/(number of nodes in the c
 <div class="title">Basho Tip</div>
 The ring_creation_size should be established before your cluster is started, and should not be changed thereafter.
 </div>
+
  * **ssl**
 You can override the default SSL key and certificate settings (default: etc/cert.pem, etc/key.pem)
 
@@ -129,6 +150,17 @@ The default value is 4. For this to be effective at preventing hot spots, your c
 A list of paths to add to the Erlang code path.
 
 This setting is especially useful for allowing Riak to use external modules during MapReduce queries.
+
+{{#1.0.0+}}
+
+ * **delete_mode** Specifies behavior for the window of time between Riak
+identifying an object for deletion and actual deletion of the object.
+There are three modes of operation: *delay* (in milliseconds),
+*immediate*, and *keep*. Delay of 3 seconds is the default mode. Setting
+delete_mode to immediate removes the tombstone for the object when the delete request is received. Setting delete_mode to keep disables tombstone
+removal altogether.
+
+{{/1.0.0+}}
 
  * **mapred_name**
 The base of the path in the URL exposing MapReduce via HTTP. (default: "mapred")
@@ -172,42 +204,40 @@ When set to true uses vnode-based vclocks rather than client ids. This significa
  * **legacy_keylisting**
 This option enables compatibility of bucket and key listing with 0.14 and earlier versions. Once a rolling upgrade to a version >= 1.0 is completed for a cluster, this should be set to false for improved performance for bucket and key listing operations. (default: true)
 
- * **pb_ip**
-The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
+ * **pb_ip** The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started. {{1.2.0-}}
 
- * **pb_port**
-The port that the Protocol Buffers interface will bind to. (default: 8087)
+ * **pb_port** The port that the Protocol Buffers interface will bind to. (default: 8087) {{1.2.0-}}
 
- * **pb_backlog**
-The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5)
+ * **pb_backlog** The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5) {{1.2.0-}}
 
  * **raw_name**
-The base of the path in the URL exposing Riak's HTTP interface (default: "riak")
+The base of the path in the URL exposing Riak's HTTP interface (default: `riak`)
 
-The default value will expose data at /riak/Bucket/Key. For example, changing this setting to "bar" would expose the interface at /bar/Bucket/Key.
+The default value will expose data at `/riak/Bucket/Key`. For example, changing this setting to "bar" would expose the interface at `/bar/Bucket/Key`.
 
  * **riak_kv_stat**
-Enables the statistics-aggregator (/stats URL and riak-admin status command) if set to true. (default is true)
+Enables the statistics-aggregator (`/stats` URL and riak-admin status command) if set to true. (default is `true`)
 
  * **stats_urlpath**
-The base of the path in the URL exposing the statistics-aggregator. (default: "stats")
+The base of the path in the URL exposing the statistics-aggregator. (default: `stats`)
 
  * **storage_backend**
-The module name of the storage backend that Riak should use. (default: "riak_kv_bitcask_backend")
+    The module name of the storage backend that Riak should use. (default: `riak_kv_bitcask_backend`)
 
-The storage format Riak uses is configurable. Riak will refuse to start if no storage backend is specified.
+    The storage format Riak uses is configurable. Riak will refuse to start if no storage backend is specified.
 
-Available backends:
-* riak_kv_bitcask_backend - Data is stored in Bitcask append-only storage. See the Bitcask configuration page for more information.
-* riak_kv_eleveldb_backend - Data is stored in LevelDB. See the LevelDB configuration page for more information.
-* riak_kv_memory_backend - A backend that behaves as an LRU-with-timed-expiry cache. Read the Memory backend configuration page for more information.
-* riak_kv_multi_backend - Enables storing data for different buckets in different backends. See the Multi configuration page for more details.
+    Available backends:
+
+    * `riak_kv_bitcask_backend` - Data is stored in Bitcask append-only storage. See the Bitcask configuration page for more information.
+    * `riak_kv_eleveldb_backend` - Data is stored in LevelDB. See the LevelDB configuration page for more information.
+    * `riak_kv_memory_backend` - A backend that behaves as an LRU-with-timed-expiry cache. Read the Memory backend configuration page for more information.
+    * `riak_kv_multi_backend` - Enables storing data for different buckets in different backends. See the Multi configuration page for more details.
 
  * **riak_search**
-Riak Search is now enabled via the app.config. To enable it in your app, simply set it to "true" in Riak Search Config section (shown below).
+Riak Search is now enabled via the `app.config`. To enable it in your app, simply set it to `true` in Riak Search Config section (shown below).
 
  * **vnode_mr_timeout**
-How long a map function is permitted to execute on a vnode before it times out and is retried on another vnode, in milliseconds. (default: "1000")
+How long a map function is permitted to execute on a vnode before it times out and is retried on another vnode, in milliseconds. (default: `1000`)
 
 
 ### webmachine_logger_module
@@ -226,6 +256,7 @@ Enable Search functionality. (default: false)
 
  * **max_search_results**
 Maximum number of results to accumulate before erroring. (Prevent, reduce memory exhaustion that could bring down the entire VM.) (default: 100000)
+
 ```erlang
 %% Riak Search Config
 {riak_search, [
@@ -254,6 +285,7 @@ Maximum size in bytes of events in the crash log. (default: 65536)
 Whether to redirect sasl error_logger messages into lager. (default: true)
 
 The default lager options are like so:
+
 ```erlang
 {lager, [
     {handlers, [

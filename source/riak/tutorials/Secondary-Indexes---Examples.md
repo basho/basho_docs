@@ -1,5 +1,5 @@
 ---
-title: Secondary Index Examples
+title: セカンダリインデックスのサンプル
 project: riak
 version: 1.2.0+
 document: tutorials
@@ -8,11 +8,11 @@ audience: advanced
 keywords: [operator, 2i]
 ---
 
-To run the following examples, ensure that Riak is running on localhost with the HTTP endpoint listing on port 8098, and configured to use an index-capable storage backend. `curl` is required.
+以下のサンプルを実行するためには、localhost 上で Riak が動作しており、HTTP エンドポイントがポート 8098 をリッスンしていること、インデックス能力のあるストレージバックエンドが使えるように設定されていることを確実にしてください。さらに `curl` が必要です。
 
-## Indexing Objects
+## オブジェクトをインデックス
 
-The following example indexes four different objects. Notice that we're storing both binary and integer fields, field names are automatically lowercased, some fields have multiple values, and duplicate fields are automatically de-duplicated:
+以下のサンプルは 4 つの異なるオブジェクトをインデックス化します。ここではバイナリと整数フィールドの両方をソートし、フィールド名は自動的に小文字化され、フィールドによっては複数の値があり、重複したフィールドは自動的に de-duplicate されます。
 
 ```bash
 curl -v -XPUT \
@@ -44,10 +44,10 @@ curl -v -XPUT \
 http://127.0.0.1:8098/riak/mybucket/mykey4
 ```
 
-The following examples demonstrate what happens when an index field is specified with an invalid field name or type. The system responds with `400 Bad Request` and a description of the error.
+以下のサンプルはインデックスフィールドが不正な名前、またはタイプで指定されたときに何が起きるかを表したものです。システムは `400 Bad Request` と答え、エラーを表します。
 
 
-Invalid field name:
+不正なフィールド名:
 
 ```
 curl -XPUT \
@@ -55,11 +55,11 @@ curl -XPUT \
 -H "x-riak-index-field2_foo: 1001" \
 http://127.0.0.1:8098/riak/mybucket/mykey
 
-# Response
+# レスポンス
 Unknown field type for field: 'field2_foo'.
 ```
 
-Incorrect data type:
+データタイプ不正:
 
 ```
 curl -XPUT \
@@ -67,13 +67,13 @@ curl -XPUT \
 -H "x-riak-index-field2_int: bar" \
 http://127.0.0.1:8098/riak/mybucket/mykey
 
-# Response
+# レスポンス
 Could not parse field 'field2_int', value 'bar'.
 ```
 
-## Exact Match Query
+## 正常なクエリ
 
-The following examples use the HTTP interface to perform an exact match index query:
+以下のサンプルは、HTTP インタフェースを用いてインデックスクエリに一致したときの様子です。
 
 ```bash
 # Query a binary index...
@@ -83,7 +83,7 @@ curl http://localhost:8098/buckets/mybucket/index/field1_bin/val1
 curl http://localhost:8098/buckets/mybucket/index/field2_int/1001
 ```
 
-The following example performs an exact match query and pipes the results into a MapReduce job:
+以下のサンプルは、クエリに一致した結果を MapReduce ジョブにパイプしたときの様子です。
 
 ```bash
 curl -X POST \
@@ -111,9 +111,9 @@ http://localhost:8098/mapred \
 EOF
 ```
 
-## Range Query
+## 範囲クエリ
 
-The following examples use the HTTP interface to perform a range query:
+以下のサンプルは、HTTP インタフェースを用いて範囲クエリを行ったときの様子です。
 
 ```bash
 # Query a binary index...
@@ -123,7 +123,7 @@ curl http://localhost:8098/buckets/mybucket/index/field1_bin/val2/val4
 curl http://localhost:8098/buckets/mybucket/index/field2_int/1002/1004
 ```
 
-The following example performs a range query and pipes the results into a MapReduce job:
+以下のサンプルは、範囲クエリの結果を MapReduce ジョブへパイプしたときの様子です。
 
 ```bash
 curl -X POST \
