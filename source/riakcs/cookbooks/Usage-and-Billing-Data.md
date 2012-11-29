@@ -6,7 +6,7 @@ document: cookbook
 toc: false
 index: true
 audience: intermediate
-keywords: [operator]
+keywords: [developer]
 ---
 
 ## Access Statistics
