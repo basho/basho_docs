@@ -24,8 +24,9 @@ GET /objectName HTTP/1.1
 Host: bucketname.data.basho.com
 Date: date
 Authorization: signature_value
-Range:bytes=byte_range
 ```
+
+Note: While Range queries are planned for a future release, using `Range:bytes=byte_range`, this feature is not currently implemented.
 
 ## Examples
 
