@@ -41,6 +41,14 @@ Riak CS is multi-tenant cloud storage software for public and private clouds. Bu
 <p>Store images, text, video, documents, database&nbsp;backups, software binaries and other content up to&nbsp;5GB as a single, easily retrievable object.&nbsp;&nbsp;Riak CS also&nbsp;supports standard Amazon metadata headers.</p>
 </td>
 </tr>
+{{#1.3.0+}}
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Multi-Datacenter Replication</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
+<p>Riak CS provides multi-datacenter replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.</p>
+</td>
+</tr>
+{{/1.3.0+}}
 </tbody>
 </table>
 
