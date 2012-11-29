@@ -112,7 +112,7 @@ Change the following line in `/etc/riak/app.config`
 
 to
 
-    {add_paths, ["/usr/lib64/riak-cs/lib/riak_moss-1.0.1/ebin"]},
+    {add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.2/ebin"]},
     {storage_backend, riak_cs_kv_multi_backend},
     {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
     {multi_backend_default, be_default},
@@ -125,10 +125,6 @@ to
             {data_root, "/var/lib/riak/bitcask"}
         ]}
     ]},
-
-Next, add this to the **riak_core** section of `app.config`:
-
-    {default_bucket_props, [{allow_mult, true}]},
 
 Next, we set our interface IP addresses in the app.config files. In a production environment, you will likely have multiple NICs, but for this test cluster, we are going to assume one NIC with an example IP address of 10.0.2.10.
 
@@ -145,18 +141,18 @@ to
 
 Change the following lines in `/etc/riak-cs/app.config`
 
-    {moss_ip, "127.0.0.1"}
+    {cs_ip, "127.0.0.1"}
     {riak_ip, "127.0.0.1"}
     {stanchion_ip, "127.0.0.1"}
 
 to
 
-    {moss_ip, "10.0.2.10"}
+    {cs_ip, "10.0.2.10"}
     {riak_ip, "10.0.2.10"}
     {stanchion_ip, "10.0.2.10"}
 
 
-The moss_ip could also be set to 0.0.0.0 if you prefer Riak CS to listen on all interfaces.
+The cs_ip could also be set to 0.0.0.0 if you prefer Riak CS to listen on all interfaces.
 
 
 Change the following lines in `/etc/stanchion/app.config`
@@ -233,7 +229,7 @@ users to the "anonymous" user.
 This configuration setting is only required on a single Riak CS node.
 
 Add this entry to
-`/etc/riak-cs/app.config` immediately before the `{moss_ip, ...}`
+`/etc/riak-cs/app.config` immediately before the `{cs_ip, ...}`
 entry:
 
     {anonymous_user_creation, true},
