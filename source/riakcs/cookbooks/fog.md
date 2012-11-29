@@ -24,7 +24,7 @@ $ gem install fog-1.3.1.gem
 Or in Bundler:
 
 ```
-gem "fog", :git => 'git://github.com/basho/fog.git', :branch => 'rails-cs'
+gem "fog", :git => 'git://github.com/basho/fog.git', :branch => 'riak_cs'
 ```
 
 We are working to have this merged into the official `fog` gem.
