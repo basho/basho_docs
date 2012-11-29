@@ -6,11 +6,11 @@ aside#nav-container role="complementary"
     h3.responsive-link.visit-basho
       a href="http://www.basho.com" Visit Basho
     h3.responsive-link
-      a href="./index.html" Home
+      a href="/index.html" All Riak Projects
     - project = data.page.project || 'riak'
     - data.global_nav[project].each do |section|
-      - nav_data, active = build_nav(section['sub'])
       - add_class = section['class'] || ''
+      - nav_data, active = build_nav(section['sub'], add_class)
       h3(class=(active ? "active #{add_class}" : add_class))
         span==section['title']
       ==nav_data

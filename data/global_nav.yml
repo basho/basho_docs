@@ -1,6 +1,14 @@
 riak:
-  - title: "[[All Riak Projects|/index.html]]"
-    sub: []
+  # - title: "[[All Riak Projects|/index.html]]"
+  #   class: "all"
+  #   sub: []
+
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[APIs|/references/apis/]]"
+      - "[[FAQs]]"
+
   - title: "Start Here"
     class: "start"
     sub:
@@ -65,7 +73,7 @@ riak:
           - "[[AWS Marketplace|Installing on AWS Marketplace]]"
           - "[[From Source|Installing Riak from Source]]"
 
-      - title: "Planning"
+      - title: "Planning/Backends"
         sub:
           - "[[Start Planning|System Planning]]"
           - title: "Choosing a Backend"
@@ -82,32 +90,20 @@ riak:
           - "[[Basic Cluster Setup]]"
           - "[[Adding and Removing Nodes]]"
           - "[[Replacing a Node]]"
+          - "[[Backups]]"
+      - title: "Configuration"
+        sub:
+          - "[[Configuration Files]]"
+          - "[[Network Security and Firewall Configurations]]"
+          - "[[MapReduce|MapReduce - Settings]]"
+          - "[[Search|Riak-Search - Settings]]"
+          - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
       - title: "Performance"
         sub:
           - "[[File System Tuning]]"
           - "[[Linux Performance Tuning]]"
           - "[[Performance Tuning AWS]]"
-      - title: "Operations"
-        sub:
-          # - "[[Operating Riak]]" # what to do? I like this page, but it's just a list of links
-          - "[[Configuration Files]]"
-          - "[[Network Security and Firewall Configurations]]"
-          - "[[Backups]]"
-      - title: "Query Configuration"
-        sub:
-          - "[[MapReduce|MapReduce - Settings]]"
-          - "[[Search|Riak-Search - Settings]]"
-          - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
-      # - title: "MapReduce"
-      #   sub:
-      #     - "[[Configuration|MapReduce - Settings]]"
-      # - title: "Search"
-      #   sub:
-      #     - "[[Configuration|Riak-Search - Settings]]"
-      # - title: "Secondary Indexes"
-      #   sub:
-      #     - "[[Configuration|Secondary-Indexes - Configuration]]"
-      - title: "Troubleshooting"  # "[[Troubleshooting]]"
+      - title: "Troubleshooting"
         sub:
           - "[[Failure and Recovery]]"
           - "[[Open Files Limit]]"
@@ -176,17 +172,18 @@ riak:
       - "[[Logos]]"
       - "[[We Run Riak Badges]]"
 
-  - title: "Shortcuts"
-    class: "active"
-    sub:
-      - "[[FAQs]]"
-      - "[[APIs|/references/apis/]]"
-
 
 riakee:
-  - title: "[[All Riak Projects|/index.html]]"
-    sub: []
+  # - title: "[[All Riak Projects|/index.html]]"
+  #   sub: []
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[APIs|/references/apis/]]"
+      - "[[FAQs|Riak Enterprise FAQs]]"
+
   - title: "Start Here"
+    class: "start"
     sub:
       - "[[Getting Started with RiakEDS|Riak Enterprise]]"
       - "[[The Riak Fast Track]]"
@@ -208,18 +205,24 @@ riakee:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
       - "[[JMX Monitoring]]"
       - "[[SNMP Configuration]]"
-      - "[[SNMP Counters]]"
-  - title: "Shortcuts"
-    class: "active"
+  - title: "References"
     sub:
-      - "[[Riak Enterprise FAQs]]"
-      - "[[Riak FAQs|FAQs]]"
+      - "[[SNMP Counters]]"
       - "[[APIs|/references/apis/]]"
+      - "[[Riak EDS FAQs|Riak Enterprise FAQs]]"
+      - "[[Riak FAQs|Riak FAQs]]"
 
 riakcs:
-  - title: "[[All Riak Projects|/index.html]]"
-    sub: []
+  # - title: "[[All Riak Projects|/index.html]]"
+  #   sub: []
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[APIs|RiakCS Storage API]]"
+      - "[[FAQs|Riak CS FAQs]]"
+
   - title: "Start Here"
+    class: "start"
     sub:
       - "[[Riak CS]]"
       - "[[Riak CS Quick Start Guide]]"
@@ -238,7 +241,7 @@ riakcs:
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
       - "[[Configuring an S3 client]]"
-  - title: "System Features"
+  - title: "References"
     sub:
       # - "[[System Features Overview|System Features]]"
       - "[[Access Control Lists]]"
@@ -247,14 +250,9 @@ riakcs:
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
-  - title: "Tools"
-    sub:
       - "[[Ruby Fog|Fog on RiakCS]]"
-  - title: "Shortcuts"
-    class: "active"
-    sub:
-      - "[[FAQs|Riak CS FAQs]]"
       - "[[APIs|RiakCS Storage API]]"
+      - "[[FAQs|Riak CS FAQs]]"
 
 root:
   - title: "All Riak Projects"
