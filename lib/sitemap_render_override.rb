@@ -151,7 +151,7 @@ module SitemapRenderOverride
 
       # XXX: This is a terrible way to get the # links in the API to work
       if url =~ /\/http\/single/ || url =~ /\/references\/dynamo/
-        if href.include?('#')
+        if href =~ /^\#/
           next "<a #{anchor}>"
         end
       end

@@ -45,9 +45,11 @@ When you add machines, data is rebalanced automatically with no downtime. New ma
 Riak retains fault-tolerance, data integrity, and availability even in failure conditions like hardware failure and network partitions. Riak has a number of properties to address these scenarios and other bumps in the road, like version conflicts in data. 
 
 ### Hinted Handoff
+
 Hinted handoff lets Riak handle node failure. If a node fails, a neighboring node will take over its storage operations. When the failed node returns, the updates received by the neighboring node are handed back to it. This ensures availability for writes and updates and happens automatically, minimizing the operational burden of failure conditions.
 
 ### Version Conflicts
+
 In any system that replicates data, conflicts can arise - e.g., if two clients update the same object at the exact same time; or if not all updates have yet reached hardware that is experiencing lag. Further, in Riak, replicas are "eventually consistent"-  while data is always available, not all replicas may have the most recent update at the exact same time, causing brief periods (generally on the order of milliseconds) of inconsistency while all state changes are synchronized. 
 
 How is divergence addressed? When you make a read request, Riak looks up all replicas for that object. By default, Riak will return the most updated version, determined by looking at the object's vector clock. Vector clocks are metadata attached to each replica when it is created. They are extended each time a replica is updated to keep track of versions. You can also allow clients to resolve conflicts themselves. Learn more on *[[eventual consistency|Eventual Consistency]]* and *[[vector clocks|Vector Clocks]]*. 

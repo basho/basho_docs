@@ -37,6 +37,7 @@ body.dual {
       td.code {
         width:100%;
         font-size: 100%;
+        padding: 7px 7px 7px 1.5em;
         .highlight {
           width:100%;
           pre {
@@ -57,6 +58,9 @@ body.dual {
       td {
         h1, h2 {
           padding-top:0;
+        }
+        h1 {
+          font-size:185%;
         }
         p {
           margin-top: 0;
