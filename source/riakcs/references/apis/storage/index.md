@@ -103,7 +103,7 @@ The following table describes the support status for current Amazon S3 functiona
     <tr>
         <td>GET Object</td>
         <td>Supported</td>
-        <td></td>
+        <td>Range query unimplemented</td>
     </tr>
     <tr>
         <td>Object ACLs (GET, PUT)</td>
