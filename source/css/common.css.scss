@@ -81,7 +81,12 @@ body {
     
     #primary-nav {
       padding : 5px 12px;
-      
+      -o-user-select: none;
+      -ms-user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+
       h3.shortcuts {
         display:none;
       }
