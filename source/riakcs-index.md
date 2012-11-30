@@ -28,6 +28,12 @@ Riak CS is multi-tenant cloud storage software for public and private clouds. Bu
 </td>
 </tr>
 <tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>Multi-Datacenter Replication</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
+<p>Riak CS provides multi-datacenter replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure. &nbsp;</p>
+</td>
+</tr>
+<tr align="left" valign="top">
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Per-Tenant Visibility</strong></td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
 <p>With the Riak CS Reporting API, you get per-tenant&nbsp;usage data and statistics on network I/O. This&nbsp;reporting functionality supports use cases including&nbsp;accounting, subscription, chargebacks, plugins with&nbsp;billing systems or efficient multi-department&nbsp;utilization.</p>
@@ -52,8 +58,4 @@ Riak CS is multi-tenant cloud storage software for public and private clouds. Bu
 </tbody>
 </table>
 
-{{#1.3.0-}}
-<blockquote>
-Note: Not all Riak EDS features are currently compatible with Riak CS, including multi-datacenter replication.
-</blockquote>
-{{/1.3.0-}}
+
