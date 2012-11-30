@@ -1,12 +1,6 @@
 require 'aws/s3'
 require 'versionomy'
-require './lib/org'
-require './lib/versionify'
-require './lib/faqml'
-require './lib/rocco'
-require './lib/deploy'
-require './lib/index'
-require './lib/sitemap_render_override'
+Dir.glob('./lib/*.rb').each {|file| require file}
 
 if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.]+/
   versions = YAML::load(File.open('data/versions.yml'))
@@ -284,6 +278,7 @@ set :markdown, :fenced_code_blocks => true,
                # :autolink => true,
                # :with_toc_data => true
 
+activate :release_notes
 activate :directory_indexes
 activate :versionify
 
