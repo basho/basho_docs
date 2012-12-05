@@ -365,7 +365,7 @@ Q: Is it possible to change the number of partitions in my Riak ring after it's 
 A:
   Adjusting the number of partitions after your cluster is running not really possible ( the only way to do it would be to stand up a new cluster and move data to it). You should take this into account when doing your initial capacity planning for your cluster. We generally advise that you plan for at least 10 partitions per node at scale. In the case of 64 nodes, you might want to experimenting with a partition count of 1024.
   
-  Check out `[[ring_creation_size|Configuration Files#app.config]]`
+  Check out `[[ring_creation_size|Configuration Files#app-config]]`
 
 
 Q: Is 32-bit Riak a bad idea?
