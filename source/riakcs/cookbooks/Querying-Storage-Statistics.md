@@ -78,8 +78,7 @@ span is *now*, which is not available in the archives.
 
 ### S3 Object-style Access
 
-As described in [Querying Access
-Statistics](Querying-Access-Statistics.html),
+As described in [[Querying Access Statistics]],
 these statistics are also available as S3 objects. To add storage
 statistics to the result, add the character `b` to the `Options` portion
 of the object's path. For example, the following command would produce
