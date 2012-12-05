@@ -31,7 +31,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
         <td>Data Model</td>
         <td>Riak stores key/value pairs in a higher level namespsace called a bucket. 
 			<ul>
-			  <li>[[Buckets, Keys, and Values|Concepts#Buckets%2C-Keys%2C-and-Values]] </li>
+			  <li>[[Buckets, Keys, and Values|Concepts#Buckets-Keys-and-Values]] </li>
 			</ul>
 		</td>
         <td>Cassandra's data model resembles column storage, and consists of Keyspaces, Column Families, and several other parameters. 
@@ -138,7 +138,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 			
 			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
 				<ul>
-					<li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
+					<li>[[Reading, Writing, and Updating Data|Concepts#Reading-Writing-and-Updating-Data]]</li>
 				</ul>	
 			
 	 </td>
@@ -180,7 +180,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 			
         <td>Cassandra has the ability to spread nodes over multiple datacenters via various configuration parameters. 
 			<ul>
-			  <li>[[Multiple Datacenters|http://www.datastax.com/docs/1.0/cluster_architecture/cluster_planning#multiple-data-centers]]</li>
+			  <li>[[Multiple Datacenters|http://www.datastax.com/docs/1.1/initialize/cluster_init_multi_dc]]</li>
 			</ul>
 	
 	</td>

@@ -10,7 +10,7 @@ keywords: [mapreduce]
 
 ## Configuring MapReduce
 
-[[MapReduce]] \(M/R) is always enabled, but configurable through the [[app.config|Configuration-Files#app.config]] file as follows under `riak_kv`
+[[MapReduce]] \(M/R) is always enabled, but configurable through the [[app.config|Configuration-Files#app-config]] file as follows under `riak_kv`
 
 ```erlang
 {riak_kv, [
@@ -24,7 +24,7 @@ keywords: [mapreduce]
 
 `mapred_system` indicates which version of the MapReduce system should be used:
 
-* `pipe` means [riak_pipe](github.com/basho/riak_pipe) will power M/R queries
+* `pipe` means [riak_pipe](https://github.com/basho/riak_pipe) will power M/R queries
 * `legacy` means that [luke](https://github.com/basho/luke) will be used
 
 ```erlang

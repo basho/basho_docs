@@ -30,7 +30,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
         <td>Data Model</td>
         <td>Riak stores key/value pairs in a higher level namespace called a bucket. 
 			<ul>
-			  <li>[[Buckets, Keys, and Values|Concepts#Buckets%2C-Keys%2C-and-Values]] </li>
+			  <li>[[Buckets, Keys, and Values|Concepts#Buckets-Keys-and-Values]] </li>
 			</ul>
 		</td>
         <td>MongoDB's data format is BSON (binary equivalent to JSON) stored as documents (self-contained records with no intrinsic relationships). Documents in MongoDB may store any of the defined BSON types and are grouped in collections. 
@@ -140,7 +140,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
 			
 			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
 				<ul>
-					<li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
+					<li>[[Reading, Writing, and Updating Data|Concepts#Reading-Writing-and-Updating-Data]]</li>
 				</ul>	
 			
 	 </td>
@@ -172,7 +172,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
 			
 			To scale in, MongoDB has support for removing shards from your database.
 			<ul>
-			  	<li>[[Removing Shards|http://www.mongodb.org/display/DOCS/Configuring+Sharding#ConfiguringSharding-Removingashard]]</li>
+			  	<li>[[Removing Shards|http://docs.mongodb.org/manual/administration/sharding/#remove-a-shard-from-a-cluster]]</li>
 			</ul>
 			
 	</td>

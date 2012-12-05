@@ -13,8 +13,8 @@ of time. Querying these statistics is done via the `/usage/$USER_KEY_ID`
 resource.
 
 For information about how access statistics are logged, please read
-[Usage and Billing
-Data](Usage-and-Billing-Data.html).
+[[Usage and Billing
+Data]].
 
 The following sections discuss accessing the access statistics using
 bare HTTP requests. Query parameters are used to specify the types and
@@ -195,8 +195,8 @@ the amount of time that may be retrieved in any request is limited.
 
 The limit is configured by the `riak_moss` application environment
 variable `usage_request_limit`. The value is expressed as an integer
-number of archive intervals (see [Usage and
-Billing](Usage-and-Billing-Data.html)
+number of archive intervals (see [[Usage and
+Billing Data]]
 for a description of archive intervals).
 
 The default value is `744`, which is 31 days at the default archive
