@@ -1,5 +1,5 @@
 ---
-title: Thanks Yous
+title: 謝辞
 project: riak
 version: 0.10.0+
 document: tutorial
@@ -8,9 +8,9 @@ keywords: [tutorial, fast-track]
 up:   ["The Riak Fast Track", "index.html"]
 ---
 
-[[The Riak Fast Track]] is constantly improving thanks to the help of all who review it and send their feedback. This is a list of those people.
+[[The Riak Fast Track]] は進化し続けています。これもレビューをし、フィードバックを送ってくださった皆さんのおかげです。以下は協力くださった方々のリストです。
 
-So, in no particular order, *Thank You!*
+感謝に絶えません、*ありがとうございます！*
 
 * Michael Guterl
 * Andrew Tunnell-Jones

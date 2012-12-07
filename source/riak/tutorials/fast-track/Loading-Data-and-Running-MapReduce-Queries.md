@@ -1,5 +1,5 @@
 ---
-title: Loading Data and Running MapReduce
+title: データをロードし、MapReduceLoading Data and Running MapReduce
 project: riak
 version: 0.10.0+
 document: tutorial
@@ -10,13 +10,13 @@ up:   ["The Riak Fast Track", "index.html"]
 next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
 ---
 
-Riak provides various ways to query your data beyond the basic key/value operations: [[Full-Text Search|Riak Search]], [[MapReduce]], [[Secondary Indexes]], and [[Link Walking|Links]].
+Riak は基本的なキー/バリュー操作の他に、さまざまな方法でデータをクエリする手段を提供しています: [[フルテキストサーチ|Riak Search]]、[[MapReduce]]、[[セカンダリインデックス|Secondary Indexes]]、[[リンクウォーキング|Links]]
 
-This section will walk you through loading some sample data (that we've borrowed from Google) into Riak and then using JSON over HTTP interface with Curl to perform some MapReduce queries on that data.
+このセクションではサンプルデータ(Googleから借用した物)を Riak にロードし、Curl で HTTP インタフェース経由で JSON を使って、データに対して MapReduce クエリをかけます。
 
-## Sample Data
+## サンプルデータ
 
-This Erlang script will load historical stock-price data for Google (ticker symbol "GOOG") into your existing Riak cluster so we can use it.  Paste the code below into a file called `load_data` inside the `dev` directory (or download it below).
+この Erlang スクリプトは Google の過去の株価データ(株式銘柄コード "GOOG")を既存の Riak クラスタにロードして、使用可能にします。以下のコードを `load_data` という名前のファイルにして、`dev` ディレクトリに配置してください。下記からダウンロードしても構いません。
 
 ```erlang
 #!/usr/bin/env escript
@@ -33,153 +33,153 @@ format_and_insert(Line) ->
     os:cmd(Command).
 ```
 
-Make the script executable:
+スクリプトを実行可能にします:
 
 
 ```bash
 $ chmod +x load_data
 ```
 
-Download the CSV file of stock data linked below and place it in the "dev" directory where we've been working.
+下記のリンクから株式データの CSV ファイルをダウンロードし、"dev" ディレクトリに置き、使えるようにします。
 
-* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) - Google historical stock data
-* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) - Alternative script in Ruby to load the data
-* [load_data](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) - Erlang script to load data (as shown in snippet)
+* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) - Google の株式の過去データ
+* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) - Ruby によるデータをロードするスクリプト
+* [load_data](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) - Erlang によるデータをロードするスクリプト(一部は既出)
 
-Now load the data into Riak.
+データを Riak にロードします。
 
 ```bash
 $ ./load_data goog.csv
 ```
 
-So now we have some data in our Riak cluster. Let's put that aside for a minute and learn a bit about MapReduce, and how Riak uses it.
+これで Riak クラスタにデータが格納されました。ちょっと脇道にそれて、MapReduce について、さらに Riak がそれをどのように使うかについて軽くおさらいしましょう。
 
 ## MapReduce
 
-MapReduce is a programming paradigm, popularized by Google. In Riak, MapReduce is the primary method for non-primary-key-based querying.
+MapReduce は Google によって一般に広まったプログラミングパラダイムです。Riak では、プライマリキー以外へのクエリを行うためには、主に MapReduce を使用します。
 
-Riak enables you to run MapReduce jobs through both the Erlang API and the HTTP API. For this tutorial we are going to use the HTTP API.
+MapReduce ジョブは Erlang API または HTTP API のいずれを使っても操作できます。このチュートリアルでは HTTP API を使います。
 
-### Why do we use MapReduce for Querying Riak?
+### どうして Riak のクエリに MapReduce を使うのですか？
 
-Key-value stores like Riak generally have very little functionality beyond just storing and fetching objects. MapReduce adds the capability to perform more powerful queries over the data stored in Riak. It also fits nicely with the functional programming orientation of Riak's core code and the distributed nature of the data storage.
+Riak の標準であるキー・バリュー ストアの機能は単純にデータの格納と取得だけで、とても限定されています。MapReduce は Riak に、もっと強力なクエリ機能を付与します。さらに、関数型プログラミング志向の Riak コア・コードと、分散型のデータストレージに適合しています。
 
-The main goal of MapReduce is to spread the processing of a query across many systems to take advantage of parallel processing power. This is generally done by dividing the query into several steps, dividing the dataset into several chunks, and then running those step/chunk pairs on separate physical hosts. Riak's MapReduce has an additional goal: increasing data-locality. When processing a large dataset, it's often much more efficient to take the computation to the data than it is to bring the data to the computation.
+MapReduce の最終目標はさまざまなシステムで、クエリを分散化して並列処理することです。これはほぼ完成しています。クエリをいくつかのステップに分割して、データセットもいくつかのチャンクに分割して、これらのステップ/チャンクのペアを別々の物理ホストで走らせます。Riak の MapReduce には別な目的もあります。データの局所性を高めることです。巨大なデータセットを処理する際に、データを取ってきて演算するよりも、データ側で演算させたほうが効率的だという場合がよくあります。
 
-"Map" and "Reduce" are both phases in the query process. Map functions take one piece of data as input, and produce zero or more results as output. If you're familiar with "mapping over a list" in functional programming style, you're already familiar with "map" steps in a map/reduce query.
+"Map" および "Reduce" はいずれもクエリ処理のフェーズのことです。Map 機能はデータのピースを入力とし、処理を行い 0 個以上の結果を出力します。"リストのマッピング" を行う関数についてのプログラミング経験がおありでしたら、map/reduce クエリの "map" ステップについてよくお分かりのはずです。
 
-## HTTP Query Syntax
+## HTTP クエリの書式
 
-Before we run some MapReduce queries of our own on the sample data, we should review a bit about how to write the queries and how they are executed.
+ご自分のサンプルデータで MapReduce クエリを試してみる前に、クエリの書き込みについてと、それがどのように実行されるのかについてもう一度おさらいをしましょう。
 
-MapReduce queries are issued over HTTP via a *POST* to the "/mapred" resource.  The body should be "application/json" of the form:
+MapReduce クエリは、HTTP で "/mapred" リソースに *POST* されます。ボディは次のような形式で、"application/json" にします。
 
 ```javascript
 {"inputs":[...inputs...],"query":[...query...]}
 ```
 
-Map/Reduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document:
+Map/Reduce クエリのデフォルト タイムアウト時間は 60000 ミリ秒(60秒)です。デフォルトタイムアウトは JSON ドキュメントを使って、別の値をミリ秒で与えることでオーバライドすることができます。
 
 ```javascript
 {"inputs":[...inputs...],"query":[...query...],"timeout": 90000}
 ```
 
-### Inputs
+### 入力
 
-The list of input objects is given as a list of 2-element lists of the form [Bucket,Key] or 3-element lists of the form [Bucket,Key,KeyData].
+入力オブジェクトのリストは、[Bucket,Key] という形の 2 要素リスト、あるいは [Bucket,Key,KeyData] という 3 要素リストとして与えられます。
 
-You may also pass just the name of a bucket ({"inputs":"mybucket",...}), which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a map/reduce across the whole bucket").  You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly.
+バケット名だけを渡す ({"inputs":"mybucket",...}) というのは、そのバケット内のすべてのキーを入力として渡すのと等価です(例: "a map/reduce across the whole bucket")。この操作が "list keys" という負荷の大きなオペレーションを誘発することにお気づきのはずです。ご使用は控えめにしてください。
 
-### Query
+### クエリ
 
-The query is given as a list of phases, each phase being of the form {PhaseType:{...spec...}}.  Valid PhaseType values are "map", "reduce", and "link".
+クエリはフェーズのリストとして与えられます。各フェーズは {PhaseType:{...spec...}} という形をしています。有効な PhaseType は "map"、"reduce"、"link" です。
 
-Every phase spec may include a "keep" field, which must have a boolean value: "true" means that the results of this phase should be included in the final result of the map/reduce, "false" means the results of this phase should be used only by the next phase. Omitting the "keep" field accepts its default value, which is "false" for all phases except the final phase (Riak assumes that you were most interested in the results of the last phase of your map/reduce query).
+フェースには "keep" フィールドを持たすことができます。ブール値で "true" は、このフェーズのリザルトが map/reduce の最終リザルトであることを示します。"false" は、このフェーズのリザルトが、次のフェーズで使用されるためのものだということを示します。"keep" フィールドを省略すると、デフォルト値である "false" が使われ、最終フェーズ (あなたが欲しいのは map/reduce クエリの最終フェーズの結果であると仮定しています) 以外のフェーズであることを示します。
 
-#### Map
+#### マップ
 
-Map phases must be told where to find the code for the function to execute, and what language that function is in.
+Map フェーズには、検索を行う関数の場所と、それがどの言語で書かれているのかの情報を与えなければなりません。
 
-Function source can be specified directly in the query by using the "source" spec field.  Function source can also be loaded from a pre-stored Riak object by providing "bucket" and "key" fields in the spec.
+関数の場所は "source" フィールドで指定できます。関数の場所は "bucket" と "key" フィールドで、あらかじめ格納されている Riak オブジェクトからロードすることもできます。
 
-For example:
+サンプル:
 
 ```javascript
 {"map":{"language":"javascript","source":"function(v) { return [v]; }","keep":true}}
 ```
 
-would run the Javascript function given in the spec, and include the results in the final output of the m/r query.
+これは Javascript 関数を実行し、map/reduce クエリの最終結果が出力されます。
 
 ```javascript
 {"map":{"language":"javascript","bucket":"myjs","key":"mymap","keep":false}}
 ```
 
-would run the Javascript function declared in the content of the Riak object under "mymap" in the "myjs" bucket, and the results of the function would not be included in the final output of the m/r query.
+これは "myjs" バケット内の "maymap" オブジェクトにある Riak オブジェクトの中で定義されている Javascript 関数を実行し、その実行結果は map/reduce クエリの最終結果ではないということを表します。
 
 ```javascript
 {"map":{"language":"erlang","module":"riak_kv_mapreduce","function":"map_object_value"}}
 ```
 
-would run the Erlang function "riak_kv_mapreduce:map_object_value/3".
+これは Erlang による "riak_kv_mapreduce:map_object_value/3" という関数を実行します。
 
-Map phases may also be passed static arguments by using the "arg" spec field.
+Map フェーズには "arg" フィールドで引数を渡すこともできます。
 
 #### Reduce
 
-Reduce phases look exactly like map phases, but are labeled "reduce".
+ひとことで言うと Reduce フェーズと map フェーズは同じですが、"reduce" というラベルが付いています。
 
-<div class="info">For more information on map and reduce functions please refer to the [[MapReduce|MapReduce#Phasefunctions]] section of the docs which includes a description of the arguments passed to these functions.</div>
+<div class="info">map と reduce 機能についてもっとお知りになりたいときは docs の [[MapReduce|MapReduce#Phasefunctions]] セクションを参照してください。ここには関数へ渡す引数の説明もあります。</div>
 
 #### Link
 
-Link phases accept "bucket" and "tag" fields that specify which links match the link query.  The string "_" (underscore) in each field means "match all", while any other string means "match exactly this string".  If either field is left out, it is considered to be set to "_" (match all).
+Link フェーズはリンククエリで一致したリンクを "bucket" と "tag" フィールドで受けとります。各フィールドの "_" (アンダースコア) は、"すべてと一致" という意味で、それ以外の文字列は "この文字列と一致するもの" を表します。両フィールドが空だったときは、いずれも "_" (すべてと一致)が指定されたとみなされます。
 
-For example:
+例:
 
 ```javascript
 {"link":{"bucket":"foo","keep":false}}
 ```
 
-would follow all links pointing to objects in the "foo" bucket, regardless of their tag.
+これは "foo" バケット内で、タグに関わらず、オブジェクトを差しているすべてのリンクを追跡します
 
-## MapReduce Screencast
+## MapReduce スクリーンキャスト
 
-With the syntax and query design fresh in your mind, take a few minutes to watch this screencast and check out Riak's MapReduce in action.
+構文とクエリデザインで疲れた頭をリフレッシュするために、数分間、スクリーンキャストで Riak の MapReduce が動く様子を御覧ください。
 
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/11328947"></div>
 
 <p><a href="http://vimeo.com/11328947">JavaScript MapReduce in Riak</a> from <a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
-Here are some of the jobs we submitted in the screencast:
+私たちが投稿したスクリーンキャストの一覧です:
 
 <dl>
 <dt>[[simple-map.json|https://github.com/basho/basho_docs/raw/master/source/data/simple-map.json]]</dt>
-<dd>A simple map-only job that returns the entire data set.</dd>
+<dd>単純な map のみのジョブで、データセットを返します。</dd>
 <dt>[[map-high.json|https://github.com/basho/basho_docs/raw/master/source/data/map-high.json]]</dt>
-<dd>A map-reduce job that returns the maximum high sell value in the first week of January.</dd>
+<dd>1月第1週の最高売上高を返す map-reduce ジョブです。</dd>
 <dt>[[map-highs-by-month.json|https://github.com/basho/basho_docs/raw/master/source/data/map-highs-by-month.json]]</dt>
-<dd>A more complicated map-reduce job that collects the max high by month.</dd>
+<dd>月毎の最高値を集計する、もっと複雑な map-reduce ジョブです。</dd>
 <dt>[[first-week.json|https://github.com/basho/basho_docs/raw/master/source/data/first-week.json]]</dt>
-<dd>A simple map-only job that returns the values for the first week of January 2010.</dd>
+<dd>2010年1月第1週の値を返す、単純な map のみのジョブです。</dd>
 </dl>
 
-## Sample Functions
+## 機能のサンプル
 
-So you've seen us run some MapReduce jobs. Now it's time to try your hand at it.
+MapReduce ジョブをご覧いただきました。次はあなたが自分でやる番です。
 
-Based on the sample data we loaded in the last section, here are some functions that should work for you. Take a few minutes to run them and, if you're feeling daring, modify them based on what you know about MapReduce in Riak to see if you can manipulate the results.
+前のセクションでロードしたサンプルデータを元にして、動作するサンプルを用意しました。これらを動かしてみください。興味があればこれを改造して、MapReduce がどのように結果を返すかなどをお確かめください。
 
-<div class="info"><div class="title">Submitting [[MapReduce]] queries from the shell</div>To run a query from the shell, here's the curl command to use:
+<div class="info"><div class="title">シェル上で [[MapReduce]] クエリを投げる</div>シェル上でクエリを実行するために、ここでは curl コマンドを使います:
 
 ```bash
 curl -X POST http://127.0.0.1:8091/mapred -H "Content-Type: application/json" -d @-
 ```
 
-After pressing return, paste your job in, for example the one shown below in the section "Complete Job", press return again, and then Ctrl-D to submit it. This way of running MapReduce queries is not specific to this tutorial, but it comes in very handy to just run quick fire-and-forget queries from the command line in general. With a client library, most of the dirty work of assembling the JSON that's sent to Riak will be done for you.</div>
+RETURN を押してから、ジョブをペーストしてください。たとえば下記の "ジョブ完了" セクションの中身です。再度 RETURN を押します。それから Ctrl-D でサブミットします。この方法による MapReduce クエリは、このチュートリアルのためだけでなく、とても簡単なので、コマンドラインから使う使い捨てのクエリとして利用できます。クライアントライブラリを使えば、Riak に投げるために JSON を組み立てるなどの泥臭い仕事は代わりにやってもらえます。</div>
 
-### Map: find the days where the high was over $600.00
+### Map: 最高値が $600.00 以上の日を探す
 
-*Phase Function*
+*フェーズ関数*
 
 ```javascript
 function(value, keyData, arg) {
@@ -191,7 +191,7 @@ function(value, keyData, arg) {
 }
 ```
 
-*Complete Job*
+*ジョブ完了*
 
 ```json
 {"inputs":"goog",
@@ -203,9 +203,9 @@ function(value, keyData, arg) {
 
 [sample-highs-over-600.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-highs-over-600.json)
 
-### Map: find the days where the close is lower than open
+### Map: クローズ時間がオープン時間よりも早い日を検索する
 
-*Phase Function*
+*フェーズ関数*
 
 ```javascript
 function(value, keyData, arg) {
@@ -217,7 +217,7 @@ function(value, keyData, arg) {
 }
 ```
 
-*Complete Job*
+*ジョブ完了*
 
 ```json
 {"inputs":"goog",
@@ -229,9 +229,9 @@ function(value, keyData, arg) {
 
 [sample-close-lt-open.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-close-lt-open.json)
 
-### Map and Reduce: find the maximum daily variance in price by month
+### Map と Reduce: 価格の日差変動が最も大きい月を探す
 
-*Phase functions*
+*フェーズ関数*
 
 
 ```javascript
@@ -244,7 +244,7 @@ function(value, keyData, arg){
   return [ obj ];
 }
 
-/* Reduce function to find the maximum variance per month */
+/* 月毎の最大変動を探す Reduce 関数 */
 function(values, arg){
   return [ values.reduce(function(acc, item){
              for(var month in item){
@@ -257,7 +257,7 @@ function(values, arg){
 }
 ```
 
-*Complete Job*
+*ジョブ完了*
 
 ```json
 {"inputs":"goog",
@@ -274,16 +274,16 @@ function(values, arg){
 
 [sample-max-variance-by-month.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-max-variance-by-month.json)
 
-## A MapReduce Challenge
+## MapReduce チャレンジ
 
-Here is a scenario involving the data you already have loaded up. If you have a moment, try to solve it using what you've just learned about MapReduce:
+ロードしたデータを使う例題を出題します。お時間があれば、MapReduce で学んだことを応用してみてください。
 
 
-<div class="note"><div class="title">MapReduce Challenge</div>Find the largest day for each month in terms of dollars traded, and subsequently the largest overall day.
+<div class="note"><div class="title">MapReduce チャレンジ</div>毎月の取引額がもっとも大きい日を検索しなさい。さらに全体でもっとも大きい日はいつでしょうか。
 
-*Hint*: You will need at least one each of map and reduce phases.</div>
+*ヒント*: それぞれについて、1つ以上の map と reduce フェーズが必要です。</div>
 
-#### Additional Reading for this Section
+#### 参考
 
 * [[MapReduce In Depth|MapReduce]]
 * [Erlang MapReduce](MapReduce#MapReduce via the Erlang API)
