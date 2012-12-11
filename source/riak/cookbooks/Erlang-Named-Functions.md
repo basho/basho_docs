@@ -5,44 +5,45 @@ version: 0.14.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [functions, beam, commit hook, mapreduce]
+keywords: [beam, commit hook, Erlang, function, module, mapreduce]
 ---
 
-Riak supports the use of compiled Erlang named functions as pre-commit hooks,
-post-commit hooks, and MapReduce operations. This guide explains the process
-for using your own named functions, including compilation, configuration, and
-installation of some basic examples.
+Riak supports the use of Erlang named functions in compiled modules for
+pre-commit hooks, post-commit hooks, and MapReduce operations. This cookbook
+explains the process for using your own named functions, including
+compilation, configuration, and installation of some basic examples.
 
 ## Pre-Commit Hook Example
 
-In this example, we'll define a function to enforce limitations on
-on object value size to 5MB or less. If you've read the [[Commit Hooks]]
-documentation, then this example will be familiar to you.
+For the pre-commit hook example, we'll define a function to enforce
+constraints on on object value size to 5MB or less. If you've read the
+[[Commit Hooks]] documentation, then this example will be familiar to you.
 
-Here is our example function.
+Here is our example pre-commit function:
 
 ```erlang
--module(limit_size).
+-module(pre_commit).
 
--export([precommit/1]).
+-export([limit_size/1]).
 
 
 %% Limits object values to 5MB or smaller
-precommit(Object) ->
+limit_size(Object) ->
   case erlang:byte_size(riak_object:get_value(Object)) of
     Size when Size > 5242880 -> {fail, "Object is larger than 5MB."};
     _ -> Object
   end.
 ```
 
-Save this file as `limit_size.erl` and proceed to compiling.
+Save this file as `pre_commit.erl` and proceed to compiling a module.
 
-<div class="info"><div class="title">Note</div>You must use the Erlang
-compiler (`erlc`) associated with the Riak installation or the version
-of Erlang used when compiling Riak from source. For packaged Riak
-installations, you can consult the table below for the default location
-of Riak's `erlc` for each supported platform. If you compiled from
-source, use the `erlc` from the Erlang version you used to compile Riak.</div>
+<div class="info"><div class="title">Note on the Erlang Compiler</div> You
+must use the Erlang compiler (<tt>erlc</tt>) associated with the Riak
+installation or the version of Erlang used when compiling Riak from source.
+For packaged Riak installations, you can consult Table 1 below for the
+default location of Riak's <tt>erlc</tt> for each supported platform.
+If you compiled from source, use the <tt>erlc</tt> from the Erlang version
+you used to compile Riak.</div>
 
 <table style="width: 100%; border-spacing: 0px;">
 <tbody>
@@ -79,46 +80,44 @@ source, use the `erlc` from the Erlang version you used to compile Riak.</div>
 </tbody>
 </table>
 
-Table 1: Erlang compiler executable location for supported platforms
+Table 1: Erlang compiler executable location for package installations
 
-Compiling the function is straightforward:
+Compiling the module into is a straightforward process:
 
 ```bash
 erlc limit_size.erl
 ```
 
 Next, you'll need to define a path from which to store and load compiled
-functions. For our example, we'll use a temporary directory (`/tmp/funs`),
+modules. For our example, we'll use a temporary directory (`/tmp/beams`),
 but you should choose a different directory for production functions
 such that they will be available where needed.
 
 Successful compilation will result in a new `.beam` file:
-`limit_size.beam`. Copy this file to the `/tmp/funs` directory.
+`pre_commit.beam`. Copy this file to the `/tmp/beams` directory.
 
 ```bash
-cp limit_size.beam /tmp/funs/
+cp pre_commit.beam /tmp/beams/
 ```
 
-After copying the compiled function into place, you'll need to update
-`app.config` to instruct Riak to allow loading of named functions from the
-directory where they're stored, again in this case, `/tmp/funs`.
+After copying the compiled module into place, you'll need to update
+`app.config` to configure Riak to allow loading of compiled modules from
+the directory where they're stored, again in our example case, `/tmp/beams`.
 
 Edit `app.config` and insert an `add_paths` setting into the `riak_kv`
-section as shown below.
+section as shown:
 
 ```erlang
 {riak_kv, [
   %% ...
-
-  {add_paths, ["/tmp/funs/"]},
-
-  %%...
+  {add_paths, ["/tmp/beams/"]},
+  %% ...
 ```
 
 After updating `app.config`, Riak must be restarted. In production cases, you
 should ensure that if you are adding configuration changes to multiple nodes,
-that you do so in a rolling fashion, taking time to allow the Riak key value
-store sufficient time to initialize and become available for use.
+that you do so in a rolling fashion, taking time to ensure that the Riak key
+value store has fully initialized and become available for use.
 
 This is done with the `riak-admin wait-for-service` command as detailed
 in the [Commands documentation](http://docs.basho.com/riak/latest/references/Command-Line-Tools---riak-admin/#wait-for-service).
@@ -127,13 +126,14 @@ in the [Commands documentation](http://docs.basho.com/riak/latest/references/Com
 active before moving a second node</strong>.</div>
 
 Once Riak is restarted, all that remains is to install the pre-commit
-hook on the target bucket(s) you wish it to operate on. In this example,
+hook into the target bucket(s) you wish it to operate on. In this example,
 we've just one bucket, named `avatars`, which we're going to install our
-`limit_size` function into.
+`limit_size` pre-commit function into.
 
-You can use Riak's HTTP interface and the curl(1) command line utility to
-install your named functions into into the relevant buckets. For our example,
-we'll install the `limit_size` function into our `avatars` bucket, like this.
+You can use Riak's HTTP interface and the `curl` command line utility to
+install your named functions into into the relevant bucket(s). For our
+example, we'll install the `pre_commit` module with its `limit_size`
+function into our `avatars` bucket, like this:
 
 ```bash
 curl -XPUT -H "Content-Type: application/json" \
@@ -141,12 +141,58 @@ http://127.0.0.1:8098/buckets/avatars/props    \
 -d '{"props":{"precommit":[{"mod": "limit_size", "fun": "precommit"}]}}'
 ```
 
+Check that the bucket has your post-commit hook listed in its properties.
+
+```bash
+curl localhost:8098/buckets/avatars/props | python -mjson.tool
+
+{
+    "props": {
+        "allow_mult": false,
+        "basic_quorum": false,
+        "big_vclock": 50,
+        "chash_keyfun": {
+            "fun": "chash_std_keyfun",
+            "mod": "riak_core_util"
+        },
+        "dw": "quorum",
+        "last_write_wins": false,
+        "linkfun": {
+            "fun": "mapreduce_linkfun",
+            "mod": "riak_kv_wm_link_walker"
+        },
+        "n_val": 3,
+        "name": "avatars",
+        "notfound_ok": true,
+        "old_vclock": 86400,
+        "postcommit": [],
+        "pr": 0,
+        "precommit": [
+            {
+                "fun": "precommit",
+                "mod": "limit_size"
+            }
+        ],
+        "pw": 0,
+        "r": "quorum",
+        "rw": "quorum",
+        "small_vclock": 50,
+        "w": "quorum",
+        "young_vclock": 20
+    }
+}
+```
+
+You can see that precommit is indeed set to our module pre_commit and
+limi_size function. Now you can test the pre-commit function by posting
+some objects with values under and over the 5MB threshold.
+
 ## Post-Commit Hook Example
 
-In this example, we'll define a post-commit hook function to log the object
-values after they are successfully written to Riak.
+For the post-commit example, we'll define a function to log the object
+values to `cnsole.log` after they are successfully written to Riak.
 
-Here is our example function.
+Here is our example function:
 
 ```erlang
 -module(post_commit).
@@ -159,12 +205,13 @@ log(Object) ->
 
 Save this file as `post_commit.erl` and proceed to compiling.
 
-<div class="info"><div class="title">Note</div>You must use the Erlang
-compiler (`erlc`) associated with the Riak installation or the version
-of Erlang used when compiling Riak from source. For packaged Riak
-installations, you can consult Table 1 above for the default location
-of Riak's `erlc` for each supported platform. If you compiled from
-source, use the `erlc` from the Erlang version you used to compile Riak.</div>
+<div class="info"><div class="title">Note on the Erlang Compiler</div> You
+must use the Erlang compiler (<tt>erlc</tt>) associated with the Riak
+installation or the version of Erlang used when compiling Riak from source.
+For packaged Riak installations, you can consult Table 1 below for the
+default location of Riak's <tt>erlc</tt> for each supported platform.
+If you compiled from source, use the <tt>erlc</tt> from the Erlang version
+you used to compile Riak.</div>
 
 Compiling the function is straightforward:
 
@@ -173,37 +220,35 @@ erlc post_commit.erl
 ```
 
 Next, you'll need to define a path from which to store and load compiled
-functions. For our example, we'll use a temporary directory (`/tmp/funs`),
+modules. For our example, we'll use a temporary directory (`/tmp/beams`),
 but you should choose a different directory for production functions
 such that they will be available where needed.
 
 Successful compilation will result in a new `.beam` file:
-`limit_size.beam`. Copy this file to the `/tmp/funs` directory.
+`post_commit.beam`. Copy this file to the `/tmp/beams` directory.
 
 ```bash
-cp post_commit.erl /tmp/funs/
+cp post_commit.beam /tmp/beams/
 ```
 
-After copying the compiled function into place, you'll need to update
-`app.config` to instruct Riak to allow loading of named functions from the
-directory where they're stored, again in this case, `/tmp/funs`.
+After copying the compiled module into place, you'll need to update
+`app.config` to configure Riak to allow loading of compiled modules from
+the directory where they're stored, again in our example case, `/tmp/beams`.
 
 Edit `app.config` and insert an `add_paths` setting into the `riak_kv`
-section as shown below.
+section as shown:
 
 ```erlang
 {riak_kv, [
   %% ...
-
-  {add_paths, ["/tmp/funs/"]},
-
-  %%...
+  {add_paths, ["/tmp/beams/"]},
+  %% ...
 ```
 
 After updating `app.config`, Riak must be restarted. In production cases, you
 should ensure that if you are adding configuration changes to multiple nodes,
-that you do so in a rolling fashion, taking time to allow the Riak key value
-store sufficient time to initialize and become available for use.
+that you do so in a rolling fashion, taking time to ensure that the Riak key
+value store has fully initialized and become available for use.
 
 This is done with the `riak-admin wait-for-service` command as detailed
 in the [Commands documentation](http://docs.basho.com/riak/latest/references/Command-Line-Tools---riak-admin/#wait-for-service).
@@ -216,9 +261,9 @@ hook on the target bucket(s) you wish it to operate on. In this example,
 we've just one bucket, named `updates`, which we're going to install our
 `post_commit` function into.
 
-You can use Riak's HTTP interface and the curl(1) command line utility to
+You can use Riak's HTTP interface and the `curl` command line utility to
 install your named functions into into the relevant buckets. For our example,
-we'll install the `limit_size` function into our `avatars` bucket, like this.
+we'll install the `post_commit` module into our `avatars` bucket, like this.
 
 ```bash
 curl -XPUT -H "Content-Type: application/json" \
@@ -286,3 +331,8 @@ You can now see the logged value of the object by examining `console.log`.
 ## MapReduce Example
 
 ## References
+
+1. [Commit Hooks](http://docs.basho.com/riak/latest/references/appendices/concepts/Commit-Hooks/)
+2. [MapReduce via the Erlang API](http://docs.basho.com/riak/latest/references/appendices/MapReduce-Implementation/#MapReduce-via-the-Erlang-API)
+3. [app.config](http://docs.basho.com/riak/latest/references/Configuration-Files/#app-config)
+4. [Curl](http://curl.haxx.se/)
