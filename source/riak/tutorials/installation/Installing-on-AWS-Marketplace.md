@@ -30,11 +30,19 @@ Once the virtual machine is created you should verify your selected EC2 security
 
 1. In the AWS EC2 Management Console, click "Security Groups", then click the name of the security group for your Riak VM.
 
-2. Click on the "Inbound" tab in the lower pane.  Your port settings should include the following rules:
+2. Click on the "Inbound" tab in the lower pane.  Your security group should include the following open ports:
+	- 22 (SSH)
+	- 8087 (Riak Protocol Buffers Interface)
+	- 8098 (Riak HTTP Interface)
+
+3. You will need to add additional rules within this security group to allow your Riak instances to communicate.  For each port range below, create a new "Custom TCP rule" with the source set to the current security group ID (found on the "Details" tab).  
+	- Port range: 4639
+	- Port range: 6000-7999
+	- Port range: 8099 
+
+4. When complete, your security group should contain all of the rules listed below.  If you are missing any rules, add them in the lower panel and then click the "Apply Rule Changes" button. 
 
 	![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
-
-3. If you are missing any rules, add them in the lower panel and click the "Apply Rule Changes" button. 
 
 You can read more about Riak's [[Network Security and Firewall Configurations]].
 
