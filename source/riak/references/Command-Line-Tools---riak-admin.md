@@ -104,7 +104,7 @@ riak-admin cluster commit
 ## join
 
 <div class="note"><div class="title">Deprecation Notice</title></div>
-  <p>As of Riak version 1.2, the <tt>riak-admin join</tt> command has been deprecated in favor of the <a href="#cluster"><tt>riak-admin cluster join</tt></a> command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
+  <p>As of Riak version 1.2, the <tt>riak-admin join</tt> command has been deprecated in favor of the [[riak-admin cluster join|Command-Line Tools - riak-admin#cluster-join]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
 </div>
 
 Joins the running node to another running node so that they participate in the
@@ -121,7 +121,7 @@ riak-admin join -f <node>
 ## leave
 
 <div class="note"><div class="title">Deprecation Notice</title></div>
-  <p>As of Riak version 1.2, the <tt>riak-admin leave</tt> command has been deprecated in favor of the new <a href="#cluster"><tt>riak-admin cluster leave</tt></a> command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
+  <p>As of Riak version 1.2, the <tt>riak-admin leave</tt> command has been deprecated in favor of the new [[riak-admin cluster leave|Command-Line Tools - riak-admin#cluster-leave]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
 </div>
 
 
