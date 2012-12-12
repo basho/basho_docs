@@ -1,5 +1,5 @@
 ---
-title: What is Riak
+title: Riak とは
 project: riak
 version: 0.10.0+
 document: tutorial
@@ -10,50 +10,50 @@ up:   ["The Riak Fast Track", "index.html"]
 next: ["Building a Dev Environment", "Building-a-Development-Environment.html"]
 ---
 
-This page introduces the architecture behind Riak's core principles: availability, fault-tolerance, operational simplicity and predictable scaling. If you already know this, you can skip it and [[go build a four-node cluster|Building a Development Environment]]. 
+このページでは Riak のコアとなるアーキテクチャについて紹介します: アベイラビリティ、フォールトトレランス、平易な操作、予測可能なスケーリングなどです。これらをすでにご存知でしたら、このページをスキップして [[ノード4つのクラスタを作る|Building a Development Environment]] へお進みください。
 
-## How Does a Riak Cluster Work?
+## Riak クラスタの働き
 
-### What is a Riak node?
+### Riak ノードとは
 
-Each node in a Riak cluster is the same, containing a complete, independent copy of the Riak package. There is no "master." No node has more or different responsibilities. This uniformity provides the basis for Riak's fault-tolerance and scalability. Riak is written in Erlang, a language designed for massively scalable systems requiring high availability, concurrency and fault-tolerance. 
+Riak クラスタの各ノードは同一で、Riak パッケージの完全なコピーを含んでいます。"マスタ"はありません。より多くのデータを持ったり、特別な機能を持ったノードはありません。この同一性こそ Riak のフォールトトレランスとスケーラビリティの源です。Riak は Erlang によって記述されています。これは、高いアベイラビリティ、並行処理、フォールトトレランスが求められる、非常にスケーラブルなシステムのためにデザインされた言語です。
  
-### Consistent Hashing
+### 整合性ハッシュ
 
-Data is distributed across nodes using consistent hashing. Consistent hashing ensures data is evenly distributed around the cluster and new nodes can be added with automatic, minimal reshuffling of data. This significantly decreases risky "hot spots" in the database and lowers the operational burden of scaling.
+データは整合性ハッシュを用いてノード間に分散されます。整合性ハッシュは、データをクラスタ全体に等しく分散し、新ノードを自動的に追加し、データの移動を最小限に留めます。これによってリスキーなデータベースの"ホットスポット"が劇的に減少し、スケーリング操作の付加が減ります。
 
-How does consistent hashing work? Riak stores data using a simple key/value scheme. These keys and values are stored in a namespace called a bucket. When you add new key/value pairs to a bucket in Riak, each object's bucket and key combination is hashed. The resulting value maps onto a 160-bit integer space. You can think of this integer space as a ring used to figure out what data to put on which physical machines. 
+整合性ハッシュはどのように動作するのでしょうか？　Riak はデータを単純なキー・バリュー形式で格納します。これらのキーとバリューはバケットと呼ばれるネームスペースに置かれます。新しいキー・バリュー ペアを Riak のバケットに追加するとき、オブジェクトのバケットとキーのコンビネーションがハッシュされます。この結果、バリューは160ビットの整数空間にマッピングされます。この整数空間をリング状にして、データをどの物理マシンに割り当てるかを決めます。
 
-How? Riak divides the integer space into equally-sized partitions (default is 64). Each partition owns the given range of values on the ring, and is responsible for all buckets and keys that, when hashed, fall into that range. Each partition is managed by a process called a virtual node (or "vnode"). Physical machines evenly divide responsibility for vnodes. Let's say you have a 4 node cluster with 32 partitions, managed by 32 vnode processes. Each of the four physical machines claim eight vnodes as illustrated below. Each physical machine thus becomes responsible for all keys represented by its eight vnodes. 
+どのようにして？　Riak は整数空間を同じサイズのパーティション(デフォルト 64)に分割します。パーティションはいずれも、全てのバケットおよびキーを担うリングの一部として構成し、ハッシュ化されたものがその中に割り当てられます。パーティションは仮想ノード("vnode")と呼ばれる方法で管理されます。物理マシンは vnode を扱うために等しく分割されます。それぞれ32個のパーティションを持つ、ノードが4つのクラスタがあるとします。下図のように4つの物理マシンがそれぞれ8つの vnode を要求します。この結果、各物理マシンは自身の8つの vnode にすべてのキーを持つようになります。
 
 ![A Riak Ring](/images/riak-ring.png)
 
-Due to the even distribution created by the hashing function and how physical nodes share responsibility for keys, Riak ensures data is evenly dispersed.   
+ハッシュによる分散、物理ノードのキー共有機能によって、Riak はデータを均等に分散させます。
 
-### Intelligent Replication
+### インテリジェントなレプリケーション
 
-Riak's replication scheme means that if nodes go down, you can still read, write and update data. Riak allows you to set a replication number, "n". An _n_ value of 3 (default) means that each object is replicated 3 times. When an object's key is mapped onto a given partition, Riak won't stop there - it automatically replicates the data onto the next two partitions as well.
+Riak のレプリケーション スキームは、たとえノードがダウンしていても、データの読み出し、書き込み、更新が可能です。レプリカの数は "n" で設定することができます。_n_ が 3 (デフォルト) のときには、オブジェクトは 3 回づつレプリカが作られます。オブジェクトのキーがパーティションに割り当てられたとき、Riak は自動的にデータを、残る 2 つのパーティションへレプリケーションします。
 
 ![A Riak Ring](/images/riak-data-distribution.png)
 
-### Riak Automatically Re-Distributes Data When Capacity is Added
+### ストレージが追加されると自動的にデータを再配置
 
-When you add machines, data is rebalanced automatically with no downtime. New machines take responsibility for their share of data by assuming ownership of some of the partitions; existing cluster members hand off the relevant partitions and the associated data. The new node continues claiming partitions until data ownership is equal, updating a picture of which nodes own what as it goes. This picture of cluster state is shared to every node using a gossip protocol and serves as a guide to route requests. This is what makes it possible for any node in the cluster to receive requests - developers don't need to deal with the underlying complexity of what data is where.  
+マシンを追加すると、ダウンタイムなしに、データは自動的にリバラウンスされます。新しいマシンはパーティションが所有するデータを引き受けます。既存のクラスタのメンバは関連するパーティション、データを手渡します。新しいノードは、所有するデータが等しくなるまでパーティションを要求し続け、ノードの関係を更新します。このクラスタの状態は、ゴシッププロトコルを用いて全てのノードと共有され、ルートリクエストへガイドします。これはすなわち、クラスタ内のどのノードも、リクエストを受けると何が起きるかについて、開発者は知る必要がなく、どこにデータがあるのかといったややこしいことも考える必要がありません。
 
-## When Things Go Wrong
+## 悪いことが起きたとき
 
-Riak retains fault-tolerance, data integrity, and availability even in failure conditions like hardware failure and network partitions. Riak has a number of properties to address these scenarios and other bumps in the road, like version conflicts in data. 
+Riak はフォールトトレランス、欠落のないデータを維持し、たとえハードウェアエラーやネットワーク分断が起きてもアベイラビリティを保ちます。Riak にはこのような状況や、その他の障害、たとえばデータのバージョン競合に対処する、さまざまな設定項目があります。
 
 ### Hinted Handoff
-Hinted handoff lets Riak handle node failure. If a node fails, a neighboring node will take over its storage operations. When the failed node returns, the updates received by the neighboring node are handed back to it. This ensures availability for writes and updates and happens automatically, minimizing the operational burden of failure conditions.
+Hinted handoff とはノードのエラーを処理するものです。ノードにエラーが起きたとき、近くのノードがストレージの操作を引き受けます。エラーノードが復旧したら、近くのノードから更新データを受け取り、元に戻します。これによってデータ書き込みおよび更新のアベイラビリティが保証されます。これは自動化されており、エラー処理という負荷を軽減します。
 
-### Version Conflicts
-In any system that replicates data, conflicts can arise - e.g., if two clients update the same object at the exact same time; or if not all updates have yet reached hardware that is experiencing lag. Further, in Riak, replicas are "eventually consistent"-  while data is always available, not all replicas may have the most recent update at the exact same time, causing brief periods (generally on the order of milliseconds) of inconsistency while all state changes are synchronized. 
+### バージョンの競合
+データのレプリケーションを行うどんなシステムでも、競合がつきものです。たとえば、2つのクライアントが同じオブジェクトを全く同じ時間に更新するとします。または、すべてのアップデートのうちのいくつかが、遅延のためにまだハードウェアまで届いていないとします。Riak ではレプリカは "結果整合性" を持ちます。データは常にアベイラブルなので、全く同じ瞬間にすべてのレプリカが最新のデータを持っているとは限りません。短い時間(通常はミリセカンドオーダ)が経過すると、すべてのものが同期します。
 
-How is divergence addressed? When you make a read request, Riak looks up all replicas for that object. By default, Riak will return the most updated version, determined by looking at the object's vector clock. Vector clocks are metadata attached to each replica when it is created. They are extended each time a replica is updated to keep track of versions. You can also allow clients to resolve conflicts themselves. Learn more on *[[eventual consistency|Eventual Consistency]]* and *[[vector clocks|Vector Clocks]]*. 
+divergence address はどうするのでしょうか。読み出しリクエストが行われると、Riak はすべてのレプリカでオブジェクトを検索します。デフォルトでは、オブジェクトのベクタークロックを参照して、最新のバージョンを返します。ベクタークロックとは、レプリカが作られた際にアタッチされるメタデータです。バージョンを追跡できるように、レプリカがアップデートされるごとに更新されます。また、クライアント側で競合を解消させることもできます。詳細は *[[結果整合性|Eventual Consistency]]* および *[[ベクタークロック|Vector Clocks]]* を参照してください。
 
-### Read Repair
-Further, when an outdated replica is returned as part of a read request, Riak will automatically update the out-of-sync replica to make it consistent. Read repair, a self-healing property of the database, will even update a replica that returns a "not_found" in the event that a node loses it due to physical failure. *[[More on read repair|Replication]]*.
+### 読み出し修復
+読み出しリクエストの結果として古いレプリカを返す場合、整合性を取るために Riak は自動的に同期不良のレプリカをアップデートします。データベースの自己修復機能である読み出し修復機能によって、物理エラーによるノード損失のために "not_found" を返さざる得ないときにも、レプリカのアップデートを行います。*[[読み出し修復の詳細|Replication]]*
 
-### Reading and Writing Data in Failure Conditions
-In Riak, you can set an _r_ value for reads and a _w_ value for writes. These values give you control over how many replicas must respond to a request for it to succeed. Let's say you have an _n_ value of 3, but one of the physical nodes responsible for a replica is down. With r=2, only 2 replicas must return results for a successful read. This allows Riak to provide read availability even when nodes are down or laggy. The same applies for the _w_ in writes. If you don't specify, Riak defaults to quorum: the majority of nodes must respond. There will be more on [[Tunable CAP Controls in Riak]] later in the Fast Track.
+### エラー時のデータ読み出しおよび書き込み
+Riak では、読み出しのために _r_ 値を、書き込みのために _w_ 値を設定できます。これらの値は、リクエストが成功するためにはいくつのレプリカが応答しなければならないかを制御します。仮に _n_ 値が 3 だとしましょう。しかし、レプリカの入っている物理ノードの1つがダウンしています。r=2 であれば、2個のレプリカが読み出し成功すれば良いのです。これが、ノードがダウン、あるいは遅延していても、Riak が読み出しアベイラビリティを確保できる理由です。書き込みについては _w_ で同じ事を行います。指定しないときのデフォルトは quorum で、半数以上のノードの応答を要します。これらの詳細は Fast Track にて後で説明する [[CAP コントロールを調整する|Tunable CAP Controls in Riak]] にあります。

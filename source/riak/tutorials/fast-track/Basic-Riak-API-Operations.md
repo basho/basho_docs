@@ -1,5 +1,5 @@
 ---
-title: Riak 基本 API の操作
+title: Riak の基本 API の操作
 project: riak
 version: 0.10.0+
 document: tutorial

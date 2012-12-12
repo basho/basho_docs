@@ -26,8 +26,8 @@ Fast Track は Riak についての経験が無いか、あるいは少しだけ
 Fast Track には以下のセクションがあります。
 
 * [[Riak とは？|What is Riak]]: Riak の概要とアーキテクチャについて
-* [[開発環境を作る|Building a Development Environment]]: マシンに開発用クラスタをインストールする
+* [[開発環境を構築する|Building a Development Environment]]: マシンに開発用クラスタをインストールする
 * [[Riak の基本 API の操作|Basic Riak API Operations]]:  標準 API の操作について
-* [[データの読み出しと MapReduce クエリ|Loading Data and Running MapReduce Queries]]: データをインポートし、簡単な MapReduce クエリを実行する
+* [[データのロードと MapReduce クエリ|Loading Data and Running MapReduce Queries]]: データをインポートし、簡単な MapReduce クエリを実行する
 * [[リンクとリンクウォーキング|Links and Link Walking]]:  Riak でのリンク操作方法
-* [[Riak での CAP コントロール|Tunable CAP Controls in Riak]]:  整合性とアベイラビリティの調整方法
+* [[CAP コントロールを調整する|Tunable CAP Controls in Riak]]:  整合性とアベイラビリティの調整方法

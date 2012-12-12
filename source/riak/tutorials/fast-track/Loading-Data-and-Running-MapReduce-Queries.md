@@ -1,5 +1,5 @@
 ---
-title: データをロードし、MapReduceLoading Data and Running MapReduce
+title: データのロードと MapReduce クエリ
 project: riak
 version: 0.10.0+
 document: tutorial
