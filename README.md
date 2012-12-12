@@ -4,8 +4,8 @@ This repo holds all the content (and other bits) for the most-excellent [Riak Do
 
 ## Prerequisites
 
-As with any Ruby project XCode & the XCode CLI Tools are needed to install, make and get everything running smoothly.
-![XCode CLI Tooling](http://adronhall.smugmug.com/Software/Software-Development/Basho-Misc/i-xPGs6Tf/0/O/cli.jpg)
+On OS-X specifically, as with any Ruby project XCode & the XCode CLI Tools are needed to install, make and install everything smoothly.
+![XCode CLI Tooling](http://adronhall.smugmug.com/Software/Software-Development/Basho-Misc/i-xPGs6Tf/1/S/cli-S.jpg)
 
 Another tool used with this repository is rvm. Get it here https://rvm.io/
 
