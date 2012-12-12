@@ -1,5 +1,5 @@
 ---
-title: Tunable CAP Controls in Riak
+title: CAP コントロールを調整する
 project: riak
 version: 0.10.0+
 document: tutorial
@@ -9,90 +9,90 @@ prev: ["Links and Link Walking", "Links-and-Link-Walking.html"]
 up:   ["The Riak Fast Track", "index.html"]
 ---
 
-So, we've come a long way. If you've done the Fast Track in order, that means you've had a short intro to Riak, set up a three node cluster on your local machine, worked a bit with the HTTP interface, and performed some MapReduce queries.
+さて、長い道のりでした。Fast Track にきちんと従っていれば、Riak の概要、ローカルマシンに3ノードのクラスタ1つ、HTTP インタフェースでの簡単な作業、そしてちょっとした MapReduce クエリの実行を行ったはずです。
 
-In the last section of the Fast Track, we are going to talk about how Riak distributes your data around the cluster and lets you tune your levels of consistency and availability. This has immense value and implications for your applications, and it's one of the Riak features that we feel truly differentiates us.
+Fast Track の最後のセクションは、Riak がどのようにしてデータをクラスタ全体に分散させるか、さらに整合性とアベイラビリティのレベルを調整する方法について説明しましょう。これは大きな価値と、アプリケーションへの影響を与えます。そしてこれが、Riak を他と区別する重要な機能の1つです。
 
-At the bottom of this page there is a final screencast that briefly touches on how to adjust your replication levels to match your application and business needs. Before you watch that, however, have a quick read of the content below.
+ページの末尾には、あなたのアプリケーションおよびビジネスに適合するようにレプリカのレベルを調整する方法を簡単に説明する、最後のスクリーンキャストがあります。とにかく、それをご覧いただく前に以下を軽くお読みください。
 
-## A Primer on N, R, and W
+## N、R、W についての手引き
 
-Riak exposes "CAP Controls" to the developers in such a way that they can, down to the Bucket level, tune how many copies of data we want to store. We do this using N, R, and W values.
+Riak は開発者に対して、データのコピーをいくつ作るかをバケットのレベルまで調整する方法を提供しています。これには N、R、W 値を使用します。
 
-Riak's guiding design principle is Dr. Eric Brewer's CAP Theorem. The CAP theorem defines distributed systems in terms of three desired properties: Consistency, Availability, and Partition (failure) tolerance. The theorem states you can only rely on having two of the three properties at any time.
+Riak のデザインは Dr. Eric Brewer の CAP 定理に基づきます。CAP 定理は分散システムを3つのプロパティで定義します。整合性(Consistency)、アベイラビリティ(Availability)、分断化(エラー)耐性(Partition)です。一度に使用できるのは3つのプロパティのうち2つだけであるというのが定理の内容です。
 
-Riak chooses to focus on the A and P of CAP. The choice puts Riak in the eventually consistent camp. However, the window for "eventually consistent" is in terms of milliseconds which can be good enough for many applications.
+Riak は CAP のうち、A と P に着目しています。これにより Riak はいつかは整合性が取れる(結果整合性)ということになります。といっても、"結果整合性" に要する時間はミリセカンドであり、これはほとんどのアプリケーションに取って十分な時間だと言えます。
 
-### N Value and Replication
+### N 値とレプリケーション
 
-All data stored in Riak will be replicated to a number of nodes in the cluster according to the N value (n_val) property set on the bucket. By default, Riak chooses an n_val of "3" for you. This means that data stored in the bucket will be replicated to three different nodes, thus storing three copies. For this to be effective, you need at least three physical nodes in your cluster. (We can, however, demonstrate its merits with local nodes.)
+Riak に格納されているすべてのデータは、バケットに設定されているプロパティ N 値(n_val)によって、クラスタ内で複数のノードにレプリケーションされます。デフォルトでは n_val は "3" となっています。バケットに格納されたデータは3つの異なるノードにレプリケーションされる、すなわち3つのコピーが格納されるということです。これが有効に働くためには、最低3つの物理ノードがクラスタになければいけません(このメリットについてローカルノードで御覧いただけます)。
 
-To change the N value for a bucket (to something different than the default) issue a PUT request to the bucket with the new N value. If you still have your three node Riak cluster running, try this:
+バケットの N 値を変更する(デフォルトと違う値にする)ためには、PUT リクエストで新しい N 値をバケットに伝えます。Riak で3つのノードが動いているならば、このようにしてください:
 
 ```bash
 $ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":2}}' \
   http://127.0.0.1:8091/riak/another_bucket
 ```
 
-This will change the n_val of the bucket "another_bucket" to two, meaning that each piece of data in that bucket will be replicated to two partitions in the cluster.
+これでバケット "another_bucket" の n_val が 2 に変更されました。つまりデータはクラスタ内の2つのパーティションにレプリケーションされるということです。
 
-<div class="note"><div class="title">A Word on Setting the N Value</div>n_val must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. And, we advise against modifying the n_val of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
+<div class="note"><div class="title">A Word on Setting the N Value</div>レプリケーションの利点を享受するためには、n_val は 0 より大きく、クラスタの大きさ以下でなければなりません。また、作成したばかりのバケットの n_val を修正することはお勧めしません。新しい値がすべてのパーティションに適切にレプリケーションされないかもしれません。</div>
 
-### R Value and Read Failure Tolerance
+### R 値と読み出しエラー耐性
 
-So we changed the Bucket n_val to 2 with that last command.
+先程のコマンドで、バケットの n_val を 2 に変更しました。
 
-Riak allows the client to supply an "R value" on each direct fetch. The R value represents the number of Riak nodes which must return results for a read before the read is considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
+Riak ではフェッチごとに "R 値" を設定することができます。R 値というのは、読み出しが成功したとみなされるために、読み出し結果を返さなければいけない Riak ノードの数を示します。これによってノードがダウンしていたり、のろのろしていても、読み出しアベイラビリティが保証されます。
 
-For example, in this HTTP request, the r value is set to 1:
+たとえば、この HTTP リクエストでは r 値を 1 にしています。
 
 ```bash
 http://127.0.0.1:8091/riak/images/1.png?r=1
 ```
 
-This means that Riak will return a copy of that data if at least 1 copy is present in your cluster.
+これによってクラスタに最低1つのコピーがあれば、Riak はコピーを返します。
 
-### W Value and Write Fault Tolerance
+### W 値と書き込みエラー耐性
 
-Riak also allows the client to supply a "W value" on each update. The W value represents the number of Riak nodes which must report success before an update is considered complete. This allows Riak to provide write availability even when nodes are down or laggy.
+Riak では、更新ごとに "W 値" を設定することができます。W 値というのは、書き込みが完了したとみなされるために、成功を返さなければならない Riak ノードの数を示します。これによってノードがダウンしていたり、のろのろしていても、書き込みアベイラビリティが保証されます。
 
-In this PUT operation, you can see the w value set to 3.
+この PUT オペレーションでは、w 値を 3 にセットしています。
 
 ```bash
 $ curl -v -XPUT http://127.0.0.1:8091/riak/docs/story.txt?w=3 \
   -H "Content-type: text/plain" --data-binary @story.txt
 ```
 
-### Symbolic Consistency Names
+### 整合性シンボル
 
-Riak 0.12 introduces "symbolic" consistency options for R and W that can be easier to use and understand. They are:
+Riak 0.12 では便利で分かりやすくするために R および W の整合性オプションにシンボルを用意しました。
 
-* *all* - All replicas must reply. This is the same as setting R or W equal to N.
-* *one* - This is the same as sending 1 as the R or W value.
-* *quorum* - A majority of the replicas must respond, that is, "half plus one". For the default N value of 3, this calculates to 2.
-* *default* - Uses whatever the per-bucket consistency property is for R or W, which may be any of the above values, or an integer.
+* *all* - すべてのレプリカがリプライを返さねばならない。これは R および W を N と同じ値にするのと等価である。
+* *one* - R および W を 1 に設定する。
+* *quorum* - レプリカの過半数が応答しなければならない、すなわち 1/2 + 1。N 値がデフォルトの 3 のときは 2 となる。
+* *default* - バケットごとの整合性プロパティ R または W が上記のシンボルや整数のいくつであっても、デフォルトを使う。Uses whatever the per-bucket consistency property is for R or W, which may be any of the above values, or an integer.
 
-Not submitting an R or W value is the same as sending "default".
+R または W の値を指定しないときは、"default" を送ったのと同じです。
 
-## N, R and W in Action
+## N、R、W の動き
 
-Here is brief screencast that will show you just how the N, R, and W values function in our running three node Riak cluster:
+ノード3つの Riak クラスタで、N、R、W 値がどのように働くかを簡単に紹介するスクリーンキャストです:
 
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/11172656"></div>
 
 <p><a href="http://vimeo.com/11172656">Tuning CAP Controls in Riak</a> from <a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
-### What's next?
+### この次は？
 
-Congratulations. If you're reading this and have done the Fast Track in order, it means that you've built a three node Riak cluster, inserted a small amount of data with the help of some scripts, performed basic API operations, queried that data with MapReduce, and have an introduction to the powers of tunable CAP controls. Needless to say, you've come a long way.
+お疲れ様でした。これをお読みになり、Fast Track を試されていたら、ノード3つの Riak クラスタができているはずで、その中にはスクリプトによっていくつかのデータがあり、基本的な API の実行、MapReduce でのクエリ、CAP コントロールの能力についての紹介を行いました。いうまでもありませんが、ほんとうにご苦労様でした。
 
-But, there is always more Riak learning to be done, so here is a list of next steps you may want to take if you are still interested in Riak. Whatever you do, if you have a moment, send an email to _mark@basho.com_ with your thoughts on what you thought we did well, and, more importantly, how we can make the Riak Fast Track better.
+でも、Riak の学習はこれで終わりではありません。Riak について興味がおありでしたら、次のステップに進むためのリストをご紹介します。もしもお時間があれば、_mark@basho.com_ 宛てに、ご感想、ご要望、そして Riak Fast Track をより良くするためのご提案をお寄せください。
 
-* If you'd like more general information about Riak, check out our collections of [[Publications]] and [[Slides|Slide Decks]].
-* For more info on how to interact with Riak from your language of choice, start with [[Client Libraries]]
-* To download a platform-specific package of Riak, check out [[Getting Started|Installation]]
-* If you're interested in knowing how Riak stacks up to a few other databases, have a look at [[Riak Comparisons|Riak Comparisons]]
-* If you want to have a look at the Riak Source you can do so on [[GitHub|http://github.com/basho/riak]]
+* Riak についての一般的な情報がご入用でしたら [[出版物|Publications]] と [[スライド|Slide Decks]] を参照してください。
+* さまざまな言語から Riak を操作する方法については、[[クライアントライブラリ|Client Libraries]] をご覧ください。
+* プラットフォームごとの Riak パッケージをダウンロードするには、[[はじめましょう|Installation]] をご覧ください。
+* Riak が他のデータベースよりも優れている点をお知りになりたければ [[Riak 比較表|Riak Comparisons]] を参照してください。
+* Riak のソースがご入用でしたら [[GitHub|http://github.com/basho/riak]] にあります。
 
 
-And finally, a big [[Thank You]] to everyone who helped create, update and fix this tutorial.
+末尾になりましたが、このチュートリアルの作成、およびアップデートと修正にご協力いただいた皆様に大きな[[感謝|Thank You]]を捧げます。
