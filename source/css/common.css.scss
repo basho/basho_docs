@@ -200,10 +200,15 @@ body {
     padding  : 25px 0;
     position : absolute;
     margin   : 25px -25px 0;
-    
+    text-shadow : #333 1px 1px 1px;
+    line-height : 1.2;
     a {
       color:white;
-      font-size:80%;
+      text-decoration:none;
+      &[href^="http://"], &[href^="https://"] {
+        background:none;
+        padding-right: 0;
+      }
     }
 
     @media screen and (max-width: 700px) {
@@ -543,6 +548,13 @@ div[role="main"] {
     a {
       color : $headerColor;
     }
+
+  @media screen and (max-width: 700px) {
+    a {
+      white-space : normal;
+    }
+  }
+
   }
   
   h2 {
