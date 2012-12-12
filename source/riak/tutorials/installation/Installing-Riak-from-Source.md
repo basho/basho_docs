@@ -20,27 +20,30 @@ If you do not have Erlang already installed, see [[Installing Erlang]]. Don't wo
 <div class='note'>Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 
 ## Installation
-The following instructions generate a complete, self-contained build of Riak in `$RIAK/rel/riak` where “`$RIAK`” is the location of the unpacked or cloned source.
+The following instructions generate a complete, self-contained build of Riak in `$RIAK/rel/riak` where `$RIAK` is the location of the unpacked or cloned source.
 
 ### Installing from source package
 Download the Riak source package from the [[Download Center|http://basho.com/resources/downloads/]] and build:
 
 {{#1.2.0}}
+
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/riak-1.2.0.tar.gz
 tar zxvf riak-1.2.0.tar.gz
 cd riak-1.2.0
 make rel
 ```
-{{/1.2.0}}
 
+{{/1.2.0}}
 {{#1.2.1}}
+
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
 tar zxvf riak-1.2.1.tar.gz
 cd riak-1.2.1
 make rel
 ```
+
 {{/1.2.1}}
 
 <div class='note'> If you see the error `fatal: unable to connect to github.com` see the following instructions for building on systems with no internet availability </div>
@@ -50,9 +53,9 @@ The error `fatal: unable to connect to github.com` when building from source is 
 
 Download the following `leveldb` archive for the version of Riak you are using:
 
-  * Riak 1.2.1 - https://github.com/basho/leveldb/zipball/1.2.2p5 {{1.2.1+}}
-  * Riak 1.2.0 - https://github.com/basho/leveldb/zipball/2aebdd9173a7840f9307e30146ac95f49fbe8e64
-  * Riak 1.1.4 - https://github.com/basho/leveldb/zipball/14478f170bbe3d13bc0119d41b70e112b3925453
+  * **1.2.1**: `https://github.com/basho/leveldb/zipball/1.2.2p5`
+  * **1.2.0**: `https://github.com/basho/leveldb/zipball/2aebdd9173a7840f9307e30146ac95f49fbe8e64`
+  * **1.1.4**: `https://github.com/basho/leveldb/zipball/14478f170bbe3d13bc0119d41b70e112b3925453`
 
 The instructions going forward will assume Riak 1.2.0, replace the appropriate file for your version.
 
