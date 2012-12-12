@@ -24,6 +24,37 @@ A:
   The "chcon" warning comes from necessary additions to the RPM packaging for cases where SELinux is enabled. You only receive the warning if SELinux is disabled while installing or was disabled when the last version was installed. It is safe to ignore.
 
 
+Q: It is ok to distribute Riak over a WAN?
+  How exactly does performance degrade when nodes are spread out
+  between hosts with latencies in the tens to hundred plus milliseconds (as
+  is typical over WANs)? Does reliability of connections and overhead in
+  retrying them pose a problem?
+A:
+  Latency is a big reason.  Every Riak request involves N vnodes.  If
+  those vnodes are spread across different regions with varying latencies
+  then your deviation grows and higher percentiles go through the roof. The
+  wider you go the more unpredictable your latency profile becomes.
+  Predictable latency is key to many applications built on top of Riak.
+  This is a point made very clear in the Dynamo paper which heavily
+  influenced the design of Riak.
+
+  Another reason is connection relyability. A node that is dead is indistinguishable
+  from a node that is simply taking a really long time to respond.  Once you spread
+  nodes across a WAN the chance for network failure, and thus network
+  partitions, becomes much greater.  Riak is designed to always be available
+  for writes but you still want to avoid partitions as much as possible.
+  Partitions are one of the primary causes of siblings, potentially
+  generating lots of sibling resolution. Partitions also cause additional
+  load to be placed on the nodes, since to allow sloppy quorums requires
+  nodes must take on the work of other partitioned nodes, possibly doubling
+  or trippling the workload of each server.
+  
+  If you must replicate data in Riak across multiple datacenters, consider
+  looking into [[Riak Enterprise]], which handles data Multi Data Center replication
+  across a WAN (without the downsides listed above).
+
+  Check out this talk on [WAN MDC replication](http://vimeo.com/52016325).
+
 Q: What's the difference between cluster `leave` and `remove`?
   I'm trying to remove a node from my cluster and it's unclear whether I should use riak-admin leave or riak-admin remove. What's the difference between them?
 A: 
