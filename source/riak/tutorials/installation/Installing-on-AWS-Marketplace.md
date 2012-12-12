@@ -36,7 +36,7 @@ Once the virtual machine is created you should verify your selected EC2 security
 	- 8098 (Riak HTTP Interface)
 
 3. You will need to add additional rules within this security group to allow your Riak instances to communicate.  For each port range below, create a new "Custom TCP rule" with the source set to the current security group ID (found on the "Details" tab).  
-	- Port range: 4639
+	- Port range: 4369
 	- Port range: 6000-7999
 	- Port range: 8099 
 
