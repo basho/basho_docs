@@ -38,7 +38,7 @@ A:
   This is a point made very clear in the Dynamo paper which heavily
   influenced the design of Riak.
 
-  Another reason is connection relyability. A node that is dead is indistinguishable
+  Another reason is connection reliability. A node that is dead is indistinguishable
   from a node that is simply taking a really long time to respond.  Once you spread
   nodes across a WAN the chance for network failure, and thus network
   partitions, becomes much greater.  Riak is designed to always be available
