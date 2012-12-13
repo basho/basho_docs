@@ -107,6 +107,7 @@ riak:
       - title: "Configuration"
         sub:
           - "[[Configuration Files]]"
+          - "[[Erlang Named Functions]]"
           - "[[Network Security and Firewall Configurations]]"
           - "[[MapReduce|MapReduce - Settings]]"
           - "[[Search|Riak-Search - Settings]]"
