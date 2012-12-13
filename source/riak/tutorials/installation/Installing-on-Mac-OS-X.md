@@ -73,5 +73,5 @@ If you get errors when building about "incompatible architecture", please verify
 ## Next Steps?
 From here you might want to check out:
 
-  * [[The Riak Fast Track]]: a guide for setting up a 3 node cluster and exploring Riak's main features.
+  * [[The Riak Fast Track]]: a guide for setting up a 4 node cluster and exploring Riak's main features.
   * [[Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!
