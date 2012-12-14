@@ -1,7 +1,7 @@
 ---
 title: Installing on AWS Marketplace
 project: riak
-version: 1.1.0+
+version: 1.2.1+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, AWS, marketplace, amazon]
