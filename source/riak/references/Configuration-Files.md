@@ -51,6 +51,12 @@ simultaneously initialized, set this number to a higher value accordingly.
 You should adjust this value to meet your anticipated simultaneous
 connection demand or if experiencing connection resets. (default: 5)
 
+ * **disable_pb_nagle**
+Turns off Nagle's algorithm (aka TCP slow-start) for Protocol Buffers
+connections. This is equivalent to setting the TCP_NODELAY option on
+the HTTP socket. (default:
+{{#1.3.0+}}false{{/1.3.0+}}{{#1.3.0-}}true{{/1.3.0-}})
+
 {{/1.2.0+}}
 
 ### riak_core settings
