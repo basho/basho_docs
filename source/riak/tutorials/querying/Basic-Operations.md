@@ -1,15 +1,16 @@
 ---
-title: Basic Requests
+title: 基本操作
 project: riak
 version: 0.10.0+
 document: tutorials
 toc: true
 audience: beginner
 keywords: [querying, api, http]
-prev: ["Querying Riak", "index.html"]
-up:   ["Querying Riak", "index.html"]
+prev: ["クエリする", "index.html"]
+up:   ["クエリする", "index.html"]
 next: ["Map Reduce", "MapReduce.html"]
 ---
+
 
 Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. This section describes how to do that using the Riak [[HTTP API]], but the concepts apply equally to Riak's [[Protocol Buffers Client API|PBC API]] interface.
 

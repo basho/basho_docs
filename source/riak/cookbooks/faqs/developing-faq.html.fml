@@ -225,7 +225,7 @@ Q: How do I spread requests across (load balance) a Riak cluster?
 A:
   There are at least two acceptable strategies for load-balancing requests across your Riak cluster, **virtual IPs** and **reverse-proxy**.
   
-  For further information see [[System Planning|System Planning#Network Configuration / Load Balancing]].
+  For further information see [[System Planning|System Planning#Network-Configuration-Load-Balancing]].
 
 
 Q: Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?

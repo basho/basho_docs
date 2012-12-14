@@ -9,7 +9,7 @@ dual: true
 <div id="background"></div>
 <div id='container'>
   <div class="info">
-  <div class="title">This is a work in progress.</div>
+  <div class="title">What is This For?</div>
   <p>
   This is a modified version of <a href="http://www.read.seas.harvard.edu/~kohler/class/cs239-w08/decandia07dynamo.pdf">Amazon's Dynamo Paper</a>, annotated with information about Riak and how its design compares to Dynamo. Basho Technologies built Riak based on many (but not all) of the ideas and design decisions set forth in this paper. We often get questions about how closely we adhered to the principles and design decisions put forth in the paper. I thought it would be worthwhile to annotate it with Riak specifics.
   </p>
@@ -36,8 +36,7 @@ dual: true
         <p>In the right column, you&#39;ll find the paper reprinted in its entirety, images and all. 
 In this, the left column, you have Riak specifics that relate to a given section of the paper; 
 anything from links to the Riak docs, to code references, to explanations of why and how
-we did what we did when we did it. There is also some work to do to make Riak more like Dynamo in some 
-ways. This is noted, too. </p>
+we did what we did when we did it.</p>
 
 <hr>
       </td>
@@ -52,18 +51,21 @@ ways. This is noted, too. </p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-2">&#182;</a>
         </div>
-        <p>This paper was first release in ... and was popularized on the blog of Werner Vogels. Since then there 
-has been a large amount of databases that were insprired (either entirely or partially) by this paper. 
+        <p>This paper was first release in ... and was popularized on the blog of Werner Vogels. Since then, 
+several Dynamo-inspired databases have appeared (either entirely or partially) by this paper. 
 In addition to Riak, Cassandra and Voldemort come to mind. Some of you may also remember 
 Dynomite (which predates all of these). I&#39;m sure there are more. </p>
+
+<p>Also note that this paper has little to do with Amazon&#39;s DynamoDB service. They have not published
+the inner workings of that implementation.</p>
       </td>
       <td class=code>
         <div class='highlight'>
 
-<div style="text-align:center">
+<div style="text-align:center;font-style:italic">
 Giuseppe DeCandia, Deniz Hastorun, Madan Jampani, Gunavardhan Kakulapati, 
 Avinash Lakshman, Alex Pilchin, Swaminathan Sivasubramanian, Peter Vosshall and Werner Vogels
-
+<br>
 Amazon.com
 </div>
 
@@ -149,7 +151,7 @@ the ring. For the consistent hashing that takes place in riak_core, Basho chose
 the SHA1 hash.</p>
 
 <ul>
-<li>[[Consistent Hashing|Riak Glossary#RiakGlossary-ConsistentHashing]]</li>
+<li>[[Consistent Hashing|Riak-Glossary#Consistent-Hashing]]</li>
 </ul>
 
 <p>Riak uses vector clocks for object versioning. Scroll down to section 4.4 to read up on this in depth.</p>
@@ -157,7 +159,7 @@ the SHA1 hash.</p>
 <p>Riak makes use of gossiping in the same way that Dynamo does: to communicate ring state and node membership.</p>
 
 <ul>
-<li>[[Gossip Protocol|Riak Glossary#RiakGlossary-Gossiping]]</li>
+<li>[[Gossip Protocol|Riak-Glossary#Gossiping]]</li>
 </ul>
 
 <p>And, nodes can added and removed from your Riak cluster as needed.</p>
@@ -219,7 +221,7 @@ provided through aggregate measures instead of absolute details.</p>
         </div>
         <p>Basho Technologies started to develop Riak back in 2007 to solve an internal problem. We were, 
 at the time, builing a web application that would require a database layer that afforded higher 
-availability and scale out properties than any technology we knew of. So, we (primary Justin Sheehy, Andy 
+availability and scale out properties than any technology we knew of. So, we (primary Justin Sheehy,
 Andy Gross, and Bryan Fink at the time) rolled our own. </p>
 
 <p>After using Riak in production for several successful applications that generated revenue, we decided
@@ -258,9 +260,9 @@ schemes for load balancing. </p>
         <p>Riak is a highly available, scalable, open source key/value database. Theses notes
 describe where Riak&#39;s design decisions emulated and diverged from Dynamo&#39;s (as described in this paper).</p>
 
-<p>Riak has offers several query methods in addition to the standard key/value interface, 
+<p>Riak offers several query methods in addition to the standard key/value interface, 
 is made to be highly-avaible, is efficient in its resource uses, and has a simple scale out 
-story accompany data and traffic growth. </p>
+story to accompany data and traffic growth. </p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -290,7 +292,6 @@ rates. Each service that uses Dynamo runs its own Dynamo instances.</p>
 <ol>
 <li>Standard key/value access (GET, PUT, DELETE)</li>
 <li>MapReduce querying</li>
-<li>Links and Link Walking (which is analogous to relationships in GraphDBs and is a form or MapReduce under the hood)</li>
 <li>Secondary Indexing</li>
 <li>Full-text Search</li>
 </ol>
@@ -319,7 +320,7 @@ relational schema. Dynamo targets applications that need to store objects that a
         <p><strong>ACID?</strong></p>
 
 <p>Riak offers no traditional &quot;ACID&quot; semantics around transactions. Instead, it&#39;s built to 
-be &quot;evenutually consistent.&quot; We did this because we were of the opinion (and our users proved this)
+be &quot;evenutually consistent.&quot; We did this because we were of the opinion (and our users proved this out)
 that most applications don&#39;t require heavy transactions. (Even ATMs are eventually consistent.)</p>
       </td>
       <td class=code>
@@ -471,7 +472,7 @@ and to let services make their own tradeoffs between functionality, performance 
           <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
         <p>Availability under any circumstances was something we stressed when 
-designing Riak, too. Most database didn&#39;t enable developers to do this in a simple way
+designing Riak, too. Most databases didn&#39;t enable developers to do this in a simple way
 so we set out to change this.</p>
       </td>
       <td class=code>
@@ -517,7 +518,7 @@ consistent data store; that is all updates reach all replicas eventually.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
-        <p>Ditto</p>
+        <p>Ditto!</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -585,7 +586,7 @@ to as “node”) at a time, with minimal impact on both operators of the system
         <div class="pilwrap">
           <a class="pilcrow" href="#section-18">&#182;</a>
         </div>
-        <p>Again, we agree. Each storage nope is the same at its neighbor. Any node can coordinate 
+        <p>Again, we agree. Each storage node is the same at its neighbor. Any node can coordinate 
 a request and, in the event that a node goes does, its neighbors can cover for it until 
 it&#39;s restarted or decommissioned. </p>
       </td>
@@ -671,7 +672,7 @@ within a bounded number of hops.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-22">&#182;</a>
         </div>
-        <p>Riak gossip protocol communicates between nodes with O(1) routing, and maintains local routing information.</p>
+        <p>Riak&#39;s gossip protocol communicates between nodes with O(1) routing, and maintains local routing information.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -849,8 +850,8 @@ will also return the associated metadata for a given object with each get or put
 
 <p>Riak has two APIs:
 <ul>
-<li><a href="#">Riak&#39;s HTTP API</a></li>
-<li><a href="#">Riak&#39;s Protocol Buffers API</a></li>
+<li>[[Riak&#39;s HTTP API|HTTP API]]</li>
+<li>[[Riak&#39;s Protocol Buffers API|PBC API]]</a></li>
 </ul></p>
       </td>
       <td class=code>
@@ -981,10 +982,10 @@ a roughly equivalent amount of load from each of the other available nodes.</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-32">&#182;</a>
         </div>
-        <p><u>Further Reading on Partitioning in Riak</u>
-<ul>
-<li><a href ="#">All about the Riak Ring</a></li> 
-</ul></p>
+        <ul>
+<li>[[Further Reading on Partitioning in Riak|Concepts#Clustering]]</li>
+<li>[[All about the Riak Ring|Clusters#The-Ring]]</li>
+</ul>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1085,7 +1086,7 @@ positions in the ring to ensure that the list contains only distinct physical no
           <a class="pilcrow" href="#section-37">&#182;</a>
         </div>
         <p>Riak is an &quot;eventually consistent&quot; database. All replication is done asynchronously,
-as you can expect, could result in a datum being returned to the client that is out of
+as you would expect, could result in a datum being returned to the client that is out of
 date. But don&#39;t worry. We built in some mechanisms to address this.</p>
       </td>
       <td class=code>
@@ -1182,7 +1183,7 @@ possibility of multiple versions of the same data (in order to never lose any up
         <p>As you may have already figured out, Riak uses vector clocks for object versioning, too.
 Here are a whole host of resources to keep you busy for a while:
 <ul>
-<li>[[Vector Clock on Riak Glossary|Riak Glossary#Vector-Clock]]</li>
+<li>[[Vector Clock on Riak Glossary|Riak-Glossary#Vector-Clock]]</li>
 <li><a href="http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/">Why Vector Clocks are Easy</a></li>
 <li><a href="http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/">Why Vector Clocks are Hard</a></li>
 <li><a href="http://en.wikipedia.org/wiki/Vector_clock">Vector Clocks on Wikipedia</a></li>
@@ -1366,7 +1367,7 @@ to the N highest-ranked reachable nodes. If at least W-1 nodes respond then the 
         <div class="pilwrap">
           <a class="pilcrow" href="#section-47">&#182;</a>
         </div>
-        <p>Same for Riak. Reconciled divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].</p>
+        <p>Same for Riak. Reconcilling divergent versions in Riak is called [[Read Repair|Replication#Read-Repair]].</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1385,7 +1386,8 @@ then reconciled and the reconciled version superseding the current versions is w
         <div class="pilwrap">
           <a class="pilcrow" href="#section-48">&#182;</a>
         </div>
-        <p>Annotate this  </p>
+        <p>[[Hinted handoff|Riak Glossary#Hinted-Handoff]] is built into Riak Core, and implemented by
+Riak KV.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1398,6 +1400,20 @@ this it does not enforce strict quorum membership and instead it uses a “slopp
 operations are performed on the first N healthy nodes from the preference list, which may not always be 
 the first N nodes encountered while walking the consistent hashing ring.</p>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-49'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-49">&#182;</a>
+        </div>
+        <p>You can glimpse at Riak&#39;s preference list (or <em>preflist</em>) calculation in the
+[[Replication]] walkthrough.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <p>Consider the example of Dynamo configuration given in <a href="#figure-2">Figure 2</a> with N=3. In this example, if node 
 A is temporarily down or unreachable during a write operation then a replica that would normally 
 have lived on A will now be sent to node D. This is done to maintain the desired availability and 
@@ -1407,12 +1423,40 @@ will keep them in a separate local database that is scanned periodically. Upon d
 recovered, D will attempt to deliver the replica to A. Once the transfer succeeds, D may delete the 
 object from its local store without decreasing the total number of replicas in the system.</p>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-50'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-50">&#182;</a>
+        </div>
+        <p>As mentioned previously, Riak does not require that a write be durable, only that a vnode responds
+in the affirmative. If you require a durable write in the way mentioned here, use DW.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <p>Using hinted handoff, Dynamo ensures that the read and write operations are not failed due to temporary 
 node or network failures. Applications that need the highest level of availability can set W to 1, 
 which ensures that a write is accepted as long as a single node in the system has durably written 
 the key it to its local store. Thus, the write request is only rejected if all nodes in the system 
 are unavailable. However, in practice, most Amazon services in production set a higher W to meet 
 the desired level of durability. A more detailed discussion of configuring N, R and W follows in section 6.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-51'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-51">&#182;</a>
+        </div>
+        <p>[[Multi Datacenter Replication|Multi Data Center Replication Architecture]] is implemented
+in the commercial extension to Riak, called [[Riak Enterprise Edition|Riak Enterprise]].</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>It is imperative that a highly available storage system be capable of handling the failure of an 
 entire data center(s). Data center failures happen due to power outages, cooling failures, network 
@@ -1425,12 +1469,13 @@ center failures without a data outage.</p>
 </div>
       </td>
     </tr>
-    <tr id='section-49'>
+    <tr id='section-52'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-49">&#182;</a>
+          <a class="pilcrow" href="#section-52">&#182;</a>
         </div>
-        <p>All of this</p>
+        <p>Read repair, mentioned above, is the simplest form of anti-entropy. But it is passive, not active
+as this section describes.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1441,6 +1486,20 @@ center failures without a data outage.</p>
 There are scenarios under which hinted replicas become unavailable before they can be returned to 
 the original replica node. To handle this and other threats to durability, Dynamo implements an 
 anti-entropy (replica synchronization) protocol to keep the replicas synchronized.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-53'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-53">&#182;</a>
+        </div>
+        <p>Riak has implemented a Merkel-Tree based Active Anti-Entropy (<em>AAE</em>) as of version 1.3.
+Older versions provide only read repair.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>To detect the inconsistencies between replicas faster and to minimize the amount of transferred data, 
 Dynamo uses Merkle trees [13]. A Merkle tree is a hash tree where leaves are hashes of the values of 
@@ -1455,6 +1514,8 @@ the process continues until it reaches the leaves of the trees, at which point t
 the keys that are “out of sync”. Merkle trees minimize the amount of data that needs to be transferred 
 for synchronization and reduce the number of disk reads performed during the anti-entropy process.</p>
 
+<!-- Does the Riak AAE follow the 6.2 refined partitioning scheme? -->
+
 <p>Dynamo uses Merkle trees for anti-entropy as follows: Each node maintains a separate Merkle tree 
 for each key range (the set of keys covered by a virtual node) it hosts. This allows nodes to compare 
 whether the keys within a key range are up-to-date. In this scheme, two nodes exchange the root of 
@@ -1467,19 +1528,49 @@ This issue is addressed, however, by the refined partitioning scheme described i
 </div>
       </td>
     </tr>
-    <tr id='section-50'>
+    <tr id='section-54'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-50">&#182;</a>
+          <a class="pilcrow" href="#section-54">&#182;</a>
         </div>
-        <p>All of 4.8</p>
+        <p>This section is well expressed in [[Adding and Removing Nodes]] and [[Failure Scenarios|Eventual-Consistency#Failure-Scenarios]].</p>
       </td>
       <td class=code>
         <div class='highlight'>
 
 <h2>4.8 Membership and Failure Detection</h2>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-55'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-55">&#182;</a>
+        </div>
+        <p>Riak operators can trigger node management via the
+[[riak-admin command-line tool|Command-Line Tools - riak-admin]].</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <h3>4.8.1 Ring Membership</h3>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-56'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-56">&#182;</a>
+        </div>
+        <p>Nodes are manually added using the <code>riak-admin cluster join</code>.</p>
+
+<p>When a node permanently departs, rebalancing is triggered using the <code>riak-admin cluster leave</code>
+command.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>In Amazon’s environment node outages (due to failures and maintenance tasks) are often transient but may 
 last for extended intervals. A node outage rarely signifies a permanent departure and therefore should 
@@ -1489,10 +1580,39 @@ deemed appropriate to use an explicit mechanism to initiate the addition and rem
 Dynamo ring. An administrator uses a command line tool or a browser to connect to a Dynamo node and 
 issue a membership change to join a node to a ring or remove a node from a ring. The node that serves 
 the request writes the membership change and its time of issue to persistent store. The membership 
-changes form a history because nodes can be removed and added back multiple times. A gossip-based protocol 
+changes form a history because nodes can be removed and added back multiple times.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-57'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-57">&#182;</a>
+        </div>
+        <p>Riak&#39;s ring state holds membership information, and is propgated via [[gossiping|Riak Glossary#Gossiping]],
+including random reconciliation, defaulting to once a minute.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
+<p>A gossip-based protocol 
 propagates membership changes and maintains an eventually consistent view of membership. Each node 
 contacts a peer chosen at random every second and the two nodes efficiently reconcile their persisted 
 membership change histories.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-58'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-58">&#182;</a>
+        </div>
+        <p>These <em>tokens</em> are <em>vnodes</em> (virtual nodes) in Riak.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>When a node starts for the first time, it chooses its set of tokens (virtual nodes in the consistent 
 hash space) and maps nodes to their respective token sets. The mapping is persisted on disk and initially 
@@ -1501,6 +1621,25 @@ during the same communication exchange that reconciles the membership change his
 partitioning and placement information also propagates via the gossip-based protocol and each storage 
 node is aware of the token ranges handled by its peers. This allows each node to forward a key’s read/write 
 operations to the right set of nodes directly.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-59'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-59">&#182;</a>
+        </div>
+        <p>To rectify these sorts of logical partitions, multiple Riak cluster changes (since 1.2.0) are
+configured as one batch. Any changes must first be viewed <code>riak-admin cluster plan</code>,
+then the changes are committed with <code>riak-admin cluster commit</code>. The new ring state is gossiped.</p>
+
+<ul>
+<li>[[The Node Join Process|Adding and Removing Nodes#The-Node-Join-Process]]</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <h3>4.8.2 External Discovery</h3>
 
@@ -1512,6 +1651,20 @@ the role of seeds. Seeds are nodes that are discovered via an external mechanism
 nodes. Because all nodes eventually reconcile their membership with a seed, logical partitions are 
 highly unlikely. Seeds can be obtained either from static configuration or from a configuration 
 service. Typically seeds are fully functional nodes in the Dynamo ring.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-60'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-60">&#182;</a>
+        </div>
+        <p>Riak follows the same mechanism, by manually triggering permanent ring state changes, and gossiping
+the new state.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <h3>4.8.3 Failure Detection</h3>
 
@@ -1538,12 +1691,13 @@ detected by the individual nodes when they fail to communicate with others (whil
 </div>
       </td>
     </tr>
-    <tr id='section-51'>
+    <tr id='section-61'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-51">&#182;</a>
+          <a class="pilcrow" href="#section-61">&#182;</a>
         </div>
-        <p>Annoate all of 4.9 </p>
+        <p>Riak does not randomly assign vnodes, but rather, iterates through the list of partitions, assigning
+them to nodes in a round-robin style.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1566,6 +1720,21 @@ across the storage nodes, which is important to meet the latency requirements an
 bootstrapping. Finally, by adding a confirmation round between the source and the destination, it 
 is made sure that the destination node does not receive any duplicate transfers for a given key range.</p>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-62'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-62">&#182;</a>
+        </div>
+        <p>Riak is implemented in Erlang. Request coordination and membership behavior is defined by the
+<a href="http://github.com/basho/riak_core">Riak Core</a> project. These behaviors are implemented by
+the <a href="http://github.com/basho/riak_kv">Riak KV</a> project.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <h1>5.Implementation</h1>
 
 <p>In Dynamo, each storage node has three main software components: request coordination, membership and 
@@ -1574,14 +1743,22 @@ failure detection, and a local persistence engine. All these components are impl
 </div>
       </td>
     </tr>
-    <tr id='section-52'>
+    <tr id='section-63'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-52">&#182;</a>
+          <a class="pilcrow" href="#section-63">&#182;</a>
         </div>
-        <p>We use Bitcask as default and also offer x, y and z.</p>
+        <p>Riak ships with various [[backend options|Choosing a Backend]]. [[Bitcask]] is the default, but [[LevelDB]]
+and Main [[Memory]] are also used heavily in production (in that order). You can also
+use more than one backend in production via the [[Multi]] backend configuration.</p>
 
-<p>Why do we use these? pros, cons</p>
+<p>Bitcask is a fast and reliable choice, but does have some limitations at very large scales.
+For larger clusters, you may want to choose LevelDB (which also supports [[secondary indexes]]).
+The Memory backend is an excellent choice when speed is important and durability is not. It also
+has TTL support.</p>
+
+<p>We suggest looking into the [[Choosing a Backend]] document for more details on choosing
+one particular backend over another.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1594,6 +1771,19 @@ access patterns. For instance, BDB can handle objects typically in the order of 
 whereas MySQL can handle objects of larger sizes. Applications choose Dynamo’s local persistence 
 engine based on their object size distribution. The majority of Dynamo’s production instances use 
 BDB Transactional Data Store.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-64'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-64">&#182;</a>
+        </div>
+        <p>Request coordination in Riak uses Erlang message passing, but follows a similar state machine.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>The request coordination component is built on top of an event-driven messaging substrate where the 
 message processing pipeline is split into multiple stages similar to the SEDA architecture [24]. All 
@@ -1610,6 +1800,19 @@ request, (iv) otherwise gather all the data versions and determine the ones to b
 (v) if versioning is enabled, perform syntactic reconciliation and generate an opaque write context 
 that contains the vector clock that subsumes all the remaining versions. For the sake of brevity the 
 failure handling and retry states are left out.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-65'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-65">&#182;</a>
+        </div>
+        <p>Riak implements [[Read Repair|Replication#Read-Repair]]. </p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>After the read response has been returned to the caller the state machine waits for a small period of 
 time to receive any outstanding responses. If stale versions were returned in any of the responses, 
@@ -1628,6 +1831,20 @@ request. This optimization enables us to pick the node that has the data that wa
 read operation thereby increasing the chances of getting “read-your-writes” consistency. It also reduces 
 variability in the performance of the request handling which improves the performance at the 99.9 percentile.</p>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-66'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-66">&#182;</a>
+        </div>
+        <p>Much of this section relates to benchmarks run against Dynamo. You can run [[Basho Bench]]
+against your own Riak cluster to discover your own optimal values.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <h1>6. Experiences & Lessons Learned</h1>
 
 <p>Dynamo is used by several services with different configurations. These instances differ by their 
@@ -1637,12 +1854,18 @@ patterns in which Dynamo is used:</p>
 </div>
       </td>
     </tr>
-    <tr id='section-53'>
+    <tr id='section-67'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-53">&#182;</a>
+          <a class="pilcrow" href="#section-67">&#182;</a>
         </div>
-        <p>This paragraph</p>
+        <p>Riak currently supports simple conflict resolution by way of read-repair,
+remanding more complex reconciliation to the client. There are several tools to help simplify 
+this task, such as <a href="https://github.com/mochi/statebox_riak">Statebox</a>.</p>
+
+<p>The Riak team is in the process of adding support for a simply reconciliation strategy,
+called CRDTs (Commutative Replicated Data Types) for reconciling common data types like
+sets and counters.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1653,11 +1876,37 @@ own reconciliation logic. The shopping cart service discussed earlier is a prime
 category. Its business logic reconciles objects by merging different versions of a customer’s 
 shopping cart.</p>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-68'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-68">&#182;</a>
+        </div>
+        <p>Riak also supports this for high-performance cases where accuracy is less important than speed. </p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <p>Timestamp based reconciliation: This case differs from the previous one only in the reconciliation 
 mechanism. In case of divergent versions, Dynamo performs simple timestamp based reconciliation 
 logic of “last write wins”; i.e., the object with the largest physical timestamp value is chosen 
 as the correct version. The service that maintains customer’s session information is a good example 
 of a service that uses this mode.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-69'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-69">&#182;</a>
+        </div>
+        <p>Riak can be used in this manner.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>High performance read engine: While Dynamo is built to be an “always writeable” data store, a few 
 services are tuning its quorum characteristics and using it as a high performance read engine. 
@@ -1684,6 +1933,19 @@ at only a small number of nodes.</p>
 necessarily true here. For instance, the vulnerability window for durability can be decreased by 
 increasing W. This may increase the probability of rejecting requests (thereby decreasing 
 availability) because more storage hosts need to be alive to process a write request.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-70'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-70">&#182;</a>
+        </div>
+        <p>Ditto for Riak.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>The common (N,R,W) configuration used by several instances of Dynamo is (3,2,2). These values are 
 chosen to meet the necessary levels of performance, durability, consistency, and availability SLAs.</p>
@@ -1725,12 +1987,38 @@ to 12 hours. Latencies follow a diurnal pattern similar to the request rate and 
 latencies are an order of magnitude higher than averages.</figcaption>
 </figure>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-71'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-71">&#182;</a>
+        </div>
+        <p>This is more similar to Riak&#39;s W value, since only DW requires a durable write to respond as a success.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <p>While this level of performance is acceptable for a number of services, a few customer-facing 
 services required higher levels of performance. For these services, Dynamo provides the ability 
 to trade-off durability guarantees for performance. In the optimization each storage node maintains 
 an object buffer in its main memory. Each write operation is stored in the buffer and gets periodically 
 written to storage by a writer thread. In this scheme, read operations first check if the requested key 
 is present in the buffer. If so, the object is read from the buffer instead of the storage engine.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-72'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-72">&#182;</a>
+        </div>
+        <p>Setting DW=1 will replicate this behavior.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>This optimization has resulted in lowering the 99.9th percentile latency by a factor of 5 during 
 peak traffic even for a very small buffer of a thousand objects (see <a href="#figure-5">Figure 5</a>). Also, as seen in 
@@ -1752,12 +2040,13 @@ over a period of 24 hours. The intervals between consecutive ticks in the x-axis
 </div>
       </td>
     </tr>
-    <tr id='section-54'>
+    <tr id='section-73'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-54">&#182;</a>
+          <a class="pilcrow" href="#section-73">&#182;</a>
         </div>
-        <p>This following paragraph</p>
+        <p>Riak follows a SHA1 based consistent hashing for
+[[partitioning|Replication#Understanding-replication-by-example]].</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1790,10 +2079,24 @@ certain threshold from the average system load) and their corresponding request 
 between ticks in x-axis corresponds to a time period of 30 minutes.</figcaption>
 </figure>
 
-<p>This section discusses how Dynamo’s partitioning scheme has evolved over time 
-and its implications on load distribution.</p>
+<p><i>This section discusses how Dynamo’s partitioning scheme has evolved over time 
+and its implications on load distribution.</i></p>
 
-<p>Strategy 1: T random tokens per node and partition by token value: This was the initial strategy 
+</div>
+      </td>
+    </tr>
+    <tr id='section-74'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-74">&#182;</a>
+        </div>
+        <p>Riak uses equal sized partitions with a round-robin distribution--not a variably-sized
+partitions that are randomly distributed.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
+<p><strong>Strategy 1:</strong> T random tokens per node and partition by token value: This was the initial strategy 
 deployed in production (and described in Section 4.2). In this scheme, each node is assigned T 
 tokens (chosen uniformly at random from the hash space). The tokens of all nodes are ordered 
 according to their values in the hash space. Every two consecutive tokens define a range. The 
@@ -1824,7 +2127,20 @@ the system in order to handle an increase in request load. However, in this scen
 possible to add nodes without affecting data partitioning. Ideally, it is desirable to use 
 independent schemes for partitioning and placement. To this end, following strategies were evaluated:</p>
 
-<p>Strategy 2: T random tokens per node and equal sized partitions: In this strategy, the hash space 
+</div>
+      </td>
+    </tr>
+    <tr id='section-75'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-75">&#182;</a>
+        </div>
+        <p>As before mentioned, Riak uses equal sized partitions, but not random distribution.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
+<p><strong>Strategy 2:</strong> T random tokens per node and equal sized partitions: In this strategy, the hash space 
 is divided into Q equally sized partitions/ranges and each node is assigned T random tokens. Q is 
 usually set such that Q &gt;&gt; N and Q &gt;&gt; S*T, where S is the number of nodes in the system. In this 
 strategy, the tokens are only used to build the function that maps values in the hash space to the 
@@ -1846,17 +2162,22 @@ indicate the token locations for various nodes.</figcaption>
 </div>
       </td>
     </tr>
-    <tr id='section-55'>
+    <tr id='section-76'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-55">&#182;</a>
+          <a class="pilcrow" href="#section-76">&#182;</a>
         </div>
-        <p>Next two paragraphs</p>
+        <p>Riak most closely follows strategy 3.</p>
+
+<ul>
+<li>[[The Node Join Process|Adding and Removing Nodes#The-Node-Join-Process]]</li>
+<li>[[Replacing a Node]]</li>
+</ul>
       </td>
       <td class=code>
         <div class='highlight'>
 
-<p>Strategy 3: Q/S tokens per node, equal-sized partitions: Similar to strategy 2, this strategy 
+<p><strong>Strategy 3:</strong> Q/S tokens per node, equal-sized partitions: Similar to strategy 2, this strategy 
 divides the hash space into Q equally sized partitions and the placement of partition is decoupled 
 from the partitioning scheme. Moreover, each node is assigned Q/S tokens where S is the number of 
 nodes in the system. When a node leaves the system, its tokens are randomly distributed to the remaining 
@@ -1910,12 +2231,14 @@ and number of replicas are based on the typical configuration deployed for major
 </div>
       </td>
     </tr>
-    <tr id='section-56'>
+    <tr id='section-77'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-56">&#182;</a>
+          <a class="pilcrow" href="#section-77">&#182;</a>
         </div>
-        <p>Next two paragraphs</p>
+        <p>This first statement should be read carefully. It&#39;s probably more correct to say that Dynamo
+(and Riak) provides no consistency guarantees, and allows users to trade availability for
+durability/latency.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1945,20 +2268,25 @@ failures but due to the increase in number of concurrent writers. The increase i
 of concurrent writes is usually triggered by busy robots (automated client programs) and 
 rarely by humans. This issue is not discussed in detail due to the sensitive nature of the story.</p>
 
+<h2>6.4 Client-driven or Server-driven Coordination</h2>
+
 </div>
       </td>
     </tr>
-    <tr id='section-57'>
+    <tr id='section-78'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-57">&#182;</a>
+          <a class="pilcrow" href="#section-78">&#182;</a>
         </div>
-        <p>Next paragraph </p>
+        <p>In Riak, a server-side load-balancer is an optional configuration. You generally use
+either virtual IPs or reverse-proxies.</p>
+
+<ul>
+<li>[[Load Balancing|System Planning#Network-Configuration-Load-Balancing]]</li>
+</ul>
       </td>
       <td class=code>
         <div class='highlight'>
-
-<h2>6.4 Client-driven or Server-driven Coordination</h2>
 
 <p>As mentioned in Section 5, Dynamo has a request coordination component that uses a state 
 machine to handle incoming requests. Client requests are uniformly assigned to nodes in the 
@@ -1968,6 +2296,31 @@ This restriction is due to the fact that these preferred nodes have the added re
 of creating a new version stamp that causally subsumes the version that has been updated by 
 the write request. Note that if Dynamo’s versioning scheme is based on physical timestamps, 
 any node can coordinate a write request.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-79'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-79">&#182;</a>
+        </div>
+        <p>Many [[client libraries]] provide built-in node request coordination.</p>
+
+<p>For example, using the Ruby driver, you could specify three nodes like this:</p>
+
+<pre><code>client = Riak::Client.new(nodes: [
+  {host: &#39;10.0.0.1&#39;},
+  {host: &#39;10.0.0.2&#39;},
+  {host: &#39;10.0.0.3&#39;}
+])
+</code></pre>
+
+<p>Note that the Riak clients do not coordinate with Riak&#39;s preference list, but
+simply round-robin requests, letting the Riak cluster handle routing.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>An alternative approach to request coordination is to move the state machine to the 
 client nodes. In this scheme client applications use a library to perform request 
@@ -2032,13 +2385,13 @@ response time, the gain in response time is higher for the 99.9th percentile tha
 </div>
       </td>
     </tr>
-    <tr id='section-58'>
+    <tr id='section-80'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-58">&#182;</a>
+          <a class="pilcrow" href="#section-80">&#182;</a>
         </div>
-        <p>Riak does this, too. Explain explain. </p>
-
+        <p>Riak does this, too. For example, hinted handoff runs in the background at a low level, so as
+not to overwhelm a cluster when nodes are added/removed.</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -2073,6 +2426,20 @@ it has provided significant levels of availability to its applications. In parti
 have received successful responses (without timing out) for 99.9995% of its requests and no data loss 
 event has occurred to date.</p>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-81'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-81">&#182;</a>
+        </div>
+        <p>This is equally true for Riak. As mentioned above, consider running [[Basho Bench]] to help
+discover your optimal setup. Nothing will give you better numbers than real experimentation.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <p>Moreover, the primary advantage of Dynamo is that it provides the necessary knobs using the three 
 parameters of (N,R,W) to tune their instance based on their needs.. Unlike popular commercial data 
 stores, Dynamo exposes data consistency and reconciliation logic issues to the developers. At the 
@@ -2091,6 +2458,20 @@ addressed by O(1) DHT systems(e.g., [14]).</p>
 
 <h1>7. Conclusions</h1>
 
+</div>
+      </td>
+    </tr>
+    <tr id='section-82'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-82">&#182;</a>
+        </div>
+        <p>This paper was an overview of Riak from a Dynamo point-of-view. To get a better sense of the
+Riak ecosystem, read our ever-expanding <a href="http://docs.basho.com">documentation</a>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'>
+
 <p>This paper described Dynamo, a highly available and scalable data store, used for storing state 
 of a number of core services of Amazon.com’s e-commerce platform. Dynamo has provided the desired 
 levels of availability and performance and has been successful in handling server failures, data 
@@ -2098,6 +2479,20 @@ center failures and network partitions. Dynamo is incrementally scalable and all
 to scale up and down based on their current request load. Dynamo allows service owners to customize 
 their storage system to meet their desired performance, durability and consistency SLAs by allowing 
 them to tune the parameters N, R, and W.</p>
+
+</div>
+      </td>
+    </tr>
+    <tr id='section-83'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-83">&#182;</a>
+        </div>
+        <p>Ditto for Riak, although we&#39;re way older than a year at this point!</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'>
 
 <p>The production use of Dynamo for the past year demonstrates that decentralized techniques can be combined 
 to provide a single highly-available system. Its success in one of the most challenging application 

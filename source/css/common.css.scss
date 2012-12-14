@@ -81,7 +81,58 @@ body {
     
     #primary-nav {
       padding : 5px 12px;
-      
+      -o-user-select: none;
+      -ms-user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+
+      h3.shortcuts {
+        display:none;
+      }
+      ul.shortcuts {
+        li {
+          border-left:0;
+          width:50%;
+          float:left;
+          a {
+            border-left:0;
+            text-align:center;
+
+            color: #24514A;
+            font-size: 110%;
+            background:#A8C7BF;
+            background-color:#A8C7BF;
+            @include bgPattern('light-green-bg.jpg');
+            padding:3px 12px;
+            margin  : 0 2px 0 0;
+            border  : 1px solid $darkGreen;
+            text-decoration : none;
+            
+            &:hover {
+              background : $orange;
+              border     : 1px solid $darkOrange;
+              color      : #fff;
+            }
+            
+            &:first-child {
+              margin-top : 10px;
+            }
+
+          }
+        }
+        li.active {
+          a {
+            background : $orange;
+            border     : 1px solid $darkOrange;
+            color      : #fff;
+          }
+        }
+      }
+      h3 {
+        clear:both;
+      }
+
       @media screen and (max-width: 700px) {
         /*
          * Important is necessary here in order to override the inline style attribute which

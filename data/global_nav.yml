@@ -1,13 +1,33 @@
 riak:
-  - title: "[[全Riakプロジェクト|/index.html]]"
-    sub: []
+  # - title: "[[全Riakプロジェクト|/index.html]]"
+  #   class: "all"
+  #   sub: []
+
+  - title: "ショートカット"
+    class: "active shortcuts"
+    sub:
+      - "[[API|/references/apis/]]"
+      - "[[FAQ|FAQs]]"
+
   - title: "スタート"
     class: "start"
     sub:
-    - "[[Riakをはじめる|Riak]]"
+    - "[[Riak をはじめる|Riak]]"
     - "[[Riak Fast Track|The Riak Fast Track]]"
     - "[[インストールとアップグレード|installation]]"
     - "[[クエリを選ぶ|Querying Riak]]"
+    - title: "コンセプト"
+      sub:
+          - "[[Concepts Overview|Concepts]]"
+          - "[[Buckets]]"
+          - "[[Clusters]]"
+          - "[[Commit Hooks]]"
+          - "[[Eventual Consistency]]"
+          - "[[Keys and Objects]]"
+          - "[[Links]]"
+          - "[[Replication]]"
+          - "[[Vector-Clocks]]"
+          - "[[Riak Glossary]]"
 
   - title: "Riakのクエリ"
     sub:
@@ -62,6 +82,7 @@ riak:
           - "[[SmartOS|Installing on SmartOS]]"
           - "[[SUSE|Installing on SUSE]]"
           - "[[Windows Azure|Installing on Windows Azure]]"
+          - "[[AWS Marketplace|Installing on AWS Marketplace]]"
           - "[[ソースから|Installing Riak from Source]]"
 
       - title: "プランニング"
@@ -81,32 +102,21 @@ riak:
           - "[[基本的なクラスタ設定|Basic Cluster Setup]]"
           - "[[ノードの追加と削除|Adding and Removing Nodes]]"
           - "[[ノードの置き換え|Replacing a Node]]"
+          - "[[Backups]]"
+          - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
+      - title: "Configuration"
+        sub:
+          - "[[Configuration Files]]"
+          - "[[Network Security and Firewall Configurations]]"
+          - "[[MapReduce|MapReduce - Settings]]"
+          - "[[Search|Riak-Search - Settings]]"
+          - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
       - title: "パフォーマンス"
         sub:
           - "[[ファイルシステムのチューニング|File System Tuning]]"
           - "[[Linuxでのチューニング|Linux Performance Tuning]]"
           - "[[AWSでのチューニング|Performance Tuning AWS]]"
-      - title: "オペレーション"
-        sub:
-          # - "[[Riakのオペレーション|Operating Riak]]" # what to do? I like this page, but it's just a list of links
-          - "[[設定ファイル|Configuration Files]]"
-          - "[[ネットワークのセキュリティとファイアウォール設定|Network Security and Firewall Configurations]]"
-          - "[[バックアップ|Backups]]"
-      - title: "クエリの設定"
-        sub:
-          - "[[MapReduce|MapReduce - Settings]]"
-          - "[[検索|Riak-Search - Settings]]"
-          - "[[セカンダリインデックス|Secondary-Indexes - Configuration]]"
-      # - title: "MapReduce"
-      #   sub:
-      #     - "[[設定|MapReduce - Settings]]"
-      # - title: "検索"
-      #   sub:
-      #     - "[[設定|Riak-Search - Settings]]"
-      # - title: "セカンダリインデックス"
-      #   sub:
-      #     - "[[設定|Secondary-Indexes - Configuration]]"
-      - title: "トラブルシューティング"  # "[[Troubleshooting]]"
+      - title: "トラブルシューティング"
         sub:
           - "[[フェイルとリカバリ|Failure and Recovery]]"
           - "[[ファイルオープンの制限|Open Files Limit]]"
@@ -125,19 +135,19 @@ riak:
           - "[[riak|Command-Line Tools - riak]]"
           - "[[riak-admin|Command-Line Tools - riak-admin]]"
           - "[[search-cmd|Command-Line Tools - search-cmd]]"
-      - title: "コンセプト"
+      - title: "FAQs"
         sub:
-          - "[[コンセプトの概要|Concepts]]"
-          - "[[バケット|Buckets]]"
-          - "[[クラスタ|Clusters]]"
-          - "[[コミットフック|Commit Hooks]]"
-          - "[[結果統合性|Eventual Consistency]]"
-          - "[[キーとオブジェクト|Keys and Objects]]"
-          - "[[リンク|Links]]"
-          - "[[レプリケーション|Replication]]"
-          - "[[ベクトルクロック|Vector-Clocks]]"
-          - "[[Riak用語集|Riak Glossary]]"
-      - title: "Riak Comparisons"
+          - "[[All FAQs|FAQs]]"
+          - "[[Developing on Riak|Developing on Riak FAQs]]"
+          - "[[Operating Riak|Operating Riak FAQs]]"
+          - "[[Log Messages|Log Messages FAQs]]"
+          - "[[Riak Community|Riak Community FAQs]]"
+      - title: "APIs"
+        sub:
+          - "[[All APIs|APIs]]"
+          - "[[HTTP|HTTP API]]"
+          - "[[Protocol Buffers|PBC API]]"
+      - title: "NoSQL の比較"
         sub:
           - "[[Riakの比較の概要|Riak Comparisons]]"
           - "[[Cassandraとの比較|Riak Compared to Cassandra]]"
@@ -146,13 +156,12 @@ riak:
           - "[[HBaseとの比較|Riak Compared to HBase]]"
           - "[[MongoDBとの比較|Riak Compared to MongoDB]]"
           - "[[Neo4jとの比較|Riak Compared to Neo4j]]"
-      - "[[API|APIs]]"
       - "[[クライアントライブラリ|Client Libraries]]"
       - "[[コミュニティで作られたライブラリとプロジェクト|Community Developed Libraries and Projects]]"
-      - "[[バックエンドAPI|Backend API]]"
-      - "[[Javaクライアントのベンチマーク|Java Client Benchmark]]"
-      - "[[クライアントのインプリメントガイド|Client Implementation Guide]]"
       - "[[サンプルデータ|Sample Data]]"
+      - "[[Javaクライアントのベンチマーク|Java Client Benchmark]]"
+      - "[[バックエンドAPI|Backend API]]"
+      - "[[クライアントのインプリメントガイド|Client Implementation Guide]]"
       - "[[リリースノート|Release Notes]]"
       - "[[RiakとDynamo|/references/dynamo/]]"
 
@@ -165,7 +174,6 @@ riak:
           - "[[プロダクトのデプロイ|Production Deployment]]"
           - "[[Riakでの開発|Developing with Riak]]"
           - "[[データの検索とアクセス|Searching and Accessing Data]]"
-          - "[[Riakの比較|Riak Comparisons]]"
           - "[[サンプルアプリケーション|Riak Sample Applications]]"
       - "[[コミュニティのFAQ|Riak Community FAQs]]"
       - "[[投稿者|Contributors]]"
@@ -175,21 +183,22 @@ riak:
       - "[[ロゴ|Logos]]"
       - "[[We Run Riakバッジ|We Run Riak Badges]]"
 
-  - title: "ショートカット"
-    class: "active"
-    sub:
-      - "[[FAQ|FAQs]]"
-      - "[[API|/references/apis/]]"
-
 
 riakee:
-  - title: "[[全Riakプロジェクト|/index.html]]"
-    sub: []
+  # - title: "[[全Riakプロジェクト|/index.html]]"
+  #   sub: []
+  - title: "ショートカット"
+    class: "active shortcuts"
+    sub:
+      - "[[API|/references/apis/]]"
+      - "[[FAQ|Riak Enterprise FAQs]]"
+
   - title: "スタート"
+    class: "start"
     sub:
       - "[[RiakEDSをはじめる|Riak Enterprise]]"
       - "[[Riak Fast Track|The Riak Fast Track]]"
-      - "[[Enterpriseにアップグレード|Rolling Upgrade to Enterprise]]"
+      - "[[Enterprise にアップグレード|Rolling Upgrade to Enterprise]]"
       - "[[クエリ|Querying]]"
   - title: "マルチ データセンタ"
     sub:
@@ -201,24 +210,30 @@ riakee:
       - "[[SSL|Multi Data Center Replication SSL]]"
       - "[[レプリケーションフック|Multi Data Center Replication Hooks]]"
       - "[[システムのチューニング|Multi Data Center Replication System Tuning]]"
-      - "[[NAT越え|Multi Data Center Replication With NAT]]"
-  - title: "RiakEDSのオペレーション"
+      - "[[NAT 越え|Multi Data Center Replication With NAT]]"
+  - title: "RiakEDS のオペレーション"
     sub:
       - "[[マルチデータセンタでのレプリケーション|Multi Data Center Replication Operations]]"
       - "[[JMXモニタリング|JMX Monitoring]]"
       - "[[SNMPの設定|SNMP Configuration]]"
-      - "[[SNMPカウンタ|SNMP Counters]]"
-  - title: "ショートカット"
-    class: "active"
+  - title: "References"
     sub:
-      - "[[Riak EnterpriseのFAQ|Riak Enterprise FAQs]]"
-      - "[[Riak FAQ|FAQs]]"
+      - "[[SNMPカウンタ|SNMP Counters]]"
       - "[[API|/references/apis/]]"
+      - "[[Riak EDS の FAQ|Riak Enterprise FAQs]]"
+      - "[[Riak FAQ|Riak FAQs]]"
 
 riakcs:
-  - title: "[[全Riakプロジェクト|/index.html]]"
-    sub: []
+  # - title: "[[全Riakプロジェクト|/index.html]]"
+  #   sub: []
+  - title: "ショートカット"
+    class: "active shortcuts"
+    sub:
+      - "[[API|RiakCS Storage API]]"
+      - "[[FAQ|Riak CS FAQs]]"
+
   - title: "スタート"
+    class: "start"
     sub:
       - "[[Riak CS]]"
       - "[[Riak CS クイック スタート ガイド|Riak CS Quick Start Guide]]"
@@ -236,8 +251,13 @@ riakcs:
       - "[[Riakの設定|Configuring Riak]]"
       - "[[Riak CSの設定|Configuring Riak CS]]"
       - "[[Stancionの設定|Configuring Stanchion]]"
+      # - "[[Configuring Multi Data Center|Configuring MDC]]"
       - "[[S3クライアントの設定|Configuring an S3 client]]"
-  - title: "システム"
+  - title: "Multi Data Center"
+    sub:
+      - "[[Overview|MDC Overview]]"
+      - "[[Configuration|Configuring MDC]]"
+  - title: "References"
     sub:
       # - "[[機能の概要|System Features]]"
       - "[[アクセスコントロールリスト|Access Control Lists]]"
@@ -246,11 +266,10 @@ riakcs:
       - "[[アクセス統計をクエリ|Querying Access Statistics]]"
       - "[[ストレージ統計をクエリ|Querying Storage Statistics]]"
       - "[[使用法と課金データ|Usage and Billing Data]]"
-  - title: "ショートカット"
-    class: "active"
-    sub:
-      - "[[FAQ|Riak CS FAQs]]"
-      - "[[API|RiakCS Storage API]]"
+      - "[[Ruby Fog|Fog on RiakCS]]"
+      - "[[APIs|RiakCS Storage API]]"
+      - "[[FAQs|Riak CS FAQs]]"
+      - "[[Release Notes|Riak CS Release Notes]]"
 
 root:
   - title: "全Riakプロジェクト"

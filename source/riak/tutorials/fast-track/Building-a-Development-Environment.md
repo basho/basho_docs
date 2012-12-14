@@ -12,7 +12,7 @@ next: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
 
 このセクションではローカルマシンに Riak をインストールして、4 つのノードのクラスタを作ります。プロダクションの開発に対して Basho は [最低 5 つのノードを推奨しています](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/)。はっきり言うと、このチュートリアルでは 4 にしています。
 
-## 依存性
+## 依存性ライブラリ
 
 Riak をソースからビルドするには、Erlang R15B01 以降が必要です。Basho によるビルド済 Riak パッケージの最新版は、[ダウンロードディレクトリ](http://basho.com/resources/downloads/) にあり、この中には Erlang のランタイムも組み込まれています。とはいえ、このチュートリアルではソースからのビルドを行いますので、Erlang をまだインストールしていない場合は、[[Erlang のインストール|Installing Erlang] を参照してください。
 
@@ -142,7 +142,7 @@ Transfers resulting from cluster changes: 48
   16 transfers from 'dev1@127.0.0.1' to 'dev2@127.0.0.1'
 ```
 
-最後に、バッチをコミットします。
+最後に、これらをコミットします。
 
 ```bash
 $ dev2/bin/riak-admin cluster commit

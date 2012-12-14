@@ -10,7 +10,7 @@ keywords: [mapreduce]
 
 ## Configuring MapReduce
 
-[[MapReduce]] \(M/R) is always enabled, but configurable through the [[app.config|Configuration-Files#app.config]] file as follows under `riak_kv`
+[[MapReduce]] \(M/R) is always enabled, but configurable through the [[app.config|Configuration-Files#app-config]] file as follows under `riak_kv`
 
 ```erlang
 {riak_kv, [
@@ -24,8 +24,8 @@ keywords: [mapreduce]
 
 `mapred_system` indicates which version of the MapReduce system should be used:
 
-* `pipe` means [riak_pipe](github.com/basho/riak_pipe) will power M/R queries
-* `legacy` means that [luke](github.com/basho/luke) will be used
+* `pipe` means [riak_pipe](https://github.com/basho/riak_pipe) will power M/R queries
+* `legacy` means that [luke](https://github.com/basho/luke) will be used
 
 ```erlang
     {mapred_system, pipe},
@@ -46,7 +46,7 @@ _**Note**: Set to `false` or leave undefined during a rolling upgrade from 1.0._
 `mapred_queue_dir` directory used to store a transient queue for pending map
 tasks.
 
-_Only valid for `{mapred_system, legacy}`, used by [luke](github.com/basho/luke)._
+_Only valid for `{mapred_system, legacy}`, used by [luke](https://github.com/basho/luke)._
 
 ```erlang
     %% {mapred_queue_dir, "./data/mr_queue" },
@@ -68,7 +68,7 @@ This is largely relevant only if you are writing JavaScript M/R jobs.
 request. Larger values can impact read/write performance for non-MapReduce
 requests.
 
-_Only valid for `{mapred_system, legacy}`, used by [luke](github.com/basho/luke)._
+_Only valid for `{mapred_system, legacy}`, used by [luke](https://github.com/basho/luke)._
 
 ```erlang
     %% {mapper_batch_size, 5},
@@ -96,7 +96,7 @@ _**Note**: This is not the same as the C thread stack._
 These will be ejected when the cache runs out of room or the bucket/key
 pair for that entry changes.
 
-_Only valid for `{mapred_system, legacy}`, used by [luke](github.com/basho/luke)._
+_Only valid for `{mapred_system, legacy}`, used by [luke](https://github.com/basho/luke)._
 
 ```erlang
     %% {map_cache_size, 10000},

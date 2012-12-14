@@ -1,29 +1,29 @@
 ---
-title: Querying Riak
+title: クエリする
 project: riak
 version: 0.10.0+
 document: tutorials
 toc: true
 audience: beginner
 keywords: [mapreduce, search, indexes, comparison]
-next: ["Basic Operations", "Basic-Operations.html"]
+next: ["基本操作", "Basic-Operations.html"]
 ---
 
-* [[Basic Operations]]
+* [[基本操作|Basic Operations]]
 * [[Map Reduce]]
-* [[Secondary Indexes]]
-* [[Searching|Riak Search]]
+* [[セカンダリインデックス|Secondary Indexes]]
+* [[検索する|Riak Search]]
 
-## Comparing MapReduce, RiakSearch, and Secondary Indexes
+## MapReduce、RiakSearch、セカンダリインデックスの比較
 
-&nbsp; | MapReduce | Riak Search | Secondary Indexes
+&nbsp; | MapReduce | Riak Search | セカンダリインデックス
 -------|----------|-------------|------------------
-*Query Types* | Ad-hoc queries composed of an arbitrary number of Map phases and Reduce phases | SOLR style queries supporting combinations of free-text, wildcards, proximity, and boolean operators | Equality and range query support
-*Index Locality* | N/A | Indexes for terms are replicated to N vnodes (i.e. term-based partitioning) and stored in a merge index backend, regardless of the Riak KV backend used | Indexes are located on the same vnodes as the object (i.e. document-based partitioning) and stored in the LevelDB backend along with the document
-*Vnodes Queried* | Depends on input 1 per term queried; 1/N for trailing wildcard | 1/N of all KV vnodes per a request
-*Supported Data Types* | Any datatype with Erlang MapReduce functions; valid UTF8 JSON with Javascript functions. [[Links]] per the specification | Integer, Date, and Text | Binary and Integer
-*Extraction* | Map phases can be used to extract data for later Map and Reduce phases | Tokenization performed by one of the provided analyzers (Whitespace, Standard, Integer, and No-Op) or a Custom Analyzer | Indexed values are submitted as metadata on the object, thus the application is responsible for tokenization
-*Anti-Entropy / Fault Tolerance* | N/A | If a Search partition is lost or corrupted, the "repair" feature in Riak Console will rebuild partition data from adjacent indexes. | Anti-entropy is carried over from KV; if a partition is lost, secondary indexes will be rebuilt along side the KV data by read repair
-*Limitations* | MapReduce operations are performed in memory and must be completed within the timeout period | Querying low cardinality terms could tax a small subset of vnodes; composite queries are expensive; documents must be structured (JSON or XML) or plain text | Only available with the LevelDB backend; no composite queries
-*Suggested Use Cases* | Performing calculations based on a known set of bucket-key pairs | Searching objects with full-text data | Retrieving all objects tagged with a particular term
-*Poor Use Cases* | Performing complex operations on large numbers of objects (e.g. analyzing every object in a bucket) | Searching for common (low cardinality) terms in documents | Searching prosaic text
+*クエリの種類* | 任意の数の Map フェーズと Reduce フェーズからなる、一時的なクエリ | 全文検索、ワイルドカード、近接、ブール演算の組み合わせ使用可能な SQLR スタイルのクエリ | 一致および範囲クエリ対応
+*インデックスの局所性* | N/A | 語句のインデックスは N 個の vnode (語句を基準に分類) にレプリケーションされ、Riak KV が使用しているバックエンドとは関係なく、マージ インデックス バックエンドに保存される | インデックスはオブジェクトとして、同じ vnode (ドキュメントを基準に分類) にあり、ドキュメントの一緒に LevelDB バックエンドに保存される
+*クエリされる Vnode* | 入力に依存、クエリ1回につき1語句; ワイルドカードがあると 1/N | リクエストごとに全 KV vnode の 1/N
+*対応データタイプ* | Erlang MapReduce 関数を使い、あらゆるデータタイプに対応; JavaScript 関数では UTF8 JSON も可。指定ごとに [[リンク|Links]] される | 整数、日付、テキスト | バイナリおよび整数
+*エクストラクト* | Map フェーズでは、次の Map フェーズおよび Reduce フェーズ用にデータをエクストラクト可能 | トークン化は用意されているアナライザ(Whitespace、Standard、Integer、Non-Op) のいずれか、あるいはカスタムアナライザによって行われる | インデックス化された値はオブジェクトのメタデータとして与えられ、アプリケーションがトークン化を行う
+*アンチ・エントロピー / フォールトトレランス* | N/A | 検索するパーティションがロスト、あるいは壊れている場合、Riak Console の "repair" 機能によって、隣接のインデックスからパーティションデータを再構築 | アンチ・エントロピー機能は KV から引き継いでいる; パーティションがロストした場合、読み出し修復機能によって KV とともにセカンダリインデックスが再構築される
+*制限* | MapReduce 操作はメモリ上で実行され、タイムアウト時間までに完了しなければならない | 頻度の低い語句をクエリすると vnode の一部に負荷をかける; 複合クエリは高コストとなる; ドキュメントは構造化(JSON または XML)されるか、プレインテキストでなければならない | LevelDB バックエンドでのみ有効; 複合検索不可
+*望ましい使用例* | 既知のバケット・キー ペアに対してクエリを行う場合 | オブジェクトを全文検索する場合 | 特定の語句でタグ付けされたオブジェクトをすべて検索する場合
+*望ましくない使用例* | 大量のオブジェクトに対して複合検索を行う(バケット内の全オブジェクトを解析する) | ドキュメント内の一般的な語句 (頻度が低い) の検索 | 自由文の検索
