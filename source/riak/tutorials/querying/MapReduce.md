@@ -73,13 +73,15 @@ curl -XPUT http://localhost:8091/buckets/training/keys/bam -H 'Content-Type: tex
 ### MapReduce script and deployment:   
 
 ```bash
-curl -X POST http://localhost:8091/mapred -H 'Content-Type: application/json' -d '{
-	     "inputs":"training",
-	     "query":[{"map":{"language":"javascript",
-	     "source":"function(riakObject) {   
-		 var m =  riakObject.values[0].data.match(\"pizza\");
-         return  [[riakObject.key, (m ? m.length : 0 )]];
- 		 }"}}]}'
+curl -XPOST http://localhost:8091/mapred \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "inputs":"training",
+    "query":[{"map":{"language":"javascript",
+    "source":"function(riakObject) {
+      var m = riakObject.values[0].data.match(/pizza/g);
+      return [[riakObject.key, (m ? m.length : 0 )]];
+    }"}}]}'
 ```
 
 ### Output 
