@@ -10,9 +10,9 @@ require './lib/sitemap_render_override'
 
 if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.]+/
   versions = YAML::load(File.open('data/versions.yml'))
-  for proj, vs in versions
+  for proj, vs in versions['currents']
     proj = proj.upcase
-    ENV["#{proj}_VERSION"] = vs.last.last
+    ENV["#{proj}_VERSION"] = vs
     puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
   end
 end
@@ -176,6 +176,7 @@ helpers do
   def current_projects()
     projects = {}
     data.versions.each do |project, versions|
+      next if project == 'currents'
       projects[project] = {
         :deployment => $versions[project.to_sym],
         :latest => versions.last.last
