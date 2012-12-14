@@ -16,7 +16,7 @@ This section will walk you through loading some sample data (that we've borrowed
 
 ## Sample Data
 
-This Erlang script will load historical stock-price data for Google (ticker symbol "GOOG") into your existing Riak cluster so we can use it.  Paste the code below into a file called `load_data` inside the `dev` directory (or download it below).
+This Erlang script will load historical stock-price data for Google (ticker symbol "GOOG") into your existing Riak cluster so we can use it.  Paste the code below into a file called `load_data.erl` inside the `dev` directory (or download it below).
 
 ```erlang
 #!/usr/bin/env escript
@@ -37,19 +37,19 @@ Make the script executable:
 
 
 ```bash
-$ chmod +x load_data
+$ chmod +x load_data.erl
 ```
 
 Download the CSV file of stock data linked below and place it in the "dev" directory where we've been working.
 
 * [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) - Google historical stock data
 * [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) - Alternative script in Ruby to load the data
-* [load_data](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) - Erlang script to load data (as shown in snippet)
+* [load_data.erl](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) - Erlang script to load data (as shown in snippet)
 
 Now load the data into Riak.
 
 ```bash
-$ ./load_data goog.csv
+$ ./load_data.erl goog.csv
 ```
 
 So now we have some data in our Riak cluster. Let's put that aside for a minute and learn a bit about MapReduce, and how Riak uses it.
@@ -171,11 +171,9 @@ Based on the sample data we loaded in the last section, here are some functions 
 
 <div class="info"><div class="title">Submitting [[MapReduce]] queries from the shell</div>To run a query from the shell, here's the curl command to use:
 
-```bash
-curl -X POST http://127.0.0.1:8091/mapred -H "Content-Type: application/json" -d @-
-```
+<div class="code"><pre>curl -XPOST http://127.0.0.1:8091/mapred -H "Content-Type: application/json" -d @-</pre></div>
 
-After pressing return, paste your job in, for example the one shown below in the section "Complete Job", press return again, and then Ctrl-D to submit it. This way of running MapReduce queries is not specific to this tutorial, but it comes in very handy to just run quick fire-and-forget queries from the command line in general. With a client library, most of the dirty work of assembling the JSON that's sent to Riak will be done for you.</div>
+After pressing return, paste your job in, for example the one shown below in the section "Complete Job", press return again, and then `Ctrl-D` to submit it. This way of running MapReduce queries is not specific to this tutorial, but it comes in very handy to just run quick fire-and-forget queries from the command line in general. With a client library, most of the dirty work of assembling the JSON that's sent to Riak will be done for you.</div>
 
 ### Map: find the days where the high was over $600.00
 

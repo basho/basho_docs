@@ -192,7 +192,7 @@ If you want, you can add a file to your Riak cluster and test it's working prope
 $ cp ~/image/location/image_name.jpg .
 ```
 
-We can then PUT that image into Riak using a curl command:
+We can then PUT that image into Riak using a curl command (your port might differ, check your `etc/app.config` file for a proper `http` port):
 
 ```bash
 $ curl -XPUT HTTP://127.0.0.1:10018/riak/images/1.jpg \
