@@ -72,6 +72,8 @@ module VersionDirs
         def get_project(file)
           File.readlines(file).join.to_s =~ /\<meta\s+content\s*\=\s*["']([^"']+)["']\s+name\s*\=\s*["']project["']/
           $1 || "riak"
+        rescue
+          "riak"
         end
 
         def copy(f, dest)
@@ -83,6 +85,12 @@ module VersionDirs
 
         def change_version_to_latest(f)
           f.sub(/(riak[^\/\-]*?\/)[^\/]+(\/.*?)/, '\1latest\2')
+        end
+
+        # If we're rendering the current version, then generate the latest
+        def include_latest?(project)
+          versions ||= YAML::load(File.open('data/versions.yml'))
+          versions['currents'][project] == $versions[project.to_sym]
         end
 
         def cleanup(dir)
@@ -104,6 +112,8 @@ module VersionDirs
 
           # a copy of the full site to reflect the latest values
 
+          project = get_project(f)
+
           # leave it
           if f =~ /^\.\/build\/.+?\/standalone\//
             next
@@ -118,22 +128,29 @@ module VersionDirs
             FileUtils.rm(f)
             next
           # favico, root index stay put
-          elsif f == "./build/favicon.ico" || f =~ /^\.\/build\/index\.html$/
+          elsif f == "./build/favicon.ico"
             next
+          elsif f =~ /^\.\/build\/index\.html$/
+            # if we don't include the latest, delete this
+            next if include_latest?(project)
           # project root files should also copy to latest
           elsif f =~ /\/riak[^\/]*?\/[\d\.]+\/index\.html?$/
-            copy(f, change_version_to_latest(f))
+            if include_latest?(project)
+              copy(f, change_version_to_latest(f))
+            end
             next
           else
-            project = get_project(f)
             version = $versions[project.to_sym]
             move_to = f.sub(/\.\/build\//, "./build/#{project}/#{version}/")
           end
 
           copy(f, move_to)
 
-          # copy twice... once under version, and once with "latest"
-          copy(f, change_version_to_latest(move_to))
+          project ||= get_project(f)
+          if include_latest?(project)
+            # copy twice... once under version, and once with "latest"
+            copy(f, change_version_to_latest(move_to))
+          end
           FileUtils.rm(f)
         end
 
