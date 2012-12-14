@@ -1102,6 +1102,15 @@ div[role=main] {
     margin-bottom : 20px;
   }
   
+  .info {
+    .code {
+      background:none;
+      @include boxShadow(inset 0 1px 4px #5A7772);
+      margin-top : 10px;
+      margin-bottom : 10px;
+    }
+  }
+
   table.links {
     width:100%;
     td:first-child {
