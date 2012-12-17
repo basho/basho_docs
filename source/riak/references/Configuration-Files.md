@@ -38,7 +38,23 @@ Riak and the Erlang applications it depends on are configured by settings in the
 ### riak_api settings
 
  * **pb_ip**
-The IP address that the Protocol Buffers interface will bind to. (default: "127.0.0.1") If not set, the PBC interface will not be started.
+    The IP address that the Protocol Buffers interface will bind to.
+    (default: "127.0.0.1") If not set, the PBC interface will not be
+    started. {{#1.3.0+}} The IP address may be specified as a string or
+    tuple of address components as integers (4 for IPv4, 8 for IPv6). For
+    example:
+
+    ```erlang
+    %% binds to specific IPv4 interface
+    {pb_ip, {10,1,1,56}}
+
+    %% binds to all IPv6 interfaces
+    {pb_ip, "::0"}
+
+    %% binds to a specific IPv6 interface
+    {pb_ip, {65152,0,0,0,64030,57343,65250,15801}}
+    ```
+    {{/1.3.0+}}
 
  * **pb_port**
 The port that the Protocol Buffers interface will bind to. (default: 8087)
@@ -51,6 +67,11 @@ simultaneously initialized, set this number to a higher value accordingly.
 You should adjust this value to meet your anticipated simultaneous
 connection demand or if experiencing connection resets. (default: 5)
 
+ * **disable_pb_nagle** Turns off Nagle's algorithm (aka TCP
+slow-start) for Protocol Buffers connections. This is equivalent to
+setting the TCP_NODELAY option on the socket. (default:
+{{#1.3.0+}}false{{/1.3.0+}}{{#1.3.0-}}true{{/1.3.0-}})
+
 {{/1.2.0+}}
 
 ### riak_core settings
@@ -61,24 +82,24 @@ connection demand or if experiencing connection resets. (default: 5)
 The name of the cluster. This currently has no visible effect, but could be useful for identifying multiple clusters within a larger infrastructure.
 
 * **default_bucket_props**
-These are properties used for buckets that have not been explicitly defined (as outlined in the HTTP API). They are useful for setting default bucket behavior such as:
+    These are properties used for buckets that have not been explicitly defined (as outlined in the HTTP API). They are useful for setting default bucket behavior such as:
 
-```erlang
-{default_bucket_props, [
-    {n_val,3},
-    {allow_mult,false},
-    {last_write_wins,false},
-    {precommit, []},
-    {postcommit, []},
-    {chash_keyfun, {riak_core_util, chash_std_keyfun}},
-    {linkfun, {modfun, riak_kv_wm_link_walker, mapreduce_linkfun}}
-    ]}
-```
+    ```erlang
+    {default_bucket_props, [
+        {n_val,3},
+        {allow_mult,false},
+        {last_write_wins,false},
+        {precommit, []},
+        {postcommit, []},
+        {chash_keyfun, {riak_core_util, chash_std_keyfun}},
+        {linkfun, {modfun, riak_kv_wm_link_walker, mapreduce_linkfun}}
+        ]}
+    ```
 
-n_val - the number of replicas stored<br>
-allow_mult - whether or not siblings are allowed<br>
-r, w, dw, rw - the quorum values for get, put and delete requests<br>
-precommit, postcommit - global pre- and post-commit hooks
+    * n_val - the number of replicas stored
+    * allow_mult - whether or not siblings are allowed
+    * r, w, dw, rw - the quorum values for get, put and delete requests
+    * precommit, postcommit - global pre- and post-commit hooks
 
 * **delayed_startup**
 Sleep a number of milliseconds before starting riak_core. Default: unset
@@ -97,50 +118,54 @@ TCP port number for the handoff listener. (default: "8099")
 
 * **handoff_ip**
 The IP address the handoff listener will bind to. (default: "0.0.0.0")
+{{#1.3.0+}} The IP address may be specified as a string or tuple of
+address components as integers (4 for IPv4, 8 for IPv6). See `pb_ip`
+above for examples. {{/1.3.0+}}
 
 * **http**
-A list of IP addresses and ports on which Riak's HTTP interface should listen. (default: {"127.0.0.1", 8091 })
+    A list of IP addresses and ports on which Riak's HTTP interface should listen. (default: {"127.0.0.1", 8091 })
 
-Riak's HTTP interface will not be started if this setting is not defined.
+    Riak's HTTP interface will not be started if this setting is not defined.
 
- * **http_logdir**
+* **http_logdir**
 Override the default location of the access logs. See webmachine_logger_module settings to enable access logs.
 
- * **https**
+* **https**
 A list of IP addresses and ports on which Riak's HTTPS interface should listen. (default: not enabled)
 
 Riak's HTTPS interface will not be started if this setting is not defined.
 
- * **legacy_vnode_routing**
+* **legacy_vnode_routing**
 Boolean - for compatibility with older versions.
 
- * **platform_data_dir**
+* **platform_data_dir**
 Base directory for backend data storage. (default: ./data)
 
- * **ring_state_dir**
-The directory on-disk in which to store the ring state. (default: data/ring)
+* **ring_state_dir**
+    The directory on-disk in which to store the ring state. (default: data/ring)
 
-Riak's ring state is stored on-disk by each node, such that each node may be restarted at any time (purposely, or via automatic failover) and know what its place in the cluster was before it terminated, without needing immediate access to the rest of the cluster.
+    Riak's ring state is stored on-disk by each node, such that each node may be restarted at any time (purposely, or via automatic failover) and know what its place in the cluster was before it terminated, without needing immediate access to the rest of the cluster.
 
- * **ring_creation_size**
-The number of partitions to divide the hash space into (default: "64")
+* **ring_creation_size**
+    The number of partitions to divide the hash space into (default: "64")
 
-By default, each Riak node will own ring_creation_size/(number of nodes in the cluster) partitions. It is generally a good idea to specify a "ring_creation_size" a few times the number of nodes in your cluster (e.g. specify 64-256 partitions for a 4-node cluster). This gives you room to expand the number of nodes in the cluster, without worrying about under-use due to owning too few partitions. This number should be a power of 2 (64, 128, 256, etc.).
+    By default, each Riak node will own ring_creation_size/(number of nodes in the cluster) partitions. It is generally a good idea to specify a "ring_creation_size" a few times the number of nodes in your cluster (e.g. specify 64-256 partitions for a 4-node cluster). This gives you room to expand the number of nodes in the cluster, without worrying about under-use due to owning too few partitions. This number should be a power of 2 (64, 128, 256, etc.).
+
 <div class="info">
 <div class="title">Basho Tip</div>
 The ring_creation_size should be established before your cluster is started, and should not be changed thereafter.
 </div>
 
- * **ssl**
+* **ssl**
 You can override the default SSL key and certificate settings (default: etc/cert.pem, etc/key.pem)
 
- * **target_n_val**
-The highest n_val that you generally intend to use. This affects how partitions are distributed amongst the cluster and how preflists are calculated, helping ensure that data is never stored to the same physical node more than once. You will only need to change this setting in rare circumstances.
+* **target_n_val**
+    The highest n_val that you generally intend to use. This affects how partitions are distributed amongst the cluster and how preflists are calculated, helping ensure that data is never stored to the same physical node more than once. You will only need to change this setting in rare circumstances.
 
-Assuming ring_creation_size is a power of 2, the ideal value for this setting is both greater than or equal to the largest n_val of any bucket, and an even divisor of the number of partitions in your ring (ring_creation_size).
-The default value is 4. For this to be effective at preventing hot spots, your cluster size (number of physical nodes) must be equal to or larger than target_n_val.
+    Assuming ring_creation_size is a power of 2, the ideal value for this setting is both greater than or equal to the largest n_val of any bucket, and an even divisor of the number of partitions in your ring (ring_creation_size).
+    The default value is 4. For this to be effective at preventing hot spots, your cluster size (number of physical nodes) must be equal to or larger than target_n_val.
 
- * **wants_claim_fun**
+* **wants_claim_fun**
 {Module, Function} that returns boolean - true if this node wants to claim more vnodes.
 
 
@@ -211,9 +236,9 @@ This option enables compatibility of bucket and key listing with 0.14 and earlie
  * **pb_backlog** The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized simultaneously, set this number higher. (default: 5) {{1.2.0-}}
 
  * **raw_name**
-The base of the path in the URL exposing Riak's HTTP interface (default: `riak`)
+    The base of the path in the URL exposing Riak's HTTP interface (default: `riak`)
 
-The default value will expose data at `/riak/Bucket/Key`. For example, changing this setting to "bar" would expose the interface at `/bar/Bucket/Key`.
+    The default value will expose data at `/riak/Bucket/Key`. For example, changing this setting to "bar" would expose the interface at `/bar/Bucket/Key`.
 
  * **riak_kv_stat**
 Enables the statistics-aggregator (`/stats` URL and riak-admin status command) if set to true. (default is `true`)
@@ -302,6 +327,7 @@ The default lager options are like so:
 ```
 
 ## vm.args
+
 Parameters for the Erlang node on which Riak runs are set in the vm.args file in the etc directory of the embedded Erlang node. Most of these settings can be left at their defaults until you are ready to tune performance.
 
 Two settings you may be interested in right away, though, are -name and -setcookie. These control the Erlang node names (possibly host-specific), and Erlang inter-node communication access (cluster-specific), respectively.
@@ -312,50 +338,50 @@ More details about each of these settings can be found in the Erlang documentati
 
 Erlang Runtime Configuration Options
 
-### -name
+#### -name
 Name of the Erlang node. (default: riak@127.0.0.1)
 
 The default value, riak@127.0.0.1 will work for running Riak locally, but for distributed (multi-node) use, the portion of the name after the "@" should be changed to the IP address of the machine on which the node is running.
 
 If you have properly-configured DNS, the short-form of this name can be used (for example: "riak"). The name of the node will then be "riak@Host.Domain".
 
-### -setcookie
+#### -setcookie
 Cookie of the Erlang node. (default: "riak")
 
 Erlang nodes grant or deny access based on the sharing of a previously-shared cookie. You should use the same cookie for every node in your Riak cluster, but it should be a not-easily-guessed string unique to your deployment, to prevent non-authorized access.
 
-### -heart
+#### -heart
 Enable "heart" node monitoring. (default: disabled)
 
 Heart will restart nodes automatically, should they crash. However, heart is so good at restarting nodes that it can be difficult to prevent it from doing so. Enable heart once you are sure that you wish to have the node restarted automatically on failure.
 
-### +K
+#### +K
 Enable kernel polling. (default: "true")
 
-### +A
+#### +A
 Number of threads in the async thread pool. (default: 64)
 
-### -pa
+#### -pa
 Adds the specified directories to the beginning of the code path, similar to code:add_pathsa/1. See code(3). As an alternative to -pa, if several directories are to be prepended to the code and the directories have a common parent directory, that parent directory could be specified in the ERL_LIBS environment variable.
 
-### -env
+#### -env
 Set host environment variables for Erlang.
 
-### -smp
+#### -smp
 Enables Erlang's SMP support. (default: "enable")
 
-### -env ERL_LIBS
+#### -env ERL_LIBS
 Alternate method to add directories to the code path (see -pa above)
 
-### -env ERL_MAX_PORTS `4096`
+#### -env ERL_MAX_PORTS `4096`
 
 Maximum number of concurrent ports/sockets. (default: 4096)
 
-### -env ERL_FULLSWEEP_AFTER `0`
+#### -env ERL_FULLSWEEP_AFTER `0`
 
 Run garbage collection more often.
 
-### -env ERL_CRASH_DUMP `./log/erl_crash.dump`
+#### -env ERL_CRASH_DUMP `./log/erl_crash.dump`
 
 Set the location of crash dumps.
 
