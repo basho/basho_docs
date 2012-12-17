@@ -113,10 +113,23 @@ module SitemapRenderOverride
       version = Versionomy.parse(version_str)
 
       # if it's a different version, remove the entire block
-      data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/([^\}]+)\}\}/m) do
+      data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/(\1)\}\}/m) do
         liversion, block = $1, $2
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
-        in_version_range?(liversion, version) ? block : ''
+        if in_version_range?(liversion, version)
+          # nested version block
+          block.gsub(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/(\1)\}\}/m) do
+            liversion2, block2 = $1, $2
+            liversion2 = liversion2.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
+            if in_version_range?(liversion2, version)
+              block2
+            else
+              ''
+            end
+          end
+        else
+          ''
+        end
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
