@@ -43,28 +43,28 @@ for the target platform:
 #### Ubuntu Lucid Lynx (10.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.1-1_amd64.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_amd64.deb
     $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 #### Ubuntu Natty Narwhal (11.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/natty/riak_1.2.1-1_amd64.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/natty/riak_1.2.1-1_amd64.deb
     $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 #### Ubuntu Precise Pangolin (12.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/precise/riak_1.2.1-1_amd64.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/precise/riak_1.2.1-1_amd64.deb
     $ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 ### Riak 32-bit Installation
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.1-1_i386.deb
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_i386.deb
     $ sudo dpkg -i riak_1.2.1-1_i386.deb
 ```
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
@@ -86,7 +86,7 @@ If Erlang is not already installed, install it before continuing (see:
 With Erlang installed, proceed to downloading and installing Riak:
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.1.tar.gz
+    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
     $ tar zxvf riak-1.2.1.tar.gz
     $ cd riak-1.2.1
     $ make rel
