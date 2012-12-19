@@ -24,13 +24,13 @@ To run Riak from our precompiled tarball, run these commands for the appropriate
 
 ### 64-bit
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/osx/10.4/riak-1.2.1-osx-x86_64.tar.gz
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/osx/10.4/riak-1.2.1-osx-x86_64.tar.gz
 tar xzvf riak-1.2.1-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/osx/10.4/riak-1.2.1-osx-i386.tar.gz
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/osx/10.4/riak-1.2.1-osx-i386.tar.gz
 tar xzvf riak-1.2.1-osx-i386.tar.gz
 ```
 
@@ -62,7 +62,7 @@ If you do not have Erlang already installed, see [[Installing Erlang]]. Don't wo
 Next, download and unpack the source distribution.
 
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.1.tar.gz
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
 tar zxvf riak-1.2.1.tar.gz
 cd riak-1.2.1
 make rel
