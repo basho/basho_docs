@@ -28,7 +28,7 @@ Most of the interactions you'll have with Riak will be setting or retrieving the
 Here is the basic command formation for retrieving a specific key from a bucket.
 
 ```bash
-GET /riak/bucket/key
+GET /riak/BUCKET/KEY
 ```
 
 The body of the response will contain the contents of the object (if it exists).
@@ -59,8 +59,10 @@ This should return a *404 Not Found* as the key "doc2" does not exist (you haven
 
 Your application will often have its own method of generating the keys for its data.  If so, storing that data is easy.  The basic request looks like this.
 
+*Note that this is not the only URL format available. Alternate forms can be found in the [[HTTP API]].*
+
 ```bash
-PUT /riak/bucket/key
+PUT /riak/BUCKET/KEY
 ```
 
 <div class="info"><code>POST</code> is also a valid verb, for compatibility's sake.</div>
@@ -95,10 +97,11 @@ If *returnbody=true*, any of the response headers expected from a GET request ma
 Let's give it a shot. Try running this in a terminal.
 
 
-```bash
-$ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/test/doc?returnbody=true \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
-  http://127.0.0.1:8091/riak/test/doc?returnbody=true
+  -H "Content-Type: application/json" \
+  -d '{"bar":"baz"}'
 ```
 
 ### Store a new object and assign random key
@@ -106,7 +109,7 @@ $ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
 If your application would rather leave key-generation up to Riak, issue a POST request to the bucket URL instead of a PUT to a bucket/key pair:
 
 ```bash
-POST /riak/bucket
+POST /riak/BUCKET
 ```
 
 If you don't pass Riak a "key" name after the bucket, it will know to create one for you.
@@ -119,9 +122,10 @@ Normal status codes:
 
 This command will store an object, in the bucket "test" and assign it a key:
 
-```bash
-$ curl -v -d 'this is a test' -H "Content-Type: text/plain" \
-  http://127.0.0.1:8091/riak/test
+```
+$ curl -v -XPOST http://127.0.0.1:8091/riak/test \
+  -H 'Content-Type: text/plain' \
+  -d 'this is a test'
 ```
 
 In the output, the *Location* header will give the you key for that object. To view the newly created object, go to `http://127.0.0.1:8091/*_Location_*` in your browser.
@@ -135,7 +139,7 @@ Lastly, you'll need to know how to delete keys.
 The command, as you can probably guess, follows a predictable pattern and looks like this:
 
 ```bash
-DELETE /riak/bucket/key
+DELETE /riak/BUCKET/KEY
 ```
 
 The normal response codes for a DELETE operations are *204 No Content* and *404 Not Found*
@@ -145,7 +149,7 @@ The normal response codes for a DELETE operations are *204 No Content* and *404 
 Try this:
 
 ```bash
-$ curl -v -X DELETE http://127.0.0.1:8091/riak/test/test2
+$ curl -v -XDELETE http://127.0.0.1:8091/riak/test/test2
 ```
 
 ## Bucket Properties and Operations
@@ -184,9 +188,10 @@ The most important properties to consider for your bucket are:
 
 Let's go ahead and alter the properties of a Bucket. The following PUT will create a new bucket called "test" with a modified n_val of 5.
 
-```bash
-$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' \
-  http://127.0.0.1:8091/riak/test
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/test \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"n_val":5}}'
 ```
 
 ### GET Buckets
