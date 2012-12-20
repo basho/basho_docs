@@ -37,17 +37,17 @@ body class=classnames.join(' ') id=data.page.body_id
         == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
         - if data.page.project == 'riakcs'
           .info
-            .title Riak CS Only
-            | To try out Riak CS, sign up for a <a href="http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html">developer trial</a>.
+            .title== I18n.t(:"riak_cs.info.title")
+            == I18n.t(:"riak_cs.info.body")
 
         - if data.page.project == 'riakee'
           .info
-            .title Riak Enterprise Only
-            | This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise, <a href="http://info.basho.com/Wiki_Contact.html">let us know</a>.
+            .title== I18n.t(:"riak_ee.info.title")
+            == I18n.t(:"riak_ee.info.body")
 
         - unless data.page.toc == false
           nav#toc
-            h2.title Contents
+            h2.title== I18n.t(:toc_contents)
             div#toc-wrapper
               ol#toc-items
       == yield
