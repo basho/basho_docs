@@ -25,7 +25,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 
 2.	Install middleman
 
-	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch 							the middleman API.  
+	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch the middleman API.  
 
 	```
 	gem install bundler
@@ -48,7 +48,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 5.	Review your changes locally 
 
 	```
-	RIAK_VERSION=1.2.0 middleman
+	middleman
 	```
 
 6.	Send us a pull request
@@ -215,14 +215,15 @@ export AWS_ACCESS_KEY_ID="XXXXX"
 export AWS_SECRET_ACCESS_KEY="XXXXX"
 export AWS_S3_BUCKET='riakdocs.en'
 export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
+export RIAK_DOCS_LANG=en
 ```
 
 _The bucket and Cloudfront values are per language._
 
-language | bucket      | cloudfront id
----------|-------------|---------------
-English  | riakdocs.en | E2Q6TQ5O0XT58T
-Japanese | riakdocs.jp | ENDQVZ5Y7OVJN
+language | bucket      | cloudfront id  | docs lang
+---------|-------------|----------------|----------
+English  | riakdocs.en | E2Q6TQ5O0XT58T | en
+Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
 
 
 **Keep it secret. Keep it safe.**
