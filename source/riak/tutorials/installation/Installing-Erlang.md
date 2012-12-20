@@ -36,6 +36,8 @@ KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
                         --enable-kernel-poll  --enable-darwin-64bit"
 ```
 
+Note that when building Erlang on a FreeBSD/Solaris system (including SmartOS), HIPE should be disabled on these platforms as well with the above `--disable-hipe` option.
+
 Building with kerl on GNU/Linux has the same prerequisites that building from source does.
 
 Building the Erlang release of your choice is one command; as of Riak version 1.2, you should build and use Erlang version R15B01 like this:
