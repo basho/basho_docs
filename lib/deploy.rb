@@ -114,3 +114,5 @@ module ::Middleman::Features::ProductionCheck
     end
   end
 end
+
+::Middleman::Extensions.register(:production_check, ::Middleman::Features::ProductionCheck)

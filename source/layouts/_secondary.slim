@@ -1,14 +1,13 @@
-
 section.right-sidebar
   aside.secondary role="complementary"
     nav role="nav"
-      h4 These May Also Interest You
+      h4== I18n.t(:secondary_header)
       ul
         - if (pages = similar_pages(current_resource)).present?
           - for page in pages[0..5]
             li== "[[#{page.metadata[:page]['title']}]]"
         - else
-          li== link_to 'All Riak Projects', '/index.html'
-          li [[FAQs]]
-          li [[APIs]]
+          li== link_to I18n.t(:all_projects), '/index.html'
+          li==I18n.t(:faqs_link)
+          li==I18n.t(:apis_link)
       == partial "layouts/keywords"

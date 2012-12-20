@@ -139,6 +139,7 @@ riak:
       - title: "FAQs"
         sub:
           - "[[All FAQs|FAQs]]"
+          - "[[The Basics|Basic FAQs]]"
           - "[[Developing on Riak|Developing on Riak FAQs]]"
           - "[[Operating Riak|Operating Riak FAQs]]"
           - "[[Log Messages|Log Messages FAQs]]"
