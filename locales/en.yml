@@ -1,0 +1,27 @@
+---
+en:
+  basho: Basho
+  visit_basho: Visit Basho
+  home: Home
+  riak_docs: Riak Docs
+  tagline: "Product tutorials, how-tos, and fully-documented APIs."
+  keywords: Keywords
+  navigation: Navigation
+  all_projects: All Riak Projects
+  docs_on_github: "These docs are available on GitHub. Please submit ideas and patches."
+  secondary_header: "These May Also Interest You"
+  faqs_link: "[[FAQs]]"
+  apis_link: "[[APIs]]"
+  tutorial_nav: "Tutorial Nav"
+  previous: Prev
+  next: Next
+  toc_contents: Contents
+  footer: "This work is licensed under a <a href=\"http://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">Creative Commons Attribution 3.0 Unported License</a>"
+  riak_cs:
+    info:
+      title: Riak CS Only
+      body: "To try out Riak CS, sign up for a <a href=\"http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html\">developer trial</a>."
+  riak_ee:
+    info:
+      title: Riak Enterprise Only
+      body: "This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise, <a href=\"http://info.basho.com/Wiki_Contact.html\">let us know</a>."
