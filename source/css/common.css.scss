@@ -717,43 +717,19 @@ div[role="main"] {
         }
       }
 
-      input {
-        @include allCorners(15px);
-        @include transition(width 0.3s ease);
-        border      : 1px solid silver;
-        padding     : 2px 12px;
-        background  : url('../images/layout/small-search-icon.png') right 3px no-repeat #FFF;
-        font-weight : normal;
-        font-family : 'titillium', verdana, arial, sans-serif;
-        color       : #24514A;
-        width       : 5em;
+      input[type="search"] {
         position    : absolute;
         top         : 0;
         right       : -3px;
-        
-        &::-webkit-input-placeholder,
-        &::-moz-placeholder,
-        &::-ms-input-placeholder,
-        &::input-placeholder {
-          color : #24514A;
-        }
-        
-        &:focus {
-          width   : 10em;
-          outline : none;
-        }
-
-        &:hover {
-          color      : #24514A;
-        }
       }
-      
+
       @media screen and (max-width: 700px) {
         display : none;
       }
     }
     
   }
+
   
   .info, .note {
     @extend .serif-italic;
@@ -1178,5 +1154,42 @@ article {
   }
   .right-sidebar nav.tutorial {
     margin : 0;
+  }
+}
+
+
+#top-nav input[type="search"],
+#search-404
+{
+  @include allCorners(15px);
+  @include transition(width 0.3s ease);
+  border      : 1px solid silver;
+  padding     : 2px 12px;
+  background  : url('../images/layout/small-search-icon.png') right 3px no-repeat #FFF;
+  font-weight : normal;
+  font-family : 'titillium', verdana, arial, sans-serif;
+  color       : #24514A;
+  width       : 5em;
+  
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &::-ms-input-placeholder,
+  &::input-placeholder {
+    color : #24514A;
+  }
+  
+  &:focus {
+    width   : 10em;
+    outline : none;
+  }
+
+  &:hover {
+    color      : #24514A;
+  }
+}
+#search-404 {
+  width : 20em;
+  &:focus {
+    width : 20em;
   }
 }

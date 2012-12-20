@@ -1,0 +1,24 @@
+<div class="404container">
+  <h1>404 Not Found <span>:(</span></h1>
+  <p>Sorry, but the page you were trying to view isn't here.</p>
+  <p>It looks like this was the result of either:</p>
+  <ul>
+    <li>a mistyped address</li>
+    <li>an out-of-date link</li>
+  </ul>
+  <form action="http://search.basho.com">
+    <input id="search-404" size="5" type="search" placeholder="Search" name="q">
+  </form>
+</div>
+<style>
+  ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
+  ::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+  h1 span { color: #bbb; }
+  p { margin: 1em 0; }
+  ul { padding: 0 0 0 40px; margin: 1em 0; }
+  .404container { max-width: 380px; _width: 380px; margin: 0 auto; }
+</style>
+<script>
+  var searchTerm = window.location.pathname.replace(/\/riak\/.*?\//, '');
+  document.getElementById('search-404').value = searchTerm;
+</script>
