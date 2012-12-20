@@ -21,6 +21,17 @@ When installing Riak on CentOS or Redhat you can install from source or from our
 
 ### For Centos 5 / RHEL 5
 
+You can either install using yum *(recommended)*,
+
+```
+package=basho-release-5-1.noarch.rpm && \
+wget http://yum.basho.com/gpg/$package -O /tmp/$package && \
+sudo rpm -ivh /tmp/$package
+sudo yum install riak
+```
+
+...or install the rpm package manually.
+
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/rhel/5/riak-1.2.1-1.el5.x86_64.rpm
 sudo rpm -Uvh riak-1.2.1-1.el5.x86_64.rpm
@@ -28,12 +39,24 @@ sudo rpm -Uvh riak-1.2.1-1.el5.x86_64.rpm
 
 ### For Centos 6 / RHEL 6
 
+You can either install using yum *(recommended)*,
+
+```
+package=basho-release-6-1.noarch.rpm && \
+wget http://yum.basho.com/gpg/$package -O /tmp/$package && \
+sudo rpm -ivh /tmp/$package
+sudo yum install riak
+```
+
+...or install the rpm package manually.
+
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/rhel/6/riak-1.2.1-1.el6.x86_64.rpm
 sudo rpm -Uvh riak-1.2.1-1.el6.x86_64.rpm
 ```
 
 ## Installing From Source
+
 Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
 
 If you do not have Erlang already installed, see our guide to [[Installing Erlang]]. Don’t worry, it’s easy!
