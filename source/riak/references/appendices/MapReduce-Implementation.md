@@ -406,7 +406,7 @@ You can use streaming with Erlang via the Riak local client or the Erlang protob
 
 For examples, see:
 
-1. [MapReduce localstream.erl](/data/MapReduce-localstream.erl)
+1. [MapReduce localstream.erl](/data/MapReduce-localstream.erl){{<1.3.0}}
 2. [MapReduce pbstream.erl](/data/MapReduce-pbstream.erl)
 
 ## Phase functions
