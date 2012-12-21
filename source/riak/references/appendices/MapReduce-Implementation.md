@@ -293,28 +293,32 @@ The following example would follow all links pointing to objects in the `foo` bu
 {"link":{"bucket":"foo","keep":false}}
 ```
 
-## MapReduce via the Erlang API
+## MapReduce via the Protocol Buffers API using Erlang Syntax
 
-Riak also supports invoking MapReduce queries via the Erlang API.
+Riak also supports describing MapReduce queries in Erlang syntax via the Protocol Buffers API.  This section demonstrates how to do so using the Erlang client.
 
 <div class="note"><div class="title">Distributing Erlang MapReduce Code</div>Any modules and functions you use in your Erlang MapReduce calls must be available on all nodes in the cluster.  You can add them in Erlang applications by specifying the *-pz* option in [[vm.args|Configuration Files]] or by adding the path to the `add_paths` setting in `app.config`.</div>
 
 ### Erlang Example
 
-You can use the local Riak client to run MapReduce queries. Before we do, let's create some objects to run them on.
+Before running some MapReduce queries, let's create some objects to run them on.
 
 ```erlang
-1> {ok, Client} = riak:local_client().
-2> Mine = riak_object:new(<<"groceries">>, <<"mine">>, ["eggs", "bacon"]).
-3> Yours = riak_object:new(<<"groceries">>, <<"yours">>, ["bread", "bacon"]).
-4> Client:put(Yours, 1).
-5> Client:put(Mine, 1).
+1> {ok, Client} = riakc_pb_socket:start("127.0.0.1", 8087).
+2> Mine = riakc_obj:new(<<"groceries">>, <<"mine">>,
+                        term_to_binary(["eggs", "bacon"])).
+3> Yours = riakc_obj:new(<<"groceries">>, <<"yours">>,
+                         term_to_binary(["bread", "bacon"])).
+4> riakc_pb_socket:put(Client, Yours, [{w, 1}]).
+5> riakc_pb_socket:put(Client, Mine, [{w, 1}]).
 ```
+
 Now that we have a client and some data, let's run a query and count how many occurances of groceries.
 
 ```erlang
 6> Count = fun(G, undefined, none) ->
-             [dict:from_list([{I, 1} || I <- riak_object:get_value(G)])]
+             [dict:from_list([{I, 1}
+              || I <- binary_to_term(riak_object:get_value(G))])]
            end.
 7> Merge = fun(Gcounts, none) ->
              [lists:foldl(fun(G, Acc) ->
@@ -324,18 +328,22 @@ Now that we have a client and some data, let's run a query and count how many oc
                           dict:new(),
                           Gcounts)]
            end.
-8> {ok, [R]} = Client:mapred([{<<"groceries">>, <<"mine">>},
-                              {<<"groceries">>, <<"yours">>}],
-                             [{map, {qfun, Count}, none, false},
-                              {reduce, {qfun, Merge}, none, true}]).
+8> {ok, [{1, [R]}]} = riakc_pb_socket:mapred(
+                         Client,
+                         [{<<"groceries">>, <<"mine">>},
+                          {<<"groceries">>, <<"yours">>}],
+                         [{map, {qfun, Count}, none, false},
+                          {reduce, {qfun, Merge}, none, true}]).
 9> L = dict:to_list(R).
 ```
+
+<div class="note"><div class="title">Riak Object Representations</div>Note how the `riak_object` module is used in the MapReduce function, but the `riakc_obj` module is used on the client. Riak objects are represented differently internally to the cluster than they are externally.</div>
 
 Given the lists of groceries we created, the sequence of commands above would result in L being bound to `[{"bread",1},{"eggs",1},{"bacon",2}]`.
 
 ### Erlang Query Syntax
 
-`riak_client:mapred/2` takes two lists as arguments.  The first list contains bucket-key pairs, inputs to the MapReduce query.  The second list contains the phases of the query.
+`riakc_pb_socket:mapred/3` takes a client and two lists as arguments.  The first list contains bucket-key pairs, inputs to the MapReduce query.  The second list contains the phases of the query.
 
 #### Inputs
 
