@@ -5,9 +5,9 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, osx]
-prev: ["Installing on RHEL and CentOS", "Installing-on-RHEL-and-CentOS.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on FreeBSD", "Installing-on-FreeBSD.html"]
+prev: "[[Installing on RHEL and CentOS]]"
+up:   "[[Installing and Upgrading]]"
+next: "[[Installing on FreeBSD]]"
 ---
 
 The following steps are known to work with Mac OS X 10.5 and 10.6. You can install from source or download a precompiled tarball.

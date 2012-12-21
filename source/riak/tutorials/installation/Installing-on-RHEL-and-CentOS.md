@@ -5,9 +5,9 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, rhel, centos, linux]
-prev: ["Installing on Debian and Ubuntu", "Installing-on-Debian-and-Ubuntu.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on Mac OS X", "Installing-on-Mac-OS-X.html"]
+prev: "[[Installing on Debian and Ubuntu]]"
+up:   "[[Installing and Upgrading]]"
+next: "[[Installing on Mac OS X]]"
 ---
 
 When installing Riak on CentOS or Redhat you can install from source or from our custom .rpm package.

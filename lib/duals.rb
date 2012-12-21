@@ -1,7 +1,7 @@
 require './lib/rocco'
 
 # this is not optimal. Hook it into the "watch" mechanism
-puts "== Generating DUAL Pages"
+puts "== Generating Dual Pages"
 for api in Dir.glob("**/*.api")
   r = Rocco.new(api, [], :language => 'bash', :template_file => './source/layouts/api.mustache')
   File.open(api.sub(/\.api$/, '.html.erb'), 'w') do |html|

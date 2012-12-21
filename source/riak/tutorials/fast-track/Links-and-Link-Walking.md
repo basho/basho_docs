@@ -5,9 +5,16 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Tunable CAP Controls", "Tunable-CAP-Controls-in-Riak.html"]
+prev: "[[MapReduce Queries|Loading Data and Running MapReduce]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Tunable CAP Controls|Tunable CAP Controls in Riak]]"
+versions: false
+interest: [
+"[[Links]]",
+"<a href='http://blog.basho.com/2010/02/24/link-walking-by-example'>Link Walking By Example</a>",
+"<a href='http://blog.inagist.com/link-map-reduce-in-riak-an-example-from-inagi'>Link-Map-Reduce Example</a>",
+"<a href='http://tools.ietf.org/html/draft-nottingham-http-link-header-10'>IETF 'Web Linking' Draft</a>"
+]
 ---
 
 Now that you've done some Mapping and Reducing, it's time to introduce you to "Links."
@@ -32,9 +39,10 @@ So what's actually happening here? In the angle brackets, we have the URL the li
 
 Here is what a full PUT request through CURL with the link header would look like:
 
-```bash
-$ curl -v -XPUT -H 'Link: </riak/people/dhh>; riaktag="friend"' \
-  -H "content-type: text/plain" http://127.0.0.1:8091/riak/people/timoreilly \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/timoreilly \
+  -H 'Link: </riak/people/dhh>; riaktag="friend"' \
+  -H "Content-Type: text/plain" \
   -d 'I am an excellent public speaker.'
 ```
 
@@ -54,8 +62,9 @@ Look for the "Link" field in the response headers. This will show you your link 
 
 Alright. We've stored the "timoreilly" object with a "friend" tag pointing to the "dhh" object. Now we need to store the "dhh" object to which "timoreilly" is linked:
 
-```bash
-$ curl -v -XPUT -H "content-type: text/plain" http://127.0.0.1:8091/riak/people/dhh \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
+  -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
 ```
 
@@ -91,10 +100,10 @@ Each step you walk is referred to as a phase, because under the hood a link walk
 
 By default, Riak will only include the objects found by the last step. This could be interesting if you want e.g. to build a graph of how the original object ("timoreilly" in this case) relates to the ones found traversing the links. To see how this works out in practice, let's add another object to the mix, "davethomas", who is friends with "timoreilly".
 
-```bash
+```
 $ curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
   -H 'Link: </riak/people/timoreilly>; riaktag="friend"' \
-  -H "content-type: text/plain" \
+  -H "Content-Type: text/plain" \
   -d 'I publish books'
 ```
 
@@ -114,10 +123,10 @@ When you try this out yourself you'll notice that the output has gotten slightly
 
 As a final sugar sprinkle on top, we can make "dhh" friends with "davethomas" directly, so we have a real graph and not just a single path.
 
-```bash
+```
 $ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh
   -H 'Link: </riak/people/davethomas>; riaktag="friend"' \
-  -H "content-type: text/plain" \
+  -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
 ```
 
@@ -155,11 +164,11 @@ In the above screencast, Sean makes use of several scripts to demonstrate some d
 If you watched the video, it's apparent how these scripts are used to demonstrate link walking. For those of you who didn't watch or who want to run and tweak the scripts themselves, check out this graphic:
 ![Circle of Friends](/images/circle-of-friends.png)
 
-"load_people.sh" will automatically load data into your running three node Riak Cluster that pertains to the the above graphic and has the requisite links attached.
+`load_people.sh` will automatically load data into your running three node Riak Cluster that pertains to the the above graphic and has the requisite links attached.
 
-"people_queries.sh" is a series of link walking queries that expresses the relationships that were preloaded with the load_people.sh script.
+`people_queries.sh` is a series of link walking queries that expresses the relationships that were preloaded with the `load_people.sh` script.
 
-To use "load_people.sh" download it to your "dev" directory and run
+To use `load_people.sh` download it to your `dev` directory and run
 
 ```bash
 $ chmod +x load_people.sh
@@ -179,25 +188,15 @@ $ chmod +x people_queries.sh
 
 followed by
 
-
 ```bash
 $ ./people_queries.sh
 ```
 
-
 You should then see:
 
-
-```bash
+```
 Press [[Enter]] after each query description to execute.
 Q: Get Sean's friends (A:Mark, Kevin)
 ```
 
 Have fun!
-
-Additional Reading for this Section
-
-* [[More on Links|Links]]
-* [Link Walking By Example](http://blog.basho.com/2010/02/24/link-walking-by-example)
-* [Link-Map-Reduce with Riak at inagist.com](http://blog.inagist.com/link-map-reduce-in-riak-an-example-from-inagi)
-* [IETF "Web Linking" Draft](http://tools.ietf.org/html/draft-nottingham-http-link-header-10)
