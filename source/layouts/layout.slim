@@ -31,7 +31,7 @@ body class=classnames.join(' ') id=data.page.body_id
       - unless !data.page.title || data.page.simple
         header
           h1== data.page.title
-      - if !data.page.simple && !data.page.versions || data.page.versions
+      - if data.page.versions.nil? || data.page.versions
         == partial "layouts/versions"
       - unless data.page.simple
         == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'

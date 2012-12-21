@@ -5,9 +5,9 @@ version: 1.1.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, smartos]
-prev: ["Installing on FreeBSD", "Installing-on-FreeBSD.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on SUSE", "Installing-on-SUSE.html"]
+prev: "[[Installing on FreeBSD]]"
+up:   "[[Installing and Upgrading]]"
+next: "[[Installing on SUSE]]"
 ---
 
 <div class="info"><div class="title">Version Information</div>The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>.</div>

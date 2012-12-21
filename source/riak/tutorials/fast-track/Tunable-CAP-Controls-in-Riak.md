@@ -5,8 +5,17 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Links and Link Walking", "Links-and-Link-Walking.html"]
-up:   ["The Riak Fast Track", "index.html"]
+prev: "[[Links and Link Walking]]"
+up:   "[[The Riak Fast Track]]"
+versions: false
+interest: [
+"[[Installing and Upgrading]]",
+"[[Concepts]]",
+"[[Querying Riak]]",
+"[[System Planning]]",
+"[[Basic Cluster Setup]]",
+"[[Use Cases]]"
+]
 ---
 
 So, we've come a long way. If you've done the Fast Track in order, that means you've had a short intro to Riak, set up a three node cluster on your local machine, worked a bit with the HTTP interface, and performed some MapReduce queries.
@@ -29,14 +38,15 @@ All data stored in Riak will be replicated to a number of nodes in the cluster a
 
 To change the N value for a bucket (to something different than the default) issue a PUT request to the bucket with the new N value. If you still have your three node Riak cluster running, try this:
 
-```bash
-$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":2}}' \
-  http://127.0.0.1:8091/riak/another_bucket
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/another_bucket \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"n_val":2}}'
 ```
 
 This will change the n_val of the bucket "another_bucket" to two, meaning that each piece of data in that bucket will be replicated to two partitions in the cluster.
 
-<div class="note"><div class="title">A Word on Setting the N Value</div>n_val must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. And, we advise against modifying the n_val of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
+<div class="note"><div class="title">A Word on Setting the N Value</div><code>n_val</code> must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. And, we advise against modifying the n_val of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
 
 ### R Value and Read Failure Tolerance
 
@@ -58,9 +68,10 @@ Riak also allows the client to supply a "W value" on each update. The W value re
 
 In this PUT operation, you can see the w value set to 3.
 
-```bash
+```
 $ curl -v -XPUT http://127.0.0.1:8091/riak/docs/story.txt?w=3 \
-  -H "Content-type: text/plain" --data-binary @story.txt
+  -H "Content-type: text/plain" \
+  --data-binary @story.txt
 ```
 
 ### Symbolic Consistency Names
@@ -86,13 +97,12 @@ Here is brief screencast that will show you just how the N, R, and W values func
 
 Congratulations. If you're reading this and have done the Fast Track in order, it means that you've built a three node Riak cluster, inserted a small amount of data with the help of some scripts, performed basic API operations, queried that data with MapReduce, and have an introduction to the powers of tunable CAP controls. Needless to say, you've come a long way.
 
-But, there is always more Riak learning to be done, so here is a list of next steps you may want to take if you are still interested in Riak. Whatever you do, if you have a moment, send an email to _mark@basho.com_ with your thoughts on what you thought we did well, and, more importantly, how we can make the Riak Fast Track better.
+But, there is always more Riak learning to be done, so here is a list of next steps you may want to take if you are still interested in Riak. Whatever you do, if you have a moment, send an email to _docs@basho.com_ with your thoughts on what you thought we did well, and, more importantly, how we can make the Riak Fast Track better.
 
-* If you'd like more general information about Riak, check out our collections of [[Publications]] and [[Slides|Slide Decks]].
+* If you'd like more general information about Riak, check out our collections of [[Publications]] and [[Slide Decks]].
 * For more info on how to interact with Riak from your language of choice, start with [[Client Libraries]]
-* To download a platform-specific package of Riak, check out [[Getting Started|Installation]]
-* If you're interested in knowing how Riak stacks up to a few other databases, have a look at [[Riak Comparisons|Riak Comparisons]]
-* If you want to have a look at the Riak Source you can do so on [[GitHub|http://github.com/basho/riak]]
-
+* To download a platform-specific package of Riak, try [[Installation]].
+* If you're interested in knowing how Riak stacks up to a few other databases, have a look at [[Riak Comparisons]]
+* If you want to have a look at the Riak Source you can do so on [GitHub](http://github.com/basho/riak).
 
 And finally, a big [[Thank You]] to everyone who helped create, update and fix this tutorial.

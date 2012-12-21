@@ -6,9 +6,10 @@ document: tutorials
 toc: true
 audience: intermediate
 keywords: [backends, planning, memory]
-prev: ["LevelDB", "LevelDB.html"]
-up:   ["Choosing a Backend", "index.html"]
-next: ["Multi", "Multi.html"]
+prev: "[[LevelDB]]"
+up:   "[[Choosing a Backend]]"
+next: "[[Multi]]"
+interest: false
 ---
 
 ## Overview

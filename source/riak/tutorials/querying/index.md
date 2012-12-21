@@ -6,7 +6,7 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [mapreduce, search, indexes, comparison]
-next: ["Basic Operations", "Basic-Operations.html"]
+next: "[[Basic Operations]]"
 ---
 
 * [[Basic Operations]]

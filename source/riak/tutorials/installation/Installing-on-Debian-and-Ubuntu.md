@@ -5,9 +5,9 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, debian, ubuntu, linux]
-prev: ["Installing Erlang", "Installing-Erlang.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on RHEL and CentOS", "Installing-on-RHEL-and-CentOS.html"]
+prev: "[[Installing Erlang]]"
+up:   "[[Installing and Upgrading]]"
+next: "[[Installing on RHEL and CentOS]]"
 ---
 
 <div class="info">

@@ -5,9 +5,9 @@ version: 1.2.1+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, AWS, marketplace, amazon]
-prev: ["Installing on Windows Azure", "Installing-on-Windows-Azure.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing Riak from Source", "Installing-Riak-from-Source.html"]
+prev: "[[Installing on Windows Azure]]"
+up:   "[[Installing and Upgrading]]"
+next: "[[Installing Riak from Source]]"
 ---
 
 ## Launching Riak VMs via the AWS Marketplace

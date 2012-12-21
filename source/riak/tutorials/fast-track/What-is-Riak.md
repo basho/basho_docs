@@ -5,12 +5,20 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["The Riak Fast Track", "index.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Building a Dev Environment", "Building-a-Development-Environment.html"]
+prev: "[[The Riak Fast Track]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Building a Dev Environment|Building a Development Environment]]"
+versions: false
+interest: [
+"[[Clusters]]",
+"[[Buckets]]",
+"[[Eventual Consistency]]",
+"[[Vector Clocks]]",
+"[[Replication]]"
+]
 ---
 
-This page introduces the architecture behind Riak's core principles: availability, fault-tolerance, operational simplicity and predictable scaling. If you already know this, you can skip it and [[go build a four-node cluster|Building a Development Environment]]. 
+This page introduces the architecture behind Riak's core principles: availability, fault-tolerance, operational simplicity and predictable scaling. If you already know this, you can skip it and go [[build a four-node cluster|Building a Development Environment]].
 
 ## How Does a Riak Cluster Work?
 
@@ -52,10 +60,10 @@ Hinted handoff lets Riak handle node failure. If a node fails, a neighboring nod
 
 In any system that replicates data, conflicts can arise - e.g., if two clients update the same object at the exact same time; or if not all updates have yet reached hardware that is experiencing lag. Further, in Riak, replicas are "eventually consistent"-  while data is always available, not all replicas may have the most recent update at the exact same time, causing brief periods (generally on the order of milliseconds) of inconsistency while all state changes are synchronized. 
 
-How is divergence addressed? When you make a read request, Riak looks up all replicas for that object. By default, Riak will return the most updated version, determined by looking at the object's vector clock. Vector clocks are metadata attached to each replica when it is created. They are extended each time a replica is updated to keep track of versions. You can also allow clients to resolve conflicts themselves. Learn more on *[[eventual consistency|Eventual Consistency]]* and *[[vector clocks|Vector Clocks]]*. 
+How is divergence addressed? When you make a read request, Riak looks up all replicas for that object. By default, Riak will return the most updated version, determined by looking at the object's vector clock. Vector clocks are metadata attached to each replica when it is created. They are extended each time a replica is updated to keep track of versions. You can also allow clients to resolve conflicts themselves.
 
 ### Read Repair
-Further, when an outdated replica is returned as part of a read request, Riak will automatically update the out-of-sync replica to make it consistent. Read repair, a self-healing property of the database, will even update a replica that returns a "not_found" in the event that a node loses it due to physical failure. *[[More on read repair|Replication]]*.
+Further, when an outdated replica is returned as part of a read request, Riak will automatically update the out-of-sync replica to make it consistent. Read repair, a self-healing property of the database, will even update a replica that returns a "not_found" in the event that a node loses it due to physical failure.
 
 ### Reading and Writing Data in Failure Conditions
 In Riak, you can set an _r_ value for reads and a _w_ value for writes. These values give you control over how many replicas must respond to a request for it to succeed. Let's say you have an _n_ value of 3, but one of the physical nodes responsible for a replica is down. With r=2, only 2 replicas must return results for a successful read. This allows Riak to provide read availability even when nodes are down or laggy. The same applies for the _w_ in writes. If you don't specify, Riak defaults to quorum: the majority of nodes must respond. There will be more on [[Tunable CAP Controls in Riak]] later in the Fast Track.

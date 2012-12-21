@@ -5,9 +5,17 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Building a Dev Environment", "Building-a-Development-Environment.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
+prev: "[[Building a Dev Environment|Building a Development Environment]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[MapReduce Queries|Loading Data and Running MapReduce Queries]]"
+versions: false
+interest: [
+"[[The HTTP API In Depth|HTTP API]]",
+"[[Protocol Buffers API|PBC API]]",
+"[[Replication in Depth|Replication]]",
+"<a href='http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/'>Why Vector Clocks are Easy</a>",
+"<a href='http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/'>Why Vector Clocks are Hard</a>"
+]
 ---
 
 For this module, we are going to work with the Riak HTTP API. 
@@ -169,7 +177,7 @@ However, in addition to providing a namespace for keys, the properties of a buck
 To set these properties, issue a PUT to the bucket's URL:
 
 ```bash
-PUT /riak/bucket
+PUT /riak/BUCKET
 ```
 
 The body of the request should be a JSON object with a single entry "props."  Unmodified bucket properties may be omitted.
@@ -182,7 +190,7 @@ The most important properties to consider for your bucket are:
 
 * *n_val* - the number of replicas for objects in this bucket (defaults to 3); *n_val* should be an integer greater than 0 and less than the number of partitions in the ring.
 
-<div class="note">Changing *n_val* after keys have been added to the bucket is not advisable as it may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
+<div class="note">Changing <code>n_val</code> after keys have been added to the bucket is not advisable as it may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
 
 * *allow_mult* - _true_ or _false_ (defaults to _false_ ); Riak maintains any sibling objects caused by things like concurrent writes or network partitions. With *allow_mult* set to false, clients will only get the most-recent-by-timestamp object.
 
@@ -199,15 +207,15 @@ $ curl -v -XPUT http://127.0.0.1:8091/riak/test \
 Here is how you use the HTTP API to retrieve (or "GET") the bucket properties and/or keys:
 
 ```bash
-GET /riak/bucket_name
+GET /riak/BUCKET
 ```
 
 Again, quite simple. (Are you starting to see a pattern?)
 
 The optional query parameters are:
 
-* *props=true|false* - whether to return the bucket properties (defaults to "true")
-* *keys=true|false|stream* - whether to return the keys stored in the bucket (defaults to "false"); see the [[HTTP API's list keys|HTTP List Keys]] for details about dealing with a *keys=stream* response
+* `props`=`true`|`false` - whether to return the bucket properties (defaults to `true`)
+* `keys`=`true`|`false`|`stream` - whether to return the keys stored in the bucket (defaults to `false`); see the [[HTTP API's list keys|HTTP List Keys]] for details about dealing with a `keys=stream` response
 
 
 With that in mind, go ahead and run this command. This will GET the bucket information that we just set with the sample command above:
@@ -220,13 +228,3 @@ $ curl -v http://127.0.0.1:8091/riak/test
 You can also view this Bucket information through any browser by going to `http://127.0.0.1:8091/riak/test`
 
 So, that's the basics of how the HTTP API works. An in depth reading of the HTTP API page (linked below) is highly recommended. This will give you details on the headers, parameters, and status that you should keep in mind when using the HTTP Interface. 
-
-
-<div class="title">Additional Reading for this Section</div>
-
-* [[The HTTP API In Depth|HTTP API]]
-* [[Protocol Buffers API|PBC API]]
-* [[Replication in Depth|Replication]]
-* [Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
-* [Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
-

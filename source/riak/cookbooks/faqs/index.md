@@ -8,6 +8,7 @@ index: true
 audience: beginner
 keywords: [faq]
 simple: true
+versions: false
 ---
 
 # Riak FAQs

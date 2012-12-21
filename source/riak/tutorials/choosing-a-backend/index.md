@@ -6,7 +6,8 @@ document: tutorials
 toc: true
 audience: intermediate
 keywords: [backends, planning]
-next: ["Bitcask", "Bitcask.html"]
+next: "[[Bitcask]]"
+interest: false
 ---
 
 A key feature of Riak KV is the pluggable storage backends. These allow the

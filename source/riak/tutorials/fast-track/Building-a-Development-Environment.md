@@ -5,9 +5,16 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["What is Riak?", "What-is-Riak.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
+prev: "[[What is Riak?|What is Riak]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Basic HTTP Operations|Basic Riak API Operations]]"
+versions: false
+interest: [
+"[[Installing and Upgrading]]",
+"[[Open Files Limit]]",
+"<a href='http://basho.com/resources/downloads/'>Download Riak</a>",
+"<a href='https://github.com/basho/rebar/wiki'>Rebar Documentation</a>"
+]
 ---
 
 In this section, we’ll install Riak and build a four node cluster running on your local machine.  For production deployments, Basho [recommends a minimum of five nodes](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/). For simplicity, this tutorial uses four.
@@ -26,11 +33,14 @@ For those of you like videos, here's a short video of installing Erlang from sou
 
 The below links provide platform-specific instructions for downloading and installing Riak from source.
 
-* [[Debian and Ubuntu|Installing on Debian and Ubuntu#Installing Riak From Source]]
-* [[RHEL and CentOS|Installing on RHEL and CentOS#Installing From Source]]
-* [[Mac OS X|Installing on Mac OS X#From Source]]
-* [[SUSE|Installing on SUSE]]
-* [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
+  * [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
+  * [[RHEL and CentOS|Installing on RHEL and CentOS]]
+  * [[Mac OS X|Installing on Mac OS X]]
+  * [[FreeBSD|Installing on FreeBSD]]
+  * [[SUSE|Installing on SUSE]]
+  * [[Windows Azure|Installing on Windows Azure]]
+  * [[AWS Marketplace|Installing on AWS Marketplace]]
+  * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
 ## Build Riak
 
@@ -194,9 +204,10 @@ $ cp ~/image/location/image_name.jpg .
 
 We can then PUT that image into Riak using a curl command (your port might differ, check your `etc/app.config` file for a proper `http` port):
 
-```bash
-$ curl -XPUT HTTP://127.0.0.1:8091/riak/images/1.jpg \
-  -H "Content-type: image/jpeg" --data-binary @image_name.jpg
+```
+$ curl -XPUT http://127.0.0.1:8091/riak/images/1.jpg \
+  -H "Content-type: image/jpeg" \
+  --data-binary @image_name.jpg
 ```
 
 You can then verify that image was in fact stored. To do this, simply copy the URL where we PUT the image and paste it into a browser. Your image should appear.
@@ -204,8 +215,3 @@ You can then verify that image was in fact stored. To do this, simply copy the U
 You should now have a running, four node Riak cluster. Congratulations! That didn't take so long, did it?
 
 <div class="note"><div class="title">HTTP interface ports</div>The above configuration sets up nodes with HTTP interfaces listening on ports `8091`, `8092`, `8093` and `8094` for dev1, dev2, dev3 and dev4, respectively. The default port for single nodes to listen on is 8098 and users will need to take note of this when trying to use any of the default other-language client settings.</div>
-
-
-Additional Reading
-
-* [Rebar Documentation](https://github.com/basho/rebar/wiki)

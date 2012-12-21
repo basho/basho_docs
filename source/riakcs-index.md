@@ -8,6 +8,7 @@ index: true
 audience: beginner
 keywords: []
 simple: true
+versions: false
 ---
 
 ![Riak CS Logo](/images/riak-cs-logo.png)

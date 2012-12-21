@@ -5,9 +5,17 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
+prev: "[[Basic HTTP Operations|Basic Riak API Operations]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Links and Link Walking]]"
+versions: false
+interest: [
+"[[MapReduce]]",
+"[[Erlang MapReduce|MapReduce#MapReduce via the Erlang API]]",
+"<a href='http://blog.basho.com/2010/02/03/the-release-riak-0.8-and-javascript-mapreduce/'>A MapReduce Screencast</a>",
+"<a href='https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js'>Some JavaScript MapReduce Functions included with Riak</a>",
+"<a href='http://research.google.com/archive/mapreduce.html'>Google's MapReduce Paper</a>"
+]
 ---
 
 Riak provides various ways to query your data beyond the basic key/value operations: [[Full-Text Search|Riak Search]], [[MapReduce]], [[Secondary Indexes]], and [[Link Walking|Links]].
@@ -280,11 +288,3 @@ Here is a scenario involving the data you already have loaded up. If you have a 
 <div class="note"><div class="title">MapReduce Challenge</div>Find the largest day for each month in terms of dollars traded, and subsequently the largest overall day.
 
 *Hint*: You will need at least one each of map and reduce phases.</div>
-
-#### Additional Reading for this Section
-
-* [[MapReduce In Depth|MapReduce]]
-* [Erlang MapReduce](MapReduce#MapReduce via the Erlang API)
-* [A Longer MapReduce Screencast](http://blog.basho.com/2010/02/03/the-release-riak-0.8-and-javascript-mapreduce/)
-* [A list of prebuilt JavaScript MapReduce Functions that ship with Riak](https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js)
-* [Google's Original MapReduce Paper](http://research.google.com/archive/mapreduce.html)

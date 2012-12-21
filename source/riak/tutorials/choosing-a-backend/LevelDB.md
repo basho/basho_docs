@@ -6,9 +6,10 @@ document: tutorials
 toc: true
 audience: intermediate
 keywords: [backends, planning, leveldb]
-prev: ["Bitcask", "Bitcask.html"]
-up:   ["Choosing a Backend", "index.html"]
-next: ["Memory", "Memory.html"]
+prev: "[[Bitcask]]"
+up:   "[[Choosing a Backend]]"
+next: "[[Memory]]"
+interest: false
 ---
 
 ## Overview
