@@ -5,9 +5,9 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, erlang]
-prev: ["Installing and Upgrading", "index.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on Debian and Ubuntu", "Installing-on-Debian-and-Ubuntu.html"]
+prev: "[[Installing and Upgrading]]"
+up:   "[[Installing and Upgrading]]"
+next: "[[Installing on Debian and Ubuntu]]"
 ---
 
 Riak 1.2 and 1.2.1 requires [[Erlang|http://erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.

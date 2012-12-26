@@ -8,6 +8,7 @@ index: true
 audience: beginner
 keywords: []
 simple: true
+versions: false
 ---
 
 <div class="info"><div class="title">Riak Enterprise Only</div>This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.</div>

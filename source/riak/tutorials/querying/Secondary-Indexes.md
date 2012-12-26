@@ -6,9 +6,13 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [querying, 2i]
-prev: ["Map Reduce", "MapReduce.html"]
-up:   ["Querying Riak", "index.html"]
-next: ["Searching", "Riak-Search.html"]
+prev: "[[MapReduce]]"
+up:   "[[Querying Riak]]"
+next: "[[Searching|Riak Search]]"
+interest: [
+"[[2i Configuration|Secondary Indexes - Configuration]]",
+"[[2i Examples|Secondary Indexes - Examples]]"
+]
 ---
 
 ## Introduction
@@ -80,8 +84,3 @@ Response...
 ```text
 {"keys":["john_smith"]}
 ```
-
-## Further Reading
-
-* [[Configuration|Secondary Indexes - Configuration]]
-* [[Examples|Secondary Indexes - Examples]]

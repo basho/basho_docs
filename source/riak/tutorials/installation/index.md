@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, upgrading]
-next: ["Installing Erlang", "Installing-Erlang.html"]
+next: "[[Installing Erlang]]"
 ---
 
 Click the link for your operating system to see instructions on how to install Riak. But first, you must [[Install Erlang|Installing Erlang]].

@@ -2,10 +2,13 @@
 title: The Riak Fast Track
 project: riak
 version: 0.10.0+
+toc: false
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-next: ["What is Riak?", "What-is-Riak.html"]
+next: "[[What is Riak?|What is Riak]]"
+interest: false
+versions: false
 ---
 
 Riak is a distributed database architected for:

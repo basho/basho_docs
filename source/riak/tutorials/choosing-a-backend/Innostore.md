@@ -6,8 +6,9 @@ document: tutorials
 toc: true
 audience: intermediate
 keywords: [backends, planning, innostore]
-prev: ["Multi", "Multi.html"]
-up:   ["Choosing a Backend", "index.html"]
+prev: "[[Multi]]"
+up:   "[[Choosing a Backend]]"
+interest: false
 ---
 
 <div class="note">
@@ -153,33 +154,41 @@ $ rm /tmp/innostore-1.0.3-1-fedora-x86_64.tar.gz
 
 ### Building and installing from source code
 
-1. You will need to have [[Erlang installed|Installing-Erlang]] to
-   compile Innostore.
+ * You will need to have [[Erlang installed|Installing-Erlang]] to
+    compile Innostore.
 
-2. Obtain the source code.
-   - You can either obtain the source code [as a package](http://downloads.basho.com/innostore/innostore-1.0.3/innostore-1.0.3.tar.gz).
-```bash
-# Example: downloading the code
-$ wget http://downloads.basho.com/innostore/innostore-1.0.3/innostore-1.0.3.tar.gz
-$ tar -xzf innostore-1.0.3.tar.gz
-$ cd innostore-1.0.3
-```
-   - or directly from the source code repository [http://github.com/basho/innostore].
-```bash
-# Example: clone the Git repository
-$ git clone http://github.com/basho/innostore
-$ cd innostore
-$ git checkout innostore-1.0.3
-```
+ * Obtain the source
+    code.
+    
+   - You can either obtain the source code
+     [as a package](http://downloads.basho.com/innostore/innostore-1.0.3/innostore-1.0.3.tar.gz).
 
-3. Now that you have the code, let's build it:
-```bash
-# NOTE: on a Single CPU system you'll need to enable Erlang to run SMP before building
-$ export ERL_FLAGS="-smp enable"
-$ make
-```
+     ```bash
+     # Example: downloading the code
+     $ wget http://downloads.basho.com/innostore/innostore-1.0.3/innostore-1.0.3.tar.gz
+     $ tar -xzf innostore-1.0.3.tar.gz
+     $ cd innostore-1.0.3
+     ```
 
-4. Install innostore
+   - or directly from the [source code repository](http://github.com/basho/innostore).
+
+    ```bash
+    # Example: clone the Git repository
+    $ git clone http://github.com/basho/innostore
+    $ cd innostore
+    $ git checkout innostore-1.0.3
+    ```
+
+ * Now that you have the code,
+   let's build it:
+   
+    ```bash
+    # NOTE: on a Single CPU system you'll need to enable Erlang to run SMP before building
+    $ export ERL_FLAGS="-smp enable"
+    $ make
+    ```
+  
+ * Install innostore
 
    If your compile passed all the tests you are now ready to install Innostore
    into your Riak distribution.
@@ -188,6 +197,7 @@ $ make
    If you are using a copy of Riak you compiled yourself you can install
    Innostore by issuing the following command replacing $RIAK with the location
    of your Riak install:
+   
    ```bash
    $ make install
    ```
@@ -196,27 +206,30 @@ $ make
    If you are using a copy of Riak you compiled yourself you can install
    Innostore by issuing the following command replacing $RIAK with the location
    of your Riak install:
-```bash
-$ RIAK=/usr/lib/riak make install
-```
+
+   ```bash
+   $ RIAK=/usr/lib/riak make install
+   ```
+   
    Which would result in the following files being installed into `/usr/lib/riak/lib/innostore-1.0.3`
-```
-innostore-1.0.3/
-|-- ebin
-|   |-- innostore.app
-|   |-- innostore.beam
-|   |-- innostore_riak.beam
-|   `-- riak_kv_innostore_backend.beam
-|-- priv
-|   |-- innodump
-|   |-- innoload
-|   |-- innostore_drv.so
-|   `-- riak-innostore
-`-- src
-    |-- innostore.erl
-    |-- innostore_riak.erl
-    `-- riak_kv_innostore_backend.erl
-```
+
+   ```
+   innostore-1.0.3/
+   |-- ebin
+   |   |-- innostore.app
+   |   |-- innostore.beam
+   |   |-- innostore_riak.beam
+   |   `-- riak_kv_innostore_backend.beam
+   |-- priv
+   |   |-- innodump
+   |   |-- innoload
+   |   |-- innostore_drv.so
+   |   `-- riak-innostore
+   `-- src
+       |-- innostore.erl
+       |-- innostore_riak.erl
+       `-- riak_kv_innostore_backend.erl
+   ```
 
 ## Configuring Innostore
 
@@ -224,30 +237,33 @@ There are two steps to configure Riak to use Innostore.
 
 1. Edit your Riak installation's `app.config` file
    Change the `storage_backend` setting to `riak_kv_innostore_backend`.
-```erlang
-{storage_backend, riak_kv_innostore_backend}
-```
+
+    ```erlang
+    {storage_backend, riak_kv_innostore_backend}
+    ```
 
 2. While the defaults should work just fine you may want to modify the location
    of the Innostore database files.  To do that you first add an `innostore`
    application section to the `riak/etc/app.config` file.  Modify your
    `data_home_dir` and `log_group_home_dir` paths as needed.
-```erlang
-{innostore, [
-    {data_home_dir, "/var/lib/riak/innodb"}, %% Where data files reside
-    {log_group_home_dir, "/var/lib/riak/innodb/logs"}, %% Where log files reside
-    {buffer_pool_size, 2147483648} %% 2GB of buffer
-]}
-```
+
+    ```erlang
+    {innostore, [
+        {data_home_dir, "/var/lib/riak/innodb"}, %% Where data files reside
+        {log_group_home_dir, "/var/lib/riak/innodb/logs"}, %% Where log files reside
+        {buffer_pool_size, 2147483648} %% 2GB of buffer
+    ]}
+    ```
 
 3. Now that you have configured Innostore you can test your install by
    connecting to the Riak console and watching for messages about Innostore
    `sudo /usr/sbin/riak console`. If the install was successful you will
    see something similar to:
-```bash
-100220 16:36:58 InnoDB: highest supported file format is Barracuda.
-100220 16:36:58 Embedded InnoDB 1.0.3.5325 started; log sequence number 45764
-```
+
+     ```bash
+     100220 16:36:58 InnoDB: highest supported file format is Barracuda.
+     100220 16:36:58 Embedded InnoDB 1.0.3.5325 started; log sequence number 45764
+     ```
 
 ## Tuning Innostore
 
@@ -269,14 +285,14 @@ the `innostore` application scope.
     writes to the data files can often be recovered from the information in the
     transaction logs.
 
-``` erlang
-{innostore, [
-	    ...,
-             {data_home_dir,            "<path to device for data files>"},
-             {log_group_home_dir,       "<path to a different device for log files>"},
-	     ...
-]}
-```
+    ``` erlang
+    {innostore, [
+        ...,
+               {data_home_dir,            "<path to device for data files>"},
+               {log_group_home_dir,       "<path to a different device for log files>"},
+         ...
+    ]}
+    ```
 
   * __Size the transaction log appropriately__
 
@@ -286,22 +302,24 @@ the `innostore` application scope.
     the log messages that will be seen if your log setup can't cope with the
     amount of data.
 
-``` bash
-InnoDB: ERROR: the age of the last checkpoint is 30209814,
-InnoDB: which exceeds the log group capacity 30195303.
-InnoDB: If you are using big BLOB or TEXT rows, you must set the
-InnoDB: combined size of log files at least 10 times bigger than the
-InnoDB: largest such row.
-```
-  To fix this issue the following log settings will work for most environments:
-``` erlang
-{innostore, [
-	    ...,
-{log_files_in_group, 6},  %% How many files you need, usually 3 < x < 6
-{log_file_size, 268435456},  %% No bigger than 256MB, otherwise recovery takes too long
-	     ...
-]}
-```
+    ``` bash
+    InnoDB: ERROR: the age of the last checkpoint is 30209814,
+    InnoDB: which exceeds the log group capacity 30195303.
+    InnoDB: If you are using big BLOB or TEXT rows, you must set the
+    InnoDB: combined size of log files at least 10 times bigger than the
+    InnoDB: largest such row.
+    ```
+
+    To fix this issue the following log settings will work for most environments:
+    
+    ``` erlang
+    {innostore, [
+        ...,
+    {log_files_in_group, 6},  %% How many files you need, usually 3 < x < 6
+    {log_file_size, 268435456},  %% No bigger than 256MB, otherwise recovery takes too long
+         ...
+    ]}
+    ```
 
   * __Maximize the buffer pool size__
 
@@ -314,13 +332,13 @@ InnoDB: largest such row.
     this to be 60-80% of available RAM (after subtracting RAM consumed by other
     services).  For example, on a 12GB machine you might set it to 8GB:
 
-```erlang
-{innostore, [
-	    ...,
-	    {buffer_pool_size, 8589934592} %% 8 * 1024 * 1024 * 1024
-	    ...
-]}
-```
+    ```erlang
+    {innostore, [
+        ...,
+        {buffer_pool_size, 8589934592} %% 8 * 1024 * 1024 * 1024
+        ...
+    ]}
+    ```
 
   * __Double buffering only wastes RAM when using InnoDB__
 
@@ -330,13 +348,13 @@ InnoDB: largest such row.
     provided by the operating system.  Turing this off is important because
     InnoDB manages its own buffer cache (unlike Bitcask for instance).
 
-```erlang
-{innostore, [
-	    ...,
-	    {flush_method, "O_DIRECT"}
-	    ...
-]}
-```
+    ```erlang
+    {innostore, [
+        ...,
+        {flush_method, "O_DIRECT"}
+        ...
+    ]}
+    ```
 
   * __Be aware of file handle limits__
 
@@ -351,13 +369,13 @@ InnoDB: largest such row.
     preferred option for production, is to increase the number of file handles
     available.
 
-```erlang
-{innostore, [
-	    ...,
-            {open_files, 100} %% accommodate a lower limit
-	    ...
-]}
-```
+    ```erlang
+    {innostore, [
+        ...,
+              {open_files, 100} %% accommodate a lower limit
+        ...
+    ]}
+    ```
 
   * __Avoid extra disk head seeks by turning off `noatime`__
 
@@ -367,10 +385,10 @@ InnoDB: largest such row.
     for all files.  If you need last access times but you'd like some of the
     benefits of this optimization you can try `relatime`.
 
-```bash
-/dev/sda5    /data           ext3    noatime  1 1
-/dev/sdb1    /data/inno-log  ext3    noatime  1 2
-```
+    ```bash
+    /dev/sda5    /data           ext3    noatime  1 1
+    /dev/sdb1    /data/inno-log  ext3    noatime  1 2
+    ```
 
   * __ZFS__
 
@@ -404,13 +422,13 @@ InnoDB: largest such row.
     [2](http://www.innodb.com/wp/products/innodb_plugin/plugin-performance/innodb-plugin-1-0-4-adaptive-flushing-oltp-test-dbt2/)
     [3](http://www.mysqlperformanceblog.com/2009/12/04/effect-of-adaptive_flushing/)
 
-```erlang
-{innostore, [
-	    ...,
-            {adaptive_flushing, true} %% Enable adaptive flushing
-	    ...
-]}
-```
+    ```erlang
+    {innostore, [
+        ...,
+              {adaptive_flushing, true} %% Enable adaptive flushing
+        ...
+    ]}
+    ```
 
   * __InnoDB Table Format__
 
@@ -430,23 +448,23 @@ InnoDB: largest such row.
     configure, set the `format` option in your innostore config.  The setting
     is system wide and will be used for all buckets.
 
-```erlang
-{innostore, [
-	    ...,
-	    {format, dynamic} %% Use dynamic format tables.
-	    ...
-]}
-```
+    ```erlang
+    {innostore, [
+        ...,
+        {format, dynamic} %% Use dynamic format tables.
+        ...
+    ]}
+    ```
 
     If your dataset is likely to compress well, then you can enable compression.
 
-```erlang
-{innostore, [
-	    ...,
-	    {format, compressed}, %% Use compressed, dynamic format tables.
-	    ...
-]}
-```
+    ```erlang
+    {innostore, [
+        ...,
+        {format, compressed}, %% Use compressed, dynamic format tables.
+        ...
+    ]}
+    ```
 
 ## Innostore Implementation Details
 
