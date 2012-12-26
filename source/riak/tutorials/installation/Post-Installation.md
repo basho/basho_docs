@@ -5,9 +5,8 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, upgrading]
-prev: ["Installing Riak From Source", "Installing-Riak-from-Source.html"]
-up:   ["Installing and Upgrading", "index.html"]
-
+prev: "[[Installing Riak From Source]]"
+up:   "[[Installing and Upgrading]]"
 ---
 
 After you've installed Riak, you might next wish to check the liveness of

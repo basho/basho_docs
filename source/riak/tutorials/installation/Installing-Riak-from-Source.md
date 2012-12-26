@@ -7,6 +7,7 @@ audience: beginner
 keywords: [tutorial, installing, suse]
 prev: "[[Installing on AWS Marketplace]]"
 up:   "[[Installing and Upgrading]]"
+next: "[[Post Installation]]"
 ---
 
 Riak should be installed from source if you are building on a platform for which a package does not exist or you are interested in contributing to Riak.
