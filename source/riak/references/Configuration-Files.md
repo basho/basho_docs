@@ -171,10 +171,9 @@ You can override the default SSL key and certificate settings (default: etc/cert
 
 ### riak_kv settings
 
- * **add_paths**
-A list of paths to add to the Erlang code path.
+ * **add_paths** A list of paths to add to the Erlang code path.
 
-This setting is especially useful for allowing Riak to use external modules during MapReduce queries.
+    This setting is especially useful for allowing Riak to use external modules during MapReduce queries.
 
 {{#1.0.0+}}
 
@@ -190,11 +189,15 @@ removal altogether.
  * **mapred_name**
 The base of the path in the URL exposing MapReduce via HTTP. (default: "mapred")
 
+{{#<1.3.0}}
+
  * **mapred_queue_dir**
 The directory used to store a transient queue for pending map tasks. Only valid when mapred_system is set to legacy. (default: data/mrqueue)
 
  * **mapred_system**
 Indicates which version of the MapReduce system should be used: 'pipe' means riak_pipe will power MapReduce queries, while 'legacy' means that luke will be used. (default: pipe)
+
+{{/<1.3.0}}
 
  * **map_js_vm_count**
 The number of Javascript VMs started to handle map phases. (default: "8")
@@ -205,8 +208,10 @@ The number of Javascript VMs started to handle reduce phases. (default: "6")
  * **hook_js_vm_count**
 The number of Javascript VMs started to handle pre-commit hooks.(default: "2")
 
+{{#<1.3.0}}
  * **mapper_batch_size**
 Number of items the mapper will fetch in one request. Larger values can impact read/write performance for non-MapReduce requests. Only valid when mapred_system is legacy (default: "5")
+{{/<1.3.0}}
 
  * **js_max_vm_mem**
 The maximum amount of memory allocated to each Javascript virtual machine, in megabytes. (default: "8")
@@ -214,8 +219,10 @@ The maximum amount of memory allocated to each Javascript virtual machine, in me
  * **js_thread_stack**
 The maximum amount of thread stack space to allocate to Javascript virtual machines, in megabytes. (default: "16")
 
+{{#<1.3.0}}
  * **map_cache_size**
 Number of objects held in the MapReduce cache. These will be ejected when the cache runs out of room or the bucket/key pair for that entry changes. Only valid when mapred_system is legacy. (default: "10000")
+{{/<1.3.0}}
 
  * **js_source_dir**
 Where to load user-defined built in Javascript functions (default: unset)
