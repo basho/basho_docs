@@ -107,7 +107,7 @@ First, install Riak dependencies using apt:
 sudo apt-get install build-essential libc6-dev-i386 git
 ```
 
-Riak requires [Erlang](http://www.erlang.org/) R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*. 
+Riak requires [Erlang](http://www.erlang.org/) R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
 If Erlang is not already installed, install it before continuing (see:
 [[Installing Erlang]] for more information).
 
@@ -128,6 +128,7 @@ Next Steps?
 
 Now that Riak is installed, check out the following resources:
 
+-   [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
 -   [[The Riak Fast Track]]: a
     guide for setting up a 3 node cluster and exploring Riak's main features.
 -   [[Basic Cluster Setup]]:

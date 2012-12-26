@@ -84,6 +84,7 @@ riak:
           - "[[Windows Azure|Installing on Windows Azure]]"
           - "[[AWS Marketplace|Installing on AWS Marketplace]]"
           - "[[From Source|Installing Riak from Source]]"
+          - "[[Post Installation|Post Installation]]"
 
       - title: "Planning/Backends"
         sub:

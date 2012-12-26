@@ -80,6 +80,7 @@ Next Steps?
 
 Now that Riak is installed, check out the following resources:
 
+-   [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
 -   [[The Riak Fast Track]]: A
     guide for setting up a 4 node cluster and exploring Riak's main
     features.
