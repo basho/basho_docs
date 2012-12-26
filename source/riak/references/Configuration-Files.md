@@ -171,10 +171,9 @@ You can override the default SSL key and certificate settings (default: etc/cert
 
 ### riak_kv settings
 
- * **add_paths**
-A list of paths to add to the Erlang code path.
+ * **add_paths** A list of paths to add to the Erlang code path.
 
-This setting is especially useful for allowing Riak to use external modules during MapReduce queries.
+    This setting is especially useful for allowing Riak to use external modules during MapReduce queries.
 
 {{#1.0.0+}}
 
@@ -192,7 +191,7 @@ The base of the path in the URL exposing MapReduce via HTTP. (default: "mapred")
 
 {{#<1.3.0}}
 
-* **mapred_queue_dir**
+ * **mapred_queue_dir**
 The directory used to store a transient queue for pending map tasks. Only valid when mapred_system is set to legacy. (default: data/mrqueue)
 
  * **mapred_system**
