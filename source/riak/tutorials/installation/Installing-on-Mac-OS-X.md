@@ -55,7 +55,7 @@ You must have XCode tools installed from the CD that came with your Mac or from 
 
 <div class="note">Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 
-Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*. 
+Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
 
 If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
 
@@ -73,5 +73,6 @@ If you get errors when building about "incompatible architecture", please verify
 ## Next Steps?
 From here you might want to check out:
 
+  * [[Post Installation|Post Installation Notes]]: for checking Riak health after installation
   * [[The Riak Fast Track]]: a guide for setting up a 4 node cluster and exploring Riak's main features.
   * [[Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!

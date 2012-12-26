@@ -89,5 +89,6 @@ You will now have a fresh build of Riak in the `rel/riak` directory.
 
 From here you might want to check out:
 
+* [[Post Installation|Post Installation Notes]]: for checking Riak health after installation
 * [[The Riak Fast Track]]: a guide for setting up a 3 node cluster and exploring Riak’s main features.
 * [[Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!
