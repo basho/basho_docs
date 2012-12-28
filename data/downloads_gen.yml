@@ -1,0 +1,32 @@
+riak:
+  "1.2.1":
+    osx:
+      versions:
+        "10.4":
+          arch:
+            i386:
+              file: "riak-1.2.1-osx-i386.tar.gz"
+            i386_64:
+              file: "riak-1.2.1-osx-i386_64.tar.gz"
+    ubuntu:
+      versions:
+        precise:
+          arch:
+            amd64:
+              file: "riak_1.2.1-1_amd64.deb"
+        natty:
+          arch:
+            amd64:
+              file: "riak_1.2.1-1_amd64.deb"
+        lucid:
+          arch:
+            i386:
+              file: "riak_1.2.1-1_i386.deb"
+            amd64:
+              file: "riak_1.2.1-1_amd64.deb"
+    solaris:
+      versions:
+        "10":
+          arch:
+            i386:
+              file: "BASHOriak-1.2.1-1-Solaris10-i386.pkg.gz"

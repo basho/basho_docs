@@ -1227,3 +1227,101 @@ article {
     width : 20em;
   }
 }
+
+
+
+
+#download-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  width: 200px;
+  line-height:1;
+
+  a {
+    width: 200px;
+    display:block;
+    white-space : normal;
+
+    font-size: 16px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    min-width: 250px;
+
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1),inset 0 -2px 0 0 rgba(0, 0, 0, 0.2);
+
+    background-color: #f99d33;
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(top, #f99d33 0%, #d97706 100%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f99d33), color-stop(100%,#d97706)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #f99d33 0%,#d97706 100%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, #f99d33 0%,#d97706 100%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, #f99d33 0%,#d97706 100%); /* IE10+ */
+    background-image: linear-gradient(to bottom, #f99d33 0%,#d97706 100%); /* W3C */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#f99d33', endColorstr='#d97706',GradientType=0 )";
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f99d33', endColorstr='#d97706',GradientType=0 );
+
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    padding: 0 20px;
+    height: 40px;
+    text-decoration: none;
+    min-width: 100px;
+    border: 0;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    -webkit-transition: all linear .25s;
+    -moz-transition: all linear .25s;
+    -o-transition: all linear .25s;
+    -ms-transition: all linear .25s;
+    transition: all linear .25s;
+    cursor: pointer;
+
+    cursor: pointer;
+    padding: 0;
+    height: 95px;
+    margin-left: 50px;
+    text-align: inherit;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+    .content {
+      display: block;
+      position: relative;
+      color: lighten($orange, 25%);
+      margin-left: -50px;
+      padding-left: 65px;
+      padding-right: 24px;
+      background: url(../images/layout/riak-logo-icon.png) 0 0 no-repeat;
+      height: 93px;
+      padding: 6px 6px 0 106px;
+
+      strong {
+        color:white;
+        font-size:110%;
+        padding-left:2px;
+      }
+
+      .title {
+        display: block;
+        color: white;
+        font-family: 'titillium', verdana, arial, sans-serif;
+        font-weight: bold;
+        font-size: 52px;
+        letter-spacing: -0.02em;
+        padding-right: 52px;
+        background: url(../images/layout/download.png) no-repeat 100% 4px;
+        height: 52px;
+        margin-bottom: -2px;
+        line-height: 52px;
+      }
+
+      .download-info {
+        display: block;
+        color: #833;
+        font-size: 12px;
+        text-shadow: 0 1px rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+}

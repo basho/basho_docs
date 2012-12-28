@@ -1,0 +1,41 @@
+---
+title: Downloads
+project: riak
+version: 0.10.0+
+document: reference
+audience: beginner
+keywords: [downloads, operator, user]
+simple: true
+body_id: downloads
+---
+
+- base_url = "http://s3.amazonaws.com/downloads.basho.com"
+- project = 'riak'
+- version = '1.2.1'
+- downloads = Downloads.new(project, version)
+- version_path = version.sub(/\.\w+$/, '')
+
+h2 Download #{project.capitalize} #{version}
+
+table
+  tr
+    th
+    th Operating System
+    th Version
+    th Link
+    th Checksum
+  - for os, os_data in downloads
+    - for osv, osv_data in os_data["versions"]
+      - for arch, arch_data in osv_data["arch"]
+        tr
+          td: img src="http://basho.com/images/icons/#{os_data['icon']}"
+          td==os_data['name'].to_s + ' ' + osv_data['name'].to_s
+          td==arch_data['name']
+          td
+            / TODO: add url builder as helper to Downloads
+            a href="#{base_url}/#{project}/#{version_path}/#{os}/#{osv}/#{arch_data['file']}"
+              ==arch_data['file']
+          td
+            - if arch_data['csum'].present?
+              a href="#{base_url}/#{project}/#{version_path}/#{os}/#{osv}/#{arch_data['csum']}"
+                | sha

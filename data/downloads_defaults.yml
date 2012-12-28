@@ -1,0 +1,100 @@
+riak:
+  default:
+    debian:
+      name: "Debian"
+      icon: "debian.png"
+      versions:
+        "6":
+          name: "(Squeeze)"
+          arch:
+            amd64:
+              name: "AMD 64"
+    fedora:
+      name: "Fedora"
+      icon: "fedora.png"
+      versions:
+        "15":
+          arch:
+            src:
+              name: "Source"
+            x86_64:
+              name: "x86 64"
+    freebsd:
+      name: "FreeBSD"
+      icon: "bsd.png"
+      versions:
+        "9":
+          arch:
+            amd64:
+              name: "AMD 64"
+    osx:
+      name: "Mac"
+      icon: "mac.png"
+      versions:
+        "10.4":
+          name: "OSX"
+          arch:
+            i386:
+              name: "10.4+ 32 Bit"
+            x86_64:
+              name: "10.4+ 64 Bit"
+    rhel:
+      name: "Red Hat Enterprise"
+      icon: "redhat.png"
+      versions:
+        "5":
+          arch:
+            src:
+              name: "5.0 Source"
+            x86_64:
+              name: "5.0 x86 64"
+        "6":
+          arch:
+            src:
+              name: "6.0 Source"
+            x86_64:
+              name: "6.0 x86 64"
+    smartos:
+      name: "SmartOS"
+      icon: "opensolaris.png"
+      versions:
+        "11":
+          arch:
+            i386:
+              name: "11"
+    ubuntu:
+      name: "Ubuntu"
+      icon: "debian.png"
+      versions:
+        precise:
+          name: "(Precise Pangolin)"
+          arch:
+            amd64:
+              name: "12.04 AMD 64"
+        natty:
+          name: "(Natty Narwhal)"
+          arch:
+            amd64:
+              name: "11.04 AMD 64"
+        lucid:
+          name: "(Lucid Lynx)"
+          arch:
+            i386:
+              name: "10.04 i386"
+            amd64:
+              name: "10.04 AMD 64"
+    solaris:
+      name: "Solaris"
+      icon: "solaris.png"
+      versions:
+        "10":
+          arch:
+            i386:
+              name: "10"
+    source:
+      name: "Source"
+      icon: "targz.png"
+      versions:
+        any:
+          arch:
+            src: {}

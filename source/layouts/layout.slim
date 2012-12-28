@@ -50,6 +50,25 @@ body class=classnames.join(' ') id=data.page.body_id
             h2.title== I18n.t(:toc_contents)
             div#toc-wrapper
               ol#toc-items
+
+        - if data.page.download.present?
+          - base_url = "http://s3.amazonaws.com/downloads.basho.com"
+          - project = "riak"
+          - version = "1.2.1"
+          - version_path = "1.2/1.2.1"
+          - os = "osx"
+          - osv = "10.4"
+          - file = "#{project}-#{version}-#{os}-i386.tar.gz"
+          aside#download-button
+            a href="#{base_url}/#{project}/#{version_path}/#{os}/#{osv}/#{file}"
+              span.content
+                span.title riak
+                span.subtitle Download #{current_version('riak')} for Mac OSX 10.4+ <strong>64 bit</strong>
+            a href="#{base_url}/#{project}/#{version_path}/#{os}/#{osv}/#{file}"
+              span.content
+                span.title riak
+                span.subtitle Download #{current_version('riak')} for Mac OSX 10.4+ <strong>32 bit</strong>
+
       == yield
       == partial "layouts/tutorial_nav"
       div.clear

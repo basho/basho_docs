@@ -1,7 +1,7 @@
 require 'aws/s3'
 require 'versionomy'
 %w{env org versionify faqml deploy index
-  sitemap_render_override duals helpers}.each do |lib|
+  sitemap_render_override duals helpers downloads}.each do |lib|
   require "./lib/#{lib}"
 end
 
