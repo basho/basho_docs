@@ -50,6 +50,14 @@ body class=classnames.join(' ') id=data.page.body_id
             h2.title== I18n.t(:toc_contents)
             div#toc-wrapper
               ol#toc-items
+
+        - if data.page.download.present?
+          aside#download-button
+            a href="/downloads/##{data.page.download['key']}"
+              span.content
+                span.title riak
+                span.subtitle Download #{current_version('riak')} for #{data.page.download['name']}
+
       == yield
       == partial "layouts/tutorial_nav"
       div.clear

@@ -8,13 +8,12 @@ keywords: [tutorial, installing, debian, ubuntu, linux]
 prev: "[[Installing Erlang]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on RHEL and CentOS]]"
+download: 
+  key: debian
+  name: "Debian or Ubuntu"
 ---
 
-<div class="info">
-The following steps have been tested to work with Riak on Debian version 6.05 and Ubuntu version 12.04.
-</div>
-
-Riak can be installed on Debian or Ubuntu based systems with a binary package or by [[compiling Riak from source code|Installing Riak from Source]].
+Riak can be installed on Debian or Ubuntu based systems with a binary package or by [[compiling Riak from source code|Installing Riak from Source]]. The following steps have been tested to work with Riak on **Debian version 6.05** and **Ubuntu version 12.04**.
 
 Installing From Apt-Get
 -----------------------

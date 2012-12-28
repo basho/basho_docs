@@ -1,0 +1,128 @@
+---
+riak:
+  1.2.1:
+    debian:
+      versions:
+        '6':
+          arch:
+            amd64:
+              file: riak_1.2.1-1_amd64.deb
+              file_size: 25278386
+              csum: riak_1.2.1-1_amd64.deb.sha
+              csum_size: 89
+    fedora:
+      versions:
+        '15':
+          arch:
+            src:
+              file: riak-1.2.1-1.fc15.src.rpm
+              file_size: 11208159
+              csum: riak-1.2.1-1.fc15.src.rpm.sha
+              csum_size: 92
+            x86_64:
+              file: riak-1.2.1-1.fc15.x86_64.rpm
+              file_size: 22606713
+              csum: riak-1.2.1-1.fc15.x86_64.rpm.sha
+              csum_size: 95
+    freebsd:
+      versions:
+        '9':
+          arch:
+            amd64:
+              file: riak-1.2.1-FreeBSD-amd64.tbz
+              file_size: 30389477
+              csum: riak-1.2.1-FreeBSD-amd64.tbz.sha
+              csum_size: 95
+    osx:
+      versions:
+        '10.4':
+          arch:
+            i386:
+              file: riak-1.2.1-osx-i386.tar.gz
+              file_size: 25933613
+              csum: riak-1.2.1-osx-i386.tar.gz.sha
+              csum_size: 93
+            x86_64:
+              file: riak-1.2.1-osx-x86_64.tar.gz
+              file_size: 25477178
+              csum: riak-1.2.1-osx-x86_64.tar.gz.sha
+              csum_size: 95
+    rhel:
+      versions:
+        '5':
+          arch:
+            x86_64:
+              file: riak-1.2.1-1.el5.x86_64.rpm
+              file_size: 25666391
+              csum: riak-1.2.1-1.el5.x86_64.rpm.sha
+              csum_size: 94
+            src:
+              file: riak-1.2.1-1.src.rpm
+              file_size: 11220034
+              csum: riak-1.2.1-1.src.rpm.sha
+              csum_size: 87
+        '6':
+          arch:
+            src:
+              file: riak-1.2.1-1.el6.src.rpm
+              file_size: 11201998
+              csum: riak-1.2.1-1.el6.src.rpm.sha
+              csum_size: 91
+            x86_64:
+              file: riak-1.2.1-1.el6.x86_64.rpm
+              file_size: 22814584
+              csum: riak-1.2.1-1.el6.x86_64.rpm.sha
+              csum_size: 94
+    smartos:
+      versions:
+        '11':
+          arch:
+            i386:
+              file: riak-1.2.1-SmartOS-i386.tgz
+              file_size: 31181009
+              csum: riak-1.2.1-SmartOS-i386.tgz.sha
+              csum_size: 94
+    solaris:
+      versions:
+        '10':
+          arch:
+            i386:
+              file: BASHOriak-1.2.1-1-Solaris10-i386.pkg.gz
+              file_size: 29723512
+              csum: BASHOriak-1.2.1-1-Solaris10-i386.pkg.gz.sha
+              csum_size: 106
+    ubuntu:
+      versions:
+        lucid:
+          arch:
+            amd64:
+              file: riak_1.2.1-1_amd64.deb
+              file_size: 25290740
+              csum: riak_1.2.1-1_amd64.deb.sha
+              csum_size: 89
+            i386:
+              file: riak_1.2.1-1_i386.deb
+              file_size: 24998072
+              csum: riak_1.2.1-1_i386.deb.sha
+              csum_size: 88
+        natty:
+          arch:
+            amd64:
+              file: riak_1.2.1-1_amd64.deb
+              file_size: 25307136
+              csum: riak_1.2.1-1_amd64.deb.sha
+              csum_size: 89
+        precise:
+          arch:
+            amd64:
+              file: riak_1.2.1-1_amd64.deb
+              file_size: 25254918
+              csum: riak_1.2.1-1_amd64.deb.sha
+              csum_size: 89
+    source:
+      versions:
+        any:
+          arch:
+            src:
+              file: riak-1.2.1.tar.gz
+              file_size: 11255469
