@@ -8,16 +8,19 @@ keywords: [tutorial, installing, osx]
 prev: "[[Installing on RHEL and CentOS]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on FreeBSD]]"
+download: 
+  key: osx
+  name: "Mac OS X"
 ---
 
 The following steps are known to work with Mac OS X 10.5 and 10.6. You can install from source or download a precompiled tarball.
-
-<div class="note"><div class="title">ulimit on OS X</div>OS X gives you a very small limit on open file handles, so even with a backend that uses very few file handles, it's possible to run out. See Open Files Limit for more information about changing the limit.</div>
 
 ## Install Types
   * Precompiled Tarballs
   * Homebrew
   * Source
+
+<div class="note"><div class="title">ulimit on OS X</div>OS X gives you a very small limit on open file handles, so even with a backend that uses very few file handles, it's possible to run out. See [[Open Files Limit]] for more information about changing the limit.</div>
 
 ## From Precompiled Tarballs
 To run Riak from our precompiled tarball, run these commands for the appropriate platform:

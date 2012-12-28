@@ -8,11 +8,12 @@ keywords: [tutorial, installing, smartos]
 prev: "[[Installing on FreeBSD]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on SUSE]]"
+download: 
+  key: smartos
+  name: "SmartOS"
 ---
 
-<div class="info"><div class="title">Version Information</div>The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>.</div>
-
-As of version 1.2, Riak can be installed on SmartOS using Basho [packages](http://basho.com/resources/downloads/). The following steps demonstrate installation of a Riak node on SmartOS as the root user.
+The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>. They demonstrate installation of a Riak node on SmartOS as the root user.
 
 ## Open Files Limit
 Before proceeding with installation, you should ensure that the system's open files limit meets or exceeds the recommended minimum of **4096**. Check the current limits to verify this:

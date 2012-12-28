@@ -3,11 +3,13 @@ require 'uri'
 require 'json'
 
 class Downloads
-  @base_url = "http://s3.amazonaws.com/downloads.basho.com"
+  BASE_DOWNLOAD_URL = "http://s3.amazonaws.com/downloads.basho.com"
+  UNITS = %w{B KB MB GB TB}.freeze
 
   def initialize(project, version)
+    @project = project
+    @version = version
     @data = Downloads.data(project, version)
-    p @data
   end
 
   def [](key)
@@ -18,17 +20,41 @@ class Downloads
     @data.each(&block)
   end
 
+  def file_url(os, os_version, file)
+    root_version = @version.sub(/\.\w+$/, '')
+    "#{BASE_DOWNLOAD_URL}/#{@project}/#{root_version}/#{os}/#{os_version}/#{file}"
+  end
+
+  def file_size(number)
+    if number.to_i < 1024
+      exponent = 0
+    else
+      max_exp = UNITS.size - 1
+      exponent = (Math.log(number) / Math.log(1024)).to_i
+      exponent = max_exp if exponent > max_exp
+      number /= 1024 ** exponent
+    end
+
+    "#{number} #{UNITS[exponent]}"
+  end
+
+  def self.pull_data(project, version)
+    downloads_gen = YAML::load(File.open('data/downloads_gen.yml'))
+    version_data = load_from_s3(project, version)
+    (downloads_gen[project] ||= {})[version] = version_data
+    File.open('data/downloads_gen.yml', 'w+') do |f| f.write(downloads_gen.to_yaml) end
+  end
+
   def self.data(project, version)
     return @data if defined?(@data)
     default_data = YAML::load(File.open('data/downloads_defaults.yml'))[project]['default']
-    version_data = load_from_s3(project, version)
-    # version_data = YAML::load(File.open('data/downloads_gen.yml'))[project][version]
-    @data = rmerge(version_data, default_data)
+    version_data = YAML::load(File.open('data/downloads_gen.yml'))[project][version]
+    @data = rmerge(default_data, version_data)
   end
 
   def self.load_from_s3(project, version)
     root_version = version.sub(/\.\w+$/, '')
-    base_uri = URI(@base_url)
+    base_uri = URI(BASE_DOWNLOAD_URL)
     
     oss = {}
 
@@ -43,7 +69,7 @@ class Downloads
       # get source from root dir
       source = fileData(oss_json)
     rescue
-      $stderr.puts "Cannot find downloads for version #{version} at #{@base_url}"
+      $stderr.puts "Cannot find downloads for version #{version} at #{BASE_DOWNLOAD_URL}"
       return
     end
 

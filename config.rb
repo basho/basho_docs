@@ -54,7 +54,7 @@ activate :relative_assets
 
 # Build-specific configuration
 configure :build do
-  activate :production_check #Middleman::Features::ProductionCheck
+  activate :production_check
   activate :minify_css
   activate :minify_javascript
   # activate :gzip
@@ -62,6 +62,17 @@ configure :build do
   ignore "source/images/layout/*.png"
 
   activate :version_dirs
+
+  # populate the downloads_gen data file
+  if $production
+    begin
+      puts "== Populating Downloads Details"
+      Downloads.pull_data('riak', $versions[:riak])
+    rescue
+      $stderr.puts "  Details download failed"
+    end
+  end
+
 
   if ENV.include?('DEPLOY')
     activate :s3_deploy

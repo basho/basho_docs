@@ -1,7 +1,7 @@
 ---
 title: Downloads
 project: riak
-version: 0.10.0+
+version: 1.2.1+
 document: reference
 audience: beginner
 keywords: [downloads, operator, user]
@@ -9,33 +9,37 @@ simple: true
 body_id: downloads
 ---
 
-- base_url = "http://s3.amazonaws.com/downloads.basho.com"
 - project = 'riak'
-- version = '1.2.1'
+- version = current_version(project)
 - downloads = Downloads.new(project, version)
-- version_path = version.sub(/\.\w+$/, '')
 
-h2 Download #{project.capitalize} #{version}
+h1 Download #{project.capitalize} #{version}
 
-table
-  tr
-    th
-    th Operating System
-    th Version
-    th Link
-    th Checksum
-  - for os, os_data in downloads
+p You should be able to find your operating system in the choices below.
+p If your OS is unlisted, you may download the [[source|Downloads#source]] at the bottom of this page, and follow the instructions to [[build Riak|Installing Riak from Source]].
+
+- for os, os_data in downloads
+
+  h3 id=os
+    img src="/images/layout/#{os_data['icon']}"
+    | &nbsp;
+    == os_data['name']
+  table
     - for osv, osv_data in os_data["versions"]
       - for arch, arch_data in osv_data["arch"]
         tr
-          td: img src="http://basho.com/images/icons/#{os_data['icon']}"
-          td==os_data['name'].to_s + ' ' + osv_data['name'].to_s
-          td==arch_data['name']
+          - unless os_data['simple']
+            td.arch==arch_data['name']
           td
-            / TODO: add url builder as helper to Downloads
-            a href="#{base_url}/#{project}/#{version_path}/#{os}/#{osv}/#{arch_data['file']}"
+            a href=downloads.file_url(os, osv, arch_data['file'])
               ==arch_data['file']
-          td
-            - if arch_data['csum'].present?
-              a href="#{base_url}/#{project}/#{version_path}/#{os}/#{osv}/#{arch_data['csum']}"
-                | sha
+          td.size
+            ==downloads.file_size(arch_data['file_size'])
+          - unless os_data['simple']
+            td.checksum
+              - if arch_data['csum'].present?
+                a href=downloads.file_url(os, osv, arch_data['csum'])
+                  img src="/images/layout/hash.png" title="SHA1 Checksum"
+  - if os_data['install'].present?
+    p.install_instruction Here are further instructions for [[#{os_data['install']}]]
+  
