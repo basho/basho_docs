@@ -14,7 +14,7 @@ riak:
     sub:
       - "[[Getting Started with Riak|Riak]]"
       - "[[The Riak Fast Track]]"
-      - "[[Installing and Upgrading|installation]]"
+      - "[[Download Riak|Downloads]]"
       - "[[Query Choices|Querying Riak]]"
       - title: "Concepts"
         sub:
@@ -74,8 +74,8 @@ riak:
     sub:
       - title: "Installation"
         sub:
-          - "[[Installing and Upgrading|installation]]"
-          - "[[Installing Erlang|Installing Erlang]]"
+          - "[[Installing and Upgrading]]"
+          - "[[Installing Erlang]]"
           - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
           - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
           - "[[Mac OS X|Installing on Mac OS X]]"
@@ -85,7 +85,7 @@ riak:
           - "[[Windows Azure|Installing on Windows Azure]]"
           - "[[AWS Marketplace|Installing on AWS Marketplace]]"
           - "[[From Source|Installing Riak from Source]]"
-          - "[[Post Installation|Post Installation]]"
+          - "[[Post Installation]]"
 
       - title: "Planning/Backends"
         sub:
