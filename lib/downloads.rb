@@ -22,7 +22,7 @@ class Downloads
 
   def file_url(os, os_version, file)
     root_version = @version.sub(/\.\w+$/, '')
-    "#{BASE_DOWNLOAD_URL}/#{@project}/#{root_version}/#{os}/#{os_version}/#{file}"
+    "#{BASE_DOWNLOAD_URL}/#{@project}/#{root_version}/#{@version}/#{os}/#{os_version}/#{file}"
   end
 
   def file_size(number)

@@ -5,7 +5,7 @@ version: 0.14.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [beam, commit hook, Erlang, function, module, mapreduce]
+keywords: [beam, commit-hook, erlang, function, module, mapreduce]
 ---
 
 Riak supports the use of Erlang named functions in compiled modules for
