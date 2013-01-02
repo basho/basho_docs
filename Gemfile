@@ -23,5 +23,5 @@ group :development do
   gem "thin", "~>1.4.1"
   gem "watchr", "~>0.7"
   gem "rb-fsevent", "~>0.9.1"
-  gem "libnotify", "~>0.0.3"
+  gem "libnotify", "~>0.8.0"
 end
