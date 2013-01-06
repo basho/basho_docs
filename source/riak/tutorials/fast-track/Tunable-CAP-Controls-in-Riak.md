@@ -18,7 +18,7 @@ interest: [
 ]
 ---
 
-So, we've come a long way. If you've done the Fast Track in order, that means you've had a short intro to Riak, set up a three node cluster on your local machine, worked a bit with the HTTP interface, and performed some MapReduce queries.
+So, we've come a long way. If you've done the Fast Track in order, that means you've had a short intro to Riak, set up a four node cluster on your local machine, worked a bit with the HTTP interface, and performed some MapReduce queries.
 
 In the last section of the Fast Track, we are going to talk about how Riak distributes your data around the cluster and lets you tune your levels of consistency and availability. This has immense value and implications for your applications, and it's one of the Riak features that we feel truly differentiates us.
 
