@@ -24,7 +24,7 @@ The table below gives a high level comparison of Riak CS and Swift features/capa
     </tr>
     <tr>
         <td>Anti-Entropy</td>
-        <td>Riak CS has continuous anti-entropy as a feature in progress, with a targeted release timeframe in Q4 2012. Riak CS currently supports “passive” read-time anti-entropy, which provides repair of inconsistencies immediately at client-read time. Swift does not perform repair at read or write time, but rather resolves such issues during its next rsync cycle.  
+        <td>Riak CS has continuous anti-entropy as a feature in progress, with a targeted release timeframe in Q1 2013. Riak CS currently supports “passive” read-time anti-entropy, which provides repair of inconsistencies immediately at client-read time. Swift does not perform repair at read or write time, but rather resolves such issues during its next rsync cycle.  
 		</td>
         <td>Swift has a continuous anti-entropy process via frequent invocation of “rsync” for repairing any inconsistencies between data node file systems.
 		</td>
