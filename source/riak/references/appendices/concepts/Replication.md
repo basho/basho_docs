@@ -10,6 +10,13 @@ keywords: [appendix, concepts]
 
 Replication is fundamental and automatic in Riak, providing security that your data will still be there if a node in your Riak cluster goes down. All data stored in Riak will be replicated to a number of nodes in the cluster according to the n_val property set on the bucket.
 
+<div class="note">
+
+If you're looking for Riak Enterprise's Multi Data Center 
+Replication, please click [[here|Multi-Data-Center-Replication-Architecture]].
+
+</div>
+
 ## Selecting an N value (n_val)
 By default, Riak chooses an n_val of 3 for you. This means that data stored in the bucket will be replicated to 3 different nodes. For this to be effective, you need at least 3 nodes in your cluster.
 
