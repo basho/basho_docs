@@ -264,6 +264,9 @@ riakcs:
   - title: "References"
     sub:
       # - "[[System Features Overview|System Features]]"
+      - title: "Cloud Storage Comparisons"
+        sub:
+            - "[[Riak Compared to Swift]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
       - "[[Monitoring and Metrics]]"
