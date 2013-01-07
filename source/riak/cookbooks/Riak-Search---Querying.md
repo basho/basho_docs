@@ -10,7 +10,7 @@ keywords: [search]
 
 ## Query Syntax
 
-Search queries use the same syntax as [[Lucene|http://lucene.apache.org/java/2_9_1/queryparsersyntax.html]] and supports most Lucene operators including term searches, field searches, boolean operators, grouping, lexicographical range queries, and wildcards (at the end of a word only).
+Search queries use the same syntax as [Lucene](http://lucene.apache.org/java/2_9_1/queryparsersyntax.html) and supports most Lucene operators including term searches, field searches, boolean operators, grouping, lexicographical range queries, and wildcards (at the end of a word only).
 
 Querying has two distinct stages, planning and execution. During query planning, the system creates a directed graph of the query, grouping points on the graph in order to maximize data locality and minimize inter-node traffic. Single term queries can be executed on a single node, while range queries are executed using the minimal set of nodes that cover the query.
 
@@ -28,16 +28,13 @@ You can specify a field to search by putting it in front of the term or phrase t
 
 
 ```bash
-
 color:red
 ```
-
 
 Or:
 
 
 ```bash
-
 title:"See spot run"
 ```
 
@@ -46,7 +43,6 @@ You can further specify an index by prefixing the field with the index name. For
 
 
 ```bash
-
 products.color:red
 ```
 
@@ -55,21 +51,18 @@ Or:
 
 
 ```bash
-
 books.title:"See spot run"
 ```
 
 If your field contains special characters, such as ('+','-','/','[',']','(',')',':' or space), then either surround the phrase in single quotes, or escape each special character with a backslash.
 
 ```bash
-
 books.url:'http://mycompany.com/url/to/my-book#foo'
 ```
 
 -or-
 
 ```bash
-
 books.url:http\:\/\/mycompany.com\/url\/to\/my\-book\#foo
 ```
 
@@ -93,7 +86,6 @@ For example:
 
 
 ```bash
-
 "See spot run"~20
 ```
 
@@ -107,7 +99,6 @@ The following example will return documents with words containing "red" and "rum
 
 
 ```bash
-
 "field:[red TO rum]"
 ```
 
@@ -116,7 +107,6 @@ The following example will return documents with words in between "red" and "rum
 
 
 ```bash
-
 "field:{red TO rum}"
 ```
 
@@ -132,7 +122,6 @@ In the following example, documents with the term "red" will have their score bo
 
 red^5 OR blue
 ```
-
 
 ## Boolean Operators - AND, OR, NOT
 
@@ -230,15 +219,20 @@ The following parameters are supported:
 * *q.op=OPERATION* - Allowed settings are either "and" or "or". Overrides the "default_op" setting in the schema file. Default is "or".
 * *start=N* - Specify the starting result of the query. Useful for paging. Default is 0.
 * *rows=N* - Specify the maximum number of results to return. Default is 10.
-* *sort=FIELDNAME* - Sort on the specified field name. Default is "none", which causes the results to be sorted in descending order by score.
+* *sort=FIELDNAME* - Sort on the specified field name after the given rows are found. Default is "none", which causes the results to be sorted in descending order by score.
+* *presort=key|score* - Sorts all of the results by bucket key, or the search score, before the given rows are chosen. This is useful when paginating to ensure the results are returned in a consistent order.
 * *wt=FORMAT* - Choose the format of the output.  Options are "xml" and "json".  The default is "xml".
 * *filter=FILTERQUERY* - Filters the search by an additional query scoped to [[inline fields|Riak Search - Schema#Fields-and-Field-Level-Properties]].
 
+<div class="info">
+<div class="title">Limitations on Presort</div>
+
+When trying to paginate results using presort, note that the results may only be sorted by the search score or sorted by the key order. There is currently no way to pre-sort on an arbitrary field. This generally means that if you with to paginate on some field, build your keys to include that field value, and use `presort=key`.
+</div>
 
 To query data in the system with Curl:
 
 ```bash
-
 curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
 ```
 
