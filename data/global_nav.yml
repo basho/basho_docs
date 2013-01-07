@@ -255,7 +255,6 @@ riakcs:
       - "[[Configuring Riak]]"
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
-      # - "[[Configuring Multi Data Center|Configuring MDC]]"
       - "[[Configuring an S3 client]]"
   - title: "Multi Data Center"
     sub:
@@ -263,10 +262,9 @@ riakcs:
       - "[[Configuration|Configuring MDC]]"
   - title: "References"
     sub:
-      # - "[[System Features Overview|System Features]]"
-      - title: "Cloud Storage Comparisons"
+      - title: "Comparisons"
         sub:
-            - "[[Riak Compared to Swift]]"
+            - "[[CS Compared to Swift|Riak Compared to Swift]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
       - "[[Monitoring and Metrics]]"
