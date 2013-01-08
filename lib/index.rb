@@ -17,7 +17,7 @@ def build_yokozuna_index(resources)
     metadata = resource.metadata[:page] || {}
     metadata['url'] = resource.url.sub(/\.html/, '/')
 
-    key = make_riak_key(resource, metadata['project'] || 'riak')
+    key = make_riak_key(resource, metadata['project'] || $default_project)
     body = File.read(resource.source_file)
     data = body
 
