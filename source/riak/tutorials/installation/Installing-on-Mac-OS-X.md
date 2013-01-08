@@ -25,7 +25,7 @@ The following steps are known to work with Mac OS X 10.5 and 10.6. You can insta
 ## From Precompiled Tarballs
 To run Riak from our precompiled tarball, run these commands for the appropriate platform:
 
-{#1.0.3}}
+{{#1.0.3}}
 ### 64-bit
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3-osx-x86_64.tar.gz
@@ -37,9 +37,9 @@ tar xzvf riak-1.0.3-osx-x86_64.tar.gz
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3-osx-i386.tar.gz
 tar xzvf riak-1.0.3-osx-i386.tar.gz
 ```
-{/1.0.3}}
+{{/1.0.3}}
 
-{#1.1.4}}
+{{#1.1.4}}
 ### 64-bit
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4-osx-x86_64.tar.gz
@@ -51,9 +51,9 @@ tar xzvf riak-1.1.4-osx-x86_64.tar.gz
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4-osx-i386.tar.gz
 tar xzvf riak-1.1.4-osx-i386.tar.gz
 ```
-{/1.1.4}}
+{{/1.1.4}}
 
-{#1.2.0}}
+{{#1.2.0}}
 ### 64-bit
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/osx/10.4/riak-1.2.0-osx-x86_64.tar.gz
@@ -65,9 +65,9 @@ tar xzvf riak-1.2.0-osx-x86_64.tar.gz
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/osx/10.4/riak-1.2.0-osx-i386.tar.gz
 tar xzvf riak-1.2.0-osx-i386.tar.gz
 ```
-{/1.2.0}}
+{{/1.2.0}}
 
-{#1.2.1}}
+{{#1.2.1}}
 ### 64-bit
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/osx/10.4/riak-1.2.1-osx-x86_64.tar.gz
@@ -79,7 +79,7 @@ tar xzvf riak-1.2.1-osx-x86_64.tar.gz
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/osx/10.4/riak-1.2.1-osx-i386.tar.gz
 tar xzvf riak-1.2.1-osx-i386.tar.gz
 ```
-{/1.2.1}}
+{{/1.2.1}}
 
 After the release is untared you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
 
