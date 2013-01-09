@@ -105,41 +105,41 @@ If you do not have Erlang already installed, see [[Installing Erlang]]. Don't wo
 
 Next, download and unpack the source distribution.
 
-{#1.0.3}}
+{{#1.0.3}}
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3.tar.gz
 tar zxvf riak-1.0.3.tar.gz
 cd riak-1.0.3
 make rel
 ```
-{/1.0.3}}
+{{/1.0.3}}
 
-{#1.1.4}}
+{{#1.1.4}}
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4.tar.gz
 tar zxvf riak-1.1.4.tar.gz
 cd riak-1.1.4
 make rel
 ```
-{/1.1.4}}
+{{/1.1.4}}
 
-{#1.2.0}}
+{{#1.2.0}}
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/riak-1.2.0.tar.gz
 tar zxvf riak-1.2.0.tar.gz
 cd riak-1.2.0
 make rel
 ```
-{/1.2.0}}
+{{/1.2.0}}
 
-{#1.2.1}}
+{{#1.2.1}}
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
 tar zxvf riak-1.2.1.tar.gz
 cd riak-1.2.1
 make rel
 ```
-{/1.2.1}}
+{{/1.2.1}}
 
 If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher - 64bit, everything else - 32bit).
 
