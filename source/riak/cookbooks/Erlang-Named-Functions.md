@@ -456,6 +456,9 @@ The results should look similar to this:
 {"messages":"4","messages":"1","messages":"3","messages":"2"}
 ```
 
+<div class="info">Be sure to install the MapReduce function as described
+above on all of the nodes in your cluster to ensure proper operation.</div>
+
 ## References
 
 1. [[Commit Hooks]]
