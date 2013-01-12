@@ -1,0 +1,277 @@
+riak:
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[APIs|/references/apis/]]"
+      - "[[FAQs]]"
+
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Getting Started with Riak|Riak]]"
+      - "[[The Riak Fast Track]]"
+      - "[[Download Riak|Downloads]]"
+      - "[[Query Choices|Querying Riak]]"
+      - title: "Concepts"
+        sub:
+          - "[[Concepts Overview|Concepts]]"
+          - "[[Buckets]]"
+          - "[[Clusters]]"
+          - "[[Commit Hooks]]"
+          - "[[Eventual Consistency]]"
+          - "[[Keys and Objects]]"
+          - "[[Links]]"
+          - "[[Replication]]"
+          - "[[Vector-Clocks]]"
+          - "[[Riak Glossary]]"
+
+  - title: "Querying Riak"
+    sub:
+      - "[[Basic Requests]]"
+      - title: "MapReduce"
+        sub:
+          - "[[Overview|MapReduce]]"
+          - "[[Implementing|MapReduce Implementation]]"
+          - "[[Key Filters]]"
+      - title: "Search"
+        sub:
+          - "[[Overview|Riak Search]]"
+          - "[[Indexing|Riak Search - Indexing]]"
+          - "[[Schema|Riak Search - Schema]]"
+          - "[[Querying|Riak Search - Querying]]"
+          - "[[Indexing and Querying KV|Riak Search - Indexing and Querying Riak KV Data]]"
+      - title: "Secondary Indexes"
+        sub:
+          - "[[Overview|Secondary Indexes]]"
+          - "[[Configuration|Secondary-Indexes - Configuration]]"
+          - "[[Examples|Secondary-Indexes - Examples]]"
+      - title: "Use Cases"
+        sub:
+          - "[[Overview|Use Cases]]"
+          - title: "High Read/Write"
+            sub:
+              - "[[Session Storage]]"
+              - "[[Serving Ads]]"
+              - "[[Log Data]]"
+              - "[[Sensor Data]]"
+          - title: "Relationship Modeling"
+            sub:
+              - "[[User Accounts]]"
+              - "[[User Settings/Preferences|Settings Preferences]]"
+              - "[[User Subscriptions/Events/Timelines|User Events Timelines]]"
+              - "[[Blog Posts, Articles and Other Content|Blogs]]"
+          # - title: "SQL Design Patterns"
+          #   sub:
+          #     - "[[Counting]]"
+          #     - "[[Conditional Summation]]"
+
+
+  - title: "Operating Riak"
+    sub:
+      - title: "Installation"
+        sub:
+          - "[[Installing and Upgrading]]"
+          - "[[Installing Erlang]]"
+          - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
+          - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
+          - "[[Mac OS X|Installing on Mac OS X]]"
+          - "[[FreeBSD|Installing on FreeBSD]]"
+          - "[[SmartOS|Installing on SmartOS]]"
+          - "[[SUSE|Installing on SUSE]]"
+          - "[[Windows Azure|Installing on Windows Azure]]"
+          - "[[AWS Marketplace|Installing on AWS Marketplace]]"
+          - "[[From Source|Installing Riak from Source]]"
+          - "[[Post Installation]]"
+
+      - title: "Planning/Backends"
+        sub:
+          - "[[Start Planning|System Planning]]"
+          - title: "Choosing a Backend"
+            sub:
+              - "[[Choosing a Backend]]"
+              - "[[Bitcask]]"
+              - "[[LevelDB]]"
+              - "[[Memory]]"
+              - "[[Multi]]"
+          - "[[Cluster Capacity Planning]]"
+          - "[[Bitcask Capacity Planning]]"
+      - title: "Managing Clusters"
+        sub:
+          - "[[Basic Cluster Setup]]"
+          - "[[Adding and Removing Nodes]]"
+          - "[[Replacing a Node]]"
+          - "[[Backups]]"
+          - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
+      - title: "Configuration"
+        sub:
+          - "[[Configuration Files]]"
+          - "[[Erlang Named Functions]]"
+          - "[[Network Security and Firewall Configurations]]"
+          - "[[MapReduce|MapReduce - Settings]]"
+          - "[[Search|Riak-Search - Settings]]"
+          - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
+      - title: "Performance"
+        sub:
+          - "[[File System Tuning]]"
+          - "[[Linux Performance Tuning]]"
+          - "[[Performance Tuning AWS]]"
+      - title: "Troubleshooting"
+        sub:
+          - "[[Failure and Recovery]]"
+          - "[[Open Files Limit]]"
+          - "[[Recovering a Failed Node]]"
+          - "[[Benchmarking]]"
+          - "[[Statistics and Monitoring]]"
+          - "[[Inspecting a Node]]"
+          - "[[Repairing Search Indexes]]"
+          - "[[Repairing KV Indexes]]"
+
+  - title: "References"
+    sub:
+      - title: "Command-Line"
+        sub:
+          - "[[Command-Line Overview|Command-Line Tools]]"
+          - "[[riak|Command-Line Tools - riak]]"
+          - "[[riak-admin|Command-Line Tools - riak-admin]]"
+          - "[[search-cmd|Command-Line Tools - search-cmd]]"
+      - title: "FAQs"
+        sub:
+          - "[[All FAQs|FAQs]]"
+          - "[[The Basics|Basic FAQs]]"
+          - "[[Developing on Riak|Developing on Riak FAQs]]"
+          - "[[Operating Riak|Operating Riak FAQs]]"
+          - "[[Log Messages|Log Messages FAQs]]"
+          - "[[Riak Community|Riak Community FAQs]]"
+      - title: "APIs"
+        sub:
+          - "[[All APIs|APIs]]"
+          - "[[HTTP|HTTP API]]"
+          - "[[Protocol Buffers|PBC API]]"
+      - title: "NoSQL Comparisons"
+        sub:
+          - "[[Riak Comparisons Overview|Riak Comparisons]]"
+          - "[[Riak Compared to Cassandra]]"
+          - "[[Riak Compared to Couchbase]]"
+          - "[[Riak Compared to CouchDB]]"
+          - "[[Riak Compared to HBase]]"
+          - "[[Riak Compared to MongoDB]]"
+          - "[[Riak Compared to Neo4j]]"
+      - "[[Client Libraries]]"
+      - "[[Community Developed Libraries and Projects]]"
+      - "[[Sample Data]]"
+      - "[[Java Client Benchmark]]"
+      - "[[Backend API]]"
+      - "[[Client Implementation Guide]]"
+      - "[[Release Notes]]"
+      - "[[Riak and Dynamo|Dynamo]]"
+
+  - title: "Community"
+    sub:
+      - title: "Resources"
+        sub:
+          - "[[Community Overview|Community Resources]]"
+          - "[[Introductions|Overviews and Introductions]]"
+          - "[[Production Deployment]]"
+          - "[[Developing with Riak]]"
+          - "[[Searching and Accessing Data]]"
+          - "[[Riak Sample Applications]]"
+      - "[[Riak Community FAQs]]"
+      - "[[Contributors]]"
+      - "[[Critical Issues]]"
+      - "[[How to Report a Bug]]"
+      - "[[Security]]"
+      - "[[Logos]]"
+      - "[[We Run Riak Badges]]"
+
+
+riakee:
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[APIs|/references/apis/]]"
+      - "[[FAQs|Riak Enterprise FAQs]]"
+
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Getting Started with RiakEDS|Riak Enterprise]]"
+      - "[[The Riak Fast Track]]"
+      - "[[Rolling Upgrade to Enterprise]]"
+      - "[[Querying]]"
+  - title: "Multi Data Center"
+    sub:
+      - "[[Architecture|Multi Data Center Replication Architecture]]"
+      - "[[Configuration|Multi Data Center Replication Configuration]]"
+      - "[[Operations|Multi Data Center Replication Operations]]"
+      - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
+      - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync]]"
+      - "[[SSL|Multi Data Center Replication SSL]]"
+      - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
+      - "[[System Tuning|Multi Data Center Replication System Tuning]]"
+      - "[[With NAT|Multi Data Center Replication With NAT]]"
+  - title: "Operating RiakEDS"
+    sub:
+      - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
+      - "[[JMX Monitoring]]"
+      - "[[SNMP Configuration]]"
+  - title: "References"
+    sub:
+      - "[[SNMP Counters]]"
+      - "[[APIs|/references/apis/]]"
+      - "[[Riak EDS FAQs|Riak Enterprise FAQs]]"
+      - "[[Riak FAQs|Riak FAQs]]"
+
+riakcs:
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[APIs|RiakCS Storage API]]"
+      - "[[FAQs|Riak CS FAQs]]"
+
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Riak CS]]"
+      - "[[Riak CS Quick Start Guide]]"
+  - title: "Installing"
+    sub:
+      - "[[Installing Riak CS]]"
+      - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
+      - "[[Designating an Admin User]]"
+      - "[[Installing With Chef|Riak CS Using Chef]]"
+      - "[[Installation Video|Riak CS Installation Video]]"
+  - title: "Configuring"
+    sub:
+      - "[[Account Management]]"
+      - "[[Configuring Riak CS Overview]]"
+      - "[[Configuring Riak]]"
+      - "[[Configuring Riak CS]]"
+      - "[[Configuring Stanchion]]"
+      - "[[Configuring an S3 client]]"
+  - title: "Multi Data Center"
+    sub:
+      - "[[Overview|MDC Overview]]"
+      - "[[Configuration|Configuring MDC]]"
+  - title: "References"
+    sub:
+      - title: "Comparisons"
+        sub:
+            - "[[CS Compared to Swift|Riak Compared to Swift]]"
+      - "[[Access Control Lists]]"
+      - "[[Authentication]]"
+      - "[[Monitoring and Metrics]]"
+      - "[[Querying Access Statistics]]"
+      - "[[Querying Storage Statistics]]"
+      - "[[Usage and Billing Data]]"
+      - "[[Ruby Fog|Fog on RiakCS]]"
+      - "[[APIs|RiakCS Storage API]]"
+      - "[[FAQs|Riak CS FAQs]]"
+      - "[[Release Notes|Riak CS Release Notes]]"
+
+root:
+  - title: "All Riak Projects"
+    class: "active"
+    sub:
+      - "[[Riak]]"
+      - "[[Riak Enterprise]]"
+      - "[[Riak CS]]"

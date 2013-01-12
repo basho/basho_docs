@@ -200,14 +200,6 @@ thin start -p 4567
 
 _(or `bundle exec thin start -p 4567`)_
 
-To have MiddleMan auto-build on each save, we use the Watchr gem. It will auto-build on each save in the source directory:
-
-```
-watchr ./Watchrfile
-```
-
-_(or `bundle exec watchr ./Watchrfile`)_
-
 ## Deploying to S3
 
 Before deployment you must specify an env var with Basho's S3 access/secret key. You also must specify the S3 bucket we're deploying to, and the cloudfront id (the CDN we must invalidate to force a publication to be found).

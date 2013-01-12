@@ -6,10 +6,14 @@ module BashoDocsHelpers
   def self.build_keyword_pages(sitemap)
     keyword_pages = {}
     sitemap.resources.each do |resource|
-      keywords = resource.metadata[:page]["keywords"]
-      next if keywords.blank?
-      keywords.each do |keyword|
-        (keyword_pages[keyword] ||= []) << resource
+      begin
+        keywords = resource.metadata[:page]["keywords"]
+        next if keywords.blank?
+        keywords.each do |keyword|
+          (keyword_pages[keyword] ||= []) << resource
+        end
+      rescue
+        puts "WUT #{resource.path}"
       end
     end
     keyword_pages
@@ -27,15 +31,16 @@ module BashoDocsHelpers
     pages.delete_if{|g| g.url == page.url }.to_a
   end
 
-  def current_version(default_proj='riak')
+  def current_version(default_proj)
     $versions[(data.page.project || default_proj).to_sym] || ENV['RIAK_VERSION']
   end
 
-  def project_version_path(page)
-    project = (page.metadata[:page] || {})['project'] || 'riak'
+  def project_version_path(pa)
+    project = (pa.metadata[:page] || {})['project'] || $default_project
     version = current_version(project)
-    current_project = (current_page.metadata[:page] || {})['project'] || 'riak'
-    url = page.url.sub(/\.html/, '/')
+    current_project = (current_page.metadata[:page] || {})['project'] || $default_project
+    url = pa.url.sub(/\.html/, '/')
+    url.sub!(/languages\/\w+\/riak.*?\//, '')
     if project != current_project
       url = "/#{project}/#{version}#{url}"
     end
@@ -49,10 +54,10 @@ module BashoDocsHelpers
     groups = {}
     for file in Dir.glob("#{dir}*")
       next if file =~ /(?:html|:api)$/
-      page = sitemap.find_resource_by_path(sitemap.file_to_path(file))
-      metadata = page.metadata[:page] || {}
+      pa = sitemap.find_resource_by_path(sitemap.file_to_path(file))
+      metadata = pa.metadata[:page] || {}
       next if metadata["index"].to_s =~ /true/i
-      (groups[metadata["group_by"]] ||= []) << page
+      (groups[metadata["group_by"]] ||= []) << pa
     end
     groups
   end
@@ -100,24 +105,29 @@ module BashoDocsHelpers
     parent.each do |child|
       if child.class == String
         link_data = wiki_to_link(child)
-        return [{}] if searching == link_data[:key]
+        return [''] if searching == link_data[:key]
       elsif child.include?('title')
-        link_data = wiki_to_link(child['title'])
         if (response = build_breadcrumbs(child['sub'], searching)).present?
-          return [link_data] + response
-        elsif searching == link_data[:key]
-          return [{}]
+          return [child['title']] + response
+        elsif searching == format_name(link_data) #[:key]
+          return ['']
         end
       end
     end
     []
   end
 
+  def global_nav
+    return $global_nav if defined?($global_nav)
+    yml = File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', I18n.locale.to_s, 'global_nav.yml'))
+    $global_nav = YAML::load(File.open(yml))
+  end
+
   def bread_crumbs(page)
     return [] if page.blank?
     page_key = sitemap_page_key(page)
-    project = page.metadata[:page]["project"] || 'riak'
-    build_breadcrumbs(data.global_nav[project], page_key)
+    project = page.metadata[:page]["project"] || $default_project
+    build_breadcrumbs(global_nav[project], page_key)
   end
 
   def build_nav(section, c_name='', depth=1)
