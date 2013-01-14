@@ -377,7 +377,7 @@ Here is our example MapReduce function:
 
 -export([get_keys/3]).
 
-%Returns bucket and key pairs from a map phase
+% Returns bucket and key pairs from a map phase
 get_keys(Value,_Keydata,_Arg) ->
   [{riak_object:bucket(Value),riak_object:key(Value)}].
 ```
@@ -405,7 +405,7 @@ but you should choose a different directory for production functions
 such that they will be available where needed.
 
 Successful compilation will result in a new `.beam` file:
-`validate_json.beam`. Copy this file to the `/tmp/beams` directory.
+`mr_example.beam`. Copy this file to the `/tmp/beams` directory.
 
 ```bash
 cp mr_example.beam /tmp/beams/
