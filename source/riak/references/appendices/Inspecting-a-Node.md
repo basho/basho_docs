@@ -261,6 +261,34 @@ makes up a Riak node is present in `riak-admin status` output.
 -   **stdlib\_version**: Version of Standard Library application in use
 -   **kernel\_version**: Version of Kernel application in use
 
+{{#1.2.0+}}
+### Riak Search Statistics
+
+The following statistics related to Riak Search message queues are available.
+
+- **riak_search_vnodeq_max**: Maximum number of unprocessed messages all
+  virtual node (vnode) message queues in the Riak Search subsystem have
+  received on this node in the last minute
+- **riak_search_vnodeq_mean**: Mean number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node in the last minute
+- **riak_search_vnodeq_median**: Median number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node in the last minute
+- **riak_search_vnodeq_min**: Minimum number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node in the last minute
+- **riak_search_vnodeq_total**: Total number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node since it was started
+- **riak_search_vnodes_running**: Total number of vnodes currently running
+  in the Riak Search subsystem
+
+Note that under ideal operation and with the exception of
+`riak_search_vnodes_running` these statistics should contain low values
+(e.g., 0-10). Presence of higher values could be indicative of an issue.
+{{/1.2.0+}}
+
 Riaknostic
 ----------
 
