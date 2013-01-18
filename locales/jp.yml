@@ -1,0 +1,90 @@
+---
+jp:
+  basho: Basho
+  visit_basho: Visit Basho
+  home: ホーム
+  riak_docs: Riak Docs
+  tagline: "チュートリアル, How To, APIの完全なドキュメント"
+  keywords: キーワード 
+  navigation: Navigation
+  all_projects: 全Riakプロジェクト
+  docs_on_github: "このドキュメントは GitHub に置いてあります。ご意見、修正をお寄せください。"
+  secondary_header: "こちらも御覧ください"
+  faqs_link: "[[FAQ|FAQs]]"
+  apis_link: "[[API|APIs]]"
+  tutorial_nav: "チュートリアル・ナビ"
+  previous: 前
+  next: 次
+  toc_contents: 目次
+  footer: "このドキュメントは次のライセンスに従います: <a href=\"http://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">Creative Commons Attribution 3.0 Unported License</a>"
+  riak_cs:
+    info:
+      title: Riak CS のみ
+      body: "Riak CS をご試用になるためには、<a href=\"http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html\">開発者トライアル</a> に登録してください。"
+  riak_ee:
+    info:
+      title: Riak Enterprise のみ
+      body: "このドキュメントは Basho が [[Riak]] を商用に拡張した Riak Enterprise にのみ適用されます。Riak Enterprise のご使用を検討される場合は、<a href=\"http://info.basho.com/Wiki_Contact.html\">ご連絡ください</a>。"
+  riak_index:
+    getting_started_p: "Riak は始めてですか？　チュートリアルから始めてください。それから、質問があれば [[FAQ|FAQs]] を参照してください。"
+    getting_started:
+      title: "初めに"
+      fast_track: "[[The Riak Fast Track]]"
+      installing: "[[インストールとアップグレード|Installing and Upgrading]]"
+      querying: "[[Riak でクエリ|Querying Riak]]"
+    developing_t: "Riak での開発"
+    developing_p: "インストール済みの Riak 環境をお持ちで、その上で開発を行いたいのであれば、ここにあるリソースを参照してください。また、[[Riak 開発用 FAQ|Developing on Riak FAQs]] も参照してください。"
+    developing:
+      querying: "[[クエリのいろいろ|Querying Riak]]"
+      mapreduce:
+        title: "MapReduce"
+        mapreduce: "[[MapReduce]]"
+        keyfilters: "[[キーフィルタ|Key Filters]]"
+      search:
+        title: Search
+        indexing: "[[インデックス|Riak-Search - Indexing]]"
+        schema: "[[スキーマ|Riak-Search - Schema]]"
+        querying: "[[クエリ|Riak-Search - Querying]]"
+        kv_data: "[[KV データのインデックスとクエリ|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]"
+        cmd: "[[search-cmd|Command-Line-Tools - search-cmd]] <em>(コマンドラインツール)</em>"
+      2i:
+        title: "セカンダリインデックス"
+        config: "[[設定|Secondary-Indexes - Configuration]]"
+        examples: "[[サンプル|Secondary-Indexes - Examples]]"
+      refs:
+        title: "リファレンス"
+        apis: "[[API|APIs]]"
+        faqs: "[[Riak 開発用 FAQ|Developing on Riak FAQs]]"
+        libs: "[[クライアントライブラリ|Client Libraries]]"
+        community: "[[コミュニティ開発プロジェクト|Community Developed Libraries and Projects]]"
+        riak_cmd: "[[riak|Command-Line-Tools - riak]] <em>(コマンドラインツール)</em>"
+    operating_t: "Riak の操作"
+    operating_p: "これらのリンクは、Riak の設定、デプロイ、インストールの管理を行わなければならない管理者のためのものです。ここには [[Riak のオペレーション FAQ|Operating Riak FAQs]] もあります。"
+    operating:
+      launching: "Riak を起動する"
+      installing: "[[インストールとアップグレード|Installing and Upgrading]]"
+      planning:
+        title: "[[プランニング|System Planning]]"
+        backend: "[[バックエンドを選択する|Choosing a Backend]]"
+        capacity: "[[クラスタのキャパシティプランニング|Cluster Capacity Planning]]"
+      ops:
+        title: "オペレーション"
+        ops: "[[オペレーション|operators]]"
+        config: "[[ファイルの設定|Configuration Files]]"
+        tuning: "[[ファイルシステムのチューニング|File System Tuning]] {{0.14.0+}}"
+        backups: "[[バックアップ|Backups]]"
+        security: "[[ネットワークセキュリティとファイアウォール|Network Security and Firewall Configurations]]"
+        control: "[[Riak Control GUI|Riak Control]] {{1.0.0+}}"
+        query: "[[クエリオプション|Querying Riak]]"
+        mapreduce: "[[MapReduce の設定|MapReduce - Settings]]"
+        search: "[[Search の設定|Riak-Search - Settings]]"
+        2i: "[[セカンダリインデックスの設定|Secondary Indexes Configuration]]"
+      clusters:
+        title: "クラスタのマッピング"
+        setup: "[[クラスタの基本設定|Basic Cluster Setup]]"
+        adding: "[[ノードの追加と削除|Adding and Removing Nodes]]"
+        replacing: "[[ノードの置き換え|Replacing a Node]]"
+      trouble: "[[トラブルシューティング|Troubleshooting]]"
+      refs:
+        title: リファレンス
+        riak_admin_cmd: "[[riak-admin|Command-Line-Tools - riak]] <em>(コマンドラインツール)</em>"

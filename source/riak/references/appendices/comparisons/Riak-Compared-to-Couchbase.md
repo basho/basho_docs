@@ -34,7 +34,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
         <td>Data Model</td>
         <td>Riak stores key/value pairs in a higher level namespace called a bucket. 
 			<ul>
-			  <li>[[Buckets, Keys, and Values|Concepts#Buckets%2C-Keys%2C-and-Values]] </li>
+			  <li>[[Buckets, Keys, and Values|Concepts#Buckets-Keys-and-Values]] </li>
 			</ul>
 		</td>
         <td>Couchbase is a JSON-based document datastore. Like other document datastores, records have no intrinsic relationships, and are stored in buckets. Value size is limited to 20Mbyte.
@@ -74,7 +74,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			</td>
         <td>Couchbase provides drivers in several languages to access data through its binary memcached protocol. Couchbase also provides a REST API to monitor and manage a cluster (though it is not used to directly manage stored data).
 			<ul>	
-				<li>[[Memcached Protocol|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-architecture-apis-memcached-protocol.html]]</li>
+				<li>[[Client Interface|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-introduction-architecture-clientinterface.html]]</li>
 				<li>[[Client-Libraries|http://www.couchbase.com/develop]]</li>
 				<li>[[Management REST API|http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-admin-restapi.html]]</li>
 			</ul>		
@@ -146,7 +146,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			
 			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
 				<ul>
-					<li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
+					<li>[[Reading, Writing, and Updating Data|Concepts#Reading-Writing-and-Updating-Data]]</li>
 				</ul>	
 			
 	 </td>

@@ -1,59 +1,60 @@
 ---
-title: Installing on SUSE
+title: SUSE にインストールする
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, suse]
-prev: ["Installing on SmartOS", "Installing-on-SmartOS.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on Windows Azure", "Installing-on-Windows-Azure.html"]
+prev: "[[SmartOS にインストールする|Installing on SmartOS]]"
+up:   "[[インストールとアップグレード]]"
+next: "[[Windows Azure にインストールする|Installing on Windows Azure]]"
 ---
 
-The following steps should get you up and running with Riak on SuSE.
+SuSE で Riak を動かすには以下のステップに従ってください。
 
-Riak may be unofficially installed on the following x86/x86_64 flavors of SuSE via community provided support:
+Riak は、以下の x86/x86_64 SuSE 環境へは、コミュニティサポート経由で、非公式にインストールすることができます。
 
 * SLES11-SP1
 * OpenSUSE 11.2
 * OpenSUSE 11.3
 * OpenSUSE 11.4
 
-The Riak package and all of its dependencies (including the base Erlang) can be found in an OpenSUSE Build Service (http://build.opensuse.org) Zypper repository
+Riak パッケージとその依存関係 (基本 Erlang を含む) は OpenSUSE Build Service (http://build.opensuse.org) の Zypper リポジトリにあります。
 
-(The following commands are assumed to be run as root)
+(以下のコマンドでは root として実行することを仮定しています)
 
-## Add the Riak zypper repository
+## Riak zypper リポジトリを追加する
 
 ```bash
 $ zypper ar http://download.opensuse.org/repositories/server:/database/$distro Riak
 ```
-Where $distro is one of:
+$distro は以下のいずれかです:
 * SLE_11_SP1
 * openSUSE_11.2
 * openSUSE_11.3
 * openSUSE_11.4
 
-_NOTE: The first time you try to use the repository after adding it to your system, you may be asked to accept the GPG key for the repo._
+_ノート: システムにリポジトリを追加して、始めてそれを使うとき、GPG キーの認証が要求されます。_
 
-## Install the Riak package
+## Riak パッケージをインストール
 
 ```bash
 $ zypper in riak
 ```
 
-This should automatically pull in its dependencies, including erlang if you do
-not already have it installed.
+これによって、まだインストールされていなければ Erlang も含めて、自動的に依存関係が解決されます。
 
-## (Optional) Enable "refresh" on the riak repository to receive updates
+## (オプション) アップデートを受け取れるように、riak レポジトリの "refresh" を有効にする
 
 ```bash
 $ zypper mr -r Riak
 ```
 
-## Next Steps?
+## 次のステップは？
 
-From here you might want to check out:
+次の項目をチェックしてください。
 
-* [[Riak Fast Track|The-Riak-Fast-Track]]: a guide for setting up a 4 node cluster and exploring Riak's main features.
-* [[Basic Cluster Setup|Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!
+* [[インストール後のメモ|Post Installation]]: インストール後に Riak の状態をチェックする
+* [[Riak Fast Track|The-Riak-Fast-Track]]: 4ノードクラスタをセットアップし、Riak の主要な機能を知るガイド
+* [[Basic Cluster Setup|Basic Cluster Setup]]: ノード1つから、Google よりも巨大なノードにするまでのガイド
+

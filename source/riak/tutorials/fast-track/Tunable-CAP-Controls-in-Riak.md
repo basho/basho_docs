@@ -5,8 +5,17 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Links and Link Walking", "Links-and-Link-Walking.html"]
-up:   ["The Riak Fast Track", "index.html"]
+prev: "[[Links and Link Walking]]"
+up:   "[[The Riak Fast Track]]"
+versions: false
+interest: [
+"[[Installing and Upgrading]]",
+"[[Concepts]]",
+"[[Querying Riak]]",
+"[[System Planning]]",
+"[[Basic Cluster Setup]]",
+"[[Use Cases]]"
+]
 ---
 
 さて、長い道のりでした。Fast Track にきちんと従っていれば、Riak の概要、ローカルマシンに3ノードのクラスタ1つ、HTTP インタフェースでの簡単な作業、そしてちょっとした MapReduce クエリの実行を行ったはずです。
@@ -29,9 +38,10 @@ Riak に格納されているすべてのデータは、バケットに設定さ
 
 バケットの N 値を変更する(デフォルトと違う値にする)ためには、PUT リクエストで新しい N 値をバケットに伝えます。Riak で3つのノードが動いているならば、このようにしてください:
 
-```bash
-$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":2}}' \
-  http://127.0.0.1:8091/riak/another_bucket
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/another_bucket \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"n_val":2}}'
 ```
 
 これでバケット "another_bucket" の n_val が 2 に変更されました。つまりデータはクラスタ内の2つのパーティションにレプリケーションされるということです。
@@ -58,9 +68,10 @@ Riak では、更新ごとに "W 値" を設定することができます。W �
 
 この PUT オペレーションでは、w 値を 3 にセットしています。
 
-```bash
+```
 $ curl -v -XPUT http://127.0.0.1:8091/riak/docs/story.txt?w=3 \
-  -H "Content-type: text/plain" --data-binary @story.txt
+  -H "Content-type: text/plain" \
+  --data-binary @story.txt
 ```
 
 ### 整合性シンボル(Symbolic Consistency Names)

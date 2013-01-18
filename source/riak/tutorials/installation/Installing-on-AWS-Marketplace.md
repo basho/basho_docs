@@ -1,89 +1,89 @@
 ---
-title: Installing on AWS Marketplace
+title: AWS Marketplace にインストールする
 project: riak
-version: 1.1.0+
+version: 1.2.1+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, AWS, marketplace, amazon]
-prev: ["Installing on Windows Azure", "Installing-on-Windows-Azure.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing Riak from Source", "Installing-Riak-from-Source.html"]
+prev: "[[Windows Azure にインストールする|Installing on Windows Azure]]"
+up:   "[[インストールとアップグレード]]"
+next: "[[Riak をソースからインストールする|Installing Riak from Source]]"
 ---
 
-## Launching Riak VMs via the AWS Marketplace
+## AWS Marketplace 経由で Riak VM を起動する
 
-In order to launch a Riak virtual machine via the AWS Marketplace, you will first need to sign up for an [Amazon Web Services] (http://aws.amazon.com) account.
+AWS Marketplace 経由で Riak 仮想マシンを起動するためには、まず、[Amazon Web Services] (http://aws.amazon.com) アカウントにサインアップする必要があります。
 
-1. Navigate to [https://aws.amazon.com/marketplace/] (https://aws.amazon.com/marketplace/) and sign in with your Amazon Web Services account.
+1. [https://aws.amazon.com/marketplace/] (https://aws.amazon.com/marketplace/) に行き、あなたの Amazon Web Services アカウントでサインインします。
 
-2. Locate Riak in the "Databases & Caching" category or search for Riak from any page.
+2. "Databases &Caching" カテゴリ内の Riak へ進むか、任意のページで Riak を検索します。
 
-3. Set your desired AWS region, EC2 instance type, firewall settings, and key pair
+3. お望みの AWS 地域、EC2 インスタンスタイプ、ファイアウォールの設定、キーペアを選択します。
 
 	![AWS Marketplace Instance Settings](/images/aws-marketplace-settings.png)
 
-4. Click the "Accept Terms and Launch with 1-Click" button.
+4. "Accept Terms and Launch with 1-Click" ボタンをクリックします。
 
-### Security Group Settings
+### セキュリティグループの設定
 
-Once the virtual machine is created you should verify your selected EC2 security group is configured properly for Riak.  
+仮想マシンが作成されたら、選んだ EC2 セキュリティグループが Riak 用に正しく設定されているかを確認します。  
 
-1. In the AWS EC2 Management Console, click "Security Groups", then click the name of the security group for your Riak VM.
+1. AWS EC2 Management Console で、"Security Groups" をクリックし、Riak VM 用のセキュリティグループの名前をクリックします。
 
-2. Click on the "Inbound" tab in the lower pane.  Your security group should include the following open ports:
+2. ペーンの下部にある "Inbound" タブをクリックします。セキュリティグループが、以下のようにオープンポート内にあるはずです。
 	- 22 (SSH)
 	- 8087 (Riak Protocol Buffers Interface)
 	- 8098 (Riak HTTP Interface)
 
-3. You will need to add additional rules within this security group to allow your Riak instances to communicate.  For each port range below, create a new "Custom TCP rule" with the source set to the current security group ID (found on the "Details" tab).  
-	- Port range: 4639
+3. Riak インスタンスがコミュニケートできるように、セキュリティグループに追加のルールを設定します。下記の各ポート範囲に、"Custom TCP rule" を新規作成し、ソースセットに現在のグループID ("Details" タブにあります) をセットします。  
+	- Port range: 4369
 	- Port range: 6000-7999
 	- Port range: 8099 
 
-4. When complete, your security group should contain all of the rules listed below.  If you are missing any rules, add them in the lower panel and then click the "Apply Rule Changes" button. 
+4. 終了したら、下図のようにセキュリティグループにすべてのルールが現れるはずです。ルールが足りなかったら、パネルの下部でそれを追加し、"Apply Rule Changes" ボタンをクリックします。 
 
 	![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
 
-You can read more about Riak's [[Network Security and Firewall Configurations]].
+Riak の [[ネットワークセキュリティとファイアウォールの設定|Network Security and Firewall Configurations]] に詳細があります。
 
-## Clustering Riak on AWS
+## AWS 上の Riak をクラスタ化
 
-You will need need to launch at least 3 instances to form a Riak cluster.  When the instances have been provisioned and the security group is configured you can connect to them using SSH or PuTTY as the ec2-user. 
+Riak をクラスタ化するために、最低でも3つのインスタンスを起動する必要があります。インスタンスが用意され、セキュリティグループが設定されたら、SSH または PuTTY で、ec2-user としてそれらにアクセスできます。
 
- You can find more information on connecting to an instance on the official [Amazon EC2 instance guide] (http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html).
+インスタンスへの接続についての詳しい情報は、オフィシャルな [Amazon EC2 instance guide](http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html) にあります。
 
-1. On the first node obtain the internal IP address:
+1. 最初のノードにはインターナル IP アドレスを与えます。
 
 	```text
 	curl http://169.254.169.254/latest/meta-data/local-ipv4 
 	```
 
-2. For all other nodes, use the internal IP address of the first node:
+2. その他のノードには、最初のノードのインターナル IP アドレスを使います。
 
 	```text
 	sudo riak-admin cluster join riak@<ip.of.first.node>
 	```
 
-3. After all of the nodes are joined, execute the following:
+3. 全てのノードがジョインしたら、以下を実行します:
 
 	```text
 	sudo riak-admin cluster plan
 	```
 
-	If this looks good:
+	うまくいったら、
 
 	```text
 	sudo riak-admin cluster commit
 	```
 
-	To check the status of clustering use:
+	クラスタ化のステータスをチェックするには:
 
 	```text
 	sudo riak-admin member_status
 	```
 
-You now have a Riak cluster on AWS.
+これで AWS 上に  Riak クラスタができました。
 
-Further Reading:
+参照:
 
 - [[Basic Riak API Operations]]

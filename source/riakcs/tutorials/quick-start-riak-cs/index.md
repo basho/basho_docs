@@ -112,7 +112,7 @@ Riak 設定のためにいくつかすることがあります。`/etc/riak/app.
 
 このようにします。
 
-    {add_paths, ["/usr/lib64/riak-cs/lib/riak_moss-1.0.1/ebin"]},
+    {add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.2/ebin"]},
     {storage_backend, riak_cs_kv_multi_backend},
     {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
     {multi_backend_default, be_default},
@@ -126,10 +126,6 @@ Riak 設定のためにいくつかすることがあります。`/etc/riak/app.
         ]}
     ]},
 
-`app.config` の **riak_core** セクションにこれを追加します:
-
-    {default_bucket_props, [{allow_mult, true}]},
-
 app.config ファイルにインタフェース IP アドレスを設定します。プロダクション環境では、複数の NIC を使っていることでしょうが、今はテストクラスタだけなので、10.0.2.10 という IP アドレスの NIC が1台だけだと仮定します。
 
 `/etc/riak/app.config` の次の行を変更します。
@@ -139,24 +135,24 @@ app.config ファイルにインタフェース IP アドレスを設定しま�
 
 このようにします。
 
-	{http, [ {"10.0.2.10", 8098 } ]}
+    {http, [ {"10.0.2.10", 8098 } ]}
     {pb_ip,   "10.0.2.10" }
 
 
 `/etc/riak-cs/app.config` の次の行を変更します。
 
-    {moss_ip, "127.0.0.1"}
+    {cs_ip, "127.0.0.1"}
     {riak_ip, "127.0.0.1"}
     {stanchion_ip, "127.0.0.1"}
 
 このようにします。
 
-	{moss_ip, "10.0.2.10"}
+    {cs_ip, "10.0.2.10"}
     {riak_ip, "10.0.2.10"}
     {stanchion_ip, "10.0.2.10"}
 
 
-Riak CS に全てのインタフェースをリッスンさせたいのであれば、moss_ip を 0.0.0.0 にしても構いません。
+Riak CS に全てのインタフェースをリッスンさせたいのであれば cs_ip を 0.0.0.0 にしても構いません。
 
 
 `/etc/stanchion/app.config` の次の行を変更します。
@@ -215,7 +211,7 @@ Riak CS に全てのインタフェースをリッスンさせたいのであれ
 riak-cs ping
 ```
 
-<div class="note"><div class="title">ノート</div>Riak CS が Riak ノードと通信できないときに、<tt>riak-cs ping</tt> コマンドは失敗します。<tt>riak-cs ping</tt> を使って生きているかをチェックする前に、Riak CS システムのすべてのコンポーネントを確認して下さい。</div>
+<div class="note"><div class="title">ノート</div>Riak CS が Riak ノードと通信できないときに、<tt>riak-cs ping</tt> コマンドは失敗します。<tt>riak-cs ping</tt> を使って生きているかをチェックする前に、Riak CS システムのすべてのコンポーネントを確認してください。</div>
 
 **ステップ ４: 管理ユーザを作る**
 
@@ -230,7 +226,7 @@ riak-cs ping
 管理ユーザを作成するために、新しいユーザを "anonymous" ユーザとして作成し、パーミッションを与えます。
 この設定には Riak CS のノードが 1 つだけ必要です。
 
-`/etc/riak-cs/app.config` の `{moss_ip, ...}` のすぐ前に次のエントリを追加します。
+`/etc/riak-cs/app.config` の `{cs_ip, ...}` のすぐ前に次のエントリを追加します。
 
     {anonymous_user_creation, true},
 

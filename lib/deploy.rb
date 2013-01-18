@@ -57,7 +57,7 @@ module InvalidateCloudfront
 
           files[pos...(pos+CF_BATCH_SIZE)].each do |key|
             count += 1
-            paths += "<Path>#{key}</Path>"
+            paths += "<Path>#{key.to_s.gsub(/ /, '%20')}</Path>"
           end
 
           return if count < 1
@@ -114,3 +114,5 @@ module ::Middleman::Features::ProductionCheck
     end
   end
 end
+
+::Middleman::Extensions.register(:production_check, ::Middleman::Features::ProductionCheck)

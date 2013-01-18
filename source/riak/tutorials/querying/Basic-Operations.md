@@ -1,5 +1,5 @@
 ---
-title: 基本操作
+title: Basic Requests
 project: riak
 version: 0.10.0+
 document: tutorials
@@ -8,79 +8,78 @@ audience: beginner
 keywords: [querying, api, http]
 prev: ["クエリする", "index.html"]
 up:   ["クエリする", "index.html"]
-next: ["Map Reduce", "MapReduce.html"]
+next: "[[MapReduce]]"
 ---
 
+Riak での操作のほとんどはキーにバリューをセットする、あるいは取得することです。このセクションでは Riak の [[HTTP API]] の使い方を説明しますが、中心となることは Riak の [[プロトコルバッファクライアント API|PBC API]] インタフェースと同じことです。
 
-Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. This section describes how to do that using the Riak [[HTTP API]], but the concepts apply equally to Riak's [[Protocol Buffers Client API|PBC API]] interface.
+Riak は Erlang、Java、PHP、Python、Ruby、C/C++ 用の [[クライアントライブラリをサポート|Client Libraries]] しています。さらに、[[コミュニティ管理のプロジェクト|Communiy Developed Libraries and Projects]] として、.NET、Node.js、Python (および Twisted)、Griffon、Small Talk、Perl、Scala、Clojure、等々があります。
 
-Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Community Developed Libraries and Projects]] for .NET, Node.js, Python (and Twisted), Griffon, Small Talk, Perl, Scala, Clojure, and many others.
+## HTTP の例題
 
-## Best Practices for HTTP
+HTTP 経由で Riak にリクエストを送る場合、以下の点に注意してください。
 
-When sending requests to Riak via HTTP, it's useful to keep these points in mind.
+1. すべてのリクエストには *X-Riak-ClientId* ヘッダを含めてください。これはクライアントをユニークに識別できるどんな文字列でも構いません。[[ベクタークロック]] としてオブジェクトの変更を追跡するために使います。
+2. バケット、キー、リンクにはエスケープなしのスラッシュを含んではいけません。URL エスケープライブラリを使用するか、スラッシュを `%2F` に置き換えてください。
 
-1. All requests should include the *X-Riak-ClientId* header, which can be any string that uniquely identifies the client, for purposes of tracing object modifications using [[Vector Clocks]].
-2. Buckets, keys, and link specifications may not contain unescaped slashes. Use a URL-escaping library or replace slashes with `%2F`.
+## オブジェクトを読む
 
-## Read an Object
-
-Here is the basic command formation for retrieving a specific key from a bucket.
+バケットからキーを取得するための基本的なコマンドは次のようになります。
 
 ```
 GET /riak/bucket/key
 ```
 
-The body of the response will contain the contents of the object (if it exists).
+オブジェクトはレスポンスのボディに含まれて返ります(もしあれば)。
 
-Riak understands many HTTP-defined headers, like `Accept` for content-type negotiation (relevant when dealing with siblings, see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings examples]], and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
+Riak は、content-type の受け渡しのための `Accept` (siblings を取り扱うときは [[HTTP API での sibling の用例|HTTP Fetch Object#Siblings examples]] を参照) や、条件付きリクエストの `If-None-Match`/`Etag`、`If-Modified-Since`/`Last-Modified` のような、HTTP で定義された多くのヘッダを理解します。
 
-Riak also accepts many query parameters, including `r` for setting the R-value for this GET request (R Values describe how many replicas need to agree when retrieving an existing object in order to return a successful response. R values will be explained more in the final section of the Fast Track Tutorial). If you omit the the `r` query parameter, Riak defaults to `r=2`.
+さらに Riak は多くのクエリパラメータを受け付けます。GET リクエストの R 値 (オブジェクトの取得が成功するためには何個のレプリカが応答する必要があるか。R 地の詳細は Fast Track チュートリアルの最後のセクションにあります) をセットするための `r` などです。クエリパラメータ `r` を省略したときは、デフォルトの `r=2` が採用されます。
 
-Normal response codes:
+正常時のレスポンスコード:
 
 * `200 OK`
 * `300 Multiple Choices`
 * `304 Not Modified`
 
-Typical error codes:
+主なエラーコード:
 
 * `404 Not Found`
 
-### Example Error Code
+### エラーコードの例
 
-This command will request (GET) the key `doc2` from the bucket `test`.
+この例では `test` バケットから `doc2` キーをリクエスト(GET)します。
 
 ```bash
 $ curl -v http://127.0.0.1:8091/riak/test/doc2
 ```
 
-This should return a *404 Not Found* as the key `doc2` does not exist (you haven't created it yet).
+キー `doc2` が存在しない(あなたはまだ作成していませんから) という、*404 Not Found* が返ります。
 
-## Store an object with existing or user-defined key
+## 既存のキー、またはユーザ定義のキーにオブジェクトを格納する
 
-Your application will often have its own method of generating the keys for its data.  If so, storing that data is easy.  The basic request looks like this.
+往々にしてアプリケーションは、独自の方法でデータからキーを生成します。このとき、データの格納は容易です。リクエストは基本的にこのようになります。
 
 ```
 PUT /riak/bucket/key
 ```
 
-Remember, buckets are automatically created when you add keys to them. There is no need to explicitly "create" a bucket (more on buckets and their properties further down the page.)
+キーを追加するとバケットが自動的に生成されることを思い出してください。わざわざバケットを "create" する必要はありません(バケットおよびそのプロパティにちてはこのページの下の方で説明します)。
 
-Some request headers are required for PUTs:
+リクエストヘッダによっては PUT が必要です。
 
-* `Content-Type` must be set for the stored object. Set what you expect to receive back when next requesting it.
-* `X-Riak-Vclock` if the object already exists, the vector clock attached to the object when read; if the object is new, this header may be omitted
+* `Content-Type` は、格納するオブジェクトにセットしなければなりません。次回にリクエストしたときにこれがセットされています。
+* `X-Riak-Vclock` は、存在するオブジェクトを読み出したときに、ベクタークロックが付加されます。オブジェクトが新規の場合は、このヘッダは無視されます。
 
-Other request headers are optional for PUTs:
+PUT の際は、その他のヘッダはオプションです
 
-* `X-Riak-Meta-YOUR_HEADER` any additional metadata headers that should be stored with the object.
-* `Link` user and system-defined links to other resources. Read more about [[Links]].
+* `X-Riak-Meta-YOUR_HEADER` オブジェクトと一緒に格納される、任意のメタデータヘッダです。
+* `Link` ユーザおよびシステム定義の、他のリソースに対するリンクです。詳しくは [[リンク|Links]] を参照してください。
 
-Similar to how GET requests support the `r` query parameter, PUT requests also support these parameters:
+GET リクエストが `r` クエリパラメータをサポートするのと同様に、PUT リクエストでもこれらのパラメータをサポートしています。
 
-* `r` how many replicas need to agree when retrieving an existing object before the write *(integer, default is 2)*
-* `w` how many replicas to write to before returning a successful response *(integer, default is 2)*
+* `r` 既存のオブジェクトに書きこむ前に、何個のレプリカが合意擦る必要があるか *(整数値、デフォルトは 2)*
+* `w` 何個のレプリカに書き込めれば成功のレスポンスを返すか *(整数値、デフォルトは 2)*
 * `dw` how many replicas to commit to durable storage before returning a successful response *(integer, default is 0)*
 * `returnbody` whether to return the contents of the stored object *(boolean, default is false)*
 

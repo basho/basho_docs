@@ -5,9 +5,17 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Building a Dev Environment", "Building-a-Development-Environment.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
+prev: "[[Building a Dev Environment|Building a Development Environment]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[MapReduce Queries|Loading Data and Running MapReduce Queries]]"
+versions: false
+interest: [
+"[[The HTTP API In Depth|HTTP API]]",
+"[[Protocol Buffers API|PBC API]]",
+"[[Replication in Depth|Replication]]",
+"<a href='http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/'>Why Vector Clocks are Easy</a>",
+"<a href='http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/'>Why Vector Clocks are Hard</a>"
+]
 ---
 
 このモジュールでは、Riak HTTP API を使用します。
@@ -28,7 +36,7 @@ Riak での操作のほとんどが、キーのバリューをセットするか
 バケットから指定したキーを取得するときは、このようになります。
 
 ```bash
-GET /riak/bucket/key
+GET /riak/BUCKET/KEY
 ```
 
 レスポンスのボディにはオブジェクトの内容が含まれます(もしあれば)。
@@ -58,9 +66,10 @@ $ curl -v http://127.0.0.1:8091/riak/test/doc2
 ### 既存、またはユーザ定義のキーでオブジェクトを格納する
 
 アプリケーションはしばしば、独自の方法でデータのキーを生成します。このとき、データの格納は簡単です。リクエストはこのようになります。
+*これが唯一有効な URL フォーマットではないことに気をつけてください。[[HTTP API]] には別のフォーマットが示されています。*
 
 ```bash
-PUT /riak/bucket/key
+PUT /riak/BUCKET/KEY
 ```
 
 <div class="info"><code>POST</code> は互換性のために残されている、有効な動詞です。</div>
@@ -95,10 +104,11 @@ GET リクエストでの "r" クエリパラメータと同様に、PUT リク�
 それではここで、ターミナルで試してみましょう。
 
 
-```bash
-$ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/test/doc?returnbody=true \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
-  http://127.0.0.1:8091/riak/test/doc?returnbody=true
+  -H "Content-Type: application/json" \
+  -d '{"bar":"baz"}'
 ```
 
 ### 神きオブジェクトを格納し、ランダムキーをアサインする
@@ -106,7 +116,7 @@ $ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" \
 Riak に渡すキーを、アプリケーションで生成しない場合は、バケット/キー ペアではなく、バケットの URL に POST リクエストを発行します。
 
 ```bash
-POST /riak/bucket
+POST /riak/BUCKET
 ```
 
 バケットの後に "key" を与えなければ、あなたの代わりにキーを生成しろということになります。
@@ -119,9 +129,10 @@ POST /riak/bucket
 
 このコマンドは、バケット "test" の中にオブジェクトを格納し、キーをアサインします:
 
-```bash
-$ curl -v -d 'this is a test' -H "Content-Type: text/plain" \
-  http://127.0.0.1:8091/riak/test
+```
+$ curl -v -XPOST http://127.0.0.1:8091/riak/test \
+  -H 'Content-Type: text/plain' \
+  -d 'this is a test'
 ```
 
 出力内で、*Location* ヘッダでオブジェクトのキーを返します。作成された最新のオブジェクトを見るには、ブラウザで `http://127.0.0.1:8091/*_Location_*` にアクセスしてください。
@@ -135,7 +146,7 @@ $ curl -v -d 'this is a test' -H "Content-Type: text/plain" \
 推測通り、そのコマンドは、前に出てきたとおりで、このようになります:
 
 ```bash
-DELETE /riak/bucket/key
+DELETE /riak/BUCKET/KEY
 ```
 
 DELETE 操作時の正常レスポンスコードは *204 No Content* および *404 Not Found* です。
@@ -165,7 +176,7 @@ $ curl -v -X DELETE http://127.0.0.1:8091/riak/test/test2
 プロパティをセットするには、バケットの URL に PUT を発行します:
 
 ```bash
-PUT /riak/bucket
+PUT /riak/BUCKET
 ```
 
 リクエストボディは "props" というエントリ 1 つの JSON オブジェクトにしてください。未定義のバケットプロパティは無視されます。
@@ -184,9 +195,10 @@ PUT /riak/bucket
 
 それではバケットのプロパティを変えてみましょう。以下を PUT すると、"test" という名前の新しいバケットを作成し、n_val は 5 に変更されます。
 
-```bash
-$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' \
-  http://127.0.0.1:8091/riak/test
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/test \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"n_val":5}}'
 ```
 
 ### バケットを GET
@@ -194,7 +206,7 @@ $ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' \
 HTTP API を使って、バケットプロパティ および/または キーを取得("GET")する方法です:
 
 ```bash
-GET /riak/bucket_name
+GET /riak/BUCKET
 ```
 
 簡単ですね(パターンがわかりましたか？)
@@ -214,13 +226,3 @@ $ curl -v http://127.0.0.1:8091/riak/test
 ブラウザで `http://127.0.0.1:8091/riak/test` にアクセスすれば、バケットの情報を見ることができます。
 
 以上が HTTP API がどのように働くのかの基本です。HTTP API のページ(下記のリンク)を熟読されることを強くお勧めします。そこには HTTP インタフェースを使用するにあたって、覚えておくべきヘッダ、パラメータ、ステータスについての詳細が記載されています。
-
-
-<div class="title">このセクションのさらなる解説</div>
-
-* [[HTTP API の詳細|HTTP API]]
-* [[プロトコルバッファ API|PBC API]]
-* [[レプリケーションの詳細|Replication]]
-* [どうしてベクタークロックが簡単なのか|Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
-* [どうしてベクタークロックはややこしいのか|Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
-

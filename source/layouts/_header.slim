@@ -2,10 +2,10 @@ header.masthead
   div#top-nav
     form action="http://search.basho.com"
       input#main-search size="5" type="search" placeholder="Search" name="q"
-    a href="/index.html" ホーム
-    a href="http://basho.co.jp" Basho
+    a href="/index.html"== I18n.t(:home)
+    a href="http://basho.co.jp"==I18n.t(:basho)
   a.responsive-toggle
   a.logo href="/index.html"
-    h1 Riak Docs
-  span.tagline チュートリアル, How To, APIの完全なドキュメント
+    h1== I18n.t(:riak_docs)
+  span.tagline== I18n.t(:tagline)
   img.shadow-divider(src="/images/layout/shadow-divider.png")

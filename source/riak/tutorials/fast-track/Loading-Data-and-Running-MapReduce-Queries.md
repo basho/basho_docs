@@ -1,13 +1,21 @@
 ---
-title: データのロードと MapReduce クエリ
+title: Loading Data and Running MapReduce
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
+prev: "[[Basic HTTP Operations|Basic Riak API Operations]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Links and Link Walking]]"
+versions: false
+interest: [
+"[[MapReduce]]",
+"[[Erlang MapReduce|MapReduce#MapReduce via the Erlang API]]",
+"<a href='http://blog.basho.com/2010/02/03/the-release-riak-0.8-and-javascript-mapreduce/'>A MapReduce Screencast</a>",
+"<a href='https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js'>Some JavaScript MapReduce Functions included with Riak</a>",
+"<a href='http://research.google.com/archive/mapreduce.html'>Google's MapReduce Paper</a>"
+]
 ---
 
 Riak は基本的なキー/バリュー操作の他に、さまざまな方法でデータをクエリする手段を提供しています: [[フルテキストサーチ|Riak Search]]、[[MapReduce]]、[[セカンダリインデックス|Secondary Indexes]]、[[リンクウォーキング|Links]]
@@ -37,19 +45,19 @@ format_and_insert(Line) ->
 
 
 ```bash
-$ chmod +x load_data
+$ chmod +x load_data.erl
 ```
 
 下記のリンクから株式データの CSV ファイルをダウンロードし、"dev" ディレクトリに置き、使えるようにします。
 
-* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) - Google の株式の過去データ
-* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) - Ruby によるデータをロードするスクリプト
-* [load_data](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) - Erlang によるデータをロードするスクリプト(一部は既出)
+* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) - Google historical stock data
+* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) - Alternative script in Ruby to load the data
+* [load_data.erl](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) - Erlang script to load data (as shown in snippet)
 
 データを Riak にロードします。
 
 ```bash
-$ ./load_data goog.csv
+$ ./load_data.erl goog.csv
 ```
 
 これで Riak クラスタにデータが格納されました。ちょっと脇道にそれて、MapReduce について、さらに Riak がそれをどのように使うかについて軽くおさらいしましょう。
@@ -282,11 +290,3 @@ function(values, arg){
 <div class="note"><div class="title">MapReduce チャレンジ</div>毎月の取引額がもっとも大きい日を検索しなさい。さらに全体でもっとも大きい日はいつでしょうか。
 
 *ヒント*: それぞれについて、1つ以上の map と reduce フェーズが必要です。</div>
-
-#### 参考
-
-* [[MapReduce In Depth|MapReduce]]
-* [Erlang MapReduce](MapReduce#MapReduce via the Erlang API)
-* [A Longer MapReduce Screencast](http://blog.basho.com/2010/02/03/the-release-riak-0.8-and-javascript-mapreduce/)
-* [A list of prebuilt JavaScript MapReduce Functions that ship with Riak](https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js)
-* [Google's Original MapReduce Paper](http://research.google.com/archive/mapreduce.html)

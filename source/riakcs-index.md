@@ -8,11 +8,13 @@ index: true
 audience: beginner
 keywords: []
 simple: true
+versions: false
 ---
 
 ![Riak CS Logo](/images/riak-cs-logo.png)
 
 ***Learn more about Riak CS in our Intro to Riak CS webcast, Wednesday, November 7 (<a href="http://info.basho.com/IntroToRiakCSNov7.html" target="_blank">register here</a>)***<br>
+<br>
 <br>
 Riak CS はパブリックおよびプライベートクラウド向けのマルチテナント クラウド ストレージ ソフトウェアです。Riak CS は Basho の分散型データベースである Riak 上に構築された、シンプルで、アベイラブルな、どんなスケールにも対応した分散型クラウドストレージです。Riak CS は S3-API と互換性があり、テナントごとの課金情報、利用状況を確認することができます。Riak CS をご試用になるためには、[開発者トライアル](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html) に登録してください。
 
@@ -24,6 +26,12 @@ Riak CS はパブリックおよびプライベートクラウド向けのマル
 <td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>Amazon S3-API 互換</strong></td>
 <td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
 <p>Riak CS には S3 ACL をサポートする S3 インタフェースが組み込まれているので、既存の S3 ツールやフレームワーク、さらに Amazon のデータをインポート / エクスポートすることができます。HTTP REST API は、サービス、バケット、オブジェクトレベルの操作をサポートし、データを簡単に格納し、取得することができます。</p>
+</td>
+</tr>
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>マルチデータセンタリプリケーション</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
+<p>Riak CS はバックアップ、ディザスタリカバリ、データの局所参照性のために、Multiデータセンタレプリケーションを提供します。ユーザがどこにいようと、サイトにエラーが発生していようとも、低レイテンシのストレージを提供できます。&nbsp;</p>
 </td>
 </tr>
 <tr align="left" valign="top">
@@ -40,8 +48,15 @@ Riak CS はパブリックおよびプライベートクラウド向けのマル
 <p>画像、テキスト、ビデオ、ドキュメント、データベースのバックアップ、ソフトウェアのバイナリ、その他を、最大 5GB の、アクセスしやすい単一オブジェクトとして格納できます。さらに、Riak CS は標準的な Amazon メタデータヘッダもサポートしています。</p>
 </td>
 </tr>
+{{#1.3.0+}}
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Multi-Datacenter Replication</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
+<p>Riak CS provides multi-datacenter replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.</p>
+</td>
+</tr>
+{{/1.3.0+}}
 </tbody>
 </table>
 
-<blockquote>
-ノート: 現時点では、マルチデータセンタ レプリケーションを含む、Riak EDS 機能のすべてが Riak CS 互換というわけではありません。</blockquote>
+

@@ -1,39 +1,41 @@
 ---
-title: Installing on FreeBSD
+title: FreeBSD にインストールする
 project: riak
 version: 1.2.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, freebsd]
-prev: ["Installing on Mac OS X", "Installing-on-Mac-OS-X.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on SmartOS", "Installing-on-SmartOS.html"]
+prev: "[[Mac OS X にインストールする|Installing on Mac OS X]]"
+up:   "[[インストールとアップグレード]]"
+next: "[[SmartOS にインストールする|Installing on SmartOS]]"
+download: 
+  key: freebsd
+  name: "FreeBSD"
 ---
 
-You can install Riak on FreeBSD for the AMD64 architecture with a binary package or by building from source code.
+AMD64 アーキテクチャの FreeBSD へバイナリパッケージから、あるいはソースコードからビルドして、Riak をインストールすることができます。
 
-## Installing From Binary Package
+## バイナリパッケージからのインストール
 
-<div class="info"><div class="title">Note</div>The Riak 1.2 binary package is supported on FreeBSD version 9. Users have reported success building Riak from source on a number of FreeBSD versions, however.</div>
+<div class="info"><div class="title">Note</div>Riak 1.2 のバイナリパッケージは、FreeBSD version 9 をサポートしています。なお、ユーザからの報告によると、いくつかのバージョンの FreeBSD でも、Riak をソースからビルドするのに成功しているとのことです。</div>
 
-Installing Riak from a binary package is the simplest method with least required dependencies, and requires less time to complete than building from source.
+Riak をバイナリパッケージからインストールするのは、もっとも簡単な方法であり、依存関係も少なく、ソースからビルドするよりも素早く終わらせることができます。
 
-### Prerequisites and Dependencies
+### 事前に必要なもの、および依存関係
 
-Riak depends on `sudo` to be installed if the Riak command line tools are to be executed by users other than the *riak* user. Please ensure that `sudo` is installed via packages or the ports collection prior to installing the Riak package.
+*riak* 以外のユーザで Riak コマンドラインツールを実行するためには、`sudo` でインストールする必要があります。Riak  パッケージをインストールする前に、パッケージまたは ports コレクションとして `sudo` がインストールされていることを確認してください。
 
-The Riak binary package also depends on a packaged version of OpenSSL. Prior to installing Riak 1.2 on FreeBSD 9, you'll need to install `openssl-1.0.0_7` either from package or the ports collection.
+Riak バイナリパッケージは、OpenSSL のパッケージバージョンにも依存しています。FreeBSD 9 に Riak 1.2 をインストールする前に、`openssl-1.0.0_7` をパッケージまたは ports コレクションからインストールする必要があります。
 
-### Installation
+### インストール
 
-You can install the Riak binary package on FreeBSD remotely using the
-`pkg_add` remote option. For this example, we're installing `riak-1.2.1-FreeBSD-amd64.tbz`.
+Riak バイナリパッケージは `pkg_add` リモートオプションを使って、リモートからインストールすることができます。この例では `riak-1.2.1-FreeBSD-amd64.tbz` をインストールします。
 
 ```bash
 sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/1.2/1.2.1/freebsd/9/riak-1.2.1-FreeBSD-amd64.tbz
 ```
 
-When Riak is installed, a message is displayed with information about the installation and available documentation.
+Riak がインストールできたら、インストール状況とドキュメントについての情報が表示されます。
 
 ```text
 Thank you for installing Riak.
@@ -56,37 +58,37 @@ scripts directly.
 Man pages are available for riak(1), riak-admin(1), and search-cmd(1)
 ```
 
-If instead of this message, you receive an error during installation regarding OpenSSL, similar to this one:
+もしもこのメッセージではなく、インストール中に、次のような OpenSSL に関するエラーが出たときは、
 
 ```text
 Package dependency openssl-1.0.0_7 for /tmp/riak-1.2.1-FreeBSD-amd64.tbz not found!
 ```
 
-Be sure that you've installed the required OpenSSL version from packages or the ports collection as described in the **Prerequisites and Dependencies** section.
+**事前に必要なもの、および依存関係** セクションで説明したとおりに、パッケージまたは ports コレクションから、必要な OpenSSL バージョンをインストールしているかを確認してください。
 
-## Installing From Source
+## ソースからインストールする
 
-Installing Riak from source on FreeBSD is a straightforward process which requires installation of more dependencies (such as Erlang) prior to building, and requires more time than a binary package installation.
+Riak をソースから FreeBSD にインストールするのは、ビルドに必要な依存関係 (Erlang など) が確実で、けれどもバイナリパッケージからのインストールより時間がかかる方法です。
 
-That said, installing from source provides for greater flexibility with respect to configuration, data root locations, and more fine grained control over specific dependency versions.
+ソースからインストールするというのは、設定に関して大きな柔軟性があり、データルートの位置、バージョン依存関係に基づいた細かいコントロールが可能だということです。
 
-### Prerequisites and Dependencies
+### 事前に必要なもの、および依存関係
 
-When building and installing Riak from source, you might be required to install some prerequisite software before proceeding with the build.
+ソースから Riak をビルドし、インストールするときは、ビルドを行う前に事前に必要なソフトウェアをインストールしなければなりません。
 
-If you do not currently have the following software installed, please install it with packages or the ports collection before proceeding.
+現在、以下のソフトウェアがインストールされていなければ、あらかじめパッケージまたは ports コレクションからインストールしておいてください。
 
-* Erlang (Can also be installed via Kerl as described in [[Installing Erlang]].
+* Erlang ([[Erlang のインストール|Installing Erlang]] で説明したように、Kerl 経由でインストールすることもできます。
 * Curl
 * Git
 * OpenSSL (version 1.0.0_7)
 * Python
 * sudo
 
-### Installation
-First download the version you wish to install from [Basho downloads](http://basho.com/resources/downloads/).
+### インストール
+初めに、インストールしたいバージョンを [Basho downloads](http://basho.com/resources/downloads/) からダウンロードします。
 
-Next, unpack and build a release from source:
+次に、unpack し、ビルドを行います。
 
 ```bash
 tar zxf <riak-x.x.x>
@@ -94,35 +96,36 @@ cd riak-x.x.x
 gmake rel
 ```
 
-Upon conclusion of the build, the `rel/riak` directory will contain a full Riak node environment, including configuration, data, and log directories:
+ビルドが完了すると `rel/riak` ディレクトリができ、完全な Riak ノード環境、設定、データ、ログディレクトリが含まれています。
 
 ```text
-bin               # Riak binaries
-data              # Riak data and metadata
-erts-5.9.2        # Erlang Run-Time System
-etc               # Riak Configuration
-lib               # Third party libraries
-log               # Operational logs
-releases          # Release information
+bin               # Riak バイナリ
+data              # Riak データおよびメタデータ
+erts-5.9.2        # Erlang ランタイムシステム
+etc               # Riak 設定
+lib               # サードパーティ ライブラリ
+log               # オペレーション ログ
+releases          # リリース情報
 ```
 
-If you'd prefer to build a development environment consisting of 4 nodes which can be run as a cluster on one machine, specify the `devrel` target instead of the `rel` target, like this:
+1台のマシン上に1つのクラスタとして動ける、4ノードの開発環境を作りたいのであれば、`rel` ターゲットの代わりに `devrel` ターゲットを指定します。
 
 ```bash
 gmake devrel
 ```
 
-## Next Steps?
-From here you might want to check out:
+## 次のステップは？
+次の項目をチェックしてください。
 
-* [[The Riak Fast Track]]: a guide for setting up a 3 node cluster and exploring Riak’s main features.
-* [[Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!
+* [[インストール後のメモ|Post Installation]]: インストール後に Riak の状態をチェックする
+* [[The Riak Fast Track]]: ノード3個のクラスタを1つセットアップし、Riak の主要な機能を知るためのガイド
+* [[Basic Cluster Setup]]: ノード1つから、Google よりも巨大なノードにするまでのガイド
 
-## References
+## 参照
 
-* [Basho Downloads](http://basho.com/resources/downloads/)
-* [[Riak Command Line Tools|Command-Line-Tools]]
-* [[Installing and Upgrading]]
-* [[Installing Erlang]]
-* [Using the FreeBSD Package System](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/packages-using.html)
-* [Using the FreeBSD Ports Collection](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html)
+* [Basho ダウンロード](http://basho.com/resources/downloads/)
+* [[Riak コマンドラインツール|Command-Line-Tools]]
+* [[インストールとアップグレード]]
+* [[Erlang のインストール|Installing Erlang]]
+* [FreeBSD パッケージシステムを使う](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/packages-using.html)
+* [FreeBSD の Ports コレクションを使う](http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html)

@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-up:   ["The Riak Fast Track", "index.html"]
+up:   "[[The Riak Fast Track]]"
 ---
 
 [[The Riak Fast Track]] は進化し続けています。これもレビューをし、フィードバックを送ってくださった皆さんのおかげです。以下は協力くださった方々のリストです。

@@ -103,7 +103,7 @@ keywords: [api, http]
     <tr>
         <td>GET Object</td>
         <td>対応</td>
-        <td></td>
+        <td>範囲クエリはインプリメントせず</td>
     </tr>
     <tr>
         <td>Object ACLs (GET, PUT)</td>
@@ -157,5 +157,3 @@ keywords: [api, http]
 
 * [[RiakCS 共通リクエストヘッダ|Common RiakCS Request Headers]]
 * [[RiakCS 共通レスポンスヘッダ|Common RiakCS Response Headers]]
-
-

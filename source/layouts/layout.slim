@@ -31,25 +31,33 @@ body class=classnames.join(' ') id=data.page.body_id
       - unless !data.page.title || data.page.simple
         header
           h1== data.page.title
-      - if !data.page.simple && !data.page.versions || data.page.versions
+      - if data.page.versions.nil? || data.page.versions
         == partial "layouts/versions"
       - unless data.page.simple
         == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
         - if data.page.project == 'riakcs'
           .info
-            .title Riak CS のみ
-            | Riak CS をご試用になるためには、<a href="http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html">開発者トライアル</a> に登録してください。
+            .title== I18n.t(:"riak_cs.info.title")
+            == I18n.t(:"riak_cs.info.body")
 
         - if data.page.project == 'riakee'
           .info
-            .title Riak Enterprise Only
-            | This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise, <a href="http://info.basho.com/Wiki_Contact.html">let us know</a>.
+            .title== I18n.t(:"riak_ee.info.title")
+            == I18n.t(:"riak_ee.info.body")
 
         - unless data.page.toc == false
           nav#toc
-            h2.title 目次
+            h2.title== I18n.t(:toc_contents)
             div#toc-wrapper
               ol#toc-items
+
+        - if data.page.download.present?
+          aside#download-button
+            a href="/downloads/##{data.page.download['key']}"
+              span.content
+                span.title riak
+                span.subtitle Download #{current_version('riak')} for #{data.page.download['name']}
+
       == yield
       == partial "layouts/tutorial_nav"
       div.clear

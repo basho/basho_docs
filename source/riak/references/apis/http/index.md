@@ -44,6 +44,7 @@ Riak のバケットは仮想の概念です。
 * [[HTTP キーのリスト|HTTP List Keys]]
 * [[HTTP バケットのプロパティを得る|HTTP Get Bucket Properties]]
 * [[HTTP バケットのプロパティを設定する|HTTP Set Bucket Properties]]
+* [[HTTP バケットのプロパティをリセットする|HTTP Reset Bucket Properties]] {{1.3.0+}}
 
 ## オブジェクト / キーの操作
 

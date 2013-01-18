@@ -237,7 +237,7 @@ makes up a Riak node is present in `riak-admin status` output.
 -   **riak\_search\_version**: Version of Riak Search application in use
 -   **riak\_kv\_version**: Version of Riak KV application in use
 -   **bitcask\_version**: Version of Bitcask backend application in use
--   **luke\_version**: Version of Luke application in use
+-   **luke\_version**: Version of Luke application in use {{<1.3.0}}
 -   **erlang\_js\_version**: Version of Erlang JS application in use
 -   **mochiweb\_version**: Version of MochiWeb application in use
 -   **inets\_version**: Version of Inets application in use
@@ -288,6 +288,6 @@ Related Resources
 -----------------
 
 -   [Configuration and Management: Command Line Tools:
-    riak-admin](https://help.basho.com/entries/21394723-configuration-and-management-command-line-tools-riak-admin)
+    riak-admin](http://docs.basho.com/riak/1.2.0/references/Command-Line-Tools---riak-admin/)
 -   [Riaknostic](http://riaknostic.basho.com/)
 -   [[HTTP API status|HTTP Status]]

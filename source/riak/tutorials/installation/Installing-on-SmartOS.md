@@ -1,87 +1,88 @@
 ---
-title: Installing on SmartOS
+title: SmartOS にインストールする
 project: riak
 version: 1.1.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, smartos]
-prev: ["Installing on FreeBSD", "Installing-on-FreeBSD.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on SUSE", "Installing-on-SUSE.html"]
+prev: "[[FreeBSD にインストールする|Installing on FreeBSD]]"
+up:   "[[インストールとアップグレード]]"
+next: "[[SUSE にインストールする|Installing on SUSE]]"
+download: 
+  key: smartos
+  name: "SmartOS"
 ---
 
-<div class="info"><div class="title">Version Information</div>The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>.</div>
+Riak 1.2 は以下のステップで、SmartOS version <strong>joyent_20120614T184600Z</strong> 上で動作することが確認されています。Riak ノードをルートユーザとして SmartOS にインストールする方法を示します。
 
-As of version 1.2, Riak can be installed on SmartOS using Basho [packages](http://basho.com/resources/downloads/). The following steps demonstrate installation of a Riak node on SmartOS as the root user.
-
-## Open Files Limit
-Before proceeding with installation, you should ensure that the system's open files limit meets or exceeds the recommended minimum of **4096**. Check the current limits to verify this:
+## オープンファイルの制限
+インストール作業を行う前に、システムのオープンファイルの制限を、推奨の最小値である **4096**、あるいはそれ以上であることを確実にしてください。現在の制限値はこのようにしてチェックできます:
 
 ```bash
 ulimit -a
 ```
 
-To temporarily increase this limit *for the life of your session*, use the following command:
+この制限を *セッションの間だけ* 一時的に増やすには、次のコマンドを使います:
 
 ```bash
 ulimit -n 65536
 ```
 
-To increase this value in a persistent manner that will be enforced after restarting the system, add the following to `/etc/system`:
+この値をシステムリスタート後にも恒久的にしたいときは、`/etc/system` に、以下を追加します:
 
 ```text
 set rlim_fd_max=65536
 ```
 
-## Download and Install
-First, download the latest version of the Riak binary package for SmartOS; for this example, we're downloading Riak 1.2:
+## ダウンロードとインストール
+初めに、最新版の SmartOS 用 Riak バイナリパッケージをダウンロードします。本稿の例では、Riak 1.2 をダウンロードします。
 
 ```bash
 curl http://s3.amazonaws.com/downloads.basho.com/riak/1.2/1.2.1/smartos/11/riak-1.2.1-SmartOS-i386.tgz
 ```
 
-Next, install the package:
+次に、パッケージをインストールします。
 
 ```
 pkg_add riak-1.2.1-SmartOS-i386.tgz
 ```
 
-After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
+パッケージをインストールしたら、Riak と Erlang の Port Mapper Deamon (epmd) サービスを有効にします。
 
 ```bash
 svcadm -v enable -r riak
 ```
 
-Finally, after enabling the services, check to see that they are online:
+サービスを有効にしたら、最後にそれらが動いているかを確認します。
 
 ```
 svcs -a | grep -E 'epmd|riak'
 ```
 
-Output from the above command should resemble the following:
+上のコマンドの出力は次のようになるはずです。
 
 ```text
 online    17:17:16 svc:/network/epmd:default
 online    17:17:16 svc:/application/riak:default
 ```
 
-Finally, and provided that the services are shown to be in an **online** state, go ahead and ping Riak:
+サービスが **online** 状態になっていたら、Riak に ping を打ちます。
 
 ```bash
 riak ping
 ```
 
-Pinging Riak will result in a `pong` response if the node is up and reachable, and a `pang` response if the node is up, but has a problem. If the node is not up and reachable, a *not responding to pings* error will result instead.
+ノードが生きていて到達可能であれば、ping を打つと、`pong` レスポンスが返ります。`pang` レスポンスは、ノードが生きているけれど問題があるということです。ノードが生きていないけれど到達可能なときは、その代わりに *not responding to pings* エラーを返します。
 
-If all responses indicate that riak is up and running, then you have successfully installed and configured Riak as service on SmartOS.
+全てのレスポンスが、Riak は生きていて稼働中だとなれば、Riak が正常にインストールでき、SmartOS のサービスとして設定できたということになります。
 
-Next Steps?
+次のステップは？
 -----------
 
-Now that Riak is installed, check out the following resources:
+Riak がインストールできました。次の項目をチェックしてください。
 
--   [[The Riak Fast Track]]: A
-    guide for setting up a 4 node cluster and exploring Riak's main
-    features.
--   [[Basic Cluster Setup]]: A  guide that will show you how to go from one
-    node to bigger than Google!
+-   [[インストール後のメモ|Post Installation]]: インストール後に Riak の状態をチェックする
+-   [[The Riak Fast Track]]: ノード3個のクラスタを1つセットアップし、
+    Riak の主要な機能を知るための
+    ガイド
+-   [[Basic Cluster Setup]]: ノード1つから、Google よりも巨大なノードにするまでのガイド

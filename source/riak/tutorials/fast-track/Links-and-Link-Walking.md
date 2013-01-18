@@ -5,9 +5,16 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["MapReduce Queries", "Loading-Data-and-Running-MapReduce-Queries.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Tunable CAP Controls", "Tunable-CAP-Controls-in-Riak.html"]
+prev: "[[MapReduce Queries|Loading Data and Running MapReduce]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Tunable CAP Controls|Tunable CAP Controls in Riak]]"
+versions: false
+interest: [
+"[[Links]]",
+"<a href='http://blog.basho.com/2010/02/24/link-walking-by-example'>Link Walking By Example</a>",
+"<a href='http://blog.inagist.com/link-map-reduce-in-riak-an-example-from-inagi'>Link-Map-Reduce Example</a>",
+"<a href='http://tools.ietf.org/html/draft-nottingham-http-link-header-10'>IETF 'Web Linking' Draft</a>"
+]
 ---
 
 Map と Reduce が終わったので、次は "リンク"について説明しましょう。
@@ -32,9 +39,10 @@ Link: </riak/people/dhh>; riaktag="friend"
 
 CURL で、リンクヘッダ付きの完全な PUT リクエストをすると次のようになります:
 
-```bash
-$ curl -v -XPUT -H 'Link: </riak/people/dhh>; riaktag="friend"' \
-  -H "content-type: text/plain" http://127.0.0.1:8091/riak/people/timoreilly \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/timoreilly \
+  -H 'Link: </riak/people/dhh>; riaktag="friend"' \
+  -H "Content-Type: text/plain" \
   -d 'I am an excellent public speaker.'
 ```
 
@@ -54,8 +62,9 @@ $ curl -v http://127.0.0.1:8091/riak/people/timoreilly
 
 よろしいですか。私たちは "dhh" オブジェクトを指す "friend" タグを、"timoreilly" オブジェクトに格納しました。今度は "timoreilly" がリンクされている "dhh" オブジェクトを格納する必要があります。
 
-```bash
-$ curl -v -XPUT -H "content-type: text/plain" http://127.0.0.1:8091/riak/people/dhh \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
+  -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
 ```
 
@@ -91,10 +100,10 @@ $ curl -v http://127.0.0.1:8091/riak/people/timoreilly/_,friend,1
 
 デフォルトでは、最後のステップで見つけたオブジェクトだけを含みます。たとえば、オリジナルオブジェクト(ここでは "timoreilly")からリンクをたどって、見つけたものを図示したいといったときに、役に立ちます。例題として、"timoreilly" の友人である "davethomas" という別のオブジェクトを追加しましょう。
 
-```bash
+```
 $ curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
   -H 'Link: </riak/people/timoreilly>; riaktag="friend"' \
-  -H "content-type: text/plain" \
+  -H "Content-Type: text/plain" \
   -d 'I publish books'
 ```
 
@@ -115,10 +124,10 @@ $ curl -v localhost:8091/riak/people/davethomas/_,friend,1/_,friend,_/
 
 いよいよ最後に、"davethomas" を直接 "dhh" の友人にします。これで本当の図が描かれましたが、このやり方は1つではありません。
 
-```bash
+```
 $ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh
   -H 'Link: </riak/people/davethomas>; riaktag="friend"' \
-  -H "content-type: text/plain" \
+  -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
 ```
 
@@ -156,11 +165,12 @@ Basho のハッカーである Sean Cribbs はスクリーンキャストで、�
 ビデオをご覧いただけば、これらのスクリプトがどのようにリンクウォーキングで使われるのかは一目瞭然です。ビデオを見られない、あるいはスクリプトを改造したい方は、次の図を参照ください。
 ![Circle of Friends](/images/circle-of-friends.png)
 
-"load_people.sh" は動作中の 3つのノードの Riak クラスタへ、上図の関連したデータおよび、アタッチされた必要なリンクといったデータを、自動的にロードします。
+`load_people.sh` は動作中の 3つのノードの Riak クラスタへ、上図の関連したデータおよび、アタッチされた必要なリンクといったデータを、自動的にロードします。
 
-"people_queries.sh" は、一連のリンクウォーキング クエリによって、load_people.sh スクリプトでプレロードしたデータの関係を明らかにします。
+`people_queries.sh` は、一連のリンクウォーキング クエリによって、load_people.sh スクリプトでプレロードしたデータの関係を明らかにします。
 
-"load_people.sh" を使うには、"dev" ディレクトリにダウンロードし、実行します。
+`load_people.sh` を使うには、`dev` ディレクトリにダウンロードし、実行します。
+
 
 ```bash
 $ chmod +x load_people.sh
@@ -185,20 +195,11 @@ $ chmod +x people_queries.sh
 $ ./people_queries.sh
 ```
 
-
 このようになるはずです:
 
-
-```bash
+```
 Press [[Enter]] after each query description to execute.
 Q: Get Sean's friends (A:Mark, Kevin)
 ```
 
 さあ、お楽しみください。
-
-参考
-
-* [[リンクについて|Links]]
-* [リンクウォーキングのサンプル](http://blog.basho.com/2010/02/24/link-walking-by-example)
-* [Link-Map-Reduce with Riak at inagist.com](http://blog.inagist.com/link-map-reduce-in-riak-an-example-from-inagi)
-* [IETF "Web Linking" Draft](http://tools.ietf.org/html/draft-nottingham-http-link-header-10)

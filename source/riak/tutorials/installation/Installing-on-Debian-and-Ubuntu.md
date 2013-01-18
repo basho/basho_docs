@@ -1,107 +1,134 @@
 ---
-title: Installing on Debian and Ubuntu
+title: Debian および Ubuntu にインストールする
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, debian, ubuntu, linux]
-prev: ["Installing Erlang", "Installing-Erlang.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on RHEL and CentOS", "Installing-on-RHEL-and-CentOS.html"]
+prev: "[[Erlang をインストールする|Installing Erlang]]"
+up:   "[[インストールとアップグレード]]"
+next: "[[RHEL および CentOS にインストールする|Installing on RHEL and CentOS]]"
+download: 
+  key: debian
+  name: "Debian or Ubuntu"
 ---
 
-<div class="info">
-The following steps have been tested to work with Riak on Debian version 6.05 and Ubuntu version 12.04.
-</div>
+Riak は Debian または Ubuntu ベースのシステムへ、バイナリパッケージまたは [[ソースコードをコンパイル|Installing Riak from Source]] してインストールすることができます。以下のステップは、**Debian version 6.05** および **Ubuntu version 12.04** で Riak が動作することを確認しています。
 
-Riak can be installed on Debian or Ubuntu based systems with a binary package or by [[compiling Riak from source code|Installing Riak from Source]].
-
-Installing From Package
+Apt-Get からインストール
 -----------------------
 
-### SSL Library Requirement for Ubuntu
+Riak を楽にインストールしたいだけでしたら、`apt-get` を使ってください。
 
-Riak currently requires libssl version 0.9.8, which is not installed by
-default on recent versions of Ubuntu. Before installing Riak via package
-on Ubuntu, install the `libssl0.9.8` package. Note that this
-version of libssl can be safely installed alongside current/existing
-libssl installations.
-
-To install the libssl version 0.9.8 package, execute the following
-command:
+最初に署名キーを用意しなければなりません。
 
 ```bash
-    $ sudo apt-get install libssl0.9.8
+curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 ```
 
-After the libssl package installation, proceed to installing Riak from
-the pre-built package by executing the following commands as appropriate
-for the target platform:
+次に Basho のリポジトリを apt のソース率とに追加します（アップデートもしてください）。
 
-### Riak 64-bit Installation
+```
+sudo bash -c "echo deb http://apt.basho.com lsb_release -sc main > /etc/apt/sources.list.d/basho.list"
+sudo apt-get update
+```
+
+これで Riak をインストールします。
+
+```bash
+sudo apt-get install riak
+```
+
+これだけです。
+
+パッケージからのインストール
+-----------------------
+
+手動で deb パッケージをインストールしたいときは、以下の手順に従ってください。
+
+### Ubuntu には SSL ライブラリが必要
+
+Riak には現在 libssl version 0.9.8 が必要で、
+これは最近の Ubuntu にはデフォルトではインストールされていません。
+Ubuntu 上でパッケージから Riak をインストールする前に、`libssl0.9.8` パッケージをインストールしてください。
+このバージョンの libssl はすでにインストールされている他のバージョンの libssl と
+共存させることができます。
+
+libssl version 0.9.8 パッケージをインストールするには、
+次のコマンドを実行します。
+
+```bash
+sudo apt-get install libssl0.9.8
+```
+
+libssl パッケージをインストールしたら、ターゲットとするプラットフォームにあわせて、
+次のコマンドを使ってビルド済みのパッケージから Riak をインストールしてください。
+
+### Riak 64-bit のインストール
 
 #### Ubuntu Lucid Lynx (10.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.1-1_amd64.deb
-    $ sudo dpkg -i riak_1.2.1-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_amd64.deb
+sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 #### Ubuntu Natty Narwhal (11.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/natty/riak_1.2.1-1_amd64.deb
-    $ sudo dpkg -i riak_1.2.1-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/natty/riak_1.2.1-1_amd64.deb
+sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 #### Ubuntu Precise Pangolin (12.04)
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/precise/riak_1.2.1-1_amd64.deb
-    $ sudo dpkg -i riak_1.2.1-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/precise/riak_1.2.1-1_amd64.deb
+sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
-### Riak 32-bit Installation
+### Riak 32-bit のインストール
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/ubuntu/lucid/riak_1.2.1-1_i386.deb
-    $ sudo dpkg -i riak_1.2.1-1_i386.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_i386.deb
+sudo dpkg -i riak_1.2.1-1_i386.deb
 ```
-<div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
+<div class="note"><div class="title">Riak のアップグレード</div>Riak パッケージをアップグレードする場合、さらに "riak" という名前のユーザがいるけれどもホームディレクトリが無い場合、Riak を実行する前に `/var/lib/riak` というホームディレクトリを作成し、`chown riak:riak /var/lib/riak` を実行してください。</div>
 
 
-Installing Riak From Source
+ソースから Riak をインストールする
 ---------------------------
 
-First, install Riak dependencies using apt:
+はじめに、Riak が依存するものを apt を使ってインストールします。
 
 ```bash
-    $ sudo apt-get install build-essential libc6-dev-i386 git
+sudo apt-get install build-essential libc6-dev-i386 git
 ```
 
-Riak requires [Erlang](http://www.erlang.org/) R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*. 
-If Erlang is not already installed, install it before continuing (see:
-[[Installing Erlang]] for more information).
+Riak には [Erlang](http://www.erlang.org/) R15B01 が必要です。*ノート: 今のところ、Erlang version R15B02 は使わないでください。[riak-admin status](https://github.com/basho/riak/issues/227) コマンドでエラーを起こします。*
+まだ Erlang がインストールされていなければ、先にインストールしておいてください
+ (参照: [[Erlang のインストール|Installing Erlang]])
 
-With Erlang installed, proceed to downloading and installing Riak:
+Erlang をインストールしたら、Riak をダウンロードして、インストールします。
 
 ```bash
-    $ wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/CURRENT/riak-1.2.1.tar.gz
-    $ tar zxvf riak-1.2.1.tar.gz
-    $ cd riak-1.2.1
-    $ make rel
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
+tar zxvf riak-1.2.1.tar.gz
+cd riak-1.2.1
+make rel
 ```
 
-If the build was successful, a fresh build of Riak will exist in the
-`rel/riak` directory.
+ビルドが成功すれば、
+`rel/riak` ディレクトリに新しい Riak ビルドが出来ているはずです。
 
-Next Steps?
+次のステップは？
 -----------
 
-Now that Riak is installed, check out the following resources:
+これで Riak がインストールされました。次のリソースをチェックしてください。
 
--   [[The Riak Fast Track]]: a
-    guide for setting up a 3 node cluster and exploring Riak's main features.
+-   [[インストール後のメモ|Post Installation]]: インストール後に Riak の状態をチェックする
+-   [[The Riak Fast Track]]: ノード3個のクラスタを1つセットアップし、
+    Riak の主要な機能を知るためのガイド
 -   [[Basic Cluster Setup]]:
-    a guide that will show you how to go from one node to bigger than
-    Google!
+    ノード1つから、Google よりも巨大なノードにするまでのガイド
+	

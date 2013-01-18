@@ -5,9 +5,17 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["The Riak Fast Track", "index.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Building a Dev Environment", "Building-a-Development-Environment.html"]
+prev: "[[The Riak Fast Track]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Building a Dev Environment|Building a Development Environment]]"
+versions: false
+interest: [
+"[[Clusters]]",
+"[[Buckets]]",
+"[[Eventual Consistency]]",
+"[[Vector Clocks]]",
+"[[Replication]]"
+]
 ---
 
 このページでは Riak のコアとなるアーキテクチャについて紹介します: アベイラビリティ、フォールトトレランス、平易な操作、予測可能なスケーリングなどです。これらをすでにご存知でしたら、このページをスキップして [[ノード4つのクラスタを作る|Building a Development Environment]] へお進みください。
@@ -45,9 +53,11 @@ Riak のレプリケーション スキームは、たとえノードがダウ�
 Riak はフォールトトレランス、欠落のないデータを維持し、たとえハードウェアエラーやネットワーク分断が起きてもアベイラビリティを保ちます。Riak にはこのような状況や、その他の障害、たとえばデータのバージョン競合に対処する、さまざまな設定項目があります。
 
 ### Hinted Handoff
+
 Hinted handoff とはノードのエラーを処理するものです。ノードにエラーが起きたとき、近くのノードがストレージの操作を引き受けます。エラーノードが復旧したら、近くのノードから更新データを受け取り、元に戻します。これによってデータ書き込みおよび更新のアベイラビリティが保証されます。これは自動化されており、エラー処理という負荷を軽減します。
 
 ### バージョンの競合
+
 データのレプリケーションを行うどんなシステムでも、競合がつきものです。たとえば、2つのクライアントが同じオブジェクトを全く同じ時間に更新するとします。または、すべてのアップデートのうちのいくつかが、遅延のためにまだハードウェアまで届いていないとします。Riak ではレプリカは "結果整合性" を持ちます。データは常にアベイラブルなので、全く同じ瞬間にすべてのレプリカが最新のデータを持っているとは限りません。短い時間(通常はミリセカンドオーダ)が経過すると、すべてのものが同期します。
 
 divergence address はどうするのでしょうか。読み出しリクエストが行われると、Riak はすべてのレプリカでオブジェクトを検索します。デフォルトでは、オブジェクトのベクタークロックを参照して、最新のバージョンを返します。ベクタークロックとは、レプリカが作られた際にアタッチされるメタデータです。バージョンを追跡できるように、レプリカがアップデートされるごとに更新されます。また、クライアント側で競合を解消させることもできます。詳細は *[[結果整合性|Eventual Consistency]]* および *[[ベクタークロック|Vector Clocks]]* を参照してください。

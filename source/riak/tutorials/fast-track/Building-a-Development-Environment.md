@@ -5,9 +5,16 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["What is Riak?", "What-is-Riak.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
+prev: "[[What is Riak?|What is Riak]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Basic HTTP Operations|Basic Riak API Operations]]"
+versions: false
+interest: [
+"[[Installing and Upgrading]]",
+"[[Open Files Limit]]",
+"<a href='http://basho.com/resources/downloads/'>Download Riak</a>",
+"<a href='https://github.com/basho/rebar/wiki'>Rebar Documentation</a>"
+]
 ---
 
 このセクションではローカルマシンに Riak をインストールして、4 つのノードのクラスタを作ります。プロダクションの開発に対して Basho は [最低 5 つのノードを推奨しています](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/)。はっきり言うと、このチュートリアルでは 4 にしています。
@@ -24,18 +31,21 @@ Riak をソースからビルドするには、Erlang R15B01 以降が必要で�
 
 以下のリンクはプラットフォーム別のダウンロードとインストール方法です。
 
-* [[Debian および Ubuntu|Installing on Debian and Ubuntu#Installing Riak From Source]]
-* [[RHEL および CentOS|Installing on RHEL and CentOS#Installing From Source]]
-* [[Mac OS X|Installing on Mac OS X#From Source]]
-* [[SUSE|Installing on SUSE]]
-* [[ソースから|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
+  * [[Debian および Ubuntu|Installing on Debian and Ubuntu#Installing Riak From Source]]
+  * [[RHEL および CentOS|Installing on RHEL and CentOS#Installing From Source]]
+  * [[Mac OS X|Installing on Mac OS X#From Source]]
+  * [[FreeBSD|Installing on FreeBSD]]
+  * [[SUSE|Installing on SUSE]]
+  * [[Windows Azure|Installing on Windows Azure]]
+  * [[AWS Marketplace|Installing on AWS Marketplace]]
+  * [[ソースから|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
 ## Riak をビルドする
 
 Riak をコピーしました。それではビルドしましょう。`riak` ディレクトリに行き、`make all` を実行してください。
 
 ```bash
-$ cd riak-1.2.0
+$ cd riak-1.2.1
 $ make all
 ```
 
@@ -49,7 +59,7 @@ Riak のビルドが完了しました。Erlang アプリケーションのパ�
 $ make devrel
 ```
 
-`dev` ディレクトリができました。そのディレクトリへ移り、中身を確認して下さい。
+`dev` ディレクトリができました。そのディレクトリへ移り、中身を確認してください。
 
 ```bash
 $ cd dev; ls
@@ -58,7 +68,7 @@ $ cd dev; ls
 次のようになるはずです。
 
 ```bash
-dev1       dev2       dev3       dev4  
+dev1       dev2       dev3       dev4
 ```
 
 `dev` で始まる各ディレクトリは、Riak ノードを含む完全なパッケージです。各ノードを動かす必要があります。`dev1` を動かしましょう。
@@ -185,9 +195,10 @@ $ cp ~/image/location/image_name.jpg .
 
 この画像を curl コマンドで Riak に PUT します。
 
-```bash
-$ curl -XPUT HTTP://127.0.0.1:8091/riak/images/1.jpg \
-  -H "Content-type: image/jpeg" --data-binary @image_name.jpg
+```
+$ curl -XPUT http://127.0.0.1:8091/riak/images/1.jpg \
+  -H "Content-type: image/jpeg" \
+  --data-binary @image_name.jpg
 ```
 
 それから、画像が格納されたかを確認します。これには画像を PUTで したときの URL をコピーして、ブラウザにペーストするだけです。画像が現れるはずです。
@@ -195,8 +206,3 @@ $ curl -XPUT HTTP://127.0.0.1:8091/riak/images/1.jpg \
 これで 4つのノードの Riak クラスタが動いているはずです。おめでとうございます！　それほど難しくなかったですよね？
 
 <div class="note"><div class="title">HTTP インタフェースのポート</div>上記の設定では、HTTP インタフェースがポート `8091-8093` をリッスンするようにノードをセットしています。ノードのデフォルトポートは`8098`です。デフォルト以外を使うのであれば、他の言語クライアントにそれを知らせる必要があります。</div>
-
-
-参考
-
-* [Rebar ドキュメント](https://github.com/basho/rebar/wiki)

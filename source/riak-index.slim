@@ -9,6 +9,7 @@ audience: beginner
 keywords: []
 body_id: riak-index
 simple: true
+versions: false
 ---
 
 section#getting-started
@@ -16,90 +17,90 @@ section#getting-started
     h1 
       a.command(href='#getting-started')
         img src="/images/riak-logo.png" alt="Riak"
-    p Riak は始めてですか？　チュートリアルから始めてください。それから、質問があれば [[FAQ|FAQs]] を参照してください。
+    p== I18n.t(:"riak_index.getting_started_p")
     .more.command
       a.command(href='#getting-started') &nbsp;
   .content
     section
-      h4 はじめに
+      h4== I18n.t(:"riak_index.getting_started.title")
       ul
-        li [[The Riak Fast Track]]
-        li [[インストールとアップグレード|Installing and Upgrading]]
-        li [[Riak でクエリ|Querying Riak]]
+        li== I18n.t(:"riak_index.getting_started.fast_track")
+        li== I18n.t(:"riak_index.getting_started.installing")
+        li== I18n.t(:"riak_index.getting_started.querying")
     .clear
 
 
 section#developing
   header
     h1 
-      a.command(href='#developing') Riak での開発
-    p インストール済みの Riak 環境をお持ちで、その上で開発を行いたいのであれば、ここにあるリソースを参照してください。また、[[Riak の使い方 FAQ|Developing on Riak FAQs]] も参照してください。
+      a.command(href='#developing')== I18n.t(:"riak_index.developing_t")
+    p== I18n.t(:"riak_index.developing_p")
     .more.command
       a.command(href='#developing') &nbsp;
   .content
     section
-      h4 [[Query Choices|Querying Riak]]
-      h5 MapReduce
+      h4== I18n.t(:"riak_index.developing.querying")
+      h5== I18n.t(:"riak_index.developing.mapreduce.title")
       ul
-        li [[MapReduce]]
-        li [[Key Filters]]
-      h5 Search
+        li== I18n.t(:"riak_index.developing.mapreduce.mapreduce")
+        li== I18n.t(:"riak_index.developing.mapreduce.keyfilters")
+      h5== I18n.t(:"riak_index.developing.search.title")
       ul
-        li [[Indexing|Riak-Search - Indexing]]
-        li [[Schema|Riak-Search - Schema]]
-        li [[Querying|Riak-Search - Querying]]
-        li [[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]
-        li [[search-cmd|Command-Line-Tools - search-cmd]] <em>(Command-Line Tool)</em>
+        li== I18n.t(:"riak_index.developing.search.indexing")
+        li== I18n.t(:"riak_index.developing.search.schema")
+        li== I18n.t(:"riak_index.developing.search.querying")
+        li== I18n.t(:"riak_index.developing.search.kv_data")
+        li== I18n.t(:"riak_index.developing.search.cmd")
     section
-      h5 Secondary Indexes
+      h5== I18n.t(:"riak_index.developing.2i.title")
       ul
-        li [[Configuration|Secondary-Indexes - Configuration]]
-        li [[Examples|Secondary-Indexes - Examples]]
-      h4 References
+        li== I18n.t(:"riak_index.developing.2i.config")
+        li== I18n.t(:"riak_index.developing.2i.examples")
+      h4== I18n.t(:"riak_index.developing.refs.title")
       ul
-        li [[APIs]]
-        li [[Developing on Riak FAQs]]
-        li [[Client Libraries]]
-        li [[Community Developed Projects|Community Developed Libraries and Projects]]
-        li [[riak|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>
+        li== I18n.t(:"riak_index.developing.refs.apis")
+        li== I18n.t(:"riak_index.developing.refs.faqs")
+        li== I18n.t(:"riak_index.developing.refs.libs")
+        li== I18n.t(:"riak_index.developing.refs.community")
+        li== I18n.t(:"riak_index.developing.refs.riak_cmd")
     .clear
 
 section#operating
   header
     h1
-      a.command(href='#operating') Riak の操作
-    p これらのリンクは、Riak の設定、デプロイ、インストールの管理を行わなければならない管理者のためのものです。ここには [[Riak のオペレーション FAQ|Operating Riak FAQs]] もあります。
+      a.command(href='#operating')== I18n.t(:"riak_index.operating_t")
+    p== I18n.t(:"riak_index.operating_p")
     .more.command
       a.command(href='#operating') &nbsp;
   .content
     section
-      h4 Launching Riak
-      h5 [[Installing and Upgrading]]
-      h5 [[Planning|System Planning]]
+      h4== I18n.t(:"riak_index.operating.launching")
+      h5== I18n.t(:"riak_index.operating.installing")
+      h5== I18n.t(:"riak_index.operating.planning.title")
       ul
-        li [[Choosing a Backend]]
-        li [[Cluster Capacity Planning]]
-      h4 Operations
-      h5 Managing Clusters
+        li== I18n.t(:"riak_index.operating.planning.backend")
+        li== I18n.t(:"riak_index.operating.planning.capacity")
+      h4== I18n.t(:"riak_index.operating.ops.title")
+      h5== I18n.t(:"riak_index.operating.clusters.title")
       ul
-        li [[Basic Cluster Setup]]
-        li [[Adding and Removing Nodes]]
-        li [[Replacing a Node]]
+        li== I18n.t(:"riak_index.operating.clusters.setup")
+        li== I18n.t(:"riak_index.operating.clusters.adding")
+        li== I18n.t(:"riak_index.operating.clusters.replacing")
     section
-      h5 [[Operations|operators]]
+      h5== I18n.t(:"riak_index.operating.ops.ops")
       ul
-        li [[Configuration Files]]
-        li [[File System Tuning]] {{0.14.0+}}
-        li [[Backups]]
-        li [[Network Security and Firewalls|Network Security and Firewall Configurations]]
-        li [[Riak Control GUI|Riak Control]] {{1.0.0+}}
-      h5 [[Query Options|Querying Riak]]
+        li== I18n.t(:"riak_index.operating.ops.config")
+        li== I18n.t(:"riak_index.operating.ops.tuning")
+        li== I18n.t(:"riak_index.operating.ops.backups")
+        li== I18n.t(:"riak_index.operating.ops.security")
+        li== I18n.t(:"riak_index.operating.ops.control")
+      h5== I18n.t(:"riak_index.operating.ops.query")
       ul
-        li [[MapReduce Configuration|MapReduce - Settings]]
-        li [[Search Configuration|Riak-Search - Settings]]
-        li [[Secondary Indexes Configuration]]
-      h5 [[Troubleshooting]]
-      h4 References
+        li== I18n.t(:"riak_index.operating.ops.mapreduce")
+        li== I18n.t(:"riak_index.operating.ops.search")
+        li== I18n.t(:"riak_index.operating.ops.2i")
+      h5== I18n.t(:"riak_index.operating.trouble")
+      h4== I18n.t(:"riak_index.operating.refs.title")
       ul
-        li [[riak-admin|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>
+        li== I18n.t(:"riak_index.operating.refs.riak_admin_cmd")
     .clear

@@ -12,12 +12,12 @@ riak:
   - title: "スタート"
     class: "start"
     sub:
-    - "[[Riak をはじめる|Riak]]"
-    - "[[Riak Fast Track|The Riak Fast Track]]"
-    - "[[インストールとアップグレード|installation]]"
-    - "[[クエリを選ぶ|Querying Riak]]"
-    - title: "コンセプト"
-      sub:
+      - "[[Riak をはじめる|Riak]]"
+      - "[[Riak Fast Track|The Riak Fast Track]]"
+      - "[[インストールとアップグレード|installation]]"
+      - "[[クエリを選ぶ|Querying Riak]]"
+      - title: "コンセプト"
+        sub:
           - "[[Concepts Overview|Concepts]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
@@ -74,7 +74,8 @@ riak:
     sub:
       - title: "インストール"
         sub:
-          - "[[インストールとアップグレード|installation]]"
+          - "[[インストールとアップグレード]]"
+          - "[[Erlang のインストール|Installing Erlang]]"
           - "[[DebianとUbuntu|Installing on Debian and Ubuntu]]"
           - "[[RHELとCentOS|Installing on RHEL and CentOS]]"
           - "[[Mac OS X|Installing on Mac OS X]]"
@@ -84,8 +85,9 @@ riak:
           - "[[Windows Azure|Installing on Windows Azure]]"
           - "[[AWS Marketplace|Installing on AWS Marketplace]]"
           - "[[ソースから|Installing Riak from Source]]"
+          - "[[インストール後|Post Installation]]"
 
-      - title: "プランニング"
+      - title: "プランニング/バックエンド"
         sub:
           - "[[プランを作成する|System Planning]]"
           - title: "バックエンドを選択する"
@@ -107,6 +109,7 @@ riak:
       - title: "Configuration"
         sub:
           - "[[Configuration Files]]"
+          - "[[Erlang Named Functions]]"
           - "[[Network Security and Firewall Configurations]]"
           - "[[MapReduce|MapReduce - Settings]]"
           - "[[Search|Riak-Search - Settings]]"
@@ -125,7 +128,7 @@ riak:
           - "[[統計とモニタリング|Statistics and Monitoring]]"
           - "[[ノードの監視|Inspecting a Node]]"
           - "[[検索インデックスの修復|Repairing Search Indexes]]"
-          - "[[KVインデックスの修復|Repairing KVIndexes]]"
+          - "[[KVインデックスの修復|Repairing KV Indexes]]"
 
   - title: "リファレンス"
     sub:
@@ -138,6 +141,7 @@ riak:
       - title: "FAQs"
         sub:
           - "[[All FAQs|FAQs]]"
+          - "[[The Basics|Basic FAQs]]"
           - "[[Developing on Riak|Developing on Riak FAQs]]"
           - "[[Operating Riak|Operating Riak FAQs]]"
           - "[[Log Messages|Log Messages FAQs]]"
@@ -163,7 +167,7 @@ riak:
       - "[[バックエンドAPI|Backend API]]"
       - "[[クライアントのインプリメントガイド|Client Implementation Guide]]"
       - "[[リリースノート|Release Notes]]"
-      - "[[RiakとDynamo|/references/dynamo/]]"
+      - "[[RiakとDynamo|Dynamo]]"
 
   - title: "コミュニティ"
     sub:
@@ -251,7 +255,6 @@ riakcs:
       - "[[Riakの設定|Configuring Riak]]"
       - "[[Riak CSの設定|Configuring Riak CS]]"
       - "[[Stancionの設定|Configuring Stanchion]]"
-      # - "[[Configuring Multi Data Center|Configuring MDC]]"
       - "[[S3クライアントの設定|Configuring an S3 client]]"
   - title: "Multi Data Center"
     sub:
@@ -259,7 +262,9 @@ riakcs:
       - "[[Configuration|Configuring MDC]]"
   - title: "References"
     sub:
-      # - "[[機能の概要|System Features]]"
+      - title: "比較"
+        sub:
+            - "[[CS と Swift との比較|Riak Compared to Swift]]"
       - "[[アクセスコントロールリスト|Access Control Lists]]"
       - "[[認証|Authentication]]"
       - "[[モニタリングとメトリクス|Monitoring and Metrics]]"

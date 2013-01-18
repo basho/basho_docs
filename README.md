@@ -2,7 +2,19 @@
 
 This repo holds all the content (and other bits) for the most-excellent [Riak Docs](http://docs.basho.com), home of documentation for Riak, Riak CS, and Riak Enterprise.  This document tells you how to contribute to the docs (please do!), and deploy them, should you have our secret key.
 
+## Prerequisites
+
 We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generator, to generate [Riak Docs](http://docs.basho.com).  
+
+Another tool used with this repository is rvm. Get it here https://rvm.io/
+
+### OSX 
+
+On OS-X specifically, as with any Ruby project, XCode & the XCode CLI Tools are needed to install, make and install everything smoothly.
+
+![XCode CLI Tooling](http://adronhall.smugmug.com/Software/Software-Development/Basho-Misc/i-xPGs6Tf/1/S/cli-S.jpg)
+
+If you don't have XCode, you can also download the [OSC GCC Installer](https://github.com/kennethreitz/osx-gcc-installer), which gives you the essential compilers needed to build the docs.
 
 ## How to Contribute 
 
@@ -17,7 +29,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 
 2.	Install middleman
 
-	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch 							the middleman API.  
+	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch the middleman API.  
 
 	```
 	gem install bundler
@@ -40,7 +52,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 5.	Review your changes locally 
 
 	```
-	RIAK_VERSION=1.2.0 middleman
+	middleman
 	```
 
 6.	Send us a pull request
@@ -207,14 +219,15 @@ export AWS_ACCESS_KEY_ID="XXXXX"
 export AWS_SECRET_ACCESS_KEY="XXXXX"
 export AWS_S3_BUCKET='riakdocs.en'
 export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
+export RIAK_DOCS_LANG=en
 ```
 
 _The bucket and Cloudfront values are per language._
 
-language | bucket      | cloudfront id
----------|-------------|---------------
-English  | riakdocs.en | E2Q6TQ5O0XT58T
-Japanese | riakdocs.jp | ENDQVZ5Y7OVJN
+language | bucket      | cloudfront id  | docs lang
+---------|-------------|----------------|----------
+English  | riakdocs.en | E2Q6TQ5O0XT58T | en
+Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
 
 
 **Keep it secret. Keep it safe.**

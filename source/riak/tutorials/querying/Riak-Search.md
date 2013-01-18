@@ -6,8 +6,15 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [querying, search]
-prev: ["Secondary Indexes", "Secondary-Indexes.html"]
-up:   ["Querying Riak", "index.html"]
+prev: "[[Secondary Indexes]]"
+up:   "[[Querying Riak]]"
+interest: [
+"[[Search Schema|Riak Search - Schema]]",
+"[[Search Indexing|Riak Search - Indexing]]",
+"[[Querying Search|Riak Search - Querying]]",
+"[[KV Data Search|Riak Search - Indexing and Querying Riak KV Data]]",
+"[[Search Settings|Riak Search - Settings]]"
+]
 ---
 
 ## Introduction
@@ -104,12 +111,3 @@ Riak Search is comprised of:
 * *Riak Search* - Distributed index and full-text search engine.
   * *Merge Index* - Storage backend used by Riak Search. This is a pure Erlang storage format based roughly on ideas borrowed from other storage formats including log structured merge trees, sstables, bitcask, and the Lucene file format.
   * *Riak Solr* - Adds a subset of Solr HTTP interface capabilities to Riak Search.
-
-
-## Further Reading
-
-* [[Riak Search - Schema]]
-* [[Riak Search - Indexing]]
-* [[Riak Search - Querying]]
-* [[Riak Search - Indexing and Querying Riak KV Data]]
-* [[Riak Search - Settings]]

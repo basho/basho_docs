@@ -135,7 +135,7 @@ The following definitions describe the output of `riak-repl status`. Please note
 
 * **objects_sent**
 
-    The number of objects sent via real-time and fullsync replication.
+    The number of objects sent via real-time replication.
 
 * **server_bytes_recv**
 

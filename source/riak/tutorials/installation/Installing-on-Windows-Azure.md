@@ -1,150 +1,149 @@
 ---
-title: Installing on Windows Azure
+title: Windows Azure にインストールする
 project: riak
 version: 1.1.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, windows, azure]
-prev: ["Installing on SUSE", "Installing-on-SUSE.html"]
-up:   ["Installing and Upgrading", "index.html"]
-next: ["Installing on AWS Marketplace", "Installing-on-AWS-Marketplace.html"]
+prev: "[[SUSE にインストールする|Installing on SUSE]]"
+up:   "[[インストールとアップグレード]]"
+next: "[[AWS Marketplace にインストールする|Installing on AWS Marketplace]]"
 ---
 
-Steps to install Riak on Centos VMs using the Windows Azure platform.
+Windows Azure プラットフォーム上の CentOS VM に Riak をインストールするステップです。
 
-## Creating CentOS VMs
+## CentOS VM を作る
 
-In order to create a virtual machine, you will first need to sign up for the Windows Azure Virtual Machines preview feature. You can also sign up for a free trial account if you do not have a Windows Azure account.
+仮想マシンを作るに当たって、まずは Windows Azure Virtual Machines プレビュー機能にサインアップ擦る必要があります。Windows Azure アカウントを持っていなくても、フリートライアルアカウントでサインアップすることができます。
 
-1. Navigate to [https://account.windowsazure.com](https://account.windowsazure.com/) and sign in with your Windows Azure account.
+1. [https://account.windowsazure.com](https://account.windowsazure.com/) へ行き、Windows Azure アカウントでサインインします。
 
-2. Click "preview features" to view the available previews.
+2. "preview features" で、有効なプレビューを表示します。
 
 	![](/images/antares-iaas-preview-01.png)
 
-3. Scroll down to Virtual Machines & Virtual Networks and click "try it now".
+3. Virtual Machines & Virtual Networks までスクロールし、"try it now" をクリックします。
 
 	![](/images/antares-iaas-preview-02.png)
 
-4. Select your subscription and click "Check".
+4. 項目を選択し、チェックマークをクリックします。
 
 	![](/images/antares-iaas-preview-04.png)
 
-### Create a virtual machine running CentOS Linux
+### 仮想マシンに CentOS Linux を走らせる
 
-1. Login to the Windows Azure (Preview) Management Portal using your Windows Azure account.
+1. Windows Azure (プレビュー) 管理ポータルに、Windows Azure アカウントでログインします。
 
-2. In the Management Portal, at the bottom left of the web page, click ""+New"", click "Virtual Machine", and then click "From Gallery". 
+2. 管理ポータルのページの左下で、""+New"" をクリックし、"Virtual Machine" をクリック、さらに "From Gallery" をクリックします。
 
 	![](/images/createvm_small.png)
 
-3. Select a CentOS virtual machine image from Platform Images, and then click the next arrow at the bottom right of the page. 
+3. CentOS 仮想マシンイメージをプラットフォームイメージから選択し、ページの右下の、右矢印をクリックします。 
 
 	![](/images/vmconfiguration0.png)
 
-4. On the VM Configuration page, provide the following information:
-	- Virtual Machine Name, such as "testlinuxvm".
-	- New User Name, such as "newuser", which will be added to the Sudoers list file.
-	- New Password box - type a strong password.
-	- In the Confirm Password box, retype the password.
-	- Select the appropriate Size from the drop down list.
-	- Click the next arrow to continue.
+4. VM Configuration ページで、以下の情報を設定してください:
+    - VIRTUAL MACHINE NAME: 仮想マシン名、たとえば "testlinuxvm"
+	- NEW USERNAME: 新しいユーザ名、"newuser" など。これは Sudoers のリストファイルに追加されます。
+	- NEW PASSWORD: 新しいパスワード。強力なパスワードを入力してください。
+	- CONFIRM PASSWORD: パスワードの確認。パスワードを入力しなおします。
+	- SIZE: ドロップダウンリストから必要な構成を選択してください。
+	- 右矢印をクリックして、続けます。
 
 	![](/images/vmconfiguration1.png)
 
-5. On the VM Mode page, provide the following information:
-	- **If this is the first node**, select the "STANDALONE VIRTUAL MACHINE" radio button. **Otherwise**, select the "CONNECT TO EXISTING VIRTUAL MACHINE" radio button, and select the first node in the drop down list.*
-	- In the DNS Name box, type a valid DNS address, e.g "testlinuxvm".
-	- In the Storage Account box, select "Use Automatically Generated Storage Account".
-	- In the Region/Affinity Group/Virtual Network box, select a region where this virtual image will be hosted.
-	- Click the next arrow to continue.
+5. VM Mode ページで、以下の情報を設定してください:
+    - **これが最初のノードであれば**、"STANDALONE VIRTUAL MACINE" のラジオボタンをチェックします。**そうでなければ**、"CONNECT TO EXISTING VIRTUAL MACHINE" をチェックし、ドロップダウンリストから最初のノードを選択ぢます。*
+	ｰ DNS NAME ボックスには、有効な DNS アドレスを入力します。例: "testlinuxvm"
+	- STRAGE ACCOUNT ボックスは、"Use Automatically Generated Storage Account" を選択します。
+	- REGION/AFFINITY GROUP/VIRTUAL NETWORK ボックスでは、この仮想イメージがホストされている地域を選びます。
+	- 右矢印をクリックして、続けます。
 
 	![](/images/vmconfiguration2.png)
 
-6. On the VM Options page, select "(none)" in the Availability Set box. Click the check mark to continue. 
+6. VM Options ページでは、AVAILABILITY SET ボックスは "(none)" を選択してください。チェックマークをクリックして、続けます。
 
 	![](/images/vmconfiguration3.png)
 
-7. Wait while Windows Azure prepares your virtual machine.
+7. Windows Azure が仮想マシンを準備するのを待ちます。
 
-### Configure Endpoints
+### エンドポイントの設定
 
-Once the virtual machine is created you must configure endpoints in order to remotely connect.
+仮想マシンができたら、リモートからアクセスできるようにエンドポイントの設定をしなければなりません。
 
-1. In the Management Portal, click "Virtual Machines", then click the name of your new VM, then click "Endpoints".
+1. 管理ポータルで、"Virtual Machines" をクリックし、新しい VM の名前をクリックします。次に "Endpoints" をクリックしてください。
 
-2. **If this is the first node**, click "Add Endpoint", leave "Add Endpoint" checked, hit the right arrow and fill out the next form as follows:
+2. **コレが最初のノードであれば**、"Add Endpoint" をチェックし、右矢印を押して、次のフォームを以下のように記入します:
 	- Name: riak_web
 	- Protocol: leave set to 'TCP'
 	- Public Port: 8098
 	- private Port: 8098
 
-## Connect to CentOS VMs using PuTTY or SSH
+## PuTTY または SSH で CentOS VM に接続します。
 
-When the virtual machine has been provisioned and the endpoints configured you can connect to it using SSH or PuTTY.
+仮想マシンが用意され、エンドポイントが設定されたら、SSH または PuTTY で接続できます。
 
-### Connecting Using SSH
+### SSH で接続
 
-**For Linux & Mac Users:**
+**Linux & Mac ユーザ:**
 
 	$ ssh newuser@testlinuxvm.cloudapp.net -o ServerAliveInterval=180
-Enter the user's password.
+ユーザのパスワードを入力してください。
 
-**For Windows Users, use PuTTY:**
+**Windows ユーザは、PuTTY を使用:**
 
-If you are using a Windows computer, connect to the VM using PuTTY. PuTTY can be downloaded from the [PuTTY Download Page](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html).
+Windows マシンを使用しているときは、PuTTY で VM に接続します。PuTTY は、[PuTTY Download Page](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) からダウンロードすることができます。
 
-1. Download and save putty.exe to a directory on your computer. Open a command prompt, navigate to that folder, and execute putty.exe.
+1. putty.exe をパソコンにダウンロードし、保存します。コマンドプロンプトを開き、フォルダを開き、putty.exe を実行します。
 
-2. Enter the SSH DETAILS as found on the Node's Dashboard, i.e., "testlinuxvm.cloudapp.net" for the Host Name and "22" for the Port. 
+2. ノードのダッシュボードで SSH DETAILS を入力します。例: ホスト名として "testlinuxvm.cloudapp.net"、ポート番号として "22"
 
 	![](/images/putty.png)
 
-## Configure Centos and Riak using a shell script
+## シェルスクリプトで CentOS と Riak を設定する
 
-1. On each node, once you've connected using the steps above:
+1. 各ノードごとに、上記のステップで接続します:
 
-Execute:
+実行します。
 
 	sudo su -
 
 	curl -s https://raw.github.com/glickbot/riak_on_azure/master/azure_install_riak.sh | sh
 
-**FOR THE FIRST NODE**, note the "INTERNAL IP ADDRESS" listed on the right in the nodes dashboard.
+**最初のノード** では、ノードダッシュボードの右に表示される "INTERNAL IP ADDRESS" を控えておいてください。  
 
+**その他のノード" では、最初のノードの "INTERNAL IP ADDRESS" を使ってください。
 
-**FOR ALL OTHER NODES**, use the "INTERNAL IP ADDRESS"" of the first node:
-
-Execute:
+実行します。
 
 	riak-admin cluster join riak@<ip.of.first.node>
 
-## Cluster Riak & load test data
+## Riak をクラスタ化し、テストデータをロードする
 
-After all the nodes are installed, and joined using the steps above, connect to one of the nodes using SSH or PuTTY and execute the following:
+すべてのノードがインストールされ、上記のステップでジョインしたら、SSH または PuTTY でいずれかのノードに接続し、以下を実行します:
 
 	riak-admin cluster plan
 
-If this looks good:
+問題がなければ、
 
 	riak-admin cluster commit
 
-To check the status of clustering use:
+クラスタのステータスをチェックします:
 
 	riak-admin member_status
 
-You now have a Riak cluster on Azure
+これで Azure 上に Riak クラスタができました。
 
-### Load test data
+### テストデータをロードする
 
-Execute on any one of the nodes:
+いずれかのノード上で実行します:
 
 	curl -s http://rekon.basho.com | sh
 	
-Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
+ダッシュボードに表示されている DNS アドレスのポートにアクセスし、エンドポイントを開きます。
 
 	http://testlinuxvm.cloudapp.net:8098/riak/rekon/go
 
-Further Reading:
+もっと読む:
 
 - [[Basic Riak API Operations]]

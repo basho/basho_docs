@@ -1,12 +1,12 @@
 aside#nav-container role="complementary"
   nav.overview#primary-nav role="nav"
     h2.responsive-link
-      | Navigation
+      == I18n.t(:navigation)
       a.responsive-toggle
     h3.responsive-link.visit-basho
-      a href="http://www.basho.com" Visit Basho
+      a href="http://www.basho.com"== I18n.t(:visit_basho)
     h3.responsive-link
-      a href="/index.html" 全 Riak プロジェクト
+      a href="/index.html"== I18n.t(:all_projects)
     - project = data.page.project || 'riak'
     - data.global_nav[project].each do |section|
       - add_class = section['class'] || ''
@@ -14,7 +14,6 @@ aside#nav-container role="complementary"
       h3(class=(active ? "active #{add_class}" : add_class))
         span==section['title']
       ==nav_data
-  
   .submissions-note
-    a(href='https://github.com/basho/basho_docs' target='_blank') 
-      | These docs are available on GitHub. Please submit ideas and patches.
+    a href='https://github.com/basho/basho_docs' target='_blank'
+      == I18n.t(:docs_on_github)

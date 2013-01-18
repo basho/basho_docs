@@ -26,7 +26,7 @@ DNS準拠のバケット名とするためには、以下のルールに則る�
 
 ## アクセス パーミッション
 
-PUB Bucket は、指定したアカウントまたはグループにバケットのパーミッションを指定することができます。以下の2つの方法で、リクエストヘッダでアカウントまたはグループを指定してパーミッションを与えることができます。
+PUT Bucket は、指定したアカウントまたはグループにバケットのパーミッションを指定することができます。以下の2つの方法で、リクエストヘッダでアカウントまたはグループを指定してパーミッションを与えることができます。
 
 * リクエストヘッダの x-amz-acl に定義済みのACLを指定する。定義済みACLについての詳細は [[here|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html#CannedACL]] 参照
 * ヘッダで、Amzaon S3 互換のACLパーミッションに対応した x-amz-grant-read、x-amz-grant-write、x-amz-grant-read-acp、x-amz-grant-write-acp、x-amz-grant-full-control を明示する

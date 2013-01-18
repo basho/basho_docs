@@ -46,4 +46,4 @@ Riak CS の生死確認には、`riak-cs ping` コマンドを使用します。
 riak-cs ping
 ```
 
-<div class="note"><div class="title">ノート</div>Riak CS のノードが対応する Riak ノードと通信できない場合、<tt>riak-cs ping</tt> コマンドは失敗します。<tt>riak-cs ping</tt> で Riak CS システムの全てのコンポーネントが動作していることを確認して下さい。</div>
+<div class="note"><div class="title">ノート</div>Riak CS のノードが対応する Riak ノードと通信できない場合、<tt>riak-cs ping</tt> コマンドは失敗します。<tt>riak-cs ping</tt> で Riak CS システムの全てのコンポーネントが動作していることを確認してください。</div>

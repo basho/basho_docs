@@ -6,9 +6,13 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [querying, mapreduce]
-prev: ["Querying Riak", "index.html"]
-up:   ["Querying Riak", "index.html"]
-next: ["Secondary Indexes", "Secondary-Indexes.html"]
+prev: "[[Basic Requests]]"
+up:   "[[Querying Riak]]"
+next: "[[Secondary Indexes]]"
+interest: [
+"[[MapReduce Implementation]]",
+"[[Key Filters]]"
+]
 ---
 
 ## Introduction
@@ -73,13 +77,15 @@ curl -XPUT http://localhost:8091/buckets/training/keys/bam -H 'Content-Type: tex
 ### MapReduce script and deployment:   
 
 ```bash
-curl -X POST http://localhost:8091/mapred -H 'Content-Type: application/json' -d '{
-	     "inputs":"training",
-	     "query":[{"map":{"language":"javascript",
-	     "source":"function(riakObject) {   
-		 var m =  riakObject.values[0].data.match(\"pizza\");
-         return  [[riakObject.key, (m ? m.length : 0 )]];
- 		 }"}}]}'
+curl -XPOST http://localhost:8091/mapred \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "inputs":"training",
+    "query":[{"map":{"language":"javascript",
+    "source":"function(riakObject) {
+      var m = riakObject.values[0].data.match(/pizza/g);
+      return [[riakObject.key, (m ? m.length : 0 )]];
+    }"}}]}'
 ```
 
 ### Output 
@@ -93,8 +99,3 @@ The output is the key of each  object, followed by the count of the word  "pizza
 ### Recap   
 
 We use the 'training' bucket as the input data; we run a Javascript MapReduce function; the function takes each riakObject that exists in the 'training' bucket and searches the text for the  word  "pizza"; 'm' is the result of the  search, which includes zero or more results that matches for "pizza";" the function returns the key of the riakObject and the number of matches.
-
-## Further Reading
-
-[[MapReduce Implementation]] - details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details.
-[[Key Filters]] - Key filters are a way to pre-process MapReduce inputs from a full bucket query simply by examining the key. 

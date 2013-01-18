@@ -1,12 +1,12 @@
 ---
-title: クエリする
+title: Querying Riak
 project: riak
 version: 0.10.0+
 document: tutorials
 toc: true
 audience: beginner
 keywords: [mapreduce, search, indexes, comparison]
-next: ["基本操作", "Basic-Operations.html"]
+next: [[基本操作|Basic Operations]]
 ---
 
 * [[基本操作|Basic Operations]]
