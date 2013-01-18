@@ -219,6 +219,18 @@ Sample miscellaneous information statistics:
 -   **sys\_logical\_processors**: Number of logical processors available
     on the system
 
+{{#1.2.0+}}
+### Pipeline Metrics
+
+The following metrics from from riak_pipe are generated during MapReduce operations.
+
+- **pipeline_active**: The number of pipelines active in the last 60 seconds
+- **pipeline_create_count**: The total number of pipelines created since the node was started
+- **pipeline_create_error_count**: The total number of pipeline creation errors since the node was started
+- **pipeline_create_error_one**: The number of pipelines created in the last 60 seconds
+- **pipeline_create_one**: The number of pipeline creation errors in the last 60 seconds
+{{/1.2.0+}}
+
 ### Application and Subsystem Versions
 
 The specific version of each Erlang application and subsystem which
