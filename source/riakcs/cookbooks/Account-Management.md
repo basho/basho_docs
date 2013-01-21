@@ -97,6 +97,12 @@ In this example, XQKMYF4UL_MMTDFD6NCN is the key_id of the user whose informatio
 ## Retrieving a List of All Users
 The admin user may retrieve a list of all user accounts on the system. This accomplished via a properly signed HTTP GET request to the **riak-cs/users** resource. Any non-admin user request for the user list is rejected and a 403 Forbidden error is returned. This request does not properly work with s3cmd, but can be performed using a less dogmatic tool such as s3-curl.
 
+<div class="info"><div class="title">Note</div>
+  You must modify the <code>@endpoints</code> variable in the
+  <code>s3curl.pl</code> script to include your Riak CS hostname so that the
+  following example will return the list of users.
+</div>
+
 A sample URL for a user listing request looks like this:
 
     GET http://data.example.com/riak-cs/users -
