@@ -10,14 +10,38 @@ keywords: [appendix, concepts]
 
 Below is a list of terms and their applicability within the context of Riak:
 
+## Bitcask
+
+[[Bitcask]] is an Erlang application that provides an API for storing and
+retrieving key/value data into a log-structured hash table with very fast
+access. The design owes a lot to the principles found in log-structured file
+systems and draws inspiration from a number of designs that involve log file
+merging.
+
+Bitcask ships with Riak as the default storage engine.
+
 ## Bucket
 
 A Bucket is a container and keyspace for data stored in Riak, with a set of common properties for its contents (the number of replicas, or *n_val*, for instance).  Buckets are accessed at the top of the URL hierarchy under "riak", e.g. `/riak/bucket`.
 * [[Take a more in-depth look at Bucket Operations|HTTP API#Bucket Operations]]
 
+## CAP Theorem
+
+[[CAP Theorem|http://en.wikipedia.org/wiki/CAP_theorem]], also known as
+**Brewer's Theorem** states that in distributed systems, it is impossible to
+simultaneously guarantee consistency, availability, and partition tolerance.
+
+Riak's design is heavily influenced by the CAP Theorem.
+
 ## Cluster
 
 A Riak cluster is a 160-bit integer space which is divided into equally-sized partitions. Each vnode in the Riak Ring is responsible for one of these partitions.
+
+## Commit Hook
+
+[[Commit Hooks]] provide a means for enhancing application interaction with
+Riak either before or after persisting an object. Commit Hooks can be
+defined in Riak bucket properties and execute once per client request.
 
 ## Consistent Hashing
 
@@ -43,6 +67,14 @@ Keys are unique object identifiers in Riak and are scoped within buckets.
 
 [[Lager|https://github.com/basho/lager]] is an Erlang/OTP framework that ships as Riak's default logger.
 
+## LevelDB
+
+[[LevelDB|http://code.google.com/p/leveldb/]] is an open source on-disk
+key-value store written by Google Fellows Jeffrey Dean and Sanjay Ghemawat.
+
+Riak provides [[eLevelDB|LevelDB]], an Erlang application that encapsulates
+LevelDB as one of its supported storage engines.
+
 ## Links
 
 Links are metadata attached to objects in Riak. These links make establishing relationships between objects in Riak as simple as adding a Link header to the request when storing the object.
@@ -51,9 +83,33 @@ Links are metadata attached to objects in Riak. These links make establishing re
 
 ## MapReduce
 
-Riak's MapReduce gives developers the capability to perform more powerful queries over the data stored in their key/value data. 
+Riak's MapReduce gives developers the capability to perform more powerful queries over the data stored in their key/value data.
 
 * [[An In Depth Look at Riak's MapReduce|MapReduce]]
+
+## Multi Data Center Replication
+
+Multi Data Center Replication is available in [[Riak Enterprise|http://basho.com/products/riak-enterprise/]]
+and provides a mechanism for replicating data from one Riak cluster to
+another.
+
+In multi data center replication, one cluster acts as a *primary cluster*.
+The primary cluster replicates its data to one or more *secondary clusters*
+with a full or real-time sync process. Data transfer is unidirectional by default, but bidirectional synchronization can be achieved by configuring a
+pair of connections between clusters.
+
+
+* [[More on multi data center replication|Multi-Data-Center-Replication-Architecture]]
+
+## N Value
+
+N Value or *n_val* defines the number of nodes in a Riak cluster to which
+data are replicated. Riak sets a default N Value of **3** which means that
+Riak will replicate all data to 3 nodes. N Value is configurable on a per
+bucket basis and must be a value greater than zero and equal to or less than
+the number of nodes in the cluster.
+
+* [[Learn more about N Value|Tunable-CAP-Controls-in-Riak]]
 
 ## Node
 
@@ -66,6 +122,13 @@ An object is another name for a value.
 ## Partition
 
 Partitions are the spaces into which a Riak cluster is divided. Each vnode in Riak is responsible for a partition. Data are stored on a set number of partitions determined by the *n_val* setting, with the target partitions chosen statically by applying consistent hashing to an object's key.
+
+## Protocol Buffers
+
+[[Protocol Buffers|https://developers.google.com/protocol-buffers/docs/overview]]
+are a technology developed by Google for the serialization of structured data.
+Riak exposes a [[Protocol Buffers Client|protocol-buffers]] interface
+which is available in the supported [[client libraries|Client-Libraries]].
 
 ## Quorum
 
@@ -86,7 +149,7 @@ Replicas are copies of data stored in Riak. The number of replicas required for 
 
 ## Riak Core
 
-[[Riak Core|https://github.com/basho/riak_core]] is the modular distributed systems framework that serves as the foundation for Riak's scalable architecture. 
+[[Riak Core|https://github.com/basho/riak_core]] is the modular distributed systems framework that serves as the foundation for Riak's scalable architecture.
 
 ## Riak KV
 
@@ -96,9 +159,9 @@ Replicas are copies of data stored in Riak. The number of replicas required for 
 
 [[Riak Pipe|https://github.com/basho/riak_pipe]] is the processing layer that powers Riak's MapReduce. It's best described as "UNIX pipes for Riak."
 
-## Riak Search 
+## Riak Search
 
-Riak Search is a distributed, scalable, failure-tolerant, real-time, full-text search engine built around Riak Core and tightly integrated with Riak KV. 
+Riak Search is a distributed, scalable, failure-tolerant, real-time, full-text search engine built around Riak Core and tightly integrated with Riak KV.
 
 * [[In Depth on Riak Search|Riak Search]]
 
@@ -108,9 +171,18 @@ The Riak Ring is a 160-bit integer space. This space is equally divided into par
 
 ## Secondary Indexing
 
-Secondary Indexing in Riak gives developers the ability to tag an object stored in Riak with one or more values which can then be queried. 
+Secondary Indexing in Riak gives developers the ability to tag an object stored in Riak with one or more values which can then be queried.
 
 * [[More about Secondary Indexes|Secondary Indexes]]
+
+## Sibling
+
+A sibling is created when Riak is unable to resolve the canonical version of
+an object being stored. Riak uses siblings because it is impossible to order
+events with respect to time in a distributed system, this means they must be
+ordered causally.
+
+* [[More on siblings|Vector-Clocks#Siblings]]
 
 ## Value
 
