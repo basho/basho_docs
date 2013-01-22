@@ -1,0 +1,22 @@
+---
+project: root
+version: 0.10.0+
+document: tutorial
+toc: false
+index: true
+audience: beginner
+keywords: []
+---
+
+h1.center-text.extra-large
+  | Welcome&nbsp;
+  span.sans to the Docs!
+h3.center-text プロジェクトを選択してください:
+
+div#select-project
+  img id="left-connector" src="/images/left-connector.png"
+  img id="right-connector" src="/images/right-connector.png"
+  - current_projects.each do |project, version|
+    - version = $production ? "latest" : version[:deployment]
+    a.big-project-link(id=project href="/#{project}/#{version}/")
+      img(alt=project src="/images/#{project}-circle.png")
