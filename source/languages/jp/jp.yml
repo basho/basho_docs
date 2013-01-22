@@ -1,0 +1,90 @@
+---
+jp:
+  basho: Basho
+  visit_basho: Visit Basho
+  home: ホーム
+  riak_docs: Riak Docs
+  tagline: "チュートリアル, How To, APIの完全なドキュメント"
+  keywords: キーワード 
+  navigation: Navigation
+  all_projects: All Riak Projects
+  docs_on_github: "These docs are available on GitHub. Please submit ideas and patches."
+  secondary_header: "こちらも御覧ください"
+  faqs_link: "[[FAQs]]"
+  apis_link: "[[APIs]]"
+  tutorial_nav: "Tutorial Nav"
+  previous: Prev
+  next: Next
+  toc_contents: 目次
+  footer: "This work is licensed under a <a href=\"http://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">Creative Commons Attribution 3.0 Unported License</a>"
+  riak_cs:
+    info:
+      title: Riak CS のみ
+      body: "Riak CS をご試用になるためには、<a href=\"http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html\">開発者トライアル</a> に登録してください。"
+  riak_ee:
+    info:
+      title: Riak Enterprise Only
+      body: "This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise, <a href=\"http://info.basho.com/Wiki_Contact.html\">let us know</a>."
+  riak_index:
+    getting_started_p: "は始めてですか？　チュートリアルから始めてください。それから、質問があれば [[FAQ|FAQs]] を参照してください。"
+    getting_started:
+      title: "Getting Started"
+      fast_track: "[[The Riak Fast Track]]"
+      installing: "[[インストールとアップグレード|Installing and Upgrading]]"
+      querying: "[[Riak でクエリ|Querying Riak]]"
+    developing_t: "Riak での開発"
+    developing_p: "インストール済みの Riak 環境をお持ちで、その上で開発を行いたいのであれば、ここにあるリソースを参照してください。また、[[Riak の使い方 FAQ|Developing on Riak FAQs]] も参照してください。"
+    developing:
+      querying: "[[Query Choices|Querying Riak]]"
+      mapreduce:
+        title: "MapReduce"
+        mapreduce: "[[MapReduce]]"
+        keyfilters: "[[Key Filters]]"
+      search:
+        title: Search
+        indexing: "[[Indexing|Riak-Search - Indexing]]"
+        schema: "[[Schema|Riak-Search - Schema]]"
+        querying: "[[Querying|Riak-Search - Querying]]"
+        kv_data: "[[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]"
+        cmd: "[[search-cmd|Command-Line-Tools - search-cmd]] <em>(Command-Line Tool)</em>"
+      2i:
+        title: "Secondary Indexes"
+        config: "[[Configuration|Secondary-Indexes - Configuration]]"
+        examples: "[[Examples|Secondary-Indexes - Examples]]"
+      refs:
+        title: "References"
+        apis: "[[APIs]]"
+        faqs: "[[Developing on Riak FAQs]]"
+        libs: "[[Client Libraries]]"
+        community: "[[Community Developed Projects|Community Developed Libraries and Projects]]"
+        riak_cmd: "[[riak|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>"
+    operating_t: "Riak の操作"
+    operating_p: "これらのリンクは、Riak の設定、デプロイ、インストールの管理を行わなければならない管理者のためのものです。ここには [[Riak のオペレーション FAQ|Operating Riak FAQs]] もあります。"
+    operating:
+      launching: "Launching Riak"
+      installing: "[[Installing and Upgrading]]"
+      planning:
+        title: "[[Planning|System Planning]]"
+        backend: "[[Choosing a Backend]]"
+        capacity: "[[Cluster Capacity Planning]]"
+      ops:
+        title: "Operations"
+        ops: "[[Operations|operators]]"
+        config: "[[Configuration Files]]"
+        tuning: "[[File System Tuning]] {{0.14.0+}}"
+        backups: "[[Backups]]"
+        security: "[[Network Security and Firewalls|Network Security and Firewall Configurations]]"
+        control: "[[Riak Control GUI|Riak Control]] {{1.0.0+}}"
+        query: "[[Query Options|Querying Riak]]"
+        mapreduce: "[[MapReduce Configuration|MapReduce - Settings]]"
+        search: "[[Search Configuration|Riak-Search - Settings]]"
+        2i: "[[Secondary Indexes Configuration]]"
+      clusters:
+        title: "Managing Clusters"
+        setup: "[[Basic Cluster Setup]]"
+        adding: "[[Adding and Removing Nodes]]"
+        replacing: "[[Replacing a Node]]"
+      trouble: "[[Troubleshooting]]"
+      refs:
+        title: References
+        riak_admin_cmd: "[[riak-admin|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>"

@@ -1,0 +1,49 @@
+---
+title: Riak APIs
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+index: true
+audience: advanced
+keywords: [api]
+body_id: riak-apis
+simple: true
+versions: true
+---
+
+h1 Riak APIs
+
+hr
+
+section
+  header
+    h1 [[HTTP API]]
+    - api_index('http').each do |group, pages|
+      h3= group
+      ul
+        - pages.each do |page|
+          - metadata = page.metadata[:page] || {}
+          - if metadata["title"].present? && metadata["version"].present?
+            li
+              | [[#{metadata["title"]}]]
+              span.version  #{metadata["version"]}
+              | {{#{metadata['version']}}}
+
+| {{#0.14.0+}}
+
+section
+  header
+    h1 [[PBC API]]
+    - api_index('protocol-buffers').each do |group, pages|
+      h3= group
+      ul
+        - pages.each do |page|
+          - metadata = page.metadata[:page] || {}
+          - if metadata["title"].present? && metadata["version"].present?
+            li
+              | [[#{metadata["title"]}]]
+              span.version  #{metadata["version"]}
+              | {{#{metadata["version"]}}}
+
+| {{/0.14.0+}}

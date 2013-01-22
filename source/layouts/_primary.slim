@@ -7,8 +7,8 @@ aside#nav-container role="complementary"
       a href="http://www.basho.com"== I18n.t(:visit_basho)
     h3.responsive-link
       a href="/index.html"== I18n.t(:all_projects)
-    - project = data.page.project || 'riak'
-    - data.global_nav[project].each do |section|
+    - project = data.page.project || $default_project
+    - global_nav[project].each do |section|
       - add_class = section['class'] || ''
       - nav_data, active = build_nav(section['sub'], add_class)
       h3(class=(active ? "active #{add_class}" : add_class))
