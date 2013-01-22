@@ -1,0 +1,45 @@
+---
+title: Downloads
+project: riak
+version: 1.2.1+
+document: reference
+audience: beginner
+keywords: [downloads, operator, user]
+simple: true
+body_id: downloads
+---
+
+- project = $default_project
+- version = current_version(project)
+- downloads = Downloads.new(project, version)
+
+h1 Download #{project.capitalize} #{version}
+
+p You should be able to find your operating system in the choices below.
+p If your OS is unlisted, you may download the [[source|Downloads#source]] at the bottom of this page, and follow the instructions to [[build Riak|Installing Riak from Source]].
+
+- for os, os_data in downloads
+
+  h3 id=os
+    img src="/images/layout/#{os_data['icon']}"
+    | &nbsp;
+    == os_data['name']
+  table
+    - for osv, osv_data in os_data["versions"]
+      - for arch, arch_data in osv_data["arch"]
+        tr
+          - unless os_data['simple']
+            td.arch==arch_data['name']
+          td
+            a href=downloads.file_url(os, osv, arch_data['file'])
+              ==arch_data['file']
+          td.size
+            ==downloads.file_size(arch_data['file_size'])
+          - unless os_data['simple']
+            td.checksum
+              - if arch_data['csum'].present?
+                a href=downloads.file_url(os, osv, arch_data['csum'])
+                  img src="/images/layout/hash.png" title="SHA1 Checksum"
+  - if os_data['install'].present?
+    p.install_instruction Here are further instructions for [[#{os_data['install']}]]
+  

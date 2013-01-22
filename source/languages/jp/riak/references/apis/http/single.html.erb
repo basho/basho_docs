@@ -1,0 +1,964 @@
+---
+title: HTTP API List
+toc: false
+dual: true
+---
+
+<div id="container">
+  <div id="background"></div>
+  <table cellspacing=0 cellpadding=0 class="docco">
+  <tbody>
+    <tr id='section-Bucket_Operations'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Bucket_Operations">&#182;</a>
+        </div>
+        <h2>Bucket Operations</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>● <a href="#section-List_Buckets">List Buckets</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET    /riak?buckets<span class="o">=</span><span class="nb">true</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>● <a href="#section-List_Keys">List Keys</a> (all)</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET    /riak/bucket?keys<span class="o">=</span><span class="nb">true</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>● <a href="#section-List_Keys">List Keys</a> (stream)</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET    /riak/bucket?keys<span class="o">=</span>stream</pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>● <a href="#section-Get_Bucket_Properties">Get Bucket Properties</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET    /riak/bucket</pre></div>
+      </td>
+    </tr>
+    <tr id='section-Object/Key_Operations'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Object/Key_Operations">&#182;</a>
+        </div>
+        <h2>Object/Key Operations</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
+        </div>
+        <p>● <a href="#section-Fetch_Object">Fetch Object</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET    /riak/bucket/key</pre></div>
+      </td>
+    </tr>
+    <tr id='section-8'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-8">&#182;</a>
+        </div>
+        <p>● <a href="#section-Delete_Object">Delete Object</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>DELETE /riak/bucket/key</pre></div>
+      </td>
+    </tr>
+    <tr id='section-Query_Operations'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Query_Operations">&#182;</a>
+        </div>
+        <h2>Query Operations</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-10'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-10">&#182;</a>
+        </div>
+        <p>● <a href="#section-Link_Walking">Link Walking</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET    /riak/bucket/key/<span class="o">[</span>bucket<span class="o">]</span>,<span class="o">[</span>tag<span class="o">]</span>,<span class="o">[</span>keep<span class="o">]</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Server_Operations'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Server_Operations">&#182;</a>
+        </div>
+        <h2>Server Operations</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-12'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-12">&#182;</a>
+        </div>
+        <p>● <a href="#section-List_Resources">List Resources</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET    /</pre></div>
+      </td>
+    </tr>
+    <tr id='section-List_Buckets'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-List_Buckets">&#182;</a>
+        </div>
+        <h1>List Buckets</h1>
+
+<p>Lists all known buckets (ones that have keys stored in them).</p>
+
+<p><em>Not for production use. Similar to the list keys operation, this requires traversing all keys stored in the cluster and should not be used in production.</em></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET /riak?buckets<span class="o">=</span><span class="nb">true</span>       <span class="c"># Old format</span>
+GET /buckets?buckets<span class="o">=</span><span class="nb">true</span>    <span class="c"># New format</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request">&#182;</a>
+        </div>
+        <h2>Request</h2>
+
+<p>Required query parameter:</p>
+
+<ul>
+<li><strong>buckets=true</strong> - required to invoke the list-buckets functionality</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -i http://localhost:8098/riak?buckets<span class="o">=</span><span class="nb">true</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Response">&#182;</a>
+        </div>
+        <h2>Response</h2>
+
+<p>Normal status codes:</p>
+
+<ul>
+<li>200 OK</li>
+</ul>
+
+<p>Important headers:</p>
+
+<ul>
+<li>Content-Type - application/json</li>
+</ul>
+
+<p>The JSON object in the response will contain a single entry, &quot;buckets&quot;, which will be an array of bucket names.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>HTTP/1.1 200 OK
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+Link: &lt;/riak/files&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: application/json
+Content-Length: 21
+
+<span class="o">{</span><span class="s2">&quot;buckets&quot;</span>:<span class="o">[</span><span class="s2">&quot;files&quot;</span><span class="o">]}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-List_Keys'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-List_Keys">&#182;</a>
+        </div>
+        <h1>List Keys</h1>
+
+<p>Lists keys in a bucket.</p>
+
+<p><em>Not for production use. This operation requires traversing all keys stored in the cluster and should not be used in production.</em></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET /riak/bucket?keys<span class="o">=</span><span class="nb">true</span>            <span class="c"># List all keys, old format</span>
+GET /buckets/bucket/keys?keys<span class="o">=</span><span class="nb">true</span>    <span class="c"># List all keys, new format</span>
+GET /riak/bucket?keys<span class="o">=</span>stream          <span class="c"># Stream keys to the client, old format</span>
+GET /buckets/bucket/keys?keys<span class="o">=</span>stream  <span class="c"># Stream keys to the client, new format</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request">&#182;</a>
+        </div>
+        <h2>Request</h2>
+
+<p>Required query parameters:</p>
+
+<ul>
+<li><code>keys</code> - defaults to <code>false</code>. When set to <code>true</code> all keys will be returned in a single payload.  When set to <code>stream</code>, keys will be returned in chunked-encoding.</li>
+</ul>
+
+<p>Optional query parameters:</p>
+
+<ul>
+<li><code>props</code> - defaults to <code>true</code>, which will also return [[bucket properties|HTTP-Get-Bucket-Properties]] in the response. Set to <code>false</code> to suppress properties in the response.</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -i http://localhost:8098/riak/jsconf?keys<span class="o">=</span><span class="nb">true</span><span class="se">\&amp;</span><span class="nv">props</span><span class="o">=</span><span class="nb">false</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Response">&#182;</a>
+        </div>
+        <h2>Response</h2>
+
+<p>Normal response codes:</p>
+
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+
+<p>Important headers:</p>
+
+<ul>
+<li><code>Content-Type</code> - <code>application/json</code></li>
+<li><code>Transfer-Encoding</code> - <code>chunked</code> when the <code>keys</code> query parameter is set to <code>stream</code>.</li>
+</ul>
+
+<p>The JSON object in the response will contain up to two entries, <code>&quot;props&quot;</code> and <code>&quot;keys&quot;</code> which are present or missing according to the query parameters.  If <code>keys=stream</code> in the query parameters, multiple JSON objects in chunked-encoding will be returned containing <code>&quot;keys&quot;</code> entries.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>HTTP/1.1 200 OK
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+Link: &lt;/riak/jsconf/challenge.jpg&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>,
+&lt;/riak/jsconf/puddi.png&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/basho.gif&gt;;
+<span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/puddikid.jpg&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>,
+&lt;/riak/jsconf/yay.png&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/thinking.png&gt;;
+<span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/victory.gif&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>,
+&lt;/riak/jsconf/slides&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/joyent.png&gt;;
+<span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/seancribbs-small.jpg&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>,
+&lt;/riak/jsconf/trollface.jpg&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>,
+&lt;/riak/jsconf/riak_logo_animated1.gif&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>,
+&lt;/riak/jsconf/victory.jpg&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/challenge.png&gt;;
+<span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>, &lt;/riak/jsconf/team_cribbs.png&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;contained&quot;</span>
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: application/json
+Content-Length: 239
+
+<span class="o">{</span><span class="s2">&quot;keys&quot;</span>:<span class="o">[</span><span class="s2">&quot;challenge.jpg&quot;</span>,<span class="s2">&quot;puddi.png&quot;</span>,<span class="s2">&quot;basho.gif&quot;</span>,<span class="s2">&quot;puddikid.jpg&quot;</span>,<span class="s2">&quot;yay.png&quot;</span>,<span class="s2">&quot;</span>
+<span class="s2">thinking.png&quot;</span>,<span class="s2">&quot;victory.gif&quot;</span>,<span class="s2">&quot;slides&quot;</span>,<span class="s2">&quot;joyent.png&quot;</span>,<span class="s2">&quot;seancribbs-small.jpg&quot;</span>,<span class="s2">&quot;</span>
+<span class="s2">trollface.jpg&quot;</span>,<span class="s2">&quot;riak_logo_animated1.gif&quot;</span>,<span class="s2">&quot;victory.jpg&quot;</span>,<span class="s2">&quot;challenge.png&quot;</span>,<span class="s2">&quot;</span>
+<span class="s2">team_cribbs.png&quot;</span><span class="o">]}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Get_Bucket_Properties'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Get_Bucket_Properties">&#182;</a>
+        </div>
+        <h1>Get Bucket Properties</h1>
+
+<p>Reads the bucket properties.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET /riak/bucket                <span class="c"># Old format</span>
+GET /buckets/bucket/props       <span class="c"># New format</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request">&#182;</a>
+        </div>
+        <h2>Request</h2>
+
+<p>Optional query parameters (only valid for the old format):</p>
+
+<ul>
+<li><code>props</code> - whether to return the bucket properties (<code>true</code> is the default)</li>
+<li><code>keys</code> - whether to return the keys stored in the bucket. (<code>false</code> is the default). See also [[HTTP List Keys]].</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -v http://127.0.0.1:8098/riak/test</pre></div>
+      </td>
+    </tr>
+    <tr id='section-Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Response">&#182;</a>
+        </div>
+        <h2>Response</h2>
+
+<p>Normal status codes:</p>
+
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+
+<p>Important headers:</p>
+
+<ul>
+<li><code>Content-Type</code> - <code>application/json</code></li>
+</ul>
+
+<p>The JSON object in the response will contain up to two entries, <code>&quot;props&quot;</code> and <code>&quot;keys&quot;</code>, which are present or missing, according to the optional query parameters.  The default is for only <code>&quot;props&quot;</code> to be present.</p>
+
+<p>See [[HTTP Set Bucket Properties]] for more information about the available bucket properties.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>* About to connect<span class="o">()</span> to 127.0.0.1 port 8098 <span class="o">(</span><span class="c">#0)</span>
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 <span class="o">(</span>127.0.0.1<span class="o">)</span> port 8098 <span class="o">(</span><span class="c">#0)</span>
+&gt; GET /riak/test HTTP/1.1
+&gt; User-Agent: curl/7.19.7 libcurl/7.19.7 zlib/1.2.3
+&gt; Host: 127.0.0.1:8098
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; Vary: Accept-Encoding
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+&lt; Date: Fri, 30 Sep 2011 15:24:35 GMT
+&lt; Content-Type: application/json
+&lt; Content-Length: 368
+&lt;
+* Connection <span class="c">#0 to host 127.0.0.1 left intact</span>
+* Closing connection <span class="c">#0</span>
+<span class="o">{</span><span class="s2">&quot;props&quot;</span>:<span class="o">{</span><span class="s2">&quot;name&quot;</span>:<span class="s2">&quot;test&quot;</span>,<span class="s2">&quot;n_val&quot;</span>:3,<span class="s2">&quot;allow_mult&quot;</span>:false,<span class="s2">&quot;last_write_wins&quot;</span>:false,<span class="s2">&quot;</span>
+<span class="s2">precommit&quot;</span>:<span class="o">[]</span>,<span class="s2">&quot;postcommit&quot;</span>:<span class="o">[]</span>,<span class="s2">&quot;chash_keyfun&quot;</span>:<span class="o">{</span><span class="s2">&quot;mod&quot;</span>:<span class="s2">&quot;riak_core_util&quot;</span>,<span class="s2">&quot;fun&quot;</span>:<span class="s2">&quot;</span>
+<span class="s2">chash_std_keyfun&quot;</span><span class="o">}</span>,<span class="s2">&quot;linkfun&quot;</span>:<span class="o">{</span><span class="s2">&quot;mod&quot;</span>:<span class="s2">&quot;riak_kv_wm_link_walker&quot;</span>,<span class="s2">&quot;fun&quot;</span>:<span class="s2">&quot;</span>
+<span class="s2">mapreduce_linkfun&quot;</span><span class="o">}</span>,<span class="s2">&quot;old_vclock&quot;</span>:86400,<span class="s2">&quot;young_vclock&quot;</span>:20,<span class="s2">&quot;big_vclock&quot;</span>:50,<span class="s2">&quot;</span>
+<span class="s2">small_vclock&quot;</span>:10,<span class="s2">&quot;r&quot;</span>:<span class="s2">&quot;quorum&quot;</span>,<span class="s2">&quot;w&quot;</span>:<span class="s2">&quot;quorum&quot;</span>,<span class="s2">&quot;dw&quot;</span>:<span class="s2">&quot;quorum&quot;</span>,<span class="s2">&quot;rw&quot;</span>:<span class="s2">&quot;quorum&quot;</span><span class="o">}}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Fetch_Object'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Fetch_Object">&#182;</a>
+        </div>
+        <h1>Fetch Object</h1>
+
+<p>Reads an object from the specified bucket / key.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET /riak/bucket/key            <span class="c"># Old format</span>
+GET /buckets/bucket/keys/key    <span class="c"># New format</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Important_headers:'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Important_headers:">&#182;</a>
+        </div>
+        <h3>Important headers:</h3>
+
+<ul>
+<li><code>Accept</code> - When <code>multipart/mixed</code> is the preferred content-type, objects with siblings will return all siblings in single request. See [[Get all siblings in one request|HTTP Fetch Object#Get all siblings in one request]] example. See also RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]].</li>
+</ul>
+
+<h3>Optional headers:</h3>
+
+<ul>
+<li><code>If-None-Match</code> and <code>If-Modified-Since</code> invoke conditional request semantics, matching on the <code>ETag</code> and <code>Last-Modified</code> of the object, respectively.  If the object fails one of the tests (that is, if the ETag is equal or the object is unmodified since the supplied timestamp), Riak will return a <code>304 Not Modified</code> response. See also RFC 2616 - [[304 Not Modified|http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5]].</li>
+</ul>
+
+<h3>Optional query parameters:</h3>
+
+<ul>
+<li><code>r</code> - (read quorum) how many replicas need to agree when retrieving the object ([[default is defined by the bucket|HTTP Set Bucket Properties]])</li>
+<li><code>pr</code> - how many primary replicas need to be online when doing the read ([[default is defined by the bucket|HTTP Set Bucket Properties]])</li>
+<li><code>basic_quorum</code> - whether to return early in some failure cases (eg. when r=1 and you get 2 errors and a success <code>basic_quorum=true</code> would return an error) ([[default is defined by the bucket|HTTP Set Bucket Properties]])</li>
+<li><code>notfound_ok</code> - whether to treat notfounds as successful reads for the purposes of R ([[default is defined by the bucket|HTTP Set Bucket Properties]])</li>
+<li><code>vtag</code> - when accessing an object with siblings, which sibling to retrieve. Scroll down to the [[Manually requesting siblings|HTTP Fetch Object#Manually requesting siblings]] example for more information.</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request">&#182;</a>
+        </div>
+        <h2>Request</h2>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -v http://127.0.0.1:8098/riak/test/doc2</pre></div>
+      </td>
+    </tr>
+    <tr id='section-Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Response">&#182;</a>
+        </div>
+        <h2>Response</h2>
+
+<h3>Normal response codes:</h3>
+
+<ul>
+<li><code>200 OK</code></li>
+<li><code>300 Multiple Choices</code></li>
+<li><code>304 Not Modified</code> (when using conditional request semantics)</li>
+</ul>
+
+<h3>Typical error codes:</h3>
+
+<ul>
+<li><code>400 Bad Request</code> - e.g. when r parameter is invalid (&gt; N)</li>
+<li><code>404 Not Found</code> - the object could not be found on enough partitions</li>
+<li><code>503 Service Unavailable</code> - the request timed out internally</li>
+</ul>
+
+<h3>Important headers:</h3>
+
+<ul>
+<li><code>Content-Type</code> - the media type/format</li>
+<li><code>X-Riak-Vclock</code> - the opaque vector clock for the object</li>
+<li><code>X-Riak-Meta-*</code> - any user-defined metadata defined when storing the object</li>
+<li><code>ETag</code> - the entity tag for the object, useful for conditional GET operations and validation-based caching</li>
+<li><code>Last-Modified</code> - a timestamp for when the object was last written, in HTTP datetime format</li>
+<li><code>Link</code> - user- and system-defined links to other resources. [[Read more about Links|Links]].</li>
+</ul>
+
+<p>The body of the response will be the contents of the object except when siblings are present.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>* About to connect<span class="o">()</span> to 127.0.0.1 port 8098 <span class="o">(</span><span class="c">#0)</span>
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 <span class="o">(</span>127.0.0.1<span class="o">)</span> port 8098 <span class="o">(</span><span class="c">#0)</span>
+&gt; GET /riak/test/doc2 HTTP/1.1
+&gt; User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+&gt; Host: 127.0.0.1:8098
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; X-Riak-Vclock: <span class="nv">a85hYGBgzGDKBVIsbLvm1WYwJTLmsTLcjeE5ypcFAA</span><span class="o">==</span>
+&lt; Vary: Accept-Encoding
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+&lt; Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>
+&lt; Last-Modified: Wed, 10 Mar 2010 18:11:41 GMT
+&lt; ETag: 6dQBm9oYA1mxRSH0e96l5W
+&lt; Date: Fri, 30 Sep 2011 15:24:35 GMT
+&lt; Content-Type: application/json
+&lt; Content-Length: 13
+&lt;
+* Connection <span class="c">#0 to host 127.0.0.1 left intact</span>
+* Closing connection <span class="c">#0</span>
+<span class="o">{</span><span class="s2">&quot;foo&quot;</span>:<span class="s2">&quot;bar&quot;</span><span class="o">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Manually_requesting_siblings'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Manually_requesting_siblings">&#182;</a>
+        </div>
+        <h3>Manually requesting siblings</h3>
+
+<p>When <code>allow_mult</code> is set to true in the bucket properties, concurrent updates are allowed to create &quot;sibling&quot; objects, meaning that the object has any number of different values that are related to one another by the vector clock.  This allows your application to use its own conflict resolution technique.</p>
+
+<p>An object with multiple sibling values will result in a <code>300 Multiple Choices</code> response.  If the <code>Accept</code> header prefers <code>multipart/mixed</code>, all siblings will be returned in a single request as sections of the <code>multipart/mixed</code> response body.  Otherwise, a list of &quot;vtags&quot; will be given in a simple text format. You can request individual siblings by adding the <code>vtag</code> query parameter. Scroll down to the &#39;manually requesting siblings&#39; example below for more information.</p>
+
+<p>To resolve the conflict, store the resolved version with the <code>X-Riak-Vclock</code> given in the response.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -v http://127.0.0.1:8098/riak/test/doc
+* About to connect<span class="o">()</span> to 127.0.0.1 port 8098 <span class="o">(</span><span class="c">#0)</span>
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 <span class="o">(</span>127.0.0.1<span class="o">)</span> port 8098 <span class="o">(</span><span class="c">#0)</span>
+&gt; GET /riak/test/doc HTTP/1.1
+&gt; User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+&gt; Host: 127.0.0.1:8098
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 300 Multiple Choices
+&lt; X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+<span class="nv">3pt5HlsgCAA</span><span class="o">==</span>
+&lt; Vary: Accept, Accept-Encoding
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+&lt; Date: Fri, 30 Sep 2011 15:24:35 GMT
+&lt; Content-Type: text/plain
+&lt; Content-Length: 102
+&lt;
+Siblings:
+16vic4eU9ny46o4KPiDz1f
+4v5xOg4bVwUYZdMkqf0d6I
+6nr5tDTmhxnwuAFJDd2s6G
+6zRSZFUJlHXZ15o9CG0BYl
+* Connection <span class="c">#0 to host 127.0.0.1 left intact</span>
+* Closing connection <span class="c">#0</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request_a_single_sibling'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request_a_single_sibling">&#182;</a>
+        </div>
+        <h3>Request a single sibling</h3>
+
+<p>Use <code>vtag</code> that matches one of the siblings above</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -v http://127.0.0.1:8098/riak/test/doc?vtag<span class="o">=</span>16vic4eU9ny46o4KPiDz1f
+* About to connect<span class="o">()</span> to 127.0.0.1 port 8098 <span class="o">(</span><span class="c">#0)</span>
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 <span class="o">(</span>127.0.0.1<span class="o">)</span> port 8098 <span class="o">(</span><span class="c">#0)</span>
+&gt; GET /riak/test/doc?vtag<span class="o">=</span>16vic4eU9ny46o4KPiDz1f HTTP/1.1
+&gt; User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+&gt; Host: 127.0.0.1:8098
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+<span class="nv">3pt5HlsgCAA</span><span class="o">==</span>
+&lt; Vary: Accept-Encoding
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+&lt; Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>
+&lt; Last-Modified: Wed, 10 Mar 2010 18:01:06 GMT
+&lt; ETag: 16vic4eU9ny46o4KPiDz1f
+&lt; Date: Fri, 30 Sep 2011 15:24:35 GMT
+&lt; Content-Type: application/x-www-form-urlencoded
+&lt; Content-Length: 13
+&lt;
+* Connection <span class="c">#0 to host 127.0.0.1 left intact</span>
+* Closing connection <span class="c">#0</span>
+<span class="o">{</span><span class="s2">&quot;bar&quot;</span>:<span class="s2">&quot;baz&quot;</span><span class="o">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Get_all_sibling_values_in_one_request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Get_all_sibling_values_in_one_request">&#182;</a>
+        </div>
+        <h3>Get all sibling values in one request</h3>
+
+<p>Signal that you want the entire multipart message by passing in this header: <code>Accept: multipart/mixed</code></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -v http://127.0.0.1:8098/riak/test/doc -H <span class="s2">&quot;Accept: multipart/mixed&quot;</span>
+* About to connect<span class="o">()</span> to 127.0.0.1 port 8098 <span class="o">(</span><span class="c">#0)</span>
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 <span class="o">(</span>127.0.0.1<span class="o">)</span> port 8098 <span class="o">(</span><span class="c">#0)</span>
+&gt; GET /riak/test/doc HTTP/1.1
+&gt; User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+&gt; Host: 127.0.0.1:8098
+&gt; Accept: multipart/mixed
+&gt;
+&lt; HTTP/1.1 300 Multiple Choices
+&lt; X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+<span class="nv">3pt5HlsgCAA</span><span class="o">==</span>
+&lt; Vary: Accept, Accept-Encoding
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+&lt; Date: Fri, 30 Sep 2011 15:24:35 GMT
+&lt; Content-Type: multipart/mixed; <span class="nv">boundary</span><span class="o">=</span>YinLMzyUR9feB17okMytgKsylvh
+&lt; Content-Length: 766
+&lt;
+
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/x-www-form-urlencoded
+Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>
+Etag: 16vic4eU9ny46o4KPiDz1f
+Last-Modified: Wed, 10 Mar 2010 18:01:06 GMT
+
+<span class="o">{</span><span class="s2">&quot;bar&quot;</span>:<span class="s2">&quot;baz&quot;</span><span class="o">}</span>
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>
+Etag: 4v5xOg4bVwUYZdMkqf0d6I
+Last-Modified: Wed, 10 Mar 2010 18:00:04 GMT
+
+<span class="o">{</span><span class="s2">&quot;bar&quot;</span>:<span class="s2">&quot;baz&quot;</span><span class="o">}</span>
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>
+Etag: 6nr5tDTmhxnwuAFJDd2s6G
+Last-Modified: Wed, 10 Mar 2010 17:58:08 GMT
+
+<span class="o">{</span><span class="s2">&quot;bar&quot;</span>:<span class="s2">&quot;baz&quot;</span><span class="o">}</span>
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>
+Etag: 6zRSZFUJlHXZ15o9CG0BYl
+Last-Modified: Wed, 10 Mar 2010 17:55:03 GMT
+
+<span class="o">{</span><span class="s2">&quot;foo&quot;</span>:<span class="s2">&quot;bar&quot;</span><span class="o">}</span>
+--YinLMzyUR9feB17okMytgKsylvh--
+* Connection <span class="c">#0 to host 127.0.0.1 left intact</span>
+* Closing connection <span class="c">#0</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Delete_Object'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Delete_Object">&#182;</a>
+        </div>
+        <h1>Delete Object</h1>
+
+<p>Deletes an object from the specified bucket / key.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>DELETE /riak/bucket/key           <span class="c"># Old format</span>
+DELETE /buckets/bucket/keys/key   <span class="c"># New format</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request">&#182;</a>
+        </div>
+        <h2>Request</h2>
+
+<p>Optional query parameters:</p>
+
+<ul>
+<li><code>rw</code> - quorum for both operations (get and put) involved in deleting an object (default is set at the bucket level)</li>
+<li><code>r</code> - (read quorum) how many replicas need to agree when retrieving the object</li>
+<li><code>pr</code> - (primary read quorum) works like <code>r</code> but requires that the nodes read from are not fallback nodes</li>
+<li><code>w</code> - (write quorum) how many replicas to write to before returning a successful responseå</li>
+<li><code>dw</code> - (durable write quorum) how many replicas to commit to durable storage before returning a successful response</li>
+<li><code>pw</code> - (primary write quorum) how many replicas to commit to primary nodes before returning a successful response</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -v -X DELETE http://127.0.0.1:8098/riak/test/test2</pre></div>
+      </td>
+    </tr>
+    <tr id='section-Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Response">&#182;</a>
+        </div>
+        <h2>Response</h2>
+
+<p>Normal response codes:</p>
+
+<ul>
+<li><code>204 No Content</code></li>
+<li><code>404 Not Found</code></li>
+</ul>
+
+<p>Typical error codes:</p>
+
+<ul>
+<li><code>400 Bad Request</code> - e.g. when rw parameter is invalid (&gt; N)</li>
+</ul>
+
+<p><code>404</code> responses are &quot;normal&quot; in the sense that DELETE operations are idempotent and not finding the resource has the same effect as deleting it.</p>
+
+<div class="note"><div class="title">Client ID</div>
+<p>All requests to Riak &lt;1.0 or Riak 1.0 without `vnode_vclocks` enabled
+should include the `X-Riak-ClientId` header, which can be any string that
+uniquely identifies the client, for purposes of tracing object modifications in
+the [[vector clock|Vector Clocks]].</p>
+</div>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>* About to connect<span class="o">()</span> to 127.0.0.1 port 8098 <span class="o">(</span><span class="c">#0)</span>
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 <span class="o">(</span>127.0.0.1<span class="o">)</span> port 8098 <span class="o">(</span><span class="c">#0)</span>
+&gt; DELETE /riak/test/test2 HTTP/1.1
+&gt; User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+&gt; Host: 127.0.0.1:8098
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 204 No Content
+&lt; Vary: Accept-Encoding
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+&lt; Date: Fri, 30 Sep 2011 15:24:35 GMT
+&lt; Content-Type: application/json
+&lt; Content-Length: 0
+&lt;
+* Connection <span class="c">#0 to host 127.0.0.1 left intact</span>
+* Closing connection <span class="c">#0</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Link_Walking'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Link_Walking">&#182;</a>
+        </div>
+        <h1>Link Walking</h1>
+
+<p>Link walking (traversal) finds and returns objects by following links attached to them, starting from the object specified by the bucket and key portion.  It is a special case of [[MapReduce]], and can be expressed more verbosely as such. [[Read more about Links|Links]].</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET /riak/bucket/key/<span class="o">[</span>bucket<span class="o">]</span>,<span class="o">[</span>tag<span class="o">]</span>,<span class="o">[</span>keep<span class="o">]</span>            <span class="c"># Old format</span>
+GET /buckets/bucket/keys/key/<span class="o">[</span>bucket<span class="o">]</span>,<span class="o">[</span>tag<span class="o">]</span>,<span class="o">[</span>keep<span class="o">]</span>    <span class="c"># New format</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request">&#182;</a>
+        </div>
+        <h2>Request</h2>
+
+<h3>Link filters</h3>
+
+<p>A link filter within the request URL is made of three parts, separated by commas:</p>
+
+<ul>
+<li>Bucket - a bucket name to limit the links to</li>
+<li>Tag - a &quot;riaktag&quot; to limit the links to</li>
+<li>Keep - 0 or 1, whether to return results from this phase</li>
+</ul>
+
+<p>Any of the three parts may be replaced with <code>_</code> (underscore), signifying that any value is valid. Multiple phases of links can be followed by adding additional path segments to the URL, separating the link filters by slashes. The final phase in the link-walking query implicitly returns its results.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -v http://127.0.0.1:8098/riak/test/doc3/test,_,1/_,next,1</pre></div>
+      </td>
+    </tr>
+    <tr id='section-Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Response">&#182;</a>
+        </div>
+        <h2>Response</h2>
+
+<p>Normal status codes:</p>
+
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+
+<p>Typical error codes:</p>
+
+<ul>
+<li><code>400 Bad Request</code> - if the format of the query in the URL is invalid</li>
+<li><code>404 Not Found</code> - if the origin object of the walk was missing</li>
+</ul>
+
+<p>Important headers:</p>
+
+<ul>
+<li><code>Content-Type</code> - always <code>multipart/mixed</code>, with a boundary specified</li>
+</ul>
+
+<h3>Understanding the response body</h3>
+
+<p>The response body will always be <code>multipart/mixed</code>, with each chunk representing a single phase of the link-walking query. Each phase will also be encoded in <code>multipart/mixed</code>, with each chunk representing a single object that was found. If no objects were found or &quot;keep&quot; was not set on the phase, no chunks will be present in that phase.  Objects inside phase results will include <code>Location</code> headers that can be used to determine bucket and key. In fact, you can treat each object-chunk similarly to a complete response from [[fetching the object|HTTP Fetch Object]], without the status code.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>* About to connect<span class="o">()</span> to 127.0.0.1 port 8098 <span class="o">(</span><span class="c">#0)</span>
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 <span class="o">(</span>127.0.0.1<span class="o">)</span> port 8098 <span class="o">(</span><span class="c">#0)</span>
+&gt; GET /riak/test/doc3/test,_,1/_,next,1 HTTP/1.1
+&gt; User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+&gt; Host: 127.0.0.1:8098
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+&lt; Expires: Wed, 10 Mar 2010 20:24:49 GMT
+&lt; Date: Fri, 30 Sep 2011 15:24:35 GMT
+&lt; Content-Type: multipart/mixed; <span class="nv">boundary</span><span class="o">=</span>JZi8W8pB0Z3nO3odw11GUB4LQCN
+&lt; Content-Length: 970
+&lt;
+
+--JZi8W8pB0Z3nO3odw11GUB4LQCN
+Content-Type: multipart/mixed; <span class="nv">boundary</span><span class="o">=</span>OjZ8Km9J5vbsmxtcn1p48J91cJP
+
+--OjZ8Km9J5vbsmxtcn1p48J91cJP
+X-Riak-Vclock: a85hYGDgymDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0c
+IszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3p
+<span class="nv">t7HlGBhnqejARXmq0QyZnnxE6jwVJBwFgA</span><span class="o">=</span>
+Location: /riak/test/doc
+Content-Type: application/json
+Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>, &lt;/riak/test/doc2&gt;; <span class="nv">riaktag</span><span class="o">=</span><span class="s2">&quot;next&quot;</span>
+Etag: 3pvmY35coyWPxh8mh4uBQC
+Last-Modified: Wed, 10 Mar 2010 20:14:13 GMT
+
+<span class="o">{</span><span class="s2">&quot;riak&quot;</span>:<span class="s2">&quot;CAP&quot;</span><span class="o">}</span>
+--OjZ8Km9J5vbsmxtcn1p48J91cJP--
+
+--JZi8W8pB0Z3nO3odw11GUB4LQCN
+Content-Type: multipart/mixed; <span class="nv">boundary</span><span class="o">=</span>RJKFlAs9PrdBNfd74HANycvbA8C
+
+--RJKFlAs9PrdBNfd74HANycvbA8C
+X-Riak-Vclock: <span class="nv">a85hYGBgzGDKBVIsbLvm1WYwJTLmsTLcjeE5ypcFAA</span><span class="o">==</span>
+Location: /riak/test/doc2
+Content-Type: application/json
+Link: &lt;/riak/test&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;up&quot;</span>
+Etag: 6dQBm9oYA1mxRSH0e96l5W
+Last-Modified: Wed, 10 Mar 2010 18:11:41 GMT
+
+<span class="o">{</span><span class="s2">&quot;foo&quot;</span>:<span class="s2">&quot;bar&quot;</span><span class="o">}</span>
+--RJKFlAs9PrdBNfd74HANycvbA8C--
+
+--JZi8W8pB0Z3nO3odw11GUB4LQCN--
+* Connection <span class="c">#0 to host 127.0.0.1 left intact</span>
+* Closing connection <span class="c">#0</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-List_Resources'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-List_Resources">&#182;</a>
+        </div>
+        <h1>List Resources</h1>
+
+<p>List available HTTP resources for the Riak node. This can be used by clients to 
+automatically recognize the location of the resources for specific operations.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>GET /</pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request">&#182;</a>
+        </div>
+        <h2>Request</h2>
+
+<p>Headers:</p>
+
+<ul>
+<li><code>Accept</code> - <code>application/json</code> or <code>text/html</code></li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nv">$ </span>curl -i http://localhost:8098 -H <span class="s2">&quot;Accept: application/json&quot;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Response">&#182;</a>
+        </div>
+        <h2>Response</h2>
+
+<p>Normal status codes:</p>
+
+<ul>
+<li><code>200 OK</code></li>
+</ul>
+
+<p>Important headers:</p>
+
+<ul>
+<li><code>Link</code> - all resources that are described in the response body, but in Link form</li>
+</ul>
+
+<p>The standard resources are:</p>
+
+<ul>
+<li><code>riak_kv_wm_buckets</code> - [[Bucket Operations|HTTP API#Bucket Operations]]</li>
+<li><code>riak_kv_wm_index</code> - [[HTTP Secondary Indexes]]</li>
+<li><code>riak_kv_wm_link_walker</code> - [[HTTP Link Walking]]</li>
+<li><code>riak_kv_wm_mapred</code> - [[HTTP MapReduce]]</li>
+<li><code>riak_kv_wm_object</code>- [[Object/Key Operations|HTTP API#Object/Key Operations]]</li>
+<li><code>riak_kv_wm_ping</code> - [[HTTP Ping]]</li>
+<li><code>riak_kv_wm_props</code> - [[HTTP Set Bucket Properties]]</li>
+<li><code>riak_kv_wm_stats</code> - [[HTTP Status]]</li>
+</ul>
+
+<p>If Search is enabled, the following resources will also be included:</p>
+
+<ul>
+<li><code>riak_solr_searcher_wm</code> - [[Solr search|Riak Search - Querying#Querying via the Solr Interface]]</li>
+<li><code>riak_solr_indexer_wm</code> - [[Solr indexing|Riak Search - Indexing#Indexing using the Solr Interface]]</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>HTTP/1.1 200 OK
+Vary: Accept
+Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+Link: &lt;/riak&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_link_walker&quot;</span>,&lt;/mapred&gt;;
+<span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_mapred&quot;</span>,&lt;/ping&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_ping&quot;</span>,&lt;/riak&gt;;
+<span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_raw&quot;</span>,&lt;/stats&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_stats&quot;</span>
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: application/json
+Content-Length: 143
+
+<span class="o">{</span><span class="s2">&quot;riak_kv_wm_link_walker&quot;</span>:<span class="s2">&quot;/riak&quot;</span>,<span class="s2">&quot;riak_kv_wm_mapred&quot;</span>:<span class="s2">&quot;/mapred&quot;</span>,
+<span class="s2">&quot;riak_kv_wm_ping&quot;</span>:<span class="s2">&quot;/ping&quot;</span>,<span class="s2">&quot;riak_kv_wm_raw&quot;</span>:<span class="s2">&quot;/riak&quot;</span>,<span class="s2">&quot;riak_kv_wm_stats&quot;</span>:<span class="s2">&quot;/stats&quot;</span><span class="o">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-Request_an_HTML_response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Request_an_HTML_response">&#182;</a>
+        </div>
+        <h3>Request an HTML response</h3>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>curl -i http://localhost:8098 -H <span class="s2">&quot;Accept: text/html&quot;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-HTML_Response'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-HTML_Response">&#182;</a>
+        </div>
+        <h3>HTML Response</h3>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>HTTP/1.1 200 OK
+Vary: Accept
+Server: MochiWeb/1.1 WebMachine/1.9.0 <span class="o">(</span>participate in the frantic<span class="o">)</span>
+Link: &lt;/riak&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_link_walker&quot;</span>,&lt;/mapred&gt;;
+<span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_mapred&quot;</span>,&lt;/ping&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_ping&quot;</span>,&lt;/riak&gt;;
+<span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_raw&quot;</span>,&lt;/stats&gt;; <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;riak_kv_wm_stats&quot;</span>
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: text/html
+Content-Length: 267
+
+&lt;html&gt;&lt;body&gt;&lt;ul&gt;&lt;li&gt;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/riak&quot;</span>&gt;riak_kv_wm_link_walker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/mapred&quot;</span>&gt;riak_kv_wm_mapred&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/ping&quot;</span>&gt;riak_kv_wm_ping&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/riak&quot;</span>&gt;riak_kv_wm_raw&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;/stats&quot;</span>&gt;riak_kv_wm_stats&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
