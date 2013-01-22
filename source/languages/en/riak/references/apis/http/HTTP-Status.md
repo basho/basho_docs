@@ -252,3 +252,31 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * `node_get_fsm_siblings_95`: 95th percentile of siblings encountered during all GET operations by this node within the last minute
 * `node_get_fsm_siblings_99`: 99th percentile of siblings encountered during all GET operations by this node within the last minute
 * `node_get_fsm_siblings_100`: 100th percentile of siblings encountered during all GET operations by this node within the last minute
+
+{{#1.2.0+}}
+### Riak Search Statistics
+
+The following statistics related to Riak Search message queues are available.
+
+- `riak_search_vnodeq_max`: Maximum number of unprocessed messages all
+  virtual node (vnode) message queues in the Riak Search subsystem have
+  received on this node in the last minute
+- `riak_search_vnodeq_mean`: Mean number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node in the last minute
+- `riak_search_vnodeq_median`: Median number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node in the last minute
+- `riak_search_vnodeq_min`: Minimum number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node in the last minute
+- `riak_search_vnodeq_total`: Total number of unprocessed messages all
+  vnode message queues in the Riak Search subsystem have received on this
+  node since it was started
+- `riak_search_vnodes_running`: Total number of vnodes currently running
+  in the Riak Search subsystem
+
+Note that under ideal operation and with the exception of
+`riak_search_vnodes_running` these statistics should contain low values
+(e.g., 0-10). Presence of higher values could be indicative of an issue.
+{{/1.2.0+}}
