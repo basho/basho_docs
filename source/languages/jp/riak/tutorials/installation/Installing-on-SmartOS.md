@@ -1,7 +1,7 @@
 ---
 title: Installing on SmartOS
 project: riak
-version: 1.1.0+
+version: 1.2.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, smartos]
@@ -13,9 +13,7 @@ download:
   name: "SmartOS"
 ---
 
-<div class="info"><div class="title">Version Information</div>The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>.</div>
-
-As of version 1.2, Riak can be installed on SmartOS using Basho [packages](http://basho.com/resources/downloads/). The following steps demonstrate installation of a Riak node on SmartOS as the root user.
+The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>. They demonstrate installation of a Riak node on SmartOS as the root user.
 
 ## Open Files Limit
 Before proceeding with installation, you should ensure that the system's open files limit meets or exceeds the recommended minimum of **4096**. Check the current limits to verify this:
@@ -37,17 +35,34 @@ set rlim_fd_max=65536
 ```
 
 ## Download and Install
-First, download the latest version of the Riak binary package for SmartOS; for this example, we're downloading Riak 1.2:
+First, download the latest version of the Riak binary package for SmartOS:
+
+{{#1.2.0}}
 
 ```bash
-curl http://s3.amazonaws.com/downloads.basho.com/riak/1.2/1.2.1/smartos/11/riak-1.2.1-SmartOS-i386.tgz
+curl -o /tmp/riak-1.2.0-SmartOS-i386.tgz http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/smartos/11/riak-1.2.0-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add riak-1.2.1-SmartOS-i386.tgz
+pkg_add /tmp/riak-1.2.0-SmartOS-i386.tgz
 ```
+
+{{/1.2.0}}
+{{#1.2.1}}
+
+```bash
+curl -o /tmp/riak-1.2.1-SmartOS-i386.tgz http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/smartos/11/riak-1.2.1-SmartOS-i386.tgz
+```
+
+Next, install the package:
+
+```
+pkg_add /tmp/riak-1.2.1-SmartOS-i386.tgz
+```
+
+{{/1.2.1}}
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
 
@@ -83,6 +98,7 @@ Next Steps?
 
 Now that Riak is installed, check out the following resources:
 
+-   [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
 -   [[The Riak Fast Track]]: A
     guide for setting up a 4 node cluster and exploring Riak's main
     features.

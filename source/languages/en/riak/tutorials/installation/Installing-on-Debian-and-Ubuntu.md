@@ -29,7 +29,7 @@ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 Then add the Basho repository to your apt sources list (and update them).
 
 ```
-sudo bash -c "echo deb http://apt.basho.com lsb_release -sc main > /etc/apt/sources.list.d/basho.list"
+sudo bash -c "echo deb http://apt.basho.com `lsb_release -sc` main > /etc/apt/sources.list.d/basho.list"
 sudo apt-get update
 ```
 
@@ -69,24 +69,108 @@ for the target platform:
 
 #### Ubuntu Lucid Lynx (10.04)
 
+{{#1.0.3}}
+
+```bash
+http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
+sudo dpkg -i riak_1.0.3-1_amd64.deb
+```
+
+{{/1.0.3}}
+{{#1.1.4}}
+
+```bash
+http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
+sudo dpkg -i riak_1.1.4-1_amd64.deb
+```
+
+{{/1.1.4}}
+{{#1.2.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.0-1_amd64.deb
+sudo dpkg -i riak_1.2.1-0_amd64.deb
+```
+
+{{/1.2.0}}
+{{#1.2.1}}
+
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_amd64.deb
 sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
+{{/1.2.1}}
+
 #### Ubuntu Natty Narwhal (11.04)
+
+{{#1.0.3}}
+
+```bash
+http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
+sudo dpkg -i riak_1.0.3-1_amd64.deb
+```
+
+{{/1.0.3}}
+{{#1.1.4}}
+
+```bash
+http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
+sudo dpkg -i riak_1.1.4-1_amd64.deb
+```
+
+{{/1.1.4}}
+{{#1.2.0}}
+
+```bash
+http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/ubuntu/natty/riak_1.2.0-1_amd64.deb
+sudo dpkg -i riak_1.2.0-1_amd64.deb
+```
+
+{{/1.2.0}}
+{{#1.2.1}}
 
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/natty/riak_1.2.1-1_amd64.deb
 sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
+{{/1.2.1}}
+
 #### Ubuntu Precise Pangolin (12.04)
+
+{{#1.0.3}}
+
+```bash
+http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
+sudo dpkg -i riak_1.0.3-1_amd64.deb
+```
+
+{{/1.0.3}}
+{{#1.1.4}}
+
+```bash
+http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
+sudo dpkg -i riak_1.1.4-1_amd64.deb
+```
+
+{{/1.1.4}}
+{{#1.2.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/ubuntu/precise/riak_1.2.0-1_amd64.deb
+sudo dpkg -i riak_1.2.0-1_amd64.deb
+```
+
+{{/1.2.0}}
+{{#1.2.1}}
 
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/precise/riak_1.2.1-1_amd64.deb
 sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
+
+{{/1.2.1}}
 
 ### Riak 32-bit Installation
 
@@ -112,12 +196,46 @@ If Erlang is not already installed, install it before continuing (see:
 
 With Erlang installed, proceed to downloading and installing Riak:
 
+{{#1.0.3}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3.tar.gz
+tar zxvf riak-1.0.3.tar.gz
+cd riak-1.0.3
+make rel
+```
+
+{{/1.0.3}}
+{{#1.1.4}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4.tar.gz
+tar zxvf riak-1.1.4.tar.gz
+cd riak-1.1.4
+make rel
+```
+
+{{/1.1.4}}
+{{#1.2.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/riak-1.2.0.tar.gz
+tar zxvf riak-1.2.0.tar.gz
+cd riak-1.2.0
+make rel
+```
+
+{{/1.2.0}}
+{{#1.2.1}}
+
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
 tar zxvf riak-1.2.1.tar.gz
 cd riak-1.2.1
 make rel
 ```
+
+{{/1.2.1}}
 
 If the build was successful, a fresh build of Riak will exist in the
 `rel/riak` directory.
