@@ -11,7 +11,8 @@
             - for page in pages[0..5]
               li== "[[#{page.metadata[:page]['title']}]]"
           - else
-            li== link_to I18n.t(:all_projects), '/index.html'
+            li
+              a href="/index.html"== I18n.t(:all_projects)
             li==I18n.t(:faqs_link)
             li==I18n.t(:apis_link)
       == partial "layouts/keywords"
