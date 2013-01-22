@@ -1,0 +1,142 @@
+---
+title: Client Libraries
+project: riak
+version: 0.10.0+
+document: reference
+toc: true
+index: true
+audience: intermediate
+keywords: [client, drivers]
+---
+
+Basho officially supports a number of open-source client libraries for various programming languages and environments.
+
+| Language | Source                                                   | Documentation | Download      |
+|----------+----------------------------------------------------------+---------------+---------------|
+| Erlang   | [[https://github.com/basho/riak-erlang-client][riak-erlang-client (riakc)]] [[https://github.com/basho/riak-erlang-http-client][riak-erlang-http-client (rhc)]] | [[http://basho.github.com/riak-erlang-client/][edoc]]          |               |
+| Java     | [[https://github.com/basho/riak-java-client][riak-java-client]]                                         | [[http://basho.github.com/riak-java-client][javadoc]], [[https://github.com/basho/riak-java-client/wiki][wiki]] | [[http://search.maven.org/?#search%7Cgav%7C1%7Cg%3A%22com.basho.riak%22%20AND%20a%3A%22riak-client%22][Maven Central]] |
+| PHP      | [[https://github.com/basho/riak-php-client][riak-php-client]]                                          | [[http://basho.github.com/riak-php-client][doxygen]]       |               |
+| Python   | [[https://github.com/basho/riak-python-client][riak-python-client]]                                       | [[http://basho.github.com/riak-python-client][sphinx]]        | [[http://pypi.python.org/pypi?:action=display&name=riak#downloads][PyPI]]          |
+| Ruby     | [[https://github.com/basho/riak-ruby-client][riak-ruby-client]]                                         | [[http://rdoc.info/gems/riak-client/frames][rdoc]], [[https://github.com/basho/riak-ruby-client/wiki][wiki]]    | [[https://rubygems.org/gems/riak-client][RubyGems]]      |
+
+
+All official clients use the integrated issue tracker on Github for bug reporting.
+
+In addition to the official clients, Basho provides some unofficial
+client libraries, listed below. There are also many client libraries
+and related projects [[references/Community-Developed-Libraries-and-Projects/][provided by the community]].
+
+| Language            | Source                 |
+|---------------------+------------------------|
+| C/C++               | [[https://github.com/basho/riak-cxx-client][riak-cxx-client]]        |
+| Javascript (jQuery) | [[https://github.com/basho/riak-javascript-client][riak-javascript-client]] |
+
+
+* Feature Matrix
+   Below is a series of tables that compares the functionality of our
+   official client libraries with the features exposed by Riak's API,
+   and also compares features that are desirable in well-developed
+   clients. We have developed this matrix in an effort to ensure
+   feature-parity across the different clients.
+
+   Legend:
+   - =✓= - has feature
+   - =✗= - lacks feature
+   - =text= - partially supports feature
+   - (blank) - unknown
+
+** HTTP
+
+    | Bucket Operations          | Erlang (rhc)           | Java | PHP                    | Python  | Ruby |
+    |----------------------------+------------------------+------+------------------------+---------+------|
+    | List buckets               | ✓                      | ✓    | ✓                      | ✓       | ✓    |
+    | List keys                  | ✓                      | ✓    | ✓                      | ✓       | ✓    |
+    | Get Bucket Properties      | partial                | ✓    | ✓                      | ✓       | ✓    |
+    | Set Bucket Properties      | partial                | ✓    | ✓                      | ✓       | ✓    |
+    | Object/Key Operations      | Erlang (rhc)           | Java | PHP                    | Python  | Ruby |
+    |----------------------------+------------------------+------+------------------------+---------+------|
+    | Fetch Object (get)         | ✓                      | ✓    | ✓                      | ✓       | ✓    |
+    | Fetch w/quorums            | no PR                  | ✓    | no PR                  | ✓       | ✓    |
+    | Store Object (put)         | ✓                      | ✓    | ✓                      | ✓       | ✓    |
+    | Store w/quorums            | no PW                  | ✓    | no PW                  | ✓       | ✓    |
+    | Delete Object              | ✓                      | ✓    | ✓                      | ✓       | ✓    |
+    | Query Operations           | Erlang (rhc)           | Java | PHP                    | Python  | Ruby |
+    |----------------------------+------------------------+------+------------------------+---------+------|
+    | Link Walking               | ✗                      | ✓    | ✗                      | ✗       | ✓    |
+    | MapReduce                  | ✓                      | ✓    | ✓                      | ✓       | ✓    |
+    | Secondary Indexes          | ✗                      | ✓    | ✓                      | ✓       | ✓    |
+    | Search                     | emulated via MapReduce | ✓    | emulated via MapReduce | ✓       | ✓    |
+    | Server Operations          | Erlang (rhc)           | Java | PHP                    | Python  | Ruby |
+    |----------------------------+------------------------+------+------------------------+---------+------|
+    | Ping                       | ✓                      | ✓    | ✓                      | ✓       | ✓    |
+    | Status                     | partial                | ✓    | ✗                      | partial | ✓    |
+    | List Resources             | ✗                      | ✗    | ✗                      | partial | ✓    |
+    | Luwak Operations (pre 1.1) | Erlang (rhc)           | Java | PHP                    | Python  | Ruby |
+    |----------------------------+------------------------+------+------------------------+---------+------|
+    | Store file                 | ✗                      | ✗    | ✗                      | ✓       | ✓    |
+    | Fetch file                 | ✗                      | ✗    | ✗                      | ✓       | ✓    |
+    | Delete file                | ✗                      | ✗    | ✗                      | ✓       | ✓    |
+
+** Protocol Buffers
+
+    /Note: The PHP client does not support Protocol Buffers and so is
+    excluded from this matrix./
+
+    | Bucket Operations                    | Erlang (riakc) | Java | Python  | Ruby |
+    |--------------------------------------+----------------+------+---------+------|
+    | List buckets                         | ✓              | ✓    | ✓       | ✓    |
+    | List keys                            | ✓              | ✓    | ✓       | ✓    |
+    | Get Bucket Properties                | ✓              | ✓    | ✓       | ✓    |
+    | Set Bucket Properties                | ✓              | ✓    | ✓       | ✓    |
+    | Object/Key Operations                | Erlang (riakc) | Java | Python  | Ruby |
+    |--------------------------------------+----------------+------+---------+------|
+    | Fetch Object (get)                   | ✓              | ✓    | ✓       | ✓    |
+    | Fetch w/quorums                      | ✓              | ✓    | ✓       | ✓    |
+    | Store Object (put)                   | ✓              | ✓    | ✓       | ✓    |
+    | Store w/quorums                      | ✓              | ✓    | ✓       | ✓    |
+    | Delete Object                        | ✓              | ✓    | ✓       | ✓    |
+    | Query Operations                     | Erlang (riakc) | Java | Python  | Ruby |
+    |--------------------------------------+----------------+------+---------+------|
+    | MapReduce                            | ✓              | ✓    | ✓       | ✓    |
+    | Secondary Indexes (emulated, native) | ✓✗             | ✓✗   | ✓✓      | ✓✓   |
+    | Search (emulated, native)            | ✓✗             | ✓✗   | ✓✓      | ✓✓   |
+    | Server Operations                    | Erlang (riakc) | Java | Python  | Ruby |
+    |--------------------------------------+----------------+------+---------+------|
+    | Ping                                 | ✓              | ✓    | ✓       | ✓    |
+    | Server Info                          | ✓              | ✗    | partial | ✓    |
+    | Get Client ID                        | ✓              | ✓    | ✓       | ✓    |
+    | Set Client ID                        | ✓              | ✓    | ✓       | ✓    |
+
+** Additional features
+
+    | Protocols                              | Erlang                    | Java | PHP     | Python  | Ruby          |
+    |----------------------------------------+---------------------------+------+---------+---------+---------------|
+    | Cluster connections/pools              | ✗                         | ✓    | ✗       | partial | ✓             |
+    | Retry failures (on other nodes)        | ✗                         | ✓    | ✗       | ✗       | ✓ ✓           |
+    | Failure-sensitive node selection       | ✗                         | ✗    | ✗       | ✗       | ✓             |
+    | Automatic protocol selection           | ✗                         | ✗    | ✗       | ✗       | ✓             |
+    | Media-Type Handling                    | Erlang                    | Java | PHP     | Python  | Ruby          |
+    |----------------------------------------+---------------------------+------+---------+---------+---------------|
+    | Use arbitrary media types              | ✓                         | ✓    | ✓       | ✓       | ✓             |
+    | JSON (de-)serialization                | ✗                         | ✓    | ✓       | ✓       | ✓             |
+    | Other included (de-)serializers        | Erlang Binary Term Format | ✗    | ✗       | ✗       | YAML, Marshal |
+    | Custom (de-)serializers                | ✗                         | ✓    | ✗       | ✓       | ✓             |
+    | Eventual Consistency                   | Erlang                    | Java | PHP     | Python  | Ruby          |
+    |----------------------------------------+---------------------------+------+---------+---------+---------------|
+    | Exposes siblings                       | ✓                         | ✓    | ✓       | ✓       | ✓             |
+    | Sibling resolution policies/strategies | ✗                         | ✓    | ✗       | ✗       | ✓             |
+    | Mutators (encapsulating change ops)    | ✗                         | ✓    | ✗       | ✗       | ✗             |
+    | Domain Types/Object Mapping            | Erlang                    | Java | PHP     | Python* | Ruby*         |
+    |----------------------------------------+---------------------------+------+---------+---------+---------------|
+    | Abstract domain types w/reification    | ✗                         | ✓    | partial | ✓       | ✓             |
+    | Embedded/nested domain types           | ✗                         | ✓    |         | ✓       | ✓             |
+    | Domain-level sibling resolution        | ✗                         | ✓    | ✗       | ✗       | ✓             |
+    | Secondary index integration            | ✗                         | ✓    | partial | ✓       | ✓             |
+    | Search integration                     | ✗                         | ✓    | ✗       | ✓       | ✗             |
+
+    Various [[/references/Community-Developed-Libraries-and-Projects][community projects]] provide support for domain types and
+    object mapping in Python and Ruby. The values in the table above
+    represent the aggregate features of the projects listed below:
+
+    - *Ruby*: [[https://github.com/basho/ripple][ripple]], [[https://github.com/aphyr/risky][risky]], and [[https://github.com/braintree/curator][curator]].
+    - *Python*: [[https://github.com/shuhaowu/riakkit][riakkit]], [[https://github.com/Linux2Go/riakalchemy][riakalchemy]], and [[https://github.com/oubiwann/django-riak-engine][django-riak-engine]].

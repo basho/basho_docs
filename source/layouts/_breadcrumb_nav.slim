@@ -1,6 +1,6 @@
--# Don't show breadcrumbs if tutorial nav is present
 - unless data.page.prev.present? || data.page.up.present? || data.page.next.present?
   nav.breadcrumbs
     ul
       - bread_crumbs(current_page).each do |link|
-        li== link_to link[:name], link[:url]
+        - unless link.blank?
+          li== link
