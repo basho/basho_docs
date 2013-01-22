@@ -172,7 +172,10 @@ restored to that node), then you will need to addtionally:
 refer to the [[cluster section of "Command Line Tools - riak-admin"|Command Line Tools - riak-admin#cluster]].</div>
 
 For example, if there are five nodes in the cluster with the original node
-names: *riak1.example.com* through *riak5.example.com*. *riak1.example.com* is being restored as *riak6.example.com*.  Run the following commands on *riak6.example.com*:
+names *riak1.example.com* through *riak5.example.com* and you wish to restore
+*riak1.example.com* as *riak6.example.com*, you would execute the following
+commands on *riak6.example.com*:
+
 
 ```bash
 # Join to any existing, cluster node
