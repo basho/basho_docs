@@ -8,9 +8,9 @@ audience: beginner
 keywords: [command-line, riak-admin]
 ---
 
-# Command Line Tools - `riak-admin`
+# riak-admin
 
-This script performs operations not related to node-liveness, including node
+This script performs operations unrelated to node-liveness, including node
 membership, backup, and basic status reporting.  The node must be running for
 most of these commands to work.
 
