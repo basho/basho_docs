@@ -38,6 +38,7 @@ set rlim_fd_max=65536
 First, download the latest version of the Riak binary package for SmartOS:
 
 {{#1.2.0}}
+
 ```bash
 curl -o /tmp/riak-1.2.0-SmartOS-i386.tgz http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/smartos/11/riak-1.2.0-SmartOS-i386.tgz
 ```
@@ -47,9 +48,10 @@ Next, install the package:
 ```
 pkg_add /tmp/riak-1.2.0-SmartOS-i386.tgz
 ```
-{{/1.2.0}}
 
+{{/1.2.0}}
 {{#1.2.1}}
+
 ```bash
 curl -o /tmp/riak-1.2.1-SmartOS-i386.tgz http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/smartos/11/riak-1.2.1-SmartOS-i386.tgz
 ```
@@ -59,6 +61,7 @@ Next, install the package:
 ```
 pkg_add /tmp/riak-1.2.1-SmartOS-i386.tgz
 ```
+
 {{/1.2.1}}
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
