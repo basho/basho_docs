@@ -5,6 +5,6 @@ ul.keywords
   - for project, pages in projects
     - for page in pages
       - meta = page.metadata[:page]
-      - classname = project == 'riak' ? '' : 'versioned'
+      - classname = project == $default_project ? '' : 'versioned'
       li(class==project)
         ==link_to meta["title"], project_version_path(page), :class => classname

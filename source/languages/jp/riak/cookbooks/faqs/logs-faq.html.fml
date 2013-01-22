@@ -1,0 +1,113 @@
+---
+title: Log Messages FAQs
+project: riak
+version: 1.2+
+document: cookbook
+audience: intermediate
+keywords: [faq, operator]
+---
+
+<h2>Log Files</h2>
+
+Q: Where are the logs usually located?
+A:
+  Riak does have a built in logging system. The log files are stored in the Riak log directory which is different for each platform:
+  
+  * Ubuntu, Debian, CentOS, RHEL - `/var/log/riak`
+  * Solaris, OpenSolaris - `/opt/riak/log`
+  * Source install - `$RIAK/log` (where `$RIAK` is the installation directory)
+  
+  There are several files in the Riak log directory:
+  
+  * `run_erl.log` - log file for the run_erl process; this can typically be ignored
+  * `erlang.log.*` - rotated log files setup by run_erl for standard system output (progress, error, and crash reports)
+  * `sasl-error.log` - plain text output of the sasl error logger (error and crash reports)
+  * `sasl/*` - binary output of the sasl error logger
+  
+  The `sasl-error.log` file logs error and crash reports. This file is cleared every time a Riak node is started. This is a good place to start to check if any errors or crashes are occurring.
+  
+  Riak maintains five `erlang.log.*` files that are rotated as each file reaches it's maximum capacity (100 KB). The logging mechanism does not maintain a traditional log rotation, meaning it does not always log to `erlang.log.1`. Instead the logging mechanism outputs to the oldest log file; for example after filling up `erlang.log.1` the logging mechanism starts to write to `erlang.log.2`, and so on up to `erlang.log.5`, then looping back to `erlang.log.1` after filling up `erlang.log.5`. The output to these files is verbose but can provide insight into what a Riak node is doing at any particular moment.
+  
+  The binary output logs must be read using the Report Browser feature built into Erlang. These files are useful for support when diagnosing issues.
+
+Q: How can I change where the log files are located?
+A:
+  Log files are written to `/var/log/riak` on Linux and `/opt/riak/log` on Solaris.
+  
+  Lager is the logging engine introduced in Riak 1.0. It is designed to be more stable than Erlang's `error_logger`, as well as play nicely with standard logging tools.
+  
+   * `handlers`
+  Allows the selection of log handlers with differing options.
+  
+  * `lager_console_backend` - Logs to the the console, with the specified log level.
+  * `lager_file_backend` - Logs to the given list of files, each with their own log level.
+  
+   * `crash_log`
+  Whether to write a crash log, and where. (default: no crash logger)
+  
+   * `crash_log_size`
+  Maximum size in bytes of events in the crash log. (default: 65536)
+  
+   * `error_logger_redirect`
+  Whether to redirect sasl error_logger messages into lager. (default: true)
+  
+  The default lager options are like so:
+  
+  ```erlang
+  {lager, [
+      {handlers, [
+          {lager_console_backend, info},
+              {lager_file_backend, [
+                  {"/opt/riak/log/error.log", error},
+                  {"/opt/riak/log/console.log", info}
+                  ]}
+                  ]},.
+                  {crash_log, "{{platform_log_dir}}/crash.log"},
+                  {crash_log_size, 65536},
+                  {error_logger_redirect, true}
+                  ]},
+  ```
+
+Q: Can I make Riak use syslog, instead of file?
+A:
+  It is not currently possible. Often Riak log messages (mostly backtraces and warnings) are much longer than can be fit into a syslog message. However, all the log files are compatible with rotation (with the exception of the erlang.log.* files which are automatically rotated by Riak itself). If you're looking for a way to keep track of old log files, your logrotated script could be configured to archive or upload the rotated-out file to another machine.
+
+<h2>Log Messages</h2>
+
+Q: Riak logs contain `{error,emfile}` in the message.
+  Riak is run and starts as expected, but under load the logs contain messages that contain the following:
+  
+  ```
+  {{badmatch,{error,emfile}},
+  ```
+A:
+  This error usually signifies a problem with the max number of open file handles that a process is allowed to allocate. In most cases the default setting of 1024 isn't sufficient to run a Riak node.
+  
+  You can find out more information on increasing the ulimit on your system's [[Open Files Limit]].
+
+
+Q: Riak logs have `busy_dist_port` messages.
+A:
+  As of version 1.0.3, Riak now logs `busy_dist_port` messages on the Erlang console and to the logs when distributed Erlang is overloaded.
+  
+  If the message is being logged frequently, the buffer used for distributed erlang can be increased by adding `+zdbbl <KBytes>` in the `/etc/riak/vm.args` file or `/opt/riak/etc/vm.args` file, depending on platform.
+  
+  More information about editing `vm.args` is available in the [[Configuration Files]] documentation.
+
+
+Q: In OSX, Riak crashes with errors producing `emfile`.
+A:
+  The default `ulimit -n` on Mac OS/X is 256, which is generally too small for Riak. You can set the per-session limit (within the current shell) by executing this command:
+  
+  ```bash
+  ulimit -n 1024
+  ```
+  
+  If you want to set the limit for future sessions, use 'launchctl':
+  
+  ```bash
+  launchctl limit maxfiles 1024 1024
+  ```
+  
+  For more information, see the [[Open Files Limit]] page or the 'man' pages for 'ulimit' and 'launchctl'.
+
