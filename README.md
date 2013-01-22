@@ -67,6 +67,16 @@ All documents and resources (like images, css/scss, javascript/coffeescript) liv
 
 Since part of the goal of this rewrite is to be more deliberate about the type of documents we produce, docs are separated into directories according to their types. A document should either be a fully realized "reference", or a "guide" (thumb through [A Short Guide to Writing Guides](https://github.com/basho/internal_wiki/wiki/A-Short-Guide-to-Writing-Guides) for more on this idea). Further distinction can then be placed under subdirectories. `references` contains `apis`, `appendices`; `guides` contains `tutorials`, `cookbooks`.
 
+### Languages
+
+Set the language you wish to generate the docs in. Default is `en`. To alter your document language, you can set an env var like this:
+
+```
+export RIAK_DOCS_LANG=jp
+```
+
+_All docs live under `source/languages/en` or `source/languages/jp`. You should never generally need to touch any other directories._
+
 ### Wiki Links
 
 Besides the standard link styles relative to the given document type (markdown, slim, org, etc), you can use wiki-style links, eg: `[[The Riak Fast Track]]` or `[[The Fast Track|The Riak Fast Track]]`. Note that if you have a name collision, it will just link to a random one.
