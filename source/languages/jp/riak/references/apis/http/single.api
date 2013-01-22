@@ -1,0 +1,596 @@
+# ## Bucket Operations
+
+# ● <a href="#section-List_Buckets">List Buckets</a>
+GET    /riak?buckets=true
+# ● <a href="#section-List_Keys">List Keys</a> (all)
+GET    /riak/bucket?keys=true
+# ● <a href="#section-List_Keys">List Keys</a> (stream)
+GET    /riak/bucket?keys=stream
+# ● <a href="#section-Get_Bucket_Properties">Get Bucket Properties</a>
+GET    /riak/bucket
+
+# ## Object/Key Operations
+
+# ● <a href="#section-Fetch_Object">Fetch Object</a>
+GET    /riak/bucket/key
+# ● <a href="#section-Delete_Object">Delete Object</a>
+DELETE /riak/bucket/key
+
+
+# ## Query Operations
+
+# ● <a href="#section-Link_Walking">Link Walking</a>
+GET    /riak/bucket/key/[bucket],[tag],[keep]
+
+# ## Server Operations
+
+# ● <a href="#section-List_Resources">List Resources</a>
+GET    /
+
+
+
+# # List Buckets
+#  Lists all known buckets (ones that have keys stored in them).
+#  
+# _Not for production use. Similar to the list keys operation, this requires traversing all keys stored in the cluster and should not be used in production._
+# 
+GET /riak?buckets=true       # Old format
+GET /buckets?buckets=true    # New format
+
+# ## Request
+# Required query parameter:
+# 
+# * **buckets=true** - required to invoke the list-buckets functionality
+# 
+$ curl -i http://localhost:8098/riak?buckets=true
+
+# ## Response
+# 
+# Normal status codes:
+#
+# * 200 OK
+# 
+# Important headers:
+#
+# * Content-Type - application/json
+# 
+# The JSON object in the response will contain a single entry, "buckets", which will be an array of bucket names.
+#
+HTTP/1.1 200 OK
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+Link: </riak/files>; rel="contained"
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: application/json
+Content-Length: 21
+
+{"buckets":["files"]}
+
+
+# # List Keys
+# Lists keys in a bucket.
+#
+# _Not for production use. This operation requires traversing all keys stored in the cluster and should not be used in production._
+GET /riak/bucket?keys=true            # List all keys, old format
+GET /buckets/bucket/keys?keys=true    # List all keys, new format
+GET /riak/bucket?keys=stream          # Stream keys to the client, old format
+GET /buckets/bucket/keys?keys=stream  # Stream keys to the client, new format
+
+# ## Request
+# Required query parameters:
+# 
+# * `keys` - defaults to `false`. When set to `true` all keys will be returned in a single payload.  When set to `stream`, keys will be returned in chunked-encoding.
+# 
+# Optional query parameters:
+# 
+# * `props` - defaults to `true`, which will also return [[bucket properties|HTTP-Get-Bucket-Properties]] in the response. Set to `false` to suppress properties in the response.
+# 
+$ curl -i http://localhost:8098/riak/jsconf?keys=true\&props=false
+
+# ## Response
+# 
+# Normal response codes:
+# 
+# * `200 OK`
+# 
+# Important headers:
+# 
+# * `Content-Type` - `application/json`
+# * `Transfer-Encoding` - `chunked` when the `keys` query parameter is set to `stream`.
+# 
+# The JSON object in the response will contain up to two entries, `"props"` and `"keys"` which are present or missing according to the query parameters.  If `keys=stream` in the query parameters, multiple JSON objects in chunked-encoding will be returned containing `"keys"` entries.
+# 
+HTTP/1.1 200 OK
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+Link: </riak/jsconf/challenge.jpg>; riaktag="contained",
+</riak/jsconf/puddi.png>; riaktag="contained", </riak/jsconf/basho.gif>;
+riaktag="contained", </riak/jsconf/puddikid.jpg>; riaktag="contained",
+</riak/jsconf/yay.png>; riaktag="contained", </riak/jsconf/thinking.png>;
+riaktag="contained", </riak/jsconf/victory.gif>; riaktag="contained",
+</riak/jsconf/slides>; riaktag="contained", </riak/jsconf/joyent.png>;
+riaktag="contained", </riak/jsconf/seancribbs-small.jpg>; riaktag="contained",
+</riak/jsconf/trollface.jpg>; riaktag="contained",
+</riak/jsconf/riak_logo_animated1.gif>; riaktag="contained",
+</riak/jsconf/victory.jpg>; riaktag="contained", </riak/jsconf/challenge.png>;
+riaktag="contained", </riak/jsconf/team_cribbs.png>; riaktag="contained"
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: application/json
+Content-Length: 239
+
+{"keys":["challenge.jpg","puddi.png","basho.gif","puddikid.jpg","yay.png","
+thinking.png","victory.gif","slides","joyent.png","seancribbs-small.jpg","
+trollface.jpg","riak_logo_animated1.gif","victory.jpg","challenge.png","
+team_cribbs.png"]}
+
+
+
+# # Get Bucket Properties
+# Reads the bucket properties.
+# 
+GET /riak/bucket                # Old format
+GET /buckets/bucket/props       # New format
+
+# ## Request
+# 
+# Optional query parameters (only valid for the old format):
+# 
+# * `props` - whether to return the bucket properties (`true` is the default)
+# * `keys` - whether to return the keys stored in the bucket. (`false` is the default). See also [[HTTP List Keys]].
+# 
+$ curl -v http://127.0.0.1:8098/riak/test
+
+# ## Response
+# 
+# Normal status codes:
+# 
+# * `200 OK`
+# 
+# Important headers:
+# 
+# * `Content-Type` - `application/json`
+# 
+# The JSON object in the response will contain up to two entries, `"props"` and `"keys"`, which are present or missing, according to the optional query parameters.  The default is for only `"props"` to be present.
+# 
+# See [[HTTP Set Bucket Properties]] for more information about the available bucket properties.
+# 
+* About to connect() to 127.0.0.1 port 8098 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
+> GET /riak/test HTTP/1.1
+> User-Agent: curl/7.19.7 libcurl/7.19.7 zlib/1.2.3
+> Host: 127.0.0.1:8098
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Vary: Accept-Encoding
+< Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+< Date: Fri, 30 Sep 2011 15:24:35 GMT
+< Content-Type: application/json
+< Content-Length: 368
+<
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+{"props":{"name":"test","n_val":3,"allow_mult":false,"last_write_wins":false,"
+precommit":[],"postcommit":[],"chash_keyfun":{"mod":"riak_core_util","fun":"
+chash_std_keyfun"},"linkfun":{"mod":"riak_kv_wm_link_walker","fun":"
+mapreduce_linkfun"},"old_vclock":86400,"young_vclock":20,"big_vclock":50,"
+small_vclock":10,"r":"quorum","w":"quorum","dw":"quorum","rw":"quorum"}}
+
+
+
+# # Fetch Object
+# Reads an object from the specified bucket / key.
+#
+GET /riak/bucket/key            # Old format
+GET /buckets/bucket/keys/key    # New format
+
+# ### Important headers:
+#
+# * `Accept` - When `multipart/mixed` is the preferred content-type, objects with siblings will return all siblings in single request. See [[Get all siblings in one request|HTTP Fetch Object#Get all siblings in one request]] example. See also RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]].
+#
+# ### Optional headers:
+#
+# * `If-None-Match` and `If-Modified-Since` invoke conditional request semantics, matching on the `ETag` and `Last-Modified` of the object, respectively.  If the object fails one of the tests (that is, if the ETag is equal or the object is unmodified since the supplied timestamp), Riak will return a `304 Not Modified` response. See also RFC 2616 - [[304 Not Modified|http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5]].
+#
+# ### Optional query parameters:
+#
+# * `r` - (read quorum) how many replicas need to agree when retrieving the object ([[default is defined by the bucket|HTTP Set Bucket Properties]])
+# * `pr` - how many primary replicas need to be online when doing the read ([[default is defined by the bucket|HTTP Set Bucket Properties]])
+# * `basic_quorum` - whether to return early in some failure cases (eg. when r=1 and you get 2 errors and a success `basic_quorum=true` would return an error) ([[default is defined by the bucket|HTTP Set Bucket Properties]])
+# * `notfound_ok` - whether to treat notfounds as successful reads for the purposes of R ([[default is defined by the bucket|HTTP Set Bucket Properties]])
+# * `vtag` - when accessing an object with siblings, which sibling to retrieve. Scroll down to the [[Manually requesting siblings|HTTP Fetch Object#Manually requesting siblings]] example for more information.
+
+# ## Request
+#
+$ curl -v http://127.0.0.1:8098/riak/test/doc2
+
+# ## Response
+#
+# ### Normal response codes:
+# 
+# * `200 OK`
+# * `300 Multiple Choices`
+# * `304 Not Modified` (when using conditional request semantics)
+# 
+# ### Typical error codes:
+# 
+# * `400 Bad Request` - e.g. when r parameter is invalid (> N)
+# * `404 Not Found` - the object could not be found on enough partitions
+# * `503 Service Unavailable` - the request timed out internally
+# 
+# ### Important headers:
+# 
+# * `Content-Type` - the media type/format
+# * `X-Riak-Vclock` - the opaque vector clock for the object
+# * `X-Riak-Meta-*` - any user-defined metadata defined when storing the object
+# * `ETag` - the entity tag for the object, useful for conditional GET operations and validation-based caching
+# * `Last-Modified` - a timestamp for when the object was last written, in HTTP datetime format
+# * `Link` - user- and system-defined links to other resources. [[Read more about Links|Links]].
+# 
+# The body of the response will be the contents of the object except when siblings are present.
+#
+* About to connect() to 127.0.0.1 port 8098 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
+> GET /riak/test/doc2 HTTP/1.1
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+> Host: 127.0.0.1:8098
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< X-Riak-Vclock: a85hYGBgzGDKBVIsbLvm1WYwJTLmsTLcjeE5ypcFAA==
+< Vary: Accept-Encoding
+< Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+< Link: </riak/test>; rel="up"
+< Last-Modified: Wed, 10 Mar 2010 18:11:41 GMT
+< ETag: 6dQBm9oYA1mxRSH0e96l5W
+< Date: Fri, 30 Sep 2011 15:24:35 GMT
+< Content-Type: application/json
+< Content-Length: 13
+<
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+{"foo":"bar"}
+
+# ### Manually requesting siblings
+# 
+# When `allow_mult` is set to true in the bucket properties, concurrent updates are allowed to create "sibling" objects, meaning that the object has any number of different values that are related to one another by the vector clock.  This allows your application to use its own conflict resolution technique.
+# 
+# An object with multiple sibling values will result in a `300 Multiple Choices` response.  If the `Accept` header prefers `multipart/mixed`, all siblings will be returned in a single request as sections of the `multipart/mixed` response body.  Otherwise, a list of "vtags" will be given in a simple text format. You can request individual siblings by adding the `vtag` query parameter. Scroll down to the 'manually requesting siblings' example below for more information.
+# 
+# To resolve the conflict, store the resolved version with the `X-Riak-Vclock` given in the response.
+# 
+# 
+$ curl -v http://127.0.0.1:8098/riak/test/doc
+* About to connect() to 127.0.0.1 port 8098 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
+> GET /riak/test/doc HTTP/1.1
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+> Host: 127.0.0.1:8098
+> Accept: */*
+>
+< HTTP/1.1 300 Multiple Choices
+< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+3pt5HlsgCAA==
+< Vary: Accept, Accept-Encoding
+< Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+< Date: Fri, 30 Sep 2011 15:24:35 GMT
+< Content-Type: text/plain
+< Content-Length: 102
+<
+Siblings:
+16vic4eU9ny46o4KPiDz1f
+4v5xOg4bVwUYZdMkqf0d6I
+6nr5tDTmhxnwuAFJDd2s6G
+6zRSZFUJlHXZ15o9CG0BYl
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+
+# ### Request a single sibling
+# Use `vtag` that matches one of the siblings above
+# 
+$ curl -v http://127.0.0.1:8098/riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f
+* About to connect() to 127.0.0.1 port 8098 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
+> GET /riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f HTTP/1.1
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+> Host: 127.0.0.1:8098
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+3pt5HlsgCAA==
+< Vary: Accept-Encoding
+< Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+< Link: </riak/test>; rel="up"
+< Last-Modified: Wed, 10 Mar 2010 18:01:06 GMT
+< ETag: 16vic4eU9ny46o4KPiDz1f
+< Date: Fri, 30 Sep 2011 15:24:35 GMT
+< Content-Type: application/x-www-form-urlencoded
+< Content-Length: 13
+<
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+{"bar":"baz"}
+
+# ### Get all sibling values in one request
+# Signal that you want the entire multipart message by passing in this header: `Accept: multipart/mixed`
+# 
+$ curl -v http://127.0.0.1:8098/riak/test/doc -H "Accept: multipart/mixed"
+* About to connect() to 127.0.0.1 port 8098 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
+> GET /riak/test/doc HTTP/1.1
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+> Host: 127.0.0.1:8098
+> Accept: multipart/mixed
+>
+< HTTP/1.1 300 Multiple Choices
+< X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf
+0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE
+3pt5HlsgCAA==
+< Vary: Accept, Accept-Encoding
+< Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+< Date: Fri, 30 Sep 2011 15:24:35 GMT
+< Content-Type: multipart/mixed; boundary=YinLMzyUR9feB17okMytgKsylvh
+< Content-Length: 766
+<
+
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/x-www-form-urlencoded
+Link: </riak/test>; rel="up"
+Etag: 16vic4eU9ny46o4KPiDz1f
+Last-Modified: Wed, 10 Mar 2010 18:01:06 GMT
+
+{"bar":"baz"}
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: </riak/test>; rel="up"
+Etag: 4v5xOg4bVwUYZdMkqf0d6I
+Last-Modified: Wed, 10 Mar 2010 18:00:04 GMT
+
+{"bar":"baz"}
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: </riak/test>; rel="up"
+Etag: 6nr5tDTmhxnwuAFJDd2s6G
+Last-Modified: Wed, 10 Mar 2010 17:58:08 GMT
+
+{"bar":"baz"}
+--YinLMzyUR9feB17okMytgKsylvh
+Content-Type: application/json
+Link: </riak/test>; rel="up"
+Etag: 6zRSZFUJlHXZ15o9CG0BYl
+Last-Modified: Wed, 10 Mar 2010 17:55:03 GMT
+
+{"foo":"bar"}
+--YinLMzyUR9feB17okMytgKsylvh--
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+
+
+# # Delete Object
+# Deletes an object from the specified bucket / key.
+# 
+DELETE /riak/bucket/key           # Old format
+DELETE /buckets/bucket/keys/key   # New format
+
+# ## Request
+# Optional query parameters:
+# 
+# * `rw` - quorum for both operations (get and put) involved in deleting an object (default is set at the bucket level)
+# * `r` - (read quorum) how many replicas need to agree when retrieving the object
+# * `pr` - (primary read quorum) works like `r` but requires that the nodes read from are not fallback nodes
+# * `w` - (write quorum) how many replicas to write to before returning a successful responseå
+# * `dw` - (durable write quorum) how many replicas to commit to durable storage before returning a successful response
+# * `pw` - (primary write quorum) how many replicas to commit to primary nodes before returning a successful response
+# 
+$ curl -v -X DELETE http://127.0.0.1:8098/riak/test/test2
+
+# ## Response
+# Normal response codes:
+#
+# * `204 No Content`
+# * `404 Not Found`
+# 
+# Typical error codes:
+# 
+# * `400 Bad Request` - e.g. when rw parameter is invalid (> N)
+# 
+# `404` responses are "normal" in the sense that DELETE operations are idempotent and not finding the resource has the same effect as deleting it.
+# 
+# <div class="note"><div class="title">Client ID</div>
+# <p>All requests to Riak &lt;1.0 or Riak 1.0 without `vnode_vclocks` enabled
+# should include the `X-Riak-ClientId` header, which can be any string that
+# uniquely identifies the client, for purposes of tracing object modifications in
+# the [[vector clock|Vector Clocks]].</p>
+# </div>
+# 
+# 
+* About to connect() to 127.0.0.1 port 8098 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
+> DELETE /riak/test/test2 HTTP/1.1
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+> Host: 127.0.0.1:8098
+> Accept: */*
+>
+< HTTP/1.1 204 No Content
+< Vary: Accept-Encoding
+< Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+< Date: Fri, 30 Sep 2011 15:24:35 GMT
+< Content-Type: application/json
+< Content-Length: 0
+<
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+
+
+
+# # Link Walking
+# Link walking (traversal) finds and returns objects by following links attached to them, starting from the object specified by the bucket and key portion.  It is a special case of [[MapReduce]], and can be expressed more verbosely as such. [[Read more about Links|Links]].
+#
+GET /riak/bucket/key/[bucket],[tag],[keep]            # Old format
+GET /buckets/bucket/keys/key/[bucket],[tag],[keep]    # New format
+
+# ## Request
+#
+# ### Link filters
+# A link filter within the request URL is made of three parts, separated by commas:
+#
+# * Bucket - a bucket name to limit the links to
+# * Tag - a "riaktag" to limit the links to
+# * Keep - 0 or 1, whether to return results from this phase
+#
+# Any of the three parts may be replaced with `_` (underscore), signifying that any value is valid. Multiple phases of links can be followed by adding additional path segments to the URL, separating the link filters by slashes. The final phase in the link-walking query implicitly returns its results.
+#
+$ curl -v http://127.0.0.1:8098/riak/test/doc3/test,_,1/_,next,1
+
+# ## Response
+# 
+# Normal status codes:
+# 
+# * `200 OK`
+# 
+# Typical error codes:
+# 
+# * `400 Bad Request` - if the format of the query in the URL is invalid
+# * `404 Not Found` - if the origin object of the walk was missing
+# 
+# Important headers:
+# 
+# * `Content-Type` - always `multipart/mixed`, with a boundary specified
+# 
+# ### Understanding the response body
+# The response body will always be `multipart/mixed`, with each chunk representing a single phase of the link-walking query. Each phase will also be encoded in `multipart/mixed`, with each chunk representing a single object that was found. If no objects were found or "keep" was not set on the phase, no chunks will be present in that phase.  Objects inside phase results will include `Location` headers that can be used to determine bucket and key. In fact, you can treat each object-chunk similarly to a complete response from [[fetching the object|HTTP Fetch Object]], without the status code.
+#
+#
+* About to connect() to 127.0.0.1 port 8098 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
+> GET /riak/test/doc3/test,_,1/_,next,1 HTTP/1.1
+> User-Agent: curl/7.19.4 libcurl/7.19.4 zlib/1.2.3
+> Host: 127.0.0.1:8098
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+< Expires: Wed, 10 Mar 2010 20:24:49 GMT
+< Date: Fri, 30 Sep 2011 15:24:35 GMT
+< Content-Type: multipart/mixed; boundary=JZi8W8pB0Z3nO3odw11GUB4LQCN
+< Content-Length: 970
+<
+
+--JZi8W8pB0Z3nO3odw11GUB4LQCN
+Content-Type: multipart/mixed; boundary=OjZ8Km9J5vbsmxtcn1p48J91cJP
+
+--OjZ8Km9J5vbsmxtcn1p48J91cJP
+X-Riak-Vclock: a85hYGDgymDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0c
+IszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3p
+t7HlGBhnqejARXmq0QyZnnxE6jwVJBwFgA=
+Location: /riak/test/doc
+Content-Type: application/json
+Link: </riak/test>; rel="up", </riak/test/doc2>; riaktag="next"
+Etag: 3pvmY35coyWPxh8mh4uBQC
+Last-Modified: Wed, 10 Mar 2010 20:14:13 GMT
+
+{"riak":"CAP"}
+--OjZ8Km9J5vbsmxtcn1p48J91cJP--
+
+--JZi8W8pB0Z3nO3odw11GUB4LQCN
+Content-Type: multipart/mixed; boundary=RJKFlAs9PrdBNfd74HANycvbA8C
+
+--RJKFlAs9PrdBNfd74HANycvbA8C
+X-Riak-Vclock: a85hYGBgzGDKBVIsbLvm1WYwJTLmsTLcjeE5ypcFAA==
+Location: /riak/test/doc2
+Content-Type: application/json
+Link: </riak/test>; rel="up"
+Etag: 6dQBm9oYA1mxRSH0e96l5W
+Last-Modified: Wed, 10 Mar 2010 18:11:41 GMT
+
+{"foo":"bar"}
+--RJKFlAs9PrdBNfd74HANycvbA8C--
+
+--JZi8W8pB0Z3nO3odw11GUB4LQCN--
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+
+
+
+# # List Resources
+# List available HTTP resources for the Riak node. This can be used by clients to 
+# automatically recognize the location of the resources for specific operations.
+# 
+GET /
+
+# ## Request
+# 
+# Headers:
+# 
+# * `Accept` - `application/json` or `text/html`
+# 
+$ curl -i http://localhost:8098 -H "Accept: application/json"
+
+# ## Response
+# 
+# Normal status codes:
+# 
+# * `200 OK`
+# 
+# Important headers:
+# 
+# * `Link` - all resources that are described in the response body, but in Link form
+# 
+# The standard resources are:
+# 
+# * `riak_kv_wm_buckets` - [[Bucket Operations|HTTP API#Bucket Operations]]
+# * `riak_kv_wm_index` - [[HTTP Secondary Indexes]]
+# * `riak_kv_wm_link_walker` - [[HTTP Link Walking]]
+# * `riak_kv_wm_mapred` - [[HTTP MapReduce]]
+# * `riak_kv_wm_object`- [[Object/Key Operations|HTTP API#Object/Key Operations]]
+# * `riak_kv_wm_ping` - [[HTTP Ping]]
+# * `riak_kv_wm_props` - [[HTTP Set Bucket Properties]]
+# * `riak_kv_wm_stats` - [[HTTP Status]]
+# 
+# If Search is enabled, the following resources will also be included:
+# 
+# * `riak_solr_searcher_wm` - [[Solr search|Riak Search - Querying#Querying via the Solr Interface]]
+# * `riak_solr_indexer_wm` - [[Solr indexing|Riak Search - Indexing#Indexing using the Solr Interface]]
+HTTP/1.1 200 OK
+Vary: Accept
+Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>;
+rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>;
+rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: application/json
+Content-Length: 143
+
+{"riak_kv_wm_link_walker":"/riak","riak_kv_wm_mapred":"/mapred",
+"riak_kv_wm_ping":"/ping","riak_kv_wm_raw":"/riak","riak_kv_wm_stats":"/stats"}
+
+# ### Request an HTML response
+curl -i http://localhost:8098 -H "Accept: text/html"
+
+# ### HTML Response
+HTTP/1.1 200 OK
+Vary: Accept
+Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
+Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>;
+rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>;
+rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
+Date: Fri, 30 Sep 2011 15:24:35 GMT
+Content-Type: text/html
+Content-Length: 267
+
+<html><body><ul><li><a href="/riak">riak_kv_wm_link_walker</a></li>
+<li><a href="/mapred">riak_kv_wm_mapred</a></li>
+<li><a href="/ping">riak_kv_wm_ping</a></li>
+<li><a href="/riak">riak_kv_wm_raw</a></li>
+<li><a href="/stats">riak_kv_wm_stats</a></li>
+</ul></body></html>
