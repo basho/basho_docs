@@ -89,7 +89,7 @@ This is largely relevant only if you are writing JavaScript M/R jobs.
     {js_max_vm_mem, 8},
 ```
 
-`js_thread_stack` is the maximum amount of thread stack, in megabyes,
+`js_thread_stack` is the maximum amount of thread stack, in megabytes,
 allocated to the Javascript VMs. If unset, the default is 16MB.
 
 _**Note**: This is not the same as the C thread stack._
