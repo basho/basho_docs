@@ -20,7 +20,7 @@ keywords: [release-notes]
 ---
         END
         body = `curl "https://raw.github.com#{release_notes_path}" 2>/dev/null`
-        File.open("./source/#{project}/references/Release-Notes.md", 'w') do |file|
+        File.open("./source/languages/en/#{project}/references/Release-Notes.md", 'w') do |file|
           file << header
           file << body
         end

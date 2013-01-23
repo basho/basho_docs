@@ -1,3 +1,4 @@
+require 'versionomy'
 require 'coderay'
 require 'cgi'
 
@@ -92,31 +93,43 @@ module SitemapRenderOverride
       link_data = $sitemap_pages[format_name(link_name)] || {}
       # heuristic that an unfound url, is probably not a link
       link_url = link_data[:url]
-      link_project = link_data[:project] || 'riak'
       if link_url.blank? && link_name !~ /^([.]?\/|https?\:)/
         "[[#{link_label}]]"
       else
         # no html inside of the link or label
         link_label.gsub!(/\<[^\>]+\>/u, '_')
         link_url ||= link_name
-        # link_url = '/index.html' if $versions[:riak].present? && link_url =~ /\/riak[^\/\-]*?\-index\//
         link_url += '#' + anchor unless anchor.blank?
         link_url.gsub!(/\<[^\>]+\>/u, '_')
+        link_project = link_data[:project] || $default_project
         "<a href=\"#{link_url}\" class=\"#{link_project}\">#{link_label}</a>"
       end
     end
   end
 
   def strip_versions!(data)
-    project = (metadata[:page]["project"] || 'riak').to_sym
+    project = (metadata[:page]["project"] || $default_project).to_sym
     if version_str = $versions[project]
       version = Versionomy.parse(version_str)
 
       # if it's a different version, remove the entire block
-      data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/([^\}]+)\}\}/m) do
+      data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/(\1)\}\}/m) do
         liversion, block = $1, $2
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
-        in_version_range?(liversion, version) ? block : ''
+        if in_version_range?(liversion, version)
+          # nested version block
+          block.gsub(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/(\1)\}\}/m) do
+            liversion2, block2 = $1, $2
+            liversion2 = liversion2.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
+            if in_version_range?(liversion2, version)
+              block2
+            else
+              ''
+            end
+          end
+        else
+          ''
+        end
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
@@ -167,7 +180,7 @@ module SitemapRenderOverride
         "<a href=\"/#{$1}/latest/\">"
       # /riak*/version/ links should be relative, unless they cross projects
       elsif href =~ /^\/(riak[^\/]*?)\/[\d\.]+\/$/
-        if ($1 || 'riak').to_sym == project
+        if ($1 || $default_project).to_sym == project
           url = prepend_dir_depth('', depth_to_root)
           "<a #{anchor.gsub(href, url)}>"
         else
@@ -182,7 +195,7 @@ module SitemapRenderOverride
         classes = extract_classes(anchor)
 
         # HACK hardcoding projects
-        link_project = (%w{riak riakcs riakee}.find{|proj| classes.include?(proj)} || 'riak').to_sym
+        link_project = (%w{riak riakcs riakee}.find{|proj| classes.include?(proj)} || $default_project).to_sym
 
         # make it absolute if outside this project, otherwise relative
         if link_project != project
@@ -246,8 +259,10 @@ module SitemapRenderOverride
     strip_versions!(data)
     localize_links!(data)
     colorize_code!(data)
-
-    data
+  rescue => e
+    $stderr.puts e
+  ensure
+    return data
   end
 end
 

@@ -1,0 +1,49 @@
+---
+title: Riak CS FAQs
+project: riakcs
+version: 1.2+
+document: cookbook
+audience: beginner
+keywords: [faq]
+---
+
+Q: Riak CS とは何ですか？
+A:
+  Riak CS とはパブリックおよびプライベート向けの [マルチテナント](http://en.wikipedia.org/wiki/Multitenancy) なクラウドストレージ ソフトウェアです。Riak CS は Basho の分散型データベースである [[Riak]] で構築された、シンプル、アベイラブル、どんなスケールにも対応する分散型クラウドストレージ用にデザインされた商用ソフトウェアです。Riak CS は S3-API 互換で、テナントごとに課金情報や利用量のレポートもサポートしています。
+
+Q: ユーザはデータを共用できますか？
+A:
+  デフォルトではデータはプライベートになっています。ユーザは ACL (Access Control Lists) を操作して、バケットやオブジェクトのアクセス権を他のユーザや、非承認の者に分け与えることができます。
+
+  詳細については [[Access Control Lists]] のドキュメントを参照してください。
+
+Q: Riak CS のバケットが格納されているファイルシステムを指定することができますか？
+A: Riak のバックエンド設定を指定のファイルシステムに変更することで、**すべての** Riak CS バケットの場所を変更することができます。こういうことをやりたいのであれば、環境に合わせて Riak を設定することができます。
+
+  Riak の `app.config` の [[Configuring Riak]] セクションのバックエンド定義の例をご覧いただくと、次のようになっています:
+
+  ```erlang
+  {add_paths, ["/usr/lib/riak-cs/lib/riak_moss-X.Y.Z/ebin"]},
+  {storage_backend, riak_cs_kv_multi_backend},
+  {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
+  {multi_backend_default, be_default},
+  {multi_backend, [
+    {be_default, riak_kv_eleveldb_backend, [
+      {max_open_files, 50},
+        {data_root, "/var/lib/riak/leveldb"}
+    ]},
+      {be_blocks, riak_kv_bitcask_backend, [
+        {data_root, "/var/lib/riak/bitcask"}
+    ]}
+  ]},
+  ```
+
+  変更すべき箇所は 2 箇所の `data_root` の値で、
+  上記の例では `/var/lib/riak` を使用したいファイルシステムのパスに置き換えます。
+  これは Riak を使い始める前に行うべきだということに気をつけてください。
+  もしも Riak を使い始めた後で、これを行いたいときは、
+  既存のデータを手動で新しい場所に移動しておかなければ、
+  失われてしまいます。
+
+  これによって全てのバケットのデータの場所を変更できます。
+  現時点では、Riak CS はバケットごとに特定のファイルシステムへ格納するという機能はサポートしていません。

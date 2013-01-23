@@ -2,7 +2,19 @@
 
 This repo holds all the content (and other bits) for the most-excellent [Riak Docs](http://docs.basho.com), home of documentation for Riak, Riak CS, and Riak Enterprise.  This document tells you how to contribute to the docs (please do!), and deploy them, should you have our secret key.
 
+## Prerequisites
+
 We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generator, to generate [Riak Docs](http://docs.basho.com).  
+
+Another tool used with this repository is rvm. Get it here https://rvm.io/
+
+### OSX 
+
+On OS-X specifically, as with any Ruby project, XCode & the XCode CLI Tools are needed to install, make and install everything smoothly.
+
+![XCode CLI Tooling](http://adronhall.smugmug.com/Software/Software-Development/Basho-Misc/i-xPGs6Tf/1/S/cli-S.jpg)
+
+If you don't have XCode, you can also download the [OSC GCC Installer](https://github.com/kennethreitz/osx-gcc-installer), which gives you the essential compilers needed to build the docs.
 
 ## How to Contribute 
 
@@ -17,7 +29,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 
 2.	Install middleman
 
-	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch 							the middleman API.  
+	Navigate to the /basho_docs directory and execute the following instructions.  This should install middleman and launch the middleman API.  
 
 	```
 	gem install bundler
@@ -40,7 +52,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 5.	Review your changes locally 
 
 	```
-	RIAK_VERSION=1.2.0 middleman
+	middleman
 	```
 
 6.	Send us a pull request
@@ -54,6 +66,16 @@ If it's a small or obvious change, we're likely to merge it right away.  If we h
 All documents and resources (like images, css/scss, javascript/coffeescript) live under the `source` directory.
 
 Since part of the goal of this rewrite is to be more deliberate about the type of documents we produce, docs are separated into directories according to their types. A document should either be a fully realized "reference", or a "guide" (thumb through [A Short Guide to Writing Guides](https://github.com/basho/internal_wiki/wiki/A-Short-Guide-to-Writing-Guides) for more on this idea). Further distinction can then be placed under subdirectories. `references` contains `apis`, `appendices`; `guides` contains `tutorials`, `cookbooks`.
+
+### Languages
+
+Set the language you wish to generate the docs in. Default is `en`. To alter your document language, you can set an env var like this:
+
+```
+export RIAK_DOCS_LANG=jp
+```
+
+_All docs live under `source/languages/en` or `source/languages/jp`. You should never generally need to touch any other directories._
 
 ### Wiki Links
 
@@ -188,14 +210,6 @@ thin start -p 4567
 
 _(or `bundle exec thin start -p 4567`)_
 
-To have MiddleMan auto-build on each save, we use the Watchr gem. It will auto-build on each save in the source directory:
-
-```
-watchr ./Watchrfile
-```
-
-_(or `bundle exec watchr ./Watchrfile`)_
-
 ## Deploying to S3
 
 Before deployment you must specify an env var with Basho's S3 access/secret key. You also must specify the S3 bucket we're deploying to, and the cloudfront id (the CDN we must invalidate to force a publication to be found).
@@ -207,14 +221,15 @@ export AWS_ACCESS_KEY_ID="XXXXX"
 export AWS_SECRET_ACCESS_KEY="XXXXX"
 export AWS_S3_BUCKET='riakdocs.en'
 export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
+export RIAK_DOCS_LANG=en
 ```
 
 _The bucket and Cloudfront values are per language._
 
-language | bucket      | cloudfront id
----------|-------------|---------------
-English  | riakdocs.en | E2Q6TQ5O0XT58T
-Japanese | riakdocs.jp | ENDQVZ5Y7OVJN
+language | bucket      | cloudfront id  | docs lang
+---------|-------------|----------------|----------
+English  | riakdocs.en | E2Q6TQ5O0XT58T | en
+Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
 
 
 **Keep it secret. Keep it safe.**

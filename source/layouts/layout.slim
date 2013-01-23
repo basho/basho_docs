@@ -11,8 +11,8 @@ head(class=data.page.document)
   meta charset="utf-8"
   meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
   meta name="viewport" content="width=device-width"
-  meta name="project" content=(data.page.project || 'riak')
-  meta name="version" content=current_version
+  meta name="project" content=(data.page.project || $default_project)
+  meta name="version" content=current_version(data.page.project || $default_project)
   meta name="version-range" content=(data.page.version || '0.0.0+')
   meta name="base-url" content==current_page.url
   title== data.page.title || "Riak Documents"
@@ -20,7 +20,7 @@ head(class=data.page.document)
   == stylesheet_link_tag "all"
   == javascript_include_tag "all"
   == javascript_include_tag "standalone/version-bar"
-- classnames = [(data.page.project || 'riak')]
+- classnames = [(data.page.project || $default_project)]
 - classnames << 'dual' if data.page.dual
 body class=classnames.join(' ') id=data.page.body_id
   == partial "layouts/primary"
@@ -31,25 +31,33 @@ body class=classnames.join(' ') id=data.page.body_id
       - unless !data.page.title || data.page.simple
         header
           h1== data.page.title
-      - if !data.page.simple && !data.page.versions || data.page.versions
+      - if data.page.versions.nil? || data.page.versions
         == partial "layouts/versions"
       - unless data.page.simple
         == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
         - if data.page.project == 'riakcs'
           .info
-            .title Riak CS Only
-            | To try out Riak CS, sign up for a <a href="http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html">developer trial</a>.
+            .title== I18n.t(:"riak_cs.info.title")
+            == I18n.t(:"riak_cs.info.body")
 
         - if data.page.project == 'riakee'
           .info
-            .title Riak Enterprise Only
-            | This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise, <a href="http://info.basho.com/Wiki_Contact.html">let us know</a>.
+            .title== I18n.t(:"riak_ee.info.title")
+            == I18n.t(:"riak_ee.info.body")
 
         - unless data.page.toc == false
           nav#toc
-            h2.title Contents
+            h2.title== I18n.t(:toc_contents)
             div#toc-wrapper
               ol#toc-items
+
+        - if data.page.download.present?
+          aside#download-button
+            a href="/downloads/##{data.page.download['key']}"
+              span.content
+                span.title riak
+                span.subtitle Download #{current_version('riak')} for #{data.page.download['name']}
+
       == yield
       == partial "layouts/tutorial_nav"
       div.clear

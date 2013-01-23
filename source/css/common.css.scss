@@ -200,10 +200,15 @@ body {
     padding  : 25px 0;
     position : absolute;
     margin   : 25px -25px 0;
-    
+    text-shadow : #333 1px 1px 1px;
+    line-height : 1.2;
     a {
       color:white;
-      font-size:80%;
+      text-decoration:none;
+      &[href^="http://"], &[href^="https://"] {
+        background:none;
+        padding-right: 0;
+      }
     }
 
     @media screen and (max-width: 700px) {
@@ -543,6 +548,13 @@ div[role="main"] {
     a {
       color : $headerColor;
     }
+
+  @media screen and (max-width: 700px) {
+    a {
+      white-space : normal;
+    }
+  }
+
   }
   
   h2 {
@@ -651,8 +663,7 @@ div[role="main"] {
       .logo {
         margin-top : 5px;
         @include size(200px, 33px);
-        // Deprecated behavior, but what other options do we have?
-        @include layout-sprite(logo2);
+        background: url(../images/layout/logo2.png)
       }
     }
     
@@ -705,43 +716,19 @@ div[role="main"] {
         }
       }
 
-      input {
-        @include allCorners(15px);
-        @include transition(width 0.3s ease);
-        border      : 1px solid silver;
-        padding     : 2px 12px;
-        background  : url('../images/layout/small-search-icon.png') right 3px no-repeat #FFF;
-        font-weight : normal;
-        font-family : 'titillium', verdana, arial, sans-serif;
-        color       : #24514A;
-        width       : 5em;
+      input[type="search"] {
         position    : absolute;
         top         : 0;
         right       : -3px;
-        
-        &::-webkit-input-placeholder,
-        &::-moz-placeholder,
-        &::-ms-input-placeholder,
-        &::input-placeholder {
-          color : #24514A;
-        }
-        
-        &:focus {
-          width   : 10em;
-          outline : none;
-        }
-
-        &:hover {
-          color      : #24514A;
-        }
       }
-      
+
       @media screen and (max-width: 700px) {
         display : none;
       }
     }
     
   }
+
   
   .info, .note {
     @extend .serif-italic;
@@ -825,15 +812,50 @@ div[role="main"] {
     }
     
     ul {
-      margin     : 5px 0 15px 0;
+      margin     : 5px 0 10px 0;
       list-style : square;
       padding    : 0 0 0 2em;
     }
     
+    .suggestions ul {
+      -webkit-column-count: 2;
+      -webkit-column-gap: 20px;
+      -webkit-column-width: 15em;
+      -moz-column-count: 2;
+      -moz-column-gap: 20px;
+      -moz-column-width: 15em;
+      column-count: 2;
+      column-gap: 20px;
+      column-width: 15em;
+      padding-top: 0.5em;
+      li {
+        list-style-type: square;
+        // padding-left : 1em;
+        line-height:1.1;
+        margin-bottom: 0.5em;
+        a {
+          white-space:normal;
+        }
+      }
+    }
+
     a {
       color : lighten($linkBlue, 20%);
       &:hover {
         color : lighten($orange, 5%);
+      }
+    }
+
+    .keywords {
+      //font-style:italic;
+      border-top:1px solid #3C3C3C;
+      padding-top:0.8em;
+      h4 {
+        font-weight:normal;
+        display:inline;
+        padding-right:0.5em;
+        font-size:90%;
+        text-shadow: 0 1px 1px black;
       }
     }
   }
@@ -1090,6 +1112,15 @@ div[role=main] {
     margin-bottom : 20px;
   }
   
+  .info {
+    .code {
+      background:none;
+      @include boxShadow(inset 0 1px 4px #5A7772);
+      margin-top : 10px;
+      margin-bottom : 10px;
+    }
+  }
+
   table.links {
     width:100%;
     td:first-child {
@@ -1158,4 +1189,45 @@ article {
   .right-sidebar nav.tutorial {
     margin : 0;
   }
+}
+
+
+#top-nav input[type="search"],
+#search-404
+{
+  @include allCorners(15px);
+  @include transition(width 0.3s ease);
+  border      : 1px solid silver;
+  padding     : 2px 12px;
+  background  : url('../images/layout/small-search-icon.png') right 3px no-repeat #FFF;
+  font-weight : normal;
+  font-family : 'titillium', verdana, arial, sans-serif;
+  color       : #24514A;
+  width       : 5em;
+  
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &::-ms-input-placeholder,
+  &::input-placeholder {
+    color : #24514A;
+  }
+  
+  &:focus {
+    width   : 10em;
+    outline : none;
+  }
+
+  &:hover {
+    color      : #24514A;
+  }
+}
+#search-404 {
+  width : 20em;
+  &:focus {
+    width : 20em;
+  }
+}
+
+.breadcrumbs {
+  display:none;
 }

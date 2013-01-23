@@ -1,17 +1,17 @@
 - if data.page.prev.present? || data.page.up.present? || data.page.next.present?
   nav.tutorial
     h4
-      | Tutorial Nav
+      == I18n.t(:tutorial_nav)
       - if data.page.up.present?
         | :&nbsp;
         span.up
-          ==link_to data.page.up.first, data.page.up.last
+          == data.page.up
     ul
       - if data.page.prev.present?
         li.prev
-          span.label Prev 
-          ==link_to data.page.prev.first, data.page.prev.last
+          span.label== I18n.t(:previous) 
+          == data.page.prev
       - if data.page.next.present?
         li.next
-          span.label Next 
-          ==link_to data.page.next.first, data.page.next.last
+          span.label == I18n.t(:next) 
+          == data.page.next
