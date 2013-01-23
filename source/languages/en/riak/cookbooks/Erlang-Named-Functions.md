@@ -98,6 +98,9 @@ and loaded. For our example, we'll use a temporary directory `/tmp/beams`,
 but you should choose a directory for production functions based on your
 own requirements such that they will be available where and when needed.
 
+<div class="info">Ensure that the directory chosen above can be read by
+the <tt>riak</tt> user.</div>
+
 Successful compilation will result in a new `.beam` file,
 `validate_json.beam`. Copy this file to the `/tmp/beams` directory.
 
@@ -125,7 +128,7 @@ that you do so in a rolling fashion, taking time to ensure that the Riak key
 value store has fully initialized and become available for use.
 
 This is done with the `riak-admin wait-for-service` command as detailed
-in the [Commands documentation](http://docs.basho.com/riak/latest/references/Command-Line-Tools---riak-admin/#wait-for-service).
+in the [[Commands documentation|Command-Line-Tools---riak-admin#wait-for-service]].
 
 <div class="note">It is important that you ensure riak_kv is
 active before restarting the next node.</div>
@@ -243,6 +246,9 @@ and loaded. For our example, we'll use a temporary directory `/tmp/beams`,
 but you should choose a directory for production functions based on your
 own requirements such that they will be available where and when needed.
 
+<div class="info">Ensure that the directory chosen above can be read by
+the <tt>riak</tt> user.</div>
+
 Successful compilation will result in a new `.beam` file:
 `log_object.beam`. Copy this file to the `/tmp/beams` directory.
 
@@ -271,7 +277,7 @@ that you do so in a rolling fashion, taking time to ensure that the Riak key
 value store has fully initialized and become available for use.
 
 This is done with the `riak-admin wait-for-service` command as detailed
-in the [Commands documentation](http://docs.basho.com/riak/latest/references/Command-Line-Tools---riak-admin/#wait-for-service).
+in the [[Commands documentation|Command-Line-Tools---riak-admin#wait-for-service]].
 
 <div class="note">It is important that you ensure riak_kv is
 active before restarting the next node.</div>
@@ -377,7 +383,7 @@ Here is our example MapReduce function:
 
 -export([get_keys/3]).
 
-%Returns bucket and key pairs from a map phase
+% Returns bucket and key pairs from a map phase
 get_keys(Value,_Keydata,_Arg) ->
   [{riak_object:bucket(Value),riak_object:key(Value)}].
 ```
@@ -404,8 +410,11 @@ modules. For our example, we'll use a temporary directory (`/tmp/beams`),
 but you should choose a different directory for production functions
 such that they will be available where needed.
 
+<div class="info">Ensure that the directory chosen above can be read by
+the <tt>riak</tt> user.</div>
+
 Successful compilation will result in a new `.beam` file:
-`validate_json.beam`. Copy this file to the `/tmp/beams` directory.
+`mr_example.beam`. Copy this file to the `/tmp/beams` directory.
 
 ```bash
 cp mr_example.beam /tmp/beams/
@@ -431,7 +440,7 @@ that you do so in a rolling fashion, taking time to ensure that the Riak key
 value store has fully initialized and become available for use.
 
 This is done with the `riak-admin wait-for-service` command as detailed
-in the [[[Commands documentation|Command-Line-Tools---riak-admin#wait-for-service]].
+in the [[Commands documentation|Command-Line-Tools---riak-admin#wait-for-service]].
 
 <div class="note">It is important that you ensure riak_kv is
 active before restarting the next node.</div>
