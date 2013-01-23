@@ -120,7 +120,7 @@ If you use a solution not listed here with Riak and would like to include it (or
 * [[Riak Control]]
 * [collectd](http://collectd.org)
 * [Ganglia](http://ganglia.info)
-* [Nagio](http://www.nagios.org)
+* [Nagios](http://www.nagios.org)
 * [Riemann](http://aphyr.github.com/riemann/)
 * [Riemann Github](https://github.com/aphyr/riemann)
 * [OpenTSDB](http://opentsdb.net)

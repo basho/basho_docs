@@ -25,24 +25,78 @@ The following steps are known to work with Mac OS X 10.5 and 10.6. You can insta
 ## From Precompiled Tarballs
 To run Riak from our precompiled tarball, run these commands for the appropriate platform:
 
+{{#1.0.3}}
 ### 64-bit
+
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3-osx-x86_64.tar.gz
+tar xzvf riak-1.0.3-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3-osx-i386.tar.gz
+tar xzvf riak-1.0.3-osx-i386.tar.gz
+```
+
+{{/1.0.3}}
+{{#1.1.4}}
+
+### 64-bit
+
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4-osx-x86_64.tar.gz
+tar xzvf riak-1.1.4-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4-osx-i386.tar.gz
+tar xzvf riak-1.1.4-osx-i386.tar.gz
+```
+
+{{/1.1.4}}
+{{#1.2.0}}
+
+### 64-bit
+
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/osx/10.4/riak-1.2.0-osx-x86_64.tar.gz
+tar xzvf riak-1.2.0-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/osx/10.4/riak-1.2.0-osx-i386.tar.gz
+tar xzvf riak-1.2.0-osx-i386.tar.gz
+```
+
+{{/1.2.0}}
+{{#1.2.1}}
+
+### 64-bit
+
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/osx/10.4/riak-1.2.1-osx-x86_64.tar.gz
 tar xzvf riak-1.2.1-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
+
 ```bash
 curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/osx/10.4/riak-1.2.1-osx-i386.tar.gz
 tar xzvf riak-1.2.1-osx-i386.tar.gz
 ```
 
+{{/1.2.1}}
+
 After the release is untared you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
 
-### 32-bit
-Only a 64-bit binary is available at this time.
-
 ## Homebrew
+
 <div class="note">Homebrew's Riak recipe is community supported, and thus is not always up to date with the latest Riak package. Please ensure that the current recipe is using the latest supported code (and don't be scared to update if it's not).</div>
 
 Installing with Homebrew is easy:
@@ -64,12 +118,46 @@ If you do not have Erlang already installed, see [[Installing Erlang]]. Don't wo
 
 Next, download and unpack the source distribution.
 
+{{#1.0.3}}
+
 ```bash
-curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3.tar.gz
+tar zxvf riak-1.0.3.tar.gz
+cd riak-1.0.3
+make rel
+```
+
+{{/1.0.3}}
+{{#1.1.4}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4.tar.gz
+tar zxvf riak-1.1.4.tar.gz
+cd riak-1.1.4
+make rel
+```
+
+{{/1.1.4}}
+{{#1.2.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/riak-1.2.0.tar.gz
+tar zxvf riak-1.2.0.tar.gz
+cd riak-1.2.0
+make rel
+```
+
+{{/1.2.0}}
+{{#1.2.1}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
 tar zxvf riak-1.2.1.tar.gz
 cd riak-1.2.1
 make rel
 ```
+
+{{/1.2.1}}
 
 If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher - 64bit, everything else - 32bit).
 

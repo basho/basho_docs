@@ -254,6 +254,7 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * `node_get_fsm_siblings_100`: 100th percentile of siblings encountered during all GET operations by this node within the last minute
 
 {{#1.2.0+}}
+
 ### Pipeline Metrics
 
 The following metrics from from riak_pipe are generated during MapReduce operations.
@@ -263,5 +264,5 @@ The following metrics from from riak_pipe are generated during MapReduce operati
 * `pipeline_create_error_count` The total number of pipeline creation errors since the node was started
 * `pipeline_create_error_one` The number of pipelines created in the last 60 seconds
 * `pipeline_create_one` The number of pipeline creation errors in the last 60 seconds
-{{/1.2.0+}}
 
+{{/1.2.0+}}
