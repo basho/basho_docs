@@ -60,7 +60,6 @@ set :markdown, :fenced_code_blocks => true,
 
 use Rack::Middleman::VersionRouter
 
-activate :release_notes
 activate :faqml
 activate :versionify
 activate :i18n, :langs => [I18n.locale]
@@ -81,6 +80,7 @@ configure :build do
   # populate the downloads_gen data file
   if $production
     begin
+      activate :release_notes
       puts "== Populating Downloads Details"
       Downloads.pull_data('riak', $versions[:riak])
     rescue

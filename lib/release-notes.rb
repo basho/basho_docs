@@ -4,10 +4,10 @@ module ReleaseNotes
     def registered(app)
       version = "1.2"
       paths = {
-        'riak' => "/basho/riak/1.2/RELEASE-NOTES.md"
+        'riak' => "/basho/riak/#{version}/RELEASE-NOTES.md"
       }
       for project, release_notes_path in paths
-        puts "#{project} release notes from #{release_notes_path}"
+        puts "== #{project} release notes from #{release_notes_path}"
         header = <<-END
 ---
 title: Riak Release Notes
