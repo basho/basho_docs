@@ -254,29 +254,15 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * `node_get_fsm_siblings_100`: 100th percentile of siblings encountered during all GET operations by this node within the last minute
 
 {{#1.2.0+}}
-### Riak Search Statistics
 
-The following statistics related to Riak Search message queues are available.
+### Pipeline Metrics
 
-- `riak_search_vnodeq_max`: Maximum number of unprocessed messages all
-  virtual node (vnode) message queues in the Riak Search subsystem have
-  received on this node in the last minute
-- `riak_search_vnodeq_mean`: Mean number of unprocessed messages all
-  vnode message queues in the Riak Search subsystem have received on this
-  node in the last minute
-- `riak_search_vnodeq_median`: Median number of unprocessed messages all
-  vnode message queues in the Riak Search subsystem have received on this
-  node in the last minute
-- `riak_search_vnodeq_min`: Minimum number of unprocessed messages all
-  vnode message queues in the Riak Search subsystem have received on this
-  node in the last minute
-- `riak_search_vnodeq_total`: Total number of unprocessed messages all
-  vnode message queues in the Riak Search subsystem have received on this
-  node since it was started
-- `riak_search_vnodes_running`: Total number of vnodes currently running
-  in the Riak Search subsystem
+The following metrics from from riak_pipe are generated during MapReduce operations.
 
-Note that under ideal operation and with the exception of
-`riak_search_vnodes_running` these statistics should contain low values
-(e.g., 0-10). Presence of higher values could be indicative of an issue.
+* `pipeline_active` The number of pipelines active in the last 60 seconds
+* `pipeline_create_count` The total number of pipelines created since the node was started
+* `pipeline_create_error_count` The total number of pipeline creation errors since the node was started
+* `pipeline_create_error_one` The number of pipelines created in the last 60 seconds
+* `pipeline_create_one` The number of pipeline creation errors in the last 60 seconds
+
 {{/1.2.0+}}

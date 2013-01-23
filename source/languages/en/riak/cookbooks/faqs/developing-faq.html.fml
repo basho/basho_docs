@@ -364,6 +364,16 @@ Q: Is it possible to delete data from Riak with a JavaScript MapReduce job?
 A:
   It is not currently possible. If you want to delete objects from MapReduce, use an Erlang reduce phase like the one on [contrib.basho.com](http://contrib.basho.com).
 
+Q: Why does Map/Reduce return a JSON object on occasion instead of an Array?
+A:
+  `mochijson2` has an assumption that anything that looks like a proplist (a list of 2-tuples) gets turned into a hash:
+
+  ```erlang
+  list_to_binary(mochijson2:encode([{a , b}, {foo, bar}])).
+  <<"{\"a\":\"b\",\"foo\":\"bar\"}">>
+  ```
+
+  JSON has no "tuple" notion -- a workaround for the time being would be to use a list of length-2 lists.
 
 <h2>Search</h2>
 
