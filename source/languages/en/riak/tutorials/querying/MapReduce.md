@@ -99,3 +99,8 @@ The output is the key of each  object, followed by the count of the word  "pizza
 ### Recap   
 
 We use the 'training' bucket as the input data; we run a Javascript MapReduce function; the function takes each riakObject that exists in the 'training' bucket and searches the text for the  word  "pizza"; 'm' is the result of the  search, which includes zero or more results that matches for "pizza";" the function returns the key of the riakObject and the number of matches.
+
+## Further Reading
+
+* [[MapReduce Implementation]] - details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details.
+* [[Key Filters]] - Key filters are a way to pre-process MapReduce inputs from a full bucket query simply by examining the key.
