@@ -177,6 +177,8 @@ Transfers resulting from cluster changes: 51
   13 transfers from 'riak@192.168.2.2' to 'riak@192.168.2.6'
 ```
 
+If the plan is to your liking, submit the changes by typing `riak-admin cluster commit`.
+
 The Node Join Process
 ---------------------
 
