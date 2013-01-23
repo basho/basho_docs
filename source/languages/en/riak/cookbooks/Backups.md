@@ -126,6 +126,7 @@ node is is a simple process.
 3. Start the node and verify proper operation with `riak ping`,
    `riak-admin status`, and other methods you use to check node health.
 
+{{#1.2.0-}}
 If any node names have been changed (that is, the *-name* argument in the
 `vm.args` configuration file for any node is different than the backup being
 restored to that node), then all nodes will need to be updated using the
@@ -149,6 +150,46 @@ riak-admin reip riak@riak3.example.com riak@riak103.example.com
 riak-admin reip riak@riak4.example.com riak@riak104.example.com
 riak-admin reip riak@riak5.example.com riak@riak105.example.com
 ```
+{{/1.2.0-}}
+
+{{#1.2.0+}}
+If any node names have been changed (that is, the *-name* argument in the
+`vm.args` configuration file for any node is different than the backup being
+restored to that node), then you will need to addtionally:
+
+1. Mark the original instance down in the cluster using 
+`[[riak-admin down <node>|Command-Line-Tools---riak-admin#down]]`
+2. Join the restored node to the cluster using 
+`[[riak-admin cluster join <node>|Command-Line-Tools---riak-admin#cluster-join]]`
+3. Replace the original instance with the renamed instance with 
+`[[riak-admin cluster force-replace <node1> <node2>|Command-Line-Tools---riak-admin#cluster-force-replace]]`
+4. Plan the changes to the cluster with 
+`riak-admin cluster plan`
+5. Finally, commit the cluster changes with 
+`riak-admin cluster commit`
+
+<div class="info">For more information about the `riak-admin cluster` commands,
+refer to the [[cluster section of "Command Line Tools - riak-admin"|Command Line Tools - riak-admin#cluster]].</div>
+
+For example, if there are five nodes in the cluster with the original node
+names *riak1.example.com* through *riak5.example.com* and you wish to restore
+*riak1.example.com* as *riak6.example.com*, you would execute the following
+commands on *riak6.example.com*:
+
+
+```bash
+# Join to any existing, cluster node
+riak-admin cluster join riak@riak2.example.com
+# Mark the old instance down
+riak-admin down riak@riak1.example.com
+# Force-replace the original instance with the new one
+riak-admin cluster force-replace riak@riak1.example.com riak@riak6.example.com
+# Display and review the cluster change plan
+riak-admin cluster plan
+# Commit the changes to the cluster.
+riak-admin cluster commit
+```
+{{/1.2.0+}}
 
 The *-name* setting in the `vm.args` configuration file should also be changed
 to match the new name in additon to running the commands. If the IP address of
@@ -162,8 +203,10 @@ hostnames stay the same. Additonally, if the HTTP and PB interface settings are
 configured to bind to all IP interfaces (0.0.0.0), then no changes will need to
 be made to the *app.config* file.
 
-It is recommended when performing restore operations involving `riak-admin
-reip` to start only one node at a time, and verify that each node that is
+It is recommended when performing restore operations involving 
+{{#1.2.0-}}`riak-admin reip`{{/1.2.0-}}
+{{#1.2.0+}}`riak-admin cluster force-replace`{{/1.2.0+}} 
+to start only one node at a time, and verify that each node that is
 started has the correct name for itself and any other nodes whose names have
 changed.
 
