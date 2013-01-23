@@ -24,6 +24,9 @@ included with every installation of Riak. The `status` subcommand
 provides data related to current operating status for a node. The output
 of `riak-admin status` is categorized and detailed below.
 
+Please note, for some counters such as node_get_fsm_objsize a minimum of 
+5 transactions is required for statistics to be generated.
+
 ### One-minute
 
 One-minute Counters are data points delineating the number of times a
