@@ -420,7 +420,7 @@ MapReduce phase functions have the same properties, arguments and return values 
   1. *Value* : the value found at a key.  This will be a Riak object, which
     in Erlang is defined and manipulated by the *riak_object* module.
     In Javascript, a Riak object looks like this:
-    
+
     ```
     {
      "bucket":BucketAsString,
@@ -430,7 +430,7 @@ MapReduce phase functions have the same properties, arguments and return values 
                {
                 "metadata":{
                             "X-Riak-VTag":VtagAsString,
-                            "X-riak-Last-Modified":LastModAsString,
+                            "X-Riak-Last-Modified":LastModAsString,
                             "Links":[...List of link objects],
                             ...other metadata...
                            },
