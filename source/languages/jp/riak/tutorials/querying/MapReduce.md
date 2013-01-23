@@ -98,5 +98,5 @@ We use the 'training' bucket as the input data; we run a Javascript MapReduce fu
 
 ## Further Reading
 
-[[MapReduce Implementation]] - details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details.
-[[Key Filters]] - Key filters are a way to pre-process MapReduce inputs from a full bucket query simply by examining the key. 
+* [[MapReduce Implementation]] - details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details.
+* [[Key Filters]] - Key filters are a way to pre-process MapReduce inputs from a full bucket query simply by examining the key. 
