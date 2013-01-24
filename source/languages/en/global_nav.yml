@@ -99,6 +99,7 @@ riak:
         sub:
           - "[[Basic Cluster Setup]]"
           - "[[Adding and Removing Nodes]]"
+          - "[[Renaming Nodes]]"
           - "[[Replacing a Node]]"
           - "[[Backups]]"
           - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
