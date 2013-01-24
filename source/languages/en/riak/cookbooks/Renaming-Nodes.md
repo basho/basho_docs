@@ -60,6 +60,11 @@ Stop Riak on `node1.localdomain`:
 
 ```
 riak stop
+```
+
+The output should look like this:
+
+```
 Attempting to restart script through sudo -H -u riak
 ok
 ```
@@ -68,6 +73,11 @@ ok
 
 ```
 riak-admin down riak@10.1.42.11
+```
+
+Successfully marking the node down should produce output like this:
+
+```
 Attempting to restart script through sudo -H -u riak
 Success: "riak@10.1.42.11" marked as down
 ```
@@ -101,6 +111,9 @@ as follows:
 5. Join the node back into the cluster.
 
         riak-admin cluster join riak@10.1.42.12
+
+     Successful staging of the join request should have output like this:
+
         Attempting to restart script through sudo -H -u riak
         Success: staged join request for 'riak@192.168.17.11' to 'riak@10.1.42.12'
 
@@ -108,12 +121,18 @@ as follows:
    from `riak@10.1.42.11` to `riak@192.168.17.11`:
 
         riak-admin cluster force-replace riak@10.1.42.11 riak@192.168.17.11
+
+     Successful force replacement staging output looks like this:
+
         Attempting to restart script through sudo -H -u riak
         Success: staged forced replacement of 'riak@10.1.42.11' with 'riak@192.168.17.11'
 
 7. Review the new changes with `riak-admin cluster plan:`
 
         riak-admin cluster plan
+
+     Example output:
+
         Attempting to restart script through sudo -H -u riak
         =========================== Staged Changes ============================
         Action         Nodes(s)
@@ -147,6 +166,9 @@ as follows:
 8. Commit the new changes to the cluster with `riak-admin cluster commit`:
 
         riak-admin cluster commit
+
+     Output from the command should resemble this example:
+
         Attempting to restart script through sudo -H -u riak
         Cluster changes committed
 
@@ -154,6 +176,9 @@ as follows:
    as expected:
 
         riak-admin member-status
+
+     Output should resemble this example:
+
         Attempting to restart script through sudo -H -u riak
         ============================= Membership ==============================
         Status     Ring    Pending    Node
@@ -173,16 +198,21 @@ as follows:
     have been successfully completed.
 
 <a id="repeat"></a>
-### Repeat previous steps on each node(id:repeat)
+### Repeat previous steps on each node
 
 Repeat the steps above for each of the the remaining nodes in the cluster.
 
-Use **`riak@192.168.17.11`** as the target node for further
+Use *riak@192.168.17.11* as the target node for further
 `riak-admin cluster join` commands issued from subsequently reconfigured
 nodes to join those nodes to the cluster.
 
 ```
 riak-admin cluster join riak@192.168.17.11
+```
+
+A successful join request staging produces output similar to this example:
+
+```
 Attempting to restart script through sudo -H -u riak
 Success: staged join request for 'riak@192.168.17.12' to 'riak@192.168.17.11'
 ```
