@@ -67,11 +67,26 @@ If you're looking for assistance getting a meetup or user group started in your 
 
 Here's a list of the current Meetups:
 
-* [[San Francisco Riak Meetup|http://www.meetup.com/San-Francisco-Riak-Meetup/]]
-* [[New York City Riak Meetup|http://www.meetup.com/NYC-Riak-Meetup/]]
-* [[Los Angeles Riak Meetup|http://www.meetup.com/Los-Angeles-Riak-Meetup/]]
-* [[Leeds Riak Meetup|http://www.meetup.com/Leeds-Riak/]]
-* [[London Riak Meetup|http://www.meetup.com/riak-london/]]
+* [[San Francisco|http://www.meetup.com/San-Francisco-Riak-Meetup/]]
+* [[New York|http://www.meetup.com/NYC-Riak-Meetup]]
+* [[Los Angeles|http://www.meetup.com/Los-Angeles-Riak-Meetup/]]
+* [[London|http://www.meetup.com/riak-london/]]
+* [[Boston|http://www.meetup.com/Boston-Riak]]
+* [[Silicon Valley|http://www.meetup.com/Silicon-Valley-Riak]]
+* [[Stockholm|http://www.meetup.com/Stockholm-Riak-and-NoSQL-Meetup-Group/]]
+* [[Washington, DC|http://www.meetup.com/Riak-DC/]]
+* [[Philadelphia|http://www.meetup.com/Philly-Riak-Meetup/]]
+* [[Chicago|http://www.meetup.com/Chicago-Riak-Meetup]]
+* [[Portland, OR|http://www.meetup.com/Portland-Riak]]
+* [[Leeds|http://www.meetup.com/Leeds-Riak/]]
+* [[Paris|http://www.meetup.com/Paris-Riak-Meetup/]]
+* [[Manchester, UK|http://www.meetup.com/riak-manchester/]]
+* [[Dublin|http://www.meetup.com/Dublin-Riak/]]
+* [[Amsterdam|http://www.meetup.com/Amsterdam-Riak/]]
+* [[Brazil|http://www.meetup.com/Riak-Brazil]]
+* [[Munich|http://www.meetup.com/Riak-Munchen]]
+* [[Stockholm|http://www.meetup.com/Stockholm-Riak-and-NoSQL-Meetup-Group/]]
+
 
 ## Community Processes
 
