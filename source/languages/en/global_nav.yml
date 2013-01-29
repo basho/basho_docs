@@ -213,8 +213,6 @@ riakee:
       - "[[Architecture (New)|Multi Data Center Replication Architecture New]]"
       - "[[Configuration (New)|Multi Data Center Replication Configuration New]]"
       - "[[Operations (New)|Multi Data Center Replication Operations New]]"
-
-
   - title: "Operating RiakEDS"
     sub:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
