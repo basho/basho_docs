@@ -33,7 +33,7 @@ The cluster manager is a Riak EE service that provides information regarding nod
 
 ### Fullsync Coordinator
 
-In fullsync replication, a node on the source cluster is elected to be the *fullsync coordinator*. This node is responsible for starting and stopping replication to the sink cluster. It will also communicates with the sink cluster to exchange key lists, and ultimately transfer data across a TCP connection. If a fullsync coordinator is terminated as the result of an error, it will automatically restart on the current node. In the node becomes unresponsive, then a leader election will take place within 5 seconds to select a new node from the cluster to become the coordinator.
+In fullsync replication, a node on the source cluster is elected to be the *fullsync coordinator*. This node is responsible for starting and stopping replication to the sink cluster. It also communicates with the sink cluster to exchange key lists, and ultimately transfer data across a TCP connection. If a fullsync coordinator is terminated as the result of an error, it will automatically restart on the current node. In the node becomes unresponsive, then a leader election will take place within 5 seconds to select a new node from the cluster to become the coordinator. In the event of a coordinator restart, a fullsync will have to restart.
 
 
 ## Full-Sync Replication

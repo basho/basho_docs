@@ -58,7 +58,7 @@ Example:
 The `max_fssource_node` limits the number of fullsync workers that will be running on each individual node in a source cluster.  This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. This value defaults to 2. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
 
   * *Value:* number of nodes in source cluster [integer]
-  * *Default:* 2
+  * *Default:* 1
   * *Available:* Riak Enterprise 1.3
 
 
@@ -71,20 +71,13 @@ Example:
 The `max_fssink_node` limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for all fullsync sources interacting with the sink cluster. Thus, multiple simultaneous source connections to the sink cluster will have to share the sink node’s number of maximum connections. This value defaults to 2. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 
   * *Value:* number of nodes in sink cluster [integer]
-  * *Default:* 2
+  * *Default:* 1
   * *Available:* Riak Enterprise 1.3
 
 
 Example: 
 
 	{max_fssink_node, 2}
-
-**fullsync_on_connect**  
-Whether to initiate a fullsync on initial connection from the secondary cluster.
-
-  * *Value:* true | false
-  * *Default:* true
-  * *Available:* Riak Enterprise (All)
 
 **fullsync_on_connect**  
 Whether to initiate a fullsync on initial connection from the secondary cluster.
@@ -180,7 +173,7 @@ The size of the replication queue in bytes before the replication leader will dr
   * *Available:* Riak Enterprise (All)
 
 **server_max_pending**  
-The maximum number of objects the leader will wait to get an acknowledgement from the remote location before queuing the request.
+The maximum number of objects the leader will wait to get an acknowledgement from the remote realtime replication sink before queuing the request.
 
   * *Value:* number of objects [integer]
   * *Default:* 5

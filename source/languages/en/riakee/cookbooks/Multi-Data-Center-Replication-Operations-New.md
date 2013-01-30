@@ -113,7 +113,7 @@ By default, a fullsync will start as soon as a connection is established to the 
 
 Starts or stops a fullsync. 
 
-If the application configuration `fullsync_on_connect` is set to false, a fullsync needs to be started manually.  This is also used to periodically fullsync using a cron job.  While a fullsync is in progress, a start command is ignored; a message is printed.
+If the application configuration `fullsync_on_connect` is set to false, a fullsync needs to be started manually.  This is also used to periodically fullsync using a cron job.  While a fullsync is in progress, a start command is ignored; a message is logged.
 
 * *Syntax* `riak-repl fullsync start <sink_clustername>`
 * *Syntax* `riak-repl fullsync stop <sink_clustername>`
@@ -131,7 +131,7 @@ The `max_fssource_node` limits the number of fullsync workers that will be runni
 Example: 
 
 * *Syntax* `riak-repl fullsync max_fssource_node <value>`
-* *Default* 2
+* *Default* 1
 
 * *Example* `riak-repl fullsync max_fssource_node 2`
 
@@ -153,7 +153,7 @@ The ‘max_fssink_node’ limits the number of fullsync workers allowed to run o
 
 
 * *Syntax* `riak-repl fullsync max_fssink_cluster <value>`
-* *Default* 2
+* *Default* 1
 
 * *Example* `riak-repl fullsync max_fssink_cluster 5`
 
