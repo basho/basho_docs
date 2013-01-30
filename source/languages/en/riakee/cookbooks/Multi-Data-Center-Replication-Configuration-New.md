@@ -55,7 +55,7 @@ Example:
 
 **max_fssource_node**
 
-The `max_fssource_node` limits the number of fullsync workers that will be running on each individual node in a source cluster.  This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. This value defaults to 2. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
+The `max_fssource_node` limits the number of fullsync workers that will be running on each individual node in a source cluster.  This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. This value defaults to 1. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
 
   * *Value:* number of nodes in source cluster [integer]
   * *Default:* 1
@@ -68,7 +68,7 @@ Example:
 
 **max_fssink_node**
 
-The `max_fssink_node` limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for all fullsync sources interacting with the sink cluster. Thus, multiple simultaneous source connections to the sink cluster will have to share the sink node’s number of maximum connections. This value defaults to 2. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
+The `max_fssink_node` limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for all fullsync sources interacting with the sink cluster. Thus, multiple simultaneous source connections to the sink cluster will have to share the sink node’s number of maximum connections. This value defaults to 1. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 
   * *Value:* number of nodes in sink cluster [integer]
   * *Default:* 1
