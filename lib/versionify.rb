@@ -19,8 +19,8 @@ module Rack::Middleman
     end
 
     def alter_route(env, var)
-      unless env[var] =~ /\/(riak[^\/]*?\/[\d\.]+)\/?(index\.html)?$/
-        env[var] = env[var].sub(/\/(?:riak[^\/]*?|shared)\/[\d\.]+/, '') if env.include?(var)
+      unless env[var] =~ /\/(riak[^\/]*?\/[\d\.rc]+)\/?(index\.html)?$/
+        env[var] = env[var].sub(/\/(?:riak[^\/]*?|shared)\/[\d\.rc]+/, '') if env.include?(var)
       else
         env[var] = "/#{$1}/index.html"
       end
@@ -50,7 +50,7 @@ module VersionifyPaths
     def manipulate_resource_list(resources)
       resources.each do |resource|
         path = resource.destination_path
-        next if path =~ /^riak[^\/]*\/[\d\.]+\/index\.html/
+        next if path =~ /^riak[^\/]*\/[\d\.rc]+\/index\.html/
         resource.destination_path = path.sub(/^(riak[^\/]*)\//, '')
       end
     end
@@ -134,7 +134,7 @@ module VersionDirs
             # if we don't include the latest, delete this
             next if include_latest?(project)
           # project root files should also copy to latest
-          elsif f =~ /\/riak[^\/]*?\/[\d\.]+\/index\.html?$/
+          elsif f =~ /\/riak[^\/]*?\/[\d\.rc]+\/index\.html?$/
             if include_latest?(project)
               copy(f, change_version_to_latest(f))
             end

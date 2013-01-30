@@ -5,7 +5,7 @@ puts "RIAK_DOCS_LANG=#{LANGUAGE}"
 I18n.locale = I18n.default_locale = LANGUAGE
 I18n.load_path = Dir[File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', LANGUAGE.to_s, "#{LANGUAGE.to_s}.yml"))]
 
-if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.]+/
+if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.rc]+/
   versions = YAML::load(File.open('data/versions.yml'))
   for proj, vs in versions['currents']
     proj = proj.upcase
