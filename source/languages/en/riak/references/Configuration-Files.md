@@ -168,12 +168,7 @@ You can override the default SSL key and certificate settings (default: etc/cert
 * **wants_claim_fun**
 {Module, Function} that returns boolean - true if this node wants to claim more vnodes.
 
-{{#1.3.0+}}
-
-* **enable_health_checks**
-`true` or `false`. `true` if all health checks should be enabled.
-
-{{/1.3.0+}}
+* **enable_health_checks** `true` or `false`. `true` if all health checks should be enabled. {{1.3.0+}}
 
 ### riak_kv settings
 
