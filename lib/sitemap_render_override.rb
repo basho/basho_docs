@@ -110,6 +110,8 @@ module SitemapRenderOverride
   def strip_versions!(data)
     project = (metadata[:page]["project"] || $default_project).to_sym
     if version_str = $versions[project]
+      # Ignore rcX if this is a pre-release
+      version_str = version_str.sub(/rc\d+/i, '')
       version = Versionomy.parse(version_str)
 
       # if it's a different version, remove the entire block
