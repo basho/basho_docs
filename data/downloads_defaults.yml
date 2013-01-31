@@ -53,6 +53,13 @@ riak:
               name: "10.4+ 32 Bit"
             x86_64:
               name: "10.4+ 64 Bit"
+        "10.6":
+          name: "OS X"
+          arch:
+            i386:
+              name: "10.6+ 32 Bit"
+            x86_64:
+              name: "10.6+ 64 Bit"
     rhel:
       name: "Red Hat Enterprise"
       icon: "redhat.png"
@@ -80,6 +87,12 @@ riak:
               name: "x86 64"
             src:
               name: "Source"
+        "17":
+          arch:
+            x86_64:
+              name: "x86 64"
+            src:
+              name: "Source"
     smartos:
       name: "SmartOS"
       icon: "smartos.png"
@@ -89,6 +102,14 @@ riak:
           arch:
             i386:
               name: "11"
+        "1.6":
+          arch:
+            i386:
+              name: "1.6"
+        "1.8":
+          arch:
+            i386:
+              name: "1.8"
     solaris:
       name: "Solaris"
       icon: "solaris.png"

@@ -27,6 +27,7 @@ p If your OS is unlisted, you may download the [[source|Downloads#source]] at th
   table
     - for osv, osv_data in os_data["versions"]
       - for arch, arch_data in osv_data["arch"]
+        - next unless arch_data['file']
         tr
           - unless os_data['simple']
             td.arch==arch_data['name']

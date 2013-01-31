@@ -136,7 +136,7 @@ module SitemapRenderOverride
       data.gsub!(/(\<li(?:\s[^\>]*?)?\>.*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
-        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?[\+\-]?$/
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-rc]+?[\+\-]?$/
           in_version_range?(liversion, version) ? startli + endli : ''
         else
           startli + endli
@@ -176,10 +176,10 @@ module SitemapRenderOverride
       end
 
       # force the root page to point to the latest projcets
-      if $production && project == :root && href =~ /^\/(riak[^\/]*?)\/[\d\.]+\/$/
+      if $production && project == :root && href =~ /^\/(riak[^\/]*?)\/[\d\.rc]+\/$/
         "<a href=\"/#{$1}/latest/\">"
       # /riak*/version/ links should be relative, unless they cross projects
-      elsif href =~ /^\/(riak[^\/]*?)\/[\d\.]+\/$/
+      elsif href =~ /^\/(riak[^\/]*?)\/[\d\.rc]+\/$/
         if ($1 || $default_project).to_sym == project
           url = prepend_dir_depth('', depth_to_root)
           "<a #{anchor.gsub(href, url)}>"
