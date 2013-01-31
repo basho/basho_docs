@@ -168,6 +168,7 @@ You can override the default SSL key and certificate settings (default: etc/cert
 * **wants_claim_fun**
 {Module, Function} that returns boolean - true if this node wants to claim more vnodes.
 
+* **enable_health_checks** `true` or `false`. `true` if all health checks should be enabled. {{1.3.0+}}
 
 ### riak_kv settings
 
@@ -271,6 +272,7 @@ Riak Search is now enabled via the `app.config`. To enable it in your app, simpl
  * **vnode_mr_timeout**
 How long a map function is permitted to execute on a vnode before it times out and is retried on another vnode, in milliseconds. (default: `1000`)
 
+ * **vnode_mailbox_limit** `{EnableThreshold, DisableThreshold}` - configures the riak_kv health check that monitors message queue lengths of riak_kv vnodes. If a KV vnode's message queue length reaches `DisableThreshold` the `riak_kv` service is disabled on the node. The service will not be re-enabled until the message queue length drops below `EnableThreshold`. {{1.3.0+}}
 
 ### webmachine_logger_module
 This needs to be set in order to enable access logs.
