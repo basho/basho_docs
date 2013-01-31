@@ -124,6 +124,7 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Ripple-PHP|https://github.com/KevBurnsJr/ripple-php]] - A port of Ripple to PHP
 * [[riiak|https://bitbucket.org/intel352/riiak]] - A Riak PHP client library for the [[Yii Framework|http://www.yiiframework.com/]]
 * [[riak-php|https://github.com/marksteele/riak-php]] - A Riak PHP with support for Protocol Buffers
+* [[RiakBundle|https://github.com/remialvado/RiakBundle]] - [[Symfony|http://symfony.com]] Bundle designed to ease interaction with Riak
 
 *Play* 
 
