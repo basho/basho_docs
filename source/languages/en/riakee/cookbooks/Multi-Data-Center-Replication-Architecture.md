@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Architecture"
+title: "Multi Data Center Replication: Architecture (Legacy)"
 project: riakee
 version: 1.0.0+
 document: cookbook
