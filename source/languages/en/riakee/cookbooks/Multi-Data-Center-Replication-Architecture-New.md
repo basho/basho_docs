@@ -10,7 +10,7 @@ keywords: [mdc, repl, bnw]
 
 ## How Riak EE 1.3 Replication Works
 
-In multi-datacenter replication, one cluster acts as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). If the datacenter with the source cluster goes down, a sink cluster can take over as the primary cluster. In this sense, Riak's multi-datacenter capabilities are "masterless." 
+In multi-datacenter replication, one cluster acts as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). If the datacenter with the source cluster goes down, a sink cluster can take over as the primary cluster. In this sense, Riak's multi-datacenter capabilities are "masterless". 
 
 In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between source and sink cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Full-sync can be performed upon initial connection of a sink cluster. 
 
@@ -33,7 +33,7 @@ The cluster manager is a Riak EE service that provides information regarding nod
 
 ### Fullsync Coordinator
 
-In fullsync replication, a node on the source cluster is elected to be the *fullsync coordinator*. This node is responsible for starting and stopping replication to the sink cluster. It will also communicates with the sink cluster to exchange key lists, and ultimately transfer data across a TCP connection. If a fullsync coordinator is terminated as the result of an error, it will automatically restart on the current node. In the node becomes unresponsive, then a leader election will take place within 5 seconds to select a new node from the cluster to become the coordinator.
+In fullsync replication, a node on the source cluster is elected to be the *fullsync coordinator*. This node is responsible for starting and stopping replication to the sink cluster. It also communicates with the sink cluster to exchange key lists, and ultimately transfer data across a TCP connection. If a fullsync coordinator is terminated as the result of an error, it will automatically restart on the current node. In the node becomes unresponsive, then a leader election will take place within 5 seconds to select a new node from the cluster to become the coordinator. In the event of a coordinator restart, a fullsync will have to restart.
 
 
 ## Full-Sync Replication
