@@ -12,7 +12,7 @@ A:
   There are several ways to submit a piece of code to the core Basho Team:
   
   * Basho hosts its code on [[GitHub|http://github.com/basho]]. Sending us a pull request for one of these repos is our preferred method to receive code contributions and fixes.
-  * You can send a patch as an attachment to the [[Riak Mailing List|http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com]]. Be sure to include any additional information we'll need to asses and integrate your code.
+  * You can send a patch as an attachment to the [[Riak Mailing List|http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com]]. Be sure to include any additional information we'll need to assess and integrate your code.
 
 Q: What happens after my code is submitted?
 A:
