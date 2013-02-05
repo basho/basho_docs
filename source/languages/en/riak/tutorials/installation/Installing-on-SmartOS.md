@@ -16,6 +16,7 @@ download:
 The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>. They demonstrate installation of a Riak node on SmartOS as the root user.
 
 ## Open Files Limit
+
 Before proceeding with installation, you should ensure that the system's open files limit meets or exceeds the recommended minimum of **4096**. Check the current limits to verify this:
 
 ```bash
@@ -35,7 +36,8 @@ set rlim_fd_max=65536
 ```
 
 ## Download and Install
-First, download the latest version of the Riak binary package for SmartOS:
+
+First, download the latest version of the Riak binary package for SmartOS{{#1.3.0}} *(below we install on SmartOS version 1.6, for version 1.8 replace the `1.6` in the download url with `1.8`)*{{/1.3.0}}:
 
 {{#1.2.0}}
 
@@ -63,6 +65,19 @@ pkg_add /tmp/riak-1.2.1-SmartOS-i386.tgz
 ```
 
 {{/1.2.1}}
+{{#1.3.0}}
+
+```bash
+curl -o /tmp/riak-1.3.0rc2-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/smartos/1.6/riak-1.3.0rc2-SmartOS-i386.tgz
+```
+
+Next, install the package:
+
+```
+pkg_add /tmp/riak-1.3.0rc2-SmartOS-i386.tgz
+```
+
+{{/1.3.0}}
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
 
