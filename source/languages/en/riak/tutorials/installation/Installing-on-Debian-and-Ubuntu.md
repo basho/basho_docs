@@ -29,7 +29,7 @@ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 Then add the Basho repository to your apt sources list (and update them).
 
 ```
-sudo bash -c "echo deb http://apt.basho.com `lsb_release -sc` main > /etc/apt/sources.list.d/basho.list"
+sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
 sudo apt-get update
 ```
 
