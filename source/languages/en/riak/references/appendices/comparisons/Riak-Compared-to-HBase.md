@@ -44,7 +44,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
         <td>Storage Model</td>
         <td>Riak has a modular, extensible local storage system which features pluggable backend stores designed to fit a variety of use cases. The default Riak backend store is Bitcask.
 			<ul>
-			  <li>[[Riak Supported Storage Backends|Storage-Backends]]</li>
+			  <li>[[Riak Supported Storage Backends|Choosing a Backend]]</li>
 			</ul>
 		You can also write your own storage backend for Riak using our [[backend API|Backend API]].
 	 </td>
