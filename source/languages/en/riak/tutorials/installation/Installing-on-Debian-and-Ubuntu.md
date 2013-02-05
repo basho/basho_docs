@@ -101,6 +101,14 @@ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 {{/1.2.1}}
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0rc2/ubuntu/lucid/riak_1.3.0rc2-1_amd64.deb
+sudo dpkg -i riak_1.3.0rc2-1_amd64.deb
+```
+
+{{/1.3.0}}
 
 #### Ubuntu Natty Narwhal (11.04)
 
@@ -136,6 +144,14 @@ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 {{/1.2.1}}
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0rc2/ubuntu/natty/riak_1.3.0rc2-1_amd64.deb
+sudo dpkg -i riak_1.3.0rc2-1_amd64.deb
+```
+
+{{/1.3.0}}
 
 #### Ubuntu Precise Pangolin (12.04)
 
@@ -171,13 +187,33 @@ sudo dpkg -i riak_1.2.1-1_amd64.deb
 ```
 
 {{/1.2.1}}
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0rc2/ubuntu/precise/riak_1.3.0rc2-1_amd64.deb
+sudo dpkg -i riak_1.3.0rc2-1_amd64.deb
+```
+
+{{/1.3.0}}
 
 ### Riak 32-bit Installation
+
+{{#1.2.1}}
 
 ```bash
 wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_i386.deb
 sudo dpkg -i riak_1.2.1-1_i386.deb
 ```
+{{/1.2.1}}
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0rc2/ubuntu/lucid/riak_1.3.0rc2-1_i386.deb
+sudo dpkg -i riak_1.3.0rc2-1_i386.deb
+```
+
+{{/1.3.0}}
+
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
 
 
