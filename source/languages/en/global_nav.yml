@@ -198,7 +198,7 @@ riakee:
       - "[[Getting Started with RiakEDS|Riak Enterprise]]"
       - "[[The Riak Fast Track]]"
       - "[[Rolling Upgrade to Enterprise]]"
-      - "[[Querying]]"
+      - "[[Query Choices|Querying Riak]]"
   - title: "Multi Data Center"
     sub:
       - title: "Default MDC"
