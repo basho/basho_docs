@@ -16,6 +16,7 @@ The NoSQL space, as well as the database space in general, is growing ever-crowd
 * [[Riak Compared to HBase]]
 * [[Riak Compared to MongoDB]]
 * [[Riak Compared to Neo4j]]
+* [[Riak Compared to DynamoDB]]
 
 _Disclaimer: We tried to get this right, but software is complicated, and it changes rapidly. If you think we have made an error, please kindly correct us, and we will be happy to make the change._
 

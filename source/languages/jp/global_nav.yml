@@ -157,6 +157,7 @@ riak:
           - "[[HBaseとの比較|Riak Compared to HBase]]"
           - "[[MongoDBとの比較|Riak Compared to MongoDB]]"
           - "[[Neo4jとの比較|Riak Compared to Neo4j]]"
+          - "[[DynamoDBとの比較|Riak Compared to DynamoDB]]"
       - "[[クライアントライブラリ|Client Libraries]]"
       - "[[コミュニティで作られたライブラリとプロジェクト|Community Developed Libraries and Projects]]"
       - "[[サンプルデータ|Sample Data]]"
