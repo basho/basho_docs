@@ -47,7 +47,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
         <td>Storage Model</td>
         <td>Riak has a modular, extensible local storage system which lets you plug-in a backend store of your choice to suit your use case. The default backend is Bitcask.  
 			<ul>
-			  <li>[[Riak Supported Storage Backends|Storage-Backends]]</li>
+			  <li>[[Riak Supported Storage Backends|Choosing a Backend]]</li>
 			</ul>
 		
 		You can also write your own storage backend for Riak using our [[backend API|Backend API]].			

@@ -9,7 +9,7 @@ keywords: [api, backends]
 
 As of the 1.0 release, Riak's storage API has been overhauled and
 uniformly applied to all of the
-[[supported backends|Storage-Backends]]. This page presents the
+[[supported backends|Choosing a Backend]]. This page presents the
 details of the storage backend API in the form of
 [Erlang type specifications](http://www.erlang.org/doc/reference_manual/typespec.html)
 (specs). Specs are used by
