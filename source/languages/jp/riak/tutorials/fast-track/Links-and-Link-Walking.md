@@ -123,7 +123,7 @@ $ curl -v localhost:8091/riak/people/davethomas/_,friend,1/_,friend,_/
 いよいよ最後に、"davethomas" を直接 "dhh" の友人にします。これで本当の図が描かれましたが、このやり方は1つではありません。
 
 ```bash
-$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
   -H 'Link: </riak/people/davethomas>; riaktag="friend"' \
   -H "content-type: text/plain" \
   -d 'I drive a Zonda.'
