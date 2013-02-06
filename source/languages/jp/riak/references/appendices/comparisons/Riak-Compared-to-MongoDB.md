@@ -89,7 +89,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
 			<li>[[MapReduce]]</li>
 			<li>[[Secondary Indexes]]</li>
 			<li>[[Riak Search]]</li>
-			<li>[[MapReduce Search 2i Comparison]]</li>
+      <li>[[Comparing MapReduce, Search, and Secondary Indexes|Querying Riak]]</li>
 			</ul>
 	
 	</td>
