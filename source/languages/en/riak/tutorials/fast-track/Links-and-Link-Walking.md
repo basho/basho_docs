@@ -124,7 +124,7 @@ When you try this out yourself you'll notice that the output has gotten slightly
 As a final sugar sprinkle on top, we can make "dhh" friends with "davethomas" directly, so we have a real graph and not just a single path.
 
 ```
-$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
   -H 'Link: </riak/people/davethomas>; riaktag="friend"' \
   -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
