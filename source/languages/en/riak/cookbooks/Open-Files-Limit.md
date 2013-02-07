@@ -32,7 +32,7 @@ done
 Most operating systems can change the open-files limit using the `ulimit -n` command. Example:
 
 ```bash
-ulimit -n 1024
+ulimit -n 65536
 ```
 
 However, this only changes the limit for the **current shell session**. Changing the limit on a system-wide, permanent basis varies more between systems.
@@ -50,7 +50,7 @@ As seen above, it is generally set high enough for Riak. If you have other thing
 On Ubuntu, if you’re always relying on the init scripts to start Riak, you can create the file /etc/default/riak and specify a manual limit like so:
 
 ```bash
-ulimit -n 4096
+ulimit -n 65536
 ```
 
 This file is automatically sourced from the init script, and the Riak process started by it will properly inherit this setting. As init scripts are always run as the root user, there’s no need to specifically set limits in /etc/security/limits.conf if you’re solely relying on init scripts.
@@ -59,27 +59,58 @@ On CentOS/RedHat systems make sure to set a proper limit for the user you’re u
 
 Reference: [[http://www.cyberciti.biz/faq/linux-increase-the-maximum-number-of-open-files/]]
 
-### Enabling PAM Based User Limits
-It can be helpful to enable PAM user limits so that non-root users, such as the riak user may specify a higher value for maximum open files. For example, to enable PAM user limits and set the soft and hard values for all non-root users to 8192 open files, follow these steps:
+### Enable PAM Based Limits for Debian & Ubuntu
+It can be helpful to enable PAM user limits so that non-root users, such as the riak user may specify a higher value for maximum open files. For example, follow these steps to enable PAM user limits and set the soft and hard values
+*for all users of the system* to allow for up to *65536* open files.
 
-  1. Edit `/etc/pam.d/su` and remove the comment on this line:
-
-         #session    required   pam_limits.so
-
-     so that it resembles this line:
+  1. Edit `/etc/pam.d/common-session` and append the following line:
 
          session    required   pam_limits.so
 
-  2. Save and close the file
+  2. Save and close the file.
 
-  3. Edit `/etc/security/limits.conf`, and append the following lines to the file:
+  3. Edit `/etc/security/limits.conf` and append the following lines to the file:
 
-         riak               soft     nofile          8192
-         riak               hard     nofile          8192
+         *               soft     nofile          65536
+         *               hard     nofile          65536
 
-  4. Save and close the file
+  4. Save and close the file.
 
-  5. Restart the machine so that the limits to take effect, and verify with the command: `ulimit -a`.
+  5. (optional) If you will be accessing the Riak nodes via secure shell
+     (ssh), then you should also edit `/etc/ssh/sshd_config` and uncomment
+     the following line:
+
+         #UseLogin no
+
+     and set its value to *yes* as shown here:
+
+         UseLogin yes
+
+  6. Restart the machine so that the limits to take effect and verify that
+     the new limits are set with the following command:
+
+         ulimit -a
+
+
+### Enable PAM Based Limits for CentOS and Red Hat
+
+1. Edit `/etc/security/limits.conf` and append the following lines to the file:
+
+       *               soft     nofile          65536
+       *               hard     nofile          65536
+
+2. Save and close the file.
+
+6. Restart the machine so that the limits to take effect and verify that
+   the new limits are set with the following command:
+
+       ulimit -a
+
+
+<div class="note"><div class="title">Note</div> In the above examples, the
+open files limit is raised for all users of the system. If you prefer, the
+limit can be specified for the riak user only by substituting the two
+asterisks (*) in the examples with <code>riak</code>.</div>
 
 ## Solaris
 In Solaris 8, there is a default limit of 1024 file descriptors per process. In Solaris 9, the default limit was raised to 65536. To increase the per-process limit on Solaris, add the following line to `/etc/system`:
