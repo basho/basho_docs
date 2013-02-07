@@ -147,7 +147,7 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
           <li>[[Command Line Tools]]</li>
         </ul>
 
-        <td>DynamoDB requires that you specify your required read and write throughput values when you create a table. This is used to reserve sufficient hardware resources and appropriately partitions your data over multiple servers to meet your throughput requirements.
+        <td>DynamoDB requires that you specify your required read and write throughput values when you create a table – throughput values can be increased and decreased later as access requirements change. This is used to reserve sufficient hardware resources and appropriately partitions your data over multiple servers to meet your throughput requirements.
           <ul>
             <li>[[Provisioned Throughput|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html]]
             </ul>
