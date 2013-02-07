@@ -99,12 +99,10 @@ Building a Riak-backed wiki
 Using Riak with Ruby on Rails.
 <br></br>
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/13554436"></div>
+MapReduce querying in Riak
+<br></br>
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/42421349"></div>
-<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/42421349"></div>
-<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/42421349"></div>
-<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/42421349"></div>
-<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/42421349"></div>
-
+Installing Erlang from Source
 
 <br/>
 
