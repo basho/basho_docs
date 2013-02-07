@@ -88,7 +88,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			<li>[[MapReduce]]</li>
 			<li>[[Secondary Indexes]]</li>
 			<li>[[Riak Search]]</li>
-			<li>[[MapReduce Search 2i Comparison]]</li>
+      <li>[[Comparing MapReduce, Search, and Secondary Indexes|Querying Riak]]</li>
 			</ul>
 	</td>
         <td>Couchbase also provides four query options
