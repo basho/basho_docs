@@ -96,10 +96,24 @@ The name of the cluster. This currently has no visible effect, but could be usef
         ]}
     ```
 
-    * n_val - the number of replicas stored
-    * allow_mult - whether or not siblings are allowed
-    * r, w, dw, rw - the quorum values for get, put and delete requests
-    * precommit, postcommit - global pre- and post-commit hooks
+    * n_val - the number of replicas stored. *Note: See [[Tunable CAP Controls|Tunable-CAP-Controls-in-Riak]] for further discussion.*
+    * Read, Write and Delete quorum values. Valid options include numeric values (e.g. ```{r, 2}```), and the following symbolic values:<br /> 
+    ```quorum``` (a majority of the replicas must respond, equivalent to ```n_val / 2 + 1```)<br />
+    ```all``` (all N replicas must respond)
+        * r - Read quorum value (the number of Riak nodes which must return results for a GET request before it is considered 
+        successful). Default: ```quorum```.
+        * pr - Primary read quorum (the number of primary, non-fallback nodes that must return results for a successful GET request).
+        Default: ```0```.
+        *Note: See [[Eventual Consistency]] for an explanation of primary nodes.*
+        * w - Write quorum value (the number of Riak nodes which must *accept* a PUT request). Default: ```quorum```.
+        * dw - Durable write quorum (the number of Riak nodes which have received an acknowledgement of the write from the storage backend).
+        Default: ```0```.
+        * pw - Primary write quorum  (the number of primary, non-fallback nodes that must accept a PUT request).
+        Default: ```0```.
+        * rw - Delete quorum. Default: ```quorum```.
+    * allow_mult - whether or not siblings are allowed. *Note: See [[Vector Clocks]] for a discussion of sibling resolution.*
+    * precommit - global [[pre-commit hook|Commit-Hooks#Pre-Commit-Hooks]] functions, either in Javascript or Erlang.
+    * postcommit - global [[post-commit hook|Commit-Hooks#Post-Commit-Hooks]] functions. Erlang only.
 
 * **delayed_startup**
 Sleep a number of milliseconds before starting riak_core. Default: unset
