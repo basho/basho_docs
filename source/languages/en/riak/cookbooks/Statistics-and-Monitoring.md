@@ -51,6 +51,48 @@ GET FSM Object Size (`node_get_fsm_objsize_*`) measures the size of objects flow
 #### GET FSM Siblings
 GET FSM Sibling (`node_get_fsm_siblings_*`) provides a histogram (with 60 second window) of the number of siblings encountered by this node on the occasion of a GET request.
 
+
+## Riak Metrics To Graph
+
+Metric                      | Description   | 
+--------------------------- | ------------- | 
+node_get_fsm_objsize_mean   | Mean object size encountered by this node within the last minute                                      |
+node_get_fsm_objsize_median | Median object size encountered by this node within the last minute                                    |
+node_get_fsm_objsize_95     | 95th percentile object size encountered by this node within the last minute                           |
+node_get_fsm_objsize_100    | 100th percentile object size encountered by this node within the last minute                          |
+node_get_fsm_time_mean      | Mean time between reception of client GET request and subsequent response to client                   |
+node_get_fsm_time_median    | Median time between reception of client GET request and subsequent response to client                 |
+node_get_fsm_time_95        | 95th percentile time between reception of client GET request and subsequent response to client        |
+node_get_fsm_time_100       | 100th percentile time between reception of client GET request and subsequent response to client       |
+node_put_fsm_time_mean      | Mean time between reception of client PUT request and subsequent response to client                   |
+node_put_fsm_time_median    | Median time between reception of client PUT request and subsequent response to client                 |
+node_put_fsm_time_95        | 95th percentile time between reception of client PUT request and subsequent response to client        |
+node_put_fsm_time_100       | 100th percentile time between reception of client PUT request and subsequent response to client       |
+node_get_fsm_siblings_mean  | Mean number of siblings encountered during all GET operations by this node within the last minute     |
+node_get_fsm_siblings_median| Median number of siblings encountered during all GET operations by this node within the last minute   |
+node_get_fsm_siblings_95    | 95th percentile of siblings encountered during all GET operations by this node within the last minute |
+node_get_fsm_siblings_100   | 100th percentile of siblings encountered during all GET operations by this node within the last minute|
+memory_processes_used       | Total amount of memory used by Erlang processes                                                       |
+read_repairs                | Number of Read Repairs this node has coordinated within the last minute                               |
+read_repairs_total          | Number of Read Repairs this node has coordinated since startup                                        |
+sys_process_count           | Number of Erlang processes                                                                            |
+coord_redirs_total          | Number of requests this node has redirected to other nodes for coordination since startup             |
+pbc_connect                 | Number of protocol buffer connections in the last minute                                              |
+pbc_active                  | Number of active protocol buffer connections                                                          |
+
+
+## Systems Metrics To Graph
+
+Metric                 |
+---------------------- |
+Available Disk Space   |
+IOWait                 | 
+Read Operations        |
+Write Operations       |
+Network Throughput     |
+Load Average           |
+
+
 ## Statistics and Monitoring Tools
 There are many open source, self-hosted, and service-based solutions for aggregating and analyzing statistics and log data for the purposes of monitoring, alerting, and trend analysis on a Riak cluster. Some solutions provide Riak-specific modules or plugins as noted.
 
