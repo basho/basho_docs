@@ -94,17 +94,17 @@ It can be helpful to enable PAM user limits so that non-root users, such as the 
 
 ### Enable PAM Based Limits for CentOS and Red Hat
 
-1. Edit `/etc/security/limits.conf` and append the following lines to the file:
+  1. Edit `/etc/security/limits.conf` and append the following lines to the file:
 
-       *               soft     nofile          65536
-       *               hard     nofile          65536
+         *               soft     nofile          65536
+         *               hard     nofile          65536
 
-2. Save and close the file.
+  2. Save and close the file.
 
-6. Restart the machine so that the limits to take effect and verify that
-   the new limits are set with the following command:
+  3. Restart the machine so that the limits to take effect and verify that
+     the new limits are set with the following command:
 
-       ulimit -a
+         ulimit -a
 
 
 <div class="note"><div class="title">Note</div> In the above examples, the
