@@ -136,6 +136,10 @@ types, and strongly recommended. More information is available on
 benchmarking Riak clusters with Basho Bench in the
 [[Basho Bench documentation|Benchmarking]].
 
+Besides running basho bench it is also advisable to load test Riak with your 
+own tests to ensure that load imparted by M/R queries, linking, link-walking,
+ full-text queries, index queries are within the expected range.
+
 ## Simulating Upgrades, Scaling, and Failure states
 In addition to simply measuring performance, it is also important to
 measure how performance degrades when the cluster is not in
@@ -170,6 +174,46 @@ be an indication that the cluster is under-provisioned.
 Software bugs (memory leaks) could also be a cause of OOM, so we ask that
 Riak Enterprise Edition users please contact Basho Client Services if
 this problem occurs.
+
+## Dealing with IP addresses
+
+EC2 instances that are not provisioned inside a VPC change the following parameters after a restart.
+
+* Private IP address
+* Public IP address
+* Private DNS
+* Public DNS
+
+Since Riak binds to an IP addresses and communicates with other nodes based on this address, 
+executing certain admin commands are necessary to bring the node back up. 
+Namely the following steps must be performed.
+
+* Stop the node to rename with `riak stop`
+* Mark it 'down' from another node in the cluster using `riak-admin down 'old nodename'`.
+* Rename the node in vm.args.
+* Delete the ring directory.
+* Start the node with `riak start`.  
+* It will come up as a single instance which you can verify with `riak-admin member-status`.
+* Join the node to the cluster with `riak-admin cluster join 'cluster nodename' `
+* Set it to replace the old instance of itself with `riak-admin cluster replace <old nodename> <new nodename>
+* Plan the changes with `riak-admin cluster plan`
+* Commit the changes with `riak-admin cluster commit`
+
+To avoid this inconvenience, you can deploy riak to a [VPC](http://aws.amazon.com/vpc/). Instances inside the VPC do not change their private 
+IP address on restart. In addition you get the following benefits.
+
+* Access control lists can be defined at various levels (Load balancers / Individual servers / VPC Groups).
+* The Riak instance is not open to arbitrary communication from the internet. Only nodes within a subnet can contact Riak.
+* Should the private nodes need to contact the internet they can do so through a NAT instance.
+* Amazon VPC is [free](http://aws.amazon.com/vpc/pricing/).
+
+You can also explore other [solutions](http://deepakbala.me/2013/02/08/deploying-riak-on-ec2/) should setting up a VPC 
+present an obstacle for you. 
+
+## Choice of storage
+
+EC2 instances support ephemeral and EBS storage. There are [several posts](http://riak-users.197444.n3.nabble.com/EC2-and-RIAK-td2754409.html) on the riak-users list that discuss
+the pros and cons of different approaches. These posts are good starting points to help you make a decision on the type of storage you need.
 
 ## References
 * [[Linux Performance Tuning]]
