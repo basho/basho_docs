@@ -58,8 +58,9 @@ becomes
 
 <div class="info">
 <strong>Node Names</strong>
-Use fully qualified domain names (FQDNs) rather than IP addresses
-for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred.
+<p>Use fully qualified domain names (FQDNs) rather than IP addresses
+for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred.</p>
+<p>Once a node has been started, in order to change the name you must either remove ring files from the data directory, [[riak-admin reip|Command-Line-Tools---riak-admin]] the node, or [[riak-admin cluster force-replace|Command-Line-Tools---riak-admin]] the node.</p>
 </div>
 
 Start the Riak node:
