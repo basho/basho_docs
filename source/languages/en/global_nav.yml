@@ -157,6 +157,7 @@ riak:
           - "[[Riak Compared to HBase]]"
           - "[[Riak Compared to MongoDB]]"
           - "[[Riak Compared to Neo4j]]"
+          - "[[Riak Compared to DynamoDB]]"
       - "[[Client Libraries]]"
       - "[[Community Developed Libraries and Projects]]"
       - "[[Sample Data]]"
