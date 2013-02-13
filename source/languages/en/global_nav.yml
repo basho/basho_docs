@@ -212,7 +212,7 @@ riakee:
           - "[[With NAT|Multi Data Center Replication With NAT]]"
           - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
           - "[[System Tuning|Multi Data Center Replication System Tuning]]"
-      - title: "New MDC (Preview)"
+      - title: "Advanced MDC"
         sub:
           - "[[Architecture|Multi Data Center Replication Architecture New]]"
           - "[[Configuration|Multi Data Center Replication Configuration New]]"
