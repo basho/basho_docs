@@ -151,3 +151,33 @@ http://localhost:8098/mapred \
 }
 EOF
 ```
+
+## Retrieve all object keys in a bucket based on the $bucket index
+
+The following example uses the HTTP interface to retrieve the keys for all objects stored in the bucket 'mybucket' using an exact match on the special $bucket index. 
+
+```bash
+curl http://localhost:8098/buckets/mybucket/index/\$bucket/mybucket
+```
+
+## Count objects in a bucket based on the $bucket index
+
+The following example performs a secondary index lookup on the $bucket index like in the previous examle and pipes this into a MapReduce that counts the number of records in the 'mybucket' bucket. The 'do_prereduce' option is enabled in order to reduce the amount of data being sent between nodes.
+
+```bash
+curl -XPOST http://localhost:8098/mapred 
+  -H 'Content-Type: application/json' 
+  -d '{"inputs":{
+           "bucket":"mybucket",
+           "index":"$bucket",
+           "key":"mybucket"
+       },
+       "query":[{"reduce":{"language":"erlang",
+                           "module":"riak_kv_mapreduce",
+                           "function":"reduce_count_inputs", 
+                           "arg":{"do_prereduce":true}
+                          }
+               }]
+       }'
+EOF
+```
