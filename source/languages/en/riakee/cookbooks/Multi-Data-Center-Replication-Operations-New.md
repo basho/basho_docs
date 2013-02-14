@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Operations (New)"
+title: "Multi Data Center Replication: Operations (Advanced)"
 project: riakee
 version: 1.3.0+
 document: cookbook

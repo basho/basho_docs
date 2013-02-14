@@ -144,6 +144,16 @@ module SitemapRenderOverride
           startli + endli
         end
       end
+
+      data.gsub!(/(\<tr(?:\s[^\>]*?)?\>(?:(?!\<tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/tr\>)/m) do
+        startli, liversion, endli = $1, $2, $3
+        liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-rc]+?[\+\-]?$/
+          in_version_range?(liversion, version) ? startli + endli : ''
+        else
+          startli + endli
+        end
+      end
     end
   end
 
