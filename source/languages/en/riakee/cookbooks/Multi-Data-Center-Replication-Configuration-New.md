@@ -9,7 +9,7 @@ keywords: [mdc, repl, configuration]
 ---
 
 
-## Riak 1.3 Replication Technology Preview Configuration
+## Riak 1.3 Replication Technology Advanced Mode Configuration
 
 ***The cluster_mgr variable MUST be set in order for 1.3 Replication to run.***
 

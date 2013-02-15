@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Operations (Advanced)"
+title: "Multi Data Center Replication: Operations - Advanced Mode"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, operator, bnw]
 ---
 
-## Riak 1.3 Replication Technology Preview Commands
+## Riak 1.3 Replication Technology Advanced Mode Commands
 ## The riak-repl Command
 
 Replication is controlled by the `riak-repl` command. Usage:
