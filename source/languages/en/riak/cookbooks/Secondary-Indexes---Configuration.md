@@ -85,3 +85,5 @@ By default, Riak is configured to store 3 replicas of all objects, so the system
 
 The `$key` index field is a special field that is implicitly indexed on all objects when Secondary Indexes is enabled. The value of this field is the object's key, so this field allows an application to perform range queries across the keys in a bucket.
 
+The `$bucket` index field is another special field that is implicitly indexed on all objects when Secondary Indexes is enabled. The value of this field is the object's bucket, so this field allows an application retrieve all objects within a bucket based on secondary indexes.
+
