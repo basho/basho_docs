@@ -509,3 +509,136 @@ riak:
             src:
               file: riak-1.3.0rc2.tar.gz
               file_size: 12647103
+  1.3.0rc4:
+    debian:
+      versions:
+        '6':
+          arch:
+            amd64:
+              file: riak_1.3.0rc4-1_amd64.deb
+              file_size: 26222986
+              csum: riak_1.3.0rc4-1_amd64.deb.sha
+              csum_size: 92
+    fedora:
+      versions:
+        '17':
+          arch:
+            src:
+              file: riak-1.3.0rc4-1.fc17.src.rpm
+              file_size: 12655263
+              csum: riak-1.3.0rc4-1.fc17.src.rpm.sha
+              csum_size: 95
+            x86_64:
+              file: riak-1.3.0rc4-1.fc17.x86_64.rpm
+              file_size: 23483057
+              csum: riak-1.3.0rc4-1.fc17.x86_64.rpm.sha
+              csum_size: 98
+    freebsd:
+      versions:
+        '9':
+          arch:
+            amd64:
+              file: riak-1.3.0rc4-FreeBSD-amd64.tbz
+              file_size: 31400658
+              csum: riak-1.3.0rc4-FreeBSD-amd64.tbz.sha
+              csum_size: 98
+    osx:
+      versions:
+        '10.6':
+          arch:
+            i386:
+              file: riak-1.3.0rc4-osx-i386.tar.gz
+              file_size: 26875077
+              csum: riak-1.3.0rc4-osx-i386.tar.gz.sha
+              csum_size: 96
+            x86_64:
+              file: riak-1.3.0rc4-osx-x86_64.tar.gz
+              file_size: 26525570
+              csum: riak-1.3.0rc4-osx-x86_64.tar.gz.sha
+              csum_size: 98
+    rhel:
+      versions:
+        '5':
+          arch:
+            x86_64:
+              file: riak-1.3.0rc4-1.el5.x86_64.rpm
+              file_size: 26660765
+              csum: riak-1.3.0rc4-1.el5.x86_64.rpm.sha
+              csum_size: 97
+            src:
+              file: riak-1.3.0rc4-1.src.rpm
+              file_size: 12646952
+              csum: riak-1.3.0rc4-1.src.rpm.sha
+              csum_size: 90
+        '6':
+          arch:
+            src:
+              file: riak-1.3.0rc4-1.el6.src.rpm
+              file_size: 12621732
+              csum: riak-1.3.0rc4-1.el6.src.rpm.sha
+              csum_size: 94
+            x86_64:
+              file: riak-1.3.0rc4-1.el6.x86_64.rpm
+              file_size: 23875524
+              csum: riak-1.3.0rc4-1.el6.x86_64.rpm.sha
+              csum_size: 97
+    smartos:
+      versions:
+        '1.6':
+          arch:
+            i386:
+              file: riak-1.3.0rc4-SmartOS-i386.tgz
+              file_size: 32120099
+              csum: riak-1.3.0rc4-SmartOS-i386.tgz.sha
+              csum_size: 97
+        '1.8':
+          arch:
+            i386:
+              file: riak-1.3.0rc4-SmartOS-i386.tgz
+              file_size: 33161961
+              csum: riak-1.3.0rc4-SmartOS-i386.tgz.sha
+              csum_size: 97
+    solaris:
+      versions:
+        '10':
+          arch:
+            i386:
+              file: BASHOriak-1.3.0rc4-1-Solaris10-i386.pkg.gz
+              file_size: 30704887
+              csum: BASHOriak-1.3.0rc4-1-Solaris10-i386.pkg.gz.sha
+              csum_size: 109
+    ubuntu:
+      versions:
+        lucid:
+          arch:
+            amd64:
+              file: riak_1.3.0rc4-1_amd64.deb
+              file_size: 26218112
+              csum: riak_1.3.0rc4-1_amd64.deb.sha
+              csum_size: 92
+            i386:
+              file: riak_1.3.0rc4-1_i386.deb
+              file_size: 25938142
+              csum: riak_1.3.0rc4-1_i386.deb.sha
+              csum_size: 91
+        natty:
+          arch:
+            amd64:
+              file: riak_1.3.0rc4-1_amd64.deb
+              file_size: 26232386
+              csum: riak_1.3.0rc4-1_amd64.deb.sha
+              csum_size: 92
+        precise:
+          arch:
+            amd64:
+              file: riak_1.3.0rc4-1_amd64.deb
+              file_size: 26195514
+              csum: riak_1.3.0rc4-1_amd64.deb.sha
+              csum_size: 92
+    source:
+      versions:
+        any:
+          arch:
+            src:
+              file: riak-1.3.0rc4.tar.gz
+              file_size: 12647920
