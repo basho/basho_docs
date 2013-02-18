@@ -196,13 +196,13 @@ riakee:
   - title: "Start Here"
     class: "start"
     sub:
-      - "[[Getting Started with RiakEDS|Riak Enterprise]]"
+      - "[[Getting Started with Riak Enterprise|Riak Enterprise]]"
       - "[[The Riak Fast Track]]"
       - "[[Rolling Upgrade to Enterprise]]"
       - "[[Query Choices|Querying Riak]]"
   - title: "Multi Data Center"
     sub:
-      - title: "Default MDC"
+      - title: "Default Replication"
         sub:
           - "[[Architecture|Multi Data Center Replication Architecture]]"
           - "[[Configuration|Multi Data Center Replication Configuration]]"
@@ -213,12 +213,12 @@ riakee:
           - "[[With NAT|Multi Data Center Replication With NAT]]"
           - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
           - "[[System Tuning|Multi Data Center Replication System Tuning]]"
-      - title: "Advanced MDC"
+      - title: "Advanced Replication"
         sub:
           - "[[Architecture|Multi Data Center Replication Architecture New]]"
           - "[[Configuration|Multi Data Center Replication Configuration New]]"
           - "[[Operations|Multi Data Center Replication Operations New]]"
-  - title: "Operating RiakEDS"
+  - title: "Operating Riak Enterprise"
     sub:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
       - "[[JMX Monitoring]]"
@@ -227,7 +227,7 @@ riakee:
     sub:
       - "[[SNMP Counters]]"
       - "[[APIs|/references/apis/]]"
-      - "[[Riak EDS FAQs|Riak Enterprise FAQs]]"
+      - "[[Riak Enterprise FAQs|Riak Enterprise FAQs]]"
       - "[[Riak FAQs|Riak FAQs]]"
 
 riakcs:
