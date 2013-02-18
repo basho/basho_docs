@@ -135,7 +135,18 @@ module SitemapRenderOverride
       end
 
       # if it's in a list in a different version, remove the entire <li></li>
-      data.gsub!(/(\<li(?:\s[^\>]*?)?\>.*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/) do
+      # data.gsub!(/(\<li(?:\s[^\>]*?)?\>.*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/) do
+      data.gsub!(/(\<li(?:\s[^\>]*?)?\>(?:(?!\<li).)*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/m) do
+        startli, liversion, endli = $1, $2, $3
+        liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-rc]+?[\+\-]?$/
+          in_version_range?(liversion, version) ? startli + endli : ''
+        else
+          startli + endli
+        end
+      end
+
+      data.gsub!(/(\<tr(?:\s[^\>]*?)?\>(?:(?!\<tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/tr\>)/m) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
         if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-rc]+?[\+\-]?$/
