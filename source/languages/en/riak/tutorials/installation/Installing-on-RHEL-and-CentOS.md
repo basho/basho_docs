@@ -133,7 +133,7 @@ sudo rpm -Uvh riak-1.3.0rc2-1.el6.x86_64.rpm
 
 ## Installing From Source
 
-Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
+Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02 or R15B03, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
 
 If you do not have Erlang already installed, see our guide to [[Installing Erlang]]. Don’t worry, it’s easy!
 
