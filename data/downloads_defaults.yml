@@ -10,6 +10,8 @@ riak:
           arch:
             amd64:
               name: "AMD 64"
+            i386:
+              name: "i386 32-bit"
     ubuntu:
       name: "Ubuntu"
       icon: "ubuntu.png"
