@@ -35,11 +35,37 @@ To increase this value in a persistent manner that will be enforced after restar
 set rlim_fd_max=65536
 ```
 
+{{#1.3.0+}}
+
+## Choosing a Version
+
+SmartOS, albeit powerful, can make some easy tasks (like figuring out a "version" of SmartOS) difficult. Defining the correct version is a combination of the Global Zone snapshot version and the pkgsrc version in the guest zones. Here is the way to determine which Riak package to use.
+
+The thing that really matters for Riak is what dataset was used to make the SmartOS VM. These datasets come from joyent and appear like this with the `dsadm` command:
+
+```
+fdea06b0-3f24-11e2-ac50-0b645575ce9d smartos 2012-12-05 sdc:sdc:base64:1.8.4
+f4c23828-7981-11e1-912f-8b6d67c68076 smartos 2012-03-29 sdc:sdc:smartos64:1.6.1
+```
+
+This is where the `1.6` and `1.8` versions come from in the package naming. It isn't perfect, but if you know what dataset you used to make your SmartOS VM, you will know which package to use.
+
+For Joyent Cloud users who don't know what dataset was used, in the guest zone type:
+
+```
+cat /opt/local/etc/pkgin/repositories.conf
+```
+
+* If this returns `http://pkgsrc.joyent.com/sdc6/2012Q2/x86_64/All` or any other *2012Q2* you need to use the `1.8` download.
+* If this returns `http://pkgsrc.joyent.com/sdc6/2011Q4/x86_64/All` or any other *2011* you need to use the `1.6` download.
+
+{{/1.3.0+}}
+
 ## Download and Install
 
-First, download the latest version of the Riak binary package for SmartOS{{#1.3.0}} *(below we install on SmartOS version 1.6, for version 1.8 replace the `1.6` in the download url with `1.8`)*{{/1.3.0}}:
+Download your version of the Riak binary package for SmartOS{{#1.3.0}} *(below we installing with SmartOS version 1.6, for version 1.8 just replace the `1.6` in the download url with `1.8`)*{{/1.3.0}}:
 
-{{#1.2.0}}
+{{#1.2.1-}}
 
 ```bash
 curl -o /tmp/riak-1.2.0-SmartOS-i386.tgz http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/smartos/11/riak-1.2.0-SmartOS-i386.tgz
@@ -51,7 +77,7 @@ Next, install the package:
 pkg_add /tmp/riak-1.2.0-SmartOS-i386.tgz
 ```
 
-{{/1.2.0}}
+{{/1.2.1-}}
 {{#1.2.1}}
 
 ```bash
