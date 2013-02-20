@@ -169,7 +169,7 @@ Make a Developer Release
 
 Alternatively, you can run {{#1.3.0+}}`make devrel DEVNODES=N`{{/1.3.0+}}
 {{#1.3.0-}}`make devrel`{{/1.3.0-}}, which will create
-{{#1.3.0+}}N (defaults to four){{/1.3.0+}}{{#1.3.0-}}four{{#1.3.0-}} copies
+{{#1.3.0+}}N (defaults to four){{/1.3.0+}}{{#1.3.0-}}four{{/1.3.0-}} copies
 of Riak under the directories `./dev/dev1`, `./dev/dev2`, `./dev/dev3`,
 and `./dev/dev4` with the configuration pre-set to allow you to run the
 nodes simultaneously. (Note: The Web port for the three nodes is 8091,
