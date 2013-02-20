@@ -20,9 +20,18 @@ class Downloads
     @data.each(&block)
   end
 
-  def file_url(os, os_version, file)
+  def files?(os_data)
+    os_data["versions"].values.map{|v|
+      v['arch'].values
+    }.map{|v|
+      v.first['file']
+    }.compact.blank?
+  end
+
+  def file_url(os, os_version, file, static=nil)
     root_version = @version.sub(/\.\w+$/, '')
     os_path = os == 'source' ? '' : "#{os}/#{os_version}/"
+    return static if static.present?
     "#{BASE_DOWNLOAD_URL}/#{@project}/#{root_version}/#{@version}/#{os_path}#{file}"
   end
 
@@ -40,6 +49,8 @@ class Downloads
   end
 
   def self.pull_data(project, version)
+    # don't pull for older versions, since they have a weird format
+    return if version.sub(/\.\w+$/, '').to_f <= 1.1
     downloads_gen = YAML::load(File.open('data/downloads_gen.yml'))
     version_data = load_from_s3(project, version)
     (downloads_gen[project] ||= {})[version] = version_data
@@ -137,9 +148,11 @@ class Downloads
       if file.to_s =~ /\.sha$/
         key = file.sub(/\.sha/, '')
         (fileData[key] ||= {})['csum'] = file
+        fileData[key]['static_csum'] = data['staticLink']
         fileData[key]['csum_size'] = data['size']
       else
         (fileData[file] ||= {})['file'] = file
+        fileData[file]['static_file'] = data['staticLink']
         fileData[file]['file_size'] = data['size']
       end
     end
