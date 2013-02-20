@@ -26,6 +26,10 @@ Multi-datacenter features can be used for:
 * secondary analytics clusters 
 * meeting regulatory requirements
 
+{{#1.3.0-}}
+
 If you prefer a video, check out this webcast with an overview.
 
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/43235103"></div>
+
+{{/1.3.0-}}
