@@ -167,7 +167,7 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
     </tr>
     <tr>
         <td>Graphical Monitoring/Admin Console</td>
-        <td>Starting with Riak 1.1.x, Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
+        <td>Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
 			<ul>
 				<li>[[Riak Control]]</li>
 				<li>[[Introducing Riak Control|http://basho.com/blog/technical/2012/02/22/Riak-Control/]]
