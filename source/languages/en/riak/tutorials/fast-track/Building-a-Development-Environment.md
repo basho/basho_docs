@@ -46,20 +46,43 @@ The below links provide platform-specific instructions for downloading and insta
 
 So now you have a copy of Riak. Time to build it. Do this by accessing the `riak` directory and running `make all`
 
+{{#1.3.0+}}
+
+```bash
+$ cd riak-1.3.0
+$ make all
+```
+
+{{/1.3.0+}}
+{{#1.3.0-}}
+
 ```bash
 $ cd riak-1.2.1
 $ make all
 ```
 
+{{/1.3.0-}}
+
 `make all` grabs all the Riak dependencies for you so that you don't have to chase them down. This will take a few moments.
 
 ## Use Rebar to Start Up Four Nodes
 
-Now that Riak is built, we are going to use [Rebar](https://github.com/basho/rebar), a packaging and build system for Erlang applications, to get four self-contained Riak nodes running on your machine. Tomorrow, when you put Riak into production, Rebar will enable you to ship a pre-built Riak package to your deployment machines. But for now, we will just stick to the four nodes. To start these up, run:
+Now that Riak is built, we are going to use [Rebar](https://github.com/basho/rebar), a packaging and build system for Erlang applications, to get four self-contained Riak nodes running on your machine. Tomorrow, when you put Riak into production, Rebar will enable you to ship a pre-built Riak package to your deployment machines. But for now, we will just stick to the four nodes. {{#1.3.0+}}You can set the number of nodes you wish to create via `DEVNODES`{{/1.3.0+}} To start these up, run:
+
+{{#1.3.0+}}
+
+```bash
+$ make devrel DEVNODES=4
+```
+
+{{/1.3.0+}}
+{{#1.3.0-}}
 
 ```bash
 $ make devrel
 ```
+
+{{/1.3.0-}}
 
 You have just generated a `dev` directory. Let's go into that directory to check out its contents:
 
