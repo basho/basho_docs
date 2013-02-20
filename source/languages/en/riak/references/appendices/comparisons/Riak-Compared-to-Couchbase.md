@@ -8,7 +8,7 @@ index: true
 keywords: [comparisons, couchbase]
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and Couchbase (i.e. Couchbase Server).  The Couchbase version described is 2.0. The Riak version described is Riak 1.1.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective and technical comparison of Riak and Couchbase (i.e. Couchbase Server).  The Couchbase version described is 2.0. The Riak version described is Riak 1.2.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
@@ -196,7 +196,7 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
     </tr>
     <tr>
         <td>Graphical Monitoring/Admin Console</td>
-        <td>Starting with Riak 1.1.x, Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
+        <td>Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
 			<ul>
 				<li>[[Riak Control]]</li>
 				<li>[[Introducing Riak Control|http://basho.com/blog/technical/2012/02/22/Riak-Control/]]
