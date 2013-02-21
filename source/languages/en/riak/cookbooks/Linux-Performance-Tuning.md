@@ -22,8 +22,8 @@ In any case, proper benchmarking and tuning are needed to achieve the desired
 level of performance. Following the information in this guide should help you
 with both.
 
-<div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see <a href="/cookbooks/Performance-Tuning-AWS">Performance Tuning for AWS</a>.</div>
- 
+<div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see [[Performance Tuning for AWS|Performance-Tuning-AWS]].</div>
+
 ## Linux Tuning
 
 While Linux can be tuned to be a good server operating system, many
@@ -34,9 +34,8 @@ to run as a production database server.
 ### Open Files Limit
 
 Riak and the tools can consume a large number of open file handles during
-normal operation.  For the stable operation, increasing the number of
-open-files limit is necessary.  See <a href="/cookbooks/Open-Files-Limit/">Open
-Files Limit</a> for the details.
+normal operation.  For stability, increasing the number of open-files limit
+is necessary.  See [[Open Files Limit|Open-Files-Limit]] for the details.
 
 ### Kernel and Network Tuning
 
