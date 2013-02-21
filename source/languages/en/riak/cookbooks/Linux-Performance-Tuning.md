@@ -31,6 +31,13 @@ distributions come out of the box tuned for desktop or light use.
 Many of the kernel, network, and disk settings should be altered
 to run as a production database server.
 
+### Open Files Limit
+
+Riak and the tools can consume a large number of open file handles during
+normal operation.  For the stable operation, increasing the number of
+open-files limit is necessary.  See <a href="/cookbooks/Open-Files-Limit/">Open
+Files Limit</a> for the details.
+
 ### Kernel and Network Tuning
 
 The following settings are minimally sufficient to improve many aspects
