@@ -22,7 +22,7 @@ $versions = {
 $default_project = 'riak'
 
 
-%w{versionify production_check index
+%w{versionify production_check index release-notes
   sitemap_render_override duals helpers downloads}.each do |lib|
   require File.join(File.dirname(__FILE__), lib)
 end

@@ -80,6 +80,7 @@ configure :build do
   # populate the downloads_gen data file
   if $production
     begin
+      activate :release_notes
       puts "== Populating Downloads Details"
       Downloads.pull_data('riak', $versions[:riak])
     rescue
