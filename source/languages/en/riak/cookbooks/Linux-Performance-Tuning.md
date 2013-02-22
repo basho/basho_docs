@@ -35,7 +35,7 @@ to run as a production database server.
 
 Riak and the tools can consume a large number of open file handles during
 normal operation.  For stability, increasing the number of open-files limit
-is necessary.  See [[Open Files Limit|Open-Files-Limit]] for the details.
+is necessary.  See [[Open Files Limit]] for the details.
 
 ### Kernel and Network Tuning
 
