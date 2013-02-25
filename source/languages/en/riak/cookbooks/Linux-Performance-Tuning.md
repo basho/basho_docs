@@ -249,7 +249,7 @@ horizontally, follow these steps:
     Ensure that the planned transition meets your expectations; that
     is, the correct nodes should be joining or leaving, and ring
     ownership should be transferred to the right nodes.
-3.  Run riak-admin cluster commit to confirm the changes or `riak-admin cluster clear`
+3.  Run `riak-admin cluster commit` to confirm the changes or `riak-admin cluster clear`
     to abort the changes.
 4.  Monitor the membership transition progress using `riak-admin member-status`
     and `riak-admin ring-status`.
