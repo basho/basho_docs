@@ -94,13 +94,13 @@ pkg_add /tmp/riak-1.2.1-SmartOS-i386.tgz
 {{#1.3.0}}
 
 ```bash
-curl -o /tmp/riak-1.3.0rc2-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/smartos/1.6/riak-1.3.0rc2-SmartOS-i386.tgz
+curl -o /tmp/riak-1.3.0-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/smartos/1.6/riak-1.3.0-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-1.3.0rc2-SmartOS-i386.tgz
+pkg_add /tmp/riak-1.3.0-SmartOS-i386.tgz
 ```
 
 {{/1.3.0}}

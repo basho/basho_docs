@@ -97,14 +97,14 @@ tar xzvf riak-1.2.1-osx-i386.tar.gz
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/osx/10.6/riak-1.3.0rc2-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/osx/10.6/riak-1.3.0-osx-x86_64.tar.gz
 tar xzvf riak-1.2.1-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/osx/10.6/riak-1.3.0rc2-osx-i386.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/osx/10.6/riak-1.3.0-osx-i386.tar.gz
 tar xzvf riak-1.2.1-osx-i386.tar.gz
 ```
 
