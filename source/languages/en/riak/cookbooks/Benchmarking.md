@@ -199,7 +199,7 @@ The duration of the test, in minutes. The default is 5 minutes.
 The possible operations that the driver will run, plus their "weight" or
 likelihood of being run. Default is `[{get,4},{put,4},{delete, 1}]`
 which means that out of every 9 operations, 'get' will be called four
-times, 'put' will called four times, and 'delete' will be called once,
+times, 'put' will be called four times, and 'delete' will be called once,
 on average.
 
 ```bash
