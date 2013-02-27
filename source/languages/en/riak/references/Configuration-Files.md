@@ -377,6 +377,33 @@ The default lager options are like so:
                 ]},
 ```
 
+{{#1.3.0+}}
+#### syslog support
+
+Lager can also be configured for output to the operating system's syslog
+daemon. To do so, specify the `lager_syslog_backend` along with your
+preferred identity string, syslog facility, and log level.
+
+The identity string is simply the the string you wish to be prepended to all
+log messages for the purpose of identification, while the syslog facility
+describes the part of the system generating log messages, and log levels
+describe the severity of the message. More information about facilities and
+log levels can be found in the manual page for syslog.conf(5).
+
+The following example demonstrates enabling Lager syslog support in Riak by
+adding the `lager_syslog_backend` to the `lager` section of `app.config`:
+
+```
+{lager_syslog_backend, ["riak", local7, info]}
+```
+
+This example sets the identity string to `riak`, uses the syslog `local7`
+facility, and a syslog severity of `info`.
+
+See the [lager_syslog_backend documentation](https://github.com/basho/lager_syslog/blob/master/README.org) for more information on configuring Lager's syslog backend and the
+[Lager project documentation](https://github.com/basho/lager/blob/master/README.org) for detailed information on Lager configuration.
+{{/1.3.0+}}
+
 ## vm.args
 
 Parameters for the Erlang node on which Riak runs are set in the vm.args file in the etc directory of the embedded Erlang node. Most of these settings can be left at their defaults until you are ready to tune performance.
