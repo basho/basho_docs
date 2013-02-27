@@ -18,41 +18,36 @@ This is done as efficiently as possible by generating a hash range for all the b
 
 This code will force all keys in each partition on a node to be reread, thus rebuilding the index properly.
 
-<ol>
-<li>From a cluster node with Riak installed, attach to the Riak console:
+1. From a cluster node with Riak installed, attach to the Riak console: 
 
-```bash
-$ riak attach
-```
+    ```bash
+    $ riak attach
+    ```
 
-You may have to hit enter again to get an console prompt.
-</li>
-<li>Get a list of partitions owned by the node that needs repaired:
+    You may have to hit enter again to get an console prompt.
 
-```erlang
-> {ok, Ring} = riak_core_ring_manager:get_my_ring().
-```
+2. Get a list of partitions owned by the node that needs repaired:
 
-You will get a lot of output with Ring record information. You can safely ignore it.
-</li>
-<li>Then run the following code to get a list of partitions. Replace 'dev1@127.0.0.1' with the name of the node you need to repair.
+    ```erlang
+    > {ok, Ring} = riak_core_ring_manager:get_my_ring().
+    ```
 
-```erlang
-> Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
-```
+    You will get a lot of output with Ring record information. You can safely ignore it.
 
-_Details Note: The above is an [Erlang list comprehension](http://www.erlang.org/doc/programming_examples/list_comprehensions.html), that loops over each `{Partition, Node}` tuple in the Ring, and extracts only the partitions that match the given node name, as a list._
+3. Then run the following code to get a list of partitions. Replace 'dev1@127.0.0.1' with the name of the node you need to repair.
 
-</li>
-<li>Execute repair on all the partitions. Executing them all at once like this will cause a lot of `{shutdown,max_concurrency}` spam but it's not anything to worry about. That is just the transfers mechanism enforcing an upper limit on the number of concurrent transactions.
+    ```erlang
+    > Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
+    ```
 
-```erlang
-> [riak_kv_vnode:repair(P) || P <- Partitions].
-```
-</li>
-<li>When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
-</li>
-</ol>
+    _Details Note: The above is an [Erlang list comprehension](http://www.erlang.org/doc/programming_examples/list_comprehensions.html), that loops over each `{Partition, Node}` tuple in the Ring, and extracts only the partitions that match the given node name, as a list._
+
+4. Execute repair on all the partitions. Executing them all at once like this will cause a lot of `{shutdown,max_concurrency}` spam but it's not anything to worry about. That is just the transfers mechanism enforcing an upper limit on the number of concurrent transactions.
+
+    ```erlang
+    > [riak_kv_vnode:repair(P) || P <- Partitions].
+    ```
+5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
 
 ## Checking in on a Repair
 
