@@ -48,6 +48,16 @@ make rel
 ```
 
 {{/1.2.1}}
+{{#1.3.0}}
+
+```bash
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
+tar zxvf riak-1.3.0.tar.gz
+cd riak-1.3.0
+make rel
+```
+
+{{/1.3.0}}
 
 {{#1.3.0}}
 
@@ -67,9 +77,12 @@ The error `fatal: unable to connect to github.com` when building from source is 
 
 Download the following `leveldb` archive for the version of Riak you are using:
 
+  * **1.3.0**: `https://github.com/basho/leveldb/zipball/1.3.0`
   * **1.2.1**: `https://github.com/basho/leveldb/zipball/1.2.2p5`
   * **1.2.0**: `https://github.com/basho/leveldb/zipball/2aebdd9173a7840f9307e30146ac95f49fbe8e64`
   * **1.1.4**: `https://github.com/basho/leveldb/zipball/14478f170bbe3d13bc0119d41b70e112b3925453`
+
+{{#1.1.4-1.2.1}}
 
 The instructions going forward will assume Riak 1.2.0, replace the appropriate file for your version.
 
@@ -83,6 +96,28 @@ $ mv basho-leveldb-* leveldb
 $ cd ../../../
 $ make rel
 ```
+
+{{/1.1.4-1.2.1}}
+{{#1.3.0}}
+
+The instructions going forward will assume Riak 1.3.0, replace the appropriate file for your version.
+
+Deploy the file to the system with the build error and run the following commands.
+
+```bash
+$ mv 1.3.0 riak-1.3.0/deps/eleveldb/c_src/leveldb.zip
+$ cd riak-1.3.0/deps/eleveldb/c_src/
+$ unzip leveldb.zip
+$ mv basho-leveldb-* leveldb
+$ cd ../../
+$ cp -R lager riaknostic/deps
+$ cp -R getopt riaknostic/deps
+$ cp -R meck riaknostic/deps
+$ cd ../
+$ make rel
+```
+
+{{/1.3.0}}
 
 ### Installing from GitHub
 The [[Riak Github repository|http://github.com/basho/riak]] has much more information on building and installing Riak from source. To clone and and build Riak from source, follow these steps:
