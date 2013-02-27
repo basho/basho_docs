@@ -176,6 +176,17 @@ make rel
 
 {{/1.2.1}}
 
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
+tar zxvf riak-1.3.0.tar.gz
+cd riak-1.3.0
+make rel
+```
+
+{{/1.3.0}}
+
 If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher - 64bit, everything else - 32bit).
 
 ## Next Steps?

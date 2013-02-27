@@ -273,6 +273,18 @@ make rel
 
 {{/1.2.1}}
 
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
+tar zxvf riak-1.3.0.tar.gz
+cd riak-1.3.0
+make rel
+```
+
+{{/1.3.0}}
+
+
 If the build was successful, a fresh build of Riak will exist in the
 `rel/riak` directory.
 
