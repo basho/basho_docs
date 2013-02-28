@@ -36,6 +36,12 @@ These settings are configured using the standard erlang config file syntax `{Set
 
 ## Settings
 
+Once your configuration is set, you can verify its correctness by running the command-line tool:
+
+```
+riak chkconfig
+```
+
 Setting | Options | Default | Description
 --------|---------|---------|------------
 fullsync_on_connect | true, false | true | Whether to initiate a fullsync on initial connection from the secondary cluster

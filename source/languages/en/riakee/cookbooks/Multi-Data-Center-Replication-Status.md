@@ -195,8 +195,8 @@ queue_max_pending | The maximum number of objects that can be 'in flight' before
 
 These stats can be accessed via the command line with the following command:
 
-    curl -q http://127.0.0.1:8091/riak-repl/stats
+    curl -q http://127.0.0.1:8098/riak-repl/stats
 
 A simple way to view formatted statistics is to use a command such as:
   
-    curl -q http://127.0.0.1:8091/riak-repl/stats | jsonpp
+    curl -q http://127.0.0.1:8098/riak-repl/stats | jsonpp
