@@ -10,7 +10,7 @@ keywords: [mdc, repl, configuration]
 
 ## File
 
-The configuration for replication is kept in the riak_repl section of `etc/app.config`.
+The configuration for replication is kept in the `riak_repl` section of `etc/app.config`.
 
     {riak_repl, [
                  {fullsync_on_connect, true},
@@ -35,6 +35,12 @@ These settings are configured using the standard erlang config file syntax `{Set
 ```
 
 ## Settings
+
+Once your configuration is set, you can verify its correctness by running the command-line tool:
+
+```
+riak chkconfig
+```
 
 Setting | Options | Default | Description
 --------|---------|---------|------------
