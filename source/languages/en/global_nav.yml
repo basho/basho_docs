@@ -218,6 +218,7 @@ riakee:
           - "[[Architecture|Multi Data Center Replication Architecture New]]"
           - "[[Configuration|Multi Data Center Replication Configuration New]]"
           - "[[Operations|Multi Data Center Replication Operations New]]"
+          - "[[Statistics|Multi Data Center Replication Status]]"
   - title: "Operating Riak Enterprise"
     sub:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
