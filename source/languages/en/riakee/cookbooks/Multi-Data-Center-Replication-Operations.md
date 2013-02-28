@@ -86,18 +86,12 @@ client_connects | A count of the number of site connections made to this node.
 client_redirect | If a client connects to a non-leader node, it will be redirected to a leader node
 client_rx_kbps | A snapshot of the client (site) received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 client_tx_kbps | A snapshot of the client (site) sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
-cluster_leader {{1.3.0+}} |
-connected_clusters {{1.3.0+}} | 
 elections_elected | If the replication leader node becomes unresponsive or unavailable, a new leader node in the cluster will be elected
 elections_leader_changed | The number of times a Riak node has surrendered leadership
-fullsync_enabled {{1.3.0+}} | 
-fullsync_running {{1.3.0+}} | 
 objects_dropped_no_clients | If the real-time replication work queue is full and there aren't any clients to receive objects, then objects will be dropped from the queue. These objects will be synchronized during a full synchronization
 objects_dropped_no_leader | If a client (site) cannot connect to a leader, objects will be dropped during real-time replication
 objects_forwarded | The number of Riak objects forwarded to the leader the participate in replication. *Please note that this value will only be accurate on a non-leader node.*
 objects_sent | The number of objects sent via real-time replication
-realtime_enabled {{1.3.0+}} | 
-realtime_started {{1.3.0+}} | 
 server_bytes_recv | The total number of bytes the server (listener) has received
 server_bytes_sent | The total number of bytes the server (listener) has sent
 server_connect_errors | The number of listener to site connection errors
@@ -105,7 +99,6 @@ server_connects | The number of times the listener connects to the client site
 server_fullsyncs | The number of full-synchronizations that have occurred since the server was started
 server_rx_kbps | A snapshot of the server (listener) received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 server_tx_kbps | A snapshot of the server (listener) sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
-leader {{1.3.0+}} | 
 local_leader_message_queue_len | The length of the object queue on the leader
 local_leader_heap_size | The amount of memory the leader is using
 client_stats | See <a href="/cookbooks/Multi-Data-Center-Replication-Operations/#Client-Statistics" class="riakee">Client Statistics</a>
@@ -117,7 +110,7 @@ server_stats | See <a href="/cookbooks/Multi-Data-Center-Replication-Operations/
 Field | Description
 ------|------------
 node  | A unique ID for the Riak node that the client (site) in running on
-site  | The connected site name configured with `riak-repl add-site
+site  | The connected site name configured with `riak-repl add-site`
 strategy | A replication strategy defines an implementation of the Riak Replication protocol. Valid values are: keylist, syncv1
 fullsync_worker | The Erlang process ID of the full synchronization worker
 waiting_to_retry | The listeners currently waiting to retry replication after a failure

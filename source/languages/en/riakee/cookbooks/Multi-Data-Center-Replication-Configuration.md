@@ -10,7 +10,7 @@ keywords: [mdc, repl, configuration]
 
 ## File
 
-The configuration for replication is kept in the riak_repl section of `etc/app.config`.
+The configuration for replication is kept in the `riak_repl` section of `etc/app.config`.
 
     {riak_repl, [
                  {fullsync_on_connect, true},
