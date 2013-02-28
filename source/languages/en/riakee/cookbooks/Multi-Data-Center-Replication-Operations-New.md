@@ -94,14 +94,14 @@ These behaviors can be altered by using the app.config `fullsync_on_connect`. Se
 
 **fullsync enable**
 
-By default, a fullsync will start as soon as a connection is established to the remote cluster.
+Enable fullsync replication from a source cluster to sink clusters. By default, a fullsync will start as soon as a connection is established to the remote cluster.
 
 * *Syntax:* `riak-repl fullsync enable <sink_clustername>`
 * *Example:* `riak-repl fullsync enable Austin`
 
 **fullsync disable**
 
-By default, a fullsync will start as soon as a connection is established to the remote cluster.
+Disables fullsync for this cluster.
 
 * *Syntax:* `riak-repl fullsync disable <sink_clustername>`
 * *Example:* `riak-repl fullsync disable Austin`
