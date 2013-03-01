@@ -40,7 +40,7 @@ module BashoDocsHelpers
     version = current_version(project)
     current_project = (current_page.metadata[:page] || {})['project'] || $default_project
     url = pa.url.sub(/\.html/, '/')
-    url.sub!(/languages\/\w+\/riak.*?\//, '')
+    url.sub!(%r"languages\/\w+\/#{projects_regex}\/", '')
     if project != current_project
       url = "/#{project}/#{version}#{url}"
     end

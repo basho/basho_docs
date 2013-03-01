@@ -19,8 +19,10 @@ module Rack::Middleman
     end
 
     def alter_route(env, var)
-      unless env[var] =~ /\/(riak[^\/]*?\/[\d\.rc]+)\/?(index\.html)?$/
-        env[var] = env[var].sub(/\/(?:riak[^\/]*?|shared)\/[\d\.rc]+/, '') if env.include?(var)
+      unless env[var] =~ %r"\/((?:#{projects_regex}|shared)\/[^\/]+)\/?(index\.html)?$"
+        if env.include?(var)
+          env[var] = env[var].sub(%r"\/(?:#{projects_regex}|shared)\/[\d\.rc]+", '')
+        end
       else
         env[var] = "/#{$1}/index.html"
       end
@@ -50,8 +52,8 @@ module VersionifyPaths
     def manipulate_resource_list(resources)
       resources.each do |resource|
         path = resource.destination_path
-        next if path =~ /^riak[^\/]*\/[\d\.rc]+\/index\.html/
-        resource.destination_path = path.sub(/^(riak[^\/]*)\//, '')
+        next if path =~ /^(?:#{projects_regex})\/[\d\.rc]+\/index\.html/
+        resource.destination_path = path.sub(/^(#{projects_regex})\//, '')
       end
     end
   end
@@ -84,7 +86,7 @@ module VersionDirs
         end
 
         def change_version_to_latest(f)
-          f.sub(/(riak[^\/\-]*?\/)[^\/]+(\/.*?)/, '\1latest\2')
+          f.sub(/((?:#{projects_regex})\/)[^\/]+(\/.*?)/, '\1latest\2')
         end
 
         # If we're rendering the current version, then generate the latest
@@ -111,7 +113,6 @@ module VersionDirs
           next if File.directory?(f)
 
           # a copy of the full site to reflect the latest values
-
           project = get_project(f)
 
           # leave it
@@ -134,7 +135,7 @@ module VersionDirs
             # if we don't include the latest, delete this
             next if include_latest?(project)
           # project root files should also copy to latest
-          elsif f =~ /\/riak[^\/]*?\/[\d\.rc]+\/index\.html?$/
+          elsif f =~ /\/(?:#{projects_regex})\/[\d\.rc]+\/index\.html?$/
             if include_latest?(project)
               copy(f, change_version_to_latest(f))
             end
