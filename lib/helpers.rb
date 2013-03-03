@@ -28,7 +28,9 @@ module BashoDocsHelpers
     for keyword in keywords
       pages += $keyword_pages[keyword] || []
     end
-    pages.delete_if{|g| g.url == page.url }.to_a
+    project = (page.metadata[:page] || {})['project'] || $default_project
+    page_url = "/languages/#{I18n.locale.to_s}/#{project}#{page.url.sub(/\/$/, '.html')}"
+    pages.delete_if{|g| page_url == g.url }.to_a
   end
 
   def current_version(default_proj)
