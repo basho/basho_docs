@@ -116,12 +116,17 @@ public class App
 
 In many environments, you're going to configure your buckets to allow siblings and write the code that deals with them. 
 
-It's worth mentioning here that there's two ways to handle a read/modify/write cycle with the Java client; either doing a fetch, modifying the object, then storing it back to Riak in a separate store operation or encapsulating the entire read/modify/write cycle in the store operation. Note that if you plan to do the former and your own POJO you must include a `byte[]` or `VClock` field annotated with the `@RiakVClock` annotation. This preserves the vector clock in your POJO and is used during the subsequent store operation. For more information on this please see the section on [[Riak Java Client Storing Data]]. **(Note: This is a new feature of the 1.0.6 client release. Previous versions do not have this functionality and the read/modify/write cycle must be encapsulated in the store operation.)**
+It's worth mentioning here that there are two ways to handle a read/modify/write cycle with the Java client:
 
-There are two Interfaces you're going to be using:
+* Do a fetch, modify the object, then store it back to Riak in a separate store operation
+* Encapsulate the entire read/modify/write cycle in the store operation
+
+Note that if you do the former with your own POJO you must include a `byte[]` or `VClock` field annotated with the `@RiakVClock` annotation. This preserves the vector clock in your POJO and is used during the subsequent store operation. For more information on this please see the section on [[Riak Java Client Storing Data]]. **(Note: This is a new feature of the 1.0.6 client release. Previous versions do not have this functionality and the read/modify/write cycle must be encapsulated in the store operation.)**
+
+There are two interfaces you'll use:
 
 * [ConflictResolver&lt;T&gt;](http://basho.github.com/riak-java-client/1.1.0/com/basho/riak/client/cap/ConflictResolver.html)<BR>
-    This Interface is used to resolve sibling records returned by Riak
+    This interface is used to resolve sibling records returned by Riak
 * [Converter&lt;T&gt;](http://basho.github.com/riak-java-client/1.1.0/com/basho/riak/client/convert/Converter.html)<br>
     This interface is used to serialize/deserialize data to/from Riak
 
