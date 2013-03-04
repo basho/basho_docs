@@ -62,4 +62,4 @@ com.basho.riak.client.http.*
 
 and the originals retained but deprecated. If you want to use the legacy, low-level client directly please use the newly packaged version. The deprecated classes will be deleted in the next or following release to clean up the namespaces.
 
-At that time IRiak\* will become Riak\* and any I\* names will be deprecated then dropped. We're sorry about the unpleasant naming conventions in the short term.
+At that time `IRiak*` will become `Riak*` and any `I*` names will be deprecated then dropped. We're sorry about the unpleasant naming conventions in the short term.
