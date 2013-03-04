@@ -79,7 +79,7 @@ module SitemapRenderOverride
   def dir_depth(path)
     # puts path
     depth = path.sub(/[^\/]+\.\w+$/, '').split('/').size - 1
-    depth = 0 if path =~ /\/(riak[^\/]*?\/[^\/]+)\/?(index\.html)?$/
+    depth = 0 if path =~ /\/((?:#{projects_regex})\/[^\/]+)\/?(index\.html)?$/
     depth <= 0 ? 0 : depth
   end
 
@@ -188,11 +188,13 @@ module SitemapRenderOverride
         next "<a #{anchor.gsub(href, url)}>"
       end
 
+      match_index = href =~ /^\/(#{projects_regex})\/[\d\.rc]+\/$/
+
       # force the root page to point to the latest projcets
-      if $production && project == :root && href =~ /^\/(riak[^\/]*?)\/[\d\.rc]+\/$/
+      if $production && project == :root && match_index
         "<a href=\"/#{$1}/latest/\">"
       # /riak*/version/ links should be relative, unless they cross projects
-      elsif href =~ /^\/(riak[^\/]*?)\/[\d\.rc]+\/$/
+      elsif match_index #href =~ /^\/(riak[^\/]*?)\/[\d\.rc]+\/$/
         if ($1 || $default_project).to_sym == project
           url = prepend_dir_depth('', depth_to_root)
           "<a #{anchor.gsub(href, url)}>"
@@ -207,12 +209,13 @@ module SitemapRenderOverride
       else
         classes = extract_classes(anchor)
 
-        # HACK hardcoding projects
-        link_project = (%w{riak riakcs riakee}.find{|proj| classes.include?(proj)} || $default_project).to_sym
+        link_project = ($versions.keys.find{|proj| classes.include?(proj.to_s)} || $default_project).to_sym
 
         # make it absolute if outside this project, otherwise relative
         if link_project != project
-          url = "/#{link_project}/#{version_str}#{href}"
+          # proj_str = $versions[link_project] || version_str
+          # url = "/#{link_project}/#{proj_str}#{href}"
+          url = "/#{link_project}/latest#{href}"
         elsif classes.include?('versioned')
           next "<a #{anchor}>"
         else

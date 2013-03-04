@@ -278,6 +278,24 @@ riakcs:
       - "[[FAQs|Riak CS FAQs]]"
       - "[[Release Notes|Riak CS Release Notes]]"
 
+java:
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[Riak]]"
+      - "[[APIs|/references/apis/]]"
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Riak Java Client]]"
+      - "[[Installing|Riak Java Client Cookbook Install]]"
+  - title: "Cookbooks"
+    sub:
+      - "[[Client Factory|Riak Java Client Factory]]"
+      - "[[Fetching Data|Riak Java Client Fetching Data]]"
+      - "[[Storing Data|Riak Java Client Storing Data]]"
+      - "[[Custom Converter|Riak Java Client Custom Converter]]"
+
 root:
   - title: "All Riak Projects"
     class: "active"
