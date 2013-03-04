@@ -24,7 +24,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
     $ riak attach
     ```
 
-    You may have to hit enter again to get an console prompt.
+    You may have to hit enter again to get a console prompt.
 
 2. Get a list of partitions owned by the node that needs repaired:
 
@@ -40,7 +40,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
     > Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
     ```
 
-    _Details Note: The above is an [Erlang list comprehension](http://www.erlang.org/doc/programming_examples/list_comprehensions.html), that loops over each `{Partition, Node}` tuple in the Ring, and extracts only the partitions that match the given node name, as a list._
+    _Note: The above is an [Erlang list comprehension](http://www.erlang.org/doc/programming_examples/list_comprehensions.html), that loops over each `{Partition, Node}` tuple in the Ring, and extracts only the partitions that match the given node name, as a list._
 
 4. Execute repair on all the partitions. Executing them all at once like this will cause a lot of `{shutdown,max_concurrency}` spam but it's not anything to worry about. That is just the transfers mechanism enforcing an upper limit on the number of concurrent transactions.
 
