@@ -1,10 +1,6 @@
 h1 Keyword: #{@keyword}
-
 ul.keywords
   - projects = (@pages || []).group_by {|page| page.metadata[:page]["project"]}
   - for project, pages in projects
     - for page in pages
-      - meta = page.metadata[:page]
-      - classname = project == $default_project ? '' : 'versioned'
-      li(class==project)
-        ==link_to meta["title"], project_version_path(page), :class => classname
+      li== "[[#{page.metadata[:page]['title']}]]"
