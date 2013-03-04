@@ -5,22 +5,16 @@ puts "RIAK_DOCS_LANG=#{LANGUAGE}"
 I18n.locale = I18n.default_locale = LANGUAGE
 I18n.load_path = Dir[File.expand_path(File.join(File.dirname(__FILE__), '..', 'source', 'languages', LANGUAGE.to_s, "#{LANGUAGE.to_s}.yml"))]
 
-if ENV['RIAK_VERSION'].blank? || ENV['RIAK_VERSION'] !~ /[\d\.rc]+/
-  versions = YAML::load(File.open('data/versions.yml'))
-  for proj, vs in versions['currents']
-    proj = proj.upcase
-    ENV["#{proj}_VERSION"] = vs
-    puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
-  end
+$versions = {}
+version_file = YAML::load(File.open('data/versions.yml'))
+for proj, vs in version_file['currents']
+  proj = proj.upcase
+  $versions[proj.downcase.to_sym] = vs
+  ENV["#{proj}_VERSION"] = vs if ENV["#{proj}_VERSION"].blank? 
+  puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
 end
 
-$versions = {
-  :riak => ENV['RIAK_VERSION'].presence,
-  :riakcs => ENV['RIAKCS_VERSION'].presence || ENV['RIAK_VERSION'].presence,
-  :riakee => ENV['RIAKEE_VERSION'].presence || ENV['RIAK_VERSION'].presence
-}
 $default_project = 'riak'
-
 
 %w{versionify production_check index
   sitemap_render_override duals helpers downloads}.each do |lib|

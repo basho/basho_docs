@@ -1,3 +1,4 @@
+require './lib/tools'
 require './lib/setup'
 
 # since we're using ERB to dynamically generate this, MM assumes it's html
@@ -28,12 +29,12 @@ ready do
     next if proxy !~ /\.html$/
     proxy.sub!(/source\//, '')
     new_path = proxy.sub(%r"languages\/#{language}\/", '')
-    if new_path =~ /(riak.*?)\-index\.html/
+    if new_path =~ /(.+?)\-index\.html/
       project = $1
       version = $versions[project.to_sym]
       page "/#{project}/#{version}/index.html", :proxy => proxy, :directory_index => false, :ignore => true
     else
-      new_path.gsub(/^\/?(riak.*?)\//, '/')
+      new_path.sub!(%r"^\/?(#{projects_regex})\/", '/')
       new_path.gsub!(/\.html$/, '/index.html') unless proxy =~ /index\.html$/
       page new_path, :proxy => "/#{proxy}", :directory_index => false, :ignore => true
     end
