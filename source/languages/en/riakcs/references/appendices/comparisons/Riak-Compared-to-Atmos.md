@@ -1,92 +1,63 @@
 ---
-title: Riak CS Compared to Swift
+title: Riak CS Compared to Atmos
 project: riakcs
 version: 1.2.0+
 document: appendix
 toc: true
 index: true
-keywords: [comparisons, swift]
+keywords: [comparisons, emc, atmos]
 ---
-Riak CS and Swift (the object storage component of OpenStack) are both cloud storage systems with many design and implementation details in common. The purpose of this document is not to serve as an introduction to Riak CS and Swift, or their commonalities, but rather to enumerate interesting differences between the two systems. The intended audience for this document is someone who has a basic understanding of both systems.
+The purpose of this comparison is not to serve as an introduction to Riak CS and EMC Atmos, or their commonalities, but rather to enumerate interesting differences between the two systems. The intended audience for this document is someone who has a basic understanding of both systems.
 
 If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 
 ## Feature/Capability Comparison
 
-The table below gives a high level comparison of Riak CS and Swift features/capabilities.  For low level details, refer to the Riak CS and [Swift docs](http://docs.openstack.org/developer/swift/).
+The table below gives a high level comparison of Riak CS and Atmos features/capabilities.  For low level details, refer to the Riak CS and [Atmos docs](https://community.emc.com/community/edn/atmos).
 
 <table>
     <tr>
         <th WIDTH="15%">Feature/Capability</th>
         <th WIDTH="42%">Riak</th>
-        <th WIDTH="43%">Swift</th>
+        <th WIDTH="43%">Atmos</th>
     </tr>
     <tr>
-        <td>Anti-Entropy</td>
-        <td>Riak CS has continuous anti-entropy as a feature in progress, with a targeted release timeframe in Q1 2013. Riak CS currently supports “passive” read-time anti-entropy, which provides repair of inconsistencies immediately at client-read time. Swift does not perform repair at read or write time, but rather resolves such issues during its next rsync cycle.  
+        <td>Interfaces</td>
+        <td>Riak CS offers an S3-compatible interface that can be used with existing S3 clients and libraries. 
 		</td>
-        <td>Swift has a continuous anti-entropy process via frequent invocation of “rsync” for repairing any inconsistencies between data node file systems.
-		</td>
-    </tr>
-    <tr>
-        <td>Write-Time Communication & Host Failures</td>
-        <td>Riak CS always writes to the full number of desired hosts, using fallback nodes to perform hinted handoff and stand in for any missing or failing hosts in order to immediately reach full redundancy. As soon as the primary Riak CS nodes are once again reachable, copies on the fallbacks will be sent to them, quickly repairing the state of the cluster.		
-	 </td>
-        <td> Swift will write at least a majority/quorum of replicas before declaring success, and will allow anti-entropy to bring the number of replicas up to the full count later if needed due to node failures.
+        <td>Atmos offers a REST and SOAP API, an S3-compatible API, and an Atmos SDK as well as interfaces to traditional storage solutions including NFS/CIF and CAS.
 		</td>
     </tr>
     <tr>
-        <td>Quorum Models</td>
-        <td>Riak CS’s underlying quorum model is not only about availability, it also provides a latency- smoothing effect by replying to the user without the need to block on the slowest host in the replication set. This prevents brief per-host performance problems from affecting end-users. 
-			</td>
-        <td>Swift, despite only replying with the “best” single response, will wait for all relevant storage nodes to finish before sending a response to a write request. This can adversely impact latency. However, Swift’s read requests do not wait for a quorum; they simply try one replica at a time in random until they get a response with a fairly short timeout before moving on to try another. There are plans to improve the latency of Swift’s write requests.	
-	 </td>
+        <td>Availability and Architecture for Reads/Writes</td>
+        <td>On write, Riak CS breaks large objects into blocks. Riak CS distributes data across physical machines using consistent hashing and replicates objects a default of 3 times in the underlying Riak storage system. A manifest is maintained for each object that points to which blocks comprise the object. The manifest is used to retrieve all blocks and present them to a client on read. <br />
+        Riak CS is a masterless system in that any node can receive and route client requests, making it highly resilient to failure conditions like network partition and hardware failure. Riak uses a request serializer for globally unique entities like users and buckets. This request serializer runs on a single node and in the event of failure, a portion of write operations (specifically, creating new buckets and users) will be unavailable until service is restored.<br />
+        In Riak, by default, objects (including their manifests) are replicated 3 times in the underlying system. Riak can also be configured to store more replicas in a given site.
+	    </td>
+        <td>EMC Atmos stores objects and their metadata separately. The Metadata Service is responsible for storing all of an object's metadata, including policy and user-defined data, and providing the object layout which is required for both writes and reads to the underlying storage service. On read, the client will connect with a Resource Management Service to talk to a Metadata Location Service, which then locates the correct Metadata Service for the object.<br />  
+        The Metadata Location Service, responsible for finding a local Metadata Service on read, is deployed on two nodes of the first rack in an EMC Atmos implementation. The Metadata Service itself is a master-slave system with a primary and secondary node. The use of a master/slave architecture for metadata services that are required for reads and writes may compromise availability in the event of hardware failure or network partition. Additionally, Atmos stores only two copies of the metadata for an object at a site, which may also cause availability problems in certain failure conditions.
+        </td>
     </tr>
     <tr>
-        <td>Full Stack Integration</td>
-        <td>Riak CS stands alone as a storage service that has no specific related services for compute, VM image management, etc.
-	</td>
-        <td>Though it can run on its own, Swift is part of the OpenStack project– a well regarded, defined “stack” of services.
-	</td>
+        <td>Users and Multi-Tenancy</td>
+        <td>Riak exposes multi-tenancy using S3 conventions for user provisioning and management. Administrators can create users which are then able to authenticate, create buckets, upload and download data, retrieve account information and other user privileges.
+        </td>
+        <td>EMC Atmos implements a more complex tenant scheme. Atmos recommends implementing 1-2 tenants in a system, and using multiple sub-tenants underneath each tenant. The number of tenants is limited to the number of physical nodes, as front-end nodes are assigned to a specific tenant for client access. Configuring tenants and subtenants may be operationally complex, while assigning specific tenants to specific front-end nodes may cause end-user availability issues in the event of node failure.
+        </td>
+    </tr>
+    <tr>
+        <td>Hardware</td>
+        <td>Riak CS ships as software and can be installed from source or with packages, including Ubuntu and CentOS. There is no hardware lock-in to specific vendors, and Riak CS is designed to be run on commodity hardware so enterprises can achieve economies of scale.
+        </td>
+        <td>EMC Atmos can be deployed as a software/hardware bundle on Atmos Hardware or as a virtual edition deployed on a VMware-ceretified third-party storage system.
+        </td>
     </tr>
 	<tr>
-        <td>Languages</td>
-        <td>Riak CS is written in Erlang, a language and platform engineered for extremely high availability, making it easier to build Riak CS on industry-tested distributed systems components, and to attract engineers that specialize in such systems.
-		 </td>
-		
-        <td>Swift is written in Python, a language with a very large, accessible developer community who could readily contribute to Swift without the need to learn a new language.		
+        <td>Multi-Datacenter Replication</td>
+        <td>For multi-site replication in Riak CS, global information for users, bucket information and manifests are streamed in real-time from a primary implementation to a secondary site so global state is maintained across locations. Objects can then be replicated in either full sync or real-time sync mode. The secondary site will replicate the object as in normal operations. Additional datacenters can be added in order to create availability zones or additional data redundancy and locality. Riak CS can also be configured for bi-directional replication. 
+		</td>
+        <td>In EMC Atmos, object replication to secondary sites is done via synchronous or asynchronous replication configured by policies. These policies are implemented as part of the Metadata Service. A read-only copy of the metadata is maintained at secondary sites.		
 	 </td>
     </tr>
-		</tr>
-	        <td>Installation</td>
-	        <td>Riak CS is designed for easy installation, with a relatively small number of independent components to manage. A minimal installation requires installing just three components and editing less than 10 lines of configuration data.
-			</td>
-
-	        <td>Swift’s “toolbox” approach requires the installation and ongoing operational supervision of various components including Memcached, SQLite, and Keystone (OpenStack auth server), each of which have deep dependency trees of their own. An upside of this approach is that the system’s overall behavior is extremely modifiable, by changing the behavior of any of the many dependencies.			
-		 </td>
-	    </tr>
-    <tr>
-        <td>Operations</td>
-        <td>With Riak CS a single administrative command on a newly provisioned host tells the system to automatically integrate the new device. Well-defined underlying system components ensure correct behavior during transitions.
-	 </td>
-        <td>Swift requires a high degree of manual management. Devices are added to the definition of the ring by defining their node, name and zone. To change the definitions, mapping must be regenerated and new definitions must be pushed out to every node with whichever means is available (rsync appears to be the most common). When these files fall out of sync, the system will experience strange behavior or cease to function altogether.
-	 </td>
-    </tr>
-    <tr>
-        <td>Support For Amazon S3 API</td>
-        <td>Riak CS directly and natively supports the widely adopted S3 API, including such commonly used aspects as S3-keyed ACLs, hostname-to-bucket translation, etc.
-	
-        <td>Swift has its own custom (non-S3) API, with its own strengths. Optional, externally developed middleware that emulates the S3 API on top of Swift is, however, available.
-	</td>
-    </tr>
-    <tr>
-        <td>Governance</td>
-
-		<td>Riak CS is proprietary (though its heart is the Apache-licensed [[Riak database|http://docs.basho.com/riak/latest/]]) and is managed by Basho. This means that from outside of Basho you cannot get official changes made to Riak CS, but on the other hand Basho can unilaterally commit to improvements to the product without any other parties’ approval being required.
-			
-        <td>Swift is entirely open source and is managed by the OpenStack Foundation. No license is required in any way and no single company can either block or cause any changes to it on their own.
-	</td>
-    </tr>
-    
 </table>
