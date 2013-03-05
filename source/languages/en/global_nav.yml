@@ -267,6 +267,7 @@ riakcs:
       - title: "Comparisons"
         sub:
             - "[[CS Compared to Swift|Riak Compared to Swift]]"
+            - "[[CS Compared to Atmos|Riak Compared to Atmos]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
       - "[[Monitoring and Metrics]]"
