@@ -22,6 +22,13 @@ The configuration for replication is kept in the both the `riak_core` and `riak_
     …
 ]},		
 {riak_repl, [
+    % Pick the correct data_root for your platform
+	% Debian/Centos/RHEL:
+    {data_root, "/var/lib/riak/data/riak_repl"},
+    % Solaris:
+    % {data_root, "/opt/riak/data/riak_repl"},
+    % FreeBSD/SmartOS:
+    % {data_root, "/var/db/riak/riak_repl"},
     {max_fssource_cluster, 5},
     {max_fssource_node, 2},
     {max_fssink_node, 2},
