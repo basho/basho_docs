@@ -98,7 +98,7 @@ All of these projects and libraries are at various stages of completeness and ma
 *Node.js*
 
 * [[node_riak|https://github.com/mranney/node_riak]] - Voxer's production Node.js client for Riak. 
-* [[nodiak|https://github.com/Coradine/nodiak]] - Supports bulk get/save/delete, sibling auto-resolution, MapReduce chaining, Search, and 2i's.
+* [[nodiak|https://npmjs.org/package/nodiak]] - Supports bulk get/save/delete, sibling auto-resolution, MapReduce chaining, Search, and 2i's.
 * [[resourceful-riak|https://github.com/admazely/resourceful-riak]] - A Riak engine to the [[resourceful|https://github.com/flatiron/resourceful/]] model framework from [[flatiron|https://github.com/flatiron/]].
 * [[Connect-Riak|https://github.com/frank06/connect-riak]] - Riak Session Store for Connect backed by [[Riak-js|http://riakjs.org/]]
 * [[Riak-js|http://riakjs.com]] - Node.js client for Riak with support for HTTP and Protocol Buffers
