@@ -319,7 +319,7 @@ of the Riak community, and the code is available in the [Riaknostic
 Github repository](https://github.com/basho/riaknostic).
 
 {{#1.3.0+}}
-As of version 1.3 of Riak, Riaknostic is installed with Riak by default.
+As of Riak version 1.3, Riaknostic is installed by default.
 {{/1.3.0+}}
 
 {{#<1.3.0}}
