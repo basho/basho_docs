@@ -12,11 +12,11 @@ Fog is a general cloud services library written in Ruby. It is built to
 support as many providers as possible, from most AWS services, to Rackspace
 and Linode, and this includes an extension for RiakCS.
 
-You must install the fog gem with riak-cs code. Currently it's a [branch on
+You must install the fog gem with riak_cs code. Currently it's a [branch on
 github](https://github.com/basho/fog/tree/riak_cs).
 
 ```bash
-$ git clone -b riak-cs git@github.com:basho/fog.git
+$ git clone -b riak_cs git@github.com:basho/fog.git
 $ gem build fog.gemspec
 $ gem install fog-1.3.1.gem
 ```
