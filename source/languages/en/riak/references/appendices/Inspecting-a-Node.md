@@ -314,18 +314,27 @@ from the experience of the Basho Client Services Team as well as
 numerous public discussions on the mailing list, `#riak` IRC channel,
 and other online media.
 
-Riaknostic is open source, developed by Basho Technologies and members
-of the Riak community, and the code is available in the [Riaknostic
+{{#<1.3.0}}
+Riaknostic is an open source project developed by Basho Technologies and
+Riak community members. The code is available in the [Riaknostic
 Github repository](https://github.com/basho/riaknostic).
 
 Getting started with Riaknostic is easy, and instructions for
 installation and use are provided on the Riaknostic website. Once
 downloaded and installed, Riaknostic adds a `diag` subcommand to the
 `riak-admin` command. Executing `riak-admin diag` will provide
-information on any node problems as detected by Riaknostic, and also
+information on any node problems as detected by Riaknostic along with
 recommendations for resolution of the problems. Riaknostic can be
-extremely handy, and is strongly recommended as a first step when
-inspecting a problematic node.
+extremely handy for diagnosing a range of configuration issues and is strongly
+recommended as a first step when inspecting a problematic node or cluster
+issue.
+{{/<1.3.0}}
+
+{{#1.3.0+}}
+Riaknostic is included with Riak and exposed through the `riak-admin diag` command. It is an open source project developed by Basho Technologies and
+Riak community members. The code is available in the [Riaknostic
+Github repository](https://github.com/basho/riaknostic).
+{{/1.3.0+}}
 
 Related Resources
 -----------------
