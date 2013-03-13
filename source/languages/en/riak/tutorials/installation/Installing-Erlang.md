@@ -55,7 +55,7 @@ When successfully built you can install the build using:
 . ~/erlang/r15b01/activate
 ```
 
-The last line activates the Erlang build that was just installed into `/opt/erlang/r15b01`. See the [[kerl readme|https://github.com/spawngrid/kerl]] for more details on the available commands.
+The last line activates the Erlang build that was just installed into `~/erlang/r15b01`. See the [[kerl readme|https://github.com/spawngrid/kerl]] for more details on the available commands.
 
 If you prefer to install Erlang manually from the source code, the following will show you how.
 
