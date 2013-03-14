@@ -144,7 +144,9 @@ example, we'll install the `validate_json` module with its `validate`
 function into our `messages` bucket, like this:
 
 ```bash
-curl -XPUT -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/messages/props -d '{"props":{"precommit":[{"mod": "validate_json", "fun": "validate"}]}}'
+curl -XPUT -H "Content-Type: application/json" \
+http://127.0.0.1:8098/buckets/messages/props    \
+-d '{"props":{"precommit":[{"mod": "validate_json", "fun": "validate"}]}}'
 ```
 
 Check that the bucket has your pre-commit hook listed in its properties.
@@ -198,7 +200,8 @@ You can see that `precommit` is indeed set to our `validate_json` module and
 some objects with JSON values including some with invalid JSON.
 
 ```bash
-curl -XPUT localhost:8098/buckets/messages/keys/1 -H 'Content-Type: application/json' -d@msg3.json
+curl -XPUT localhost:8098/buckets/messages/keys/1 \
+-H 'Content-Type: application/json' -d@msg3.json
 ```
 
 The response when `msg3.json` contains invalid JSON:
@@ -290,7 +293,9 @@ we'll install the `log_object` module and its `log` function into our
 `messages` bucket, like this.
 
 ```bash
-curl -XPUT -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/updates/props -d '{"props":{"postcommit":[{"mod": "log_object", "fun": "log"}]}}'
+curl -XPUT -H "Content-Type: application/json" \
+http://127.0.0.1:8098/buckets/updates/props    \
+-d '{"props":{"postcommit":[{"mod": "log_object", "fun": "log"}]}}'
 ```
 
 Check that the bucket has your post-commit hook listed in its properties.
@@ -344,7 +349,8 @@ You can see that `postcommit` is indeed set to our `log_object` module and
 object and viewing `console.log`.
 
 ```bash
-curl -XPUT localhost:8098/buckets/updates/keys/2 -H 'Content-Type: application/json' -d@msg2.json
+curl -XPUT localhost:8098/buckets/updates/keys/2 \
+-H 'Content-Type: application/json' -d@msg2.json
 ```
 
 You can see the logged value of the object by viewing `console.log`.
@@ -444,7 +450,9 @@ in a MapReduce query. For example, let's return keys contained within the
 **messages** bucket:
 
 ```bash
-curl -XPOST http://localhost:8098/mapred -H 'Content-Type: application/json' -d '{"inputs":"messages", "query":[{"map":{"language":"erlang", "module":"mr_example", "function":"get_keys"}}]}'
+curl -XPOST http://localhost:8098/mapred \
+   -H 'Content-Type: application/json'   \
+   -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
 ```
 
 The results should look similar to this:
