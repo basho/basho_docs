@@ -314,7 +314,7 @@ from the experience of the Basho Client Services Team as well as
 numerous public discussions on the mailing list, `#riak` IRC channel,
 and other online media.
 
-{{#<1.3.0}}
+{{#1.3.0-}}
 Riaknostic is an open source project developed by Basho Technologies and
 Riak community members. The code is available in the [Riaknostic
 Github repository](https://github.com/basho/riaknostic).
@@ -328,7 +328,7 @@ recommendations for resolution of the problems. Riaknostic can be
 extremely handy for diagnosing a range of configuration issues and is strongly
 recommended as a first step when inspecting a problematic node or cluster
 issue.
-{{/<1.3.0}}
+{{/1.3.0-}}
 
 {{#1.3.0+}}
 Riaknostic is included with Riak and exposed through the `riak-admin diag` command. It is an open source project developed by Basho Technologies and
