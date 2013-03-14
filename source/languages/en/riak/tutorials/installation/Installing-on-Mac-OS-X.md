@@ -8,7 +8,7 @@ keywords: [tutorial, installing, osx]
 prev: "[[Installing on RHEL and CentOS]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on FreeBSD]]"
-download: 
+download:
   key: osx
   name: "Mac OS X"
 ---
@@ -98,14 +98,14 @@ tar xzvf riak-1.2.1-osx-i386.tar.gz
 
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/osx/10.6/riak-1.3.0-osx-x86_64.tar.gz
-tar xzvf riak-1.2.1-osx-x86_64.tar.gz
+tar xzvf riak-1.3.0-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/osx/10.6/riak-1.3.0-osx-i386.tar.gz
-tar xzvf riak-1.2.1-osx-i386.tar.gz
+tar xzvf riak-1.3.0-osx-i386.tar.gz
 ```
 
 {{/1.3.0}}
