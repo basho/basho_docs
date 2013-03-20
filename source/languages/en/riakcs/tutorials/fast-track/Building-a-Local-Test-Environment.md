@@ -272,7 +272,7 @@ to
     {admin_key, "5N2STDSXNV-US8BWF1TH"}
     {admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
 
-<div class="note"><div class="title">Note</div>Do not forget to remove the `anonymous_user_creation` setting!.</div>
+<div class="note"><div class="title">Note</div>Do not forget to remove the `anonymous_user_creation` setting!</div>
 
 Change the following lines in `/etc/stanchion/app.config`
 
