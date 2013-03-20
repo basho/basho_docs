@@ -1064,10 +1064,17 @@ riak-cs:
             i386:
               file: riak-cs-1.3.0-OSX-i386.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.3/1.3.0/osx/10.6/riak-cs-1.3.0-OSX-i386.tar.gz
-              file_size: 23075738
+              file_size: 23075717
               csum: riak-cs-1.3.0-OSX-i386.tar.gz.sha
               static_csum: http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.3/1.3.0/osx/10.6/riak-cs-1.3.0-OSX-i386.tar.gz.sha
               csum_size: 96
+            x86_64:
+              file: riak-cs-1.3.0-OSX-x86_64.tar.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.3/1.3.0/osx/10.6/riak-cs-1.3.0-OSX-x86_64.tar.gz
+              file_size: 22697775
+              csum: riak-cs-1.3.0-OSX-x86_64.tar.gz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.3/1.3.0/osx/10.6/riak-cs-1.3.0-OSX-x86_64.tar.gz.sha
+              csum_size: 98
     rhel:
       versions:
         '5':
@@ -1196,10 +1203,17 @@ stanchion:
             i386:
               file: stanchion-1.3.0-OSX-i386.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/stanchion/1.3/1.3.0/osx/10.6/stanchion-1.3.0-OSX-i386.tar.gz
-              file_size: 21534007
+              file_size: 21906292
               csum: stanchion-1.3.0-OSX-i386.tar.gz.sha
               static_csum: http://s3.amazonaws.com/downloads.basho.com/stanchion/1.3/1.3.0/osx/10.6/stanchion-1.3.0-OSX-i386.tar.gz.sha
               csum_size: 98
+            x86_64:
+              file: stanchion-1.3.0-OSX-x86_64.tar.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/stanchion/1.3/1.3.0/osx/10.6/stanchion-1.3.0-OSX-x86_64.tar.gz
+              file_size: 21533902
+              csum: stanchion-1.3.0-OSX-x86_64.tar.gz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/stanchion/1.3/1.3.0/osx/10.6/stanchion-1.3.0-OSX-x86_64.tar.gz.sha
+              csum_size: 100
     rhel:
       versions:
         '5':
