@@ -452,11 +452,7 @@ in a MapReduce query. For example, let's return keys contained within the
 ```bash
 curl -XPOST http://localhost:8098/mapred \
    -H 'Content-Type: application/json'   \
-   -d '{"inputs":"messages",
-          "query":[{"map":{
-          "language":"erlang",
-          "module":"mr_example",
-          "function":"get_keys"}}]}'
+   -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
 ```
 
 The results should look similar to this:
