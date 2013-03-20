@@ -40,7 +40,6 @@ ready do
       new_path.gsub!(/\.html$/, '/index.html') unless proxy =~ /index\.html$/
       new_path.sub!(/^\//, "/#{project}-") if paths.include?(new_path)
       paths << new_path
-      puts "#{new_path} /#{proxy}"
       page new_path, :proxy => "/#{proxy}", :directory_index => false, :ignore => true
     end
   end
