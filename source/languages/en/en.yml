@@ -17,10 +17,6 @@ en:
   next: Next
   toc_contents: Contents
   footer: "This work is licensed under a <a href=\"http://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">Creative Commons Attribution 3.0 Unported License</a>"
-  riak_cs:
-    info:
-      title: Riak CS Only
-      body: "To try out Riak CS, sign up for a <a href=\"http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html\">developer trial</a>."
   riak_ee:
     info:
       title: Riak Enterprise Only

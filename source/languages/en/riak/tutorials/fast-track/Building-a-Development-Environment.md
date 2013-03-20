@@ -146,7 +146,7 @@ you first must review the `plan`.
 $ dev2/bin/riak-admin cluster plan
 ```
 
-The plan will print out a synposis of what it plans to do, and how the cluster will look
+The plan will print out a synopsis of what it plans to do, and how the cluster will look
 after this is completed.
 
 ```bash

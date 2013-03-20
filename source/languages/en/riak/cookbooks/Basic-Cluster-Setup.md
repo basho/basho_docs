@@ -21,6 +21,15 @@ but if you have installed Riak with a binary install, you can substitute
 the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak-admin`
 with `sudo /usr/sbin/riak-admin`.
 
+<div class="info"><div class="title">Note on changing -name value</div>
+If possible, you should avoid starting Riak prior to editing the
+<code>-name</code> parameter in <code>vm.args</code> as described below. If
+you have already started Riak with the default settings, you cannot change
+the <code>-name</code> setting and then successfully restart the node. You
+must either discard the existing ring metadata by removing the contents of
+the <code>ring</code> directory (which will require rejoining all nodes into
+a cluster again) or rename the  node using the  [[riak-admin cluster replace|Command-Line-Tools---riak-admin#cluster-replace]] command.</div>
+
 Configure the First Node
 ------------------------
 

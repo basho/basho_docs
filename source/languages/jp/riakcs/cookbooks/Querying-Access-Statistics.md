@@ -9,7 +9,9 @@ keywords: [operator, troubleshooting]
 ---
 
 Access statistics are tracked on a per-user basis, as rollups for slices
-of time. Querying these statistics is done via the `/usage/$USER_KEY_ID`
+of time. Querying these statistics is done via the
+{{#1.3.0-}}`/usage/$USER_KEY_ID`{{/1.3.0-}}
+{{#1.3.0+}}`/riak-cs/usage/$USER_KEY_ID`{{/1.3.0+}}
 resource.
 
 For information about how access statistics are logged, please read
@@ -22,6 +24,9 @@ date ranges of information to include. For information on using `s3cmd`
 (or other tools) to fetch statistics as S3 objects, skip to the [The
 Magic `usage` Bucket](#The-Magic-usage-Bucket) section.
 
+{{#1.3.0+}} The examples on this page assume the `admin_port` has not
+been configured to something other than default CS port of 8080.{{/1.3.0+}}
+
 ## Choosing the Result Format
 Results are available as either JSON or XML. Request the appropriate one
 by using the HTTP `Accept` header (with either `application/json` or
@@ -31,14 +36,20 @@ by using the HTTP `Accept` header (with either `application/json` or
 Access statistics are provided on a per-user basis. Specify which user's
 statistics you want by providing that user's `key_id` in the URL. For
 example, to get access statistics for the user key
-`8NK4FH2SGKJJM8JIP2GU`, use the URL `/usage/8NK4FH2SGKJJM8JIP2GU`.
+`8NK4FH2SGKJJM8JIP2GU`, use the URL
+{{#1.3.0-}}`/usage/8NK4FH2SGKJJM8JIP2GU`.{{/1.3.0-}}
+{{#1.3.0+}}`/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU`.{{/1.3.0+}}
+
 *Note*: the new user id generator should not include non-URL-safe
 characters, but if it does, those characters will need to be escaped in
 this url.
 
 A `404` code with an error message body will be returned if the user
 does not exist. For example, there is no `ASDF` user in my cluster, so
-fetching `http://localhost:8080/usage/ASDF` produces:
+fetching
+{{#1.3.0-}}`http://localhost:8080/usage/ASDF`{{/1.3.0-}}
+{{#1.3.0+}}`http://localhost:8080/riak-cs/usage/ASDF`{{/1.3.0+}}
+produces:
 
 JSON:
 
@@ -70,7 +81,14 @@ The usage HTTP resource provides both access and storage statistics.
 Since each of these queries can be taxing in its own right, they are
 both omitted from the result by default:
 
+{{#1.3.0-}}
+
     curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU
+{{/1.3.0+}}
 
 JSON:
 
@@ -92,7 +110,14 @@ To request that access results be included, pass the query parameter `a`
 to the resource (any true-ish value will work, including just the bare
 `a`, `t`, `true`, `1`, `y`, and `yes`):
 
+{{#1.3.0-}}
+
     curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?a
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?a
+{{/1.3.0+}}
 
 JSON (reformatted for easy reading):
 
@@ -134,7 +159,14 @@ Each should be provided in ISO8601 format (`yyyymmddThhmmssZ`). For
 example, the following values would request the span between 2:00pm and
 4:00pm (GMT) on January 30, 2012:
 
+{{#1.3.0-}}
+
     http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?a&s=20120315T140000Z&e=20120315T160000Z
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?a&s=20120315T140000Z&e=20120315T160000Z
+{{/1.3.0+}}
 
 JSON:
 
@@ -206,13 +238,27 @@ If you would prefer to use `s3cmd` or another S3 library to fetch access
 stats, you may do so by referencing objects in the global `usage`
 bucket. The format for objects in the usage bucket is:
 
+{{#1.3.0-}}
+
     s3://usage/UserKeyId/Options/StartTime/EndTime
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    s3://riak-cs/usage/UserKeyId/Options/StartTime/EndTime
+{{/1.3.0+}}
 
 Or, if `/` is automatically quoted (`%2f`) by your client, the `.`
 character may be used (this is also nicer for s3cmd, since it will
 automatically choose a more useful name for the file it creates):
 
+{{#1.3.0-}}
+
     s3://usage/UserKeyId.Options.StartTime.EndTime
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    s3://riak-cs/usage/UserKeyId.Options.StartTime.EndTime
+{{/1.3.0+}}
 
 That is, in the usage bucket, this is a sub-bucket named for the user's
 `key_id` (the `UserKeyId` part of the path).
@@ -233,7 +279,14 @@ As an example, making the same request as the last example, for
 JSON-format access statistics between 2:00pm and 4:00pm GMT on January
 30, 2012, looks like this:
 
+{{#1.3.0-}}
+
     s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/aj/20120315T140000Z/20120315T160000Z
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/aj/20120315T140000Z/20120315T160000Z
+{{/1.3.0+}}
 
 *NOTE*: All objects in the `usage` bucket are read-only. `PUT` and
 `DELETE` requests will fail for them.
@@ -293,7 +346,8 @@ The operation types that are currently tracked are:
 -   `ListBuckets` -- listing a user's buckets (`GET /`)
 
 -   `UsageRead` -- reading a user's usage statistics
-    (`GET /usage/user/*`)
+{{#1.3.0-}} (`GET /usage/user/*`) {{/1.3.0-}}
+{{#1.3.0+}} (`GET /riak-cs/usage/user/*`) {{/1.3.0+}}
 
 -   `BucketRead` -- listing the files in a bucket (`GET /bucket`)
 

@@ -1,4 +1,4 @@
-riak:
+default:
   default:
     debian:
       name: "Debian"

@@ -242,7 +242,8 @@ riakcs:
     class: "start"
     sub:
       - "[[Riak CS]]"
-      - "[[Riak CS Quick Start Guide]]"
+      - "[[Download Riak CS]]"
+      - "[[The Riak CS Fast Track]]"
   - title: "Installing"
     sub:
       - "[[Installing Riak CS]]"
@@ -258,7 +259,7 @@ riakcs:
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
       - "[[Configuring an S3 client]]"
-  - title: "Multi Data Center"
+  - title: "Riak CS Enterprise"
     sub:
       - "[[Overview|MDC Overview]]"
       - "[[Configuration|Configuring MDC]]"
@@ -267,6 +268,8 @@ riakcs:
       - title: "Comparisons"
         sub:
             - "[[CS Compared to Swift|Riak Compared to Swift]]"
+            - "[[CS Compared to Atmos|Riak Compared to Atmos]]"
+      - "[[HTTP Administration Overview]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
       - "[[Monitoring and Metrics]]"

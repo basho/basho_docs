@@ -217,7 +217,9 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * `vnode_gets_total`: Number of GET operations coordinated by vnodes on this node since node was started
 * `vnode_puts_total`: Number of PUT operations coordinated by vnodes on this node since node was started
 * `node_gets`: Combined number of local and non-local GET operations coordinated by this node in the last minute
+* `node_puts`: Combined number of local and non-local PUT operations coordinated by this node in the last minute
 * `node_gets_total`: Combined number of local and non-local GET operations coordinated by this node since node was started
+* `node_puts_total`: Combined number of local and non-local PUT operations coordinated by this node since node was started
 
 ### Microsecond Timers
 
@@ -226,8 +228,6 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * `node_get_fsm_time_95`: 95th percentile time between reception of client GET request and subsequent response to client
 * `node_get_fsm_time_99` 99th percentile time between reception of client GET request and subsequent response to client
 * `node_get_fsm_time_100` 100th percentile time between reception of client GET request and subsequent response to client
-* `node_puts`: Combined number of local and non-local PUT operations coordinated by this node in the last minute
-* `node_puts_total`: Combined number of local and non-local PUT operations coordinated by this node since node was started
 * `node_put_fsm_time_mean`: Mean time between reception of client PUT request and subsequent response to client
 * `node_put_fsm_time_median`: Median time between reception of client PUT request and subsequent response to client
 * `node_put_fsm_time_95`: 95th percentile time between reception of client PUT request and subsequent response to client
@@ -262,7 +262,7 @@ The following metrics from from riak_pipe are generated during MapReduce operati
 * `pipeline_active` The number of pipelines active in the last 60 seconds
 * `pipeline_create_count` The total number of pipelines created since the node was started
 * `pipeline_create_error_count` The total number of pipeline creation errors since the node was started
-* `pipeline_create_error_one` The number of pipelines created in the last 60 seconds
-* `pipeline_create_one` The number of pipeline creation errors in the last 60 seconds
+* `pipeline_create_one` The number of pipelines created in the last 60 seconds
+* `pipeline_create_error_one` The number of pipeline creation errors in the last 60 seconds
 
 {{/1.2.0+}}
