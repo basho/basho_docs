@@ -12,7 +12,7 @@ keywords: [developer]
 ## Access Statistics
 Access stats are tracked on a per-user basis, as rollups for slices of
 time. They are stored in the same Riak cluster as other Riak CS data, in
-the `moss.access` bucket.
+the `cs.access` bucket.
 
 For information about querying access statistics, please read [[Querying Access Statistics]].
 
@@ -133,7 +133,7 @@ period, the objects for all intervals in that time period must be
 retrieved.
 
 It is important to note that the archival process does not attempt a
-*read/modify/write* cycle when writing a slice record. The `moss.access`
+*read/modify/write* cycle when writing a slice record. The `cs.access`
 bucket should have the `allow_mult=true` flag set, and so multiple Riak
 CS nodes writing the same slice record for the same user create
 siblings. Riak CS attempts to check and set the `allow_mult` bucket
@@ -150,7 +150,7 @@ node**.
 ## Storage Statistics
 Storage statistics are also tracked on a per-user basis, as rollups for
 slices of time. They are stored in the same Riak cluster as other Riak
-CS data, in the `moss.storage` bucket.
+CS data, in the `cs.storage` bucket.
 
 For detailed information about querying storage statistics, please read
 [[Querying Storage Statistics]].
@@ -184,7 +184,7 @@ If you would like to have an Riak CS node calculate the storage used by
 every user at the same time (or times) each day, specify a schedule in
 that node's Riak CS `app.config` file.
 
-In the `riak_moss` section of the file, add an entry for
+In the `riak_cs` section of the file, add an entry for
 `storage_schedule` like:
 
     {storage_schedule, "0600"}
@@ -288,11 +288,11 @@ on the Riak cluster. Only one user is calculated at a time as well to
 prevent too large of a temporary list on the Riak CS node.
 
 Once the sum for each of the user's buckets is calculated, a record is
-written to the `moss.storage` Riak bucket.
+written to the `cs.storage` Riak bucket.
 
 ### Archival
-Records written to the `moss.storage` bucket are very similar to records
-written to the `moss.access` bucket used for logging access statistics.
+Records written to the `cs.storage` bucket are very similar to records
+written to the `cs.access` bucket used for logging access statistics.
 The value is a JSON object with one field per bucket. The key is a
 combination of the user's `key_id` and the timestamp of the time slice
 for which the calculation was run.

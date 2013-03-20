@@ -32,15 +32,15 @@ shown in the following example.
 
 ## Riak CS Configuration
 
-For each Riak CS node in the cluster, update the `riak_moss` section
+For each Riak CS node in the cluster, update the `riak_cs` section
 of the `app.config`, by appending the `{proxy_get, enabled}` setting
 as shown in the following example.
 
 ```erlang
-%% Riak Moss config
-{riak_moss, [
-             {moss_ip, "127.0.0.1"},
-             {moss_port, 8080 },
+%% Riak CS config
+{riak_cs, [
+             {cs_ip, "127.0.0.1"},
+             {cs_port, 8080 },
              {proxy_get, enabled},
              %% ...
             ]}

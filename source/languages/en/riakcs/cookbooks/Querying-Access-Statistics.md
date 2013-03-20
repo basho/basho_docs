@@ -172,7 +172,7 @@ JSON:
 
 ```json
 {"Access":[
-   {"Node":"riak_moss@127.0.0.1",
+   {"Node":"riak_cs@127.0.0.1",
     "Samples":[{"StartTime":"20120315T150000Z",
                 "EndTime":"20120315T152931Z",
                 "KeyWrite":{"BytesIn":32505856,"Count":1},
@@ -188,7 +188,7 @@ XML:
 <?xml version="1.0" encoding="UTF-8"?>
 <Usage>
    <Access>
-      <Node name="riak_moss@127.0.0.1">
+      <Node name="riak_cs@127.0.0.1">
          <Sample StartTime="20120315T150000Z" EndTime="20120315T152931Z">
             <Operation type="KeyWrite">
                <BytesIn>32505856</BytesIn>
@@ -225,7 +225,7 @@ to `s`.
 To prevent excessive time and memory from being consumed accidentally,
 the amount of time that may be retrieved in any request is limited.
 
-The limit is configured by the `riak_moss` application environment
+The limit is configured by the `riak_cs` application environment
 variable `usage_request_limit`. The value is expressed as an integer
 number of archive intervals (see [[Usage and Billing Data]]
 for a description of archive intervals).
@@ -391,7 +391,7 @@ The operation types that are currently tracked are:
 -   `KeyUnknownACL` - unknown key ACL operation (`?? /bucket/key?acl`)
 
 -   `UnknownGET` -- a `GET` was issued on an unrecognized resource;
-    likely means that the `riak_moss_access_logger:operation/1` function
+    likely means that the `riak_cs_access_logger:operation/1` function
     is out of date
 
 -   `UnknownHEAD` -- see `UnknownGET`
