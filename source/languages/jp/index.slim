@@ -14,9 +14,31 @@ h1.center-text.extra-large
 h3.center-text プロジェクトを選択してください:
 
 div#select-project
-  img id="left-connector" src="/images/left-connector.png"
-  img id="right-connector" src="/images/right-connector.png"
-  - current_projects.each do |project, version|
-    - version = $production ? "latest" : version[:deployment]
-    a.big-project-link(id=project href="/#{project}/#{version}/")
-      img(alt=project src="/images/#{project}-circle.png")
+  - version = "latest"
+  div.project
+    a href="/riakee/#{version}"
+      span.big
+        | Riak&nbsp;
+        strong Enterprise
+      span.small
+        | Multidatacenter replication + support
+
+  div.separator
+    div.vert-line
+
+  div.project
+    a href="/riak/#{version}"
+      span.image
+      span.small
+        | Masterless, automatic distribution
+
+  div.separator
+    div.vert-line
+
+  div.project
+    a href="/riakcs/#{version}"
+      span.big
+        | Riak&nbsp;
+        strong Cloud Storage
+      span.small
+        | Simple, available, s3-compatible
