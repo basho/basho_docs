@@ -27,7 +27,7 @@ First, edit Riak's `app.config` file and find and delete the line containing the
 Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the custom multi backend. Continue editing Riak's `app.config` file, and add this to the `riak_kv` section:
 
 ```
-{add_paths, ["/usr/lib/riak-cs/lib/riak_moss-X.Y.Z/ebin"]},
+{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin"]},
 {storage_backend, riak_cs_kv_multi_backend},
 {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
 {multi_backend_default, be_default},
@@ -44,7 +44,7 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 
 where **X.Y.Z** is the version of Riak CS you have installed.
 
-Note that this assumes Riak and RiakCS packages are installed on the same machine. If the RiakCS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_moss-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+Note that this assumes Riak and RiakCS packages are installed on the same machine. If the RiakCS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
 Next, add this to the **riak_core** section of `app.config`:
 
@@ -54,7 +54,7 @@ Save and exit the editing session on the `app.config` file. To test that you hav
 
 ```
 (riak@127.0.0.1)1> code:which(riak_cs_kv_multi_backend).
-"/usr/lib64/riak-cs/lib/riak_moss-X.Y.Z/ebin/riak_cs_kv_multi_backend.beam"
+"/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/riak_cs_kv_multi_backend.beam"
 ```
 
 If the path that you added to Riak's `app.config` is returned, your node is configured correct. If instead, the atom **`non_existing`** is returned, Riak was unable to find the Riak CS code.

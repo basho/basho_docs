@@ -118,7 +118,7 @@ keywords: [developer]
 * Default content-type is not passed into function to handle PUT
   request body
 * Requests hang when a node in the Riak cluster is unavailable
-* Correct inappropriate use of `riak_moss_utils:get_user` by
+* Correct inappropriate use of `riak_cs_utils:get_user` by
   `riak_moss_acl_utils:get_owner_data`
 
 # Riak CS 1.0.0 Release Notes
