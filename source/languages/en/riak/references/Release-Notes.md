@@ -8,6 +8,7 @@ audience: beginner
 keywords: [release-notes]
 ---
 
+* [Riak 1.3 Release Notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md)
 * [Riak 1.2 Release Notes](https://github.com/basho/riak/blob/1.2/RELEASE-NOTES.md)
 * [Riak 1.1 Release Notes](https://github.com/basho/riak/blob/1.1/RELEASE-NOTES.org)
 * [Riak 1.0 Release Notes](https://github.com/basho/riak/blob/1.0/RELEASE-NOTES.org)
