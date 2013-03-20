@@ -346,7 +346,7 @@ riak-admin vnode-status
 
 ## diag
 
-Run diagnostic checks against &lt;node&gt;. [riaknostic](http://riaknostic.basho.com/) must be installed in order to run.
+Run diagnostic checks against &lt;node&gt;. {{#<1.3.0}}[riaknostic](http://riaknostic.basho.com/) must be installed in order to run.{{/<1.3.0}}
 
 ```bash
 riak-admin diag <check>
