@@ -31,12 +31,6 @@ Riak CS is now open sourced and [[free for download|Download Riak CS]].
 </td>
 </tr>
 <tr align="left" valign="top">
-<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>Multi-Datacenter Replication</strong></td>
-<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
-<p>Riak CS provides multi-datacenter replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure. &nbsp;</p>
-</td>
-</tr>
-<tr align="left" valign="top">
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Per-Tenant Visibility</strong></td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
 <p>With the Riak CS Reporting API, you get per-tenant&nbsp;usage data and statistics on network I/O. This&nbsp;reporting functionality supports use cases including&nbsp;accounting, subscription, chargebacks, plugins with&nbsp;billing systems or efficient multi-department&nbsp;utilization.</p>
@@ -50,14 +44,12 @@ Riak CS is now open sourced and [[free for download|Download Riak CS]].
 <p>Store images, text, video, documents, database&nbsp;backups, software binaries and other content up to&nbsp;5GB as a single, easily retrievable object.&nbsp;&nbsp;Riak CS also&nbsp;supports standard Amazon metadata headers.</p>
 </td>
 </tr>
-{{#1.3.0+}}
 <tr align="left" valign="top">
-<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Multi-Datacenter Replication</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Multi-Datacenter Replication<br><i>(Enterprise Edition Only)</i></strong>{{1.3.0+}}</td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
-<p>Riak CS provides multi-datacenter replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.</p>
+<p>Riak CS [[Enterprise edition|Riak Enterprise]] provides multi-datacenter replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.</p>
 </td>
 </tr>
-{{/1.3.0+}}
 </tbody>
 </table>
 
