@@ -12,9 +12,11 @@ versions: false
 ---
 
 ![Riak CS Logo](/images/riak-cs-logo.png)
+
+***Learn more about Riak CS in our Intro to Riak CS webcast, Tuesday, April 2 (<a href="http://info.basho.com/IntroToRiakCSApril2.html" target="_blank">register here</a>)***
 <br>
 <br>
-Riak CS is multi-tenant cloud storage software for public and private clouds. Built on Basho's distributed database Riak, Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3-API compatible and supports per-tenant reporting for billing and metering use cases.  To try out Riak CS, sign up for a [developer trial](http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html).
+Riak CS (Cloud Storage) is simple, open source storage software built on top of Riak. It can be used to build public or private clouds, or as reliable storage to power applications and services. Built on Basho's distributed database Riak, Riak CS is open source software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3-API compatible and supports per-tenant reporting for billing and metering use cases.
 
 ## Notable Riak CS Features
 
