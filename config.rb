@@ -24,6 +24,7 @@ ready do
   end
 
   language = I18n.locale.to_s
+  paths = Set.new
   Dir["source/languages/#{language}/**/*"].each do |proxy|
     proxy = proxy.sub(/\.html.*?$/, '.html').sub(/\.(md|slim)/, '.html')
     next if proxy !~ /\.html$/
@@ -34,8 +35,12 @@ ready do
       version = $versions[project.to_sym]
       page "/#{project}/#{version}/index.html", :proxy => proxy, :directory_index => false, :ignore => true
     else
+      project = new_path.scan(/^[^\/]+/).first
       new_path.sub!(%r"^\/?(#{projects_regex})\/", '/')
       new_path.gsub!(/\.html$/, '/index.html') unless proxy =~ /index\.html$/
+      new_path.sub!(/^\//, "/#{project}-") if paths.include?(new_path)
+      paths << new_path
+      puts "#{new_path} /#{proxy}"
       page new_path, :proxy => "/#{proxy}", :directory_index => false, :ignore => true
     end
   end
