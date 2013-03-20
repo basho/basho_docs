@@ -2,11 +2,13 @@
 title: The Riak CS Fast Track
 project: riakcs
 version: 1.2.0+
-document: tutorial
 toc: false
-index: true
+document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track, installing]
+next: "[[What is Riak CS?|What is Riak CS]]"
+interest: false
+versions: false
 ---
 
 Riak CS (Cloud Storage) is simple, open source storage software built on top of Riak. It can be used to build public or private clouds, or as reliable storage to power applications and services. It features:
