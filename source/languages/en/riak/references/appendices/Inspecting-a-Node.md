@@ -24,7 +24,7 @@ included with every installation of Riak. The `status` subcommand
 provides data related to current operating status for a node. The output
 of `riak-admin status` is categorized and detailed below.
 
-Please note, for some counters such as node_get_fsm_objsize a minimum of 
+Please note, for some counters such as node_get_fsm_objsize a minimum of
 5 transactions is required for statistics to be generated.
 
 ### One-minute
@@ -318,14 +318,23 @@ Riaknostic is open source, developed by Basho Technologies and members
 of the Riak community, and the code is available in the [Riaknostic
 Github repository](https://github.com/basho/riaknostic).
 
+{{#1.3.0+}}
+As of Riak version 1.3, Riaknostic is installed by default.
+{{/1.3.0+}}
+
+{{#<1.3.0}}
 Getting started with Riaknostic is easy, and instructions for
 installation and use are provided on the Riaknostic website. Once
 downloaded and installed, Riaknostic adds a `diag` subcommand to the
-`riak-admin` command. Executing `riak-admin diag` will provide
+`riak-admin` command.
+{{/<1.3.0}}
+
+Executing `riak-admin diag` will provide
 information on any node problems as detected by Riaknostic, and also
 recommendations for resolution of the problems. Riaknostic can be
 extremely handy, and is strongly recommended as a first step when
 inspecting a problematic node.
+
 
 Related Resources
 -----------------
