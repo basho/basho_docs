@@ -19,6 +19,7 @@ def build_yokozuna_index(resources)
     metadata['url'] = resource.url.sub(/\.html/, '/')
 
     key = make_riak_key(resource, metadata['project'] || $default_project)
+
     body = File.read(resource.source_file)
     data = body
 
@@ -50,7 +51,7 @@ def build_yokozuna_index(resources)
     # -H 'content-type:text/plain' \
 
     # strip out keywords if empty
-    data.sub!(/keywords\:\s*\[\]/, '')
+    data.sub!(/keywords\:\s*\[\]$/, '')
 
     command = <<-CURL
     curl -XPUT '#{ROOT_URL}/#{key}' \
@@ -60,6 +61,7 @@ def build_yokozuna_index(resources)
     YNFCM
     CURL
 
+    # # puts command
     # if (count += 1) == 4
     #   puts command
     #   return
