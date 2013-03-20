@@ -10,7 +10,9 @@ keywords: [operator, troubleshooting]
 
 Storage statistics are tracked on a per-user basis, as rollups for
 slices of time. Querying these statistics is done via the
-`/usage/$USER_KEY_ID` resource.
+{{#1.3.0-}}`/usage/$USER_KEY_ID`{{/1.3.0-}}
+{{#1.3.0+}}`/riak-cs/usage/$USER_KEY_ID`{{/1.3.0+}}
+resource.
 
 **Note**: Storage statistics are not calculated by default. Please read
 [[Usage and Billing Data]] for details about how to enable storage calculation archival.
@@ -20,6 +22,9 @@ the parameters for specifying the time slice, are the same as they are
 for [[Querying Access Statistics]].
 
 Please refer to the descriptions there for more details.
+
+{{#1.3.0+}} The examples on this page assume the `admin_port` has not
+been configured to something other than default CS port of 8080.{{/1.3.0+}}
 
 ## Enable Storage Results
 
@@ -34,7 +39,14 @@ The usage HTTP resource provides both access and storage statistics.
 Since each of these queries can be taxing in its own right, they are
 both omitted from the result by default:
 
+{{#1.3.0-}}
+
     curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU
+{{/1.3.0+}}
 
 JSON:
 ```json
@@ -55,7 +67,14 @@ To request that storage results be included, pass the query parameter
 `b` to the resource (any true-ish value will work, including just the
 bare `b`, `t`, `true`, `1`, `y`, and `yes`):
 
+{{#1.3.0-}}
+
     curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?b
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?b
+{{/1.3.0+}}
 
 JSON (reformatted for easy reading):
 
@@ -84,12 +103,26 @@ statistics to the result, add the character `b` to the `Options` portion
 of the object's path. For example, the following command would produce
 storage statistics in XML format:
 
+{{#1.3.0-}}
+
     s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
+{{/1.3.0+}}
 
 You may also pass both `b` and `a` as `Options` to fetch both types of
 stats, as in:
 
+{{#1.3.0-}}
+
     s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
+{{/1.3.0-}}
+{{#1.3.0+}}
+
+    s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
+{{/1.3.0+}}
 
 ## Interpreting the Results
 The result of the storage query is one or more "samples" for each time

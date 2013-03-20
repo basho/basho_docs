@@ -18,7 +18,7 @@ A few other settings must be modified to configure a Riak node as part of a Riak
 
 ## Setting up the Proper Riak Backend
 
-First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv `section. The `app.config `file can be found in the `/etc/riak` directory. The default setting is for the Bitcask backend and would look like this:
+First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv `section. The `app.config `file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
 
 ```
 {storage_backend, riak_kv_bitcask_backend},
@@ -62,7 +62,7 @@ If the path that you added to Riak's `app.config` is returned, your node is conf
 <div class="note"><div class="title">Note</div>It is important to use `CTRL+D` to detach the console and leave Riak running after doing a `riak attach`. `CTRL+C` will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
 
 ## Specifying the Riak IP Address
-By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak vm.args configuration file, which is located in the `/etc/Riak` folder.
+By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak `vm.args` configuration file, which is located in the `/etc/riak` folder.
 
 Initially, the line that specifies the riak node IP address is set to the local host, as follows:
 
@@ -107,3 +107,19 @@ For the **certfile** and **keyfile** variables, replace the text in quotes with 
 ###Other Riak Settings
 
 The `app.config` file includes other settings, such as turning on the creation of log files and specifying where to store them. These settings have default values that work in most cases.
+
+### Performance & Capacity settings
+
+It is strongly recommended that the following values be set in the
+Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/riak/etc` folder.
+
+```erlang
+## This setting is not present in default Riak installations, so
+## it should be added.  In some cases, a value of 128000 may be
+%% appropriate.
++zdbbl 96000
+
+## This setting is present in default Riak installations, so
+## its value should be edited.
+-env ERL_MAX_PORTS 16384
+```

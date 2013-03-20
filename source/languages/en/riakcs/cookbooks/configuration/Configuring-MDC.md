@@ -8,15 +8,15 @@ audience: intermediate
 keywords: [operator]
 ---
 
-Configuration of multi-datacenter replication in Riak CS requires addition of
-a new setting to the `app.config` for all Riak CS and Riak EE nodes which are
-part of the Riak CS cluster.
+Configuration of multi-datacenter replication in Riak CS requires
+addition of a new setting to the `app.config` for all Riak CS and Riak
+Enterprise nodes which are part of the Riak CS cluster.
 
-## Riak EE Configuration
+## Riak Enterprise Configuration
 
-For each Riak node in the cluster, update the `riak_repl` section of the
-`app.config`, by appending the `{proxy_get, enabled}` setting as shown
-in the following example.
+For each Riak node in the cluster, update the `riak_repl` section of
+the `app.config`, by appending the `{proxy_get, enabled}` setting as
+shown in the following example.
 
 ```erlang
 {riak_repl, [
@@ -32,9 +32,9 @@ in the following example.
 
 ## Riak CS Configuration
 
-For each Riak CS node in the cluster, update the `riak_moss` section of the
-`app.config`, by appending the `{proxy_get, enabled}` setting as shown
-in the following example.
+For each Riak CS node in the cluster, update the `riak_moss` section
+of the `app.config`, by appending the `{proxy_get, enabled}` setting
+as shown in the following example.
 
 ```erlang
 %% Riak Moss config
