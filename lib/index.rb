@@ -11,7 +11,8 @@ end
 def build_yokozuna_index(resources)
   count = 0
   for resource in resources
-    next unless resource.url =~ /\.(?:html)$/
+    next unless resource.url =~ /\.(?:html)|\/$/
+    next if resource.url =~ /keywords/
     next if %w{/404.html /index.html}.include?(resource.url)
 
     metadata = resource.metadata[:page] || {}
@@ -48,6 +49,9 @@ def build_yokozuna_index(resources)
     # -H 'X-Riak-Title:#{metadata['title']}' \
     # -H 'content-type:text/plain' \
 
+    # strip out keywords if empty
+    data.sub!(/keywords\:\s*\[\]/, '')
+
     command = <<-CURL
     curl -XPUT '#{ROOT_URL}/#{key}' \
     -H 'content-type:application/riakdoc' \
@@ -56,7 +60,7 @@ def build_yokozuna_index(resources)
     YNFCM
     CURL
 
-    # if (count += 1) == 2
+    # if (count += 1) == 4
     #   puts command
     #   return
     # end
