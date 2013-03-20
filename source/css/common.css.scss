@@ -861,146 +861,111 @@ div[role="main"] {
   }
   
   #select-project {
-    @include size(auto, 35em);
+    @include size(96%, 250px);
     font-size : 110%;
     position  : relative;
-    min-width : 46em;
-    max-width : 46em;
-    margin    : 0 auto;
+    margin    : 7em auto 10em;
+    .project {
+      @include size(32%, 250px);
+      float      : left;
+      text-align : center;
+      margin     : 0 auto;
+      &:first-child {
+        background : inline-image('layout/enterprise-globe.png') center center no-repeat transparent;
+      }
+      &:last-child {
+        background : inline-image('layout/cs-cloud.png') center center no-repeat transparent;
+      }
+      a {
+        display         : block;
+        color           : $headerColor;
+        text-decoration : none;
+        &:hover {
+          color : $linkBlue;
+        }
+      }
+      .big, .small, .image {
+        display     : block;
+        color       : headerColor;
+        line-height : 1.2;
+        margin      : 0 auto;
+        text-align  : center;
+      }
+      .image {
+        @include size(92%, 88px);
+        background     : inline-image('layout/big-riak-logo.png') center center no-repeat transparent;
+        border-bottom  : 1px solid #cfcfcf;
+        padding-bottom : 20px;
+        margin-top     : 37px;
+      }
+      .big {
+        border-bottom : 1px solid #cfcfcf;
+        width         : 92%;
+        margin        : 107px auto 0;
+        padding       : 0;
+        height        : 38px;
+        font-size     : 175%;
+        font-weight   : normal;
+      }
+      .small {
+        @extend .sans-bold;
+        text-transform : uppercase;
+        padding        : 5px 0;
+        letter-spacing : .5px;
+        font-size      : 85%;
+      }
+    }
+    .separator {
+      @include size(2%, 100%);
+      float      : left;
+      text-align : center;
+      .vert-line {
+        @include size(1px, 100%);
+        margin     : 0 auto;
+        background : #cfcfcf;
+      }
+    }
+
     @media screen and (max-width: 1300px) {
-      @include size(66%, 27em);
-      min-width : 36em;
+      margin : 4em auto 7em;
+
+      .project .image {
+        background : inline-image('layout/smaller-riak-logo.png') center center no-repeat transparent;
+        margin-top : 27px;
+      }
+      .project a {
+        white-space : normal;
+      }
+      .project .big {
+        font-size : 125%;
+        height    : 28px;
+      }
+    }
+    @media screen and (max-width: 1075px) {
+      height : auto;
+      float  : none;
+      .separator {
+        display : none;
+      }
+      .project {
+        float  : none;
+        width  : 75%;
+        margin : 0 auto;
+        a {
+          position : absolute;
+          width    : 100%;
+          left     : 0;
+        }
+      }
     }
     @media screen and (max-width: 925px) {
-      height    : 25em;
-      min-width : 30em;
+      .project {
+        height : 225px;
+      }
     }
     @media screen and (max-width: 810px) {
-      @include size(100%, auto);
-      text-align  : center;
-      min-width   : 0;
       padding-top : 10px;
       margin      : 15px auto;
-    }
-    
-    #right-connector, #left-connector {
-      position : absolute;
-    }
-    
-    #right-connector {
-      top  : 13em;
-      left : 21em;
-      @media screen and (max-width: 1300px) {
-        @include size(209px, 86px); // 80% of full size
-        top  : 10em;
-        left : 17em;
-      }
-      @media screen and (max-width: 925px) {
-        top  : 9em;
-        left : 13.5em;
-      }
-      @media screen and (max-width: 810px) {
-        display : none;
-      }
-    }
-    
-    #left-connector {
-      top  : 14em;
-      left : 6em;
-      @media screen and (max-width: 1300px) {
-        @include size(148px, 175px); // 80% of full size
-        top  : 10em;
-        left : 6em;
-      }
-      @media screen and (max-width: 925px) {
-        top  : 9em;
-        left : 3em;
-      }
-      @media screen and (max-width: 810px) {
-        display : none;
-      }
-    }
-    
-    .big-project-link {
-      @include allCorners(50%);
-      overflow : hidden;
-      position : absolute;
-      display  : block;
-      
-      &:hover {
-        @include boxShadow(0 0 20px $orange)
-      }
-      
-      &#riak {
-        @include size(317px, 317px);
-        top  : 3em;
-        left : 9em;
-        @media screen and (max-width: 1300px) {
-          @include size(260px, 260px);
-          top  : 2em;
-          left : 8em;
-        }
-        @media screen and (max-width: 925px) {
-          @include size(220px, 220px);
-          top  : 2em;
-          left : 6em;
-        }
-        @media screen and (max-width: 810px) {
-          @include size(125px, 125px);
-          position : static;
-          display  : inline-block;
-          margin   : 5px;
-        }
-      }
-      
-      &#riakee {
-        @include size(230px, 230px);
-        top  : 19em;
-        left : 1em;
-        @media screen and (max-width: 1300px) {
-          @include size(180px, 180px);
-          top  : 14em;
-          left : 1em;
-        }
-        @media screen and (max-width: 925px) {
-          @include size(162px, 162px);
-          top  : 13em;
-          left : 0;
-        }
-        @media screen and (max-width: 810px) {
-          @include size(125px, 125px);
-          position : static;
-          display  : inline-block;
-          margin   : 5px;
-        }
-      }
-      
-      &#riakcs {
-        @include size(274px, 274px);
-        top  : 11em;
-        left : 28em;
-        @media screen and (max-width: 1300px) {
-          @include size(225px, 225px);
-          top  : 8em;
-          left : 23em;
-        }
-        @media screen and (max-width: 925px) {
-          @include size(185px, 185px);
-          top  : 8em;
-          left : 19em;
-        }
-        @media screen and (max-width: 810px) {
-          @include size(125px, 125px);
-          position : static;
-          display  : inline-block;
-          margin   : 5px;
-        }
-      }
-      
-      img {
-        @extend .block;
-        @include size(100%, 100%);
-      }
     }
   }
 }
