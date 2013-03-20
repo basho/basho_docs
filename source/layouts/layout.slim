@@ -35,11 +35,7 @@ body class=classnames.join(' ') id=data.page.body_id
         == partial "layouts/versions"
       - unless data.page.simple
         == partial "layouts/breadcrumb_nav" unless data.page.project == 'shared'
-        - if data.page.project == 'riakcs'
-          .info
-            .title== I18n.t(:"riak_cs.info.title")
-            == I18n.t(:"riak_cs.info.body")
-
+        
         - if data.page.project == 'riakee'
           .info
             .title== I18n.t(:"riak_ee.info.title")
