@@ -43,13 +43,3 @@ div#select-project
       span.small
         | Simple, available, s3-compatible
 
-  /img id="left-connector" src="/images/left-connector.png"
-  /img id="right-connector" src="/images/right-connector.png"
-  -# version = $production ? "latest" : version[:deployment]
-  -# version = "latest"
-  /a.big-project-link(id='riak' href="/riak/#{version}/")
-    /img(alt='riak' src="/images/riak-circle.png")
-  /a.big-project-link(id='riakee' href="/riakee/#{version}/")
-    /img(alt='riakee' src="/images/riakee-circle.png")
-  /a.big-project-link(id='riakcs' href="/riakcs/#{version}/")
-    /img(alt='riakcs' src="/images/riakcs-circle.png")
