@@ -14,13 +14,42 @@ h1.center-text.extra-large
 h3.center-text Pick a project to get started:
 
 div#select-project
-  img id="left-connector" src="/images/left-connector.png"
-  img id="right-connector" src="/images/right-connector.png"
-  -# version = $production ? "latest" : version[:deployment]
   - version = "latest"
-  a.big-project-link(id='riak' href="/riak/#{version}/")
-    img(alt='riak' src="/images/riak-circle.png")
-  a.big-project-link(id='riakee' href="/riakee/#{version}/")
-    img(alt='riakee' src="/images/riakee-circle.png")
-  a.big-project-link(id='riakcs' href="/riakcs/#{version}/")
-    img(alt='riakcs' src="/images/riakcs-circle.png")
+  div.project
+    a href="/riakee/#{version}"
+      span.big
+        | Riak&nbsp;
+        strong Enterprise
+      span.small
+        | Multidatacenter replication + support
+
+  div.separator
+    div.vert-line
+
+  div.project
+    a href="/riak/#{version}"
+      span.image
+      span.small
+        | Masterless, automatic distribution
+
+  div.separator
+    div.vert-line
+
+  div.project
+    a href="/riakcs/#{version}"
+      span.big
+        | Riak&nbsp;
+        strong Cloud Storage
+      span.small
+        | Simple, available, s3-compatible
+
+  /img id="left-connector" src="/images/left-connector.png"
+  /img id="right-connector" src="/images/right-connector.png"
+  -# version = $production ? "latest" : version[:deployment]
+  -# version = "latest"
+  /a.big-project-link(id='riak' href="/riak/#{version}/")
+    /img(alt='riak' src="/images/riak-circle.png")
+  /a.big-project-link(id='riakee' href="/riakee/#{version}/")
+    /img(alt='riakee' src="/images/riakee-circle.png")
+  /a.big-project-link(id='riakcs' href="/riakcs/#{version}/")
+    /img(alt='riakcs' src="/images/riakcs-circle.png")
