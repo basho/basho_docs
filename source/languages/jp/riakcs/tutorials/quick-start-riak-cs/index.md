@@ -306,7 +306,7 @@ curl -H 'Content-Type: application/json' \
 
 `s3cmd` が設定されたら、テスト用のバケットを作成できるようになります:
 
-    s3cmd mb s3://test_bucket
+    s3cmd mb s3://test-bucket
 
 作成できたかどうかは、次のようにタイプします:
 
@@ -315,16 +315,16 @@ curl -H 'Content-Type: application/json' \
 これでテストファイルをバケットにアップロードできます:
 
     dd if=/dev/zero of=test_file bs=1M count=2 # Create a test file
-    s3cmd put test_file s3://test_bucket
+    s3cmd put test_file s3://test-bucket
 
 アップロードできたかどうかは、次のようにタイプします:
 
-    s3cmd ls s3://test_bucket
+    s3cmd ls s3://test-bucket
 
 テストファイルをダウンロードします:
 
     rm test_file # remove the local test file
-    s3cmd get s3://test_bucket/test_file
+    s3cmd get s3://test-bucket/test_file
 
 
 ## 追加のノードをインストールする
