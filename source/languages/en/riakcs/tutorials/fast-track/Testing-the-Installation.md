@@ -48,7 +48,7 @@ You should have copied your Access Key and Secret Key from the prior installatio
 
 Once `s3cmd` is configured, we can use it to create a test bucket:
 
-    s3cmd -c ~/.s3cfgfasttrack mb s3://test_bucket
+    s3cmd -c ~/.s3cfgfasttrack mb s3://test-bucket
 
 We can see if it was created by typing:
 
@@ -57,15 +57,15 @@ We can see if it was created by typing:
 We can now upload a test file to that bucket:
 
     dd if=/dev/zero of=test_file bs=1m count=2 # Create a test file
-    s3cmd -c ~/.s3cfgfasttrack put test_file s3://test_bucket
+    s3cmd -c ~/.s3cfgfasttrack put test_file s3://test-bucket
 
 We can see if it was uploaded by typing:
 
-    s3cmd -c ~/.s3cfgfasttrack ls s3://test_bucket
+    s3cmd -c ~/.s3cfgfasttrack ls s3://test-bucket
 
 We can now download the test file:
 
     rm test_file # remove the local test file
-    s3cmd -c ~/.s3cfgfasttrack get s3://test_bucket/test_file
+    s3cmd -c ~/.s3cfgfasttrack get s3://test-bucket/test_file
 
 
