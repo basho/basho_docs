@@ -15,9 +15,9 @@ h1.center-text.extra-large
 h3.center-text Choose a project to get started
 
 div#select-project
-  - version = "latest"
+  - version = $production ? "latest" : nil
   div.project
-    a href="/riakee/#{version}"
+    a href="/riakee/#{version || $versions[:riakee]}/"
       span.big
         | Riak&nbsp;
         strong Enterprise
@@ -28,7 +28,7 @@ div#select-project
     div.vert-line
 
   div.project
-    a href="/riak/#{version}"
+    a href="/riak/#{version || $versions[:riak]}/"
       span.image
       span.small
         | The open-source, distributed database
@@ -37,7 +37,7 @@ div#select-project
     div.vert-line
 
   div.project
-    a href="/riakcs/#{version}"
+    a href="/riakcs/#{version || $versions[:riakcs]}/"
       span.big
         | Riak&nbsp;
         strong Cloud Storage
