@@ -35,12 +35,17 @@ We need to configure `s3cmd` to use our Riak CS server rather than S3 as well as
 
 If you are alread using s3cmd on your local machine the `-c` switch allows you to specify a .s3cfg file without overwriting anything you may have presently configured
 
-There are 4 default settings you should change:
+There are 4 default settings you should change interactively:
 
 * Access Key - use the Riak CS user access key you generated above.
 * Secret Key - use the Riak CS user secret key you generated above.
 * Proxy Server - use your Riak CS IP. If you followed the Virtual environment configuration, use `localhost`
 * Proxy Port - the default Riak CS port is 8080
+
+There are 2 more settings you should edit manually in the generated config file:
+
+* host_base - use your Riak CS hostname. If you followed the Virtual environment configuration, use `riakcs.dev`
+* host_bucket - adapt it based on your Riak CS hostname. If you followed the Virtual environment configuration, use `%(bucket)s.riakcs.dev`
 
 You should have copied your Access Key and Secret Key from the prior installation steps.
 
@@ -49,6 +54,12 @@ You should have copied your Access Key and Secret Key from the prior installatio
 Once `s3cmd` is configured, we can use it to create a test bucket:
 
     s3cmd -c ~/.s3cfgfasttrack mb s3://test-bucket
+
+You should see the following response:
+
+    Bucket 's3://test-bucket/' created
+
+If you see a "405 (Method Not Allowed)" error message, you probably need to check your "host_base" and "host_bucket" settings in `~/.s3cfgfasttrack`.
 
 We can see if it was created by typing:
 
