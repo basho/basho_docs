@@ -303,16 +303,27 @@ We need to configure `s3cmd` to use our Riak CS server rather than S3 as well as
 
     s3cmd --configure
 
-There are 4 default settings you should change:
+There are 4 default settings you should change interactively:
 
 * Access Key - use the Riak CS user access key you generated above.
 * Secret Key - use the Riak CS user secret key you generated above.
 * Proxy Server - use your Riak CS IP. Example: 10.0.2.10
 * Proxy Port - the default Riak CS port is 8080
 
+There are 2 more settings you should edit manually in the generated config file:
+
+* host_base - use your Riak CS hostname, configured as `cs_root_host` in Riak CS app.config. Example: `riakcs.dev`
+* host_bucket - adapt it based on your Riak CS hostname, configured as `cs_root_host` in Riak CS app.config. Example: `%(bucket)s.riakcs.dev`
+
 Once `s3cmd` is configured, we can use it to create a test bucket:
 
     s3cmd mb s3://test-bucket
+
+You should see the following response:
+
+    Bucket 's3://test-bucket/' created
+
+If you see a "405 (Method Not Allowed)" error message, you probably need to check your "host_base" and "host_bucket" settings in `~/.s3cfg`.
 
 We can see if it was created by typing:
 
