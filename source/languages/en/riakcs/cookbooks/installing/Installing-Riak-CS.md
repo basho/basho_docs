@@ -9,14 +9,13 @@ audience: beginner
 keywords: [installing]
 ---
 
-A fully functional Riak CS system is comprised of Riak CS, Stanchion, and Riak. Riak CS runs only on 64-bit platforms. The supported operating systems include Ubuntu 10.04, Ubuntu 11.04, CentOS 5, and CentOS 6. Riak CS is not supported on Microsoft Windows. You can install Riak CS on a single node or using an automated deployment tool.
+A fully functional Riak CS system is comprised of Riak CS, Stanchion, and Riak. The supported operating systems include Ubuntu, CentOS, Fedora, Solaris, SmartOS, FreeBSD, and OS X. Riak CS is not supported on Microsoft Windows. You can install Riak CS on a single node or using an automated deployment tool.
 
-For those of you like videos, here's a [[video|http://player.vimeo.com/video/42654313]] that demonstrates a typical Riak CS installation.
 
 ## Installing Riak CS on a Node
-As a licensed Riak CS customer, you can use your Basho provided credentials to access Riak CS from the [downloads](https://help.basho.com/forums/20747106-riak-cs-downloads) section of the Basho help desk website.
+Riak CS and Stanchion packages are available on the [[Download Riak CS]] page.  Similarly, Riak packages are available on the [Download Riak](http://docs.basho.com/riak/latest/downloads/) page
 
-After downloading Riak EE, Stanchion, and Riak CS, install them using your operating system's package management commands.
+After downloading Riak CS, Stanchion, and Riak, install them using your operating system's package management commands.
 
 <div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and it should not be operated in a manner which exposes it directly to the public internet</strong>. Instead, consider a load balancing solution, such as dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.</div>
 
