@@ -17,7 +17,7 @@ Riak CS (Cloud Storage) is simple, open source storage software built on top of 
 * Large object support and multipart upload
 * S3-compatible API and authentication
 * Multi-tenancy and per-user reporting
-* Simple oeprational model for adding capacity
+* Simple operational model for adding capacity
 * Robust stats for monitoring and metrics
 
 ## What is the Riak CS Fast Track?
