@@ -18,30 +18,30 @@ The following table describes the support status for current Amazon S3 functiona
 
 Feature | Status | Remark 
 --------|--------|--------
-GET Service (lists all buckets for authenticated user) | Supported | |
-DELETE Bucket | Supported | |
-PUT Bucket | Supported | |
-Bucket Lifecycle | Not Supported | |
-Policy (Buckets, Objects) {{1.3.0+}} | Supported | Supports the "*" principal type and the "Secure Transport" and "IP address" conditions. |
+GET Service (lists all buckets for authenticated user) | <abbr title="Supported" class="supported">✓</abbr> | |
+DELETE Bucket | <abbr title="Supported" class="supported">✓</abbr> | |
+PUT Bucket | <abbr title="Supported" class="supported">✓</abbr> | |
+Bucket Lifecycle | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
+Policy (Buckets, Objects) {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | Supports the "*" principal type and the "Secure Transport" and "IP address" conditions. |
 Policy (Buckets, Objects) {{1.3.0-}} | Coming Soon | Planned for future release |
-Bucket Website | Not Supported | |
-Bucket ACLs (GET, PUT) | Supported | |  
-Bucket Location | Not Supported | |
-Bucket Notification | Not Supported | |
-Bucket Object Versions | Not Supported | |
-GET Bucket Info (HEAD) | Supported | |
-Bucket Request Payment | Not Supported | |
-PUT Object | Supported | |
-PUT Object (Copy) {{1.3.0+}} | Supported | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. |
+Bucket Website | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
+Bucket ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |  
+Bucket Location | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
+Bucket Notification | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
+Bucket Object Versions | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
+GET Bucket Info (HEAD) | <abbr title="Supported" class="supported">✓</abbr> | |
+Bucket Request Payment | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
+PUT Object | <abbr title="Supported" class="supported">✓</abbr> | |
+PUT Object (Copy) {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. |
 PUT Object (Copy) {{1.3.0-}} | Coming Soon | Planned for future release |
-DELETE Object | Supported | |
-GET Object {{1.3.0+}} | Supported | |
-GET Object {{1.3.0-}} | Supported | Range query unimplemented |
-Object ACLs (GET, PUT) | Supported | |
-HEAD Object | Supported | |
-POST Object | Not Supported | |
-Copy Object | Coming Soon | Planned for future release |
-Multipart Uploads {{1.3.0+}} | Supported | UploadPartCopy unimplemented |
+DELETE Object | <abbr title="Supported" class="supported">✓</abbr> | |
+GET Object {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
+GET Object {{1.3.0-}} | <abbr title="Supported" class="supported">✓</abbr> | Range query unimplemented |
+Object ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |
+HEAD Object | <abbr title="Supported" class="supported">✓</abbr> | |
+POST Object | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
+Copy Object | <abbr title="Unsupported" class="unsupported">✗</abbr> | Planned for future release |
+Multipart Uploads {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | UploadPartCopy unimplemented |
 Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 
 ## Service-level Operations

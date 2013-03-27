@@ -1,5 +1,5 @@
 ---
-title: Map Reduce
+title: MapReduce Overview
 project: riak
 version: 0.10.0+
 document: tutorials

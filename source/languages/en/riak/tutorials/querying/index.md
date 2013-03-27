@@ -10,7 +10,7 @@ next: "[[Basic Operations]]"
 ---
 
 * [[Basic Operations]]
-* [[Map Reduce]]
+* [[MapReduce Overview]]
 * [[Secondary Indexes]]
 * [[Searching|Riak Search]]
 
