@@ -74,6 +74,10 @@ A:
 
 <h2>Log Messages</h2>
 
+Q: Where are Riak errors explained?
+A:
+  We compile a list of [[Common Errors]]. Though it is impossible to ever know every possible error, this is an attempt at cataloging the most likely ones you may encounter.
+
 Q: Riak logs contain `{error,emfile}` in the message.
   Riak is run and starts as expected, but under load the logs contain messages that contain the following:
   
