@@ -1,5 +1,5 @@
 ---
-title: Common Errors List
+title: Common Errors
 project: riak
 version: 1.3.0+
 document: reference
@@ -107,7 +107,7 @@ Error    | Message | Description | Resolution
 behavior | | Attempting to execute an unknown behavior | Ensure that your `app.config` choices (eg. backends) support the behaviors you're attempting to use, such as configuring eleveldb to use 2i
 already_leaving | *Node is already in the process of leaving the cluster.* | An error marking a node to leave when it is already leaving | No need to duplicate the `leave` command
 already_replacement |  | This node is already in the replacements request list | You cannot replace the same node twice
-{different_owners, N1, N2} |  |  | 
+{different_owners, N1, N2} |  | Two nodes list different partition owners, meaning the ring is not ready | When the ring is ready, the status should be ok
 different_ring_sizes |  | The joining ring is a different size from the existing cluster ring | Don't join a node already joined to a cluster
 insufficient_vnodes_available |  | When creating a query coverage plan, not enough vnodes are available | Check the `riak-admin `ring-status` and ensure all of your nodes are healthy and connected
 invalid_replacement |  | A new node is currently joining from a previous operation, so a replacement request is invalid until it is no longer joining | Wait until the node is finished joining
@@ -116,10 +116,10 @@ is_claimant |  | A node cannot be the claimant of it's own remove request | Remo
 is_up |  | Node is expected to be down but is up | When a node is downed, it should be down
 legacy |  | Attempting to stage a plan against a legacy ring | Staging is a feature only of Riak versions 1.2.0+
 max_concurrency | *Handoff receiver for partition `Partition` exited abnormally after processing `Count` objects: `Reason`* | Disallow more handoff processes than the `raik_core` `handoff_concurrency` setting (defaults to 2) | If this routinely kills vnodes, this issues has been linked to leveldb compactions which can build up and block writing, which will also be accompanied by leveldb logs saying `Waiting`... or `Compacting` NNN@0
-{nodes_down, Down} |  |  | 
+{nodes_down, Down} |  | All nodes must be up to check | 
 not_member |  | This node is not a member of the ring | Cannot leave/remove/down when this is not a ring member
 not_reachable |  | Cannot join unreachable node | Check your network connections, ensure erlang cookie setting `vm.args` `-setcookie`
-{not_registered, App} |  |  | 
+{not_registered, App} |  | Attempting to use an unregistered process | Ensure that your `app.config` choices contain the app you're attempting to use `{riak_kv_stat, true}`
 not_single_node |  | There are no other members to join | Join with at least one other node
 nothing_planned |  | Cannot commit a plan without changes | Ensure at least one ring change is planned before running commit
 only_member |  | This is the only member of the ring | Cannot leave/remove/down when this is the only member of the ring
@@ -141,9 +141,9 @@ vnode_shutdown |  |  The vnode worker pool is shutting down | Various reasons ca
  | *Failed to read ring file: `Reason`* | Gives a reason why the Ring file cannot be read on startup | The reason given explains the problem, such as `eacces` meaning the Erlang process does not have permission to read
  | *Failed to load ring file: `Reason`* | Gives a reason why the Ring file cannot be loaded on startup | The reason given explains the problem, such as `enoent` meaning the expected file cannot be found
  | *ring_trans: invalid return value: `Other`* | Transferring ring data between nodes received an invalid value | Often associated with ring corruption, or un unexpected exit from the transferring node
- | *Error while running bucket fixup module `Fixup` from application `App` on bucket `BucketName`: `Reason`* |  | 
- | *Crash while running bucket fixup module `Fixup` from application App on bucket `BucketName` : `What`:`Why`* |  | 
- | *`Index` `Mod` worker pool crashed `Reason`* |  | 
+ | *Error while running bucket fixup module `Fixup` from application `App` on bucket `BucketName`: `Reason`* |  | Various sources for a fixup error, read associated errors
+ | *Crash while running bucket fixup module `Fixup` from application App on bucket `BucketName` : `What`:`Why`* |  | Various source for a fixup error, read associated errors
+ | *`Index` `Mod` worker pool crashed `Reason`* |  | Various reasons can be the source of a worker pool crash, read associated errors
  | *Received xfer_complete for non-existing repair: `ModPartition`* | Unexpected repair message | Not much to do here, but a node did not expect to receive a xfer_complete status
 
 ### Riak KV

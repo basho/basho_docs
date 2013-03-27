@@ -126,6 +126,7 @@ riak:
           - "[[Inspecting a Node]]"
           - "[[Repairing Search Indexes]]"
           - "[[Repairing KV Indexes]]"
+          - "[[Common Errors]]"
 
   - title: "References"
     sub:

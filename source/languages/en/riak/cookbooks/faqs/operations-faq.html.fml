@@ -7,23 +7,6 @@ audience: intermediate
 keywords: [faq, operator]
 ---
 
-Q: When upgrading Riak on a Redhat-based system, I get errors from "chcon", saying "can't apply partial context to unlabeled file".
-  ```bash
-  rpm -Uvh /tmp/riak-0.14.1-1.el5.x86_64.rpm 
-  Preparing... ########################################### [100%] 
-  1:riak ########################################### [100%] 
-  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/ebloom-1.0.2/priv/ebloom_nifs.so 
-  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/bitcask-1.1.5/priv/bitcask.so 
-  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/runtime_tools-1.8.3/priv/lib/trace_file_drv.so 
-  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/runtime_tools-1.8.3/priv/lib/trace_ip_drv.so 
-  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/erlang_js-0.5.0/priv/erlang_js_drv.so 
-  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/skerl-1.0.0/priv/skerl_nifs.so 
-  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/crypto-1.6.4/priv/lib/crypto_drv.so
-  ```
-A:
-  The "chcon" warning comes from necessary additions to the RPM packaging for cases where SELinux is enabled. You only receive the warning if SELinux is disabled while installing or was disabled when the last version was installed. It is safe to ignore.
-
-
 Q: It is ok to distribute Riak over a WAN?
   How exactly does performance degrade when nodes are spread out
   between hosts with latencies in the tens to hundred plus milliseconds (as
@@ -55,6 +38,22 @@ A:
 
   Check out this talk on [WAN MDC replication](http://vimeo.com/52016325).
 
+Q: When upgrading Riak on a Redhat-based system, I get errors from "chcon", saying "can't apply partial context to unlabeled file".
+  ```bash
+  rpm -Uvh /tmp/riak-0.14.1-1.el5.x86_64.rpm 
+  Preparing... ########################################### [100%] 
+  1:riak ########################################### [100%] 
+  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/ebloom-1.0.2/priv/ebloom_nifs.so 
+  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/bitcask-1.1.5/priv/bitcask.so 
+  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/runtime_tools-1.8.3/priv/lib/trace_file_drv.so 
+  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/runtime_tools-1.8.3/priv/lib/trace_ip_drv.so 
+  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/erlang_js-0.5.0/priv/erlang_js_drv.so 
+  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/skerl-1.0.0/priv/skerl_nifs.so 
+  chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/crypto-1.6.4/priv/lib/crypto_drv.so
+  ```
+A:
+  The "chcon" warning comes from necessary additions to the RPM packaging for cases where SELinux is enabled. You only receive the warning if SELinux is disabled while installing or was disabled when the last version was installed. It is safe to ignore.
+
 Q: What's the difference between cluster `leave` and `remove`?
   I'm trying to remove a node from my cluster and it's unclear whether I should use riak-admin leave or riak-admin remove. What's the difference between them?
 A: 
@@ -81,6 +80,7 @@ A:
   
   The HTTP and HTTPS settings can be assigned to the same IP address, but must have different ports in order to function at the same time.  To disable either HTTP or HTTPS, simply omit or comment out the configuration line with a %.  In this example, HTTPS would be disabled:
   
+  ```erlang
   %% http is a list of IP addresses and TCP ports that the Riak 
   %% HTTP interface will bind. 
   {http, [ {"10.10.210.16", 8098 } ]},
@@ -88,7 +88,7 @@ A:
   %% https is a list of IP addresses and TCP ports that the Riak 
   %% HTTPS interface will bind. 
   %{https, [{ "10.10.210.16", 8098 }]},
-  
+  ```
 
 Q: How do I set the `ulimit -n` on Mac OS/X?
   Riak complains about "ulimit -n" when starting up on Mac, or crashes with errors producing "emfile" in the logs.
@@ -133,32 +133,32 @@ A:
   Usually this points to a subdirectory of '/tmp' but may vary depending on how you installed Riak.
   ```
   
-  Log files are written to '/var/log/riak' on Linux and '/opt/riak/log' on Solaris.
+  Log files are written to `/var/log/riak` on Linux and `/opt/riak/log` on Solaris.
   
-  Make sure that the 'riak' user has read/write permissions to both of those directories
+  Make sure that the `riak` user has read/write permissions to both of those directories
 
 Q: How can I undo multi_backend?
   I started using multi_backend so I could store two different types of data (one using Bitcask and one using Innostore), but my application no longer has the need for the second data type. Can I safely switch to a single backend (Bitcask), undoing the multi_backend settings?
 A:
   Assuming you are removing the Innostore backend, here's the steps you would take:
   
-  1. Stop all writes from your application to Innostore buckets.
-  2. Change the app.config to use 'riak_kv_bitcask_backend' instead of 'riak_kv_multi_backend'.
-  3. Delete the innostore data and log directories.
+  1. Stop all writes from your application to Innostore buckets
+  2. Change the `app.config` to use `riak_kv_bitcask_backend` instead of `riak_kv_multi_backend`
+  3. Delete the innostore data and log directories
   
-  You cannot remove the "backend" bucket property from buckets that did not use the default, but it will be ignored as you are no longer using 'riak_kv_multi_backend'.
+  You cannot remove the `backend` bucket property from buckets that did not use the default, but it will be ignored as you are no longer using `riak_kv_multi_backend`.
   
   Related questions:
   
-  * Is it ok to change the Riak backend from Bitcask to multi backend if I set Bitcask as the default?
-  * How can I run Bitcask and Innostore on the same cluster?
+  * [[Is it ok to change the Riak backend from Bitcask to multi backend if I set Bitcask as the default?|Operations FAQ#is-it-ok-to-change-the-riak-backend-from-bitcask-t]]
+  * [[How can I run Bitcask and Innostore on the same cluster?|Operations FAQ#how-can-i-run-bitcask-and-innostore-on-the-same-cl]]
 
 Q: How can I run Bitcask and Innostore on the same cluster?
   We have two types of data. One type is written only once, rarely read, and is large in number, which suggests that Innostore would be a good fit (the keys won't likely fit in RAM).  The other is written and read frequently, which suggests Bitcask would be the appropriate backend.  How can I use both at the same time without creating separate clusters?
 A:
   This is much simpler than setting up two separate clusters. You can use the `riak_kv_multi_backend`, which acts like a bucket-aware multiplexer in front of two or more storage backends. Here's a sample config you could use (to be placed inside the `riak_kv` section of `app.config`):
   
-  ```erlang
+  ```
   %% Use the multi_backend
   {storage_backend, riak_kv_multi_backend},
   %% Use bitcask by default
@@ -174,7 +174,9 @@ A:
   You would still configure Bitcask and Innostore in their existing separate sections. Once this config is set, you should restart your nodes and then set the 'backend' bucket property for the buckets you want to keep in Innostore. Here's an example:
   
   ```bash
-  curl -X PUT -H "Content-Type: application/json" -d '{"props":{"backend":"inno"}}' http://riaknode:8098/riak/bucketname
+  curl -XPUT http://riaknode:8098/riak/bucketname \
+    -H "Content-Type: application/json" \
+    -d '{"props":{"backend":"inno"}}' 
   ```
 
 Q: What are the correct system metrics to monitor with respect to Riak's memory usage?
