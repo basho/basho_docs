@@ -30,7 +30,7 @@ riak:
       - "[[Basic Requests]]"
       - title: "MapReduce"
         sub:
-          - "[[Overview|MapReduce]]"
+          - "[[Overview|MapReduce Overview]]"
           - "[[Implementing|MapReduce Implementation]]"
           - "[[Key Filters]]"
       - title: "Search"
@@ -196,7 +196,7 @@ riakee:
   - title: "Start Here"
     class: "start"
     sub:
-      - "[[Getting Started with Riak Enterprise|Riak Enterprise]]"
+      - "[[Riak Enterprise]]"
       - "[[The Riak Fast Track]]"
       - "[[Rolling Upgrade to Enterprise]]"
       - "[[Query Choices|Querying Riak]]"
