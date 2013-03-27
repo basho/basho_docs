@@ -2,10 +2,19 @@
    FAQ
    ========================================================================== */
 
-details summary::-webkit-details-marker,
+details summary::-o-details-marker {
+  display:none;
+}
+details summary::-moz-details-marker {
+  display:none;
+}
+details summary::-webkit-details-marker {
+  display:none;
+}
 details summary::marker {
   display:none;
 }
+
 
 details.question > summary {
   @extend .sans-bold;
