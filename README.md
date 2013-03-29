@@ -65,7 +65,7 @@ If it's a small or obvious change, we're likely to merge it right away.  If we h
 
 All documents and resources (like images, css/scss, javascript/coffeescript) live under the `source` directory.
 
-Since part of the goal of this rewrite is to be more deliberate about the type of documents we produce, docs are separated into directories according to their types. A document should either be a fully realized "reference", or a "guide" (thumb through [A Short Guide to Writing Guides](https://github.com/basho/internal_wiki/wiki/A-Short-Guide-to-Writing-Guides) for more on this idea). Further distinction can then be placed under subdirectories. `references` contains `apis`, `appendices`; `guides` contains `tutorials`, `cookbooks`.
+Since part of the goal of this rewrite is to be more deliberate about the type of documents we produce, docs are separated into directories according to their types. A document should either be a fully realized "reference", or a "guide" (thumb through [A Short Guide to Writing Guides](https://gist.github.com/coderoshi/3729593) for more on this idea). Further distinction can then be placed under subdirectories. `references` contains `apis`, `appendices`; `guides` contains `tutorials`, `cookbooks`.
 
 ### Languages
 
