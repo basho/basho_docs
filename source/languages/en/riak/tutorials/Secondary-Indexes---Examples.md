@@ -12,7 +12,7 @@ To run the following examples, ensure that Riak is running on localhost with the
 
 ## Indexing Objects
 
-The following example indexes four different objects. Notice that we're storing both binary and integer fields, field names are automatically lowercased, some fields have multiple values, and duplicate fields are automatically de-duplicated:
+The following example indexes four different objects. Notice that we're storing both integer and string (aka binary) fields, field names are automatically lowercased, some fields have multiple values, and duplicate fields are automatically de-duplicated:
 
 ```bash
 curl -v -XPUT \

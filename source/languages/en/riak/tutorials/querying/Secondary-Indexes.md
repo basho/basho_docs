@@ -22,7 +22,7 @@ Since the KV data is completely opaque to 2i, the user must tell 2i exactly what
 
 ## Features
 
-* Allows two types of secondary attributes: integers and strings.
+* Allows two types of secondary attributes: integers and strings (aka binary).
 * Allows querying by exact match or range on one index.
 * Query results can be used as input to a MapReduce query.
 
