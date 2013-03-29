@@ -29,9 +29,9 @@ Pre-commit hooks can be implemented as named Javascript functions or as Erlang f
 Javascript: `{"name": "Foo.beforeWrite"}`
 Erlang: `{"mod": "foo", "fun": "beforeWrite"}`
 
-Post-commit hooks can be implemented in Erlang only. The reason for this restriction is Javascript cannot call Erlang code and, thus, is prevented from doing anything useful. This restriction will be revisited when the state of Erlang/Javascript integration is improved. Post-commit hooks use the same function reference syntax as pre-commit hooks.
+Post-commit hooks can be implemented in Erlang only, and is described in more detail under [[Erlang Named Functions]]. The reason for this restriction is Javascript cannot call Erlang code and, thus, is prevented from doing anything useful. This restriction will be revisited when the state of Erlang/Javascript integration is improved. Post-commit hooks use the same function reference syntax as pre-commit hooks.
 
-See the map/reduce documentation for steps to define your own pre-defined Javascript named functions.
+See [[MapReduce Implementation]] for steps to define your own pre-defined Javascript named functions.
 
 ## Pre-Commit Hooks
 
