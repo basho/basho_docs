@@ -43,7 +43,7 @@ Indexing is atomic, and is updated in real-time when writing an object. This mea
 
 ### Index Data Types
 
-As of version 1.0, Riak supports two types of indexes, binaries and integers. Because there is no index schema, the data type of an index is encoded within the suffix of an index field's name. Available suffixes are `_bin` and `_int`, indicating an integer or a string (aka binary), respectively. For example, `email_bin` is a string field, and `timestamp_int` is an integer field.
+As of version 1.0, Riak supports two types of indexes, binaries and integers. Because there is no index schema, the data type of an index is encoded within the suffix of an index field's name. Available suffixes are `_int` and `_bin`, indicating an integer or a string (aka binary), respectively. For example, `timestamp_int` is an integer field and `email_bin` is a string field.
 
 More complicated data types (such as dates and timestamps) can be stored by encoding the date as a string of characters and choosing a format that sorts correctly. For example, a date could be encoded as the string "YYYYMMDD". Floats can be encoded by deciding on a required precision level, multiplying the value accordingly, and then truncating the float to an int. For example, to store a float with precision down to the thousandth's, you would multiply the float by 1000.
 
