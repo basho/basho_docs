@@ -253,7 +253,7 @@ would run the builtin JavaScript function `mapValuesJson`, if you choose to stor
 {"map":{"language":"erlang","module":"riak_mapreduce","function":"map_object_value"}}
 ```
 
-The above would run the Erlang function `riak_mapreduce:map_object_value/3`, whose compiled beam file should be discoverable by each riak node process (more details can be found under [[Erlang Named Functions]]).
+The above would run the Erlang function `riak_mapreduce:map_object_value/3`, whose compiled beam file should be discoverable by each Riak node process (more details can be found under [[Erlang Named Functions]]).
 
 Map phases may also be passed static arguments by using the `arg` spec field.
 
