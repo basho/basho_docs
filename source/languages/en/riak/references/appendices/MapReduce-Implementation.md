@@ -226,7 +226,7 @@ Map phases must be told where to find the code for the function to execute, and 
 
 The function source can be specified directly in the query by using the "source" spec field.  It can also be loaded from a pre-stored riak object by providing "bucket" and "key" fields in the spec.  Or, a builtin JavaScript function can be used by providing a "name" field. Erlang map functions can be specified using the "module" and "function" fields in the spec.
 
-<div class="info"> Riak comes with some prebuilt JavaScript Functions. You can check them out at: [[https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js|https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js]] </div>
+<div class="info"> Riak comes with some prebuilt JavaScript functions. You can check them out at: [[https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js|https://github.com/basho/riak_kv/blob/master/priv/mapred_builtins.js]] </div>
 
 For example:
 
@@ -235,19 +235,19 @@ For example:
 {"map":{"language":"javascript","source":"function(v) { return [v]; }","keep":true}}
 ```
 
-would run the Javascript function given in the spec, and include the results in the final output of the m/r query.
+would run the JavaScript function given in the spec, and include the results in the final output of the m/r query.
 
 ```javascript
 {"map":{"language":"javascript","bucket":"myjs","key":"mymap","keep":false}}
 ```
 
-would run the Javascript function declared in the content of the Riak object under *mymap* in the `myjs` bucket, and the results of the function would not be included in the final output of the m/r query.
+would run the JavaScript function declared in the content of the Riak object under *mymap* in the `myjs` bucket, and the results of the function would not be included in the final output of the m/r query.
 
 ```javascript
    {"map":{"language":"javascript","name":"Riak.mapValuesJson"}}
 ```
 
-would run the builtin JavaScript function `mapValuesJson`. Javascript functions live on disk in a directory defined by your `app.config` file by the `js_source_dir` field.
+would run the builtin JavaScript function `mapValuesJson`, if you choose to store your JavaScript functions on disk. Any JS files should live in a directory defined by the `js_source_dir` field in your `app.config` file.
 
 ```javascript
 {"map":{"language":"erlang","module":"riak_mapreduce","function":"map_object_value"}}
