@@ -237,29 +237,25 @@ For example:
 
 would run the Javascript function given in the spec, and include the results in the final output of the m/r query.
 
-
 ```javascript
 {"map":{"language":"javascript","bucket":"myjs","key":"mymap","keep":false}}
 ```
 
-
 would run the Javascript function declared in the content of the Riak object under *mymap* in the `myjs` bucket, and the results of the function would not be included in the final output of the m/r query.
-
 
 ```javascript
    {"map":{"language":"javascript","name":"Riak.mapValuesJson"}}
 ```
 
-would run the builtin JavaScript function `mapValuesJson`.
-
+would run the builtin JavaScript function `mapValuesJson`. Javascript functions live on disk in a directory defined by your `app.config` file by the `js_source_dir` field.
 
 ```javascript
 {"map":{"language":"erlang","module":"riak_mapreduce","function":"map_object_value"}}
 ```
 
-would run the Erlang function `riak_mapreduce:map_object_value/3`.
+The above would run the Erlang function `riak_mapreduce:map_object_value/3`, whose compiled beam file should be discoverable by each riak node process (more details can be found under [[Erlang Named Functions]]).
 
-Map phases may also be passed static arguments by using the "arg" spec field.
+Map phases may also be passed static arguments by using the `arg` spec field.
 
 For example, the following map function will perform a regex match on object values using "arg" and return how often "arg" appears in each object:
 
