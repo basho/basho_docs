@@ -1,6 +1,6 @@
 # Globally Unique Entities
 
-There two entities that must be globally unique within a Riak CS system.
+There are two entities that must be globally unique within a Riak CS system.
 
 The first entity is *user identifiers*. Riak CS mandates that each
 user create an account using an email address as an identifier and
