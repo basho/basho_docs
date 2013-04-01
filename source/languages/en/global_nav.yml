@@ -280,6 +280,7 @@ riakcs:
       - "[[APIs|RiakCS Storage API]]"
       - "[[FAQs|Riak CS FAQs]]"
       - "[[Release Notes|Riak CS Release Notes]]"
+      - "[[Version Compatibility]]"
 
 java:
   - title: "Shortcuts"
