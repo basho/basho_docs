@@ -118,7 +118,7 @@ The name of the cluster. This currently has no visible effect, but could be usef
     * precommit - global [[pre-commit hook|Commit-Hooks#Pre-Commit-Hooks]] functions, either in Javascript or Erlang.
     * postcommit - global [[post-commit hook|Commit-Hooks#Post-Commit-Hooks]] functions. Erlang only.
 
-* **delayed_startup**
+* **delayed_start**
 Sleep a number of milliseconds before starting riak_core. Default: `unset`
 
 * **disable_http_nagle**

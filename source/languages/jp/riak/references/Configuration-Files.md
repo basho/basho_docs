@@ -101,7 +101,7 @@ The name of the cluster. This currently has no visible effect, but could be usef
     * r, w, dw, rw - the quorum values for get, put and delete requests
     * precommit, postcommit - global pre- and post-commit hooks
 
-* **delayed_startup**
+* **delayed_start**
 Sleep a number of milliseconds before starting riak_core. Default: unset
 
 * **disable_http_nagle**
