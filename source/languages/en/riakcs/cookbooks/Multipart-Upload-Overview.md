@@ -83,7 +83,7 @@ API is the same.
     Once a multipart upload is aborted, the upload ID is no longer
     valid.
 
-## Listing ongoing uploads
+## Listing uploads
 
 - **Active Multipart Uploads**
 
