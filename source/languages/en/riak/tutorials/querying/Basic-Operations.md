@@ -19,7 +19,7 @@ Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, 
 
 When sending requests to Riak via HTTP, it's useful to keep these points in mind.
 
-1. All requests should include the *X-Riak-ClientId* header, which can be any string that uniquely identifies the client, for purposes of tracing object modifications using [[Vector Clocks]].
+1. All updates to existing objects should include the *X-Riak-Vclock* header that was retrieved from Riak along with the object (see [[Vector Clocks]]).
 2. Buckets, keys, and link specifications may not contain unescaped slashes. Use a URL-escaping library or replace slashes with `%2F`.
 
 ## Read an Object

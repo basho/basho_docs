@@ -34,10 +34,11 @@ A _sibling_ is created when Riak is unable to resolve the canonical version of
 an object being stored.  If `allow_mult` is set to true on a bucket's
 properties, three scenarios will create siblings inside of a single object.
 
-1. **Concurrent writes** If two writes occur simultaneously from clients with
-different client IDs but the same vector clock value, Riak will not be able to
-determine the correct object to store and the object is given two siblings.
-These writes could happen to the same node or different ones.
+1. **Concurrent writes** If two writes occur simultaneously from
+clients with the same vector clock value, Riak will not be able to
+determine the correct object to store and the object is given two
+siblings.  These writes could happen to the same node or different
+ones.
 
 2. **Stale Vector Clock** Writes from any client using a stale vector clock
 value.  This is a less likely scenario from a well behaved client that does a
@@ -210,19 +211,6 @@ parameters which can be set per bucket. These parameters are:
  * `young_vclock`
  * `old_vclock`
 
-To understand what these parameters do let's first review the
-structure of a vector clock. Vector clocks are a list of updates made
-per client id (`X-Riak-ClientId`). For example:
-
-```erlang
-[{client1,3},{client2,1},{client3,2}]
-```
-
-The above vector clock would indicate that client1 updated the object
-3 times, client2 updated the object 1 time, and client3 updated the
-object 2 times. Timestamp data is also stored in the vector clock but
-omitted from the example for simplicity.
-
 The `small_vclock` and `big_vclock` parameters refer to the length of
 the vector clock list. If the length of the list is smaller than
 `small_vclock` it will not be pruned. If the length is greater than
@@ -230,28 +218,24 @@ the vector clock list. If the length of the list is smaller than
 
 ![Vclock Pruning](/images/vclock-pruning.png)
 
-The `young_vclock` and `old_vclock` parameters refer to the timestamp
-per vclock entry. If the list length is between `small_vclock` and
-`big_vclock` the age of each entry is checked. If the entry is younger
-than `young_vclock` it is not pruned. If the entry is older than
-`old_vclock` than it is pruned.
+The `young_vclock` and `old_vclock` parameters refer to a timestamp
+stored with each vclock entry. If the list length is between
+`small_vclock` and `big_vclock` the age of each entry is checked. If
+the entry is younger than `young_vclock` it is not pruned. If the
+entry is older than `old_vclock` than it is pruned.
 
-## VNode Vector Clocks
+## Client vs Vnode Vector Clocks
 
-Prior to Riak 1.0, all put requests should have been submitted with a client id.
-The jobs of coordinating a put request and incrementing the associated vector
-clock were handled by the node which received the request. If a client id was
-not submitted, a random one was generated and used to increment the vector
-clock. This had a consequence that was not ideal, vector clock growth was
-unbounded in the case where a poorly behaved client did not submit an id.
+Prior to Riak 1.0, all put requests should have been submitted with a
+client id.  The jobs of coordinating a put request and incrementing
+the associated vector clock were handled by the vnode which received
+the request. If a client id was not submitted, a random one was
+generated and used to increment the vector clock. This resulted in
+potentially unbounded vector clock growth with poorly-behaved clients.
 
-As of Riak 1.0, all nodes have a unique id. When a put request is received by a
-node that is not in the submitted bucket-key pair's preflist, it is forwarded
-to the first available node in the preflist. That node both coordinates the put
-request and increments the vector clock using its host's unique id as the client
-id. This eliminates the case where a put requests without a client id cause
-unrestricted vector clock growth, as the length is bounded by the total number
-of nodes in the cluster.
+As of Riak 1.0, vector clocks are (by default) managed directly by the
+vnodes using internal counters and identifiers. This constrains the
+growth of the vector clocks but adds some latency to writes.
 
 ## More Information
 

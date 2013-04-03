@@ -39,7 +39,7 @@ without side-effects.
 ## Sibling Resolution
 
 In order to give applications the opportunity to recover from
-conflicting or partitioned writes to a key, Riak will present the
+conflicting or partitioned writes to a key, Riak can be configured to present the
 client multiple versions of the value, also known as
 [[siblings|Vector Clocks#Siblings]].  It then becomes the
 responsibility of the application to resolve those siblings in a way
@@ -52,19 +52,6 @@ resolution,
 resulting in degraded performance across the cluster in the form of
 extremely high per-operation latencies or apparent unresponsiveness.
 
-## Client IDs
-
-Well-behaved clients should always select a client identifier (ID) to
-use when communicating with the Riak cluster, and either set it on
-connection (as in the case of the [[PBC API]]) or send it with
-requests that modify internal Riak state, like storage and deletion
-(as in the case of the [[HTTP API]]).  Client identifiers are used to
-detect concurrent writes and network partitions using
-[[Vector Clocks]] and should be limited in number. One could correlate
-the client ID to an application domain concept (like a user) such that
-keys being modified will have a small number of clients acting on
-them.
-
 ## Read-before-Write & Vector Clocks
 
 Riak will return an encoded [[vector clock|Vector Clocks]] with every
@@ -74,8 +61,8 @@ how to resolve concurrent writes, essentially representing the "last
 seen" version of the object to which the client made modifications. In
 order to prevent
 [[sibling explosion|Vector Clocks#Sibling explosion]], clients should
-always have a vector clock before sending a write, and send the vector
-clock as part of the write request.  Therefore, it is essential that
+always use this vector clock when updating an object.
+Therefore, it is essential that
 keys are fetched before being written (except in the case where Riak
 selects the key or there is _a priori_ knowledge that the key is new).
 Client libraries that make this automatic will reduce operational
