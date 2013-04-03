@@ -75,7 +75,7 @@ API is the same.
     all parts that have been fully uploaded being released. Part uploads
     that are in-progress may not have their storage released so to ensure
     all storage is reclaimed, the abort request should only be done after
-    all part uploads are complete. Once a multipart upload is aborted, the
+    all active part uploads are complete. Once a multipart upload is aborted, the
     upload ID is no longer valid.
 
 - **List Active Multipart Uploads**
