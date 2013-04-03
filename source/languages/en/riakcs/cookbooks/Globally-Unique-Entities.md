@@ -1,4 +1,13 @@
-# Globally Unique Entities
+---
+title: Globally Unique Entities
+project: riakcs
+version: 1.2.0+
+document: cookbook
+toc: true
+index: true
+audience: intermediate
+keywords: [operator, developer]
+---
 
 There are two entities that must be globally unique within a Riak CS system.
 
