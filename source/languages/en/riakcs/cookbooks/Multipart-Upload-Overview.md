@@ -10,8 +10,10 @@ keywords: [operator, developer]
 ---
 
 Multipart upload allows users of Riak CS to upload large objects as a
-set of smaller parts. The size of each part may be in the range of 5MB
-to 5GB.
+set of smaller parts. This feature allows users to pause and resume
+the upload of a large object or begin an upload without prior knowledge
+of the total size of the whole object. It is also allows for more efficient
+uploads since parts may be uploaded in parallel.
 
 There are three phases to a multipart upload: initiation, parts
 upload, and completion. Each phase is described in more detail
@@ -51,6 +53,8 @@ API is the same.
     part of the response. Each `ETag` value and the part number it
     corresponds to should be reserved for use in the multipart upload
     completion request.
+
+    The size of each part may be in the range of 5MB to 5GB.
 
 - **Multipart Upload Completion**
 
