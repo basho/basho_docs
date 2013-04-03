@@ -272,6 +272,7 @@ riakcs:
       - "[[HTTP Administration Overview]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
+      - "[[Globally Unique Entities]]"
       - "[[Monitoring and Metrics]]"
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
