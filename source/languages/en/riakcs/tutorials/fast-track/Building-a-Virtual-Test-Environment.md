@@ -37,7 +37,7 @@ In order to begin, it is necessary to clone a GitHub repository to your local
 machine and change directories into the cloned folder.
 
 ``` bash
-$ git clone https://github.com/hectcastro/vagrant-riak-cs-cluster
+$ git clone https://github.com/basho/vagrant-riak-cs-cluster
 $ cd vagrant-riak-cs-cluster
 ```
 
