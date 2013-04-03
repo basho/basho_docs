@@ -18,7 +18,7 @@ interest: [
 ]
 ---
 
-For this module, we are going to work with the Riak HTTP API. 
+For this module, we are going to work with the Riak HTTP API.
 
 ## Object/Key Operations
 
@@ -28,8 +28,8 @@ Most of the interactions you'll have with Riak will be setting or retrieving the
 
 ### Required Knowledge
 
-* *Client ID* - All requests should include the *X-Riak-ClientId* header, which can be any string that uniquely identifies the client, for purposes of tracing object modifications using [[vector clocks|Riak Glossary#Vector Clock]].
-* *URL Escaping* - Buckets, keys, and link specifications may not contain unescaped slashes. Use a URL-escaping library or replace slashes with %2F.
+* All updates to existing objects should include the *X-Riak-Vclock* header that was retrieved from Riak along with the object (see [[Vector Clocks]]).
+* Buckets, keys, and link specifications may not contain unescaped slashes. Use a URL-escaping library or replace slashes with `%2F`.
 
 ### Read an Object
 
@@ -61,7 +61,7 @@ So, with that in mind, try this command. This will request (GET) the key "doc2" 
 $ curl -v http://127.0.0.1:8091/riak/test/doc2
 ```
 
-This should return a *404 Not Found* as the key "doc2" does not exist (you haven't created it yet!). 
+This should return a *404 Not Found* as the key "doc2" does not exist (you haven't created it yet!).
 
 ### Store an object with existing or user-defined key
 
@@ -227,4 +227,4 @@ $ curl -v http://127.0.0.1:8091/riak/test
 
 You can also view this Bucket information through any browser by going to `http://127.0.0.1:8091/riak/test`
 
-So, that's the basics of how the HTTP API works. An in depth reading of the HTTP API page (linked below) is highly recommended. This will give you details on the headers, parameters, and status that you should keep in mind when using the HTTP Interface. 
+So, that's the basics of how the HTTP API works. An in depth reading of the HTTP API page (linked below) is highly recommended. This will give you details on the headers, parameters, and status that you should keep in mind when using the HTTP Interface.

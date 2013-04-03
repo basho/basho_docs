@@ -22,7 +22,7 @@ riak:
           - "[[Keys and Objects]]"
           - "[[Links]]"
           - "[[Replication]]"
-          - "[[Vector-Clocks]]"
+          - "[[Vector Clocks]]"
           - "[[Riak Glossary]]"
 
   - title: "Querying Riak"
