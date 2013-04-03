@@ -16,7 +16,7 @@ The storage API is compatibile with the Amazon S3 REST API which means that any 
 
 The following table describes the support status for current Amazon S3 functional features.
 
-Feature | Status | Remark 
+Feature | Status | Remark
 --------|--------|--------
 GET Service (lists all buckets for authenticated user) | <abbr title="Supported" class="supported">✓</abbr> | |
 DELETE Bucket | <abbr title="Supported" class="supported">✓</abbr> | |
@@ -25,7 +25,7 @@ Bucket Lifecycle | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
 Policy (Buckets, Objects) {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | Supports the "*" principal type and the "Secure Transport" and "IP address" conditions. |
 Policy (Buckets, Objects) {{1.3.0-}} | Coming Soon | Planned for future release |
 Bucket Website | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
-Bucket ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |  
+Bucket ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |
 Bucket Location | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
 Bucket Notification | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
 Bucket Object Versions | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
@@ -72,7 +72,7 @@ Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 {{#1.3.0+}}
 ## Multipart Upload
 
-Multipart upload allows you to upload a single object as a set of parts. Object parts can be uploaded independently and in any order. After all parts are uploaded, Riak CS assembles an object out of the parts. When your object size reaches `100MB`, you should consider using multipart uploads instead of uploading the object in a single operation.
+Multipart upload allows you to upload a single object as a set of parts. Object parts can be uploaded independently and in any order. After all parts are uploaded, Riak CS assembles an object out of the parts. When your object size reaches `100MB`, you should consider using multipart uploads instead of uploading the object in a single operation. Read more about multipart uploads on the [[overview|Multipart Upload Overview]] page.
 
 * [[Initiate Multipart Upload|RiakCS Initiate Multipart Upload]] - Initiates a multipart upload and returns an upload ID
 * [[Upload Part|RiakCS Upload Part]] - Uploads a part in a multipart upload

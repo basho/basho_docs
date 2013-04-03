@@ -278,6 +278,7 @@ riakcs:
       - "[[Usage and Billing Data]]"
       - "[[Ruby Fog|Fog on RiakCS]]"
       - "[[APIs|RiakCS Storage API]]"
+      - "[[Multipart Upload Overview]]"
       - "[[FAQs|Riak CS FAQs]]"
       - "[[Release Notes|Riak CS Release Notes]]"
 
