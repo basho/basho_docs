@@ -25,12 +25,13 @@ API is the same.
 
     Initiation is done by sending a properly formatted multipart upload
     initiation request to Riak CS. If the upload initiation is successful
-    the response from Riak CS includes an upload ID. This id is a unique
-    identifier for a particular multipart upload and *must* be included
-    with all subsequent requests to Riak CS pertaining to this
-    upload. This includes any of the upload operations described in the
-    remainder of this document except for listing all active multipart
-    uploads.
+    the response from Riak CS includes an upload ID.
+
+    This ID is a unique identifier for a particular multipart upload
+    and *must* be included with all subsequent requests to Riak CS
+    pertaining to this upload. This includes any of the upload
+    operations described in the remainder of this document except for
+    listing all active multipart uploads.
 
     Metadata may be attached to an object uploaded using multipart upload
     just like any other object stored in Riak CS. To do so the metadata
@@ -38,13 +39,13 @@ API is the same.
 
 - **Parts Upload**
 
-    A part upload must include the upload ID received in response to an
-    initiation request and also specify a part number. Part numbers should
-    be integers between 1 and 10,000. These numbers identify a part within
-    the context of the multipart upload and also specify positioning
-    within the final object. Uploading a part with a part number that has
-    previously been uploaded results in the previous part associated with
-    that part number being overwritten.
+    A part upload must include both the upload ID received in response
+    to an initiation request and a part number. Part numbers should be
+    integers between 1 and 10,000. These numbers identify a part
+    within the context of the multipart upload and also specify
+    positioning within the final object. Uploading a part with a part
+    number that has previously been uploaded results in the previous
+    part associated with that part number being overwritten.
 
     For each part that is uploaded, Riak CS returns an `ETag` header as
     part of the response. Each `ETag` value and the part number it
@@ -66,19 +67,25 @@ API is the same.
     of the object data and this fact may cause warnings to be issued by
     some client libraries or tools.
 
-## Other operations
+## Terminating an upload
 
 - **Abort Multipart Upload**
 
-    A multipart upload request may also be aborted prior to sending an
-    upload completion request. An abort request results in the storage for
-    all parts that have been fully uploaded being released. Part uploads
-    that are in-progress may not have their storage released so to ensure
-    all storage is reclaimed, the abort request should only be done after
-    all active part uploads are complete. Once a multipart upload is aborted, the
-    upload ID is no longer valid.
+    A multipart upload request may be aborted prior to sending an
+    upload completion request. The storage for all parts that have
+    been fully uploaded will be released.
 
-- **List Active Multipart Uploads**
+    Part uploads that are in-progress *may not* have their storage
+    released, so to ensure all storage is reclaimed, the abort request
+    should only be sent after all parts already in progress have
+    uploaded.
+
+    Once a multipart upload is aborted, the upload ID is no longer
+    valid.
+
+## Listing ongoing uploads
+
+- **Active Multipart Uploads**
 
     Riak CS can list all of the active multipart uploads for each user
     account. The number of multipart uploads included in the response is
@@ -86,16 +93,12 @@ API is the same.
     for a particular user account, they can be listed by using multiple
     requests.
 
-- **List Uploaded Parts For In-Progress Multipart Upload**
+- **Completed Parts From An Active Upload**
 
-    Riak CS can list the parts that have been uploaded for a specific
-    multipart upload. The list parts operation returns the parts
-    information that you have uploaded for a specific multipart upload. A
-    list parts request returns a list of parts for the specified multipart
-    upload. If a multipart upload is comprised of more than 1000 parts
-    then the parts must be retrieved using multiple parts requests. Each
-    response is capped at 1000 parts. Any parts that are not fully
-    uploaded are not included in the output from a list parts request.
+    Riak CS can list the parts that have been successfully uploaded
+    for a specific multipart upload. If a multipart upload is
+    comprised of more than 1000 parts then the parts must be retrieved
+    using multiple parts requests.
 
     The results of this request are not intended to be used when sending a
     complete multipart upload request. The proper procedure is to record
