@@ -20,7 +20,7 @@ To create an account for the admin user, use an HTTP POST with the username you 
 
 ```
 curl -H 'Content-Type: application/json' \
-  -X POST http://localhost:8080/user \
+  -X POST http://localhost:8080/riak-cs/user \
   --data '{"email":"foobar@example.com", "name":"admin user"}'
 ```
 
