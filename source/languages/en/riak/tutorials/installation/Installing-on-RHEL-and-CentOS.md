@@ -27,9 +27,7 @@ When installing Riak on CentOS or Redhat you can install from source or from our
 You can either install using yum *(recommended)*,
 
 ```
-package=basho-release-5-1.noarch.rpm && \
-wget http://yum.basho.com/gpg/$package -O /tmp/$package && \
-sudo rpm -ivh /tmp/$package
+sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
 sudo yum install riak
 ```
 
@@ -81,9 +79,7 @@ sudo rpm -Uvh riak-1.3.0-1.el5.x86_64.rpm
 You can either install using yum *(recommended)*,
 
 ```
-package=basho-release-6-1.noarch.rpm && \
-wget http://yum.basho.com/gpg/$package -O /tmp/$package && \
-sudo rpm -ivh /tmp/$package
+sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
 sudo yum install riak
 ```
 
