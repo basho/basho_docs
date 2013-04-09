@@ -116,7 +116,7 @@ bucket properties.  Here are two examples:
     properties.
 
     ```
-    $ curl -XPUT http://riaknode:8098/riak/transient_example_bucketname \
+    $ curl -XPUT http://riaknode:8098/buckets/transient_example_bucketname/props \
       -H "Content-Type: application/json" \
       -d '{"props":{"backend":"memory_mult"}}'
     ```
