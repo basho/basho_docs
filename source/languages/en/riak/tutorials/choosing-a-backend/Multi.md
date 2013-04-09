@@ -121,5 +121,6 @@ bucket properties.  Here are two examples:
       -d '{"props":{"backend":"memory_mult"}}'
     ```
 
-Once you've changed a bucket's storage engine on a node you'll need to restart
-the node for that change to take effect.
+Note that if you change the default bucket storage engine via the app.config
+settings, then you will need to restart the node, or nodes, for that change to
+take effect.
