@@ -111,6 +111,8 @@ riak:
           - "[[MapReduce|MapReduce - Settings]]"
           - "[[Search|Riak-Search - Settings]]"
           - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
+          - "[[Load Balancing and Proxy Configuration]]"
+                    
       - title: "Performance"
         sub:
           - "[[File System Tuning]]"
