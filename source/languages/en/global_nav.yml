@@ -261,6 +261,7 @@ riakcs:
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
       - "[[Configuring an S3 client]]"
+      - "[[Configuring DragonDisk]]"
   - title: "Riak CS Enterprise"
     sub:
       - "[[Overview|MDC Overview]]"
