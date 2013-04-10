@@ -50,7 +50,7 @@ The table below gives a high level comparison of Riak CS and Atmos features/capa
         <td>Hardware</td>
         <td>Riak CS ships as software and can be installed from source or with packages, including Ubuntu and CentOS. There is no hardware lock-in to specific vendors, and Riak CS is designed to be run on commodity hardware so enterprises can achieve economies of scale.
         </td>
-        <td>EMC Atmos can be deployed as a software/hardware bundle on Atmos Hardware or as a virtual edition deployed on a VMware-ceretified third-party storage system.
+        <td>EMC Atmos can be deployed as a software/hardware bundle on Atmos Hardware or as a virtual edition deployed on a VMware-certified third-party storage system.
         </td>
     </tr>
 	<tr>
