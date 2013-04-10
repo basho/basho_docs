@@ -43,7 +43,7 @@ Click **New**.
 In the **Account** dialog window, choose **Other S3 compatible service**
 under the **Provider** drop down menu.
 
-[dragondisk_linux4.png]
+![DragonDisk screenshot](http://screenshots.data.riakcs.net:8080/dragondisk_linux4.png "DragonDisk screenshot")
 
 Enter the hostname or IP address of your Riak CS cluster's public interface
 into the **Service Endpoint** field.
@@ -75,7 +75,7 @@ to Riak CS.
 Now let's try to connect to Riak CS with the newly defined account
 configuration.
 
-[dragondisk_linux6.png]
+![DragonDisk screenshot](http://screenshots.data.riakcs.net:8080/dragondisk_linux6.png "DragonDisk screenshot")
 
 In the **Root** drop down menu on the right pane of the DragonDisk interface,
 select the **RiakCS** account definition that you created.
@@ -88,7 +88,7 @@ pane, then you're connected to Riak CS and can proceed to creating a bucket.
 Now that you're connected, create a bucket for testing file access with
 Riak CS.
 
-[dragondisk_linux7.png]
+![DragonDisk screenshot](http://screenshots.data.riakcs.net:8080/dragondisk_linux7.png "DragonDisk screenshot")
 
 Click the **Create bucket** icon to open the bucket creation dialog.
 
