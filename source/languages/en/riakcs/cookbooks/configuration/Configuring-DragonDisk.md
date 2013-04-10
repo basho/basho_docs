@@ -20,30 +20,28 @@ specifically describes configuration for Ubuntu Linux version 12.04
 (Precise Pangolin) 32 bit, but the configuration will be similar for other
 Linux distributions.
 
-![DragonDisk screenshot](/images/dragondisk_linux0.png)
-
 This is the main DragonDisk window as it appears upon starting
 the application.
+
+![DragonDisk screenshot](/images/dragondisk_linux0.png)
 
 ### Create an account
 
 Before you can connect DragonDisk to Riak CS, you'll need to create and save
 an account. The following describes the process for doing so.
 
-![DragonDisk screenshot](/images/dragondisk_linux1.png)
-
 From the **File** menu, select **Accounts**.
 
-![DragonDisk screenshot](/images/dragondisk_linux2.png)
+![DragonDisk screenshot](/images/dragondisk_linux1.png)
 
 Click **New**.
 
-![DragonDisk screenshot](/images/dragondisk_linux3.png)
+![DragonDisk screenshot](/images/dragondisk_linux2.png)
 
 In the **Account** dialog window, choose **Other S3 compatible service**
 under the **Provider** drop down menu.
 
-![DragonDisk screenshot](/images/dragondisk_linux4.png)
+![DragonDisk screenshot](/images/dragondisk_linux3.png)
 
 Enter the hostname or IP address of your Riak CS cluster's public interface
 into the **Service Endpoint** field.
@@ -65,17 +63,17 @@ into the <strong>HTTPS Port</strong> field and click the
 
 Click **OK** to save the account configuration.
 
-![DragonDisk screenshot](/images/dragondisk_linux5.png)
+![DragonDisk screenshot](/images/dragondisk_linux4.png)
 
 Click **Close** to complete account creation and continue try connecting
 to Riak CS.
+
+![DragonDisk screenshot](/images/dragondisk_linux5.png)
 
 ### Connect to Riak CS
 
 Now let's try to connect to Riak CS with the newly defined account
 configuration.
-
-![DragonDisk screenshot](/images/dragondisk_linux6.png)
 
 In the **Root** drop down menu on the right pane of the DragonDisk interface,
 select the **RiakCS** account definition that you created.
@@ -83,16 +81,16 @@ select the **RiakCS** account definition that you created.
 If no error occurs and you see the account definition appear in the right
 pane, then you're connected to Riak CS and can proceed to creating a bucket.
 
+![DragonDisk screenshot](/images/dragondisk_linux6.png)
+
 ### Create a bucket
 
 Now that you're connected, create a bucket for testing file access with
 Riak CS.
 
-![DragonDisk screenshot](/images/dragondisk_linux7.png)
-
 Click the **Create bucket** icon to open the bucket creation dialog.
 
-![DragonDisk screenshot](/images/dragondisk_linux8.png)
+![DragonDisk screenshot](/images/dragondisk_linux7.png)
 
 In the **Create bucket** dialog, give the bucket a name. In this example
 we're naming the bucket *dragondisklinux*.
@@ -101,6 +99,8 @@ Click **OK** to create the bucket.
 
 The bucket should now appear in the right pane and you can now proceed with
 copying some test files into the bucket.
+
+![DragonDisk screenshot](/images/dragondisk_linux8.png)
 
 ### Copy files to bucket
 
@@ -112,9 +112,9 @@ files to copy from your local computer to the newly created Riak CS bucket.
 After selecting a file or files, you can drag them to the bucket you created
 in the right pane and the copy operation will begin.
 
-![DragonDisk screenshot](/images/dragondisk_linux10.png)
-
 After the files are copied, they'll appear in the bucket.
+
+![DragonDisk screenshot](/images/dragondisk_linux10.png)
 
 You have now successfully verified connectivity, bucket creation, and
 file copying operations for your Riak CS installation with DragonDisk.
@@ -126,30 +126,28 @@ for details on performing other operations.
 
 This section describes configuration of DragonDisk for Mac OS X.
 
-![DragonDisk screenshot](/images/dragondisk_osx0.png)
-
 This is the main DragonDisk window as it appears upon starting
 the application.
+
+![DragonDisk screenshot](/images/dragondisk_osx0.png)
 
 ### Create an account
 
 Before you can connect DragonDisk to Riak CS, you'll need to create and save
 an account. The following describes the process for doing so.
 
-![DragonDisk screenshot](/images/dragondisk_osx1.png)
-
 From the **File** menu, select **Accounts**.
 
-![DragonDisk screenshot](/images/dragondisk_osx2.png)
+![DragonDisk screenshot](/images/dragondisk_osx1.png)
 
 Click **New**.
 
-![DragonDisk screenshot](/images/dragondisk_osx3.png)
+![DragonDisk screenshot](/images/dragondisk_osx2.png)
 
 In the **Account** dialog window, choose **Other S3 compatible service**
 under the **Provider** drop down menu.
 
-![DragonDisk screenshot](/images/dragondisk_osx4.png)
+![DragonDisk screenshot](/images/dragondisk_osx3.png)
 
 Enter the hostname or IP address of your Riak CS cluster's public interface
 into the **Service Endpoint** field.
@@ -171,17 +169,17 @@ into the <strong>HTTPS Port</strong> field and click the
 
 Click **OK** to save the account configuration.
 
-![DragonDisk screenshot](/images/dragondisk_osx5.png)
+![DragonDisk screenshot](/images/dragondisk_osx4.png)
 
 Click **Close** to complete account creation and continue try connecting
 to Riak CS.
+
+![DragonDisk screenshot](/images/dragondisk_osx5.png)
 
 ### Connect to Riak CS
 
 Now let's try to connect to Riak CS with the newly defined account
 configuration.
-
-![DragonDisk screenshot](/images/dragondisk_osx6.png)
 
 In the **Root** drop down menu on the right pane of the DragonDisk interface,
 select the **RiakCS** account definition that you created.
@@ -189,16 +187,16 @@ select the **RiakCS** account definition that you created.
 If no error occurs and you see the account definition appear in the right
 pane, then you're connected to Riak CS and can proceed to creating a bucket.
 
+![DragonDisk screenshot](/images/dragondisk_osx6.png)
+
 ### Create a bucket
 
 Now that you're connected, create a bucket for testing file access with
 Riak CS.
 
-![DragonDisk screenshot](/images/dragondisk_osx7.png)
-
 Click the **Create bucket** icon to open the bucket creation dialog.
 
-![DragonDisk screenshot](/images/dragondisk_osx8.png)
+![DragonDisk screenshot](/images/dragondisk_osx7.png)
 
 In the **Create bucket** dialog, give the bucket a name. In this example
 we're naming the bucket *dragondiskosx*.
@@ -207,6 +205,8 @@ Click **OK** to create the bucket.
 
 The bucket should now appear in the right pane and you can now proceed with
 copying some test files into the bucket.
+
+![DragonDisk screenshot](/images/dragondisk_osx8.png)
 
 ### Copy files to bucket
 
@@ -218,9 +218,9 @@ files to copy from your local computer to the newly created Riak CS bucket.
 After selecting a file or files, you can drag them to the bucket you created
 in the right pane and the copy operation will begin.
 
-![DragonDisk screenshot](/images/dragondisk_osx10.png)
-
 After the files are copied, they'll appear in the bucket.
+
+![DragonDisk screenshot](/images/dragondisk_osx10.png)
 
 You have now successfully verified connectivity, bucket creation, and
 file copying operations for your Riak CS installation with DragonDisk.
@@ -232,30 +232,28 @@ for details on performing other operations.
 
 This section describes configuration of DragonDisk for Windows.
 
-![DragonDisk screenshot](/images/dragondisk_windows0.png)
-
 This is the main DragonDisk window as it appears upon starting
 the application.
+
+![DragonDisk screenshot](/images/dragondisk_windows0.png)
 
 ### Create an account
 
 Before you can connect DragonDisk to Riak CS, you'll need to create and save
 an account. The following describes the process for doing so.
 
-![DragonDisk screenshot](/images/dragondisk_windows1.png)
-
 From the **File** menu, select **Accounts**.
 
-![DragonDisk screenshot](/images/dragondisk_windows2.png)
+![DragonDisk screenshot](/images/dragondisk_windows1.png)
 
 Click **New**.
 
-![DragonDisk screenshot](/images/dragondisk_windows3.png)
+![DragonDisk screenshot](/images/dragondisk_windows2.png)
 
 In the **Account** dialog window, choose **Other S3 compatible service**
 under the **Provider** drop down menu.
 
-![DragonDisk screenshot](/images/dragondisk_windows4.png)
+![DragonDisk screenshot](/images/dragondisk_windows3.png)
 
 Enter the hostname or IP address of your Riak CS cluster's public interface
 into the **Service Endpoint** field.
@@ -277,17 +275,17 @@ into the <strong>HTTPS Port</strong> field and click the
 
 Click **OK** to save the account configuration.
 
-![DragonDisk screenshot](/images/dragondisk_windows5.png)
+![DragonDisk screenshot](/images/dragondisk_windows4.png)
 
 Click **Close** to complete account creation and continue try connecting
 to Riak CS.
+
+![DragonDisk screenshot](/images/dragondisk_windows5.png)
 
 ### Connect to Riak CS
 
 Now let's try to connect to Riak CS with the newly defined account
 configuration.
-
-![DragonDisk screenshot](/images/dragondisk_windows6.png)
 
 In the **Root** drop down menu on the right pane of the DragonDisk interface,
 select the **RiakCS** account definition that you created.
@@ -295,16 +293,16 @@ select the **RiakCS** account definition that you created.
 If no error occurs and you see the account definition appear in the right
 pane, then you're connected to Riak CS and can proceed to creating a bucket.
 
+![DragonDisk screenshot](/images/dragondisk_windows6.png)
+
 ### Create a bucket
 
 Now that you're connected, create a bucket for testing file access with
 Riak CS.
 
-![DragonDisk screenshot](/images/dragondisk_windows7.png)
-
 Click the **Create bucket** icon to open the bucket creation dialog.
 
-![DragonDisk screenshot](/images/dragondisk_windows8.png)
+![DragonDisk screenshot](/images/dragondisk_windows7.png)
 
 In the **Create bucket** dialog, give the bucket a name. In this example
 we're naming the bucket *dragonbucket*.
@@ -313,6 +311,8 @@ Click **OK** to create the bucket.
 
 The bucket should now appear in the right pane and you can now proceed with
 copying some test files into the bucket.
+
+![DragonDisk screenshot](/images/dragondisk_windows8.png)
 
 ### Copy files to bucket
 
@@ -324,9 +324,9 @@ files to copy from your local computer to the newly created Riak CS bucket.
 After selecting a file or files, you can drag them to the bucket you created
 in the right pane and the copy operation will begin.
 
-![DragonDisk screenshot](/images/dragondisk_windows10.png)
-
 After the files are copied, they'll appear in the bucket.
+
+![DragonDisk screenshot](/images/dragondisk_windows10.png)
 
 You have now successfully verified connectivity, bucket creation, and
 file copying operations for your Riak CS installation with DragonDisk.
