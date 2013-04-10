@@ -1786,10 +1786,17 @@ riak-cs-control:
             i386:
               file: riak-cs-control-1.0.0-OSX-i386.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.0/osx/10.6/riak-cs-control-1.0.0-OSX-i386.tar.gz
-              file_size: 23214683
+              file_size: 23584728
               csum: riak-cs-control-1.0.0-OSX-i386.tar.gz.sha
               static_csum: http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.0/osx/10.6/riak-cs-control-1.0.0-OSX-i386.tar.gz.sha
               csum_size: 104
+            x86_64:
+              file: riak-cs-control-1.0.0-OSX-x86_64.tar.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.0/osx/10.6/riak-cs-control-1.0.0-OSX-x86_64.tar.gz
+              file_size: 23214508
+              csum: riak-cs-control-1.0.0-OSX-x86_64.tar.gz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak-cs-control/1.0/1.0.0/osx/10.6/riak-cs-control-1.0.0-OSX-x86_64.tar.gz.sha
+              csum_size: 106
     rhel:
       versions:
         '5':
