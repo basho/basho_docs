@@ -50,7 +50,7 @@ class Downloads
 
   def self.pull_data(project, version)
     # don't pull for older versions, since they have a weird format
-    return if version.sub(/\.\w+$/, '').to_f <= 1.1
+    return if project != 'riak-cs-control' && version.sub(/\.\w+$/, '').to_f <= 1.1
     downloads_gen = YAML::load(File.open('data/downloads_gen.yml'))
     version_data = load_from_s3(project, version)
     (downloads_gen[project] ||= {})[version] = version_data
