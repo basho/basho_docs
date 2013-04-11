@@ -1,7 +1,7 @@
 ---
-title: Fog on RiakCS
+title: Fog on Riak CS
 project: riakcs
-version: 1.2.0+
+version: 1.3.0+
 document: cookbook
 toc: true
 audience: beginner
@@ -10,29 +10,24 @@ keywords: [developer]
 
 Fog is a general cloud services library written in Ruby. It is built to
 support as many providers as possible, from most AWS services, to Rackspace
-and Linode, and this includes an extension for RiakCS.
+and Linode, and this includes an extension for Riak CS.
 
-You must install the fog gem with riak_cs code. Currently it's a [branch on
-github](https://github.com/basho/fog/tree/riak_cs).
+Installation via [RubyGems](http://rubygems.org/):
 
 ```bash
-$ git clone -b riak_cs git@github.com:basho/fog.git
-$ gem build fog.gemspec
-$ gem install fog-1.3.1.gem
+$ gem install fog
 ```
 
-Or in Bundler:
+Or in [Bundler](http://gembundler.com/):
 
 ```
-gem "fog", :git => 'git://github.com/basho/fog.git', :branch => 'riak_cs'
+gem "fog", "~> 1.10.1"
 ```
-
-We are working to have this merged into the official `fog` gem.
 
 ## User Management
 
 The first activity is to create a new user. But before we can do that, you must
-create connections to your RiakCS server to handle communication to different
+create connections to your Riak CS server to handle communication to different
 services.
 
 ### Setup
@@ -98,14 +93,14 @@ client.regrant_secret(key_id)
 
 ## Usage Retrieval
 
-To get information about RiakCS requests, 
+To get information about Riak CS requests.
 
 ### Setup
 
 First, create a new instance of the Usage object.
 
 ```ruby
-client = Fog::RiakCS::Usage.new(
+usage = Fog::RiakCS::Usage.new(
   :riakcs_access_key_id     => RIAK_CS_ADMIN_KEY,
   :riakcs_secret_access_key => RIAK_CS_ADMIN_SECRET,
   :host                     => RIAK_CS_HOST,
@@ -113,11 +108,16 @@ client = Fog::RiakCS::Usage.new(
 )
 ```
 
+The example below is targeted at [riakcs.net](https://www.riakcs.net):
+
+```ruby
 usage = Fog::RiakCS::Usage.new(
   :riakcs_access_key_id     => 'XXXPRQ_MVWUC7QZ5OBHF',
   :riakcs_secret_access_key => 'Hhti-b9YFBjYkFgFFq5PbrOs2pFgBIhu3LF6Aw==',
-  :host                     => 'data.riakcs.net'
+  :host                     => 'data.riakcs.net',
+  :port                     => 8080
 )
+```
 
 *Note: You may use regular (non-admin) credentials for usage retrieval, if you
 are accessing your own usage.*
