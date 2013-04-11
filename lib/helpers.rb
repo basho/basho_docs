@@ -34,7 +34,7 @@ module BashoDocsHelpers
   end
 
   def current_version(default_proj)
-    $versions[(data.page.project || default_proj).to_sym] || ENV['RIAK_VERSION']
+    SitemapRenderOverride.current_version || $versions[(data.page.project || default_proj).to_sym] || ENV['RIAK_VERSION']
   end
 
   def project_version_path(pa)
