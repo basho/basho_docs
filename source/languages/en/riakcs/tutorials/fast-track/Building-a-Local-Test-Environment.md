@@ -109,78 +109,21 @@ Change the following line in `/etc/riak/app.config`
 
 to
 
-
-{{#1.2.0}}
-
-    {add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.0/ebin"]},
-    {storage_backend, riak_cs_kv_multi_backend},
-    {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
-    {multi_backend_default, be_default},
-    {multi_backend, [
-        {be_default, riak_kv_eleveldb_backend, [
-            {max_open_files, 50},
-            {data_root, "/var/lib/riak/leveldb"}
-        ]},
-        {be_blocks, riak_kv_bitcask_backend, [
-            {data_root, "/var/lib/riak/bitcask"}
-        ]}
+```
+{{#1.2.0}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.0/ebin"]},{{/1.2.0}}{{#1.2.1}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.1/ebin"]},{{/1.2.1}}{{#1.3.0}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.3.0/ebin"]},{{/1.3.0}}{{#1.3.1}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.3.1/ebin"]},{{/1.3.1}}
+{storage_backend, riak_cs_kv_multi_backend},
+{multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
+{multi_backend_default, be_default},
+{multi_backend, [
+    {be_default, riak_kv_eleveldb_backend, [
+        {max_open_files, 50},
+        {data_root, "/var/lib/riak/leveldb"}
     ]},
-
-{{/1.2.0}}
-
-{{#1.2.1}}
-
-    {add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.1/ebin"]},
-    {storage_backend, riak_cs_kv_multi_backend},
-    {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
-    {multi_backend_default, be_default},
-    {multi_backend, [
-        {be_default, riak_kv_eleveldb_backend, [
-            {max_open_files, 50},
-            {data_root, "/var/lib/riak/leveldb"}
-        ]},
-        {be_blocks, riak_kv_bitcask_backend, [
-            {data_root, "/var/lib/riak/bitcask"}
-        ]}
-    ]},
-
-{{/1.2.1}}
-
-{{#1.3.0}}
-
-    {add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.3.0/ebin"]},
-    {storage_backend, riak_cs_kv_multi_backend},
-    {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
-    {multi_backend_default, be_default},
-    {multi_backend, [
-        {be_default, riak_kv_eleveldb_backend, [
-            {max_open_files, 50},
-            {data_root, "/var/lib/riak/leveldb"}
-        ]},
-        {be_blocks, riak_kv_bitcask_backend, [
-            {data_root, "/var/lib/riak/bitcask"}
-        ]}
-    ]},
-
-{{/1.3.0}}
-
-{{#1.3.1}}
-
-    {add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.3.1/ebin"]},
-    {storage_backend, riak_cs_kv_multi_backend},
-    {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
-    {multi_backend_default, be_default},
-    {multi_backend, [
-        {be_default, riak_kv_eleveldb_backend, [
-            {max_open_files, 50},
-            {data_root, "/var/lib/riak/leveldb"}
-        ]},
-        {be_blocks, riak_kv_bitcask_backend, [
-            {data_root, "/var/lib/riak/bitcask"}
-        ]}
-    ]},
-
-{{/1.3.1}}
+    {be_blocks, riak_kv_bitcask_backend, [
+        {data_root, "/var/lib/riak/bitcask"}
+    ]}
+]},
+```
 
 Next, we set our interface IP addresses in the app.config files. In a production environment, you will likely have multiple NICs, but for this test cluster, we are going to assume one NIC with an example IP address of 10.0.2.10.
 
