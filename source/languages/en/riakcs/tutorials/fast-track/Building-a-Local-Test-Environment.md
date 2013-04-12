@@ -312,8 +312,6 @@ Now we have to restart the services for the change to take effect:
     sudo stanchion restart
     sudo riak-cs restart
 
-You may now wish to back out the anonymous user creation configuration and restart CS.
-
 ## Installing Additional Nodes
 The process for installing additional nodes is identical to your first node with two exceptions:
 
