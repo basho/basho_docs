@@ -59,16 +59,16 @@ make rel
 
 {{/1.3.0}}
 
-{{#1.3.0}}
+{{#1.3.1}}
 
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
-tar zxvf riak-1.3.0.tar.gz
-cd riak-1.3.0
+curl -O http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.1/riak-1.3.1.tar.gz
+tar zxvf riak-1.3.1.tar.gz
+cd riak-1.3.1
 make rel
 ```
 
-{{/1.3.0}}
+{{/1.3.1}}
 
 <div class='note'> If you see the error `fatal: unable to connect to github.com` see the following instructions for building on systems with no internet availability </div>
 
@@ -77,6 +77,7 @@ The error `fatal: unable to connect to github.com` when building from source is 
 
 Download the following `leveldb` archive for the version of Riak you are using:
 
+  * **1.3.1**: `https://github.com/basho/leveldb/zipball/1.3.0`
   * **1.3.0**: `https://github.com/basho/leveldb/zipball/1.3.0`
   * **1.2.1**: `https://github.com/basho/leveldb/zipball/1.2.2p5`
   * **1.2.0**: `https://github.com/basho/leveldb/zipball/2aebdd9173a7840f9307e30146ac95f49fbe8e64`
@@ -98,7 +99,7 @@ $ make rel
 ```
 
 {{/1.1.4-1.2.1}}
-{{#1.3.0}}
+{{#1.3.0+}}
 
 The instructions going forward will assume Riak 1.3.0, replace the appropriate file for your version.
 
@@ -117,7 +118,7 @@ $ cd ../
 $ make rel
 ```
 
-{{/1.3.0}}
+{{/1.3.0+}}
 
 ### Installing from GitHub
 The [[Riak Github repository|http://github.com/basho/riak]] has much more information on building and installing Riak from source. To clone and and build Riak from source, follow these steps:
