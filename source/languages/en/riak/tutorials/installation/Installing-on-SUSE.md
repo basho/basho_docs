@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, installing, suse]
-prev: "[[Installing on SmartOS]]"
+prev: "[[Installing on Solaris]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Windows Azure]]"
 ---
