@@ -280,7 +280,7 @@ riakcs:
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
-      - "[[Ruby Fog|Fog on RiakCS]]"
+      - "[[Ruby Fog|Fog on Riak CS]]"
       - "[[APIs|RiakCS Storage API]]"
       - "[[FAQs|Riak CS FAQs]]"
       - "[[Release Notes|Riak CS Release Notes]]"
