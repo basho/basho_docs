@@ -9,8 +9,9 @@ $versions = {}
 version_file = YAML::load(File.open('data/versions.yml'))
 for proj, vs in version_file['currents']
   proj = proj.upcase
-  $versions[proj.downcase.to_sym] = vs
+  vs = ENV["#{proj}_VERSION"] if ENV["#{proj}_VERSION"].present?
   ENV["#{proj}_VERSION"] = vs if ENV["#{proj}_VERSION"].blank? 
+  $versions[proj.downcase.to_sym] = vs
   puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
 end
 

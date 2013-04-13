@@ -59,10 +59,12 @@ class Downloads
 
   def self.data(project, version)
     @data ||= {}
-    return @data[project] if @data.include?(project)
+    if @data.include?(project) && @data[project].include?(version)
+      return @data[project][version]
+    end
     default_data = YAML::load(File.open('data/downloads_defaults.yml'))['default']['default']
     version_data = YAML::load(File.open('data/downloads_gen.yml'))[project][version]
-    @data[project] = rmerge(default_data, version_data)
+    (@data[project]||={})[version] = rmerge(default_data, version_data)
   end
 
   def self.load_from_s3(project, version)

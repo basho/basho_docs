@@ -4,6 +4,16 @@ require 'cgi'
 
 module SitemapRenderOverride
 
+  @@_current_version = nil
+  
+  def self.current_version=(v)
+    @@_current_version = v
+  end
+
+  def self.current_version
+    @@_current_version
+  end
+
   def sitemap_pages
     return $sitemap_pages if $sitemap_pages
     $sitemap_pages = {}
@@ -109,7 +119,10 @@ module SitemapRenderOverride
 
   def strip_versions!(data)
     project = (metadata[:page]["project"] || $default_project).to_sym
-    if version_str = $versions[project]
+    
+    version_str = SitemapRenderOverride.current_version || $versions[project]
+
+    if version_str
       # Ignore rcX if this is a pre-release
       version_str = version_str.sub(/rc\d+/i, '')
       version = Versionomy.parse(version_str)
