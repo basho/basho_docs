@@ -143,7 +143,7 @@ server_connect_errors | The number of primary to sink connection errors
 server_connects | The number of times the primary connects to the client sink
 server_rx_kbps | A snapshot of the primary received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 server_tx_kbps | A snapshot of the primary sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
-leader {{1.3.0+}} | 
+leader | Which node is the current leader of the cluster for Default Replication
 local_leader_message_queue_len | The length of the object queue on the leader
 local_leader_heap_size | The amount of memory the leader is using
 client_stats | See <a href="/cookbooks/Multi-Data-Center-Replication-Status/#Client-Statistics" class="riakee">Client Statistics</a>
