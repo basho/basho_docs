@@ -21,7 +21,10 @@ module Rack::Middleman
     def alter_route(env, var)
       unless env[var] =~ %r"\/((?:#{projects_regex}|shared)\/[^\/]+)\/?(index\.html)?$"
         if env.include?(var)
-          env[var] = env[var].sub(%r"\/(?:#{projects_regex}|shared)\/(?:[\d\.rc]+|latest)", '')
+          env[var] = env[var].sub(%r"\/(?:#{projects_regex}|shared)\/([\d\.rc]+|latest)", '')
+          # set as current page version
+          version = $1 == 'latest' ? nil : $1
+          SitemapRenderOverride.current_version = version
         end
       else
         env[var] = "/#{$1}/index.html"
