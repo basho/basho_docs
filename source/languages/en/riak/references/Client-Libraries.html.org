@@ -32,7 +32,7 @@ and related projects [[references/Community-Developed-Libraries-and-Projects/][p
 | Javascript (jQuery) | [[https://github.com/basho/riak-javascript-client][riak-javascript-client]] |
 
 
-* Feature Matrix
+*** Feature Matrix
    Below is a series of tables that compares the functionality of our
    official client libraries with the features exposed by Riak's API,
    and also compares features that are desirable in well-developed
