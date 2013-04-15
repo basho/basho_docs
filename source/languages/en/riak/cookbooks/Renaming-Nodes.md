@@ -163,6 +163,9 @@ as follows:
         Partitions reassigned from cluster changes: 13
         13 reassigned from 'riak@10.1.42.11' to 'riak@192.168.17.11'
 
+     Note: When using the `riak-admin force-replace` command, you will always get a warning message like: `WARNING: All of 'riak@10.1.42.11' replicas will be lost`.  
+     Since we didn't delete any data files and we are replacing the node with itself under a new name, we will not lose any replicas.      
+
 8. Commit the new changes to the cluster with `riak-admin cluster commit`:
 
         riak-admin cluster commit
