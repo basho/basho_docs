@@ -12,7 +12,7 @@ up:   "[[The Riak CS Fast Track]]"
 next: "[[Building a Virtual Test Environment]]"
 ---
 
-The following instructions will guide you through installing a Riak CS test environment. This guide does not cover system/service tuning, nor does it attempt to optimize your installation given your particular architecture.  This procedure is ideal for building a test environment either on local or remote hardware that allows for durable, repeatable testing.  
+The following instructions will guide you through installing a Riak CS test environment. This guide does not cover system/service tuning, nor does it attempt to optimize your installation given your particular architecture.  This procedure is ideal for building a test environment either on local or remote hardware that allows for durable, repeatable testing.
 
 If you want to build a testing environment with a minimum of configuration there is an option for [[Building a Virtual Test Environment]].
 
@@ -43,11 +43,15 @@ If you are running Ubuntu 11.10 or later, you will also need the `libssl0.9.8` p
 
     sudo apt-get install -y libssl0.9.8
 
-Now let's grab the Riak and Riak CS packages. Since this is our first node, we'll also be installing the Stanchion package as well.
+Now, grab the appropriate packages: Riak, Riak CS, and Stanchion.  See [[Download Riak|Downloads]] and [[Download Riak CS]]; you can skip Riak CS Control for now.
 
-First install Riak:
+Once you have the packages, install them per the instructions below.
 
-The below links provide platform-specific instructions for downloading and installing Riak from source.
+#### First, install Riak
+
+The below links provide platform-specific instructions for installing Riak.
+
+**Do not attempt to configure or start Riak until step 3 in this document.**
 
   * [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
   * [[RHEL and CentOS|Installing on RHEL and CentOS]]
@@ -58,7 +62,7 @@ The below links provide platform-specific instructions for downloading and insta
   * [[AWS Marketplace|Installing on AWS Marketplace]]
   * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
-Next, install Riak CS:
+#### Next, install Riak CS
 
 For RedHat Enterprise distributions (and similar):
 
@@ -72,7 +76,7 @@ Ubuntu distributions and similar:
 
 Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
 
-Finally, install Stanchion:
+#### Finally, install Stanchion
 
     sudo rpm -Uvh <stanchion-package.rpm>
 
@@ -84,10 +88,14 @@ For Ubuntu distributions:
 
 Replace `<stanchion-package.deb>` with the actual file name for the package you are installing.
 
+
 ### Step 3: Set service configurations and start the services
 
-We need to make some changes to the Riak configuration. We'll be editing
-`/etc/riak/app.config`. First, we need to add this line to the
+We need to make changes to several configuration files.
+
+#### /etc/riak/app.config
+
+First, we need to add this line to the
 `riak_core` section, which starts off like:
 
 ```erlang
@@ -137,6 +145,7 @@ to
     {http, [ {"10.0.2.10", 8098 } ]}
     {pb_ip,   "10.0.2.10" }
 
+#### /etc/riak-cs/app.config
 
 Change the following lines in `/etc/riak-cs/app.config`
 
@@ -164,6 +173,8 @@ to
     {stanchion_ip, "10.0.2.10"}
     {riak_ip, "10.0.2.10"}
 
+
+#### Service names
 
 Next, we set our service names. You can either use the local IP address for this or set hostnames. If you choose to set hostnames, you should ensure that the hostnames are resolvable by DNS or set in `/etc/hosts` on all nodes.
 
@@ -195,6 +206,7 @@ to
 
     -name stanchion@10.0.2.10
 
+#### Start the services
 
 That is the minimum amount of service configuration required to start a complete node. To start the services, type:
 
@@ -220,8 +232,6 @@ two inputs:
 1. Name - a URL encoded string. Example: "admin%20user"
 
 2. Email - a unique email address. Example: "admin@admin.com"
-
-We can create the admin user with the following `curl` command:
 
 To create an admin user, we need to grant permission to create new
 users to the "anonymous" user.
