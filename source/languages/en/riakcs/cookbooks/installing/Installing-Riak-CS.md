@@ -48,7 +48,7 @@ sudo dpkg -i <riak-cs-package.deb>
 ```
 Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
 
-### Installing Riak CS on CentOS
+### Installing Stanchion on CentOS
 
 The following command installs Stanchion on a machine running either Red Hat linux or CentOS.
 
