@@ -9,6 +9,7 @@ audience: beginner
 keywords: []
 simple: true
 versions: false
+body_id: riakcs-index
 ---
 
 ![Riak CS Logo](/images/riak-cs-logo.png)

@@ -792,7 +792,7 @@ div[role="main"] {
       }
     }
     
-    p, ol, ul, h2, h3, h4, h5, h6, .CodeRay, .info {
+    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
       max-width: 600px;
     }
     nav.tutorial {
