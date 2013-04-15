@@ -47,8 +47,6 @@ Now, grab the appropriate packages: Riak, Riak CS, and Stanchion.  See [[Downloa
 
 Once you have the packages, install them per the instructions below.
 
----
-
 #### First, install Riak
 
 The below links provide platform-specific instructions for installing Riak.
@@ -64,8 +62,6 @@ The below links provide platform-specific instructions for installing Riak.
   * [[AWS Marketplace|Installing on AWS Marketplace]]
   * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
 
----
-
 #### Next, install Riak CS
 
 For RedHat Enterprise distributions (and similar):
@@ -79,8 +75,6 @@ Ubuntu distributions and similar:
     sudo dpkg -i <riak-cs-package.deb>
 
 Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
-
----
 
 #### Finally, install Stanchion
 
@@ -149,8 +143,6 @@ to
     {http, [ {"10.0.2.10", 8098 } ]}
     {pb_ip,   "10.0.2.10" }
 
----
-
 #### /etc/riak-cs/app.config
 
 Change the following lines in `/etc/riak-cs/app.config`
@@ -179,8 +171,6 @@ to
     {stanchion_ip, "10.0.2.10"}
     {riak_ip, "10.0.2.10"}
 
-
----
 
 #### Service names
 
@@ -213,8 +203,6 @@ Change the following line in `/etc/stanchion/vm.args`
 to
 
     -name stanchion@10.0.2.10
-
----
 
 #### Start the services
 
