@@ -109,7 +109,23 @@ tar xzvf riak-1.3.0-osx-i386.tar.gz
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
 
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/osx/10.6/riak-1.3.1-osx-x86_64.tar.gz
+tar xzvf riak-1.3.1-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/osx/10.6/riak-1.3.1-osx-i386.tar.gz
+tar xzvf riak-1.3.1-osx-i386.tar.gz
+```
+
+{{/1.3.1}}
 After the release is untared you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
 
 ## Homebrew
@@ -186,6 +202,16 @@ make rel
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
+tar zxvf riak-1.3.1.tar.gz
+cd riak-1.3.1
+make rel
+```
+
+{{/1.3.1}}
 
 If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher - 64bit, everything else - 32bit).
 
