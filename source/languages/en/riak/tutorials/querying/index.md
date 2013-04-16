@@ -7,6 +7,7 @@ toc: true
 audience: beginner
 keywords: [mapreduce, search, indexes, comparison]
 next: "[[Basic Operations]]"
+body_id: query-riak
 ---
 
 * [[Basic Operations]]
