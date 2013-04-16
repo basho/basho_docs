@@ -8,7 +8,6 @@ audience: advanced
 keywords: [upgrading]
 
 ---
-#Rolling Upgrades for Riak CS
 
 Riak CS nodes negotiate with each other to determine supported operating modes and S3 API coverage.  This allows clusters containing mixed version of Riak CS to be upgraded in a rolling fashion.  
 
