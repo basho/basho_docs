@@ -4,7 +4,7 @@
     @include boxShadow(inset 0 0 20px #A1A1A1);
     background    : rgba(0, 0, 0, .05);
     border        : 1px solid #F1F1F1;
-    margin        : 0.25em 0em 0.35em 0em;
+    margin        : 0.25em 1em 0.35em 0em;
     border-bottom : 1px solid #F1F1F1;
 
     header {
@@ -107,5 +107,17 @@
     border-right : 10px solid transparent;
     border-top   : 10px solid #666;
     margin       : 0 auto;
+  }
+}
+
+#query-riak {
+  p, ol, ul, h2, h3, h4, h5, h6, table, .CodeRay, .info, .note {
+    max-width: 100%;
+  }
+}
+
+#errors {
+  table {
+    max-width: 100%;
   }
 }

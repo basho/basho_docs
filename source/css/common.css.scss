@@ -561,7 +561,7 @@ div[role="main"] {
     @extend .sans;
     font-size   : 200%;
     line-height : 1.2;
-    padding     : .7em 0 .1em 0;
+    padding     : .8em 0 .1em 0;
 
     a {
       color : $headerColor;
@@ -571,7 +571,7 @@ div[role="main"] {
   h3 {
     @extend .sans;
     font-size : 175%;
-    padding-top: .3em;
+    padding-top: .8em;
 
     a {
       color : $headerColor;
@@ -580,6 +580,7 @@ div[role="main"] {
   
   h4 {
     font-size : 125%;
+    padding-top: .8em;
     
     a {
       color : $headerColor;
@@ -763,7 +764,8 @@ div[role="main"] {
   .mainarticle {
     position : relative;
     padding  : 0 0 0 20px;
-    
+    font-size: 110%;
+
     #nav-toggle {
       @include size(38px, 38px);
       @include layout-sprite(nav-toggle-left);
@@ -790,6 +792,15 @@ div[role="main"] {
       }
     }
     
+    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
+      max-width: 600px;
+    }
+    nav.tutorial {
+      ul, h4 {
+        max-width: 100%;
+      }
+    }
+
     @media screen and (max-width: 700px) {
       padding : 95px 12px 12px 12px;
     }

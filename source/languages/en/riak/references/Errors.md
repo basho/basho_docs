@@ -7,6 +7,7 @@ toc: true
 audience: advanced
 keywords: [errors]
 interest: []
+body_id: errors
 ---
 
 This is not a comprehensive listing of every error that Riak may encounter -- screws fall out all of the time, the world is an imperfect place. This is an attempt at capturing the most common recent errors that users do encounter, as well as give some description to non critical error atoms which you may find in the logs.
