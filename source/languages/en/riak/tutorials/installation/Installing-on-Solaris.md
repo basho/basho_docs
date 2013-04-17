@@ -16,11 +16,11 @@ download:
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.
 
 <div class="note">Before installing Riak on Solaris, be sure that you've
-installed sudo as Riak's scripts require it for proper operation.</div>
+installed <code>sudo</code> as Riak's scripts require it for proper operation.</div>
 
 ## Open Files Limit
 
-Before proceeding with installation, you should ensure that the system's open files limit meets or exceeds the recommended minimum of **4096** by verifying the current value of *nofiles(descriptors)*. Check the current value with the `ulimit` command:
+Before proceeding with installation, you should ensure that the system's open files limit is at least **4096** by verifying the current value of *nofiles(descriptors)*. Check the current value with the `ulimit` command:
 
 ```bash
 ulimit -a
