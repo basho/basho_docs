@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, installing, smartos]
 prev: "[[Installing on FreeBSD]]"
 up:   "[[Installing and Upgrading]]"
-next: "[[Installing on SUSE]]"
+next: "[[Installing on Solaris]]"
 download: 
   key: smartos
   name: "SmartOS"
