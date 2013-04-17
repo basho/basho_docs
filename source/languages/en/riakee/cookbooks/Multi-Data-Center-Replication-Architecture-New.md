@@ -45,19 +45,15 @@ Fullsync replication scans through the list of partitions in a Riak cluster, and
 
 ## Real-time Replication
 
-In real-time replication, a node in the source cluster will forward data to the sink cluster. A node in the source cluster does not necessarily connect to a node containing the same *vnode* on the sink cluster. This allows Riak to spread out realtime replication across the entire cluster, thus improving throughput and and making replication more fault-tolerant.
+In real-time replication, a node in the source cluster will forward data to the sink cluster. A node in the source cluster does not necessarily connect to a node containing the same *vnode* on the sink cluster. This allows Riak to spread out realtime replication across the entire cluster, thus improving throughput and making replication more fault-tolerant.
 
 In the diagram below, the following steps occur:
 
-* 1) A TCP connection is opened by the Riak connection manager between the source and sink clusters.
-
-* 2) The client sends an object to store on the source cluster.
-
-* 3) Riak writes N replicas on the source cluster.
-
-* 4) The object is stored in the real-time queue and copied to the sink cluster.
-
-* 5) The sink cluster recieves the object via the real-time connection and writes the object to N nodes.
+1. A TCP connection is opened by the Riak connection manager between the source and sink clusters.
+2. The client sends an object to store on the source cluster.
+3. Riak writes N replicas on the source cluster.
+4. The object is stored in the real-time queue and copied to the sink cluster.
+5. The sink cluster recieves the object via the real-time connection and writes the object to N nodes.
 
 
 <br>
