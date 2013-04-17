@@ -17,7 +17,8 @@ The following steps have been tested to work with Riak version 1.2 on SmartOS ve
 
 ## Open Files Limit
 
-Before proceeding with installation, you should ensure that the system's open files limit meets or exceeds the recommended minimum of **4096**. Check the current limits to verify this:
+Before proceeding with installation, you should ensure that the system's open
+files limit is at least **4096**. Check the current limits to verify this:
 
 ```bash
 ulimit -a
