@@ -9,12 +9,8 @@ keywords: [troubleshooting]
 ---
 
 Restarting a node after a failure may result in a slower than normal
-startup time. The longer startup time associated with
-recovery may lead to other problems;
-[[bug #134|https://issues.basho.com/show_bug.cgi?id=134]], for
-example, describes an issue where Riak may begin sending requests
-(get, put, delete) to nodes before they are ready to accept
-requests. To avoid problems when recovering a failed node the
+startup time. The longer startup time associated with recovery may also lead
+to other problems. To avoid problems when recovering a failed node the
 following technique should be followed.
 
 ## General Recovery Notes
