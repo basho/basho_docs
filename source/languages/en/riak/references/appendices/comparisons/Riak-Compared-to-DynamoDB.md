@@ -86,6 +86,7 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
           <li>Primary key operations (GET, PUT, DELETE, UPDATE)</li>
           <li>[[Query|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/queryingdynamodb.html]]</li>
           <li>[[Scan|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/scandynamodb.html]]</li>
+          <li>[[Local Secondary Indexes|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LSI.html]]</li>
 			<ul>
 	</td>
     </tr>
