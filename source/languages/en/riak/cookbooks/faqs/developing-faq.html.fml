@@ -177,8 +177,12 @@ A:
 
 Q: Is there a limit on the file size that can be stored on Riak?
 A:
-  There isn't a limit on object size, but we suggest you keep it below 50MB for performance reasons.  Other factors may limit the size of your upload as well.
-
+  There isn't a limit on object size, but we suggest you keep it below 10MB
+  for performance reasons. Variables such as network speed can directly
+  affect the maximum usable object size for a given cluster. You should use
+  a tool like [[Basho Bench]] to determine the performance of your cluster
+  with a given object size before moving to production use.
+  
 Q: Does the bucket name impact key storage size?
 A:
   The storage per key is 40 bytes plus the key size AND bucket name size.
