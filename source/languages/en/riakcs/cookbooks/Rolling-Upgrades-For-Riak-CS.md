@@ -19,7 +19,7 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 ## Debian/Ubuntu
 
 
-1. Stop Riak, Riak CS, and Stanchion
+1. Stop Riak, Riak CS, and Stanchion:
 
 	```
 	riak stop
@@ -27,13 +27,16 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	stanchion stop
 	```
 
-2. Backup Riak's etc and data directories (optional, but recommended).  Take note of the value of `cs_version` in `/etc/riak-cs/app.config`
+2. Backup Riak's configuration and data directories (optional, but recommended):
 
 	```
 	sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 	```
 
-3. Upgrade Riak, Riak CS, and Stanchion
+3. Take note of the value of `cs_version` in `/etc/riak-cs/app.config`.
+
+
+4. Upgrade Riak, Riak CS, and Stanchion:
 
 	```
 	sudo dpkg -i <riak_package_name>.deb
@@ -42,7 +45,7 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	```
 
 	<div class="note"><div class="title">Note on Package Name Change</div>
-	<p>If you are upgrading Riak CS from a version before 1.3.0, a change to the package name can result in an upgrade error.  To a ddress this, uninstall the old Riak CS package before installing the new one.</p>
+	<p>If you are upgrading Riak CS from a version before 1.3.0, a change to the package name can result in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one:</p>
 	</div>
 
 	```
@@ -51,23 +54,23 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	```
 
 
-4. Examine the differences between your backed up app.config files and the newly installed copies in `etc/riak`, `etc/riak-cs`, `etc/stanchion`.  There may be new settings in the new app.config files.  Make any changes that are specific to your installation.
+5. Examine the differences between your backed up `app.config` files and the newly installed copies in `etc/riak`, `etc/riak-cs`, `etc/stanchion`.  There may be new settings in the new `app.config` files.  Make any changes that are specific to your installation.
 
-5. In the `/etc/riak-cs/app.config` file for Riak CS, locate the following setting:
+6. In the `/etc/riak-cs/app.config` file for Riak CS, locate the following setting:
 
 	```
 	{cs_version, 10300 },
 	```
 
-	This value will have changed from your previous installation.  To avoid conflicts between nodes, change this value to its previous setting, as noted in step 2.  This will restrict the Riak CS nodes to their previous version's capabilities until the rolling upgrade is fully complete.  If your previous app.config had no value for `cs_version`, use a value of 0.
+	This value will have changed from your previous installation.  To avoid conflicts between nodes, change this value to the one you noted in step 3.  This will restrict the Riak CS nodes to their previous version's capabilities until the rolling upgrade is fully complete.  If your previous `app.config` had no value for `cs_version`, use a value of 0.
 
-6. Change cs_version to its previous value, like so:
+7. Change cs_version to its previous value:
 
 	```
 	{cs_version, <previous_value> },
 	```
 
-7. Restart the node.
+8. Start the node:
 
 	```
 	riak start
@@ -75,21 +78,21 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	riak-cs start
 	```
 
-8. Wait for any handoff to complete
+9. Wait for any handoff to complete:
 
 	```
 	riak-admin transfers
 	```
 
-9. Move on to the next node and repeat this process throughout the cluster.
+10. Move on to the next node and repeat this process throughout the cluster.
 
-10. Once all nodes have been upgraded and restarted in this manner, once again locate the `/etc/riak-cs/app.config` file's `cs_version` setting and change it back to its upgraded value, as listed here:
+11. Once all nodes have been upgraded and restarted in this manner, once again locate the `/etc/riak-cs/app.config` file's `cs_version` setting and change it back to its upgraded value, as listed here:
 
 	```
 	{cs_version, 10300},
 	```
 
-11. Restart all Riak CS nodes with this new setting in the same rolling fashion as before:
+12. Restart all Riak CS nodes with this new setting in the same rolling fashion as before:
 
 	```
 	riak-cs restart
@@ -100,7 +103,7 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 ## RHEL/Centos
 
 
-1. Stop Riak, Riak CS, and Stanchion
+1. Stop Riak, Riak CS, and Stanchion:
 
 	```
 	riak stop
@@ -108,12 +111,15 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	stanchion stop
 	```
 
-2. Backup Riak's etc and data directories (optional, but recommended).  Take note of the value of `cs_version` in `/etc/riak-cs/app.config`
-	```
+2. Backup Riak's configuration and data directories (optional, but recommended):
+
+ 	```
 	sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
 	```
 
-3. Upgrade Riak, Riak CS, and Stanchion
+3. Take note of the value of `cs_version` in `/etc/riak-cs/app.config`.
+
+4. Upgrade Riak, Riak CS, and Stanchion:
 
 	```
 	sudo rpm -Uvh <riak_package_name>.rpm
@@ -122,7 +128,7 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	```
 
 	<div class="note"><div class="title">Note on Package Name Change</div>
-	<p>If you are upgrading Riak CS from a version before 1.3.0, a change to the package name results in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one.</p>
+	<p>If you are upgrading Riak CS from a version before 1.3.0, a change to the package name results in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one:</p>
 	</div>
 
 	```
@@ -130,23 +136,23 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	sudo rpm -ivh <riak-cs_package_name_NEW>.rpm
 	```
 
-4. Examine the differences between your backed up app.config files and the newly installed copies in `etc/riak`, `etc/riak-cs`, `etc/stanchion`.  There may be new settings in the new app.config files.  Make any changes that are specific to your installation.
+5. Examine the differences between your backed up `app.config` files and the newly installed copies in `etc/riak`, `etc/riak-cs`, `etc/stanchion`.  There may be new settings in the new `app.config` files.  Make any changes that are specific to your installation.
 
-5. In the `/etc/riak-cs/app.config` file for Riak CS, locate the following setting:
+6. In the `/etc/riak-cs/app.config` file for Riak CS, locate the following setting:
 
 	```
 	{cs_version, 10300 },
 	```
 
-	This value will have changed from your previous installation.  To avoid conflicts between nodes, change this value to its previous setting, as noted in step 2.  This will restrict the Riak CS nodes to their previous version's capabilities until the rolling upgrade is fully complete.  If your previous app.config had no value for `cs_version`, use a value of 0.
+	This value will have changed from your previous installation.  To avoid conflicts between nodes, change this value to the one you noted in step 3.  This will restrict the Riak CS nodes to their previous version's capabilities until the rolling upgrade is fully complete.  If your previous `app.config` had no value for `cs_version`, use a value of 0.
 
-6. Change cs_version to its previous value, like so:
+7. Change cs_version to its previous value, like so:
 
 	```
 	{cs_version, <previous_value> },
 	```
 
-7. Restart the node.
+8. Start the node:
 
 	```
 	riak start
@@ -154,21 +160,21 @@ Riak CS nodes negotiate with each other to determine supported operating modes a
 	riak-cs start
 	```
 
-8. Wait for any handoff to complete
+9. Wait for any handoff to complete:
 
 	```
 	riak-admin transfers
 	```
 
-9. Move on to the next node and repeat this process throughout the cluster.
+10. Move on to the next node and repeat this process throughout the cluster.
 
-10. Once all nodes have been upgraded and restarted in this manner, once again locate the `/etc/riak-cs/app.config` file's `cs_version` setting and change it back to its upgraded value, as listed here:
+11. Once all nodes have been upgraded and restarted in this manner, once again locate the `/etc/riak-cs/app.config` file's `cs_version` setting and change it back to its upgraded value, as listed here:
 
 	```
 	{cs_version, 10300},
 	```
 
-11. Restart all Riak CS nodes with this new setting in the same rolling fashion as before:
+12. Restart all Riak CS nodes with this new setting in the same rolling fashion as before:
 
 	```
 	riak-cs restart
