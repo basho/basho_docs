@@ -182,6 +182,10 @@ You can override the default SSL key and certificate settings (default: etc/cert
     Assuming ring_creation_size is a power of 2, the ideal value for this setting is both greater than or equal to the largest n_val of any bucket, and an even divisor of the number of partitions in your ring (ring_creation_size).
     The default value is 4. For this to be effective at preventing hot spots, your cluster size (number of physical nodes) must be equal to or larger than target_n_val.
 
+* **vnode_management_timer** (milliseconds) By default Riak checks every 10
+  seconds for primary partitions which need to be transferred. This frequency
+  can be changed by specifying a value in milliseconds. {{1.1.2+}}
+
 * **wants_claim_fun**
 {Module, Function} that returns boolean - true if this node wants to claim more vnodes.
 
