@@ -24,8 +24,8 @@ There are many I/O Scheduling techniques. Some of the most common are:
 
 CFQ, while a good general purpose scheduler, is not designed to provide the kind
 of throughput expected in production database deployments. For Riak, NOOP is 
-considered the best choice when deploying on SSDs, iSCSI over HBAs, or any hardware-based 
-RAID. The Deadline scheduler is a reasonable, though typically less optimal, alternative.
+considered the best choice when deploying on iSCSI over HBAs, or any hardware-based 
+RAID. The Deadline scheduler is an ideal choice when using SSD based storage.
 
 All system/workload combinations are different. Consult your operating system's
 documentation for specific information about the I/O Scheduling options available to you
