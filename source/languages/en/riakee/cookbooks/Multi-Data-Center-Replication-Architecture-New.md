@@ -53,7 +53,7 @@ In the diagram below, the following steps occur:
 2. The client sends an object to store on the source cluster.
 3. Riak writes N replicas on the source cluster.
 4. The object is stored in the real-time queue and copied to the sink cluster.
-5. The sink cluster recieves the object via the real-time connection and writes the object to N nodes.
+5. The sink cluster receives the object via the real-time connection and writes the object to N nodes.
 
 
 <br>
