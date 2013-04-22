@@ -10,7 +10,7 @@ up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Debian and Ubuntu]]"
 ---
 
-Riak 1.2 and 1.2.1 requires [[Erlang|http://erlang.org/]] R15B01. *Note: don't use Erlang version R15B02 or R15B03, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
+Riak 1.2, 1.2.1, 1.3 and 1.3.1 require [[Erlang|http://erlang.org/]] R15B01.
 
 Riak 1.0 requires [[Erlang|http://erlang.org]] R14B03 or later. Riak versions prior to 1.0 will not function on the R14B02 or later. 
 
