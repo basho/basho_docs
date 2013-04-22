@@ -53,7 +53,7 @@ When using the HTTP interface, multi-valued indexes are specified by separating 
 
 ### Index Sizes
 
-The indexes on an object contribute to the overall size of an object. The number of indexes on an object is limited only by the maximum recommended Riak object size (~4-6MB). Basho has stress tested objects with 1000 index entries, but expect that most applications will use significantly fewer.
+The indexes on an object contribute to the overall size of an object. The number of indexes on an object is limited only by the maximum recommended Riak object size (not larger than 10MB). Basho has stress tested objects with 1000 index entries, but expect that most applications will use significantly fewer.
 
 The size of an individual index is also limited only by resources, but note that some HTTP proxies impose size limits on HTTP headers. Since indexes are encoded as HTTP headers when using the HTTP interface, this may affect the maximum index value size.
 
