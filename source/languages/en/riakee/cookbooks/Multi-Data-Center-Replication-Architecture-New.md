@@ -10,7 +10,7 @@ keywords: [mdc, repl, bnw]
 
 ## How Advanced Replication Works
 
-In multi-datacenter replication, one cluster acts as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). If the datacenter with the source cluster goes down, a sink cluster can take over as the primary cluster. In this sense, Riak's multi-datacenter capabilities are "masterless". 
+In multi-datacenter (MDC) replication, a cluster can act as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). Bidirectional replication can easily be established by making a cluster both a source and a sink to other clusters. Riak Enterprise MDC Replication is considered "masterless": all clusters participating will resolve replicated writes via the normal resolutions methods available in Riak.
 
 In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between source and sink cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Full-sync can be performed upon initial connection of a sink cluster. 
 
