@@ -127,35 +127,6 @@ This is similar to the scenario above, but initial read consistency
 expectations may degrade even further, leaving only one initial
 replica.
 
-### Edge Case: Reading With R=1 When Two Primaries Fail
-
-When two primaries go down, leaving only one replica, and clients read
-using an R value of 1, something that may be unexpected and even
-confusing happens. The current implementation of get in Riak involves
-a mechanism called basic quorum. The basic quorum assumes that if a
-majority of nodes return that an object wasn't found, then the node
-coordinating the request assumes the object doesn't exist, even if one
-node would have the data available.
-
-Just like above, subsequent requests would yield the expected results,
-as read repair ensured that the data now resides on two secondary
-nodes.
-
-<div class="note"><div class="title">Basic Quorum</div>
-
-Basic quorum requires the majority of nodes to return a not\_found for
-a request to be successful. The simple minority is enough, and is
-calculated using <pre>floor(N / 2.0 + 1)</pre>, so for an N value of
-3, at least 2 nodes must return a value for a successful request.
-
-The potential for confusion around the basic quorum has been addressed
-in the <a href="https://issues.basho.com/show_bug.cgi?id=992">current
-development of Riak</a>, and the next major release will include an
-option to disable the basic quorum for a specific request or
-bucket-wide.
-
-</div>
-
 ### Reading When Three Primaries Fail
 
 * Data is written to a key with W=3
