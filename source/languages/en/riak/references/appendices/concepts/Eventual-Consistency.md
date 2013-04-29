@@ -27,10 +27,6 @@ times in this cluster. In this setup reads use a quorum of 2 to ensure
 at least two copies, whereas writes also use a quorum of 2 to enforce
 strong consistency.
 
-Remember that R + W > N ensures strong consistency in a cluster,
-meaning that a read following a particular write will return the
-previously written data.
-
 When data is written with a quorum of 2, Riak sends the write request
 to all three replicas anyway, but returns a successful reply when two
 of them acknowledged a successful write on their end. One node may
