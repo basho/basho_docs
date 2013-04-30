@@ -27,10 +27,6 @@ times in this cluster. In this setup reads use a quorum of 2 to ensure
 at least two copies, whereas writes also use a quorum of 2 to enforce
 strong consistency.
 
-Remember that R + W > N ensures strong consistency in a cluster,
-meaning that a read following a particular write will return the
-previously written data.
-
 When data is written with a quorum of 2, Riak sends the write request
 to all three replicas anyway, but returns a successful reply when two
 of them acknowledged a successful write on their end. One node may
@@ -130,35 +126,6 @@ would have succeeded because 2 replicas are available.
 This is similar to the scenario above, but initial read consistency
 expectations may degrade even further, leaving only one initial
 replica.
-
-### Edge Case: Reading With R=1 When Two Primaries Fail
-
-When two primaries go down, leaving only one replica, and clients read
-using an R value of 1, something that may be unexpected and even
-confusing happens. The current implementation of get in Riak involves
-a mechanism called basic quorum. The basic quorum assumes that if a
-majority of nodes return that an object wasn't found, then the node
-coordinating the request assumes the object doesn't exist, even if one
-node would have the data available.
-
-Just like above, subsequent requests would yield the expected results,
-as read repair ensured that the data now resides on two secondary
-nodes.
-
-<div class="note"><div class="title">Basic Quorum</div>
-
-Basic quorum requires the majority of nodes to return a not\_found for
-a request to be successful. The simple minority is enough, and is
-calculated using <pre>floor(N / 2.0 + 1)</pre>, so for an N value of
-3, at least 2 nodes must return a value for a successful request.
-
-The potential for confusion around the basic quorum has been addressed
-in the <a href="https://issues.basho.com/show_bug.cgi?id=992">current
-development of Riak</a>, and the next major release will include an
-option to disable the basic quorum for a specific request or
-bucket-wide.
-
-</div>
 
 ### Reading When Three Primaries Fail
 
