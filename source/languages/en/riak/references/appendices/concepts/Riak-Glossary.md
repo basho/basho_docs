@@ -10,6 +10,17 @@ keywords: [appendix, concepts]
 
 Below is a list of terms and their applicability within the context of Riak:
 
+## Active Anti-Entropy (AAE)
+
+A continuous background process that compares and repairs any divergent,
+missing, or corrupted replicas. Unlike [[read repair|Replication#Read-Repair]],
+which is only triggered when data is read, the active anti-entropy system
+ensures the integrity of all data stored in Riak. This is particularly useful in
+clusters containing “cold data”: data that may not be read for long periods of
+time, potentially years. Furthermore, unlike the repair command, active anti-
+entropy is an automatic process, requiring no user intervention and is enabled
+by default in Riak 1.3.
+
 ## Bucket
 
 A Bucket is a container and keyspace for data stored in Riak, with a set of common properties for its contents (the number of replicas, or *n_val*, for instance).  Buckets are accessed at the top of the URL hierarchy under "riak", e.g. `/riak/bucket`.
