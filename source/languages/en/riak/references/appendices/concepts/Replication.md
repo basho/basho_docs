@@ -33,6 +33,40 @@ curl -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' http:/
 
 Changing the N value after a bucket has data in it is **not recommended**. If you do change the value, especially increasing it, you might need to force read repair. Overwritten objects and newly stored objects will automatically be replicated to the correct number of nodes.
 
+{{#1.3.0+}}
+## Active Anti-Entropy (AAE)
+
+Active anti-entropy (AAE) is a continuous background process that compares and repairs
+any divergent, missing, or corrupted replicas. Unlike [[read repair|Replication#Read-Repair]],
+which is only triggered when data is read, the active anti-entropy
+system ensures the integrity of all data stored in Riak. This is
+particularly useful in clusters containing “cold data”: data that may not be
+read for long periods of time, potentially years. Furthermore, unlike the repair
+command, active anti-entropy is an automatic process, requiring no user
+intervention and is enabled by default in Riak 1.3.
+
+Riak’s active anti-entropy feature is based on hash tree exchange, which enables
+differences between replicas to be determined with minimal exchange of
+information. The amount of information exchanged in the process is
+proportional to the differences between two replicas, not the amount of data
+that they contain. Approximately the same amount of information is exchanged
+when there are 10 differing keys out of 1 million keys as when there are 10
+differing keys out of 10 billion keys. This enables Riak to provide continuous
+data protection regardless of cluster size.
+
+Additionally, Riak uses persistent, on-disk hash trees rather than purely in-
+memory trees, a key difference from similar implementations in other products.
+This allows Riak to maintain entropy information for billions of keys with
+minimal additional memory usage, as well as allows Riak nodes to be restarted
+without losing any anti-entropy information. Furthermore, Riak maintains the
+hash trees in real time, updating the tree as new write requests come in. This
+reduces the time it takes Riak to detect and repair missing/divergent replicas.
+For added protection, Riak periodically (default: once a week) clears and
+regenerates all hash trees from the on-disk K/V data. This enables Riak to
+detect silent data corruption to the on-disk data arising from bad disks and
+faulty hardware components.
+{{/1.3.0+}}
+
 ## Read Repair
 Read repair occurs when a successful read occurs — that is, the quorum was met — but not all replicas from which the object was requested agreed on the value. There are two possibilities here for the errant nodes:
 
