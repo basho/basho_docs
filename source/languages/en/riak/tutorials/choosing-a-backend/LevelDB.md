@@ -706,7 +706,7 @@ leveldb/
 
 * [LevelDB documentation](http://leveldb.googlecode.com/svn/trunk/doc/index.html)
 * [Cache Oblivious BTree](http://supertech.csail.mit.edu/cacheObliviousBTree.html)
-* [LevelDB benchmarks](http://leveldb.googlecode.com/svn/trunk/doc/benchmark.html) run by Goolge
+* [LevelDB benchmarks](http://leveldb.googlecode.com/svn/trunk/doc/benchmark.html) run by Google
 * [LevelDB](http://en.wikipedia.org/wiki/LevelDB) information on Wikipedia
 * [LSM trees](http://nosqlsummer.org/paper/lsm-tree)
 * [Cache Conscious Indexing for Decision-Support in Main Memory](http://www.cs.columbia.edu/~library/TR-repository/reports/reports-1998/cucs-019-98.pdf)
