@@ -20,6 +20,9 @@ Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang 
 
 If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
 
+Riak depends on source code located in multiple Git repositories; ensure that
+Git is also installed on the target system before attempting the build.
+
 <div class='note'>Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 
 ## Installation
