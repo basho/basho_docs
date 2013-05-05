@@ -1,7 +1,7 @@
 ---
 title: Rolling Upgrades for Riak CS
 project: riakcs
-version: 1.1.0+
+version: 1.2.0+
 document: cookbook
 toc: true
 audience: advanced
