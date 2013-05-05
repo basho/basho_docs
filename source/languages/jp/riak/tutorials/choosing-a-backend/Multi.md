@@ -104,7 +104,7 @@ bucket properties.  Here are two examples:
 ```erlang
 $ riak attach
 ...
-1> riak_core_bucket:set_bucket(<<"MY_BUCKET">>, [{backend, second_bitcask_mult}])
+1> riak_core_bucket:set_bucket(<<"MY_BUCKET">>, [{backend, <<"second_bitcask_mult">>}]).
 ```
 
 
