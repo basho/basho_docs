@@ -11,9 +11,7 @@ keywords: [upgrading]
 
 Riak CS nodes negotiate with each other to determine supported operating modes and S3 API coverage.  This allows clusters containing mixed version of Riak CS to be upgraded in a rolling fashion.  
 
-<div class="note"><div class="title">Note on Riak CS compatibility</div>
-<p>Be sure to check the Riak CS <a href="http://docs.basho.com/riakcs/latest/cookbooks/Version-Compatibility/">Version Compatibility</a> chart to ensure that your version of Riak, Riak CS and Stanchion have been tested to work together.</p>
-</div>
+Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your version of Riak, Riak CS and Stanchion have been tested to work together.
 
 
 ## Debian/Ubuntu
