@@ -80,7 +80,7 @@ Similar to how GET requests support the `r` query parameter, PUT requests also s
 
 * `r` how many replicas need to agree when retrieving an existing object before the write *(integer, default is 2)*
 * `w` how many replicas to write to before returning a successful response *(integer, default is 2)*
-* `dw` how many replicas to commit to durable storage before returning a successful response *(integer, default is 0)*
+* `dw` how many replicas to commit to durable storage before returning a successful response *(integer, default is 2)*
 * `returnbody` whether to return the contents of the stored object *(boolean, default is false)*
 
 Normal status codes:
