@@ -60,19 +60,44 @@ The last line activates the Erlang build that was just installed into `~/erlang/
 If you prefer to install Erlang manually from the source code, the following will show you how.
 
 ## Installing on GNU/Linux
+
 Most GNU/Linux distributions do not make the most recent Erlang release available, **so you will need to install from source**.
 
-First, make sure you have a compatible build system and the `ncurses` and `openssl` development libraries installed. On Debian/Ubuntu use this command:
+First, make sure you have a compatible build system and have installed the
+necessary dependencies.
+
+### Debian/Ubuntu Dependencies
+
+Use this command to install the required dependency packages:
 
 ```bash
-sudo apt-get install build-essential libncurses5-dev openssl libssl-dev
+sudo apt-get install build-essential libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev
 ```
 
-On RHEL/CentOS use this command:
+If you'll be using a graphical environment (such as for development purposes)
+and would like to use Erlang's GUI utilities, then you'll need to install
+some additional dependencies.
+
+<div class="info">Note that these packages are not required for operation
+of a Riak node and notes in the build output about missing support for
+wxWidgets can be safely ignored when installing Riak in a typical
+non-graphical server environment.</div>
+
+To install packages for graphics support, use this command:
+
+```bash
+sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev 
+```
+  
+### RHEL/CentOS Dependencies
+
+Use this command to install the required dependency packages:
 
 ```bash
 sudo yum install gcc glibc-devel make ncurses-devel openssl-devel autoconf
 ```
+
+### Erlang
 
 Next, download, build and install Erlang:
 
