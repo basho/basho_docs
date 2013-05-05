@@ -108,7 +108,7 @@ bucket properties.  Here are two examples:
     ```bash
     $ riak attach
     ...
-    1> riak_core_bucket:set_bucket(<<"MY_BUCKET">>, [{backend, second_bitcask_mult}])
+    1> riak_core_bucket:set_bucket(<<"MY_BUCKET">>, [{backend, <<"second_bitcask_mult">>}]).
     ```
 
   - Using the HTTP REST API
