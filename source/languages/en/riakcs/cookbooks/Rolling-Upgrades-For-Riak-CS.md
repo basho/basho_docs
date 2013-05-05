@@ -49,7 +49,7 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 	```
 
 	<div class="note"><div class="title">Note on Package Name Change</div>
-	<p>If you are upgrading Riak CS from a version before 1.3.0, a change to the package name can result in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one:</p>
+	<p>If you are upgrading Riak CS Enterprise Edition from a version before 1.3.0, a change to the package name can result in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one:</p>
 	</div>
 
 	```
@@ -138,7 +138,7 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 	```
 
 	<div class="note"><div class="title">Note on Package Name Change</div>
-	<p>If you are upgrading Riak CS from a version before 1.3.0, a change to the package name results in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one:</p>
+	<p>If you are upgrading Riak CS Enterprise Edition from a version before 1.3.0, a change to the package name results in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one:</p>
 	</div>
 
 	```
