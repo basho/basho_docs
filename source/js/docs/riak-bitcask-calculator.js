@@ -197,7 +197,7 @@ function update_calculations() {
                             " then Riak, using the Bitcask storage engine, will require at least:</p>" +
                             "<ul>" +
                             "<li>" + n + " nodes</li>" +
-                            "<li>" + format_bytes(r/n) + " of RAM total across all nodes</li>" +
+                            "<li>" + format_bytes(r/n) + " of RAM per node (" + format_bytes(r) + " total across all nodes)</li>" +
                             "<li> " + format_bytes(d/n) + " of storage space per node (" +
                             format_bytes(d) + " total storage space used across all nodes)</li></ul>"
                            );
