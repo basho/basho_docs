@@ -254,6 +254,7 @@ riakcs:
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
       - "[[Designating an Admin User]]"
       - "[[Installing With Chef|Riak CS Using Chef]]"
+      - "[[Rolling Upgrades For Riak CS]]"
   - title: "Configuring"
     sub:
       - "[[Account Management]]"
