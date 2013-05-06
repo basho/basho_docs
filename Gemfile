@@ -12,6 +12,7 @@ gem "rocco", "=0.8.2"
 gem "versionomy", "~>0.4.4"
 gem "coderay", "=1.0.7"
 gem "pygmentize", "=0.0.3"
+gem "gmail"
 # gem "coderay_bash" # breaks on minor issues
 
 # gem "rack-codehighlighter", :git => "git://github.com/wbzyl/rack-codehighlighter.git"
