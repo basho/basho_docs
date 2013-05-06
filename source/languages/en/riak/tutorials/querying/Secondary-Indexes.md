@@ -6,7 +6,7 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [querying, 2i]
-prev: "[[MapReduce]]"
+prev: "[[MapReduce Overview]]"
 up:   "[[Querying Riak]]"
 next: "[[Searching|Riak Search]]"
 interest: [
