@@ -8,7 +8,7 @@ audience: beginner
 keywords: [querying, api, http]
 prev: "[[Querying Riak]]"
 up:   "[[Querying Riak]]"
-next: "[[MapReduce]]"
+next: "[[MapReduce Overview]]"
 ---
 
 Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. This section describes how to do that using the Riak [[HTTP API]], but the concepts apply equally to Riak's [[Protocol Buffers Client API|PBC API]] interface.
