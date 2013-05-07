@@ -73,38 +73,46 @@ activate :relative_assets
 
 # Build-specific configuration
 configure :build do
-  activate :production_check
-  activate :minify_css
-  activate :minify_javascript
-  # activate :gzip
+  begin
+    activate :production_check
+    activate :minify_css
+    activate :minify_javascript
+    # activate :gzip
 
-  ignore "source/images/layout/*.png"
+    ignore "source/images/layout/*.png"
 
-  activate :version_dirs
+    activate :version_dirs
 
-  # populate the downloads_gen data file
-  if $production
-    begin
-      puts "== Populating Downloads Details"
-      Downloads.pull_data('riak', $versions[:riak])
-      Downloads.pull_data('riak-cs', $versions[:riakcs])
-      Downloads.pull_data('stanchion', $versions[:riakcs])
-      Downloads.pull_data('riak-cs-control', $versions[:riakcscontrol])
-    rescue
-      $stderr.puts "  Details download failed"
+    # populate the downloads_gen data file
+    if $production
+      begin
+        puts "== Populating Downloads Details"
+        Downloads.pull_data('riak', $versions[:riak])
+        Downloads.pull_data('riak-cs', $versions[:riakcs])
+        Downloads.pull_data('stanchion', $versions[:riakcs])
+        Downloads.pull_data('riak-cs-control', $versions[:riakcscontrol])
+      rescue => e
+        $stderr.puts "  Details download failed"
+        # we don't want to stop here unless it's a real deploy
+        raise e if ENV.include?('DEPLOY')
+      end
     end
-  end
 
-  if ENV.include?('DEPLOY')
-    activate :s3_deploy do |s3|
-      s3.access_key_id = ENV['AWS_ACCESS_KEY_ID']
-      s3.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-      s3.bucket = ENV['AWS_S3_BUCKET']
+    if ENV.include?('DEPLOY')
+      activate :s3_deploy do |s3|
+        s3.access_key_id = ENV['AWS_ACCESS_KEY_ID']
+        s3.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+        s3.bucket = ENV['AWS_S3_BUCKET']
+      end
+      activate :invalidate_cloudfront do |cf|
+        cf.access_key_id = ENV['AWS_ACCESS_KEY_ID']
+        cf.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+        cf.distribution_id = ENV['AWS_CLOUDFRONT_DIST_ID']
+      end
+      notify(true)
     end
-    activate :invalidate_cloudfront do |cf|
-      cf.access_key_id = ENV['AWS_ACCESS_KEY_ID']
-      cf.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-      cf.distribution_id = ENV['AWS_CLOUDFRONT_DIST_ID']
-    end
+  rescue => e
+    notify(false, e) if ENV.include?('DEPLOY')
+    raise e
   end
 end

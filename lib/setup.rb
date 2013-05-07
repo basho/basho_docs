@@ -17,7 +17,7 @@ end
 
 $default_project = 'riak'
 
-%w{versionify production_check index
-  sitemap_render_override duals helpers downloads}.each do |lib|
+%w{versionify production_check index sitemap_render_override
+  helpers downloads notifier}.each do |lib|
   require File.join(File.dirname(__FILE__), lib)
 end
