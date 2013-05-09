@@ -11,6 +11,8 @@ keywords: [installing]
 
 Access Control Lists (ACL) are a means to grant and deny access to buckets and objects. Each bucket and object will have an ACL associated with it. A default ACL is created when a bucket or object is created that grants full control to the creating party and denies access to all other parties. The Riak CS ACLs are modeled after S3 ACLs. For more information, see the Amazon  [[Access Control List Overview|http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html]] documentation.
 
+<div class="info"><div class="title">ACL Limit</div>An ACL can have up to 100 grants.</div>
+
 ## Representations
 XML is the only supported external format for ACLs. In the future other formats such as [[JSON|http://www.json.org]] may be supported.
 
