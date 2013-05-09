@@ -5,7 +5,7 @@ version: 1.2.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [operator authentication]
+keywords: [operator, authentication]
 ---
 
 ## Signing and Authenticating REST Requests
