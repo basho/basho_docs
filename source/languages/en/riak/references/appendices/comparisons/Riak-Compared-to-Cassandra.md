@@ -29,7 +29,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
     </tr>
     <tr>
         <td>Data Model</td>
-        <td>Riak stores key/value pairs in a higher level namespsace called a bucket. 
+        <td>Riak stores key/value pairs in a higher level namespace called a bucket. 
 			<ul>
 			  <li>[[Buckets, Keys, and Values|Concepts#Buckets-Keys-and-Values]] </li>
 			</ul>
