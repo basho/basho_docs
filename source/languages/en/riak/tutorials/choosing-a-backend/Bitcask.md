@@ -50,14 +50,14 @@ number of designs that involve log file merging.
 
   * Predictable Lookup _and_ Insert Performance
 
-    As you might expect from the description above read operations have a
+    As you might expect from the description above, read operations have a
     fixed, predictable behavior. What you might not expect is that this is
     also true for writes. Write operations are at most a seek to the end of
     the current file open writing and an append to that file.
 
   * Fast, bounded Crash Recovery
 
-    Due to the append-only write once nature of Bitcask files recovery is easy
+    Due to the append-only write once nature of Bitcask files, recovery is easy
     and fast. The only items that might be lost are partially written records
     at the tail of the file last opened for writes. Recovery need only review
     the last record or two written and verify CRC data to ensure that the data
@@ -122,14 +122,18 @@ in your [[app.config|Configuration Files]].
   when to synchronize data to disk. The default setting protects against data
   loss in the event of application failure (process death) but leaves open a
   small window wherein data could be lost in the event of complete system
-  failure (e.g. hardware, O/S, power). The default mode, `none`, writes data
-  into operating system buffers which will be written to the disks when those
-  buffers are flushed by the operating system. If the system fails (power
-  loss, crash, etc.) before those buffers are flushed to stable storage that
-  data is lost. This is prevented by the setting `o_sync` which forces the
-  operating system to flush to stable storage at every write. The effect of
-  flushing each write is better durability however write throughput will suffer
-  as each write will have to wait for the write to complete.
+  failure (e.g. hardware, O/S, power). 
+
+  The default mode, `none`, writes data into operating system buffers which
+  which will be written to the disks when those buffers are flushed by the 
+  operating system. If the system fails (power loss, crash, etc.) before
+  before those buffers are flushed to stable storage that data is lost.
+
+  This is prevented by the setting `o_sync` which forces the operating system
+  to flush to stable storage at every write. The effect of lushing each write
+  is flushing each write is better durability however write throughput will
+  flushing each write is better durability however write throughput will as 
+  each write will have to wait for the write to complete.
 
   ___Available Sync Strategies___
 
@@ -390,7 +394,7 @@ Default is: `0`
 
 ## Tuning Bitcask
 
-Bitcask is has many very desirable qualities and has been shown in production
+Bitcask has many very desirable qualities and has been shown in production
 to be stable, reliable, low-latency and high throughput storage engine for Riak
 data.
 
@@ -476,7 +480,9 @@ writing at any given time. The file being written to will grow until it
 exceeds a size threshold at which time it is closed and a new ﬁle is created
 for additional writes. Once a ﬁle is closed, either purposefully or due to
 server exit, it is considered immutable and will never be opened for writing
-again. The file currently open for writes is is only written by appending,
+again. 
+
+The file currently open for writes is only written by appending,
 which means that sequential writes do not require disk seeking dramatically
 speeding up disk I/O. Note that this can be spoiled when you still have
 `atime` enabled on your filesystem because the disk head will have to move to
@@ -485,15 +491,16 @@ primary speed-up from a log-based database is its ability to minimize disk head
 seeks. Deleting a value from Bitcask is a two step process. First we append
 a "tombstone" record to the file open for writes which indicates that a value
 was marked for deletion at that time. At the same time we remove references to
-that key in the in-memory `keydir` information. Later, during a merge,
-non-active data files are scanned and only those values without
-tombstones are merged into the active data file. This effectively removes the
-obsolete data and reclaims disk space associated with it. This data management
-strategy may use up a lot of space over time, since we just write out new
-values without touching the old ones. A process for compaction that we refer to
-as ”merging” solves this. The merge process iterates over all non-active
-(i.e. immutable) ﬁles in a Bitcask and produces as output a set of data ﬁles
-containing only the ”live” or latest versions of each present key.
+that key in the in-memory `keydir` information. 
+
+Later, during a merge, non-active data files are scanned and only those values
+without tombstones are merged into the active data file. This effectively 
+removes the obsolete data and reclaims disk space associated with it. This data
+management strategy may use up a lot of space over time, since we just write
+out new values without touching the old ones. A process for compaction that we
+refer to as ”merging” solves this. The merge process iterates over all 
+non-active (i.e. immutable) ﬁles in a Bitcask and produces as output a set of 
+data files containing only the ”live” or latest versions of each present key.
 
 ### Bitcask Database Files
 
@@ -554,7 +561,7 @@ bitcask/
 
 ```
 
-As more data is written to the cluseter, more Bitcask files are created until
+As more data is written to the cluster, more Bitcask files are created until
 merges are triggered.
 
 ```
