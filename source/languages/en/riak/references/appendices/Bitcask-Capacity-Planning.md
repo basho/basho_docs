@@ -52,9 +52,9 @@ able to add more nodes to the cluster and stay ahead of your requirements.
 </ul>
 </div>
 
-### Recomendations
+### Recommendations
 
-<span id="recomend"></span>
+<span id="recommend"></span>
 
 
 ### Details on Bitcask RAM Calculation

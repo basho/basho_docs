@@ -57,7 +57,7 @@ Like most datastores, **Riak will run best when not virtualized**. Virtual machi
 
 There are at least two acceptable strategies for load-balancing requests across your Riak cluster, **virtual IPs** and **reverse-proxy**.
 
-For **virtual IPs**, we recommend using any of the various VIP implementations. We don't recommend VRRP behaviour for the VIP because you'll lose the benefit of spreading client query load to all nodes in a ring.
+For **virtual IPs**, we recommend using any of the various VIP implementations. We don't recommend VRRP behavior for the VIP because you'll lose the benefit of spreading client query load to all nodes in a ring.
 
 For **reverse-proxy** configurations (HTTP interface), any one of these should work adequately:
 

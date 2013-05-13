@@ -109,7 +109,7 @@ The name of the cluster. This currently has no visible effect, but could be usef
         Default: ```0```.
         *Note: See [[Eventual Consistency]] for an explanation of primary nodes.*
         * w - Write quorum value (the number of Riak nodes which must *accept* a PUT request). Default: ```quorum```.
-        * dw - Durable write quorum (the number of Riak nodes which have received an acknowledgement of the write from the storage backend).
+        * dw - Durable write quorum (the number of Riak nodes which have received an acknowledgment of the write from the storage backend).
         Default: ```quorum```.
         * pw - Primary write quorum  (the number of primary, non-fallback nodes that must accept a PUT request).
         Default: ```0```.

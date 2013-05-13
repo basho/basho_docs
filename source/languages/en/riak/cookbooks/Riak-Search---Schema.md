@@ -169,7 +169,7 @@ The Standard Analyzer Factory mimics the Java/Lucene Standard Tokenizer. The Sta
 
 1. Split on all punctuation except for periods followed by a character.
 2. Lowercase all tokens.
-3. Strip out any tokens smaller than 3 characters as well as stopwords (common english words).
+3. Strip out any tokens smaller than 3 characters as well as stopwords (common English words).
 
 The stopwords are defined as: "an", "as", "at", "be", "by", "if", "in", "is", "it", "no", "of", "on", "or", "to", "and", "are", "but", "for", "not", "the", "was", "into", "such", "that", "then", "they", "this", "will""their", "there", "these".
 

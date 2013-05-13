@@ -67,7 +67,7 @@ public class App
 
 By using a cluster client (HTTPClusterClient or PBClusterClient) you would get not only fail-over on an operation failure but also round-robin balancing of operations across your nodes. 
 
-When you create either a HTTPClusterClient or a PBClusterClient you provide a list of Raik nodes. When performing an operation there's a Retrier object that is used by the Bucket object. The default Retrier re-tries an operation 3 times before reporting a failure. On each try (the initial and each re-try), a different node is selected from the list of Riak nodes. 
+When you create either a HTTPClusterClient or a PBClusterClient you provide a list of Riak nodes. When performing an operation there's a Retrier object that is used by the Bucket object. The default Retrier re-tries an operation 3 times before reporting a failure. On each try (the initial and each re-try), a different node is selected from the list of Riak nodes. 
 
 ```java
 import com.basho.riak.client.IRiakClient;

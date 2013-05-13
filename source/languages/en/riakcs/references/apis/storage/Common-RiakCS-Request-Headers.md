@@ -21,7 +21,7 @@ These are the headers that are common to all Riak CS REST requests.
 
 **Date** - The current data and time according to the requester, for example, Fri, 01 Jun 2012 12:00:00 GMT. With the `Authorization` header, you must specify either `x-amz-date` or `Date` header.
 
-**Expect** - When you use `100-continue` in your application, it doesn't send the request body until it receives an acknowledgement. That way, the body of the message isn't sent if the message is rejected based on the headers.
+**Expect** - When you use `100-continue` in your application, it doesn't send the request body until it receives an acknowledgment. That way, the body of the message isn't sent if the message is rejected based on the headers.
 
 * *Valid Values*: 100-continue
 

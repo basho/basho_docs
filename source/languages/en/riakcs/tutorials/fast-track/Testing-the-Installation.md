@@ -37,7 +37,7 @@ We need to configure `s3cmd` to use our Riak CS server rather than S3 as well as
 s3cmd -c ~/.s3cfgfasttrack --configure
 ````
 
-If you are alread using s3cmd on your local machine the `-c` switch allows you to specify a .s3cfg file without overwriting anything you may have presently configured
+If you are already using s3cmd on your local machine the `-c` switch allows you to specify a .s3cfg file without overwriting anything you may have presently configured
 
 There are 4 default settings you should change:
 
@@ -80,7 +80,7 @@ We can now download the test file:
 ``` bash
 $ rm test_file # remove the local test file
 $ s3cmd -c ~/.s3cfgfasttrack get s3://test-bucket/test_file # download from Riak CS
-$ ls -lah test_file #verify that the download was succesful
+$ ls -lah test_file #verify that the download was successful
 ````
 
 ## What's Next

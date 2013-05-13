@@ -80,7 +80,7 @@ For example:
 
 ## Proximity Searches
 
-Proximity searching allows you to find terms that are within a certain number of words from each other. To specify a proximity seach, use the tilde argument on a phrase.
+Proximity searching allows you to find terms that are within a certain number of words from each other. To specify a proximity search, use the tilde argument on a phrase.
 
 For example:
 

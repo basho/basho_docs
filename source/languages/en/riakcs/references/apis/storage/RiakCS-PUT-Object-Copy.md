@@ -46,7 +46,7 @@ Authorization: signature_value
 
 PUT Object (Copy) offers the following request headers in addition to request headers common to all operations:
 
-**Expect** - When you use `100-continue` in your application, it doesn't send the request body until it receives an acknowledgement. That way, the body of the message isn't sent if the message is rejected based on the headers.
+**Expect** - When you use `100-continue` in your application, it doesn't send the request body until it receives an acknowledgment. That way, the body of the message isn't sent if the message is rejected based on the headers.
 
 * *Type*: String
 * *Default*: None

@@ -162,7 +162,7 @@ curl http://localhost:8098/buckets/mybucket/index/\$bucket/_
 
 ## Count objects in a bucket based on the $bucket index
 
-The following example performs a secondary index lookup on the $bucket index like in the previous examle and pipes this into a MapReduce that counts the number of records in the 'mybucket' bucket. In order to improve efficiency, the batch size has been increased from the default size of 20.
+The following example performs a secondary index lookup on the $bucket index like in the previous example and pipes this into a MapReduce that counts the number of records in the 'mybucket' bucket. In order to improve efficiency, the batch size has been increased from the default size of 20.
 
 ```bash
 curl -XPOST http://localhost:8098/mapred 

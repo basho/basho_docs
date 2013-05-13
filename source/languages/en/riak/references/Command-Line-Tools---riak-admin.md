@@ -94,7 +94,7 @@ riak-admin cluster clear
 ```
 
 #### cluster commit
-Commit the currently staged cluster changes. Staged cluster changes must be reviewed with `riak-admin cluster plan` prior to being commited.
+Commit the currently staged cluster changes. Staged cluster changes must be reviewed with `riak-admin cluster plan` prior to being committed.
 
 ```bash
 riak-admin cluster commit

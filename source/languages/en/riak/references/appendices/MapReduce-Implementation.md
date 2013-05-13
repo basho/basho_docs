@@ -51,9 +51,9 @@ For example, a reduce phase may implement the <a href="http://en.wikipedia.org/w
 
 Other systems refer to the second application of the reduce function as a "re-reduce".  There are at least a couple of reduce-query implementation strategies that work with Riak's model.
 
-One strategy is to implement the phase preceeding the reduce phase, such that its output is "the same shape" as the output of the reduce phase.  This is how the examples in this document are written, and the way that we have found produces cleaner code.
+One strategy is to implement the phase preceding the reduce phase, such that its output is "the same shape" as the output of the reduce phase.  This is how the examples in this document are written, and the way that we have found produces cleaner code.
 
-An alternate strategy is to make the output of a reduce phase recognizable, such that it can be extracted from the input list on subsequent applications.  For example, if inputs from the preceeding phase are numbers, outputs from the reduce phase could be objects or strings.  This would allow the function to find the previous result, and apply new inputs to it.
+An alternate strategy is to make the output of a reduce phase recognizable, such that it can be extracted from the input list on subsequent applications.  For example, if inputs from the preceding phase are numbers, outputs from the reduce phase could be objects or strings.  This would allow the function to find the previous result, and apply new inputs to it.
 
 ### How a Link Phase Works in Riak
 
@@ -552,7 +552,7 @@ If you load larger JSON objects in your buckets there is a possibility you might
 ```
 
 
-You can increase the amount of memory allocated to the Javascript VM stack by editing your app.config. The follwing will increase the stack size from 8MB to 32MB:
+You can increase the amount of memory allocated to the Javascript VM stack by editing your app.config. The following will increase the stack size from 8MB to 32MB:
 
 ```erlang
 {js_thread_stack, 8}
@@ -593,11 +593,11 @@ If you are using Riak 1.0 and the Riak Pipe subsystem for MapReduce queries, you
 By default, Riak will evaluate a reduce function every time its phase receives 20 new inputs.  If your reduce phases would run more efficiently with more or fewer new inputs, you may change this default by adding the following to the riak_kv section of your app.config:
 
 ```erlang
-%% Run reduce functions after 100 new inputs are recieved
+%% Run reduce functions after 100 new inputs are received
 {mapred_reduce_phase_batch_size, 100},
 ```
 
-You may also control this batching behavior on a per-query basis by using the static argument of the phase specification.  When specifying phases over HTTP, the JSON configuration for evaulating the function after 150 new inputs looks like this:
+You may also control this batching behavior on a per-query basis by using the static argument of the phase specification.  When specifying phases over HTTP, the JSON configuration for evaluating the function after 150 new inputs looks like this:
 
 ```javascript
 {"reduce":

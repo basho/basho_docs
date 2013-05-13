@@ -176,7 +176,7 @@ public class App
                  .withResolver(new GameLeaderboardResolver())
                  .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());
@@ -205,7 +205,7 @@ public class App
             .returnBody(true)
             .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());
@@ -474,7 +474,7 @@ public class App
                  .withResolver(new GameLeaderboardResolver())
                  .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());
@@ -493,7 +493,7 @@ public class App
             .withoutFetch()
             .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());
