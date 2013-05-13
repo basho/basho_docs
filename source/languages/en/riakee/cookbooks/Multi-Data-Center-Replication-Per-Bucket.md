@@ -10,7 +10,7 @@ keywords: [mdc, repl, bucket]
 
 To enable or disable replication per bucket, you can use the `repl` bucket property.
 
-Some changes have ocurred between 1.1 and 1.2.
+Some changes have occurred between 1.1 and 1.2.
 
 These `repl` values are available in Riak EE version 1.1 and above:
 

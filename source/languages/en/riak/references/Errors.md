@@ -222,7 +222,7 @@ no_vms | *JS call failed: All VMs are busy.* | All JavaScript VMs are in use | W
 bad_utf8_character_code | *Error JSON encoding arguments: `Args`* | A UTF-8 character give was a bad format | Only use correct UTF-8 characters for JavaScript code and arguments
 bad_json | | Bad JSON formatting | Only use correctly formatted JSON for JavaScript command arguments
  | *Invalid bucket properties: `Details`* | Listing bucket properties will fail if invalid | Fix bucket properties
-{load_error, "Failed to load spidermonkey_drv.so"} | | The JavaScript driver is corrupted or missing | In OSX you may have compiled with `llvm-gcc` rather than `gcc`.
+{load_error, "Failed to load spidermonkey_drv.so"} | | The JavaScript driver is corrupted or missing | In OS X you may have compiled with `llvm-gcc` rather than `gcc`.
 
 ### MapReduce
 

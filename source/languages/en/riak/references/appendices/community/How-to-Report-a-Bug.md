@@ -12,7 +12,7 @@ Bugs happen. We do our best to find them all but will inevitably miss some. Here
 
 ## Before You File a Bug or Issue
 
-Before you file a bug or issue, we ask that you put in the necessary time and research to ensure that what you are reporting is in fact a bonafide bug and not the result of some other configuration, operating system or application problem. To ensure your bug report is worth filing, please attempt do the following:
+Before you file a bug or issue, we ask that you put in the necessary time and research to ensure that what you are reporting is in fact a bona fide bug and not the result of some other configuration, operating system or application problem. To ensure your bug report is worth filing, please attempt do the following:
 
 * Search through the existing issues for the code in question on the relevant GitHub repo. Basho uses GitHub for the development of [all of our code](https://github.com/basho/). 
 * Search the [Riak Mailing List Archives](http://riak.markmail.org/) for similar issues and possible resolution paths. (The [Mailman archives](http://lists.basho.com/pipermail/riak-users_lists.basho.com/) of the list archives can also be accessed)

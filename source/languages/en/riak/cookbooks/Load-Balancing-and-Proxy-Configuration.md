@@ -130,7 +130,7 @@ socket with a utility such as
 
 At this point, you can perform maintenance on the node, down the node, and
 so on. When you've finished working with the node and it is again available
-for requests, you can reenable the node:
+for requests, you can re-enable the node:
       
     echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
 

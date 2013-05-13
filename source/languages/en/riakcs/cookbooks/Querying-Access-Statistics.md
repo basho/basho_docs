@@ -291,7 +291,7 @@ JSON-format access statistics between 2:00pm and 4:00pm GMT on January
 *NOTE*: All objects in the `usage` bucket are read-only. `PUT` and
 `DELETE` requests will fail for them.
 
-*NOTE*: Regular users are only allowed to accss the statistics bucket
+*NOTE*: Regular users are only allowed to access the statistics bucket
 for their own `key_id`. The admin user is allowed to access any stat
 bucket.
 

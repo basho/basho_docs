@@ -40,7 +40,7 @@ Here is the graph of the one hour result for the [[riak-erlang-client|https://gi
 
 ![One Hour Result ErlangPB](/images/one-hour-erlpb.png)
 
-To summarise:
+To summarize:
 
 Around 2500 ops/per sec, get latency around 15ms in the 99.9th percentile, put latency around 22ms in the 99.9th percentile.
 
@@ -60,7 +60,7 @@ Here is the result.
 
 ![One Hour Result JavaPB](/images/one-hour-javapb.png)
 
-To summarise: Around 2500 ops/sec with latencies almost identical to the Erlang PB driver. Worth noting is that the Erlang driver runs in the same Erlang VM as basho_bench. The Java driver involves a remote erlang call to the Jinterface mailbox in a JVM, and the attendant serial/de-serialization. 
+To summarize: Around 2500 ops/sec with latencies almost identical to the Erlang PB driver. Worth noting is that the Erlang driver runs in the same Erlang VM as basho_bench. The Java driver involves a remote erlang call to the Jinterface mailbox in a JVM, and the attendant serial/de-serialization. 
 
 We ran the same benchmark with Java clients on the same hosts as the Riak cluster. One JVM on each node, 2 threads per JVM. The results are almost identical.
 
@@ -72,9 +72,9 @@ The same method was repeated once again, this time setting the transport to HTTP
 
 ![One Hour Java HTTP](/images/1hrnonagleserverhttpjava4.1_2.png)
 
-To summarise: Just under 1000 ops/sec, with 99.9th percentile latencies on update under 30ms.
+To summarize: Just under 1000 ops/sec, with 99.9th percentile latencies on update under 30ms.
 
-For the sake of comparision, we ran the same benchmark using the ibrowse http library and basho_bench's raw http bench driver. The results graph.
+For the sake of comparison, we ran the same benchmark using the ibrowse http library and basho_bench's raw http bench driver. The results graph.
 
 ![One Hour Browser](/images/1hribrowsenonagleserver.png)
 
@@ -92,7 +92,7 @@ Along with a close up of a minute of GC.
 
 ![Close Up JGC](/images/close-up-javagc.png)
 
-This illustates that familiar, saw-tooth pattern. At the end of the test we forced full GC, notice that the steadily growing old-gen drops down nicely. Full GC required ~10ms. At this rate we estimate full GC will occur every 3-4 hours.
+This illustrates that familiar, saw-tooth pattern. At the end of the test we forced full GC, notice that the steadily growing old-gen drops down nicely. Full GC required ~10ms. At this rate we estimate full GC will occur every 3-4 hours.
 
 During the test there was no full GC. We re-ran the benchmark with 500kb values to force some full GC. Each full GC lasted ~10ms on each occasion.
 
@@ -104,11 +104,11 @@ We repeated the bench mark whilst using the Java HTTP client. The full hour grap
 
 ![Close Up](/images/41hc_gc_close_up.png)
 
-The heap this time being made up of ephermeral byte[] arrays, Strings and char[] arrays.
+The heap this time being made up of ephemeral byte[] arrays, Strings and char[] arrays.
 
 _Note: The [[bench_shim|https://github.com/basho/bench_shim]] code between the riak-java-client and basho_bench will contribute to the memory overhead and GC activity of the benchmark._
 
-Whilst the memory usage is high, it is stable and predictable. The vast majority of heap space is taken up with ephemeral byte[] arrays, as is expected for a network client shunting data to Riak. We will continue to optimise the memory footprint. 
+Whilst the memory usage is high, it is stable and predictable. The vast majority of heap space is taken up with ephemeral byte[] arrays, as is expected for a network client shunting data to Riak. We will continue to optimize the memory footprint. 
 
 ## Summary
 

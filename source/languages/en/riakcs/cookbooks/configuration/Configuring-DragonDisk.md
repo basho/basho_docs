@@ -46,7 +46,7 @@ under the **Provider** drop down menu.
 Enter the hostname or IP address of your Riak CS cluster's public interface
 into the **Service Endpoint** field.
 
-Enter your RiakCS username into the **Account name** field.
+Enter your Riak CS username into the **Account name** field.
 
 Enter the access key associated with your username into the **Access Key**
 field.
@@ -76,7 +76,7 @@ Now let's try to connect to Riak CS with the newly defined account
 configuration.
 
 In the **Root** drop down menu on the right pane of the DragonDisk interface,
-select the **RiakCS** account definition that you created.
+select the **Riak CS** account definition that you created.
 
 If no error occurs and you see the account definition appear in the right
 pane, then you're connected to Riak CS and can proceed to creating a bucket.
@@ -152,7 +152,7 @@ under the **Provider** drop down menu.
 Enter the hostname or IP address of your Riak CS cluster's public interface
 into the **Service Endpoint** field.
 
-Enter your RiakCS username into the **Account name** field.
+Enter your Riak CS username into the **Account name** field.
 
 Enter the access key associated with your username into the **Access Key**
 field.
@@ -182,7 +182,7 @@ Now let's try to connect to Riak CS with the newly defined account
 configuration.
 
 In the **Root** drop down menu on the right pane of the DragonDisk interface,
-select the **RiakCS** account definition that you created.
+select the **Riak CS** account definition that you created.
 
 If no error occurs and you see the account definition appear in the right
 pane, then you're connected to Riak CS and can proceed to creating a bucket.
@@ -258,7 +258,7 @@ under the **Provider** drop down menu.
 Enter the hostname or IP address of your Riak CS cluster's public interface
 into the **Service Endpoint** field.
 
-Enter your RiakCS username into the **Account name** field.
+Enter your Riak CS username into the **Account name** field.
 
 Enter the access key associated with your username into the **Access Key**
 field.
@@ -288,7 +288,7 @@ Now let's try to connect to Riak CS with the newly defined account
 configuration.
 
 In the **Root** drop down menu on the right pane of the DragonDisk interface,
-select the **RiakCS** account definition that you created.
+select the **Riak CS** account definition that you created.
 
 If no error occurs and you see the account definition appear in the right
 pane, then you're connected to Riak CS and can proceed to creating a bucket.

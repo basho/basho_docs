@@ -150,7 +150,7 @@ To run multiple nodes, make copies of the `riak` directory.
 
 -   If you ran `make all rel`, then this can be found in `./rel/riak`
     under the Riak source root directory.
--   If you are running Mac OSX, then this is the directory where you
+-   If you are running Mac OS X, then this is the directory where you
     unzipped the .tar.gz file.
 
 Presuming that you copied `./rel/riak` into `./rel/riak1`,

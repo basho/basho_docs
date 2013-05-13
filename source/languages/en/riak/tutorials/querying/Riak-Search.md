@@ -83,7 +83,7 @@ After analyzing a document into an index, the system uses a consistent hash to p
 
 ### Persistence
 
-For a backing store, the Riak Search team developed merge\_index. The merge\_index store takes inspiration from the Lucene file format, Bitcask (our standard backing store for Riak KV), and SSTables (from Google's BigTable paper), and was designed to have a simple, easily-recoverable data structure, to allow simultaneous reads and writes with no performance degredation, and to be forgiving of write bursts while taking advantage of low-write periods to perform data compactions and optimizations.
+For a backing store, the Riak Search team developed merge\_index. The merge\_index store takes inspiration from the Lucene file format, Bitcask (our standard backing store for Riak KV), and SSTables (from Google's BigTable paper), and was designed to have a simple, easily-recoverable data structure, to allow simultaneous reads and writes with no performance degradation, and to be forgiving of write bursts while taking advantage of low-write periods to perform data compactions and optimizations.
 
 ### Replication
 

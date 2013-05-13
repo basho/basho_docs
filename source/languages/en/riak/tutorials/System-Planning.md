@@ -29,7 +29,7 @@ If you have chosen [[Bitcask]] as your backend, you will also want to run throug
 
 We recommend deploying Riak on a mainstream Unix-like operating system. Mainstream distributions have larger support communities making solutions to common problems easier to find. Basho provides binary packages of Riak for the following distributions:
 
-* **Redhat based:** Redhat Enterprise Linux, CentOS, Fedora Core
+* **Red Hat based:** Red Hat Enterprise Linux, CentOS, Fedora Core
 * **Debian based:** Debian, Ubuntu
 * **Solaris based:** Sun Solaris, OpenSolaris
 
@@ -57,7 +57,7 @@ Like most datastores, **Riak will run best when not virtualized**. Virtual machi
 
 There are at least two acceptable strategies for load-balancing requests across your Riak cluster, **virtual IPs** and **reverse-proxy**.
 
-For **virtual IPs**, we recommend using any of the various VIP implementations. We don't recommend VRRP behaviour for the VIP because you'll lose the benefit of spreading client query load to all nodes in a ring.
+For **virtual IPs**, we recommend using any of the various VIP implementations. We don't recommend VRRP behavior for the VIP because you'll lose the benefit of spreading client query load to all nodes in a ring.
 
 For **reverse-proxy** configurations (HTTP interface), any one of these should work adequately:
 

@@ -111,7 +111,7 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
 	        <td>In Riak, any node in the cluster can coordinate a read/write operation for any other node. Riak stresses availability for writes and reads, and puts the burden of resolution on the client at read time.
 			</td>
 
-	        <td>Dedicated resources are allocated to your table (tunable via API) to meet performance requirements, and data is automatically partitiond over a number of servers to meet request capacity.
+	        <td>Dedicated resources are allocated to your table (tunable via API) to meet performance requirements, and data is automatically partitioned over a number of servers to meet request capacity.
 				<ul>
 					<li>[[Provisioned Throughput|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html]]
 				</ul>
@@ -163,7 +163,7 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
 			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
 		<ul>
 
-        <td>DynamoDB has the ability to spread instances over mutliple [[Availability Zones|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] within a Region, but not across multiple [[Regions|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]]. Availability Zones are not geographically dispersed.
+        <td>DynamoDB has the ability to spread instances over multiple [[Availability Zones|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] within a Region, but not across multiple [[Regions|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]]. Availability Zones are not geographically dispersed.
         </td>
     </tr>
     <tr>

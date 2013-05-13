@@ -80,7 +80,7 @@ For example:
 
 ## Proximity Searches
 
-Proximity searching allows you to find terms that are within a certain number of words from each other. To specify a proximity seach, use the tilde argument on a phrase.
+Proximity searching allows you to find terms that are within a certain number of words from each other. To specify a proximity search, use the tilde argument on a phrase.
 
 For example:
 
@@ -238,7 +238,7 @@ curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
 
 ## Querying via the Riak Client API
 
-The Riak Client API's have been updated to support querying of Riak Search. See the client documentation for more information. Currently, the Ruby, Python, PHP, and Erlang clients are supported.
+The Riak Client APIs have been updated to support querying of Riak Search. See the client documentation for more information. Currently, the Ruby, Python, PHP, and Erlang clients are supported.
 
 The API takes a default search index as well as as search query, and returns a list of bucket/key pairs. Some clients transform this list into objects specific to that client.
 

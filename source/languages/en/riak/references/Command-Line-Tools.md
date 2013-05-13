@@ -20,7 +20,7 @@ when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
 ## riak
 
 `[[riak|Command Line Tools - riak]]` is the primary script for controlling the
-Riak node process. The following subcommands are avaiable:
+Riak node process. The following subcommands are available:
 
 * [[start|Command Line Tools - riak#start]]
 * [[stop|Command Line Tools - riak#stop]]

@@ -148,10 +148,10 @@ commands:
 
 {{/1.1.0-}}
 
-## RHEL/Centos
+## RHEL/CentOS
 
 The following example demonstrates upgrading a Riak node that has been installed
-with the RHEL/Centos packages provided by Basho.
+with the RHEL/CentOS packages provided by Basho.
 
 1\. Stop Riak
 

@@ -10,7 +10,7 @@ keywords: [api, http]
 ---
 
 
-The storage API is compatibile with the Amazon S3 REST API which means that any of the operations listed can be executed using any of the commonly available S3 libraries or tools.
+The storage API is compatible with the Amazon S3 REST API which means that any of the operations listed can be executed using any of the commonly available S3 libraries or tools.
 
 ## API Feature Comparison
 
