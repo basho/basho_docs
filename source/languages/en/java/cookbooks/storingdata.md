@@ -176,7 +176,7 @@ public class App
                  .withResolver(new GameLeaderboardResolver())
                  .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());
@@ -205,7 +205,7 @@ public class App
             .returnBody(true)
             .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());
@@ -228,7 +228,7 @@ public class GameLeaderboardResolver implements ConflictResolver<GameLeaderboard
      * Riak hands us a list of GameLeaderboard objects. Our job is to reconcile
      * those objects and return a single, resolved GameLeaderboard
      *   
-     * In this example, the logic is pretty straightforard. in our GameLeaderboard
+     * In this example, the logic is pretty straightforward. in our GameLeaderboard
      * class we created a addScores(Collection<NameScorePair>) method that will do the 
      * heavy lifting for us. By adding all the lists into one GameLeaderboard
      * via that method, we end up with the top 5 scores from all the siblings
@@ -474,7 +474,7 @@ public class App
                  .withResolver(new GameLeaderboardResolver())
                  .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());
@@ -493,7 +493,7 @@ public class App
             .withoutFetch()
             .execute();
 
-        // Ouput the results!
+        // Output the results!
         for ( NameScorePair n : gl.getScoreList())
         {
             System.out.println(n.getName() + " " + n.getScore());

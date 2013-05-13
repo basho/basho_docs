@@ -167,7 +167,7 @@ example, if `{rate, 5}` is used with 3 concurrent workers, basho_bench
 will be generating 15 (i.e. 5 * 3) operations per second.
 
 ```bash
-% Run at max, ie: as quickly as possible
+% Run at max, i.e.: as quickly as possible
 {mode, max}
 
 % Run 15 operations per second per worker
@@ -243,7 +243,7 @@ Available drivers include:
     get/update/insert data on a Riak server
 -   `basho_bench_driver_riakc_pb` - Uses Riak's Protocol Buffers
     interface to get/put/update/delete data on a Riak server
--   `basho_bench_driver_riakclient` - Uses Riak's Dist. Erlang interface
+-   `basho_bench_driver_riakclient` - Uses Riak's Distributed Erlang interface
     to get/put/update/delete data on a Riak server
 -   `basho_bench_driver_bitcask` - Directly invokes the Bitcask API
 -   `basho_bench_driver_dets` - Directly invokes the DETS API

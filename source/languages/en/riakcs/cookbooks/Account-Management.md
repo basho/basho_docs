@@ -114,7 +114,7 @@ An example using s3-curl that assumes properly specified credentials for the adm
 By default the listing of all users includes accounts that are both enabled and disabled. The list can be filtered to only include enabled or disabled accounts by using the status query parameter with a value of enabled or disabled respectively.
 
 ## Enabling and Disabling a User Account
-A user may use a PUT to **/riak-cs/user** to disabled their account. The put must include a document with a status field whose value is disabled. JSON or XML formats are supported for this document. Samples of each are shown below. The Content-Type header should also be set appropriately. The admin user may also disable or reenable a user's account via a PUT to **/riak-cs/user/<user-key-id>**. Users may not reenable their own account once it is disabled.
+A user may use a PUT to **/riak-cs/user** to disabled their account. The put must include a document with a status field whose value is disabled. JSON or XML formats are supported for this document. Samples of each are shown below. The Content-Type header should also be set appropriately. The admin user may also disable or re-enable a user's account via a PUT to **/riak-cs/user/<user-key-id>**. Users may not re-enable their own account once it is disabled.
 
 Sample JSON status update document:
 

@@ -35,7 +35,7 @@ optional for all commands and defaults to `search`.
     set-schema [INDEX] SCHEMAFILE
 
 Set the [[schema|Riak Search - Schema]] for a given index.  If you don't 
-explicity set the schema for an index it will use the default schema.
+explicitly set the schema for an index it will use the default schema.
 
 
 ## show-schema

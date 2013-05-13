@@ -35,7 +35,7 @@ queries will return correct results.
 ### Migration of Old Data
 
 Since Riak Search was integrated into Riak proper in 1.0.0 the package
-names no longer match (i.e. from riaksearch to riak) therefore it's
+names no longer match (i.e. from Riak Search to riak) therefore it's
 not possible to simply install the new package.  Instead, uninstall
 the old package, move the data directory, and then install the new
 package.  Finally, don't forget to migrate any changes you made to

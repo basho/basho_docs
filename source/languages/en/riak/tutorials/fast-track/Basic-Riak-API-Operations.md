@@ -170,7 +170,7 @@ Currently, buckets come with virtually no cost except for when you modify the de
 
 ### Setting a bucket's properties
 
-There is no need to "create" buckets in Riak.  They pop into existence when keys are added to them, and dissappear when all keys have been removed from them.
+There is no need to "create" buckets in Riak.  They pop into existence when keys are added to them, and disappear when all keys have been removed from them.
 
 However, in addition to providing a namespace for keys, the properties of a bucket also define some of the behaviors that Riak will implement for the values stored in the bucket.
 

@@ -35,7 +35,7 @@ the supported operating systems is as follows:
 * Ring data: `/var/lib/riak/ring`
 * Configuration: `/etc/riak`
 
-**Freebsd**
+**FreeBSD**
 
 * Bitcask data: `/var/db/riak/bitcask`
 * LevelDB data: `/var/db/riak/leveldb`
@@ -155,7 +155,7 @@ riak-admin reip riak@riak5.example.com riak@riak105.example.com
 {{#1.2.0+}}
 If any node names have been changed (that is, the *-name* argument in the
 `vm.args` configuration file for any node is different than the backup being
-restored to that node), then you will need to addtionally:
+restored to that node), then you will need to additionally:
 
 1. Mark the original instance down in the cluster using 
 `[[riak-admin down <node>|Command-Line-Tools---riak-admin#down]]`
@@ -192,14 +192,14 @@ riak-admin cluster commit
 {{/1.2.0+}}
 
 The *-name* setting in the `vm.args` configuration file should also be changed
-to match the new name in additon to running the commands. If the IP address of
+to match the new name in addition to running the commands. If the IP address of
 any node has changed, verify that the changes are reflected in the *app.config*
 file to ensure that the HTTP and PB interfaces are binding to the correct
 addresses.
 
 A robust DNS configuration can simplify the restore process if the IP addresses
 of the nodes change, but the hostnames are used for the node names and the
-hostnames stay the same. Additonally, if the HTTP and PB interface settings are
+hostnames stay the same. Additionally, if the HTTP and PB interface settings are
 configured to bind to all IP interfaces (0.0.0.0), then no changes will need to
 be made to the *app.config* file.
 

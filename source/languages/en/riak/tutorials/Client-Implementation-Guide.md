@@ -26,7 +26,7 @@ different transport mechanism for operational reasons.
 As described in the [[Eventual Consistency]] section, there are many
 scenarios that can result in temporary inconsistency, which may cause
 the appearance of stale data or sibling objects.  To react
-appropiately to unexpected or unsuccessful results, clients should
+appropriately to unexpected or unsuccessful results, clients should
 retry requests a small number of times before failing to the
 caller. For example, when fetching a key that might be inconsistent
 among its replicas, this gives [[read repair|Replication#Read-Repair]]

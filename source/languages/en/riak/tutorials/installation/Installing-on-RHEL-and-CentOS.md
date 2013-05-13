@@ -13,7 +13,7 @@ download:
   name: "Red Hat or CentOS"
 ---
 
-When installing Riak on CentOS or Redhat you can install from source or from our custom .rpm package.
+When installing Riak on CentOS or Red Hat you can install from source or from our custom .rpm package.
 
 ## Notes
 

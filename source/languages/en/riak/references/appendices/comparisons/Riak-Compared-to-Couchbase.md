@@ -15,7 +15,7 @@ This is intended to be a brief, objective and technical comparison of Riak and C
 * Riak is Apache 2.0 licensed; According to Couchbase, they have two free versions: Couchbase open source is Apache 2.0 licensed; Couchbase Server Community Edition (free version) is licensed under a [community agreement](http://www.couchbase.com/agreement/community)
 * Riak is written primarily in Erlang with some bits in C; Couchbase is written in Erlang and C/C++
 
-<div class="note"><div class="title">Couchbase vs CouchDB</div>Keep in mind that Couchbase and CouchDB are two seperate database projects.  CouchDB is a document database providing replication, MapReduce and an HTTP API.  Couchbase uses CouchDB as its backend, "wrapping" it with advanced features like caching, and is designed to be clustered.</div>
+<div class="note"><div class="title">Couchbase vs CouchDB</div>Keep in mind that Couchbase and CouchDB are two separate database projects.  CouchDB is a document database providing replication, MapReduce and an HTTP API.  Couchbase uses CouchDB as its backend, "wrapping" it with advanced features like caching, and is designed to be clustered.</div>
 
 <div class="note"><div class="title">Couchbase 2.0</div>As of the time of this writing, Couchbase 2.0 is still in developer preview, so some of these points may change between now and the final release. <i>Caveat emptor</i></div>
 

@@ -10,7 +10,7 @@ keywords: [appendix, concepts]
 # Keys and Objects
 
 In an RDBMS, data is organized by tables that are individually
-identifiable entites. Within those tables exist rows of a data
+identifiable entities. Within those tables exist rows of a data
 organized into columns. It is possible to retrieve or update entire
 tables, individual rows, or a group of columns within a set of
 rows. In contrast, Riak has a simpler data model in which the Object

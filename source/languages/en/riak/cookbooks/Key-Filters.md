@@ -47,7 +47,7 @@ When submitting a query in JSON format, this makes the inputs a JSON object cont
 }
 ```
 
-When submitting a query from the Erlang local or Protobuffs client, the inputs become a two-tuple where the first element is the bucket as a binary, and the second element is a list of filters. Like the JSON format, the filters are specified as lists, even for filters with no arguments, and the filter names are binaries.
+When submitting a query from the Erlang local or Protocol Buffers client, the inputs become a two-tuple where the first element is the bucket as a binary, and the second element is a list of filters. Like the JSON format, the filters are specified as lists, even for filters with no arguments, and the filter names are binaries.
 
 ```erlang
 riakc_pb_socket:mapred(Pid, {<<"invoices">>, [[<<"ends_with">>,<<"0603">>]]}, Query).

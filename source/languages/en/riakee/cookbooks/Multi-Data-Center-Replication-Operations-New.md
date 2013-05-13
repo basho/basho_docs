@@ -43,7 +43,7 @@ Host can be either an IP address,
 
 **disconnect**
 
-Disconnecting a source cluster from a sink cluser. 
+Disconnecting a source cluster from a sink cluster. 
 
 You may define a `host:port` combination,
 

@@ -59,7 +59,7 @@ There is a Riak Group on LinkedIn. Join it [[here|http://www.linkedin.com/groups
 
 ### Videos
 
-You can watch all the Riak screecasts and other videos that Basho publishes on the [[Basho Vimeo Page|http://vimeo.com/bashotech/videos]].
+You can watch all the Riak screencasts and other videos that Basho publishes on the [[Basho Vimeo Page|http://vimeo.com/bashotech/videos]].
 
 ### Meetups
 

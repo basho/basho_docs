@@ -54,7 +54,7 @@ public class App
         
         Bucket bucket = client.fetchBucket("PersonBucket").execute();
         
-        /* One shortcoming of the curent Conveter<T> Interface is that the bucket name is not passed
+        /* One shortcoming of the current Converter<T> Interface is that the bucket name is not passed
          * in automatically. We will be improving this in the next release (1.1.0)
          */
         bucket.store(p).withConverter(new KryoPersonConverter("PersonBucket")).execute();
@@ -149,7 +149,7 @@ public class KryoPersonConverter implements Converter<Person>
 
     private String bucket;
     
-    /* One shortcoming of the curent Conveter<T> Interface is that the bucket name is not passed
+    /* One shortcoming of the current Converter<T> Interface is that the bucket name is not passed
      * in automatically. We will be improving this in the next release (1.1.0)
      */
     public KryoPersonConverter(String bucket)
