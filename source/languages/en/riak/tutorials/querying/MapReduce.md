@@ -19,7 +19,7 @@ interest: [
 
 MapReduce (M/R) is a technique for dividing work across a distributed system. This takes advantage of the parallel processing power of distributed systems, and also reduces network bandwidth as the algorithm is passed around to where the data lives, rather than a potentially huge dataset transferred to a client algorithm. Developers can use MapReduce for things like filtering documents by tags, counting words in documents, and extracting links to related data.
 
-In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the protobufs API. Also, note that Riak MapReduce is intended for batch processing, not real-time querying.
+In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the Protocol Buffers API. Also, note that Riak MapReduce is intended for batch processing, not real-time querying.
 
 ## Features  
 

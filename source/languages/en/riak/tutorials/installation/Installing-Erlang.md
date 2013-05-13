@@ -112,7 +112,7 @@ cd otp_src_R15B01
 You can install Erlang in several ways on OS X: from source, with Homebrew, or with MacPorts.
 
 ### Source
-To build from source, you must have XCode tools installed from the CD that came with your Mac or from the Apple [[Developer website|http://developer.apple.com/]].
+To build from source, you must have Xcode tools installed from the CD that came with your Mac or from the Apple [[Developer website|http://developer.apple.com/]].
 
 First, download and unpack the source:
 

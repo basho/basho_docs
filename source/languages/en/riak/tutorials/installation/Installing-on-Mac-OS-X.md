@@ -126,7 +126,7 @@ tar xzvf riak-1.3.1-osx-i386.tar.gz
 ```
 
 {{/1.3.1}}
-After the release is untared you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
+After the release is untarred you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
 
 ## Homebrew
 
@@ -141,7 +141,7 @@ brew install riak
 Homebrew will install Erlang if you don't have it already.
 
 ## From Source
-You must have XCode tools installed from the CD that came with your Mac or from [[Apple's Developer website|http://developer.apple.com/]].
+You must have Xcode tools installed from the CD that came with your Mac or from [[Apple's Developer website|http://developer.apple.com/]].
 
 <div class="note">Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 

@@ -29,7 +29,7 @@ If you have chosen [[Bitcask]] as your backend, you will also want to run throug
 
 We recommend deploying Riak on a mainstream Unix-like operating system. Mainstream distributions have larger support communities making solutions to common problems easier to find. Basho provides binary packages of Riak for the following distributions:
 
-* **Redhat based:** Redhat Enterprise Linux, CentOS, Fedora Core
+* **Red Hat based:** Red Hat Enterprise Linux, CentOS, Fedora Core
 * **Debian based:** Debian, Ubuntu
 * **Solaris based:** Sun Solaris, OpenSolaris
 

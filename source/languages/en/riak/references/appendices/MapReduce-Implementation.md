@@ -309,7 +309,7 @@ Before running some MapReduce queries, let's create some objects to run them on.
 5> riakc_pb_socket:put(Client, Mine, [{w, 1}]).
 ```
 
-Now that we have a client and some data, let's run a query and count how many occurances of groceries.
+Now that we have a client and some data, let's run a query and count how many occurrences of groceries.
 
 ```erlang
 6> Count = fun(G, undefined, none) ->
@@ -398,7 +398,7 @@ You can enable streaming with MapReduce jobs submitted to the `/mapred` resource
 
 ### Streaming via the Erlang API
 
-You can use streaming with Erlang via the Riak local client or the Erlang protobuffs API.  In either case, you will provide the call to `mapred_stream` with a `Pid` that will receive the streaming results.
+You can use streaming with Erlang via the Riak local client or the Erlang Protocol Buffers API.  In either case, you will provide the call to `mapred_stream` with a `Pid` that will receive the streaming results.
 
 For examples, see:
 
@@ -577,7 +577,7 @@ Riak 1.0 is the first release including the new MapReduce subsystem known as Ria
 
 <div class="note">Warning: Do not enable Riak Pipe for MapReduce processing until all nodes in the cluster are running Riak 1.0.</div>
 
-Other than speed and stability of the cluster, the choice of MapReduce subsystem (Riak Pipe or legacy) should be invisible to your client.  All queries should have the same syntax and return the same results on Riak 1.0 with Riak Pipe as they did on earlier versions with the legacy subsystem.  If you should find a case where this is not true, you may revert to using the legacy subsystem by either removing the afformentioned line in your app.config or by changing it to read like this:
+Other than speed and stability of the cluster, the choice of MapReduce subsystem (Riak Pipe or legacy) should be invisible to your client.  All queries should have the same syntax and return the same results on Riak 1.0 with Riak Pipe as they did on earlier versions with the legacy subsystem.  If you should find a case where this is not true, you may revert to using the legacy subsystem by either removing the aforementioned line in your app.config or by changing it to read like this:
 
 ```erlang
 %% Use the legacy MapReduce system

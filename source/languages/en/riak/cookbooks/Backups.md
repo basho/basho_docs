@@ -35,7 +35,7 @@ the supported operating systems is as follows:
 * Ring data: `/var/lib/riak/ring`
 * Configuration: `/etc/riak`
 
-**Freebsd**
+**FreeBSD**
 
 * Bitcask data: `/var/db/riak/bitcask`
 * LevelDB data: `/var/db/riak/leveldb`

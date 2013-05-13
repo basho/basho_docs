@@ -44,7 +44,7 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 
 where **X.Y.Z** is the version of Riak CS you have installed.
 
-Note that this assumes Riak and RiakCS packages are installed on the same machine. If the RiakCS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+Note that this assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
 Next, add this to the **riak_core** section of `app.config`:
 
