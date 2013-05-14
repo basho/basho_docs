@@ -43,7 +43,7 @@ the protocol buffers and HTTP interfaces.
 
 <div class="info">The operating system's open files limits need to be
   greater than 256000 for the example configuration that follows. Consult
-  the [[Open-Files-Limit|open files limits]] documentation for details on
+  the [[Open Files Limit]] documentation for details on
   configuring the value for different operating systems.</div>
 
 ```
