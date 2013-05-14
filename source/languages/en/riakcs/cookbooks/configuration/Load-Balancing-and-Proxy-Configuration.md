@@ -47,44 +47,59 @@ the HTTP interface.
   
 ```
 global
-        log 127.0.0.1     local0
-        log 127.0.0.1     local1 notice
-        maxconn           12083
-        spread-checks     5
-        daemon
+    log 127.0.0.1     local0
+    log 127.0.0.1     local1 notice
+    maxconn           12083
+    spread-checks     5
+    daemon
 
 defaults
-        log               global
-        option            dontlognull
-        option            redispatch
-        option            allbackups
-        no option         httpclose
-        retries           3
-        maxconn           12083
-        contimeout        5000
-        srvtimeout        60000
+    log               global
+    option            dontlognull
+    option            redispatch
+    option            allbackups
+    no option         httpclose
+    retries           3
+    maxconn           256000
+    timeout connect   5000 
+    timeout client    5000 
+    timeout server    5000
+ 
 frontend riak_cs
-        bind              10.0.24.100:8080
-        # Example bind below for SSL termination
-        # bind              10.0.24.100:8443 ssl crt /opt/local/haproxy/etc/data.pem
-        mode              http
-        option            httplog
-        capture           request header Host len 64
-        acl good_ips      src -f /opt/local/haproxy/etc/gip.lst
-        block if          !good_ips
-        use_backend       riak_cs_backend if good_ips
+    bind              10.0.24.100:8080
+    # Example bind for SSL termination
+    # bind            10.0.24.100:8443 ssl crt /opt/local/haproxy/etc/data.pem
+    mode              http
+    option            httplog
+    capture           request header Host len 64
+    acl good_ips      src -f /opt/local/haproxy/etc/gip.lst
+    block if          !good_ips
+    use_backend       riak_cs_backend if good_ips
 
 backend riak_cs_backend
-        mode              http
-        balance           roundrobin
-        timeout connect 60s
-        timeout http-request 60s
-        server riak1 r1s01.example.com:8081 weight 1 maxconn 12083  check
-        server riak2 r1s02.example.com:8081 weight 1 maxconn 12083  check
-        server riak3 r1s03.example.com:8081 weight 1 maxconn 12083  check
-        server riak4 r1s04.example.com:8081 weight 1 maxconn 12083  check
-        server riak5 r1s05.example.com:8081 weight 1 maxconn 12083  check
+    mode              http
+    balance           roundrobin
+    # Ping Riak CS to determine health
+    option            httpchk GET /riak-cs/ping 
+    timeout connect 60s
+    timeout http-request 60s
+    server riak1 r1s01.example.com:8081 weight 1 maxconn 1024 check
+    server riak2 r1s02.example.com:8081 weight 1 maxconn 1024 check backup
+    server riak3 r1s03.example.com:8081 weight 1 maxconn 1024 check backup
+    server riak4 r1s04.example.com:8081 weight 1 maxconn 1024 check backup
+    server riak5 r1s05.example.com:8081 weight 1 maxconn 1024 check backup
 ```
 
 Note that the above example is considered a starting point and is a work in progress. You should carefully examine the configuration and change it
 according to your specific environment.
+
+Some specific configuration details from the example worth noting are the
+commented option for SSL termination. As of version 1.5 HAProxy supports
+SSL directly. Provided that your HAProxy instance was build with OepnSSL
+support, you can enable it by uncommenting the example line, and modifying it
+to suit your environment. More information is available in the
+[HAProxy documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
+
+Also note the entry for checking Riak CS health via the `/riak-cs/ping`
+endpoint. This option is essential for checking each Riak CS node as part of
+the round robin load balancing method.
