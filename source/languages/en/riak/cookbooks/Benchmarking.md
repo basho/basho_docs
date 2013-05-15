@@ -41,9 +41,6 @@ up the test. (basho_bench_app.erl/basho_bench_sup.erl)
 
 During test setup, Basho Bench creates:
 
--   One **log process** (basho_bench_log.erl). During startup, this
-    creates a new `log.txt` file in the current results directory, to
-    which output is logged at the specified logging level.
 -   One **stats process** (basho_bench_stats.erl). This receives
     notifications when an operation completes, plus the elapsed time of
     the operation, and stores it in a histogram. At regular intervals,
