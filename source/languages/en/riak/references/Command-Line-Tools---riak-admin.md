@@ -364,6 +364,35 @@ information about the output is available [[here|Inspecting a Node]].
 riak-admin status
 ```
 
+{{#1.3.1+}}
+## reformat-indexes
+
+Reformat integer indexes in Secondary Index data for versions of Riak prior
+to 1.3.1 so that range queries over the indexes will return correct results.
+
+```
+riak-admin reformat-indexes [<concurrency>] [<batch size>] --downgrade
+```
+
+The `concurrency` option defaults to *2* and controls how many partitions are
+concurrently reformatted.
+
+The `batch size` option controls the number of simultaneous key operations
+and defaults to *100*.
+
+The command can be executed while the node is serving requests, and default
+values are recommended for most cases. You should only change the default
+values after testing impact on cluster performance.
+
+Information is written to `console.log` upon completion of the process.
+
+A `--downgrade` switch can be specified when downgrading a node to a version
+of Riak prior to version 1.3.1.
+
+Additional details are available in the 
+[Riak 1.3.1 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md). 
+{{/1.3.1+}}
+
 ## top
 
 Top provides information about what the Erlang processes inside of Riak are doing. Top reports process reductions (an indicator of CPU utilization), memory used and message queue sizes
