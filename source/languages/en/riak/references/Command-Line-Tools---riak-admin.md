@@ -344,6 +344,40 @@ Outputs the status of all vnodes the are running on the local node.
 riak-admin vnode-status
 ```
 
+{{#1.3.0+}}
+## aae-status
+
+This command provides insight into operation of Riak's Active Anti Entropy
+(AAE) feature.
+
+```
+riak-admin aae-status
+```
+
+The output contains information on AAE key/value partition exchanges,
+entropy tree building, and key repairs which were triggered by AAE.
+
+* **Exchanges**
+ * The *Last* column lists when the most recent exchange between a partition and one of its sibling replicas was performed.
+ * The *All* column shows how long it has been since a partition exchanged with all of its sibling replicas.
+ 
+* **Entropy Trees**
+ * The *Built* column shows when the hash trees for a given partition were created.
+
+* **Keys Repaired**
+ * The *Last* column shows the number of keys repaired during the most
+   recent key exchange.
+ * The *Mean* column shows the mean number of keys repaired during all
+   key exchanges since the last node restart.
+ * The *Max* column shows the maximum number of keys repaired during all
+   key exchanges since the last node restart.
+
+<div class="info">All AAE status information is in-memory and is reset across a node restart. Only tree build times are persistent (since trees themselves are persistent).</div>
+
+More details on the `aae-status` command are available in the
+[Riak version 1.3 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy).
+{{/1.3.0+}}
+
 ## diag
 
 Run diagnostic checks against &lt;node&gt;. {{#<1.3.0}}[riaknostic](http://riaknostic.basho.com/) must be installed in order to run.{{/<1.3.0}}
