@@ -367,8 +367,9 @@ riak-admin status
 {{#1.3.1+}}
 ## reformat-indexes
 
-Reformat integer indexes in Secondary Index data for versions of Riak prior
-to 1.3.1 so that range queries over the indexes will return correct results.
+This command reformats integer indexes in Secondary Index data for versions
+of Riak prior to 1.3.1 so that range queries over the indexes will return
+correct results.
 
 ```
 riak-admin reformat-indexes [<concurrency>] [<batch size>] --downgrade
