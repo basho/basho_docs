@@ -5,7 +5,7 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: "[[Links and Link Walking]]"
+prev: "[[MapReduce Queries|Loading Data and Running MapReduce Queries]]"
 up:   "[[The Riak Fast Track]]"
 versions: false
 interest: [
