@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, fast-track]
 prev: "[[Basic HTTP Operations|Basic Riak API Operations]]"
 up:   "[[The Riak Fast Track]]"
-next: "[[Links and Link Walking]]"
+next: "[[Tunable CAP Controls|Tunable CAP Controls in Riak]]"
 versions: false
 interest: [
 "[[MapReduce]]",
@@ -18,7 +18,7 @@ interest: [
 ]
 ---
 
-Riak provides various ways to query your data beyond the basic key/value operations: [[Full-Text Search|Riak Search]], [[MapReduce]], [[Secondary Indexes]], and [[Link Walking|Links]].
+Riak provides various ways to query your data beyond the basic key/value operations: [[Full-Text Search|Riak Search]], [[MapReduce]], [[Secondary Indexes]], and [[Link Walking]].
 
 This section will walk you through loading some sample data (that we've borrowed from Google) into Riak and then using JSON over HTTP interface with Curl to perform some MapReduce queries on that data.
 
@@ -140,7 +140,7 @@ Reduce phases look exactly like map phases, but are labeled "reduce".
 
 #### Link
 
-Link phases accept "bucket" and "tag" fields that specify which links match the link query.  The string "_" (underscore) in each field means "match all", while any other string means "match exactly this string".  If either field is left out, it is considered to be set to "_" (match all).
+[[Link|Link Walking]] phases accept "bucket" and "tag" fields that specify which links match the link query.  The string "_" (underscore) in each field means "match all", while any other string means "match exactly this string".  If either field is left out, it is considered to be set to "_" (match all).
 
 For example:
 
@@ -275,8 +275,6 @@ function(values, arg){
          ]
 }
 ```
-
-<!-- TODO: replace with a gist link -->
 
 [sample-max-variance-by-month.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-max-variance-by-month.json)
 
