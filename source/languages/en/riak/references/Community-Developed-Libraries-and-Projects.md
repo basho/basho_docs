@@ -118,6 +118,7 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Net::Riak|http://search.cpan.org/~franckc/Net-Riak/]] - A Perl interface to Riak
 * [[AnyEvent-Riak adapter|http://github.com/franckcuny/anyevent-riak]] - Non-blocking Riak adapter using anyevent
 * [[riak-tiny|https://github.com/tempire/riak-tiny]] - Perl interface to Riak without Moose
+* [[Riak::Light|https://metacpan.org/module/Riak::Light]] - Fast and lightweight Perl client for Riak (PBC only)
 
 *PHP*
 
