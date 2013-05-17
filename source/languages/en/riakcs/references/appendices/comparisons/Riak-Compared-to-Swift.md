@@ -24,7 +24,7 @@ The table below gives a high level comparison of Riak CS and Swift features/capa
     </tr>
     <tr>
         <td>Anti-Entropy</td>
-        <td>Riak CS has continuous anti-entropy as a feature in progress, with a targeted release timeframe in Q1 2013. Riak CS currently supports “passive” read-time anti-entropy, which provides repair of inconsistencies immediately at client-read time. Swift does not perform repair at read or write time, but rather resolves such issues during its next rsync cycle.  
+        <td>Riak CS supports Active Anti-Entropy, which monitors and repairs inconsistencies between divergent replicas. Riak CS also supports “passive” read-time anti-entropy, which provides repair of inconsistencies immediately at client-read time. Swift does not perform repair at read or write time, but rather resolves such issues during its next rsync cycle.  
 		</td>
         <td>Swift has a continuous anti-entropy process via frequent invocation of “rsync” for repairing any inconsistencies between data node file systems.
 		</td>
@@ -83,7 +83,7 @@ The table below gives a high level comparison of Riak CS and Swift features/capa
     <tr>
         <td>Governance</td>
 
-		<td>Riak CS is proprietary (though its heart is the Apache-licensed [[Riak database|http://docs.basho.com/riak/latest/]]) and is managed by Basho. This means that from outside of Basho you cannot get official changes made to Riak CS, but on the other hand Basho can unilaterally commit to improvements to the product without any other parties’ approval being required.
+		<td>Riak CS is open source and is managed by Basho.  It is available under the Apache 2 License.
 			
         <td>Swift is entirely open source and is managed by the OpenStack Foundation. No license is required in any way and no single company can either block or cause any changes to it on their own.
 	</td>
