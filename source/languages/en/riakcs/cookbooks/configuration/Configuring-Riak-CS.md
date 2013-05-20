@@ -101,5 +101,45 @@ In the Riak CS `app.config` file, first uncomment the following lines:
 
 Replace the text in quotes with the path and filename for your SSL encryption files.
 
+## Proxy vs. Direct Configuration
+
+### Proxy
+
+The proxy configuration enables an S3 client to communicate with Riak CS as
+if it were Amazon S3, using the typical Amazon URLs. First, configure your
+client's proxy settings to point to your Riak CS cluster's address. Then,
+configure your client with Riak CS credentials.
+
+When Riak CS receives the request to be proxied, it services the request itself
+and responds back to the client as if it went to S3.
+
+On the server side, the `cs_root_host` must be set to `s3.amazonaws.com`
+because all of the bucket URLs requested by the client will be destined for
+`s3.amazonaws.com`
+
+*Note: One issue with proxy configurations is that many GUI clients only allow
+for one proxy to be configured for all connections. For customers trying to
+connect to S3 and Riak CS, this can prove to be problematic.*
+
+### Direct
+
+Requires a client that can be configured for an "S3-compatible" service.  Some
+clients with this capability are: [Transmit](http://panic.com/transmit/),
+[s3cmd](http://s3tools.org/s3cmd), [DragonDisk](http://www.dragondisk.com/)
+
+In this configuration, the client connects to Riak CS as the endpoint. There is
+no masquerading as Amazon S3.
+
+In this case, the `cs_root_host` must be set to the FQDN of your Riak CS
+endpoint, as all of the bucket URLs will be destined for FQDN endpoint.
+
+You will also need wildcard DNS entries for any child of the endpoint to
+resolve to the endpoint itself.  For example:
+
+```
+data.riakcs.net
+*.data.riakcs.net
+```
+
 ## Other Riak CS Settings
 The `app.config` file includes other settings, such as whether to create log files and where to store them. These settings have default values that work in most cases.
