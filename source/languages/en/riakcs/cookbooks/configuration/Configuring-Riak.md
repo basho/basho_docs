@@ -116,7 +116,7 @@ Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/
 ```erlang
 ## This setting is not present in default Riak installations, so
 ## it should be added.  In some cases, a value of 128000 may be
-%% appropriate.
+## appropriate.
 +zdbbl 96000
 
 ## This setting is present in default Riak installations, so
