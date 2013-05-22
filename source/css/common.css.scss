@@ -65,7 +65,7 @@
    ========================================================================== */
 
 html {
-  @include bgPattern('content-bg.jpg', $subtleGray);
+  //@include bgPattern('content-bg.jpg', $subtleGray);
 }
 
 body {
@@ -173,7 +173,7 @@ body {
   }
   
   div[role="main"] {
-    @include bgPattern('content-bg.jpg', $subtleGray);
+    //@include bgPattern('content-bg.jpg', $subtleGray);
     @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
     padding  : 0 25px;
     margin   : 0 0 0 232px;
