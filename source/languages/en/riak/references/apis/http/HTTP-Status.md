@@ -165,7 +165,6 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * `ring_creation_size`: Number of partitions this node is configured to own
 * `ignored_gossip_total`: Total number of ignored gossip messages since node was started
 * `handoff_timeouts`: Number of handoff timeouts encountered by this node
-* `coord_redirs_total`: Number of requests this node has redirected to other nodes for coordination since startup
 * `precommit_fail`: Number of pre commit hook failures
 * `postcommit_fail`: Number of post commit hook failures
 * `sys_driver_version`: String representing the Erlang driver version in use by the runtime system
