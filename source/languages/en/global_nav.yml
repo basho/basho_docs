@@ -264,6 +264,7 @@ riakcs:
       - "[[Configuring Stanchion]]"
       - "[[Configuring an S3 client]]"
       - "[[Configuring DragonDisk]]"
+      - "[[Load Balancing and Proxy Configuration]]"
   - title: "Riak CS Enterprise"
     sub:
       - "[[Overview|MDC Overview]]"
