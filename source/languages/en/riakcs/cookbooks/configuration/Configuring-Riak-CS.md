@@ -123,9 +123,10 @@ connect to S3 and Riak CS, this can prove to be problematic.*
 
 ### Direct
 
-Requires a client that can be configured for an "S3-compatible" service.  Some
-clients with this capability are: [Transmit](http://panic.com/transmit/),
-[s3cmd](http://s3tools.org/s3cmd), [DragonDisk](http://www.dragondisk.com/)
+Direct configuration requires a client that can be configured for an
+"S3-compatible" service.  Some clients with this capability are:
+[Transmit](http://panic.com/transmit/), [s3cmd](http://s3tools.org/s3cmd),
+and [DragonDisk](http://www.dragondisk.com/).
 
 In this configuration, the client connects to Riak CS as the endpoint. There is
 no masquerading as Amazon S3.
