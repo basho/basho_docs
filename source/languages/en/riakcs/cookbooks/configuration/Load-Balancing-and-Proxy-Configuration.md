@@ -10,19 +10,21 @@ keywords: [operator, configuration]
 
 The recommended best practice mode of production Riak CS operation suggests
 placing Riak CS behind a load balancing or proxy solution, either hardware or
-software based.
+software based. You should not expose Riak CS directly to your public facing
+network interfaces.
 
 Riak CS users have reported success in using Riak CS with a variety of load
 balancing and proxy solutions. Common solutions include proprietary hardware
 based load balancers, cloud based load balancing options, such as Amazon's
-Elastic Load Balancer, and open source software based projects like HAProxy.
+Elastic Load Balancer, and open source software based projects like HAProxy
+and Nginx.
 
 This guide briefly explores the commonly used open source software based
-solution HAProxy, and provides some configuration and operational tips
-gathered from community users and operations oriented engineers at Basho.
+solutions HAProxy and Nginx, and provides some configuration and operational
+tips gathered from community users and operations oriented engineers at Basho.
 
 While it is by no means an exhaustive overview of the topic, this guide should
-provide a starting point for implementing an HAProxy solution.
+provide a starting point for implementing an HAProxy or Nginx based solution.
 
 ## HAProxy
 
@@ -37,8 +39,7 @@ Riak CS community in addition to suggestions from Basho engineering.
 ### Example Configuration
 
 The following is an example starting point configuration for HAProxy to act
-as a load balancer to a Riak CS cluster for access by clients using
-the HTTP interface.
+as a load balancer to a Riak CS installation.
 
 <div class="info">The operating system's open files limits need to be
   greater than 256000 for the example configuration that follows. Consult
@@ -49,7 +50,7 @@ the HTTP interface.
 global
     log 127.0.0.1     local0
     log 127.0.0.1     local1 notice
-    maxconn           12083
+    maxconn           256000
     spread-checks     5
     daemon
 
@@ -100,6 +101,48 @@ support, you can enable it by uncommenting the example line, and modifying it
 to suit your environment. More information is available in the
 [HAProxy documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
 
-Also note the entry for checking Riak CS health via the `/riak-cs/ping`
+Also note the option for checking Riak CS health via the `/riak-cs/ping`
 endpoint. This option is essential for checking each Riak CS node as part of
 the round robin load balancing method.
+
+## Nginx
+
+Some users have reported success in using the [Nginx](http://nginx.org/) HTTP
+server to proxy requests for Riak CS. An example that provides access to
+Riak CS is provided here for reference.
+
+### Example Configuration
+
+The following is an example starting point configuration for Nginx to act as a front end proxy to Riak CS.
+
+```
+upstream riak_cs_host {
+  server  10.0.1.10:8080;
+}
+
+server {
+  listen   80;
+  server_name  _;
+  access_log  /var/log/nginx/riak_cs.access.log;
+
+  location / {
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_redirect off;
+
+      proxy_connect_timeout      90;
+      proxy_send_timeout         90;
+      proxy_read_timeout         90;
+
+      proxy_buffer_size          64k;  # If set to a smaller value,
+                                       # nginx can complain with a
+                                       # "headers too large" error
+      
+      proxy_pass http://riak_cs_host;
+    }
+}
+```
+
+Note that the directive `proxy_set_header Host $http_host` is essential to
+ensure that the `HTTP Host:` header is passed to Riak CS as received, rather
+than being translated into hostname or address of the Riak CS backend server.
