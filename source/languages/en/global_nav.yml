@@ -211,6 +211,7 @@ riakee:
           - "[[Architecture|Multi Data Center Replication Architecture]]"
           - "[[Configuration|Multi Data Center Replication Configuration]]"
           - "[[Operations|Multi Data Center Replication Operations]]"
+          - "[[Quick Start|Multi Data Center Replication Default Quick Start]]"          
           - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
           - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync]]"
           - "[[SSL|Multi Data Center Replication SSL]]"
@@ -222,6 +223,7 @@ riakee:
           - "[[Architecture|Multi Data Center Replication Architecture New]]"
           - "[[Configuration|Multi Data Center Replication Configuration New]]"
           - "[[Operations|Multi Data Center Replication Operations New]]"
+          - "[[Quick Start|Multi Data Center Replication Advanced Quick Start]]"  
           - "[[Statistics|Multi Data Center Replication Status]]"
   - title: "Operating Riak Enterprise"
     sub:
