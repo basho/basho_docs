@@ -13,7 +13,6 @@ The Riak Multi Data Center Replication Quick Start will walk through the process
 ### Prerequisites
 This Guide assumes that you have completed the following steps:
 
-* Install [Erlang R15B01](http://docs.basho.com/riak/latest/tutorials/installation/Installing-Erlang/)
 * Install [Riak Enterprise](http://docs.basho.com/riakee/latest/) 
 * Perform [System Tuning](http://docs.basho.com/riak/latest/cookbooks/Linux-Performance-Tuning/) (optional)
 
