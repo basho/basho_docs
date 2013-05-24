@@ -1,9 +1,9 @@
 riak:
-  # - title: "Shortcuts"
-  #   class: "active shortcuts"
-  #   sub:
-  #     - "[[APIs|/references/apis/]]"
-  #     - "[[FAQs]]"
+  - title: "Shortcuts"
+    class: "active shortcuts"
+    sub:
+      - "[[APIs|/references/apis/]]"
+      - "[[FAQs]]"
 
   # - title: "Start Here"
   #   class: "start"
