@@ -22,13 +22,14 @@ en:
       title: Riak Enterprise Only
       body: "This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise, <a href=\"http://info.basho.com/Wiki_Contact.html\">let us know</a>."
   riak_index:
+    getting_started_t: "Getting Started"
     getting_started_p: "Are you new to Riak? You can get started with these tutorials. Then look through the [[FAQs]] if you have more questions."
     getting_started:
       title: "Getting Started"
       fast_track: "[[The Riak Fast Track]]"
       installing: "[[Installing and Upgrading]]"
       querying: "[[Querying Riak]]"
-    developing_t: "Developing with Riak"
+    developing_t: "Riak for Developers"
     developing_p: "If you are a Riak user wanting to develop on an existing installation, look through these resources. Also check out the [[FAQs for Using Riak|Developing on Riak FAQs]]."
     developing:
       querying: "[[Query Choices|Querying Riak]]"
@@ -54,7 +55,7 @@ en:
         libs: "[[Client Libraries]]"
         community: "[[Community Developed Projects|Community Developed Libraries and Projects]]"
         riak_cmd: "[[riak|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>"
-    operating_t: "Operating Riak"
+    operating_t: "Riak for Operators"
     operating_p: "If you are a Riak administrator needing to configure, deploy, and manage an installation, these links are for you. There are also some good [[Operating Riak FAQs]]."
     operating:
       launching: "Launching Riak"

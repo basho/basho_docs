@@ -13,7 +13,7 @@ download:
   name: "Red Hat or CentOS"
 ---
 
-When installing Riak on CentOS or Redhat you can install from source or from our custom .rpm package.
+When installing Riak on CentOS or Red Hat you can install from source or from our custom .rpm package.
 
 ## Notes
 
@@ -68,8 +68,8 @@ sudo rpm -Uvh riak-1.2.1-1.el5.x86_64.rpm
 {{#1.3.0}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/rhel/5/riak-1.3.0rc2-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-1.3.0rc2-1.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/rhel/5/riak-1.3.0-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-1.3.0-1.el5.x86_64.rpm
 ```
 
 {{/1.3.0}}
@@ -120,8 +120,8 @@ sudo rpm -Uvh riak-1.2.1-1.el6.x86_64.rpm
 {{#1.3.0}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/rhel/6/riak-1.3.0rc2-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-1.3.0rc2-1.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/rhel/6/riak-1.3.0-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-1.3.0-1.el6.x86_64.rpm
 ```
 
 {{/1.3.0}}
@@ -129,7 +129,7 @@ sudo rpm -Uvh riak-1.3.0rc2-1.el6.x86_64.rpm
 
 ## Installing From Source
 
-Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
+Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02 or R15B03, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
 
 If you do not have Erlang already installed, see our guide to [[Installing Erlang]]. Don’t worry, it’s easy!
 
@@ -188,6 +188,17 @@ make rel
 ```
 
 {{/1.2.1}}
+
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
+tar zxvf riak-1.3.0.tar.gz
+cd riak-1.3.0
+make rel
+```
+
+{{/1.3.0}}
 
 You will now have a fresh build of Riak in the `rel/riak` directory.
 

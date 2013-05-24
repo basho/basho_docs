@@ -29,7 +29,7 @@ If you have chosen [[Bitcask]] as your backend, you will also want to run throug
 
 We recommend deploying Riak on a mainstream Unix-like operating system. Mainstream distributions have larger support communities making solutions to common problems easier to find. Basho provides binary packages of Riak for the following distributions:
 
-* **Redhat based:** Redhat Enterprise Linux, CentOS, Fedora Core
+* **Red Hat based:** Red Hat Enterprise Linux, CentOS, Fedora Core
 * **Debian based:** Debian, Ubuntu
 * **Solaris based:** Sun Solaris, OpenSolaris
 
@@ -42,7 +42,7 @@ If you use [[Basho's Riak packages|http://downloads.basho.com/riak/]], there is 
 Riak is designed to scale horizontally -- that is, to improve performance as you add nodes -- but it can always take advantage of more powerful hardware. The following are some general hardware recommendations:
 
 * **Multi-core 64-bit CPU** - Because Riak is built on Erlang, more cores means more concurrency and thus greater performance. Riak also performs certain numerical computations more efficiently on 64-bit architectures.
-* **Multiple GB RAM** - More RAM means more data can be held in main memory, resulting in greater read, write, and [[MapReduce]] performance. Insufficient RAM will increase swap utilization, causing performance degradation as memory operations begin to contend with normal disk operations. You can use tools, such as our [[Bitcask calculator|Bitcask Capacity Planning]], to calculate how much memory your nodes need to fit your dataset into Bitcask. Be sure to read [[Cluster Capacity Planning]] for more information on memory and disk usage.
+* **Minimum 4 GB RAM** - More RAM means more data can be held in main memory, resulting in greater read, write, and [[MapReduce]] performance. Insufficient RAM will increase swap utilization, causing performance degradation as memory operations begin to contend with normal disk operations. You can use tools, such as our [[Bitcask calculator|Bitcask Capacity Planning]], to calculate how much memory your nodes need to fit your dataset into Bitcask. Be sure to read [[Cluster Capacity Planning]] for more information on memory and disk usage.
 * **Multiple Fast Hard Disks (RAID and/or SSD)** - Because many operations in Riak are I/O-bound, it is important to have fast hard disks to achieve good performance. Configuring disks RAID0 for increased read/write performance may be helpful as well.
 * **Fast Network (Gigabit +)** - Riak uses the network heavily for storage operations and for cluster status (ring-state gossip, handoff, etc).  Fast connections between nodes and between clients and the cluster will improve performance.
 
@@ -57,7 +57,7 @@ Like most datastores, **Riak will run best when not virtualized**. Virtual machi
 
 There are at least two acceptable strategies for load-balancing requests across your Riak cluster, **virtual IPs** and **reverse-proxy**.
 
-For **virtual IPs**, we recommend using any of the various VIP implementations. We don't recommend VRRP behaviour for the VIP because you'll lose the benefit of spreading client query load to all nodes in a ring.
+For **virtual IPs**, we recommend using any of the various VIP implementations. We don't recommend VRRP behavior for the VIP because you'll lose the benefit of spreading client query load to all nodes in a ring.
 
 For **reverse-proxy** configurations (HTTP interface), any one of these should work adequately:
 
