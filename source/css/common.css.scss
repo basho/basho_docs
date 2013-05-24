@@ -675,6 +675,7 @@ div[role="main"] {
     }
     
     .tagline {
+      display: none;
       @extend .block;
       text-align : left;
       margin     : 4px 0 0 3px;
@@ -703,6 +704,7 @@ div[role="main"] {
       padding    : 32px 0 0 0;
       
       a {
+        display: none;
         @extend .green-link;
         @extend .block;
         @include bgPattern('light-green-bg.jpg');
@@ -800,6 +802,9 @@ div[role="main"] {
     
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
       max-width: 600px;
+      &.center-text {
+        max-width:100%;
+      }
     }
     nav.tutorial {
       ul, h4 {

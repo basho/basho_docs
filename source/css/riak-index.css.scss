@@ -1,11 +1,18 @@
 #riak-index {
   article > section {
     @include allCorners(8px);
-    @include boxShadow(inset 0 0 20px #A1A1A1);
+    //@include boxShadow(inset 0 0 20px #A1A1A1);
     background    : rgba(0, 0, 0, .05);
-    border        : 1px solid #F1F1F1;
+    border        : 1px solid #E1E1E1;
     margin        : 0.25em 1em 0.35em 0em;
     border-bottom : 1px solid #F1F1F1;
+
+    max-width: 650px;
+    //margin-left:   auto;
+    //margin-right:  auto;
+    margin-bottom: 0.85em;
+    box-shadow: inset 0 0 20px #a1a1a1,
+                -4px 4px 8px #999;
 
     header {
       
@@ -14,7 +21,9 @@
       }
       
       h1 {
-        padding-top : 10px;
+        padding-top : 16px;
+        text-align : center;
+        border-bottom : 1px dashed #DDD;
       }
 
       a.command {
@@ -82,9 +91,9 @@
       }
     }
     
-    &:hover {
+    /* &:hover {
       border : 1px solid #F1F1FF;
-    }
+    } */
 
     &#getting-started {
       .content {

@@ -34,9 +34,9 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 	```
 	gem install bundler
 	bundle install
-	middleman
+	bundle exec middleman
 	```
-	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/) is a good place to 	start.
+	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/) is a good place to start.
 
 	Now point a browser at http://localhost:4567.  Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
 
@@ -193,13 +193,7 @@ _Note that the layout will look ugly. At the moment shared files, like css or js
 To try out the thin server in the way production functions, first build the static files:
 
 ```
-RIAK_VERSION=1.2.1 middleman build
-```
-
-If that doesn't work, try adding bundle exec
-
-```
-RIAK_VERSION=1.2.1 bundle exec middleman build
+RIAK_VERSION=1.3.1 bundle exec middleman build
 ```
 
 Then you can run the thin server locally:
@@ -237,13 +231,13 @@ Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
 Then to deploy, run the deploy.rb scripts with a riak version:
 
 ```
-./deploy 1.2.0
+./deploy
 ```
 
-If you need to deploy riak and riakcs with different versions, add the CS version at the end. This would be riak 1.2 and riakcs 1.1.
+If you need to deploy riak and riakcs with different versions, add the CS version at the end. This would be riak 1.3.1 and riakcs 1.1.
 
 ```
-./deploy 1.2.0 1.1.0
+./deploy 1.3.1 1.1.0
 ```
 
 Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) cache, our CDN. Even if all the files are successfully pushed to S3, until CF is invalidated, you'll not see the new files on http://docs.basho.com.
@@ -253,5 +247,5 @@ Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) 
 This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
 
 ```
-RIAK_VERSION=1.2.1 INDEX=true DEPLOY=true middleman build
+RIAK_VERSION=1.3.1 INDEX=true DEPLOY=true middleman build
 ```

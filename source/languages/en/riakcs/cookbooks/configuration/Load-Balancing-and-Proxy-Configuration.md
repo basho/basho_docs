@@ -1,5 +1,5 @@
 ---
-title: Load Balancing and Proxy Configuration
+title: Load Balancing and Proxy Configuration for CS
 project: riakcs
 version: 1.2.0+
 document: cookbook

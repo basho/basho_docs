@@ -8,7 +8,7 @@ keywords: [tutorial, installing, osx]
 prev: "[[Installing on RHEL and CentOS]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on FreeBSD]]"
-download: 
+download:
   key: osx
   name: "Mac OS X"
 ---
@@ -97,20 +97,36 @@ tar xzvf riak-1.2.1-osx-i386.tar.gz
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/osx/10.6/riak-1.3.0rc2-osx-x86_64.tar.gz
-tar xzvf riak-1.2.1-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/osx/10.6/riak-1.3.0-osx-x86_64.tar.gz
+tar xzvf riak-1.3.0-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0rc2/osx/10.6/riak-1.3.0rc2-osx-i386.tar.gz
-tar xzvf riak-1.2.1-osx-i386.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/osx/10.6/riak-1.3.0-osx-i386.tar.gz
+tar xzvf riak-1.3.0-osx-i386.tar.gz
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
 
-After the release is untared you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/osx/10.6/riak-1.3.1-osx-x86_64.tar.gz
+tar xzvf riak-1.3.1-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/osx/10.6/riak-1.3.1-osx-i386.tar.gz
+tar xzvf riak-1.3.1-osx-i386.tar.gz
+```
+
+{{/1.3.1}}
+After the release is untarred you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
 
 ## Homebrew
 
@@ -125,11 +141,11 @@ brew install riak
 Homebrew will install Erlang if you don't have it already.
 
 ## From Source
-You must have XCode tools installed from the CD that came with your Mac or from [[Apple's Developer website|http://developer.apple.com/]].
+You must have Xcode tools installed from the CD that came with your Mac or from [[Apple's Developer website|http://developer.apple.com/]].
 
 <div class="note">Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 
-Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
+Riak requires [[Erlang|http://www.erlang.org/]] R15B01. *Note: don't use Erlang version R15B02 or R15B03, for the moment, as it causes an [error with riak-admin status](https://github.com/basho/riak/issues/227) commands*.
 
 If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
 
@@ -175,6 +191,27 @@ make rel
 ```
 
 {{/1.2.1}}
+
+{{#1.3.0}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
+tar zxvf riak-1.3.0.tar.gz
+cd riak-1.3.0
+make rel
+```
+
+{{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
+tar zxvf riak-1.3.1.tar.gz
+cd riak-1.3.1
+make rel
+```
+
+{{/1.3.1}}
 
 If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher - 64bit, everything else - 32bit).
 

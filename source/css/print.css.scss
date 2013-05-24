@@ -32,4 +32,9 @@ body {
   aside#nav-container {
     display:none;
   }
+
+  .page-break {
+    display: block;
+    page-break-before: always;
+  }
 }
