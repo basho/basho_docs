@@ -55,7 +55,9 @@ On a node in Cluster2, `node4` for example, initiation and name this cluster wit
 
 From Cluster1, connect to the IP and port of Cluster2 with `riak-repl  connect <sink_ip>:<port>`
 
-	riak-repl connect 10.60.77.10:10046
+	riak-repl connect 10.60.77.10:9080
+
+> NOTE: The port can be found in the riak_core section of the app.config under cluster_mgr.
 	
 #### View your active connections
 
@@ -64,7 +66,7 @@ From Cluster1, view your active connections with `riak-repl connections`
 ```
 Sink             Cluster Name         <Ctrl-Pid>      [Members]
 ----             ------------         ----------      ---------
-Cluster2          Cluster2            <0.7985.0>      ["10.60.77.10:10046"] (via 10.60.77.10:10046)
+Cluster2          Cluster2            <0.7985.0>      ["10.60.77.10:9080"] (via 10.60.77.10:9080)
 ```
 
 ### Set up Cluster2 -> Cluster1 Connection (if bidirectional replication is desired)
@@ -73,7 +75,7 @@ Cluster2          Cluster2            <0.7985.0>      ["10.60.77.10:10046"] (via
 
 From Cluster2, connect to the IP and port of Cluster1 with `riak-repl  connect <sink_ip>:<port>`
 
-	riak-repl connect 10.60.67.149:10016
+	riak-repl connect 10.60.67.149:9080
 	
 #### View your active connections
 
@@ -82,10 +84,10 @@ From Cluster2, view your active connections with `riak-repl connections`
 ```
 Sink             Cluster Name         <Ctrl-Pid>      [Members]
 ----             ------------         ----------      ---------
-Cluster1          Cluster1            <0.4456.0>      ["10.60.67.149:10016"] (via 10.60.67.149:10016)
+Cluster1          Cluster1            <0.4456.0>      ["10.60.67.149:9080"] (via 10.60.67.149:9080)
 ```
 
-> NOTE: At this point if you do not have connections, then replication will not work.  Check your IP bindings running 'netstat -a' on all nodes, you should see '*:9010 LISTENING'. If not, you have configuration problems.
+> NOTE: At this point if you do not have connections, then replication will not work.  Check your IP bindings running 'netstat -a' on all nodes, you should see '*:9080 LISTENING'. If not, you have configuration problems.
 
 
 
