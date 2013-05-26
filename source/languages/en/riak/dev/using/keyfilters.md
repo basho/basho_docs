@@ -1,5 +1,5 @@
 ---
-title: Key Filters
+title: Using Key Filters
 project: riak
 version: 1.3.1+
 document: tutorials
@@ -12,7 +12,7 @@ Key filters are a way to pre-process [[MapReduce]] inputs from a full bucket que
 
 ## Understanding key filters
 
-Key filters can be thought of as a series or pipeline of [transformations](#Transform-functions) and [predicates](#Predicate-functions) that attempt to match keys produced by the list-keys operation.  Keys that match the predicates are fed into the MapReduce query as if they had been specified manually.
+Key filters can be thought of as a series or pipeline of [[transformations|Using Key Filters#Transform-functions]] and [[predicates|Using Key Filters#Predicate-functions]] that attempt to match keys produced by the list-keys operation.  Keys that match the predicates are fed into the MapReduce query as if they had been specified manually.
 
 To illustrate this, let's contrive an example.  Let's say we're storing customer invoices with a key constructed from the customer name and the date, in a bucket called "invoices".  Here are some sample keys:
 
@@ -27,7 +27,7 @@ Given that key scheme, here are some queries we will be able to do simply with k
 * Find invoices from customers who have names containing the word "solutions".
 * Find invoices that were sent on the 3rd of June.
 
-Solutions to these queries are shown in the [examples](#Example-query-solutions) below.
+Solutions to these queries are shown in the [[examples|Using Key Filters#Example-query-solutions]] below.
 
 Once the keys are filtered to only the items we care about, the normal MapReduce pipeline can further filter, transform, extract, and aggregate all the data we are interested in.
 
@@ -55,7 +55,7 @@ riakc_pb_socket:mapred(Pid, {<<"invoices">>, [[<<"ends_with">>,<<"0603">>]]}, Qu
 
 ## Transform functions
 
-Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [predicate functions](#Predicate-functions).  Each function description is followed by a sample usage in JSON notation.
+Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [[predicate functions|Using Key Filters#Predicate-functions]].  Each function description is followed by a sample usage in JSON notation.
 
 ### `int_to_string`
 
@@ -123,7 +123,7 @@ URL-decodes the string.
 
 ## Predicate functions
 
-Predicate key-filter functions perform a test on their inputs and return true or false. As such, they should be specified last in a sequence of key-filters and are often preceded by [transform functions](#Transform-functions).
+Predicate key-filter functions perform a test on their inputs and return true or false. As such, they should be specified last in a sequence of key-filters and are often preceded by [[transform functions|Using Key Filters#Transform-functions]].
 
 <div class="note"><div class="title">Comparison predicates</div> Predicates like `greater_than`, `less_than_eq`, and `between` follow Erlang's precedence rules for comparisons. Generally this means that numbers will be compared by value (including appropriate coercions) and strings will be compared lexically.</div>
 

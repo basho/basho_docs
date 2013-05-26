@@ -24,7 +24,7 @@ In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can 
 ## When to Use MapReduce
 
 * When you know the set of objects you want to MapReduce over (the bucket-key pairs)
-* When you want to return actual objects or pieces of the object – not just the keys, as do Search & Secondary Indexes
+* When you want to return actual objects or pieces of the object – not just the keys, as do [[Search|Using KV Search]] and [[Secondary Indexes|Using Secondary Indexes]]
 * When you need utmost flexibility in querying your data. MapReduce gives you full access to your object and lets you pick it apart any way you want.
 
 ## When Not to Use MapReduce
@@ -38,8 +38,8 @@ The MapReduce framework helps developers divide a query into steps, divide the d
 
 There are two steps in a MapReduce query:
 
-* Map – data collection phase. Map breaks up large chunks of work into smaller ones and then takes action on each chunk.
-* Reduce – data collation or processing phase. Reduce combines the many results from the map step into a single output _(this step is optional)_.
+* **Map**: data collection phase. Map breaks up large chunks of work into smaller ones and then takes action on each chunk.
+* **Reduce**: data collation or processing phase. Reduce combines the many results from the map step into a single output _(this step is optional)_.
 
 ![MapReduce Diagram](/images/MapReduce-diagram.png)
 
@@ -61,23 +61,23 @@ In this example we will create four objects with the text "pizza" sometimes repe
 ### Data object input commands:
 
 ```bash
-curl -XPUT http://localhost:8091/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
-curl -XPUT http://localhost:8091/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
-curl -XPUT http://localhost:8091/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
-curl -XPUT http://localhost:8091/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+curl -XPUT http://localhost:8089/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
+curl -XPUT http://localhost:8089/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
+curl -XPUT http://localhost:8089/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
+curl -XPUT http://localhost:8089/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
 ```
 
 ### MapReduce script and deployment:
 
-```bash
-curl -XPOST http://localhost:8091/mapred \
+```javascript
+curl -XPOST http://localhost:8089/mapred \
   -H 'Content-Type: application/json' \
   -d '{
     "inputs":"training",
     "query":[{"map":{"language":"javascript",
     "source":"function(riakObject) {
-      var m = riakObject.values[0].data.match(/pizza/g);
-      return [[riakObject.key, (m ? m.length : 0 )]];
+      var val = riakObject.values[0].data.match(/pizza/g);
+      return [[riakObject.key, (val ? val.length : 0 )]];
     }"}}]}'
 ```
 
@@ -91,7 +91,7 @@ The output is the key of each  object, followed by the count of the word  "pizza
 
 ### Recap
 
-We use the 'training' bucket as the input data; we run a Javascript MapReduce function; the function takes each riakObject that exists in the 'training' bucket and searches the text for the  word  "pizza"; 'm' is the result of the  search, which includes zero or more results that matches for "pizza";" the function returns the key of the riakObject and the number of matches.
+We run a Javascript MapReduce function against the `training` bucket, which takes each `riakObject` (a JavaScript representation of a key/value) and searches the text for the word "pizza". `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
 
 
 ## NEED TO ADD
@@ -101,5 +101,5 @@ We use the 'training' bucket as the input data; we run a Javascript MapReduce fu
 
 ## Further Reading
 
-* [[MapReduce Implementation]] - details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details.
-* [[Key Filters]] - Key filters are a way to pre-process MapReduce inputs from a full bucket query simply by examining the key.
+* [[Advanced MapReduce]]: Details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details
+* [[Using Key Filters]]: Pre-processing MapReduce inputs from a full bucket query by examining the key

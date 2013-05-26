@@ -8,8 +8,7 @@ audience: beginner
 keywords: [developers, search, kv]
 ---
 
-If Riak Search is enabled in your environment...
-
+You must first [[enable Riak Search|Riak Search Settings]] in your environment to use it.
 
 ## Query Syntax
 
@@ -32,22 +31,17 @@ color:red
 
 Or:
 
-
 ```bash
 title:"See spot run"
 ```
 
-
 You can further specify an index by prefixing the field with the index name. For example:
-
 
 ```bash
 products.color:red
 ```
 
-
 Or:
-
 
 ```bash
 books.title:"See spot run"
@@ -83,7 +77,6 @@ Proximity searching allows you to find terms that are within a certain number of
 
 For example:
 
-
 ```bash
 "See spot run"~20
 ```
@@ -96,19 +89,15 @@ Range searches allow you to find documents with terms in between a specific rang
 
 The following example will return documents with words containing "red" and "rum", plus any words in between.
 
-
 ```bash
 "field:[red TO rum]"
 ```
 
-
 The following example will return documents with words in between "red" and "rum":
-
 
 ```bash
 "field:{red TO rum}"
 ```
-
 
 ## Boosting a Term
 
@@ -116,9 +105,7 @@ A term (or phrase) can have its score boosted using the caret operator along wit
 
 In the following example, documents with the term "red" will have their score boosted:
 
-
 ```bash
-
 red^5 OR blue
 ```
 
@@ -128,18 +115,13 @@ Queries can use the boolean operators AND, OR, and NOT. The boolean operators mu
 
 The following example return documents containing the words "red" and "blue" but not "yellow".
 
-
 ```bash
-
 red AND blue AND NOT yellow
 ```
 
-
 The required ( + ) operator can be used in place of "AND", and the prohibited ( - ) operator can be used in place of "AND NOT". For example, the query above can be rewritten as:
 
-
 ```bash
-
 +red +blue -yellow
 ```
 
@@ -147,9 +129,7 @@ The required ( + ) operator can be used in place of "AND", and the prohibited ( 
 
 Clauses in a query can be grouped using parentheses. The following query returns documents that contain the terms "red" or "blue", but not "yellow":
 
-
 ```bash
-
 (red OR blue) AND NOT yellow
 ```
 
@@ -161,16 +141,16 @@ Alternatively, the index can be included in the URL, for example `http://hostnam
 
 The following parameters are supported:
 
-* *index=INDEX* - Specifies the default index name.
-* *q=QUERY* - Run the provided query.
-* *df=FIELDNAME* - Use the provided field as the default. Overrides the "default_field" setting in the schema file.
-* *q.op=OPERATION* - Allowed settings are either "and" or "or". Overrides the "default_op" setting in the schema file. Default is "or".
-* *start=N* - Specify the starting result of the query. Useful for paging. Default is 0.
-* *rows=N* - Specify the maximum number of results to return. Default is 10.
-* *sort=FIELDNAME* - Sort on the specified field name after the given rows are found. Default is "none", which causes the results to be sorted in descending order by score.
-* *presort=key|score* - Sorts all of the results by bucket key, or the search score, before the given rows are chosen. This is useful when paginating to ensure the results are returned in a consistent order.
-* *wt=FORMAT* - Choose the format of the output.  Options are "xml" and "json".  The default is "xml".
-* *filter=FILTERQUERY* - Filters the search by an additional query scoped to [[inline fields|Riak Search - Schema#Fields-and-Field-Level-Properties]].
+* `index=INDEX`: Specifies the default index name.
+* `q=QUERY`: Run the provided query.
+* `df=FIELDNAME`: Use the provided field as the default. Overrides the "default_field" setting in the schema file.
+* `q.op=OPERATION`: Allowed settings are either "and" or "or". Overrides the "default_op" setting in the schema file. Default is "or".
+* `start=N`: Specify the starting result of the query. Useful for paging. Default is 0.
+* `rows=N`: Specify the maximum number of results to return. Default is 10.
+* `sort=FIELDNAME`: Sort on the specified field name after the given rows are found. Default is "none", which causes the results to be sorted in descending order by score.
+* `presort=key|score`: Sorts all of the results by bucket key, or the search score, before the given rows are chosen. This is useful when paginating to ensure the results are returned in a consistent order.
+* `wt=FORMAT`: Choose the format of the output.  Options are "xml" and "json".  The default is "xml".
+* `filter=FILTERQUERY`: Filters the search by an additional query scoped to [[inline fields|Advanced Search#Fields-and-Field-Level-Properties]].
 
 <div class="info">
 <div class="title">Limitations on Presort</div>
@@ -183,8 +163,6 @@ To query data in the system with Curl:
 ```bash
 curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
 ```
-</div>
-</div>
 
 ## Querying via the Riak Client API
 
@@ -247,7 +225,6 @@ Developers who are using a language without an official Riak API or prefer to us
 The syntax is fairly simple.  In the "inputs" section of your map/reduce query, use the new "modfun" specification, naming "riak_search" as your module, "mapred_search" as your function, and your index and query as the arguments.
 
 For example, if you wanted to search the "customers" bucket for objects that had the text "john" in their "first_name" field, you would normally issue a Solr query like:
-
 
 ```bash
 $ curl http://localhost:8098/solr/customers/select?q=first_name:john

@@ -84,6 +84,5 @@ returned. The final traversal in a link-walking request always returns
 results.
 
 -   [[Link-walking by
-    Example|http://blog.basho.com/2010/02/24/link-walking-by-example/]]
+    Example|http://basho.com/link-walking-by-example/]]
     on the Basho Blog
--   [[Links and Link Walking]] on the Riak Fast Track
