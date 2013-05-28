@@ -8,7 +8,7 @@ keywords: [tutorial, installing, freebsd]
 prev: "[[Installing on Mac OS X]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on SmartOS]]"
-download: 
+download:
   key: freebsd
   name: "FreeBSD"
 ---
@@ -52,13 +52,23 @@ sudo pkg_add -r http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/ri
 {{#1.3.0}}
 
 You can install the Riak binary package on FreeBSD remotely using the
-`pkg_add` remote option. For this example, we're installing `riak-1.2.1-FreeBSD-amd64.tbz`.
+`pkg_add` remote option. For this example, we're installing `riak-1.3.0-FreeBSD-amd64.tbz`.
 
 ```bash
 sudo pkg_add -r http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/freebsd/9/riak-1.3.0-FreeBSD-amd64.tbz
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+You can install the Riak binary package on FreeBSD remotely using the
+`pkg_add` remote option. For this example, we're installing `riak-1.3.1-FreeBSD-amd64.tbz`.
+
+```bash
+sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/freebsd/9/riak-1.3.1-FreeBSD-amd64.tbz
+```
+
+{{/1.3.1}}
 
 When Riak is installed, a message is displayed with information about the installation and available documentation.
 
