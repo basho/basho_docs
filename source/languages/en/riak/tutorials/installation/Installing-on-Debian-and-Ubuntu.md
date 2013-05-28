@@ -8,7 +8,7 @@ keywords: [tutorial, installing, debian, ubuntu, linux]
 prev: "[[Installing Erlang]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on RHEL and CentOS]]"
-download: 
+download:
   key: debian
   name: "Debian or Ubuntu"
 ---
@@ -46,13 +46,24 @@ Installing From Package
 
 If you wish to install the deb packages by hand follow these instructions.
 
+### Installing on Non-LTS Ubuntu Releases
+
+Typically we only package Riak for LTS releases to keep our build and
+testing matrix focused.  In some cases such as Ubuntu 11.04 (Natty),
+there are changes that affect how Riak is packaged so we will release a
+separate package for that non-LTS release.  In most other cases
+though, if you are running a non-LTS release (such as 12.10) it is
+safe to follow the below instructions for the LTS release prior to
+your release.  In the case of Ubuntu 12.10, follow the installation
+instructions for Ubuntu 12.04.
+
 ### SSL Library Requirement for Ubuntu
 
-Riak currently requires libssl version 0.9.8, which is not installed by
-default on recent versions of Ubuntu. Before installing Riak via package
-on Ubuntu, install the `libssl0.9.8` package. Note that this
-version of libssl can be safely installed alongside current/existing
-libssl installations.
+Riak currently requires libssl version 0.9.8 on some versions of
+Ubuntu. Starting at Ubuntu 12.04 this is no longer an issue. Before
+installing Riak via package on Ubuntu, install the `libssl0.9.8`
+package. Note that this version of libssl can be safely installed
+alongside current/existing libssl installations.
 
 To install the libssl version 0.9.8 package, execute the following
 command:
@@ -109,6 +120,14 @@ sudo dpkg -i riak_1.3.0-1_amd64.deb
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/lucid/riak_1.3.1-1_amd64.deb
+sudo dpkg -i riak_1.3.1-1_amd64.deb
+```
+
+{{/1.3.1}}
 
 #### Ubuntu Natty Narwhal (11.04)
 
@@ -152,6 +171,14 @@ sudo dpkg -i riak_1.3.0-1_amd64.deb
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/natty/riak_1.3.1-1_amd64.deb
+sudo dpkg -i riak_1.3.1-1_amd64.deb
+```
+
+{{/1.3.1}}
 
 #### Ubuntu Precise Pangolin (12.04)
 
@@ -195,6 +222,14 @@ sudo dpkg -i riak_1.3.0-1_amd64.deb
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/precise/riak_1.3.1-1_amd64.deb
+sudo dpkg -i riak_1.3.1-1_amd64.deb
+```
+
+{{/1.3.1}}
 
 ### Riak 32-bit Installation
 
@@ -213,6 +248,14 @@ sudo dpkg -i riak_1.3.0-1_i386.deb
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/lucid/riak_1.3.1-1_i386.deb
+sudo dpkg -i riak_1.3.1-1_i386.deb
+```
+
+{{/1.3.1}}
 
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
 
@@ -283,6 +326,16 @@ make rel
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/riak-1.3.1.tar.gz
+tar zxvf riak-1.3.1.tar.gz
+cd riak-1.3.1
+make rel
+```
+
+{{/1.3.1}}
 
 
 If the build was successful, a fresh build of Riak will exist in the

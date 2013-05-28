@@ -8,7 +8,7 @@ keywords: [tutorial, installing, rhel, centos, linux]
 prev: "[[Installing on Debian and Ubuntu]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Mac OS X]]"
-download: 
+download:
   key: rhel
   name: "Red Hat or CentOS"
 ---
@@ -18,7 +18,7 @@ When installing Riak on CentOS or Red Hat you can install from source or from ou
 ## Notes
 
 * CentOS enables SE Linux by default and you may need to disable SE Linux if you encounter errors.
-* Erlang OTP R15B01 and Riak Enterprise 1.2 do not work on CentOS 5.2, but do work on CentOS 5.3 and newer.
+* Erlang OTP R15B01 and Riak Enterprise 1.2 do not work on CentOS 5.2, but does work on CentOS 5.3 and newer.
 
 ## Installing From Our Custom .rpm Package
 
@@ -73,6 +73,14 @@ sudo rpm -Uvh riak-1.3.0-1.el5.x86_64.rpm
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/rhel/5/riak-1.3.1-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-1.3.1-1.el5.x86_64.rpm
+```
+
+{{/1.3.1}}
 
 ### For Centos 6 / RHEL 6
 
@@ -125,6 +133,14 @@ sudo rpm -Uvh riak-1.3.0-1.el6.x86_64.rpm
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/rhel/6/riak-1.3.1-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-1.3.1-1.el6.x86_64.rpm
+```
+
+{{/1.3.1}}
 
 
 ## Installing From Source
@@ -199,6 +215,16 @@ make rel
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/riak-1.3.1.tar.gz
+tar zxvf riak-1.3.1.tar.gz
+cd riak-1.3.1
+make rel
+```
+
+{{/1.3.1}}
 
 You will now have a fresh build of Riak in the `rel/riak` directory.
 
