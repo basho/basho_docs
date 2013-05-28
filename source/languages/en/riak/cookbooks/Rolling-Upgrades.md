@@ -119,7 +119,7 @@ behalf. This data is transferred to the node when it becomes available.
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the 
-[riak-admin reformat-indexes](/references/Command-Line-Tools---riak-admin/#reformat-indexes) command. More details about reformatting indexes are available
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
  in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
@@ -224,7 +224,7 @@ behalf. This data is transferred to the node when it becomes available.
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the 
-[riak-admin reformat-indexes](/references/Command-Line-Tools---riak-admin/#reformat-indexes) command. More details about reformatting indexes are available
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
  in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
@@ -358,7 +358,7 @@ behalf. This data is transferred to the node when it becomes available.
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the 
-[riak-admin reformat-indexes](/references/Command-Line-Tools---riak-admin/#reformat-indexes) command. More details about reformatting indexes are available
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
  in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
