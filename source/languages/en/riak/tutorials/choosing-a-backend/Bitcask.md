@@ -130,10 +130,9 @@ in your [[app.config|Configuration Files]].
   before those buffers are flushed to stable storage that data is lost.
 
   This is prevented by the setting `o_sync` which forces the operating system
-  to flush to stable storage at every write. The effect of lushing each write
-  is flushing each write is better durability however write throughput will
-  flushing each write is better durability however write throughput will as 
-  each write will have to wait for the write to complete.
+  to flush to stable storage at every write. The effect of flushing each
+  write is better durability, however write throughput will suffer as each
+  write will have to wait for the write to complete.
 
   ___Available Sync Strategies___
 
