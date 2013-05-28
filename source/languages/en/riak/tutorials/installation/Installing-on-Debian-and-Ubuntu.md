@@ -185,7 +185,7 @@ sudo dpkg -i riak_1.3.1-1_amd64.deb
 {{#1.0.3}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
 sudo dpkg -i riak_1.0.3-1_amd64.deb
 ```
 
@@ -193,7 +193,7 @@ sudo dpkg -i riak_1.0.3-1_amd64.deb
 {{#1.1.4}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
 sudo dpkg -i riak_1.1.4-1_amd64.deb
 ```
 
@@ -225,7 +225,7 @@ sudo dpkg -i riak_1.3.0-1_amd64.deb
 {{#1.3.1}}
 
 ```bash
-http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/precise/riak_1.3.1-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/precise/riak_1.3.1-1_amd64.deb
 sudo dpkg -i riak_1.3.1-1_amd64.deb
 ```
 
@@ -251,7 +251,7 @@ sudo dpkg -i riak_1.3.0-1_i386.deb
 {{#1.3.1}}
 
 ```bash
-http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/lucid/riak_1.3.1-1_i386.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/lucid/riak_1.3.1-1_i386.deb
 sudo dpkg -i riak_1.3.1-1_i386.deb
 ```
 
@@ -329,7 +329,7 @@ make rel
 {{#1.3.1}}
 
 ```bash
-http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/riak-1.3.1.tar.gz
+wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/riak-1.3.1.tar.gz
 tar zxvf riak-1.3.1.tar.gz
 cd riak-1.3.1
 make rel
