@@ -8,7 +8,7 @@ keywords: [tutorial, installing, smartos]
 prev: "[[Installing on FreeBSD]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Solaris]]"
-download: 
+download:
   key: smartos
   name: "SmartOS"
 ---
@@ -105,6 +105,19 @@ pkg_add /tmp/riak-1.3.0-SmartOS-i386.tgz
 ```
 
 {{/1.3.0}}
+{{#1.3.1}}
+
+```bash
+curl -o /tmp/riak-1.3.1-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/smartos/1.8/riak-1.3.1-SmartOS-i386.tgz
+```
+
+Next, install the package:
+
+```
+pkg_add /tmp/riak-1.3.1-SmartOS-i386.tgz
+```
+
+{{/1.3.1}}
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
 
