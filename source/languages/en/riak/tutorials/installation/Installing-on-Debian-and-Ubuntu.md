@@ -83,7 +83,7 @@ for the target platform:
 {{#1.0.3}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
 sudo dpkg -i riak_1.0.3-1_amd64.deb
 ```
 
@@ -91,7 +91,7 @@ sudo dpkg -i riak_1.0.3-1_amd64.deb
 {{#1.1.4}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
 sudo dpkg -i riak_1.1.4-1_amd64.deb
 ```
 
@@ -134,7 +134,7 @@ sudo dpkg -i riak_1.3.1-1_amd64.deb
 {{#1.0.3}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
 sudo dpkg -i riak_1.0.3-1_amd64.deb
 ```
 
@@ -142,7 +142,7 @@ sudo dpkg -i riak_1.0.3-1_amd64.deb
 {{#1.1.4}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
 sudo dpkg -i riak_1.1.4-1_amd64.deb
 ```
 
@@ -150,7 +150,7 @@ sudo dpkg -i riak_1.1.4-1_amd64.deb
 {{#1.2.0}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/ubuntu/natty/riak_1.2.0-1_amd64.deb
+wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/ubuntu/natty/riak_1.2.0-1_amd64.deb
 sudo dpkg -i riak_1.2.0-1_amd64.deb
 ```
 
@@ -174,7 +174,7 @@ sudo dpkg -i riak_1.3.0-1_amd64.deb
 {{#1.3.1}}
 
 ```bash
-http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/natty/riak_1.3.1-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/ubuntu/natty/riak_1.3.1-1_amd64.deb
 sudo dpkg -i riak_1.3.1-1_amd64.deb
 ```
 
