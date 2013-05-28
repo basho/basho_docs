@@ -115,6 +115,16 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
+{{#1.3.1+}}
+<div class="info"><div class="title">Note for Secondary Index users</div>
+If you use Riak's Secondary Indexes and are upgrading from a version prior to
+Riak version 1.3.1, you need to reformat the indexes using the 
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+ in the
+[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+</div>
+{{/1.3.1+}}
+
 {{#1.1.0-}}
 
 <div class="note">Only perform the following two steps if you are upgrading to
@@ -210,6 +220,17 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
+{{#1.3.1+}}
+<div class="info"><div class="title">Note for Secondary Index users</div>
+If you use Riak's Secondary Indexes and are upgrading from a version prior to
+Riak version 1.3.1, you need to reformat the indexes using the 
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+ in the
+[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+</div>
+{{/1.3.1+}}
+
+{{#1.1.0-}}
 <div class="note">Only perform the following two steps if you are upgrading to
 Riak 1.0 from an earlier release.
 </div>
@@ -229,7 +250,7 @@ and then add to the `riak_core` section:
 {platform_data_dir, "/var/lib/riak"}
 ```
 
-10.\ Either run `riak stop` followed by `riak start` on all of the nodes in
+10\. Either run `riak stop` followed by `riak start` on all of the nodes in
 the cluster or use `riak attach` on each node and execute the following
 commands:
 
@@ -239,6 +260,7 @@ commands:
 > application:set_env(riak_kv, vnode_vclocks, true).
 ```
 
+{{/1.1.0-}}
 
 ## Solaris/OpenSolaris
 
@@ -331,6 +353,16 @@ riak-admin transfers
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
+
+{{#1.3.1+}}
+<div class="info"><div class="title">Note for Secondary Index users</div>
+If you use Riak's Secondary Indexes and are upgrading from a version prior to
+Riak version 1.3.1, you need to reformat the indexes using the 
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+ in the
+[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+</div>
+{{/1.3.1+}}
 
 {{#1.1.0-}}
 
