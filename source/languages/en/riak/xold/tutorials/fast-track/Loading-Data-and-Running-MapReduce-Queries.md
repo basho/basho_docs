@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, fast-track]
 prev: "[[Basic HTTP Operations|Basic Riak API Operations]]"
 up:   "[[The Riak Fast Track]]"
-next: "[[Tunable CAP Controls|Tunable CAP Controls in Riak]]"
+next: "[[Tunable CAP Controls|CAP Controls]]"
 versions: false
 interest: [
 "[[MapReduce]]",

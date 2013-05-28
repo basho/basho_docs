@@ -1,12 +1,10 @@
 ---
-title: Tunable CAP Controls in Riak
+title: CAP Controls
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
-keywords: [tutorial, fast-track]
-prev: "[[MapReduce Queries|Loading Data and Running MapReduce Queries]]"
-up:   "[[The Riak Fast Track]]"
+keywords: [developers, cap]
 versions: false
 interest: [
 "[[Installing and Upgrading]]",

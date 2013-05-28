@@ -1,13 +1,10 @@
 ---
-title: What is Riak
+title: Why Riak
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: "[[The Riak Fast Track]]"
-up:   "[[The Riak Fast Track]]"
-next: "[[Building a Dev Environment|Building a Development Environment]]"
 versions: false
 interest: [
 "[[Clusters]]",
@@ -18,7 +15,15 @@ interest: [
 ]
 ---
 
-This page introduces the architecture behind Riak's core principles: availability, fault-tolerance, operational simplicity and predictable scaling. If you already know this, you can skip it and go [[build a four-node cluster|Building a Development Environment]].
+Riak is a distributed database based on a few core principles.
+
+Purpose | Description
+-------|-------
+**Availability** | Riak replicates and retrieves data intelligently so it is available for read and write operations, even in failure conditions
+**Fault-tolerance** | You can lose access to many nodes due to network partition or hardware failure and never lose data
+**Operational simplicity** | Add new machines to your Riak cluster easily without incurring a larger operational burden - the same ops tasks apply to small clusters as large clusters
+**Scalability** | Riak automatically distributes data around the cluster and yields a near-linear performance increase as you add capacity
+
 
 ## How Does a Riak Cluster Work?
 
@@ -66,4 +71,4 @@ How is divergence addressed? When you make a read request, Riak looks up all rep
 Further, when an outdated replica is returned as part of a read request, Riak will automatically update the out-of-sync replica to make it consistent. Read repair, a self-healing property of the database, will even update a replica that returns a "not_found" in the event that a node loses it due to physical failure.
 
 ### Reading and Writing Data in Failure Conditions
-In Riak, you can set an _r_ value for reads and a _w_ value for writes. These values give you control over how many replicas must respond to a request for it to succeed. Let's say you have an _n_ value of 3, but one of the physical nodes responsible for a replica is down. With r=2, only 2 replicas must return results for a successful read. This allows Riak to provide read availability even when nodes are down or laggy. The same applies for the _w_ in writes. If you don't specify, Riak defaults to quorum: the majority of nodes must respond. There will be more on [[Tunable CAP Controls in Riak]] later in the Fast Track.
+In Riak, you can set an _r_ value for reads and a _w_ value for writes. These values give you control over how many replicas must respond to a request for it to succeed. Let's say you have an _n_ value of 3, but one of the physical nodes responsible for a replica is down. With r=2, only 2 replicas must return results for a successful read. This allows Riak to provide read availability even when nodes are down or laggy. The same applies for the _w_ in writes. If you don't specify, Riak defaults to quorum: the majority of nodes must respond. There will be more on [[CAP Controls]].

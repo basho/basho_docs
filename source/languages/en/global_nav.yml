@@ -1,34 +1,21 @@
 riak:
-  - title: "Shortcuts"
-    class: "active shortcuts"
-    sub:
-      - "[[APIs|/references/apis/]]"
-      - "[[FAQs]]"
-
-  # - title: "Start Here"
-  #   class: "start"
+  # - title: "Shortcuts"
+  #   class: "active shortcuts"
   #   sub:
-  #     - "[[Getting Started with Riak|Riak]]"
-  #     - "[[The Riak Fast Track]]"
-  #     - "[[Download Riak|Downloads]]"
-  #     - "[[Query Choices|Querying Riak]]"
-  #     - title: "Concepts"
-  #       sub:
-  #         - "[[Concepts Overview|Concepts]]"
-  #         - "[[Buckets]]"
-  #         - "[[Clusters]]"
-  #         - "[[Commit Hooks]]"
-  #         - "[[Eventual Consistency]]"
-  #         - "[[Keys and Objects]]"
-  #         - "[[Links]]"
-  #         - "[[Replication]]"
-  #         - "[[Vector Clocks]]"
-  #         - "[[Riak Glossary]]"
+  #     - "[[APIs|/references/apis/]]"
+  #     - "[[FAQs]]"
+  - title: "Start Here"
+    class: "start"
+    sub:
+      - "[[Start Here|Riak]]"
+      - "[[Why Riak?|Why Riak]]"
+      - "[[Download Riak|Downloads]]"
+      - "[[Five Minute Install]]"
 
   - title: "Riak for Developers"
     sub:
       # - "[[Have a Taste]]"
-      - title: "Using Riak"
+      - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
           - "[[MapReduce|Using MapReduce]]"
@@ -59,6 +46,7 @@ riak:
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Client Libraries]]"
           - "[[Community Libraries|Community Developed Libraries and Projects]]"
+          - "[[CAP Controls]]"
           - title: "References"
             sub:
               - "[[Bucket References]]"
@@ -144,7 +132,19 @@ riak:
 
   - title: "Theory & Concepts"
     sub:
-      - title: "Riak Compared to..."
+      - title: "Concepts"
+        sub:
+          - "[[Concepts Overview|Concepts]]"
+          - "[[Riak Glossary]]"
+          - "[[Buckets]]"
+          - "[[Clusters]]"
+          - "[[Commit Hooks]]"
+          - "[[Eventual Consistency]]"
+          - "[[Keys and Objects]]"
+          - "[[Links]]"
+          - "[[Replication]]"
+          - "[[Vector Clocks]]"
+      - title: "Riak Compared to"
         sub:
           # - "[[Riak Comparisons Overview|Riak Comparisons]]"
           - "[[Cassandra|Riak Compared to Cassandra]]"
@@ -162,12 +162,11 @@ riak:
           - "[[Operating Riak|Operating Riak FAQs]]"
           - "[[Log Messages|Log Messages FAQs]]"
           - "[[Riak Community|Riak Community FAQs]]"
+      - "[[Dynamo Paper|Dynamo]]"
 
   - title: "References"
     sub:
-      - "[[Release Notes]]"
-      - "[[Riak and Dynamo|Dynamo]]"
-      - title: "Community Resources"
+      - title: "Community"
         sub:
           - "[[Community Overview|Community Resources]]"
           - "[[Introductions|Overviews and Introductions]]"
@@ -175,10 +174,9 @@ riak:
           - "[[Developing with Riak]]"
           - "[[Searching and Accessing Data]]"
           - "[[Riak Sample Applications]]"
-      - "[[Critical Issues]]"
-      - "[[How to Report a Bug]]"
-      - "[[Logos]]"
-      - "[[We Run Riak Badges]]"
+      - "[[Reporting Bugs]]"
+      - "[[Riak Images]]"
+      - "[[Release Notes]]"
 
 
 riakee:

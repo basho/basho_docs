@@ -203,7 +203,7 @@ You may also pass just the name of a bucket `({"inputs":"mybucket",...})`, which
 
 If you're using Riak Search, the list of inputs can also [[reference a search query|Riak-Search---Querying#Querying-Integrated-with-Map-Reduce]] to be used as inputs.
 
-If you've enabled Secondary Indexes, the list of inputs can also [[reference a Secondary Index query|Secondary-Indexes#Examples]].
+If you've enabled Secondary Indexes, the list of inputs can also [[reference a Secondary Index query|Using Secondary Indexes#Examples]].
 
 #### Query
 

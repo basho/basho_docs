@@ -59,7 +59,7 @@ This is a sample of the slide decks used in presentations given by Riak Core Dev
 
 The following papers give background information on distributed systems and relevant aspects of Riak's architecture.
 
-* [[Amazon's Dynamo Paper|http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html]]
+* [[Amazon's Dynamo Paper|Dynamo]]
 * [[Distributed Systems: Principles and Paradigms|http://www.amazon.com/Distributed-Systems-Principles-Andrew-Tanenbaum/dp/0130888931]]
 * [[Time, Clocks, and the Ordering of Events in a Distributed System|http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.142.3682]]
 * [[Distributed Algorithms|http://www.amazon.com/Distributed-Algorithms-Kaufmann-Management-Systems/dp/1558603484/ref=sr_1_1?ie=UTF8&s=books&qid=1273371587&sr=1-1]]

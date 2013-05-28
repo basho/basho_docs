@@ -91,7 +91,7 @@ Here's a list of the current Meetups:
 ## Community Processes
 
 * [[Riak Community FAQs]]
-* [[How to Report a Bug]]
+* [[Reporting Bugs]]
 
 ## Contributors
 
