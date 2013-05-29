@@ -15,6 +15,7 @@ This Guide assumes that you have completed the following steps:
 
 * Install [Riak Enterprise](http://docs.basho.com/riakee/latest/) 
 * Perform [System Tuning](http://docs.basho.com/riak/latest/cookbooks/Linux-Performance-Tuning/) (optional)
+* Reviewed the Default Replication [Configuration](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Configuration/) page.
 
 ### Scenario
 Configure Riak MDC to perform replication, given the following two (2) three-node Riak Enterprise Clusters: 
@@ -89,7 +90,7 @@ On the Cluster2 node, verify that `Cluster1_ips`. `leader`,  and `client_stats` 
 
 
                              
-### Testing Real-time Replication
+### Testing Realtime Replication
 
 That's all there is to it!  When PUT requests are coordinated by Cluster1, these operations will be replicated to Cluster2.  
 
@@ -187,7 +188,7 @@ On the Cluster2 node, verify that there are `listener_<nodename>`s for each list
                              {state,wait_for_partition}]}}]
                          
 
-### Testing MDC Realtime Replication
+### Testing Realtime Replication
 You can use the following script to perform PUTs and GETs on both sides of the replication and verify that those changes are replicated to the other side.
 
 ```bash

@@ -15,6 +15,7 @@ This Guide assumes that you have completed the following steps:
 
 * Install [Riak Enterprise](http://docs.basho.com/riakee/latest/) 
 * Perform [System Tuning](http://docs.basho.com/riak/latest/cookbooks/Linux-Performance-Tuning/) (optional)
+* Reviewed the Advanced Replication [Configuration](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Configuration-New/) page.
 
 ### About Advanced Replication in 1.3
 In Riak's Advanced Replication in 1.3, the nomenclature for Source and Site clusters has changed. To more accurately reflect the behavior of each of the clusters, "listeners" and "sites" are now known as "sources" and "sinks". Data transfer now originates at the "source" and replicates to the "sink"; initiation is always from the primary (source) to the backup (sink) data center. Additionally, the knowledge of the state of each cluster is now managed by a "cluster manager" process which greatly simplifies the setup and maintenance of MDC replication.
