@@ -1,5 +1,5 @@
 ---
-title: Searching and Accessing Data
+title: Searching and Accessing
 project: riak
 version: 0.14.0+
 document: appendix

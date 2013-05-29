@@ -44,9 +44,8 @@ riak:
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Search|Advanced Search]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
-          - "[[Client Libraries]]"
-          - "[[Community Libraries|Community Developed Libraries and Projects]]"
           - "[[CAP Controls]]"
+          - "[[Client Libraries]]"
           - title: "References"
             sub:
               - "[[Bucket References]]"
@@ -114,8 +113,9 @@ riak:
           - "[[Rolling Upgrades]]"
       - title: "Advanced"
         sub:
-          - "[[Security]]"
+          - "[[Riak Control]]"
           - "[[Installing Custom Code]]"
+          - "[[Security]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
@@ -164,16 +164,16 @@ riak:
           - "[[Riak Community|Riak Community FAQs]]"
       - "[[Dynamo Paper|Dynamo]]"
 
-  - title: "References"
+  - title: "Community"
     sub:
-      - title: "Community"
+      - title: "Lectures"
         sub:
-          - "[[Community Overview|Community Resources]]"
           - "[[Introductions|Overviews and Introductions]]"
-          - "[[Production Deployment]]"
           - "[[Developing with Riak]]"
-          - "[[Searching and Accessing Data]]"
-          - "[[Riak Sample Applications]]"
+          - "[[Operating in Production]]"
+          - "[[Searching and Accessing]]"
+      - "[[Community Overview|Community Resources]]"
+      - "[[Community Projects]]"
       - "[[Reporting Bugs]]"
       - "[[Riak Images]]"
       - "[[Release Notes]]"

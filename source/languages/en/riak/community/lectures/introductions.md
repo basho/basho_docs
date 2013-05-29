@@ -52,14 +52,16 @@ This page is a collection of videos, slides, papers, and other media introducing
 
 This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide.
 
-* [[Riak from Small to Large|http://www.slideshare.net/rklophaus/riak-from-small-to-large]] - Riak (http://basho.com), a dynamo-inspired, open-source key/value datastore, was built to scale from a single machine to a 100+ cluster without driving you or your operations team crazy. This presentation points out the characteristics of Riak that become important in small, medium, and large clusters, and then demonstrates the Riak API via the Python client library.
+* [[Riak from Small to Large|http://www.slideshare.net/rklophaus/riak-from-small-to-large]] - [Riak](http://basho.com), a dynamo-inspired, open-source key/value datastore, was built to scale from a single machine to a 100+ cluster without driving you or your operations team crazy. This presentation points out the characteristics of Riak that become important in small, medium, and large clusters, and then demonstrates the Riak API via the Python client library.
+* [[Introducing Riak and Ripple|http://www.slideshare.net/seancribbs/introducing-riak-and-ripple]] - This is a great overview of working with Riak and Ripple from Sean Cribbs, the author of Ripple.
+* [[Getting Started with Riak - Nosql Live 2010 Boston|http://www.slideshare.net/rklophaus/getting-started-with-riak-nosql-live-2010-boston]] - Delivered by Rusty Klophaus, this is a very high level overview of Riak and includes basic Python code snippets.
 
 
 ## Publications
 
 The following papers give background information on distributed systems and relevant aspects of Riak's architecture.
 
-* [[Amazon's Dynamo Paper|http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html]]
+* [[Amazon's Dynamo Paper|Dynamo]]
 * [[Distributed Systems: Principles and Paradigms|http://www.amazon.com/Distributed-Systems-Principles-Andrew-Tanenbaum/dp/0130888931]]
 * [[Time, Clocks, and the Ordering of Events in a Distributed System|http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.142.3682]]
 * [[Distributed Algorithms|http://www.amazon.com/Distributed-Algorithms-Kaufmann-Management-Systems/dp/1558603484/ref=sr_1_1?ie=UTF8&s=books&qid=1273371587&sr=1-1]]

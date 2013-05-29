@@ -8,9 +8,342 @@ audience: advanced
 keywords: [developers, mapreduce]
 ---
 
-This page details how Riak implements MapReduce, the programming paradigm popularized by [[Google|http://research.google.com/archive/mapreduce.html]]. It covers how Riak spreads processing across the cluster, the mechanics of how queries are specified and run, how to run MapReduce queries through the HTTP and Erlang APIs, streaming MapReduce, phase functions, and configuration details.
+MapReduce, the programming paradigm popularized by [[Google|http://research.google.com/archive/mapreduce.html]], is provided by Riak to aggregate results as background batch processes. The first half of this advanced treatment go into more advanced examples than [[Using MapReduce]]. The second half is a deep dive into how Riak has implemented MapReduce.
+
+## Mapreduce Samples
+
+This Erlang script will load historical stock-price data for Google (ticker symbol "GOOG") into your existing Riak cluster so we can use it.  Paste the code below into a file called `load_data.erl` inside the `dev` directory (or download it below).
+
+```erlang
+#!/usr/bin/env escript
+%% -*- erlang -*-
+main([Filename]) ->
+    {ok, Data} = file:read_file(Filename),
+    Lines = tl(re:split(Data, "\r?\n", [{return, binary},trim])),
+    lists:foreach(fun(L) -> LS = re:split(L, ","), format_and_insert(LS) end, Lines).
+
+format_and_insert(Line) ->
+    JSON = io_lib:format("{\"Date\":\"~s\",\"Open\":~s,\"High\":~s,\"Low\":~s,\"Close\":~s,\"Volume\":~s,\"Adj. Close\":~s}", Line),
+    Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/riak/goog/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
+    io:format("Inserting: ~s~n", [hd(Line)]),
+    os:cmd(Command).
+```
+
+Make the script executable:
+
+```bash
+$ chmod +x load_data.erl
+```
+
+Download the CSV file of stock data linked below and place it in the "dev" directory where we've been working.
+
+* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) - Google historical stock data
+* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) - Alternative script in Ruby to load the data
+* [load_data.erl](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) - Erlang script to load data (as shown in snippet)
+
+Now load the data into Riak.
+
+```bash
+$ ./load_data.erl goog.csv
+```
+
+So now we have some data in our Riak cluster. Let's put that aside for a minute and learn a bit about MapReduce, and how Riak uses it.
+
+## MapReduce
+
+MapReduce is a programming paradigm, popularized by Google. In Riak, MapReduce is the primary method for non-primary-key-based querying.
+
+Riak enables you to run MapReduce jobs through both the Erlang API and the HTTP API. For this tutorial we are going to use the HTTP API.
+
+### Why do we use MapReduce for Querying Riak?
+
+Key-value stores like Riak generally have very little functionality beyond just storing and fetching objects. MapReduce adds the capability to perform more powerful queries over the data stored in Riak. It also fits nicely with the functional programming orientation of Riak's core code and the distributed nature of the data storage.
+
+The main goal of MapReduce is to spread the processing of a query across many systems to take advantage of parallel processing power. This is generally done by dividing the query into several steps, dividing the dataset into several chunks, and then running those step/chunk pairs on separate physical hosts. Riak's MapReduce has an additional goal: increasing data-locality. When processing a large dataset, it's often much more efficient to take the computation to the data than it is to bring the data to the computation.
+
+"Map" and "Reduce" are both phases in the query process. Map functions take one piece of data as input, and produce zero or more results as output. If you're familiar with "mapping over a list" in functional programming style, you're already familiar with "map" steps in a map/reduce query.
+
+## HTTP Query Syntax
+
+Before we run some MapReduce queries of our own on the sample data, we should review a bit about how to write the queries and how they are executed.
+
+MapReduce queries are issued over HTTP via a *POST* to the "/mapred" resource.  The body should be "application/json" of the form:
+
+```javascript
+{"inputs":[...inputs...],"query":[...query...]}
+```
+
+Map/Reduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document:
+
+```javascript
+{"inputs":[...inputs...],"query":[...query...],"timeout": 90000}
+```
+
+### Inputs
+
+The list of input objects is given as a list of 2-element lists of the form [Bucket,Key] or 3-element lists of the form [Bucket,Key,KeyData].
+
+You may also pass just the name of a bucket ({"inputs":"mybucket",...}), which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a map/reduce across the whole bucket").  You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly.
+
+### Query
+
+The query is given as a list of phases, each phase being of the form {PhaseType:{...spec...}}.  Valid PhaseType values are "map", "reduce", and "link".
+
+Every phase spec may include a "keep" field, which must have a boolean value: "true" means that the results of this phase should be included in the final result of the map/reduce, "false" means the results of this phase should be used only by the next phase. Omitting the "keep" field accepts its default value, which is "false" for all phases except the final phase (Riak assumes that you were most interested in the results of the last phase of your map/reduce query).
+
+#### Map
+
+Map phases must be told where to find the code for the function to execute, and what language that function is in.
+
+Function source can be specified directly in the query by using the "source" spec field.  Function source can also be loaded from a pre-stored Riak object by providing "bucket" and "key" fields in the spec.
+
+For example:
+
+```javascript
+{"map":{"language":"javascript","source":"function(v) { return [v]; }","keep":true}}
+```
+
+would run the Javascript function given in the spec, and include the results in the final output of the m/r query.
+
+```javascript
+{"map":{"language":"javascript","bucket":"myjs","key":"mymap","keep":false}}
+```
+
+would run the Javascript function declared in the content of the Riak object under "mymap" in the "myjs" bucket, and the results of the function would not be included in the final output of the m/r query.
+
+```javascript
+{"map":{"language":"erlang","module":"riak_kv_mapreduce","function":"map_object_value"}}
+```
+
+would run the Erlang function "riak_kv_mapreduce:map_object_value/3".
+
+Map phases may also be passed static arguments by using the "arg" spec field.
+
+#### Reduce
+
+Reduce phases look exactly like map phases, but are labeled "reduce".
+
+<div class="info">For more information on map and reduce functions please refer to the [[MapReduce|MapReduce#Phasefunctions]] section of the docs which includes a description of the arguments passed to these functions.</div>
+
+#### Link
+
+[[Link|Link Walking]] phases accept "bucket" and "tag" fields that specify which links match the link query.  The string "_" (underscore) in each field means "match all", while any other string means "match exactly this string".  If either field is left out, it is considered to be set to "_" (match all).
+
+For example:
+
+```javascript
+{"link":{"bucket":"foo","keep":false}}
+```
+
+would follow all links pointing to objects in the "foo" bucket, regardless of their tag.
+
+## Erlang Functions
+
+For the MapReduce example, we'll define a simple module that implements a
+map function to return the key value pairs contained and use it in a MapReduce query via Riak's HTTP API.
+
+Here is our example MapReduce function:
+
+```erlang
+-module(mr_example).
+
+-export([get_keys/3]).
+
+% Returns bucket and key pairs from a map phase
+get_keys(Value,_Keydata,_Arg) ->
+  [{riak_object:bucket(Value),riak_object:key(Value)}].
+```
+
+Save this file as `mr_example.erl` and proceed to compiling the module.
+
+<div class="info"><div class="title">Note on the Erlang Compiler</div> You
+must use the Erlang compiler (<tt>erlc</tt>) associated with the Riak
+installation or the version of Erlang used when compiling Riak from source.
+For packaged Riak installations, you can consult Table 1 above for the
+default location of Riak's <tt>erlc</tt> for each supported platform.
+If you compiled from source, use the <tt>erlc</tt> from the Erlang version
+you used to compile Riak.</div>
+
+
+Compiling the module is a straightforward process:
+
+```bash
+erlc mr_example.erl
+```
+
+Next, you'll need to define a path from which to store and load compiled
+modules. For our example, we'll use a temporary directory (`/tmp/beams`),
+but you should choose a different directory for production functions
+such that they will be available where needed.
+
+<div class="info">Ensure that the directory chosen above can be read by
+the <tt>riak</tt> user.</div>
+
+Successful compilation will result in a new `.beam` file:
+`mr_example.beam`.
+
+Send this file to your operator, or read how to [[install custom code]]
+on your Riak nodes. Once your file has been installed, all that remains
+is to try the custom function in a MapReduce query. For example, let's
+return keys contained within the **messages** bucket:
+
+```bash
+curl -XPOST http://localhost:8098/mapred \
+   -H 'Content-Type: application/json'   \
+   -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
+```
+
+The results should look similar to this:
+
+```bash
+{"messages":"4","messages":"1","messages":"3","messages":"2"}
+```
+
+<div class="info">Be sure to install the MapReduce function as described
+above on all of the nodes in your cluster to ensure proper operation.</div>
+
+## MapReduce Screencast
+
+With the syntax and query design fresh in your mind, take a few minutes to watch this screencast and check out Riak's MapReduce in action.
+
+<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/11328947"></div>
+
+<p><a href="http://vimeo.com/11328947">JavaScript MapReduce in Riak</a> from <a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+
+Here are some of the jobs we submitted in the screencast:
+
+<dl>
+<dt>[[simple-map.json|https://github.com/basho/basho_docs/raw/master/source/data/simple-map.json]]</dt>
+<dd>A simple map-only job that returns the entire data set.</dd>
+<dt>[[map-high.json|https://github.com/basho/basho_docs/raw/master/source/data/map-high.json]]</dt>
+<dd>A map-reduce job that returns the maximum high sell value in the first week of January.</dd>
+<dt>[[map-highs-by-month.json|https://github.com/basho/basho_docs/raw/master/source/data/map-highs-by-month.json]]</dt>
+<dd>A more complicated map-reduce job that collects the max high by month.</dd>
+<dt>[[first-week.json|https://github.com/basho/basho_docs/raw/master/source/data/first-week.json]]</dt>
+<dd>A simple map-only job that returns the values for the first week of January 2010.</dd>
+</dl>
+
+## Sample Functions
+
+So you've seen us run some MapReduce jobs. Now it's time to try your hand at it.
+
+Based on the sample data we loaded in the last section, here are some functions that should work for you. Take a few minutes to run them and, if you're feeling daring, modify them based on what you know about MapReduce in Riak to see if you can manipulate the results.
+
+<div class="info"><div class="title">Submitting [[MapReduce]] queries from the shell</div>To run a query from the shell, here's the curl command to use:
+
+<div class="code"><pre>curl -XPOST http://127.0.0.1:8091/mapred -H "Content-Type: application/json" -d @-</pre></div>
+
+After pressing return, paste your job in, for example the one shown below in the section "Complete Job", press return again, and then `Ctrl-D` to submit it. This way of running MapReduce queries is not specific to this tutorial, but it comes in very handy to just run quick fire-and-forget queries from the command line in general. With a client library, most of the dirty work of assembling the JSON that's sent to Riak will be done for you.</div>
+
+### Map: find the days where the high was over $600.00
+
+*Phase Function*
+
+```javascript
+function(value, keyData, arg) {
+  var data = Riak.mapValuesJson(value)[0];
+  if(data.High && data.High > 600.00)
+    return [value.key];
+  else
+    return [];
+}
+```
+
+*Complete Job*
+
+```json
+{"inputs":"goog",
+ "query":[{"map":{"language":"javascript",
+                  "source":"function(value, keyData, arg) { var data = Riak.mapValuesJson(value)[0]; if(data.High && parseFloat(data.High) > 600.00) return [value.key]; else return [];}",
+                  "keep":true}}]
+}
+```
+
+[sample-highs-over-600.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-highs-over-600.json)
+
+### Map: find the days where the close is lower than open
+
+*Phase Function*
+
+```javascript
+function(value, keyData, arg) {
+  var data = Riak.mapValuesJson(value)[0];
+  if(data.Close < data.Open)
+    return [value.key];
+  else
+    return [];
+}
+```
+
+*Complete Job*
+
+```json
+{"inputs":"goog",
+ "query":[{"map":{"language":"javascript",
+                  "source":"function(value, keyData, arg) { var data = Riak.mapValuesJson(value)[0]; if(data.Close < data.Open) return [value.key]; else return [];}",
+                  "keep":true}}]
+}
+```
+
+[sample-close-lt-open.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-close-lt-open.json)
+
+### Map and Reduce: find the maximum daily variance in price by month
+
+*Phase functions*
+
+
+```javascript
+/* Map function to compute the daily variance and key it by the month */
+function(value, keyData, arg){
+  var data = Riak.mapValuesJson(value)[0];
+  var month = value.key.split('-').slice(0,2).join('-');
+  var obj = {};
+  obj[month] = data.High - data.Low;
+  return [ obj ];
+}
+
+/* Reduce function to find the maximum variance per month */
+function(values, arg){
+  return [ values.reduce(function(acc, item){
+             for(var month in item){
+                 if(acc[month]) { acc[month] = (acc[month] < item[month]) ? item[month] : acc[month]; }
+                 else { acc[month] = item[month]; }
+             }
+             return acc;
+            })
+         ];
+}
+```
+
+*Complete Job*
+
+```json
+{"inputs":"goog",
+ "query":[{"map":{"language":"javascript",
+                  "source":"function(value, keyData, arg){ var data = Riak.mapValuesJson(value)[0]; var month = value.key.split('-').slice(0,2).join('-'); var obj = {}; obj[month] = data.High - data.Low; return [ obj ];}"}},
+         {"reduce":{"language":"javascript",
+                    "source":"function(values, arg){ return [ values.reduce(function(acc, item){ for(var month in item){ if(acc[month]) { acc[month] = (acc[month] < item[month]) ? item[month] : acc[month]; } else { acc[month] = item[month]; } } return acc;  }) ];}",
+                    "keep":true}}
+         ]
+}
+```
+
+[sample-max-variance-by-month.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-max-variance-by-month.json)
+
+## A MapReduce Challenge
+
+Here is a scenario involving the data you already have loaded up. If you have a moment, try to solve it using what you've just learned about MapReduce:
+
+
+<div class="note"><div class="title">MapReduce Challenge</div>Find the largest day for each month in terms of dollars traded, and subsequently the largest overall day.
+
+*Hint*: You will need at least one each of map and reduce phases.</div>
+
+<!-- MapReduce-Implementation.md -->
 
 ## How Riak Spreads Processing
+
+The remainder of this page details how Riak implements MapReduce. It covers how Riak spreads processing across the cluster, the mechanics of how queries are specified and run, how to run MapReduce queries through the HTTP and Erlang APIs, streaming MapReduce, phase functions, and configuration details.
 
 When processing a large dataset, it's often much more efficient to take the computation to the data than it is to bring the data to the computation.  In practice, your MapReduce job code is likely less than 10 kilobytes, it is more efficient to send the code to the gigs of data being processed, than to stream gigabytes of data to your 10k of code.
 
@@ -533,106 +866,3 @@ ejsLog('/tmp/map_reduce.log', JSON.stringify(value))
 ```
 
 Note that when used from a map phase the ejsLog function will create a file on each node on which the map phase runs. The output of a reduce phase will be located on the node you queried with your map reduce function.
-
-## Configuration Tuning for Javascript
-
-If you load larger JSON objects in your buckets there is a possibility you might encounter an error like the following:
-
-```javascript
- {"lineno":465,"message":"InternalError: script stack space quota is exhausted","source":"unknown"}
-```
-
-
-You can increase the amount of memory allocated to the Javascript VM stack by editing your app.config. The following will increase the stack size from 8MB to 32MB:
-
-```erlang
-{js_thread_stack, 8}
-```
-
-becomes
-
-```erlang
-{js_thread_stack, 32},
-```
-
-In addition to increasing the amount of memory allocated to the stack you can increase the heap size as well by increasing the `js_max_vm_mem` from the default of 8MB. If you are collecting a large amount of results in a reduce phase you may need to increase this setting.
-
-## Configuration for Riak 1.0
-
-Riak 1.0 is the first release including the new MapReduce subsystem known as Riak Pipe.  By default, new Riak clusters will use Riak Pipe to power their MapReduce queries.  Existing Riak clusters that are upgraded to Riak 1.0 will continue to use the legacy MapReduce system unless the following line is added to the riak_kv section of each node's app.config:
-
-```erlang
-%% Use Riak Pipe to power MapReduce queries
-{mapred_system, pipe},
-```
-
-<div class="note">Warning: Do not enable Riak Pipe for MapReduce processing until all nodes in the cluster are running Riak 1.0.</div>
-
-Other than speed and stability of the cluster, the choice of MapReduce subsystem (Riak Pipe or legacy) should be invisible to your client.  All queries should have the same syntax and return the same results on Riak 1.0 with Riak Pipe as they did on earlier versions with the legacy subsystem.  If you should find a case where this is not true, you may revert to using the legacy subsystem by either removing the aforementioned line in your app.config or by changing it to read like this:
-
-```erlang
-%% Use the legacy MapReduce system
-{mapred_system, legacy},
-```
-
-## Configuration Tuning for Reduce Phases
-
-If you are using Riak 1.0 and the Riak Pipe subsystem for MapReduce queries, you have additional options for tuning your reduce phases.
-
-### Batch Size
-
-By default, Riak will evaluate a reduce function every time its phase receives 20 new inputs.  If your reduce phases would run more efficiently with more or fewer new inputs, you may change this default by adding the following to the riak_kv section of your app.config:
-
-```erlang
-%% Run reduce functions after 100 new inputs are received
-{mapred_reduce_phase_batch_size, 100},
-```
-
-You may also control this batching behavior on a per-query basis by using the static argument of the phase specification.  When specifying phases over HTTP, the JSON configuration for evaluating the function after 150 new inputs looks like this:
-
-```javascript
-{"reduce":
-  {...language, etc. as usual...
-   "arg":{"reduce_phase_batch_size":150}}}
-```
-
-In Erlang, you may either specify a similar mochijson2 structure for the phase argument, or use the simpler proplist form:
-
-```erlang
-{reduce, FunSpec, [{reduce_phase_batch_size, 150}], Keep}
-```
-
-Finally, if you want your reduce function to be evaluated only once, after all inputs are received, use this argument instead:
-
-```javascript
-{"reduce":
-  {...language, etc. as usual...
-   "arg":{"reduce_phase_only_1":true}}}
-```
-
-Similarly, in Erlang:
-
-```erlang
-{reduce, FunSpec, [reduce_phase_only_1], Keep}
-```
-
-<div class="note">Warning: A known bug in Riak 1.0.0 means that it is possible a reduce function may run more often than specified if handoff happens while the phase is accumulating inputs.  This bug was fixed in 1.0.1.</div>
-
-### Pre-Reduce
-
-If your reduce functions can benefit from parallel execution, it is possible to request that the outputs of a preceding map phase be reduced local to the partition that produced them, before being sent, as usual, to the final aggregate reduce.
-
-Pre-reduce is disabled by default.  To enable it for all reduce phases by default, add the following to the riak_kv section of your app.config:
-
-```erlang
-%% Always pre-reduce between map and reduce phases
-{mapred_always_prereduce, true}
-```
-
-Pre-reduce may also be enabled or disabled on a per-phase basis via the Erlang API for map phases implemented in Erlang.  To enable pre-reduce, for any map phase followed by a reduce phase, pass a proplist as its static phase argument and include the following flag:
-
-```erlang
-{map, FunSpec, [do_prereduce], Keep}
-```
-
-<div class="note">Warning: A known bug in Riak 1.0.0 prevents per-phase pre-reduce from being enabled over HTTP.  This bug also prevents per-phase pre-reduce from being enabled for Javascript phases.  Use the global app.config flag for these cases. This bug was fixed in 1.0.1.</div>

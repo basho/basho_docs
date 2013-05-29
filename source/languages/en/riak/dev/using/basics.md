@@ -14,7 +14,7 @@ The basic actions of Riak are the same CRUD (Create, Read, Update, Delete) opera
 
 Riak organizes data into Buckets, Keys, and Values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
 
-Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Although we'll use the Riak HTTP API for illustrative purposes, Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Community Developed Libraries and Projects]] for .NET, Node.js, Python, Perl, Clojure, Scala, Small Talk, and many others.
+Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Although we'll use the Riak HTTP API for illustrative purposes, Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Small Talk, and many others.
 
 ### Read an Object
 
