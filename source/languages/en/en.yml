@@ -39,11 +39,11 @@ en:
         keyfilters: "[[Key Filters]]"
       search:
         title: Search
-        indexing: "[[Indexing|Riak-Search - Indexing]]"
-        schema: "[[Schema|Riak-Search - Schema]]"
+        # indexing: "[[Indexing|Riak-Search - Indexing]]"
+        # schema: "[[Schema|Riak-Search - Schema]]"
         querying: "[[Querying|Riak-Search - Querying]]"
         kv_data: "[[Indexing and Querying KV Data|Riak-Search - Indexing-and-Querying-Riak-KV-Data]]"
-        cmd: "[[search-cmd|Command-Line-Tools - search-cmd]] <em>(Command-Line Tool)</em>"
+        cmd: "[[search-cmd|search Command Line]] <em>(Command-Line Tool)</em>"
       2i:
         title: "Secondary Indexes"
         config: "[[Configuration|Secondary-Indexes - Configuration]]"

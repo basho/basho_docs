@@ -22,7 +22,7 @@ The [[Riak Developer Mailing List|http://lists.basho.com/mailman/listinfo/riak-u
 
 Basho uses GitHub for the development of [[all our code|http://github.com/basho/]], and we also make use of GitHub for the submission and integration of all internal code and community pull requests.
 
-Basho also maintains a frequently updated page of [[community developed projects|Community-Developed-Libraries-and-Projects]], including client libraries, GUIs, backup tools, and more.
+Basho also maintains a frequently updated page of [[community developed projects|Community Projects]], including, GUIs, backup tools, and more.
 
 ### Riak on IRC
 
@@ -91,11 +91,7 @@ Here's a list of the current Meetups:
 ## Community Processes
 
 * [[Riak Community FAQs]]
-* [[How to Report a Bug]]
-
-## Contributors
-
-* [[Read more about our Contributors|Contributors]]
+* [[Reporting Bugs]]
 
 ## Resources
 
@@ -104,6 +100,6 @@ These pages contain videos, slides and publications from the community and Riak 
 * [[Overviews and Introductions]]
 * [[Production Deployment]]
 * [[Developing with Riak]]
-* [[Searching and Accessing Data]]
+* [[Searching and Accessing]]
 * [[Riak Comparisons]]
-* [[Riak Sample Applications]]
+* [[Community Projects]]

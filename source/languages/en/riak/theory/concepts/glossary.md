@@ -1,5 +1,5 @@
 ---
-title: The Riak Glossary
+title: Riak Glossary
 project: riak
 version: 0.10.0+
 document: appendix

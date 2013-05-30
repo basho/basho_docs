@@ -48,7 +48,7 @@ Search indexes Riak KV objects as they're written using a precommit hook. Based 
 
 ## When Not to Use Search 
 
-* When only simple tagging of data is needed with exact match and range queries. In this case [[Secondary Indexes|Secondary-Indexes]] would be easier.
+* When only simple tagging of data is needed with exact match and range queries. In this case [[Secondary Indexes|Using Secondary Indexes]] would be easier.
 * When the data is not easily analyzed by Search. For example mp3, video, or some other binary format. In this case a Secondary Index interface is recommended.
 * When built-in anti-entropy/consistency is required. At this time Search has no read-repair mechanism. If Search index data is lost, the entire data set must be re-indexed.
 

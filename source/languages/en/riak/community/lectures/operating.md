@@ -1,5 +1,5 @@
 ---
-title: Production Deployments
+title: Operating in Production
 project: riak
 version: 0.10.0+
 document: appendix
@@ -14,6 +14,14 @@ This page is a collection of videos, slides, papers, and other media detailing v
 ## Videos
 
 <table class="vid_table">
+    <tr>
+        <td class="vid_td"><a href="http://player.vimeo.com/video/22448110" target="_blank" title="Riak Operations">
+       <img class="vid_img"src="http://b.vimeocdn.com/ts/145/094/145094818_200.jpg"/>
+     </a></td>
+        <td class="vid_td"><a href="http://player.vimeo.com/video/22448110" target="_blank" title="Riak Operations">Riak Operations</a>  
+This is a webinar covering the various operational aspects of running a production Riak cluster. 
+    </td>     
+  </tr>
 
 	<tr>
         <td class="vid_td"><a href="http://player.vimeo.com/video/44498491" target="_blank" title="Riak in Production at Voxer">
