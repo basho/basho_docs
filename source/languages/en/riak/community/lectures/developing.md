@@ -26,6 +26,15 @@ _If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://
 	</tr>
 
 	<tr>
+	    <td class="vid_td"><a href="http://player.vimeo.com/video/13924929" target="_blank" title="Riak with Rails">
+		   <img class="vid_img"src="http://b.vimeocdn.com/ts/807/889/80788943_640.jpg"/>
+		 </a></td>
+	    <td class="vid_td"><a href="http://player.vimeo.com/video/13924929" target="_blank" title="Riak with Rails">Riak with Rails</a>
+	Using Riak with Ruby on Rails.
+		</td>
+	</tr>
+
+	<tr>
 	    <td class="vid_td"><a href="http://player.vimeo.com/video/18713269" target="_blank" title="Riak Overview and Schema Design">
 		   <img class="vid_img"src="http://b.vimeocdn.com/ts/117/890/117890563_200.jpg"/>
 		 </a></td>
@@ -33,14 +42,16 @@ _If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://
 	Basho Hackers Jon Meredith and Dave "Dizzy" Smith give an extensive overview of what Riak is and how you should approach schema design when developing with Riak. (Special thanks to the team at Pivotal Labs Boulder for making this happen.) 
 		</td>	    
 	</tr>		
-					    <tr>
-					        <td class="vid_td"><a href="http://player.vimeo.com/video/22448110" target="_blank" title="Riak Operations">
-							   <img class="vid_img"src="http://b.vimeocdn.com/ts/145/094/145094818_200.jpg"/>
-							 </a></td>
-					        <td class="vid_td"><a href="http://player.vimeo.com/video/22448110" target="_blank" title="Riak Operations">Riak Operations</a>  
-					This is a webinar covering the various operational aspects of running a production Riak cluster. 
-							</td>	    
-						</tr>
+
+	<tr>
+	    <td class="vid_td"><a href="http://player.vimeo.com/video/13554436" target="_blank" title="MapReduce querying in Riak">
+		   <img class="vid_img"src="http://b.vimeocdn.com/ts/779/892/77989230_640.jpg"/>
+		 </a></td>
+	    <td class="vid_td"><a href="http://player.vimeo.com/video/13554436" target="_blank" title="MapReduce querying in Riak">MapReduce querying in Riak</a>
+    	Basics and best-practices for MapReduce querying in Riak
+		</td>
+	</tr>		
+
 </table>
 
 ## Slide Decks

@@ -117,7 +117,6 @@ An extractor should export a function `extract` which takes two arguments.  The 
 ]
 ```
 
-
 The modules `riak_search_kv_json_extractor`, `riak_search_kv_xml_extractor`, and `riak_search_kv_raw_extractor` should be referred to for examples.
 
 ## Field Types
