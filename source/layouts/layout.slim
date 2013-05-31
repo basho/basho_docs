@@ -13,6 +13,9 @@ head(class=data.page.document)
   meta name="viewport" content="width=device-width"
   meta name="project" content=(data.page.project || $default_project)
   meta name="version" content=current_version(data.page.project || $default_project)
+  | <meta name="moved-ranges" content='
+  == (data.page.moved || {}).to_json
+  | '>
   meta name="version-range" content=(data.page.version || '0.0.0+')
   meta name="base-url" content==current_page.url
   title== data.page.title || "Riak Documents"

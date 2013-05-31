@@ -5,6 +5,9 @@ version: 0.14.0+
 document: appendix
 toc: true
 keywords: [community, resources, search]
+moved: {
+  '1.4.0-': '/references/appendices/community/Searching-and-Accessing-Data'
+}
 ---
 
 This page is a collection of videos, slides, papers, and other media on searching and accessing data in Riak.

@@ -6,6 +6,9 @@ toc: true
 document: appendix
 audience: intermediate
 keywords: [community, issues]
+moved: {
+  '1.4.0-': '/references/appendices/community/How-to-Report-a-Bug'
+}
 ---
 
 Bugs happen. The Basho Dev Team does all that it can to ensure our users are kept up-to-date on critical bugs and issues that may occur. Here's the protocol to follow for when you think you might have found something that needs reporting.

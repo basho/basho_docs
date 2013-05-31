@@ -5,6 +5,9 @@ version: 0.10.0+
 document: appendix
 toc: true
 keywords: [community, resources]
+moved: {
+  '1.4.0-': '/references/appendices/community/Overviews-and-Introductions'
+}
 ---
 
 This page is a collection of videos, slides, papers, and other media introducing Riak and its features.  
