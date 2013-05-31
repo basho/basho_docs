@@ -9,7 +9,7 @@ keywords: [mdc, repl, configuration]
 ---
 
 
-## Advanced Replication Mode Configuration
+## Advanced Replication Configuration
 
 *The `cluster_mgr` variable MUST be set in order for 1.3 Replication to run*
 
