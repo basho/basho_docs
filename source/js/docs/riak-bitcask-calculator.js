@@ -186,7 +186,7 @@ function update_calculations() {
     n = estimate_nodes();
     d = estimate_storage();
     r = estimate_keydir();
-    $('#recomend').html("<p>To manage your estimated " + abbreviate_number(NumEntries()) + " key/bucket pairs " +
+    $('#recommend').html("<p>To manage your estimated " + abbreviate_number(NumEntries()) + " key/bucket pairs " +
                             " where bucket names are ~" + format_bytes(Bucket()) + ", " +
                             " keys are ~" + format_bytes(Key()) + ", " +
                             " values are ~" + format_bytes(Value()) +
