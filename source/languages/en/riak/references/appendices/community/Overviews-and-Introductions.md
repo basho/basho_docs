@@ -57,7 +57,17 @@ This is a sample of the slide decks used in presentations given by Riak Core Dev
 
 ## Publications
 
-The following papers give background information on distributed systems and relevant aspects of Riak's architecture.
+If you're looking for some reading material on Riak, then start here.
+
+This is a partial list publications that cover both introductions to using
+Riak, and influences on Riak's design and architectural decisions.
+
+## Books
+
+* [A Little Riak Book](http://littleriakbook.com/)
+* [Riak Handbook](http://riakhandbook.com/)
+
+## Articles and Papers
 
 * [[Amazon's Dynamo Paper|http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html]]
 * [[Distributed Systems: Principles and Paradigms|http://www.amazon.com/Distributed-Systems-Principles-Andrew-Tanenbaum/dp/0130888931]]
@@ -67,4 +77,3 @@ The following papers give background information on distributed systems and rele
 * [[Towards Robust Distributed Systems|http://www.cs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf]]
 * [[Brewer's Conjecture and the Feasibility of Consistent Available Partition-Tolerant Web Services|http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.1495]]
 * [[(White paper) Big Data's Effect on Data Management|http://info.basho.com/DataWP.html]]
-
