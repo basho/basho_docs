@@ -6,6 +6,9 @@ document: appendix
 toc: true
 index: true
 keywords: [community]
+moved: {
+  '1.4.0-': '/references/appendices/community'
+}
 ---
 
 There is a vibrant and fast-growing community forming around Riak.

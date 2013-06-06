@@ -7,6 +7,9 @@ toc: true
 index: true
 audience: intermediate
 keywords: [client, drivers]
+moved: {
+  '1.4.0-': '/references/Community-Developed-Libraries-and-Projects'
+}
 ---
 
 ## Monitoring, Management, and GUI Tools
