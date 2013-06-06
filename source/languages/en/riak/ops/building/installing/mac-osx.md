@@ -11,6 +11,9 @@ next: "[[Installing on FreeBSD]]"
 download:
   key: osx
   name: "Mac OS X"
+moved: {
+    '1.4.0-': '/tutorials/installation/Installing-on-Mac-OS-X/'
+}
 ---
 
 The following steps are known to work with Mac OS X 10.5 and 10.6. You can install from source or download a precompiled tarball.

@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [operator, installing, chef]
+moved: {
+    '1.4.0-': '/cookbooks/Installing-With-Chef/'
+}
 ---
 
 If you manage your infrastructure with the open source systems integration framework [Chef](http://www.opscode.com/chef/), you'll be happy to know that it is possible to install

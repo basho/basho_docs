@@ -8,6 +8,9 @@ keywords: [tutorial, installing, suse]
 prev: "[[Installing on Solaris]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Windows Azure]]"
+moved: {
+    '1.4.0-': '/tutorials/installation/Installing-on-SUSE/'
+}
 ---
 
 The following steps should get you up and running with Riak on SuSE.

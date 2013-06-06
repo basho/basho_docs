@@ -8,9 +8,12 @@ keywords: [tutorial, installing, smartos]
 prev: "[[Installing on FreeBSD]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Solaris]]"
-download: 
+download:
   key: smartos
   name: "SmartOS"
+moved: {
+    '1.4.0-': '/tutorials/installation/Installing-on-SmartOS/'
+}
 ---
 
 The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>. They demonstrate installation of a Riak node on SmartOS as the root user.

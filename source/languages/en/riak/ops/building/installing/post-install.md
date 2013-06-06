@@ -7,6 +7,9 @@ audience: beginner
 keywords: [tutorial, installing, upgrading]
 prev: "[[Installing Riak From Source]]"
 up:   "[[Installing and Upgrading]]"
+moved: {
+    '1.4.0-': '/tutorials/installation/Post-Installation/'
+}
 ---
 
 After you've installed Riak, you might next wish to check the liveness of

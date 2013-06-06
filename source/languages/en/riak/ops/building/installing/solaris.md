@@ -8,9 +8,12 @@ keywords: [tutorial, installing, solaris]
 prev: "[[Installing on SmartOS]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on SUSE]]"
-download: 
+download:
   key: solaris
   name: "Solaris"
+moved: {
+    '1.4.0-': '/tutorials/installation/Installing-on-Solaris/'
+}
 ---
 
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.

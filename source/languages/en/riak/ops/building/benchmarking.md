@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: beginner
 keywords: [operator, benchmark]
+moved: {
+    '1.4.0-': '/cookbooks/Benchmarking/'
+}
 ---
 
 Basho Bench is a benchmarking tool created to conduct accurate and

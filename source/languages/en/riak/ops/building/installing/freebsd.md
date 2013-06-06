@@ -8,9 +8,12 @@ keywords: [tutorial, installing, freebsd]
 prev: "[[Installing on Mac OS X]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on SmartOS]]"
-download: 
+download:
   key: freebsd
   name: "FreeBSD"
+moved: {
+    '1.4.0-': '/tutorials/installation/Installing-on-FreeBSD/'
+}
 ---
 
 You can install Riak on FreeBSD for the AMD64 architecture with a binary package or by building from source code.

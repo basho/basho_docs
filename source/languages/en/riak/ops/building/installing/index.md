@@ -6,6 +6,9 @@ document: tutorial
 audience: beginner
 keywords: [tutorial, installing, upgrading]
 next: "[[Installing Erlang]]"
+moved: {
+    '1.4.0-': '/tutorials/installation/'
+}
 ---
 
 Riak is supported on numerous popular operating systems and virtualized

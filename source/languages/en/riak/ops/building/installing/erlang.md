@@ -8,6 +8,9 @@ keywords: [tutorial, installing, erlang]
 prev: "[[Installing and Upgrading]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Debian and Ubuntu]]"
+moved: {
+    '1.4.0-': '/tutorials/installation/Installing-Erlang/'
+}
 ---
 
 Riak requires [[Erlang|http://erlang.org/]] {{#1.2.0+}}R15B01{{/1.2.0+}}{{#1.2.0-}}R14B03{{/1.2.0-}}
@@ -84,9 +87,9 @@ non-graphical server environment.</div>
 To install packages for graphics support, use this command:
 
 ```bash
-sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev 
+sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev
 ```
-  
+
 ### RHEL/CentOS Dependencies
 
 Use this command to install the required dependency packages:
