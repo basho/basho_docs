@@ -12,7 +12,7 @@ If you haven't setup a Riak Node and started it, please visit the [[Prerequisite
 
 To try this flavor of Riak, a working installation of Erlang is required. You can also use the "erts" Erlang installation that comes with Riak. 
 
-##Client Setup
+###Client Setup
 
 
 Download the latest erlang client from GitHub ([zip](https://github.com/basho/riak-erlang-client/archive/master.zip), [github repository](https://github.com/basho/riak-erlang-client/)), and extract it to your working directory.  
@@ -61,7 +61,7 @@ Obj3 = riakc_obj:new(MyBucket, <<"three">>, Val3).
 riakc_pb_socket:put(Pid, Obj3).
 ```
 
-###Reading Objects In Riak
+###Reading Objects From Riak
 Now that we have a few objects stored, let’s retrieve them and make sure they contain the values we expect.
 
 ```erlang
@@ -74,7 +74,7 @@ Val2 =:= binary_to_term(riakc_obj:get_value(Fetched2)).
 Val3 =:= binary_to_term(riakc_obj:get_value(Fetched3)).
 ```
 
-That was easy.  We simply request the objects by key. 
+That was easy.  We simply request the objects by bucket and key. 
 
 ###Updating Objects In Riak
 While some data may be static, other forms of data may need to be updated.  This is also easy to accomplish.  Let’s update the value in the third example to 42, update the RiakObject, and then save it.  
@@ -91,7 +91,7 @@ We can verify that our new value was saved by looking at the value returned:
 rp(binary_to_term(riakc_obj:get_value(NewestObj3))).
 ```
 
-###Deleting Objects In Riak
+###Deleting Objects From Riak
 Nothing is complete without a delete, fortunately that's easy too.
 
 ```erlang
