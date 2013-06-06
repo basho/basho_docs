@@ -217,7 +217,7 @@ sudo dpkg -i riak_1.3.0-1_i386.deb
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
 
 
-Installing Riak From Source
+Installing From Source
 ---------------------------
 
 First, install Riak dependencies using apt:
@@ -294,8 +294,6 @@ Next Steps?
 Now that Riak is installed, check out the following resources:
 
 -   [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
--   [[The Riak Fast Track]]: a
-    guide for setting up a 3 node cluster and exploring Riak's main features.
--   [[Basic Cluster Setup]]:
+-   [[Five Minute Install]]:
     a guide that will show you how to go from one node to bigger than
     Google!

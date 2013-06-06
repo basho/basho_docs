@@ -79,7 +79,7 @@ _All docs live under `source/languages/en` or `source/languages/jp`. You should 
 
 ### Wiki Links
 
-Besides the standard link styles relative to the given document type (markdown, slim, org, etc), you can use wiki-style links, eg: `[[The Riak Fast Track]]` or `[[The Fast Track|The Riak Fast Track]]`. Note that if you have a name collision, it will just link to a random one.
+Besides the standard link styles relative to the given document type (markdown, slim, org, etc), you can use wiki-style links, eg: `[[The Basics]]` or `[[Start Here|The Basics]]`. Note that if you have a name collision, it will just link to a random one.
 
 ### Document Metadata
 
@@ -95,9 +95,9 @@ toc: true
 index: false
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
+prev: "[[Basic HTTP Operations]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Links and Link Walking]]"
 ---
 ```
 

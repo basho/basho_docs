@@ -10,26 +10,26 @@ keywords: [developers, 2i]
 
 Let's install Riak and build a [five node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/) cluster running on your local machine.
 
-## Dependencies
+## Install Riak
 
 Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install erlang|Installing Erlang]]. Building Riak from source requires Erlang R15B01.
 
-## Download and Install Riak From Source
+### Get the Source
 
 The below links provide platform-specific instructions for downloading and installing Riak from source.
 
-  * [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
-  * [[RHEL and CentOS|Installing on RHEL and CentOS]]
-  * [[Mac OS X|Installing on Mac OS X]]
-  * [[FreeBSD|Installing on FreeBSD]]
+  * [[Debian and Ubuntu|Installing on Debian and Ubuntu#Installing-From-Source]]
+  * [[RHEL and CentOS|Installing on RHEL and CentOS#Installing-From-Source]]
+  * [[Mac OS X|Installing on Mac OS X#Installing-From-Source]]
+  * [[FreeBSD|Installing on FreeBSD#Installing-From-Source]]
   * [[SUSE|Installing on SUSE]]
   * [[Windows Azure|Installing on Windows Azure]]
   * [[AWS Marketplace|Installing on AWS Marketplace]]
-  * [[From Source|Installing Riak from Source]] *(to be used on an unlisted-operating system)*
+  * [[Unlisted Operating System|Installing Riak from Source]]
 
-## Build Riak
+### Build Riak
 
-So now you have a copy of Riak. Time to build it. Do this by accessing the `riak` directory and running `make all`
+So now you have a copy of Riak. Time to build it. Do this by accessing the *riak* directory and running `make all`
 
 {{#1.3.1+}}
 
@@ -55,7 +55,7 @@ $ make all
 
 `make all` grabs all the Riak dependencies for you so that you don't have to chase them down. This will take a few moments.
 
-## Use Rebar to Start Up Five Nodes
+## Start Up Five Nodes
 
 Now that Riak is built, we are going to use [Rebar](https://github.com/basho/rebar), a packaging and build system for Erlang applications, to get four self-contained Riak nodes running on your machine. Tomorrow, when you put Riak into production, Rebar will enable you to ship a pre-built Riak package to your deployment machines. But for now, we will just stick to the four nodes. {{#1.3.0+}}You can set the number of nodes you wish to create via `DEVNODES`{{/1.3.0+}} To start these up, run:
 
@@ -106,7 +106,7 @@ $ dev4/bin/riak start
 $ dev5/bin/riak start
 ```
 
-## Test to see the running Riak nodes
+### Check Running Nodes
 
 After you have the nodes up and running, it's time to test them and make sure they are available. You can do this by taking a quick look at your process list. To do this, run:
 
@@ -116,7 +116,7 @@ $ ps aux | grep beam
 
 This should give you details on five running Riak nodes.
 
-## Join the nodes to make a cluster
+## Create the Cluster
 
 The next step is to join these five nodes together to form a cluster. You can do this using the Riak Admin tool. Specifically, what we want to do is join `dev2`, `dev3`, `dev4` and `dev5` to `dev1`:
 
@@ -187,7 +187,7 @@ up data, and to manage general cluster operations. You can read more about
 
 </div>
 
-## Test the cluster and add some data
+## Test the Cluster
 
 Now we now a have a running five node Riak cluster. Let's make sure it's working correctly. For this we have a couple options. A simple option is to run the member-status command.
 

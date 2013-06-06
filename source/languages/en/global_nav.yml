@@ -14,7 +14,9 @@ riak:
 
   - title: "Riak for Developers"
     sub:
-      # - "[[Have a Taste]]"
+      # - title: "Starting by Language"
+      #   sub:
+      #     - "[[PHP]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"

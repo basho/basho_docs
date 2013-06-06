@@ -10,7 +10,7 @@ keywords: [java, client]
 
 ### A word or two about Riak, CAP Theorem and eventual consistency
 
-Unless you're already familiar with CAP Theorem and eventual consistency, taking the time to read through at least [[The Riak Fast Track]] would be well worth your while. 
+Unless you're already familiar with CAP Theorem and eventual consistency, taking the time to read through at least [[CAP Controls]] would be well worth your while. 
 
 It's ok, we'll wait.
 

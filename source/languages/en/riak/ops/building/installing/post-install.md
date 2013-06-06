@@ -134,9 +134,6 @@ You have a working Riak node!
 
 From here you might want to check out the following resources.
 
-* [[The Riak Fast Track]]: A guide for setting up a 4 node cluster and exploring Riak's main features.
 * Check out the [[Client Libraries]] to use Riak with your favorite programming language
-* Get some [[Sample Data]]
-* [[Add more nodes|Basic Cluster Setup]] to your Riak cluster
 * [[Learn about the high level concepts of Riak|Concepts]]
 * [[Learn more about day-to-day system operations|Operators]]

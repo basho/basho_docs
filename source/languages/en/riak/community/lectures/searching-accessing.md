@@ -45,7 +45,7 @@ This page is a collection of videos, slides, papers, and other media on searchin
 				   <img class="vid_img"src="http://b.vimeocdn.com/ts/857/109/85710966_200.jpg"/>
 				 </a></td>
 		        <td class="vid_td"><a href="http://player.vimeo.com/video/14563219" target="_blank" title="Links and Link Walking in Riak">Links and Link Walking in Riak</a>  
-		Recorded for the "Riak Fast Track," this 12 minute screencast will take you through basic usage of links in Riak and then show you how they can be used to establish powerful relationships in your data and applications. 
+		This 12 minute screencast will take you through basic usage of links in Riak and then show you how they can be used to establish powerful relationships in your data and applications. 
 				</td>	    
 			</tr>
    
