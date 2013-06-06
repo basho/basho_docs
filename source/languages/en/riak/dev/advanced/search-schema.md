@@ -1,5 +1,5 @@
 ---
-title: Riak Search Schema
+title: Advanced Search Schema
 project: riak
 version: 0.14.0+
 document: cookbook

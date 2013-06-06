@@ -22,8 +22,9 @@ riak:
           - "[[The Basics]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
-          - "[[KV Search|Using KV Search]]"
+          - "[[Search|Using Search]]"
           - "[[Key Filters|Using Key Filters]]"
+          - "[[Link Walking]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
       - title: "Data Modeling"
         sub:
@@ -45,6 +46,7 @@ riak:
           - "[[MapReduce|Advanced MapReduce]]"
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Search|Advanced Search]]"
+          - "[[Search Schema|Advanced Search Schema]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[CAP Controls]]"
           - "[[Client Libraries]]"
@@ -52,7 +54,8 @@ riak:
             sub:
               - "[[Bucket References]]"
               - "[[MapReduce References]]" # including KeyFilters?
-              - "[[Search References]]"
+              - "[[Search Indexing|Search Indexing Reference]]"
+              - "[[Key Filters|Key Filters Reference]]"
               - "[[Client Implementation Guide]]"
               - "[[HTTP API]]"
               - "[[PBC API]]"
@@ -101,6 +104,7 @@ riak:
               - "[[Adding/Removing|Adding and Removing Nodes]]"
               - "[[Renaming Nodes]]"
               - "[[Replacing Nodes|Replacing a Node]]"
+              - "[[Inspecting Nodes|Inspecting a Node]]"
           - title: "Command Line Tools"
             sub:
               - "[[riak|riak Command Line]]"

@@ -24,7 +24,7 @@ In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can 
 ## When to Use MapReduce
 
 * When you know the set of objects you want to MapReduce over (the bucket-key pairs)
-* When you want to return actual objects or pieces of the object – not just the keys, as do [[Search|Using KV Search]] and [[Secondary Indexes|Using Secondary Indexes]]
+* When you want to return actual objects or pieces of the object – not just the keys, as do [[Search|Using Search]] and [[Secondary Indexes|Using Secondary Indexes]]
 * When you need utmost flexibility in querying your data. MapReduce gives you full access to your object and lets you pick it apart any way you want.
 
 ## When Not to Use MapReduce
