@@ -63,7 +63,7 @@ $ ->
 
   # construct an object that represents a
   # drop-down version list
-  buildLists = (project, base_url)->
+  buildLists = (project, base_url, moved_ranges_obj)->
     lists = []
     for vs in ($versions[project] || [])
       innerlists = []
@@ -77,6 +77,11 @@ $ ->
           currentBlock ||= current
           active ||= true
           vData = {active:true, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
+
+          for vr_link in moved_ranges_obj
+            if inVersionRange(vsp, vr_link[0])
+              vData.href = "/#{project}/#{vsi}#{vr_link[1]}/"
+
           innerlists.push(vData)
           showV = vData if current
         else
@@ -91,6 +96,7 @@ $ ->
   base_url = $('meta[name=base-url]').attr('content')
   version = $('meta[name=version]').attr('content')
   version_range = $('meta[name=version-range]').attr('content')
+  moved_ranges = $('meta[name=moved-ranges]').attr('content')
 
   return unless project? || base_url? || version? || version_range?
   return if $versions[project]?.length <= 1
@@ -98,7 +104,11 @@ $ ->
   currentVersion = parseVersion(version)
   range = parseVersionRange(version_range)
 
-  lists = buildLists(project, base_url)
+  moved_ranges_obj = []
+  for r,link of $.parseJSON(moved_ranges)
+    moved_ranges_obj.push [parseVersionRange(r), link]
+
+  lists = buildLists(project, base_url, moved_ranges_obj)
 
   currentClass = (li)->
     unless li.active

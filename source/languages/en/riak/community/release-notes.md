@@ -6,6 +6,9 @@ document: reference
 toc: true
 audience: beginner
 keywords: [release-notes]
+moved: {
+  '1.4.0-': '/references/Release-Notes'
+}
 ---
 
 * [Riak 1.3 Release Notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md)

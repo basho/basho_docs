@@ -5,6 +5,9 @@ version: 0.10.0+
 document: appendix
 toc: true
 keywords: [community, resources]
+moved: {
+  '1.4.0-': '/references/appendices/community/Production-Deployment'
+}
 ---
 
 Comcast, Yammer, Voxer, Boeing, BestBuy, Joyent, Kiip, GitHub, and the Danish Government are just a few of the thousands of [[startups and enterprises that have deployed Riak|http://basho.com/company/production-users/]].

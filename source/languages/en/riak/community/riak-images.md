@@ -5,6 +5,9 @@ version: 0.10.0+
 document: appendix
 toc: false
 keywords: [community]
+moved: {
+  '1.4.0-': '/references/appendices/community/Logos'
+}
 ---
 
 Need a high resolution Basho or Riak Logo for a presentation or slide deck?
