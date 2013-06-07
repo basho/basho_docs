@@ -6,12 +6,15 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [operator, os]
+moved: {
+    '1.4.0-': '/cookbooks/File-System-Tuning/'
+}
 ---
 
 The following article suggests I/O Scheduler configurations to use when deploying Riak.
 
 I/O or Disk Scheduling is a blanket term used to describe the method
-by which an operating system chooses how to order input and output operations to and 
+by which an operating system chooses how to order input and output operations to and
 from storage.
 
 There are many I/O Scheduling techniques. Some of the most common are:
@@ -23,8 +26,8 @@ There are many I/O Scheduling techniques. Some of the most common are:
 * NOOP
 
 CFQ, while a good general purpose scheduler, is not designed to provide the kind
-of throughput expected in production database deployments. For Riak, NOOP is 
-considered the best choice when deploying on iSCSI over HBAs, or any hardware-based 
+of throughput expected in production database deployments. For Riak, NOOP is
+considered the best choice when deploying on iSCSI over HBAs, or any hardware-based
 RAID. The Deadline scheduler is an ideal choice when using SSD based storage.
 
 All system/workload combinations are different. Consult your operating system's

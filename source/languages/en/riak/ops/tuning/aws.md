@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [operator, performance, aws]
+moved: {
+    '1.4.0-': '/cookbooks/Performance-Tuning-AWS/'
+}
 ---
 
 This guide introduces some recommended best practices for performance and
@@ -136,7 +139,7 @@ types, and strongly recommended. More information is available on
 benchmarking Riak clusters with Basho Bench in the
 [[Basho Bench documentation|Benchmarking]].
 
-Besides running basho bench it is also advisable to load test Riak with your 
+Besides running basho bench it is also advisable to load test Riak with your
 own tests to ensure that load imparted by M/R queries, linking, link-walking,
  full-text queries, index queries are within the expected range.
 
@@ -184,22 +187,22 @@ EC2 instances that are not provisioned inside a VPC change the following paramet
 * Private DNS
 * Public DNS
 
-Since Riak binds to an IP addresses and communicates with other nodes based on this address, 
-executing certain admin commands are necessary to bring the node back up. 
+Since Riak binds to an IP addresses and communicates with other nodes based on this address,
+executing certain admin commands are necessary to bring the node back up.
 Namely the following steps must be performed.
 
 * Stop the node to rename with `riak stop`
 * Mark it 'down' from another node in the cluster using `riak-admin down 'old nodename'`.
 * Rename the node in vm.args.
 * Delete the ring directory.
-* Start the node with `riak start`.  
+* Start the node with `riak start`.
 * It will come up as a single instance which you can verify with `riak-admin member-status`.
 * Join the node to the cluster with `riak-admin cluster join 'cluster nodename' `
 * Set it to replace the old instance of itself with `riak-admin cluster replace <old nodename> <new nodename>
 * Plan the changes with `riak-admin cluster plan`
 * Commit the changes with `riak-admin cluster commit`
 
-To avoid this inconvenience, you can deploy riak to a [VPC](http://aws.amazon.com/vpc/). Instances inside the VPC do not change their private 
+To avoid this inconvenience, you can deploy riak to a [VPC](http://aws.amazon.com/vpc/). Instances inside the VPC do not change their private
 IP address on restart. In addition you get the following benefits.
 
 * Access control lists can be defined at various levels (Load balancers / Individual servers / VPC Groups).
@@ -207,8 +210,8 @@ IP address on restart. In addition you get the following benefits.
 * Should the private nodes need to contact the internet they can do so through a NAT instance.
 * Amazon VPC is [free](http://aws.amazon.com/vpc/pricing/).
 
-You can also explore other [solutions](http://deepakbala.me/2013/02/08/deploying-riak-on-ec2/) should setting up a VPC 
-present an obstacle for you. 
+You can also explore other [solutions](http://deepakbala.me/2013/02/08/deploying-riak-on-ec2/) should setting up a VPC
+present an obstacle for you.
 
 ## Choice of storage
 

@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [troubleshooting, os]
+moved: {
+    '1.4.0-': '/cookbooks/Open-Files-Limit/'
+}
 ---
 
 Riak can consume a large number of open file handles during normal operation. In particular, the Bitcask backend may accumulate a number of data files before it has a chance to run a merge process. You can count the number of data files in the bitcask directory with following command:

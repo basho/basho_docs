@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [operator, performance, os]
+moved: {
+    '1.4.0-': '/cookbooks/File-System-Tuning/'
+}
 ---
 
 This guide describes recommended performance and
