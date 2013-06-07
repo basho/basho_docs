@@ -7,6 +7,9 @@ toc: true
 index: true
 audience: beginner
 keywords: [command-line]
+moved: {
+    '1.4.0-': '/cookbooks/Repairing-KV-Indexes/'
+}
 ---
 
 This is a description of the Riak command-line tools and their subcommands.

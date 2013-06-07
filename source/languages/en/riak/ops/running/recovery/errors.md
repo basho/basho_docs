@@ -8,11 +8,14 @@ audience: advanced
 keywords: [errors]
 interest: []
 body_id: errors
+moved: {
+    '1.4.0-': '/references/Errors/'
+}
 ---
 
 This is not a comprehensive listing of every error that Riak may encounter -- screws fall out all of the time, the world is an imperfect place. This is an attempt at capturing the most common recent errors that users do encounter, as well as give some description to non critical error atoms which you may find in the logs.
 
-Discovering the source of an error can take some detective work, since one error can cause a cascade of errors. 
+Discovering the source of an error can take some detective work, since one error can cause a cascade of errors.
 
 ## Errors and Messages
 
@@ -117,7 +120,7 @@ is_claimant |  | A node cannot be the claimant of its own remove request | Remov
 is_up |  | Node is expected to be down but is up | When a node is downed, it should be down
 legacy |  | Attempting to stage a plan against a legacy ring | Staging is a feature only of Riak versions 1.2.0+
 max_concurrency | *Handoff receiver for partition `Partition` exited abnormally after processing `Count` objects: `Reason`* | Disallow more handoff processes than the `riak_core` `handoff_concurrency` setting (defaults to 2) | If this routinely kills vnodes, this issue has been linked to LevelDB compactions which can build up and block writing, which will also be accompanied by LevelDB logs saying `Waiting`... or `Compacting` NNN@0
-{nodes_down, Down} |  | All nodes must be up to check | 
+{nodes_down, Down} |  | All nodes must be up to check |
 not_member |  | This node is not a member of the ring | Cannot leave/remove/down when this is not a ring member
 not_reachable |  | Cannot join unreachable node | Check your network connections, ensure Erlang cookie setting `vm.args` `-setcookie`
 {not_registered, App} |  | Attempting to use an unregistered process | Ensure that your `app.config` choices contain the app you're attempting to use `{riak_kv_stat, true}`
@@ -283,15 +286,15 @@ RPC to 'node@example.com' failed: {'EXIT', {badarg, [{ets,lookup, [schema_table,
   4. From the Erlang console perform the following command to open the LevelDB database
 
         ```erlang
-        [application:set_env(eleveldb, Var, Val) || {Var, Val} <- 
-        [{max_open_files, 2000}, 
-        {block_size, 1048576}, 
-        {cache_size, 20*1024*1024*1024}, 
-        {sync, false}, 
+        [application:set_env(eleveldb, Var, Val) || {Var, Val} <-
+        [{max_open_files, 2000},
+        {block_size, 1048576},
+        {cache_size, 20*1024*1024*1024},
+        {sync, false},
         {data_root, "/var/db/riak/leveldb"}]].
         ```
   5. For each of the corrupted LevelDB databases (found by `find . -name "LOG" -exec` | `grep -l 'Compaction error' {} \; `) run this command substituting in the proper vnode number.
-    
+
         ```erlang
         eleveldb:repair("/var/db/riak/leveldb/442446784738847563128068650529343492278651453440", []).
         ```

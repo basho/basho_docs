@@ -6,6 +6,9 @@ document: reference
 toc: true
 audience: beginner
 keywords: [command-line, riak]
+moved: {
+    '1.4.0-': '/references/Command-Line-Tools---riak/'
+}
 ---
 
 # Command Line Tools - `riak`
@@ -111,4 +114,3 @@ Confirms whether the app.config is valid.
 ```bash
 riak chkconfig
 ```
-

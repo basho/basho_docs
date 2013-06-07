@@ -6,6 +6,9 @@ document: tutorial
 toc: true
 audience: advanced
 keywords: [kv, 2i, troubleshooting]
+moved: {
+    '1.4.0-': '/cookbooks/Repairing-KV-Indexes/'
+}
 ---
 
 Riak Secondary indexes (2i) currently have no form of anti-entropy (such as read-repair). Furthermore, for performance and load balancing reasons, 2i reads from 1 random node. This means that when a replica loss has occurred, inconsistent results may be returned.
@@ -18,7 +21,7 @@ This is done as efficiently as possible by generating a hash range for all the b
 
 This code will force all keys in each partition on a node to be reread, thus rebuilding the index properly.
 
-1. From a cluster node with Riak installed, attach to the Riak console: 
+1. From a cluster node with Riak installed, attach to the Riak console:
 
     ```bash
     $ riak attach
@@ -108,7 +111,7 @@ This is done as efficiently as possible by generating a hash range for all the b
 
 This code will force all keys in each partition on a node to be reread, thus rebuilding the search index properly.
 
-1. From a cluster node with Riak installed, attach to the Riak console: 
+1. From a cluster node with Riak installed, attach to the Riak console:
 
     ```bash
     $ riak attach
@@ -117,7 +120,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
     You may have to hit enter again to get a console prompt.
 
 2. Get a list of partitions owned by the node that needs repair:
-    
+
     ```erlang
     > {ok, Ring} = riak_core_ring_manager:get_my_ring().
     ```
@@ -125,7 +128,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
     You will get a lot of output with Ring record information. You can safely ignore it.
 
 3. Then run the following code to get a list of partitions. Replace 'dev1@127.0.0.1' with the name of the node you need to repair.
-    
+
     ```erlang
     > Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
     ```

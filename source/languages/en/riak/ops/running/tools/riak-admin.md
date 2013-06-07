@@ -6,6 +6,9 @@ document: reference
 toc: true
 audience: beginner
 keywords: [command-line, riak-admin]
+moved: {
+    '1.4.0-': '/references/Command-Line-Tools---riak-admin/'
+}
 ---
 
 # riak-admin
@@ -360,7 +363,7 @@ entropy tree building, and key repairs which were triggered by AAE.
 * **Exchanges**
  * The *Last* column lists when the most recent exchange between a partition and one of its sibling replicas was performed.
  * The *All* column shows how long it has been since a partition exchanged with all of its sibling replicas.
- 
+
 * **Entropy Trees**
  * The *Built* column shows when the hash trees for a given partition were created.
 
@@ -424,8 +427,8 @@ Information is written to `console.log` upon completion of the process.
 A `--downgrade` switch can be specified when downgrading a node to a version
 of Riak prior to version 1.3.1.
 
-Additional details are available in the 
-[Riak 1.3.1 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md). 
+Additional details are available in the
+[Riak 1.3.1 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md).
 {{/1.3.1+}}
 
 ## top

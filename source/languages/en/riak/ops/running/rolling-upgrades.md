@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [upgrading]
+moved: {
+    '1.4.0-': '/cookbooks/Rolling-Upgrades/'
+}
 ---
 
 <!-- To avoid downtime of a Riak cluster we suggest performing upgrades in a rolling

@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [operator, troubleshooting]
+moved: {
+    '1.4.0-': '/cookbooks/Statistics-and-Monitoring/'
+}
 ---
 
 ## Statistics from Riak
@@ -15,13 +18,13 @@ Riak provides data related to current operating status, which includes statistic
 This page presents the most commonly monitored and gathered statistics, as well as numerous solutions for monitoring and gathering statistics that our customers and community report using successfully in Riak cluster environments. You can learn more about the specific Riak statistics provided in the [[Inspecting a Node]] documentation.
 
 ### Counters
-Riak provides counters for GETs, PUTs, read repairs, and other common operations.  By default, these counters count either the number of operations occurring within the last minute, or for the runtime duration of the node. 
+Riak provides counters for GETs, PUTs, read repairs, and other common operations.  By default, these counters count either the number of operations occurring within the last minute, or for the runtime duration of the node.
 
 #### Gets and Puts
 GET/PUT counters are provided for both nodes and vnodes. These counters are commonly graphed over time for trend analysis, capacity planning, and so forth.
 
-Metric             | Description   | 
--------------------| ------------- | 
+Metric             | Description   |
+-------------------| ------------- |
 `node_gets`        | Number of GETs coordinated by this node within the last minute, including GETs to non-local vnodes on this node |
 `node_gets_total`  | Number of GETs coordinated by this node since startup, including GETs to non-local vnodes                       |
 `node_puts`        | Number of PUTs coordinated by this node, including PUTs to non-local vnodes on this node within the last minute |
@@ -60,8 +63,8 @@ GET FSM Sibling (`node_get_fsm_siblings_*`) provides a histogram (with 60 second
 
 ## Riak Metrics To Graph
 
-Metric                        | Description   | 
-------------------------------| ------------- | 
+Metric                        | Description   |
+------------------------------| ------------- |
 `node_get_fsm_objsize_mean`   | Mean object size encountered by this node within the last minute                                      |
 `node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute                                    |
 `node_get_fsm_objsize_95`     | 95th percentile object size encountered by this node within the last minute                           |
@@ -92,7 +95,7 @@ Metric                        | Description   |
 Metric                 |
 ---------------------- |
 Available Disk Space   |
-IOWait                 | 
+IOWait                 |
 Read Operations        |
 Write Operations       |
 Network Throughput     |

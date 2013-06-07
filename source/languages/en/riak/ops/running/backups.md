@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [operator]
+moved: {
+    '1.4.0-': '/cookbooks/Backups/'
+}
 ---
 
 Choosing your Riak backup strategy will largely depend on the backend
@@ -157,15 +160,15 @@ If any node names have been changed (that is, the *-name* argument in the
 `vm.args` configuration file for any node is different than the backup being
 restored to that node), then you will need to additionally:
 
-1. Mark the original instance down in the cluster using 
+1. Mark the original instance down in the cluster using
 `[[riak-admin down <node>|Command-Line-Tools---riak-admin#down]]`
-2. Join the restored node to the cluster using 
+2. Join the restored node to the cluster using
 `[[riak-admin cluster join <node>|Command-Line-Tools---riak-admin#cluster-join]]`
-3. Replace the original instance with the renamed instance with 
+3. Replace the original instance with the renamed instance with
 `[[riak-admin cluster force-replace <node1> <node2>|Command-Line-Tools---riak-admin#cluster-force-replace]]`
-4. Plan the changes to the cluster with 
+4. Plan the changes to the cluster with
 `riak-admin cluster plan`
-5. Finally, commit the cluster changes with 
+5. Finally, commit the cluster changes with
 `riak-admin cluster commit`
 
 <div class="info">For more information about the `riak-admin cluster` commands,
@@ -203,9 +206,9 @@ hostnames stay the same. Additionally, if the HTTP and PB interface settings are
 configured to bind to all IP interfaces (0.0.0.0), then no changes will need to
 be made to the *app.config* file.
 
-It is recommended when performing restore operations involving 
+It is recommended when performing restore operations involving
 {{#1.2.0-}}`riak-admin reip`{{/1.2.0-}}
-{{#1.2.0+}}`riak-admin cluster force-replace`{{/1.2.0+}} 
+{{#1.2.0+}}`riak-admin cluster force-replace`{{/1.2.0+}}
 to start only one node at a time, and verify that each node that is
 started has the correct name for itself and any other nodes whose names have
 changed.

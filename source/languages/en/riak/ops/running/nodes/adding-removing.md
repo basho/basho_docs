@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [operator]
+moved: {
+    '1.4.0-': '/cookbooks/Adding-and-Removing-Nodes/'
+}
 ---
 
 This page describes the process of adding and removing nodes to and from

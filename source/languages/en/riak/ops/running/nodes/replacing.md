@@ -6,13 +6,16 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [operator]
+moved: {
+    '1.4.0-': '/cookbooks/Replacing-a-Node/'
+}
 ---
 
 At some point, for various reasons, you might need to replace a node in your Riak cluster (which is different from [[recovering a failed node|Recovering a failed node]]). Here is the recommended way to go about replacing a node.
 
   1. Back up your data directory on the node in question. In this example scenario,
     we'll call the node **riak4**:
-    
+
     ```bash
     sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
     ```

@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [operator, troubleshooting]
+moved: {
+    '1.4.0-': '/cookbooks/Failure-and-Recovery/'
+}
 ---
 
 Riak's design protects against or reduces the severity of many types of
@@ -141,6 +144,3 @@ is **not started** on any node during steps 1-7:
   Riak EDS or CS customer and require assistance or further advice with a
   cluster recovery, please file a ticket with the
   <a href="https://help.basho.com">Basho Helpdesk</a>.</div>
-
-
-

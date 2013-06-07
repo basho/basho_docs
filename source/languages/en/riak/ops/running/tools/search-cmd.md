@@ -6,16 +6,19 @@ document: reference
 toc: true
 audience: beginner
 keywords: [command-line, search]
+moved: {
+    '1.4.0-': '/references/Command-Line-Tools---search-cmd/'
+}
 ---
 
 # Command Line Tools - `search-cmd`
 
 This script is used to interact with the Search functionality included with
-Riak.  Make sure you've first 
-[[enabled  Search|Configuration Files#riak_search]]. The `INDEX` argument is 
+Riak.  Make sure you've first
+[[enabled  Search|Configuration Files#riak_search]]. The `INDEX` argument is
 optional for all commands and defaults to `search`.
 
-    
+
     search-cmd set-schema [INDEX] SCHEMAFILE : Set schema for an index.
     search-cmd show-schema [INDEX]           : Display the schema for an index.
     search-cmd clear-schema-cache            : Empty the schema cache on all nodes.
@@ -34,7 +37,7 @@ optional for all commands and defaults to `search`.
 
     set-schema [INDEX] SCHEMAFILE
 
-Set the [[schema|Riak Search - Schema]] for a given index.  If you don't 
+Set the [[schema|Riak Search - Schema]] for a given index.  If you don't
 explicitly set the schema for an index it will use the default schema.
 
 
@@ -73,7 +76,7 @@ Much like `search` but also returns all the fields too.
 ## explain
 
     explain [INDEX] QUERY
-    
+
 Outputs the query plan for the specified index query.
 
 
@@ -81,8 +84,8 @@ Outputs the query plan for the specified index query.
 
     index [INDEX] PATH
 
-Index the document at the given path.  See the 
-[[indexing section|Riak Search - Indexing#Indexing-from-the-Command-Line]] for 
+Index the document at the given path.  See the
+[[indexing section|Riak Search - Indexing#Indexing-from-the-Command-Line]] for
 more details.
 
 
@@ -90,8 +93,8 @@ more details.
 
     delete [INDEX] PATH
 
-Used to delete a document from the index.  See the 
-[[indexing section|Riak Search - Indexing#Deleting-from-the-Command-Line]] 
+Used to delete a document from the index.  See the
+[[indexing section|Riak Search - Indexing#Deleting-from-the-Command-Line]]
 for more details.
 
 
@@ -99,7 +102,7 @@ for more details.
 
     solr [INDEX] PATH
 
-Index solr documents.  See the 
+Index solr documents.  See the
 [[indexing section|Riak Search - Indexing#Indexing-using-the-Solr-Interface]]
 for more details.
 
