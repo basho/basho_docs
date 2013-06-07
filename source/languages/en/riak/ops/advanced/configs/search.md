@@ -6,6 +6,9 @@ document: appendix
 toc: true
 audience: intermediate
 keywords: [search]
+moved: {
+    '1.4.0-': '/references/Riak-Search---Settings/'
+}
 ---
 
 ## Enabling Riak Search
@@ -19,7 +22,7 @@ There is a [bug in merge_index](https://github.com/basho/merge_index/pull/24) th
 
 Riak Search is enabled in the [[app.config|Configuration-Files#app.config]] file. Simply change the setting to "true" in Riak Search Config section (shown below).
 
-```erlang 
+```erlang
 %% Riak Search Config
 {riak_search, [
                %% To enable Search functionality set this 'true'.

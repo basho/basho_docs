@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [troubleshooting, security]
+moved: {
+    '1.4.0-': '/cookbooks/Network-Security-and-Firewall-Configurations/'
+}
 ---
 
 The following article discusses standard configurations and port

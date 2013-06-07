@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [operator, proxy]
+moved: {
+    '1.4.0-': '/cookbooks/configuration/Load-Balancing-and-Proxy-Configuration/'
+}
 ---
 
 The recommended best practice mode of production Riak operation suggests
@@ -123,7 +126,7 @@ reaching a functioning node upon retrying the connection attempt.
 HAPproxy also has a standby system you can use to remove a node from rotation
 while allowing existing requests to finish. You can remove nodes from
 HAProxy directly from the command line by interacting with the HAProxy stats
-socket with a utility such as 
+socket with a utility such as
 [socat](http://www.dest-unreach.org/socat/):
 
     echo "disable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
@@ -131,7 +134,7 @@ socket with a utility such as
 At this point, you can perform maintenance on the node, down the node, and
 so on. When you've finished working with the node and it is again available
 for requests, you can re-enable the node:
-      
+
     echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
 
 

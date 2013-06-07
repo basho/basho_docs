@@ -6,6 +6,9 @@ document: reference
 toc: true
 audience: intermediate
 keywords: [operator]
+moved: {
+    '1.4.0-': '/references/Configuration-Files/'
+}
 ---
 
 Riak has two configuration files located in `etc/` if you are using a source
@@ -100,10 +103,10 @@ The name of the cluster. This currently has no visible effect, but could be usef
     ```
 
     * n_val - the number of replicas stored. *Note: See [[Tunable CAP Controls|Tunable-CAP-Controls-in-Riak]] for further discussion.*
-    * Read, Write and Delete quorum values. Valid options include numeric values (e.g. ```{r, 2}```), and the following symbolic values:<br /> 
+    * Read, Write and Delete quorum values. Valid options include numeric values (e.g. ```{r, 2}```), and the following symbolic values:<br />
     ```quorum``` (a majority of the replicas must respond, equivalent to ```n_val / 2 + 1```)<br />
     ```all``` (all N replicas must respond)
-        * r - Read quorum value (the number of Riak nodes which must return results for a GET request before it is considered 
+        * r - Read quorum value (the number of Riak nodes which must return results for a GET request before it is considered
         successful). Default: ```quorum```.
         * pr - Primary read quorum (the number of primary, non-fallback nodes that must return results for a successful GET request).
         Default: ```0```.
@@ -195,9 +198,9 @@ You can override the default SSL key and certificate settings (default: etc/cert
 
  * **anti_entropy**
     Enable active anti-entropy subsystem + optional debug messages
-    
+
     `{anti_entropy, {on|off, []}},`
-    
+
     `{anti_entropy, {on|off, [debug]}},`
 
  * **anti_entropy_build_limit**
@@ -207,27 +210,27 @@ You can override the default SSL key and certificate settings (default: etc/cert
 
  * **anti_entropy_expire**
     Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual k/v backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds. The default is 1 week.
-    
+
     `{anti_entropy_expire, 604800000},`
 
  * **anti_entropy_concurrency**
     Limit how many AAE exchanges/builds can happen concurrently.
-    
+
     `{anti_entropy_concurrency, 2},`
 
  * **anti_entropy_tick**
     The tick determines how often the AAE manager looks for work to do (building/expiring trees, triggering exchanges, etc). The default is every 15 seconds. Lowering this value will speedup the rate that all replicas are synced across the cluster. Increasing the value is not recommended.
-    
+
     `{anti_entropy_tick, 15000},`
 
  * **anti_entropy_data_dir**
     The directory where AAE hash trees are stored.
-    
+
     `{anti_entropy_data_dir, "./data/anti_entropy"},`
 
  * **anti_entropy_leveldb_opts**
     The LevelDB options used by AAE to generate the LevelDB-backed on-disk hashtrees.
-    
+
     `{anti_entropy_leveldb_opts, [{write_buffer_size, 4194304}, {max_open_files, 20}]},`
 
  * **add_paths** A list of paths to add to the Erlang code path.

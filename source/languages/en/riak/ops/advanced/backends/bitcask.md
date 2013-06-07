@@ -10,6 +10,9 @@ prev: "[[Choosing a Backend]]"
 up:   "[[Choosing a Backend]]"
 next: "[[LevelDB]]"
 interest: false
+moved: {
+    '1.4.0-': '/tutorials/choosing-a-backend/Bitcask/'
+}
 ---
 
 ## Overview
@@ -110,9 +113,9 @@ in your [[app.config|Configuration Files]].
 
 ```erlang
 {bitcask, [
-	    ...,
+        ...,
             {open_timeout, 4} %% Wait time to open a keydir (in seconds)
-	    ...
+        ...
 ]}
 ```
 
@@ -122,17 +125,17 @@ in your [[app.config|Configuration Files]].
   when to synchronize data to disk. The default setting protects against data
   loss in the event of application failure (process death) but leaves open a
   small window wherein data could be lost in the event of complete system
-  failure (e.g. hardware, O/S, power). 
+  failure (e.g. hardware, O/S, power).
 
   The default mode, `none`, writes data into operating system buffers which
-  which will be written to the disks when those buffers are flushed by the 
+  which will be written to the disks when those buffers are flushed by the
   operating system. If the system fails (power loss, crash, etc.) before
   before those buffers are flushed to stable storage that data is lost.
 
   This is prevented by the setting `o_sync` which forces the operating system
   to flush to stable storage at every write. The effect of lushing each write
   is flushing each write is better durability however write throughput will
-  flushing each write is better durability however write throughput will as 
+  flushing each write is better durability however write throughput will as
   each write will have to wait for the write to complete.
 
   ___Available Sync Strategies___
@@ -143,9 +146,9 @@ in your [[app.config|Configuration Files]].
 
 ```erlang
 {bitcask, [
-	    ...,
+        ...,
             {sync_strategy, none}, %% Let the O/S decide when to flush to disk
-	    ...
+        ...
 ]}
 ```
 
@@ -208,9 +211,9 @@ Default is: `16#80000000` which is 2GB in bytes
 
 ```erlang
 {bitcask, [
-	    ...,
-	    {max_file_size, 16#80000000}, %% 2GB default
-	    ...
+        ...,
+        {max_file_size, 16#80000000}, %% 2GB default
+        ...
 ]}
 ```
 
@@ -232,16 +235,16 @@ Default is: `always`
 
 ```erlang
 {bitcask, [
-	    ...,
+        ...,
             {merge_window, always}, %% Span of hours during which merge is acceptable.
-	    ...
+        ...
 ]}
 ```
 
 <div class="note"><div class="title"> `merge_window` and Multi-Backend</div>
-When using Bitcask with [[Multi-Backend|Multi]], please note that if you 
-wish to use a merge window, you *must* set it in the global `bitcask` 
-section of your `app.config`.  `merge_window` settings in per-backend 
+When using Bitcask with [[Multi-Backend|Multi]], please note that if you
+wish to use a merge window, you *must* set it in the global `bitcask`
+section of your `app.config`.  `merge_window` settings in per-backend
 sections are ignored.
 </div>
 
@@ -274,11 +277,11 @@ invoked.
 
 ```erlang
 {bitcask, [
-	    ...,
-	    %% Trigger a merge if any of the following are true:
+        ...,
+        %% Trigger a merge if any of the following are true:
             {frag_merge_trigger, 60}, %% fragmentation >= 60%
-	    {dead_bytes_merge_trigger, 536870912}, %% dead bytes > 512 MB
-	    ...
+        {dead_bytes_merge_trigger, 536870912}, %% dead bytes > 512 MB
+        ...
 ]}
 ```
 
@@ -294,14 +297,14 @@ merge operation.
     in the merge at the default ratio. Increasing the value will cause fewer
     files to be merged, decreasing the value will cause more files to be
     merged.
-    
+
     Default is: `40`
 
 - _Dead Bytes_: The `dead_bytes_threshold` setting describes the minimum
     amount of data occupied by dead keys in a file to cause it to be included
     in the merge. Increasing the value will cause fewer files to be merged,
     decreasing the value will cause more files to be merged.
-    
+
     Default is: `134217728` which is 128MB in bytes
 
 - _Small File_: The `small_file_threshold` setting describes the minimum
@@ -309,20 +312,20 @@ merge operation.
     than the threshold will be included. Increasing the value will cause
     _more_ files to be merged, decreasing the value will cause _fewer_ files
     to be merged.
-    
+
     Default is: `10485760` while is 10MB in bytes
-    
+
 When any of these constraints are met for a single file, it will be
 included in the merge operation.
 
 ```erlang
 {bitcask, [
-	    ...,
-	    %% Conditions that determine if a file will be examined during a merge:
+        ...,
+        %% Conditions that determine if a file will be examined during a merge:
             {frag_threshold, 40}, %% fragmentation >= 40%
-	    {dead_bytes_threshold, 134217728}, %% dead bytes > 128 MB
-	    {small_file_threshold, 10485760}, %% file is < 10MB
-	    ...
+        {dead_bytes_threshold, 134217728}, %% dead bytes > 128 MB
+        {small_file_threshold, 10485760}, %% file is < 10MB
+        ...
 ]}
 ```
 
@@ -342,10 +345,10 @@ Set either option to -1 to disable.
 
 ```erlang
 {bitcask, [
-	    ...,
+        ...,
             {max_fold_age, -1}, %% Age in micro seconds (-1 means "unlimited")
-	    {max_fold_puts, 0}, %% Maximum number of updates
-	    ...
+        {max_fold_puts, 0}, %% Maximum number of updates
+        ...
 ]}
 ```
 
@@ -360,9 +363,9 @@ Default is: `-1` which disables automatic expiration
 
 ```erlang
 {bitcask, [
-	    ...,
-	    {expiry_secs, -1}, %% Don't expire items based on time
-	    ...
+        ...,
+        {expiry_secs, -1}, %% Don't expire items based on time
+        ...
 ]}
 ```
 
@@ -376,7 +379,7 @@ and prevent it from being expired.</p></div>
 By default, Bitcask will trigger a merge whenever a data file contains
 an expired key. This may result in excessive merging under some usage
 patterns. To prevent this you can set the `expiry_grace_time` option.
-Bitcask will defer triggering a merge solely for key expiry by the 
+Bitcask will defer triggering a merge solely for key expiry by the
 configured number of seconds. Setting this to `3600` effectively limits
 each cask to merging for expiry once per hour.
 
@@ -384,9 +387,9 @@ Default is: `0`
 
 ```erlang
 {bitcask, [
-	    ...,
-	    {expiry_grace_time, 3600}, %% Limit rate of expiry merging
-	    ...
+        ...,
+        {expiry_grace_time, 3600}, %% Limit rate of expiry merging
+        ...
 ]}
 ```
 
@@ -418,7 +421,7 @@ data.
     for all files, which results in less disk head seeks. If you need last
     access times but you'd like some of the benefits of this optimization
     you can try `relatime`.
-    
+
     ```
     /dev/sda5    /data           ext3    noatime  1 1
     /dev/sdb1    /data/inno-log  ext3    noatime  1 2
@@ -480,7 +483,7 @@ writing at any given time. The file being written to will grow until it
 exceeds a size threshold at which time it is closed and a new ﬁle is created
 for additional writes. Once a ﬁle is closed, either purposefully or due to
 server exit, it is considered immutable and will never be opened for writing
-again. 
+again.
 
 The file currently open for writes is only written by appending,
 which means that sequential writes do not require disk seeking dramatically
@@ -491,15 +494,15 @@ primary speed-up from a log-based database is its ability to minimize disk head
 seeks. Deleting a value from Bitcask is a two step process. First we append
 a "tombstone" record to the file open for writes which indicates that a value
 was marked for deletion at that time. At the same time we remove references to
-that key in the in-memory `keydir` information. 
+that key in the in-memory `keydir` information.
 
 Later, during a merge, non-active data files are scanned and only those values
-without tombstones are merged into the active data file. This effectively 
+without tombstones are merged into the active data file. This effectively
 removes the obsolete data and reclaims disk space associated with it. This data
 management strategy may use up a lot of space over time, since we just write
 out new values without touching the old ones. A process for compaction that we
-refer to as ”merging” solves this. The merge process iterates over all 
-non-active (i.e. immutable) ﬁles in a Bitcask and produces as output a set of 
+refer to as ”merging” solves this. The merge process iterates over all
+non-active (i.e. immutable) ﬁles in a Bitcask and produces as output a set of
 data files containing only the ”live” or latest versions of each present key.
 
 ### Bitcask Database Files

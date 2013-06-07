@@ -8,8 +8,10 @@ audience: intermediate
 keywords: [backends, planning, multi, leveldb, memory, bitcask]
 prev: "[[Memory]]"
 up:   "[[Choosing a Backend]]"
-next: "[[Innostore]]"
 interest: false
+moved: {
+    '1.4.0-': '/tutorials/choosing-a-backend/Multi/'
+}
 ---
 
 ## Overview
@@ -90,8 +92,8 @@ When using Multi Backend, it is important that the sum of all backend memory
 use is at 50% or less. Three backends each set to use 50% of available memory
 would cause problems.</div>
 
-<div class="note"><div class="title">Multi-Backend settings</div> 
-Certain settings, such as Bitcask's `merge_window`, are set per-node, 
+<div class="note"><div class="title">Multi-Backend settings</div>
+Certain settings, such as Bitcask's `merge_window`, are set per-node,
 rather than per-backend, and as such must be set in the top level backend
 sections of your `app.config`.</div>
 

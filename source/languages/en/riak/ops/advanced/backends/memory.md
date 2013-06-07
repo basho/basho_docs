@@ -10,6 +10,9 @@ prev: "[[LevelDB]]"
 up:   "[[Choosing a Backend]]"
 next: "[[Multi]]"
 interest: false
+moved: {
+    '1.4.0-': '/tutorials/choosing-a-backend/Memory/'
+}
 ---
 
 ## Overview
@@ -67,9 +70,9 @@ settings into the `memory_backend` section in your
 
 ```erlang
 {memory_backend, [
-	    ...,
+        ...,
             {max_memory, 4096}, %% 4GB in megabytes
-	    ...
+        ...
 ]}
 ```
 
@@ -80,9 +83,9 @@ settings into the `memory_backend` section in your
 
 ```erlang
 {memory_backend, [
-	    ...,
+        ...,
             {ttl, 86400}, %% 1 Day in seconds
-	    ...
+        ...
 ]}
 ```
 

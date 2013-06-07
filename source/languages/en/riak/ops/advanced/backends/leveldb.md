@@ -10,6 +10,9 @@ prev: "[[Bitcask]]"
 up:   "[[Choosing a Backend]]"
 next: "[[Memory]]"
 interest: false
+moved: {
+    '1.4.0-': '/tutorials/choosing-a-backend/LevelDB/'
+}
 ---
 
 ## Overview
@@ -93,11 +96,11 @@ Because of the large number of vnodes in a typical Riak node, it is undesirable 
 
 ```erlang
 {eleveldb, [
-	    ...,
+        ...,
 
-		{write_buffer_size_min, 31457280 }, %% 30 MB in bytes
+        {write_buffer_size_min, 31457280 }, %% 30 MB in bytes
             {write_buffer_size_max, 62914560}, %% 60 MB in bytes
-	    ...
+        ...
 ]}
 ```
 
@@ -117,9 +120,9 @@ The minimum max_open_files is 20.  The default is also 20.
 
 ```erlang
 {eleveldb, [
-	    ...,
+        ...,
             {max_open_files, 20}, %% Maximum number of files open at once per partition
-	    ...
+        ...
 ]}
 ```
 
@@ -147,9 +150,9 @@ later in the <a href="#Tips-&-Tricks">Tips & Tricks section</a> to see how to fi
 
 ```erlang
 {eleveldb, [
-	    ...,
+        ...,
             {block_size, 4096}, %% 4K blocks
-	    ...
+        ...
 ]}
 ```
 
@@ -167,9 +170,9 @@ larger than 4K can hurt performance.</p>
 
 ```erlang
 {eleveldb, [
-	    ...,
+        ...,
             {block_restart_interval, 16}, %% # of keys before restarting delta encoding
-	    ...
+        ...
 ]}
 ```
 
@@ -241,9 +244,9 @@ larger than 4K can hurt performance.</p>
 
 ```erlang
 {eleveldb, [
-	    ...,
+        ...,
             {cache_size, 8388608}, %% 8MB default cache size per-partition
-	    ...
+        ...
 ]}
 ```
 
@@ -274,9 +277,9 @@ larger than 4K can hurt performance.</p>
 
 ```erlang
 {eleveldb, [
-	    ...,
+        ...,
             {sync, true}, %% do the write()/fsync() every time
-	    ...
+        ...
 ]}
 ```
 
@@ -289,9 +292,9 @@ larger than 4K can hurt performance.</p>
 
 ```erlang
 {eleveldb, [
-	    ...,
+        ...,
             {verify_checksums, true}, %% make sure data is what we expected it to be
-	    ...
+        ...
 ]}
 ```
 
@@ -388,10 +391,10 @@ Calculate the average of ```write_buffer_size_min``` and ```write_buffer_size_ma
 
 The estimated amount of memory used by a vnode is the sum of:
 <ul>
-  	<li>average_write_buffer_size (from Step 4)</li>
-	<li>cache_size (from [[app.config|Configuration Files]])</li>
-	<li>open_file_memory (from step 3)</li>
-	<li>20 MB (for management files)</li>
+    <li>average_write_buffer_size (from Step 4)</li>
+    <li>cache_size (from [[app.config|Configuration Files]])</li>
+    <li>open_file_memory (from step 3)</li>
+    <li>20 MB (for management files)</li>
 </ul>
 
 Example:

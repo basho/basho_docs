@@ -6,6 +6,9 @@ document: appendix
 toc: true
 audience: intermediate
 keywords: [control]
+moved: {
+    '1.4.0-': '/references/appendices/Riak-Control/'
+}
 ---
 
 Riak Control is Basho's OSS, REST-driven, user-interface for managing Riak clusters. It is designed to give you quick insight into the health of your cluster and allow for easy management of nodes.
@@ -16,7 +19,7 @@ See the below video for a quick introduction to Riak Control and its features.
 
 ## Requirements
 
-Though Riak Control [is maintained as a separate application](https://github.com/basho/riak_control), the necessary code for Control ships with versions of Riak 1.1 and greater and requires no additional downloads outside of your preferred package or source build. 
+Though Riak Control [is maintained as a separate application](https://github.com/basho/riak_control), the necessary code for Control ships with versions of Riak 1.1 and greater and requires no additional downloads outside of your preferred package or source build.
 
 It is strongly recommended that SSL be enabled for riak-control, and SSL is required unless you set `{auth, none}`.  SSL can be enabled in the [[Configuration Files]].
 
@@ -66,8 +69,8 @@ Down near the bottom of the `app.config` file is the `riak_control` section. By 
 
 ```erlang
 {riak_control, [
-				 %% Set to false to disable the admin panel.
-			    {enabled,true},
+                 %% Set to false to disable the admin panel.
+                {enabled,true},
 ```
 
 ## Additional Configuration
@@ -115,9 +118,9 @@ Once you have configured your node to run Riak Control, you're ready to dive in!
 
 ### Start (or Restart) Your Node
 
-Start your node and direct your browser to <https://localhost:8069/admin>. 
+Start your node and direct your browser to <https://localhost:8069/admin>.
 
-If your browser warns you that it cannot authenticate the page, this is because you are using the self-signed certificates; you can safely ignore this warning and continue past it. 
+If your browser warns you that it cannot authenticate the page, this is because you are using the self-signed certificates; you can safely ignore this warning and continue past it.
 
 If you have authentication enabled in the `app.config` you will next be asked to authenticate. Enter your username and password now.
 

@@ -6,16 +6,19 @@ document: tutorials
 toc: true
 audience: advanced
 keywords: [operator, 2i]
+moved: {
+    '1.4.0-': '/cookbooks/Secondary-Indexes---Configuration/'
+}
 ---
 
 ## Configuration
 
-As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the ELevelDB backend `riak_kv_eleveldb_backend`. Currently, the ELevelDB backend is the only index-capable backend.  
+As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the ELevelDB backend `riak_kv_eleveldb_backend`. Currently, the ELevelDB backend is the only index-capable backend.
 
 <div class="info">
 <div class="title">Using Secondary Indexes with Multi-Backend</div>
-The only local storage backend that supports Secondary Indexes is ELevelDB. However, as of Riak 1.1.x, you can use the [[Multi Backend|Multi]] configuration to use other backends in the same cluster that is using Secondary Indexing.  
-</div>	
+The only local storage backend that supports Secondary Indexes is ELevelDB. However, as of Riak 1.1.x, you can use the [[Multi Backend|Multi]] configuration to use other backends in the same cluster that is using Secondary Indexing.
+</div>
 
 Open the `app.config` configuration file in an editor, and change the `storage_backend` setting to `riak_kv_eleveldb_backend`.
 
@@ -25,7 +28,7 @@ All nodes in a cluster must be configured to use an indexing-capable backend for
 
 Remove a node from the cluster, enable Secondary Indexes, and re-add it to the cluster.
 
-1. Choose one node in the cluster. Run `riak-admin leave` on the node. 
+1. Choose one node in the cluster. Run `riak-admin leave` on the node.
 2. Wait for transfers to complete. Then, run `riak stop`.
 3. Turn on Secondary Indexes by configuring Riak to use the ELevelDB backend, `riak_kv_eleveldb_backend`.
 4. Run `riak-admin join`
@@ -86,4 +89,3 @@ By default, Riak is configured to store 3 replicas of all objects, so the system
 The `$key` index field is a special field that is implicitly indexed on all objects when Secondary Indexes is enabled. The value of this field is the object's key, so this field allows an application to perform range queries across the keys in a bucket.
 
 The `$bucket` index field is another special field that is implicitly indexed on all objects when Secondary Indexes is enabled. The value of this field is the object's bucket, so this field allows an application retrieve all objects within a bucket based on secondary indexes.
-

@@ -6,6 +6,9 @@ document: appendix
 toc: true
 audience: advanced
 keywords: [mapreduce]
+moved: {
+    '1.4.0-': '/latest/references/MapReduce---Settings/'
+}
 ---
 
 ## Configuring MapReduce
