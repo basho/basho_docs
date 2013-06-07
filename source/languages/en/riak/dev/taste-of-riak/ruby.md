@@ -91,6 +91,57 @@ obj2.delete()
 obj3.delete()
 ```
 
+###Working With Complex Objects
+Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this plain old Ruby object that encapsulates some knowledge about a book.
+
+```ruby
+class Book 
+    attr_accessor :title
+    attr_accessor :author
+    attr_accessor :body
+    attr_accessor :isbn
+    attr_accessor :copies_owned
+end
+
+book = Book.new()
+book.isbn = '1111979723'
+book.title = 'Moby Dick'
+book.author = 'Herman Melville'
+book.body = 'Call me Ishmael. Some years ago...'
+book.copies_owned = 3
+```
+
+Ok, so we have some information about our Moby Dick collection that we want to save.  Storing this to Riak should look familiar by now.
+
+```ruby
+books_bucket = client.bucket('books')
+new_book = books_bucket.new(book.isbn)
+new_book.data = book
+new_book.content_type = "application/x-ruby-marshal"
+new_book.store()
+```
+
+With the addition of the `new_book.content_type = "application/x-ruby-marshal"` setting, the client will automatically marshal our object to a binary format, and unserialize it when it gets fetched back.  We can look at the raw binary format of any riak object by using the `raw_data` property:
+
+```ruby
+riak_object = books_bucket.get(book.isbn)
+puts riak_object.raw_data
+```
+
+Raw Data:
+
+```text
+\x04\bo:\tBook\n:\n@isbnI\"\x0F1111979723\x06:\x06ET:\v@titleI\"\x0EMoby Dick\x06;\aT:\f@authorI\"\x14Herman Melville\x06;\aT:\n@bodyI\"'Call me Ishmael. Some years ago...\x06;\aT:\x12@copies_ownedi\b
+```
+
+If we want to serialize to JSON or another format we have two options. The first is to create and call our own serializer, along with setting the appropriate `content_type`. 
+The other option is to use a library called [Ripple](https://github.com/basho/ripple), which is a rich Ruby modeling layer over the basic riak client.  Ripple falls outside the scope of this document but we shall visit it later.
+
+Now let’s clean up our mess:
+
+```ruby
+new_book.delete()
+```
 
 ###Next Steps
 More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. In the next chapter we will look at how to store and query more complicated and interconnected data, such as documents.  
