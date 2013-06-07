@@ -6,6 +6,9 @@ document: tutorials
 toc: true
 audience: intermediate
 keywords: [planning, os]
+moved: {
+    '1.4.0-': '/tutorials/System-Planning/'
+}
 ---
 
 Here are some steps and recommendations designing and configuring your Riak cluster.

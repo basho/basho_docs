@@ -8,6 +8,9 @@ audience: intermediate
 keywords: [backends, planning]
 next: "[[Bitcask]]"
 interest: false
+moved: {
+    '1.4.0-': '/tutorials/choosing-a-backend/'
+}
 ---
 
 A key feature of Riak KV is the pluggable storage backends. These allow the

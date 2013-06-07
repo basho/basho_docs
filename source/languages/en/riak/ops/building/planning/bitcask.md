@@ -5,6 +5,9 @@ version: 0.10.0+
 document: appendix
 toc: true
 keywords: [planning, bitcask]
+moved: {
+    '1.4.0-': '/references/appendices/Bitcask-Capacity-Planning/'
+}
 ---
 
 These calculators will assist you in sizing your cluster if you plan to use the

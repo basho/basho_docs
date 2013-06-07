@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [operator, best-practices]
+moved: {
+    '1.4.0-': '/cookbooks/best-practices/'
+}
 ---
 
 ## Disk Capacity
@@ -18,11 +21,11 @@ Filling up disks is bad, in general you should look to add capacity immediately 
 
 ## RAID Levels
 
-Riak provides resilience through its built in redundancy.  
+Riak provides resilience through its built in redundancy.
 
  - RAID0 can be used to increase the performance at the expense of single node reliability.
  - RAID5/6 can be used to increase the reliability over RAID0 but still higher performance than single disks.
- - You should choose a RAID level (or no RAID) that you’re comfortable with. 
+ - You should choose a RAID level (or no RAID) that you’re comfortable with.
 
 
 ## How much disk leeway to have
@@ -50,7 +53,7 @@ Riak provides resilience through its built in redundancy.
 
 *You should add more nodes:*
  - When you have reached 80% storage capacity.
- - When you have less than 10 days leeway before you expect the cluster to fill up. 
+ - When you have less than 10 days leeway before you expect the cluster to fill up.
  - When current node IO/CPU activity is higher than average for extended period of time--for Map/Reduce operations especially.
  - An alternative to adding more nodes is to add more storage to the existing nodes.
    - You should only add more storage to existing nodes if you’re confident that there is plenty of spare network and CPU capacity.
@@ -59,7 +62,7 @@ Riak provides resilience through its built in redundancy.
 
 ## How to add Nodes
 
- - You should add as many additional nodes as you require in one operation. 
+ - You should add as many additional nodes as you require in one operation.
  - Don’t add nodes one at a time if you’re adding multiple nodes.
  - You can limit the transfer rate so that priority is given to live customer traffic.
 
