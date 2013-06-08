@@ -7,7 +7,7 @@ audience: beginner
 keywords: [developers, client, php]
 ---
 
-If you haven't setup a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
 
 To try this flavor of Riak, a working installation of PHP is required. 
 

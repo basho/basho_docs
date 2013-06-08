@@ -8,7 +8,7 @@ keywords: [developers, client, erlang]
 ---
 
 
-If you haven't setup a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
 
 To try this flavor of Riak, a working installation of Erlang is required. You can also use the "erts" Erlang installation that comes with Riak. 
 

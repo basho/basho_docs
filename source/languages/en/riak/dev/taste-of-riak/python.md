@@ -8,7 +8,7 @@ keywords: [developers, client, python]
 ---
 
 
-If you haven't setup a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
 
 To try this flavor of Riak, a working installation of Python is required, with Python 2.7 preferred. 
 The Python package `setuptools` is also required to build the source.  You may install setuptools on OSX through MacPorts by running `sudo port install py-distribute`.
@@ -107,6 +107,48 @@ assert myBucket.get('two').exists == False
 assert myBucket.get('three').exists == False
 ```
 
+
+###Working With Complex Objects
+Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this class that encapsulates some knowledge about a book.
+
+```python
+
+book = {
+  'isbn': "1111979723",
+  'title': "Moby Dick",
+  'author': "Herman Melville",
+  'body': "Call me Ishmael. Some years ago...",
+  'copies_owned': 3 
+}
+```
+
+Ok, so we have some information about our Moby Dick collection that we want to save.  Storing this to Riak should look familiar by now:
+
+```python
+booksBucket = myClient.bucket('books')
+newBook = booksBucket.new(book['isbn'], data=book)
+newBook.store()
+```
+
+Some of you may be thinking “But how does the Python Riak client encode/decode my object”?  If we fetch our book back and print the value, we shall know:
+
+```python
+fetchedBook = booksBucket.get(book['isbn'])
+
+print(fetchedBook.encoded_data)
+```
+
+```javascript
+{"body": "Call me Ishmael. Some years ago...", "author": "Herman Melville", "isbn": "1111979723", "copies_owned": 3, "title": "Moby Dick"}
+```
+
+JSON!  The Riak Python client library encodes things as JSON when it can.  If we wanted to get a deserialized object back we would just use the regular `fetchedBook.data` method.
+
+Finally let’s clean up our mess:
+
+```python
+fetchedBook.delete()
+```
 
 ###Next Steps
 More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. In the next chapter we will look at how to store and query more complicated and interconnected data, such as documents.  
