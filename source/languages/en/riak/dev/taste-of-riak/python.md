@@ -109,7 +109,7 @@ assert myBucket.get('three').exists == False
 
 
 ###Working With Complex Objects
-Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this class that encapsulates some knowledge about a book.
+Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this object that encapsulates some knowledge about a book.
 
 ```python
 
@@ -130,7 +130,7 @@ newBook = booksBucket.new(book['isbn'], data=book)
 newBook.store()
 ```
 
-Some of you may be thinking “But how does the Python Riak client encode/decode my object”?  If we fetch our book back and print the value, we shall know:
+Some of you may be thinking “But how does the Python Riak client encode/decode my object”?  If we fetch our book back and print the raw encoded data, we shall know:
 
 ```python
 fetchedBook = booksBucket.get(book['isbn'])

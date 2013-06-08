@@ -92,50 +92,42 @@ obj3.delete()
 ```
 
 ###Working With Complex Objects
-Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this plain old Ruby object that encapsulates some knowledge about a book.
+Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this Ruby hash that encapsulates some knowledge about a book.
 
 ```ruby
-class Book 
-    attr_accessor :title
-    attr_accessor :author
-    attr_accessor :body
-    attr_accessor :isbn
-    attr_accessor :copies_owned
-end
-
-book = Book.new()
-book.isbn = '1111979723'
-book.title = 'Moby Dick'
-book.author = 'Herman Melville'
-book.body = 'Call me Ishmael. Some years ago...'
-book.copies_owned = 3
+book = {
+	:isbn => '1111979723',
+	:title => 'Moby Dick',
+	:author => 'Herman Melville',
+	:body => 'Call me Ishmael. Some years ago...',
+	:copies_owned => 3
+}
 ```
 
 Ok, so we have some information about our Moby Dick collection that we want to save.  Storing this to Riak should look familiar by now.
 
 ```ruby
 books_bucket = client.bucket('books')
-new_book = books_bucket.new(book.isbn)
+new_book = books_bucket.new(book[:isbn])
 new_book.data = book
-new_book.content_type = "application/x-ruby-marshal"
 new_book.store()
 ```
 
-With the addition of the `new_book.content_type = "application/x-ruby-marshal"` setting, the client will automatically marshal our object to a binary format, and unserialize it when it gets fetched back.  We can look at the raw binary format of any riak object by using the `raw_data` property:
+Some of you may be thinking “But how does the Ruby Riak client encode/decode my object”?  If we fetch our book back and print the raw data, we shall know:
 
 ```ruby
-riak_object = books_bucket.get(book.isbn)
-puts riak_object.raw_data
+fetched_book = books_bucket.get(book[:isbn])
+puts fetched_book.raw_data
 ```
 
 Raw Data:
 
-```text
-\x04\bo:\tBook\n:\n@isbnI\"\x0F1111979723\x06:\x06ET:\v@titleI\"\x0EMoby Dick\x06;\aT:\f@authorI\"\x14Herman Melville\x06;\aT:\n@bodyI\"'Call me Ishmael. Some years ago...\x06;\aT:\x12@copies_ownedi\b
+```javascript
+{"isbn":"1111979723","title":"Moby Dick","author":"Herman Melville","body":"Call me Ishmael. Some years ago...","copies_owned":3}
 ```
 
-If we want to serialize to JSON or another format we have two options. The first is to create and call our own serializer, along with setting the appropriate `content_type`. 
-The other option is to use a library called [Ripple](https://github.com/basho/ripple), which is a rich Ruby modeling layer over the basic riak client.  Ripple falls outside the scope of this document but we shall visit it later.
+JSON!  The Ruby Riak client will serialize objects to JSON when it comes across structured data like hashes.
+For more advanced control over serialization you can use a library called [Ripple](https://github.com/basho/ripple), which is a rich Ruby modeling layer over the basic riak client.  Ripple falls outside the scope of this document but we shall visit it later.
 
 Now let’s clean up our mess:
 
