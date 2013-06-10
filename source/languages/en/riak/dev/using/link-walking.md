@@ -4,7 +4,7 @@ project: riak
 version: 0.10.0+
 document: cookbook
 audience: beginner
-keywords: [fast-track]
+keywords: [developers, linkwalking]
 ---
 
 ## What are Links?

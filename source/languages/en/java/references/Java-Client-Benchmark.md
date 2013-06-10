@@ -12,7 +12,7 @@ This article describes some comparative benchmarks for the [riak-java-client](ht
 
 ## Hardware
 
-Generating the load is a MacBook Pro (2.53GHz core duo, 8GB ram, SSD drive) running [[Basho Bench|Benchmarking with Basho Bench]] against a 3 node Riak cluster. These are not full production spec machines but the results illustrate the performance characteristics of the Java Client.
+Generating the load is a MacBook Pro (2.53GHz core duo, 8GB ram, SSD drive) running [[Basho Bench]] against a 3 node Riak cluster. These are not full production spec machines but the results illustrate the performance characteristics of the Java Client.
 
 The Riak cluster is made of three identical machines with the following specifications:
 

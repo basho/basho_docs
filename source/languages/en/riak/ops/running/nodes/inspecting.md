@@ -1,5 +1,5 @@
 ---
-title: Inspecting a Riak Node
+title: Inspecting a Node
 project: riak
 version: 0.10.0+
 document: appendix

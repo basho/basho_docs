@@ -44,12 +44,12 @@ Updating Data|Concepts#Writing and Updating Data]].
 ### precommit
 
 A list of erlang or javascript functions to be executed before writing an
-object. See [[Pre-Commit Hooks|Commit-Hooks#Pre-Commit-Hooks]].
+object. See [[Pre-Commit Hooks|Using Commit Hooks#Pre-Commit-Hooks]].
 
 ### postcommit
 
 A list of erlang functions to be executed after writing an object. See
-[[Post-Commit Hooks|Commit-Hooks#Post-Commit-Hooks]].
+[[Post-Commit Hooks|Using Commit Hooks#Post-Commit-Hooks]].
 
 For more details on setting bucket properties see [[Configuration
 Files|Configuration Files#default_bucket_props]],

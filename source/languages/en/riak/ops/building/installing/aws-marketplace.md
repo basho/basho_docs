@@ -47,7 +47,7 @@ Once the virtual machine is created you should verify your selected EC2 security
 
     ![EC2 Security Group Settings](/images/aws-marketplace-security-group.png)
 
-You can read more about Riak's [[Network Security and Firewall Configurations]].
+You can read more about Riak's [[Security and Firewalls]].
 
 ## Clustering Riak on AWS
 
