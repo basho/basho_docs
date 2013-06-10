@@ -1,5 +1,5 @@
 ---
-title: Network Security and Firewall Configurations
+title: Security and Firewalls
 project: riak
 version: 0.10.0+
 document: cookbook
@@ -136,7 +136,7 @@ HtU5clY0rP8W/Nr7tC+ZGH2bjT1bmN1E9IM4wjBdyWGTosvY6ciIxuY5p5Iy/UhB
 
 ### Network Configurations
 
-Being a distributed database means that much of Riak's security springs from how you configure your network. We have a few recommendations for [[Network Security and Firewall Configurations|Network-Security-and-Firewall-Configurations]].
+Being a distributed database means that much of Riak's security springs from how you configure your network. We have a few recommendations for [[Security and Firewalls]].
 
 ### Client Auth
 
