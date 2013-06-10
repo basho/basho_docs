@@ -82,7 +82,7 @@ Outputs the query plan for the specified index query.
     index [INDEX] PATH
 
 Index the document at the given path.  See the 
-[[indexing section|Riak Search - Indexing#Indexing-from-the-Command-Line]] for 
+[[indexing section|Search Indexing Reference#Indexing-from-the-Command-Line]] for 
 more details.
 
 
@@ -91,7 +91,7 @@ more details.
     delete [INDEX] PATH
 
 Used to delete a document from the index.  See the 
-[[indexing section|Riak Search - Indexing#Deleting-from-the-Command-Line]] 
+[[indexing section|Search Indexing Reference#Deleting-from-the-Command-Line]] 
 for more details.
 
 
@@ -100,7 +100,7 @@ for more details.
     solr [INDEX] PATH
 
 Index solr documents.  See the 
-[[indexing section|Riak Search - Indexing#Indexing-using-the-Solr-Interface]]
+[[indexing section|Search Indexing Reference#Indexing-using-the-Solr-Interface]]
 for more details.
 
 
@@ -109,7 +109,7 @@ for more details.
     install BUCKET
 
 Install the Search precommit hook on the given bucket.  This allows one to
-[[index incoming objects|Riak Search - Indexing-and-Querying-Riak-KV-Data]].
+[[index incoming objects|Search Indexing Reference]].
 
 
 ## uninstall

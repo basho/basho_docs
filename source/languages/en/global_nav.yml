@@ -22,14 +22,14 @@ riak:
           - "[[PHP|Taste of Riak - PHP Flavor]]"
           - "[[Python|Taste of Riak - Python Flavor]]"
           - "[[Ruby|Taste of Riak - Ruby Flavor]]"
-
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
-          - "[[KV Search|Using KV Search]]"
+          - "[[Search|Using Search]]"
           - "[[Key Filters|Using Key Filters]]"
+          - "[[Link Walking]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
       - title: "Data Modeling"
         sub:
@@ -37,20 +37,21 @@ riak:
           - title: "High Read/Write"
             sub:
               - "[[Session Storage]]"
-              - "[[Serving Ads]]"
+              - "[[Serving Ads|Serving Advertisements]]"
               - "[[Log Data]]"
               - "[[Sensor Data]]"
           - title: "Relationships"
             sub:
               - "[[User Accounts]]"
-              - "[[User Settings & Prefs|Settings Preferences]]"
-              - "[[User Events & Timelines|User Events Timelines]]"
-              - "[[Articles & Blog Posts|Blogs]]"
+              - "[[User Settings & Prefs|User Settings/Preferences]]"
+              - "[[User Events & Timelines|User Subscriptions/Events/Timelines]]"
+              - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
           - "[[MapReduce|Advanced MapReduce]]"
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Search|Advanced Search]]"
+          - "[[Search Schema|Advanced Search Schema]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[CAP Controls]]"
           - "[[Client Libraries]]"
@@ -58,7 +59,8 @@ riak:
             sub:
               - "[[Bucket References]]"
               - "[[MapReduce References]]" # including KeyFilters?
-              - "[[Search References]]"
+              - "[[Search Indexing|Search Indexing Reference]]"
+              - "[[Key Filters|Key Filters Reference]]"
               - "[[Client Implementation Guide]]"
               - "[[HTTP API]]"
               - "[[PBC API]]"
@@ -85,12 +87,12 @@ riak:
               - "[[Post Installation]]"
           - title: "Planning"
             sub:
-              - "[[Start Planning|System Planning]]"
+              - "[[Start Planning|Planning for a Riak System]]"
               - "[[Cluster Capacity|Cluster Capacity Planning]]"
               - "[[Bitcask Capacity|Bitcask Capacity Planning]]"
               - "[[Choosing a Backend]]"
               - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
-          - "[[Benchmarking]]"
+          - "[[Benchmarking|Basho Bench]]"
           - "[[Basic Configuration]]"
       - title: "Tuning"
         sub:
@@ -100,13 +102,14 @@ riak:
           - "[[AWS Performance Tuning]]"
       - title: "Running a Cluster"
         sub:
-          - "[[Backups]]"
+          - "[[Backing up Riak]]"
           - "[[Statistics and Monitoring]]"
           - title: "Node Operations"
             sub:
               - "[[Adding/Removing|Adding and Removing Nodes]]"
               - "[[Renaming Nodes]]"
               - "[[Replacing Nodes|Replacing a Node]]"
+              - "[[Inspecting Nodes|Inspecting a Node]]"
           - title: "Command Line Tools"
             sub:
               - "[[riak|riak Command Line]]"
@@ -123,7 +126,7 @@ riak:
         sub:
           - "[[Riak Control]]"
           - "[[Installing Custom Code]]"
-          - "[[Security]]"
+          - "[[Security and Firewalls]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
@@ -143,10 +146,8 @@ riak:
       - title: "Concepts"
         sub:
           - "[[Concepts Overview|Concepts]]"
-          - "[[Riak Glossary]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
-          - "[[Commit Hooks]]"
           - "[[Eventual Consistency]]"
           - "[[Keys and Objects]]"
           - "[[Links]]"
@@ -162,14 +163,7 @@ riak:
           - "[[MongoDB|Riak Compared to MongoDB]]"
           - "[[Neo4j|Riak Compared to Neo4j]]"
           - "[[DynamoDB|Riak Compared to DynamoDB]]"
-      - title: "FAQs"
-        sub:
-          - "[[All FAQs|FAQs]]"
-          - "[[The Basics|Basic FAQs]]"
-          - "[[Developing on Riak|Developing on Riak FAQs]]"
-          - "[[Operating Riak|Operating Riak FAQs]]"
-          - "[[Log Messages|Log Messages FAQs]]"
-          - "[[Riak Community|Riak Community FAQs]]"
+      - "[[Riak Glossary]]"
       - "[[Dynamo Paper|Dynamo]]"
 
   - title: "Community"
@@ -180,6 +174,14 @@ riak:
           - "[[Developing with Riak]]"
           - "[[Operating in Production]]"
           - "[[Searching and Accessing]]"
+      - title: "FAQs"
+        sub:
+          - "[[All FAQs|Riak FAQs]]"
+          - "[[The Basics|Basic FAQs]]"
+          - "[[Developing on Riak|Developing on Riak FAQs]]"
+          - "[[Operating Riak|Operating Riak FAQs]]"
+          - "[[Log Messages|Log Messages FAQs]]"
+          - "[[Riak Community|Riak Community FAQs]]"
       - "[[Community Overview|Community Resources]]"
       - "[[Community Projects]]"
       - "[[Reporting Bugs]]"

@@ -267,7 +267,7 @@ stored in that bucket are also indexed seamlessly in Riak Search.
 Commit Hooks
 ------------
 
-[[Commit-Hooks]] are invoked before or after a value is persisted and
+[[Commit Hooks|Using Commit Hooks]] are invoked before or after a value is persisted and
 can greatly enhance the functionality of any application. Commit hooks
 can:
 

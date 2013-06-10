@@ -119,5 +119,4 @@ Settings pertaining to Secondary Index and Riak Search indices.
 ## Additional Resources
 More information related to cluster configuration and building development environments is available in our documentation.
 
-* [[Basic Cluster Setup]]
-* [[The Riak Fast Track]]
+* [[Five Minute Install]]

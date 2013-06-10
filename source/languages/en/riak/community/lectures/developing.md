@@ -6,6 +6,9 @@ toc: true
 document: appendix
 audience: intermediate
 keywords: [community, resources]
+moved: {
+  '1.4.0-': '/references/appendices/community/Developing-with-Riak'
+}
 ---
 
 This page is a collection of videos, slides, papers, and other media discussing developing with Riak (general guidelines, using client libraries, etc.).

@@ -21,12 +21,12 @@ module SitemapRenderOverride
     source.resources.each do |resource|
       # we only want "wiki" links, not images, etc
       next unless resource.url =~ /(html|[\/])$/
-      name = format_name(extract_name(resource.url))
+      # name = format_name(extract_name(resource.url))
       project = resource.metadata[:page]["project"]
       value = {:url => resource.url, :project => project}
-      $sitemap_pages[name] ||= value
+      # $sitemap_pages[name] ||= value
       title = resource.metadata[:page]["title"]
-      next if title.blank?
+      # next if title.blank?
       title = format_name(title)
       $sitemap_pages[title] = value
     end

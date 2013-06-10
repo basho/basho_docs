@@ -90,17 +90,3 @@ Here is brief screencast that will show you just how the N, R, and W values func
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/11172656"></div>
 
 <p><a href="http://vimeo.com/11172656">Tuning CAP Controls in Riak</a> from <a href="http://vimeo.com/bashotech">Basho Technologies</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
-
-### What's next?
-
-Congratulations. If you're reading this and have done the Fast Track in order, it means that you've built a three node Riak cluster, inserted a small amount of data with the help of some scripts, performed basic API operations, queried that data with MapReduce, and have an introduction to the powers of tunable CAP controls. Needless to say, you've come a long way.
-
-But, there is always more Riak learning to be done, so here is a list of next steps you may want to take if you are still interested in Riak. Whatever you do, if you have a moment, send an email to _docs@basho.com_ with your thoughts on what you thought we did well, and, more importantly, how we can make the Riak Fast Track better.
-
-* If you'd like more general information about Riak, check out our collections of [[Publications]] and [[Slide Decks]].
-* For more info on how to interact with Riak from your language of choice, start with [[Client Libraries]]
-* To download a platform-specific package of Riak, try [[Installation]].
-* If you're interested in knowing how Riak stacks up to a few other databases, have a look at [[Riak Comparisons]]
-* If you want to have a look at the Riak Source you can do so on [GitHub](http://github.com/basho/riak).
-
-And finally, a big [[Thank You]] to everyone who helped create, update and fix this tutorial.

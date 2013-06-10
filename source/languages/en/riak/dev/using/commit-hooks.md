@@ -8,7 +8,7 @@ audience: beginner
 keywords: [developers, commit-hooks]
 ---
 
-## Overview 
+## Overview
 
 Pre- and Post- Commit hooks are invoked before or after a riak_object is persisted and can greatly enhance the functionality of any application. Commit hooks can:
 

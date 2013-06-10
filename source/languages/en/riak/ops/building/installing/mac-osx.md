@@ -140,7 +140,7 @@ brew install riak
 
 Homebrew will install Erlang if you don't have it already.
 
-## From Source
+## Installing From Source
 You must have Xcode tools installed from the CD that came with your Mac or from [[Apple's Developer website|http://developer.apple.com/]].
 
 <div class="note">Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
@@ -219,5 +219,4 @@ If you get errors when building about "incompatible architecture", please verify
 From here you might want to check out:
 
   * [[Post Installation]]: for checking Riak health after installation
-  * [[The Riak Fast Track]]: a guide for setting up a 4 node cluster and exploring Riak's main features.
-  * [[Basic Cluster Setup]]: a guide that will show you how to go from one node to bigger than Google!
+  * [[Five Minute Install]]: a guide that will show you how to go from one node to bigger than Google!

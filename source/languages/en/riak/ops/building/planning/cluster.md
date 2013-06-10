@@ -110,7 +110,7 @@ The number of nodes (i.e. physical servers) in your Riak Cluster depends
 on the number of times data is [[Replicated|Replication]] across the cluster.  
 To ensure that the cluster is always available to respond to read and write requests, Basho recommends
 a "sane default" of N=3 replicas.  This requirement can be met with a three
-or four node cluster (as implemented in [[The Riak Fast Track|fast-track]]).
+or four node cluster (you can tweak nodes installed through the [[Five Minute Install]]).
 However, for production deployments we recommend using no fewer than 5 nodes, as node failures
 in smaller clusters can compromise the fault-tolerance of the system.  Additionally, in clusters smaller than
 5 nodes, a high percentage of the nodes (75-100% of them) will need to respond to each request, putting undue load on the 

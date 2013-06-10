@@ -141,8 +141,5 @@ Next Steps?
 Now that Riak is installed, check out the following resources:
 
 -   [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
--   [[The Riak Fast Track]]: A
-    guide for setting up a 4 node cluster and exploring Riak's main
-    features.
--   [[Basic Cluster Setup]]: A  guide that will show you how to go from one
+-   [[Five Minute Install]]: A  guide that will show you how to go from one
     node to bigger than Google!
