@@ -8,7 +8,7 @@ keywords: [developers, client, python]
 ---
 
 
-If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
 
 To try this flavor of Riak, a working installation of Python is required, with Python 2.7 preferred. 
 The Python package `setuptools` is also required to build the source.  You may install setuptools on OSX through MacPorts by running `sudo port install py-distribute`.

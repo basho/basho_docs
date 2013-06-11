@@ -7,6 +7,7 @@ toc: true
 index: true
 audience: beginner
 keywords: [compatibility]
+interest: false
 ---
 
 If you are deploying Riak CS in combination with an existing Riak cluster, you

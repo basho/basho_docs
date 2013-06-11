@@ -172,7 +172,7 @@ The storage calculation system uses MapReduce to sum the files in a
 bucket. This means you must tell all of your Riak nodes where to find
 Riak CS's compiled files before calculating storage.
 
-See [[Configuring Riak]] for directions on setting this up.
+See [[Configuring Riak for CS]] for directions on setting this up.
 
 ### Scheduling and Manual Triggering
 Triggering the storage calculation is a matter of setting up a regular

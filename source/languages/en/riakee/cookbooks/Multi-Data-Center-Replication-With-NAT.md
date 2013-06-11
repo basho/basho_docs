@@ -10,7 +10,7 @@ keywords: [mdc, repl, nat]
 
 Riak Enterprise now supports replication of data on networks that use static NAT.
 
-This can be used for replicating data over the internet where servers have both internal and public IP addresses (see [[Riak REPL SSL|Multi Data Center Replication SSL]] if you replicate data over a public network).
+This can be used for replicating data over the internet where servers have both internal and public IP addresses (see [[Riak REPL SSL|Multi Data Center Replication: SSL]] if you replicate data over a public network).
 
 ### Requirements:
 In order for Replication to work on a server configured with NAT, the NAT addresses must be configured statically.

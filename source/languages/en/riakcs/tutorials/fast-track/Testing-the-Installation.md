@@ -7,7 +7,7 @@ toc: true
 index: true
 audience: beginner
 keywords: [tutorial, fast-track, installing]
-prev: "[[Building a Virtual Test Environment]]"
+prev: "[[Building a Virtual Testing Environment]]"
 up:   "[[The Riak CS Fast Track]]"
 ---
 
@@ -86,6 +86,6 @@ $ ls -lah test_file #verify that the download was successful
 ## What's Next
 If you have made it this far... congratulations! You now have a working Riak CS test instance (either virtual or local).  There is still a fair bit of learning to be done and the entire References section is useful, a few items that may be of particular interest are:
 
-* [[Details about API operations|Storage]]
-* [[Information about the Ruby Fog client|Fog]]
+* [[Details about API operations|RiakCS Storage API]]
+* [[Information about the Ruby Fog client|Fog on Riak CS]]
 * [[Release Notes]]

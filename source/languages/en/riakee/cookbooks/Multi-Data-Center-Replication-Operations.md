@@ -145,7 +145,7 @@ get_pool_size | The number of Riak GET finite state workers available to process
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication Configuration]] guide for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication: Configuration]] guide for more information.
 
 Field | Description
 ------|------------

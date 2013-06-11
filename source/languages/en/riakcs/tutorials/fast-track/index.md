@@ -32,5 +32,5 @@ The Fast Track takes you through the following sections:
 
 * [[What is Riak CS?|What is Riak CS]]: A High Level Overview of Riak and its Architecture.
 * [[Building a Local Test Environment]]: Instructions on Setting up Local Environment on your Machine.
-* [[Building a Virtual Test Environment]]: Instructions on Setting up a Virtual Environment on your Machine.
+* [[Building a Virtual Testing Environment]]: Instructions on Setting up a Virtual Environment on your Machine.
 * [[Testing the Riak CS Installation]]:  Using s3cmd to Test your Environment.

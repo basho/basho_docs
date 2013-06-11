@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, operator, bnw]
 ---
 
-This document shows how to manage replication with the `riak-repl` command. Many of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data-Center Replication Configuration New]] values.
+This document shows how to manage replication with the `riak-repl` command. Many of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data-Center Replication: Configuration (Advanced)]] values.
 
 ## Cluster Connectivity
 
@@ -90,7 +90,7 @@ Stop realtime replication from a source cluster to sink clusters.
 
 ## Fullsync Replication Configuration
 
-These behaviors can be altered by using the app.config `fullsync_on_connect`. See the [[Configuration guide|Multi Data-Center Replication Configuration New]] for more information.
+These behaviors can be altered by using the app.config `fullsync_on_connect`. See the [[Configuration Guide|Multi Data-Center Replication: Configuration (Advanced)]] for more information.
 
 **fullsync enable**
 
@@ -123,12 +123,12 @@ Stops a fullsync.
 
 ## riak-repl Status Output
 
-Details about the `riak-repl status` command can be found under [[Replication Statistics|Multi Data Center Replication Status]].
+Details about the `riak-repl status` command can be found under [[Replication Statistics|Multi Data Center Replication: Statistics (Advanced)]].
 
 
 ## Tuning
 
-These tuning values may also be set via the node's `app.config` file. See the [[Configuration guide|Multi Data-Center Replication Configuration New]] for more information.
+These tuning values may also be set via the node's `app.config` file. See the [[Configuration Guide|Multi Data-Center Replication: Configuration (Advanced)]] for more information.
 
 **fullsync max_fssource_node**
 

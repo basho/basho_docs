@@ -62,7 +62,7 @@ Replace `<stanchion-package.rpm>` with the actual file name for the package you 
 <div class="note"><div class="title">Note</div>CentOS enables Security-Enhanced Linux (SELinux) by default. If you encounter errors during installation, try disabling SELinux.</div>
 
 ## Installing Riak
-If you have not yet installed Riak, follow the [[Riak Installation|Installation]] documentation to do so.
+If you have not yet installed Riak, follow the [[Riak Installation|Installing and Upgrading]] documentation to do so.
 
 ## What's Next?
-Once you've completed installation of Riak CS and Riak, you're ready to learn more about the [[Configuration of Riak CS|Configuration]].
+Once you've completed installation of Riak CS and Riak, you're ready to learn more about the [[Configuration of Riak CS|Configuring Riak CS]].

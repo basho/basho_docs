@@ -1,5 +1,5 @@
 ---
-title: Launching and Stopping Riak
+title: Launching and Stopping Riak CS
 project: riakcs
 version: 1.2.0+
 document: cookbook

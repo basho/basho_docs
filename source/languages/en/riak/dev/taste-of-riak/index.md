@@ -1,10 +1,12 @@
 ---
-title: Taste of Riak Prerequisites
+title: "Taste of Riak: Prerequisites"
 project: riak
 document: guide
 toc: false
 audience: beginner
 keywords: [developers, client]
+versions: false
+interest: false
 ---
 
 **Welcome, new Riak developer!**
@@ -17,7 +19,7 @@ If you haven't completed the [[five minute install]], go ahead and walk through 
 
 ###Choose Your Programming Language
 
-Basho officially supports a number of open-source client libraries for various programming languages and environments.  Please select the language you'd like to proceed with.
+Basho officially supports a number of open-source [[client libraries]] for various programming languages and environments.  Please select the language you'd like to proceed with.
 
 <ul class="planguages">
 <li data-lang="java">[[Java|Taste of Riak: Java]]</li>

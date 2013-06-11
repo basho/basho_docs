@@ -2,7 +2,7 @@ riak:
   # - title: "Shortcuts"
   #   class: "active shortcuts"
   #   sub:
-  #     - "[[APIs|/references/apis/]]"
+  #     - "[[APIs|/dev/references/http/]]"
   #     - "[[FAQs]]"
   - title: "Start Here"
     class: "start"
@@ -16,7 +16,7 @@ riak:
     sub:
       - title: "A Taste of Riak"
         sub: 
-          - "[[Prerequisites|Taste of Riak Prerequisites]]"
+          - "[[Prerequisites|Taste of Riak: Prerequisites]]"
           - "[[Erlang|Taste of Riak: Erlang]]"
           - "[[Java|Taste of Riak: Java]]"
           - "[[PHP|Taste of Riak: PHP]]"
@@ -193,44 +193,44 @@ riakee:
   - title: "Shortcuts"
     class: "active shortcuts"
     sub:
-      - "[[APIs|/references/apis/]]"
+      - "[[APIs|/dev/references/http/]]"
       - "[[FAQs|Riak Enterprise FAQs]]"
 
   - title: "Start Here"
     class: "start"
     sub:
       - "[[Riak Enterprise]]"
-      - "[[The Riak Fast Track]]"
+      # - "[[The Riak Fast Track]]"
       - "[[Rolling Upgrade to Enterprise]]"
-      - "[[Query Choices|Querying Riak]]"
+      # - "[[Query Choices|Querying Riak]]"
   - title: "Multi Data Center"
     sub:
       - title: "Default Replication"
         sub:
-          - "[[Architecture|Multi Data Center Replication Architecture]]"
-          - "[[Configuration|Multi Data Center Replication Configuration]]"
-          - "[[Operations|Multi Data Center Replication Operations]]"
-          - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
-          - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync]]"
-          - "[[SSL|Multi Data Center Replication SSL]]"
-          - "[[With NAT|Multi Data Center Replication With NAT]]"
-          - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
-          - "[[System Tuning|Multi Data Center Replication System Tuning]]"
+          - "[[Architecture|Multi Data Center Replication: Architecture]]"
+          - "[[Configuration|Multi Data Center Replication: Configuration]]"
+          - "[[Operations|Multi Data Center Replication: Operations]]"
+          - "[[Per Bucket|Multi Data Center Replication: Per Bucket]]"
+          - "[[Scheduling Full Sync|Multi Data Center Replication: Scheduling Full Sync]]"
+          - "[[SSL|Multi Data Center Replication: SSL]]"
+          - "[[With NAT|Multi Data Center Replication: With NAT]]"
+          - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
+          - "[[System Tuning|Multi Data Center Replication: System Tuning]]"
       - title: "Advanced Replication"
         sub:
-          - "[[Architecture|Multi Data Center Replication Architecture New]]"
-          - "[[Configuration|Multi Data Center Replication Configuration New]]"
-          - "[[Operations|Multi Data Center Replication Operations New]]"
-          - "[[Statistics|Multi Data Center Replication Status]]"
+          - "[[Architecture|Multi Data Center Replication: Architecture (Advanced)]]"
+          - "[[Configuration|Multi Data Center Replication: Configuration (Advanced)]]"
+          - "[[Operations|Multi Data Center Replication: Operations (Advanced)]]"
+          - "[[Statistics|Multi Data Center Replication: Statistics (Advanced)]]"
   - title: "Operating Riak Enterprise"
     sub:
-      - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
+      - "[[Multi Data Center Replication|Multi Data Center Replication: Operations]]"
       - "[[JMX Monitoring]]"
       - "[[SNMP Configuration]]"
   - title: "References"
     sub:
       - "[[SNMP Counters]]"
-      - "[[APIs|/references/apis/]]"
+      - "[[APIs|/dev/references/http/]]"
       - "[[Riak Enterprise FAQs|Riak Enterprise FAQs]]"
       - "[[Riak FAQs|Riak FAQs]]"
 
@@ -258,7 +258,7 @@ riakcs:
     sub:
       - "[[Account Management]]"
       - "[[Configuring Riak CS Overview]]"
-      - "[[Configuring Riak]]"
+      - "[[Configuring Riak|Configuring Riak for CS]]"
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
       - "[[Configuring an S3 client]]"
@@ -266,14 +266,14 @@ riakcs:
       - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
   - title: "Riak CS Enterprise"
     sub:
-      - "[[Overview|MDC Overview]]"
-      - "[[Configuration|Configuring MDC]]"
+      - "[[Overview|Riak CS Multi Data Center Overview]]"
+      - "[[Configuration|Configuring Riak CS Multi Data Center]]"
   - title: "References"
     sub:
       - title: "Comparisons"
         sub:
-            - "[[CS Compared to Swift|Riak Compared to Swift]]"
-            - "[[CS Compared to Atmos|Riak Compared to Atmos]]"
+            - "[[CS Compared to Swift|Riak CS Compared to Swift]]"
+            - "[[CS Compared to Atmos|Riak CS Compared to Atmos]]"
       - "[[HTTP Administration Overview]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
@@ -294,7 +294,7 @@ java:
     class: "active shortcuts"
     sub:
       - "[[Riak]]"
-      - "[[APIs|/references/apis/]]"
+      - "[[APIs|/dev/references/apis/]]"
   - title: "Start Here"
     class: "start"
     sub:

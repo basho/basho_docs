@@ -9,12 +9,12 @@ audience: beginner
 keywords: [tutorial, fast-track, installing]
 prev: "[[What is Riak CS]]"
 up:   "[[The Riak CS Fast Track]]"
-next: "[[Building a Virtual Test Environment]]"
+next: "[[Building a Virtual Testing Environment]]"
 ---
 
 The following instructions will guide you through installing a Riak CS test environment. This guide does not cover system/service tuning, nor does it attempt to optimize your installation given your particular architecture.  This procedure is ideal for building a test environment either on local or remote hardware that allows for durable, repeatable testing.
 
-If you want to build a testing environment with a minimum of configuration there is an option for [[Building a Virtual Test Environment]].
+If you want to build a testing environment with a minimum of configuration there is an option for [[Building a Virtual Testing Environment]].
 
 ## Installing Your First Node
 ### Step 1: Raise your system's open file limits
@@ -313,7 +313,7 @@ The process for installing additional nodes is identical to your first node with
 
     Where `riak@10.0.2.10` is the Riak node name set in your first node's `/etc/riak/vm.args` file
 
-You will then need to verify the cluster plan with the `riak-admin cluster plan` command, and commit the cluster changes with `riak-admin cluster commit` to complete the join process. More information is available in the [[Command Line Tools|Command-Line-Tools---riak-admin#cluster]] documentation.
+You will then need to verify the cluster plan with the `riak-admin cluster plan` command, and commit the cluster changes with `riak-admin cluster commit` to complete the join process. More information is available in the [[Command Line Tools|riak-admin Command Line#cluster]] documentation.
 
 <div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and should not be operated in a manner which exposes it directly to the public internet</strong>. Instead, consider a load balancing solution, such as dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.</div>
 

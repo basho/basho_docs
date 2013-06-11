@@ -177,7 +177,7 @@ message_queue_len | The number of Erlang messages that are waiting to be process
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication Configuration New]] guide for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication: Configuration (Advanced)]] guide for more information.
 
 Field | Description
 ------|------------
