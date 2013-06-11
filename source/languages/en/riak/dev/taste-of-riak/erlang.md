@@ -1,5 +1,5 @@
 ---
-title: Taste of Riak - Erlang Flavor
+title: "Taste of Riak: Erlang"
 project: riak
 document: guide
 toc: true
@@ -7,16 +7,13 @@ audience: beginner
 keywords: [developers, client, erlang]
 ---
 
-
 If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak Prerequisites]] first.
 
 To try this flavor of Riak, a working installation of Erlang is required. You can also use the "erts" Erlang installation that comes with Riak. 
 
 ###Client Setup
 
-
-Download the latest erlang client from GitHub ([zip](https://github.com/basho/riak-erlang-client/archive/master.zip), [github repository](https://github.com/basho/riak-erlang-client/)), and extract it to your working directory.  
-
+Download the latest erlang client from GitHub ([zip](https://github.com/basho/riak-erlang-client/archive/master.zip), [github repository](https://github.com/basho/riak-erlang-client/)), and extract it to your working directory.
 
 Next, open the erlang console with the client library paths included.
 
@@ -31,7 +28,6 @@ Now let’s create a link to the Riak node.
 ```
 
 We are now ready to start interacting with Riak.
-
 
 ###Creating Objects In Riak
 First, let’s create a few Riak objects.

@@ -1,5 +1,5 @@
 ---
-title: Taste of Riak - Java Flavor
+title: "Taste of Riak: Java"
 project: riak
 document: guide
 toc: true

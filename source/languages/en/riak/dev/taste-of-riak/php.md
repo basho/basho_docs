@@ -1,5 +1,5 @@
 ---
-title: Taste of Riak - PHP Flavor
+title: "Taste of Riak: PHP"
 project: riak
 document: guide
 toc: true

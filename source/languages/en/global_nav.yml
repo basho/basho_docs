@@ -14,14 +14,14 @@ riak:
 
   - title: "Riak for Developers"
     sub:
-      - title: "Taste of Riak"
+      - title: "A Taste of Riak"
         sub: 
           - "[[Prerequisites|Taste of Riak Prerequisites]]"
-          - "[[Erlang|Taste of Riak - Erlang Flavor]]"
-          - "[[Java|Taste of Riak - Java Flavor]]"
-          - "[[PHP|Taste of Riak - PHP Flavor]]"
-          - "[[Python|Taste of Riak - Python Flavor]]"
-          - "[[Ruby|Taste of Riak - Ruby Flavor]]"
+          - "[[Erlang|Taste of Riak: Erlang]]"
+          - "[[Java|Taste of Riak: Java]]"
+          - "[[PHP|Taste of Riak: PHP]]"
+          - "[[Python|Taste of Riak: Python]]"
+          - "[[Ruby|Taste of Riak: Ruby]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"

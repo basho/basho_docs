@@ -1,5 +1,5 @@
 ---
-title: Taste of Riak - Ruby Flavor
+title: "Taste of Riak: Ruby"
 project: riak
 document: guide
 toc: true

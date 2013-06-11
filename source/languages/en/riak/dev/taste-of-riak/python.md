@@ -1,5 +1,5 @@
 ---
-title: Taste of Riak - Python Flavor
+title: "Taste of Riak: Python"
 project: riak
 document: guide
 toc: true
