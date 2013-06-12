@@ -80,7 +80,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
         <td>There are currently four ways to [[query Riak|Querying Riak]].
 			<ul>
 			<li>Primary key operations (GET, PUT, DELETE, UPDATE)</li>
-			<li>[[MapReduce]]</li>
+			<li>[[MapReduce|Using MapReduce]]</li>
 			<li>[[Secondary Indexes]]</li>
 			<li>[[Riak Search]]</li>
       <li>[[Comparing MapReduce, Search, and Secondary Indexes|Querying Riak]]</li>

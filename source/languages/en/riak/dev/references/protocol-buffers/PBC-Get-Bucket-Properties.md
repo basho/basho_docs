@@ -1,5 +1,5 @@
 ---
-title: PBC Bucket Properties
+title: PBC Get Bucket Properties
 project: riak
 version: 0.14.0+
 document: api

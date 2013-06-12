@@ -1,5 +1,5 @@
 ---
-title: PBC Get Client I
+title: PBC Get Client ID
 project: riak
 version: 0.14.0+
 document: api

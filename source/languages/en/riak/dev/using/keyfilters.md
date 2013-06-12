@@ -8,7 +8,7 @@ audience: beginner
 keywords: [developers, mapreduce, keyfilters]
 ---
 
-Key filters are a way to pre-process [[MapReduce]] inputs from a full bucket query simply by examining the key &mdash; without loading the object first. This is especially useful if your keys are composed of domain-specific information that can be analyzed at query-time.
+Key filters are a way to pre-process [[MapReduce|Using MapReduce]] inputs from a full bucket query simply by examining the key without loading the object first. This is especially useful if your keys are composed of domain-specific information that can be analyzed at query-time.
 
 ## Understanding key filters
 

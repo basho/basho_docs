@@ -9,7 +9,7 @@ keywords: [api, http]
 group_by: "Query Operations"
 ---
 
-[[MapReduce]] is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.
+[[MapReduce|Using MapReduce]] is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.
 
 ## Request
 
@@ -18,7 +18,7 @@ POST /mapred
 ```
 
 Important headers:
-* `Content-Type` - must always be `application/json`.  The format of the request body is described in detail on the [[MapReduce]] page.
+* `Content-Type` - must always be `application/json`.  The format of the request body is described in detail on the [[MapReduce|Using MapReduce]] page.
 
 Optional query parameters:
 * `chunked` - when set to `true`, results will be returned as they are received in `multipart/mixed` format using chunked-encoding.

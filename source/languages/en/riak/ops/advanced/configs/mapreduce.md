@@ -13,7 +13,7 @@ moved: {
 
 ## Configuring MapReduce
 
-[[MapReduce]] \(M/R) is always enabled, but configurable through the [[app.config|Configuration-Files#app-config]] file as follows under `riak_kv`
+[[MapReduce|Using MapReduce]] \(M/R) is always enabled, but configurable through the [[app.config|Configuration-Files#app-config]] file as follows under `riak_kv`
 
 ```erlang
 {riak_kv, [

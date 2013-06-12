@@ -11,7 +11,7 @@ group_by: "Query Operations"
 
 Link walking (traversal) finds and returns objects by following links attached
 to them, starting from the object specified by the bucket and key portion.  It
-is a special case of [[MapReduce]], and can be expressed more verbosely as such.
+is a special case of [[MapReduce|Using MapReduce]], and can be expressed more verbosely as such.
 [[Read more about Links|Links]].
 
 ## Request

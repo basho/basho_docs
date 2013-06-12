@@ -25,6 +25,7 @@ riak:
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
+          - "[[Client Libraries]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Search|Using Search]]"
@@ -54,14 +55,12 @@ riak:
           - "[[Search Schema|Advanced Search Schema]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[CAP Controls]]"
-          - "[[Client Libraries]]"
           - title: "References"
             sub:
-              - "[[Bucket References]]"
-              - "[[MapReduce References]]" # including KeyFilters?
+              # - "[[Bucket References]]"
               - "[[Search Indexing|Search Indexing Reference]]"
               - "[[Key Filters|Key Filters Reference]]"
-              - "[[Client Implementation Guide]]"
+              - "[[Implementing a Client|Client Implementation Guide]]"
               - "[[HTTP API]]"
               - "[[PBC API]]"
               - "[[Backend API]]"

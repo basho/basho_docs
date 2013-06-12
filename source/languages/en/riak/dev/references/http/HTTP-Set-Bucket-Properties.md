@@ -1,5 +1,5 @@
 ---
-title: HTTP Bucket Properties
+title: HTTP Set Bucket Properties
 project: riak
 version: 0.10.0+
 document: api

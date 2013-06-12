@@ -13,7 +13,7 @@ used as a guide for understanding how to interact with Riak and how to
 implement a compliant client library or application.  Below are some
 high-level recommendations for implementing well-behaved clients.
 
-## Hide Transport Details via Uniform Interface
+## Hide Transport Details
 
 Although Riak's two interfaces do not have complete feature-parity,
 client libraries should make an effort to hide implementation details
@@ -48,7 +48,7 @@ a way to encapsulate resolution behavior such that it can be run
 automatically when sibling values are detected, potentially multiple
 times in the course of a fetch or storage operation.  Without sibling
 resolution,
-[[the number of stored versions will continually grow|Vector Clocks#Sibling explosion]],
+[[the number of stored versions will continually grow|Vector Clocks#Siblings]],
 resulting in degraded performance across the cluster in the form of
 extremely high per-operation latencies or apparent unresponsiveness.
 
@@ -56,18 +56,18 @@ extremely high per-operation latencies or apparent unresponsiveness.
 
 Riak will return an encoded [[vector clock|Vector Clocks]] with every
 "fetch" or "read" request that does not result in a "not found"
-response. In addition to the Client ID, this vector clock tells Riak
+response. This vector clock tells Riak
 how to resolve concurrent writes, essentially representing the "last
 seen" version of the object to which the client made modifications. In
 order to prevent
-[[sibling explosion|Vector Clocks#Sibling explosion]], clients should
+[[sibling explosion|Vector Clocks#Sibling]], clients should
 always use this vector clock when updating an object.
 Therefore, it is essential that
 keys are fetched before being written (except in the case where Riak
 selects the key or there is _a priori_ knowledge that the key is new).
 Client libraries that make this automatic will reduce operational
 issues by limiting sibling explosion.  Clients may also choose to
-perform automatic [[Sibling Resolution|Client Implementation Guide#Sibling Resolution]] on read.
+perform automatic [[Sibling Resolution|Client Implementation Guide#Sibling-Resolution]] on read.
 
 ## Discourage Expensive Operations
 

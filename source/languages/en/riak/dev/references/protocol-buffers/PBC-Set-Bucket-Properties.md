@@ -1,5 +1,5 @@
 ---
-title: PBC Set Buckets Properties
+title: PBC Set Bucket Properties
 project: riak
 version: 0.14.0+
 document: api

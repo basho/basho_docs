@@ -219,7 +219,7 @@ planning to use Riak’s [[Secondary Indexes]] functionality.
 MapReduce
 ---------
 
-[[MapReduce]] in Riak allows you to process your data in real-time in
+[[MapReduce|Using MapReduce]] in Riak allows you to process your data in real-time in
 parallel utilizing the hardware resources of your entire cluster.
 MapReduce jobs are described in JSON using a set of nested hashes
 describing the inputs, phases, and timeout for a job. A job can consist

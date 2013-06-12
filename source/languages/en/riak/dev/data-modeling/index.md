@@ -24,7 +24,7 @@ is only meant to be illustrative.
 *No complex relationships, but need high read/write performance*
 
 * [[Session Storage]]
-* [[Serving Ads]]
+* [[Serving Advertisements]]
 * [[Log Data]]
 * [[Sensor Data]]
 
@@ -33,9 +33,9 @@ is only meant to be illustrative.
 *Require one-to-many and many-to-many relationships*
 
 * [[User Accounts]]
-* [[User Settings/Preferences|Settings Preferences]]
-* [[User Subscriptions/Events/Timelines|User Events Timelines]]
-* [[Blog Posts, Articles and Other Content|Blogs]]
+* [[User Settings & Prefs|User Settings/Preferences]]
+* [[User Events & Timelines|User Subscriptions/Events/Timelines]]
+* [[Articles & Blog Posts|Blog Posts, Articles and Other Content]]
 
 <!--
 

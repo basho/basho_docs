@@ -1,5 +1,5 @@
 ---
-title: HTTP Fetch Objects
+title: HTTP Fetch Object
 project: riak
 version: 0.10.0+
 document: api

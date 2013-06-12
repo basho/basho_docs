@@ -104,7 +104,7 @@ the <tt>riak</tt> user.</div>
 Successful compilation will result in a new `.beam` file,
 `validate_json.beam`.
 
-Send this file to your operator, or read how to [[install custom code]]
+Send this file to your operator, or read about [[installing custom code]]
 on your Riak nodes.
 
 Once Riak is restarted, all that remains is to install the pre-commit
@@ -219,7 +219,7 @@ Next, you'll need to define a path from which compiled modules can be stored
 and loaded.
 
 Just like pre-commit hooks, send this file to your operator,
-or read how to [[install custom code]] on your Riak nodes.
+or read about [[installing custom code]] on your Riak nodes.
 
 Once Riak is restarted, all that remains is to install the post-commit
 hook on the target bucket(s) you wish it to operate on. In this example,
