@@ -20,6 +20,8 @@ they can send to you as a *beam* file. You should note that in Erlang, a file
 name must have the same name the module. So if you are given a file named
 `validate_json.beam`, do not rename it.
 
+*Note: The [[Configure|Installing Custom Code#Configure]] step (`add_paths`) also applies to installing JavaScript files.*
+
 ### Compiling
 
 If you have been given Erlang code and are expected to compile it for
@@ -116,15 +118,7 @@ that you do so in a rolling fashion, taking time to ensure that the Riak key
 value store has fully initialized and become available for use.
 
 This is done with the `riak-admin wait-for-service` command as detailed
-in the [[Commands documentation|Command-Line-Tools---riak-admin#wait-for-service]].
-
-After updating `app.config`, Riak must be restarted. In production cases, you
-should ensure that if you are adding configuration changes to multiple nodes,
-that you do so in a rolling fashion, taking time to ensure that the Riak key
-value store has fully initialized and become available for use.
-
-This is done with the `riak-admin wait-for-service` command as detailed
-in the [[Commands documentation|Command-Line-Tools---riak-admin#wait-for-service]].
+in the [[Commands documentation|riak-admin Command Line#wait-for-service]].
 
 <div class="note">It is important that you ensure riak_kv is
 active before restarting the next node.</div>
