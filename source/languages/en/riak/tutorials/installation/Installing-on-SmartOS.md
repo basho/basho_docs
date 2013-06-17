@@ -69,55 +69,55 @@ Download your version of the Riak binary package for SmartOS{{#1.3.0}} *(below w
 {{#1.2.1-}}
 
 ```bash
-curl -o /tmp/riak-1.2.0-SmartOS-i386.tgz http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/smartos/11/riak-1.2.0-SmartOS-i386.tgz
+curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/11/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-1.2.0-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 {{/1.2.1-}}
 {{#1.2.1}}
 
 ```bash
-curl -o /tmp/riak-1.2.1-SmartOS-i386.tgz http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/smartos/11/riak-1.2.1-SmartOS-i386.tgz
+curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/11/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-1.2.1-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 {{/1.2.1}}
 {{#1.3.0}}
 
 ```bash
-curl -o /tmp/riak-1.3.0-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/smartos/1.6/riak-1.3.0-SmartOS-i386.tgz
+curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/1.6/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-1.3.0-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 {{/1.3.0}}
-{{#1.3.1}}
+{{#1.3.1+}}
 
 ```bash
-curl -o /tmp/riak-1.3.1-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/smartos/1.8/riak-1.3.1-SmartOS-i386.tgz
+curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/1.8/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-1.3.1-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
-{{/1.3.1}}
+{{/1.3.1+}}
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
 

@@ -33,54 +33,22 @@ sudo yum install riak
 
 ...or install the rpm package manually.
 
-{{#1.0.3}}
+{{#1.2.0-}}
 
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-1.0.3-1.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V.V}}-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-{{V.V.V}}-1.el5.x86_64.rpm
 ```
 
-{{/1.0.3}}
-{{#1.1.4}}
+{{/1.2.0-}}
+{{#1.2.0+}}
 
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-1.1.4-1.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/rhel/5/riak-{{V.V.V}}-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-{{V.V.V}}-1.el5.x86_64.rpm
 ```
 
-{{/1.1.4}}
-{{#1.2.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/rhel/5/riak-1.2.0-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-1.2.0-1.el5.x86_64.rpm
-```
-
-{{/1.2.0}}
-{{#1.2.1}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/rhel/5/riak-1.2.1-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-1.2.1-1.el5.x86_64.rpm
-```
-
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/rhel/5/riak-1.3.0-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-1.3.0-1.el5.x86_64.rpm
-```
-
-{{/1.3.0}}
-{{#1.3.1}}
-
-```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/rhel/5/riak-1.3.1-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-1.3.1-1.el5.x86_64.rpm
-```
-
-{{/1.3.1}}
+{{/1.2.0+}}
 
 ### For Centos 6 / RHEL 6
 
@@ -93,54 +61,22 @@ sudo yum install riak
 
 ...or install the rpm package manually.
 
-{{#1.0.3}}
+{{#1.2.0-}}
 
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-1.0.3-1.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V.V}}-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-{{V.V.V}}-1.el6.x86_64.rpm
 ```
 
-{{/1.0.3}}
-{{#1.1.4}}
+{{/1.2.0-}}
+{{#1.2.0+}}
 
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-1.1.4-1.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/rhel/6/riak-{{V.V.V}}-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-{{V.V.V}}-1.el6.x86_64.rpm
 ```
 
-{{/1.1.4}}
-{{#1.2.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/rhel/6/riak-1.2.0-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-1.2.0-1.el6.x86_64.rpm
-```
-
-{{/1.2.0}}
-{{#1.2.1}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/rhel/6/riak-1.2.1-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-1.2.1-1.el6.x86_64.rpm
-```
-
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/rhel/6/riak-1.3.0-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-1.3.0-1.el6.x86_64.rpm
-```
-
-{{/1.3.0}}
-{{#1.3.1}}
-
-```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/rhel/6/riak-1.3.1-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-1.3.1-1.el6.x86_64.rpm
-```
-
-{{/1.3.1}}
+{{/1.2.0+}}
 
 
 ## Installing From Source
@@ -164,67 +100,12 @@ sudo yum install gcc gcc-c++ glibc-devel make git
 
 Now we can download and install Riak:
 
-{{#1.0.3}}
-
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3.tar.gz
-tar zxvf riak-1.0.3.tar.gz
-cd riak-1.0.3
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V.V}}.tar.gz
+tar zxvf riak-{{V.V.V}}.tar.gz
+cd riak-{{V.V.V}}
 make rel
 ```
-
-{{/1.0.3}}
-{{#1.1.4}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4.tar.gz
-tar zxvf riak-1.1.4.tar.gz
-cd riak-1.1.4
-make rel
-```
-
-{{/1.1.4}}
-{{#1.2.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/riak-1.2.0.tar.gz
-tar zxvf riak-1.2.0.tar.gz
-cd riak-1.2.0
-make rel
-```
-
-{{/1.2.0}}
-{{#1.2.1}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
-tar zxvf riak-1.2.1.tar.gz
-cd riak-1.2.1
-make rel
-```
-
-{{/1.2.1}}
-
-{{#1.3.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
-tar zxvf riak-1.3.0.tar.gz
-cd riak-1.3.0
-make rel
-```
-
-{{/1.3.0}}
-{{#1.3.1}}
-
-```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/riak-1.3.1.tar.gz
-tar zxvf riak-1.3.1.tar.gz
-cd riak-1.3.1
-make rel
-```
-
-{{/1.3.1}}
 
 You will now have a fresh build of Riak in the `rel/riak` directory.
 

@@ -120,12 +120,28 @@ module SitemapRenderOverride
   def strip_versions!(data)
     project = (metadata[:page]["project"] || $default_project).to_sym
     
-    version_str = SitemapRenderOverride.current_version || $versions[project]
+    raw_version_str = SitemapRenderOverride.current_version || $versions[project]
 
-    if version_str
+    if raw_version_str
       # Ignore rcX if this is a pre-release
-      version_str = version_str.sub(/rc\d+/i, '')
+      version_str = raw_version_str.sub(/rc\d+/i, '')
       version = Versionomy.parse(version_str)
+
+      # Create a version placeholder
+      data.gsub!(/\{\{VERSION\}\}/) do
+        raw_version_str
+      end
+      data.gsub!(/\{\{V.V.V\}\}/) do
+        version_str
+      end
+      vv_version_str = version_str.gsub(/^(\d+\.\d+).*?$/, '\1')
+      data.gsub!(/\{\{V.V\}\}/) do
+        vv_version_str
+      end
+      v_version_str = vv_version_str.gsub(/^(\d+)\..*?$/, '\1')
+      data.gsub!(/\{\{V\}\}/) do
+        v_version_str
+      end
 
       # if it's a different version, remove the entire block
       data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/(\1)\}\}/m) do
