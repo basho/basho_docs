@@ -38,7 +38,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 	```
 	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/) is a good place to 	start.
 
-	Now point a browser at http://localhost:4567.  Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
+	Now point a browser at [http://0.0.0.0:4567](http://0.0.0.0:4567). Here you'll find middleman serving up static HTML on the fly (generated from Markdown source files).  
 
 
 3. 	Create a new branch
