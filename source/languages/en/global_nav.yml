@@ -223,6 +223,11 @@ riakee:
           - "[[Configuration|Multi Data Center Replication Configuration New]]"
           - "[[Operations|Multi Data Center Replication Operations New]]"
           - "[[Statistics|Multi Data Center Replication Status]]"
+          - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
+          - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync New]]"
+          - "[[SSL|Multi Data Center Replication SSL New]]"
+          - "[[With NAT|Multi Data Center Replication With NAT New]]"
+          - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
   - title: "Operating Riak Enterprise"
     sub:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
