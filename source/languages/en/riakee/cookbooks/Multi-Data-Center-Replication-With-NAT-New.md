@@ -54,57 +54,99 @@ NAT rules can be configured at runtime, from the command line.
 
 ##### **Cluster_A setup**
 
-A node from Cluster_A is setup with a single **internal** IP address: 
+Cluster_A is setup with nodes using the following **internal** IP addresses: 
 
-  * *192.168.1.20*
+Internal IP  | Public IP       
+-------------|-------------------
+192.168.1.20 | -
+192.168.1.21 | -
+192.168.1.22 | -
+192.168.1.23 | -
+192.168.1.24 | -
 
 ##### **Cluster_B setup**
 
 A node from Cluster_B will be configured as follows:
 
-  * *192.168.1.10* (internal)
-  * *50.16.238.123:5555* (public) 
+Internal IP  | Public IP       
+-------------|-------------------
+192.168.2.40 | 50.16.238.120:5555
+192.168.2.41 | 50.16.238.121:5555
+192.168.2.42 | 50.16.238.122:5555
+192.168.2.43 | 50.16.238.123:5555
+192.168.2.44 | 50.16.238.124:5555
 
-	In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5555*.
+
+In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5555*.
 
 ##### **Cluster_C setup**
 
 A node from Cluster_C is setup with *static NAT*, configured with the following IP addresses:
 
-  * *192.168.1.10* (internal)
-  * *50.16.238.200:5566* (public)
+Internal IP  | Public IP       
+-------------|-------------------
+192.168.3.60 | 50.16.238.200:5566
+192.168.3.61 | 50.16.238.201:5566
+192.168.3.62 | 50.16.238.202:5566
+192.168.3.63 | 50.16.238.203:5566
+192.168.3.64 | 50.16.238.204:5566
+
 
 	In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5566*.
 
 
 ```   
-	# on any node of Cluster_A
-	riak-repl clustername Server_A
+# on any node of Cluster_A
+riak-repl clustername Server_A
 
-	# on any node of Cluster_B
-	riak-repl clustername Server_B
+# on any node of Cluster_B
+riak-repl clustername Server_B
 
-	# on any node of Cluster_C
-	riak-repl clustername Server_C
+# on any node of Cluster_C
+riak-repl clustername Server_C
 
-	# on a node of Cluster_C with the following IP's:
-	nat-map add 50.16.238.123:5555 192.168.1.10
+# on 50.16.238.120 of Cluster_B
+nat-map add 50.16.238.120:5555 192.168.2.40
+# on 50.16.238.121 of Cluster_B
+nat-map add 50.16.238.121:5555 192.168.2.41 
+# on 50.16.238.122 of Cluster_B
+nat-map add 50.16.238.122:5555 192.168.2.42 
+# on 50.16.238.123 of Cluster_B
+nat-map add 50.16.238.123:5555 192.168.2.43 
+# on 50.16.238.124 of Cluster_B
+nat-map add 50.16.238.124:5555 192.168.2.44 
 
-	# Connect replication from Cluster_A to Cluster_B:
-	# on any node of Cluster_A
-	riak-repl connect 50.16.238.123:5555
-	# Cluster_B will receive a connection from Cluster_A at the public IP:port combo *50.16.238.123:5555*
+# on 50.16.238.200 of Cluster_C
+nat-map add 50.16.238.200:5566 192.168.3.60
+# on 50.16.238.201 of Cluster_C
+nat-map add 50.16.238.201:5566 192.168.3.61 
+# on 50.16.238.202 of Cluster_C
+nat-map add 50.16.238.202:5566 192.168.3.62 
+# on 50.16.238.203 of Cluster_C
+nat-map add 50.16.238.203:5566 192.168.3.63 
+# on 50.16.238.204 of Cluster_C
+nat-map add 50.16.238.204:5566 192.168.3.64 
 
-	# Connect replication from Cluster_A to Cluster_C:
-	# on any node of Cluster_A
-	riak-repl connect 50.16.238.200:5566
-	# Cluster_C will receive a connection from Cluster_A at the public IP:port combo *50.16.238.200:5566*
-	
-	# on any node from Cluster_A
-	riak-repl realtime enable Cluster_B
-	riak-repl realtime enable Cluster_C
-	
-	riak-repl realtime start Cluster_B
-	riak-repl realtime start Cluster_C
+
+# Connect replication from Cluster_A to Cluster_B:
+# on any node of Cluster_A
+riak-repl connect 50.16.238.120:5555
+# You can connect to any node in Cluster_B with NAT mapped
+# This command only needs to be run *once* for a cluster.
+
+# Connect replication from Cluster_A to Cluster_C:
+# on any node of Cluster_A
+riak-repl connect 50.16.238.200:5566
+# You can connect to any node in Cluster_C with NAT mapped
+# This command only needs to be run *once* for a cluster.
+
+
+# on any node from Cluster_A
+riak-repl realtime enable Cluster_B
+riak-repl realtime enable Cluster_C
+
+riak-repl realtime start Cluster_B
+riak-repl realtime start Cluster_C
+
 ```
 
