@@ -1,7 +1,7 @@
 ---
 title: "Multi Data Center Replication: Operations (Advanced)"
 project: riakee
-version: 1.3.0+
+version: 1.4.0+
 document: cookbook
 toc: true
 audience: intermediate
@@ -119,6 +119,72 @@ Stops a fullsync.
 
 * *Syntax:* `riak-repl fullsync stop <sink_clustername>`
 * *Example:* `riak-repl fullsync stop Austin`
+
+
+## Cascading Realtime Writes
+See the [[Configuration guide|Multi Data-Center Replication Cascading Writes New]]
+
+**realtime cascades**
+
+Shows the current cascading realtime setting.
+
+* *Syntax*: `realtime cascades`
+* *Example*: `riak-repl realtime cascades`
+
+**realtime cascades always**
+
+Enable realtime cascading writes.
+
+* *Syntax*: `realtime cascades always`
+* *Example*: `riak-repl realtime cascades always`
+
+
+**realtime cascades never**
+
+Disable realtime cascading writes.
+
+* *Syntax*: `realtime cascades never`
+* *Example*: `riak-repl realtime cascades never`
+
+
+## NAT
+See the [[Configuration guide|Multi Data-Center Replication NAT New]]
+
+**nat-map show**
+Show the current NAT mapping table.
+
+* *Syntax:* `nat-map show`
+* *Example:* `riak-repl nat-map show`
+
+**nat-map add**
+Adds a NAT map from the external IP, with an optional port, to an internal IP.
+
+* *Syntax:* `nat-map add <externalip>[:port] <internalip>`
+* *Example:* `riak-repl nat-map add 128.205.106.1:5555 192.168.1.2`
+
+**nat-map del**
+Deletes a specific NAT map entry.
+
+* *Syntax:* `nat-map del <externalip>[:port] <internalip>`
+* *Example:* `riak-repl nat-map del 128.205.106.1:5555 192.168.1.2`
+
+NAT changes will be applied once fullsync and/or realtime replication is stopped and started.
+
+
+## Riak CS MDC Gets
+See the [[Configuration guide|TODO]]
+
+* **riak-repl proxy-get enable**
+Enable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
+
+	* *Syntax:* `proxy-get enable  <sink_clustername>`
+	* *Example:* `riak-repl proxy-get enable  newyorkbackup` 
+
+* **riak-repl proxy-get disable**
+Disable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
+
+	* *Syntax:* `proxy-get disable <sink_clustername>`
+	* *Example:* `riak-repl proxy-get disable newyorkbackup`
 
 
 ## riak-repl Status Output
