@@ -62,6 +62,9 @@ Field | Description
 fullsync_enabled {{1.3.0+}} | A list of all sinks that are enabled
 fullsync_running {{1.3.0+}} | A list of all sinks that are running
 server_fullsyncs | The number of full-synchronizations that have occurred since the server was started
+fullsyncs_completed | The number of fullsyncs that have been completed to the specified sink cluster.
+fullsync_start_time | The time the current fullsink to the specified cluster began.
+last_fullsync_duration | The duration (in seconds) of the last completed fullsync.
 
 If this cluster is acting as a **source**, the `fullsync_coordinator` field returns a list of `{<sink_clustername>:<fullsync_stats>}`. If this cluster is acting as a **sink**, the `fullsync_coordinator_srv` field returns a list of `{<LocalIP:Port>:<fullsync_coordinator_srv_stats>}`.
 
