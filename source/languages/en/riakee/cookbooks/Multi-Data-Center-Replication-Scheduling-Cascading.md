@@ -30,10 +30,8 @@ Cascading realtime requires the capability {riak_repl, rtq_meta} to function.
 | F | <-> | E | <-> | D |
 +---+     +---+     +---+
 ```
-    
-In the diagram above, a write at cluster A will go through clusters B, C, D, E and F as well as F, E, D, C and B. This can be mitigated by disabling cascading at a cluster. If cascading were disabled on cluster D, a write at cluster A would go through B, C, and D as well as F, E, and D. This means there is a single double-write opposed to the 4 without the break. A write at cluster E would go to D as well as F, A, B, C and D.
 
-A fully meshed group of clusters also prevents double-writes.
+In the diagram above, a write at cluster A will go through clusters B, C, D, E and F as well as F, E, D, C and B. This can be mitigated by disabling cascading at a cluster. If cascading were disabled on cluster D, a write at cluster A would go through B, C, and D as well as F, E, and D. This means there is a single double-write opposed to the 4 without the break. A write at cluster E would go to D as well as F, A, B, C and D.
 
 ### Usage
 
