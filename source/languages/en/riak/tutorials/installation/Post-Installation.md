@@ -128,6 +128,23 @@ The above output shows a successful response (HTTP 200 OK) and additional
 details from the verbose option. The response also contains the bucket
 properties for Riak's test bucket.
 
+{{#1.3.0+}}
+## Riaknostic
+
+It is a good idea to also verify some basic configuration and general health
+of the Riak node after installation by using Riak's built-in diagnostic
+utility *Riaknostic*.
+
+Ensure that Riak is running on the node, and issue the following command:
+
+```
+riak-admin diag
+```
+
+Make the recommended changes from the command output to ensure optimal node
+operation.
+{{/1.3.0+}}
+
 ## Now what?
 
 You have a working Riak node!
