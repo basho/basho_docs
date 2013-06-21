@@ -1,5 +1,7 @@
 aside#nav-container role="complementary"
   nav.overview#primary-nav role="nav"
+    form action="http://search.basho.com"
+      input#main-search size="5" type="search" placeholder="Search" name="q"
     h2.responsive-link
       == I18n.t(:navigation)
       a.responsive-toggle
@@ -12,6 +14,18 @@ aside#nav-container role="complementary"
       - add_class = section['class'] || ''
       - nav_data, active = build_nav(section['sub'], add_class)
       h3(class=(active ? "active #{add_class}" : add_class))
+        - if section['title'] == 'Start Here'
+            span(aria-hidden="true" data-icon="&#xf0e7;" class="nav-icon")
+        - if section['title'] == 'Querying Riak'
+            span(aria-hidden="true" data-icon="&#xe003;" class="nav-icon")
+        - if section['title'] == 'Operating Riak'
+            span(aria-hidden="true" data-icon="&#xf013;" class="nav-icon")
+        - if section['title'] == 'References'
+            span(aria-hidden="true" data-icon="&#xf0c3;" class="nav-icon")
+        - if section['title'] == 'Community'
+            span(aria-hidden="true" data-icon="&#xe000;" class="nav-icon")
+        - if section['title'] == 'View APIs'
+            span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
         span==section['title']
       ==nav_data
   .submissions-note

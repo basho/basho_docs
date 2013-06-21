@@ -80,7 +80,7 @@ body {
     z-index  : 1;
     
     #primary-nav {
-      padding : 5px 12px;
+      padding : 5px 0;
       -o-user-select: none;
       -ms-user-select: none;
       -moz-user-select: none;
@@ -302,7 +302,7 @@ iframe {
 
 #nav-container {
   @extend .sans;
-  @include boxShadow(inset -10px 0 15px #333);
+  @include boxShadow(inset 0 0 15px #999);
   color : $subtleGray;
   
   @media screen and (max-width: 700px) {
@@ -311,10 +311,8 @@ iframe {
 
   a {
     @extend .block;
-    @include bgPattern('nav-li-bg6.jpg', #393939);
     color           : #fff;
     padding         : 7px 12px;
-    border-left     : 4px solid $fadedGreen;
     text-decoration : none;
     
     &:hover {
@@ -325,8 +323,8 @@ iframe {
   }
   
   .current a {
-    border-left : 4px solid $orange;
-    cursor      : default;
+    background-color : $lightGreen;
+    cursor           : default;
   }
   .current a:hover {
     @include bgPattern('nav-li-bg6.jpg', #393939);
@@ -336,11 +334,13 @@ iframe {
     cursor : pointer;
   }
 
+  /*
   h3.start {
     border      : 1px solid $fadedGreen;
     border-left : 4px solid $fadedGreen;
     @include corner(right, top);
   }
+  */
 
   h2.responsive-link {
     display : none;
@@ -373,11 +373,12 @@ iframe {
   }
   
   h3, h4 {
-    @extend .text-shadow;
-    @include bgPattern('nav-header-bg2.jpg', transparent);
-    border-left : 4px solid $fadedGreen;
+    //@extend .text-shadow;
+    //@include bgPattern('nav-header-bg2.jpg', transparent);
+    //border-left : 4px solid $fadedGreen;
     padding     : 5px 8px 5px 10px;
     overflow    : visible;
+    color       : $darkGrey;
     
     a {
       background : none;
@@ -439,6 +440,10 @@ iframe {
       @media screen and (max-width: 700px) {
         margin-top : 10px;
       }
+    }
+
+    .nav-icon {
+      font-family: 'docs-font-icons';
     }
   }
   
@@ -818,7 +823,7 @@ div[role="main"] {
   }
   
   aside.secondary {
-    @include bgPattern('nav-bg.jpg', #4f4f50);
+    @include bgPattern('nav-bg.jpg', #dadcdf);
     @include allCorners();
     @include boxShadow(inset 0 0 25px #333);
     padding       : 25px;
