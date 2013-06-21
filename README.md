@@ -210,6 +210,26 @@ thin start -p 4567
 
 _(or `bundle exec thin start -p 4567`)_
 
+## New Releases
+
+### Downloads
+
+To update the downloads page for a new release, edit the contents of
+`data/versions.yml`. Assuming `X.Y.Z`, releases incrementing to `Z` append to
+existing arrays for that version. Releases incrementing `Y` go on a new line
+with a single element array containing the version number as a string:
+
+```yml
+riak:
+  - ['1.0.0']
+  - ['1.1.0', '1.1.4']
+  - ['1.2.0', '1.2.1']
+  - ['1.3.0', '1.3.1', '1.3.2']
+```
+
+ Running `bundle exec build` after that should update
+ `data/downloads_gen.yml`, which drives the downloads page.
+
 ## Deploying to S3
 
 Before deployment you must specify an env var with Basho's S3 access/secret key. You also must specify the S3 bucket we're deploying to, and the cloudfront id (the CDN we must invalidate to force a publication to be found).
