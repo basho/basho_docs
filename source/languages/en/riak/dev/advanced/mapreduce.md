@@ -6,6 +6,9 @@ document: guide
 toc: true
 audience: advanced
 keywords: [developers, mapreduce]
+moved: {
+  '1.4.0-': '/references/appendices/MapReduce-Implementation/'
+}
 ---
 
 MapReduce, the programming paradigm popularized by [[Google|http://research.google.com/archive/mapreduce.html]], is provided by Riak to aggregate results as background batch processes. The first half of this advanced treatment go into more advanced examples than [[Using MapReduce]]. The second half is a deep dive into how Riak has implemented MapReduce.
