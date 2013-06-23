@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Object/Key Operations"
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Store-Object/'
+}
 ---
 
 Stores an object under the specified bucket / key. Storing an object comes in

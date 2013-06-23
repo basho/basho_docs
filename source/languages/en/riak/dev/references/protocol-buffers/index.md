@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 index: true
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/'
+}
 ---
 
 This is an overview of the operations you can perform over the Protocol Buffers
