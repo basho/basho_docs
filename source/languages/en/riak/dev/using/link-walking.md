@@ -5,6 +5,9 @@ version: 0.10.0+
 document: cookbook
 audience: beginner
 keywords: [developers, linkwalking]
+moved: {
+  '1.4.0-': '/cookbooks/Link-Walking/'
+}
 ---
 
 ## What are Links?
