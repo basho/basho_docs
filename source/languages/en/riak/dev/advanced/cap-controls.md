@@ -75,7 +75,7 @@ $ curl -v -XPUT http://127.0.0.1:8091/riak/docs/story.txt?w=3 \
 
 ### Symbolic Consistency Names
 
-Riak 0.12 introduces "symbolic" consistency options for R and W that can be easier to use and understand. They are:
+Riak 0.12 introduced "symbolic" consistency options for R and W that can be easier to use and understand. They are:
 
 * *all* - All replicas must reply. This is the same as setting R or W equal to N.
 * *one* - This is the same as sending 1 as the R or W value.
