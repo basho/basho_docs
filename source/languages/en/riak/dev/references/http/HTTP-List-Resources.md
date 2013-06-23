@@ -7,9 +7,12 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Server Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-List-Resources/'
+}
 ---
 
-List available HTTP resources for the Riak node. This can be used by clients to 
+List available HTTP resources for the Riak node. This can be used by clients to
 automatically recognize the location of the resources for specific operations.
 
 The standard resources are:
@@ -54,7 +57,7 @@ Normal status codes:
 
 Important headers:
 
-* `Link` - all resources that are described in the response body, but in Link 
+* `Link` - all resources that are described in the response body, but in Link
 form
 
 ## Example
