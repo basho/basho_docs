@@ -14,11 +14,12 @@ interest: [
 "[[Basic Cluster Setup]]",
 "[[Use Cases]]"
 ]
+moved: {
+  '1.4.0-': 'http://docs.basho.com/riak/latest/tutorials/fast-track/Tunable-CAP-Controls-in-Riak/'
+}
 ---
 
-So, we've come a long way. If you've done the Fast Track in order, that means you've had a short intro to Riak, set up a four node cluster on your local machine, worked a bit with the HTTP interface, and performed some MapReduce queries.
-
-In the last section of the Fast Track, we are going to talk about how Riak distributes your data around the cluster and lets you tune your levels of consistency and availability. This has immense value and implications for your applications, and it's one of the Riak features that we feel truly differentiates us.
+Here, we are going to talk about how Riak distributes your data around the cluster and lets you tune your levels of consistency and availability. This has immense value and implications for your applications, and it's one of the Riak features that we feel truly differentiates us.
 
 At the bottom of this page there is a final screencast that briefly touches on how to adjust your replication levels to match your application and business needs. Before you watch that, however, have a quick read of the content below.
 
