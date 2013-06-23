@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Server Operations"
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Set-Client-ID/'
+}
 ---
 
 Set the client id for this connection.  A library may want to set the client id

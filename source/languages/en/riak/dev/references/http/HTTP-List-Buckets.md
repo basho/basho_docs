@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Bucket Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-List-Buckets/'
+}
 ---
 
 Lists all known buckets (ones that have keys stored in them).

@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [use-cases]
+moved: {
+  '1.4.0-': '/cookbooks/use-cases/serving-ads/'
+}
 ---
 
 ## Simple Case
@@ -20,13 +23,13 @@ Riak has other features that enable more complex session storage use cases.  The
 ## Community Examples
 
 <table class="links">
-	<tr>
-	    <td><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Scaling Riak at Kiip">
-		   <img src="http://b.vimeocdn.com/ts/296/624/296624215_960.jpg"/>
-		 </a></td>
-	    <td><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Riak at OpenX">Scaling Riak at Kiip</a>
-		<br>
-	In this talk, recorded at the May 2012 San Francisco Riak Meetup, Armon Dadgar and Mitchell Hashimoto of Kiip give an overview of how and why they are using Riak in production, and the road they took to get there. One of the first subsystems they switched over to Riak was Sessions. You can also read the blog post and catch the slides <a href="http://basho.com/blog/technical/2012/05/25/Scaling-Riak-At-Kiip/" class="riak" target="_blank">here.</a>
-		</td>	    
-	</tr>
+    <tr>
+        <td><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Scaling Riak at Kiip">
+           <img src="http://b.vimeocdn.com/ts/296/624/296624215_960.jpg"/>
+         </a></td>
+        <td><a href="https://player.vimeo.com/video/42744689" target="_blank" title="Riak at OpenX">Scaling Riak at Kiip</a>
+        <br>
+    In this talk, recorded at the May 2012 San Francisco Riak Meetup, Armon Dadgar and Mitchell Hashimoto of Kiip give an overview of how and why they are using Riak in production, and the road they took to get there. One of the first subsystems they switched over to Riak was Sessions. You can also read the blog post and catch the slides <a href="http://basho.com/blog/technical/2012/05/25/Scaling-Riak-At-Kiip/" class="riak" target="_blank">here.</a>
+        </td>
+    </tr>
 </table>

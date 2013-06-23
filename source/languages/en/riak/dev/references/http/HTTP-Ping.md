@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Server Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-Ping/'
+}
 ---
 
 Checks if the server is alive. This is useful for monitoring tools, load-balancers and automated scripts.

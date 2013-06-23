@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Server Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-Status/'
+}
 ---
 
 Reports about the performance and configuration of the Riak node to which it was requested. You must have the `{riak_kv_stat,true}` configuration setting in app.config for this endpoint to be active. This is equivalent to the [[riak-admin status|Command-Line Tools#status]] command.

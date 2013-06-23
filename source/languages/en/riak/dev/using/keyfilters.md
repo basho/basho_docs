@@ -6,6 +6,9 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, mapreduce, keyfilters]
+moved: {
+  '1.4.0-': '/cookbooks/Key-Filters/'
+}
 ---
 
 Key filters are a way to pre-process [[MapReduce|Using MapReduce]] inputs from a full bucket query simply by examining the key without loading the object first. This is especially useful if your keys are composed of domain-specific information that can be analyzed at query-time.

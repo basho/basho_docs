@@ -6,11 +6,14 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [use-cases]
+moved: {
+  '1.4.0-': '/cookbooks/use-cases/log-data/'
+}
 ---
 
 ## Simple Case
 
-A common use case for Riak is storing large amounts of log data for analysis with Map/Reduce; or as the primary storage for log data with a secondary analytics cluster used to perform more advanced analytics tasks. For this, you can create a bucket called "logs" (or anything else) and use a unique value - such as a date - for the key. Log files would be the values associated with the unique keys. For storing log data from different systems, you could create a unique bucket for each system and write associated logs to that bucket. In terms of analyzing log data, you could then use Riak's MapReduce for aggregation tasks such as summing the counts of records for a date, or Riak Search for more robust, text-based queries. 
+A common use case for Riak is storing large amounts of log data for analysis with Map/Reduce; or as the primary storage for log data with a secondary analytics cluster used to perform more advanced analytics tasks. For this, you can create a bucket called "logs" (or anything else) and use a unique value - such as a date - for the key. Log files would be the values associated with the unique keys. For storing log data from different systems, you could create a unique bucket for each system and write associated logs to that bucket. In terms of analyzing log data, you could then use Riak's MapReduce for aggregation tasks such as summing the counts of records for a date, or Riak Search for more robust, text-based queries.
 
 ## Complex Case
 

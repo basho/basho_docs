@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Server Operations"
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Get-Client-ID/'
+}
 ---
 
 Get the client id used for this connection.  Client ids are used for conflict

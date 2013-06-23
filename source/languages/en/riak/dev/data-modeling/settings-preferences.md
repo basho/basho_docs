@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [use-cases]
+moved: {
+  '1.4.0-': '/cookbooks/use-cases/settings-preferences/'
+}
 ---
 
 *Typically one-to-one relationships*
@@ -18,4 +21,3 @@ For user account-related data that is simple, frequently read but rarely changed
 ## Complex Case
 
  If you find your application frequently writing to the user account, or have dynamically growing user related data such as bookmarks, subscriptions or multiple notifications, then a more advanced data model is called for (see the section on social events/subscriptions)
- 

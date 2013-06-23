@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Bucket Operations"
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-List-Keys/'
+}
 ---
 
 List all of the keys in a bucket. This is a streaming call, with multiple response messages sent for each request.

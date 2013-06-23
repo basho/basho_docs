@@ -6,6 +6,9 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, mapreduce, keyfilters]
+moved: {
+  '1.4.0-': '/cookbooks/Key-Filters/'
+}
 ---
 
 ## Transform functions
