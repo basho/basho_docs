@@ -6,13 +6,16 @@ document: appendix
 toc: true
 audience: intermediate
 keywords: [appendix, concepts]
+moved: {
+  '1.4.0-': '/references/appendices/concepts/Replication/'
+}
 ---
 
 Replication is fundamental and automatic in Riak, providing security that your data will still be there if a node in your Riak cluster goes down. All data stored in Riak will be replicated to a number of nodes in the cluster according to the n_val property set on the bucket.
 
 <div class="note">
 
-If you're looking for Riak Enterprise's Multi Data Center 
+If you're looking for Riak Enterprise's Multi Data Center
 Replication, please click [[here|Multi-Data-Center-Replication-Architecture]].
 
 </div>
