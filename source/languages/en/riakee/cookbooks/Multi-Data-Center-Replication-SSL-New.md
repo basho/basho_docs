@@ -5,7 +5,7 @@ version: 1.4.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [mdc, repl, ssl, advanced]
+keywords: [mdc, repl, ssl]
 ---
 
 ## Features
