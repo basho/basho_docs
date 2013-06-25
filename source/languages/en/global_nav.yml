@@ -228,6 +228,7 @@ riakee:
           - "[[SSL|Multi Data Center Replication SSL New]]"
           - "[[With NAT|Multi Data Center Replication With NAT New]]"
           - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
+          - "[[Active Anti-Entropy|Multi Data Center Replication With AAE New]]"
   - title: "Operating Riak Enterprise"
     sub:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
