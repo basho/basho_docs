@@ -85,11 +85,11 @@ A node from Cluster_C is setup with *static NAT*, configured with the following 
 
 Internal IP  | Public IP       
 -------------|-------------------
-192.168.3.60 | 50.16.238.200:5566
-192.168.3.61 | 50.16.238.201:5566
-192.168.3.62 | 50.16.238.202:5566
-192.168.3.63 | 50.16.238.203:5566
-192.168.3.64 | 50.16.238.204:5566
+192.168.3.60 | 50.16.238.200:5550
+192.168.3.61 | 50.16.238.200:5551
+192.168.3.62 | 50.16.238.200:5552
+192.168.3.63 | 50.16.238.200:5553
+192.168.3.64 | 50.16.238.200:5554
 
 
 	In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5566*.
@@ -116,28 +116,28 @@ nat-map add 50.16.238.123:5555 192.168.2.43
 # on 50.16.238.124 of Cluster_B
 nat-map add 50.16.238.124:5555 192.168.2.44 
 
-# on 50.16.238.200 of Cluster_C
-nat-map add 50.16.238.200:5566 192.168.3.60
-# on 50.16.238.201 of Cluster_C
-nat-map add 50.16.238.201:5566 192.168.3.61 
-# on 50.16.238.202 of Cluster_C
-nat-map add 50.16.238.202:5566 192.168.3.62 
-# on 50.16.238.203 of Cluster_C
-nat-map add 50.16.238.203:5566 192.168.3.63 
-# on 50.16.238.204 of Cluster_C
-nat-map add 50.16.238.204:5566 192.168.3.64 
+# on 192.168.3.60 of Cluster_C
+nat-map add 50.16.238.200:5550 192.168.3.60
+# on 192.168.3.61 of Cluster_C
+nat-map add 50.16.238.200:5551 192.168.3.61 
+# on 192.168.3.62 of Cluster_C
+nat-map add 50.16.238.200:5552 192.168.3.62 
+# on 192.168.3.63 of Cluster_C
+nat-map add 50.16.238.200:5553 192.168.3.63 
+# on 192.168.3.64 of Cluster_C
+nat-map add 50.16.238.200:5554 192.168.3.64 
 
 
 # Connect replication from Cluster_A to Cluster_B:
 # on any node of Cluster_A
 riak-repl connect 50.16.238.120:5555
-# You can connect to any node in Cluster_B with NAT mapped
+# You can connect to any node in Cluster_B with NAT mapped IP's/ports
 # This command only needs to be run *once* for a cluster.
 
 # Connect replication from Cluster_A to Cluster_C:
 # on any node of Cluster_A
-riak-repl connect 50.16.238.200:5566
-# You can connect to any node in Cluster_C with NAT mapped
+riak-repl connect 50.16.238.200:5550
+# You can connect to any node in Cluster_C with NAT mapped IP's/ports
 # This command only needs to be run *once* for a cluster.
 
 
