@@ -129,6 +129,42 @@ default:
         any:
           arch:
             src: {}
+riak:
+  1.3.2:
+    rhel:
+      versions:
+        '5':
+          arch:
+            x86_64:
+              file: riak-1.3.2-2.el5.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/5/riak-1.3.2-2.el5.x86_64.rpm
+              file_size: 27503491
+              csum: riak-1.3.2-2.el5.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/5/riak-1.3.2-2.el5.x86_64.rpm.sha
+              csum_size: 94
+            src:
+              file: riak-1.3.2-2.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/5/riak-1.3.2-2.src.rpm
+              file_size: 12800209
+              csum: riak-1.3.2-2.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/5/riak-1.3.2-2.src.rpm.sha
+              csum_size: 87
+        '6':
+          arch:
+            src:
+              file: riak-1.3.2-2.el6.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/6/riak-1.3.2-2.el6.src.rpm
+              file_size: 12770624
+              csum: riak-1.3.2-2.el6.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/6/riak-1.3.2-2.el6.src.rpm.sha
+              csum_size: 91
+            x86_64:
+              file: riak-1.3.2-2.el6.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/6/riak-1.3.2-2.el6.x86_64.rpm
+              file_size: 24838992
+              csum: riak-1.3.2-2.el6.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/rhel/6/riak-1.3.2-2.el6.x86_64.rpm.sha
+              csum_size: 94
 stanchion:
   1.3.1:
     debian:

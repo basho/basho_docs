@@ -44,8 +44,8 @@ sudo rpm -Uvh riak-{{V.V.V}}-1.el5.x86_64.rpm
 {{#1.2.0+}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/rhel/5/riak-{{V.V.V}}-1.el5.x86_64.rpm
-sudo rpm -Uvh riak-{{V.V.V}}-1.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/rhel/5/riak-{{V.V.V}}-2.el5.x86_64.rpm
+sudo rpm -Uvh riak-{{V.V.V}}-2.el5.x86_64.rpm
 ```
 
 {{/1.2.0+}}
@@ -72,8 +72,8 @@ sudo rpm -Uvh riak-{{V.V.V}}-1.el6.x86_64.rpm
 {{#1.2.0+}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/rhel/6/riak-{{V.V.V}}-1.el6.x86_64.rpm
-sudo rpm -Uvh riak-{{V.V.V}}-1.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/rhel/6/riak-{{V.V.V}}-2.el6.x86_64.rpm
+sudo rpm -Uvh riak-{{V.V.V}}-2.el6.x86_64.rpm
 ```
 
 {{/1.2.0+}}
