@@ -55,7 +55,7 @@ A write at A will cascade to C and B. B will not cascade to C as A will have alr
 
 ### Usage
 
-Riak Enterprise Cascading Writes can be enabled and disabled through the `riak-repl` command. Please see the TODO: Version 3 Operations guide for more information.
+Riak Enterprise Cascading Writes can be enabled and disabled through the `riak-repl` command. Please see the Version 3 Operations guide for more information.
 
 To show current setting:
 

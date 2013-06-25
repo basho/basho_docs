@@ -172,7 +172,6 @@ NAT changes will be applied once fullsync and/or realtime replication is stopped
 
 
 ## Riak CS MDC Gets
-See the [[Configuration guide|TODO]]
 
 * **riak-repl proxy-get enable**
 Enable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).

@@ -45,5 +45,4 @@ To enable AAE w/ Version 3 MDC Replication:
 		[ {fullsync_strategy, aae}, 
 		... ]}
 
-**TODO**: question: if AAE is enabled right before a fullsync, will the AAE trees be built?
 
