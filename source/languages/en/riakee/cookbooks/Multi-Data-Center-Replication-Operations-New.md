@@ -1,7 +1,7 @@
 ---
-title: "Multi Data Center Replication: Operations (Advanced)"
+title: "Multi Data Center Replication: Operations (Version 3)"
 project: riakee
-version: 1.3.0+
+version: 1.4.0+
 document: cookbook
 toc: true
 audience: intermediate
@@ -121,6 +121,72 @@ Stops a fullsync.
 * *Example:* `riak-repl fullsync stop Austin`
 
 
+## Cascading Realtime Writes
+See the [[Configuration guide|Multi Data-Center Replication Cascading Writes New]]
+
+**realtime cascades**
+
+Shows the current cascading realtime setting.
+
+* *Syntax*: `realtime cascades`
+* *Example*: `riak-repl realtime cascades`
+
+**realtime cascades always**
+
+Enable realtime cascading writes.
+
+* *Syntax*: `realtime cascades always`
+* *Example*: `riak-repl realtime cascades always`
+
+
+**realtime cascades never**
+
+Disable realtime cascading writes.
+
+* *Syntax*: `realtime cascades never`
+* *Example*: `riak-repl realtime cascades never`
+
+
+## NAT
+See the [[Configuration guide|Multi Data-Center Replication NAT New]]
+
+**nat-map show**
+Show the current NAT mapping table.
+
+* *Syntax:* `nat-map show`
+* *Example:* `riak-repl nat-map show`
+
+**nat-map add**
+Adds a NAT map from the external IP, with an optional port, to an internal IP.
+
+* *Syntax:* `nat-map add <externalip>[:port] <internalip>`
+* *Example:* `riak-repl nat-map add 128.205.106.1:5555 192.168.1.2`
+
+**nat-map del**
+Deletes a specific NAT map entry.
+
+* *Syntax:* `nat-map del <externalip>[:port] <internalip>`
+* *Example:* `riak-repl nat-map del 128.205.106.1:5555 192.168.1.2`
+
+NAT changes will be applied once fullsync and/or realtime replication is stopped and started.
+
+
+## Riak CS MDC Gets
+See the [[Configuration guide|TODO]]
+
+* **riak-repl proxy-get enable**
+Enable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
+
+	* *Syntax:* `proxy-get enable  <sink_clustername>`
+	* *Example:* `riak-repl proxy-get enable  newyorkbackup` 
+
+* **riak-repl proxy-get disable**
+Disable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
+
+	* *Syntax:* `proxy-get disable <sink_clustername>`
+	* *Example:* `riak-repl proxy-get disable newyorkbackup`
+
+
 ## riak-repl Status Output
 
 Details about the `riak-repl status` command can be found under [[Replication Statistics|Multi Data Center Replication Status]].
@@ -157,13 +223,13 @@ This limits the number of fullsync workers allowed to run on each individual nod
 * *Example* `riak-repl fullsync max_fssink_cluster 5`
 
 
-## Mixing Default Replication with Advanced Replication
+## Mixing Version 2 Replication with Version 3 Replication
 
-Riak Default Replication and Advanced Replication can be safely used at the same time. If you choose to move to 1.3 Replication completely, it is recommended to disable Default realtime replication bucket hooks with the `riak-repl modes` command. 
+Riak Version 2 Replication and Version 3 Replication can be safely used at the same time. If you choose to move to 1.3 Replication completely, it is recommended to disable Version 2 realtime replication bucket hooks with the `riak-repl modes` command. 
 
 **riak-repl modes**
 
-`modelist` is one or both of `mode_repl12` (Default) or `mode_repl13` (Advanced) separated by *spaces* (without commas).
+`modelist` is one or both of `mode_repl12` (Version 2) or `mode_repl13` (Version 3) separated by *spaces* (without commas).
 
 * *Syntax:* `riak-repl modes <modelist>` 
 * *Example:* 
