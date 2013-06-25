@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Configuration (Advanced)"
+title: "Multi Data Center Replication: Configuration (Version 3)"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -9,7 +9,7 @@ keywords: [mdc, repl, configuration]
 ---
 
 
-## Advanced Replication Configuration
+## Version 3 Replication Configuration
 
 *The `cluster_mgr` variable MUST be set in order for 1.3 Replication to run*
 

@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, nat]
 ---
 
-Riak Enterprise Advanced Replication supports replication of data on networks that use static NAT.
+Riak Enterprise Version 3 Replication supports replication of data on networks that use static NAT.
 
 This can be used for replicating data over the internet where servers have both internal and public IP addresses (see [[Riak REPL SSL|Multi Data Center Replication SSL New]] if you replicate data over a public network).
 

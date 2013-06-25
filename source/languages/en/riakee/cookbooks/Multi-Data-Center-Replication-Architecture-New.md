@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Architecture (Advanced)"
+title: "Multi Data Center Replication: Architecture (Version 3)"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, bnw]
 ---
 
-## How Advanced Replication Works
+## How Version 3 Replication Works
 
 In multi-datacenter (MDC) replication, a cluster can act as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). Bidirectional replication can easily be established by making a cluster both a source and a sink to other clusters. Riak Enterprise MDC Replication is considered "masterless": all clusters participating will resolve replicated writes via the normal resolutions methods available in Riak.
 

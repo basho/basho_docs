@@ -28,7 +28,7 @@ To configure SSL, you will need to include the following 4 settings in the
 {cacertdir, "/full/path/to/cacertsdir"}
 ```
 
-**Please note that in *Advanced Mode* replication, the SSL settings need to be placed in the `riak-core` section of app.config, as opposed to the `riak-repl` section that Default replication uses.**
+**Please note that in *Version 3* replication, the SSL settings need to be placed in the `riak-core` section of app.config, as opposed to the `riak-repl` section that *Version 2* replication uses.**
 
 The cacertdir is a directory containing all the CA certificates needed to
 verify the CA chain back to the root.
@@ -87,9 +87,9 @@ For example,
 
 ## Compatibility
 
-Replication SSL for *Default mode* is available in *Riak 1.2+*.
+Replication SSL for *Version 2* is available in *Riak 1.2+*.
 
-Replication SSL for *Advanced mode* is available in *Riak 1.4+*.
+Replication SSL for *Version 3* is available in *Riak 1.4+*.
 
 If SSL is enabled and a connection is made to a Riak EE 1.0 or 1.1 node, the connection will be denied and an error will be logged.
 

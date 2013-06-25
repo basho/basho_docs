@@ -31,7 +31,7 @@ Cascading realtime requires the capability {riak_repl, rtq_meta} to function.
 +---+     +---+     +---+
 ```
 
-In the diagram above, a write at cluster A will begin two cascades. One goes to B, C, D, E, and ending at F; and the other goes to F, E, D, C, and ending at B. Each cascade will loop around to A again, sending a replication request even if the same request has already occurred from the opposite direction, creating 5 extra write requests.
+In the diagram above, a write at cluster A will begin two cascades. One goes to B, C, D, E, and ending at F; and the other goes to F, E, D, C, and ending at B. Each cascade will loop around to A again, sending a replication request even if the same request has already occurred from the opposite direction, creating 3 extra write requests.
 
 This can be mitigated by disabling cascading at a cluster. If cascading were disabled on cluster D, a write at A would begin two cascades. One would go through B, C and D; the other through F, E, and D. This reduces the number of extraneous write requests to 1.
 
@@ -55,7 +55,7 @@ A write at A will cascade to C and B. B will not cascade to C as A will have alr
 
 ### Usage
 
-Riak Enterprise Cascading Writes can be enabled and disabled through the `riak-repl` command. Please see the TODO: Advanced Operations guide for more information.
+Riak Enterprise Cascading Writes can be enabled and disabled through the `riak-repl` command. Please see the TODO: Version 3 Operations guide for more information.
 
 To show current setting:
 

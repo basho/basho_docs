@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Statistics (Advanced)"
+title: "Multi Data Center Replication: Statistics (Version 3)"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, operator, bnw]
 ---
 
-The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node. Both Default Replication and Advanced Replication statistics are both obtained by using the `riak-repl status` command.
+The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node. Both Version 2 Replication and Version 3 Replication statistics are both obtained by using the `riak-repl status` command.
 
 **All statistic counts will be reset to 0 upon restarting Riak EE unless otherwise noted.**
 
@@ -117,7 +117,7 @@ send_kbps | Socket kilobits/second sent
 send_pend | The number of bytes in the Erlang VM to be sent over the socket
 sockname | `<host:port>` The address and port for “this end” of the connection
 
-## Default Replication Statistics
+## Version 2 Replication Statistics
 
 The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node.
 
@@ -146,7 +146,7 @@ server_connect_errors | The number of primary to sink connection errors
 server_connects | The number of times the primary connects to the client sink
 server_rx_kbps | A snapshot of the primary received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 server_tx_kbps | A snapshot of the primary sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
-leader | Which node is the current leader of the cluster for Default Replication
+leader | Which node is the current leader of the cluster for Version 2 Replication
 local_leader_message_queue_len | The length of the object queue on the leader
 local_leader_heap_size | The amount of memory the leader is using
 client_stats | See <a href="/cookbooks/Multi-Data-Center-Replication-Status/#Client-Statistics" class="riakee">Client Statistics</a>
