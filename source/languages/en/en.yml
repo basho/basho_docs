@@ -20,7 +20,7 @@ en:
   riak_ee:
     info:
       title: Riak Enterprise Only
-      body: "This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. <br/> Please note, that as of version 1.4 of Riak Enterprise, \"Default Mode\" is now known as \"Version 2\", and \"Advanced Mode\" is now known as \"Version 3\". To talk to us about using Riak Enterprise, <a href=\"http://info.basho.com/Wiki_Contact.html\">let us know</a>."
+      body: "This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. <br/> Please note, that as of Riak Enterprise 1.4.0, \"Default Mode\" is now known as \"Version 2\", and \"Advanced Mode\" is now known as \"Version 3\". To talk to us about using Riak Enterprise, <a href=\"http://info.basho.com/Wiki_Contact.html\">let us know</a>."
   riak_index:
     getting_started_p: "Are you new to Riak? You can get started with these tutorials. Then look through the [[FAQs]] if you have more questions."
     getting_started:
