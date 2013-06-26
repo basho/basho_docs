@@ -12,6 +12,13 @@ default:
               name: "AMD 64"
             i386:
               name: "i386 32-bit"
+        "7":
+          name: "(Wheezy)"
+          arch:
+            amd64:
+              name: "AMD 64"
+            i386:
+              name: "i386 32-bit"
     ubuntu:
       name: "Ubuntu"
       icon: "ubuntu.png"
@@ -62,6 +69,13 @@ default:
               name: "10.6+ 32 Bit"
             x86_64:
               name: "10.6+ 64 Bit"
+        "10.8":
+          name: "OS X"
+          arch:
+            i386:
+              name: "10.8+ 32 Bit"
+            x86_64:
+              name: "10.8+ 64 Bit"
     rhel:
       name: "Red Hat Enterprise"
       icon: "redhat.png"
@@ -104,14 +118,26 @@ default:
           arch:
             i386:
               name: "11"
+            x86_64:
+              name: "11"
         "1.6":
           arch:
             i386:
+              name: "1.6"
+            x86_64:
               name: "1.6"
         "1.8":
           arch:
             i386:
               name: "1.8"
+            x86_64:
+              name: "1.8"
+        "13.1":
+          arch:
+            i386:
+              name: "13.1"
+            x86_64:
+              name: "13.1"
     solaris:
       name: "Solaris"
       icon: "solaris.png"

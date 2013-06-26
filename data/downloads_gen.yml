@@ -1350,6 +1350,178 @@ riak:
               file: riak-1.3.2.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.2/riak-1.3.2.tar.gz
               file_size: 12799611
+  1.4.0rc1:
+    debian:
+      versions:
+        '6':
+          arch:
+            amd64:
+              file: riak_1.4.0rc1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/debian/6/riak_1.4.0rc1-1_amd64.deb
+              file_size: 26873164
+              csum: riak_1.4.0rc1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/debian/6/riak_1.4.0rc1-1_amd64.deb.sha
+              csum_size: 92
+        '7':
+          arch:
+            amd64:
+              file: riak_1.4.0rc1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/debian/7/riak_1.4.0rc1-1_amd64.deb
+              file_size: 26875994
+              csum: riak_1.4.0rc1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/debian/7/riak_1.4.0rc1-1_amd64.deb.sha
+              csum_size: 92
+    fedora:
+      versions:
+        '17':
+          arch:
+            src:
+              file: riak-1.4.0rc1-1.fc17.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/fedora/17/riak-1.4.0rc1-1.fc17.src.rpm
+              file_size: 13148532
+              csum: riak-1.4.0rc1-1.fc17.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/fedora/17/riak-1.4.0rc1-1.fc17.src.rpm.sha
+              csum_size: 95
+            x86_64:
+              file: riak-1.4.0rc1-1.fc17.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/fedora/17/riak-1.4.0rc1-1.fc17.x86_64.rpm
+              file_size: 24804993
+              csum: riak-1.4.0rc1-1.fc17.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/fedora/17/riak-1.4.0rc1-1.fc17.x86_64.rpm.sha
+              csum_size: 98
+    freebsd:
+      versions:
+        '9':
+          arch:
+            amd64:
+              file: riak-1.4.0rc1-FreeBSD-amd64.tgz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/freebsd/9/riak-1.4.0rc1-FreeBSD-amd64.tgz
+              file_size: 32867877
+              csum: riak-1.4.0rc1-FreeBSD-amd64.tgz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/freebsd/9/riak-1.4.0rc1-FreeBSD-amd64.tgz.sha
+              csum_size: 98
+    osx:
+      versions:
+        '10.8':
+          arch:
+            x86_64:
+              file: riak-1.4.0rc1-OSX-x86_64.tar.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/osx/10.8/riak-1.4.0rc1-OSX-x86_64.tar.gz
+              file_size: 27024991
+              csum: riak-1.4.0rc1-OSX-x86_64.tar.gz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/osx/10.8/riak-1.4.0rc1-OSX-x86_64.tar.gz.sha
+              csum_size: 98
+    rhel:
+      versions:
+        '5':
+          arch:
+            x86_64:
+              file: riak-1.4.0rc1-1.el5.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/5/riak-1.4.0rc1-1.el5.x86_64.rpm
+              file_size: 28072358
+              csum: riak-1.4.0rc1-1.el5.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/5/riak-1.4.0rc1-1.el5.x86_64.rpm.sha
+              csum_size: 97
+            src:
+              file: riak-1.4.0rc1-1.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/5/riak-1.4.0rc1-1.src.rpm
+              file_size: 13143950
+              csum: riak-1.4.0rc1-1.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/5/riak-1.4.0rc1-1.src.rpm.sha
+              csum_size: 90
+        '6':
+          arch:
+            src:
+              file: riak-1.4.0rc1-1.el6.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/6/riak-1.4.0rc1-1.el6.src.rpm
+              file_size: 13114188
+              csum: riak-1.4.0rc1-1.el6.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/6/riak-1.4.0rc1-1.el6.src.rpm.sha
+              csum_size: 94
+            x86_64:
+              file: riak-1.4.0rc1-1.el6.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/6/riak-1.4.0rc1-1.el6.x86_64.rpm
+              file_size: 25327172
+              csum: riak-1.4.0rc1-1.el6.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/rhel/6/riak-1.4.0rc1-1.el6.x86_64.rpm.sha
+              csum_size: 97
+    smartos:
+      versions:
+        '1.6':
+          arch:
+            x86_64:
+              file: riak-1.4.0rc1-SmartOS-x86_64.tgz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/smartos/1.6/riak-1.4.0rc1-SmartOS-x86_64.tgz
+              file_size: 33636296
+              csum: riak-1.4.0rc1-SmartOS-x86_64.tgz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/smartos/1.6/riak-1.4.0rc1-SmartOS-x86_64.tgz.sha
+              csum_size: 99
+        '1.8':
+          arch:
+            x86_64:
+              file: riak-1.4.0rc1-SmartOS-x86_64.tgz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/smartos/1.8/riak-1.4.0rc1-SmartOS-x86_64.tgz
+              file_size: 34773085
+              csum: riak-1.4.0rc1-SmartOS-x86_64.tgz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/smartos/1.8/riak-1.4.0rc1-SmartOS-x86_64.tgz.sha
+              csum_size: 99
+        '13.1':
+          arch:
+            x86_64:
+              file: riak-1.4.0rc1-SmartOS-x86_64.tgz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/smartos/13.1/riak-1.4.0rc1-SmartOS-x86_64.tgz
+              file_size: 34761297
+              csum: riak-1.4.0rc1-SmartOS-x86_64.tgz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/smartos/13.1/riak-1.4.0rc1-SmartOS-x86_64.tgz.sha
+              csum_size: 99
+    solaris:
+      versions:
+        '10':
+          arch:
+            x86_64:
+              file: BASHOriak-1.4.0rc1-Solaris10-x86_64.pkg.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/solaris/10/BASHOriak-1.4.0rc1-Solaris10-x86_64.pkg.gz
+              file_size: 32467883
+              csum: BASHOriak-1.4.0rc1-Solaris10-x86_64.pkg.gz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/solaris/10/BASHOriak-1.4.0rc1-Solaris10-x86_64.pkg.gz.sha
+              csum_size: 109
+    ubuntu:
+      versions:
+        lucid:
+          arch:
+            amd64:
+              file: riak_1.4.0rc1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/ubuntu/lucid/riak_1.4.0rc1-1_amd64.deb
+              file_size: 26872132
+              csum: riak_1.4.0rc1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/ubuntu/lucid/riak_1.4.0rc1-1_amd64.deb.sha
+              csum_size: 92
+        natty:
+          arch:
+            amd64:
+              file: riak_1.4.0rc1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/ubuntu/natty/riak_1.4.0rc1-1_amd64.deb
+              file_size: 26889566
+              csum: riak_1.4.0rc1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/ubuntu/natty/riak_1.4.0rc1-1_amd64.deb.sha
+              csum_size: 92
+        precise:
+          arch:
+            amd64:
+              file: riak_1.4.0rc1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/ubuntu/precise/riak_1.4.0rc1-1_amd64.deb
+              file_size: 26839018
+              csum: riak_1.4.0rc1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/ubuntu/precise/riak_1.4.0rc1-1_amd64.deb.sha
+              csum_size: 92
+    source:
+      versions:
+        any:
+          arch:
+            src:
+              file: riak-1.4.0rc1.tar.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.0rc1/riak-1.4.0rc1.tar.gz
+              file_size: 13140225
 riak-cs:
   1.2.1: 
   1.3.0:
