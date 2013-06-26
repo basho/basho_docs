@@ -6,6 +6,9 @@ document: appendix
 toc: true
 audience: intermediate
 keywords: [appendix, concepts]
+moved: {
+  '1.4.0-': '/references/appendices/concepts/Eventual-Consistency/'
+}
 ---
 
 An introduction to eventual consistency and what it means in terms of handling data with Riak.

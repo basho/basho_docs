@@ -5,6 +5,9 @@ version: 0.10.0+
 document: appendix
 audience: intermediate
 keywords: [appendix, concepts]
+moved: {
+  '1.4.0-': '/references/appendices/concepts/Clusters/'
+}
 ---
 
 Riak's default mode of operation is in a cluster. A Riak cluster is
