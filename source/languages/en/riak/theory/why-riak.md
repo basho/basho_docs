@@ -13,6 +13,9 @@ interest: [
 "[[Vector Clocks]]",
 "[[Replication]]"
 ]
+moved: {
+  '1.4.0-': '/tutorials/fast-track/What-is-Riak/'
+}
 ---
 
 ## What is Riak?

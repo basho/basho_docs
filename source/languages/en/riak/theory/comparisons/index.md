@@ -6,6 +6,9 @@ document: appendix
 toc: true
 index: true
 keywords: [comparisons]
+moved: {
+  '1.4.0-': '/references/appendices/comparisons/'
+}
 ---
 
 The NoSQL space, as well as the database space in general, is growing ever-crowded. Because of this, we often find ourselves answering very high-level questions from developers, prospects, and customers along the lines of, "How does Riak compare to this database?" or "What is the main difference between your replication strategy and this NoSQL Database?" So, we thought it would be a worthwhile exercise to make available very brief and objective comparisons to as many databases as possible. (The list below will be growing as soon as we have the time to grow it.)

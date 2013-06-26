@@ -6,6 +6,9 @@ document: appendix
 toc: true
 audience: intermediate
 keywords: [appendix, concepts]
+moved: {
+  '1.4.0-': '/references/appendices/concepts/Riak-Glossary/'
+}
 ---
 
 Below is a list of terms and their applicability within the context of Riak:
@@ -62,7 +65,7 @@ Links are metadata attached to objects in Riak. These links make establishing re
 
 ## MapReduce
 
-Riak's MapReduce gives developers the capability to perform more powerful queries over the data stored in their key/value data. 
+Riak's MapReduce gives developers the capability to perform more powerful queries over the data stored in their key/value data.
 
 * [[An In Depth Look at Riak's MapReduce|MapReduce]]
 
@@ -97,7 +100,7 @@ Replicas are copies of data stored in Riak. The number of replicas required for 
 
 ## Riak Core
 
-[[Riak Core|https://github.com/basho/riak_core]] is the modular distributed systems framework that serves as the foundation for Riak's scalable architecture. 
+[[Riak Core|https://github.com/basho/riak_core]] is the modular distributed systems framework that serves as the foundation for Riak's scalable architecture.
 
 ## Riak KV
 
@@ -107,9 +110,9 @@ Replicas are copies of data stored in Riak. The number of replicas required for 
 
 [[Riak Pipe|https://github.com/basho/riak_pipe]] is the processing layer that powers Riak's MapReduce. It's best described as "UNIX pipes for Riak."
 
-## Riak Search 
+## Riak Search
 
-Riak Search is a distributed, scalable, failure-tolerant, real-time, full-text search engine built around Riak Core and tightly integrated with Riak KV. 
+Riak Search is a distributed, scalable, failure-tolerant, real-time, full-text search engine built around Riak Core and tightly integrated with Riak KV.
 
 * [[In Depth on Riak Search|Riak Search]]
 
@@ -119,7 +122,7 @@ The Riak Ring is a 160-bit integer space. This space is equally divided into par
 
 ## Secondary Indexing
 
-Secondary Indexing in Riak gives developers the ability to tag an object stored in Riak with one or more values which can then be queried. 
+Secondary Indexing in Riak gives developers the ability to tag an object stored in Riak with one or more values which can then be queried.
 
 * [[More about Secondary Indexes|Secondary Indexes]]
 

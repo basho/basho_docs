@@ -6,6 +6,9 @@ document: appendix
 toc: true
 audience: intermediate
 keywords: [appendix, concepts]
+moved: {
+  '1.4.0-': '/references/appendices/concepts/'
+}
 ---
 
 This section is a high level overview of concepts, technology choices,

@@ -6,6 +6,9 @@ document: appendix
 toc: true
 index: true
 keywords: [comparisons, neo4j]
+moved: {
+  '1.4.0-': '/references/appendices/comparisons/Riak-Compared-to-Neo4j/'
+}
 ---
 
 This is intended to be a brief, objective and technical comparison of Riak and Neo4j.
