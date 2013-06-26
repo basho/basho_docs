@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Bucket Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-Set-Bucket-Properties/'
+}
 ---
 
 Sets bucket properties like "n_val" and "allow_mult".
@@ -22,7 +25,7 @@ Important headers:
 
 * `Content-Type` - `application/json`
 
-The body of the request should be a JSON object with a single entry "props". 
+The body of the request should be a JSON object with a single entry "props".
 Unmodified bucket properties may be omitted.
 
 Available properties:

@@ -6,11 +6,14 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, commit-hooks]
+moved: {
+  '1.4.0-': '/references/appendices/concepts/Commit-Hooks/'
+}
 ---
 
 ## Overview
 
-Pre- and Post- Commit hooks are invoked before or after a riak_object is persisted and can greatly enhance the functionality of any application. Commit hooks can:
+Pre- and post-commit hooks are invoked before or after a riak_object is persisted and can greatly enhance the functionality of any application. Commit hooks can:
 
 - allow a write to occur with an unmodified object
 - modify the object

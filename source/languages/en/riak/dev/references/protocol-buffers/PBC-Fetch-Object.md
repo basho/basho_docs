@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Object/Key Operations"
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Fetch-Object/'
+}
 ---
 
 Fetch an object from Riak

@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Object/Key Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-Delete-Object/'
+}
 ---
 
 Deletes an object from the specified bucket / key.

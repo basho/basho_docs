@@ -6,6 +6,9 @@ document: reference
 toc: true
 audience: advanced
 keywords: [developers, reference, search]
+moved: {
+  '1.4.0-': '/cookbooks/Riak-Search---Indexing/'
+}
 ---
 
 There are numerous ways to index a document in Riak Search.
@@ -67,7 +70,7 @@ Parameters:
 * *Path* - Relative or absolute path to the files or directories to recursively index. Wildcards are permitted.
 
 The documents will be indexed into the default field defined by the Index's schema, using the base filename plus extension as the document ID.
-    
+
 ```erlang
 search:index_dir(<<"my_index">>, "files/to/index/*.txt").
 ```

@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 index: true
+moved: {
+  '1.4.0-': '/references/apis/http/'
+}
 ---
 
 Riak has a rich, full-featured HTTP 1.1 API.  This is an overview of the
@@ -32,7 +35,7 @@ Buckets in Riak are a virtual concept. They exist primarily as a namespace
 mechanism and as a mechanism to isolate specific behavior changes that deviate
 from the default bucket settings. For example, you may augment the [[number of
 replicas|Replication#Selecting-an-N-value-(n_val)]], the specific storage
-backend and [[commit hooks|Pre- and Post-Commit Hooks]] at the bucket level. 
+backend and [[commit hooks|Pre- and Post-Commit Hooks]] at the bucket level.
 
 <div class="info"><div class="title">How Many Buckets Can I Have?</div>
 <p>Currently, buckets come with virtually no cost except for when you modify the
@@ -54,7 +57,7 @@ the keys in a bucket, you'll need to delete them all individually.</P>
 * [[HTTP Set Bucket Properties]]
 * [[HTTP Reset Bucket Properties]] {{1.3.0+}}
 
-## Object/Key Operations 
+## Object/Key Operations
 
 The combination of bucket, key, value and metadata are referred to as a "Riak
 Object". The operations below affect individual objects in Riak.

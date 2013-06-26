@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Query Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-MapReduce/'
+}
 ---
 
 [[MapReduce|Using MapReduce]] is a generic way to query Riak by specifying inputs and constructing a set of map, reduce, and link phases through which data will flow.

@@ -6,6 +6,9 @@ document: tutorials
 toc: true
 audience: advanced
 keywords: [interface, client]
+moved: {
+  '1.4.0-': '/tutorials/Client-Implementation-Guide/'
+}
 ---
 
 This section details aspects of the Riak client interfaces and can be

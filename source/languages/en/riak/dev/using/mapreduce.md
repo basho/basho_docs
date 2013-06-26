@@ -6,6 +6,9 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, mapreduce]
+moved: {
+  '1.4.0-': '/tutorials/querying/MapReduce/'
+}
 ---
 
 ## Introduction

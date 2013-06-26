@@ -5,6 +5,9 @@ version: 1.0.0+
 document: appendix
 toc: true
 keywords: [api, backends]
+moved: {
+  '1.4.0-': '/references/appendices/Backend-API/'
+}
 ---
 
 Riak's storage API uniformly applies to all of the
@@ -102,4 +105,3 @@ into a custom storage backend module.
 %% @doc Register an asynchronous callback
 -spec callback(reference(), any(), state()) -> {ok, state()}.
 ```
-
