@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Operations (Version 3)"
+title: "Multi Data Center Replication v3 Operations"
 project: riakee
 version: 1.4.0+
 document: cookbook
@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, operator, bnw]
 ---
 
-This document shows how to manage replication with the `riak-repl` command. Many of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data-Center Replication Configuration New]] values.
+This document shows how to manage replication with the `riak-repl` command. Many of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data-Center Replication v3 Configuration]] values.
 
 ## Cluster Connectivity
 
@@ -43,7 +43,7 @@ Host can be either an IP address,
 
 **disconnect**
 
-Disconnecting a source cluster from a sink cluster. 
+Disconnecting a source cluster from a sink cluster.
 
 You may define a `host:port` combination,
 
@@ -90,7 +90,7 @@ Stop realtime replication from a source cluster to sink clusters.
 
 ## Fullsync Replication Configuration
 
-These behaviors can be altered by using the app.config `fullsync_on_connect`. See the [[Configuration guide|Multi Data-Center Replication Configuration New]] for more information.
+These behaviors can be altered by using the app.config `fullsync_on_connect`. See the [[Configuration guide|Multi Data-Center Replication v3 Configuration]] for more information.
 
 **fullsync enable**
 
@@ -122,7 +122,7 @@ Stops a fullsync.
 
 
 ## Cascading Realtime Writes
-See the [[Configuration guide|Multi Data-Center Replication Cascading Writes New]]
+See the [[Configuration guide|Multi Data-Center Replication Cascading v3 Writes]]
 
 **realtime cascades**
 
@@ -148,7 +148,7 @@ Disable realtime cascading writes.
 
 
 ## NAT
-See the [[Configuration guide|Multi Data-Center Replication NAT New]]
+See the [[Configuration guide|Multi Data-Center Replication v3 NAT]]
 
 **nat-map show**
 Show the current NAT mapping table.
@@ -176,14 +176,14 @@ NAT changes will be applied once fullsync and/or realtime replication is stopped
 * **riak-repl proxy-get enable**
 Enable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
 
-	* *Syntax:* `proxy-get enable  <sink_clustername>`
-	* *Example:* `riak-repl proxy-get enable  newyorkbackup` 
+        * *Syntax:* `proxy-get enable  <sink_clustername>`
+        * *Example:* `riak-repl proxy-get enable  newyorkbackup`
 
 * **riak-repl proxy-get disable**
 Disable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
 
-	* *Syntax:* `proxy-get disable <sink_clustername>`
-	* *Example:* `riak-repl proxy-get disable newyorkbackup`
+        * *Syntax:* `proxy-get disable <sink_clustername>`
+        * *Example:* `riak-repl proxy-get disable newyorkbackup`
 
 
 ## riak-repl Status Output
@@ -193,7 +193,7 @@ Details about the `riak-repl status` command can be found under [[Replication St
 
 ## Tuning
 
-These tuning values may also be set via the node's `app.config` file. See the [[Configuration guide|Multi Data-Center Replication Configuration New]] for more information.
+These tuning values may also be set via the node's `app.config` file. See the [[Configuration guide|Multi Data-Center Replication v3 Configuration]] for more information.
 
 **fullsync max_fssource_node**
 
@@ -224,14 +224,14 @@ This limits the number of fullsync workers allowed to run on each individual nod
 
 ## Mixing Version 2 Replication with Version 3 Replication
 
-Riak Version 2 Replication and Version 3 Replication can be safely used at the same time. If you choose to move to 1.3 Replication completely, it is recommended to disable Version 2 realtime replication bucket hooks with the `riak-repl modes` command. 
+Riak Version 2 Replication and Version 3 Replication can be safely used at the same time. If you choose to move to 1.3 Replication completely, it is recommended to disable Version 2 realtime replication bucket hooks with the `riak-repl modes` command.
 
 **riak-repl modes**
 
 `modelist` is one or both of `mode_repl12` (Version 2) or `mode_repl13` (Version 3) separated by *spaces* (without commas).
 
-* *Syntax:* `riak-repl modes <modelist>` 
-* *Example:* 
+* *Syntax:* `riak-repl modes <modelist>`
+* *Example:*
 
     ```
     riak-repl modes mode_repl12 mode_repl13
@@ -240,7 +240,7 @@ Riak Version 2 Replication and Version 3 Replication can be safely used at the s
 
 To check the current replication modes:
 
-* *Syntax:* `riak-repl modes` 
+* *Syntax:* `riak-repl modes`
 * *Example:*
 
     ```

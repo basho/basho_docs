@@ -113,7 +113,7 @@ riak:
           - "[[Search|Riak-Search - Settings]]"
           - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
           - "[[Load Balancing and Proxy Configuration]]"
-                    
+
       - title: "Performance"
         sub:
           - "[[File System Tuning]]"
@@ -219,16 +219,16 @@ riakee:
           - "[[System Tuning|Multi Data Center Replication System Tuning]]"
       - title: "Version 3 Replication"
         sub:
-          - "[[Architecture|Multi Data Center Replication Architecture New]]"
-          - "[[Configuration|Multi Data Center Replication Configuration New]]"
-          - "[[Operations|Multi Data Center Replication Operations New]]"
-          - "[[Statistics|Multi Data Center Replication Status]]"
-          - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
-          - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync New]]"
-          - "[[SSL|Multi Data Center Replication SSL New]]"
-          - "[[With NAT|Multi Data Center Replication With NAT New]]"
-          - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
-          - "[[Active Anti-Entropy|Multi Data Center Replication With AAE New]]"
+          - "[[Architecture|Multi Data Center Replication v3 Architecture]]"
+          - "[[Configuration|Multi Data Center Replication v3 Configuration]]"
+          - "[[Operations|Multi Data Center Replication v3 Operations]]"
+          - "[[Statistics|Multi Data Center Replication v3 Status]]"
+          - "[[Per Bucket|Multi Data Center Replication v3 Per Bucket]]"
+          - "[[Scheduling Full Sync|Multi Data Center Replication v3 Scheduling Full Sync]]"
+          - "[[SSL|Multi Data Center Replication v3 SSL]]"
+          - "[[With NAT|Multi Data Center Replication v3 With NAT]]"
+          - "[[Repl Hooks|Multi Data Center Replication v3 Hooks]]"
+          - "[[Active Anti-Entropy|Multi Data Center Replication v3 With AAE]]"
   - title: "Operating Riak Enterprise"
     sub:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"

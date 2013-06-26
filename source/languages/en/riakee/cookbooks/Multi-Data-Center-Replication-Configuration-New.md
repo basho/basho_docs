@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Configuration (Version 3)"
+title: "Multi Data Center Replication v3 Configuration"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -16,14 +16,14 @@ keywords: [mdc, repl, configuration]
 The configuration for replication is kept in the both the `riak_core` and `riak_repl` sections of `etc/app.config`.
 
 ```
-{riak_core, [	
+{riak_core, [
     %% Every *node* runs one cluster_mgr.
     {cluster_mgr, {"0.0.0.0", 9085 }}
     …
-]},		
+]},
 {riak_repl, [
     % Pick the correct data_root for your platform
-	% Debian/Centos/RHEL:
+        % Debian/Centos/RHEL:
     {data_root, "/var/lib/riak/data/riak_repl"},
     % Solaris:
     % {data_root, "/opt/riak/data/riak_repl"},
@@ -51,7 +51,7 @@ Once your configuration is set, you can verify its correctness by running the co
 riak chkconfig
 ```
 
---- 
+---
 Riak MDC Replication app.config settings, **riak_repl section**
 
 Setting | Options | Default | Description
@@ -65,7 +65,7 @@ data_root | path(string) | data/<wbr>riak_repl | Path (relative or absolute) to 
 fullsync_interval | minutes(integer) OR [{sink_cluster, minutes(integer)}, …]|undefined|a single integer value representing the duration to wait in minutes between fullsyncs, or a list of {"clustername", time_in_minutes} pairs for each sink participating in fullsync replication.
 proxy_get|enabled,disabled|false|Enable Riak CS proxy_get and block filter.
 
---- 
+---
 
 Riak MDC Replication app.config settings, **riak_core section**
 
@@ -88,4 +88,3 @@ peer_common_name_acl | cert(string) | "*" | Verify an SSL peer’s certificate c
 2. <a name="f4"></a>If the ACL is specified and not the special value `*`,
   certificates not matching any of the rules will not be allowed to connect.
   If no ACLs are configured, no checks on the common name are done.
-

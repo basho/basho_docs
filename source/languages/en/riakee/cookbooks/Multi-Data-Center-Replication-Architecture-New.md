@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Architecture (Version 3)"
+title: "Multi Data Center Replication v3 Architecture"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -12,15 +12,15 @@ keywords: [mdc, repl, bnw]
 
 In multi-datacenter (MDC) replication, a cluster can act as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). Bidirectional replication can easily be established by making a cluster both a source and a sink to other clusters. Riak Enterprise MDC Replication is considered "masterless": all clusters participating will resolve replicated writes via the normal resolutions methods available in Riak.
 
-In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between source and sink cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Full-sync can be performed upon initial connection of a sink cluster. 
+In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between source and sink cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Full-sync can be performed upon initial connection of a sink cluster.
 
-Full-sync and real-time modes are described in detail below. 
+Full-sync and real-time modes are described in detail below.
 
 ## Concepts
 
 ### Sources
 
-A source refers to a cluster that is the primary producer of replication data. A source can also refer to any node that is part of the source cluster. Source clusters push data to sink clusters. 
+A source refers to a cluster that is the primary producer of replication data. A source can also refer to any node that is part of the source cluster. Source clusters push data to sink clusters.
 
 ### Sinks
 
@@ -28,7 +28,7 @@ A sink refers to a cluster that is the primary consumer of replication data. A s
 
 ### Cluster Manager
 
-The cluster manager is a Riak EE service that provides information regarding nodes and protocols supported by the sink and source clusters. This information is primarily consumed by the `riak-repl connect` command. 
+The cluster manager is a Riak EE service that provides information regarding nodes and protocols supported by the sink and source clusters. This information is primarily consumed by the `riak-repl connect` command.
 
 ### Fullsync Coordinator
 
@@ -38,7 +38,7 @@ In fullsync replication, a node on the source cluster is elected to be the *full
 ## Full-Sync Replication
 
 Fullsync replication scans through the list of partitions in a Riak cluster, and determines which objects in the sink cluster need to be updated. A source partition is synchronized to a node on the sink cluster containing the current partition.
- 
+
 <br>
 ![MDC Full-Sync](/images/MDC_BNW_Full-sync-small.png)
 <br>
@@ -59,4 +59,3 @@ In the diagram below, the following steps occur:
 <br>
 ![MDC Full-Sync](/images/MDC_BNW-real-time-sync-small.png)
 <br>
-

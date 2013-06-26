@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: SSL"
+title: "Multi Data Center Replication v3 SSL"
 project: riakee
 version: 1.4.0+
 document: cookbook
@@ -35,7 +35,7 @@ verify the CA chain back to the root.
 
 ## Verifying peer certificates
 
-Verification of a peer's certificate common name is enabled by using the 
+Verification of a peer's certificate common name is enabled by using the
 peer_common_name_acl property in the riak_repl section of app.config.
 
 You can provide multiple ACLs, separated by commas, and you can wildcard
@@ -48,7 +48,7 @@ If no ACLs are configured, no checks on the common name are done.
 
 ### Examples
 
-The following example will only allow connections from peer certificate names like 
+The following example will only allow connections from peer certificate names like
 db.bashosamplecorp.com and security.bashosamplecorp.com:
 
 ```
