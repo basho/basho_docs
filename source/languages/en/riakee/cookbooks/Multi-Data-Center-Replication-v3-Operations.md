@@ -1,7 +1,7 @@
 ---
 title: "Multi Data Center Replication v3 Operations"
 project: riakee
-version: 1.4.0+
+version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
@@ -90,7 +90,7 @@ Stop realtime replication from a source cluster to sink clusters.
 
 ## Fullsync Replication Configuration
 
-These behaviors can be altered by using the app.config `fullsync_on_connect`. See the [[Configuration guide|Multi Data-Center Replication v3 Configuration]] for more information.
+These behaviors can be altered by using the `app.config` `fullsync_on_connect` parameter. See the [[Configuration guide|Multi Data-Center Replication v3 Configuration]] for more information.
 
 **fullsync enable**
 

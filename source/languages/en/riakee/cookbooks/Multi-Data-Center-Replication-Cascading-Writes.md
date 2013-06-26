@@ -1,18 +1,18 @@
 ---
 title: "Multi Data Center Replication: Cascading Realtime Writes"
 project: riakee
-version: 1.4.0+
+version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, replication, realtime, cascading]
 ---
 
-## Cascading Realtime Writes
+## Introduction
 
-Riak Enterprise 1.4 includes a feature that cascades realtime writes across multiple clusters.
+Riak Enterprise includes a feature that cascades realtime writes across multiple clusters.
 
-Cascading Realtime Writes is enabled by default on new clusters running Riak Enterprise 1.4.0. On existing clusters, it will need to be manually enabled.
+Cascading Realtime Writes is enabled by default on new clusters running Riak Enterprise. On existing clusters, it will need to be manually enabled.
 
 Cascading realtime requires the capability {riak_repl, rtq_meta} to function.
 
@@ -53,19 +53,19 @@ A different topology can also prevent extra write requests:
 
 A write at A will cascade to C and B. B will not cascade to C as A will have already added C to the list of clusters the write has occurred at. C will then cascade to D. D then cascades to E and F. E and F see the other was sent a write request (by D), and so they do not cascade.
 
-### Usage
+## Usage
 
 Riak Enterprise Cascading Writes can be enabled and disabled through the `riak-repl` command. Please see the Version 3 Operations guide for more information.
 
 To show current setting:
 
-	* riak-repl realtime cascades
+`riak-repl realtime cascades`
 
-To enable cascading
+To enable cascading:
 
-	* riak-repl realtime cascades always
+`riak-repl realtime cascades always`
 
-To disable cascading
+To disable cascading:
 
-	* riak-repl realtime cascades never
+`riak-repl realtime cascades never`
 	

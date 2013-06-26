@@ -1,7 +1,7 @@
 ---
 title: "Multi Data Center Replication v3 With NAT"
 project: riakee
-version: 1.4.0+
+version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
@@ -16,7 +16,7 @@ This can be used for replicating data over the internet where servers have both 
 In order for Replication to work on a server configured with NAT, the NAT addresses must be configured **statically**.
 
 
-### Configuration
+## Configuration
 
 NAT rules can be configured at runtime, from the command line.
 
@@ -32,7 +32,7 @@ NAT rules can be configured at runtime, from the command line.
 
         Deletes a specific NAT map entry.
 
-#### Applying changes at runtime:
+### Applying changes at runtime:
 
 * Realtime NAT replication changes will be applied once realtime is stopped and started using the following command:
 
@@ -45,14 +45,14 @@ NAT rules can be configured at runtime, from the command line.
         * **riak-repl fullsync start <clustername>**
 
 
-### Example
+## Example
 
 
 * Cluster_A is the **source** of replicated data.
 
 * Cluster_B and Cluster_C are the **sinks** of the replicated data.
 
-##### **Cluster_A setup**
+### **Cluster_A setup**
 
 Cluster_A is setup with nodes using the following **internal** IP addresses:
 
@@ -64,7 +64,7 @@ Internal IP  | Public IP
 192.168.1.23 | -
 192.168.1.24 | -
 
-##### **Cluster_B setup**
+### **Cluster_B setup**
 
 A node from Cluster_B will be configured as follows:
 
@@ -79,7 +79,7 @@ Internal IP  | Public IP
 
 In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5555*.
 
-##### **Cluster_C setup**
+### **Cluster_C setup**
 
 A node from Cluster_C is setup with *static NAT*, configured with the following IP addresses:
 

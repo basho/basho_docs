@@ -1,27 +1,25 @@
 ---
 title: "Multi Data Center Replication v3 Scheduling Full Sync"
 project: riakee
-version: 1.4.0+
+version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, schedule, fullsync]
 ---
 
-## Scheduling Full Synchronization
-
-The `fullsync_interval` parameter can be configured in the `riak-repl` section of app.config with:
+The `fullsync_interval` parameter can be configured in the `riak-repl` section of *app.config* with:
 
 * a single integer value representing the duration to wait *in minutes* between fullsyncs
 
     **OR**
 
 
-* a list of `[{"clustername", time_in_minutes}, {"clustername", time_in_minutes},…]` pairs for each sink participating in fullsync replication. Note the commas separating each pair, and `[` `]` surrounding the entire list. Also, `%%` represent `app.config` comments.
+* a list of `[{"clustername", time_in_minutes}, {"clustername", time_in_minutes},…]` pairs for each sink participating in fullsync replication. Note the commas separating each pair, and `[` `]` surrounding the entire list. Also, `%%` represent *app.config* comments.
 
-####Examples
+##Examples
 
-######Single integer time in minutes:
+###Sharing a fullsync time (in minutes) for all sinks:
 
 ```
 {riak_repl, [
@@ -30,7 +28,7 @@ The `fullsync_interval` parameter can be configured in the `riak-repl` section o
   ]}
 ```
 
-######List of multiple sinks with separate times in minutes.
+###List of multiple sinks with separate times in minutes.
 
 ```
 {riak_repl, [
@@ -42,9 +40,10 @@ The `fullsync_interval` parameter can be configured in the `riak-repl` section o
   ]}
 ```
 
-### Additional fullsync stats
+{{#1.4.0+}}
+## Additional fullsync stats
 
-Additional fullsync stats per sink have been added in Riak EE 1.4.
+Additional fullsync stats per sink have been added in Riak Enterprise.
 
 * `fullsyncs_completed`
 
@@ -57,3 +56,4 @@ Additional fullsync stats per sink have been added in Riak EE 1.4.
 * `last_fullsync_duration`
 
         The duration (in seconds) of the last completed fullsync.
+{{/1.4.0+}}

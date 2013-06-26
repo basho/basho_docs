@@ -19,14 +19,14 @@ Riak REPL SSL support consists of the following items:
 ## SSL Configuration
 
 To configure SSL, you will need to include the following 4 settings in the
-riak-repl section of app.config
+riak-repl section of `app.config`:
 
-```
+<pre>
 {ssl_enabled, true},
 {certfile, "/full/path/to/site1-cert.pem"},
 {keyfile, "/full/path/to/site1-key.pem"},
-{cacertdir, "/full/path/to/cacertsdir"}
-```
+{<i>cacertdir</i>, "/full/path/to/cacertsdir"}
+</pre>
 
 The cacertdir is a directory containing all the CA certificates needed to
 verify the CA chain back to the root.
