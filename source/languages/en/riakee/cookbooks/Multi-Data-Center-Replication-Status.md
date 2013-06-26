@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Statistics (Version 3)"
+title: "Multi Data Center Replication Statistics"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -180,7 +180,7 @@ message_queue_len | The number of Erlang messages that are waiting to be process
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication Configuration New]] guide for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration (version 2)|Multi-Data-Center Replication Configuration]] or [[Riak EE MDC Replication Configuration (version 3)|Multi-Data-Center Replication v3 Configuration]] guide for more information.
 
 Field | Description
 ------|------------
@@ -201,5 +201,5 @@ These stats can be accessed via the command line with the following command:
     curl -q http://127.0.0.1:8098/riak-repl/stats
 
 A simple way to view formatted statistics is to use a command such as:
-  
+
     curl -q http://127.0.0.1:8098/riak-repl/stats | jsonpp
