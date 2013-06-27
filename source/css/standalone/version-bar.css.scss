@@ -19,6 +19,14 @@ $layout-layout:smart;
   width           : 4.2em;
 }
 
+#version-ddown {
+  position    : fixed;
+  top         : 80px;
+  margin-left : -68px;
+  padding     : 10px;
+  background  : $subtleGray;
+  cursor      : pointer;
+}
 
 ol.versions,
 ol.versions li {
@@ -28,8 +36,11 @@ ol.versions li {
   padding: 0;
 }
 ol.versions {
-  float: right;
-  margin-top: 2.1em;
+  position    : fixed;
+  display     : none;
+  top         : 100px;
+  margin-left : -68px;
+  //margin-top: 2.1em;
   //clear         : left;
   //margin-bottom : 1em;
   //padding-top   : 15px;
@@ -39,20 +50,20 @@ ol.versions {
   
   > li {
     &:first-child {
-      @include corner(left, top);
-      @include corner(left, bottom);
+      //@include corner(left, top);
+      //@include corner(left, bottom);
     }
     
     &:last-child {
-      @include corner(right, top);
-      @include corner(right, bottom);
+      //@include corner(right, top);
+      //@include corner(right, bottom);
     }
   }
 
   li {
     @include bgPattern('light-green-bg.jpg');
     border        : 1px solid $darkGreen;
-    display       : inline-block;
+    display       : block;
     font-size     : 8pt;
     margin-right  : 1px;
     margin-bottom : 1px;

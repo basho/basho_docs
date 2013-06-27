@@ -31,7 +31,6 @@ body class=classnames.join(' ') id=data.page.body_id
   div(role="main")
     == partial "layouts/header"
     article.mainarticle
-      div#nav-toggle
       - unless !data.page.title || data.page.simple
         header
           h1== data.page.title

@@ -21,6 +21,7 @@
     selectors : {
       navContainer     : '#nav-container',
       navContent       : '#primary-nav',
+      navLinks         : '#links-bottom',
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
       responsiveToggle : '.responsive-toggle'
@@ -67,11 +68,12 @@
    * reverseToggle()
    * Makes the arrows on the nav opener/closer flip back and forth
    */
+   /*
   function reverseToggle() {
     options.jq.contentWell.toggleClass('closed');
     options.jq.navToggle.toggleClass('closed');
   }
-  
+  */
   /*
    * animConfig()
    * Creates a jQuery.animate config object so we don't have to pass in
@@ -100,6 +102,7 @@
    */
   function closeNav(callback) {
     options.jq.navContent.fadeOut(options.params.navSpeed / 2);
+    options.jq.navLinks.fadeOut(options.params.navSpeed / 2);
     options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, animConfig(callback));
     options.jq.navContainer.animate({width: options.params.closedNavMargin}, animConfig());
   }
@@ -111,6 +114,7 @@
   function openNav(callback) {
     var cm = contentMargin;
     options.jq.navContent.fadeIn(options.params.navSpeed / 2);
+    options.jq.navLinks.fadeIn(options.params.navSpeed / 2);
     options.jq.contentWell.animate({marginLeft: cm}, animConfig(callback));
     options.jq.navContainer.animate({width: cm}, animConfig());
   }
@@ -153,9 +157,9 @@
    */
   function determineNavAction() {
     if (options.jq.navContent.is(':hidden')) {
-      openNav(reverseToggle);
+      openNav();
     } else {
-      closeNav(reverseToggle);
+      closeNav();
     }
   }
   
@@ -343,4 +347,73 @@
     });
   }
 
+  /*
+   * toggleMenu()
+   * Toggle the menu display on/off when user
+   * clicks the button and toggle the button class
+   */
+  function toggleMenu(buttonID, menuID) {
+    var X=$(buttonID).attr('class');
+    if(X=='selected') {
+      $(menuID).hide();
+      $(this).attr('class', 'unselected');
+    } else {
+      $(menuID).show();
+      $(this).attr('class', 'selected');
+    }
+  }
+
+  /*
+   * documentClick()
+   * Hide the dropdown menu when user clicks anywhere else
+   * in the document and toggle the button class
+   */
+  function documentClick(buttonID, menuID) {
+    $(menuID).hide();
+    $(buttonID).attr('class', 'unselected');
+  }
+
+  /*----------------------------------------------------------*/
+  // Top Navigation Menu Interactions
+  /*----------------------------------------------------------*/
+  $('#nav-more').click(function() {
+    toggleMenu('#nav-more', '#nav-menu');
+  });
+
+  //Mouse click on sub menu
+  $('#nav-menu').mouseup(function() {
+    return false
+  });
+
+  //Mouse click on my account link
+  $('#nav-more').mouseup(function() {
+    return false
+  });
+
+  //Document Click
+  $(document).mouseup(function() {
+    documentClick('#nav-more', '#nav-menu');
+  });
+
+  /*----------------------------------------------------------*/
+  // Version Menu Interactions
+  /*----------------------------------------------------------*/
+  $('#version-ddown').click(function() {
+    toggleMenu('#version-ddown', '.versions');
+  });
+
+  //Mouse click on sub menu
+  $('.versions').mouseup(function() {
+    return false
+  });
+
+  //Mouse click on my account link
+  $('#version-ddown').mouseup(function() {
+    return false
+  });
+
+  //Document Click
+  $(document).mouseup(function() {
+    documentClick('#version-ddown', '.versions');
+  });
 });

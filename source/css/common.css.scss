@@ -71,16 +71,18 @@ html {
 body {
   
   aside#nav-container {
-    @include bgPattern('nav-bg.jpg', #4f4f50);
     @include size(232px, 100%);
-    overflow : auto;
+    overflow : hidden;
     position : fixed;
     top      : 0;
     left     : 0;
     z-index  : 1;
+    background : #eaecef;
     
     #primary-nav {
-      padding : 5px 0;
+      padding : 0;
+      height : auto !important;
+      min-height: 100%;
       -o-user-select: none;
       -ms-user-select: none;
       -moz-user-select: none;
@@ -175,7 +177,7 @@ body {
   div[role="main"] {
     //@include bgPattern('content-bg.jpg', $subtleGray);
     @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
-    padding  : 0 25px;
+    padding  : 0 25px 0 65px;
     margin   : 0 0 0 232px;
     position : relative;
     z-index  : 2;
@@ -195,16 +197,15 @@ body {
   }
   
   footer.mastfooter {
-    @include bgPattern('footer-bg.jpg');
-    @include size(100%, auto);
-    padding  : 25px 0;
-    position : absolute;
-    margin   : 25px -25px 0;
-    text-shadow : #333 1px 1px 1px;
-    line-height : 1.2;
+    //@include size(100%, auto);
+    padding       : 25px 25px 25px 65px;
+    margin        : 25px 0 0 0;
+    line-height   : 1.2;
+    border-top    : 1px solid $subtleGray;
+    color         : $darkGrey;
     a {
-      color:white;
-      text-decoration:none;
+      color           : $darkGrey;
+      text-decoration : none;
       &[href^="http://"], &[href^="https://"] {
         background:none;
         padding-right: 0;
@@ -302,7 +303,7 @@ iframe {
 
 #nav-container {
   @extend .sans;
-  @include boxShadow(inset 0 0 15px #999);
+  //@include boxShadow(inset 0 0 15px #999);
   color : $subtleGray;
   
   @media screen and (max-width: 700px) {
@@ -311,27 +312,76 @@ iframe {
 
   a {
     @extend .block;
-    color           : #fff;
+    color           : $darkGrey;
     padding         : 7px 12px;
     text-decoration : none;
     
     &:hover {
-      background        : #515151;
-      background        : rgba(255, 255, 255, .12);
+      //background        : #515151;
+      //background        : rgba(255, 255, 255, .12);
       border-left-color : $lightGreen;
     }
   }
-  
-  .current a {
-    background-color : $lightGreen;
-    cursor           : default;
+
+  .current {
+    //background-color : $blueGreen;
+
+    a {
+      cursor : default;
+    }
   }
+
   .current a:hover {
-    @include bgPattern('nav-li-bg6.jpg', #393939);
+    //@include bgPattern('nav-li-bg6.jpg', #393939);
+  }
+
+  .search-icon-container {
+    position    : absolute;
+    top         : 0;
+    left        : 0;
+    padding     : 10px;
+    line-height : 1rem;
+    z-index     : 4;
+    font-size   : 1.05rem;
+  }
+
+  .icon-container {
+    display    : inline-block;
+    width      : 1.25rem;
+    text-align : center;
+  }
+
+  .separator {
+    font-weight : normal;
   }
   
-  h3, h4 {
-    cursor : pointer;
+  .nav-field-container {
+    position : relative;
+
+    input[type="search"] {
+      position    : relative;
+      width       : 80%;
+      background-color : $fieldGrey;
+      padding     : 10px 0 10px 20%;
+      margin      : 0;
+      border      : none;
+      color       : #fff;
+      line-height : 1rem;
+      font-family : 'titillium', verdana, arial, sans-serif;
+      font-size   : 115%;
+    }
+
+    input[type="search"]:focus {
+      background-color : $darkGrey;
+    }
+  }
+
+  .nav-icon {
+    font-family: 'DocsFontIcons';
+
+    &.nav-icon-search {
+      color: #fff;
+    }
   }
 
   /*
@@ -376,9 +426,11 @@ iframe {
     //@extend .text-shadow;
     //@include bgPattern('nav-header-bg2.jpg', transparent);
     //border-left : 4px solid $fadedGreen;
+    @include bgPattern('nav-bg.jpg', #4f4f50);
     padding     : 5px 8px 5px 10px;
     overflow    : visible;
     color       : $darkGrey;
+    cursor      : pointer;
     
     a {
       background : none;
@@ -400,13 +452,22 @@ iframe {
     
     &:hover {
       span.menu-toggle {
-        @include layout-sprite(menu-closed-hover);
+        border        : 5px solid transparent;
+        border-bottom : none;
+        border-top    : 5px solid $darkGrey;
         
         &.open {
-          @include layout-sprite(menu-open-hover);
+          border        : 5px solid transparent;
+          border-bottom : 5px solid $darkGrey;
+          border-top    : none;
         }
       }
     }
+  }
+  
+  h3 {
+    border-bottom : 1px solid $lightGrey;
+    font-size     : 1.05rem;
   }
   
   h3 span a {
@@ -414,6 +475,10 @@ iframe {
     width   : 100%;
   }
   
+  .depth-1 {
+    @extend .clear;
+  }
+
   .depth-1 h3, .depth-2 h3, .depth-3 h3,
   .depth-1 h4, .depth-2 h4, .depth-3 h4 {
     margin-right : 0;
@@ -427,8 +492,8 @@ iframe {
   }
   
   h3 {
-    font-size  : 135%;
-    margin-top : 7px;
+    //font-size  : 135%;
+    //margin-top : 7px;
     
     @media screen and (max-width: 700px) {
       font-size : 115%;
@@ -441,15 +506,11 @@ iframe {
         margin-top : 10px;
       }
     }
-
-    .nav-icon {
-      font-family: 'docs-font-icons';
-    }
   }
   
   h4 {
     @extend .sans;
-    font-size : 115%;
+    //font-size : 115%;
   }
   
   ul {
@@ -461,11 +522,21 @@ iframe {
   }
   
   .depth-1 li {
-    border-left : 4px solid $fadedGreen;
+    @include bgPattern('nav-bg.jpg', #4f4f50);
+    padding-left : 8px;
+
+    &.current {
+      background : $blueGreen;
+
+      a {
+        color: #fff;
+      }
+    }
   }
   
   li:last-child {
-    margin-bottom : 8px;
+    //padding-bottom : 8px;
+    border-bottom : 1px solid $lightGrey;
   }
   
   .depth-2, .depth-3 {
@@ -474,17 +545,54 @@ iframe {
   
   span.menu-toggle {
     @extend .block;
-    @include size(21px, 21px);
-    @include layout-sprite(menu-closed);
-    float      : right;
-    margin     : 3px -5px 0 0;
+    @include size(1px, 0);
+    float         : right;
+    margin        : 10px 2px 0 0;
+    content       : '';
+    border        : 5px solid transparent;
+    border-bottom : none;
+    border-top    : 5px solid $lightGrey;
     
     &.open {
-      @include layout-sprite(menu-open);
+      border        : 5px solid transparent;
+      border-bottom : 5px solid $lightGrey;
+      border-top    : none;
     }
     
     &.extra-margin {
       margin-top : 10px;
+    }
+  }
+
+  #links-bottom {
+    display : block;
+    @include size(100%, 74px);
+    clear : both;
+    position        : relative;
+    margin          : -76px 0 0 0;
+    padding         : 0;
+    list-style-type : none;
+    border-top      : 1px solid $darkBlueGreen;
+
+    li {
+      margin  : 0;
+      padding : 0;
+      //height  : 30px;
+
+      a {
+        display       : block;
+        background    : $blueGreen;
+        color         : #fff;
+        font-weight   : bold;
+        height        : 26px;
+        border-bottom : 1px solid $darkBlueGreen;
+        font-size     : 1.05rem;
+        padding       : 5px 8px 5px 10px;
+
+        span {
+          padding-right : 5px;
+        }
+      }
     }
   }
 }
@@ -624,9 +732,29 @@ div[role="main"] {
   }
   
   .masthead {
-    padding    : .8em 1em 0 0;
-    text-align : center;
-    overflow   : visible;
+    padding       : .8em 0 .8em 0;
+    margin-bottom : 20px;
+    text-align    : center;
+    overflow      : visible;
+    border-bottom : 1px solid $subtleGray;
+
+    #nav-toggle {
+      position         : fixed;
+      top              : 19px;
+      margin-left      : -56px;
+      padding          : 14px;
+      display          : block;
+      cursor           : pointer;
+      color            : $lightGrey;
+      font-size        : 1.5rem;
+      
+      &:hover {
+      }
+
+      @media screen and (max-width: 700px) {
+        display : none;
+      }
+    }
     
     a.responsive-toggle {
       @include layout-sprite(toggle-button-light);
@@ -651,7 +779,7 @@ div[role="main"] {
     
     .logo {
       @extend .block;
-      @include size(270px, 44px);
+      @include size(185px, 33px);
       @include layout-sprite(logo);
       margin-top : 11px;
       
@@ -660,12 +788,10 @@ div[role="main"] {
       }
 
       @media screen and (max-width: 1300px) {
-        @include size(270px, 44px);
-        margin-left : 12px;
+        @include size(185px, 33px);
       }
       
       @media screen and (max-width: 700px) {
-        margin-left : 12px;
         margin-top  : auto;
       }
       
@@ -680,7 +806,7 @@ div[role="main"] {
     }
     
     .tagline {
-      display: none;
+      display    : none;
       @extend .block;
       text-align : left;
       margin     : 4px 0 0 3px;
@@ -691,11 +817,10 @@ div[role="main"] {
     }
     
     .shadow-divider {
-      @include size(100%, 26px);
-      padding : 1.2em 0 0 .5em;
-
-      //@include layout-sprite(shadow-divider);
-      //margin : 1.2em 0 0 .5em;
+      @include size(100%, 1px);
+      padding       : 1.2em 0 0 .5em;
+      border-bottom : 1px solid $subtleGray;
+      margin-bottom : 1.2em;
       
       @media screen and (max-width: 700px) {
         display : none;
@@ -706,34 +831,50 @@ div[role="main"] {
       float      : right;
       text-align : center;
       position   : relative;
-      padding    : 32px 0 0 0;
+      padding    : 8px 0 8px 0;
       
-      a {
-        display: none;
-        @extend .green-link;
-        @extend .block;
-        @include bgPattern('light-green-bg.jpg');
-        @include size(4.2em, auto);
-        padding : 0 15px; 
-        margin  : 0 0 1px 0;
-        border  : 1px solid $darkGreen;
+      a,
+      #nav-more {
+        @extend .inline-block;
+        color           : #fff;
         text-decoration : none;
-        
+        text-align      : center;
+        padding         : 8px;
+        cursor          : pointer;
+        @include corner(left, top);
+        @include corner(right, top);
+        @include corner(left, bottom);
+        @include corner(right, bottom);
+      }
+
+      a {
+        background    : $orange;
+        margin        : 0 10px 0 0;
+        padding-right : 16px;
+        font-weight   : bold;
+
         &:hover {
           background : $orange;
-          border     : 1px solid $darkOrange;
           color      : #fff;
         }
-        
-        &:first-child {
-          margin-top : 10px;
+
+        [class^="icon-"] {
+          padding : 0 10px;
         }
       }
 
-      input[type="search"] {
-        position    : absolute;
-        top         : 0;
-        right       : -3px;
+      #nav-more {
+        font-family : 'DocsFontIcons';
+        margin      : 0;
+        background  : $blueGreen;
+
+        &.selected {
+          background : $darkBlueGreen;
+        }
+
+        &.unselected {
+          //background : $blueGreen;
+        }
       }
 
       @media screen and (max-width: 700px) {
@@ -741,6 +882,62 @@ div[role="main"] {
       }
     }
     
+    #nav-menu {
+      display       : none;
+      position      : absolute;
+      top           : 72px;
+      right         : 25px;
+      padding       : 14px;
+      background    : #fff;
+      text-align    : left;
+      z-index       : 5;
+      border        : 1px solid $lightGrey;
+      border-radius : 5px;
+      
+      h2 {
+        margin : 0;
+        padding : 0;
+        font-size   : 1rem;
+        font-weight : bold;
+      }
+
+      ul {
+        list-style-type : none;
+        margin : 0;
+        padding : 0;
+
+        li {
+          margin : 0;
+          padding : 0;
+
+          a {
+            //display   : block;
+            width     : 100%;
+            font-size : 1rem;
+          }
+        }
+      }
+
+      #nav-menu-arrow {
+        position      : absolute;
+        top           : -7px;
+        right         : 8px;
+        border        : 7px solid transparent;
+        border-bottom : 7px solid #fff;
+        border-top    : none;
+        z-index       : 7;
+      }
+
+      #nav-menu-arrow-back {
+        position      : absolute;
+        top           : -9px;
+        right         : 6px;
+        border        : 9px solid transparent;
+        border-bottom : 9px solid $lightGrey;
+        border-top    : none;
+        z-index       : 6;
+      }
+    }
   }
 
   
@@ -778,32 +975,6 @@ div[role="main"] {
     position : relative;
     padding  : 0 0 0 20px;
     font-size: 110%;
-
-    #nav-toggle {
-      @include size(38px, 38px);
-      @include layout-sprite(nav-toggle-left);
-      background-color : #515356;
-      position         : fixed;
-      top              : 8.8em;
-      margin-left      : -56px;
-      display          : block;
-      border-radius    : 23px;
-      border           : 4px solid $subtleGray;
-      cursor           : pointer;
-
-      &.closed {
-        @include layout-sprite(nav-toggle-right);
-        background-color : #515356;
-      }
-      
-      &:hover {
-        border:4px solid $orange;
-      }
-
-      @media screen and (max-width: 700px) {
-        display : none;
-      }
-    }
     
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
       max-width: 600px;
@@ -1184,7 +1355,8 @@ article {
 }
 
 
-#top-nav input[type="search"],
+/* #top-nav input[type="search"],*/
+
 #search-404
 {
   @include allCorners(15px);

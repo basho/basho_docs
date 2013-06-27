@@ -120,6 +120,8 @@ $ ->
     "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"
 
   output = ""
+  output += "<div id=\"version-ddown\">#{version}</div>"
+  output += "<ol class="versions">"
   for vmli in lists
     output += "<li#{currentClass(vmli)}>"
     output += liLink(vmli.show)
@@ -131,7 +133,7 @@ $ ->
         output += "</li>"
     output += "</ol>"
     output += "</li>"
+    output += "</ol>"
 
-
-  $('.mainarticle .versions').html(output)
+  $('.mainarticle .version-container').html(output)
 

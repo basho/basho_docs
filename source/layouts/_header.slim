@@ -1,9 +1,22 @@
 header.masthead
+  div#nav-toggle class="icon-reorder"
   div#top-nav
-    a href="/index.html"== I18n.t(:home)
-    a href="http://www.basho.com"== I18n.t(:basho)
+    a href="/downloads/"
+      span.icon-download-alt
+      == I18n.t(:downloads)
+    div id="nav-more"
+      span.icon-more
   a.responsive-toggle
   a.logo href="/index.html"
     h1== I18n.t(:riak_docs)
   span.tagline== I18n.t(:tagline)
-  img.shadow-divider(src="/images/layout/shadow-divider.png")
+  div#nav-menu
+    h2 Links
+    ul
+      li
+        a href="/" Docs Home
+      li
+        a href="http://basho.com/" Basho Website
+    div#nav-menu-arrow
+    div#nav-menu-arrow-back
+  div.clear
