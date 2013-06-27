@@ -260,10 +260,10 @@ module SitemapRenderOverride
       data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/mu) do
         base, href, cap = $1, $2, $3
         href.gsub!(/\.{2}\//, '')
-        href = "/" + href unless href =~ /^\//
+        href = "/" + href unless href =~ /(https?\:)|(^\/)/
         
         # A better way to extract this file?
-        if href =~ /\/standalone/
+        if href =~ /(https?\:)|(\/standalone)/
           "#{base}#{href}#{cap}"
         else
           "#{base}/shared/#{version_str}#{href}#{cap}"
