@@ -11,9 +11,12 @@ keywords: [control]
 
 Riak Control is a web-based administrative console for inspecting and
 manipulating Riak clusters.
+
+{{#1.4.0-}}
 See the below video for a quick introduction to Riak Control and its features.
 
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/38345840"></div>
+{{/1.4.0-}}
 
 ## Requirements
 
