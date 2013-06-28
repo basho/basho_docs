@@ -34,7 +34,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 	```
 	gem install bundler
 	bundle install
-	middleman
+	bundle exec middleman
 	```
 	If you run into errors, [middleman's install page](http://middlemanapp.com/getting-started/) is a good place to 	start.
 
@@ -52,7 +52,7 @@ You can treat the basho_docs repo much like you would a code repo.  You can cont
 5.	Review your changes locally 
 
 	```
-	middleman
+	bundle exec middleman
 	```
 
 6.	Send us a pull request
