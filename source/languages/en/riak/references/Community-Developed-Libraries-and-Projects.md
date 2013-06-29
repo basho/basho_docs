@@ -145,7 +145,8 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Racket*
 
-* [[Racket-Riak|https://gist.github.com/shofetim/riak.rkt]] - Racket API to Riak
+* [[riak.rkt|https://github.com/shofetim/riak.rkt]] - Racket API to Riak
+* [[racket-riak|https://github.com/dkvasnicka/racket-riak]] - Racket 1.3.x API to Riak
 
 *Ruby*
 
