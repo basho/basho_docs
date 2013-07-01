@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Query Operations"
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Index/'
+}
 ---
 
 Request a set of keys that match a secondary index query.

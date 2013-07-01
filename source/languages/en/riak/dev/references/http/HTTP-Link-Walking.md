@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, http]
 group_by: "Query Operations"
+moved: {
+  '1.4.0-': '/references/apis/http/HTTP-Link-Walking/'
+}
 ---
 
 Link walking (traversal) finds and returns objects by following links attached

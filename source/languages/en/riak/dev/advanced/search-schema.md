@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [search, schema]
+moved: {
+  '1.4.0-': '/cookbooks/Riak-Search---Schema/'
+}
 ---
 
 Riak Search was designed to work seamlessly with Riak. As a result, it retains many of the same properties as Riak, including a schema-free design. In other words, you can start adding data to a new index without having to explicitly define the index fields.
@@ -138,7 +141,7 @@ The following properties are defined at a field level, and apply to both static 
 * *skip* - Optional. When "true", the field is stored, but not indexed. Defaults to "false".
 * *alias* - Optional. An alias that should be mapped to the current field definition, effectively indexing multiple fields of different names into the same field. You can add as many `alias` settings as you like.
 * *padding_size* - Optional. Values are padded up to this size. Defaults to 0 for string types, 10 for integer types.
-* *inline* - Optional. Valid values are "true", "false", and "only" (default is "false"). When "only", the field will not be searchable by itself but can be used as a "filter" for searches on other fields. This will enhance the performance of some queries (such as ranges in some cases) but will consume more storage space because the field value is stored "inline" with the indexes for other fields.  When "true", the field will be stored normally in addition to inline. Filtering on inline fields is currently only supported via the [[Solr|Riak Search - Querying#Querying-via-the-Solr-Interface]] interface. 
+* *inline* - Optional. Valid values are "true", "false", and "only" (default is "false"). When "only", the field will not be searchable by itself but can be used as a "filter" for searches on other fields. This will enhance the performance of some queries (such as ranges in some cases) but will consume more storage space because the field value is stored "inline" with the indexes for other fields.  When "true", the field will be stored normally in addition to inline. Filtering on inline fields is currently only supported via the [[Solr|Riak Search - Querying#Querying-via-the-Solr-Interface]] interface.
 
 <div class="info"><div class="title">A Note on Aliases</div>
 
@@ -213,7 +216,7 @@ You can create your own custom analyzers in Erlang.
 Some tips:
 
 * Model your custom analyzer after an existing analyzer.  See [[https://github.com/basho/riak_search/blob/master/src/text_analyzers.erl]] for sample code.
- 
+
 * The analyzer should take a string and configuration parameters and return a list of tokens. The order of tokens is important for proximity searching.
-  
+
 * Make sure to put your compiled analyzer on the code path.

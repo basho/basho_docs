@@ -6,9 +6,12 @@ document: guide
 toc: true
 audience: advanced
 keywords: [developers, search, kv]
+moved: {
+  '1.4.0-': '/tutorials/querying/Riak-Search/'
+}
 ---
 
-## How Search Works 
+## How Search Works
 
 ### Architecture, Partitioning and Indexing
 
@@ -54,7 +57,7 @@ Riak Search is comprised of:
 Documents are scored using roughly [these formulas](http://lucene.apache.org/core/old_versioned_docs/versions/3_0_2/api/all/org/apache/lucene/search/Similarity.html)
 
 The key difference is in how Riak Search calculates the Inverse Document Frequency. The equations described on the /Similarity/ page require knowledge of the total number of documents in a collection. Riak Search does not maintain this information for a collection, so instead uses the count of the total number of documents associated with each term in the query.
- 
+
 
 ## Stop Words
 

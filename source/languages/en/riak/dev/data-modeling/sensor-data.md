@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [use-cases]
+moved: {
+  '1.4.0-': '/cookbooks/use-cases/sensor-data/'
+}
 ---
 
 ## Simple Case

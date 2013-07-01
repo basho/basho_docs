@@ -7,6 +7,9 @@ toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Bucket Operations"
+moved: {
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Set-Bucket-Properties/'
+}
 ---
 
 Set the properties for a bucket

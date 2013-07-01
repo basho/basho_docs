@@ -7,6 +7,9 @@ index: true
 toc: false
 audience: intermediate
 keywords: [use-cases]
+moved: {
+  '1.4.0-': '/cookbooks/use-cases/'
+}
 ---
 
 The examples of data models laid out here are not necessarily right for

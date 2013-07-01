@@ -6,6 +6,9 @@ document: appendix
 toc: true
 index: true
 keywords: [comparisons, dynamodb]
+moved: {
+  '1.4.0-': '/references/appendices/comparisons/Riak-Compared-to-DynamoDB/'
+}
 ---
 
 This is intended to be a brief, objective, and technical comparison of Riak and Amazon DynamoDB.  The DynamoDB version described is API Version 2011-12-05. The Riak version described is Riak 1.3.x. If you feel this comparison is unfaithful at all for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
@@ -28,27 +31,27 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
     <tr>
         <td>Data Model</td>
         <td>Riak stores key/value pairs in a higher level namespsace called a bucket.
-			<ul>
-			  <li>[[Buckets, Keys, and Values|Concepts#Buckets-Keys-and-Values]] </li>
-			</ul>
-		</td>
+            <ul>
+              <li>[[Buckets, Keys, and Values|Concepts#Buckets-Keys-and-Values]] </li>
+            </ul>
+        </td>
         <td>DynamoDB's data model contains tables, items, and attributes. A database is a collection of tables. A table is a collection of items and each item is a collection of attributes.
-			<ul>
-			  <li>[[DynamoDB Data Model|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html]]</li>
-			</ul>
-		</td>
+            <ul>
+              <li>[[DynamoDB Data Model|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html]]</li>
+            </ul>
+        </td>
     </tr>
     <tr>
         <td>Storage Model</td>
         <td>Riak has a modular, extensible local storage system which lets you plug-in a backend store of your choice to suit your use case. The default backend is Bitcask.
-			<ul>
-			  <li>[[Riak Supported Storage Backends|Choosing a Backend]]</li>
-			</ul>
+            <ul>
+              <li>[[Riak Supported Storage Backends|Choosing a Backend]]</li>
+            </ul>
 
-		You can also write you own storage backend for Riak using our [[backend API|Backend API]].
-	 </td>
+        You can also write you own storage backend for Riak using our [[backend API|Backend API]].
+     </td>
         <td>All data items are stored on Solid State Disks (SSDs) and replicated across multiple [[Availability Zones|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] within a [[Region|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]].
-		</td>
+        </td>
     </tr>
     <tr>
         <td>Data Access and APIs</td>
@@ -64,80 +67,80 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
 			</ul>
 			</td>
         <td>DynamoDB is a web service that uses HTTP as a transport and JavaScript Object Notation (JSON) as a message serialization format. Alternatively, you can use AWS SDKs that wrap the DynamoDB API calls.
-			<ul>
-			  <li>[[API Reference for DynamoDB|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/API.html]]</li>
+            <ul>
+              <li>[[API Reference for DynamoDB|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/API.html]]</li>
         <li>[[Using the AWS SDKs with DynamoDB|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/UsingAWSSDK.html]]</li>
-			</ul>
-	 </td>
+            </ul>
+     </td>
     </tr>
     <tr>
         <td>Query Types and Query-ability</td>
         <td>There are currently four ways to query data in Riak
-			<ul>
-			<li>Primary key operations (GET, PUT, DELETE, UPDATE)</li>
-			<li>[[MapReduce|Using MapReduce]]</li>
-			<li>[[Secondary Indexes]]</li>
-			<li>[[Riak Search]]</li>
-			</ul>
+            <ul>
+            <li>Primary key operations (GET, PUT, DELETE, UPDATE)</li>
+            <li>[[MapReduce|Using MapReduce]]</li>
+            <li>[[Secondary Indexes]]</li>
+            <li>[[Riak Search]]</li>
+            </ul>
 
-	</td>
+    </td>
         <td>DynamoDB offers three approaches to query data:
-				<ul>
+                <ul>
           <li>Primary key operations (GET, PUT, DELETE, UPDATE)</li>
           <li>[[Query|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/queryingdynamodb.html]]</li>
           <li>[[Scan|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/scandynamodb.html]]</li>
           <li>[[Local Secondary Indexes|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LSI.html]]</li>
-			<ul>
-	</td>
+            <ul>
+    </td>
     </tr>
-	<tr>
+    <tr>
         <td>Data Versioning and Consistency</td>
         <td> Riak uses a data structure called a vector clock to reason about causality and staleness of stored values. Vector clocks enable clients to always write to the database in exchange for consistency conflicts being resolved at read time by either application or client code. Vector clocks can be configured to store copies of a given datum based on size and age of said datum.   There is also an option to disable vector clocks and fall back to simple time-stamp based "last-write-wins".
-			<ul>
-			  <li>[[Vector Clocks]]</li>
-			  <li>[[Why Vector Clocks Are Easy|http://basho.com/blog/technical/2010/01/29/why-vector-clocks-are-easy/]]</li>
-			  <li>[[Why Vector Clocks Are Hard|http://basho.com/blog/technical/2010/04/05/why-vector-clocks-are-hard/]]</li>
-			</ul>
-		 </td>
+            <ul>
+              <li>[[Vector Clocks]]</li>
+              <li>[[Why Vector Clocks Are Easy|http://basho.com/blog/technical/2010/01/29/why-vector-clocks-are-easy/]]</li>
+              <li>[[Why Vector Clocks Are Hard|http://basho.com/blog/technical/2010/04/05/why-vector-clocks-are-hard/]]</li>
+            </ul>
+         </td>
 
         <td>DynamoDB data is eventually consistent, meaning that your read request immediately after a write operation might not show the latest change. However, it also offers you the option to request the most up-to-date version of the data.
-			<ul>
-			  <li>[[Data Read and Consistency Considerations|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/APISummary.html]]</li>
-			</ul>
-	 </td>
+            <ul>
+              <li>[[Data Read and Consistency Considerations|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/APISummary.html]]</li>
+            </ul>
+     </td>
     </tr>
-		</tr>
-	        <td>Concurrency</td>
-	        <td>In Riak, any node in the cluster can coordinate a read/write operation for any other node. Riak stresses availability for writes and reads, and puts the burden of resolution on the client at read time.
-			</td>
+        </tr>
+            <td>Concurrency</td>
+            <td>In Riak, any node in the cluster can coordinate a read/write operation for any other node. Riak stresses availability for writes and reads, and puts the burden of resolution on the client at read time.
+            </td>
 
-	        <td>Dedicated resources are allocated to your table (tunable via API) to meet performance requirements, and data is automatically partitioned over a number of servers to meet request capacity.
-				<ul>
-					<li>[[Provisioned Throughput|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html]]
-				</ul>
+            <td>Dedicated resources are allocated to your table (tunable via API) to meet performance requirements, and data is automatically partitioned over a number of servers to meet request capacity.
+                <ul>
+                    <li>[[Provisioned Throughput|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html]]
+                </ul>
         Read and write capacity unit requirements are set at table creation time. When requests such as get, update or delete are issued, capacity units set for the table are consumed.
 
         <ul>
           <li>[[Capacity Units Calculations|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithDDTables.html#CapacityUnitCalculations]]</li>
         </ul>
-		 </td>
-	    </tr>
+         </td>
+        </tr>
     <tr>
         <td>Replication</td>
         <td>Riak's replication system is heavily influenced by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
-			<ul>
-			  <li>[[Replication]]</li>
-			  <li>[[Clustering|Concepts#Clustering]]</li>
-			</ul>
+            <ul>
+              <li>[[Replication]]</li>
+              <li>[[Clustering|Concepts#Clustering]]</li>
+            </ul>
 
-			The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
-				<ul>
-					<li>[[Reading, Writing, and Updating Data|Concepts#Reading-Writing-and-Updating-Data]]</li>
-				</ul>
+            The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
+                <ul>
+                    <li>[[Reading, Writing, and Updating Data|Concepts#Reading-Writing-and-Updating-Data]]</li>
+                </ul>
 
-	 </td>
+     </td>
         <td>DynamoDB synchronously replicates your data across multiple [[Availability Zones|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] within a [[Region|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] to help protect data against individual machine or facility failures.
-	 </td>
+     </td>
     </tr>
     <tr>
         <td>Scaling Out and In</td>
@@ -157,11 +160,11 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
     <tr>
         <td>Multi-Datacenter Replication</td>
 
-		<td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
+        <td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
 
-		<ul>
-			<li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
-		<ul>
+        <ul>
+            <li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
+        <ul>
 
         <td>DynamoDB has the ability to spread instances over multiple [[Availability Zones|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] within a Region, but not across multiple [[Regions|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]]. Availability Zones are not geographically dispersed.
         </td>
@@ -169,16 +172,15 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
     <tr>
         <td>Graphical Monitoring/Admin Console</td>
         <td>Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
-			<ul>
-				<li>[[Riak Control]]</li>
-				<li>[[Introducing Riak Control|http://basho.com/blog/technical/2012/02/22/Riak-Control/]]
-			</ul>
-	</td>
+            <ul>
+                <li>[[Riak Control]]</li>
+                <li>[[Introducing Riak Control|http://basho.com/blog/technical/2012/02/22/Riak-Control/]]
+            </ul>
+    </td>
         <td>DynamoDB and [[CloudWatch|http://aws.amazon.com/cloudwatch/]] are integrated, which allows you to monitor a variety of metrics.
-			<ul>
-				<li>[[Monitoring Amazon DynamoDB|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/MonitoringDynamoDB.html]]</li>
-			</ul>
-	 </td>
+            <ul>
+                <li>[[Monitoring Amazon DynamoDB|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/MonitoringDynamoDB.html]]</li>
+            </ul>
+     </td>
     </tr>
 </table>
-

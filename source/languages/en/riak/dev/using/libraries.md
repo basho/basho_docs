@@ -7,6 +7,9 @@ toc: true
 index: true
 audience: intermediate
 keywords: [client, drivers]
+moved: {
+  '1.4.0-': '/references/Client-Libraries/'
+}
 ---
 
 ## Basho Supported Libraries
@@ -167,7 +170,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Clojure*
 
-* [[knockbox|https://github.com/reiddraper/knockbox]] - An eventual-consistency toolbox for Clojure 
+* [[knockbox|https://github.com/reiddraper/knockbox]] - An eventual-consistency toolbox for Clojure
 * [[Welle|http://clojureriak.info]] - An expressive Clojure client with batteries included
 * [[clj-riak|http://github.com/mmcgrana/clj-riak]] - Clojure bindings to the Riak Protocol Buffers API
 * [[sumo|https://github.com/reiddraper/sumo]] - A Protocol Buffer specific client for Riak with K/V, 2i, and MapReduce support
@@ -178,19 +181,19 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Common Lisp*
 
-* [[cl-riak (1)|https://github.com/whee/cl-riak]] 
+* [[cl-riak (1)|https://github.com/whee/cl-riak]]
 * [[cl-riak (2)|https://github.com/eriknomitch/cl-riak]]
 
 *Dart*
 
-* [[riak-dart|http://code.google.com/p/riak-dart/]] - HTTP client for Riak written in Dart. 
+* [[riak-dart|http://code.google.com/p/riak-dart/]] - HTTP client for Riak written in Dart.
 
 *Django*
 
-* [[django-riak-sessions|https://github.com/flashingpumpkin/django-riak-sessions]] - Riak-based Session Backend for Django 
+* [[django-riak-sessions|https://github.com/flashingpumpkin/django-riak-sessions]] - Riak-based Session Backend for Django
 * [[Django Riak Engine|https://github.com/oubiwann/django-riak-engine]] - A Riak backend for Django
 
-*Go* 
+*Go*
 
 * [[goriakpbc|https://github.com/tpjg/goriakpbc]] - A golang riak client inspired by the Ruby riak-client from Basho and riakpbc from mrb
 * [[riakpbc|https://github.com/mrb/riakpbc]] - A Riak Protocol Buffer Client in Go
@@ -212,7 +215,7 @@ All of these projects and libraries are at various stages of completeness and ma
 *Erlang*
 
 * [[Riak PBC Pool|https://github.com/snoopaloop/Riak-PBC-Pool]] - Riak Protocol Buffer Client pool application
-* [[Pooly|https://github.com/aberman/pooly]] - Riak Process Pool 
+* [[Pooly|https://github.com/aberman/pooly]] - Riak Process Pool
 * [[riakpool|https://github.com/dweldon/riakpool]] - Application for maintaining a dynamic pool of Protocol Buffer client connections to a Riak database
 * [[pooler|https://github.com/seth/pooler]] - An OTP Process Pool Application
 * [[krc|https://github.com/klarna/krc]] - A simple wrapper around the official Riak client for Erlang
@@ -271,13 +274,13 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[RiakBundle|https://github.com/remialvado/RiakBundle]] - [[Symfony|http://symfony.com]] Bundle designed to ease interaction with Riak
 * [[php_riak|https://github.com/TriKaspar/php_riak]] - A PHP Extension written in C, Both Riak client and PHP session module
 
-*Play* 
+*Play*
 
 * [[Riak Module for The Play Framework|http://www.playframework.org/modules/riak-head/home]]
 
 *Python*
 
-* [[Riakasaurus|https://github.com/calston/riakasaurus]] - A Riak client library for Twisted (based on txriak) 
+* [[Riakasaurus|https://github.com/calston/riakasaurus]] - A Riak client library for Twisted (based on txriak)
 * [[RiakKit|http://shuhaowu.com/riakkit]] - A small Python ORM that sits on top of riak-python-client similar to mongokit and couchdbkit
 * [[riakalchemy|https://github.com/Linux2Go/riakalchemy]] - Object mapper for Riak written in Python
 * [[riak_crdt|https://github.com/ericmoritz/riak_crdt]] - A CRDT (Conflict-Free Replicated Data Type) loader for Riak using the [[crdt API|https://github.com/ericmoritz/crdt]]
@@ -293,7 +296,7 @@ All of these projects and libraries are at various stages of completeness and ma
 *Ruby*
 
 * [[Shogun|https://github.com/krainboltgreene/shogun]] - A light weight, powerful Ruby web application framework with first class support for Riak.
-* [[Risky|https://github.com/aphyr/risky]] - A lightweight Ruby ORM for Riak 
+* [[Risky|https://github.com/aphyr/risky]] - A lightweight Ruby ORM for Riak
 * [[riak_sessions|http://github.com/igorgue/riak_sessions]] - Riak-backed session storage for Rack
 * [[Riaktor|http://github.com/benmyles/riaktor]] - Ruby client and object mapper for Riak
 * [[dm-riak-adapter|http://github.com/mikeric/dm-riak-adapter]] - DataMapper adapter for Riak
