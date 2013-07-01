@@ -44,6 +44,23 @@ ready do
     end
   end
 
+  # remove all but this project and most recent versions
+  project_versions = Hash[ $only_projects.map{|pr|
+    [pr, Versionomy.parse($versions[pr.to_sym])]
+  } ]
+  sitemap.resources.each do |pg|
+    project = pg.data['project']
+    included = $only_projects.include?(project)
+    if project && project != 'root' && !included
+      ignore pg.path
+    elsif included && version = pg.data['version']
+      unless in_version_range?(version, project_versions[project])
+        # ignore if outside of this range
+        ignore pg.path
+      end
+    end
+  end
+
   if ENV.include?('INDEX')
     puts "== Indexing"
     build_yokozuna_index(sitemap.resources)

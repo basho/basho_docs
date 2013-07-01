@@ -63,7 +63,7 @@ ol.versions {
       margin-left:-1px;
       padding:2px 0;
       position: absolute;
-      max-width:5em;
+      max-width:5em !important;
       li {
         z-index:500;
       }
