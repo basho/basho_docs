@@ -8,7 +8,7 @@ keywords: [tutorial, installing, suse]
 prev: "[[Installing on AWS Marketplace]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Post Installation]]"
-download: 
+download:
   key: source
   name: "any OS in Source Form"
 ---
@@ -38,6 +38,7 @@ cd riak-{{V.V.V}}
 make rel
 ```
 
+{{#1.4.0-}}
 <div class='note'> If you see the error `fatal: unable to connect to github.com` see the following instructions for building on systems with no internet availability </div>
 
 ### Installation on Closed Networks
@@ -87,6 +88,7 @@ $ make rel
 ```
 
 {{/1.3.0+}}
+{{/1.4.0-}}
 
 ### Installing from GitHub
 The [[Riak Github repository|http://github.com/basho/riak]] has much more information on building and installing Riak from source. To clone and and build Riak from source, follow these steps:
