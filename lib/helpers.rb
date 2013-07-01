@@ -138,12 +138,14 @@ module BashoDocsHelpers
     section.each do |sub|
       if sub.class == String
         link_data = wiki_to_link(sub)
+        next if link_data.empty?
         current_link = link_data[:url] == current_page.url
         active ||= current_link
         nav += "<li#{current_link ? ' class="active current"' : ''}>#{sub}</li>"
       else
         nested, sub_active = build_nav(sub['sub'], c_name, depth+1)
         link_data = wiki_to_link(sub['title'])
+        next if nested.nil?
         current_link = link_data[:url] == current_page.url
         active ||= sub_active || current_link
         active_class = active ? ' class="active"' : ''
@@ -151,6 +153,7 @@ module BashoDocsHelpers
         nav += "<li#{active_class}><h4#{current_class}><span>#{sub['title']}</span></h4>#{nested}</li>"
       end
     end
+    return [nil, nil] if nav.blank?
     nav = "<ul class=\"depth-#{depth} #{c_name}#{active ? ' active' : ''}\">" + nav + "</ul>"
     [nav, active]
   end
