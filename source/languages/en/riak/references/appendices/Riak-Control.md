@@ -131,11 +131,9 @@ will be available.
 {admin, true}
 ```
 
-## Two-Minute Tour
+## User Interface
 
-### Start (or Restart) Your Node
-
-Start your node and direct your browser to <https://localhost:8069/admin>.
+Navigate to <https://localhost:8069/admin>.
 
 If your browser warns you that it cannot authenticate the page, this is
 because you are using the self-signed certificates.
@@ -143,11 +141,16 @@ because you are using the self-signed certificates.
 If you have authentication enabled in the `app.config`, you will next be asked
 to authenticate. Enter your username and password now.
 
-### Snapshot Page
+### Snapshot View
 
-When you first navigate to Riak Control, you will land on the Snapshot page:
+When you first navigate to Riak Control, you will land on the Snapshot view:
 
-![Snapshot Page](/images/control_snapshot.png)
+{{#1.4.0-}}
+![Snapshot View](/images/control_snapshot.png)
+{{/1.4.0-}}
+{{#1.4.0+}}
+[ ![Snapshot View](/images/control_current_snapshot.png) ] (/images/control_current_snapshot.png)
+{{/1.4.0+}}
 
 Here the health of your cluster is made immediately obvious. In the event that
 something isn't quite right (or has the potential to cause problems in the
@@ -155,23 +158,56 @@ near future), the green check mark will turn into a red `X`. The red `X` is
 accompanied with a list of reasons for concern. Each item in the list links to
 a page where you can get more information about the issue.
 
-### Cluster View
+### Cluster Management View
 
-On the left side of the admin panel are navigation tabs. If you click the
+On the top right of the admin panel are navigation tabs. If you click the
 "Cluster" tab, you will be taken to the cluster management page.
 
-![Cluster View](/images/control_cluster.png)
-
+{{#1.4.0-}}
 On this page you can see all of the nodes in your cluster, along with their
 status, percentage of the ring ownership, and memory consumption. You can also
-add, remove, and mark nodes as down in the cluster.
+make changes to the cluster, such as adding, removing, and marking nodes as
+down.
+
+![Cluster View](/images/control_cluster.png)
+{{/1.4.0-}}
+{{#1.4.0+}}
+On this page you can see all of the nodes in your cluster, along with their
+status, percentage of the ring ownership, and memory consumption. You can also
+stage and commit changes to the cluster, such as adding, removing, and marking
+nodes as down.
+
+Staged changes to the cluster:
+
+[ ![Cluster Management Staged](/images/control_cluster_management_staged.png) ] (/images/control_cluster_management_staged.png)
+
+Changes committed; transfers active:
+
+[ ![Cluster Management Transfers](/images/control_cluster_management_transfers.png) ] (/images/control_cluster_management_transfers.png)
+
+Cluster stabilizes after changes:
+
+[ ![Cluster Management Stable](/images/control_cluster_management_stable.png) ] (/images/control_cluster_management_stable.png)
+
+### Node Management View
+
+The node management view allows you to operate against the individual nodes in
+the cluster.
+
+[ ![Node Management](/images/control_node_management.png) ] (/images/control_node_management.png)
+{{/1.4.0+}}
 
 ### Ring View
 
 One level deeper than the cluster view is the ring view. This is where you can
 see the health of each vnode.
 
+{{#1.4.0-}}
 ![Ring View](/images/control_ring.png)
+{{/1.4.0-}}
+{{#1.4.0+}}
+[ ![Ring View](/images/control_current_ring.png) ] (/images/control_current_ring.png)
+{{/1.4.0+}}
 
 Most of the time, your ring will be too large to effectively manage from the
 ring view. That said, with filters you can easily identify partition ownership,
