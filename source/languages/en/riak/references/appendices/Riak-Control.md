@@ -26,8 +26,8 @@ Control ships with versions of Riak 1.1 and above, and requires no additional
 installation steps.
 
 It is strongly recommended that SSL be enabled for Riak Control. SSL is
-required unless you explicitly set `{auth, none}`.  Enabling SSL can be done
-via the [[configuration files|Configuration Files]].
+required unless you explicitly set `{auth, none}`. SSL can be enabled in the
+[[configuration files]].
 
 ## Setting up Riak Control
 
