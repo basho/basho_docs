@@ -9,7 +9,7 @@ audience: advanced
 keywords: [api, http]
 ---
 
-{{#1.3.2-}}
+{{#1.4.0+}}
 
 The storage API is compatible with the Amazon S3 REST API which means that any of the operations listed can be executed using any of the commonly available S3 libraries or tools.
 
@@ -70,7 +70,6 @@ Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 * [[HEAD Object|RiakCS HEAD Object]] - Retrieves object metadata (not the full content of the object)
 * [[DELETE Object|RiakCS DELETE Object]] - Deletes an object
 
-{{#1.3.0+}}
 ## Multipart Upload
 
 Multipart upload allows you to upload a single object as a set of parts. Object parts can be uploaded independently and in any order. After all parts are uploaded, Riak CS assembles an object out of the parts. When your object size reaches `100MB`, you should consider using multipart uploads instead of uploading the object in a single operation. Read more about multipart uploads on the [[overview|Multipart Upload Overview]] page.
@@ -81,18 +80,10 @@ Multipart upload allows you to upload a single object as a set of parts. Object 
 * [[Abort Multipart Upload|RiakCS Abort Multipart Upload]] - Aborts a multipart upload and eventually frees storage consumed by previously uploaded parts.
 * [[List Parts|RiakCS List Parts]] - Lists the parts that have been uploaded for a specific multipart upload.
 * [[List Multipart Uploads|RiakCS List Multipart Uploads]] - Lists multipart uploads that have not yet been completed or aborted.
-{{/1.3.0+}}
 
 ## Common Headers
 
 * [[Common RiakCS Request Headers]]
 * [[Common RiakCS Response Headers]]
 
-{{/1.3.2-}}
-{{#1.4.0+}}
-
-There are two storage API options for RiakCS. The first and most full-featured is the S3 API. There is also limited, but growing support for the OpenStack Object Storage API. More details for each option can be found by following one of the following links:
-
-* [[S3 API|/references/apis/storage/s3/]]
-* [[OpenStack API|/references/apis/storage/openstack/]]
 {{/1.4.0+}}

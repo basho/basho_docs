@@ -294,7 +294,7 @@ riakcs:
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
       - "[[Ruby Fog|Fog on Riak CS]]"
-      - "[[APIs|RiakCS Storage API]]"
+      - "[[APIs|/references/apis/storage/]]"
       - "[[Multipart Upload Overview]]"
       - "[[FAQs|Riak CS FAQs]]"
       - "[[Release Notes|Riak CS Release Notes]]"
