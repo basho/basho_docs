@@ -1,4 +1,3 @@
-require 'versionomy'
 require 'coderay'
 require 'cgi'
 
@@ -49,37 +48,6 @@ module SitemapRenderOverride
     name.to_s.downcase.gsub(/[\s\/?]|(&mdash;)/, '-').gsub(/\-+/, '-')
   end
 
-  def in_version_range?(range, version)
-    range = range.gsub(/\s/, '')
-    
-    # greater than range
-    if range =~ /\+$/ || range =~ /^\>/
-      if range.sub!(/(?:\>\=)|\+/, '')
-        return version >= Versionomy.parse(range)
-      # # drop bottom range and compare
-      # elsif range.sub!(/\>\~/, '')
-      else
-        range.sub!(/[>]/, '')
-        return version > Versionomy.parse(range)
-      end
-    # less than range
-    elsif range =~ /\-$/ || range =~ /^\</
-      if range.sub!(/(?:\<\=)/, '')
-        return version <= Versionomy.parse(range)
-      # # drop bottom range and compare
-      # elsif range.sub!(/\<\~/, '')
-      else
-        range.sub!(/[<]|[-]/, '')
-        return version < Versionomy.parse(range)
-      end
-    # between range
-    elsif range =~ /.+?\-.+?/
-      a, b = range.split('-')
-      return version >= Versionomy.parse(a) && version <= Versionomy.parse(b)
-    end
-    Versionomy.parse(range) == version
-  end
-
   # prepends X directories from the top, eg:
   # trim_dir_depth('/a', 2) => '../../a'
   def prepend_dir_depth(path, dir_depth)
@@ -104,6 +72,7 @@ module SitemapRenderOverride
       # heuristic that an unfound url, is probably not a link
       link_url = link_data[:url]
       if link_url.blank? && link_name !~ /^([.]?\/|https?\:)/
+        # link_label
         "[[#{link_label}]]"
       else
         # no html inside of the link or label
