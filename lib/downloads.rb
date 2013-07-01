@@ -9,13 +9,7 @@ class Downloads
   def initialize(project, version)
     @project = project
     @version = version
-    begin
-      @data = Downloads.data(project, version)
-    rescue
-      $stderr.puts "Could not build download data"
-    ensure
-      @data = {}
-    end
+    @data = Downloads.data(project, version)
   end
 
   def [](key)
