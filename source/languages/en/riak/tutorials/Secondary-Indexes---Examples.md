@@ -152,9 +152,89 @@ http://localhost:8098/mapred \
 EOF
 ```
 
+{{#1.4.0+}}
+#### Range with terms
+
+When performing a range query, it is possible to retrieve the matched index values alongside the Riak keys using `return_terms=true`. An example from a small sampling of Twitter data with indexed hash tags:
+
+```bash
+curl 'http://localhost:10018/buckets/tweets/index/hashtags_bin/rock/rocl?return_terms=true'
+{"results":[{"rock":"349224101224787968"},{"rocks":"349223639880699905"}]}
+```
+{{/1.4.0+}}
+
+{{#1.4.0+}}
+### Pagination
+
+When asking for large result sets, it is often desirable to ask the servers to return chunks of results instead of a firehose. As of Riak 1.4, you can do so using `max_results=<n>`, where `n` is the number of results you'd like to receive.
+
+Assuming more keys are available, a `continuation` value will be included in the results to allow the client to request the next page.
+
+Here is an example of a range query with both `return_terms` and pagination against the same Twitter data set.  Results are fed into python for easier reading.
+
+```bash
+curl 'http://localhost:10018/buckets/tweets/index/hashtags_bin/ri/ru?max_results=5&return_terms=true' | python -mjson.tool
+{
+    "continuation": "g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM=",
+    "results": [
+        {
+            "rice": "349222574510710785"
+        },
+        {
+            "rickross": "349222868095217664"
+        },
+        {
+            "ridelife": "349221819552763905"
+        },
+        {
+            "ripjake": "349220649341952001"
+        },
+        {
+            "ripjake": "349220687057129473"
+        }
+    ]
+}
+
+# Take the continuation value from the previous result set and feed it back into the query
+curl 'http://localhost:10018/buckets/tweets/index/hashtags_bin/ri/ru?continuation=g2gCbQAAAAdyaXBqYWtlbQAAABIzNDkyMjA2ODcwNTcxMjk0NzM=&max_results=5&return_terms=true' | python -mjson.tool
+{
+    "continuation": "g2gCbQAAAAlyb2Jhc2VyaWFtAAAAEjM0OTIyMzcwMjc2NTkxMjA2NQ==",
+    "results": [
+        {
+            "ripjake": "349221198774808579"
+        },
+        {
+            "ripped": "349224017347100672"
+        },
+        {
+            "roadtrip": "349221207155032066"
+        },
+        {
+            "roastietime": "349221370724491265"
+        },
+        {
+            "robaseria": "349223702765912065"
+        }
+    ]
+}
+```
+{{/1.4.0+}}
+
+{{#1.4.0+}}
+### Streaming
+It is possible to stream results using `stream=true`. This can be combined with pagination and `return_terms`.
+
+{{/1.4.0+}}
+
+{{#1.4.0+}}
+### Sorting
+As of Riak 1.4, the result set is sorted on index values (when executing range queries) and object keys.  See the pagination example above: hash tags (2i keys) are returned in ascending order, and the object keys (Twitter IDs) for the messages which contain the "ripjake" hash tag are also returned in ascending order.
+
+{{/1.4.0+}}
+
 ## Retrieve all object keys in a bucket based on the $bucket index
 
-The following example uses the HTTP interface to retrieve the keys for all objects stored in the bucket 'mybucket' using an exact match on the special $bucket index. 
+The following example uses the HTTP interface to retrieve the keys for all objects stored in the bucket 'mybucket' using an exact match on the special $bucket index.
 
 ```bash
 curl http://localhost:8098/buckets/mybucket/index/\$bucket/_
@@ -165,8 +245,8 @@ curl http://localhost:8098/buckets/mybucket/index/\$bucket/_
 The following example performs a secondary index lookup on the $bucket index like in the previous example and pipes this into a MapReduce that counts the number of records in the 'mybucket' bucket. In order to improve efficiency, the batch size has been increased from the default size of 20.
 
 ```bash
-curl -XPOST http://localhost:8098/mapred 
-  -H 'Content-Type: application/json' 
+curl -XPOST http://localhost:8098/mapred
+  -H 'Content-Type: application/json'
   -d '{"inputs":{
            "bucket":"mybucket",
            "index":"$bucket",
