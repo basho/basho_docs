@@ -118,6 +118,16 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
+{{#1.3.1+}}
+<div class="info"><div class="title">Note for Secondary Index users</div>
+If you use Riak's Secondary Indexes and are upgrading from a version prior to
+Riak version 1.3.1, you need to reformat the indexes using the 
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+ in the
+[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+</div>
+{{/1.3.1+}}
+
 {{#1.1.0-}}
 
 <div class="note">Only perform the following two steps if you are upgrading to
@@ -213,6 +223,17 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
+{{#1.3.1+}}
+<div class="info"><div class="title">Note for Secondary Index users</div>
+If you use Riak's Secondary Indexes and are upgrading from a version prior to
+Riak version 1.3.1, you need to reformat the indexes using the 
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+ in the
+[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+</div>
+{{/1.3.1+}}
+
+{{#1.1.0-}}
 <div class="note">Only perform the following two steps if you are upgrading to
 Riak 1.0 from an earlier release.
 </div>
@@ -232,7 +253,7 @@ and then add to the `riak_core` section:
 {platform_data_dir, "/var/lib/riak"}
 ```
 
-10.\ Either run `riak stop` followed by `riak start` on all of the nodes in
+10\. Either run `riak stop` followed by `riak start` on all of the nodes in
 the cluster or use `riak attach` on each node and execute the following
 commands:
 
@@ -242,6 +263,7 @@ commands:
 > application:set_env(riak_kv, vnode_vclocks, true).
 ```
 
+{{/1.1.0-}}
 
 ## Solaris/OpenSolaris
 
@@ -335,6 +357,16 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
+{{#1.3.1+}}
+<div class="info"><div class="title">Note for Secondary Index users</div>
+If you use Riak's Secondary Indexes and are upgrading from a version prior to
+Riak version 1.3.1, you need to reformat the indexes using the 
+[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+ in the
+[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+</div>
+{{/1.3.1+}}
+
 {{#1.1.0-}}
 
 <div class="note">Only perform the following two steps if you are upgrading to
@@ -367,3 +399,66 @@ commands:
 ```
 
 {{/1.1.0-}}
+
+## Basho Patches
+
+After upgrading, you should ensure that any custom patches contained in the
+`basho-patches` directory are examined to determine their application to
+the upgraded version. If you find that patches no longer apply to the upgraded
+version, you should remove them from the `basho-patches` directory prior to
+operating the node in production.
+
+The following table lists locations of the `basho-patches` directory for each
+supported operating system:
+
+<table style="width: 100%; border-spacing: 0px;">
+<tbody>
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>CentOS &amp; RHEL Linux</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
+<p><tt>/usr/lib64/riak/lib/basho-patches</tt></p>
+</td>
+</tr>
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>Debian &amp; Ubuntu Linux</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
+<p><tt>/usr/lib/riak/lib/basho-patches</tt></p>
+</td>
+</tr>
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>FreeBSD</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
+<p><tt>/usr/local/lib/riak/lib/basho-patches</tt></p>
+</td>
+</tr>
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>SmartOS</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
+<p><tt>/opt/local/lib/riak/lib/basho-patches</tt></p>
+</td>
+</tr>
+<tr align="left" valign="top">
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;"><strong>Solaris 10</strong></td>
+<td style="padding: 15px; margin: 15px; border-width: 1px 0 1px 0; border-style: solid;">
+<p><tt>/opt/riak/lib/basho-patches</tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+{{#1.3.0+}}
+## Riaknostic
+
+It is a good idea to also verify some basic configuration and general health
+of the Riak node after upgrading by using Riak's built-in diagnostic
+utility *Riaknostic*.
+
+Ensure that Riak is running on the node, and issue the following command:
+
+```
+riak-admin diag
+```
+
+Make the recommended changes from the command output to ensure optimal node
+operation.
+{{/1.3.0+}}

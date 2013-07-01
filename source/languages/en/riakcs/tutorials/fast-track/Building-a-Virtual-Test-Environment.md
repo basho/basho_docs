@@ -13,9 +13,9 @@ next: "[[Testing The Riak CS Installation]]"
 ---
 
 This option for building an environment uses a Vagrant project powered by Chef
-to bring up a local Riak CS cluster. Each node can run either `Ubuntu 12.04` or
-`CentOS 6.3` 32-bit with `1536MB`of RAM by default. If you want to tune the OS
-or node/memory count, you'll have to edit the `Vagrantfile` directly.
+to bring up a local Riak CS cluster. Each node can run either `Ubuntu 12.04`
+or `CentOS 6.4` 64-bit with `1536MB`of RAM by default. If you want to tune the
+OS or node/memory count, you'll have to edit the `Vagrantfile` directly.
 
 If you want to build a testing environment with more flexibility in
 configuration and durability across environment resets there are instructions
@@ -31,6 +31,15 @@ Download and install Vagrant via the [Vagrant Installer](http://downloads.vagran
 
 **NOTE: Please make sure to install Vagrant `1.1.0` and above.**
 
+### Install Vagrant plugins
+
+Install the following Vagrant plugins:
+
+```bash
+$ vagrant plugin install vagrant-berkshelf
+$ vagrant plugin install vagrant-omnibus
+```
+
 ### Clone the Repository
 
 In order to begin, it is necessary to clone a GitHub repository to your local
@@ -43,8 +52,9 @@ $ cd vagrant-riak-cs-cluster
 
 ### Launch Cluster
 
-With VirtualBox and Vagrant installed, it's time to actually launch our virtual
-environment. The command below will initiate the Vagrant project:
+With VirtualBox and Vagrant installed, it's time to actually launch our
+virtual environment. The command below will initiate the Vagrant project:
+
 
 ``` bash
 $ RIAK_CS_CREATE_ADMIN_USER=1 vagrant up

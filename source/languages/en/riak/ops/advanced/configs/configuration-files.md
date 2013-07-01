@@ -171,10 +171,12 @@ Base directory for backend data storage. (default: `./data`)
 
     By default, each Riak node will own ring_creation_size/(number of nodes in the cluster) partitions. It is generally a good idea to specify a "ring_creation_size" a few times the number of nodes in your cluster (e.g. specify 64-256 partitions for a 4-node cluster). This gives you room to expand the number of nodes in the cluster, without worrying about under-use due to owning too few partitions. This number should be a power of 2 (64, 128, 256, etc.).
 
+    {{#1.4.0-}}
     <div class="info">
     <div class="title">Ring Size Tip</div>
     The `ring_creation_size` should be established before your cluster is started, and should not be changed thereafter.
     </div>
+    {{/1.4.0-}}
 
 * **ssl**
 You can override the default SSL key and certificate settings (default: etc/cert.pem, etc/key.pem)

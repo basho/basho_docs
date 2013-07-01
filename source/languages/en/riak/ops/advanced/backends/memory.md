@@ -58,9 +58,9 @@ no longer be accessible through Riak unless the backend is enabled again.
 If you require multiple backends in your configuration, please consult the
 [[multi backend documentation|Multi]].
 
-You can modify the default memory backend behavior by adding the following
-settings into the `memory_backend` section in your
-[[app.config|Configuration-Files#app-config]].
+You can modify the default memory backend behavior by adding a
+`memory_backend` subsection to the `riak_kv` section of each node's
+[[app.config|Configuration Files#app-config]] using the following settings.
 
 ### Max Memory
 
@@ -69,11 +69,16 @@ settings into the `memory_backend` section in your
   recommendations in [[LevelDB cache_size|LevelDB#Cache-Size]] in determining this.
 
 ```erlang
-{memory_backend, [
-        ...,
-            {max_memory, 4096}, %% 4GB in megabytes
-        ...
-]}
+{riak_kv, [
+          %% Storage_backend specifies the Erlang module defining the storage
+          %% mechanism that will be used on this node.
+          % {storage_backend, riak_kv_bitcask_backend},
+          {storage_backend, riak_kv_memory_backend},
+          {memory_backend, [
+              ...,
+                  {max_memory, 4096}, %% 4GB in megabytes
+              ...
+          ]}
 ```
 
 

@@ -59,8 +59,8 @@ The table below gives a high level comparison of Riak and DynamoDB features/capa
 			</ul>
 			Riak Client libraries are wrappers around these APIs, and client support exists for dozens of languages.
 			<ul>
-			  <li>[[Client-Libraries]]</li>
-			  <li>[[Community Developed Libraries and Projects|Community-Developed-Libraries-and-Projects]] </li>
+			  <li>[[Client Libraries]]</li>
+			  <li>[[Community Projects]] </li>
 			</ul>
 			</td>
         <td>DynamoDB is a web service that uses HTTP as a transport and JavaScript Object Notation (JSON) as a message serialization format. Alternatively, you can use AWS SDKs that wrap the DynamoDB API calls.

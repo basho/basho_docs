@@ -26,7 +26,7 @@ All official clients use the integrated issue tracker on Github for bug reportin
 
 In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries
-and related projects [provided by the community](references/Community-Developed-Libraries-and-Projects/).
+and related projects [[community projects]].
 
 | Language            | Source                 |
 |---------------------|------------------------|
@@ -141,7 +141,7 @@ excluded from this matrix.*
 | Search integration                     | ✗                         | ✓    | ✗       | ✓       | ✗             |
 
 
-Various [community projects](/references/Community-Developed-Libraries-and-Projects) provide support for domain types and
+Various [[community projects]] provide support for domain types and
 object mapping in Python and Ruby. The values in the table above
 represent the aggregate features of the projects listed below:
 
@@ -238,6 +238,8 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Node.js*
 
+* [zukai](https://github.com/natural/zukai) - Riak ODM for Node.js from Troy Melhase 
+* [riak-pb](https://github.com/CrowdProcess/riak-pb) - Riak Protocol Buffers Client for Node.js from the team at [CrowdProcess](http://crowdprocess.com)
 * [[node_riak|https://github.com/mranney/node_riak]] - Voxer's production Node.js client for Riak. 
 * [[nodiak|https://npmjs.org/package/nodiak]] - Supports bulk get/save/delete, sibling auto-resolution, MapReduce chaining, Search, and 2i's.
 * [[resourceful-riak|https://github.com/admazely/resourceful-riak]] - A Riak engine to the [[resourceful|https://github.com/flatiron/resourceful/]] model framework from [[flatiron|https://github.com/flatiron/]].
@@ -285,6 +287,8 @@ All of these projects and libraries are at various stages of completeness and ma
 *Racket*
 
 * [[Racket-Riak|https://gist.github.com/shofetim/riak.rkt]] - Racket API to Riak
+* [[riak.rkt|https://github.com/shofetim/riak.rkt]] - Racket API to Riak
+* [[racket-riak|https://github.com/dkvasnicka/racket-riak]] - Racket 1.3.x API to Riak
 
 *Ruby*
 

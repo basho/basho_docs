@@ -26,7 +26,7 @@ Field | Description
 ------|------------
 realtime_enabled {{1.3.0+}} | A list of all realtime sinks that are enabled
 realtime_started {{1.3.0+}} | A list of all realtime sinks that are started
-rt_dirty | The number of rt_source_errors and/ort rt_sink errors have been detected. ***This value will persist across restarts until a fullsync is complete.***
+rt_dirty | The number of rt_source_errors and/or rt_sink errors have been detected. ***This value will persist across restarts until a fullsync is complete.***
 rt_sink_errors | A sink error has been detected on the source node. This value will be reset to 0 after a node restarts
 rt_source_errors | A source error has been detected on the source node. This value will be reset to 0 after a node restarts
 

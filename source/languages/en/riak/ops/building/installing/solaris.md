@@ -48,62 +48,16 @@ Note that you must restart to have the above settings take effect.
 
 Download your version of the Riak binary package for Solaris 10:
 
-{{#1.2.1-}}
-
 ```bash
-curl -o /tmp/BASHOriak-1.2.0-1-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/1.2/1.2.0/solaris/10/BASHOriak-1.2.0-1-Solaris10-i386.pkg.gz
+curl -o /tmp/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/solaris/10/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz
 ```
 
 Next, install the package:
 
 ```bash
-gunzip /tmp/BASHOriak-1.2.0-1-Solaris10-i386.pkg.gz
-pkgadd /tmp/BASHOriak-1.2.0-1-Solaris10-i386.pkg
+gunzip /tmp/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz
+pkgadd /tmp/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg
 ```
-
-{{/1.2.1-}}
-{{#1.2.1}}
-
-```bash
-curl -o /tmp/BASHOriak-1.2.1-1-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/1.2/1.2.1/solaris/10/BASHOriak-1.2.1-1-Solaris10-i386.pkg.gz
-```
-
-Next, install the package:
-
-```bash
-gunzip /tmp/BASHOriak-1.2.1-1-Solaris10-i386.pkg.gz
-pkgadd -d BASHOriak-1.2.1-1-Solaris10-i386.pkg
-```
-
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-curl -o /tmp/BASHOriak-1.3.0-1-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.0/solaris/10/BASHOriak-1.3.0-1-Solaris10-i386.pkg.gz
-```
-
-Next, install the package:
-
-```bash
-gunzip /tmp/BASHOriak-1.3.0-1-Solaris10-i386.pkg.gz
-pkgadd -d /tmp/BASHOriak-1.3.0-1-Solaris10-i386.pkg
-```
-
-{{/1.3.0}}
-{{#1.3.1}}
-
-```bash
-curl -o /tmp/BASHOriak-1.3.1-1-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/1.3/1.3.1/solaris/10/BASHOriak-1.3.1-1-Solaris10-i386.pkg.gz
-```
-
-Next, install the package:
-
-```bash
-gunzip /tmp/BASHOriak-1.3.1-1-Solaris10-i386.pkg.gz
-pkgadd -d /tmp/BASHOriak-1.3.1-1-Solaris10-i386.pkg
-```
-
-{{/1.3.1}}
 
 After installing the package, be sure to include `/opt/riak/bin` in the
 appropriate user's PATH. After doing so, you can then start Riak:

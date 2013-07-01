@@ -63,8 +63,8 @@ The table below gives a high level comparison of Riak and CouchDB features/capab
 			</ul>
 			Riak Client libraries are wrappers around these APIs, and client support exists for dozens of languages. 
 			<ul>
-			<li>[[Client-Libraries]]</li>
-			<li>[[Community Developed Libraries and Projects|Community-Developed-Libraries-and-Projects]]</li>
+			<li>[[Client Libraries]]</li>
+			<li>[[Community Projects]]</li>
 			</ul>
 			</td>
         <td>CouchDB provides an HTTP API for both data access and administration.

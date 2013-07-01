@@ -39,7 +39,7 @@ This guide uses `curl` for downloading packages and interacting with the Riak CS
 
     sudo apt-get install -y curl
 
-If you are running Ubuntu 11.10 or later, you will also need the `libssl0.9.8` package. See  [[Installing on Debian and Ubuntu|Installing-on-Debian-and-Ubuntu]] for more information.
+If you are running Ubuntu 11.10 or later, you will also need the `libssl0.9.8` package. See [[Installing on Debian and Ubuntu]] for more information.
 
     sudo apt-get install -y libssl0.9.8
 

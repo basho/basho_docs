@@ -135,9 +135,10 @@ is recommended you consider a larger ring size. Ring sizes must be a
 power of 2. The minimum number of partitions recommended per node is 10,
 and you can determine the number of partitions that will be allocated
 per node by dividing the number of partitions by the number of nodes.
+{{#<1.4.0}}
 **At the moment, the ring size you choose will be the same for the life
 of the cluster, so taking growth into consideration is extremely
-important.**
+important.**{{/<1.4.0}}
 
 For most moderate-sized Riak clusters (8-16 nodes) 128, 256, and 512
 partitions are excellent options that will allow you to incrementally

@@ -68,8 +68,8 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 			</ul>
 			Riak Client libraries are wrappers around these APIs, and client support exists for dozens of languages. 
 			<ul>
-			  <li>[[Client-Libraries]]</li>
-			  <li>[[Community Developed Libraries and Projects|Community-Developed-Libraries-and-Projects]] </li>
+			  <li>[[Client Libraries]]</li>
+			  <li>[[Community Projects]] </li>
 			</ul>
 			</td>
         <td>Cassandra provides various access methods including a Thrift API, CQL (Cassandra Query Language), and CLI. 

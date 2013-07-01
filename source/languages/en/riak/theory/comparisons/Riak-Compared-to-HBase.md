@@ -64,7 +64,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
 			</ul>
 			Riak Client libraries are wrappers around these APIs, and client support exists for dozens of languages.
 			<ul>
-				<li>[[Client-Libraries]]</li><li>[[Community Developed Libraries and Projects|Community-Developed-Libraries-and-Projects]]</li>
+				<li>[[Client Libraries]]</li><li>[[Community Projects]]</li>
 			</ul>
 			</td>
         <td>HBase communicates primarily through code that runs on the JVM (Java, Jython, Groovy, etc.). Alternatively, HBase provides external protocols; either REST or Thrift (a cross-language data service format).

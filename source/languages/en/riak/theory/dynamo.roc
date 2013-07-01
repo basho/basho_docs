@@ -7,7 +7,7 @@
 
 <h1>Dynamo: Amazon’s Highly Available Key-value Store</h1>
 
-# This paper was first release in ... and was popularized on the blog of Werner Vogels. Since then, 
+# This paper was first released in 2007 and was popularized on the blog of Werner Vogels. Since then, 
 # several Dynamo-inspired databases have appeared (either entirely or partially) by this paper. 
 # In addition to Riak, Cassandra and Voldemort come to mind. Some of you may also remember 
 # Dynomite (which predates all of these). I'm sure there are more. 
@@ -90,7 +90,7 @@ using a relational database would lead to inefficiencies and limit scale and ava
 Dynamo provides a simple primary-key only interface to meet the requirements of these applications.
 
 #
-# Like Dynamo, Riak employs consistent hashing to partition and replicate date around
+# Like Dynamo, Riak employs consistent hashing to partition and replicate data around
 # the ring. For the consistent hashing that takes place in riak_core, Basho chose
 # the SHA1 hash.
 #
@@ -102,7 +102,7 @@ Dynamo provides a simple primary-key only interface to meet the requirements of 
 #
 # * [[Gossip Protocol|Riak-Glossary#Gossiping]]
 #
-# And, nodes can added and removed from your Riak cluster as needed.
+# And, nodes can be added and removed from your Riak cluster as needed.
 Dynamo uses a synthesis of well known techniques to achieve scalability and availability: 
 Data is partitioned and replicated using consistent hashing [10], and consistency is facilitated 
 by object versioning [12]. The consistency among replicas during updates is maintained by a 
@@ -169,7 +169,7 @@ schemes for load balancing.
 # describe where Riak's design decisions emulated and diverged from Dynamo's (as described in this paper).
 # 
 # Riak offers several query methods in addition to the standard key/value interface, 
-# is made to be highly-avaible, is efficient in its resource uses, and has a simple scale out 
+# is made to be highly-available, is efficient in its resource uses, and has a simple scale out 
 # story to accompany data and traffic growth. 
 
 This paper describes Dynamo, a highly available data storage technology 

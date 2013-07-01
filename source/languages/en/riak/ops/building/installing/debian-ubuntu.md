@@ -49,13 +49,24 @@ Installing From Package
 
 If you wish to install the deb packages by hand follow these instructions.
 
+### Installing on Non-LTS Ubuntu Releases
+
+Typically we only package Riak for LTS releases to keep our build and
+testing matrix focused.  In some cases such as Ubuntu 11.04 (Natty),
+there are changes that affect how Riak is packaged so we will release a
+separate package for that non-LTS release.  In most other cases
+though, if you are running a non-LTS release (such as 12.10) it is
+safe to follow the below instructions for the LTS release prior to
+your release.  In the case of Ubuntu 12.10, follow the installation
+instructions for Ubuntu 12.04.
+
 ### SSL Library Requirement for Ubuntu
 
-Riak currently requires libssl version 0.9.8, which is not installed by
-default on recent versions of Ubuntu. Before installing Riak via package
-on Ubuntu, install the `libssl0.9.8` package. Note that this
-version of libssl can be safely installed alongside current/existing
-libssl installations.
+Riak currently requires libssl version 0.9.8 on some versions of
+Ubuntu. Starting at Ubuntu 12.04 this is no longer an issue. Before
+installing Riak via package on Ubuntu, install the `libssl0.9.8`
+package. Note that this version of libssl can be safely installed
+alongside current/existing libssl installations.
 
 To install the libssl version 0.9.8 package, execute the following
 command:
@@ -72,155 +83,77 @@ for the target platform:
 
 #### Ubuntu Lucid Lynx (10.04)
 
-{{#1.0.3}}
+{{#1.2.0-}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
-sudo dpkg -i riak_1.0.3-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak_{{V.V.V}}-1_amd64.deb
+sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 ```
 
-{{/1.0.3}}
-{{#1.1.4}}
+{{/1.2.0-}}
+{{#1.2.0+}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
-sudo dpkg -i riak_1.1.4-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/lucid/riak_{{V.V.V}}-1_amd64.deb
+sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 ```
 
-{{/1.1.4}}
-{{#1.2.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.0-1_amd64.deb
-sudo dpkg -i riak_1.2.1-0_amd64.deb
-```
-
-{{/1.2.0}}
-{{#1.2.1}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_amd64.deb
-sudo dpkg -i riak_1.2.1-1_amd64.deb
-```
-
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/ubuntu/lucid/riak_1.3.0-1_amd64.deb
-sudo dpkg -i riak_1.3.0-1_amd64.deb
-```
-
-{{/1.3.0}}
+{{/1.2.0+}}
 
 #### Ubuntu Natty Narwhal (11.04)
 
-{{#1.0.3}}
+{{#1.2.0-}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
-sudo dpkg -i riak_1.0.3-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak_{{V.V.V}}-1_amd64.deb
+sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 ```
 
-{{/1.0.3}}
-{{#1.1.4}}
+{{/1.2.0-}}
+{{#1.2.0+}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
-sudo dpkg -i riak_1.1.4-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/natty/riak_{{V.V.V}}-1_amd64.deb
+sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 ```
 
-{{/1.1.4}}
-{{#1.2.0}}
+{{/1.2.0+}}
 
-```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/ubuntu/natty/riak_1.2.0-1_amd64.deb
-sudo dpkg -i riak_1.2.0-1_amd64.deb
-```
-
-{{/1.2.0}}
-{{#1.2.1}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/natty/riak_1.2.1-1_amd64.deb
-sudo dpkg -i riak_1.2.1-1_amd64.deb
-```
-
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/ubuntu/natty/riak_1.3.0-1_amd64.deb
-sudo dpkg -i riak_1.3.0-1_amd64.deb
-```
-
-{{/1.3.0}}
 
 #### Ubuntu Precise Pangolin (12.04)
 
-{{#1.0.3}}
+{{#1.2.0-}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak_1.0.3-1_amd64.deb
-sudo dpkg -i riak_1.0.3-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak_{{V.V.V}}-1_amd64.deb
+sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 ```
 
-{{/1.0.3}}
-{{#1.1.4}}
+{{/1.2.0-}}
+{{#1.2.0+}}
 
 ```bash
-http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak_1.1.4-1_amd64.deb
-sudo dpkg -i riak_1.1.4-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/precise/riak_{{V.V.V}}-1_amd64.deb
+sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 ```
 
-{{/1.1.4}}
-{{#1.2.0}}
+{{/1.2.0+}}
 
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/ubuntu/precise/riak_1.2.0-1_amd64.deb
-sudo dpkg -i riak_1.2.0-1_amd64.deb
-```
 
-{{/1.2.0}}
-{{#1.2.1}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/precise/riak_1.2.1-1_amd64.deb
-sudo dpkg -i riak_1.2.1-1_amd64.deb
-```
-
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/ubuntu/precise/riak_1.3.0-1_amd64.deb
-sudo dpkg -i riak_1.3.0-1_amd64.deb
-```
-
-{{/1.3.0}}
+{{#1.2.1+}}
 
 ### Riak 32-bit Installation
 
-{{#1.2.1}}
-
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/ubuntu/lucid/riak_1.2.1-1_i386.deb
-sudo dpkg -i riak_1.2.1-1_i386.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/lucid/riak_{{V.V.V}}-1_i386.deb
+sudo dpkg -i riak_{{V.V.V}}-1_i386.deb
 ```
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/ubuntu/lucid/riak_1.3.0-1_i386.deb
-sudo dpkg -i riak_1.3.0-1_i386.deb
-```
-
-{{/1.3.0}}
 
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
 
+{{/1.2.1+}}
 
-Installing From Source
+Installing Riak From Source
 ---------------------------
 
 First, install Riak dependencies using apt:
@@ -235,58 +168,12 @@ If Erlang is not already installed, install it before continuing (see:
 
 With Erlang installed, proceed to downloading and installing Riak:
 
-{{#1.0.3}}
-
 ```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.0/1.0.3/riak-1.0.3.tar.gz
-tar zxvf riak-1.0.3.tar.gz
-cd riak-1.0.3
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V.V}}.tar.gz
+tar zxvf riak-{{V.V.V}}.tar.gz
+cd riak-{{V.V.V}}
 make rel
 ```
-
-{{/1.0.3}}
-{{#1.1.4}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.1/1.1.4/riak-1.1.4.tar.gz
-tar zxvf riak-1.1.4.tar.gz
-cd riak-1.1.4
-make rel
-```
-
-{{/1.1.4}}
-{{#1.2.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.0/riak-1.2.0.tar.gz
-tar zxvf riak-1.2.0.tar.gz
-cd riak-1.2.0
-make rel
-```
-
-{{/1.2.0}}
-{{#1.2.1}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.2/1.2.1/riak-1.2.1.tar.gz
-tar zxvf riak-1.2.1.tar.gz
-cd riak-1.2.1
-make rel
-```
-
-{{/1.2.1}}
-
-{{#1.3.0}}
-
-```bash
-wget http://downloads.basho.com.s3-website-us-east-1.amazonaws.com/riak/1.3/1.3.0/riak-1.3.0.tar.gz
-tar zxvf riak-1.3.0.tar.gz
-cd riak-1.3.0
-make rel
-```
-
-{{/1.3.0}}
-
 
 If the build was successful, a fresh build of Riak will exist in the
 `rel/riak` directory.

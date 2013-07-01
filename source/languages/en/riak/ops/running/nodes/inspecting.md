@@ -50,6 +50,16 @@ Sample one minute counters:
     this node within the last minute
 -   **vnode\_puts\_total** Number of PUT operations coordinated by
     vnodes on this node since node was started
+-   **riak_kv_vnodes_running**: Number of key/value virtual node queues
+    running in the last minute
+-   **riak_kv_vnodeq_mean**: Mean number of key/value virtual node queues
+    running in the last minute
+-   **riak_kv_vnodeq_median**: Median number of key/value virtual node queues
+    running in the last minute
+-   **riak_kv_vnodeq_max**: Maximum number of key/value virtual node queues
+    running in the last minute
+-   **riak_kv_vnodeq_min**: Minimum number of key/value virtual node queues
+    running in the last minute
 -   **read\_repairs** Number of read repair operations this this node
     has coordinated in the last minute
 -   **read\_repairs\_total**: Number of read repair operations this this
@@ -139,18 +149,20 @@ a particular activity has occurred since this node was started.
 
 Sample total counters:
 
--   **vnode\_gets\_total** Number of GETs coordinated by local vnodes
+-   **vnode\_gets\_total**: Number of GETs coordinated by local vnodes
     since node startup
--   **vnode\_puts\_total** Number of PUTS coordinated by local vnodes
+-   **vnode\_puts\_total**: Number of PUTS coordinated by local vnodes
     since node startup
--   **node\_gets\_total** Number of GETs coordinated by this node since
+-   **riak_kv_vnodeq_total**: Total number of key/value virtual node queues
+    running since node startup
+-   **node\_gets\_total**: Number of GETs coordinated by this node since
     startup, including GETs to non-local vnodes
--   **node\_puts\_total** Number of PUTs coordinated by this node since
+-   **node\_puts\_total**: Number of PUTs coordinated by this node since
     startup, including PUTs to non-local vnodes
--   **read\_repairs\_total** Number of Read Repairs this node has
-    coordinated since startup
--   **coord\_redirs\_total** Number of requests this node has redirected
-    to other nodes for coordination since startup
+-   **read\_repairs\_total**: Number of Read Repairs this node has
+    coordinated since node startup
+-   **coord\_redirs\_total**: Number of requests this node has redirected
+    to other nodes for coordination since node startup
 
 ### CPU and Memory
 
@@ -204,12 +216,36 @@ Sample miscellaneous information statistics:
 -   **ring\_ownership**: List of all nodes in the ring and their
     associated partition ownership
 -   **ring\_members**: List of nodes which are members of the ring
+-   **rings_reconciled**: Number of recent ring reconciliation operations
+-   **rings_reconciled_total**: Total number of ring reconciliation operations
+    since node was started
+-   **converge_delay_min**: Minimum time in milliseconds describing time taken
+    for the ring to converge after ring changes
+-   **converge_delay_max**: Maximum time in milliseconds describing time taken
+    for the ring to converge after ring changes
+-   **converge_delay_mean**: Mean time in milliseconds describing time taken
+    for the ring to converge after ring changes
+-   **converge_delay_last**: Last observed histogram value in milliseconds 
+    describing time taken for the ring to converge after ring changes
 -   **connected\_nodes** A list of the nodes that this node is aware of
     at this time
+-   **gossip_received**: Total number of gossip messages received since
+    node was started
 -   **ignored\_gossip\_total**: Total number of ignored gossip messages
     since node was started
 -   **handoff\_timeouts**: Number of handoff timeouts encountered by
     this node
+-   **rejected_handoffs**: Number of recent ownership handoff operations
+    rejected by the node
+-   **rebalance_delay_min**: Minimum time in milliseconds taken to calculate
+    partition rebalance during a cluster membership change
+-   **rebalance_delay_max**: Maximum time in milliseconds taken to calculate
+    partition rebalance during a cluster membership change
+-   **rebalance_delay_mean**: Mean time in milliseconds taken to calculate
+    partition rebalance during a cluster membership change
+-   **rebalance_delay_last**: Last observed histogram in milliseconds
+    describing time take to calculate partition rebalance during a cluster
+    membership change
 -   **coord\_redirs\_total**: Number of requests this node has
     redirected to other nodes for coordination since startup
 -   **precommit\_fail**: Number of pre commit hook failures

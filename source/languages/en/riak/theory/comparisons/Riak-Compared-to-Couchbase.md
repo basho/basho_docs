@@ -68,8 +68,8 @@ The table below gives a high level comparison of Riak and Couchbase features/cap
 			</ul>
 			Riak Client libraries are wrappers around these APIs, and client support exists for dozens of languages. 
 			<ul>
-			<li>[[Client-Libraries]]</li>
-			<li>[[Community Developed Libraries and Projects|Community-Developed-Libraries-and-Projects]]</li>
+			<li>[[Client Libraries]]</li>
+			<li>[[Community Projects]]</li>
 			</ul>
 			</td>
         <td>Couchbase provides drivers in several languages to access data through its binary memcached protocol. Couchbase also provides a REST API to monitor and manage a cluster (though it is not used to directly manage stored data).

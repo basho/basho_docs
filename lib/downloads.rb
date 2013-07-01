@@ -30,8 +30,8 @@ class Downloads
     os_data["versions"].values.map{|v|
       v['arch'].values
     }.map{|v|
-      v.first['file']
-    }.compact.blank?
+      v.map{|x| x['file']}.compact
+    }.flatten.compact.present?
   end
 
   def file_url(os, os_version, file, static=nil)

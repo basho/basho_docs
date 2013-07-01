@@ -148,6 +148,8 @@ later in the <a href="#Tips-&-Tricks">Tips & Tricks section</a> to see how to fi
 
   Default: 4K
 
+{{#1.3.0-}}
+
 ```erlang
 {eleveldb, [
         ...,
@@ -160,6 +162,19 @@ later in the <a href="#Tips-&-Tricks">Tips & Tricks section</a> to see how to fi
 <p>Is it not recommended to change block size from default in Riak 1.2.  Block sizes
 larger than 4K can hurt performance.</p>
 </div>
+
+{{/1.3.0-}}
+
+{{#1.3.0+}}
+
+```erlang
+{eleveldb, [
+      ...,
+            {sst_block_size, 4096}, %% 4K blocks
+      ...
+]}
+```
+{{/1.3.0+}}
 
 #### Block Restart Interval
 

@@ -65,8 +65,8 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
 			</ul>
 			Riak Client libraries are wrappers around these APIs, and client support exists for dozens of languages. 
 			<ul>
-			  <li>[[Client-Libraries]]</li>
-			  <li>[[Community Developed Libraries and Projects|Community-Developed-Libraries-and-Projects]]</li>
+			  <li>[[Client Libraries]]</li>
+			  <li>[[Community Projects]]</li>
 			</ul>
 			</td>
         <td> MongoDB uses a custom, socket-based wire protocol with BSON as the interchange format. 

@@ -160,33 +160,33 @@ var estimate_storage = function () {
 
 function update_calculations() {
     if (NumEntries() > 99999999999999999999999999) {
-        $('#recomend').text("You have more keys than sub-atomic particles in all known universes.  That's too many.");
+        $('#recommend').text("You have more keys than sub-atomic particles in all known universes.  That's too many.");
         return;
     }
     if (Bucket() < 1) {
-        $('#recomend').text("You'll need to have a non-zero bucket size.");
+        $('#recommend').text("You'll need to have a non-zero bucket size.");
         return;
     }
     if (Key() < 1) {
-        $('#recomend').text("You'll need to have a non-zero key size.");
+        $('#recommend').text("You'll need to have a non-zero key size.");
         return;
     }
     if (Value() < 1) {
-        $('#recomend').text("You'll need to have a non-zero value size.");
+        $('#recommend').text("You'll need to have a non-zero value size.");
         return;
     }
     if (RAM() < 1) {
-        $('#recomend').text("You'll need to allocate a non-zero amount of RAM to data storage.");
+        $('#recommend').text("You'll need to allocate a non-zero amount of RAM to data storage.");
         return;
     }
     if (N_Val() < 3) {
-        $('#recomend').text("You'll want to deploy at least 3 Riak nodes, 4 would be even better as a starting point.");
+        $('#recommend').text("You'll want to deploy at least 3 Riak nodes, 4 would be even better as a starting point.");
     }
 
     n = estimate_nodes();
     d = estimate_storage();
     r = estimate_keydir();
-    $('#recomend').html("<p>To manage your estimated " + abbreviate_number(NumEntries()) + " key/bucket pairs " +
+    $('#recommend').html("<p>To manage your estimated " + abbreviate_number(NumEntries()) + " key/bucket pairs " +
                             " where bucket names are ~" + format_bytes(Bucket()) + ", " +
                             " keys are ~" + format_bytes(Key()) + ", " +
                             " values are ~" + format_bytes(Value()) +
