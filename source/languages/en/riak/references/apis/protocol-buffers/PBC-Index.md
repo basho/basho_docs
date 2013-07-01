@@ -26,6 +26,10 @@ message RpbIndexReq {
     optional bytes key = 4;
     optional bytes range_min = 5;
     optional bytes range_max = 6;
+    optional bool return_terms = 7;
+    optional bool stream = 8;
+    optional uint32 max_results = 9;
+    optional bytes continuation = 10;
 }
 ```
 
@@ -41,12 +45,18 @@ Index queries are one of two types
 * **eq** - Exactly match the query for the given `key`
 * **range** - Match over a min and max range (`range_min`, `range_max`)
 
+Pagination
+
+* **max_results** - Number of results to return
+* **continuation** - Value returned in paginated response to use in conjunction with `max_results` to request the next page of results
+
 Optional Parameters
 
 * **key** - the exact value to match by. only used if qtype is eq
 * **range_min** - the minimum value for a range query to match. only used if qtype is range
 * **range_max** - the maximum value for a range query to match. only used if qtype is range
-
+* **return_terms** - Include matched index values in response (range queries only)
+* **stream** - Stream responses back to the client instead of waiting for `max_results` or the full result set to be tabulated
 
 ## Response
 
@@ -57,13 +67,18 @@ The results of a Secondary Index query are returned as a repeating list of
 ```bash
 message RpbIndexResp {
     repeated bytes keys = 1;
+    repeated RpbPair results = 2;
+    optional bytes continuation = 3;
+    optional bool done = 4;
 }
 ```
 
 Values
 
 * **keys** - a list of keys that match the index request
-
+* **results** - If `return_terms` is specified with range queries, used to return matched index values
+* **continuation** - For paginated responses
+* **done** - For streaming: the current stream is done (either `max_results` reached or no more results)
 
 ## Example
 
