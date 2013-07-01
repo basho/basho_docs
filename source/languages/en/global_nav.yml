@@ -103,6 +103,7 @@ riak:
           - "[[Renaming Nodes]]"
           - "[[Replacing a Node]]"
           - "[[Backups]]"
+          - "[[Riak Control]]"
           - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
       - title: "Configuration"
         sub:
