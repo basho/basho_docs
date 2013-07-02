@@ -114,6 +114,7 @@ All of these projects and libraries are at various stages of completeness and ma
 *OCaml*
 
 * [[Riak OCaml Client|http://metadave.github.com/riak-ocaml-client/]] - Riak OCaml Client
+* [[ocaml-riakc|https://github.com/orbitz/ocaml-riakc]] - ocaml-riakc
 
 *Perl*
 
