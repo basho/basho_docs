@@ -30,17 +30,9 @@ On the sink cluster:
 
 You can verify the cluster names have been established on each cluster by issuing the `riak-repl clustername` command without parameters.
 
-* connect the source cluster to the sink cluster
+* connect the source cluster to the sink cluster. Assuming the sink cluster name *boston*:
 
-On any node in the source cluster:
-
-`riak-repl connect <sink_cluster_name>`
-
-For example:
-
-	riak-repl connect boston
-	
-where <sink_cluster_name> is replaced with the name of the sink cluster.
+  `riak-repl connect boston`
 
 * ensure cluster connections have been established:
 `riak-repl connections`
@@ -48,14 +40,13 @@ where <sink_cluster_name> is replaced with the name of the sink cluster.
 #####To establish bidirectional replication:
 Bidirectional replication between two named clusters can be established by connecting from *sink* to *source*.
 
-On any node in the **sink** cluster:
+On any node in the *sink* cluster:
 
 `riak-repl connect <source_cluster_name>`
 
 For example:
 
 	riak-repl connect newyork
-
 
 #### Realtime Replication
 * To begin queuing objects (but not yet replicating) on the source cluster for realtime replication:
