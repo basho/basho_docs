@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Statistics (Advanced)"
+title: "Multi Data Center Replication Statistics"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, operator, bnw]
 ---
 
-The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node. Both Default Replication and Advanced Replication statistics are both obtained by using the `riak-repl status` command.
+The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node. Both Version 2 Replication and Version 3 Replication statistics are both obtained by using the `riak-repl status` command.
 
 **All statistic counts will be reset to 0 upon restarting Riak EE unless otherwise noted.**
 
@@ -62,6 +62,9 @@ Field | Description
 fullsync_enabled {{1.3.0+}} | A list of all sinks that are enabled
 fullsync_running {{1.3.0+}} | A list of all sinks that are running
 server_fullsyncs | The number of full-synchronizations that have occurred since the server was started
+fullsyncs_completed | The number of fullsyncs that have been completed to the specified sink cluster.
+fullsync_start_time | The time the current fullsink to the specified cluster began.
+last_fullsync_duration | The duration (in seconds) of the last completed fullsync.
 
 If this cluster is acting as a **source**, the `fullsync_coordinator` field returns a list of `{<sink_clustername>:<fullsync_stats>}`. If this cluster is acting as a **sink**, the `fullsync_coordinator_srv` field returns a list of `{<LocalIP:Port>:<fullsync_coordinator_srv_stats>}`.
 
@@ -114,7 +117,7 @@ send_kbps | Socket kilobits/second sent
 send_pend | The number of bytes in the Erlang VM to be sent over the socket
 sockname | `<host:port>` The address and port for “this end” of the connection
 
-## Default Replication Statistics
+## Version 2 Replication Statistics
 
 The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node.
 
@@ -143,7 +146,7 @@ server_connect_errors | The number of primary to sink connection errors
 server_connects | The number of times the primary connects to the client sink
 server_rx_kbps | A snapshot of the primary received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 server_tx_kbps | A snapshot of the primary sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
-leader | Which node is the current leader of the cluster for Default Replication
+leader | Which node is the current leader of the cluster for Version 2 Replication
 local_leader_message_queue_len | The length of the object queue on the leader
 local_leader_heap_size | The amount of memory the leader is using
 client_stats | See <a href="/cookbooks/Multi-Data-Center-Replication-Status/#Client-Statistics" class="riakee">Client Statistics</a>
@@ -177,7 +180,7 @@ message_queue_len | The number of Erlang messages that are waiting to be process
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication Configuration New]] guide for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration (version 2)|Multi-Data-Center Replication Configuration]] or [[Riak EE MDC Replication Configuration (version 3)|Multi-Data-Center Replication v3 Configuration]] guide for more information.
 
 Field | Description
 ------|------------
@@ -198,5 +201,5 @@ These stats can be accessed via the command line with the following command:
     curl -q http://127.0.0.1:8098/riak-repl/stats
 
 A simple way to view formatted statistics is to use a command such as:
-  
+
     curl -q http://127.0.0.1:8098/riak-repl/stats | jsonpp

@@ -13,17 +13,17 @@ versions: false
 
 <div class="info"><div class="title">Riak Enterprise Only</div>This documentation applies only to Riak Enterprise, Basho's commercial extension to [[Riak]]. To talk to us about using Riak Enterprise,  <a href="http://info.basho.com/Wiki_Contact.html" target="_blank">let us know</a>.</div>
 
-Riak Enterprise is a commercially distributed product built on Riak (Apache 2.0-licensed) that extends Riak's capabilities with [[multi-datacenter replication|Multi Data Center Replication Architecture]], [[SNMP monitoring|SNMP Configuration]], [[JMX-Monitoring]], and 24x7 support. 
+Riak Enterprise is a commercially distributed product built on Riak (Apache 2.0-licensed) that extends Riak's capabilities with [[Multi Data Center Replication|Multi Data Center Replication v3 Architecture]], [[SNMP monitoring|SNMP Configuration]], [[JMX-Monitoring]], and 24x7 support.
 
-In multi-datacenter replication, one cluster acts as a "source cluster". The source cluster replicates its data to one or more "sink clusters" in a [[full or real-time sync|Multi Data Center Replication Architecture]] process. Data transfer is unidirectional (source -> sink). However, bidirectional synchronization can be achieved by configuring a pair of connections between clusters.
+In multi-datacenter replication, one cluster acts as a "source cluster". The source cluster replicates its data to one or more "sink clusters" in a [[full or real-time sync|Multi Data Center Replication v3 Architecture]] process. Data transfer is unidirectional (source -> sink). However, bidirectional synchronization can be achieved by configuring a pair of connections between clusters.
 
-Multi-datacenter features can be used for: 
+Multi-datacenter features can be used for:
 
 * data locality
-* disaster recovery 
-* global load balancing  
+* disaster recovery
+* global load balancing
 * active backups
-* secondary analytics clusters 
+* secondary analytics clusters
 * meeting regulatory requirements
 
 {{#1.3.0-}}
