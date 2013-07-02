@@ -77,15 +77,17 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 	See the [[Multi Data Center Replication v3 Operations]] and [[Multi Data Center Replication v3 Configuration]] guides for more information.
 
 13. Remove existing listeners/sites
+  
+    Remove all configured listeners and sites from both source and sink clusters using the `del-listener` and `del-site` commands, like in the following examples:
 
-	Remove all configured listeners and sites from both source and sink clusters using the `del-listener` and `del-site` commands:
+    <ul>
+    <li><code>riak-repl del-site newyork</code></li>
+    <li><code>riak-repl del-listener riak@10.0.1.156 10.0.1.156 9010</code></li>
+    </ul>
 
-	* *Example:* `riak-repl del-site newyork`
-	* *Example:* `riak-repl del-listener riak@10.0.1.156 10.0.1.156 9010`
+    Currently configured listeners and sites can be seen using `riak-repl status` on each node in the source and sink clusters.
 
-	Currently configured listeners and sites can be seen using `riak-repl status` on each node in the source and sink clusters.
-
-	See the [[Multi Data Center Replication Operations]] guide for more information on `del-listener` and `del-site` commands.
+    See the [[Multi Data Center Replication Operations]] guide for more information on `del-listener` and `del-site` commands.
 
 14. Remove and/or update cron tasks
 
@@ -99,17 +101,17 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 
 	By default, Riak 1.3.+ has replication bucket hooks enabled for both version 2 and version 3. The version 2 replication bucket hook can be disabled. This step is not required, but leaving the version 2 replication bucket hook enabled can cause inaccurate `objects_dropped_no_leader` and `objects_dropped_no_clients` statistics.
 
-	* To disable the version 2 replication bucket hook:
+	To disable the version 2 replication bucket hook:
 
 	`riak-repl modes mode_repl13`
 
 	Example:
 
-```
-	$riak-repl modes
-	Current replication modes: [mode_repl12,mode_repl13]
+    ```
+    $riak-repl modes
+    Current replication modes: [mode_repl12,mode_repl13]
 
-	$riak-repl modes mode_repl13
-	Current replication modes: [mode_repl13]
-```
+    $riak-repl modes mode_repl13
+    Current replication modes: [mode_repl13]
+    ```
 
