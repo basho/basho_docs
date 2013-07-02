@@ -1,7 +1,7 @@
 ---
 title: "Multi Data Center Replication: Upgrading from V2 to V3"
 project: riakee
-version: 1.3.0+
+version: 1.3.2+
 document: cookbook
 toc: true
 audience: intermediate
@@ -42,7 +42,7 @@ Bidirectional replication between two named clusters can be established by conne
 
 On any node in the *sink* cluster:
 
-`riak-repl connect <source_cluster_name>`
+`riak-repl connect newyork`
 
 For example:
 
@@ -50,37 +50,33 @@ For example:
 
 #### Realtime Replication
 * To begin queuing objects (but not yet replicating) on the source cluster for realtime replication:
-`riak-repl realtime enable <sink_cluster_name>`
+`riak-repl realtime enable boston`
 
 Running `riak-repl status` on any node of the source will show which sinks are currently enabled for realtime.
 
 * To start realtime replication from source to sink:
-`riak-repl realtime start <sink_cluster_name>`
+`riak-repl realtime start boston`
 
 This will start process any objects in the replication queue, as well as any updated objects in the source cluster.
 
-Running `riak-repl status` on any node of the source will show which sinks are currently running for realtime. #TODO mention queue/socket stats
+Running `riak-repl status` on any node of the source will show which sinks are currently enabled and running for realtime via the `realtime_enabled` and `realtime_started` statistics. See the [[Multi Data Center Replication Statistics]] guide for a full list of available statistics. 
 
 #### Fullsync Replication
 * To prepare a source cluster for fullsync replication:
-`riak-repl fullsync enable <sink_cluster_name>`
+`riak-repl fullsync enable boston`
 
 Running `riak-repl status` on any node of the source will show which sinks are currently enabled for realtime.
 
 * To start fullsync replication from source to sink:
-`riak-repl fullsync start <sink_cluster_name>`
+`riak-repl fullsync start boston`
 
-Running `riak-repl status` on any node of the source will show which sinks are currently running a fullsync. #TODO mention queue/socket stats
+Running `riak-repl status` on any node of the source will show which sinks are currently enabled and running for fullsync via the `fullsync_enabled` and `fullsync_started` statistics. See the [[Multi Data Center Replication Statistics]] guide for a full list of available statistics. 
 
 #### proxy_get for Riak CS Enterprise
 
 proxy_get connections for version 3 replication are enabled at runtime using the following command:
 
-`riak-repl proxy_get enable <sink_cluster_name>`
-
-Example:
-
-	riak-repl proxy_get enable boston
+`riak-repl proxy_get enable boston`
 	
 See the [[Multi Data Center Replication v3 Operations]] and [[Multi Data Center Replication v3 Configuration]] guides for more information.
 
