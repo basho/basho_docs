@@ -1,7 +1,7 @@
 ---
 title: "Multi Data Center Replication: Comparison"
 project: riakee
-version: 1.0.0+
+version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
