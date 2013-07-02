@@ -13,6 +13,7 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 ### Upgrade Process
 
 * ensure all system backups have completed, are accurate, and are readily available
+* if fullsync replication is periodically started via `cron`, disable it.
 * stop fullsync replication on every cluster participating in MDC
 
 `riak-repl cancel-fullsync`
