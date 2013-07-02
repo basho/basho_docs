@@ -92,7 +92,7 @@ Example:
 	
 See the [[Multi Data Center Replication v3 Operations]] and [[Multi Data Center Replication v3 Configuration]] guides for more information.
 
-##### Remove existing listeners/sites
+#### Remove existing listeners/sites
 
 Remove all configured listeners and sites from both source and sink clusters using the `del-listener` and `del-site` commands:
 
@@ -103,7 +103,7 @@ Currently configured listeners and sites can be seen using `riak-repl status` on
 
 See the [[Multi Data Center Replication Operations]] guide for more information on `del-listener` and `del-site` commands.
 
-##### Remove and/or update cron tasks
+#### Remove and/or update cron tasks
 
 If you are using `cron` to schedule replication fullsyncs, please update the crontab to use the version 3 fullsync syntax
 
@@ -111,7 +111,7 @@ For example, version 2 replication is started with `riak-repl start-fullsync`, w
 
 See the [[Multi Data Center Replication v3 Scheduling Full Sync]] guide for configuring scheduled replication fullsyncs.
 
-##### Disable version 2 replication bucket hooks
+#### Disable version 2 replication bucket hooks
 
 By default, Riak 1.3.+ has replication bucket hooks enabled for both version 2 and version 3. The version 2 replication bucket hook can be disabled. This step is not required, but leaving the version 2 replication bucket hook enabled can cause inaccurate `objects_dropped_no_leader` and `objects_dropped_no_clients` statistics.
 
