@@ -14,7 +14,7 @@ Replication w/ Active Anti-Entropy (AAE) technology is currently a *Technology P
 
 ## Overview
 
-Riak Enterprise MDC Replication Version 3 can now take advantage of Riak Active Anti-Entropy (AAE) technology that was first released as part of Riak 1.3.0. The use of AAE in replication can greatly increase the performance of a fullsync. Comparison time between two clusters can become linear with the percentage of differences.
+Riak Enterprise MDC Replication Version 3 can now take advantage of Riak Active Anti-Entropy (AAE), which was first introduced as a technology preview in Riak 1.3.0. The use of AAE in replication can greatly increase the performance of a fullsync. Comparison time between two clusters can become linear with the percentage of differences.
 
 AAE + Replication uses existing Riak AAE LevelDB files.
 

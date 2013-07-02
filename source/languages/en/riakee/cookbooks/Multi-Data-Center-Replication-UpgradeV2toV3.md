@@ -8,28 +8,7 @@ audience: intermediate
 keywords: [mdc, repl]
 ---
 
-The upgrade process from version 2 replication to version 3 replication is manual. 
-
-##### should we mention anything like this:
-Before starting, please contact Basho Technical Support?
-
-Check the *basho-patches* directory, etc?
-
-Verify source and sink clusters are at the same version?
-
-
-### Terminology
-
-* v2 listeners are translated to v3 sources
-
-* v2 sites are translated to v3 sinks
-
-* listeners are configured on a single node, where sources are configured per cluster. 
-
-* sites are configured on a single node, where sinks are configured per cluster. 
-
-* In v3 replication, sources and sinks are managed by the Riak Enterprise Cluster Manager. See `app.config cluster_mgr` port#
-
+This guide walks through the process of upgrading Riak Enterprise MDC Replication from version 2 to version 3. Please read the [[Multi Data Center Replication UpgradeV2toV3]] guide for terminology differences between versions.
 
 ### Upgrade Process
 ***TODO: Number steps***
