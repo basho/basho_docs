@@ -14,8 +14,8 @@ Some changes have occurred between 1.1 and 1.2.
 
 These `repl` values are available in Riak EE version 1.1 and above:
 
-  * `true`: enable default replication (realtime + fullsync)
-  * `false`: disable default replication (realtime + fullsync)
+  * `true`: enable replication (realtime + fullsync)
+  * `false`: disable replication (realtime + fullsync)
 
 These option values are only available in Riak EE version 1.2 and above:
 
