@@ -313,13 +313,12 @@ iframe {
   a {
     @extend .block;
     color           : $darkGrey;
-    padding         : 7px 12px;
+    padding         : 7px 18px;
     text-decoration : none;
+    @include transitionAll(color 0.5s ease);
     
     &:hover {
-      //background        : #515151;
-      //background        : rgba(255, 255, 255, .12);
-      border-left-color : $lightGreen;
+      color : $extraDarkGrey;
     }
   }
 
@@ -353,12 +352,14 @@ iframe {
 
   .separator {
     font-weight : normal;
+    color       : #8e939a;
   }
   
   .nav-field-container {
     position : relative;
 
-    input[type="search"] {
+    input[type="search"],
+    input[type="text"] {
       position    : relative;
       width       : 80%;
       background-color : $fieldGrey;
@@ -369,15 +370,36 @@ iframe {
       line-height : 1rem;
       font-family : 'titillium', verdana, arial, sans-serif;
       font-size   : 115%;
+
+      &::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #fff;
+      }
+      &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #fff;
+      }
+      &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #fff;
+      }
+      &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color:    #fff;
+      }
     }
 
-    input[type="search"]:focus {
+    input[type="search"]:focus,
+    input[type="text"]:focus {
+      color            : #fff;
       background-color : $darkGrey;
+    }
+
+    .separator,
+    .nav-icon {
+      color : #fff;
     }
   }
 
   .nav-icon {
     font-family: 'DocsFontIcons';
+    color : #8e939a;
 
     &.nav-icon-search {
       color: #fff;
@@ -427,6 +449,7 @@ iframe {
     //@include bgPattern('nav-header-bg2.jpg', transparent);
     //border-left : 4px solid $fadedGreen;
     @include bgPattern('nav-bg.jpg', #4f4f50);
+    @include transitionAll(color 0.5s ease);
     padding     : 5px 8px 5px 10px;
     overflow    : visible;
     color       : $darkGrey;
@@ -474,6 +497,12 @@ iframe {
     display : inline-block;
     width   : 100%;
   }
+
+  h4 {
+    &:hover {
+      color : $extraDarkGrey;
+    }
+  }
   
   .depth-1 {
     @extend .clear;
@@ -510,6 +539,7 @@ iframe {
   
   h4 {
     @extend .sans;
+    padding-left : 18px;
     //font-size : 115%;
   }
   
@@ -523,7 +553,7 @@ iframe {
   
   .depth-1 li {
     @include bgPattern('nav-bg.jpg', #4f4f50);
-    padding-left : 8px;
+    //padding-left : 8px;
 
     &.current {
       background : $blueGreen;
@@ -534,13 +564,28 @@ iframe {
     }
   }
   
-  li:last-child {
-    //padding-bottom : 8px;
+  .depth-1 li:last-child {
     border-bottom : 1px solid $lightGrey;
   }
   
   .depth-2, .depth-3 {
     margin-left : 0px;
+  }
+
+  .depth-2 {
+    a,
+    h4 {
+      padding-left : 26px;
+    }
+  }
+
+  .depth-3 a {
+    padding-left : 34px;
+  }
+
+  .depth-3 li:last-child,
+  .depth-2 li:last-child {
+    border-bottom : 0;
   }
   
   span.menu-toggle {
@@ -549,14 +594,11 @@ iframe {
     float         : right;
     margin        : 10px 2px 0 0;
     content       : '';
-    border        : 5px solid transparent;
-    border-bottom : none;
-    border-top    : 5px solid $lightGrey;
+    @include arrowVertical(top, bottom, 5px, $lightGrey);
+    @include transitionAll(border-color 0.5s ease);
     
     &.open {
-      border        : 5px solid transparent;
-      border-bottom : 5px solid $lightGrey;
-      border-top    : none;
+      @include arrowVertical(bottom, top, 5px, $lightGrey);
     }
     
     &.extra-margin {
@@ -592,6 +634,11 @@ iframe {
         span {
           padding-right : 5px;
         }
+
+        .separator,
+        .nav-icon {
+          color : #fff;
+        }
       }
     }
   }
@@ -622,7 +669,7 @@ div[role="main"] {
   overflow  : visible;
   
   &.closed {
-    @include boxShadow(-10px -10px 10px #333);
+    //@include boxShadow(-10px -10px 10px #333);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -747,8 +794,10 @@ div[role="main"] {
       cursor           : pointer;
       color            : $lightGrey;
       font-size        : 1.5rem;
+      @include transitionAll(all 0.5s ease);
       
       &:hover {
+        color : $darkGrey;
       }
 
       @media screen and (max-width: 700px) {
@@ -837,14 +886,13 @@ div[role="main"] {
       #nav-more {
         @extend .inline-block;
         color           : #fff;
+        color           : rgba(255, 255, 255, 0.9);
         text-decoration : none;
         text-align      : center;
         padding         : 8px;
         cursor          : pointer;
-        @include corner(left, top);
-        @include corner(right, top);
-        @include corner(left, bottom);
-        @include corner(right, bottom);
+        @include allCorners();
+        @include transitionAll(all 0.5s ease);
       }
 
       a {
@@ -856,6 +904,7 @@ div[role="main"] {
         &:hover {
           background : $orange;
           color      : #fff;
+          color      : rgba(255, 255, 255, 1.0);
         }
 
         [class^="icon-"] {
@@ -870,11 +919,18 @@ div[role="main"] {
 
         &.selected {
           background : $darkBlueGreen;
+          color      : #fff;
+          color      : rgba(255, 255, 255, 1.0);
         }
 
         &.unselected {
           //background : $blueGreen;
         }
+
+        &:hover {
+          color : #fff;
+          color : rgba(255, 255, 255, 1.0);
+        } 
       }
 
       @media screen and (max-width: 700px) {
@@ -922,9 +978,7 @@ div[role="main"] {
         position      : absolute;
         top           : -7px;
         right         : 8px;
-        border        : 7px solid transparent;
-        border-bottom : 7px solid #fff;
-        border-top    : none;
+        @include arrowVertical(bottom, top, 7px, #fff);
         z-index       : 7;
       }
 
@@ -932,9 +986,7 @@ div[role="main"] {
         position      : absolute;
         top           : -9px;
         right         : 6px;
-        border        : 9px solid transparent;
-        border-bottom : 9px solid $lightGrey;
-        border-top    : none;
+        @include arrowVertical(bottom, top, 9px, $lightGrey);
         z-index       : 6;
       }
     }
@@ -994,7 +1046,8 @@ div[role="main"] {
   }
   
   aside.secondary {
-    @include bgPattern('nav-bg.jpg', #dadcdf);
+    //@include bgPattern('nav-bg.jpg', #dadcdf);
+    background : $extraDarkGrey;
     @include allCorners();
     @include boxShadow(inset 0 0 25px #333);
     padding       : 25px;

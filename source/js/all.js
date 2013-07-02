@@ -356,10 +356,10 @@
     var X=$(buttonID).attr('class');
     if(X=='selected') {
       $(menuID).hide();
-      $(this).attr('class', 'unselected');
+      $(buttonID).attr('class', 'unselected');
     } else {
       $(menuID).show();
-      $(this).attr('class', 'selected');
+      $(buttonID).attr('class', 'selected');
     }
   }
 
@@ -373,47 +373,47 @@
     $(buttonID).attr('class', 'unselected');
   }
 
-  /*----------------------------------------------------------*/
-  // Top Navigation Menu Interactions
-  /*----------------------------------------------------------*/
-  $('#nav-more').click(function() {
-    toggleMenu('#nav-more', '#nav-menu');
-  });
+  $(document).ready(function(){
+    /*----------------------------------------------------------*/
+    // Top Navigation Menu Interactions
+    /*----------------------------------------------------------*/
+    $('#nav-more').click(function() {
+      toggleMenu('#nav-more', '#nav-menu');
+    });
 
-  //Mouse click on sub menu
-  $('#nav-menu').mouseup(function() {
-    return false
-  });
+    //Mouse click on sub menu
+    $('#nav-menu').mouseup(function() {
+      return false
+    });
 
-  //Mouse click on my account link
-  $('#nav-more').mouseup(function() {
-    return false
-  });
+    //Mouse click on my account link
+    $('#nav-more').mouseup(function() {
+      return false
+    });
 
-  //Document Click
-  $(document).mouseup(function() {
-    documentClick('#nav-more', '#nav-menu');
-  });
+    /*----------------------------------------------------------*/
+    // Version Menu Interactions
+    /*----------------------------------------------------------*/
+    $('#version-ddown').click(function() {
+      toggleMenu('#version-ddown', '#version-list');
+    });
 
-  /*----------------------------------------------------------*/
-  // Version Menu Interactions
-  /*----------------------------------------------------------*/
-  $('#version-ddown').click(function() {
-    toggleMenu('#version-ddown', '.versions');
-  });
+    //Mouse click on sub menu
+    $('#version-list').mouseup(function() {
+      return false
+    });
 
-  //Mouse click on sub menu
-  $('.versions').mouseup(function() {
-    return false
-  });
+    //Mouse click on my account link
+    $('#version-ddown').mouseup(function() {
+      return false
+    });
 
-  //Mouse click on my account link
-  $('#version-ddown').mouseup(function() {
-    return false
-  });
-
-  //Document Click
-  $(document).mouseup(function() {
-    documentClick('#version-ddown', '.versions');
+    /*----------------------------------------------------------*/
+    // Close all menu when the document is clicked
+    /*----------------------------------------------------------*/
+    $(document).mouseup(function() {
+      documentClick('#nav-more', '#nav-menu');
+      documentClick('#version-ddown', '#version-list');
+    });
   });
 });

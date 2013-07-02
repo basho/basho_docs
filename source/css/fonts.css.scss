@@ -99,7 +99,7 @@
     -webkit-font-smoothing: antialiased;
 }
 .icon-lambda:before {
-    content: "\e003";
+    content: "\e005";
 }
 .icon-beaker:before {
     content: "\f0c3";
@@ -136,4 +136,19 @@
 }
 .icon-more:before {
     content: "\e002";
+}
+.icon-riak:before {
+    content: "\e003";
+}
+.icon-database:before {
+    content: "\e006";
+}
+.icon-install:before {
+    content: "\e007";
+}
+.icon-cloud:before {
+    content: "\e008";
+}
+.icon-configure:before {
+    content: "\e00a";
 }
