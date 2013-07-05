@@ -189,11 +189,11 @@ riak:
 
 
 riakee:
-  - title: "Shortcuts"
-    class: "active shortcuts"
-    sub:
-      - "[[APIs|/dev/references/http/]]"
-      - "[[FAQs|Riak Enterprise FAQs]]"
+  #- title: "Shortcuts"
+  #  class: "active shortcuts"
+  #  sub:
+  #    - "[[APIs|/dev/references/http/]]"
+  #    - "[[FAQs|Riak Enterprise FAQs]]"
 
   - title: "Start Here"
     class: "start"
@@ -234,11 +234,11 @@ riakee:
       - "[[Riak FAQs|Riak FAQs]]"
 
 riakcs:
-  - title: "Shortcuts"
-    class: "active shortcuts"
-    sub:
-      - "[[APIs|RiakCS Storage API]]"
-      - "[[FAQs|Riak CS FAQs]]"
+  #- title: "Shortcuts"
+  #  class: "active shortcuts"
+  #  sub:
+  #    - "[[APIs|RiakCS Storage API]]"
+  #    - "[[FAQs|Riak CS FAQs]]"
 
   - title: "Start Here"
     class: "start"

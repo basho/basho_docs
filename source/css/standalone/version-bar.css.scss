@@ -19,32 +19,62 @@ $layout-layout:smart;
   width           : 4.2em;
 }
 
+.versions {
+   position    : fixed;
+   top         : 118px;
+   margin-left : -72px;
+   width       : 50px;
+   height      : 100%;
+}
 
-ol.versions,
-ol.versions li {
+#version-ddown {
+  position      : relative;
+  padding       : 3px 0;
+  margin-bottom : 14px;
+  background    : $subtleBlueGreen;
+  text-align    : center;
+  cursor        : pointer;
+  color         : $darkBlueGreen;
+  font-size     : 0.85rem;
+  font-weight   : bold;
+  border        : 1px solid $lightBlueGreen;
+  @include allCorners();
+  @include transitionAll(all 0.5s ease);
+
+  &.selected {
+    background : $darkBlueGreen;
+    border     : 1px solid $darkBlueGreen;
+    color      : #fff;
+  }
+
+  #version-ddown-arrow {
+    position : absolute;
+    left     : 18px;
+    bottom   : -10px;
+    @include arrowVertical(top, bottom, 6px, $orange);
+  }
+}
+
+ol#version-list,
+ol#versions-list li {
   list-style: none;
   list-style-image: none;
   margin: 0;
   padding: 0;
 }
-ol.versions {
-  float: right;
-  margin-top: 2.1em;
-  //clear         : left;
-  //margin-bottom : 1em;
-  //padding-top   : 15px;
-
+ol#version-list {
+  display     : none;
   //margin: 0;
   //padding: 0;
   
   > li {
     &:first-child {
       @include corner(left, top);
-      @include corner(left, bottom);
+      @include corner(right, top);
     }
     
     &:last-child {
-      @include corner(right, top);
+      @include corner(left, bottom);
       @include corner(right, bottom);
     }
   }
@@ -52,17 +82,20 @@ ol.versions {
   li {
     @include bgPattern('light-green-bg.jpg');
     border        : 1px solid $darkGreen;
-    display       : inline-block;
+    //border-bottom : 0;
+    display       : block;
     font-size     : 8pt;
-    margin-right  : 1px;
+    //margin-right  : 1px;
     margin-bottom : 1px;
     
     ol {
       display:none;
       margin:0;
       margin-left:-1px;
+      margin-top : -18px;
       padding:2px 0;
       position: absolute;
+      right : -48px;
       max-width:5em !important;
       li {
         z-index:500;
@@ -70,8 +103,9 @@ ol.versions {
     }
 
     &:hover {
-      background : $orange;
-      border     : 1px solid $darkOrange;
+      background    : $orange;
+      border        : 1px solid $darkOrange;
+      //border-bottom : 0;
 
       & > ol { 
         display:block;
@@ -79,11 +113,13 @@ ol.versions {
     }
     
     &.inactive {
-      background : #DDD;
-      border     : 1px solid #BBB;
+      background    : #DDD;
+      border        : 1px solid #BBB;
+      //border-bottom : 0;
       &:hover {
-        background : #DDD;
-        border     : 1px solid #BBB;
+        background    : #DDD;
+        border        : 1px solid #BBB;
+        //border-bottom : 0;
       }
       a {
         cursor : default;
@@ -95,8 +131,9 @@ ol.versions {
     }
 
     &.current {
-      background : $orange;
-      border     : 1px solid $darkOrange;
+      background    : $orange;
+      border        : 1px solid $darkOrange;
+      //border-bottom : 0;
       
       > a {
         color : #fff;

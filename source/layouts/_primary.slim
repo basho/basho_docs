@@ -1,19 +1,71 @@
 aside#nav-container role="complementary"
   nav.overview#primary-nav role="nav"
-    h2.responsive-link
-      == I18n.t(:navigation)
-      a.responsive-toggle
-    h3.responsive-link.visit-basho
-      a href="http://www.basho.com"== I18n.t(:visit_basho)
-    h3.responsive-link
-      a href="/index.html"== I18n.t(:all_projects)
-    - project = data.page.project || $default_project
-    - global_nav[project].each do |section|
-      - add_class = section['class'] || ''
-      - nav_data, active = build_nav(section['sub'], add_class)
-      h3(class=(active ? "active #{add_class}" : add_class))
-        span==section['title']
-      ==nav_data
-  .submissions-note
-    a href='https://github.com/basho/basho_docs' target='_blank'
-      == I18n.t(:docs_on_github)
+    div
+      form action="http://search.basho.com"
+        div.nav-field-container
+          div.search-icon-container
+            div.icon-container
+              span(aria-hidden="true" data-icon="&#xf002;" class="nav-icon nav-icon-search")
+            span.separator
+              |
+                &#124;
+          input#main-search size="5" type="search" placeholder="Search" name="q"
+      h2.responsive-link
+        == I18n.t(:navigation)
+        a.responsive-toggle
+      h3.responsive-link.visit-basho
+        a href="http://www.basho.com"== I18n.t(:visit_basho)
+      h3.responsive-link
+        a href="/index.html"== I18n.t(:all_projects)
+      - project = data.page.project || $default_project
+      - global_nav[project].each do |section|
+        - add_class = section['class'] || ''
+        - nav_data, active = build_nav(section['sub'], add_class)
+        h3(class=(active ? "active #{add_class}" : add_class))
+          div.icon-container
+            - if section['title'] == 'Start Here'
+              span(aria-hidden="true" data-icon="&#xf0e7;" class="nav-icon")
+            - if section['title'] == 'Riak for Developers'
+              span(aria-hidden="true" data-icon="&#xe005;" class="nav-icon")
+            - if section['title'] == 'Riak for Operators' || section['title'] == 'Operating Riak Enterprise'
+              span(aria-hidden="true" data-icon="&#xf013;" class="nav-icon")
+            - if section['title'] == 'Theory & Concepts'
+              span(aria-hidden="true" data-icon="&#xf0c3;" class="nav-icon")
+            - if section['title'] == 'Community'
+              span(aria-hidden="true" data-icon="&#xe000;" class="nav-icon")
+            - if section['title'] == 'View APIs'
+              span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
+            - if section['title'] == 'All Riak Projects'
+              span(aria-hidden="true" data-icon="&#xe003;" class="nav-icon")
+            - if section['title'] == 'Installing'
+              span(aria-hidden="true" data-icon="&#xe007;" class="nav-icon")
+            - if section['title'] == 'Multi Data Center'
+              span(aria-hidden="true" data-icon="&#xe006;" class="nav-icon")
+            - if section['title'] == 'Configuring'
+              span(aria-hidden="true" data-icon="&#xe00a;" class="nav-icon")
+            - if section['title'] == 'Riak CS Enterprise'
+              span(aria-hidden="true" data-icon="&#xe008;" class="nav-icon")
+            - if section['title'] == 'References'
+              span(aria-hidden="true" data-icon="&#xf02d;" class="nav-icon")
+          span.separator
+            |
+              &#124;
+          span==section['title']
+        ==nav_data
+  ul#links-bottom
+    li
+      a href="https://github.com/basho/basho_docs" target="_blank"
+        div.icon-container
+          span(aria-hidden="true" data-icon="&#xe004;" class="nav-icon")
+        span.separator
+          |
+            &#124;
+        | Available on GitHub
+    li
+      a href=""
+        div.icon-container
+          span(aria-hidden="true" data-icon="&#xf059;" class="nav-icon")
+        span.separator
+          |
+            &#124;
+        | Get Help

@@ -71,16 +71,18 @@ html {
 body {
   
   aside#nav-container {
-    @include bgPattern('nav-bg.jpg', #4f4f50);
     @include size(232px, 100%);
-    overflow : auto;
+    overflow : hidden;
     position : fixed;
     top      : 0;
     left     : 0;
     z-index  : 1;
+    background : #eaecef;
     
     #primary-nav {
-      padding : 5px 12px;
+      padding : 0;
+      height : auto !important;
+      min-height: 100%;
       -o-user-select: none;
       -ms-user-select: none;
       -moz-user-select: none;
@@ -175,7 +177,7 @@ body {
   div[role="main"] {
     //@include bgPattern('content-bg.jpg', $subtleGray);
     @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
-    padding  : 0 25px;
+    padding  : 0 25px 0 65px;
     margin   : 0 0 0 232px;
     position : relative;
     z-index  : 2;
@@ -195,16 +197,15 @@ body {
   }
   
   footer.mastfooter {
-    @include bgPattern('footer-bg.jpg');
-    @include size(100%, auto);
-    padding  : 25px 0;
-    position : absolute;
-    margin   : 25px -25px 0;
-    text-shadow : #333 1px 1px 1px;
-    line-height : 1.2;
+    //@include size(100%, auto);
+    padding       : 25px 25px 25px 65px;
+    margin        : 25px 0 0 0;
+    line-height   : 1.2;
+    border-top    : 1px solid $subtleGray;
+    color         : $darkGrey;
     a {
-      color:white;
-      text-decoration:none;
+      color           : $darkGrey;
+      text-decoration : none;
       &[href^="http://"], &[href^="https://"] {
         background:none;
         padding-right: 0;
@@ -302,7 +303,7 @@ iframe {
 
 #nav-container {
   @extend .sans;
-  @include boxShadow(inset -10px 0 15px #333);
+  //@include boxShadow(inset 0 0 15px #999);
   color : $subtleGray;
   
   @media screen and (max-width: 700px) {
@@ -311,36 +312,107 @@ iframe {
 
   a {
     @extend .block;
-    @include bgPattern('nav-li-bg6.jpg', #393939);
-    color           : #fff;
-    padding         : 7px 12px;
-    border-left     : 4px solid $fadedGreen;
+    color           : $darkGrey;
+    padding         : 7px 18px;
     text-decoration : none;
+    @include transitionAll(color 0.5s ease);
     
     &:hover {
-      background        : #515151;
-      background        : rgba(255, 255, 255, .12);
-      border-left-color : $lightGreen;
+      color : $extraDarkGrey;
     }
   }
-  
-  .current a {
-    border-left : 4px solid $orange;
-    cursor      : default;
-  }
-  .current a:hover {
-    @include bgPattern('nav-li-bg6.jpg', #393939);
-  }
-  
-  h3, h4 {
-    cursor : pointer;
+
+  .current {
+    //background-color : $blueGreen;
+
+    a {
+      cursor : default;
+    }
   }
 
+  .current a:hover {
+    //@include bgPattern('nav-li-bg6.jpg', #393939);
+  }
+
+  .search-icon-container {
+    position    : absolute;
+    top         : 0;
+    left        : 0;
+    padding     : 10px;
+    line-height : 1rem;
+    z-index     : 4;
+    font-size   : 1.05rem;
+  }
+
+  .icon-container {
+    display    : inline-block;
+    width      : 1.25rem;
+    text-align : center;
+  }
+
+  .separator {
+    font-weight : normal;
+    color       : #8e939a;
+  }
+  
+  .nav-field-container {
+    position : relative;
+
+    input[type="search"],
+    input[type="text"] {
+      position    : relative;
+      width       : 80%;
+      background-color : $fieldGrey;
+      padding     : 10px 0 10px 20%;
+      margin      : 0;
+      border      : none;
+      color       : #fff;
+      line-height : 1rem;
+      font-family : 'titillium', verdana, arial, sans-serif;
+      font-size   : 115%;
+
+      &::-webkit-input-placeholder { /* WebKit browsers */
+        color:    #fff;
+      }
+      &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #fff;
+      }
+      &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #fff;
+      }
+      &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color:    #fff;
+      }
+    }
+
+    input[type="search"]:focus,
+    input[type="text"]:focus {
+      color            : #fff;
+      background-color : $darkGrey;
+    }
+
+    .separator,
+    .nav-icon {
+      color : #fff;
+    }
+  }
+
+  .nav-icon {
+    font-family: 'DocsFontIcons';
+    color : #8e939a;
+
+    &.nav-icon-search {
+      color: #fff;
+    }
+  }
+
+  /*
   h3.start {
     border      : 1px solid $fadedGreen;
     border-left : 4px solid $fadedGreen;
     @include corner(right, top);
   }
+  */
 
   h2.responsive-link {
     display : none;
@@ -373,11 +445,15 @@ iframe {
   }
   
   h3, h4 {
-    @extend .text-shadow;
-    @include bgPattern('nav-header-bg2.jpg', transparent);
-    border-left : 4px solid $fadedGreen;
+    //@extend .text-shadow;
+    //@include bgPattern('nav-header-bg2.jpg', transparent);
+    //border-left : 4px solid $fadedGreen;
+    @include bgPattern('nav-bg.jpg', #4f4f50);
+    @include transitionAll(color 0.5s ease);
     padding     : 5px 8px 5px 10px;
     overflow    : visible;
+    color       : $darkGrey;
+    cursor      : pointer;
     
     a {
       background : none;
@@ -399,20 +475,39 @@ iframe {
     
     &:hover {
       span.menu-toggle {
-        @include layout-sprite(menu-closed-hover);
+        border        : 5px solid transparent;
+        border-bottom : none;
+        border-top    : 5px solid $darkGrey;
         
         &.open {
-          @include layout-sprite(menu-open-hover);
+          border        : 5px solid transparent;
+          border-bottom : 5px solid $darkGrey;
+          border-top    : none;
         }
       }
     }
+  }
+  
+  h3 {
+    border-bottom : 1px solid $lightGrey;
+    font-size     : 1.05rem;
   }
   
   h3 span a {
     display : inline-block;
     width   : 100%;
   }
+
+  h4 {
+    &:hover {
+      color : $extraDarkGrey;
+    }
+  }
   
+  .depth-1 {
+    @extend .clear;
+  }
+
   .depth-1 h3, .depth-2 h3, .depth-3 h3,
   .depth-1 h4, .depth-2 h4, .depth-3 h4 {
     margin-right : 0;
@@ -426,8 +521,8 @@ iframe {
   }
   
   h3 {
-    font-size  : 135%;
-    margin-top : 7px;
+    //font-size  : 135%;
+    //margin-top : 7px;
     
     @media screen and (max-width: 700px) {
       font-size : 115%;
@@ -444,7 +539,8 @@ iframe {
   
   h4 {
     @extend .sans;
-    font-size : 115%;
+    padding-left : 18px;
+    //font-size : 115%;
   }
   
   ul {
@@ -456,30 +552,94 @@ iframe {
   }
   
   .depth-1 li {
-    border-left : 4px solid $fadedGreen;
+    @include bgPattern('nav-bg.jpg', #4f4f50);
+    //padding-left : 8px;
+
+    &.current {
+      background : $blueGreen;
+
+      a {
+        color: #fff;
+      }
+    }
   }
   
-  li:last-child {
-    margin-bottom : 8px;
+  .depth-1 li:last-child {
+    border-bottom : 1px solid $lightGrey;
   }
   
   .depth-2, .depth-3 {
     margin-left : 0px;
   }
+
+  .depth-2 {
+    a,
+    h4 {
+      padding-left : 26px;
+    }
+  }
+
+  .depth-3 a {
+    padding-left : 34px;
+  }
+
+  .depth-3 li:last-child,
+  .depth-2 li:last-child {
+    border-bottom : 0;
+  }
   
   span.menu-toggle {
     @extend .block;
-    @include size(21px, 21px);
-    @include layout-sprite(menu-closed);
-    float      : right;
-    margin     : 3px -5px 0 0;
+    @include size(1px, 0);
+    float         : right;
+    margin        : 10px 2px 0 0;
+    content       : '';
+    @include arrowVertical(top, bottom, 5px, $lightGrey);
+    @include transitionAll(border-color 0.5s ease);
     
     &.open {
-      @include layout-sprite(menu-open);
+      @include arrowVertical(bottom, top, 5px, $lightGrey);
     }
     
     &.extra-margin {
       margin-top : 10px;
+    }
+  }
+
+  #links-bottom {
+    display : block;
+    @include size(100%, 74px);
+    clear : both;
+    position        : relative;
+    margin          : -76px 0 0 0;
+    padding         : 0;
+    list-style-type : none;
+    border-top      : 1px solid $darkBlueGreen;
+
+    li {
+      margin  : 0;
+      padding : 0;
+      //height  : 30px;
+
+      a {
+        display       : block;
+        background    : $blueGreen;
+        color         : #fff;
+        font-weight   : bold;
+        height        : 26px;
+        border-bottom : 1px solid $darkBlueGreen;
+        font-size     : 1.05rem;
+        padding       : 5px 8px 5px 10px;
+
+        span {
+          padding-right : 5px;
+        }
+
+        .separator,
+        .nav-icon {
+          color : #fff;
+        }
+      }
     }
   }
 }
@@ -509,7 +669,7 @@ div[role="main"] {
   overflow  : visible;
   
   &.closed {
-    @include boxShadow(-10px -10px 10px #333);
+    //@include boxShadow(-10px -10px 10px #333);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -619,9 +779,31 @@ div[role="main"] {
   }
   
   .masthead {
-    padding    : .8em 1em 0 0;
-    text-align : center;
-    overflow   : visible;
+    padding       : .8em 0 .8em 0;
+    margin-bottom : 20px;
+    text-align    : center;
+    overflow      : visible;
+    border-bottom : 1px solid $subtleGray;
+
+    #nav-toggle {
+      position         : fixed;
+      top              : 19px;
+      margin-left      : -56px;
+      padding          : 14px;
+      display          : block;
+      cursor           : pointer;
+      color            : $lightGrey;
+      font-size        : 1.5rem;
+      @include transitionAll(all 0.5s ease);
+      
+      &:hover {
+        color : $darkGrey;
+      }
+
+      @media screen and (max-width: 700px) {
+        display : none;
+      }
+    }
     
     a.responsive-toggle {
       @include layout-sprite(toggle-button-light);
@@ -646,7 +828,7 @@ div[role="main"] {
     
     .logo {
       @extend .block;
-      @include size(270px, 44px);
+      @include size(185px, 33px);
       @include layout-sprite(logo);
       margin-top : 11px;
       
@@ -655,12 +837,10 @@ div[role="main"] {
       }
 
       @media screen and (max-width: 1300px) {
-        @include size(270px, 44px);
-        margin-left : 12px;
+        @include size(185px, 33px);
       }
       
       @media screen and (max-width: 700px) {
-        margin-left : 12px;
         margin-top  : auto;
       }
       
@@ -675,7 +855,7 @@ div[role="main"] {
     }
     
     .tagline {
-      display: none;
+      display    : none;
       @extend .block;
       text-align : left;
       margin     : 4px 0 0 3px;
@@ -686,11 +866,10 @@ div[role="main"] {
     }
     
     .shadow-divider {
-      @include size(100%, 26px);
-      padding : 1.2em 0 0 .5em;
-
-      //@include layout-sprite(shadow-divider);
-      //margin : 1.2em 0 0 .5em;
+      @include size(100%, 1px);
+      padding       : 1.2em 0 0 .5em;
+      border-bottom : 1px solid $subtleGray;
+      margin-bottom : 1.2em;
       
       @media screen and (max-width: 700px) {
         display : none;
@@ -701,34 +880,57 @@ div[role="main"] {
       float      : right;
       text-align : center;
       position   : relative;
-      padding    : 32px 0 0 0;
+      padding    : 8px 0 8px 0;
       
-      a {
-        display: none;
-        @extend .green-link;
-        @extend .block;
-        @include bgPattern('light-green-bg.jpg');
-        @include size(4.2em, auto);
-        padding : 0 15px; 
-        margin  : 0 0 1px 0;
-        border  : 1px solid $darkGreen;
+      a,
+      #nav-more {
+        @extend .inline-block;
+        color           : #fff;
+        color           : rgba(255, 255, 255, 0.9);
         text-decoration : none;
-        
+        text-align      : center;
+        padding         : 8px;
+        cursor          : pointer;
+        @include allCorners();
+        @include transitionAll(all 0.5s ease);
+      }
+
+      a {
+        background    : $orange;
+        margin        : 0 10px 0 0;
+        padding-right : 16px;
+        font-weight   : bold;
+
         &:hover {
           background : $orange;
-          border     : 1px solid $darkOrange;
           color      : #fff;
+          color      : rgba(255, 255, 255, 1.0);
         }
-        
-        &:first-child {
-          margin-top : 10px;
+
+        [class^="icon-"] {
+          padding : 0 10px;
         }
       }
 
-      input[type="search"] {
-        position    : absolute;
-        top         : 0;
-        right       : -3px;
+      #nav-more {
+        font-family : 'DocsFontIcons';
+        margin      : 0;
+        background  : $blueGreen;
+
+        &.selected {
+          background : $darkBlueGreen;
+          color      : #fff;
+          color      : rgba(255, 255, 255, 1.0);
+        }
+
+        &.unselected {
+          //background : $blueGreen;
+        }
+
+        &:hover {
+          color : #fff;
+          color : rgba(255, 255, 255, 1.0);
+        } 
       }
 
       @media screen and (max-width: 700px) {
@@ -736,6 +938,58 @@ div[role="main"] {
       }
     }
     
+    #nav-menu {
+      display       : none;
+      position      : absolute;
+      top           : 72px;
+      right         : 25px;
+      padding       : 14px;
+      background    : #fff;
+      text-align    : left;
+      z-index       : 5;
+      border        : 1px solid $lightGrey;
+      border-radius : 5px;
+      
+      h2 {
+        margin : 0;
+        padding : 0;
+        font-size   : 1rem;
+        font-weight : bold;
+      }
+
+      ul {
+        list-style-type : none;
+        margin : 0;
+        padding : 0;
+
+        li {
+          margin : 0;
+          padding : 0;
+
+          a {
+            //display   : block;
+            width     : 100%;
+            font-size : 1rem;
+          }
+        }
+      }
+
+      #nav-menu-arrow {
+        position      : absolute;
+        top           : -7px;
+        right         : 8px;
+        @include arrowVertical(bottom, top, 7px, #fff);
+        z-index       : 7;
+      }
+
+      #nav-menu-arrow-back {
+        position      : absolute;
+        top           : -9px;
+        right         : 6px;
+        @include arrowVertical(bottom, top, 9px, $lightGrey);
+        z-index       : 6;
+      }
+    }
   }
 
   
@@ -773,32 +1027,6 @@ div[role="main"] {
     position : relative;
     padding  : 0 0 0 20px;
     font-size: 110%;
-
-    #nav-toggle {
-      @include size(38px, 38px);
-      @include layout-sprite(nav-toggle-left);
-      background-color : #515356;
-      position         : fixed;
-      top              : 8.8em;
-      margin-left      : -56px;
-      display          : block;
-      border-radius    : 23px;
-      border           : 4px solid $subtleGray;
-      cursor           : pointer;
-
-      &.closed {
-        @include layout-sprite(nav-toggle-right);
-        background-color : #515356;
-      }
-      
-      &:hover {
-        border:4px solid $orange;
-      }
-
-      @media screen and (max-width: 700px) {
-        display : none;
-      }
-    }
     
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
       max-width: 600px;
@@ -818,7 +1046,8 @@ div[role="main"] {
   }
   
   aside.secondary {
-    @include bgPattern('nav-bg.jpg', #4f4f50);
+    //@include bgPattern('nav-bg.jpg', #dadcdf);
+    background : $extraDarkGrey;
     @include allCorners();
     @include boxShadow(inset 0 0 25px #333);
     padding       : 25px;
@@ -1179,7 +1408,8 @@ article {
 }
 
 
-#top-nav input[type="search"],
+/* #top-nav input[type="search"],*/
+
 #search-404
 {
   @include allCorners(15px);

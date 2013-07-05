@@ -2,17 +2,25 @@
    Variables
    ========================================================================== */
 
-$headerColor : #616366;
-$textColor   : #000000;
-$linkBlue    : #2984a9;
-$orange      : #f99d33;
-$lightOrange : #fcc07f;
-$darkOrange  : darken($orange, 15%);
-$subtleGray  : #eaeaea;
-$lightGreen  : #a7c7bf;
-$fadedGreen  : darken(saturate(#6f8a86, 3%), 8%);
-$darkGreen   : darken($lightGreen, 10%);
-$inactiveText: #AAA;
+$headerColor     : #616366;
+$textColor       : #000000;
+$linkBlue        : #2984a9;
+$orange          : #f99d33;
+$lightOrange     : #fcc07f;
+$darkOrange      : darken($orange, 15%);
+$extraDarkGrey   : #222222;
+$darkGrey        : #777a7e;
+$fieldGrey       : #b0b3b6;
+$lightGrey       : #ccced1;
+$subtleGray      : #eaeaea;
+$lightGreen      : #a7c7bf;
+$blueGreen       : #79aeb5;
+$darkBlueGreen   : #619ba3;
+$lightBlueGreen  : #bcd6da;
+$subtleBlueGreen : #ebf2f3;
+$fadedGreen      : darken(saturate(#6f8a86, 3%), 8%);
+$darkGreen       : darken($lightGreen, 10%);
+$inactiveText    : #AAA;
 
 /* =============================================================================
    Mixins
@@ -62,4 +70,16 @@ $inactiveText: #AAA;
   -webkit-transition : $args;
   -moz-transition    : $args;
   -ms-transition     : width 0.5s ease;
+}
+
+@mixin transitionAll($args) {
+  -webkit-transition : $args;
+  -moz-transition    : $args;
+  -ms-transition     : all 0.5s ease;
+}
+
+@mixin arrowVertical($base, $point,  $size, $color) {
+  border           : #{$size} solid transparent;
+  border-#{$base}  : #{$size} solid #{$color};
+  border-#{$point} : none;
 }
