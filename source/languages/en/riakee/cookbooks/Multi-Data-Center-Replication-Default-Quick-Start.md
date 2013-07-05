@@ -13,9 +13,9 @@ The Riak Multi Data Center Replication Quick Start will walk through the process
 ### Prerequisites
 This Guide assumes that you have completed the following steps:
 
-* Install [Riak Enterprise](http://docs.basho.com/riakee/latest/) 
-* Perform [System Tuning](http://docs.basho.com/riak/latest/cookbooks/Linux-Performance-Tuning/) (optional)
-* Reviewed the Default Replication [Configuration](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Configuration/) page.
+* Install [[Riak Enterprise]]
+* Perform [[System Turning|Linux Performance Tuning]]
+* Reviewed [[Configuration|Multi Data Center Replication Configuration]]
 
 ### Scenario
 Configure Riak MDC to perform replication, given the following two (2) three-node Riak Enterprise Clusters: 
@@ -34,7 +34,7 @@ node4 | 192.168.1.21 | riak@192.168.1.21
 node5 | 192.168.1.22 | riak@192.168.1.22
 node6 | 192.168.1.23 | riak@192.168.1.23
 
-> NOTE: The addresses used in the example clusters are contrived, non-routable addresses; however, in real world applications these addresses would need to be routable over the public Internet.
+> The addresses used in the example clusters are contrived, non-routable addresses; however, in real world applications these addresses would need to be routable over the public Internet.
 
 
 ### Set Up Cluster1 → Cluster2 Replication
@@ -51,7 +51,7 @@ On a node in Cluster2, `node4` for example, inform the replication clients where
 
     riak-repl add-site 172.16.1.11 9010 Cluster1
 
-> NOTE: While a Listener needs to be added to each node, only a single Site needs to be added on the Site cluster.  Once connected to the Source cluster, it will get the locations of the rest of the Listeners in the Source cluster.
+> While a Listener needs to be added to each node, only a single Site needs to be added on the Site cluster.  Once connected to the Source cluster, it will get the locations of the rest of the Listeners in the Source cluster.
 
 
 ### Verify the Replication Configuration
@@ -74,7 +74,7 @@ On the Cluster1 node, verify that there are `listener_<nodename>`s for each list
                              {state,wait_for_partition}]}}]
                          
 
-On the Cluster2 node, verify that `Cluster1_ips`. `leader`,  and `client_stats` are populated.  They should look similar to the following:
+On the Cluster2 node, verify that `Cluster1_ips`, `leader`,  and `client_stats` are populated.  They should look similar to the following:
 
     Cluster1_ips: "172.16.1.11:9010, 172.16.1.12:9010, 172.16.1.13:9010"
     leader: 'riak@192.168.1.21'
@@ -131,6 +131,8 @@ exit 0
 
 ```
 
+You will have to change some of the above variables for your own environment, such as IP addresses or ports.
+
 If you run this script and things are working as expected, you will get the following output:
 
     C1 PUT Successful
@@ -171,7 +173,7 @@ On the Cluster1 node, verify that `Cluster2_ips`. `leader`,  and `client_stats` 
                              {connected,"192.168.1.21",9010},
                              {state,wait_for_fullsync}]}}]
 
-On the Cluster2 node, verify that there are `listener_<nodename>`s for each listening node, and that `leader`,  and `server_stats` are populated.  They should look similar to the following:
+On the Cluster2 node, verify that there are listener entries for each listening node, and that `leader`,  and `server_stats` are populated.  They should look similar to the following:
 
     listener_riak@192.168.1.21: "192.168.1.21:9010"
     listener_riak@192.168.1.22: "192.168.1.22:9010"
@@ -248,6 +250,8 @@ exit 0
 
 ```
 
+You will have to change some of the above variables for your own environment, such as IP addresses or ports.
+
 If you run this script and things are working as expected, you will get the following output:
 
     C1 PUT Successful
@@ -259,15 +263,15 @@ If you run this script and things are working as expected, you will get the foll
 ### Full Sync
 
 #### About the fullsync operation
-During real-time replication, operations coordinated by the Source cluster will be replicated to the Site cluster.  Riak Objects are placed in a queue on the Source cluster and streamed to the Site cluster. When the queue is full due to high traffic or a bulk loading operation, some objects will be dropped from replication. These dropped objects can be sent to the Site cluster by running a fullsync operation. The settings for the realtime replication queue and their explanations are available [here](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Configuration/).
+During real-time replication, operations coordinated by the Source cluster will be replicated to the Site cluster.  Riak Objects are placed in a queue on the Source cluster and streamed to the Site cluster. When the queue is full due to high traffic or a bulk loading operation, some objects will be dropped from replication. These dropped objects can be sent to the Site cluster by running a fullsync operation. The settings for the realtime replication queue and their explanations are available in the [[Multi Data Center Replication Configuration]] documentation.
 
 #### Initiating a fullsync
 To start a fullsync operation, issue the following command on your leader node:
 
 	riak-repl start-fullsync
 	
-A fullsync operation may also be cancelled.  If a partition is in progress, synchronization will stop after that partition completes.  During cancellation, riak-repl status will show 'cancelled' in the status.
+A fullsync operation may also be cancelled.  If a partition is in progress, synchronization will stop after that partition completes.  During cancellation, `riak-repl status` will show 'cancelled' in the status.
 
 	riak-repl cancel-fullsync
 	
-Fullsync operations may also be paused, resumed, or scheduled for certain times using cron jobs.  A complete list of fullsync commands is available in the [Operations](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Operations/) section of the Riak Enterprise Multi Data Center Documentation. 
+Fullsync operations may also be paused, resumed, or scheduled for certain times using cron jobs.  A complete list of fullsync commands is available in the [[MDC Operations|Multi Data Center Replication Operations#Operations]] documentation.

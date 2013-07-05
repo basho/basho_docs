@@ -8,14 +8,14 @@ audience: intermediate
 keywords: [mdc, repl, bnw]
 ---
 
-The Riak Multi Data Center Replication Quick Start will walk through the process of configuring Riak's Advanced Replication to perform replication between two sample Riak clusters in separate networks.  This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.
+The Riak Multi Data Center Replication Quick Start will walk you through the process of configuring Riak's Advanced Replication to perform replication between two sample Riak clusters on separate networks.  This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.
 
 ### Prerequisites
 This Guide assumes that you have completed the following steps:
 
-* Install [Riak Enterprise](http://docs.basho.com/riakee/latest/) 
-* Perform [System Tuning](http://docs.basho.com/riak/latest/cookbooks/Linux-Performance-Tuning/) (optional)
-* Reviewed the Advanced Replication [Configuration](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Configuration-New/) page.
+* Install [[Riak Enterprise]]
+* Perform [[System Turning|Linux Performance Tuning]]
+* Reviewed [[Configuration|Multi Data Center Replication Configuration New]]
 
 ### About Advanced Replication in 1.3
 In Riak's Advanced Replication in 1.3, the nomenclature for Source and Site clusters has changed. To more accurately reflect the behavior of each of the clusters, "listeners" and "sites" are now known as "sources" and "sinks". Data transfer now originates at the "source" and replicates to the "sink"; initiation is always from the primary (source) to the backup (sink) data center. Additionally, the knowledge of the state of each cluster is now managed by a "cluster manager" process which greatly simplifies the setup and maintenance of MDC replication.
@@ -58,7 +58,7 @@ From Cluster1, connect to the IP and port of Cluster2 with `riak-repl  connect <
 
 	riak-repl connect 10.60.77.10:9080
 
-> NOTE: The port can be found in the riak_core section of the app.config under cluster_mgr.
+> The port can be found in the riak_core section of the app.config under cluster_mgr.
 	
 #### View your active connections
 
@@ -88,7 +88,7 @@ Sink             Cluster Name         <Ctrl-Pid>      [Members]
 Cluster1          Cluster1            <0.4456.0>      ["10.60.67.149:9080"] (via 10.60.67.149:9080)
 ```
 
-> NOTE: At this point if you do not have connections, then replication will not work.  Check your IP bindings running 'netstat -a' on all nodes, you should see '*:9080 LISTENING'. If not, you have configuration problems.
+> At this point if you do not have connections, then replication will not work.  Check your IP bindings running 'netstat -a' on all nodes, you should see '*:9080 LISTENING'. If not, you have configuration problems.
 
 
 
@@ -106,5 +106,5 @@ To enable bidirectional replication, do the reverse from Cluster2.  Once this is
 	
 ### More information
 	
-For a full list of commands, you may enter `riak-repl` to see full instructions on usage, or check the documentation [here] (http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Operations-New/). 
+For a full list of commands, you may enter `riak-repl` to see full instructions on usage, or check the [[Operations|Multi Data Center Replication: Operations (Advanced)]] documentation. 
 
