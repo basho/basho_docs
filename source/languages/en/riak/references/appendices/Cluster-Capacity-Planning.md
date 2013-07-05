@@ -107,13 +107,13 @@ won't need as much RAM available to cache those keys' values.
 Number of Nodes
 ---------------
 The number of nodes (i.e. physical servers) in your Riak Cluster depends
-on the number of times data is [[Replicated|Replication]] across the cluster.  
+on the number of times data is [[Replicated|Replication]] across the cluster.
 To ensure that the cluster is always available to respond to read and write requests, Basho recommends
 a "sane default" of N=3 replicas.  This requirement can be met with a three
 or four node cluster (as implemented in [[The Riak Fast Track|fast-track]]).
 However, for production deployments we recommend using no fewer than 5 nodes, as node failures
 in smaller clusters can compromise the fault-tolerance of the system.  Additionally, in clusters smaller than
-5 nodes, a high percentage of the nodes (75-100% of them) will need to respond to each request, putting undue load on the 
+5 nodes, a high percentage of the nodes (75-100% of them) will need to respond to each request, putting undue load on the
 cluster that may degrade performance.  For more details on this recommendation, see this [blog post](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/).
 
 
@@ -132,9 +132,10 @@ is recommended you consider a larger ring size. Ring sizes must be a
 power of 2. The minimum number of partitions recommended per node is 10,
 and you can determine the number of partitions that will be allocated
 per node by dividing the number of partitions by the number of nodes.
+{{#<1.4.0}}
 **At the moment, the ring size you choose will be the same for the life
 of the cluster, so taking growth into consideration is extremely
-important.**
+important.**{{/<1.4.0}}
 
 For most moderate-sized Riak clusters (8-16 nodes) 128, 256, and 512
 partitions are excellent options that will allow you to incrementally

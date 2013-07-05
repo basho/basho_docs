@@ -10,24 +10,19 @@ keywords: [operator, 2i]
 
 ## Configuration
 
-As of version 1.0, Secondary Indexes are enabled by configuring Riak to use the ELevelDB backend `riak_kv_eleveldb_backend`. Currently, the ELevelDB backend is the only index-capable backend.  
+Secondary indexes (2i) are enabled by configuring Riak to use the [[LevelDB]] or [[Memory]] backend (or one of those in conjunction with the [[Multi]] backend.
 
-<div class="info">
-<div class="title">Using Secondary Indexes with Multi-Backend</div>
-The only local storage backend that supports Secondary Indexes is ELevelDB. However, as of Riak 1.1.x, you can use the [[Multi Backend|Multi]] configuration to use other backends in the same cluster that is using Secondary Indexing.  
-</div>	
-
-Open the `app.config` configuration file in an editor, and change the `storage_backend` setting to `riak_kv_eleveldb_backend`.
-
-All nodes in a cluster must be configured to use an indexing-capable backend for Secondary Indexes to work properly.
+All nodes in a cluster must be configured to use an indexing-capable backend for secondary indexes to work properly.
 
 ### Migrating an Existing Cluster
 
-Remove a node from the cluster, enable Secondary Indexes, and re-add it to the cluster.
+**Warning**: this should be done with caution to avoid overburdening your cluster. This will involve migrating all data on any given node to other nodes in the cluster, resulting in higher than usual network and disk I/O.
 
-1. Choose one node in the cluster. Run `riak-admin leave` on the node. 
+These steps will remove a node from the cluster, enable a backend that supports 2i, and re-add it to the cluster.
+
+1. Choose one node in the cluster. Run `riak-admin leave` on the node.
 2. Wait for transfers to complete. Then, run `riak stop`.
-3. Turn on Secondary Indexes by configuring Riak to use the ELevelDB backend, `riak_kv_eleveldb_backend`.
+3. Turn on 2i by configuring Riak to use the appropriate backend.
 4. Run `riak-admin join`
 5. Repeat with remaining nodes.
 
@@ -57,7 +52,7 @@ The indexes on an object contribute to the overall size of an object. The number
 
 The size of an individual index is also limited only by resources, but note that some HTTP proxies impose size limits on HTTP headers. Since indexes are encoded as HTTP headers when using the HTTP interface, this may affect the maximum index value size.
 
-On disk, indexes contribute to the overall size of the object, and are also stored in a separate structure that takes additional disk space. The overhead for each additional index is minimal. ELevelDB employs prefix compression, which can also drastically reduce the amount of disk space an index requires.
+On disk, indexes contribute to the overall size of the object, and are also stored in a separate structure that takes additional disk space. The overhead for each additional index is minimal. LevelDB employs prefix compression, which can also drastically reduce the amount of disk space an index requires.
 
 ### An Object's Indexes and Value Are Orthogonal
 
@@ -69,21 +64,20 @@ This may seem inefficient in the cases where data is duplicated, but it leads to
 
 ## Index Lookups
 
-In version 1.0 of Riak, index queries are only supported on one index field at a time. The query can specify either an exact match or a range of values. Range queries are inclusive, so results may match the start or end value. The query operation returns a list of matching keys. The application may then decide to loop through each key, looking up the value from Riak.
+Index queries are only supported on one index field at a time. The query can specify either an exact match or a range of values. Range queries are inclusive, so results may match the start or end value. The query operation returns a list of matching keys. The application may then decide to loop through each key, looking up the value from Riak.
 
-Currently, the result order is undefined, and there is no way to directly pull back a list of objects using Secondary Indexes. This may change in the future.
+Currently, the result order is undefined, and there is no way to directly pull back a list of objects using secondary indexes. This may change in the future.
 
 An index query can be piped into a MapReduce job, allowing applications to sort, filter, or process query results in parallel across a cluster.
 
 ### Lookup Performance
 
-Secondary Indexes uses document-based partitioning, which means that the indexes for an object are stored on the same partition as the object itself. This has implications on query-time performance. When issuing a query, the system must read from what we call a "covering" set of partitions. The system looks at how many replicas of our data are stored and determines the minimum number of partitions that it must examine to retrieve a full set of results, accounting for any offline nodes.
+2i uses document-based partitioning, which means that the indexes for an object are stored on the same partition as the object itself. This has implications on query-time performance. When issuing a query, the system must read from what we call a "covering" set of partitions. The system looks at how many replicas of our data are stored and determines the minimum number of partitions that it must examine to retrieve a full set of results, accounting for any offline nodes.
 
 By default, Riak is configured to store 3 replicas of all objects, so the system can generate a full result set if it reads from one-third of the system's partitions, as long as it chooses the right set of partitions. The query is then broadcast to the selected partitions, which read the index data, generate a list of keys, and send them back to the requesting node.
 
 ### Special Fields
 
-The `$key` index field is a special field that is implicitly indexed on all objects when Secondary Indexes is enabled. The value of this field is the object's key, so this field allows an application to perform range queries across the keys in a bucket.
+The `$key` index field is a special field that is implicitly indexed on all objects when 2i is enabled. The value of this field is the object's key, so this field allows an application to perform range queries across the keys in a bucket.
 
-The `$bucket` index field is another special field that is implicitly indexed on all objects when Secondary Indexes is enabled. The value of this field is the object's bucket, so this field allows an application retrieve all objects within a bucket based on secondary indexes.
-
+The `$bucket` index field is another special field that is implicitly indexed on all objects. The value of this field is the object's bucket, so this field allows an application retrieve all objects within a bucket based on secondary indexes.

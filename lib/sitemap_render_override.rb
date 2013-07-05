@@ -1,4 +1,3 @@
-require 'versionomy'
 require 'coderay'
 require 'cgi'
 
@@ -49,37 +48,6 @@ module SitemapRenderOverride
     name.to_s.downcase.gsub(/[\s\/?]|(&mdash;)/, '-').gsub(/\-+/, '-')
   end
 
-  def in_version_range?(range, version)
-    range = range.gsub(/\s/, '')
-    
-    # greater than range
-    if range =~ /\+$/ || range =~ /^\>/
-      if range.sub!(/(?:\>\=)|\+/, '')
-        return version >= Versionomy.parse(range)
-      # # drop bottom range and compare
-      # elsif range.sub!(/\>\~/, '')
-      else
-        range.sub!(/[>]/, '')
-        return version > Versionomy.parse(range)
-      end
-    # less than range
-    elsif range =~ /\-$/ || range =~ /^\</
-      if range.sub!(/(?:\<\=)/, '')
-        return version <= Versionomy.parse(range)
-      # # drop bottom range and compare
-      # elsif range.sub!(/\<\~/, '')
-      else
-        range.sub!(/[<]|[-]/, '')
-        return version < Versionomy.parse(range)
-      end
-    # between range
-    elsif range =~ /.+?\-.+?/
-      a, b = range.split('-')
-      return Versionomy.parse(a) >= version && version <= Versionomy.parse(b)
-    end
-    Versionomy.parse(range) == version
-  end
-
   # prepends X directories from the top, eg:
   # trim_dir_depth('/a', 2) => '../../a'
   def prepend_dir_depth(path, dir_depth)
@@ -104,6 +72,7 @@ module SitemapRenderOverride
       # heuristic that an unfound url, is probably not a link
       link_url = link_data[:url]
       if link_url.blank? && link_name !~ /^([.]?\/|https?\:)/
+        # link_label
         "[[#{link_label}]]"
       else
         # no html inside of the link or label
@@ -120,12 +89,28 @@ module SitemapRenderOverride
   def strip_versions!(data)
     project = (metadata[:page]["project"] || $default_project).to_sym
     
-    version_str = SitemapRenderOverride.current_version || $versions[project]
+    raw_version_str = SitemapRenderOverride.current_version || $versions[project]
 
-    if version_str
+    if raw_version_str
       # Ignore rcX if this is a pre-release
-      version_str = version_str.sub(/rc\d+/i, '')
+      version_str = raw_version_str.sub(/rc\d+/i, '')
       version = Versionomy.parse(version_str)
+
+      # Create a version placeholder
+      data.gsub!(/\{\{VERSION\}\}/) do
+        raw_version_str
+      end
+      data.gsub!(/\{\{V.V.V\}\}/) do
+        version_str
+      end
+      vv_version_str = version_str.gsub(/^(\d+\.\d+).*?$/, '\1')
+      data.gsub!(/\{\{V.V\}\}/) do
+        vv_version_str
+      end
+      v_version_str = vv_version_str.gsub(/^(\d+)\..*?$/, '\1')
+      data.gsub!(/\{\{V\}\}/) do
+        v_version_str
+      end
 
       # if it's a different version, remove the entire block
       data.gsub!(/\{\{\#([^\}]+)\}\}(.*?)\{\{\/(\1)\}\}/m) do
@@ -244,10 +229,10 @@ module SitemapRenderOverride
       data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/mu) do
         base, href, cap = $1, $2, $3
         href.gsub!(/\.{2}\//, '')
-        href = "/" + href unless href =~ /^\//
+        href = "/" + href unless href =~ /(https?\:)|(^\/)/
         
         # A better way to extract this file?
-        if href =~ /\/standalone/
+        if href =~ /(https?\:)|(\/standalone)/
           "#{base}#{href}#{cap}"
         else
           "#{base}/shared/#{version_str}#{href}#{cap}"

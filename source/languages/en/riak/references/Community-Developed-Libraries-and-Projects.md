@@ -97,6 +97,8 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Node.js*
 
+* [[zukai|https://github.com/natural/zukai]] - Riak ODM for Node.js from Troy Melhase 
+* [[riak-pb|https://github.com/CrowdProcess/riak-pb]] - Riak Protocol Buffers Client for Node.js from the team at [[CrowdProcess|http://crowdprocess.com]]
 * [[node_riak|https://github.com/mranney/node_riak]] - Voxer's production Node.js client for Riak. 
 * [[nodiak|https://npmjs.org/package/nodiak]] - Supports bulk get/save/delete, sibling auto-resolution, MapReduce chaining, Search, and 2i's.
 * [[resourceful-riak|https://github.com/admazely/resourceful-riak]] - A Riak engine to the [[resourceful|https://github.com/flatiron/resourceful/]] model framework from [[flatiron|https://github.com/flatiron/]].
@@ -112,6 +114,7 @@ All of these projects and libraries are at various stages of completeness and ma
 *OCaml*
 
 * [[Riak OCaml Client|http://metadave.github.com/riak-ocaml-client/]] - Riak OCaml Client
+* [[ocaml-riakc|https://github.com/orbitz/ocaml-riakc]] - ocaml-riakc
 
 *Perl*
 
@@ -143,7 +146,8 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Racket*
 
-* [[Racket-Riak|https://gist.github.com/shofetim/riak.rkt]] - Racket API to Riak
+* [[riak.rkt|https://github.com/shofetim/riak.rkt]] - Racket API to Riak
+* [[racket-riak|https://github.com/dkvasnicka/racket-riak]] - Racket 1.3.x API to Riak
 
 *Ruby*
 

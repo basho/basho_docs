@@ -23,7 +23,7 @@ h2 Riak CS #{version}
 p You should be able to find your operating system in the choices below.
 
 - for os, os_data in downloads
-  - next if downloads.files?(os_data)
+  - next unless downloads.files?(os_data)
   h3 id=os
     img src="/images/layout/#{os_data['icon']}"
     | &nbsp;
@@ -57,7 +57,7 @@ h2 Stanchion #{version}
 p You should be able to find your operating system in the choices below.
 
 - for os, os_data in downloads
-  - next if downloads.files?(os_data)
+  - next unless downloads.files?(os_data)
   h3 id=os
     img src="/images/layout/#{os_data['icon']}"
     | &nbsp;
@@ -92,7 +92,7 @@ h2 Riak CS Control #{version}
 p You should be able to find your operating system in the choices below.
 
 - for os, os_data in downloads
-  - next if downloads.files?(os_data)
+  - next unless downloads.files?(os_data)
   h3 id=os
     img src="/images/layout/#{os_data['icon']}"
     | &nbsp;

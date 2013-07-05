@@ -108,6 +108,7 @@ For the **certfile** and **keyfile** variables, replace the text in quotes with 
 
 The `app.config` file includes other settings, such as turning on the creation of log files and specifying where to store them. These settings have default values that work in most cases.
 
+{{#1.2.0+}}
 ### Performance & Capacity settings
 
 It is strongly recommended that the following values be set in the
@@ -123,3 +124,4 @@ Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/
 ## its value should be edited.
 -env ERL_MAX_PORTS 16384
 ```
+{{/1.2.0+}}

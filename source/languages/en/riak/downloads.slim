@@ -19,7 +19,7 @@ p You should be able to find your operating system in the choices below.
 p If your OS is unlisted, you may download the [[source|Downloads#source]] at the bottom of this page, and follow the instructions to [[build Riak|Installing Riak from Source]].
 
 - for os, os_data in downloads
-  - next if downloads.files?(os_data)
+  - next unless downloads.files?(os_data)
   h3 id=os
     img src="/images/layout/#{os_data['icon']}"
     | &nbsp;

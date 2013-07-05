@@ -103,6 +103,7 @@ riak:
           - "[[Renaming Nodes]]"
           - "[[Replacing a Node]]"
           - "[[Backups]]"
+          - "[[Riak Control]]"
           - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
       - title: "Configuration"
         sub:
@@ -113,7 +114,7 @@ riak:
           - "[[Search|Riak-Search - Settings]]"
           - "[[Secondary Indexes|Secondary-Indexes - Configuration]]"
           - "[[Load Balancing and Proxy Configuration]]"
-                    
+
       - title: "Performance"
         sub:
           - "[[File System Tuning]]"
@@ -206,7 +207,7 @@ riakee:
       - "[[Query Choices|Querying Riak]]"
   - title: "Multi Data Center"
     sub:
-      - title: "Default Replication"
+      - title: "Version 2 Replication"
         sub:
           - "[[Architecture|Multi Data Center Replication Architecture]]"
           - "[[Configuration|Multi Data Center Replication Configuration]]"
@@ -216,15 +217,23 @@ riakee:
           - "[[Scheduling Full Sync|Multi Data Center Replication Scheduling Full Sync]]"
           - "[[SSL|Multi Data Center Replication SSL]]"
           - "[[With NAT|Multi Data Center Replication With NAT]]"
-          - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
           - "[[System Tuning|Multi Data Center Replication System Tuning]]"
-      - title: "Advanced Replication"
+      - title: "Version 3 Replication"
         sub:
           - "[[Architecture|Multi Data Center Replication Architecture New]]"
           - "[[Configuration|Multi Data Center Replication Configuration New]]"
           - "[[Operations|Multi Data Center Replication Operations New]]"
           - "[[Quick Start|Multi Data Center Replication Advanced Quick Start]]"  
-          - "[[Statistics|Multi Data Center Replication Status]]"
+          - "[[Scheduling Full Sync|Multi Data Center Replication v3 Scheduling Full Sync]]"
+          - "[[SSL|Multi Data Center Replication v3 SSL]]"
+          - "[[With NAT|Multi Data Center Replication v3 With NAT]]"
+          - "[[Active Anti-Entropy|Multi Data Center Replication v3 With AAE]]"
+          - "[[Cascading Writes|Multi-Data-Center-Replication-Cascading-Writes]]"
+      - "[[Version Comparison|Multi Data Center Replication Comparison]]"
+      - "[[Upgrade Guide|Multi Data Center Replication UpgradeV2toV3]]"
+      - "[[Statistics|Multi Data Center Replication Statistics]]"
+      - "[[Per Bucket|Multi Data Center Replication Per Bucket]]"
+      - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
   - title: "Operating Riak Enterprise"
     sub:
       - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
@@ -266,6 +275,7 @@ riakcs:
       - "[[Configuring Stanchion]]"
       - "[[Configuring an S3 client]]"
       - "[[Configuring DragonDisk]]"
+      - "[[Configuring Transmit]]"
       - "[[Load Balancing and Proxy Configuration]]"
   - title: "Riak CS Enterprise"
     sub:

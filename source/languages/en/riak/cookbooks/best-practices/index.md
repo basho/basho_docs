@@ -49,6 +49,7 @@ Riak provides resilience through its built in redundancy.
 ## When to add Nodes
 
 *You should add more nodes:*
+
  - When you have reached 80% storage capacity.
  - When you have less than 10 days leeway before you expect the cluster to fill up. 
  - When current node IO/CPU activity is higher than average for extended period of time--for Map/Reduce operations especially.
