@@ -33,7 +33,7 @@ In all of the following examples, the source cluster is named `newyork`, and the
         {cacertdir, "/full/path/to/cacertsdir"}
 
 
-7. Name the source and sink clusters that will be participating in replication.Remember, the *source* cluster is `newyork`, while the *sink* cluster is `boston`.
+7. Name the source and sink clusters that will be participating in replication. Remember, the *source* cluster is `newyork`, while the *sink* cluster is `boston`.
 
     On the source cluster:
 
