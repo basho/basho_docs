@@ -17,8 +17,19 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 3. Stop fullsync replication on every cluster participating in MDC:
 
 	`riak-repl cancel-fullsync`
+4. If custom replication hooks are being used, make a note of each before upgrading. Version 2 hooks are compatible with version 3 hooks, however, they may be useful to Basho Support in the event of an upgrade issue. See [[Multi Data Center Replication Hooks]] for more information.
+5. If NAT was configured with version 2 replication, please review [[Multi Data Center Replication v3 With NAT]] before proceeding. A mapping from external host/IP to the internal IP address can be created using the `riak-repl nat-map` command:
 
-4. Name the source and sink clusters that will be participating in replication. In the following examples, the source cluster will be named `newyork`, while the sink cluster will be named `boston`.
+	`riak-repl nat-map add 50.16.238.120:5555 192.168.2.40`
+
+6. If SSL was configured for version 2 replication, please review [[Multi Data Center Replication v3 SSL]] before proceeding. While all SSL configuration parameters can retain the same version 2 values, they will need to be moved from the `riak-repl` section of `app.config` to the `riak-core` section.
+	<pre>
+	{ssl_enabled, true},
+	{certfile, "/full/path/to/site1-cert.pem"},
+	{keyfile, "/full/path/to/site1-key.pem"},
+	{<i>cacertdir</i>, "/full/path/to/cacertsdir"}
+	</pre>
+7. Name the source and sink clusters that will be participating in replication. In the following examples, the source cluster will be named `newyork`, while the sink cluster will be named `boston`.
 	
 	On the source cluster:
 	
@@ -30,45 +41,45 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 
 	You can verify the cluster names have been established on each cluster by issuing the `riak-repl clustername` command without parameters.
 
-5. Connect the source cluster to the sink cluster. Assuming the sink cluster name *boston*:
+8. Connect the source cluster to the sink cluster. Assuming the sink cluster name *boston*:
   `riak-repl connect boston`
 
-6. Ensure cluster connections have been established:
+9. Ensure cluster connections have been established:
 `riak-repl connections`
 
-7. To establish bidirectional replication: 
+10. To establish bidirectional replication: 
 	Bidirectional replication between two named clusters can be established by connecting from *sink* to *source*.
 
 	On any node in the *sink* cluster:
 
 	`riak-repl connect newyork`
 
-8. Enable Realtime Replication
+11. Enable Realtime Replication
 	To begin queuing objects (but not yet replicating) on the source cluster for realtime replication:
 	`riak-repl realtime enable boston`
 
 	Running `riak-repl status` on any node of the source will show which sinks are currently enabled for realtime.
 
-9. Start realtime replication from source to sink:
+12. Start realtime replication from source to sink:
 `riak-repl realtime start boston`
 
 	This will start process any objects in the replication queue, as well as any updated objects in the source cluster.
 
 	Running `riak-repl status` on any node of the source will show which sinks are currently enabled and running for realtime via the `realtime_enabled` and `realtime_started` statistics. See the [[Multi Data Center Replication Statistics]] guide for a full list of available statistics. 
 
-10. Enable Fullsync Replication
+13. Enable Fullsync Replication
 	To prepare a source cluster for fullsync replication:
 	
 	`riak-repl fullsync enable boston`
 
 	Running `riak-repl status` on any node of the source will show which sinks are currently enabled for realtime.
 
-11. Start fullsync replication from source to sink:
+14. Start fullsync replication from source to sink:
 	`riak-repl fullsync start boston`
 
 	Running `riak-repl status` on any node of the source will show which sinks are currently enabled and running for fullsync via the `fullsync_enabled` and `fullsync_started` statistics. See the [[Multi Data Center Replication Statistics]] guide for a full list of available statistics. 
 
-12. Riak CS Enterprise proxy_get 
+15. Riak CS Enterprise proxy_get 
 
 	If you are using Riak CS Enterprise proxy_get, connections for version 3 replication are enabled at runtime using the following command:
 
@@ -76,7 +87,7 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 	
 	See the [[Multi Data Center Replication v3 Operations]] and [[Multi Data Center Replication v3 Configuration]] guides for more information.
 
-13. Remove existing listeners/sites
+16. Remove existing listeners/sites
   
     Remove all configured listeners and sites from both source and sink clusters using the `del-listener` and `del-site` commands, like in the following examples:
 
@@ -89,7 +100,7 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 
     See the [[Multi Data Center Replication Operations]] guide for more information on `del-listener` and `del-site` commands.
 
-14. Remove and/or update cron tasks
+17. Remove and/or update cron tasks
 
 	If you are using `cron` to schedule replication fullsyncs, please update the crontab to use the version 3 fullsync syntax
 
@@ -97,7 +108,7 @@ This guide walks through the process of upgrading Riak Enterprise MDC Replicatio
 
 	See the [[Multi Data Center Replication v3 Scheduling Full Sync]] guide for configuring scheduled replication fullsyncs.
 
-15. Disable version 2 replication bucket hooks
+18. Disable version 2 replication bucket hooks
 
 	By default, Riak 1.3.+ has replication bucket hooks enabled for both version 2 and version 3. The version 2 replication bucket hook can be disabled. This step is not required, but leaving the version 2 replication bucket hook enabled can cause inaccurate `objects_dropped_no_leader` and `objects_dropped_no_clients` statistics.
 
