@@ -63,23 +63,18 @@ Object". The operations below affect individual objects in Riak.
 * [[HTTP Store Object]]
 * [[HTTP Delete Object]]
 
+{{#1.4.0+}}
+## Datatypes
+
+* [[HTTP Counters]]
+
+{{/1.4.0+}}
+
 ## Query Operations
 
 * [[HTTP Link Walking]]
 * [[HTTP MapReduce]]
 * [[HTTP Secondary Indexes]]
-
-<!-- ## Luwak Operations (Large Objects)
-
-Luwak is an optional interface that automatically segments large files across
-multiple Riak Objects.
-
-* [[HTTP Get Luwak Properties]]
-* [[HTTP List Luwak Keys]]
-* [[HTTP Fetch Luwak Object]]
-* [[HTTP Store Luwak Object]]
-* [[HTTP Delete Luwak Object]]
- -->
 
 ## Server Operations
 
