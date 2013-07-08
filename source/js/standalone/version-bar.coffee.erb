@@ -68,13 +68,14 @@ $ ->
     for vs in ($versions[project] || [])
       innerlists = []
       showV = null
-      currentBlock = false
+      vsp2 = parseVersion(vs)
+      currentBlock = compareVersions(currentVersion, vsp2) == 0
       active = false
       for vsi in vs
         vsp = parseVersion(vsi)
         if inVersionRange(vsp, range)
           current = compareVersions(currentVersion, vsp) == 0
-          currentBlock ||= current
+          # currentBlock ||= current
           active ||= true
           vData = {active:true, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
 
@@ -83,7 +84,7 @@ $ ->
               vData.href = "/#{project}/#{vsi}#{vr_link[1]}/"
 
           innerlists.push(vData)
-          showV = vData if current
+          # showV = vData if current
         else
           innerlists.push({active:false, current:false, href:"#", text:vsi})
       lists.push({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
@@ -120,18 +121,28 @@ $ ->
     "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"
 
   output = ""
+  output += "<div id=\"version-ddown\">"
+  output += "#{version}"
+  output += "<div id=\"version-ddown-arrow\"></div>"
+  output += "</div>"
+  output += "<ol id=\"version-list\">"
   for vmli in lists
     output += "<li#{currentClass(vmli)}>"
     output += liLink(vmli.show)
-    output += "<ol>"
+    # output += "<ol>"
     if vmli.inner?.length > 1
+      counter = 1
       for vpli in vmli.inner
-        output += "<li#{currentClass(vpli)}>"
-        output += liLink(vpli)
-        output += "</li>"
-    output += "</ol>"
-    output += "</li>"
+          # Counter added to remove duplicates
+          if counter != 1
+            output += "<li#{currentClass(vpli)}>"
+            output += liLink(vpli)
+            output += "</li>"
 
+          counter += 1
+    # output += "</ol>"
+    output += "</li>"
+  output += "</ol>"
 
   $('.mainarticle .versions').html(output)
 
