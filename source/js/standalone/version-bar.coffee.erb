@@ -1,66 +1,6 @@
 $versions = <%= YAML::load(File.open('data/versions.yml')).to_json %>
 
 $ ->
-  infinity = {
-      major: Infinity
-      minor: Infinity
-      patch: Infinity
-    }
-  zeros = {
-      major: 0
-      minor: 0
-      patch: 0
-    }
-
-  parseVersion = (str)->
-    v = /^[<>]?[=]?(\d+)\.?(\d+)?\.?(\d+)?/.exec(str)
-    {
-      major: parseInt(v[1]) || 0
-      minor: parseInt(v[2]) || 0
-      patch: parseInt(v[3]) || 0
-    }
-
-  # X+, >=X, >X
-  # X-, <=X, <X
-  # X-Y
-  parseVersionRange = (str)->
-    # greater than or equal to
-    if str.match(/\+$/) or str.match(/^\>\=/)
-      return [parseVersion(str), infinity]
-    # greater than
-    if str.match(/^\>/)
-      version = parseVersion(str)
-      # don't include this version, so bump it up
-      version.patch++
-      return [version, infinity]
-    # less than or equal to
-    if str.match(/^\<\=/)
-      return [zeros, parseVersion(str)]
-    # less than
-    if str.match(/\-$/) or str.match(/^\</)
-      version = parseVersion(str)
-      # don't include this version, so drop it down
-      version.patch--
-      return [zeros, version]
-    if str.match(/.+?\-.+?/)
-      vs = str.split('-')
-      return [parseVersion(vs[0]), parseVersion(vs[1])]
-    else
-      version = parseVersion(str)
-      return [version, version]
-
-  # all comparisons are inclusive
-  inVersionRange = (version, range)->
-    # false if less than 0 or greater than 1
-    return false if compareVersions(version, range[0]) > 0
-    return false if compareVersions(version, range[1]) < 0
-    true
-
-  compareVersions = (v1, v2)->
-    v1num = (v1.major * 10000) + (v1.minor * 100) + v1.patch
-    v2num = (v2.major * 10000) + (v2.minor * 100) + v2.patch
-    v2num - v1num
-
   # construct an object that represents a
   # drop-down version list
   buildLists = (project, base_url)->
@@ -73,7 +13,7 @@ $ ->
       for vsi in vs
         vsp = parseVersion(vsi)
         if inVersionRange(vsp, range)
-          current = compareVersions(currentVersion, vsp) == 0
+          current = window.compareVersions(currentVersion, vsp) == 0
           currentBlock ||= current
           active ||= true
           vData = {active:true, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
@@ -95,8 +35,8 @@ $ ->
   return unless project? || base_url? || version? || version_range?
   return if $versions[project]?.length <= 1
 
-  currentVersion = parseVersion(version)
-  range = parseVersionRange(version_range)
+  currentVersion = window.parseVersion(version)
+  range = window.parseVersionRange(version_range)
 
   lists = buildLists(project, base_url)
 
