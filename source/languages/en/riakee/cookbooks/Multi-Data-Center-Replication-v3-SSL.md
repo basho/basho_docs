@@ -19,19 +19,21 @@ Riak MDC Replication SSL consists of the following items:
 ## SSL Configuration
 
 To configure SSL, you will need to include the following 4 settings in the
-`riak-core` section of *app.config*:
+`riak-core` section of [[app.config|Configuration Files#app.config]].
 
-<pre>
+```
 {ssl_enabled, true},
 {certfile, "/full/path/to/site1-cert.pem"},
 {keyfile, "/full/path/to/site1-key.pem"},
-{<i>cacertdir</i>, "/full/path/to/cacertsdir"}
-</pre>
+{cacertdir, "/full/path/to/cacertsdir"}
+```
 
-**Please note that in *Version 3* replication, the SSL settings need to be placed in the `riak-core` section of *app.config*, as opposed to the `riak-repl` section that *Version 2* replication uses.**
-
-The cacertdir is a directory containing all the CA certificates needed to
+The `cacertdir` is a directory containing all the CA certificates needed to
 verify the CA chain back to the root.
+
+<div class="note">
+Please note that in <em>Version 3</em> replication, the SSL settings need to be placed in the <code>riak-core</code> section of <em>app.config</em>, as opposed to the <code>riak-repl</code> section that <em>Version 2</em> replication uses.
+</div>
 
 ## Verifying peer certificates
 
@@ -51,19 +53,19 @@ If no ACLs are configured, no checks on the common name are done.
 The following example will only allow connections from peer certificate names like
 db.bashosamplecorp.com and security.bashosamplecorp.com:
 
-```
+```erlang
 {peer_common_name_acl, ["db.bashosamplecorp.com", "security.bashosamplecorp.com"]}
 ```
 
 The following example will allow connections from peer certificate names like  `foo.bashosamplecorp.com` or `db.bashosamplecorp.com`, but not a peer certificate name like `db.backup.bashosamplecorp.com`.
 
-```
+```erlang
 {peer_common_name_acl, ["*.bashosamplecorp.com"]}
 ```
 
 This example will match any peer certificate name (and is the default):
 
-```
+```erlang
 {peer_common_name_acl, "*"}
 ```
 
@@ -71,7 +73,7 @@ This example will match any peer certificate name (and is the default):
 
 You can adjust the way CA certificates are validated by adding the following to the riak_repl section of *app.config*:
 
-```
+```erlang
 {ssl_depth, ...}
 ```
 
@@ -87,14 +89,15 @@ For example,
 
 ## Compatibility
 
+{{#1.2.0-1.3.9}}
 Replication SSL for *Version 2* is available in *Riak 1.2+*.
-
+{{/1.2.0-1.3.9}}
+{{#1.4.0+}}
 Replication SSL for *Version 3* is available in *Riak 1.4+*.
+{{/1.4.0+}}
 
 If SSL is enabled and a connection is made to a Riak EE 1.0 or 1.1 node, the connection will be denied and an error will be logged.
 
 ### Self Signed Certificates
 
-You can generate your own CA and keys by using this guide: http://www.debian-administration.org/articles/618
-
-Make sure you remove the password protection from the keys you generate.
+Read how to [generate your own CA and keys](http://www.debian-administration.org/articles/618). Ensure you remove the password protection from the keys you generate.

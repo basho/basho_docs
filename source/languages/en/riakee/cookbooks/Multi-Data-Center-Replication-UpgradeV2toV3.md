@@ -132,10 +132,10 @@ In all of the following examples, the source cluster is named `newyork`, and the
 	Example:
 
     ```
-    $riak-repl modes
+    $ riak-repl modes
     Current replication modes: [mode_repl12,mode_repl13]
 
-    $riak-repl modes mode_repl13
+    $ riak-repl modes mode_repl13
     Current replication modes: [mode_repl13]
     ```
 

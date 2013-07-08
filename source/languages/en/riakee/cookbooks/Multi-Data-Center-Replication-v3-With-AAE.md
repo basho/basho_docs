@@ -35,9 +35,11 @@ To enable this functionality, AAE in Riak's key/value store must first be enable
 
 To enable AAE in Riak KV:
 
-    {riak_kv,
-            [ {anti_entropy, {on, []}},
-       ... ]}
+```erlang
+{riak_kv,
+        [ {anti_entropy, {on, []}},
+   ... ]}
+```
 
 By default it could take a couple of days for the cluster to build all of the necessary hash trees because the default *build rate* of trees is to build 1 partition per hour, per node. With a ring size of 256 and 5 nodes, that is 2 days.
 
@@ -50,11 +52,13 @@ For a test cluster, the build rate can be changed with `anti_entropy_build_limit
 
 To speed up AAE tree build rate on test clusters:
 
-    {riak_kv,
-            [ {anti_entropy, {on, []}},
-              {anti_entropy_build_limit, {10, 3600000}}, %% up to 10 per hour
-              {anti_entropy_concurrency, 10}             %% up to 10 concurrent builds
-        ... ]}
+```erlang
+{riak_kv,
+        [ {anti_entropy, {on, []}},
+          {anti_entropy_build_limit, {10, 3600000}}, %% up to 10 per hour
+          {anti_entropy_concurrency, 10}             %% up to 10 concurrent builds
+    ... ]}
+```
 
 ### Enable AAE Fullsync Replication Strategy
 
@@ -62,6 +66,8 @@ Finally, the replication fullsync strategy must be set to use `aae` on both sour
 
 To enable AAE w/ Version 3 MDC Replication:
 
-    {riak_repl,
-              [ {fullsync_strategy, aae},
-          ... ]}
+```erlang
+{riak_repl,
+          [ {fullsync_strategy, aae},
+      ... ]}
+```

@@ -17,6 +17,7 @@ backend the node will use to store data. The `vm.args` file is used to pass
 parameters to the Erlang node such as the name or cookie of the Erlang node.
 
 ## app.config
+
 Riak and the Erlang applications it depends on are configured by settings in the app.config file in the etc directory of the Riak node.
 
 ```erlang
@@ -32,6 +33,10 @@ Riak and the Erlang applications it depends on are configured by settings in the
     %% Other application configurations...
 ].
 ```
+
+<div class="note">
+Note that lines prefixed with `%%` are comments
+</div>
 
 {{#1.2.0+}}
 

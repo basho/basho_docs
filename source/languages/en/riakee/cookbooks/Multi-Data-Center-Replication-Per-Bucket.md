@@ -26,15 +26,15 @@ These option values are only available in Riak EE version 1.2 and above:
 ### Example of Disabling
 
 ```
-curl -v -XPUT -H "Content-Type: application/json" \
--d '{"props":{"repl":false}}' \
-http://127.0.0.1:8091/riak/my_bucket
+curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"repl":false}}'
 ```
 
 ### Example of Enabling
 
 ```
-curl -v -XPUT -H "Content-Type: application/json" \
--d '{"props":{"repl":true}}' \
-http://127.0.0.1:8091/riak/my_bucket
+curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"repl":true}}'
 ```

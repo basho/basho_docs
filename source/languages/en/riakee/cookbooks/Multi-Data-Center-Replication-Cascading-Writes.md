@@ -14,9 +14,10 @@ Riak Enterprise includes a feature that cascades realtime writes across multiple
 
 Cascading Realtime Writes is enabled by default on new clusters running Riak Enterprise. On existing clusters, it will need to be manually enabled.
 
-Cascading realtime requires the capability {riak_repl, rtq_meta} to function.
+Cascading realtime requires the capability `{riak_repl, rtq_meta}` to function.
 
-*Cascading tracking is a simple list of where an object has been written. This works well for most common configurations, however larger installations may have writes cascade to clusters that other clusters have already written to.*
+<div class="note">Cascading tracking is a simple list of where an object has been written. This works well for most common configurations, however larger installations may have writes cascade to clusters that other clusters have already written to.
+</div>
 
 
 ```

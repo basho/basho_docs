@@ -22,34 +22,32 @@ NAT rules can be configured at runtime, from the command line.
 
 * **nat-map show**
 
-        Shows the current NAT mapping table
+    Shows the current NAT mapping table
 
 * **nat-map add \<externalip\>[:port] \<internalip\>**
 
-        Adds a NAT map from the external IP, with an optional port, to an internal IP. The port number refers to a port that is automatically mapped to the internal  `cluster_mgr` port number.
+    Adds a NAT map from the external IP, with an optional port, to an internal IP. The port number refers to a port that is automatically mapped to the internal  `cluster_mgr` port number.
 
 * **nat-map del \<externalip\>[:port] \<internalip\>**
 
-        Deletes a specific NAT map entry.
+    Deletes a specific NAT map entry.
 
 ### Applying changes at runtime:
 
 * Realtime NAT replication changes will be applied once realtime is stopped and started using the following command:
 
-        * **riak-repl realtime stop <clustername>**
-        * **riak-repl realtime start <clustername>**
+    * **riak-repl realtime stop \<clustername\>**
+    * **riak-repl realtime start \<clustername\>**
 
 * Fullsync NAT replication changes will be applied on the next run of a fullsync, or you can stop and start the current fullsync.
 
-        * **riak-repl fullsync stop <clustername>**
-        * **riak-repl fullsync start <clustername>**
+    * **riak-repl fullsync stop \<clustername\>**
+    * **riak-repl fullsync start \<clustername\>**
 
 
 ## Example
 
-
 * Cluster_A is the **source** of replicated data.
-
 * Cluster_B and Cluster_C are the **sinks** of the replicated data.
 
 ### **Cluster_A setup**
@@ -76,8 +74,8 @@ Internal IP  | Public IP
 192.168.2.43 | 50.16.238.123:5555
 192.168.2.44 | 50.16.238.124:5555
 
-
-In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5555*.
+In this example, the `cluster_mgr` port number is the default of *9080*, while
+the configured NAT port listens on *5555*.
 
 ### **Cluster_C setup**
 
@@ -91,11 +89,10 @@ Internal IP  | Public IP
 192.168.3.63 | 50.16.238.200:5553
 192.168.3.64 | 50.16.238.200:5554
 
+In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5566*.
 
-        In this example, the `cluster_mgr` port number is the default of *9080*, while the configured NAT port listens on *5566*.
 
-
-```
+```bash
 # on any node of Cluster_A
 riak-repl clustername Server_A
 

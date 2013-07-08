@@ -8,29 +8,29 @@ audience: intermediate
 keywords: [mdc, repl, schedule, fullsync]
 ---
 
-The `fullsync_interval` parameter can be configured in the `riak-repl` section of *app.config* with:
+The `fullsync_interval` parameter can be configured in the `riak-repl` section of [[app.config|Configuration Files#app.config]] with:
 
 * a single integer value representing the duration to wait *in minutes* between fullsyncs
 
     **OR**
 
 
-* a list of `[{"clustername", time_in_minutes}, {"clustername", time_in_minutes},…]` pairs for each sink participating in fullsync replication. Note the commas separating each pair, and `[` `]` surrounding the entire list. Also, `%%` represent *app.config* comments.
+* a list of `[{"clustername", time_in_minutes}`, `{"clustername", time_in_minutes}`, `…]` pairs for each sink participating in fullsync replication. Note the commas separating each pair, and `[` `]` surrounding the entire list.
 
 ##Examples
 
-###Sharing a fullsync time (in minutes) for all sinks:
+Sharing a fullsync time (in minutes) for all sinks:
 
-```
+```erlang
 {riak_repl, [
    {data_root, "/configured/repl/data/root"},
    {fullsync_interval, 90} %% fullsync runs every 90 minutes
   ]}
 ```
 
-###List of multiple sinks with separate times in minutes.
+List of multiple sinks with separate times in minutes:
 
-```
+```erlang
 {riak_repl, [
    {data_root, "/configured/repl/data/root"},
    % clusters sink_boston + sink_newyork have difference intervals (in minutes)
@@ -45,15 +45,7 @@ The `fullsync_interval` parameter can be configured in the `riak-repl` section o
 
 Additional fullsync stats per sink have been added in Riak Enterprise.
 
-* `fullsyncs_completed`
-
-        The number of fullsyncs that have been completed to the specified sink cluster.
-
-* `fullsync_start_time`
-
-        The time the current fullsink to the specified cluster began.
-
-* `last_fullsync_duration`
-
-        The duration (in seconds) of the last completed fullsync.
+* `fullsyncs_completed`: The number of fullsyncs that have been completed to the specified sink cluster.
+* `fullsync_start_time`: The time the current fullsink to the specified cluster began.
+* `last_fullsync_duration`: The duration (in seconds) of the last completed fullsync.
 {{/1.4.0+}}
