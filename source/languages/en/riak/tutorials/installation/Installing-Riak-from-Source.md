@@ -46,7 +46,7 @@ The error `fatal: unable to connect to github.com` when building from source is 
 
 Download the following `leveldb` archive for Riak version {{VERSION}}:
 
-{{#1.3.0+}}`https://github.com/basho/leveldb/zipball/{{V.V}}.0`{{/1.3.0+}}
+{{#1.3.0+}}`https://github.com/basho/leveldb/zipball/{{VERSION}}`{{/1.3.0+}}
 
 {{#1.2.1}}`https://github.com/basho/leveldb/zipball/1.2.2p5`{{/1.2.1}}
 {{#1.2.0}}`https://github.com/basho/leveldb/zipball/2aebdd9173a7840f9307e30146ac95f49fbe8e64`{{/1.2.0}}
@@ -70,13 +70,11 @@ $ make rel
 {{/1.3.0-}}
 {{#1.3.0+}}
 
-The instructions going forward will assume Riak 1.3.0, replace the appropriate file for your version.
-
 Deploy the file to the system with the build error and run the following commands.
 
 ```bash
-$ mv 1.3.0 riak-1.3.0/deps/eleveldb/c_src/leveldb.zip
-$ cd riak-1.3.0/deps/eleveldb/c_src/
+$ mv {{VERSION}} riak-{{VERSION}}/deps/eleveldb/c_src/leveldb.zip
+$ cd riak-{{VERSION}}/deps/eleveldb/c_src/
 $ unzip leveldb.zip
 $ mv basho-leveldb-* leveldb
 $ cd ../../
