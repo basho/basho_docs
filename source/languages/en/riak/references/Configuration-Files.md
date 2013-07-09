@@ -198,6 +198,10 @@ You can override the default SSL key and certificate settings (default: etc/cert
 
 * **enable_health_checks** `true` or `false`. `true` if all health checks should be enabled. {{1.3.0+}}
 
+* **stat_cache_ttl**
+    The interval, in seconds, between stat cache population runs. (default: `1`)
+    All Riak stats are served from the stat cache. This setting controls how frequently that cache is refreshed.
+
 ### riak_kv settings
 
  * **anti_entropy**
