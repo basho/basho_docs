@@ -83,11 +83,14 @@ $ ->
             if inVersionRange(vsp, vr_link[0])
               vData.href = "/#{project}/#{vsi}#{vr_link[1]}/"
 
-          innerlists.push(vData)
+          # innerlists.push(vData)
+          innerlists.unshift(vData)
           # showV = vData if current
         else
-          innerlists.push({active:false, current:false, href:"#", text:vsi})
-      lists.push({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
+          # innerlists.push({active:false, current:false, href:"#", text:vsi})
+          innerlists.unshift({active:false, current:false, href:"#", text:vsi})
+      # lists.push({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
+      lists.unshift({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
     lists
 
 
