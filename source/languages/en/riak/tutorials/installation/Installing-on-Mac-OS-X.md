@@ -13,7 +13,7 @@ download:
   name: "Mac OS X"
 ---
 
-The following steps are known to work with Mac OS X 10.5 and 10.6. You can install from source or download a precompiled tarball.
+The following steps are known to work with Mac OS X {{#1.4.0-}}10.5 and 10.6{{/1.4.0-}}{{#1.4.0+}}10.8{{/1.4.0+}}. You can install from source or download a precompiled tarball.
 
 ## Install Types
   * Precompiled Tarballs
@@ -93,7 +93,7 @@ tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
 ```
 
 {{/1.3.0-1.3.2}}
-{{#1.3.2+}}
+{{#1.3.2-1.3.9}}
 
 ### 64-bit
 
@@ -109,7 +109,17 @@ curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/1
 tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
 ```
 
-{{/1.3.2+}}
+{{/1.3.2-1.3.9}}
+{{#1.4.0+}}
+
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.8/riak-{{V.V.V}}-OSX-x86_64.tar.gz
+tar xzvf riak-{{V.V.V}}-osx-x86_64.tar.gz
+```
+
+{{/1.4.0+}}
 
 After the release is untarred you will be able to cd into the riak directory and execute bin/riak start to start the Riak node.
 
