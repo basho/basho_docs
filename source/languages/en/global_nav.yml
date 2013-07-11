@@ -219,9 +219,9 @@ riakee:
           - "[[System Tuning|Multi Data Center Replication System Tuning]]"
       - title: "Version 3 Replication"
         sub:
-          - "[[Architecture|Multi Data Center Replication Architecture New]]"
-          - "[[Configuration|Multi Data Center Replication Configuration New]]"
-          - "[[Operations|Multi Data Center Replication Operations New]]"
+          - "[[Architecture|Multi Data Center Replication v3 Architecture]]"
+          - "[[Configuration|Multi Data Center Replication v3 Configuration]]"
+          - "[[Operations|Multi Data Center Replication v3 Operations]]"
           - "[[Quick Start|Multi Data Center Replication v3 Quick Start]]"
           - "[[Scheduling Full Sync|Multi Data Center Replication v3 Scheduling Full Sync]]"
           - "[[SSL|Multi Data Center Replication v3 SSL]]"
@@ -235,7 +235,7 @@ riakee:
       - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
   - title: "Operating Riak Enterprise"
     sub:
-      - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
+      - "[[Multi Data Center Replication|Multi Data Center Replication v3 Operations]]"
       - "[[JMX Monitoring]]"
       - "[[SNMP Configuration]]"
   - title: "References"
