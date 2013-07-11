@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Quick Start (Advanced)"
+title: "Multi Data Center Replication: Quick Start (v3)"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, bnw]
 ---
 
-The Riak Multi Data Center Replication Quick Start will walk you through the process of configuring Riak's Advanced Replication to perform replication between two sample Riak clusters on separate networks.  This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.
+The Riak Multi Data Center Replication Quick Start will walk you through the process of configuring Riak's v3 Replication to perform replication between two sample Riak clusters on separate networks.  This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.
 
 ### Prerequisites
 This Guide assumes that you have completed the following steps:
@@ -17,8 +17,8 @@ This Guide assumes that you have completed the following steps:
 * Perform [[System Turning|Linux Performance Tuning]]
 * Reviewed [[Configuration|Multi Data Center Replication Configuration New]]
 
-### About Advanced Replication in 1.3
-In Riak's Advanced Replication in 1.3, the nomenclature for Source and Site clusters has changed. To more accurately reflect the behavior of each of the clusters, "listeners" and "sites" are now known as "sources" and "sinks". Data transfer now originates at the "source" and replicates to the "sink"; initiation is always from the primary (source) to the backup (sink) data center. Additionally, the knowledge of the state of each cluster is now managed by a "cluster manager" process which greatly simplifies the setup and maintenance of MDC replication.
+### About v3 Replication in 1.3
+In Riak's v3 Replication in 1.3, the nomenclature for Source and Site clusters has changed. To more accurately reflect the behavior of each of the clusters, "listeners" and "sites" are now known as "sources" and "sinks". Data transfer now originates at the "source" and replicates to the "sink"; initiation is always from the primary (source) to the backup (sink) data center. Additionally, the knowledge of the state of each cluster is now managed by a "cluster manager" process which greatly simplifies the setup and maintenance of MDC replication.
 
 ### Scenario
 Configure Riak MDC to perform replication, given the following two (2) three-node Riak Enterprise Clusters: 
@@ -106,5 +106,5 @@ To enable bidirectional replication, do the reverse from Cluster2.  Once this is
 	
 ### More information
 	
-For a full list of commands, you may enter `riak-repl` to see full instructions on usage, or check the [[Operations|Multi Data Center Replication: Operations (Advanced)]] documentation. 
+For a full list of commands, you may enter `riak-repl` to see full instructions on usage, or check the [[Operations|Multi Data Center Replication v3 Operations]] documentation. 
 

@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Quick Start (Default)"
+title: "Multi Data Center Replication: Quick Start (v2)"
 project: riakee
 version: 1.2.0+
 document: cookbook
@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, bnw]
 ---
 
-The Riak Multi Data Center Replication Quick Start will walk through the process of configuring Riak's Default Replication to perform replication between two sample Riak clusters in separate networks.  This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.
+The Riak Multi Data Center Replication Quick Start will walk through the process of configuring Riak's version 2 Replication to perform replication between two sample Riak clusters in separate networks.  This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.
 
 ### Prerequisites
 This Guide assumes that you have completed the following steps:
