@@ -8,6 +8,10 @@ We use [Middleman](http://middlemanapp.com/), a Ruby-powered static site generat
 
 Another tool used with this repository is rvm. Get it here https://rvm.io/
 
+### Ruby
+
+You must have Ruby 1.9 installed to build these docs.
+
 ### OSX 
 
 On OS-X specifically, as with any Ruby project, XCode & the XCode CLI Tools are needed to install, make and install everything smoothly.
