@@ -99,9 +99,9 @@ toc: true
 index: false
 audience: beginner
 keywords: [tutorial, fast-track]
-prev: ["Basic HTTP Operations", "Basic-Riak-API-Operations.html"]
-up:   ["The Riak Fast Track", "index.html"]
-next: ["Links and Link Walking", "Links-and-Link-Walking.html"]
+prev: "[[Basic HTTP Operations]]"
+up:   "[[The Riak Fast Track]]"
+next: "[[Links and Link Walking]]"
 ---
 ```
 
@@ -205,13 +205,7 @@ _Note that the layout will look ugly. At the moment shared files, like css or js
 To try out the thin server in the way production functions, first build the static files:
 
 ```
-RIAK_VERSION=1.2.1 middleman build
-```
-
-If that doesn't work, try adding bundle exec
-
-```
-RIAK_VERSION=1.2.1 bundle exec middleman build
+RIAK_VERSION=1.4.0 bundle exec middleman build
 ```
 
 Then you can run the thin server locally:
@@ -266,16 +260,16 @@ Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
 
 **Keep it secret. Keep it safe.**
 
-Then to deploy, run the deploy.rb scripts with a riak version:
+Then to deploy, run the deploy.rb script to deploy the latest version:
 
 ```
-./deploy 1.2.0
+./deploy.rb
 ```
 
 If you need to deploy riak and riakcs with different versions, add the CS version at the end. This would be riak 1.2 and riakcs 1.1.
 
 ```
-./deploy 1.2.0 1.1.0
+./deploy.rb 1.2.0 1.1.0
 ```
 
 Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) cache, our CDN. Even if all the files are successfully pushed to S3, until CF is invalidated, you'll not see the new files on http://docs.basho.com.
@@ -285,5 +279,5 @@ Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) 
 This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
 
 ```
-RIAK_VERSION=1.2.1 INDEX=true DEPLOY=true middleman build
+RIAK_VERSION=1.4.0 INDEX=true DEPLOY=true bundle exec middleman build
 ```
