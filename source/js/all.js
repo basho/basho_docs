@@ -20,8 +20,6 @@
     return output;
   };
   
-  
-  
   /*
    * Global config options
    * Make a few recurring selections up front just to speed up the jQuery
@@ -109,11 +107,11 @@
 
 
   function setNavState(val) {
-    return localStorage.setItem('Basho_Docs:navstate', String(val));
+    return $.localItem.set('navstate', String(val));
   }
 
   function getNavState() {
-    var item = String(localStorage.getItem('Basho_Docs:navstate'));
+    var item = String($.localItem.get('navstate'));
     return item ? parseInt(item) : defaultNavState;
   }
   
