@@ -50,6 +50,8 @@ GET /buckets/BUCKET/counters/KEY
 
 The regular POST/PUT ([[HTTP Store Object]]) and GET ([[HTTP Fetch Object]]) responses apply here.
 
+Caveats: Counters have no support for Secondary Indexes (2i), Links or Custom HTTP Metadata.
+
 ## Example
 
 The body must be an integer (positive or negative).
