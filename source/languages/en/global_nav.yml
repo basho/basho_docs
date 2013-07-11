@@ -235,7 +235,7 @@ riakee:
       - "[[Repl Hooks|Multi Data Center Replication Hooks]]"
   - title: "Operating Riak Enterprise"
     sub:
-      - "[[Multi Data Center Replication|Multi Data Center Replication Operations]]"
+      - "[[Multi Data Center Replication|Multi Data Center Replication v3 Operations]]"
       - "[[JMX Monitoring]]"
       - "[[SNMP Configuration]]"
   - title: "References"
