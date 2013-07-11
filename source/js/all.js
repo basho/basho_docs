@@ -7,9 +7,18 @@
  */
 (typeof jQuery !== 'function') ? null : jQuery(function () {
   
-  var $ = jQuery, contentMargin, i;
-  
-  
+  var $ = jQuery, contentMargin, defaultNavState = 1, i;
+
+  /*
+   * Polyfill Array.map if it doesn't exist.
+   */
+  Array.prototype.map = Array.prototype.map || function (fn) {
+    var i, len = this.length, output = [];
+    for (i = 0; i < len; i += 1) {
+      output.push(fn.call(this, this[i], i));
+    }
+    return output;
+  };
   
   /*
    * Global config options
@@ -29,7 +38,7 @@
     
     params : {
       closedNavMargin : '12px',
-      navSpeed        : 175,
+      navSpeed        : 174,
       responsiveWidth : 700
     }
   };
@@ -95,28 +104,49 @@
     }
     return obj;
   }
+
+
+  function setNavState(val) {
+    return $.localItem.set('navstate', String(val));
+  }
+
+  function getNavState() {
+    var item = String($.localItem.get('navstate'));
+    return item ? parseInt(item) : defaultNavState;
+  }
   
   /*
    * closeNav()
-   * Animates the sidebar nav into the closed position
+   * Animates the sidebar nav into the closed position.
+   * If noFade is set to true, the animations will be immediate.
    */
-  function closeNav(callback) {
-    options.jq.navContent.fadeOut(options.params.navSpeed / 2);
-    options.jq.navLinks.fadeOut(options.params.navSpeed / 2);
-    options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, animConfig(callback));
-    options.jq.navContainer.animate({width: options.params.closedNavMargin}, animConfig());
+  function closeNav(callback, noFade) {
+    var config;
+    if (noFade === true) {
+      config = animConfig(false, 0, callback);
+    }
+    options.jq.navContent.fadeOut(noFade ? 0 : options.params.navSpeed);
+    options.jq.navLinks.fadeOut(noFade ? 0 : options.params.navSpeed);
+    options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, config || animConfig(false, 200, callback));
+    options.jq.navContainer.animate({width: options.params.closedNavMargin}, config || animConfig());
+    setNavState(0);
   }
   
   /*
    * openNav()
    * Animates the sidebar nav into the open position
+   * If noFade is set to true, the animations will be immediate.
    */
-  function openNav(callback) {
-    var cm = contentMargin;
-    options.jq.navContent.fadeIn(options.params.navSpeed / 2);
-    options.jq.navLinks.fadeIn(options.params.navSpeed / 2);
-    options.jq.contentWell.animate({marginLeft: cm}, animConfig(callback));
-    options.jq.navContainer.animate({width: cm}, animConfig());
+  function openNav(callback, noFade) {
+    var cm = contentMargin, config;
+    if (noFade === true) {
+      config = animConfig(false, 0, callback);
+    }
+    options.jq.navContent.fadeIn(noFade ? 0 : options.params.navSpeed);
+    options.jq.navLinks.fadeIn(noFade ? 0 : options.params.navSpeed);
+    options.jq.contentWell.animate({marginLeft: cm}, config || animConfig(false, 200, callback));
+    options.jq.navContainer.animate({width: cm}, config || animConfig());
+    setNavState(1);
   }
   
   
@@ -136,6 +166,7 @@
     options.jq.contentWell.animate({left: '100%'}, animConfig(function () {
       options.jq.contentWell.hide();
     }));
+    setNavState(1);
   }
   
   /*
@@ -148,6 +179,7 @@
       options.jq.contentWell.removeAttr('style');
       options.jq.navContainer.removeAttr('style');
     }));
+    setNavState(0);
   }
   
   /*
@@ -213,6 +245,18 @@
    * doesn't register live click handlers.
    */
   $(options.selectors.responsiveToggle).click(determineNavAction_responsive);
+
+  /*
+   * When the page loads, determine whether the nav should be open or closed.
+   */
+  function assessNavState() {
+    var userState    = getNavState(),
+        isResponsive = options.jq.navToggle.is(':hidden');
+    if (!isResponsive) {
+      userState === 0 ? closeNav(undefined, true) : openNav(undefined, true);
+    }
+  }
+  assessNavState();
 
 
 
