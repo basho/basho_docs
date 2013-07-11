@@ -46,22 +46,10 @@ The below links provide platform-specific instructions for downloading and insta
 
 So now you have a copy of Riak. Time to build it. Do this by accessing the `riak` directory and running `make all`
 
-{{#1.3.0+}}
-
 ```bash
-$ cd riak-1.3.0
+$ cd riak-{{V.V.V}}
 $ make all
 ```
-
-{{/1.3.0+}}
-{{#1.3.0-}}
-
-```bash
-$ cd riak-1.2.1
-$ make all
-```
-
-{{/1.3.0-}}
 
 `make all` grabs all the Riak dependencies for you so that you don't have to chase them down. This will take a few moments.
 

@@ -112,7 +112,6 @@ The `version` is a range for which this document is true. This allows the system
 * **{{<1.0.0}}** _(less than 1.0.0, exclusive)_
 * **{{1.0.0-1.2.0}}** _(between 1.0 and 1.2, inclusive)_
 
-
 The `document` labels what kind of document this is. So far I've been using: `tutorial`, `cookbook`, `reference`, `api`, `appendix`. These allow alternative look/feel for different kinds of pages.
 
 Set `toc` to false if you do not want a table-of-contents generated for this page. Otherwise, a list of links will be generated for every `h2` tag on the main article.
@@ -160,6 +159,15 @@ Will render as this for version 1.1.0:
 * PBC MapReduce
 
 Finally, there is a file `data/version.yml` that give a list of all project versions. This is used to generate a link bar where readers can click to view older versions of a document.
+
+To insert the version, you can use any of the following (for example at version 1.2.3), shown with their syntax and then their result in quotes:
+
+```
+{{VERSION}} -> "1.2.3"
+{{V.V.V}}   -> "1.2.3"
+{{V.V}}     -> "1.2"
+{{V}}       -> "1"
+```
 
 ### Navigation
 
