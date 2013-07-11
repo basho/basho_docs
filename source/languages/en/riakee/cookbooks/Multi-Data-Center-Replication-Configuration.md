@@ -68,6 +68,10 @@ max_put_workers | max(integer) | 100 | The maximum number of put workers spawned
 min_get_workers | min(integer) | 5 | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a GET will be performed to get the actual object to send. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f2" class="riakee">2</a>.
 min_put_workers | min(integer) | 5 | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a GET will be performed to get the actual object to send. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f3" class="riakee">3</a>.
 peer_common_name_acl | cert(string) | "*" | Verify an SSL peer’s certificate common name. You can provide multiple ACLs as a list of strings, and you can wildcard the leftmost part of the common name, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f4" class="riakee">4</a>.
+{{#1.3.2+}}
+rt_heartbeat_interval|seconds(integer)|15|A heartbeat message is sent from the source to the sink every `rt_heartbeat_interval` seconds. 
+rt_heartbeat_timeout|seconds(integer)|15|If a heartbeat response is not received in `rt_heartbeat_timeout` seconds, then the source connection exits and will be re-established. 
+{{/1.3.2+}}
 
 
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued intermediate
