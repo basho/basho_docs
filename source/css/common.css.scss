@@ -72,44 +72,50 @@ body {
   
   aside#nav-container {
     @include size(232px, 100%);
-    overflow : hidden;
-    position : fixed;
-    top      : 0;
-    left     : 0;
-    z-index  : 1;
+    overflow   : auto;
+    position   : fixed;
+    top        : 0;
+    left       : 0;
+    z-index    : 1;
     background : #eaecef;
     
     #primary-nav {
-      padding : 0;
-      height : auto !important;
-      min-height: 100%;
-      -o-user-select: none;
-      -ms-user-select: none;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      user-select: none;
+      padding             : 0;
+      height              : auto !important;
+      min-height          : 100%;
+      -o-user-select      : none;
+      -ms-user-select     : none;
+      -moz-user-select    : none;
+      -webkit-user-select : none;
+      user-select         : none;
+
+      #primary-nav-content {
+        height         : auto;
+        padding-top    : 16px;
+        padding-bottom : 83px; /* Should equal the absolute value of #fixed-nav margin-top */
+      }
 
       h3.shortcuts {
-        display:none;
+        display :none;
       }
       ul.shortcuts {
         li {
-          border-left:0;
-          width:50%;
-          float:left;
+          border-left : 0;
+          width       : 50%;
+          float       : left;
           a {
-            border-left:0;
-            text-align:center;
+            border-left : 0;
+            text-align  : center;
 
-            color: #24514A;
-            font-size: 110%;
-            background:#A8C7BF;
-            background-color:#A8C7BF;
+            color            : #24514A;
+            font-size        : 110%;
+            background       : #A8C7BF;
+            background-color : #A8C7BF;
             @include bgPattern('light-green-bg.jpg');
-            padding:3px 12px;
-            margin  : 0 2px 0 0;
-            border  : 1px solid $darkGreen;
-            text-decoration : none;
+            padding          : 3px 12px;
+            margin           : 0 2px 0 0;
+            border           : 1px solid $darkGreen;
+            text-decoration  : none;
             
             &:hover {
               background : $orange;
@@ -141,21 +147,22 @@ body {
          * gets manipulated by JavaScript when animations run
          */
         display  : block !important;
-        padding  : 0 10px 10px;
+        //padding  : 0 10px 10px;
         overflow : auto;
       }
     }
     
     .submissions-note {
-      border-width: 1px;
-      padding: 5px 12px;
-      margin: 0px;
-      display: block;
-      line-height: 1.4em;
-      font-size: 80%;
+      border-width : 1px;
+      padding      : 5px 12px;
+      margin       : 0px;
+      display      : block;
+      line-height  : 1.4em;
+      font-size    : 80%;
+
       a {
-        border-left:0px;
-        border:1px solid #444;
+        border-left : 0px;
+        border      : 1px solid #444;
       }
     }
 
@@ -169,7 +176,7 @@ body {
       z-index  : 3;
       position : absolute;
       
-      float : left;
+      float       : left;
       margin-left : -100%;
     }
   }
@@ -207,8 +214,8 @@ body {
       color           : $darkGrey;
       text-decoration : none;
       &[href^="http://"], &[href^="https://"] {
-        background:none;
-        padding-right: 0;
+        background    : none;
+        padding-right : 0;
       }
     }
 
@@ -294,7 +301,7 @@ blockquote {
 
 img {
   @include allCorners();
-  max-width: 100%;
+  max-width : 100%;
 }
 
 iframe {
@@ -303,7 +310,7 @@ iframe {
 
 #nav-container {
   @extend .sans;
-  //@include boxShadow(inset 0 0 15px #999);
+  @include boxShadow(none);
   color : $subtleGray;
   
   @media screen and (max-width: 700px) {
@@ -334,54 +341,59 @@ iframe {
     //@include bgPattern('nav-li-bg6.jpg', #393939);
   }
 
-  .search-icon-container {
-    position    : absolute;
-    top         : 0;
-    left        : 0;
-    padding     : 10px;
-    line-height : 1rem;
-    z-index     : 4;
-    font-size   : 1.05rem;
-  }
-
   .icon-container {
-    display    : inline-block;
-    width      : 1.25rem;
-    text-align : center;
+    display     : inline-block;
+    width       : 12%;
+    margin-left : 4%;
+    float       : left;
+    text-align  : center;
   }
 
   .separator {
-    font-weight : normal;
-    color       : #8e939a;
+    display      : inline-block;
+    float        : left;
+    width        : 4%;
+    margin-right : 3%;
+    font-weight  : normal;
+    color        : #8e939a;
+    text-align   : center;
+    font-size    : 1.05rem;
+  }
+
+  .menu-title {
+    display       : inline-block;
+    float         : left;
+    width         : 64%;
+    margin-bottom : 8px;
   }
   
   .nav-field-container {
-    position : relative;
+    position   : relative;
 
     input[type="search"],
     input[type="text"] {
-      position    : relative;
-      width       : 80%;
+      position         : relative;
+      width            : 77%;
       background-color : $fieldGrey;
-      padding     : 10px 0 10px 20%;
-      margin      : 0;
-      border      : none;
-      color       : #fff;
-      line-height : 1rem;
-      font-family : 'titillium', verdana, arial, sans-serif;
-      font-size   : 115%;
+      padding          : 10px 0 10px 23%;
+      margin           : 0;
+      border           : none;
+      color            : #fff;
+      line-height      : 1rem;
+      font-family      : 'titillium', verdana, arial, sans-serif;
+      font-size        : 115%;
 
       &::-webkit-input-placeholder { /* WebKit browsers */
-        color:    #fff;
+        color : #fff;
       }
       &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-        color:    #fff;
+        color : #fff;
       }
       &::-moz-placeholder { /* Mozilla Firefox 19+ */
-        color:    #fff;
+        color : #fff;
       }
       &:-ms-input-placeholder { /* Internet Explorer 10+ */
-        color:    #fff;
+        color : #fff;
       }
     }
 
@@ -391,9 +403,22 @@ iframe {
       background-color : $darkGrey;
     }
 
-    .separator,
-    .nav-icon {
-      color : #fff;
+    .icon-container {
+      position : absolute;
+      display  : block;
+      top      : 9px;
+      left     : 0;
+      float    : none;
+      z-index  : 8;
+    }
+
+    .separator {
+      position : absolute;
+      display  : block;
+      top      : 8px;
+      left     : 16%;
+      color    : #fff;
+      z-index  : 9;
     }
   }
 
@@ -402,7 +427,7 @@ iframe {
     color : #8e939a;
 
     &.nav-icon-search {
-      color: #fff;
+      color : #fff;
     }
   }
 
@@ -432,8 +457,8 @@ iframe {
       border     : 1px solid rgba(249, 157, 51, .4);
       
       a {
-        color : $darkOrange; // fallback value for no rgba support
-        color : rgba(255, 255, 255, 1);
+        color       : $darkOrange; // fallback value for no rgba support
+        color       : rgba(255, 255, 255, 1);
         text-shadow : none; // fallback value for no rgba support
         text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
       }
@@ -445,12 +470,10 @@ iframe {
   }
   
   h3, h4 {
-    //@extend .text-shadow;
-    //@include bgPattern('nav-header-bg2.jpg', transparent);
-    //border-left : 4px solid $fadedGreen;
     @include bgPattern('nav-bg.jpg', #4f4f50);
     @include transitionAll(color 0.5s ease);
-    padding     : 5px 8px 5px 10px;
+    position    : relative;
+    padding     : 8px 0 0 0;
     overflow    : visible;
     color       : $darkGrey;
     cursor      : pointer;
@@ -466,7 +489,7 @@ iframe {
     }
     
     span {
-      padding-right : 5px;
+      //padding-right : 5px;
     }
     
     span.menu-toggle {
@@ -490,7 +513,7 @@ iframe {
   
   h3 {
     border-bottom : 1px solid $lightGrey;
-    font-size     : 1.05rem;
+    //font-size     : 1.05rem;
   }
   
   h3 span a {
@@ -499,6 +522,12 @@ iframe {
   }
 
   h4 {
+    padding : 8px 0 8px 0;
+
+    span.menu-toggle {
+      top : 15px;
+    }
+
     &:hover {
       color : $extraDarkGrey;
     }
@@ -521,8 +550,6 @@ iframe {
   }
   
   h3 {
-    //font-size  : 135%;
-    //margin-top : 7px;
     
     @media screen and (max-width: 700px) {
       font-size : 115%;
@@ -540,7 +567,6 @@ iframe {
   h4 {
     @extend .sans;
     padding-left : 18px;
-    //font-size : 115%;
   }
   
   ul {
@@ -553,13 +579,12 @@ iframe {
   
   .depth-1 li {
     @include bgPattern('nav-bg.jpg', #4f4f50);
-    //padding-left : 8px;
 
     &.current {
       background : $blueGreen;
 
       a {
-        color: #fff;
+        color : #fff;
       }
     }
   }
@@ -591,8 +616,9 @@ iframe {
   span.menu-toggle {
     @extend .block;
     @include size(1px, 0);
-    float         : right;
-    margin        : 10px 2px 0 0;
+    position      : absolute;
+    top           : 17px;
+    right         : 10px;
     content       : '';
     @include arrowVertical(top, bottom, 5px, $lightGrey);
     @include transitionAll(border-color 0.5s ease);
@@ -606,12 +632,13 @@ iframe {
     }
   }
 
-  #links-bottom {
+  #fixed-nav {
     display : block;
     @include size(100%, 74px);
-    clear : both;
+    @extend .clear;
     position        : relative;
-    margin          : -76px 0 0 0;
+    height          : 82px;
+    margin          : -83px 0 0 0; // Top margin should be -(height + 1)
     padding         : 0;
     list-style-type : none;
     border-top      : 1px solid $darkBlueGreen;
@@ -626,10 +653,10 @@ iframe {
         background    : $blueGreen;
         color         : #fff;
         font-weight   : bold;
-        height        : 26px;
+        height        : 32px;
         border-bottom : 1px solid $darkBlueGreen;
         font-size     : 1.05rem;
-        padding       : 5px 8px 5px 10px;
+        padding       :  8px 0 0 0;
 
         span {
           padding-right : 5px;
@@ -730,8 +757,8 @@ div[role="main"] {
   
   h3 {
     @extend .sans;
-    font-size : 175%;
-    padding-top: .8em;
+    font-size   : 175%;
+    padding-top : .8em;
 
     a {
       color : $headerColor;
@@ -758,13 +785,13 @@ div[role="main"] {
 
     &[href^="http://"], &[href^="https://"] {
       @include size(10px, 10px);
-      background: url("../images/external.png") no-repeat right;
-      padding-right: 12px;
+      background    : url("../images/external.png") no-repeat right;
+      padding-right : 12px;
     }
     &[href$=".pdf"], &[href$=".PDF"] {
       @include size(14px, 16px);
-      background: url("../images/pdf.png") no-repeat right;
-      padding-right: 16px;
+      background    : url("../images/pdf.png") no-repeat right;
+      padding-right : 16px;
     }
   }
   
@@ -779,7 +806,7 @@ div[role="main"] {
   }
   
   .masthead {
-    padding       : .8em 0 .8em 0;
+    padding       : 6px 0 6px 0;
     margin-bottom : 20px;
     text-align    : center;
     overflow      : visible;
@@ -787,7 +814,7 @@ div[role="main"] {
 
     #nav-toggle {
       position         : fixed;
-      top              : 19px;
+      top              : 13px;
       margin-left      : -56px;
       padding          : 14px;
       display          : block;
@@ -811,15 +838,16 @@ div[role="main"] {
     }
 
     @media screen and (max-width: 700px) {
-      @include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
-      @include bgPattern('content-bg.jpg');
-      position : fixed;
-      width    : 100%;
-      top      : 0;
-      left     : 0;
-      padding  : 12px 0 18px;
-      z-index  : 3;
-      border-bottom : 6px solid $headerColor;
+      //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
+      //@include bgPattern('content-bg.jpg');
+      background    : #fff;
+      position      : fixed;
+      width         : 100%;
+      top           : 0;
+      left          : 0;
+      padding       : 12px 0 18px;
+      z-index       : 3;
+      //border-bottom : 6px solid $headerColor;
 
       a.responsive-toggle {
         display : block;
@@ -841,16 +869,17 @@ div[role="main"] {
       }
       
       @media screen and (max-width: 700px) {
-        margin-top  : auto;
+        margin-top : auto;
       }
       
     }
 
     @media screen and (max-width: 500px) {
       .logo {
-        margin-top : 5px;
-        @include size(200px, 33px);
-        background: url(../images/layout/logo2.png)
+        margin-top  : 5px;
+        margin-left : 10px;
+        //@include size(200px, 33px);
+        //background: url(../images/layout/logo2.png)
       }
     }
     
@@ -941,7 +970,7 @@ div[role="main"] {
     #nav-menu {
       display       : none;
       position      : absolute;
-      top           : 72px;
+      top           : 62px;
       right         : 25px;
       padding       : 14px;
       background    : #fff;
@@ -959,15 +988,14 @@ div[role="main"] {
 
       ul {
         list-style-type : none;
-        margin : 0;
-        padding : 0;
+        margin          : 0;
+        padding         : 0;
 
         li {
           margin : 0;
           padding : 0;
 
           a {
-            //display   : block;
             width     : 100%;
             font-size : 1rem;
           }
@@ -1008,8 +1036,8 @@ div[role="main"] {
     
     .title {
       @extend .sans-bold;
-      font-style : normal;
-      font-size  : 135%;
+      font-style     : normal;
+      font-size      : 135%;
       padding-bottom : 10px;
     }
     
@@ -1024,19 +1052,19 @@ div[role="main"] {
   }
     
   .mainarticle {
-    position : relative;
-    padding  : 0 0 0 20px;
-    font-size: 110%;
+    position  : relative;
+    padding   : 0 0 0 20px;
+    font-size : 110%;
     
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
       max-width: 600px;
       &.center-text {
-        max-width:100%;
+        max-width : 100%;
       }
     }
     nav.tutorial {
       ul, h4 {
-        max-width: 100%;
+        max-width : 100%;
       }
     }
 
@@ -1046,15 +1074,14 @@ div[role="main"] {
   }
   
   aside.secondary {
-    //@include bgPattern('nav-bg.jpg', #dadcdf);
-    background : $extraDarkGrey;
+    background    : $extraDarkGrey;
     @include allCorners();
     @include boxShadow(inset 0 0 25px #333);
     padding       : 25px;
     color         : #f1f1f1;
     text-align    : left;
     border-bottom : 1px solid #f1f1f1;
-    margin-top: 1em;
+    margin-top    : 1em;
 
     h1, h2, h3, h4, h5, h6 {
       @extend .text-shadow;
@@ -1069,23 +1096,24 @@ div[role="main"] {
     }
     
     .suggestions ul {
-      -webkit-column-count: 2;
-      -webkit-column-gap: 20px;
-      -webkit-column-width: 15em;
-      -moz-column-count: 2;
-      -moz-column-gap: 20px;
-      -moz-column-width: 15em;
-      column-count: 2;
-      column-gap: 20px;
-      column-width: 15em;
-      padding-top: 0.5em;
+      -webkit-column-count : 2;
+      -webkit-column-gap   : 20px;
+      -webkit-column-width : 15em;
+      -moz-column-count    : 2;
+      -moz-column-gap      : 20px;
+      -moz-column-width    : 15em;
+      column-count         : 2;
+      column-gap           : 20px;
+      column-width         : 15em;
+      padding-top          : 0.5em;
+      
       li {
-        list-style-type: square;
-        // padding-left : 1em;
-        line-height:1.1;
-        margin-bottom: 0.5em;
+        list-style-type : square;
+        line-height     : 1.1;
+        margin-bottom   : 0.5em;
+
         a {
-          white-space:normal;
+          white-space : normal;
         }
       }
     }
@@ -1098,15 +1126,14 @@ div[role="main"] {
     }
 
     .keywords {
-      //font-style:italic;
-      border-top:1px solid #3C3C3C;
-      padding-top:0.8em;
+      border-top  : 1px solid #3C3C3C;
+      padding-top : 0.8em;
       h4 {
-        font-weight:normal;
-        display:inline;
-        padding-right:0.5em;
-        font-size:90%;
-        text-shadow: 0 1px 1px black;
+        font-weight   : normal;
+        display       : inline;
+        padding-right : 0.5em;
+        font-size     : 90%;
+        text-shadow   : 0 1px 1px black;
       }
     }
   }
@@ -1116,14 +1143,17 @@ div[role="main"] {
     font-size : 110%;
     position  : relative;
     margin    : 7em auto 10em;
+    
     .project {
       @include size(32%, 250px);
       float      : left;
       text-align : center;
       margin     : 0 auto;
+      
       &:first-child {
         background : inline-image('layout/enterprise-globe.png') center center no-repeat transparent;
       }
+      
       &:last-child {
         background : inline-image('layout/cs-cloud.png') center center no-repeat transparent;
       }
@@ -1131,10 +1161,12 @@ div[role="main"] {
         display         : block;
         color           : $headerColor;
         text-decoration : none;
+        
         &:hover {
           color : $linkBlue;
         }
       }
+
       .big, .small, .image {
         display     : block;
         color       : headerColor;
@@ -1142,6 +1174,7 @@ div[role="main"] {
         margin      : 0 auto;
         text-align  : center;
       }
+
       .image {
         @include size(92%, 88px);
         background     : inline-image('layout/big-riak-logo.png') center center no-repeat transparent;
@@ -1149,6 +1182,7 @@ div[role="main"] {
         padding-bottom : 20px;
         margin-top     : 37px;
       }
+
       .big {
         border-bottom : 1px solid #cfcfcf;
         width         : 92%;
@@ -1158,6 +1192,7 @@ div[role="main"] {
         font-size     : 175%;
         font-weight   : normal;
       }
+
       .small {
         @extend .sans-bold;
         text-transform : uppercase;
@@ -1166,6 +1201,7 @@ div[role="main"] {
         font-size      : 85%;
       }
     }
+
     .separator {
       @include size(2%, 100%);
       float      : left;
@@ -1222,32 +1258,31 @@ div[role="main"] {
 }
 
 nav#toc {
-  //display : inline-block;
   
   #toc-wrapper {
     &.multi {
-      -webkit-column-count: 2;
-      -webkit-column-gap: 20px;
-      -webkit-column-width: 15em;
-      -moz-column-count: 2;
-      -moz-column-gap: 20px;
-      -moz-column-width: 15em;
-      column-count: 2;
-      column-gap: 20px;
-      column-width: 15em;
+      -webkit-column-count : 2;
+      -webkit-column-gap   : 20px;
+      -webkit-column-width : 15em;
+      -moz-column-count    : 2;
+      -moz-column-gap      : 20px;
+      -moz-column-width    : 15em;
+      column-count         : 2;
+      column-gap           : 20px;
+      column-width         : 15em;
     }
-    border-bottom: 1px dashed #ccc;
 
+    border-bottom  : 1px dashed #ccc;
     padding-bottom : 0.7em;
-    margin-bottom : 0.7em;
+    margin-bottom  : 0.7em;
   }
 
   #toc-items  {
-    list-style-type: decimal;
-    padding-left : 2em;
+    list-style-type : decimal;
+    padding-left    : 2em;
 
     a {
-      white-space:normal;
+      white-space : normal;
     }
   }
 }
@@ -1269,18 +1304,16 @@ nav#toc {
 div[role=main] {
   
   pre {
-    margin : 0;
-    padding: 8px;
-    overflow-x: auto;
+    margin     : 0;
+    padding    : 8px;
+    overflow-x : auto;
   }
 
   code {
     font-size   : 90%;
     background  : #dfdfdf;
     border      : 1px solid #c9c9c9;
-    //display: block;
     white-space : nowrap;
-    //white-space: pre;
   }
 
   .docs {
@@ -1332,21 +1365,23 @@ div[role=main] {
     .code {
       background:none;
       @include boxShadow(inset 0 1px 4px #5A7772);
-      margin-top : 10px;
+      margin-top    : 10px;
       margin-bottom : 10px;
     }
   }
 
   table.links {
-    width:100%;
+    width : 100%;
+    
     td:first-child {
-      width:30%;
+      width : 30%;
+      
       img {
-        width:100%;
+        width : 100%;
       }
     }
     td:last-child {
-      width:70%;
+      width : 70%;
     }
   }
 }
@@ -1359,12 +1394,12 @@ div[role=main] {
 article {
   nav.tutorial {
     text-align : center;
-    margin : 25px 0 5px;
+    margin     : 25px 0 5px;
     
     .up a {
-      font-size : 90%;
+      font-size       : 90%;
       text-decoration : none;
-      color : $linkBlue;
+      color           : $linkBlue;
       
       &:hover {
         color : $orange;
@@ -1435,7 +1470,7 @@ article {
   }
 
   &:hover {
-    color      : #24514A;
+    color : #24514A;
   }
 }
 #search-404 {
@@ -1446,61 +1481,69 @@ article {
 }
 
 .breadcrumbs {
-  display:none;
+  display : none;
 }
 
 table {
   .supported {
-    display:block;
-    text-align:center;
-    font-size:140%;
-    border-bottom:none;
-    color:green;
+    display       : block;
+    text-align    : center;
+    font-size     : 140%;
+    border-bottom : none;
+    color         : green;
   }
   .unsupported {
-    display:block;
-    text-align:center;
-    font-size:140%;
-    border-bottom:none;
-    color:darkred;
+    display       : block;
+    text-align    : center;
+    font-size     : 140%;
+    border-bottom : none;
+    color         : darkred;
   }
 }
 
 .planguages {
-  font-size:32px;
-  list-style: none;
-  margin-left:0;
-  padding-left:0;
+  font-size    : 32px;
+  list-style   : none;
+  margin-left  : 0;
+  padding-left : 0;
+  
   li {
-    float: left;
-    padding: 8px;
+    float   : left;
+    padding : 8px;
+    
     a {
       @include size(180px, 120px);
       @include boxShadow(0 1px 4px #AAA);
       border: 1px solid #fff;
-      border-radius: 5px;
-      display: block;
-      overflow: hidden;
-      text-indent: 100%;
-      white-space: nowrap;
+      border-radius : 5px;
+      display       : block;
+      overflow      : hidden;
+      text-indent   : 100%;
+      white-space   : nowrap;
     }
+
     a:hover {
-      border: 1px solid #faa94c;
+      border : 1px solid #faa94c;
     }
+
     &[data-lang=erlang] a {
-      background: url("../images/plangs/erlang.jpg") no-repeat top left;
+      background : url("../images/plangs/erlang.jpg") no-repeat top left;
     }
+
     &[data-lang=java] a {
-      background: url("../images/plangs/java.jpg") no-repeat top left;
+      background : url("../images/plangs/java.jpg") no-repeat top left;
     }
+
     &[data-lang=php] a {
-      background: url("../images/plangs/php.png") no-repeat top left;
+      background : url("../images/plangs/php.png") no-repeat top left;
     }
+
     &[data-lang=python] a {
-      background: url("../images/plangs/python.png") no-repeat top left;
+      background : url("../images/plangs/python.png") no-repeat top left;
     }
+
     &[data-lang=ruby] a {
-      background: url("../images/plangs/ruby.jpg") no-repeat top left;
+      background : url("../images/plangs/ruby.jpg") no-repeat top left;
     }
   }
 }

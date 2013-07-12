@@ -1,14 +1,13 @@
 aside#nav-container role="complementary"
   nav.overview#primary-nav role="nav"
-    div
+    div#primary-nav-content
       form action="http://search.basho.com"
         div.nav-field-container
-          div.search-icon-container
-            div.icon-container
-              span(aria-hidden="true" data-icon="&#xf002;" class="nav-icon nav-icon-search")
-            span.separator
-              |
-                &#124;
+          div.icon-container
+            span(aria-hidden="true" data-icon="&#xf002;" class="nav-icon nav-icon-search")
+          span.separator
+            |
+              &#124;
           input#main-search size="5" type="search" placeholder="Search" name="q"
       h2.responsive-link
         == I18n.t(:navigation)
@@ -50,9 +49,22 @@ aside#nav-container role="complementary"
           span.separator
             |
               &#124;
-          span==section['title']
+          span.menu-title==section['title']
+          div.clear
         ==nav_data
-  ul#links-bottom
+      h3
+        a href="http://docs.basho.com/riak/latest/references/apis/"
+          div.icon-container
+            span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
+          span.separator
+            |
+              &#124;
+          span.menu-title
+            |
+              View APIs
+          div.clear
+      ul / Empty list needed to prevent toggle JS from breaking
+  ul#fixed-nav
     li
       a href="https://github.com/basho/basho_docs" target="_blank"
         div.icon-container
