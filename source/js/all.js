@@ -21,7 +21,7 @@
     selectors : {
       navContainer     : '#nav-container',
       navContent       : '#primary-nav',
-      navLinks         : '#links-bottom',
+      navLinks         : '#fixed-nav',
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
       responsiveToggle : '.responsive-toggle'

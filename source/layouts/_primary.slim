@@ -13,9 +13,23 @@ aside#nav-container role="complementary"
         == I18n.t(:navigation)
         a.responsive-toggle
       h3.responsive-link.visit-basho
-        a href="http://www.basho.com"== I18n.t(:visit_basho)
+        a href="http://www.basho.com"
+          div.icon-container
+            span(aria-hidden="true" data-icon="&#xe003;" class="nav-icon")
+          span.separator
+            |
+              &#124;
+          span.menu-title == I18n.t(:visit_basho)
+          div.clear
       h3.responsive-link
-        a href="/index.html"== I18n.t(:all_projects)
+        a href="/index.html"
+          div.icon-container
+            span(aria-hidden="true" data-icon="&#xe003;" class="nav-icon")
+          span.separator
+            |
+              &#124;
+          span.menu-title == I18n.t(:all_projects)
+          div.clear
       - project = data.page.project || $default_project
       - global_nav[project].each do |section|
         - add_class = section['class'] || ''

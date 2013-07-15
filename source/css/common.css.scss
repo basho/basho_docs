@@ -440,7 +440,11 @@ iframe {
   */
 
   h2.responsive-link {
-    display : none;
+    display      : none;
+    color        : $darkGrey;
+    text-shadow  : none;
+    padding      : 0 3% 0 8%;
+
     @media screen and (max-width: 700px) {
       display : block;
     }
@@ -450,17 +454,22 @@ iframe {
     display : none;
     
     &.visit-basho {
-      @include allCorners();
-      background : lighten($orange, 30%); // fallback value for no rgba support
-      background : rgba(249, 157, 51, .2);
+      background : $orange; // fallback value for no rgba support
+      //background : rgba(249, 157, 51, .2);
       border     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
       border     : 1px solid rgba(249, 157, 51, .4);
+      color      : #fff;
+
+      .separator,
+      .nav-icon {
+        color : #fff;
+      }
       
       a {
         color       : $darkOrange; // fallback value for no rgba support
         color       : rgba(255, 255, 255, 1);
-        text-shadow : none; // fallback value for no rgba support
-        text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
+        //text-shadow : none; // fallback value for no rgba support
+        //text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
       }
     }
     
