@@ -27,7 +27,7 @@ with `sudo /usr/sbin/riak-admin`.
 you have already started Riak with the default settings, you cannot change
 the <code>-name</code> setting and then successfully restart the
 node.</p>
-If you cannot restart after chaning -name value you have two
+If you cannot restart after changing -name value you have two
 options:
 <ol>
 <li>Discard the existing ring metadata by removing the contents of
@@ -78,12 +78,6 @@ becomes
 for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred.</p>
 <p>Once a node has been started, in order to change the name you must either remove ring files from the data directory, [[riak-admin reip|Command-Line-Tools---riak-admin]] the node, or [[riak-admin cluster force-replace|Command-Line-Tools---riak-admin]] the node.
 </p>
-<p>
-Although it is not recommended, if you have previously started a single node instance (as, for example,
-you might do when you are building your first test environment), you
-will need to remove the ring files from the data directory after you edit
-<code>etc/vm.args</code>.
-</p>
 </div>
 
 Start the Riak node:
@@ -95,6 +89,15 @@ If the Riak node has been previously started, you must use
 update the node's ring file.
 
     bin/riak-admin cluster replace riak@127.0.0.1 riak@192.168.1.10
+
+<div class="info">
+<strong>Single Nodes</strong>
+If a node is started singly (as, for example,
+you might do when you are building your first test environment), you
+will need to remove the ring files from the data directory after you edit
+`etc/vm.args`. `riak-admin cluster replace` will not work as the node
+has not been joined to a cluster.
+</div>
 
 As with all cluster changes, you need to view the plan `riak-admin cluster plan`,
 then run `riak-admin cluster commit` to finalize the changes.
