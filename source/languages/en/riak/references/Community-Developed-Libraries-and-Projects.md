@@ -70,6 +70,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Erlang*
 
+* [[uriak_pool|https://github.com/unisontech/uriak_pool]] - Erlang connection pool library from the team at Unison
 * [[Riak PBC Pool|https://github.com/snoopaloop/Riak-PBC-Pool]] - Riak Protocol Buffer Client pool application
 * [[Pooly|https://github.com/aberman/pooly]] - Riak Process Pool 
 * [[riakpool|https://github.com/dweldon/riakpool]] - Application for maintaining a dynamic pool of Protocol Buffer client connections to a Riak database
