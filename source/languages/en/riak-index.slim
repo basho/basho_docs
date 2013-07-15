@@ -12,93 +12,26 @@ simple: true
 versions: false
 ---
 
-section#getting-started
-  header
-    h1 
-      a.command(href='#getting-started')== I18n.t(:"riak_index.getting_started_t")
-    p== I18n.t(:"riak_index.getting_started_p")
-    .more.command
-      a.command(href='#getting-started') &nbsp;
-  .content
-    section
-      ul
-        li [[Why Riak?|Why Riak]]
-        li [[Download Riak|Downloads]]
-        li [[Five Minute Install]]
-    .clear
+h2 Getting Started
+p Are you new to Riak? You can get started with these tutorials. Then look through the [[FAQs|Riak FAQs]] if you have more questions.
 
+ul
+  li [[Why Riak?|Why Riak]]
+  li [[Download Riak|Downloads]]
+  li [[Five Minute Install]]
 
-section#developing
-  header
-    h1 
-      a.command(href='#developing')== I18n.t(:"riak_index.developing_t")
-    p== I18n.t(:"riak_index.developing_p")
-    .more.command
-      a.command(href='#developing') &nbsp;
-  .content
-    section
-      h4== I18n.t(:"riak_index.developing.querying")
-      h5== I18n.t(:"riak_index.developing.mapreduce.title")
-      ul
-        li== I18n.t(:"riak_index.developing.mapreduce.mapreduce")
-        li== I18n.t(:"riak_index.developing.mapreduce.keyfilters")
-      h5== I18n.t(:"riak_index.developing.search.title")
-      ul
-        li== I18n.t(:"riak_index.developing.search.indexing")
-        li== I18n.t(:"riak_index.developing.search.schema")
-        li== I18n.t(:"riak_index.developing.search.querying")
-        li== I18n.t(:"riak_index.developing.search.kv_data")
-        li== I18n.t(:"riak_index.developing.search.cmd")
-    section
-      h5== I18n.t(:"riak_index.developing.2i.title")
-      ul
-        li== I18n.t(:"riak_index.developing.2i.config")
-        li== I18n.t(:"riak_index.developing.2i.examples")
-      h4== I18n.t(:"riak_index.developing.refs.title")
-      ul
-        li== I18n.t(:"riak_index.developing.refs.apis")
-        li== I18n.t(:"riak_index.developing.refs.faqs")
-        li== I18n.t(:"riak_index.developing.refs.libs")
-        li== I18n.t(:"riak_index.developing.refs.community")
-        li== I18n.t(:"riak_index.developing.refs.riak_cmd")
-    .clear
+h2 Riak for Developers
+p If you are a Riak user wanting to develop on an existing installation, look through these resources. Also check out the [[FAQs for Using Riak|Developing on Riak FAQs]].
 
-section#operating
-  header
-    h1
-      a.command(href='#operating')== I18n.t(:"riak_index.operating_t")
-    p== I18n.t(:"riak_index.operating_p")
-    .more.command
-      a.command(href='#operating') &nbsp;
-  .content
-    section
-      h4== I18n.t(:"riak_index.operating.launching")
-      h5== I18n.t(:"riak_index.operating.installing")
-      h5== I18n.t(:"riak_index.operating.planning.title")
-      ul
-        li== I18n.t(:"riak_index.operating.planning.backend")
-        li== I18n.t(:"riak_index.operating.planning.capacity")
-      h4== I18n.t(:"riak_index.operating.ops.title")
-      h5== I18n.t(:"riak_index.operating.clusters.title")
-      ul
-        li== I18n.t(:"riak_index.operating.clusters.setup")
-        li== I18n.t(:"riak_index.operating.clusters.adding")
-        li== I18n.t(:"riak_index.operating.clusters.replacing")
-    section
-      h5== I18n.t(:"riak_index.operating.ops.ops")
-      ul
-        li== I18n.t(:"riak_index.operating.ops.config")
-        li== I18n.t(:"riak_index.operating.ops.tuning")
-        li== I18n.t(:"riak_index.operating.ops.backups")
-        li== I18n.t(:"riak_index.operating.ops.security")
-        li== I18n.t(:"riak_index.operating.ops.control")
-      h5== I18n.t(:"riak_index.operating.ops.query")
-      ul
-        li== I18n.t(:"riak_index.operating.ops.mapreduce")
-        li== I18n.t(:"riak_index.operating.ops.search")
-        li== I18n.t(:"riak_index.operating.ops.2i")
-      h5== I18n.t(:"riak_index.operating.trouble")
-      h4== I18n.t(:"riak_index.operating.refs.title")
-      ul
-        li== I18n.t(:"riak_index.operating.refs.riak_admin_cmd")
-    .clear
+ul
+  li [[A Taste of Riak|Taste of Riak: Prerequisites]]
+  li [[The Basics of Querying Riak|The Basics]]
+  li [[Data Modeling Overview|Use Cases]]
+
+h2 Riak for Operators
+p If you are a Riak administrator needing to configure, deploy, and manage an installation, these links are for you. There are also some good [[Operating Riak FAQs]].
+
+ul
+  li [[Installing and Upgrading Riak|Installing and Upgrading]]
+  li [[Planning for a Riak System]]
+  li [[riak-admin Command Line]]

@@ -27,8 +27,8 @@ head(class=data.page.document)
 - classnames = [(data.page.project || $default_project)]
 - classnames << 'dual' if data.page.dual
 body class=classnames.join(' ') id=data.page.body_id
-  == partial "layouts/primary"
-  div(role="main")
+  == partial "layouts/primary" unless data.page.skip_nav
+  div(role="main" class=(data.page.skip_nav ? "no-nav" : ""))
     == partial "layouts/header"
     article.mainarticle
       - unless !data.page.title || data.page.simple
