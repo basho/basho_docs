@@ -105,7 +105,7 @@ update the node's ring file.
 
 <div class="info">
 <strong>Single Nodes</strong>
-If a node is started singly (as, for example,
+If a node is started singly using default settings (as, for example,
 you might do when you are building your first test environment), you
 will need to remove the ring files from the data directory after you edit
 <code>etc/vm.args</code>. <code>riak-admin cluster replace</code> will not work as the node
