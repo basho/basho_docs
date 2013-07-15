@@ -66,7 +66,7 @@ number of designs that involve log file merging.
   * Easy Backup
 
     In most systems backup can be very complicated but here again Bitcask
-    simplifies this process due to it's append-only write once disk format.
+    simplifies this process due to its append-only write once disk format.
     Any utility that archives or copies files in disk-block order will properly
     backup or copy a Bitcask database.
 
