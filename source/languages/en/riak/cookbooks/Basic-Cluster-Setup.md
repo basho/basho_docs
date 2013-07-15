@@ -27,7 +27,11 @@ with `sudo /usr/sbin/riak-admin`.
 you have already started Riak with the default settings, you cannot change
 the <code>-name</code> setting and then successfully restart the
 node.</p>
+<<<<<<< HEAD
 If you cannot restart after changing -name value you have two
+=======
+If you cannot restart after chaning -name value you have two
+>>>>>>> 88da8bb125bed951cf3e22e36836d5c015abf41f
 options:
 <ol>
 <li>Discard the existing ring metadata by removing the contents of
@@ -78,6 +82,15 @@ becomes
 for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred.</p>
 <p>Once a node has been started, in order to change the name you must either remove ring files from the data directory, [[riak-admin reip|Command-Line-Tools---riak-admin]] the node, or [[riak-admin cluster force-replace|Command-Line-Tools---riak-admin]] the node.
 </p>
+<<<<<<< HEAD
+=======
+<p>
+Although it is not recommended, if you have previously started a single node instance (as, for example,
+you might do when you are building your first test environment), you
+will need to remove the ring files from the data directory after you edit
+<code>etc/vm.args</code>.
+</p>
+>>>>>>> 88da8bb125bed951cf3e22e36836d5c015abf41f
 </div>
 
 Start the Riak node:
@@ -95,7 +108,7 @@ update the node's ring file.
 If a node is started singly (as, for example,
 you might do when you are building your first test environment), you
 will need to remove the ring files from the data directory after you edit
-`etc/vm.args`. `riak-admin cluster replace` will not work as the node
+<code>etc/vm.args</code>. <code>riak-admin cluster replace</code> will not work as the node
 has not been joined to a cluster.
 </div>
 
