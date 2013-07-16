@@ -137,7 +137,7 @@ sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 {{/1.2.0+}}
 
 
-{{#1.2.1+}}
+{{#1.2.1-1.3.9}}
 
 ### Riak 32-bit Installation
 
@@ -148,7 +148,7 @@ sudo dpkg -i riak_{{V.V.V}}-1_i386.deb
 
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
 
-{{/1.2.1+}}
+{{/1.2.1-1.3.9}}
 
 Installing Riak From Source
 ---------------------------
