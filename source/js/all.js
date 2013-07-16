@@ -24,6 +24,7 @@
       navLinks         : '#fixed-nav',
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
+      header           : '#header-inner',
       responsiveToggle : '.responsive-toggle'
     },
     
@@ -104,6 +105,7 @@
     options.jq.navContent.fadeOut(options.params.navSpeed / 2);
     options.jq.navLinks.fadeOut(options.params.navSpeed / 2);
     options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, animConfig(callback));
+    options.jq.header.animate({marginLeft: options.params.closedNavMargin}, animConfig(callback));
     options.jq.navContainer.animate({width: options.params.closedNavMargin}, animConfig());
   }
   
@@ -116,6 +118,7 @@
     options.jq.navContent.fadeIn(options.params.navSpeed / 2);
     options.jq.navLinks.fadeIn(options.params.navSpeed / 2);
     options.jq.contentWell.animate({marginLeft: cm}, animConfig(callback));
+    options.jq.header.animate({marginLeft: cm}, animConfig(callback));
     options.jq.navContainer.animate({width: cm}, animConfig());
   }
   

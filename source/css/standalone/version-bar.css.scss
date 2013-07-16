@@ -82,12 +82,12 @@ ol#version-list {
 
   li {
     @include bgPattern('light-green-bg.jpg');
-    border        : 1px solid $darkGreen;
+    border          : 1px solid $darkGreen;
     //border-bottom : 0;
-    display       : block;
-    font-size     : 8pt;
+    display         : block;
+    font-size       : 8pt;
     //margin-right  : 1px;
-    margin-bottom : 1px;
+    margin-bottom   : 1px;
     
     ol {
       display:none;

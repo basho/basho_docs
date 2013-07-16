@@ -76,7 +76,7 @@ body {
     position   : fixed;
     top        : 0;
     left       : 0;
-    z-index    : 1;
+    z-index    : 11;
     background : #eaecef;
     
     #primary-nav {
@@ -815,16 +815,38 @@ div[role="main"] {
   }
   
   .masthead {
-    padding       : 6px 0 6px 0;
+    position      : fixed;
+    top           : 0;
+    left          : 0;
+    width       : 100%;
+    //padding       : 6px 0 18px 0;
     margin-bottom : 20px;
     text-align    : center;
     overflow      : visible;
-    border-bottom : 1px solid $subtleGray;
+    background    : transparent;
+    z-index       : 10;
+
+    #header-inner {
+      position    : relative;
+      @include gradient(#fff, rgba(255, 255, 255, 1), rgba(255, 255 ,255 , 0.85));
+      background-image : linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255 ,255 , 0.85) 100%); /* W3C */
+      filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
+      
+      padding-top : 6px;
+      margin-left : 232px;
+
+      .horizontal-rule {
+        @include size(auto, 0);
+        margin: 0 24px 0 84px;
+        border-bottom : 1px solid $subtleGray;
+      }
+    }
 
     #nav-toggle {
-      position         : fixed;
+      position         : absolute;
       top              : 13px;
-      margin-left      : -56px;
+      left             : 12px;
+      //margin-left      : -56px;
       padding          : 14px;
       display          : block;
       cursor           : pointer;
@@ -858,6 +880,18 @@ div[role="main"] {
       z-index       : 3;
       //border-bottom : 6px solid $headerColor;
 
+      #header-inner {
+        margin-left : 0;
+
+        .logo {
+          margin-left : 10px;
+        }
+
+        .horizontal-rule {
+          margin: 0 10px 0 10px;
+        }
+      }
+
       a.responsive-toggle {
         display : block;
       }
@@ -868,6 +902,8 @@ div[role="main"] {
       @include size(185px, 33px);
       @include layout-sprite(logo);
       margin-top : 11px;
+      margin-left : 78px;
+      margin-bottom : 18px;
       
       h1 {
         display:none;
@@ -886,7 +922,6 @@ div[role="main"] {
     @media screen and (max-width: 500px) {
       .logo {
         margin-top  : 5px;
-        margin-left : 10px;
         //@include size(200px, 33px);
         //background: url(../images/layout/logo2.png)
       }
@@ -915,9 +950,12 @@ div[role="main"] {
     }
     
     #top-nav {
-      float      : right;
+      position   : absolute;
+      top        : 8px;
+      right      : 24px;
+      //float      : right;
       text-align : center;
-      position   : relative;
+      //position   : relative;
       padding    : 8px 0 8px 0;
       
       a,
@@ -979,7 +1017,7 @@ div[role="main"] {
     #nav-menu {
       display       : none;
       position      : absolute;
-      top           : 62px;
+      top           : 64px;
       right         : 25px;
       padding       : 14px;
       background    : #fff;
@@ -1062,7 +1100,7 @@ div[role="main"] {
     
   .mainarticle {
     position  : relative;
-    padding   : 0 0 0 20px;
+    padding   : 100px 0 0 20px;
     font-size : 110%;
     
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {

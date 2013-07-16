@@ -83,3 +83,12 @@ $inactiveText    : #AAA;
   border-#{$base}  : #{$size} solid #{$color};
   border-#{$point} : none;
 }
+
+@mixin gradient($fallBack, $rgbaTop, $rgbaBottom) {
+  background : #{$fallBack}; /* Fallback for non-rgba browsers */
+  background : -moz-linear-gradient(top, #{$rgbaTop} 0%, #{$rgbaBottom} 100%); /* FF3.6+ */
+  background : -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.25)), color-stop(100%,rgba(255,255,255,1.0))); /* Chrome,Safari4+ */
+  background : -webkit-linear-gradient(top, #{$rgbaTop} 0%, #{$rgbaBottom} 100%); /* Chrome10+,Safari5.1+ */
+  background : -o-linear-gradient(top, #{$rgbaTop} 0%, #{$rgbaBottom} 100%); /* Opera 11.10+ */
+  background : -ms-linear-gradient(top, #{$rgbaTop} 0%, #{$rgbaBottom} 100%); /* IE10+ */
+}
