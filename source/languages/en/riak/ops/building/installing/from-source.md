@@ -12,7 +12,7 @@ download:
   key: source
   name: "any OS in Source Form"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-Riak-from-Source/'
+    '1.4.0-': '/tutorials/installation/Installing-Riak-from-Source'
 }
 ---
 

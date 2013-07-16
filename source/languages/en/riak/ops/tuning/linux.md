@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operator, performance, os]
 moved: {
-    '1.4.0-': '/cookbooks/File-System-Tuning/'
+    '1.4.0-': '/cookbooks/File-System-Tuning'
 }
 ---
 
@@ -25,7 +25,7 @@ In any case, proper benchmarking and tuning are needed to achieve the desired
 level of performance. Following the information in this guide should help you
 with both.
 
-<div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see [[Performance Tuning for AWS|Performance-Tuning-AWS]].</div>
+<div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see [[AWS Performance Tuning]].</div>
 
 ## Linux Tuning
 
@@ -242,7 +242,7 @@ performance.
 Riak can be scaled in two ways, vertically (improved hardware) and
 horizontally (more nodes). Both ways can provide performance and
 capacity benefits, but should be used in different circumstances. The
-[[riak-admin cluster command|Command-Line-Tools---riak-admin#cluster]] can assist in scaling both directions.
+[[riak-admin cluster command|riak-admin Command Line#cluster]] can assist in scaling both directions.
 
 When changing the cluster membership to scale vertically or
 horizontally, follow these steps:
@@ -282,7 +282,7 @@ increasing I/O concurrency, reducing the load on existing nodes, and
 increasing disk capacity.
 
 To scale horizontally, new nodes must be joined to the existing cluster
-using the [[riak-admin cluster join command|Command-Line-Tools---riak-admin#cluster]]. When growing
+using the [[riak-admin cluster join command|riak-admin Command Line#cluster]]. When growing
 the cluster by more than one node, all new nodes should be added at once
 rather than individually. That is, do not commit the plan until all new
 nodes are staged in the join state. This will reduce the total amount of
@@ -307,7 +307,7 @@ transitions takes additional time. As such, the rate of handoff is
 intentionally limited in the default Riak configuration to avoid
 impacting normal operations. This limit can be changed temporarily, in
 cases where greater handoff throughput or lower impact is desired, using
-the [[riak-admin transfer-limit command|Command-Line-Tools---riak-admin#transfer-limit]].
+the [[riak-admin transfer-limit command|riak-admin Command Line#transfer-limit]].
 
 Additionally, nodes that become unavailable due to errors or maintenance
 should not leave the cluster. To perform maintenance on a node, mark it
@@ -325,8 +325,7 @@ cluster directly.
 
 Benchmarking is critical to determining appropriate cluster node
 resources, and is strongly recommended. More information is available
-on benchmarking Riak clusters with Basho Bench in the
-[[Basho Bench documentation|Benchmarking]].
+on benchmarking Riak clusters with [[Basho Bench]].
 
 In addition to simply measuring performance, it is also important to
 measure how performance degrades when the cluster is not in
@@ -358,4 +357,4 @@ states might be simulated:
 * [Basho help desk](http://help.basho.com/)
 * [[Command Line Tools]]
 * [Basho Bench](https://github.com/basho/basho_bench)
-* [[Benchmarking]]
+* [[Basho Bench]]

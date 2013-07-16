@@ -221,8 +221,6 @@ guarantees and permits only single key updates.
 #
 # Agreed. Riak is made to (and will!) scale linearly on commodity hardware (often called "pizza boxes").
 #
-# <!-- * [[More on Hardware|Hosting and Server Configuration#HostingandServerConfiguration-Hardware]] -->
-#
 
 Efficiency: The system needs to function on a commodity  hardware infrastructure. In Amazon’s platform, services have stringent latency requirements which are 
 in general measured at the 99.9th percentile of the distribution. Given that state access plays a crucial 
@@ -815,7 +813,7 @@ the preference list are accessed.
 # Some more resources on R and W:
 # <ul>
 # <li>[[Riak&#39;s REST API|HTTP API]]</li>
-# <li>[[Reading and Writing Data|Basic Requests]]</a></li>
+# <li>[[Reading and Writing Data|The Basics]]</a></li>
 # </ul>
 To maintain consistency among its replicas, Dynamo uses a consistency protocol similar to those used in 
 quorum systems. This protocol has two key configurable values: R and W. R is the minimum number of nodes 
@@ -870,7 +868,7 @@ the key it to its local store. Thus, the write request is only rejected if all n
 are unavailable. However, in practice, most Amazon services in production set a higher W to meet 
 the desired level of durability. A more detailed discussion of configuring N, R and W follows in section 6.
 
-# [[Multi Datacenter Replication|Multi Data Center Replication Architecture]] is implemented
+# [[Multi Datacenter Replication|Multi Data Center Replication: Architecture]] is implemented
 # in the commercial extension to Riak, called [[Riak Enterprise Edition|Riak Enterprise]].
 
 It is imperative that a highly available storage system be capable of handling the failure of an 
@@ -921,7 +919,7 @@ This issue is addressed, however, by the refined partitioning scheme described i
 <h2>4.8 Membership and Failure Detection</h2>
 
 # Riak operators can trigger node management via the
-# [[riak-admin command-line tool|Command-Line Tools - riak-admin]].
+# [[riak-admin command-line tool|riak-admin Command Line]].
 <h3>4.8.1 Ring Membership</h3>
 
 # Nodes are manually added using the `riak-admin cluster join`.
@@ -1034,7 +1032,7 @@ failure detection, and a local persistence engine. All these components are impl
 # use more than one backend in production via the [[Multi]] backend configuration.
 # 
 # Bitcask is a fast and reliable choice, but does have some limitations at very large scales.
-# For larger clusters, you may want to choose LevelDB (which also supports [[secondary indexes]]).
+# For larger clusters, you may want to choose LevelDB (which also supports [[secondary indexes|Using Secondary Indexes]]).
 # The Memory backend is an excellent choice when speed is important and durability is not. It also
 # has TTL support.
 #
@@ -1390,7 +1388,7 @@ rarely by humans. This issue is not discussed in detail due to the sensitive nat
 # In Riak, a server-side load-balancer is an optional configuration. You generally use
 # either virtual IPs or reverse-proxies.
 # 
-# * [[Load Balancing|System Planning#Network-Configuration-Load-Balancing]]
+# * [[Load Balancing|Planning for a Riak System#Network-Configuration-Load-Balancing]]
 
 As mentioned in Section 5, Dynamo has a request coordination component that uses a state 
 machine to handle incoming requests. Client requests are uniformly assigned to nodes in the 

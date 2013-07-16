@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operator, troubleshooting]
 moved: {
-    '1.4.0-': '/cookbooks/Failure-and-Recovery/'
+    '1.4.0-': '/cookbooks/Failure-and-Recovery'
 }
 ---
 

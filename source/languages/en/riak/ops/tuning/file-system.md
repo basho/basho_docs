@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operator, os]
 moved: {
-    '1.4.0-': '/cookbooks/File-System-Tuning/'
+    '1.4.0-': '/cookbooks/File-System-Tuning'
 }
 ---
 

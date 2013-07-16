@@ -7,7 +7,7 @@ toc: true
 audience: beginner
 keywords: [command-line, search]
 moved: {
-    '1.4.0-': '/references/Command-Line-Tools---search-cmd/'
+    '1.4.0-': '/references/Command-Line-Tools---search-cmd'
 }
 ---
 
@@ -37,7 +37,7 @@ optional for all commands and defaults to `search`.
 
     set-schema [INDEX] SCHEMAFILE
 
-Set the [[schema|Riak Search - Schema]] for a given index.  If you don't
+Set the [[schema|Advanced Search Schema]] for a given index.  If you don't
 explicitly set the schema for an index it will use the default schema.
 
 
@@ -45,7 +45,7 @@ explicitly set the schema for an index it will use the default schema.
 
     show-schema [INDEX]
 
-Show the [[schema|Riak Search - Schema]] for a given index.
+Show the [[schema|Advanced Search Schema]] for a given index.
 
 
 ## clear-schema-cache
@@ -64,7 +64,7 @@ version is read from Riak.
     search [INDEX] QUERY
 
 Execute the given query on the index returning the document id, properties, and
-score.  The [[query syntax|Riak Search - Querying]] is the same as Lucene.
+score.  The [[query syntax|Using Search]] is the same as Lucene.
 
 
 ## search-doc

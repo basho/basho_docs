@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [operator]
 moved: {
-    '1.4.0-': '/cookbooks/Adding-and-Removing-Nodes/'
+    '1.4.0-': '/cookbooks/Adding-and-Removing-Nodes'
 }
 ---
 
@@ -29,7 +29,7 @@ After installing Riak on a system using either the binary packages or
 from source, there's some initial configuration steps you need to take
 that depend on your networking infrastructure and security measures.
 
-Your node should not be running. If it is, stop it using the [[`riak stop` command|Command Line Tools - riak#stop]] or `/etc/init.d/riak stop`). Before you can start up the node
+Your node should not be running. If it is, stop it using the [[`riak stop` command|riak Command Line#stop]] or `/etc/init.d/riak stop`). Before you can start up the node
 again, a couple of changes need to made. If your new node was already
 running before making the configuration changes outlined below, it's
 best to delete your ring directory before starting it up again. Just
@@ -248,7 +248,7 @@ Similarly to joining a node, after executing `riak-admin cluster leave`, the clu
 <div class="info">
 <div class="title">Riak 1.2 Cluster Administration</div>
 
-Learn more about the new [[cluster command|Command-Line Tools - riak-admin#cluster]] introduced in Riak version 1.2.
+Learn more about the new [[cluster command|riak-admin Command Line#cluster]] introduced in Riak version 1.2.
 
 </div>
 

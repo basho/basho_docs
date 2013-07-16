@@ -1,131 +1,116 @@
 ---
-title: PBC API
+title: PBC Index
 project: riak
-version: 1.2+
+version: 1.2.0+
 document: api
 toc: true
 audience: advanced
 keywords: [api, protocol-buffer]
-index: true
+group_by: "Query Operations"
 moved: {
-  '1.4.0-': '/references/apis/protocol-buffers/'
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Index'
 }
 ---
 
-This is an overview of the operations you can perform over the Protocol Buffers
-Client (PBC) interface to Riak, and can be used as a guide for developing a
-compliant client.
+Request a set of keys that match a secondary index query.
 
-## Protocol
-
-Riak listens on a TCP port (8087 by default) for incoming connections. Once
-connected the client can send a stream of requests on the same connection.
-
-Each operation consists of a request message and one or more response messages.
-Messages are all encoded the same way
-* 32-bit length of message code + protocol buffer message in network order
-* 8-bit message code to identify the protocol buffer message
-* N-bytes of protocol buffers encoded message
-
-### Example
+## Request
 
 
 ```bash
-00 00 00 07 09 0A 01 62 12 01 6B
-|----Len---|MC|----Message-----|
-
-Len = 0x07
-Message Code (MC) = 0x09 = RpbGetReq
-RpbGetReq Message = 0x0A 0x01 0x62 0x12 0x01 0x6B
-
-Decoded Message:
-bucket: "b"
-key: "k"
-```
-
-
-### Message Codes
-
-<table>
-<tr><td>0</td><td>RpbErrorResp</td></tr>
-<tr><td>1</td><td>RpbPingReq</td></tr>
-<tr><td>2</td><td>RpbPingResp</td></tr>
-<tr><td>3</td><td>RpbGetClientIdReq</td></tr>
-<tr><td>4</td><td>RpbGetClientIdResp</td></tr>
-<tr><td>5</td><td>RpbSetClientIdReq</td></tr>
-<tr><td>6</td><td>RpbSetClientIdResp</td></tr>
-<tr><td>7</td><td>RpbGetServerInfoReq</td></tr>
-<tr><td>8</td><td>RpbGetServerInfoResp</td></tr>
-<tr><td>9</td><td>RpbGetReq</td></tr>
-<tr><td>10</td><td>RpbGetResp</td></tr>
-<tr><td>11</td><td>RpbPutReq</td></tr>
-<tr><td>12</td><td>RpbPutResp</td></tr>
-<tr><td>13</td><td>RpbDelReq</td></tr>
-<tr><td>14</td><td>RpbDelResp</td></tr>
-<tr><td>15</td><td>RpbListBucketsReq</td></tr>
-<tr><td>16</td><td>RpbListBucketsResp</td></tr>
-<tr><td>17</td><td>RpbListKeysReq</td></tr>
-<tr><td>18</td><td>RpbListKeysResp</td></tr>
-<tr><td>19</td><td>RpbGetBucketReq</td></tr>
-<tr><td>20</td><td>RpbGetBucketResp</td></tr>
-<tr><td>21</td><td>RpbSetBucketReq</td></tr>
-<tr><td>22</td><td>RpbSetBucketResp</td></tr>
-<tr><td>23</td><td>RpbMapRedReq</td></tr>
-<tr><td>24</td><td>RpbMapRedResp</td></tr>
-<tr><td>25</td><td>RpbIndexReq <i>(new in 1.2+)</i></td></tr>
-<tr><td>26</td><td>RpbIndexResp <i>(new in 1.2+)</i></td></tr>
-<tr><td>27</td><td>RpbSearchQueryReq <i>(new in 1.2+)</i></td></tr>
-<tr><td>28</td><td>RbpSearchQueryResp <i>(new in 1.2+)</i></td></tr>
-</table>
-
-
-<div class="info"><div class="title">Message Definitions</div>
-<p>All Protocol Buffers messages can be found defined in the
-[[riak.proto|https://github.com/basho/riak_pb/blob/master/src/riak.proto]] and other .proto files in the RiakPB project.</p>
-</div>
-
-
-### Error Response
-
-If the server experiences an error processing a request it will return an
-RpbErrorResp message instead of the response expected for the given request
-(e.g. RbpGetResp is the expected response to RbpGetReq).  Error messages contain
-an error string and an error code.
-
-```bash
-message RpbErrorResp {
-    required bytes errmsg = 1;
-    required uint32 errcode = 2;
+message RpbIndexReq {
+    enum IndexQueryType {
+        eq = 0;
+        range = 1;
+    }
+    required bytes bucket = 1;
+    required bytes index = 2;
+    required IndexQueryType qtype = 3;
+    optional bytes key = 4;
+    optional bytes range_min = 5;
+    optional bytes range_max = 6;
+    optional bool return_terms = 7;
+    optional bool stream = 8;
+    optional uint32 max_results = 9;
+    optional bytes continuation = 10;
 }
 ```
 
-Values:
 
-* **errmsg** - a string representation of what went wrong
-* **errcode** - a numeric code. Currently only RIAKC_ERR_GENERAL=1 is defined.
+Required Parameters
 
-## Bucket Operations
+* **bucket** - the bucket the index is for
+* **index** - specify the index to use
+* **qtype** - an IndexQueryType of either 0 (eq) or 1 (range)
 
-* [[PBC List Buckets]]
-* [[PBC List Keys]]
-* [[PBC Get Bucket Properties]]
-* [[PBC Set Bucket Properties]]
+Index queries are one of two types
 
-## Object/Key Operations
+* **eq** - Exactly match the query for the given `key`
+* **range** - Match over a min and max range (`range_min`, `range_max`)
 
-* [[PBC Fetch Object]]
-* [[PBC Store Object]]
-* [[PBC Delete Object]]
+Pagination
 
-## Query Operations
+* **max_results** - Number of results to return
+* **continuation** - Value returned in paginated response to use in conjunction with `max_results` to request the next page of results
 
-* [[PBC MapReduce]]
-* [[PBC Index]]
-* [[PBC Search]]
+Optional Parameters
 
-## Server Operations
+* **key** - the exact value to match by. only used if qtype is eq
+* **range_min** - the minimum value for a range query to match. only used if qtype is range
+* **range_max** - the maximum value for a range query to match. only used if qtype is range
+* **return_terms** - Include matched index values in response (range queries only)
+* **stream** - Stream responses back to the client instead of waiting for `max_results` or the full result set to be tabulated
 
-* [[PBC Ping]]
-* [[PBC Get Client ID]]
-* [[PBC Set Client ID]]
-* [[PBC Server Info]]
+
+## Response
+
+The results of a Secondary Index query are returned as a repeating list of
+0 or more keys that match the given request parameters.
+
+
+```bash
+message RpbIndexResp {
+    repeated bytes keys = 1;
+    repeated RpbPair results = 2;
+    optional bytes continuation = 3;
+    optional bool done = 4;
+}
+```
+
+Values
+
+* **keys** - a list of keys that match the index request
+* **results** - If `return_terms` is specified with range queries, used to return matched index values
+* **continuation** - For paginated responses
+* **done** - For streaming: the current stream is done (either `max_results` reached or no more results)
+
+## Example
+
+Request
+
+Here we look for any exact matches of "chicken" on an "animal_bin" index for a bucket named "farm".
+
+```bash
+RpbIndexReq protoc decode:
+bucket: "farm"
+index: "animal_bin"
+qtype: 0
+key: "chicken"
+
+Hex     00 00 00 1E 19 0A 04 66 61 72 6D 12 0A 61 6E 69
+        6D 61 6C 5F 62 69 6E 18 00 22 07 63 68 69 63 6B 65 6E
+Erlang  <<0,0,0,30,25,10,10,4,102,97,114,109,18,10,97,110,105,
+          109,97,108,95,98,105,110,24,0,34,7,99,104,105,99,107,
+          101,110>>
+```
+
+Response
+
+```bash
+Hex     00 00 00 0F 1A 0A 03 68 65 6E 0A 07 72 6F 6F 73 74 65 72
+Erlang  <<0,0,0,15,26,10,3,104,101,110,10,7,114,111,111,115,116,101,114>>
+
+RpbIndexResp protoc decode:
+keys: "hen"
+keys: "rooster"
+```

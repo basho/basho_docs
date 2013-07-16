@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [operator]
 moved: {
-    '1.4.0-': '/references/Configuration-Files/'
+    '1.4.0-': '/references/Configuration-Files'
 }
 ---
 
@@ -102,7 +102,7 @@ The name of the cluster. This currently has no visible effect, but could be usef
         ]}
     ```
 
-    * n_val - the number of replicas stored. *Note: See [[Tunable CAP Controls|Tunable-CAP-Controls-in-Riak]] for further discussion.*
+    * n_val - the number of replicas stored. *Note: See [[CAP Controls]] for further discussion.*
     * Read, Write and Delete quorum values. Valid options include numeric values (e.g. ```{r, 2}```), and the following symbolic values:<br />
     ```quorum``` (a majority of the replicas must respond, equivalent to ```n_val / 2 + 1```)<br />
     ```all``` (all N replicas must respond)
@@ -118,8 +118,8 @@ The name of the cluster. This currently has no visible effect, but could be usef
         Default: ```0```.
         * rw - Delete quorum. Default: ```quorum```.
     * allow_mult - whether or not siblings are allowed. *Note: See [[Vector Clocks]] for a discussion of sibling resolution.*
-    * precommit - global [[pre-commit hook|Commit-Hooks#Pre-Commit-Hooks]] functions, either in Javascript or Erlang.
-    * postcommit - global [[post-commit hook|Commit-Hooks#Post-Commit-Hooks]] functions. Erlang only.
+    * precommit - global [[pre-commit hook|Using Commit Hooks#Pre-Commit-Hooks]] functions, either in Javascript or Erlang.
+    * postcommit - global [[post-commit hook|Using Commit Hooks#Post-Commit-Hooks]] functions. Erlang only.
 
 * **delayed_start**
 Sleep a number of milliseconds before starting riak_core. Default: `unset`

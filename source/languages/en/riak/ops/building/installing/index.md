@@ -7,7 +7,7 @@ audience: beginner
 keywords: [tutorial, installing, upgrading]
 next: "[[Installing Erlang]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/'
+    '1.4.0-': '/tutorials/installation'
 }
 ---
 
@@ -34,4 +34,3 @@ detailed Riak installation instructions.
 ### Upgrading
 
   * [[Rolling Upgrades]]
-  * [[Upgrading from Riak Search]] {{<1.0.0}}

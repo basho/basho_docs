@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [troubleshooting, os]
 moved: {
-    '1.4.0-': '/cookbooks/Open-Files-Limit/'
+    '1.4.0-': '/cookbooks/Open-Files-Limit'
 }
 ---
 

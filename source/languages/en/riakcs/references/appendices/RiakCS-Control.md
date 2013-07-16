@@ -12,7 +12,7 @@ Riak CS Control is a standalone user management application for Riak CS.  It pro
 
 ## Installing Riak CS Control
 
-Riak CS Control [is maintained as a separate application](https://github.com/basho/riak_cs_control) and can be installed via [[source or package|riakcs-downloads]].
+Riak CS Control [is maintained as a separate application](https://github.com/basho/riak_cs_control) and can be installed via [[source or package|Download Riak CS]].
 
 ## Setting Up Riak CS Control
 

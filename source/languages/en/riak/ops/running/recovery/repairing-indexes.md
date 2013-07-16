@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [kv, 2i, troubleshooting]
 moved: {
-    '1.4.0-': '/cookbooks/Repairing-KV-Indexes/'
+    '1.4.0-': '/cookbooks/Repairing-KV-Indexes'
 }
 ---
 

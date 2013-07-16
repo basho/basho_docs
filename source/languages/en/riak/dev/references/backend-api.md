@@ -6,7 +6,7 @@ document: appendix
 toc: true
 keywords: [api, backends]
 moved: {
-  '1.4.0-': '/references/appendices/Backend-API/'
+  '1.4.0-': '/references/appendices/Backend-API'
 }
 ---
 

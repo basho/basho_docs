@@ -11,8 +11,8 @@ en:
   all_projects: All Riak Projects
   docs_on_github: "These docs are available on GitHub. Please submit ideas and patches."
   secondary_header: "These May Also Interest You"
-  faqs_link: "[[FAQs]]"
-  apis_link: "[[APIs]]"
+  faqs_link: "[[FAQs|Riak FAQs]]"
+  apis_link: "[[APIs|HTTP API]]"
   tutorial_nav: "Tutorial Nav"
   previous: Prev
   next: Next

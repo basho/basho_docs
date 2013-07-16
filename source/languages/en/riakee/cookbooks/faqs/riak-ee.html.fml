@@ -11,14 +11,14 @@ Q: Is it possible to only replicate some buckets between datacenters?
 A:
   Yes, this feature is available as of Riak Enterprise 1.1.
   
-  Please see the Enable/Disable Replication per Bucket section of [[Multi Data-center Replication Per Bucket]].
+  Please see the Enable/Disable Replication per Bucket section of [[Multi Data Center Replication: Per Bucket]].
 
 Q: How do I protect my data in the event of a crash that affects the entire cluster?
 A:
   The most reliable option for duplicating data is to use multi-datacenter replication to maintain a warm standby cluster, as explained in these articles: 
   
-  * [[Multi Data-center Replication Concepts]]
-  * [[Multi Data-center Replication Operations]]
+  * [[Multi Data-center Replication: Configuration]]
+  * [[Multi Data-center Replication: Operations]]
   
   Using MDC replication you could keep the standby cluster reasonably updated, so only the very newest bits of data would need to be migrated after a crash.
 

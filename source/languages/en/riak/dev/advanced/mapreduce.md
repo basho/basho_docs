@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [developers, mapreduce]
 moved: {
-  '1.4.0-': '/references/appendices/MapReduce-Implementation/'
+  '1.4.0-': '/references/appendices/MapReduce-Implementation'
 }
 ---
 
@@ -220,7 +220,7 @@ When the timeout hits, the node coordinating the MapReduce request cancels it an
 
 The list of input objects is given as a list of 2-element lists of the form `[Bucket,Key]` or 3-element lists of the form `[Bucket,Key,KeyData]`.
 
-You may also pass just the name of a bucket `({"inputs":"mybucket",...})`, which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a map/reduce across the whole bucket").  You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly. A bucket input may also be combined with [[Key Filters]] to limit the number of objects processed by the first query phase.
+You may also pass just the name of a bucket `({"inputs":"mybucket",...})`, which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a map/reduce across the whole bucket").  You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly. A bucket input may also be combined with [[Key Filters|Using Key Filters]] to limit the number of objects processed by the first query phase.
 
 If you're using Riak Search, the list of inputs can also [[reference a search query|Using Search#Querying-Integrated-with-Map-Reduce]] to be used as inputs.
 

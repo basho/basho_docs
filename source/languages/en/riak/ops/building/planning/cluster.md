@@ -6,7 +6,7 @@ document: appendix
 toc: true
 keywords: [planning, cluster]
 moved: {
-    '1.4.0-': '/references/appendices/Cluster-Capacity-Planning/'
+    '1.4.0-': '/references/appendices/Cluster-Capacity-Planning'
 }
 ---
 
@@ -94,7 +94,7 @@ calculation assumes you'll be keeping the entire data set on disk.)
 Many of the considerations taken when configuring a machine to serve a
 database can be applied to configuring a node for Riak as well. Mounting
 disks with noatime and having separate disks for your OS and Riak data
-lead to much better performance. See [[System Planning]] for more
+lead to much better performance. See [[System Planning|Planning for a Riak System]] for more
 information.
 
 Read/Write Profile
@@ -160,7 +160,7 @@ cluster performs under load for an extended period of time. Doing so
 will help you size your cluster for future growth and lead to optimal
 performance.
 
-Basho recommends using [[Basho Bench|Benchmarking]] for benchmarking the performance of your cluster.
+Basho recommends using [[Basho Bench]] for benchmarking the performance of your cluster.
 
 ### Bandwidth
 
@@ -188,5 +188,5 @@ latency possible using SATA Drives or SSDs, for example.
 Additional resources
 --------------------
 
-* [[System Planning]]
-* [[Basho Bench|Benchmarking]]
+* [[System Planning|Planning for a Riak System]]
+* [[Basho Bench]]

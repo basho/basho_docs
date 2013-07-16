@@ -8,7 +8,7 @@ audience: advanced
 keywords: [api, http]
 index: true
 moved: {
-  '1.4.0-': '/references/apis/http/'
+  '1.4.0-': '/references/apis/http'
 }
 ---
 
@@ -35,7 +35,7 @@ Buckets in Riak are a virtual concept. They exist primarily as a namespace
 mechanism and as a mechanism to isolate specific behavior changes that deviate
 from the default bucket settings. For example, you may augment the [[number of
 replicas|Replication#Selecting-an-N-value-(n_val)]], the specific storage
-backend and [[commit hooks|Pre- and Post-Commit Hooks]] at the bucket level.
+backend and [[commit hooks|Using Commit Hooks]] at the bucket level.
 
 <div class="info"><div class="title">How Many Buckets Can I Have?</div>
 <p>Currently, buckets come with virtually no cost except for when you modify the
@@ -71,18 +71,6 @@ Object". The operations below affect individual objects in Riak.
 * [[HTTP Link Walking]]
 * [[HTTP MapReduce]]
 * [[HTTP Secondary Indexes]]
-
-<!-- ## Luwak Operations (Large Objects)
-
-Luwak is an optional interface that automatically segments large files across
-multiple Riak Objects.
-
-* [[HTTP Get Luwak Properties]]
-* [[HTTP List Luwak Keys]]
-* [[HTTP Fetch Luwak Object]]
-* [[HTTP Store Luwak Object]]
-* [[HTTP Delete Luwak Object]]
- -->
 
 ## Server Operations
 

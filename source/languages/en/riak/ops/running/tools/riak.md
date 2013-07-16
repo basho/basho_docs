@@ -7,7 +7,7 @@ toc: true
 audience: beginner
 keywords: [command-line, riak]
 moved: {
-    '1.4.0-': '/references/Command-Line-Tools---riak/'
+    '1.4.0-': '/references/Command-Line-Tools---riak'
 }
 ---
 

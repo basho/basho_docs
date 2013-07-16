@@ -9,6 +9,9 @@ audience: beginner
 keywords: [faq]
 simple: true
 versions: false
+moved: {
+  '1.4.0-': '/cookbooks/faqs'
+}
 ---
 
 # Riak FAQs

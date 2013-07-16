@@ -195,7 +195,7 @@ public class KryoPersonConverter implements Converter<Person>
 ```
 ## Converter with secondary indexes, links, and user metadata
 
-This Converter preserves all the Riak data when reading/writing. This example also demonstrates how to use [[Secondary Indexes]] with your serialized objects.
+This Converter preserves all the Riak data when reading/writing. This example also demonstrates [[using secondary indexes]] with your serialized objects.
 
 ### App.java
 

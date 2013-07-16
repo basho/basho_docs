@@ -9,7 +9,7 @@ prev: "[[Installing on SUSE]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on AWS Marketplace]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-Windows-Azure/'
+    '1.4.0-': '/tutorials/installation/Installing-on-Windows-Azure'
 }
 ---
 
@@ -150,4 +150,4 @@ Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
 
 Further Reading:
 
-- [[Basic Riak API Operations]]
+- [[Basic Riak API Operations|The Basics]]

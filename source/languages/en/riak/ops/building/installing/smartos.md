@@ -12,7 +12,7 @@ download:
   key: smartos
   name: "SmartOS"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-SmartOS/'
+    '1.4.0-': '/tutorials/installation/Installing-on-SmartOS'
 }
 ---
 

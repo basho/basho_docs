@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [operator, best-practices]
 moved: {
-    '1.4.0-': '/cookbooks/best-practices/'
+    '1.4.0-': '/cookbooks/best-practices'
 }
 ---
 

@@ -20,7 +20,7 @@ Ok! Now that you've read through that and understand that Riak is a system that 
 
 In Riak data is stored in buckets. Those buckets have a number of options and tunable parameters, one of which is whether or not to allow sibling records. By default, a bucket does **not** allow sibling creation. The Riak Java client is somewhat built around this in that at the most basic level, you can simply say "fetch the data associated with this key" and the single object that is currently in Riak referenced by that key will be returned.
 
-This of course does not reflect how you must use the client if your application is doing a typical read/modify/write cycle and you have multiple threads or instances of your application causing concurrency. We'll discuss that in the [[advanced section|fetchingdata#advanced]] below.
+This of course does not reflect how you must use the client if your application is doing a typical read/modify/write cycle and you have multiple threads or instances of your application causing concurrency. We'll discuss that in the [[advanced section|Riak Java Client Fetching Data#advanced]] below.
 
 With that in mind, the following basic examples show how you can retrieve data from Riak.
 
@@ -50,7 +50,7 @@ public class App
 
 ## Fetch JSON data, map to POJO
 
-By default, the Riak Java client provides a default Converter (see the [[advanced section|fetchingdata#advanced]] below for more on this) that will automatically map JSON stored in Riak to a POJO class you provide. 
+By default, the Riak Java client provides a default Converter (see the [[advanced section|Riak Java Client Fetching Data#advanced]] below for more on this) that will automatically map JSON stored in Riak to a POJO class you provide. 
 
 ```java
 import com.basho.riak.client.IRiakClient;
@@ -144,7 +144,7 @@ The second takes a (String) key and your POJO class (e.g. MyPojo.class) as argum
 
 The third takes an instance of your POJO class with a String field annotated with @RiakKey which contains the key. Again, the &lt;T&gt; is inferred from this and you are returned a FetchObject&lt;MyPojo&gt;.
 
-If you do not provide a ConflictResolver, an instance of [DefaultResolver&lt;T&gt;](http://basho.github.com/riak-java-client/1.1.0/com/basho/riak/client/cap/DefaultResolver.html) is provided. This is actually not really a resolver at all; it throws an exception if siblings are present. If you do not provide a Converter, the [JSONConverter&lt;T&gt;](http://basho.github.com/riak-java-client/1.1.0/com/basho/riak/client/convert/JSONConverter.html) is provided. This Converter uses the Jackson JSON library to deserialize your POJO from JSON stored in Riak. For an example of implementing a customer converter that uses a different serialization library, check out [[using a customer converter|Using-a-custom-Converter]]. 
+If you do not provide a ConflictResolver, an instance of [DefaultResolver&lt;T&gt;](http://basho.github.com/riak-java-client/1.1.0/com/basho/riak/client/cap/DefaultResolver.html) is provided. This is actually not really a resolver at all; it throws an exception if siblings are present. If you do not provide a Converter, the [JSONConverter&lt;T&gt;](http://basho.github.com/riak-java-client/1.1.0/com/basho/riak/client/convert/JSONConverter.html) is provided. This Converter uses the Jackson JSON library to deserialize your POJO from JSON stored in Riak. For an example of implementing a customer converter that uses a different serialization library, check out [[using a customer converter|Riak Java Client Custom Converter]]. 
 
 The following example demonstrates the use of these interfaces and your own POJO. These are the same implementations we use for our [[Advanced Examples for storing data in Riak|Riak Java Client Storing Data#advanced]] and model a game "leaderboard" system.
 

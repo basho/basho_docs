@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operator]
 moved: {
-    '1.4.0-': '/cookbooks/Replacing-a-Node/'
+    '1.4.0-': '/cookbooks/Replacing-a-Node'
 }
 ---
 
@@ -31,7 +31,7 @@ At some point, for various reasons, you might need to replace a node in your Ria
 
   4. Plan the join of the new **riak7** node to an existing node already participating in
     he cluster; for example **riak0** with the
-    `[[riak-admin cluster join|Command-Line Tools - riak-admin#cluster]]` command executed
+    `[[riak-admin cluster join|riak-admin Command Line#cluster]]` command executed
     on the the new **riak7** node:
 
     ```bash
@@ -39,14 +39,14 @@ At some point, for various reasons, you might need to replace a node in your Ria
     ```
 
   5. Plan the replacement of the existing **riak4** node with the new **riak7** node using
-    the `[[riak-admin cluster replace|Command-Line Tools - riak-admin#cluster]]` command:
+    the `[[riak-admin cluster replace|riak-admin Command Line#cluster]]` command:
 
     ```bash
     riak-admin cluster replace riak4 riak7
     ```
 
   6. Examine the proposed cluster changes with the
-    `[[riak-admin cluster plan|Command-Line Tools - riak-admin#cluster]]` command executed
+    `[[riak-admin cluster plan|riak-admin Command Line#cluster]]` command executed
     on the the new **riak7** node:
 
     ```bash
@@ -54,19 +54,19 @@ At some point, for various reasons, you might need to replace a node in your Ria
     ```
 
   7. If the changes are correct, you can commit them with the
-    `[[riak-admin cluster commit|Command-Line Tools - riak-admin#cluster]]` command:
+    `[[riak-admin cluster commit|riak-admin Command Line#cluster]]` command:
 
     ```bash
     riak-admin cluster commit
     ```
 
-If you need to clear the proposed plan and start over, use `[[riak-admin cluster clear|Command-Line Tools - riak-admin#cluster]]`:
+If you need to clear the proposed plan and start over, use `[[riak-admin cluster clear|riak-admin Command Line#cluster]]`:
 
 ```bash
 riak-admin cluster clear
 ```
 
-Once you have successfully replaced the node, it should begin leaving the cluster. You can check on ring readiness after replacing the node with the `[[riak-admin ringready|Command-Line Tools - riak-admin#ringready]]` and `[[riak-admin member-status|Command-Line Tools - riak-admin#member-status]]` commands.
+Once you have successfully replaced the node, it should begin leaving the cluster. You can check on ring readiness after replacing the node with the `[[riak-admin ringready|riak-admin Command Line#ringready]]` and `[[riak-admin member-status|riak-admin Command Line#member-status]]` commands.
 
 <div class="info">
 <div class="title">Ring Settling</div>

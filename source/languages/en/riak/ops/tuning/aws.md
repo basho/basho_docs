@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operator, performance, aws]
 moved: {
-    '1.4.0-': '/cookbooks/Performance-Tuning-AWS/'
+    '1.4.0-': '/cookbooks/Performance-Tuning-AWS'
 }
 ---
 
@@ -136,8 +136,7 @@ cluster directly.
 
 Benchmarking is critical to determining the appropriate EC2 instance
 types, and strongly recommended. More information is available on
-benchmarking Riak clusters with Basho Bench in the
-[[Basho Bench documentation|Benchmarking]].
+benchmarking Riak clusters with [[Basho Bench]].
 
 Besides running basho bench it is also advisable to load test Riak with your
 own tests to ensure that load imparted by M/R queries, linking, link-walking,

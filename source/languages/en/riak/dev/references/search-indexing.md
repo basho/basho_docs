@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [developers, reference, search]
 moved: {
-  '1.4.0-': '/cookbooks/Riak-Search---Indexing/'
+  '1.4.0-': '/cookbooks/Riak-Search---Indexing'
 }
 ---
 

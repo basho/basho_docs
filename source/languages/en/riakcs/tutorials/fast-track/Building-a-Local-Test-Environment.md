@@ -49,7 +49,7 @@ Once you have the packages, install them per the instructions below.
 
 #### First, install Riak
 
-The below links provide platform-specific instructions for installing Riak.
+The following links provide platform-specific instructions for installing Riak.
 
 **Do not attempt to configure or start Riak until step 3 in this document.**
 

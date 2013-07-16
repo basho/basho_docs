@@ -14,7 +14,7 @@ interest: [
 "[[Replication]]"
 ]
 moved: {
-  '1.4.0-': '/tutorials/fast-track/What-is-Riak/'
+  '1.4.0-': '/tutorials/fast-track/What-is-Riak'
 }
 ---
 

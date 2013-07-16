@@ -9,7 +9,7 @@ prev: "[[Installing on Windows Azure]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing Riak from Source]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-AWS-Marketplace/'
+    '1.4.0-': '/tutorials/installation/Installing-on-AWS-Marketplace'
 }
 ---
 
@@ -89,4 +89,4 @@ You now have a Riak cluster on AWS.
 
 Further Reading:
 
-- [[Basic Riak API Operations]]
+- [[Basic Riak API Operations|The Basics]]

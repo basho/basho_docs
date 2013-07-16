@@ -11,7 +11,7 @@ up:   "[[Choosing a Backend]]"
 next: "[[Memory]]"
 interest: false
 moved: {
-    '1.4.0-': '/tutorials/choosing-a-backend/LevelDB/'
+    '1.4.0-': '/tutorials/choosing-a-backend/LevelDB'
 }
 ---
 

@@ -9,7 +9,7 @@ prev: "[[Installing on Solaris]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Windows Azure]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-SUSE/'
+    '1.4.0-': '/tutorials/installation/Installing-on-SUSE'
 }
 ---
 

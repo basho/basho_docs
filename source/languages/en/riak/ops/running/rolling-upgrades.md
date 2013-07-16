@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [upgrading]
 moved: {
-    '1.4.0-': '/cookbooks/Rolling-Upgrades/'
+    '1.4.0-': '/cookbooks/Rolling-Upgrades'
 }
 ---
 
@@ -19,11 +19,6 @@ to 1.0).
 Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
 
 In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak.
-
-<div class="note"><div class="title">Note on upgrading from Riak Search</div>
-<p>If you are upgrading from Riak Search, please read
-[[Upgrading from Riak Search]] before performing a rolling upgrade.</p>
-</div>
 
 {{#1.1.0-}}
 
@@ -122,7 +117,7 @@ behalf. This data is transferred to the node when it becomes available.
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the 
-[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]] command. More details about reformatting indexes are available
  in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
@@ -227,7 +222,7 @@ behalf. This data is transferred to the node when it becomes available.
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the 
-[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]] command. More details about reformatting indexes are available
  in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
@@ -361,7 +356,7 @@ behalf. This data is transferred to the node when it becomes available.
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the 
-[[riak-admin reformat-indexes|Command-Line-Tools - riak-admin#reformat-indexes]] command. More details about reformatting indexes are available
+[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]] command. More details about reformatting indexes are available
  in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>

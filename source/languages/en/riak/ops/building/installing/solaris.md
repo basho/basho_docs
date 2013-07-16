@@ -1,5 +1,5 @@
 ---
-title: Installing on Solaris 10
+title: Installing on Solaris
 project: riak
 version: 1.2.0+
 document: tutorial
@@ -12,7 +12,7 @@ download:
   key: solaris
   name: "Solaris"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-Solaris/'
+    '1.4.0-': '/tutorials/installation/Installing-on-Solaris'
 }
 ---
 

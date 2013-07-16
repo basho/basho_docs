@@ -12,7 +12,7 @@ download:
   key: rhel
   name: "Red Hat or CentOS"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-RHEL-and-CentOS/'
+    '1.4.0-': '/tutorials/installation/Installing-on-RHEL-and-CentOS'
 }
 ---
 

@@ -9,13 +9,12 @@ versions: false
 interest: [
 "[[Installing and Upgrading]]",
 "[[Concepts]]",
-"[[Querying Riak]]",
-"[[System Planning]]",
-"[[Basic Cluster Setup]]",
+"[[Planning for a Riak System]]",
+"[[Cluster Capacity Planning]]",
 "[[Use Cases]]"
 ]
 moved: {
-  '1.4.0-': 'http://docs.basho.com/riak/latest/tutorials/fast-track/Tunable-CAP-Controls-in-Riak/'
+  '1.4.0-': '/tutorials/fast-track/Tunable-CAP-Controls-in-Riak'
 }
 ---
 
