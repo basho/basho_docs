@@ -45,8 +45,7 @@ Storage operations use HTTP PUTs or POSTs and fetches use HTTP GETs.
 Storage operations are submitted to a pre-defined URL which defaults to
 ‘/riak’.
 
-In addition to HTTP, Riak also ships with a fully-featured [[Protocol
-Buffers API|PBC-API]]. This is a simple binary protocol based on the
+In addition to HTTP, Riak also ships with a fully-featured [[Protocol Buffers API|PBC Index]]. This is a simple binary protocol based on the
 library Google’s open source project of the same name.
 
 Client Libraries
