@@ -6,6 +6,9 @@ document: appendix
 toc: true
 audience: intermediate
 keywords: [operator, status, riaknostic]
+moved: {
+    '1.4.0-': '/references/appendices/Inspecting-a-Node'
+}
 ---
 
 When inspection of a Riak node to gather metrics on performance or

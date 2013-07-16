@@ -45,6 +45,15 @@ At some point, for various reasons, you might need to replace a node in your Ria
     riak-admin cluster replace riak4 riak7
     ```
 
+    <div class=info>
+    <div class=title>Single Nodes</div>
+    If a node is started singly using default settings (as, for example,
+    you might do when you are building your first test environment), you
+    will need to remove the ring files from the data directory after you edit
+    <code>etc/vm.args</code>. <code>riak-admin cluster replace</code> will not work as the node
+    has not been joined to a cluster.
+    </div>
+
   6. Examine the proposed cluster changes with the
     `[[riak-admin cluster plan|riak-admin Command Line#cluster]]` command executed
     on the the new **riak7** node:

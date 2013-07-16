@@ -20,6 +20,7 @@ backend the node will use to store data. The `vm.args` file is used to pass
 parameters to the Erlang node such as the name or cookie of the Erlang node.
 
 ## app.config
+
 Riak and the Erlang applications it depends on are configured by settings in the app.config file in the etc directory of the Riak node.
 
 ```erlang
@@ -35,6 +36,10 @@ Riak and the Erlang applications it depends on are configured by settings in the
     %% Other application configurations...
 ].
 ```
+
+<div class="note">
+Note that lines prefixed with `%%` are comments
+</div>
 
 {{#1.2.0+}}
 
@@ -195,6 +200,11 @@ You can override the default SSL key and certificate settings (default: etc/cert
 {Module, Function} that returns boolean - true if this node wants to claim more vnodes.
 
 * **enable_health_checks** `true` or `false`. `true` if all health checks should be enabled. {{1.3.0+}}
+
+* **stat_cache_ttl**
+    {{#1.2.0-1.3.1}}The time-to-live in seconds for stats in the cache. If stats are requested from the cache and they're older than TTL seconds, they will be calculated. (default: `1`){{/1.2.0-1.3.1}}
+    {{#1.3.2+}}The interval, in seconds, between stat cache population runs. (default: `1`)
+    All Riak stats are served from the stat cache. This setting controls how frequently that cache is refreshed. {{/1.3.2+}}
 
 ### riak_kv settings
 

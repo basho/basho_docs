@@ -214,6 +214,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Erlang*
 
+* [Uriak Pool](https://github.com/unisontech/uriak_pool) - Erlang connection pool library from the team at [[Unison|http://www.unison.com]]
 * [[Riak PBC Pool|https://github.com/snoopaloop/Riak-PBC-Pool]] - Riak Protocol Buffer Client pool application
 * [[Pooly|https://github.com/aberman/pooly]] - Riak Process Pool
 * [[riakpool|https://github.com/dweldon/riakpool]] - Application for maintaining a dynamic pool of Protocol Buffer client connections to a Riak database
@@ -258,6 +259,7 @@ All of these projects and libraries are at various stages of completeness and ma
 *OCaml*
 
 * [[Riak OCaml Client|http://metadave.github.com/riak-ocaml-client/]] - Riak OCaml Client
+* [OCaml Riakc](https://github.com/orbitz/ocaml-riakc) - ocaml-riakc
 
 *Perl*
 
@@ -289,9 +291,8 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Racket*
 
-* [[Racket-Riak|https://gist.github.com/shofetim/riak.rkt]] - Racket API to Riak
 * [[riak.rkt|https://github.com/shofetim/riak.rkt]] - Racket API to Riak
-* [[racket-riak|https://github.com/dkvasnicka/racket-riak]] - Racket 1.3.x API to Riak
+* [[Racket Riak|https://github.com/dkvasnicka/racket-riak]] - Racket 1.3.x API to Riak
 
 *Ruby*
 

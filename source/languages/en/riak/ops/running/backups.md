@@ -172,7 +172,7 @@ restored to that node), then you will need to additionally:
 `riak-admin cluster commit`
 
 <div class="info">For more information about the `riak-admin cluster` commands,
-refer to the [[cluster section of "Command Line Tools - riak-admin"|Command Line Tools - riak-admin#cluster]].</div>
+refer to the [[cluster section of "Command Line Tools - riak-admin"|riak-admin Command Line#cluster]].</div>
 
 For example, if there are five nodes in the cluster with the original node
 names *riak1.example.com* through *riak5.example.com* and you wish to restore

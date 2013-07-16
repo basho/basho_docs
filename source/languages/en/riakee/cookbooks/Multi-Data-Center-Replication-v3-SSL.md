@@ -1,7 +1,7 @@
 ---
-title: "Multi Data Center Replication: SSL"
+title: "Multi Data Center Replication v3 SSL"
 project: riakee
-version: 1.2.0+
+version: 1.3.2+
 document: cookbook
 toc: true
 audience: intermediate
@@ -10,7 +10,7 @@ keywords: [mdc, repl, ssl]
 
 ## Features
 
-Riak REPL SSL support consists of the following items:
+Riak MDC Replication SSL consists of the following items:
 
   * Encryption of replication data
   * SSL certificate chain validation
@@ -19,7 +19,7 @@ Riak REPL SSL support consists of the following items:
 ## SSL Configuration
 
 To configure SSL, you will need to include the following 4 settings in the
-riak-repl section of `app.config`:
+`riak-core` section of [[app.config|Configuration Files#app.config]].
 
 ```
 {ssl_enabled, true},
@@ -28,13 +28,17 @@ riak-repl section of `app.config`:
 {cacertdir, "/full/path/to/cacertsdir"}
 ```
 
-The cacertdir is a directory containing all the CA certificates needed to
+The `cacertdir` is a directory containing all the CA certificates needed to
 verify the CA chain back to the root.
+
+<div class="note">
+Please note that in <em>Version 3</em> replication, the SSL settings need to be placed in the <code>riak-core</code> section of <em>app.config</em>, as opposed to the <code>riak-repl</code> section that <em>Version 2</em> replication uses.
+</div>
 
 ## Verifying peer certificates
 
-Verification of a peer's certificate common name is enabled by using the 
-peer_common_name_acl property in the riak_repl section of app.config.
+Verification of a peer's certificate common name is enabled by using the
+peer_common_name_acl property in the riak_repl section of *app.config*.
 
 You can provide multiple ACLs, separated by commas, and you can wildcard
 the leftmost part of the common name. For example, `*.corp.com` would match
@@ -46,30 +50,30 @@ If no ACLs are configured, no checks on the common name are done.
 
 ### Examples
 
-The following example will only allow connections from peer certificate names like 
+The following example will only allow connections from peer certificate names like
 db.bashosamplecorp.com and security.bashosamplecorp.com:
 
-```
+```erlang
 {peer_common_name_acl, ["db.bashosamplecorp.com", "security.bashosamplecorp.com"]}
 ```
 
 The following example will allow connections from peer certificate names like  `foo.bashosamplecorp.com` or `db.bashosamplecorp.com`, but not a peer certificate name like `db.backup.bashosamplecorp.com`.
 
-```
+```erlang
 {peer_common_name_acl, ["*.bashosamplecorp.com"]}
 ```
 
 This example will match any peer certificate name (and is the default):
 
-```
+```erlang
 {peer_common_name_acl, "*"}
 ```
 
 ## SSL CA Validation
 
-You can adjust the way CA certificates are validated by adding the following to the riak_repl section of app.config:
+You can adjust the way CA certificates are validated by adding the following to the riak_repl section of *app.config*:
 
-```
+```erlang
 {ssl_depth, ...}
 ```
 
@@ -85,12 +89,15 @@ For example,
 
 ## Compatibility
 
-Replication SSL is ONLY available in Riak 1.2+.
+{{#1.2.0-1.3.9}}
+Replication SSL for *Version 2* is available in *Riak 1.2+*.
+{{/1.2.0-1.3.9}}
+{{#1.4.0+}}
+Replication SSL for *Version 3* is available in *Riak 1.4+*.
+{{/1.4.0+}}
 
 If SSL is enabled and a connection is made to a Riak EE 1.0 or 1.1 node, the connection will be denied and an error will be logged.
 
 ### Self Signed Certificates
 
-You can generate your own CA and keys by using this guide: http://www.debian-administration.org/articles/618
-
-Make sure you remove the password protection from the keys you generate.
+Read how to [generate your own CA and keys](http://www.debian-administration.org/articles/618). Ensure you remove the password protection from the keys you generate.

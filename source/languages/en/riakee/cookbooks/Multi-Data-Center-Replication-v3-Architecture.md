@@ -1,18 +1,21 @@
 ---
-title: "Multi Data Center Replication: Architecture (Advanced)"
+title: "Multi Data Center Replication v3 Architecture"
 project: riakee
 version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, bnw]
+moved: {
+    '1.4.0-': '/cookbooks/Multi-Data-Center-Replication-Architecture-New'
+}
 ---
 
-## How Advanced Replication Works
+## How Version 3 Replication Works
 
 In multi-datacenter (MDC) replication, a cluster can act as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). Bidirectional replication can easily be established by making a cluster both a source and a sink to other clusters. Riak Enterprise MDC Replication is considered "masterless": all clusters participating will resolve replicated writes via the normal resolutions methods available in Riak.
 
-In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between source and sink cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Full-sync can be performed upon initial connection of a sink cluster. 
+In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between source and sink cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Full-sync can be performed upon initial connection of a sink cluster.
 
 Full-sync and real-time modes are described in detail below. 
 
@@ -20,7 +23,7 @@ Full-sync and real-time modes are described in detail below.
 
 ### Sources
 
-A source refers to a cluster that is the primary producer of replication data. A source can also refer to any node that is part of the source cluster. Source clusters push data to sink clusters. 
+A source refers to a cluster that is the primary producer of replication data. A source can also refer to any node that is part of the source cluster. Source clusters push data to sink clusters.
 
 ### Sinks
 

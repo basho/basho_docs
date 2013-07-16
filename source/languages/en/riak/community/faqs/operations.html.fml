@@ -406,5 +406,5 @@ A:
 
 Q: Is 32-bit Riak a bad idea?
 A:
-  64-bit is [[recommended|Planning for a Riak System#Hardware]], but there's nothing wrong with 32-bit if that's what you have available to you.
+  64-bit is [[recommended|Planning for a Riak System#Hardware]], 32 bit is not.
 

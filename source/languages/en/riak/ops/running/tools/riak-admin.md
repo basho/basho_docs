@@ -150,7 +150,7 @@ be backed up, respectively.
 
 
 ```bash
-riak-admin backup <node> <cookie> <filename> [[node|all]]
+riak-admin backup <node> <cookie> <filename> [node|all]
 ```
 
 

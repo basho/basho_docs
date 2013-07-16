@@ -11,11 +11,12 @@ moved: {
 }
 ---
 
-<!-- To avoid downtime of a Riak cluster we suggest performing upgrades in a rolling
-fashion. This process involves stopping, upgrading, and restarting one node at a
-time. This process is known to work as of Riak 0.13 (i.e. upgrading 0.13 or 0.14
-to 1.0).
- -->
+{{#1.4.0+}}
+<div class="note"><div class="title">Note on upgrading to Riak 1.4+</div>
+<p>Due to the differences between Riak 1.0 and Riak 1.4, you cannot upgrade directly. Instead, you should first upgrade to Riak 1.3.2, then to 1.4.0+</p>
+</div>
+{{/1.4.0+}}
+
 Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
 
 In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak.

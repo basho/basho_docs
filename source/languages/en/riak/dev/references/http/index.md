@@ -66,6 +66,13 @@ Object". The operations below affect individual objects in Riak.
 * [[HTTP Store Object]]
 * [[HTTP Delete Object]]
 
+{{#1.4.0+}}
+## Datatypes
+
+* [[HTTP Counters]]
+
+{{/1.4.0+}}
+
 ## Query Operations
 
 * [[HTTP Link Walking]]

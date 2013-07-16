@@ -267,5 +267,5 @@ Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) 
 This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
 
 ```
-RIAK_VERSION=1.3.1 INDEX=true DEPLOY=true middleman build
+RIAK_VERSION=1.4.0 INDEX=true DEPLOY=true bundle exec middleman build
 ```
