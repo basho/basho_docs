@@ -349,8 +349,6 @@ guarantees and permits only single key updates. </p>
         <p><strong>Efficiency</strong></p>
 
 <p>Agreed. Riak is made to (and will!) scale linearly on commodity hardware (often called &quot;pizza boxes&quot;).</p>
-
-<!-- * [[More on Hardware|Hosting and Server Configuration#HostingandServerConfiguration-Hardware]] -->
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1332,7 +1330,7 @@ the request level if the developer deems it necessary for certain data.
 <p>Some more resources on R and W:
 <ul>
 <li>[[Riak&#39;s REST API|HTTP API]]</li>
-<li>[[Reading and Writing Data|Basic Requests]]</a></li>
+<li>[[Reading and Writing Data|The Basics]]</a></li>
 </ul></p>
       </td>
       <td class=code>
@@ -1456,7 +1454,7 @@ the desired level of durability. A more detailed discussion of configuring N, R 
         <div class="pilwrap">
           <a class="pilcrow" href="#section-51">&#182;</a>
         </div>
-        <p>[[Multi Datacenter Replication|Multi Data Center Replication Architecture]] is implemented
+        <p>[[Multi Datacenter Replication|Multi Data Center Replication: Architecture]] is implemented
 in the commercial extension to Riak, called [[Riak Enterprise Edition|Riak Enterprise]].</p>
       </td>
       <td class=code>
@@ -1553,7 +1551,7 @@ This issue is addressed, however, by the refined partitioning scheme described i
           <a class="pilcrow" href="#section-55">&#182;</a>
         </div>
         <p>Riak operators can trigger node management via the
-[[riak-admin command-line tool|Command-Line Tools - riak-admin]].</p>
+[[riak-admin command-line tool|riak-admin Command Line]].</p>
       </td>
       <td class=code>
         <div class='highlight'>
@@ -1757,7 +1755,7 @@ and Main [[Memory]] are also used heavily in production (in that order). You can
 use more than one backend in production via the [[Multi]] backend configuration.</p>
 
 <p>Bitcask is a fast and reliable choice, but does have some limitations at very large scales.
-For larger clusters, you may want to choose LevelDB (which also supports [[secondary indexes]]).
+For larger clusters, you may want to choose LevelDB (which also supports [[secondary indexes|Using Secondary Indexes]]).
 The Memory backend is an excellent choice when speed is important and durability is not. It also
 has TTL support.</p>
 
@@ -2286,7 +2284,7 @@ rarely by humans. This issue is not discussed in detail due to the sensitive nat
 either virtual IPs or reverse-proxies.</p>
 
 <ul>
-<li>[[Load Balancing|System Planning#Network-Configuration-Load-Balancing]]</li>
+<li>[[Load Balancing|Planning for a Riak System#Network-Configuration-Load-Balancing]]</li>
 </ul>
       </td>
       <td class=code>

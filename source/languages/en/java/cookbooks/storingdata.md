@@ -141,7 +141,7 @@ The first two are only useful if you want to overwrite anything currently in Ria
 
 The second two are actually what you will most likely use if you are performing a read/modify/write cycle. As noted in [figure 1](#figure1) above, the interface is slightly clunky in that the object being passed in is going to be discarded when you supply the Mutation; it's only used to infer the type. The fourth version will extract the key from the object being passed in before doing so by referencing a String field annotated with @RiakKey.
 
-The following example is a "leader board" for various games. Imagine you were providing a service where game developers would have their games send you a score every time a player completed a game. You are required to store the top 5 scores for each game. We're going to rely on the default JSONConverter to serialize/deserialize our POJO to/from Riak. If you're interested in seeing how you would implement a converter to use a different serialization library, check out [[Using a custom converter|Using-a-custom-Converter]] for an example.
+The following example is a "leader board" for various games. Imagine you were providing a service where game developers would have their games send you a score every time a player completed a game. You are required to store the top 5 scores for each game. We're going to rely on the default JSONConverter to serialize/deserialize our POJO to/from Riak. If you're interested in seeing how you would implement a converter to use a different serialization library, check out [[using a customer converter|Riak Java Client Custom Converter]].
 
 ### App.java
 
@@ -426,7 +426,7 @@ public class NameScorePair implements Comparable<NameScorePair>
 <a name="iriakobject"></a>
 ## Storing previously fetched and modified data
 
-Prior to the 1.0.6 release of the Java client if you wanted to do a read/modify/write cycle outside of the store operation, you needed to deal with IRiakObjects directly and still could not avoid an unnecessary fetch during the store operation. As mentioned in [[fetching data from Riak|Fetching-Data-from-Riak#wiki-advanced]]  as of the 1.0.6 client release this problem has been eliminated. 
+Prior to the 1.0.6 release of the Java client if you wanted to do a read/modify/write cycle outside of the store operation, you needed to deal with IRiakObjects directly and still could not avoid an unnecessary fetch during the store operation. As mentioned in [[fetching data from Riak|Riak Java Client Fetching Data#advanced]]  as of the 1.0.6 client release this problem has been eliminated. 
 
 The `StoreObject` now has a method `withoutFetch()` which can be called prior to `execute()`. This eliminates the fetch (and its associated conflict resolution) during the store operation. 
 

@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [use-cases]
 moved: {
-  '1.4.0-': '/cookbooks/use-cases/serving-ads/'
+  '1.4.0-': '/cookbooks/use-cases/serving-ads'
 }
 ---
 

@@ -7,7 +7,7 @@ toc: true
 audience: beginner
 keywords: [developers]
 moved: {
-  '1.4.0-': '/tutorials/fast-track/Basic-Riak-API-Operations/'
+  '1.4.0-': '/tutorials/fast-track/Basic-Riak-API-Operations'
 }
 ---
 

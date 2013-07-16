@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [appendix, concepts]
 moved: {
-  '1.4.0-': '/references/appendices/concepts/'
+  '1.4.0-': '/references/appendices/concepts'
 }
 ---
 
@@ -57,8 +57,7 @@ client libraries that connect to Riak.
 
 Currently Basho [[supports libraries|Client Libraries]] for Ruby, Java, Erlang, Python, PHP, and C/C++.
 
-The [[Riak Community writes and supports|Community Developed Libraries
-and Projects]] client code for languages and frameworks like Node.js, Go, Groovy,
+The Riak Community writes and supports [[client libraries]] for languages and frameworks like Node.js, Go, Groovy,
 Haskell, and much more.
 
 Buckets, Keys, and Values
@@ -217,7 +216,7 @@ Riak’s low latency, high throughput storage back end.
 
 [[LevelDB]] is an open source library release by Google. It has
 different production properties than Bitcask and is required if you’re
-planning to use Riak’s [[Secondary Indexes]] functionality.
+planning to use Riak’s [[Using Secondary Indexes]] functionality.
 
 MapReduce
 ---------
@@ -234,7 +233,7 @@ is submitted via HTTP and the results are returned in JSON-encoded form.
 Secondary Indexes
 -----------------
 
-Version 1.0 of Riak added support for [[Secondary Indexes]]. This
+Version 1.0 of Riak added support for [[Using Secondary Indexes]]. This
 feature allows a developer to tag a Riak value with one or more
 field/value pairs. The object is indexed under these field/value pairs,
 and the application can later query the index to retrieve a list of
@@ -258,7 +257,7 @@ query results.
 Riak Search
 -----------
 
-[[Riak Search]] is a distributed, easily-scalable, failure-tolerant,
+[[Using Search]] is a distributed, easily-scalable, failure-tolerant,
 real-time, full-text search engine built around Riak Core and tightly
 integrated with Riak KV.
 
@@ -284,7 +283,7 @@ nasty feedback loops which will wedge the hook into an infinite cycle
 unless the hook functions are carefully written to detect and
 short-circuit such cycles.
 
-Pre- and post-commit hooks are defined on a per-bucket basis and are
+[[Pre- and post-commit hooks|Using Commit Hooks]] are defined on a per-bucket basis and are
 stored in the target bucket’s properties. They are run once per
 successful response to the client.
 

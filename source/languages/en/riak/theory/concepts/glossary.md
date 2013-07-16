@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [appendix, concepts]
 moved: {
-  '1.4.0-': '/references/appendices/concepts/Riak-Glossary/'
+  '1.4.0-': '/references/appendices/concepts/Riak-Glossary'
 }
 ---
 
@@ -67,7 +67,8 @@ Links are metadata attached to objects in Riak. These links make establishing re
 
 Riak's MapReduce gives developers the capability to perform more powerful queries over the data stored in their key/value data.
 
-* [[An In Depth Look at Riak's MapReduce|MapReduce]]
+* [[Using MapReduce]]
+* [[Advanced MapReduce]]
 
 ## Node
 
@@ -114,7 +115,8 @@ Replicas are copies of data stored in Riak. The number of replicas required for 
 
 Riak Search is a distributed, scalable, failure-tolerant, real-time, full-text search engine built around Riak Core and tightly integrated with Riak KV.
 
-* [[In Depth on Riak Search|Riak Search]]
+* [[Using Search]]
+* [[Advanced Search]]
 
 ## Ring
 
@@ -124,7 +126,8 @@ The Riak Ring is a 160-bit integer space. This space is equally divided into par
 
 Secondary Indexing in Riak gives developers the ability to tag an object stored in Riak with one or more values which can then be queried.
 
-* [[More about Secondary Indexes|Secondary Indexes]]
+* [[Using Secondary Indexes]]
+* [[Advanced Secondary Indexes]]
 
 ## Value
 

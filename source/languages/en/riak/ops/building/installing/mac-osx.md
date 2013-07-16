@@ -12,7 +12,7 @@ download:
   key: osx
   name: "Mac OS X"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-Mac-OS-X/'
+    '1.4.0-': '/tutorials/installation/Installing-on-Mac-OS-X'
 }
 ---
 

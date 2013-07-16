@@ -6,7 +6,7 @@ document: cookbook
 audience: beginner
 keywords: [developers, linkwalking]
 moved: {
-  '1.4.0-': '/cookbooks/Link-Walking/'
+  '1.4.0-': '/cookbooks/Link-Walking'
 }
 ---
 

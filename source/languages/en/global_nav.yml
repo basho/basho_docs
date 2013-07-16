@@ -3,7 +3,7 @@ riak:
   #   class: "active shortcuts"
   #   sub:
   #     - "[[APIs|/dev/references/http/]]"
-  #     - "[[FAQs]]"
+  #     - "[[FAQs|Riak FAQs]]"
   - title: "Start Here"
     class: "start"
     sub:

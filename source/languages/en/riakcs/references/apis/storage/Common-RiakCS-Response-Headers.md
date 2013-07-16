@@ -1,5 +1,5 @@
 ---
-title: RiakCS Common Response Headers
+title: Common RiakCS Response Headers
 project: riakcs
 version: 1.2.0+
 document: api

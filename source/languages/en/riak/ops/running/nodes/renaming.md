@@ -7,16 +7,16 @@ toc: true
 audience: advanced
 keywords: [operator]
 moved: {
-    '1.4.0-': '/cookbooks/Renaming-Nodes/'
+    '1.4.0-': '/cookbooks/Renaming-Nodes'
 }
 ---
 
 Previous to Riak version 1.2, a cluster node's IP address could be changed
-the `[[riak-admin reip|Command-Line-Tools---riak-admin#reip]]` command,
+the `[[riak-admin reip|riak-admin Command Line#reip]]` command,
 which involves downtime for the entire cluster.
 
 As of Riak version 1.2, that method has been superseded by
-`[[riak-admin cluster force-replace|Command-Line-Tools---riak-admin#cluster-force-replace]]`
+`[[riak-admin cluster force-replace|riak-admin Command Line#cluster-force-replace]]`
 which is safer and does not require cluster wide downtime.
 
 The following example describes reconfiguring node IP addresses with the

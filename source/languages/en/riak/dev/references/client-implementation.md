@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [interface, client]
 moved: {
-  '1.4.0-': '/tutorials/Client-Implementation-Guide/'
+  '1.4.0-': '/tutorials/Client-Implementation-Guide'
 }
 ---
 

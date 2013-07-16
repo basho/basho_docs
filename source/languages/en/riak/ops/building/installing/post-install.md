@@ -8,7 +8,7 @@ keywords: [tutorial, installing, upgrading]
 prev: "[[Installing Riak From Source]]"
 up:   "[[Installing and Upgrading]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Post-Installation/'
+    '1.4.0-': '/tutorials/installation/Post-Installation'
 }
 ---
 
@@ -156,4 +156,3 @@ From here you might want to check out the following resources.
 
 * Check out the [[Client Libraries]] to use Riak with your favorite programming language
 * [[Learn about the high level concepts of Riak|Concepts]]
-* [[Learn more about day-to-day system operations|Operators]]

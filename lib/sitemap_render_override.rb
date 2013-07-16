@@ -72,7 +72,7 @@ module SitemapRenderOverride
       # heuristic that an unfound url, is probably not a link
       link_url = link_data[:url]
       if link_url.blank? && link_name !~ /^([.]?\/|https?\:)/
-        # link_label
+        $stderr.puts "#{url} Unknown link [[#{link_label}]]"
         "[[#{link_label}]]"
       else
         # no html inside of the link or label

@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [appendix, concepts]
 moved: {
-  '1.4.0-': '/references/appendices/concepts/Eventual-Consistency/'
+  '1.4.0-': '/references/appendices/concepts/Eventual-Consistency'
 }
 ---
 

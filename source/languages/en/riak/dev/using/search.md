@@ -7,7 +7,7 @@ toc: true
 audience: beginner
 keywords: [developers, search, kv]
 moved: {
-  '1.4.0-': '/tutorials/querying/Riak-Search/'
+  '1.4.0-': '/tutorials/querying/Riak-Search'
 }
 ---
 

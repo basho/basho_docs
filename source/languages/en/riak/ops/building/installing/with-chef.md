@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [operator, installing, chef]
 moved: {
-    '1.4.0-': '/cookbooks/Installing-With-Chef/'
+    '1.4.0-': '/cookbooks/Installing-With-Chef'
 }
 ---
 

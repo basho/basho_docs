@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operator, 2i]
 moved: {
-    '1.4.0-': '/cookbooks/Secondary-Indexes---Configuration/'
+    '1.4.0-': '/cookbooks/Secondary-Indexes---Configuration'
 }
 ---
 

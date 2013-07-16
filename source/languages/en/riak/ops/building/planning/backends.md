@@ -9,7 +9,7 @@ keywords: [backends, planning]
 next: "[[Bitcask]]"
 interest: false
 moved: {
-    '1.4.0-': '/tutorials/choosing-a-backend/'
+    '1.4.0-': '/tutorials/choosing-a-backend'
 }
 ---
 
@@ -24,6 +24,5 @@ These backends are supported:
 * [[LevelDB]]
 * [[Memory]]
 * [[Multi]]
-* [[Innostore]] {{1.2.0-}}
 
-Riak supports the use of custom storage backends as well. See the storage [[Backend API|Backend API]] for more details.
+Riak supports the use of custom storage backends as well. See the storage [[Backend API]] for more details.

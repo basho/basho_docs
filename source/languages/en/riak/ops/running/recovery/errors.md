@@ -9,7 +9,7 @@ keywords: [errors]
 interest: []
 body_id: errors
 moved: {
-    '1.4.0-': '/references/Errors/'
+    '1.4.0-': '/references/Errors'
 }
 ---
 

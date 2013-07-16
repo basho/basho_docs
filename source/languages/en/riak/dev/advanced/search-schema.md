@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [search, schema]
 moved: {
-  '1.4.0-': '/cookbooks/Riak-Search---Schema/'
+  '1.4.0-': '/cookbooks/Riak-Search---Schema'
 }
 ---
 
@@ -141,7 +141,7 @@ The following properties are defined at a field level, and apply to both static 
 * *skip* - Optional. When "true", the field is stored, but not indexed. Defaults to "false".
 * *alias* - Optional. An alias that should be mapped to the current field definition, effectively indexing multiple fields of different names into the same field. You can add as many `alias` settings as you like.
 * *padding_size* - Optional. Values are padded up to this size. Defaults to 0 for string types, 10 for integer types.
-* *inline* - Optional. Valid values are "true", "false", and "only" (default is "false"). When "only", the field will not be searchable by itself but can be used as a "filter" for searches on other fields. This will enhance the performance of some queries (such as ranges in some cases) but will consume more storage space because the field value is stored "inline" with the indexes for other fields.  When "true", the field will be stored normally in addition to inline. Filtering on inline fields is currently only supported via the [[Solr|Riak Search - Querying#Querying-via-the-Solr-Interface]] interface.
+* *inline* - Optional. Valid values are "true", "false", and "only" (default is "false"). When "only", the field will not be searchable by itself but can be used as a "filter" for searches on other fields. This will enhance the performance of some queries (such as ranges in some cases) but will consume more storage space because the field value is stored "inline" with the indexes for other fields.  When "true", the field will be stored normally in addition to inline. Filtering on inline fields is currently only supported via the [[Solr|Using Search#Query-Interfaces]] interface.
 
 <div class="info"><div class="title">A Note on Aliases</div>
 

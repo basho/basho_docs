@@ -84,5 +84,5 @@ Multipart upload allows you to upload a single object as a set of parts. Object 
 
 ## Common Headers
 
-* [[RiakCS Common Request Headers]]
-* [[RiakCS Common Response Headers]]
+* [[Common RiakCS Request Headers]]
+* [[Common RiakCS Response Headers]]

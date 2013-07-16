@@ -1302,6 +1302,35 @@ div[role="main"] {
       margin      : 15px auto;
     }
   }
+
+  &.no-nav {
+    background: -webkit-gradient(linear, 0% 0%, 0% 35%, from(#EEE), to(#FFFFFF));
+
+    margin:0px;
+    padding-left: 25px;
+    padding-top: 65px;
+
+    @media screen and (max-width: 700px) {
+      padding  : 0px;
+
+      .mainarticle {
+        padding: 45px 12px 12px 12px;
+      }
+    }
+    @media screen and (max-width: 500px) {
+      .mainarticle {
+        padding: 25px 12px 12px 12px;
+
+        h1.extra-large {
+          font-size: 225%;
+        }
+      }
+    }
+
+    .masthead {
+      display:none;
+    }
+  }
 }
 
 nav#toc {

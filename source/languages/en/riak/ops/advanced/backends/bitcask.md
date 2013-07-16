@@ -11,7 +11,7 @@ up:   "[[Choosing a Backend]]"
 next: "[[LevelDB]]"
 interest: false
 moved: {
-    '1.4.0-': '/tutorials/choosing-a-backend/Bitcask/'
+    '1.4.0-': '/tutorials/choosing-a-backend/Bitcask'
 }
 ---
 
@@ -470,8 +470,8 @@ data.
 
 ## FAQ
 
-  * [[Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?|Developing FAQ#why-does-it-seem-that-bitc]]
-  * [[If the size of key index exceeds the amount of memory, how does Bitcask handle it?|Operations FAQ#if-the-size-of-key-index-e]]
+  * [[Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?|Developing on Riak FAQs#why-does-it-seem-that-bitc]]
+  * [[If the size of key index exceeds the amount of memory, how does Bitcask handle it?|Operating Riak FAQs#if-the-size-of-key-index-e]]
   * [[Bitcask Capacity Planning]] Guide
 
 ## Bitcask Implementation Details

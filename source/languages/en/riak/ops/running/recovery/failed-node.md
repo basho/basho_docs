@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [troubleshooting]
 moved: {
-    '1.4.0-': '/cookbooks/Recovering-a-Failed-Node/'
+    '1.4.0-': '/cookbooks/Recovering-a-Failed-Node'
 }
 ---
 

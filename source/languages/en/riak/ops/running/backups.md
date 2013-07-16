@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [operator]
 moved: {
-    '1.4.0-': '/cookbooks/Backups/'
+    '1.4.0-': '/cookbooks/Backups'
 }
 ---
 
@@ -161,11 +161,11 @@ If any node names have been changed (that is, the *-name* argument in the
 restored to that node), then you will need to additionally:
 
 1. Mark the original instance down in the cluster using
-`[[riak-admin down <node>|Command-Line-Tools---riak-admin#down]]`
+`[[riak-admin down <node>|riak-admin Command Line#down]]`
 2. Join the restored node to the cluster using
-`[[riak-admin cluster join <node>|Command-Line-Tools---riak-admin#cluster-join]]`
+`[[riak-admin cluster join <node>|riak-admin Command Line#cluster-join]]`
 3. Replace the original instance with the renamed instance with
-`[[riak-admin cluster force-replace <node1> <node2>|Command-Line-Tools---riak-admin#cluster-force-replace]]`
+`[[riak-admin cluster force-replace <node1> <node2>|riak-admin Command Line#cluster-force-replace]]`
 4. Plan the changes to the cluster with
 `riak-admin cluster plan`
 5. Finally, commit the cluster changes with

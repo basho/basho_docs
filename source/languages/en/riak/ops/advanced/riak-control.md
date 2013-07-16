@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [control]
 moved: {
-    '1.4.0-': '/references/appendices/Riak-Control/'
+    '1.4.0-': '/references/appendices/Riak-Control'
 }
 ---
 

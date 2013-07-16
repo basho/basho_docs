@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operator, proxy]
 moved: {
-    '1.4.0-': '/cookbooks/configuration/Load-Balancing-and-Proxy-Configuration/'
+    '1.4.0-': '/cookbooks/configuration/Load-Balancing-and-Proxy-Configuration'
 }
 ---
 

@@ -1,0 +1,53 @@
+---
+title: Riak Community FAQs
+project: riak
+version: 1.2+
+document: cookbook
+audience: advanced
+keywords: [faq, community]
+moved: {
+  '1.4.0-': '/cookbooks/faqs/community-faq'
+}
+---
+
+Q: How do I submit my code to Basho?
+A:
+  There are several ways to submit a piece of code to the core Basho Team:
+  
+  * Basho hosts its code on [[GitHub|http://github.com/basho]]. Sending us a pull request for one of these repos is our preferred method to receive code contributions and fixes.
+  * You can send a patch as an attachment to the [[Riak Mailing List|http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com]]. Be sure to include any additional information we'll need to assess and integrate your code.
+
+Q: What happens after my code is submitted?
+A:
+  If it's more than a simple patch (documentation or typo fixes, for example), we will add it to our internal project management tools and prioritize it. You'll receive an email or comment from someone on the Riak development team letting you know we are working on integrating it. 
+
+Q: Which code will be integrated into Riak?
+A:
+  We will definitely review your patch, and make constructive comments, but we cannot guarantee the inclusion of every submitted patch. Rest assured, if we don't take your patch, we'll do our best to give you feedback.
+
+Q: How long will my patch take to review?
+A:
+  Unfortunately there is no concrete response to this.  We are fortunate that you, the community, are quite active and willing to contribute fixes and features to the codebase. The downside of this, however, is that the time it takes to review submissions can grow quite rapidly. Please be patient. We are working as fast as our team size and review standards permit.
+
+Q: How can I fix these docs?
+A:
+  Basho maintains all of the content in the Riak Docs in a public GitHub repo. What this means is that if you have a change you think needs to be made, all you need to do is fork the [Riak Docs Repo](https://github.com/basho/basho_docs) and send a pull request with your changes. Chances are we will merge them in short order. If we have any questions, we'll comment on the pull request.
+
+Q: Who maintains the docs?
+A:
+  The Riak Docs are maintained primarily by the Basho Development and Support Teams. However, we do invite developers from outside Basho to have commit access to the [Doc Repo on GitHub](https://github.com/basho/basho_docs). (You can still contribute if you don't have commit access. You'll just need a committer to review your changes.)
+  
+  There is a process by which community members will be granted commit access to the Riak docs directly. Those who are granted access will join a group called the *Community Docs Committers*.
+
+Q: Who will be considered for being a docs committer?
+A:
+  * Those who come forward and ask for privileges. To do this, simply send an email to _+docs@basho.com+_ and tell us why you want to edit the docs and where precisely you can shine as a Community Editor.
+  * Community Members who are nominated by a member of the Riak Development or Support teams
+
+Q: How will individuals be evaluated?
+A:
+  * Those who come forward and ask for commit rights will be evaluated on their Riak knowledge and previous contributions to the Riak Community including, but not limited to, Mailing List and IRC activity, Libraries and Projects created, and patches and code submissions.
+  * In the case of a member of the Riak team nominating a community member, the nominator will outline their reason for said nomination.
+  
+  In both cases, members of the Basho Development and Support teams will hold a vote, via email, to approve the nominee.   Upon acceptance, the nominee will be notified via email.
+  

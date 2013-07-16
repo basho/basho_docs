@@ -7,7 +7,7 @@ toc: true
 audience: beginner
 keywords: [operator, benchmark]
 moved: {
-    '1.4.0-': '/cookbooks/Benchmarking/'
+    '1.4.0-': '/cookbooks/Benchmarking'
 }
 ---
 
@@ -50,13 +50,13 @@ During test setup, Basho Bench creates:
     the histograms are dumped to `summary.csv` as well as
     operation-specific latency CSVs (e.g. `put_latencies.csv` for the
     'put' operation).
--   N **workers**, where N is specified by the [[concurrent|Benchmarking#concurrent]] configuration setting.
+-   N **workers**, where N is specified by the [[concurrent|Basho Bench#concurrent]] configuration setting.
     (basho_bench_worker.erl). The worker process wraps a driver
-    module, specified by the [[driver|Benchmarking#driver]] configuration setting. The driver is randomly
+    module, specified by the [[driver|Basho Bench#driver]] configuration setting. The driver is randomly
     invoked using the distribution of operations as specified by the
-    [[operations|Benchmarking#operations]] configuration
+    [[operations|Basho Bench#operations]] configuration
     setting. The rate at which the driver invokes operations is governed
-    by the [[mode|Benchmarking#mode]] setting.
+    by the [[mode|Basho Bench#mode]] setting.
 
 Once these processes have been created and initialized, Basho Bench
 sends a run command to all worker processes, causing them to begin the
@@ -81,7 +81,7 @@ Installation
 ### Prerequisites
 
 -   Erlang must be installed. See [[Installing Erlang]] for instructions and versioning requirements.
--   [R statistics language](http://www.r-project.org/) must be installed if you wish to generate graphs (see the [[Generating Benchmark Graphs|Benchmarking#Generating-Benchmark-Graphs]] section, below).
+-   [R statistics language](http://www.r-project.org/) must be installed if you wish to generate graphs (see the [[Generating Benchmark Graphs|Basho Bench#Generating-Benchmark-Graphs]] section, below).
 
 ### Building from Source
 
@@ -106,7 +106,7 @@ Run basho_bench:
 This will generate results in `tests/current/`. You will need to create
 a configuration file. The recommended approach is to start from a file
 in the `examples` directory and modify settings using the
-[[Configuration|Benchmarking#Configuration]] section
+[[Configuration|Basho Bench#Configuration]] section
 below for reference.
 
 Generating Benchmark Graphs

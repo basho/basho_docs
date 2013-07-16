@@ -16,7 +16,7 @@ Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang 
 
 ### Get the Source
 
-The below links provide platform-specific instructions for downloading and installing Riak from source.
+The following links provide platform-specific instructions for downloading and installing Riak from source.
 
   * [[Debian and Ubuntu|Installing on Debian and Ubuntu#Installing-From-Source]]
   * [[RHEL and CentOS|Installing on RHEL and CentOS#Installing-From-Source]]

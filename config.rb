@@ -5,7 +5,6 @@ require './lib/setup'
 page "/js/standalone/version-bar.js", :proxy => "js/standalone/version-bar.html", :directory_index => false, :ignore => true
 page "/404.html", :directory_index => false
 
-
 Dir["source/languages/*"].each do |language|
   language.sub!("source/languages/", '')
   ignore "/languages/#{language}/*.yml"

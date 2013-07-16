@@ -21,7 +21,7 @@ Q: Is it possible to specify a file system where my Riak CS buckets will live?
 A: You can specify the location of **all** Riak CS bucket data by changing the settings for Riak's backends to a path on a particular filesystem. If this is your goal, you can configure Riak to suit your environment.
 
   If you look at our example Riak `app.config` backend definition from the
-  [[Configuring Riak]] section, it looks like this:
+  [[Configuring Riak for CS]] section, it looks like this:
 
   ```erlang
   {add_paths, ["/usr/lib/riak-cs/lib/riak_moss-X.Y.Z/ebin"]},

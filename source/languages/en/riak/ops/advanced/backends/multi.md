@@ -10,7 +10,7 @@ prev: "[[Memory]]"
 up:   "[[Choosing a Backend]]"
 interest: false
 moved: {
-    '1.4.0-': '/tutorials/choosing-a-backend/Multi/'
+    '1.4.0-': '/tutorials/choosing-a-backend/Multi'
 }
 ---
 

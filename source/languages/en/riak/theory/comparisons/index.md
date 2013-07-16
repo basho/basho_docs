@@ -7,7 +7,7 @@ toc: true
 index: true
 keywords: [comparisons]
 moved: {
-  '1.4.0-': '/references/appendices/comparisons/'
+  '1.4.0-': '/references/appendices/comparisons'
 }
 ---
 

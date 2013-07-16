@@ -7,7 +7,7 @@ toc: true
 audience: intermediate
 keywords: [planning, os]
 moved: {
-    '1.4.0-': '/tutorials/System-Planning/'
+    '1.4.0-': '/tutorials/System-Planning'
 }
 ---
 

@@ -7,7 +7,7 @@ toc: true
 audience: beginner
 keywords: [command-line, riak-admin]
 moved: {
-    '1.4.0-': '/references/Command-Line-Tools---riak-admin/'
+    '1.4.0-': '/references/Command-Line-Tools---riak-admin'
 }
 ---
 
@@ -107,7 +107,7 @@ riak-admin cluster commit
 ## join
 
 <div class="note"><div class="title">Deprecation Notice</title></div>
-  <p>As of Riak version 1.2, the <tt>riak-admin join</tt> command has been deprecated in favor of the [[riak-admin cluster join|Command-Line Tools - riak-admin#cluster-join]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
+  <p>As of Riak version 1.2, the <tt>riak-admin join</tt> command has been deprecated in favor of the [[riak-admin cluster join|riak-admin Command Line#cluster-join]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
 </div>
 
 Joins the running node to another running node so that they participate in the
@@ -124,7 +124,7 @@ riak-admin join -f <node>
 ## leave
 
 <div class="note"><div class="title">Deprecation Notice</title></div>
-  <p>As of Riak version 1.2, the <tt>riak-admin leave</tt> command has been deprecated in favor of the new [[riak-admin cluster leave|Command-Line Tools - riak-admin#cluster-leave]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
+  <p>As of Riak version 1.2, the <tt>riak-admin leave</tt> command has been deprecated in favor of the new [[riak-admin cluster leave|riak-admin Command Line#cluster-leave]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
 </div>
 
 
@@ -247,10 +247,10 @@ riak-admin transfer-limit <node> <limit>
 
 <div class="note">
 <div class="title">Deprecation Notice</title></div>
-As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new [[riak-admin cluster force-remove|Command-Line Tools - riak-admin#cluster-force-remove]] command. The command can still be used by providing a <code>-f</code> option, however.
+As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new [[riak-admin cluster force-remove|riak-admin Command Line#cluster-force-remove]] command. The command can still be used by providing a <code>-f</code> option, however.
 </div>
 
-Immediately removes a node from the cluster without ensuring handoff of its replicas. This is a dangerous command, and is designed to only be used in cases were the normal, safe leave behavior cannot be used -- e.g. when the node you are removing had a major hardware failure and is unrecoverable. Using this command will result in a loss of all replicas living on the removed node which will then need to be recovered through other means such as [[read repair|Replication#Read-Repair]]. It's recommended that you use the [[riak-admin leave|Command-Line Tools - riak-admin#leave]] command whenever possible.
+Immediately removes a node from the cluster without ensuring handoff of its replicas. This is a dangerous command, and is designed to only be used in cases were the normal, safe leave behavior cannot be used -- e.g. when the node you are removing had a major hardware failure and is unrecoverable. Using this command will result in a loss of all replicas living on the removed node which will then need to be recovered through other means such as [[read repair|Replication#Read-Repair]]. It's recommended that you use the [[riak-admin leave|riak-admin Command Line#leave]] command whenever possible.
 
 ```bash
 riak-admin force-remove -f <node>

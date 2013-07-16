@@ -9,7 +9,7 @@ prev: "[[Installing and Upgrading]]"
 up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Debian and Ubuntu]]"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-Erlang/'
+    '1.4.0-': '/tutorials/installation/Installing-Erlang'
 }
 ---
 

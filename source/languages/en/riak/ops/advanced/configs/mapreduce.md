@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [mapreduce]
 moved: {
-    '1.4.0-': '/latest/references/MapReduce---Settings/'
+    '1.4.0-': '/latest/references/MapReduce---Settings'
 }
 ---
 
@@ -36,7 +36,7 @@ moved: {
 ```
 {{/<1.3.0}}
 
-`mapred_2i_pipe` indicates whether [[2i|Secondary Indexes]] MapReduce inputs
+`mapred_2i_pipe` indicates whether [[2i|Using Secondary Indexes]] MapReduce inputs
 are queued in parallel in their own pipe (`true`), or serially through a helper
 process (`false` or undefined).
 

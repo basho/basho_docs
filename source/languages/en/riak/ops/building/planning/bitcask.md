@@ -6,7 +6,7 @@ document: appendix
 toc: true
 keywords: [planning, bitcask]
 moved: {
-    '1.4.0-': '/references/appendices/Bitcask-Capacity-Planning/'
+    '1.4.0-': '/references/appendices/Bitcask-Capacity-Planning'
 }
 ---
 

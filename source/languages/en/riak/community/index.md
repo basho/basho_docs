@@ -101,7 +101,6 @@ Here's a list of the current Meetups:
 These pages contain videos, slides and publications from the community and Riak developers. 
 
 * [[Overviews and Introductions]]
-* [[Production Deployment]]
 * [[Developing with Riak]]
 * [[Searching and Accessing]]
 * [[Riak Comparisons]]

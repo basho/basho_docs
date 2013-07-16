@@ -12,7 +12,7 @@ download:
   key: debian
   name: "Debian or Ubuntu"
 moved: {
-    '1.4.0-': '/tutorials/installation/Installing-on-Debian-and-Ubuntu/'
+    '1.4.0-': '/tutorials/installation/Installing-on-Debian-and-Ubuntu'
 }
 ---
 

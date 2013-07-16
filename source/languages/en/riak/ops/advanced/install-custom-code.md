@@ -7,7 +7,7 @@ toc: true
 audience: advanced
 keywords: [operators, code, erlang, javascript]
 moved: {
-    '1.4.0-': '/cookbooks/Erlang-Named-Functions/'
+    '1.4.0-': '/cookbooks/Erlang-Named-Functions'
 }
 ---
 

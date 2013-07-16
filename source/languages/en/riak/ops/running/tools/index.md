@@ -8,7 +8,7 @@ index: true
 audience: beginner
 keywords: [command-line]
 moved: {
-    '1.4.0-': '/cookbooks/Repairing-KV-Indexes/'
+    '1.4.0-': '/cookbooks/Repairing-KV-Indexes'
 }
 ---
 
@@ -68,19 +68,19 @@ subcommands are supported:
 
 ## search-cmd
 
-`[[search-cmd|search-cmd Command Line]]` is used to interact with the
+`[[search-cmd|search Command Line]]` is used to interact with the
 Search functionality included with Riak. The following subcommands are
 supported:
 
-* [[set-schema|search-cmd Command Line#set-schema]]
-* [[show-schema|search-cmd Command Line#show-schema]]
-* [[clear-schema-cache|search-cmd Command Line#clear-schema-cache]]
-* [[search|search-cmd Command Line#search]]
-* [[search-doc|search-cmd Command Line#search-doc]]
-* [[explain|search-cmd Command Line#explain]]
-* [[index|search-cmd Command Line#index]]
-* [[delete|search-cmd Command Line#delete]]
-* [[solr|search-cmd Command Line#solr]]
-* [[install|search-cmd Command Line#install]]
-* [[uninstall|search-cmd Command Line#uninstall]]
-* [[test|search-cmd Command Line#test]]
+* [[set-schema|search Command Line#set-schema]]
+* [[show-schema|search Command Line#show-schema]]
+* [[clear-schema-cache|search Command Line#clear-schema-cache]]
+* [[search|search Command Line#search]]
+* [[search-doc|search Command Line#search-doc]]
+* [[explain|search Command Line#explain]]
+* [[index|search Command Line#index]]
+* [[delete|search Command Line#delete]]
+* [[solr|search Command Line#solr]]
+* [[install|search Command Line#install]]
+* [[uninstall|search Command Line#uninstall]]
+* [[test|search Command Line#test]]

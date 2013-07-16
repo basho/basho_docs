@@ -8,7 +8,7 @@ index: true
 audience: intermediate
 keywords: [client, drivers]
 moved: {
-  '1.4.0-': '/references/Client-Libraries/'
+  '1.4.0-': '/references/Client-Libraries'
 }
 ---
 
