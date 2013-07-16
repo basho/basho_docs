@@ -153,7 +153,7 @@ cd riak-{{V.V.V}}
 make rel
 ```
 
-If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher - 64bit, everything else - 32bit).
+If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system {{#1.4.0-}}(Snow Leopard and higher - 64bit, everything else - 32bit){{/1.4.0-}}.
 
 ## Next Steps?
 From here you might want to check out:

@@ -10,11 +10,17 @@ up:   "[[Installing and Upgrading]]"
 next: "[[Installing on Debian and Ubuntu]]"
 ---
 
-Riak 1.2, 1.2.1, 1.3 and 1.3.1 require [[Erlang|http://erlang.org/]] R15B01.
-
+{{#1.2.0+}}
+Riak 1.2+ require [[Erlang|http://erlang.org/]] R15B01.
+{{/1.2.0+}}
+{{#1.0.0-1.1.9}}
 Riak 1.0 requires [[Erlang|http://erlang.org]] R14B03 or later. Riak versions prior to 1.0 will not function on the R14B02 or later. 
+{{/1.0.0-1.1.9}}
+{{#1.0.0-}}
+Riak versions prior to 0.12 will not function on the R14 series of [[Erlang|http://erlang.org/]].
+{{/1.0.0-}}
 
-Riak versions prior to 0.12 will not function on the R14 series of Erlang. For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of ncurses and openssl.
+For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of ncurses and openssl.
 
 <div class="note">
 <div class="title">Erlang Version Note</div>
