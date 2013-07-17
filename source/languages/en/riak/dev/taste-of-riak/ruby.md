@@ -22,8 +22,18 @@ Start IRB, the Ruby REPL, and let’s get setup.  Enter the following into IRB:
 
 ```ruby
 require 'riak'
+```
 
-client = Riak::Client.new()
+If you are using a single local Riak node, use the following to create a new client instance:
+
+```ruby
+client = Riak::Client.new(:protocol => "pbc", :pb_port => 8087)
+```
+
+If you set up a local Riak cluster using the [[five minute install]] method, use this code snippet instead:
+
+```ruby
+client = Riak::Client.new(:protocol => "pbc", :pb_port => 10017)
 ```
 
 We are now ready to start interacting with Riak.

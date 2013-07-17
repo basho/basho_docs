@@ -16,7 +16,7 @@ Download the latest PHP client from GitHub ([zip](https://github.com/basho/riak-
 
 Unzip the archive to your working directory and then start an interactive PHP shell (`php -a`) next to the client directory.  
 
-Next, enter the following into the shell to load the client library and start a client instance. 
+Next, enter the following into the shell to load the client library code.
 
 ```php
 require_once('riak-php-client/src/Basho/Riak/Riak.php');
@@ -29,8 +29,18 @@ require_once('riak-php-client/src/Basho/Riak/StringIO.php');
 require_once('riak-php-client/src/Basho/Riak/Utils.php');
 require_once('riak-php-client/src/Basho/Riak/Link/Phase.php');
 require_once('riak-php-client/src/Basho/Riak/MapReduce/Phase.php');
+```
 
+If you are using a single local Riak node, use the following to create a new client instance:
+
+```php
 $client = new Basho\Riak\Riak('127.0.0.1', 8098);
+```
+
+If you set up a local Riak cluster using the [[five minute install]] method, use this code snippet instead:
+
+```php
+$client = new Basho\Riak\Riak('127.0.0.1', 10018);
 ```
 
 We are now ready to start interacting with Riak.

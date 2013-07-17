@@ -17,7 +17,10 @@ public class TasteOfRiak
         	// Creating Objects In Riak
             System.out.println("Creating Objects In Riak...");
 
-            IRiakClient client = RiakFactory.httpClient();
+            IRiakClient client = RiakFactory.pbcClient();
+
+            // Note: Use this line instead of the former if using a local devrel cluster
+            // IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
 
             Bucket myBucket = client.fetchBucket("test").execute();
 
