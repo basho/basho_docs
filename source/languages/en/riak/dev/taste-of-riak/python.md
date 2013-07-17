@@ -33,8 +33,17 @@ Now, let's start the Python REPL, and let’s get set up.  Enter the following i
 
 ```python
 import riak
- 
-myClient = riak.RiakClient()
+```
+If you are using a single local Riak node, use the following to create a new client instance:
+
+```python
+myClient = riak.RiakClient(pb_port=8087, protocol='pbc')
+```
+
+If you set up a local Riak cluster using the [[five minute install]] method, use this code snippet instead:
+
+```python
+myClient = riak.RiakClient(pb_port=10017, protocol='pbc')
 ```
 
 We are now ready to start interacting with Riak.
