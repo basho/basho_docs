@@ -16,7 +16,7 @@ $layout-layout:smart;
   padding         : 2px 0 0 0;
   text-decoration : none;
   text-align      : center;
-  width           : 4.2em;
+  //width           : 4.2em;
 }
 
 .versions {
@@ -36,8 +36,8 @@ $layout-layout:smart;
   text-align    : center;
   cursor        : pointer;
   color         : $darkBlueGreen;
-  font-size     : 0.85rem;
-  font-weight   : bold;
+  font-size     : 0.75rem;
+  font-family   : 'OpenSansBold', verdana, sans-serif;
   border        : 1px solid $lightBlueGreen;
   @include allCorners();
   @include transitionAll(all 0.5s ease);
@@ -85,9 +85,10 @@ ol#version-list {
     border          : 1px solid $darkGreen;
     //border-bottom : 0;
     display         : block;
-    font-size       : 8pt;
+    font-size       : 0.75rem;
     //margin-right  : 1px;
     margin-bottom   : 1px;
+    text-align      : center;
     
     ol {
       display:none;
@@ -134,6 +135,8 @@ ol#version-list {
     &.current {
       background    : $orange;
       border        : 1px solid $darkOrange;
+      //font-weight   : bold;
+      font-family   : 'OpenSansBold', verdana, sans-serif;
       //border-bottom : 0;
       
       > a {
