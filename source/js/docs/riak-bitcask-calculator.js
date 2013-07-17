@@ -3,6 +3,19 @@
    http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004292.html
 */
 
+if(window.pageInVersion("1.4.0+")) {
+    // ~32 bytes for the OS/malloc + khash overhead @ 50M keys (amortized, so bigger for fewer keys, smaller for more keys).
+    // + 16 bytes of erlang allocator overhead
+    // + 22 bytes for the NIF C structure 
+    // + 8 bytes for the entry pointer stored in the khash
+    // + 13 bytes of kv overhead 
+    REST_API = 91;
+    PB_API = 91;
+} else {
+    REST_API = 472; // 447 in 0.14.2
+    PB_API = 381;   // 356 in 0.14.2
+}
+
 bites_per = {
     "KiB": 1024,
     "MiB": 1048576,
@@ -146,9 +159,6 @@ var estimate_nodes = function () {
 }
 
 var estimate_storage = function () {
-    REST_API = 472; // 447 in 0.14.2
-    PB_API = 381;   // 356 in 0.14.2
-
     // using REST/HTTP API (which creates HTTP headers in kb/p's creating unexpected overhead)
     return ( 14 + ( 13 + Bucket() + Key()) +
            ( ( (API() == 'REST') ? REST_API : PB_API ) +
@@ -160,27 +170,27 @@ var estimate_storage = function () {
 
 function update_calculations() {
     if (NumEntries() > 99999999999999999999999999) {
-        $('#recommend').text("You have more keys than sub-atomic particles in all known universes.  That's too many.");
+        $('#recomend').text("You have more keys than sub-atomic particles in all known universes.  That's too many.");
         return;
     }
     if (Bucket() < 1) {
-        $('#recommend').text("You'll need to have a non-zero bucket size.");
+        $('#recomend').text("You'll need to have a non-zero bucket size.");
         return;
     }
     if (Key() < 1) {
-        $('#recommend').text("You'll need to have a non-zero key size.");
+        $('#recomend').text("You'll need to have a non-zero key size.");
         return;
     }
     if (Value() < 1) {
-        $('#recommend').text("You'll need to have a non-zero value size.");
+        $('#recomend').text("You'll need to have a non-zero value size.");
         return;
     }
     if (RAM() < 1) {
-        $('#recommend').text("You'll need to allocate a non-zero amount of RAM to data storage.");
+        $('#recomend').text("You'll need to allocate a non-zero amount of RAM to data storage.");
         return;
     }
     if (N_Val() < 3) {
-        $('#recommend').text("You'll want to deploy at least 3 Riak nodes, 4 would be even better as a starting point.");
+        $('#recomend').text("You'll want to deploy at least 3 Riak nodes, 4 would be even better as a starting point.");
     }
 
     n = estimate_nodes();

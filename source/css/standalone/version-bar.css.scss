@@ -88,7 +88,7 @@ ol#version-list {
     font-size       : 8pt;
     //margin-right  : 1px;
     margin-bottom   : 1px;
-    
+
     ol {
       display:none;
       margin:0;
@@ -152,6 +152,10 @@ ol#version-list {
         color : #fff;
       }
     }
+  }
+
+  li.first, li.first:hover {
+    border-bottom:2px solid #bbbbbb;
   }
 }
 

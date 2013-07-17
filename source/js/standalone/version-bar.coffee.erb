@@ -1,96 +1,26 @@
 $versions = <%= YAML::load(File.open('data/versions.yml')).to_json %>
 
 $ ->
-  infinity = {
-      major: Infinity
-      minor: Infinity
-      patch: Infinity
-    }
-  zeros = {
-      major: 0
-      minor: 0
-      patch: 0
-    }
-
-  parseVersion = (str)->
-    v = /^[<>]?[=]?(\d+)\.?(\d+)?\.?(\d+)?/.exec(str)
-    {
-      major: parseInt(v[1]) || 0
-      minor: parseInt(v[2]) || 0
-      patch: parseInt(v[3]) || 0
-    }
-
-  # X+, >=X, >X
-  # X-, <=X, <X
-  # X-Y
-  parseVersionRange = (str)->
-    # greater than or equal to
-    if str.match(/\+$/) or str.match(/^\>\=/)
-      return [parseVersion(str), infinity]
-    # greater than
-    if str.match(/^\>/)
-      version = parseVersion(str)
-      # don't include this version, so bump it up
-      version.patch++
-      return [version, infinity]
-    # less than or equal to
-    if str.match(/^\<\=/)
-      return [zeros, parseVersion(str)]
-    # less than
-    if str.match(/\-$/) or str.match(/^\</)
-      version = parseVersion(str)
-      # don't include this version, so drop it down
-      version.patch--
-      return [zeros, version]
-    if str.match(/.+?\-.+?/)
-      vs = str.split('-')
-      return [parseVersion(vs[0]), parseVersion(vs[1])]
-    else
-      version = parseVersion(str)
-      return [version, version]
-
-  # all comparisons are inclusive
-  inVersionRange = (version, range)->
-    # false if less than 0 or greater than 1
-    return false if compareVersions(version, range[0]) > 0
-    return false if compareVersions(version, range[1]) < 0
-    true
-
-  compareVersions = (v1, v2)->
-    v1num = (v1.major * 10000) + (v1.minor * 100) + v1.patch
-    v2num = (v2.major * 10000) + (v2.minor * 100) + v2.patch
-    v2num - v1num
-
   # construct an object that represents a
   # drop-down version list
   buildLists = (project, base_url, moved_ranges_obj)->
     lists = []
     for vs in ($versions[project] || [])
-      innerlists = []
-      showV = null
-      vsp2 = parseVersion(vs)
-      currentBlock = compareVersions(currentVersion, vsp2) == 0
-      active = false
+      firstInBlock = true
       for vsi in vs
         vsp = parseVersion(vsi)
         if inVersionRange(vsp, range)
-          current = compareVersions(currentVersion, vsp) == 0
-          # currentBlock ||= current
-          active ||= true
-          vData = {active:true, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
+          current = window.compareVersions(currentVersion, vsp) == 0
+          vData = {active:true, firstInBlock:firstInBlock, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
 
           for vr_link in moved_ranges_obj
             if inVersionRange(vsp, vr_link[0])
               vData.href = "/#{project}/#{vsi}#{vr_link[1]}"
 
-          # innerlists.push(vData)
-          innerlists.unshift(vData)
-          # showV = vData if current
+          lists.unshift(vData)
         else
-          # innerlists.push({active:false, current:false, href:"#", text:vsi})
-          innerlists.unshift({active:false, current:false, href:"#", text:vsi})
-      # lists.push({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
-      lists.unshift({active:active, current:currentBlock, show:(showV || innerlists[0]), inner:innerlists})
+          lists.unshift({active:false, firstInBlock:firstInBlock, current:false, href:"#", text:vsi})
+        firstInBlock = false
     lists
 
 
@@ -105,8 +35,8 @@ $ ->
   return unless project? || base_url? || version? || version_range?
   return if $versions[project]?.length <= 1
 
-  currentVersion = parseVersion(version)
-  range = parseVersionRange(version_range)
+  currentVersion = window.parseVersion(version)
+  range = window.parseVersionRange(version_range)
 
   moved_ranges_obj = []
   for r,link of $.parseJSON(moved_ranges)
@@ -114,11 +44,17 @@ $ ->
 
   lists = buildLists(project, base_url, moved_ranges_obj)
 
+  firstInBlock = (li)->
+    if li.firstInBlock then " first" else ""
+
   currentClass = (li)->
     unless li.active
-      " class=\"inactive\""
+      " class=\"inactive#{firstInBlock(li)}\""
     else
-      if li.current then " class=\"current\"" else ""
+      if li.current
+        " class=\"current#{firstInBlock(li)}\""
+      else
+        " class=\"#{firstInBlock(li)}\""
 
   liLink = (li)->
     "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"
@@ -131,21 +67,9 @@ $ ->
   output += "<ol id=\"version-list\">"
   for vmli in lists
     output += "<li#{currentClass(vmli)}>"
-    output += liLink(vmli.show)
-    # output += "<ol>"
-    if vmli.inner?.length > 1
-      counter = 1
-      for vpli in vmli.inner
-          # Counter added to remove duplicates
-          if counter != 1
-            output += "<li#{currentClass(vpli)}>"
-            output += liLink(vpli)
-            output += "</li>"
-
-          counter += 1
-    # output += "</ol>"
+    output += liLink(vmli)
     output += "</li>"
-  output += "</ol>"
+
 
   $('.mainarticle .versions').html(output)
 
