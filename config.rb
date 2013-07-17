@@ -47,6 +47,27 @@ ready do
     puts "== Indexing"
     build_yokozuna_index(sitemap.resources)
   end
+
+  if ENV.include?('OLDUNS')
+    puts "== Generating Olduns"
+    old_pages = {}
+    for resource in sitemap.resources
+      next unless resource.url =~ /\.(?:html)|\/$/
+      next if resource.url =~ /keywords/
+      next if %w{/404.html /index.html}.include?(resource.url)
+      next unless moved = (resource.metadata[:page] || {})['moved']
+
+      # for latest, redirect to url
+      old_pages[moved.values.first.to_s] = "#{resource.url}"
+    end
+
+    old_pages.each do |old_page, redir|
+      page "#{old_page}/index.html", :proxy => "/redirect.html", :directory_index => true, :ignore => true do
+        @project = 'riak'
+        @redir = redir
+      end
+    end
+  end
 end
 
 
