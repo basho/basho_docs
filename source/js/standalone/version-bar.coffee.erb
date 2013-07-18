@@ -58,7 +58,7 @@ $ ->
       classStr = "inactive"
     else if li.current
         classStr = "current"
-    " class=\"#{classStr}#{firstInBlock(li)}versions-#{blockCount}\""
+    " class=\"#{classStr} versions-#{blockCount}#{firstInBlock(li)}\""
 
   liLink = (li)->
     "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"

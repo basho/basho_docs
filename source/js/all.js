@@ -385,7 +385,7 @@
   $(options.selectors.contentWell + ' .info, ' + options.selectors.contentWell + ' .note').prepend('<span class="info-icon"></span>');
   
   // if this is a "dual style" screen, use as much as we can
-  /*
+
   if($('body.dual').length > 0) {
     closeNav(function(){
       options.jq.contentWell.toggleClass('closed');
@@ -395,7 +395,7 @@
       }
     });
   }
-  */
+ 
 
   /*
    * toggleMenu()
