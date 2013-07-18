@@ -330,7 +330,7 @@ These parameters can be set/adjusted to increase read performance.
 
 The `block_size` and `block_restart_interval` parameters determine how leveldb will organize the key space within each `.sst` table file.  The defaults are very good for all researched cases and therefore recommended.
 
-#### Boomfilter
+#### Bloomfilter
 
 Each database `.sst` table file can include an optional "bloom filter" that is highly effective in shortcutting data queries that are destined to not find the requested key. The `bloom_filter` typically increases the size of an `.sst` table file by about 2%. This option must be set to `true` in the app.config to take effect.
 
