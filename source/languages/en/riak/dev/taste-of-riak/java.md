@@ -14,9 +14,24 @@ To try this flavor of Riak, a working installation of Java is required.
 ###Client Setup
 
 
-Download the [all-in-one Riak Java client jar](http://riak-java-client.s3.amazonaws.com/riak-client-1.1.0-jar-with-dependencies.jar) to your working directory. 
+Download the [all-in-one Riak Java client jar](http://riak-java-client.s3.amazonaws.com/riak-client-1.1.1-jar-with-dependencies.jar) to your working directory. 
 
-Next, download [TasteOfRiak.java](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java) source code for this tutorial, and save it to your working directory.	 
+Next, download [TasteOfRiak.java](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java) source code for this tutorial, and save it to your working directory.
+
+<div class="note">
+<div class="title">Configuring for a local cluster</div>
+
+If you set up a local Riak cluster using the [[five minute install]] method, open up the `TasteOfRiak.java` file in an editor, comment out line 20, uncomment line 23, and save the file.  This code section should now look like:
+
+```java
+//IRiakClient client = RiakFactory.pbcClient();
+
+// Note: Use this line instead of the former if using a local devrel cluster
+IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
+```
+
+</div>
+
 You can now compile and run this via the command line, or in your favorite IDE.
 
 ```bash
@@ -44,7 +59,10 @@ The first thing we do in our code is initialize a new Riak client through the `R
 Next we fetch the information for a bucket named “test”, and then store our first key/value pair.
 
 ```java
-IRiakClient client = RiakFactory.httpClient();
+IRiakClient client = RiakFactory.pbcClient();
+
+// Note: Use this line instead of the former if using a local devrel cluster
+// IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
 
 Bucket myBucket = client.fetchBucket("test").execute();
 

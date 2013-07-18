@@ -156,6 +156,10 @@ ol#version-list {
       }
     }
   }
+
+  li.first, li.first:hover {
+    border-bottom:2px solid #bbbbbb;
+  }
 }
 
 @media screen and (max-width: 700px) {
