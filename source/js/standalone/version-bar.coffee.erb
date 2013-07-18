@@ -44,17 +44,21 @@ $ ->
 
   lists = buildLists(project, base_url, moved_ranges_obj)
 
+  blockCount = 0
   firstInBlock = (li)->
-    if li.firstInBlock then " first" else ""
+    if li.firstInBlock
+      blockCount++
+      " first "
+    else
+      " "
 
   currentClass = (li)->
+    classStr = ""
     unless li.active
-      " class=\"inactive#{firstInBlock(li)}\""
-    else
-      if li.current
-        " class=\"current#{firstInBlock(li)}\""
-      else
-        " class=\"#{firstInBlock(li)}\""
+      classStr = "inactive"
+    else if li.current
+        classStr = "current"
+    " class=\"#{classStr}#{firstInBlock(li)}versions-#{blockCount}\""
 
   liLink = (li)->
     "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"
