@@ -83,11 +83,11 @@ ol#version-list {
   li {
     @include bgPattern('light-green-bg.jpg');
     border          : 1px solid $darkGreen;
-    //border-bottom : 0;
+    border-bottom   : 0;
     display         : block;
     font-size       : 0.75rem;
     //margin-right  : 1px;
-    margin-bottom   : 1px;
+    margin-bottom   : 0;
     text-align      : center;
     
     ol {
@@ -107,7 +107,7 @@ ol#version-list {
     &:hover {
       background    : $orange;
       border        : 1px solid $darkOrange;
-      //border-bottom : 0;
+      border-bottom : 0;
 
       & > ol { 
         display:block;
@@ -117,11 +117,11 @@ ol#version-list {
     &.inactive {
       background    : #DDD;
       border        : 1px solid #BBB;
-      //border-bottom : 0;
+      border-bottom : 0;
       &:hover {
         background    : #DDD;
         border        : 1px solid #BBB;
-        //border-bottom : 0;
+        border-bottom : 0;
       }
       a {
         cursor : default;
@@ -135,9 +135,10 @@ ol#version-list {
     &.current {
       background    : $orange;
       border        : 1px solid $darkOrange;
+      border-bottom : 0;
       //font-weight   : bold;
       font-family   : 'OpenSansBold', verdana, sans-serif;
-      //border-bottom : 0;
+      border-bottom : 0;
       
       > a {
         color : #fff;
@@ -155,10 +156,13 @@ ol#version-list {
         color : #fff;
       }
     }
-  }
 
-  li.first, li.first:hover {
-    border-bottom:2px solid #bbbbbb;
+    &.first,
+    &.first:hover {
+      //border-bottom:2px solid #bbbbbb;
+      margin-bottom : 2px;
+      border-bottom : 1px solid $grey;
+    }
   }
 }
 
