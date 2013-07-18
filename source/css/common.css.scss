@@ -534,14 +534,10 @@ iframe {
     
     &:hover {
       span.menu-toggle {
-        border        : 5px solid transparent;
-        border-bottom : none;
-        border-top    : 5px solid $darkGrey;
+        @include arrowVertical(top, bottom, 5px, $darkGrey);
         
         &.open {
-          border        : 5px solid transparent;
-          border-bottom : 5px solid $darkGrey;
-          border-top    : none;
+          @include arrowVertical(bottom, top, 5px, $darkGrey);
         }
       }
     }
@@ -657,11 +653,11 @@ iframe {
     top           : 17px;
     right         : 10px;
     content       : '';
-    @include arrowVertical(top, bottom, 5px, $lightGrey);
+    @include arrowVertical(top, bottom, 5px, $grey);
     @include transitionAll(border-color 0.5s ease);
     
     &.open {
-      @include arrowVertical(bottom, top, 5px, $lightGrey);
+      @include arrowVertical(bottom, top, 5px, $grey);
     }
     
     &.extra-margin {
@@ -1663,4 +1659,9 @@ table {
       background : url("../images/plangs/ruby.jpg") no-repeat top left;
     }
   }
+}
+
+/* To prevent images from breaking the layout */
+[id^="section-"] [id^="figure-"] {
+  width : 550px;
 }
