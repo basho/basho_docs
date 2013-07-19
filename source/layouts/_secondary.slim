@@ -3,16 +3,17 @@
     aside.secondary role="complementary"
       nav.suggestions
         h4== I18n.t(:secondary_header)
-        ul
-          - if data.page.interest.present?
-            - for link in data.page.interest
-              li== link
-          - elsif (pages = similar_pages(current_resource)).present?
-            - for page in pages[0..5]
-              li== "[[#{page.metadata[:page]['title']}]]"
-          - else
-            li
-              a href="/index.html"== I18n.t(:all_projects)
-            li==I18n.t(:faqs_link)
-            li==I18n.t(:apis_link)
+        div.columns
+          ul
+            - if data.page.interest.present?
+              - for link in data.page.interest
+                li== link
+            - elsif (pages = similar_pages(current_resource)).present?
+              - for page in pages[0..5]
+                li== "[[#{page.metadata[:page]['title']}]]"
+            - else
+              li
+                a href="/index.html"== I18n.t(:all_projects)
+              li==I18n.t(:faqs_link)
+              li==I18n.t(:apis_link)
       == partial "layouts/keywords"
