@@ -15,7 +15,7 @@ Configuration of a Riak cluster requires instructing a node to listen on
 a non-local interface (i.e., not `127.0.0.1`), and then joining nodes
 together for cluster participation.
 
-Begin by editing the `app.config` file. The [[app.config|Configuration Files#app.config]]
+The [[app.config|Configuration Files#app.config]]
 file will be located in your `rel/riak/etc/` directory if you compiled
 from source, and `/etc/riak/` if you used a binary install of Riak.
 
@@ -66,13 +66,13 @@ becomes
     {pb_ip,   "192.168.1.10" },
 
 
-Next edit the `etc/vm.args` file and change the `-name` to your new IP:
+Next edit the `etc/vm.args` file and change the `-name` to the correct hostname:
 
     -name riak@127.0.0.1
 
 becomes
 
-    -name riak@192.168.1.10
+    -name riak@server.example.com
 
 <div class="info">
 <strong>Node Names</strong>

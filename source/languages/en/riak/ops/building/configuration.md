@@ -8,8 +8,6 @@ audience: beginner
 keywords: [operators, building, configuration]
 ---
 
-Riak is extensively configurable to meet various business needs.
-
 This document captures the parameters that are commonly tweaked when
 setting up a new cluster, but it is highly advisable to review the
 detailed [[Configuration Files]] document before moving a cluster into
