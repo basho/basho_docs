@@ -520,6 +520,7 @@ iframe {
       border     : 0;
       
       &:hover {
+        color      : $darkGrey;
         background : none;
       }
     }
@@ -1018,10 +1019,11 @@ div[role="main"] {
         margin      : 0;
         background  : $blueGreen;
 
-        &.selected {
+        &.selected,
+        &.selected:hover {
           background : $darkBlueGreen;
-          color      : #fff;
-          color      : rgba(255, 255, 255, 1.0);
+          color      : #fff; /* Fallback */
+          color      : rgba(255, 255, 255, 0.5);
         }
 
         &.unselected {
@@ -1029,7 +1031,7 @@ div[role="main"] {
         }
 
         &:hover {
-          color : #fff;
+          color : #fff; /* Fallback */
           color : rgba(255, 255, 255, 1.0);
         } 
       }
@@ -1135,6 +1137,14 @@ div[role="main"] {
         max-width : 100%;
       }
     }
+
+    h2 {
+      padding-top : 108px;
+      margin-top : -60px; // To reduce the appearance 0f excess whitespace before headings
+    }
+
+
+
     nav.tutorial {
       ul, h4 {
         max-width : 100%;
@@ -1170,7 +1180,7 @@ div[role="main"] {
     }
     
     .suggestions {
-      ul {
+      .columns {
         -webkit-column-count : 2;
         -webkit-column-gap   : 20px;
         -webkit-column-width : 15em;
@@ -1180,21 +1190,27 @@ div[role="main"] {
         column-count         : 2;
         column-gap           : 20px;
         column-width         : 15em;
-        padding-top          : 0.5em;
-      
-        li {
-          list-style-type : square;
-          line-height     : 1.1;
-          margin-bottom   : 0.5em;
+        padding              : 0.5em 0;
 
-          a {
-            white-space : normal;
+        ul {
+
+          margin : 0;
+
+          li {
+            list-style-type : square;
+            line-height     : 1.1;
+            margin-bottom   : 0.5em;
+
+            a {
+              white-space : normal;
+            }
           }
         }
       }
 
       h4 {
         padding-top : 0;
+        padding-bottom : 0.5em;
       }
     }
 
@@ -1664,4 +1680,116 @@ table {
 /* To prevent images from breaking the layout */
 [id^="section-"] [id^="figure-"] {
   width : 550px;
+}
+
+
+/* =============================================================================
+   Dual Column Styles
+   ========================================================================== */
+body#dual {
+  table.docco {
+    @include boxShadow(none);
+    border        : 0;
+    margin-bottom : 0;
+    padding       : 0 25px;
+    
+    tr {
+      background : none;
+    }
+    pre {
+      margin-bottom : 15px;
+    }
+  }
+
+  table {
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+    border: 0px;
+    width:100%;
+
+    tr {
+      &:nth-child(odd), &:nth-child(even) {
+        background:transparent;
+      }
+      th.docs, th.code, td.code {
+        -webkit-box-shadow: 0 0 0;
+        -moz-box-shadow: 0 0 0;
+        box-shadow: 0 0 0;
+        font-size: 80%;
+        padding: 7px;
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+      td.code {
+        width:100%;
+        font-size: 100%;
+        padding: 7px 7px 7px 1.5em;
+        .highlight {
+          width:100%;
+          pre {
+            font-size: 80%;
+          }
+        }
+      }
+      th.docs, th.code {
+        border-bottom: 1px solid $subtleGray;
+        h2 {
+          font-size:28pt;
+          padding: 5px;
+          margin-top:0;
+        }
+        &.docs {
+          background:transparent;
+        }
+      }
+      td {
+        h1, h2 {
+          padding-top:0;
+          margin-top:0;
+        }
+        h1 {
+          font-size:185%;
+        }
+        p {
+          margin-top: 0;
+        }
+        .pilwrap {
+          position:relative;
+          .pilcrow {
+            position:absolute;
+            left: -14px;
+            top:1px;
+            padding: 1px 2px;
+            font: 18px Arial;
+            -webkit-transition: opacity 0.2s linear;
+            opacity:0;
+            color: $linkBlue;
+            text-decoration:none;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        &.docs:hover .pilcrow {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  figure {
+    margin: 10px;
+  }
+  caption, figcaption {
+    text-align:center;
+    font-weight:bold;
+    font-size:80%;
+  }
+  table.table {
+    caption {
+      caption-side:bottom;
+    }
+    margin:10px;
+  }
 }
