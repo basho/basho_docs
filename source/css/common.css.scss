@@ -1097,13 +1097,13 @@ div[role="main"] {
   }
 
   
-  .info, .note {
-    @extend .box-blue;
+  .info, .note, blockquote {
+    @extend .box-green;
     @extend .serif-italic;
     @include allCorners();
     //background  : inline-image('layout/info-bg.jpg') left top repeat transparent;
     margin      : 2em 0;
-    padding     : 15px 15px 15px 40px;
+    padding     : 15px 15px 15px 25px;
     font-size   : 90%;
     color       : #616366;
     line-height : 1.5;
@@ -1485,8 +1485,11 @@ div[role=main] {
     font-size       : 80%;
     padding         : 7px;
     //border-bottom : 1px solid #f0f0f0;
-    @extend .box-green;
-    margin-bottom   : 20px;
+    //@extend .box-green;
+    margin-top      : 45px;
+    margin-bottom   : 45px;
+    @extend .horizontal-rule;
+    border-top : 1px solid $subtleGray;
   }
   
   .info {
