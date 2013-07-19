@@ -15,7 +15,7 @@ riak:
   - title: "Riak for Developers"
     sub:
       - title: "A Taste of Riak"
-        sub: 
+        sub:
           - "[[Prerequisites|Taste of Riak: Prerequisites]]"
           - "[[Erlang|Taste of Riak: Erlang]]"
           - "[[Java|Taste of Riak: Java]]"
@@ -93,6 +93,7 @@ riak:
               - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
           - "[[Benchmarking|Basho Bench]]"
           - "[[Basic Configuration]]"
+          - "[[Basic Cluster Setup]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
