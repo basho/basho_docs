@@ -150,7 +150,7 @@ Disable realtime cascading writes.
 
 
 ## NAT
-See the [[Configuration guide|Multi Data-Center Replication v3 NAT]]
+See the [[Configuration guide|Multi Data Center Replication v3 With NAT]]
 
 **nat-map show**
 Show the current NAT mapping table.

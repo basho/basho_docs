@@ -1,0 +1,76 @@
+---
+title: Riak APIs
+project: riak
+version: 0.10.0+
+document: api
+toc: true
+index: true
+audience: advanced
+keywords: [api]
+body_id: riak-apis
+simple: true
+versions: true
+---
+
+h1 Riak APIs
+
+hr
+
+section
+  header
+    h1 [[HTTP API]]
+    h3 Bucket Operations
+    ul
+      li [[HTTP List Buckets]]
+      li [[HTTP List Keys]]
+      li [[HTTP Get Bucket Properties]]
+      li [[HTTP Set Bucket Properties]]
+      li [[HTTP Reset Bucket Properties]] {{1.3.0+}}
+    h3 Object/Key Operations
+    ul
+      li [[HTTP Fetch Object]]
+      li [[HTTP Store Object]]
+      li [[HTTP Delete Object]]
+    h3 Datatype Operations
+    ul
+      li [[HTTP Counters]] {{1.4.0+}}
+    h3 Query Operations
+    ul
+      li [[HTTP Link Walking]]
+      li [[HTTP MapReduce]]
+      li [[HTTP Secondary Indexes]]
+    h3 Server Operations
+    ul
+      li [[HTTP Ping]]
+      li [[HTTP Status]]
+      li [[HTTP List Resources]]
+
+section
+  header
+    h1 [[PBC API]]
+
+    h3 Bucket Operations
+    ul
+      li [[PBC List Buckets]]
+      li [[PBC List Keys]]
+      li [[PBC Get Bucket Properties]]
+      li [[PBC Set Bucket Properties]]
+
+    h3 Object/Key Operations
+    ul
+      li [[PBC Fetch Object]]
+      li [[PBC Store Object]]
+      li [[PBC Delete Object]]
+
+    h3 Query Operations
+    ul
+      li [[PBC MapReduce]]
+      li [[PBC Index]]
+      li [[PBC Search]]
+
+    h3 Server Operations
+    ul
+      li [[PBC Ping]]
+      li [[PBC Get Client ID]]
+      li [[PBC Set Client ID]]
+      li [[PBC Server Info]]

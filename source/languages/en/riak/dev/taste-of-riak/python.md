@@ -121,7 +121,6 @@ assert myBucket.get('three').exists == False
 Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this object that encapsulates some knowledge about a book.
 
 ```python
-
 book = {
   'isbn': "1111979723",
   'title': "Moby Dick",
@@ -148,7 +147,9 @@ print(fetchedBook.encoded_data)
 ```
 
 ```javascript
-{"body": "Call me Ishmael. Some years ago...", "author": "Herman Melville", "isbn": "1111979723", "copies_owned": 3, "title": "Moby Dick"}
+{"body": "Call me Ishmael. Some years ago...",
+"author": "Herman Melville", "isbn": "1111979723",
+"copies_owned": 3, "title": "Moby Dick"}
 ```
 
 JSON!  The Riak Python client library encodes things as JSON when it can.  If we wanted to get a deserialized object back we would just use the regular `fetchedBook.data` method.
