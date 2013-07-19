@@ -16,7 +16,7 @@ keywords: [mdc, repl]
 * The realtime replication queue will be lost if the replication connection breaks (even if it's reestablished). Reconciling data in this situation would require manual intervention using either:
 	* a fullsync
 	* another Riak write to the key/value on the listener, thus requeueing the object
-
+* Riak CS MDC proxy_get connections can only request data from a single leader node
 
 #### When to use version 2 replication
 
@@ -35,3 +35,4 @@ keywords: [mdc, repl]
 * Network statistics are kept per socket.
 * Fullsyncs between clusters can be tuned to control the maximum number of workers that will run on a source node, a sink node, and across the entire source cluster. This allows for  limiting impact on the cluster and dialing in fullsync performance.
 * Version 3 is able to take advantage of AAE technology, which can greatly improve fullsync performance.
+* Riak CS MDC proxy_get connections will be distributed across the **source** cluster (as CS blocks are requested from the **sink** cluster in this scenario).
