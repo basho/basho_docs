@@ -19,6 +19,14 @@ All configuration values discussed here are managed via the
 `app.config` file on each node, and a node must be restarted for any
 changes to take effect.
 
+It is advisable to make as many of the changes below as practical
+**before** joining the nodes together as a cluster. Once `app.config`
+has been configured on each node, refer to [[Basic Cluster Setup]] to
+complete the clustering process.
+
+Use [[riak-admin member-status|riak-admin Command Line#member-status]]
+to determine whether any given node is a member of a cluster.
+
 ## Ring size
 
 The ring size in Riak parlance is the number of data partitions which
@@ -33,18 +41,12 @@ running on each server.
 If the ring size is too small, the servers' other resources (primarily
 CPU and RAM) will go underutilized.
 
-A general rule of thumb is to aim for 10 partitions per server. That
-quantity can be higher for high performance bare metal hardware.
+See [[Planning for a Riak System]] and
+[[Scaling and Operating Riak Best Practices]] for more details on
+choosing a ring size.
 
-The value must be a power of 2, and defaults to 64. As of Riak 1.4,
-1024 is a reasonable upper limit, and 8 the lower limit. Since Basho
-strongly recommends that a production cluster be no smaller than 5
-servers, 64 is an effective lower limit for such an environment, but
-that value should be increased if the cluster is expected to grow
-significantly.
-
-The steps involved depend on whether the servers (nodes) in the
-cluster have already been joined together.
+The steps involved in changing the ring size depend on whether the
+servers (nodes) in the cluster have already been joined together.
 
 ### Cluster already in active use
 
@@ -53,7 +55,7 @@ resizing the ring, you may either migrate your data to a new cluster
 or contact Basho to discuss the possibility of performing a dynamic
 ring resizing operation.
 
-### Cluster joined, but no data
+### Cluster joined, but no data needs to be preserved
 
 1.  Uncomment the following line in the `riak_core` section in
 `app.config` on each node and set the appropriate quantity
@@ -69,8 +71,7 @@ ring resizing operation.
 `app.config` on each node and set the appropriate quantity
     %{ring_creation_size, 64},
 2.  Restart all nodes
-
-## XXXX WHERE THE HECK IS Basic Cluster Setup?
+3.  Join each node to the cluster (see [[Adding and Removing Nodes|Adding and Removing Nodes#Add-a-Node-to-an-Existing-Cluster]])
 
 ## Backend
 
@@ -81,6 +82,17 @@ and feature set for a Riak environment.
 See [[Choosing a Backend]] for a list of supported backends; each
 referenced document includes the necessary configuration bits.
 
+As with ring size, changing the backend will result in all data being
+effectively lost, so spend the necessary time up front to evaluate and
+benchmark backends.
+
+If still in doubt, consider using the [[Multi]] backend for future
+flexibility.
+
+If you do change backends from the default (typically [[Bitcask]])
+make certain you change it across all nodes. It is possible but
+generally unwise to use different backends on different nodes; this
+would limit the effectiveness of backend-specific features.
 
 ## Default bucket properties
 
@@ -122,14 +134,11 @@ For more on the implications of these settings, please see
 [[Part 4|http://basho.com/riaks-config-behaviors-part-4/]], and the
 [[Epilogue|http://basho.com/riaks-config-behaviors-epilogue/]].
 
-
-## Active anti-entropy (AAE)
-
-Riak historically has resolved conflicting data when values are read
-
-
-## Riak Search
-
+If the default bucket properties are modified in `app.config` and the
+node restarted, any existing buckets will **not** be directly
+impacted, although the mechanism described in
+[[HTTP Reset Bucket Properties]] can be used to force them to pick up
+the new defaults.
 
 ## System tuning
 
@@ -142,3 +151,7 @@ cluster.
 * [[Linux Performance Tuning]]
 * [[AWS Performance Tuning]]
 * [[Configuration Files]]
+
+## Joining the nodes together
+
+Please see [[Basic Cluster Setup]] for the cluster creation process.
