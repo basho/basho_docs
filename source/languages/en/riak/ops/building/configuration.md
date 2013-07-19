@@ -61,7 +61,7 @@ ring resizing operation.
 2.  Stop all nodes
 3.  Remove the ring data file on each node (see [[Backing up Riak]] for the location of this file)
 4.  Start all nodes
-5.  Join each node to the cluster (see [[Adding and Removing Nodes|Adding and Removing Nodes#Add-a-Node-to-an-Existing-Cluster]])
+5.  Re-add each node to the cluster (see [[Adding and Removing Nodes|Adding and Removing Nodes#Add-a-Node-to-an-Existing-Cluster]]) or finish reviewing this document and proceed to [[Basic Cluster Setup]]
 
 ### New servers, have not yet joined a cluster
 
@@ -69,7 +69,7 @@ ring resizing operation.
 `app.config` on each node and set the appropriate quantity
     %{ring_creation_size, 64},
 2.  Restart all nodes
-3.  Join each node to the cluster (see [[Adding and Removing Nodes|Adding and Removing Nodes#Add-a-Node-to-an-Existing-Cluster]])
+3.  Finish reviewing this document and proceed to [[Basic Cluster Setup]]
 
 ## Backend
 
