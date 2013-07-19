@@ -16,6 +16,7 @@ to 1.0).
 {{#1.4.0+}}
 <div class="note"><div class="title">Note on upgrading to Riak 1.4+</div>
 <p>Due to the differences between Riak 1.0 and Riak 1.4, you cannot upgrade directly. Instead, you should first upgrade to Riak 1.3.2, then to 1.4.0+</p>
+<p>If you run riak_control you should disable it during rolling upgrade process.</p>
 </div>
 {{/1.4.0+}}
 
