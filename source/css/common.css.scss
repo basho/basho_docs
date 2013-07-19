@@ -818,7 +818,6 @@ div[role="main"] {
   a {
     color           : $linkOrange;
     text-decoration : none;
-    //white-space     : nowrap;
     
     &:hover {
       color : lighten($orange, 5%);
