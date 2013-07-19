@@ -1488,8 +1488,8 @@ div[role=main] {
     //@extend .box-green;
     margin-top      : 45px;
     margin-bottom   : 45px;
-    @extend .horizontal-rule;
-    border-top : 1px solid $subtleGray;
+    border-bottom : 2px solid #d9dadd;
+    border-top : 2px solid #d9dadd;
   }
   
   .info {
