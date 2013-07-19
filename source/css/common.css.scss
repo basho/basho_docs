@@ -245,6 +245,10 @@ body {
     @media screen and (max-width: 700px) {
       margin : 0;
     }
+
+    @media screen and (max-width: 500px) {
+      padding : 25px 12px 25px 12px;
+    }
   }
 }
 
@@ -814,7 +818,6 @@ div[role="main"] {
   a {
     color           : $linkOrange;
     text-decoration : none;
-    white-space     : nowrap;
     
     &:hover {
       color : lighten($orange, 5%);
