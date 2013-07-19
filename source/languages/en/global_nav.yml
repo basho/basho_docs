@@ -91,9 +91,9 @@ riak:
               - "[[Bitcask Capacity|Bitcask Capacity Planning]]"
               - "[[Choosing a Backend]]"
               - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
-          - "[[Benchmarking|Basho Bench]]"
           - "[[Basic Configuration]]"
           - "[[Basic Cluster Setup]]"
+          - "[[Benchmarking|Basho Bench]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
