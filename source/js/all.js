@@ -140,6 +140,7 @@
    * If noFade is set to true, the animations will be immediate.
    */
   function openNav(callback, noFade) {
+
     var cm = contentMargin, config;
     if (noFade === true) {
       config = animConfig(false, 0, callback);
@@ -384,6 +385,7 @@
   $(options.selectors.contentWell + ' .info, ' + options.selectors.contentWell + ' .note').prepend('<span class="info-icon"></span>');
   
   // if this is a "dual style" screen, use as much as we can
+
   if($('body.dual').length > 0) {
     closeNav(function(){
       options.jq.contentWell.toggleClass('closed');
@@ -393,6 +395,7 @@
       }
     });
   }
+ 
 
   /*
    * toggleMenu()
