@@ -1,7 +1,7 @@
 ---
 title: Basic Configuration
 project: riak
-version: 1.3.1+
+version: 1.4.0+
 document: tutorial
 toc: true
 audience: beginner
