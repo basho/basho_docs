@@ -55,9 +55,9 @@ ring resizing operation.
 
 ### Cluster joined, but no data needs to be preserved
 
-1.  Uncomment the following line in the `riak_core` section in
-`app.config` on each node and set the appropriate quantity
-    %{ring_creation_size, 64},
+1.  Uncomment the `ring_creation_size` parameter (by removing the `%`
+that precedes it) in the `riak_core` section in `app.config` on each
+node and set the appropriate quantity
 2.  Stop all nodes
 3.  Remove the ring data file on each node (see [[Backing up Riak]] for the location of this file)
 4.  Start all nodes
@@ -65,11 +65,29 @@ ring resizing operation.
 
 ### New servers, have not yet joined a cluster
 
-1.  Uncomment the following line in the `riak_core` section in
-`app.config` on each node and set the appropriate quantity
-    %{ring_creation_size, 64},
-2.  Restart all nodes
-3.  Finish reviewing this document and proceed to [[Basic Cluster Setup]]
+1.  Uncomment the `ring_creation_size` parameter (by removing the `%`
+that precedes it) in the `riak_core` section in `app.config` on each
+node and set the appropriate quantity
+2.  Stop all nodes
+3.  Remove the ring data file on each node (see [[Backing up Riak]] for the location of this file)
+4.  Finish reviewing this document and proceed to [[Basic Cluster Setup]]
+
+### Verifying ring size
+
+The `riak-admin` command can verify the ring size:
+
+    $ sudo /usr/sbin/riak-admin status | egrep ring
+    ring_members : ['riak@10.160.13.252']
+    ring_num_partitions : 8
+    ring_ownership : <<"[{'riak@10.160.13.252',8}]">>
+    ring_creation_size : 8
+
+If `ring_num_partitions` and `ring_creation_size` do not agree, that
+means that the `ring_creation_size` value was changed too late and the
+proper steps were not taken to start over with a new ring.
+
+Note that Riak will not allow two nodes with different ring sizes to
+be joined into a cluster.
 
 ## Backend
 
