@@ -220,6 +220,8 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[riakpool|https://github.com/dweldon/riakpool]] - Application for maintaining a dynamic pool of Protocol Buffer client connections to a Riak database
 * [[pooler|https://github.com/seth/pooler]] - An OTP Process Pool Application
 * [[krc|https://github.com/klarna/krc]] - A simple wrapper around the official Riak client for Erlang
+* [[riakc_pool|https://github.com/brb/riakc_pool]] - A really simple Riak
+client process pool based on poolboy
 
 *Haskell*
 
