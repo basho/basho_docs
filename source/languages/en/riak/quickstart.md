@@ -1,7 +1,7 @@
 ---
 title: Five Minute Install
 project: riak
-version: 1.3.1+
+version: 1.1.0+
 document: tutorials
 toc: true
 audience: beginner
