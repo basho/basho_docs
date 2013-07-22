@@ -1,7 +1,7 @@
 ---
 title: Key Filters Reference
 project: riak
-version: 1.3.1+
+version: 1.0.0+
 document: tutorials
 toc: true
 audience: beginner
