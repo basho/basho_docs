@@ -1,11 +1,11 @@
 ---
 title: "Taste of Riak: Prerequisites"
 project: riak
+version: 1.4.0+
 document: guide
 toc: false
 audience: beginner
 keywords: [developers, client]
-versions: false
 interest: false
 ---
 
