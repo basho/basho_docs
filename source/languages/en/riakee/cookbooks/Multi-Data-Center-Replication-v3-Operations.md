@@ -19,6 +19,9 @@ This document shows how to manage replication with the `riak-repl` command. Many
 
 Set the `clustername` for all nodes in a Riak cluster. *This only needs to be run once on a single node of a cluster for the changes to propagate to all other nodes.* The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
 
+* Without a parameter, returns the current name of the cluster.
+* With a parameter, names the current cluster.
+
 To **set** the clustername:
 
 * *Syntax:* `riak-repl clustername <clustername>`
@@ -43,7 +46,6 @@ Host can be either an IP address,
 * *Syntax:* `riak-repl connect <host>:<port>`
 * *Example:* `riak-repl connect Austin:8085`
 
-
 **disconnect**
 
 Disconnecting a source cluster from a sink cluster. 
@@ -57,6 +59,27 @@ You may define a `host:port` combination,
 
 * *Syntax:* `riak-repl disconnect <sink_clustername>`
 * *Example:* `riak-repl disconnect Austin`
+
+**connections**
+
+Display a list of connections between source and sink clusters.
+
+* *Syntax:* `riak-repl connections`
+* *Example:* `riak-repl connections`
+
+**clusterstats** [{<ip:-port> | <protocol-id>}]
+
+Displays current cluster stats using an optional ip:port as well as an optional `protocol-id`.
+
+`protocol-id` can be one of:
+
+* cluster_mgr 
+* rt_repl
+* fs_repl
+
+* *Syntax:* `riak-repl clusterstats <host>:<port> <protocol-id>`
+* *Example:* `riak-repl clusterstats 192.168.2.1:8085`
+* *Example:* `riak-repl clusterstats 192.168.2.1:8085 fs_repl`
 
 
 ## Realtime Replication Configuration
