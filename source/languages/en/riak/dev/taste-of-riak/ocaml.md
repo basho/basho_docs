@@ -70,9 +70,10 @@ Get: bucket=MyBucket, key = MyKey
 To connect to a Riak node via protocol buffers, you need to specify the IP address and port number. This value can be found in Riak's `app.config` file, under the `riak_api` section's `pb` property.
 
 For example:
-	
-	{pb, [ {"127.0.0.1", 10017 } ]}
 
+```	
+	{pb, [ {"127.0.0.1", 10017 } ]}
+```
 
 The `riak_connect_with_defaults` function takes the IP and port number as parameters.
 For example:
@@ -83,7 +84,7 @@ For example:
   try_lwt
      lwt conn = riak_connect_with_defaults pbhost pbip in
      ...
-``
+```
 
 The Riak OCaml Client uses [Lwt](http://ocsigen.org/lwt/manual/) and the Lwt Syntax extension. The table below can give you an idea of how the syntax preprocesses OCaml to easily support Lwt:
 
@@ -95,8 +96,7 @@ try                   | try_lwt
 match expr with       | match_lwt expr with
 while expr do         | while_lwt expr do
 raise exn             | raise_lwt exn
-assert expr	          | assert_lwt expr
-
+assert expr	           | assert_lwt expr
 
 
 ### Storing Data in Riak
