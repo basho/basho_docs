@@ -4,7 +4,7 @@ project: riak
 version: 1.4.0+
 document: guide
 toc: true
-audience: beginner
+audience: intermediate
 keywords: [developers, client, ocaml]
 ---
 
@@ -24,7 +24,7 @@ opam install oasis
 opam install riak
 ```
 
-OPAM will prompt you to download additional dependencies. Press `Y` to continue.
+Agree to download additional dependencies when prompted by OPAM.
 
 
 Next, download the `taste-of-ocaml` sample project from Github:
@@ -36,13 +36,11 @@ cd taste-of-ocaml
 
 The `src` directory contains a single file titled `taste_of_riak.ml`.
 
-// Connects to a Riak node at 127.0.0.1:8098
-
-If you set up a local Riak cluster using the [[five minute install]] method,
-change the pbip let binding to **10018**:
+The sample code tries to connect to 127.0.0.1, port 8098 by default. If you set up a local Riak cluster using the [[five minute install]] method,
+change the `pbip` let binding to **10017**:
 
 ```
- let pbip = 10018 in
+ let pbip = 10017 in
  ...
 ```
 
@@ -69,7 +67,15 @@ Get: bucket=MyBucket, key = MyKey
 
 ### Connecting
 
-To connect to a Riak node via protocol buffers, you need to specify the IP address and port number.
+To connect to a Riak node via protocol buffers, you need to specify the IP address and port number. This value can be found in Riak's `app.config` file, under the `riak_api` section's `pb` property.
+
+For example:
+	
+	{pb, [ {"127.0.0.1", 10017 } ]}
+
+
+The `riak_connect_with_defaults` function takes the IP and port number as parameters.
+For example:
 
 ```
   let pbhost = "127.0.0.1" in
