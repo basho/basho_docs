@@ -17,14 +17,14 @@ To try this flavor of Riak, a working installation of [OCaml](http://ocaml.org/)
 
 The [riak-ocaml-client](http://metadave.github.io/riak-ocaml-client/) is a community-maintained Riak client library for OCaml.
 
-First, download the riak-ocaml-client via OPAM.
+First, download the *riak-ocaml-client* via OPAM.
 
 ```
 opam install oasis
 opam install riak
 ```
 
-This will download the required dependencies:
+This will download required dependencies:
 
 ```
 The following actions will be performed:
@@ -62,11 +62,59 @@ use this code snippet instead:
 
 We are now ready to start interacting with Riak.
 
-### Creating Objects in Riak
+```
+./configure
+make
+```
+Running the `./taste_of_riak.byte` command should return the following output:
+
+```
+$ ./taste_of_riak.byte
+Ping
+	Pong
+Put: bucket=MyBucket, key = MyKey, value = MyValue
+Get: bucket=MyBucket, key = MyKey
+	Value = MyValue
+Delete: bucket=MyBucket, key = MyKey
+Get: bucket=MyBucket, key = MyKey
+	Not found
+```
+
+### Storing Data in Riak
+
+To 
+
+```
+lwt _result = riak_put conn bucket (Some key) value [] in
+```
 
 
-### Reading Objects from Riak
+
+### Fetching Data from Riak
+
+To fetch data, all you need is a connection, key, and value.
+```
+ lwt obj = riak_get conn bucket key [] in
+  match obj with
+      | Some o ->
+          (match o.obj_value with
+              | Some v -> print_endline ("Value = " ^ v);
+                          return ()
+              | None -> print_endline "No value";
+                        return ())
+      | None -> print_endline "Not found";
+                return ()
+```
+
+To specify options for the get operation:
+```
+lwt obj = riak_get conn bucket key [Get_basic_quorum false; Get_head true]
+```
 
 
 ### Deleting Objects from Riak
 
+```
+lwt _ = riak_del conn bucket key [] in
+    return ()
+```
