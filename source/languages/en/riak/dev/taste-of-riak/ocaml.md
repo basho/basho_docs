@@ -89,7 +89,7 @@ For example:
 The Riak OCaml Client uses [Lwt](http://ocsigen.org/lwt/manual/) and the Lwt Syntax extension. The table below can give you an idea of how the syntax preprocesses OCaml to easily support Lwt:
 
 
-without Lwt           | with Lwt
+Without Lwt           | With Lwt
 ----------------------|---------------------
 let pattern1 = expr1  |	lwt pattern1 = expr1
 try                   | try_lwt
@@ -122,8 +122,11 @@ lwt _result = riak_put conn bucket (Some key) value put_options in
 
 ### Fetching Data from Riak
 
-Next, we can fetch data from Riak using a bucket and key. Since the the `riak_get` function might not find a value at the specified key, you'll have to pattern match against the Maybe value returned. If a value exists at the specified key, you'll have to pattern match against Maybe as well to retreive the actual content at that key.
-
+Next, we can fetch data from Riak using a bucket and key. Since the the
+`riak_get` function might not find a value at the specified key, you'll have
+to pattern match against the `Maybe` value returned. If a value exists at the
+specified key, you'll have to pattern match against `Maybe` as well to
+retrieve the actual content at that key.
 
 ```
  lwt obj = riak_get conn bucket key [] in
