@@ -67,7 +67,7 @@ fullsync_on_connect | true, false | true | Whether to initiate a fullsync on ini
 data_root | path(string) | data/<wbr>riak_repl | Path (relative or absolute) to the working directory for the replication process
 fullsync_interval | minutes(integer) OR [{sink_cluster, minutes(integer)}, …]|undefined|a single integer value representing the duration to wait in minutes between fullsyncs, or a list of {"clustername", time_in_minutes} pairs for each sink participating in fullsync replication.
 proxy_get|enabled,disabled|false|Enable Riak CS proxy_get and block filter.
-rt_heartbeat_interval|seconds(integer)|15|A heartbeat message is sent from the source to the sink every `rt_heartbeat_interval` seconds. Setting `rt_heartbeat_interval` as well as `rt_heartbeat_timeout` to `undefined` disables the realtime heartbeat. This feature is only available in Riak Enterprise 1.3.2+.
+rt_heartbeat_interval|seconds(integer)|15|A heartbeat message is sent from the source to the sink every `rt_heartbeat_interval` seconds. Setting `rt_heartbeat_interval` to `undefined` disables the realtime heartbeat. This feature is only available in Riak Enterprise 1.3.2+.
 rt_heartbeat_timeout|seconds(integer)|15|If a heartbeat response is not received in `rt_heartbeat_timeout` seconds, then the source connection exits and will be re-established. This feature is only available in Riak Enterprise 1.3.2+.
 
 
