@@ -36,3 +36,4 @@ notable libraries for other languages:
 
 * [[OCaml|Taste of Riak: OCaml]]
 * [[Clojure|Taste of Riak: Clojure]]
+* [[CSharp|Taste of Riak: C#]]
