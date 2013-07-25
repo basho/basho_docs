@@ -43,8 +43,14 @@ Update Object Metadata | Coming Soon | Planned for future release |
 
 ## Storage Account Services
 
+* [[List Containers|/references/apis/storage/openstack/RiakCS-OpenStack-List-Containers]] - Lists the containers owned by an account
+
 ## Storage Container Services
+* [[List Objects|/references/apis/storage/openstack/RiakCS-OpenStack-List-Objects]] - Lists the objects in a container
+* [[Create Container|/references/apis/storage/openstack/RiakCS-OpenStack-Create-Container]] - Creates a new container
+* [[Delete Container|/references/apis/storage/openstack/RiakCS-OpenStack-Delete-Container]] - Deletes a container
 
 ## Storage Object Services
-
-## Multipart Upload
+* [[Get Object|/references/apis/storage/openstack/RiakCS-OpenStack-Get-Object]] - Retrieves an object
+* [[Create or Update Object|/references/apis/storage/openstack/RiakCS-OpenStack-Create-Object]] - Write an object in a container
+* [[Delete Object|/references/apis/storage/openstack/RiakCS-OpenStack-Delete-Object]] - Delete an object from a container
