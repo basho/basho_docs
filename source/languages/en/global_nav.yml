@@ -22,6 +22,7 @@ riak:
           - "[[PHP|Taste of Riak: PHP]]"
           - "[[Python|Taste of Riak: Python]]"
           - "[[Ruby|Taste of Riak: Ruby]]"
+          - "[[Csharp|Taste of Riak: C-Sharp]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"

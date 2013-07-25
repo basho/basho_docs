@@ -27,4 +27,5 @@ Basho officially supports a number of open-source [[client libraries]] for vario
 <li data-lang="ruby">[[Ruby|Taste of Riak: Ruby]]</li>
 <li data-lang="php">[[PHP|Taste of Riak: PHP]]</li>
 <li data-lang="python">[[Python|Taste of Riak: Python]]</li>
+<li data-lang="csharp">[[CSharp|Taste of Riak: C#]]</li>
 </ul>
