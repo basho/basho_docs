@@ -165,7 +165,7 @@ technologies are limited and typically choose consistency over availability. Alt
 been made in the recent years, it is still not easy to scale-out databases or use smart partitioning 
 schemes for load balancing. 
 
-# Riak is a highly available, scalable, open source key/value database. Theses notes
+# Riak is a highly available, scalable, open source key/value database. These notes
 # describe where Riak's design decisions emulated and diverged from Dynamo's (as described in this paper).
 # 
 # Riak offers several query methods in addition to the standard key/value interface, 
