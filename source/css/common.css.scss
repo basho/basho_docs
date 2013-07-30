@@ -379,7 +379,7 @@ iframe {
 
     @media screen and (max-width: 700px) {
       font-size : 1em;
-      width : 2.25rem;
+      width : 1.75em;
       margin-left : $mobilePageGutter;
     }
   }
@@ -388,7 +388,7 @@ iframe {
     display      : inline-block;
     float        : left;
     width        : 1em;
-    margin-right : 3%;
+    margin-right : 0.5em;
     color        : #8e939a;
     text-align   : center;
     @extend .sans;
@@ -408,15 +408,14 @@ iframe {
     input[type="search"],
     input[type="text"] {
       position         : relative;
-      width            : 77%;
+      width            : 76%;
       background-color : $fieldGrey;
-      padding          : 10px 0 10px 23%;
+      padding          : 10px 0 10px 24%;
       margin           : 0;
       border           : none;
       color            : #fff;
-      line-height      : 1rem;
+      line-height      : 1.3rem;
       @extend .sans;
-      font-size        : 0.9rem;
 
       &::-webkit-input-placeholder { /* WebKit browsers */
         color : #fff;
@@ -432,6 +431,8 @@ iframe {
       }
 
       @media screen and (max-width: 700px) {
+        font-size : 1rem;
+        padding   : 10px 0 10px 3.2em; /* Using rems here for padding-left to align input text on mobile devices */
         @include allCorners(); /* Add rounded corners to the field when device is tablet or mobile */
       }
     }
@@ -450,10 +451,6 @@ iframe {
       left     : 0;
       width    : 4em;
       z-index  : 8;
-      
-      
-      .icon-container {
-      }
 
       .separator {
         color    : #fff;
@@ -467,7 +464,7 @@ iframe {
       margin-left : $mobilePageGutter;
 
       .icon-container {
-        margin-left : 0;
+        margin-left : 0.3em;
       }
     }
   }
@@ -506,9 +503,11 @@ iframe {
     &.visit-basho {
       background : $orange; // fallback value for no rgba support
       //background : rgba(249, 157, 51, .2);
-      border     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
-      border     : 1px solid rgba(249, 157, 51, .4);
-      color      : #fff;
+      border-top     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+      border-top     : 1px solid rgba(249, 157, 51, .4);
+      border-bottom  : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+      border-bottom  : 1px solid rgba(249, 157, 51, .4);
+      color          : #fff;
 
       .separator,
       .nav-icon {
