@@ -1,5 +1,5 @@
 ---
-title: PBC Index
+title: PBC Secondary Indexes
 project: riak
 version: 1.2.0+
 document: api
@@ -8,7 +8,7 @@ audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Query Operations"
 moved: {
-  '1.4.0-': '/references/apis/protocol-buffers/PBC-Index'
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Secondary-Indexes'
 }
 ---
 
