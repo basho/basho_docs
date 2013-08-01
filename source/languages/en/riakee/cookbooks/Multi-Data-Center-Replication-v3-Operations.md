@@ -39,21 +39,21 @@ The `connect` command establishes communications from a source cluster to a sink
 Host can be either an IP address,
 
 * *Syntax:* `riak-repl connect <ip>:<port>`
-* *Example:* `riak-repl connect 192.168.2.1:8085`
+* *Example:* `riak-repl connect 192.168.2.1:9080`
 
 ...or a hostname that will resolve to one.
 
 * *Syntax:* `riak-repl connect <host>:<port>`
-* *Example:* `riak-repl connect Austin:8085`
+* *Example:* `riak-repl connect Austin:9080`
 
 **disconnect**
 
-Disconnecting a source cluster from a sink cluster. 
+Disconnecting a source cluster from a sink cluster.
 
 You may define a `host:port` combination,
 
 * *Syntax:* `riak-repl disconnect <host>:<port>`
-* *Example:* `riak-repl disconnect 192.168.2.1:8085`
+* *Example:* `riak-repl disconnect 192.168.2.1:9080`
 
 ...or use the *name* of the cluster.
 
@@ -73,13 +73,13 @@ Displays current cluster stats using an optional ip:port as well as an optional 
 
 `protocol-id` can be one of:
 
-* cluster_mgr 
+* cluster_mgr
 * rt_repl
 * fs_repl
 
 * *Syntax:* `riak-repl clusterstats <host>:<port> <protocol-id>`
-* *Example:* `riak-repl clusterstats 192.168.2.1:8085`
-* *Example:* `riak-repl clusterstats 192.168.2.1:8085 fs_repl`
+* *Example:* `riak-repl clusterstats 192.168.2.1:9080`
+* *Example:* `riak-repl clusterstats 192.168.2.1:9080 fs_repl`
 
 
 ## Realtime Replication Configuration
