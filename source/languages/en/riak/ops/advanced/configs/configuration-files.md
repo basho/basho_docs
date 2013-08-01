@@ -335,6 +335,11 @@ How long a map function is permitted to execute on a vnode before it times out a
 
  * **vnode_mailbox_limit** `{EnableThreshold, DisableThreshold}` - configures the riak_kv health check that monitors message queue lengths of riak_kv vnodes. If a KV vnode's message queue length reaches `DisableThreshold` the `riak_kv` service is disabled on the node. The service will not be re-enabled until the message queue length drops below `EnableThreshold`. {{1.3.0+}}
 
+ * **secondary_index_timeout**
+ The number of milliseconds before a secondary index query times out. The default value is `0`, which indicates that no timeout will occur. 
+ 
+ 
+
 ### webmachine_logger_module
 This needs to be set in order to enable access logs.
 
