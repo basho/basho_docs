@@ -30,7 +30,7 @@ Agree to download additional dependencies when prompted by OPAM.
 Next, download the `taste-of-ocaml` sample project from Github:
 
 ```
-git clone git@github.com:metadave/taste-of-ocaml.git
+git clone git@github.com:basho-labs/taste-of-ocaml.git
 cd taste-of-ocaml
 ```
 
