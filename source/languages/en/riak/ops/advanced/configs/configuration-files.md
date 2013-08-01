@@ -338,8 +338,6 @@ How long a map function is permitted to execute on a vnode before it times out a
  * **secondary_index_timeout**
  The number of milliseconds before a secondary index query times out. The default value is `0`, which indicates that no timeout will occur. 
  
- 
-
 ### webmachine_logger_module
 This needs to be set in order to enable access logs.
 
