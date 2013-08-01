@@ -358,33 +358,37 @@ iframe {
     &:hover {
       color : $extraDarkGrey;
     }
+
+    @media screen and (max-width: 500px) {
+       padding : 7px $mobilePageGutter;
+    }
   }
 
   .current {
-    //background-color : $blueGreen;
-
     a {
       cursor : default;
     }
   }
 
-  .current a:hover {
-    //@include bgPattern('nav-li-bg6.jpg', #393939);
-  }
-
   .icon-container {
     display     : inline-block;
-    width       : 12%;
-    margin-left : 4%;
+    width       : 1.5em;
+    margin-left : 0.9em;
     float       : left;
     text-align  : center;
+
+    @media screen and (max-width: 700px) {
+      font-size : 1em;
+      width : 1.75em;
+      margin-left : $mobilePageGutter;
+    }
   }
 
   .separator {
     display      : inline-block;
     float        : left;
-    width        : 4%;
-    margin-right : 3%;
+    width        : 1em;
+    margin-right : 0.5em;
     color        : #8e939a;
     text-align   : center;
     @extend .sans;
@@ -404,15 +408,14 @@ iframe {
     input[type="search"],
     input[type="text"] {
       position         : relative;
-      width            : 77%;
+      width            : 76%;
       background-color : $fieldGrey;
-      padding          : 10px 0 10px 23%;
+      padding          : 10px 0 10px 24%;
       margin           : 0;
       border           : none;
       color            : #fff;
-      line-height      : 1rem;
+      line-height      : 1.3rem;
       @extend .sans;
-      font-size        : 0.9rem;
 
       &::-webkit-input-placeholder { /* WebKit browsers */
         color : #fff;
@@ -426,6 +429,12 @@ iframe {
       &:-ms-input-placeholder { /* Internet Explorer 10+ */
         color : #fff;
       }
+
+      @media screen and (max-width: 700px) {
+        font-size : 1rem;
+        padding   : 10px 0 10px 3.2em; /* Using rems here for padding-left to align input text on mobile devices */
+        @include allCorners(); /* Add rounded corners to the field when device is tablet or mobile */
+      }
     }
 
     input[type="search"]:focus,
@@ -433,23 +442,30 @@ iframe {
       color            : #fff;
       background-color : $darkGrey;
     }
-
-    .icon-container {
+    
+    #icon-container-search {
+   
       position : absolute;
       display  : block;
       top      : 9px;
       left     : 0;
-      float    : none;
+      width    : 4em;
       z-index  : 8;
+
+      .separator {
+        color    : #fff;
+      }
     }
 
-    .separator {
-      position : absolute;
-      display  : block;
-      top      : 8px;
-      left     : 16%;
-      color    : #fff;
-      z-index  : 9;
+    @media screen and (max-width: 700px) {
+      float       : left;
+      width       : 71%;
+      margin-top  : -5px;
+      margin-left : $mobilePageGutter;
+
+      .icon-container {
+        margin-left : 0.3em;
+      }
     }
   }
 
@@ -487,9 +503,11 @@ iframe {
     &.visit-basho {
       background : $orange; // fallback value for no rgba support
       //background : rgba(249, 157, 51, .2);
-      border     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
-      border     : 1px solid rgba(249, 157, 51, .4);
-      color      : #fff;
+      border-top     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+      border-top     : 1px solid rgba(249, 157, 51, .4);
+      border-bottom  : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+      border-bottom  : 1px solid rgba(249, 157, 51, .4);
+      color          : #fff;
 
       .separator,
       .nav-icon {
@@ -501,6 +519,10 @@ iframe {
         color       : rgba(255, 255, 255, 1);
         //text-shadow : none; // fallback value for no rgba support
         //text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
+      }
+
+      @media screen and (max-width: 700px) {
+        margin-top : 20px;
       }
     }
     
@@ -527,10 +549,6 @@ iframe {
         color      : $darkGrey;
         background : none;
       }
-    }
-    
-    span {
-      //padding-right : 5px;
     }
     
     span.menu-toggle {
@@ -907,7 +925,7 @@ div[role="main"] {
       width         : 100%;
       top           : 0;
       left          : 0;
-      padding       : 12px 0 18px;
+      padding       : 12px 0 0 0;
       z-index       : 3;
       //border-bottom : 6px solid $headerColor;
 
