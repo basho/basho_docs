@@ -34,4 +34,5 @@ Basho officially supports a number of open-source [[client libraries]] for vario
 Alongside Basho's officially supported client libraries, there are several
 notable libraries for other languages:
 
+* [[OCaml|Taste of Riak: OCaml]]
 * [[Clojure|Taste of Riak: Clojure]]
