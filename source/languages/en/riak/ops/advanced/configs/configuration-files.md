@@ -403,7 +403,7 @@ The default lager options are like so:
 
 Parameters for the Erlang node on which Riak runs are set in the vm.args file in the etc directory of the embedded Erlang node. Most of these settings can be left at their defaults until you are ready to tune performance.
 
-Two settings you may be interested in right away, though, are -name and -setcookie. These control the Erlang node names (possibly host-specific), and Erlang inter-node communication access (cluster-specific), respectively.
+Two settings you may be interested in right away, though, are `-name` and `-setcookie`. These control the Erlang node names (possibly host-specific), and Erlang inter-node communication access (cluster-specific), respectively.
 
 The format of the file is fairly loose: lines which do not begin with the "#" character are concatenated, and passed to the erl on the command line as is.
 
@@ -414,9 +414,9 @@ Erlang Runtime Configuration Options
 #### -name
 Name of the Erlang node. (default: `riak@127.0.0.1`)
 
-The default value, riak@127.0.0.1 will work for running Riak locally, but for distributed (multi-node) use, the portion of the name after the "@" should be changed to the IP address of the machine on which the node is running.
+The default value, `riak@127.0.0.1`, will work for running Riak locally, but for distributed (multi-node) use, the portion of the name after the "@" should be changed to the IP address of the machine on which the node is running.
 
-If you have properly-configured DNS, the short-form of this name can be used (for example: "riak"). The name of the node will then be "riak@Host.Domain".
+If you have properly-configured DNS, the short-form of this name can be used (for example: `riak`). The name of the node will then be `riak@Host.Domain`.
 
 #### -setcookie
 Cookie of the Erlang node. (default: `riak`)
@@ -435,7 +435,7 @@ Enable kernel polling. (default: `true`)
 Number of threads in the async thread pool. (default: `64`)
 
 #### -pa
-Adds the specified directories to the beginning of the code path, similar to code:add_pathsa/1. See code(3). As an alternative to -pa, if several directories are to be prepended to the code and the directories have a common parent directory, that parent directory could be specified in the ERL_LIBS environment variable.
+Adds the specified directories to the beginning of the code path, similar to `code:add_pathsa/1`. See `code(3)`. As an alternative to `-pa`, if several directories are to be prepended to the code and the directories have a common parent directory, that parent directory could be specified in the `ERL_LIBS` environment variable.
 
 #### -env
 Set host environment variables for Erlang.
@@ -443,20 +443,51 @@ Set host environment variables for Erlang.
 #### -smp
 Enables Erlang's SMP support. (default: `enable`)
 
+#### +zdbbl
+Configures the buffer size for outbound messages between nodes. This
+is commented out by default because the ideal value varies
+significantly depending on available system memory, typical object
+size, and amount of traffic to the database.
+
+Systems with lots of memory and under a heavy traffic load should
+consider increasing our default value; systems under lighter load but
+storing large objects may wish to lower it. [[Basho Bench]] is highly
+recommended to help determine the best values for this (and other
+tuning parameters) in your environment.
+
+Riak and Riak CS have different default values: `32768` for Riak (if
+uncommented), and `96000` [[for Riak CS|Configuring Riak for CS]].
+
+#### +P
+Defines the Erlang process limit. Under R15, the limit is very low,
+and thus using this to raise the limit is very important. (default: `256000`)
+
+#### +sfwi
+If using an
+[appropriately patched Erlang VM](https://gist.github.com/evanmcc/a599f4c6374338ed672e)
+(such as one downloaded directly from Basho) this will control the
+interval (in milliseconds) at which a supervisor thread wakes to check
+run queues for work to be executed. (default: `500`)
+
+#### +W
+Determines whether warning messages sent to Erlang's `error_logger`
+are treated as errors, warnings, or informational. (default: `w` for
+warnings)
+
 #### -env ERL_LIBS
-Alternate method to add directories to the code path (see -pa above)
+Alternate method to add directories to the code path (see `-pa` above)
 
-#### -env ERL_MAX_PORTS `4096`
+#### -env ERL_MAX_PORTS
 
-Maximum number of concurrent ports/sockets. (default: `4096`)
+Maximum number of concurrent ports/sockets. (default: `64000`)
 
-#### -env ERL_FULLSWEEP_AFTER `0`
+#### -env ERL_FULLSWEEP_AFTER
 
-Run garbage collection more often.
+Run garbage collection more often. (default: `0`)
 
-#### -env ERL_CRASH_DUMP `./log/erl_crash.dump`
+#### -env ERL_CRASH_DUMP
 
-Set the location of crash dumps.
+Set the location of crash dumps. (default: `./log/erl_crash.dump`)
 
 ## Rebar Overlays
 
