@@ -1,44 +1,43 @@
 ---
-title: RiakCS DELETE Bucket
+title: RiakCS Delete Container
 project: riakcs
-version: 1.2.0+
+version: 1.4.0+
 document: api
 toc: true
 index: false
 audience: advanced
-keywords: [api, http]
+keywords: [api, openstack, http]
 ---
 
-The `DELETE Bucket` operation deletes the bucket specified in the URI.
+Deletes a container.
 
-<div class="note"><div clas="title">Note</div>All objects in the bucket must be deleted before you can delete the bucket.</div>
+<div class="note"><div clas="title">Note</div>All objects in the container must be deleted before you can delete the container.</div>
 
 ## Requests
 
 ### Request Syntax
 
 ```
-DELETE / HTTP/1.1
-Host: bucketname.data.basho.com
-Date: date
-Authorization: signature_value
+DELETE /<api version>/<account>/<container> HTTP/1.1
+Host: data.basho.com
+X-Auth-Token: auth_token
 ```
 
 ## Responses
 
-DELETE Bucket uses only common response headers and doesn't return any response elements.
+This operation does not return a response.
 
 ## Examples
 
 ### Sample Request
 
-The DELETE Bucket operation deletes the bucket name "projects".
+A request that deletes a container named `basho-docs`.
 
 ```
-DELETE / HTTP/1.1
-Host: projects.data.basho.com
+DELETE /v1.0/deadbeef/basho-docs HTTP/1.1
+Host: data.basho.com
 Date: Wed, 06 Jun 2012 20:47:15 +0000
-Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
+X-Auth-Token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
 ```
 
 ### Sample Response
@@ -47,5 +46,7 @@ Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 HTTP/1.1 204 No Content
 Date: Wed, 06 Jun 2012 20:47:15 +0000
 Connection: close
-Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+Server: RiakCS
+Content-Length: 0
+Content-Type: text/plain; charset=UTF-8
 ```

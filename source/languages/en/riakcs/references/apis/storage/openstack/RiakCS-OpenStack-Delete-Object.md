@@ -1,39 +1,41 @@
 ---
-title: RiakCS DELETE Object
+title: RiakCS Delete Object
 project: riakcs
-version: 1.2.0+
+version: 1.4.0+
 document: api
 toc: true
 index: false
 audience: advanced
-keywords: [api, http]
+keywords: [api, openstack, http]
 ---
 
-The `DELETE Object` operation removes an object, if one exists.
+Removes the specified object, if it exists.
 
 ## Requests
 
 ### Request Syntax
 
 ```
-DELETE /ObjectName HTTP/1.1
-Host: bucketname.data.basho.com
-Date: date
-Content-Length: length
-Authorization: signature_value
+DELETE /<api version>/<account>/<container>/<object> HTTP/1.1
+Host: data.basho.com
+X-Auth-Token: auth_token
 ```
+
+## Responses
+
+This operation does not return a response.
 
 ## Examples
 
 ### Sample Request
 
-The DELETE Object operation deletes the object, `projects-schedule.jpg`.
+The following request deletes the object `basho-process.jpg` from the container `basho-docs`.
 
 ```
-DELETE /projects-schedule.jpg HTTP/1.1
-Host: bucketname.data.basho.com
-Date: Wed, 06 Jun 2012 20:47:15 GMT
-Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
+DELETE /v1.0/deadbeef/basho-docs/basho-process.jpg HTTP/1.1
+Host: data.basho.com
+Date: Fri, 01 Jun  2012 12:00:00 GMT
+X-Auth-Token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
 ```
 
 ### Sample Response
@@ -42,5 +44,5 @@ Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
 HTTP/1.1 204 No Content
 Date: Wed, 06 Jun 2012 20:47:15 GMT
 Connection: close
-Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
+Server: RiakCS
 ```
