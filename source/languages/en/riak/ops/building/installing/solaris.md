@@ -51,21 +51,21 @@ Download your version of the Riak binary package for Solaris 10:
 {{#1.4.0-}}
 
 ```bash
-curl -o /tmp/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/solaris/10/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz
+curl -o /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/solaris/10/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz
 ```
 {{/1.4.0-}}
 {{#1.4.0+}}
 
 ```bash
-curl -o /tmp/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/solaris/10/BASHOriak-{{V.V.V}}-Solaris10-x86_64.pkg.gz
+curl -o /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/solaris/10/BASHOriak-{{V.V.V}}-Solaris10-x86_64.pkg.gz
 ```
 {{/1.4.0+}}
 
 Next, install the package:
 
 ```bash
-gunzip /tmp/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz
-pkgadd /tmp/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg
+gunzip /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg.gz
+pkgadd /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg
 ```
 
 After installing the package, be sure to include `/opt/riak/bin` in the
