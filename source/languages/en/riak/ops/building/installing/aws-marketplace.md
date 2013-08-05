@@ -53,7 +53,9 @@ You can read more about Riak's [[Security and Firewalls]].
 
 You will need need to launch at least 3 instances to form a Riak cluster.  When the instances have been provisioned and the security group is configured you can connect to them using SSH or PuTTY as the ec2-user.
 
- You can find more information on connecting to an instance on the official [Amazon EC2 instance guide] (http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html).
+You can find more information on connecting to an instance on the official [Amazon EC2 instance guide](http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/AccessingInstances.html).
+
+<div class="note">The following clustering setup will *not* be resilient to instance restarts unless deployed in Amazon VPC.</div>
 
 1. On the first node obtain the internal IP address:
 
