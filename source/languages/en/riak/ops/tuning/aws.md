@@ -20,6 +20,13 @@ Cloud (EC2) environment.
 recommendations of a more general sort, which apply to Riak cluster
 installations.</div>
 
+## Security Groups ##
+The most critical setting you *must* handle is to ensure that your Riak
+instances are not accessible to anyone on the Internet. Place your Riak instances
+in a security group that does not permit arbitrary outside access to the Protocol
+Buffers or HTTP ports. Only permit access to the security group(s) that
+will be using Riak.
+
 ## EC2 Instances
 EC2 instances are available as predefined types which encapsulate a fixed
 amount of computing resources, the most important of which to Riak are Disk
@@ -177,16 +184,38 @@ Software bugs (memory leaks) could also be a cause of OOM, so we ask that
 Riak Enterprise Edition users please contact Basho Client Services if
 this problem occurs.
 
-## Dealing with IP addresses
+## Classic-EC2 (non-VPC) IP Addresses
 
-EC2 instances that are not provisioned inside a VPC change the following parameters after a restart.
+EC2 instances that are not provisioned inside a VPC can change the following parameters after a restart:
 
 * Private IP address
 * Public IP address
 * Private DNS
 * Public DNS
 
-Since Riak binds to an IP addresses and communicates with other nodes based on this address,
+For production deployments in Classic-EC2, use an Elastic IP Address for each server. An EIP does not cost anything while attached to an instance. If your instance should unexpectedly restart, or should you need to stop and start it, simply reattach the IP to the instance. The following standard AWS practice is also recommended for Riak:
+
+1.  Provision an Elastic IP address. If you have reached your maximum number of EIP's, ask AWS support to increase your limit - (the default is 5, but as long as you are using them, they will increase it). In this example, let's say the address we were given was: ```1.2.3.4```.
+2.  Find out the "AWS Public DNS Name" for that IP, by doing a reverse DNS lookup. One way to do this is the command-line tool "dig":
+
+```
+> dig -x 1.2.3.4
+...
+ec2-1-2-3-4.compute-1.amazonaws.com
+```
+3.  (optional) If you would like a more human-readable name for your node, you may create a DNS entry using a CNAME to the public DNS name listed above. Example:
+
+```
+my_riak_1.mycompany.com    CNAME    ec2-1-2-3-4.compute-1.amaonaws.com
+```
+
+Use either the AWS Public DNS Name or human-readable name in your vm.args. When joining other nodes for in a cluster, use their AWS public DNS names or human-readable names similarly.
+
+This is the standard technique used for any long-lived instance in Classic-EC2 that needs a static IP Address. The "AWS public DNS Name" will actually resolve to the outside IP address only when looked up _outside_ of AWS - it will resolve to the _inside_ RFC1918 address (10.x.y.z) when inside AWS.
+
+## Non-Production Classic-EC2 usage (non-VPC)
+
+If you cannot or do not wish to use Elastic IP's, your internal and external IP addresses and DNS names will all change should your instance be stopped and restarted. Since Riak binds to an IP address and communicates with other nodes based on this address,
 executing certain admin commands are necessary to bring the node back up.
 Namely the following steps must be performed.
 
@@ -201,16 +230,14 @@ Namely the following steps must be performed.
 * Plan the changes with `riak-admin cluster plan`
 * Commit the changes with `riak-admin cluster commit`
 
-To avoid this inconvenience, you can deploy riak to a [VPC](http://aws.amazon.com/vpc/). Instances inside the VPC do not change their private
+## VPC-EC2 (recommended)
+To avoid these inconveniences, you can deploy riak to a [VPC](http://aws.amazon.com/vpc/). Instances inside the VPC do not change their private
 IP address on restart. In addition you get the following benefits.
 
 * Access control lists can be defined at various levels (Load balancers / Individual servers / VPC Groups).
-* The Riak instance is not open to arbitrary communication from the internet. Only nodes within a subnet can contact Riak.
+* Riak instances may be provisioned on a private network, which is not publicly addressible. Only nodes within the appropriate security groups and subnets will be able to access them.
 * Should the private nodes need to contact the internet they can do so through a NAT instance.
 * Amazon VPC is [free](http://aws.amazon.com/vpc/pricing/).
-
-You can also explore other [solutions](http://deepakbala.me/2013/02/08/deploying-riak-on-ec2/) should setting up a VPC
-present an obstacle for you.
 
 ## Choice of storage
 
