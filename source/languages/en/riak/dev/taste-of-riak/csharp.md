@@ -73,7 +73,7 @@ This is some simple code to test that a node in a Riak cluster is online - we se
 
 Pinging a Riak cluster sounds like a lot of fun, but eventually someone is going to want us to do productive work. Let's create a class to represent some data and save some objects into Riak.
 
-CorrugatedIron makes use of a `RiakObject` class to encapsulate Riak functionality. At the most basic, a `RiakObject` is responsible for identifying your object and for translating it into a format that can be easily saved to Riak.
+CorrugatedIron makes use of a `RiakObject` class to encapsulate Riak key/value objects. At the most basic, a `RiakObject` is responsible for identifying your object and for translating it into a format that can be easily saved to Riak.
 
 Add the `CorrugatedIron.Models` namespace to your using directive. Your usings should look like this:
 
