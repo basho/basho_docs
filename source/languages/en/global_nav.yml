@@ -24,6 +24,7 @@ riak:
           - "[[Ruby|Taste of Riak: Ruby]]"
           - "[[OCaml|Taste of Riak: OCaml]]"
           - "[[Clojure|Taste of Riak: Clojure]]"
+          - "[[Csharp|Taste of Riak: C-Sharp]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
