@@ -14,16 +14,16 @@ moved: {
 
 ## Version 3 Replication Configuration
 
-*The `cluster_mgr` variable MUST be set in order for 1.3 Replication to run*
+*The `cluster_mgr` variable MUST be set in order for v3 Replication to run*
 
 The configuration for replication is kept in the both the `riak_core` and `riak_repl` sections of `etc/app.config`.
 
 ```
-{riak_core, [	
+{riak_core, [
     %% Every *node* runs one cluster_mgr.
-    {cluster_mgr, {"0.0.0.0", 9085 }}
+    {cluster_mgr, {"0.0.0.0", 9080 }}
     …
-]},		
+]},
 {riak_repl, [
     % Pick the correct data_root for your platform
 	% Debian/Centos/RHEL:
