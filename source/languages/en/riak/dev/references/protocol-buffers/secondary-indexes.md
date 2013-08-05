@@ -8,7 +8,7 @@ audience: advanced
 keywords: [api, protocol-buffer]
 group_by: "Query Operations"
 moved: {
-  '1.4.0-': '/references/apis/protocol-buffers/PBC-Secondary-Indexes'
+  '1.4.0-': '/references/apis/protocol-buffers/PBC-Indexes'
 }
 ---
 
