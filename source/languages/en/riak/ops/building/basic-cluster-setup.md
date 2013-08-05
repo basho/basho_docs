@@ -66,6 +66,11 @@ becomes
 
     {pb_ip,   "192.168.1.10" },
 
+<div class="info">
+<strong>Wildcard IP Address</strong>
+<p>Note that you may use the address "0.0.0.0" for these listen parameters if your server may change local addresses (such as in AWS)</p>
+</div>
+
 
 Next edit the `etc/vm.args` file and change the `-name` to the correct hostname:
 
@@ -78,7 +83,7 @@ becomes
 <div class="info">
 <strong>Node Names</strong>
 <p>Use fully qualified domain names (FQDNs) rather than IP addresses
-for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred.</p>
+for the cluster member node names. For example, "riak@cluster.example.com" and "riak@192.168.1.10" are both acceptable node naming schemes, but using the FQDN style is preferred. This is because the FQDN's IP address can be changed easily using DNS.</p>
 <p>Once a node has been started, in order to change the name you must either remove ring files from the data directory, [[riak-admin reip|riak-admin Command Line#reip]] the node, or [[riak-admin cluster force-replace|riak-admin Command Line#cluster-force-replace]] the node.
 </p>
 </div>
