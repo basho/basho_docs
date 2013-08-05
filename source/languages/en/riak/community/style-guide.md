@@ -8,10 +8,6 @@ index: true
 keywords: [community]
 ---
 
-One of the main aspects which drive Basho's vision of being *the best
-customer service organization in the world* is providing our customers with
-quality product documentation and responses to issues.
-
 The adage that *no documentation is better than poor quality
 documentation* should always be considered when we write documentation.
 We should strive to provide accurate and current information in a clear and
