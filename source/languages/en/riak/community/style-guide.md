@@ -13,18 +13,10 @@ documentation* should always be considered when we write documentation.
 We should strive to provide accurate and current information in a clear and
 consistent style appropriate for the target audience.
 
-Time well spent on documentation quality can minimize time spent repetitively
-providing assistance and clarification through other channels. Quality
-documentation has the added benefit of also improving customer confidence in
-our products and services.
-
-To deliver clear and consistent documentation, we must use a common set
-of writing rules and style. This living document describes a proposed
-collection of recommendations for document structure, style, and
-conventions. 
-
-This guide is particularly for those authoring public facing documentation
-and customer responses.
+To deliver clear and consistent documentation, this document provides a
+common set of writing rules and style. This living document describes a
+collection of document structures, styles, and conventions that we try to
+follow.
 
 ## Essential Style Concepts
 
