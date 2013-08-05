@@ -141,6 +141,7 @@ default:
     solaris:
       name: "Solaris"
       icon: "solaris.png"
+      install: "Installing on Solaris"
       versions:
         "10":
           arch:

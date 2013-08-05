@@ -63,6 +63,9 @@ Note that lines prefixed with `%%` are comments
 
     %% binds to a specific IPv6 interface
     {pb_ip, {65152,0,0,0,64030,57343,65250,15801}}
+
+    %% binds to all IPv4 address(es)
+    {pb_ip, "0.0.0.0"}
     ```
     {{/1.3.0+}}
 
@@ -415,7 +418,7 @@ please rely on the `vm.args` file supplied with those packages.
 #### -name
 Name of the Erlang node. (default: `riak@127.0.0.1`)
 
-The default value, `riak@127.0.0.1`, will work for running Riak locally, but for distributed (multi-node) use, the portion of the name after the "@" should be changed to the IP address of the machine on which the node is running.
+The default value, riak@127.0.0.1 will work for running Riak locally, but for distributed (multi-node) use, the portion of the name after the "@" should be changed to the Hostname (FQDN) or IP address of the machine on which the node is running.
 
 If you have properly-configured DNS, the short-form of this name can be used (for example: `riak`). The name of the node will then be `riak@Host.Domain`.
 
