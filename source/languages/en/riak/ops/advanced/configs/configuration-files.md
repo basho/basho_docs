@@ -409,7 +409,8 @@ The format of the file is fairly loose: lines which do not begin with the "#" ch
 
 More details about each of these settings can be found in the Erlang documentation for the erl Erlang virtual machine.
 
-Erlang Runtime Configuration Options
+Riak CS and Enterprise may make different choices for some of these;
+please rely on the `vm.args` file supplied with those packages.
 
 #### -name
 Name of the Erlang node. (default: `riak@127.0.0.1`)
@@ -435,7 +436,13 @@ Enable kernel polling. (default: `true`)
 Number of threads in the async thread pool. (default: `64`)
 
 #### -pa
-Adds the specified directories to the beginning of the code path, similar to `code:add_pathsa/1`. See `code(3)`. As an alternative to `-pa`, if several directories are to be prepended to the code and the directories have a common parent directory, that parent directory could be specified in the `ERL_LIBS` environment variable.
+Adds the specified directories to the beginning of the code path,
+similar to
+[`code:add_pathsa/1`](http://www.erlang.org/doc/man/code.html#add_pathsa-1). As
+an alternative to `-pa`, if several directories are to be prepended to
+the code and the directories have a common parent directory, that
+parent directory could be specified in the `ERL_LIBS` environment
+variable.
 
 #### -env
 Set host environment variables for Erlang.
@@ -447,7 +454,8 @@ Enables Erlang's SMP support. (default: `enable`)
 Configures the buffer size for outbound messages between nodes. This
 is commented out by default because the ideal value varies
 significantly depending on available system memory, typical object
-size, and amount of traffic to the database.
+size, and amount of traffic to the database. (default: `1024` unless
+configured in `vm.args`, `32768` is the commented-out value)
 
 Systems with lots of memory and under a heavy traffic load should
 consider increasing our default value; systems under lighter load but
@@ -455,12 +463,15 @@ storing large objects may wish to lower it. [[Basho Bench]] is highly
 recommended to help determine the best values for this (and other
 tuning parameters) in your environment.
 
-Riak and Riak CS have different default values: `32768` for Riak (if
-uncommented), and `96000` [[for Riak CS|Configuring Riak for CS]].
-
 #### +P
-Defines the Erlang process limit. Under R15, the limit is very low,
-and thus using this to raise the limit is very important. (default: `256000`)
+Defines the Erlang process limit. Under the versions of Erlang
+supported by Riak through 1.4.x, the limit is very low, and thus using
+this to raise the limit is very important. (default: `256000`)
+
+**Note**: For anyone concerned about configuring such a high value, be
+aware that Erlang processes are not the same as system processes. All
+of these processes will exist solely inside a single system process,
+the Erlang beam.
 
 #### +sfwi
 If using an
@@ -480,6 +491,9 @@ Alternate method to add directories to the code path (see `-pa` above)
 #### -env ERL_MAX_PORTS
 
 Maximum number of concurrent ports/sockets. (default: `64000`)
+
+**Note**: As with processes, Erlang ports and system ports are similar
+but distinct.
 
 #### -env ERL_FULLSWEEP_AFTER
 
