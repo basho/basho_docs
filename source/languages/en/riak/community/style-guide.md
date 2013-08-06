@@ -62,7 +62,7 @@ explanation of specific features, API methods, or similar
 domains of knowledge. It is important to include all available information
 in a reference.
 
-Guides and references are complimentary documents and should always exist
+Guides and references are complementary documents and should always exist
 in separate form. Avoid the temptation to mix the two styles in one
 document.
 
@@ -105,7 +105,7 @@ Use ordered lists to denote stepwise operations and unordered lists for
 grouping related items. Introduce either type of list with a complete sentence
 that ends in a colon (:).
 
-This is an example unordered list:
+This is a sample unordered list:
 
 * Riak
 * Riak Enterprise
@@ -124,6 +124,9 @@ When writing headings, use an uppercase initial letter for all nouns, verbs,
 and adjectives. Use an uppercase initial letter for all conjunctions and
 prepositions longer than 4 characters. Use all lowercase letters for
 conjunctions and prepositions shorter than 4 characters.
+
+There's also a web tool that helps you form correct
+[title capitalization](http://titlecapitalization.com/).
 
 Example:
 
@@ -147,7 +150,7 @@ locations in an interface or system for something, such as "click **Save**".
 
 #### Fixed Width (Monospace)
 
-Use `fixed-width text` by wrapping items in single backticks (`) to indicate
+Use `fixed-width text` by wrapping items in single backticks (\\`) to indicate
 command names, code, file names, or text strings a user is expected to
 actually type in.
 
@@ -246,10 +249,9 @@ Amazon Web Services (AWS) infrastructure.
 
 Use the apostrophe primarily for making contractions. In the case of
 internationalization of documentation, contractions should be avoided.
-Other cases where it is incorrect to use the apostrophe include using
-apostrophes in pluralization of acronyms. Use of apostrophes is
-not the best case for indicating possession when documents will be
-translated; instead, the sentence should be rewritten.
+Pluralization of acronyms is not a correct use of apostrophes.
+When use of apostrophes is not the best case for translated documents,
+the sentence should be rewritten.
 
 Example:
 
@@ -338,7 +340,7 @@ Try and avoid starting sentences with numbers.
 Examples:
 
 * An 8 core processor
-* Rooughly 7 million operations per second
+* Roughly 7 million operations per second
 * The output consisted of four 25MB log files
 
 #### Parentheses
@@ -377,12 +379,20 @@ interpreter.
 #### Quotations
 
 Use quotations for emphasizing text from other sources when used
-verbatim. Quotations are preferred especially in web documents to
-underlying as an alternate emphasis method beyond bold or italics.
+verbatim. We prefer quotations in web documents to
+underlining as an alternate emphasis method beyond bold or italics.
 
 Example:
 
 "Yes, it can silently fail if you don't check the returned error code."
+
+#### Blockquotes
+
+For multiple sentence quotes, consider a blockquote, which is a line started with a less than (>) character.
+
+Example:
+
+> To achieve this level of availability, Dynamo sacrifices consistency under certain failure scenarios. It makes extensive use of object versioning and application-assisted conflict resolution in a manner that provides a novel interface for developers to use.
 
 #### Semicolons
 
@@ -390,7 +400,7 @@ Some people like semicolons, but they can be tricky to use. We recommend avoidin
 
 #### Dashes
 
-Unlike semicolons, dashes are hard to use incorrectly. But their overuse can make copy harder to read---use sparingly to seperate ideas.
+Unlike semicolons, dashes are hard to use incorrectly. But their overuse can make copy harder to read---use sparingly to seperate ideas. You can create a proper [em dash](http://en.wikipedia.org/wiki/Dash#Em_dash) in markdown by typing three [en dashes](http://en.wikipedia.org/wiki/Dash#En_dash) (`---`).
 
 ## Terminology
 
@@ -448,7 +458,7 @@ when using Markdown.
 Should use the date convention for the document audience and avoid
 abbreviations in date components, such as month names. Time should be
 expressed in 24 hour format with a note about the specific time zone in
-use.
+use. If in doubt, use ISO 8601: YYYY-MM-DD.
 
 ## References
 
