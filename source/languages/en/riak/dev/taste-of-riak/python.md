@@ -11,18 +11,31 @@ keywords: [developers, client, python]
 
 If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
 
-To try this flavor of Riak, a working installation of Python is required, with Python 2.7 preferred. 
-The Python package `setuptools` is also required to build the source.  You may install setuptools on OSX through MacPorts by running `sudo port install py-distribute`.
+To try this flavor of Riak, a working installation of Python is
+required, with Python 2.7 preferred. One of the Python package
+managers `setuptools` or `pip` is also required to install the client
+package.
 
-###Client Setup
+You may install `setuptools` on OS/X through MacPorts by running `sudo
+port install py-distribute`. `setuptools` and `pip` are included in
+the Homebrew formula for Python on OS/X: `brew install python`.
 
-To get the Python client setup we first have to download, build, and install the ProtoBuf library.
+### Client Setup
 
-1. Download the latest Protobuf source from <https://code.google.com/p/protobuf/>
-2. Unzip the archive and move into the directory: `tar -xvf protobuf-2.5.0.tar.gz && cd protobuf-2.5.0/python`
-3. Run `sudo python ez_setup.py` to install the Protobuf library.
+The easiest way to install the client is with `easy_install` or `pip`.
+Either of the commands below will ensure that the client and all its
+dependencies are installed and on the load path. Depending on where
+your Python libraries are held, these may require `sudo`.
 
-Next, download the latest python client from GitHub ([zip](https://github.com/basho/riak-python-client/archive/master.zip), [github repository](https://github.com/basho/riak-python-client)), and extract it to your working directory.  
+```bash
+easy_install riak
+pip install riak
+```
+
+To install from source, download the latest python client from GitHub
+([zip](https://github.com/basho/riak-python-client/archive/master.zip),
+[github repository](https://github.com/basho/riak-python-client)), and
+extract it to your working directory.
 
 Now, let's build the client.
 
@@ -30,7 +43,9 @@ Now, let's build the client.
 python setup.py install
 ```
 
-Now, let's start the Python REPL, and let’s get set up.  Enter the following into the Python REPL:
+### Connecting to Riak
+
+Now, let's start the Python REPL and get set up.  Enter the following into the Python REPL:
 
 ```python
 import riak
