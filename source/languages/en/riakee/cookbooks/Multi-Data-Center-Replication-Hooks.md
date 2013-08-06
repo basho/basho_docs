@@ -21,17 +21,17 @@ keywords: [operator, troubleshooting]
    To register a hook, you must call:
 
 ```
-riak_core:register([{repl_helper, MyMod}])
+riak_core:register([{repl_helper, MyMod}]).
 ```
 
 ### Implementing a Sample Replication Hook
 
-Following is a simple replication hook that will log whenever an object is received via replication.  For more information about the functions in the sample, see the [Replication Hook API](#ReplicationHookApi) section below.
+The following is a simple replication hook that will log whenever an object is received via replication.  For more information about the functions in the sample, see the [Replication Hook API](#ReplicationHookApi) section below.
 
-Following is the sample replication hook's Erlang source code:
+Here is the relevant Erlang code.
 
 ```erlang
-%% Riak Repl replication hook sample
+%% Riak Enterprise MDC replication hook sample
  
 -module(riak_repl_hook_sample).
 -export([register/0]).
@@ -57,22 +57,24 @@ recv(Object) ->
 	
 send_realtime(_Object, _RiakClient) ->
 	% Do Nothing function -- These hooks are called in predictable
-	% but complex ways especially as the number of replication sites
-	% or sinks increase.  
+	% but complex ways especially as the number of replication 
+	% sites (Version 2 Replication) or sinks (Version 3 Replication)
+	% increase.  
 	ok.
  
 send(_Object, _RiakClient) ->
 	% Do Nothing function -- These hooks are called in predictable
-	% but complex ways especially as the number of replication sites
-	% or sinks increase.  
+	% but complex ways especially as the number of replication 
+	% sites (Version 2 Replication) or sinks (Version 3 Replication)
+	% increase.  
 	ok.
 ```
 
-Save the above code to your computer as `riak_repl_hook_sample.erl`.
+Save the above code to your computer as `riak_replication_hook_sample.erl`.
 
 To install the sample hook,
 
-* Compile `riak_repl_hook_sample.erl`
+* Compile `riak_replication_hook_sample.erl`
 
   **Note on the Erlang Compiler**: You must use the Erlang compiler (`erlc`) associated with the Riak installation or the version of Erlang used when compiling Riak from source. For packaged Riak installations, you can consult Table 1 below for the default location of Riak’s erlc for each supported platform. If you compiled from source, use the erlc from the Erlang version you used to compile Riak.
 
@@ -89,13 +91,13 @@ To install the sample hook,
   Once you have determined the location of the Erlang compiler, compiling (on Ubuntu  for example) is as simple as:
 
    ```
-   /usr/lib/riak/erts-5.9.1/bin/erlc riak_repl_hook_sample.erl
+   /usr/lib/riak/erts-5.9.1/bin/erlc riak_replication_hook_sample.erl
    ```
 
-* Copy the `riak_repl_hook_sample.beam` file to the subdirectory you want to store the custom hook
+* Copy the `riak_replication_hook_sample.beam` file to the subdirectory you want to store the custom hook
    
    ```
-   cp riak_repl_hook_sample.beam /path/to/replication/hook
+   cp riak_replication_hook_sample.beam /path/to/replication/hook
    ```
    
 * Add a `-pa` argument to your `vm.args` file
