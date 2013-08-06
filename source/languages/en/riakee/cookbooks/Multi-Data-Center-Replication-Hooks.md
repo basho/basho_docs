@@ -118,21 +118,24 @@ To install the sample hook,
 
 A replication hook must implement the following functions:
 
-#### `send_realtime/2` (riak_object, RiakClient) -> ok | cancel | [riak_object]
+#### `send_realtime/2` ([riak_object](https://github.com/basho/riak_kv/blob/master/src/riak_object.erl), RiakClient) -> ok | cancel | [[riak_object](https://github.com/basho/riak_kv/blob/{{VERSION}}/src/riak_object.erl)]
 
-   This hook controls whether an object replicated in realtime should be sent.
-   To send this object, return 'ok', otherwise return 'cancel'.
+   This hook controls whether an object replicated in realtime should be sent.  To send this 
+   object, return 'ok', to prevent the object from being sent return 'cancel', or you can also
+   return a list of riak objects to be replicated immediately *before* the current object. This 
+   is useful for when you have an object that refers to other objects—a chunked file, for 
+   example—and want to be sure all the dependency objects are replicated before the dependent
+   object.
+   
+#### `send/2` ([riak_object](https://github.com/basho/riak_kv/blob/{{VERSION}}/src/riak_object.erl), RiakClient) -> ok | cancel | [riak_object]
 
-#### `send/2` (riak_object, RiakClient) -> ok | cancel | [riak_object]
+   This hook is used in fullsync replication. To send this object, return 'ok', to prevent 
+   the object from being sent return 'cancel', or you can also return a list of riak objects 
+   to be replicated immediately *before* the current object. This is useful for when you have
+   an object that refers to other objects—a chunked file, for example—and want to be sure all the 
+   dependency objects are replicated before the dependent object.
 
-   This hook is used in fullsync replication. As above, you can return ok or
-   cancel, but you can also return a list of riak objects to be replicated
-   immediately *before* the current object. This is useful for when you have an
-   object that refers to other objects (eg. a chunked file) and want to be sure
-   all the needed keys are replicated before the key referencing them is
-   replicated.
-
-#### `recv/1` (riak_object) -> ok | cancel
+#### `recv/1` ([riak_object](https://github.com/basho/riak_kv/blob/{{VERSION}}/src/riak_object.erl)) -> ok | cancel
 
    When an object is received by the client site, this hook is run. You can use
    it to update some metadata, or to deny the object.
