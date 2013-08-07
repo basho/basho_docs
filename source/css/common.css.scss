@@ -1153,7 +1153,7 @@ div[role="main"] {
     padding   : 100px 0 0 20px;
     font-size : 110%;
     
-    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
+    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .info, .note {
       max-width: 600px;
       &.center-text {
         max-width : 100%;
@@ -1165,7 +1165,9 @@ div[role="main"] {
       margin-top : -60px; // To reduce the appearance 0f excess whitespace before headings
     }
 
-
+    .CodeRay {
+      max-width : 100%;
+    }
 
     nav.tutorial {
       ul, h4 {
@@ -1452,7 +1454,7 @@ nav#toc {
    ========================================================================== */
 
 div[role=main] {
-  
+
   pre {
     margin     : 0;
     padding    : 8px;
