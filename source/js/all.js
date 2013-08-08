@@ -33,7 +33,7 @@
       navLinks         : '#fixed-nav',
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
-      header           : '#header-inner',
+      header           : '#header',
       responsiveToggle : '.responsive-toggle'
     },
     

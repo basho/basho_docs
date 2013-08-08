@@ -1,24 +1,30 @@
 header.masthead
-  div#header-inner
-    div#nav-toggle class="icon-reorder"
-    div#top-nav
-      a href="/downloads/"
-        span.icon-download-alt
-        == I18n.t(:downloads)
-      div id="nav-more"
-        span.icon-more
-    a.responsive-toggle
-    a.logo href="/index.html"
-      h1== I18n.t(:riak_docs)
-    span.tagline== I18n.t(:tagline)
-    div#nav-menu
-      h2 Links
-      ul
-        li
-          a href="/" Docs Home
-        li
-          a href="http://basho.com/" Basho Website
-      div#nav-menu-arrow
-      div#nav-menu-arrow-back
-    div.clear
-    div.header-rule
+  #header
+    div#ricon-ad
+      div.ad-text
+        |
+          Get your tickets for RICON West in San Francisco
+        a.register href="http://ricon-west-2013.eventbrite.com/" Register Now
+    div#header-inner
+      div#nav-toggle class="icon-reorder"
+      div#top-nav
+        a href="/downloads/"
+          span.icon-download-alt
+          == I18n.t(:downloads)
+        div id="nav-more"
+          span.icon-more
+      a.responsive-toggle
+      a.logo href="/index.html"
+        h1== I18n.t(:riak_docs)
+      span.tagline== I18n.t(:tagline)
+      div#nav-menu
+        h2 Links
+        ul
+          li
+            a href="/" Docs Home
+          li
+            a href="http://basho.com/" Basho Website
+        div#nav-menu-arrow
+        div#nav-menu-arrow-back
+      div.clear
+      div.header-rule

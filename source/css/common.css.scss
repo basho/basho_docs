@@ -83,6 +83,23 @@
   border      : 1px solid $lightBlue;
 }
 
+.button-light-green {
+  padding       : 3px 8px;
+  background    : $subtleBlueGreen;
+  text-align    : center;
+  cursor        : pointer;
+  color         : $darkBlueGreen;
+  font-size     : 0.75rem;
+  font-family   : 'OpenSansBold', verdana, sans-serif;
+  border        : 1px solid $lightBlueGreen;
+  @include allCorners();
+  //@include transitionAll(all 0.5s ease);
+
+  &:hover {
+    background : lighten($subtleBlueGreen, 2%);
+  }
+}
+
 /* =============================================================================
    Wireframe Structure
    ========================================================================== */
@@ -170,9 +187,12 @@ body {
          * gets manipulated by JavaScript when animations run
          */
         display  : block !important;
-        //padding  : 0 10px 10px;
         overflow : auto;
-      }
+
+        #primary-nav-content {
+          padding-top : 10px;
+        }
+      } 
     }
     
     .submissions-note {
@@ -697,7 +717,7 @@ iframe {
     margin          : -83px 0 0 0; // Top margin should be -(height + 1)
     padding         : 0;
     list-style-type : none;
-    border-top      : 1px solid $darkBlueGreen;
+    border-top      : 1px solid #666; //$darkBlueGreen;
 
     li {
       margin  : 0;
@@ -706,13 +726,17 @@ iframe {
 
       a {
         display       : block;
-        background    : $blueGreen;
+        background    : $darkGrey; //$blueGreen;
         color         : #fff;
         height        : 32px;
-        border-bottom : 1px solid $darkBlueGreen;
+        border-bottom : 1px solid #666; //$darkBlueGreen;
         padding       :  8px 0 0 0;
         @extend .sans-bold;
         font-size     : 0.9rem;
+
+        &:hover {
+          background : darken($darkGrey, 2%);
+        }
 
         span {
           padding-right : 5px;
@@ -868,7 +892,7 @@ div[role="main"] {
     position      : fixed;
     top           : 0;
     left          : 0;
-    width       : 100%;
+    width         : 100%;
     //padding       : 6px 0 18px 0;
     margin-bottom : 20px;
     text-align    : center;
@@ -876,19 +900,48 @@ div[role="main"] {
     background    : transparent;
     z-index       : 10;
 
-    #header-inner {
+    #header {
       position    : relative;
-      @include gradient(#fff, rgba(255, 255, 255, 1), rgba(255, 255 ,255 , 0.85));
-      background-image : linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255 ,255 , 0.85) 100%); /* W3C */
-      filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
-      
-      padding-top : 6px;
       margin-left : 232px;
 
-      .header-rule {
-        @extend .horizontal-rule;
-        @include size(auto, 0);
-        margin: 0 24px 0 84px;
+      #ricon-ad {
+        position     : relative;
+        height       : 56px;
+        background   : rgba(190, 216, 220, 1.0);
+        text-align   : left;
+        padding-left : 85px;
+        @extend .sans-bold;
+        color : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
+        color : rgba(68, 93, 90, 1.0);
+        //rgba(209, 227, 229, 1.0)
+
+        .ad-text {
+          padding-top : 15px;
+          font-size   : 0.9rem;
+        }
+
+        .register {
+          @extend .button-light-green;
+          font-family    : 'OpenSans', verdana, arial, sans-serif;
+          padding        : 0.65em 1.5em 0.8em 1.5em;
+          line-height    : 1em;
+          margin-left    : 1em;
+          text-shadow    : 1px 1px 1px #fff;
+        }
+      }
+
+      #header-inner {
+        position    : relative;
+        @include gradient(#fff, rgba(255, 255, 255, 1), rgba(255, 255 ,255 , 0.85));
+        background-image : linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255 ,255 , 0.85) 100%); /* W3C */
+        filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
+        padding-top : 6px;
+
+        .header-rule {
+          @extend .horizontal-rule;
+          @include size(auto, 0);
+          margin: 0 24px 0 84px;
+        }
       }
     }
 
@@ -915,44 +968,15 @@ div[role="main"] {
     
     a.responsive-toggle {
       @include layout-sprite(toggle-button-light);
-      margin  : 8px 12px 0 0;
+      margin  : 14px 12px 0 0;
     }
 
-    @media screen and (max-width: 700px) {
-      //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
-      //@include bgPattern('content-bg.jpg');
-      background    : #fff;
-      position      : fixed;
-      width         : 100%;
-      top           : 0;
-      left          : 0;
-      padding       : 12px 0 0 0;
-      z-index       : 3;
-      //border-bottom : 6px solid $headerColor;
-
-      #header-inner {
-        margin-left : 0;
-
-        .logo {
-          margin-left : 10px;
-        }
-
-        .horizontal-rule {
-          margin: 0 10px 0 10px;
-        }
-      }
-
-      a.responsive-toggle {
-        display : block;
-      }
-    }
-    
     .logo {
       @extend .block;
       @include size(185px, 33px);
       @include layout-sprite(logo);
-      margin-top : 11px;
-      margin-left : 78px;
+      margin-top    : 11px;
+      margin-left   : 78px;
       margin-bottom : 18px;
       
       h1 {
@@ -967,6 +991,42 @@ div[role="main"] {
         margin-top : auto;
       }
       
+    }
+
+    @media screen and (max-width: 700px) {
+      //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
+      //@include bgPattern('content-bg.jpg');
+      background    : #fff;
+      position      : fixed;
+      width         : 100%;
+      top           : 0;
+      left          : 0;
+      z-index       : 3;
+      //border-bottom : 6px solid $headerColor;
+
+      #header {
+        margin-left : 0;
+
+        #ricon-ad {
+          display : none;
+        }
+
+        #header-inner {
+
+          .logo {
+            margin-top  : 11px;
+            margin-left : 10px;
+          }
+
+          .horizontal-rule {
+            margin: 0 10px 0 10px;
+          }
+        }
+      }
+
+      a.responsive-toggle {
+        display : block;
+      }
     }
 
     @media screen and (max-width: 500px) {
@@ -1150,7 +1210,7 @@ div[role="main"] {
     
   .mainarticle {
     position  : relative;
-    padding   : 100px 0 0 20px;
+    padding   : 150px 0 0 20px;
     font-size : 110%;
     
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
@@ -1161,8 +1221,8 @@ div[role="main"] {
     }
 
     h2 {
-      padding-top : 108px;
-      margin-top : -60px; // To reduce the appearance 0f excess whitespace before headings
+      padding-top : 146px;
+      margin-top  : -98px; // To reduce the appearance 0f excess whitespace before headings
     }
 
 
