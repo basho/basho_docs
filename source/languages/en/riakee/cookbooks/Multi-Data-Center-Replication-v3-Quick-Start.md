@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication Quick Start (v3)"
+title: "Multi Data Center Replication v3 Quick Start"
 project: riakee
 version: 1.3.0+
 document: cookbook
