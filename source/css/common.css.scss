@@ -510,7 +510,7 @@ iframe {
     display      : none;
     color        : $darkGrey;
     text-shadow  : none;
-    padding      : 0 3% 0 8%;
+    padding      : 0 12px 0 8%;
 
     @media screen and (max-width: 700px) {
       display : block;
@@ -542,7 +542,7 @@ iframe {
       }
 
       @media screen and (max-width: 700px) {
-        margin-top : 20px;
+        margin-top : 13px;
       }
     }
     
@@ -911,6 +911,8 @@ div[role="main"] {
         text-align   : left;
         padding-left : 85px;
         @extend .sans-bold;
+        overflow     : hidden;
+        white-space  : nowrap;
         color : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
         color : rgba(68, 93, 90, 1.0);
         //rgba(209, 227, 229, 1.0)
@@ -1019,7 +1021,8 @@ div[role="main"] {
           }
 
           .horizontal-rule {
-            margin: 0 10px 0 10px;
+            //margin: 0 10px 0 10px; /* Margin when NO mobile ad is present */
+            margin: 0; /* Margin when mobile ad is present */
           }
         }
       }
@@ -1178,6 +1181,27 @@ div[role="main"] {
     }
   }
 
+  a#ricon-ad-responsive {
+    display : none;
+    @extend .sans-bold;
+    
+    @media screen and (max-width: 700px) {
+      display     : block;
+      position    : relative;
+      width       : auto;
+      height      : auto;
+      padding     : 1em $mobilePageGutter 1.1em $mobilePageGutter;
+      margin-top  : 69px;
+      background  : rgba(190, 216, 220, 1.0);
+      text-align  : center;
+      color       : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
+      color       : rgba(68, 93, 90, 1.0);
+      cursor      : pointer;
+      white-space : nowrap;
+      line-height : 1em;
+    }
+
+  }
   
   .info, .note, blockquote {
     @extend .box-green;
@@ -1221,11 +1245,9 @@ div[role="main"] {
     }
 
     h2 {
-      padding-top : 146px;
-      margin-top  : -98px; // To reduce the appearance 0f excess whitespace before headings
+      padding-top : 156px;
+      margin-top  : -108px; // To reduce the appearance 0f excess whitespace before headings
     }
-
-
 
     nav.tutorial {
       ul, h4 {
@@ -1234,7 +1256,12 @@ div[role="main"] {
     }
 
     @media screen and (max-width: 700px) {
-      padding : 95px 12px 12px 12px;
+      padding : 15px 12px 12px 12px;
+
+      h2 {
+        padding-top : 86px;
+        margin-top  : -38px; // To reduce the appearance 0f excess whitespace before headings
+      }
     }
   }
   
@@ -1733,7 +1760,7 @@ table {
       display       : block;
       overflow      : hidden;
       text-indent   : 100%;
-      white-space   : nowrap;
+      //white-space   : nowrap;
     }
 
     a:hover {
