@@ -83,6 +83,23 @@
   border      : 1px solid $lightBlue;
 }
 
+.button-light-green {
+  padding       : 3px 8px;
+  background    : $subtleBlueGreen;
+  text-align    : center;
+  cursor        : pointer;
+  color         : $darkBlueGreen;
+  font-size     : 0.75rem;
+  font-family   : 'OpenSansBold', verdana, sans-serif;
+  border        : 1px solid $lightBlueGreen;
+  @include allCorners();
+  //@include transitionAll(all 0.5s ease);
+
+  &:hover {
+    background : lighten($subtleBlueGreen, 2%);
+  }
+}
+
 /* =============================================================================
    Wireframe Structure
    ========================================================================== */
@@ -170,9 +187,12 @@ body {
          * gets manipulated by JavaScript when animations run
          */
         display  : block !important;
-        //padding  : 0 10px 10px;
         overflow : auto;
-      }
+
+        #primary-nav-content {
+          padding-top : 10px;
+        }
+      } 
     }
     
     .submissions-note {
@@ -256,6 +276,23 @@ body {
 
     @media screen and (max-width: 500px) {
       padding : 25px 12px 25px 12px;
+    }
+  }
+
+  &.root {
+    div[role="main"] {
+      #ricon-ad,
+      a#ricon-ad-responsive {
+        position : fixed;
+        top      : 0;
+        left     : 0;
+        width    : 100%;
+        text-align : center;
+        margin   : 0;
+        padding-left : 0;
+        padding-right : 0;
+        z-index : 9;
+      }
     }
   }
 }
@@ -498,7 +535,7 @@ iframe {
     display      : none;
     color        : $darkGrey;
     text-shadow  : none;
-    padding      : 0 3% 0 8%;
+    padding      : 0 12px 0 8%;
 
     @media screen and (max-width: 700px) {
       display : block;
@@ -530,7 +567,7 @@ iframe {
       }
 
       @media screen and (max-width: 700px) {
-        margin-top : 20px;
+        margin-top : 13px;
       }
     }
     
@@ -705,7 +742,7 @@ iframe {
     margin          : -83px 0 0 0; // Top margin should be -(height + 1)
     padding         : 0;
     list-style-type : none;
-    border-top      : 1px solid $darkBlueGreen;
+    border-top      : 1px solid #666; //$darkBlueGreen;
 
     li {
       margin  : 0;
@@ -714,13 +751,17 @@ iframe {
 
       a {
         display       : block;
-        background    : $blueGreen;
+        background    : $darkGrey; //$blueGreen;
         color         : #fff;
         height        : 32px;
-        border-bottom : 1px solid $darkBlueGreen;
+        border-bottom : 1px solid #666; //$darkBlueGreen;
         padding       :  8px 0 0 0;
         @extend .sans-bold;
         font-size     : 0.9rem;
+
+        &:hover {
+          background : darken($darkGrey, 2%);
+        }
 
         span {
           padding-right : 5px;
@@ -876,7 +917,7 @@ div[role="main"] {
     position      : fixed;
     top           : 0;
     left          : 0;
-    width       : 100%;
+    width         : 100%;
     //padding       : 6px 0 18px 0;
     margin-bottom : 20px;
     text-align    : center;
@@ -884,19 +925,22 @@ div[role="main"] {
     background    : transparent;
     z-index       : 10;
 
-    #header-inner {
+    #header {
       position    : relative;
-      @include gradient(#fff, rgba(255, 255, 255, 1), rgba(255, 255 ,255 , 0.85));
-      background-image : linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255 ,255 , 0.85) 100%); /* W3C */
-      filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
-      
-      padding-top : 6px;
       margin-left : 232px;
 
-      .header-rule {
-        @extend .horizontal-rule;
-        @include size(auto, 0);
-        margin: 0 24px 0 84px;
+      #header-inner {
+        position    : relative;
+        @include gradient(#fff, rgba(255, 255, 255, 1), rgba(255, 255 ,255 , 0.85));
+        background-image : linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255 ,255 , 0.85) 100%); /* W3C */
+        filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
+        padding-top : 6px;
+
+        .header-rule {
+          @extend .horizontal-rule;
+          @include size(auto, 0);
+          margin: 0 24px 0 84px;
+        }
       }
     }
 
@@ -923,44 +967,15 @@ div[role="main"] {
     
     a.responsive-toggle {
       @include layout-sprite(toggle-button-light);
-      margin  : 8px 12px 0 0;
+      margin  : 14px 12px 0 0;
     }
 
-    @media screen and (max-width: 700px) {
-      //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
-      //@include bgPattern('content-bg.jpg');
-      background    : #fff;
-      position      : fixed;
-      width         : 100%;
-      top           : 0;
-      left          : 0;
-      padding       : 12px 0 0 0;
-      z-index       : 3;
-      //border-bottom : 6px solid $headerColor;
-
-      #header-inner {
-        margin-left : 0;
-
-        .logo {
-          margin-left : 10px;
-        }
-
-        .horizontal-rule {
-          margin: 0 10px 0 10px;
-        }
-      }
-
-      a.responsive-toggle {
-        display : block;
-      }
-    }
-    
     .logo {
       @extend .block;
       @include size(185px, 33px);
       @include layout-sprite(logo);
-      margin-top : 11px;
-      margin-left : 78px;
+      margin-top    : 11px;
+      margin-left   : 78px;
       margin-bottom : 18px;
       
       h1 {
@@ -975,6 +990,39 @@ div[role="main"] {
         margin-top : auto;
       }
       
+    }
+
+    @media screen and (max-width: 700px) {
+      //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
+      //@include bgPattern('content-bg.jpg');
+      background    : #fff;
+      position      : fixed;
+      width         : 100%;
+      top           : 0;
+      left          : 0;
+      z-index       : 3;
+      //border-bottom : 6px solid $headerColor;
+
+      #header {
+        margin-left : 0;
+
+        #header-inner {
+
+          .logo {
+            margin-top  : 11px;
+            margin-left : 10px;
+          }
+
+          .horizontal-rule {
+            //margin: 0 10px 0 10px; /* Margin when NO mobile ad is present */
+            margin: 0; /* Margin when mobile ad is present */
+          }
+        }
+      }
+
+      a.responsive-toggle {
+        display : block;
+      }
     }
 
     @media screen and (max-width: 500px) {
@@ -1126,6 +1174,58 @@ div[role="main"] {
     }
   }
 
+  #ricon-ad {
+    position     : relative;
+    height       : 56px;
+    background   : rgba(190, 216, 220, 1.0);
+    text-align   : left;
+    padding-left : 85px;
+    @extend .sans-bold;
+    overflow     : hidden;
+    white-space  : nowrap;
+    color : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
+    color : rgba(68, 93, 90, 1.0);
+    //rgba(209, 227, 229, 1.0)
+
+    .ad-text {
+      padding-top : 15px;
+      font-size   : 0.9rem;
+    }
+
+    .register {
+      @extend .button-light-green;
+      font-family    : 'OpenSans', verdana, arial, sans-serif;
+      padding        : 0.65em 1.5em 0.8em 1.5em;
+      line-height    : 1em;
+      margin-left    : 1em;
+      text-shadow    : 1px 1px 1px #fff;
+    }
+
+    @media screen and (max-width: 700px) {
+      display : none; /* Hide the push-down ad on tablet & mobile */
+    }
+  }
+
+  a#ricon-ad-responsive {
+    display : none;
+    @extend .sans-bold;
+    
+    @media screen and (max-width: 700px) {
+      display     : block;
+      position    : relative;
+      width       : auto;
+      height      : auto;
+      padding     : 1em $mobilePageGutter 1.1em $mobilePageGutter;
+      margin-top  : 69px;
+      background  : rgba(190, 216, 220, 1.0);
+      text-align  : center;
+      color       : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
+      color       : rgba(68, 93, 90, 1.0);
+      cursor      : pointer;
+      white-space : nowrap;
+      line-height : 1em;
+    }
+  }
   
   .info, .note, blockquote {
     @extend .box-green;
@@ -1158,7 +1258,7 @@ div[role="main"] {
     
   .mainarticle {
     position  : relative;
-    padding   : 100px 0 0 20px;
+    padding   : 150px 0 0 20px;
     font-size : 110%;
     
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
@@ -1169,11 +1269,9 @@ div[role="main"] {
     }
 
     h2 {
-      padding-top : 108px;
-      margin-top : -60px; // To reduce the appearance 0f excess whitespace before headings
+      padding-top : 156px;
+      margin-top  : -108px; // To reduce the appearance 0f excess whitespace before headings
     }
-
-
 
     nav.tutorial {
       ul, h4 {
@@ -1182,23 +1280,23 @@ div[role="main"] {
     }
 
     @media screen and (max-width: 700px) {
-      padding : 95px 12px 12px 12px;
+      padding : 15px 12px 12px 12px;
+
+      h2 {
+        padding-top : 86px;
+        margin-top  : -38px; // To reduce the appearance 0f excess whitespace before headings
+      }
     }
   }
   
   aside.secondary {
-    //background    : $subtleGray;
     @extend .box-green;
-    //@include boxShadow(inset 0 0 25px #333);
     padding       : 25px;
     color         : $darkGrey;
     text-align    : left;
-    //border-bottom : 1px solid #f1f1f1;
     margin-top    : 1em;
 
     h1, h2, h3, h4, h5, h6 {
-      //@extend .text-shadow;
-      //color       : #f1f1f1;
       color       : $darkGrey;
       line-height : 1.2;
     }
@@ -1395,12 +1493,12 @@ div[role="main"] {
       padding  : 0px;
 
       .mainarticle {
-        padding: 45px 12px 12px 12px;
+        padding: 65px 12px 12px 12px;
       }
     }
     @media screen and (max-width: 500px) {
       .mainarticle {
-        padding: 25px 12px 12px 12px;
+        padding: 55px 12px 12px 12px;
 
         h1.extra-large {
           font-size: 225%;
@@ -1681,7 +1779,7 @@ table {
       display       : block;
       overflow      : hidden;
       text-indent   : 100%;
-      white-space   : nowrap;
+      //white-space   : nowrap;
     }
 
     a:hover {
