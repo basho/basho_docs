@@ -212,6 +212,14 @@ body {
     position : relative;
     z-index  : 2;
     
+    p, div {
+      b, strong {
+        font-weight: bold;
+        font-family: serif;
+        font-size: 110%
+      }
+    }
+
     @media screen and (max-width: 700px) {
       /*
        * Important is necessary here in order to override the inline style attribute which
@@ -1461,8 +1469,8 @@ div[role=main] {
 
   code {
     font-size   : 90%;
-    background  : #dfdfdf;
-    border      : 1px solid #c9c9c9;
+    // background  : #dfdfdf;
+    // border      : 1px solid #c9c9c9;
     white-space : nowrap;
   }
 
