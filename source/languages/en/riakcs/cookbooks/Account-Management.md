@@ -94,26 +94,34 @@ Using the admin credentials to retrieve another user's info would look like this
 
 In this example, XQKMYF4UL_MMTDFD6NCN is the key_id of the user whose information the administrator wishes to retrieve.
 
-## Retrieving a List of All Users
-The admin user may retrieve a list of all user accounts on the system. This accomplished via a properly signed HTTP GET request to the **riak-cs/users** resource. Any non-admin user request for the user list is rejected and a 403 Forbidden error is returned. This request does not properly work with s3cmd, but can be performed using a less dogmatic tool such as s3-curl.
+## Modifying User Account Information
 
-<div class="info"><div class="title">Note</div>
-  You must modify the <code>@endpoints</code> variable in the
-  <code>s3curl.pl</code> script to include your Riak CS hostname so that the
-  following example will return the list of users.
-</div>
+{{#1.4.0+}}
 
-A sample URL for a user listing request looks like this:
+### Changing the User Account  Name and Email Address
+A user may use a PUT to **/riak-cs/user** to update the name and email address associated with an account. The PUT must include a document with a name and email field. JSON or XML formats are supported for this document. Samples of each are shown below. The Content-Type header should also be set appropriately. The admin user may also update a user's account via a PUT to **/riak-cs/user/<user-key-id>**. The value for the email field must be a valid email address and must not be already used by another user account in the system. Violation of either condition results in an error response.
 
-    GET http://data.example.com/riak-cs/users -
+Sample JSON status update document:
 
-An example using s3-curl that assumes properly specified credentials for the admin user in the .s3curl configuration file with an id of admin is as follows:
+```json
+{
+  "name" : foobaz",
+  "email" : "foobaz@example.com"
+}
+```
 
-    s3curl --id admin -- http://data.mystorage.me/riak-cs/users
+Sample XML status update document:
 
-By default the listing of all users includes accounts that are both enabled and disabled. The list can be filtered to only include enabled or disabled accounts by using the status query parameter with a value of enabled or disabled respectively.
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<UserUpdate>
+<Name>foobaz</Name>
+<Email>foobaz@example.com</Email>
+</UserUpdate>
+```
+{{/1.4.0+}}
 
-## Enabling and Disabling a User Account
+### Enabling and Disabling a User Account
 A user may use a PUT to **/riak-cs/user** to disabled their account. The put must include a document with a status field whose value is disabled. JSON or XML formats are supported for this document. Samples of each are shown below. The Content-Type header should also be set appropriately. The admin user may also disable or re-enable a user's account via a PUT to **/riak-cs/user/<user-key-id>**. Users may not re-enable their own account once it is disabled.
 
 Sample JSON status update document:
@@ -133,7 +141,7 @@ Sample XML status update document:
 </UserUpdate>
 ```
 
-## Issuing New User Credentials
+### Issuing New User Credentials
 The key_secret for a user account can be reissued by a PUT to **/riak-cs/user** with the appropriate JSON or XML document. For admin users the PUT would be to **/riak-cs/user/<key-id>**.
 
 The documents should resemble the following examples.
@@ -157,3 +165,22 @@ XML example:
 <div class="title">Note</div>
 The `new_key_secret` field may be combined with other user update fields in the same request. Currently, the only other supported field is status, but more may be added in the future. Unsupported fields are ignored.
 </div>
+
+## Retrieving a List of All Users
+The admin user may retrieve a list of all user accounts on the system. This accomplished via a properly signed HTTP GET request to the **riak-cs/users** resource. Any non-admin user request for the user list is rejected and a 403 Forbidden error is returned. This request does not properly work with s3cmd, but can be performed using a less dogmatic tool such as s3-curl.
+
+<div class="info"><div class="title">Note</div>
+  You must modify the <code>@endpoints</code> variable in the
+  <code>s3curl.pl</code> script to include your Riak CS hostname so that the
+  following example will return the list of users.
+</div>
+
+A sample URL for a user listing request looks like this:
+
+    GET http://data.example.com/riak-cs/users -
+
+An example using s3-curl that assumes properly specified credentials for the admin user in the .s3curl configuration file with an id of admin is as follows:
+
+    s3curl --id admin -- http://data.mystorage.me/riak-cs/users
+
+By default the listing of all users includes accounts that are both enabled and disabled. The list can be filtered to only include enabled or disabled accounts by using the status query parameter with a value of enabled or disabled respectively.
