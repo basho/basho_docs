@@ -294,6 +294,7 @@ riakcs:
       - "[[HTTP Administration Overview]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
+      - "[[Using Riak CS With Keystone]]"
       - "[[Globally Unique Entities]]"
       - "[[Monitoring and Metrics]]"
       - "[[Querying Access Statistics]]"
