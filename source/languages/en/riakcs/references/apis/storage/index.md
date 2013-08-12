@@ -91,7 +91,38 @@ Multipart upload allows you to upload a single object as a set of parts. Object 
 {{/1.3.2-}}
 {{#1.4.0+}}
 
-There are two storage API options for RiakCS. The first and most full-featured is the S3 API. There is also limited, but growing support for the OpenStack Object Storage API. More details for each option can be found by following one of the following links:
+There are two storage API options for RiakCS. The first and most full-featured is the S3 API. There is also limited, but growing support for the OpenStack Object Storage API.
+
+Riak CS can present different APIs by using the URL rewriting
+capabilities of [Webmachine](https://github.com/basho/webmachine). Configuring what API Riak CS uses is done
+by specifying the proper *rewrite* module in the configuration file. A
+rewrite module contains a set of rules for translating requests made
+using a particular API to requests in the native Riak CS API. The
+native API was designed to facilitate the organization and maintenance
+of the Riak CS Webmachine resource modules.
+
+* S3 API
+    * Module: `riak_cs_s3_rewrite`
+    * [Documentation](http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html)
+    * [[Mapping|Mapping-From-S3-API-to-Riak-CS-internal-API]]
+* Openstack Object Storage API (v1)
+    * Module: `riak_cs_oos_rewrite`
+    * [Documentation](http://docs.openstack.org/api/openstack-object-storage/1.0/content/index.html)
+    * [[Mapping|Mapping-From-OOS-API-to-Riak-CS-internal-API]]
+
+Selecting an API is done by adding or changing the `rewrite_module`
+key in the Riak CS `app.config` file. *e.g.* To instruct Riak CS to
+present the S3 API, ensure the following is contained in the
+`app.config` in the `riak_cs` section:
+
+```
+{rewrite_module, riak_cs_s3_rewrite}
+```
+
+The S3 API is the default that is set in the configuration that is
+included when installing a Riak CS package or building from source.
+
+More details for each option can be found by following one of the following links:
 
 * [[S3 API|RiakCS S3 Storage API]]
 * [[OpenStack API|RiakCS OpenStack Storage API]]
