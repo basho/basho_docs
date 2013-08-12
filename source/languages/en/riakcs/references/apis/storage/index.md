@@ -93,6 +93,6 @@ Multipart upload allows you to upload a single object as a set of parts. Object 
 
 There are two storage API options for RiakCS. The first and most full-featured is the S3 API. There is also limited, but growing support for the OpenStack Object Storage API. More details for each option can be found by following one of the following links:
 
-* [[S3 API|/references/apis/storage/s3/]]
-* [[OpenStack API|/references/apis/storage/openstack/]]
+* [[S3 API|RiakCS S3 Storage API]]
+* [[OpenStack API|RiakCS OpenStack Storage API]]
 {{/1.4.0+}}

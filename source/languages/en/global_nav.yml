@@ -61,9 +61,7 @@ riak:
               - "[[Search Indexing|Search Indexing Reference]]"
               - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
-              - "[[HTTP API]]"
-              - "[[PBC API]]"
-              - "[[Backend API]]"
+              - "[[Implementing a Backend|Backend API]]"
 
   - title: "Riak for Operators"
     sub:
@@ -187,6 +185,10 @@ riak:
       - "[[Reporting Bugs]]"
       - "[[Riak Images]]"
       - "[[Release Notes]]"
+  - title: "APIs"
+    sub:
+      - "[[HTTP API]]"
+      - "[[Protocol Buffers|PBC API]]"
 
 
 riakee:
@@ -240,9 +242,13 @@ riakee:
   - title: "References"
     sub:
       - "[[SNMP Counters]]"
-      - "[[APIs|/dev/references/http/]]"
       - "[[Riak Enterprise FAQs|Riak Enterprise FAQs]]"
       - "[[Riak FAQs|Riak FAQs]]"
+  - title: "APIs"
+    sub:
+      - "[[HTTP API]]"
+      - "[[Protocol Buffers|PBC API]]"
+      - "[[Backend API]]"
 
 riakcs:
   #- title: "Shortcuts"
@@ -294,11 +300,16 @@ riakcs:
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
       - "[[Ruby Fog|Fog on Riak CS]]"
-      - "[[APIs|/references/apis/storage/]]"
       - "[[Multipart Upload Overview]]"
       - "[[FAQs|Riak CS FAQs]]"
       - "[[Release Notes|Riak CS Release Notes]]"
       - "[[Version Compatibility]]"
+  - title: "APIs"
+    sub:
+      - "[[S3 API|RiakCS S3 Storage API]]"
+      - "[[OpenStack API|RiakCS OpenStack Storage API]]"
+      - "[[Riak APIs]]"
+
 
 java:
   - title: "Shortcuts"

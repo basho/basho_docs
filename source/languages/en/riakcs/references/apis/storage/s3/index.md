@@ -1,5 +1,5 @@
 ---
-title: RiakCS Storage API
+title: RiakCS S3 Storage API
 project: riakcs
 version: 1.2.0+
 document: api

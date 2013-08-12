@@ -46,7 +46,7 @@ aside#nav-container role="complementary"
               span(aria-hidden="true" data-icon="&#xf0c3;" class="nav-icon")
             - if section['title'] == 'Community'
               span(aria-hidden="true" data-icon="&#xe000;" class="nav-icon")
-            - if section['title'] == 'View APIs'
+            - if section['title'] == 'APIs'
               span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
             - if section['title'] == 'All Riak Projects'
               span(aria-hidden="true" data-icon="&#xe003;" class="nav-icon")
@@ -66,17 +66,18 @@ aside#nav-container role="complementary"
           span.menu-title==section['title']
           div.clear
         ==nav_data
-      h3
-        a href="/dev/references/apis/"
-          div.icon-container
-            span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
-          span.separator
-            |
-              &#124;
-          span.menu-title
-            |
-              View APIs
-          div.clear
+      //
+        h3
+          a href="/dev/references/apis/"
+            div.icon-container
+              span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
+            span.separator
+              |
+                &#124;
+            span.menu-title
+              |
+                View APIs
+            div.clear
       ul / Empty list needed to prevent toggle JS from breaking
   ul#fixed-nav
     li
