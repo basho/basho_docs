@@ -143,4 +143,33 @@ data.riakcs.net
 ```
 
 ## Other Riak CS Settings
+
+{{#1.4.0+}}
+There are a two configuration options designed to provide improved
+performance for Riak CS when using Riak 1.4.0 or later. These options
+take advantage of additions to Riak that are not present prior to
+version 1.4.0.
+
+__fold_objects_for_list_keys__: Setting this option to `true` enables
+Riak CS to use a more efficient method of retrieving Riak CS bucket
+contents from Riak. Using this option provides improved performance
+and stability, especially for buckets that contain on the order of
+millions of objects or more. This option should not be enabled unless
+Riak 1.4.0 or greater is being used. The default value for this option
+is `false`.
+
+__n_val_1_get_requests__: This option causes Riak CS to use a special
+request option when retrieving the blocks of an object. This option
+instructs Riak to only send a request for the object block to a single
+eligible virtual node (vnode) instead of all eligible vnodes. This
+differs from the standard `r` request option that Riak provides in
+that `r` affects how many vnode responses to wait for before returning
+and has no effect on how many vnodes are actually contacted. Enabling
+this option has the effect of greatly reducing the intra-cluster
+bandwidth used by Riak when retrieving objects with Riak CS. This
+option is harmless when used with a version of Riak that is less than
+1.4.0, but the option to disable it is provided as a safety
+measure. The default value for this option is `true`.
+{{/1.4.0+}}
+
 The `app.config` file includes other settings, such as whether to create log files and where to store them. These settings have default values that work in most cases.
