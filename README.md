@@ -150,7 +150,7 @@ This sentence will only be rendered for versions greater than or equal to 1.2.0.
 Since you cannot wrap an individual list item in markdown et al, placing a version on the same line as a list item will remove that whole item
 
 ```
-* PBC Index {{1.2.0+}}
+* PBC Secondary Indexes {{1.2.0+}}
 * PBC MapReduce
 * PBC Search {{1.2.0+}}
 ```

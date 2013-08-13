@@ -1,17 +1,18 @@
 aside#nav-container role="complementary"
   nav.overview#primary-nav role="nav"
     div#primary-nav-content
+      h2.responsive-link
+        a.responsive-toggle
       form action="http://search.basho.com"
         div.nav-field-container
-          div.icon-container
-            span(aria-hidden="true" data-icon="&#xf002;" class="nav-icon nav-icon-search")
-          span.separator
-            |
-              &#124;
+          div#icon-container-search
+            div.icon-container
+              span(aria-hidden="true" data-icon="&#xf002;" class="nav-icon nav-icon-search")
+            span.separator
+              |
+                &#124;
           input#main-search size="5" type="search" placeholder="Search" name="q"
-      h2.responsive-link
-        == I18n.t(:navigation)
-        a.responsive-toggle
+      div.clear
       h3.responsive-link.visit-basho
         a href="http://www.basho.com"
           div.icon-container

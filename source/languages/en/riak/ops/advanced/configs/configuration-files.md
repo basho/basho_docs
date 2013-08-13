@@ -335,6 +335,9 @@ How long a map function is permitted to execute on a vnode before it times out a
 
  * **vnode_mailbox_limit** `{EnableThreshold, DisableThreshold}` - configures the riak_kv health check that monitors message queue lengths of riak_kv vnodes. If a KV vnode's message queue length reaches `DisableThreshold` the `riak_kv` service is disabled on the node. The service will not be re-enabled until the message queue length drops below `EnableThreshold`. {{1.3.0+}}
 
+ * **secondary_index_timeout**
+ The number of milliseconds before a secondary index query times out. The default value is `0`, which indicates that no timeout will occur. {{1.4.1+}}
+
 ### webmachine_logger_module
 This needs to be set in order to enable access logs.
 
@@ -400,20 +403,21 @@ The default lager options are like so:
 
 Parameters for the Erlang node on which Riak runs are set in the vm.args file in the etc directory of the embedded Erlang node. Most of these settings can be left at their defaults until you are ready to tune performance.
 
-Two settings you may be interested in right away, though, are -name and -setcookie. These control the Erlang node names (possibly host-specific), and Erlang inter-node communication access (cluster-specific), respectively.
+Two settings you may be interested in right away, though, are `-name` and `-setcookie`. These control the Erlang node names (possibly host-specific), and Erlang inter-node communication access (cluster-specific), respectively.
 
 The format of the file is fairly loose: lines which do not begin with the "#" character are concatenated, and passed to the erl on the command line as is.
 
 More details about each of these settings can be found in the Erlang documentation for the erl Erlang virtual machine.
 
-Erlang Runtime Configuration Options
+Riak CS and Enterprise may make different choices for some of these;
+please rely on the `vm.args` file supplied with those packages.
 
 #### -name
 Name of the Erlang node. (default: `riak@127.0.0.1`)
 
-The default value, riak@127.0.0.1 will work for running Riak locally, but for distributed (multi-node) use, the portion of the name after the "@" should be changed to the IP address of the machine on which the node is running.
+The default value, `riak@127.0.0.1`, will work for running Riak locally, but for distributed (multi-node) use, the portion of the name after the "@" should be changed to the IP address of the machine on which the node is running.
 
-If you have properly-configured DNS, the short-form of this name can be used (for example: "riak"). The name of the node will then be "riak@Host.Domain".
+If you have properly-configured DNS, the short-form of this name can be used (for example: `riak`). The name of the node will then be `riak@Host.Domain`.
 
 #### -setcookie
 Cookie of the Erlang node. (default: `riak`)
@@ -432,7 +436,13 @@ Enable kernel polling. (default: `true`)
 Number of threads in the async thread pool. (default: `64`)
 
 #### -pa
-Adds the specified directories to the beginning of the code path, similar to code:add_pathsa/1. See code(3). As an alternative to -pa, if several directories are to be prepended to the code and the directories have a common parent directory, that parent directory could be specified in the ERL_LIBS environment variable.
+Adds the specified directories to the beginning of the code path,
+similar to
+[`code:add_pathsa/1`](http://www.erlang.org/doc/man/code.html#add_pathsa-1). As
+an alternative to `-pa`, if several directories are to be prepended to
+the code and the directories have a common parent directory, that
+parent directory could be specified in the `ERL_LIBS` environment
+variable.
 
 #### -env
 Set host environment variables for Erlang.
@@ -440,20 +450,58 @@ Set host environment variables for Erlang.
 #### -smp
 Enables Erlang's SMP support. (default: `enable`)
 
+#### +zdbbl
+Configures the buffer size for outbound messages between nodes. This
+is commented out by default because the ideal value varies
+significantly depending on available system memory, typical object
+size, and amount of traffic to the database. (default: `1024` unless
+configured in `vm.args`, `32768` is the commented-out value)
+
+Systems with lots of memory and under a heavy traffic load should
+consider increasing our default value; systems under lighter load but
+storing large objects may wish to lower it. [[Basho Bench]] is highly
+recommended to help determine the best values for this (and other
+tuning parameters) in your environment.
+
+#### +P
+Defines the Erlang process limit. Under the versions of Erlang
+supported by Riak through 1.4.x, the limit is very low, and thus using
+this to raise the limit is very important. (default: `256000`)
+
+**Note**: For anyone concerned about configuring such a high value, be
+aware that Erlang processes are not the same as system processes. All
+of these processes will exist solely inside a single system process,
+the Erlang beam.
+
+#### +sfwi
+If using an
+[appropriately patched Erlang VM](https://gist.github.com/evanmcc/a599f4c6374338ed672e)
+(such as one downloaded directly from Basho) this will control the
+interval (in milliseconds) at which a supervisor thread wakes to check
+run queues for work to be executed. (default: `500`)
+
+#### +W
+Determines whether warning messages sent to Erlang's `error_logger`
+are treated as errors, warnings, or informational. (default: `w` for
+warnings)
+
 #### -env ERL_LIBS
-Alternate method to add directories to the code path (see -pa above)
+Alternate method to add directories to the code path (see `-pa` above)
 
-#### -env ERL_MAX_PORTS `4096`
+#### -env ERL_MAX_PORTS
 
-Maximum number of concurrent ports/sockets. (default: `4096`)
+Maximum number of concurrent ports/sockets. (default: `64000`)
 
-#### -env ERL_FULLSWEEP_AFTER `0`
+**Note**: As with processes, Erlang ports and system ports are similar
+but distinct.
 
-Run garbage collection more often.
+#### -env ERL_FULLSWEEP_AFTER
 
-#### -env ERL_CRASH_DUMP `./log/erl_crash.dump`
+Run garbage collection more often. (default: `0`)
 
-Set the location of crash dumps.
+#### -env ERL_CRASH_DUMP
+
+Set the location of crash dumps. (default: `./log/erl_crash.dump`)
 
 ## Rebar Overlays
 

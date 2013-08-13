@@ -33,7 +33,7 @@
       navLinks         : '#fixed-nav',
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
-      header           : '#header-inner',
+      header           : '#header',
       responsiveToggle : '.responsive-toggle'
     },
     
@@ -222,6 +222,7 @@
       options.jq.contentWell.removeAttr('style');
       options.jq.navContainer.removeAttr('style');
       options.jq.navContent.removeAttr('style');
+      options.jq.header.removeAttr('style');
       options.jq.navToggle.removeClass('open, closed');
     }
   }

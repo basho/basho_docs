@@ -120,8 +120,7 @@ Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/
 ## appropriate.
 +zdbbl 96000
 
-## This setting is present in default Riak installations, so
-## its value should be edited.
--env ERL_MAX_PORTS 16384
+## This setting should already be present for recent Riak installs.
+-env ERL_MAX_PORTS 64000
 ```
 {{/1.2.0+}}

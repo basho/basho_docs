@@ -28,3 +28,12 @@ Basho officially supports a number of open-source [[client libraries]] for vario
 <li data-lang="php">[[PHP|Taste of Riak: PHP]]</li>
 <li data-lang="python">[[Python|Taste of Riak: Python]]</li>
 </ul>
+
+### Community-supported Client Libraries
+
+Alongside Basho's officially supported client libraries, there are several
+notable libraries for other languages:
+
+* [[OCaml|Taste of Riak: OCaml]]
+* [[Clojure|Taste of Riak: Clojure]]
+* [[CSharp|Taste of Riak: C#]]

@@ -120,7 +120,7 @@ Values:
 ## Query Operations
 
 * [[PBC MapReduce]]
-* [[PBC Index]]
+* [[PBC Secondary Indexes]]
 * [[PBC Search]]
 
 ## Server Operations
