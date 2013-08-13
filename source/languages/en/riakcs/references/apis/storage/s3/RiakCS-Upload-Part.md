@@ -6,6 +6,9 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-Upload-Part'
+}
 ---
 
 This operation uploads a part in a multipart upload. You must [[initiate a multipart upload|RiakCS Initiate Multipart Upload]] before you can upload any part. In this operation you provide part data in your request.

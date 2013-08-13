@@ -6,6 +6,9 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-Initiate-Multipart-Upload'
+}
 ---
 
 Initiates a multipart upload and returns an upload ID. The upload ID is used to associate all the parts in the specific multipart upload.

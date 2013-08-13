@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-GET-Bucket-ACL'
+}
 ---
 
 The `GET Bucket acl` operation uses the `acl` subresource to return the access control list (ACL) of a bucket.

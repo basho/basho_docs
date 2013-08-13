@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-DELETE-Object'
+}
 ---
 
 The `DELETE Object` operation removes an object, if one exists.

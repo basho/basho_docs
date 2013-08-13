@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-GET-Bucket'
+}
 ---
 
 The `GET Bucket` operation returns a list of objects (all or up to 1,000) in a bucket.
