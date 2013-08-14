@@ -575,7 +575,7 @@ Example:
 Example:
 In Step 2 we calculated a working memory per vnode of 268,435,456 Bytes.  In Step 5, we estimated vnodes would consume approximately 268,133,808 Bytes.  Step 2 and step 5 are within 301,648 Bytes (~300 kB) of each other.  This is exceptionally close, but happens to be more precise than really needed.  The values are good enough when they are within 5%.
 
-The above calculations are automated in this [memory model spreadsheet](data/LevelDB1.2MemModel_calculator.xls).
+The above calculations are automated in this [memory model spreadsheet](https://github.com/basho/basho_docs/raw/master/source/data/LevelDB1.2MemModel_calculator.xls).
 
 ## Tuning LevelDB
 
