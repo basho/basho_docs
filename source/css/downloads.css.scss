@@ -104,8 +104,7 @@
       .title {
         display: block;
         color: white;
-        font-family: 'titillium', verdana, arial, sans-serif;
-        font-weight: bold;
+        @extend .sans-bold;
         font-size: 52px;
         letter-spacing: -0.02em;
         padding-right: 52px;
