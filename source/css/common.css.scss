@@ -15,14 +15,12 @@
 
 .serif-italic {
   @extend .serif;
-  //font-family : 'GandhiSerifItalic', serif;
   font-style : italic;
 }
 
 .sans-bold {
-  //@extend .sans;
-  font-family : 'OpenSansBold', verdana, arial, sans-serif;
-  font-weight : normal;
+  @extend .sans;
+  font-weight : bold;
 }
 
 .sans-light {
@@ -84,14 +82,14 @@
 }
 
 .button-light-green {
-  padding       : 3px 8px;
-  background    : $subtleBlueGreen;
-  text-align    : center;
-  cursor        : pointer;
-  color         : $darkBlueGreen;
-  font-size     : 0.75rem;
-  font-family   : 'OpenSansBold', verdana, sans-serif;
-  border        : 1px solid $lightBlueGreen;
+  @extend .sans-bold;
+  padding    : 3px 8px;
+  background : $subtleBlueGreen;
+  text-align : center;
+  cursor     : pointer;
+  color      : $darkBlueGreen;
+  font-size  : 0.75rem;
+  border     : 1px solid $lightBlueGreen;
   @include allCorners();
   //@include transitionAll(all 0.5s ease);
 
@@ -235,9 +233,11 @@ body {
     p, div {
       b, strong {
         font-weight: bold;
-        font-family: serif;
-        font-size: 110%
       }
+    }
+
+    p b, p strong {
+      font-size: 110%;
     }
 
     @media screen and (max-width: 700px) {
@@ -281,8 +281,8 @@ body {
 
   &.root {
     div[role="main"] {
-      #ricon-ad,
-      a#ricon-ad-responsive {
+      #ricon-temp-banner,
+      a#ricon-temp-banner-responsive {
         position : fixed;
         top      : 0;
         left     : 0;
@@ -1136,8 +1136,7 @@ div[role="main"] {
         @extend .horizontal-rule;
         margin : 0 0 6px 0;
         padding : 0 0 6px 0;
-        font-size   : 0.9rem;
-        //font-weight : bold;
+        font-size : 0.9rem;
       }
 
       ul {
@@ -1174,7 +1173,7 @@ div[role="main"] {
     }
   }
 
-  #ricon-ad {
+  #ricon-temp-banner {
     position     : relative;
     height       : 56px;
     background   : rgba(190, 216, 220, 1.0);
@@ -1187,7 +1186,7 @@ div[role="main"] {
     color : rgba(68, 93, 90, 1.0);
     //rgba(209, 227, 229, 1.0)
 
-    .ad-text {
+    .temp-banner-text {
       padding-top : 15px;
       font-size   : 0.9rem;
     }
@@ -1206,7 +1205,7 @@ div[role="main"] {
     }
   }
 
-  a#ricon-ad-responsive {
+  a#ricon-temp-banner-responsive {
     display : none;
     @extend .sans-bold;
     
