@@ -50,6 +50,14 @@ Next, add this to the **riak_core** section of `app.config`:
 
     {default_bucket_props, [{allow_mult, true}]},
 
+Without `allow_mult` set to `true`, if there are ever any conflicts writing
+data to Riak CS, certain writes will be chosen arbitrarily based on timestamp.
+This can lead to data loss and other inconsistencies.
+
+{{#1.4.0+}} <div class="note"><div class="title">Note</div> As of version 1.4,
+Riak CS will refuse to start if `allow_mult` is not set to `true`.</div>
+{{/1.4.0+}}
+
 Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak and connect to its console (using `riak attach`), then run:
 
 ```
