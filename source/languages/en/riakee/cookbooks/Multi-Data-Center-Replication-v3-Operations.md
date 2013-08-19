@@ -11,13 +11,15 @@ moved: {
 }
 ---
 
-This document shows how to manage replication with the `riak-repl` command. Many of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data Center Replication v3 Configuration]] values.
+This document shows how to manage replication with the `riak-repl` command. Some of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data Center Replication v3 Configuration]] values.
+
+All commands only need to be run once on a single node of a cluster for the changes to propagate to all other nodes, and all changes will persist across node restarts (and will automatically take effect when nodes are added to the cluster).
 
 ## Cluster Connectivity
 
 **clustername**
 
-Set the `clustername` for all nodes in a Riak cluster. *This only needs to be run once on a single node of a cluster for the changes to propagate to all other nodes.* The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
+Set the `clustername` for all nodes in a Riak cluster. The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
 
 * Without a parameter, returns the current name of the cluster.
 * With a parameter, names the current cluster.
@@ -82,11 +84,13 @@ Displays current cluster stats using an optional ip:port as well as an optional 
 * *Example:* `riak-repl clusterstats 192.168.2.1:9080 fs_repl`
 
 
-## Realtime Replication Configuration
+## Realtime Replication Commands
 
 **realtime enable**
 
 Enable realtime replication from a source cluster to sink clusters.
+
+This will start queuing updates for replication. The cluster will still need an invocation of `realtime start` before replication will occur.
 
 * *Syntax:* `riak-repl realtime enable <sink_clustername>`
 * *Example:* `riak-repl realtime enable Austin`
@@ -101,7 +105,7 @@ Disable realtime replication from a source cluster to sink clusters.
 
 **realtime start**
 
-Start realtime replication from a source cluster to sink clusters.
+Start realtime replication connections from a source cluster to sink clusters. See also `realtime enable`.
 
 * *Syntax:* `riak-repl realtime start <sink_clustername>`
 * *Example:* `riak-repl realtime start Austin`
@@ -114,7 +118,7 @@ Stop realtime replication from a source cluster to sink clusters.
 * *Example* `riak-repl realtime stop Austin`
 
 
-## Fullsync Replication Configuration
+## Fullsync Replication Commands
 
 These behaviors can be altered by using the `app.config` `fullsync_on_connect` parameter. See the [[Configuration guide|Multi Data Center Replication v3 Configuration]] for more information.
 
