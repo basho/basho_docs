@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/Common-RiakCS-Response-Headers'
+}
 ---
 
 These are the headers that are common to all Riak CS REST responses.

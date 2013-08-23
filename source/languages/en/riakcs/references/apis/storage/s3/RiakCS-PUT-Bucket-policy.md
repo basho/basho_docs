@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-PUT-Bucket-policy'
+}
 ---
 
 The `PUT Bucket policy` operation uses the `policy` subresource to add or replace the policy on an existing bucket. If the bucket already has a policy, the one in this request completely replaces it. To perform this operation, you must be the bucket owner.

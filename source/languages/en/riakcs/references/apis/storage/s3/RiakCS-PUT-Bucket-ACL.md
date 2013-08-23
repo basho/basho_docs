@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-PUT-Bucket-ACL'
+}
 ---
 
 The `PUT Bucket acl` operation uses the `acl` subresource to set the permissions on an existing bucket using an access control list (ACL).

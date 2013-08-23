@@ -6,6 +6,9 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-Complete-Multipart-Upload'
+}
 ---
 
 Completes a multipart upload by assembling previously uploaded parts. Upon

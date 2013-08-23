@@ -6,6 +6,9 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-List-Multipart-Uploads'
+}
 ---
 
 Lists multipart uploads that have not yet been completed or aborted.

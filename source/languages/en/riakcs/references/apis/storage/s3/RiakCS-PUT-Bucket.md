@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-PUT-Bucket'
+}
 ---
 
 The `PUT Bucket` operation creates a new bucket. The user who sends the request to create the bucket becomes the bucket owner. Anonymous requests can't create buckets.

@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-GET-Service'
+}
 ---
 
 The `GET Service` operation returns a list of all buckets owned by the *authenticated* user who sent sent the request.

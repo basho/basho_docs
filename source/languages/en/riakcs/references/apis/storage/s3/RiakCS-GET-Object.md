@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-GET-Object'
+}
 ---
 
 The `GET Object` operation retrieves objects from the Riak CS storage.

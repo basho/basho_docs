@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-GET-Object-ACL'
+}
 ---
 
 The `GET Object acl` operation uses the `acl` subresource to return the access control list (ACL) of an object.
