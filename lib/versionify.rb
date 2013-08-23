@@ -122,12 +122,19 @@ module VersionDirs
           if f =~ /^\.\/build\/.+?\/standalone\//
             next
           # anything under images, js, css goes to "shared"
-          elsif f =~ /^\.\/build\/(?:images|js|css|fonts|data)\//
+          elsif f =~ /^\.\/build\/(?:images|data)\//
             # upload shared for all given project versions
             # $versions.values.uniq.each do |version|
             $only_versions.each do |version|
               # key = f.sub(/\.\/build\//, "shared/#{version}/")
               move_to = f.sub(/\.\/build\//, "./build/shared/#{version}/")
+              copy(f, move_to)
+            end
+            FileUtils.rm(f)
+            next
+          elsif f =~ /^\.\/build\/(?:fonts|js|css)\//
+            $versions.each do |proj, version|
+              move_to = f.sub(/\.\/build\//, "./build/#{proj.to_s}/#{version}/")
               copy(f, move_to)
             end
             FileUtils.rm(f)
