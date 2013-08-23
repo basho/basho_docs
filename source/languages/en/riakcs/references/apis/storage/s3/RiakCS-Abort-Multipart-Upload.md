@@ -6,6 +6,9 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-Abort-Multipart-Upload'
+}
 ---
 
 Aborts a multipart upload. After a multipart upload is aborted, the storage

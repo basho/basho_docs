@@ -6,6 +6,9 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-PUT-Object-Copy'
+}
 ---
 
 The `PUT Object (Copy)` creates a copy of an object that is already stored in Riak CS. Adding the `x-amz-copy-source` HTTP header makes the PUT operation copy the source object into the destination bucket.

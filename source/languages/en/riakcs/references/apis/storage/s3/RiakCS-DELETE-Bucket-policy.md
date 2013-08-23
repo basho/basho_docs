@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-DELETE-Bucket-policy'
+}
 ---
 
 The `DELETE Bucket policy` operation deletes the `policy` subresource of an existing bucket. To perform this operation, you must be the bucket owner.

@@ -7,9 +7,10 @@ toc: true
 index: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage'
+}
 ---
-
-{{#1.4.0+}}
 
 The storage API is compatible with the Amazon S3 REST API which means that any of the operations listed can be executed using any of the commonly available S3 libraries or tools.
 
@@ -85,5 +86,3 @@ Multipart upload allows you to upload a single object as a set of parts. Object 
 
 * [[Common RiakCS Request Headers]]
 * [[Common RiakCS Response Headers]]
-
-{{/1.4.0+}}

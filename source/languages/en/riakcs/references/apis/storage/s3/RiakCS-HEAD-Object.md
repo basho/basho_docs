@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-HEAD-Object'
+}
 ---
 
 The `HEAD Object` operation retrieves metadata from an object without returning the object.

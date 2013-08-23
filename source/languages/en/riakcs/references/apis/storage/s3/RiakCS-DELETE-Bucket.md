@@ -7,6 +7,9 @@ toc: true
 index: false
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-DELETE-Bucket'
+}
 ---
 
 The `DELETE Bucket` operation deletes the bucket specified in the URI.

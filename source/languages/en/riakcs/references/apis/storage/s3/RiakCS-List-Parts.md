@@ -6,6 +6,9 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
+moved: {
+  '1.4.0-': '/references/apis/storage/RiakCS-List-Parts'
+}
 ---
 
 Lists the parts that have been uploaded for a specific multipart upload.
