@@ -974,7 +974,7 @@ div[role="main"] {
     .logo {
       @extend .block;
       @include size(185px, 33px);
-      @include layout-sprite(logo);
+      background  : url('/shared/latest/images/layout/logo.png');
       margin-top    : 11px;
       margin-left   : 78px;
       margin-bottom : 18px;
@@ -1381,11 +1381,11 @@ div[role="main"] {
       margin     : 0 auto;
       
       &:first-child {
-        background : inline-image('layout/enterprise-globe.png') center center no-repeat transparent;
+        background : url('/shared/latest/images/layout/enterprise-globe.png') center center no-repeat transparent;
       }
       
       &:last-child {
-        background : inline-image('layout/cs-cloud.png') center center no-repeat transparent;
+        background : url('/shared/latest/images/layout/cs-cloud.png') center center no-repeat transparent;
       }
       a {
         display         : block;
@@ -1407,7 +1407,7 @@ div[role="main"] {
 
       .image {
         @include size(92%, 88px);
-        background     : inline-image('layout/big-riak-logo.png') center center no-repeat transparent;
+        background     : url('/shared/latest/images/layout/big-riak-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1447,7 +1447,7 @@ div[role="main"] {
       margin : 4em auto 7em;
 
       .project .image {
-        background : inline-image('layout/smaller-riak-logo.png') center center no-repeat transparent;
+        background : url('/shared/latest/images/layout/smaller-riak-logo.png') center center no-repeat transparent;
         margin-top : 27px;
       }
       .project a {
