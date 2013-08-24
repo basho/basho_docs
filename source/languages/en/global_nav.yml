@@ -221,7 +221,6 @@ riakee:
           - "[[SSL|Multi Data Center Replication: SSL]]"
           - "[[With NAT|Multi Data Center Replication: With NAT]]"
           - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
-          - "[[System Tuning|Multi Data Center Replication: System Tuning]]"
       - title: "Version 3 Replication"
         sub:
           - "[[Architecture|Multi Data Center Replication v3 Architecture]]"
@@ -233,6 +232,7 @@ riakee:
           - "[[With NAT|Multi Data Center Replication v3 With NAT]]"
           - "[[Active Anti-Entropy|Multi Data Center Replication v3 With AAE]]"
           - "[[Cascading Writes|Multi Data Center Replication: Cascading Realtime Writes]]"
+      - "[[System Tuning|Multi Data Center Replication: System Tuning]]"
       - "[[Version Comparison|Multi Data Center Replication: Comparison]]"
       - "[[Upgrade Guide|Multi Data Center Replication: Upgrading from V2 to V3]]"
       - "[[Statistics|Multi Data Center Replication: Statistics]]"
