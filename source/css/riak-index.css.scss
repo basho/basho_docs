@@ -1,29 +1,100 @@
 #riak-index {
   article > section {
-    @include allCorners(8px);
+    //@include allCorners();
     //@include boxShadow(inset 0 0 20px #A1A1A1);
-    background    : rgba(0, 0, 0, .05);
-    border        : 1px solid #E1E1E1;
-    margin        : 0.25em 1em 0.35em 0em;
+    background    : rgba(247, 249, 249, 1.0);
+    //border        : 1px solid #E1E1E1;
+    //margin        : 0.25em 1em 0.35em 0em;
     border-bottom : 1px solid #F1F1F1;
-
-    max-width: 650px;
     //margin-left:   auto;
     //margin-right:  auto;
     margin-bottom: 0.85em;
-    box-shadow: inset 0 0 20px #a1a1a1,
-                -4px 4px 8px #999;
+    //box-shadow: inset 0 0 20px #a1a1a1,
+               // -4px 4px 8px #999;
+
+    &.banner {
+      @include corner(left, bottom);
+      @include corner(right, bottom);
+
+      header {
+        h1 {
+          @extends .sans-light;
+          font-size : 3rem;
+        }
+      }
+    }
+
+    &.content-box {
+      max-width : 42%;
+      padding : 0 3% 1.5em 3%;
+      @include allCorners();
+
+      header {
+        h2 {
+          font-family : 'OpenSansLight';
+          font-size   : 1.75rem;
+          color       : #fff;
+          margin-top  : 0;
+          padding-top : 0.75em;
+        }
+      }
+
+      p {
+        color : #fff; /* Fallback for non-rgba browsers */
+        color : rgba(255, 255, 255, 0.5);
+
+        a {
+          white-space : nowrap;
+        };
+      }
+
+      &:nth-child(2) {
+        float : left;
+      }
+
+      &:nth-child(3) {
+        float : right;
+      }
+
+      [class^="icon-"] {
+        float          : right;
+        color          : #fff; /* Fallback for non-rgba browsers */
+        color          : rgba(255, 255, 255, 0.1);
+        font-size      : 6em;
+        padding-top    : 16px;
+        padding-bottom : 30px; 
+      }
+
+      ul {
+        padding : 0;
+        margin  : 0;
+
+        li {
+          list-style-type     : disc;
+          list-style-position : inside;
+          color               : #fff;
+        }
+      }
+    }
+
+    &.green {
+      background : #3c6c72;
+    }
+
+    &.grey {
+      background : #525a61;
+    }
 
     header {
       
       h1, p {
-        padding : 0 25px;
+        //padding : 0 25px;
       }
       
       h1 {
-        padding-top : 16px;
-        text-align : center;
-        border-bottom : 1px dashed #DDD;
+        //padding-top : 16px;
+        //text-align : center;
+        //border-bottom : 1px dashed #DDD;
       }
 
       a.command {
@@ -109,6 +180,9 @@
       }
     }
   }
+
+
+
   hr {
     width        : 0; 
     height       : 0; 
