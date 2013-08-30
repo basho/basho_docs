@@ -1,47 +1,109 @@
 #riak-index {
+
+  .mainarticle {
+    padding: 125px 0 0 20px;
+  }
+
   article > section {
     //@include allCorners();
     //@include boxShadow(inset 0 0 20px #A1A1A1);
-    background    : rgba(247, 249, 249, 1.0);
-    //border        : 1px solid #E1E1E1;
-    //margin        : 0.25em 1em 0.35em 0em;
-    border-bottom : 1px solid #F1F1F1;
-    //margin-left:   auto;
-    //margin-right:  auto;
-    margin-bottom: 0.85em;
-    //box-shadow: inset 0 0 20px #a1a1a1,
-               // -4px 4px 8px #999;
+    background     : rgba(247, 249, 249, 1.0);
+    //border       : 1px solid #E1E1E1;
+    //margin       : 0.25em 1em 0.35em 0em;
+    border-bottom  : 1px solid #F1F1F1;
+    //margin-left  :   auto;
+    //margin-right :  auto;
+    margin-bottom  : 1.2em;
 
     &.banner {
+      @include size(auto, 214px);
       @include corner(left, bottom);
       @include corner(right, bottom);
+      position : relative;
+      color    : rgb(102, 102, 102);
 
       header {
+        position : relative;
+        padding  : 3em 0 0 1.8em;
+
         h1 {
-          @extends .sans-light;
-          font-size : 3rem;
+          font-size      : 3.9rem;
+          letter-spacing : -0.04em;
+
+          /*----------------------------------------*/
+          /*  Special Kerning between the r and t
+          /*  in 'Gettting Started'
+          /*----------------------------------------*/
+          #kern-fix-get-started {
+            letter-spacing : -0.2em;
+          }
         }
+
+        p {
+          @extend .sans-light;
+          font-size    : 1.01rem;
+          padding-left : 0.25em;
+          padding-top  : 0.19em;
+          color        : rgb(102, 102, 102); /* Fallback for non-rgba browsers */
+          color        : rgba(102, 102, 102, 0.9);
+        }
+      }
+
+      ul.resources {
+        position     : absolute;
+        top          : 34px;
+        left         : 420px;
+        padding-left : 0;
+        list-style   : none;
+
+        li {
+          @extend .sans-light;
+          padding-bottom : 0.9em;
+          padding-left   : 0.5em;
+          line-height    : 1em;
+          font-size      : 1.6rem;
+        
+          a {
+            color : #666666;
+          }
+        }
+
+        li:before {
+          @extend .icon-font;
+          padding-right : 0.5em;
+          color         : #666;
+        }
+      }
+
+      .nodes {
+        @include size(378px, 101px);
+        @include layout-sprite(nodes);
+        position : absolute;
+        top      : 0;
+        left     : 4px;
       }
     }
 
     &.content-box {
-      max-width : 42%;
-      padding : 0 3% 1.5em 3%;
+      max-width : 40.5%;
+      padding   : 0 3% 1.5em 4.5%;
       @include allCorners();
 
       header {
         h2 {
           font-family : 'OpenSansLight';
-          font-size   : 1.75rem;
+          font-size   : 1.6rem;
           color       : #fff;
           margin-top  : 0;
-          padding-top : 0.75em;
+          padding-top : 0.9em;
+          text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.25);
         }
       }
 
       p {
-        color : #fff; /* Fallback for non-rgba browsers */
-        color : rgba(255, 255, 255, 0.5);
+        color       : #fff; /* Fallback for non-rgba browsers */
+        color       : rgba(255, 255, 255, 0.5);
+        text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.1);
 
         a {
           white-space : nowrap;
@@ -58,11 +120,11 @@
 
       [class^="icon-"] {
         float          : right;
-        color          : #fff; /* Fallback for non-rgba browsers */
-        color          : rgba(255, 255, 255, 0.1);
+        color          : rgb(81, 121, 126);
         font-size      : 6em;
         padding-top    : 16px;
-        padding-bottom : 30px; 
+        padding-bottom : 30px;
+        text-shadow    : 2px 4px 2px rgba(0, 0, 0, 0.1);
       }
 
       ul {
@@ -73,16 +135,25 @@
           list-style-type     : disc;
           list-style-position : inside;
           color               : #fff;
+          text-shadow         : 1px 1px 1px rgba(0, 0, 0, 0.1);
         }
       }
     }
 
     &.green {
       background : #3c6c72;
+
+      [class^="icon-"] {
+        color : rgb(81, 121, 126);
+      }
     }
 
     &.grey {
       background : #525a61;
+
+      [class^="icon-"] {
+        color : rgb(91, 99, 105);
+      }
     }
 
     header {

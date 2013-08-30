@@ -167,6 +167,7 @@
 
 /* Icon Classes */
 .icon-lambda,
+.icon-lambda-bold,
 .icon-beaker,
 .icon-cog,
 .icon-github-alt,
@@ -178,7 +179,14 @@
 .icon-download-alt,
 .icon-github,
 .icon-reorder,
-.icon-icon-more {
+.icon-icon-more,
+.icon-riak,
+.icon-database,
+.icon-install,
+.icon-cloud,
+.icon-configure,
+.icon-references,
+.icon-time {
     font-family: 'DocsFontIcons';
     speak: none;
     font-style: normal;
@@ -190,6 +198,9 @@
 }
 .icon-lambda:before {
     content: "\e005";
+}
+.icon-lambda-bold:before {
+    content: "\e00b";
 }
 .icon-beaker:before {
     content: "\f0c3";
@@ -244,4 +255,7 @@
 }
 .icon-references:before {
     content: "\f02d";
+}
+.icon-time:before {
+    content: "\f017";
 }
