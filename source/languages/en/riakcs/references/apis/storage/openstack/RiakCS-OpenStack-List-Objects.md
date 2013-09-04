@@ -1,5 +1,5 @@
 ---
-title: RiakCS List Objects
+title: RiakCS OpenStack List Objects
 project: riakcs
 version: 1.4.0+
 document: api

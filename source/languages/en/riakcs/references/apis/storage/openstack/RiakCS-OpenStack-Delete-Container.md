@@ -1,5 +1,5 @@
 ---
-title: RiakCS Delete Container
+title: RiakCS OpenStack Delete Container
 project: riakcs
 version: 1.4.0+
 document: api
