@@ -1,7 +1,7 @@
 ---
 title: Advanced MapReduce
 project: riak
-version: 1.3.1+
+version: 1.0.0+
 document: guide
 toc: true
 audience: advanced

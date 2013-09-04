@@ -1,11 +1,14 @@
 ---
 title: Five Minute Install
 project: riak
-version: 1.3.1+
+version: 1.1.0+
 document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, 2i]
+moved: {
+  '1.4.0-': '/tutorials/fast-track/Building-a-Development-Environment'
+}
 ---
 
 Let's install Riak and build a [five node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/) cluster running on your local machine.

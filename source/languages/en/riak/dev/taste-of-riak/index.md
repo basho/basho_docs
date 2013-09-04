@@ -1,15 +1,15 @@
 ---
 title: "Taste of Riak: Prerequisites"
 project: riak
+version: 1.4.0+
 document: guide
 toc: false
 audience: beginner
 keywords: [developers, client]
-versions: false
 interest: false
 ---
 
-**Welcome, new Riak developer!**
+*Welcome, new Riak developer!*
 
 This guide will get you started developing against Riak with minimal fuss.
 
@@ -22,9 +22,18 @@ If you haven't completed the [[five minute install]], go ahead and walk through 
 Basho officially supports a number of open-source [[client libraries]] for various programming languages and environments.  Please select the language you'd like to proceed with.
 
 <ul class="planguages">
-<li data-lang="java">[[Java|Taste of Riak: Java]]</li>
-<li data-lang="erlang">[[Erlang|Taste of Riak: Erlang]]</li>
-<li data-lang="ruby">[[Ruby|Taste of Riak: Ruby]]</li>
-<li data-lang="php">[[PHP|Taste of Riak: PHP]]</li>
-<li data-lang="python">[[Python|Taste of Riak: Python]]</li>
+<li><a href="/dev/taste-of-riak/java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
+<li><a href="/dev/taste-of-riak/erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="/dev/taste-of-riak/ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
+<li><a href="/dev/taste-of-riak/php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
+<li><a href="/dev/taste-of-riak/python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
 </ul>
+
+### Community-supported Client Libraries
+
+Alongside Basho's officially supported client libraries, there are several
+notable libraries for other languages:
+
+* [[OCaml|Taste of Riak: OCaml]]
+* [[Clojure|Taste of Riak: Clojure]]
+* [[C Sharp|Taste of Riak: C Sharp]]

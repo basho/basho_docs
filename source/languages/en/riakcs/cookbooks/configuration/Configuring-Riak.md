@@ -50,6 +50,14 @@ Next, add this to the **riak_core** section of `app.config`:
 
     {default_bucket_props, [{allow_mult, true}]},
 
+You should never set `allow_mult` to any value other than true. If this is not
+set to `true`, certain writes will be chosen arbitrarily by timestamp,
+potentially leading to data loss and other inconsistencies.
+
+{{#1.4.0+}} <div class="note"><div class="title">Note</div> As of version 1.4,
+Riak CS will refuse to start if `allow_mult` is not set to `true`.</div>
+{{/1.4.0+}}
+
 Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak and connect to its console (using `riak attach`), then run:
 
 ```
@@ -120,8 +128,7 @@ Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/
 ## appropriate.
 +zdbbl 96000
 
-## This setting is present in default Riak installations, so
-## its value should be edited.
--env ERL_MAX_PORTS 16384
+## This setting should already be present for recent Riak installs.
+-env ERL_MAX_PORTS 64000
 ```
 {{/1.2.0+}}

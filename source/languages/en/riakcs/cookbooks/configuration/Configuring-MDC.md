@@ -14,8 +14,42 @@ Enterprise nodes which are part of the Riak CS cluster.
 
 ## Riak Enterprise Configuration
 
+{{#1.4.0+}}
+As of Riak release 1.4.0, there are two different MDC replication modes that Riak CS can use to request data from remote clusters. Please see [[Multi Data Center Replication: Comparison]] for more information.
+
+### Replication version 3 configuration
+
 For each Riak node in the cluster, update the `riak_repl` section of
-the `app.config`, by appending the `{proxy_get, enabled}` setting as
+`app.config`, by appending the `{proxy_get, enabled}` setting as
+shown in the following example.
+
+```erlang
+{riak_repl, [
+             {fullsync_on_connect, true},
+             {fullsync_interval, 360},
+             {data_root, "/var/lib/riak/data/riak_repl"},
+             {proxy_get, enabled}
+            ]}
+```
+
+Version 3 replication requires additional configuration on the **source cluster** via command line. 
+
+```erlang
+riak-repl proxy_get enable sink_cluster_name
+```
+
+`sink_cluster_name` should be replaced with the name of your configured **sink cluster**. 
+
+See also:
+
+[[Multi Data Center Replication: Upgrading from V2 to V3]]
+[[Multi Data Center Replication: Comparison]]
+[[Multi Data Center Replication v3 Operations]]
+
+### Replication version 2 configuration
+{{/1.4.0+}}
+For each Riak node in the cluster, update the `riak_repl` section of
+`app.config`, by appending the `{proxy_get, enabled}` setting as
 shown in the following example.
 
 ```erlang

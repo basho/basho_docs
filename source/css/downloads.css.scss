@@ -6,8 +6,8 @@
   p.install_instruction {
     margin-top:4px;
     font-size:80%;
-    padding-left:1em;
-    padding-right:1em;
+    //padding-left:1em;
+    //padding-right:1em;
     text-align:right;
   }
   table {
@@ -91,7 +91,7 @@
       margin-left: -50px;
       padding-left: 65px;
       padding-right: 24px;
-      background: url(../images/layout/riak-logo-icon.png) 0 0 no-repeat;
+      background: url('/shared/latest/images/layout/riak-logo-icon.png') 0 0 no-repeat;
       height: 93px;
       padding: 6px 6px 0 106px;
 
@@ -104,12 +104,11 @@
       .title {
         display: block;
         color: white;
-        font-family: 'titillium', verdana, arial, sans-serif;
-        font-weight: bold;
+        @extend .sans-bold;
         font-size: 52px;
         letter-spacing: -0.02em;
         padding-right: 52px;
-        background: url(../images/layout/download.png) no-repeat 100% 4px;
+        background: inline-image('layout/download.png') no-repeat 100% 4px;
         height: 52px;
         margin-bottom: -2px;
         line-height: 52px;

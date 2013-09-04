@@ -2,25 +2,33 @@
    Variables
    ========================================================================== */
 
-$headerColor     : #616366;
-$textColor       : #000000;
-$linkBlue        : #2984a9;
-$orange          : #f99d33;
-$lightOrange     : #fcc07f;
-$darkOrange      : darken($orange, 15%);
-$extraDarkGrey   : #222222;
-$darkGrey        : #777a7e;
-$fieldGrey       : #b0b3b6;
-$lightGrey       : #ccced1;
-$subtleGray      : #eaeaea;
-$lightGreen      : #a7c7bf;
-$blueGreen       : #79aeb5;
-$darkBlueGreen   : #619ba3;
-$lightBlueGreen  : #bcd6da;
-$subtleBlueGreen : #ebf2f3;
-$fadedGreen      : darken(saturate(#6f8a86, 3%), 8%);
-$darkGreen       : darken($lightGreen, 10%);
-$inactiveText    : #AAA;
+/* == Colors ================================= */
+$headerColor      : #616366;
+$textColor        : #000000;
+$linkBlue         : #2984a9;
+$subtleBlue       : #c3e3fd;
+$lightBlue        : #8cbbe2;
+$linkOrange       : #e38c3a;
+$orange           : #f99d33;
+$lightOrange      : #fcc07f;
+$darkOrange       : darken($orange, 15%);
+$extraDarkGrey    : #222222;
+$darkGrey         : #777a7e;
+$grey             : #b2b2b2;
+$fieldGrey        : #b0b3b6;
+$lightGrey        : #ccced1;
+$subtleGray       : #eaeaea;
+$lightGreen       : #a7c7bf;
+$blueGreen        : #79aeb5;
+$darkBlueGreen    : #619ba3;
+$lightBlueGreen   : #bcd6da;
+$subtleBlueGreen  : #ebf2f3;
+$fadedGreen       : darken(saturate(#6f8a86, 3%), 8%);
+$darkGreen        : darken($lightGreen, 10%);
+$inactiveText     : #AAA;
+
+/* == Dimensions ================================= */
+$mobilePageGutter : 0.6em;
 
 /* =============================================================================
    Mixins

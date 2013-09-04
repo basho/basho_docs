@@ -1,7 +1,7 @@
 ---
 title: Advanced Commit Hooks
 project: riak
-version: 1.3.1+
+version: 1.1.0+
 document: guide
 toc: true
 audience: advanced

@@ -11,13 +11,18 @@ moved: {
 }
 ---
 
-This document shows how to manage replication with the `riak-repl` command. Many of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data Center Replication v3 Configuration]] values.
+This document shows how to manage replication with the `riak-repl` command. Some of these commands can be set or behavior altered by setting appropriate [[Configuration Guide|Multi Data Center Replication v3 Configuration]] values.
+
+All commands only need to be run once on a single node of a cluster for the changes to propagate to all other nodes, and all changes will persist across node restarts (and will automatically take effect when nodes are added to the cluster).
 
 ## Cluster Connectivity
 
 **clustername**
 
-Set the `clustername` for all nodes in a Riak cluster. *This only needs to be run once on a single node of a cluster for the changes to propagate to all other nodes.* The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
+Set the `clustername` for all nodes in a Riak cluster. The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
+
+* Without a parameter, returns the current name of the cluster.
+* With a parameter, names the current cluster.
 
 To **set** the clustername:
 
@@ -36,34 +41,56 @@ The `connect` command establishes communications from a source cluster to a sink
 Host can be either an IP address,
 
 * *Syntax:* `riak-repl connect <ip>:<port>`
-* *Example:* `riak-repl connect 192.168.2.1:8085`
+* *Example:* `riak-repl connect 192.168.2.1:9080`
 
 ...or a hostname that will resolve to one.
 
 * *Syntax:* `riak-repl connect <host>:<port>`
-* *Example:* `riak-repl connect Austin:8085`
-
+* *Example:* `riak-repl connect Austin:9080`
 
 **disconnect**
 
-Disconnecting a source cluster from a sink cluster. 
+Disconnecting a source cluster from a sink cluster.
 
 You may define a `host:port` combination,
 
 * *Syntax:* `riak-repl disconnect <host>:<port>`
-* *Example:* `riak-repl disconnect 192.168.2.1:8085`
+* *Example:* `riak-repl disconnect 192.168.2.1:9080`
 
 ...or use the *name* of the cluster.
 
 * *Syntax:* `riak-repl disconnect <sink_clustername>`
 * *Example:* `riak-repl disconnect Austin`
 
+**connections**
 
-## Realtime Replication Configuration
+Display a list of connections between source and sink clusters.
+
+* *Syntax:* `riak-repl connections`
+* *Example:* `riak-repl connections`
+
+**clusterstats** [{<ip:-port> | <protocol-id>}]
+
+Displays current cluster stats using an optional ip:port as well as an optional `protocol-id`.
+
+`protocol-id` can be one of:
+
+* cluster_mgr
+* rt_repl
+* fs_repl
+
+* *Syntax:* `riak-repl clusterstats <host>:<port> <protocol-id>`
+* *Example:* `riak-repl clusterstats 192.168.2.1:9080`
+* *Example:* `riak-repl clusterstats 192.168.2.1:9080 fs_repl`
+
+
+## Realtime Replication Commands
 
 **realtime enable**
 
 Enable realtime replication from a source cluster to sink clusters.
+
+This will start queuing updates for replication. The cluster will still need an invocation of `realtime start` before replication will occur.
 
 * *Syntax:* `riak-repl realtime enable <sink_clustername>`
 * *Example:* `riak-repl realtime enable Austin`
@@ -78,7 +105,7 @@ Disable realtime replication from a source cluster to sink clusters.
 
 **realtime start**
 
-Start realtime replication from a source cluster to sink clusters.
+Start realtime replication connections from a source cluster to sink clusters. See also `realtime enable`.
 
 * *Syntax:* `riak-repl realtime start <sink_clustername>`
 * *Example:* `riak-repl realtime start Austin`
@@ -91,7 +118,7 @@ Stop realtime replication from a source cluster to sink clusters.
 * *Example* `riak-repl realtime stop Austin`
 
 
-## Fullsync Replication Configuration
+## Fullsync Replication Commands
 
 These behaviors can be altered by using the `app.config` `fullsync_on_connect` parameter. See the [[Configuration guide|Multi Data Center Replication v3 Configuration]] for more information.
 
@@ -150,7 +177,7 @@ Disable realtime cascading writes.
 
 
 ## NAT
-See the [[Configuration guide|Multi Data-Center Replication v3 NAT]]
+See the [[Configuration guide|Multi Data Center Replication v3 With NAT]]
 
 **nat-map show**
 Show the current NAT mapping table.
@@ -215,7 +242,7 @@ This is the hard limit of fullsync workers that will be running on the source si
 
 **fullsync max_fssink_node**
 
-This limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for all fullsync sources interacting with the sink cluster. Thus, multiple simultaneous source connections to the sink cluster will have to share the sink node’s number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
+This limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for each fullsync source node interacting with a sink node. Thus, multiple simultaneous source connections to a sink node will have to share the sink node’s number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 
 
 * *Syntax* `riak-repl fullsync max_fssink_cluster <value>`

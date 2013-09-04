@@ -235,7 +235,12 @@ module SitemapRenderOverride
         if href =~ /(https?\:)|(\/standalone)/
           "#{base}#{href}#{cap}"
         else
-          "#{base}/shared/#{version_str}#{href}#{cap}"
+          # "#{base}/shared/#{version_str}#{href}#{cap}"
+          if project == :root
+            "#{base}/riak/#{version_str}#{href}#{cap}"
+          else
+            "#{base}/#{project}/#{version_str}#{href}#{cap}"
+          end
         end
       end
 
@@ -260,6 +265,7 @@ module SitemapRenderOverride
       # these are unfortunate hacks to deal with an incomplete coderay
       code_type = code_type == :bash ? :php : code_type
       code_type = code_type == :erlang ? :python : code_type
+      code_type = code_type == :csharp ? :java : code_type
       code = CodeRay.scan(CGI.unescapeHTML(code), code_type).div #(:css => :class)
       code
     end

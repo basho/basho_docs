@@ -4,13 +4,18 @@
    ========================================================================== */
 
 .sans {
-  font-family : 'titillium', verdana, arial, sans-serif;
+  font-family : 'OpenSans', verdana, arial, sans-serif;
   font-weight : normal;
 }
 
 .serif {
-  font-family : 'noticia', serif;
+  font-family : 'GandhiSerif', serif;
   font-weight : normal;
+}
+
+.serif-italic {
+  @extend .serif;
+  font-style : italic;
 }
 
 .sans-bold {
@@ -18,9 +23,9 @@
   font-weight : bold;
 }
 
-.serif-italic {
-  @extend .serif;
-  font-style : italic;
+.sans-light {
+  font-family : 'OpenSansLight', verdana, arial, sans-serif;
+  font-weight : normal;
 }
 
 .text-shadow {
@@ -58,6 +63,39 @@
   text-decoration : none;
   text-align      : center;
   width           : 4.2em;
+}
+
+.horizontal-rule {
+  border-bottom : 1px solid $subtleGray;
+}
+
+.box-green {
+  @include allCorners();
+  background : $subtleBlueGreen;
+  border     : 1px solid $lightBlueGreen;
+}
+
+.box-blue {
+  @include allCorners();
+  background  : $subtleBlue;
+  border      : 1px solid $lightBlue;
+}
+
+.button-light-green {
+  @extend .sans-bold;
+  padding    : 3px 8px;
+  background : $subtleBlueGreen;
+  text-align : center;
+  cursor     : pointer;
+  color      : $darkBlueGreen;
+  font-size  : 0.75rem;
+  border     : 1px solid $lightBlueGreen;
+  @include allCorners();
+  //@include transitionAll(all 0.5s ease);
+
+  &:hover {
+    background : lighten($subtleBlueGreen, 2%);
+  }
 }
 
 /* =============================================================================
@@ -147,9 +185,12 @@ body {
          * gets manipulated by JavaScript when animations run
          */
         display  : block !important;
-        //padding  : 0 10px 10px;
         overflow : auto;
-      }
+
+        #primary-nav-content {
+          padding-top : 10px;
+        }
+      } 
     }
     
     .submissions-note {
@@ -189,6 +230,16 @@ body {
     position : relative;
     z-index  : 2;
     
+    p, div {
+      b, strong {
+        font-weight: bold;
+      }
+    }
+
+    p b, p strong {
+      font-size: 110%;
+    }
+
     @media screen and (max-width: 700px) {
       /*
        * Important is necessary here in order to override the inline style attribute which
@@ -221,6 +272,27 @@ body {
 
     @media screen and (max-width: 700px) {
       margin : 0;
+    }
+
+    @media screen and (max-width: 500px) {
+      padding : 25px 12px 25px 12px;
+    }
+  }
+
+  &.root {
+    div[role="main"] {
+      #ricon-temp-banner,
+      a#ricon-temp-banner-responsive {
+        position : fixed;
+        top      : 0;
+        left     : 0;
+        width    : 100%;
+        text-align : center;
+        margin   : 0;
+        padding-left : 0;
+        padding-right : 0;
+        z-index : 9;
+      }
     }
   }
 }
@@ -269,6 +341,10 @@ td {
   &:last-child {
     border-right : 0;
   }
+}
+
+p {
+  @extend .serif;
 }
 
 pre {
@@ -327,43 +403,47 @@ iframe {
     &:hover {
       color : $extraDarkGrey;
     }
+
+    @media screen and (max-width: 500px) {
+       padding : 7px $mobilePageGutter;
+    }
   }
 
   .current {
-    //background-color : $blueGreen;
-
     a {
       cursor : default;
     }
   }
 
-  .current a:hover {
-    //@include bgPattern('nav-li-bg6.jpg', #393939);
-  }
-
   .icon-container {
     display     : inline-block;
-    width       : 12%;
-    margin-left : 4%;
+    width       : 1.5em;
+    margin-left : 0.9em;
     float       : left;
     text-align  : center;
+
+    @media screen and (max-width: 700px) {
+      font-size : 1em;
+      width : 1.75em;
+      margin-left : $mobilePageGutter;
+    }
   }
 
   .separator {
     display      : inline-block;
     float        : left;
-    width        : 4%;
-    margin-right : 3%;
-    font-weight  : normal;
+    width        : 1em;
+    margin-right : 0.5em;
     color        : #8e939a;
     text-align   : center;
-    font-size    : 1.05rem;
+    @extend .sans;
+    font-size    : 0.9rem;
   }
 
   .menu-title {
     display       : inline-block;
     float         : left;
-    width         : 64%;
+    width         : 68%;
     margin-bottom : 8px;
   }
   
@@ -373,15 +453,14 @@ iframe {
     input[type="search"],
     input[type="text"] {
       position         : relative;
-      width            : 77%;
+      width            : 76%;
       background-color : $fieldGrey;
-      padding          : 10px 0 10px 23%;
+      padding          : 10px 0 10px 24%;
       margin           : 0;
       border           : none;
       color            : #fff;
-      line-height      : 1rem;
-      font-family      : 'titillium', verdana, arial, sans-serif;
-      font-size        : 115%;
+      line-height      : 1.3rem;
+      @extend .sans;
 
       &::-webkit-input-placeholder { /* WebKit browsers */
         color : #fff;
@@ -395,6 +474,12 @@ iframe {
       &:-ms-input-placeholder { /* Internet Explorer 10+ */
         color : #fff;
       }
+
+      @media screen and (max-width: 700px) {
+        font-size : 1rem;
+        padding   : 10px 0 10px 3.2em; /* Using rems here for padding-left to align input text on mobile devices */
+        @include allCorners(); /* Add rounded corners to the field when device is tablet or mobile */
+      }
     }
 
     input[type="search"]:focus,
@@ -402,23 +487,30 @@ iframe {
       color            : #fff;
       background-color : $darkGrey;
     }
-
-    .icon-container {
+    
+    #icon-container-search {
+   
       position : absolute;
       display  : block;
       top      : 9px;
       left     : 0;
-      float    : none;
+      width    : 4em;
       z-index  : 8;
+
+      .separator {
+        color    : #fff;
+      }
     }
 
-    .separator {
-      position : absolute;
-      display  : block;
-      top      : 8px;
-      left     : 16%;
-      color    : #fff;
-      z-index  : 9;
+    @media screen and (max-width: 700px) {
+      float       : left;
+      width       : 71%;
+      margin-top  : -5px;
+      margin-left : $mobilePageGutter;
+
+      .icon-container {
+        margin-left : 0.3em;
+      }
     }
   }
 
@@ -443,7 +535,7 @@ iframe {
     display      : none;
     color        : $darkGrey;
     text-shadow  : none;
-    padding      : 0 3% 0 8%;
+    padding      : 0 12px 0 8%;
 
     @media screen and (max-width: 700px) {
       display : block;
@@ -456,9 +548,11 @@ iframe {
     &.visit-basho {
       background : $orange; // fallback value for no rgba support
       //background : rgba(249, 157, 51, .2);
-      border     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
-      border     : 1px solid rgba(249, 157, 51, .4);
-      color      : #fff;
+      border-top     : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+      border-top     : 1px solid rgba(249, 157, 51, .4);
+      border-bottom  : 1px solid lighten($orange, 15%); // fallback value for no rgba support
+      border-bottom  : 1px solid rgba(249, 157, 51, .4);
+      color          : #fff;
 
       .separator,
       .nav-icon {
@@ -470,6 +564,10 @@ iframe {
         color       : rgba(255, 255, 255, 1);
         //text-shadow : none; // fallback value for no rgba support
         //text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
+      }
+
+      @media screen and (max-width: 700px) {
+        margin-top : 13px;
       }
     }
     
@@ -493,12 +591,9 @@ iframe {
       border     : 0;
       
       &:hover {
+        color      : $darkGrey;
         background : none;
       }
-    }
-    
-    span {
-      //padding-right : 5px;
     }
     
     span.menu-toggle {
@@ -507,22 +602,19 @@ iframe {
     
     &:hover {
       span.menu-toggle {
-        border        : 5px solid transparent;
-        border-bottom : none;
-        border-top    : 5px solid $darkGrey;
+        @include arrowVertical(top, bottom, 5px, $darkGrey);
         
         &.open {
-          border        : 5px solid transparent;
-          border-bottom : 5px solid $darkGrey;
-          border-top    : none;
+          @include arrowVertical(bottom, top, 5px, $darkGrey);
         }
       }
     }
   }
   
   h3 {
+    @extend .sans-bold;
     border-bottom : 1px solid $lightGrey;
-    //font-size     : 1.05rem;
+    font-size     : 0.9rem;
   }
   
   h3 span a {
@@ -629,11 +721,11 @@ iframe {
     top           : 17px;
     right         : 10px;
     content       : '';
-    @include arrowVertical(top, bottom, 5px, $lightGrey);
+    @include arrowVertical(top, bottom, 5px, $grey);
     @include transitionAll(border-color 0.5s ease);
     
     &.open {
-      @include arrowVertical(bottom, top, 5px, $lightGrey);
+      @include arrowVertical(bottom, top, 5px, $grey);
     }
     
     &.extra-margin {
@@ -650,7 +742,7 @@ iframe {
     margin          : -83px 0 0 0; // Top margin should be -(height + 1)
     padding         : 0;
     list-style-type : none;
-    border-top      : 1px solid $darkBlueGreen;
+    border-top      : 1px solid #666; //$darkBlueGreen;
 
     li {
       margin  : 0;
@@ -659,13 +751,17 @@ iframe {
 
       a {
         display       : block;
-        background    : $blueGreen;
+        background    : $darkGrey; //$blueGreen;
         color         : #fff;
-        font-weight   : bold;
         height        : 32px;
-        border-bottom : 1px solid $darkBlueGreen;
-        font-size     : 1.05rem;
+        border-bottom : 1px solid #666; //$darkBlueGreen;
         padding       :  8px 0 0 0;
+        @extend .sans-bold;
+        font-size     : 0.9rem;
+
+        &:hover {
+          background : darken($darkGrey, 2%);
+        }
 
         span {
           padding-right : 5px;
@@ -711,9 +807,10 @@ div[role="main"] {
   h1, h2, h3, h4, h5, h6 {
     color       : $headerColor;
     line-height : 1.2;
+    @extend .clear;
   }
   
-  h1, h4, h5, h6 {
+  h4, h5, h6 {
     @extend .sans-bold;
   }
   
@@ -722,12 +819,15 @@ div[role="main"] {
   }
   
   h1 {
+
+    @extend .sans-light;
     font-size : 285%;
     
     &.extra-large {
       font-size   : 425%;
       line-height : 1.1;
       padding-top : .1em;
+      letter-spacing : -0.036em;
       
       @media screen and (max-width: 1300px) {
         font-size   : 325%;
@@ -760,7 +860,8 @@ div[role="main"] {
     padding     : .8em 0 .1em 0;
 
     a {
-      color : $headerColor;
+      color           : $headerColor;
+      //text-decoration : underline;
     }
   }
   
@@ -784,9 +885,8 @@ div[role="main"] {
   }
   
   a {
-    color           : $linkBlue;
-    text-decoration : underline;
-    white-space     : nowrap;
+    color           : $linkOrange;
+    text-decoration : none;
     
     &:hover {
       color : lighten($orange, 5%);
@@ -794,12 +894,12 @@ div[role="main"] {
 
     &[href^="http://"], &[href^="https://"] {
       @include size(10px, 10px);
-      background    : url("../images/external.png") no-repeat right;
+      background    : inline-image('external.png') no-repeat right;
       padding-right : 12px;
     }
     &[href$=".pdf"], &[href$=".PDF"] {
       @include size(14px, 16px);
-      background    : url("../images/pdf.png") no-repeat right;
+      background    : inline-image("pdf.png") no-repeat right;
       padding-right : 16px;
     }
   }
@@ -818,7 +918,7 @@ div[role="main"] {
     position      : fixed;
     top           : 0;
     left          : 0;
-    width       : 100%;
+    width         : 100%;
     //padding       : 6px 0 18px 0;
     margin-bottom : 20px;
     text-align    : center;
@@ -826,19 +926,22 @@ div[role="main"] {
     background    : transparent;
     z-index       : 10;
 
-    #header-inner {
+    #header {
       position    : relative;
-      @include gradient(#fff, rgba(255, 255, 255, 1), rgba(255, 255 ,255 , 0.85));
-      background-image : linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255 ,255 , 0.85) 100%); /* W3C */
-      filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
-      
-      padding-top : 6px;
       margin-left : 232px;
 
-      .horizontal-rule {
-        @include size(auto, 0);
-        margin: 0 24px 0 84px;
-        border-bottom : 1px solid $subtleGray;
+      #header-inner {
+        position    : relative;
+        @include gradient(#fff, rgba(255, 255, 255, 1), rgba(255, 255 ,255 , 0.85));
+        background-image : linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255 ,255 , 0.85) 100%); /* W3C */
+        filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
+        padding-top : 6px;
+
+        .header-rule {
+          @extend .horizontal-rule;
+          @include size(auto, 0);
+          margin: 0 24px 0 84px;
+        }
       }
     }
 
@@ -865,44 +968,15 @@ div[role="main"] {
     
     a.responsive-toggle {
       @include layout-sprite(toggle-button-light);
-      margin  : 8px 12px 0 0;
+      margin  : 14px 12px 0 0;
     }
 
-    @media screen and (max-width: 700px) {
-      //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
-      //@include bgPattern('content-bg.jpg');
-      background    : #fff;
-      position      : fixed;
-      width         : 100%;
-      top           : 0;
-      left          : 0;
-      padding       : 12px 0 18px;
-      z-index       : 3;
-      //border-bottom : 6px solid $headerColor;
-
-      #header-inner {
-        margin-left : 0;
-
-        .logo {
-          margin-left : 10px;
-        }
-
-        .horizontal-rule {
-          margin: 0 10px 0 10px;
-        }
-      }
-
-      a.responsive-toggle {
-        display : block;
-      }
-    }
-    
     .logo {
       @extend .block;
       @include size(185px, 33px);
-      @include layout-sprite(logo);
-      margin-top : 11px;
-      margin-left : 78px;
+      background  : url('/shared/latest/images/layout/logo.png');
+      margin-top    : 11px;
+      margin-left   : 78px;
       margin-bottom : 18px;
       
       h1 {
@@ -917,6 +991,39 @@ div[role="main"] {
         margin-top : auto;
       }
       
+    }
+
+    @media screen and (max-width: 700px) {
+      //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
+      //@include bgPattern('content-bg.jpg');
+      background    : #fff;
+      position      : fixed;
+      width         : 100%;
+      top           : 0;
+      left          : 0;
+      z-index       : 3;
+      //border-bottom : 6px solid $headerColor;
+
+      #header {
+        margin-left : 0;
+
+        #header-inner {
+
+          .logo {
+            margin-top  : 11px;
+            margin-left : 10px;
+          }
+
+          .horizontal-rule {
+            //margin: 0 10px 0 10px; /* Margin when NO mobile ad is present */
+            margin: 0; /* Margin when mobile ad is present */
+          }
+        }
+      }
+
+      a.responsive-toggle {
+        display : block;
+      }
     }
 
     @media screen and (max-width: 500px) {
@@ -953,9 +1060,7 @@ div[role="main"] {
       position   : absolute;
       top        : 8px;
       right      : 24px;
-      //float      : right;
       text-align : center;
-      //position   : relative;
       padding    : 8px 0 8px 0;
       
       a,
@@ -975,7 +1080,7 @@ div[role="main"] {
         background    : $orange;
         margin        : 0 10px 0 0;
         padding-right : 16px;
-        font-weight   : bold;
+        @extend .sans-bold;
 
         &:hover {
           background : $orange;
@@ -993,10 +1098,11 @@ div[role="main"] {
         margin      : 0;
         background  : $blueGreen;
 
-        &.selected {
+        &.selected,
+        &.selected:hover {
           background : $darkBlueGreen;
-          color      : #fff;
-          color      : rgba(255, 255, 255, 1.0);
+          color      : #fff; /* Fallback */
+          color      : rgba(255, 255, 255, 0.5);
         }
 
         &.unselected {
@@ -1004,7 +1110,7 @@ div[role="main"] {
         }
 
         &:hover {
-          color : #fff;
+          color : #fff; /* Fallback */
           color : rgba(255, 255, 255, 1.0);
         } 
       }
@@ -1027,10 +1133,11 @@ div[role="main"] {
       border-radius : 5px;
       
       h2 {
-        margin : 0;
-        padding : 0;
-        font-size   : 1rem;
-        font-weight : bold;
+        @extend .sans-bold;
+        @extend .horizontal-rule;
+        margin : 0 0 6px 0;
+        padding : 0 0 6px 0;
+        font-size : 0.9rem;
       }
 
       ul {
@@ -1039,12 +1146,12 @@ div[role="main"] {
         padding         : 0;
 
         li {
-          margin : 0;
+          margin  : 0;
           padding : 0;
 
           a {
             width     : 100%;
-            font-size : 1rem;
+            font-size : 0.9rem;
           }
         }
       }
@@ -1067,15 +1174,66 @@ div[role="main"] {
     }
   }
 
+  #ricon-temp-banner {
+    position     : relative;
+    height       : 56px;
+    background   : rgba(190, 216, 220, 1.0);
+    text-align   : left;
+    padding-left : 85px;
+    @extend .sans-bold;
+    overflow     : hidden;
+    white-space  : nowrap;
+    color : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
+    color : rgba(68, 93, 90, 1.0);
+    //rgba(209, 227, 229, 1.0)
+
+    .temp-banner-text {
+      padding-top : 15px;
+      font-size   : 0.9rem;
+    }
+
+    .register {
+      @extend .button-light-green;
+      font-family    : 'OpenSans', verdana, arial, sans-serif;
+      padding        : 0.65em 1.5em 0.8em 1.5em;
+      line-height    : 1em;
+      margin-left    : 1em;
+      text-shadow    : 1px 1px 1px #fff;
+    }
+
+    @media screen and (max-width: 700px) {
+      display : none; /* Hide the push-down ad on tablet & mobile */
+    }
+  }
+
+  a#ricon-temp-banner-responsive {
+    display : none;
+    @extend .sans-bold;
+    
+    @media screen and (max-width: 700px) {
+      display     : block;
+      position    : relative;
+      width       : auto;
+      height      : auto;
+      padding     : 1em $mobilePageGutter 1.1em $mobilePageGutter;
+      margin-top  : 69px;
+      background  : rgba(190, 216, 220, 1.0);
+      text-align  : center;
+      color       : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
+      color       : rgba(68, 93, 90, 1.0);
+      cursor      : pointer;
+      white-space : nowrap;
+      line-height : 1em;
+    }
+  }
   
-  .info, .note {
+  .info, .note, blockquote {
+    @extend .box-green;
     @extend .serif-italic;
     @include allCorners();
-    background  : inline-image('layout/info-bg.jpg') left top repeat transparent;
+    //background  : inline-image('layout/info-bg.jpg') left top repeat transparent;
     margin      : 2em 0;
-    border      : 1px solid #9ec6df;
-    padding     : 15px 15px 15px 40px;
-    font-style  : italic;
+    padding     : 15px 15px 15px 25px;
     font-size   : 90%;
     color       : #616366;
     line-height : 1.5;
@@ -1085,7 +1243,7 @@ div[role="main"] {
       @extend .sans-bold;
       font-style     : normal;
       font-size      : 135%;
-      padding-bottom : 10px;
+      padding-bottom : 8px;
     }
     
     .info-icon {
@@ -1093,22 +1251,32 @@ div[role="main"] {
       @include layout-sprite(info);
       display     : block;
       position    : absolute;
-      top         : 15px;
+      top         : 17px;
       left        : 9px;
     }
   }
     
   .mainarticle {
     position  : relative;
-    padding   : 100px 0 0 20px;
+    padding   : 150px 0 0 20px;
     font-size : 110%;
     
-    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .CodeRay, .info, .note {
+    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .info, .note {
       max-width: 600px;
       &.center-text {
         max-width : 100%;
       }
     }
+
+    h2 {
+      padding-top : 156px;
+      margin-top  : -108px; // To reduce the appearance 0f excess whitespace before headings
+    }
+
+    .CodeRay {
+      max-width : 100%;
+    }
+
     nav.tutorial {
       ul, h4 {
         max-width : 100%;
@@ -1116,23 +1284,24 @@ div[role="main"] {
     }
 
     @media screen and (max-width: 700px) {
-      padding : 95px 12px 12px 12px;
+      padding : 15px 12px 12px 12px;
+
+      h2 {
+        padding-top : 86px;
+        margin-top  : -38px; // To reduce the appearance 0f excess whitespace before headings
+      }
     }
   }
   
   aside.secondary {
-    background    : $extraDarkGrey;
-    @include allCorners();
-    @include boxShadow(inset 0 0 25px #333);
+    @extend .box-green;
     padding       : 25px;
-    color         : #f1f1f1;
+    color         : $darkGrey;
     text-align    : left;
-    border-bottom : 1px solid #f1f1f1;
     margin-top    : 1em;
 
     h1, h2, h3, h4, h5, h6 {
-      @extend .text-shadow;
-      color       : #f1f1f1;
+      color       : $darkGrey;
       line-height : 1.2;
     }
     
@@ -1142,45 +1311,59 @@ div[role="main"] {
       padding    : 0 0 0 2em;
     }
     
-    .suggestions ul {
-      -webkit-column-count : 2;
-      -webkit-column-gap   : 20px;
-      -webkit-column-width : 15em;
-      -moz-column-count    : 2;
-      -moz-column-gap      : 20px;
-      -moz-column-width    : 15em;
-      column-count         : 2;
-      column-gap           : 20px;
-      column-width         : 15em;
-      padding-top          : 0.5em;
-      
-      li {
-        list-style-type : square;
-        line-height     : 1.1;
-        margin-bottom   : 0.5em;
+    .suggestions {
+      .columns {
+        -webkit-column-count : 2;
+        -webkit-column-gap   : 20px;
+        -webkit-column-width : 15em;
+        -moz-column-count    : 2;
+        -moz-column-gap      : 20px;
+        -moz-column-width    : 15em;
+        column-count         : 2;
+        column-gap           : 20px;
+        column-width         : 15em;
+        padding              : 0.5em 0;
 
-        a {
-          white-space : normal;
+        ul {
+
+          margin : 0;
+
+          li {
+            list-style-type : square;
+            line-height     : 1.1;
+            margin-bottom   : 0.5em;
+
+            a {
+              white-space : normal;
+            }
+          }
         }
+      }
+
+      h4 {
+        padding-top : 0;
+        padding-bottom : 0.5em;
       }
     }
 
     a {
-      color : lighten($linkBlue, 20%);
+      //color : lighten($orange, 20%);
+      color : $orange;
       &:hover {
         color : lighten($orange, 5%);
       }
     }
 
     .keywords {
-      border-top  : 1px solid #3C3C3C;
+      border-top  : 1px solid $lightGrey;
       padding-top : 0.8em;
+     
       h4 {
         font-weight   : normal;
         display       : inline;
         padding-right : 0.5em;
         font-size     : 90%;
-        text-shadow   : 0 1px 1px black;
+        //text-shadow   : 0 1px 1px black;
       }
     }
   }
@@ -1198,11 +1381,11 @@ div[role="main"] {
       margin     : 0 auto;
       
       &:first-child {
-        background : inline-image('layout/enterprise-globe.png') center center no-repeat transparent;
+        background : url('/shared/latest/images/layout/enterprise-globe.png') center center no-repeat transparent;
       }
       
       &:last-child {
-        background : inline-image('layout/cs-cloud.png') center center no-repeat transparent;
+        background : url('/shared/latest/images/layout/cs-cloud.png') center center no-repeat transparent;
       }
       a {
         display         : block;
@@ -1224,7 +1407,7 @@ div[role="main"] {
 
       .image {
         @include size(92%, 88px);
-        background     : inline-image('layout/big-riak-logo.png') center center no-repeat transparent;
+        background     : url('/shared/latest/images/layout/big-riak-logo.png') center center no-repeat transparent;
         border-bottom  : 1px solid #cfcfcf;
         padding-bottom : 20px;
         margin-top     : 37px;
@@ -1264,7 +1447,7 @@ div[role="main"] {
       margin : 4em auto 7em;
 
       .project .image {
-        background : inline-image('layout/smaller-riak-logo.png') center center no-repeat transparent;
+        background : url('/shared/latest/images/layout/smaller-riak-logo.png') center center no-repeat transparent;
         margin-top : 27px;
       }
       .project a {
@@ -1314,12 +1497,12 @@ div[role="main"] {
       padding  : 0px;
 
       .mainarticle {
-        padding: 45px 12px 12px 12px;
+        padding: 65px 12px 12px 12px;
       }
     }
     @media screen and (max-width: 500px) {
       .mainarticle {
-        padding: 25px 12px 12px 12px;
+        padding: 55px 12px 12px 12px;
 
         h1.extra-large {
           font-size: 225%;
@@ -1348,7 +1531,8 @@ nav#toc {
       column-width         : 15em;
     }
 
-    border-bottom  : 1px dashed #ccc;
+    //border-bottom  : 1px dashed #ccc;
+    @extend .horizontal-rule;
     padding-bottom : 0.7em;
     margin-bottom  : 0.7em;
   }
@@ -1378,7 +1562,7 @@ nav#toc {
    ========================================================================== */
 
 div[role=main] {
-  
+
   pre {
     margin     : 0;
     padding    : 8px;
@@ -1387,8 +1571,8 @@ div[role=main] {
 
   code {
     font-size   : 90%;
-    background  : #dfdfdf;
-    border      : 1px solid #c9c9c9;
+    // background  : #dfdfdf;
+    // border      : 1px solid #c9c9c9;
     white-space : nowrap;
   }
 
@@ -1428,13 +1612,16 @@ div[role=main] {
   }
   
   .code {
-    @include bgPattern('code-bg.jpg');
-    @include allCorners();
-    @include boxShadow(inset 0 1px 4px #aeb9b6);
-    font-size     : 80%;
-    padding       : 7px;
-    border-bottom : 1px solid #f0f0f0;
-    margin-bottom : 20px;
+    //@include bgPattern('code-bg.jpg');
+    //@include boxShadow(inset 0 1px 4px #aeb9b6);
+    font-size       : 80%;
+    padding         : 7px;
+    //border-bottom : 1px solid #f0f0f0;
+    //@extend .box-green;
+    margin-top      : 45px;
+    margin-bottom   : 45px;
+    border-bottom : 2px solid #d9dadd;
+    border-top : 2px solid #d9dadd;
   }
   
   .info {
@@ -1484,7 +1671,8 @@ article {
     
     ul {
       padding    : 5px 5px 10px;
-      border-top : 1px dashed silver;
+      border-top : 1px solid $subtleGray;
+      //border-top : 1px dashed silver;
       
       li {
         display : inline;
@@ -1527,7 +1715,7 @@ article {
   @include transition(width 0.3s ease);
   border      : 1px solid silver;
   padding     : 2px 12px;
-  background  : url('../images/layout/small-search-icon.png') right 3px no-repeat #FFF;
+  background  : inline-image('layout/small-search-icon.png') right 3px no-repeat #FFF;
   font-weight : normal;
   font-family : 'titillium', verdana, arial, sans-serif;
   color       : #24514A;
@@ -1593,33 +1781,130 @@ table {
       border: 1px solid #fff;
       border-radius : 5px;
       display       : block;
-      overflow      : hidden;
-      text-indent   : 100%;
-      white-space   : nowrap;
+      //overflow      : hidden;
+      //text-indent   : 100%;
+      //white-space   : nowrap;
     }
 
     a:hover {
       border : 1px solid #faa94c;
     }
+  }
+}
 
-    &[data-lang=erlang] a {
-      background : url("../images/plangs/erlang.jpg") no-repeat top left;
-    }
+/* To prevent images from breaking the layout */
+[id^="section-"] [id^="figure-"] {
+  width : 550px;
+}
 
-    &[data-lang=java] a {
-      background : url("../images/plangs/java.jpg") no-repeat top left;
-    }
 
-    &[data-lang=php] a {
-      background : url("../images/plangs/php.png") no-repeat top left;
+/* =============================================================================
+   Dual Column Styles
+   ========================================================================== */
+body#dual {
+  table.docco {
+    @include boxShadow(none);
+    border        : 0;
+    margin-bottom : 0;
+    padding       : 0 25px;
+    
+    tr {
+      background : none;
     }
+    pre {
+      margin-bottom : 15px;
+    }
+  }
 
-    &[data-lang=python] a {
-      background : url("../images/plangs/python.png") no-repeat top left;
-    }
+  table {
+    -webkit-box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    box-shadow: 0 0 0;
+    border: 0px;
+    width:100%;
 
-    &[data-lang=ruby] a {
-      background : url("../images/plangs/ruby.jpg") no-repeat top left;
+    tr {
+      &:nth-child(odd), &:nth-child(even) {
+        background:transparent;
+      }
+      th.docs, th.code, td.code {
+        -webkit-box-shadow: 0 0 0;
+        -moz-box-shadow: 0 0 0;
+        box-shadow: 0 0 0;
+        font-size: 80%;
+        padding: 7px;
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+      td.code {
+        width:100%;
+        font-size: 100%;
+        padding: 7px 7px 7px 1.5em;
+        .highlight {
+          width:100%;
+          pre {
+            font-size: 80%;
+          }
+        }
+      }
+      th.docs, th.code {
+        border-bottom: 1px solid $subtleGray;
+        h2 {
+          font-size:28pt;
+          padding: 5px;
+          margin-top:0;
+        }
+        &.docs {
+          background:transparent;
+        }
+      }
+      td {
+        h1, h2 {
+          padding-top:0;
+          margin-top:0;
+        }
+        h1 {
+          font-size:185%;
+        }
+        p {
+          margin-top: 0;
+        }
+        .pilwrap {
+          position:relative;
+          .pilcrow {
+            position:absolute;
+            left: -14px;
+            top:1px;
+            padding: 1px 2px;
+            font: 18px Arial;
+            -webkit-transition: opacity 0.2s linear;
+            opacity:0;
+            color: $linkBlue;
+            text-decoration:none;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+        &.docs:hover .pilcrow {
+          opacity: 1;
+        }
+      }
     }
+  }
+
+  figure {
+    margin: 10px;
+  }
+  caption, figcaption {
+    text-align:center;
+    font-weight:bold;
+    font-size:80%;
+  }
+  table.table {
+    caption {
+      caption-side:bottom;
+    }
+    margin:10px;
   }
 }

@@ -1,17 +1,18 @@
 aside#nav-container role="complementary"
   nav.overview#primary-nav role="nav"
     div#primary-nav-content
+      h2.responsive-link
+        a.responsive-toggle
       form action="http://search.basho.com"
         div.nav-field-container
-          div.icon-container
-            span(aria-hidden="true" data-icon="&#xf002;" class="nav-icon nav-icon-search")
-          span.separator
-            |
-              &#124;
+          div#icon-container-search
+            div.icon-container
+              span(aria-hidden="true" data-icon="&#xf002;" class="nav-icon nav-icon-search")
+            span.separator
+              |
+                &#124;
           input#main-search size="5" type="search" placeholder="Search" name="q"
-      h2.responsive-link
-        == I18n.t(:navigation)
-        a.responsive-toggle
+      div.clear
       h3.responsive-link.visit-basho
         a href="http://www.basho.com"
           div.icon-container
@@ -46,7 +47,7 @@ aside#nav-container role="complementary"
               span(aria-hidden="true" data-icon="&#xf0c3;" class="nav-icon")
             - if section['title'] == 'Community'
               span(aria-hidden="true" data-icon="&#xe000;" class="nav-icon")
-            - if section['title'] == 'View APIs'
+            - if section['title'] == 'APIs'
               span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
             - if section['title'] == 'All Riak Projects'
               span(aria-hidden="true" data-icon="&#xe003;" class="nav-icon")
@@ -66,17 +67,18 @@ aside#nav-container role="complementary"
           span.menu-title==section['title']
           div.clear
         ==nav_data
-      h3
-        a href="http://docs.basho.com/riak/latest/references/apis/"
-          div.icon-container
-            span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
-          span.separator
-            |
-              &#124;
-          span.menu-title
-            |
-              View APIs
-          div.clear
+      //
+        h3
+          a href="/dev/references/apis/"
+            div.icon-container
+              span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
+            span.separator
+              |
+                &#124;
+            span.menu-title
+              |
+                View APIs
+            div.clear
       ul / Empty list needed to prevent toggle JS from breaking
   ul#fixed-nav
     li
@@ -88,7 +90,7 @@ aside#nav-container role="complementary"
             &#124;
         | Available on GitHub
     li
-      a href=""
+      a href="/community/"
         div.icon-container
           span(aria-hidden="true" data-icon="&#xf059;" class="nav-icon")
         span.separator

@@ -5,7 +5,6 @@ version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [developers, cap]
-versions: false
 interest: [
 "[[Installing and Upgrading]]",
 "[[Concepts]]",

@@ -1,5 +1,5 @@
 ---
-title: Community Resources
+title: Help and Community
 project: riak
 version: 0.10.0+
 document: appendix
@@ -11,34 +11,23 @@ moved: {
 }
 ---
 
-There is a vibrant and fast-growing community forming around Riak.
+There is a vibrant and fast-growing community forming around Riak. Whether you need help, or want to get involved, we are easy to contact.
 
-Want to get involved with Riak? Here's where you can start:
-
-## Overview
+## Help
 
 ### Mailing List
 
-The [[Riak Developer Mailing List|http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com]] is highly-trafficked and is a great resource for technical discussions, Riak issues and questions, and community events and announcements.
+The [Riak Developer Mailing List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com) is highly-trafficked and is a great resource for technical discussions, Riak issues and questions, and community events and announcements.
 
 ### Code
 
-Basho uses GitHub for the development of [[all our code|http://github.com/basho/]], and we also make use of GitHub for the submission and integration of all internal code and community pull requests.
+Basho uses GitHub for the development of [all our code](http://github.com/basho/), and we also make use of GitHub for the submission and integration of all internal code and community pull requests.
 
 Basho also maintains a frequently updated page of [[community developed projects|Community Projects]], including, GUIs, backup tools, and more.
 
 ### Riak on IRC
 
 The #riak IRC room on irc.freenode.net is a great place for real-time help with your Riak issues and questions.
-
-
-### Riak Function Contrib
-
-Riak Function Contrib is a home for community contributed MapReduce, Pre- and Post-Commit Hook, and utility functions.
-
-* [[contrib.basho.com|http://contrib.basho.com]]
-* [[Riak Function Contrib Repo on GitHub|https://github.com/basho/riak_function_contrib]]
-* [[Introducing Riak Function Contrib (from the Basho Blog)|http://blog.basho.com/2010/12/02/introducing-riak-function-contrib/]]
 
 ### The Basho Blog
 
@@ -50,23 +39,31 @@ The Riak Recap is a thrice-weekly email, typically delivered each Monday, Wednes
 
 ### Basho on Twitter
 
-You can follow the [[Basho Team List|http://twitter.com/basho/team]] on Twitter.
+You can follow the [Basho Team List](http://twitter.com/basho/team) on Twitter.
+
+### Riak Function Contrib
+
+Riak Function Contrib is a home for community contributed MapReduce, Pre- and Post-Commit Hook, and utility functions.
+
+* [contrib.basho.com](http://contrib.basho.com)
+* [Riak Function Contrib Repo on GitHub](https://github.com/basho/riak_function_contrib)
+* [Introducing Riak Function Contrib (from the Basho Blog)](http://blog.basho.com/2010/12/02/introducing-riak-function-contrib/)
 
 ### Riak on Facebook
 
-We have a Facebook Page. Get involved [[here|http://www.facebook.com/pages/Riak/143599935667217]].
+We have a [Facebook Page](http://www.facebook.com/pages/Riak/143599935667217) where you can get involved.
 
 ### Riak on LinkedIn
 
-There is a Riak Group on LinkedIn. Join it [[here|http://www.linkedin.com/groups?mostPopular=&gid=2913983]]. (Note: you'll need to have a LinkedIn Account)
+There is also a [Riak Group on LinkedIn](http://www.linkedin.com/groups?mostPopular=&gid=2913983).
 
 ### Videos
 
-You can watch all the Riak screencasts and other videos that Basho publishes on the [[Basho Vimeo Page|http://vimeo.com/bashotech/videos]].
+You can watch all the Riak screencasts and other videos that Basho publishes on the [Basho Vimeo Page](http://vimeo.com/bashotech/videos).
 
 ### Meetups
 
-If you're looking for assistance getting a meetup or user group started in your area, or want to tell the community about one that you're starting, email _+mark@basho.com+_.
+If you're looking for assistance getting a meetup or user group started in your area, or want to tell the community about one that you're starting, email *te@basho.com*.
 
 Here's a list of the current Meetups:
 
@@ -105,3 +102,7 @@ These pages contain videos, slides and publications from the community and Riak 
 * [[Searching and Accessing]]
 * [[Riak Comparisons]]
 * [[Community Projects]]
+
+## Professional Support
+
+If you run into an issue you just can't crack, [Basho](http://basho.com) sells support for Riak, as well as licenses for [[Riak Enterprise]]. Please [contact Basho](http://basho.com/contact/) at any time for more information.

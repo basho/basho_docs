@@ -1,7 +1,7 @@
 ---
 title: PBC API
 project: riak
-version: 1.2+
+version: 1.0.0+
 document: api
 toc: true
 audience: advanced
@@ -120,7 +120,7 @@ Values:
 ## Query Operations
 
 * [[PBC MapReduce]]
-* [[PBC Index]]
+* [[PBC Secondary Indexes]]
 * [[PBC Search]]
 
 ## Server Operations

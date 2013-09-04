@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication Quick Start (v3)"
+title: "Multi Data Center Replication v3 Quick Start"
 project: riakee
 version: 1.3.0+
 document: cookbook
@@ -94,11 +94,11 @@ Cluster1          Cluster1            <0.4456.0>      ["10.60.67.149:9080"] (via
 
 ### Enable Realtime Replication
 
-From Cluster1, enable realtime replication with `riak-repl realtime enable <clustername>`
+From Cluster1, run `riak-repl realtime enable <clustername>` to start queuing updates on Cluster1 for replication.
 
 	riak-repl realtime enable Cluster2
 	
-Also on Cluster1, start realtime repl with `riak-repl realtime start <clustername>`
+Also on Cluster1, run `riak-repl realtime start <clustername>` to establish connectivity from Cluster1 to Cluster2 to push queued updates.
 
 	riak-repl realtime start Cluster2
 	

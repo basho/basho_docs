@@ -16,12 +16,12 @@ $layout-layout:smart;
   padding         : 2px 0 0 0;
   text-decoration : none;
   text-align      : center;
-  width           : 4.2em;
+  //width           : 4.2em;
 }
 
 .versions {
    position    : fixed;
-   top         : 118px;
+   top         : 166px;
    margin-left : -72px;
    width       : 50px;
    height      : 100%;
@@ -36,8 +36,8 @@ $layout-layout:smart;
   text-align    : center;
   cursor        : pointer;
   color         : $darkBlueGreen;
-  font-size     : 0.85rem;
-  font-weight   : bold;
+  font-size     : 0.75rem;
+  font-family   : 'OpenSansBold', verdana, sans-serif;
   border        : 1px solid $lightBlueGreen;
   @include allCorners();
   @include transitionAll(all 0.5s ease);
@@ -81,13 +81,17 @@ ol#version-list {
   }
 
   li {
-    @include bgPattern('light-green-bg.jpg');
-    border          : 1px solid $darkGreen;
-    //border-bottom : 0;
+    //@include bgPattern('light-green-bg.jpg');
+    background      : $lightGreen;
+    border          : none;
+    border-top      : 1px solid $darkGreen;
+    border-right    : 1px solid $darkGreen;
+    border-left     : 1px solid $darkGreen;
     display         : block;
-    font-size       : 8pt;
+    font-size       : 0.75rem;
     //margin-right  : 1px;
-    margin-bottom   : 1px;
+    margin-bottom   : 0;
+    text-align      : center;
     
     ol {
       display:none;
@@ -103,9 +107,10 @@ ol#version-list {
       }
     }
 
-    &:hover {
+    &:hover,
+    &[class*="versions-"]:hover {
       background    : $orange;
-      border        : 1px solid $darkOrange;
+      border-color  : $darkOrange;
       //border-bottom : 0;
 
       & > ol { 
@@ -113,14 +118,14 @@ ol#version-list {
       }
     }
     
-    &.inactive {
+    &.inactive,
+    &[class*="versions-"].inactive {
       background    : #DDD;
-      border        : 1px solid #BBB;
+      border-color  : #BBB;
       //border-bottom : 0;
       &:hover {
         background    : #DDD;
-        border        : 1px solid #BBB;
-        //border-bottom : 0;
+        border-color  : #BBB;
       }
       a {
         cursor : default;
@@ -131,10 +136,14 @@ ol#version-list {
       }
     }
 
-    &.current {
+    &.current,
+    &[class*="versions-"].current {
       background    : $orange;
-      border        : 1px solid $darkOrange;
+      border-color  : $darkOrange;
       //border-bottom : 0;
+      //font-weight   : bold;
+      //font-family   : 'OpenSansBold', verdana, sans-serif;
+      border-bottom : 0;
       
       > a {
         color : #fff;
@@ -152,11 +161,45 @@ ol#version-list {
         color : #fff;
       }
     }
+
+    &.first {
+      border-bottom : 1px solid;
+      margin-bottom : 4px;
+      @include corner(left, bottom);
+      @include corner(right, bottom);
+    }
+
+    &.first.current {
+      border-bottom : 1px solid $darkOrange;
+    }
+
+    &.first + li {
+      @include corner(left, top);
+      @include corner(right, top);
+    }
+
+    &.versions-0 {
+      background   : $lightGreen;
+      border-color : $darkGreen;
+    }
+    &.versions-1 {
+      background   : #fdd1a0;
+      border-color : #ed9a4a;
+    }
+    &.versions-2 {
+      background   : $subtleBlue;
+      border-color : $lightBlue;
+    }
+    &.versions-3,
+    &.versions-4 {
+      background   : #9ab7c5;
+      border-color : #6c8997;
+    }
   }
 }
 
 @media screen and (max-width: 700px) {
   ol.versions { 
-    display:none;
+    display : none;
   }
 }

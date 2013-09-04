@@ -1,7 +1,7 @@
 ---
 title: Key Filters Reference
 project: riak
-version: 1.3.1+
+version: 1.0.0+
 document: tutorials
 toc: true
 audience: beginner
@@ -14,6 +14,8 @@ moved: {
 ## Transform functions
 
 Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [[predicate functions|Using Key Filters#Predicate-functions]].  Each function description is followed by a sample usage in JSON notation.
+
+When using these from Erlang, function names (and key values) are binaries.
 
 ### `int_to_string`
 
@@ -186,7 +188,7 @@ Tests that the input ends with the argument (a string).
 Joins two or more key-filter operations with a logical AND operation.
 
 ```javascript
-["and", [["ends_with", "0603"]], [["starts_with", "basho"]]]
+[["and", [["ends_with", "0603"]], [["starts_with", "basho"]]]]
 ```
 
 ### `or`
@@ -194,7 +196,7 @@ Joins two or more key-filter operations with a logical AND operation.
 Joins two or more key-filter operations with a logical OR operation.
 
 ```javascript
-["or", [["eq", "google"]], [["less_than", "g"]]]
+[["or", [["eq", "google"]], [["less_than", "g"]]]]
 ```
 
 ### `not`
@@ -202,5 +204,5 @@ Joins two or more key-filter operations with a logical OR operation.
 Negates the result of key-filter operations.
 
 ```javascript
-["not", [["matches", "solution"]]]
+[["not", [["matches", "solution"]]]]
 ```

@@ -1,6 +1,7 @@
 ---
 title: "Taste of Riak: Ruby"
 project: riak
+version: 1.4.0+
 document: guide
 toc: true
 audience: beginner
@@ -133,7 +134,8 @@ puts fetched_book.raw_data
 Raw Data:
 
 ```javascript
-{"isbn":"1111979723","title":"Moby Dick","author":"Herman Melville","body":"Call me Ishmael. Some years ago...","copies_owned":3}
+{"isbn":"1111979723","title":"Moby Dick","author":"Herman Melville",
+"body":"Call me Ishmael. Some years ago...","copies_owned":3}
 ```
 
 JSON!  The Ruby Riak client will serialize objects to JSON when it comes across structured data like hashes.

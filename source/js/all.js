@@ -33,7 +33,7 @@
       navLinks         : '#fixed-nav',
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
-      header           : '#header-inner',
+      header           : '#header',
       responsiveToggle : '.responsive-toggle'
     },
     
@@ -130,6 +130,7 @@
     options.jq.navLinks.fadeOut(noFade ? 0 : options.params.navSpeed);
     options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: options.params.closedNavMargin}, config || animConfig());
+    options.jq.header.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
     setNavState(0);
   }
   
@@ -139,6 +140,7 @@
    * If noFade is set to true, the animations will be immediate.
    */
   function openNav(callback, noFade) {
+
     var cm = contentMargin, config;
     if (noFade === true) {
       config = animConfig(false, 0, callback);
@@ -147,6 +149,7 @@
     options.jq.navLinks.fadeIn(noFade ? 0 : options.params.navSpeed);
     options.jq.contentWell.animate({marginLeft: cm}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: cm}, config || animConfig());
+    options.jq.header.animate({marginLeft: cm}, config || animConfig());
     setNavState(1);
   }
   
@@ -219,6 +222,7 @@
       options.jq.contentWell.removeAttr('style');
       options.jq.navContainer.removeAttr('style');
       options.jq.navContent.removeAttr('style');
+      options.jq.header.removeAttr('style');
       options.jq.navToggle.removeClass('open, closed');
     }
   }
@@ -379,9 +383,10 @@
    * and not enough browsers support that yet.  This way the user doesn't have
    * to build extra html just to get the icon in there.
    */
-  $(options.selectors.contentWell + ' .info, ' + options.selectors.contentWell + ' .note').prepend('<span class="info-icon"></span>');
+  // $(options.selectors.contentWell + ' .info, ' + options.selectors.contentWell + ' .note').prepend('<span class="info-icon"></span>');
   
   // if this is a "dual style" screen, use as much as we can
+
   if($('body.dual').length > 0) {
     closeNav(function(){
       options.jq.contentWell.toggleClass('closed');
@@ -391,6 +396,7 @@
       }
     });
   }
+ 
 
   /*
    * toggleMenu()

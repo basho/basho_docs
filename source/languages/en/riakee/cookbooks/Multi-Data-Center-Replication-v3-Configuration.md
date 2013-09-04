@@ -14,16 +14,16 @@ moved: {
 
 ## Version 3 Replication Configuration
 
-*The `cluster_mgr` variable MUST be set in order for 1.3 Replication to run*
+*The `cluster_mgr` variable MUST be set in order for v3 Replication to run*
 
 The configuration for replication is kept in the both the `riak_core` and `riak_repl` sections of `etc/app.config`.
 
 ```
-{riak_core, [	
+{riak_core, [
     %% Every *node* runs one cluster_mgr.
-    {cluster_mgr, {"0.0.0.0", 9085 }}
+    {cluster_mgr, {"0.0.0.0", 9080 }}
     …
-]},		
+]},
 {riak_repl, [
     % Pick the correct data_root for your platform
 	% Debian/Centos/RHEL:
@@ -66,8 +66,9 @@ max_fssink_node | nodes(integer) | 1 | Limits the number of fullsync workers all
 fullsync_on_connect | true, false | true | Whether to initiate a fullsync on initial connection from the secondary cluster
 data_root | path(string) | data/<wbr>riak_repl | Path (relative or absolute) to the working directory for the replication process
 fullsync_interval | minutes(integer) OR [{sink_cluster, minutes(integer)}, …]|undefined|a single integer value representing the duration to wait in minutes between fullsyncs, or a list of {"clustername", time_in_minutes} pairs for each sink participating in fullsync replication.
+rtq_max_bytes|bytes(integer)|104857600| The maximum size the realtime replication queue can grow to before new objects are dropped. Defaults to 100MiB. Dropped objects will need to be replication with a fullsync.
 proxy_get|enabled,disabled|false|Enable Riak CS proxy_get and block filter.
-rt_heartbeat_interval|seconds(integer)|15|A heartbeat message is sent from the source to the sink every `rt_heartbeat_interval` seconds. This feature is only available in Riak Enterprise 1.3.2+.
+rt_heartbeat_interval|seconds(integer)|15|A heartbeat message is sent from the source to the sink every `rt_heartbeat_interval` seconds. Setting `rt_heartbeat_interval` to `undefined` disables the realtime heartbeat. This feature is only available in Riak Enterprise 1.3.2+.
 rt_heartbeat_timeout|seconds(integer)|15|If a heartbeat response is not received in `rt_heartbeat_timeout` seconds, then the source connection exits and will be re-established. This feature is only available in Riak Enterprise 1.3.2+.
 
 

@@ -1,7 +1,7 @@
 ---
 title: Search Indexing Reference
 project: riak
-version: 1.3.1+
+version: 1.0.0+
 document: reference
 toc: true
 audience: advanced

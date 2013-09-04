@@ -16,7 +16,7 @@ keywords: [mdc, repl]
 * The realtime replication queue will be lost if the replication connection breaks (even if it's reestablished). Reconciling data in this situation would require manual intervention using either:
 	* a fullsync
 	* another Riak write to the key/value on the listener, thus requeueing the object
-
+* Riak CS MDC proxy_get connections can only request data from a single leader node
 
 #### When to use version 2 replication
 
@@ -27,11 +27,12 @@ keywords: [mdc, repl]
 ### Version 3
 * Version 3 replication uses *source* and *sink* concepts. A source is considered the primary provider of replication data, where a sink is the destination of replication data.
 * Establishing replication connections between clusters has been greatly simplified. A single `riak-repl connect` command needs to be issued from a source cluster to a sink cluster. IP and port information of all nodes that can partipate in replication on both source and sink clusters are exchanged by the *replication cluster manager*. The replication cluster manager also tracks nodes joining and leaving the cluster dynamically.
-* If the source has **M** nodes, and the sink has **N** nodes, there will be **M** realtime connections connections. Connections aren't tied to a leader node as they are with version 2 replication. 
+* If the source has **M** nodes, and the sink has **N** nodes, there will be **M** realtime connections connections. Connections aren't tied to a leader node as they are with version 2 replication.
 * Communications for realtime, fullsync and proxy_get are multiplexed over the same connection for each node participating in replication. This reduces the amount of firewall configuration on sources and sinks.
-* A fullsync coordinator runs on a leader of the source cluster. The coordinator optimally assigns work across nodes in the sources cluster. 
-* Realtime replication establishes a bounded queue on each source node for ever sink. This queue requires consumers to acknowledge objects when they have been replicated. Dropped TCP connections won't drop objects from the queue. 
+* A fullsync coordinator runs on a leader of the source cluster. The coordinator optimally assigns work across nodes in the sources cluster.
+* Realtime replication establishes a bounded queue on each source node that is shared between *all* sinks. This queue requires consumers to acknowledge objects when they have been replicated. Dropped TCP connections won't drop objects from the queue.
 * If a node in the source cluster is shutdown via the command line, a realtime replication queue is migrated to other running nodes in the source cluster.
 * Network statistics are kept per socket.
 * Fullsyncs between clusters can be tuned to control the maximum number of workers that will run on a source node, a sink node, and across the entire source cluster. This allows for  limiting impact on the cluster and dialing in fullsync performance.
 * Version 3 is able to take advantage of AAE technology, which can greatly improve fullsync performance.
+* Riak CS MDC proxy_get connections will be distributed across the **source** cluster (as CS blocks are requested from the **sink** cluster in this scenario).

@@ -15,13 +15,16 @@ riak:
   - title: "Riak for Developers"
     sub:
       - title: "A Taste of Riak"
-        sub: 
+        sub:
           - "[[Prerequisites|Taste of Riak: Prerequisites]]"
           - "[[Erlang|Taste of Riak: Erlang]]"
           - "[[Java|Taste of Riak: Java]]"
           - "[[PHP|Taste of Riak: PHP]]"
           - "[[Python|Taste of Riak: Python]]"
           - "[[Ruby|Taste of Riak: Ruby]]"
+          - "[[OCaml|Taste of Riak: OCaml]]"
+          - "[[Clojure|Taste of Riak: Clojure]]"
+          - "[[Csharp|Taste of Riak: C-Sharp]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
@@ -61,9 +64,7 @@ riak:
               - "[[Search Indexing|Search Indexing Reference]]"
               - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
-              - "[[HTTP API]]"
-              - "[[PBC API]]"
-              - "[[Backend API]]"
+              - "[[Implementing a Backend|Backend API]]"
 
   - title: "Riak for Operators"
     sub:
@@ -78,7 +79,7 @@ riak:
               - "[[Mac OS X|Installing on Mac OS X]]"
               - "[[FreeBSD|Installing on FreeBSD]]"
               - "[[SmartOS|Installing on SmartOS]]"
-              - "[[Solaris 10|Installing on Solaris 10]]"
+              - "[[Solaris 10|Installing on Solaris]]"
               - "[[SUSE|Installing on SUSE]]"
               - "[[Windows Azure|Installing on Windows Azure]]"
               - "[[AWS Marketplace|Installing on AWS Marketplace]]"
@@ -91,8 +92,9 @@ riak:
               - "[[Bitcask Capacity|Bitcask Capacity Planning]]"
               - "[[Choosing a Backend]]"
               - "[[Best Practices|Scaling and Operating Riak Best Practices]]"
-          - "[[Benchmarking|Basho Bench]]"
           - "[[Basic Configuration]]"
+          - "[[Basic Cluster Setup]]"
+          - "[[Benchmarking|Basho Bench]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
@@ -181,11 +183,16 @@ riak:
           - "[[Operating Riak|Operating Riak FAQs]]"
           - "[[Log Messages|Log Messages FAQs]]"
           - "[[Riak Community|Riak Community FAQs]]"
-      - "[[Community Overview|Community Resources]]"
+      - "[[Community Help|Help and Community]]"
       - "[[Community Projects]]"
       - "[[Reporting Bugs]]"
+      - "[[Style Guide|Documentation Style Guide]]"
       - "[[Riak Images]]"
       - "[[Release Notes]]"
+  - title: "APIs"
+    sub:
+      - "[[HTTP API]]"
+      - "[[Protocol Buffers|PBC API]]"
 
 
 riakee:
@@ -214,18 +221,18 @@ riakee:
           - "[[SSL|Multi Data Center Replication: SSL]]"
           - "[[With NAT|Multi Data Center Replication: With NAT]]"
           - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
-          - "[[System Tuning|Multi Data Center Replication: System Tuning]]"
       - title: "Version 3 Replication"
         sub:
           - "[[Architecture|Multi Data Center Replication v3 Architecture]]"
           - "[[Configuration|Multi Data Center Replication v3 Configuration]]"
           - "[[Operations|Multi Data Center Replication v3 Operations]]"
-          - "[[Quick Start|Multi Data Center Replication: v3 Quick Start]]"
+          - "[[Quick Start|Multi Data Center Replication v3 Quick Start]]"
           - "[[Scheduling Full Sync|Multi Data Center Replication v3 Scheduling Full Sync]]"
           - "[[SSL|Multi Data Center Replication v3 SSL]]"
           - "[[With NAT|Multi Data Center Replication v3 With NAT]]"
           - "[[Active Anti-Entropy|Multi Data Center Replication v3 With AAE]]"
           - "[[Cascading Writes|Multi Data Center Replication: Cascading Realtime Writes]]"
+      - "[[System Tuning|Multi Data Center Replication: System Tuning]]"
       - "[[Version Comparison|Multi Data Center Replication: Comparison]]"
       - "[[Upgrade Guide|Multi Data Center Replication: Upgrading from V2 to V3]]"
       - "[[Statistics|Multi Data Center Replication: Statistics]]"
@@ -239,9 +246,13 @@ riakee:
   - title: "References"
     sub:
       - "[[SNMP Counters]]"
-      - "[[APIs|/dev/references/http/]]"
       - "[[Riak Enterprise FAQs|Riak Enterprise FAQs]]"
       - "[[Riak FAQs|Riak FAQs]]"
+  - title: "APIs"
+    sub:
+      - "[[HTTP API]]"
+      - "[[Protocol Buffers|PBC API]]"
+      - "[[Backend API]]"
 
 riakcs:
   #- title: "Shortcuts"
@@ -287,17 +298,23 @@ riakcs:
       - "[[HTTP Administration Overview]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
+      - "[[Using Riak CS With Keystone]]"
       - "[[Globally Unique Entities]]"
       - "[[Monitoring and Metrics]]"
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
       - "[[Ruby Fog|Fog on Riak CS]]"
-      - "[[APIs|RiakCS Storage API]]"
       - "[[Multipart Upload Overview]]"
       - "[[FAQs|Riak CS FAQs]]"
       - "[[Release Notes|Riak CS Release Notes]]"
       - "[[Version Compatibility]]"
+  - title: "APIs"
+    sub:
+      - "[[S3 API|RiakCS S3 Storage API]]"
+      - "[[OpenStack API|RiakCS OpenStack Storage API]]"
+      - "[[Riak APIs]]"
+
 
 java:
   - title: "Shortcuts"

@@ -1,0 +1,17 @@
+---
+title: Redirect
+project: riak
+simple: true
+versions: false
+---
+
+<p>The page you're looking for has moved. You're being redirected to its new home.</p>
+<p>
+Please bookmark the correct page at 
+<%= link_to "/#{@project}/latest#{@redir}", @redir %>
+</p>
+
+<script>
+  function rdir(){ window.location = "/<%=@project%>/latest<%=@redir%>"; }
+  setTimeout(rdir, 3000);
+</script>

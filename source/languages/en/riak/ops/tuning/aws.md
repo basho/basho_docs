@@ -197,7 +197,7 @@ Namely the following steps must be performed.
 * Start the node with `riak start`.
 * It will come up as a single instance which you can verify with `riak-admin member-status`.
 * Join the node to the cluster with `riak-admin cluster join 'cluster nodename' `
-* Set it to replace the old instance of itself with `riak-admin cluster replace <old nodename> <new nodename>
+* Set it to replace the old instance of itself with `riak-admin cluster force-replace <old nodename> <new nodename>`
 * Plan the changes with `riak-admin cluster plan`
 * Commit the changes with `riak-admin cluster commit`
 

@@ -77,8 +77,8 @@ and related projects [[community projects]].
 | Server Operations          | Erlang (rhc)           | Java | PHP                    | Python  | Ruby |
 |----------------------------|------------------------|------|------------------------|---------|------|
 | Ping                       | ✓                      | ✓    | ✓                      | ✓       | ✓    |
-| Status                     | partial                | ✓    | ✗                      | partial | ✓    |
-| List Resources             | ✗                      | ✗    | ✗                      | partial | ✓    |
+| Status                     | partial                | ✓    | ✗                      | ✓ | ✓    |
+| List Resources             | ✗                      | ✗    | ✗                      | ✓ | ✓    |
 
 ### Protocol Buffers
 
@@ -109,7 +109,7 @@ excluded from this matrix.*
 | Server Operations                    | Erlang (riakc) | Java | Python  | Ruby |
 |--------------------------------------|----------------|------|---------|------|
 | Ping                                 | ✓              | ✓    | ✓       | ✓    |
-| Server Info                          | ✓              | ✗    | partial | ✓    |
+| Server Info                          | ✓              | ✗    | ✓ | ✓    |
 | Get Client ID                        | ✓              | ✓    | ✓       | ✓    |
 | Set Client ID                        | ✓              | ✓    | ✓       | ✓    |
 
@@ -117,10 +117,10 @@ excluded from this matrix.*
 
 | Protocols                              | Erlang                    | Java | PHP     | Python  | Ruby          |
 |----------------------------------------|---------------------------|------|---------|---------|---------------|
-| Cluster connections/pools              | ✗                         | ✓    | ✗       | partial | ✓             |
-| Retry failures (on other nodes)        | ✗                         | ✓    | ✗       | ✗       | ✓ ✓           |
-| Failure-sensitive node selection       | ✗                         | ✗    | ✗       | ✗       | ✓             |
-| Automatic protocol selection           | ✗                         | ✗    | ✗       | ✗       | ✓             |
+| Cluster connections/pools              | ✗                         | ✓    | ✗       | ✓ | ✓             |
+| Retry failures (on other nodes)        | ✗                         | ✓    | ✗       |✓ ✓       | ✓ ✓           |
+| Failure-sensitive node selection       | ✗                         | ✗    | ✗       | ✓       | ✓             |
+| Automatic protocol selection           | ✗                         | ✗    | ✗       | ✓      | ✓             |
 
 | Media-Type Handling                    | Erlang                    | Java | PHP     | Python  | Ruby          |
 |----------------------------------------|---------------------------|------|---------|---------|---------------|
@@ -132,7 +132,7 @@ excluded from this matrix.*
 | Eventual Consistency                   | Erlang                    | Java | PHP     | Python  | Ruby          |
 |----------------------------------------|---------------------------|------|---------|---------|---------------|
 | Exposes siblings                       | ✓                         | ✓    | ✓       | ✓       | ✓             |
-| Sibling resolution policies/strategies | ✗                         | ✓    | ✗       | ✗       | ✓             |
+| Sibling resolution policies/strategies | ✗                         | ✓    | ✗       | ✓       | ✓             |
 | Mutators (encapsulating change ops)    | ✗                         | ✓    | ✗       | ✗       | ✗             |
 
 | Domain Types/Object Mapping            | Erlang                    | Java | PHP     | Python* | Ruby*         |
@@ -220,6 +220,8 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[riakpool|https://github.com/dweldon/riakpool]] - Application for maintaining a dynamic pool of Protocol Buffer client connections to a Riak database
 * [[pooler|https://github.com/seth/pooler]] - An OTP Process Pool Application
 * [[krc|https://github.com/klarna/krc]] - A simple wrapper around the official Riak client for Erlang
+* [[riakc_pool|https://github.com/brb/riakc_pool]] - A really simple Riak
+client process pool based on poolboy
 
 *Haskell*
 

@@ -1,6 +1,7 @@
 ---
 title: "Taste of Riak: Erlang"
 project: riak
+version: 1.4.0+
 document: guide
 toc: true
 audience: beginner
