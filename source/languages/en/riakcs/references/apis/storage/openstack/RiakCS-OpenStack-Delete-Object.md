@@ -1,5 +1,5 @@
 ---
-title: RiakCS Delete Object
+title: RiakCS OpenStack Delete Object
 project: riakcs
 version: 1.4.0+
 document: api

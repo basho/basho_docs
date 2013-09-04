@@ -1,5 +1,5 @@
 ---
-title: RiakCS Create Object
+title: RiakCS OpenStack Create Object
 project: riakcs
 version: 1.4.0+
 document: api
