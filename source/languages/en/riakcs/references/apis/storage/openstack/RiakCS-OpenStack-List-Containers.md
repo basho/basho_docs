@@ -1,5 +1,5 @@
 ---
-title: RiakCS List Containers
+title: RiakCS OpenStack List Containers
 project: riakcs
 version: 1.4.0+
 document: api
