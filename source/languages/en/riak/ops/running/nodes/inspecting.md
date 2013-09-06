@@ -169,7 +169,7 @@ Sample total counters:
 
 ### CPU and Memory
 
-CPU statistics are taken directly from Erlang’s cpu\\\_sup module.
+CPU statistics are taken directly from Erlang’s cpu\_sup module.
 Documentation for which can be found at [ErlDocs:
 cpu\_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
 
