@@ -272,7 +272,7 @@ riakcs:
       - "[[Installing Riak CS]]"
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
       - "[[Designating an Admin User]]"
-      - "[[Installing With Chef|Riak CS Using Chef]]"
+      - "[[Installing With Chef|Installing Riak CS with Chef]]"
       - "[[Rolling Upgrades For Riak CS]]"
   - title: "Configuring"
     sub:
