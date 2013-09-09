@@ -125,24 +125,15 @@ set rlim_fd_max=65536
 Reference: [[http://blogs.oracle.com/elving/entry/too_many_open_files]]
 
 ## Mac OS X
-To check the current limits on your Mac OS X system, run (the final two columns are the soft and hard limits, respectively):
+To check the current limits on your Mac OS X system, run:
 
 ```bash
-launchctl limit maxfiles 2048 unlimited
+launchctl limit maxfiles
 ```
 
-This will set the limit until the next time you reboot. To make the change permanent add the line below to `/etc/launchd.conf` (superuser access required):
+The last two columns are the soft and hard limits, respectively.
 
-```bash
-limit maxfiles 2048 unlimited
-```
-
-**Note:** Snow Leopard (10.6) may not allow “unlimited” for the maxfiles setting, in which case, just omit it.
-
-Reference: [[http://artur.hefczyc.net/node/27]]
-
-### OS X 10.7 (Lion)
-To adjust the maximum open file limits in OS X 10.7 (Lion), edit `/etc/launchd.conf`, and increase the limits for both values as appropriate.
+To adjust the maximum open file limits in OS X 10.7 (Lion) or newer, edit `/etc/launchd.conf` and increase the limits for both values as appropriate.
 
 For example, to set the soft limit to 16384 files, and the hard limit to 32768 files, perform the following steps:
 
@@ -162,7 +153,7 @@ launchctl limit
     maxfiles    10240          10240
 ```
 
-Edit `/etc/launchd.conf` (if the file does not exist, create it), and increase the limits, so that it resembles the following values, being sure to use values specific to your environment or as directed:
+Edit (or create) `/etc/launchd.conf` and increase the limits. Add lines that look like the following (using values appropriate to your environment):
 
 ```bash
 limit maxfiles 16384 32768
