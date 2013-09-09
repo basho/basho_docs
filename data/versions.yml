@@ -5,7 +5,7 @@ riakee:
 riakcs:
   - ['1.2.0', '1.2.1']
   - ['1.3.0', '1.3.1']
-  - ['1.4.0']
+  - ['1.4.0', '1.4.1']
 riak:
   - ['1.0.0']
   - ['1.1.0', '1.1.4']
@@ -15,11 +15,11 @@ riak:
 # java:
 #   - ['1.1.0']
 riakcscontrol:
-  - ['1.0.0', '1.0.1']
+  - ['1.0.0', '1.0.1', '1.0.2']
 # describes the latest version per project
 currents:
   riakee: '1.4.2'
-  riakcs: '1.4.0'
+  riakcs: '1.4.1'
   riak: '1.4.2'
   # java: '1.1.0'
-  riakcscontrol: '1.0.1'
+  riakcscontrol: '1.0.2'
