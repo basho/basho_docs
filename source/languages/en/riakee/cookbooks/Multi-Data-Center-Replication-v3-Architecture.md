@@ -42,24 +42,59 @@ In fullsync replication, a node on the source cluster is elected to be the *full
 
 Fullsync replication scans through the list of partitions in a Riak cluster, and determines which objects in the sink cluster need to be updated. A source partition is synchronized to a node on the sink cluster containing the current partition.
  
-<br>
-![MDC Full-Sync](/images/MDC_BNW_Full-sync-small.png)
-<br>
-
 ## Real-time Replication
 
 In real-time replication, a node in the source cluster will forward data to the sink cluster. A node in the source cluster does not necessarily connect to a node containing the same *vnode* on the sink cluster. This allows Riak to spread out realtime replication across the entire cluster, thus improving throughput and making replication more fault-tolerant.
 
-In the diagram below, the following steps occur:
+### Initialization
+Before a source cluster can begin pushing realtime updates to a sink, the following commands must be issued:
 
-1. A TCP connection is opened by the Riak connection manager between the source and sink clusters.
-2. The client sends an object to store on the source cluster.
-3. Riak writes N replicas on the source cluster.
-4. The object is stored in the real-time queue and copied to the sink cluster.
-5. The sink cluster receives the object via the real-time connection and writes the object to N nodes.
-
+1. `riak-repl realtime enable <sink_cluster>`
+    * After this point, the realtime queues are populated with updates on the source nodes, ready to be pushed to the sink.
+2. `riak-repl realtime start <sink_cluster>`
+    * The Riak connection manager contacts the sink cluster.
 
 <br>
-![MDC Full-Sync](/images/MDC_BNW-real-time-sync-small.png)
+![MDC Full-Sync](/images/MDC-v3-realtime1.png)
+<br>
+
+At this point realtime replication commences.
+
+<ol start="3">
+<li>Nodes with queued updates establish connections to the sink cluster and replication begins.</li>
+</ol>
+
+<br>
+![MDC Full-Sync](/images/MDC-v3-realtime2.png)
+<br>
+
+### Realtime queueing and synchronization
+
+Once initialized, realtime replication continues to use the queues to store data updates for synchronization.
+
+<ol start="4">
+<li>The client sends an object to store on the source cluster.</li>
+<li>Riak writes N replicas on the source cluster.</li>
+</ol>
+
+<br>
+![MDC Full-Sync](/images/MDC-v3-realtime3.png)
+<br>
+
+<ol start="6">
+<li>The new object is stored in the real-time queue.</li>
+<li>The object is copied to the sink cluster.</li>
+</ol>
+
+<br>
+![MDC Full-Sync](/images/MDC-v3-realtime4.png)
+<br>
+
+<ol start="8">
+<li>The destination node on the sink cluster writes the object to N nodes.</li>
+</ol>
+
+<br>
+![MDC Full-Sync](/images/MDC-v3-realtime5.png)
 <br>
 
