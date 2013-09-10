@@ -221,7 +221,7 @@ riak:
   - ['1.3.0', '1.3.1', '1.3.2']
 ```
 
-Running `bundle exec build` after that should update
+Running `bundle exec middleman build` after that should update
 `data/downloads_gen.yml`, which drives the downloads page.
 
 ## Deploying to S3
