@@ -54,7 +54,6 @@ Once your configuration is set, you can verify its correctness by running the co
 riak chkconfig
 ```
 
-
 ---
 Riak MDC Replication `app.config` settings, **riak_repl section**
 
