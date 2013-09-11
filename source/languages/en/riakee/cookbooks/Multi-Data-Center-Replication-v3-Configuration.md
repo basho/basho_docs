@@ -54,12 +54,13 @@ Once your configuration is set, you can verify its correctness by running the co
 riak chkconfig
 ```
 
+
 ---
 Riak MDC Replication `app.config` settings, **riak_repl section**
 
 Setting | Options | Default | Description
 --------|---------|---------|------------
-cluster_mgr | {ip_address, port} | REQUIRED | The cluster manager will listen for connections from remote clusters on this ip and port. Every node runs one CM. The value is a combination of an IP address (**not hostname**) followed by a port number
+cluster_mgr | {ip_address, port} | REQUIRED | The cluster manager will listen for connections from remote clusters on this ip and port. Every node runs one cluster manager, but only the cluster manager running on the cluster_leader will service requests. This can change as nodes enter and leave the cluster. The value is a combination of an IP address (**not hostname**) followed by a port number
 max_fssource_cluster | nodes(integer) | 5 | The hard limit on the number of workers which will participate on the source cluster during a fullsync replication. This means if one has configured fullsync for two different clusters, both with a max_fssource_cluster of 5, 10 fullsync workers can be in progress. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line
 max_fssource_node | nodes(integer) | 1 | Limits the number of fullsync workers that will be running on each individual node in a source cluster.  This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line
 max_fssink_node | nodes(integer) | 1 | Limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for all fullsync sources interacting with the sink cluster. Thus, multiple simultaneous source connections to the sink cluster will have to share the sink node’s number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
