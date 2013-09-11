@@ -26,8 +26,10 @@ ensures the integrity of all data stored in Riak. This is particularly useful in
 clusters containing “cold data”: data that may not be read for long periods of
 time, potentially years. Furthermore, unlike the repair command, active anti-
 entropy is an automatic process, requiring no user intervention and is enabled
-by default in Riak 1.3.
+by default in Riak 1.3. For users upgrading from previous versions, this is not
+enabled by default and must be configured.
 
+* [[Configuration Files|http://docs.basho.com/riak/latest/ops/advanced/configs/configuration-files]]
 * [[Replication|Replication#Active-Anti-Entropy-AAE-]]
 
 ## Basho Bench
