@@ -221,12 +221,12 @@ planning to use Riak’s [[Using Secondary Indexes]] functionality.
 MapReduce
 ---------
 
-[[MapReduce|Using MapReduce]] in Riak allows you to process your data in real-time in
+[[MapReduce|Using MapReduce]] in Riak allows you to process your data in real time in
 parallel utilizing the hardware resources of your entire cluster.
 MapReduce jobs are described in JSON using a set of nested hashes
 describing the inputs, phases, and timeout for a job. A job can consist
 of an arbitrary number of Map and Reduce phases. For this reason,
-MapReduce in Riak can be thought of as a real-time "mini-Hadoop". A job
+MapReduce in Riak can be thought of as a real time "mini-Hadoop". A job
 is submitted via HTTP and the results are returned in JSON-encoded form.
 (A Protocol Buffers interface is also supported.)
 
@@ -244,7 +244,7 @@ indexes are defined at the time the object is written. To change the
 indexes for an object, simply write the object with a different set of
 indexes.
 
-Indexing is real-time and atomic; the results show up in queries
+Indexing is real time and atomic; the results show up in queries
 immediately after the write operation completes, and all indexing occurs
 on the partition where the object lives, so the object and its indexes
 stay in sync.
@@ -258,7 +258,7 @@ Riak Search
 -----------
 
 [[Using Search]] is a distributed, easily-scalable, failure-tolerant,
-real-time, full-text search engine built around Riak Core and tightly
+real time, full-text search engine built around Riak Core and tightly
 integrated with Riak KV.
 
 Riak Search allows you to find and retrieve your Riak objects using the

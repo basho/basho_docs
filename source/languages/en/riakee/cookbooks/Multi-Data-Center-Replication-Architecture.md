@@ -12,9 +12,9 @@ keywords: [mdc, repl]
 
 In multi-datacenter replication, one cluster acts as a "primary cluster". The primary cluster handles replication requests from one or more "secondary clusters" (generally located in datacenters in other regions or countries). If the datacenter with the primary cluster goes down, a secondary cluster can take over as the primary cluster. In this sense, Riak's multi-datacenter capabilities are "masterless." 
 
-In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between primary and secondary cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by new updates. Full-sync is performed upon initial connection of a secondary cluster, and then periodically (by default, every 360 minutes). Full-sync is also triggered if the TCP connection between primary and secondary cluster is severed and then recovered.
+In multi-datacenter replication, there are two primary modes of operation: fullsync and realtime. In fullsync mode, a complete synchronization occurs between primary and secondary cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by new updates. Fullsync is performed upon initial connection of a secondary cluster, and then periodically (by default, every 360 minutes). Fullsync is also triggered if the TCP connection between primary and secondary cluster is severed and then recovered.
 
-Full-sync and real-time modes are described in detail below. But first, a few key concepts.
+Fullsync and realtime modes are described in detail below. But first, a few key concepts.
 
 ## Concepts
 
@@ -30,13 +30,13 @@ Only one node in each cluster will serve as the lead site (client) or listener (
 
 ## Full-Sync Replication
 
-Riak Enterprise performs the following steps during full-sync replication, as illustrated in the Figure below.
+Riak Enterprise performs the following steps during fullsync replication, as illustrated in the Figure below.
 
 1. A TCP connection is established between the primary and secondary clusters.
-2. The site node in the secondary cluster initiates full-sync replication with the primary by sending a message to the listener node in the primary cluster. 
+2. The site node in the secondary cluster initiates fullsync replication with the primary by sending a message to the listener node in the primary cluster. 
 3. The site and listener nodes iterate each vnode in their respective clusters and compute a hash for each key's object value. The site node on the secondary cluster sends its complete list of key/hash pairs to the listener node in the primary cluster. The listener node then sequentially compares its key/hash pairs with the primary cluster's pairs, identifying any missing objects or updates needed on the secondary.
 4. The listener node streams the missing objects/updates to the secondary cluster.
-5. The secondary cluster replicates the updates within the cluster to achieve the new object values, completing the full-sync cycle.
+5. The secondary cluster replicates the updates within the cluster to achieve the new object values, completing the fullsync cycle.
 
 <br>
 ![MDC Full-Sync](/images/MDC_Full-sync-small.png)

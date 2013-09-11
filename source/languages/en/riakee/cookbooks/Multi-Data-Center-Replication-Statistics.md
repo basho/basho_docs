@@ -64,7 +64,7 @@ Field | Description
 ------|------------
 fullsync_enabled {{1.3.0+}} | A list of all sinks that are enabled
 fullsync_running {{1.3.0+}} | A list of all sinks that are running
-server_fullsyncs | The number of full-synchronizations that have occurred since the server was started
+server_fullsyncs | The number of fullsync operations that have occurred since the server was started
 fullsyncs_completed | The number of fullsyncs that have been completed to the specified sink cluster.
 fullsync_start_time | The time the current fullsink to the specified cluster began.
 last_fullsync_duration | The duration (in seconds) of the last completed fullsync.
@@ -139,10 +139,10 @@ client_rx_kbps | A snapshot of the sink received kilobits/second taken once a mi
 client_tx_kbps | A snapshot of the sink sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 elections_elected | If the replication leader node becomes unresponsive or unavailable, a new leader node in the cluster will be elected
 elections_leader_changed | The number of times a Riak node has surrendered leadership
-objects_dropped_no_clients | If the real-time replication work queue is full and there aren't any clients to receive objects, then objects will be dropped from the queue. These objects will be synchronized during a full synchronization
-objects_dropped_no_leader | If a sink cannot connect to a leader, objects will be dropped during real-time replication
+objects_dropped_no_clients | If the realtime replication work queue is full and there aren't any clients to receive objects, then objects will be dropped from the queue. These objects will be synchronized during a full synchronization
+objects_dropped_no_leader | If a sink cannot connect to a leader, objects will be dropped during realtime replication
 objects_forwarded | The number of Riak objects forwarded to the leader the participate in replication. *Please note that this value will only be accurate on a non-leader node.*
-objects_sent | The number of objects sent via real-time replication
+objects_sent | The number of objects sent via realtime replication
 server_bytes_recv | The total number of bytes the primary has received
 server_bytes_sent | The total number of bytes the primary has sent
 server_connect_errors | The number of primary to sink connection errors
@@ -183,7 +183,7 @@ message_queue_len | The number of Erlang messages that are waiting to be process
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration (version 2)|Multi Data Center Replication: Configuration]] or [[Riak EE MDC Replication Configuration (version 3)|Multi-Data-Center Replication v3 Configuration]] guide for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in realtime replication. Please see the [[Riak EE MDC Replication Configuration (version 2)|Multi Data Center Replication: Configuration]] or [[Riak EE MDC Replication Configuration (version 3)|Multi-Data-Center Replication v3 Configuration]] guide for more information.
 
 Field | Description
 ------|------------

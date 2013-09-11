@@ -88,15 +88,15 @@ client_rx_kbps | A snapshot of the client (site) received kilobits/second taken 
 client_tx_kbps | A snapshot of the client (site) sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 elections_elected | If the replication leader node becomes unresponsive or unavailable, a new leader node in the cluster will be elected
 elections_leader_changed | The number of times a Riak node has surrendered leadership
-objects_dropped_no_clients | If the real-time replication work queue is full and there aren't any clients to receive objects, then objects will be dropped from the queue. These objects will be synchronized during a full synchronization
-objects_dropped_no_leader | If a client (site) cannot connect to a leader, objects will be dropped during real-time replication
+objects_dropped_no_clients | If the realtime replication work queue is full and there aren't any clients to receive objects, then objects will be dropped from the queue. These objects will be synchronized during a full synchronization
+objects_dropped_no_leader | If a client (site) cannot connect to a leader, objects will be dropped during realtime replication
 objects_forwarded | The number of Riak objects forwarded to the leader the participate in replication. *Please note that this value will only be accurate on a non-leader node.*
-objects_sent | The number of objects sent via real-time replication
+objects_sent | The number of objects sent via realtime replication
 server_bytes_recv | The total number of bytes the server (listener) has received
 server_bytes_sent | The total number of bytes the server (listener) has sent
 server_connect_errors | The number of listener to site connection errors
 server_connects | The number of times the listener connects to the client site
-server_fullsyncs | The number of full-synchronizations that have occurred since the server was started
+server_fullsyncs | The number of fullsync operations that have occurred since the server was started
 server_rx_kbps | A snapshot of the server (listener) received kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 server_tx_kbps | A snapshot of the server (listener) sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 leader | Which node is the current leader of the cluster
@@ -136,7 +136,7 @@ These similar fields are under both `keylist_server` and `keylist_client` fields
 
 Field | Description
 ------|------------
-fullsync | On the client, the number of partitions that remain to be processed. On the server, the partition currently being processed by full-synchronization replication.
+fullsync | On the client, the number of partitions that remain to be processed. On the server, the partition currently being processed by fullsync replication.
 partition_start | The number of elapsed seconds since replication has started on a given partition
 stage_start | The number of elapsed seconds since replication has started on a given stage
 get_pool_size | The number of Riak GET finite state workers available to process requests
@@ -145,7 +145,7 @@ get_pool_size | The number of Riak GET finite state workers available to process
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in real-time replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication: Configuration]] guide for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in realtime replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication: Configuration]] guide for more information.
 
 Field | Description
 ------|------------

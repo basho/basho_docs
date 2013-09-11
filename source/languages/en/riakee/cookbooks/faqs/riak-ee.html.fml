@@ -22,8 +22,8 @@ A:
   
   Using MDC replication you could keep the standby cluster reasonably updated, so only the very newest bits of data would need to be migrated after a crash.
 
-Q: How do I interpret the output of log messages about full-sync?
-  Looking at the log output in a full-sync, how I should interpret the messages
+Q: How do I interpret the output of log messages about fullsync replication?
+  Looking at the log output in a fullsync, how I should interpret the messages
   
   ```
   Updated XXX/YYY (ZZ%) keys. N errors

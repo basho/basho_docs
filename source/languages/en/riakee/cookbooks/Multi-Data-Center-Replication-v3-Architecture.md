@@ -15,9 +15,9 @@ moved: {
 
 In multi-datacenter (MDC) replication, a cluster can act as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). Bidirectional replication can easily be established by making a cluster both a source and a sink to other clusters. Riak Enterprise MDC Replication is considered "masterless": all clusters participating will resolve replicated writes via the normal resolutions methods available in Riak.
 
-In multi-datacenter replication, there are two primary modes of operation: full-sync and real-time. In full-sync mode, a complete synchronization occurs between source and sink cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Full-sync can be performed upon initial connection of a sink cluster.
+In multi-datacenter replication, there are two primary modes of operation: fullsync and realtime. In fullsync mode, a complete synchronization occurs between source and sink cluster(s). In realtime mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Fullsync can be performed upon initial connection of a sink cluster.
 
-Full-sync and real-time modes are described in detail below. 
+Fullsync and realtime modes are described in detail below. 
 
 ## Concepts
 
@@ -46,17 +46,17 @@ Fullsync replication scans through the list of partitions in a Riak cluster, and
 ![MDC Full-Sync](/images/MDC_BNW_Full-sync-small.png)
 <br>
 
-## Real-time Replication
+## Realtime Replication
 
-In real-time replication, a node in the source cluster will forward data to the sink cluster. A node in the source cluster does not necessarily connect to a node containing the same *vnode* on the sink cluster. This allows Riak to spread out realtime replication across the entire cluster, thus improving throughput and making replication more fault-tolerant.
+In realtime replication, a node in the source cluster will forward data to the sink cluster. A node in the source cluster does not necessarily connect to a node containing the same *vnode* on the sink cluster. This allows Riak to spread out realtime replication across the entire cluster, thus improving throughput and making replication more fault-tolerant.
 
 In the diagram below, the following steps occur:
 
 1. A TCP connection is opened by the Riak connection manager between the source and sink clusters.
 2. The client sends an object to store on the source cluster.
 3. Riak writes N replicas on the source cluster.
-4. The object is stored in the real-time queue and copied to the sink cluster.
-5. The sink cluster receives the object via the real-time connection and writes the object to N nodes.
+4. The object is stored in the realtime queue and copied to the sink cluster.
+5. The sink cluster receives the object via the realtime connection and writes the object to N nodes.
 
 
 <br>

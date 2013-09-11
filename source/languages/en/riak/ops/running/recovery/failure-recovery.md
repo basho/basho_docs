@@ -43,8 +43,8 @@ restoring the data.
     the array may also be possible.
 2.  Restore from multi-cluster replication. If replication is enabled
     between two or more clusters, the missing data will gradually be
-    restored via streaming replication and full-synchronization. A
-    full-synchronization can also be triggered manually via the
+    restored via realtime replication and fullsync replication. A
+    fullsync operation can also be triggered manually via the
     `riak-repl` command.
 3.  Restore using intra-cluster repair. Riak versions 1.2 and greater
     include a repair feature which will restore lost partitions with
