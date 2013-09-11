@@ -12,7 +12,7 @@ keywords: [mdc, repl]
 
 In multi-datacenter replication, one cluster acts as a "primary cluster". The primary cluster handles replication requests from one or more "secondary clusters" (generally located in datacenters in other regions or countries). If the datacenter with the primary cluster goes down, a secondary cluster can take over as the primary cluster. In this sense, Riak's multi-datacenter capabilities are "masterless." 
 
-In multi-datacenter replication, there are two primary modes of operation: fullsync and realtime. In fullsync mode, a complete synchronization occurs between primary and secondary cluster(s). In real-time mode, continual, incremental synchronization occurs - replication is triggered by new updates. Fullsync is performed upon initial connection of a secondary cluster, and then periodically (by default, every 360 minutes). Fullsync is also triggered if the TCP connection between primary and secondary cluster is severed and then recovered.
+In multi-datacenter replication, there are two primary modes of operation: fullsync and realtime. In fullsync mode, a complete synchronization occurs between primary and secondary cluster(s). In realtime mode, continual, incremental synchronization occurs - replication is triggered by new updates. Fullsync is performed upon initial connection of a secondary cluster, and then periodically (by default, every 360 minutes). Fullsync is also triggered if the TCP connection between primary and secondary cluster is severed and then recovered.
 
 Fullsync and realtime modes are described in detail below. But first, a few key concepts.
 
@@ -28,7 +28,7 @@ Site nodes (also called clients), are Riak nodes on a secondary cluster that con
 Only one node in each cluster will serve as the lead site (client) or listener (server) node. Riak replication uses a leadership-election protocol to determine which node in the cluster will participate in replication. If a site connects to a node in the primary cluster that is not the leader, it will be redirected to the listener node that is currently the leader.
 
 
-## Full-Sync Replication
+## Fullsync Replication
 
 Riak Enterprise performs the following steps during fullsync replication, as illustrated in the Figure below.
 
@@ -39,19 +39,19 @@ Riak Enterprise performs the following steps during fullsync replication, as ill
 5. The secondary cluster replicates the updates within the cluster to achieve the new object values, completing the fullsync cycle.
 
 <br>
-![MDC Full-Sync](/images/MDC_Full-sync-small.png)
+![MDC Fullsync](/images/MDC_Full-sync-small.png)
 <br>
-## Real-time Replication
+## Realtime Replication
 
-Riak Enterprise performs the following steps during real-time replication, as illustrated in the Figure below.
+Riak Enterprise performs the following steps during realtime replication, as illustrated in the Figure below.
 
 1. The secondary cluster establishes a TCP connection to the primary.
-2. Real-time replication of a key/object is initiated when an update is sent from a client to the primary cluster.
+2. Realtime replication of a key/object is initiated when an update is sent from a client to the primary cluster.
 3. The primary cluster replicates the object locally.
 4. The listener node on the primary cluster streams an update to the secondary cluster.
 5. The site node within the secondary cluster receives and replicates the update.
 
 
 <br>
-![MDC Full-Sync](/images/MDC-real-time-sync-small.png)
+![MDC Realtime](/images/MDC-real-time-sync-small.png)
 <br>

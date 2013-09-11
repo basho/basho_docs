@@ -258,7 +258,7 @@ Riak Search
 -----------
 
 [[Using Search]] is a distributed, easily-scalable, failure-tolerant,
-real time, full-text search engine built around Riak Core and tightly
+realtime, full-text search engine built around Riak Core and tightly
 integrated with Riak KV.
 
 Riak Search allows you to find and retrieve your Riak objects using the

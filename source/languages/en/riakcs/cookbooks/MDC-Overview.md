@@ -39,16 +39,16 @@ streamed in real time from a primary implementation to a secondary
 site so global state is maintained across locations. Objects can then
 be replicated in either fullsync or realtime sync mode.
 
-#### Full Sync Mode
+#### Fullsync Mode
 
-In full sync, objects are replicated from a primary Riak CS
+In a fullsync operation, objects are replicated from a primary Riak CS
 implementation to a secondary site on a configurable interval - the
 default is 6 hours. In fullsync replication, each cluster computes a
 hash for each key’s block value. Key/block pairs are compared, and the
 primary site streams any missing blocks or updates needed to the
 secondary site.
 
-#### Real-Time Sync Mode
+#### Realtime Mode
 
 Realtime sync is triggered when an update is sent from a client to a
 primary Riak CS implementation. Once replicated in the first location,
