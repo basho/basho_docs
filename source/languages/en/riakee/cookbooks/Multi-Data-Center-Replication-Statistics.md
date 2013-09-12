@@ -139,7 +139,7 @@ client_rx_kbps | A snapshot of the sink received kilobits/second taken once a mi
 client_tx_kbps | A snapshot of the sink sent kilobits/second taken once a minute. The past 8 snapshots are stored in this list. Newest snapshots appear on the left side of the list
 elections_elected | If the replication leader node becomes unresponsive or unavailable, a new leader node in the cluster will be elected
 elections_leader_changed | The number of times a Riak node has surrendered leadership
-objects_dropped_no_clients | If the realtime replication work queue is full and there aren't any clients to receive objects, then objects will be dropped from the queue. These objects will be synchronized during a full synchronization
+objects_dropped_no_clients | If the realtime replication work queue is full and there aren't any clients to receive objects, then objects will be dropped from the queue. These objects will be synchronized during a fullsync operation
 objects_dropped_no_leader | If a sink cannot connect to a leader, objects will be dropped during realtime replication
 objects_forwarded | The number of Riak objects forwarded to the leader the participate in replication. *Please note that this value will only be accurate on a non-leader node.*
 objects_sent | The number of objects sent via realtime replication
@@ -162,7 +162,7 @@ Field | Description
 node  | A unique ID for the Riak node that the sink in running on
 site  | The connected site (sink) name. *Warning: This will be renamed in future version of Riak*
 strategy | A replication strategy defines an implementation of the Riak Replication protocol. Valid values are: keylist, syncv1
-fullsync_worker | The Erlang process ID of the full synchronization worker
+fullsync_worker | The Erlang process ID of the fullsync worker
 waiting_to_retry | The primaries currently waiting to retry replication after a failure
 connected | A list of connected clients<ul><li>**connected** The IP address and port of a connected sink</li><li>**cluster_name** The name of the connected sink</li><li>**connecting** The PID, IP address and port of a client currently establishing a connection</li></ul>
 state | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>**request_partition**</li><li>**wait_for_fullsync**</li><li>**send_keylist**</li><li>**wait_ack**</li></ul>
@@ -175,7 +175,7 @@ Field | Description
 node  | A unique ID for the Riak node that the source is running on
 site  | The connected site (sink) name configured with. *Warning: This will be renamed in future version of Riak*
 strategy | A replication strategy defines an implementation of the Riak Replication protocol. Valid values are: keylist, syncv1
-fullsync_worker | The Erlang process ID of the full synchronization worker
+fullsync_worker | The Erlang process ID of the fullsync worker
 bounded_queue | See <a href="/cookbooks/Multi-Data-Center-Replication-Status/#Bounded-Queue" class="riakee">Bounded Queue</a>
 state | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>**wait_for_partition**</li><li>**build_keylist**</li><li>**wait_keylist**</li><li>**diff_bloom**</li><li>**diff_keylist**</li></ul>
 message_queue_len | The number of Erlang messages that are waiting to be process by the server
@@ -188,10 +188,10 @@ The bounded queue is responsible for holding objects that are waiting to partici
 Field | Description
 ------|------------
 queue_pid | The Erlang process ID of the bounded queue
-dropped_count | The number of objects that failed to be enqueued in the bounded_queue due to the queue being full. *These objects will be replicated during the next full synchronization*
+dropped_count | The number of objects that failed to be enqueued in the bounded_queue due to the queue being full. *These objects will be replicated during the next fullsync operation*
 queue_length | The number of Riak objects currently in the bounded queue
 queue_byte_size | The size of all objects currently in the queue
-queue_max_size | The number of bytes the queue can hold before objects are dropped. *These objects will be replicated during the next full synchronization*
+queue_max_size | The number of bytes the queue can hold before objects are dropped. *These objects will be replicated during the next fullsync operation*
 queue_percentage | The percentage of the queue that is full
 queue_pending | The current count of 'in flight' objects we've sent that the client has not acknowledged
 queue_max_pending | The maximum number of objects that can be 'in flight' before we refuse to send any more.

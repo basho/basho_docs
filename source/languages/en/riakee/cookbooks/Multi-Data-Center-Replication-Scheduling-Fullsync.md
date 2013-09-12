@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication: Scheduling Full Sync"
+title: "Multi Data Center Replication: Scheduling Fullsync"
 project: riakee
 version: 1.0.0+
 document: cookbook
@@ -8,8 +8,8 @@ audience: intermediate
 keywords: [mdc, repl]
 ---
 
-## Scheduling Full Synchronization
-With the pause and resume commands it is possible to limit full synchronizations to off-peak times. First, disable `fullsync_interval` and set `fullsync_on_connect` to false. Then using cron or similar execute the commands below at the start of the sync window:
+## Scheduling Fullsync Operation
+With the pause and resume commands it is possible to limit the fullsync operation to off-peak times. First, disable `fullsync_interval` and set `fullsync_on_connect` to false. Then using cron or similar execute the commands below at the start of the sync window:
 
     #! /bin/sh
     ## Resume from where we left off
