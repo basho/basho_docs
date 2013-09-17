@@ -184,7 +184,7 @@ body {
         clear:both;
       }
 
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         /*
          * Important is necessary here in order to override the inline style attribute which
          * gets manipulated by JavaScript when animations run
@@ -212,7 +212,7 @@ body {
       }
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       /*
        * Important is necessary here in order to override the inline style attribute which
        * gets manipulated by JavaScript when animations run
@@ -245,7 +245,7 @@ body {
       font-size: 110%;
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       /*
        * Important is necessary here in order to override the inline style attribute which
        * gets manipulated by JavaScript when animations run
@@ -260,7 +260,7 @@ body {
   }
   
   footer.mastfooter {
-    //@include size(100%, auto);
+    @include size(730px, auto);
     padding       : 25px 25px 25px 65px;
     margin        : 25px 0 0 0;
     line-height   : 1.2;
@@ -275,8 +275,9 @@ body {
       }
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       margin : 0;
+      width : auto;
     }
 
     @media screen and (max-width: 500px) {
@@ -394,7 +395,7 @@ iframe {
   @include boxShadow(none);
   color : $subtleGray;
   
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 768px) {
     @include boxShadow(none);
   }
 
@@ -427,7 +428,7 @@ iframe {
     float       : left;
     text-align  : center;
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       font-size : 1em;
       width : 1.75em;
       margin-left : $mobilePageGutter;
@@ -480,7 +481,7 @@ iframe {
         color : #fff;
       }
 
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         font-size : 1rem;
         padding   : 10px 0 10px 3.2em; /* Using rems here for padding-left to align input text on mobile devices */
         @include allCorners(); /* Add rounded corners to the field when device is tablet or mobile */
@@ -507,7 +508,7 @@ iframe {
       }
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       float       : left;
       width       : 71%;
       margin-top  : -5px;
@@ -542,7 +543,7 @@ iframe {
     text-shadow  : none;
     padding      : 0 12px 0 8%;
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       display : block;
     }
   }
@@ -571,12 +572,12 @@ iframe {
         //text-shadow : 0 1px 2px rgba(0, 0, 0, 1);
       }
 
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         margin-top : 13px;
       }
     }
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       display : block;
     }
   }
@@ -657,14 +658,14 @@ iframe {
   
   h3 {
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       font-size : 115%;
     }
     
     &:first-child {
       margin-top : 25px;
       
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         margin-top : 10px;
       }
     }
@@ -793,7 +794,7 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
     @include layout-sprite(toggle-button);
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 768px) {
     display : block;
   }
 }
@@ -850,7 +851,7 @@ div[role="main"] {
       color : $headerColor;
     }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 768px) {
     a {
       white-space : normal;
     }
@@ -942,10 +943,16 @@ div[role="main"] {
         filter     : progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffffff', endColorstr='#88ffffff',GradientType=0 ); /* IE 6+ */
         padding-top : 6px;
 
+        width : 885px;
+
         .header-rule {
           @extend .horizontal-rule;
           @include size(auto, 0);
-          margin: 0 24px 0 84px;
+          margin: 0 0 0 84px;
+        }
+
+        @media screen and (max-width : 768px) {
+          width : auto;
         }
       }
     }
@@ -966,7 +973,7 @@ div[role="main"] {
         color : $darkGrey;
       }
 
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         display : none;
       }
     }
@@ -992,13 +999,13 @@ div[role="main"] {
         @include size(185px, 33px);
       }
       
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         margin-top : auto;
       }
       
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       //@include boxShadow(0 3px 15px rgba(0, 0, 0, .2));
       //@include bgPattern('content-bg.jpg');
       background    : #fff;
@@ -1045,7 +1052,7 @@ div[role="main"] {
       text-align : left;
       margin     : 4px 0 0 3px;
       
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         display : none;
       }
     }
@@ -1056,7 +1063,7 @@ div[role="main"] {
       border-bottom : 1px solid $subtleGray;
       margin-bottom : 1.2em;
       
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         display : none;
       }
     }
@@ -1064,7 +1071,7 @@ div[role="main"] {
     #top-nav {
       position   : absolute;
       top        : 8px;
-      right      : 24px;
+      right      : 0;
       text-align : center;
       padding    : 8px 0 8px 0;
       
@@ -1120,7 +1127,7 @@ div[role="main"] {
         } 
       }
 
-      @media screen and (max-width: 700px) {
+      @media screen and (max-width: 768px) {
         display : none;
       }
     }
@@ -1206,7 +1213,7 @@ div[role="main"] {
       text-shadow    : 1px 1px 1px #fff;
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width : 768px) {
       display : none; /* Hide the push-down ad on tablet & mobile */
     }
   }
@@ -1215,7 +1222,7 @@ div[role="main"] {
     display : none;
     @extend .sans-bold;
     
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       display     : block;
       position    : relative;
       width       : auto;
@@ -1288,7 +1295,7 @@ div[role="main"] {
       }
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       padding : 15px 12px 12px 12px;
 
       h2 {
@@ -1498,7 +1505,7 @@ div[role="main"] {
     padding-left: 25px;
     padding-top: 65px;
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 768px) {
       padding  : 0px;
 
       .mainarticle {
@@ -1568,7 +1575,7 @@ nav#toc {
 
 div[role=main] {
 
-  max-width : 800px;
+  //max-width : 800px;
 
   pre {
     margin     : 0;

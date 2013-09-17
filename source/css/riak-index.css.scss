@@ -2,157 +2,199 @@
 
   .mainarticle {
     padding: 125px 0 0 20px;
+
+    @media screen and (max-width: 768px) {
+      padding: 0 0 0 0;
+    }
   }
 
-  article > section {
-    //@include allCorners();
-    //@include boxShadow(inset 0 0 20px #A1A1A1);
-    background     : rgba(247, 249, 249, 1.0);
-    //border       : 1px solid #E1E1E1;
-    //margin       : 0.25em 1em 0.35em 0em;
-    border-bottom  : 1px solid #F1F1F1;
-    //margin-left  :   auto;
-    //margin-right :  auto;
-    margin-bottom  : 1.2em;
+  article {
 
-    &.banner {
-      @include size(auto, 214px);
-      @include corner(left, bottom);
-      @include corner(right, bottom);
-      position : relative;
-      color    : rgb(102, 102, 102);
-
-      header {
+    section {
+      &.banner {
+        @include size(800px, 214px);
+        @include corner(left, bottom);
+        @include corner(right, bottom);
         position : relative;
-        padding  : 3em 0 0 1.8em;
+        color    : rgb(102, 102, 102);
+        background     : rgba(247, 249, 249, 1.0);
+        border-bottom  : 1px solid #F1F1F1;
+        margin-bottom  : 1.2em;
 
-        h1 {
-          font-size      : 3.9rem;
-          letter-spacing : -0.04em;
+        @media screen and (max-width: 768px) {
+          width  : auto;
+          height : auto;
+        }
 
-          /*----------------------------------------*/
-          /*  Special Kerning between the r and t
-          /*  in 'Gettting Started'
-          /*----------------------------------------*/
-          #kern-fix-get-started {
-            letter-spacing : -0.2em;
+        header {
+          position : relative;
+          padding  : 3em 0 0 1.8em;
+
+          @media screen and (max-width: 768px) {
+            padding  : 0;  
+          }
+
+          h1 {
+            font-size      : 3.9rem;
+            letter-spacing : -0.04em;
+
+            @media screen and (max-width: 768px) {
+              font-size  : 1.6rem;  
+            }
+
+            /*----------------------------------------*/
+            /*  Special Kerning between the r and t
+            /*  in 'Gettting Started'
+            /*----------------------------------------*/
+            #kern-fix-get-started {
+              letter-spacing : -0.2em;
+            }
+          }
+
+          p {
+            @extend .sans-light;
+            font-size    : 1.01rem;
+            padding-left : 0.25em;
+            padding-top  : 0.19em;
+            color        : rgb(102, 102, 102); /* Fallback for non-rgba browsers */
+            color        : rgba(102, 102, 102, 0.9);
+          }
+        }
+
+        ul.resources {
+          position     : absolute;
+          top          : 34px;
+          left         : 420px;
+          padding-left : 0;
+          list-style   : none;
+
+          @media screen and (max-width: 768px) {
+            position : relative;
+            top          : auto;
+            left         : auto;
+          }
+
+          li {
+            @extend .sans-light;
+            padding-bottom : 0.9em;
+            padding-left   : 0.5em;
+            line-height    : 1em;
+            font-size      : 1.6rem;
+          
+            a {
+              color : #666666;
+            }
+          }
+
+          li:before {
+            @extend .icon-font;
+            padding-right : 0.5em;
+            color         : #666;
+          }
+        }
+
+        .nodes {
+          @include size(378px, 101px);
+          @include layout-sprite(nodes);
+          position : absolute;
+          top      : 0;
+          left     : 4px;
+        }
+      }
+    }
+
+    .box-row {
+      @include size(800px, auto);
+
+      @media screen and (max-width: 768px) {
+        width : auto;
+      }
+    }
+
+    section {
+      &.content-box {
+        max-width : 40.5%;
+        padding   : 0 3% 1.5em 4.5%;
+        float     : left;
+        @include allCorners();
+
+        @media screen and (max-width: 768px) {
+          max-width : none;
+        }
+
+        header {
+          h2 {
+            font-family : 'OpenSansLight';
+            font-size   : 1.6rem;
+            color       : #fff;
+            margin-top  : 0;
+            padding-top : 0.9em;
+            text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.25);
           }
         }
 
         p {
-          @extend .sans-light;
-          font-size    : 1.01rem;
-          padding-left : 0.25em;
-          padding-top  : 0.19em;
-          color        : rgb(102, 102, 102); /* Fallback for non-rgba browsers */
-          color        : rgba(102, 102, 102, 0.9);
-        }
-      }
+          color       : #fff; /* Fallback for non-rgba browsers */
+          color       : rgba(255, 255, 255, 0.5);
+          text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.1);
 
-      ul.resources {
-        position     : absolute;
-        top          : 34px;
-        left         : 420px;
-        padding-left : 0;
-        list-style   : none;
-
-        li {
-          @extend .sans-light;
-          padding-bottom : 0.9em;
-          padding-left   : 0.5em;
-          line-height    : 1em;
-          font-size      : 1.6rem;
-        
           a {
-            color : #666666;
+            white-space : nowrap;
+          };
+        }
+
+        &:first-child {
+          float : left;
+
+          @media screen and (max-width: 768px) {
+            float : none;
           }
         }
 
-        li:before {
-          @extend .icon-font;
-          padding-right : 0.5em;
-          color         : #666;
+        &:nth-child(2) {
+          float : right;
+
+          @media screen and (max-width: 768px) {
+            float : none;
+          }
+        }
+
+        [class^="icon-"] {
+          float          : right;
+          color          : rgb(81, 121, 126);
+          font-size      : 6em;
+          padding-top    : 16px;
+          padding-bottom : 30px;
+          text-shadow    : 2px 4px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        ul {
+          padding : 0;
+          margin  : 0;
+
+          li {
+            list-style-type     : disc;
+            list-style-position : inside;
+            color               : #fff;
+            text-shadow         : 1px 1px 1px rgba(0, 0, 0, 0.1);
+          }
         }
       }
 
-      .nodes {
-        @include size(378px, 101px);
-        @include layout-sprite(nodes);
-        position : absolute;
-        top      : 0;
-        left     : 4px;
-      }
-    }
+      &.green {
+        background : #3c6c72;
 
-    &.content-box {
-      max-width : 40.5%;
-      padding   : 0 3% 1.5em 4.5%;
-      @include allCorners();
-
-      header {
-        h2 {
-          font-family : 'OpenSansLight';
-          font-size   : 1.6rem;
-          color       : #fff;
-          margin-top  : 0;
-          padding-top : 0.9em;
-          text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.25);
+        [class^="icon-"] {
+          color : rgb(81, 121, 126);
         }
       }
 
-      p {
-        color       : #fff; /* Fallback for non-rgba browsers */
-        color       : rgba(255, 255, 255, 0.5);
-        text-shadow : 1px 1px 1px rgba(0, 0, 0, 0.1);
+      &.grey {
+        background : #525a61;
 
-        a {
-          white-space : nowrap;
-        };
-      }
-
-      &:nth-child(2) {
-        float : left;
-      }
-
-      &:nth-child(3) {
-        float : right;
-      }
-
-      [class^="icon-"] {
-        float          : right;
-        color          : rgb(81, 121, 126);
-        font-size      : 6em;
-        padding-top    : 16px;
-        padding-bottom : 30px;
-        text-shadow    : 2px 4px 2px rgba(0, 0, 0, 0.1);
-      }
-
-      ul {
-        padding : 0;
-        margin  : 0;
-
-        li {
-          list-style-type     : disc;
-          list-style-position : inside;
-          color               : #fff;
-          text-shadow         : 1px 1px 1px rgba(0, 0, 0, 0.1);
+        [class^="icon-"] {
+          color : rgb(91, 99, 105);
         }
-      }
-    }
-
-    &.green {
-      background : #3c6c72;
-
-      [class^="icon-"] {
-        color : rgb(81, 121, 126);
-      }
-    }
-
-    &.grey {
-      background : #525a61;
-
-      [class^="icon-"] {
-        color : rgb(91, 99, 105);
       }
     }
 
