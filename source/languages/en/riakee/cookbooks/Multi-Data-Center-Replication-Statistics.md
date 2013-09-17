@@ -44,6 +44,9 @@ objects   | The number of realtime replication objects that have been successful
 sent_seq | The last realtime queue sequence number that has been transmitted
 acked_seq | The last realtime queue sequence number that has been acknowledged
 expect_seq | The next realtime queue sequence number that is expected
+hb_rtt  {{1.3.2+}} | Realtime replication heartbeat round-trip time in milliseconds, recorded on the replication source.
+hb_last {{1.3.2+}} | {MegaSeconds, Seconds, MicroSeconds} since a heartbeat message was received on the realtime sink. 
+
 
 These values are under `realtime_queue_stats`.
 
