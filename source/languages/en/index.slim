@@ -10,9 +10,10 @@ skip_nav: true
 versions: false
 ---
 
-div#ricon-temp-banner
-  div.temp-banner-text
-    == I18n.t(:ricon_ad)
+- unless I18n.t(:ricon_ad, :default=>nil)
+  div#ricon-temp-banner
+    div.temp-banner-text
+      == I18n.t(:ricon_ad)
 h1.center-text.extra-large
   span.sans Welcome to Riak Docs
 h3.center-text Choose a project below
