@@ -22,8 +22,11 @@
         margin-bottom  : 1.2em;
 
         @media screen and (max-width: 768px) {
-          width  : auto;
-          height : auto;
+          width   : auto;
+          height  : auto;
+          padding : 0 3% 1.5em 4.5%;
+          margin  : 1.2em $mobilePageGutter;
+          @include allCorners();
         }
 
         header {
@@ -39,7 +42,9 @@
             letter-spacing : -0.04em;
 
             @media screen and (max-width: 768px) {
-              font-size  : 1.6rem;  
+              padding-top    : 0.9em;
+              font-size      : 1.6rem;
+              letter-spacing : 0;
             }
 
             /*----------------------------------------*/
@@ -58,6 +63,10 @@
             padding-top  : 0.19em;
             color        : rgb(102, 102, 102); /* Fallback for non-rgba browsers */
             color        : rgba(102, 102, 102, 0.9);
+
+            @media screen and (max-width: 768px) {
+
+            }
           }
         }
 
@@ -69,9 +78,10 @@
           list-style   : none;
 
           @media screen and (max-width: 768px) {
-            position : relative;
-            top          : auto;
-            left         : auto;
+            position       : relative;
+            top            : auto;
+            left           : auto;
+            margin-bottom  : 0;
           }
 
           li {
@@ -80,6 +90,13 @@
             padding-left   : 0.5em;
             line-height    : 1em;
             font-size      : 1.6rem;
+
+            @media screen and (max-width: 768px) {
+              font-size      : 100%;
+              padding-bottom : 0;
+              padding-left   : 0;
+              line-height    : 1.5em;
+            }
           
             a {
               color : #666666;
@@ -120,6 +137,7 @@
 
         @media screen and (max-width: 768px) {
           max-width : none;
+          margin    : 0 $mobilePageGutter 1.2em $mobilePageGutter;
         }
 
         header {
