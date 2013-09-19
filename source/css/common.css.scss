@@ -1074,6 +1074,10 @@ div[role="main"] {
       right      : 0;
       text-align : center;
       padding    : 8px 0 8px 0;
+
+      @media screen and (max-width: 768px) {
+        right : 10px
+      }
       
       a,
       #nav-more {
@@ -1143,6 +1147,10 @@ div[role="main"] {
       z-index       : 5;
       border        : 1px solid $lightGrey;
       border-radius : 5px;
+
+       @media screen and (max-width: 768px) {
+        right : 10px;
+      }      
       
       h2 {
         @extend .sans-bold;
@@ -1238,7 +1246,7 @@ div[role="main"] {
       line-height : 1em;
     }
   }
-  
+
   .info, .note, blockquote {
     @extend .box-green;
     @extend .serif-italic;
@@ -1272,12 +1280,17 @@ div[role="main"] {
     position  : relative;
     padding   : 150px 0 0 20px;
     font-size : 110%;
+    width : 800px;
     
-    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .info, .note {
+    p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .info, .note, aside.secondary {
       max-width: 600px;
       &.center-text {
         max-width : 100%;
       }
+    }
+
+    aside.secondary {
+      max-width: 748px;
     }
 
     h2 {
@@ -1296,6 +1309,7 @@ div[role="main"] {
     }
 
     @media screen and (max-width: 768px) {
+      width : auto;
       padding : 15px 12px 12px 12px;
 
       h2 {
@@ -1531,6 +1545,12 @@ div[role="main"] {
 nav#toc {
   
   #toc-wrapper {
+    width : 800px;
+
+    @media screen and (max-width: 768px) {
+      width : auto;
+    }    
+
     &.multi {
       -webkit-column-count : 2;
       -webkit-column-gap   : 20px;
@@ -1585,8 +1605,6 @@ div[role=main] {
 
   code {
     font-size   : 90%;
-    // background  : #dfdfdf;
-    // border      : 1px solid #c9c9c9;
     white-space : nowrap;
   }
 
@@ -1636,6 +1654,7 @@ div[role=main] {
     margin-bottom   : 45px;
     border-bottom : 2px solid #d9dadd;
     border-top : 2px solid #d9dadd;
+    width : auto;
   }
   
   .info {
