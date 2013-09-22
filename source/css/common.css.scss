@@ -1318,6 +1318,12 @@ div[role="main"] {
       }
     }
   }
+
+  &.no-nav {
+    .mainarticle {
+      width : auto; /* Expand the full page width for the index page */
+    }
+  }
   
   aside.secondary {
     @extend .box-green;
@@ -1545,11 +1551,7 @@ div[role="main"] {
 nav#toc {
   
   #toc-wrapper {
-    width : 800px;
-
-    @media screen and (max-width: 768px) {
-      width : auto;
-    }    
+    width : auto;
 
     &.multi {
       -webkit-column-count : 2;
