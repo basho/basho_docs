@@ -39,15 +39,15 @@ aside#nav-container role="complementary"
           div.icon-container
             - if section['title'] == 'Start Here'
               span(aria-hidden="true" data-icon="&#xf0e7;" class="nav-icon")
-            - if section['title'] == 'Riak for Developers'
+            - if section['title'] == 'Riak for Developers' || section['title'] == 'Riak CS for Developers'
               span(aria-hidden="true" data-icon="&#xe005;" class="nav-icon")
-            - if section['title'] == 'Riak for Operators' || section['title'] == 'Operating Riak Enterprise'
+            - if section['title'] == 'Riak for Operators' || section['title'] == 'Riak CS for Operators' || section['title'] == 'Operating Riak Enterprise'
               span(aria-hidden="true" data-icon="&#xf013;" class="nav-icon")
             - if section['title'] == 'Theory & Concepts'
               span(aria-hidden="true" data-icon="&#xf0c3;" class="nav-icon")
             - if section['title'] == 'Community'
               span(aria-hidden="true" data-icon="&#xe000;" class="nav-icon")
-            - if section['title'] == 'APIs'
+            - if section['title'] == 'APIs' || section['title'] == 'S3 Clients'
               span(aria-hidden="true" data-icon="&#xe001;" class="nav-icon")
             - if section['title'] == 'All Riak Projects'
               span(aria-hidden="true" data-icon="&#xe003;" class="nav-icon")
@@ -57,7 +57,7 @@ aside#nav-container role="complementary"
               span(aria-hidden="true" data-icon="&#xe006;" class="nav-icon")
             - if section['title'] == 'Configuring'
               span(aria-hidden="true" data-icon="&#xe00a;" class="nav-icon")
-            - if section['title'] == 'Riak CS Enterprise'
+            - if section['title'] == 'Riak CS Enterprise' || section['title'] == 'OpenStack Integration'
               span(aria-hidden="true" data-icon="&#xe008;" class="nav-icon")
             - if section['title'] == 'References'
               span(aria-hidden="true" data-icon="&#xf02d;" class="nav-icon")
