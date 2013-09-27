@@ -277,11 +277,10 @@ riakcs:
       - "[[OpenStack API|RiakCS OpenStack Storage API]]"
       - "[[Access Control Lists]]"
       - "[[Authentication]]"
-      - "[[Globally Unique Entities]]"
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
-      - "[[Multipart Upload Overview]]"
+
   - title: "Riak CS for Operators"
     sub:
       - "[[Configuring Riak CS Overview]]"
@@ -303,13 +302,18 @@ riakcs:
     sub:
       - "[[OpenStack API|RiakCS OpenStack Storage API]]"
       - "[[Using Riak CS With Keystone]]"
-  - title: "References"
+  - title: "Theory & Concepts"
     sub:
-      - "[[FAQs|Riak CS FAQs]]"
+      - "[[Globally Unique Entities]]"
+      - "[[Multipart Upload Overview]]"
       - title: "Comparisons"
         sub:
             - "[[CS Compared to Swift|Riak CS Compared to Swift]]"
             - "[[CS Compared to Atmos|Riak CS Compared to Atmos]]"
+  - title: "References"
+    sub:
+      - "[[FAQs|Riak CS FAQs]]"
+
       - "[[Version Compatibility]]"
       - "[[Release Notes|Riak CS Release Notes]]"
   - title: "Riak CS Enterprise"
