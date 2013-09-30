@@ -227,7 +227,7 @@ riakee:
           - "[[Configuration|Multi Data Center Replication v3 Configuration]]"
           - "[[Operations|Multi Data Center Replication v3 Operations]]"
           - "[[Quick Start|Multi Data Center Replication v3 Quick Start]]"
-          - "[[Scheduling Fullsync|Multi Data Center Replication v3 Scheduling Fullsync]]"
+          - "[[Scheduling Fullsync|Multi Data Center Replication v3: Scheduling Fullsync]]"
           - "[[SSL|Multi Data Center Replication v3 SSL]]"
           - "[[With NAT|Multi Data Center Replication v3 With NAT]]"
           - "[[Active Anti-Entropy|Multi Data Center Replication v3 With AAE]]"

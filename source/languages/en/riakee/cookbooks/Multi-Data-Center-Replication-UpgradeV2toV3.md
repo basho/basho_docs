@@ -119,7 +119,7 @@ In all of the following examples, the source cluster is named `newyork`, and the
 
         riak-repl fullsync start boston
 
-    See the [[Multi Data Center Replication v3 Scheduling Fullsync]] guide for configuring scheduled replication fullsyncs.
+    See the [[Multi Data Center Replication v3: Scheduling Fullsync]] guide for configuring scheduled replication fullsyncs.
 
 18. Disable version 2 replication bucket hooks
 
