@@ -260,10 +260,10 @@ If you run this script and things are working as expected, you will get the foll
     C2 to C1 consistent
 
 
-### Full Sync
+### Fullsync
 
 #### About the fullsync operation
-During real-time replication, operations coordinated by the Source cluster will be replicated to the Site cluster.  Riak Objects are placed in a queue on the Source cluster and streamed to the Site cluster. When the queue is full due to high traffic or a bulk loading operation, some objects will be dropped from replication. These dropped objects can be sent to the Site cluster by running a fullsync operation. The settings for the realtime replication queue and their explanations are available in the [[Multi Data Center Replication: Configuration]] documentation.
+During realtime replication, operations coordinated by the Source cluster will be replicated to the Site cluster.  Riak Objects are placed in a queue on the Source cluster and streamed to the Site cluster. When the queue is full due to high traffic or a bulk loading operation, some objects will be dropped from replication. These dropped objects can be sent to the Site cluster by running a fullsync operation. The settings for the realtime replication queue and their explanations are available in the [[Multi Data Center Replication: Configuration]] documentation.
 
 #### Initiating a fullsync
 To start a fullsync operation, issue the following command on your leader node:

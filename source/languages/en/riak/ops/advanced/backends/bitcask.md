@@ -470,7 +470,7 @@ data.
 
     If you are using Riak Enterprise with the replication feature enabled,
     your clusters might experience higher production of fragmentation and dead
-    bytes caused by replays. Additionally, because the full-sync feature
+    bytes caused by replays. Additionally, because the fullsync feature
     operates across entire partitions, it will be made more efficient by
     accessing data as sequentially as possible (across fewer files). Lowering
     both the fragmentation and dead-bytes settings will improve performance.

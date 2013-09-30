@@ -45,8 +45,8 @@ riak chkconfig
 Setting | Options | Default | Description
 --------|---------|---------|------------
 fullsync_on_connect | true, false | true | Whether to initiate a fullsync on initial connection from the secondary cluster
-fullsync_strategies | keylist, syncv1 | [syncv1] | A *list* of full synchronization strategies to be used by replication. Please contact Basho support for more information
-fullsync_interval   | mins(integer), disabled | 360 | How often to initiate a full synchronization of data, in minutes. This is measured from the completion of one full-sync operation to the initiation of the next. This setting only applies to the primary cluster (listener). **To disable fullsync, use *fullsync_interval* `disabled` with *fullsync_on_connect* set to `false`.**
+fullsync_strategies | keylist, syncv1 | [syncv1] | A *list* of fullsync strategies to be used by replication. Please contact Basho support for more information
+fullsync_interval   | mins(integer), disabled | 360 | How often to initiate a fullsync of data, in minutes. This is measured from the completion of one fullsync operation to the initiation of the next. This setting only applies to the primary cluster (listener). **To disable fullsync, use *fullsync_interval* `disabled` with *fullsync_on_connect* set to `false`.**
 keyfile | path(string) | undefined | Fully qualified path to an ssl .pem key file
 data_root | path(string) | data/<wbr>riak_repl | Path (relative or absolute) to the working directory for the replication process
 cacertdir | path(string) | undefined | The cacertdir is a fully-qualified directory containing all the CA certificates needed to verify the CA chain back to the root

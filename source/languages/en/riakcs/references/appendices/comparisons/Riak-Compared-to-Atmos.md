@@ -55,7 +55,7 @@ The table below gives a high level comparison of Riak CS and Atmos features/capa
     </tr>
 	<tr>
         <td>Multi-Datacenter Replication</td>
-        <td>For multi-site replication in Riak CS, global information for users, bucket information and manifests are streamed in real-time from a primary implementation to a secondary site so global state is maintained across locations. Objects can then be replicated in either full sync or real-time sync mode. The secondary site will replicate the object as in normal operations. Additional datacenters can be added in order to create availability zones or additional data redundancy and locality. Riak CS can also be configured for bi-directional replication. 
+        <td>For multi-site replication in Riak CS, global information for users, bucket information and manifests are streamed in real time from a primary implementation to a secondary site so global state is maintained across locations. Objects can then be replicated in either fullsync or realtime sync mode. The secondary site will replicate the object as in normal operations. Additional datacenters can be added in order to create availability zones or additional data redundancy and locality. Riak CS can also be configured for bi-directional replication. 
 		</td>
         <td>In EMC Atmos, object replication to secondary sites is done via synchronous or asynchronous replication configured by policies. These policies are implemented as part of the Metadata Service. A read-only copy of the metadata is maintained at secondary sites.		
 	 </td>
