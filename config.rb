@@ -3,7 +3,7 @@ require './lib/setup'
 
 # since we're using ERB to dynamically generate this, MM assumes it's html
 page "/js/standalone/version-bar.js", :proxy => "js/standalone/version-bar.html", :directory_index => false, :ignore => true
-page "/404.html", :directory_index => false
+# page "/404.html", :directory_index => false
 page "/sitemap.xml", :directory_index => false, :layout => false
 
 Dir["source/languages/*"].each do |language|

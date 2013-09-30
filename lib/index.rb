@@ -35,7 +35,7 @@ def build_yokozuna_index(resources)
     body.gsub!(/\[\[(.+?)\|.+?\]\]/, '\1')
     body.gsub!(/\[(.+?)\]\(.*?\)/, '\1')
     # strip out version tags. replace with a common strip_versions method
-    body.gsub!(/\{\{[#/]?([^}]+?)\}\}/, '\1')
+    body.gsub!(/\{\{[#\/]?([^}]+?)\}\}/, '\1')
     body.gsub!(/["\n\r]|\`{3}/m, ' ')
     body.gsub!(/\s+/m, ' ')
 
