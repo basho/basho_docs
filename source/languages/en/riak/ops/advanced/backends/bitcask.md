@@ -224,11 +224,18 @@ operations are allowed to be triggered. Valid options are:
 * `always` (default) No restrictions
 * `never` Merge will never be attempted
 * `{Start, End}` Hours during which merging is permitted, where `Start` and
-  `End` are integers between 0 and 23.
+  `End` are integers between 0 and 23. A window defined as `{1, 3}` means that
+  merging will be allowed to start between 01:00 and 03:59.
 
 If merging has a significant impact on performance of your cluster, or your
 cluster has quiet periods in which little storage activity occurs, you may
 want to change this setting from the default.
+
+A common way to limit the impact of merging is to create separate merge windows 
+for each node in the cluster and ensure that these windows do not overlap. This
+ensures that at most one node at the time can be affected by merging, leaving 
+the remaining nodes to handle requests. The main drawback of this approach is that
+merges will occur less frequently, leading to increased disk space usage.
 
 Default is: `always`
 
