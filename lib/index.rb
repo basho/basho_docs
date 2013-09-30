@@ -1,74 +1,75 @@
-# ROOT_URL = "http://ec2-54-242-92-147.compute-1.amazonaws.com:8098/riak/riakdoc2"
-ROOT_URL = "http://localhost:8091/riak/rdt1"
+ROOT_URL = ENV['INDEX_URL']
 
-def make_riak_key(resource, project)
+def make_riak_path(resource, project)
   url = resource.url.gsub(/(^\/)|(\.html$)/, '/')
-  url = "/#{project}/latest#{url}"
-  url.gsub(/[\/]+/, '%2F')
+  url = "#{project}/latest#{url}" unless url =~ %r"#{project}\/\d+[^/]*?\/$"
+  url
 end
 
 # we only index html pages
 def build_yokozuna_index(resources)
   count = 0
+  language = I18n.locale || 'en'
   for resource in resources
     next unless resource.url =~ /\.(?:html)|\/$/
     next if resource.url =~ /keywords/
     next if %w{/404.html /index.html}.include?(resource.url)
 
     metadata = resource.metadata[:page] || {}
-    metadata['url'] = resource.url.sub(/\.html/, '/')
 
-    key = make_riak_key(resource, metadata['project'] || $default_project)
+    project = metadata['project'] || $default_project
+    version = $versions[project.to_sym]
+
+    metadata['path'] = make_riak_path(resource, project)
+
+    key = ("en/" + metadata['path'].to_s).gsub(/[\/]+/, '%2F')
 
     body = File.read(resource.source_file)
-    data = body
 
     # remove the top metadata
-    # data.sub!(/^\-{3}$.*?^\-{3}$/m, '')
-    # data = metadata['title'].to_s + data
+    body.sub!(/^\-{3}$.*?^\-{3}$/m, '')
+    body = metadata['title'].to_s + "\n\n" + body
+    body.gsub!(/^\#{1,6}(.*?)$/, '\1. ')
+    body.gsub!(/^\s*\*\s*(.*?)$/, '\1. ')
+    body.gsub!(/\[\[([^|]+?)\]\]/, '\1')
+    body.gsub!(/\[\[(.+?)\|.+?\]\]/, '\1')
+    body.gsub!(/\[(.+?)\]\(.*?\)/, '\1')
+    # strip out version tags. replace with a common strip_versions method
+    body.gsub!(/\{\{[#/]?([^}]+?)\}\}/, '\1')
+    body.gsub!(/["\n\r]|\`{3}/m, ' ')
+    body.gsub!(/\s+/m, ' ')
 
-    # inject into header yaml
-    url = metadata['url']
-
-    # xml = Builder::XmlMarkup.new(:target=>'')
-    # # xml.instruct!(:xml, :encoding => "UTF-8")
-    # xml.add do |add|
-    #   add.doc do |doc|
-    #     doc.field({:name=>'title'}, metadata['title'])
-    #     doc.field({:name=>'project'}, metadata['project'])
-    #     doc.field({:name=>'doctype'}, metadata['document'])
-    #     doc.field({:name=>'index'}, metadata['index'] == 'true')
-    #     doc.field({:name=>'audience'}, metadata['audience'])
-    #     doc.field({:name=>'keywords'}, (metadata['keywords']||[]).join(','))
-    #     doc.field({:name=>'body'}, body)
-    #   end
-    # end
-    # data = xml.target!
-
-    # application/riakdoc
-
-    # -H 'X-Riak-Title:#{metadata['title']}' \
-    # -H 'content-type:text/plain' \
-
-    # strip out keywords if empty
-    data.sub!(/keywords\:\s*\[\]$/, '')
+    data = {
+        'title_s' => metadata['title'],
+        'project_s' => project,
+        'doctype_s' => metadata['document'],
+        'audience_s' => metadata['audience'],
+        'keywords_ss' => metadata['keywords']||[],
+        'path_s' => metadata['path'],
+        'language_s' => language,
+        'version_s' => version,
+        'body_en' => body
+    }.to_json
 
     command = <<-CURL
     curl -XPUT '#{ROOT_URL}/#{key}' \
-    -H 'content-type:application/riakdoc' \
+    -H 'content-type:application/json' \
     --data-binary @-<<\\YNFCM
 #{data}
-    YNFCM
+YNFCM
     CURL
 
-    # # puts command
-    # if (count += 1) == 4
-    #   puts command
-    #   return
-    # end
+    p project
+    p project == 'java'
+    if project == 'java'
+        command = <<-CURL
+        curl -XDELETE '#{ROOT_URL}/#{key}'
+        CURL
+    end
 
     puts "  Indexing #{key}"
     %x"#{command}"
   end
 end
+
 # yz_extractor:register("application/riakdoc", yz_riakdoc_extractor).

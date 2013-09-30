@@ -123,6 +123,13 @@
     .box-row {
       @include size(800px, auto);
 
+      a {
+        color : white;
+        &:hover {
+          color : lighten($orange, 5%);
+        }
+      }
+
       @media screen and (max-width: 768px) {
         width : auto;
       }
