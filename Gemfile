@@ -15,6 +15,7 @@ gem "pygmentize", "=0.0.3"
 gem "gmail", "=0.4.0"
 gem "sinatra", "~>1.3.3"
 gem "unicorn", "~>4.6.2"
+gem 'builder', '~> 3.1.4'
 # gem "coderay_bash" # breaks on minor issues
 
 # gem "rack-codehighlighter", :git => "git://github.com/wbzyl/rack-codehighlighter.git"

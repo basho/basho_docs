@@ -1,6 +1,6 @@
 ---
 title: Java Client Benchmark
-project: riak
+project: java
 version: 0.10.0+
 document: appendix
 toc: true
