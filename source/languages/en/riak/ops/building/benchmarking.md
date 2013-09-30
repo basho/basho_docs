@@ -388,8 +388,7 @@ These configuration settings apply to the
 List of Riak nodes to use for testing.
 
 ```bash
-{riakclient_nodes, ['[riak1@127.0.0.1](mailto:riak1@127.0.0.1)',
-'[riak2@127.0.0.1](mailto:riak2@127.0.0.1)']}.
+{riakclient_nodes, ['riak1@127.0.0.1', 'riak2@127.0.0.1']}.
 ```
 
 #### riakclient_cookie
@@ -408,8 +407,7 @@ The name of the local node. This is passed into
 [net_kernel:start/1](http://erlang.org/doc/man/net_kernel.html).
 
 ```bash
-{riakclient_mynode,
-['[basho_bench@127.0.0.1](mailto:basho_bench@127.0.0.1)', longnames]}.
+{riakclient_mynode, ['basho_bench@127.0.0.1', longnames]}.
 ```
 
 #### riakclient_replies
