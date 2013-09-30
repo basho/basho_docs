@@ -20,8 +20,8 @@ These `repl` values are available in Riak EE version 1.1 and above:
 These option values are only available in Riak EE version 1.2 and above:
 
   * `realtime`: replication only occurs in realtime for this bucket
-  * `fullsync`: replication only occurs during a full-synchronization
-  * `both`: replication occurs in realtime and during full-synchronization
+  * `fullsync`: replication only occurs during a fullsync operation
+  * `both`: replication occurs in realtime and during fullsync
 
 ### Example of Disabling
 

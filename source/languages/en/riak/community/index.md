@@ -27,7 +27,7 @@ Basho also maintains a frequently updated page of [[community developed projects
 
 ### Riak on IRC
 
-The #riak IRC room on irc.freenode.net is a great place for real-time help with your Riak issues and questions.
+The #riak IRC room on irc.freenode.net is a great place for real time help with your Riak issues and questions.
 
 ### The Basho Blog
 

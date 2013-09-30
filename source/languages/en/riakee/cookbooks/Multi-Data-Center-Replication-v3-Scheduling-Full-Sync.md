@@ -1,5 +1,5 @@
 ---
-title: "Multi Data Center Replication v3 Scheduling Full Sync"
+title: "Multi Data Center Replication v3: Scheduling Fullsync"
 project: riakee
 version: 1.3.0+
 document: cookbook

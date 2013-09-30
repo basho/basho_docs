@@ -15,7 +15,7 @@ versions: false
 
 Riak Enterprise is a commercially distributed product built on Riak (Apache 2.0-licensed) that extends Riak's capabilities with [[multi-datacenter replication|Multi Data Center Replication: Architecture]], [[SNMP monitoring|SNMP Configuration]], [[JMX-Monitoring]], and 24x7 support. 
 
-In multi-datacenter replication, one cluster acts as a "source cluster". The source cluster replicates its data to one or more "sink clusters" in a [[full or real-time sync|Multi Data Center Replication: Architecture]] process. Data transfer is unidirectional (source -> sink). However, bidirectional synchronization can be achieved by configuring a pair of connections between clusters.
+In multi-datacenter replication, one cluster acts as a "source cluster". The source cluster replicates its data to one or more "sink clusters" in a [[full or realtime sync|Multi Data Center Replication: Architecture]] process. Data transfer is unidirectional (source -> sink). However, bidirectional synchronization can be achieved by configuring a pair of connections between clusters.
 
 Multi-datacenter features can be used for: 
 
