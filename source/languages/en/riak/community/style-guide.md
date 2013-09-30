@@ -418,6 +418,11 @@ accurate documentation that inspires confidence.
 related products. It should always be capitalized as there is no `erlang`
 command.
 
+#### Fullsync, realtime 
+
+When describing Riak Enterprise replication, eschew hyphens in
+*fullsync* and *realtime*.
+
 #### MapReduce
 
 *MapReduce* is written as "MapReduce"; avoid use of incorrect versions of the
