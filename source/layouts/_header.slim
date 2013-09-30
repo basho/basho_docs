@@ -1,8 +1,9 @@
 header.masthead
   #header
-    div#ricon-temp-banner
-      div.temp-banner-text
-        == I18n.t(:ricon_ad)
+    - unless I18n.t(:ricon_ad, :default=>nil)
+      div#ricon-temp-banner
+        div.temp-banner-text
+          == I18n.t(:ricon_ad)
     div#header-inner
       div#nav-toggle class="icon-reorder"
       div#top-nav
