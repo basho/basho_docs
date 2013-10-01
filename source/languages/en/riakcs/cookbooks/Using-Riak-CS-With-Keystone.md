@@ -115,11 +115,11 @@ can be set by adding the following the Riak CS configuration file:
 
 Riak CS also needs to know the authentication URL to use to
 communicate with Keystone. The default value is
-`"http://localhost:5000/v2.0"`. To override this value add the following
+`"http://localhost:35357/v2.0/"`. To override this value add the following
 to the Riak CS configuration file:
 
 ```
-{os_auth_url, "http://host.with.the.most.com/5000/v2.0"}
+{os_auth_url, "http://host.with.the.most.com:35357/v2.0/"}
 ```
 
 #### Keystone Resources
