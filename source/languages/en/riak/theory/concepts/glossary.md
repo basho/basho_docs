@@ -24,8 +24,8 @@ missing, or corrupted replicas. Unlike [[read repair|Replication#Read-Repair]],
 which is only triggered when data is read, the active anti-entropy system
 ensures the integrity of all data stored in Riak. This is particularly useful in
 clusters containing “cold data”: data that may not be read for long periods of
-time, potentially years. Furthermore, unlike the repair command, active anti-
-entropy is an automatic process, requiring no user intervention and is enabled
+time, potentially years. Furthermore, unlike the repair command, active anti-entropy
+is an automatic process, requiring no user intervention and is enabled
 by default in Riak 1.3. For users upgrading from previous versions, this is not
 enabled by default and must be configured.
 
