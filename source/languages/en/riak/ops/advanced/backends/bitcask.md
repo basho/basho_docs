@@ -216,6 +216,43 @@ Default is: `16#80000000` which is 2GB in bytes
 ]}
 ```
 
+#### Hint File CRC Check
+
+During startup Bitcask will read from `.hint` files to build its in memory
+representation of the key space, falling back to the `.data` files if
+necessary.  This reduces the amount of data that must be read from the
+disk during startup, and thereby the time required to startup.  The 
+`require_hint_crc` setting will determine if a `.hint` file will be used
+when it does not contain a CRC signature, but is otherwise able
+to be read properly.  
+
+* `true` - disregard any `.hint` file that does not contain a CRC value 
+* `false` -  use `.hint` files that are otherwise valid except for missing CRC
+
+```erlang
+{bitcask, [
+        ...,
+        {require_hint_crc, true},
+        ...
+]}
+```
+
+#### IO Mode
+
+The `io_mode` setting specifies which code module Bitcask should use for 
+file access.  Valid settings are:
+
+* `erlang` (default) use Erlang file module
+* `nif` use native implemented function module written in C
+
+```erlang
+{bitcask, [
+        ...,
+        {io_mode, erlang},
+        ...
+]}
+```
+
 #### Merge Window
 
 The `merge_window` setting lets you specify when during the day merge
@@ -341,6 +378,26 @@ values for <code>frag_threshold</code> and <code>dead_bytes_threshold</code>
 they are set higher, Bitcask will trigger merges where no files meet the
 thresholds, and thus never resolve the conditions that triggered
 merging.</p></div>
+
+#### Log Needs Merge
+
+The `log_needs_merge` setting is intended for tuning and troubleshooting
+the Bitcask merge settings.  When set to `true`, each time a merge trigger is
+met, the partition ID and mergeable files will be logged.
+
+```erlang
+{bitcask, [
+        ...,
+        {log_needs_merge, true},
+        ...
+]}
+```
+
+<div class="note"><div class="title"> `log_needs_merge` and Multi-Backend</div>
+When using Bitcask with [[Multi-Backend|Multi]], please note that `log_needs_merge`
+*must* be set in the global `bitcask` section of your `app.config`.  
+`log_needs_merge` settings in per-backend sections are ignored.
+</div>
 
 #### Fold Keys Threshold
 
