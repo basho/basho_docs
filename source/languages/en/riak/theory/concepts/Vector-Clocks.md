@@ -34,7 +34,7 @@ divergent changesets in an application specific manner.
 ## Siblings
 
 A _sibling_ is created when Riak is unable to resolve the canonical version of
-an object being stored.  If `allow_mult` is set to true on a bucket's
+an object being stored.  If `allow_mult` is set to `true` on a bucket's
 properties, three scenarios will create siblings inside of a single object.
 
 1. **Concurrent writes** If two writes occur simultaneously from
@@ -57,10 +57,12 @@ clock.  While the least likely scenario, it can happen when manipulating an
 object using a client like `curl` and forgetting to set the `X-Riak-Vclock`
 header.
 
-Riak uses siblings because it is impossible to order events with respect to
-time in a distributed system, this means they must be ordered causally.  If
-`allow_mult` is true, when a conflict occurs, Riak will not resolve it for
-you.  You must select one of the siblings or replace the object yourself.
+Riak uses siblings because it is impossible to guarantee that events
+in a distributed system will be ordered chronologically; instead, Riak
+tracks the causal history of updates along with the system clock
+time. If `allow_mult` is `true`, when a conflict occurs, Riak will not
+resolve it for you.  You must select one of the siblings or replace
+the object yourself.
 
 Siblings in action:
 
@@ -177,32 +179,27 @@ from growing too large too quickly.
 
 ### How does last_write_wins affect resolution?
 
-On the surface it seems like `allow_mult` set to `false` (the default)
-and `last_write_wins` set to `true` result in the same behavior, but
-there is a subtle distinction.
+When `allow_mult` is `false` (the default) the last write always wins
+in the case of a conflict.
 
-Even though both settings return only one value to the client,
-`allow_mult=false` still uses vector clocks for resolution, whereas
-`last_write_wins=true` simply reads the timestamp to determine the
-latest version. Deeper in the system, `allow_mult=false` will still
-allow siblings to exist when they are created (via concurrent writes
-or network partitions), whereas `last_write_wins=true` will simply
-overwrite the value with the one that has the later timestamp.
+Rather confusingly, there is also a `last_write_wins` configuration
+parameter that can be set independently of `allow_mult`.
 
-When you don't care about sibling creation, `allow_mult=false` has the
-least surprising behavior &mdash; you get the latest value, but
-network partitions are handled gracefully. However, for cases where
-keys are rewritten often (and quickly) and the new value isn't
-necessarily dependent on the old value, `last_write_wins` will provide
-better performance. Some use-cases where you might want to use
-`last_write_wins` include caching, session storage, and insert-only (no
-updates).
+Setting `last_write_wins=true` informs Riak that it does not need to
+track vector clock history. This allows for faster writes; some
+use cases for this include caching, session storage, and insert-only
+(no updates).
 
-<div class="note">
-The combination of bucket properties <code>allow_mult=true</code> and
-<code>last_write_wins=true</code> has undefined behavior and should not be
-used.
-</div>
+### Configuration recap
+
+* `allow_mult` defaults to `false`; setting it to `true` forces
+  conflict resolution to the application, which is the safest approach
+  for data which is not immutable.
+* `last_write_wins` defaults to `false`; setting it to `true`
+  instructs Riak to disregard vector clocks for conflict resolution.
+* Both values as `false` (default) means that the last write wins, but
+  Riak maintains causal history to better resolve conflicts.
+* Setting both values to `true` results in undefined behavior.
 
 ## Vector Clock Pruning
 
