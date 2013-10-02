@@ -81,17 +81,42 @@ Initially, the line that specifies the riak node IP address is set to the local 
 Replace 127.0.0.1 with the IP address for the Riak node.
 
 ## Setting Up Riak to Use Protocol Buffers
-The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_kv` config section of the file.
+{{#1.4.0+}}
+The Riak protocol buffer settings reside in the Riak `app.config`
+file, which is located in the `/etc/riak` folder. The settings appear in the
+`riak_api` section of the file.
+
+```erlang
+%% pb is a list of IP addresses and TCP ports that the Riak
+%% Protocol Buffers interface will bind.
+{pb, [ {"127.0.0.1", 8087} ]}
+```
+{{/1.4.0+}}
+{{#1.4.0-}}
+The Riak protocol buffer settings reside in the Riak `app.config` file, which
+is located in the `/etc/riak` folder. The settings appear in the `riak_kv`
+section of the file.
 
 **pb_ip**: Replace 127.0.0.1 with the IP address of the Riak node.
 
 If you need to use a different port:
 
 **pb_port**: Replace 8087 with the port number you want to use.
+{{/1.4.0-}}
 
-<div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
+<div class="note"><div class="title">Note</div>A different port number might
+be required if the port number conflicts with ports used by another
+application or you use a load balancer or proxy server.</div>
 
-The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+{{#1.4.0+}}
+The `pb` tuple in the Riak `app.config` file must match the values for
+`riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+{{/1.4.0+}}
+{{#1.4.0-}}
+The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the
+values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion
+`app.config` files.
+{{/1.4.0-}}
 
 ### Enabling SSL in Riak
 In the Riak `app.config` file, first uncomment the following lines:
