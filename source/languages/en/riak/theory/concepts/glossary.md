@@ -29,7 +29,7 @@ entropy is an automatic process, requiring no user intervention and is enabled
 by default in Riak 1.3. For users upgrading from previous versions, this is not
 enabled by default and must be configured.
 
-* [[Configuration Files|http://docs.basho.com/riak/latest/ops/advanced/configs/configuration-files]]
+* [[Configuration Files]]
 * [[Replication|Replication#Active-Anti-Entropy-AAE-]]
 
 ## Basho Bench
