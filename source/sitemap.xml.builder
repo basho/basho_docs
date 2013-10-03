@@ -1,15 +1,6 @@
 # encoding: utf-8
 xml.instruct!
 
-# To tell Google and other search services about the sitemap, add
-# Sitemap: http://www.your-domain.com/sitemap.xml   
-# to the robots.txt file. Or see
-# http://support.google.com/webmasters/bin/answer.py?hl=en&answer=183669&topic=8476&ctx=topic for other options.
-#
-# For details on how to construct a site map, see
-# http://www.sitemaps.org/protocol.html
-# http://support.google.com/webmasters/bin/answer.py?hl=en&answer=156184&topic=8476&ctx=topic
-
 xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
   page_count = 0
   sitemap.resources.each do |page|
@@ -29,6 +20,8 @@ xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
       throw :next_page if page.url.end_with?('.xml')
       throw :next_page if page.url.end_with?('.api')
       throw :next_page if page.url.end_with?('.roc')
+      throw :next_page if page.url.end_with?('404.html')
+      throw :next_page if page.url.end_with?('redirect.html')
       throw :next_page if page.url.start_with?('/.')   # .htaccess, .DS_Store, .git etc.
       throw :next_page if page.url == '/robots.txt'
       throw :next_page if page.url == '/favicon.ico'
@@ -52,7 +45,7 @@ xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
 
       # Build xml of sitemap
       xml.url do
-        xml.loc 'http://docs.basho.com' + page.url   # TODO: possibly remove .html
+        xml.loc 'http://docs.basho.com' + "/#{(page.data['project'] || 'riak')}/latest" + page.url   # TODO: possibly remove .html
 
         # As usual, it's hard to get any solid information on how the search engines are
         # using the information in the site map. lastmod (last modified) and changefreq
@@ -86,7 +79,7 @@ xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
 
             xml.lastmod most_recent.strftime("%Y-%m-%d")  # Using the more recent of the two dates.
                                                           # Using only date, stripping clock
-            xml.priority 1.0
+            xml.priority ((page.url =~ /keywords/) ? 0.6 : 1.0)
         end
 
         # Priority (priority)
