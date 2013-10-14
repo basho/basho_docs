@@ -10,7 +10,7 @@ skip_nav: true
 versions: false
 ---
 
-- unless I18n.t(:ricon_ad, :default=>nil)
+- if I18n.t(:ricon_ad, :default=>nil)
   div#ricon-temp-banner
     div.temp-banner-text
       == I18n.t(:ricon_ad)
