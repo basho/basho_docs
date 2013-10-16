@@ -108,7 +108,7 @@ pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
 {{/1.3.0}}
-{{#1.3.1+}}
+{{#1.3.1-1.3.2}}
 
 ```bash
 curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/1.8/riak-{{V.V.V}}-SmartOS-i386.tgz
@@ -120,7 +120,20 @@ Next, install the package:
 pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
 ```
 
-{{/1.3.1+}}
+{{/1.3.1-1.3.2}}
+{{#1.4.0+}}
+
+```bash
+curl -o /tmp/riak-{{V.V.V}}-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/1.8/riak-{{V.V.V}}-SmartOS-x86_64.tgz
+```
+
+Next, install the package:
+
+```
+pkg_add /tmp/riak-{{V.V.V}}-SmartOS-x86_64.tgz
+```
+
+{{/1.4.0+}}
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
 
