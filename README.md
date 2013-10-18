@@ -12,7 +12,7 @@ Another tool used with this repository is rvm. Get it here https://rvm.io/
 
 On OS-X specifically, as with any Ruby project, XCode & the XCode CLI Tools are needed to install, make and install everything smoothly.
 
-![XCode CLI Tooling](http://adronhall.smugmug.com/Software/Software-Development/Basho-Misc/i-xPGs6Tf/1/S/cli-S.jpg)
+Go to: Preference > Downloads > Command Line Tools.
 
 If you don't have XCode, you can also download the [OSC GCC Installer](https://github.com/kennethreitz/osx-gcc-installer), which gives you the essential compilers needed to build the docs.
 
