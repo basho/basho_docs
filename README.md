@@ -244,6 +244,7 @@ language | bucket      | cloudfront id  | docs lang
 ---------|-------------|----------------|----------
 English  | riakdocs.en | E2Q6TQ5O0XT58T | en
 Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
+Chinese  | riakdocs.cn | E3NADMYQ20Y7EJ | cn
 
 
 **Keep it secret. Keep it safe.**
