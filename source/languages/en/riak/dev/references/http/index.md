@@ -49,8 +49,6 @@ other words, buckets using the default bucket properties are free.</p>
 the keys in a bucket, you'll need to delete them all individually.</P>
 </div>
 
-## Bucket Operations
-
 * [[HTTP List Buckets]]
 * [[HTTP List Keys]]
 * [[HTTP Get Bucket Properties]]
