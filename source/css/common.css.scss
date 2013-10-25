@@ -794,13 +794,16 @@ iframe {
 a.responsive-toggle, #nav-container a.responsive-toggle {
   display : none;
   
-  @include layout-sprite(toggle-button);
+  //@include layout-sprite(toggle-button);
+  background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
+
   @include size(40px, 27px);
   float   : right;
   border  : 0;
   padding : 0;
   &:hover {
-    @include layout-sprite(toggle-button);
+    //@include layout-sprite(toggle-button);
+    background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
   }
 
   @media screen and (max-width: 500px) {
@@ -988,7 +991,8 @@ div[role="main"] {
     }
     
     a.responsive-toggle {
-      @include layout-sprite(toggle-button-light);
+      //@include layout-sprite(toggle-button-light);
+      background-image : url(/shared/latest/images/layout/toggle-button-light.png); /* Temporary fix */
       margin  : 14px 12px 0 0;
     }
 
