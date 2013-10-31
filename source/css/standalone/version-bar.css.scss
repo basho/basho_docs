@@ -42,6 +42,8 @@ $layout-layout:smart;
   @include allCorners();
   @include transitionAll(all 0.5s ease);
 
+  overflow:hidden;
+
   &.selected {
     background : $darkBlueGreen;
     border     : 1px solid $darkBlueGreen;
