@@ -5,10 +5,10 @@ version: 1.3.1+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, 2i, search, linkwalking]
+keywords: [developers, client, 2i, search]
 ---
 
-Now that we've had a taste of the CRUD interface for Riak, let's look into three other ways of querying for data - Link Walking, Secondary Indices, and Riak Search.  
+Now that we've had a taste of the CRUD interface for Riak, let's look into a few ways to lay out and query our data - Secondary Indices and Key/Value.
 
 ###Configuration Changes
 Before we experiment with these methods, we will have to change our Riak instance's configuration a little bit.  
@@ -17,11 +17,6 @@ To do this we will have to find Riak's `app.config` file, which can usually be f
 If you are running SmartOS it will be at `/opt/local/etc/riak/app.config`, and if you used HomeBrew to install Riak on OSX it will be at `/usr/local/Cellar/riak/**VERSION**/libexec/etc/app.config`.  
 
 Open the `app.config` file in your favorite text editor.
-
-
-####Enabling Search
-Search for the string `{riak_search`, this will bring you to the configuration section for Riak Search.  
-To enable it, change the line `{enabled, false}` to `{enabled, true}`.
   
 
 ####Using the LevelDB Backend for 2i
@@ -40,9 +35,10 @@ _**Note: If you are running a cluster instead of a single node, you will have to
 Please select the language you'd like to proceed with.
 
 <ul class="planguages">
-<li data-lang="java">[[Java|Taste of Riak: Querying with Java]]</li>
-<li data-lang="erlang">[[Erlang|Taste of Riak: Querying with Erlang]]</li>
-<li data-lang="ruby">[[Ruby|Taste of Riak: Querying with Ruby]]</li>
-<li data-lang="php">[[PHP|Taste of Riak: Querying with PHP]]</li>
-<li data-lang="python">[[Python|Taste of Riak: Querying with Python]]</li>
+<li><a href="/dev/taste-of-riak/querying-java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
+<li><a href="/dev/taste-of-riak/querying-erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="/dev/taste-of-riak/querying-ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
+<li><a href="/dev/taste-of-riak/querying-php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
+<li><a href="/dev/taste-of-riak/querying-python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
 </ul>
+
