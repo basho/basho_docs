@@ -169,7 +169,7 @@ Riak Pipe is the processing layer that powers Riak's MapReduce. It's best descri
 
 ## Riak Search
 
-Riak Search is a distributed, scalable, failure-tolerant, real-time, full-text search engine built around Riak Core and tightly integrated with Riak KV.
+Riak Search is a distributed, scalable, failure-tolerant, realtime, full-text search engine built around Riak Core and tightly integrated with Riak KV.
 
 * [[Using Search]]
 * [[Advanced Search]]

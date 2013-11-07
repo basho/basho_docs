@@ -1,5 +1,5 @@
 ---
-title: RiakCS Get Object
+title: RiakCS OpenStack Get Object
 project: riakcs
 version: 1.4.0+
 document: api

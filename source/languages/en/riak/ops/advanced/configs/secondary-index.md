@@ -37,7 +37,7 @@ The object's value and its indexes should be thought of as a single unit. There 
 
 In the case where an object has siblings, the object is indexed under the index entries for *ALL* of the siblings. When the conflict is resolved, it acts just like an index update. Riak de-indexes the object, and then re-indexes the newly resolved object based on the provided index entries.
 
-Indexing is atomic, and is updated in real-time when writing an object. This means that an object will be present in future index queries as soon as the write operation completes.
+Indexing is atomic, and is updated in real time when writing an object. This means that an object will be present in future index queries as soon as the write operation completes.
 
 ### Index Data Types
 

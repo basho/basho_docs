@@ -48,15 +48,15 @@ sysctl fs.file-max
 fs.file-max = 50384
 ```
 
-As seen above, it is generally set high enough for Riak. If you have other things running on the system, you might want to consult the [[sysctl manpage|http://linux.die.net/man/8/sysctl]] for how to change that setting. However, what most needs to be changed is the per-user open files limit. This requires editing /etc/security/limits.conf, which you’ll need superuser access to change. If you installed Riak or Riak Search from a binary package, add lines for the riak user like so, substituting your desired hard and soft limits:
+As seen above, it is generally set high enough for Riak. If you have other things running on the system, you might want to consult the [[sysctl manpage|http://linux.die.net/man/8/sysctl]] for how to change that setting. However, what most needs to be changed is the per-user open files limit. This requires editing `/etc/security/limits.conf`, which you’ll need superuser access to change. If you installed Riak or Riak Search from a binary package, add lines for the riak user like so, substituting your desired hard and soft limits:
 
-On Ubuntu, if you’re always relying on the init scripts to start Riak, you can create the file /etc/default/riak and specify a manual limit like so:
+On Ubuntu, if you’re always relying on the init scripts to start Riak, you can create the file `/etc/default/riak` and specify a manual limit like so:
 
 ```bash
 ulimit -n 65536
 ```
 
-This file is automatically sourced from the init script, and the Riak process started by it will properly inherit this setting. As init scripts are always run as the root user, there’s no need to specifically set limits in /etc/security/limits.conf if you’re solely relying on init scripts.
+This file is automatically sourced from the init script, and the Riak process started by it will properly inherit this setting. As init scripts are always run as the root user, there’s no need to specifically set limits in `/etc/security/limits.conf` if you’re solely relying on init scripts.
 
 On CentOS/RedHat systems make sure to set a proper limit for the user you’re usually logging in with to do any kind of work on the machine, including managing Riak. On CentOS, sudo properly inherits the values from the executing user.
 
@@ -69,6 +69,8 @@ It can be helpful to enable PAM user limits so that non-root users, such as the 
   1. Edit `/etc/pam.d/common-session` and append the following line:
 
          session    required   pam_limits.so
+
+     If `/etc/pam.d/common-session-noninteractive` exists, append the same line as above.
 
   2. Save and close the file.
 
@@ -125,24 +127,15 @@ set rlim_fd_max=65536
 Reference: [[http://blogs.oracle.com/elving/entry/too_many_open_files]]
 
 ## Mac OS X
-To check the current limits on your Mac OS X system, run (the final two columns are the soft and hard limits, respectively):
+To check the current limits on your Mac OS X system, run:
 
 ```bash
-launchctl limit maxfiles 2048 unlimited
+launchctl limit maxfiles
 ```
 
-This will set the limit until the next time you reboot. To make the change permanent add the line below to `/etc/launchd.conf` (superuser access required):
+The last two columns are the soft and hard limits, respectively.
 
-```bash
-limit maxfiles 2048 unlimited
-```
-
-**Note:** Snow Leopard (10.6) may not allow “unlimited” for the maxfiles setting, in which case, just omit it.
-
-Reference: [[http://artur.hefczyc.net/node/27]]
-
-### OS X 10.7 (Lion)
-To adjust the maximum open file limits in OS X 10.7 (Lion), edit `/etc/launchd.conf`, and increase the limits for both values as appropriate.
+To adjust the maximum open file limits in OS X 10.7 (Lion) or newer, edit `/etc/launchd.conf` and increase the limits for both values as appropriate.
 
 For example, to set the soft limit to 16384 files, and the hard limit to 32768 files, perform the following steps:
 
@@ -162,7 +155,7 @@ launchctl limit
     maxfiles    10240          10240
 ```
 
-Edit `/etc/launchd.conf` (if the file does not exist, create it), and increase the limits, so that it resembles the following values, being sure to use values specific to your environment or as directed:
+Edit (or create) `/etc/launchd.conf` and increase the limits. Add lines that look like the following (using values appropriate to your environment):
 
 ```bash
 limit maxfiles 16384 32768

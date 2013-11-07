@@ -17,7 +17,7 @@ There is a vibrant and fast-growing community forming around Riak. Whether you n
 
 ### Mailing List
 
-The [Riak Developer Mailing List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com) is highly-trafficked and is a great resource for technical discussions, Riak issues and questions, and community events and announcements.
+The [Riak Users Mailing List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com) is highly-trafficked and is a great resource for technical discussions, Riak issues and questions, and community events and announcements.
 
 ### Code
 
@@ -27,15 +27,15 @@ Basho also maintains a frequently updated page of [[community developed projects
 
 ### Riak on IRC
 
-The #riak IRC room on irc.freenode.net is a great place for real-time help with your Riak issues and questions.
+The #riak IRC room on irc.freenode.net is a great place for real time help with your Riak issues and questions.
 
 ### The Basho Blog
 
 Members of the Basho Team blog frequently on [[The Basho Blog|http://blog.basho.com]].
 
-### The Riak Recap Blog 
+### The Riak Recap
 
-The Riak Recap is a thrice-weekly email, typically delivered each Monday, Wednesday, and Friday to the Riak Users Mailing List to keep list subscribers up-to-date on what’s happening in and around the Riak Community. [[It's also consumable in blog form.|http://recap.basho.com/2011/06/30/Welcome-to-the-Riak-Recap-Blog/]]
+The Riak Recap is a periodic email to the Riak Users Mailing List to keep list subscribers up-to-date on what’s happening in and around the Riak Community.
 
 ### Basho on Twitter
 

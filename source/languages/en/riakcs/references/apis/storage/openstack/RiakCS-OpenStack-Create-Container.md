@@ -1,5 +1,5 @@
 ---
-title: RiakCS Create Container
+title: RiakCS OpenStack Create Container
 project: riakcs
 version: 1.4.0+
 document: api

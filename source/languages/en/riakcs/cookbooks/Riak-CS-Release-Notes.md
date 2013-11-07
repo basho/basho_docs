@@ -8,6 +8,75 @@ audience: intermediate
 keywords: [developer]
 ---
 
+## Riak CS 1.4.2 Release Notes
+
+#### Bugs Fixed
+* Fix issue with Enterprise build on Debian Linux distributions.
+* Fix source tarball build.
+* Fix access statistics bug that caused all accesses to be treated as
+  errors.
+* Make logging in bucket listing map phase function lager version
+  agnostic to avoid issues when using versions of Riak older than 1.4.
+* Handle undefined `props` field in manifests to fix issue accessing
+  objects written with a version of Riak CS older than 1.3.0.
+
+#### Additions
+* Add option to delay initial GC sweep on a node using the
+  `initial_gc_delay` configuration option.
+* Append random suffix to GC bucket keys to avoid hot keys and improve
+  performance during periods of frequent deletion.
+* Add `default_proxy_cluster_id` option to provide a way to specify a
+  default cluster id to be used when the cluster id is undefined. This is
+  to facilitate migration from the OSS version to the
+  Enterprise version.
+
+## Riak CS 1.4.1 Release Notes
+
+#### Bugs Fixed
+* Fix list objects crash when more than the first 1001 keys are in
+  the pending delete state.
+* Fix crash in garbage collection daemon.
+* Fix packaging bug by updating node_package dependency.
+
+## Riak CS 1.4.0 Release Notes
+
+#### Additions
+* Add preliminary support for the Swift API and Keystone authentication.
+* Improve performance of object listing when using Riak 1.4.0 or greater.
+* Add ability to edit user account name and email address.
+* Add support for v3 multi-data-center replication.
+* Add configurable Riak connection timeouts.
+* Add syslog support via Lager.
+* Only contact one vnode for immutable block requests.
+
+#### Bugs Fixed
+* Remove unnecessary keys in GC bucket.
+* Fix query-string authentication for multi-part uploads.
+* Fix Storage Class for multi-part uploaded objects.
+* Fix etags for multi-part uploads.
+* Support reformat indexes in the Riak CS multi-backend.
+* Fix unbounded memory-growth on GET requests with a slow connection.
+* Reduce access-archiver memory use.
+* Fix 500 on object ACL HEAD request.
+* Fix semantics for concurrent upload and delete of the same key with a
+  multi-part upload.
+* Verify content-md5 header if supplied.
+* Handle transient Riak connection failures.
+
+## Riak CS 1.3.1 Release Notes
+
+#### Bugs Fixed
+* Fix bug in handling of active object manifests in the case of
+  overwrite or delete that could lead to old object versions being
+  resurrected.
+* Fix improper capitalization of user metadata header names.
+* Fix issue where the S3 rewrite module omits any query parameters
+  that are not S3 subresources. Also correct handling of query
+  parameters so that parameter values are not URL decoded twice. This
+  primarily affects pre-signed URLs because the access key and request
+  signature are included as query parameters.
+* Fix for issue with init script stop.
+
 ## Riak CS 1.3.0 Release Notes
 
 #### Additions

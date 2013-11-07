@@ -157,7 +157,7 @@ Need more information on this one...
 #### Splunk
 [Splunk](http://www.splunk.com) is available as downloadable software or as a service, and provides tools for visualization of machine generated data such as log files. It can be connected to Riak's HTTP statistics `[[/stats|HTTP Status]]` endpoint.
 
-Splunk can be used to aggregate all Riak cluster node operational log files, including operating system and Riak-specific logs and Riak statistics data. These data are then available for real-time graphing, search, and other visualization ideal for troubleshooting complex issues and spotting trends.
+Splunk can be used to aggregate all Riak cluster node operational log files, including operating system and Riak-specific logs and Riak statistics data. These data are then available for real time graphing, search, and other visualization ideal for troubleshooting complex issues and spotting trends.
 
 ## Summary
 Riak exposes numerous forms of vital statistic information which can be aggregated, monitored, analyzed, graphed, and reported on in a variety of ways using numerous open source and commercial solutions.

@@ -9,7 +9,7 @@ keywords: [mdc, repl, aae, entropy, fullsync]
 ---
 
 <div class="info">
-Replication w/ Active Anti-Entropy (AAE) technology is currently a <em>Technology Preview</em>. This means that it hasn't been tested at large scale and there may be issues that need to be addressed by Basho before a general release. Please <em>do not</em> use on a production system without professional services or customer service engineering support.
+The Active Anti-Entropy fullsync strategy, as it pertains to replication, is in <em>Technology Preview</em>. This means it hasn't been tested at large scale and there may be issues Basho must to address before a general release. Please don't use on a production system without professional services or customer service engineering support.
 </div>
 
 ## Overview

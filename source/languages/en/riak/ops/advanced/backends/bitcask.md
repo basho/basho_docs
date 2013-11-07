@@ -216,6 +216,43 @@ Default is: `16#80000000` which is 2GB in bytes
 ]}
 ```
 
+#### Hint File CRC Check
+
+During startup Bitcask will read from `.hint` files to build its in memory
+representation of the key space, falling back to the `.data` files if
+necessary.  This reduces the amount of data that must be read from the
+disk during startup, and thereby the time required to startup.  The 
+`require_hint_crc` setting will determine if a `.hint` file will be used
+when it does not contain a CRC signature, but is otherwise able
+to be read properly.  
+
+* `true` - disregard any `.hint` file that does not contain a CRC value 
+* `false` -  use `.hint` files that are otherwise valid except for missing CRC
+
+```erlang
+{bitcask, [
+        ...,
+        {require_hint_crc, true},
+        ...
+]}
+```
+
+#### IO Mode
+
+The `io_mode` setting specifies which code module Bitcask should use for 
+file access.  Valid settings are:
+
+* `erlang` (default) use Erlang file module
+* `nif` use native implemented function module written in C
+
+```erlang
+{bitcask, [
+        ...,
+        {io_mode, erlang},
+        ...
+]}
+```
+
 #### Merge Window
 
 The `merge_window` setting lets you specify when during the day merge
@@ -224,11 +261,18 @@ operations are allowed to be triggered. Valid options are:
 * `always` (default) No restrictions
 * `never` Merge will never be attempted
 * `{Start, End}` Hours during which merging is permitted, where `Start` and
-  `End` are integers between 0 and 23.
+  `End` are integers between 0 and 23. A window defined as `{1, 3}` means that
+  merging will be allowed to start between 01:00 and 03:59.
 
 If merging has a significant impact on performance of your cluster, or your
 cluster has quiet periods in which little storage activity occurs, you may
 want to change this setting from the default.
+
+A common way to limit the impact of merging is to create separate merge windows 
+for each node in the cluster and ensure that these windows do not overlap. This
+ensures that at most one node at the time can be affected by merging, leaving 
+the remaining nodes to handle requests. The main drawback of this approach is that
+merges will occur less frequently, leading to increased disk space usage.
 
 Default is: `always`
 
@@ -334,6 +378,26 @@ values for <code>frag_threshold</code> and <code>dead_bytes_threshold</code>
 they are set higher, Bitcask will trigger merges where no files meet the
 thresholds, and thus never resolve the conditions that triggered
 merging.</p></div>
+
+#### Log Needs Merge
+
+The `log_needs_merge` setting is intended for tuning and troubleshooting
+the Bitcask merge settings.  When set to `true`, each time a merge trigger is
+met, the partition ID and mergeable files will be logged.
+
+```erlang
+{bitcask, [
+        ...,
+        {log_needs_merge, true},
+        ...
+]}
+```
+
+<div class="note"><div class="title"> `log_needs_merge` and Multi-Backend</div>
+When using Bitcask with [[Multi-Backend|Multi]], please note that `log_needs_merge`
+*must* be set in the global `bitcask` section of your `app.config`.  
+`log_needs_merge` settings in per-backend sections are ignored.
+</div>
 
 #### Fold Keys Threshold
 
@@ -463,7 +527,7 @@ data.
 
     If you are using Riak Enterprise with the replication feature enabled,
     your clusters might experience higher production of fragmentation and dead
-    bytes caused by replays. Additionally, because the full-sync feature
+    bytes caused by replays. Additionally, because the fullsync feature
     operates across entire partitions, it will be made more efficient by
     accessing data as sequentially as possible (across fewer files). Lowering
     both the fragmentation and dead-bytes settings will improve performance.

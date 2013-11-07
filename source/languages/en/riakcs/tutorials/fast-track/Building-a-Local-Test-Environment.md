@@ -118,7 +118,7 @@ Change the following line in `/etc/riak/app.config`
 to
 
 ```
-{{#1.2.0}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.0/ebin"]},{{/1.2.0}}{{#1.2.1}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.2.1/ebin"]},{{/1.2.1}}{{#1.3.0}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.3.0/ebin"]},{{/1.3.0}}{{#1.3.1}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-1.3.1/ebin"]},{{/1.3.1}}
+{{#1.4.0-}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},{{/1.4.0-}}{{#1.4.0+}}{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},{{/1.4.0+}}
 {storage_backend, riak_cs_kv_multi_backend},
 {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
 {multi_backend_default, be_default},

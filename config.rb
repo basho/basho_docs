@@ -3,7 +3,8 @@ require './lib/setup'
 
 # since we're using ERB to dynamically generate this, MM assumes it's html
 page "/js/standalone/version-bar.js", :proxy => "js/standalone/version-bar.html", :directory_index => false, :ignore => true
-page "/404.html", :directory_index => false
+# page "/404.html", :directory_index => false
+page "/sitemap.xml", :directory_index => false, :layout => false
 
 Dir["source/languages/*"].each do |language|
   language.sub!("source/languages/", '')
@@ -29,14 +30,14 @@ ready do
     next if proxy !~ /\.html$/
     proxy.sub!(/source\//, '')
     new_path = proxy.sub(%r"languages\/#{language}\/", '')
-    if new_path =~ /(.+?)\-index\.html/
+    if new_path =~ /(#{projects_regex})\-index\.html/
       project = $1
       version = $versions[project.to_sym]
       page "/#{project}/#{version}/index.html", :proxy => proxy, :directory_index => false, :ignore => true
     else
       project = new_path.scan(/^[^\/]+/).first
       new_path.sub!(%r"^\/?(#{projects_regex})\/", '/')
-      new_path.gsub!(/\.html$/, '/index.html') unless proxy =~ /index\.html$/
+      new_path.gsub!(/\.html$/, '/index.html') unless proxy =~ /\/index\.html$/
       new_path.sub!(/^\//, "/#{project}-") if paths.include?(new_path)
       paths << new_path
       page new_path, :proxy => "/#{proxy}", :directory_index => false, :ignore => true

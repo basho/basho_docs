@@ -61,11 +61,11 @@ $ ->
     " class=\"#{classStr} versions-#{blockCount}#{firstInBlock(li)}\""
 
   liLink = (li)->
-    "<a class=\"versioned\" href=\"#{li.href}\">#{li.text}</a>"
+    "<a class=\"versioned\" href=\"#{li.href}\">#{li.text.replace('pre', 'p')}</a>"
 
   output = ""
   output += "<div id=\"version-ddown\">"
-  output += "#{version}"
+  output += "#{version.replace('pre', 'p')}"
   output += "<div id=\"version-ddown-arrow\"></div>"
   output += "</div>"
   output += "<ol id=\"version-list\">"
