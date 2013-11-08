@@ -145,7 +145,7 @@ riakc_pb_socket:put(Pid, OrderSummaryObj).
 
 ```
 
- While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relavent data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
+ While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
 
 ```erlang
 {ok, FetchedCustomer} = riakc_pb_socket:get(Pid, 
@@ -188,7 +188,7 @@ FormatDate = fun(DateTime) ->
   lists:concat([Year,Month,Day,Hour,Min,Sec])
 end.
 
-AddIndiciesToOrder = fun(OrderKey) ->
+AddIndicesToOrder = fun(OrderKey) ->
   {ok, Order} = riakc_pb_socket:get(Pid, OrderBucket, 
                                     list_to_binary(integer_to_list(OrderKey))),
 
@@ -207,7 +207,7 @@ AddIndiciesToOrder = fun(OrderKey) ->
   riakc_pb_socket:put(Pid,Order2)
 end.
 
-lists:foreach(AddIndiciesToOrder, [1,2,3]).
+lists:foreach(AddIndicesToOrder, [1,2,3]).
 
 ```
 
@@ -226,7 +226,7 @@ Which returns:
 ```
 
 Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's id, next let's use a "binary" index.
-Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
+Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
 
 ```erlang
 riakc_pb_socket:get_index_range(Pid, OrderBucket, 
@@ -241,11 +241,11 @@ Which returns:
                       undefined,undefined}}
 ```
 
-Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and also demonstrated binary indices.  
+Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indices.  
 
 So to recap:
 
-* You can use Seconary Indicies to quickly lookup an object based on a secondary id other than the object's key. 
+* You can use Secondary Indices to quickly lookup an object based on a secondary id other than the object's key. 
 * Indices can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query

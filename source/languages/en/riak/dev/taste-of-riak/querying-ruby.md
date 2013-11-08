@@ -136,7 +136,7 @@ os.store()
 
 ```
 
- While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relavent data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
+ While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
 
 ```ruby
 customer = customer_bucket.get('1').data
@@ -166,7 +166,7 @@ If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL ind
 ```ruby
 (1..3).each do |i|
   order = order_bucket.get(i.to_s)
-  # Initialize our secondary indicies
+  # Initialize our secondary indices
   order.indexes['salesperson_id_int'] = []
   order.indexes['order_date_bin'] = []
   
@@ -190,7 +190,7 @@ Which returns:
 ```
 
 Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's id, next let's use a "binary" index.
-Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
+Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
 
 ```ruby
 order_bucket.get_index('order_date_bin', '20131001'..'20131031')
@@ -202,11 +202,11 @@ Which returns:
 => ["1", "2"]
 ```
 
-Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and also demonstrated binary indices.  
+Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indices.  
 
 So to recap:
 
-* You can use Seconary Indicies to quickly lookup an object based on a secondary id other than the object's key. 
+* You can use Secondary Indices to quickly lookup an object based on a secondary id other than the object's key. 
 * Indices can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query
