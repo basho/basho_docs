@@ -241,11 +241,11 @@ Which returns:
                       undefined,undefined}}
 ```
 
-Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indices.  
+Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  
 
 So to recap:
 
-* You can use Secondary Indices to quickly lookup an object based on a secondary id other than the object's key. 
+* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key.
 * Indices can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query

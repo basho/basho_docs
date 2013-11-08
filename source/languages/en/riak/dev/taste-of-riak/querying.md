@@ -8,7 +8,7 @@ audience: beginner
 keywords: [developers, client, 2i, search]
 ---
 
-Now that we've had a taste of the CRUD interface for Riak, let's look into a few ways to lay out and query our data - Secondary Indices and Key/Value.
+Now that we've had a taste of the CRUD interface for Riak, let's look into a few ways to lay out and query our data - Secondary Indexes and Key/Value.
 
 ###Configuration Changes
 Before we experiment with these methods, we will have to change our Riak instance's configuration a little bit.  
@@ -23,7 +23,7 @@ Open the `app.config` file in your favorite text editor.
 
 Search for the string `{riak_kv`, this will bring you to the configuration section for Riak's Key/Value component.
 Change the line `{storage_backend, riak_kv_bitcask_backend},` to `{storage_backend, riak_kv_eleveldb_backend},`.  
-This will make Riak use LevelDB for it's backend instead of Bitcask.  LevelDB supports Secondary Indices (2i), which we will be using for our examples.
+This will make Riak use LevelDB for it's backend instead of Bitcask.  LevelDB supports Secondary Indexes (2i), which we will be using for our examples.
 
 
 Save your app.config, and restart riak by executing `riak restart` from the command line.  
