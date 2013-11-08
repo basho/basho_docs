@@ -1898,7 +1898,7 @@ riak:
             src:
               file: riak-1.4.1.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/riak/1.4/1.4.1/riak-1.4.1.tar.gz
-              file_size: 13420426
+              file_size: 13423355
   1.4.2:
     debian:
       versions:
