@@ -408,3 +408,7 @@ Q: Is 32-bit Riak a bad idea?
 A:
   64-bit is [[recommended|Planning for a Riak System#Hardware]], 32 bit is not.
 
+Q: I have a new installation of Riak nodes, with no data. I can't cluster the nodes and I changed the IP address in the vm.args
+A:
+  On all nodes, please shut down Riak with `riak stop` and stop the Erlang Port Mapper Daemon with `kill -9 epmd`. Remove the `ring` & `kv_vnode` directories from your `platform_data_dir` as definied in the `app.config`. Start Riak on all nodes with `riak start`, wait for the riak_kv service to have started, then test each node with `riak-admin test` and repeat the clustering operations.
+
