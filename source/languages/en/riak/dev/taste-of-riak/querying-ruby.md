@@ -176,7 +176,7 @@ If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL ind
 end
 ```
 
-As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indices at the application level. 
+As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
 Now let's find all of Jane Appleseed's processed orders, we'll look up the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
 
 ```ruby
@@ -202,12 +202,12 @@ Which returns:
 => ["1", "2"]
 ```
 
-Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indices.  
+Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  
 
 So to recap:
 
-* You can use Secondary Indices to quickly lookup an object based on a secondary id other than the object's key. 
-* Indices can have either Integer or Binary(String) keys
+* You can use Secondary Indexes to quickly lookup an object based on a secondary id other than the object's key. 
+* Indexes can have either Integer or Binary(String) keys
 * You can search for specific values, or a range of values
 * Riak will return a list of keys that match the index query
 
