@@ -169,7 +169,7 @@ default['riak']['config']['riak_sysmon']['busy_dist_port'] = true
 
 ### Index Merge
 
-Settings pertaining to Secondary Index and Riak Search indices.
+Settings pertaining to Secondary Index and Riak Search indexes.
 
 ```ruby
 default['riak']['config']['merge_index']['data_root'] = "/var/lib/riak/merge_index".to_erl_string
