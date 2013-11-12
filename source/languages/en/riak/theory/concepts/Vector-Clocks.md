@@ -34,8 +34,8 @@ divergent changesets in an application specific manner.
 ## Siblings
 
 A _sibling_ is created when Riak is unable to resolve the canonical version of
-an object being stored.  If `allow_mult` is set to true on a bucket's
-properties, three scenarios will create siblings inside of a single object.
+an object being stored. These scenarios can create siblings inside of a single
+object.
 
 1. **Concurrent writes** If two writes occur simultaneously from
 clients with the same vector clock value, Riak will not be able to
