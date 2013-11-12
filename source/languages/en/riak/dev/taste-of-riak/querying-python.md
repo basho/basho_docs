@@ -5,7 +5,7 @@ version: 1.3.1+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, 2i, search, linkwalking, python]
+keywords: [developers, client, 2i, search, python]
 ---
 
 Now that we've had a taste of the CRUD interface for Riak, let's look into three other ways of querying for data - Link Walking, Secondary Indexes, and Riak Search.  

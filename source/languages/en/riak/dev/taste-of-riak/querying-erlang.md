@@ -5,7 +5,7 @@ version: 1.3.1+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, 2i, search, linkwalking, erlang]
+keywords: [developers, client, 2i, search, erlang]
 ---
 
 ####A Quick Note on Querying and Schemas
