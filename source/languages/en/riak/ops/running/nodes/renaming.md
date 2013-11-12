@@ -24,8 +24,8 @@ to the new name
    Specifically, set `pb_ip`, `http`, `https`, and `cluster_mgr` parameters
    to the new address.
 
-4. Rename the node's `ring` directory. The location of the ring directory is
-   listed in the `app.config` file.
+4. Delete the contents of the node's `ring` directory. The location of the ring directory is
+   the value for the `ring_state_dir` key within the `app.config` file.
 
 5. Start Riak on the node with `riak start`
 
@@ -130,7 +130,9 @@ as follows:
    to the new address.
 
 3. Rename the node's `ring` directory. The location of the ring directory is
-   listed in the `app.config` file.
+   the value for the `ring_state_dir` key within the `app.config` file.  You may 
+   rename it to whatever you like, as it will only be used as a backup during the
+   node renaming process. 
 
 4. Start Riak on `node1.localdomain`.
         riak start
