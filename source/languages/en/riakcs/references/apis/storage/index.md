@@ -36,6 +36,7 @@ PUT Object | <abbr title="Supported" class="supported">✓</abbr> | |
 PUT Object (Copy) {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. |
 PUT Object (Copy) {{1.3.0-}} | Coming Soon | Planned for future release |
 DELETE Object | <abbr title="Supported" class="supported">✓</abbr> | |
+DELETE Multiple Objects | <abbr title="Unsupported" class="unsupported">✗</abbr> | Planned for future release |
 GET Object {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
 GET Object {{1.3.0-}} | <abbr title="Supported" class="supported">✓</abbr> | Range query unimplemented |
 Object ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |
