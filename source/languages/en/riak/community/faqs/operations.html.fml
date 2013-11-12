@@ -410,5 +410,5 @@ A:
 
 Q: I have a new installation of Riak nodes, with no data. I can't cluster the nodes and I changed the IP address in the vm.args
 A:
-  On all nodes, please shut down Riak with `riak stop` and stop the Erlang Port Mapper Daemon with `kill -9 epmd`. Remove the `ring` & `kv_vnode` directories from your `platform_data_dir` as definied in the `app.config`. Start Riak on all nodes with `riak start`, wait for the riak_kv service to have started, then test each node with `riak-admin test` and repeat the clustering operations.
+  On all nodes, please shut down Riak with `riak stop` and stop the Erlang Port Mapper Daemon with `kill -9 epmd`. Remove the `ring` & `kv_vnode` directories from your `platform_data_dir` as defined in the `app.config`. Start Riak on all nodes with `riak start`, wait for the riak_kv service to have started, then test each node with `riak-admin test` and repeat the clustering operations.
 
