@@ -11,6 +11,30 @@ moved: {
 }
 ---
 
+## Single Node Clusters
+
+For a single-node development cluster, renaming a Riak node is quite simple:
+
+1. Stop the node with `riak stop`
+
+2. Edit the node's `vm.args` configuration file and set the `-name` argument
+to the new name
+
+3. Change IP addresses in `app.config` if necessary.
+   Specifically, set `pb_ip`, `http`, `https`, and `cluster_mgr` parameters
+   to the new address.
+
+4. Rename the node's `ring` directory. The location of the ring directory is
+   listed in the `app.config` file.
+
+5. Start Riak on the node with `riak start`
+
+
+##Multi-Node Clusters
+
+For multinode clusters, a rename is a slightly more complex procedure; however, it
+is very similar to the process for renaming a single node.
+
 Previous to Riak version 1.2, a cluster node's IP address could be changed
 the `[[riak-admin reip|riak-admin Command Line#reip]]` command,
 which involves downtime for the entire cluster.
