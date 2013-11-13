@@ -193,7 +193,7 @@ print_r($fetched_customer);
 
 Which returns our amalgamated objects:
 
-```php
+```text
 Customer with OrderSummary data:
 Array
 (
@@ -271,7 +271,7 @@ print_r($janes_orders);
 
 Which returns:
 
-```php
+```text
 Jane's Orders:
 Array
 (
@@ -332,7 +332,7 @@ print_r($october_orders);
 
 Which returns:
 
-```php
+```text
 October's Orders:
 Array
 (
