@@ -29,7 +29,7 @@ The simplest way to split up data would be to use the same identity key across d
 ```ruby
 require 'riak'
 
-client = Riak::Client.new(:protocol => "pbc", :pb_port => 10017)
+client = Riak::Client.new protocol: 'pbc', pb_port: 10017
 
 customer = {
     customer_id: 1,
@@ -123,11 +123,11 @@ cr.data = customer
 cr.store()
 
 order_bucket = client.bucket("Orders")
-orders.each { |order|
+orders.each do |order|
   order_riak = order_bucket.new(order[:order_id].to_s)
   order_riak.data = order
   order_riak.store()
-}
+end
 
 order_summary_bucket = client.bucket("OrderSummaries")
 os = order_summary_bucket.new(order_summary[:customer_id].to_s)
@@ -139,8 +139,9 @@ os.store()
  While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
 
 ```ruby
-customer = customer_bucket.get('1').data
-customer[:order_summary] = order_summary_bucket.get('1').data
+shared_key = '1'
+customer = customer_bucket.get(shared_key).data
+customer[:order_summary] = order_summary_bucket.get(shared_key).data
 customer
 ```
 
