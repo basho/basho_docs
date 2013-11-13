@@ -177,7 +177,7 @@ end
 ```
 
 As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
-Now let's find all of Jane Appleseed's processed orders, we'll look up the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
+Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
 
 ```ruby
 order_bucket.get_index('salesperson_id_int', 9000)

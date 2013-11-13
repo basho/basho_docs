@@ -302,4 +302,4 @@ archival. The storage archival period is configured by the application
 environment variable `storage_archive_period`. The default is 86400 (one
 day). This is because storage calculations are expected to be archived
 much less often than access logs, so specifying fewer possible keys to
-look up later reduces overhead at reporting time.
+lookup later reduces overhead at reporting time.

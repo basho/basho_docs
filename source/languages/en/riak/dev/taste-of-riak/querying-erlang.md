@@ -212,7 +212,7 @@ lists:foreach(AddIndicesToOrder, [1,2,3]).
 ```
 
 As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indices at the application level. 
-Now let's find all of Jane Appleseed's processed orders, we'll look up the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
+Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
 
 ```erlang
 riakc_pb_socket:get_index_eq(Pid, OrderBucket, {integer_index, "salesperson_id"}, 9000).

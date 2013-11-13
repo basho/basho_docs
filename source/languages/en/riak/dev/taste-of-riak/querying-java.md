@@ -174,7 +174,7 @@ If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL ind
 ```
 
 As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
-Now let's find all of Jane Appleseed's processed orders, we'll look up the orders by searching the `SalespersonId` integer index for Jane's id of `9000`.
+Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `SalespersonId` integer index for Jane's id of `9000`.
 
 ```java
     // Query for orders where the SalespersonId index is set to 9000
