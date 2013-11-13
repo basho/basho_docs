@@ -30,7 +30,7 @@ The simplest way to split up data would be to use the same identity key across d
 ```python
 import riak
 
-client = riak.RiakClient(pb_port=10017, protocol='pbc')
+# Creating Data
 
 customer = {
     'customer_id': 1,
@@ -40,62 +40,62 @@ customer = {
     'state': "Ohio",
     'zip': "43210",
     'phone': "+1-614-555-5555",
-    'created_date': "2013-10-1 14:30:26"
+    'created_date': "2013-10-01 14:30:26"
 }
 
 orders = [
-  {
-      'order_id': 1,
-      'customer_id': 1,
-      'salesperson_id': 9000,
-      'items': [
-          {
-            'item_id': "TCV37GIT4NJ",
-            'title': "USB 3.0 Coffee Warmer",
-            'price': 15.99
-          },
-          {
-            'item_id': "PEG10BBF2PP",
-            'title': "eTablet Pro, 24GB, Grey",
-            'price': 399.99
-          }
-      ],
-      'total': 415.98,
-      'order_date': "2013-10-1 14:42:26"
-  },
-  {
-      'order_id': 2,
-      'customer_id': 1,
-      'salesperson_id': 9001,
-      'items': [
-          {
-            'item_id': "OAX19XWN0QP",
-            'title': "GoSlo Digital Camera",
-            'price': 359.99
-          }
-      ],
-      'total': 359.99,
-      'order_date': "2013-10-15 16:43:16"
-  },
-  {
-      'order_id': 3,
-      'customer_id': 1,
-      'salesperson_id': 9000,
-      'items': [
-          {
-            'item_id': "WYK12EPU5EZ",
-            'title': "Call of Battle: Goats - Gamesphere 4",
-            'price': 69.99
-          },
-          {
-            'item_id': "TJB84HAA8OA",
-            'title': "Bricko Building Blocks",
-            'price': 4.99
-          }
-      ],
-      'total': 74.98,
-      'order_date': "2013-11-3 17:45:28"
-  }]
+    {
+        'order_id': 1,
+        'customer_id': 1,
+        'salesperson_id': 9000,
+        'items': [
+            {
+                'item_id': "TCV37GIT4NJ",
+                'title': "USB 3.0 Coffee Warmer",
+                'price': 15.99
+            },
+            {
+                'item_id': "PEG10BBF2PP",
+                'title': "eTablet Pro, 24GB, Grey",
+                'price': 399.99
+            }
+        ],
+        'total': 415.98,
+        'order_date': "2013-10-01 14:42:26"
+    },
+    {
+        'order_id': 2,
+        'customer_id': 1,
+        'salesperson_id': 9001,
+        'items': [
+            {
+                'item_id': "OAX19XWN0QP",
+                'title': "GoSlo Digital Camera",
+                'price': 359.99
+            }
+        ],
+        'total': 359.99,
+        'order_date': "2013-10-15 16:43:16"
+    },
+    {
+        'order_id': 3,
+        'customer_id': 1,
+        'salesperson_id': 9000,
+        'items': [
+            {
+                'item_id': "WYK12EPU5EZ",
+                'title': "Call of Battle: Goats - Gamesphere 4",
+                'price': 69.99
+            },
+            {
+                'item_id': "TJB84HAA8OA",
+                'title': "Bricko Building Blocks",
+                'price': 4.99
+            }
+        ],
+        'total': 74.98,
+        'order_date': "2013-11-03 17:45:28"
+    }]
 
 order_summary = {
     'customer_id': 1,
@@ -103,7 +103,7 @@ order_summary = {
         {
             'order_id': 1,
             'total': 415.98,
-            'order_date': "2013-10-1 14:42:26"
+            'order_date': "2013-10-01 14:42:26"
         },
         {
             'order_id': 2,
@@ -113,26 +113,33 @@ order_summary = {
         {
             'order_id': 3,
             'total': 74.98,
-            'order_date': "2013-11-3 17:45:28"
+            'order_date': "2013-11-03 17:45:28"
         }
     ]
 }
 
 
+# Starting Client
+client = riak.RiakClient(pb_port=10017, protocol='pbc')
 
+# Creating Buckets
 customer_bucket = client.bucket('Customers')
-cr = customer_bucket.new(str(customer['customer_id']), data=customer)
+order_bucket = client.bucket('Orders')
+order_summary_bucket = client.bucket('OrderSummaries')
+
+
+# Storing Data
+cr = customer_bucket.new(str(customer['customer_id']),
+                         data=customer)
 cr.store()
 
-
-order_bucket = client.bucket('Orders')
 for order in orders:
-  order_riak = order_bucket.new(str(order['order_id']), data=order)
-  order_riak.store()
+    order_riak = order_bucket.new(str(order['order_id']),
+                                  data=order)
+    order_riak.store()
 
-
-order_summary_bucket = client.bucket('OrderSummaries')
-os = order_summary_bucket.new(str(order_summary['customer_id']), data=order_summary)
+os = order_summary_bucket.new(str(order_summary['customer_id']),
+                              data=order_summary)
 os.store()
 ```
 
@@ -147,7 +154,18 @@ customer
 Which returns our amalgamated objects:
 
 ```python
-{u'city': u'Columbus', u'name': u'John Smith', u'zip': u'43210', u'created_date': u'2013-10-1 14:30:26', 'order_summary': {u'customer_id': 1, u'summaries': [{u'order_id': 1, u'order_date': u'2013-10-1 14:42:26', u'total': 415.98}, {u'order_id': 2, u'order_date': u'2013-10-15 16:43:16', u'total': 359.99}, {u'order_id': 3, u'order_date': u'2013-11-3 17:45:28', u'total': 74.98}]}, u'phone': u'+1-614-555-5555', u'state': u'Ohio', u'address': u'123 Main Street', u'customer_id': 1}
+{
+  u'city': u'Columbus', u'name': u'John Smith', u'zip': u'43210', 
+  u'created_date': u'2013-10-01 14:30:26', 
+  'order_summary': { 
+    u'customer_id': 1, u'summaries': [
+      {u'order_id': 1, u'order_date': u'2013-10-01 14:42:26', u'total': 415.98}, 
+      {u'order_id': 2, u'order_date': u'2013-10-15 16:43:16', u'total': 359.99}, 
+      {u'order_id': 3, u'order_date': u'2013-11-03 17:45:28', u'total': 74.98}
+    ]}, 
+  u'phone': u'+1-614-555-5555', u'state': u'Ohio', u'address': u'123 Main Street', 
+  u'customer_id': 1
+}
 ```
 
 While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.  
@@ -158,13 +176,12 @@ While this pattern is very easy and extremely fast with respect to queries and c
 If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL indexes.  They are a way to quickly lookup objects based on a secondary key, without scanning through the whole dataset.  This makes it very easy to find groups of related data by values, or even ranges of values.  To properly show this off, we will now add some more data to our application, and add some secondary index entries at the same time.
 
 ```python
-for i in range(1,4):
-  order = order_bucket.get(str(i))
-  # Initialize our secondary indices
-  order.add_index('salesperson_id_int', order.data['salesperson_id'])
-  order.add_index('order_date_bin', order.data['order_date'])
-  order.store()
-```
+for i in range(1, 4):
+    order = order_bucket.get(str(i))
+    # Initialize our secondary indices
+    order.add_index('salesperson_id_int', order.data['salesperson_id'])
+    order.add_index('order_date_bin', order.data['order_date'])
+    order.store()```
 
 As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
 Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
@@ -176,7 +193,7 @@ janes_orders.results
 
 Which returns:
 
-```python
+```text
 ['1', '3']
 ```
 
@@ -184,13 +201,14 @@ Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's i
 Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `2013-10-01` and `2013-10-31`.  
 
 ```python
-october_orders = order_bucket.get_index("order_date_bin", "2013-10-01", "2013-10-31")
+october_orders = order_bucket.get_index("order_date_bin",
+                                        "2013-10-01", "2013-10-31")
 october_orders.results
 ```
 
 Which returns:
 
-```python
+```text
 ['1', '2']
 ```
 
