@@ -18,7 +18,7 @@ en:
   next: Next
   toc_contents: Contents
   footer: "This work is licensed under a <a href=\"http://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">Creative Commons Attribution 3.0 Unported License</a>"
-  # ricon_ad: "RICON West, Basho's developer conference, is happening October 29-30th in San Francisco. <a class=\"register\" href=\"http://ricon-west-2013.eventbrite.com/\">Register Here</a>"
+  ricon_ad: "Technical Preview of Riak 2.0 is now available. <a class=\"register\" href=\"http://docs.basho.com/riak/2.0.0pre5/downloads/\">Download Here</a>"
   riak_ee:
     info:
       title: Riak Enterprise Only
