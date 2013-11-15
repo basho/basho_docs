@@ -27,10 +27,15 @@ At one of these points we will have to split the model.
 The simplest way to split up data would be to use the same identity key across different buckets. A good example of this would be a `Customer` object, an `Order` object, and an `OrderSummaries` object that keeps rolled up info about orders such as Total, etc. Let's put some data into Riak so we can play with it.
 
 ```ruby
-require 'riak'
+# Encoding: utf-8
 
+require 'riak'
+require 'pp'
+
+# Starting Client
 client = Riak::Client.new protocol: 'pbc', pb_port: 10017
 
+# Creating Data
 customer = {
     customer_id: 1,
     name: 'John Smith',
@@ -117,23 +122,23 @@ order_summary = {
     ]
 }
 
-customer_bucket = client.bucket("Customers")
+# Creating Buckets and Storing Data
+customer_bucket = client.bucket('Customers')
 cr = customer_bucket.new(customer[:customer_id].to_s)
 cr.data = customer
-cr.store()
+cr.store
 
-order_bucket = client.bucket("Orders")
+order_bucket = client.bucket('Orders')
 orders.each do |order|
   order_riak = order_bucket.new(order[:order_id].to_s)
   order_riak.data = order
-  order_riak.store()
+  order_riak.store
 end
 
-order_summary_bucket = client.bucket("OrderSummaries")
+order_summary_bucket = client.bucket('OrderSummaries')
 os = order_summary_bucket.new(order_summary[:customer_id].to_s)
 os.data = order_summary
-os.store()
-
+os.store
 ```
 
  While individual `Customer` and `Order` objects don't change much (or shouldn't change), the `Order Summaries` object will likely change often.  It will do double duty by acting as an index for all a customer's orders, and also holding some relevant data such as the order total, etc.  If we showed this information in our application often, it's only one extra request to get all the info. 
@@ -142,19 +147,34 @@ os.store()
 shared_key = '1'
 customer = customer_bucket.get(shared_key).data
 customer[:order_summary] = order_summary_bucket.get(shared_key).data
-customer
+puts "Combined Customer and Order Summary: "
+pp customer
 ```
 
 Which returns our amalgamated objects:
 
 ```ruby
-=> {"customer_id"=>1, "name"=>"John Smith", "address"=>"123 Main Street", 
-"city"=>"Columbus", "state"=>"Ohio", "zip"=>"43210", "phone"=>"+1-614-555-5555", 
-"created_date"=>"2013-11-06 16:43:48 -0500", 
-:order_summary=>{"customer_id"=>1, "summaries"=>[
-{"order_id"=>1, "total"=>415.98, "order_date"=>"2013-10-01 14:42:26 -0400"}, 
-{"order_id"=>2, "total"=>359.99, "order_date"=>"2013-10-15 16:43:16 -0400"}, 
-{"order_id"=>3, "total"=>74.98, "order_date"=>"2013-11-03 17:45:28 -0500"}]}}
+#Combined Customer and Order Summary:
+{"customer_id"=>1,
+ "name"=>"John Smith",
+ "address"=>"123 Main Street",
+ "city"=>"Columbus",
+ "state"=>"Ohio",
+ "zip"=>"43210",
+ "phone"=>"+1-614-555-5555",
+ "created_date"=>"2013-10-01 14:30:26 -0400",
+ :order_summary=>
+  {"customer_id"=>1,
+   "summaries"=>
+    [{"order_id"=>1,
+      "total"=>415.98,
+      "order_date"=>"2013-10-01 14:42:26 -0400"},
+     {"order_id"=>2,
+      "total"=>359.99,
+      "order_date"=>"2013-10-15 16:43:16 -0400"},
+     {"order_id"=>3,
+      "total"=>74.98,
+      "order_date"=>"2013-11-03 17:45:28 -0500"}]}}
 ```
 
 While this pattern is very easy and extremely fast with respect to queries and complexity, it's up to the application to know about these intrinsic relationships.  
@@ -170,10 +190,11 @@ If you're coming from a SQL world, Secondary Indexes (2i) are a lot like SQL ind
   # Initialize our secondary indices
   order.indexes['salesperson_id_int'] = []
   order.indexes['order_date_bin'] = []
-  
-  order.indexes['salesperson_id_int'] <<  order.data['salesperson_id'] 
-  order.indexes['order_date_bin'] << Time.parse(order.data['order_date']).strftime("%Y%m%d") 
-  order.store()
+
+  order.indexes['salesperson_id_int'] <<  order.data['salesperson_id']
+  order.indexes['order_date_bin'] << Time.parse(order.data['order_date'])
+                                         .strftime('%Y%m%d')
+  order.store
 end
 ```
 
@@ -181,26 +202,30 @@ As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to 
 Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
 
 ```ruby
-order_bucket.get_index('salesperson_id_int', 9000)
+puts "#Jane's Orders: "
+pp order_bucket.get_index('salesperson_id_int', 9000)
 ```
 
 Which returns:
 
 ```ruby
-=> ["1", "3"]
+#Jane's Orders:
+["1", "3"]
 ```
 
 Jane processed orders 1 and 3.  We used an "integer" index to reference Jane's id, next let's use a "binary" index.
 Now, let's say that the VP of Sales wants to know how many orders came in during October 2013.  In this case, we can exploit 2i's range queries.  Let's search the `order_date_bin` index for entries between `20131001` and `20131031`.  
 
 ```ruby
-order_bucket.get_index('order_date_bin', '20131001'..'20131031')
+puts "#October's Orders: "
+pp order_bucket.get_index('order_date_bin', '20131001'..'20131031')
 ```
 
 Which returns:
 
 ```ruby
-=> ["1", "2"]
+#October's Orders:
+["1", "2"]
 ```
 
 Boom, easy-peasy.  We used 2i's range feature to search for a range of values, and demonstrated binary indexes.  
