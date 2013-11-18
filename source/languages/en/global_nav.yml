@@ -16,15 +16,25 @@ riak:
     sub:
       - title: "A Taste of Riak"
         sub:
-          - "[[Prerequisites|Taste of Riak: Prerequisites]]"
-          - "[[Erlang|Taste of Riak: Erlang]]"
-          - "[[Java|Taste of Riak: Java]]"
-          - "[[PHP|Taste of Riak: PHP]]"
-          - "[[Python|Taste of Riak: Python]]"
-          - "[[Ruby|Taste of Riak: Ruby]]"
-          - "[[OCaml|Taste of Riak: OCaml]]"
-          - "[[Clojure|Taste of Riak: Clojure]]"
-          - "[[Csharp|Taste of Riak: C-Sharp]]"
+          - title: CRUD Operations
+            sub:
+              - "[[Prerequisites|Taste of Riak: Prerequisites]]"
+              - "[[Erlang|Taste of Riak: Erlang]]"
+              - "[[Java|Taste of Riak: Java]]"
+              - "[[PHP|Taste of Riak: PHP]]"
+              - "[[Python|Taste of Riak: Python]]"
+              - "[[Ruby|Taste of Riak: Ruby]]"
+              - "[[OCaml|Taste of Riak: OCaml]]"
+              - "[[Clojure|Taste of Riak: Clojure]]"
+              - "[[Csharp|Taste of Riak: C-Sharp]]"
+          - title: A Taste of Querying
+            sub:
+              - "[[Prerequisites|Taste of Riak: Querying]]"
+              - "[[Erlang|Taste of Riak: Querying with Erlang]]"
+              - "[[Java|Taste of Riak: Querying with Java]]"
+              - "[[PHP|Taste of Riak: Querying with PHP]]"
+              - "[[Python|Taste of Riak: Querying with Python]]"
+              - "[[Ruby|Taste of Riak: Querying with Ruby]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
