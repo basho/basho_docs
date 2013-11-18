@@ -126,3 +126,9 @@ bucket properties.  Here are two examples:
 Note that if you change the default bucket storage engine via the app.config
 settings, then you will need to restart the node, or nodes, for that change to
 take effect.
+
+## Changing Backends
+
+The `backend` bucket property designates which backend should be used for storing objects in the specified bucket.  This setting should be configured *before* loading the bucket with data.  Changing a bucket's backend *after* data has been loaded will cause the data to appear lost, as the bucket will be associated with a separate backend that does not contain previously inserted keys.  
+
+There is no built-in functionality in Riak to automatically change the underlying datastore of a bucket.  In order to migrate keys from one backend to another, the keys must be manually migrated using GET and PUT operations.
