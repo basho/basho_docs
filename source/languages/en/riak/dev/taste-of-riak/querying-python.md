@@ -181,7 +181,8 @@ for i in range(1, 4):
     # Initialize our secondary indices
     order.add_index('salesperson_id_int', order.data['salesperson_id'])
     order.add_index('order_date_bin', order.data['order_date'])
-    order.store()```
+    order.store()
+```
 
 As you may have noticed, ordinary Key/Value data is opaque to 2i, so we have to add entries to the indexes at the application level. 
 Now let's find all of Jane Appleseed's processed orders, we'll lookup the orders by searching the `saleperson_id_int` index for Jane's id of `9000`.
