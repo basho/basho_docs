@@ -302,6 +302,7 @@ riakcs:
       - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
       - "[[Monitoring and Metrics]]"
       - "[[Rolling Upgrades For Riak CS]]"
+      - "[[Riak CS Control]]"
   - title: "S3 Clients"
     sub:
       - "[[Configuring an S3 client]]"
