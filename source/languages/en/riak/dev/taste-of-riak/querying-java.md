@@ -12,7 +12,7 @@ keywords: [developers, client, 2i, search, java]
 For the java version, please download the source from GitHub by either [cloning](https://github.com/alexmoore/taste-of-riak) the source code repository or downloading the [current zip of the master branch](https://github.com/alexmoore/taste-of-riak/archive/master.zip).  The code for this chapter is in `/java/Ch02-Schemas-and-Indexes`.  You may import this code into your favorite editor, or just run it from the command line using the commands in `BuildAndRun.sh` if you are running on a *nix OS. 
 
 ####A Quick Note on Querying and Schemas
-_Schemas_? Yes I said that correctly, S-C-H-E-M-A-S. It's not a dirty word.  
+_Schemas_? Yes we said that correctly, S-C-H-E-M-A-S. It's not a dirty word.  
 Even with a Key/Value store, you will still have a logical database schema of how all the data relates to one another. This can be as simple as using the same key across multiple buckets for different types of data, to having fields in your data that are related by name.  These querying methods will introduce you to some ways of laying out your data in Riak, along with how to query it back.
 
 ###Denormalization
