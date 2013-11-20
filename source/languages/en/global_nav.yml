@@ -67,7 +67,7 @@ riak:
           - "[[Search|Advanced Search]]"
           - "[[Search Schema|Advanced Search Schema]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
-          - "[[CAP Controls]]"
+          - "[[Replication Properties]]"
           - title: "References"
             sub:
               # - "[[Bucket References]]"

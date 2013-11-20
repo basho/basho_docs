@@ -1,10 +1,10 @@
 ---
-title: CAP Controls
+title: Replication Properties
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
-keywords: [developers, cap]
+keywords: [developers, cap, replication]
 interest: [
 "[[Installing and Upgrading]]",
 "[[Concepts]]",
@@ -23,7 +23,7 @@ At the bottom of this page there is a final screencast that briefly touches on h
 
 ## A Primer on N, R, and W
 
-Riak exposes "CAP Controls" to the developers in such a way that they can, down to the Bucket level, tune how many copies of data we want to store. We do this using N, R, and W values.
+Riak exposes replication controls to the developers in such a way that they can, down to the Bucket level, tune how many copies of data we want to store, how many copes we wish to read from at a time, and how many copies must write to be considered a success. We do this using N, R, and W values.
 
 Riak's guiding design principle is Dr. Eric Brewer's CAP Theorem. The CAP theorem defines distributed systems in terms of three desired properties: Consistency, Availability, and Partition (failure) tolerance. The theorem states you can only rely on having two of the three properties at any time.
 

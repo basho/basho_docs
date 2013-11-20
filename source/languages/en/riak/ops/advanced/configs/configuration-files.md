@@ -107,7 +107,7 @@ The name of the cluster. This currently has no visible effect, but could be usef
         ]}
     ```
 
-    * n_val - the number of replicas stored. *Note: See [[CAP Controls]] for further discussion.*
+    * n_val - the number of replicas stored. *Note: See [[Replication Properties]] for further discussion.*
     * Read, Write and Delete quorum values. Valid options include numeric values (e.g. ```{r, 2}```), and the following symbolic values:<br />
     ```quorum``` (a majority of the replicas must respond, equivalent to ```n_val / 2 + 1```)<br />
     ```all``` (all N replicas must respond)
