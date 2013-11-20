@@ -1,9 +1,9 @@
 header.masthead
   #header
-    - if I18n.t(:ricon_ad, :default=>"").present?
+    - if I18n.t(:banner_ad, :default=>"").present?
       div#ricon-temp-banner
         div.temp-banner-text
-          == I18n.t(:ricon_ad)
+          == I18n.t(:banner_ad)
     div#header-inner
       div#nav-toggle class="icon-reorder"
       div#top-nav
@@ -27,4 +27,6 @@ header.masthead
         div#nav-menu-arrow-back
       div.clear
       div.header-rule
-a#ricon-temp-banner-responsive href="http://ricon-west-2013.eventbrite.com/" Register for RICON West
+- if I18n.t(:banner_ad_mobile, :default=>"").present?
+  a#ricon-temp-banner-responsive href="http://ricon-west-2013.eventbrite.com/"
+    == I18n.t(:banner_ad_mobile)
