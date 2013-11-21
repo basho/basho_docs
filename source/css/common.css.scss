@@ -275,9 +275,12 @@ body {
       }
     }
 
+    @media screen and (max-width: 1140px) {
+      width : auto;
+    }
+
     @media screen and (max-width: 768px) {
       margin : 0;
-      width : auto;
     }
 
     @media screen and (max-width: 500px) {
@@ -288,7 +291,7 @@ body {
   &.root {
     div[role="main"] {
       #ricon-temp-banner,
-      a#ricon-temp-banner-responsive {
+      #ricon-temp-banner-responsive a {
         position : fixed;
         top      : 0;
         left     : 0;
@@ -963,8 +966,13 @@ div[role="main"] {
           margin: 0 0 0 84px;
         }
 
-        @media screen and (max-width : 768px) {
+        @media screen and (max-width: 1140px) {
           width : auto;
+          margin-right : 25px;
+        }
+
+        @media screen and (max-width: 768px) {
+          margin-right : 0;
         }
       }
     }
@@ -1239,7 +1247,7 @@ div[role="main"] {
     }
   }
 
-  a#ricon-temp-banner-responsive {
+  #ricon-temp-banner-responsive a {
     display : none;
     @extend .sans-bold;
     
@@ -1324,8 +1332,11 @@ div[role="main"] {
       }
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1140px) {
       width : auto;
+    }
+
+    @media screen and (max-width: 768px) {
       padding : 15px 12px 12px 12px;
 
       h2 {
@@ -1613,7 +1624,7 @@ nav#toc {
 
 div[role=main] {
 
-  //max-width : 800px;
+  overflow-x : hidden;
 
   pre {
     margin     : 0;
