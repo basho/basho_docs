@@ -45,9 +45,9 @@ In all of the following examples, the source cluster is named `newyork`, and the
 
     You can verify the cluster names have been established on each cluster by issuing the `riak-repl clustername` command without parameters.
 
-8. Connect the source cluster to the sink cluster (assuming the sink cluster is named *boston*):
+8. Connect the source cluster to the sink cluster (assuming the sink cluster is named *boston* and the cluster_mgr is running on port 9080):
 
-        riak-repl connect boston
+        riak-repl connect boston:9080
 
 9. Ensure cluster connections have been established:
 
@@ -58,7 +58,7 @@ In all of the following examples, the source cluster is named `newyork`, and the
 
     On any node in the *sink* cluster, connect to the source:
 
-        riak-repl connect newyork
+        riak-repl connect newyork:9080
 
 11. Enable Realtime Replication
 	To begin queuing objects (but not yet replicating) on the source cluster for realtime replication:
