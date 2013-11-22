@@ -45,6 +45,24 @@ Note that lines prefixed with `%%` are comments
 
 ### riak_api settings
 
+ * **pb_backlog**
+The maximum length to which the queue of pending *simultaneous*
+protocol buffers connections may grow. If set, it must be an integer >= 0.
+If you anticipate a larger number of connections than the default being
+simultaneously initialized, set this number to a higher value accordingly.
+You should adjust this value to meet your anticipated simultaneous
+connection demand or if experiencing connection resets. (default: `5`)
+
+{{#1.4.0+}}
+
+* **pb**
+A list of IP addresses and ports on which Riak's Protocol Buffers
+interface should listen. (default: `{"127.0.0.1", 8087 }`)
+
+{{/1.4.0+}}
+
+{{#1.4.0-}}
+
  * **pb_ip**
     The IP address that the Protocol Buffers interface will bind to.
     (default: `"127.0.0.1"`)
@@ -64,18 +82,11 @@ Note that lines prefixed with `%%` are comments
     %% binds to a specific IPv6 interface
     {pb_ip, {65152,0,0,0,64030,57343,65250,15801}}
     ```
-    {{/1.3.0+}}
 
  * **pb_port**
 The port that the Protocol Buffers interface will bind to. (default: `8087`)
 
- * **pb_backlog**
-The maximum length to which the queue of pending *simultaneous*
-protocol buffers connections may grow. If set, it must be an integer >= 0.
-If you anticipate a larger number of connections than the default being
-simultaneously initialized, set this number to a higher value accordingly.
-You should adjust this value to meet your anticipated simultaneous
-connection demand or if experiencing connection resets. (default: `5`)
+{{/1.4.0-}}
 
  * **disable_pb_nagle** Turns off Nagle's algorithm (aka TCP
 slow-start) for Protocol Buffers connections. This is equivalent to
