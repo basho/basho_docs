@@ -24,7 +24,7 @@ A: You can specify the location of **all** Riak CS bucket data by changing the s
   [[Configuring Riak for CS]] section, it looks like this:
 
   ```erlang
-  {add_paths, ["/usr/lib/riak-cs/lib/riak_moss-X.Y.Z/ebin"]},
+  {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
   {storage_backend, riak_cs_kv_multi_backend},
   {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
   {multi_backend_default, be_default},
