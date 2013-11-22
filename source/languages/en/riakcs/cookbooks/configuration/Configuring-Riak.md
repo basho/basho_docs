@@ -83,15 +83,34 @@ Replace 127.0.0.1 with the IP address for the Riak node.
 ## Setting Up Riak to Use Protocol Buffers
 The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_kv` config section of the file.
 
+{{#1.4.0-}}
+
 **pb_ip**: Replace 127.0.0.1 with the IP address of the Riak node.
 
 If you need to use a different port:
 
 **pb_port**: Replace 8087 with the port number you want to use.
 
-<div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
+The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the
+values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion
+`app.config` files.
 
-The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+{{/1.4.0-}}
+
+{{#1.4.0+}}
+
+**pb**: Replace 127.0.0.1 with the IP address of the Riak node:
+
+    {pb, [ {"10.11.4.203", 8087 } ]}
+
+If you need to use a different port, replace 8087 with the port number you want to use.
+
+The `pb` values in the Riak `app.config` file must match the values for
+`riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+
+{{/1.4.0+}}
+
+<div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
 
 ### Enabling SSL in Riak
 In the Riak `app.config` file, first uncomment the following lines:
