@@ -137,6 +137,8 @@ Next, we set our interface IP addresses in the app.config files. In a production
 
 Change the following lines in `/etc/riak/app.config`
 
+{{#1.4.0-}}
+
     {http, [ {"127.0.0.1", 8098 } ]}
     {pb_ip,   "127.0.0.1" }
 
@@ -144,6 +146,20 @@ to
 
     {http, [ {"10.0.2.10", 8098 } ]}
     {pb_ip,   "10.0.2.10" }
+
+{{/1.4.0-}}
+
+{{#1.4.0+}}
+
+    {http, [ {"127.0.0.1", 8098 } ]}
+    {pb,   [ {"127.0.0.1", 8087 } ]}
+
+to
+
+    {http, [ {"10.0.2.10", 8098 } ]}
+    {pb,   [ {"10.0.2.10", 8087 } ]}
+
+{{/1.4.0+}}
 
 #### /etc/riak-cs/app.config
 
