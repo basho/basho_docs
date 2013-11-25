@@ -37,7 +37,7 @@ Goal | Description
 
 ### When Riak makes sense
 
-You should definitely take a close look at Riak whenever your data does not fit on a single server.  Distributed databases are a **very** hard to problem to solve well.
+You should definitely take a close look at Riak whenever your data does not fit on a single server.  Distributed databases are a **very** hard problem to solve well.
 
 Riak's availability focus makes it a good fit whenever downtime is unacceptable. No one can promise 100% uptime, but Riak is designed to survive network partitions and hardware failures that would significantly disrupt most databases.
 
