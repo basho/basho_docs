@@ -19,9 +19,13 @@ There are two classes of access control for Riak:
 * Other Riak nodes participating in the cluster
 * Clients making use of the Riak cluster
 
-The settings for both access groups are located in `app.config`. The
-configuration directives for client access all end in *ip* and *port*:
-`web_ip`, `web_port`, `pb_ip`, and `pb_port`.
+The settings for both access groups are located in `app.config`:
+
+* `pb_ip` {{1.4.0-}}
+* `pb_port` {{1.4.0-}}
+* `pb` {{1.4.0+}}
+* `http`
+* `https`
 
 Make note of those and configure your firewall to allow incoming TCP
 access to those ports or IP address and port combinations. Exceptions to

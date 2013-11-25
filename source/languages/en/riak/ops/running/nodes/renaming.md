@@ -103,7 +103,11 @@ as follows:
 
 2. Change IP addresses to *192.168.17.11* in `app.config` as appropriate.
    Specifically, set `pb_ip`, `http`, `https`, and `cluster_mgr` parameters
-   to the new address.
+   to the new address. {{1.4.0-}}
+
+2. Change IP addresses to *192.168.17.11* in `app.config` as appropriate.
+   Specifically, set `pb`, `http`, `https`, and `cluster_mgr` parameters
+   to the new address. {{1.4.0+}}
 
 3. Rename the node's `ring` directory. The location of the ring directory is
    listed in the `app.config` file.
