@@ -118,7 +118,7 @@ Change the following line in `/etc/riak/app.config`
 to
 
 ```
-{{#1.4.0-}}{add_paths, ["/usr/lib64/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},{{/1.4.0-}}{{#1.4.0+}}{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},{{/1.4.0+}}
+{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
 {storage_backend, riak_cs_kv_multi_backend},
 {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
 {multi_backend_default, be_default},
@@ -132,6 +132,8 @@ to
     ]}
 ]},
 ```
+<div class="note"><div class="title">Note</div> The path for `add_paths` may
+be `/usr/lib/riak-cs` or `/usr/lib64/riak-cs` depending on your operating system.</div>
 
 Next, we set our interface IP addresses in the app.config files. In a production environment, you will likely have multiple NICs, but for this test cluster, we are going to assume one NIC with an example IP address of 10.0.2.10.
 

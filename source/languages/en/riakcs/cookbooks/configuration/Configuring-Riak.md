@@ -27,7 +27,7 @@ First, edit Riak's `app.config` file and find and delete the line containing the
 Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the custom multi backend. Continue editing Riak's `app.config` file, and add this to the `riak_kv` section:
 
 ```
-{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin"]},
+{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
 {storage_backend, riak_cs_kv_multi_backend},
 {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
 {multi_backend_default, be_default},
@@ -44,7 +44,10 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 
 where **X.Y.Z** is the version of Riak CS you have installed.
 
-Note that this assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+
+<div class="note"><div class="title">Note</div> The path for `add_paths` may
+be `/usr/lib/riak-cs` or `/usr/lib64/riak-cs` depending on your operating system.</div>
 
 Next, add this to the **riak_core** section of `app.config`:
 
