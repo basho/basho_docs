@@ -40,6 +40,8 @@ It is Riak's solution to the data-locality problem that determines how Riak spre
 
 Put more simply: Riak runs map-step functions right on the node holding the input data for those functions, and it runs reduce-step functions on the node coordinating the MapReduce query.
 
+<div class="note"><div class="title">R=1</div>One consequence of Riak's processing model is that MapReduce queries have an effective `R` value of 1. The queries are distributed to a representative sample of the cluster where the data is expected to be found, and if one server lacks a copy of data it's supposed to have, a MapReduce job will not attempt to go look for it elsewhere.</div>
+
 ## How Riak's MR Queries Are Specified
 
 MapReduce queries in Riak have two components: a list of inputs and a list of "steps", or "phases".
@@ -55,6 +57,8 @@ The phase list describes the chain of operations each input will flow through.  
 ### Map Phase
 
 The input list to a map phase must be a list of (possibly annotated) bucket-key pairs.  For each pair, Riak will send the request to evaluate the map function to the partition that is responsible for storing the data for that bucket-key.  The vnode hosting that partition will lookup the object stored under that bucket-key, and evaluates the map function with the object as an argument.  The other arguments to the function will be the annotation, if any is included, with the bucket-key, and the static data for the phase, as specified in the query.
+
+<div class="note"><div class="title">Tombstones</div>Be aware that most Riak clusters will retain deleted objects for some period of time (3 seconds by default), and the MapReduce framework does not conceal these from submitted jobs. These tombstones can be recognized and filtered out by looking for `X-Riak-Deleted` in the object metadata with a value of `true`.</div>
 
 ### Reduce Phase
 
