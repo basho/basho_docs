@@ -15,6 +15,10 @@ This guide describes recommended performance and
 tuning, failure and recovery, and benchmarking information useful for
 operators of new and existing Riak clusters.
 
+<div class="note"><div class="title">Note</div>
+The system tuning recommendations specified here should be considered as a starting point. Ideal tunings can vary significantly from system to system and be influenced by many variables. It is important to make note of what changes are made, when they are made, and to measure the impact those changes have.
+</div>
+
 Riak's primary bottleneck is disk and network I/O. Riak's I/O
 pattern tends to operate on small blobs from many places on the disk. The
 negative effects of this pattern can be mitigated by adding RAID over
