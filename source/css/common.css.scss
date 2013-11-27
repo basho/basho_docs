@@ -797,16 +797,14 @@ iframe {
 a.responsive-toggle, #nav-container a.responsive-toggle {
   display : none;
   
-  //@include layout-sprite(toggle-button);
-  background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
+  @include layout-sprite(toggle-button);
 
   @include size(40px, 27px);
   float   : right;
   border  : 0;
   padding : 0;
   &:hover {
-    //@include layout-sprite(toggle-button);
-    background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
+    @include layout-sprite(toggle-button);
   }
 
   @media screen and (max-width: 500px) {
@@ -999,8 +997,7 @@ div[role="main"] {
     }
     
     a.responsive-toggle {
-      //@include layout-sprite(toggle-button-light);
-      background-image : url(/shared/latest/images/layout/toggle-button-light.png); /* Temporary fix */
+      @include layout-sprite(toggle-button-light);
       margin  : 14px 12px 0 0;
     }
 
@@ -1058,8 +1055,6 @@ div[role="main"] {
     @media screen and (max-width: 500px) {
       .logo {
         margin-top  : 5px;
-        //@include size(200px, 33px);
-        //background: url(../images/layout/logo2.png)
       }
 
       a.responsive-toggle {
