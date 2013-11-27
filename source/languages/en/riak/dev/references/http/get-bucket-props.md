@@ -47,11 +47,11 @@ bucket properties.
 ## Example
 
 ```bash
-$ curl -v http://127.0.0.1:8098/riak/test
+$ curl -v http://127.0.0.1:8098/buckets/test/props
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> GET /riak/test HTTP/1.1
+> GET /buckets/test/props HTTP/1.1
 > User-Agent: curl/7.19.7 (universal-apple-darwin10.0) libcurl/7.19.7
 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
