@@ -427,7 +427,7 @@ The Riak bucket to use for reading and writing values. Default is
 
 ```bash
 % Use the "bench" bucket.
-{riakclient_bucket, &lt;&lt;"bench"&gt;&gt;}.
+{riakclient_bucket, <<"bench">>}.
 ```
 
 ### basho_bench_driver_riakc_pb Settings
