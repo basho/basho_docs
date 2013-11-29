@@ -67,16 +67,16 @@ Siblings in action:
 ```bash
 # create a bucket with allow_mult true (if its not already)
 $ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"allow_mult":true}}' \
-http://127.0.0.1:8098/riak/kitchen
+http://127.0.0.1:8098/buckets/kitchen/props
 
 # create an object we will create a sibling of
 $ curl -v -X POST -H "Content-Type: application/json" -d '{"dishes":11}' \
-http://127.0.0.1:8098/riak/kitchen/sink?returnbody=true
+http://127.0.0.1:8098/buckets/kitchen/keys/sink?returnbody=true
 
 # the easiest way to create a sibling is update the object without
 # providing a vector clock in the headers
 $ curl -v -XPUT -H "Content-Type: application/json" -d '{"dishes":9}' \
-http://127.0.0.1:8098/riak/kitchen/sink?returnbody=true
+http://127.0.0.1:8098/buckets/kitchen/keys/sink?returnbody=true
 ```
 
 ### V-Tags
@@ -86,7 +86,7 @@ When requesting an object that has siblings you have two choices.  You can
 retrieve just a list of the siblings using:
 
 ```bash
-$ curl http://127.0.0.1:8098/riak/kitchen/sink
+$ curl http://127.0.0.1:8098/buckets/kitchen/keys/sink
 ```
 
 You will get the response:
@@ -104,7 +104,7 @@ single sibling inside of an object.  You can access a single sibling by
 appending the `vtag` parameter to the object's url.  For example:
 
 ```bash
-$ curl http://127.0.0.1:8098/riak/kitchen/sink?vtag=175xDv0I3UFCfGRC7K7U9z
+$ curl http://127.0.0.1:8098/buckets/kitchen/keys/sink?vtag=175xDv0I3UFCfGRC7K7U9z
 ```
 
 will give you:
@@ -116,7 +116,7 @@ will give you:
 To view all of the siblings in a single request, you would use:
 
 ```bash
-$ curl http://127.0.0.1:8098/riak/kitchen/sink -H "Accept: multipart/mixed"
+$ curl http://127.0.0.1:8098/buckets/kitchen/keys/sink -H "Accept: multipart/mixed"
 ```
 
 If the Accept header prefers `multipart/mixed`, all siblings will be returned
@@ -134,7 +134,7 @@ updating your values is as follows:
 
 ```bash
 # Read the object to get the vector clock
-$ curl -v http://127.0.0.1:8098/riak/kitchen/sink
+$ curl -v http://127.0.0.1:8098/buckets/kitchen/keys/sink
 ```
 
 In your verbose output you will have the `X-Riak-Vclock`, the value will be
@@ -147,7 +147,7 @@ Once you have the vector clock you can update with the correct value.
 ```bash
 $ curl -v -XPUT -H "Content-Type: application/json" -d '{"dishes":11}' \
 -H "X-Riak-Vclock: a85hYGBgzmDKBVIsTFUPPmcwJTLmsTIcmsJ1nA8qzK7HcQwqfB0hzNacxCYWcA1ZIgsA=" \
-http://127.0.0.1:8098/riak/kitchen/sink?returnbody=true
+http://127.0.0.1:8098/buckets/kitchen/keys/sink?returnbody=true
 ```
 
 <div class="note">
