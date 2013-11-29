@@ -24,8 +24,7 @@ GET /buckets/bucket/keys/key    # New format
 Important headers:
 
 * `Accept` - When `multipart/mixed` is the preferred content-type, objects with
-siblings will return all siblings in single request. See [[Get all siblings in
-one request|HTTP Fetch Object#Get all siblings in one request]] example. See
+siblings will return all siblings in single request. See [[Siblings examples|HTTP Fetch Object#Siblings-examples]]. See
 also RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]].
 
 Optional headers:
