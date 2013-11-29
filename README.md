@@ -252,13 +252,13 @@ Chinese  | riakdocs.cn | E3NADMYQ20Y7EJ | cn
 Then to deploy, run the deploy.rb scripts with a riak version:
 
 ```
-./deploy
+./deploy.rb
 ```
 
 If you need to deploy riak and riakcs with different versions, add the CS version at the end. This would be riak 1.3.1 and riakcs 1.1.
 
 ```
-./deploy 1.3.1 1.1.0
+./deploy.rb 1.3.1 1.1.0
 ```
 
 Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) cache, our CDN. Even if all the files are successfully pushed to S3, until CF is invalidated, you'll not see the new files on http://docs.basho.com.
