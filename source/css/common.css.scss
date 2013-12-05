@@ -14,13 +14,13 @@
 }
 
 .serif-italic {
-  @extend .serif;
-  font-style : italic;
+  font-family : 'GandhiSerifItalic', serif;
+  font-weight : normal;
 }
 
 .sans-bold {
-  @extend .sans;
-  font-weight : bold;
+  font-family : 'OpenSansBold', sans-serif;
+  font-weight : normal;
 }
 
 .sans-light {
@@ -463,6 +463,7 @@ iframe {
     float         : left;
     width         : 68%;
     margin-bottom : 8px;
+    @extend .sans-bold;
   }
   
   .nav-field-container {
