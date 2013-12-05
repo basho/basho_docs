@@ -1134,13 +1134,13 @@ div[role="main"] {
       #nav-more {
         font-family : 'DocsFontIcons';
         margin      : 0;
-        background  : $blueGreen;
+        background  : $darkGrey;
 
         &.selected,
         &.selected:hover {
-          background : $darkBlueGreen;
+          background : $darkerGrey;
           color      : #fff; /* Fallback */
-          color      : rgba(255, 255, 255, 0.5);
+          color      : rgba(255, 255, 255, 0.25);
         }
 
         &.unselected {
