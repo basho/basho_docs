@@ -1,1 +1,14 @@
 div.versions
+- currents = current_projects()
+- if current_version(data.page.project || $default_project) != currents[data.page.project][:deployment]
+  div.alert-version
+   div.arrow-left
+   - if current_version(data.page.project || $default_project) < currents[data.page.project][:deployment]
+     h4 == I18n.t(:alert_version_title_older)
+   - else
+     h4 == I18n.t(:alert_version_title_unreleased)
+   div.alert-version-num
+   p
+     - current_url = (data.page.project || $default_project) + '/' + currents[data.page.project][:deployment] + current_page.url
+     a href="http://docs.basho.com/#{current_url}"  == I18n.t(:alert_version_link_text)
+     == I18n.t(:alert_version_text)
