@@ -20,9 +20,9 @@ partition.
 
 This has two notable consequences:
 
-* Data *will* be inconsistent across a cluster.
-* Requests can (and should) be tuned depending on the business needs
-  and data model.
+* Data can be inconsistent across a cluster.
+    * This can be mitigated by making as much data immutable as possible.
+* Requests can (and should) be tuned based on data model and business needs.
 
 ## Replication properties and request tuning
 
@@ -154,10 +154,10 @@ will result in an error.
 <div class="note"><div class="title">Errors and failures</div>It is
 important to understand the difference between an error and a failure.
 <br/><br/>
-The `PW=3` request in this scenario will result in an error, <b>but the
+The <code>PW=3</code> request in this scenario will result in an error, <b>but the
 value will still be written to the two surviving primary servers</b>.
 <br/><br/>
-By specifying `PW=3` the client indicated that 3 primary servers must
+By specifying <code>PW=3</code> the client indicated that 3 primary servers must
 respond for the operation to be considered successful, which it
 wasn't, but there's no way to tell without performing another read
 whether the operation truly failed.</div>
