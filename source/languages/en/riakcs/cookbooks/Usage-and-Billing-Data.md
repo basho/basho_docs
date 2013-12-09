@@ -3,7 +3,7 @@ title: Usage and Billing Data
 project: riakcs
 version: 1.2.0+
 document: cookbook
-toc: false
+toc: true
 index: true
 audience: intermediate
 keywords: [developer]
