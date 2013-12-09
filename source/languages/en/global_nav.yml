@@ -27,6 +27,7 @@ riak:
               - "[[OCaml|Taste of Riak: OCaml]]"
               - "[[Clojure|Taste of Riak: Clojure]]"
               - "[[Csharp|Taste of Riak: C-Sharp]]"
+              - "[[Go|Taste of Riak: Go]]"
           - title: A Taste of Querying
             sub:
               - "[[Prerequisites|Taste of Riak: Querying]]"
