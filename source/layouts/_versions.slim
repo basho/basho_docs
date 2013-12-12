@@ -1,14 +1,25 @@
 div.versions
 - currents = current_projects()
-- if current_version(data.page.project || $default_project) != currents[data.page.project][:deployment]
+- version_number = current_version(data.page.project || $default_project)
+- version_sub = version_number.gsub '.', '_'
+- if version_number != currents[data.page.project][:deployment]
   div.alert-version
-   div.arrow-left
-   - if current_version(data.page.project || $default_project) < currents[data.page.project][:deployment]
-     h4 == I18n.t(:alert_version_title_older)
-   - else
-     h4 == I18n.t(:alert_version_title_unreleased)
-   div.alert-version-num
-   p
-     - current_url = (data.page.project || $default_project) + '/' + currents[data.page.project][:deployment] + current_page.url
-     a href="http://docs.basho.com/#{current_url}"  == I18n.t(:alert_version_link_text)
-     == I18n.t(:alert_version_text)
+    div.arrow-left
+    div.alert-version-message
+      - if version_number < currents[data.page.project][:deployment]
+        h4 == I18n.t(:alert_version_title_older)
+      - else
+        h4 == I18n.t(:alert_version_title_unreleased)
+      p
+        - current_url = (data.page.project || $default_project) + '/' + currents[data.page.project][:deployment] + current_page.url
+        a href="http://docs.basho.com/#{current_url}"  == I18n.t(:alert_version_link_text)
+        span.extra-alert-text == I18n.t(:alert_version_text)
+
+    - version_code = 'I18n.t(:"version_icons.basic.v_' + version_sub + '")'
+    div.version-icon-alert-version-num == eval(version_code)
+    meta(itemprop="version" content==version_number)
+    div.clear
+  div(itemscope itemtype="http://schema.org/CreativeWork" class="watermark-wrapper")
+    - watermark_code = 'I18n.t(:"version_icons.watermarks.v_' + version_sub + '")'
+    div.version-icon-watermark == eval(watermark_code)
+    meta(itemprop="version" content==version_number)

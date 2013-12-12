@@ -64,9 +64,12 @@ $ ->
     "<a class=\"versioned\" href=\"#{li.href}\">#{li.text.replace('pre', 'p')}</a>"
 
   output = ""
-  output += "<div id=\"version-ddown\">"
+  output += "<div id=\"version-ddown-button\" class=\"unselected\">"
+  output += "<div class=\"version-ddown-title\">Versions</div>"
+  output += "<div class=\"version-ddown-number\">"
   output += "#{version.replace('pre', 'p')}"
-  output += "<div id=\"version-ddown-arrow\"></div>"
+  output += "</div>"
+  output += "<div class=\"version-ddown-arrow\"></div>"
   output += "</div>"
   output += "<ol id=\"version-list\">"
   for vmli in lists

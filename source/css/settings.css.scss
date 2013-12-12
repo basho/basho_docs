@@ -3,30 +3,44 @@
    ========================================================================== */
 
 /* == Colors ================================= */
-$headerColor      : #616366;
-$textColor        : #000000;
-$linkBlue         : #2984a9;
-$subtleBlue       : #c3e3fd;
-$lightBlue        : #8cbbe2;
-$linkOrange       : #e38c3a;
-$orange           : #f99d33;
-$lightOrange      : #fcc07f;
-$darkOrange       : darken($orange, 15%);
-$extraDarkGrey    : #222222;
-$darkerGrey       : #4f4f4f;
-$darkGrey         : #777a7e;
-$grey             : #b2b2b2;
-$fieldGrey        : #b0b3b6;
-$lightGrey        : #ccced1;
-$subtleGray       : #eaeaea;
-$lightGreen       : #a7c7bf;
-$blueGreen        : #79aeb5;
-$darkBlueGreen    : #619ba3;
-$lightBlueGreen   : #bcd6da;
-$subtleBlueGreen  : #ebf2f3;
-$fadedGreen       : darken(saturate(#6f8a86, 3%), 8%);
-$darkGreen        : darken($lightGreen, 10%);
-$inactiveText     : #AAA;
+$headerColor        : #616366;
+$textColor          : #000000;
+$linkBlue           : #2984a9;
+$subtleBlue         : #c3e3fd;
+$lightBlue          : #8cbbe2;
+$linkOrange         : #e38c3a;
+$orange             : #f99d33;
+$lightOrange        : #fcc07f;
+$darkOrange         : darken($orange, 15%);
+$extraDarkGrey      : #222222;
+$darkerGrey         : #4f4f4f;
+$darkGrey           : #777a7e;
+$grey               : #b2b2b2;
+$fieldGrey          : #b0b3b6;
+$lightGrey          : #ccced1;
+$subtleGray         : #eaeaea;
+$lightGreen         : #a7c7bf;
+$blueGreen          : #79aeb5;
+$darkBlueGreen      : #619ba3;
+$lightBlueGreen     : #bcd6da;
+$subtleBlueGreen    : #ebf2f3;
+$fadedGreen         : darken(saturate(#6f8a86, 3%), 8%);
+$darkGreen          : darken($lightGreen, 10%);
+$inactiveText       : #AAA;
+
+$versionColor-2-0-x      : #4ea69c;
+$lightVersionColor-2-0-x : lighten($versionColor-2-0-x, 15%);
+$versionColor-1-4-x      : #f99d33;
+$lightVersionColor-1-4-x : lighten($versionColor-1-4-x, 15%);
+$versionColor-1-3-x      : #79aeb6;
+$lightVersionColor-1-3-x : lighten($versionColor-1-3-x, 15%);
+$versionColor-1-2-x      : #995e85;
+$lightVersionColor-1-2-x : lighten($versionColor-1-2-x, 15%);
+$versionColor-1-1-x      : #b6a579;
+$lightVersionColor-1-1-x : lighten($versionColor-1-1-x, 15%);
+$versionColor-1-0-x      : #99afac;
+$lightVersionColor-1-0-x : lighten($versionColor-1-0-x, 15%);
+$versionColorInactive    : #ddd;
 
 /* == Dimensions ================================= */
 $mobilePageGutter : 0.6em;

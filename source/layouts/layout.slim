@@ -28,7 +28,7 @@ head(class=data.page.document)
 - classnames << 'dual' if data.page.dual
 - version_class = 'ver-'
 - version_class += current_version(data.page.project || $default_project)
-- version_class = version_class.gsub! '.', '-'
+- version_class.gsub! '.', '-'
 - classnames << version_class
 body class=classnames.join(' ') id=data.page.body_id
   == partial "layouts/primary" unless data.page.skip_nav

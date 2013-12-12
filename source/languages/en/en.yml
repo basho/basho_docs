@@ -24,6 +24,35 @@ en:
   alert_version_title_unreleased: "This documentation is for an unreleased version of Riak"
   alert_version_link_text: "View the documentation for the latest version"
   alert_version_text: " or select from the drop down on the left."
+  version_icons:
+    basic:
+      v_2_0_0pre5: "&#xe626"
+      v_2_0_0: "&#xe623"
+      v_1_4_2: "&#xe620"
+      v_1_4_1: "&#xe61d"
+      v_1_4_0: "&#xe61a"
+      v_1_3_2: "&#xe617"
+      v_1_3_1: "&#xe614"
+      v_1_3_0: "&#xe611"
+      v_1_2_1: "&#xe60e"
+      v_1_2_0: "&#xe60b"
+      v_1_1_4: "&#xe608"
+      v_1_1_0: "&#xe605"
+      v_1_0_0: "&#xe602"
+    watermarks:
+      v_2_0_0pre5: "&#xe625"
+      v_2_0_0: "&#xe622"
+      v_1_4_2: "&#xe61f"
+      v_1_4_1: "&#xe61c"
+      v_1_4_0: "&#xe619"
+      v_1_3_2: "&#xe616"
+      v_1_3_1: "&#xe613"
+      v_1_3_0: "&#xe610"
+      v_1_2_1: "&#xe60d"
+      v_1_2_0: "&#xe60a"
+      v_1_1_4: "&#xe607"
+      v_1_1_0: "&#xe604"
+      v_1_0_0: "&#xe601"
   riak_ee:
     info:
       title: Riak Enterprise Only

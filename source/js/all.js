@@ -34,8 +34,10 @@
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
       header           : '#header',
+      watermark        : '.watermark-wrapper',
       responsiveToggle : '.responsive-toggle'
     },
+
     
     params : {
       closedNavMargin : '12px',
@@ -131,6 +133,7 @@
     options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: options.params.closedNavMargin}, config || animConfig());
     options.jq.header.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
+    options.jq.watermark.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
     setNavState(0);
   }
   
@@ -150,6 +153,7 @@
     options.jq.contentWell.animate({marginLeft: cm}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: cm}, config || animConfig());
     options.jq.header.animate({marginLeft: cm}, config || animConfig());
+    options.jq.watermark.animate({marginLeft: cm}, config || animConfig());
     setNavState(1);
   }
   
@@ -223,6 +227,7 @@
       options.jq.navContainer.removeAttr('style');
       options.jq.navContent.removeAttr('style');
       options.jq.header.removeAttr('style');
+      options.jq.watermark.removeAttr('style');
       options.jq.navToggle.removeClass('open, closed');
     }
   }
@@ -396,7 +401,6 @@
       }
     });
   }
- 
 
   /*
    * toggleMenu()
@@ -445,8 +449,10 @@
     /*----------------------------------------------------------*/
     // Version Menu Interactions
     /*----------------------------------------------------------*/
-    $('#version-ddown').click(function() {
-      toggleMenu('#version-ddown', '#version-list');
+    $('#version-ddown-button').click(function() {
+      toggleMenu('#version-ddown-button', '#version-list');
+      //toggleSelected('#version-ddown-title');
+      //toggleSelected('#version-ddown-arrow');
     });
 
     //Mouse click on sub menu
