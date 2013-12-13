@@ -3,7 +3,7 @@ div.versions
 - version_number = current_version(data.page.project || $default_project)
 - version_sub = version_number.gsub '.', '_'
 - if version_number != currents[data.page.project][:deployment]
-  div.alert-version
+  div(id="alert-version" class="alert-version")
     div.arrow-left
     div.alert-version-message
       - if version_number < currents[data.page.project][:deployment]

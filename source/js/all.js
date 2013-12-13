@@ -46,6 +46,11 @@
     }
   };
   
+  /*
+   * Default value for the version alert arrow
+   */
+  var version_box_scroll_off = false;
+  
   
   /*
    * Create real selections from the items contained in options.selectors
@@ -428,6 +433,28 @@
     $(buttonID).attr('class', 'unselected');
   }
 
+  /*
+   * hideVersionAlert()
+   * Hide or show the version alert box depending
+   * on scrollTop
+   */
+  function hideVersionAlert() {
+
+    if ($(window).scrollTop() > 0) {
+        
+      if (version_box_scroll_off) {
+        return;
+      }
+      
+      $('#alert-version').addClass('version_box_scroll_off');
+      version_box_scroll_off = true;
+
+    } else {
+      $('#alert-version').removeClass('version_box_scroll_off');
+      version_box_scroll_off = false;
+    }
+  }
+
   $(document).ready(function(){
     /*----------------------------------------------------------*/
     // Top Navigation Menu Interactions
@@ -472,5 +499,15 @@
       documentClick('#nav-more', '#nav-menu');
       documentClick('#version-ddown-button', '#version-list');
     });
+
+    /*----------------------------------------------------------*/
+    // If the version alert box exists in the DOM then
+    // hide it during scroll
+    /*----------------------------------------------------------*/
+    if ($('#alert-version').length) {
+      $(document).scroll(function() {
+        hideVersionAlert();
+      });
+    }
   });
 });

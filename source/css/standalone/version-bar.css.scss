@@ -44,9 +44,27 @@ div[role="main"] {
      position      : relative;
      padding       : 18px 0;
      margin-bottom : 30px;
-     
      background : #575e64;
      @include allCorners();
+     @include transitionAll(all 0.25s ease);
+     
+     /*-------------------------------*/
+     /* Hide the version alert box on */
+     /* devices > 768px               */
+     /*-------------------------------*/
+     @media screen and (min-width: 769px) { 
+       &.version_box_scroll_off {
+         opacity : 0;
+
+         .arrow-left {
+           opacity : 0;
+           border-width : 0;
+           top          : 26px;
+           left         : 10px;
+           @include transitionAll(all 0.25s ease);
+         }
+       }
+     }
      
      .alert-version-message {
        width : 80%;
