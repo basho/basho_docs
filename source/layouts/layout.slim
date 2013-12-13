@@ -64,6 +64,8 @@ body class=classnames.join(' ') id=data.page.body_id
       div.clear
       - unless !data.page.title || data.page.simple
         == partial "layouts/secondary"
+    - if data.page.versions.nil? || data.page.versions
+      == partial "layouts/watermarks"
     == partial "layouts/footer"
   - if $production
     javascript:

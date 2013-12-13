@@ -41,8 +41,9 @@ $layout-layout:smart;
 div[role="main"] {
 
    .alert-version {
-     position   : relative;
-     padding    : 18px 0;
+     position      : relative;
+     padding       : 18px 0;
+     margin-bottom : 30px;
      
      background : #575e64;
      @include allCorners();
@@ -137,7 +138,7 @@ div[role="main"] {
        top         : 120px;
        right       : -110px;
        font-size   : 20rem;
-       z-index     : -2;
+       z-index     : -300;
        color       : rgb(250,250,250); /* Fallback for non-rgba browsers */
        color       : rgba(0,0,0,0.05);
        transform   : rotate(-15deg);
@@ -156,7 +157,7 @@ div[role="main"] {
        top         : 0;
        right       : 0;
        font-size   : 20rem;
-       z-index     : -1;
+       z-index     : -200;
 
        @media screen and (max-width: 1140px) {
          font-size : 10rem;
@@ -179,10 +180,10 @@ body[class*="ver-2-0"] {
   .alert-version {
     .version-icon-alert-version-num,
     a {
-      color : $versionColor-2-0-x;
+      color : $lightVersionColor-2-0-x;
     }
     a:hover {
-      color : $lightVersionColor-2-0-x;
+      color : lighten($lightVersionColor-2-0-x, 5%);
     }
   }
 
@@ -290,10 +291,10 @@ body[class*="ver-1-3"] {
   .alert-version {
     .version-icon-alert-version-num,
     a {
-      color : $versionColor-1-3-x;
+      color : lighten($versionColor-1-3-x, 15%);
     }
     a:hover {
-      color : $lightVersionColor-1-3-x;
+      color : lighten($versionColor-1-3-x, 20%);
     }
   }
 
@@ -401,10 +402,10 @@ body[class*="ver-1-1"] {
   .alert-version {
     .version-icon-alert-version-num,
     a {
-      color : $versionColor-1-1-x;
+      color : lighten($versionColor-1-1-x, 12%);
     }
     a:hover {
-      color : $lightVersionColor-1-1-x;
+      color : lighten($versionColor-1-1-x, 17%);
     }
   }
 
@@ -509,7 +510,7 @@ body[class~="ver-1-0-0"] {
 
 .versions {
    position    : fixed;
-   top         : 153px;
+   top         : 154px;
    margin-left : -72px;
    width       : 50px;
    height      : 100%;
@@ -606,49 +607,54 @@ ol#version-list {
 
     &.versions-0 {
       background   : $versionColor-2-0-x;
-        &:hover { 
+        &:hover,
+        &.current { 
           background : $lightVersionColor-2-0-x;
         }
     }
 
     &.versions-1 {
       background   : $versionColor-1-4-x;
-      &:hover { 
+      &:hover,
+      &.current { 
         background : $lightVersionColor-1-4-x;
       }
     }
 
     &.versions-2 {
       background   : $versionColor-1-3-x;
-      &:hover { 
+      &:hover,
+      &.current { 
         background : $lightVersionColor-1-3-x;
       }
     }
 
     &.versions-3 {
       background   : $versionColor-1-2-x;
-      &:hover { 
+      &:hover,
+      &.current { 
         background : $lightVersionColor-1-2-x;
       }
     }
 
     &.versions-4 {
       background   : $versionColor-1-1-x;
-      &:hover { 
+      &:hover,
+      &.current { 
         background : $lightVersionColor-1-1-x;
       }
     }
 
     &.versions-5 {
       background   : $versionColor-1-0-x;
-      &:hover { 
+      &:hover,
+      &.current { 
         background : $lightVersionColor-1-0-x;
       }
     }
 
     &[class*="versions-"] {
-      &[class~="inactive"],
-      &[class~="current"] {
+      &[class~="inactive"] {
         background : $versionColorInactive;
         a {
           color : $inactiveText;

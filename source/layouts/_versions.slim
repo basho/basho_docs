@@ -19,7 +19,3 @@ div.versions
     div.version-icon-alert-version-num == eval(version_code)
     meta(itemprop="version" content==version_number)
     div.clear
-  div(itemscope itemtype="http://schema.org/CreativeWork" class="watermark-wrapper")
-    - watermark_code = 'I18n.t(:"version_icons.watermarks.v_' + version_sub + '")'
-    div.version-icon-watermark == eval(watermark_code)
-    meta(itemprop="version" content==version_number)
