@@ -190,6 +190,185 @@ div[role="main"] {
    }
 }
 
+
+/* =============================================================================
+   Version Bar
+   ========================================================================== */
+
+.versions {
+   position    : fixed;
+   top         : 154px;
+   margin-left : -72px;
+   width       : 50px;
+   height      : 100%;
+}
+
+.version-ddown-title {
+  text-transform : uppercase;
+  letter-spacing : 1px;
+  font-size      : 0.54rem;
+  text-align     : center;
+  font-family    : "OpenSans", sans-serif;
+}
+
+#version-ddown-button {
+  cursor : pointer;
+}
+
+.version-ddown-number {
+  position      : relative;
+  padding       : 3px 0;
+  margin-bottom : 3px;
+  background    : $versionColor-1-4-x;
+  text-align    : center;
+  cursor        : pointer;
+  color         : #fff;
+  font-size     : 0.75rem;
+  font-family   : 'OpenSansBold', verdana, sans-serif;
+  border        : 1px solid #fff;
+  @include allCorners();
+  @include transitionAll(all 0.5s ease);
+  overflow:hidden;
+}
+
+.version-ddown-arrow {
+  position : relative;
+  width : 0;
+  margin : 0 auto 3px auto;
+  @include arrowVertical(top, bottom, 6px, $orange);
+}
+
+ol#version-list,
+ol#versions-list li {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+ol#version-list {
+  display     : none;
+  
+  > li {
+    &:first-child {
+      @include corner(left, top);
+      @include corner(right, top);
+    }
+    
+    &:last-child {
+      @include corner(left, bottom);
+      @include corner(right, bottom);
+    }
+  }
+
+  li {
+    background      : $lightGreen;
+    border          : none;
+    border-top      : 1px solid #fff;
+    border-right    : 1px solid #fff;
+    border-left     : 1px solid #fff;
+    display         : block;
+    font-size       : 0.75rem;
+    margin-bottom   : 0;
+    text-align      : center;
+    color           : #fff;
+    padding         : 2px 0;
+    
+    a {
+      color : #fff;
+      
+      &:hover {
+        color : #fff;
+      }
+    }
+
+    &.first {
+      margin-bottom : 4px;
+      @include corner(left, bottom);
+      @include corner(right, bottom);
+    }
+
+    &.first + li {
+      @include corner(left, top);
+      @include corner(right, top);
+    }
+
+    &.versions-0 {
+      background   : $versionColor-2-0-x;
+        &:hover,
+        &.current { 
+          background : $lightVersionColor-2-0-x;
+        }
+    }
+
+    &.versions-1 {
+      background   : $versionColor-1-4-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-4-x;
+      }
+    }
+
+    &.versions-2 {
+      background   : $versionColor-1-3-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-3-x;
+      }
+    }
+
+    &.versions-3 {
+      background   : $versionColor-1-2-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-2-x;
+      }
+    }
+
+    &.versions-4 {
+      background   : $versionColor-1-1-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-1-x;
+      }
+    }
+
+    &.versions-5 {
+      background   : $versionColor-1-0-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-0-x;
+      }
+    }
+
+    &[class*="versions-"] {
+      &[class~="inactive"] {
+        background : $versionColorInactive;
+        a {
+          color : $inactiveText;
+        }
+        &:hover {
+          background : $versionColorInactive;
+          a {
+            color : $inactiveText;
+          }
+        }
+      }
+      &[class~="inactive"] {
+        a {
+          cursor : default;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  ol.versions { 
+    display : none;
+  }
+}
+
+
 /* =================================================
    Version Coloring
    ============================================== */
@@ -509,192 +688,5 @@ body[class*="ver-1-0"] {
 body[class~="ver-1-0-0"] {
   .version-icon-watermark:before {
     content: "\e600";
-  }
-}
-
-
-/* =============================================================================
-   Version Bar
-   ========================================================================== */
-
-.green-link {
-  display         : block;
-  color           : darken(saturate($fadedGreen, 25%), 18%);
-  padding         : 2px 0 0 0;
-  text-decoration : none;
-  text-align      : center;
-  //width           : 4.2em;
-}
-
-.versions {
-   position    : fixed;
-   top         : 154px;
-   margin-left : -72px;
-   width       : 50px;
-   height      : 100%;
-}
-
-.version-ddown-title {
-  text-transform : uppercase;
-  letter-spacing : 1px;
-  font-size      : 0.54rem;
-  text-align     : center;
-  font-family    : "OpenSans", sans-serif;
-}
-
-#version-ddown-button {
-  cursor : pointer;
-}
-
-.version-ddown-number {
-  position      : relative;
-  padding       : 3px 0;
-  margin-bottom : 3px;
-  background    : $versionColor-1-4-x;
-  text-align    : center;
-  cursor        : pointer;
-  color         : #fff;
-  font-size     : 0.75rem;
-  font-family   : 'OpenSansBold', verdana, sans-serif;
-  border        : 1px solid #fff;
-  @include allCorners();
-  @include transitionAll(all 0.5s ease);
-  overflow:hidden;
-}
-
-.version-ddown-arrow {
-  position : relative;
-  width : 0;
-  margin : 0 auto 3px auto;
-  @include arrowVertical(top, bottom, 6px, $orange);
-}
-
-ol#version-list,
-ol#versions-list li {
-  list-style: none;
-  list-style-image: none;
-  margin: 0;
-  padding: 0;
-}
-ol#version-list {
-  display     : none;
-  
-  > li {
-    &:first-child {
-      @include corner(left, top);
-      @include corner(right, top);
-    }
-    
-    &:last-child {
-      @include corner(left, bottom);
-      @include corner(right, bottom);
-    }
-  }
-
-  li {
-    background      : $lightGreen;
-    border          : none;
-    border-top      : 1px solid #fff;
-    border-right    : 1px solid #fff;
-    border-left     : 1px solid #fff;
-    display         : block;
-    font-size       : 0.75rem;
-    margin-bottom   : 0;
-    text-align      : center;
-    color           : #fff;
-    padding         : 2px 0;
-    
-    a {
-      color : #fff;
-      
-      &:hover {
-        color : #fff;
-      }
-    }
-
-    &.first {
-      margin-bottom : 4px;
-      @include corner(left, bottom);
-      @include corner(right, bottom);
-    }
-
-    &.first + li {
-      @include corner(left, top);
-      @include corner(right, top);
-    }
-
-    &.versions-0 {
-      background   : $versionColor-2-0-x;
-        &:hover,
-        &.current { 
-          background : $lightVersionColor-2-0-x;
-        }
-    }
-
-    &.versions-1 {
-      background   : $versionColor-1-4-x;
-      &:hover,
-      &.current { 
-        background : $lightVersionColor-1-4-x;
-      }
-    }
-
-    &.versions-2 {
-      background   : $versionColor-1-3-x;
-      &:hover,
-      &.current { 
-        background : $lightVersionColor-1-3-x;
-      }
-    }
-
-    &.versions-3 {
-      background   : $versionColor-1-2-x;
-      &:hover,
-      &.current { 
-        background : $lightVersionColor-1-2-x;
-      }
-    }
-
-    &.versions-4 {
-      background   : $versionColor-1-1-x;
-      &:hover,
-      &.current { 
-        background : $lightVersionColor-1-1-x;
-      }
-    }
-
-    &.versions-5 {
-      background   : $versionColor-1-0-x;
-      &:hover,
-      &.current { 
-        background : $lightVersionColor-1-0-x;
-      }
-    }
-
-    &[class*="versions-"] {
-      &[class~="inactive"] {
-        background : $versionColorInactive;
-        a {
-          color : $inactiveText;
-        }
-        &:hover {
-          background : $versionColorInactive;
-          a {
-            color : $inactiveText;
-          }
-        }
-      }
-      &[class~="inactive"] {
-        a {
-          cursor : default;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 700px) {
-  ol.versions { 
-    display : none;
   }
 }
