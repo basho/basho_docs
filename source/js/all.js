@@ -461,7 +461,7 @@
     });
 
     //Mouse click on my account link
-    $('#version-ddown').mouseup(function() {
+    $('#version-ddown-button').mouseup(function() {
       return false
     });
 
@@ -470,7 +470,7 @@
     /*----------------------------------------------------------*/
     $(document).mouseup(function() {
       documentClick('#nav-more', '#nav-menu');
-      documentClick('#version-ddown', '#version-list');
+      documentClick('#version-ddown-button', '#version-list');
     });
   });
 });
