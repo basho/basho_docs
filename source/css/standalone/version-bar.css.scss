@@ -44,7 +44,7 @@ div[role="main"] {
      position      : relative;
      padding       : 18px 0;
      margin-bottom : 30px;
-     background : #575e64;
+     @include gradient('575e64', rgba(87,95,101,1.0), rgba(73,81,88,1.0));
      @include allCorners();
      @include transitionAll(all 0.25s ease);
      
@@ -96,7 +96,7 @@ div[role="main"] {
      }
 
      .arrow-left {
-       @include arrowVertical(right, left, 10px, #575e64);
+       @include arrowVertical(right, left, 10px, #575f65);
        position     : absolute;
        top          : 21px;
        left         : -10px;
