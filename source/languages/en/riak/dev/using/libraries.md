@@ -195,10 +195,9 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Go*
 
+* [[riaken|https://github.com/riaken]] - A fast and extendable Riak Protocol Buffer Client
 * [[goriakpbc|https://github.com/tpjg/goriakpbc]] - A golang riak client inspired by the Ruby riak-client from Basho and riakpbc from mrb
 * [[riakpbc|https://github.com/mrb/riakpbc]] - A Riak Protocol Buffer Client in Go
-* [[Shoebox|https://github.com/mrb/shoebox]] - A proof of concept Go project that uses [[riakpbc|https://github.com/mrb/riakpbc]]
-* [[riak.go|http://github.com/c141charlie/riak.go]] - A Riak Client for Go
 
 *Grails*
 
