@@ -46,25 +46,16 @@ div[role="main"] {
      margin-bottom : 30px;
      @include gradient('575e64', rgba(87,95,101,1.0), rgba(73,81,88,1.0));
      @include allCorners();
-     @include transitionAll(all 0.25s ease);
      
-     /*-------------------------------*/
-     /* Hide the version alert box on */
-     /* devices > 768px               */
-     /*-------------------------------*/
-     @media screen and (min-width: 769px) { 
-       &.version_box_scroll_off {
-         opacity : 0;
-
-         .arrow-left {
-           opacity : 0;
-           border-width : 0;
-           top          : 26px;
-           left         : 10px;
-           @include transitionAll(all 0.25s ease);
-         }
-       }
-     }
+    &.version_box_scroll_off {
+      .arrow-left {
+        border-width : 0;
+        top          : 26px;
+        left         : 10px;
+        @include transitionAll(all 0.25s ease);
+      }
+    }
+      
      
      .alert-version-message {
        width : 80%;

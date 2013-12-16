@@ -504,10 +504,12 @@
     // If the version alert box exists in the DOM then
     // hide it during scroll
     /*----------------------------------------------------------*/
-    if ($('#alert-version').length) {
-      $(document).scroll(function() {
+    
+    //if ($('#alert-version').length) {
+      $(window).scroll(function() {
         hideVersionAlert();
       });
-    }
+    //}
+
   });
 });
