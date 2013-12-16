@@ -505,11 +505,11 @@
     // hide it during scroll
     /*----------------------------------------------------------*/
     
-    //if ($('#alert-version').length) {
+    if ($('#alert-version').length) {
       $(window).scroll(function() {
         hideVersionAlert();
       });
-    //}
+    }
 
   });
 });
