@@ -20,9 +20,14 @@ partition.
 
 This has two notable consequences:
 
-* Data can be inconsistent across a cluster.
-    * This can be mitigated by making as much data immutable as possible.
 * Requests can (and should) be tuned based on data model and business needs.
+* Data can be inconsistent across a cluster.
+
+<div class="note">
+Data inconsistencies can best be mitigated by
+immutability. Conflicting data is impossible in the absence of
+updates.
+</div>
 
 ## Replication properties and request tuning
 
