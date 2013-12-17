@@ -208,7 +208,7 @@ books.url:http\:\/\/mycompany.com\/url\/to\/my\-book\#foo
 
 Terms can include wildcards in the form of an asterisk ( * ) to allow prefix matching, or a question mark ( ? ) to match a single character.
 
-Currently, the wildcard must come at the end of the term in both cases.
+Currently, the wildcard must come at the end of the term in both cases, and must be preceded by a minimum of two characters.
 
 For example:
 
