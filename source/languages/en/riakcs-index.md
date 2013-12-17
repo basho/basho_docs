@@ -37,7 +37,7 @@ Riak CS is now open sourced and [[free for download|Download Riak CS]].
 </tr>
 <tr align="left" valign="top">
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
-<p><strong>Supports Large Objects of Arbitrary&nbsp;Content Type, Plus&nbsp;Metadata</strong></p>
+<strong>Supports Large Objects of Arbitrary&nbsp;Content Type, Plus&nbsp;Metadata</strong>
 </td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
 <p>Store images, text, video, documents, database&nbsp;backups, software binaries and other data types.&nbsp;Riak CS can store objects into the terabyte size range using multipart file uploads.&nbsp;&nbsp;Riak CS also&nbsp;supports standard Amazon metadata headers.</p>
