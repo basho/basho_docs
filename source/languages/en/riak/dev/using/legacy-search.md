@@ -1,26 +1,19 @@
 ---
-title: Using Search
+title: Using Legacy Search
 project: riak
 version: 1.0.0+
 document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, search, kv]
+moved: {
+  '1.4.0-': '/tutorials/querying/Riak-Search'
+}
 ---
 
 {{#2.0.0+}}
-<div class="info">This document refers to the new Riak Search 2.0 with [[Solr|http://lucene.apache.org/solr/]] integration (codenamed Yokozuna). For information about the <em>deprecated</em> Riak Search, visit [[Using Legacy Search]].</div>
-
-You must first [[enable Riak Search|Riak Search Settings]] in your environment to use it.
-
-## Introduction
-
-Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or bucket type) to a solr index, you simply write values (such as JSON, XML, plain text, datastructures, etc.) into Riak as normal, and then query those indexed values like Solr.
-
-
-
+<div class="info">This document refers to the now <em>deprecated</em> Riak Search. Visit [[Using Search]] for information about the new Riak Search (codenamed Yokozuna).</div>
 {{/2.0.0+}}
-{{#2.0.0-}}
 
 You must first [[enable Riak Search|Riak Search Settings]] in your environment to use it.
 
@@ -288,5 +281,3 @@ Clauses in a query can be grouped using parentheses. The following query returns
 ```bash
 (red OR blue) AND NOT yellow
 ```
-
-{{/2.0.0-}}

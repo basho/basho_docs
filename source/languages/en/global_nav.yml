@@ -43,6 +43,7 @@ riak:
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Search|Using Search]]"
+          - "[[Legacy Search|Using Legacy Search]]"
           - "[[Key Filters|Using Key Filters]]"
           - "[[Link Walking]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
