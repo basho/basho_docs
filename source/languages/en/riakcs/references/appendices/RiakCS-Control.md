@@ -8,19 +8,22 @@ audience: intermediate
 keywords: [control]
 ---
 
-Riak CS Control is a standalone user management application for Riak CS.  It provides a user interface for filtering, disabling, creating and managing users in a Riak CS Cluster.
+Riak CS Control is a standalone user management application for Riak CS.  It
+provides a user interface for filtering, disabling, creating and managing
+users in a Riak CS Cluster.
 
 ## Installing Riak CS Control
 
-Riak CS Control [is maintained as a separate application](https://github.com/basho/riak_cs_control) and can be installed via [[source or package|Download Riak CS]].
+Riak CS Control [is maintained as a separate application](https://github.com/basho/riak_cs_control) and can be installed
+via [[source or package|Download Riak CS]].
 
 ## Setting Up Riak CS Control
 
-Configure the application with the information needed to connect to the Riak CS cluster you wish to administer.
+In the `/etc/riak-cs-control/app.config` file, configure the application with
+the information needed to connect to the Riak CS cluster you wish to
+administer.
 
 ### Configuring Riak CS Control
-
-Add the `riak_cs_control` section to the Riak CS `app.config`:
 
 ``` erlang
     {riak_cs_control, [
@@ -56,9 +59,11 @@ riak-cs-control start
 
 ## The Users Page
 
-When you first navigate to the Riak CS Control UI, you will land on the Users page:
+When you first navigate to the Riak CS Control UI, you will land on the Users
+page:
 
 ![Users Page](/images/cs_control_users.png)
 
-On this page you can quickly see all the Riak CS users along with their status, e-mail address
-and credentials. From here you can filter, disable, create, and manage users in a Riak CS Cluster.
+On this page you can quickly see all the Riak CS users along with their
+status, e-mail address and credentials. From here you can filter, disable,
+create, and manage users in a Riak CS Cluster.

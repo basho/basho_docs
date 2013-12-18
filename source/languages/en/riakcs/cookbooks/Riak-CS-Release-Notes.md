@@ -8,7 +8,30 @@ audience: intermediate
 keywords: [developer]
 ---
 
-## Riak CS 1.4.2 Release Notes
+{{#1.4.3+}}
+
+## Riak CS 1.4.3
+
+[Riak CS 1.4.3 Release Notes](https://github.com/basho/riak_cs/blob/1.4.3/RELEASE-NOTES.org)
+
+#### Bugs Fixed
+
+* Fix bug that reverted manifests in the scheduled_delete state to the pending_delete or active state.
+* Don't count already deleted manifests as overwritten
+* Don't delete current object version on overwrite with incorrect md5
+
+#### Additions
+
+* Improve performance of manifest pruning
+* Optionally use paginated 2i for the GC daemon. This is to help prevent timeouts when collecting data that can be garbage collected.
+* Improve handling of Riak disconnects on block fetches
+* Update to lager 2.0.1
+* Optionally prune manifests based on count, in addition to time
+* Allow multiple access archiver processes to run concurrently
+
+{{/1.4.3+}}
+
+## Riak CS 1.4.2
 
 #### Bugs Fixed
 * Fix issue with Enterprise build on Debian Linux distributions.
@@ -30,7 +53,7 @@ keywords: [developer]
   to facilitate migration from the OSS version to the
   Enterprise version.
 
-## Riak CS 1.4.1 Release Notes
+## Riak CS 1.4.1
 
 #### Bugs Fixed
 * Fix list objects crash when more than the first 1001 keys are in
@@ -38,7 +61,7 @@ keywords: [developer]
 * Fix crash in garbage collection daemon.
 * Fix packaging bug by updating node_package dependency.
 
-## Riak CS 1.4.0 Release Notes
+## Riak CS 1.4.0
 
 #### Additions
 * Add preliminary support for the Swift API and Keystone authentication.
@@ -63,7 +86,7 @@ keywords: [developer]
 * Verify content-md5 header if supplied.
 * Handle transient Riak connection failures.
 
-## Riak CS 1.3.1 Release Notes
+## Riak CS 1.3.1
 
 #### Bugs Fixed
 * Fix bug in handling of active object manifests in the case of
@@ -77,7 +100,7 @@ keywords: [developer]
   signature are included as query parameters.
 * Fix for issue with init script stop.
 
-## Riak CS 1.3.0 Release Notes
+## Riak CS 1.3.0
 
 #### Additions
 * Support for multipart file uploads. Parts must be in the range of
@@ -106,7 +129,7 @@ keywords: [developer]
 * Deny anonymous service-level requests to avoid unnecessary error
   messages trying to list the buckets owned by an undefined user.
 
-## Riak CS 1.2.2 Release Notes
+## Riak CS 1.2.2
 
 #### Additions
 * Full support for MDC replication
@@ -121,7 +144,7 @@ keywords: [developer]
   check. If the bucket has more than 32k items, we run out of
   processes unless +P is set higher (because of the leak).
 
-## Riak CS 1.2.1 Release Notes
+## Riak CS 1.2.1
 
 #### Additions
 * Add reduce phase for listing bucket contents to provide backpressure
@@ -135,7 +158,7 @@ keywords: [developer]
   nonexistent bucket.
 * Do not do bucket list for HEAD or ?versioning or ?location request.
 
-## Riak CS 1.2.0 Release Notes
+## Riak CS 1.2.0
 
 #### Additions
 * Add preliminary support for MDC replication
@@ -148,7 +171,7 @@ keywords: [developer]
 * Fix crash in terminate state when fsm state is not fully populated
 * Script fixes and updates in response to node_package updates
 
-## Riak CS 1.1.0 Release Notes
+## Riak CS 1.1.0
 
 #### Additions
 * Update user creation to accept a JSON or XML document for user
@@ -175,12 +198,12 @@ keywords: [developer]
 * Fixes for Dialyzer errors and warnings.
 * Return readable error message with 500 errors instead of large webmachine backtraces.
 
-## Riak CS 1.0.2 Release Notes
+## Riak CS 1.0.2
 
 #### Additions
 * Support query parameter authentication as specified in [http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAuthentication.html](Signing and Authenticating REST Requests).
 
-## Riak CS 1.0.1 Release Notes
+## Riak CS 1.0.1
 
 #### Bugs Fixed
 * Default content-type is not passed into function to handle PUT
@@ -189,7 +212,7 @@ keywords: [developer]
 * Correct inappropriate use of `riak_cs_utils:get_user` by
   `riak_moss_acl_utils:get_owner_data`
 
-## Riak CS 1.0.0 Release Notes
+## Riak CS 1.0.0
 
 #### Additions
 * Subsystem for calculating user access and storage usage
@@ -207,13 +230,13 @@ keywords: [developer]
   tokens
 * Fix process and socket leaks in get fsm
 
-## Riak CS 0.1.2 Release Notes
+## Riak CS 0.1.2
 
 #### Bugs Fixed
 * Return 403 instead of 503 for invalid anonymous or signed requests.
 * Properly clean up processes and connections on object requests.
 
-## Riak CS 0.1.1 Release Notes
+## Riak CS 0.1.1
 
 #### Bugs Fixed
 * HEAD requests always result in a `403 Forbidden`.
@@ -222,7 +245,7 @@ keywords: [developer]
 * Incorrect atom specified in `riak_moss_wm_utils:parse_auth_header`.
 * Bad match condition used in `riak_moss_acl:has_permission/2`.
 
-## Riak CS 0.1.0 Release Notes
+## Riak CS 0.1.0
 
 #### Additions
 * Bucket-level access control lists
@@ -246,7 +269,7 @@ keywords: [developer]
 #### Known Issues
 * Object-level access control lists have not yet been implemented.
 
-## Riak CS 0.0.3 Release Notes
+## Riak CS 0.0.3
 
 #### Additions
 * Support for the s3cmd subcommands sync, du, and rb

@@ -27,7 +27,7 @@ First, edit Riak's `app.config` file and find and delete the line containing the
 Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the custom multi backend. Continue editing Riak's `app.config` file, and add this to the `riak_kv` section:
 
 ```
-{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin"]},
+{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
 {storage_backend, riak_cs_kv_multi_backend},
 {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
 {multi_backend_default, be_default},
@@ -44,7 +44,10 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 
 where **X.Y.Z** is the version of Riak CS you have installed.
 
-Note that this assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+
+<div class="note"><div class="title">Note</div> The path for `add_paths` may
+be `/usr/lib/riak-cs` or `/usr/lib64/riak-cs` depending on your operating system.</div>
 
 Next, add this to the **riak_core** section of `app.config`:
 
@@ -83,15 +86,34 @@ Replace 127.0.0.1 with the IP address for the Riak node.
 ## Setting Up Riak to Use Protocol Buffers
 The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_kv` config section of the file.
 
+{{#1.4.0-}}
+
 **pb_ip**: Replace 127.0.0.1 with the IP address of the Riak node.
 
 If you need to use a different port:
 
 **pb_port**: Replace 8087 with the port number you want to use.
 
-<div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
+The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the
+values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion
+`app.config` files.
 
-The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+{{/1.4.0-}}
+
+{{#1.4.0+}}
+
+**pb**: Replace 127.0.0.1 with the IP address of the Riak node:
+
+    {pb, [ {"10.11.4.203", 8087 } ]}
+
+If you need to use a different port, replace 8087 with the port number you want to use.
+
+The `pb` values in the Riak `app.config` file must match the values for
+`riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+
+{{/1.4.0+}}
+
+<div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
 
 ### Enabling SSL in Riak
 In the Riak `app.config` file, first uncomment the following lines:

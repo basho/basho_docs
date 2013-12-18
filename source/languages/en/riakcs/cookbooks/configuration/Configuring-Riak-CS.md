@@ -60,7 +60,7 @@ If you configured Riak to use a different port for protocol buffers, you must ch
 
 __riak_pb_port__: Replace 8087 with the port number set in the variable `pb_port` in the Riak `app.config` file.
 
-<div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the pb_ip variable in the Riak app.config file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set riak_ip to "0.0.0.0".</div>
+<div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the Protocol Buffers interface in the Riak app.config file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set riak_ip to "0.0.0.0".</div>
 
 After modifying the port numbers, restart Riak if is already running.
 

@@ -28,7 +28,7 @@ The N value also affects the behavior of read (GET) and write (PUT) requests. Th
 To change the N value for a bucket issue a PUT request to the bucket with the new value:
 
 ```bash
-curl -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' http://riak-host:8098/riak/bucket
+curl -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}' http://riak-host:8098/buckets/<bucket>/props
 ```
 
 Changing the N value after a bucket has data in it is **not recommended**. If you do change the value, especially increasing it, you might need to force read repair. Overwritten objects and newly stored objects will automatically be replicated to the correct number of nodes.

@@ -12,7 +12,7 @@ Another tool used with this repository is rvm. Get it here https://rvm.io/
 
 On OS-X specifically, as with any Ruby project, XCode & the XCode CLI Tools are needed to install, make and install everything smoothly.
 
-![XCode CLI Tooling](http://adronhall.smugmug.com/Software/Software-Development/Basho-Misc/i-xPGs6Tf/1/S/cli-S.jpg)
+Go to: Preference > Downloads > Command Line Tools.
 
 If you don't have XCode, you can also download the [OSC GCC Installer](https://github.com/kennethreitz/osx-gcc-installer), which gives you the essential compilers needed to build the docs.
 
@@ -244,6 +244,7 @@ language | bucket      | cloudfront id  | docs lang
 ---------|-------------|----------------|----------
 English  | riakdocs.en | E2Q6TQ5O0XT58T | en
 Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
+Chinese  | riakdocs.cn | E3NADMYQ20Y7EJ | cn
 
 
 **Keep it secret. Keep it safe.**
@@ -251,13 +252,13 @@ Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
 Then to deploy, run the deploy.rb scripts with a riak version:
 
 ```
-./deploy
+./deploy.rb
 ```
 
 If you need to deploy riak and riakcs with different versions, add the CS version at the end. This would be riak 1.3.1 and riakcs 1.1.
 
 ```
-./deploy 1.3.1 1.1.0
+./deploy.rb 1.3.1 1.1.0
 ```
 
 Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) cache, our CDN. Even if all the files are successfully pushed to S3, until CF is invalidated, you'll not see the new files on http://docs.basho.com.

@@ -31,10 +31,10 @@ In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries
 and related projects [[community projects]].
 
-| Language            | Source                 |
-|---------------------|------------------------|
-| C/C++               | [riak-cxx-client](https://github.com/basho/riak-cxx-client)        |
-| Javascript (jQuery) | [riak-javascript-client](https://github.com/basho/riak-javascript-client) |
+| Language            | Source                 | Documentation
+|----------|-----------------------------------|---------------|
+| C                   | [riak-c-client](https://github.com/basho/riak-c-client)        | [C Client Documentation](http://basho.github.io/riak-c-client/index.html) |
+| Node.js             | [riak-js](https://github.com/basho/riak-javascript-client) | [riak-js.org](http://riak-js.org/) |
 
 
 *** Feature Matrix
@@ -195,10 +195,9 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Go*
 
+* [[riaken|https://github.com/riaken]] - A fast and extendable Riak Protocol Buffer Client
 * [[goriakpbc|https://github.com/tpjg/goriakpbc]] - A golang riak client inspired by the Ruby riak-client from Basho and riakpbc from mrb
 * [[riakpbc|https://github.com/mrb/riakpbc]] - A Riak Protocol Buffer Client in Go
-* [[Shoebox|https://github.com/mrb/shoebox]] - A proof of concept Go project that uses [[riakpbc|https://github.com/mrb/riakpbc]]
-* [[riak.go|http://github.com/c141charlie/riak.go]] - A Riak Client for Go
 
 *Grails*
 

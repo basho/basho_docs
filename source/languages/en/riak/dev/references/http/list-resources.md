@@ -67,23 +67,23 @@ form
 curl -i http://localhost:8098 -H "Accept: application/json"
 HTTP/1.1 200 OK
 Vary: Accept
-Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>; rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>; rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
-Date: Fri, 30 Sep 2011 15:24:35 GMT
+Server: MochiWeb/1.1 WebMachine/1.10.0 (never breaks eye contact)
+Link: </buckets>; rel="riak_kv_wm_buckets",</riak>; rel="riak_kv_wm_buckets",</buckets>; rel="riak_kv_wm_counter",</buckets>; rel="riak_kv_wm_index",</buckets>; rel="riak_kv_wm_keylist",</buckets>; rel="riak_kv_wm_link_walker",</riak>; rel="riak_kv_wm_link_walker",</mapred>; rel="riak_kv_wm_mapred",</buckets>; rel="riak_kv_wm_object",</riak>; rel="riak_kv_wm_object",</ping>; rel="riak_kv_wm_ping",</buckets>; rel="riak_kv_wm_props",</stats>; rel="riak_kv_wm_stats"
+Date: Wed, 27 Nov 2013 20:18:31 GMT
 Content-Type: application/json
-Content-Length: 143
+Content-Length: 398
 
-{"riak_kv_wm_link_walker":"/riak","riak_kv_wm_mapred":"/mapred","riak_kv_wm_ping":"/ping","riak_kv_wm_raw":"/riak","riak_kv_wm_stats":"/stats"}
+{"riak_kv_wm_buckets":"/buckets","riak_kv_wm_buckets":"/riak","riak_kv_wm_counter":"/buckets","riak_kv_wm_index":"/buckets","riak_kv_wm_keylist":"/buckets","riak_kv_wm_link_walker":"/buckets","riak_kv_wm_link_walker":"/riak","riak_kv_wm_mapred":"/mapred","riak_kv_wm_object":"/buckets","riak_kv_wm_object":"/riak","riak_kv_wm_ping":"/ping","riak_kv_wm_props":"/buckets","riak_kv_wm_stats":"/stats"}
 
 # Request HTML response
 curl -i http://localhost:8098 -H "Accept: text/html"
 HTTP/1.1 200 OK
 Vary: Accept
-Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-Link: </riak>; rel="riak_kv_wm_link_walker",</mapred>; rel="riak_kv_wm_mapred",</ping>; rel="riak_kv_wm_ping",</riak>; rel="riak_kv_wm_raw",</stats>; rel="riak_kv_wm_stats"
-Date: Fri, 30 Sep 2011 15:24:35 GMT
+Server: MochiWeb/1.1 WebMachine/1.10.0 (never breaks eye contact)
+Link: </buckets>; rel="riak_kv_wm_buckets",</riak>; rel="riak_kv_wm_buckets",</buckets>; rel="riak_kv_wm_counter",</buckets>; rel="riak_kv_wm_index",</buckets>; rel="riak_kv_wm_keylist",</buckets>; rel="riak_kv_wm_link_walker",</riak>; rel="riak_kv_wm_link_walker",</mapred>; rel="riak_kv_wm_mapred",</buckets>; rel="riak_kv_wm_object",</riak>; rel="riak_kv_wm_object",</ping>; rel="riak_kv_wm_ping",</buckets>; rel="riak_kv_wm_props",</stats>; rel="riak_kv_wm_stats"
+Date: Wed, 27 Nov 2013 20:20:05 GMT
 Content-Type: text/html
-Content-Length: 267
+Content-Length: 666
 
-<html><body><ul><li><a href="/riak">riak_kv_wm_link_walker</a></li><li><a href="/mapred">riak_kv_wm_mapred</a></li><li><a href="/ping">riak_kv_wm_ping</a></li><li><a href="/riak">riak_kv_wm_raw</a></li><li><a href="/stats">riak_kv_wm_stats</a></li></ul></body></html>
+<html><body><ul><li><a href="/buckets">riak_kv_wm_buckets</a></li><li><a href="/riak">riak_kv_wm_buckets</a></li><li><a href="/buckets">riak_kv_wm_counter</a></li><li><a href="/buckets">riak_kv_wm_index</a></li><li><a href="/buckets">riak_kv_wm_keylist</a></li><li><a href="/buckets">riak_kv_wm_link_walker</a></li><li><a href="/riak">riak_kv_wm_link_walker</a></li><li><a href="/mapred">riak_kv_wm_mapred</a></li><li><a href="/buckets">riak_kv_wm_object</a></li><li><a href="/riak">riak_kv_wm_object</a></li><li><a href="/ping">riak_kv_wm_ping</a></li><li><a href="/buckets">riak_kv_wm_props</a></li><li><a href="/stats">riak_kv_wm_stats</a></li></ul></body></html>
 ```

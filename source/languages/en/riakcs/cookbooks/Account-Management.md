@@ -105,7 +105,7 @@ Sample JSON status update document:
 
 ```json
 {
-  "name" : foobaz",
+  "name" : "foobaz",
   "email" : "foobaz@example.com"
 }
 ```

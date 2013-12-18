@@ -92,7 +92,7 @@ We will use the Riak HTTP interface to store the texts we want to process:
 
 ```bash
 $ curl -XPUT -H "content-type: text/plain" \
-    http://localhost:8098/riak/alice/p1 --data-binary @-<<\EOF
+    http://localhost:8098/buckets/alice/keys/p1 --data-binary @-<<\EOF
 Alice was beginning to get very tired of sitting by her sister on the
 bank, and of having nothing to do: once or twice she had peeped into the
 book her sister was reading, but it had no pictures or conversations in
@@ -101,7 +101,7 @@ conversation?'
 EOF
 
 $ curl -XPUT -H "content-type: text/plain" \
-    http://localhost:8098/riak/alice/p2 --data-binary @-<<\EOF
+    http://localhost:8098/buckets/alice/keys/p2 --data-binary @-<<\EOF
 So she was considering in her own mind (as well as she could, for the
 hot day made her feel very sleepy and stupid), whether the pleasure
 of making a daisy-chain would be worth the trouble of getting up and
@@ -110,7 +110,7 @@ close by her.
 EOF
 
 $ curl -XPUT -H "content-type: text/plain" \
-    http://localhost:8098/riak/alice/p5 --data-binary @-<<\EOF
+    http://localhost:8098/buckets/alice/keys/p5 --data-binary @-<<\EOF
 The rabbit-hole went straight on like a tunnel for some way, and then
 dipped suddenly down, so suddenly that Alice had not a moment to think
 about stopping herself before she found herself falling down a very deep
@@ -417,7 +417,7 @@ main([Filename]) ->
 
 format_and_insert(Line) ->
     JSON = io_lib:format("{\"Date\":\"~s\",\"Open\":~s,\"High\":~s,\"Low\":~s,\"Close\":~s,\"Volume\":~s,\"Adj. Close\":~s}", Line),
-    Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/riak/goog/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
+    Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/buckets/goog/keys/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
     io:format("Inserting: ~s~n", [hd(Line)]),
     os:cmd(Command).
 ```
@@ -754,7 +754,7 @@ Because Riak distributes the map phases across the cluster to increase data-loca
 
 ### Streaming via the HTTP API
 
-You can enable streaming with MapReduce jobs submitted to the `/mapred` resource by adding `?chunked=true` to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with `Content-Type: multipart/mixed`.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries your that serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
+You can enable streaming with MapReduce jobs submitted to the `/mapred` resource by adding `?chunked=true` to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with `Content-Type: multipart/mixed`.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries that your serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
 
 ### Streaming via the Erlang API
 

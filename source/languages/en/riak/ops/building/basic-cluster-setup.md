@@ -58,13 +58,26 @@ becomes
 
     {http, [ {"192.168.1.10", 8098 } ]},
 
-The same configuration should be changed for the Protocol Buffers interface if you intend on using it. Do the same as above for the line in the riak_kv section:
+The same configuration should be changed for the Protocol Buffers interface if you intend on using it:
+
+{{#1.4.0-}}
 
     {pb_ip,   "127.0.0.1" },
 
 becomes
 
     {pb_ip,   "192.168.1.10" },
+
+{{/1.4.0-}}
+{{#1.4.0+}}
+
+    {pb, [ {"127.0.0.1", 8098 } ]},
+
+becomes
+
+    {pb, [ {"192.168.1.10", 8098 } ]},
+
+{{/1.4.0+}}
 
 
 Next edit the `etc/vm.args` file and change the `-name` to the correct hostname:

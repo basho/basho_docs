@@ -12,7 +12,7 @@
 
     section {
       &.banner {
-        @include size(800px, 214px);
+        @include size(auto, 214px);
         @include corner(left, bottom);
         @include corner(right, bottom);
         position : relative;
@@ -21,19 +21,23 @@
         border-bottom  : 1px solid #F1F1F1;
         margin-bottom  : 1.2em;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1024px) {
           width   : auto;
           height  : auto;
           padding : 0 3% 1.5em 4.5%;
-          margin  : 1.2em $mobilePageGutter;
+          margin  : 1.2em 0;
           @include allCorners();
+        }
+
+        @media screen and (max-width: 768px) {
+          margin  : 1.2em $mobilePageGutter;
         }
 
         header {
           position : relative;
           padding  : 3em 0 0 1.8em;
 
-          @media screen and (max-width: 768px) {
+          @media screen and (max-width: 1024px) {
             padding  : 0;  
           }
 
@@ -41,7 +45,7 @@
             font-size      : 3.9rem;
             letter-spacing : -0.04em;
 
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 1024px) {
               padding-top    : 0.9em;
               font-size      : 1.6rem;
               letter-spacing : 0;
@@ -64,7 +68,7 @@
             color        : rgb(102, 102, 102); /* Fallback for non-rgba browsers */
             color        : rgba(102, 102, 102, 0.9);
 
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 1024px) {
 
             }
           }
@@ -77,7 +81,7 @@
           padding-left : 0;
           list-style   : none;
 
-          @media screen and (max-width: 768px) {
+          @media screen and (max-width: 1024px) {
             position       : relative;
             top            : auto;
             left           : auto;
@@ -91,7 +95,7 @@
             line-height    : 1em;
             font-size      : 1.6rem;
 
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 1024px) {
               font-size      : 100%;
               padding-bottom : 0;
               padding-left   : 0;
@@ -124,13 +128,13 @@
       @include size(800px, auto);
 
       a {
-        color : white;
+        color : lighten($orange, 5%);
         &:hover {
-          color : lighten($orange, 5%);
+          color : lighten($orange, 15%);
         }
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 1140px) {
         width : auto;
       }
     }
@@ -142,9 +146,13 @@
         float     : left;
         @include allCorners();
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1024px) {
           max-width : none;
-          margin    : 0 $mobilePageGutter 1.2em $mobilePageGutter;
+          margin    : 1.2em 0;
+        }
+
+        @media screen and (max-width: 768px) {
+          margin  : 1.2em $mobilePageGutter;
         }
 
         header {
@@ -171,7 +179,7 @@
         &:first-child {
           float : left;
 
-          @media screen and (max-width: 768px) {
+          @media screen and (max-width: 1024px) {
             float : none;
           }
         }
@@ -179,7 +187,7 @@
         &:nth-child(2) {
           float : right;
 
-          @media screen and (max-width: 768px) {
+          @media screen and (max-width: 1024px) {
             float : none;
           }
         }

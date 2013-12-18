@@ -37,7 +37,7 @@ Goal | Description
 
 ### When Riak makes sense
 
-You should definitely take a close look at Riak whenever your data does not fit on a single server.  Distributed databases are a **very** hard to problem to solve well.
+You should definitely take a close look at Riak whenever your data does not fit on a single server.  Distributed databases are a **very** hard problem to solve well.
 
 Riak's availability focus makes it a good fit whenever downtime is unacceptable. No one can promise 100% uptime, but Riak is designed to survive network partitions and hardware failures that would significantly disrupt most databases.
 
@@ -101,4 +101,4 @@ How is divergence addressed? When you make a read request, Riak looks up all rep
 Further, when an outdated replica is returned as part of a read request, Riak will automatically update the out-of-sync replica to make it consistent. Read repair, a self-healing property of the database, will even update a replica that returns a "not_found" in the event that a node loses it due to physical failure.
 
 ### Reading and Writing Data in Failure Conditions
-In Riak, you can set an _r_ value for reads and a _w_ value for writes. These values give you control over how many replicas must respond to a request for it to succeed. Let's say you have an _n_ value of 3, but one of the physical nodes responsible for a replica is down. With r=2, only 2 replicas must return results for a successful read. This allows Riak to provide read availability even when nodes are down or laggy. The same applies for the _w_ in writes. If you don't specify, Riak defaults to quorum: the majority of nodes must respond. There will be more on [[CAP Controls]].
+In Riak, you can set an _r_ value for reads and a _w_ value for writes. These values give you control over how many replicas must respond to a request for it to succeed. Let's say you have an _n_ value of 3, but one of the physical nodes responsible for a replica is down. With r=2, only 2 replicas must return results for a successful read. This allows Riak to provide read availability even when nodes are down or laggy. The same applies for the _w_ in writes. If you don't specify, Riak defaults to quorum: the majority of nodes must respond. There will be more on [[Replication Properties]].
