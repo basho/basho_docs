@@ -31,7 +31,7 @@ with both.
 
 <div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see [[AWS Performance Tuning]].</div>
 
-## Linux Tuning
+# Linux Tuning
 
 While Linux can be tuned to be a good server operating system, many
 distributions come out of the box tuned for desktop or light use.
@@ -126,6 +126,23 @@ To set the scheduler to deadline, use the following command:
 
 ```bash
 echo deadline > /sys/block/sda/queue/scheduler
+```
+
+The default I/O scheduler queue size is 128.  The scheduler queue sorts
+writes in an attempt to optimize for sequential I/O and reduce seek time. 
+Changing the depth of the scheduler queue to 1024 can increase the proportion 
+of sequential I/O that disks perform and improve overall throughput.
+
+To check the scheduler depth for block device **sda**, use the following command:
+
+```bash
+cat /sys/block/sda/queue/nr_requests
+```
+
+To increase the scheduler depth to 1024, use the following command:
+
+```bash
+echo 1024 > /sys/block/sda/queue/nr_requests
 ```
 
 ### Filesystem
