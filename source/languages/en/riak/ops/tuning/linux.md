@@ -162,6 +162,10 @@ multiple nodes holding the same data, these two options can be changed
 to boost I/O performance. We recommend setting: `barrier=0` and
 `data=writeback` when using the ext4 filesystem.
 
+Similarly, the XFS file system defaults can be optimized to improve performance.
+We recommend setting: `nobarrier`, `logbufs=8`, `logbsize=256k`, and
+`allocsize=2M` when using the XFS filesystem.
+
 As with the `noatime` setting, these settings should be added to
 `/etc/fstab` so that they are persisted across server restarts.
 
