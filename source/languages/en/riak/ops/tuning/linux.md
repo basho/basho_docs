@@ -31,7 +31,7 @@ with both.
 
 <div class="info"><div class="title">Tip</div>For performance and tuning recommendations specific to running Riak clusters on the Amazon Web Services EC2 environment, see [[AWS Performance Tuning]].</div>
 
-# Linux Tuning
+## Linux Tuning
 
 While Linux can be tuned to be a good server operating system, many
 distributions come out of the box tuned for desktop or light use.
