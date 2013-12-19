@@ -183,8 +183,8 @@ context-switching and contention for I/O resources.
 
 Basho recommends between 8 and 64 partitions per node in the cluster.
 For example, this means that a 5-node cluster should be initialized with
-256 or 512 partitions. With 512 partitions, a 5 node cluster could
-conceivably grow to 64 nodes before needing replacement.
+128 or 256 partitions. With 256 partitions, a 5 node cluster could
+conceivably grow to 32 nodes before needing replacement.
 
 You can find more information on [[Cluster Capacity Planning]].
 
@@ -197,7 +197,7 @@ Place the ring_creation_size item within the riak_core section in the
 `/etc/riak/app.config` file:
 
     {riak_core, [
-       {ring_creation_size, 512},
+       {ring_creation_size, 256},
        %% ...
        ]}
 
