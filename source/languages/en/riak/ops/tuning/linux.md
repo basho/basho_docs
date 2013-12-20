@@ -59,24 +59,45 @@ networking is the bottleneck.
 vm.swappiness = 0
 net.ipv4.tcp_max_syn_backlog = 40000
 net.core.somaxconn=40000
-net.ipv4.tcp_timestamps = 0
 net.ipv4.tcp_sack = 1
 net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_fin_timeout = 15
 net.ipv4.tcp_keepalive_intvl = 30
 net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_moderate_rcvbuf = 1
 ```
 
 The following settings are optional, but may improve performance on
 a 10Gb network:
 
 ```text
-net.core.rmem_default = 8388608
-net.core.rmem_max = 8388608
-net.core.wmem_default = 8388608
-net.core.wmem_max = 8388608
-net.core.netdev_max_backlog = 10000
+net.core.rmem_max = 134217728
+net.core.wmem_max = 134217728
+net.ipv4.tcp_mem  = 134217728 134217728 134217728
+net.ipv4.tcp_rmem = 4096 277750 134217728
+net.ipv4.tcp_wmem = 4096 277750 134217728
+net.core.netdev_max_backlog = 300000
 ```
+
+Certain network interfaces ship with on-board features that have been shown
+to hinder Riak network performance.  These features can be disabled via
+`ethtool`.
+
+For an Intel chipset NIC using the "ixgbe" driver running as **eth0**, for example,
+run the following command:
+
+```bash
+ethtool -K eth0 lro off
+```
+
+For a Broadcom chipset NIC using the "bnx" or "bnx2" driver, run:
+
+```bash
+ethtool -K eth0 tso off
+``` 
+
+`ethtool` settings can be persisted across reboots by adding the above command 
+to the /etc/rc.local script.
 
 <div class="info"><div class="title">Tip</div>Tuning of these values
 will be required if they are changed, as they affect all network
