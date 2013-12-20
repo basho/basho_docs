@@ -128,6 +128,23 @@ To set the scheduler to deadline, use the following command:
 echo deadline > /sys/block/sda/queue/scheduler
 ```
 
+The default I/O scheduler queue size is 128.  The scheduler queue sorts
+writes in an attempt to optimize for sequential I/O and reduce seek time. 
+Changing the depth of the scheduler queue to 1024 can increase the proportion 
+of sequential I/O that disks perform and improve overall throughput.
+
+To check the scheduler depth for block device **sda**, use the following command:
+
+```bash
+cat /sys/block/sda/queue/nr_requests
+```
+
+To increase the scheduler depth to 1024, use the following command:
+
+```bash
+echo 1024 > /sys/block/sda/queue/nr_requests
+```
+
 ### Filesystem
 
 Basho recommends using advanced journaling filesystems like ZFS and XFS
@@ -144,6 +161,10 @@ integrity, but slow performance. Because Riak's integrity is based on
 multiple nodes holding the same data, these two options can be changed
 to boost I/O performance. We recommend setting: `barrier=0` and
 `data=writeback` when using the ext4 filesystem.
+
+Similarly, the XFS file system defaults can be optimized to improve performance.
+We recommend setting: `nobarrier`, `logbufs=8`, `logbsize=256k`, and
+`allocsize=2M` when using the XFS filesystem.
 
 As with the `noatime` setting, these settings should be added to
 `/etc/fstab` so that they are persisted across server restarts.
@@ -183,8 +204,8 @@ context-switching and contention for I/O resources.
 
 Basho recommends between 8 and 64 partitions per node in the cluster.
 For example, this means that a 5-node cluster should be initialized with
-256 or 512 partitions. With 512 partitions, a 5 node cluster could
-conceivably grow to 64 nodes before needing replacement.
+128 or 256 partitions. With 256 partitions, a 5 node cluster could
+conceivably grow to 32 nodes before needing replacement.
 
 You can find more information on [[Cluster Capacity Planning]].
 
@@ -197,7 +218,7 @@ Place the ring_creation_size item within the riak_core section in the
 `/etc/riak/app.config` file:
 
     {riak_core, [
-       {ring_creation_size, 512},
+       {ring_creation_size, 256},
        %% ...
        ]}
 
