@@ -84,7 +84,7 @@ Initially, the line that specifies the riak node IP address is set to the local 
 Replace 127.0.0.1 with the IP address for the Riak node.
 
 ## Setting Up Riak to Use Protocol Buffers
-The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_kv` config section of the file.
+The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_api` config section of the file.
 
 {{#1.4.0-}}
 
@@ -114,6 +114,20 @@ The `pb` values in the Riak `app.config` file must match the values for
 {{/1.4.0+}}
 
 <div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
+
+It is also recommended to increase the size of Riak's `pb_backlog` to match the size
+of `request_pool` specified in the Riak CS `app.config` file.
+
+**pb_backlog**: Replace the default Riak configuraiton:
+
+    %% {pb_backlog, 64}, 
+
+with the following:
+
+    {pb_backlog, 128},
+ 
+If the `request_pool` value in Riak CS is changed, the `pb_backlog` value in Riak should
+be updated as well.
 
 ### Enabling SSL in Riak
 In the Riak `app.config` file, first uncomment the following lines:
