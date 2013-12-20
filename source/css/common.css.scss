@@ -1630,11 +1630,14 @@ div[role=main] {
     margin     : 0;
     padding    : 8px;
     overflow-x : auto;
+    background : #f4f4f4;
+    max-width  : 585px;
+    border-radius: 4px;
   }
 
   code {
     font-size   : 90%;
-    white-space : nowrap;
+    // white-space : nowrap;
   }
 
   .docs {
