@@ -115,8 +115,8 @@ The `pb` values in the Riak `app.config` file must match the values for
 
 <div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
 
-It is also recommended to increase the size of Riak's `pb_backlog` to match the size
-of `request_pool` specified in the Riak CS `app.config` file.
+It is also recommended to increase the size of Riak's `pb_backlog` to be greater than
+the size of `request_pool` specified in the Riak CS `app.config` file.
 
 **pb_backlog**: Replace the default Riak configuraiton:
 
@@ -124,7 +124,7 @@ of `request_pool` specified in the Riak CS `app.config` file.
 
 with the following:
 
-    {pb_backlog, 128},
+    {pb_backlog, 256},
  
 If the `request_pool` value in Riak CS is changed, the `pb_backlog` value in Riak should
 be updated as well.
