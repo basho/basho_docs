@@ -84,6 +84,10 @@ div[role="main"] {
          background : none;
          padding-right : 0;
        }
+
+       @media screen and (max-width: 880px) {
+         width:100%;
+       }
      }
 
      .arrow-left {
@@ -106,9 +110,10 @@ div[role="main"] {
      */
        .version-icon-alert-version-num {
          position  : absolute;
-         width    : 19%;
+         width    : 20%;
          margin : auto;
-         font-size : 7.75rem;
+         font-size : 4.75rem;
+         letter-spacing : -0.1em;
          text-align : center;
          top : 0;
          bottom : 0;
@@ -118,10 +123,10 @@ div[role="main"] {
          line-height : 0;
       
          @media screen and (max-width: 1020px) {
-           font-size : 6rem;
+           font-size : 3.75rem;
          }
          @media screen and (max-width: 880px) {
-           font-size : 4.75rem;
+           display:none;
          }
          
        }
