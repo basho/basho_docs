@@ -52,7 +52,7 @@ en:
         config: "[[Configuration|Secondary-Indexes - Configuration]]"
         examples: "[[Examples|Secondary-Indexes - Examples]]"
       refs:
-        title: "References"
+        title: "Reference"
         apis: "[[APIs]]"
         faqs: "[[Developing on Riak FAQs]]"
         libs: "[[Client Libraries]]"
@@ -86,5 +86,5 @@ en:
         replacing: "[[Replacing a Node]]"
       trouble: "[[Troubleshooting]]"
       refs:
-        title: References
+        title: Reference
         riak_admin_cmd: "[[riak-admin|Command-Line-Tools - riak]] <em>(Command-Line Tool)</em>"
