@@ -289,7 +289,8 @@ hr {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  //background-color: #eeeeee;
+  background-color: #fafafa;/* B. Cox */
 }
 .nav > li.disabled > a {
   color: #999999;
@@ -300,7 +301,7 @@ hr {
   text-decoration: none;
   background-color: transparent;
   cursor: not-allowed;
-}
+} 
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
@@ -317,7 +318,12 @@ hr {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #dddddd;
+  //border-bottom: 1px solid #dddddd;
+}
+
+/* B. Cox */
+div[role="main"] ul.nav-tabs {
+  max-width : 100%;
 }
 .nav-tabs > li {
   float: left;
@@ -326,19 +332,25 @@ hr {
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.428571429;
-  border: 1px solid transparent;
+  //border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
+  font-family : 'OpenSansBold', verdana, arial, sans-serif; /* B. Cox */
+  transition         : all 0.5s ease;
+  -webkit-transition : all 0.5s ease;
+  -moz-transition    : all 0.5s ease;
+  -ms-transition     : all 0.5s ease;
 }
 .nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+  //border-color: #eeeeee #eeeeee #dddddd;
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-bottom-color: transparent;
+  //background-color: #ffffff;
+  background : #f8f8f8; /* B. Cox */
+  //border: 1px solid #dddddd;
+  //border-bottom-color: transparent;
   cursor: default;
 }
 .nav-tabs.nav-justified {

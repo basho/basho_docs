@@ -19,8 +19,8 @@
 }
 
 .sans-bold {
-  @extend .sans;
-  font-weight : bold;
+  font-family : 'OpenSansBold', verdana, arial, sans-serif;
+  font-weight : normal;
 }
 
 .sans-light {
@@ -1630,9 +1630,25 @@ div[role=main] {
     margin     : 0;
     padding    : 8px;
     overflow-x : auto;
-    background : #f4f4f4;
-    max-width  : 585px;
-    border-radius: 4px;
+    background : #f8f8f8;
+    //max-width  : 585px;
+    @include corner(right, top);
+    @include corner(right, bottom);
+    @include corner(left, bottom);
+  }
+
+  .note {
+    pre,
+    code {
+      background : #fdfdfd;
+      font-style : normal;
+    }
+    .nav-tabs > li > a {
+      font-style : normal;
+    }
+    .nav-tabs > li.active > a {
+      background : #fdfdfd;
+    }
   }
 
   code {
