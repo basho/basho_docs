@@ -37,3 +37,4 @@ notable libraries for other languages:
 * [[OCaml|Taste of Riak: OCaml]]
 * [[Clojure|Taste of Riak: Clojure]]
 * [[C Sharp|Taste of Riak: C Sharp]]
+* [[Go|Taste of Riak: Go]]

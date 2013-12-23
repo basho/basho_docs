@@ -79,6 +79,29 @@ echo deadline > /sys/block/xvdf/queue/scheduler
 More information on the disk scheduler is available in [[Linux Performance Tuning]]
 and [[File System Tuning]].
 
+### Virtual Memory Subsystem
+EBS volumes have considerably less bandwidth than hardware disks.  To avoid
+saturating EBS bandwidth and inducing IO latency spikes, it is recommended to 
+tune the Linux virtual memory subsystem to flush smaller amounts of data more often.
+
+The following should be added or updated in `/etc/sysctl.conf`:
+
+```text
+# Limits the maximum memory used to 200MB before pdflush is involved.
+# The default 20% of total system memory can overwhelm the storage system once
+# flushed.
+vm.dirty_bytes = 209715200
+
+# The lower threshold for vm.dirty_bytes
+vm.dirty_background_bytes = 104857600
+
+# Wakes up pdflush more often to write data to EBS
+vm.dirty_writeback_centisecs = 200
+
+# Flushes dirty bytes faster, reducing the likelihood of saturating EBS bandwidth
+vm.dirty_expire_centisecs = 200
+```
+
 ### Forensics
 When a failure occurs, collect as much information as possible. Check
 monitoring systems, backup log and configuration files if they are

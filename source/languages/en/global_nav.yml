@@ -27,6 +27,7 @@ riak:
               - "[[OCaml|Taste of Riak: OCaml]]"
               - "[[Clojure|Taste of Riak: Clojure]]"
               - "[[Csharp|Taste of Riak: C-Sharp]]"
+              - "[[Go|Taste of Riak: Go]]"
           - title: A Taste of Querying
             sub:
               - "[[Prerequisites|Taste of Riak: Querying]]"
@@ -68,7 +69,7 @@ riak:
           - "[[Search Schema|Advanced Search Schema]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
-          - title: "References"
+          - title: "Reference"
             sub:
               # - "[[Bucket References]]"
               - "[[Search Indexing|Search Indexing Reference]]"
@@ -253,7 +254,7 @@ riakee:
       - "[[Multi Data Center Replication|Multi Data Center Replication v3 Operations]]"
       - "[[JMX Monitoring]]"
       - "[[SNMP Configuration]]"
-  - title: "References"
+  - title: "Reference"
     sub:
       - "[[SNMP Counters]]"
       - "[[Riak Enterprise FAQs|Riak Enterprise FAQs]]"
@@ -321,7 +322,7 @@ riakcs:
         sub:
             - "[[CS Compared to Swift|Riak CS Compared to Swift]]"
             - "[[CS Compared to Atmos|Riak CS Compared to Atmos]]"
-  - title: "References"
+  - title: "Reference"
     sub:
       - "[[FAQs|Riak CS FAQs]]"
 

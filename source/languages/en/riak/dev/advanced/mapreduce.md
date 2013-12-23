@@ -754,7 +754,7 @@ Because Riak distributes the map phases across the cluster to increase data-loca
 
 ### Streaming via the HTTP API
 
-You can enable streaming with MapReduce jobs submitted to the `/mapred` resource by adding `?chunked=true` to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with `Content-Type: multipart/mixed`.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries your that serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
+You can enable streaming with MapReduce jobs submitted to the `/mapred` resource by adding `?chunked=true` to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with `Content-Type: multipart/mixed`.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries that your serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
 
 ### Streaming via the Erlang API
 
