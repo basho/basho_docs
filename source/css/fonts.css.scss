@@ -4,45 +4,45 @@
    ========================================================================== */
 /*   
 @font-face {
-    font-family: 'noticia';
+    font-family : 'NoticiaItalic';
     src: url('../fonts/noticiatext-italic-webfont-eot.eot');
     src: url('../fonts/noticiatext-italic-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/noticiatext-italic-webfont-woff.woff') format('woff'),
          url('../fonts/noticiatext-italic-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/noticiatext-italic-webfont-svg.svg#noticia_textitalic') format('svg');
+         url('../fonts/noticiatext-italic-webfont-svg.svg#NoticiaItalic') format('svg');
     font-weight: normal;
     font-style: italic;
     text-rendering: optimizeLegibility;
 }
 @font-face {
-    font-family: 'noticia';
+    font-family : 'Noticia';
     src: url('../fonts/noticiatext-regular-webfont-eot.eot');
     src: url('../fonts/noticiatext-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/noticiatext-regular-webfont-woff.woff') format('woff'),
          url('../fonts/noticiatext-regular-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/noticiatext-regular-webfont-svg.svg#noticia_textregular') format('svg');
+         url('../fonts/noticiatext-regular-webfont-svg.svg#Noticia') format('svg');
     font-weight: normal;
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
 @font-face {
-    font-family: 'titillium';
+    font-family : 'Titillium25l001';
     src: url('../fonts/titilliumtext25l001-webfont-eot.eot');
     src: url('../fonts/titilliumtext25l001-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/titilliumtext25l001-webfont-woff.woff') format('woff'),
          url('../fonts/titilliumtext25l001-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/titilliumtext25l001-webfont-svg.svg#titilliumtext25l600_wt') format('svg');
+         url('../fonts/titilliumtext25l001-webfont-svg.svg#Titillium25l001') format('svg');
     font-weight: bold;
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
 @font-face {
-    font-family: 'titillium';
+    font-family: 'Titillium25l004';
     src: url('../fonts/titilliumtext25l004-webfont-eot.eot');
     src: url('../fonts/titilliumtext25l004-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/titilliumtext25l004-webfont-woff.woff') format('woff'),
          url('../fonts/titilliumtext25l004-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/titilliumtext25l004-webfont-svg.svg#titilliumtext25l1_wt') format('svg');
+         url('../fonts/titilliumtext25l004-webfont-svg.svg#Titillium25l004') format('svg');
     font-weight: normal;
     font-style: normal;
     text-rendering: optimizeLegibility;
@@ -57,19 +57,19 @@
     src: url('../fonts/opensans-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/opensans-regular-webfont-woff.woff') format('woff'),
          url('../fonts/opensans-regular-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/opensans-regular-webfont-svg.svg#opensans-regular') format('svg');
+         url('../fonts/opensans-regular-webfont-svg.svg#OpenSans') format('svg');
     font-weight: normal;
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
 
 @font-face {
-    font-family: 'OpenSans';
+    font-family: 'OpenSansBold';
     src: url('../fonts/opensans-bold-webfont-eot.eot');
     src: url('../fonts/opensans-bold-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/opensans-bold-webfont-woff.woff') format('woff'),
          url('../fonts/opensans-bold-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/opensans-bold-webfont-svg.svg#opensans-bold') format('svg');
+         url('../fonts/opensans-bold-webfont-svg.svg#OpenSansBold') format('svg');
     font-weight: bold;
     font-style: normal;
     text-rendering: optimizeLegibility;
@@ -81,7 +81,7 @@
     src: url('../fonts/opensans-light-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/opensans-light-webfont-woff.woff') format('woff'),
          url('../fonts/opensans-light-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/opensans-light-webfont-svg.svg#opensans-light') format('svg');
+         url('../fonts/opensans-light-webfont-svg.svg#OpenSansLight') format('svg');
     font-weight: normal;
     font-style: normal;
     text-rendering: optimizeLegibility;
@@ -95,19 +95,19 @@
     src: url('../fonts/gandhiserif-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/gandhiserif-regular-webfont-woff.woff') format('woff'),
          url('../fonts/gandhiserif-regular-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/gandhiserif-regular-webfont-svg.svg#gandhiserif-regular') format('svg');
+         url('../fonts/gandhiserif-regular-webfont-svg.svg#GandhiSerif') format('svg');
     font-weight: normal;
     font-style: normal;
     text-rendering: optimizeLegibility;
 }
 
 @font-face {
-    font-family: 'GandhiSerif';
+    font-family: 'GandhiSerifBold';
     src: url('../fonts/gandhiserif-bold-webfont-eot.eot');
     src: url('../fonts/gandhiserif-bold-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/gandhiserif-bold-webfont-woff.woff') format('woff'),
          url('../fonts/gandhiserif-bold-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/gandhiserif-bold-webfont-svg.svg#gandhiserif-bold') format('svg');
+         url('../fonts/gandhiserif-bold-webfont-svg.svg#GandhiSerifBold') format('svg');
     font-weight: bold;
     font-style: normal;
     text-rendering: optimizeLegibility;
@@ -119,19 +119,19 @@
     src: url('../fonts/gandhiserif-italic-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/gandhiserif-italic-webfont-woff.woff') format('woff'),
          url('../fonts/gandhiserif-italic-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/gandhiserif-italic-webfont-svg.svg#gandhiserif-italic') format('svg');
+         url('../fonts/gandhiserif-italic-webfont-svg.svg#GandhiSerifItalic) format('svg');
     font-weight: normal;
     font-style: italic;
     text-rendering: optimizeLegibility;
 }
 */
 @font-face {
-    font-family: 'GandhiSerif';
+    font-family: 'GandhiSerifBoldItalic';
     src: url('../fonts/gandhiserif-bolditalic-webfont-eot.eot');
     src: url('../fonts/gandhiserif-bolditalic-webfont-eot.eot?#iefix') format('embedded-opentype'),
          url('../fonts/gandhiserif-bolditalic-webfont-woff.woff') format('woff'),
          url('../fonts/gandhiserif-bolditalic-webfont-ttf.ttf') format('truetype'),
-         url('../fonts/gandhiserif-bolditalic-webfont-svg.svg#gandhiserif-bolditalic') format('svg');
+         url('../fonts/gandhiserif-bolditalic-webfont-svg.svg#GandhiSerifBoldItalic') format('svg');
     font-weight: bold;
     font-style: italic;
     text-rendering: optimizeLegibility;
@@ -148,7 +148,7 @@
     src:url('../fonts/docsfonticons-webfont-eot.eot?#iefix') format('embedded-opentype'),
         url('../fonts/docsfonticons-webfont-woff.woff') format('woff'),
         url('../fonts/docsfonticons-webfont-ttf.ttf') format('truetype'),
-        url('../fonts/docsfonticons-webfont-svg.svg#docsfonticons') format('svg');
+        url('../fonts/docsfonticons-webfont-svg.svg#DocsFontIcons') format('svg');
     font-weight: normal;
     font-style: normal;
 }

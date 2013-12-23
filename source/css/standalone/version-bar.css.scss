@@ -6,56 +6,246 @@ $layout-layout:smart;
 @import "settings";
 
 /* =============================================================================
+   Version Font
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Version';
+  src:url('../../fonts/version-webfont-eot.eot');
+  src:url('../../fonts/version-webfont-eot.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/version-webfont-ttf.ttf') format('truetype'),
+    url('../../fonts/version-webfont-woff.woff') format('woff'),
+    url('../../fonts/version-webfont-svg.svg#Version') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family : 'Titillium25l001';
+    src: url('../../fonts/titilliumtext25l001-webfont-eot.eot');
+    src: url('../../fonts/titilliumtext25l001-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/titilliumtext25l001-webfont-woff.woff') format('woff'),
+         url('../../fonts/titilliumtext25l001-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/titilliumtext25l001-webfont-svg.svg#Titillium25l001') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
+[class^="version-icon-"], [class*="version-icon-"] {
+  font-family: 'Version';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================================================
+   Version Alert Message
+   ========================================================================== */
+
+div[role="main"] {
+
+   .alert-version {
+     position      : relative;
+     padding       : 18px 0;
+     margin-bottom : 30px;
+     @include gradient('575e64', rgba(87,95,101,1.0), rgba(73,81,88,1.0));
+     @include allCorners();
+     
+    &.version_box_scroll_off {
+      .arrow-left {
+        border-width : 0;
+        top          : 26px;
+        left         : 10px;
+        @include transitionAll(all 0.25s ease);
+      }
+    }
+      
+     
+     .alert-version-message {
+       width : 80%;
+       float : left;
+       height : 100%;
+       border-right : 1px solid #757b80; /* Fallback for rgba browsers */
+       border-right : 1px solid rgba(255,255,255,0.1);
+
+       h4 {
+         margin-top  : 0;
+         padding     : 0 20px;
+         color       : #fff;
+         font-family : 'OpenSansBold', sans-serif;
+         font-size   : 1.25rem;
+         font-weight : normal;
+       }
+  
+       p {
+         padding : 0 20px;
+         margin-bottom : 0;
+         color   : #ccc;
+       }
+
+       a,
+       a[href^="http://"] {
+         background : none;
+         padding-right : 0;
+       }
+
+       @media screen and (max-width: 880px) {
+         width:100%;
+       }
+     }
+
+     .arrow-left {
+       @include arrowVertical(right, left, 10px, #575f65);
+       position     : absolute;
+       top          : 21px;
+       left         : -10px;
+
+       @media screen and (max-width: 768px) {
+         display : none;
+       }
+     }
+     /*
+     .alert-version-num-wrapper {
+       position : relative;
+       float    : left;
+       width    : 19%;
+       height : 100%;
+       //height   : 80px;
+     */
+       .version-icon-alert-version-num {
+         position  : absolute;
+         width    : 20%;
+         margin : auto;
+         font-size : 3.25rem;
+         //letter-spacing : 0.1em;
+         text-align : center;
+         top : -2px;
+         bottom : 0;
+         
+         right : 0;
+         height : 0;
+         line-height : 0;
+
+         font-family: 'Titillium25l001', sans-serif;
+      
+         @media screen and (max-width: 1020px) {
+           font-size : 2.25rem;
+         }
+         @media screen and (max-width: 880px) {
+           display:none;
+         }
+         
+       }
+     /*}*/
+   }
+   .watermark-wrapper {
+     position     : fixed;
+     top          : 0;
+     left         : 0;
+     width        : 800px;
+     padding-left : 20px;
+     margin       : 0 0 0 232px;  
+     background   : transparent;
+
+     @media screen and (max-width: 1140px) {
+       width : 100%;
+       margin-left : 0;
+     }
+
+
+     .version-icon-watermark {
+       position    : absolute;
+       top         : 120px;
+       right       : -110px;
+       font-size   : 20rem;
+       z-index     : -300;
+       color       : rgb(250,250,250); /* Fallback for non-rgba browsers */
+       color       : rgba(0,0,0,0.05);
+       transform   : rotate(-15deg);
+       -ms-transform   : rotate(-15deg);
+       -webkit-transform   : rotate(-15deg);
+
+       @media screen and (max-width: 1140px) {
+         font-size : 10rem;
+         top       : 120px;
+         right     : 40px;
+       }
+     }
+
+     .version-icon-watermark:before {
+       position    : absolute;
+       top         : 0;
+       right       : 0;
+       font-size   : 20rem;
+       z-index     : -200;
+
+       @media screen and (max-width: 1140px) {
+         font-size : 10rem;
+       }
+     }
+   }
+
+   .extra-alert-text {
+     @media screen and (max-width: 768px) {
+       display : none;
+     }
+   }
+}
+
+
+/* =============================================================================
    Version Bar
    ========================================================================== */
 
-
-.green-link {
-  display         : block;
-  color           : darken(saturate($fadedGreen, 25%), 18%);
-  padding         : 2px 0 0 0;
-  text-decoration : none;
-  text-align      : center;
-  //width           : 4.2em;
-}
-
 .versions {
    position    : fixed;
-   top         : 166px;
+   top         : 154px;
    margin-left : -72px;
    width       : 50px;
    height      : 100%;
 }
 
-#version-ddown {
+.version-ddown-title {
+  text-transform : uppercase;
+  letter-spacing : 1px;
+  font-size      : 0.54rem;
+  text-align     : center;
+  font-family    : "OpenSans", sans-serif;
+}
+
+#version-ddown-button {
+  cursor : pointer;
+}
+
+.version-ddown-number {
   position      : relative;
-  //display       : none;
   padding       : 3px 0;
-  margin-bottom : 14px;
-  background    : $subtleBlueGreen;
+  margin-bottom : 3px;
+  background    : $versionColor-1-4-x;
   text-align    : center;
   cursor        : pointer;
-  color         : $darkBlueGreen;
+  color         : #fff;
   font-size     : 0.75rem;
   font-family   : 'OpenSansBold', verdana, sans-serif;
-  border        : 1px solid $lightBlueGreen;
+  border        : 1px solid #fff;
   @include allCorners();
   @include transitionAll(all 0.5s ease);
-
   overflow:hidden;
+}
 
-  &.selected {
-    background : $darkBlueGreen;
-    border     : 1px solid $darkBlueGreen;
-    color      : #fff;
-  }
-
-  #version-ddown-arrow {
-    position : absolute;
-    left     : 18px;
-    bottom   : -10px;
-    @include arrowVertical(top, bottom, 6px, $orange);
-  }
+.version-ddown-arrow {
+  position : relative;
+  width : 0;
+  margin : 0 auto 3px auto;
+  @include arrowVertical(top, bottom, 6px, $orange);
 }
 
 ol#version-list,
@@ -67,8 +257,6 @@ ol#versions-list li {
 }
 ol#version-list {
   display     : none;
-  //margin: 0;
-  //padding: 0;
   
   > li {
     &:first-child {
@@ -83,81 +271,20 @@ ol#version-list {
   }
 
   li {
-    //@include bgPattern('light-green-bg.jpg');
     background      : $lightGreen;
     border          : none;
-    border-top      : 1px solid $darkGreen;
-    border-right    : 1px solid $darkGreen;
-    border-left     : 1px solid $darkGreen;
+    border-top      : 1px solid #fff;
+    border-right    : 1px solid #fff;
+    border-left     : 1px solid #fff;
     display         : block;
     font-size       : 0.75rem;
-    //margin-right  : 1px;
     margin-bottom   : 0;
     text-align      : center;
-    
-    ol {
-      display:none;
-      margin:0;
-      margin-left:-1px;
-      margin-top : -18px;
-      padding:2px 0;
-      position: absolute;
-      right : -48px;
-      max-width:5em !important;
-      li {
-        z-index:500;
-      }
-    }
-
-    &:hover,
-    &[class*="versions-"]:hover {
-      background    : $orange;
-      border-color  : $darkOrange;
-      //border-bottom : 0;
-
-      & > ol { 
-        display:block;
-      }
-    }
-    
-    &.inactive,
-    &[class*="versions-"].inactive {
-      background    : #DDD;
-      border-color  : #BBB;
-      //border-bottom : 0;
-      &:hover {
-        background    : #DDD;
-        border-color  : #BBB;
-      }
-      a {
-        cursor : default;
-        color : $inactiveText;
-        &:hover {
-          color : $inactiveText;
-        }
-      }
-    }
-
-    &.current,
-    &[class*="versions-"].current {
-      background    : $orange;
-      border-color  : $darkOrange;
-      //border-bottom : 0;
-      //font-weight   : bold;
-      //font-family   : 'OpenSansBold', verdana, sans-serif;
-      border-bottom : 0;
-      
-      > a {
-        color : #fff;
-        
-        &:hover {
-          color : #fff;
-        }
-      }
-    }
+    color           : #fff;
+    padding         : 2px 0;
     
     a {
-      @extend .green-link;
+      color : #fff;
       
       &:hover {
         color : #fff;
@@ -165,14 +292,9 @@ ol#version-list {
     }
 
     &.first {
-      border-bottom : 1px solid;
       margin-bottom : 4px;
       @include corner(left, bottom);
       @include corner(right, bottom);
-    }
-
-    &.first.current {
-      border-bottom : 1px solid $darkOrange;
     }
 
     &.first + li {
@@ -181,21 +303,71 @@ ol#version-list {
     }
 
     &.versions-0 {
-      background   : $lightGreen;
-      border-color : $darkGreen;
+      background   : $versionColor-2-0-x;
+        &:hover,
+        &.current { 
+          background : $lightVersionColor-2-0-x;
+        }
     }
+
     &.versions-1 {
-      background   : #fdd1a0;
-      border-color : #ed9a4a;
+      background   : $versionColor-1-4-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-4-x;
+      }
     }
+
     &.versions-2 {
-      background   : $subtleBlue;
-      border-color : $lightBlue;
+      background   : $versionColor-1-3-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-3-x;
+      }
     }
-    &.versions-3,
+
+    &.versions-3 {
+      background   : $versionColor-1-2-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-2-x;
+      }
+    }
+
     &.versions-4 {
-      background   : #9ab7c5;
-      border-color : #6c8997;
+      background   : $versionColor-1-1-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-1-x;
+      }
+    }
+
+    &.versions-5 {
+      background   : $versionColor-1-0-x;
+      &:hover,
+      &.current { 
+        background : $lightVersionColor-1-0-x;
+      }
+    }
+
+    &[class*="versions-"] {
+      &[class~="inactive"] {
+        background : $versionColorInactive;
+        a {
+          color : $inactiveText;
+        }
+        &:hover {
+          background : $versionColorInactive;
+          a {
+            color : $inactiveText;
+          }
+        }
+      }
+      &[class~="inactive"] {
+        a {
+          cursor : default;
+        }
+      }
     }
   }
 }
@@ -203,5 +375,328 @@ ol#version-list {
 @media screen and (max-width: 700px) {
   ol.versions { 
     display : none;
+  }
+}
+
+
+/* =================================================
+   Version Coloring
+   ============================================== */
+/* 2.0.x */
+body[class*="ver-2-0"] {
+  .alert-version {
+    .version-icon-alert-version-num,
+    a {
+      color : $lightVersionColor-2-0-x;
+    }
+    a:hover {
+      color : lighten($lightVersionColor-2-0-x, 5%);
+    }
+  }
+
+  #version-ddown-button {
+    &.selected {
+      .version-ddown-title {
+        color : $lightVersionColor-2-0-x;
+      }
+      .version-ddown-number {
+        background : $lightVersionColor-2-0-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $lightVersionColor-2-0-x);
+      }
+    }
+    &.unselected {
+      .version-ddown-title {
+        color : $versionColor-2-0-x;
+      }
+      .version-ddown-number {
+        background : $versionColor-2-0-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $versionColor-2-0-x);
+      }
+    }
+  }
+}
+
+/* 2.0.0 */
+body[class~="ver-2-0-0"] {
+  .version-icon-watermark:before {
+    content: "\e621";
+  }
+}
+
+/* 2.0.0pre5 */
+body[class~="ver-2-0-0pre5"] {
+  .version-icon-watermark:before {
+    content: "\e624";
+  }
+}
+
+/* 1.4.x */
+body[class*="ver-1-4"] {
+  .alert-version {
+    .version-icon-alert-version-num,
+    a {
+      color : $versionColor-1-4-x;
+    }
+    a:hover {
+      color : $lightVersionColor-1-4-x;
+    }
+  }
+
+  #version-ddown-button {
+    &.selected {
+      .version-ddown-title {
+        color : $lightVersionColor-1-4-x;
+      }
+      .version-ddown-number {
+        background : $lightVersionColor-1-4-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $lightVersionColor-1-4-x);
+      }
+    }
+    &.unselected {
+      .version-ddown-title {
+        color : $versionColor-1-4-x;
+      }
+      .version-ddown-number {
+        background : $versionColor-1-4-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $versionColor-1-4-x);
+      }
+    }
+  }
+}
+
+/* 1.4.2 */
+body[class~="ver-1-4-2"] {
+  .version-icon-watermark:before {
+    content: "\e61e";
+  }
+}
+
+/* 1.4.1 */
+body[class~="ver-1-4-1"] {
+  .version-icon-watermark:before {
+    content: "\e61b";
+  }
+}
+
+/* 1.4.0 */
+body[class~="ver-1-4-0"] {
+  .version-icon-watermark:before {
+    content: "\e618";
+  }
+}
+
+/* 1.3.x */
+body[class*="ver-1-3"] {
+  .alert-version {
+    .version-icon-alert-version-num,
+    a {
+      color : lighten($versionColor-1-3-x, 15%);
+    }
+    a:hover {
+      color : lighten($versionColor-1-3-x, 20%);
+    }
+  }
+
+  #version-ddown-button {
+    &.selected {
+      .version-ddown-title {
+        color : $lightVersionColor-1-3-x;
+      }
+      .version-ddown-number {
+        background : $lightVersionColor-1-3-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $lightVersionColor-1-3-x);
+      }
+    }
+    &.unselected {
+      .version-ddown-title {
+        color : $versionColor-1-3-x;
+      }
+      .version-ddown-number {
+        background : $versionColor-1-3-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $versionColor-1-3-x);
+      }
+    }
+  }
+}
+
+/* 1.3.2 */
+body[class~="ver-1-3-2"] {
+  .version-icon-watermark:before {
+    content: "\e615";
+  }
+}
+
+/* 1.3.1 */
+body[class~="ver-1-3-1"] {
+  .version-icon-watermark:before {
+    content: "\e612";
+  }
+}
+
+/* 1.3.0 */
+body[class~="ver-1-3-0"] {
+  .version-icon-watermark:before {
+    content: "\e60f";
+  }
+}
+
+/* 1.2.x */
+body[class*="ver-1-2"] {
+  .alert-version {
+    .version-icon-alert-version-num,
+    a {
+      color : $versionColor-1-2-x;
+    }
+    a:hover {
+      color : $lightVersionColor-1-2-x;
+    }
+  }
+
+  #version-ddown-button {
+    &.selected {
+      .version-ddown-title {
+        color : $lightVersionColor-1-2-x;
+      }
+      .version-ddown-number {
+        background : $lightVersionColor-1-2-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $lightVersionColor-1-2-x);
+      }
+    }
+    &.unselected {
+      .version-ddown-title {
+        color : $versionColor-1-2-x;
+      }
+      .version-ddown-number {
+        background : $versionColor-1-2-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $versionColor-1-2-x);
+      }
+    }
+  }
+}
+
+/* 1.2.1 */
+body[class~="ver-1-2-1"] {
+  .version-icon-watermark:before {
+    content: "\e60c";
+  }
+}
+
+/* 1.2.0 */
+body[class~="ver-1-2-0"] {
+  .version-icon-watermark:before {
+    content: "\e609";
+  }
+}
+
+/* 1.1.x */
+body[class*="ver-1-1"] {
+  .alert-version {
+    .version-icon-alert-version-num,
+    a {
+      color : lighten($versionColor-1-1-x, 12%);
+    }
+    a:hover {
+      color : lighten($versionColor-1-1-x, 17%);
+    }
+  }
+
+  #version-ddown-button {
+    &.selected {
+      .version-ddown-title {
+        color : $lightVersionColor-1-1-x;
+      }
+      .version-ddown-number {
+        background : $lightVersionColor-1-1-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $lightVersionColor-1-1-x);
+      }
+    }
+    &.unselected {
+      .version-ddown-title {
+        color : $versionColor-1-1-x;
+      }
+      .version-ddown-number {
+        background : $versionColor-1-1-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $versionColor-1-1-x);
+      }
+    }
+  }
+}
+
+/* 1.1.4 */
+body[class~="ver-1-1-4"] {
+  .version-icon-watermark:before {
+    content: "\e606";
+  }
+}
+
+/* 1.1.0 */
+body[class~="ver-1-1-0"] {
+  .version-icon-watermark:before {
+    content: "\e603";
+  }
+}
+
+/* 1.0.x */
+body[class*="ver-1-0"] {
+  .alert-version {
+    .version-icon-alert-version-num,
+    a {
+      color : $versionColor-1-0-x;
+    }
+    a:hover {
+      color : $lightVersionColor-1-0-x;
+    }
+  }
+
+  #version-ddown-button {
+    &.selected {
+      .version-ddown-title {
+        color : $lightVersionColor-1-0-x;
+      }
+      .version-ddown-number {
+        background : $lightVersionColor-1-0-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $lightVersionColor-1-0-x);
+      }
+    }
+    &.unselected {
+      .version-ddown-title {
+        color : $versionColor-1-0-x;
+      }
+      .version-ddown-number {
+        background : $versionColor-1-0-x;
+      }
+      .version-ddown-arrow {
+        @include arrowVertical(top, bottom, 6px, $versionColor-1-0-x);
+      }
+    }
+  }
+}
+
+/* 1.0.0 */
+body[class~="ver-1-0-0"] {
+  .version-icon-watermark:before {
+    content: "\e600";
   }
 }

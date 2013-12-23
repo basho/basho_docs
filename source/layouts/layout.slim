@@ -26,16 +26,20 @@ head(class=data.page.document)
   == javascript_include_tag "standalone/version-bar"
 - classnames = [(data.page.project || $default_project)]
 - classnames << 'dual' if data.page.dual
+- version_class = 'ver-'
+- version_class += current_version(data.page.project || $default_project)
+- version_class.gsub! '.', '-'
+- classnames << version_class
 body class=classnames.join(' ') id=data.page.body_id
   == partial "layouts/primary" unless data.page.skip_nav
   div(role="main" class=(data.page.skip_nav ? "no-nav" : ""))
     == partial "layouts/header"
     article.mainarticle
+      - if data.page.versions.nil? || data.page.versions
+        == partial "layouts/versions"
       - unless !data.page.title || data.page.simple
         header
           h1== data.page.title
-      - if data.page.versions.nil? || data.page.versions
-        == partial "layouts/versions"
       - unless data.page.simple
         - if data.page.project == 'riakee'
           .info
@@ -60,6 +64,8 @@ body class=classnames.join(' ') id=data.page.body_id
       div.clear
       - unless !data.page.title || data.page.simple
         == partial "layouts/secondary"
+    - if data.page.versions.nil? || data.page.versions
+      == partial "layouts/watermarks"
     == partial "layouts/footer"
   - if $production
     javascript:
