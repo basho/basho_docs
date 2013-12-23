@@ -20,6 +20,18 @@ $layout-layout:smart;
   font-style: normal;
 }
 
+@font-face {
+    font-family : 'Titillium25l001';
+    src: url('../../fonts/titilliumtext25l001-webfont-eot.eot');
+    src: url('../../fonts/titilliumtext25l001-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/titilliumtext25l001-webfont-woff.woff') format('woff'),
+         url('../../fonts/titilliumtext25l001-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/titilliumtext25l001-webfont-svg.svg#Titillium25l001') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
 [class^="version-icon-"], [class*="version-icon-"] {
   font-family: 'Version';
   speak: none;
@@ -112,18 +124,20 @@ div[role="main"] {
          position  : absolute;
          width    : 20%;
          margin : auto;
-         font-size : 4.75rem;
-         letter-spacing : -0.1em;
+         font-size : 3.25rem;
+         //letter-spacing : 0.1em;
          text-align : center;
-         top : 0;
+         top : -2px;
          bottom : 0;
          
          right : 0;
          height : 0;
          line-height : 0;
+
+         font-family: 'Titillium25l001', sans-serif;
       
          @media screen and (max-width: 1020px) {
-           font-size : 3.75rem;
+           font-size : 2.25rem;
          }
          @media screen and (max-width: 880px) {
            display:none;
