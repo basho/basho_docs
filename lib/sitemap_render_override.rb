@@ -271,6 +271,41 @@ module SitemapRenderOverride
     end
   end
 
+  def tabize_code!(data)
+    block_count = 0
+    data.gsub!(/(?:\<pre[^\>]*?\>\<code[^\>]*?\>.*?\<\/code\><\/pre\>\s*)+/mu) do |block|
+      block_suffix = '%03d' % block_count
+      tabs_html = "<ul class=\"nav nav-tabs\">"
+      code_blocks = ""
+      active = true
+      block.scan(/(\<pre[^\>]*?\>\s*\<code(?:\s.*?)?(?:class\s*\=\s*["']([^"'>]+)["'])?[^\>]*\>.*?\<\/code\>\s*<\/pre\>)/mu).each do |code, lang|
+        display_lang = case lang
+        when "curl"
+          "HTTP"
+        when "bash"
+          "Commandline"
+        else
+          lang.capitalize
+        end
+        case lang
+        when "curl"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1bash\\2')
+        else
+          lang
+        end
+        tabs_html += "<li class=\"#{active ? 'active' : ''}\"><a href=\"##{lang}#{block_suffix}\" data-code=\"#{lang}\" data-toggle=\"tab\">#{display_lang}</a></li>"
+        code_blocks += "<div class=\"tab-pane#{active ? ' active' : ''}\" id=\"#{lang}#{block_suffix}\">#{code}</div>"
+        active = false
+      end
+      block_count += 1
+      tabs_html += "</ul>"
+      tabs_html += "<div class=\"tab-content\">"
+      tabs_html += code_blocks
+      tabs_html += "</div>"
+      tabs_html
+    end
+  end
+
   def process_data!(data)
     $sitemap_pages ||= sitemap_pages
 
@@ -278,7 +313,8 @@ module SitemapRenderOverride
     wiki_links!(data)
     strip_versions!(data)
     localize_links!(data)
-    colorize_code!(data)
+    # colorize_code!(data)
+    tabize_code!(data)
   rescue => e
     $stderr.puts e
   ensure

@@ -36,9 +36,8 @@ IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
 You can now compile and run this via the command line, or in your favorite IDE.
 
 ```bash
-javac -cp riak-client-1.1.0-jar-with-dependencies.jar TasteOfRiak.java
-
-java -ea -cp riak-client-1.1.0-jar-with-dependencies.jar:.  TasteOfRiak
+$ javac -cp riak-client-1.1.0-jar-with-dependencies.jar TasteOfRiak.java
+$ java -ea -cp riak-client-1.1.0-jar-with-dependencies.jar:.  TasteOfRiak
 ```
 
 Running it should return:
