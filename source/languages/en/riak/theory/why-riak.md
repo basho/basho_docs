@@ -20,7 +20,7 @@ moved: {
 
 ## What is Riak?
 
-Riak is a distributed database designed to deliver maximum data availability by distributing data across multiple servers. As long as your client can reach *one* Riak server, it should be able to write data. In most failure scenarios, the data you want to read should be available, albeit it may not be the most up-to-date version of that data.
+Riak is a distributed database designed to deliver maximum data availability by distributing data across multiple servers. As long as your client can reach *one* Riak server, it should be able to write data. In most failure scenarios, the data you want to read should be available, although it may not be the most up-to-date version of that data.
 
 This fundamental tradeoff&mdash;high availability in exchange for possibly outdated information&mdash;informs the key architectural decisions behind Riak. This idea of "eventual consistency" is a common one in distributed systems, with DNS and web caches as two notable examples.
 
