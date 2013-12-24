@@ -13,209 +13,162 @@ moved: {
 
 An introduction to eventual consistency and what it means in terms of handling data with Riak.
 
-In a distributed and fault-tolerant environment like Riak, the
-unexpected is expected. That means that nodes may leave and join the
-cluster at any time, be it by accident (node failure, network
-partition, etc.) or on purpose, e.g. by explicitly removing a node
-from a Riak cluster. Even with one or more nodes down, the cluster
-is still expected to accept writes and serve reads, and the system is
-expected to return the same data from all nodes eventually, even the
-failed ones after they rejoined the cluster.
+In a distributed and fault-tolerant environment like Riak, server and
+network failures are expected. Riak is designed to respond to requests
+even when servers are offline or the cluster is experiencing a network
+partition.
+
+This has two notable consequences:
+
+* Requests can (and should) be tuned based on data model and business needs.
+* Data can be inconsistent across a cluster.
+
+<div class="note">
+Data inconsistencies can best be mitigated by
+immutability. Conflicting data is impossible in the absence of
+updates.
+</div>
+
+## Replication properties and request tuning
+
+There are a variety of configuration options which will influence
+Riak's behavior when responding to write and read
+requests.
+
+The parameters that we're concerned with here:
+
+<table>
+<thead><tr><th>Parameter</th><th>Often referred to as</th><th>Default value</th><th>Summary</th></tr></thead>
+<tbody>
+<tr><th><pre>n_val</pre></th><td><pre>N</pre></td><td>3</td><td>Replication factor</td></tr>
+<tr><th><pre>r</pre></th><td><pre>R</pre></td><td>quorum</td><td>Number of servers that must respond to a read request</td></tr>
+<tr><th><pre>w</pre></th><td><pre>W</pre></td><td>quorum</td><td>Number of servers that must respond to a write request</td></tr>
+<tr><th><pre>pr</pre></th><td><pre>PR</pre></td><td>0</td><td>Number of <b>primary</b> servers that must respond to a read request</td></tr>
+<tr><th><pre>pw</pre></th><td><pre>PW</pre></td><td>0</td><td>Number of <b>primary</b> servers that must respond to a write request</td></tr>
+</tbody>
+</table>
+
+A value of `quorum` indicates a majority of the `N` value (`N/2+1`, or
+2 for the default `N` value of 3).
+
+There are additional configuration items that are closely related to
+the above which are not covered in this document: `notfound_ok`,
+`basic_quorum` and `dw`. See the
+[Understanding Riak's Configurable Behaviors blog series](http://basho.com/understanding-riaks-configurable-behaviors-part-1/)
+for more on all of these parameters.
+
+See also [[Vector Clocks]] for a discussion of key configuration
+options that impact conflict resolution.
+
 
 ## A simple example of eventual consistency
 
-This basis for a simple example is a Riak cluster with five nodes and
-a default quorum of 3. That means every piece of data exists three
-times in this cluster. In this setup reads use a quorum of 2 to ensure
-at least two copies, whereas writes also use a quorum of 2 to enforce
-strong consistency.
+*Unless specified otherwise, assume that all configuration values are
+ left at their default.*
 
-When data is written with a quorum of 2, Riak sends the write request
-to all three replicas anyway, but returns a successful reply when two
-of them acknowledged a successful write on their end. One node may
-even have been down, not acknowledging the write.
+Let's assume for the moment that a server in a Riak cluster has
+recently recovered from failure and has an old copy of the key
+`manchester-manager`, with value "Alex Ferguson." The current value of
+that key on the other servers in the cluster is "David Moyes."
 
-The purpose of this list of examples is to describe how the replica
-node that just failed gets its data back, so that at some undetermined
-point in the future, all replicas of a piece of data will be
-up-to-date. There are ways of controlling when a specific piece of
-data is consistent across all its replicas, but either way, the data
-will eventually be consistent on all of them.
+Shortly after the server comes back online and other cluster members
+recognize that it is available, a read request for
+`manchester-manager` arrives.
 
-Most of these scenarios are easy enough to reproduce. Most of the time
-you just need to determine the preference list for a key on a healthy
-cluster, take down X nodes and try a combination of read and write
-requests to see what happens in each case. It's also good to keep an
-eye on the logs to find out when hinted handoffs occur.
+Such a request would have an `R` value of 2, meaning that while the
+request will be sent to all `N` (3) servers responsible for the data,
+2 must reply with a value before the client is informed of its value.
 
-Before we dive into the failure scenarios, let's examine how a request
-in Riak is handled and spread across the replicas.
+Regardless of which order the responses arrive to the server that is
+coordinating this request, "David Moyes" will be returned as the value
+to the client, because "Alex Ferguson" is recognized as an older value.
 
-## Anatomy of a Riak Request
+Behind the scenes, after "David Moyes" is sent to the client, a read
+repair mechanism will occur on the cluster to fix the older value on
+the server that just came back online.
 
-To understand how eventual consistency is handled in a Riak
-environment, it's important to know how a request is handled
-internally.  There's not much magic involved, but it helps to
-understand things like read repair, and how the quorum is handled in
-read and write requests. Be sure to read the wiki page on
-[[Replication|Replication#Understanding-replication-by-example]]
-first, it has all the details on how data is replicated across nodes
-and what happens when a node becomes unavailable for read and write
-requests, the basics for how eventual consistency is handled in Riak.
+### R=1
 
-Recall that every key belongs to N primary virtual nodes (vnodes)
-which are running on the physical nodes assigned to them in the
-ring. Secondary virtual nodes are run on nodes that are close to the
-primaries in the key space and stand-in for primaries when they are
-unavailable (also called fallbacks).
+If we keep all of the above scenario the same but tweak the request
+slightly with `R=1`, perhaps to allow for a faster response to the
+client, it **is** possible that the client will be fed "Alex Ferguson"
+as the response, if the recently-recovered server is the first to
+reply.
 
-The basic steps of a request in Riak are the following:
+However, the read repair mechanism will kick in and fix the value, so
+next time someone asks, "David Moyes" will indeed be the answer.
 
-* Determine the vnodes responsible for the key from the preference list
-* Send a request to all the vnodes determined in the previous step
-* Wait until enough requests returned the data to fulfill the read
-  quorum (if specified) or the basic quorum
-* Return the value to the client
+### R=1, sloppy quorum
 
-The steps are similar for both read and write requests, with some
-details different, we'll go into the differences in the examples
-below.
+Let's take the scenario back in time to the point where our unlucky
+server originally failed. At that point, all 3 servers had "Alex
+Ferguson" as the value for `manchester-manager`.
 
-In our example cluster, we'll assume that it's healthy and all nodes
-are available, that means sending requests to all three primary
-replicas of the key requested.
+When a server fails, Riak's *sloppy quorum* feature kicks in, and
+another server takes responsibility for serving its requests.
 
-## Failure Scenarios
+The first time we issue a read request after the failure, if `R` is
+set to 1, we run a significant risk of receiving a *not found*
+response from Riak. The server that has assumed responsibility for
+that data won't have a copy of `manchester-manager` yet, and it's much
+faster to verify a missing key than to pull a copy of the value from
+disk, so that server will likely respond fastest.
 
-Now we'll go through a bunch of failure scenarios that could result in
-data inconsistencies, and we'll explore how they're resolved. Every
-scenario assumes a healthy cluster to begin with, where all nodes are
-available.
+If `R` is left to its default value of 2, there wouldn't be a problem,
+because 1 of the servers that still had a copy of "Alex Ferguson"
+would also respond before the client got its result. In either case,
+read repair will step in after the request has been completed and make
+certain that the value is propagated to all the servers that need it.
 
-In a typical failure scenario, at least one node goes down, leaving
-two replicas intact in the cluster. Clients can expect that reads with
-an R of 2 will still succeed, until the third replica comes back up
-again. It's up to the application's details to implement some sort of
-graceful degradation in an automated fashion or as a feature flip that
-can be tuned at runtime accordingly, or to simply retry when a piece
-of data is expected to be found, but a first request results in not
-found.
+### PR, PW, sloppy quorum
 
-### Reading When One Primary Fails
+Thus far, we've discussed settings that permit sloppy quorums, in the
+interest of allowing Riak to maintain as high a level of availability
+as possible in the presence of server or network failure.
 
-* Data is written to a key with W=3
-* One node goes down, it happens to be a primary for that key
-* Data is read from that key with R=3
-* Riak returns not\_found on first request
-* Read repair ensures data is replicated to a secondary node. Read
-  repair will always occur, regardless of the R value. Even with an R
-  of 2, read repair will kick in and ensure that all nodes responsible
-  for this particular data are consistent.
-* Subsequent reads return correct value with R=3, two values coming
-  from primary and one from secondary nodes
+It is possible to configure requests to ignore sloppy quorums in order
+to limit the possibility of older data being returned to a client. The
+tradeoff, of course, is that if failover servers are not permitted to
+serve requests, there is an increased risk of request failures.
 
-Note that if we had requested with R=2 or less, the first request
-would have succeeded because 2 replicas are available.
+For example, in our scenario we've been discussing the possibility of
+a server for the `manchester-manager` key having failed, but to be
+more precise, we've been talking about a *primary* server, one that
+when the cluster is perfectly healthy would bear responsibility for
+that key.
 
-### Reading When Two Primaries Fail
+When that server failed, using `R=2` as we've discussed or even `R=3`
+for a read request would still work properly: a failover server
+(sloppy quorum again) would be tasks to take responsibility for that
+key, and when it receives a request for it, it would reply that it
+doesn't have any such key, but the two surviving primary servers still
+know who the `manchester-manager` is.
 
-* Data is written to a key with W=3
-* Two nodes go down, they happen to be primaries for that key
-* Data is read from that key with R=3
-* Riak returns not\_found on first request
-* Read repair ensures data is replicated to secondary nodes, one value
-  coming from the remaining primary, two coming from secondaries
+However, if the `PR` (primary read) value is specified, only the two
+surviving primary servers are considered valid sources for that data.
 
-This is similar to the scenario above, but initial read consistency
-expectations may degrade even further, leaving only one initial
-replica.
+So, setting `PR` to 2 works fine, because there are still 2 such
+servers, but a read request with `PR=3` would fail because the 3rd
+primary server is offline, and no failover server can take its place
+*as a primary*.
 
-### Reading When Three Primaries Fail
+The same is true of writes: `W=2` or `W=3` will work fine with the
+primary server offline, as will `PW=2` (primary write), but `PW=3`
+will result in an error.
 
-* Data is written to a key with W=3
-* All primary nodes responsible for the key go down
-* Data is read using R=3 (or any quorum)
+<div class="note"><div class="title">Errors and failures</div>It is
+important to understand the difference between an error and a failure.
+<br/><br/>
+The <code>PW=3</code> request in this scenario will result in an error, <b>but the
+value will still be written to the two surviving primary servers</b>.
+<br/><br/>
+By specifying <code>PW=3</code> the client indicated that 3 primary servers must
+respond for the operation to be considered successful, which it
+wasn't, but there's no way to tell without performing another read
+whether the operation truly failed.</div>
 
-This incident will always yield a not found error, as no node is able
-to serve the request. Read-repair will not occur because no replicas
-will be found.
-
-### Writing And Reading When One Primary Failed
-
-* One primary goes down
-* Data is written with W=3
-* A secondary takes responsibility for the write
-* Reads with R=3 will immediately yield the desired result, as the
-  secondary node can satisfy the default quorum
-
-### Writing And Reading When One Primary Failed and Later Recovered
-
-* One primary goes down
-* Data is written with W=3
-* A secondary takes responsibility for the write
-* The primary comes back up
-* Within a default timeframe of 60 seconds, hinted handoff will occur,
-  transferring the updated data to the primary
-* After handoff occurred, the node can successfully serve requests
-
-### Edge Case: Writing And Reading During Handoff
-
-This is an extension of the previous scenario. The primary has
-recovered from failure and is again available to the cluster. As
-hinted handoff kicks in, the node has already re-claimed its position
-in the preference list and will serve requests for the key. Should the
-recovered node be hit with requests during handoff it's likely to
-return not\_founds for data that has been written to a secondary during
-its unavailability.
-
-In situations of limited degradation, this will not be an issue
-because the other two primaries will have the new data available;
-however in cases where multiple nodes have failed, you may experience
-a period of increased not found responses as the primaries catch up.
-In these cases, we encourage retrying the request a limited number of
-times until successful.
-
-### Writing And Reading When Two Primaries Failed and One Recovers
-
-This is similar to the failure of a single primary. When one primary
-recovers, either hinted handoff or read repair kick in to ensure a
-following read with the default quorum can be served successfully. The
-same happens when the second failed primary comes back up again.
-
-## Read Your Own Writes
-
-It is desirable to always be able to read your own writes, even in a
-distributed database environment like Riak. When you write to a
-particular node with a W value that corresponds to the N value, the
-number of predefined replicas in your cluster, you can assume that a
-subsequent read will return the value you just wrote, given that no
-node in the cluster failed just that instance.
-
-However, node failure can occur at any point in time, so your
-application should be prepared to retry reads for objects that it
-expects to exist, both for reads on the same nodes as it just sent a
-write to, but also for reads from other nodes in the cluster.
-
-There is no guarantee that a write will make it to all replicas before
-another client asks a different node for the same object. A write may
-still be in flight, waiting for confirmation from even just one vnode,
-while another client already tries to read from a different or even
-the same physical node. Clients are unaware of partition and replica
-placement in your cluster, so they'll have to work around the
-potential issues that can occur. Latency can lead to unpredictable
-circumstances in these scenarios even in the milliseconds range.
-
-In your application, if you rely on and expect objects you read to
-exist at any time, be prepared to retry a number of times when your
-code receives a not\_found from Riak. Ensure some way of
-exponential backoff and eventual failure or simply giving up in your
-application's code, when you can safely assume the value is indeed
-nonexistent, returning an older value or simply no value at all.
 
 ## Further Reading
 
+* [Understanding Riak's Configurable Behaviors blog series](http://basho.com/understanding-riaks-configurable-behaviors-part-1/)
 * Werner Vogels, et. al.: [Eventually Consistent - Revisited](http://www.allthingsdistributed.com/2008/12/eventually_consistent.html)
-* Ryan Zezeski:
-[Riak Core, First Multinode](https://github.com/rzezeski/try-try-try/tree/master/2011/riak-core-first-multinode),
-[Riak Core, The vnode](https://github.com/rzezeski/try-try-try/tree/master/2011/riak-core-the-vnode,)
-[Riak Core, The Coordinator](https://github.com/rzezeski/try-try-try/tree/master/2011/riak-core-the-coordinator)
