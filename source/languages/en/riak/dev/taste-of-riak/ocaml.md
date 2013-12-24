@@ -114,7 +114,7 @@ The last parameter, an empty list in this case, specifies the Riak *put options*
 
 For example, to specify the `Put_return_body` options, use the following:
 
-```
+```ocaml
 let put_options = [Put_return_body true] in
 lwt _result = riak_put conn bucket (Some key) value put_options in
 ```

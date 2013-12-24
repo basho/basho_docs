@@ -1,6 +1,7 @@
 - version_number = current_version(data.page.project || $default_project)
+- version_number.sub!(/(\d+\.\d+\.\d+).*/, '\1')
 - version_sub = version_number.gsub '.', '_'
-div(itemscope itemtype="http://schema.org/CreativeWork" class="watermark-wrapper")
-  - watermark_code = 'I18n.t(:"version_icons.watermarks.v_' + version_sub + '")'
-  div.version-icon-watermark == eval(watermark_code)
-  meta(itemprop="version" content==version_number)
+- if I18n.t(:"version_icons.watermarks.v_#{version_sub}", :default => "").present?
+  div(itemscope itemtype="http://schema.org/CreativeWork" class="watermark-wrapper")
+    div.version-icon-watermark == I18n.t(:"version_icons.watermarks.v_#{version_sub}")
+    meta(itemprop="version" content==version_number)
