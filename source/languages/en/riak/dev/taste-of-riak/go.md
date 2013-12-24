@@ -41,7 +41,7 @@ $ $GOPATH/bin/tasteofriak
 
 Running it should return:
 
-```text
+```
 Creating objects...
 Reading objects...
 1

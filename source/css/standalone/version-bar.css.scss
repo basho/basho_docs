@@ -430,7 +430,14 @@ body[class~="ver-2-0-0"] {
 /* 2.0.0pre5 */
 body[class~="ver-2-0-0pre5"] {
   .version-icon-watermark:before {
-    content: "\e624";
+    content: "\e621";
+  }
+}
+
+/* 2.0.0pre8 */
+body[class~="ver-2-0-0pre8"] {
+  .version-icon-watermark:before {
+    content: "\e621";
   }
 }
 

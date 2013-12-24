@@ -26,8 +26,8 @@ en:
   alert_version_text: " or select from the drop down on the left."
   version_icons:
     basic:
-      v_2_0_0pre5: "&#xe626"
       v_2_0_0: "&#xe623"
+      # v_1_4_6: "&#xe620"
       v_1_4_2: "&#xe620"
       v_1_4_1: "&#xe61d"
       v_1_4_0: "&#xe61a"
@@ -40,8 +40,8 @@ en:
       v_1_1_0: "&#xe605"
       v_1_0_0: "&#xe602"
     watermarks:
-      v_2_0_0pre5: "&#xe625"
       v_2_0_0: "&#xe622"
+      # v_1_4_6: "&#xe61f"
       v_1_4_2: "&#xe61f"
       v_1_4_1: "&#xe61c"
       v_1_4_0: "&#xe619"
