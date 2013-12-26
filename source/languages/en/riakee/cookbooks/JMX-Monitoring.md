@@ -9,8 +9,8 @@ keywords: [mdc, repl, config]
 ---
 
 Riak exposes monitoring data via JMX.  To enable JMX monitoring, edit the
-[[app.config|Configuration-Files#app-config]] and set the ```enabled``` property of the ```riak_jmx```
-section to ```true```, as follows.  The TCP port that the JMX provider listens on
+[[app.config|Configuration-Files#app-config]] associated with your Riak installation and set the ```enabled``` property of the ```riak_jmx```
+section to ```true``` as shown below.  The TCP port on which the JMX provider listens
 is also configurable in this section (the default JMX port is ```41110```).
 
 ```erlang
@@ -20,7 +20,7 @@ is also configurable in this section (the default JMX port is ```41110```).
       ]}
 ```
 
-   To view JMX data if you have the Sun JDK installed, launch JConsole
+   To view JMX data&mdash;assuming that you have the Sun JDK installed&mdash;launch JConsole
    as follows:
 
 ```bash
