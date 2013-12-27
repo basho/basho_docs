@@ -32,7 +32,7 @@ Riak CS is open source and [[free for download|Download Riak CS]].
 <tr align="left" valign="top">
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Per-Tenant Visibility</strong></td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
-<p>With the Riak CS [[Reporting API|Monitoring-and-Metrics]], you can access per-tenant usage data and statistics over network I/O. This reporting functionality supports use cases including accounting, subscription, chargebacks, plugins with billing systems, efficient multi-department utilization, and much more.</p>
+<p>With the Riak CS [[Reporting API|Monitoring and Metrics]], you can access per-tenant usage data and statistics over network I/O. This reporting functionality supports use cases including accounting, subscription, chargebacks, plugins with billing systems, efficient multi-department utilization, and much more.</p>
 </td>
 </tr>
 <tr align="left" valign="top">
