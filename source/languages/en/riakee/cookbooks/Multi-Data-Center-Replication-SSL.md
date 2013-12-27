@@ -90,6 +90,6 @@ If SSL is enabled and a connection is made to a Riak Enterprise 1.0 or 1.1 node,
 
 ### Self-Signed Certificates
 
-You can generate your own CA and keys by using this guide: http://www.debian-administration.org/articles/618
+You can generate your own CA and keys by using [this guide](http://www.debian-administration.org/articles/618).
 
-Make sure you remove the password protection from the keys you generate.
+Make sure that you remove the password protection from the keys you generate.
