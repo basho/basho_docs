@@ -13,9 +13,9 @@ moved: {
 
 ## How Version 3 Replication Works
 
-In multi-datacenter (MDC) replication, a cluster can act as the "source cluster". The source cluster sends replication data to one or more "sink clusters" (generally located in datacenters in other regions or countries). Bidirectional replication can easily be established by making a cluster both a source and a sink to other clusters. Riak Enterprise MDC Replication is considered "masterless": all clusters participating will resolve replicated writes via the normal resolutions methods available in Riak.
+In Multi-Datacenter (MDC) Replication, a cluster can act as the **source cluster**. The source cluster sends replication data to one or more **sink clusters** (generally located in datacenters in other regions or countries). Bidirectional replication can easily be established by making a cluster both a source and sink to other clusters. Riak Enterprise MDC Replication is considered "masterless" in that all clusters participating will resolve replicated writes via the normal resolution methods available in Riak.
 
-In multi-datacenter replication, there are two primary modes of operation: fullsync and realtime. In fullsync mode, a complete synchronization occurs between source and sink cluster(s). In realtime mode, continual, incremental synchronization occurs - replication is triggered by successful writing of new updates on the source. Fullsync can be performed upon initial connection of a sink cluster.
+In Multi-Datacenter Replication, there are two primary modes of operation: **fullsync** and **realtime**. In fullsync mode, a complete synchronization occurs between source and sink cluster(s). In realtime mode, continual, incremental synchronization occurs, meaning that replication is triggered by successful writing of new updates on the source. Fullsync can be performed upon initial connection of a sink cluster.
 
 Fullsync and realtime modes are described in detail below.
 
