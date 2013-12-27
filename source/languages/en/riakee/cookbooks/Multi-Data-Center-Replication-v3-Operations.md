@@ -229,7 +229,7 @@ These tuning values may also be set via the node's `app.config` file. See the [[
 
 **fullsync max_fssource_node**
 
-This limits the number of fullsync workers that will be running on each individual node in a source cluster. This is a hard limit for *all* fullsyncs taht are enabled. Additional fullsync configurations will *not* increase the number of fullsync workers allowed to run on any node. This only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
+This limits the number of fullsync workers that will be running on each individual node in a source cluster. This is a hard limit for *all* fullsyncs that are enabled. Additional fullsync configurations will *not* increase the number of fullsync workers allowed to run on any node. This only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
 
 * *Syntax:* `riak-repl fullsync max_fssource_node <value>`
 * *Default:* `1`
