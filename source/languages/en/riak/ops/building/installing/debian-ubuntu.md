@@ -25,8 +25,8 @@ If you wish to just install Riak and get on with your life, use `apt-get`.
 
 First you must get the signing key.
 
-```bash
-curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+```curl
+$ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 ```
 
 Then add the Basho repository to your apt sources list (and update them).

@@ -72,7 +72,7 @@ separate installation required.  However, Riak is configured by default to use
 the Bitcask storage engine.  To switch to eLevelDB set the ```storage_backend```
 variable in [[app.config|Configuration Files]] to ```riak_kv_eleveldb_backend```.
 
-```bash
+```erlang
 {riak_kv, [
     {storage_backend, riak_kv_eleveldb_backend},
 ```
@@ -475,7 +475,8 @@ vnode_working_memory = leveldb_working_memory / vnode_count
 
 Example:
 
- If a physical server contains 64 vnodes,
+If a physical server contains 64 vnodes,
+
 ```bash
 vnode_working_memory = 16G / 64 = 268,435,456 Bytes per vnode
 ```
@@ -809,7 +810,7 @@ After performing a large number "put" (write) operations the Riak cluster
 running eLevelDB will look something like this.
 
 ```bash
-gburd@toe:~/Projects/riak/dev/dev1/data$ tree leveldb/
+$ tree leveldb/
 leveldb/
 |-- 0
 |   |-- 000118.sst
