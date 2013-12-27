@@ -31,20 +31,19 @@ A sink refers to a cluster that is the primary consumer of replication data. A s
 
 ### Cluster Manager
 
-The cluster manager is a Riak EE service that provides information regarding nodes and protocols supported by the sink and source clusters. This information is primarily consumed by the `riak-repl connect` command.
+The cluster manager is a Riak Enterprise service that provides information regarding nodes and protocols supported by the sink and source clusters. This information is primarily consumed by the `riak-repl connect` command.
 
 ### Fullsync Coordinator
 
-In fullsync replication, a node on the source cluster is elected to be the *fullsync coordinator*. This node is responsible for starting and stopping replication to the sink cluster. It also communicates with the sink cluster to exchange key lists, and ultimately transfer data across a TCP connection. If a fullsync coordinator is terminated as the result of an error, it will automatically restart on the current node. In the node becomes unresponsive, then a leader election will take place within 5 seconds to select a new node from the cluster to become the coordinator. In the event of a coordinator restart, a fullsync will have to restart.
-
+In fullsync replication, a node on the source cluster is elected to be the *fullsync coordinator*. This node is responsible for starting and stopping replication to the sink cluster. It also communicates with the sink cluster to exchange key lists and ultimately transfer data across a TCP connection. If a fullsync coordinator is terminated as the result of an error, it will automatically restart on the current node. If the node becomes unresponsive, a leader election will take place within 5 seconds to select a new node from the cluster to become the coordinator. In the event of a coordinator restart, a fullsync will have to restart.
 
 ## Fullsync Replication
 
-Fullsync replication scans through the list of partitions in a Riak cluster, and determines which objects in the sink cluster need to be updated. A source partition is synchronized to a node on the sink cluster containing the current partition.
+Fullsync replication scans through the list of partitions in a Riak cluster and determines which objects in the sink cluster need to be updated. A source partition is synchronized to a node on the sink cluster containing the current partition.
 
 ## Realtime Replication
 
-In realtime replication, a node in the source cluster will forward data to the sink cluster. A node in the source cluster does not necessarily connect to a node containing the same *vnode* on the sink cluster. This allows Riak to spread out realtime replication across the entire cluster, thus improving throughput and making replication more fault-tolerant.
+In realtime replication, a node in the source cluster will forward data to the sink cluster. A node in the source cluster does not necessarily connect to a node containing the same *vnode* on the sink cluster. This allows Riak to spread out realtime replication across the entire cluster, thus improving throughput and making replication more fault tolerant.
 
 ### Initialization
 Before a source cluster can begin pushing realtime updates to a sink, the following commands must be issued:
