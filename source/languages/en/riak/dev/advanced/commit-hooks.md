@@ -120,16 +120,16 @@ install your named functions into into the relevant bucket(s). For our
 example, we'll install the `validate_json` module with its `validate`
 function into our `messages` bucket, like this:
 
-```bash
-curl -XPUT -H "Content-Type: application/json" \
-http://127.0.0.1:8098/buckets/messages/props    \
--d '{"props":{"precommit":[{"mod": "validate_json", "fun": "validate"}]}}'
+```curl
+$ curl -XPUT -H "Content-Type: application/json" \
+  http://127.0.0.1:8098/buckets/messages/props    \
+  -d '{"props":{"precommit":[{"mod": "validate_json", "fun": "validate"}]}}'
 ```
 
 Check that the bucket has your pre-commit hook listed in its properties.
 
-```bash
-curl http://localhost:8098/buckets/messages/props | python -mjson.tool
+```curl
+$ curl http://localhost:8098/buckets/messages/props | jsonpp
 ```
 
 The output should look like this:
@@ -176,9 +176,9 @@ You can see that `precommit` is indeed set to our `validate_json` module and
 `validate` function. Now you can test the pre-commit hook function by posting
 some objects with JSON values including some with invalid JSON.
 
-```bash
-curl -XPUT localhost:8098/buckets/messages/keys/1 \
--H 'Content-Type: application/json' -d@msg3.json
+```curl
+$ curl -XPUT localhost:8098/buckets/messages/keys/1 \
+       -H 'Content-Type: application/json' -d@msg3.json
 ```
 
 The response when `msg3.json` contains invalid JSON:
@@ -215,7 +215,7 @@ you used to compile Riak.</div>
 Compiling the module is straightforward:
 
 ```bash
-erlc log_object.erl
+$ erlc log_object.erl
 ```
 
 Next, you'll need to define a path from which compiled modules can be stored
@@ -234,16 +234,16 @@ install your named functions into into the relevant buckets. For our example,
 we'll install the `log_object` module and its `log` function into our
 `messages` bucket, like this.
 
-```bash
-curl -XPUT -H "Content-Type: application/json" \
-http://127.0.0.1:8098/buckets/updates/props    \
--d '{"props":{"postcommit":[{"mod": "log_object", "fun": "log"}]}}'
+```curl
+$ curl -XPUT -H "Content-Type: application/json" \
+  http://127.0.0.1:8098/buckets/updates/props    \
+  -d '{"props":{"postcommit":[{"mod": "log_object", "fun": "log"}]}}'
 ```
 
 Check that the bucket has your post-commit hook listed in its properties.
 
-```bash
-curl localhost:8098/buckets/updates/props | python -mjson.tool
+```curl
+curl localhost:8098/buckets/updates/props | jsonpp
 ```
 
 The output should look like this:
@@ -290,14 +290,14 @@ You can see that `postcommit` is indeed set to our `log_object` module and
 `log` function. Now you can test the post-commit function by posting an
 object and viewing `console.log`.
 
-```bash
-curl -XPUT localhost:8098/buckets/updates/keys/2 \
--H 'Content-Type: application/json' -d@msg2.json
+```curl
+$ curl -XPUT localhost:8098/buckets/updates/keys/2 \
+       -H 'Content-Type: application/json' -d@msg2.json
 ```
 
 You can see the logged value of the object by viewing `console.log`.
 
-```bash
+```log
 2012-12-10 13:14:37.840 [info] <0.2101.0> OBJECT: {r_object,<<"updates">>,<<"2">>,[{r_content,{dict,6,16,16,8,80,48,{[],[],[],
 [],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[[<<"Links">>]],[],[],[],[],
 [],[],[],[[<<"content-type">>,97,112,112,108,105,99,97,116,105,111,110,47,

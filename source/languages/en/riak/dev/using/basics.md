@@ -45,7 +45,7 @@ Typical error codes:
 
 So, with that in mind, try this command. This will request (GET) the key `doc2` from the bucket `test.`
 
-```bash
+```curl
 $ curl -v http://localhost:8098/buckets/test/keys/doc2
 ```
 
@@ -141,7 +141,7 @@ The normal response codes for a `DELETE` operations are `204 No Content` and `40
 
 Try this:
 
-```bash
+```curl
 $ curl -v -XDELETE http://localhost:8098/buckets/test/keys/test2
 ```
 
@@ -200,7 +200,7 @@ The optional query parameters are:
 
 With that in mind, go ahead and run this command. This will `GET` the bucket information that we just set with the sample command above:
 
-```bash
+```curl
 $ curl -v http://localhost:8098/buckets/test/props
 ```
 

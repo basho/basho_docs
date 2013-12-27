@@ -162,13 +162,15 @@ fetchedBook = booksBucket.get(book['isbn'])
 print(fetchedBook.encoded_data)
 ```
 
-```javascript
+JSON!  The Riak Python client library encodes things as JSON when it can.
+
+```json
 {"body": "Call me Ishmael. Some years ago...",
 "author": "Herman Melville", "isbn": "1111979723",
 "copies_owned": 3, "title": "Moby Dick"}
 ```
 
-JSON!  The Riak Python client library encodes things as JSON when it can.  If we wanted to get a deserialized object back we would just use the regular `fetchedBook.data` method.
+If we wanted to get a deserialized object back we would just use the regular `fetchedBook.data` method.
 
 Finally let’s clean up our mess:
 
