@@ -94,13 +94,13 @@ Solaris 10 | `/opt/riak/lib/erts-5.9.1/bin/erlc`
 Once you have determined the location of the Erlang compiler, compiling&mdash;on Ubuntu, for example&mdash;is as simple as:
 
 ```bash
-/usr/lib/riak/erts-5.9.1/bin/erlc riak_replication_hook_sample.erl
+$ /usr/lib/riak/erts-5.9.1/bin/erlc riak_replication_hook_sample.erl
 ```
 
 This will create a `riak_replication_hook_sample.beam` file in the same directory as the corresponding `.erl` file. Copy this `.beam` file into the subdirectory where you want to store the custom hook:
    
 ```bash
-cp riak_replication_hook_sample.beam /path/to/replication/hook
+$ cp riak_replication_hook_sample.beam /path/to/replication/hook
 ```
    
 Add a `-pa` argument to your `vm.args` file to specify the path where your compiled `.beam` file lives:

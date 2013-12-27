@@ -39,7 +39,7 @@ These settings are configured using the standard Erlang config file syntax `{Set
 Once your configuration is set, you can verify its correctness by running the command-line tool:
 
 ```bash
-riak chkconfig
+$ riak chkconfig
 ```
 
 Setting | Options | Default | Description
