@@ -25,7 +25,7 @@ These option values are only available in Riak Enterprise version 1.2 and above:
 
 ### Example of Disabling
 
-```bash
+```curl
 curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
   -H "Content-Type: application/json" \
   -d '{"props":{"repl":false}}'
@@ -33,7 +33,7 @@ curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
 
 ### Example of Enabling
 
-```bash
+```curl
 curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
   -H "Content-Type: application/json" \
   -d '{"props":{"repl":true}}'
