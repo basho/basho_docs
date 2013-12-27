@@ -8,10 +8,7 @@ audience: intermediate
 keywords: [mdc, repl, config]
 ---
 
-Riak exposes monitoring data via JMX.  To enable JMX monitoring, edit the
-[[app.config|Configuration-Files#app-config]] associated with your Riak installation and set the ```enabled``` property of the ```riak_jmx```
-section to ```true``` as shown below.  The TCP port on which the JMX provider listens
-is also configurable in this section (the default JMX port is ```41110```).
+Riak exposes monitoring data via JMX.  To enable JMX monitoring, edit the `[[app.config|Configuration Files#app-config]]` associated with your Riak installation and set the `enabled` property of the `riak_jmx` section to `true` as shown below.  The TCP port on which the JMX provider listens is also configurable in this section (the default JMX port is `41110`).
 
 ```erlang
     {riak_jmx, [
@@ -20,23 +17,17 @@ is also configurable in this section (the default JMX port is ```41110```).
       ]}
 ```
 
-   To view JMX data&mdash;assuming that you have the Sun JDK installed&mdash;launch JConsole
-   as follows:
+To view JMX data&mdash;assuming that you have the Sun JDK installed&mdash;launch JConsole as follows:
 
 ```bash
-   % jconsole <hostname_to_monitor>:<jmx_port>
+$ jconsole <hostname_to_monitor>:<jmx_port>
 ```
 
-   Once connected, click on the 'MBeans' tab, expand the 'com.basho.riak'
-   tree view, and select 'Attributes'.  The attributes listed below will
-   be displayed.
+Once connected, click on the **MBeans** tab, expand the **com.basho.riak** tree view, and select **Attributes**. The attributes listed in the table below will be displayed.
 
-   Riak JMX has been tested with the Sun JRE 1.6.0_12 and 1.6.0_20.  Some
-   older/non-Sun JREs do not work (e.g. the default java-gcj JRE installed
-   on debian lenny).  If you have problems with JMX or see the
-   message below, please try upgrading to the Sun JRE:
+Riak JMX has been tested with the Sun JRE 1.6.0_12 and 1.6.0_20. Some older/non-Sun JREs do not work (e.g. the default java-gcj JRE installed on Debian lenny). If you have problems with JMX or see the message below, please try upgrading to the Sun JRE:
 
-```text
+```log
    =INFO REPORT==== 9-Jun-2010::08:14:57 ===
    JMX server monitor <pid> exited with code <non-zero>.
 ```
@@ -50,137 +41,137 @@ is also configurable in this section (the default JMX port is ```41110```).
         <th WIDTH="55%">Description</th>
     </tr>
     <tr>
-        <td>CPUNProcs</td>
+        <td><tt>CPUNProcs</tt></td>
         <td>int</td>
         <td>Number of running processes</td>
     </tr>
     <tr>
-        <td>CpuAvg1</td>
+        <td><tt>CpuAvg1</tt></td>
         <td>int</td>
         <td>1 minute load average</td>
     </tr>
     <tr>
-        <td>CpuAvg5</td>
+        <td><tt>CpuAvg5</tt></td>
         <td>int</td>
         <td>5 minute load average</td>
     </tr>
     <tr>
-        <td>CpuAvg15</td>
+        <td><tt>CpuAvg15</tt></td>
         <td>int</td>
         <td>15 minute load average</td>
     </tr>
     <tr>
-        <td>NodeGetFsmTime95</td>
+        <td><tt>NodeGetFsmTime95</tt></td>
         <td>float</td>
         <td>95th percentile GET time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodeGetFsmTime99</td>
+        <td><tt>NodeGetFsmTime99</tt></td>
         <td>float</td>
         <td>99th percentile GET time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodeGetFsmTimeMax</td>
+        <td><tt>NodeGetFsmTimeMax</tt></td>
         <td>float</td>
         <td>Maximum GET time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodeGetFsmTimeMean</td>
+        <td><tt>NodeGetFsmTimeMean</tt></td>
         <td>float</td>
         <td>Mean GET time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodeGetFsmTimeMedian</td>
+        <td><tt>NodeGetFsmTimeMedian</tt></td>
         <td>float</td>
         <td>Median GET time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodeGets</td>
+        <td><tt>NodeGets</tt></td>
         <td>int</td>
         <td>Number of GETs in past minute</td>
     </tr>
     <tr>
-        <td>NodeGetsTotal</td>
+        <td><tt>NodeGetsTotal</tt></td>
         <td>int</td>
         <td>Number of GETs since node start</td>
     </tr>
     <tr>
-        <td>NodeName</td>
+        <td><tt>NodeName</tt></td>
         <td>string</td>
         <td>Node name</td>
     </tr>
     <tr>
-        <td>NodePutFsmTime95</td>
+        <td><tt>NodePutFsmTime95</tt></td>
         <td>float</td>
         <td>95th percentile PUT time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodePutFsmTime99</td>
+        <td><tt>NodePutFsmTime99</tt></td>
         <td>float</td>
         <td>99th percentile PUT time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodePutFsmTimeMax</td>
+        <td><tt>NodePutFsmTimeMax</tt></td>
         <td>float</td>
         <td>Maximum PUT time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodePutFsmTimeMean</td>
+        <td><tt>NodePutFsmTimeMean</tt></td>
         <td>float</td>
         <td>Mean PUT time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodePutFsmTimeMedian</td>
+        <td><tt>NodePutFsmTimeMedian</tt></td>
         <td>float</td>
         <td>Median PUT time (microseconds)</td>
     </tr>
     <tr>
-        <td>NodePuts</td>
+        <td><tt>NodePuts</tt></td>
         <td>int</td>
         <td>Number of PUTs in past minute</td>
     </tr>
     <tr>
-        <td>NodePutsTotal</td>
+        <td><tt>NodePutsTotal</tt></td>
         <td>int</td>
         <td>Number of PUTs since node start</td>
     </tr>
     <tr>
-        <td>PBCActive</td>
+        <td><tt>PBCActive</tt></td>
         <td>int</td>
         <td>Number of active Protocol Buffers connections</td>
     </tr>
     <tr>
-        <td>PBCConnects</td>
+        <td><tt>PBCConnects</tt></td>
         <td>int</td>
         <td>Number of Protocol Buffers connections in past minute</td>
     </tr>
     <tr>
-        <td>PBCConnectsTotal</td>
+        <td><tt>PBCConnectsTotal</tt></td>
         <td>int</td>
         <td>Number of Protocol Buffers connections since node start</td>
     </tr>
     <tr>
-        <td>RingCreationSize</td>
+        <td><tt>RingCreationSize</tt></td>
         <td>int</td>
         <td>Number of partitions in Riak ring</td>
     </tr>
     <tr>
-        <td>VnodeGets</td>
+        <td><tt>VnodeGets</tt></td>
         <td>int</td>
         <td>Number of vnode-level GETs in past minute</td>
     </tr>
     <tr>
-        <td>VnodeGetsTotal</td>
+        <td><tt>VnodeGetsTotal</tt></td>
         <td>int</td>
         <td>Number of vnode-level GETs since node start</td>
     </tr>
     <tr>
-        <td>VnodePuts</td>
+        <td><tt>VnodePuts</tt></td>
         <td>int</td>
         <td>Number of vnode-level PUTs in past minute</td>
     </tr>
     <tr>
-        <td>VnodePutsTotal</td>
+        <td><tt>VnodePutsTotal</tt></td>
         <td>int</td>
         <td>Number of vnode-level PUTs since node start</td>
     </tr>
