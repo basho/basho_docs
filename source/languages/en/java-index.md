@@ -13,7 +13,7 @@ versions: true
 
 ## Quick start
 
-Assuming you’re running Riak on localhost on the default ports getting started is as simple as:
+Assuming that you're running Riak on `localhost` on the default ports, getting started is as simple as:
 
 ```java
 // create a client (see Configuration below in this README for more details)
@@ -38,28 +38,28 @@ myBucket.delete("key1").rw(3).execute();
 
 ## Some History
 
-This riak-java-client API is new. Prior to this version there were two separate clients, one for protocol buffers, one for REST, both in the same library and both with quite different APIs.
+This riak-java-client API is new. Prior to this version there were two separate clients&mdash;one for protocol buffers and one for REST&mdash;both in the same library and both with very different APIs.
 
 ### Deprecated
 
-The REST client (which you can still use directly) has been moved to
+The REST client (which can still be used directly) has been moved to
 
 ```java
 com.basho.riak.client.http.RiakClient
 ```
 
-Though a deprecated RiakClient still exists at
+Please note that a deprecated RiakClient still exists at
 
 ```java
 com.basho.riak.client.RiakClient
 ```
 
-for another release or two to ease transition. All the REST client’s HTTP specific classes have been moved to
+and will continue to exist there several releases into the future in order to ease transition. All of the REST client’s HTTP-specific classes have been moved to
 
 ```java
 com.basho.riak.client.http.*
 ```
 
-and the originals retained but deprecated. If you want to use the legacy, low-level client directly please use the newly packaged version. The deprecated classes will be deleted in the next or following release to clean up the namespaces.
+and the originals have been retained but deprecated. If you wish to use the legacy, low-level client directly, please use the newly packaged version. The deprecated classes will be deleted in an upcoming release for the sake of cleaning up the namespaces.
 
-At that time `IRiak*` will become `Riak*` and any `I*` names will be deprecated then dropped. We're sorry about the unpleasant naming conventions in the short term.
+At that time, `IRiak*` will become `Riak*` and any `I*` names will be deprecated and later dropped. We apologize for the unwieldy naming conventions in the short term.
