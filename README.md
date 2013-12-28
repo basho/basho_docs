@@ -234,14 +234,13 @@ riak:
   - ['1.3.0', '1.3.1', '1.3.2']
 ```
 
-Running `bundle exec middleman build` after that should update
-`data/downloads_gen.yml`, which drives the downloads page.
+Running `bundle exec middleman build` after that should update `data/downloads_gen.yml`, which drives the downloads page.
 
 ## Deploying to S3
 
-Before deployment, you must specify an env var with Basho's S3 access/secret key. You also must specify the S3 bucket we're deploying to, and the cloudfront id (the CDN we must invalidate to force a publication to be found).
+Before deployment, you must specify an environment variable with Basho's S3 access/secret key. You also must specify the S3 bucket to which we're deploying as well as the CloudFront ID (the CDN that we must invalidate to force a publication to be found).
 
-In BASH, something like this in your `~/.bash_login` or `~/.bash_profile` file should do it:
+In BASH, something like this in your `~/.bash_login` or `~/.bash_profile` file should do the trick:
 
 ```bash
 export AWS_ACCESS_KEY_ID="XXXXX"
@@ -251,9 +250,9 @@ export AWS_CLOUDFRONT_DIST_ID="E2Q6TQ5O0XT58T"
 export RIAK_DOCS_LANG=en
 ```
 
-_The bucket and Cloudfront values are per language._
+_The bucket and CloudFront values are per language._
 
-language | bucket      | cloudfront id  | docs lang
+Language | Bucket      | CloudFront ID  | Language
 ---------|-------------|----------------|----------
 English  | riakdocs.en | E2Q6TQ5O0XT58T | en
 Japanese | riakdocs.jp | ENDQVZ5Y7OVJN  | jp
@@ -262,23 +261,23 @@ Chinese  | riakdocs.cn | E3NADMYQ20Y7EJ | cn
 
 **Keep it secret. Keep it safe.**
 
-Then to deploy, run the deploy.rb scripts with a riak version:
+Then to deploy, run the `deploy.rb` scripts with a Riak version:
 
-```
+```bash
 ./deploy.rb
 ```
 
-If you need to deploy riak and riakcs with different versions, add the CS version at the end. This would be riak 1.3.1 and riakcs 1.1.
+If you need to deploy `riak` and `riakcs` with different versions, add the CS version at the end. This would be riak 1.3.1 and riakcs 1.1:
 
-```
+```bash
 ./deploy.rb 1.3.1 1.1.0
 ```
 
-Note: this does more than deploy to S3, it also invalidates the CloudFront (CF) cache, our CDN. Even if all the files are successfully pushed to S3, until CF is invalidated, you'll not see the new files on http://docs.basho.com.
+**Note**: this does more than deploy to S3; it also invalidates the cache for CloudFront (CF), our CDN. Even if all of the files are successfully pushed to S3, you won't see the new files on [docs.basho.com](http://docs.basho.com) until the CF cache is invalidated.
 
 ## Deploying the Search Index
 
-This is still a work in progress, but adding `INDEX=true` will deploy the docs to yokozuna.
+This is still a work in progress, but adding `INDEX=true` will deploy the docs to [Yokozuna](https://github.com/basho/yokozuna), the Riak/Solr tool used to power the docs' search engine:
 
 ```
 RIAK_VERSION=1.4.0 INDEX=true DEPLOY=true bundle exec middleman build
