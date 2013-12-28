@@ -13,23 +13,23 @@ next: "[[Testing The Riak CS Installation]]"
 ---
 
 This option for building an environment uses a Vagrant project powered by Chef
-to bring up a local Riak CS cluster. Each node can run either `Ubuntu 12.04`
-or `CentOS 6.4` 64-bit with `1536MB`of RAM by default. If you want to tune the
+to bring up a local Riak CS cluster. Each node can run either Ubuntu 12.04
+or CentOS 6.4 64-bit with 1536MB of RAM by default. If you want to tune the
 OS or node/memory count, you'll have to edit the `Vagrantfile` directly.
 
 If you want to build a testing environment with more flexibility in
-configuration and durability across environment resets there are instructions
+configuration and durability across environment resets, there are instructions
 for [[Building a Local Test Environment]].
 
 ## Configuration
 
 ### Install Prerequisites
 
-Download and install VirtualBox via the [VirtualBox Downloads](https://www.virtualbox.org/wiki/Downloads)
+* Download and install VirtualBox from [VirtualBox Downloads](https://www.virtualbox.org/wiki/Downloads).
 
-Download and install Vagrant via the [Vagrant Installer](http://downloads.vagrantup.com/).
+* Download and install Vagrant via the [Vagrant Installer](http://downloads.vagrantup.com/).
 
-**NOTE: Please make sure to install Vagrant `1.1.0` and above.**
+**Note**: Please make sure to install Vagrant `1.1.0` and above.
 
 ### Install Vagrant plugins
 
@@ -55,7 +55,6 @@ $ cd vagrant-riak-cs-cluster
 With VirtualBox and Vagrant installed, it's time to actually launch our
 virtual environment. The command below will initiate the Vagrant project:
 
-
 ``` bash
 $ RIAK_CS_CREATE_ADMIN_USER=1 vagrant up
 ```
@@ -65,7 +64,7 @@ will download it.
 
 ### Recording Admin User credentials
 
-In the Chef provisioning output you will see entries that look like:
+In the Chef provisioning output, you will see entries that look like this:
 
 ```
 [2013-03-27T11:59:12+00:00] INFO: Riak CS Key: 5N2STDSXNV-US8BWF1TH
@@ -76,8 +75,10 @@ Take note of these keys as they will be required in the testing step.
 
 In this case, those keys are:
 
-    Access key: 5N2STDSXNV-US8BWF1TH
-    Secret key: RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
+```
+Access key: 5N2STDSXNV-US8BWF1TH
+Secret key: RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
+```
 
 ## Next Steps
 
@@ -86,10 +87,10 @@ are ready to progress to [[Testing the Riak CS Installation]].
 
 ### Stopping Your Virtual Environment
 
-When you are done testing, or just want to start again from scratch, you can end
-the current virtualized environment by typing
+When you are done testing, or just want to start again from scratch, you can end the current virtualized environment by typing
 
-    vagrant destroy
+```bash
+$ vagrant destroy
+```
 
-**NOTE: Executing this command will reset the environment to a clean state removing
-any/all changes that you have done.**
+**Note**: Executing this command will reset the environment to a clean state removing any/all changes that you have committed.
