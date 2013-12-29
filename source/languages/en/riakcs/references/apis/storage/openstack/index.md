@@ -10,7 +10,7 @@ keywords: [api, http, openstack]
 ---
 
 
-The OpenStack storage API (*v1*) provides a convenient way to integrate RiakCS for use as object storage in an OpenStack deployment.
+The OpenStack storage API (*v1*) provides a convenient way to integrate Riak CS for use as an object storage system in conjunction with an OpenStack deployment.
 
 ## API Feature Comparison
 
@@ -43,14 +43,14 @@ Update Object Metadata | Coming Soon | Planned for future release |
 
 ## Storage Account Services
 
-* [[List Containers|RiakCS OpenStack List Containers]] - Lists the containers owned by an account
+* [[List Containers|RiakCS OpenStack List Containers]] &mdash; Lists the containers owned by an account
 
 ## Storage Container Services
-* [[List Objects|RiakCS OpenStack List Objects]] - Lists the objects in a container
-* [[Create Container|RiakCS OpenStack Create Container]] - Creates a new container
-* [[Delete Container|RiakCS OpenStack Delete Container]] - Deletes a container
+* [[List Objects|RiakCS OpenStack List Objects]] &mdash; Lists the objects in a container
+* [[Create Container|RiakCS OpenStack Create Container]] &mdash; Creates a new container
+* [[Delete Container|RiakCS OpenStack Delete Container]] &mdash; Deletes a container
 
 ## Storage Object Services
-* [[Get Object|RiakCS OpenStack Get Object]] - Retrieves an object
-* [[Create or Update Object|RiakCS OpenStack Create Object]] - Write an object in a container
-* [[Delete Object|RiakCS OpenStack Delete Object]] - Delete an object from a container
+* [[Get Object|RiakCS OpenStack Get Object]] &mdash; Retrieves an object
+* [[Create or Update Object|RiakCS OpenStack Create Object]] &mdash; Write an object in a container
+* [[Delete Object|RiakCS OpenStack Delete Object]] &mdash; Delete an object from a container
