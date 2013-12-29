@@ -8,9 +8,7 @@ audience: beginner
 keywords: [developer]
 ---
 
-Fog is a general cloud services library written in Ruby. It is built to
-support as many providers as possible, from most AWS services, to Rackspace
-and Linode, and this includes an extension for Riak CS.
+Fog is a general cloud services library written in Ruby. It is built to support as many cloud providers as possible, ranging from most AWS services to Rackspace, Linode, Joyent, and beyond, and this includes an extension for Riak CS.
 
 Installation via [RubyGems](http://rubygems.org/):
 
@@ -20,15 +18,13 @@ $ gem install fog
 
 Or in [Bundler](http://gembundler.com/):
 
-```
+```ruby
 gem "fog", "~> 1.10.1"
 ```
 
 ## User Management
 
-The first activity is to create a new user. But before we can do that, you must
-create connections to your Riak CS server to handle communication to different
-services.
+The first thing that needs to be done is creating a new user. But before you can do that, you must create connections to your Riak CS server to handle communication to different services.
 
 ### Setup
 
@@ -44,11 +40,10 @@ client = Fog::RiakCS::Provisioning.new(
 )
 ```
 
-### Create user
+### Create User
 
 The following command creates a user, given an email or name. It will return a
-response object---or raise an error if the operation fails. The response `body`
-will contain a JSON document containing the user informations, while the
+response object&mdash;or raise an error if the operation fails. The response `body` will contain a JSON document containing the user informations, while the
 `key_id` is required for further operations on the user.
 
 ```ruby
@@ -58,7 +53,7 @@ response = client.create_user(email, name)
 ### List Users
 
 You can list the users in this cluster, optionally filtering by the user's
-status. It's body is an array of hashes representing each matching user.
+status. Its body is an array of hashes representing each matching user.
 
 ```ruby
 users = client.list_users(:status => 'enabled')
@@ -67,8 +62,7 @@ users = client.list_users(:status => 'enabled')
 ### Get User
 
 With the user's `key_id` (returned above, a `riakcs_access_key_id`). `get_user`
-returns a response whose `body` is a JSON document describing the user, or
-raises and error if the user doesn't exist.
+returns a response whose `body` is a JSON document describing the user or raises and error if the user doesn't exist.
 
 ```ruby
 user = client.get_user(key_id)
@@ -84,8 +78,7 @@ client.enable_user(key_id)
 client.disable_user(key_id)
 ```
 
-You can also revoke their current credentials and grant new credentials.
-`regrant_secret` returns a JSON document with the users refreshed credentials.
+You can also revoke their current credentials and grant new credentials. `regrant_secret` returns a JSON document with the users refreshed credentials.
 
 ```ruby
 client.regrant_secret(key_id)
@@ -93,7 +86,7 @@ client.regrant_secret(key_id)
 
 ## Usage Retrieval
 
-To get information about Riak CS requests.
+Fetches information about Riak CS requests.
 
 ### Setup
 
@@ -119,17 +112,12 @@ usage = Fog::RiakCS::Usage.new(
 )
 ```
 
-*Note: You may use regular (non-admin) credentials for usage retrieval, if you
-are accessing your own usage.*
+**Note**: You may use regular (non-admin) credentials for usage retrieval, if you are accessing your own usage.
 
 ### Get usage
 
 The `get_usage` method returns usage information for the `requested_key_id`.
-You can choose which type of usage you want via the `:types` attribute:
-`:access` or `:storage` (defaults to both). You may also specify a
-`:start_time` and an `:end_time` (this defaults to the previous 24 hour
-window). You'll receive a response object, whose `body` is a nested set of
-hashes containing usage data broken down by `type`, and further by `node`.
+You can choose which type of usage you want via the `:types` attribute: `:access` or `:storage` (defaults to both). You may also specify a `:start_time` and an `:end_time` (this defaults to the previous 24-hour window). You'll receive a response object, whose `body` is a nested set of hashes containing usage data broken down by `type`, and further by `node`.
 
 ```ruby
 response = client.get_usage(requested_key_id,
@@ -138,5 +126,4 @@ response = client.get_usage(requested_key_id,
                  :end_time   => end_time)
 ```
 
-If user access is denied, it will return a `Excon::Errors::Forbidden`
-error.
+If user access is denied, it will return a `Excon::Errors::Forbidden` error.
