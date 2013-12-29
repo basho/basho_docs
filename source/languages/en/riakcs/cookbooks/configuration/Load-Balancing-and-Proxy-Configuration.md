@@ -109,20 +109,20 @@ server {
   access_log  /var/log/nginx/riak_cs.access.log;
 
   location / {
-      proxy_set_header Host $http_host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_redirect off;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_redirect off;
 
-      proxy_connect_timeout      90;
-      proxy_send_timeout         90;
-      proxy_read_timeout         90;
+    proxy_connect_timeout      90;
+    proxy_send_timeout         90;
+    proxy_read_timeout         90;
 
-      proxy_buffer_size          64k;  # If set to a smaller value,
-                                       # nginx can complain with a
-                                       # "headers too large" error
+    proxy_buffer_size          64k;  # If set to a smaller value,
+                                     # nginx can complain with a
+                                     # "headers too large" error
       
-      proxy_pass http://riak_cs_host;
-    }
+    proxy_pass http://riak_cs_host;
+  }
 }
 ```
 
