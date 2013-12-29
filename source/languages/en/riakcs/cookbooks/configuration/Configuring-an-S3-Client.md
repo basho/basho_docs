@@ -12,9 +12,7 @@ keywords: [operator, configuration]
 <div class="title">Configuration Update</div>
 A previous version of the following sample `.s3cfg` files omitted the following line:
 
-```config
-enable_multipart = False
-```
+<tt>enable_multipart = False</tt>
 
 Without this setting, <tt>s3cmd</tt> will fail to upload files greater than approximately 10MB in size.
 </div>
