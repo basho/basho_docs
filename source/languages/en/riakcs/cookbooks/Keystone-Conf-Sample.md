@@ -9,9 +9,9 @@ audience: advanced
 keywords: [authentication, openstack]
 ---
 
-The following is the contents of a sample `keystone.conf` file that can be used to test Riak CS with the Keystone authentication service on a `localhost` setup.
+The following displays the contents of a sample `keystone.conf` file that can be used to test Riak CS with the Keystone authentication service on a `localhost` setup.
 
-<pre>
+```config
 [DEFAULT]
 # A "shared secret" between keystone and other openstack services
 admin_token = ADMIN
@@ -247,4 +247,4 @@ use = egg:Paste#urlmap
 /v2.0 = admin_api
 /v3 = api_v3
 / = admin_version_api
-</pre>
+```
