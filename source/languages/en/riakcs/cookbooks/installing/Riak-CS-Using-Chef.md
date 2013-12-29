@@ -12,9 +12,9 @@ moved: {
 ---
 
 If you manage your infrastructure with [Chef](http://www.opscode.com/chef/),
-the open source configuration management framework, you'll be happy to know
+the open-source configuration management framework, you'll be happy to know
 that we maintain a [cookbook](http://community.opscode.com/cookbooks/riak-cs)
-to install Riak CS with Chef.
+for installing Riak CS with Chef.
 
 ## Getting Started
 
@@ -30,20 +30,16 @@ run_list(
 )
 ```
 
-The default settings will cause Riak and Riak CS to be installed and
-configured via Basho maintained package repositories.
+The default settings will cause Riak and Riak CS to be installed and configured via Basho-maintained package repositories.
 
 ### Package Installation
 
-There are two options for installation: `package`, and `enterprise_package`.
-`package` is the default (installs Riak CS open source), and is the
-recommended option for Red Hat and Debian based operating systems. For source
-installations of Riak, Erlang/OTP R15B01 and above is recommended.
+There are two options for installation: `package` and `enterprise_package`.
+`package` is the default&mdash; it installs Riak CS open source&mdash;and is the recommended option for Red Hat- and Debian-based operating systems. For source installations of Riak, Erlang/OTP R15B01 and above is recommended.
 
 ### Enterprise Installation
 
-To install Riak CS Enterprise, populate
-`node['riak_cs']['package']['enterprise_key']` with a Basho provided key for
+To install Riak CS Enterprise, populate `node['riak_cs']['package']['enterprise_key']` with a Basho-provided key for
 the release.
 
 Riak Enterprise installations managed through the cookbook must be installed
@@ -52,14 +48,11 @@ via a package.
 ### Basic Configuration
 
 All the configuration options exist within the `node['riak_cs']['config']`
-namespace. In cases where an Erlang data type is necessary, use the
-appropriate methods from the
-[erlang_template_helper](https://github.com/basho/erlang_template_helper).
+namespace. In cases where an Erlang data type is necessary, use the appropriate methods from the `[erlang_template_helper](https://github.com/basho/erlang_template_helper)`.
 
 #### Networking
 
-Riak CS and Stanchion communicate with Riak through the Protocol Buffers
-interface. By default, Riak listens for Protocol Buffers connections on port
+Riak CS and Stanchion communicate with Riak through the Protocol Buffers interface. By default, Riak listens for Protocol Buffers connections on port
 `8087`:
 
 ```ruby
@@ -87,8 +80,7 @@ default['stanchion']['config']['stanchion']['stanchion_port'] = 8085
 
 #### Credentials
 
-Both Riak CS and Stanchion require administrative user credentials populated.
-The two credentials are `admin_key` and `admin_secret`:
+Both Riak CS and Stanchion require administrative user credentials. The two credentials are `admin_key` and `admin_secret`:
 
 ```ruby
 # Riak CS
@@ -103,7 +95,7 @@ default['stanchion']['config']['stanchion']['admin_secret'] = "admin-secret".to_
 #### Webmachine
 
 Webmachine is used to service HTTP requests in Riak CS. Its `server_name` and
-Lager `log_handlers` can be configured with:
+Lager `log_handlers` can be configured with the following:
 
 ```ruby
 default['riak_cs']['config']['webmachine']['server_name'] = "Riak CS".to_erl_string
@@ -143,15 +135,15 @@ default['stanchion']['args']['-env']['ERL_CRASH_DUMP'] = "/var/log/stanchion/erl
 
 #### Storage Backends
 
-Riak CS a specific combination of storage backends. [[Bitcask]] is used to
-store blocks and [[LevelDB]] for manifests. The `riak_cs_kv_multi_backend`
+Riak CS uses a specific combination of storage backends. [[Bitcask]] is used to
+store blocks and [[LevelDB]] to store manifests. The `riak_cs_kv_multi_backend`
 must be specified in the Riak configuration file for Riak CS to work:
 
 ```ruby
 default['riak']['config']['riak_kv']['storage_backend'] = "riak_cs_kv_multi_backend"
 ```
 
-The Riak cookbook takes care of populated all of the other defaults required
+The Riak cookbook takes care of populating all of the other default rsequired
 for the `riak_cs_kv_multi_backend` to be configured correctly.
 
 ### Lager
@@ -187,8 +179,7 @@ default['stanchion']['config']['lager']['error_logger_redirect'] = true
 
 ## Additional Resources
 
-More information related to cluster configuration and building development
-environments is available in our documentation.
+More information related to cluster configuration and building development environments is available in our documentation.
 
 * [[Building a Local Test Environment]]
 * [[Building a Virtual Testing Environment]]
