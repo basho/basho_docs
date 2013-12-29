@@ -19,19 +19,13 @@ keywords: [operator, authentication]
 * S3 Passthru Authentication
     * Module name: `riak_cs_s3_passthru_auth`
     * This module requires a valid user `key_id` to be included in the
-      `Authorization` header value, but no signature is
-      required. *e.g.* A valid header using this authentication module
-      would look like this: `Authorization: AWS
-      4REM9H9ZKMXW-DZDC8RV`. **Warning:** This module is only intended
-      for use in development or testing scenarios.
+      `Authorization` header value, but no signature is required. For example, a valid header using this authentication module would look like this: `Authorization: AWS 4REM9H9ZKMXW-DZDC8RV`.
 
-Selecting an authentication method is done by adding or changing the
-`auth_module` key in the Riak CS `app.config` file. *e.g.* To instruct
-Riak CS to use S3-style request signing as the means of
-authentication, ensure the following is contained in the `app.config`
-in the `riak_cs` section:
+      **Warning:** This module is only intended for use in development or testing scenarios.
 
-```
+Selecting an authentication method is done by adding or changing the `auth_module` key in the Riak CS `app.config` file. For example, to instruct Riak CS to use S3-style request signing as the means of authentication, ensure that the following is contained in the `app.config` in the `riak_cs` section:
+
+```erlang
 {auth_module, riak_cs_s3_auth}
 ```
 
@@ -52,8 +46,7 @@ request and compares the result with the signature presented in then
 `Authorization` header. If they match then the request is authenticated;
 otherwise, the authentication fails.
 
-Full details are available in the
-[S3 authentication scheme documentation](http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAuthentication.html).
+Full details are available in the [S3 authentication scheme documentation](http://docs.amazonwebservices.com/AmazonS3/latest/dev/RESTAuthentication.html).
 
 ### Query String Authentication
 
@@ -65,31 +58,25 @@ pre-signed URL can be invalidated after a certain period of time.
 The signature in the query string secures the request and you can specify any
 future expiration time in epoch or UNIX time.
 
-1. Create a query.
-2. Specify an expiration time for the query.
-3. Sign it with your signature.
-4. Place the data in an HTTP request.
+1. Create a query
+2. Specify an expiration time for the query
+3. Sign it with your signature
+4. Place the data in an HTTP request
 5. Distribute the request to a user or embed the request in a web page
 
 #### Query String Parameters
 
-**AWSAccessKeyId** - Your Riak CS Access Key ID.
+`AWSAccessKeyId` &mdash; Your Riak CS Access Key ID (**string**).
 
-* *Type*: String
+`Expires` &mdash; The time when the signature expires, specified as the number of seconds since the epoch (**integer**).
 
-**Expires** - The time when the signature expires, specified as the number of seconds since the epoch.
-
-* *Type*: Integer
-
-**Signature** - The URL encoding of the Base64 encoding of the HMAC-SHA1 of StringToSign.
-
-* *Type*: String
+`Signature` &mdash; The URL encoding of the Base64 encoding of the HMAC-SHA1 of StringToSign (**string**).
 
 #### Example
 
 For example, a query URL is similar to the following example.
 
-```
+```http
 http://bucket.data.basho.com/document?AWSAccessKeyId=8EE3UE-UMW1YTPMBC3EB&Expires=1177363698&Signature=vjSAMPLENmGa%2ByT272YEAiv4%3D
 ```
 
