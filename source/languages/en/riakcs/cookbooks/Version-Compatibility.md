@@ -26,14 +26,13 @@ for use with Riak CS.
 
 Riak versions prior to version 1.2.0 are known to have performance issues and
 are not tested, recommended, or supported for use with Riak CS. Additionally,
-Riak versions prior to 1.0.0 are missing essential functionality such as
-Secondary Indexes or LevelDB support required by Riak CS.
+Riak versions prior to 1.0.0 are missing essential functionality, such as
+Secondary Indexes or LevelDB support, required by Riak CS.
 
 ## Working Version Combinations
 
 Basic functional testing has been performed with the following combinations of
-Riak and Riak CS. These versions are also known to be functioning in
-production environments.
+Riak and Riak CS. These versions are also known to be functioning in production environments.
 
 Riak version  | Stanchion version | Riak CS version
 --------------|-------------------|----------------
@@ -45,7 +44,7 @@ Riak version  | Stanchion version | Riak CS version
 1.4.1         | 1.4.0             | 1.4.0
 
 Basic functionality testing consists of account creation, object storage and
-retrieval, bucket listing operations, and Access Control List enforcement
+retrieval, bucket listing operations, and Access Control List (ACL) enforcement
 verification.
 
 Note that functional testing of Riak CS clusters operating with mixed versions
