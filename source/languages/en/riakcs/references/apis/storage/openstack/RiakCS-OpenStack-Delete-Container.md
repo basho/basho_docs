@@ -17,7 +17,7 @@ Deletes a container.
 
 ### Request Syntax
 
-```
+```http
 DELETE /<api version>/<account>/<container> HTTP/1.1
 Host: data.basho.com
 X-Auth-Token: auth_token
@@ -33,7 +33,7 @@ This operation does not return a response.
 
 A request that deletes a container named `basho-docs`.
 
-```
+```http
 DELETE /v1.0/deadbeef/basho-docs HTTP/1.1
 Host: data.basho.com
 Date: Wed, 06 Jun 2012 20:47:15 +0000
@@ -42,7 +42,7 @@ X-Auth-Token: aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
 
 ### Sample Response
 
-```
+```http
 HTTP/1.1 204 No Content
 Date: Wed, 06 Jun 2012 20:47:15 +0000
 Connection: close

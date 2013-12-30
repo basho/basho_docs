@@ -9,15 +9,15 @@ keywords: [faq]
 
 Q: What is Riak CS?
 A:
-  Riak CS is [multi-tenant](http://en.wikipedia.org/wiki/Multitenancy) cloud storage software for public and private clouds. Built on Basho's distributed database [[Riak]], Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3-API compatible and supports per-tenant reporting for billing and metering use cases.
+  Riak CS is [multi-tenant](http://en.wikipedia.org/wiki/Multitenancy) cloud storage software for public and private clouds. Built on Basho's distributed database [[Riak]], Riak CS is commercial software designed to provide simple, available, distributed cloud storage at any scale. Riak CS is S3 API compatible and supports per-tenant reporting for billing and metering use cases.
 
 Q: Can users share data?
 A:
-  Data is by default private.  Users can manipulate ACLs (Access Control Lists) to grant access for their buckets or objects to other users, or even unauthenticated requesters.
+  Data is private by default. Users can manipulate Access Control Lists (ACLs) to grant access to their buckets or objects to other users---or even to unauthenticated requesters.
 
-  For implementation details see the [[Access Control Lists]] documentation.
+  For implementation details, see the [[Access Control Lists]] documentation.
 
-Q: Is it possible to specify a file system where my Riak CS buckets will live?
+Q: Is it possible to specify a filesystem where my Riak CS buckets will live?
 A: You can specify the location of **all** Riak CS bucket data by changing the settings for Riak's backends to a path on a particular filesystem. If this is your goal, you can configure Riak to suit your environment.
 
   If you look at our example Riak `app.config` backend definition from the
@@ -39,12 +39,7 @@ A: You can specify the location of **all** Riak CS bucket data by changing the s
   ]},
   ```
 
-  What you need to change are the two `data_root` values, substituting
-  `/var/lib/riak` as shown in the above example with the path to the filesystem
-  you prefer. Please note that you should do this before starting Riak for the
-  first time; if you do make these changes after you've started Riak, the
-  previous data will not be available unless you manually move it to to the new
-  location.
+  You need to change the two `data_root` values, substituting `/var/lib/riak` as shown in the above example with the path to the filesystem you prefer. Please note that you should do this before starting Riak for the
+  first time; if you do make these changes *after* you've started Riak, the previous data will not be available unless you manually move it to to the new location.
 
-  This will allow you to change the location of all bucket data. Riak CS
-  does not yet currently support specifying per bucket filesystem granularity.
+  This will allow you to change the location of all bucket data. Riak CS does not yet currently support specifying per-bucket filesystem granularity.
