@@ -11,15 +11,11 @@ interest: false
 ---
 
 If you are deploying Riak CS in combination with an existing Riak cluster, you
-should verify that the version of Riak you are using is compatible with the
-version of Riak CS that you intend to use.
+should verify that the version of Riak that you are using is compatible with the version of Riak CS that you intend to use.
 
-It is important to note that not all versions of Riak are compatible with
-Riak CS, but a number of version combinations have been tested, are known to
-function together, and can be recommended for use.
+It is important to note that not all versions of Riak are compatible with Riak CS, but a number of version combinations have been tested, are known to function together, and can be recommended for use.
 
-The following details combinations of Riak and Riak CS versions which are
-known to function together and provides some general tips about Riak versions
+The following details combinations of Riak and Riak CS versions which are known to function together and provides some general tips about Riak versions
 for use with Riak CS.
 
 ## Unsupported Riak Versions
