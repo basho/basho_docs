@@ -66,11 +66,11 @@ future expiration time in epoch or UNIX time.
 
 #### Query String Parameters
 
-`AWSAccessKeyId` &mdash; Your Riak CS Access Key ID (**string**).
+`AWSAccessKeyId` --- Your Riak CS Access Key ID (**string**).
 
-`Expires` &mdash; The time when the signature expires, specified as the number of seconds since the epoch (**integer**).
+`Expires` --- The time when the signature expires, specified as the number of seconds since the epoch (**integer**).
 
-`Signature` &mdash; The URL encoding of the Base64 encoding of the HMAC-SHA1 of StringToSign (**string**).
+`Signature` --- The URL encoding of the Base64 encoding of the HMAC-SHA1 of StringToSign (**string**).
 
 #### Example
 

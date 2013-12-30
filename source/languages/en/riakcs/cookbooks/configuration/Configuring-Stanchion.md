@@ -16,13 +16,13 @@ If you have a single node, you don't have to change the settings for the address
 
 These settings reside in the Stanchion `app.config` file, which is located in the `/etc/stanchion` folder. The settings appear in the `stanchion` config section of the file.
 
-* `stanchion_ip` &mdash; Replace `127.0.0.1` with the IP address of the Stanchion node
+* `stanchion_ip` --- Replace `127.0.0.1` with the IP address of the Stanchion node
 
 <div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the <tt>stanchion_ip</tt> variable in the Riak <tt>app.config</tt> file and the Riak CS <tt>app.config</tt> file. </div>
 
 If you want to use a different port for Stanchion to accept connections on, you must change the following port setting:
 
-* `stanchion_port` &mdash; Replace `8085` with the port number you want to use
+* `stanchion_port` --- Replace `8085` with the port number you want to use
 
 The `stanchion_ssl` variable is set to `false` by default. If you want to use SSL, change this variable to `true`.
 
@@ -30,10 +30,10 @@ The `stanchion_ssl` variable is set to `false` by default. If you want to use SS
 
 If you have a single node, you don't have to change the setting for the Riak address because Stanchion and Riak are both on the local host. If your Riak CS system has multiple nodes, you must set the IP address and port for Riak in the Stanchion `app.config` file, which is located in the `/etc/riak-cs` folder. The settings appear in the Stanchion config section of the file.
 
-* `riak_ip` &mdash; Replace `127.0.0.1` with the IP address of the Riak node.
+* `riak_ip` --- Replace `127.0.0.1` with the IP address of the Riak node.
 
 <div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the Protocol Buffers interface in the Riak <tt>app.config</tt> file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set <tt>riak_ip</tt> to <tt>0.0.0.0</tt>. </div>
 
 If you configured Riak to use a different port for protocol buffers, change the following port setting and then restart Riak:
 
-* `riak_pb_port` &mdash; Replace `8087` with the port number set in the Riak `app.config` file.
+* `riak_pb_port` --- Replace `8087` with the port number set in the Riak `app.config` file.

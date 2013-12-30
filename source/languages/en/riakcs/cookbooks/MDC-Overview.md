@@ -22,7 +22,7 @@ In Riak CS, large objects are broken into blocks and streamed to the underlying 
 
 #### Fullsync Mode
 
-In a fullsync operation, objects are replicated from a primary Riak CS implementation to a secondary site on a configurable interval&mdash;the
+In a fullsync operation, objects are replicated from a primary Riak CS implementation to a secondary site on a configurable interval---the
 default is 6 hours. In fullsync replication, each cluster computes a hash for each key’s block value. Key/block pairs are compared, and the primary site streams any missing blocks or updates needed to the secondary site.
 
 #### Realtime Mode

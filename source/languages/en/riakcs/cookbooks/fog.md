@@ -43,7 +43,7 @@ client = Fog::RiakCS::Provisioning.new(
 ### Create User
 
 The following command creates a user, given an email or name. It will return a
-response object&mdash;or raise an error if the operation fails. The response `body` will contain a JSON document containing the user informations, while the
+response object---or raise an error if the operation fails. The response `body` will contain a JSON document containing the user informations, while the
 `key_id` is required for further operations on the user.
 
 ```ruby

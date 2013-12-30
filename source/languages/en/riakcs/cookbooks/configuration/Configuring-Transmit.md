@@ -19,13 +19,13 @@ When Transmit is started, a new connection window appears. Ensure that you've
 selected the **S3** tab, then complete the details in the **Connect to S3**
 dialog as follows:
 
-* **Server** &mdash; Enter the fully qualified domain name of the Riak CS server here. Be sure that this matches the value specified for `cs_root_host` in the Riak CS `app.config`.
+* **Server** --- Enter the fully qualified domain name of the Riak CS server here. Be sure that this matches the value specified for `cs_root_host` in the Riak CS `app.config`.
 
-* **Access Key ID** &mdash; Enter the Access Key ID (`key_id`) for the user account you will use to connect to Riak CS.
+* **Access Key ID** --- Enter the Access Key ID (`key_id`) for the user account you will use to connect to Riak CS.
 
-* **Secret** &mdash; Enter the Access Key Secret (`key_secret`) matching the user account you entered for the Access Key ID above.
+* **Secret** --- Enter the Access Key Secret (`key_secret`) matching the user account you entered for the Access Key ID above.
 
-* **Initial Path** &mdash; If you're connecting to a Riak CS instance with existing buckets to which the user account has access, you can optionally enter a specific bucket name to use for this connection here.
+* **Initial Path** --- If you're connecting to a Riak CS instance with existing buckets to which the user account has access, you can optionally enter a specific bucket name to use for this connection here.
 
 Defining a connection looks like this:
 

@@ -11,9 +11,9 @@ keywords: [operator, configuration]
 
 In a Riak CS storage system, three components work in conjunction with one another, which means that you must configure each component to work with the others:
 
-* Riak &mdash; The database system that acts as the backend storage
-* Riak CS &mdash; The cloud storage layer over Riak which exposes the storage and  billing APIs, storing files and metadata in Riak, and streaming them back to  users
-* Stanchion &mdash; Manages requests involving globally unique system entities, such as  buckets and users sent to a Riak instance, for example, to create users or to create or delete buckets
+* Riak --- The database system that acts as the backend storage
+* Riak CS --- The cloud storage layer over Riak which exposes the storage and  billing APIs, storing files and metadata in Riak, and streaming them back to  users
+* Stanchion --- Manages requests involving globally unique system entities, such as  buckets and users sent to a Riak instance, for example, to create users or to create or delete buckets
 
 In addition, you must also configure the S3 client you use to communicate with your Riak CS system.
 

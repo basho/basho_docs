@@ -40,17 +40,17 @@ Example XML representation of an ACL:
 ## Permissions
 
 ### Bucket Permissions
-* `READ` &mdash; Grantee may list the objects in the bucket
-* `READ_ACP` &mdash; Grantee may read the bucket ACL
-* `WRITE` &mdash; Grantee may create, overwrite, and delete any object in the bucket
-* `WRITE_ACP` &mdash; Grantee may write the ACL for the applicable bucket
-* `FULL_CONTROL` &mdash; Grantee has `READ`, `WRITE`, `READ_ACP`, and `WRITE_ACP` permissions on the bucket
+* `READ` --- Grantee may list the objects in the bucket
+* `READ_ACP` --- Grantee may read the bucket ACL
+* `WRITE` --- Grantee may create, overwrite, and delete any object in the bucket
+* `WRITE_ACP` --- Grantee may write the ACL for the applicable bucket
+* `FULL_CONTROL` --- Grantee has `READ`, `WRITE`, `READ_ACP`, and `WRITE_ACP` permissions on the bucket
 
 ### Object Permissions
-* `READ` &mdash; Grantee may read the object data and its metadata
-* `READ_ACP` &mdash; Grantee may read the object ACL. **Note:** The object owner may read the object ACL even if not explicitly granted `READ_ACP` permission.
-* `WRITE_ACP` &mdash; Grantee may write the ACL for the applicable object. **Note:** The object owner may write the object ACL even if not explicitly granted `WRITE_ACP` permission.
-* `FULL_CONTROL` &mdash; Grantee has `READ`, `READ_ACP`, and `WRITE_ACP` permissions on the object.
+* `READ` --- Grantee may read the object data and its metadata
+* `READ_ACP` --- Grantee may read the object ACL. **Note:** The object owner may read the object ACL even if not explicitly granted `READ_ACP` permission.
+* `WRITE_ACP` --- Grantee may write the ACL for the applicable object. **Note:** The object owner may write the object ACL even if not explicitly granted `WRITE_ACP` permission.
+* `FULL_CONTROL` --- Grantee has `READ`, `READ_ACP`, and `WRITE_ACP` permissions on the object.
 
 ## Buckets
 

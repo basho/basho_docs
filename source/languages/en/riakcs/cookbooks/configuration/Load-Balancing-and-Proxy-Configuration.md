@@ -11,8 +11,8 @@ keywords: [operator, configuration]
 If you plan on using Riak CS in production, we highly recommend that you place Riak CS behind a load-balancing or proxy solution, be it hardware or software based. Also note that you should *not* directly expose Riak CS to public-facing
 network interfaces.
 
-Riak CS users have reported success in using Riak CS with a variety of load-balancing and proxy solutions. Common solutions include proprietary hardware-based load balancers, cloud-based load-balancing options&mdash;such as Amazon's
-Elastic Load Balancer&mdash;and open-source software based projects like [HAProxy](http://haproxy.1wt.eu/) and [Nginx](http://wiki.nginx.org/Main).
+Riak CS users have reported success in using Riak CS with a variety of load-balancing and proxy solutions. Common solutions include proprietary hardware-based load balancers, cloud-based load-balancing options---such as Amazon's
+Elastic Load Balancer---and open-source software based projects like [HAProxy](http://haproxy.1wt.eu/) and [Nginx](http://wiki.nginx.org/Main).
 
 This guide briefly explores the commonly used open-source software-based
 solutions HAProxy and Nginx and provides some configuration and operational

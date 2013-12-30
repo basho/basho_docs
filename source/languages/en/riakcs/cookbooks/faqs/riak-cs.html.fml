@@ -13,7 +13,7 @@ A:
 
 Q: Can users share data?
 A:
-  Data is private by default. Users can manipulate Access Control Lists (ACLs) to grant access to their buckets or objects to other users&mdash;or even to unauthenticated requesters.
+  Data is private by default. Users can manipulate Access Control Lists (ACLs) to grant access to their buckets or objects to other users---or even to unauthenticated requesters.
 
   For implementation details, see the [[Access Control Lists]] documentation.
 

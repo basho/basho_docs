@@ -22,7 +22,7 @@ You can treat the `basho_docs` repo much like you would any other code repo.  Yo
 1. Submit a new [issue](https://github.com/basho/basho_docs/issues)
 2. (**bonus points**) Make a change and submit a pull request.
 
-To make a change&mdash;be it as simple as a typo fix or as weighty as the creation of an entirely new page full of Python client code snippets&mdash;follow these instructions:
+To make a change---be it as simple as a typo fix or as weighty as the creation of an entirely new page full of Python client code snippets---follow these instructions:
 
 1.	Clone a copy of the docs to your local machine:
 

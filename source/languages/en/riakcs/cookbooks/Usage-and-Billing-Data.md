@@ -31,9 +31,9 @@ No access data will be logged unless the user for the access is known.
 
 With nothing more than setting the user for the request, several statistics are logged automatically:
 
-* `Count` &mdash; the number of times this operation was used; each request counts as one (1)
-* `BytesIn` &mdash; the number of bytes that were included in the request body
-* `BytesOut` &mdash; the number of bytes that were sent in the response body
+* `Count` --- the number of times this operation was used; each request counts as one (1)
+* `BytesIn` --- the number of bytes that were included in the request body
+* `BytesOut` --- the number of bytes that were sent in the response body
 
 For successful requests, each of these stats is logged under the name given. For unsuccessful requests, they are logged under this name with a prefix of either `SystemError` for requests that end in response codes 500+, or `UserError` for requests that end in response codes 400-499. For example, if a user tries to download a nonexistent file, it will be logged under `UserErrorCount` with the bytes of the message logged under `UserErrorBytesOut`.
 
@@ -61,7 +61,7 @@ This level is configured by the application environment variable `access_log_flu
 
 #### Backlog Caveat
 
-If the logger finds itself so far behind that it would need to schedule its next archival in the past&mdash;that is, after sending a log accumulation for interval N to the archiver, it finds that the end of interval N+1 has already passed&mdash;the logger will drop the backlog in its message box by exiting and allowing its supervisor process to restart it. Just before exiting, it will print an error message describing how far behind it was:
+If the logger finds itself so far behind that it would need to schedule its next archival in the past---that is, after sending a log accumulation for interval N to the archiver, it finds that the end of interval N+1 has already passed---the logger will drop the backlog in its message box by exiting and allowing its supervisor process to restart it. Just before exiting, it will print an error message describing how far behind it was:
 
 ```log
 09:56:02.584 [error] Access logger is running 302 seconds behind, skipping 0 log messages to catch up
@@ -211,7 +211,7 @@ The calculation process is coordinated by a long-lived finite state machine proc
 
 When a storage calculation starts, the first step is to obtain a list of known users of the system. Each user's record contains information about the buckets that the user owns.
 
-For each bucket that a user owns, a MapReduce query is run. The query's inputs are the list of the keys in the bucket (the input is `BucketName`, so the keys stay on the server). The query then has two phases: a map that produces tuples of the form `{1, ByteSize(File)}`&mdash;if *active*; nothing if *inactive*&mdash;and a reduce that sums those tuples element-wise. The result is one tuple whose first element is the number of files in the bucket and whose second element is the total number of bytes stored in that file.
+For each bucket that a user owns, a MapReduce query is run. The query's inputs are the list of the keys in the bucket (the input is `BucketName`, so the keys stay on the server). The query then has two phases: a map that produces tuples of the form `{1, ByteSize(File)}`---if *active*; nothing if *inactive*---and a reduce that sums those tuples element-wise. The result is one tuple whose first element is the number of files in the bucket and whose second element is the total number of bytes stored in that file.
 
 Only one bucket is calculated at a time to prevent putting too much load
 on the Riak cluster. Only one user is calculated at a time as well to prevent too large of a temporary list on the Riak CS node.

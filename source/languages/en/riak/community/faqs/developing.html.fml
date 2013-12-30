@@ -224,7 +224,7 @@ A:
   Assuming that the module is in your code path, you can run `c:nl(ModName)` from the Erlang console .
 
 
-Q: How do I spread requests across&mdash;i.e. load balance&mdash;a Riak cluster?
+Q: How do I spread requests across---i.e. load balance---a Riak cluster?
 A:
   There are at least two acceptable strategies for load balancing requests across your Riak cluster: **virtual IPs** and **reverse-proxy**.
 
@@ -290,8 +290,8 @@ Q: How does the Erlang Riak Client manage node failures?
 A:
   The [[Erlang Riak Client|Client Libraries]] gives you several options for how to manage connections. You can set these when starting a `riakc_pb_socket` process or by using the `set_options` function.
 
-  * `queue_if_disconnected` (default: *false*) &mdash; requests will be queued when the connection to the server is lost.
-  * `auto_reconnect` (default: *false*) &mdash; if the connection is lost, `riakc_pb_socket` will attempt to reconnect automatically. This is set to true if `queue_if_disconnected` is true.
+  * `queue_if_disconnected` (default: *false*) --- requests will be queued when the connection to the server is lost.
+  * `auto_reconnect` (default: *false*) --- if the connection is lost, `riakc_pb_socket` will attempt to reconnect automatically. This is set to true if `queue_if_disconnected` is true.
 
   If these options are both false, connection errors will be returned to the process making requests as `{error, Reason}` tuples.
 
@@ -369,7 +369,7 @@ A:
 
 Q: Why does MapReduce return a JSON object on occasion instead of an array?
 A:
-  `mochijson2` assumes that anything that looks like a proplist&mdash;a list of 2-tuples&mdash;is turned into a hash:
+  `mochijson2` assumes that anything that looks like a proplist---a list of 2-tuples---is turned into a hash:
 
   ```erlang
   list_to_binary(mochijson2:encode([{a , b}, {foo, bar}])).
@@ -387,7 +387,7 @@ A:
   3. Run `search-cmd clear-schema-cache`
   4. Repopulate the bucket
 
-  This will clear the schema on connected nodes. However, if a network partition results in an unreachable&mdash;but still running&mdash;node, then that node will continue to use the old cached version of the schema.
+  This will clear the schema on connected nodes. However, if a network partition results in an unreachable---but still running---node, then that node will continue to use the old cached version of the schema.
 
 Q: How do I index objects that are already in a bucket?
 A:

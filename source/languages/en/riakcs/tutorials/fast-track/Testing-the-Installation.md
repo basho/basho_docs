@@ -43,10 +43,10 @@ If you are already using `s3cmd` on your local machine, the `-c` switch allows y
 
 There are 4 default settings you should change:
 
-* Access Key &mdash; Use the Riak CS user access key you generated above.
-* Secret Key &mdash; Use the Riak CS user secret key you generated above.
-* Proxy Server &mdash; Use your Riak CS IP. If you followed the Virtual environment configuration, use `localhost`.
-* Proxy Port &mdash; The default Riak CS port is `8080`.
+* Access Key --- Use the Riak CS user access key you generated above.
+* Secret Key --- Use the Riak CS user secret key you generated above.
+* Proxy Server --- Use your Riak CS IP. If you followed the Virtual environment configuration, use `localhost`.
+* Proxy Port --- The default Riak CS port is `8080`.
 
 You should have copied your Access Key and Secret Key from the prior installation steps.
 

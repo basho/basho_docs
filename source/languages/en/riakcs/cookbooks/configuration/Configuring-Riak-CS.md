@@ -54,11 +54,11 @@ If you have a single node, you don't have to change the settings for the address
 
 The public address settings reside in the Riak CS `app.config` file, which is located in the `/etc/riak-cs` directory. The settings appear in the Riak CS config section of the file.
 
-* `riak_ip` &mdash; Replace `127.0.0.1` with the IP address of the Riak node you want Riak CS to connect to
+* `riak_ip` --- Replace `127.0.0.1` with the IP address of the Riak node you want Riak CS to connect to
 
 If you configured Riak to use a different port for protocol buffers, you must change the following port setting:
 
-* `riak_pb_port` &mdash; Replace `8087` with the port number set in the variable `pb_port` in the Riak `app.config` file
+* `riak_pb_port` --- Replace `8087` with the port number set in the variable `pb_port` in the Riak `app.config` file
 
 <div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the Protocol Buffers interface in the Riak <tt>app.config</tt> file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set <tt>riak_ip</tt> to <tt>0.0.0.0</tt>.</div>
 
@@ -70,11 +70,11 @@ If you have a single node, you don't have to change the Stanchion settings becau
 
 The Stanchion settings reside in the Riak CS `app.config` file, which is located in the `/etc/Riak-CS` directory. The settings appear in the Riak CS config section of the file.
 
-* `stanchion_ip` &mdash; Replace `127.0.0.1` with the IP address of the Stanchion node
+* `stanchion_ip` --- Replace `127.0.0.1` with the IP address of the Stanchion node
 
 If you configured Stanchion to use a different port, you must change the following port setting:
 
-* `stanchion_port` &mdash; Replace `8085` with the port number set in the variable `stanchion_port` in the Stanchion `app.config` file
+* `stanchion_port` --- Replace `8085` with the port number set in the variable `stanchion_port` in the Stanchion `app.config` file
 
 The `stanchion_ssl` variable is set to `false` by default. If you want to use SSL, change this variable to `true`.
 
@@ -147,10 +147,10 @@ performance for Riak CS when using Riak 1.4.0 or later. These options
 take advantage of additions to Riak that are not present prior to
 version 1.4.0.
 
-* `fold_objects_for_list_keys` &mdash; Setting this option to `true` enables
+* `fold_objects_for_list_keys` --- Setting this option to `true` enables
 Riak CS to use a more efficient method of retrieving Riak CS bucket contents from Riak. Using this option provides improved performance and stability, especially for buckets that contain on the order of millions of objects or more. This option should not be enabled unless Riak 1.4.0 or greater is being used. The default value for this option is `false`.
 
-* `n_val_1_get_requests` &mdash; This option causes Riak CS to use a special
+* `n_val_1_get_requests` --- This option causes Riak CS to use a special
 request option when retrieving the blocks of an object. This option instructs Riak to only send a request for the object block to a single eligible virtual node (vnode) instead of all eligible vnodes. This differs from the standard `r` request option that Riak provides in that `r` affects how many vnode responses to wait for before returning and has no effect on how many vnodes are actually contacted. Enabling this option has the effect of greatly reducing the intra-cluster bandwidth used by Riak when retrieving objects with Riak CS. This option is harmless when used with a version of Riak prior to 1.4.0, but the option to disable it is provided as a safety measure. The default value for this option is `true`.
 {{/1.4.0+}}
 

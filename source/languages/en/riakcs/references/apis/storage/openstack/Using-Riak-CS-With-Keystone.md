@@ -6,9 +6,9 @@ Riak CS can be configured to use either the OpenStack Object Storage API or the 
 
 In a system that uses Keystone for authentication, there are three main entity types to be aware of: `tenants`, `users`, and `roles`.
 
-* **tenant** &mdash; A tenant is a collection entity that can contain a number of users
-* **user** &mdash; A user represents an individual that uses the OpenStack system
-* **role** &mdash; A role is used to define a link between a user and a tenant and to indicate permissions of the user within that tenant
+* **tenant** --- A tenant is a collection entity that can contain a number of users
+* **user** --- A user represents an individual that uses the OpenStack system
+* **role** --- A role is used to define a link between a user and a tenant and to indicate permissions of the user within that tenant
 
 The OpenStack `tenant_id` maps to a `key_id` to identify a user account in Riak CS. In OpenStack, only users who are assigned an *operator* role for a tenant may perform operations. Other users that belong to a tenant may be granted access using ACLs.
 

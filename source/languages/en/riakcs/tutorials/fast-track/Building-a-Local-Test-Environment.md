@@ -278,9 +278,9 @@ $ riak-cs ping
 
 Creating the admin user is an optional step, but it's a good test of our new services. Creating a Riak CS user requires two inputs:
 
-1. Name &mdash; A URL-encoded string. Example: `admin%20user`
+1. Name --- A URL-encoded string. Example: `admin%20user`
 
-2. Email &mdash; A unique email address. Example: `admin@admin.com`
+2. Email --- A unique email address. Example: `admin@admin.com`
 
 To create an admin user, we need to grant permission to create new
 users to the "anonymous" user. This configuration setting is only required on a single Riak CS node.

@@ -135,8 +135,8 @@ The result of the storage query is one or more "samples" for each time slice in 
 
 The other entries of each sample are the buckets the user owned during the sampled time. Bucket statistics are provided as rollups including each of the following fields:
 
-* `Objects` &mdash; the number of active&mdash;not deleted and not incompletely uploaded&mdash;files in the bucket
-* `Bytes` &mdash; the total of number of bytes stored in the files of the bucket
+* `Objects` --- the number of active---not deleted and not incompletely uploaded---files in the bucket
+* `Bytes` --- the total of number of bytes stored in the files of the bucket
 
 For example, a user that owns two buckets, `foo` and `bar`, where `foo` contains one 32MB file and `bar` contains 4 32MB files, would have a sample similar to the following.
 

@@ -17,7 +17,7 @@ Riak exposes monitoring data via JMX.  To enable JMX monitoring, edit the `[[app
       ]}
 ```
 
-To view JMX data&mdash;assuming that you have the Sun JDK installed&mdash;launch JConsole as follows:
+To view JMX data---assuming that you have the Sun JDK installed---launch JConsole as follows:
 
 ```bash
 $ jconsole <hostname_to_monitor>:<jmx_port>

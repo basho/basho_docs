@@ -296,16 +296,16 @@ Each node entry will contain one or more "samples" for each time slice that the 
 
 The other entries of each sample are the operations the user performed during the sampled time. Operation statistics are provided as rollups for each operation type. The rollup includes one or more of the following fields:
 
-* `Count` &mdash; the number of times this operation was used successfully
-* `UserErrorCount` &mdash; the number of times this operation was used but ended in a 400-499 response code
-* `SystemErrorCount` &mdash; the number of times this operation was used but ended in a 500-599 response code
-* `BytesIn` &mdash; the number of bytes that were included in the request bodies of successful operations
-* `UserErrorBytesIn` &mdash; the number of bytes that were included in the request bodies of operations that ended in 400-499 response codes
-* `SystemErrorBytesIn` &mdash; the number of bytes that were included in the request bodies of operations that ended in 500-599 response codes
-* `BytesOut` &mdash; the number of bytes that were included in the response bodies of successful operations
-* `UserErrorBytesOut` &mdash; the number of bytes that were included in the response bodies of operations that ended in 400-499 response codes
-* `SystemErrorBytesOut` &mdash; the number of bytes that were included in the response bodies of operations that ended in 500-599 response codes
-* `BytesOutIncomplete` &mdash; the number of bytes that were sent in response bodies before the client disconnected, if there was more that could have been sent afterward (i.e. the byte count of partial downloads)
+* `Count` --- the number of times this operation was used successfully
+* `UserErrorCount` --- the number of times this operation was used but ended in a 400-499 response code
+* `SystemErrorCount` --- the number of times this operation was used but ended in a 500-599 response code
+* `BytesIn` --- the number of bytes that were included in the request bodies of successful operations
+* `UserErrorBytesIn` --- the number of bytes that were included in the request bodies of operations that ended in 400-499 response codes
+* `SystemErrorBytesIn` --- the number of bytes that were included in the request bodies of operations that ended in 500-599 response codes
+* `BytesOut` --- the number of bytes that were included in the response bodies of successful operations
+* `UserErrorBytesOut` --- the number of bytes that were included in the response bodies of operations that ended in 400-499 response codes
+* `SystemErrorBytesOut` --- the number of bytes that were included in the response bodies of operations that ended in 500-599 response codes
+* `BytesOutIncomplete` --- the number of bytes that were sent in response bodies before the client disconnected, if there was more that could have been sent afterward (i.e. the byte count of partial downloads)
 
 It is important to note that accesses are only logged when the Webmachine request finishes. This means that, for example, an upload started in one time slice but ended in another will only add to the "bytes in" field for the time slice in which in finished, rather than splitting the statistics between the slices in which they actually
 happened.
@@ -314,33 +314,33 @@ happened.
 
 The operation types that are currently tracked are the following:
 
-* `ListBuckets` &mdash; lists a user's buckets (`GET /`)
-* `UsageRead` &mdash; reads a user's usage statistics
+* `ListBuckets` --- lists a user's buckets (`GET /`)
+* `UsageRead` --- reads a user's usage statistics
 {{#1.3.0-}} (`GET /usage/user/*`) {{/1.3.0-}}
 {{#1.3.0+}} (`GET /riak-cs/usage/user/*`) {{/1.3.0+}}
-* `BucketRead` &mdash; lists the files in a bucket (`GET /bucket`)
-* `BucketStat` &mdash; checks for the existence of a bucket (`HEAD /bucket`)
-* `BucketCreate` &mdash; creates a bucket (`PUT /bucket`)
-* `BucketDelete` &mdash; deletes a bucket (`DELETE /bucket`)
-* `BucketUnknown` &mdash; unknown bucket operation (`?? /bucket`)
-* `BucketReadACL` &mdash; retrieves the ACL of a bucket (`GET /bucket?acl`)
-* `BucketStatACL` &mdash; checks for the existence of a bucket (`HEAD /bucket?acl`)
-* `BucketWriteACL` &mdash; changes the ACL of a bucket (`PUT /bucket?acl`)
-* `BucketUnknownACL` &mdash; unknown bucket ACL operation (`?? /bucket?acl`)
-* `KeyRead` &mdash; fetches an object (`GET /bucket/key`)
-* `KeyStat` &mdash; checks for the existence of an object (`HEAD /bucket/key`)
-* `KeyWrite` &mdash; uploads an object (`PUT /bucket/key`)
-* `KeyDelete` &mdash; deletes an object (`DELETE /bucket/key`)
-* `KeyUnknown` &mdash; unknown object operation (`?? /bucket/key`)
-* `KeyReadACL` &mdash; retrieves the ACL of a key (`GET /bucket/key?acl`)
-* `KeyStatACL` &mdash; checks for the existence of an object (`HEAD /bucket/key?acl`)
-* `KeyWriteACL` &mdash; changes the ACL of an object (`PUT /bucket/key?acl`)
-* `KeyUnknownACL` &mdash; unknown key ACL operation (`?? /bucket/key?acl`)
-* `UnknownGET` &mdash; a `GET` was issued on an unrecognized resource; likely means that the `riak_cs_access_logger:operation/1` function is out of date
-* `UnknownHEAD` &mdash; see `UnknownGET`
-* `UnknownPUT` &mdash; see `UnknownGET`
-* `UnknownPOST` &mdash; see `UnknownGET`
-* `UnknownDELETE` &mdash; see `UnknownGET`
+* `BucketRead` --- lists the files in a bucket (`GET /bucket`)
+* `BucketStat` --- checks for the existence of a bucket (`HEAD /bucket`)
+* `BucketCreate` --- creates a bucket (`PUT /bucket`)
+* `BucketDelete` --- deletes a bucket (`DELETE /bucket`)
+* `BucketUnknown` --- unknown bucket operation (`?? /bucket`)
+* `BucketReadACL` --- retrieves the ACL of a bucket (`GET /bucket?acl`)
+* `BucketStatACL` --- checks for the existence of a bucket (`HEAD /bucket?acl`)
+* `BucketWriteACL` --- changes the ACL of a bucket (`PUT /bucket?acl`)
+* `BucketUnknownACL` --- unknown bucket ACL operation (`?? /bucket?acl`)
+* `KeyRead` --- fetches an object (`GET /bucket/key`)
+* `KeyStat` --- checks for the existence of an object (`HEAD /bucket/key`)
+* `KeyWrite` --- uploads an object (`PUT /bucket/key`)
+* `KeyDelete` --- deletes an object (`DELETE /bucket/key`)
+* `KeyUnknown` --- unknown object operation (`?? /bucket/key`)
+* `KeyReadACL` --- retrieves the ACL of a key (`GET /bucket/key?acl`)
+* `KeyStatACL` --- checks for the existence of an object (`HEAD /bucket/key?acl`)
+* `KeyWriteACL` --- changes the ACL of an object (`PUT /bucket/key?acl`)
+* `KeyUnknownACL` --- unknown key ACL operation (`?? /bucket/key?acl`)
+* `UnknownGET` --- a `GET` was issued on an unrecognized resource; likely means that the `riak_cs_access_logger:operation/1` function is out of date
+* `UnknownHEAD` --- see `UnknownGET`
+* `UnknownPUT` --- see `UnknownGET`
+* `UnknownPOST` --- see `UnknownGET`
+* `UnknownDELETE` --- see `UnknownGET`
 
 ### Lookup Errors
 

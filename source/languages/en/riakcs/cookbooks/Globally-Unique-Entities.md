@@ -18,7 +18,7 @@ a Riak CS system and any attempts to create a bucket with a name that is already
 
 The uniqueness of these entities is enforced by serializing any creation or modification requests that involve them. The request serialization application for the Riak CS system is called [Stanchion](https://github.com/basho/stanchion). More specific details on its implementation can be found in its [README](https://github.com/basho/stanchion/blob/master/README.org) file.
 
-Uniqueness is further enforced by mandating that all of the primary vnodes of the underlying Riak cluster that are responsible for the user or bucket being created be available at creation time. One result of this enforcement is that user creation requests and bucket creation or modification&mdash;i.e. deletion&mdash;requests are not highly available like other Riak CS system operations. 
+Uniqueness is further enforced by mandating that all of the primary vnodes of the underlying Riak cluster that are responsible for the user or bucket being created be available at creation time. One result of this enforcement is that user creation requests and bucket creation or modification---i.e. deletion---requests are not highly available like other Riak CS system operations. 
 
 If the Stanchion application is unavailable or cannot be reached for any reason, the aforementioned user and bucket operations will not be allowed to complete. Additionally, instability in the Riak cluster may lead to user and bucket requests being disallowed. This would be indicated by error messages similar to this in the Stanchion console or error log files:
 

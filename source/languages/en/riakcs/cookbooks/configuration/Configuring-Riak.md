@@ -88,11 +88,11 @@ The Riak protocol buffer settings reside in the Riak `app.config` file, which is
 
 {{#1.4.0-}}
 
-* `pb_ip` &mdash; Replace `127.0.0.1` with the IP address of the Riak node.
+* `pb_ip` --- Replace `127.0.0.1` with the IP address of the Riak node.
 
 If you need to use a different port:
 
-* `pb_port` &mdash; Replace `8087` with the port number you want to use.
+* `pb_port` --- Replace `8087` with the port number you want to use.
 
 The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the
 values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
@@ -101,7 +101,7 @@ values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config
 
 {{#1.4.0+}}
 
-* `pb` &mdash; Replace `127.0.0.1` with the IP address of the Riak node:
+* `pb` --- Replace `127.0.0.1` with the IP address of the Riak node:
 
     ```erlang
     {pb, [ {"10.11.4.203", 8087 } ]}
@@ -117,7 +117,7 @@ The `pb` values in the Riak `app.config` file must match the values for `riak_ip
 
 It is also recommended that you increase the size of Riak's `pb_backlog` to be greater than the size of `request_pool` specified in the Riak CS `app.config` file.
 
-* `pb_backlog` &mdash; Replace the default Riak configuration
+* `pb_backlog` --- Replace the default Riak configuration
 
     ```erlang
     %% {pb_backlog, 64}, 

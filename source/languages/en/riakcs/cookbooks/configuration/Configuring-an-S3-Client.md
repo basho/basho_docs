@@ -121,8 +121,8 @@ To configure the `s3cmd` client for the user, you must change the `access_key` a
 
 By default, the `.s3cfg` file uses the Amazon S3 service as the storage backend. For a Riak CS system, change the following settings to point to your storage system:
 
-* `host_base` &mdash; Specify the domain name or the path to your data storage, such as data.example.com.
-* `host_bucket` &mdash; Specify the bucket location, such as `%(bucket)s.data.example.com`.
+* `host_base` --- Specify the domain name or the path to your data storage, such as data.example.com.
+* `host_bucket` --- Specify the bucket location, such as `%(bucket)s.data.example.com`.
 
 ### Enabling SSL in the Client
 

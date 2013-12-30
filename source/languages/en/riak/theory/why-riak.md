@@ -22,7 +22,7 @@ moved: {
 
 Riak is a distributed database designed to deliver maximum data availability by distributing data across multiple servers. As long as your client can reach *one* Riak server, it should be able to write data. In most failure scenarios, the data you want to read should be available, although it may not be the most up-to-date version of that data.
 
-This fundamental tradeoff&mdash;high availability in exchange for possibly outdated information&mdash;informs the key architectural decisions behind Riak. This idea of "eventual consistency" is a common one in distributed systems, with DNS and web caches as two notable examples.
+This fundamental tradeoff---high availability in exchange for possibly outdated information---informs the key architectural decisions behind Riak. This idea of "eventual consistency" is a common one in distributed systems, with DNS and web caches as two notable examples.
 
 
 ### Basho's goals for Riak
@@ -41,7 +41,7 @@ If your data does not fit on a single server and demands a distributed database 
 
 In essence, Riak's focus on availability makes it a good fit whenever downtime is unacceptable. No one can promise 100% uptime, but Riak is designed to survive network partitions and hardware failures that would significantly disrupt most databases.
 
-A less-heralded feature of Riak is its predictable latency. Because its fundamental operations&mdash;read, write, and delete&mdash;do not involve complex data joins or locks, it services those requests promptly. Thanks to this capability Riak is often selected as a data storage backend for other data management software from a variety of paradigms.
+A less-heralded feature of Riak is its predictable latency. Because its fundamental operations---read, write, and delete---do not involve complex data joins or locks, it services those requests promptly. Thanks to this capability Riak is often selected as a data storage backend for other data management software from a variety of paradigms.
 
 ### When Riak is Less of a Good Fit
 
@@ -51,7 +51,7 @@ Nonetheless, if explosive growth is a possibility, you are always highly advised
 
 Riak's simple data model, consisting of keys and values as its atomic elements, means that your data must be denormalized if your system is to be reasonably performant. For most applications this is not a serious hurdle. But if your data simply cannot be effectively managed as keys and values Riak will most likely not be the best fit for you.
 
-On a related note: while Riak offers ways to find values that match certain criteria, if your application demands a high query load by any means other than the keys&mdash;e.g. SQL-style `SELECT * FROM table` operations&mdash;Riak will not be as efficient as other databases. If you wish to compare Riak with other data technologies, Basho offers a tool called **basho_bench** to help measure its performance so that you can decide whether the availability and operational benefits of Riak outweigh its disadvantages.
+On a related note: while Riak offers ways to find values that match certain criteria, if your application demands a high query load by any means other than the keys---e.g. SQL-style `SELECT * FROM table` operations---Riak will not be as efficient as other databases. If you wish to compare Riak with other data technologies, Basho offers a tool called **basho_bench** to help measure its performance so that you can decide whether the availability and operational benefits of Riak outweigh its disadvantages.
 
 ## How Does a Riak Cluster Work?
 
@@ -93,7 +93,7 @@ Hinted handoff enables Riak to handle node failure. If a node goes down, a neigh
 
 ### Version Conflicts
 
-In any system that replicates data, conflicts can arise, for example when two clients update the same object at the exact same time or when not all updates have yet reached hardware that is experiencing lag. Furthermore, in Riak, replicas are "eventually consistent," meaning that while data is always available, not all replicas may have the most recent update at the exact same time, causing brief periods&mdash;generally on the order of milliseconds&mdash;of inconsistency while all state changes are synchronized.
+In any system that replicates data, conflicts can arise, for example when two clients update the same object at the exact same time or when not all updates have yet reached hardware that is experiencing lag. Furthermore, in Riak, replicas are "eventually consistent," meaning that while data is always available, not all replicas may have the most recent update at the exact same time, causing brief periods---generally on the order of milliseconds---of inconsistency while all state changes are synchronized.
 
 How is this divergence addressed? When you make a read request, Riak looks up all replicas for that object. By default, Riak will return the most recently updated version, determined by looking at the object's vector clock. Vector clocks are metadata attached to each replica when it is created. They are extended each time a replica is updated to keep track of versions. You can also allow clients to resolve conflicts themselves if that is a better fit for your use case.
 

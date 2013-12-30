@@ -35,7 +35,7 @@ The default settings will cause Riak and Riak CS to be installed and configured 
 ### Package Installation
 
 There are two options for installation: `package` and `enterprise_package`.
-`package` is the default&mdash; it installs Riak CS open source&mdash;and is the recommended option for Red Hat- and Debian-based operating systems. For source installations of Riak, Erlang/OTP R15B01 and above is recommended.
+`package` is the default--- it installs Riak CS open source---and is the recommended option for Red Hat- and Debian-based operating systems. For source installations of Riak, Erlang/OTP R15B01 and above is recommended.
 
 ### Enterprise Installation
 
