@@ -140,7 +140,7 @@ The other entries of each sample are the buckets the user owned during the sampl
 
 For example, a user that owns two buckets, `foo` and `bar`, where `foo` contains one 32MB file and `bar` contains 4 32MB files, would have a sample similar to the following.
 
-Sample responses (reformatted for easy reading:
+Sample responses (reformatted for easy reading):
 
 ```json
 {
