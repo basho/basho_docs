@@ -184,8 +184,6 @@ Sample responses (reformatted for easy reading):
 }
 ```
 
-XML:
-
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
   <Usage>
