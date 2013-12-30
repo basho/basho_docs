@@ -7,7 +7,7 @@ toc: true
 index: true
 keywords: [comparisons, emc, atmos]
 ---
-The purpose of this comparison is not to serve as an introduction to Riak CS and EMC Atmos, or their commonalities, but rather to enumerate interesting differences between the two systems. The intended audience for this document is someone who has a basic understanding of both systems.
+The purpose of this comparison is not to serve as an introduction to Riak CS and EMC Atmos, or their commonalities, but rather to enumerate interesting differences between the two systems. This document is intended for those who already have a basic understanding of both systems.
 
 If you feel that this comparison is unfair to either of these technologies, please [submit an issue on GitHub](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
