@@ -11,6 +11,7 @@ keywords: [mdc, repl, os]
 Depending on the size of your objects and your replication latency needs, you may need to configure your kernel settings to optimize throughput.
 
 ## Linux
+<<<<<<< HEAD
 
 The following settings in `/etc/sysctl.conf` on Linux have provided very good throughput and latency. These settings are especially helpful when you have more than ~40ms network latency.
 
@@ -28,6 +29,9 @@ To reload these settings at runtime:
 ```bash
 $ sysctl -p /etc/sysctl.conf
 ``` 
+=======
+Refer to the Kernel and Network Tuning section of [[Linux Performance Tuning|Linux Performance Tuning#Linux-Tuning]]
+>>>>>>> 902544658ca3dcc24de86249c34d4ac40fb05482
 
 ## Solaris
 On Solaris, the following settings are suggested.
