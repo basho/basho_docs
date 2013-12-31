@@ -182,7 +182,7 @@ Due to the large number of open files used by this storage engine is it imperati
 
 #### Cache Size
 
-The cache_size determines the size of each vnode's block cache. The block cache holds data blocks that leveldb has recently retrieved from `.sst` table files. Any given block contains one or more complete key/value pairs. The cache speeds up repeat access to the same key and potential access to adjacent keys.
+The cache_size determines the size of each vnode's block cache. The block cache holds data blocks that LevelDB has recently retrieved from `.sst` table files. Any given block contains one or more complete key/value pairs. The cache speeds up repeat access to the same key and potential access to adjacent keys.
 
 <div class="note"><div class="title">Riak 1.2 bug</div>
 <p>A bug exists in Riak 1.2 where read performance is dramatically reduced if this value is greater than the default 8,388,608.  The bug was fixed in 1.3 and the cache performance tested well to values as high as 2 gigabytes.</p>
@@ -262,12 +262,12 @@ Default: 8MB
 
 ### Write Performance/Write safety
 
-These values can be adjusted to tune between write performance, and write saftey. The general rule is, the faster you want your writes perform (eg., a larger buffer), the less safe they are (more data could be lost in a crash).
+These values can be adjusted to tune between write performance, and write safety. The general rule is, the faster you want your writes perform (e.g. a larger buffer), the less safe they are (more data could be lost in a crash).
 
 #### Sync
 
 {{#1.4.0+}}
-This parameter defines how new key/value data is placed in the recovery log.  The recovery log is only used if the Riak program crashes or the server loses power unexpectedly.  The parameter's original intent was to guarantee that each new key / value was written to the physical disk before leveldb responded with "write good".  The reality in modern servers is that many layers of data caching exist between the database program and the physical disks.  This flag influences only one of the layers.
+This parameter defines how new key/value data is placed in the recovery log.  The recovery log is only used if the Riak program crashes or the server loses power unexpectedly.  The parameter's original intent was to guarantee that each new key / value was written to the physical disk before LevelDB responded with "write good".  The reality in modern servers is that many layers of data caching exist between the database program and the physical disks.  This flag influences only one of the layers.
 
 Setting this flag `true` guarantees the write operation will be slower, but does not actually guarantee the data was written to the physical device.  The data has likely been flushed from the operating system cache to the disk controller.  The disk controller may or may not save the data if the server power fails.  Setting this flag "false" allows faster write operations and depends upon the operating system's memory mapped I/O conventions to provide reasonable recovery should the Riak program fail, but not if server power fails.
 {{/1.4.0+}}
@@ -310,7 +310,7 @@ Each vnode first stores new key/value data in a memory based write buffer.  This
 
 If unspecified in [[app.config|Configuration Files]], eLevelDB will default to a `write_buffer_size_min` of 31,457,280 Bytes (30 MB) and `write_buffer_size_max` of 62,914,560 Bytes (60 MB).  In this case, the average write buffer will be 47,185,920 bytes (45 MB).
 
-Other portions of Basho's leveldb tuning assume these two values have the default values. Changing the values higher or lower will likely impact overall write throughput in a negative fashion.
+Other portions of Basho's LevelDB tuning assume these two values have the default values. Changing the values higher or lower will likely impact overall write throughput in a negative fashion.
 
 ```erlang
 {eleveldb, [
@@ -331,18 +331,23 @@ Larger write buffers increase performance, especially during bulk loads.  Up to 
 
 These parameters can be set/adjusted to increase read performance.
 
-The `block_size` and `block_restart_interval` parameters determine how leveldb will organize the key space within each `.sst` table file.  The defaults are very good for all researched cases and therefore recommended.
+The `block_size` and `block_restart_interval` parameters determine how LevelDB will organize the key space within each `.sst` table file.  The defaults are very good for all researched cases and therefore recommended.
 
-#### Bloomfilter
+#### Bloom filter
 
-Each database `.sst` table file can include an optional "bloom filter" that is highly effective in shortcutting data queries that are destined to not find the requested key. The `bloom_filter` typically increases the size of an `.sst` table file by about 2%. This option must be set to `true` in the app.config to take effect.
+Each database `.sst` table file includes an optional Bloom filter that is highly effective in shortcutting queries for keys that are not present. The Bloom filter typically increases the size of an `.sst` table file by about 2%. To disable this feature, this option must be set to `false` in the app.config explicitly. 
 
 Default: `true`
 
 ```erlang
 {eleveldb, [
     ...,
-    {use_bloomfilter, true},
+    %% Disabling the Bloom filter in LevelDB will marginally decrease
+    %% file size at the expense of increased lookup time for misses.
+    %% Running with the Bloom filter disabled is generally not 
+    %% recommended and must be tested aggressively with your workload 
+    %% to determine the impacts to your application's performance. 
+    {use_bloomfilter, false},   
     ...
 ]}
 ```
@@ -407,11 +412,11 @@ Default: `16`
 
 ### Database Integrity
 
-The `verify_checksums` and `verify_compactions` options control whether or not each data block from the disk is first validated via a CRC32c checksum.  The tradeoff is this:  disk read operations are slightly faster without the CRC32c validation, but it is quite likely Riak will crash if a corrupted block is passed from the disk to leveldb unvalidated.
+The `verify_checksums` and `verify_compactions` options control whether or not each data block from the disk is first validated via a CRC32c checksum.  The tradeoff is this:  disk read operations are slightly faster without the CRC32c validation, but it is quite likely Riak will crash if a corrupted block is passed from the disk to LevelDB unvalidated.
 
 #### Verify Checksums
 
-`verify_checksums` controls whether or not validation occurs when Riak requests data from the leveldb database on behalf of the user.
+`verify_checksums` controls whether or not validation occurs when Riak requests data from the LevelDB database on behalf of the user.
 
 {{#1.4.0-}}
 Default: `false`
@@ -430,7 +435,7 @@ Default: `true`
 
 #### Verify Compaction
 
-`verify_compaction` controls whether or not validation occurs when leveldb reads data as part of its background compaction operations.
+`verify_compaction` controls whether or not validation occurs when LevelDB reads data as part of its background compaction operations.
 
 Default: `true`
 
