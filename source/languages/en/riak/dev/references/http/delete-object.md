@@ -57,12 +57,12 @@ and not finding the resource has the same effect as deleting it.
 
 ## Example
 
-```bash
-$ curl -v -X DELETE http://127.0.0.1:8098/riak/test/test2
+```curl
+$ curl -v -X DELETE http://127.0.0.1:8098/buckets/test/keys/test2
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> DELETE /riak/test/test2 HTTP/1.1
+> DELETE /buckets/test/keys/test2 HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*

@@ -162,13 +162,15 @@ fetchedBook = booksBucket.get(book['isbn'])
 print(fetchedBook.encoded_data)
 ```
 
-```javascript
+JSON!  The Riak Python client library encodes things as JSON when it can.
+
+```json
 {"body": "Call me Ishmael. Some years ago...",
 "author": "Herman Melville", "isbn": "1111979723",
 "copies_owned": 3, "title": "Moby Dick"}
 ```
 
-JSON!  The Riak Python client library encodes things as JSON when it can.  If we wanted to get a deserialized object back we would just use the regular `fetchedBook.data` method.
+If we wanted to get a deserialized object back we would just use the regular `fetchedBook.data` method.
 
 Finally let’s clean up our mess:
 
@@ -177,7 +179,7 @@ fetchedBook.delete()
 ```
 
 ###Next Steps
-More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. In the next chapter we will look at how to store and query more complicated and interconnected data, such as documents.  
+More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [[In the next chapter|Taste of Riak: Querying]] we will look at how to store and query more complicated and interconnected data, such as documents.  
 
 
 

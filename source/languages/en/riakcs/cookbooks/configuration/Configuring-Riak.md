@@ -10,24 +10,24 @@ keywords: [operator, configuration]
 
 The default backend used by Riak is the Bitcask backend, but the Riak CS package includes a special backend that should be used by the Riak cluster that is part of the Riak CS system. It is a custom version of the standard multi backend that ships with Riak.
 
-Some of the Riak buckets used internally by Riak CS use secondary indexes, which currently requires the eLevelDB backend. Other parts of the Riak CS system can benefit more from the use of the Bitcask backend. The use of the custom multi backend enables Riak CS to take advantage of the strengths of both of these backends to achieve the best blend of performance and features. The next section covers how to properly setup Riak to use this multi backend.
+Some of the Riak buckets used internally by Riak CS use secondary indexes, which currently requires the [[eLevelDB|LevelDB]] backend. Other parts of the Riak CS system can benefit from the use of the Bitcask backend. The use of the custom multi backend enables Riak CS to take advantage of the strengths of both of these backends to achieve the best blend of performance and features. The next section covers how to properly set up Riak to use this multi backend.
 
-Additionally, the Riak CS storage calculation system uses Riak's MapReduce to sum the files in a bucket. This means you must tell all of your Riak nodes where to find Riak CS's compiled files before calculating storage.
+Additionally, the Riak CS storage calculation system uses Riak's MapReduce to sum the files in a bucket. This means that you must tell all of your Riak nodes where to find Riak CS's compiled files before calculating storage.
 
-A few other settings must be modified to configure a Riak node as part of a Riak CS system: the node IP address and the IP address and port to use for communicating through protocol buffers. Other settings can be modified if necessary. The following sections describe how to configure a Riak node to work as part of a Riak CS system.
+A few other settings must be modified to configure a Riak node as part of a Riak CS system, such as the node IP address and the IP address and port to use for communicating through protocol buffers. Other settings can be modified if necessary. The following sections describe how to configure a Riak node to work as part of a Riak CS system.
 
 ## Setting up the Proper Riak Backend
 
-First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv `section. The `app.config `file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
+First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv `section. The `app.config` file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
 
-```
+```erlang
 {storage_backend, riak_kv_bitcask_backend},
 ```
 
 Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the custom multi backend. Continue editing Riak's `app.config` file, and add this to the `riak_kv` section:
 
-```
-{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin"]},
+```erlang
+{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
 {storage_backend, riak_cs_kv_multi_backend},
 {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
 {multi_backend_default, be_default},
@@ -42,61 +42,100 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 ]},
 ```
 
-where **X.Y.Z** is the version of Riak CS you have installed.
+where **X.Y.Z** is the version of Riak CS that you have installed.
 
-Note that this assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
-Next, add this to the **riak_core** section of `app.config`:
+<div class="note"><div class="title">Note</div>The path for <tt>add_paths</tt> may be <tt>/usr/lib/riak-cs</tt> or <tt>/usr/lib64/riak-cs</tt> depending on your operating system.</div>
 
-    {default_bucket_props, [{allow_mult, true}]},
+Next, add this to the `riak_core` section of `app.config`:
 
-You should never set `allow_mult` to any value other than true. If this is not
-set to `true`, certain writes will be chosen arbitrarily by timestamp,
+```erlang
+{default_bucket_props, [{allow_mult, true}]},
+```
+
+You should never set `allow_mult` to any value other than `true`. If this is not set to `true`, certain writes will be chosen arbitrarily by timestamp,
 potentially leading to data loss and other inconsistencies.
 
-{{#1.4.0+}} <div class="note"><div class="title">Note</div> As of version 1.4,
-Riak CS will refuse to start if `allow_mult` is not set to `true`.</div>
+{{#1.4.0+}} <div class="note"><div class="title">Note</div>As of version 1.4,
+Riak CS will refuse to start if <tt>allow_mult</tt> is not set to <tt>true</tt>.</div>
 {{/1.4.0+}}
 
 Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak and connect to its console (using `riak attach`), then run:
 
-```
+```erlang
 (riak@127.0.0.1)1> code:which(riak_cs_kv_multi_backend).
 "/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/riak_cs_kv_multi_backend.beam"
 ```
 
-If the path that you added to Riak's `app.config` is returned, your node is configured correct. If instead, the atom **`non_existing`** is returned, Riak was unable to find the Riak CS code.
+If the path that you added to Riak's `app.config` is returned, your node is configured correctly. If the atom `non_existing` is returned instead, then Riak was unable to find the Riak CS code.
 
-<div class="note"><div class="title">Note</div>It is important to use `CTRL+D` to detach the console and leave Riak running after doing a `riak attach`. `CTRL+C` will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
+<div class="note"><div class="title">Note</div>It is important to use <tt>CTRL+D</tt> to detach the console and leave Riak running after doing a <tt>riak attach</tt>. <tt>CTRL+C</tt> will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
 
 ## Specifying the Riak IP Address
 By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak `vm.args` configuration file, which is located in the `/etc/riak` folder.
 
 Initially, the line that specifies the riak node IP address is set to the local host, as follows:
 
-```
+```config
 -name riak@127.0.0.1
 ```
 
-Replace 127.0.0.1 with the IP address for the Riak node.
+Replace `127.0.0.1` with the IP address for the Riak node.
 
 ## Setting Up Riak to Use Protocol Buffers
-The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_kv` config section of the file.
+The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_api` config section of the file.
 
-**pb_ip**: Replace 127.0.0.1 with the IP address of the Riak node.
+{{#1.4.0-}}
+
+* `pb_ip` --- Replace `127.0.0.1` with the IP address of the Riak node.
 
 If you need to use a different port:
 
-**pb_port**: Replace 8087 with the port number you want to use.
+* `pb_port` --- Replace `8087` with the port number you want to use.
+
+The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the
+values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+
+{{/1.4.0-}}
+
+{{#1.4.0+}}
+
+* `pb` --- Replace `127.0.0.1` with the IP address of the Riak node:
+
+    ```erlang
+    {pb, [ {"10.11.4.203", 8087 } ]}
+    ```
+
+If you need to use a different port, replace `8087` with the port number you want to use.
+
+The `pb` values in the Riak `app.config` file must match the values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+
+{{/1.4.0+}}
 
 <div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
 
-The `pb_ip` and `pb_port` values in the Riak `app.config` file must match the values for `riak_ip` and `riak_pb_port` in the Riak CS and Stanchion `app.config` files.
+It is also recommended that you increase the size of Riak's `pb_backlog` to be greater than the size of `request_pool` specified in the Riak CS `app.config` file.
+
+* `pb_backlog` --- Replace the default Riak configuration
+
+    ```erlang
+    %% {pb_backlog, 64}, 
+    ```
+
+    with the following:
+
+    ```erlang
+    {pb_backlog, 256},
+    ```
+ 
+If the `request_pool` value in Riak CS is changed, the `pb_backlog` value in Riak should be updated as well.
 
 ### Enabling SSL in Riak
+
 In the Riak `app.config` file, first uncomment the following lines:
 
-```
+```erlang
 %% https is a list of IP addresses and TCP ports that the Riak
 %% HTTPS interface will bind.
 %{https, [{ "127.0.0.1", 8098 }]},
@@ -108,9 +147,9 @@ In the Riak `app.config` file, first uncomment the following lines:
 %      ]},
 ```
 
-For the https variable, replace the IP address with the address of the Riak node. Replace the port number if necessary.
+For the `https` variable, replace the IP address with the address of the Riak node. Replace the port number if necessary.
 
-For the **certfile** and **keyfile** variables, replace the text in quotes with the path and filename for your SSL encryption files.
+For the `certfile` and `keyfile` variables, replace the text in quotes with the path and filename for your SSL encryption files.
 
 ###Other Riak Settings
 
@@ -120,7 +159,7 @@ The `app.config` file includes other settings, such as turning on the creation o
 ### Performance & Capacity settings
 
 It is strongly recommended that the following values be set in the
-Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/riak/etc` folder.
+Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/riak/etc` folder:
 
 ```erlang
 ## This setting is not present in default Riak installations, so

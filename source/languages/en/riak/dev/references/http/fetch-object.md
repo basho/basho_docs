@@ -24,8 +24,7 @@ GET /buckets/bucket/keys/key    # New format
 Important headers:
 
 * `Accept` - When `multipart/mixed` is the preferred content-type, objects with
-siblings will return all siblings in single request. See [[Get all siblings in
-one request|HTTP Fetch Object#Get all siblings in one request]] example. See
+siblings will return all siblings in single request. See [[Siblings examples|HTTP Fetch Object#Siblings-examples]]. See
 also RFC 2616 - [[Accept header definition|http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1]].
 
 Optional headers:
@@ -98,12 +97,12 @@ given in the response.</p>
 
 ## Simple Example
 
-```bash
-$ curl -v http://127.0.0.1:8098/riak/test/doc2
+```curl
+$ curl -v http://127.0.0.1:8098/buckets/test/keys/doc2
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> GET /riak/test/doc2 HTTP/1.1
+> GET /buckets/test/keys/doc2 HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
@@ -112,7 +111,7 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc2
 < X-Riak-Vclock: a85hYGBgzGDKBVIsbLvm1WYwJTLmsTLcjeE5ypcFAA==
 < Vary: Accept-Encoding
 < Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-< Link: </riak/test>; rel="up"
+< Link: </buckets/test>; rel="up"
 < Last-Modified: Wed, 10 Mar 2010 18:11:41 GMT
 < ETag: 6dQBm9oYA1mxRSH0e96l5W
 < Date: Fri, 30 Sep 2011 15:24:35 GMT
@@ -129,12 +128,12 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc2
 
 ### Manually requesting siblings
 
-```bash
-$ curl -v http://127.0.0.1:8098/riak/test/doc
+```curl
+$ curl -v http://127.0.0.1:8098/buckets/test/keys/doc
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> GET /riak/test/doc HTTP/1.1
+> GET /buckets/test/keys/doc HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
@@ -155,11 +154,11 @@ Siblings:
 * Connection #0 to host 127.0.0.1 left intact
 * Closing connection #0
 
-$ curl -v http://127.0.0.1:8098/riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f
+$ curl -v http://127.0.0.1:8098/buckets/test/keys/doc?vtag=16vic4eU9ny46o4KPiDz1f
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> GET /riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f HTTP/1.1
+> GET /buckets/test/keys/doc?vtag=16vic4eU9ny46o4KPiDz1f HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
@@ -168,7 +167,7 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f
 < X-Riak-Vclock: a85hYGDgyGDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKf0cIszUnMTBzHYVKbIhEUl+VK4spDFTPxhHzFyqhEoVQz7wkSAGLMGuz6FSocFIUijE3pt5HlsgCAA==
 < Vary: Accept-Encoding
 < Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-< Link: </riak/test>; rel="up"
+< Link: </buckets/test>; rel="up"
 < Last-Modified: Wed, 10 Mar 2010 18:01:06 GMT
 < ETag: 16vic4eU9ny46o4KPiDz1f
 < Date: Fri, 30 Sep 2011 15:24:35 GMT
@@ -182,12 +181,12 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc?vtag=16vic4eU9ny46o4KPiDz1f
 
 ### Get all siblings in one request
 
-```bash
-$ curl -v http://127.0.0.1:8098/riak/test/doc -H "Accept: multipart/mixed"
+```curl
+$ curl -v http://127.0.0.1:8098/buckets/test/keys/doc -H "Accept: multipart/mixed"
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> GET /riak/test/doc HTTP/1.1
+> GET /buckets/test/keys/doc HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: multipart/mixed
@@ -203,28 +202,28 @@ $ curl -v http://127.0.0.1:8098/riak/test/doc -H "Accept: multipart/mixed"
 
 --YinLMzyUR9feB17okMytgKsylvh
 Content-Type: application/x-www-form-urlencoded
-Link: </riak/test>; rel="up"
+Link: </buckets/test>; rel="up"
 Etag: 16vic4eU9ny46o4KPiDz1f
 Last-Modified: Wed, 10 Mar 2010 18:01:06 GMT
 
 {"bar":"baz"}
 --YinLMzyUR9feB17okMytgKsylvh
 Content-Type: application/json
-Link: </riak/test>; rel="up"
+Link: </buckets/test>; rel="up"
 Etag: 4v5xOg4bVwUYZdMkqf0d6I
 Last-Modified: Wed, 10 Mar 2010 18:00:04 GMT
 
 {"bar":"baz"}
 --YinLMzyUR9feB17okMytgKsylvh
 Content-Type: application/json
-Link: </riak/test>; rel="up"
+Link: </buckets/test>; rel="up"
 Etag: 6nr5tDTmhxnwuAFJDd2s6G
 Last-Modified: Wed, 10 Mar 2010 17:58:08 GMT
 
 {"bar":"baz"}
 --YinLMzyUR9feB17okMytgKsylvh
 Content-Type: application/json
-Link: </riak/test>; rel="up"
+Link: </buckets/test>; rel="up"
 Etag: 6zRSZFUJlHXZ15o9CG0BYl
 Last-Modified: Wed, 10 Mar 2010 17:55:03 GMT
 

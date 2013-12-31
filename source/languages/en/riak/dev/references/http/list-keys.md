@@ -36,7 +36,7 @@ Required query parameters:
 a single payload.  When set to `stream`, keys will be returned in
 chunked-encoding.
 
-Optional query parameters:
+Optional query parameters (**only** relevant to requests sent using the old `/riak/` path)
 
 * `props` - defaults to `true`, which will also return [[bucket properties|HTTP-Get-Bucket-Properties]] in the response. Set to `false` to suppress properties
 in the response.
@@ -53,29 +53,19 @@ Important headers:
 * `Transfer-Encoding` - `chunked` when the `keys` query parameter is set to
 `stream`.
 
-The JSON object in the response will contain up to two entries, `"props"` and
-`"keys"` which are present or missing according to the query parameters.  If
-`keys=stream` in the query parameters, multiple JSON objects in chunked-encoding
-will be returned containing `"keys"` entries.
+The JSON object in the response will contain up to two entries,
+`"props"` and `"keys"` which are present or missing according to the
+query parameters and format used.  If `keys=stream` in the query
+parameters, multiple JSON objects in chunked-encoding will be returned
+containing `"keys"` entries.
 
 ## Example
 
-```bash
-$ curl -i http://localhost:8098/riak/jsconf?keys=true\&props=false
+```curl
+$ curl -i http://localhost:8098/buckets/jsconf/keys?keys=true
 HTTP/1.1 200 OK
 Vary: Accept-Encoding
 Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-Link: </riak/jsconf/challenge.jpg>; riaktag="contained",
-</riak/jsconf/puddi.png>; riaktag="contained", </riak/jsconf/basho.gif>;
-riaktag="contained", </riak/jsconf/puddikid.jpg>; riaktag="contained",
-</riak/jsconf/yay.png>; riaktag="contained", </riak/jsconf/thinking.png>;
-riaktag="contained", </riak/jsconf/victory.gif>; riaktag="contained",
-</riak/jsconf/slides>; riaktag="contained", </riak/jsconf/joyent.png>;
-riaktag="contained", </riak/jsconf/seancribbs-small.jpg>; riaktag="contained",
-</riak/jsconf/trollface.jpg>; riaktag="contained",
-</riak/jsconf/riak_logo_animated1.gif>; riaktag="contained",
-</riak/jsconf/victory.jpg>; riaktag="contained", </riak/jsconf/challenge.png>;
-riaktag="contained", </riak/jsconf/team_cribbs.png>; riaktag="contained"
 Date: Fri, 30 Sep 2011 15:24:35 GMT
 Content-Type: application/json
 Content-Length: 239

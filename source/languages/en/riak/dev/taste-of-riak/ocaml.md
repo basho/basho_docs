@@ -19,9 +19,9 @@ The [riak-ocaml-client](http://metadave.github.io/riak-ocaml-client/) is a commu
 
 First, download the *riak-ocaml-client* via OPAM.
 
-```
-opam install oasis
-opam install riak
+```bash
+$ opam install oasis
+$ opam install riak
 ```
 
 Agree to download additional dependencies when prompted by OPAM.
@@ -29,9 +29,9 @@ Agree to download additional dependencies when prompted by OPAM.
 
 Next, download the `taste-of-ocaml` sample project from Github:
 
-```
-git clone git@github.com:basho-labs/taste-of-ocaml.git
-cd taste-of-ocaml
+```bash
+$ git clone git@github.com:basho-labs/taste-of-ocaml.git
+$ cd taste-of-ocaml
 ```
 
 The `src` directory contains a single file titled `taste_of_riak.ml`.
@@ -40,20 +40,20 @@ The sample code tries to connect to 127.0.0.1, port 8098 by default. If you set 
 change the `pbip` let binding to **10017**:
 
 ```
- let pbip = 10017 in
- ...
+let pbip = 10017 in
+...
 ```
 
 Let's compile `src/taste_of_riak.ml` using the following commands:
 
-```
-./configure
-make
+```bash
+$ ./configure
+$ make
 ```
 
 Running the `./taste_of_riak.byte` command should return the following output:
 
-```
+```bash
 $ ./taste_of_riak.byte
 Ping
 	Pong
@@ -71,19 +71,19 @@ To connect to a Riak node via protocol buffers, you need to specify the IP addre
 
 For example:
 
-```	
+```erlang
 	{pb, [ {"127.0.0.1", 10017 } ]}
 ```
 
 The `riak_connect_with_defaults` function takes the IP and port number as parameters.
 For example:
 
-```
-  let pbhost = "127.0.0.1" in
-  let pbip = 10017 in
-  try_lwt
-     lwt conn = riak_connect_with_defaults pbhost pbip in
-     ...
+```ocaml
+let pbhost = "127.0.0.1" in
+let pbip = 10017 in
+try_lwt
+   lwt conn = riak_connect_with_defaults pbhost pbip in
+   ...
 ```
 
 The Riak OCaml Client uses [Lwt](http://ocsigen.org/lwt/manual/) and the Lwt Syntax extension. The table below can give you an idea of how the syntax preprocesses OCaml to easily support Lwt:
@@ -103,7 +103,7 @@ assert expr	           | assert_lwt expr
 
 Next, we will store some simple data in Riak. Buckets, keys, and values are stored as strings:
 
-```
+```ocaml
 let my_bucket = "MyBucket" in
 let my_key = "Foo" in
 let my_value = "Bar" in
@@ -114,7 +114,7 @@ The last parameter, an empty list in this case, specifies the Riak *put options*
 
 For example, to specify the `Put_return_body` options, use the following:
 
-```
+```ocaml
 let put_options = [Put_return_body true] in
 lwt _result = riak_put conn bucket (Some key) value put_options in
 ```
@@ -128,7 +128,7 @@ to pattern match against the `Maybe` value returned. If a value exists at the
 specified key, you'll have to pattern match against `Maybe` as well to
 retrieve the actual content at that key.
 
-```
+```ocaml
  lwt obj = riak_get conn bucket key [] in
   match obj with
       | Some o ->
@@ -145,7 +145,7 @@ Also, note the `return ()` from Lwt at the end of each clause.
 
 To specify options for the get operation:
 
-```
+```ocaml
 let get_options = [Get_basic_quorum false; Get_head true] in
 lwt obj = riak_get conn bucket key get_options in
 ...
@@ -156,7 +156,7 @@ lwt obj = riak_get conn bucket key get_options in
 
 If you want to delete data from Riak, simply call the `riak_del` function:
 
-```
+```ocaml
 let key = "MyKey" in
 let del_options = [] in
 lwt _ = riak_del conn bucket key del_options in

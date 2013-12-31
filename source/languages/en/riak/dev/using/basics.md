@@ -24,7 +24,7 @@ Most of the interactions you'll have with Riak will be setting or retrieving the
 Here is the basic command form for retrieving a specific key from a bucket.
 
 ```bash
-GET /riak/BUCKET/KEY
+GET /buckets/BUCKET/keys/KEY
 ```
 
 The body of the response will contain the contents of the object (if it exists).
@@ -45,8 +45,8 @@ Typical error codes:
 
 So, with that in mind, try this command. This will request (GET) the key `doc2` from the bucket `test.`
 
-```bash
-$ curl -v http://localhost:8098/riak/test/doc2
+```curl
+$ curl -v http://localhost:8098/buckets/test/keys/doc2
 ```
 
 This should return a `404 Not Found` as the key `doc2` does not exist (you haven't created it yet).
@@ -58,7 +58,7 @@ Your application will often have its own method of generating the keys for its d
 *Note that this is not the only URL format available. Alternate forms can be found in the [[HTTP API]].*
 
 ```bash
-PUT /riak/BUCKET/KEY
+PUT /buckets/BUCKET/keys/KEY
 ```
 
 <div class="info"><code>POST</code> is also a valid verb, for compatibility's sake.</div>
@@ -93,7 +93,7 @@ If `returnbody=true`, any of the response headers expected from a `GET` request 
 Let's give it a shot. Try running this in a terminal.
 
 ```
-$ curl -v -XPUT http://localhost:8098/riak/test/doc?returnbody=true \
+$ curl -v -XPUT http://localhost:8098/buckets/test/keys/doc?returnbody=true \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
   -H "Content-Type: application/json" \
   -d '{"bar":"baz"}'
@@ -104,7 +104,7 @@ $ curl -v -XPUT http://localhost:8098/riak/test/doc?returnbody=true \
 If your application would rather leave key-generation up to Riak, issue a `POST` request to the bucket URL instead of a PUT to a bucket/key pair:
 
 ```bash
-POST /riak/BUCKET
+POST /buckets/BUCKET/keys
 ```
 
 If you don't pass Riak a "key" name after the bucket, it will know to create one for you.
@@ -118,7 +118,7 @@ Normal status codes:
 This command will store an object, in the bucket `test` and assign it a key:
 
 ```
-$ curl -v -XPOST http://localhost:8098/riak/test \
+$ curl -v -XPOST http://localhost:8098/buckets/test/keys \
   -H 'Content-Type: text/plain' \
   -d 'this is a test'
 ```
@@ -132,7 +132,7 @@ If you've done it correctly, you should see the value (which is "this is a test"
 The delete command, as you can probably guess, follows a predictable pattern and looks like this:
 
 ```bash
-DELETE /riak/BUCKET/KEY
+DELETE /buckets/BUCKET/keys/KEY
 ```
 
 The normal response codes for a `DELETE` operations are `204 No Content` and `404 Not Found`
@@ -141,8 +141,8 @@ The normal response codes for a `DELETE` operations are `204 No Content` and `40
 
 Try this:
 
-```bash
-$ curl -v -XDELETE http://localhost:8098/riak/test/test2
+```curl
+$ curl -v -XDELETE http://localhost:8098/buckets/test/keys/test2
 ```
 
 ## Bucket Properties and Operations
@@ -160,7 +160,7 @@ However, in addition to providing a namespace for keys, the properties of a buck
 To set these properties, issue a `PUT` to the bucket's URL:
 
 ```bash
-PUT /riak/BUCKET
+PUT /buckets/BUCKET/props
 ```
 
 The body of the request should be a JSON object with a single entry "props".  Unmodified bucket properties may be omitted.
@@ -180,7 +180,7 @@ The most important properties to consider for your bucket are:
 Let's go ahead and alter the properties of a bucket. The following `PUT` will create a new bucket called `test` with a modified `n_val` of `5`.
 
 ```
-$ curl -v -XPUT http://localhost:8098/riak/test \
+$ curl -v -XPUT http://localhost:8098/buckets/test/props \
   -H "Content-Type: application/json" \
   -d '{"props":{"n_val":5}}'
 ```
@@ -190,7 +190,7 @@ $ curl -v -XPUT http://localhost:8098/riak/test \
 Here is how you use the [[HTTP API]] to retrieve (or `GET`) the bucket properties and/or keys:
 
 ```bash
-GET /riak/BUCKET
+GET /buckets/BUCKET/props
 ```
 
 The optional query parameters are:
@@ -200,10 +200,10 @@ The optional query parameters are:
 
 With that in mind, go ahead and run this command. This will `GET` the bucket information that we just set with the sample command above:
 
-```bash
-$ curl -v http://localhost:8098/riak/test
+```curl
+$ curl -v http://localhost:8098/buckets/test/props
 ```
 
-You can also view this bucket information through any browser by going to `http://localhost:8098/riak/test`
+You can also view this bucket information through any browser by going to `http://localhost:8098/buckets/test/props`
 
 So, that's the basics of how the [[HTTP API]] works. An in depth reading of the HTTP API page is highly recommended. This will give you details on the headers, parameters, and status that you should keep in mind, even when using a client library.

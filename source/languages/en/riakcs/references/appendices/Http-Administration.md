@@ -8,8 +8,8 @@ audience: intermediate
 keywords: [api]
 ---
 
-Riak CS exposes these administrative capabilities over HTTP above and
-beyond Riak itself:
+Riak CS exposes the following administrative capabilities over HTTP above and
+beyond those associated with Riak itself:
 
 | Task                   | CS URI           | Further reading                 |
 | ---------------------- | ---------------- | ------------------------------- |
@@ -18,32 +18,24 @@ beyond Riak itself:
 | Storage statistics     | `/riak-cs/usage` | [[Querying Storage Statistics]] |
 | Global statistics      | `/riak-cs/stats` | [[Monitoring and Metrics]]      |
 
-By default, these are accessible over the same IP/port as the rest of
-the CS API, but they can be configured to run elsewhere, with or
-without authentication.
+By default, these are accessible over the same IP/port as the rest of the CS API, but they can be configured to run elsewhere, with or without authentication.
 
 ## Output format
 
-For these requests, results are available as either JSON or XML.
-Request the appropriate one by using the HTTP `Accept` header (with
-either `application/json` or `application/xml`, respectively).
+For these requests, results are available as either JSON or XML. Request the appropriate one by using the HTTP `Accept` header with either `application/json` or `application/xml`, respectively.
 
 ## URLs
 
 Each of these requests is performed over the CS HTTP port (`8080` by
-default) or administrative port if configured via `admin_port`.  The
+default) or administrative port if configured via `admin_port`. The
 `admin_ip` configuration setting can be used to further isolate the
 administrative commands.
 
-Only the admin user can view other users' details unless
-`admin_auth_enabled` is configured to `false`.
+Only the admin user can view other users' details unless the `admin_auth_enabled` config is set to `false`.
 
 ## Retrieving statistics via S3 objects
 
-As an alternative to raw HTTP requests, the administrative requests
-can be issued via the S3 API. See the github documents linked below
-for more details.
-
+As an alternative to raw HTTP requests, the administrative requests can be issued via the S3 API. See the GitHub documents linked below for more details.
 
 Related Resources
 -----------------

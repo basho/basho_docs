@@ -41,8 +41,8 @@ conflict. See [[Conflict resolution|Concepts#Conflict-resolution]].
 
 `all`, `quorum`, `one`, or an *integer* (default: `quorum`). Sets for reads and
 writes the number of responses required before an operation is considered
-successful. See [[Reading Data|Concepts#Reading-Data]] and [[Writing and
-Updating Data|Concepts#Writing and Updating Data]].
+successful. See [[Reading Data|Concepts#Reading-Writing-and-Updating-Data]] and [[Writing and
+Updating Data|Concepts#Reading-Writing-and-Updating-Data]].
 
 ### precommit
 

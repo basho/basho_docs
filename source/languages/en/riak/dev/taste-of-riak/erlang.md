@@ -19,7 +19,7 @@ Download the latest erlang client from GitHub ([zip](https://github.com/basho/ri
 Next, open the erlang console with the client library paths included.
 
 ```bash
-erl -pa CLIENT_LIBRARY_PATH/ebin/ CLIENT_LIBRARY_PATH/deps/*/ebin
+$ erl -pa CLIENT_LIBRARY_PATH/ebin/ CLIENT_LIBRARY_PATH/deps/*/ebin
 ```
 
 Now let’s create a link to the Riak node.  
@@ -169,7 +169,7 @@ riakc_pb_socket:stop(Pid).
 ```
 
 ###Next Steps
-More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. In the next chapter we will look at how to store and query more complicated and interconnected data, such as documents.  
+More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [[In the next chapter|Taste of Riak: Querying]] we will look at how to store and query more complicated and interconnected data, such as documents.  
 
 
 

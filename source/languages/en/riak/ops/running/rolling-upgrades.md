@@ -110,7 +110,7 @@ riak-admin transfers
 ```
 
 
-* While the node was offline other nodes may have accepted writes on it's
+* While the node was offline other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
@@ -215,7 +215,7 @@ riak-admin transfers
 ```
 
 
-* While the node was offline other nodes may have accepted writes on it's
+* While the node was offline other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
@@ -349,7 +349,7 @@ riak-admin transfers
 ```
 
 
-* While the node was offline other nodes may have accepted writes on it's
+* While the node was offline other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster

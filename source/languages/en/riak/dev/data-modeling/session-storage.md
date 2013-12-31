@@ -18,7 +18,7 @@ Riak was originally created to serve as a highly scalable session store.   This 
 
 ## Complex Case
 
-Riak has other features that enable more complex session storage use cases.  The bitcask storage backend supports automatic expiry of keys, which frees application developers from implementing manual session expiry.  Riak's MapReduce system can also be used to perform analysis on large bodies of session data, for example to compute the average number of active users.  If sessions must be retrieved using multiple keys (e.g. a UUID or email address), Secondary Indices (2I) provides an easy solution.
+Riak has other features that enable more complex session storage use cases.  The bitcask storage backend supports automatic expiry of keys, which frees application developers from implementing manual session expiry.  Riak's MapReduce system can also be used to perform analysis on large bodies of session data, for example to compute the average number of active users.  If sessions must be retrieved using multiple keys (e.g. a UUID or email address), Secondary Indexes (2I) provides an easy solution.
 
 ## Community Examples
 

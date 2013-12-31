@@ -15,6 +15,10 @@ This guide describes recommended performance and
 tuning, failure and recovery, and benchmarking information useful for
 operators of new and existing Riak clusters.
 
+<div class="note"><div class="title">Note</div>
+The system tuning recommendations specified here should be considered as a starting point. Ideal tunings can vary significantly from system to system and be influenced by many variables. It is important to make note of what changes are made, when they are made, and to measure the impact those changes have.
+</div>
+
 Riak's primary bottleneck is disk and network I/O. Riak's I/O
 pattern tends to operate on small blobs from many places on the disk. The
 negative effects of this pattern can be mitigated by adding RAID over
@@ -54,25 +58,46 @@ networking is the bottleneck.
 ```text
 vm.swappiness = 0
 net.ipv4.tcp_max_syn_backlog = 40000
-net.core.somaxconn=4000
-net.ipv4.tcp_timestamps = 0
+net.core.somaxconn=40000
 net.ipv4.tcp_sack = 1
 net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_fin_timeout = 15
 net.ipv4.tcp_keepalive_intvl = 30
 net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_moderate_rcvbuf = 1
 ```
 
 The following settings are optional, but may improve performance on
 a 10Gb network:
 
 ```text
-net.core.rmem_default = 8388608
-net.core.rmem_max = 8388608
-net.core.wmem_default = 8388608
-net.core.wmem_max = 8388608
-net.core.netdev_max_backlog = 10000
+net.core.rmem_max = 134217728
+net.core.wmem_max = 134217728
+net.ipv4.tcp_mem  = 134217728 134217728 134217728
+net.ipv4.tcp_rmem = 4096 277750 134217728
+net.ipv4.tcp_wmem = 4096 277750 134217728
+net.core.netdev_max_backlog = 300000
 ```
+
+Certain network interfaces ship with on-board features that have been shown
+to hinder Riak network performance.  These features can be disabled via
+`ethtool`.
+
+For an Intel chipset NIC using the "ixgbe" driver running as **eth0**, for example,
+run the following command:
+
+```bash
+ethtool -K eth0 lro off
+```
+
+For a Broadcom chipset NIC using the "bnx" or "bnx2" driver, run:
+
+```bash
+ethtool -K eth0 tso off
+``` 
+
+`ethtool` settings can be persisted across reboots by adding the above command 
+to the /etc/rc.local script.
 
 <div class="info"><div class="title">Tip</div>Tuning of these values
 will be required if they are changed, as they affect all network
@@ -124,6 +149,23 @@ To set the scheduler to deadline, use the following command:
 echo deadline > /sys/block/sda/queue/scheduler
 ```
 
+The default I/O scheduler queue size is 128.  The scheduler queue sorts
+writes in an attempt to optimize for sequential I/O and reduce seek time. 
+Changing the depth of the scheduler queue to 1024 can increase the proportion 
+of sequential I/O that disks perform and improve overall throughput.
+
+To check the scheduler depth for block device **sda**, use the following command:
+
+```bash
+cat /sys/block/sda/queue/nr_requests
+```
+
+To increase the scheduler depth to 1024, use the following command:
+
+```bash
+echo 1024 > /sys/block/sda/queue/nr_requests
+```
+
 ### Filesystem
 
 Basho recommends using advanced journaling filesystems like ZFS and XFS
@@ -140,6 +182,10 @@ integrity, but slow performance. Because Riak's integrity is based on
 multiple nodes holding the same data, these two options can be changed
 to boost I/O performance. We recommend setting: `barrier=0` and
 `data=writeback` when using the ext4 filesystem.
+
+Similarly, the XFS file system defaults can be optimized to improve performance.
+We recommend setting: `nobarrier`, `logbufs=8`, `logbsize=256k`, and
+`allocsize=2M` when using the XFS filesystem.
 
 As with the `noatime` setting, these settings should be added to
 `/etc/fstab` so that they are persisted across server restarts.
@@ -179,8 +225,8 @@ context-switching and contention for I/O resources.
 
 Basho recommends between 8 and 64 partitions per node in the cluster.
 For example, this means that a 5-node cluster should be initialized with
-256 or 512 partitions. With 512 partitions, a 5 node cluster could
-conceivably grow to 64 nodes before needing replacement.
+128 or 256 partitions. With 256 partitions, a 5 node cluster could
+conceivably grow to 32 nodes before needing replacement.
 
 You can find more information on [[Cluster Capacity Planning]].
 
@@ -193,7 +239,7 @@ Place the ring_creation_size item within the riak_core section in the
 `/etc/riak/app.config` file:
 
     {riak_core, [
-       {ring_creation_size, 512},
+       {ring_creation_size, 256},
        %% ...
        ]}
 

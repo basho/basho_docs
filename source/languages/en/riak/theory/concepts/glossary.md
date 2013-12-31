@@ -130,7 +130,7 @@ Quorum in Riak has two meanings:
 * A symbolic quantity for the above, `quorum`, which is equivalent to `n_val / 2 + 1`. With Riak's default settings, this is `2`.
 
 * [[Eventual Consistency]]
-* [[CAP Controls]]
+* [[Replication Properties]]
 * [[Understanding Riak's Configurable Behaviors: Part 2|http://basho.com/riaks-config-behaviors-part-2/]]
 
 ## Read Repair

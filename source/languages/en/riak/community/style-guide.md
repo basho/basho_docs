@@ -181,8 +181,8 @@ Erlang code example:
 Shell commands example:
 
     ```bash
-    riak-admin member-status
-    riak-admin transfers
+    $ riak-admin member-status
+    $ riak-admin transfers
     ```
 
 ### Callouts & Notes

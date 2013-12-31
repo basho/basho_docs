@@ -34,8 +34,10 @@
       contentWell      : 'div[role=main]',
       navToggle        : '#nav-toggle',
       header           : '#header',
+      watermark        : '.watermark-wrapper',
       responsiveToggle : '.responsive-toggle'
     },
+
     
     params : {
       closedNavMargin : '12px',
@@ -43,6 +45,11 @@
       responsiveWidth : 700
     }
   };
+  
+  /*
+   * Default value for the version alert arrow
+   */
+  var version_box_scroll_off = false;
   
   
   /*
@@ -131,6 +138,7 @@
     options.jq.contentWell.animate({marginLeft: options.params.closedNavMargin}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: options.params.closedNavMargin}, config || animConfig());
     options.jq.header.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
+    options.jq.watermark.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
     setNavState(0);
   }
   
@@ -150,6 +158,7 @@
     options.jq.contentWell.animate({marginLeft: cm}, config || animConfig(false, 200, callback));
     options.jq.navContainer.animate({width: cm}, config || animConfig());
     options.jq.header.animate({marginLeft: cm}, config || animConfig());
+    options.jq.watermark.animate({marginLeft: cm}, config || animConfig());
     setNavState(1);
   }
   
@@ -223,6 +232,7 @@
       options.jq.navContainer.removeAttr('style');
       options.jq.navContent.removeAttr('style');
       options.jq.header.removeAttr('style');
+      options.jq.watermark.removeAttr('style');
       options.jq.navToggle.removeClass('open, closed');
     }
   }
@@ -396,7 +406,6 @@
       }
     });
   }
- 
 
   /*
    * toggleMenu()
@@ -424,6 +433,28 @@
     $(buttonID).attr('class', 'unselected');
   }
 
+  /*
+   * hideVersionAlert()
+   * Hide or show the version alert box depending
+   * on scrollTop
+   */
+  function hideVersionAlert() {
+
+    if ($(window).scrollTop() > 0) {
+        
+      if (version_box_scroll_off) {
+        return;
+      }
+      
+      $('#alert-version').addClass('version_box_scroll_off');
+      version_box_scroll_off = true;
+
+    } else {
+      $('#alert-version').removeClass('version_box_scroll_off');
+      version_box_scroll_off = false;
+    }
+  }
+
   $(document).ready(function(){
     /*----------------------------------------------------------*/
     // Top Navigation Menu Interactions
@@ -445,8 +476,10 @@
     /*----------------------------------------------------------*/
     // Version Menu Interactions
     /*----------------------------------------------------------*/
-    $('#version-ddown').click(function() {
-      toggleMenu('#version-ddown', '#version-list');
+    $('#version-ddown-button').click(function() {
+      toggleMenu('#version-ddown-button', '#version-list');
+      //toggleSelected('#version-ddown-title');
+      //toggleSelected('#version-ddown-arrow');
     });
 
     //Mouse click on sub menu
@@ -455,7 +488,7 @@
     });
 
     //Mouse click on my account link
-    $('#version-ddown').mouseup(function() {
+    $('#version-ddown-button').mouseup(function() {
       return false
     });
 
@@ -464,7 +497,19 @@
     /*----------------------------------------------------------*/
     $(document).mouseup(function() {
       documentClick('#nav-more', '#nav-menu');
-      documentClick('#version-ddown', '#version-list');
+      documentClick('#version-ddown-button', '#version-list');
     });
+
+    /*----------------------------------------------------------*/
+    // If the version alert box exists in the DOM then
+    // hide it during scroll
+    /*----------------------------------------------------------*/
+    
+    if ($('#alert-version').length) {
+      $(window).scroll(function() {
+        hideVersionAlert();
+      });
+    }
+
   });
 });

@@ -40,6 +40,8 @@ It is Riak's solution to the data-locality problem that determines how Riak spre
 
 Put more simply: Riak runs map-step functions right on the node holding the input data for those functions, and it runs reduce-step functions on the node coordinating the MapReduce query.
 
+<div class="note"><div class="title">R=1</div>One consequence of Riak's processing model is that MapReduce queries have an effective <code>R</code> value of 1. The queries are distributed to a representative sample of the cluster where the data is expected to be found, and if one server lacks a copy of data it's supposed to have, a MapReduce job will not attempt to go look for it elsewhere.</div>
+
 ## How Riak's MR Queries Are Specified
 
 MapReduce queries in Riak have two components: a list of inputs and a list of "steps", or "phases".
@@ -55,6 +57,8 @@ The phase list describes the chain of operations each input will flow through.  
 ### Map Phase
 
 The input list to a map phase must be a list of (possibly annotated) bucket-key pairs.  For each pair, Riak will send the request to evaluate the map function to the partition that is responsible for storing the data for that bucket-key.  The vnode hosting that partition will lookup the object stored under that bucket-key, and evaluates the map function with the object as an argument.  The other arguments to the function will be the annotation, if any is included, with the bucket-key, and the static data for the phase, as specified in the query.
+
+<div class="note"><div class="title">Tombstones</div>Be aware that most Riak clusters will retain deleted objects for some period of time (3 seconds by default), and the MapReduce framework does not conceal these from submitted jobs. These tombstones can be recognized and filtered out by looking for <code>X-Riak-Deleted</code> in the object metadata with a value of <code>true</code>.</div>
 
 ### Reduce Phase
 
@@ -90,9 +94,9 @@ This example will store several chunks of text in Riak, and then compute word co
 
 We will use the Riak HTTP interface to store the texts we want to process:
 
-```bash
+```curl
 $ curl -XPUT -H "content-type: text/plain" \
-    http://localhost:8098/riak/alice/p1 --data-binary @-<<\EOF
+    http://localhost:8098/buckets/alice/keys/p1 --data-binary @-<<\EOF
 Alice was beginning to get very tired of sitting by her sister on the
 bank, and of having nothing to do: once or twice she had peeped into the
 book her sister was reading, but it had no pictures or conversations in
@@ -101,7 +105,7 @@ conversation?'
 EOF
 
 $ curl -XPUT -H "content-type: text/plain" \
-    http://localhost:8098/riak/alice/p2 --data-binary @-<<\EOF
+    http://localhost:8098/buckets/alice/keys/p2 --data-binary @-<<\EOF
 So she was considering in her own mind (as well as she could, for the
 hot day made her feel very sleepy and stupid), whether the pleasure
 of making a daisy-chain would be worth the trouble of getting up and
@@ -110,7 +114,7 @@ close by her.
 EOF
 
 $ curl -XPUT -H "content-type: text/plain" \
-    http://localhost:8098/riak/alice/p5 --data-binary @-<<\EOF
+    http://localhost:8098/buckets/alice/keys/p5 --data-binary @-<<\EOF
 The rabbit-hole went straight on like a tunnel for some way, and then
 dipped suddenly down, so suddenly that Alice had not a moment to think
 about stopping herself before she found herself falling down a very deep
@@ -124,7 +128,7 @@ EOF
 With data loaded, we can now run a query:
 
 
-```bash
+```curl
 $ curl -X POST -H "content-type: application/json" \
     http://localhost:8098/mapred --data @-<<\EOF
 {"inputs":[["alice","p1"],["alice","p2"],["alice","p5"]]
@@ -158,7 +162,7 @@ EOF
 
 And we end up with the word counts for the three documents.
 
-```javascript
+```json
 [{"the":8,"rabbit":2,"hole":1,"went":1,"straight":1,"on":2,"like":1,"a":6,"tunnel":1,"for":2,"some":1,"way":1,"and":5,"then":1,"dipped":1,"suddenly":3,"down":2,"so":2,"that":1,"alice":3,"had":3,"not":1,"moment":1,"to":3,"think":1,"about":1,"stopping":1,"herself":2,"before":1,"she":4,"found":1,"falling":1,"very":3,"deep":1,"well":2,"was":3,"considering":1,"in":2,"her":5,"own":1,"mind":1,"as":2,"could":1,"hot":1,"day":1,"made":1,"feel":1,"sleepy":1,"stupid":1,"whether":1,"pleasure":1,"of":5,"making":1,"daisy":1,"chain":1,"would":1,"be":1,"worth":1,"trouble":1,"getting":1,"up":1,"picking":1,"daisies":1,"when":1,"white":1,"with":1,"pink":1,"eyes":1,"ran":1,"close":1,"by":2,"beginning":1,"get":1,"tired":1,"sitting":1,"sister":2,"bank":1,"having":1,"nothing":1,"do":1,"once":1,"or":3,"twice":1,"peeped":1,"into":1,"book":2,"reading":1,"but":1,"it":2,"no":1,"pictures":2,"conversations":1,"what":1,"is":1,"use":1,"thought":1,"without":1,"conversation":1}]
 ```
 
@@ -243,25 +247,25 @@ The function source can be specified directly in the query by using the "source"
 For example:
 
 
-```javascript
+```json
 {"map":{"language":"javascript","source":"function(v) { return [v]; }","keep":true}}
 ```
 
 would run the JavaScript function given in the spec, and include the results in the final output of the m/r query.
 
-```javascript
+```json
 {"map":{"language":"javascript","bucket":"myjs","key":"mymap","keep":false}}
 ```
 
 would run the JavaScript function declared in the content of the Riak object under *mymap* in the `myjs` bucket, and the results of the function would not be included in the final output of the m/r query.
 
-```javascript
-   {"map":{"language":"javascript","name":"Riak.mapValuesJson"}}
+```json
+{"map":{"language":"javascript","name":"Riak.mapValuesJson"}}
 ```
 
 would run the builtin JavaScript function `mapValuesJson`, if you choose to store your JavaScript functions on disk. Any JS files should live in a directory defined by the `js_source_dir` field in your `app.config` file.
 
-```javascript
+```json
 {"map":{"language":"erlang","module":"riak_mapreduce","function":"map_object_value"}}
 ```
 
@@ -271,7 +275,7 @@ Map phases may also be passed static arguments by using the `arg` spec field.
 
 For example, the following map function will perform a regex match on object values using "arg" and return how often "arg" appears in each object:
 
-```javascript
+```json
 {"map":
   {"language":"javascript",
   "source":"function(v, keyData, arg) {
@@ -297,7 +301,7 @@ Link phases accept `bucket` and `tag` fields that specify which links match the 
 
 The following example would follow all links pointing to objects in the `foo` bucket, regardless of their tag:
 
-```javascript
+```json
 {"link":{"bucket":"foo","keep":false}}
 ```
 
@@ -417,7 +421,7 @@ main([Filename]) ->
 
 format_and_insert(Line) ->
     JSON = io_lib:format("{\"Date\":\"~s\",\"Open\":~s,\"High\":~s,\"Low\":~s,\"Close\":~s,\"Volume\":~s,\"Adj. Close\":~s}", Line),
-    Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/riak/goog/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
+    Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/buckets/goog/keys/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
     io:format("Inserting: ~s~n", [hd(Line)]),
     os:cmd(Command).
 ```
@@ -596,15 +600,15 @@ on your Riak nodes. Once your file has been installed, all that remains
 is to try the custom function in a MapReduce query. For example, let's
 return keys contained within the **messages** bucket:
 
-```bash
-curl -XPOST http://localhost:8098/mapred \
+```curl
+$ curl -XPOST http://localhost:8098/mapred \
    -H 'Content-Type: application/json'   \
    -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
 ```
 
 The results should look similar to this:
 
-```bash
+```json
 {"messages":"4","messages":"1","messages":"3","messages":"2"}
 ```
 
@@ -754,7 +758,7 @@ Because Riak distributes the map phases across the cluster to increase data-loca
 
 ### Streaming via the HTTP API
 
-You can enable streaming with MapReduce jobs submitted to the `/mapred` resource by adding `?chunked=true` to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with `Content-Type: multipart/mixed`.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries your that serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
+You can enable streaming with MapReduce jobs submitted to the `/mapred` resource by adding `?chunked=true` to the url.  The response will be sent using HTTP 1.1 chunked transfer encoding with `Content-Type: multipart/mixed`.  Be aware that if you are streaming a set of serialized objects (like JSON objects), the chunks are not guaranteed to be separated along the same boundaries that your serialized objects are. For example, a chunk may end in the middle of a string representing a JSON object, so you will need to decode and parse your responses appropriately in the client.
 
 ### Streaming via the Erlang API
 

@@ -33,7 +33,7 @@ The table below gives a high level comparison of Riak and CouchDB features/capab
         <td>Data Model</td>
         <td>Riak stores key/value pairs in a higher level namespace called a bucket.
             <ul>
-              <li>[[Buckets, Keys, and Values|Concepts#Buckets%2C-Keys%2C-and-Values]] </li>
+              <li>[[Buckets, Keys, and Values|Concepts#Buckets-Keys-and-Values]] </li>
             </ul>
         </td>
         <td>CouchDB's data format is JSON stored as documents (self-contained records with no intrinsic relationships), grouped into "database" namespaces.
@@ -142,7 +142,7 @@ The table below gives a high level comparison of Riak and CouchDB features/capab
 
             The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
                 <ul>
-                    <li>[[Reading, Writing, and Updating Data|Concepts#Reading%2C-Writing%2C-and-Updating-Data]]</li>
+                    <li>[[Reading, Writing, and Updating Data|Concepts#Reading-Writing-and-Updating-Data]]</li>
                 </ul>
 
      </td>

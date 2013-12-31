@@ -10,21 +10,32 @@ riak:
       - "[[Start Here|Riak]]"
       - "[[Why Riak?|Why Riak]]"
       - "[[Download Riak|Downloads]]"
-      - "[[Five Minute Install]]"
+      - "[[Five-Minute Install|Five Minute Install]]"
 
   - title: "Riak for Developers"
     sub:
       - title: "A Taste of Riak"
         sub:
-          - "[[Prerequisites|Taste of Riak: Prerequisites]]"
-          - "[[Erlang|Taste of Riak: Erlang]]"
-          - "[[Java|Taste of Riak: Java]]"
-          - "[[PHP|Taste of Riak: PHP]]"
-          - "[[Python|Taste of Riak: Python]]"
-          - "[[Ruby|Taste of Riak: Ruby]]"
-          - "[[OCaml|Taste of Riak: OCaml]]"
-          - "[[Clojure|Taste of Riak: Clojure]]"
-          - "[[Csharp|Taste of Riak: C-Sharp]]"
+          - title: CRUD Operations
+            sub:
+              - "[[Prerequisites|Taste of Riak: Prerequisites]]"
+              - "[[Erlang|Taste of Riak: Erlang]]"
+              - "[[Java|Taste of Riak: Java]]"
+              - "[[PHP|Taste of Riak: PHP]]"
+              - "[[Python|Taste of Riak: Python]]"
+              - "[[Ruby|Taste of Riak: Ruby]]"
+              - "[[OCaml|Taste of Riak: OCaml]]"
+              - "[[Clojure|Taste of Riak: Clojure]]"
+              - "[[Csharp|Taste of Riak: C-Sharp]]"
+              - "[[Go|Taste of Riak: Go]]"
+          - title: A Taste of Querying
+            sub:
+              - "[[Prerequisites|Taste of Riak: Querying]]"
+              - "[[Erlang|Taste of Riak: Querying with Erlang]]"
+              - "[[Java|Taste of Riak: Querying with Java]]"
+              - "[[PHP|Taste of Riak: Querying with PHP]]"
+              - "[[Python|Taste of Riak: Querying with Python]]"
+              - "[[Ruby|Taste of Riak: Querying with Ruby]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
@@ -57,8 +68,8 @@ riak:
           - "[[Search|Advanced Search]]"
           - "[[Search Schema|Advanced Search Schema]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
-          - "[[CAP Controls]]"
-          - title: "References"
+          - "[[Replication Properties]]"
+          - title: "Reference"
             sub:
               # - "[[Bucket References]]"
               - "[[Search Indexing|Search Indexing Reference]]"
@@ -243,7 +254,7 @@ riakee:
       - "[[Multi Data Center Replication|Multi Data Center Replication v3 Operations]]"
       - "[[JMX Monitoring]]"
       - "[[SNMP Configuration]]"
-  - title: "References"
+  - title: "Reference"
     sub:
       - "[[SNMP Counters]]"
       - "[[Riak Enterprise FAQs|Riak Enterprise FAQs]]"
@@ -291,7 +302,9 @@ riakcs:
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
       - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
       - "[[Monitoring and Metrics]]"
+      - "[[Object Chunking and Garbage Collection]]"
       - "[[Rolling Upgrades For Riak CS]]"
+      - "[[Riak CS Control]]"
   - title: "S3 Clients"
     sub:
       - "[[Configuring an S3 client]]"
@@ -310,7 +323,7 @@ riakcs:
         sub:
             - "[[CS Compared to Swift|Riak CS Compared to Swift]]"
             - "[[CS Compared to Atmos|Riak CS Compared to Atmos]]"
-  - title: "References"
+  - title: "Reference"
     sub:
       - "[[FAQs|Riak CS FAQs]]"
 

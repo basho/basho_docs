@@ -14,7 +14,7 @@ moved: {
 
 ## Basho Supported Libraries
 
-Basho officially supports a number of open-source client libraries for various programming languages and environments.
+Basho officially supports a number of open-source client libraries for a variety of programming languages and environments.
 
 | Language | Source                                                   | Documentation | Download      |
 |----------|----------------------------------------------------------|---------------|---------------|
@@ -25,16 +25,16 @@ Basho officially supports a number of open-source client libraries for various p
 | Ruby     | [riak-ruby-client](https://github.com/basho/riak-ruby-client)                                         | [rdoc](http://rdoc.info/gems/riak-client/frames), [wiki](https://github.com/basho/riak-ruby-client/wiki)    | [RubyGems](https://rubygems.org/gems/riak-client)      |
 
 
-All official clients use the integrated issue tracker on Github for bug reporting.
+**Note**: All official clients use the integrated issue tracker on Github for bug reporting.
 
 In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries
 and related projects [[community projects]].
 
-| Language            | Source                 |
-|---------------------|------------------------|
-| C/C++               | [riak-cxx-client](https://github.com/basho/riak-cxx-client)        |
-| Javascript (jQuery) | [riak-javascript-client](https://github.com/basho/riak-javascript-client) |
+| Language            | Source                 | Documentation
+|----------|-----------------------------------|---------------|
+| C                   | [riak-c-client](https://github.com/basho/riak-c-client)        | [C Client Documentation](http://basho.github.io/riak-c-client/index.html) |
+| Node.js             | [riak-js](https://github.com/basho/riak-javascript-client) | [riak-js.org](http://riak-js.org/) |
 
 
 *** Feature Matrix
@@ -195,10 +195,9 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Go*
 
+* [[riaken|https://github.com/riaken]] - A fast and extendable Riak Protocol Buffer Client
 * [[goriakpbc|https://github.com/tpjg/goriakpbc]] - A golang riak client inspired by the Ruby riak-client from Basho and riakpbc from mrb
 * [[riakpbc|https://github.com/mrb/riakpbc]] - A Riak Protocol Buffer Client in Go
-* [[Shoebox|https://github.com/mrb/shoebox]] - A proof of concept Go project that uses [[riakpbc|https://github.com/mrb/riakpbc]]
-* [[riak.go|http://github.com/c141charlie/riak.go]] - A Riak Client for Go
 
 *Grails*
 
@@ -274,7 +273,7 @@ client process pool based on poolboy
 
 * [[Ripple-PHP|https://github.com/KevBurnsJr/ripple-php]] - A port of Ripple to PHP
 * [[riiak|https://bitbucket.org/intel352/riiak]] - A Riak PHP client library for the [[Yii Framework|http://www.yiiframework.com/]]
-* [[riak-php|https://github.com/marksteele/riak-php]] - A Riak PHP with support for Protocol Buffers
+* [[riak-php|https://github.com/marksteele/riak-php]] - A Riak PHP client with support for Protocol Buffers
 * [[RiakBundle|https://github.com/remialvado/RiakBundle]] - [[Symfony|http://symfony.com]] Bundle designed to ease interaction with Riak
 * [[php_riak|https://github.com/TriKaspar/php_riak]] - A PHP Extension written in C, Both Riak client and PHP session module
 
@@ -312,6 +311,7 @@ client process pool based on poolboy
 
 * [[Riakka|http://github.com/timperrett/riakka]] - Scala library for talking to Riak
 * [[Ryu|http://github.com/softprops/ryu]] - A Tornado Whirlwind Kick Scala client for the Riak raw HTTP interface
+* [[Raiku|https://github.com/gideondk/Raiku]] - An Akka IO- and Sentinel-driven Riak Scala client
 
 *Smalltalk*
 

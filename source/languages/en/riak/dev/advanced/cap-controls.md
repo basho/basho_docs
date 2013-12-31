@@ -1,10 +1,10 @@
 ---
-title: CAP Controls
+title: Replication Properties
 project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
-keywords: [developers, cap]
+keywords: [developers, cap, replication]
 interest: [
 "[[Installing and Upgrading]]",
 "[[Concepts]]",
@@ -23,7 +23,7 @@ At the bottom of this page there is a final screencast that briefly touches on h
 
 ## A Primer on N, R, and W
 
-Riak exposes "CAP Controls" to the developers in such a way that they can, down to the Bucket level, tune how many copies of data we want to store. We do this using N, R, and W values.
+Riak exposes replication controls to the developers in such a way that they can, down to the Bucket level, tune how many copies of data we want to store, how many copes we wish to read from at a time, and how many copies must write to be considered a success. We do this using N, R, and W values.
 
 Riak's guiding design principle is Dr. Eric Brewer's CAP Theorem. The CAP theorem defines distributed systems in terms of three desired properties: Consistency, Availability, and Partition (failure) tolerance. The theorem states you can only rely on having two of the three properties at any time.
 
@@ -36,7 +36,7 @@ All data stored in Riak will be replicated to a number of nodes in the cluster a
 To change the N value for a bucket (to something different than the default) issue a PUT request to the bucket with the new N value. If you still have your three node Riak cluster running, try this:
 
 ```
-$ curl -v -XPUT http://127.0.0.1:8091/riak/another_bucket \
+$ curl -v -XPUT http://127.0.0.1:8091/buckets/another_bucket/props \
   -H "Content-Type: application/json" \
   -d '{"props":{"n_val":2}}'
 ```
@@ -53,8 +53,8 @@ Riak allows the client to supply an "R value" on each direct fetch. The R value 
 
 For example, in this HTTP request, the r value is set to 1:
 
-```bash
-http://127.0.0.1:8091/riak/images/1.png?r=1
+```curl
+$ curl http://127.0.0.1:8091/buckets/images/keys/1.png?r=1
 ```
 
 This means that Riak will return a copy of that data if at least 1 copy is present in your cluster.
@@ -65,8 +65,8 @@ Riak also allows the client to supply a "W value" on each update. The W value re
 
 In this PUT operation, you can see the w value set to 3.
 
-```
-$ curl -v -XPUT http://127.0.0.1:8091/riak/docs/story.txt?w=3 \
+```curl
+$ curl -v -XPUT http://127.0.0.1:8091/buckets/docs/keys/story.txt?w=3 \
   -H "Content-type: text/plain" \
   --data-binary @story.txt
 ```

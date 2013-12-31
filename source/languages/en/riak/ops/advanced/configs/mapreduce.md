@@ -126,7 +126,7 @@ files which will be loaded when Riak initializes Javascript VMs.
 
 If you load larger JSON objects in your buckets there is a possibility you might encounter an error like the following:
 
-```javascript
+```json
  {"lineno":465,"message":"InternalError: script stack space quota is exhausted","source":"unknown"}
 ```
 
@@ -178,7 +178,7 @@ By default, Riak will evaluate a reduce function every time its phase receives 2
 
 You may also control this batching behavior on a per-query basis by using the static argument of the phase specification.  When specifying phases over HTTP, the JSON configuration for evaluating the function after 150 new inputs looks like this:
 
-```javascript
+```json
 {"reduce":
   {...language, etc. as usual...
    "arg":{"reduce_phase_batch_size":150}}}
@@ -192,7 +192,7 @@ In Erlang, you may either specify a similar mochijson2 structure for the phase a
 
 Finally, if you want your reduce function to be evaluated only once, after all inputs are received, use this argument instead:
 
-```javascript
+```json
 {"reduce":
   {...language, etc. as usual...
    "arg":{"reduce_phase_only_1":true}}}

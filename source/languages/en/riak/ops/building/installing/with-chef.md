@@ -64,11 +64,24 @@ changed if you want clients to use the HTTP interface. That said, it is not
 recommended to allow clients direct connection with some type of load
 balancing solution between Riak and client traffic.
 
+{{#1.4.0-}}
+
 ```ruby
 default['riak']['config']['riak_core']['http'] = [[node['ipaddress'].to_erl_string, 8098].to_erl_tuple]
 default['riak']['config']['riak_api']['pb_ip'] = node['ipaddress'].to_erl_string
 default['riak']['config']['riak_api']['pb_port'] = 8087
 ```
+
+{{/1.4.0-}}
+
+{{#1.4.0+}}
+
+```ruby
+default['riak']['config']['riak_core']['http'] = [[node['ipaddress'].to_erl_string, 8098].to_erl_tuple]
+default['riak']['config']['riak_api']['pb'] = [[node['ipaddress'].to_erl_string, 8087].to_erl_tuple]
+```
+
+{{/1.4.0-}}
 
 Intra-cluster handoff occurs over a dedicated port, which defaults to `8099`.
 
@@ -169,7 +182,7 @@ default['riak']['config']['riak_sysmon']['busy_dist_port'] = true
 
 ### Index Merge
 
-Settings pertaining to Secondary Index and Riak Search indices.
+Settings pertaining to Secondary Index and Riak Search indexes.
 
 ```ruby
 default['riak']['config']['merge_index']['data_root'] = "/var/lib/riak/merge_index".to_erl_string

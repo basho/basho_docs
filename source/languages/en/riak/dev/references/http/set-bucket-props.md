@@ -73,13 +73,13 @@ If successful, no content will be returned in the response body.
 
 ## Example
 
-```bash
-$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"n_val":5}}'
-http://127.0.0.1:8098/riak/test
+```curl
+$ curl -v -XPUT http://127.0.0.1:8098/buckets/test/props \
+       -H "Content-Type: application/json" -d '{"props":{"n_val":5}}'
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> PUT /riak/test HTTP/1.1
+> PUT /buckets/test/props HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4
 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098

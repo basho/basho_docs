@@ -6,9 +6,6 @@ document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, search, kv]
-moved: {
-  '1.4.0-': '/tutorials/querying/Riak-Search'
-}
 ---
 
 You must first [[enable Riak Search|Riak Search Settings]] in your environment to use it.
@@ -96,8 +93,8 @@ The following parameters are supported:
 
 To query data in the system with Curl:
 
-```bash
-curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
+```curl
+$ curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
 ```
 
 ### Riak Client API
@@ -112,7 +109,7 @@ The Riak Client APIs that integrate with Riak Search also support using a search
 
 Kicking off a map/reduce query with the same result set over HTTP would use a POST body like this:
 
-```javascript
+```json
 {
   "inputs": {
              "bucket":"mybucket",
@@ -124,7 +121,7 @@ Kicking off a map/reduce query with the same result set over HTTP would use a PO
 
 or
 
-```javascript
+```json
 {
   "inputs": {
              "bucket":"mybucket",
@@ -141,7 +138,7 @@ The query field specifies the search query.  All syntax available in other Searc
 
 The old but still functioning syntax is:
 
-```javascript
+```json
 {
   "inputs": {
              "module":"riak_search",
@@ -208,7 +205,7 @@ books.url:http\:\/\/mycompany.com\/url\/to\/my\-book\#foo
 
 Terms can include wildcards in the form of an asterisk ( * ) to allow prefix matching, or a question mark ( ? ) to match a single character.
 
-Currently, the wildcard must come at the end of the term in both cases.
+Currently, the wildcard must come at the end of the term in both cases, and must be preceded by a minimum of two characters.
 
 For example:
 
@@ -277,16 +274,3 @@ Clauses in a query can be grouped using parentheses. The following query returns
 ```bash
 (red OR blue) AND NOT yellow
 ```
-
-<!--
-Most clients support Search as inputs to MapReduce
-Java: http://basho.github.io/riak-java-client/1.1.1/com/basho/riak/client/query/SearchMapReduce.html
-    You can't enable search (bucket property) via Java
-Ruby: ?
-
-* Errors
-
-* For more information about establishing a Search environment:
-   * Ops stuff link
-   * Schema/other dev stuff link
- -->

@@ -90,12 +90,13 @@ and the response can be dealt with similarly.
 
 ## Example: Storing Without Key
 
-```bash
-$ curl -v -d 'this is a test' -H "Content-Type: text/plain" http://127.0.0.1:8098/riak/test
+```curl
+$ curl -v http://127.0.0.1:8098/buckets/test/keys \
+       -H "Content-Type: text/plain" -d 'this is a test'
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> POST /riak/test HTTP/1.1
+> POST /buckets/test/keys HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
@@ -105,7 +106,7 @@ $ curl -v -d 'this is a test' -H "Content-Type: text/plain" http://127.0.0.1:809
 < HTTP/1.1 201 Created
 < Vary: Accept-Encoding
 < Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-< Location: /riak/test/bzPygTesROPtGGVUKfyvp2RR49
+< Location: /buckets/test/keys/bzPygTesROPtGGVUKfyvp2RR49
 < Date: Fri, 30 Sep 2011 15:24:35 GMT
 < Content-Type: application/json
 < Content-Length: 0
@@ -116,12 +117,12 @@ $ curl -v -d 'this is a test' -H "Content-Type: text/plain" http://127.0.0.1:809
 
 ## Example: Storing With Key
 
-```bash
-$ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" http://127.0.0.1:8098/riak/test/doc?returnbody=true
+```curl
+$ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" http://127.0.0.1:8098/buckets/test/keys/doc?returnbody=true
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
-> PUT /riak/test/doc?returnbody=true HTTP/1.1
+> PUT /buckets/test/keys/doc?returnbody=true HTTP/1.1
 > User-Agent: curl/7.19.4 (universal-apple-darwin10.0) libcurl/7.19.4 OpenSSL/0.9.8l zlib/1.2.3
 > Host: 127.0.0.1:8098
 > Accept: */*
@@ -133,7 +134,7 @@ $ curl -v -XPUT -d '{"bar":"baz"}' -H "Content-Type: application/json" -H "X-Ria
 < X-Riak-Vclock: a85hYGBgymDKBVIszMk55zKYEhnzWBlKIniO8kGF2TyvHYIKfwcJZwEA
 < Vary: Accept-Encoding
 < Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-< Link: </riak/test>; rel="up"
+< Link: </buckets/test>; rel="up"
 < Date: Fri, 30 Sep 2011 15:24:35 GMT
 < Content-Type: application/json
 < Content-Length: 13

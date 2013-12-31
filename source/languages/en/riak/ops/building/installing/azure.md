@@ -142,7 +142,7 @@ You now have a Riak cluster on Azure
 
 Execute on any one of the nodes:
 
-    curl -s http://rekon.basho.com | sh
+    curl -sL http://rekon.basho.com | sh
 
 Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
 

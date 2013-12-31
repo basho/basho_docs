@@ -89,9 +89,9 @@ Basho Bench is currently available as source code only. To get the
 latest code, clone the basho_bench repository:
 
 ```bash
-git clone git://github.com/basho/basho_bench.git
-cd basho_bench
-make
+$ git clone git://github.com/basho/basho_bench.git
+$ cd basho_bench
+$ make
 ```
 
 Usage
@@ -166,7 +166,7 @@ Note that this setting is applied to each driver independently. For
 example, if `{rate, 5}` is used with 3 concurrent workers, basho_bench
 will be generating 15 (i.e. 5 * 3) operations per second.
 
-```bash
+```erlang
 % Run at max, i.e.: as quickly as possible
 {mode, max}
 
@@ -180,7 +180,7 @@ The number of concurrent worker processes. The default is 3 worker
 processes. This determines the number of concurrent clients running
 requests on API under test.
 
-```bash
+```erlang
 % Run 10 concurrent processes
 {concurrent, 10}
 ```
@@ -189,7 +189,7 @@ requests on API under test.
 
 The duration of the test, in minutes. The default is 5 minutes.
 
-```bash
+```erlang
 % Run the test for one hour
 {duration, 60}
 ```
@@ -202,7 +202,7 @@ which means that out of every 9 operations, 'get' will be called four
 times, 'put' will be called four times, and 'delete' will be called once,
 on average.
 
-```bash
+```erlang
 % Run 80% gets, 20% puts
 {operations, [{get, 4}, {put, 1}]}.
 ```
@@ -216,7 +216,7 @@ respectively.
 If a driver does not support a specified operation ("asdfput" in this
 example) you may see errors like:
 
-```bash
+```log
 DEBUG:Driver basho_bench_driver_null crashed: {function_clause,
                                           [{{{basho_bench_driver_null,run,
                                             [asdfput,
@@ -300,7 +300,7 @@ The default key generator is `{uniform_int, 100000}`.
 
 Examples:
 
-```bash
+```erlang
 % Use a randomly selected integer between 1 and 10,000
 {key_generator, {uniform_int, 10000}}.
 
@@ -333,7 +333,7 @@ The default value generator is `{value_generator, {fixed_bin, 100}}`.
 
 Examples:
 
-```bash
+```erlang
 % Generate a fixed size random binary of 512 bytes
 {value_generator, {fixed_bin, 512}}.
 
@@ -350,7 +350,7 @@ predictable, repeatable fashion.
 
 Default is `{rng_seed, {42, 23, 12}}`.
 
-```bash
+```erlang
 % Seed to {12, 34, 56}
 {rng_seed, {12, 34, 56}.
 ```
@@ -387,7 +387,7 @@ These configuration settings apply to the
 
 List of Riak nodes to use for testing.
 
-```bash
+```erlang
 {riakclient_nodes, ['riak1@127.0.0.1', 'riak2@127.0.0.1']}.
 ```
 
@@ -396,8 +396,7 @@ List of Riak nodes to use for testing.
 The Erlang cookie to use to connect to Riak clients. Default is
 `'riak'`.
 
-```bash
-
+```erlang
 {riakclient_cookie, riak}.
 ```
 
@@ -406,7 +405,7 @@ The Erlang cookie to use to connect to Riak clients. Default is
 The name of the local node. This is passed into
 [net_kernel:start/1](http://erlang.org/doc/man/net_kernel.html).
 
-```bash
+```erlang
 {riakclient_mynode, ['basho_bench@127.0.0.1', longnames]}.
 ```
 
@@ -415,7 +414,7 @@ The name of the local node. This is passed into
 This value is used for R-values during a get operation, and W-values
 during a put operation.
 
-```bash
+```erlang
 % Expect 1 reply.
 {riakclient_replies, 1}.
 ```
@@ -425,9 +424,9 @@ during a put operation.
 The Riak bucket to use for reading and writing values. Default is
 `<<"test">>`.
 
-```bash
+```erlang
 % Use the "bench" bucket.
-{riakclient_bucket, &lt;&lt;"bench"&gt;&gt;}.
+{riakclient_bucket, <<"bench">>}.
 ```
 
 ### basho_bench_driver_riakc_pb Settings
@@ -439,7 +438,7 @@ chosen for each worker.
 
 Default is `{riakc_pb_ips, [{127,0,0,1}]}`
 
-```bash
+```erlang
 % Connect to a cluster of 3 machines
 {riakc_pb_ips, [{10,0,0,1},{10,0,0,2},{10,0,0,3}]}
 ```
@@ -465,7 +464,7 @@ requests to each IP in a round-robin fashion.
 
 Default is `{http_raw_ips, ["127.0.0.1"]}`
 
-```bash
+```erlang
 % Connect to a cluster of machines in the 10.x network
 {http_raw_ips, ["10.0.0.1", "10.0.0.2", "10.0.0.3"]}.
 ```
@@ -476,7 +475,7 @@ Select the default port to connect on for the HTTP server.
 
 Default is `{http_raw_port, 8098}`.
 
-```bash
+```erlang
 % Connect on port 8090
 {http_raw_port, 8090}.
 ```
@@ -487,7 +486,7 @@ Base path to use for accessing riak - usually "/riak/<bucket>"
 
 Defaults is `{http_raw_path, "/riak/test"}`.
 
-```bash
+```erlang
 % Place test data in another_bucket
 {http_raw_path, "/riak/another_bucket"}.
 ```
@@ -499,7 +498,7 @@ set riak r/w/dw/rw parameters as as desired.
 
 Default is `{http_raw_params, ""}`.
 
-```bash
+```erlang
 % Set R=1, W=1 for testing a system with n_val set to 1
 {http_raw_params, "?r=1&w=1"}.
 ```
@@ -512,7 +511,7 @@ How often, in seconds or number of operations, the HTTP clients
 Default is `{http_raw_disconnect_frequency, infinity}`. (never forcibly
 disconnect)
 
-```bash
+```erlang
 % Disconnect after 60 seconds
 {http_raw_disconnect_frequency, 60}.
 

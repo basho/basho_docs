@@ -16,7 +16,7 @@ To try this flavor of Riak, a working installation of Ruby is required.
 First, install the Riak Ruby client through `gem`.
 
 ```bash
-gem install riak-client
+$ gem install riak-client
 ```
 
 Start IRB, the Ruby REPL, and let’s get setup.  Enter the following into IRB:
@@ -133,7 +133,7 @@ puts fetched_book.raw_data
 
 Raw Data:
 
-```javascript
+```json
 {"isbn":"1111979723","title":"Moby Dick","author":"Herman Melville",
 "body":"Call me Ishmael. Some years ago...","copies_owned":3}
 ```
@@ -148,6 +148,8 @@ new_book.delete()
 ```
 
 ###Next Steps
-More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. In the next chapter we will look at how to store and query more complicated and interconnected data, such as documents.  
+More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [[In the next chapter|Taste of Riak: Querying]] we look at how to store and query more complicated and interconnected data.  
+
+
 
 
