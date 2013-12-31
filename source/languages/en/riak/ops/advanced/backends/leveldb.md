@@ -69,7 +69,7 @@ for "large data" environments typical in Riak deployments.
 
 Riak ships with eLevelDB included within the distribution, so there is no
 separate installation required. However, Riak is configured by default to use
-the Bitcask storage engine. To switch to eLevelDB set the 'storage_backend`
+the Bitcask storage engine. To switch to eLevelDB set the `storage_backend`
 variable in [[app.config|Configuration Files]] to `riak_kv_eleveldb_backend`.
 
 ```erlang
@@ -626,7 +626,7 @@ application variables in the `eLeveldb` application scope.
 
 Below are **general** configuration recommendations for Linux distributions. Individual users may need to tailor these settings for their application.
 
-For production environments, we recommend the following settings within ```/etc/syscfg.conf```:
+For production environments, we recommend the following settings within `/etc/syscfg.conf`:
 
 ```bash
 net.core.wmem_default=8388608
