@@ -143,12 +143,12 @@ Number of open files that can be used by the DB. You may need to increase
 this if your database has a large working set (budget one open file per 2MB
 of working set divided by `ring_creation_size`).
 
-The minimum `max_open_files` is 20. The default is also 20.
+The minimum `max_open_files` is 20. The default 30. However, if you start Riak with no value for `max_open_files` (meaning you've included the setting in your `app.config` but not specified a value) it will be set to 1000.  
 
 ```erlang
 {eleveldb, [
     ...,
-    {max_open_files, 20},
+    {max_open_files, 30},
     ...
 ]}
 ```
@@ -601,9 +601,8 @@ application variables in the `eLeveldb` application scope.
   * __Be aware of file handle limits__
 
     You can control the number of file descriptors eLevelDB will use with
-    `max_open_files`. eLevelDB configuration is set to 20 per partition (which
-    is both the default and minimum allowed value) which means that in a
-    cluster with 64 partitions you'll have at most 1280 file handles in use at
+    `max_open_files`. eLevelDB configuration defaults to 30 per partition which means that in a
+    cluster with 64 partitions you'll have at most 1920 file handles in use at
     a given time. This can cause problems on some platforms (e.g. OS X has a
     default limit of 256 handles). The solution is to increase the number of
     file handles available. Review the (open files
