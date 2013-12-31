@@ -8,13 +8,13 @@ $ ->
     for vs in ($versions[project] || [])
       firstInBlock = true
       for vsi in vs
-        vsp = parseVersion(vsi)
-        if inVersionRange(vsp, range)
+        vsp = window.parseVersion(vsi)
+        if window.inVersionRange(vsp, range)
           current = window.compareVersions(currentVersion, vsp) == 0
           vData = {active:true, firstInBlock:firstInBlock, current:current, href:"/#{project}/#{vsi}#{base_url}", text:vsi}
 
           for vr_link in moved_ranges_obj
-            if inVersionRange(vsp, vr_link[0])
+            if window.inVersionRange(vsp, vr_link[0])
               vData.href = "/#{project}/#{vsi}#{vr_link[1]}"
 
           lists.unshift(vData)
@@ -40,7 +40,7 @@ $ ->
 
   moved_ranges_obj = []
   for r,link of $.parseJSON(moved_ranges)
-    moved_ranges_obj.push [parseVersionRange(r), link]
+    moved_ranges_obj.push [window.parseVersionRange(r), link]
 
   lists = buildLists(project, base_url, moved_ranges_obj)
 
