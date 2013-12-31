@@ -72,7 +72,7 @@ riak:
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
-              - "[[Search Indexing|Search Indexing Reference]]"
+              # - "[[Search Indexing|Search Indexing Reference]]"
               - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
               - "[[Implementing a Backend|Backend API]]"
@@ -126,7 +126,7 @@ riak:
             sub:
               - "[[riak|riak Command Line]]"
               - "[[riak-admin|riak-admin Command Line]]"
-              - "[[search-cmd|search Command Line]]"
+              # - "[[search-cmd|search Command Line]]"
           - title: "Repair and Recovery"
             sub:
               - "[[Failure and Recovery]]"

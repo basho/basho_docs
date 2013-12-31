@@ -1,259 +1,19 @@
 ---
-title: Using Search
+title: Using Legacy Search
 project: riak
 version: 1.0.0+
 document: tutorials
 toc: true
 audience: beginner
 keywords: [developers, search, kv]
+moved: {
+  '1.4.0-': '/tutorials/querying/Riak-Search'
+}
 ---
 
 {{#2.0.0+}}
-<div class="info">This document refers to the new Riak Search 2.0 with [[Solr|http://lucene.apache.org/solr/]] integration (codenamed Yokozuna). For information about the <em>deprecated</em> Riak Search, visit [[Using Legacy Search]].</div>
-
-You must first [[enable Riak Search|Riak Search Settings]] in your environment to use it.
-
-## Introduction
-
-Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or bucket type) to a solr index, you simply write values (such as JSON, XML, plain text, datastructures, etc.) into Riak as normal, and then query those indexed values like Solr.
-
-
-### Why Riak Search
-
-Some of Riak's core strengths lie in its scalability, fault tolerance, and ease of operations. However, Riak models its data in key-value objects, and a KV store is something that few would claim is easy to query. This is the driving force behind Riak Search, to provide an integrated, scalable mechanism to build ad hoc queries against values stored in a Riak cluster, while holding true to Riak's core strengths.
-
-TODO: yokozuna image
-
-
-
-## Simple Setup
-
-Riak Search 2.0 is an integration of Solr (for indexing and querying) and Riak (for storage and distribution). There are a few points of interest that a user of Riak Search will have to keep in mind in order to properly store and later query for values.
-
-1. **Schemas** explain to Solr how to index fields
-2. **Indexes** are named Solr indexes which you will query against
-3. **Bucket-index association** signals to Riak *when* to index values
-
-Riak Search must first be configured with a Solr *schema*, so Solr knows how to index value fields. If you don't define one, you're provided with a default schema named `_yz_default`. The examples in this document will presume the default. You can read more about creating a custom schema in [[Advanced Search Schema]], which you'll want to do in a production environment.
-
-Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we use `curl` to create an index named `famous` with the default schema.
-
-```curl
-curl -XPUT http://localhost:8098/search/index/famous
-```
-```ruby
-client.create_search_index("famous")
-```
-```python
-client.create_search_index('famous')
-```
-```erlang
-riakc_pb_socket:create_search_index(Pid, <<"famous">>)
-```
-
-Note that the above command is exactly the same as the following, which explicitly defines the default schema.
-
-```curl
-curl -XPUT http://localhost:8098/search/index/famous \
-     -H'content-type:application/json' \
-     -d'{"schema":"_yz_default"}'
-```
-```ruby
-client.create_search_index("famous", "_yz_default")
-```
-```python
-client.create_search_index('famous', '_yz_default')
-```
-```erlang
-riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, [])
-```
-
-The last setup item you need to perform is to *associate a bucket* (or bucket type) with a Solr index. You only need do this once per bucket (or bucket type). This setting tells Riak Search which bucket's values are to be indexed on a write to Riak. For example, to associate a bucket named `cats` with the `famous` index, you can set the bucket property `search_index`.
-
-
-```curl
-curl -XPUT http://localhost:8098/buckets/cats/props \
-     -H'content-type:application/json' \
-     -d'{"props":{"search_index":"famous"}}'
-```
-```ruby
-bucket = Riak::Bucket.new(client, "cats")
-bucket.props = {"search_index" => "famous"}
-```
-```python
-bucket = client.bucket('cats')
-bucket.set_property('search_index', 'famous')
-```
-```erlang
-ok = riakc_pb_socket:set_search_index(Pid, <<"cats">>, <<"famous">>)
-```
-
-With your schema, solr index, and association all set up, you're ready to start using Riak.
-
-### Search With Bucket Types
-
-Since Riak 2.0, Basho suggests you use bucket types to namespace all buckets you create.Bucket types have a lower overhead within the cluster than the default bucket namespace, but it requires an additional setup step in on commandline.
-
-```bash
-$ riak-admin bucket-type create animals '{"props":{}}'
-$ riak-admin bucket-type activate animals
-```
-
-Then you can *associate the bucket* with an index as you did before, but this time requiring a bucket type as well as a bucket name (in this case, the type is *animals*).
-
-```curl
-curl -XPUT 'http://localhost:8098/types/animals/buckets/cats/props' \
-     -H'content-type:application/json' \
-     -d'{"props":{"search_index":"famous"}}'
-```
-
-Creating and using indexes is the same we've seen thusfar.
-
-## Indexing Values
-
-With a Solr schema, index, and association in place, we're ready to start using Riak Search. First, populate the `cat` bucket with values.
-
-Depending on the driver you use, you may have to specify the content type, which for this example is *application/json*. In the case of Ruby and Python the content type is automatically set for you based on the object given.
-
-```curl
-curl -XPUT 'http://localhost:8098/buckets/cats/keys/liono' \
-     -H'content-type:application/json' \
-     -d'{"name_s":"Liono", "age_i":30, "leader_b":true}'
-
-curl -XPUT 'http://localhost:8098/buckets/cats/keys/cheetara' \
-     -H'content-type:application/json' \
-     -d'{"name_s":"Cheetara", "age_i":28, "leader_b":false}'
-
-curl -XPUT 'http://localhost:8098/buckets/cats/keys/snarf' \
-     -H'content-type:application/json' \
-     -d'{"name_s":"Snarf", "age_i":43}'
-```
-```ruby
-bucket = client.bucket("cats")
-
-cat = bucket.get_or_new("liono")
-cat.data = {"name_s" => "Liono", "age_i" => 30, "leader_b" => true}
-cat.store
-
-cat = bucket.get_or_new("cheetara")
-cat.data = {"name_s" => "Cheetara", "age_i" => 28, "leader_b" => false}
-cat.store
-
-cat = bucket.get_or_new("snarf")
-cat.data = {"name_s" => "Snarf", "age_i" => 43}
-cat.store
-```
-```python
-bucket = client.bucket('cats')
-
-cat = bucket.new('liono', {'name_s': 'Liono', 'age_i': 30, 'leader_b': True})
-cat.store()
-
-cat = bucket.new('cheetara', {'name_s':'Cheetara', 'age_i':28, 'leader_b': True})
-cat.store()
-
-cat = bucket.new('snarf', {'name_s':'Snarf', 'age_i':43})
-cat.store()
-```
-```erlang
-CO = riakc_obj:new(<<"cats">>, <<"liono">>,
-    <<"{\"name_s\":\"Liono\", \"age_i\":30, \"leader_b\":true}">>,
-    "application/json"),
-riakc_pb_socket:put(Pid, CO),
-
-C1 = riakc_obj:new(<<"cats">>, <<"cheetara">>,
-    <<"{\"name_s\":\"Cheetara\", \"age_i\":28, \"leader_b\":false}">>,
-    "application/json"),
-riakc_pb_socket:put(Pid, C1),
-
-C2 = riakc_obj:new(<<"cats">>, <<"snarf">>,
-    <<"{\"name_s\":\"Snarf\", \"age_i\":43}">>,
-    "application/json"),
-riakc_pb_socket:put(Pid, C2),
-```
-
-If you've used Riak before, you may have noticed that this is no different than setting values without Riak Search. This is one of the design goals of Riak Search: you insert values like Riak, and you query like Solr. But how does Riak Search know how to index values, given that values are opaque in Riak? For that, we employ extractors.
-
-### Extractors
-
-*Extractors* are modules in Riak that accept a Riak value with a certain content type, and converts it into a list of fields capable of being indexed by Solr. This is done transparently and automatically as part of the indexing process.
-
-Our current example uses the JSON extractor, but Riak Search also extracts indexable fields from the following content types:
-
-* JSON (`application/json`)
-* XML (`application/xml`, `text/xml`)
-* Plain text (`text/plain`)
-* Datatypes
-  * counter (`application/riak_counter`)
-  * map (`application/riak_map`)
-  * set (`application/riak_set`)
-* noop (unknown content type)
-
-In the examples we've seen, the JSON field `name_s` is translated to a Solr index document field insert. Solr will index any field that it recognizes, based on the index's schema. The default schema (`_yz_default`) dynamically uses the suffix to decide the field type (`_s` represents a string, `_i` is an integer, `_b` is binary and so on). This means that you can query on this field later.
-
-If the content type allows for nested values (JSON and XML), the extractors will flatten each field, seperated by dots. For example, if you have this XML:
-
-```xml
-<person>
-  <pets>
-    <pet>
-      <name_s>Spot</name_s>
-    </pet>
-  </pets>
-</person>
-```
-
-The XML extractor will convert it to the Solr field `person.pets.pet.name_s` with value `Spot`.
-
-Lists of values are assumed to be Solr multi-valued fields.
-
-```json
-{"people_ss":["Ryan", "Eric", "Brett"]}
-```
-
-The above JSON will insert a list of three values into Solr to be indexed: `people_ss=Ryan`, `people_ss=Eric`, `people_ss=Brett`.
-
-### Meta-fields
-
-When a Riak object is indexed, Riak Search automatically inserts a few extra fields as well. These are necessary for a variety of technical reasons, and for the most part you don't need to think about them. However, there are a few fields which you may find useful, all prefixed with `_yz`: `_yz_rk` (Riak key), `_yz_rt` (Riak bucket type), `_yz_rb` (Riak bucket), and `_yz_err` (extraction error). 
-
-You can query by these fields, just like any other normal Solr fields. But most of the time you'll use `_yz_rk` as a query result, which tells you the Riak key that matches the query you just ran. Let's see this in detail by running some queries in the next section.
-
-
-## Querying
-
-After the schema, index, association, population/extraction/indexing has taken place, comes the fun part of querying for data.
-
-
-
-<!-- You query fields that are recognizable by the extractor and the index schema.  -->
-
-
-
-
-### Features
-
-Riak Search 2.0 is more than a distributed search engine like [SolrCloud](http://wiki.apache.org/solr/SolrCloud) or [ElasticSearch](http://www.elasticsearch.org/). It's integration with Riak greatly simplifies usage by offloading the task of indexing values to Riak.
-
-* Support for various mime types (JSON, XML, plain text, Erlang, Erlang binaries) for automatic data extraction
-* Support for various analyzers (to break text into tokens) including a white space analyzer, an integer analyzer, and a no-op analyzer
-* Robust, easy-to-use query language
-* Exact match queries
-  * Wildcards
-  * Inclusive/exclusive range queries o AND/OR/NOT support
-  * Grouping
-  * Prefix matching
-  * Proximity searches
-  * Term boosting
-* Solr interface via HTTP
-* Protocol buffers interface
-* Scoring and ranking for most relevant results
-* Search queries as input for MapReduce jobs
-
-
-
+<div class="info">This document refers to the now <em>deprecated</em> Riak Search. Visit [[Using Search]] for information about the new Riak Search (codenamed Yokozuna).</div>
 {{/2.0.0+}}
-{{#2.0.0-}}
 
 You must first [[enable Riak Search|Riak Search Settings]] in your environment to use it.
 
@@ -340,8 +100,8 @@ The following parameters are supported:
 
 To query data in the system with Curl:
 
-```curl
-$ curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
+```bash
+curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
 ```
 
 ### Riak Client API
@@ -356,7 +116,7 @@ The Riak Client APIs that integrate with Riak Search also support using a search
 
 Kicking off a map/reduce query with the same result set over HTTP would use a POST body like this:
 
-```json
+```javascript
 {
   "inputs": {
              "bucket":"mybucket",
@@ -368,7 +128,7 @@ Kicking off a map/reduce query with the same result set over HTTP would use a PO
 
 or
 
-```json
+```javascript
 {
   "inputs": {
              "bucket":"mybucket",
@@ -385,7 +145,7 @@ The query field specifies the search query.  All syntax available in other Searc
 
 The old but still functioning syntax is:
 
-```json
+```javascript
 {
   "inputs": {
              "module":"riak_search",
@@ -521,5 +281,3 @@ Clauses in a query can be grouped using parentheses. The following query returns
 ```bash
 (red OR blue) AND NOT yellow
 ```
-
-{{/2.0.0-}}
