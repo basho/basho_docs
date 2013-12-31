@@ -190,7 +190,7 @@ or network partitions), whereas `last_write_wins=true` will simply
 overwrite the value with the one that has the later timestamp.
 
 When you don't care about sibling creation, `allow_mult=false` has the
-least surprising behavior &mdash; you get the latest value, but
+least surprising behavior --- you get the latest value, but
 network partitions are handled gracefully. However, for cases where
 keys are rewritten often (and quickly) and the new value isn't
 necessarily dependent on the old value, `last_write_wins` will provide

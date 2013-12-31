@@ -11,8 +11,7 @@ keywords: [api, http]
 
 ## Overview
 
-This document outlines a mapping of the OpenStack Object Storage (OOS) API (version 1.0) URLs
-to their rewritten format that is processed by Webmachine and Riak CS.
+This document outlines a mapping of the OpenStack Object Storage (OOS) API (version 1.0) URLs to their rewritten format that is processed by Webmachine and Riak CS.
 
 ## URL Mapping
 

@@ -81,8 +81,8 @@ those expensive operations.
 
 ## Nagle's Algorithm
 
-In most cases &mdash; especially when using the [[PBC API]], which tends to
-use small messages &mdash; clients should set the `TCP_NODELAY` flag on
+In most cases --- especially when using the [[PBC API]], which tends to
+use small messages --- clients should set the `TCP_NODELAY` flag on
 opened socket connections to Riak, which disables
 [Nagle's Algorithm](http://en.wikipedia.org/wiki/Nagle%27s_algorithm). Latency
 profiles having a minimum of 40 milliseconds often indicate the

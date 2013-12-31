@@ -10,38 +10,18 @@ moved: {
 }
 ---
 
-Q: It is ok to distribute Riak over a WAN?
-  How exactly does performance degrade when nodes are spread out
-  between hosts with latencies in the tens to hundred plus milliseconds (as
-  is typical over WANs)? Does reliability of connections and overhead in
-  retrying them pose a problem?
+Q: Is it okay to distribute Riak over a WAN?
+  How exactly does performance degrade when nodes are spread out between hosts with latencies in the tens-to-100+ plus milliseconds (as is typical over WANs)? Does the reliability of connections and overhead in retrying them pose a problem?
 A:
-  Latency is a big reason.  Every Riak request involves N vnodes.  If
-  those vnodes are spread across different regions with varying latencies
-  then your deviation grows and higher percentiles go through the roof. The
-  wider you go the more unpredictable your latency profile becomes.
-  Predictable latency is key to many applications built on top of Riak.
-  This is a point made very clear in the Dynamo paper which heavily
-  influenced the design of Riak.
+  The main reason for performance degradation is latency. Every Riak request involves _N_ vnodes. If those vnodes are spread across different regions with varying latencies, your deviation grows and higher percentiles go through the roof. The wider you go, the more unpredictable your latency profile becomes. Predictable latency is key to many applications built on top of Riak. This is a point made very clear in the [Dynamo paper](http://docs.basho.com/riak/latest/theory/dynamo/) which heavily influenced the design of Riak.
 
-  Another reason is connection reliability. A node that is dead is indistinguishable
-  from a node that is simply taking a really long time to respond.  Once you spread
-  nodes across a WAN the chance for network failure, and thus network
-  partitions, becomes much greater.  Riak is designed to always be available
-  for writes but you still want to avoid partitions as much as possible.
-  Partitions are one of the primary causes of siblings, potentially
-  generating lots of sibling resolution. Partitions also cause additional
-  load to be placed on the nodes, since to allow sloppy quorums requires
-  nodes must take on the work of other partitioned nodes, possibly doubling
-  or trippling the workload of each server.
+  Another reason for performance degradation is connection reliability. A node that is dead is indistinguishable from a node that is simply taking a really long time to respond. Once you spread nodes across a WAN, the likelihood of network failure---and thus network partitions---becomes much higher. Riak is designed to always be available for writes, but you will still want to avoid partitions as strenuously as possible. Partitions are one of the primary causes of siblings, potentially generating a high demand for sibling resolution. Partitions also cause additional load to be placed on the nodes, since allowing sloppy quorums requires nodes to take on the work of other partitioned nodes, possibly doubling or tripling the workload of each server.
   
-  If you must replicate data in Riak across multiple datacenters, consider
-  looking into [[Riak Enterprise]], which handles data Multi Data Center replication
-  across a WAN (without the downsides listed above).
+  If you must replicate data in Riak across multiple datacenters, we recommend that you explore [[Riak Enterprise]], which handles multi-datacenter replication across a WAN (without the downsides listed above).
 
-  Check out this talk on [WAN MDC replication](http://vimeo.com/52016325).
+  We also recommend checking out this talk on [WAN MDC replication](http://vimeo.com/52016325).
 
-Q: When upgrading Riak on a Redhat-based system, I get errors from "chcon", saying "can't apply partial context to unlabeled file".
+Q: When upgrading Riak on a Redhat-based system, I get errors from `chcon`, saying something along the lines of `can't apply partial context to unlabeled file`.
   ```bash
   rpm -Uvh /tmp/riak-0.14.1-1.el5.x86_64.rpm 
   Preparing... ########################################### [100%] 
@@ -55,33 +35,29 @@ Q: When upgrading Riak on a Redhat-based system, I get errors from "chcon", sayi
   chcon: can't apply partial context to unlabeled file /usr/lib64/riak/lib/crypto-1.6.4/priv/lib/crypto_drv.so
   ```
 A:
-  The "chcon" warning comes from necessary additions to the RPM packaging for cases where SELinux is enabled. You only receive the warning if SELinux is disabled while installing or was disabled when the last version was installed. It is safe to ignore.
+  The `chcon` warning comes from necessary additions to the RPM packaging for cases where SELinux is enabled. You only receive the warning if SELinux is disabled while installing or was disabled when the last version was installed. It is safe to ignore this type of message.
 
-Q: What's the difference between cluster `leave` and `remove`?
-  I'm trying to remove a node from my cluster and it's unclear whether I should use riak-admin leave or riak-admin remove. What's the difference between them?
+Q: What's the difference between `leave` and `remove` for clusters?
+  I'm trying to remove a node from my cluster and it's unclear whether I should use `riak-admin leave` or `riak-admin remove`. What's the difference between them?
 A: 
-  The difference is two-fold:
+  The appropriate command to use depends on (a) which node is being removed from the cluster, and (b) whether or not the node is being removed forcefully.
   
-  which node is being removed from the cluster, and
-  whether the node is being removed forcefully.
-  In normal conditions, you'll want to use 'riak-admin leave' in cases where the node you're removing is up and healthy. That command must be run on the machine where the node to be removed is running.
+  You'll normally want to use `riak-admin leave` in cases where the node you're removing is up and healthy. That command must be run on the machine where the node to be removed is running.
   
-  In cases where the node you want to remove has been completely lost (for example, if the EC2 instance it was running on terminated), cannot be restarted, or is otherwise incapacitated, use 'riak-admin remove <nodename>'. This will tell the local node (not the one being removed), to remove the lost node from the ring and gossip the membership changes.
+  In cases where the node you want to remove has been completely lost (e.g. if the EC2 instance it was running on terminated), cannot be restarted, or is otherwise incapacitated, use `riak-admin remove <nodename>`. This will tell the local node (not the one being removed),to remove the lost node from the ring and to gossip the membership changes.
   
-  In general, use 'leave' in all conditions except dire ones; in those dire situations, use 'remove'.
+  In general, use `leave` in all conditions except dire ones; in those rare dire situations, use `remove`.
   
   Additional information:
   
-  * 'riak-admin' Command Reference
-  * How do I get a node to leave the cluster?
-  * What happens after I run 'riak-admin leave'?
-
+  * [[riak-admin Command Reference|riak-admin Command Line]]
+  * [[How do I get a node to leave the cluster?|Adding and Removing Nodes]]
 
 Q: How can I configure HTTPS for Riak?
 A:
   Riak has http and https parameters in the `riak_core` section of `app.config`.
   
-  The HTTP and HTTPS settings can be assigned to the same IP address, but must have different ports in order to function at the same time.  To disable either HTTP or HTTPS, simply omit or comment out the configuration line with a %.  In this example, HTTPS would be disabled:
+  The HTTP and HTTPS settings can be assigned to the same IP address, but must have different ports in order to function at the same time. To disable either HTTP or HTTPS, simply omit or comment out the configuration line with a `%`.  In this example, HTTPS would be disabled and HTTP enabled:
   
   ```erlang
   %% http is a list of IP addresses and TCP ports that the Riak 
@@ -93,110 +69,93 @@ A:
   %{https, [{ "10.10.210.16", 8098 }]},
   ```
 
-Q: How do I set the `ulimit -n` on Mac OS/X?
-  Riak complains about "ulimit -n" when starting up on Mac, or crashes with errors producing "emfile" in the logs.
+  In this exmaple, HTTPS would be enabled and HTTP disabled:
+
+  ```erlang
+  %{http, [ {"10.10.210.16", 8098 } ]},
+  {https, [{ "10.10.210.16", 8098 }]},
+  ```  
+
+Q: How do I set the `ulimit -n` on Mac OS X?
+  Riak complains about `ulimit -n` when starting up on a Mac, or crashes with errors producing `emfile` in the logs.
 A:
-  The default `ulimit -n` on Mac OS/X is 256, which is generally too small for Riak. You can set the per-session limit (within the current shell) by executing this command:
+  The default `ulimit -n` on Mac OS X is 256, which is generally too small for Riak. You can set the per-session limit (within the current shell) by executing the following command:
   
   ```bash
   ulimit -n 1024
   ```
   
-  If you want to set the limit for future sessions, use 'launchctl':
+  If you want to set the limit for future sessions, use `launchctl`:
   
   ```bash
   launchctl limit maxfiles 1024 1024
   ```
   
-  For more information, see the [[Open Files Limit]] page or the 'man' pages for 'ulimit' and 'launchctl'
+  For more information, see the [[Open Files Limit]] page or the `man` pages for `ulimit` and `launchctl`.
 
 
-Q: Is it possible to change the port that epmd daemon listens on?
+Q: Is it possible to change the port on which the Erlang Port Mapper Daemon (EPMD) listens?
 A:
-  The default port for EPMD (the process that helps Riak nodes find one another) is `4369`. To change this port, add this line to vm.args:
+  The default port for [EPMD](http://www.erlang.org/doc/man/epmd.html) (the process that helps Riak nodes find one another) is `4369`. To change this port, add this line to vm.args:
   
   ```bash
-  -env ERL_EPMD_PORT <portnum>
+  -env ERL_EPMD_PORT <port number>
   ```
   
-  Replace <portnum> with whatever port you want EPMD to run on.  If you have already started Riak before, be sure to stop Riak, kill the epmd process and then restart Riak for the change to take effect.
+  Replace `<port number>` with whatever port you want EPMD to run on. If you have already started Riak, be sure to stop it, kill the EPMD process, and then restart Riak for the change to take effect.
   
   See additional [[Security and Firewalls]] configurations.
 
 Q: Why does Riak silently fail to start?
-  When I start Riak, no errors print to the console or to the log, but it doesn't start up. Starting it in 'console' mode works just fine. What's wrong?
+  When I start Riak, no errors print to the console or to the log, but it doesn't start up. Starting it in `console` mode works just fine. What's wrong?
 A:
-  Riak creates a Unix pipe and redirects its input and output to it when starting and also opens a log file. The pipe exists so that you can attach to the process later and watch log messages or send commands to the Erlang console. If the directories where it tries to write the pipe or the log are not writeable by the Riak user, it will not even start the Riak node. You can determine which directory the pipe gets written to this is by using this command:
+  Riak creates a Unix pipe and redirects its input and output to it when starting and also opens a log file. The pipe exists so that you can attach to the process later and watch log messages or send commands to the Erlang console. If the directories in which it tries to write the pipe or the log are not writeable by the Riak user, it will not even start the Riak node. You can determine the directory to which the pipe is written by using this command:
   
   ```bash
   # Linux
   grep PIPE_DIR= /usr/sbin/riak
   # Solaris
   grep PIPE_DIR= /opt/riak/bin/riak
-  Usually this points to a subdirectory of '/tmp' but may vary depending on how you installed Riak.
+  Usually this points to a subdirectory of /tmp but may vary depending on how you installed Riak.
   ```
   
   Log files are written to `/var/log/riak` on Linux and `/opt/riak/log` on Solaris.
   
-  Make sure that the `riak` user has read/write permissions to both of those directories
+  Make sure that the `riak` user has read/write permissions to both of those directories.
 
-Q: How can I undo multi_backend?
-  I started using multi_backend so I could store two different types of data (one using Bitcask and one using Innostore), but my application no longer has the need for the second data type. Can I safely switch to a single backend (Bitcask), undoing the multi_backend settings?
+Q: How can I undo `multi_backend`?
+  I started using `multi_backend` so that I could store two different types of data (one using Bitcask and one using LevelDB), but my application no longer has the need for the second data type. Can I safely switch to a single backend---say Bitcask---undoing the `multi_backend` settings?
 A:
-  Assuming you are removing the Innostore backend, here's the steps you would take:
+  Assuming that you are removing the LevelDB backend, here are the steps that you would need to take:
   
-  1. Stop all writes from your application to Innostore buckets
+  1. Stop all writes from your application to LevelDB
   2. Change the `app.config` to use `riak_kv_bitcask_backend` instead of `riak_kv_multi_backend`
-  3. Delete the innostore data and log directories
+  3. Delete the LevelDB `data` and `log` directories
   
   You cannot remove the `backend` bucket property from buckets that did not use the default, but it will be ignored as you are no longer using `riak_kv_multi_backend`.
   
-  Related questions:
+  Related:
   
   * [[Is it ok to change the Riak backend from Bitcask to multi backend if I set Bitcask as the default?|Operating Riak FAQs#is-it-ok-to-change-the-riak-backend-from-bitcask-t]]
-  * [[How can I run Bitcask and Innostore on the same cluster?|Operating Riak FAQs#how-can-i-run-bitcask-and-innostore-on-the-same-cl]]
 
-Q: How can I run Bitcask and Innostore on the same cluster?
-  We have two types of data. One type is written only once, rarely read, and is large in number, which suggests that Innostore would be a good fit (the keys won't likely fit in RAM).  The other is written and read frequently, which suggests Bitcask would be the appropriate backend.  How can I use both at the same time without creating separate clusters?
+Q: How can I run Bitcask and LevelDB on the same cluster?
 A:
-  This is much simpler than setting up two separate clusters. You can use the `riak_kv_multi_backend`, which acts like a bucket-aware multiplexer in front of two or more storage backends. Here's a sample config you could use (to be placed inside the `riak_kv` section of `app.config`):
-  
-  ```
-  %% Use the multi_backend
-  {storage_backend, riak_kv_multi_backend},
-  %% Use bitcask by default
-  {multi_backend_default, <<"bitcask">>},
-  {multi_backend, [
-      %% Here's where you set the individual multiplexed backends
-      {<<"bitcask">>, riak_kv_bitcask_backend, []},
-      {<<"inno">>, riak_kv_innostore_backend, []}
-  ]},
-  %% Rest of your riak_kv config follows
-  ```
-  
-  You would still configure Bitcask and Innostore in their existing separate sections. Once this config is set, you should restart your nodes and then set the 'backend' bucket property for the buckets you want to keep in Innostore. Here's an example:
-  
-  ```bash
-  curl -XPUT http://riaknode:8098/riak/bucketname \
-    -H "Content-Type: application/json" \
-    -d '{"props":{"backend":"inno"}}' 
-  ```
+  For a comprehensive look at how to use Riak in conjunction with more than one backend, see our documentation on [[multiple backend support|Multi]].
 
 Q: What are the correct system metrics to monitor with respect to Riak's memory usage?
   I have a monitoring setup that helps me keep track of the health of my Riak cluster, but the memory statistics don't tell how much RAM Riak is actually consuming. What metrics should I be monitoring?
 A:
   There are at least two memory metrics that are good to monitor for the health of your Riak cluster:
   
-  1. **File system cache**. An active Riak node will have most of its free RAM consumed by the file system cache, which on Linux can be found as the "Cached" line in '/proc/meminfo' or the "cached" column when running the 'free -m' command. A healthy size for this metric is 20-30% of available RAM.
-  2. **Virtual memory size of the Riak process**.  Also known as VSZ, when this metric approaches the amount of available RAM, the Riak node may be unable to allocate more memory (depending on whether you have swap enabled).  You can read this metric on Linux from the output of 'ps aux', and is measured in KB.
+  1. **Filesystem cache**. An active Riak node will have most of its free RAM consumed by the filesystem cache, which on Linux can be found as the `Cached` line in `/proc/meminfo` or the `cached` column when running the `free -m` command. A healthy size for this metric is 20-30% of available RAM.
+  2. **Virtual memory size of the Riak process**. Also known as VSZ, when this metric approaches the amount of available RAM, the Riak node may be unable to allocate more memory (depending on whether you have swap enabled). You can read this metric on Linux from the output of `ps aux`, and is measured in KB.
   
-  Adding those to your monitoring system will improve your ability to detect when nodes should be added to the cluster or the RAM upgraded. For more information about planning the size of your cluster, read the docs on the subject.
+  Adding those to your monitoring system will improve your ability to determine when nodes should be added to the cluster or when the RAM should be upgraded.
 
-
-Q: What is the recommended procedure to add multiple new nodes?
-  Lets say I have several new nodes to add, is the recommended procedure to add them one at a time and wait for all transfers to finish, or can you actually add several?
+Q: What is the recommended procedure for adding multiple new nodes?
+  Let's say that I have several new nodes to add. Is the recommended procedure to add them one at a time and wait for all transfers to finish? Or can several actually be added at one time?
 A:
-  You can add as manny nodes you you like by using the `riak-admin cluster join` command. For example:
+  You can add as many nodes as you like by using the `riak-admin cluster join` command. Here's an example:
   
   ```bash
   riak-admin cluster join node10.example.com
@@ -206,7 +165,7 @@ A:
   riak-admin cluster commit
   ```
   
-  When `riak-admin ringready` prints "TRUE ..." to let you know that all nodes agree on the ring state, you're good to go.
+  When the `riak-admin ringready` command prints `TRUE ...` to let you know that all nodes agree on the ring state, that means that everything has gone as planned.
   
   See the [[Command-Line Tools]] for all options.
 
@@ -216,29 +175,29 @@ A:
   
   `riak_kv_cache_backend_max_ttl` sets the maximum lifespan in seconds of an object
   
-  The following example from the mailing list is illustrative:
+  The following example is illustrative:
   
   ```
   riak_kv_cache_backend_ttl 60
   riak_kv_cache_backend_max_ttl 300
   ```
   
-  * If I put a key at time 0, and access it will disappear after 60 second.
-  * If I put a key at time 0, and access it at time 50, it will disappear at time 110
-  * If I put a key at time 0, and access it every 15 seconds, it will disappear after 300 seconds.
+  * If I put a key at time 0 and access it, it will disappear after 60 seconds
+  * If I put a key at time 0 and access it at time 50, it will disappear at time 110 (seconds)
+  * If I put a key at time 0 and access it every 15 seconds, it will disappear after 300 seconds
 
 
-Q: Which file system available in Linux is preferred for Riak installations?
+Q: Which Linux filesystem is preferred for Riak installations?
 A:
-  Riak will perform well on any of the modern, default file systems available in recent versions of Linux, including EXT3, EXT4, and XFS. ZFS, an open-source file system developed by Sun and, now, distributed by Oracle, is another first-class choice for Riak. Given that all storage workloads are different, any one of these file systems may outperform the others for your application. Pick whichever file system your Operations team is most comfortable supporting, noting the following:
+  Riak will perform well on any of the modern, default filesystems available in recent versions of Linux, including EXT3, EXT4, and XFS. ZFS, an open-source filesystem developed by Sun (now distributed by Oracle) is another first-class choice for Riak. Given that all storage workloads are different, any one of these filesystems may outperform the others for your application. Choose whichever filesystem your Operations team is most comfortable supporting, noting the following:
   
-  It is important to take into consideration that Riak will create a large number of files in the course of its runtime, using an inode each time. Inode density is fixed at format time in EXT3 and EXT4, while some systems, such as XFS, may allow for some factor of dynamism in the inode count.
-  Regardless of file system type, a major factor in Riak performance on Linux is the Buffer Cache. Linux allocates unused RAM for this service automatically; be sure to account for this and allow free RAM for the Buffer Cache when provisioning servers.
+  * It is important to take into consideration that Riak will create a large number of files in the course of its runtime, using an [inode](http://en.wikipedia.org/wiki/Inode) each time. Inode density is fixed at format time in EXT3 and EXT4, while some systems, such as XFS, may allow for some factor of dynamism in the inode count.
+  * Regardless of filesystem type, a major factor in Riak performance on Linux is the buffer cache. Linux allocates unused RAM for this service automatically. Be sure to account for this and allow free RAM for the buffer cache when provisioning servers.
 
 
-Q: How do I specify the location of the erlang crash dump file?
+Q: How do I specify the location of the Erlang crash dump file?
 A:
-  In the vm.args file add this line:
+  In the `vm.args` file add the following line:
   
   ```
   -env ERL_CRASH_DUMP /path/to/erlang_crash.dump
@@ -246,107 +205,99 @@ A:
 
 Q: Can a cluster contain nodes running different operating systems?
 A:
-  Yes. You can build a cluster out of heterogenous nodes running differing, supported operating systems. Isn't that nice?
+  Yes. You can build a cluster out of heterogenous nodes running different supported operating systems. Isn't that nice?
 
 
-Q: Is it ok to change the Riak backend from Bitcask to multi backend if I set Bitcask as the default?
+Q: Is it okay to change the Riak backend from Bitcask to multi-backend if I set Bitcask as the default?
 A:
   Yes, as long as the data root is the same.
 
-
 Q: How can I backup my Riak data?
 A:
-  _Note: The backup command provided in riak-admin will only backup Riak KV data. The backup command has not been updated to work with Riak Search indexes._
+  **Note**: The backup command provided in `riak-admin` will only backup Riak KV data. The backup command has not been updated to work with Riak Search indexes.
   
-  When using the Bitcask (default Riak KV backend) and Merge Index (Riak Search backend) backends it is recommended to use standard file system backup utilities (tar) to backup Riak nodes. Both Bitcask and Merge Index are append only data structures that perform incremental merge operations. This allows backups to be taken while the system is running. Restoring backups involves moving the backups into the Riak data directory and starting the Riak node.
+  When using the Bitcask (default Riak KV backend) and Merge Index (Riak Search backend) backends, it is recommended that you use standard filesystem backup utilities (`tar`) to backup Riak nodes. Both Bitcask and Merge Index are append-only data structures that perform incremental merge operations. This allows backups to be made while the system is running. Restoring backups involves moving the backups into the Riak `data` directory and starting the Riak node.
   
-  The directories that need to be backed up are (the location of these will vary depending on how you installed and configured Riak or Riak Search):
+  The directories that need to be backed up are the following (the location of these will vary depending on how you installed and configured Riak or Riak Search):
   
-  * data/bitcask 
-  * data/merge_index 
-  * data/ring
+  * `data/bitcask`
+  * `data/merge_index`
+  * `data/ring`
   
-  The ring directory stores information about the cluster to which the node belongs.
-
+  The `ring` directory stores information about the cluster to which the node belongs.
 
 Q: Is it legal to bind Riak to a hostname instead of IP?
 A:
-  Yes, it's legal but will incur the overhead of the lookup. If you're talking about the HTTP/PBC interfaces, it's best to use IP addresses, but for the node name, it's totally fine (and good) to use a hostname.
+  Yes, it's legal but it will incur the overhead of the lookup. If you're talking about the HTTP/PBC interfaces, it's best to use IP addresses, but for the node name, it's totally fine to use a hostname.
 
 
-Q: Is it possible to prevent separate clusters from accidentally being joined together (i.e. from human error)?
+Q: Is it possible to prevent separate clusters from accidentally being joined together (e.g. through human error)?
   For example, imagine there are 2 clusters with 3 nodes each.
   
   Cluster 1:
   
-  * node1_cluster1
-  * node2_cluster1
-  * node3_cluster1
+  * `node1_cluster1`
+  * `node2_cluster1`
+  * `node3_cluster1`
   
   Cluster 2:
   
-  * node1_cluster2
-  * node2_cluster2
-  * node3_cluster2
+  * `node1_cluster2`
+  * `node2_cluster2`
+  * `node3_cluster2`
   
-  A system administrator accidentally joins node1_cluster2 to node1_cluster1. The clusters merge to form a single cluster.
+  A system administrator accidentally joins `node1_cluster2` to `node1_cluster1`. The clusters merge to form a single cluster.
 A:
-  This is possible to avoid by choosing a different "-setcookie" value in "vm.args". The default value for this parameter is "riak". For a multi cluster deployment choosing a different value per cluster will prevent the clusters from being able to merge together. For example:
+  This is possible to avoid by choosing a different `-setcookie` value in `vm.args`. The default value for this parameter is `riak`. For a multi-cluster deployment, choosing a different value per cluster will prevent the clusters from being able to merge together. For example:
   
   Cluster 1:
   
-  * node1_cluster1 (-setcookie cluster1)
-  * node2_cluster1 (-setcookie cluster1)
-  * node3_cluster1 (-setcookie cluster1)
+  * `node1_cluster1 (-setcookie cluster1)`
+  * `node2_cluster1 (-setcookie cluster1)`
+  * `node3_cluster1 (-setcookie cluster1)`
   
   Cluster 2:
   
-  * node1_cluster2 (-setcookie cluster2)
-  * node2_cluster2 (-setcookie cluster2)
-  * node3_cluster2 (-setcookie cluster2)
-
+  * `node1_cluster2 (-setcookie cluster2)`
+  * `node2_cluster2 (-setcookie cluster2)`
+  * `node3_cluster2 (-setcookie cluster2)`
 
 Q: What is the cleanest way to completely shut down a cluster?
 A:
   Run `riak stop` on each individual node in the cluster.
 
-
 Q: What is a good configuration for a development cluster?
 A:
   You will want to mirror your production environment as closely as possible.  While mirroring your production hardware is probably cost-prohibitive, you'll want to try to use the same operating system for your Riak development cluster as you will be using for your Riak production cluster.
   
-  If you can, small machines with 2 to 8 GB of RAM and a modern processor will work well.  If you don't have extra machines, you can setup multiple Riak nodes running on a single machine (including your laptop), just make sure you change the ports for each node.  
+  If you can, small machines with 2 to 8 GB of RAM and a modern processor will work well. If you don't have extra machines, you can set up multiple Riak nodes running on a single machine (including your laptop). Just make sure you change the ports for each node.  
   
-  For more information see [[Five Minute Install]].  Also checkout our blog post on [setting up a local cluster](http://basho.com/blog/technical/2011/02/04/creating-a-local-riak-cluster-with-vagrant-and-chef/) with vagrant and chef.
+  For more information, see our [[Five Minute Install]].  Also check out our blog post on [setting up a local cluster](http://basho.com/blog/technical/2011/02/04/creating-a-local-riak-cluster-with-vagrant-and-chef/) with Vagrant and Chef.
 
-
-Q: If the size of key index exceeds the amount of memory, how does Bitcask handle it?
+Q: If the size of the key index exceeds the amount of memory, how does Bitcask handle it?
 A:
-  When using [[Bitcask]], memory usage is something you should keep a close eye on. If you exceed RAM, it will swap and when swap is gone it will crash with "out of memory" errors. To protect against this, we generally advise you to have >2x RAM available in your cluster than you expect the size of your keyspace to be.
+  When using [[Bitcask]], memory usage is something you should keep a close eye on. If you exceed RAM, it will swap and when swap is gone it will crash with `out of memory` errors. To protect against this possibility, we generally advise you to have more than twice as much RAM available in your cluster as you expect the size of your keyspace to be.
   
+  For more information, see:
   * [[Bitcask Capacity Planning]]
   * [[Cluster Capacity Planning]]
 
-
 Q: How do I upgrade Riak?
 A:
-  To avoid downtime of a Riak cluster we suggest performing [[Rolling Upgrades]]. This process involves stopping, upgrading, and restarting one node at a time.
-
+  To avoid downtime on a Riak cluster, we suggest performing [[Rolling Upgrades]]. This process involves stopping, upgrading, and restarting one node at a time.
 
 Q: Is there a way to control when gossip happens?
 A:
-  You can only control the interval at which gossip will occur with the `gossip_interval` directive in the `riak_core` section of the `app.config` file. The default is 60 seconds.  Gossip is used to propagate changes to partition ownership and bucket properties, so this should not be set too high if you want your cluster state to remain sufficiently consistent. See [[Gossiping in the Glossary|Riak Glossary#Gossiping]].
+  You can only control the interval at which gossip will occur with the `gossip_interval` directive in the `riak_core` section of the `app.config` file. The default is 60 seconds. Gossip is used to propagate changes to partition ownership and bucket properties, so this should not be set too high if you want your cluster state to remain sufficiently consistent. See [[Gossiping|Riak Glossary#Gossiping]] in the Glossary.
 
-
-Q: Would Riak handle an individual vnode failure the same way as an entire node failure?
+Q: Would Riak handle an individual vnode failure the same way that it handles the failure of an entire node?
 A:
-  No. The coordinating finite-state machine (FSM) would attempt to send the request to the failed vnode and receive either an error or no reply. A request may still succeed if enough of the other vnodes respond; "enough" would be determined by the "r", "w", "dw", "rw" setting of the request. Handoff would not occur in this scenario.
-
+  No. The coordinating finite-state machine (FSM) would attempt to send the request to the failed vnode and receive either an error or no reply. A request may still succeed if enough of the other vnodes respond; "enough" would be determined by the `r`, `w`, `dw`, `rw` setting of the request. Hand-off would not occur in this scenario.
 
 Q: How can I reduce the time between Riak nodes checking liveliness?
-  When Riak is deployed on EC2 you occasionally see the loss of connectivity between nodes. This results in queues in various subsystems backing up and causing memory contention on the node.
+  When Riak is deployed on EC2, you will occasionally see the loss of connectivity between nodes. This results in queues in various subsystems backing up and causing memory contention on the node.
 A:
-  You can reduce the amount of time a Riak node will wait to check on other nodes by setting the  Erlang VM kernel `net_ticktime` to a lower integer in the Riak `vm.args` configuration file by adding the following line:
+  You can reduce the amount of time a Riak node will wait to check on other nodes by setting the Erlang VM kernel `net_ticktime` to a lower integer in the Riak `vm.args` configuration. Simply add the following line:
   
   ```
   -kernel net_ticktime 10
@@ -354,9 +305,8 @@ A:
   
   This setting may be needed if you are running your Riak nodes across several availability zones and are seeing load issues due to loss of connection to other Riak nodes.
 
-
-Q: Why does Riak fail to build with a strange error about "crypto"?
-  When building Riak from the provided source tarball I see the following errors:
+Q: Why does Riak fail to build with a strange error about `crypto`?
+  When building Riak from the provided source tarball, I see the following errors:
   
   ```
   fatal: Not a git repository (or any of the parent directories): .git
@@ -378,33 +328,29 @@ Q: Why does Riak fail to build with a strange error about "crypto"?
 
   Why is Riak not building?
 A:
-  The "fatal: Not a git repository" errors can be ignored. The "crypto" error indicates that the version of Erlang installed on your system doesn't include the crypto application.
+  The `fatal: Not a git repository` errors can be ignored. The `crypto` error indicates that the version of Erlang installed on your system doesn't include the crypto application.
   
-  If you installed Erlang from a package manager you should be aware that some package managers (e.g. APT, RPM) break up Erlang into separate packages. Make sure you have the erlang-crypto and erlang-dev packages installed if you're on Debian, erlang-crypto and erlang-devel on Redhat/Fedora.
+  If you installed Erlang from a package manager, you should be aware that some package managers (e.g. APT or RPM) break up Erlang into separate packages. Make sure you have the erlang-crypto and erlang-dev packages installed if you're on Debian, or erlang-crypto and erlang-devel on Redhat/Fedora.
   
-  If you built Erlang from source you may be missing the OpenSSL development libraries. Please refer to [[Installing Erlang]] for more information.
-
+  If you built Erlang from source, you may be missing the OpenSSL development libraries. Please refer to [[Installing Erlang]] for more information.
 
 Q: What happens after I run `riak-admin leave`?
 A:
   When you commit `riak-admin cluster leave` (or run `riak-admin leave` for Riak versions prior to 1.2), the ring file is updated and the node in question starts handing off partitions to the new nodes responsible for its data. Once it finishes transferring all the data, it shuts down.
   
-  Though the node is no longer part of the ring (according to the ring file), the node will appear as connected until if finishes transferring its data to the new nodes.
-
+  Though the node is no longer part of the ring (according to the ring file), the node will appear as connected until it finishes transferring its data to the new nodes.
 
 Q: How many partitions should I assign to a new cluster?
 A:
-  You need to plan the number of partitions of your cluster ahead of time and set them in the `ring_creation_size` configuration parameter. A good rule of thumb is that `ring_creation_size / number_of_nodes` be between 10 and 50. For 15 nodes, 256 is a good number, 512 or 1024 would be better if you intend to grow the cluster over time.
-
+  You need to plan the number of partitions of your cluster ahead of time and set them in the `ring_creation_size` configuration parameter. A good rule of thumb is that `ring_creation_size` divided by `number_of_nodes` should be between 10 and 50. For 15 nodes, 256 is a good number; 512 or 1024 would be better if you intend to grow the cluster over time.
 
 Q: Is it possible to change the number of partitions in my Riak ring after it's already running?
 A:
-  Adjusting the number of partitions after your cluster is running not really possible ( the only way to do it would be to stand up a new cluster and move data to it). You should take this into account when doing your initial capacity planning for your cluster. We generally advise that you plan for at least 10 partitions per node at scale. In the case of 64 nodes, you might want to experimenting with a partition count of 1024.
+  Adjusting the number of partitions after your cluster is running is not really possible. The only way to achieve this would be to stand up a new cluster and move data to it. You should take this into account when doing your initial capacity planning for your cluster. We generally advise that you plan for at least 10 partitions per node at scale. In the case of 64 nodes, you might want to experimenting with a partition count of 1024.
   
-  Check out `[[ring_creation_size|Configuration Files#app-config]]`
+  For more, check out our docs on `[[ring_creation_size|Configuration Files#app-config]]`.
 
 
 Q: Is 32-bit Riak a bad idea?
 A:
-  64-bit is [[recommended|Planning for a Riak System#Hardware]], 32 bit is not.
-
+  64-bit is [[recommended|Planning for a Riak System#Hardware]], 32-bit is not.
