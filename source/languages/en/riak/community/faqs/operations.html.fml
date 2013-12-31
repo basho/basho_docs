@@ -15,7 +15,7 @@ Q: Is it okay to distribute Riak over a WAN?
 A:
   The main reason for performance degradation is latency. Every Riak request involves _N_ vnodes. If those vnodes are spread across different regions with varying latencies, your deviation grows and higher percentiles go through the roof. The wider you go, the more unpredictable your latency profile becomes. Predictable latency is key to many applications built on top of Riak. This is a point made very clear in the [Dynamo paper](http://docs.basho.com/riak/latest/theory/dynamo/) which heavily influenced the design of Riak.
 
-  Another reason for performance degradation is connection reliability. A node that is dead is indistinguishable from a node that is simply taking a really long time to respond. Once you spread nodes across a WAN, the likelihood of network failure&mdash;and thus network partitions&mdash;becomes much higher. Riak is designed to always be available for writes, but you will still want to avoid partitions as strenuously as possible. Partitions are one of the primary causes of siblings, potentially generating a high demand for sibling resolution. Partitions also cause additional load to be placed on the nodes, since allowing sloppy quorums requires nodes to take on the work of other partitioned nodes, possibly doubling or tripling the workload of each server.
+  Another reason for performance degradation is connection reliability. A node that is dead is indistinguishable from a node that is simply taking a really long time to respond. Once you spread nodes across a WAN, the likelihood of network failure---and thus network partitions---becomes much higher. Riak is designed to always be available for writes, but you will still want to avoid partitions as strenuously as possible. Partitions are one of the primary causes of siblings, potentially generating a high demand for sibling resolution. Partitions also cause additional load to be placed on the nodes, since allowing sloppy quorums requires nodes to take on the work of other partitioned nodes, possibly doubling or tripling the workload of each server.
   
   If you must replicate data in Riak across multiple datacenters, we recommend that you explore [[Riak Enterprise]], which handles multi-datacenter replication across a WAN (without the downsides listed above).
 
@@ -124,7 +124,7 @@ A:
   Make sure that the `riak` user has read/write permissions to both of those directories.
 
 Q: How can I undo `multi_backend`?
-  I started using `multi_backend` so that I could store two different types of data (one using Bitcask and one using LevelDB), but my application no longer has the need for the second data type. Can I safely switch to a single backend&mdash;say Bitcask&mdash;undoing the `multi_backend` settings?
+  I started using `multi_backend` so that I could store two different types of data (one using Bitcask and one using LevelDB), but my application no longer has the need for the second data type. Can I safely switch to a single backend---say Bitcask---undoing the `multi_backend` settings?
 A:
   Assuming that you are removing the LevelDB backend, here are the steps that you would need to take:
   

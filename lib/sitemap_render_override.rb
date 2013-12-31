@@ -45,7 +45,7 @@ module SitemapRenderOverride
   end
 
   def format_name(name)
-    name.to_s.downcase.gsub(/[\s\/?]|(&mdash;)/, '-').gsub(/\-+/, '-')
+    name.to_s.downcase.gsub(/[\s\/?]|(---)/, '-').gsub(/\-+/, '-')
   end
 
   # prepends X directories from the top, eg:

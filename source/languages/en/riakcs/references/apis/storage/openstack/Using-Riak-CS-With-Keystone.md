@@ -1,83 +1,65 @@
-This document dicusses how to configure Riak CS to work with the
-OpenStack Keystone authentication service.
+This document shows you how to configure Riak CS to work with the [OpenStack Keystone](http://docs.openstack.org/developer/keystone/) authentication service.
 
-Riak CS can be configured to use either the OpenStack Object Storage
-API or the S3 API in conjunction with using Keystone for
-authentication.
+Riak CS can be configured to use either the OpenStack Object Storage API or the S3 API in conjunction with Keystone for authentication.
 
 ## Terminology
 
-The first thing to do is to explain some Keystone terminology. There
-are three Keystone entities worth explaining: `tenants`, `users`, and
-`roles`.
+In a system that uses Keystone for authentication, there are three main entity types to be aware of: `tenants`, `users`, and `roles`.
 
-* `tenant` - A tenant is a collection entity that can contain a number of users
-* `user` - A user represents an individual that uses the OpenStack system
-* `role` - A role is used to define a link between a user and a tenant
-  and indicate permissions of the user within that tenant
+* **tenant** --- A tenant is a collection entity that can contain a number of users
+* **user** --- A user represents an individual that uses the OpenStack system
+* **role** --- A role is used to define a link between a user and a tenant and to indicate permissions of the user within that tenant
 
-The OpenStack `tenant_id` maps to a `key_id` to identify a user
-account in Riak CS. In OpenStack only users who are assigned an
-*operator* role for a tenant may perform any operations. Other users
-that belong to a tenant may be granted access using ACLs.
+The OpenStack `tenant_id` maps to a `key_id` to identify a user account in Riak CS. In OpenStack, only users who are assigned an *operator* role for a tenant may perform operations. Other users that belong to a tenant may be granted access using ACLs.
 
-Currently Riak CS does not support OpenStack ACLs and only permits
-access to the tenant operators. ACLs will be supported at a later
-time.
+Currently, Riak CS does not support OpenStack ACLs and only permits access to  tenant operators. ACLs will be supported at a later date.
 
-By default Riak CS recognizes *admin* and *swiftoperator* as valid
-operator roles, but that list can be configured.
+By default, Riak CS recognizes *admin* and *swiftoperator* as valid operator roles, but that list can be configured.
 
-Riak CS does not currently support use of multiple authentication
-servers via *reseller prefixes*, but if this turns out to be important
-based on user feedback, support may be added in the future.
+Riak CS does not currently support the use of multiple authentication servers via *reseller prefixes*, but if this turns out to be important based on user feedback, support may be added in the future.
 
 ## Configuration
 
 #### API
 
-Set the API using the `rewrite_module` configuration option. To use the S3 API use the following:
+Set the API using the `rewrite_module` configuration option. To use the S3 API, insert the following:
 
-```
+```erlang
 {rewrite_module, riak_cs_s3_rewrite}
 ```
 
 To use the OpenStack object storage API:
 
-```
+```erlang
 {rewrite_module, riak_cs_oos_rewrite}
 ```
 
-#### Authentication module
+#### Authentication Module
 
 Set the authentication module to specify the Keystone authentication module:
 
-```
+```erlang
 {auth_module, riak_cs_keystone_auth}
 ```
 
-####  Operator roles
+####  Operator Roles
 
-Optionally override the default list of valid operator roles. The
-default roles are `admin` and `swiftoperator`.
+You may optionally override the default list of valid operator roles. The
+default roles are `admin` and `swiftoperator`, but others may be used:
 
-```
+```erlang
 {os_operator_roles,  [<<"admin">>, <<"swiftoperator">>, <<"cinnamon">>]}
 ```
 
-*Note* Each role should be formatted as shown above with two angle
- brackets preceding and following each role value.
+**Note**: Each role should be formatted as shown above, with two angle brackets preceding and following each role value.
 
-#### Root host
+#### Root Host
 
-Make sure the value of the `cs_root_host` key in the Riak CS
-configuration matches the root host used for the object store in the
-Keystone configuration.
+Make sure that the value of the `cs_root_host` key in the Riak CS configuration matches the root host used for the object store in the Keystone configuration.
 
-*e.g.* Given the following config snippet from a Keystone configuration file, the value for `cs_root_host`
-should be set to `object.store.host`:
+For example, given the following config snippet from a Keystone configuration file, the value for `cs_root_host` should be set to `object.store.host`:
 
-```
+```bash
 catalog.RegionOne.object_store.publicURL = http://object.store.host/v1/AUTH_$(tenant_id)s
 catalog.RegionOne.object_store.adminURL = http://object.store.host/
 catalog.RegionOne.object_store.internalURL = http://object.store.host/v1/AUTH_$(tenant_id)s
@@ -85,18 +67,15 @@ catalog.RegionOne.object_store.internalURL = http://object.store.host/v1/AUTH_$(
 
 The entry in the Riak CS config would be as follows:
 
-```
+```erlang
 {cs_root_host, "object.store.host"}
 ```
 
-#### Admin token
+#### Admin Token
 
-Riak CS needs to know the administration token so that it can
-successfully validate user tokens with Keystone. If no value for
-`os_admin_token` is specified the default value is `ADMIN`. The value
-can be set by adding the following the Riak CS configuration file:
+Riak CS needs to know the administration token so that it can successfully validate user tokens with Keystone. If no value for `os_admin_token` is specified, the default value is `ADMIN`. The value can be set by adding the following to the Riak CS configuration file:
 
-```
+```erlang
 {os_admin_token, "SNARFSNARFSNARF"}
 ```
 
@@ -107,42 +86,36 @@ communicate with Keystone. The default value is
 `"http://localhost:5000/v2.0"`. To override this value add the following
 to the Riak CS configuration file:
 
-```
+```erlang
 {os_auth_url, "http://host.with.the.most.com/5000/v2.0"}
 ```
 
 #### Keystone Resources
 
-Riak CS needs to be be aware of a few resources to be able to perform
-authentication with Keystone. These resources are unlikely to need to
-be changed from their defaults, but that capability is provided in
-case the need arises.
+Riak CS needs to be be aware of a few resources to be able to perform authentication with Keystone. These resources are unlikely to need to be changed from their defaults, but that capability is provided in case the need arises.
 
 * Tokens Resources
 
-The default is `"tokens/"`. To override this add the following to the
-Riak CS configuration file:
+The default is `"tokens/"`. To override this, add the following to the Riak CS configuration file:
 
-```
+```erlang
 {os_tokens_resource, "mytokens/"}
 ```
 
 * S3 Tokens Resources
 
 This resource is only used when the S3 API is used in conjunction with
-Keystone authentication. The default is `"s3tokens/"`. To override
-this add the following to the Riak CS configuration file:
+Keystone authentication. The default is `"s3tokens/"`. To override this, add the following to the Riak CS configuration file:
 
-```
+```erlang
 {os_s3_tokens_resource, "mys3tokens/"}
 ```
 
 * Users Resources
 
-The default is `"users/"`. To override
-this add the following to the Riak CS configuration file:
+The default is `"users/"`. To override this, add the following to the Riak CS configuration file:
 
-```
+```erlang
 {os_users_resource, "users/"}
 ```
 
@@ -150,11 +123,14 @@ this add the following to the Riak CS configuration file:
 
 ### Keystone Setup
 
-1. Follow the procedures given [[here|Keystone-Setup]] to setup and run Keystone.
-1. Create a tenant called `test`
-    ```
-    keystone tenant-create --name test
-    ```
+Follow the procedures given [[here|Keystone-Setup]] to set up and run Keystone.
+
+Create a tenant called `test`:
+      
+```bash
+keystone tenant-create --name test
+```
+
 1. Using the tenant id of the tenant created in the previous step and
 create a user called `test` that is a member of tenant `test`:
     ```

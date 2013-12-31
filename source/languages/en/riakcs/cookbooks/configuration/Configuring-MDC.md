@@ -8,20 +8,16 @@ audience: intermediate
 keywords: [operator]
 ---
 
-Configuration of multi-datacenter replication in Riak CS requires
-addition of a new setting to the `app.config` for all Riak CS and Riak
-Enterprise nodes which are part of the Riak CS cluster.
+Configuration of Multi-Datacenter Replication in Riak CS requires the addition of a new setting to the `app.config` for all Riak CS and Riak Enterprise nodes which are part of the Riak CS cluster.
 
 ## Riak Enterprise Configuration
 
 {{#1.4.0+}}
-As of Riak release 1.4.0, there are two different MDC replication modes that Riak CS can use to request data from remote clusters. Please see [[Multi Data Center Replication: Comparison]] for more information.
+As of Riak release 1.4.0, there are two different MDC replication modes that Riak CS can use to request data from remote clusters. Please see the [[Multi Data Center Replication: Comparison]] doc for more information.
 
 ### Replication version 3 configuration
 
-For each Riak node in the cluster, update the `riak_repl` section of
-`app.config`, by appending the `{proxy_get, enabled}` setting as
-shown in the following example.
+For each Riak node in the cluster, update the `riak_repl` section of `app.config` by appending the `{proxy_get, enabled}` setting as shown in the following example.
 
 ```erlang
 {riak_repl, [
@@ -32,10 +28,10 @@ shown in the following example.
             ]}
 ```
 
-Version 3 replication requires additional configuration on the **source cluster** via command line. 
+Version 3 replication requires additional configuration on the **source cluster** via the command line. 
 
-```erlang
-riak-repl proxy_get enable sink_cluster_name
+```bash
+$ riak-repl proxy_get enable sink_cluster_name
 ```
 
 `sink_cluster_name` should be replaced with the name of your configured **sink cluster**. 
@@ -48,9 +44,7 @@ See also:
 
 ### Replication version 2 configuration
 {{/1.4.0+}}
-For each Riak node in the cluster, update the `riak_repl` section of
-`app.config`, by appending the `{proxy_get, enabled}` setting as
-shown in the following example.
+For each Riak node in the cluster, update the `riak_repl` section of `app.config` by appending the `{proxy_get, enabled}` setting as shown in the following example.
 
 ```erlang
 {riak_repl, [
@@ -66,9 +60,7 @@ shown in the following example.
 
 ## Riak CS Configuration
 
-For each Riak CS node in the cluster, update the `riak_cs` section
-of the `app.config`, by appending the `{proxy_get, enabled}` setting
-as shown in the following example.
+For each Riak CS node in the cluster, update the `riak_cs` section of the `app.config` by appending the `{proxy_get, enabled}` setting as shown in the following example.
 
 ```erlang
 %% Riak CS config
@@ -82,10 +74,7 @@ as shown in the following example.
 
 <div class ="note"><div class="title">Note on restarting Riak nodes</div>
 <p>Be sure that you restart cluster nodes in a rolling fashion after making
-configuration changes, and particularly that after restarting a node, you
-wait for Riak's key value store to become available before restarting the
-next node. To check the status of riak_kv on a node after restarting, execute
-the following command:</p>
+configuration changes. In particular, after restarting a node, be sure that you wait for Riak's key/value store to become available before restarting the next node. To check the status of <tt>riak_kv</tt> on a node after restarting, execute the following command:</p>
 <p><tt>riak-admin wait-for-service riak_kv &lt;target_node&gt;</tt></p>
-<p>Where &lt;target-node&gt; is the node name of the node based on the
+<p>where &lt;target-node&gt; is the node name of the node based on the
 <tt>-name</tt> setting in <tt>vm.args</tt>.</p></div>

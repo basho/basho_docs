@@ -16,16 +16,16 @@ Q: Where are the logs usually located?
 A:
   Riak does have a built-in logging system. The log files are stored in the Riak `log` directory, which is different for each platform:
   
-  * Ubuntu, Debian, CentOS, RHEL &mdash; `/var/log/riak`
-  * Solaris, OpenSolaris &mdash; `/opt/riak/log`
-  * Source install &mdash; `$RIAK/log` (where `$RIAK` is the installation directory)
+  * Ubuntu, Debian, CentOS, RHEL --- `/var/log/riak`
+  * Solaris, OpenSolaris --- `/opt/riak/log`
+  * Source install --- `$RIAK/log` (where `$RIAK` is the installation directory)
   
   There are several files in the Riak log directory:
   
-  * `run_erl.log` &mdash; log file for the `run_erl` process; this can typically be ignored
-  * `erlang.log.*` &mdash; rotated log files set up by `run_erl` for standard system output (progress, error, and crash reports)
-  * `sasl-error.log` &mdash; plain text output of the SASL error logger (error and crash reports)
-  * `sasl/*` &mdash; binary output of the SASL error logger
+  * `run_erl.log` --- log file for the `run_erl` process; this can typically be ignored
+  * `erlang.log.*` --- rotated log files set up by `run_erl` for standard system output (progress, error, and crash reports)
+  * `sasl-error.log` --- plain text output of the SASL error logger (error and crash reports)
+  * `sasl/*` --- binary output of the SASL error logger
   
   The `sasl-error.log` file logs error and crash reports. This file is cleared every time a Riak node is started. This is a good place to start to check if any errors or crashes are occurring.
   
@@ -39,12 +39,12 @@ A:
   
   [Lager](https://github.com/basho/lager) is the logging engine introduced in Riak 1.0. It is designed to be more stable than Erlang's [`error_logger`](http://www.erlang.org/doc/man/error_logger.html) as well as to play nicely with standard logging tools.
   
-  * `handlers` &mdash; Allows the selection of log handlers with differing options
-    * `lager_console_backend` &mdash; Logs to the the console  with the specified log level
-    * `lager_file_backend` &mdash; Logs to the given list of files, each with their own log level
-  * `crash_log` &mdash; Whether or not to write a crash log and where (default: no crash logger)
-  * `crash_log_size` &mdash; Maximum size in bytes of events in the crash log (default: 65536)
-  * `error_logger_redirect` &mdash; Whether or not to redirect SASL `error_logger` messages into Lager (default: `true`)
+  * `handlers` --- Allows the selection of log handlers with differing options
+    * `lager_console_backend` --- Logs to the the console  with the specified log level
+    * `lager_file_backend` --- Logs to the given list of files, each with their own log level
+  * `crash_log` --- Whether or not to write a crash log and where (default: no crash logger)
+  * `crash_log_size` --- Maximum size in bytes of events in the crash log (default: 65536)
+  * `error_logger_redirect` --- Whether or not to redirect SASL `error_logger` messages into Lager (default: `true`)
   
   The default Lager options are as follows:
   
