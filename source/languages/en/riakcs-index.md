@@ -15,7 +15,7 @@ body_id: riakcs-index
 ![Riak CS Logo](/images/riak-cs-logo.png)
 
 
-Riak CS (Cloud Storage) is easy-to-use object storage software built on top of [Riak](http://basho.com/riak/), Basho's distributed database. Riak CS is designed to provide simple, available, distributed cloud storage at any scale, and can be used to build cloud architectures&mdash;be they public or private&mdash;or as storage infrastructure for heavy-duty applications and services. Riak CS's API is [Amazon S3 compatible](http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html) and supports per-tenant reporting for use cases involving billing and metering.
+Riak CS (Cloud Storage) is easy-to-use object storage software built on top of [Riak](http://basho.com/riak/), Basho's distributed database. Riak CS is designed to provide simple, available, distributed cloud storage at any scale, and can be used to build cloud architectures---be they public or private---or as storage infrastructure for heavy-duty applications and services. Riak CS's API is [Amazon S3 compatible](http://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html) and supports per-tenant reporting for use cases involving billing and metering.
 
 Riak CS is open source and [[free for download|Download Riak CS]].
 
@@ -46,7 +46,7 @@ Riak CS is open source and [[free for download|Download Riak CS]].
 <tr align="left" valign="top">
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;"><strong>Multi-Datacenter Replication<br><i>(Enterprise Edition Only)</i></strong>{{1.3.0+}}</td>
 <td style="padding: 15px; margin: 15px; border-width: 0 0 1px 0; border-style: solid;">
-<p>Riak CS [[Enterprise edition|Riak Enterprise]] provides multi-datacenter replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.</p>
+<p>Riak CS [[Enterprise Edition|Riak Enterprise]] provides Multi-Datacenter Replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.</p>
 </td>
 </tr>
 </tbody>

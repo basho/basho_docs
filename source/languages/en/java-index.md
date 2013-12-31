@@ -38,7 +38,7 @@ myBucket.delete("key1").rw(3).execute();
 
 ## Some History
 
-This riak-java-client API is new. Prior to this version there were two separate clients&mdash;one for protocol buffers and one for REST&mdash;both in the same library and both with very different APIs.
+This riak-java-client API is new. Prior to this version there were two separate clients---one for protocol buffers and one for REST---both in the same library and both with very different APIs.
 
 ### Deprecated
 
