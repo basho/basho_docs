@@ -11,7 +11,7 @@ keywords: [mdc, repl, os]
 Depending on the size of your objects, and your replication latency needs, you may need to configure your kernel settings to optimize throughput.
 
 ## Linux
-Refer to the Kernel and Network Tuning section of [Linux Performance Tuning] (http://docs.basho.com/riak/latest/ops/tuning/linux/#Linux-Tuning)
+Refer to the Kernel and Network Tuning section of [[Linux Performance Tuning|Linux Performance Tuning#Linux-Tuning]]
 
 ## Solaris
 On Solaris the following settings are suggested.
