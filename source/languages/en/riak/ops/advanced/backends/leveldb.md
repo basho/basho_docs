@@ -34,7 +34,7 @@ architecture is more like [BigTable's](http://en.wikipedia.org/wiki/BigTable)
 memtable/sstable model than it is like Bitcask. This design
 and implementation brings the possibility of a storage engine without Bitcask's RAM limitation.
 
-Riak 1.2 introduced changes in elevelDB that allow users to tune levelDB performance
+Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB performance
 for "large data" environments typical in Riak deployments.
 
 
@@ -450,13 +450,13 @@ Default: `true`
 
 ## Parameter Planning
 
-The following steps walk you through setting parameters and evaluating how much working memory (i.e. RAM) you'll need for a given levelDB implementation.
+The following steps walk you through setting parameters and evaluating how much working memory (i.e. RAM) you'll need for a given LevelDB implementation.
 
 ### Step 1:  Calculate Available Working Memory
 
-Current unix-like systems (Linux / Solaris / SmartOS) use physical memory that is not allocated by programs as buffer space for disk operations.  In Riak 1.2, levelDB is modeled to depend upon this Operating System (OS) buffering.  You must leave 25-50% of the physical memory available for the operating system (25-35% if servers have Solid State Drive (SSD) arrays, 35-50% if servers have spinning hard drives).
+Current unix-like systems (Linux / Solaris / SmartOS) use physical memory that is not allocated by programs as buffer space for disk operations.  In Riak 1.2, LevelDB is modeled to depend upon this Operating System (OS) buffering.  You must leave 25-50% of the physical memory available for the operating system (25-35% if servers have Solid State Drive (SSD) arrays, 35-50% if servers have spinning hard drives).
 
-levelDB working memory is calculated simply as the memory not reserved for the OS.
+LevelDB working memory is calculated simply as the memory not reserved for the OS.
 
 ```bash
 leveldb_working_memory = server_physical_memory * (1 - percent_reserved_for_os)
@@ -472,7 +472,7 @@ leveldb_working_memory = 32G * (1 - .50) = 16G
 
 ### Step 2: Calculate Working Memory per vnode
 
-Riak 1.2 configures / assigns memory allocations by vnode.  To calculate the vnode working memory, divide levelDB's total working memory by the number of vnodes.
+Riak 1.2 configures / assigns memory allocations by vnode.  To calculate the vnode working memory, divide LevelDB's total working memory by the number of vnodes.
 
 ```bash
 vnode_working_memory = leveldb_working_memory / vnode_count
@@ -488,7 +488,7 @@ vnode_working_memory = 16G / 64 = 268,435,456 Bytes per vnode
 
 ### Step 3: Estimate Memory Used by Open Files
 
-There are many variables that determine the exact memory any given file will require when open.  The formula below gives an approximation that should be accurate within 10% for moderately large levelDB implementations.
+There are many variables that determine the exact memory any given file will require when open.  The formula below gives an approximation that should be accurate within 10% for moderately large LevelDB implementations.
 
 ```bash
 open_file_memory = (max_open_files-10) * (184 + (average_sst_filesize/2048) * (8 + ((average_key_size+average_value_size)/2048 +1) * 0.6)
@@ -592,7 +592,7 @@ The above calculations are automated in this [memory model spreadsheet](https://
 
 While eLevelDB can be extremely fast for a durable store, its performance
 varies based on how you tune it. All the configuration is exposed via
-application variables in the `eleveldb` application scope.
+application variables in the `eLeveldb` application scope.
 
 <div id="Tips-Tricks"></div>
 ### Tips & Tricks:
@@ -643,10 +643,10 @@ net.ipv4.tcp_tw_reuse=1
 Beginning with the 2.6 kernel, Linux gives you a choice of four I/O [elevator models](http://www.gnutoolbox.com/linux-io-elevator/).  We recommend using the NOOP elevator.  You can do this by changing the scheduler on the Linux boot line: ```elevator=noop```.
 
 #### ext4 Options
-The ext4 file system defaults include two options that increase integrity but slow performance.  Because Riak's integrity is based on multiple nodes holding the same data, these two options can be changed to boost levelDB's performance.  We recommend setting: ```barrier```=0 and ```data```=writeback.
+The ext4 file system defaults include two options that increase integrity but slow performance.  Because Riak's integrity is based on multiple nodes holding the same data, these two options can be changed to boost LevelDB's performance.  We recommend setting: ```barrier```=0 and ```data```=writeback.
 
 #### CPU Throttling
-If CPU throttling is enabled, disabling it can boost levelDB performance in some cases.
+If CPU throttling is enabled, disabling it can boost LevelDB performance in some cases.
 
 #### No Entropy
 If you are using https protocol, the 2.6 kernel is widely known for stalling programs waiting for SSL entropy bits.  If you are using https, we recommend installing the [HAVEGE](http://www.irisa.fr/caps/projects/hipsor/) package for pseudorandom number generation.
