@@ -23,5 +23,5 @@ When an object is uploaded via the [[storage API|RiakCS Storage API]], Riak CS b
 ![Riak CS Chunking](/images/Riak-CS-Overview.png)
 
 ## Riak CS Enterprise
-Riak CS Enterprise extends Riak CS with multi-datacenter replication, monitoring, and 24×7 support. Customers use multi-datacenter replication to serve global traffic, create availability zones, maintain active backups, or meet disaster recovery and regulatory requirements. Multi-datacenter replication can be used in two or more sites. Data can be replicated across data centers using realtime or fullsync replication. To try out Riak CS Enterprise, sign up for a [[developer trial|http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html]].
+Riak CS Enterprise extends Riak CS with Multi-Datacenter Replication, monitoring, and 24×7 support. Customers use Multi-Datacenter Replication to serve global traffic, create availability zones, maintain active backups, or meet disaster recovery and regulatory requirements. Multi-Datacenter Replication can be used in two or more sites. Data can be replicated across data centers using realtime or fullsync replication. To try out Riak CS Enterprise, sign up for a [[developer trial|http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html]].
 
