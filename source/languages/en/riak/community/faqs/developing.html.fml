@@ -105,8 +105,8 @@ A:
   ```
 
 
-Q: How do I load 3rd-party Javascript libraries for use in map/reduce functions?
-  Is it possible to load third party javascript libraries (like underscore.js) to be available in map/reduce functions?
+Q: How do I load 3rd-party Javascript libraries for use in MapReduce functions?
+  Is it possible to load third party javascript libraries (like underscore.js) to be available in MapReduce functions?
 A:
   Yes. For JavaScript, this can be done in `app.config` in 'js_source_dir' in the 'riak_kv' settings:
 
