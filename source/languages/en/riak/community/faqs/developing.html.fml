@@ -15,14 +15,14 @@ moved: {
 Q: How can I automatically expire a key from Riak?
   I want to regularly purge items from Riak that are older than a certain timestamp, but MapReduce times out on large numbers of items. Can I expire data automatically?
 A:
-  If you're using [[Bitcask]], the default storage backend, and you want items to expire at a consistent interval (assuming they are not updated), set the `expiry_secs` option in `app.config`. Items past this threshold will not be returned on get/fetch operations and will eventually be removed from disk by Bitcask's merging process. For example:
+  If you're using [[Bitcask]], the default storage backend, and you want items to expire at a consistent interval (assuming they are not updated), set the `expiry_secs` option in `app.config`. Items that persist past this threshold will not be returned on get/fetch operations and will eventually be removed from disk by Bitcask's merging process. For example:
 
   ```erlang
   {bitcask, [
       {data_root, "data/bitcask"},
       {expiry_secs, 86400} %% Expire after a day
-   ]},
-   ```
+  ]},
+  ```
 
   There is no limit on how large or small the `expiry_secs` setting can be as long as it is greater than 0.
 
@@ -42,13 +42,13 @@ A:
 
   A filter must be applied to all of the objects in the system in order to find those in a particular bucket. Buckets are intended for configuration purposes (e.g. replication properties) rather than for general queries.
 
-  To keep track of groups of objects there are several options with various trade-offs: secondary indexing, search, or a list using links.
+  To keep track of groups of objects there are several options with various trade-offs: secondary indexes, search, or a list using links.
 
-Q: Why does secondary index (2I) return inconsistent results after using force-remove to drop a node from the cluster?
+Q: Why do secondary indexes (2i) return inconsistent results after using `force-remove` to drop a node from the cluster?
 A:
-  When a node fails or is taken out of the cluster without using `riak-admin leave`, all of the data held by that node is lost to the cluster.  This leaves N-1 consistent replicas of the data.  If `riak-admin force-remove` is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held.  The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed.
+  When a node fails or is taken out of the cluster without using `riak-admin leave`, all of the data held by that node is lost to the cluster. This leaves N-1 consistent replicas of the data. If `riak-admin force-remove` is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held. The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed.
 
-  As a simplistic example, consider a 5-node cluster (nodes A-E) with ring size = 8 and n_val = 3.   The data for each partition is stored on 3 different nodes with a possible configuration as so:
+  As a simplistic example, consider a 5-node cluster (nodes A-E) with ring size = 8 and `n_val` = 3. The data for each partition is stored on 3 different nodes with a possible configuration like so:
 
   ```
   A: 0__3__4__5__8
@@ -58,9 +58,9 @@ A:
   E: 2__3__4__7__8
   ```
 
-  Index information for each partition is co-located with the value data.  In order to get a full result set for a 2I query, Riak will need to consult a minimum of 1/n_val nodes, in this case 2.  The 2 nodes will be selected such that there is a primary replica of each of the 8 partitions between the 2 nodes, so A-C and A-D are coverage sets while A-B and A-E are not.
+  Index information for each partition is co-located with the value data. In order to get a full result set for a 2I query, Riak will need to consult a minimum of 1/n_val nodes, in this case 2. The 2 nodes will be selected such that there is a primary replica of each of the 8 partitions between the 2 nodes, so A-C and A-D are coverage sets while A-B and A-E are not.
 
-  When a node is `force-remove`d, it leaves the cluster without transferring its data to other nodes, and the remaining nodes then claim the unowned partitions, designating new primary replicas to comply with n_val, but do not populate the data or indexes until read-repair is triggered by gets or puts on the individual keys.
+  When a node is `force-remove`d, it leaves the cluster without transferring its data to other nodes, and the remaining nodes then claim the unowned partitions, designating new primary replicas to comply with `n_val`, but do not populate the data or indexes until read-repair is triggered by gets or puts on the individual keys.
 
   One possible configuration after `force-remove`ing node C and rebalancing:
 
@@ -77,35 +77,43 @@ A:
 
   So making a few assumptions for demonstration purposes:
 
-  1 - The keys a, b, and c are stored in partitions 0, 1, and 2 respectively
-  2 - The cluster is not loaded, so no `GET` or `PUT` operations are being performed
+  1. The keys a, b, and c are stored in partitions 0, 1, and 2 respectively
+  2. The cluster is not loaded, so no get or put operations are being performed
 
-  Since the coordinating node will attempt to spread the load by not using the same partitions for its coverage query, successive 2I queries that should return all 3 keys will vary depending on the nodes chosen for the coverage set.  The 6 possible sets in this configuration would return:
+  Since the coordinating node will attempt to spread the load by not using the same partitions for its coverage query, successive 2i queries that should return all 3 keys will vary depending on the nodes chosen for the coverage set. The 6 possible sets in this configuration would return:
 
+  ```
   AB - [a,b,c]
   AD - [a,b,c]
   AE - [a,c]
   BD - [a,b,c]
   BE - [a,b,c]
   DE - [b,c]
+  ```
 
   If a get request were made for keys a and b, `read-repair` would restore the missing values and indexes on nodes D and E, restoring consistency to the cluster.
 
 Q: Why does my binary data come back a different size?
   When storing a non-text object like a `.png` file in Riak and then retrieving it with `curl`, it comes back a different size. For Example:
 
-  ```bash
-  curl -i -X PUT --data @g005.PNG_L -H "Content-Type: image/png" http://sfdev02:8098/luwak/g005.PNG_L
+  ```curl
+  curl -i -XPUT \
+  -H "Content-Type: image/png" \
+  --data @g005.PNG_L \
+  http://sfdev02:8098/luwak/g005.PNG_L
   ```
 A:
   Curl will try to convert non-ASCII characters in `PUT` and `POST` bodies. Use the `--data-binary` flag to turn this off:
 
-  ```bash
-  curl -i -X PUT --data-binary @g005.PNG_L -H "Content-Type: image/png" http://sfdev02:8098/luwak/g005.PNG_L
+  ```curl
+  curl -i -XPUT \
+  -H "Content-Type: image/png" \
+  --data-binary @g005.PNG_L \
+  http://sfdev02:8098/luwak/g005.PNG_L
   ```
 
 
-Q: How do I load 3rd-party Javascript libraries for use in map/reduce functions?
+Q: How do I load 3rd-party Javascript libraries for use in MapReduce functions?
   Is it possible to load third party javascript libraries (like underscore.js) to be available in map/reduce functions?
 A:
   Yes. For JavaScript, this can be done in `app.config` in 'js_source_dir' in the 'riak_kv' settings:
@@ -129,8 +137,23 @@ A:
   Yes. Specifying a MapReduce query with just a reduce phase will avoid any need to pull data off of disk. To return the results of a key filtering query you can do the following:
 
   ```json
-  {"inputs":{"bucket":"test","key_filters":[["ends_with","1"]]},
-  "query":[{"reduce":{"language":"erlang","module":"riak_kv_mapreduce","function":"reduce_identity"}}]}
+  {
+    "inputs": {
+      "bucket": "test",
+      "key_filters": [
+        ["ends_with","1"]
+      ]
+    },
+    "query": [
+      {
+        "reduce": {
+          "language": "erlang",
+          "module": "riak_kv_mapreduce",
+          "function": "reduce_identity"
+        }
+      }
+    ]
+  }
   ```
 
   There is also a reduce function for counting inputs (available in the `master` branch of the github repo, to be released in the next version of Riak). This function can be used to count keys in a bucket without reading objects from disk:

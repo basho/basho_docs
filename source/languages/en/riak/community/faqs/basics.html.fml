@@ -37,10 +37,10 @@ A:
 
   Riak regularly prunes the list based on four parameters which can be set per bucket. These parameters are:
 
-  * small_vclock
-  * big_vclock
-  * young_vclock
-  * old_vclock
+  * `small_vclock`
+  * `big_vclock`
+  * `young_vclock`
+  * `old_vclock`
 
   The `small_vclock` and `big_vclock` parameters refer to the length of the vclock list. If the length of the list is smaller than `small_vclock` it will not be pruned. If the length is greater than `big_vclock` it will be pruned.
 
@@ -53,7 +53,7 @@ A:
 
 Q: In what scenarios might data become corrupted in Riak?
 A:
-  Data corruption in Riak is very rare and will generally only happen because of a failure of the storage backend or due to physical hardware failure. The underlying storage engines have their own methods of handling durability (except [[Memory]], which only lives in RAM).
+  Data corruption in Riak is very rare and will generally only happen due to a failure of the storage backend or to physical hardware failure. The underlying storage engines have their own methods of handling durability (except [[Memory]], which only lives in RAM).
 
   [[Bitcask]] uses an append-only file format that is immutable once written. Incomplete entries at the end of the file will be ignored.
 
