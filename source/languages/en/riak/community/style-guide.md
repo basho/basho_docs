@@ -431,7 +431,7 @@ term, such as "Map/Reduce", "M/R", or any lowercase only form
 
 #### Multi-Datacenter Replication
 
-One of the features of Riak Enterprise is multi-datacenter replication. Note
+One of the features of Riak Enterprise is Multi-Datacenter Replication. Note
 the placement of hyphenation and capitalization when used as a heading and
 when used in a sentence.
 
