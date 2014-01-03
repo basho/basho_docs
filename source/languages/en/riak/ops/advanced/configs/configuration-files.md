@@ -284,9 +284,7 @@ These properties are for buckets that have not been explicitly defined. Imagine 
 Parameter | Description | Default | 
 :---------|:------------|:--------|
 `n_val` | The number of replicas stored. *Note: see [[Replication Properties]] for more information.* | `3` |
-
-<!-- 
-    * n_val - the number of replicas stored. *Note: See [[Replication Properties]] for further discussion.*
+* n_val - the number of replicas stored. *Note: See [[Replication Properties]] for further discussion.*
     * Read, Write and Delete quorum values. Valid options include numeric values (e.g. ```{r, 2}```), and the following symbolic values:<br />
     ```quorum``` (a majority of the replicas must respond, equivalent to ```n_val / 2 + 1```)<br />
     ```all``` (all N replicas must respond)
@@ -321,13 +319,11 @@ Riak CS and Enterprise may make different choices for some of these configuratio
 Parameter | Description | Default | 
 :---------|:------------|:--------|
 `-name` | The name of the Erlang node. The default value (`riak@127.0.0.2`) will work for running Riak locally, but for distributed---i.e. multi-node---use, the portion of the name after the `@` should be changed to the IP address of the machine on which the node is running. If you have a properly configured DNS, the short form of this name can be used, e.g. `riak`. The name of the node will then be `riak@Host.Domain`. | `riak@127.0.0.1` |
-`-setcookie` Cookie of the Erlang node. Erlang nodes grant or deny access based on the sharing of a previously shared cookie. You should use the same cookie for every node in your Riak cluster, but it should be a not-easily-guessed string unique to your deployment, for the sake of preventing non-authorized access. | `riak` |
+`-setcookie` | Cookie for the Erlang node. Erlang nodes grant or deny access based on the sharing of a previously shared cookie. You should use the same cookie for every node in your Riak cluster, but it should be a not-easily-guessed string unique to your deployment, for the sake of preventing non-authorized access. | `riak` |
 `-heart` | Enable `heart` node monitoring.<br ><br >Heart will restart nodes automatically should they crash. However, `heart` is so good at restarting nodes that it can be difficult to prevent it from doing so. Enable `heart` once you are sure that you wish to have the node restarted automatically on failure. | `disabled` |
 `+K` | Enable kernel polling. | `true` |
 `+A` | Number of threads in the async thread pool. | `64` |
-`-pa` | Adds the specified directories to the beginning of the code path,
-similar to [`code:add_pathsa/1`](http://www.erlang.org/doc/man/code.html#add_pathsa-1). As an alternative to `-pa`, if several directories are to be prepended to the code and the directories have a common parent directory, that parent directory could be specified in the `ERL_LIBS` environment
-variable. | |
+`-pa` | Adds the specified directories to the beginning of the code path, similar to [`code:add_pathsa/1`](http://www.erlang.org/doc/man/code.html#add_pathsa-1). As an alternative to `-pa`, if several directories are to be prepended to the code and the directories have a common parent directory, that parent directory could be specified in the `ERL_LIBS` environment variable. | |
 `-env` | Set host environment variables for Erlang. | |
 `-smp` | Enables Erlang's SMP support. | `enable` |
 `+zdbbl` | Configures the buffer size for outbound messages between nodes. This
@@ -358,89 +354,137 @@ The `riak.conf` file is used to set a wide variety of attributes for the node, f
 
 ## Configuring Your `riak.conf`
 
-riak.conf
-===
-
-### 
+### Logs
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
-`log.console` | `both` | Where default log messages---typically at `info` severity---are emitted | <p>`off` --- disables emission of log messages<p>`file` --- emits messages to the file specified in `log.console.file`<p>`console` --- emits messages to standard output (seen when using the `riak attach-direct` command)<p>`both` --- emits messages to both the `log.console.file`-specified file *and* standard output|
-`log.console.level` | `info` | The severity level of the console log | `debug`, `info`, `warning`, `error` |
-`log.console.file` | `./log/console.log` | The file to which console messages will be logged (provided that `log.console` is set to either `file` or `both`) | `<path>/<filename>` |
-`log.error.file` | `./log/error.log` |  |  |
-`log.syslog` | `off` |  |  |
-`log.crash` | `on` |  |  |
-`log.crash.file` | `./log/crash.log` |  |  |
-`log.crash.maximum_message_size` | `./64KB` |  |  |
-`log.crash.size` | `10MB` |  |  |
-`log.crash.rotation` | `$D0` |  |  |
-`log.crash.rotation.keep` | `5` |  |  |
+`log.console` | Where default log messages are emitted (typically at the `info` level of severity): `off` means disabled; `file` emits to the file specified by `log.console.file` (explained below); `console` emits to standard output (seen when using `riak attach-direct`); `both` means `log.console.file` *and* standard output. | `both` |
+`log.console.level` | The severity level of the console log. Acceptable values: one of `debug`, `info`, `warning`, or `error`. | `info` |
+`log.console.file` | The file into which console messages will be logged, provided that `log.console` is set to `file` or `both`. | `./log/console.log` |
+`log.error.file` | The file into which error messages will be logged. | `./log/error.log` |
+`log.syslog` | When set to `on`, enables log output to syslog. | `off` |
+`log.crash` | Whether or not to enable the crash log. | `on` |
+`log.crash.file` | If the crash log is enabled (via the `log.crash` setting), the file into which its messages will be written. | `./log/crash.log` |
+`log.crash.`<br />`maximum_message_size` | Maximum size (in bytes) of individual messages in the crash log, formatted as a byte size plus units, e.g. `10GB` for 10 gigabytes. | `./64KB` |
+`log.crash.size` | Maximum size (in bytes) of the crash log before it is rotated, formatted as a byte size plus units, e.g. `10GB` for 10 gigabytes. | `10MB` |
+`log.crash.rotation` | The schedule on which to rotate the crash log. For more information, see the [lager documentation](https://github.com/basho/lager/blob/master/README.md#internal-log-rotation). | `$D0` |
+`log.crash.`<br />`rotation.keep` | The number of rotated crash logs to keep. Can take an integer value or `current`, which dictates that only the current open log file is kept. | `5` |
+
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`nodename` | Name of the Riak node. | `dev1@127.0.0.1` |
+`distributed_cookie` | Cookie for distributed node communication. All nodes in the same cluster should use the same cookie or they will not be able to communicate. | `riak` |
+`erlang.async_threads` |  | `64` |
+`erlang.max_ports` | Set the number of concurrent ports/sockets. | `64000` |
+`erlang.crash_dump` | Set the location of crash dumps. | `./log/erl_crash.dump` |
+`erlang.max_ets_tables` | Set the Erlang Term Storage (ETS) table limit (as an integer). | `256000` |
+`erlang.process_limit` | Set the default Erlang process limit (as an integer). | `256000` |
+`erlang.zdbbl` | For nodes with many `busy_dist_port` events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. The Erlang/OTP default is 1024 (1 MB). See the [Erlang docs](http://www.erlang.org/doc/man/erl.html#%2bzdbbl) for more. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `32MB` |
+`erlang.sfwi` | Erlang VM scheduler tuning. Prerequisite is a patched VM from Basho or a VM compiled separately with [this patch](https://gist.github.com/evanmcc/a599f4c6374338ed672e) applied. | `500` |
 
 
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`ring_size` | Default ring creation size. Must be a power of 2, e.g. 16, 32, 64, 128, 256, 512, etc. | `64` |
+`handoff_concurrency` | Number of VNodes allowed to do handoff concurrently. | `2` |
+`ring.state_dir` | Default location of ringstate. | `./data/ring` |
 
-**Parameter** | **Default** | **Description** | **Possible values** |
-:-------------|:------------|:----------------|:--------------------|
-`nodename` | `dev{n}@127.0.0.1` |  |  |
-`distributed_cookie` | `riak` |  |  |
-`erlang.async_threads` | `64` |  |  |
-`erlang.max_ports` | `64000` |  |
-`erlang.crash_dump` | `./log/erl_crash.dump` |  |
-`erlang.max_ets_tables` | `256000` |  |
-`erlang.process_limit` | `256000` |  |
-`erlang.zdbbl` | `32MB` |  |
-`erlang.sfwi` |  |  |
-`ring_size` | `64` |  |
-`handoff_concurrency` | `2` |  |
-`ring.state_dir` | `./data/ring` |  |
-`ssl.certfile` | `./etc/cert.pem` |  |
-`ssl.keyfile` | `./etc/key.pem` |  |
-`ssl.cacertfile` | `./etc/cacertfile.pem` |  |
-`handoff.port` | `10019` |  |
-`handoff.ssl.certfile` | `/tmp/erlserver.pem` |  |
-`dtrace` | `off` |  |
-`platform_bin_dir` | `./bin` |  |
-`platform_data_dir` | `./data` |  |
-`platform_etc_dir` | `./etc` |  |
-`platform_lib_dir` | `./lib` |  |
-`platform_log_dir` | `./log` |  |
-`enable_consensus` | `true` |  |
-`listener.http.internal` | `127.0.0.1:10018` |  |
-`listener.protobuf.internal` | `127.0.0.1:10017` |  |
-`protobuf.backlog` | `128` |  |
-`listener.https.internal` | `127.0.0.1:10018` |  |
-`honor_cipher_order` | `on` |  |
-`tls_protocols.sslv3` | `off` |  |
-`tls_protocols.tlsv1` | `off` |  |
-`tls_protocols.tlsv1.1` | `off` |  |
-`tls_protocols.tlsv1.2` | `off` |  |
-`check_crl` | `on` |  |
-`anti_entropy` | `on` |  |
-`storage_backend` | `bitcask` |  |
-`raw_name` | `riak` |  |
-`anti_entropy.build_limit.number` | `1` |  |
-`anti_entropy.build_limit.per_timespan` | `1h` |  |
-`anti_entropy.expire` | `1w` |  |
-`anti_entropy.concurrency` | `2` |  |
-`anti_entropy.tick` | `15s` |  |
-`anti_entropy.data_dir` | `./data/anti_entropy` |  |
-`anti_entropy.write_buffer_size` | `4MB` |  |
-`anti_entropy.max_open_files` | `20` |  |
-`mapred_name` | `mapred` |  |
-`mapred_2i_pipe` | `on` |  |
-`javascript_vm.map_count` | `8` |  |
-`javascript_vm.reduce_count` | `6` |  |
-`javascript_vm.hook_count` | `2` |  |
-`javascript_vm.max_vm_mem` | `8` |  |
-`javascript_vm.thread_stack` | `16` |  |
-`javascript_vm.source_dir` | `/tmp/js_source` |  |
-`http_url_encoding` | `on` |  |
-`vnode_vclocks` | `on` |  |
-`listkeys_backpressure` | `on` |  |
-`fsm_limit` | `50000` |  |
-`retry_put_coordinator_failure` | `on` |  |
-`object_format` | `v1` |  |
-`md_cache_size` | `0` |  |
+### SSL
+
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`ssl.certfile` | Overrides default cert location for HTTPS. | `./etc/cert.pem` |
+`ssl.keyfile` | Overrides default key location for HTTPS. | `./etc/key.pem` |
+`ssl.cacertfile` | Overrides default signing authority location for HTTPS. | `./etc/cacertfile.pem` |
+`handoff.port` | Specifies the TCP port that Riak uses for intra-cluster data handoff. | `10019` |
+`handoff.ssl.certfile` | To encrypt `riak_core` intra-cluster data handoff traffic, uncomment this line and edit its path to an appropriate certfile. | `/tmp/erlserver.pem` |
+
+### DTrace/Consensus
+
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`dtrace` | Enables DTrace support when set to `on`. Do not enable DTrace unless your Erlang/OTP runtime is compiled to support it. DTrace is available in R15B01 (supported by the Erlang/OTP official source package) and in R14B04 via a custom source repository and branch. | `off` |
+`enable_consensus` | Set to `true` to enable the consensus subsystem used for strongly consistent Riak applications. | `true` |
+
+### Platform Settings 
+
+The default directory structure of a Riak node looks like this:
+
+```
+root_dir
+ |_ bin
+ |_ data
+ |_ etc
+ |_ lib
+ |_ log
+```
+
+The `platform` settings allow you to specify custom locations for each of the above sub-directories (`bin`, `data`, etc.).
+
+Parameter | Default |
+:---------|:--------|
+`platform_bin_dir` | `./bin` |
+`platform_data_dir` | `./data` |
+`platform_etc_dir` | `./etc` |
+`platform_lib_dir` | `./lib` |
+`platform_log_dir` | `./log` |
+
+### HTTP, HTTPS, and Protobuf Interface Settings
+
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`listener.http.internal` | The IP address and TCP port to which the Riak HTTP interface will bind, formatted as `<id_addr>:<port>`. | `127.0.0.1:10018` |
+`listener.protobuf.internal` | The IP address and TCP port to which the Riak Protocol Buffers interface will bind, formatted as `<ip_add>:<port>`. | `127.0.0.1:10017` |
+`protobuf.backlog` | The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized *simultaneously*, set this number higher. | `128` |
+`listener.https.internal` | The IP address and TCP port to which the Riak HTTPS interface will bind, formatted as `<ip_addr>:<port>`. | `127.0.0.1:10018` |
+`honor_cipher_order` | Whether or not to honor the order in which the server lists its preferred ciphers. | `on` |
+
+Determine which SSL/TLS versions are allowed. By default, only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is *strongly* recommended that SSLv3 is not enabled unless absolutely necessary. More than one protocol can be enabled at once.
+
+Protocol | Default |
+:--------|:--------|
+`tls_protocols.sslv3` | `off` |
+`tls_protocols.tlsv1` | `off` |
+`tls_protocols.tlsv1.1` | `off` |
+`tls_protocols.tlsv1.2` | `on` |
+
+
+`check_crl` | Whether or not to check the certificate revocation list (CRL) of a client certificate. This defaults to `true`, but some certification authorities (CAs) may or may not maintain or define a CRL, so this can be disabled if no CRL is available. | `on` |
+`anti_entropy` | Enable active anti-entropy subsystem. Set to `on` or `off` to enable/disable or to `debug`. | `on` |
+`storage_backend` | Specifies the engine used for Riak's key/value data and secondary indexes (if supported). Note that the `yessir` option is for testing only. Possible values:<br /><ul><li>`bitcask`</li><li>`leveldb`</li><li>`memory`</li><li>`yessir`</li><li>`multi`</li></ul> | `bitcask` |
+`raw_name` | The first part of all URLs used by the Riak raw HTTP interface. See `riak_web.erl` and `raw_http_resource.erl` for details. | `riak` |
+`anti_entropy.build_limit.number` | Restrict how quickly Active Anti-Entropy (AAE) can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. Formatted as `{num-builds, per-timespan}`. This `number` value specifies the number of times per time per time unite (i.e. `per_timespan`). | `1` |
+`anti_entropy.build_limit.per_timespan` | The counterpart to `number`, directly above. The timespan within which hash trees are built a `number` of time. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1h` |
+`anti_entropy.expire` | Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is *not* needed for normal AAE operation and should be infrequent for performance reasons. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1w` for 1 week |
+`anti_entropy.concurrency` | Limit how many AAE exchanges/builds can happen concurrently. | `2` |
+`anti_entropy.tick` | Determines how often the AAE manager looks for work to do, e.g. building/expiring trees or triggering exchanges. Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing this value is *not* recommended. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `15s` |  |
+`anti_entropy.data_dir` | The directory in which AAE hash trees are stored. | `./data/anti_entropy` |
+
+### LevelDB Options
+
+The LevelDB options used by AAE to generate the LevelDB-backed on-disk hash trees.
+
+`anti_entropy.write_buffer_size` | Buffer size for write operations, formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `4MB` |
+`anti_entropy.max_open_files` | Sets the number of files that can be open at a given time. | `20` |
+
+`mapred_name` | The URL used to submit MapReduce requests to Riak. | `mapred` |
+`mapred_2i_pipe` | Indicates whether or not secondary index MapReduce inputs are queued in parallel via their own pipe (`true`) or serially via a helper process (`false` or undefined). Set to `false` or leave undefined during a rolling upgrade from Riak 1.0. | `on` |
+
+### JavaScript VM Options
+
+`javascript_vm.map_count` | The number of JavaScript VMs available for executing map functions. | `8` |
+`javascript_vm.reduce_count` | The number of JavaScript VMs available for executing reduce functions. | `6` |
+`javascript_vm.hook_count` | The number of JavaScript VMs available for executing pre- and post-commit hook functions. | `2` |
+`javascript_vm.max_vm_mem` | The maximum amount of memory (in megabytes) allocated to the JavaScript VMs. | `8` |
+`javascript_vm.thread_stack` | The maximum amount of thread stack (in megabytes) allocated to the JavaScript VMs. **Note**: This is *note* the same thing as the C thread stack. | `16` |
+`javascript_vm.source_dir` | Specifies a directory containing JavaScript source files to be loaded by Riak when initializing JavaScript VMs. | `/tmp/js_source` |
+`http_url_encoding` | Determines how Riak treats URL-encoded buckets, keys, and links over the REST API. When set to `on`, Riak always decodes encoded values sent as URLs and headers. Otherwise, Riak defaults to compability mode, in which links are decoded but buckets and keys are not. The compatibility mode will be removed in a future release. | `on` |
+`vnode_vclocks` | Swith to vnode-based vclocks rather than client IDs. This significantly reduces the number of vclock entries. Only set to `on` if *all* nodes in the cluster are upgraded to 1.0. | `on` |
+`listkeys_backpressure` | Toggles compatibility of key listing with 1.0 and earlier versions. Once a rolling upgrade to a version > 1.0 is completed for a cluster, this should be set to `true` for better control of memory usage during key listing operations. | `on` |
+`fsm_limit` | Specifies how many of each type of finite state machine (FSM) may exist concurrently. This is for overload protection and is a new mechanism that renders 1.3's health checks obsolete. Note that this number represents two potential processes, so that `+P` in `vm.args` should be at least 3 times the `fsm_limit`. Setting this value to `undefined` disables FSM overload protection. | `50000` |
+`retry_put_coordinator_failure` | Enables/disables the `retry_put_coordinator` per-operation option of the put FSM. An `on` value is strongly recommended for Riak 2.0, while `off` is recommended for Riak 1.x. | `on` |
+`object_format` | Controls which binary representation of a Riak object is stored on disk. The current options are `v0` (original `erlang:term_to_binary` format with higher space overhead) and `v1` (new format for more compact storage of small values). | `v1` |
+`md_cache_size` |  | `0` |
 `warn_object_size` | `5MB` |  |
 `max_object_size` | `50MB` |  |
 `warn_siblings` | `25` |  |
@@ -462,7 +506,4 @@ Parameter | Description | Default |
 `search.solr_jvm_opts` | `-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` |  |
 `search.anti_entropy.data_dir` | `./data/yz_anti_entropy` |  | 
 `search.root_dir` | `./data/yz` |  |
-
-
-## Configuring Other Stuff
 {{/2.0.0+}}
