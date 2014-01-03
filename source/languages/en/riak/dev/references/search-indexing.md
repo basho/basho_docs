@@ -18,7 +18,7 @@ There are numerous ways to index a document in Riak Search.
 The easiest way to index documents stored on the filesystem is to use the "search-cmd" command line tool:
 
 ```bash
-bin/search-cmd index <INDEX> <PATH>
+$ bin/search-cmd index <INDEX> <PATH>
 ```
 
 Parameters:
@@ -29,7 +29,7 @@ Parameters:
 This documents will be indexed into the default field defined by the Index's schema, using the base filename plus extension as the document ID.
 
 ```bash
-bin/search-cmd index my_index files/to/index/*.txt
+$ bin/search-cmd index my_index files/to/index/*.txt
 ```
 
 ## Deleting from the Command Line
@@ -37,7 +37,7 @@ bin/search-cmd index my_index files/to/index/*.txt
 To remove previously indexed files from the command line, use the "search-cmd" command line tool.
 
 ```bash
-bin/search-cmd delete <INDEX> <PATH>
+$ bin/search-cmd delete <INDEX> <PATH>
 ```
 
 Parameters:
@@ -48,7 +48,7 @@ Parameters:
 For example:
 
 ```bash
-bin/search-cmd delete my_index files/to/index/*.txt
+$ bin/search-cmd delete my_index files/to/index/*.txt
 ```
 
 Any documents matching the base filename plus extension of the files found will be removed from the index. The actual contents of the files are ignored during this operation.
@@ -60,7 +60,6 @@ The following Erlang functions will index documents stored on the filesystem:
 
 ```erlang
 search:index_dir(Path).
-
 search:index_dir(Index, Path).
 ```
 
@@ -77,7 +76,7 @@ search:index_dir(<<"my_index">>, "files/to/index/*.txt").
 
 Alternatively, you can provide the fields of the document to index.
 
-```bash
+```erlang
 search:index_doc(Index, DocId, Fields)
 ```
 
@@ -99,7 +98,6 @@ The following Erlang functions will remove documents from the index:
 
 ```erlang
 search:delete_dir(Path).
-
 search:delete_dir(Index, Path).
 ```
 
@@ -160,14 +158,15 @@ Alternatively, the index can be included in the URL, for example "http://hostnam
 To add data to the system with Curl:
 
 
-```bash
-curl -X POST -H text/xml --data-binary @tests/books.xml http://localhost:8098/solr/books/update
+```curl
+$ curl -XPOST http://localhost:8098/solr/books/update \
+       -H 'content-type:text/xml' --data-binary @tests/books.xml
 ```
 
 Alternatively, you can index Solr files on the command line:
 
 ```bash
-bin/search-cmd solr my_index path/to/solrfile.xml
+$ bin/search-cmd solr my_index path/to/solrfile.xml
 ```
 
 ## Deleting using the Solr Interface

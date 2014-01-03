@@ -19,7 +19,7 @@ Download the latest erlang client from GitHub ([zip](https://github.com/basho/ri
 Next, open the erlang console with the client library paths included.
 
 ```bash
-erl -pa CLIENT_LIBRARY_PATH/ebin/ CLIENT_LIBRARY_PATH/deps/*/ebin
+$ erl -pa CLIENT_LIBRARY_PATH/ebin/ CLIENT_LIBRARY_PATH/deps/*/ebin
 ```
 
 Now let’s create a link to the Riak node.  
