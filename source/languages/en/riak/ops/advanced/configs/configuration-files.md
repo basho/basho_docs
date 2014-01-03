@@ -11,8 +11,7 @@ keywords: [operator, configuration, config]
 Riak has two configuration files located in `/etc` if you are using a source
 install or in `/etc/riak` if you used a binary install. Those files are `app.config` and `vm.args`.
 
-The `app.config` file is used to set various attributes for the node, such as the backend the node will use to store data. The `vm.args` file is used to pass
-parameters to the Erlang node, such as the name or cookie of the Erlang node.
+The `app.config` file is used to set various attributes for the node, such as the storage backend that the node will use to store data. The `vm.args` file is used to pass parameters to the Erlang node, such as the name or cookie of the Erlang node.
 
 ## Configuring Your `app.config`
 
@@ -32,27 +31,26 @@ Riak and the Erlang applications it depends on are configured by settings in the
 ].
 ```
 
-Below is a table listing the configurable parameters in `app.config`:
+Below is a series of tables listing the configurable parameters in `app.config`.
 
 ## Protocol Buffers
 
 Parameter | Description | Default | 
 :---------|:------------|:--------|
-`pb_backlog` | The maximum length to which the queue of pending *simultaneous* Protocol Buffers connections may grow. If set, it must be an integer >= 0. If you anticipate a larger number of connections than the default being simultaneously initialized, set this number to a higher value accordingly. You should adjust this value to meet your anticipated simultaneous connection demand or if experiencing connection resets. | `5` |
 `pb` | A list of IP addresses and ports on which Riak's Protocol Buffers interface should listen. | `{"127.0.0.1",8087}` | {{1.4.0+}}
 `pb_ip` | The IP address to which the Protocol Buffers interface will bind. If not set, the PBC interface will not be started. The IP address may be specified as a string or tuple of address components as integers (4 for IPv4, 8 for IPv6).<br /><br />Examples:<br /><ul><li>Bind to a specific IPv4 interface: `{pb_ip, {10,1,1,56}}`</li><li>Bind to all IPv6 interfaces: `{pb_ip, "::0"}`</li><li>Bind to a specific IPv6 interface: `{pb_ip, {65152,0,0,0,64030,57343,65250,15801}}`</li></ul> | `127.0.0.1` | {{1.4.0-}}
 `pb_port` | The port to which the Protocol Buffers interface will bind. | `8087` |{{1.4.0-}}
+`pb_backlog` | The maximum length to which the queue of pending *simultaneous* Protocol Buffers connections may grow. If set, it must be an integer >= 0. If you anticipate a larger number of connections than the default being simultaneously initialized, set this number to a higher value accordingly. You should adjust this value to meet your anticipated simultaneous connection demand or if experiencing connection resets. | `5` |
 `disable_pb_nagle` | Turns off Nagle's algorithm (aka TCP slow start) for Protocol Buffer connection. This is equivalent to setting the `TCP_NODELAY` option on the socket. | {{#1.3.0+}}`false`{{/1.3.0+}}{{#1.3.0-}}`true`{{/1.3.0-}} |
 
 ## `riak_core` Settings
 
 Parameter | Description | Default | 
 :---------|:------------|:--------|
-`choose_claim_fun` | Designates a module/function pair---using a `{Module, Function}` syntax---to claim vnodes from the passed-in ring and then return the resulting ring. | **none** |
 `cluster_name` | The name of the cluster (as a string). This has no visible effect but can be useful for identifying multiple clusters within a larger infrastructure. | ??? |
+`choose_claim_fun` | Designates a module/function pair---using a `{Module, Function}` syntax---to claim vnodes from the passed-in ring and then return the resulting ring. | **none** |
 `default_bucket_props` | See detailed discussion below in the **Default Bucket Properties** section below |  |
 `delayed_start` | Sleep a specified number of milliseconds before starting `riak_core`. |  `unset` |
-`disable_http_nagle` | When set to `true`, this option will disable the Nagle buffering algorithm for HTTP traffic. This is equivalent to setting the `TCP_NODELAY` option on the HTTP socket. If you experience consistent minimum latencies in multiples of 20 milliseconds, setting this option to `true` may reduce latency. | `false` |
 `gossip_interval` | How often nodes in the cluster will share information about their ring state, in milliseconds. | `60000` |
 `handoff_concurrency` | Number of vnodes per physical node that are allowed to perform handoff at once. | `2` |
 `handoff_port` | TCP port number for the handoff listener. | `8099` |
@@ -65,16 +63,16 @@ Parameter | Description | Default |
 `http` | A list of IP addresses and ports on which Riak's HTTP interface should listen (along the lines of `[{host1, port1}, {host2, port2}]`). *Note: Riak's HTTP interface will not start if this setting is not defined.*| `{"127.0.0.1", 8091}` |
 `http_logdir` | Override the default location of the access logs. See the `webmachine_logger` settings to enable access logs. | **none** |
 `https` | A list of IP addresses and ports on which Riak's HTTPS interface should listen (along the lines of `[{addr1, port1}, {addr2, port2}`) | not enabled |
-`http_url_encoding` | Determines how Riak treats URL-encoded buckets, keys, and links over the REST API. When set to `on`, Riak always decodes encoded values sent as URLs and headers. Otherwise, Riak defaults to compability mode, in which links are decoded but buckets and keys are not. The compatibility mode will be removed in a future release. | `on` |
 `raw_name` | The base of the path in the URL exposing Riak's HTTP interface. The default (`riak`) will expose data at `/riak/Bucket/Key`. Thus, changing this setting to `bar` would expose the interface at `/bar/Bucket/Key`. | `riak` |
-
-### 
+`disable_http_nagle` | When set to `true`, this option will disable the Nagle buffering algorithm for HTTP traffic. This is equivalent to setting the `TCP_NODELAY` option on the HTTP socket. If you experience consistent minimum latencies in multiples of 20 milliseconds, setting this option to `true` may reduce latency. | `false` |
 
 `legacy_vnode_routing` | Boolean for compatibility with older versions. |  |
 `platform_data_dir` | Base directory for backend data storage. | `./data` |
+
+### Ring Settings
+
 `ring_state_dir` | The directory on disk in which to store the ring state.<br /><br />Riak's ring state is stored on-disk by each node, such that each node may be restarted at any time (purposely, or via automatic failover) and know what its place in the cluster was before it terminated, without needing immediate access to the rest of the cluster. | `/data/ring` |
 `ring_creation_size` | The number of partitions into which the hash space is divided.<br /><br />By default, each Riak node will own `ring_creation_size` / (number of nodes in the cluster) partitions. It is generally a good idea to specify a `ring_creation_size` that is several times greater than the number of nodes in your cluster (e.g. specify 64 to 256 partitions for a 4-node cluster). This gives you room to expand the number of nodes in the cluster without worrying about underuse due to owning too few partitions. This number should be a power of 2 (64, 128, 256...). {{#1.4.0-}}<br /><br />**Note**: The `ring_creation_size` should be established before your cluster is started and should not be changed thereafter.{{/1.4.0-}} | `64` |
-
 `target_n_val` | The highest `n_val` that you generally intend to use. This affects how partitions are distributed amongst the cluster and how preflists are calculated, helping to ensure that data is never stored to the same physical node more than once. You will need to change this setting only in rare circumstances.<br /><br />Assuming that `ring_creation_size` is a power of 2, the ideal value for this setting is both greater than or equal to the largest `n_val` of any bucket, and an even divisor of the number of partitions in your ring (i.e. `ring_creation_size`).<br /><br />The default value is 4, and for this to be effective at preventing hot spots, your cluster size (the number of physical nodes) must be equal to or larger than `target_n_val`. | `4` |
 `vnode_management_timer` | Frequency (in milliseconds) at which Riak checks for primary partitions that need to be transferred. | `10000` | {{1.1.2+}}
 `wants_claim_fun` | A module/function pairing, in `{Module, Function}` format, that returns a Boolean expressing whether or not this node wants to claim more vnodes. | **none** |
@@ -83,17 +81,25 @@ Parameter | Description | Default |
 
 ## `riak_kv` Settings
 
+### Active Anti-Entropy (AAE) Settings
+
 Parameter | Description | Default | 
 :---------|:------------|:--------|
-`anti_entropy` | Enable the active anti-entropy (AAE) subsystem and optional debug messages.<br /><br />AAE with no debugging:<br />`{anti_entropy, {on, []}}`<br />For AAE with debugging:<br />`{anti_entropy, {on, [debug]}}`<br />No AAE:<br />`{anti_entropy, {off, []}}` | **none** |
+`anti_entropy` | Enable the AAE subsystem and optional debug messages.<br /><br />AAE with no debugging:<br />`{anti_entropy, {on, []}}`<br />For AAE with debugging:<br />`{anti_entropy, {on, [debug]}}`<br />No AAE:<br />`{anti_entropy, {off, []}}` | **none** |
 `anti_entropy_build_limit` | Restrict how quickly AAE can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. The format is `{number-of-builds, per-timespan-in-milliseconds}`. Example:<br /><br />`{anti_entropy_build_limit, {1, 3600000}},` | **none** |
 `anti_entropy_expire` | Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak to identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds. | `604800000` |
 `anti_entropy_concurrency` | Limit how many AAE exchanges/builds can happen concurrently, e.g. `{anti_entropy_concurrency, 2}`. | **none** |
 `anti_entropy_tick` | The tick determines how often the AAE manager looks for work to do, e.g. building/expiring trees or triggering exchanges. Lowering this value will speedup the rate that all replicas are synced across the cluster. Increasing the value is not recommended. Example:| `15000` |
 `anti_entropy_data_dir` | The directory in which AAE hash trees are stored. | `./data/anti_entropy` |
 `anti_entropy_leveldb_opts` | The LevelDB options used by AAE to generate the LevelDB-backed on-disk hash trees. Example:<br /><br />`{anti_entropy_leveldb_opts, [{write_buffer_size, 4194304}, {max_open_files, 20}]},` | **none** |
+
+### Other
+
 `add_paths` | A list of paths to add to the Erlang code path. This setting is especially useful for allowing Riak to use external modules during MapReduce queries. | **none** |
 `delete_mode` | Specifies behavior for the window of time between Riak identifying an object for deletion and actual deletion of the object. There are three modes of operation: `delay` (in milliseconds), `immediate`, and `keep`. Setting `delete_mode` to `immediate` removes the tombstone for the object when the delete request is received. Setting `delete_mode` to `keep` disables tombstone removal altogether. | `{delay, 3000}` |
+
+### MapReduce Settings
+
 `mapred_name` | The base of the path in the URL exposing MapReduce via HTTP. | `mapred` |
 `mapred_queue_dir` | The directory used to store a transient queue for pending map tasks. Only valid when `mapred_system` is set to `legacy` (discussed immediately below). | `data/mrqueue` | {{1.3.0+}}
 `mapred_system` | Indicates which version of the MapReduce system should be used. `pipe` means that `riak_pipe` will power MapReduce queries, while `legacy` means that `luke` will be used. | `pipe` | {{1.3.0+}}
@@ -105,7 +111,7 @@ Parameter | Description | Default |
 `js_thread_stack` | The maximum amount of thread stack space (in megabytes) to allocate to Javascript virtual machines. | `16` |
 `map_cache_size` | Number of objects held in the MapReduce cache. These will be ejected when the cache runs out of room or the bucket/key pair for that entry. Only valid when `mapred_system` is set to `legacy`. | `10000` | {{1.3.0+}}
 `js_source_dir` | Where to load user-defined built-in Javascript functions | `unset` |
-`http_url_encoding` | Determines how Riak treats URL encoded buckets, keys, and links over the REST API. When set to `on`, Riak always decodes encoded values sent as URLs and headers. Otherwise, Riak defaults to compatibility mode, in which links are decoded but buckets and keys are not. The compatibility mode will be removed in a future release. | `off` |
+`http_url_encoding` | Determines how Riak treats URL-encoded buckets, keys, and links over the REST API. When set to `on`, Riak always decodes encoded values sent as URLs and headers. Otherwise, Riak defaults to compatibility mode, in which links are decoded but buckets and keys are not. The compatibility mode will be removed in a future release. | `off` |
 `vnode_vclocks` | When set to `true`, Riak uses vnode-based vclocks rather than client ids. This significantly reduces the number of vclock entries. Only set to `true` if all nodes in the cluster are upgraded to 1.0. | `false` |
 `legacy_keylisting` | This option enables compatibility of bucket and key listing with 0.14 and earlier versions. Once a rolling upgrade to a version >= 1.0 is completed for a cluster, this should be set to `false` for improved performance for bucket and key listing operations. | `true` |
 `pb_ip` | The IP address to which the Protocol Buffers interface will bind. If not set, the PBC interface will not be started. | `"127.0.0.1"` | {{1.2.0-}}
@@ -361,9 +367,9 @@ Riak has a `riak.conf` configuration file located in `/etc` if you are using a s
 
 The `riak.conf` file is used to set a wide variety of attributes for the node, from the storage backend that the node will use to store data to the location of SSL-related files to sibling resolution parameters and beyond.
 
-## Configuring Your `riak.conf`
+Below is a series of tables listing the configurable parameters in `riak.conf`.
 
-### Log Settings
+## Log Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
@@ -379,7 +385,7 @@ Parameter | Description | Default |
 `log.crash.rotation` | The schedule on which to rotate the crash log. For more information, see the [lager documentation](https://github.com/basho/lager/blob/master/README.md#internal-log-rotation). | `$D0` |
 `log.crash.`<br />`rotation.keep` | The number of rotated crash logs to keep. Can take an integer value or `current`, which dictates that only the current open log file is kept. | `5` |
 
-### Erlang VM Settings
+## Erlang VM Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
@@ -391,7 +397,7 @@ Parameter | Description | Default |
 `erlang.zdbbl` | For nodes with many `busy_dist_port` events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. The Erlang/OTP default is 1024 (1 MB). See the [Erlang docs](http://www.erlang.org/doc/man/erl.html#%2bzdbbl) for more. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `32MB` |
 `erlang.sfwi` | Erlang VM scheduler tuning. Prerequisite is a patched VM from Basho or a VM compiled separately with [this patch](https://gist.github.com/evanmcc/a599f4c6374338ed672e) applied. | `500` |
 
-### Ring and Cluster Settings
+## Ring and Cluster Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
@@ -401,18 +407,19 @@ Parameter | Description | Default |
 `nodename` | Name of the Riak node. | `dev1@127.0.0.1` |
 `distributed_cookie` | Cookie for distributed node communication. All nodes in the same cluster should use the same cookie or they will not be able to communicate. | `riak` |
 
-### SSL Settings
+## SSL Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `ssl` | You can override the default SSL key and certificate settings. | `etc/cert.pem`, `etc/key.pem` |
+
 `ssl.certfile` | Overrides default cert location for HTTPS. | `./etc/cert.pem` |
 `ssl.keyfile` | Overrides default key location for HTTPS. | `./etc/key.pem` |
 `ssl.cacertfile` | Overrides default signing authority location for HTTPS. | `./etc/cacertfile.pem` |
 `handoff.port` | Specifies the TCP port that Riak uses for intra-cluster data handoff. | `10019` |
 `handoff.ssl.certfile` | To encrypt `riak_core` intra-cluster data handoff traffic, uncomment this line and edit its path to an appropriate certfile. | `/tmp/erlserver.pem` |
 
-#### SSL/TLS Versions
+### SSL/TLS Versions
 
 Determine which SSL/TLS versions are allowed. By default, only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is *strongly* recommended that SSLv3 is not enabled unless absolutely necessary. More than one protocol can be enabled at once.
 
@@ -423,14 +430,14 @@ Protocol | Default |
 `tls_protocols.tlsv1.1` | `off` |
 `tls_protocols.tlsv1.2` | `on` |
 
-### DTrace/Consensus Subsystem Settings
+## DTrace/Consensus Subsystem Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `dtrace` | Enables DTrace support when set to `on`. Do not enable DTrace unless your Erlang/OTP runtime is compiled to support it. DTrace is available in R15B01 (supported by the Erlang/OTP official source package) and in R14B04 via a custom source repository and branch. | `off` |
 `enable_consensus` | Set to `true` to enable the consensus subsystem used for strongly consistent Riak applications. | `true` |
 
-### Platform Settings 
+## Platform Settings 
 
 The default directory structure of a Riak node looks like this:
 
@@ -453,28 +460,24 @@ Parameter | Default |
 `platform_lib_dir` | `./lib` |
 `platform_log_dir` | `./log` |
 
-### HTTP Interface Settings
+## HTTP Interface Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `listener.http.`<br />&nbsp;&nbsp;`internal` | The IP address and TCP port to which the Riak HTTP interface will bind, formatted as `<id_addr>:<port>`. | `127.0.0.1:`<br />&nbsp;&nbsp;`10018` |
+`http_url_encoding` | Determines how Riak treats URL-encoded buckets, keys, and links over the REST API. When set to `on`, Riak always decodes encoded values sent as URLs and headers. Otherwise, Riak defaults to compability mode, in which links are decoded but buckets and keys are not. The compatibility mode will be removed in a future release. | `on` |
 
-### HTTPS Interface Settings
-
-Parameter | Description | Default |
-:---------|:------------|:--------|
-`listener.https.`<br />&nbsp;&nbsp;`internal` | The IP address and TCP port to which the Riak HTTPS interface will bind, formatted as `<ip_addr>:<port>`. | `127.0.0.1:`<br />&nbsp;&nbsp;`10018` |
-
-### Protocol Buffers Interface Settings
+## Protocol Buffers Interface Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `listener.protobuf.`<br />&nbsp;&nbsp;`internal` | The IP address and TCP port to which the Riak Protocol Buffers interface will bind, formatted as `<ip_add>:<port>`. | `127.0.0.1:`<br />&nbsp;&nbsp;`10017` |
 `protobuf.backlog` | The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized *simultaneously*, set this number higher. | `128` |
 
+## Active Anti-Entropy (AAE) Settings
+
 Parameter | Description | Default |
 :---------|:------------|:--------|
-`check_crl` | Whether or not to check the certificate revocation list (CRL) of a client certificate. This defaults to `true`, but some certification authorities (CAs) may or may not maintain or define a CRL, so this can be disabled if no CRL is available. | `on` |
 `anti_entropy` | Enable active anti-entropy subsystem. Set to `on` or `off` to enable/disable or to `debug`. | `on` |
 `storage_backend` | Specifies the engine used for Riak's key/value data and secondary indexes (if supported). Note that the `yessir` option is for testing only. Possible values:<br /><ul><li>`bitcask`</li><li>`leveldb`</li><li>`memory`</li><li>`yessir`</li><li>`multi`</li></ul> | `bitcask` |
 `anti_entropy.`<br />&nbsp;&nbsp;`build_limit.number` | Restrict how quickly Active Anti-Entropy (AAE) can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. Formatted as `{num-builds, per-timespan}`. This `number` value specifies the number of times per time per time unite (i.e. `per_timespan`). | `1` |
@@ -484,7 +487,7 @@ Parameter | Description | Default |
 `anti_entropy.tick` | Determines how often the AAE manager looks for work to do, e.g. building/expiring trees or triggering exchanges. Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing this value is *not* recommended. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `15s` |  |
 `anti_entropy.data_dir` | The directory in which AAE hash trees are stored. | `./data/anti_entropy` |
 
-### LevelDB Options
+## LevelDB Options
 
 The LevelDB options used by AAE to generate the LevelDB-backed on-disk hash trees.
 
@@ -493,14 +496,14 @@ Parameter | Description | Default |
 `anti_entropy.write_buffer_size` | Buffer size for write operations, formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `4MB` |
 `anti_entropy.max_open_files` | Sets the number of files that can be open at a given time. | `20` |
 
-### MapReduce Options
+## MapReduce Options
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `mapred_name` | The URL used to submit MapReduce requests to Riak. | `mapred` |
 `mapred_2i_pipe` | Indicates whether or not secondary index MapReduce inputs are queued in parallel via their own pipe (`true`) or serially via a helper process (`false` or undefined). Set to `false` or leave undefined during a rolling upgrade from Riak 1.0. | `on` |
 
-### JavaScript VM Options
+## JavaScript VM Options
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
@@ -511,10 +514,11 @@ Parameter | Description | Default |
 `javascript_vm.thread_stack` | The maximum amount of thread stack (in megabytes) allocated to the JavaScript VMs. **Note**: This is *note* the same thing as the C thread stack. | `16` |
 `javascript_vm.source_dir` | Specifies a directory containing JavaScript source files to be loaded by Riak when initializing JavaScript VMs. | `/tmp/js_source` |
 
-### Misc
+## Misc
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
+`check_crl` | Whether or not to check the certificate revocation list (CRL) of a client certificate. This defaults to `true`, but some certification authorities (CAs) may or may not maintain or define a CRL, so this can be disabled if no CRL is available. | `on` |
 `vnode_vclocks` | Swith to vnode-based vclocks rather than client IDs. This significantly reduces the number of vclock entries. Only set to `on` if *all* nodes in the cluster are upgraded to 1.0. | `on` |
 `listkeys_backpressure` | Toggles compatibility of key listing with 1.0 and earlier versions. Once a rolling upgrade to a version > 1.0 is completed for a cluster, this should be set to `true` for better control of memory usage during key listing operations. | `on` |
 `fsm_limit` | Specifies how many of each type of finite state machine (FSM) may exist concurrently. This is for overload protection and is a new mechanism that renders 1.3's health checks obsolete. Note that this number represents two potential processes, so that `+P` in `vm.args` should be at least 3 times the `fsm_limit`. Setting this value to `undefined` disables FSM overload protection. | `50000` |
@@ -527,14 +531,14 @@ Parameter | Description | Default |
 `max_siblings` | Writing an object with more than this number of siblings will fail. | `100` |
 `honor_cipher_order` | Whether or not to honor the order in which the server lists its preferred ciphers. | `on` |
 
-### Bitcask Settings
+## Bitcask Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `bitcask.data_root` | Bitcask data root. | `./data/bitcask` |
 `bitcask.io_mode` | Configures how Bitcask writes data to disk. Available options:<br /><ul><li>`erlang`: Erlang's built-in [file API](http://www.erlang.org/doc/man/file.html)</li><li>`nif`: Direct calls to the POSIX C API. The NIF mode provides higher throughput for certain workloads but has the potential to negatively impact the Erlang VM, leading to higher worst-case latencies and possible throughput collapse.</li></ul> | `erlang` |
 
-### Riak Control Settings
+## Riak Control Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
@@ -542,7 +546,9 @@ Parameter | Description | Default |
 `riak_control.auth` | Authentication style used for access to the admin panel. Valid styles are `off` and `userlist`. | `userlist` |
 `riak_control.user.user.password` | If `riak_control.auth` (directly above) is not set to `userlist`, then this is the list of usernames and passwords for access to the admin panel. | `pass` |
 
-### LevelDB Settings
+## LevelDB Settings
+
+Used to configure 
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
@@ -552,7 +558,7 @@ Parameter | Description | Default |
 `leveldb.block_size_steps` | Defines the number of incremental adjustments to attempt between the `block_size` value and the maximum `block_size` for an `.sst` table file. A value of `0` disables the underlying dynamic `block_size` feature. | `16` |
 `leveldb.delete_threshold` | Controls when a background compaction initiates solely due to the number of delete tombstones within an individual `.sst` table file. A value of `0` disables the feature. | `1000` |
 
-### Search Settings
+## Search Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
