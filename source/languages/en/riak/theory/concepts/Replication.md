@@ -62,7 +62,7 @@ without losing any anti-entropy information. Furthermore, Riak maintains the
 hash trees in real time, updating the tree as new write requests come in. This
 reduces the time it takes Riak to detect and repair missing/divergent replicas.
 For added protection, Riak periodically (default: once a week) clears and
-regenerates all hash trees from the on-disk K/V data. This enables Riak to
+regenerates all hash trees from the on-disk KV data. This enables Riak to
 detect silent data corruption to the on-disk data arising from bad disks and
 faulty hardware components.
 {{/1.3.0+}}
