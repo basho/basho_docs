@@ -11,12 +11,12 @@
   color: #ea7107;
 }
 
-.basho-light-orange, pre .ruby .class .title, pre .css .rules .attribute {
-  color: #fbb85d;
+.basho-aqua, pre .ruby .class .title, pre .css .rules .attribute {
+  color: #71a7af;
 }
 
-.basho-aqua, pre .string, pre .value, pre .inheritance, pre .header, pre .ruby .symbol, pre .xml .cdata {
-  color: #79aeb6;
+.basho-light-orange, pre .string, pre .value, pre .inheritance, pre .header, pre .ruby .symbol, pre .xml .cdata {
+  color: #f2b156;
 }
 
 .basho-dark-blue, pre .css .hexcolor {
