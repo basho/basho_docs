@@ -191,7 +191,7 @@ Parameter | Description | Default |
 `crash_log_size` | Maximum size of the crash log (in bytes) before it is rotated. Set to `0` to disable rotation. | `0` |
 `error_logger_hwm` | Maximum number of messages per second allowed from `error_logger`. Permits weathering a flood of messages when many related processes crash. | **none** |
 `error_logger_redirect` | Whether to redirect `error_logger` messages into lager. | `true` |
-`handlers` | Allows the selection of log handlers with differing options.<ul><li>`lager_console_backend` --- Logs to the the console, with the specified log level.</li><li>`lager_file_backend` --- Logs to the given list of files, each with their own log level.</li></ul> | ???? |
+`handlers` | Allows the selection of log handlers with differing options.<ul><li>`lager_console_backend`: Logs to the the console, with the specified log level.</li><li>`lager_file_backend`: Logs to the given list of files, each with their own log level.</li></ul> | ???? |
 
     Lager can rotate its own logs or have it done via an external process. To use internal rotation, use the 'size', 'date' and 'count' values in the file backend's config:
     See crash_log_date above for a description of the date field.
@@ -433,10 +433,10 @@ Parameter | Default |
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
-`listener.http.internal` | The IP address and TCP port to which the Riak HTTP interface will bind, formatted as `<id_addr>:<port>`. | `127.0.0.1:10018` |
-`listener.protobuf.internal` | The IP address and TCP port to which the Riak Protocol Buffers interface will bind, formatted as `<ip_add>:<port>`. | `127.0.0.1:10017` |
+`listener.http.`<br />&nbsp;&nbsp;`internal` | The IP address and TCP port to which the Riak HTTP interface will bind, formatted as `<id_addr>:<port>`. | `127.0.0.1:`<br />&nbsp;&nbsp;`10018` |
+`listener.protobuf.`<br />&nbsp;&nbsp;`internal` | The IP address and TCP port to which the Riak Protocol Buffers interface will bind, formatted as `<ip_add>:<port>`. | `127.0.0.1:`<br />&nbsp;&nbsp;`10017` |
 `protobuf.backlog` | The maximum length to which the queue of pending connections may grow. If set, it must be an integer >= 0. If you anticipate a huge number of connections being initialized *simultaneously*, set this number higher. | `128` |
-`listener.https.internal` | The IP address and TCP port to which the Riak HTTPS interface will bind, formatted as `<ip_addr>:<port>`. | `127.0.0.1:10018` |
+`listener.https.internal` | The IP address and TCP port to which the Riak HTTPS interface will bind, formatted as `<ip_addr>:<port>`. | `127.0.0.1:`<br />&nbsp;&nbsp;`10018` |
 `honor_cipher_order` | Whether or not to honor the order in which the server lists its preferred ciphers. | `on` |
 
 Determine which SSL/TLS versions are allowed. By default, only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is *strongly* recommended that SSLv3 is not enabled unless absolutely necessary. More than one protocol can be enabled at once.
@@ -448,15 +448,16 @@ Protocol | Default |
 `tls_protocols.tlsv1.1` | `off` |
 `tls_protocols.tlsv1.2` | `on` |
 
-
+Parameter | Description | Default |
+:---------|:------------|:--------|
 `check_crl` | Whether or not to check the certificate revocation list (CRL) of a client certificate. This defaults to `true`, but some certification authorities (CAs) may or may not maintain or define a CRL, so this can be disabled if no CRL is available. | `on` |
 `anti_entropy` | Enable active anti-entropy subsystem. Set to `on` or `off` to enable/disable or to `debug`. | `on` |
 `storage_backend` | Specifies the engine used for Riak's key/value data and secondary indexes (if supported). Note that the `yessir` option is for testing only. Possible values:<br /><ul><li>`bitcask`</li><li>`leveldb`</li><li>`memory`</li><li>`yessir`</li><li>`multi`</li></ul> | `bitcask` |
 `raw_name` | The first part of all URLs used by the Riak raw HTTP interface. See `riak_web.erl` and `raw_http_resource.erl` for details. | `riak` |
-`anti_entropy.build_limit.number` | Restrict how quickly Active Anti-Entropy (AAE) can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. Formatted as `{num-builds, per-timespan}`. This `number` value specifies the number of times per time per time unite (i.e. `per_timespan`). | `1` |
-`anti_entropy.build_limit.per_timespan` | The counterpart to `number`, directly above. The timespan within which hash trees are built a `number` of time. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1h` |
+`anti_entropy.`<br />&nbsp;&nbsp;`build_limit.number` | Restrict how quickly Active Anti-Entropy (AAE) can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. Formatted as `{num-builds, per-timespan}`. This `number` value specifies the number of times per time per time unite (i.e. `per_timespan`). | `1` |
+`anti_entropy.`<br />&nbsp;&nbsp;`build_limit.per_timespan` | The counterpart to `number`, directly above. The timespan within which hash trees are built a `number` of time. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1h` |
 `anti_entropy.expire` | Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is *not* needed for normal AAE operation and should be infrequent for performance reasons. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1w` for 1 week |
-`anti_entropy.concurrency` | Limit how many AAE exchanges/builds can happen concurrently. | `2` |
+`anti_entropy.`<br />&nbsp;&nbsp;`concurrency` | Limit how many AAE exchanges/builds can happen concurrently. | `2` |
 `anti_entropy.tick` | Determines how often the AAE manager looks for work to do, e.g. building/expiring trees or triggering exchanges. Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing this value is *not* recommended. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `15s` |  |
 `anti_entropy.data_dir` | The directory in which AAE hash trees are stored. | `./data/anti_entropy` |
 
@@ -484,26 +485,28 @@ The LevelDB options used by AAE to generate the LevelDB-backed on-disk hash tree
 `fsm_limit` | Specifies how many of each type of finite state machine (FSM) may exist concurrently. This is for overload protection and is a new mechanism that renders 1.3's health checks obsolete. Note that this number represents two potential processes, so that `+P` in `vm.args` should be at least 3 times the `fsm_limit`. Setting this value to `undefined` disables FSM overload protection. | `50000` |
 `retry_put_coordinator_failure` | Enables/disables the `retry_put_coordinator` per-operation option of the put FSM. An `on` value is strongly recommended for Riak 2.0, while `off` is recommended for Riak 1.x. | `on` |
 `object_format` | Controls which binary representation of a Riak object is stored on disk. The current options are `v0` (original `erlang:term_to_binary` format with higher space overhead) and `v1` (new format for more compact storage of small values). | `v1` |
-`md_cache_size` |  | `0` |
-`warn_object_size` | `5MB` |  |
-`max_object_size` | `50MB` |  |
-`warn_siblings` | `25` |  |
-`max_siblings` | `100` |  |
-`bitcask.data_root` | `./data/bitcask` |  |
-`bitcask.io_mode` | `erlang` |  |
-`riak_control` | `off` |  |
-`riak_control.auth` | `userlist` |  |
-`riak_control.user.user.password` | `pass` |  |
-`leveldb.data_root` | `./data/leveldb` |  |
-`leveldb.total_mem_percent` | `80` |  |
-`leveldb.bloomfilter` | `on` |  |
-`leveldb.block_size_steps` | `16` |  |
-`leveldb.delete_threshold` | `1000` |  |
-`search` | `off` |  |
-`search.solr_startup_wait` | `30` |  |
-`search.solr_port` | `10014` |  |
-`search.solr_jmx_port` | `10013` |  |
-`search.solr_jvm_opts` | `-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` |  |
-`search.anti_entropy.data_dir` | `./data/yz_anti_entropy` |  | 
-`search.root_dir` | `./data/yz` |  |
+`md_cache_size` | Controls how large the md cache is allowed to be. Set to `0` to disable the cache. This shouldn't be necessary with on-disk backends, but it can improve performance in some cases (e.g. [[Memory]] backend or when the data fits in a block cache). Note that this is the size of the ETS table rather than the actual data to keep the calculation simple. Thus, more space may be used than the simple size * vnode_count calculation would imply. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `0` |
+`warn_object_size` | Reading or writing objects larger than this size will generate a warning in the logs. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `5MB` |
+`max_object_size` | Writing an object larger that this size will fail. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `50MB` |
+`warn_siblings` | Writing an object with more than this number of siblings will generate a warning in the logs. | `25` |
+`max_siblings` | Writing an object with more than this number of siblings will fail. | `100` |
+
+
+`bitcask.data_root` | Bitcask data root. | `./data/bitcask` |
+`bitcask.io_mode` | Configures how Bitcask writes data to disk. Available options:<br /><ul><li>`erlang`: Erlang's built-in [file API](http://www.erlang.org/doc/man/file.html)</li><li>`nif`: Direct calls to the POSIX C API. The NIF mode provides higher throughput for certain workloads but has the potential to negatively impact the Erlang VM, leading to higher worst-case latencies and possible throughput collapse.</li></ul> | `erlang` |
+`riak_control` | Set to `off` to disable the admin panel. | `off` |
+`riak_control.auth` | Authentication style used for access to the admin panel. Valid styles are `off` and `userlist`. | `userlist` |
+`riak_control.user.user.password` | If `riak_control.auth` (directly above) is not set to `userlist`, then this is the list of usernames and passwords for access to the admin panel. | `pass` |
+`leveldb.data_root` | LevelDB data root. | `./data/leveldb` |
+`leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. The memory size can alternatively be assigned as a byte count via `total_leveldb_mem` instead. | `80` |
+`leveldb.bloomfilter` | Each database `.sst` table file can include an optional [bloom filter](http://en.wikipedia.org/wiki/Bloom_filter) that is highly effective in quashing data queries that are destined to not find th requested key. A bloom filter typically increases the size of a `.sst` file by about 2% if this parameter is set to `on`. | `on` |
+`leveldb.block_size_steps` | Defines the number of incremental adjustments to attempt between the `block_size` value and the maximum `block_size` for an `.sst` table file. A value of `0` disables the underlying dynamic `block_size` feature. | `16` |
+`leveldb.delete_threshold` | Controls when a background compaction initiates solely due to the number of delete tombstones within an individual `.sst` table file. A value of `0` disables the feature. | `1000` |
+`search` | Determines whether or not Riak Search is enabled. | `off` |
+`search.solr_startup_wait` | The startup wait time (in seconds) that Riak will wait for Solr to start. The start sequence should be tried twice. If both time out then the node will be shut down. This may need to be increased as more data is indexed and Solr takes longer to start. | `30` |
+`search.solr_port` | The port to which Solr binds. | `10014` |
+`search.solr_jmx_port` | The port to which Solr JMX binds. | `10013` |
+`search.solr_jvm_opts` | The options to pass to the Solr JVM. Non-standard options, e.g. `-XX:+UseCompressedStrings`, may not be portable across JVM implementations. | `-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops` |
+`search.anti_entropy.data_dir` | The directory where AAE files are stored. | `./data/yz_anti_entropy` | 
+`search.root_dir` | The root directory for Riak Search, in which index data and configuration is stored. | `./data/yz` |
 {{/2.0.0+}}
