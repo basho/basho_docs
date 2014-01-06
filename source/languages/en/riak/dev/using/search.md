@@ -103,11 +103,11 @@ The Riak Client APIs have been updated to support querying of Riak Search. See t
 
 The API takes a default search index as well as as search query, and returns a list of bucket/key pairs. Some clients transform this list into objects specific to that client.
 
-### Map/Reduce
+### MapReduce
 
-The Riak Client APIs that integrate with Riak Search also support using a search query to generate inputs for a map/reduce operation. This allows you to perform powerful analysis and computation across your data based on a search query. See the client documentation for more information. Currently, the Java, Ruby, Python, PHP, and Erlang clients are supported.
+The Riak Client APIs that integrate with Riak Search also support using a search query to generate inputs for a MapReduce operation. This allows you to perform powerful analysis and computation across your data based on a search query. See the client documentation for more information. Currently, the Java, Ruby, Python, PHP, and Erlang clients are supported.
 
-Kicking off a map/reduce query with the same result set over HTTP would use a POST body like this:
+Kicking off a MapReduce query with the same result set over HTTP would use a POST body like this:
 
 ```json
 {
