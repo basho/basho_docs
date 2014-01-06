@@ -49,6 +49,10 @@ This page is a collection of videos, slides, papers, and other media introducing
 	</tr>			    			
 </table>
 
+## Webinars
+
+* [Intro to Riak](http://info.basho.com/IntrotoRiak_Recorded.html) --- A general, Basho-produced introduction to Riak.
+
 ## Slide Decks
 
 This is a sample of the slide decks used in presentations given by Riak Core Developers and Developer Advocates, and members of the Riak Community at conferences, meetups, and various other events worldwide.
@@ -56,6 +60,7 @@ This is a sample of the slide decks used in presentations given by Riak Core Dev
 * [Riak from Small to Large](http://www.slideshare.net/rklophaus/riak-from-small-to-large) --- [Riak](http://basho.com), a Dynamo-inspired, open-source key/value datastore, was built to scale from a single machine to a 100+ cluster without driving you or your operations team crazy. This presentation points out the characteristics of Riak that become important in small, medium, and large clusters, and then demonstrates the Riak API via the Python client library.
 * [Introducing Riak and Ripple](http://www.slideshare.net/seancribbs/introducing-riak-and-ripple) --- This is a great overview of working with Riak and Ripple from Sean Cribbs, the author of Ripple.
 * [Getting Started with Riak --- Nosql Live 2010 Boston](http://www.slideshare.net/rklophaus/getting-started-with-riak-nosql-live-2010-boston) --- Delivered by Rusty Klophaus, this is a very high level overview of Riak and includes basic Python code snippets.
+* 
 
 ## Publications
 
@@ -72,4 +77,8 @@ The following papers give background information on distributed systems and rele
 * [Towards Robust Distributed Systems](http://www.cs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf)
 * [Brewer's Conjecture and the Feasibility of Consistent Available Partition-Tolerant Web Services](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.1495)
 * [(White paper) Big Data's Effect on Data Management](http://info.basho.com/DataWP.html)
+* [Riak for Gaming](http://info.basho.com/RiakonGaming.html)
+* [Riak for Mobile](http://info.basho.com/RiakonMobile.html)
+* [Riak for Retail](http://info.basho.com/RiakonRetail.html)
+* [Riak for Advertising](http://info.basho.com/RiakonAdvertising.html)
 
