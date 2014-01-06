@@ -36,7 +36,7 @@ This page is a collection of videos, slides, papers, and other media introducing
 		   <img class="vid_img"src="http://b.vimeocdn.com/ts/300/116/300116740_200.jpg"/>
 		 </a></td>
         <td class="vid_td"><a href="http://player.vimeo.com/video/43235103" target="_blank" title="MDC Webinar">MDC Webinar</a>  
-	In this webinar,  Basho solutions engineer Jim Rushforth gives a technical overview of Riak multi-data center replication. . 
+	In this webinar, Basho solutions engineer Jim Rushforth gives a technical overview of Riak multi-data center replication. . 
 		</td>	    
 	</tr>
 	
@@ -58,7 +58,6 @@ This is a sample of the slide decks used in presentations given by Riak Core Dev
 * [[Riak from Small to Large|http://www.slideshare.net/rklophaus/riak-from-small-to-large]] - [Riak](http://basho.com), a dynamo-inspired, open-source key/value datastore, was built to scale from a single machine to a 100+ cluster without driving you or your operations team crazy. This presentation points out the characteristics of Riak that become important in small, medium, and large clusters, and then demonstrates the Riak API via the Python client library.
 * [[Introducing Riak and Ripple|http://www.slideshare.net/seancribbs/introducing-riak-and-ripple]] - This is a great overview of working with Riak and Ripple from Sean Cribbs, the author of Ripple.
 * [[Getting Started with Riak - Nosql Live 2010 Boston|http://www.slideshare.net/rklophaus/getting-started-with-riak-nosql-live-2010-boston]] - Delivered by Rusty Klophaus, this is a very high level overview of Riak and includes basic Python code snippets.
-
 
 ## Publications
 

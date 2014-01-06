@@ -79,7 +79,7 @@ $ dev1/bin/riak start
 <div class="note">
 <div class="title">ulimit warning</div>
 
-At this point you may receive a warning message to increase the number of open file handles (`ulimit`).  See [[Open Files Limit]] for platform-specific instructions on doing this.
+At this point you may receive a warning message to increase the number of open file handles (`ulimit`). See [[Open Files Limit]] for platform-specific instructions on doing this.
 
 </div>
 
