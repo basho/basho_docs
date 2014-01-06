@@ -18,43 +18,39 @@ _If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://
 ## Videos
 
 <table class="vid_table">
-
 	<tr>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/21099379" target="_blank" title="Riak with node.js Webinar">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/135/477/135477978_200.jpg"/>
-		 </a></td>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/21099379" target="_blank" title="Riak with node.js Webinar">Riak with node.js Webinar</a>
-	Learn how to use Riak from NodeJS applications.
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/21099379" target="_blank" title="Riak with node.js Webinar"><img class="vid_img"src="http://b.vimeocdn.com/ts/135/477/135477978_200.jpg"/></a>
+	    </td>
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/21099379" target="_blank" title="Riak with node.js Webinar">Riak with node.js Webinar</a><br />Learn how to use Riak from NodeJS applications.
 		</td>	    
 	</tr>
-
 	<tr>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/13924929" target="_blank" title="Riak with Rails">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/807/889/80788943_640.jpg"/>
-		 </a></td>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/13924929" target="_blank" title="Riak with Rails">Riak with Rails</a>
-	Using Riak with Ruby on Rails.
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/13924929" target="_blank" title="Riak with Rails"><img class="vid_img"src="http://b.vimeocdn.com/ts/807/889/80788943_640.jpg"/></a>
+	    </td>
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/13924929" target="_blank" title="Riak with Rails">Riak with Rails</a><br />Using Riak with Ruby on Rails.
 		</td>
 	</tr>
 
 	<tr>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/18713269" target="_blank" title="Riak Overview and Schema Design">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/117/890/117890563_200.jpg"/>
-		 </a></td>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/18713269" target="_blank" title="Riak Overview and Schema Design">Riak Overview and Schema Design</a>
-	Basho Hackers Jon Meredith and Dave "Dizzy" Smith give an extensive overview of what Riak is and how you should approach schema design when developing with Riak. (Special thanks to the team at Pivotal Labs Boulder for making this happen.) 
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/18713269" target="_blank" title="Riak Overview and Schema Design"><img class="vid_img"src="http://b.vimeocdn.com/ts/117/890/117890563_200.jpg"/></a>
+	    </td>
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/18713269" target="_blank" title="Riak Overview and Schema Design">Riak Overview and Schema Design</a><br />Basho Hackers Jon Meredith and Dave "Dizzy" Smith give an extensive overview of what Riak is and how you should approach schema design when developing with Riak. (Special thanks to the team at Pivotal Labs Boulder for making this happen.) 
 		</td>	    
 	</tr>		
-
 	<tr>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/13554436" target="_blank" title="MapReduce querying in Riak">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/779/892/77989230_640.jpg"/>
-		 </a></td>
-	    <td class="vid_td"><a href="http://player.vimeo.com/video/13554436" target="_blank" title="MapReduce querying in Riak">MapReduce querying in Riak</a>
-    	Basics and best practices for MapReduce querying in Riak
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/13554436" target="_blank" title="MapReduce querying in Riak"><img class="vid_img"src="http://b.vimeocdn.com/ts/779/892/77989230_640.jpg"/></a>
+	    </td>
+	    <td class="vid_td">
+	    	<a href="http://player.vimeo.com/video/13554436" target="_blank" title="MapReduce querying in Riak">MapReduce querying in Riak</a><br />Basics and best practices for MapReduce querying in Riak
 		</td>
-	</tr>		
-
+	</tr>
 </table>
 
 ## Slide Decks
@@ -63,8 +59,8 @@ This is a sample of the slide decks used in presentations given by Riak Core Dev
 
 _If you have a Slide Deck to add, please fork the [Riak Docs Repo on GitHub](https://github.com/basho/basho_docs) and do so._
 
-* [[riak-js: Javascript Turtles All the Way Down|http://www.slideshare.net/seancribbs/riakjs-javascript-turtles-all-the-way-down]] --- riak-js is an awesome client driver for the Riak distributed datastore.
-* [[Building Distributed Systems With Riak and Riak Core|http://www.slideshare.net/argv0/riak-coredevnation]] --- My talk from DevNationSF 2010 
-* [[Configure a Riak Cluster|http://www.slideshare.net/mbbx6spp/link-walking-with-riak]] - Describe how to create, manage and traverse links in Riak KV. 
-* [[Link Walking with Riak|http://www.slideshare.net/seancribbs/riakjs-javascript-turtles-all-the-way-down]] --- riak-js is an awesome client driver for the Riak distributed datastore.
-* [[Riak with node.js|http://www.slideshare.net/seancribbs/riak-with-nodejs]] --- Learn how to use Riak with node.js applications.
+* [riak-js: Javascript Turtles All the Way Down](http://www.slideshare.net/seancribbs/riakjs-javascript-turtles-all-the-way-down) --- riak-js is an awesome client driver for the Riak distributed datastore.
+* [Building Distributed Systems With Riak and Riak Core](http://www.slideshare.net/argv0/riak-coredevnation) --- My talk from DevNationSF 2010 
+* [Configure a Riak Cluster](http://www.slideshare.net/mbbx6spp/link-walking-with-riak) --- Describe how to create, manage and traverse links in Riak KV. 
+* [Link Walking with Riak](http://www.slideshare.net/seancribbs/riakjs-javascript-turtles-all-the-way-down) --- riak-js is an awesome client driver for the Riak distributed datastore.
+* [Riak with NodeJS](http://www.slideshare.net/seancribbs/riak-with-nodejs) --- Learn how to use Riak with NodeJS applications.

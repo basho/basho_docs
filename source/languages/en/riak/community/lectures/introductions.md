@@ -16,39 +16,37 @@ This page is a collection of videos, slides, papers, and other media introducing
 
 <table class="vid_table">
 	<tr>
-        <td class="vid_td"><a href="http://player.vimeo.com/video/43433336" target="_blank" title="Riak Training Workshop Series: Episode 1 ">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/301/521/301521206_200.jpg"/>
-		 </a></td>
-        <td class="vid_td"><a href="http://player.vimeo.com/video/43433336" target="_blank" title="Riak Training Workshop Series: Episode 1">Riak Training Workshop Series: Episode 1</a>
-	In this classroom-style live workshop, Basho engineer Casey Rosenthal gives an in-depth overview of Riak. Part I provides a high-level overview of Riak, subsequent parts delve deeper into Riak, including key concepts like querying, MapReduce, configuring Riak in production deployments, and more.
+        <td class="vid_td">
+            <a href="http://player.vimeo.com/video/43433336" target="_blank" title="Riak Training Workshop Series: Episode 1 "><img class="vid_img"src="http://b.vimeocdn.com/ts/301/521/301521206_200.jpg"/></a>
+        </td>
+        <td class="vid_td">
+            <a href="http://player.vimeo.com/video/43433336" target="_blank" title="Riak Training Workshop Series: Episode 1">Riak Training Workshop Series: Episode 1</a><br />In this classroom-style live workshop, Basho engineer Casey Rosenthal gives an in-depth overview of Riak. Part I provides a high-level overview of Riak, subsequent parts delve deeper into Riak, including key concepts like querying, MapReduce, configuring Riak in production deployments, and more.
 		</td>	    
 	</tr>
 	<tr>
-		<td class="vid_td"><a href="http://player.vimeo.com/video/40436173" target="_blank" title="Introduction to Riak CS">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/279/390/279390748_200.jpg"/>
-		 </a></td>
-        <td class="vid_td"><a href="http://player.vimeo.com/video/40436173" target="_blank" title="Introduction to Riak CS">Introduction to Riak CS</a>
-			Basho Engineers Kelly McLaughlin and Reid Draper explain the basics of [[Riak CS]], why it exists, and what some good use cases are. 
+		<td class="vid_td">
+            <a href="http://player.vimeo.com/video/40436173" target="_blank" title="Introduction to Riak CS"><img class="vid_img"src="http://b.vimeocdn.com/ts/279/390/279390748_200.jpg"/></a>
+        </td>
+        <td class="vid_td">
+            <a href="http://player.vimeo.com/video/40436173" target="_blank" title="Introduction to Riak CS">Introduction to Riak CS</a><br />Basho Engineers Kelly McLaughlin and Reid Draper explain the basics of [[Riak CS]], why it exists, and what some good use cases are. 
 		</td>
 	</tr>
 	<tr>
-        <td class="vid_td"><a href="http://player.vimeo.com/video/43235103" target="_blank" title="MDC Webinar">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/300/116/300116740_200.jpg"/>
-		 </a></td>
-        <td class="vid_td"><a href="http://player.vimeo.com/video/43235103" target="_blank" title="MDC Webinar">MDC Webinar</a>  
-	In this webinar, Basho solutions engineer Jim Rushforth gives a technical overview of Riak multi-data center replication. . 
+        <td class="vid_td">
+            <a href="http://player.vimeo.com/video/43235103" target="_blank" title="MDC Webinar"><img class="vid_img"src="http://b.vimeocdn.com/ts/300/116/300116740_200.jpg"/></a>
+        </td>
+        <td class="vid_td">
+            <a href="http://player.vimeo.com/video/43235103" target="_blank" title="MDC Webinar">MDC Webinar</a><br />In this webinar, Basho solutions engineer Jim Rushforth gives a technical overview of Riak Multi-Datacenter Replication. 
 		</td>	    
 	</tr>
-	
 	<tr>
-        <td class="vid_td"><a href="http://player.vimeo.com/video/38345840" target="_blank" title="Riak Control">
-		   <img class="vid_img"src="http://b.vimeocdn.com/ts/263/867/263867245_200.jpg"/>
-		 </a></td>
-        <td class="vid_td"><a href="http://player.vimeo.com/video/38345840" target="_blank" title="Riak Control">Riak Control</a>
-	An introduction to [[Riak Control]] from Basho Technologies. 
+        <td class="vid_td">
+            <a href="http://player.vimeo.com/video/38345840" target="_blank" title="Riak Control"><img class="vid_img"src="http://b.vimeocdn.com/ts/263/867/263867245_200.jpg"/></a>
+        </td>
+        <td class="vid_td">
+            <a href="http://player.vimeo.com/video/38345840" target="_blank" title="Riak Control">Riak Control</a><br />An introduction to [[Riak Control]] from Basho Technologies. 
 		</td>	    
-	</tr>		
-	    			
+	</tr>			    			
 </table>
 
 ## Slide Decks
@@ -64,6 +62,9 @@ This is a sample of the slide decks used in presentations given by Riak Core Dev
 The following papers give background information on distributed systems and relevant aspects of Riak's architecture.
 
 * [[Amazon's Dynamo Paper|Dynamo]]
+* [Relational to Riak](http://basho.com/assets/RelationaltoRiak.pdf)
+* [Multi-Datacenter Replication in Riak](http://info.basho.com/RiakMDC_Whitepaper.html)
+* [Riak CS Technical Overview](http://info.basho.com/RiakCSTechnicalOverview.html)
 * [Distributed Systems: Principles and Paradigms](http://www.amazon.com/Distributed-Systems-Principles-Andrew-Tanenbaum/dp/0130888931)
 * [Time, Clocks, and the Ordering of Events in a Distributed System](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.142.3682)
 * [Distributed Algorithms](http://www.amazon.com/Distributed-Algorithms-Kaufmann-Management-Systems/dp/1558603484ref=sr_1_1?ie=UTF8&s=books&qid=1273371587&sr=1-1)
