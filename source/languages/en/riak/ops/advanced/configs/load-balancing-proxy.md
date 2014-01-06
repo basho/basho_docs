@@ -207,7 +207,7 @@ server {
       return 405;
     }
 
-    # Disallow any link with the map/reduce query format "bucket,tag,_"
+    # Disallow any link with the MapReduce query format "bucket,tag,_"
     if ($uri ~ "/riak/[^/]*/[^/]*/[^,]+,[^,]+," ) {
       return 405;
     }
