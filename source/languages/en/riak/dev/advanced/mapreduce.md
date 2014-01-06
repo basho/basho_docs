@@ -741,15 +741,15 @@ function(valueList, arg){
 }
 ```
 
-### Debugging Javascript Map Reduce Phases
+### Debugging Javascript MapReduce Phases
 
-There are currently two facilities for debugging map reduce phases. If there was an exception in the Javascript VM you can view the error in the `log/sasl-error.log` file. In addition to viewing exceptions you can write to a specific log file from your map or reduce phases using the ejsLog function.
+There are currently two facilities for debugging MapReduce phases. If there was an exception in the Javascript VM you can view the error in the `log/sasl-error.log` file. In addition to viewing exceptions you can write to a specific log file from your map or reduce phases using the ejsLog function.
 
 ```javascript
 ejsLog('/tmp/map_reduce.log', JSON.stringify(value))
 ```
 
-Note that when used from a map phase the ejsLog function will create a file on each node on which the map phase runs. The output of a reduce phase will be located on the node you queried with your map reduce function.
+Note that when used from a map phase the ejsLog function will create a file on each node on which the map phase runs. The output of a reduce phase will be located on the node you queried with your MapReduce function.
 
 
 ## Streaming MapReduce
