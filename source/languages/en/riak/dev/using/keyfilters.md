@@ -40,13 +40,13 @@ Key filters change the structure of the "inputs" portion of the MapReduce query.
 
 When submitting a query in JSON format, this makes the inputs a JSON object containing two entries, "bucket" and "key_filters". All filters are specified as arrays, even if the filter takes no arguments. Example:
 
-```javascript
+```json
 {
   "inputs":{
      "bucket":"invoices",
      "key_filters":[["ends_with", "0603"]]
   }
-  // ... rest of mapreduce job
+  /* ...rest of mapreduce job */
 }
 ```
 
@@ -72,32 +72,32 @@ A full list of keyfilter functions can be found in the [[Key Filters Reference]]
 
 Find all invoices for a given customer
 
-```javascript
+```json
 {
   "inputs":{
      "bucket":"invoices"
      "key_filters":[["tokenize", "-", 1],["eq", "basho"]]
    },
-   // ...
+   /* ... */
 }
 ```
 
 Find all invoices from a range of dates
 
-```javascript
+```json
 {
   "inputs":{
      "bucket":"invoices"
      "key_filters":[["tokenize", "-", 2],
                     ["between", "20100101", "20101231"]]
    },
-   // ...
+   /* ... */
 }
 ```
 
 Find invoices from customers who have names containing the word "solutions"
 
-```javascript
+```json
 {
   "inputs":{
      "bucket":"invoices"
@@ -105,18 +105,18 @@ Find invoices from customers who have names containing the word "solutions"
                     ["to_lower"],
                     ["matches", "solutions"]]
    },
-   // ...
+   /* ... */
 }
 ```
 
 Find invoices that were sent on the 3rd of June
 
-```javascript
+```json
 {
   "inputs":{
      "bucket":"invoices"
      "key_filters":[["ends_with", "0603"]]
    },
-   // ...
+   /* ... */
 }
 ```

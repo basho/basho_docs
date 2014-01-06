@@ -94,7 +94,7 @@ This example will store several chunks of text in Riak, and then compute word co
 
 We will use the Riak HTTP interface to store the texts we want to process:
 
-```bash
+```curl
 $ curl -XPUT -H "content-type: text/plain" \
     http://localhost:8098/buckets/alice/keys/p1 --data-binary @-<<\EOF
 Alice was beginning to get very tired of sitting by her sister on the
@@ -128,7 +128,7 @@ EOF
 With data loaded, we can now run a query:
 
 
-```bash
+```curl
 $ curl -X POST -H "content-type: application/json" \
     http://localhost:8098/mapred --data @-<<\EOF
 {"inputs":[["alice","p1"],["alice","p2"],["alice","p5"]]
@@ -162,7 +162,7 @@ EOF
 
 And we end up with the word counts for the three documents.
 
-```javascript
+```json
 [{"the":8,"rabbit":2,"hole":1,"went":1,"straight":1,"on":2,"like":1,"a":6,"tunnel":1,"for":2,"some":1,"way":1,"and":5,"then":1,"dipped":1,"suddenly":3,"down":2,"so":2,"that":1,"alice":3,"had":3,"not":1,"moment":1,"to":3,"think":1,"about":1,"stopping":1,"herself":2,"before":1,"she":4,"found":1,"falling":1,"very":3,"deep":1,"well":2,"was":3,"considering":1,"in":2,"her":5,"own":1,"mind":1,"as":2,"could":1,"hot":1,"day":1,"made":1,"feel":1,"sleepy":1,"stupid":1,"whether":1,"pleasure":1,"of":5,"making":1,"daisy":1,"chain":1,"would":1,"be":1,"worth":1,"trouble":1,"getting":1,"up":1,"picking":1,"daisies":1,"when":1,"white":1,"with":1,"pink":1,"eyes":1,"ran":1,"close":1,"by":2,"beginning":1,"get":1,"tired":1,"sitting":1,"sister":2,"bank":1,"having":1,"nothing":1,"do":1,"once":1,"or":3,"twice":1,"peeped":1,"into":1,"book":2,"reading":1,"but":1,"it":2,"no":1,"pictures":2,"conversations":1,"what":1,"is":1,"use":1,"thought":1,"without":1,"conversation":1}]
 ```
 
@@ -247,25 +247,25 @@ The function source can be specified directly in the query by using the "source"
 For example:
 
 
-```javascript
+```json
 {"map":{"language":"javascript","source":"function(v) { return [v]; }","keep":true}}
 ```
 
 would run the JavaScript function given in the spec, and include the results in the final output of the m/r query.
 
-```javascript
+```json
 {"map":{"language":"javascript","bucket":"myjs","key":"mymap","keep":false}}
 ```
 
 would run the JavaScript function declared in the content of the Riak object under *mymap* in the `myjs` bucket, and the results of the function would not be included in the final output of the m/r query.
 
-```javascript
-   {"map":{"language":"javascript","name":"Riak.mapValuesJson"}}
+```json
+{"map":{"language":"javascript","name":"Riak.mapValuesJson"}}
 ```
 
 would run the builtin JavaScript function `mapValuesJson`, if you choose to store your JavaScript functions on disk. Any JS files should live in a directory defined by the `js_source_dir` field in your `app.config` file.
 
-```javascript
+```json
 {"map":{"language":"erlang","module":"riak_mapreduce","function":"map_object_value"}}
 ```
 
@@ -275,7 +275,7 @@ Map phases may also be passed static arguments by using the `arg` spec field.
 
 For example, the following map function will perform a regex match on object values using "arg" and return how often "arg" appears in each object:
 
-```javascript
+```json
 {"map":
   {"language":"javascript",
   "source":"function(v, keyData, arg) {
@@ -301,7 +301,7 @@ Link phases accept `bucket` and `tag` fields that specify which links match the 
 
 The following example would follow all links pointing to objects in the `foo` bucket, regardless of their tag:
 
-```javascript
+```json
 {"link":{"bucket":"foo","keep":false}}
 ```
 
@@ -600,15 +600,15 @@ on your Riak nodes. Once your file has been installed, all that remains
 is to try the custom function in a MapReduce query. For example, let's
 return keys contained within the **messages** bucket:
 
-```bash
-curl -XPOST http://localhost:8098/mapred \
+```curl
+$ curl -XPOST http://localhost:8098/mapred \
    -H 'Content-Type: application/json'   \
    -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
 ```
 
 The results should look similar to this:
 
-```bash
+```json
 {"messages":"4","messages":"1","messages":"3","messages":"2"}
 ```
 

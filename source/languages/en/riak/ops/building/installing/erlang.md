@@ -26,8 +26,8 @@ The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS in
 
 You can install different Erlang versions in a simple manner with the [kerl](https://github.com/spawngrid/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following command:
 
-```bash
-curl -O https://raw.github.com/spawngrid/kerl/master/kerl; chmod a+x kerl
+```curl
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl; chmod a+x kerl
 ```
 
 To compile Erlang as 64-bit on Mac OS X, you need to instruct kerl to pass the correct flags to the `configure` command. The easiest way to do this is by creating a `~/.kerlrc` file with the following contents:

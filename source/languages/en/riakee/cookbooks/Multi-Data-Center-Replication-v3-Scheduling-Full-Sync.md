@@ -8,14 +8,14 @@ audience: intermediate
 keywords: [mdc, repl, schedule, fullsync]
 ---
 
-The `fullsync_interval` parameter can be configured in the `riak-repl` section of [[app.config|Configuration Files#app.config]] with:
+The `fullsync_interval` parameter can be configured in the `riak-repl` section of `[[app.config|Configuration Files#app.config]]` with:
 
 * a single integer value representing the duration to wait *in minutes* between fullsyncs
 
     **OR**
 
 
-* a list of `[{"clustername", time_in_minutes}`, `{"clustername", time_in_minutes}`, `…]` pairs for each sink participating in fullsync replication. Note the commas separating each pair, and `[` `]` surrounding the entire list.
+* a list of `[{"clustername", time_in_minutes}, {"clustername", time_in_minutes}, ...]` pairs for each sink participating in fullsync replication. Note the commas separating each pair, and `[ ]` surrounding the entire list.
 
 ##Examples
 
@@ -45,7 +45,7 @@ List of multiple sinks with separate times in minutes:
 
 Additional fullsync stats per sink have been added in Riak Enterprise.
 
-* `fullsyncs_completed`: The number of fullsyncs that have been completed to the specified sink cluster.
-* `fullsync_start_time`: The time the current fullsink to the specified cluster began.
-* `last_fullsync_duration`: The duration (in seconds) of the last completed fullsync.
+* `fullsyncs_completed` &mdash; The number of fullsyncs that have been completed to the specified sink cluster.
+* `fullsync_start_time` &mdash; The time the current fullsink to the specified cluster began.
+* `last_fullsync_duration` &mdash; The duration (in seconds) of the last completed fullsync.
 {{/1.4.0+}}

@@ -72,7 +72,7 @@ Typical error codes:
 
 ## Example
 
-```bash
+```curl
 $ curl -v http://localhost:8098/buckets/mybucket/index/field1_bin/val1
 * About to connect() to localhost port 8098 (#0)
 *   Trying 127.0.0.1... connected

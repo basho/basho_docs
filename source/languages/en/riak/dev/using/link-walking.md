@@ -43,7 +43,7 @@ Try it. It's easy, right? You've just attached a link to an object in Riak!
 
 To retrieve that object to see the attached link, simply to do the following:
 
-```bash
+```curl
 $ curl -v http://127.0.0.1:8091/riak/people/timoreilly
 ```
 
@@ -67,7 +67,7 @@ Once you have tagged objects in Riak with links, you can then traverse them with
 
 To continue with the example from above, the "timoreilly" object is now pointer to the "dhh" object located in the "people" bucket. We can use a link walking query to follow the link from "timoreilly" to "dhh." Here is what that query would look like:
 
-```bash
+```curl
 $ curl -v http://127.0.0.1:8091/riak/people/timoreilly/people,friend,1
 ```
 
@@ -81,7 +81,7 @@ If all went well, the response body from the above request should include the re
 
 You can replace both the "bucket" and the "tag" fields in the link spec with an underscore. This will tell the query to match any bucket or tag name. For instance, the following request should return the same data as the fully-specified request above:
 
-```bash
+```curl
 $ curl -v http://127.0.0.1:8091/riak/people/timoreilly/_,friend,1
 ```
 
@@ -98,13 +98,13 @@ $ curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
 
 Now we can walk from "davethomas" to "dhh" in one go, and you'll see the last parameter in action:
 
-```bash
+```curl
 $ curl -v localhost:8091/riak/people/davethomas/_,friend,_/_,friend,_/
 ```
 
 As a result you'll only get the "dhh" object. Leaving the last parameter for each step as "_" defaults to Riak not returning objects from intermittent steps (i.e. 0), and to 1 for the last step. So to get everything in between you set the last parameter to 1 for the steps you're interested in.
 
-```bash
+```curl
 $ curl -v localhost:8091/riak/people/davethomas/_,friend,1/_,friend,_/
 ```
 
@@ -121,7 +121,7 @@ $ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
 
 You can add more link phases to the request, or you can walk from "dhh" to "timoreilly" through "davethomas", or even from "davethomas" to "davethomas", by adding another step to Link Walking specification.
 
-```bash
+```curl
 $ curl -v localhost:8091/riak/people/davethomas/_,friend,_/_,friend,_/_,friend,_/
 ```
 

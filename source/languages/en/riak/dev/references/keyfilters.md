@@ -21,7 +21,7 @@ When using these from Erlang, function names (and key values) are binaries.
 
 Turns an integer (previously extracted with `string_to_int`), into a string.
 
-```javascript
+```json
 [["int_to_string"]]
 ```
 
@@ -29,7 +29,7 @@ Turns an integer (previously extracted with `string_to_int`), into a string.
 
 Turns a string into an integer.
 
-```javascript
+```json
 [["string_to_int"]]
 ```
 
@@ -37,7 +37,7 @@ Turns a string into an integer.
 
 Turns a floating point number (previously extracted with `string_to_float`), into a string.
 
-```javascript
+```json
 [["float_to_string"]]
 ```
 
@@ -45,7 +45,7 @@ Turns a floating point number (previously extracted with `string_to_float`), int
 
 Turns a string into a floating point number.
 
-```javascript
+```json
 [["string_to_float"]]
 ```
 
@@ -53,7 +53,7 @@ Turns a string into a floating point number.
 
 Changes all letters to uppercase.
 
-```javascript
+```json
 [["to_upper"]]
 ```
 
@@ -61,7 +61,7 @@ Changes all letters to uppercase.
 
 Changes all letters to lowercase.
 
-```javascript
+```json
 [["to_lower"]]
 ```
 
@@ -69,7 +69,7 @@ Changes all letters to lowercase.
 
 Splits the input on the string given as the first argument and returns the nth token specified by the second argument.
 
-```javascript
+```json
 [["tokenize", "/", 4]]
 ```
 
@@ -77,7 +77,7 @@ Splits the input on the string given as the first argument and returns the nth t
 
 URL-decodes the string.
 
-```javascript
+```json
 [["urldecode"]]
 ```
 
@@ -91,7 +91,7 @@ Predicate key-filter functions perform a test on their inputs and return true or
 
 Tests that the input is greater than the argument.
 
-```javascript
+```json
 [["greater_than", 50]]
 ```
 
@@ -99,7 +99,7 @@ Tests that the input is greater than the argument.
 
 Tests that the input is less than the argument.
 
-```javascript
+```json
 [["less_than", 10]]
 ```
 
@@ -107,7 +107,7 @@ Tests that the input is less than the argument.
 
 Tests that the input is greater than or equal to the argument.
 
-```javascript
+```json
 [["greater_than_eq", 2000]]
 ```
 
@@ -115,7 +115,7 @@ Tests that the input is greater than or equal to the argument.
 
 Tests that the input is less than or equal to the argument.
 
-```javascript
+```json
 [["less_than_eq", -2]]
 ```
 
@@ -123,7 +123,7 @@ Tests that the input is less than or equal to the argument.
 
 Tests that the input is between the first two arguments.  If the third argument is given, it is whether to treat the range as inclusive. If the third argument is omitted, the range is treated as inclusive.
 
-```javascript
+```json
 [["between", 10, 20, false]]
 ```
 
@@ -131,7 +131,7 @@ Tests that the input is between the first two arguments.  If the third argument 
 
 Tests that the input matches the regular expression given in the argument.
 
-```javascript
+```json
 [["matches", "solutions"]]
 ```
 
@@ -139,7 +139,7 @@ Tests that the input matches the regular expression given in the argument.
 
 Tests that the input is not equal to the argument.
 
-```javascript
+```json
 [["neq", "foo"]]
 ```
 
@@ -147,7 +147,7 @@ Tests that the input is not equal to the argument.
 
 Tests that the input is equal to the argument.
 
-```javascript
+```json
 [["eq", "basho"]]
 ```
 
@@ -155,7 +155,7 @@ Tests that the input is equal to the argument.
 
 Tests that the input is contained in the set given as the arguments.
 
-```javascript
+```json
 [["set_member", "basho", "google", "yahoo"]]
 ```
 
@@ -163,7 +163,7 @@ Tests that the input is contained in the set given as the arguments.
 
 Tests that input is within the [[Levenshtein distance|http://en.wikipedia.org/wiki/Levenshtein_distance]] of the first argument given by the second argument.
 
-```javascript
+```json
 [["similar_to", "newyork", 3]]
 ```
 
@@ -171,7 +171,7 @@ Tests that input is within the [[Levenshtein distance|http://en.wikipedia.org/wi
 
 Tests that the input begins with the argument (a string).
 
-```javascript
+```json
 [["starts_with", "closed"]]
 ```
 
@@ -179,7 +179,7 @@ Tests that the input begins with the argument (a string).
 
 Tests that the input ends with the argument (a string).
 
-```javascript
+```json
 [["ends_with", "0603"]]
 ```
 
@@ -187,7 +187,7 @@ Tests that the input ends with the argument (a string).
 
 Joins two or more key-filter operations with a logical AND operation.
 
-```javascript
+```json
 [["and", [["ends_with", "0603"]], [["starts_with", "basho"]]]]
 ```
 
@@ -195,7 +195,7 @@ Joins two or more key-filter operations with a logical AND operation.
 
 Joins two or more key-filter operations with a logical OR operation.
 
-```javascript
+```json
 [["or", [["eq", "google"]], [["less_than", "g"]]]]
 ```
 
@@ -203,6 +203,6 @@ Joins two or more key-filter operations with a logical OR operation.
 
 Negates the result of key-filter operations.
 
-```javascript
+```json
 [["not", [["matches", "solution"]]]]
 ```
