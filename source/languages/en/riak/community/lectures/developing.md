@@ -11,7 +11,7 @@ moved: {
 }
 ---
 
-This page is a collection of videos, slides, papers, and other media discussing developing with Riak (general guidelines, using client libraries, etc.).
+This page is a collection of videos, slides, papers, example applications, and other media discussing developing with Riak (general guidelines, using client libraries, etc.).
 
 _If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://github.com/basho/basho_docs) and do so._
 
@@ -52,6 +52,16 @@ _If you have a video to add, please fork the [Riak Docs Repo on GitHub](https://
 		</td>
 	</tr>
 </table>
+
+## Example Application
+
+To showcase the power of indexing in Riak, we created a [Zombie Sample App](http://zombies.samples.basho.com/) that's run on Riak. This app has one million “Zombielepsy” victims loaded into Riak and lets the user locate them using ZIP code as the index value. It supports both Term-Based Inverted Indexes and [[Secondary Indexes]]. In addition to better understanding indexing in Riak, users can:
+
+* Create a Zombie Sighting Report System so that the concentration of live zombies in an area can be quickly determined based on the count and last report date.
+* Add a crowd-sourced Inanimate Zombie Reporting System so that members of the non-zombie population can report inanimate zombies.
+* Add a correlation feature, utilizing Graph CRDTs, so we can find our way back to Patient Zero.
+
+More information on the app can be found [here](http://basho.com/indexing-the-zombie-apocalypse-with-riak/).
 
 ## Slide Decks
 
