@@ -72,3 +72,7 @@ The following papers give background information on distributed systems and rele
 * [[Brewer's Conjecture and the Feasibility of Consistent Available Partition-Tolerant Web Services|http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.20.1495]]
 * [[(White paper) Big Data's Effect on Data Management|http://info.basho.com/DataWP.html]]
 
+## Articles and Reports
+
+Outside of what has been created by Basho, we think that outside sources can also be a valuable tool when evaluating Riak or Riak CS. Please see our [News Page](http://basho.com/news/) for frequently updated information.
+
