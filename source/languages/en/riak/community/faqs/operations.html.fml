@@ -13,7 +13,7 @@ moved: {
 Q: Is it okay to distribute Riak over a WAN?
   How exactly does performance degrade when nodes are spread out between hosts with latencies in the tens-to-100+ plus milliseconds (as is typical over WANs)? Does the reliability of connections and overhead in retrying them pose a problem?
 A:
-  The main reason for performance degradation is latency. Every Riak request involves _N_ vnodes. If those vnodes are spread across different regions with varying latencies, your deviation grows and higher percentiles go through the roof. The wider you go, the more unpredictable your latency profile becomes. Predictable latency is key to many applications built on top of Riak. This is a point made very clear in the [Dynamo paper](http://docs.basho.com/riak/latest/theory/dynamo/) which heavily influenced the design of Riak.
+  The main reason for performance degradation is latency. Every Riak request involves _N_ vnodes. If those vnodes are spread across different regions with varying latencies, your deviation grows and higher percentiles go through the roof. The wider you go, the more unpredictable your latency profile becomes. Predictable latency is key to many applications built on top of Riak. This is a point made very clear in the [Dynamo paper](http://docs.basho.com/riak/latest/theory/dynamo/), which heavily influenced the design of Riak.
 
   Another reason for performance degradation is connection reliability. A node that is dead is indistinguishable from a node that is simply taking a really long time to respond. Once you spread nodes across a WAN, the likelihood of network failure---and thus network partitions---becomes much higher. Riak is designed to always be available for writes, but you will still want to avoid partitions as strenuously as possible. Partitions are one of the primary causes of siblings, potentially generating a high demand for sibling resolution. Partitions also cause additional load to be placed on the nodes, since allowing sloppy quorums requires nodes to take on the work of other partitioned nodes, possibly doubling or tripling the workload of each server.
   
@@ -55,9 +55,9 @@ A:
 
 Q: How can I configure HTTPS for Riak?
 A:
-  Riak has http and https parameters in the `riak_core` section of `app.config`.
+  Riak has HTTPS and HTTPS parameters in the `riak_core` section of `app.config`.
   
-  The HTTP and HTTPS settings can be assigned to the same IP address, but must have different ports in order to function at the same time. To disable either HTTP or HTTPS, simply omit or comment out the configuration line with a `%`.  In this example, HTTPS would be disabled and HTTP enabled:
+  The HTTP and HTTPS settings can be assigned to the same IP address but must have different ports in order to function at the same time. To disable either HTTP or HTTPS, simply omit or comment out the configuration line with a `%`.  In this example, HTTPS would be disabled and HTTP enabled:
   
   ```erlang
   %% http is a list of IP addresses and TCP ports that the Riak 
@@ -77,7 +77,7 @@ A:
   ```  
 
 Q: How do I set the `ulimit -n` on Mac OS X?
-  Riak complains about `ulimit -n` when starting up on a Mac, or crashes with errors producing `emfile` in the logs.
+  Riak complains about `ulimit -n` when starting up on a Mac or crashes with errors producing `emfile` in the logs.
 A:
   The default `ulimit -n` on Mac OS X is 256, which is generally too small for Riak. You can set the per-session limit (within the current shell) by executing the following command:
   
@@ -92,7 +92,6 @@ A:
   ```
   
   For more information, see the [[Open Files Limit]] page or the `man` pages for `ulimit` and `launchctl`.
-
 
 Q: Is it possible to change the port on which the Erlang Port Mapper Daemon (EPMD) listens?
 A:
@@ -124,7 +123,7 @@ A:
   Make sure that the `riak` user has read/write permissions to both of those directories.
 
 Q: How can I undo `multi_backend`?
-  I started using `multi_backend` so that I could store two different types of data (one using Bitcask and one using LevelDB), but my application no longer has the need for the second data type. Can I safely switch to a single backend---say Bitcask---undoing the `multi_backend` settings?
+  I started using `multi_backend` so that I could store two different types of data (one using Bitcask and one using LevelDB), but my application no longer has the need for the second data type. Can I safely switch to a single backend---say, Bitcask---undoing the `multi_backend` settings?
 A:
   Assuming that you are removing the LevelDB backend, here are the steps that you would need to take:
   
@@ -143,9 +142,9 @@ A:
   For a comprehensive look at how to use Riak in conjunction with more than one backend, see our documentation on [[multiple backend support|Multi]].
 
 Q: What are the correct system metrics to monitor with respect to Riak's memory usage?
-  I have a monitoring setup that helps me keep track of the health of my Riak cluster, but the memory statistics don't tell how much RAM Riak is actually consuming. What metrics should I be monitoring?
+  I have a monitoring setup that helps me keep track of the health of my Riak cluster, but the memory statistics don't tell me how much RAM Riak is actually consuming. What metrics should I be monitoring?
 A:
-  There are at least two memory metrics that are good to monitor for the health of your Riak cluster:
+  There are at least two memory metrics that are good to monitor for the sake of the health of your Riak cluster:
   
   1. **Filesystem cache**. An active Riak node will have most of its free RAM consumed by the filesystem cache, which on Linux can be found as the `Cached` line in `/proc/meminfo` or the `cached` column when running the `free -m` command. A healthy size for this metric is 20-30% of available RAM.
   2. **Virtual memory size of the Riak process**. Also known as VSZ, when this metric approaches the amount of available RAM, the Riak node may be unable to allocate more memory (depending on whether you have swap enabled). You can read this metric on Linux from the output of `ps aux`, and is measured in KB.
@@ -171,35 +170,34 @@ A:
 
 Q: What's the difference between the `riak_kv_cache_backend_ttl` and `riak_kv_cache_backend_max_ttl`?
 A:
-  `riak_kv_cache_backend_ttl` sets the lifespan in seconds of an object after being accessed
+  `riak_kv_cache_backend_ttl` sets the lifespan in seconds of an object after being accessed.
   
-  `riak_kv_cache_backend_max_ttl` sets the maximum lifespan in seconds of an object
+  `riak_kv_cache_backend_max_ttl` sets the maximum lifespan in seconds of an object.
   
   The following example is illustrative:
   
-  ```
+  ```config
   riak_kv_cache_backend_ttl 60
   riak_kv_cache_backend_max_ttl 300
   ```
   
-  * If I put a key at time 0 and access it, it will disappear after 60 seconds
-  * If I put a key at time 0 and access it at time 50, it will disappear at time 110 (seconds)
-  * If I put a key at time 0 and access it every 15 seconds, it will disappear after 300 seconds
+  * If a key is put at time 0 and accessed, it will disappear after 60 seconds
+  * If a key is put at time 0 and accessed at time 50, it will disappear at time 110 (seconds)
+  * If a key is put at time 0 and accessed every 15 seconds, it will disappear after 300 seconds
 
 
 Q: Which Linux filesystem is preferred for Riak installations?
 A:
   Riak will perform well on any of the modern, default filesystems available in recent versions of Linux, including EXT3, EXT4, and XFS. ZFS, an open-source filesystem developed by Sun (now distributed by Oracle) is another first-class choice for Riak. Given that all storage workloads are different, any one of these filesystems may outperform the others for your application. Choose whichever filesystem your Operations team is most comfortable supporting, noting the following:
   
-  * It is important to take into consideration that Riak will create a large number of files in the course of its runtime, using an [inode](http://en.wikipedia.org/wiki/Inode) each time. Inode density is fixed at format time in EXT3 and EXT4, while some systems, such as XFS, may allow for some factor of dynamism in the inode count.
+  * It is important to take into consideration that Riak will create a large number of files in the course of its runtime, using an [inode](http://en.wikipedia.org/wiki/Inode) each time. Inode density is fixed at format time in EXT3 and EXT4, while some systems, such as XFS, may allow for some degree of dynamism in the inode count.
   * Regardless of filesystem type, a major factor in Riak performance on Linux is the buffer cache. Linux allocates unused RAM for this service automatically. Be sure to account for this and allow free RAM for the buffer cache when provisioning servers.
-
 
 Q: How do I specify the location of the Erlang crash dump file?
 A:
   In the `vm.args` file add the following line:
   
-  ```
+  ```bash
   -env ERL_CRASH_DUMP /path/to/erlang_crash.dump
   ```
 
@@ -212,11 +210,11 @@ Q: Is it okay to change the Riak backend from Bitcask to multi-backend if I set 
 A:
   Yes, as long as the data root is the same.
 
-Q: How can I backup my Riak data?
+Q: How can I back up my Riak data?
 A:
-  **Note**: The backup command provided in `riak-admin` will only backup Riak KV data. The backup command has not been updated to work with Riak Search indexes.
+  **Note**: The `backup` command provided in `riak-admin` will only backup Riak KV data. The `backup` command has not been updated to work with Riak Search indexes.
   
-  When using the Bitcask (default Riak KV backend) and Merge Index (Riak Search backend) backends, it is recommended that you use standard filesystem backup utilities (`tar`) to backup Riak nodes. Both Bitcask and Merge Index are append-only data structures that perform incremental merge operations. This allows backups to be made while the system is running. Restoring backups involves moving the backups into the Riak `data` directory and starting the Riak node.
+  When using the Bitcask (default Riak KV backend) and Merge Index (Riak Search backend) backends, it is recommended that you use standard filesystem backup utilities (`tar`) to back up Riak nodes. Both Bitcask and Merge Index are append-only data structures that perform incremental merge operations. This allows backups to be made while the system is running. Restoring backups involves moving the backups into the Riak `data` directory and starting the Riak node.
   
   The directories that need to be backed up are the following (the location of these will vary depending on how you installed and configured Riak or Riak Search):
   
@@ -229,7 +227,6 @@ A:
 Q: Is it legal to bind Riak to a hostname instead of IP?
 A:
   Yes, it's legal but it will incur the overhead of the lookup. If you're talking about the HTTP/PBC interfaces, it's best to use IP addresses, but for the node name, it's totally fine to use a hostname.
-
 
 Q: Is it possible to prevent separate clusters from accidentally being joined together (e.g. through human error)?
   For example, imagine there are 2 clusters with 3 nodes each.
@@ -268,11 +265,11 @@ A:
 
 Q: What is a good configuration for a development cluster?
 A:
-  You will want to mirror your production environment as closely as possible.  While mirroring your production hardware is probably cost-prohibitive, you'll want to try to use the same operating system for your Riak development cluster as you will be using for your Riak production cluster.
+  You will want to mirror your production environment as closely as possible. While mirroring your production hardware is probably cost-prohibitive, you'll want to try to use the same operating system for your Riak development cluster as you will be using for your Riak production cluster.
   
   If you can, small machines with 2 to 8 GB of RAM and a modern processor will work well. If you don't have extra machines, you can set up multiple Riak nodes running on a single machine (including your laptop). Just make sure you change the ports for each node.  
   
-  For more information, see our [[Five Minute Install]].  Also check out our blog post on [setting up a local cluster](http://basho.com/blog/technical/2011/02/04/creating-a-local-riak-cluster-with-vagrant-and-chef/) with Vagrant and Chef.
+  For more information, see our [[Five Minute Install]]. Also check out our blog post on [setting up a local cluster](http://basho.com/blog/technical/2011/02/04/creating-a-local-riak-cluster-with-vagrant-and-chef/) with Vagrant and Chef.
 
 Q: If the size of the key index exceeds the amount of memory, how does Bitcask handle it?
 A:
@@ -294,12 +291,12 @@ Q: Would Riak handle an individual vnode failure the same way that it handles th
 A:
   No. The coordinating finite-state machine (FSM) would attempt to send the request to the failed vnode and receive either an error or no reply. A request may still succeed if enough of the other vnodes respond; "enough" would be determined by the `r`, `w`, `dw`, `rw` setting of the request. Hand-off would not occur in this scenario.
 
-Q: How can I reduce the time between Riak nodes checking liveliness?
+Q: How can I reduce the time interval at which Riak nodes check liveliness?
   When Riak is deployed on EC2, you will occasionally see the loss of connectivity between nodes. This results in queues in various subsystems backing up and causing memory contention on the node.
 A:
   You can reduce the amount of time a Riak node will wait to check on other nodes by setting the Erlang VM kernel `net_ticktime` to a lower integer in the Riak `vm.args` configuration. Simply add the following line:
   
-  ```
+  ```bash
   -kernel net_ticktime 10
   ```
   
@@ -308,7 +305,7 @@ A:
 Q: Why does Riak fail to build with a strange error about `crypto`?
   When building Riak from the provided source tarball, I see the following errors:
   
-  ```
+  ```log
   fatal: Not a git repository (or any of the parent directories): .git
   ./rebar get-deps
   fatal: Not a git repository (or any of the parent directories): .git

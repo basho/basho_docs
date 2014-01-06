@@ -37,16 +37,16 @@ Q: How can I change where the log files are located?
 A:
   Log files are written to `/var/log/riak` on Linux and `/opt/riak/log` on Solaris.
   
-  [Lager](https://github.com/basho/lager) is the logging engine introduced in Riak 1.0. It is designed to be more stable than Erlang's [`error_logger`](http://www.erlang.org/doc/man/error_logger.html) as well as to play nicely with standard logging tools.
+  [lager](https://github.com/basho/lager) is the logging engine introduced in Riak 1.0. It is designed to be more stable than Erlang's [`error_logger`](http://www.erlang.org/doc/man/error_logger.html) as well as to play nicely with standard logging tools.
   
-  * `handlers` --- Allows the selection of log handlers with differing options
-    * `lager_console_backend` --- Logs to the the console  with the specified log level
-    * `lager_file_backend` --- Logs to the given list of files, each with their own log level
-  * `crash_log` --- Whether or not to write a crash log and where (default: no crash logger)
-  * `crash_log_size` --- Maximum size in bytes of events in the crash log (default: 65536)
-  * `error_logger_redirect` --- Whether or not to redirect SASL `error_logger` messages into Lager (default: `true`)
+  * `handlers` --- allows the selection of log handlers with differing options
+    * `lager_console_backend` --- logs to the the console  with the specified log level
+    * `lager_file_backend` --- logs to the given list of files, each with their own log level
+  * `crash_log` --- whether or not to write a crash log and where (default: no crash logger)
+  * `crash_log_size` --- maximum size in bytes of events in the crash log (default: `65536`)
+  * `error_logger_redirect` --- whether or not to redirect SASL `error_logger` messages into lager (default: `true`)
   
-  The default Lager options are as follows:
+  The default lager options are as follows:
   
   ```erlang
   {lager, [
@@ -65,7 +65,7 @@ A:
 
 Q: Can I make Riak use syslog instead of file?
 A:
-  This is not currently possible. Quite often Riak log messages (mostly backtraces and warnings) are much longer than can be fit into a syslog message. All of the log files, however, are compatible with rotation (with the exception of the `erlang.log.*` files which are automatically rotated by Riak itself). If you're looking for a way to keep track of old log files, your logrotate script could be configured to archive or upload the rotated-out file to another machine.
+  This is not currently possible. Quite often, Riak log messages (mostly backtraces and warnings) are much longer than can be fit into a syslog message. All of the log files, however, are compatible with rotation (with the exception of the `erlang.log.*` files which are automatically rotated by Riak itself). If you're looking for a way to keep track of old log files, your logrotate script could be configured to archive or upload the rotated-out file to another machine.
 
 <h2>Log Messages</h2>
 
@@ -82,21 +82,20 @@ Q: Riak logs contain `{error,emfile}` in the message.
 A:
   This error usually signifies a problem with the maximum number of open file handles that a process is allowed to allocate. In most cases, the default setting of 1024 isn't sufficient to run a Riak node.
   
-  You can find out more information on increasing the `ulimit` on your system's [[Open Files Limit]].
+  You can find more information on increasing the `ulimit` on your system's [[Open Files Limit]].
 
 
 Q: Riak logs have `busy_dist_port` messages.
 A:
   As of version 1.0.3, Riak now logs `busy_dist_port` messages on the Erlang console and to the logs when distributed Erlang is overloaded.
   
-  If the message is being logged frequently, the buffer used for distributed Erlang can be increased by adding `+zdbbl <KBytes>` in the `/etc/riak/vm.args` file or `/opt/riak/etc/vm.args` file, depending on platform.
+  If the message is being logged frequently, the buffer used for distributed Erlang can be increased by adding `+zdbbl <KBytes>` in the `/etc/riak/vm.args` file or `/opt/riak/etc/vm.args` file, depending on the platform.
   
   More information on editing `vm.args` is available in the [[Configuration Files]] documentation.
 
-
 Q: In OS X, Riak crashes with errors producing `emfile`.
 A:
-  The default `ulimit -n` on Mac OS/X is 256, which is generally too small for Riak. You can set the per-session limit (within the current shell) by executing the following command:
+  The default `ulimit -n` on Mac OS X is 256, which is generally too small for Riak. You can set the per-session limit (within the current shell) by executing the following command:
   
   ```bash
   ulimit -n 1024

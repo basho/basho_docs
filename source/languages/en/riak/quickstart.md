@@ -77,10 +77,14 @@ $ dev1/bin/riak start
 ```
 
 <div class="note">
+<<<<<<< HEAD
 <div class="title">ulimit warning</div>
 
 At this point you may receive a warning message to increase the number of open file handles (`ulimit`). See [[Open Files Limit]] for platform-specific instructions on doing this.
 
+=======
+<div class="title">ulimit warning</div>At this point you may receive a warning message to increase the number of open file handles (`ulimit`).  See [[Open Files Limit]] for platform-specific instructions on doing this.
+>>>>>>> bugs/lp/riak-combover
 </div>
 
 Then do the same for `dev2` through `dev5`
@@ -115,7 +119,7 @@ $ dev1/bin/riak ping
 If the response is `PONG`, then the node is up and running. Otherwise, the node is currently stopped and will return something like the following:
 
 ```bash
-$ Node 'dev1@127.0.0.1' not responding to pings.
+Node 'dev1@127.0.0.1' not responding to pings.
 ```
 
 Alternatively, you can run a command like the following to iterate through each node and return its current status:
@@ -196,9 +200,7 @@ $ dev2/bin/riak-admin cluster commit
 
 <div class="info">
 <div class="title">About riak-admin</div>
-
-`riak-admin` is Riak's administrative tool. It's used to perform any operational tasks other than starting and stopping a node (e.g. to join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the `riak-admin` command [[here|riak-admin Command Line]].
-
+<tt>riak-admin</tt> is Riak's administrative tool. It's used to perform any operational tasks other than starting and stopping a node (e.g. to join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the <tt>riak-admin</tt> command [[here|riak-admin Command Line]].
 </div>
 
 ## Test the Cluster
@@ -232,7 +234,7 @@ $ cp ~/image/location/image_name.jpg .
 
 We can then `PUT` that image into Riak using a `curl` command (your port might differ, so check your `etc/app.config` file for the proper `http` port for your cluster):
 
-```
+```curl
 $ curl -XPUT http://127.0.0.1:10018/riak/images/1.jpg \
   -H "Content-type: image/jpeg" \
   --data-binary @image_name.jpg
@@ -242,4 +244,6 @@ You can then verify that image was in fact stored. To do this, simply copy the U
 
 You should now have a five-node Riak cluster up and running. Congratulations!
 
-<div class="note"><div class="title">HTTP interface ports</div>The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for dev1, dev2, dev3, dev4, dev5 respectively. The default port for single nodes to listen on is 8098 and users will need to take note of this when trying to use any of the default settings for Riak client libraries.</div>
+<div class="note">
+<div class="title">HTTP interface ports</div>
+The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for dev1, dev2, dev3, dev4, dev5 respectively. The default port for single nodes to listen on is 8098 and users will need to take note of this when trying to use any of the default settings for Riak client libraries.</div>
