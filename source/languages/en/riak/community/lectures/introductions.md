@@ -82,7 +82,7 @@ The following papers give background information on distributed systems and rele
 * [Riak for Retail](http://info.basho.com/RiakonRetail.html)
 * [Riak for Advertising](http://info.basho.com/RiakonAdvertising.html)
 
-## Articles and Reports
+## Articles, Reports, and News
 
 Outside of what has been created by Basho, we think that outside sources can also be a valuable tool when evaluating Riak or Riak CS. Please see our [News Page](http://basho.com/news/) for frequently updated information.
 
