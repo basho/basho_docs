@@ -36,11 +36,7 @@ This page is a collection of videos, slides, papers, and other media introducing
 		   <img class="vid_img"src="http://b.vimeocdn.com/ts/300/116/300116740_200.jpg"/>
 		 </a></td>
         <td class="vid_td"><a href="http://player.vimeo.com/video/43235103" target="_blank" title="MDC Webinar">MDC Webinar</a>  
-<<<<<<< HEAD
 	In this webinar, Basho solutions engineer Jim Rushforth gives a technical overview of Riak multi-data center replication. . 
-=======
-	In this webinar, Basho solutions engineer Jim Rushforth gives a technical overview of Riak [[Multi-Datacenter Replication]].
->>>>>>> bugs/lp/riak-combover
 		</td>	    
 	</tr>
 	

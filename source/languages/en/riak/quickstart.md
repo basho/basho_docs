@@ -77,14 +77,7 @@ $ dev1/bin/riak start
 ```
 
 <div class="note">
-<<<<<<< HEAD
-<div class="title">ulimit warning</div>
-
-At this point you may receive a warning message to increase the number of open file handles (`ulimit`). See [[Open Files Limit]] for platform-specific instructions on doing this.
-
-=======
-<div class="title">ulimit warning</div>At this point you may receive a warning message to increase the number of open file handles (`ulimit`).  See [[Open Files Limit]] for platform-specific instructions on doing this.
->>>>>>> bugs/lp/riak-combover
+<div class="title"><tt>ulimit</tt> warning</div>At this point you may receive a warning message to increase the number of open file handles (<tt>ulimit</tt>).  See [[Open Files Limit]] for platform-specific instructions on doing this.
 </div>
 
 Then do the same for `dev2` through `dev5`
