@@ -11,15 +11,9 @@ moved: {
 }
 ---
 
-<<<<<<< HEAD
-This document shows you how to manage replication with the `riak-repl` command. Some of these commands can be set or behavior altered by setting appropriate [[Configuration|Multi Data Center Replication v3 Configuration]] values.
-
-All commands need to be run only once on a single node of a cluster for the changes to propagate to all other nodes, and all changes will persist across node restarts (and will automatically take effect when nodes are added to the cluster).
-=======
 This document explains how to manage replication with the `riak-repl` command. Some of these commands can be set or behavior altered by setting appropriate [[configuration|Multi Data Center Replication v3 Configuration]] values.
 
 All commands need to be run only once on a single node of a cluster for the changes to propagate to all other nodes. All changes will persist across node restarts and will automatically take effect when nodes are added to the cluster.
->>>>>>> origin/master
 
 ## Cluster Connectivity
 
@@ -44,11 +38,7 @@ To **get** the `clustername`:
 
 The `connect` command establishes communications from a source cluster to a sink cluster. The `host:port` of the sink cluster is used for this.
 
-<<<<<<< HEAD
-`host` can be either an IP address,
-=======
 The `host` can be either an IP address
->>>>>>> origin/master
 
 * *Syntax:* `riak-repl connect <ip>:<port>`
 * *Example:* `riak-repl connect 192.168.2.1:9080`
@@ -79,11 +69,7 @@ Display a list of connections between source and sink clusters.
 * *Syntax:* `riak-repl connections`
 * *Example:* `riak-repl connections`
 
-<<<<<<< HEAD
-#### `clusterstats [{<ip:port> | <protocol-id>}]`
-=======
 **clusterstats**
->>>>>>> origin/master
 
 Displays current cluster stats using an optional `ip:port` as well as an optional `protocol-id`.
 
@@ -92,11 +78,8 @@ Displays current cluster stats using an optional `ip:port` as well as an optiona
 * `cluster_mgr`
 * `rt_repl`
 * `fs_repl`
-<<<<<<< HEAD
-=======
 
 The `clusterstats` command in use:
->>>>>>> origin/master
 
 * *Syntax:* `riak-repl clusterstats <host>:<port> <protocol-id>`
 * *Example:* `riak-repl clusterstats 192.168.2.1:9080`
@@ -139,11 +122,7 @@ Stop realtime replication from a source cluster to sink clusters.
 
 ## Fullsync Replication Commands
 
-<<<<<<< HEAD
-These behaviors can be altered by using the `fullsync_on_connect` parameter in the `app.config`. See the [[Configuration Guide|Multi Data Center Replication v3 Configuration]] for more information.
-=======
 These behaviors can be altered by using the `app.config` `fullsync_on_connect` parameter. See the [[Configuration Guide|Multi Data Center Replication v3 Configuration]] for more information.
->>>>>>> origin/master
 
 #### `fullsync enable`
 
@@ -161,11 +140,7 @@ Disables fullsync for a cluster.
 
 #### `fullsync start`
 
-<<<<<<< HEAD
-Starts a fullsync. If the application configuration `fullsync_on_connect` is set to `false`, a fullsync needs to be started manually. This is also used to periodically fullsync using a cron job. While a fullsync is in progress, a `start` command is ignored and a message is logged.
-=======
 Starts a fullsync. If the application configuration `fullsync_on_connect` is set to `false`, a fullsync needs to be started manually. This is also used to trigger a periodic fullsync using a cron job. While a fullsync is in progress, a `start` command is ignored and a message is logged.
->>>>>>> origin/master
 
 * *Syntax:* `riak-repl fullsync start <sink_clustername>`
 * *Example:* `riak-repl fullsync start Austin`
@@ -179,11 +154,7 @@ Stops a fullsync.
 
 ## Cascading Realtime Writes
 
-<<<<<<< HEAD
 See the [[Multi Data Center Replication: Cascading Realtime Writes]] guide
-=======
-**Note**: See the [[Multi Data Center Replication: Cascading Realtime Writes]] guide for more information
->>>>>>> origin/master
 
 #### `realtime cascades`
 
@@ -199,11 +170,7 @@ Enable realtime cascading writes.
 * *Syntax*: `realtime cascades always`
 * *Example*: `riak-repl realtime cascades always`
 
-<<<<<<< HEAD
-#### `realtime cascades never`
-=======
 **realtime cascades never**
->>>>>>> origin/master
 
 Disable realtime cascading writes.
 
@@ -212,12 +179,8 @@ Disable realtime cascading writes.
 
 
 ## NAT
-<<<<<<< HEAD
 
-See the [[Configuration guide|Multi Data Center Replication v3 With NAT]]
-=======
 **Note**: See the [[Configuration Guide|Multi Data Center Replication v3 With NAT]] for more information
->>>>>>> origin/master
 
 #### `nat-map show`
 Show the current NAT mapping table.
@@ -242,25 +205,17 @@ NAT changes will be applied once fullsync and/or realtime replication has been s
 
 ## Riak CS MDC Gets
 
-<<<<<<< HEAD
-* `riak-repl proxy-get enable`
-=======
 **riak-repl proxy-get enable**
 
 Enable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
->>>>>>> origin/master
 
     Enable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
     * *Syntax:* `proxy-get enable  <sink_clustername>`
     * *Example:* `riak-repl proxy-get enable  newyorkbackup`
 
-<<<<<<< HEAD
-* `riak-repl proxy-get disable`
-=======
 **riak-repl proxy-get disable**
 
 Disable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
->>>>>>> origin/master
 
     Disable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
     * *Syntax:* `proxy-get disable <sink_clustername>`
@@ -285,24 +240,14 @@ This limits the number of fullsync workers that will be running on each individu
 
 #### `fullsync max_fssource_cluster`
 
-<<<<<<< HEAD
-This is the hard limit of fullsync workers that will be running on the source side of a cluster across all nodes on that cluster for a fullsync to a sink cluster. This means if one has configured fullsync for two different clusters, both with a `max_fssource_cluster` of 5, 10 fullsync workers can be in progress. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
-=======
 This is the hard limit of fullsync workers that will be running on the source side of a cluster across all nodes on that cluster for a fullsync to a sink cluster. This means if one has configured fullsync for two different clusters, both with a max_fssource_cluster of 5, 10 fullsync workers can be in progress. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or the command line.
->>>>>>> origin/master
 
 * *Syntax:* `riak-repl fullsync max_fssource_cluster <value>`
 * *Default:* `5`
 * *Example:* `riak-repl fullsync max_fssource_cluster 5`
 
 
-<<<<<<< HEAD
-#### `fullsync max_fssink_node`
-=======
 **fullsync max_fssink_node**
-
-This limits the number of fullsync workers allowed to run on each individual node in a sink cluster. This is a hard limit for each fullsync source node interacting with a sink node. Multiple simultaneous source connections to a sink node will have to share the sink node’s number of maximum connections. This command only affects nodes on the sink cluster on which this parameter is defined via the configuration file or the command line.
->>>>>>> origin/master
 
 This limits the number of fullsync workers allowed to run on each individual node in a sink cluster. This is a hard limit for each fullsync source node interacting with a sink node. Thus, multiple simultaneous source connections to a sink node will have to share the sink node’s number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 
@@ -313,11 +258,7 @@ This limits the number of fullsync workers allowed to run on each individual nod
 
 ## Mixing Version 2 Replication with Version 3 Replication
 
-<<<<<<< HEAD
-Riak Version 2 Replication and Version 3 Replication *can* be safely used at the same time. If you choose to move to 1.3 Replication completely, it is recommended that you disable Version 2 realtime replication bucket hooks with the `riak-repl modes` command.
-=======
 Riak Version 2 Replication and Version 3 Replication can be safely used at the same time. If you choose to move to Version 3 Replication completely, it is recommended that you disable Version 2 realtime replication bucket hooks with the `riak-repl modes` command.
->>>>>>> origin/master
 
 #### `riak-repl modes`
 

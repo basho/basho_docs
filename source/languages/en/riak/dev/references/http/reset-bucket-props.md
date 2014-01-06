@@ -34,8 +34,8 @@ format `/riak/bucket`.
 
 ## Example
 
-```bash
-curl -XDELETE -v localhost:8098/buckets/bucket/props                                                                                                             {13:47}
+```curl
+$ curl -XDELETE -v localhost:8098/buckets/bucket/props                                                                                                             {13:47}
 * About to connect() to localhost port 8098 (#0)
 *   Trying 127.0.0.1...
 * connected

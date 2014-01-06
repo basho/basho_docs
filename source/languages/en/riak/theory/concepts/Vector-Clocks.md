@@ -103,19 +103,19 @@ siblings by their `vtag` as plain text.  The `vtag` is how you can reference a
 single sibling inside of an object.  You can access a single sibling by
 appending the `vtag` parameter to the object's url.  For example:
 
-```bash
+```curl
 $ curl http://127.0.0.1:8098/buckets/kitchen/keys/sink?vtag=175xDv0I3UFCfGRC7K7U9z
 ```
 
 will give you:
 
-```javascript
+```json
 {"dishes":9}
 ```
 
 To view all of the siblings in a single request, you would use:
 
-```bash
+```curl
 $ curl http://127.0.0.1:8098/buckets/kitchen/keys/sink -H "Accept: multipart/mixed"
 ```
 

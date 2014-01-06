@@ -93,8 +93,8 @@ The following parameters are supported:
 
 To query data in the system with Curl:
 
-```bash
-curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
+```curl
+$ curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
 ```
 
 ### Riak Client API
@@ -109,7 +109,7 @@ The Riak Client APIs that integrate with Riak Search also support using a search
 
 Kicking off a map/reduce query with the same result set over HTTP would use a POST body like this:
 
-```javascript
+```json
 {
   "inputs": {
              "bucket":"mybucket",
@@ -121,7 +121,7 @@ Kicking off a map/reduce query with the same result set over HTTP would use a PO
 
 or
 
-```javascript
+```json
 {
   "inputs": {
              "bucket":"mybucket",
@@ -138,7 +138,7 @@ The query field specifies the search query.  All syntax available in other Searc
 
 The old but still functioning syntax is:
 
-```javascript
+```json
 {
   "inputs": {
              "module":"riak_search",

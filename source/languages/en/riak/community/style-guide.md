@@ -124,10 +124,17 @@ length([P || {riak_kv_vnode, P, _} <- riak_core_vnode_manager:all_vnodes()]).
 
 Shell commands example:
 
+<<<<<<< HEAD
 ```bash
 riak-admin member-status
 riak-admin transfers
 ```
+=======
+    ```bash
+    $ riak-admin member-status
+    $ riak-admin transfers
+    ```
+>>>>>>> origin/master
 
 ### Callouts & Notes
 

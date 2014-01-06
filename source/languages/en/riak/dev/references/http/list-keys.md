@@ -61,7 +61,7 @@ containing `"keys"` entries.
 
 ## Example
 
-```bash
+```curl
 $ curl -i http://localhost:8098/buckets/jsconf/keys?keys=true
 HTTP/1.1 200 OK
 Vary: Accept-Encoding

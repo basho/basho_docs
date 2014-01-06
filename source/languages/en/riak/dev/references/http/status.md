@@ -37,7 +37,7 @@ Important headers:
 
 ## Example
 
-```bash
+```curl
 $ curl -v http://127.0.0.1:8098/stats -H "Accept: text/plain"
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected

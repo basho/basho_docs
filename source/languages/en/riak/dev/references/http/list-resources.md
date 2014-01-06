@@ -62,9 +62,10 @@ form
 
 ## Example
 
-```bash
-# Request JSON response
-curl -i http://localhost:8098 -H "Accept: application/json"
+Request JSON response
+
+```curl
+$ curl -i http://localhost:8098 -H "Accept: application/json"
 HTTP/1.1 200 OK
 Vary: Accept
 Server: MochiWeb/1.1 WebMachine/1.10.0 (never breaks eye contact)

@@ -53,8 +53,8 @@ Riak allows the client to supply an "R value" on each direct fetch. The R value 
 
 For example, in this HTTP request, the r value is set to 1:
 
-```bash
-http://127.0.0.1:8091/buckets/images/keys/1.png?r=1
+```curl
+$ curl http://127.0.0.1:8091/buckets/images/keys/1.png?r=1
 ```
 
 This means that Riak will return a copy of that data if at least 1 copy is present in your cluster.
@@ -65,7 +65,7 @@ Riak also allows the client to supply a "W value" on each update. The W value re
 
 In this PUT operation, you can see the w value set to 3.
 
-```
+```curl
 $ curl -v -XPUT http://127.0.0.1:8091/buckets/docs/keys/story.txt?w=3 \
   -H "Content-type: text/plain" \
   --data-binary @story.txt

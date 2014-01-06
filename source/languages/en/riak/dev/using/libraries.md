@@ -311,11 +311,7 @@ client process pool based on poolboy
 
 * [[Riakka|http://github.com/timperrett/riakka]] - Scala library for talking to Riak
 * [[Ryu|http://github.com/softprops/ryu]] - A Tornado Whirlwind Kick Scala client for the Riak raw HTTP interface
-<<<<<<< HEAD
-* [[Raiku|https://github.com/gideondk/Raiku] - An Akka IO- and Sentinel-driven Scala Riak client
-=======
 * [[Raiku|https://github.com/gideondk/Raiku]] - An Akka IO- and Sentinel-driven Riak Scala client
->>>>>>> 39de73475fc59c68b6c67473d1762ff44a04fee7
 
 *Smalltalk*
 
