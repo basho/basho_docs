@@ -320,7 +320,7 @@ Unlike semicolons, dashes are hard to use incorrectly. But their overuse can mak
 A number of technical terms related to distributed computing environments and specific to Riak are common to our product documentation. Consistent use of these terms is critical to composing accurate documentation that inspires confidence.
 
 
-### Basho Product Specific Terminology
+### Basho Product-Specific Terminology
 
 #### Erlang
 
