@@ -19,7 +19,7 @@ A:
 
 Q: What happens after my code is submitted?
 A:
-  If it's more than a simple patch (documentation or typo fixes, for example), we will add it to our internal project management tools and prioritize it. You'll receive an email or comment from someone on the Riak development team letting you know that we are working on integrating it. 
+  If it's more than a simple patch---e.g. documentation or typo fixes---we will add it to our internal project management tools and prioritize it. You'll receive an email or comment from someone on the Riak development team letting you know that we are working on integrating it. 
 
 Q: Which code will be integrated into Riak?
 A:
@@ -27,11 +27,11 @@ A:
 
 Q: How long will my patch take to review?
 A:
-  Unfortunately, there is no concrete response to this.  We are fortunate that you, the community, are quite active and willing to contribute fixes and features to the codebase. The downside of this, however, is that the time it takes to review submissions can grow quite rapidly. Please be patient. We are working as fast as our team size and review standards permit.
+  Unfortunately, there is no concrete response to this. We are fortunate that you, the community, are quite active and willing to contribute fixes and features to the codebase. The downside of this, however, is that the time it takes to review submissions can grow quite rapidly. Please be patient. We are working as fast as our team size and review standards permit.
 
 Q: How can I fix these docs?
 A:
-  Basho maintains all of the content in the Riak Docs in a public GitHub repo. What this means is that if you have a change that you think needs to be made, all you need to do is fork the [Riak Docs Repo](https://github.com/basho/basho_docs) and send a pull request with your changes. Instructions regarding pull requests are on the main GitHub page under **How to Contribute**. Chances are good that we will merge them in short order. If we have any questions, we'll comment on the pull request.
+  Basho maintains all of the content in the Riak Docs in a public GitHub repo. What this means is that if you have a change that you think needs to be made, all you need to do is fork the [Riak Docs Repo](https://github.com/basho/basho_docs) and send a pull request with your changes. Instructions regarding pull requests are on the main GitHub page under [How to Contribute](https://github.com/basho/basho_docs#how-to-contribute). Chances are good that we will merge them in short order. If we have any questions, we'll comment on the pull request.
 
 Q: Who maintains the docs?
 A:
@@ -41,12 +41,12 @@ A:
 
 Q: Who will be considered for being a docs committer?
 A:
-  * Those who come forward and ask for privileges. To do this, simply send an email to _+docs@basho.com+_ and tell us why you want to edit the docs and where precisely you can shine as a Community Editor.
-  * Community Members who are nominated by a member of the Riak Development or Support teams
+  * Those who come forward and ask for privileges. To do this, simply send an email to **docs@basho.com** and tell us why you want to edit the docs and where precisely you can shine as a Community Editor.
+  * Community Members who are nominated by a member of the Riak Development or Support teams.
 
 Q: How will individuals be evaluated?
 A:
-  * Those who come forward and ask for commit rights will be evaluated on their Riak knowledge and previous contributions to the Riak Community including, but not limited to, Mailing List and IRC activity, Libraries and Projects created, and patches and code submissions.
+  * Those who come forward and ask for commit rights will be evaluated on the basis of their Riak knowledge and previous contributions to the Riak Community including, but not limited to, Mailing List and IRC activity, Libraries and Projects created, and patches and code submissions.
   * In the case that a member of the Riak team nominates a community member, the nominator will outline their reasons for said nomination.
   
   In both cases, members of the Basho Development and Support teams will hold a vote, via email, to approve the nominee. Upon acceptance, the nominee will be notified via email.
