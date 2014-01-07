@@ -46,50 +46,48 @@ key: "k"
 
 ### Message Codes
 
-<table>
-<tr><td>0</td><td>RpbErrorResp</td></tr>
-<tr><td>1</td><td>RpbPingReq</td></tr>
-<tr><td>2</td><td>RpbPingResp</td></tr>
-<tr><td>3</td><td>RpbGetClientIdReq</td></tr>
-<tr><td>4</td><td>RpbGetClientIdResp</td></tr>
-<tr><td>5</td><td>RpbSetClientIdReq</td></tr>
-<tr><td>6</td><td>RpbSetClientIdResp</td></tr>
-<tr><td>7</td><td>RpbGetServerInfoReq</td></tr>
-<tr><td>8</td><td>RpbGetServerInfoResp</td></tr>
-<tr><td>9</td><td>RpbGetReq</td></tr>
-<tr><td>10</td><td>RpbGetResp</td></tr>
-<tr><td>11</td><td>RpbPutReq</td></tr>
-<tr><td>12</td><td>RpbPutResp</td></tr>
-<tr><td>13</td><td>RpbDelReq</td></tr>
-<tr><td>14</td><td>RpbDelResp</td></tr>
-<tr><td>15</td><td>RpbListBucketsReq</td></tr>
-<tr><td>16</td><td>RpbListBucketsResp</td></tr>
-<tr><td>17</td><td>RpbListKeysReq</td></tr>
-<tr><td>18</td><td>RpbListKeysResp</td></tr>
-<tr><td>19</td><td>RpbGetBucketReq</td></tr>
-<tr><td>20</td><td>RpbGetBucketResp</td></tr>
-<tr><td>21</td><td>RpbSetBucketReq</td></tr>
-<tr><td>22</td><td>RpbSetBucketResp</td></tr>
-<tr><td>23</td><td>RpbMapRedReq</td></tr>
-<tr><td>24</td><td>RpbMapRedResp</td></tr>
-<tr><td>25</td><td>RpbIndexReq <i>(new in 1.2+)</i></td></tr>
-<tr><td>26</td><td>RpbIndexResp <i>(new in 1.2+)</i></td></tr>
-<tr><td>27</td><td>RpbSearchQueryReq <i>(new in 1.2+)</i></td></tr>
-<tr><td>28</td><td>RbpSearchQueryResp <i>(new in 1.2+)</i></td></tr>
-</table>
+Code | Message |
+:----|:--------|
+0 | `RpbErrorResp` |
+1 | `RpbPingReq` |
+2 | `RpbPingResp` |
+3 | `RpbGetClientIdReq` |
+4 | `RpbGetClientIdResp` |
+5 | `RpbSetClientIdReq` |
+6 | `RpbSetClientIdResp` |
+7 | `RpbGetServerInfoReq` |
+8 | `RpbGetServerInfoResp` |
+9 | `RpbGetReq` |
+10 | `RpbGetResp` |
+11 | `RpbPutReq` |
+12 | `RpbPutResp` |
+13 | `RpbDelReq` |
+14 | `RpbDelResp` |
+15 | `RpbListBucketsReq` |
+16 | `RpbListBucketsResp` |
+17 | `RpbListKeysReq` |
+18 | `RpbListKeysResp` |
+19 | `RpbGetBucketReq` |
+20 | `RpbGetBucketResp` |
+21 | `RpbSetBucketReq` |
+22 | `RpbSetBucketResp` |
+23 | `RpbMapRedReq` |
+24 | `RpbMapRedResp` |
+25 | `RpbIndexReq` _(new in 1.2+)_ |
+26 | `RpbIndexResp` _(new in 1.2+)_ |
+27 | `RpbSearchQueryReq` _(new in 1.2+)_ |
+28 | `RbpSearchQueryResp` _(new in 1.2+)_ |
 
-
-<div class="info"><div class="title">Message Definitions</div>
+<div class="info">
+<div class="title">Message Definitions</div>
 <p>All Protocol Buffers messages can be found defined in the [[riak.proto|https://github.com/basho/riak_pb/blob/master/src/riak.proto]] and other .proto files in the RiakPB project.</p>
 </div>
-
 
 ### Error Response
 
 If the server experiences an error processing a request it will return an
 RpbErrorResp message instead of the response expected for the given request
-(e.g. RbpGetResp is the expected response to RbpGetReq).  Error messages contain
-an error string and an error code.
+(e.g. RbpGetResp is the expected response to RbpGetReq).  Error messages contain an error string and an error code.
 
 ```bash
 message RpbErrorResp {
