@@ -183,9 +183,9 @@ Memory statistics are taken directly from the Erlang virtual machine. Documentat
 * `sys_thread_pool_size`: Number of threads in the asynchronous thread pool
 * `sys_wordsize`: Size of Erlang term words in bytes as an integer, for examples, on 32-bit architectures 4 is returned and on 64-bit architectures 8 is returned
 * `storage_backend`: Name of the active storage backend
-* `pbc_connects_total`: Number of protocol buffers connections since node was started
-* `pbc_connects`: Number of protocol buffers connections in the last minute
-* `pbc_active`: Number of active protocol buffers connections
+* `pbc_connects_total`: Number of Protocol Buffers connections since node was started
+* `pbc_connects`: Number of Protocol Buffers connections in the last minute
+* `pbc_active`: Number of active Protocol Buffers connections
 * `ssl_version`: Version of secure sockets layer (SSL) application in use
 * `public_key_version`: Version of public key application in use
 * `runtime_tools_version`: Version of runtime tools application in use
