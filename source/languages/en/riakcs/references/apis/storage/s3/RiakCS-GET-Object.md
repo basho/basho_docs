@@ -29,7 +29,9 @@ Date: date
 Authorization: signature_value
 ```
 
+{{#1.3.0-}}
 Note: While Range queries are planned for a future release, using `Range:bytes=byte_range`, this feature is not currently implemented.
+{{/1.3.0-}}
 
 ## Examples
 
@@ -57,3 +59,29 @@ Connection: close
 Server: MochiWeb/1.1 WebMachine/1.9.0 (someone had painted it blue)
 [611892 bytes of object data]
 ```
+
+{{#1.3.0+}}
+### Sample Request Using the Range Header
+
+This sample request askes for only the first `1000` bytes of a `1705` byte file
+
+```
+GET build.sh HTTP/1.1
+Host: projects.data.basho.com
+Date: Tue, 07 Jan 2014 19:49:11 +0000
+Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
+Range: bytes=0-1000
+```
+
+### Sample Response Using the Range Header
+
+```
+HTTP/1.1 206 Partial Content
+Server: BashoData
+Date: Tue, 07 Jan 2014 19:49:11 GMT
+Content-Type: application/xml
+Content-Range: bytes 0-1000/1705
+Content-Length: 1001
+Accept-Ranges: bytes
+```
+{{/1.3.0+}}
