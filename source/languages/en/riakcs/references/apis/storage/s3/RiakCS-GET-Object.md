@@ -70,7 +70,7 @@ GET build.sh HTTP/1.1
 Host: projects.data.basho.com
 Date: Tue, 07 Jan 2014 19:49:11 +0000
 Authorization: AWS QMUG3D7KP5OQZRDSQWB6:4Pb+A0YT4FhZYeqMdDhYls9f9AM=
-Range: bytes=0-1000
+Range: bytes=0-999
 ```
 
 ### Sample Response Using the Range Header
@@ -81,7 +81,7 @@ Server: BashoData
 Date: Tue, 07 Jan 2014 19:49:11 GMT
 Content-Type: application/xml
 Content-Range: bytes 0-1000/1705
-Content-Length: 1001
+Content-Length: 1000
 Accept-Ranges: bytes
 ```
 {{/1.3.0+}}
