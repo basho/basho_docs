@@ -213,7 +213,7 @@ Lists of values are assumed to be Solr multi-valued fields.
 
 The above JSON will insert a list of three values into Solr to be indexed: `people_ss=Ryan`, `people_ss=Eric`, `people_ss=Brett`.
 
-### Meta-fields
+### Automatic Fields
 
 When a Riak object is indexed, Riak Search automatically inserts a few extra fields as well. These are necessary for a variety of technical reasons, and for the most part you don't need to think about them. However, there are a few fields which you may find useful, all prefixed with `_yz`: `_yz_rk` (Riak key), `_yz_rt` (Riak bucket type), `_yz_rb` (Riak bucket), and `_yz_err` (extraction error). 
 
@@ -224,7 +224,136 @@ You can query by these fields, just like any other normal Solr fields. But most 
 
 After the schema, index, association, population/extraction/indexing has taken place, comes the fun part of querying for data.
 
+### Simple Query
 
+The basic query parameter is `q` via HTTP, or the first parameter of your chosen driver's `search` function. All Distributed Solr queries are supported, which actually includes most of the single-node solr queries. This example is searching for all documents where the `name_s` value begins with *Lion* by means of a glob (wildcard) match.
+
+```curl
+curl 'http://localhost:8098/search/famous?wt=json&q=name_s:Lion*' | jsonpp
+```
+```ruby
+results = client.search("famous", "name_s:Lion*")
+p results
+p results['docs']
+```
+```python
+import pprint
+results = bucket.search('name_s:Lion*')
+pprint.pprint(results)
+pprint.pprint(results['docs'])
+```
+```erlang
+{ok, Results} = riakc_pb_socket:search(Pid, <<"famous">>, <<"name_s:Lion*">>),
+io:fwrite("~p~n", [Results]),
+Docs = Results#search_results.docs,
+io:fwrite("~p~n", [Docs]).
+```
+
+The response to a query will be an object containing details about the response, such as a query's max score and a list of documents which match the given query. It's worth nothing two things: a) the documents returned are search documents (a set of solr field/values), not a Riak value, and b) the HTTP response is a direct Solr response, while the drivers use protocol buffers and are encoded with different field names.
+
+This is a common HTTP `response` value.
+
+```json
+{
+  "numFound": 1,
+  "start": 0,
+  "maxScore": 1.0,
+  "docs": [
+    {
+      "leader_b": true,
+      "age_i": 30,
+      "name_s": "Liono",
+      "_yz_id": "default_cats_liono_37",
+      "_yz_rk": "liono",
+      "_yz_rt": "default",
+      "_yz_rb": "cats"
+    }
+  ]
+}
+```
+
+The most important field returned is `docs`, which is the list of objects that each contain fields about matching index documents. The values you'll use most often are `_yz_rk`, `_yz_rb` and `score`, which respectively represent the matching Riak key, Riak bucket, and the similarity of the matching doc to the query via [Lucene scoring](https://lucene.apache.org/core/4_6_0/core/org/apache/lucene/search/package-summary.html#scoring).
+
+In this example the query fields are returned because they're stored in Solr. This depends on your schema. If they are not stored, you'll have to perform a seperate Riak GET operation to retrieve the value using the `_yz_rk` value.
+
+```curl
+curl 'http://localhost:8098/buckets/cats/keys/liono'
+{"name_s":"Liono", "age_i":30, "leader_b":true}
+```
+```ruby
+doc = results["docs"].first
+bucket = Riak::Bucket.new(client, doc["_yz_rb"]) # cats
+object = bucket.get( doc["_yz_rk"] )             # liono
+p object.data
+# {"name_s" => "Liono", "age_i" => 30, "leader_b" => true}
+```
+```python
+doc = results['docs'][0]
+bucket = client.bucket(doc['_yz_rb']) # cats
+object = bucket.get(doc['_yz_rk'])    # liono
+pprint.pprint(object.data)
+# {"name_s": "Liono", "age_i": 30, "leader_b": true}
+```
+```erlang
+[{Index,Doc}|_] = Docs,
+Bucket = proplists:get_value(<<"_yz_rb">>, Doc),  %% <<"cats">>
+Key = proplists:get_value(<<"_yz_rk">>, Doc),     %% <<"liono">>
+{ok, Obj} = riakc_pb_socket:get(Pid, Bucket, Key),
+Val = riakc_obj:get_value(Obj),
+io:fwrite("~s~n", [Val]).
+%% {"name_s":"Liono", "age_i":30, "leader_b":true}
+```
+
+This was one simple glob query example. There are many query options, a more complete list can be found by digging into [Solr Query Syntax](http://wiki.apache.org/solr/SolrQuerySyntax). Let's look at a few others.
+
+#### Range Queries
+
+Searches within a [range](http://wiki.apache.org/solr/SolrQuerySyntax#Differences_From_Lucene_Query_Parser) of numerical or date/[datemath](http://lucene.apache.org/solr/4_6_0/solr-core/org/apache/solr/util/DateMathParser.html) values.
+
+To find the ages of all famous cats who are younger than 30, you can find all: `age_i:[0 TO 30]`. If you wanted to find all famous older than 30, you could include a glob as a top end of the range: `age_i:[30 TO *]`.
+
+```curl
+curl 'http://localhost:8098/search/famous?wt=json&q=age_i:%5B30%20TO%20*%5D'
+```
+```ruby
+client.search("famous", "age_i:[30 TO *]")
+```
+```python
+bucket.search('age_i:[30 TO *]')
+```
+```erlang
+riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
+```
+
+<!-- TODO: pubdate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY] -->
+
+#### Boolean
+
+You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR` and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:%5B25%20TO%20*%5D`.
+
+```curl
+curl 'http://localhost:8098/search/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D'
+```
+```ruby
+client.search("famous", "leader_b:true AND age_i:[30 TO *]")
+```
+```python
+bucket.search('leader_b:true AND age_i:[30 TO *]')
+```
+```erlang
+riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
+```
+
+#### Functions
+
+Cats age approximately 7 times faster than humans, so to calculate an age in "cat years", you can multiply the cat's age by 7 using the `product` function. It's but one of a slew [Solr Functions](http://wiki.apache.org/solr/FunctionQuery#Available_Functions).
+
+
+
+
+### MapReduce
+
+Like the legacy Riak Search, the current version allows for piping search results as inputs for MapReduce jobs. 
 
 <!-- You query fields that are recognizable by the extractor and the index schema.  -->
 
@@ -233,20 +362,15 @@ After the schema, index, association, population/extraction/indexing has taken p
 
 ### Features
 
-Riak Search 2.0 is more than a distributed search engine like [SolrCloud](http://wiki.apache.org/solr/SolrCloud) or [ElasticSearch](http://www.elasticsearch.org/). It's integration with Riak greatly simplifies usage by offloading the task of indexing values to Riak.
+Riak Search 2.0 is more than a distributed search engine like [SolrCloud](http://wiki.apache.org/solr/SolrCloud) or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable integration with Riak. This greatly simplifies usage by offloading the task of indexing values to Riak.
 
-* Support for various mime types (JSON, XML, plain text, Erlang, Erlang binaries) for automatic data extraction
-* Support for various analyzers (to break text into tokens) including a white space analyzer, an integer analyzer, and a no-op analyzer
-* Robust, easy-to-use query language
-* Exact match queries
-  * Wildcards
-  * Inclusive/exclusive range queries o AND/OR/NOT support
-  * Grouping
-  * Prefix matching
-  * Proximity searches
-  * Term boosting
-* Solr interface via HTTP
-* Protocol buffers interface
+Riak's features are numerous and well defined, while the search enhancements are also numerous.
+
+* Support for various mime types (JSON, XML, plain text, datatypes) for automatic data extraction
+* Support for [various language](http://wiki.apache.org/solr/LanguageAnalysis) specific [analyzers, tokenizers, and filters](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters)
+* Robust, easy-to-use [query languages](http://wiki.apache.org/solr/QueryParser) like lucene (default) and dismax.
+* Queries: exact match, globs, inclusive/exclusive range queries, AND/OR/NOT, grouping, prefix matching, proximity searches, term boosting
+* Protocol Buffer interface and Solr interface via HTTP
 * Scoring and ranking for most relevant results
 * Search queries as input for MapReduce jobs
 
