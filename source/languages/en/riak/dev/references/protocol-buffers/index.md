@@ -23,9 +23,9 @@ connected the client can send a stream of requests on the same connection.
 
 Each operation consists of a request message and one or more response messages.
 Messages are all encoded the same way
-* 32-bit length of message code + protocol buffer message in network order
-* 8-bit message code to identify the protocol buffer message
-* N-bytes of protocol buffers encoded message
+* 32-bit length of message code + Protocol Buffers message in network order
+* 8-bit message code to identify the Protocol Buffers message
+* N-bytes of Protocol Buffers-encoded message
 
 ### Example
 
@@ -80,8 +80,7 @@ key: "k"
 
 
 <div class="info"><div class="title">Message Definitions</div>
-<p>All Protocol Buffers messages can be found defined in the
-[[riak.proto|https://github.com/basho/riak_pb/blob/master/src/riak.proto]] and other .proto files in the RiakPB project.</p>
+<p>All Protocol Buffers messages can be found defined in the [[riak.proto|https://github.com/basho/riak_pb/blob/master/src/riak.proto]] and other .proto files in the RiakPB project.</p>
 </div>
 
 
