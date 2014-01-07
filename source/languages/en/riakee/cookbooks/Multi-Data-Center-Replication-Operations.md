@@ -147,7 +147,7 @@ Field | Description
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in realtime replication. Please see the [[Riak EE MDC Replication Configuration|Multi-Data-Center Replication: Configuration]] guide for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in realtime replication. Please see the [[Riak Enterprise MDC Replication Configuration|Multi-Data-Center Replication: Configuration]] guide for more information.
 
 Field | Description
 ------|------------
