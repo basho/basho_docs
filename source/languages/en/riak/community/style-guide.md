@@ -410,7 +410,7 @@ documentation. Consistent use of these terms is critical to composing
 accurate documentation that inspires confidence.
 
 
-### Basho Product Specific Terminology
+### Basho Product-Specific Terminology
 
 #### Erlang
 
