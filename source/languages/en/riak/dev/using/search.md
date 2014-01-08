@@ -36,10 +36,14 @@ Riak Search 2.0 is an integration of Solr (for indexing and querying) and Riak (
 
 Riak Search must first be configured with a Solr *schema*, so Solr knows how to index value fields. If you don't define one, you're provided with a default schema named `_yz_default`. The examples in this document will presume the default. You can read more about creating a custom schema in [[Advanced Search Schema]], which you'll want to do in a production environment.
 
-Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we use `curl` to create an index named `famous` with the default schema.
+Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we'll `curl` create an index named `famous` with the default schema.
+
+*Note that all curl examples in this document require that you first set an environment variable named RIAK_HOST, which points to a Riak base url, such as `RIAK_HOST="http://localhost:8098"`.*
 
 ```curl
-curl -XPUT http://localhost:8098/search/index/famous
+export RIAK_HOST="http://localhost:8098"
+
+curl -XPUT "$RIAK_HOST/search/index/famous"
 ```
 ```ruby
 client.create_search_index("famous")
@@ -54,7 +58,7 @@ riakc_pb_socket:create_search_index(Pid, <<"famous">>)
 Note that the above command is exactly the same as the following, which explicitly defines the default schema.
 
 ```curl
-curl -XPUT http://localhost:8098/search/index/famous \
+curl -XPUT "$RIAK_HOST/search/index/famous" \
      -H'content-type:application/json' \
      -d'{"schema":"_yz_default"}'
 ```
@@ -72,7 +76,7 @@ The last setup item you need to perform is to *associate a bucket* (or bucket ty
 
 
 ```curl
-curl -XPUT http://localhost:8098/buckets/cats/props \
+curl -XPUT "$RIAK_HOST/buckets/cats/props" \
      -H'content-type:application/json' \
      -d'{"props":{"search_index":"famous"}}'
 ```
@@ -102,7 +106,7 @@ $ riak-admin bucket-type activate animals
 Then you can *associate the bucket* with an index as you did before, but this time requiring a bucket type as well as a bucket name (in this case, the type is *animals*).
 
 ```curl
-curl -XPUT 'http://localhost:8098/types/animals/buckets/cats/props' \
+curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/props" \
      -H'content-type:application/json' \
      -d'{"props":{"search_index":"famous"}}'
 ```
@@ -116,17 +120,21 @@ With a Solr schema, index, and association in place, we're ready to start using 
 Depending on the driver you use, you may have to specify the content type, which for this example is *application/json*. In the case of Ruby and Python the content type is automatically set for you based on the object given.
 
 ```curl
-curl -XPUT 'http://localhost:8098/buckets/cats/keys/liono' \
+curl -XPUT "$RIAK_HOST/buckets/cats/keys/liono" \
      -H'content-type:application/json' \
      -d'{"name_s":"Liono", "age_i":30, "leader_b":true}'
 
-curl -XPUT 'http://localhost:8098/buckets/cats/keys/cheetara' \
+curl -XPUT "$RIAK_HOST/buckets/cats/keys/cheetara" \
      -H'content-type:application/json' \
      -d'{"name_s":"Cheetara", "age_i":28, "leader_b":false}'
 
-curl -XPUT 'http://localhost:8098/buckets/cats/keys/snarf' \
+curl -XPUT "$RIAK_HOST/buckets/cats/keys/snarf" \
      -H'content-type:application/json' \
      -d'{"name_s":"Snarf", "age_i":43}'
+
+curl -XPUT "$RIAK_HOST/buckets/cats/keys/panthro" \
+     -H'content-type:application/json' \
+     -d'{"name_s":"Panthro", "age_i":36}'
 ```
 ```ruby
 bucket = client.bucket("cats")
@@ -142,6 +150,10 @@ cat.store
 cat = bucket.get_or_new("snarf")
 cat.data = {"name_s" => "Snarf", "age_i" => 43}
 cat.store
+
+cat = bucket.get_or_new("panthro")
+cat.data = {"name_s" => "Panthro", "age_i" => 36}
+cat.store
 ```
 ```python
 bucket = client.bucket('cats')
@@ -153,6 +165,9 @@ cat = bucket.new('cheetara', {'name_s':'Cheetara', 'age_i':28, 'leader_b': True}
 cat.store()
 
 cat = bucket.new('snarf', {'name_s':'Snarf', 'age_i':43})
+cat.store()
+
+cat = bucket.new('panthro', {'name_s':'Panthro', 'age_i':36})
 cat.store()
 ```
 ```erlang
@@ -170,6 +185,11 @@ C2 = riakc_obj:new(<<"cats">>, <<"snarf">>,
     <<"{\"name_s\":\"Snarf\", \"age_i\":43}">>,
     "application/json"),
 riakc_pb_socket:put(Pid, C2),
+
+C3 = riakc_obj:new(<<"cats">>, <<"panthro">>,
+    <<"{\"name_s\":\"Panthro\", \"age_i\":36}">>,
+    "application/json"),
+riakc_pb_socket:put(Pid, C3),
 ```
 
 If you've used Riak before, you may have noticed that this is no different than setting values without Riak Search. This is one of the design goals of Riak Search: you insert values like Riak, and you query like Solr. But how does Riak Search know how to index values, given that values are opaque in Riak? For that, we employ extractors.
@@ -229,7 +249,7 @@ After the schema, index, association, population/extraction/indexing has taken p
 The basic query parameter is `q` via HTTP, or the first parameter of your chosen driver's `search` function. All Distributed Solr queries are supported, which actually includes most of the single-node solr queries. This example is searching for all documents where the `name_s` value begins with *Lion* by means of a glob (wildcard) match.
 
 ```curl
-curl 'http://localhost:8098/search/famous?wt=json&q=name_s:Lion*' | jsonpp
+curl "$RIAK_HOST/search/famous?wt=json&q=name_s:Lion*" | jsonpp
 ```
 ```ruby
 results = client.search("famous", "name_s:Lion*")
@@ -277,7 +297,7 @@ The most important field returned is `docs`, which is the list of objects that e
 In this example the query fields are returned because they're stored in Solr. This depends on your schema. If they are not stored, you'll have to perform a seperate Riak GET operation to retrieve the value using the `_yz_rk` value.
 
 ```curl
-curl 'http://localhost:8098/buckets/cats/keys/liono'
+curl "$RIAK_HOST/buckets/cats/keys/liono"
 {"name_s":"Liono", "age_i":30, "leader_b":true}
 ```
 ```ruby
@@ -310,10 +330,10 @@ This was one simple glob query example. There are many query options, a more com
 
 Searches within a [range](http://wiki.apache.org/solr/SolrQuerySyntax#Differences_From_Lucene_Query_Parser) of numerical or date/[datemath](http://lucene.apache.org/solr/4_6_0/solr-core/org/apache/solr/util/DateMathParser.html) values.
 
-To find the ages of all famous cats who are younger than 30, you can find all: `age_i:[0 TO 30]`. If you wanted to find all famous older than 30, you could include a glob as a top end of the range: `age_i:[30 TO *]`.
+To find the ages of all famous cats who are 30 or younger: `age_i:[0 TO 30]`. If you wanted to find all cats 30 or older, you could include a glob as a top end of the range: `age_i:[30 TO *]`.
 
 ```curl
-curl 'http://localhost:8098/search/famous?wt=json&q=age_i:%5B30%20TO%20*%5D'
+curl "$RIAK_HOST/search/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 ```
 ```ruby
 client.search("famous", "age_i:[30 TO *]")
@@ -332,7 +352,7 @@ riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR` and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:%5B25%20TO%20*%5D`.
 
 ```curl
-curl 'http://localhost:8098/search/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D'
+curl "$RIAK_HOST/search/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
 ```
 ```ruby
 client.search("famous", "leader_b:true AND age_i:[30 TO *]")
@@ -344,23 +364,93 @@ bucket.search('leader_b:true AND age_i:[30 TO *]')
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
 ```
 
-#### Functions
+#### Paginating
 
-Cats age approximately 7 times faster than humans, so to calculate an age in "cat years", you can multiply the cat's age by 7 using the `product` function. It's but one of a slew [Solr Functions](http://wiki.apache.org/solr/FunctionQuery#Available_Functions).
+A common requirement you may face is paginating searches, where an ordered set of matching documents are returned in non-overlapping sequential subsets (in other words, *pages*). This is easy to do with the `start` and `rows` parameters, where `start` is the number of documents to skip over (the offset) and `rows` are the number of results to return in one go.
 
+For example, assuming we want two results per page, getting the second page is easy, where `start` is calculated as _rows per page * (page number - 1)_.
 
+```curl
+ROWS_PER_PAGE=2
+PAGE=2
+START=$(($ROWS_PER_PAGE * ($PAGE-1)))
+
+curl "$RIAK_HOST/search/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
+```
+```ruby
+ROWS_PER_PAGE=2
+page = 2
+start = ROWS_PER_PAGE * (page - 1)
+
+client.search("famous", "*:*", {:start => start, :rows => ROWS_PER_PAGE})
+```
+```python
+ROWS_PER_PAGE=2
+page = 2
+start = ROWS_PER_PAGE * (page - 1)
+
+bucket.search('*:*', start=start, rows=ROWS_PER_PAGE)
+```
+```erlang
+-define(ROWS_PER_PAGE, 2).
+
+Page = 2,
+Start = ?ROWS_PER_PAGE * (Page - 1),
+
+riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
+```
 
 
 ### MapReduce
 
-Like the legacy Riak Search, the current version allows for piping search results as inputs for MapReduce jobs. 
+Riak Search allows for piping search results as inputs for MapReduce jobs. This is a useful crossection for performing a post calculations of results, or aggregations of ad-hoc queries. The Riak Search MapReduce integration works similar to regular mapreduce, with the notable exception that your input is not a bucket, but index and query arguments to the `yokozuna` module and `mapred_search` function (an Erlang module:function pair that adds the Riak Search hook to MapReduce).
 
-<!-- You query fields that are recognizable by the extractor and the index schema.  -->
+```json
+{
+  "inputs":{
+    "module":"yokozuna",
+    "function":"mapred_search",
+    "arg":["famous","NOT leader_b:true"]
+  },
+  "query":[
+    {
+      "map":{
+        "language":"javascript",
+        "keep":false,
+        "source":"function(v) { return [1]; }"
+      }
+    },
+    {
+      "reduce":{
+        "language":"javascript",
+        "keep":true,
+        "name":"Riak.reduceSum"
+      }
+    }
+  ]
+}
+```
+
+In this example we're searching for all famous cats which are not leaders, and counting up the results using Javascript for both map and reduce. It should return the reduced sum of `[3]`.
+
+```curl
+curl -XPOST "$RIAK_HOST/mapred" \
+  -H'content-type:application/json' \
+  -d '{"inputs":{"module":"yokozuna","function":"mapred_search","arg":["famous","NOT leader_b:true"]},"query":[{"map":{"language":"javascript","keep":false,"source":"function(v) { return [1]; }"}},{"reduce":{"language":"javascript","keep":true,"name":"Riak.reduceSum"}}]}'
+```
 
 
+<!--
+#### Functions
 
+Cats age about 7 times faster than humans, so to calculate an age in "cat years", you can multiply the cat's age by 7 using the `product` function. It's only one out of many built-in [Solr Functions](http://wiki.apache.org/solr/FunctionQuery#Available_Functions).
 
-### Features
+```curl
+curl "$RIAK_HOST/search/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" | jsonpp
+```
+ -->
+
+## Feature List
 
 Riak Search 2.0 is more than a distributed search engine like [SolrCloud](http://wiki.apache.org/solr/SolrCloud) or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable integration with Riak. This greatly simplifies usage by offloading the task of indexing values to Riak.
 
@@ -369,7 +459,7 @@ Riak's features are numerous and well defined, while the search enhancements are
 * Support for various mime types (JSON, XML, plain text, datatypes) for automatic data extraction
 * Support for [various language](http://wiki.apache.org/solr/LanguageAnalysis) specific [analyzers, tokenizers, and filters](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters)
 * Robust, easy-to-use [query languages](http://wiki.apache.org/solr/QueryParser) like lucene (default) and dismax.
-* Queries: exact match, globs, inclusive/exclusive range queries, AND/OR/NOT, grouping, prefix matching, proximity searches, term boosting
+* Queries: exact match, globs, inclusive/exclusive range queries, AND/OR/NOT, prefix matching, proximity searches, term boosting, sorting, pagination
 * Protocol Buffer interface and Solr interface via HTTP
 * Scoring and ranking for most relevant results
 * Search queries as input for MapReduce jobs
