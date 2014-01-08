@@ -22,9 +22,7 @@ Riak Search 2.0 is a new open-source project integrated with Riak. It allows for
 
 Some of Riak's core strengths lie in its scalability, fault tolerance, and ease of operations. However, Riak models its data in key-value objects, and a KV store is something that few would claim is easy to query. This is the driving force behind Riak Search, to provide an integrated, scalable mechanism to build ad hoc queries against values stored in a Riak cluster, while holding true to Riak's core strengths.
 
-TODO: yokozuna image
-
-
+![Yokozuna](/images/yokozuna.png)
 
 ## Simple Setup
 
@@ -94,7 +92,7 @@ ok = riakc_pb_socket:set_search_index(Pid, <<"cats">>, <<"famous">>)
 
 With your schema, solr index, and association all set up, you're ready to start using Riak.
 
-### Search With Bucket Types
+### Bucket Types
 
 Since Riak 2.0, Basho suggests you use bucket types to namespace all buckets you create.Bucket types have a lower overhead within the cluster than the default bucket namespace, but it requires an additional setup step in on commandline.
 
@@ -112,6 +110,20 @@ curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/props" \
 ```
 
 Creating and using indexes is the same we've seen thusfar.
+
+### Security
+
+Security is a new feature of Riak that lets an administrator limit access to certain resources. In the case of search, your options are to limit administration of schemas or indexes (permission `search.admin`) to certain users, and to limit querying (permission `search.query`) to any index or a specific one. The example below shows the various options.
+
+```bash
+riak-admin security grant search.admin ON schema TO username
+riak-admin security grant search.admin ON index TO username
+riak-admin security grant search.query ON index TO username
+riak-admin security grant search.query ON index famous TO username
+```
+
+You can read more about Riak security.
+
 
 ## Indexing Values
 
@@ -454,7 +466,7 @@ curl "$RIAK_HOST/search/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" |
 
 Riak Search 2.0 is more than a distributed search engine like [SolrCloud](http://wiki.apache.org/solr/SolrCloud) or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable integration with Riak. This greatly simplifies usage by offloading the task of indexing values to Riak.
 
-Riak's features are numerous and well defined, while the search enhancements are also numerous.
+Riak Search's features and enhancements are numerous.
 
 * Support for various mime types (JSON, XML, plain text, datatypes) for automatic data extraction
 * Support for [various language](http://wiki.apache.org/solr/LanguageAnalysis) specific [analyzers, tokenizers, and filters](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters)
@@ -463,7 +475,7 @@ Riak's features are numerous and well defined, while the search enhancements are
 * Protocol Buffer interface and Solr interface via HTTP
 * Scoring and ranking for most relevant results
 * Search queries as input for MapReduce jobs
-
+* Active Anti Entropy for automatic index repair
 
 
 {{/2.0.0+}}
