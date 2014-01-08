@@ -23,16 +23,7 @@ Key/value stores like Riak generally have very little functionality beyond simpl
 
 The main goal of MapReduce is to spread the processing of a query across many systems to take advantage of parallel processing power. This is generally done by dividing the query into several steps, e.g. dividing the dataset into several chunks and then running those step/chunk pairs on separate physical hosts. Riak's MapReduce has an additional goal: increasing data locality. When processing a large dataset, it's often much more efficient to take the computation to the data than it is to bring the data to the computation.
 
-<<<<<<< HEAD
-The main goal of MapReduce is to spread the processing of a query across many systems to take advantage of parallel processing power. This is generally done by dividing the query into several steps, dividing the dataset into several chunks, and then running those step/chunk pairs on separate physical hosts. Riak's MapReduce has an additional goal: increasing data-locality. When processing a large dataset, it's often much more efficient to take the computation to the data than it is to bring the data to the computation.
-
-"Map" and "Reduce" are both phases in the query process. Map functions take one piece of data as input, and produce zero or more results as output. If you're familiar with "mapping over a list" in functional programming style, you're already familiar with "map" steps in a MapReduce query.
-
-
-<!-- MapReduce-Implementation.md -->
-=======
 "Map" and "Reduce" are phases in the query process. Map functions take one piece of data as input and produce zero or more results as output. If you're familiar with "mapping over a list" in functional programming style, you're already familiar with "map" steps in a MapReduce query.
->>>>>>> origin/master
 
 ## How Riak Spreads Processing
 
@@ -182,11 +173,7 @@ And we end up with the word counts for the three documents.
 
 #### Explanation
 
-<<<<<<< HEAD
-For more details about what each bit of syntax means, and other syntax options, read the following sections.  As a quick explanation of how this example MapReduce query worked, though:
-=======
 For more details about what each bit of syntax means and other syntax options, read the following sections. As a quick explanation of how this example MapReduce query worked:
->>>>>>> origin/master
 
 * The objects named `p1`, `p2`, and `p5` from the `alice` bucket were given as inputs to the query.
 * The map function from the phase was run on each object. The function:
@@ -231,15 +218,9 @@ looks at each JSON object in the input list. It steps through each key in each o
 
 ### HTTP Query Syntax
 
-<<<<<<< HEAD
-MapReduce queries are issued over HTTP via a *POST* to the `/mapred` resource.  The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`
-
-MapReduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document `{"inputs":[...inputs...],"query":[...query...],"timeout": 90000}`
-=======
-MapReduce queries are issued over HTTP via a *POST* to the `/mapred` resource. The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`
+MapReduce queries are issued over HTTP via a `POST` to the `/mapred` resource. The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`
 
 MapReduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document `{"inputs":[...inputs...],"query":[...query...],"timeout": 90000}`.
->>>>>>> origin/master
 
 When the timeout hits, the node coordinating the MapReduce request cancels it and returns an error to the client. When and if you are going to hit the default timeout depends on the size of the data involved and on the general load of your cluster. If you find yourself hitting the timeout regularly, consider increasing it even more or reduce the amount of data required to run the MapReduce request.
 
@@ -247,11 +228,7 @@ When the timeout hits, the node coordinating the MapReduce request cancels it an
 
 The list of input objects is given as a list of 2-element lists of the form `[Bucket,Key]` or 3-element lists of the form `[Bucket,Key,KeyData]`.
 
-<<<<<<< HEAD
-You may also pass just the name of a bucket `({"inputs":"mybucket",...})`, which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a MapReduce across the whole bucket").  You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly. A bucket input may also be combined with [[Key Filters|Using Key Filters]] to limit the number of objects processed by the first query phase.
-=======
 You may also pass just the name of a bucket `({"inputs":"mybucket",...})`, which is equivalent to passing all of the keys in that bucket as inputs (i.e. "a MapReduce across the whole bucket"). You should be aware that this triggers the somewhat expensive "list keys" operation, so you should use it sparingly. A bucket input may also be combined with [[Key Filters|Using Key Filters]] to limit the number of objects processed by the first query phase.
->>>>>>> origin/master
 
 If you're using Riak Search, the list of inputs can also [[reference a search query|Using Search#Querying-Integrated-with-Map-Reduce]] to be used as inputs.
 
