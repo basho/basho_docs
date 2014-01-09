@@ -10,11 +10,11 @@ Another tool used with this repository is the Ruby Version Manager (RVM). Get it
 
 ### Mac OS X 
 
-As with any Ruby project, XCode & the XCode CLI Tools are needed to install and run everything smoothly on OS X.
+As with any Ruby project, Xcode & the Xcode CLI Tools are needed to install and run everything smoothly on OS X.
 
-In XCode, go to **Preferences** > **Downloads** > **Command Line Tools**.
+You can install Xcode for free via App Store. Once installed, run `xcode-select --install` to get Xcode CLI Tools installed as well.
 
-If you don't have XCode, you can also download the [OS X GCC Installer](https://github.com/kennethreitz/osx-gcc-installer), which gives you the essential compilers needed to build the docs.
+If you don't want Xcode, you can also download the [OS X GCC Installer](https://github.com/kennethreitz/osx-gcc-installer), which gives you the essential compilers needed to build the docs.
 
 ## How to Contribute 
 
@@ -35,12 +35,12 @@ To make a change---be it as simple as a typo fix or as weighty as the creation o
 	Navigate to the `/basho_docs` directory and execute the following instructions. This should install Middleman and launch the Middleman API: 
 
 	```shell
-	$ gem install bundler
+	$ sudo gem install bundler
 	$ bundle install
 	$ bundle exec middleman
 	```
 
-	If you run into errors, [Middleman's install page](http://middlemanapp.com/getting-started/) is a good place to start.
+	If you run into errors, [Middleman's install page](http://middlemanapp.com/basics/getting-started/) is a good place to start.
 
 	Now point a browser at `[http://0.0.0.0:4567](http://0.0.0.0:4567)`. Here you'll find Middleman serving up static HTML on the fly (generated from Markdown source files).
 
