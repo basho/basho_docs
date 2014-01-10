@@ -78,3 +78,7 @@ configuration changes. In particular, after restarting a node, be sure that you 
 <p><tt>riak-admin wait-for-service riak_kv &lt;target_node&gt;</tt></p>
 <p>where &lt;target-node&gt; is the node name of the node based on the
 <tt>-name</tt> setting in <tt>vm.args</tt>.</p></div>
+
+## Stanchion Configuration
+
+Thoough there are no specific configuration for Stanchion, note that *Stanchion should be globally unique process* to which every Riak CS sends requests even if there are multiple replicated sites. This is because Stanchion manages updates on globally unique attributes.
