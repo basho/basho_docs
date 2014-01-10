@@ -327,6 +327,12 @@ The `riak.conf` file is used to set a wide variety of attributes for the node, f
 
 Below is a series of tables listing the configurable parameters in `riak.conf`.
 
+## Storage Backend
+
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`storage_backend` | Specifies the engine used for Riak's key/value data and secondary indexes (if supported). Note that the `yessir` option is for testing only.<br /><br />Possible values:<br /><ul><li>`bitcask`</li><li>`leveldb`</li><li>`memory`</li><li>`yessir`</li><li>`multi`</li></ul> | `bitcask` |
+
 ## Log Settings
 
 Parameter | Description | Default |
@@ -355,14 +361,14 @@ Parameter | Description | Default |
 `erlang.zdbbl` | For nodes with many `busy_dist_port` events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. The Erlang/OTP default is 1024 (1 MB). See the [Erlang docs](http://www.erlang.org/doc/man/erl.html#%2bzdbbl) for more. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `32MB` |
 `erlang.sfwi` | Erlang VM scheduler tuning. Prerequisite is a patched VM from Basho or a VM compiled separately with [this patch](https://gist.github.com/evanmcc/a599f4c6374338ed672e) applied. | `500` |
 
-## Ring and Cluster Settings
+## Node, Ring, and Cluster Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
+`nodename` | Name of the Riak node. | `dev1@127.0.0.1` |
 `ring_size` | Default ring creation size. Must be a power of 2, e.g. 16, 32, 64, 128, 256, 512, etc. | `64` |
 `handoff_concurrency` | Number of vnodes allowed to do handoff concurrently. | `2` |
 `ring.state_dir` | Default location of ringstate. | `./data/ring` |
-`nodename` | Name of the Riak node. | `dev1@127.0.0.1` |
 `distributed_cookie` | Cookie for distributed node communication. All nodes in the same cluster should use the same cookie or they will not be able to communicate. | `riak` |
 `handoff.port` | Specifies the TCP port that Riak uses for intra-cluster data handoff. | `10019` |
 
@@ -379,7 +385,7 @@ Parameter | Description | Default |
 
 ### SSL/TLS Versions
 
-Determine which SSL/TLS versions are allowed. By default, only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is *strongly* recommended that SSLv3 is not enabled unless absolutely necessary. More than one protocol can be enabled at once.
+Determines which SSL/TLS versions are allowed. By default, only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is *strongly* recommended that SSLv3 is not enabled unless absolutely necessary. More than one protocol can be enabled at once.
 
 Protocol | Default |
 :--------|:--------|
@@ -401,11 +407,11 @@ The default directory structure of a Riak node looks like this:
 
 ```
 root_dir
- |_ bin
- |_ data
- |_ etc
- |_ lib
- |_ log
+  |-- bin
+  |-- data
+  |-- etc
+  |-- lib
+  |-- log
 ```
 
 The `platform` settings allow you to specify custom locations for each of the above sub-directories (`bin`, `data`, etc.):
@@ -437,7 +443,6 @@ Parameter | Description | Default |
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `anti_entropy` | Enable active anti-entropy subsystem. Set to `on` or `off` to enable/disable or to `debug`. | `on` |
-`storage_backend` | Specifies the engine used for Riak's key/value data and secondary indexes (if supported). Note that the `yessir` option is for testing only. Possible values:<br /><ul><li>`bitcask`</li><li>`leveldb`</li><li>`memory`</li><li>`yessir`</li><li>`multi`</li></ul> | `bitcask` |
 `anti_entropy.`<br />&nbsp;&nbsp;`build_limit.number` | Restrict how quickly Active Anti-Entropy (AAE) can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. Formatted as `{num-builds, per-timespan}`. This `number` value specifies the number of times per time per time unite (i.e. `per_timespan`). | `1` |
 `anti_entropy.`<br />&nbsp;&nbsp;`build_limit.per_timespan` | The counterpart to `number`, directly above. The timespan within which hash trees are built a `number` of time. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1h` |
 `anti_entropy.expire` | Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is *not* needed for normal AAE operation and should be infrequent for performance reasons. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1w` for 1 week |
@@ -445,7 +450,7 @@ Parameter | Description | Default |
 `anti_entropy.tick` | Determines how often the AAE manager looks for work to do, e.g. building/expiring trees or triggering exchanges. Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing this value is *not* recommended. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `15s` |  |
 `anti_entropy.data_dir` | The directory in which AAE hash trees are stored. | `./data/anti_entropy` |
 
-## LevelDB Options
+## Anti-Entropy LevelDB Options
 
 The LevelDB options used by AAE to generate the LevelDB-backed on-disk hash trees.
 
@@ -472,13 +477,6 @@ Parameter | Description | Default |
 `javascript_vm.thread_stack` | The maximum amount of thread stack (in megabytes) allocated to the JavaScript VMs. **Note**: This is *note* the same thing as the C thread stack. | `16` |
 `javascript_vm.source_dir` | Specifies a directory containing JavaScript source files to be loaded by Riak when initializing JavaScript VMs. | `/tmp/js_source` |
 
-## Bitcask Settings
-
-Parameter | Description | Default |
-:---------|:------------|:--------|
-`bitcask.data_root` | Bitcask data root. | `./data/bitcask` |
-`bitcask.io_mode` | Configures how Bitcask writes data to disk. Available options:<br /><ul><li>`erlang`: Erlang's built-in [file API](http://www.erlang.org/doc/man/file.html)</li><li>`nif`: Direct calls to the POSIX C API. The NIF mode provides higher throughput for certain workloads but has the potential to negatively impact the Erlang VM, leading to higher worst-case latencies and possible throughput collapse.</li></ul> | `erlang` |
-
 ## Riak Control Settings
 
 Parameter | Description | Default |
@@ -486,6 +484,13 @@ Parameter | Description | Default |
 `riak_control` | Set to `off` to disable the admin panel. | `off` |
 `riak_control.auth` | Authentication style used for access to the admin panel. Valid styles are `off` and `userlist`. | `userlist` |
 `riak_control.user.user.password` | If `riak_control.auth` (directly above) is not set to `userlist`, then this is the list of usernames and passwords for access to the admin panel. | `pass` |
+
+## Bitcask Settings
+
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`bitcask.data_root` | Bitcask data root. | `./data/bitcask` |
+`bitcask.io_mode` | Configures how Bitcask writes data to disk. Available options:<br /><ul><li>`erlang`: Erlang's built-in [file API](http://www.erlang.org/doc/man/file.html)</li><li>`nif`: Direct calls to the POSIX C API. The NIF mode provides higher throughput for certain workloads but has the potential to negatively impact the Erlang VM, leading to higher worst-case latencies and possible throughput collapse.</li></ul> | `erlang` |
 
 ## LevelDB Settings
 
