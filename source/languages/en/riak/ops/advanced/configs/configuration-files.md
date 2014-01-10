@@ -303,12 +303,10 @@ Parameter | Description | Default |
 `-env` | Set host environment variables for Erlang. | |
 `-smp` | Enables Erlang's SMP support. | `enable` |
 `+zdbbl` | Configures the buffer size for outbound messages between nodes. This is commented out by default because the ideal value varies significantly depending on available system memory, typical object size, and amount of traffic to the database.<br /><br />Systems with lots of memory and under a heavy traffic load should consider increasing our default value; systems under lighter load but storing large objects may wish to lower it. [[Basho Bench]] is highly recommended to help determine the best values for this (and other tuning parameters) in your environment. | `1024` unless configured in `vm.args` --- `32768` is the commented-out value |
-`+P` | Defines the Erlang process limit. Under the versions of Erlang supported by Riak through 1.4.x, the limit is very low, and thus using
-this to raise the limit is very important.<br /><br />**Note**: For anyone concerned about configuring such a high value, be aware that Erlang processes are *not* the same as system processes. All of these processes will exist solely inside a single system process, the Erlang [BEAM](http://www.erlang-factory.com/upload/presentations/708/HitchhikersTouroftheBEAM.pdf). | `256000` |
+`+P` | Defines the Erlang process limit. Under the versions of Erlang supported by Riak through 1.4.x, the limit is very low, and thus using this to raise the limit is very important.<br /><br />**Note**: For anyone concerned about configuring such a high value, be aware that Erlang processes are *not* the same as system processes. All of these processes will exist solely inside a single system process, the Erlang [BEAM](http://www.erlang-factory.com/upload/presentations/708/HitchhikersTouroftheBEAM.pdf). | `256000` |
 `+sfwi` | If using an [appropriately patched Erlang VM](https://gist.github.com/evanmcc/a599f4c6374338ed672e) (such as one downloaded directly from Basho), this will control the interval (in milliseconds) at which a supervisor thread wakes to check run queues for work to be executed. | `500` |
-`+W` | Determines whether or not warning messages sent to Erlang's `error_logger` are treated as errors, warnings, or informational. | `w` for
-warnings |
-`-env ERL_LIBS` | Alternate method to add directories to the code path (see `-pa` above) | |
+`+W` | Determines whether or not warning messages sent to Erlang's `error_logger` are treated as errors, warnings, or informational. | `w` for warnings |
+`-env ERL_LIBS` | Alternative method for adding directories to the code path (see `-pa` above) | |
 `-env ERL_MAX_PORTS` | Maximum number of concurrent ports/sockets.<br ><br >**Note**: As with processes, Erlang ports and system ports are similar but distinct. | `64000` |
 `-env ERL_FULLSWEEP_AFTER` | Run garbage collection more often. | `0` |
 `-env ERL_CRASH_DUMP` | Set the location of crash dumps. | `./log/erl_crash.dump` |
