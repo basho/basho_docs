@@ -14,6 +14,8 @@ As of version 2.0, Riak administrators can manage access to a wide variety of Ri
 
 ## Security Basics
 
+This section covers enabling/disabling security and checking for current security status.
+
 ### Enabling Security
 
 Riak Security is disabled by default. To enable it, simply run the `security enable` command:
@@ -22,7 +24,7 @@ Riak Security is disabled by default. To enable it, simply run the `security ena
 riak-admin security enable
 ```
 
-If security is enabled, the console should simply return `Enabled`.
+If security is successfully enabled, the console will return no response.
 
 Please note that most security-related commands can be run while security is disabled, including the following:
 
@@ -42,7 +44,7 @@ Disabling security only disables the various permission checks that take place w
 riak-admin security disable
 ```
 
-If disabling security is successful, there should be no response in the terminal.
+If security is successfully disabled, the console will return no response.
 
 ### Checking Security Status
 
@@ -128,7 +130,21 @@ riak-admin security alter-user riakuser name=bill age=47 fav_color=red
 
 ### Deleting a User
 
-If you'd like to remove a user from the current user list, 
+If you'd like to remove a user, e.g. `riakuser`, from the current user list, simply use the `del-user` command:
+
+```
+riak-admin security del-user riakuser
+```
+
+### Deleting Multiple Users
+
+The `riak-admin security` command does not currently allow you to delete multiple users using a single command. One way of deleting multiple users is of course to run the `del-user` command once for each user you're deleting. Another way is to use a simple `for` loop in your shell:
+
+```bash
+for username in larry moe curly; do
+riak-admin security del-user $username
+done
+```
 
 ## Source Management
 
@@ -193,20 +209,6 @@ host.
 If a user connects from `127.0.0.1` they will be trusted, because that
 source is more specific than the `0.0.0.0/0 - password` source.
 
-### Delete user
-
-```
-riak-admin security del-user riakuser
-```
-
-Since we only had one registered user, 
-
-riak-admin security print-users
-+----------+---------------+----------------------------------------+------------------------------+
-| username |     roles     |                password                |           options            |
-+----------+---------------+----------------------------------------+------------------------------+
-```
-
 ### Delete source
 
 ```
@@ -245,6 +247,37 @@ Permissions that can be granted for basic key/value access functionality:
 `search.admin`
 `search.query`
 ```
+
+## Testing Your Security Setup
+
+A good way of ensuring that your security settings have been properly set up is to create a user with a password and specific permissions and then attempt to perform a range of actions as that user.
+
+First, let's create a user, `riakuser`, and assign them the password `rosebud`:
+
+```bash
+riak-admin security add-user riakuser password=rosebud
+```
+
+Now, let's enable that user to make `GET` requests to the bucket `tweets`:
+
+```bash
+riak-admin security grant riak_kv.get ON ANY tweets TO riakuser
+```
+
+The `ANY` in this command simply designates that we have not granted any permissions to `riakuser` on the basis of bucket _type_. For more on granting/revoking permissions on the basis of type, see the [[permissions for bucket types|Riak Security#Permissions-for-Bucket-Types]] section above.
+
+If we run the `print-user` command for `riakuser`, we should see the following under `Applied Permissions`:
+
+```bash
++----------+----------+----------------------------------------+
+|   type   |  bucket  |                 grants                 |
++----------+----------+----------------------------------------+
+|   ANY    |  tweets  |              riak_kv.get               |
++----------+----------+----------------------------------------+
+```
+
+
+
 
 ## Misc
 
