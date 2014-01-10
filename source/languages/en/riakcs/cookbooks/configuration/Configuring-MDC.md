@@ -81,4 +81,4 @@ configuration changes. In particular, after restarting a node, be sure that you 
 
 ## Stanchion Configuration
 
-Thoough there are no specific configuration for Stanchion, note that *Stanchion should be globally unique process* to which every Riak CS sends requests even if there are multiple replicated sites. This is because Stanchion manages updates on globally unique attributes.
+Though there are no specific configuration for Stanchion, note that *Stanchion should be globally unique process* to which every Riak CS sends requests even if there are multiple replicated sites. This is because Stanchion manages updates on globally unique attributes.
