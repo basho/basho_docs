@@ -115,6 +115,7 @@ riak:
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
+          - "[[Security|Riak Security]]"
           - "[[Statistics and Monitoring]]"
           - title: "Node Operations"
             sub:
