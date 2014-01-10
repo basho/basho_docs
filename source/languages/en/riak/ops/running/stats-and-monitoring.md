@@ -90,8 +90,8 @@ Metric                        | Description   |
 `read_repairs_total`          | Number of Read Repairs this node has coordinated since startup                                        |
 `sys_process_count`           | Number of Erlang processes                                                                            |
 `coord_redirs_total`          | Number of requests this node has redirected to other nodes for coordination since startup             |
-`pbc_connect`                 | Number of new protocol buffer connections established during the last minute                                              |
-`pbc_active`                  | Number of currently active protocol buffer connections                                                          |
+`pbc_connect`                 | Number of new Protocol Buffers connections established during the last minute                                              |
+`pbc_active`                  | Number of currently active Protocol Buffers connections                                                          |
 
 
 ## Systems Metrics To Graph
