@@ -16,7 +16,7 @@ The `app.config` file is used to set various attributes for the Riak node, such 
 
 Riak and the Erlang applications it depends on are configured by settings in the `app.config` file, which looks something like this:
 
-```erlang
+```appconfig
 [
     {riak_core, [
         {ring_state_dir, "data/ring"}
@@ -73,7 +73,7 @@ Parameter | Description | Default |
 
 These properties are for buckets that have not been explicitly defined. Imagine a scenario, for example, in which you create two buckets with explicitly defined properties but you know that you'll end up using other buckets beyond the initial two. If you'd like to define the properties of *those* additional buckets, you would set properties using the `default_bucket_props` parameter, which is constructed as a list of Erlang tuples along the lines of `[{prop1,value},{prop2,value}]`. Here's an example:
 
-```erlang
+```appconfig
 {default_bucket_props, [
     {n_val,3},
     {allow_mult,false},
@@ -165,7 +165,7 @@ Parameter | Description | Default |
 
 Here is an example:
 
-```erlang
+```appconfig
 {webmachine, [{webmachine_logger_module, webmachine_logger}]}
 ```
 
@@ -178,7 +178,7 @@ Parameter | Description | Default |
 
 Here is an example `riak_search` configuration:
 
-```erlang
+```appconfig
 %% Riak Search Config
 {riak_search, [
     %% To enable Search functionality set this 'true'.
@@ -210,7 +210,7 @@ Parameter | Description | Default |
 
 Below are the default lager options:
 
-```erlang
+```appconfig
 {lager, [
     {handlers, [
         {lager_console_backend, info},
@@ -237,7 +237,7 @@ The `async_threshold_window` setting determinse how far below the `async_thresho
 
 Prior to lager 2.0, the `gen_event` at the core of lager operated solely in synchronous mode. Asynchronous mode is faster but has no protection against message queue overload. In lager 2.0, the `gen_event` takes a hybrid approach. It polls its own mailbox size and toggles the messaging between synchronous and asynchronous depending on mailbox size. Below is an example configuration:
 
-```erlang
+```appconfig
 {async_threshold, 20},
 {async_threshold_window, 5}
 ```
@@ -248,7 +248,7 @@ This will use async messaging until the mailbox exceeds 20 messages, at which po
 
 Below are the default colors for console messages (using ANSI escape sequences):
 
-```erlang
+```appconfig
 {colors, [
 	{debug,     "\e[0;38m" },
 	{info,      "\e[1;37m" },
