@@ -12,7 +12,7 @@ Another tool used with this repository is the Ruby Version Manager (RVM). Get it
 
 As with any Ruby project, Xcode & the Xcode CLI Tools are needed to install and run everything smoothly on OS X.
 
-You can install Xcode for free via App Store. Once installed, run `xcode-select --install` to get Xcode CLI Tools installed as well.
+You can install Xcode for free via the App Store. Once installed, run `xcode-select --install` to get the Xcode CLI Tools installed as well.
 
 If you don't want Xcode, you can also download the [OS X GCC Installer](https://github.com/kennethreitz/osx-gcc-installer), which gives you the essential compilers needed to build the docs.
 
