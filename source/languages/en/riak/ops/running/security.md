@@ -8,9 +8,9 @@ audience: intermediate
 keywords: [operator, security]
 ---
 
-As of version 2.0, Riak administrators can manage access to a wide variety of Riak's functionality, including accessing, modifying, and deleting objects, changing bucket properties, and running MapReduce jobs. Riak Security enables you to create, modify, and delete users, assign users roles, passwords, and other characteristics, designate security sources, and more.
+As of version 2.0, Riak administrators can selectively apportion access to a wide variety of Riak's functionality, including accessing, modifying, and deleting objects, changing bucket properties, and running MapReduce jobs. Riak security enables you to create, modify, and delete users, assign to users roles, passwords, and other characteristics, designate security sources, and more.
 
-**Note**: Currently, Riak Security commands can be run only through the command line. In future versions of Riak, administrators will have the option of issuing those commands through the Protocol Buffers and HTTP interfaces.
+**Note**: Currently, Riak security commands can be run only through the command line using the `riak-admin security` command. In future versions of Riak, administrators will have the option of issuing those commands through the Protocol Buffers and HTTP interfaces.
 
 ## Security Basics
 
@@ -18,7 +18,7 @@ This section covers enabling/disabling security and checking for current securit
 
 ### Enabling Security
 
-Riak Security is disabled by default. To enable it, simply run the `security enable` command:
+Riak security is disabled by default. To enable it at any time, simply run the `security enable` command:
 
 ```bash
 riak-admin security enable
@@ -28,15 +28,15 @@ If security is successfully enabled, the console will return no response.
 
 Please note that most security-related commands can be run while security is disabled, including the following:
 
-* User management --- Creating/deleting users and modifying user characteristics (more on that in the [[Modifying User Characteristics|Riak Security#Modifying-User-Characteristics]] section below)
-* Permissions management --- Granting and revoking specific permissions vis-à-vis specific users
-* Security source management --- Adding and deleting security sources
+* [[User management|Riak Security#Modifying-User-Characteristics]] --- Creating/deleting users and modifying user characteristics (more on that in the  section below)
+* [[Permissions management|Riak Security#Permissions-Management]] --- Granting and revoking specific permissions vis-à-vis specific users
+* [[Security source management|Riak Security#Security-Source-Management]] --- Adding and deleting security sources
 
 This enables you to create security configurations of any level of complexity and turn those configurations on and off all at once if you wish.
 
 If enabling security is successful, there should be no response in the terminal.
 
-### Disabling security
+### Disabling Security
 
 Disabling security only disables the various permission checks that take place when executing operations against Riak. Users, roles, and other security attributes remain untouched.
 
@@ -58,11 +58,13 @@ This command will return a simple `Enabled` or `Disabled`.
 
 ## User Management
 
-Riak Security enables you to create new users and to modify or delete existing users. Currently, users can bear one or more of the following characteristics:
+Riak security enables you to create new users and to modify or delete existing users. Currently, users can be assigned bear one or more of the following characteristics:
 
 * `username`
 * `roles`
 * `password`
+
+You may also assign users characteristics beyond those listed above---e.g. listing email addresses or other information---but those values will bear no significance to Riak itself.    
 
 ### Retrieve a Current User List
 
@@ -84,15 +86,27 @@ If there is only one currently existing user, `riakuser`, who has been assigned 
 
 **Note**: All passwords are displayed in encrypted form in console output.
 
-If the user `riakuser` were assigned a role alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
+If the user `riakuser` were assigned a [[role|Riak Security#Role-Management]] alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
 
 ```bash
-+----------+-------+----------------------+---------------------+
-| username | roles |       password       |       options       |
-+----------+-------+----------------------+---------------------+
-| riakuser |       |983e8ae1421574b8733824| [{"name","lucius"}] |
-+----------+-------+----------------------+---------------------+
++----------+--------------+----------------------+---------------------+
+| username |    roles     |       password       |       options       |
++----------+--------------+----------------------+---------------------+
+| riakuser |other_riakuser|983e8ae1421574b8733824| [{"name","lucius"}] |
++----------+--------------+----------------------+---------------------+
 ```
+
+If you'd like to see which permissions have been assigned to `riakuser`, you would need to use the `print-user` command, detailed [[below|Riak Security#Retrieving-Information-About-A-Single-User]].
+
+If you'd like to preserve a record of your current list, you can simply pipe the output of `print-users` to a file or process, e.g. to a `user_list.txt` file:
+
+```bash
+riak-admin security print-users > user_list.txt
+```
+
+### Retrieving Information About a Single User
+
+You can retrieve all information about a specific user using the `print-user` command, which takes the form of `print-user`
 
 ### Add User
 
@@ -104,7 +118,9 @@ To create a user with the username `riakuser`, we simply use the `add-user` comm
 riak-admin security add-user riakuser
 ```
 
-Using the command this way will create the user `riakuser` without _any_ characteristics beyond a username. Alternatively, a password---or other characteristics---can be assigned to the user upon creation:
+Using the command this way will create the user `riakuser` without _any_ characteristics beyond a username, which is the only attribute that you must assign upon user creation.
+
+Alternatively, a password---or other attributes---can be assigned to the user upon creation:
 
 ```bash
 riak-admin security add-user riakuser password=Test1234
@@ -112,7 +128,7 @@ riak-admin security add-user riakuser password=Test1234
 
 ### Assign a Password and Altering Existing User Characteristics
 
-While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user already exists. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modifying our `riakuser` user:
+While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user already exists. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modify our `riakuser` user:
 
 ```bash
 riak-admin security alter-user riakuser password=opensesame
@@ -136,9 +152,13 @@ If you'd like to remove a user, e.g. `riakuser`, from the current user list, sim
 riak-admin security del-user riakuser
 ```
 
+<div class="note"><div class="title">Note</div>
+The <tt>del-user</tt> command is used to delete both users <em>and roles</em> (because users and roles are the same thing). This means that if you have several users assigned the role <tt>superuser</tt>, running the <tt>del-user superuser</tt> command will remove the role <tt>superuser</tt> from all users currently assigned to that role. This command should thus be used with care.
+</div>
+
 ### Deleting Multiple Users
 
-The `riak-admin security` command does not currently allow you to delete multiple users using a single command. One way of deleting multiple users is of course to run the `del-user` command once for each user you're deleting. Another way is to use a simple `for` loop in your shell:
+The `riak-admin security` command does not currently allow you to delete multiple users using a single command. One way of deleting multiple users, however, is to run the `del-user` command once for each user you're deleting. Another way is to use a simple `for` loop in your shell:
 
 ```bash
 for username in larry moe curly; do
@@ -150,7 +170,7 @@ done
 
 ### Add source
 
-A user will not have access to resources simply because they have been created via `add-user`. You must add a source as well as grants to provide access to Riak securables, e.g. the ability to make `GET` and `PUT` requests. Sources may apply to all users or to a specific user or role.
+A user will not have access to resources simply because they have been created via `add-user`. You must add a security **source** as well as grants to users to provide access to Riak securables, e.g. the ability to make `GET` and `PUT` requests. Sources may apply to all users or to a specific user or role.
 
 Available sources:
 
@@ -158,7 +178,7 @@ Source   | Description |
 :--------|:------------|
 `trust` | Always authenticates successfully |
 `password` | Check the user's password against the one stored in Riak |
-`pam` | Authenticate against the given PAM service |
+`pam`  | Authenticate against the given PAM service |
 `certificate` | Authenticate using a client certificate |
 
 ### Adding a trusted source
@@ -190,14 +210,18 @@ securables when requests come from `localhost`:
 +--------------------+------------+----------+----------+
 ```
 
-#### Adding a "default" source
+#### Adding a `default` Source
 
 The following source requires a password for users connecting from any
 host.
 
+```bash
+riak-admin security add-source all 0.0.0.0/0 password
 ```
-# riak-admin security add-source all 0.0.0.0/0 password
-# riak-admin security print-sources
+
+The response from `riak-admin security print-sources`:
+
+```bash
 +--------------------+------------+----------+----------+
 |       users        |    cidr    |  source  | options  |
 +--------------------+------------+----------+----------+
@@ -206,8 +230,7 @@ host.
 +--------------------+------------+----------+----------+
 ```
 
-If a user connects from `127.0.0.1` they will be trusted, because that
-source is more specific than the `0.0.0.0/0 - password` source.
+If a user connects from `127.0.0.1` they will be trusted, because that source is more specific than the `0.0.0.0/0 password` source.
 
 ### Delete source
 
@@ -225,6 +248,19 @@ source is more specific than the `0.0.0.0/0 - password` source.
 
 Permission to perform a wide variety of operations against Riak can be granted to---or revoked from---users via the `grant` and `revoke` commands.
 
+The `grant` and `revoke` commands are of the following forms, respectively:
+
+```bash
+riak-admin security grant <permissions> ON ANY|<type> [bucket] TO <users>
+riak-admin security revoke <permissions> ON ANY|<type> [bucket] FROM <users>
+```
+
+You can grant/revoke multiple permissions by separating permissions with a comma (with no spaces). You can also manage permissions with respect to several users---or roles---at a time. Here is an example of granting multiple permissions to multiple users:
+
+```bash
+riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
+```
+
 Permissions that can be granted for basic key/value access functionality:
 
 * `riak_kv.get` --- retrieve an object
@@ -234,6 +270,7 @@ Permissions that can be granted for basic key/value access functionality:
 * `riak_kv.list_keys` - list keys in bucket
 * `riak_kv.list_buckets` - list buckets
 
+MapReduce
 
 * `riak_kv.mapreduce`
 
@@ -246,7 +283,6 @@ Permissions that can be granted for basic key/value access functionality:
 
 `search.admin`
 `search.query`
-```
 
 ## Testing Your Security Setup
 
@@ -276,15 +312,33 @@ If we run the `print-user` command for `riakuser`, we should see the following u
 +----------+----------+----------------------------------------+
 ```
 
+## Managing Roles
 
+Riak security understands security roles slightly differently from other database systems because roles and users _are essentially the same thing_. If you want to create a role like `admin`, for example, then you would create an `admin` _user_ and then.
 
+### Assigning a Role to a User
 
-## Misc
+```bash
+riak-admin security alter-user riakuser roles=admin
+```
 
-Snapshot of your current user list:
-`riak-admin security print-users > users.txt`
+### Assigning a Role to Multiple Users
 
-Snapshot of your current sources:
+```bash
+for user in larry moe curly; do
+riak-admin security alter-user $user roles=superuser
+done
+```
+
+### Removing Roles From a User
+
+```bash
+riak-admin security alter-user riakuser roles=
+```
+
+## Scratchpad
+
+Snapshot of your current user list/sources:
 `riak-admin security print-sources > sources.txt`
 
 <!---
