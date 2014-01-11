@@ -19,6 +19,7 @@ If you don't have XCode, you can also download the [OS X GCC Installer](https://
 ## How to Contribute 
 
 You can treat the `basho_docs` repo much like you would any other code repo.  You can contribute in two ways:
+
 1. Submit a new [issue](https://github.com/basho/basho_docs/issues)
 2. (**bonus points**) Make a change and submit a pull request.
 
