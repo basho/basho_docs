@@ -106,7 +106,9 @@ riak-admin security print-users > user_list.txt
 
 ### Retrieving Information About a Single User
 
-You can retrieve all information about a specific user using the `print-user` command, which takes the form of `print-user`
+You can retrieve all information about a specific user using the
+`print-user` command, which takes the form of
+`riak-admin security print-user username`
 
 ### Add User
 
@@ -270,16 +272,22 @@ Permissions that can be granted for basic key/value access functionality:
 * `riak_kv.list_keys` - list keys in bucket
 * `riak_kv.list_buckets` - list buckets
 
-MapReduce
+MapReduce permission:
 
 * `riak_kv.mapreduce`
+
+Bucket type permissions:
 
 * `riak_core.get_bucket`
 * `riak_core.set_bucket`
 * `riak_core.get_bucket_type`
 * `riak_core.set_bucket_type`
 
+V1 Riak search query permission:
+
 * `riak_search.query`
+
+V2 Riak Search (Yokozuna) permissions:
 
 `search.admin`
 `search.query`
