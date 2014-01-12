@@ -173,7 +173,7 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[knockbox|https://github.com/reiddraper/knockbox]] - An eventual-consistency toolbox for Clojure
 * [[Welle|http://clojureriak.info]] - An expressive Clojure client with batteries included
 * [[clj-riak|http://github.com/mmcgrana/clj-riak]] - Clojure bindings to the Riak Protocol Buffers API
-* [[sumo|https://github.com/reiddraper/sumo]] - A Protocol Buffer specific client for Riak with K/V, 2i, and MapReduce support
+* [[sumo|https://github.com/reiddraper/sumo]] - A Protocol Buffer specific client for Riak with KV, 2i, and MapReduce support
 
 *ColdFusion*
 

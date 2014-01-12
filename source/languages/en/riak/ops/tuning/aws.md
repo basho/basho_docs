@@ -162,10 +162,10 @@ types, and strongly recommended. More information is available on
 benchmarking Riak clusters with [[Basho Bench]].
 
 Besides running basho bench it is also advisable to load test Riak with your
-own tests to ensure that load imparted by M/R queries, linking, link-walking,
- full-text queries, index queries are within the expected range.
+own tests to ensure that load imparted by MapReduce queries, linking, link-walking, full-text queries, and index queries are within the expected range.
 
 ## Simulating Upgrades, Scaling, and Failure states
+
 In addition to simply measuring performance, it is also important to
 measure how performance degrades when the cluster is not in
 steady-state. While under a simulation of live load, the following

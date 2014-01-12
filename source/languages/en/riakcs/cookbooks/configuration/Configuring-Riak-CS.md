@@ -56,7 +56,7 @@ The public address settings reside in the Riak CS `app.config` file, which is lo
 
 * `riak_ip` --- Replace `127.0.0.1` with the IP address of the Riak node you want Riak CS to connect to
 
-If you configured Riak to use a different port for protocol buffers, you must change the following port setting:
+If you configured Riak to use a different port for Protocol Buffers, you must change the following port setting:
 
 * `riak_pb_port` --- Replace `8087` with the port number set in the variable `pb_port` in the Riak `app.config` file
 

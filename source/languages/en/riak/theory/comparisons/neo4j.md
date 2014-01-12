@@ -61,7 +61,7 @@ Neo4j's approach prevents conflicts from happening in the first place. The trade
 
 ## Querying
 
-Riak allows you to access your data using a simple key/value model. In addition, Riak supports links and Javascript-based Map/Reduce:
+Riak allows you to access your data using a simple key/value model. In addition, Riak supports links and Javascript-based MapReduce:
 
 With links, you create lightweight pointers between your data, for example, from 'projects' to 'milestones' to 'tasks', and then select data along that hierarchy using simple client API commands. (In a pinch, this can substitute as a lightweight graph database, as long as the number of links is kept reasonably low; think dozens, not thousands.)
 
