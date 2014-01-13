@@ -106,9 +106,28 @@ riak-admin security print-users > user_list.txt
 
 ### Retrieving Information About a Single User
 
-You can retrieve all information about a specific user using the
-`print-user` command, which takes the form of
-`riak-admin security print-user username`
+You can retrieve all information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
+
+The output will look like this if the user `riakuser` has been explicitly granted a `riak_kv.get` permission on the bucket `shopping_list`:
+
+```bash
+Inherited permissions
+
++--------+----------+----------+----------------------------------------+
+|  role  |   type   |  bucket  |                 grants                 |
++--------+----------+----------+----------------------------------------+
+| admin  |    *     |    *     |      riak_kv.get, riak_kv.delete,      |
+|        |          |          |              riak_kv.put               |
++--------+----------+----------+----------------------------------------+
+
+Applied permissions
+
++----------+-------------+----------------------------------------+
+|   type   |   bucket    |                 grants                 |
++----------+-------------+----------------------------------------+
+|   ANY    |shopping_list|              riak_kv.get               |
++----------+-------------+----------------------------------------+
+```
 
 ### Add User
 
@@ -155,16 +174,17 @@ riak-admin security del-user riakuser
 ```
 
 <div class="note"><div class="title">Note</div>
-The <tt>del-user</tt> command is used to delete both users <em>and roles</em> (because users and roles are the same thing). This means that if you have several users assigned the role <tt>superuser</tt>, running the <tt>del-user superuser</tt> command will remove the role <tt>superuser</tt> from all users currently assigned to that role. This command should thus be used with care.
+The <tt>del-user</tt> command is used to delete both users <em>and roles</em> (because users and roles are ultimately the same thing). This means that if you have several users assigned the role <tt>superuser</tt>, running the <tt>del-user superuser</tt> command will remove the role <tt>superuser</tt> from all users currently assigned to that role. This command should thus be used with care.
 </div>
 
 ### Deleting Multiple Users
 
-The `riak-admin security` command does not currently allow you to delete multiple users using a single command. One way of deleting multiple users, however, is to run the `del-user` command once for each user you're deleting. Another way is to use a simple `for` loop in your shell:
+The `riak-admin security` command does not currently allow you to delete multiple users using a single command. One way of deleting multiple users, however, is to run the `del-user` command once for each user you're deleting. Another way is to use a simple `for` loop in your shell (or in a shell script):
 
 ```bash
-for username in larry moe curly; do
-riak-admin security del-user $username
+for username in larry moe curly
+do
+  riak-admin security del-user $username
 done
 ```
 
@@ -197,14 +217,19 @@ In general, the `add-source` command takes the following form:
 riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...]]
 ```
 
-The `all|<users>` designates that sources can be added to all users, a specific user, or a grouping of users, separated by commas, e.g. `add-source jane,bill,terry,chris`. The `<CIDR>` 
+The `all|<users>` designates that sources can be added to all users, a specific user, or a grouping of users, separated by commas, e.g. `add-source jane,bill,terry,chris`.
 
-The following creates a source giving all users trusted access to
-securables when requests come from `localhost`:
+<!-- section on CIDRs -->
 
+The following creates a source giving all users trusted access to securables when requests come from `localhost`:
+
+```bash
+riak-admin security add-source all 127.0.0.1/32 trust
 ```
-# riak-admin security add-source all 127.0.0.1/32 trust
-# riak-admin security print-sources
+
+The response from `riak-admin security print-sources`:
+
+```bash
 +--------------------+------------+----------+----------+
 |       users        |    cidr    |  source  | options  |
 +--------------------+------------+----------+----------+
@@ -215,7 +240,7 @@ securables when requests come from `localhost`:
 #### Adding a `default` Source
 
 The following source requires a password for users connecting from any
-host.
+host:
 
 ```bash
 riak-admin security add-source all 0.0.0.0/0 password
@@ -232,7 +257,7 @@ The response from `riak-admin security print-sources`:
 +--------------------+------------+----------+----------+
 ```
 
-If a user connects from `127.0.0.1` they will be trusted, because that source is more specific than the `0.0.0.0/0 password` source.
+If a user connects from `127.0.0.1`, they will be trusted because that source is more specific than---and thus covered by---the `0.0.0.0/0 password` source.
 
 ### Delete source
 
@@ -250,7 +275,9 @@ If a user connects from `127.0.0.1` they will be trusted, because that source is
 
 Permission to perform a wide variety of operations against Riak can be granted to---or revoked from---users via the `grant` and `revoke` commands.
 
-The `grant` and `revoke` commands are of the following forms, respectively:
+### Basic Form
+
+The `grant` and `revoke` commands take the following forms, respectively:
 
 ```bash
 riak-admin security grant <permissions> ON ANY|<type> [bucket] TO <users>
@@ -263,34 +290,60 @@ You can grant/revoke multiple permissions by separating permissions with a comma
 riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
 ```
 
+### Key/Value Permissions
+
 Permissions that can be granted for basic key/value access functionality:
 
-* `riak_kv.get` --- retrieve an object
-* `riak_kv.put` --- save or update object
-* `riak_kv.delete` --- delete object
-* `riak_kv.index` --- index an object using secondary indexes (2i)
-* `riak_kv.list_keys` - list keys in bucket
-* `riak_kv.list_buckets` - list buckets
+Permission | Operation |
+:----------|:----------|
+`riak_kv.get` | Retrieve objects
+`riak_kv.put` | Create or update objects
+`riak_kv.delete` | Delete objects
+`riak_kv.index` | Index objects using secondary indexes (2i)
+`riak_kv.list_keys` | List keys in bucket
+`riak_kv.list_buckets` | List buckets
 
-MapReduce permission:
+<div class="note"><div class="title">Note</div>
+`riak_kv.list_keys` and `riak_kv.list_buckets` are both very expensive operations that should be performed very rarely and never in production.
+</div>
 
-* `riak_kv.mapreduce`
+If you'd like to create, for example, a `client` role that is allowed only to run `GET` and `PUT` requests on all buckets:
 
-Bucket type permissions:
+```bash
+riak-admin security add-user client
+riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
+```
 
-* `riak_core.get_bucket`
-* `riak_core.set_bucket`
-* `riak_core.get_bucket_type`
-* `riak_core.set_bucket_type`
+### MapReduce Permission
 
-V1 Riak search query permission:
+Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
 
-* `riak_search.query`
+```bash
+riak-admin security grant riak_kv.mapreduce ON ANY TO mapreduce-power-user
+```
 
-V2 Riak Search (Yokozuna) permissions:
+### Bucket Type Permissions
 
-`search.admin`
-`search.query`
+In versions 2.0 and later, Riak users can manage 
+`riak-admin security` allows you to manage the following bucket type-related permissions:
+
+Permission | Operation |
+:----------|:----------|
+`riak_core.get_bucket` |  |
+* `riak_core.set_bucket` |  |
+* `riak_core.get_bucket_type` | Retrieve a bucket's properties (i.e. `props`) |
+* `riak_core.set_bucket_type` | Set a bucket's properties (i.e. `props`) |
+
+### Search Query Permission (Riak Search v1)
+
+`riak_search.query`
+
+### Search Query Permissions (Riak Search v2, aka Yokozuna)
+
+Permission | Operation |
+:----------|:----------|
+`search.admin` |  |
+`search.query` |  |
 
 ## Testing Your Security Setup
 
@@ -318,6 +371,18 @@ If we run the `print-user` command for `riakuser`, we should see the following u
 +----------+----------+----------------------------------------+
 |   ANY    |  tweets  |              riak_kv.get               |
 +----------+----------+----------------------------------------+
+```
+
+Now, let's run a test `GET` request through the HTTP interface against the bucket `tweets` using `riakuser`'s username and password:
+
+```curl
+curl -i -k -u riakuser:rosebud http://localhost:8098/buckets/tweets/tweet1
+```
+
+Assuming there is no value stored for the key `tweet1`, the result of the request will be:
+
+```bash
+
 ```
 
 ## Managing Roles
