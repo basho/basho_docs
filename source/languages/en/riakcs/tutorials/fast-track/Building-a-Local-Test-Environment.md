@@ -83,7 +83,7 @@ tar -xvf <riak-cs-os-x.tar.gz>
 cd <riak-cs-os-x>
 ```
 
-Replace `<riak-cs-os-x.tar.gz>` with the actual file name for the package you are installing.
+Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are installing.
 
 For RedHat Enterprise distributions (and similar):
 
@@ -91,7 +91,7 @@ For RedHat Enterprise distributions (and similar):
 rpm -Uvh <riak-cs-package.rpm>
 ```
 
-Replace `<riak-cs-package.rpm>` with the actual file name for the package you are installing.
+Replace `<riak-cs-package.rpm>` with the actual filename for the package you are installing.
 
 Ubuntu distributions and similar:
 
@@ -99,7 +99,7 @@ Ubuntu distributions and similar:
 sudo dpkg -i <riak-cs-package.deb>
 ```
 
-Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
+Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
 #### Finally, install Stanchion
 
@@ -111,7 +111,7 @@ tar -xvf <stanchion-os-x.tar.gz>
 cd <stanchion-os-x>
 ```
 
-Replace `<stanchion-os-x.tar.gz>` with the actual file name for the package you are installing.
+Replace `<stanchion-os-x.tar.gz>` with the actual filename for the package you are installing.
 
 For RedHat Enterprise distributions (and similar):
 
@@ -119,7 +119,7 @@ For RedHat Enterprise distributions (and similar):
 sudo rpm -Uvh <stanchion-package.rpm>
 ```
 
-Replace `<stanchion-package.rpm>` with the actual file name for the package you are installing.
+Replace `<stanchion-package.rpm>` with the actual filename for the package you are installing.
 
 For Ubuntu distributions:
 
@@ -127,7 +127,7 @@ For Ubuntu distributions:
 sudo dpkg -i <stanchion-package.deb>
 ```
 
-Replace `<stanchion-package.deb>` with the actual file name for the package you are installing.
+Replace `<stanchion-package.deb>` with the actual filename for the package you are installing.
 
 
 ### Step 3: Set service configurations and start the services

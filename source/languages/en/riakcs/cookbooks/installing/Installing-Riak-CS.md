@@ -81,7 +81,7 @@ The following command installs Stanchion on a machine running Ubuntu.
 $ sudo dpkg -i <riak-cs-package.deb>
 ```
 
-Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
+Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
 ### Installing Stanchion on CentOS
 
@@ -91,7 +91,7 @@ The following command installs Stanchion on a machine running either Red Hat lin
 sudo rpm -Uvh <stanchion-package.rpm>
 ```
 
-Replace `<stanchion-package.rpm>` with the actual file name for the package you are installing.
+Replace `<stanchion-package.rpm>` with the actual filename for the package you are installing.
 
 <div class="note"><div class="title">Note</div>CentOS enables Security-Enhanced Linux (SELinux) by default. If you encounter errors during installation, try disabling SELinux.</div>
 
