@@ -7,11 +7,11 @@ audience: intermediate
 keywords: [developers, buckets]
 ---
 
-https://github.com/basho/riak/issues/362  
+## How Bucket Types Work
 
 `riak-admin bucket-type`
 
-Essentially a simplification of `curl`
+Types are not necessarily "applied" to a bucket the way that `props` are applied; instead, 
 
 All bucket-configuring JSON is of the form:
 
@@ -32,35 +32,164 @@ Command | Action | Form |
 `create` | Create or modify a bucket type before activation | `create <type> <json>` |
 `update` | Update a bucket type after activation | `update <type> <json>` |
 
+## Bucket Properties Example
+
+Below are the default properties for Riak buckets:
+
+```json
+{
+  "props": {
+    "allow_mult": true,
+    "basic_quorum": false,
+    "big_vclock": 50,
+    "chash_keyfun": {
+      "fun": "chash_std_keyfun",
+      "mod": "riak_core_util"
+    },
+    "dw": "quorum",
+    "last_write_wins": false,
+    "linkfun": {
+      "fun": "mapreduce_linkfun",
+      "mod": "riak_kv_wm_link_walker"
+    },
+    "n_val": 3,
+    "name": "test_bucket",
+    "notfound_ok": true,
+    "old_vclock": 86400,
+    "postcommit": [],
+    "pr": 0,
+    "precommit": [],
+    "pw": 0,
+    "r": "quorum",
+    "rw": "quorum",
+    "small_vclock": 50,
+    "w": "quorum",
+    "young_vclock": 20
+  }
+}
+```
+
+Let's say that you'd like to create a bucket type called `user_account_bucket` with a [[pre-commit|Pre-Commit Hooks]] hook called `syntax_check` and two [[post-commit hook|Post-Commit Hooks]] called `welcome_email` and `update_registry`. This would involve three steps:
+
+1. Creating a JSON object with the appropriate `props`:
+
+```json
+{
+  "props": {
+    "precommit": ["syntax_check"],
+    "postcommit": ["welcome_email", "update_registry"]
+  }
+}
+```
+
+2. Passing that JSON to the `bucket-type create` command:
+
+```bash
+riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ... }}'
+```
+
+If creation is successful, the console will return `user_account_bucket created`.
+
+3. Activating the bucket type:
+
+```bash
+riak-admin bucket-type activate user_account_bucket
+```
+
+If activation is successful, the console will return `user_account_bucket bas been activated`.
+
 ## Assigning a Type to a Bucket
 
-Activating a bucket type does _not_ mean that any buckets are actually assigned to that type
+By itself, activating a bucket type does _not_ mean that any current or future buckets have actually been assigned to that type. An activated type is simply _ready_ to be applied to a bucket.
 
-Buckets are not assigned types the way that they are configured using `props`; you don't simply take a bucket `test_bucket` and "assign it a type"; instead, buckets _end up_ having a type based on how they are queried. Via HTTP:
+As noted [[above|Using Bucket Types#How-Bucket-Types-Work]], buckets are not assigned types in the same way that they are configured using `props`. You cannot simply take a bucket `test_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false`.
 
-`GET /types/<type>/buckets/<type>/keys/<key>`
+In other words, there is no `type` parameter contained within `props`. Instead, bucket types are applied to buckets _on the basis of how those buckets are queried_.
 
-More concrete example:
+Queries involving bucket types take the following form:
 
-`GET /types/consistent_bucket/buckets/sensitive_user_data/keys/dave_mitchell_data`
+```curl
+GET/PUT/DELETE /types/<type>/buckets/<type>/keys/<key>
+```
 
-In this example, the bucket `sensitive_user_data` bears the configuration established by the `consistent_bucket` bucket type.
+Thus, if you have created the bucket type `larger_n_val` (with the `n_val` set to 5) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example HTTP query:
 
-The downside is that you can't assign a bucket to a type and then query it normally, i.e. `GET /buckets/<bucket>/keys/<key>` without the `/types/<type>` prefix (although this is easy enough using the normal method, i.e. `{"props":{ ... }}`. The upside is that you can _dynamically_ assign bucket types to buckets. If you run a `PUT` request on the `types/my_custom_type/buckets/my_bucket/keys/test_key`, then the bucket `my_bucket` will be created in accordance with the type configuration for `my_custom_type` _all at once_. This means that you don't have to know in advance which buckets you will need. This allows bucket creation to remain dynamic while also harnessing the power of bucket types.
+```curl
+curl -XPUT \
+-H "Content-Type: application/json" \
+-d "{ ... user data ... }" \
+http://localhost:8098/types/larger_n_val/buckets/sensitive_user_data/keys/user19735
+```
 
-## Managing Bucket Types Via HTTP
+In this example, the bucket `sensitive_user_data` bears the configuration established by the `larger_n_val` bucket type on the basis of the URL employed.
 
-**Note**: You can only configure bucket types via HTTP if the bucket has been activated using `riak-admin bucket-type activate <type>`.
+The advantage of requiring that bucket types be used in this way is that types can be dynamically applied to buckets that do not yet exist. As an example, let's say that the bucket `current_memes` exists and bears the type `larger_n_val`.
 
-`GET /types/<type>/props`
-`PUT /types/<type>/props`
-`POST /types/<type>/props`
+Now, let's say that our application needs to create a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `larger_n_val`. The following request made by the application will ensure that the `old_memes` bucket indeed bears the type `larger_n_val`:
+
+```curl
+curl -XPUT \
+-H "Content-Type: text/plain" \
+-d "all your base are belong to us" \
+http://localhost:8098/types/larger_n_val/buckets/old_memes/keys/all_your_base
+```
+
+A non-dynamic way of setting the bucket's properties would be to set the bucket's properties in advance:
+
+```curl
+curl -XPUT \
+-H "Content-Type: application/json" \
+-d '{"props":{"n_val":5}}' \
+http://localhost:8098/buckets/old_memes/props
+```
+
+This way of doing things works just fine for many use cases. If, however, you do not know in advanced which buckets will be required by your application but you still need to apply types to them _upon creation_, then you should strongly consider assigning bucket types dynamically.
+
+## Managing Bucket Types Through HTTP and Protocol Buffers
+
+The simplest way of managing bucket types is via the interface provided by the `riak-admin bucket-type` command. A number of bucket type-related commands, however, may be issued through the HTTP and Protocol Buffers interfaces.
+
+The most important thing to remember when managing bucket types outside of the `riak-admin` command interface is that bucket types must first be _activated_ in order to be manageable.
+
+If you would like to manage the bucket type `strongly_consistent` via HTTP, for example, you would first need to create and activate the type using `riak-admin`:
+
+```bash
+riak-admin bucket-type create strongly_consistent '{"props":{}}'
+riak-admin bucket-type activate strongly_consistent
+```
+
+Now, you can view the properties (`props`) associated with that type via HTTP:
+
+```curl
+curl http://localhost:8098/types/strongly_consistent/props
+```
+
+If you'd like to change the `props` associated with the type---e.g. setting `allow_mult` to `false`---you can do so through a `PUT` request:
+
+```curl
+curl -XPUT \
+-H "Content-Type: application/json" \
+-d '{"props":{"allow_mult":false}}' \
+http://localhost:8098/types/strongly_consistent/props
+```
+
+This change would then be reflected in the console output if you ran either a `GET` request on the URL above _or_ by running the `bucket-type status` command:
+
+```bash
+riak-admin bucket-type status strongly_consistent
+```
 
 ## Questions
 
-How can bucket types be deactivated? Possible without a workaround?
+How can bucket types be deactivated? Possible without a workaround? Is that even advisable?
 
 ```bash
 riak-admin deactivate useless_bucket_type
 ```
+
+## Scratchpad
+
+Essentially a simplification of other available commands; nothing that can be accomplished with `bucket-type` cannot be accomplished otherwise
+
+https://github.com/basho/riak/issues/362
 
