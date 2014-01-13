@@ -163,7 +163,7 @@ When creating or altering a user, any number of `<option>=<value>` pairs can be 
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
 ```
 
-**Note**: Assigning a `name`, `age`, or `fav_color` to a user may not be terribly useful. This is for example purposes only.
+**Note**: Usernames _cannot_ be changed using the `alter-user` command. If you attempt to do so by running, for example, `alter-user riakuser username=other-name`, then this will simply add the `{"username","other-name"}` tuple to `riakuser`'s options, which is most likely _not_ the preferred action.
 
 ### Deleting a User
 
@@ -174,12 +174,12 @@ riak-admin security del-user riakuser
 ```
 
 <div class="note"><div class="title">Note</div>
-The <tt>del-user</tt> command is used to delete both users <em>and roles</em> (because users and roles are ultimately the same thing). This means that if you have several users assigned the role <tt>superuser</tt>, running the <tt>del-user superuser</tt> command will remove the role <tt>superuser</tt> from all users currently assigned to that role. This command should thus be used with care.
+The <tt>del-user</tt> command is used to delete both users <em>and roles</em> (because users and roles are ultimately the same thing). This means that if you have several users assigned the role <tt>superuser</tt>, running the <tt>del-user superuser</tt> command will remove the role <tt>superuser</tt> from all users currently assigned to that role. This command should thus be used with due care.
 </div>
 
 ### Deleting Multiple Users
 
-The `riak-admin security` command does not currently allow you to delete multiple users using a single command. One way of deleting multiple users, however, is to run the `del-user` command once for each user you're deleting. Another way is to use a simple `for` loop in your shell (or in a shell script):
+The `riak-admin security` command does not currently allow you to delete multiple users using a single command. An alternative way to do so, however, is to run the `del-user` command for each user you're deleting, e.g. `del-user user1` followed `del-user user2`. A more succinct way is to use a simple `for` loop in your shell (or in a shell script):
 
 ```bash
 for username in larry moe curly
@@ -379,31 +379,50 @@ Now, let's run a test `GET` request through the HTTP interface against the bucke
 curl -i -k -u riakuser:rosebud http://localhost:8098/buckets/tweets/tweet1
 ```
 
-Assuming there is no value stored for the key `tweet1`, the result of the request will be:
-
-```bash
-
-```
+<!-- example response -->
 
 ## Managing Roles
 
-Riak security understands security roles slightly differently from other database systems because roles and users _are essentially the same thing_. If you want to create a role like `admin`, for example, then you would create an `admin` _user_ and then.
+Riak security understands security roles slightly differently from other database systems because roles and users _are essentially the same thing_.
+
+### Creating a New Role
+
+In an example above, a new user was created with the username `riakuser`. It's important to bear in mind that `riakuser` is _also a role_. Roles and users are completely interchangeable. And so if you'd like to create an `admin` role, you could perform permitted operations as `admin` _or_ assign the role of `admin` to other users.
+
+As expected, creating a new role involves the `add-user` command:
+
+```bash
+riak-admin security add-user admin
+```
 
 ### Assigning a Role to a User
 
+If we have a user `jane_goodall` and we'd like to assign her the role `admin`, we simply assign the value `admin` to the option `roles`:
+
 ```bash
-riak-admin security alter-user riakuser roles=admin
+riak-admin security alter-user jane_goodall roles=admin
+```
+
+If we'd like to make the user `jane_goodall` both an `admin` and an `arch-overlord`:
+
+```bash
+riak-admin alter-user jane_goodall roles=admin,arch-overlord
 ```
 
 ### Assigning a Role to Multiple Users
 
+There is no command for assigning a role (or roles) to multiple users at one time, though you may use methods such as `for` loops in your shell:
+
 ```bash
-for user in larry moe curly; do
-riak-admin security alter-user $user roles=superuser
+for user in larry moe curly
+do
+  riak-admin security alter-user $user roles=stooge
 done
 ```
 
 ### Removing Roles From a User
+
+There is no command for directly removing a user's roles, but you can assign a user an empty value for the `roles` option:
 
 ```bash
 riak-admin security alter-user riakuser roles=
