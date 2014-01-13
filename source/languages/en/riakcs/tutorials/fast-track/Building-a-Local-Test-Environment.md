@@ -25,10 +25,10 @@ Riak can consume a large number of open file handles during normal operation. Se
 If you are the root user, you can increase the system's open files limit *for the current session* with this command:
 
 ```bash
-$ ulimit -n 65536
+ulimit -n 65536
 ```
 
-For this setting to persist, you also need to save it for the `root` and `riak` users in `/etc/security/limits.conf`:
+For this setting to persist in most Linux distributions, you also need to save it for the `root` and `riak` users in `/etc/security/limits.conf`:
 
 ```bash
 # ulimit settings for Riak CS
@@ -38,18 +38,20 @@ riak soft nofile 65536
 riak hard nofile 65536
 ```
 
+For Mac OS X, consult the [[open files limit|Open Files Limit#Mac-OX-X]] documentation.
+
 ### Step 2: Download and install packages
 
-This guide uses `curl` for downloading packages and interacting with the Riak CS, API so let's make sure that it's installed:
+This guide uses `curl` for downloading packages and interacting with the Riak CS API so let's make sure that it's installed:
 
 ```bash
-$ sudo apt-get install -y curl
+sudo apt-get install -y curl
 ```
 
 If you are running Ubuntu 11.10 or later, you will also need the `libssl0.9.8` package. See [[Installing on Debian and Ubuntu]] for more information.
 
 ```bash
-$ sudo apt-get install -y libssl0.9.8
+sudo apt-get install -y libssl0.9.8
 ```
 
 Now, grab the appropriate packages: Riak, Riak CS, and Stanchion.  See [[Download Riak|Downloads]] and [[Download Riak CS]]. You can skip Riak CS Control for now.
@@ -73,10 +75,20 @@ The following links provide platform-specific instructions for installing Riak.
 
 #### Next, install Riak CS
 
+For Mac OS X:
+
+```bash
+curl -O <riak-cs-os-x.tar.gz>
+tar -xvf <riak-cs-os-x.tar.gz>
+cd <riak-cs-os-x>
+```
+
+Replace `<riak-cs-os-x.tar.gz>` with the actual file name for the package you are installing.
+
 For RedHat Enterprise distributions (and similar):
 
 ```bash
-$ rpm -Uvh <riak-cs-package.rpm>
+rpm -Uvh <riak-cs-package.rpm>
 ```
 
 Replace `<riak-cs-package.rpm>` with the actual file name for the package you are installing.
@@ -84,15 +96,27 @@ Replace `<riak-cs-package.rpm>` with the actual file name for the package you ar
 Ubuntu distributions and similar:
 
 ```bash
-$ sudo dpkg -i <riak-cs-package.deb>
+sudo dpkg -i <riak-cs-package.deb>
 ```
 
 Replace `<riak-cs-package.deb>` with the actual file name for the package you are installing.
 
 #### Finally, install Stanchion
 
+For Mac OS X:
+
 ```bash
-$ sudo rpm -Uvh <stanchion-package.rpm>
+curl -O <stanchion-os-x.tar.gz>
+tar -xvf <stanchion-os-x.tar.gz>
+cd <stanchion-os-x>
+```
+
+Replace `<stanchion-os-x.tar.gz>` with the actual file name for the package you are installing.
+
+For RedHat Enterprise distributions (and similar):
+
+```bash
+sudo rpm -Uvh <stanchion-package.rpm>
 ```
 
 Replace `<stanchion-package.rpm>` with the actual file name for the package you are installing.
@@ -100,7 +124,7 @@ Replace `<stanchion-package.rpm>` with the actual file name for the package you 
 For Ubuntu distributions:
 
 ```bash
-$ sudo dpkg -i <stanchion-package.deb>
+sudo dpkg -i <stanchion-package.deb>
 ```
 
 Replace `<stanchion-package.deb>` with the actual file name for the package you are installing.
@@ -259,9 +283,9 @@ to
 That is the minimum amount of service configuration required to start a complete node. To start the services, run the following commands:
 
 ```bash
-$ sudo riak start
-$ sudo stanchion start
-$ sudo riak-cs start
+sudo riak start
+sudo stanchion start
+sudo riak-cs start
 ```
 
 <div class="info"><div class="title">Basho Tip</div>The order in which you start the services is important as each is a dependency for the next.</div>
@@ -269,7 +293,7 @@ $ sudo riak-cs start
 Finally, you can check the liveness of your Riak CS installation with the `riak-cs ping` command, which should return `pong` if Riak CS is up and able to successfully communicate with Riak.
 
 ```bash
-$ riak-cs ping
+riak-cs ping
 ```
 
 <div class="note"><div class="title">Note</div>The <tt>riak-cs ping</tt> command will fail if the Riak CS node is not able to communicate with the supporting Riak node. Ensure all components of the Riak CS system are running before checking liveness with <tt>riak-cs ping</tt>.</div>
@@ -279,7 +303,6 @@ $ riak-cs ping
 Creating the admin user is an optional step, but it's a good test of our new services. Creating a Riak CS user requires two inputs:
 
 1. Name --- A URL-encoded string. Example: `admin%20user`
-
 2. Email --- A unique email address. Example: `admin@admin.com`
 
 To create an admin user, we need to grant permission to create new
@@ -306,7 +329,14 @@ curl -H 'Content-Type: application/json' \
 The output of this command will be a JSON object that looks something like this:
 
 ```json
-{"email":"admin@admin.com","display_name":"admin","name":"admin user","key_id":"5N2STDSXNV-US8BWF1TH","key_secret":"RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==","id":"4b823566a2db0b7f50f59ad5e43119054fecf3ea47a5052d3c575ac8f990eda7"}
+{
+  "email": "admin@admin.com",
+  "display_name": "admin",
+  "name": "admin user",
+  "key_id": "5N2STDSXNV-US8BWF1TH",
+  "key_secret": "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==",
+  "id": "4b823566a2db0b7f50f59ad5e43119054fecf3ea47a5052d3c575ac8f990eda7"
+}
 ```
 
 The user's access key and secret key are returned in the `key_id` and `key_secret` fields respectively.  Take note of these keys as they will be required in the testing step.
@@ -318,7 +348,8 @@ In this case, those keys are:
 
 You can use this same process to create additional Riak CS users. To make this user the admin user, we set these keys in the Riak CS and Stanchion `app.config` files.
 
-<div class="note"><div class="title">Note</div>The same admin keys will need to be set on all nodes of the cluster.</div>
+<div class="note"><div class="title">Note</div>The same admin keys will need to be set on all nodes of the cluster.
+</div>
 
 Change the following lines in `/etc/riak-cs/app.config` on all Riak CS machines:
 
@@ -353,8 +384,8 @@ to
 Now we have to restart the services for the change to take effect:
 
 ```bash
-$ sudo stanchion restart
-$ sudo riak-cs restart
+sudo stanchion restart
+sudo riak-cs restart
 ```
 
 ## Installing Additional Nodes
@@ -364,13 +395,14 @@ The process for installing additional nodes is identical to installing your firs
 2. To add additional nodes to the Riak cluster, use the following command
 
     ```bash
-    $ sudo riak-admin cluster join riak@10.0.2.10
+    sudo riak-admin cluster join riak@10.0.2.10
     ```
 
     where `riak@10.0.2.10` is the Riak node name set in your first node's `/etc/riak/vm.args` file
 
 You will then need to verify the cluster plan with the `riak-admin cluster plan` command, and commit the cluster changes with `riak-admin cluster commit` to complete the join process. More information is available in the [[Command Line Tools|riak-admin Command Line#cluster]] documentation.
 
-<div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and should not be operated in a manner which exposes it directly to the public internet</strong>. Instead, consider a load balancing solution, such as dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a>, or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.</div>
+<div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and should not be operated in a manner which exposes it directly to the public internet</strong>. Instead, consider a load balancing solution, such as dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a>, or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.
+</div>
 
 Once you have completed this step, You can progress to [[Testing the Riak CS Installation]] using s3cmd.
