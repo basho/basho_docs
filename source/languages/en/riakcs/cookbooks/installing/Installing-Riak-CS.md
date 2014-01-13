@@ -19,6 +19,21 @@ After downloading Riak CS, Stanchion, and Riak, install them using your operatin
 
 <div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and it should not be operated in a manner that exposes it directly to the public internet</strong>. Instead, consider a load-balancing solution, such as a dedicated device <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.</div>
 
+### Installing Riak CS on Mac OS X
+
+To install Riak CS on OS X, first download the appropriate package from the [[downloads|Download Riak CS]] page:
+
+```bash
+curl -O <riak-cs-os-x.tar.gz>
+```
+
+Then, unpack the downloaded tarball and navigate to the resulting directory:
+
+```bash
+tar -xvf <riak-cs-os-x.tar.gz>
+cd <riak-cs-os-x>
+```
+
 ### Installing Riak CS on Ubuntu
 
 The following command installs Riak CS on a machine running either Debian or Ubuntu.
@@ -40,7 +55,23 @@ $ rpm -Uvh <riak-cs-package.rpm>
 Replace `<riak-cs-package.rpm>` with the actual filename for the package you are installing.
 
 ## Installing Stanchion
+
 In a Riak CS system, Stanchion is installed on only one of the nodes in the system. Running Stanchion on more than one node can lead to problems if Riak CS nodes are configured to communicate using multiple Stanchion nodes. In this situation, the uniqueness of bucket names and user email addresses might not be enforced which, in turn, could lead to unexpected behavior. Use the commands in the section for your operating system to install a pre-built Stanchion package on the node you choose for Stanchion.
+
+### Installing Stanchion on Mac OS X
+
+To install Stanchion on OS X, first download the appropriate package from the [[downloads|Download Riak CS]] page:
+
+```bash
+curl -O <stanchion-os-x.tar.gz>
+```
+
+Then, unpack the downloaded tarball and navigate to the resulting directory:
+
+```bash
+tar -xvf <stanchion-os-x.tar.gz>
+cd <stanchion-os-x>
+```
 
 ### Installing Stanchion on Ubuntu
 
