@@ -32,7 +32,7 @@ Required Parameters
 
 Mapreduce jobs can be encoded in two different ways
 
-* **application/json** - JSON-encoded map/reduce job
+* **application/json** - JSON-encoded MapReduce job
 * **application/x-erlang-binary** - Erlang external term format
 
 The JSON encoding is the same as [[REST API|Using MapReduce#rest]] and the external

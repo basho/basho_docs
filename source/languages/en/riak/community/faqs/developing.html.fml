@@ -97,23 +97,23 @@ Q: Why does my binary data come back a different size compared to when I stored 
 
   ```curl
   curl -i -XPUT \
-  -H "Content-Type: image/png" \
-  --data @g005.PNG_L \
-  http://sfdev02:8098/luwak/g005.PNG_L
+    -H "Content-Type: image/png" \
+    --data @g005.PNG_L \
+    http://sfdev02:8098/luwak/g005.PNG_L
   ```
 A:
   Curl will try to convert non-ASCII characters in `PUT` and `POST` bodies. Use the `--data-binary` flag to turn this off:
 
   ```curl
   curl -i -XPUT \
-  -H "Content-Type: image/png" \
-  --data-binary @g005.PNG_L \
-  http://sfdev02:8098/luwak/g005.PNG_L
+    -H "Content-Type: image/png" \
+    --data-binary @g005.PNG_L \
+    http://sfdev02:8098/luwak/g005.PNG_L
   ```
 
 
 Q: How do I load 3rd-party Javascript libraries for use in MapReduce functions?
-  Is it possible to load third party javascript libraries (like Underscore.js) to be available in MapReduce functions?
+  Is it possible to load third-party javascript libraries (like Underscore.js) to be available in MapReduce functions?
 A:
   Yes. For JavaScript, this can be done in `app.config` in `js_source_dir` in the `riak_kv` settings:
 

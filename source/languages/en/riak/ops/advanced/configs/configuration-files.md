@@ -5,7 +5,6 @@ version: 0.10.0+
 document: reference
 toc: true
 audience: intermediate
-keywords: [operator, configuration, config]
 ---
 {{#2.0.0-}}
 Riak has two configuration files located in `/etc` if you are using a source install or in `/etc/riak` if you used a binary install. Those files are `app.config` and `vm.args`.
@@ -311,7 +310,8 @@ Parameter | Description | Default |
 `-env ERL_FULLSWEEP_AFTER` | Run garbage collection more often. | `0` |
 `-env ERL_CRASH_DUMP` | Set the location of crash dumps. | `./log/erl_crash.dump` |
 
-## Note on Rebar Overlays
+ * **anti_entropy_expire**
+    Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual KV backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds. The default is 1 week.
 
 If you are going to be rebuilding Riak often, you will want to edit the `vm.args` and `app.config` files in the `rel/files` directory. These files are used whenever a new release is generated using `make rel` or `rebar generate`. Each time a release is generated, any existing release must first be destroyed.
 Changes made to release files (`rel/riak/etc/vm.args`, `rel/riak/etc/app.config`, etc.) would be lost when the release is destroyed.

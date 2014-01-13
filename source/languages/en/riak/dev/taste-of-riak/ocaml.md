@@ -67,7 +67,7 @@ Get: bucket=MyBucket, key = MyKey
 
 ### Connecting
 
-To connect to a Riak node via protocol buffers, you need to specify the IP address and port number. This value can be found in Riak's `app.config` file, under the `riak_api` section's `pb` property.
+To connect to a Riak node via Protocol Buffers, you need to specify the IP address and port number. This value can be found in Riak's `app.config` file, under the `riak_api` section's `pb` property.
 
 For example:
 
