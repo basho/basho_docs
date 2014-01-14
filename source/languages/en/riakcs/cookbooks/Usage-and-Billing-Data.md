@@ -77,7 +77,7 @@ By default, the script will wait up to 50 seconds for the logger to acknowledge 
 another 50 seconds for the archiver to acknowledge that it has finished archiving all accumulations it has received. To wait longer, use the `-w` parameter on the command line with an integer number of 5-second intervals to wait. That is, to wait for 100 seconds for each phase, use:
 
 ```bash
-$ riak-cs-access flush -w 20
+riak-cs-access flush -w 20
 ```
 
 ### Archive Retrieval
@@ -143,7 +143,7 @@ done automatically.
 If you would rather trigger storage calculations manually, simply use the `batch` command in the `riak-cs-storage` script:
 
 ```bash
-$ riak-cs-storage batch
+riak-cs-storage batch
 # Response:
 # Batch storage calculation started.
 ```
@@ -153,7 +153,7 @@ If there is already a calculation in progress, or if starting the calculation fa
 By default, a manually triggered calculation run will skip users that have already been calculated in the current archive period (see the Archival section below for details about `storage_archive_period`). If you would rather calculate an additional sample for every user in this period, add the `--recalc` (or `-r` for short) option to the command line:
 
 ```bash
-$ riak-cs-storage batch -r # force recalculation of every user
+riak-cs-storage batch -r # force recalculation of every user
 ```
 
 #### Further Control
@@ -163,7 +163,7 @@ In-process batch calculations can also be paused or canceled using the `riak-cs-
 To pause an in-process batch, use:
 
 ```bash
-$ riak-cs-storage pause
+riak-cs-storage pause
 # Response:
 # The calculation was paused.
 ```
@@ -171,7 +171,7 @@ $ riak-cs-storage pause
 To resume a paused batch, use:
 
 ```bash
-$ riak-cs-storage resume
+riak-cs-storage resume
 # Response: 
 # The calculation was resumed.
 ```
@@ -179,7 +179,7 @@ $ riak-cs-storage resume
 To cancel an in-process batch (whether *paused* or *active*), use:
 
 ```bash
-$ riak-cs-storage cancel
+riak-cs-storage cancel
 # Response:
 # The calculation was canceled.
 ```

@@ -31,7 +31,7 @@ For each Riak node in the cluster, update the `riak_repl` section of `app.config
 Version 3 replication requires additional configuration on the **source cluster** via the command line. 
 
 ```bash
-$ riak-repl proxy_get enable sink_cluster_name
+riak-repl proxy_get enable sink_cluster_name
 ```
 
 `sink_cluster_name` should be replaced with the name of your configured **sink cluster**. 

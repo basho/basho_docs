@@ -17,7 +17,8 @@ Riak CS and Stanchion packages are available on the [[Download Riak CS]] page. S
 
 After downloading Riak CS, Stanchion, and Riak, install them using your operating system's package management commands.
 
-<div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and it should not be operated in a manner that exposes it directly to the public internet</strong>. Instead, consider a load-balancing solution, such as a dedicated device <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.</div>
+<div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and it should not be operated in a manner that exposes it directly to the public internet</strong>. Instead, consider a load-balancing solution, such as a dedicated device <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.
+</div>
 
 ### Installing Riak CS on Mac OS X
 
@@ -27,29 +28,30 @@ To install Riak CS on OS X, first download the appropriate package from the [[do
 curl -O <riak-cs-os-x.tar.gz>
 ```
 
-Then, unpack the downloaded tarball and navigate to the resulting directory:
+Then, unpack the downloaded tarball:
 
 ```bash
 tar -xvf <riak-cs-os-x.tar.gz>
-cd <riak-cs-os-x>
 ```
+
+Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are installing.
 
 ### Installing Riak CS on Ubuntu
 
-The following command installs Riak CS on a machine running either Debian or Ubuntu.
+The following command installs Riak CS on a machine running either Debian or Ubuntu:
 
 ```bash
-$ sudo dpkg -i <riak-cs-package.deb>
+sudo dpkg -i <riak-cs-package.deb>
 ```
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
 ### Installing Riak CS on CentOS
 
-The following command installs Riak CS on a machine running CentOS.
+The following command installs Riak CS on a machine running CentOS:
 
 ```bash
-$ rpm -Uvh <riak-cs-package.rpm>
+rpm -Uvh <riak-cs-package.rpm>
 ```
 
 Replace `<riak-cs-package.rpm>` with the actual filename for the package you are installing.
@@ -66,26 +68,27 @@ To install Stanchion on OS X, first download the appropriate package from the [[
 curl -O <stanchion-os-x.tar.gz>
 ```
 
-Then, unpack the downloaded tarball and navigate to the resulting directory:
+Replace `<stanchion-os-x.tar.gz>` with the actual filename for the package you are installing.
+
+Then, unpack the downloaded tarball:
 
 ```bash
 tar -xvf <stanchion-os-x.tar.gz>
-cd <stanchion-os-x>
 ```
 
 ### Installing Stanchion on Ubuntu
 
-The following command installs Stanchion on a machine running Ubuntu.
+The following command installs Stanchion on a machine running Ubuntu:
 
 ```bash
-$ sudo dpkg -i <riak-cs-package.deb>
+sudo dpkg -i <riak-cs-package.deb>
 ```
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
 ### Installing Stanchion on CentOS
 
-The following command installs Stanchion on a machine running either Red Hat linux or CentOS.
+The following command installs Stanchion on a machine running either Red Hat linux or CentOS:
 
 ```bash
 sudo rpm -Uvh <stanchion-package.rpm>
