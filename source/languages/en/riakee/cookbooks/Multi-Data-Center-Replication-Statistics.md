@@ -127,7 +127,7 @@ Field | Description
 
 The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node.
 
-**All counts will be reset to 0 upon restarting Riak EE.**
+**All counts will be reset to 0 upon restarting Riak Enterprise.**
 
 Field | Description
 ------|------------
@@ -186,7 +186,7 @@ Field | Description
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in realtime replication. Please see the [[Riak EE MDC Replication Configuration (version 2)|Multi Data Center Replication: Configuration]] or [[Riak EE MDC Replication Configuration (version 3)|Multi-Data-Center Replication v3 Configuration]] guides for more information.
+The bounded queue is responsible for holding objects that are waiting to participate in realtime replication. Please see the [[Riak Enterprise MDC Replication Configuration (version 2)|Multi Data Center Replication: Configuration]] or [[Riak Enterprise MDC Replication Configuration (version 3)|Multi-Data-Center Replication v3 Configuration]] guides for more information.
 
 Field | Description
 ------|------------

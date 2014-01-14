@@ -9,46 +9,45 @@ moved: {
   '1.4.0-': '/cookbooks/faqs/developing-faq'
 }
 ---
-
 <h2>General</h2>
 
 Q: How can I automatically expire a key from Riak?
   I want to regularly purge items from Riak that are older than a certain timestamp, but MapReduce times out on large numbers of items. Can I expire data automatically?
 A:
-  If you're using [[Bitcask]], the default storage backend, and you want items to expire at a consistent interval (assuming they are not updated), set the `expiry_secs` option in `app.config`. Items past this threshold will not be returned on get/fetch operations and will eventually be removed from disk by Bitcask's merging process. For example:
+  If you're using [[Bitcask]], the default storage backend, and you want items to expire at a consistent interval (assuming that they are not updated), set the `expiry_secs` option in `app.config`. Items that persist past this threshold will not be returned on get/fetch operations and will eventually be removed from disk by Bitcask's merging process. For example:
 
   ```erlang
   {bitcask, [
       {data_root, "data/bitcask"},
       {expiry_secs, 86400} %% Expire after a day
-   ]},
-   ```
+  ]},
+  ```
 
   There is no limit on how large or small the `expiry_secs` setting can be as long as it is greater than 0.
 
-  You can also set auto-expire using memory cache storage backend, but it will be limited by RAM.
+  You can also set auto-expire using the [[Memory]] storage backend, but it will be limited by RAM.
 
 Q: Is there better performance for a few objects in many buckets, or many objects in a few buckets?
 A:
   Generally speaking, it does not matter if you have many buckets with a small number of objects or a small number of buckets with a large number of objects. Buckets that use the cluster's default bucket properties (which can be set in your `app.config` file) are essentially free.
 
-  However, if the buckets require different bucket properties, those custom properties incur some cost because changes in bucket properties must be gossiped around the cluster. If you create many, many buckets with custom properties, the cost can indeed have an impact.
+  If the buckets require different bucket properties, however, those custom properties incur some cost because changes in bucket properties must be gossiped around the cluster. If you create many, many buckets with custom properties, the cost can indeed have an impact.
 
 Q: Can I list buckets or keys in production?
 A:
-  It is *not* recommended to list the buckets in production because it is a costly operation irrespective of the bucket's size.
+  It is *not* recommended that you list the buckets in production because it is a costly operation irrespective of the bucket's size.
 
-  Buckets are not like directories on a file system or tables in a database; rather, they are logical properties applied to objects, i.e. there is no actual separation of objects by bucket.
+  Buckets are not like directories on a file system or tables in a database; rather, they are logical properties applied to objects, i.e. there is no *actual* separation of objects by bucket.
 
-  A filter must be applied to all of the objects in the system in order to find those in a particular bucket. Buckets are intended for configuration purposes (e.g. replication properties) rather than for general queries.
+  A filter must be applied to all of the objects in the system in order to find those residing in a particular bucket. Buckets are intended for configuration purposes (e.g. replication properties) rather than for general queries.
 
-  To keep track of groups of objects there are several options with various trade-offs: secondary indexing, search, or a list using links.
+  To keep track of groups of objects there are several options with various trade-offs: secondary indexes, search, or a list using links.
 
-Q: Why does secondary index (2I) return inconsistent results after using force-remove to drop a node from the cluster?
+Q: Why do secondary indexes (2i) return inconsistent results after using `force-remove` to drop a node from the cluster?
 A:
-  When a node fails or is taken out of the cluster without using `riak-admin leave`, all of the data held by that node is lost to the cluster.  This leaves N-1 consistent replicas of the data.  If `riak-admin force-remove` is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held.  The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed.
+  When a node fails or is taken out of the cluster without using `riak-admin leave`, all of the data held by that node is lost to the cluster. This leaves N - 1 consistent replicas of the data. If `riak-admin force-remove` is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held. The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed.
 
-  As a simplistic example, consider a 5-node cluster (nodes A-E) with ring size = 8 and n_val = 3.   The data for each partition is stored on 3 different nodes with a possible configuration as so:
+  As a simplistic example, consider a 5-node cluster (nodes A-E) with ring size = 8 and `n_val` = 3. The data for each partition is stored on 3 different nodes with a possible configuration like so:
 
   ```
   A: 0__3__4__5__8
@@ -58,9 +57,9 @@ A:
   E: 2__3__4__7__8
   ```
 
-  Index information for each partition is co-located with the value data.  In order to get a full result set for a 2I query, Riak will need to consult a minimum of 1/n_val nodes, in this case 2.  The 2 nodes will be selected such that there is a primary replica of each of the 8 partitions between the 2 nodes, so A-C and A-D are coverage sets while A-B and A-E are not.
+  Index information for each partition is co-located with the value data. In order to get a full result set for a 2I query, Riak will need to consult a minimum of 1/`n_val` nodes, in this case 2. The 2 nodes will be selected such that there is a primary replica of each of the 8 partitions between the 2 nodes, so A-C and A-D are coverage sets while A-B and A-E are not.
 
-  When a node is `force-remove`d, it leaves the cluster without transferring its data to other nodes, and the remaining nodes then claim the unowned partitions, designating new primary replicas to comply with n_val, but do not populate the data or indexes until read-repair is triggered by gets or puts on the individual keys.
+  When a node is `force-remove`d, it leaves the cluster without transferring its data to other nodes, and the remaining nodes then claim the unowned partitions, designating new primary replicas to comply with `n_val`, but do not populate the data or indexes until read-repair is triggered by gets or puts on the individual keys.
 
   One possible configuration after `force-remove`ing node C and rebalancing:
 
@@ -73,55 +72,62 @@ A:
 
   The partitions marked with `*` are the newly created primary partitions that will not contain any data or index information until `read-repair` is triggered by get/put operations.
 
-  In this new 4-node configuration, any 2 nodes will constitute a coverage set. However, until consistency is restored via `read-repair`, not all vnodes will contain the data that would otherwise be present.
+  In this new 4-node configuration, any 2 nodes will constitute a coverage set. Until consistency is restored via `read-repair`, however, not all vnodes will contain the data that would otherwise be present.
 
   So making a few assumptions for demonstration purposes:
 
-  1 - The keys a, b, and c are stored in partitions 0, 1, and 2 respectively
-  2 - The cluster is not loaded, so no `GET` or `PUT` operations are being performed
+  1. The keys a, b, and c are stored in partitions 0, 1, and 2 respectively
+  2. The cluster is not loaded, so no get or put operations are being performed
 
-  Since the coordinating node will attempt to spread the load by not using the same partitions for its coverage query, successive 2I queries that should return all 3 keys will vary depending on the nodes chosen for the coverage set.  The 6 possible sets in this configuration would return:
+  Since the coordinating node will attempt to spread the load by not using the same partitions for its coverage query, successive 2i queries that should return all 3 keys will vary depending on the nodes chosen for the coverage set. The 6 possible sets in this configuration would return:
 
+  ```
   AB - [a,b,c]
   AD - [a,b,c]
   AE - [a,c]
   BD - [a,b,c]
   BE - [a,b,c]
   DE - [b,c]
+  ```
 
   If a get request were made for keys a and b, `read-repair` would restore the missing values and indexes on nodes D and E, restoring consistency to the cluster.
 
-Q: Why does my binary data come back a different size?
+Q: Why does my binary data come back a different size compared to when I stored it?
   When storing a non-text object like a `.png` file in Riak and then retrieving it with `curl`, it comes back a different size. For Example:
 
-  ```bash
-  curl -i -X PUT --data @g005.PNG_L -H "Content-Type: image/png" http://sfdev02:8098/luwak/g005.PNG_L
+  ```curl
+  curl -i -XPUT \
+    -H "Content-Type: image/png" \
+    --data @g005.PNG_L \
+    http://sfdev02:8098/luwak/g005.PNG_L
   ```
 A:
   Curl will try to convert non-ASCII characters in `PUT` and `POST` bodies. Use the `--data-binary` flag to turn this off:
 
-  ```bash
-  curl -i -X PUT --data-binary @g005.PNG_L -H "Content-Type: image/png" http://sfdev02:8098/luwak/g005.PNG_L
+  ```curl
+  curl -i -XPUT \
+    -H "Content-Type: image/png" \
+    --data-binary @g005.PNG_L \
+    http://sfdev02:8098/luwak/g005.PNG_L
   ```
 
 
-Q: How do I load 3rd-party Javascript libraries for use in map/reduce functions?
-  Is it possible to load third party javascript libraries (like underscore.js) to be available in map/reduce functions?
+Q: How do I load 3rd-party Javascript libraries for use in MapReduce functions?
+  Is it possible to load third-party javascript libraries (like Underscore.js) to be available in MapReduce functions?
 A:
-  Yes. For JavaScript, this can be done in `app.config` in 'js_source_dir' in the 'riak_kv' settings:
+  Yes. For JavaScript, this can be done in `app.config` in `js_source_dir` in the `riak_kv` settings:
 
   ```erlang
   {js_source_dir, "/etc/riak/javascript"},
   ```
 
-  For Erlang code (please note that you need compiled modules in this dir), set `add_paths` in the riak_kv section:
+  For Erlang code (please note that you need compiled modules in this dir), set `add_paths` in the `riak_kv` section:
 
   ```erlang
   {add_paths, "/etc/riak/erlang"},
   ```
 
-  You can find more details in the [[Configuration Files]].
-
+  You can find more details in the [[Configuration Files]] document.
 
 Q: Is it possible to use key filtering to just return a list of keys that match a particular pattern without performing a MapReduce on it?
   When running a MapReduce query, a map phase results in Riak pulling an object off of disk. Some queries are only interested in the keys of an object and not the value. Is it possible to run a MapReduce query that does not have to pull objects off of disk?
@@ -129,20 +135,52 @@ A:
   Yes. Specifying a MapReduce query with just a reduce phase will avoid any need to pull data off of disk. To return the results of a key filtering query you can do the following:
 
   ```json
-  {"inputs":{"bucket":"test","key_filters":[["ends_with","1"]]},
-  "query":[{"reduce":{"language":"erlang","module":"riak_kv_mapreduce","function":"reduce_identity"}}]}
+  {
+    "inputs": {
+      "bucket": "test",
+      "key_filters": [
+        ["ends_with","1"]
+      ]
+    },
+    "query": [
+      {
+        "reduce": {
+          "language": "erlang",
+          "module": "riak_kv_mapreduce",
+          "function": "reduce_identity"
+        }
+      }
+    ]
+  }
   ```
 
   There is also a reduce function for counting inputs (available in the `master` branch of the github repo, to be released in the next version of Riak). This function can be used to count keys in a bucket without reading objects from disk:
 
   ```json
-  {"inputs":{"bucket":"test","key_filters":[["ends_with","1"]]},
-  "query":[{"reduce":{"language":"erlang","module":"riak_kv_mapreduce","function":"reduce_count_inputs"}}]}
+  {
+    "inputs": {
+      "bucket": "test",
+      "key_filters": [
+        [
+          "ends_with","1"
+        ]
+      ]
+    },
+    "query": [
+      {
+        "reduce": { 
+          "language": "erlang",
+          "module": "riak_kv_mapreduce",
+          "function": "reduce_count_inputs"
+        }
+      }
+    ]
+  }
   ```
 
 Q: How can I observe object sizes and sibling counts?
 A:
-  `riak-admin status` will return the following stats, which give the mean and median along with the 95th, 99th, and 100th percentiles object size and sibling counts.
+  `riak-admin status` will return the following stats, which give the mean and median along with the 95th, 99th, and 100th percentile object size and sibling counts.
 
   ```
   node_get_fsm_siblings_mean : 0
@@ -180,23 +218,23 @@ A:
 
 Q: Is there a limit on the size of files that can be stored on Riak?
 A:
-  There isn't a limit on object size, but we suggest you keep it below 10MB for performance reasons. Variables such as network speed can directly affect the maximum usable object size for a given cluster. You should use a tool like [[Basho Bench]] to determine the performance of your cluster with a given object size before moving to production use.
+  There isn't a limit on object size, but we suggest you keep it below 10 MB for performance reasons. Variables such as network speed can directly affect the maximum usable object size for a given cluster. You should use a tool like [[Basho Bench]] to determine the performance of your cluster with a given object size before moving to production use. Or if your use case demands storing many large objects, you may want to consider the [[Riak CS]] object storage system, which is designed for precisely that purpose.
   
 Q: Does the bucket name impact key storage size?
 A:
-  The storage per key is 40 bytes plus the key size AND bucket name size.
+  The storage per key is 40 bytes plus the key size and bucket name size.
 
   Example:
 
-  Key size: 15 bytes.  Bucket Name size: 10 bytes.
+  Key size: 15 bytes.
+  Bucket Name size: 10 bytes.
 
-  Total size = 40 + 15 + 10 = 65 bytes.
+  Total size = 40 + 15 + 10 = **65 bytes**.
 
 
 Q: Are Riak-generated keys unique within a bucket?
 A:
   It's not guaranteed, but you are extremely unlikely to get collisions. Riak generates keys using an Erlang-generated unique ID and a timestamp hashed with SHA-1 and base-62 encoded for URL safety.
-
 
 Q: Where are bucket properties stored?
 A:
@@ -204,20 +242,17 @@ A:
 
   The bucket properties stay in the ring even if the bucket is empty.
 
-
 Q: Are Riak keys / buckets case sensitive?
 A:
-  Yes, they are case-sensitive and treated as binaries (byte buffers). Thus, `mykey` is not equal to `MyKey`.
-
+  Yes, they are case sensitive and treated as binaries (byte buffers). Thus, `mykey` is not equal to `MyKey`.
 
 Q: Can I run my own Erlang applications in the same VM as Riak?
 A:
   We do not recommend running your application inside the same virtual machine as Riak for several reasons. If they are kept separate, the following will hold:
 
-  1. Your application and Riak will not compete for the same resources and thus they are less likely to affect each other's performance and availability.
+  1. Your application and Riak will not compete for the same resources and are thus less likely to affect each other's performance and availability.
   2. You will be able to upgrade Riak and your application independently of one another.
   3. When your application or Riak need more capacity, you can scale them separately to meet your production needs.
-
 
 Q: Is there a simple way to reload an Erlang module for MapReduce across a cluster?
 A:
@@ -229,7 +264,6 @@ A:
   There are at least two acceptable strategies for load balancing requests across your Riak cluster: **virtual IPs** and **reverse-proxy**.
 
   For further information see [[System Planning|Planning for a Riak System#Network-Configuration-Load-Balancing]].
-
 
 Q: Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?
   There have been situations where the data directory for a Riak node (e.g. `data/bitcask`) grows continually and does not seem to merge. After restarting the node a series of merges are kicked off and the total size of the data directory shrinks. Why does this happen?
@@ -248,11 +282,10 @@ A:
 
   In the described scenario, merging has not occurred because none of the data files have triggered the merge. After restarting the node, however, the previously active file is now included in the merge trigger analysis and triggers a merge on the Bitcask directory.
 
-  If Riak was never restarted the merge would eventually happen when writes roll over to a new data file. Bitcask rolls writes over to a new data file once the currently active file has exceeded a certain size (2 GB by default).
+  If Riak was never restarted, the merge would eventually happen when writes roll over to a new data file. Bitcask rolls writes over to a new data file once the currently active file has exceeded a certain size (2 GB by default).
 
-
-Q: When retrieving a list of siblings, I am getting the same vtag multiple times.
-  When retrieving a list of siblings via the REST interface, I am getting the same vtag appearing multiple times. Is this normal? I thought vtags were unique. Are they referring to the same sibling?
+Q: When retrieving a list of siblings I am getting the same vtag multiple times.
+  When retrieving a list of siblings via the REST interface, I am seeing the same vtag appear multiple times. Is this normal? I thought vtags were unique. Are they referring to the same sibling?
 A:
   The vtag is calculated on a `PUT` based on the vclock and is stored as part of the object's metadata.
 
@@ -269,8 +302,7 @@ A:
   1. How tightly coupled are the child objects to the parent? That is, are they frequently updated at the same time?
   2. How likely are the objects to be updated at the same time by multiple processes?
 
-  If the parent and child objects are not too tightly coupled (or the children are updated much more frequently), then splitting them along conceptual boundaries will improve performance in your application (decreasing payload size, reducing update conflicts). Generally, you will want to add links to connect the objects for easy fetching and traversal.
-
+  If the parent and child objects are not too tightly coupled (or the children are updated much more frequently), then splitting them along conceptual boundaries will improve performance in your application by decreasing payload size and reducing update conflicts. Generally, you will want to add links to connect the objects for easy fetching and traversal.
 
 Q: Is there any way in Riak to limit access to a user or a group of users?
 A:
@@ -278,23 +310,20 @@ A:
 
   If you need to restrict access, consider putting an authenticating reverse-proxy server in front of it.
 
-
 Q: Is there a way to enforce a schema on data in a given bucket?
   Suppose I'd like to set up a bucket to store data adhering to a particular schema. Is there any way to set this up with Riak? This way, when my application attempts to store data in a particular bucket, it will check with this schema first before storing it. Otherwise, it will produce an error.
 A:
-  Riak does not implement any form of schema validation. A pre-commit hook can be used in this scenario but would have to be written by your development team. You can read more about [[commit hooks|Using Commit Hooks]] on the docs. This document provides two pre-commit hook examples, one in Erlang that restricts objects that are too large, and one in Javascript that restricts non-JSON content.
-
+  Riak does not implement any form of schema validation. A pre-commit hook can be used in this scenario but would need to be written by your development team. You can read more about [[commit hooks|Using Commit Hooks]] in the docs. This document provides two pre-commit hook examples, one in Erlang that restricts objects that are too large and one in Javascript that restricts non-JSON content.
 
 Q: How does the Erlang Riak Client manage node failures?
-  Does the Erlang Riak Client manage its own reconnect logic? What should a client do to maintain connection or reconnect in case of nodes going down?
+  Does the Erlang Riak Client manage its own reconnect logic? What should a client do to maintain the connection or reconnect in case of nodes going down?
 A:
   The [[Erlang Riak Client|Client Libraries]] gives you several options for how to manage connections. You can set these when starting a `riakc_pb_socket` process or by using the `set_options` function.
 
-  * `queue_if_disconnected` (default: *false*) --- requests will be queued when the connection to the server is lost.
-  * `auto_reconnect` (default: *false*) --- if the connection is lost, `riakc_pb_socket` will attempt to reconnect automatically. This is set to true if `queue_if_disconnected` is true.
+  * `queue_if_disconnected` (default: `false`) --- requests will be queued when the connection to the server is lost.
+  * `auto_reconnect` (default: `false`) --- if the connection is lost, `riakc_pb_socket` will attempt to reconnect automatically. This is set to `true` if `queue_if_disconnected` is set to `true`.
 
-  If these options are both false, connection errors will be returned to the process making requests as `{error, Reason}` tuples.
-
+  If these options are both false, connection errors will be returned to the process-making requests as `{error, Reason}` tuples.
 
 Q: Is there a limiting factor for the number of buckets in a cluster?
 A:
@@ -302,38 +331,33 @@ A:
 
   More on [[Bucket Properties|The Basics]].
 
-
 Q: Is it possible to configure a single bucket's properties in `app.config`?
 A:
   Not a specific bucket, only the defaults. However, you should only need to change them once, since after that the settings will be reflected in the ring state.
 
   You can read more on `app.config` in [[Configuration Files]].
 
-
 Q: Is there a simple command to delete a bucket?
 A:
-  There is no straighforward command to delete an entire bucket. You must delete all of the key/value objects individually.
+  There is no straighforward command to delete an entire bucket. You must delete all of the key/value objects individually. Thus, the following will not work:
 
-  ```bash
-  curl -X DELETE http://whatever:8098/riak/thebucket
+  ```curl
+  curl -X DELETE http://your-host:8098/riak/your-bucket
   ```
 
 Q: Can Riak be configured to fail an update instead of generating a conflict?
 A:
   No. The closest thing would be to use the `If-None-Match` header, but that is only supported in the HTTP interface and probably won't accomplish what you're trying to do.
 
-
 Q: How can I limit the number of keys retrieved?
 A:
   You'll need to use a [[MapReduce|Using MapReduce]] job for this.
 
-  You could also run `keys=stream`, and close the connection when you have the designed number. This will not, however, reduce load on the Riak cluster. It will only reduce load on your client.
-
+  You could also run `keys=stream` and close the connection when you have the designated number. This will not, however, reduce load on the Riak cluster. It will only reduce load on your client.
 
 Q: How is the real hash value for replicas calculated based on the preflist?
 A:
-  The hash is calculated first, and then the next subsequent N partitions are chosen for the preflist.
-
+  The hash is calculated first and then the next subsequent *N* partitions are chosen for the preflist.
 
 Q: Do client libraries support load balancing/round robin?
 A:
@@ -341,7 +365,6 @@ A:
   * The Java client is strictly round robin, but with retries built in.
   * The Python client also follows round robin without retries.
   * The Erlang client does not support any load balancing.
-
 
 <h2>MapReduce</h2>
 
@@ -383,7 +406,7 @@ A:
 Q: How do I apply a new schema to a bucket?
 A:
   1. Purge the bucket of all data
-  2. Install new schema
+  2. Install the new schema
   3. Run `search-cmd clear-schema-cache`
   4. Repopulate the bucket
 
@@ -419,15 +442,14 @@ Q: What is the `too_many_results` error?
   ```
 
 A:
-  The error you see is caused by a protective configuration setting. By default, the system will stop the query after 100,000 results and return an error to the system. It is intended to prevent Riak Search from exhausting all available memory when faced with a large result set. This failsafe is applied prior to the `rows` parameter.
+  The error you see is caused by a protective configuration setting. By default, the system will stop the query after 100,000 results and return an error to the system. It is intended to prevent Riak Search from exhausting all available memory when faced with a large result set. This fail-safe is applied prior to the `rows` parameter.
 
   Most people will never encounter the `max_results` setting. Those who do will have special use cases with especially large queries. In those cases, testing and tuning to find a number that is large enough to handle your queries while still small enough to prevent memory exhaustion is required. Tuning will depend upon both your available memory and your object size.
 
   The default value of 100,000 can be custom tuned with the `max_search_results` setting in the `etc/app.config` file.
 
-
-Q: What is the relationship between Riak Search and Lucene or SOLR?
+Q: What is the relationship between Riak Search and Lucene or Solr?
 A:
-  Riak Search does not use Lucene or Solr.  It provides a very similar interface to those search systems in order to ease the transition for developers, but is an independent piece of software from top to bottom.  Indexes are stored in Riak Search's own storage engine, queries are parsed by Riak Search's parser, and so on.
+  Riak Search does not use Lucene or Solr. It provides a very similar interface to those search systems in order to ease the transition for developers but is an independent piece of software from top to bottom. Indexes are stored in Riak Search's own storage engine, queries are parsed by Riak Search's parser, and so on.
 
-  The closest thing there is to such a relationship is that you can (but do not need to) use the same text analyzer libraries in Riak Search that you use in Lucene.
+  The closest thing there is to such a relationship is that you can---but do not need to---use the same text analyzer libraries in Riak Search that you use in Lucene.

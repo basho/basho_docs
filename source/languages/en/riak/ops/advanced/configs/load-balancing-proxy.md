@@ -42,15 +42,11 @@ Riak community in addition to suggestions from Basho engineering.
 
 The following is an example starting point configuration for HAProxy to act
 as a load balancer to a 4 node Riak cluster for access by clients using
-the protocol buffers and HTTP interfaces.
+the Protocol Buffers and HTTP interfaces.
 
-<div class="info">The operating system's open files limits need to be
-  greater than 256000 for the example configuration that follows. Consult
-  the [[Open Files Limit]] documentation for details on
-  configuring the value for different operating systems.</div>
+<div class="info">The operating system's open files limits need to be greater than 256000 for the example configuration that follows. Consult the [[Open Files Limit]] documentation for details on configuring the value for different operating systems.</div>
 
-```
-
+```config
 global
         log 127.0.0.1     local0
         log 127.0.0.1     local1 notice
@@ -129,14 +125,17 @@ HAProxy directly from the command line by interacting with the HAProxy stats
 socket with a utility such as
 [socat](http://www.dest-unreach.org/socat/):
 
-    echo "disable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
+```bash
+echo "disable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
+```
 
 At this point, you can perform maintenance on the node, down the node, and
 so on. When you've finished working with the node and it is again available
 for requests, you can re-enable the node:
 
-    echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
-
+```bash
+echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
+```
 
 Consult the following HAProxy documentation resources for more information on
 configuring HAProxy in your environment:
@@ -207,7 +206,7 @@ server {
       return 405;
     }
 
-    # Disallow any link with the map/reduce query format "bucket,tag,_"
+    # Disallow any link with the MapReduce query format "bucket,tag,_"
     if ($uri ~ "/riak/[^/]*/[^/]*/[^,]+,[^,]+," ) {
       return 405;
     }
