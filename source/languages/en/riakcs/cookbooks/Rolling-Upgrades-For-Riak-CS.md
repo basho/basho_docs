@@ -40,7 +40,7 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 
     ```bash
     curl -O <riakcs-os-x-package.tar.gz>
-    tar -xvf <riakcs-os-x-package.tar.gz>
+    tar -xvzf <riakcs-os-x-package.tar.gz>
     ```
 
 	**Debian / Ubuntu**

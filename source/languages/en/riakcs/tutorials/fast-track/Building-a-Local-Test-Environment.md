@@ -79,7 +79,7 @@ For Mac OS X:
 
 ```bash
 curl -O <riak-cs-os-x.tar.gz>
-tar -xvf <riak-cs-os-x.tar.gz>
+tar -xvzf <riak-cs-os-x.tar.gz>
 ```
 
 Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are installing.
@@ -106,7 +106,7 @@ For Mac OS X:
 
 ```bash
 curl -O <stanchion-os-x.tar.gz>
-tar -xvf <stanchion-os-x.tar.gz>
+tar -xvzf <stanchion-os-x.tar.gz>
 ```
 
 Replace `<stanchion-os-x.tar.gz>` with the actual filename for the package you are installing.

@@ -24,7 +24,7 @@ sudo apt-get -y install s3cmd
 For our OS X users, either use the package manager of your preference or download the S3 cmd package at [[http://s3tools.org/download]].  You will need to extract the `.tar` file, change directories into the folder, and build the package. The process should look something like this:
 
 ``` bash
-tar -xvf s3cmd-1.5.0-alpha1.tar.gz
+tar -xvzf s3cmd-1.5.0-alpha1.tar.gz
 cd s3cmd-1.5.0-alpha1
 sudo python setup.py install
 ```

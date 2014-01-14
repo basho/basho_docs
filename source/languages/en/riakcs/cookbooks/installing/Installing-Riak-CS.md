@@ -31,7 +31,7 @@ curl -O <riak-cs-os-x.tar.gz>
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvf <riak-cs-os-x.tar.gz>
+tar -xvzf <riak-cs-os-x.tar.gz>
 ```
 
 Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are installing.
@@ -73,7 +73,7 @@ Replace `<stanchion-os-x.tar.gz>` with the actual filename for the package you a
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvf <stanchion-os-x.tar.gz>
+tar -xvzf <stanchion-os-x.tar.gz>
 ```
 
 ### Installing Stanchion on Ubuntu
