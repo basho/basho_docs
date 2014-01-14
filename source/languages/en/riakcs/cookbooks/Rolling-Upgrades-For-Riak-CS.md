@@ -39,9 +39,10 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
     **Mac OS X**
 
     ```bash
-    curl -O <riakcs-os-x-package.tar.gz>
+    curl -O http://s3.amazonaws.com/downloads.basho.com/<riakcs-os-x-package.tar.gz>
     tar -xvzf <riakcs-os-x-package.tar.gz>
     ```
+
 
 	**Debian / Ubuntu**
 

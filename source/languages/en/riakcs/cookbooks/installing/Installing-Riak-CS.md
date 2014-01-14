@@ -25,7 +25,7 @@ After downloading Riak CS, Stanchion, and Riak, install them using your operatin
 To install Riak CS on OS X, first download the appropriate package from the [[downloads|Download Riak CS]] page:
 
 ```bash
-curl -O <riak-cs-os-x.tar.gz>
+curl -O http://s3.amazonaws.com/downloads.basho.com/<riak-cs-os-x.tar.gz>
 ```
 
 Then, unpack the downloaded tarball:
@@ -65,7 +65,7 @@ In a Riak CS system, Stanchion is installed on only one of the nodes in the syst
 To install Stanchion on OS X, first download the appropriate package from the [[downloads|Download Riak CS]] page:
 
 ```bash
-curl -O <stanchion-os-x.tar.gz>
+curl -O http://s3.amazonaws.com/downloads.basho.com/<stanchion-os-x.tar.gz>
 ```
 
 Replace `<stanchion-os-x.tar.gz>` with the actual filename for the package you are installing.

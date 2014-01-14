@@ -78,7 +78,7 @@ The following links provide platform-specific instructions for installing Riak.
 For Mac OS X:
 
 ```bash
-curl -O <riak-cs-os-x.tar.gz>
+curl -O http://s3.amazonaws.com/downloads.basho.com/<riak-cs-os-x.tar.gz>
 tar -xvzf <riak-cs-os-x.tar.gz>
 ```
 
@@ -105,7 +105,7 @@ Replace `<riak-cs-package.deb>` with the actual filename for the package you are
 For Mac OS X:
 
 ```bash
-curl -O <stanchion-os-x.tar.gz>
+curl -O http://s3.amazonaws.com/downloads.basho.com/<stanchion-os-x.tar.gz>
 tar -xvzf <stanchion-os-x.tar.gz>
 ```
 
