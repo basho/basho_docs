@@ -125,9 +125,13 @@ Applied permissions
 +----------+-------------+----------------------------------------+
 |   type   |   bucket    |                 grants                 |
 +----------+-------------+----------------------------------------+
-|   ANY    |shopping_list|              riak_kv.get               |
+|    *     |      *      |      riak_kv.get, riak_kv.delete,      |
+|          |             |               riak_kv.put              |
+|   ANY    |shopping_list|               riak_kv.get              |
 +----------+-------------+----------------------------------------+
 ```
+
+Inherited permissions are those that stem from the user's roles, whereas applied permissions include both inherited permissions and those that have been assigned to the user directly. The `Applied permissions` section thus lists _all_ permissions granted to a user.
 
 ### Add User
 
@@ -437,6 +441,7 @@ Snapshot of your current user list/sources:
 RESOURCES:
 https://gist.github.com/lukebakken/1dcf90bf2a6d4009c6db
 http://vagabond.github.io/2013/11/06/ricon-west-2013-talk-writeup/
+https://github.com/basho/riak/issues/469
 -->
 
 
