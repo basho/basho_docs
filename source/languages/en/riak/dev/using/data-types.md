@@ -8,15 +8,17 @@ audience: intermediate
 keywords: [developers, data-types]
 ---
 
-In versions of Riak prior to 2.0, Riak was essentially agnostic toward data types (with the exception of counters, introduced in version 1.4)
+https://gist.github.com/russelldb/5da7d895cebc77dd38b8
 
-Sets, Maps, Registers, Flags, Counters
+There are three options:
 
-Enables developers to delegate certain responsibilities back to Riak
+`map`
+`set`
+`counter`
 
-Shopping cart example => previously, devs would have to resolve conflicts on the application side; CRDTs enable them to allow Riak to handle conflicts in type-specific ways
+You can _not_ create a bucket 
 
-Monotonic => change is in a single direction
+## Using Bucket Types with CRDTs
 
 Setting up a bucket to store a specific data type, e.g. maps:
 
@@ -24,3 +26,19 @@ Setting up a bucket to store a specific data type, e.g. maps:
 riak-admin bucket-type create map_bucket '{"props":{"datatype":"map"}}''
 ```
 
+Via HTTP:
+
+```curl
+curl -XPUT \
+-H "Content-Type: application/json" \
+-d '{"props":{"datatype":"map"}}' \
+http://localhost:8098/buckets/map_bucket/props
+```
+
+And then check:
+
+```curl
+curl http://localhost:8098/buckets/map_bucket/props | python -mjson.tool
+```
+
+PBC example?
