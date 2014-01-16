@@ -18,8 +18,8 @@ en:
   next: Next
   toc_contents: Contents
   footer: "This work is licensed under a <a href=\"http://creativecommons.org/licenses/by/3.0/\" target=\"_blank\">Creative Commons Attribution 3.0 Unported License</a>"
-  banner_ad: "Technical Preview of Riak 2.0 is now available. <a class=\"register\" href=\"http://docs.basho.com/riak/2.0.0pre8/downloads/\">Download Here</a>"
-  banner_ad_mobile: "<a href=\"http://docs.basho.com/riak/2.0.0pre8/downloads/\">Download the Technical Preview of Riak 2.0</a>"
+  banner_ad: "Technical Preview of Riak 2.0 is now available. <a class=\"register\" href=\"http://docs.basho.com/riak/2.0.0pre5/downloads/\">Download Here</a>"
+  banner_ad_mobile: "<a href=\"http://docs.basho.com/riak/2.0.0pre5/downloads/\">Download the Technical Preview of Riak 2.0</a>"
   alert_version_title_older: "This documentation is for an older version of Riak"
   alert_version_title_unreleased: "This documentation is for an unreleased version of Riak"
   alert_version_link_text: "View the documentation for the latest version"
