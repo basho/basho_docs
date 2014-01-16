@@ -29,10 +29,6 @@ head(class=data.page.document)
   script hljs.initHighlightingOnLoad();
 - classnames = [(data.page.project || $default_project)]
 - classnames << 'dual' if data.page.dual
-- version_class = 'ver-'
-- version_class += current_version(data.page.project || $default_project)
-- version_class.gsub! '.', '-'
-- classnames << version_class
 body class=classnames.join(' ') id=data.page.body_id
   == partial "layouts/primary" unless data.page.skip_nav
   div(role="main" class=(data.page.skip_nav ? "no-nav" : ""))

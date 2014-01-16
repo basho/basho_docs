@@ -35,6 +35,8 @@ $ ->
   return unless project? || base_url? || version? || version_range?
   return if $versions[project]?.length <= 1
 
+  $("body").addClass("ver-#{version.replace(/\./g, '-')}")
+
   currentVersion = window.parseVersion(version)
   range = window.parseVersionRange(version_range)
 
