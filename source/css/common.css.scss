@@ -810,7 +810,7 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
     background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 768px) {
     display : block;
   }
 }
@@ -1098,7 +1098,7 @@ div[role="main"] {
       padding    : 8px 0 8px 0;
 
       @media screen and (max-width: 768px) {
-        right : 10px
+        display : none;
       }
       
       a,
@@ -1151,10 +1151,6 @@ div[role="main"] {
           color : #fff; /* Fallback */
           color : rgba(255, 255, 255, 1.0);
         } 
-      }
-
-      @media screen and (max-width: 500px) {
-        display : none;
       }
     }
     
