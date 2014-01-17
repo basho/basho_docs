@@ -46,7 +46,7 @@ The advantage of requiring that bucket types be used in this way is that types c
 
 As an example, let's say that the bucket `current_memes` exists and bears the type `no_siblings` (from above). Now, let's say that our application needs to create a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
 
-The following request made by the application would ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
+The following request seeks to add the meme "all your base are belong to us" to the `old_memes` bucket. If the bucket type `no_siblings` has been created and activated, the request will ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
 
 ```curl
 curl -XPUT \
@@ -55,9 +55,9 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/old_memes/keys/all_your_base
 ```
 
-This query would both create the bucket `old_memes` and apply the configuration contained in the `no_siblings` type all at once.
+This query would both create the bucket `old_memes` and ensure that the configuration contained in the `no_siblings` is applied to the bucket all at once.
 
-The non-dynamic way of setting the bucket's properties (without using bucket types) involves the bucket's properties in advance, e.g. via HTTP:
+The ad hoc (i.e. non-dynamic) way of setting the bucket's properties (without using bucket types) involves the bucket's properties in advance, e.g. via HTTP:
 
 ```curl
 curl -XPUT \
@@ -215,9 +215,9 @@ Any bucket properties associated with a type can be modified after a bucket is c
 If you need to change one of these properties, it is recommended that you simply create a new bucket type.
 </div>
 
-## Bucket Properties Example
+## Bucket Type Example
 
-Let's say that you'd like to create a bucket type called `user_account_bucket` with a [[pre-commit hook|Pre-Commit Hooks]] called `syntax_check` and two [[post-commit hooks|Post-Commit Hooks]] called `welcome_email` and `update_registry`. This would involve three steps:
+Let's say that you'd like to create a bucket type called `user_account_bucket` with a [[pre-commit hook|Pre-Commit Hooks]] called `syntax_check` and two [[post-commit hooks|Post-Commit Hooks]] called `welcome_email` and `update_registry`. This would involve four steps:
 
 1. Creating a JSON object with the appropriate `props`:
 
@@ -238,51 +238,20 @@ riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ["synt
 
 If creation is successful, the console will return `user_account_bucket created`.
 
-3. Activating the new bucket type:
+3. Verifying that the type is ready to be activated
+
+Once the type is created, you can check whether your new type is ready to be activated by running:
+
+```bash
+riak-admin bucket-type status user_account_bucket
+```
+
+If the first line reads `user_account_bucket has been created and may be activated`, then you can proceed to the next step. If it reads `user_account_bucket has been created and is not ready to activate`, then wait a moment and try again. If it still does not work, then there may be network partition or other issues that need to be addressed in your cluster.
+
+4. Activating the new bucket type:
 
 ```bash
 riak-admin bucket-type activate user_account_bucket
 ```
 
-If activation is successful, the console will return `user_account_bucket bas been activated`.
-
-## Managing Bucket Types Through HTTP and Protocol Buffers
-
-The simplest way of managing bucket types is via the interface provided by the `riak-admin bucket-type` command. A number of bucket type-related commands, however, may be issued through the HTTP and Protocol Buffers interfaces.
-
-The most important thing to remember when managing bucket types outside of the `riak-admin` command interface is that bucket types must first be _activated_ in order to be manageable.
-
-If you would like to manage the bucket type `strongly_consistent` via HTTP, for example, you would first need to create and activate the type. This can be done using `riak-admin`:
-
-```bash
-riak-admin bucket-type create strongly_consistent '{"props":{}}'
-riak-admin bucket-type activate strongly_consistent
-```
-
-Now, you can view the properties (`props`) associated with that type via HTTP:
-
-```curl
-curl http://localhost:8098/types/strongly_consistent/props
-```
-
-If the type has not been activated or has not been created, you will receive `404 Not Found` errors.
-
-But if the type _has_ been activated and you'd like to change its `props`---e.g. setting `allow_mult` to `false`---you can do so with a `PUT` request:
-
-```curl
-curl -XPUT \
-  -H "Content-Type: application/json" \
-  -d '{"props":{"allow_mult":false}}' \
-  http://localhost:8098/types/strongly_consistent/props
-```
-
-This change would then be reflected in the console output if you ran either a `GET` request on the URL above _or_ by running the `bucket-type status` command:
-
-```bash
-riak-admin bucket-type status strongly_consistent
-```
-
-## Scratchpad
-
-https://github.com/basho/riak/issues/362
-https://github.com/basho/riak_core/blob/develop/src/riak_core_bucket_type.erl#L21-L89
+If activation is successful, the console will return `user_account_bucket has been activated`.
