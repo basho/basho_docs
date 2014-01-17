@@ -473,24 +473,24 @@
       return false
     });
 
-    /*----------------------------------------------------------*/
-    // Version Menu Interactions
-    /*----------------------------------------------------------*/
-    $('#version-ddown-button').click(function() {
-      toggleMenu('#version-ddown-button', '#version-list');
-      //toggleSelected('#version-ddown-title');
-      //toggleSelected('#version-ddown-arrow');
-    });
+    // /*----------------------------------------------------------*/
+    // // Version Menu Interactions
+    // /*----------------------------------------------------------*/
+    // $('#version-ddown-button').click(function() {
+    //   toggleMenu('#version-ddown-button', '#version-list');
+    //   //toggleSelected('#version-ddown-title');
+    //   //toggleSelected('#version-ddown-arrow');
+    // });
 
-    //Mouse click on sub menu
-    $('#version-list').mouseup(function() {
-      return false
-    });
+    // //Mouse click on sub menu
+    // $('#version-list').mouseup(function() {
+    //   return false
+    // });
 
-    //Mouse click on my account link
-    $('#version-ddown-button').mouseup(function() {
-      return false
-    });
+    // //Mouse click on my account link
+    // $('#version-ddown-button').mouseup(function() {
+    //   return false
+    // });
 
     /*----------------------------------------------------------*/
     // Close all menu when the document is clicked
