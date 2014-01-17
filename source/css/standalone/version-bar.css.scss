@@ -32,6 +32,76 @@ $layout-layout:smart;
     text-rendering: optimizeLegibility;
 }
 
+/* Open Sans */
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../../fonts/opensans-regular-webfont-eot.eot');
+    src: url('../../fonts/opensans-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/opensans-regular-webfont-woff.woff') format('woff'),
+         url('../../fonts/opensans-regular-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/opensans-regular-webfont-svg.svg#OpenSans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('../../fonts/opensans-bold-webfont-eot.eot');
+    src: url('../../fonts/opensans-bold-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/opensans-bold-webfont-woff.woff') format('woff'),
+         url('../../fonts/opensans-bold-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/opensans-bold-webfont-svg.svg#OpenSansBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'OpenSansLight';
+    src: url('../../fonts/opensans-light-webfont-eot.eot');
+    src: url('../../fonts/opensans-light-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/opensans-light-webfont-woff.woff') format('woff'),
+         url('../../fonts/opensans-light-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/opensans-light-webfont-svg.svg#OpenSansLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
+/* Gandhi Serif */
+@font-face {
+    font-family: 'GandhiSerif';
+    src: url('../../fonts/gandhiserif-regular-webfont-eot.eot');
+    src: url('../../fonts/gandhiserif-regular-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/gandhiserif-regular-webfont-woff.woff') format('woff'),
+         url('../../fonts/gandhiserif-regular-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/gandhiserif-regular-webfont-svg.svg#GandhiSerif') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'GandhiSerifBold';
+    src: url('../../fonts/gandhiserif-bold-webfont-eot.eot');
+    src: url('../../fonts/gandhiserif-bold-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/gandhiserif-bold-webfont-woff.woff') format('woff'),
+         url('../../fonts/gandhiserif-bold-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/gandhiserif-bold-webfont-svg.svg#GandhiSerifBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'GandhiSerifBoldItalic';
+    src: url('../../fonts/gandhiserif-bolditalic-webfont-eot.eot');
+    src: url('../../fonts/gandhiserif-bolditalic-webfont-eot.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/gandhiserif-bolditalic-webfont-woff.woff') format('woff'),
+         url('../../fonts/gandhiserif-bolditalic-webfont-ttf.ttf') format('truetype'),
+         url('../../fonts/gandhiserif-bolditalic-webfont-svg.svg#GandhiSerifBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+    text-rendering: optimizeLegibility;
+}
+
 [class^="version-icon-"], [class*="version-icon-"] {
   font-family: 'Version';
   speak: none;
