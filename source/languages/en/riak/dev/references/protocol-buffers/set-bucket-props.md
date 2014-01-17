@@ -14,15 +14,12 @@ moved: {
 
 Set the properties for a bucket
 
-<div class="note"><p>The PBC interface does not currently support all bucket
-properties. It is currently limited to <code>allow_mult</code> and
-<code>n_val</code>; other bucket properties would need to be set with the [[HTTP
-API|HTTP Set Bucket Properties]].</p>
+<div class="note">
+<div class="title">Note</div>
+Currently, all bucket properties can be modified through the PBC interface with two exceptions: <tt>datatype</tt> and <tt>consistent</tt>.
 </div>
 
-
 ## Request
-
 
 ```bash
 message RpbSetBucketReq {
