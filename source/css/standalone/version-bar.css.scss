@@ -59,6 +59,10 @@ div[role="main"] {
      @include gradient('575e64', rgba(87,95,101,1.0), rgba(73,81,88,1.0));
      @include allCorners();
      
+     @media screen and (max-width: 768px) {
+       margin-top:56px;
+     }
+
     &.version_box_scroll_off {
       .arrow-left {
         border-width : 0;
@@ -200,6 +204,14 @@ div[role="main"] {
    }
 }
 
+body.latest {
+  div[role="main"] {
+     .alert-version {
+        margin-top:0px;
+     }
+  }
+}
+
 
 /* =============================================================================
    Version Bar
@@ -207,10 +219,14 @@ div[role="main"] {
 
 .versions {
    position    : fixed;
-   top         : 154px;
+   top         : 108px;
    margin-left : -72px;
    width       : 50px;
    height      : 100%;
+}
+
+body.latest .versions {
+  top         : 154px;
 }
 
 .version-ddown-title {

@@ -1,6 +1,6 @@
 header.masthead
   #header
-    - if I18n.t(:banner_ad, :default=>"").present?
+    - if I18n.t(:banner_ad, :default=>"").present? && latest_version?(:riak)
       div#ricon-temp-banner
         div.temp-banner-text
           == I18n.t(:banner_ad)
@@ -27,6 +27,6 @@ header.masthead
         div#nav-menu-arrow-back
       div.clear
       div.header-rule
-- if I18n.t(:banner_ad_mobile, :default=>"").present?
+- if I18n.t(:banner_ad_mobile, :default=>"").present? && latest_version?(:riak)
   div#ricon-temp-banner-responsive
     == I18n.t(:banner_ad_mobile)

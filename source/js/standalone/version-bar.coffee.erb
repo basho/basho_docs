@@ -76,6 +76,28 @@ unless window.pageInVersion?
     window.inVersionRange(pageVersion, versionRange)
 
 $ ->
+  unless toggleMenu?
+    toggleMenu = (buttonID, menuID)->
+      c = $(buttonID).attr('class')
+      if c == 'selected'
+        $(menuID).hide()
+        $(buttonID).attr('class', 'unselected')
+      else
+        $(menuID).show()
+        $(buttonID).attr('class', 'selected')
+
+  $('#version-ddown-button').live 'click', ->
+    toggleMenu('#version-ddown-button', '#version-list')
+    #toggleSelected('#version-ddown-title')
+    #toggleSelected('#version-ddown-arrow')
+
+  # Mouse click on sub menu or account link
+  $('#version-list, #version-ddown-button').live 'mouseup', -> false
+
+  $(document).live 'mouseup', ->
+    $('#version-list').hide()
+    $('#version-ddown-button').attr('class', 'unselected')
+
   # construct an object that represents a
   # drop-down version list
   buildLists = (project, base_url, moved_ranges_obj)->
@@ -158,7 +180,7 @@ $ ->
   latestVersion = window.parseVersion(latestVersionStr)
   pageToLatest = window.compareVersions(latestVersion, currentVersion)
   if pageToLatest != 0
-    latestUrl = document.URL.replace("/#{version}/", "/#{latestVersionStr}/")
+    latestUrl = document.URL.replace("/#{version}/", "/latest/")
     short_version = version.replace(/(\d+\.\d+\.\d+)(.+)?/, "$1")
     if pageToLatest < 0
       halert_header = "This documentation is for an older version of Riak"
@@ -176,5 +198,11 @@ $ ->
     halert += "<div class=\"clear\"></div></div>"
     $('.mainarticle .versions').after(halert)
 
-  $('.mainarticle .versions').html(output)
+  versions = $('.mainarticle .versions')
+  if versions.is('div')
+    versions.html(output)
+  else
+    new_versions = versions.first().before("<div class=versions />")
+    versions.remove()
+    new_versions.html(output)
 
