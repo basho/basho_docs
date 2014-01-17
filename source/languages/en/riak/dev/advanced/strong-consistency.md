@@ -8,69 +8,45 @@ audience: intermediate
 keywords: []
 ---
 
-While Riak was originally built to provide _eventual_ data consistency, 
+Riak was originally designed to guarantee _eventual_ data consistency. While this remains the default behavior of Riak, versions of Riak >= 2.0 allow you to use Riak in a way that guarantees _strong_ data consistency.
 
-The core emphasis of Riak has always been on data availability rather than consistency. To that end, Riak has always favored the "A" and the "P"---availability and partition (i.e. fault) tolerance---to the "C"---consistency---in the CAP theorem. Now that doesn't mean that consistency was ever simply discarded as a goal; rather, Riak was built to provide *eventual* as opposed to *strong* consistency.
+By strong consistency we mean ensuring that any `GET` operation performed on a key will return either nothing or a single value (and thus no siblings), and that `GET` operations will be successful only when all nodes agree on the key's value. If you successfully `PUT` a key, the next successful `GET` is guaranteed to show that write because Riak will ensure that the object didn't change since you last accessed it. The request will fail if a concurrent write occurred and changed the object.
 
-Favoring availability and partioning over strong consistency remains the default behavior in Riak. However, in post-2.0 releases, we have sought to make strong---or at the very least strong*er*---consistency an option for Riak users on a bucket-by-bucket basis. If your use case demands that some---or all---buckets provide strong consistency, then you may wish to pay attention to this doc.
+The trade-off with this approach is that it improves data consistency (the "C" in [CAP](http://en.wikipedia.org/wiki/CAP_theorem)) by detracting from data availability (the "A" in CAP), which in many cases will mean higher latency and slightly slower performance.
 
-## What Strong Consistency Means
+We recommend using this feature only on those buckets that require it.
 
-If you get or put a key, the next successful read is guaranteed to show that write (or the result of a future write that saw the write); Riak ensures that the object didn't change since you last accessed it; the request will fail if a concurrent write occurred and changed the object; the old value tends to win
+## Creating a Strongly Consistent Bucket Type
 
-## Strongly Consistent Through Bucket Properties
+Strong consistency requirements in Riak are applied on a bucket-by-bucket basis, meaning that you can use some buckets in an eventually consistent fashion and others in a strongly consistent fashion, depending on your use case.
 
-`consistent = true`
-
-```curl
-curl -XPUT \
--H "Content-Type: application/json" \
--d '{"props": {"consistent": true}' \
-http://localhost:8098/buckets/my_bucket
-```
-
-`riak_ensemble` => `put_once`, `modify`, `overwrite`
-
-## Strongly Consistent Through Bucket Types
+To apply strong consistency to a bucket, you must [[create a bucket type|Using Bucket Types]] that sets the `consistent` bucket property to `true`, activate the type, and then begin applying that type to bucket/key pairs.
 
 Create a bucket type `strongly_consistent` with `consistent` set to `true`:
 
 ```bash
 riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true}}'
 
-# Or if the type involves setting other properties:
+# Or if your type involves setting other properties to non-default values as well:
 riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true, ... other properties ... }}'
 ```
 
-Check status:
+Then check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
 
 ```bash
 riak-admin bucket-type status consistent_bucket
 ```
 
-And then activate if it's ready to go:
+If the console outputs `consistent_bucket has been created and may be activated` and also shows that `consistent` has been set to `true`, then you may proceed with activation:
 
 ```bash
 riak-admin bucket-type activate consistent_bucket
 ```
 
-## Testing
+When activation is successful, the console will return the following:
 
-Now, send multiple values to the same key:
-
-```curl
-curl -XPUT \
--H "Content-Type: text/plain" \
--d "apples" \
-http://localhost:8098/types/consistent_bucket/buckets/test/keys/1
+```bash
+consistent_bucket has been activated
 ```
 
-```curl
-curl -XPUT \
--H "Content-Type: text/plain" \
--d "oranges" \
-http://localhost:8098/types/consistent_bucket/buckets/test/keys/1
-```
-
-
-
+Now, any bucket that bears the type `consistent_bucket`---or whatever you wish to name your bucket type---will provide strong consistency guarantees. You can find more comprehensive information on using bucket types [[here|Using Bucket Types]].
