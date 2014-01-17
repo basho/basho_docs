@@ -46,6 +46,7 @@ riak:
           - "[[Key Filters|Using Key Filters]]"
           - "[[Link Walking]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
+          - "[[Datatypes|Using Datatypes]]"
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"

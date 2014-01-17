@@ -5,25 +5,25 @@ version: 2.0.0+
 document: tutorials
 toc: true
 audience: intermediate
-keywords: [developers, data-types]
+keywords: [developers, datatypes]
 ---
 
-https://gist.github.com/russelldb/5da7d895cebc77dd38b8
-https://github.com/basho/riak_kv/blob/develop/src/riak_kv_wm_crdt.erl#L26
+<!-- https://gist.github.com/russelldb/5da7d895cebc77dd38b8
+https://github.com/basho/riak_kv/blob/develop/src/riak_kv_wm_crdt.erl#L26 -->
 
 Ruby example code from the [official Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc).
 
-There are three options:
+There are three options for bucket types:
 
 `map`
-`set`d
+`set`
 `counter`
 
 You can _not_ create a bucket that stores flags or registers. Flags and registers can only be found in buckets storing maps or sets.
 
 ## Setting Up Buckets to Use Riak Datatypes
 
-Setting up a bucket to store a specific data type, e.g. maps:
+Setting up a bucket to store specific data types:
 
 ```bash
 riak-admin bucket-type create map_bucket '{"props":{"datatype":"map"}}'
@@ -31,25 +31,10 @@ riak-admin bucket-type create set_bucket '{"props":{"datatype":"set"}}'
 riak-admin bucket-type create counter_bucket '{"props":{"datatype":"counter"}}'
 ```
 
-Via HTTP:
-
-```curl
-curl -XPUT \
--H "Content-Type: application/json" \
--d '{"props":{"datatype":"map"}}' \
-http://localhost:8098/buckets/map_bucket/props
-```
-
 And then check:
 
 ```curl
-curl http://localhost:8098/buckets/map_bucket/props | python -mjson.tool
-```
-
-## HTTP
-
-```curl
-GET /types/<type>/buckets/<bucket>/datatypes/key
+curl http://localhost:8098/types/map_bucket/props | python -mjson.tool # or pjson or another tool
 ```
 
 Result:
@@ -121,7 +106,7 @@ Naming convention: field name + `_` + type
 
 #### Register
 
-Embedded in map only
+Registers cannot be used on their own in Riak. They must be used within a map.
 
 Form: `{"assign":Value}` where `value` is the new string value of the register
 
@@ -132,6 +117,56 @@ Embedded in map only
 Form: the string `enable` or `disable`
 
 ## Usage Examples
+
+## Counters
+
+<div class="note">
+<div class="title">Note</div>
+Although counters were made available in Riak in version 1.4, if you are using Riak 2.0, we recommend that you do not use counters the way they were used in earlier versions.
+</div>
+
+First, create and name a Riak bucket. We'll name ours `counters` for this example:
+
+```ruby
+bucket = client.bucket 'counters'
+```
+
+Now, we need to create a counter. The general syntax for doing so:
+
+```ruby
+counter = Riak::Crdt::Counter.new bucket, key
+```
+
+But let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior:
+
+```ruby
+counter = Riak::Crdt::Counter.new counters, traffic_tickets
+```
+
+At any time, we can check to see how many traffic tickets we've accumulated:
+
+```ruby
+counter.value
+# Output will always be an integer
+```
+
+If we get additional traffic tickets, we can use the `increment` function 
+
+counter.increment
+counter.decrement
+
+counter.batch do |c|
+  c.increment 5
+  puts c.value
+  c.increment 3
+end
+
+counters = [counter1, counter2]
+
+counters.each do |c|
+  c.increment
+end
+```
 
 ## Sets
 
@@ -157,30 +192,6 @@ set.bach do |s|
   cities.each do |city|
     s.add city
   end
-end
-```
-
-## Counters
-
-```ruby
-bucket = client.bucket 'counters'
-bucket.allow_mult = true
-
-counter = Riak::Crdt::Counter.new bucket, key
-counter.value
-counter.increment
-counter.decrement
-
-counter.batch do |c|
-  c.increment 5
-  puts c.value
-  c.increment 3
-end
-
-counters = [counter1, counter2]
-
-counters.each do |c|
-  c.increment
 end
 ```
 
