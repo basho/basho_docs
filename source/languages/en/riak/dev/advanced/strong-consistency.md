@@ -4,8 +4,8 @@ project: riak
 version: 2.0.0+
 document: guide
 toc: true
-audience: intermediate
-keywords: []
+audience: advanced
+keywords: [developers, strong-consistency]
 ---
 
 Riak was originally designed to guarantee _eventual_ data consistency. While this remains the default behavior of Riak, versions of Riak >= 2.0 allow you to use Riak in a way that guarantees _strong_ data consistency.
@@ -49,4 +49,4 @@ When activation is successful, the console will return the following:
 consistent_bucket has been activated
 ```
 
-Now, any bucket that bears the type `consistent_bucket`---or whatever you wish to name your bucket type---will provide strong consistency guarantees. You can find more comprehensive information on using bucket types [[here|Using Bucket Types]].
+Now, any bucket that bears the type `consistent_bucket`---or whatever you wish to name your bucket type---will provide strong consistency guarantees. You can find more comprehensive information on using bucket types [[here|Using Bucket Types]], and more information on what strong consistency involves [[here|Strong Consistency Concept]].
