@@ -198,11 +198,11 @@ $ ->
     halert += "<div class=\"clear\"></div></div>"
     $('.mainarticle .versions').after(halert)
 
-  $('.mainarticle .versions').html(output)
-  # if versions.is('div')
-  # versions.html(output)
-  # else
-  #   new_versions = versions.first().before("<div class=versions />")
-  #   versions.remove()
-  #   new_versions.html(output)
+  versions = $('.mainarticle .versions')
+  if versions.is('div')
+    versions.html(output)
+  else
+    new_versions = versions.first().before("<div class=versions />")
+    versions.remove()
+    new_versions.html(output)
 
