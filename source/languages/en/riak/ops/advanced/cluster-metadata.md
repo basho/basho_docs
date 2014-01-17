@@ -52,4 +52,4 @@ Nodes manage storage via the `riak_core_metadata_manager` process running on it;
 
 Hash trees are the basis for determining differences betwen data stored on two nodes; used to determine when keys change; `hashtree_tree` module; each node maintains a `hashtree` via the `riak_core_metadata_hashtree` process; only maintained for the life of the running node; rebuilt each time a node starts and are never rebuilt for as long as the node continues to run; backed by LevelDB and cleared on graceful shutdown and each time the node is started; the entire tree is stored in one LevelDB instance
 
-Broadcast: separate subsystem; ties nodes together; `riak_core_broadcast` module; the `riak_core_broadcast_handler`
+Broadcast: separate subsystem; ties nodes together; `riak_core_broadcast` module; the `riak_core_broadcast_handler` process

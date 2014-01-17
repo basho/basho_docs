@@ -7,17 +7,22 @@ audience: intermediate
 keywords: [developers, buckets]
 ---
 
-Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a way that is often more efficient than an ad hoc approach.
+Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a way that is often more expressive than an ad hoc approach.
 
 ## How Bucket Types Work
 
-The ad hoc approach to bucket configuration involves setting bucket properties for a specific bucket either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. Using bucket types also involves dealing with bucket properties, but in a more abstracted way. 
+The ad hoc approach to bucket configuration involves setting bucket properties for specific bucket either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. With this approach, you can take a bucket `my_bucket` and dictate how that bucket behaves, from 
 
-It is important to note that buckets are not assigned types in the same way that they are configured using `props`. You cannot simply take a bucket `test_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`.
+Using bucket types also involves dealing with bucket properties, but with crucial differences:
 
-In other words, there is no `type` parameter contained within `props` that would register the bucket's type. Instead, bucket types are applied to buckets _on the basis of how those buckets are queried_.
+* Bucket types enable you to assign a total set of properties to buckets _at the time of bucket creation_
+* Bucket types must be both created _and_ activated before they can be used
+* Most bucket properties can be updated using bucket types, but others---namely the `datatype` and `consistent` properties---cannot
 
-Queries involving bucket types take the following form:
+It is important to note that buckets are not assigned types in the same way that they are configured [[using `props`|HTTP Set Bucket Properties
+]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
+
+Instead, bucket types are applied to buckets _on the basis of how those buckets are queried_. Queries involving bucket types take the following form:
 
 ```curl
 GET/PUT/DELETE /types/<type>/buckets/<type>/keys/<key>
@@ -32,20 +37,27 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/sensitive_user_data/keys/user19735
 ```
 
-In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration on the basis of the URL employed.
+In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the URL employed_.
 
+<div class="note">
+<div class="title">Note</div>
 The advantage of requiring that bucket types be used in this way is that types can be dynamically applied to buckets that do not yet exist.
+</div>
 
-As an example, let's say that the bucket `current_memes` exists and bears the type `no_siblings`. Now, let's say that our application needs to create a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`. The following request made by the application will ensure that the `old_memes` bucket indeed bears the type `no_siblings`:
+As an example, let's say that the bucket `current_memes` exists and bears the type `no_siblings` (from above). Now, let's say that our application needs to create a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
+
+The following request made by the application would ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
 
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "all your base are belong to us" \
-  http://localhost:8098/types/larger_n_val/buckets/old_memes/keys/all_your_base
+  http://localhost:8098/types/no_siblings/buckets/old_memes/keys/all_your_base
 ```
 
-A non-dynamic way of setting the bucket's properties would be to set the bucket's properties in advance, e.g. via HTTP:
+This query would both create the bucket `old_memes` and apply the configuration contained in the `no_siblings` type all at once.
+
+The non-dynamic way of setting the bucket's properties (without using bucket types) involves the bucket's properties in advance, e.g. via HTTP:
 
 ```curl
 curl -XPUT \
@@ -54,7 +66,7 @@ curl -XPUT \
   http://localhost:8098/buckets/old_memes/props
 ```
 
-This way of doing things works just fine for many use cases. If, however, you do not know in advanced which buckets will be required by your application but you still need to apply types to them _upon creation_, then you should strongly consider assigning bucket types dynamically.
+This way of doing things works just fine for many use cases. If, however, you do not know in advanced which buckets will be required by your application but still need to apply types to them _upon creation_, then you should strongly consider assigning bucket types dynamically.
 
 ## The `riak-admin bucket-type` Command
 
@@ -81,6 +93,9 @@ riak-admin bucket-type list
 This will return a simple list of types along with their current status (either `active` or `not active`). Here is an example console output:
 
 ```bash
+riak-admin bucket-type list
+
+# Response:
 type1 (active)
 type2 (not active)
 type3 (active)
@@ -88,7 +103,7 @@ type3 (active)
 
 ### Checking a Type's Status
 
-You can check on the status of a bucket type using the `status <type>` command:
+You can check on the status---i.e. the configuration details---of a bucket type using the `status <type>` command:
 
 ```bash
 riak-admin bucket-type status my_bucket_type
@@ -97,7 +112,7 @@ riak-admin bucket-type status my_bucket_type
 The console will output two things if the type exists:
 
 1. Whether or not the type is active
-2. The bucket properties associated with the type.
+2. The bucket properties associated with the type
 
 If you check the status of a currently active type called `my_bucket_type` that simply bears a default bucket configuration, the output will be as follows:
 
@@ -107,7 +122,7 @@ my_bucket_type is active
 active: true
 allow_mult: true
 
-...
+... other properties ...
 
 w: quorum
 young_vclock:20
@@ -120,6 +135,13 @@ Simply run the `activate` command to activate a type:
 ```bash
 riak-admin bucket-type activate my_bucket_type
 ```
+
+<div class="note">
+<div class="title">Note</div>
+A bucket type can be activated only when it is considered ready by Riak (i.e. when the type has been propagated to all running nodes). You can check on the type's readiness by running `riak-admin bucket-type status <type_name>`. The first line of output will indicate whether or not the type is ready.
+
+In a stable cluster, bucket types should propagate very quickly. If, however, a cluster is experiencing network partitions or other issues, you will need to resolve those issues before bucket types can be activated.
+</div>
 
 ### Creating a Bucket Type
 
@@ -134,7 +156,9 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 }
 ```
 
-Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. Below are the default properties for Riak buckets:
+Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
+
+Below is a listing of the default properties for Riak buckets:
 
 ```json
 {
@@ -173,6 +197,8 @@ If you'd like to create a bucket type that simply extends Riak's defaults, for e
 ```bash
 riak-admin bucket-type create default '{"props":{}}'
 ```
+
+**Note**: The `create` command can be run multiple times prior to the bucket type being activated. Riak will persist only those properties contained in the final call of the command.
 
 ### Updating a Bucket Type
 
