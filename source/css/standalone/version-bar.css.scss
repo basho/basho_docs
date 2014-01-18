@@ -509,14 +509,14 @@ body[class*="ver-2-0"] {
 /* 2.0.0 */
 body[class~="ver-2-0-0"] {
   .version-icon-watermark:before {
-    content: "\e621";
+    content: "\e618";
   }
 }
 
 /* 2.0.0pre5 */
 body[class~="ver-2-0-0pre5"] {
   .version-icon-watermark:before {
-    content: "\e621";
+    content: "\e61b";
   }
 }
 
@@ -565,24 +565,38 @@ body[class*="ver-1-4"] {
   }
 }
 
+/* 1.4.7 */
+body[class~="ver-1-4-7"] {
+  .version-icon-watermark:before {
+    content: "\e609";
+  }
+}
+
+/* 1.4.6 */
+body[class~="ver-1-4-6"] {
+  .version-icon-watermark:before {
+    content: "\e60c";
+  }
+}
+
 /* 1.4.2 */
 body[class~="ver-1-4-2"] {
   .version-icon-watermark:before {
-    content: "\e61e";
+    content: "\e61c";
   }
 }
 
 /* 1.4.1 */
 body[class~="ver-1-4-1"] {
   .version-icon-watermark:before {
-    content: "\e61b";
+    content: "\e61d";
   }
 }
 
 /* 1.4.0 */
 body[class~="ver-1-4-0"] {
   .version-icon-watermark:before {
-    content: "\e618";
+    content: "\e61e";
   }
 }
 
@@ -627,21 +641,21 @@ body[class*="ver-1-3"] {
 /* 1.3.2 */
 body[class~="ver-1-3-2"] {
   .version-icon-watermark:before {
-    content: "\e615";
+    content: "\e61f";
   }
 }
 
 /* 1.3.1 */
 body[class~="ver-1-3-1"] {
   .version-icon-watermark:before {
-    content: "\e612";
+    content: "\e607";
   }
 }
 
 /* 1.3.0 */
 body[class~="ver-1-3-0"] {
   .version-icon-watermark:before {
-    content: "\e60f";
+    content: "\e606";
   }
 }
 
@@ -686,14 +700,14 @@ body[class*="ver-1-2"] {
 /* 1.2.1 */
 body[class~="ver-1-2-1"] {
   .version-icon-watermark:before {
-    content: "\e60c";
+    content: "\e619";
   }
 }
 
 /* 1.2.0 */
 body[class~="ver-1-2-0"] {
   .version-icon-watermark:before {
-    content: "\e609";
+    content: "\e605";
   }
 }
 
@@ -738,14 +752,14 @@ body[class*="ver-1-1"] {
 /* 1.1.4 */
 body[class~="ver-1-1-4"] {
   .version-icon-watermark:before {
-    content: "\e606";
+    content: "\e604";
   }
 }
 
 /* 1.1.0 */
 body[class~="ver-1-1-0"] {
   .version-icon-watermark:before {
-    content: "\e603";
+    content: "\e60f";
   }
 }
 
@@ -790,6 +804,6 @@ body[class*="ver-1-0"] {
 /* 1.0.0 */
 body[class~="ver-1-0-0"] {
   .version-icon-watermark:before {
-    content: "\e600";
+    content: "\e61a";
   }
 }
