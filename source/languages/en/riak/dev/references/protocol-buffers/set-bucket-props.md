@@ -25,21 +25,53 @@ Currently, all bucket properties can be modified through the PBC interface with 
 message RpbSetBucketReq {
     required bytes bucket = 1;
     required RpbBucketProps props = 2;
+    optional bytes type = 3;
 }
 // Bucket properties
 message RpbBucketProps {
     optional uint32 n_val = 1;
     optional bool allow_mult = 2;
+    optional bool last_write_wins = 3;
+    repeated RpbCommitHook precommit = 4;
+    optional bool has_precommit = 5 [default = false];
+    repeated RpbCommitHook postcommit = 6;
+    optional bool has_postcommit = 7 [default = false];
+    optional RpbModFun chash_keyfun = 8;
+    optional RpbModFun linkfun = 9;
+    optional uint32 old_vclock = 10;
+    optional uint32 young_vclock = 11;
+    optional uint32 big_vclock = 12;
+    optional uint32 small_vclock = 13;
+    optional uint32 pr = 14;
+    optional uint32 r = 15;
+    optional uint32 w = 16;
+    optional uint32 pw = 17;
+    optional uint32 dw = 18;
+    optional uint32 rw = 19;
+    optional bool basic_quorum = 20;
+    optional bool notfound_ok = 21;
+    optional bytes backend = 22;
+    optional bool search = 23;
+
+    enum RpbReplMode {
+        FALSE = 0;
+        REALTIME = 1;
+        FULLSYNC = 2;
+        TRUE = 3;
+    }
+
+    optional RpbReplMode repl = 24;
+    optional bytes search_index = 25;
+    optional bytes datatype = 26;
 }
 ```
 
-
 Required Parameters
 
-* **bucket** - bucket to set properties for
-* **props** - updated properties - only set properties to change
-* **n_val** - current n_val for the bucket
-* **allow_mult** - allow_mult set true if conflicts are returned to clients
+Parameter | Description |
+:---------|:------------|
+`bucket` | Bucket to set properties for |
+`props` | Updated properties (only set properties to change) |
 
 ## Response
 
@@ -47,7 +79,7 @@ Only the message code is returned.
 
 ## Example
 
-Change `allow_mult` to true for bucket "friends"
+Change `allow_mult` to true for the bucket `friends`:
 
 Request
 
@@ -63,7 +95,6 @@ props {
 }
 
 ```
-
 
 Response
 
