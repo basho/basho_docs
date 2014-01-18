@@ -8,20 +8,18 @@ audience: intermediate
 keywords: [developers, datatypes]
 ---
 
-<!-- https://gist.github.com/russelldb/5da7d895cebc77dd38b8
-https://github.com/basho/riak_kv/blob/develop/src/riak_kv_wm_crdt.erl#L26 -->
+In versions of Riak >= 2.0, you can make use of a variety of convergent replicated data types (CRDTs). While Riak was originally built as a data-agnostic key/value store, datatypes make Riak aware of your data and enable you to make specific transactions 
 
-Ruby example code from the [official Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc).
+In total, there are five Riak datatypes: [[counters|CRDTs#Counters]], [[flags|CRDTs#Flags]], [[registers|CRDTs#Registers]], [[sets|CRDTs#Sets]], and [[maps|CRDTs#Maps]]. Of those five types, counters, sets, and maps can be used as bucket-level datatypes, whereas flags and registers must be embedded in maps (more on that [[below|Using Datatypes#Maps]]).
 
-There are three options for bucket types:
-
-`map`
-`set`
-`counter`
-
-You can _not_ create a bucket that stores flags or registers. Flags and registers can only be found in buckets storing maps or sets.
+<div class="note">
+<div class="title">Note</div>
+Counters were the one Riak datatype made available prior to version 2.0 (in version 1.4). Usage documentation can be found [[here|HTTP Counters]]. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than the documentation for the older version of counters. 
+</div>
 
 ## Setting Up Buckets to Use Riak Datatypes
+
+In order to use Riak datatypes, you must do so by 
 
 Setting up a bucket to store specific data types:
 
@@ -104,64 +102,91 @@ Naming convention: field name + `_` + type
 * `userinfo_map`
 * `followers_set`
 
-#### Register
-
-Registers cannot be used on their own in Riak. They must be used within a map.
-
-Form: `{"assign":Value}` where `value` is the new string value of the register
-
-#### Flag
-
-Embedded in map only
-
-Form: the string `enable` or `disable`
-
-## Usage Examples
-
 ## Counters
 
-<div class="note">
-<div class="title">Note</div>
-Although counters were made available in Riak in version 1.4, if you are using Riak 2.0, we recommend that you do not use counters the way they were used in earlier versions.
-</div>
+Alongside sets and maps, counters are a datatype that can be used at the bucket level. The examples below will show you how to use counters both at the bucket level and within maps.
 
-First, create and name a Riak bucket. We'll name ours `counters` for this example:
+#### Using a Counters Bucket
+
+First, let's create and name a Riak bucket that houses any and all counters that we'd like to use. A bucket set up to use counters can store as many counters as want. We'll keep it simple and name our bucket `counters`:
 
 ```ruby
 bucket = client.bucket 'counters'
 ```
 
-Now, we need to create a counter. The general syntax for doing so:
+To create a counter, you need to specific a bucket/key pair to hold that counter. Here is the general syntax for that:
 
 ```ruby
 counter = Riak::Crdt::Counter.new bucket, key
 ```
 
-But let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior:
+Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior:
 
 ```ruby
 counter = Riak::Crdt::Counter.new counters, traffic_tickets
 ```
 
-At any time, we can check to see how many traffic tickets we've accumulated:
+Our `traffic_tickets` counter will start out at 0. If we happen to get a ticket that afternoon, we would need to increment the counter:
+
+```ruby
+counter.increment
+```
+
+The default value of the `increment` function is 1, but you can increment by more than one if you'd like. Let's say that we decide to spend an afternoon flaunting traffic laws and rack up five tickets:
+
+```ruby
+counter.increment 5
+```
+
+If we're curious about how many tickets we have accumulated, we can simply use the `value` method:
 
 ```ruby
 counter.value
 # Output will always be an integer
 ```
 
-If we get additional traffic tickets, we can use the `increment` function 
+The counterpart of `increment` is of course `decrement`. If we hire an expert who manages to get a traffic ticket stricken from the record:
 
-counter.increment
+```ruby
 counter.decrement
 
+# You can also decrement by more than one, e.g.:
+# counter.decrement 3
+```
+
+The `value` method will return the value of a counter at any given time, but you can also return the new value of a counter immediately after `increment` or `decrement` using `increment_and_return` and `decrement_and_return`. Let's say that our `counter`'s current value is 10:
+
+```ruby
+counter.value
+# 10
+
+counter.increment_and_return
+# 11
+
+counter.decrement_and_return
+# 10
+
+counter.increment_and_return 10
+# 20
+
+counter.decrement_and_return 5
+# 15
+```
+
+Operations on counters can be performed singly, as in the examples above, or as batched operations. The following increments the counter by 5, then returns the value of the count by 3:
+
+```ruby
 counter.batch do |c|
   c.increment 5
   puts c.value
   c.increment 3
 end
+```
 
-counters = [counter1, counter2]
+Or, you can perform operations on multiple counters. Let's say that there are now two counters in play, `dave_traffic_tickets` and `susan_traffic_tickets`. If both of them get a ticket on the same day:
+
+```ruby
+counters = [dave_traffic_tickets, susan_traffic_tickets]
 
 counters.each do |c|
   c.increment
@@ -169,6 +194,8 @@ end
 ```
 
 ## Sets
+
+As with counters (and maps, as shown below)
 
 ```ruby
 # Both the Riak Ruby Client and Ruby the language have a class called Set. Make sure that you refer to the Ruby version as ::Set and the Riak client version as Riak::Crdt::Set
@@ -240,3 +267,24 @@ maps.each do |map|
   end
 end
 ```
+
+#### Register
+
+Registers cannot be used on their own in Riak. They must be used within a map.
+
+Form: `{"assign":Value}` where `value` is the new string value of the register
+
+#### Flag
+
+Embedded in map only
+
+Form: the string `enable` or `disable`
+
+## Usage Examples
+
+The examples below show you how to use Riak datatypes at the application level. Code samples are currently available in Ruby (using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
+
+## Scratchpad
+
+https://gist.github.com/russelldb/5da7d895cebc77dd38b8
+https://github.com/basho/riak_kv/blob/develop/src/riak_kv_wm_crdt.erl#L26
