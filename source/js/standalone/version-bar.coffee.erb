@@ -120,19 +120,24 @@ $ ->
         firstInBlock = false
     lists
 
+  version = $('meta[name=version]').attr('content')
+  return unless version?
+  $("body").addClass("ver-#{version.replace(/\./g, '-')}")
 
-  return if $('.mainarticle .versions').length == 0
+  versionsEl = $('.mainarticle .versions')
+  return if versionsEl.length == 0
+  unless versionsEl.is('div')
+    newVersionsEl = versionsEl.before("<div class=versions />")
+    versionsEl.remove()
+    versionsEl = newVersionsEl
 
   project = $('meta[name=project]').attr('content')
   base_url = $('meta[name=base-url]').attr('content')
-  version = $('meta[name=version]').attr('content')
   version_range = $('meta[name=version-range]').attr('content')
   moved_ranges = $('meta[name=moved-ranges]').attr('content')
 
-  return unless project? || base_url? || version? || version_range?
+  return unless project? || base_url? || version_range?
   return if $versions[project]?.length <= 1
-
-  $("body").addClass("ver-#{version.replace(/\./g, '-')}")
 
   currentVersion = window.parseVersion(version)
   range = window.parseVersionRange(version_range)
@@ -196,13 +201,6 @@ $ ->
     halert += "</p></div><div class=\"version-icon-alert-version-num\">#{short_version}</div>"
     halert += "<meta content=\"#{version}\" itemprop=\"version\">"
     halert += "<div class=\"clear\"></div></div>"
-    $('.mainarticle .versions').after(halert)
+    versionsEl.after(halert)
 
-  versions = $('.mainarticle .versions')
-  if versions.is('div')
-    versions.html(output)
-  else
-    new_versions = versions.first().before("<div class=versions />")
-    versions.remove()
-    new_versions.html(output)
-
+  versionsEl.html(output)
