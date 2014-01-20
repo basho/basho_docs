@@ -35,11 +35,17 @@ And then check:
 curl http://localhost:8098/types/map_bucket/props | python -mjson.tool # or pjson or another tool
 ```
 
-## Counters
+## Usage Examples
+
+The examples below show you how to use Riak datatypes at the application level. Code samples are currently available in Ruby (using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
+
+### Registers and Flags
+
+Registers and flags cannot be used on their own in Riak. That is, you cannot use a bucket/key pair as a register or flag directly. Instead, they must be used within a map. For usage examples, see the section on maps [[below|Using Datatypes#Maps]].
+
+### Counters
 
 Alongside sets and maps, counters are a datatype that can be used at the bucket level. The examples below will show you how to use counters both at the bucket level and within maps.
-
-#### Using a Counters Bucket
 
 First, let's create and name a Riak bucket that houses any and all counters that we'd like to use. A bucket set up to use counters can store as many counters as want. We'll keep it simple and name our bucket `counters`:
 
@@ -126,7 +132,7 @@ counters.each do |c|
 end
 ```
 
-## Sets
+### Sets
 
 As with counters (and maps, as shown below), using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
 
@@ -189,23 +195,90 @@ Or we can add a city---or multiple cities---to multiple sets. Let's say that Dav
 end
 ```
 
-## Maps
+### Maps
 
-Maps are in many ways the richest Riak datatype because within them you can embed all of the other datatypes, _including maps themselves_. 
+The map is in many ways the richest of the Riak datatype because all of the other datatypes can be embedded within them, including maps themselves, to create arbitrarily complex custom datatypes out of the basic building blocks provided by the other Riak datatypes.
+
+Here is the general syntax for creating a Riak map:
 
 ```ruby
-map = Riak::Crdt::Map.new bucket key
+map = Riak::Crdt::Map.new bucket, key
+```
 
-map.counters['tweets'].value
-map.sets['followers'].include? 'Horse_ebooks'
+Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed`) in our bucket and simply call it `map` for simplicity's sake:
 
-map.sets['cacti'].value #=> #<Set: {'saguaro', 'prickly pear', 'fishhook'}>
-map.sets['cacti'].remove 'prickly pear'
-map.sets['cacti'].value #=> #<Set: {'saguaro', 'fishhook'}>
+```ruby
+map = Riak::Crdt::Map.new customers, ahmed
+```
 
-map.registers['favorite movie'] = 'The Avengers'
+The first piece of info we want to store in our map is Ahmed's name and phone number, both of which are best stored as registers:
 
-# Change of opinion
+```ruby
+map.registers['first_name'] = 'Ahmed'
+map.registers['phone_number'] = '5551234567' # integers need to be stored as strings and then converted back when the data is retrieved
+```
+
+This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
+
+We also want to know how many times Ahmed has visited our website. We'll use a `page_visits` counter for that and run the following operation when Ahmed visits our page for the first time:
+
+```ruby
+map.counters['page_visits'].increment
+```
+
+Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the `increment` method will bump the counter up to 1.
+
+Now let's say that we add an Enterprise plan to our pricing model. We'll create an `enterprise_customer` flag to track whether Ahmed has signed up for the new plan. He hasn't yet, so we'll set it to `false`:
+
+```ruby
+map.flags['enterprise_customer'] = false
+```
+
+We'd also like to know what Ahmed's interests are so that we can better design a user experience for him. Through his purchasing decisions, we find out that Ahmed likes playing with robots, opera, and motorcyles. We'll store that information in a set:
+
+```ruby
+%w{ robots opera motorcycles }.each do |interest|
+  map.sets['interests'].add interest
+end
+```
+
+We can then verify that the `interests` set includes these three interests:
+
+```ruby
+%w{ robots opera motorcycles }.each do |interest|
+  map.sets['interests'].include? interest
+end
+
+# This will return three Boolean values
+```
+
+The marketing department decides to ditch the Enterprise plan in our pricing model, and so the `enterprise_customer` flag no longer provides any useful information in our data model. Let's get rid of it:
+
+```ruby
+map.flags.delete 'enterprise_customer'
+```
+
+We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
+
+```ruby
+map.sets['interests'].remove 'opera'
+map.sets['interests'].add 'indie pop'
+```
+
+Now, let's say that Ahmed fills out a questionnaire on our site and we learn a lot of new things about him. 
+We also learn from our analytics software that he's visited the site 50 times in the last month
+We can make all of those changes in one go using a batch operation:
+
+```ruby
+map.batch do |m|
+  m.sets['interests'].add 'Sudoku'
+
+  m.counters['page_visits'].increment 50
+end
+```
+
+
+```ruby
 map.registers['favorite movie'] = 'The Avengers 2'
 
 map.flags['retweeted'] = false
@@ -237,21 +310,7 @@ maps.each do |map|
 end
 ```
 
-#### Register
-
-Registers cannot be used on their own in Riak. They must be used within a map.
-
-Form: `{"assign":Value}` where `value` is the new string value of the register
-
-#### Flag
-
-Embedded in map only
-
-Form: the string `enable` or `disable`
-
-## Usage Examples
-
-The examples below show you how to use Riak datatypes at the application level. Code samples are currently available in Ruby (using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
+Now, if we need to 
 
 ## Scratchpad
 
