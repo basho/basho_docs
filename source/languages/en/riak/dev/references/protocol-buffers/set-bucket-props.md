@@ -16,10 +16,32 @@ Set the properties for a bucket
 
 <div class="note">
 <div class="title">Note</div>
+{{#1.4.0-}}
+The PBC interface does not currently support all bucket properties. It is currently limited to <tt>allow_mult</tt> and <tt>n_val</tt>. Other bucket properties would need to be set using the [[HTTP API|HTTP Set Bucket Properties]].
+{{/1.4.0-}}
+{{#1.4.0+}}
 Currently, all bucket properties can be modified through the PBC interface with two exceptions: <tt>datatype</tt> and <tt>consistent</tt>.
+{{/1.4.0+}}
 </div>
 
 ## Request
+
+{{#1.4.0-}}
+
+```bash
+message RpbSetBucketReq {
+    required bytes bucket = 1;
+    required RpbBucketProps props = 2;
+}
+// Bucket properties
+message RpbBucketProps {
+    optional uint32 n_val = 1;
+    optional bool allow_mult = 2;
+}
+```
+{{/1.4.0-}}
+
+{{#1.4.0+}}
 
 ```bash
 message RpbSetBucketReq {
@@ -65,6 +87,7 @@ message RpbBucketProps {
     optional bytes datatype = 26;
 }
 ```
+{{/1.4.0+}}
 
 Required Parameters
 
@@ -72,6 +95,8 @@ Parameter | Description |
 :---------|:------------|
 `bucket` | Bucket to set properties for |
 `props` | Updated properties (only set properties to change) |
+`n_val` | Current `n_val` for the bucket | {{#1.4.0-}}
+`allow_mult` | Set to `true` if conflicts are returned to clients | {{#1.4.0-}}
 
 ## Response
 
