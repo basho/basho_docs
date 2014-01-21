@@ -7,6 +7,10 @@ toc: true
 https://gist.github.com/jrwest/a0d88571d5d7787758ce
 
 https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl
+https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_exchange_fsm.erl
+https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_hashtree.erl
+https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_manager.erl
+https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_object.erl
 
 ![Riak cluster metadata diagram](https://a248.e.akamai.net/camo.github.com/2bd50766570280a928bf74aafeda4d45018b1c81/687474703a2f2f6563322d35342d3232372d3131372d39392e636f6d707574652d312e616d617a6f6e6177732e636f6d2f636f72652d6b762d6d65657475702d707265736f2f696d616765732f686967682d6c6576656c2e706e67)
 
@@ -55,13 +59,53 @@ Function | Arguments | Description |
 `itr_next` | `{It, Opts}` | Advances the iterator |
 `itr_close` | `{It, _Opts_}` | Closes the iterator |
 `itr_done` | `{It, _Opts}` | Returns `true` if there is nothing more to iterate over. |
-`itr_key_values` | `{It, Opts}` | Returns the key and value(s) pointed at by the iterator. Can only be called if `itr_done` returns `false`. If a resolver was passed to `iterator/0` when creating the given iterator, siblings will be resolved using the given function or last-write-wins (if `Lww` is passed as the resolver). |
+`itr_key` | `{It, Opts}` | 
+`itr_key_values` | `{It, Opts}` | Returns the key and value(s) pointed at by the iterator. Can only be called if `itr_done` returns `false`. If a resolver was passed to `iterator/0` when creating the given iterator, siblings will be resolved using the given function or last-write-wins (if `Lww` is passed as the resolver). If no resolver was used then no conflict resolution will take place. If conflicts are resolved, the resolved value is written to local metadata and a broadcast is submitted to update other nodes in the cluster if `allow_put` is set to `true`. If `allow_put` is `false`, the values are resolved but are not written or broadcast. A single value is returned as the second element of the tuple in the case the values are resolved. If no resolution takes place then a list of values will be returned as the second element (even if there is only a single sibling). **Note**: If resolution may be performed, this function must be called at most once before calling `itr_next` on the iterator, at which point the function can be called once more. |
 
 ### Other Operations
 
 Function | Arguments | Description |
 :--------|:----------|:------------|
-`prefix_hash` | `Prefix` | Returns the local hash associated with a full prefix or prefix. The hash value is updated periodically and does not always reflect the most recent value. This function can be used to determine when keys stored under a full prefix or prefix have changed. If the tree has not yet been updated or there are no keys stored, the given prefix or full prefix. `undefined` is returned.
+`prefix_hash` | `Prefix` | Returns the local hash associated with a full prefix or prefix. The hash value is updated periodically and does not always reflect the most recent value. This function can be used to determine when keys stored under a full prefix or prefix have changed. If the tree has not yet been updated or there are no keys stored, the given prefix or full prefix. `undefined` is returned. |
+
+## Metadata Objects
+
+Function | Arguments | Description |
+:--------|:----------|:------------|
+`value` | `Metadata` | Returns a single value. If the object holds more than one value, an error is generated. |
+`values` | `{metadata, Object}` | Returns a list of values held in the object |
+`value_count` | `{metadata, Object}` | Returns the number of siblings in the given object |
+`context` | `{metadata, Object}` | Returns the context, i.e. opaque causal history, for the given object |
+`empty_context` | none | Returns the representation for an empty context, i.e. opaque causal history |
+`hash` | `{metadata, Object}` | Returns a hash representing the metadata object's contents |
+`modify` | `undefined, Context, Fun, ServerId` or `Obj, Context, Fun, ServerId` or `undefined, _Context, Value, ServerId` (ignores context) or `{metadata, Existing}, Context, Value, ServerId` | Modifies a potentially existing object, settings its value and updating the causal history. If a function is provided as the third argument, this function is also used for conflict resolution. The difference between this function and `resolve/2` is that the logical clock is advanced in the case of this function. Additionally, the resolution functions are slightly different. |
+`reconcile` | `undefined, _LocalObj` or `RemoteObj, undefined` or `{metadata, RemoteObj}, {metadata, LocalObj}` | Reconciles a remote object received during replication or anti-entropy with a local object. If the remote object is an ancestor of or is equal the local object, `false` is returned; otherwise, the reconciled object is returned as the second element of the two-tuple. |
+`resolve` | `{metadata, Object}, lww` or `{metadata, Existing}, Reconcile` | Resolves siblings using either last-write-wins or the provided function and returns an object containing a single value. The causal history is not updated. |
+`is_stale` | `_, undefined` or `RemoteContext, {metadata, Obj}` | Determines if the given context (version vector, *not* vclock) is causally newer than an existing object. If the object is missing or if the context does not represent an ancestor of the current key, `false` is returned. Otherwise, when the context does represent an ancestor of the existing object or the existing object itself, `true` is returned. |
+`descends` | ? | ??? |
+`equal_context` | `Context, {metadata, Obj}` | Returns `true` if the given context and the context of the existing object are equal. |
+
+## Metadata Exchange
+
+[`riak_core_metadata_exchange_fsm`](https://github.com/basho/riak_core/blob/9c2a4c8e67afab61c9d0de86a010c980c281a1c3/src/riak_core_metadata_exchange_fsm.erl)
+
+Function | Arguments | Description |
+:--------|:----------|:------------|
+`start` | `Peer`<br />`Timeout` | Starts an exchange of cluster metadata hash trees between this node and the `Peer` node. `Timeout` is the number of milliseconds the process will wait to acquire the remote lock or to update both trees. |
+
+## Metadata Hash Trees
+
+[`riak_core_metadata_hashtree`](https://github.com/basho/riak_core/blob/9c2a4c8e67afab61c9d0de86a010c980c281a1c3/src/riak_core_metadata_hashtree.erl)
+
+Function | Arguments | Description |
+:--------|:----------|:------------|
+`start_link/0` | **none** | Starts the process using `start_link/1` (directly below), passing in the directory where other cluster metadata is stored in `platform_data_dir` as the root |
+`start_link/1` | `DataRoot` | Starts a registered process that manages a `hashtree_tree` for cluster metadata. 
+
+
+
+
+
 
 ## Internals
 
@@ -120,6 +164,37 @@ These examples are for the node `dev1@127.0.0.1`. We'll use Eshell (the Erlange 
 ```
 
 #### Iteration
+
+## "Controlled Epidemics" talk
+
+http://www.youtube.com/watch?v=s4cCUTPU8GI
+
+Lots of custom bucket properties make Riak *slow*
+
+Gossip system: periodic and change-triggered communication; as ring structure changes, there is a flood of nodes (graph overlay); binary tree with cycles; very chatty
+
+Bucket properties problem; modify one bucket property and all of the others are broadcast around (cold rumor spreading)
+
+Cluster metadata
+
+* Built into `riak_core`
+* KV store (no longer a flat namespace); eventually consistent; fully replicated; asynchronous replication
+* Local reads and writes (`r=1`, `w=1`); in memory and on disk; logical clocks instead of timestamp-based clocks (dotted version vectors, *not* vclocks)
+* You don't want to have to talk over the network to get certain values
+* Epidemic broadcast trees (https://docs.di.fc.ul.pt/jspui/bitstream/10455/3002/1/07-14.pdf)
+* Broadcast (not redundant, but also not reliable) vs. gossip (reliable but also redundant) vs. Plumtree (reliable and not very redundant)
+* Self-healing spanning tree (gossip for healing the tree, tree as primary form of broadcast)
+* 
+
+
+
+
+
+
+
+
+
+
 
 
 
