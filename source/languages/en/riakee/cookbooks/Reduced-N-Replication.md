@@ -1,51 +1,74 @@
 ---
 title: Reduced-N Replication
 project: riakee
-version: 2.0.0+
+version: 2.1.0+
 document: cookbook
 toc: true
 audience: advanced
 ---
 
+Riak Enterprise version >= 2.1.0 comes equipped with the object size reduction mutator [`riak_repl_reduced`](https://github.com/basho/riak_repl/blob/develop/src/riak_repl_reduced.erl). When this mutator is employed, objects are reduced in size upon put and then expanded when retrieved via get requests.
 
+The benefit of this sort of mutator is reduction in overall storage cost, but please note that reduced-N replication often incurs additional costs in the form of higher CPU usage and in some cases increased bandwidth. Reduced-N replication behavior can be switched on and off and modified on both a per-bucket and cluster-wide basis.
 
-Shrink down objects on a put, then expand them on get (analogy to zipping); shrinking is based on either cluster or bucket settings (get usage examples)
+<div class="note">
+<div class="title">Note</div>
+Reduced-N replication is enabled by default in Riak Enterprise. If you do not wish to use it, you will need to explicitly disable it using one of the methods shown below.
+</div>
 
-Targeted to sink clusters
+Reduced-N replication is managed via the `full_objects` property. This property can have three values:
 
-Trade CPU and perhaps bandwidth for reduced storage cost
+Value | Description
+:-----|:-----------
+`always` | Objects are *never* reduced. This is the default.
+`never` | Objects are *always* reduced.
+`N` | If a positive integer value is entered instead of `always` or `never`, keep that many or N full objects, whichever is smaller; N is the usual `n_val` on a put; if a full value cannot be found, a proxy get is attempted. (**this explanation needs work**).
 
-Look up `riak_kv_mutator`
+## Managing Reduced-N Replication for Buckets
 
-General:
+The `full_objects` parameter can be set either via bucket properties or bucket types.
 
-* A put is performed; the object is checked for `cluster_of_record` metadata; if the data is missing or has the same name as the cluster, the object is not reduced; if the `cluster_of_record` is different from the current cluster, however, it will be reduced
+Bucket properties:
 
-The mutator never reduces an object (by default); to enable cluster-wide reduction, `riak_core_metadata` =>
-
-`{'riak_repl', 'reduced_n'}, 'full_objects'}` to `always`, `never`, or a positive integer
-
-The `full_objects` bucket property overrides cluster settings and uses the same option values
-* `always` --- Always use `full_objects` => _never_ reduce objects (default)
-* `never` --- Never use `full_objects` => _always_ reduce objects; all requests for the object will use proxy gets to the cluster of record; if the object cannot be retrieved from there, a `not found` value is returned; in order for `proxy_get` to work, the source cluster must have `proxy_get` enabled
-* **positive integer** --- Keep that many or N full objects, whichever is smaller; N is the usual `n_val` on a put; if a full value cannot be found, a proxy get is attempted
-
-To set the `full_objects` property on a cluster-wide basis, use the `riak-repl` command:
-
-```bash
-riak-repl full_objects [always | never | ]
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"full_objects": ... }}' \
+  http://localhost:8098/buckets/my_bucket/props
 ```
 
-Replication can be enabled or disabled on a per-bucket basis (or via bucket types)
+Via bucket types:
+
+```bash
+riak-admin bucket-type create reduced_n '{"props":{"full_objects":"never"}}'
+riak-admin bucket-type status reduced_n
+riak-admin bucket-type activate reduced_n
+```
+
+## Managing Reduced-N Replication on a Cluster-wide Basis
+
+Cluster metadata:
+
+The value of `{'riak_repl', 'reduced_n'}, 'full_objects'}` must be set to one of the values in the table above. More on managing cluster metadata [[here|Cluster Metadata]].
+
+Command line:
+
+```bash
+riak-repl full_object [always | never | <positive_integer> ]
+```
 
 `full_object` can be set as a normal bucket property
 
-to remove the mutator: `riak_kv_mutator:unregister(riak_repl_reduced)`
+## Removing the Mutator Entirely
 
-The above removes the abiility to do reduced objects completely. setting full_objects to never means any object that isn't put directly on the cluster is reduced.
+Even if the `full_objects` parameter is set to `always` (meaning that no reduction is taking place), the `riak_repl_reduced` mutator is still registered in the cluster metadata. This can be undone in the Erlang shell. Opening the shell:
 
-## Important
+```bash
+riak attach
+```
 
-`full_objects` can be set per bucket
+```erlang
+(dev1@127.0.0.1)> riak_kv_mutator:unregister(riak_repl_reduced).
+```
 
-The mutator is enabled by default (in fact, the default is `always`)
+The above removes the ability to use reduced objects completely.
