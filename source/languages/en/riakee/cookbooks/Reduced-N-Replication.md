@@ -7,6 +7,8 @@ toc: true
 audience: advanced
 ---
 
+
+
 Shrink down objects on a put, then expand them on get (analogy to zipping); shrinking is based on either cluster or bucket settings (get usage examples)
 
 Targeted to sink clusters
@@ -42,4 +44,8 @@ to remove the mutator: `riak_kv_mutator:unregister(riak_repl_reduced)`
 
 The above removes the abiility to do reduced objects completely. setting full_objects to never means any object that isn't put directly on the cluster is reduced.
 
+## Important
 
+`full_objects` can be set per bucket
+
+The mutator is enabled by default (in fact, the default is `always`)
