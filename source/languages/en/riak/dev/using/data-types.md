@@ -1,6 +1,6 @@
 ---
 title: Using Datatypes
-project: Riak
+project: riak
 version: 2.0.0+
 document: tutorials
 toc: true
