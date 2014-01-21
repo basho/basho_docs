@@ -283,7 +283,7 @@ module SitemapRenderOverride
         when "curl"
           "HTTP"
         when "bash"
-          "Commandline"
+          "Command line"
         else
           lang && lang.capitalize
         end
