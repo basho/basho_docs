@@ -184,3 +184,23 @@ Sample responses (reformatted for easy reading):
     </Storage>
   </Usage>
 ```
+
+{{#1.4.4+}}
+
+Storage usage is calculated per each bucket. If there happened any
+errors while calculating a bucket, its result will be replaced with
+error string.
+
+```json
+    {
+      "StartTime": "20120316T123318Z",
+      "EndTime": "20120316T123319Z",
+      "baz": "{error,{timeout,[]}}",
+      "bar": {
+        "Objects": 4,
+        "Bytes": 130023424
+      }
+    },
+```
+
+{{/1.4.4+}}
