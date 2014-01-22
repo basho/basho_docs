@@ -15,7 +15,7 @@ The `app.config` file is used to set various attributes for the Riak node, such 
 
 Riak and the Erlang applications it depends on are configured by settings in the `app.config` file, which looks something like this:
 
-```appconfig
+```erlang
 [
     {riak_core, [
         {ring_state_dir, "data/ring"}
@@ -309,9 +309,7 @@ Parameter | Description | Default |
 `-env ERL_MAX_PORTS` | Maximum number of concurrent ports/sockets.<br ><br >**Note**: As with processes, Erlang ports and system ports are similar but distinct. | `64000` |
 `-env ERL_FULLSWEEP_AFTER` | Run garbage collection more often. | `0` |
 `-env ERL_CRASH_DUMP` | Set the location of crash dumps. | `./log/erl_crash.dump` |
-
- * **anti_entropy_expire**
-    Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual KV backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds. The default is 1 week.
+`anti_entropy_expire` | Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual KV backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds. | `604800000` |
 
 If you are going to be rebuilding Riak often, you will want to edit the `vm.args` and `app.config` files in the `rel/files` directory. These files are used whenever a new release is generated using `make rel` or `rebar generate`. Each time a release is generated, any existing release must first be destroyed.
 Changes made to release files (`rel/riak/etc/vm.args`, `rel/riak/etc/app.config`, etc.) would be lost when the release is destroyed.
@@ -497,7 +495,7 @@ Parameter | Description | Default |
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `mapred_name` | The URL used to submit MapReduce requests to Riak. | `mapred` |
-`mapred_2i_pipe` | Indicates whether or not secondary index MapReduce inputs are queued in parallel via their own pipe (`true`) or serially via a helper process (`false` or undefined). Set to `false` or leave undefined during a rolling upgrade from Riak 1.0. | `on` |
+`mapred_2i_pipe` | Indicates whether secondary index MapReduce inputs are queued in parallel via their own pipe (`true`) or serially via a helper process (`false` or not defined). Set to `false` or leave undefined during a rolling upgrade from Riak 1.0. | `on` |
 
 ## JavaScript VM Options
 
@@ -559,7 +557,7 @@ Parameter | Description | Default |
 `object_format` | Controls which binary representation of a Riak object is stored on disk. The current options are `v0` (original `erlang:term_to_binary` format with higher space overhead) and `v1` (new format for more compact storage of small values). | `v1` |
 `md_cache_size` | Controls how large the md cache is allowed to be. Set to `0` to disable the cache. This shouldn't be necessary with on-disk backends, but it can improve performance in some cases (e.g. [[Memory]] backend or when the data fits in a block cache). Note that this is the size of the ETS table rather than the actual data to keep the calculation simple. Thus, more space may be used than the simple size * vnode_count calculation would imply. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `0` |
 `warn_object_size` | Reading or writing objects larger than this size will generate a warning in the logs. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `5MB` |
-`max_object_size` | Writing an object larger that this size will fail. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `50MB` |
+`max_object_size` | Writing an object larger than this size will fail. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `50MB` |
 `warn_siblings` | Writing an object with more than this number of siblings will generate a warning in the logs. | `25` |
 `max_siblings` | Writing an object with more than this number of siblings will fail. | `100` |
 `honor_cipher_order` | Whether or not to honor the order in which the server lists its preferred ciphers. | `on` |
