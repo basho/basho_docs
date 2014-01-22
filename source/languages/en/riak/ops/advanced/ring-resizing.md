@@ -12,27 +12,35 @@ Ring resizing enables Riak operators to change the number of partitions during n
 
 Previously, a cluster was limited to always having `ring_creation_size` partitions. In order to change the number of partitions, a separate cluster would need to be stood up along side the original and the data would be migrated between the two by external means.
 
-The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and have a need to change this without all the hassle mentioned above. It is not intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions ultimately limits the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in specific scenarios.
+The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and need to change this without the hassle mentioned above.
 
-Important considerations to running the resize process:
+<div class="note">
+<div class="title">Note</div>
+Ring resizing is *not* intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions ultimately limits the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in specific scenarios.
+</div>
 
-* All nodes must eventually be up for a resize to succeed.  The only cluster operation that will be permitted during ring resize is a `force-remove`.  Any other operations will be delayed while the resize completes.
-* If you perform a listkeys or 2i query you can get duplicates or miscounts in coverage queries.  In an upcoming release of Riak, this will be self-healing (see: [https://github.com/basho/riak_kv/pull/685](https://github.com/basho/riak_kv/pull/685) for more information)
-* Resizing the partitions can take a large amount of disk space. Make sure that you have sufficient storage to complete the resize operation.
+There are a number of important considerations to bear in mind while running a ring resizing process:
 
-###Starting the Resize
+* All nodes must eventually be up for a resize to succeed. The only cluster operation that will be permitted during ring resize is a `force-remove`. Any other operations will be delayed while the resize completes.
+* If you perform a [[listkeys|HTTP List Keys]] or [[secondary index|Using Secondary Indexes]] query, you can get duplicates or miscounts in coverage queries. In an upcoming release of Riak, this will be self-healing (see [this pull request](https://github.com/basho/riak_kv/pull/685) for more information).
+* Resizing the partitions can take up a lot of disk space. Make sure that you have sufficient storage to complete the resize operation.
 
-To resize your Riak cluster, you will use `riak-admin` to submit, plan, and commit the change to your cluster.  The command to submit a resize request has the following form:
+## Starting the Resize
 
+To resize your Riak cluster, use the `riak-admin` command interface to submit, plan, and commit the change to your cluster. The command to submit a resize request has the following form:
+
+```bash
 >riak-admin cluster resize-ring &lt;*new_size*&gt;
- 
 ```
+
+
+```bash
 $> riak-admin cluster resize-ring 64
 Success: staged resize ring request with new size: 64
 ```
 Display the planned changes to the cluster using `riak-admin cluster plan`
 
-```
+```bash
 $> riak-admin cluster plan
 
 =============================== Staged Changes ================================
@@ -61,16 +69,20 @@ Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 
 Ring is resizing. see riak-admin ring-status for transfer details.
 ```
-If you are satisfied with the changes, begin the resize operation by committing the changes using `riak-admin cluster commit`.  If you change your mind, you can abort the pending changes  using `riak-admin cluster clear`.
+If you are satisfied with the changes, begin the resize operation by committing the changes using `riak-admin cluster commit`. If you change your mind, you can abort the pending changes  using `riak-admin cluster clear`.
 
-```
-$> riak-admin cluster commit
+```bash
+riak-admin cluster commit
+
+# Response
 Cluster changes committed
 ```
-###Monitoring Resize Progress
-With the new plan committed, the resizing process can be monitored using the same means as one would use to monitor other handoff.  You can use `riak-admin ring-status` to look at the changes to the cluster that are in-progress or queued.  You can also throttle the ring resize activity using `riak-admin transfer-limit` should you desire.
 
-```
+## Monitoring Resize Progress
+
+With the new plan committed, the resizing process can be monitored using the same means as one would use to monitor other handoff. You can use `riak-admin ring-status` to look at the changes to the cluster that are in-progress or queued. You can also throttle the ring resize activity using `riak-admin transfer-limit` should you desire.
+
+```bash
 $> riak-admin ring-status
 ================================== Claimant ===================================
 Claimant:  'dev1@127.0.0.1'
@@ -206,9 +218,10 @@ Index: 1324485858831130769622089379649131486563188867072
 ============================== Unreachable Nodes ==============================
 All nodes are up and reachable
 ```
+
 Using `riak-admin transfers` will provide you more information about the partitions that are currently in flight. 
 
-```
+```bash
 $> riak-admin transfers
 'dev5@127.0.0.1' waiting to handoff 3 partitions
 'dev4@127.0.0.1' waiting to handoff 1 partitions
@@ -295,8 +308,10 @@ Eshell V5.10.3  (abort with ^G)
 64
 (dev1@127.0.0.1)2> 
 ```
-### Aborting a Resize Already In-Progress 
-The process to abort a currently running resize is very similar to the process to set one up.  Submit a `resize-ring abort` request, plan it, and commit it using `riak-admin cluster ...`
+
+## Aborting a Ring Resize Already in Progress 
+
+The process to abort a currently running resize is very similar to the process to set one up. Submit a `resize-ring abort` request, plan it, and commit it using `riak-admin cluster ...`
 
 Submit the request
 ```
