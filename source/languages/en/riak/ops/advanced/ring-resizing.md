@@ -1,71 +1,340 @@
 ---
 title: Ring Resizing
 project: riak
+version: 2.0.0+
+document: cookbook
 toc: true
 audience: advanced
+keywords: [ops, ring, ring-resizing]
 ---
 
-Ring resizing enables `riak_core` applications to change the number of partitions (running vnodes) during normal operations, even when under considerable load. Previously, a cluster was limited to always having a number of partitions dictated by `ring_creation_size` and set once and for all (or at least for the life cycle of the cluster). Changing the number of partitions previously involved standing up a brand new cluster and migrating extant data to and from that cluster.
+Ring resizing enables Riak operators to change the number of partitions during normal operations, under load.
 
-Now, this can be done with far less hassle and without a "dummy" cluster. This is _not_ intended as a scaling feature; Riak has plenty of these already (like adding and removing nodes...the ring size is a much different sort of thing). 
+Previously, a cluster was limited to always having `ring_creation_size` partitions. In order to change the number of partitions, a separate cluster would need to be stood up along side the original and the data would be migrated between the two by external means.
 
-Only permitted cluster operation during a ring resize is `force-remove`; all other operations will be delayed
+The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and have a need to change this without all the hassle mentioned above. It is not intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions ultimately limits the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in specific scenarios.
 
-https://gist.github.com/jrwest/3ddfc521d33a23644b9f
+Important considerations to running the resize process:
 
-Two components:
+* All nodes must eventually be up for a resize to succeed.  The only cluster operation that will be permitted during ring resize is a `force-remove`.  Any other operations will be delayed while the resize completes.
+* If you perform a listkeys or 2i query you can get duplicates or miscounts in coverage queries.  In an upcoming release of Riak, this will be self-healing (see: [https://github.com/basho/riak_kv/pull/685](https://github.com/basho/riak_kv/pull/685) for more information)
+* Resizing the partitions can take a large amount of disk space. Make sure that you have sufficient storage to complete the resize operation.
 
-1. Determine what the future ring will look like
-2. Make the transition
+###Starting the Resize
 
-Determining future ownership => `riak_core_claimant` => ring resizing, staging, planning, committing, etc.; determines ownership in the future ring and what transfers will be necessary to achieve the transition
+To resize your Riak cluster, you will use `riak-admin` to submit, plan, and commit the change to your cluster.  The command to submit a resize request has the following form:
 
-Expanding the ring => all existing partitions will be in both the old and new ring; initially assigned to a dummy node before being assigned through `claim`; if the ring is downsized, some partitions will be removed; some partitions may change owners as part of this process
+>riak-admin cluster resize-ring &lt;*new_size*&gt;
+ 
+```
+$> riak-admin cluster resize-ring 64
+Success: staged resize ring request with new size: 64
+```
+Display the planned changes to the cluster using `riak-admin cluster plan`
 
-Transfers are scheduled using the "next list;" future transfer info is carried in the gossip structure; future ring cannot be calculated using only the "next list" => gossip structure determines this as well; stored in metadata dictionary
+```
+$> riak-admin cluster plan
 
-If the plan is committed, the claimant will not install the new ring until all of the scheduled transfers have completed, in order to ensure a safe transition; because of this, all cluster operations with the exception of `force-replace` will be delayed until resizing completes; the claimant also provides the ability to cancel while resizing in flight
+=============================== Staged Changes ================================
+Action         Details(s)
+-------------------------------------------------------------------------------
+resize-ring    32 to 64 partitions
+-------------------------------------------------------------------------------
 
-## Transfer Scheduling
 
-Partitions must transfer their data not only to new _owners_ of the same partitions but also to new _partitions_, because every preflist 
+NOTE: Applying these changes will result in 1 cluster transition
 
-#### For a few key pairs:
+###############################################################################
+                         After cluster transition 1/1
+###############################################################################
 
-![](https://a248.e.akamai.net/camo.github.com/ae4de1ceb72cac63a0f71bd43d11dc337609a6fb/687474703a2f2f646174612e7269616b63732e6e65743a383038302f6a72772d7075626c69632f64796e616d69632d72696e672f657870616e642d707265666c6973742e706e67)
+================================= Membership ==================================
+Status     Ring    Pending    Node
+-------------------------------------------------------------------------------
+valid      21.9%     20.3%    'dev1@127.0.0.1'
+valid      21.9%     20.3%    'dev2@127.0.0.1'
+valid      18.8%     20.3%    'dev3@127.0.0.1'
+valid      18.8%     20.3%    'dev4@127.0.0.1'
+valid      18.8%     18.8%    'dev5@127.0.0.1'
+-------------------------------------------------------------------------------
+Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 
-In the image on the left a key in the old ring is owned by N (3 in this case) partitions, as expected. In the middle image, each partition is divided in half to show, relatively, where the keys fall within the keyspace owned by each partition. The image on the right shows which partitions should own the key in the new ring.
+Ring is resizing. see riak-admin ring-status for transfer details.
+```
+If you are satisfied with the changes, begin the resize operation by committing the changes using `riak-admin cluster commit`.  If you change your mind, you can abort the pending changes  using `riak-admin cluster clear`.
 
-![](https://a248.e.akamai.net/camo.github.com/d33619a217feda1b1992dbc86c53b69a1d6bf640/68747470733a2f2f613234382e652e616b616d61692e6e65742f63616d6f2e6769746875622e636f6d2f333435363062353663653133396135386330393437393762323432656632373466376166323934632f363837343734373033613266326636343631373436313265373236393631366236333733326536653635373433613338333033383330326636613732373732643730373536323663363936333266363437393665363136643639363332643732363936653637326636353738373036313665363432643730373236353636366336393733373432643734373236313665373336363635373237333265373036653637)
+```
+$> riak-admin cluster commit
+Cluster changes committed
+```
+###Monitoring Resize Progress
+With the new plan committed, the resizing process can be monitored using the same means as one would use to monitor other handoff.  You can use `riak-admin ring-status` to look at the changes to the cluster that are in-progress or queued.  You can also throttle the ring resize activity using `riak-admin transfer-limit` should you desire.
 
-To safely transfer this key between the old and new ring there are five necessary transfers (there would be a 6th, the top arrow in the image above, but the owner of that portion of the keyspace is the same node). The number of transfers is dependent on the growth factor (new ring size / old ring size) and the largest N value in the cluster. A similar process takes place when the ring is shrinking.
+```
+$> riak-admin ring-status
+================================== Claimant ===================================
+Claimant:  'dev1@127.0.0.1'
+Status:     up
+Ring Ready: true
 
-Claimant schedules a single **resize operation** for each vnode in the existing ring, which is an entry in the next list with a special value, `$resize`, in the next owner field; intended to indicate that the existing vnode has several actual transfers to complete before it has safely handed off all data
+============================== Ownership Handoff ==============================
+Owner:      dev1@127.0.0.1
+Next Owner: $resize
 
-The claimant will also schedule a **resize transfer** for each index; represents a single handoff of a portion of the keyspace between two partitions that may or may not have different owners (most likely, they will). Resize transfer depends on several factors:
+Index: 0
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
 
-1. If the ring is shrinking and the partition will no longer exist in the new ring, the transfer is scheduled to the owner of the first successor.
-2. If the ring is expanding and the existing partition is not being moved to a new owner, the transfer is scheduled to the owner for the first predecessor.
-3. If the ring is expanding and the existing partition is being moved to a new owner, the transfer is scheduled to the new owner.
+Index: 228359630832953580969325755111919221821239459840
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
 
-A resize transfer is like a repair because not all keys are transferred; there is a filter function that determines which keys will be sent; the list of partitions is used to schedule future transfers
+Index: 456719261665907161938651510223838443642478919680
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
 
-## Afterward
+Index: 685078892498860742907977265335757665463718379520
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
 
-Data is removed after the resized ring is installed. The claimant performs this by scheduling a `$delete` in the next list; scheduled for any partition that no longer exists in the new ring or was moved during resizing; each partition that meets those criteria deletes its data and shuts down
+Index: 913438523331814323877303020447676887284957839360
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
 
-## Scratchpad
+Index: 1141798154164767904846628775559596109106197299200
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
 
-Two major changes that must be made to any `riak_core` application that wants to support dynamic ring sizing:
+Index: 1370157784997721485815954530671515330927436759040
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
 
-1. The following function must be defined:
+-------------------------------------------------------------------------------
+Owner:      dev2@127.0.0.1
+Next Owner: $resize
+
+Index: 45671926166590716193865151022383844364247891968
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
+
+Index: 274031556999544297163190906134303066185487351808
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
+
+Index: 502391187832497878132516661246222288006726811648
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 730750818665451459101842416358141509827966271488
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 959110449498405040071168171470060731649205731328
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1187470080331358621040493926581979953470445191168
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1415829711164312202009819681693899175291684651008
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+-------------------------------------------------------------------------------
+Owner:      dev3@127.0.0.1
+Next Owner: $resize
+
+Index: 91343852333181432387730302044767688728495783936
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
+
+Index: 319703483166135013357056057156686910549735243776
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
+
+Index: 548063113999088594326381812268606132370974703616
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 776422744832042175295707567380525354192214163456
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1004782375664995756265033322492444576013453623296
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1233142006497949337234359077604363797834693083136
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+-------------------------------------------------------------------------------
+Owner:      dev4@127.0.0.1
+Next Owner: $resize
+
+Index: 137015778499772148581595453067151533092743675904
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
+
+Index: 365375409332725729550921208179070754913983135744
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 593735040165679310520246963290989976735222595584
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 822094670998632891489572718402909198556462055424
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1050454301831586472458898473514828420377701515264
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1278813932664540053428224228626747642198940975104
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+-------------------------------------------------------------------------------
+Owner:      dev5@127.0.0.1
+Next Owner: $resize
+
+Index: 182687704666362864775460604089535377456991567872
+  Waiting on: [riak_kv_vnode]
+  Complete:   [riak_pipe_vnode]
+
+Index: 411047335499316445744786359201454599278231027712
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 639406966332270026714112114313373821099470487552
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 867766597165223607683437869425293042920709947392
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1096126227998177188652763624537212264741949407232
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+Index: 1324485858831130769622089379649131486563188867072
+  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+
+-------------------------------------------------------------------------------
+
+============================== Unreachable Nodes ==============================
+All nodes are up and reachable
+```
+Using `riak-admin transfers` will provide you more information about the partitions that are currently in flight. 
+
+```
+$> riak-admin transfers
+'dev5@127.0.0.1' waiting to handoff 3 partitions
+'dev4@127.0.0.1' waiting to handoff 1 partitions
+'dev3@127.0.0.1' waiting to handoff 1 partitions
+'dev2@127.0.0.1' waiting to handoff 2 partitions
+
+Active Transfers:
+
+transfer type: resize_transfer
+vnode type: riak_kv_vnode
+partition: 1438665674247607560106752257205091097473808596992
+started: 2014-01-20 21:03:53 [1.14 min ago]
+last update: 2014-01-20 21:05:01 [1.21 s ago]
+total size: 111676327 bytes
+objects transferred: 122598
+
+                         1818 Objs/s                          
+     dev1@127.0.0.1        =======>       dev4@127.0.0.1      
+        |=========================                  |  58%    
+                         950.38 KB/s                          
+
+transfer type: resize_transfer
+vnode type: riak_kv_vnode
+partition: 205523667749658222872393179600727299639115513856
+started: 2014-01-20 21:03:53 [1.14 min ago]
+last update: 2014-01-20 21:05:01 [1.29 s ago]
+total size: 100143148 bytes
+objects transferred: 130510
+
+                         1939 Objs/s                          
+     dev1@127.0.0.1        =======>       dev5@127.0.0.1      
+        |==============================             |  69%    
+                         1013.71 KB/s                         
+
+transfer type: resize_transfer
+vnode type: riak_kv_vnode
+partition: 1233142006497949337234359077604363797834693083136
+started: 2014-01-20 21:04:44 [17.81 s ago]
+last update: 2014-01-20 21:05:01 [1.19 s ago]
+total size: 82010614 bytes
+objects transferred: 37571
+
+                         2259 Objs/s                          
+     dev3@127.0.0.1        =======>       dev5@127.0.0.1      
+        |==========                                 |  24%    
+                          1.15 MB/s                           
+
+transfer type: resize_transfer
+vnode type: riak_kv_vnode
+partition: 251195593916248939066258330623111144003363405824
+started: 2014-01-20 21:04:55 [7.24 s ago]
+last update: 2014-01-20 21:05:01 [898.81 ms ago]
+total size: 82012730 bytes
+objects transferred: 11864
+
+                         1870 Objs/s                          
+     dev3@127.0.0.1        =======>       dev2@127.0.0.1      
+        |===                                        |   7%    
+                         977.72 KB/s                          
+```
+You can verify that the resize operation is no longer running by checking `riak-admin transfers` and seeing that there are no longer active or pending transfers.
+
+```
+$> riak-admin transfers
+No transfers active
+
+Active Transfers:
+
+
+```
+You can also verify that there are the expected number of partitions in the ring by connecting to `riak attach` and running this snippet:
 
 ```erlang
-object_info(term()) -> {undefined | binary(),binary()}`
+length(riak_core_ring:all_owners(element(2,riak_core_ring_manager:get_my_ring()))).
 ```
 
-2. And then the following function:
+```
+$> riak attach
+Remote Shell: Use "Ctrl-C a" to quit. q() or init:stop() will terminate the riak node.
+Erlang R16B02 (erts-5.10.3) [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false]
 
-```erlang
-request_hash(term()) -> undefined | binary()
+Eshell V5.10.3  (abort with ^G)
+(dev1@127.0.0.1)1> length(riak_core_ring:all_owners(element(2,riak_core_ring_manager:get_my_ring()))).
+64
+(dev1@127.0.0.1)2> 
+```
+### Aborting a Resize Already In-Progress 
+The process to abort a currently running resize is very similar to the process to set one up.  Submit a `resize-ring abort` request, plan it, and commit it using `riak-admin cluster ...`
+
+Submit the request
+```
+$> riak-admin cluster resize-ring abort
+Success: staged abort resize ring request
+```
+
+View the planned changes.
+
+```
+$> riak-admin cluster plan
+=============================== Staged Changes ================================
+Action         Details(s)
+-------------------------------------------------------------------------------
+resize-ring    abort. current size: 128
+-------------------------------------------------------------------------------
+
+
+NOTE: Applying these changes will result in 1 cluster transition
+
+###############################################################################
+                         After cluster transition 1/1
+###############################################################################
+
+================================= Membership ==================================
+Status     Ring    Pending    Node
+-------------------------------------------------------------------------------
+valid      20.3%      --      'dev1@127.0.0.1'
+valid      20.3%      --      'dev2@127.0.0.1'
+valid      20.3%      --      'dev3@127.0.0.1'
+valid      19.5%      --      'dev4@127.0.0.1'
+valid      19.5%      --      'dev5@127.0.0.1'
+-------------------------------------------------------------------------------
+Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+```
+Commit or clear the planned cluster changes.
+
+```
+$> riak-admin cluster commit
+Cluster changes committed
 ```
