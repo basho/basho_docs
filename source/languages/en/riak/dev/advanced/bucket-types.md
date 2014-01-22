@@ -7,17 +7,17 @@ audience: intermediate
 keywords: [developers, buckets]
 ---
 
-Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a way that is often more expressive than an ad hoc approach.
+Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a more abstracted way.
 
 ## How Bucket Types Work
 
-The ad hoc approach to bucket configuration involves setting bucket properties for specific bucket either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. With this approach, you can take a bucket `my_bucket` and dictate how that bucket behaves, from 
+The ad hoc approach to bucket configuration involves setting bucket properties for specific buckets either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. With this approach, you can take a bucket `my_bucket` and modify any number of its properties, from `n_val` to `allow_mult` and far beyond.
 
-Using bucket types also involves dealing with bucket properties, but with crucial differences:
+Using bucket *types* also involves dealing with bucket properties, but with a few crucial differences:
 
-* Bucket types enable you to assign a total set of properties to buckets _at the time of bucket creation_
-* Bucket types must be both created _and_ activated before they can be used
-* Most bucket properties can be updated using bucket types, but others---namely the `datatype` and `consistent` properties---cannot
+* Bucket types enable you to assign a total set of properties to buckets _at the time of their creation_ (instead of setting buckets' properties and then using those buckets)
+* Bucket types must be both created _and_ activated before they can be used (bucket properties can be modified at any time)
+* Nearly all bucket properties can be updated using bucket types, with two exceptions: the `datatype` and `consistent` properties
 
 It is important to note that buckets are not assigned types in the same way that they are configured [[using `props`|HTTP Set Bucket Properties
 ]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
@@ -28,7 +28,7 @@ Instead, bucket types are applied to buckets _on the basis of how those buckets 
 GET/PUT/DELETE /types/<type>/buckets/<type>/keys/<key>
 ```
 
-Thus, if you have created the bucket type `no_siblings` (with `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example HTTP query:
+If you have created the bucket type `no_siblings` (with `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example HTTP query:
 
 ```curl
 curl -XPUT \
@@ -37,12 +37,14 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/sensitive_user_data/keys/user19735
 ```
 
-In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the URL employed_.
+In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the query's structure_.
 
 <div class="note">
 <div class="title">Note</div>
 The advantage of requiring that bucket types be used in this way is that types can be dynamically applied to buckets that do not yet exist.
 </div>
+
+## Usage Example
 
 As an example, let's say that the bucket `current_memes` exists and bears the type `no_siblings` (from above). Now, let's say that our application needs to create a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
 
@@ -57,7 +59,7 @@ curl -XPUT \
 
 This query would both create the bucket `old_memes` and ensure that the configuration contained in the `no_siblings` is applied to the bucket all at once.
 
-The ad hoc (i.e. non-dynamic) way of setting the bucket's properties (without using bucket types) involves the bucket's properties in advance, e.g. via HTTP:
+The ad hoc (i.e. non-dynamic) way of setting the bucket's properties without using bucket type) involves setting the bucket's properties in advance, e.g. via HTTP:
 
 ```curl
 curl -XPUT \
@@ -68,11 +70,11 @@ curl -XPUT \
 
 This way of doing things works just fine for many use cases. If, however, you do not know in advanced which buckets will be required by your application but still need to apply types to them _upon creation_, then you should strongly consider assigning bucket types dynamically.
 
-## The `riak-admin bucket-type` Command
+## Managing Bucket Types Through the Command Line
 
 Bucket types can be created, updated, activated, and more through the `riak-admin bucket-type` interface.
 
-Below is a full list of available commands:
+Below is a full list of available sub-commands:
 
 Command | Action | Form |
 :-------|:-------|:-----|
@@ -192,17 +194,17 @@ Below is a listing of the default properties for Riak buckets:
 }
 ```
 
-If you'd like to create a bucket type that simply extends Riak's defaults, for example, pass an empty object to the `props` parameter:
+If you'd like to create a bucket type that simply extends Riak's defaults, for example, pass an empty JavaScript object to the `props` parameter:
 
 ```bash
-riak-admin bucket-type create default '{"props":{}}'
+riak-admin bucket-type create type_using_defaults '{"props":{}}'
 ```
 
-**Note**: The `create` command can be run multiple times prior to the bucket type being activated. Riak will persist only those properties contained in the final call of the command.
+**Note**: The `create` command can be run multiple times prior to a bucket type being activated. Riak will persist only those properties contained in the final call of the command.
 
 ### Updating a Bucket Type
 
-The `bucket-type update` command functions much like the `bucket-type create` command. It simply involves specifying the name of the bucket type that you wish to modify and a JSON object containing the properties of the type that you'd like to modify:
+The `bucket-type update` command functions much like the `bucket-type create` command. It simply involves specifying the name of the bucket type that you wish to modify and a JSON object containing the properties of the type:
 
 ```bash
 riak-admin bucket-type update type_to_update '{"props":{ ... }}'
@@ -210,7 +212,7 @@ riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 
 <div class="note">
 <div class="title">Note</div>
-Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <tt>consistent</tt> and <tt>type</tt>. If a bucket type entails strong consistency (<tt>consistent</tt> is set to <tt>true</tt>) or is set up as a [[CRDT]]&mdash;<tt>map</tt>, <tt>set</tt>, or <tt>counter</tt>&mdash;then this will be true of the bucket type once and for all.
+Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <tt>consistent</tt> and <tt>type</tt>. If a bucket type entails strong consistency (requiring that <tt>consistent</tt> be set to <tt>true</tt>) or is set up as a [[CRDT]]&mdash;<tt>map</tt>, <tt>set</tt>, or <tt>counter</tt>&mdash;then this will be true of the bucket type once and for all.
 
 If you need to change one of these properties, it is recommended that you simply create a new bucket type.
 </div>
@@ -219,7 +221,7 @@ If you need to change one of these properties, it is recommended that you simply
 
 Let's say that you'd like to create a bucket type called `user_account_bucket` with a [[pre-commit hook|Pre-Commit Hooks]] called `syntax_check` and two [[post-commit hooks|Post-Commit Hooks]] called `welcome_email` and `update_registry`. This would involve four steps:
 
-1. Creating a JSON object with the appropriate `props`:
+1. Creating a JavaScript object containing the appropriate `props` settings:
 
 ```json
 {
@@ -238,7 +240,7 @@ riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ["synt
 
 If creation is successful, the console will return `user_account_bucket created`.
 
-3. Verifying that the type is ready to be activated
+3. Verifying that the type is ready to be activated:
 
 Once the type is created, you can check whether your new type is ready to be activated by running:
 
