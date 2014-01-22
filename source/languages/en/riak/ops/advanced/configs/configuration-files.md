@@ -321,7 +321,7 @@ Riak has a `riak.conf` configuration file located in `/etc` if you are using a s
 
 The `riak.conf` file is used to set a wide variety of attributes for the node, from the storage backend that the node will use to store data to the location of SSL-related files to sibling resolution parameters and beyond.
 
-At any time, you can get a snapshot of currently applied configurations through the command line. For a listing of *all* currently applied configs:
+At any time, you can get a snapshot of currently applied configurations through the command line. For a listing of *all* of the configs currently applied in the node:
 
 ```bash
 riak config effective
@@ -336,7 +336,9 @@ anti_entropy.concurrency_limit = 2
 # and so on
 ```
 
-For detailed information about a particular configuration variable, use the `config describe <variable>` command. For in-depth information about, the `ring_size` variable, for example:
+For detailed information about a particular configuration variable, use the `config describe <variable>` command. This command will output a description of what the parameter configures, which datatype you should use to set the parameter (integer, string, etc.), the default value of the parameter, the currently set value in the node, and the name of the parameter in older versions of Riak (if applicable).
+
+For in-depth information about the `ring_size` variable, for example:
 
 ```bash
 riak config describe ring_size
@@ -357,6 +359,11 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 ```
 
 Below is a series of tables listing the configurable parameters in `riak.conf`.
+
+<div class="note">
+<div class="title">Note</div>
+Not all parameters that <em>can</em> be set in <tt>riak.conf</tt> are actually listed in the default <tt>riak.conf</tt> file.
+</div>
 
 ## Storage Backend
 
