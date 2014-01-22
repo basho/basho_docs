@@ -336,7 +336,7 @@ anti_entropy.concurrency_limit = 2
 # and so on
 ```
 
-For detailed information about a particular configuration variable, use the `config describe <variable>` command. This command will output a description of what the parameter configures, which datatype you should use to set the parameter (integer, string, etc.), the default value of the parameter, the currently set value in the node, and the name of the parameter in older versions of Riak (if applicable).
+For detailed information about a particular configuration variable, use the `config describe <variable>` command. This command will output a description of what the parameter configures, which datatype you should use to set the parameter (integer, string, enum, etc.), the default value of the parameter, the currently set value in the node, and the name of the parameter in `app.config` in older versions of Riak (if applicable).
 
 For in-depth information about the `ring_size` variable, for example:
 
@@ -362,14 +362,8 @@ Below is a series of tables listing the configurable parameters in `riak.conf`.
 
 <div class="note">
 <div class="title">Note</div>
-Not all parameters that <em>can</em> be set in <tt>riak.conf</tt> are actually listed in the default <tt>riak.conf</tt> file.
+Not all parameters that <em>can</em> be set in <tt>riak.conf</tt> are actually listed in the default <tt>riak.conf</tt> file. Any 
 </div>
-
-## Storage Backend
-
-Parameter | Description | Default |
-:---------|:------------|:--------|
-`storage_backend` | Specifies the engine used for Riak's key/value data and secondary indexes (if supported). Note that the `yessir` option is for testing only.<br /><br />Possible values:<br /><ul><li>`bitcask`</li><li>`leveldb`</li><li>`memory`</li><li>`yessir`</li><li>`multi`</li></ul> | `bitcask` |
 
 ## Log Settings
 
@@ -389,15 +383,21 @@ Parameter | Description | Default |
 
 ## Erlang VM Settings
 
+**Note**: These settings are case sensitive.
+
 Parameter | Description | Default |
 :---------|:------------|:--------|
-`erlang.async_threads` |  | `64` |
-`erlang.max_ports` | Set the number of concurrent ports/sockets. | `64000` |
+`erlang.async_threads` | Sets the number of threads in async thread pool. The valid range is 0-1024. If thread support is available, the default is 64. More information [here](http://erlang.org/doc/man/erl.html). | `64` |
 `erlang.crash_dump` | Set the location of crash dumps. | `./log/erl_crash.dump` |
+`erlang.fullsweep_after` | A non-negative integer which indicates how many times generational garbage collections can be done without forcing a fullsweep collection. In low-memory systems (especially without virtual memory), setting the value to `0` (the default) can help to conserve memory. More information [here](http://www.erlang.org/doc/man/erlang.html#system_flag-2). | `0` |
+`erlang.K` | Enables or disables the kernel poll functionality if the emulator supports it. If the emulator does not support kernel poll, and the `K` flag is passed to the emulator, a warning is issued at startup. More information [here](http://erlang.org/doc/man/erl.html). | `on` |
 `erlang.max_ets_tables` | Set the Erlang Term Storage (ETS) table limit (as an integer). | `256000` |
+`erlang.max_ports` | Set the number of concurrent ports/sockets. | `65536` |
 `erlang.process_limit` | Set the default Erlang process limit (as an integer). | `256000` |
 `erlang.zdbbl` | For nodes with many `busy_dist_port` events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. The Erlang/OTP default is 1024 (1 MB). See the [Erlang docs](http://www.erlang.org/doc/man/erl.html#%2bzdbbl) for more. Formatted as a byte size with units, e.g. `10GB` for 10 gigabytes. | `32MB` |
 `erlang.sfwi` | Erlang VM scheduler tuning. Prerequisite is a patched VM from Basho or a VM compiled separately with [this patch](https://gist.github.com/evanmcc/a599f4c6374338ed672e) applied. | `500` |
+`erlang.W` | Sets the mapping of warning messages for error_logger. Messages sent to the error logger using one of the warning routines can be mapped either to errors (default), warnings (`w` (default)), or info reports (`i`). | `w` |
+
 
 ## Node, Ring, and Cluster Settings
 
@@ -462,6 +462,22 @@ Parameter | Default |
 `platform_lib_dir` | `./lib` |
 `platform_log_dir` | `./log` |
 
+## Default Bucket Properties
+
+Parameter | Default |
+:---------|:--------|
+`buckets.default.allow_mult` | `true` |
+`buckets.default.basic_quorum` | `false` |
+`buckets.default.dw` | `quorum` |
+`buckets.default.last_write_wins` | `false` |
+`buckets.default.n_val` | `3` |
+`buckets.default.notfound_ok` | `true` |
+`buckets.default.pr` | `0` |
+`buckets.default.pw` | `0` |
+`buckets.default.r` | `quorum` |
+`buckets.default.rw` | `quorum` |
+`buckets.default.w` | `quorum` |
+
 ## HTTP Interface Settings
 
 Parameter | Description | Default |
@@ -481,12 +497,15 @@ Parameter | Description | Default |
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `anti_entropy` | Enable active anti-entropy subsystem. Set to `on` or `off` to enable/disable or to `debug`. | `on` |
-`anti_entropy.`<br />&nbsp;&nbsp;`build_limit.number` | Restrict how quickly Active Anti-Entropy (AAE) can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. Formatted as `{num-builds, per-timespan}`. This `number` value specifies the number of times per time per time unite (i.e. `per_timespan`). | `1` |
-`anti_entropy.`<br />&nbsp;&nbsp;`build_limit.per_timespan` | The counterpart to `number`, directly above. The timespan within which hash trees are built a `number` of time. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1h` |
-`anti_entropy.expire` | Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is *not* needed for normal AAE operation and should be infrequent for performance reasons. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1w` for 1 week |
-`anti_entropy.`<br />&nbsp;&nbsp;`concurrency` | Limit how many AAE exchanges/builds can happen concurrently. | `2` |
-`anti_entropy.tick` | Determines how often the AAE manager looks for work to do, e.g. building/expiring trees or triggering exchanges. Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing this value is *not* recommended. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `15s` |  |
+`anti_entropy.`<br />&nbsp;&nbsp;`bloom_filter` | Each database `.sst` table file can include an optional [Bloom filter](http://en.wikipedia.org/wiki/Bloom_filter) that is highly effective in shortcutting data queries that are destined to not find the requested key. The Bloom filter typically increases the size of an `.sst` table file by about 2%. | `on` |
+`anti_entropy.`<br />&nbsp;&nbsp;`concurrency_limit` | Limit how many AAE exchanges/builds can happen concurrently. | `2` |
 `anti_entropy.data_dir` | The directory in which AAE hash trees are stored. | `./data/anti_entropy` |
+`anti_entropy.throttle` | Whether the distributed throttle for active anti-entropy is enabled. | `on` |
+`anti_entropy.tick` | Determines how often the AAE manager looks for work to do, e.g. building/expiring trees or triggering exchanges. Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing this value is *not* recommended. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `15s` |
+`anti_entropy.trigger_interval` | The `tick` setting (above) determines how often the AAE manager looks for work to do (building/expiring trees, triggering exchanges, etc). Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing the value is not recommended. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `15s` |
+`anti_entropy.tree.build_limit.number` | Restrict how quickly Active Anti-Entropy (AAE) can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. Formatted as `{num-builds, per-timespan}`. This `number` value specifies the number of times per time per time unite (i.e. `per_timespan`). | `1` |
+`anti_entropy.tree.build_limit.per_timespan` | The counterpart to `number`, directly above. The timespan within which hash trees are built a `number` of times. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1h` for 1 hour |
+`anti_entropy.tree.expiry` | Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is *not* needed for normal AAE operation and should be infrequent for performance reasons. Formatted as a duration with units, e.g. `10s` for 10 seconds. | `1w` for 1 week |
 
 ## Anti-Entropy LevelDB Options
 
@@ -523,12 +542,34 @@ Parameter | Description | Default |
 `riak_control.auth` | Authentication style used for access to the admin panel. Valid styles are `off` and `userlist`. | `userlist` |
 `riak_control.user.user.password` | If `riak_control.auth` (directly above) is not set to `userlist`, then this is the list of usernames and passwords for access to the admin panel. | `pass` |
 
+## Storage Backend
+
+Parameter | Description | Default |
+:---------|:------------|:--------|
+`storage_backend` | Specifies the engine used for Riak's key/value data and secondary indexes (if supported). Note that the `yessir` option is for testing only.<br /><br />Possible values:<br /><ul><li>`bitcask`</li><li>`leveldb`</li><li>`memory`</li><li>`yessir`</li><li>`multi`</li></ul> | `bitcask` |
+
 ## Bitcask Settings
 
 Parameter | Description | Default |
 :---------|:------------|:--------|
 `bitcask.data_root` | Bitcask data root. | `./data/bitcask` |
+`bitcask.expiry` | By default, Bitcask keeps all of your data around. If your data has limited time-value, or if for space reasons you need to purge data, you can set the `expiry` option. If you needed to purge data automatically after 1 day, set the value to `1d`. | `off` (disables automatic expiration) |
+`bitcask.expiry.grace_time` | By default, Bitcask will trigger a merge whenever a data file contains an expired key. This may result in excessive merging under some usage patterns. You can change this setting to prevent this. Bitcask will defer triggering a merge solely for key expiry by the configured number of seconds. Setting this to `1h`, for example, effectively limits each cask to merging for expiry once per hour. | `0` |
+`bitcask.fold.max_age` | Fold keys thresholds will reuse the keydir if another fold was started less than `fold.max_age` ago and there were fewere than `fold.max_puts` updates.  Otherwise, it will wait until all current fold keys complete and then start.  Set either option to `unlimited` to disable. | `unlimited` |
+`bitcask.fold.max_puts` | Fold keys thresholds will reuse the keydir if another fold was started less than `fold.max_age` ago and there were fewer than `fold.max_puts` updates.  Otherwise, it will wait until all current fold keys complete and then start.  Set either option to unlimited to disable. | `0` |
+`bitcask.hintfile_checksums` | Require the CRC to be present at the end of hintfiles. Setting this to `allow_missing` runs Bitcask in a backward-compatible mode in which old hint files will still be accepted without CRC signatures. | `strict` |
 `bitcask.io_mode` | Configures how Bitcask writes data to disk. Available options:<br /><ul><li>`erlang`: Erlang's built-in [file API](http://www.erlang.org/doc/man/file.html)</li><li>`nif`: Direct calls to the POSIX C API. The NIF mode provides higher throughput for certain workloads but has the potential to negatively impact the Erlang VM, leading to higher worst-case latencies and possible throughput collapse.</li></ul> | `erlang` |
+`bitcask.max_file_size` | Describes the maximum permitted size for any single data file in the Bitcask directory. If a write causes the current file to exceed this size threshold, that file is closed and a new file is opened for writes. | `2GB` |
+`bitcask.merge.policy` | Lets you specify when during the day merge operations are allowed to be triggered. Valid options are:<ul><li>`always` (default) --- No restrictions</li><li>`never` --- Merge will never be attempted</li><li>`window` --- Hours during which merging is permitted, where `bitcask.merge.window.start` and `bitcask.merge.window.end` are integers between 0 and 23. If merging has a significant impact on performance of your cluster, or your cluster has quiet periods in which little storage activity occurs, you may want to change this setting from the default. | `always` |
+`bitcask.merge.thresholds.dead_bytes` | Describes the minimum amount of data occupied by dead keys in a file to cause it to be included in the merge. Increasing the value will cause fewer files to be merged, while decreasing the value will cause more files to be merged. | `128MB` |
+`bitcask.merge.thresholds.fragmentation` | Describes what ratio of dead keys to total keys in a file will cause it to be included in the merge. The value of this setting is a percentage (between 0 and 100). For example, if a data file contains 4 dead keys and 6 live keys, it will be included in the merge at the default ratio. Increasing the value will cause fewer files to be merged, while decreasing the value will cause more files to be merged. | `40` |
+`bitcask.merge.thresholds.small_file` | Describes the minimum size a file must have to be excluded from the merge. Files smaller than the threshold will be included. Increasing the value will cause more files to be merged, while decreasing the value will cause fewer files to be merged. | `10MB` |
+`bitcask.merge.triggers.dead_bytes` | Describes how much data stored for dead keys in a single file will trigger merging. The value is in bytes. If a file meets or exceeds the trigger value for dead bytes, merge will be triggered. Increasing the value will cause merging to occur less frequently, whereas decreasing the value will cause merging to happen more frequently. When either of these constraints are met by any file in the directory, Bitcask will attempt to merge files. | `512MB` |
+`bitcask.merge.triggers.fragmentation` | Describes what ratio of dead keys to total keys in a file will trigger merging. The value of this setting is a percentage (from 0 to 100). For example, if a data file contains 6 dead keys and 4 live keys, then merge will be triggered at the default setting. Increasing this value will cause merging to occur less frequently, whereas decreasing the value will cause merging to happen more frequently. | `60` |
+`bitcask.merge.window.end` | Lets you specify when during the day merge operations are allowed to be triggered. Valid options are:<ul><li>`always` (default) --- No restrictions</li><li>`never` --- Merge will never be attempted</li><li>`window` --- Hours during which merging is permitted, where `bitcask.merge.window.start` and `bitcask.merge.window.end` are integers between 0 and 23.</li></ul>If merging has a significant impact on performance of your cluster, or your cluster has quiet periods in which little storage activity occurs, you may want to change this setting from the default. | `23` |
+`bitcask.merge.window.start` | Lets you specify when during the day merge operations are allowed to be triggered. Valid options are:<ul><li>`always` (default) --- No restrictions</li><li>`never` --- Merge will never be attempted</li><li>`window` --- Hours during which merging is permitted, where `bitcask.merge.window.start` and `bitcask.merge.window.end` are integers between 0 and 23.</li></ul>If merging has a significant impact on performance of your cluster, or your cluster has quiet periods in which little storage activity occurs, you may want to change this setting from the default. | `0` |
+`bitcask.open_timeout` | Specifies the maximum time Bitcask will block on startup while attempting to create or open the data directory. You generally don't need to change this value. If for some reason the timeout is exceeded on open, you'll see a log message of the form: `Failed to start bitcask backend: .... ` Only then should you consider a longer timeout. | `4s` |
+`bitcask.sync.strategy` | Changes the durability of writes by specifying when to synchronize data to disk. The default setting protects against data loss in the event of application failure (process death) but leaves open a small window in which data could be lost in the event of complete system failure (e.g. hardware, OS, power, etc.). The default mode, `none`, writes data into operating system buffers which which will be written to the disks when those buffers are flushed by the operating system. If the system fails (power loss, crash, etc.) before those buffers are flushed to stable storage, that data is lost. This is prevented by the setting `o_sync` which forces the operating system to flush to stable storage at every write. The effect of flushing each write is better durability, however write throughput will suffer as each write will have to wait for the write to complete. Available Sync Strategies:<ul><li>`none` (default) --- Lets the operating system manage syncing writes.</li><li>`o_sync` --- Uses the `O_SYNC` flag, which forces syncs on every write.</li><li>`interval` --- Riak will force Bitcask to sync every `bitcask.sync.interval` seconds.</li></ul> | `none` |
 
 ## LevelDB Settings
 
@@ -536,7 +577,7 @@ Parameter | Description | Default |
 :---------|:------------|:--------|
 `leveldb.data_root` | LevelDB data root. | `./data/leveldb` |
 `leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. The memory size can alternatively be assigned as a byte count via `total_leveldb_mem` instead. | `80` |
-`leveldb.bloomfilter` | Each database `.sst` table file can include an optional [bloom filter](http://en.wikipedia.org/wiki/Bloom_filter) that is highly effective in quashing data queries that are destined to not find th requested key. A bloom filter typically increases the size of a `.sst` file by about 2% if this parameter is set to `on`. | `on` |
+`leveldb.bloomfilter` | Each database `.sst` table file can include an optional [Bloom filter](http://en.wikipedia.org/wiki/Bloom_filter) that is highly effective in quashing data queries that are destined to not find th requested key. A bloom filter typically increases the size of a `.sst` file by about 2% if this parameter is set to `on`. | `on` |
 `leveldb.block_size_steps` | Defines the number of incremental adjustments to attempt between the `block_size` value and the maximum `block_size` for an `.sst` table file. A value of `0` disables the underlying dynamic `block_size` feature. | `16` |
 `leveldb.delete_threshold` | Controls when a background compaction initiates solely due to the number of delete tombstones within an individual `.sst` table file. A value of `0` disables the feature. | `1000` |
 
@@ -571,3 +612,9 @@ Parameter | Description | Default |
 
 
 {{/2.0.0+}}
+
+## Scratchpad
+
+Cuttlefish: https://github.com/basho/cuttlefish
+
+https://gist.github.com/lukebakken/ec2392b3771d34641dff
