@@ -24,7 +24,7 @@ Riak security is disabled by default. To enable it at any time, simply run the `
 riak-admin security enable
 ```
 
-If security is successfully enabled, the console will return no response.
+If security is successfully enabled, the console will simply return no response.
 
 Please note that most security-related commands can be run while security is disabled, including the following:
 
@@ -34,11 +34,11 @@ Please note that most security-related commands can be run while security is dis
 
 This enables you to create security configurations of any level of complexity and turn those configurations on and off all at once if you wish.
 
-If enabling security is successful, there should be no response in the terminal.
+If enabling security is successful, there should be no response in the console.
 
 ### Disabling Security
 
-Disabling security only disables the various permission checks that take place when executing operations against Riak. Users, roles, and other security attributes remain untouched.
+Disabling security only disables the various permissions checks that take place when executing operations against Riak. Users, roles, and other security attributes remain untouched.
 
 ```bash
 riak-admin security disable
@@ -48,7 +48,7 @@ If security is successfully disabled, the console will return no response.
 
 ### Checking Security Status
 
-To check whether or not security is currently enabled for a node, simply run the `security status` command:
+To check whether security is currently enabled on a node, simply use the `status` command:
 
 ```bash
 riak-admin security status
@@ -58,13 +58,13 @@ This command will return a simple `Enabled` or `Disabled`.
 
 ## User Management
 
-Riak security enables you to create new users and to modify or delete existing users. Currently, users can be assigned bear one or more of the following characteristics:
+Riak security enables you to create new users and to modify or delete existing users. Currently, users can be assigned one or more of the following characteristics:
 
 * `username`
 * `roles`
 * `password`
 
-You may also assign users characteristics beyond those listed above---e.g. listing email addresses or other information---but those values will bear no significance to Riak itself.    
+You may also assign users characteristics beyond those listed above---e.g. listing email addresses or other information---but those values will bear no special significance for Riak.    
 
 ### Retrieve a Current User List
 
@@ -108,7 +108,7 @@ riak-admin security print-users > user_list.txt
 
 You can retrieve all information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
 
-The output will look like this if the user `riakuser` has been explicitly granted a `riak_kv.get` permission on the bucket `shopping_list`:
+The output will look like this if the user `riakuser` has been explicitly granted a `riak_kv.get` permission on the bucket `shopping_list` and inherits a set of permissions from the `admin` role:
 
 ```bash
 Inherited permissions
@@ -133,9 +133,11 @@ Applied permissions
 
 Inherited permissions are those that stem from the user's roles, whereas applied permissions include both inherited permissions and those that have been assigned to the user directly. The `Applied permissions` section thus lists _all_ permissions granted to a user.
 
+**Note**: The term `admin` is not a reserved term in Riak security. It is used here only for illustrative purposes.
+
 ### Add User
 
-The previous section presumed that the user `riakuser` had already been created. In this section, we will presume an empty user list.
+The previous section presumed that the user `riakuser` had already been created. In this section, we will presume that the user list is empty.
 
 To create a user with the username `riakuser`, we simply use the `add-user` command:
 
@@ -145,7 +147,7 @@ riak-admin security add-user riakuser
 
 Using the command this way will create the user `riakuser` without _any_ characteristics beyond a username, which is the only attribute that you must assign upon user creation.
 
-Alternatively, a password---or other attributes---can be assigned to the user upon creation:
+Alternatively, a password---or other attributes---can be assigned to the user upon creation. Here, we'll assign a password:
 
 ```bash
 riak-admin security add-user riakuser password=Test1234
@@ -328,26 +330,67 @@ riak-admin security grant riak_kv.mapreduce ON ANY TO mapreduce-power-user
 
 ### Bucket Type Permissions
 
-In versions 2.0 and later, Riak users can manage 
-`riak-admin security` allows you to manage the following bucket type-related permissions:
+In versions 2.0 and later, Riak users can manage [[bucket types|Using Bucket Types]] in addition to setting bucket properties. `riak-admin security` allows you to manage the following bucket type-related permissions:
 
 Permission | Operation |
 :----------|:----------|
-`riak_core.get_bucket` |  |
-* `riak_core.set_bucket` |  |
-* `riak_core.get_bucket_type` | Retrieve a bucket's properties (i.e. `props`) |
-* `riak_core.set_bucket_type` | Set a bucket's properties (i.e. `props`) |
+`riak_core.get_bucket` | Retrieve the `props` associated with a bucket |
+`riak_core.set_bucket` | Modify the `props` associated with a bucket |
+`riak_core.get_bucket_type` | Retrieve the set of `props` associated with a bucket type |
+`riak_core.set_bucket_type` | Modify the set of `props` associated with a bucket type |
 
-### Search Query Permission (Riak Search v1)
+### Search Query Permission (Riak Search version 1)
 
-`riak_search.query`
+If you are using the original Riak search, you can grant to (and revoke from) users search permissions with `riak_search.query`.
 
-### Search Query Permissions (Riak Search v2, aka Yokozuna)
+### Search Query Permissions (Riak Search version 2, aka Yokozuna)
+
+If you are using the search capabilities included with Riak versions 2.0 and later, the following two search-related permissions can be granted/revoked:
 
 Permission | Operation |
 :----------|:----------|
-`search.admin` |  |
-`search.query` |  |
+`search.admin` | The ability to perform search admin-related tasks, such as creating and deleting indexes and adding and modifying search schemas |
+`search.query` | The ability to query an index |
+
+#### Usage Examples
+
+To grant the user `riakuser` the ability to query all indexes:
+
+```bash
+riak-admin security grant search.query ON index TO riakuser
+
+# To revoke:
+# riak-admin security revoke search.query ON index FROM riakuser
+```
+
+To grant the user `riakuser` the ability to query all schemas:
+
+```bash
+riak-admin security grant search.query ON schema TO riakuser
+
+# To revoke:
+# riak-admin security revoke search.query ON schema FROM riakuser
+```
+
+To grant the user `riakuser` admin privileges only on the index `riakusers_index`:
+
+```bash
+riak-admin security grant search.admin ON index riakuser_index TO riakuser
+
+# To revoke:
+# riak-admin security revoke search.admin ON index riakuser_index FROM riakuser
+```
+
+To grant `riakuser` querying and admin permissions on the index `riakuser_index`:
+
+```bash
+riak-admin security grant search.query,search.admin ON index TO riakuser
+
+# To revoke:
+# riak-admin security revoke search.query,search.admin ON index FROM riakuser
+```
+
+More comprehensive information on search-related security can be found [[here|Riak Search Security]].
 
 ## Testing Your Security Setup
 
@@ -383,11 +426,9 @@ Now, let's run a test `GET` request through the HTTP interface against the bucke
 curl -i -k -u riakuser:rosebud http://localhost:8098/buckets/tweets/tweet1
 ```
 
-<!-- example response -->
-
 ## Managing Roles
 
-Riak security understands security roles slightly differently from other database systems because roles and users _are essentially the same thing_.
+Riak security understands security roles slightly differently from other database systems because roles and users are one and the same.
 
 ### Creating a New Role
 
@@ -407,10 +448,10 @@ If we have a user `jane_goodall` and we'd like to assign her the role `admin`, w
 riak-admin security alter-user jane_goodall roles=admin
 ```
 
-If we'd like to make the user `jane_goodall` both an `admin` and an `arch-overlord`:
+If we'd like to make the user `jane_goodall` both an `admin` and an `archoverlord`:
 
 ```bash
-riak-admin alter-user jane_goodall roles=admin,arch-overlord
+riak-admin alter-user jane_goodall roles=admin,archoverlord
 ```
 
 ### Assigning a Role to Multiple Users
@@ -445,21 +486,16 @@ That command will return a list like the following:
 ```bash
 Configured ciphers
 
-ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:DHE-DSS-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ADH-AES256-GCM-SHA384:ADH-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:ECDHE-RSA-RC4-SHA:ECDHE-ECDSA-RC4-SHA:SRP-DSS-AES-128-CBC-SHA:SRP-RSA-AES-128-CBC-SHA:DHE-DSS-AES128-SHA:AECDH-AES128-SHA:SRP-AES-128-CBC-SHA:ADH-AES128-SHA256:ADH-AES128-SHA:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:ECDH-RSA-AES128-SHA256:ECDH-ECDSA-AES128-SHA256:ECDH-RSA-AES128-SHA:ECDH-ECDSA-AES128-SHA:AES128-SHA256:AES128-SHA:SRP-DSS-AES-256-CBC-SHA:SRP-RSA-AES-256-CBC-SHA:DHE-DSS-AES256-SHA256:AECDH-AES256-SHA:SRP-AES-256-CBC-SHA:ADH-AES256-SHA256:ADH-AES256-SHA:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:ECDH-RSA-AES256-SHA384:ECDH-ECDSA-AES256-SHA384:ECDH-RSA-AES256-SHA:ECDH-ECDSA-AES256-SHA:AES256-SHA256:AES256-SHA:RC4-SHA:DHE-RSA-CAMELLIA256-SHA:DHE-DSS-CAMELLIA256-SHA:ADH-CAMELLIA256-SHA:CAMELLIA256-SHA:DHE-RSA-CAMELLIA128-SHA:DHE-DSS-CAMELLIA128-SHA:ADH-CAMELLIA128-SHA:CAMELLIA128-SHA
+ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 
 Valid ciphers(35)
 
-ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-RSA-RC4-SHA:ECDHE-ECDSA-RC4-SHA:SRP-DSS-AES-128-CBC-SHA:SRP-RSA-AES-128-CBC-SHA:DHE-DSS-AES128-SHA:ECDH-RSA-AES128-SHA256:ECDH-ECDSA-AES128-SHA256:ECDH-RSA-AES128-SHA:ECDH-ECDSA-AES128-SHA:AES128-SHA256:AES128-SHA:SRP-DSS-AES-256-CBC-SHA:SRP-RSA-AES-256-CBC-SHA:DHE-DSS-AES256-SHA256:ECDH-RSA-AES256-SHA384:ECDH-ECDSA-AES256-SHA384:ECDH-RSA-AES256-SHA:ECDH-ECDSA-AES256-SHA:AES256-SHA256:AES256-SHA:RC4-SHA
+ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256: ...
 
 Unknown/Unsupported ciphers(32)
 
-ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:DHE-DSS-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ADH-AES256-GCM-SHA384:ADH-AES128-GCM-SHA256:AES128-GCM-SHA256:AES256-GCM-SHA384:AECDH-AES128-SHA:SRP-AES-128-CBC-SHA:ADH-AES128-SHA256:ADH-AES128-SHA:ECDH-RSA-AES128-GCM-SHA256:ECDH-ECDSA-AES128-GCM-SHA256:AECDH-AES256-SHA:SRP-AES-256-CBC-SHA:ADH-AES256-SHA256:ADH-AES256-SHA:ECDH-RSA-AES256-GCM-SHA384:ECDH-ECDSA-AES256-GCM-SHA384:DHE-RSA-CAMELLIA256-SHA:DHE-DSS-CAMELLIA256-SHA:ADH-CAMELLIA256-SHA:CAMELLIA256-SHA:DHE-RSA-CAMELLIA128-SHA:DHE-DSS-CAMELLIA128-SHA:ADH-CAMELLIA128-SHA:CAMELLIA128-SHA
+ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 ```
-
-## Scratchpad
-
-Snapshot of your current user list/sources:
-`riak-admin security print-sources > sources.txt`
 
 <!---
 RESOURCES:
