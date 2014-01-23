@@ -42,7 +42,9 @@ riak-admin cluster resize-ring 64
 Success: staged resize ring request with new size: 64
 ```
 
-Prior to committing any ring size-related changes, you will need to view the planned changes using the `plan` (as you would for any cluster-wide changes):
+**Note**: The size of a Riak ring is always a 2<sup>n</sup> integer, e.g. 16, 32, 64, etc.
+
+Prior to committing any ring size-related changes, you will need to view the planned changes using the `plan` command (as you do for any cluster-wide changes):
 
 ```bash
 riak-admin cluster plan
@@ -95,7 +97,7 @@ riak-admin cluster clear
 
 ## Monitoring Resize Progress
 
-With the new plan committed, the resizing process can be monitored using the same means that one would use to monitor other handoff operations. You can use the `ring-status` command to view changes to the cluster that are either in progress or queued. You can also throttle the ring resize activity using `riak-admin transfer-limit` should you desire.
+With the new plan committed, the resizing process can be monitored using the same means that one would use to monitor other handoff operations. You can use the `ring-status` command to view changes to the cluster that are either in progress or queued:
 
 ```bash
 riak-admin ring-status
@@ -237,10 +239,23 @@ Index: 1324485858831130769622089379649131486563188867072
 All nodes are up and reachable
 ```
 
+You can also throttle the ring resize activity using `riak-admin transfer-limit` if you wish:
+
+```bash
+# For the whole cluster:
+riak-admin transfer-limit <limit>
+
+# For a specific node:
+riak-admin transfer-limit <node> <limit>
+```
+
 Using `riak-admin transfers` will provide you more information about the partitions that are currently in progress. 
 
 ```bash
-$> riak-admin transfers
+riak-admin transfers
+
+# Response:
+
 'dev5@127.0.0.1' waiting to handoff 3 partitions
 'dev4@127.0.0.1' waiting to handoff 1 partitions
 'dev3@127.0.0.1' waiting to handoff 1 partitions
@@ -301,7 +316,7 @@ objects transferred: 11864
                          977.72 KB/s                          
 ```
 
-You can verify that the resize operation is no longer running using the `transfers` command and verifying that there are no longer active or pending transfers:
+You can confirm that the resize operation is no longer running using the `transfers` command and verifying that there are no active or pending transfers:
 
 ```
 riak-admin transfers
@@ -310,71 +325,41 @@ riak-admin transfers
 No transfers active
 ```
 
-You can also verify that there are the expected number of partitions in the ring by connecting to `riak attach` and running this snippet:
+You can also verify that there are the expected number of partitions in the ring by opening the Erlang shell via the [[`riak attach`|riak Command Line#attach]] command and running this snippet:
 
 ```erlang
-length(riak_core_ring:all_owners(element(2,riak_core_ring_manager:get_my_ring()))).
+length(riak_core_ring:all_owners(2, riak_core_ring_manager:get_my_ring())).
 ```
+
+This command will return the number of partitions as an integer.
+
+## Aborting a Ring Resize Already in Progress
+
+The process to abort a currently running resize is very similar to the process used to set one up. You must submit an `abort` request, plan it, and commit it, all using the `riak-admin cluster` interface.
+
+Submit an `abort` request:
 
 ```bash
-riak attach
+riak-admin cluster resize-ring abort
+# Success: staged abort resize ring request
+# or
+# Failure: ring is not resizing or resize has completed
 ```
 
-In the EShell:
+View planned changes:
 
-```erlang
-Remote Shell: Use "Ctrl-C a" to quit. q() or init:stop() will terminate the riak node.
-Erlang R16B02 (erts-5.10.3) [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false]
-
-Eshell V5.10.3  (abort with ^G)
-(dev1@127.0.0.1)1> length(riak_core_ring:all_owners(element(2,riak_core_ring_manager:get_my_ring()))).
-64
-(dev1@127.0.0.1)2> 
+```bash
+riak-admin cluster resize-ring plan
+# In the output, you should find something like the following:
+# 
+# Action         Details(s)
+# --------------------------------------
+# resize-ring    abort. current size: 128
 ```
 
-## Aborting a Ring Resize Already in Progress 
+Commit planned changes:
 
-The process to abort a currently running resize is very similar to the process to set one up. Submit a `resize-ring abort` request, plan it, and commit it using `riak-admin cluster ...`
-
-Submit the request:
-
-```
-$> riak-admin cluster resize-ring abort
-Success: staged abort resize ring request
-```
-
-View the planned changes:
-
-```
-$> riak-admin cluster plan
-=============================== Staged Changes ================================
-Action         Details(s)
--------------------------------------------------------------------------------
-resize-ring    abort. current size: 128
--------------------------------------------------------------------------------
-
-
-NOTE: Applying these changes will result in 1 cluster transition
-
-###############################################################################
-                         After cluster transition 1/1
-###############################################################################
-
-================================= Membership ==================================
-Status     Ring    Pending    Node
--------------------------------------------------------------------------------
-valid      20.3%      --      'dev1@127.0.0.1'
-valid      20.3%      --      'dev2@127.0.0.1'
-valid      20.3%      --      'dev3@127.0.0.1'
-valid      19.5%      --      'dev4@127.0.0.1'
-valid      19.5%      --      'dev5@127.0.0.1'
--------------------------------------------------------------------------------
-Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
-```
-
-Commit or clear the planned cluster changes.
-
-```
-$> riak-admin cluster commit
-Cluster changes committed
+```bash
+riak-admin cluster resize-ring commit
+# Cluster changes committed
 ```
