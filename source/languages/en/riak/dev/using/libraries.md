@@ -82,7 +82,7 @@ text | partially supports feature
 
 ### Protocol Buffers
 
-**Note** The PHP client does not support Protocol Buffers and is thus
+**Note**: The PHP client does not support Protocol Buffers and is thus
 excluded from this matrix.
 
 | Bucket Operations                    | Erlang (riakc) | Java | Python  | Ruby |
