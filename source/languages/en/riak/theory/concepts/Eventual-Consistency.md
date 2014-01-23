@@ -37,16 +37,13 @@ requests.
 
 The parameters that we're concerned with here:
 
-<table>
-<thead><tr><th>Parameter</th><th>Often referred to as</th><th>Default value</th><th>Summary</th></tr></thead>
-<tbody>
-<tr><th><pre>n_val</pre></th><td><pre>N</pre></td><td>3</td><td>Replication factor</td></tr>
-<tr><th><pre>r</pre></th><td><pre>R</pre></td><td>quorum</td><td>Number of servers that must respond to a read request</td></tr>
-<tr><th><pre>w</pre></th><td><pre>W</pre></td><td>quorum</td><td>Number of servers that must respond to a write request</td></tr>
-<tr><th><pre>pr</pre></th><td><pre>PR</pre></td><td>0</td><td>Number of <b>primary</b> servers that must respond to a read request</td></tr>
-<tr><th><pre>pw</pre></th><td><pre>PW</pre></td><td>0</td><td>Number of <b>primary</b> servers that must respond to a write request</td></tr>
-</tbody>
-</table>
+Parameter | Often referred to as | Default Value | Summary
+:---------|:---------------------|:--------------|:-------
+`n_val` | `N` | `3` | Replication factor
+`r` | `R` | `quorum` | The number of servers that must respond to a read request
+`w` | `W` | `quorum` | The number of servers that must respond to a write request
+`pr` | `PR` | `0` | The number of _primary_ servers that must respond to a read request
+`pw` | `PW` | `0` | The number of _primary_ servers that must respond to a write request
 
 A value of `quorum` indicates a majority of the `N` value (`N/2+1`, or
 2 for the default `N` value of 3).
@@ -156,17 +153,13 @@ The same is true of writes: `W=2` or `W=3` will work fine with the
 primary server offline, as will `PW=2` (primary write), but `PW=3`
 will result in an error.
 
-<div class="note"><div class="title">Errors and failures</div>It is
-important to understand the difference between an error and a failure.
-<br/><br/>
-The <code>PW=3</code> request in this scenario will result in an error, <b>but the
-value will still be written to the two surviving primary servers</b>.
-<br/><br/>
-By specifying <code>PW=3</code> the client indicated that 3 primary servers must
-respond for the operation to be considered successful, which it
-wasn't, but there's no way to tell without performing another read
-whether the operation truly failed.</div>
+<div class="note"><div class="title">Errors and failures</div>
+It is important to understand the difference between an error and a failure.
 
+The <tt>PW=3</tt> request in this scenario will result in an error, <b>but the value will still be written to the two surviving primary servers</b>.
+
+By specifying <tt>PW=3</tt> the client indicated that 3 primary servers must respond for the operation to be considered successful, which it wasn't, but there's no way to tell without performing another read whether the operation truly failed.
+</div>
 
 ## Further Reading
 

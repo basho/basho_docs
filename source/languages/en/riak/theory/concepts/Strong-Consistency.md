@@ -62,3 +62,5 @@ Limitations:
 * No 2i
 * No support for object mutators (hence no CRDTs)
 * No firing of stats-related events
+
+## Further Reading
