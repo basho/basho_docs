@@ -55,7 +55,7 @@ connection demand or if experiencing connection resets. (default: `5`)
 
 {{#1.4.0+}}
 
-* **pb**
+* **pb_ip**
 A list of IP addresses and ports on which Riak's Protocol Buffers
 interface should listen. (default: `{"127.0.0.1", 8087 }`)
 
