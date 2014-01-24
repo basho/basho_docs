@@ -103,7 +103,8 @@ The same is true of writes: `W=2` or `W=3` will work fine with the
 primary server offline, as will `PW=2` (primary write), but `PW=3`
 will result in an error.
 
-<div class="note"><div class="title">Errors and failures</div>
+<div class="note">
+<div class="title">Errors and Failures</div>
 It is important to understand the difference between an error and a failure.
 
 The <tt>PW=3</tt> request in this scenario will result in an error, <b>but the value will still be written to the two surviving primary servers</b>.
