@@ -187,9 +187,8 @@ Sample responses (reformatted for easy reading):
 
 {{#1.4.4+}}
 
-Storage usage is calculated per each bucket. If there happened any
-errors while calculating a bucket, its result will be replaced with
-error string.
+If any errors occurred during calculation for a bucket, the error will
+be returned (e.g., timeout) instead of a bucket's usage.
 
 ```json
     {
