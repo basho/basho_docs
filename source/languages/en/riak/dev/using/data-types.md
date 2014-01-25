@@ -65,7 +65,16 @@ Let's say that we want to create a counter called `traffic_tickets` in our `coun
 counter = Riak::Crdt::Counter.new counters, traffic_tickets
 ```
 
-Our `traffic_tickets` counter will start out at 0. If we happen to get a ticket that afternoon, we would need to increment the counter:
+Our `traffic_tickets` counter will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
+
+```curl
+# Note that the URL structure differs from that of normal queries when dealing with datatypes
+
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d 1 \
+  <host>:<port>/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+```
 
 ```ruby
 counter.increment
@@ -73,11 +82,26 @@ counter.increment
 
 The default value of the `increment` function is 1, but you can increment by more than one if you'd like. Let's say that we decide to spend an afternoon flaunting traffic laws and rack up five tickets:
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d 5 \
+  <host>:<port>/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+```
+
 ```ruby
 counter.increment 5
 ```
 
 If we're curious about how many tickets we have accumulated, we can simply use the `value` method:
+
+```curl
+curl <host>:<port>/types/counter_bucket/buckets/counters/traffic_tickets
+
+# JSON Response:
+
+{"type":"counter", "value": <current_counter_value>}
+```
 
 ```ruby
 counter.value
@@ -85,6 +109,13 @@ counter.value
 ```
 
 The counterpart of `increment` is of course `decrement`. If we hire an expert who manages to get a traffic ticket stricken from the record:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d -1 \
+  <host>:<port>/types/counter_bucket/buckets/counters/traffic_tickets
+```
 
 ```ruby
 counter.decrement
@@ -94,6 +125,14 @@ counter.decrement
 ```
 
 The `value` method will return the value of a counter at any given time, but you can also return the new value of a counter immediately after `increment` or `decrement` using `increment_and_return` and `decrement_and_return`. Let's say that our `counter`'s current value is 10:
+
+
+```curl
+curl <host>:<port>/types/counter_bucket/buckets/counters/traffic_tickets
+# {"type":"counter", "value": 10}
+
+# ugh...this one doesn't work for curl examples
+```
 
 ```ruby
 counter.value
@@ -124,6 +163,16 @@ end
 
 Or, you can perform operations on multiple counters. Let's say that there are now two counters in play, `dave_traffic_tickets` and `susan_traffic_tickets`. If both of them get a ticket on the same day:
 
+```curl
+for counter in dave_traffic_tickets susan_traffic_tickets
+do
+  curl -XPOST \
+    -H "Content-Type: application/json" \
+    -d 1 \
+    <host>:<port>/types/counter_bucket/buckets/counters/datatypes/$counter
+done
+```
+
 ```ruby
 counters = [dave_traffic_tickets, susan_traffic_tickets]
 
@@ -152,6 +201,16 @@ set = Riak::Crdt::Set.new travel, cities
 ```
 
 Let's say that we read a travel brochure saying that Toronto and Montreal are nice places to be. Let's add them to our `cities` set:
+
+```curl
+for city in Toronto Montreal
+do
+  curl -XPOST \
+    -H "Content-Type: application/json" \
+    -d '{"add":"$city"}' \
+    <host>:<port>/types/set_bucket/buckets/travel/datatypes/cities
+done
+```
 
 ```ruby
 set.add 'Toronto'
