@@ -32,18 +32,17 @@ The parameters that we're concerned with:
 
 Parameter | Often referred to as | Default Value | Summary
 :---------|:---------------------|:--------------|:-------
-`n_val` | `N` | `3` | Replication factor
-`r` | `R` | `quorum` | The number of servers that must respond to a read request
-`w` | `W` | `quorum` | The number of servers that must respond to a write request
-`pr` | `PR` | `0` | The number of _primary_ servers that must respond to a read request
-`pw` | `PW` | `0` | The number of _primary_ servers that must respond to a write request
+`n_val` | **N** | `3` | Replication factor
+`r` | **R** | `quorum` | The number of servers that must respond to a read request
+`w` | **W**| `quorum` | The number of servers that must respond to a write request
+`pr` | **PR** | `0` | The number of _primary_ servers that must respond to a read request
+`pw` | **PW** | `0` | The number of _primary_ servers that must respond to a write request
 
 A value of `quorum` indicates a majority of the `N` value (`N`/2 + 1, or 2 for a default `N` value of 3, 3 for an `N` value of 5, 4 for 6, and so on).
 
 There are additional configuration items that are closely related to the above which are not covered in this document: `notfound_ok`, `basic_quorum` and `dw`. See the [Understanding Riak's Configurable Behaviors blog series](http://basho.com/understanding-riaks-configurable-behaviors-part-1/) for more on all of these parameters.
 
 See also the documentation on [[vector clocks]] for a discussion of key configuration options that impact conflict resolution.
-
 
 ## A Simple Example of Eventual Consistency
 
