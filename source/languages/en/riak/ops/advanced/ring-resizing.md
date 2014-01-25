@@ -8,22 +8,22 @@ audience: advanced
 keywords: [ops, ring, ring-resizing]
 ---
 
-Ring resizing enables Riak operators to change the number of partitions during normal operations, under load.
+The ring resizing feature in versions of Riak >= 2.0 enables Riak operators to change the number of partitions in a Riak cluster's ring during normal operations, under load.
 
-Previously, a cluster was limited to always having `ring_creation_size` partitions. In order to change the number of partitions, a separate cluster would need to be stood up along side the original and the data would be migrated between the two by external means.
+Previously, a cluster was limited to having `ring_creation_size` partitions throughout its entire lifespan. In order to change the number of partitions, a separate cluster would need to be spun up along side the original and the data migrated between the two by external means.
 
-The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and need to change this without the hassle mentioned above.
+The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and need to change this without the disruptive process described above.
 
 <div class="note">
 <div class="title">Note</div>
-Ring resizing is *not* intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions ultimately limits the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in specific scenarios.
+Ring resizing is <em>not</em> intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions ultimately limits the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in highly specific scenarios.
 </div>
 
 There are a number of important considerations to bear in mind while running a ring resizing process:
 
-* All nodes must eventually be up for a resize to succeed. The only cluster operation that will be permitted during ring resize is a `force-remove`. Any other operations will be delayed while the resize completes.
-* If you perform a [[listkeys|HTTP List Keys]] or [[secondary index|Using Secondary Indexes]] query, you can get duplicates or miscounts in coverage queries. In an upcoming release of Riak, this will be self-healing (see [this pull request](https://github.com/basho/riak_kv/pull/685) for more information).
-* Resizing the partitions can take up a lot of disk space. Make sure that you have sufficient storage to complete the resize operation.
+* For a resize to succeed, all nodes must eventually be up. The only cluster operation that will be permitted during a ring resize is `force-remove`. Any other operations will be delayed while the resize completes.
+* If you perform a [[listkeys|HTTP List Keys]] or [[secondary index|Using Secondary Indexes]] query during a ring resize, you may get duplicates or miscounts in coverage queries. In an upcoming release of Riak, this will be self-healing (see [this pull request](https://github.com/basho/riak_kv/pull/685) for more information).
+* Resizing partitions can take up a lot of disk space. Make sure that you have sufficient storage to complete the resize operation.
 
 ## Starting the Resize
 
@@ -42,9 +42,9 @@ riak-admin cluster resize-ring 64
 Success: staged resize ring request with new size: 64
 ```
 
-**Note**: The size of a Riak ring is always a 2<sup>n</sup> integer, e.g. 16, 32, 64, etc.
+**Note**: The size of a Riak ring should _always_ be a 2<sup>n</sup> integer, e.g. 16, 32, 64, etc.
 
-Prior to committing any ring size-related changes, you will need to view the planned changes using the `plan` command (as you do for any cluster-wide changes):
+Prior to committing any ring size-related changes, you will need to view the planned changes using the `plan` command (as you would for any cluster-wide changes):
 
 ```bash
 riak-admin cluster plan
@@ -136,102 +136,7 @@ Index: 1141798154164767904846628775559596109106197299200
 Index: 1370157784997721485815954530671515330927436759040
   Waiting on: [riak_kv_vnode,riak_pipe_vnode]
 
--------------------------------------------------------------------------------
-Owner:      dev2@127.0.0.1
-Next Owner: $resize
-
-Index: 45671926166590716193865151022383844364247891968
-  Waiting on: [riak_kv_vnode]
-  Complete:   [riak_pipe_vnode]
-
-Index: 274031556999544297163190906134303066185487351808
-  Waiting on: [riak_kv_vnode]
-  Complete:   [riak_pipe_vnode]
-
-Index: 502391187832497878132516661246222288006726811648
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 730750818665451459101842416358141509827966271488
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 959110449498405040071168171470060731649205731328
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1187470080331358621040493926581979953470445191168
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1415829711164312202009819681693899175291684651008
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
--------------------------------------------------------------------------------
-Owner:      dev3@127.0.0.1
-Next Owner: $resize
-
-Index: 91343852333181432387730302044767688728495783936
-  Waiting on: [riak_kv_vnode]
-  Complete:   [riak_pipe_vnode]
-
-Index: 319703483166135013357056057156686910549735243776
-  Waiting on: [riak_kv_vnode]
-  Complete:   [riak_pipe_vnode]
-
-Index: 548063113999088594326381812268606132370974703616
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 776422744832042175295707567380525354192214163456
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1004782375664995756265033322492444576013453623296
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1233142006497949337234359077604363797834693083136
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
--------------------------------------------------------------------------------
-Owner:      dev4@127.0.0.1
-Next Owner: $resize
-
-Index: 137015778499772148581595453067151533092743675904
-  Waiting on: [riak_kv_vnode]
-  Complete:   [riak_pipe_vnode]
-
-Index: 365375409332725729550921208179070754913983135744
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 593735040165679310520246963290989976735222595584
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 822094670998632891489572718402909198556462055424
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1050454301831586472458898473514828420377701515264
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1278813932664540053428224228626747642198940975104
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
--------------------------------------------------------------------------------
-Owner:      dev5@127.0.0.1
-Next Owner: $resize
-
-Index: 182687704666362864775460604089535377456991567872
-  Waiting on: [riak_kv_vnode]
-  Complete:   [riak_pipe_vnode]
-
-Index: 411047335499316445744786359201454599278231027712
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 639406966332270026714112114313373821099470487552
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 867766597165223607683437869425293042920709947392
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1096126227998177188652763624537212264741949407232
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
-
-Index: 1324485858831130769622089379649131486563188867072
-  Waiting on: [riak_kv_vnode,riak_pipe_vnode]
+# The output directly above will be repeated for all nodes in the cluster, e.g. dev2, dev3, etc.
 
 -------------------------------------------------------------------------------
 
@@ -239,7 +144,7 @@ Index: 1324485858831130769622089379649131486563188867072
 All nodes are up and reachable
 ```
 
-You can also throttle the ring resize activity using `riak-admin transfer-limit` if you wish:
+If you wish, you can also throttle the ring resize activity using `riak-admin transfer-limit`, which will change the `handoff_concurrency` limit:
 
 ```bash
 # For the whole cluster:
@@ -341,8 +246,11 @@ Submit an `abort` request:
 
 ```bash
 riak-admin cluster resize-ring abort
+
 # Success: staged abort resize ring request
+#
 # or
+#
 # Failure: ring is not resizing or resize has completed
 ```
 
@@ -350,6 +258,7 @@ View planned changes:
 
 ```bash
 riak-admin cluster resize-ring plan
+
 # In the output, you should find something like the following:
 # 
 # Action         Details(s)
@@ -363,3 +272,5 @@ Commit planned changes:
 riak-admin cluster resize-ring commit
 # Cluster changes committed
 ```
+
+If the console says that the changes have been committed, then your resize operation has been successfully aborted.
