@@ -83,30 +83,19 @@ It is possible to configure requests to ignore sloppy quorums in order to limit 
 
 In the scenario we've been discussing, for example, the possibility of a server for the `manchester-manager` key having failed, but to be more precise, we've been talking about a *primary* server, one that when the cluster is perfectly healthy would bear responsibility for that key.
 
-When that server failed, using `R=2` as we've discussed or even `R=3`
-for a read request would still work properly: a failover server
-(sloppy quorum again) would be tasks to take responsibility for that
-key, and when it receives a request for it, it would reply that it
-doesn't have any such key, but the two surviving primary servers still
-know who the `manchester-manager` is.
+When that server failed, using `R=2` as we've discussed or even `R=3` for a read request would still work properly: a failover server (sloppy quorum again) would be tasks to take responsibility for that key, and when it receives a request for it, it would reply that it doesn't have any such key, but the two surviving primary servers still know who the `manchester-manager` is.
 
-However, if the `PR` (primary read) value is specified, only the two
-surviving primary servers are considered valid sources for that data.
+However, if the `PR` (primary read) value is specified, only the two surviving primary servers are considered valid sources for that data.
 
-So, setting `PR` to 2 works fine, because there are still 2 such
-servers, but a read request with `PR=3` would fail because the 3rd
-primary server is offline, and no failover server can take its place
-*as a primary*.
+So, setting `PR` to 2 works fine, because there are still 2 such servers, but a read request with `PR=3` would fail because the 3rd primary server is offline, and no failover server can take its place *as a primary*.
 
-The same is true of writes: `W=2` or `W=3` will work fine with the
-primary server offline, as will `PW=2` (primary write), but `PW=3`
-will result in an error.
+The same is true of writes: `W=2` or `W=3` will work fine with the primary server offline, as will `PW=2` (primary write), but `PW=3` will result in an error.
 
 <div class="note">
 <div class="title">Errors and Failures</div>
 It is important to understand the difference between an error and a failure.
 
-The <tt>PW=3</tt> request in this scenario will result in an error, <b>but the value will still be written to the two surviving primary servers</b>.
+The <tt>PW=3</tt> request in this scenario will result in an error, <strong>but the value will still be written to the two surviving primary servers</strong>.
 
 By specifying <tt>PW=3</tt> the client indicated that 3 primary servers must respond for the operation to be considered successful, which it wasn't, but there's no way to tell without performing another read whether the operation truly failed.
 </div>
