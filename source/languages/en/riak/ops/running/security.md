@@ -194,89 +194,6 @@ do
 done
 ```
 
-## Source Management
-
-### Add source
-
-A user will not have access to resources simply because they have been created via `add-user`. You must add a security **source** as well as grants to users to provide access to Riak securables, e.g. the ability to make `GET` and `PUT` requests. Sources may apply to all users or to a specific user or role.
-
-Available sources:
-
-Source   | Description |
-:--------|:------------|
-`trust` | Always authenticates successfully |
-`password` | Check the user's password against the one stored in Riak |
-`pam`  | Authenticate against the given PAM service |
-`certificate` | Authenticate using a client certificate |
-
-### Adding a trusted source
-
-Security sources can be added either to specific users or roles or to all users. Let's say that we want to give all users trusted access to securables when requests come from `localhost`:
-
-```bash
-riak-admin security add-source all 127.0.0.1/32 trust
-```
-
-In general, the `add-source` command takes the following form:
-
-```bash
-riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...]]
-```
-
-The `all|<users>` designates that sources can be added to all users, a specific user, or a grouping of users, separated by commas, e.g. `add-source jane,bill,terry,chris`.
-
-<!-- section on CIDRs -->
-
-The following creates a source giving all users trusted access to securables when requests come from `localhost`:
-
-```bash
-riak-admin security add-source all 127.0.0.1/32 trust
-```
-
-The response from `riak-admin security print-sources`:
-
-```bash
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-+--------------------+------------+----------+----------+
-```
-
-#### Adding a `default` Source
-
-The following source requires a password for users connecting from any
-host:
-
-```bash
-riak-admin security add-source all 0.0.0.0/0 password
-```
-
-The response from `riak-admin security print-sources`:
-
-```bash
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-|        all         | 0.0.0.0/0  | password |    []    |
-+--------------------+------------+----------+----------+
-```
-
-If a user connects from `127.0.0.1`, they will be trusted because that source is more specific than---and thus covered by---the `0.0.0.0/0 password` source.
-
-### Delete source
-
-```
-# riak-admin security del-source all 0.0.0.0/0
-# riak-admin security print-sources
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-+--------------------+------------+----------+----------+
-```
-
 ## Managing Permissions
 
 Permission to perform a wide variety of operations against Riak can be granted to---or revoked from---users via the `grant` and `revoke` commands.
@@ -392,6 +309,69 @@ riak-admin security grant search.query,search.admin ON index TO riakuser
 
 More comprehensive information on search-related security can be found [[here|Riak Search Security]].
 
+## Managing Sources
+
+### Add source
+
+A user will not have access to resources simply because they have been created via `add-user`. You must add a security **source** as well as grants to users to provide access to Riak securables, e.g. the ability to make `GET` and `PUT` requests. Sources may apply to all users or to a specific user or role.
+
+Available sources:
+
+Source   | Description |
+:--------|:------------|
+`trust` | Always authenticates successfully |
+`password` | Check the user's password against the one stored in Riak |
+`pam`  | Authenticate against the given pluggable authentication model (PAM) service |
+`certificate` | Authenticate using a client certificate |
+
+### Adding a trusted source
+
+Security sources can be added either to specific users or roles or to all users.
+
+In general, the `add-source` command takes the following form:
+
+```bash
+riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...]]
+```
+
+The `all|<users>` designates that sources can be added to all users, a specific user, or a grouping of users, separated by commas, e.g. `add-source jane,bill,terry,chris`.
+
+Let's say that we want to give all users trusted access to securables when requests come from `localhost`:
+
+```bash
+riak-admin security add-source all 127.0.0.1/32 trust
+```
+
+At that point, the `riak-admin security print-sources` command would print the following:
+
+```bash
++--------------------+------------+----------+----------+
+|       users        |    cidr    |  source  | options  |
++--------------------+------------+----------+----------+
+|        all         |127.0.0.1/32|  trust   |    []    |
++--------------------+------------+----------+----------+
+```
+
+To require a password from users `juliette` and `sanjay`---when they connect from the class C network at `10.0.0.0`:
+
+```bash
+riak-admin security add-source juliette,sanjay 10.0.0.0/24
+```
+
+Instructions on assigning passwords are [[above|Riak Security#User-Management]].
+
+### Delete source
+
+```
+# riak-admin security del-source all 0.0.0.0/0
+# riak-admin security print-sources
++--------------------+------------+----------+----------+
+|       users        |    cidr    |  source  | options  |
++--------------------+------------+----------+----------+
+|        all         |127.0.0.1/32|  trust   |    []    |
++--------------------+------------+----------+----------+
+```
+
 ## Testing Your Security Setup
 
 A good way of ensuring that your security settings have been properly set up is to create a user with a password and specific permissions and then attempt to perform a range of actions as that user.
@@ -475,13 +455,13 @@ riak-admin security alter-user riakuser roles=
 
 ## Security Ciphers
 
-To view a list of currently available security ciphers, use the `ciphers` command:
+To view a list of currently available cipher suites, use the `ciphers` command:
 
 ```bash
 riak-admin security ciphers
 ```
 
-That command will return a list like the following:
+That command will return a large list:
 
 ```bash
 Configured ciphers
