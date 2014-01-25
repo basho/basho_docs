@@ -35,6 +35,117 @@ And then check:
 curl http://localhost:8098/types/map_bucket/props | python -mjson.tool # or pjson or another tool
 ```
 
+## Operations on Datatypes
+
+Naming convention: field name + `_` + type. Here are some examples:
+
+* `firstname_register`
+* `retweeted_flag`
+* `userinfo_map`
+* `followers_set`
+* `pagevisits_counter`
+
+The following examples will show datatype operations via the HTTP interface. Usage examples in the next section will show how Riak datatypes are used in conjunction with Basho's official Riak clients (Java, Ruby, Python, and Erlang).
+
+All `GET` requests return:
+
+```json
+{
+  "type": "counter | set | map",
+  "value": "<value>"
+}
+```
+
+Flags
+
+`enable`
+`disable`
+
+```json
+POST
+{"update": {"<flag_name>":"enable | disable"}}
+```
+
+### Registers
+
+To add:
+
+```json
+POST
+{
+  "update": {
+    "<name>_register": "<value>"
+  }
+}
+```
+
+To remove:
+
+```json
+{
+  "remove": "<name>_register"
+}
+
+or
+
+{
+  "remove": [
+    "<name>_register", "<other_name>_register"
+  ]
+}
+```
+
+### Counters
+
+`increment`
+`decrement`
+
+### Sets
+
+`add`
+
+```json
+{
+  "add": "<value>"
+}
+```
+
+`add_all`
+
+```json
+{
+  "add_all": [
+    "<val_1>",
+    "<val_2>",
+    ...
+  ]
+}
+```
+
+`remove`
+
+```json
+{
+  "remove": "<value>"
+}
+```
+
+`remove_all`
+
+```json
+{
+  "remove_all": [
+    "<value_1>",
+    "<value_2>"
+  ]
+}
+```
+
+
+### Maps
+
+Also: `include_context`
+
 ## Usage Examples
 
 The examples below show you how to use Riak datatypes at the application level. Code samples are currently available in Ruby (using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
@@ -415,30 +526,7 @@ Param | Description |
 `notfound_ok` | Boolean. A `not_found` response from a vnode counts toward `r` quorum if true. Default is the bucket default if absent. |
 `include_context` | Boolean. If the datatype requires the opaque `context` for safe removal, include it in the response. Default `true`.
 
-## Operations
+## Error Codes
 
-#### Counter
 
-Integer
 
-Form is either:
-
-* An integer (increments by default)
-* An object containing `increment` or `decrement` and an integer
-
-#### Set
-
-Array of strings
-
-Form: Object containing any combination of `add`, `add_all`, `remove`, `remove_all` fields; `add` and `remove` should refer to single string values, while `add_all` and `remove_all` should be arrays of strings; the `context` field may be included
-
-#### Map
-
-Form: Object containing any combination of the fields `add`, `remove`, or `update`; `add` and `remove` should be lists of field names described above; `update` should be an object containing fields and the operation to apply to the type associated associated with the field
-
-Naming convention: field name + `_` + type
-
-* `firstname_register`
-* `retweeted_flag`
-* `userinfo_map`
-* `followers_set`
