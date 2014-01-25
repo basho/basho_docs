@@ -223,8 +223,8 @@ Permission | Operation |
 `riak_kv.put` | Create or update objects
 `riak_kv.delete` | Delete objects
 `riak_kv.index` | Index objects using secondary indexes (2i)
-`riak_kv.list_keys` | List keys in bucket
-`riak_kv.list_buckets` | List buckets
+`riak_kv.list_keys` | List all of the keys in a bucket
+`riak_kv.list_buckets` | List all buckets
 
 <div class="note"><div class="title">Note</div>
 `riak_kv.list_keys` and `riak_kv.list_buckets` are both very expensive operations that should be performed very rarely and never in production.
@@ -237,7 +237,7 @@ riak-admin security add-user client
 riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
 ```
 
-### MapReduce Permission
+### MapReduce Permissions
 
 Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
 
