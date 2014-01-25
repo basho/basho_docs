@@ -7,7 +7,7 @@ audience: intermediate
 keyword: [appendix, concepts]
 ---
 
-Riak was originally designed as an [[eventually consistent|Eventual Consistency]] system, fundamentally geared toward partition (i.e. fault) tolerance and high availability---a prioritization that _necessarily_ comes at the expense of data consistency. In the language of the CAP theorem, Riak began as an AP---highly available, partition-tolerant---system, and it continues to be an AP system by default.
+Riak was originally designed as an [[eventually consistent|Eventual Consistency]] system, fundamentally geared toward providing partition (i.e. fault) tolerance and high availability---a prioritization that inevitably comes at the expense of data consistency. In the language of the CAP theorem, Riak began as an AP---highly available, partition-tolerant---system, and it continues to be an AP system by default.
 
 Yet in spite of this, Riak has always enabled users to sacrifice availability in favor of stronger consistency if they wish by adjusting [[various read and write parameters|Eventual Consistency#Replication-properties-and-request-tuning]]. _In versions >= 2.0, Riak can be used as a strongly rather than eventually consistent system_.
 
@@ -53,69 +53,3 @@ Riak has always been a key/value store, but it is different from others in that 
 The advantage of providing multiple namespaces---as many as necessary---is that it enables users to fine-tune the availability/consistency trade-off on a bucket-by-bucket basis. Users can set some buckets to accept sloppy quorums, others with `w` and/or `r` equal to `n_val`, and so on, allowing for a mix-and-match approach to data within a Riak cluster.
 
 This mixed approach is still possible, of course, except that now strong consistency has been introduced as yet another available bucket-level configuration. As of Riak 2.0, buckets have a property called `consistent`, which, if set to `true`, makes data in that bucket conform to strong consistency requirements. Implementation details can be found in the [[Using Strong Consistency]] tutorial.
-
-## How Strong Consistency is Guaranteed in Riak
-
-Reliance on `riak_ensemble`, which supports three types of writes:
-
-* `put_once` --- Only succeeds if the key doesn't already exist; if the key exists already, then a `modify` operation takes place; for client puts that are missing a vector clock
-* `modify` --- Fails to write if the object no longer matches the base object returned in the get part of the sequence; for client puts that have a vector clock
-* `overwrite` --- Overwrite the key without regard to its existing value
-
-Under the hood, Riak guarantees strong consistency (where enabled) by essentially 
-
-Strong consistency guarantees are beneficial when dealing with critical data and no sloppy quorums are allowed; eventual consistency is great and all, but in the long run, we're all dead (the problem of recency); any `GET` will see the most recent successful `PUT` (does this mean you have to lock out some `PUT`s?)
-
-Consistent operations are conditional, single-key atomic updates. 
-
-It has been argued that 
-R + W > N is not true strong consistency because concurrent requests still generate non-deterministic results. Node failures and network partitions can lead to partial write failures that provide no guarantees on value consistency.
-
-Strong consistency means atomic updates; it means that the write set and the read set always overlap
-
-Riak resolves write ambiguity at read time rather than write time. Writes 
-
-Partial writes need to be resolved at read time; you need to be sure that nothing changes behind your back
-
-Riak resolves partial write ambiguity at read time; if you partially write to a replica that then goes offline (or becomes otherwise partitioned), the old value wins; the partitioned, failed-to-write value is rolled back, so to speak. 
-
-One way of ensuring strong consistency is to do so at the application level; a better way for a lot of uses cases is to let the database do that for you; siblings mean that if a write fails, the next read defines consistency
-
-The partial consistency approach involves choosing Rs and Ws along a continuum between 0 and N; the problem is that you always incur a performance hit as R and/or W increase because Riak has to communicate with and wait for results on more partitions
-
-Ensembles: consensus groups; 64-partition ring means 64 ensembles; each ensemble elects a leader, established an epoch, and supports get/put operations
-
-CRDTs don't have recency; 
-
-Conditional, single-key, atomic updates; no siblings
-
-## Limitations
-
-It is important to always bear in mind that there are some Riak features that cannot be used in conjunction with strong consistency requirements. Riak's [[CRDT]]-inspired dataypes---sets, counters, and maps---are by definition _convergent_ rather than strongly consistent. When using Riak datatypes, there can be no guarantee
-
-
-## Further Reading
-
-## Scratchpad
-
-SC example: Windows Azure
-EC example: Amazon (S3, Dynamo, etc.)
-
-EC => SC is too expensive in large systems; "clients may perform read operations that return stale data. The data returned by a read operation is the value of the object _at some past point in time_ but not necessarily the latest value" (like when a get request is directed to a replica that has not received all of the writes that other replicas have received...replaced "replicas" with "nodes" for Riak); "guarantees that a read operation returns the value that was last written for a given object...a read observes the effects of all previously completed writes"
-
-EC examples: Evernote
-
-Consistency types
-
-Strong consistency: see all previous writes
-Eventual consistency: see subset of previous writes
-Consistent prefix: see initial sequence of writes
-Bounded staleness: see all "old" writes
-Monotonic reads: see increasing subset of writes
-Read My Writes: see all writes performed by reader
-
-
-
-
-http://pages.cs.wisc.edu/~cs739-1/papers/consistencybaseball.pdf
-https://github.com/basho/riak_kv/pull/710
