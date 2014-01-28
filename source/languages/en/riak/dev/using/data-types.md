@@ -14,7 +14,7 @@ In total, Riak support five CRDT-inspired datatypes: [[counters|CRDTs#Counters]]
 
 <div class="note">
 <div class="title">Note</div>
-Counters were the one Riak datatype made available prior to version 2.0 (in version 1.4). Usage documentation can be found [[here|HTTP Counters]]. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than the documentation for the older version of counters. 
+Counters were the one Riak datatype made available prior to version 2.0 (in version 1.4). Usage documentation can be found [[here|HTTP Counters]]. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than the documentation for the older version of counters.
 </div>
 
 ## Setting Up Buckets to Use Riak Datatypes
@@ -130,7 +130,7 @@ curl -XDELETE \
 
 ### Sets
 
-Riak sets are essentially lists of binaries. There are four available operations for sets: `add`, 
+Riak sets are essentially lists of binaries. There are four available operations for sets: `add`,
 
 Operation | JSON syntax
 :---------|:-----------
@@ -323,38 +323,170 @@ curl -XPOST \
   http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
 ```
 
+**Note**: Fields can be removed _only_ using the `remove` command. You cannot remove fields using `DELETE` requests, as those requests can refer only to a map as a whole and not to any of its consituent parts.
+
 ### Registers
 
-To add:
+Registers hold a single binary, for example a string. If you need to store multiple binaries in a field, then you should consider using a set instead.
+
+Let's say that we want to add a `middle_name_register` to the `ahmed_info` map to hold Ahmed's middle name. If we don't know Ahmed's middle name at first, then using the `add` operation will simply add an empty register:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"add":"middle_name_register"}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+Let's say that we find out that Ahmed's middle name is Darius. We can now update the register to reflect that
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"middle_name_register":"Darius"}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+**Note**: If you attempt to update a register that does not yet exist, the register will be created for you and then updated to the value passed to it.
+
+Or if we decide that we don't really need to know customers' middle names, we can simply remove the register from the map:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"remove":"middle_name_register"}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+### Counters
+
+While usage of counters was covered in the section [[above|Using Datatypes#Counters]], it is important to note that counter-related operations are syntatically different when they are used within maps rather than at the bucket/key level. Counters within maps are incremented and decremented by pairing an integer value with the counter as part of a map `update` operation (positive integers to increment, negative integers to decrement).
+
+Let's say that we want to track the number of times that Ahmed leaves a comment on our company blog. We'll do so using a `blog_comments_counter` field in our map. As expected, counters begin at 0 and can be created automatically as part of an `update` operation. The following would create the `blog_comments_counter` and increment it from 0 (the default initial value) to 5:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"blog_comments_counter":5}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+The following would decrement that counter by 3:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"blog_comments_counter":-3}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+### Sets
+
+Using sets within maps is much like using sets on their own at the bucket/key level, involving the same `add`, `add_all`, `remove`, and `remove_all` commands, with the difference that those commands are nested within a broader `update` command to the set.
+
+Let's say that we want to track Ahmed's interests so that we can have a better sense of which of our products he might be interested in. We'll use an `interests_set` to do so. We can start by creating an empty set:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"add":"interests_set"}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+Now, when we fetch the map, we'll see an empty JSON array associated with that set (if `include_context` is set to `false`):
 
 ```json
-POST
 {
-  "update": {
-    "<name>_register": "<value>"
+  "type": "map",
+  "value": {
+    "interests_set": []
   }
 }
 ```
 
-To remove:
+Let's say that we find out that Ahmed is interested in cooking, opera, and motorcycles. We can all of those values to the `interests` set in one operation:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"interests_set":{"add_all":["opera","cooking","motorcycles"]}}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+We can also remove multiple values from a set in a single operation. If we find out that Ahmed actually isn't all that interested in cooking or opera, we can remove those like so:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"interests_set":{"remove_all":["opera","cooking"]}}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+From there, we can add a single entry to the set using the `add` operation:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"interests_set":{"add":"stamp collecting"}}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+Or we can remove a single entry using the `remove` operation:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"interests_set":{"remove":"stamp collecting"}}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+Sets as a whole can be removed from a map in the way that we would expect:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{"remove":"interests_set"}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+### Maps
+
+Using maps within maps actually isn't fundamentally different from using other Riak datatypes within maps. They can be added, removed, and updated just like any other Riak datatype, although using maps within maps can become tricky when nesting maps within maps within maps within...
+
+Let's say that we want to know not just about Ahmed, but about his colleagues as well. And so we want to embed a map with info about Ahmed's colleague Annika (we'll call the map `annika_info_map`) into the `ahmed_info` map. We can start by inserting an empty map:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"add":"annika_info_map"}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
+
+Here is the JSON for map (without context):
 
 ```json
 {
-  "remove": "<name>_register"
-}
-
-or
-
-{
-  "remove": [
-    "<name>_register", "<other_name>_register"
-  ]
+  "type": "map",
+  "value": {
+    "annika_info_map": {}
+  }
 }
 ```
 
+**Note**: An empty map is represented by an empty JSON object, as opposed to an array for an empty set or an empty string for a register (as above).
 
+Let's add some registers to the map to store Annika's first name (`Annika`) and last name (`Weiss`):
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
 
+## Errors
+
+`Invalid operation on a datatype '<type>': <operation>`
 
 ## Usage Examples
 
@@ -681,7 +813,7 @@ maps.each do |map|
 end
 ```
 
-Now, if we need to 
+Now, if we need to
 
 ## Scratchpad
 
