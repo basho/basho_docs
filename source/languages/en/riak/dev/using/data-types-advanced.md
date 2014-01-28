@@ -438,3 +438,39 @@ curl -XPOST \
 ## Errors
 
 `Invalid operation on a datatype '<type>': <operation>`
+
+### Query parameters
+
+For `r`, `pr`, `w`, `pw`, `dw`:
+
+Value | Description |
+:-----|:------------|
+`default` | Whatever the bucket default is. This is the valued used for any absent value. |
+`quorum` | (Bucket `n_val` / 2) + 1 |
+`all` | All replicas must respond. |
+`one` | Any one response is enough. |
+integer value | The specific number of vnodes must respond. Must be =< N. |
+
+Param | Description |
+:-----|:------------|
+`r` | Read quorum |
+`pr` | Primary read quorum |
+`basic_quorum` | Boolean. Return as soon as a quorum of responses are received if true. Default is the bucket default if absent. |
+`notfound_ok` | Boolean. A `not_found` response from a vnode counts toward `r` quorum if true. Default is the bucket default if absent. |
+`include_context` | Boolean. If the datatype requires the opaque `context` for safe removal, include it in the response. Default `true`.
+
+## Scratchpad
+
+`include_context` on updates is invoked only if they have `return_body`
+
+`include_context=false` => "I'm just going to read this and pass it on" or "I'm going to read, but I _know_ that I won't remove anything"
+`include_context=true` => "I might remove something"
+
+"add wins" strategy is the default; remove will only win when no concurrent adds have occurred
+
+"observed remove" behavior
+
+Weird thing: you can add something to a set or map even if you already know it's there; this is to make sure that "add wins" under certain circumstances (either adding a )
+
+https://gist.github.com/russelldb/5da7d895cebc77dd38b8
+https://github.com/basho/riak_kv/blob/develop/src/riak_kv_wm_crdt.erl#L26
