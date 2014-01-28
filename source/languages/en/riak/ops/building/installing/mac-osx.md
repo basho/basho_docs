@@ -147,7 +147,7 @@ You must have Xcode tools installed from [Apple's Developer website](http://deve
 
 Riak requires [Erlang](http://www.erlang.org/) {{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02+{{/2.0.0+}}.
 
-If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
+If you do not have Erlang already installed, see [[Installing Erlang]]. More specifically, information on using specific versions of Erlang can be found [[here|Installing Erlang#Install-using-kerl]]. Don't worry, it's easy!
 
 Next, download and unpack the source distribution.
 
