@@ -8,9 +8,9 @@ audience: intermediate
 keywords: [developers, datatypes]
 ---
 
-In versions of Riak >= 2.0, you can make use of a variety of convergent replicated data types (CRDTs). While Riak was originally built as a data-agnostic key/value store, datatypes make Riak aware of your data and enable you to make specific transactions 
+In versions of Riak >= 2.0, Riak users can make use of a variety of convergent replicated data types ([[CRDTs]]). While Riak was originally built as a mostly data-agnostic key/value store, datatypes enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on a range of datatypes.
 
-In total, there are five Riak datatypes: [[counters|CRDTs#Counters]], [[flags|CRDTs#Flags]], [[registers|CRDTs#Registers]], [[sets|CRDTs#Sets]], and [[maps|CRDTs#Maps]]. Of those five types, counters, sets, and maps can be used as bucket-level datatypes, whereas flags and registers must be embedded in maps (more on that [[below|Using Datatypes#Maps]]).
+In total, Riak support five CRDT-inspired datatypes: [[counters|CRDTs#Counters]], [[flags|CRDTs#Flags]], [[registers|CRDTs#Registers]], [[sets|CRDTs#Sets]], and [[maps|CRDTs#Maps]]. Of those five types, counters, sets, and maps can be used as bucket-level datatypes, whereas flags and registers must be embedded in maps (more on that [[below|Using Datatypes#Maps]]).
 
 <div class="note">
 <div class="title">Note</div>
@@ -19,9 +19,9 @@ Counters were the one Riak datatype made available prior to version 2.0 (in vers
 
 ## Setting Up Buckets to Use Riak Datatypes
 
-In order to use Riak datatypes, you must do so by 
+In order to use Riak datatypes, you must create a [[bucket type|Using Bucket Types]] that sets the `datatype` bucket parameter to either `counter`, `map`, or `set`.
 
-Setting up a bucket to store specific data types:
+The following would create three bucket types for three datatypes:
 
 ```bash
 riak-admin bucket-type create map_bucket '{"props":{"datatype":"map"}}'
@@ -29,15 +29,210 @@ riak-admin bucket-type create set_bucket '{"props":{"datatype":"set"}}'
 riak-admin bucket-type create counter_bucket '{"props":{"datatype":"counter"}}'
 ```
 
-And then check:
+**Note**: The names `map_bucket`, `set_bucket`, and `counter_bucket` are not reserved terms. You are always free to name bucket types whatever you like, with the exception of `default`.
+
+Once you've created a datatype, you can check to make sure that the bucket property configuration associated with that type is correct. This can be done either via HTTP or through the `riak-admin` interface.
+
+Using `curl`, we can verify that the bucket `props` associated with the `map_bucket` type include `datatype` being set to `map`:
 
 ```curl
-curl http://localhost:8098/types/map_bucket/props | python -mjson.tool # or pjson or another tool
+curl http://localhost:8098/types/map_bucket/props
+```
+
+If the `map_bucket` type exists and has been set up properly, we should see `"datatype":"map"` in the JSON response.
+
+We can also see which properties are associated with a bucket type using the [[`riak-admin`|Riak Admin]] interface, specifically the `status` command:
+
+```bash
+riak-admin bucket-type status map_bucket
+```
+
+Instead of JSON, this will return a simple list of properties and associated values, i.e. a list of `property: value` pairs. If our `map_bucket` bucket type has been set properly, we should see the following pair in our console output:
+
+```bash
+datatype: map
 ```
 
 ## Operations on Datatypes
 
-Naming convention: field name + `_` + type. Here are some examples:
+When using Riak without using datatypes, the operations available to you are essentially of the get/put/delete variety, i.e. creating, updating, or deleting values associated with a key. The important thing to note about this approach is that operations are always performed on the _whole value_.
+
+With datatypes, this is not the case, because they enable you to perform operations on _parts of a value_. If you're using a set, for example, you can add an element to a set by sending an `add` command to Riak along with the value that you wish to add, instead of having to fetch the current set, add the element on the application side, and then update the value in Riak. The same goes for maps. You can work with maps by performing specific operations on a map, such as adding and removing fields, using the datatype semantics that Riak provides.
+
+The one slight exception to this is counters. If you're using a counter, you are indeed interacting with the "whole value" associated with a key, but with the important difference that Riak is aware of that value. When you increment that value, you are not getting the value, changing it on the application side, and then updating the value in Riak. Instead, you simply send a message to Riak to increment the counter, and Riak knows what to do from there.
+
+<div class="note">
+<div class="title">Note</div>
+All of the examples in this section will be in the form of <tt>curl</tt> requests, because these requests best illustrate how transactions are made to datatypes under the hood. Transactions using Basho's official Riak clients will not be shown in this section because these clients provide APIs that abstract away the underlying transactions. Code examples for those clients can be found in the [[Usage Examples|Using Datatypes#Usage-Examples]] section below.
+</div>
+
+## The General Form of Operations
+
+All datatype operations performed via HTTP take place using the methods `GET`, `POST`, and `DELETE` methods and URLs of the following form:
+
+```curl
+<host>:<port>/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
+```
+
+A few things to note:
+
+* The `<bucket_type>` used must be set up to handle the necessary datatype, as explained [[above|Using Datatypes#Setting-Up-Buckets-to-Use-Riak-Datatypes]]
+* All data passed to Riak datatypes, be it using `-d` or `--data` or some other means, needs to be passed as JSON using a `Content-Type: application/json` header
+* The URL structure above is different from that of non-datatype requests
+
+Below is a listing of the specific operations available for each of Riak's datatypes.
+
+### Counters
+
+The value of a counter is _always_ a positive or negative integer. The available counter-specific operations are `increment` and `decrement`. Here is an example of incrementing the counter `retweets` in the bucket `my_counters` by 1 (using the bucket type `counter_bucket` from above):
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d 1 \
+  http://localhost:8098/types/counter_bucket/buckets/my_counters/datatypes/retweets
+```
+
+If you increment or decrement a counter that does not exist prior to running the operation, the operation will affect a counter that will be automatically created for that bucket/key pair. All counters begin at 0. 
+
+Here's an example of decrementing the same counter by 5:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d -5
+  http://localhost:8098/types/counter_bucket/buckets/my_counters/datatypes/retweets
+```
+
+You can retrieve the value of a counter using a `GET` request on that key:
+
+```curl
+curl http://localhost:8098/types/counter_bucket/buckets/my_counters/datatypes/retweets
+```
+
+If the value of the counter is, say, 10, the response will be JSON of the following form:
+
+```json
+{
+  "type": "counter",
+  "value": 10
+}
+```
+
+Removing a counter entirely involves a `DELETE` request, but that request must conform to the URL structure for non-datatype-specific requests:
+
+```curl
+curl -XDELETE \
+  http://localhost:8098/types/counter_bucket/buckets/my_counters/keys/retweets
+```
+
+`DELETE` requests to URLs containing `/datatypes` will not work.
+
+### Sets
+
+Riak sets are essentially lists of binaries. There are four available operations for sets: `add`, 
+
+Operation | JSON syntax
+:---------|:-----------
+`add` | `"add": "<value>"`
+`add_all` | `"add_all": ["<value_1>", "<value_2>", ... ]`
+`remove` | `"remove": "<value>"`
+`remove_all` | `"remove_all": ["<value_1>", "<value_2>"]`
+
+In the following examples, we'll be working with a set called `vegetables`, which is located in the bucket `my_sets`, which bears the bucket type `set_bucket` (from above).
+
+Let's add the vegetable `onions` to our set:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"add":"onions"}' \
+  http://localhost:8098/types/set_bucket/buckets/my_sets/datatypes/vegetables
+```
+
+Now, let's retrieve that set:
+
+```curl
+curl http://localhost:8098/types/set_bucket/buckets/my_sets/datatypes/vegetables
+```
+
+The response will contain the set's type (`set`), the current value of the set as an array (in this case `["onions"]`), as well as the current context of the set (more on contexts [[here|Riak Datatypes#Contexts]]:
+
+```json
+{
+  "type": "set",
+  "value": ["onions"],
+  "context": "SwEIGINsAAAAAWgCbQAAAAjFUrELUuB0xGEBagAAAAYBb25pb24Ng2wAAAABaAJhAWEBag=="
+}
+```
+
+If you'd like to retrieve the `value` of the set without the `context`, you can pass the `include_context=false` parameter as part of the query:
+
+```curl
+curl http://localhost:8098/types/set_bucket/buckets/my_sets/datatypes/vegetables?include_context=false
+```
+
+This will return the following JSON:
+
+```json
+{
+  "type": "set",
+  "value": ["onions"]
+}
+```
+
+Now, let's add two more vegetables, `kale` and `parsnips` to our set:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"add_all":["kale","parsnips"]}' \
+  http://localhost:8098/types/set_bucket/buckets/my_sets/datatypes/vegetables
+```
+
+Now, a `GET` request on the `vegetables` set should return the following:
+
+```json
+{
+  "type": "set",
+  "value": ["kale", "onion", "parsnips"]
+}
+```
+
+Removing a vegetable, say `kale`, from the set involves `POST`ing a `remove` command via JSON, _not_ running a `DELETE` request (as `DELETE` requests can be used only to delete a set):
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"remove":"kale"}' \
+  http://localhost:8098/types/set_bucket/buckets/my_sets/datatypes/vegetables
+```
+
+If we want to remove multiple vegetables from our set, we can use the `remove_all` operation. Let's say that we want to remove the last two vegetables in the set, `onion` and `parsnips`:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"remove_all":["onion","parsnips"]}' \
+  http://localhost:8098/types/set_bucket/buckets/my_sets/datatypes/vegetables
+```
+
+Removing the set entirely invoves a `DELETE` request analogous to the `DELETE` request in the section on counters above:
+
+```curl
+curl -XDELETE \
+  http://localhost:8098/types/set_bucket/buckets/my_sets/keys/vegetables
+```
+
+### Maps
+
+Using maps via HTTP is more complicated than using counters or sets because maps allow you to store any Riak datatype within them, _including maps themselves_ (the way that a data format like JSON allows you to store objects inside of objects).
+
+Operations involving a map will always involve _fields_ inside of that map. When using Riak maps, those fields must be named according to the following convention:
+
+> field name + `_` + type
+
+Here are some examples:
 
 * `firstname_register`
 * `retweeted_flag`
@@ -45,9 +240,15 @@ Naming convention: field name + `_` + type. Here are some examples:
 * `followers_set`
 * `pagevisits_counter`
 
-The following examples will show datatype operations via the HTTP interface. Usage examples in the next section will show how Riak datatypes are used in conjunction with Basho's official Riak clients (Java, Ruby, Python, and Erlang).
+There are three operations involving map fields:
 
-All `GET` requests return:
+Operation | Description | JSON Syntax
+:---------|:------------|:-----------
+`add` | Create a new field (flag, register, counter, set, or map) | `{"add":"<field>"}` or `{"add":[<fields>]}`
+`remove` | Remove an existing field (flag, register, counter, set, or map) | `{"remove":"<field>"}` or `{"remove":[<fields>]}`
+`update` | Perform a datatype-specific operation on a field, e.g. `enable` on a flag or `add_all` on a set | `{"update":{<field>:<operation>}}` or `{"update"{<field>:<operation>, <field2>:<operation2>, ...}}`
+
+All `GET` requests on a map return JSON of the following form (if `include_context=false` is passed as a parameter):
 
 ```json
 {
@@ -55,6 +256,30 @@ All `GET` requests return:
   "value": "<value>"
 }
 ```
+
+Or of the following form if context is included (this is the default behavior):
+
+```json
+{
+  "type": "counter | set | map",
+  "value": "<value>",
+  "content": "<context>"
+}
+```
+
+The following sections discuss using all of the available Riak datatypes as they are used inside of maps. The overarching example will involve a map storing CRM-style information for a customer named Ahmed. The map will be named `ahmed_info` and it will be stored in the bucket `crm`, which bears the type `map_bucket` (as shown above).
+
+#### Flags
+
+[[Flags|CRDTs#Flags]] essentially act like Boolean values. Flags have two possible states: `enabled` and `disabled`. Let's create the flag `enterprise_plan_flag` to store whether Ahmed is currently an Enterprise Plan subscriber:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update":{'
+```
+
+
 
 Flags
 
@@ -97,49 +322,7 @@ or
 
 ### Counters
 
-`increment`
-`decrement`
 
-### Sets
-
-`add`
-
-```json
-{
-  "add": "<value>"
-}
-```
-
-`add_all`
-
-```json
-{
-  "add_all": [
-    "<val_1>",
-    "<val_2>",
-    ...
-  ]
-}
-```
-
-`remove`
-
-```json
-{
-  "remove": "<value>"
-}
-```
-
-`remove_all`
-
-```json
-{
-  "remove_all": [
-    "<value_1>",
-    "<value_2>"
-  ]
-}
-```
 
 
 ### Maps
@@ -177,15 +360,6 @@ counter = Riak::Crdt::Counter.new counters, traffic_tickets
 ```
 
 Our `traffic_tickets` counter will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
-
-```curl
-# Note that the URL structure differs from that of normal queries when dealing with datatypes
-
-curl -XPOST \
-  -H "Content-Type: application/json" \
-  -d 1 \
-  <host>:<port>/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
-```
 
 ```ruby
 counter.increment
@@ -529,4 +703,17 @@ Param | Description |
 ## Error Codes
 
 
+## Scratchpad
 
+`include_context` on updates is invoked only if they have `return_body`
+
+`include_context=false` => "I'm just going to read this and pass it on" or "I'm going to read, but I _know_ that I won't remove anything"
+`include_context=true` => "I might remove something"
+
+"add wins" strategy is the default; remove will only win when no concurrent adds have occurred
+
+"observed remove" behavior
+
+Weird thing: you can add something to a set or map even if you already know it's there; this is to make sure that "add wins" under certain circumstances (either adding a )
+
+`return_body` | 
