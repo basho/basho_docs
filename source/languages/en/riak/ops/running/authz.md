@@ -1,5 +1,5 @@
 ---
-title: Riak Security
+title: Authentication and Authorization
 project: riak
 version: 2.0.0+
 document: cookbook
@@ -8,7 +8,10 @@ audience: intermediate
 keywords: [operator, security]
 ---
 
-As of version 2.0, Riak administrators can selectively apportion access to a wide variety of Riak's functionality, including accessing, modifying, and deleting objects, changing bucket properties, and running MapReduce jobs. Riak security enables you to create, modify, and delete users, assign to users roles, passwords, and other characteristics, designate security sources, and more.
+<div class="info"><div class="title">Network security</div>
+This document covers only the 2.0 authentication and authorization features. For a look at network security in Riak, see [[Security and Firewalls]].</div>
+
+As of version 2.0, Riak administrators can selectively apportion access to a wide variety of Riak's functionality, including accessing, modifying, and deleting objects, changing bucket properties, and running MapReduce jobs. Riak security enables you to create, modify, and delete users, assign roles to users, passwords, and other characteristics, designate security sources, and more.
 
 **Note**: Currently, Riak security commands can be run only through the command line using the `riak-admin security` command. In future versions of Riak, administrators will have the option of issuing those commands through the Protocol Buffers and HTTP interfaces.
 
@@ -64,7 +67,7 @@ Riak security enables you to create new users and to modify or delete existing u
 * `roles`
 * `password`
 
-You may also assign users characteristics beyond those listed above---e.g. listing email addresses or other information---but those values will bear no special significance for Riak.    
+You may also assign users characteristics beyond those listed above---e.g. listing email addresses or other information---but those values will bear no special significance for Riak.
 
 ### Retrieve a Current User List
 
@@ -483,5 +486,3 @@ https://gist.github.com/lukebakken/1dcf90bf2a6d4009c6db
 http://vagabond.github.io/2013/11/06/ricon-west-2013-talk-writeup/
 https://github.com/basho/riak/issues/469
 -->
-
-
