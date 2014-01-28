@@ -226,7 +226,7 @@ curl -XDELETE \
 
 ### Maps
 
-Using maps via HTTP is more complicated than using counters or sets because maps allow you to store any Riak datatype within them, _including maps themselves_ (the way that a data format like JSON allows you to store objects inside of objects).
+Using maps via HTTP is more somewhat more complex than using counters or sets because maps allow you to store any Riak datatype within them, _including maps themselves_ (the way that a data format like JSON allows you to store objects inside of objects).
 
 Operations involving a map will always involve _fields_ inside of that map. When using Riak maps, those fields must be named according to the following convention:
 
@@ -271,24 +271,56 @@ The following sections discuss using all of the available Riak datatypes as they
 
 #### Flags
 
-[[Flags|CRDTs#Flags]] essentially act like Boolean values. Flags have two possible states: `enabled` and `disabled`. Let's create the flag `enterprise_plan_flag` to store whether Ahmed is currently an Enterprise Plan subscriber:
+[[Flags|CRDTs#Flags]] essentially act like Boolean values. Flags have two possible states: `enable` and `disable`. An `operation` on a flag takes the following form:
+
+```json
+{"update": {"<name>_flag":"enable | disable"}}
+```
+
+Let's create the flag `enterprise_plan_flag` to note whether Ahmed is currently an Enterprise Plan subscriber. He is not currently, so we'll set the flag to `disable` when creating the flag:
 
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update":{'
+  -d '{"update":{"enterprise_plan_flag":"disable"}}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
 ```
 
+If you create a flag without specifying `enable` or `disable`, Riak will default to assigning `disable` upon creation. Hence, the following will also create the `enterprise_plan_flag` and set it to `disable`:
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"add":"enterprise_plan_flag"}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
+```
 
-Flags
+Now, let's fetch the map in its current state (without context):
 
-`enable`
-`disable`
+```curl
+curl http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info?include_context=false
+```
+
+The response:
 
 ```json
-POST
-{"update": {"<flag_name>":"enable | disable"}}
+{
+  "type": "map",
+  "value": {
+    "enterprise_plan_flag": false
+  }
+}
+```
+
+**Note**: While the value of a flag will always be `true` or `false` when it is read, you _cannot_ set it as `true` or `false`. You must set it as `enable` or `disable`.
+
+Finally, you can remove a flag using the `remove` command:
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"remove":"enterprise_plan_flag"}' \
+  http://localhost:10018/types/map_bucket/buckets/crm/datatypes/ahmed_info
 ```
 
 ### Registers
@@ -320,14 +352,9 @@ or
 }
 ```
 
-### Counters
 
 
 
-
-### Maps
-
-Also: `include_context`
 
 ## Usage Examples
 
