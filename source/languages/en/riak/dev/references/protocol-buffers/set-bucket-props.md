@@ -19,9 +19,6 @@ Set the properties for a bucket
 {{#1.4.0-}}
 The PBC interface does not currently support all bucket properties. It is currently limited to <tt>allow_mult</tt> and <tt>n_val</tt>. Other bucket properties would need to be set using the [[HTTP API|HTTP Set Bucket Properties]].
 {{/1.4.0-}}
-{{#1.4.0+}}
-Currently, all bucket properties can be modified through the PBC interface with two exceptions: <tt>datatype</tt> and <tt>consistent</tt>.
-{{/1.4.0+}}
 </div>
 
 ## Request
