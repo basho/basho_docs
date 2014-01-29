@@ -231,17 +231,19 @@ set.to_a
 
 The map is in many ways the richest of the Riak datatypes because all of the other datatypes can be embedded within them, _including maps themselves_, to create arbitrarily complex custom datatypes out of a few basic building blocks.
 
+The semantics of dealing with counters, sets, and maps within maps are usually very similar to working with those types at the bucket level, and so usage is usually very intuitive.
+
 The general syntax for creating a Riak map is directly analogous to the syntax for creating other datatypes:
 
 ```ruby
 map = Riak::Crdt::Map.new bucket, key
 ```
 
-Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `map_bucket` bucket type from above):
+Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `map_bucket` bucket type from above):
 
 ```ruby
 customers = client.bucket 'customers'
-map = Riak::Crdt::Map.new customers, 'ahmed', 'map_bucket'
+map = Riak::Crdt::Map.new customers, 'ahmed_info', 'map_bucket'
 
 # Alternatively, the Ruby client enables you to set a bucket type as being globally associated with a Riak datatype. The following would set all map buckets to use the `map_bucket` bucket type:
 
@@ -249,8 +251,10 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
 
 # This would enable us to create our set without specifying a bucket type:
 
-map = Riak::Crdt::Map.new customers, 'ahmed'
+map = Riak::Crdt::Map.new customers, 'ahmed_info'
 ```
+
+#### Registers Within Maps
 
 The first piece of info we want to store in our map is Ahmed's name and phone number, both of which are best stored as registers:
 
@@ -265,13 +269,19 @@ map.registers['phone_number'] = 5551234567.to_s
 
 This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
 
+### Counters Within Maps
+
 We also want to know how many times Ahmed has visited our website. We'll use a `page_visits` counter for that and run the following operation when Ahmed visits our page for the first time:
 
 ```ruby
 map.counters['page_visits'].increment
+
+# This operation may return false even if successful
 ```
 
 Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
+
+#### Flags Within Maps
 
 Now let's say that we add an Enterprise plan to our pricing model. We'll create an `enterprise_customer` flag to track whether Ahmed has signed up for the new plan. He hasn't yet, so we'll set it to `false`:
 
@@ -279,7 +289,17 @@ Now let's say that we add an Enterprise plan to our pricing model. We'll create 
 map.flags['enterprise_customer'] = false
 ```
 
-We'd also like to know what Ahmed's interests are so that we can better design a user experience for him. Through his purchasing decisions, we find out that Ahmed likes playing with robots, opera, and motorcyles. We'll store that information in a set:
+We can retrieve the value of that flag at any time:
+
+```ruby
+map.flags['enterprise_customer']
+
+# false
+```
+
+#### Sets Within Maps
+
+We'd also like to know what Ahmed's interests are so that we can better design a user experience for him. Through his purchasing decisions, we find out that Ahmed likes robots, opera, and motorcyles. We'll store that information in a set inside of our map:
 
 ```ruby
 %w{ robots opera motorcycles }.each do |interest|
@@ -297,64 +317,83 @@ end
 # This will return three Boolean values
 ```
 
-The marketing department decides to ditch the Enterprise plan in our pricing model, and so the `enterprise_customer` flag no longer provides any useful information in our data model. Let's get rid of it:
-
-```ruby
-map.flags.delete 'enterprise_customer'
-```
-
 We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
 
 ```ruby
 map.sets['interests'].remove 'opera'
+
+# This operation may return false even if successful
+
 map.sets['interests'].add 'indie pop'
 ```
 
-Now, let's say that Ahmed fills out a questionnaire on our site and we learn a lot of new things about him. 
-We also learn from our analytics software that he's visited the site 50 times in the last month
-We can make all of those changes in one go using a batch operation:
+#### Maps Within Maps (Within Maps?)
+
+We've stored a wide of variety of information---of a wide variety of types---within the `ahmed_info` map thus far, but we have yet to explore recursively storing maps within maps (which can be nested as deeply as you wish).
+
+Our company is doing well and we have lots of useful information about Ahmed, but now we want to store information about Ahmed's contacts as well. We'll start with storing some information about Ahmed's colleague Annika inside of a map called `annika_info`.
+
+First, we'll store Annika's first name, last name, and phone number in registers:
 
 ```ruby
-map.batch do |m|
-  m.sets['interests'].add 'Sudoku'
-
-  m.counters['page_visits'].increment 50
-end
+map.maps['annika_info'].registers['first_name'] = 'Annika'
+map.maps['annika_info'].registers['last_name'] = 'Weiss'
+map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
 ```
 
+The value of a register in a map can be obtained without a special method:
 
 ```ruby
-map.registers['favorite movie'] = 'The Avengers 2'
+map.maps['annika_info'].registers['first_name']
 
-map.flags['retweeted'] = false
-
-map.maps['atlantis'].registers['location'] #=> 'Narnia'
-
-map.counters.delete 'thermometers'
-
-user_maps = [larry_map, moe_map, curly_map]
-
-user_maps.each do |m|
-  m.flags['dead'] = true
-end
-
-map.batch do |m|
-  m.counters['retweets'].increment
-  m.flags['popular'] = true
-  m.sets['followers'].add 'lucperkins'
-end
-
-maps = [map1, map2]
-
-maps.each do |map|
-  map.batch do |m|
-    m.counters['retweets'].increment
-    m.flags['popular'] = true
-    m.sets['followers'].add 'lucperkins'
-  end
-end
+# "Annika"
 ```
 
-Now, if we need to
+Registers cannot be removed, but they can be set to an empty string or byte string:
 
+```ruby
+map.maps['annika_info'].registers['middle_name'] = ''
+```
 
+Now, we'll store whether or not Annika is subscribed to a variety of plans within the company as well:
+
+```ruby
+map.maps['annika_info'].flags['enterprise_plan'] = false
+map.maps['annika_info'].flags['family_plan'] = false
+map.maps['annika_info'].flags['free_plan'] = true
+```
+
+The value of a flag can be retrieved at any time:
+
+```ruby
+map.maps['annika_info'].flags['enterprise_plan']
+
+# false
+```
+
+It's also important to track the number of purchases that Annika has made with our company. Annika just made her first widget purchase:
+
+```ruby
+map.maps['annika_info'].counters['widget_purchases'].increment
+```
+
+Now let's store Annika's interests in a set:
+
+```ruby
+map.maps['annika_info'].sets['interests'].add 'tango dancing'
+```
+
+We can remove that interest in just the way that we would expect:
+
+```ruby
+map.maps['annika_info'].set['interests'].remove 'tango dancing'
+```
+
+If we wanted to add store information about one of Annika's specific purchases, we could do so within a map:
+
+```ruby
+map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
+map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
+map.maps['annika_info'].maps['purchase'].sets['items'].add 'large_widget'
+# and so on
+```
