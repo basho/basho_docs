@@ -89,6 +89,10 @@ counter = Riak::Crdt::Counter.new counters, 'traffic_tickets', 'counter_bucket'
 # Alternatively, the Ruby client enables you to set a bucket type as being globally associated with a Riak datatype. The following would set all counter buckets to use the `counter_bucket` bucket type:
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counter_bucket'
+
+# This would enable us to create our counter without specifying a bucket type:
+
+counter = Riak::Crdt::Counter.new counters, 'traffic_tickets'
 ```
 
 Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
@@ -139,21 +143,33 @@ Here is the general syntax for setting up a bucket/key combination to handle a s
 ```ruby
 # Note: both the Riak Ruby Client and Ruby the language have a class called Set. Make sure that you refer to the Ruby version as ::Set and the Riak client version as Riak::Crdt::Set
 
-set = Riak::Crdt::Set.new bucket, key
+set = Riak::Crdt::Set.new bucket, key, bucket_type
 ```
 
 Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `set_bucket` bucket type we created in the previous section):
 
 ```ruby
 travel = client.bucket 'travel'
-set = Riak::Crdt::Set.new travel, cities
+set = Riak::Crdt::Set.new travel, 'cities', 'set_bucket'
 
 # Alternatively, the Ruby client enables you to set a bucket type as being globally associated with a Riak datatype. The following would set all set buckets to use the `set_bucket` bucket type:
 
-Riak::Crdt::DEFAULT_SET_BUCKET_TYPE[:set] = 'set_bucket'
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'set_bucket'
+
+# This would enable us to create our set without specifying a bucket type:
+
+set = Riak::Crdt::Set.new travel, 'cities'
 ```
 
-Let's say that we read a travel brochure saying that Toronto and Montreal are nice places to be. Let's add them to our `cities` set:
+Upon creation, our set is empty. We can verify that it is empty at any time:
+
+```ruby
+set.empty?
+
+# true
+```
+
+But let's say that we read a travel brochure saying that Toronto and Montreal are nice places to go. Let's add them to our `cities` set:
 
 ```ruby
 set.add 'Toronto'
@@ -172,7 +188,10 @@ Now, we can check on which cities are currently in our set:
 
 ```ruby
 set.members
-# <Set: {'Hamilton','Ottawa','Toronto'}>
+
+# This returns:
+
+#<Set: {"Hamilton", "Ottawa", "Toronto"}>
 ```
 
 Or we can see whether our set includes a specific member:
@@ -185,7 +204,11 @@ set.include? 'Ottawa'
 # true
 ```
 
-Or we can add a city---or multiple cities---to multiple sets. Let's say that Dave and Jane have visited Cairo and Beijing, and that we wish to add them to `dave_cities_visited` and `jane_cities_visited`:
+We can also determine the size of the set:
+
+
+
+Or we can add a city---or multiple cities---to multiple sets. Let's say that Dave and Jane have visited Cairo and Beijing, and that we wish to add both cities to the `dave_cities_visited` and `jane_cities_visited` sets (provided that those sets have been created):
 
 ```ruby
 [dave_cities_visited, jane_cities_visited].each do |set|
@@ -195,27 +218,49 @@ Or we can add a city---or multiple cities---to multiple sets. Let's say that Dav
 end
 ```
 
+You can also turn a set into a an array (or list, depending on the language):
+
+```ruby
+set.to_a
+
+# Returns an Array:
+# ["city1", "city2", "etc"]
+```
+
 ### Maps
 
-The map is in many ways the richest of the Riak datatype because all of the other datatypes can be embedded within them, including maps themselves, to create arbitrarily complex custom datatypes out of the basic building blocks provided by the other Riak datatypes.
+The map is in many ways the richest of the Riak datatypes because all of the other datatypes can be embedded within them, _including maps themselves_, to create arbitrarily complex custom datatypes out of a few basic building blocks.
 
-Here is the general syntax for creating a Riak map:
+The general syntax for creating a Riak map is directly analogous to the syntax for creating other datatypes:
 
 ```ruby
 map = Riak::Crdt::Map.new bucket, key
 ```
 
-Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed`) in our bucket and simply call it `map` for simplicity's sake:
+Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `map_bucket` bucket type from above):
 
 ```ruby
-map = Riak::Crdt::Map.new customers, ahmed
+customers = client.bucket 'customers'
+map = Riak::Crdt::Map.new customers, 'ahmed', 'map_bucket'
+
+# Alternatively, the Ruby client enables you to set a bucket type as being globally associated with a Riak datatype. The following would set all map buckets to use the `map_bucket` bucket type:
+
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
+
+# This would enable us to create our set without specifying a bucket type:
+
+map = Riak::Crdt::Map.new customers, 'ahmed'
 ```
 
 The first piece of info we want to store in our map is Ahmed's name and phone number, both of which are best stored as registers:
 
 ```ruby
 map.registers['first_name'] = 'Ahmed'
-map.registers['phone_number'] = '5551234567' # integers need to be stored as strings and then converted back when the data is retrieved
+map.registers['phone_number'] = '5551234567'
+
+# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+
+map.registers['phone_number'] = 5551234567.to_s
 ```
 
 This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
@@ -226,7 +271,7 @@ We also want to know how many times Ahmed has visited our website. We'll use a `
 map.counters['page_visits'].increment
 ```
 
-Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the `increment` method will bump the counter up to 1.
+Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
 
 Now let's say that we add an Enterprise plan to our pricing model. We'll create an `enterprise_customer` flag to track whether Ahmed has signed up for the new plan. He hasn't yet, so we'll set it to `false`:
 
