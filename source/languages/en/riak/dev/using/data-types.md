@@ -365,10 +365,10 @@ map.maps['annika_info'].registers['first_name']
 # "Annika"
 ```
 
-Registers cannot be removed, but they can be set to an empty string or byte string:
+Registers can also be removed:
 
 ```ruby
-map.maps['annika_info'].registers['middle_name'] = ''
+map.maps['annika_info'].registers.remove 'phone_number'
 ```
 
 Now, we'll store whether or not Annika is subscribed to a variety of plans within the company as well:
