@@ -110,7 +110,7 @@ configure :build do
         puts "== Populating Downloads Details"
         Downloads.pull_data('riak', $versions[:riak])
         Downloads.pull_data('riak-cs', $versions[:riakcs])
-        Downloads.pull_data('stanchion', $versions[:riakcs])
+        Downloads.pull_data('stanchion', $versions[:stanchion])
         Downloads.pull_data('riak-cs-control', $versions[:riakcscontrol])
       rescue => e
         $stderr.puts "  Details download failed"
