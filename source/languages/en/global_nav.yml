@@ -47,7 +47,6 @@ riak:
           - "[[Link Walking]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
           - "[[Datatypes|Using Datatypes]]"
-          - "[[Advanced Datatypes Usage]]"
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"
