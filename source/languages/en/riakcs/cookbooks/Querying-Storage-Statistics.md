@@ -184,3 +184,22 @@ Sample responses (reformatted for easy reading):
     </Storage>
   </Usage>
 ```
+
+{{#1.4.4+}}
+
+If any errors occurred during calculation for a bucket, the error will
+be returned (e.g., timeout) instead of a bucket's usage.
+
+```json
+    {
+      "StartTime": "20120316T123318Z",
+      "EndTime": "20120316T123319Z",
+      "baz": "{error,{timeout,[]}}",
+      "bar": {
+        "Objects": 4,
+        "Bytes": 130023424
+      }
+    },
+```
+
+{{/1.4.4+}}
