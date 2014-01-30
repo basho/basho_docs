@@ -92,8 +92,8 @@ Parameter | Description |
 :---------|:------------|
 `bucket` | Bucket to set properties for |
 `props` | Updated properties (only set properties to change) |
-`n_val` | Current `n_val` for the bucket | {{#1.4.0-}}
-`allow_mult` | Set to `true` if conflicts are returned to clients | {{#1.4.0-}}
+`n_val` | Current `n_val` for the bucket | {{#1.4.0+}}
+`allow_mult` | Set to `true` if conflicts are returned to clients | {{#1.4.0+}}
 
 ## Response
 
