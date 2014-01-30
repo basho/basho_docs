@@ -37,18 +37,18 @@ and related projects [[community projects]].
 | Node.js             | [riak-js](https://github.com/basho/riak-javascript-client) | [riak-js.org](http://riak-js.org/) |
 
 
-*** Feature Matrix
-   Below is a series of tables that compares the functionality of our
-   official client libraries with the features exposed by Riak's API,
-   and also compares features that are desirable in well-developed
-   clients. We have developed this matrix in an effort to ensure
-   feature-parity across the different clients.
+### Feature Matrix
 
-   Legend:
-   - =✓= - has feature
-   - =✗= - lacks feature
-   - =text= - partially supports feature
-   - (blank) - unknown
+Below is a series of tables that compares the functionality of our official client libraries with the features exposed by Riak's API, and also compares features that are desirable in well-developed clients. We have developed this matrix in an effort to ensure feature-parity across the different clients.
+
+#### Legend
+
+Symbol | Meaning
+:------|:-------
+✓ | has feature
+✗ | lacks feature
+text | partially supports feature
+(blank) | unknown
 
 ### HTTP
 
@@ -82,8 +82,8 @@ and related projects [[community projects]].
 
 ### Protocol Buffers
 
-*Note: The PHP client does not support Protocol Buffers and so is
-excluded from this matrix.*
+**Note**: The PHP client does not support Protocol Buffers and is thus
+excluded from this matrix.
 
 | Bucket Operations                    | Erlang (riakc) | Java | Python  | Ruby |
 |--------------------------------------|----------------|------|---------|------|
