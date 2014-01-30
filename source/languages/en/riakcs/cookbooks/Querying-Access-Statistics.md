@@ -66,13 +66,13 @@ The usage HTTP resource provides both access and storage statistics. Since each 
 {{#1.3.0-}}
 
 ```curl
-$ curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU
+curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU
 ```
 {{/1.3.0-}}
 {{#1.3.0+}}
 
 ```curl
-$ curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU
+curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU
 ```
 {{/1.3.0+}}
 
@@ -98,13 +98,13 @@ To request that access results be included, pass the query parameter `a` to the 
 {{#1.3.0-}}
 
 ```curl
-$ curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?a
+curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?a
 ```
 {{/1.3.0-}}
 {{#1.3.0+}}
 
 ```curl
-$ curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?a
+curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?a
 ```
 {{/1.3.0+}}
 
@@ -272,13 +272,13 @@ As an example, making the same request as the last example, for JSON-format acce
 {{#1.3.0-}}
 
 ```bash
-$ s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/aj/20120315T140000Z/20120315T160000Z
+s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/aj/20120315T140000Z/20120315T160000Z
 ```
 {{/1.3.0-}}
 {{#1.3.0+}}
 
 ```bash
-$ s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/aj/20120315T140000Z/20120315T160000Z
+s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/aj/20120315T140000Z/20120315T160000Z
 ```
 {{/1.3.0+}}
 

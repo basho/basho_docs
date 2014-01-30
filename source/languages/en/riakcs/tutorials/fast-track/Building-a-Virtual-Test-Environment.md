@@ -33,8 +33,8 @@ for [[Building a Local Test Environment]].
 Install the following Vagrant plugins:
 
 ```bash
-$ vagrant plugin install vagrant-berkshelf
-$ vagrant plugin install vagrant-omnibus
+vagrant plugin install vagrant-berkshelf
+vagrant plugin install vagrant-omnibus
 ```
 
 ### Clone the Repository
@@ -43,8 +43,8 @@ In order to begin, it is necessary to clone a GitHub repository to your local
 machine and change directories into the cloned folder.
 
 ``` bash
-$ git clone https://github.com/basho/vagrant-riak-cs-cluster
-$ cd vagrant-riak-cs-cluster
+git clone https://github.com/basho/vagrant-riak-cs-cluster
+cd vagrant-riak-cs-cluster
 ```
 
 ### Launch Cluster
@@ -52,7 +52,7 @@ $ cd vagrant-riak-cs-cluster
 With VirtualBox and Vagrant installed, it's time to actually launch our virtual environment. The command below will initiate the Vagrant project:
 
 ``` bash
-$ RIAK_CS_CREATE_ADMIN_USER=1 vagrant up
+RIAK_CS_CREATE_ADMIN_USER=1 vagrant up
 ```
 
 If you haven't already downloaded the Ubuntu or CentOS Vagrant box, this step
@@ -85,7 +85,7 @@ Congratulations! You have deployed a virtualized environment of Riak CS.  You ar
 When you are done testing or simply want to start again from scratch, you can end the current virtualized environment:
 
 ```bash
-$ vagrant destroy
+vagrant destroy
 ```
 
 **Note**: Executing this command will reset the environment to a clean state removing any and all changes that you have committed.
