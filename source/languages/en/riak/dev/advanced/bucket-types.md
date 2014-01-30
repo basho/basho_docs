@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [developers, buckets]
 ---
 
-Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a more abstracted way.
+Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a more efficient way.
 
 ## How Bucket Types Work
 
@@ -39,14 +39,79 @@ curl -XPUT \
 
 In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the query's structure_.
 
+This is because buckets act as a separate namespace in Riak, in addition to buckets and keys. More on this in the section directly below.
+
+## Buckets as Namespaces
+
+In versions of Riak prior to 2.0, all queries are made to a bucket/key pair, as in the following example URL:
+
+```curl
+curl http://localhost:8098/buckets/my_bucket/keys/my_key
+```
+
+With the addition of bucket types in Riak 2.0, bucket types can be used as _an additional namespace_ on top of buckets and keys. The same bucket name can be associated with completely different data if it used in accordance with a different type. Thus, the following two requests will be made to _completely different keys_, even though the bucket and key names are the same:
+
+```curl
+curl http://localhost:8098/types/type1/my_bucket/my_key
+curl http://localhost:8098/types/type2/my_bucket/my_key
+```
+
 <div class="note">
 <div class="title">Note</div>
-The advantage of requiring that bucket types be used in this way is that types can be dynamically applied to buckets that do not yet exist.
+In Riak 2.x, <em>all_ requests</em> must be made to a location specified by a bucket type, bucket, and key rather than to a bucket/key pair, as in previous versions.
 </div>
+
+If requests are made to a bucket/key pair without a specified bucket type, the `default` bucket type will be used. The following queries are thus identical:
+
+```curl
+curl http://localhost:8098/buckets/my_bucket/keys/my_key
+curl http://localhost:8098/types/default/my_bucket/keys/my_key
+```
+
+Below is a listing of the `props` associated with the `default` bucket type:
+
+```json
+{
+  "props": {
+    "allow_mult": true,
+    "basic_quorum": false,
+    "big_vclock": 50,
+    "chash_keyfun": {
+      "fun": "chash_std_keyfun",
+      "mod": "riak_core_util"
+    },
+    "dw": "quorum",
+    "last_write_wins": false,
+    "linkfun": {
+      "fun": "mapreduce_linkfun",
+      "mod": "riak_kv_wm_link_walker"
+    },
+    "n_val": 3,
+    "notfound_ok": true,
+    "old_vclock": 86400,
+    "postcommit": [],
+    "pr": 0,
+    "precommit": [],
+    "pw": 0,
+    "r": "quorum",
+    "rw": "quorum",
+    "small_vclock": 50,
+    "w": "quorum",
+    "young_vclock": 20
+  }
+}
+```
+
+<!-- Waiting on confirmation for this
+<div class="note">
+<div class="title">Note</div>
+In Riak 2.x, <tt>allow_mult</tt> is set to <tt>true</tt> by default, in contrast with previous versions.
+</div>
+-->
 
 ## Usage Example
 
-As an example, let's say that the bucket `current_memes` exists and bears the type `no_siblings` (from above). Now, let's say that our application needs to create a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
+Let's say that we're using Riak to store internet memes. We've been using a bucket called `current_memes` using the bucket type `no_siblings` (from above). At a certain point, we decide that our application needs to use a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
 
 The following request seeks to add the meme "all your base are belong to us" to the `old_memes` bucket. If the bucket type `no_siblings` has been created and activated, the request will ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
 
@@ -59,20 +124,18 @@ curl -XPUT \
 
 This query would both create the bucket `old_memes` and ensure that the configuration contained in the `no_siblings` is applied to the bucket all at once.
 
-The ad hoc (i.e. non-dynamic) way of setting the bucket's properties without using bucket type) involves setting the bucket's properties in advance, e.g. via HTTP:
+If we wished, we could also store store some both old and new memes in buckets with different types. We could use the `no_siblings` bucket from above if we didn't want to deal with siblings, vclocks, and the like, and we could use a `siblings_allowed` bucket type (with all of the default properties except `allow_mult` set to `true`). This would give use four bucket type/bucket pairs:
 
-```curl
-curl -XPUT \
-  -H "Content-Type: application/json" \
-  -d '{"props":{"n_val":5}}' \
-  http://localhost:8098/buckets/old_memes/props
-```
+* `no_siblings` / `old_memes`
+* `no_siblings` / `new_memes`
+* `siblings_allowed` / `old_memes`
+* `siblings_allowed` / `new_memes`
 
-This way of doing things works just fine for many use cases. If, however, you do not know in advanced which buckets will be required by your application but still need to apply types to them _upon creation_, then you should strongly consider assigning bucket types dynamically.
+All four of these pairs are isolated keyspaces. The key `favorite_meme` could hold separate values in all four bucket type/bucket spaces.
 
 ## Managing Bucket Types Through the Command Line
 
-Bucket types can be created, updated, activated, and more through the `riak-admin bucket-type` interface.
+Bucket types are created, updated, activated, and more through the `riak-admin bucket-type` interface.
 
 Below is a full list of available sub-commands:
 
@@ -159,40 +222,6 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 ```
 
 Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
-
-Below is a listing of the default properties for Riak buckets:
-
-```json
-{
-  "props": {
-    "allow_mult": true,
-    "basic_quorum": false,
-    "big_vclock": 50,
-    "chash_keyfun": {
-      "fun": "chash_std_keyfun",
-      "mod": "riak_core_util"
-    },
-    "dw": "quorum",
-    "last_write_wins": false,
-    "linkfun": {
-      "fun": "mapreduce_linkfun",
-      "mod": "riak_kv_wm_link_walker"
-    },
-    "n_val": 3,
-    "notfound_ok": true,
-    "old_vclock": 86400,
-    "postcommit": [],
-    "pr": 0,
-    "precommit": [],
-    "pw": 0,
-    "r": "quorum",
-    "rw": "quorum",
-    "small_vclock": 50,
-    "w": "quorum",
-    "young_vclock": 20
-  }
-}
-```
 
 If you'd like to create a bucket type that simply extends Riak's defaults, for example, pass an empty JavaScript object to the `props` parameter:
 
