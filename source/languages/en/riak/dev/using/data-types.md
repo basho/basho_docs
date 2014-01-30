@@ -94,10 +94,12 @@ Let's say that we want to create a counter called `traffic_tickets` in our `coun
 ```ruby
 counter = Riak::Crdt::Counter.new counters, 'traffic_tickets', 'counter_bucket'
 
-# Alternatively, the Ruby client enables you to set a bucket type as being globally associated with a Riak datatype. The following would set all counter buckets to use the `counter_bucket` bucket type:
+# Alternatively, the Ruby client enables you to set a bucket type as being
+# globally associated with a Riak datatype. The following would set all
+# counter buckets to use the counter_bucket bucket type:
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counter_bucket'
-
+to create our
 # This would enable us to create our counter without specifying a bucket type:
 
 counter = Riak::Crdt::Counter.new counters, 'traffic_tickets'
@@ -160,7 +162,9 @@ Let's say that we want to use a set to store a list of cities that we want to vi
 travel = client.bucket 'travel'
 set = Riak::Crdt::Set.new travel, 'cities', 'set_bucket'
 
-# Alternatively, the Ruby client enables you to set a bucket type as being globally associated with a Riak datatype. The following would set all set buckets to use the `set_bucket` bucket type:
+# Alternatively, the Ruby client enables you to set a bucket type as being
+# globally associated with a Riak datatype. The following would set all
+# set buckets to use the set_bucket bucket type:
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'set_bucket'
 
@@ -214,7 +218,9 @@ set.include? 'Ottawa'
 
 We can also determine the size of the set:
 
-
+```ruby
+set.members.length
+```
 
 Or we can add a city---or multiple cities---to multiple sets. Let's say that Dave and Jane have visited Cairo and Beijing, and that we wish to add both cities to the `dave_cities_visited` and `jane_cities_visited` sets (provided that those sets have been created):
 
@@ -253,11 +259,13 @@ Let's say that we want to use Riak to store information about our company's cust
 customers = client.bucket 'customers'
 map = Riak::Crdt::Map.new customers, 'ahmed_info', 'map_bucket'
 
-# Alternatively, the Ruby client enables you to set a bucket type as being globally associated with a Riak datatype. The following would set all map buckets to use the `map_bucket` bucket type:
+# Alternatively, the Ruby client enables you to set a bucket type as being
+# globally associated with a Riak datatype. The following would set all
+# map buckets to use the map_bucket bucket type:
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
 
-# This would enable us to create our set without specifying a bucket type:
+# This would enable us to create our map without specifying a bucket type:
 
 map = Riak::Crdt::Map.new customers, 'ahmed_info'
 ```
