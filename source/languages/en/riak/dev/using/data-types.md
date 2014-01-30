@@ -53,6 +53,14 @@ Instead of JSON, this will return a simple list of properties and associated val
 datatype: map
 ```
 
+If a bucket type has been properly constructed, it needs to be activate to be usable in Riak. This can also be done using the `bucket-type` command interface:
+
+```bash
+riak-admin bucket-type activate map_bucket
+```
+
+To check whether activation has been successful, simply use the same `bucket-type status` command detailed above.
+
 ## Usage Examples
 
 The examples below show you how to use Riak datatypes at the application level. Code samples are currently available in Ruby (using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
