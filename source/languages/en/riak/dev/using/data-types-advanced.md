@@ -1,8 +1,12 @@
 ---
-title: Advanced Usage of Datatypes
+title: Advanced Datatypes Usage
+project: riak
+version: 2.0.0+
+document: tutorials
+toc: true
+audience: advanced
+keywords: [developers, datatypes]
 ---
-
-_This is just a stub...it needs renaming and lots of help_
 
 ## Operations on Datatypes
 
