@@ -15,7 +15,7 @@ Let's install Riak and build a [five-node](http://basho.com/why-your-riak-cluste
 
 ## Install Riak
 
-Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install erlang|Installing Erlang]]. Building Riak from source requires Erlang R15B01.
+Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install Erlang|Installing Erlang]]. Building Riak from source requires Erlang {{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02{{/2.0.0+}}.
 
 ### Get the Source
 
@@ -35,8 +35,8 @@ The following links provide platform-specific instructions for downloading and i
 So now you have a copy of Riak installed locally. It's time to build it. Do this by accessing the *riak* directory and running `make all`
 
 ```bash
-$ cd riak-{{V.V.V}}
-$ make all
+cd riak-{{VERSION}}
+make all
 ```
 
 `make all` grabs all of Riak's dependencies for you so that you don't have to chase them down on your own. This process will likely take a few moments.
@@ -45,23 +45,23 @@ $ make all
 
 Now that Riak is built, we are going to use [Rebar](https://github.com/basho/rebar), a packaging and build system for Erlang applications, to get five self-contained Riak nodes running on your machine. When you put Riak into production, Rebar will enable you to ship a pre-built Riak package to your deployment machines. But for now, we'll just stick to the five nodes. {{#1.3.0+}}You can set the number of nodes you wish to create via `DEVNODES`{{/1.3.0+}} To start these up, run:
 
-{{#1.3.0+}}
-
-```bash
-$ make devrel DEVNODES=5
-```
-{{/1.3.0+}}
 {{#1.3.0-}}
 
 ```bash
-$ make devrel
+make devrel
 ```
 {{/1.3.0-}}
+{{#1.3.0+}}
+
+```bash
+make devrel DEVNODES=5
+```
+{{/1.3.0+}}
 
 You have just generated a `dev` directory. Let's go into that directory to check out its contents:
 
 ```bash
-$ cd dev; ls
+cd dev; ls
 ```
 
 That should give you the following:
@@ -73,7 +73,7 @@ dev1       dev2       dev3       dev4       dev5
 Each directory starting with `dev` is a complete, self-contained package containing a Riak node. We need to start each node individually. Let's start with `dev1`:
 
 ```bash
-$ dev1/bin/riak start
+dev1/bin/riak start
 ```
 
 <div class="note">
@@ -83,10 +83,10 @@ $ dev1/bin/riak start
 Then do the same for `dev2` through `dev5`
 
 ```bash
-$ dev2/bin/riak start
-$ dev3/bin/riak start
-$ dev4/bin/riak start
-$ dev5/bin/riak start
+dev2/bin/riak start
+dev3/bin/riak start
+dev4/bin/riak start
+dev5/bin/riak start
 ```
 
 Of if you prefer more succinct commands, you can use a `for` loop to iterate through and start the available nodes:
@@ -100,13 +100,13 @@ $ for node in `ls`; do $node/bin/riak start; done
 After you have the nodes up and running, it's time to test them and make sure they are available. You can do this by taking a quick look at your process list. To do this, run:
 
 ```bash
-$ ps aux | grep beam
+ps aux | grep beam
 ```
 
 This should give you granular details on the five running Riak nodes. If you'd like to simply check which nodes are running and which are not, you can run the `riak ping` command on a specific node:
 
 ```bash
-$ dev1/bin/riak ping
+dev1/bin/riak ping
 ```
 
 If the response is `PONG`, then the node is up and running. Otherwise, the node is currently stopped and will return something like the following:
@@ -118,7 +118,7 @@ Node 'dev1@127.0.0.1' not responding to pings.
 Alternatively, you can run a command like the following to iterate through each node and return its current status:
 
 ```bash
-$ for node in `ls`; do $node/bin/riak ping; done
+for node in `ls`; do $node/bin/riak ping; done
 ```
 
 ## Create the Cluster
@@ -126,22 +126,22 @@ $ for node in `ls`; do $node/bin/riak ping; done
 The next step is to join these five nodes together to form a *cluster*. You can do this using the Riak Admin tool. Specifically, what we want to do is join `dev2`, `dev3`, `dev4`, and `dev5` to `dev1`:
 
 ```bash
-$ dev2/bin/riak-admin cluster join dev1@127.0.0.1
-$ dev3/bin/riak-admin cluster join dev1@127.0.0.1
-$ dev4/bin/riak-admin cluster join dev1@127.0.0.1
-$ dev5/bin/riak-admin cluster join dev1@127.0.0.1
+dev2/bin/riak-admin cluster join dev1@127.0.0.1
+dev3/bin/riak-admin cluster join dev1@127.0.0.1
+dev4/bin/riak-admin cluster join dev1@127.0.0.1
+dev5/bin/riak-admin cluster join dev1@127.0.0.1
 ```
 
 Or alternatively:
 
 ```bash
-$ for n in {2..5}; do dev$n/bin/riak-admin cluster join dev1@127.0.0.1; done
+for n in {2..5}; do dev$n/bin/riak-admin cluster join dev1@127.0.0.1; done
 ```
 
 To make the above joins take effect, you first must review the `plan`:
 
 ```bash
-$ dev1/bin/riak-admin cluster plan
+dev1/bin/riak-admin cluster plan
 ```
 
 **Note**: The plan for the entire cluster can be reviewed on *any* node in the cluster.
@@ -186,7 +186,7 @@ Transfers resulting from cluster changes: 51
 Finally, you can commit the batch:
 
 ```bash
-$ dev2/bin/riak-admin cluster commit
+dev2/bin/riak-admin cluster commit
 ```
 
 **Note**: Changes to a cluster can be committed from any node.
@@ -201,7 +201,7 @@ $ dev2/bin/riak-admin cluster commit
 Now we now a have a running five-node Riak cluster. Let's make sure it's working properly. For this we have a couple of options. A simple option is to run the `member-status` command on one of our nodes:
 
 ```bash
-$ dev1/bin/riak-admin member-status
+dev1/bin/riak-admin member-status
 ```
 
 This will give us a high-level view of our cluster and tell us the percentage of the ring that each node manages:
@@ -222,15 +222,16 @@ Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 If you wish, you can add a file to your Riak cluster and test whether or not it's working properly. Let's say that we want to store an image in Riak and to make sure it's accessible. First, copy an image to your directory if you don't already have one:
 
 ```bash
-$ cp ~/image/location/image_name.jpg .
+cp ~/image/location/image_name.jpg .
 ```
 
 We can then `PUT` that image into Riak using a `curl` command (your port might differ, so check your `etc/app.config` file for the proper `http` port for your cluster):
 
 ```curl
-$ curl -XPUT http://127.0.0.1:10018/riak/images/1.jpg \
+curl -XPUT \
   -H "Content-type: image/jpeg" \
-  --data-binary @image_name.jpg
+  --data-binary @image_name.jpg \
+  http://127.0.0.1:10018/buckets/images/keys/1.jpg
 ```
 
 You can then verify that image was in fact stored. To do this, simply copy the URL where we `PUT` the image and paste it into a browser. Your image should appear.
@@ -239,4 +240,4 @@ You should now have a five-node Riak cluster up and running. Congratulations!
 
 <div class="note">
 <div class="title">HTTP interface ports</div>
-The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for dev1, dev2, dev3, dev4, dev5 respectively. The default port for single nodes to listen on is 8098 and users will need to take note of this when trying to use any of the default settings for Riak client libraries.</div>
+The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `8098`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.</div>
