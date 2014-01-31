@@ -35,15 +35,15 @@ To run Riak from our precompiled tarball, run these commands for the appropriate
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V}}-osx-x86_64.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{V.V}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V.V}}-osx-i386.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
 ```
 
 {{/1.2.0-}}
@@ -52,15 +52,15 @@ tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.4/riak-{{V.V.V}}-osx-x86_64.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.4/riak-{{V.V.V}}-osx-i386.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
 ```
 
 {{/1.2.0}}
@@ -69,15 +69,15 @@ tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.4/riak-{{V.V.V}}-osx-x86_64.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.4/riak-{{V.V.V}}-osx-i386.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
 ```
 
 {{/1.2.1}}
@@ -86,15 +86,15 @@ tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.6/riak-{{V.V.V}}-osx-x86_64.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.6/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.6/riak-{{V.V.V}}-osx-i386.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.6/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
 ```
 
 {{/1.3.0-1.3.2}}
@@ -103,15 +103,15 @@ tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
 ### 64-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.8/riak-{{V.V.V}}-osx-x86_64.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.8/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
 ```
 
 ### 32-bit
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/osx/10.8/riak-{{V.V.V}}-osx-i386.tar.gz
-tar xzvf riak-{{V.V.V}}-osx-i386.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.8/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
 ```
 
 {{/1.3.2-1.3.9}}

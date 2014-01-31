@@ -33,15 +33,15 @@ The Riak binary package also depends on a packaged version of OpenSSL. Prior to 
 ### Installation
 
 You can install the Riak binary package on FreeBSD remotely using the
-`pkg_add` remote option. For this example, we're installing `riak-{{V.V.V}}-FreeBSD-amd64.tbz`.
+`pkg_add` remote option. For this example, we're installing `riak-{{VERSION}}-FreeBSD-amd64.tbz`.
 
 ```bash
-sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/freebsd/9/riak-{{V.V.V}}-FreeBSD-amd64.tbz
+sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/freebsd/9/riak-{{VERSION}}-FreeBSD-amd64.tbz
 ```
 
 When Riak is installed, a message is displayed with information about the installation and available documentation.
 
-```text
+```bash
 Thank you for installing Riak.
 
 Riak has been installed in /usr/local owned by user:group riak:riak
@@ -64,8 +64,8 @@ Man pages are available for riak(1), riak-admin(1), and search-cmd(1)
 
 If instead of this message, you receive an error during installation regarding OpenSSL, similar to this one:
 
-```text
-Package dependency openssl-1.0.0_7 for /tmp/riak-{{V.V.V}}-FreeBSD-amd64.tbz not found!
+```bash
+Package dependency openssl-1.0.0_7 for /tmp/riak-{{VERSION}}-FreeBSD-amd64.tbz not found!
 ```
 
 Be sure that you've installed the required OpenSSL version from packages or the ports collection as described in the **Prerequisites and Dependencies** section.
@@ -102,7 +102,7 @@ gmake rel
 
 Upon conclusion of the build, the `rel/riak` directory will contain a full Riak node environment, including configuration, data, and log directories:
 
-```text
+```bash
 bin               # Riak binaries
 data              # Riak data and metadata
 erts-5.9.2        # Erlang Run-Time System
