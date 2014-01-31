@@ -216,7 +216,8 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 {
   "props": {
     "prop1": "val1",
-    "prop2": "val2"
+    "prop2": "val2",
+    ...
   }
 }
 ```
@@ -230,6 +231,12 @@ riak-admin bucket-type create type_using_defaults '{"props":{}}'
 ```
 
 **Note**: The `create` command can be run multiple times prior to a bucket type being activated. Riak will persist only those properties contained in the final call of the command.
+
+Creating bucket types _always_ involves passing stringified JSON to the `create` command. One way to do that is to simply pass a string directly, as above, but you can also do so by passing the contents of a file, such as a `.json` file:
+
+```bash
+riak-admin bucket-type create from_json_file `cat props.json`
+```
 
 ### Updating a Bucket Type
 
