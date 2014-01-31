@@ -8,26 +8,26 @@ audience: advanced
 keywords: [ops, ring, ring-resizing]
 ---
 
-The ring resizing feature in versions of Riak >= 2.0 enables Riak operators to change the number of partitions in a Riak cluster's ring during normal operations, under load.
+The ring resizing feature in Riak 2.0 and greater enables Riak operators to change the number of partitions in a Riak cluster's ring during normal operations, under load.
 
 Previously, a cluster was limited to having `ring_creation_size` partitions throughout its entire lifespan. In order to change the number of partitions, a separate cluster would need to be spun up along side the original and the data migrated between the two by external means.
 
-The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and need to change this without the disruptive process described above.
+The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and need to change this without disrupting operations more than necessary.
 
 <div class="note">
 <div class="title">Note</div>
-Ring resizing is <em>not</em> intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions ultimately limits the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in highly specific scenarios.
+Ring resizing is <em>not</em> intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions can limit the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in highly specific scenarios.
 </div>
 
 There are a number of important considerations to bear in mind while running a ring resizing process:
 
-* For a resize to succeed, all nodes must eventually be up. The only cluster operation that will be permitted during a ring resize is `force-remove`. Any other operations will be delayed while the resize completes.
+* For a resize to succeed, all nodes should be up. The only cluster operation permitted during a ring resize is `force-remove`. Other operations will be delayed while the resize completes.
 * If you perform a [[listkeys|HTTP List Keys]] or [[secondary index|Using Secondary Indexes]] query during a ring resize, you may get duplicates or miscounts in coverage queries. In an upcoming release of Riak, this will be self-healing (see [this pull request](https://github.com/basho/riak_kv/pull/685) for more information).
 * Resizing partitions can take up a lot of disk space. Make sure that you have sufficient storage to complete the resize operation.
 
 ## Starting the Resize
 
-To resize your Riak cluster, use the `riak-admin cluster` command interface to submit, plan, and commit the change to your cluster. The command to submit a resize request has the following form:
+To resize your Riak cluster, use the `riak-admin cluster` command interface to `submit`, `plan`, and `commit` the change to your cluster. The command to submit a resize request has the following form:
 
 ```bash
 riak-admin cluster resize-ring <new_size>
@@ -37,8 +37,11 @@ The following command would schedule changing the size of the ring to 64:
 
 ```bash
 riak-admin cluster resize-ring 64
+```
 
-# Response
+If successful, the following would appear in the console:
+
+```bash
 Success: staged resize ring request with new size: 64
 ```
 
@@ -84,8 +87,11 @@ If you are satisfied with the changes, begin the resize operation by committing 
 
 ```bash
 riak-admin cluster commit
+```
 
-# Response
+If successful, you should see the following in the console:
+
+```bash
 Cluster changes committed
 ```
 
@@ -97,7 +103,7 @@ riak-admin cluster clear
 
 ## Monitoring Resize Progress
 
-With the new plan committed, the resizing process can be monitored using the same means that one would use to monitor other handoff operations. You can use the `ring-status` command to view changes to the cluster that are either in progress or queued:
+With the new plan committed, the progress of the resizing operation can be monitored using the same means used to monitor other handoff operations. You can use the `ring-status` command to view changes to the cluster that are either in progress or queued:
 
 ```bash
 riak-admin ring-status
@@ -144,7 +150,7 @@ Index: 1370157784997721485815954530671515330927436759040
 All nodes are up and reachable
 ```
 
-If you wish, you can also throttle the ring resize activity using `riak-admin transfer-limit`, which will change the `handoff_concurrency` limit:
+You can also throttle the ring resize activity using `riak-admin transfer-limit`, which will change the `handoff_concurrency` limit:
 
 ```bash
 # For the whole cluster:
@@ -246,31 +252,42 @@ Submit an `abort` request:
 
 ```bash
 riak-admin cluster resize-ring abort
+```
 
-# Success: staged abort resize ring request
-#
+One of the following messages will appear, depending on the outcome of the `abort` request:
+
+```bash
+Success: staged abort resize ring request
+
 # or
-#
-# Failure: ring is not resizing or resize has completed
+
+Failure: ring is not resizing or resize has completed
 ```
 
 View planned changes:
 
 ```bash
 riak-admin cluster resize-ring plan
+```
 
-# In the output, you should find something like the following:
-# 
-# Action         Details(s)
-# --------------------------------------
-# resize-ring    abort. current size: 128
+In the output, you should find something like the following:
+
+```bash 
+Action         Details(s)
+--------------------------------------
+resize-ring    abort. current size: 128
 ```
 
 Commit planned changes:
 
 ```bash
 riak-admin cluster resize-ring commit
-# Cluster changes committed
 ```
 
-If the console says that the changes have been committed, then your resize operation has been successfully aborted.
+If successful, you should see the following:
+
+```bash
+Cluster changes committed
+```
+
+If console output confirms that the changes have been committed, then your resize operation has been successfully aborted.
