@@ -375,40 +375,6 @@ Instructions on assigning passwords are [[above|Riak Security#User-Management]].
 +--------------------+------------+----------+----------+
 ```
 
-## Testing Your Security Setup
-
-A good way of ensuring that your security settings have been properly set up is to create a user with a password and specific permissions and then attempt to perform a range of actions as that user.
-
-First, let's create a user, `riakuser`, and assign them the password `rosebud`:
-
-```bash
-riak-admin security add-user riakuser password=rosebud
-```
-
-Now, let's enable that user to make `GET` requests to the bucket `tweets`:
-
-```bash
-riak-admin security grant riak_kv.get ON ANY tweets TO riakuser
-```
-
-The `ANY` in this command simply designates that we have not granted any permissions to `riakuser` on the basis of bucket _type_. For more on granting/revoking permissions on the basis of type, see the [[permissions for bucket types|Riak Security#Permissions-for-Bucket-Types]] section above.
-
-If we run the `print-user` command for `riakuser`, we should see the following under `Applied Permissions`:
-
-```bash
-+----------+----------+----------------------------------------+
-|   type   |  bucket  |                 grants                 |
-+----------+----------+----------------------------------------+
-|   ANY    |  tweets  |              riak_kv.get               |
-+----------+----------+----------------------------------------+
-```
-
-Now, let's run a test `GET` request through the HTTP interface against the bucket `tweets` using `riakuser`'s username and password:
-
-```curl
-curl -i -k -u riakuser:rosebud http://localhost:8098/buckets/tweets/tweet1
-```
-
 ## Managing Roles
 
 Riak security understands security roles slightly differently from other database systems because roles and users are one and the same.
@@ -479,10 +445,3 @@ Unknown/Unsupported ciphers(32)
 
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 ```
-
-<!---
-RESOURCES:
-https://gist.github.com/lukebakken/1dcf90bf2a6d4009c6db
-http://vagabond.github.io/2013/11/06/ricon-west-2013-talk-writeup/
-https://github.com/basho/riak/issues/469
--->
