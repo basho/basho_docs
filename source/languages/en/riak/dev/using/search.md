@@ -336,11 +336,11 @@ io:fwrite("~s~n", [Val]).
 %% {"name_s":"Liono", "age_i":30, "leader_b":true}
 ```
 
-This was one simple glob query example. There are many query options, a more complete list can be found by digging into [Solr Query Syntax](http://wiki.apache.org/solr/SolrQuerySyntax). Let's look at a few others.
+This was one simple glob query example. There are many query options, a more complete list can be found by digging into [searching solr](https://cwiki.apache.org/confluence/display/solr/Searching). Let's look at a few others.
 
 #### Range Queries
 
-Searches within a [range](http://wiki.apache.org/solr/SolrQuerySyntax#Differences_From_Lucene_Query_Parser) of numerical or date/[datemath](http://lucene.apache.org/solr/4_6_0/solr-core/org/apache/solr/util/DateMathParser.html) values.
+Searches within a [range](https://cwiki.apache.org/confluence/display/solr/The+Standard+Query+Parser#TheStandardQueryParser-DifferencesbetweenLuceneQueryParserandtheSolrStandardQueryParser) of numerical or date/[datemath](http://lucene.apache.org/solr/4_6_0/solr-core/org/apache/solr/util/DateMathParser.html) values.
 
 To find the ages of all famous cats who are 30 or younger: `age_i:[0 TO 30]`. If you wanted to find all cats 30 or older, you could include a glob as a top end of the range: `age_i:[30 TO *]`.
 
@@ -455,7 +455,7 @@ curl -XPOST "$RIAK_HOST/mapred" \
 <!--
 #### Functions
 
-Cats age about 7 times faster than humans, so to calculate an age in "cat years", you can multiply the cat's age by 7 using the `product` function. It's only one out of many built-in [Solr Functions](http://wiki.apache.org/solr/FunctionQuery#Available_Functions).
+Cats age about 7 times faster than humans, so to calculate an age in "cat years", you can multiply the cat's age by 7 using the `product` function. It's only one out of many built-in [Solr Functions](https://cwiki.apache.org/confluence/display/solr/Function+Queries#FunctionQueries-AvailableFunctions).
 
 ```curl
 curl "$RIAK_HOST/search/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" | jsonpp
@@ -464,16 +464,17 @@ curl "$RIAK_HOST/search/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" |
 
 ## Feature List
 
-Riak Search 2.0 is more than a distributed search engine like [SolrCloud](http://wiki.apache.org/solr/SolrCloud) or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable integration with Riak. This greatly simplifies usage by offloading the task of indexing values to Riak.
+Riak Search 2.0 is more than a distributed search engine like [SolrCloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud) or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable integration with Riak. This greatly simplifies usage by offloading the task of indexing values to Riak.
 
 Riak Search's features and enhancements are numerous.
 
 * Support for various mime types (JSON, XML, plain text, datatypes) for automatic data extraction
-* Support for [various language](http://wiki.apache.org/solr/LanguageAnalysis) specific [analyzers, tokenizers, and filters](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters)
-* Robust, easy-to-use [query languages](http://wiki.apache.org/solr/QueryParser) like lucene (default) and dismax.
+* Support for [various language](https://cwiki.apache.org/confluence/display/solr/Language+Analysis) specific [analyzers, tokenizers, and filters](https://cwiki.apache.org/confluence/display/solr/Overview+of+Analyzers%2C+Tokenizers%2C+and+Filters)
+* Robust, easy-to-use [query languages](https://cwiki.apache.org/confluence/display/solr/Other+Parsers) like lucene (default) and dismax.
 * Queries: exact match, globs, inclusive/exclusive range queries, AND/OR/NOT, prefix matching, proximity searches, term boosting, sorting, pagination
 * Protocol Buffer interface and Solr interface via HTTP
 * Scoring and ranking for most relevant results
+* Query result [highlighting](https://cwiki.apache.org/confluence/display/solr/Highlighting)
 * Search queries as input for MapReduce jobs
 * Active Anti Entropy for automatic index repair
 
