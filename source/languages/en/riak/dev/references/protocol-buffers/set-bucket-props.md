@@ -14,43 +14,28 @@ moved: {
 
 Set the properties for a bucket
 
+{{#1.4.0-}}
 <div class="note">
 <div class="title">Note</div>
-{{#1.4.0-}}
 The PBC interface does not currently support all bucket properties. It is currently limited to <tt>allow_mult</tt> and <tt>n_val</tt>. Other bucket properties would need to be set using the [[HTTP API|HTTP Set Bucket Properties]].
-{{/1.4.0-}}
 </div>
+{{/1.4.0-}}
 
 ## Request
 
-{{#1.4.0-}}
 
 ```bash
 message RpbSetBucketReq {
     required bytes bucket = 1;
     required RpbBucketProps props = 2;
+    {{#1.4.0+}}optional bytes type = 3;{{/1.4.0+}}
 }
+
 // Bucket properties
 message RpbBucketProps {
     optional uint32 n_val = 1;
     optional bool allow_mult = 2;
-}
-```
-{{/1.4.0-}}
-
-{{#1.4.0+}}
-
-```bash
-message RpbSetBucketReq {
-    required bytes bucket = 1;
-    required RpbBucketProps props = 2;
-    optional bytes type = 3;
-}
-// Bucket properties
-message RpbBucketProps {
-    optional uint32 n_val = 1;
-    optional bool allow_mult = 2;
-    optional bool last_write_wins = 3;
+    {{#1.4.0+}}optional bool last_write_wins = 3;
     repeated RpbCommitHook precommit = 4;
     optional bool has_precommit = 5 [default = false];
     repeated RpbCommitHook postcommit = 6;
@@ -82,11 +67,11 @@ message RpbBucketProps {
     optional RpbReplMode repl = 24;
     optional bytes search_index = 25;
     optional bytes datatype = 26;
+    {{/1.4.0+}}
 }
 ```
-{{/1.4.0+}}
 
-Required Parameters
+#### Required Parameters
 
 Parameter | Description |
 :---------|:------------|
