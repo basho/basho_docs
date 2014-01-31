@@ -8,8 +8,10 @@ audience: intermediate
 keywords: [operator, security]
 ---
 
-<div class="info"><div class="title">Network security</div>
-This document covers only the 2.0 authentication and authorization features. For a look at network security in Riak, see [[Security and Firewalls]].</div>
+<div class="info">
+<div class="title">Network security</div>
+This document covers only the 2.0 authentication and authorization features. For a look at network security in Riak, see [[Security and Firewalls]].
+</div>
 
 As of version 2.0, Riak administrators can selectively apportion access to a wide variety of Riak's functionality, including accessing, modifying, and deleting objects, changing bucket properties, and running MapReduce jobs. Riak security enables you to create, modify, and delete users, assign roles to users, passwords, and other characteristics, designate security sources, and more.
 
@@ -31,9 +33,9 @@ If security is successfully enabled, the console will simply return no response.
 
 Please note that most security-related commands can be run while security is disabled, including the following:
 
-* [[User management|Riak Security#Modifying-User-Characteristics]] --- Creating/deleting users and modifying user characteristics (more on that in the  section below)
-* [[Permissions management|Riak Security#Permissions-Management]] --- Granting and revoking specific permissions vis-à-vis specific users
-* [[Security source management|Riak Security#Security-Source-Management]] --- Adding and deleting security sources
+* [[User management|Authentication and Authorization#Modifying-User-Characteristics]] --- Creating/deleting users and modifying user characteristics (more on that in the  section below)
+* [[Permissions management|Authentication and Authorization#Permissions-Management]] --- Granting and revoking specific permissions vis-à-vis specific users
+* [[Security source management|Authentication and Authorization#Security-Source-Management]] --- Adding and deleting security sources
 
 This enables you to create security configurations of any level of complexity and turn those configurations on and off all at once if you wish.
 
@@ -89,7 +91,7 @@ If there is only one currently existing user, `riakuser`, who has been assigned 
 
 **Note**: All passwords are displayed in encrypted form in console output.
 
-If the user `riakuser` were assigned a [[role|Riak Security#Role-Management]] alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
+If the user `riakuser` were assigned a [[role|Authentication and Authorization#Role-Management]] alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
 
 ```bash
 +----------+--------------+----------------------+---------------------+
@@ -261,7 +263,11 @@ Permission | Operation |
 
 ### Search Query Permission (Riak Search version 1)
 
-If you are using the original Riak search, you can grant to (and revoke from) users search permissions with `riak_search.query`.
+If you are using the original Riak search, you can grant (and revoke) search permissions using `riak_search.query`, e.g.:
+
+```bash
+riak-admin security grant riak_search.query ON ANY TO search-power-user
+```
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
@@ -314,17 +320,19 @@ More comprehensive information on search-related security can be found [[here|Ri
 
 ## Managing Sources
 
+If security has been enabled and users have been created and granted access to some or all of Riak's functionality, you will then need to manage _means_ of authentication using security **sources**.
+
 ### Add source
 
-A user will not have access to resources simply because they have been created via `add-user`. You must add a security **source** as well as grants to users to provide access to Riak securables, e.g. the ability to make `GET` and `PUT` requests. Sources may apply to all users or to a specific user or role.
+Riak security sources may apply to all users or only to a specific user or role. The following source types are supported:
 
 Available sources:
 
 Source   | Description |
 :--------|:------------|
-`trust` | Always authenticates successfully |
+`trust` | Always authenticates successfully if access has been granted to a user, a role, or all users on a specified CIDR range |    
 `password` | Check the user's password against the one stored in Riak |
-`pam`  | Authenticate against the given pluggable authentication model (PAM) service |
+`pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
 
 ### Adding a trusted source
@@ -337,7 +345,7 @@ In general, the `add-source` command takes the following form:
 riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...]]
 ```
 
-The `all|<users>` designates that sources can be added to all users, a specific user, or a grouping of users, separated by commas, e.g. `add-source jane,bill,terry,chris`.
+The `all|<users>` designates that sources can be added to all users/roles. A source can be added to a specific user/role by simply listing the `username`, whereas a grouping of users/roles can be added if the `usernames` are separated by commas, e.g. `add-source jane,bill,terry,chris`.
 
 Let's say that we want to give all users trusted access to securables when requests come from `localhost`:
 
@@ -360,6 +368,8 @@ To require a password from users `juliette` and `sanjay`---when they connect fro
 ```bash
 riak-admin security add-source juliette,sanjay 10.0.0.0/24
 ```
+
+
 
 Instructions on assigning passwords are [[above|Riak Security#User-Management]].
 
