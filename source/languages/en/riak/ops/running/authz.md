@@ -19,7 +19,7 @@ As of version 2.0, Riak administrators can selectively apportion access to a wid
 
 ## Security Basics
 
-This section covers enabling/disabling security and checking for current security status.
+Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
 
 ### Enabling Security
 
