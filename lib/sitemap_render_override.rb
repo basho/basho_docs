@@ -282,8 +282,10 @@ module SitemapRenderOverride
         display_lang = case lang
         when "curl"
           "HTTP"
+        when "json"
+          "JSON"
         when "bash"
-          "Commandline"
+          "Shell"
         else
           lang && lang.capitalize
         end
