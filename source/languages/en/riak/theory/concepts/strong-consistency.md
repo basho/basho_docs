@@ -7,9 +7,9 @@ audience: intermediate
 keyword: [appendix, concepts]
 ---
 
-Riak was originally designed as an [[eventually consistent|Eventual Consistency]] system, fundamentally geared toward providing partition (i.e. fault) tolerance and high availability---a prioritization that inevitably comes at the expense of data consistency. In the language of the CAP theorem, Riak began as an AP---highly available, partition-tolerant---system, and it continues to be an AP system by default.
+Riak was originally designed as an [[eventually consistent|Eventual Consistency]] system, fundamentally geared toward providing partition (i.e. fault) tolerance and high availability---a prioritization that inevitably comes at the expense of data consistency. In the language of the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem), Riak began as an AP---highly available, partition-tolerant---system, and it continues to be an AP system by default.
 
-Yet in spite of this, Riak has always enabled users to sacrifice availability in favor of stronger consistency if they wish by adjusting [[various read and write parameters|Eventual Consistency#Replication-properties-and-request-tuning]]. _In versions >= 2.0, Riak can be used as a strongly rather than eventually consistent system_.
+Yet in spite of this, Riak has always enabled users to sacrifice availability in favor of stronger consistency if they wish by adjusting [[various read and write parameters|Eventual Consistency#Replication-properties-and-request-tuning]]. _In versions 2.0 or greater, Riak can be used as a_ strongly _rather than_ eventually _consistent system_.
 
 ## Strong vs. Eventual Consistency
 

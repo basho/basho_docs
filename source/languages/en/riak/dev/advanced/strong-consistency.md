@@ -8,13 +8,13 @@ audience: advanced
 keywords: [developers, strong-consistency]
 ---
 
-Riak was originally designed to guarantee _eventual_ data consistency. While this remains the default behavior of Riak, versions of Riak >= 2.0 allow you to use Riak in a way that guarantees _strong_ data consistency. 
+Riak allows you to create [[Strongly Consistent|Strong Consistency]] bucket types since version 2.0. This means that a value is guarenteed readable by any node immediately after a write has occurred, with the tradeoff that unavailable nodes will become unavailable to accept a write. This was added in version 2.0 to compliment Riak's standard [[Eventually Consistent|Eventual Consistency]], but high availability, mode.
 
-The trade-off with this approach is that it improves data consistency (the "C" in [CAP](http://en.wikipedia.org/wiki/CAP_theorem)) by compromising data availability (the "A" in CAP), which in many cases will mean higher latency and slightly slower performance.
+This tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
 ## Creating a Strongly Consistent Bucket Type
 
-Strong consistency requirements in Riak are applied on a bucket-by-bucket basis, meaning that you can use some buckets in an eventually consistent fashion and others in a strongly consistent fashion, depending on your use case.
+[[Strong consistency]] requirements in Riak are applied on a bucket-by-bucket basis, meaning that you can use some buckets in an eventually consistent fashion and others in a strongly consistent fashion, depending on your use case.
 
 To apply strong consistency to a bucket, you must [[create a bucket type|Using Bucket Types]] that sets the `consistent` bucket property to `true`, activate the type, and then begin applying that type to bucket/key pairs.
 
@@ -47,4 +47,4 @@ consistent_bucket has been activated
 
 Now, any bucket that bears the type `consistent_bucket`---or whatever you wish to name your bucket type---will provide strong consistency guarantees.
 
-You can find more comprehensive information on using bucket types [[here|Using Bucket Types]], and more information on what strong consistency involves [[here|Strong Consistency Concept]].
+You can find more comprehensive information on [[Using Bucket Types]], and more information on [[Strong Consistency Concept]].
