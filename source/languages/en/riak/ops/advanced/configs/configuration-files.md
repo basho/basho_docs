@@ -146,7 +146,7 @@ When set to `true`, this option will disable the Nagle buffering algorithm for H
 * **gossip_interval**
 How often nodes in the cluster will share information about their ring state, in milliseconds. (default: `60000`)
 
-* **handoff_concurrency**
+* **handoff_concurrency** <a name="handoff_concurrency" id="handoff_concurrency"></a>
 Number of vnodes, per physical node, allowed to perform handoff at once. (default: `2`)
 
 * **handoff_port**
