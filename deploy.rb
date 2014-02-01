@@ -8,10 +8,16 @@ end
 ENV['RIAK_DOCS_LANG'] = 'en'
 
 `rm -rf build`
-if ARGV.length == 0
+envs = {}
+if ARGV.length > 0
   ENV['RIAK_VERSION'] = ARGV[0]
   ENV['RIAKCS_VERSION'] = ARGV[1] || ARGV[0]
   ENV['RIAKEE_VERSION'] = ARGV[2] || ARGV[0]
+  envs = {
+  	'RIAK_VERSION' => ENV['RIAK_VERSION'],
+  	'RIAKCS_VERSION' => ENV['RIAKCS_VERSION'],
+  	'RIAKEE_VERSION' => ENV['RIAKEE_VERSION']
+  }
 end
-ENV['DEPLOY'] = 'true'
-exec "bundle exec middleman build"
+envs['DEPLOY'] = ENV['DEPLOY'] = 'true'
+exec envs, "bundle exec middleman build"

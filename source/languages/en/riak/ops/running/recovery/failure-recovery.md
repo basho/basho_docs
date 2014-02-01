@@ -140,7 +140,5 @@ is **not started** on any node during steps 1-7:
 10. Start each of the remaining nodes, verifying the details in the same
     manner as the first node.
 
-<div class="info"><div class="title">Tip</div> If you are a licensed
-  Riak EDS or CS customer and require assistance or further advice with a
-  cluster recovery, please file a ticket with the
-  <a href="https://help.basho.com">Basho Helpdesk</a>.</div>
+<div class="info"><div class="title">Tip</div> If you are a licensed Riak Enterprise or CS customer and require assistance or further advice with a cluster recovery, please file a ticket with the <a href="https://help.basho.com">Basho Helpdesk</a>.
+</div>

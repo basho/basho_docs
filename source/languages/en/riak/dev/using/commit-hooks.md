@@ -63,7 +63,7 @@ precommit_limit_size(Object) ->
 ```
 
 
-Javascript pre-commit functions should also take a single argument, the JSON encoded version of the riak_object being modified. The JSON format is exactly the same as Riak's map/reduce. Javascript pre-commit functions are allowed three possible return values:
+Javascript pre-commit functions should also take a single argument, the JSON encoded version of the riak_object being modified. The JSON format is exactly the same as Riak's MapReduce. Javascript pre-commit functions are allowed three possible return values:
 
 - A JSON encoded Riak object -- Aside from using JSON, this is exactly the
 same as #1 for Erlang functions. Riak will automatically convert it back to it's native format before writing.

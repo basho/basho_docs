@@ -45,7 +45,7 @@ Q: I'm trying to restart my Riak Enterprise Editions (EE hereafter) node and I'm
   ```
   
 A:
-  This happens when the `riak_repl` configuration section is removed from the `/etc/riak/app.config` file associated with a Riak EE node.  You will need to provide the following configuration information as a minimum:
+  This happens when the `riak_repl` configuration section is removed from the `/etc/riak/app.config` file associated with a Riak Enterprise node.  You will need to provide the following configuration information as a minimum:
   
   ```erlang
   {riak_repl, [

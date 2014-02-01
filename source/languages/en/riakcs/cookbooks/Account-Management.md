@@ -82,13 +82,13 @@ A user may retrieve their account information by sending a properly signed reque
 Assuming the proper credentials were set in the `.s3cfg` file, an s3cmd request to retrieve this information would look like this:
 
 ```bash
-$ s3cmd get s3://riak-cs/user -
+s3cmd get s3://riak-cs/user -
 ```
 
 Using the admin credentials to retrieve another user's info would look like this:
 
 ```bash
-$ s3cmd -c ~./s3cfg-admin get s3://riak-cs/user/XQKMYF4UL_MMTDFD6NCN
+s3cmd -c ~./s3cfg-admin get s3://riak-cs/user/XQKMYF4UL_MMTDFD6NCN
 ```
 
 In this example, `XQKMYF4UL_MMTDFD6NCN` is the `key_id` of the user whose information the administrator wishes to retrieve.
@@ -112,10 +112,10 @@ Sample JSON and XML status update documents:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<UserUpdate>
-<Name>foobaz</Name>
-<Email>foobaz@example.com</Email>
-</UserUpdate>
+  <UserUpdate>
+    <Name>foobaz</Name>
+    <Email>foobaz@example.com</Email>
+  </UserUpdate>
 ```
 {{/1.4.0+}}
 
@@ -132,9 +132,9 @@ Sample JSON and XML status update documents:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<UserUpdate>
-<Status>disabled</Status>
-</UserUpdate>
+  <UserUpdate>
+    <Status>disabled</Status>
+  </UserUpdate>
 ```
 
 ### Issuing New User Credentials
@@ -175,7 +175,7 @@ GET http://data.example.com/riak-cs/users -
 An example using s3-curl that assumes properly specified credentials for the admin user in the `.s3curl` configuration file with an `id` of `admin` is as follows:
 
 ```bash
-$ s3curl --id admin -- http://data.mystorage.me/riak-cs/users
+s3curl --id admin -- http://data.mystorage.me/riak-cs/users
 ```
 
 By default, the listing of all users includes accounts that are both enabled and disabled. The list can be filtered to only include enabled or disabled accounts by using the status query parameter with a value of enabled or disabled respectively.

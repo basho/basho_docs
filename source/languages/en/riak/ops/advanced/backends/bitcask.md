@@ -169,8 +169,7 @@ sync) with dirty buffers not yet written to stable storage.</div>
 
 ### Disk-Usage and Merging Settings
 
-Riak K/V stores each vnode partition of the ring as a separate Bitcask
-directory within the configured bitcask data directory. Each of these
+Riak KV stores each vnode partition of the ring as a separate Bitcask directory within the configured bitcask data directory. Each of these
 directories will contain multiple files with key/value data, one or more
 "hint" files that record where the various keys exist within the data files,
 and a write lock file. The design of Bitcask allows for recovery even when

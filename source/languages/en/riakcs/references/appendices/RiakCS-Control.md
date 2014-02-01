@@ -51,7 +51,7 @@ the information needed to connect to the Riak CS cluster you wish to administer.
 Start Riak CS Control as you would Riak or Riak CS with:
 
 ```bash
-$ riak-cs-control start
+riak-cs-control start
 ```
 
 ## The Users Page
