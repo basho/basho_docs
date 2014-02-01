@@ -63,7 +63,7 @@ This command will return a simple `Enabled` or `Disabled`.
 
 ## User Management
 
-Riak security enables you to create new users and to modify or delete existing users. Currently, users can be assigned one or more of the following characteristics:
+Riak security enables you to control _authorization_ by creating, modifying, and deleting user characteristics and to grant users selective access to Riak functionality (and also to revoke access). Users can be assigned one or more of the following characteristics:
 
 * `username`
 * `roles`
@@ -94,14 +94,14 @@ If there is only one currently existing user, `riakuser`, who has been assigned 
 If the user `riakuser` were assigned a [[role|Authentication and Authorization#Role-Management]] alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
 
 ```bash
-+----------+--------------+----------------------+---------------------+
-| username |    roles     |       password       |       options       |
-+----------+--------------+----------------------+---------------------+
-| riakuser |other_riakuser|983e8ae1421574b8733824| [{"name","lucius"}] |
-+----------+--------------+----------------------+---------------------+
++----------+----------------+----------------------+---------------------+
+| username |     roles      |       password       |       options       |
++----------+----------------+----------------------+---------------------+
+| riakuser | other_riakuser |983e8ae1421574b8733824| [{"name","lucius"}] |
++----------+----------------+----------------------+---------------------+
 ```
 
-If you'd like to see which permissions have been assigned to `riakuser`, you would need to use the `print-user` command, detailed [[below|Riak Security#Retrieving-Information-About-A-Single-User]].
+If you'd like to see which permissions have been assigned to `riakuser`, you would need to use the `print-user` command, detailed in the section below.
 
 If you'd like to preserve a record of your current list, you can simply pipe the output of `print-users` to a file or process, e.g. to a `user_list.txt` file:
 
@@ -271,7 +271,7 @@ riak-admin security grant riak_search.query ON ANY TO search-power-user
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
-If you are using the search capabilities included with Riak versions 2.0 and later, the following two search-related permissions can be granted/revoked:
+If you are using the search capabilities included with Riak versions 2.0 and greater, the following search-related permissions can be granted/revoked:
 
 Permission | Operation |
 :----------|:----------|
@@ -316,26 +316,26 @@ riak-admin security grant search.query,search.admin ON index TO riakuser
 # riak-admin security revoke search.query,search.admin ON index FROM riakuser
 ```
 
-More comprehensive information on search-related security can be found [[here|Riak Search Security]].
+More comprehensive information on search-related security can be found under [[Riak Search Security]].
 
 ## Managing Sources
 
-If security has been enabled and users have been created and granted access to some or all of Riak's functionality, you will then need to manage _means_ of authentication using security **sources**.
+While user management enables you to control _authorization_ with regard to users, security **sources** provide you with an interface for managing means of _authentication_. If you create users and grant them access to some or all of Riak's functionality as described in the [[User Management|Authentication and Authorization#User-Management]] section, you will then need to define security sources required for authentication.
 
-### Add source
+### Add Source
 
-Riak security sources may apply to all users or only to a specific user or role. The following source types are supported:
+Riak security sources may be applied to all users/roles or only to a specific user or role.
 
-Available sources:
+#### Available Sources
 
 Source   | Description |
 :--------|:------------|
-`trust` | Always authenticates successfully if access has been granted to a user, a role, or all users on a specified CIDR range |    
-`password` | Check the user's password against the one stored in Riak |
+`trust` | Always authenticates successfully if access has been granted to a user, a role, or all users on the specified CIDR range |    
+`password` | Check the user's password against the [PBKSD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
 
-### Adding a trusted source
+### Adding a Trusted Source
 
 Security sources can be added either to specific users or roles or to all users.
 
@@ -347,7 +347,7 @@ riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...
 
 The `all|<users>` designates that sources can be added to all users/roles. A source can be added to a specific user/role by simply listing the `username`, whereas a grouping of users/roles can be added if the `usernames` are separated by commas, e.g. `add-source jane,bill,terry,chris`.
 
-Let's say that we want to give all users trusted access to securables when requests come from `localhost`:
+Let's say that we want to give all users trusted access to securables (without a password) when requests come from `localhost`:
 
 ```bash
 riak-admin security add-source all 127.0.0.1/32 trust
@@ -363,15 +363,23 @@ At that point, the `riak-admin security print-sources` command would print the f
 +--------------------+------------+----------+----------+
 ```
 
-To require a password from users `juliette` and `sanjay`---when they connect from the class C network at `10.0.0.0`:
+#### Source Management Usage Examples
+
+To require a password from users `juliette` and `sanjay` when they connect from the class C network at `10.0.0.0`:
 
 ```bash
-riak-admin security add-source juliette,sanjay 10.0.0.0/24
+riak-admin security add-source juliette,sanjay 10.0.0.0/24 password
+```
+
+Instructions on assigning passwords are [[above|Riak Security#User-Management]].
+
+To require all users to authenticate through a PAM login service:
+
+```bash
+riak-admin security add-source all 0.0.0.0/0 pam service=login
 ```
 
 
-
-Instructions on assigning passwords are [[above|Riak Security#User-Management]].
 
 ### Delete source
 
