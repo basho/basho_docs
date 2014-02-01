@@ -283,13 +283,25 @@ module SitemapRenderOverride
         when "curl"
           "HTTP"
         when "bash"
-          "Commandline"
+          "Shell"
+        when "appconfig"
+          "app.config"
+        when "vmargs"
+          "vm.args"
+        when "riakconf"
+          "riak.conf"
         else
           lang && lang.capitalize
         end
         case lang
         when "curl"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1bash\\2')
+        when "appconfig"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
+        when "riakconf"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+        when "vmargs"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
         else
           lang
         end
