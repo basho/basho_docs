@@ -8,13 +8,13 @@ audience: intermediate
 keywords: [developers, datatypes]
 ---
 
-In versions of Riak >= 2.0, Riak users can make use of a variety of Riak-specific datatypes inspired by research on convergent replicated data types ([[CRDTs]]). While Riak was originally built as a mostly data-agnostic key/value store, datatypes enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on a range of datatypes.
+In versions of Riak >= 2.0, Riak users can make use of a variety of Riak-specific datatypes inspired by research on convergent replicated data types ([[Datatypes]]). While Riak was originally built as a mostly data-agnostic key/value store, datatypes enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on a range of datatypes.
 
-In total, Riak supports five CRDT-inspired datatypes: [[counters|CRDTs#Counters]], [[flags|CRDTs#Flags]], [[registers|CRDTs#Registers]], [[sets|CRDTs#Sets]], and [[maps|CRDTs#Maps]]. Of those five types, counters, sets, and maps can be used as bucket-level datatypes, whereas flags and registers must be embedded in maps (more on that [[below|Using Datatypes#Maps]]).
+In total, Riak supports five CRDT-inspired datatypes: [[counters|Datatypes#Counters]], [[flags|Datatypes#Flags]], [[registers|Datatypes#Registers]], [[sets|Datatypes#Sets]], and [[maps|Datatypes#Maps]]. Of those five types, counters, sets, and maps can be used as bucket-level datatypes, whereas flags and registers must be embedded in maps (more on that [[below|Using Datatypes#Maps]]).
 
 <div class="note">
 <div class="title">Note</div>
-Counters are the one Riak datatype available in versions prior to 2.0, introduced in version 1.4. Usage documentation can be found [[here|HTTP Counters]]. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than the documentation for the older version of counters.
+Counters are the one Riak datatype available in versions prior to 2.0, introduced in version 1.4. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than the documentation for the older version of counters.
 </div>
 
 ## Setting Up Buckets to Use Riak Datatypes
@@ -41,7 +41,7 @@ curl http://localhost:8098/types/map_bucket/props
 
 If the `map_bucket` type exists and has been set up properly, we should see `"datatype":"map"` in the JSON response.
 
-We can also see which properties are associated with a bucket type using the [[`riak-admin`|Riak Admin]] interface, specifically the `status` command:
+We can also see which properties are associated with a bucket type using the [[`riak-admin`|riak-admin Command Line]] interface, specifically the `status` command:
 
 ```bash
 riak-admin bucket-type status map_bucket
