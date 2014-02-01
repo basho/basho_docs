@@ -59,8 +59,6 @@ Before you can search for values, you first must index them. In its standard for
 If you want a simpler, but less explicit form of indexing, check out the [[Search, KV and MapReduce|Advanced Search#Search-KV-and-MapReduce]] section of [[Advanced Search]].
 
 
-<!-- Was "Riak Search - Querying" -->
-
 ## Query Interfaces
 
 ### Querying via Command Line

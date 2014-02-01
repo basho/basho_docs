@@ -102,13 +102,6 @@ Below is a listing of the `props` associated with the `default` bucket type:
 }
 ```
 
-<!-- Waiting on confirmation for this
-<div class="note">
-<div class="title">Note</div>
-In Riak 2.x, <tt>allow_mult</tt> is set to <tt>true</tt> by default, in contrast with previous versions.
-</div>
--->
-
 ## Usage Example
 
 Let's say that we're using Riak to store internet memes. We've been using a bucket called `current_memes` using the bucket type `no_siblings` (from above). At a certain point, we decide that our application needs to use a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
