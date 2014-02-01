@@ -24,11 +24,18 @@ moved: {
 
 ## Overview
 
-[eLevelDB](https://github.com/basho/eleveldb) is an Erlang application that encapsulates [LevelDB](http://code.google.com/p/leveldb/), an open-source, on-disk key/value store created by Google Fellows Jeffrey Dean and Sanjay Ghemawat. LevelDB is a relatively new entrant into the growing list of key/value database libraries, but it has some very interesting qualities that we believe make it an ideal candidate for use in Riak. LevelDB's storage architecture is more like [BigTable's](http://en.wikipedia.org/wiki/BigTable) memtable/sstable model than it is like Bitcask. This design and implementation provide the possibility of a storage engine without Bitcask's RAM limitation.
+[eLevelDB](https://github.com/basho/eleveldb) is an Erlang application that encapsulates [LevelDB](http://code.google.com/p/leveldb/), an open-source, on-disk key/value store created by Google Fellows Jeffrey Dean and Sanjay Ghemawat.
 
+LevelDB is a relatively new entrant into the growing list of key/value database libraries, but it has some very interesting qualities that we believe make it an ideal candidate for use in Riak. LevelDB's storage architecture is more like [BigTable's](http://en.wikipedia.org/wiki/BigTable) memtable/sstable model than it is like Bitcask. This design and implementation provide the possibility of a storage engine without Bitcask's RAM limitation.
+
+**Note**: Riak uses a fork of LevelDB. The code can be found [on Github](https://github.com/basho/leveldb).
+
+{{#2.0.0-}}
 Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB performance for the kinds of "large data" environments that are typical in Riak deployments.
+{{/2.0.0-}}
 
-### Strengths:
+
+### Strengths
 
 * License
 
@@ -38,7 +45,7 @@ Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB perform
 
     LevelDB uses Google [Snappy](https://code.google.com/p/snappy/) data compression by default. This means more CPU usage but less disk space. The compression efficiency is especially good for text data, including raw text, Base64, JSON, etc.
 
-### Weaknesses:
+### Weaknesses
 
   * Read access can be slow when there are many levels to search
 
@@ -101,6 +108,40 @@ The configuration values that can be set in your {{#2.0.0-}}`[[app.config|Config
  ]},
 ```
 {{/2.0.0-}}
+{{#2.0.0+}}
+```config
+leveldb.data_root
+# LevelDB data root
+# default: ./data/leveldb
+
+leveldb.total_mem_percent
+# Defines the percentage (between 1 and 100) of total server memory
+# to assign to LevelDB. LevelDB will dynamically adjust its internal
+# cache sizes as Riak activates/inactivates vnodes on this server to
+# stay within this size. The memory size can alternatively be assigned
+# as a byte count via total_leveldb_mem instead.
+# default: 80
+
+leveldb.bloom_filter
+# Each database .sst table file can include an optional Bloom filter
+# that is highly effective in quashing data queries that are destined
+# to not find the requested key. A bloom filter typically increases
+# the size of a .sst file by about 2% if this parameter is set to on.
+# default: on
+
+leveldb.block_size_steps
+# Defines the number of incremental adjustments to attempt between the 
+# block_size value and the maximum block_size for an .sst table file. A
+# value of 0 disables the underlying dynamic block_size feature.
+# default: 16
+
+leveldb.delete_threshold
+# Controls when a background compaction initiates solely due to the
+# number of delete tombstones within an individual .sst table file. A
+# value of 0 disables the feature.
+# default: 1000
+```
+{{/2.0.0+}}
 
 ### Memory Usage per Vnode
 
@@ -149,7 +190,7 @@ The minimum `max_open_files` is 30. The default is also 30.
 
 <div class="note">
 <div class="title">Check your system's open files limits</div>
-Due to the large number of open files used by this storage engine, it is imperative that you review and properly set your system’s open files limits. If you are seeing an error that contains <tt>emfile</tt>, then it is highly likely that you've exceeded limits on your system for open files. Read more about this below in the <a href="/tutorials/choosing-a-backend/LevelDB/#Tips-Tricks">Tips &amp; Tricks section</a> to see how to fix this issue.</p>
+Due to the large number of open files used by this storage engine, it is imperative that you review and properly set your system’s open files limits. If you are seeing an error that contains <tt>emfile</tt>, then it is highly likely that you've exceeded limits on your system for open files. Read more about this below in [[Tips and Tricks|LevelDB#Tips-Tricks]] to see how to fix this issue.
 </div>
 
 #### Cache Size
