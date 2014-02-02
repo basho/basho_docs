@@ -8,13 +8,13 @@ audience: intermediate
 keywords: [developers, datatypes]
 ---
 
-In versions of Riak >= 2.0, Riak users can make use of a variety of Riak-specific datatypes inspired by research on convergent replicated data types ([[Datatypes]]). While Riak was originally built as a mostly data-agnostic key/value store, datatypes enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on a range of datatypes.
+In versions of 2.0 and greater, Riak users can make use of a variety of Riak-specific datatypes inspired by research on convergent replicated datatypes ([[Datatypes]]). While Riak was originally built as a mostly data-agnostic key/value store, datatypes enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on a range of datatypes.
 
 In total, Riak supports five CRDT-inspired datatypes: [[counters|Datatypes#Counters]], [[flags|Datatypes#Flags]], [[registers|Datatypes#Registers]], [[sets|Datatypes#Sets]], and [[maps|Datatypes#Maps]]. Of those five types, counters, sets, and maps can be used as bucket-level datatypes, whereas flags and registers must be embedded in maps (more on that [[below|Using Datatypes#Maps]]).
 
 <div class="note">
 <div class="title">Note</div>
-Counters are the one Riak datatype available in versions prior to 2.0, introduced in version 1.4. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than the documentation for the older version of counters.
+Counters are the one Riak datatype available in versions prior to 2.0, introduced in version 1.4. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than documentation for the older version of counters.
 </div>
 
 ## Setting Up Buckets to Use Riak Datatypes
@@ -31,29 +31,19 @@ riak-admin bucket-type create counter_bucket '{"props":{"datatype":"counter"}}'
 
 **Note**: The names `map_bucket`, `set_bucket`, and `counter_bucket` are _not_ reserved terms. You are always free to name bucket types whatever you like, with the exception of `default`.
 
-Once you've created a datatype, you can check to make sure that the bucket property configuration (the `props` list) associated with that type is correct. This can be done either via HTTP or through the `riak-admin` interface.
-
-Using `curl`, we can verify that the bucket `props` associated with the `map_bucket` type include `datatype` being set to `map`:
-
-```curl
-curl http://localhost:8098/types/map_bucket/props
-```
-
-If the `map_bucket` type exists and has been set up properly, we should see `"datatype":"map"` in the JSON response.
-
-We can also see which properties are associated with a bucket type using the [[`riak-admin`|riak-admin Command Line]] interface, specifically the `status` command:
+Once you've created a datatype, you can check to make sure that the bucket property configuration associated with that type is correct. This can be done through the `riak-admin` interface.
 
 ```bash
 riak-admin bucket-type status map_bucket
 ```
 
-Instead of JSON, this will return a simple list of properties and associated values, i.e. a list of `property: value` pairs. If our `map_bucket` bucket type has been set properly, we should see the following pair in our console output:
+This will return a list of bucket properties and their associated values in the form of `proerty: value`. If our `map_bucket` bucket type has been set properly, we should see the following pair in our console output:
 
 ```bash
 datatype: map
 ```
 
-If a bucket type has been properly constructed, it needs to be activate to be usable in Riak. This can also be done using the `bucket-type` command interface:
+If a bucket type has been properly constructed, it needs to be activated to be usable in Riak. This can also be done using the `bucket-type` command interface:
 
 ```bash
 riak-admin bucket-type activate map_bucket
@@ -69,27 +59,25 @@ All examples will use the bucket type names from above (`counter_bucket`, `set_b
 
 ### Registers and Flags
 
-Registers and flags cannot be used on their own in Riak. That is, you cannot use a bucket/key pair as a register or flag directly. Instead, they must be used within a map. For usage examples, see the section on maps [[below|Using Datatypes#Maps]].
+Registers and flags cannot be used on their own in Riak. You cannot use a bucket/key pair as a register or flag directly. Instead, they must be used within a map. For usage examples, see the section on [[using maps|Using Datatypes#Maps]] below.
 
 ### Counters
 
-Counters are a bucket-level Riak datatype that can be used either by themselves, i.e. associated with a bucket/key pair, or within a map. The examples below will show you how to use counters in both settings.
+Counters are a bucket-level Riak datatype that can be used either by themselves, i.e. associated with a bucket/key pair, or within a map. The examples in this section will show you how to use counters on their own.
 
-Now, whenever we use a bucket as a counter, it will know that the bucket needs to be assigned the `counter_bucket` type.
-
-At this point, we can create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
+First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
 
 ```ruby
 bucket = client.bucket 'counters'
 ```
 
-To create a counter, you need to specific a bucket/key pair to hold that counter. Here is the general syntax for that:
+To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
 
 ```ruby
 counter = Riak::Crdt::Counter.new bucket, key, bucket_type
 ```
 
-Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counter_bucket` datatype like this:
+Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counter_bucket` bucket type like this:
 
 ```ruby
 counter = Riak::Crdt::Counter.new counters, 'traffic_tickets', 'counter_bucket'
@@ -201,8 +189,6 @@ Now, we can check on which cities are currently in our set:
 ```ruby
 set.members
 
-# This returns:
-
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
 ```
 
@@ -232,7 +218,7 @@ Or we can add a city---or multiple cities---to multiple sets. Let's say that Dav
 end
 ```
 
-You can also turn a set into a an array (or list, depending on the language):
+You can also turn a set into an array:
 
 ```ruby
 set.to_a
@@ -371,7 +357,7 @@ Registers can also be removed:
 map.maps['annika_info'].registers.remove 'phone_number'
 ```
 
-Now, we'll store whether or not Annika is subscribed to a variety of plans within the company as well:
+Now, we'll store whether Annika is subscribed to a variety of plans within the company as well:
 
 ```ruby
 map.maps['annika_info'].flags['enterprise_plan'] = false
