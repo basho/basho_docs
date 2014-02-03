@@ -10,7 +10,7 @@ keywords: [developers, strong-consistency]
 
 Since version 2.0, Riak allows you to create [[strongly consistent|Strong Consistency]] bucket types. When a bucket's data is strongly consistent, a value is guaranteed to be readable by any node _immediately_ after a write has occurred, with the tradeoff that unavailable nodes will become unavailable to accept a write.
 
-The option of strongly consistent bucket types was added in version 2.0 to compliment Riak's standard [[eventually consistent|Eventual Consistency]] mode, which favors high availability over consistency and remains the default.
+The option of using strongly consistent bucket types was added in 2.0 to compliment Riak's standard [[eventually consistent|Eventual Consistency]] mode, which favors high availability over consistency and remains the default.
 
 The tradeoff between consistency and availability is unavoidable, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
