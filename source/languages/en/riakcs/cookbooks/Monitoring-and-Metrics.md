@@ -18,9 +18,7 @@ Much like Riak, Riak CS exposes statistics on critical operations that are commo
 /riak-cs/stats
 ```
 
-Latency histograms showing mean, median, and 95th and 99th percentiles, as well as meters showing the count and rate, are included in the output for each statistic.
-
-The results include histograms and counters for the following operations:
+This will return a series of latency histograms and counters for all of the following operations:
 
 * `block_get` --- Total BLOCK GET operations performed
 * `block_put` --- Total BLOCK GET operations performed
@@ -38,7 +36,14 @@ The results include histograms and counters for the following operations:
 * `object_get_acl` --- Total OBJECT GET ACL operations performed
 * `object_put_acl` --- Total OBJECT PUT ACL operations performed
 
+Alongside each of the above operations are meters showing the count and rate for the operation, as well as a latency histogram showing mean, median, and 95th and 99th percentiles. That list takes the following form:
+
+```bash
+<operation_name> [MeterCount, MeterRate, LatencyMean, LatencyMedian, Latency95, Latency99]
+```
+
 ## DTrace Probes
+
 Riak CS is built with some probes for use with [[DTrace|http://dtrace.org/blogs/about/]] to inspect certain operations in the live system, which can be helpful in diagnosing issues.
 
 ### Usage Examples
