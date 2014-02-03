@@ -190,11 +190,18 @@ riak-admin reip <old nodename> <new nodename>
 ## js-reload
 
 Forces the embedded Javascript virtual machines to be restarted. This is useful
-when deploying new custom built-in [[MapReduce|Using MapReduce]] functions. (_This needs to be
-run on all nodes in the cluster_.)
+when deploying new custom built-in [[MapReduce|Using MapReduce]] functions. (_This needs to be run on all nodes in the cluster_.)
 
 ```bash
 riak-admin js-reload
+```
+
+## erl-reload
+
+Forces the embedded Erlang virtual machines to be restarted. This is useful when deploying new custom-build [[MapReduce|Using MapReduce]] functions. (_This needs to be run on all nodes in the cluster_.)
+
+```bash
+riak-admin erl-reload
 ```
 
 ## services
