@@ -20,21 +20,21 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 	stanchion stop
 	```
 
-2. Back up Riak's configuration files: 
+1. Back up Riak's configuration files: 
 
 	```bash
 	sudo tar -czf riak_config_backup.tar.gz /etc/riak
 	```
 	
-3. Optionally, back up your data directories:
+1. Optionally, back up your data directories:
 
 	```bash
 	sudo tar -czf riak_data_backup.tar.gz /var/lib/riak 
 	```
 
-4. Take note of the value of `cs_version` in `/etc/riak-cs/app.config`.
+1. If you are upgrading from a version prior to 1.3, take note of the value of `cs_version` in `/etc/riak-cs/app.config`.
 
-5. Upgrade Riak, Riak CS, and Stanchion:
+1. Upgrade Riak, Riak CS, and Stanchion:
 
     **Mac OS X**
 
@@ -64,9 +64,9 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 	<p>If you are upgrading Riak CS Enterprise Edition from a version before 1.3.0, a change to the package name can result in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one.</p>
 	</div>
 
-6. Examine the differences between your backed up `app.config` files and the newly installed copies in `etc/riak`, `etc/riak-cs`, and `etc/stanchion`. There may be new settings in the new `app.config` files.  Make any changes that are specific to your installation.
+1. Examine the differences between your backed up `app.config` files and the newly installed copies in `etc/riak`, `etc/riak-cs`, and `etc/stanchion`. There may be new settings in the new `app.config` files.  Make any changes that are specific to your installation.
 
-7. In the `/etc/riak-cs/app.config` file for Riak CS, locate the following setting:
+1. If you are upgrading from a version prior to 1.3, locate the following setting in the `/etc/riak-cs/app.config` file for Riak CS:
 
 	```erlang
 	{cs_version, 10300 },
@@ -74,13 +74,13 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 
 	This value will have changed from your previous installation.  To avoid conflicts between nodes, change this value to the one you noted in step 3.  This will restrict the Riak CS nodes to their previous version's capabilities until the rolling upgrade is fully complete.  If your previous `app.config` had no value for `cs_version`, use a value of `0`.
 
-8. Change cs_version to its previous value:
+1. If you are upgrading from a version prior to 1.3, change `cs_version` to its previous value:
 
 	```erlang
 	{cs_version, <previous_value>},
 	```
 
-9. Start the node:
+1. Start the node:
 
 	```bash
 	riak start
@@ -88,21 +88,21 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 	riak-cs start
 	```
 
-10. Wait for any handoff to complete:
+1. Wait for any handoff to complete:
 
 	```bash
 	riak-admin transfers
 	```
 
-11. Move on to the next node and repeat this process throughout the cluster.
+1. Move on to the next node and repeat this process throughout the cluster.
 
-12. Once all nodes have been upgraded and restarted in this manner, once again locate the `/etc/riak-cs/app.config` file's `cs_version` setting and change it back to its upgraded value, as listed here:
+1. If you are upgrading from a version prior to 1.3, once all nodes have been upgraded and restarted in this manner, once again locate the `/etc/riak-cs/app.config` file's `cs_version` setting and change it back to its upgraded value, as listed here:
 
 	```erlang
 	{cs_version, 10300},
 	```
 
-13. Restart all Riak CS nodes with this new setting in the same rolling fashion as before:
+1. Restart all Riak CS nodes with this new setting in the same rolling fashion as before:
 
 	```bash
 	riak-cs restart
