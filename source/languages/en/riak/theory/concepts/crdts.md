@@ -8,6 +8,22 @@ audience: intermediate
 keywords: [appendix, concepts]
 ---
 
+In distributed data storage systems, data convergence is an inescapable problem. In a distributed key/value store like Riak
+
+
+Sean Cribbs talk
+
+The prime question: who is responsible for convergence?
+Problem: no clear winner, especially when race conditions are in play
+LWW/throw one out/timestamps is one option (Cassandra), the other is vclocks/keeping both (no causal relation)
+Semantic resolution => YOU are on the hook to decide which values win
+Shopping cart = Dynamo paper
+Usability problem
+Monotonicity => things either don't change or go in one direction; monotonic datatypes only go in one direction, e.g. lists that only grow (no remove operations)
+Convergent: state based
+Commutative: operation based => replicas forward state to other replicas, which enables them to "know what to do"
+Treedoc => collaborative editing (GoogleDocs example)
+
 Applications need deterministic means of resolving conflicts; one way is to resolve those conflicts on the application side, via siblings (which is the default behavior now that `allow_mult` is set to `true` by default)
 
 CRDTs must be idempotent, commutative, and associative
@@ -34,7 +50,7 @@ Enable you to compose data types into richer combinations; a map is a collection
 
 ## Registers
 
-Binary value, like a string, e.g. an email address or a first name
+Binary value, like a string, e.g. an email address or a first name. Client has to know how to send vclocks.
 
 ## Flags
 
@@ -43,6 +59,8 @@ Boolean
 ## Counters
 
 Already contained in Riak 1.4; incrementing and decrementing by a specified value; no vclocks, no siblings; always only _one_ value; no writes are lost
+
+Number of Twitter followers, number of Facebook likes, number of page visits
 
 **Note**: Counters are _not_ for creating unique, ordered IDs like UUIDs; they should be taken as providing a rough estimate; think of `HINCRBY` in Redis
 
@@ -60,20 +78,24 @@ Shopping cart example => previously, devs would have to resolve conflicts on the
 
 Monotonic => change is in a single direction
 
-Setting up a bucket to store a specific data type, e.g. maps:
-
-```bash
-riak-admin bucket-type create map_bucket '{"props":{"datatype":"map"}}''
-```
-
 **Convergent** (state-based) => one replica updates, then forwards entire state; downstream merges
 
 A -> A'; A' sends state to all current A's
 
 **Commutative** (operation-based) => only mutations-/ops-based; needs a reliable broadcast channel
 
-### CRDT operations
+Trade-offs:
+* Garbage problem => when do you get rid of things?
+* Only let primaries take writes (not fallbacks)
+* pw = dw = 1
+* Dead actors
 
+## How Riak Implements Datatypes
+
+Operations performed by finite state machines that do work and send messages to other replicas (and also receive messages from other replicas)
+Riak DT
+-behaviour(riak_dt).
+State based (due to lack of reliable broadcast channel)
 `new/0` --- empty
 `value/1` --- the resolved value
 `update/3` --- mutate
@@ -92,3 +114,5 @@ Map tweet {
 ```
 
 Which HTTP data types correspond to each CRDT?
+
+## Questions
