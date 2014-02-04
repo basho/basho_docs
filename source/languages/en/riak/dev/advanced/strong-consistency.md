@@ -12,6 +12,16 @@ Riak allows you to create [[Strongly Consistent|Strong Consistency]] bucket type
 
 This tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
+## Enable Strong Consistency
+
+The strong consistency subsystem in Riak is disabled by default. You will need to turn it on in your [[`riak.conf`|Configuration Files]] file. To do so, you can simply un-comment the line containing the `strong_consistency` setting or add the following if that line is not present:
+
+```config
+strong_consistency = on
+```
+
+**Note**: This will enable you to use strong consistency in Riak, but it will _not_ turn on strong consistency for all of your data. Strong consistency is applied only at the bucket level, using bucket types (as show directly below).
+
 ## Creating a Strongly Consistent Bucket Type
 
 [[Strong consistency]] requirements in Riak are applied on a bucket-by-bucket basis, meaning that you can use some buckets in an eventually consistent fashion and others in a strongly consistent fashion, depending on your use case.
