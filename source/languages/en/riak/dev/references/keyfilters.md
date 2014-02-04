@@ -11,6 +11,8 @@ moved: {
 }
 ---
 
+<div class="info"><div class="title">Deprecation Notice</div>Key Filters are a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].</div>
+
 ## Transform functions
 
 Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [[predicate functions|Using Key Filters#Predicate-functions]].  Each function description is followed by a sample usage in JSON notation.

@@ -817,7 +817,7 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
 
 
 div[role="main"] {
-  @extend .sans;
+  // @extend .sans;
   color     : $textColor;
   font-size : 110%;
   overflow  : visible;
