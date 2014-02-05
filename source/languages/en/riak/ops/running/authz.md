@@ -183,11 +183,11 @@ When creating or altering a user, any number of `<option>=<value>` pairs can be 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
 riak-admin security print-users
-+----------+---------------+----------------------------------------+--------------------------------------------------+
-| username |     roles     |                password                |                     options                      |
-+----------+---------------+----------------------------------------+--------------------------------------------------+
-| riakuser |               |                                        |[{"fav_color","red"},{"age","47"},{"name","bill"}]|
-+----------+---------------+----------------------------------------+--------------------------------------------------+
++----------+-------+----------+--------------------------------------------------+
+| username | roles | password |                     options                      |
++----------+-------+----------+--------------------------------------------------+
+| riakuser |       |          |[{"fav_color","red"},{"age","47"},{"name","bill"}]|
++----------+-------+----------+--------------------------------------------------+
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user` command. If you attempt to do so by running, for example, `alter-user riakuser username=other-name`, then this will simply add the `{"username","other-name"}` tuple to `riakuser`'s options, which is most likely _not_ the preferred action.
