@@ -4,22 +4,25 @@ project: riak
 toc: true
 ---
 
-Cluster metadata is a subsystem inside of Riak (specifically [`riak_core`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl)) that enables applications to work with information that is stored cluster wide. It is useful for storing information that needs to be read without blocking on communication over the network. A variety of Riak features, such as bucket types, were built using cluster metadata.
+Cluster metadata is a subsystem inside of Riak (specifically [`riak_core`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl)) that enables applications to work with information that is stored cluster wide. It is useful for storing information that needs to be read without blocking on communication over the network, or if you would like to build an extension to Riak.
 
-* KV store (no longer a flat namespace); eventually consistent; fully replicated; asynchronous replication
-* Local reads and writes (`r=1`, `w=1`); in memory and on disk; logical clocks instead of timestamp-based clocks (dotted version vectors, *not* vclocks)
-* You don't want to have to talk over the network to get certain values
-* Epidemic broadcast trees (https://docs.di.fc.ul.pt/jspui/bitstream/10455/3002/1/07-14.pdf)
-* Broadcast (not redundant, but also not reliable) vs. gossip (reliable but also redundant) vs. Plumtree (reliable and not very redundant)
-* Self-healing spanning tree (gossip for healing the tree, tree as primary form of broadcast)
+Cluster metadata is essentially information in key/value form that needs to be available through a Riak cluster. One example is [[bucket types]]. When you create a new bucket type and assign a set of bucket properties to that type, that information needs to be made available to all nodes. It cannot behave like other Riak data. This is why it needs to be built as a separate subsystem (though it is an important subsystem, on which a great many features relies).
 
-Cluster metadata functinos as is its own key/value store. Values are opaque Erlang terms addressed by a full prefix and a key:
+## How Cluster Metadata Works
+
+The cluster metadata storage system is an eventually consistent key/value store. It is ansynchronously replicated across all nodes in a cluster when it is stored or modified. Writes require acknowledgment from only a single node (`w=1`), while reads return values only from the local node (`r=1`). All updates are eventually consistent.
+
+All cluster metadata is stored both in memory and on disk, but it should be noted that reads are only from memory, while writes are made both to memory and to disk. 
+
+Logical clocks, namely [dotted version vectors](find good link), are used in place of vclocks or timestamps. Values stored as cluster metadata are opaque Erlang terms addressed by a full prefix and a key:
 
 ```erlang
 {atom() | binary(), atom() | binary()}
 ```
 
-Keys can be any Erlang term. Values are stored on disk, with a full copy also stored in memory. Reads are only from memory, while writes are to both memory and disk. Updates to cluster metadata are eventually consistent. Writing a value only requires acknowledgment from one node, whereas reads return values from the local node only. Updates are replicated to every node in the cluster, including nodes that join the cluster after the update has already reached all nodes in the previous set of members.
+Keys can be _any_ Erlang term.
+
+Updates are replicated to every node in the cluster, including nodes that join the cluster after the update has already reached all nodes in the previous set of members.
 
 ## API
 
