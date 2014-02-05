@@ -505,10 +505,3 @@ DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DE
 ```
 
 Riak's cipher preferences were taken from [Mozilla's Server Side TLS documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
-
-<!---
-RESOURCES:
-https://gist.github.com/lukebakken/1dcf90bf2a6d4009c6db
-http://vagabond.github.io/2013/11/06/ricon-west-2013-talk-writeup/
-https://github.com/basho/riak/issues/469
--->
