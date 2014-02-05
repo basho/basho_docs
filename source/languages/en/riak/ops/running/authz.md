@@ -17,6 +17,16 @@ As of version 2.0, Riak administrators can selectively apportion access to a wid
 
 **Note**: Currently, Riak security commands can be run only through the command line using the `riak-admin security` command. In future versions of Riak, administrators will have the option of issuing those commands through the Protocol Buffers and HTTP interfaces.
 
+## Terminology
+
+* **Authentication** is the process of identifying a role.
+* **Authorization** is verifying whether a user has access to perform the requested operation.
+* **Users** and **Groups** are the same underlying concept (**Roles**), just used differently by convention.
+
+    Any role can be assigned to other roles to add permissions. Typically authentication
+    will be defined for users but not groups, while permissions may be
+    assigned to either.
+
 ## Security Basics
 
 Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
@@ -168,10 +178,16 @@ riak-admin security alter-user riakuser password=opensesame
 
 **Note**: Only one password may be assigned to a user at a time.
 
-When creating or altering a user, any number of `<option>=<value>` pairs can be appended to the end of the command:
+When creating or altering a user, any number of `<option>=<value>` pairs can be appended to the end of the command. Any non-standard options (today, `roles` and `password`) will be stored and displayed via the `riak-admin security print-users` command.
 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
+riak-admin security print-users
++----------+---------------+----------------------------------------+--------------------------------------------------+
+| username |     roles     |                password                |                     options                      |
++----------+---------------+----------------------------------------+--------------------------------------------------+
+| riakuser |               |                                        |[{"fav_color","red"},{"age","47"},{"name","bill"}]|
++----------+---------------+----------------------------------------+--------------------------------------------------+
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user` command. If you attempt to do so by running, for example, `alter-user riakuser username=other-name`, then this will simply add the `{"username","other-name"}` tuple to `riakuser`'s options, which is most likely _not_ the preferred action.
@@ -421,6 +437,8 @@ If we'd like to make the user `jane_goodall` both an `admin` and an `archoverlor
 riak-admin alter-user jane_goodall roles=admin,archoverlord
 ```
 
+There is no way to incrementally add roles; even if `jane_goodall` was already an `admin`, it is necessary to list it again when adding the `archoverlord` role.
+
 ### Assigning a Role to Multiple Users
 
 There is no command for assigning a role (or roles) to multiple users at one time, though you may use methods such as `for` loops in your shell:
@@ -439,6 +457,8 @@ There is no command for directly removing a user's roles, but you can assign a u
 ```bash
 riak-admin security alter-user riakuser roles=
 ```
+
+If you wish to unassign a single role from a user while retaining others, simply provide the others to the `alter-user` command.
 
 ## Security Ciphers
 
