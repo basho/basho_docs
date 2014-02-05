@@ -15,6 +15,16 @@ As of version 2.0, Riak administrators can selectively apportion access to a wid
 
 **Note**: Currently, Riak security commands can be run only through the command line using the `riak-admin security` command. In future versions of Riak, administrators will have the option of issuing those commands through the Protocol Buffers and HTTP interfaces.
 
+## Terminology
+
+* **Authentication** is the process of identifying a role.
+* **Authorization** is verifying whether a user has access to perform the requested operation.
+* **Users** and **Groups** are the same underlying concept (**Roles**), just used differently by convention.
+
+    Any role can be assigned to other roles to add permissions. Typically authentication
+    will be defined for users but not groups, while permissions may be
+    assigned to either.
+
 ## Security Basics
 
 This section covers enabling/disabling security and checking for current security status.
@@ -166,10 +176,16 @@ riak-admin security alter-user riakuser password=opensesame
 
 **Note**: Only one password may be assigned to a user at a time.
 
-When creating or altering a user, any number of `<option>=<value>` pairs can be appended to the end of the command:
+When creating or altering a user, any number of `<option>=<value>` pairs can be appended to the end of the command. Any non-standard options (today, `roles` and `password`) will be stored and displayed via the `riak-admin security print-users` command.
 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
+riak-admin security print-users
++----------+---------------+----------------------------------------+--------------------------------------------------+
+| username |     roles     |                password                |                     options                      |
++----------+---------------+----------------------------------------+--------------------------------------------------+
+| riakuser |               |                                        |[{"fav_color","red"},{"age","47"},{"name","bill"}]|
++----------+---------------+----------------------------------------+--------------------------------------------------+
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user` command. If you attempt to do so by running, for example, `alter-user riakuser username=other-name`, then this will simply add the `{"username","other-name"}` tuple to `riakuser`'s options, which is most likely _not_ the preferred action.
