@@ -473,6 +473,8 @@ If we'd like to make the user `jane_goodall` both an `admin` and an `archoverlor
 riak-admin alter-user jane_goodall roles=admin,archoverlord
 ```
 
+There is no way to incrementally add roles; even if `jane_goodall` was already an `admin`, it is necessary to list it again when adding the `archoverlord` role.
+
 ### Assigning a Role to Multiple Users
 
 There is no command for assigning a role (or roles) to multiple users at one time, though you may use methods such as `for` loops in your shell:
@@ -491,6 +493,8 @@ There is no command for directly removing a user's roles, but you can assign a u
 ```bash
 riak-admin security alter-user riakuser roles=
 ```
+
+If you wish to unassign a single role from a user while retaining others, simply provide the others to the `alter-user` command.
 
 ## Security Ciphers
 
