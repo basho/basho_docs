@@ -22,13 +22,47 @@ There are five Riak datatypes in total: **flags**, **registers**, **counters**, 
 
 ### Flags
 
-Flags behave much like Boolean values, with two possible values: `enable` and `disable`. Flags cannot be used on their own, i.e. a flag cannot be stored in a bucket/key pairing. Instead, flags can only be stored within maps.
+Flags behave much like Boolean values, with two possible values: `enable` and `disable`. Flags cannot be used on their own, i.e. a flag cannot be stored in a bucket/key pairing by itself. Instead, flags can only be stored within maps. In general, conflicts between flags will resolve to `enable`.
 
-A flag has two sets: tokens and tombstones; "enable wins"; disable => copy all tokens into tombstones
+#### Examples
+
+* Whether a tweet has been retweeted
+* Whether a user has signed up for a specific pricing plan
 
 ### Registers
 
-Registers are essentially named binaries. An example would be storing the name `Cassius` in the register `first_name`. Any binary value can act as the value of a register. Like flags, registers cannot be used on their own and must be embedded in Riak maps.
+Registers are essentially named binaries (like strings). Any binary value can act as the value of a register. Like flags, registers cannot be used on their own and must be embedded in Riak maps. In general, conflicts between registers will resolve to 
+
+#### Examples
+
+* Storing the name `Cassius` in the register `first_name`
+* Storing the title of a blog post
+
+### Counters
+
+Counters are the one Riak datatype that existed prior to version 2.0. Their value is always a positive or negative integer. They are subject to two basic operations: incremement and decrement. They are useful when a fairly accurate estimate of a quantity is needed, and not reliable if you need something like unique, ordered IDs (such as UUIDs), because uniqueness cannot be guaranteed.
+
+#### Examples
+
+* The number of people following someone on Twitter
+* The number of "likes" on a Facebook post
+
+### Sets
+
+Sets are basic collections of binary values (like strings). They are subject to four basic operations: add an element, remove an element, add multiple elements, or remove multiple elements. Sets can be used either on their own or embedded in a map. In general, conflicts between sets will resolve to the set with more members.
+
+#### Examples
+
+* The names of friends in a social network
+* Items in an Amazon shopping cart (this example comes from the )
+
+### Maps
+
+Maps are the richest of the Riak datatypes because within them you can embed _any_ of the five datatypes, including maps themselves (you can even embed maps within maps, and maps within those maps, and so on). Operations performed directly on maps involve adding and removing datatypes, e.g. adding a register or removing a counter. The operations performed on datatypes within maps are specific to that datatype, e.g. adding an element to a set within a map, disabling a flag within a map, etc.
+
+#### Examples
+
+* Complex user data in a social network application
 
 ## Riak Datatypes Under the Hood
 
@@ -48,53 +82,26 @@ You can still---and you will always be able to---build applications with Riak th
 
 In versions of Riak prior to 2.0, Riak was essentially agnostic toward data types (with the exception of counters, introduced in version 1.4)
 
-## Sets
-
-Collections of things; it's expected that you store binaries; members of a team, tweets, friends in a social network, etc; operations like `add` or `remove`; removing is trickier than adding; you _should_ fetch the set and its context and then send the context with the remove operation (so that the set is locked while removal is happening); all operations are executed atomically at the coordinating replica; if any operation fails, then none of the operations are applied
-
-observe-remove => you can only remove if the passed-in state/context says you can; the application is
-
 ## Maps
 
 Enable you to compose data types into richer combinations; a map is a collection of **fields** (think of JSON); each is a `{name, DataType}` pair; if two fields with the same name but different types are added to the map, it is assumed that you wish to keep both => they're treated as two different fields; **field operations** add and remove fields (i.e. alter the _schema_ of the map); **field _update_ operations** perform operations on the fields themselves; batched operations are possible; context should be sent with batch operations that contain a Field Remove or Set Remove, no matter how deeply nested they are inside of the map; no need to update a field, as fields are created dynamically when they are needed; when running field update operations, those fields behave like their data type (counters like counters, flags like flags, etc.)
 
-## Registers
+The following pseudocode shows 
 
-Binary value, like a string, e.g. an email address or a first name. Client has to know how to send vclocks.
+```
+Map tweet {
+    Counter tweetID
+    Register username
+    Register tweetContent
+    Flag retweeted
+}
+```
 
-## Counters
 
-Already contained in Riak 1.4; incrementing and decrementing by a specified value; no vclocks, no siblings; always only _one_ value; no writes are lost
-
-Number of Twitter followers, number of Facebook likes, number of page visits
-
-**Note**: Counters are _not_ for creating unique, ordered IDs like UUIDs; they should be taken as providing a rough estimate; think of `HINCRBY` in Redis
 
 ### Note on Atomic/Blocking Operations
 
 Sets and maps are neither atomic nor blocking, unlike their Redis counterparts (sets and hashes, respectively); Riak CRDTs are _never_ atomic or blocking, by necessity
-
-### Note on Bucket Types
-
-You can set the `datatype` of buckets to `counter`, `set`, or `map`, but not to `register` or `flag`. The reasoning behind this is that storing a bunch of `registers` without context doesn't make a whole lot of sense, and neither does storing a whole bunch of `flags` without context; a `counter` indeed lacks context, but by necessity
-
-Enables developers to delegate certain responsibilities back to Riak
-
-Shopping cart example => previously, devs would have to resolve conflicts on the application side; CRDTs enable them to allow Riak to handle conflicts in type-specific ways
-
-Monotonic => change is in a single direction
-
-**Convergent** (state-based) => one replica updates, then forwards entire state; downstream merges
-
-A -> A'; A' sends state to all current A's
-
-**Commutative** (operation-based) => only mutations-/ops-based; needs a reliable broadcast channel
-
-Trade-offs:
-* Garbage problem => when do you get rid of things?
-* Only let primaries take writes (not fallbacks)
-* pw = dw = 1
-* Dead actors
 
 ## How Riak Implements Datatypes
 
@@ -110,15 +117,10 @@ State based (due to lack of reliable broadcast channel)
 
 Example: tweet
 
-```
-Map tweet {
-    Counter tweetID
-    Register username
-    Register tweetContent
-    Flag retweeted
-}
-```
+Collections of things; it's expected that you store binaries; members of a team, tweets, friends in a social network, etc; operations like `add` or `remove`; removing is trickier than adding; you _should_ fetch the set and its context and then send the context with the remove operation (so that the set is locked while removal is happening); all operations are executed atomically at the coordinating replica; if any operation fails, then none of the operations are applied
 
-Which HTTP data types correspond to each CRDT?
+observe-remove => you can only remove if the passed-in state/context says you can; the application is
 
-## Questions
+### Note on Bucket Types
+
+You can set the `datatype` of buckets to `counter`, `set`, or `map`, but not to `register` or `flag`. The reasoning behind this is that storing a bunch of `registers` without context doesn't make a whole lot of sense, and neither does storing a whole bunch of `flags` without context; a `counter` indeed lacks context, but by necessity
