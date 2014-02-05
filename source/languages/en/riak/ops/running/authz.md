@@ -360,7 +360,7 @@ Permission | Operation |
 
 ### Search Query Permission (Riak Search version 1)
 
-If you are using the original Riak search, you can grant to (and revoke from) users search permissions with `riak_search.query`.
+Security is incompatible with the original Riak Search.
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
