@@ -20,12 +20,16 @@ As of version 2.0, Riak administrators can selectively apportion access to a wid
 ## Terminology
 
 * **Authentication** is the process of identifying a role.
+
 * **Authorization** is verifying whether a user has access to perform the requested operation.
+
 * **Users** and **Groups** are the same underlying concept (**Roles**), just used differently by convention.
 
     Any role can be assigned to other roles to add permissions. Typically authentication
     will be defined for users but not groups, while permissions may be
     assigned to either.
+    
+* **Sources** are used to define authentication mechanisms. A user cannot be authenticated to Riak until a source is defined.
 
 ## Security Basics
 
