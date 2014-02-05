@@ -76,26 +76,19 @@ Map tweet {
 
 ## Riak Datatypes Under the Hood
 
-Conflicts between replicas are inevitable in a distributed system like Riak. If, for example, a map is stored in the key `my_map`, it is always possible
+Riak datatypes are implemented as a subsystem of Riak called [`riak_dt`](https://github.com/basho/riak_dt), which runs alongside [`riak_kv`](https://github.com/basho/riak_kv).
 
-The beauty of Riak datatypes is that Riak "knows" how to resolve conflicts between replicas, and it applies datatype-specific rules to resolve those conflicts. If, for example, a map is stored in the key `my_map`, 
+Conflicts between replicas are inevitable in a distributed system like Riak. If a map is stored in the key `my_map`, for example, it is always possible that the value of `my_map` will be different in nodes A and B. Without using datatypes, that conflict must be resolved using timestamps, vclocks, dotted version vectors, or some other means. With datatypes, conflicts are resolved by Riak itself.
 
+The beauty of datatypes is that Riak "knows" how to resolve these conflicts by applying datatype-specific rules. In general, Riak does this by remembering the history of a value and broadcasting that history _as part of the value_. Riak uses this history to make deterministic judgments about which value is more "true" than the other.
 
-The rules applied in a particular situation depend on which datatype is being resolved, but no matter what, it means that you don't have to.
+To give an example, think of a set stored in the key `my_set`. On one node, the set has two elements (A and B), and in another node the set has three elements (A, B, and C). In this case, Riak would choose the set with more elements, and then tell the former set: "This is the correct value. You need to have elements A, B, and C." Once this operation is complete, the set will have elements A, B, and C on both nodes.
 
-The rules that are applied vary based on what datatype needs converging.
+Riak datatypes are eventually consistent because values _do_ eventually converge to a "correct" value after a series of these judgments are made. The following general rules apply to conflicts for specific datatypes:
 
-## How Riak Implements Datatypes
-
-Operations performed by finite state machines that do work and send messages to other replicas (and also receive messages from other replicas)
-Riak DT
-`-behaviour(riak_dt).`
-State based (due to lack of reliable broadcast channel)
-`new/0` --- empty
-`value/1` --- the resolved value
-`update/3` --- mutate
-`merge/2` --- converge two CRDTs
-`equal/2` --- compare internal value of two CRDTs
-
-observe-remove => you can only remove if the passed-in state/context says you can; the application is
-
+Datatype | General rule
+:--------|:------------
+Flag | `enable` wins over `disable`
+Register | Timestamp. Whichever value is deemed the most recent wins.
+Counter | The average
+Set | 
