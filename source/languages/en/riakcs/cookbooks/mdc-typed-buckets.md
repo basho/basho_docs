@@ -5,7 +5,7 @@ version: 2.0.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [operator, repl, configuration, bucket-types]
+keywords: [operator, repl, configuration, bucket-types, typed-buckets]
 ---
 
 While Riak Enterprise supports realtime and fullsync replication of typed buckets, there are a few things that need to be verified before replication occurs.
