@@ -14,7 +14,7 @@ Some of the Riak buckets used internally by Riak CS use secondary indexes, which
 
 Additionally, the Riak CS storage calculation system uses Riak's MapReduce to sum the files in a bucket. This means that you must tell all of your Riak nodes where to find Riak CS's compiled files before calculating storage.
 
-A few other settings must be modified to configure a Riak node as part of a Riak CS system, such as the node IP address and the IP address and port to use for communicating through protocol buffers. Other settings can be modified if necessary. The following sections describe how to configure a Riak node to work as part of a Riak CS system.
+A few other settings must be modified to configure a Riak node as part of a Riak CS system, such as the node IP address and the IP address and port to use for communicating through Protocol Buffers. Other settings can be modified if necessary. The following sections describe how to configure a Riak node to work as part of a Riak CS system.
 
 ## Setting up the Proper Riak Backend
 
@@ -84,7 +84,7 @@ Initially, the line that specifies the riak node IP address is set to the local 
 Replace `127.0.0.1` with the IP address for the Riak node.
 
 ## Setting Up Riak to Use Protocol Buffers
-The Riak protocol buffer settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_api` config section of the file.
+The Riak Protocol Buffers settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_api` config section of the file.
 
 {{#1.4.0-}}
 

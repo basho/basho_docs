@@ -30,13 +30,13 @@ The usage HTTP resource provides both access and storage statistics. Since each 
 {{#1.3.0-}}
 
 ```curl
-$ curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU
+curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU
 ```
 {{/1.3.0-}}
 {{#1.3.0+}}
 
 ```curl
-$ curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU
+curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU
 ```
 {{/1.3.0+}}
 
@@ -62,13 +62,13 @@ To request that storage results be included, pass the query parameter `b` to the
 {{#1.3.0-}}
 
 ```curl
-$ curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?b
+curl http://localhost:8080/usage/8NK4FH2SGKJJM8JIP2GU?b
 ```
 {{/1.3.0-}}
 {{#1.3.0+}}
 
 ```curl
-$ curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?b
+curl http://localhost:8080/riak-cs/usage/8NK4FH2SGKJJM8JIP2GU?b
 ```
 {{/1.3.0+}}
 
@@ -104,13 +104,13 @@ As described in [[Querying Access Statistics]], these statistics are also availa
 {{#1.3.0-}}
 
 ```bash
-$ s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
+s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
 ```
 {{/1.3.0-}}
 {{#1.3.0+}}
 
 ```bash
-$ s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
+s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/bx/20120315T140000Z/20120315T160000Z
 ```
 {{/1.3.0+}}
 
@@ -119,13 +119,13 @@ You may also pass both `b` and `a` as `Options` to fetch both types of stats, as
 {{#1.3.0-}}
 
 ```bash
-$ s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
+s3cmd get s3://usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
 ```
 {{/1.3.0-}}
 {{#1.3.0+}}
 
 ```bash
-$ s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
+s3cmd get s3://riak-cs/usage/8NK4FH2SGKJJM8JIP2GU/abx/20120315T140000Z/20120315T160000Z
 ```
 {{/1.3.0+}}
 
@@ -184,3 +184,22 @@ Sample responses (reformatted for easy reading):
     </Storage>
   </Usage>
 ```
+
+{{#1.4.4+}}
+
+If any errors occurred during calculation for a bucket, the error will
+be returned (e.g., timeout) instead of a bucket's usage.
+
+```json
+    {
+      "StartTime": "20120316T123318Z",
+      "EndTime": "20120316T123319Z",
+      "baz": "{error,{timeout,[]}}",
+      "bar": {
+        "Objects": 4,
+        "Bytes": 130023424
+      }
+    },
+```
+
+{{/1.4.4+}}

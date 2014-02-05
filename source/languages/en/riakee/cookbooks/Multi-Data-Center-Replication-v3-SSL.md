@@ -95,7 +95,7 @@ Replication SSL for *Version 2* is available in *Riak 1.2+*.
 Replication SSL for *Version 3* is available in *Riak 1.4+*.
 {{/1.4.0+}}
 
-If SSL is enabled and a connection is made to a Riak EE 1.0 or 1.1 node, the connection will be denied and an error will be logged.
+If SSL is enabled and a connection is made to a Riak Enterprise 1.0 or 1.1 node, the connection will be denied and an error will be logged.
 
 ### Self-Signed Certificates
 

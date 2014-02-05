@@ -97,11 +97,6 @@ The output is the key of each  object, followed by the count of the word  "pizza
 We run a Javascript MapReduce function against the `training` bucket, which takes each `riakObject` (a JavaScript representation of a key/value) and searches the text for the word "pizza". `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
 
 
-<!-- ## NEED TO ADD
-* Errors
-* Tombstones
- -->
-
 ## Further Reading
 
 * [[Advanced MapReduce]]: Details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details

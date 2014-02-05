@@ -33,6 +33,12 @@ module BashoDocsHelpers
     pages.delete_if{|g| page_url == g.url }.to_a
   end
 
+  def latest_version?(default_proj)
+    versions ||= YAML::load(File.open('data/versions.yml'))
+    proj = (data.page.project || default_proj).to_s
+    versions['currents'][proj] == current_version(proj.to_sym)
+  end
+
   def current_version(default_proj)
     SitemapRenderOverride.current_version || $versions[(data.page.project || default_proj).to_sym] || ENV['RIAK_VERSION']
   end

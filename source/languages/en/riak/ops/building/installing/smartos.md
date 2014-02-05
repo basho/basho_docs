@@ -72,65 +72,65 @@ Download your version of the Riak binary package for SmartOS{{#1.3.0}} *(below w
 {{#1.2.1-}}
 
 ```bash
-curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/11/riak-{{V.V.V}}-SmartOS-i386.tgz
+curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/11/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.2.1-}}
 {{#1.2.1}}
 
 ```bash
-curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/11/riak-{{V.V.V}}-SmartOS-i386.tgz
+curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/11/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.2.1}}
 {{#1.3.0}}
 
 ```bash
-curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/1.6/riak-{{V.V.V}}-SmartOS-i386.tgz
+curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.6/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.3.0}}
 {{#1.3.1-1.3.2}}
 
 ```bash
-curl -o /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/1.8/riak-{{V.V.V}}-SmartOS-i386.tgz
+curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.8/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-{{V.V.V}}-SmartOS-i386.tgz
+pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.3.1-1.3.2}}
 {{#1.4.0+}}
 
 ```bash
-curl -o /tmp/riak-{{V.V.V}}-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/smartos/1.8/riak-{{V.V.V}}-SmartOS-x86_64.tgz
+curl -o /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.8/riak-{{VERSION}}-SmartOS-x86_64.tgz
 ```
 
 Next, install the package:
 
 ```
-pkg_add /tmp/riak-{{V.V.V}}-SmartOS-x86_64.tgz
+pkg_add /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz
 ```
 
 {{/1.4.0+}}
@@ -164,8 +164,7 @@ Pinging Riak will result in a `pong` response if the node is up and reachable, a
 
 If all responses indicate that riak is up and running, then you have successfully installed and configured Riak as service on SmartOS.
 
-Next Steps?
------------
+## Next Steps?
 
 Now that Riak is installed, check out the following resources:
 

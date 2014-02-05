@@ -36,9 +36,9 @@ The following instructions generate a complete, self-contained build of Riak in 
 Download the Riak source package from the [[Download Center|http://basho.com/resources/downloads/]] and build:
 
 ```bash
-$ curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V.V}}.tar.gz
-$ tar zxvf riak-{{V.V.V}}.tar.gz
-$ cd riak-{{V.V.V}}
+$ curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}.tar.gz
+$ tar zxvf riak-{{VERSION}}.tar.gz
+$ cd riak-{{VERSION}}
 $ make rel
 ```
 

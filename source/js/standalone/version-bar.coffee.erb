@@ -1,6 +1,103 @@
 $versions = <%= YAML::load(File.open('data/versions.yml')).to_json %>
 
+unless window.infinity_version?
+  window.infinity_version = {
+    major: Infinity
+    minor: Infinity
+    patch: Infinity
+  }
+
+unless window.zeros_version?
+  window.zeros_version = {
+    major: 0
+    minor: 0
+    patch: 0
+  }
+
+unless window.parseVersion?
+  window.parseVersion = (str)->
+    v = /^[<>]?[=]?(\d+)\.?(\d+)?\.?(\d+)?/.exec(str)
+    {
+      major: parseInt(v[1]) || 0
+      minor: parseInt(v[2]) || 0
+      patch: parseInt(v[3]) || 0
+    }
+
+unless window.parseVersionRange?
+  # X+, >=X, >X
+  # X-, <=X, <X
+  # X-Y
+  window.parseVersionRange = (str)->
+    # greater than or equal to
+    if str.match(/\+$/) or str.match(/^\>\=/)
+      return [window.parseVersion(str), window.infinity_version]
+    # greater than
+    if str.match(/^\>/)
+      version = window.parseVersion(str)
+      # don't include this version, so bump it up
+      version.patch++
+      return [version, window.infinity_version]
+    # less than or equal to
+    if str.match(/^\<\=/)
+      return [window.zeros_version, window.parseVersion(str)]
+    # less than
+    if str.match(/\-$/) or str.match(/^\</)
+      version = window.parseVersion(str)
+      # don't include this version, so drop it down
+      version.patch--
+      return [window.zeros_version, version]
+    if str.match(/.+?\-.+?/)
+      vs = str.split('-')
+      return [window.parseVersion(vs[0]), window.parseVersion(vs[1])]
+    else
+      version = window.parseVersion(str)
+      return [version, version]
+
+unless window.compareVersions?
+  window.compareVersions = (v1, v2)->
+    v1num = (v1.major * 10000) + (v1.minor * 100) + v1.patch
+    v2num = (v2.major * 10000) + (v2.minor * 100) + v2.patch
+    v2num - v1num
+
+unless window.inVersionRange?
+  # all comparisons are inclusive
+  window.inVersionRange = (version, range)->
+    # false if less than 0 or greater than 1
+    return false if window.compareVersions(version, range[0]) > 0
+    return false if window.compareVersions(version, range[1]) < 0
+    true
+
+unless window.pageInVersion?
+  window.pageInVersion = (version)->
+    pageVersionStr = $('meta[name=version]').attr('content')
+    return false unless pageVersionStr?
+    pageVersion = window.parseVersion(pageVersionStr)
+    versionRange = window.parseVersionRange(version)
+    window.inVersionRange(pageVersion, versionRange)
+
 $ ->
+  unless toggleMenu?
+    toggleMenu = (buttonID, menuID)->
+      c = $(buttonID).attr('class')
+      if c == 'selected'
+        $(menuID).hide()
+        $(buttonID).attr('class', 'unselected')
+      else
+        $(menuID).show()
+        $(buttonID).attr('class', 'selected')
+
+  $('#version-ddown-button').live 'click', ->
+    toggleMenu('#version-ddown-button', '#version-list')
+    #toggleSelected('#version-ddown-title')
+    #toggleSelected('#version-ddown-arrow')
+
+  # Mouse click on sub menu or account link
+  $('#version-list, #version-ddown-button').live 'mouseup', -> false
+
+  $(document).live 'mouseup', ->
+    $('#version-list').hide()
+    $('#version-ddown-button').attr('class', 'unselected')
+
   # construct an object that represents a
   # drop-down version list
   buildLists = (project, base_url, moved_ranges_obj)->
@@ -23,16 +120,23 @@ $ ->
         firstInBlock = false
     lists
 
+  version = $('meta[name=version]').attr('content')
+  return unless version?
+  $("body").addClass("ver-#{version.replace(/\./g, '-')}")
 
-  return if $('.mainarticle .versions').length == 0
+  versionsEl = $('.mainarticle .versions')
+  return if versionsEl.length == 0
+  unless versionsEl.is('div')
+    newVersionsEl = versionsEl.before("<div class=versions />")
+    versionsEl.remove()
+    versionsEl = newVersionsEl
 
   project = $('meta[name=project]').attr('content')
   base_url = $('meta[name=base-url]').attr('content')
-  version = $('meta[name=version]').attr('content')
   version_range = $('meta[name=version-range]').attr('content')
   moved_ranges = $('meta[name=moved-ranges]').attr('content')
 
-  return unless project? || base_url? || version? || version_range?
+  return unless project? || base_url? || version_range?
   return if $versions[project]?.length <= 1
 
   currentVersion = window.parseVersion(version)
@@ -81,7 +185,7 @@ $ ->
   latestVersion = window.parseVersion(latestVersionStr)
   pageToLatest = window.compareVersions(latestVersion, currentVersion)
   if pageToLatest != 0
-    latestUrl = document.URL.replace("/#{version}/", "/#{latestVersionStr}/")
+    latestUrl = document.URL.replace("/#{version}/", "/latest/")
     short_version = version.replace(/(\d+\.\d+\.\d+)(.+)?/, "$1")
     if pageToLatest < 0
       halert_header = "This documentation is for an older version of Riak"
@@ -97,7 +201,6 @@ $ ->
     halert += "</p></div><div class=\"version-icon-alert-version-num\">#{short_version}</div>"
     halert += "<meta content=\"#{version}\" itemprop=\"version\">"
     halert += "<div class=\"clear\"></div></div>"
-    $('.mainarticle .versions').after(halert)
+    versionsEl.after(halert)
 
-  $('.mainarticle .versions').html(output)
-
+  versionsEl.html(output)

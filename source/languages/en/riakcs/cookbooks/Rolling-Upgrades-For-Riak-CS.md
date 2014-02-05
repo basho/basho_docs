@@ -15,41 +15,49 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 1. Stop Riak, Riak CS, and Stanchion:
 
 	```bash
-	$ riak stop
-	$ riak-cs stop
-	$ stanchion stop
+	riak stop
+	riak-cs stop
+	stanchion stop
 	```
 
 2. Back up Riak's configuration files: 
 
 	```bash
-	$ sudo tar -czf riak_config_backup.tar.gz /etc/riak
+	sudo tar -czf riak_config_backup.tar.gz /etc/riak
 	```
 	
 3. Optionally, back up your data directories:
 
 	```bash
-	$ sudo tar -czf riak_data_backup.tar.gz /var/lib/riak 
+	sudo tar -czf riak_data_backup.tar.gz /var/lib/riak 
 	```
 
 4. Take note of the value of `cs_version` in `/etc/riak-cs/app.config`.
 
 5. Upgrade Riak, Riak CS, and Stanchion:
 
+    **Mac OS X**
+
+    ```bash
+    curl -O http://s3.amazonaws.com/downloads.basho.com/<riakcs-os-x-package.tar.gz>
+    tar -xvzf <riakcs-os-x-package.tar.gz>
+    ```
+
+
 	**Debian / Ubuntu**
 
 	```bash
-	$ sudo dpkg -i <riak_package_name>.deb
-	$ sudo dpkg -i <riak-cs_package_name>.deb
-	$ sudo dpkg -i <stanchion_package_name>.deb
+	sudo dpkg -i <riak_package_name>.deb
+	sudo dpkg -i <riak-cs_package_name>.deb
+	sudo dpkg -i <stanchion_package_name>.deb
 	```
 	
-	**RHEL / Centos**
+	**RHEL / CentOS**
 	
 	```bash
-	$ sudo rpm -Uvh <riak_package_name>.rpm
-	$ sudo rpm -Uvh <riak-cs_package_name>.rpm
-	$ sudo rpm -Uvh <stanchion_package_name>.rpm
+	sudo rpm -Uvh <riak_package_name>.rpm
+	sudo rpm -Uvh <riak-cs_package_name>.rpm
+	sudo rpm -Uvh <stanchion_package_name>.rpm
 	```
 
 	<div class="note"><div class="title">Note on Package Name Change</div>
@@ -75,15 +83,15 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 9. Start the node:
 
 	```bash
-	$ riak start
-	$ stanchion start
-	$ riak-cs start
+	riak start
+	stanchion start
+	riak-cs start
 	```
 
 10. Wait for any handoff to complete:
 
 	```bash
-	$ riak-admin transfers
+	riak-admin transfers
 	```
 
 11. Move on to the next node and repeat this process throughout the cluster.
@@ -97,5 +105,5 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 13. Restart all Riak CS nodes with this new setting in the same rolling fashion as before:
 
 	```bash
-	$ riak-cs restart
+	riak-cs restart
 	```
