@@ -121,7 +121,7 @@ riak-admin security print-users > user_list.txt
 
 ### Retrieving Information About a Single User
 
-You can retrieve all information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
+You can retrieve authorization information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
 
 The output will look like this if the user `riakuser` has been explicitly granted a `riak_kv.get` permission on the bucket `shopping_list` and inherits a set of permissions from the `admin` role:
 
