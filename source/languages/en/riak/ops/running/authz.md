@@ -498,7 +498,7 @@ If you wish to unassign a single role from a user while retaining others, simply
 
 ## Security Ciphers
 
-To view a list of currently available security ciphers, use the `ciphers` command:
+To view a list of currently available security ciphers or change Riak's preferences, use the `ciphers` command:
 
 ```bash
 riak-admin security ciphers
@@ -519,6 +519,32 @@ Unknown/Unsupported ciphers(32)
 
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 ```
+
+To alter the list (to constrain it and/or to set preferred ciphers higher in the list):
+
+```bash
+riak-admin security ciphers DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+Configured ciphers
+
+DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+
+Valid ciphers(1)
+
+DHE-RSA-AES256-SHA
+
+Unknown/Unsupported ciphers(1)
+
+AES128-GCM-SHA256
+```
+
+A list of available ciphers on a server can be obtained using the `openssl` command:
+
+```bash
+openssl ciphers
+DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DES-CBC3-SHA:DES-CBC3-MD5:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES128-SHA:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:SEED-SHA:RC2-CBC-MD5:RC4-SHA:RC4-MD5:RC4-MD5:EDH-RSA-DES-CBC-SHA:EDH-DSS-DES-CBC-SHA:DES-CBC-SHA:DES-CBC-MD5:EXP-EDH-RSA-DES-CBC-SHA:EXP-EDH-DSS-DES-CBC-SHA:EXP-DES-CBC-SHA:EXP-RC2-CBC-MD5:EXP-RC2-CBC-MD5:EXP-RC4-MD5:EXP-RC4-MD5
+```
+
+Riak's cipher preferences were taken from [Mozilla's Server Side TLS documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 <!---
 RESOURCES:
