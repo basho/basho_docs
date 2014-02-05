@@ -14,7 +14,9 @@ In version 2.0, Riak continued this evolution by introducing a series of eventua
 
 The difference between Riak datatypes and other data stored in Riak is that datatypes are **operations based**. Instead of the usual reads, writes, and deletes performed on key/value pairs, you instead perform operations like removing a register from a map, or telling a counter to increment itself by 5, or enabling a flag that was previously disabled (more on each of these types below).
 
-One of the core purposes behind datatypes is to relieve developers of the burden of producing data convergence at the application level and absorbing some of that complexity into Riak itself. The trade-off is that datatypes take away your ability to customize how convergence takes place. Riak's implementation of datatypes will make a great deal of sense for many use cases, while others will need to keep hold of responsibility for data convergence.
+One of the core purposes behind datatypes is to relieve developers using Riak of the burden of producing data convergence at the application level by absorbing some of that complexity into Riak itself. You can still---and you will always be able to---build applications with Riak that treat Riak as a highly available key/value store. That is not going away. What _is_ being provided is additional flexibility---more choices.
+
+The trade-off that datatypes present is that using them takes away your ability to customize how convergence takes place. If your use case demands that you create your own deterministic merge functions, then Riak datatypes might not be a good fit.
 
 ## Riak's Datatypes
 
@@ -60,48 +62,28 @@ Sets are basic collections of binary values (like strings). They are subject to 
 
 Maps are the richest of the Riak datatypes because within them you can embed _any_ of the five datatypes, including maps themselves (you can even embed maps within maps, and maps within those maps, and so on). Operations performed directly on maps involve adding and removing datatypes, e.g. adding a register or removing a counter. The operations performed on datatypes within maps are specific to that datatype, e.g. adding an element to a set within a map, disabling a flag within a map, etc.
 
-#### Examples
-
-* Complex user data in a social network application
-
-## Riak Datatypes Under the Hood
-
-Applications need deterministic means of resolving conflicts; one way is to resolve those conflicts on the application side, via siblings (which is the default behavior now that `allow_mult` is set to `true` by default)
-
-CRDTs must be idempotent, commutative, and associative
-
-Classic example: Amazon shopping cart; which cart is deemed "true?"
-
-Of all the possible "C"s, "convergent" is the most important; Riak's CRDTs merge automatically at write and read time, on the server and _not_ in the application.
-
-Giving power back to the developer to both use Riak and have HA, and also **note care**; no need to code deterministic merge functions; if you _need_ deterministic merge functions of your own, then do not use Riak datatypes
-
-Setting `allow_mult` to `true` means that you have important choices to make; but no matter what you choose, you need to have a deterministic way of resolving conflicts, depending on what your use case demands, e.g. pick the highest timestamp, union of all the values in a list, etc.
-
-You can still---and you will always be able to---build applications with Riak that treat Riak as a highly available key/value store. That is not going away. What _is_ being provided is additional flexibility---more choices.
-
-In versions of Riak prior to 2.0, Riak was essentially agnostic toward data types (with the exception of counters, introduced in version 1.4)
-
-## Maps
-
-Enable you to compose data types into richer combinations; a map is a collection of **fields** (think of JSON); each is a `{name, DataType}` pair; if two fields with the same name but different types are added to the map, it is assumed that you wish to keep both => they're treated as two different fields; **field operations** add and remove fields (i.e. alter the _schema_ of the map); **field _update_ operations** perform operations on the fields themselves; batched operations are possible; context should be sent with batch operations that contain a Field Remove or Set Remove, no matter how deeply nested they are inside of the map; no need to update a field, as fields are created dynamically when they are needed; when running field update operations, those fields behave like their data type (counters like counters, flags like flags, etc.)
-
-The following pseudocode shows 
+The following JSON-inspired pseudocode shows how a map might be structured:
 
 ```
 Map tweet {
-    Counter tweetID
-    Register username
-    Register tweetContent
-    Flag retweeted
+    Counter numberOfRetweets,
+    Register username,
+    Register tweetContent,
+    Flag favorited?,
+    Map userInfo
 }
 ```
 
+## Riak Datatypes Under the Hood
+
+Conflicts between replicas are inevitable in a distributed system like Riak. If, for example, a map is stored in the key `my_map`, it is always possible
+
+The beauty of Riak datatypes is that Riak "knows" how to resolve conflicts between replicas, and it applies datatype-specific rules to resolve those conflicts. If, for example, a map is stored in the key `my_map`, 
 
 
-### Note on Atomic/Blocking Operations
+The rules applied in a particular situation depend on which datatype is being resolved, but no matter what, it means that you don't have to.
 
-Sets and maps are neither atomic nor blocking, unlike their Redis counterparts (sets and hashes, respectively); Riak CRDTs are _never_ atomic or blocking, by necessity
+The rules that are applied vary based on what datatype needs converging.
 
 ## How Riak Implements Datatypes
 
@@ -115,12 +97,5 @@ State based (due to lack of reliable broadcast channel)
 `merge/2` --- converge two CRDTs
 `equal/2` --- compare internal value of two CRDTs
 
-Example: tweet
-
-Collections of things; it's expected that you store binaries; members of a team, tweets, friends in a social network, etc; operations like `add` or `remove`; removing is trickier than adding; you _should_ fetch the set and its context and then send the context with the remove operation (so that the set is locked while removal is happening); all operations are executed atomically at the coordinating replica; if any operation fails, then none of the operations are applied
-
 observe-remove => you can only remove if the passed-in state/context says you can; the application is
 
-### Note on Bucket Types
-
-You can set the `datatype` of buckets to `counter`, `set`, or `map`, but not to `register` or `flag`. The reasoning behind this is that storing a bunch of `registers` without context doesn't make a whole lot of sense, and neither does storing a whole bunch of `flags` without context; a `counter` indeed lacks context, but by necessity
