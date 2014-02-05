@@ -18,12 +18,11 @@ moved: {
 
 The following steps have been tested to work with Riak version 1.3.1 on Solaris 10 i386. They demonstrate installation of a Riak node on Solaris as the root user.
 
-<div class="note">Before installing Riak on Solaris, be sure that you've
-installed <code>sudo</code> as Riak's scripts require it for proper operation.</div>
+<div class="note">Before installing Riak on Solaris, be sure that you've installed <tt>sudo</tt> as Riak's scripts require it for proper operation.</div>
 
 ## Open Files Limit
 
-Before proceeding with installation, you should ensure that the system's open files limit is at least **4096** by verifying the current value of *nofiles(descriptors)*. Check the current value with the `ulimit` command:
+Before proceeding with installation, you should ensure that the system's open files limit is at least **4096** by verifying the current value of `nofiles(descriptors)`. Check the current value with the `ulimit` command:
 
 ```bash
 ulimit -a
@@ -51,21 +50,21 @@ Download your version of the Riak binary package for Solaris 10:
 {{#1.4.0-}}
 
 ```bash
-curl -o /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/solaris/10/BASHOriak-{{V.V.V}}-1-Solaris10-i386.pkg.gz
+curl -o /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/solaris/10/BASHOriak-{{VERSION}}-1-Solaris10-i386.pkg.gz
 ```
 {{/1.4.0-}}
 {{#1.4.0+}}
 
 ```bash
-curl -o /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/solaris/10/BASHOriak-{{V.V.V}}-Solaris10-x86_64.pkg.gz
+curl -o /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/solaris/10/BASHOriak-{{VERSION}}-Solaris10-x86_64.pkg.gz
 ```
 {{/1.4.0+}}
 
 Next, install the package:
 
 ```bash
-gunzip /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg.gz
-pkgadd /tmp/BASHOriak-{{V.V.V}}-Solaris10-i386.pkg
+gunzip /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz
+pkgadd /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg
 ```
 
 After installing the package, be sure to include `/opt/riak/bin` in the

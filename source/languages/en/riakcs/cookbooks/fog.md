@@ -13,7 +13,7 @@ Fog is a general cloud services library written in Ruby. It is built to support 
 Installation via [RubyGems](http://rubygems.org/):
 
 ```bash
-$ gem install fog
+gem install fog
 ```
 
 Or in [Bundler](http://gembundler.com/):

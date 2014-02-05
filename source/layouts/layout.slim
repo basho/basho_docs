@@ -21,7 +21,7 @@ head(class=data.page.document)
   title== data.page.title || "Riak Documents"
   == stylesheet_link_tag "standalone/version-bar"
   == stylesheet_link_tag "all"
-  == stylesheet_link_tag "magula.css"
+  == stylesheet_link_tag "basho-palette.css"
   == stylesheet_link_tag "bootstrap-tabs"
   == stylesheet_link_tag "print", :media => "print"
   == javascript_include_tag "all"
@@ -29,10 +29,7 @@ head(class=data.page.document)
   script hljs.initHighlightingOnLoad();
 - classnames = [(data.page.project || $default_project)]
 - classnames << 'dual' if data.page.dual
-- version_class = 'ver-'
-- version_class += current_version(data.page.project || $default_project)
-- version_class.gsub! '.', '-'
-- classnames << version_class
+- classnames << 'latest' if latest_version?(:riak)
 body class=classnames.join(' ') id=data.page.body_id
   == partial "layouts/primary" unless data.page.skip_nav
   div(role="main" class=(data.page.skip_nav ? "no-nav" : ""))

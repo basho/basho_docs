@@ -8,8 +8,10 @@ audience: intermediate
 keywords: [operator, security]
 ---
 
-<div class="info"><div class="title">Network security</div>
-This document covers only the 2.0 authentication and authorization features. For a look at network security in Riak, see [[Security and Firewalls]].</div>
+<div class="info">
+<div class="title">Network security</div>
+This document covers only the 2.0 authentication and authorization features. For a look at network security in Riak, see [[Security and Firewalls]].
+</div>
 
 As of version 2.0, Riak administrators can selectively apportion access to a wide variety of Riak's functionality, including accessing, modifying, and deleting objects, changing bucket properties, and running MapReduce jobs. Riak security enables you to create, modify, and delete users, assign roles to users, passwords, and other characteristics, designate security sources, and more.
 
@@ -27,7 +29,7 @@ As of version 2.0, Riak administrators can selectively apportion access to a wid
 
 ## Security Basics
 
-This section covers enabling/disabling security and checking for current security status.
+Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
 
 ### Enabling Security
 
@@ -41,9 +43,9 @@ If security is successfully enabled, the console will simply return no response.
 
 Please note that most security-related commands can be run while security is disabled, including the following:
 
-* [[User management|Riak Security#Modifying-User-Characteristics]] --- Creating/deleting users and modifying user characteristics (more on that in the  section below)
-* [[Permissions management|Riak Security#Permissions-Management]] --- Granting and revoking specific permissions vis-à-vis specific users
-* [[Security source management|Riak Security#Security-Source-Management]] --- Adding and deleting security sources
+* [[User management|Authentication and Authorization#Modifying-User-Characteristics]] --- Creating/deleting users and modifying user characteristics (more on that in the  section below)
+* [[Permissions management|Authentication and Authorization#Permissions-Management]] --- Granting and revoking specific permissions vis-à-vis specific users
+* [[Security source management|Authentication and Authorization#Security-Source-Management]] --- Adding and deleting security sources
 
 This enables you to create security configurations of any level of complexity and turn those configurations on and off all at once if you wish.
 
@@ -71,7 +73,7 @@ This command will usually return `Enabled` or `Disabled`, but if security is ena
 
 ## User Management
 
-Riak security enables you to create new users and to modify or delete existing users. Currently, users can be assigned one or more of the following characteristics:
+Riak security enables you to control _authorization_ by creating, modifying, and deleting user characteristics and to grant users selective access to Riak functionality (and also to revoke access). Users can be assigned one or more of the following characteristics:
 
 * `username`
 * `roles`
@@ -99,17 +101,17 @@ If there is only one currently existing user, `riakuser`, who has been assigned 
 
 **Note**: All passwords are displayed in encrypted form in console output.
 
-If the user `riakuser` were assigned a [[role|Riak Security#Role-Management]] alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
+If the user `riakuser` were assigned a [[role|Authentication and Authorization#Role-Management]] alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
 
 ```bash
-+----------+--------------+----------------------+---------------------+
-| username |    roles     |       password       |       options       |
-+----------+--------------+----------------------+---------------------+
-| riakuser |other_riakuser|983e8ae1421574b8733824| [{"name","lucius"}] |
-+----------+--------------+----------------------+---------------------+
++----------+----------------+----------------------+---------------------+
+| username |     roles      |       password       |       options       |
++----------+----------------+----------------------+---------------------+
+| riakuser | other_riakuser |983e8ae1421574b8733824| [{"name","lucius"}] |
++----------+----------------+----------------------+---------------------+
 ```
 
-If you'd like to see which permissions have been assigned to `riakuser`, you would need to use the `print-user` command, detailed [[below|Riak Security#Retrieving-Information-About-A-Single-User]].
+If you'd like to see which permissions have been assigned to `riakuser`, you would need to use the `print-user` command, detailed in the section below.
 
 If you'd like to preserve a record of your current list, you can simply pipe the output of `print-users` to a file or process, e.g. to a `user_list.txt` file:
 
@@ -213,89 +215,6 @@ do
 done
 ```
 
-## Source Management
-
-### Add source
-
-A user will not have access to resources simply because they have been created via `add-user`. You must add a security **source** as well as grants to users to provide access to Riak securables, e.g. the ability to make `GET` and `PUT` requests. Sources may apply to all users or to a specific user or role.
-
-Available sources:
-
-Source   | Description |
-:--------|:------------|
-`trust` | Always authenticates successfully |
-`password` | Check the user's password against the one stored in Riak |
-`pam`  | Authenticate against the given PAM service |
-`certificate` | Authenticate using a client certificate |
-
-### Adding a trusted source
-
-Security sources can be added either to specific users or roles or to all users. Let's say that we want to give all users trusted access to securables when requests come from `localhost`:
-
-```bash
-riak-admin security add-source all 127.0.0.1/32 trust
-```
-
-In general, the `add-source` command takes the following form:
-
-```bash
-riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...]]
-```
-
-The `all|<users>` designates that sources can be added to all users, a specific user, or a grouping of users, separated by commas, e.g. `add-source jane,bill,terry,chris`.
-
-<!-- section on CIDRs -->
-
-The following creates a source giving all users trusted access to securables when requests come from `localhost`:
-
-```bash
-riak-admin security add-source all 127.0.0.1/32 trust
-```
-
-The response from `riak-admin security print-sources`:
-
-```bash
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-+--------------------+------------+----------+----------+
-```
-
-#### Adding a `default` Source
-
-The following source requires a password for users connecting from any
-host:
-
-```bash
-riak-admin security add-source all 0.0.0.0/0 password
-```
-
-The response from `riak-admin security print-sources`:
-
-```bash
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-|        all         | 0.0.0.0/0  | password |    []    |
-+--------------------+------------+----------+----------+
-```
-
-If a user connects from `127.0.0.1`, they will be trusted because that source is more specific than---and thus covered by---the `0.0.0.0/0 password` source.
-
-### Delete source
-
-```
-# riak-admin security del-source all 0.0.0.0/0
-# riak-admin security print-sources
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-+--------------------+------------+----------+----------+
-```
-
 ## Managing Permissions
 
 Permission to perform a wide variety of operations against Riak can be granted to---or revoked from---users via the `grant` and `revoke` commands.
@@ -325,8 +244,8 @@ Permission | Operation |
 `riak_kv.put` | Create or update objects
 `riak_kv.delete` | Delete objects
 `riak_kv.index` | Index objects using secondary indexes (2i)
-`riak_kv.list_keys` | List keys in bucket
-`riak_kv.list_buckets` | List buckets
+`riak_kv.list_keys` | List all of the keys in a bucket
+`riak_kv.list_buckets` | List all buckets
 
 <div class="note"><div class="title">Note</div>
 `riak_kv.list_keys` and `riak_kv.list_buckets` are both very expensive operations that should be performed very rarely and never in production.
@@ -339,7 +258,7 @@ riak-admin security add-user client
 riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
 ```
 
-### MapReduce Permission
+### MapReduce Permissions
 
 Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
 
@@ -364,7 +283,7 @@ Security is incompatible with the original Riak Search.
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
-If you are using the search capabilities included with Riak versions 2.0 and later, the following two search-related permissions can be granted/revoked:
+If you are using the search capabilities included with Riak versions 2.0 and greater, the following search-related permissions can be granted/revoked:
 
 Permission | Operation |
 :----------|:----------|
@@ -409,40 +328,81 @@ riak-admin security grant search.query,search.admin ON index TO riakuser
 # riak-admin security revoke search.query,search.admin ON index FROM riakuser
 ```
 
-More comprehensive information on search-related security can be found [[here|Riak Search Security]].
+More comprehensive information on search-related security can be found under [[Riak Search Security]].
 
-## Testing Your Security Setup
+## Managing Sources
 
-A good way of ensuring that your security settings have been properly set up is to create a user with a password and specific permissions and then attempt to perform a range of actions as that user.
+While user management enables you to control _authorization_ with regard to users, security **sources** provide you with an interface for managing means of _authentication_. If you create users and grant them access to some or all of Riak's functionality as described in the [[User Management|Authentication and Authorization#User-Management]] section, you will then need to define security sources required for authentication.
 
-First, let's create a user, `riakuser`, and assign them the password `rosebud`:
+### Add Source
+
+Riak security sources may be applied to all users/roles or only to a specific user or role.
+
+#### Available Sources
+
+Source   | Description |
+:--------|:------------|
+`trust` | Always authenticates successfully if access has been granted to a user, a role, or all users on the specified CIDR range |
+`password` | Check the user's password against the [PBKSD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
+`pam`  | Authenticate against the given pluggable authentication module (PAM) service |
+`certificate` | Authenticate using a client certificate |
+
+### Adding a Trusted Source
+
+Security sources can be added either to specific users or roles or to all users.
+
+In general, the `add-source` command takes the following form:
 
 ```bash
-riak-admin security add-user riakuser password=rosebud
+riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...]]
 ```
 
-Now, let's enable that user to make `GET` requests to the bucket `tweets`:
+The `all|<users>` designates that sources can be added to all users/roles. A source can be added to a specific user/role by simply listing the `username`, whereas a grouping of users/roles can be added if the `usernames` are separated by commas, e.g. `add-source jane,bill,terry,chris`.
+
+Let's say that we want to give all users trusted access to securables (without a password) when requests come from `localhost`:
 
 ```bash
-riak-admin security grant riak_kv.get ON ANY tweets TO riakuser
+riak-admin security add-source all 127.0.0.1/32 trust
 ```
 
-The `ANY` in this command simply designates that we have not granted any permissions to `riakuser` on the basis of bucket _type_. For more on granting/revoking permissions on the basis of type, see the [[permissions for bucket types|Riak Security#Permissions-for-Bucket-Types]] section above.
-
-If we run the `print-user` command for `riakuser`, we should see the following under `Applied Permissions`:
+At that point, the `riak-admin security print-sources` command would print the following:
 
 ```bash
-+----------+----------+----------------------------------------+
-|   type   |  bucket  |                 grants                 |
-+----------+----------+----------------------------------------+
-|   ANY    |  tweets  |              riak_kv.get               |
-+----------+----------+----------------------------------------+
++--------------------+------------+----------+----------+
+|       users        |    cidr    |  source  | options  |
++--------------------+------------+----------+----------+
+|        all         |127.0.0.1/32|  trust   |    []    |
++--------------------+------------+----------+----------+
 ```
 
-Now, let's run a test `GET` request through the HTTP interface against the bucket `tweets` using `riakuser`'s username and password:
+#### Source Management Usage Examples
 
-```curl
-curl -i -k -u riakuser:rosebud http://localhost:8098/buckets/tweets/tweet1
+To require a password from users `juliette` and `sanjay` when they connect from the class C network at `10.0.0.0`:
+
+```bash
+riak-admin security add-source juliette,sanjay 10.0.0.0/24 password
+```
+
+Instructions on assigning passwords are [[above|Riak Security#User-Management]].
+
+To require all users to authenticate through a PAM login service:
+
+```bash
+riak-admin security add-source all 0.0.0.0/0 pam service=login
+```
+
+
+
+### Delete source
+
+```
+# riak-admin security del-source all 0.0.0.0/0
+# riak-admin security print-sources
++--------------------+------------+----------+----------+
+|       users        |    cidr    |  source  | options  |
++--------------------+------------+----------+----------+
+|        all         |127.0.0.1/32|  trust   |    []    |
++--------------------+------------+----------+----------+
 ```
 
 ## Managing Roles
@@ -504,7 +464,7 @@ To view a list of currently available security ciphers or change Riak's preferen
 riak-admin security ciphers
 ```
 
-That command will return a list like the following:
+That command will return a large list:
 
 ```bash
 Configured ciphers

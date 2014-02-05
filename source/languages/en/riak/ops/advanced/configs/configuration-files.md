@@ -146,7 +146,7 @@ When set to `true`, this option will disable the Nagle buffering algorithm for H
 * **gossip_interval**
 How often nodes in the cluster will share information about their ring state, in milliseconds. (default: `60000`)
 
-* **handoff_concurrency**
+* **handoff_concurrency** <a name="handoff_concurrency" id="handoff_concurrency"></a>
 Number of vnodes, per physical node, allowed to perform handoff at once. (default: `2`)
 
 * **handoff_port**
@@ -232,7 +232,7 @@ You can override the default SSL key and certificate settings (default: etc/cert
     `{anti_entropy_build_limit, {1, 3600000}},`
 
  * **anti_entropy_expire**
-    Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual k/v backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds. The default is 1 week.
+    Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual KV backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds. The default is 1 week.
 
     `{anti_entropy_expire, 604800000},`
 

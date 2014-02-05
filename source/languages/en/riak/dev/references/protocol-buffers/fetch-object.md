@@ -12,7 +12,7 @@ moved: {
 }
 ---
 
-Fetch an object from Riak
+Fetch an object from Riak.
 
 ## Request
 
@@ -116,7 +116,7 @@ message RpbPair {
 
 
 Links store references to related bucket/keys and can be accessed through link
-walking in map/reduce.
+walking in MapReduce.
 
 
 ```bash
