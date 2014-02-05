@@ -61,13 +61,13 @@ If security is successfully disabled, the console will return no response.
 
 ### Checking Security Status
 
-To check whether security is currently enabled on a node, simply use the `status` command:
+To check whether security is currently enabled for the cluster, simply use the `status` command:
 
 ```bash
 riak-admin security status
 ```
 
-This command will return a simple `Enabled` or `Disabled`.
+This command will usually return `Enabled` or `Disabled`, but if security is enabled on a mixed-mode cluster (running a combination of Riak 2.0 and older versions) it will indicate that security is enabled but not yet available.
 
 ## User Management
 
