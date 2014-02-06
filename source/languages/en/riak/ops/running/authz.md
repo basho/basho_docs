@@ -28,7 +28,7 @@ As of version 2.0, Riak administrators can selectively apportion access to a wid
     Any role can be assigned to other roles to add permissions. Typically authentication
     will be defined for users but not groups, while permissions may be
     assigned to either.
-    
+
 * **Sources** are used to define authentication mechanisms. A user cannot be authenticated to Riak until a source is defined.
 
 ## Security Basics
@@ -387,7 +387,7 @@ To require a password from users `juliette` and `sanjay` when they connect from 
 riak-admin security add-source juliette,sanjay 10.0.0.0/24 password
 ```
 
-Instructions on assigning passwords are [[above|Riak Security#User-Management]].
+Instructions on assigning passwords are [[above|Authentication and Authorization#User-Management]].
 
 To require all users to authenticate through a PAM login service:
 
