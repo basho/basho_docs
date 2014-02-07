@@ -153,4 +153,16 @@ Values:
 * [[PBC Datatype Map Entry]]
 * [[PBC Datatype Map Field Operations]]
 * [[PBC Datatype Map Update]]
+
+## Yokozuna Operations
+
+* [[PBC Yokozuna Index Query]]
+* [[PBC Yokozuna Index Get Request]]
+* [[PBC Yokozuna Index Get Response]]
+* [[PBC Yokozuna Index Put Request]]
+* [[PBC Yokozuna Index Delete Request]]
+* [[PBC Yokozuna Schema Query]]
+* [[PBC Yokozuna Schema Get Request]]
+* [[PBC Yokozuna Schema Put Request]]
+* [[PBC Yokozuna Schema Get Response]]
 {{/2.0.0+}}
