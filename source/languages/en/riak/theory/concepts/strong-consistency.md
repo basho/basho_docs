@@ -13,7 +13,7 @@ Yet in spite of this, Riak has always enabled users to sacrifice availability in
 
 ## Strong vs. Eventual Consistency
 
-A data storage system guarantees strong consistency when it ensures that an object hasn't changed since you last read it. In other words, if you write a key, the next successful read of that key is _guaranteed_ to show that write. 
+A data storage system guarantees strong consistency when it ensures that an object hasn't changed since you last read it. In other words, if you write a key, the next successful read of that key is _guaranteed_ to show that write. These are known as **atomic updates**.
 
 In an eventually consistent system, on the other hand, a get request on a key could return the value of the most recent successful put _or_ potentially an out-of-date value. Strong consistency means that you simply _never_ see out-of-date values.
 
@@ -53,3 +53,40 @@ Riak has always been a key/value store, but it is different from others in that 
 The advantage of providing multiple namespaces---as many as necessary---is that it enables users to fine-tune the availability/consistency trade-off on a bucket-by-bucket basis. Users can set some buckets to accept sloppy quorums, others with `w` and/or `r` equal to `n_val`, and so on, allowing for a mix-and-match approach to data within a Riak cluster.
 
 This mixed approach is still possible, of course, except that now strong consistency has been introduced as yet another available bucket-level configuration. As of Riak 2.0, buckets have a property called `consistent`, which, if set to `true`, makes data in that bucket conform to strong consistency requirements. Implementation details can be found in the [[Using Strong Consistency]] tutorial.
+
+## How Riak Implements Strong Consistency
+
+The subsystem Riak 
+
+If a client gets/puts/modifies an object, Riak ensures that the object didn't change since you read it. If a concurrent write occurred and changed the object, the request will simply _fail_.
+
+Partial writes are a frequent problem in distributed systems. For any number of reasons, writes can be made to some nodes but not others. With strong consistency enabled, if you attempt to write a value and the write times out or otherwise fails, then the state of that key is deemed unknown. In cases like this, the old value will win. The partially written value is essentially rolled back at read time and is deemed to have "lost." For some use cases, this constant rollback to older values in case of "doubt" can be detrimental. But if non-ambiguity is a primary concern, to the extent that it's worth occasionally discarding chronologically newer values in favor of chronologically older ones, then you might want to consider strong consistency for at least some of your data.
+
+Riak ensemble's 3 types of writes:
+
+* `put_once` --- operation only succeeds is the key doesn't already exist
+* `modify` --- used in place of `put` in a get/modify/put sequence
+* `overwrite` --- fast, unsafe, and unchecked; advisable only for bulk loading
+
+One way of guaranteeing strong consistency is to
+This _not_ Riak's approach. Instead, Riak's approach to strong consistency involves the use of **dotted version vectors**. 
+
+Tunable CAP semantics will NOT get you SC in Riak
+w + r > N (write set and read set always overlap); read your own writes; the problem: if your write fails, you don't know what you're going to read next => "Read your own writes if they succeed, otherwise you have no idea what you will read consistency"; this means non-deterministic results via partial write failures
+Ensembles => leader selection + monotonic epochs; ensembles are portions of the key space; when quorum is lost, you lose availability
+What's the largest epoch you've ever seen?
+Epochs: is your epoch my epoch or is it before me?
+Values with current epoch are consistent; older values are suspect
+Always rewrite older values; includes values that are perfectly consistent; correctness problem becomes a performance problem
+You only re-write if there is suspicion (judged by DVVs)
+Right now, the "unit" is the single key/value pair; Cassandra has rows that can be mapped to an ensemble
+The client can do this
+MDC is a real problem; global strong consistency
+There is essential a "normal" Riak code path and a consistent code path; if `consistent` is set to `true`
+ACID vs. BASE
+DVVs are more scalable VVs
+
+Problem: partial (i.e. failed) writes; a write only goes to one node out of three; in a quorum system, this will resolve to the "wrong" value at read time
+Read repair => AAB resolves to A at read time
+Siblings => application-side resolution
+
