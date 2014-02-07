@@ -80,7 +80,6 @@ rw: 1
 
 ```
 
-
 Response
 
 ```bash

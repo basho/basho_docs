@@ -12,19 +12,15 @@ moved: {
 }
 ---
 
-Set the client id for this connection.  A library may want to set the client id
+Set the client id for this connection. A library may want to set the client id
 if it has a good way to uniquely identify actors across reconnects. This will
 reduce vector clock bloat.
 
 <div class="note"><div class="title">Client IDs in 1.0</div>
-<p>All requests to Riak &lt;1.0 or Riak 1.0 without <code>vnode_vclocks</code>
-enabled should set the Client ID, which can be any string that uniquely
-identifies the client, for purposes of tracing object modifications in the
-[[vector clock|Vector Clocks]].</p>
+All requests to Riak &lt;1.0 or Riak 1.0 without <tt>vnode_vclocks</tt> enabled should set the Client ID, which can be any string that uniquely identifies the client, for purposes of tracing object modifications in the [[vector clock|Vector Clocks]].
 </div>
 
 ## Request
-
 
 ```bash
 message RpbSetClientIdReq {
@@ -49,7 +45,6 @@ RpbSetClientIdReq protoc decode:
 client_id: "001e001266"
 
 ```
-
 
 Response
 

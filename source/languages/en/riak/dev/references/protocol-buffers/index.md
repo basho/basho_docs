@@ -73,10 +73,14 @@ Code | Message |
 22 | `RpbSetBucketResp` |
 23 | `RpbMapRedReq` |
 24 | `RpbMapRedResp` |
-25 | `RpbIndexReq` _(new in 1.2+)_ |
-26 | `RpbIndexResp` _(new in 1.2+)_ |
-27 | `RpbSearchQueryReq` _(new in 1.2+)_ |
-28 | `RbpSearchQueryResp` _(new in 1.2+)_ |
+25 | `RpbIndexReq` {{#1.2.0+}} |
+26 | `RpbIndexResp` {{#1.2.0+}} |
+27 | `RpbSearchQueryReq` {{#1.2.0+}} |
+28 | `RbpSearchQueryResp` {{#1.2.0+}} |
+29 | `RpbAuthReq` {{#2.0.0+}} |
+30 | `RpbGetBucketTypeReq` {{#2.0.0+}} |
+31 | `RpbSetBucketTypeReq` {{#2.0.0+}} |
+32 | `RpbResetBucketReq` {{#2.0.0+}} |
 
 <div class="info">
 <div class="title">Message Definitions</div>
@@ -107,6 +111,7 @@ Values:
 * [[PBC List Keys]]
 * [[PBC Get Bucket Properties]]
 * [[PBC Set Bucket Properties]]
+* [[PBC Reset Bucket Properties]] {{#2.0.0+}}
 
 ## Object/Key Operations
 
@@ -126,3 +131,26 @@ Values:
 * [[PBC Get Client ID]]
 * [[PBC Set Client ID]]
 * [[PBC Server Info]]
+
+{{#2.0.0+}}
+## Bucket Type Operations
+
+* [[PBC Get Bucket Type]]
+* [[PBC Set Bucket Type]]
+
+## Datatype Operations
+
+* [[PBC Datatype Fetch Request]]
+* [[PBC Datatype Value Request]]
+* [[PBC Datatype Fetch Response]]
+* [[PBC Datatype General Operations]]
+* [[PBC Datatype Update Operations]]
+* [[PBC Datatype Update Request]]
+* [[PBC Datatype Update Response]]
+* [[PBC Datatype Counter Update]]
+* [[PBC Datatype Set Update]]
+* [[PBC Datatype Map Field]]
+* [[PBC Datatype Map Entry]]
+* [[PBC Datatype Map Field Operations]]
+* [[PBC Datatype Map Update]]
+{{/2.0.0+}}

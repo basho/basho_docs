@@ -12,8 +12,7 @@ moved: {
 }
 ---
 
-Stores an object under the specified bucket / key. Storing an object comes in
-two forms, depending on whether you want to use a key of your choosing, or let
+Stores an object under the specified bucket/key. Storing an object comes in two forms, depending on whether you want to use a key of your choosing or let
 Riak assign a key to a new object.
 
 #### Request
@@ -90,8 +89,7 @@ returnbody. If returnbody is not set and no key is generated, the put response
 is empty.
 
 
-<div class="note"><p>N.B. this could contain siblings just like an RpbGetResp
-does.</p></div>
+<div class="note"><p>N.B. this could contain siblings just like an RpbGetResp does.</p></div>
 
 
 #### Example
