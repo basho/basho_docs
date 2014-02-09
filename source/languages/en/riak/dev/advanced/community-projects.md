@@ -20,6 +20,7 @@ moved: {
 * [Riak-Console](https://github.com/lucaspiller/riak-console) --- An interactive command line interface to Riak 
 * [Rekon](https://github.com/basho/rekon) --- Riak Node Data Browser 
 * [Gmond Python Modules for Riak](http://github.com/jnewland/gmond_python_modules/tree/master/riak) --- Ganglia Module for connecting to Riak
+* [riak-admin](https://github.com/pentium10/riak-admin) --- Admin panel written in PHP (supports delete bucket via keys stream)
 * [riak-admin](http://bitbucket.org/harmen/riak-admin/) --- A Java program with GUI to browse and update a Riak database
 * [Riak Admin](http://github.com/frank06/riak-admin) --- A Futon-like web interface for Riak
 * [riak-session-manager](https://github.com/jbrisbin/riak-session-manager) --- A Riak-backed Tomcat Session Manager
