@@ -15,12 +15,11 @@ You must first [[enable Riak Search|Riak Search Settings]] in your environment t
 
 ## Introduction
 
-Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or bucket type) to a solr index, you simply write values (such as JSON, XML, plain text, datastructures, etc.) into Riak as normal, and then query those indexed values like Solr.
-
+Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or bucket type) to a Solr index, you simply write values (such as JSON, XML, plain text, datatypes, etc.) into Riak as normal, and then query those indexed values using the Solr API.
 
 ### Why Riak Search
 
-Some of Riak's core strengths lie in its scalability, fault tolerance, and ease of operations. However, Riak models its data in key-value objects, and a KV store is something that few would claim is easy to query. This is the driving force behind Riak Search, to provide an integrated, scalable mechanism to build ad hoc queries against values stored in a Riak cluster, while holding true to Riak's core strengths.
+Some of Riak's core strengths lie in its scalability, fault tolerance, and ease of operations. However, Riak models its data in key-value objects, and a key-value store is something that few would claim is easy to query. This is the driving force behind Riak Search, to provide an integrated, scalable mechanism to build ad hoc queries against values stored in a Riak cluster, while holding true to Riak's core strengths.
 
 ![Yokozuna](/images/yokozuna.png)
 
@@ -32,7 +31,7 @@ Riak Search 2.0 is an integration of Solr (for indexing and querying) and Riak (
 2. **Indexes** are named Solr indexes which you will query against
 3. **Bucket-index association** signals to Riak *when* to index values
 
-Riak Search must first be configured with a Solr *schema*, so Solr knows how to index value fields. If you don't define one, you're provided with a default schema named `_yz_default`. The examples in this document will presume the default. You can read more about creating a custom schema in [[Advanced Search Schema]], which you'll want to do in a production environment.
+Riak Search must first be configured with a Solr *schema*, so Solr knows how to index value fields. If you don't define one, you're provided with a default schema named `_yz_default`. The examples in this document will presume the default. You can read more about creating a custom schema in [[Advanced Search Schema|Advanced Search#Schemas]], which you'll want to do in a production environment.
 
 Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we'll `curl` create an index named `famous` with the default schema.
 
@@ -90,11 +89,11 @@ bucket.set_property('search_index', 'famous')
 ok = riakc_pb_socket:set_search_index(Pid, <<"cats">>, <<"famous">>)
 ```
 
-With your schema, solr index, and association all set up, you're ready to start using Riak.
+With your schema, Solr index, and association all set up, you're ready to start using Riak Search.
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests you use bucket types to namespace all buckets you create.Bucket types have a lower overhead within the cluster than the default bucket namespace, but it requires an additional setup step in on commandline.
+Since Riak 2.0, Basho suggests you use bucket types to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but it requires an additional setup step in on command line.
 
 ```bash
 $ riak-admin bucket-type create animals '{"props":{}}'
@@ -129,7 +128,9 @@ You can read more about Riak security.
 
 With a Solr schema, index, and association in place, we're ready to start using Riak Search. First, populate the `cat` bucket with values.
 
-Depending on the driver you use, you may have to specify the content type, which for this example is *application/json*. In the case of Ruby and Python the content type is automatically set for you based on the object given.
+Depending on the driver you use, you may have to specify the `Content-Type`,
+which for this example is `application/json`. In the case of Ruby and Python
+the content type is automatically set for you based on the object given.
 
 ```curl
 curl -XPUT "$RIAK_HOST/buckets/cats/keys/liono" \
@@ -208,7 +209,7 @@ If you've used Riak before, you may have noticed that this is no different than 
 
 ### Extractors
 
-*Extractors* are modules in Riak that accept a Riak value with a certain content type, and converts it into a list of fields capable of being indexed by Solr. This is done transparently and automatically as part of the indexing process.
+*Extractors* are modules in Riak that accept a Riak value with a certain content type, and convert it into a list of fields capable of being indexed by Solr. This is done transparently and automatically as part of the indexing process.
 
 Our current example uses the JSON extractor, but Riak Search also extracts indexable fields from the following content types:
 
@@ -221,7 +222,7 @@ Our current example uses the JSON extractor, but Riak Search also extracts index
   * set (`application/riak_set`)
 * noop (unknown content type)
 
-In the examples we've seen, the JSON field `name_s` is translated to a Solr index document field insert. Solr will index any field that it recognizes, based on the index's schema. The default schema (`_yz_default`) dynamically uses the suffix to decide the field type (`_s` represents a string, `_i` is an integer, `_b` is binary and so on). This means that you can query on this field later.
+In the examples we've seen, the JSON field `name_s` is translated to a Solr index document field insert. Solr will index any field that it recognizes, based on the index's schema. The default schema (`_yz_default`) uses the suffix to decide the field type (`_s` represents a string, `_i` is an integer, `_b` is binary and so on).
 
 If the content type allows for nested values (JSON and XML), the extractors will flatten each field, seperated by dots. For example, if you have this XML:
 
@@ -376,7 +377,7 @@ bucket.search('leader_b:true AND age_i:[30 TO *]')
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
 ```
 
-#### Paginating
+#### Pagination
 
 A common requirement you may face is paginating searches, where an ordered set of matching documents are returned in non-overlapping sequential subsets (in other words, *pages*). This is easy to do with the `start` and `rows` parameters, where `start` is the number of documents to skip over (the offset) and `rows` are the number of results to return in one go.
 
@@ -411,7 +412,6 @@ Start = ?ROWS_PER_PAGE * (Page - 1),
 
 riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
 ```
-
 
 ### MapReduce
 
@@ -451,7 +451,6 @@ curl -XPOST "$RIAK_HOST/mapred" \
   -d '{"inputs":{"module":"yokozuna","function":"mapred_search","arg":["famous","NOT leader_b:true"]},"query":[{"map":{"language":"javascript","keep":false,"source":"function(v) { return [1]; }"}},{"reduce":{"language":"javascript","keep":true,"name":"Riak.reduceSum"}}]}'
 ```
 
-
 <!--
 #### Functions
 
@@ -468,7 +467,7 @@ Riak Search 2.0 is more than a distributed search engine like [SolrCloud](https:
 
 Riak Search's features and enhancements are numerous.
 
-* Support for various mime types (JSON, XML, plain text, datatypes) for automatic data extraction
+* Support for various MIME types (JSON, XML, plain text, datatypes) for automatic data extraction
 * Support for [various language](https://cwiki.apache.org/confluence/display/solr/Language+Analysis) specific [analyzers, tokenizers, and filters](https://cwiki.apache.org/confluence/display/solr/Overview+of+Analyzers%2C+Tokenizers%2C+and+Filters)
 * Robust, easy-to-use [query languages](https://cwiki.apache.org/confluence/display/solr/Other+Parsers) like lucene (default) and dismax.
 * Queries: exact match, globs, inclusive/exclusive range queries, AND/OR/NOT, prefix matching, proximity searches, term boosting, sorting, pagination
@@ -477,7 +476,6 @@ Riak Search's features and enhancements are numerous.
 * Query result [highlighting](https://cwiki.apache.org/confluence/display/solr/Highlighting)
 * Search queries as input for MapReduce jobs
 * Active Anti Entropy for automatic index repair
-
 
 {{/2.0.0+}}
 {{#2.0.0-}}
