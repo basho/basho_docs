@@ -9,13 +9,15 @@ keyword: [appendix, concepts]
 
 Riak was originally designed as an [[eventually consistent|Eventual Consistency]] system, fundamentally geared toward providing partition (i.e. fault) tolerance and high availability---a prioritization that inevitably comes at the expense of data consistency. In the language of the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem), Riak began as an AP---highly available, partition-tolerant---system, and it continues to be an AP system by default.
 
-Yet in spite of this, Riak has always enabled users to sacrifice availability in favor of stronger consistency if they wish by adjusting [[various read and write parameters|Eventual Consistency#Replication-properties-and-request-tuning]]. _In versions 2.0 or greater, Riak can be used as a_ strongly _rather than_ eventually _consistent system_.
+In spite of the limitations imposed by CAP, Riak has always enabled users to sacrifice availability in favor of stronger consistency if they wish by adjusting [[various read and write parameters|Eventual Consistency#Replication-properties-and-request-tuning]] to find a point on the continuum between AP and CP that fit particular use cases. Yet one option that was not available in versions prior to 2.0 was the option of using Riak as a full-on CP system.
+
+That has now changed. _In versions 2.0 or greater, Riak can be used as a_ strongly _rather than_ eventually _consistent system_.
 
 ## Strong vs. Eventual Consistency
 
-A data storage system guarantees strong consistency when it ensures that an object hasn't changed since you last read it. In other words, if you write a key, the next successful read of that key is _guaranteed_ to show that write. These are known as **atomic updates**.
+A data storage system guarantees strong consistency when it ensures that an object hasn't changed since you last read it. In other words, if you write a key, the next successful read of that key is _guaranteed_ to show that write. Writes that meet this criterium are known as **atomic updates**.
 
-In an eventually consistent system, on the other hand, a get request on a key could return the value of the most recent successful put _or_ potentially an out-of-date value. Strong consistency means that you simply _never_ see out-of-date values.
+In an eventually consistent system, on the other hand, a get request on a key could return the value of the most recent successful put _or_ potentially an out-of-date value. Strong consistency means that you simply _never_ see out-of-date values (although the drawback is that some writes may fail).
 
 To borrow the example used in our treatment of [[eventual consistency]], imagine that you are querying Riak to find out who currently manages Manchester United. In that example, the value associated with the key `manchester-manager` was originally `Alex Ferguson` (i.e. that was the first successful put request on that key). But then `David Moyes` became Man U's manager, and somebody ran a put request on the `manchester-manager` key to change its value to be more up to date.
 
@@ -50,43 +52,46 @@ So when deciding whether to use strong consistency in Riak, the following questi
 
 Riak has always been a key/value store, but it is different from others in that it has always required that key/value pairs be stored in namespaces called **buckets**.
 
-The advantage of providing multiple namespaces---as many as necessary---is that it enables users to fine-tune the availability/consistency trade-off on a bucket-by-bucket basis. Users can set some buckets to accept sloppy quorums, others with `w` and/or `r` equal to `n_val`, and so on, allowing for a mix-and-match approach to data within a Riak cluster.
+The advantage of providing multiple namespaces---as many as you wish---is that it enables users to fine-tune the availability/consistency trade-off on a bucket-by-bucket basis. Users can set some buckets to accept sloppy quorums, others with `w` and/or `r` equal to `n_val`, and so on, allowing for a mix-and-match approach to data within a Riak cluster.
 
 This mixed approach is still possible, of course, except that now strong consistency has been introduced as yet another available bucket-level configuration. As of Riak 2.0, buckets have a property called `consistent`, which, if set to `true`, makes data in that bucket conform to strong consistency requirements. Implementation details can be found in the [[Using Strong Consistency]] tutorial.
 
 ## How Riak Implements Strong Consistency
 
-The subsystem Riak 
+Strong consistency in Riak is handled by a subsystem called `[riak_ensemble](https://github.com/basho/riak_ensemble)`. When this subsystem is enabled---more on that in the [[Using Strong Consistency|Using Strong Consistency#Enabling-Strong-Consistency]] doc---all operations performed on buckets with the property `consistent` set to `true` are placed on a special code path that is separate from the path that handles eventually consistent data.
 
-If a client gets/puts/modifies an object, Riak ensures that the object didn't change since you read it. If a concurrent write occurred and changed the object, the request will simply _fail_.
+There are many conceivable ways of implementing strong consistency. Riak's approach involves the use of **[dotted version vectors](http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf)** (DVVs), which are attached as metadata to every object stored in strongly consistent buckets. DVVs are similar to [[vclocks]] in that they record _logical_ rather than chronological causality (which makes them quite different from timestamps). DVVs are used by Riak to ensure **recency**, i.e. that any read will see the most recent successful write.
 
-Partial writes are a frequent problem in distributed systems. For any number of reasons, writes can be made to some nodes but not others. With strong consistency enabled, if you attempt to write a value and the write times out or otherwise fails, then the state of that key is deemed unknown. In cases like this, the old value will win. The partially written value is essentially rolled back at read time and is deemed to have "lost." For some use cases, this constant rollback to older values in case of "doubt" can be detrimental. But if non-ambiguity is a primary concern, to the extent that it's worth occasionally discarding chronologically newer values in favor of chronologically older ones, then you might want to consider strong consistency for at least some of your data.
+This can be illustrated using the following hypothetical scenario:
 
-Riak ensemble's 3 types of writes:
+* A client attempts a simple write the value `new_val` to the key `k` in a strongly consistent bucket (the write is simple because the client doesn't pass along any state to Riak).
+* If there is currently no value associated with `k`, the write proceeds normally.
+* If, however, there is already a value `old_val` stored in the key `k`, the write will fail _if it is a simple write_, i.e. the equivalent of a `PUT` request. In order for that write to succeed, it needs to pass a DVV to Riak that says to Riak "this is the most recent value that I've seen." If the client has _not_ seen most recent successful write, the write will simply fail.
+ 
+This is the basic mechanism used to solve the problem of concurrent writes. If a client hasn't yet seen the most recent write, then the client will be essentially locked out of writing to the key. In eventually consistent Riak, Riak is always open to writes; with strong consistency, this locking out leads to a temporary loss of write availability.
 
-* `put_once` --- operation only succeeds is the key doesn't already exist
-* `modify` --- used in place of `put` in a get/modify/put sequence
-* `overwrite` --- fast, unsafe, and unchecked; advisable only for bulk loading
+The most important thing to note is that simple writes will only _ever_ succeed if a key does not already exist. If a key already exists, Riak will have to see a DVV. This makes Riak's strong consistency implementation fundamentally **state based**: DVVs are the system "state" used by Riak to make determinate judgments about which values are most recent. 
 
-One way of guaranteeing strong consistency is to
-This _not_ Riak's approach. Instead, Riak's approach to strong consistency involves the use of **dotted version vectors**. 
+An important thing to note here is that not all writes are guaranteed to be seen, because writes can fail, as when a client hasn't seen the most recent version of a key.
 
-Tunable CAP semantics will NOT get you SC in Riak
-w + r > N (write set and read set always overlap); read your own writes; the problem: if your write fails, you don't know what you're going to read next => "Read your own writes if they succeed, otherwise you have no idea what you will read consistency"; this means non-deterministic results via partial write failures
-Ensembles => leader selection + monotonic epochs; ensembles are portions of the key space; when quorum is lost, you lose availability
-What's the largest epoch you've ever seen?
-Epochs: is your epoch my epoch or is it before me?
-Values with current epoch are consistent; older values are suspect
-Always rewrite older values; includes values that are perfectly consistent; correctness problem becomes a performance problem
-You only re-write if there is suspicion (judged by DVVs)
-Right now, the "unit" is the single key/value pair; Cassandra has rows that can be mapped to an ensemble
-The client can do this
-MDC is a real problem; global strong consistency
-There is essential a "normal" Riak code path and a consistent code path; if `consistent` is set to `true`
-ACID vs. BASE
-DVVs are more scalable VVs
+An important thing to note here is that _successful_ writes are guaranteed to be seen, not just any writes. If a simple write is attempted on a KV pair that does not yet exist, it will succeed. However, if the write is attempted on KV pair that already exists, it will fail. Instead, a write must engage in a get/modify/put operation that increments the object's DVV and marks it as having been changed.
 
-Problem: partial (i.e. failed) writes; a write only goes to one node out of three; in a quorum system, this will resolve to the "wrong" value at read time
-Read repair => AAB resolves to A at read time
-Siblings => application-side resolution
+So what happens when values conflict, whether due to concurrent or partial writes or a node coming back into the network or some other reason? We can illustrate this with another hypothetical scenario:
 
+* A client reads a key from a strongly consistent bucket. That key stores conlicting values in different nodes, A in one node and B in the other.
+* On the basis of DVVs, either value A or B will be deemed logically "older" than the other. If A is selected as being logically older, it will "win" over B.
+* All other nodes will be notified that A is the correct value.
+
+Conflicts are thus sorted out at _read time_ rather than write time. Now, every time a client reads the key in the example above, Riak will return A, and B is essentially discarded as a possible true value.
+
+For some use cases, the rollback to older values in case of "doubt" and the occasional refusal of writes can be detrimental, especially for use cases in which it's important to accept all writes. But if non-ambiguity is a primary concern, to the extent that it's worth (a) occasionally discarding logically newer values in favor of logically older ones and (b) occasionally losing write availability, then you might want to consider strong consistency for at least that portion of your data that truly requires it.
+
+## Important Caveats
+
+There are a few things that we should note about strong consistency as it is implemented in Riak. First of all, the following Riak features are not available in strongly consistent buckets:
+
+* [[Secondary indexes]]
+* [[Active Anti-Entropy]] syncing
+* Riak [[Datatypes]]
+
+Second of all, it needs to be noted strong consistency can be guaranteed only at the single-key level. There is currently no support for consistency across keys or with regard to multi-key operations.
