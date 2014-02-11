@@ -71,10 +71,28 @@ First, we need to create and name a Riak bucket to house our counter (or as many
 bucket = client.bucket 'counters'
 ```
 
+```erlang
+%% Start with establishing a connection and storing that 
+%% connection in the variable Pid:  
+
+> {ok, Pid} = riakc_pb_socket:start_link("localhost", 8087).
+%% or whichever host/port combination you're using
+
+BucketType = <<"counter_bucket">>.
+Bucket = <<"counters">>.
+```
+
 To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
 
 ```ruby
 counter = Riak::Crdt::Counter.new bucket, key, bucket_type
+```
+
+```erlang
+%% In the Erlang client, there is no specific function for creating a counter
+%% Instead, incrementing a counter that does not yet exist will create the counter and then increment it, like so:
+
+riakc_pb_socket:counter_incr(Pid, CountersBucket, <<"specified_key">>, 1).
 ```
 
 Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counter_bucket` bucket type like this:
@@ -91,6 +109,10 @@ to create our
 # This would enable us to create our counter without specifying a bucket type:
 
 counter = Riak::Crdt::Counter.new counters, 'traffic_tickets'
+```
+
+```erlang
+%% 
 ```
 
 Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
