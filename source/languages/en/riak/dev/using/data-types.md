@@ -344,29 +344,6 @@ set.members.length
 riakc_set:size(Set5).
 ```
 
-Or we can add a city---or multiple cities---to multiple sets. Let's say that Dave and Jane have visited Cairo and Beijing, and that we wish to add both cities to the `dave_cities_visited` and `jane_cities_visited` sets (provided that those sets have been created):
-
-```ruby
-[dave_cities_visited, jane_cities_visited].each do |set|
-  ['Cairo', 'Beijing'].each do |city|
-    set.add city
-  end
-end
-```
-
-```erlang
-
-```
-
-You can also turn a set into an array:
-
-```ruby
-set.to_a
-
-# Returns an Array:
-# ["city1", "city2", "etc"]
-```
-
 ### Maps
 
 The map is in many ways the richest of the Riak datatypes because all of the other datatypes can be embedded within them, _including maps themselves_, to create arbitrarily complex custom datatypes out of a few basic building blocks.
@@ -377,6 +354,12 @@ The general syntax for creating a Riak map is directly analogous to the syntax f
 
 ```ruby
 map = Riak::Crdt::Map.new bucket, key
+```
+
+```erlang
+%% Maps in the Erlang client are opaque data structures that
+%% collect operations as you mutate them. We will associate the data
+%% structure with a bucket type, bucket, and key later on.
 ```
 
 Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `map_bucket` bucket type from above):
@@ -396,6 +379,14 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
 map = Riak::Crdt::Map.new customers, 'ahmed_info'
 ```
 
+```erlang
+Map = riakc_map:new().
+
+%% Maps in the Erlang client are opaque data structures that
+%% collect operations as you mutate them. We will associate the data
+%% structure with a bucket type, bucket, and key later on.
+```
+
 #### Registers Within Maps
 
 The first piece of info we want to store in our map is Ahmed's name and phone number, both of which are best stored as registers:
@@ -407,6 +398,10 @@ map.registers['phone_number'] = '5551234567'
 # Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
 
 map.registers['phone_number'] = 5551234567.to_s
+```
+
+```erlang
+riakc_map:
 ```
 
 This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
