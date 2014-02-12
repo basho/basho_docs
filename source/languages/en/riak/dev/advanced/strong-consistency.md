@@ -8,27 +8,27 @@ audience: advanced
 keywords: [developers, strong-consistency]
 ---
 
-Riak allows you to create [[Strongly Consistent|Strong Consistency]] bucket types since version 2.0. This means that a value is guaranteed readable by any node immediately after a write has occurred, with the tradeoff that unavailable nodes will become unavailable to accept a write. This was added in version 2.0 to complement Riak's standard [[eventually consistent|Eventual Consistency]], but high availability, mode.
+In versions 2.0 and later, Riak allows you to create buckets that provide [[strong consistent|Strong Consistency]] guarantees for the data stored within them, enabling you to use Riak as a CP system (consistent plus partition tolerant) for at least some of your data. This was added in version 2.0 to complement Riak's standard [[eventually consistent|Eventual Consistency]] high availability mode.
 
-This tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
+When data is stored in a bucket with strong consistency guarantees, a value is guaranteed readable by any node *immediately* after a successful write has occurred. The tradeoff is that unavailable nodes will become temporarily unable to accept writes to that key. This tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
 ## Enabling Strong Consistency
 
-The strong consistency subsystem in Riak is disabled by default. You will need to turn it on in your [[`riak.conf`|Configuration Files]] file. To do so, you can simply un-comment the line containing the `strong_consistency` setting or add the following if that line is not present:
+The strong consistency subsystem in Riak is disabled by default. You will need to turn it on by changing the configuration your Riak installation's [[`riak.conf`|Configuration Files]] file. To do so, you can simply un-comment the line containing the `strong_consistency = on` setting or add the following if that line is not present:
 
 ```config
 strong_consistency = on
 ```
 
-**Note**: This will enable you to use strong consistency in Riak, but it will _not_ turn on strong consistency for all of your data. Strong consistency is applied only at the bucket level, using bucket types (as show directly below).
+**Note**: This will enable you to use strong consistency in Riak, but this setting will _not_ apply to all of the data in your Riak cluster. Instead, strong consistency is applied only at the bucket level, using bucket types (as show directly below).
 
 ## Creating a Strongly Consistent Bucket Type
 
 [[Strong consistency]] requirements in Riak are applied on a bucket-by-bucket basis, meaning that you can use some buckets in an eventually consistent fashion and others in a strongly consistent fashion, depending on your use case.
 
-To apply strong consistency to a bucket, you must [[create a bucket type|Using Bucket Types]] that sets the `consistent` bucket property to `true`, activate the type, and then begin applying that type to bucket/key pairs.
+To apply strong consistency to a bucket, you must create a [[bucket type|Using Bucket Types]] that sets the `consistent` bucket property to `true`, activate the type, and then begin applying that type to bucket/key pairs.
 
-Create a bucket type `strongly_consistent` (or something else) with `consistent` set to `true`:
+To give an example, we'll create a bucket type called `strongly_consistent` with `consistent` set to `true`:
 
 ```bash
 riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true}}'
@@ -38,24 +38,26 @@ riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true}}'
 riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true, ... other properties ... }}'
 ```
 
-Then check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
+**Note**: The bucket type name `strongly_consistent` is not a reserved term. You can name any bucket type whatever you wish, with the exception of `default` (more on the `default` bucket type in the [[Bucket Types]] doc).
+
+Once the `strongly_consistent` bucket type has been creatd, we can check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
 
 ```bash
-riak-admin bucket-type status consistent_bucket
+riak-admin bucket-type status strongly_consistent
 ```
 
-If the console outputs `consistent_bucket has been created and may be activated` and the properties listing shows that `consistent` has been set to `true`, then you may proceed with activation:
+If the console outputs `strongly_consistent has been created and may be activated` and the properties listing shows that `consistent` has been set to `true`, then you may proceed with activation:
 
 ```bash
-riak-admin bucket-type activate consistent_bucket
+riak-admin bucket-type activate strongly_consistent
 ```
 
 When activation is successful, the console will return the following:
 
 ```bash
-consistent_bucket has been activated
+strongly_consistent has been activated
 ```
 
-Now, any bucket that bears the type `consistent_bucket`---or whatever you wish to name your bucket type---will provide strong consistency guarantees.
+Now, any bucket that bears the type `strongly_consistent`---or whatever you wish to name your bucket type---will provide strong consistency guarantees.
 
-You can find more comprehensive information on [[Using Bucket Types]] and the concept of [[Strong Consistency]] elsewhere in the documentation.
+Elsewhere in the Riak docs, you can find more comprehensive information on [[Using Bucket Types]] and the concept of [[Strong Consistency]].
