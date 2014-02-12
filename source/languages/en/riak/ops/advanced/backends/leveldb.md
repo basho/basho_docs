@@ -109,52 +109,27 @@ The configuration values that can be set in your {{#2.0.0-}}`[[app.config|Config
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
-```config
-leveldb.data_root
-# LevelDB data root
-# default: ./data/leveldb
-
-leveldb.total_mem_percent
-# Defines the percentage (between 1 and 100) of total server memory
-# to assign to LevelDB. LevelDB will dynamically adjust its internal
-# cache sizes as Riak activates/inactivates vnodes on this server to
-# stay within this size. The memory size can alternatively be assigned
-# as a byte count via total_leveldb_mem instead.
-# default: 80
-
-leveldb.bloom_filter
-# Each database .sst table file can include an optional Bloom filter
-# that is highly effective in quashing data queries that are destined
-# to not find the requested key. A bloom filter typically increases
-# the size of a .sst file by about 2% if this parameter is set to on.
-# default: on
-
-leveldb.block_size_steps
-# Defines the number of incremental adjustments to attempt between the 
-# block_size value and the maximum block_size for an .sst table file. A
-# value of 0 disables the underlying dynamic block_size feature.
-# default: 16
-
-leveldb.delete_threshold
-# Controls when a background compaction initiates solely due to the
-# number of delete tombstones within an individual .sst table file. A
-# value of 0 disables the feature.
-# default: 1000
-```
+Config | Description | Default
+:------|:------------|:-------
+`leveldb.data_root` | LevelDB data root | `./data/leveldb`
+`leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. The memory size can alternatively be assigned as a byte count via `total_leveldb_mem` instead. | 80
+`leveldb.bloom_filter` | Each database `.sst` table file can include an optional Bloom filter that is highly effective in quashing data queries that are destined to not find the requested key, e.g. if the key no longer exists. A bloom filter typically increases the size of a `.sst` file by about 2% if this parameter is set to `on`. | `on`
+`leveldb.block_size_steps` | Defines the number of incremental adjustments to attempt between the `block_size` value and the maximum `block_size` for a `.sst` table file. A value of 0 disables the underlying dynamic `block_size` feature. | `16`
+`leveldb.delete_threshold` | Controls when a background compaction initiates solely due to the number of delete tombstones within an individual `.sst` table file. A value of 0 disables the feature. | `1000`
 {{/2.0.0+}}
 
 ### Memory Usage per Vnode
 
-The following values help adjust the memory usage per vnode.
+The following values adjust the memory usage per vnode.
 
 #### Max Open Files
 
-The `max_open_files` value is multiplied by 4 megabytes to create a file cache. The file cache may end up holding more or fewer files at any given moment due to variations in file metadata size. `max_open_files` applies to a single vnode, not to the entire server. See calculation details in [[Parameter Planning|LevelDB#Parameter-Planning]].
+The `max_open_files` value is multiplied by 4 megabytes to create a file cache. The file cache may end up holding more or fewer files at any given moment due to variations in file metadata size. `max_open_files` applies to a single vnode and not to the entire server, as each vnode runs its own self-contained instance of LevelDB. See calculation details in [[Parameter Planning|LevelDB#Parameter-Planning]].
 
 Where server resources allow, the value of `max_open_files` should exceed the count of `.sst` table files within the vnode's database directory. Memory budgeting for this variable is more important to random read operations than the `cache_size` discussed in the next section.
 
 {{#1.4.0-}}
-Number of open files that can be used by the DB. You may need to increase this if your database has a large working set (budget one open file per 2 MB of working set divided by `ring_creation_size`).
+You may need to increase this if your database has a large working set (budget one open file per 2 MB of working set divided by `ring_creation_size`).
 
 The minimum `max_open_files` is 20. The default is 30. However, if you start Riak with no value for `max_open_files` (meaning you've included the setting in your `app.config` but not specified a value) it will be set to 1000.  
 
@@ -173,6 +148,8 @@ The minimum `max_open_files` is 20. The default is 30. However, if you start Ria
 {{#1.4.0+}}
 The minimum `max_open_files` is 30. The default is also 30.
 
+In `app.config`:
+
 ```erlang
 {eleveldb, [
     ...,
@@ -180,11 +157,18 @@ The minimum `max_open_files` is 30. The default is also 30.
     ...
 ]}
 ```
+
+In `riak.conf`:
+
+```config
+max_open_files = 30
+```
+
 {{/1.4.0+}}
 
 {{#1.4.0-1.5.0}}
 <div class="note"><div class="title">Riak 1.4 Update</div>
-<tt>max_open_files</tt> was originally a file handle limit, but file metadata is now a much larger resource concern. The impact of Basho's larger table files and Google's recent addition of Bloom filters made the accounting switch necessary.
+<tt>max_open_files</tt> was originally a file handle limit, but file metadata is now a much more pressing resource concern. The impact of Basho's larger table files and Google's recent addition of Bloom filters made the accounting switch necessary.
 </div>
 {{/1.4.0-1.5.0}}
 
