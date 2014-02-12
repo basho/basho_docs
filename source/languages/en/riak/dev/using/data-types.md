@@ -72,14 +72,8 @@ bucket = client.bucket 'counters'
 ```
 
 ```erlang
-%% Start with establishing a connection and storing that 
-%% connection in the variable Pid:  
-
-> {ok, Pid} = riakc_pb_socket:start_link("localhost", 8087).
-%% or whichever host/port combination you're using
-
-BucketType = <<"counter_bucket">>.
-Bucket = <<"counters">>.
+%% Buckets are simply named binaries in the Erlang client.
+%% See below for more information.
 ```
 
 To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
@@ -89,10 +83,8 @@ counter = Riak::Crdt::Counter.new bucket, key, bucket_type
 ```
 
 ```erlang
-%% In the Erlang client, there is no specific function for creating a counter
-%% Instead, incrementing a counter that does not yet exist will create the counter and then increment it, like so:
-
-riakc_pb_socket:counter_incr(Pid, CountersBucket, <<"specified_key">>, 1).
+%% Counters are not encapsulated with the bucket/key in the Erlang
+%% client. See below for more information.
 ```
 
 Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counter_bucket` bucket type like this:
@@ -112,7 +104,11 @@ counter = Riak::Crdt::Counter.new counters, 'traffic_tickets'
 ```
 
 ```erlang
-%% 
+Counter = riakc_counter:new().
+
+%% Counters in the Erlang client are opaque data structures that
+%% collect operations as you mutate them. We will associate the data
+%% structure with a bucket type, bucket, and key later on.
 ```
 
 Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
@@ -121,10 +117,18 @@ Now that our client knows which bucket/key pairing to use for our counter, `traf
 counter.increment
 ```
 
+```erlang
+Counter1 = riakc_counter:increment(Counter).
+```
+
 The default value of an increment operation is 1, but you can increment by more than one if you'd like (but always by an integer). Let's say that we decide to spend an afternoon flaunting traffic laws and manage to rack up five tickets:
 
 ```ruby
 counter.increment 5
+```
+
+```erlang
+Counter2 = riakc_counter:increment(5, Counter1).
 ```
 
 If we're curious about how many tickets we have accumulated, we can simply retrieve the value of the counter at any time:
@@ -132,6 +136,24 @@ If we're curious about how many tickets we have accumulated, we can simply retri
 ```ruby
 counter.value
 # Output will always be an integer
+```
+
+```erlang
+riakc_counter:dirty_value(Counter2).
+
+%% The value fetched from Riak is always immutable, whereas the "dirty
+%% value" takes into account local modifications that have not been
+%% sent to the server. For example, whereas the call above would return
+%% '6', the call below will return '0' since we started with an empty
+%% counter:
+
+riakc_counter:value(Counter2).
+
+%% To fetch the value stored on the server, use the call below:
+
+{ok, CounterX} = riakc_pb_socket:fetch_type(Pid,
+                                    {<<"counter_bucket">>,<<"counters">>},
+                                    <<"traffic_tickets">>).
 ```
 
 Any good counter needs to decrement in addition to increment, and Riak counters allow you to do precisely that. Let's say that we hire an expert who manages to get a traffic ticket stricken from the record:
@@ -144,6 +166,23 @@ counter.decrement
 counter.decrement 3
 ```
 
+```erlang
+Counter3 = riakc_counter:decrement(Counter2).
+
+%% As with incrementing, you can also decrement by more than one:
+
+Counter4 = riakc_counter:decrement(3, Counter3).
+
+%% At some point, we'll want to send our local updates to the server
+%% so they get recorded and are visible to others. Extract the update
+%% using the to_op/1 function, then pass it to
+%% riakc_pb_socket:update_type/4,5.
+
+riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>,<<"counters">>},
+                            <<"traffic_tickets">>,
+                            riakc_counter:to_op(Counter4)).
+```
+
 Operations on counters can be performed singly, as above, but let's say that we now have two counters in play, `dave_traffic_tickets` and `susan_traffic_tickets`. Both of these ne'er-do-wells get a traffic ticket on the same day and we need to increment both counters:
 
 ```ruby
@@ -152,6 +191,17 @@ counters = [dave_traffic_tickets, susan_traffic_tickets]
 counters.each do |c|
   c.increment
 end
+```
+
+```erlang
+Counters = [{<<"dave">>, DaveTrafficTickets},
+            {<<"susan">>, SusanTrafficTickets}].
+
+[ begin
+     Update = riakc_counter:to_op(riakc_counter:increment(C)),
+     riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>, <<"counters">>},
+                                 Key, Update)
+  end || {Key, C} <- Counters ].
 ```
 
 ### Sets
@@ -164,6 +214,12 @@ Here is the general syntax for setting up a bucket/key combination to handle a s
 # Note: both the Riak Ruby Client and Ruby the language have a class called Set. Make sure that you refer to the Ruby version as ::Set and the Riak client version as Riak::Crdt::Set
 
 set = Riak::Crdt::Set.new bucket, key, bucket_type
+```
+
+```erlang
+%% Like counters, sets are not encapsulated in a
+%% bucket/key in the Erlang client. See below for more
+%% information.
 ```
 
 Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `set_bucket` bucket type we created in the previous section):
@@ -183,6 +239,14 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'set_bucket'
 set = Riak::Crdt::Set.new travel, 'cities'
 ```
 
+```erlang
+Set = riakc_set:new().
+
+%% Sets in the Erlang client are opaque data structures that
+%% collect operations as you mutate them. We will associate the data
+%% structure with a bucket type, bucket, and key later on.
+```
+
 Upon creation, our set is empty. We can verify that it is empty at any time:
 
 ```ruby
@@ -191,11 +255,25 @@ set.empty?
 # true
 ```
 
+```erlang
+riakc_set:size(Set) == 0.
+
+%% Query functions like size/1, is_element/2, and fold/3 operate over
+%% the immutable value fetched from the server. In the case of a new
+%% set that was not fetched, this is an empty collection, so the size
+%% is 0.
+```
+
 But let's say that we read a travel brochure saying that Toronto and Montreal are nice places to go. Let's add them to our `cities` set:
 
 ```ruby
 set.add 'Toronto'
 set.add 'Montreal'
+```
+
+```erlang
+Set1 = riakc_set:add_element(<<"Toronto">>, Set),
+Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
 ```
 
 Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, but if we visit them, we won't have time to visit Montreal. Let's remove Montreal and add the others:
@@ -206,12 +284,36 @@ set.add 'Hamilton'
 set.add 'Ottawa'
 ```
 
+```erlang
+Set3 = riakc_set:del_element(<<"Montreal">>, Set2),
+Set4 = riakc_set:add_element(<<"Hamilton">>, Set3),
+Set5 = riakc_set:add_element(<<"Ottawa">>, Set4).
+```
+
 Now, we can check on which cities are currently in our set:
 
 ```ruby
 set.members
 
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
+```
+
+```erlang
+riakc_set:dirty_value(Set5).
+
+%% The value fetched from Riak is always immutable, whereas the "dirty
+%% value" takes into account local modifications that have not been
+%% sent to the server. For example, where the call above would return
+%% [<<"Hamilton">>, <<"Ottawa">>, <<"Toronto">>], the call below would
+%% return []. These are essentially ordsets:
+
+riakc_set:value(Set5).
+
+%% To fetch the value stored on the server, use the call below:
+
+{ok, SetX} = riakc_pb_socket:fetch_type(Pid,
+                                 {<<"set_bucket">>,<<"travel">>},
+                                  <<"cities">>).
 ```
 
 Or we can see whether our set includes a specific member:
@@ -224,10 +326,22 @@ set.include? 'Ottawa'
 # true
 ```
 
+```erlang
+%% At this point, Set5 is the most "recent" set from the standpoint
+%% of our application.
+
+riakc_set:is_element(<<"Vancouver">>, Set5).
+riakc_set:is_element(<<"Ottawa">>, Set5).
+```
+
 We can also determine the size of the set:
 
 ```ruby
 set.members.length
+```
+
+```erlang
+riakc_set:size(Set5).
 ```
 
 Or we can add a city---or multiple cities---to multiple sets. Let's say that Dave and Jane have visited Cairo and Beijing, and that we wish to add both cities to the `dave_cities_visited` and `jane_cities_visited` sets (provided that those sets have been created):
@@ -238,6 +352,10 @@ Or we can add a city---or multiple cities---to multiple sets. Let's say that Dav
     set.add city
   end
 end
+```
+
+```erlang
+
 ```
 
 You can also turn a set into an array:
