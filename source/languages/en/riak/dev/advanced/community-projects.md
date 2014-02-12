@@ -64,7 +64,7 @@ moved: {
 * [Using Nginx as a front-end for Riak](http://rigelgroupllc.com/wp/blog/using-nginx-as-a-front-end-for-riak)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html) (courtesy of Scott M. Likens)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html) (courtesy of Bob Feldbauer)
-
+* [Storing Apache Logs into Riak via Fluentd](http://docs.fluentd.org/articles/apache-to-riak)
 
 ## Other Tools and Projects
 
@@ -92,7 +92,7 @@ moved: {
 * [riak-jscouch](https://github.com/jimpick/riak-jscouch) --- JSCouch examples done with Riak
 * [riak_tokyo_cabinet](http://github.com/jebu/riak_tokyo_cabinet) --- A Tokyo Cabinet backend for Riak
 * [Logstash Riak Output](http://logstash.net/docs/1.1.9/outputs/riak) --- An output plugin for Logstash
-
+* [Fluentd plugin for Riak](http://github.com/kuenishi/fluent-plugin-riak)
 
 ## Sample Applications
 
