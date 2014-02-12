@@ -16,7 +16,7 @@ When data is stored in a bucket with strong consistency guarantees, a value is g
 
 The strong consistency subsystem in Riak is disabled by default. You will need to turn it on by changing the configuration your Riak installation's [[`riak.conf`|Configuration Files]] file. To do so, you can simply un-comment the line containing the `strong_consistency = on` setting or add the following if that line is not present:
 
-```config
+```riakconf
 strong_consistency = on
 ```
 
@@ -31,11 +31,11 @@ To apply strong consistency to a bucket, you must create a [[bucket type|Using B
 To give an example, we'll create a bucket type called `strongly_consistent` with `consistent` set to `true`:
 
 ```bash
-riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true}}'
+riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true}}'
 
 # Or if your type involves setting other properties to non-default values as well:
 
-riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true, ... other properties ... }}'
+riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true, ... other properties ... }}'
 ```
 
 **Note**: The bucket type name `strongly_consistent` is not a reserved term. You can name any bucket type whatever you wish, with the exception of `default` (more on the `default` bucket type in the [[Bucket Types]] doc).
