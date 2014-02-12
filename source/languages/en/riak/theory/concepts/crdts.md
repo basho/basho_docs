@@ -12,9 +12,11 @@ A pure key/value store is completely agnostic toward the data stored within it. 
 
 In version 2.0, Riak continued this evolution by introducing a series of eventually convergent **datatypes** inspired by academic research on convergent replicated datatypes (CRDTs), most notably the work of Shapiro, Preguiça, Baquero, and Zawirski ([paper](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf)).
 
-The difference between Riak datatypes and other data stored in Riak is that datatypes are **operations based**. Instead of the usual reads, writes, and deletes performed on key/value pairs, you instead perform operations like removing a register from a map, or telling a counter to increment itself by 5, or enabling a flag that was previously disabled (more on each of these types below).
+The central difference between Riak datatypes and other data stored in Riak is that datatypes are **operations based**. Instead of the usual reads, writes, and deletes performed on key/value pairs, you instead perform operations like removing a register from a map, or telling a counter to increment itself by 5, or enabling a flag that was previously disabled (more on each of these types below).
 
-One of the core purposes behind datatypes is to relieve developers using Riak of the burden of producing data convergence at the application level by absorbing some of that complexity into Riak itself. You can still build applications with Riak---and you will always be able to---that treat Riak as a highly available key/value store. That is not going away. What _is_ being provided is additional flexibility and more choices.
+One of the core purposes behind datatypes is to relieve developers using Riak of the burden of producing data convergence at the application level by absorbing some of that complexity into Riak itself. Riak manages this complexity by building eventual consistency _into the datatypes themselves_.
+
+You can still build applications with Riak---and you will always be able to---that treat Riak as a highly available key/value store. That is not going away. What _is_ being provided is additional flexibility and more choices.
 
 The trade-off that datatypes present is that using them takes away your ability to customize how convergence takes place. If your use case demands that you create your own deterministic merge functions, then Riak datatypes might not be a good fit.
 
@@ -104,7 +106,7 @@ Map tweet {
 
 Conflicts between replicas are inevitable in a distributed system like Riak. If a map is stored in the key `my_map`, for example, it is always possible that the value of `my_map` will be different in nodes A and B. Without using datatypes, that conflict must be resolved using timestamps, vclocks, dotted version vectors, or some other means. With datatypes, conflicts are resolved by Riak itself using a subsystem called [`riak_dt`](https://github.com/basho/riak_dt).
 
-The beauty of datatypes is that Riak "knows" how to resolve value conflicts by applying datatype-specific rules. In general, Riak does this by remembering the **history** of a value and broadcasting that history along with the current value. Riak uses this history to make deterministic judgments about which value is more "true" than the others. This differs from using Riak without datatypes because 
+The beauty of datatypes is that Riak "knows" how to resolve value conflicts by applying datatype-specific rules. In general, Riak does this by remembering the **history** of a value and broadcasting that history along with the current value. Riak uses this history to make deterministic judgments about which value is more "true" than the others.
 
 To give an example, think of a set stored in the key `my_set`. On one node, the set has two elements (A and B), and in another node the set has three elements (A, B, and C). In this case, Riak would choose the set with more elements, and then tell the former set: "This is the correct value. You need to have elements A, B, and C." Once this operation is complete, the set will have elements A, B, and C on both nodes.
 
@@ -118,6 +120,13 @@ Counters |
 Sets | 
 Maps |
 
-In a production Riak cluster being hit by lots and lots of writes, value conflicts are inevitable, and Riak datatypes are not perfect. They do _not_ guarantee [[strong consistency]]. But the rules that dictate their behavior were carefully chosen to minimize the downsides associated with conflicts.
+In a production Riak cluster being hit by lots and lots of writes, value conflicts are inevitable, and Riak datatypes are not perfect, particularly in that they do _not_ guarantee [[strong consistency]]. But the rules that dictate their behavior were carefully chosen to minimize the downsides associated with value conflicts.
 
-**Note**: Conflicts between values very often exist for only a few milliseconds, and so eventual consistency should be thought of in terms of that timescale (as opposed to minutes or hours).
+<div class="note">
+<div class="title">Note</div>
+Conflicts between values very often exist for only a few milliseconds, and so eventual consistency should be thought of in terms of that timescale (as opposed to minutes or hours).
+</div>
+
+## Riak With and Without Datatypes
+
+When using Riak without datatypes, you can still reason in terms of some values between more "true" than others, but only on the basis of objects' metadata, like timestamps or vclocks or dotted version vectors (as in the case of Riak's [[strong consistency]] subsystem), and not on the basis of _the actual content of those values_. With datatypes, it matters to Riak how many elements are in a set and what those elements look like, whether a flag is enabled or disabled, etc. And so the bases of judgment about data are vastly expanded with Riak datatypes.
