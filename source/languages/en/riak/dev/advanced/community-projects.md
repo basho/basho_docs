@@ -92,7 +92,7 @@ moved: {
 * [riak-jscouch](https://github.com/jimpick/riak-jscouch) --- JSCouch examples done with Riak
 * [riak_tokyo_cabinet](http://github.com/jebu/riak_tokyo_cabinet) --- A Tokyo Cabinet backend for Riak
 * [Logstash Riak Output](http://logstash.net/docs/1.1.9/outputs/riak) --- An output plugin for Logstash
-* [Fluentd plugin for Riak](http://github.com/kuenishi/fluent-plugin-riak)
+* [Fluentd plugin for Riak](http://github.com/kuenishi/fluent-plugin-riak) --- An output plugin for [Fluentd](http://fluentd.org)
 
 ## Sample Applications
 
