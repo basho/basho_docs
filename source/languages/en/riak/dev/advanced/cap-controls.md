@@ -42,6 +42,11 @@ curl -v -XPUT \
   http://127.0.0.1:8091/buckets/another_bucket/props
 ```
 
+```ruby
+bucket = client.bucket 'another_bucket'
+bucket.props['n_val'] = 2
+```
+
 This will change the `n_val` of the bucket `another_bucket` to two, meaning that each piece of data in that bucket will be replicated to two partitions in the cluster.
 
 <div class="note"><div class="title">A Word on Setting the N Value</div><tt>n_val</tt> must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. We advise against modifying the <tt>n_val</tt> of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
@@ -58,6 +63,12 @@ For example, in this HTTP request, the r value is set to 1:
 curl http://127.0.0.1:8091/buckets/images/keys/1.png?r=1
 ```
 
+```ruby
+bucket = client.bucket 'images'
+bucket.props['r'] = 1
+bucket.get '1.ping'
+```
+
 This means that Riak will return a copy of that data if at least 1 copy is present in your cluster.
 
 ### W Value and Write Fault Tolerance
@@ -71,6 +82,15 @@ curl -v -XPUT \
   -H "Content-type: text/plain" \
   --data-binary @story.txt \
   http://127.0.0.1:8091/buckets/docs/keys/story.txt?w=3
+```
+
+```ruby
+bucket = client.bucket 'docs'
+bucket.props['w'] = 3
+story_object = Riak::RObject.new(bucket, 'story.txt')
+story_object.content_type = 'text/plain'
+story_object.raw_data = File.open('story.txt').bytes
+story_object.store
 ```
 
 ### Symbolic Consistency Names

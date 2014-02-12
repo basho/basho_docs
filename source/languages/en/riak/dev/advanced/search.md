@@ -139,13 +139,15 @@ With the precommit hook installed, Riak Search will index your data each time th
 
 ### Datatypes
 
-Riak Search is able to handle several standard data encodings with zero configuration.  Simply set the Content-Type metadata on your objects to the appropriate mime-type.  Out of the box, XML, JSON, and plain-text encodings are supported.
+Riak Search is able to handle several standard data encodings with zero configuration. Simply set the Content-Type metadata on your objects to the appropriate mime-type. Out of the box, XML, JSON, and plain-text encodings are supported.
 
 #### JSON Encoded Data
 
 If your data is in JSON format, set your Content-Type to "application/json", "application/x-javascript", "text/javascript", "text/x-javascript", or "text/x-json".
 
-Specifying that your data is in JSON format will cause Riak Search to use the field names of the JSON object as index field names.  Nested objects will use underscore ('_') as a field name separator. (The underscore was chosen because the character is not currently reserved by Lucene syntax. People have suggested using a period, but we have that reserved for other things.)
+Specifying that your data is in JSON format will cause Riak Search to use the field names of the JSON object as index field names. Nested objects will use underscore ('_') as a field name separator.
+
+**Note**: The underscore was chosen because the character is not currently reserved by Lucene syntax. People have suggested using a period, but we have that reserved for other things.
 
 For example, storing the following JSON object in a Search-enabled bucket:
 
@@ -160,13 +162,13 @@ For example, storing the following JSON object in a Search-enabled bucket:
 }
 ```
 
-Would cause four fields to be indexed: "name", "bio", "favorites_book", and "favorites_album".  You could later query this data with queries like, "bio:engineer AND favorites_album:mystery".
+Would cause four fields to be indexed: "name", "bio", "favorites_book", and "favorites_album". You could later query this data with queries like, "bio:engineer AND favorites_album:mystery".
 
 #### XML Encoded Data
 
 If your data is in XML format, set your Content-Type to "application/xml" or "text/xml".
 
-Specifying that your data is in plain-text format will cause Riak Search to use tag names as index field names.  Nested tags separate their names with underscores.  Attributes are stored in their own fields, the names of which are created by appending an at symbol ('@') and the attribute name to the tag name.
+Specifying that your data is in plain-text format will cause Riak Search to use tag names as index field names. Nested tags separate their names with underscores. Attributes are stored in their own fields, the names of which are created by appending an at symbol ('@') and the attribute name to the tag name.
 
 For example, storing the following XML object in a Search-enabled bucket:
 
@@ -182,7 +184,7 @@ For example, storing the following XML object in a Search-enabled bucket:
 </person>
 ```
 
-Would cause four fields to be indexed: "person_name", "person_bio", "person_favorites_item", and "person_favorite_item@type".  The values of the "..._item" and "..._item@type" fields will be the concatenation of the two distinct elements in the object ("The Moon is a Harsh Mistress Magical Mystery Tour" and "book album", respectively).  You could later query this data with queries like, "person_bio:engineer AND person_favorites_item:mystery".
+Would cause four fields to be indexed: "person_name", "person_bio", "person_favorites_item", and "person_favorite_item@type". The values of the "..._item" and "..._item@type" fields will be the concatenation of the two distinct elements in the object ("The Moon is a Harsh Mistress Magical Mystery Tour" and "book album", respectively). You could later query this data with queries like, "person_bio:engineer AND person_favorites_item:mystery".
 
 #### Erlang Data
 

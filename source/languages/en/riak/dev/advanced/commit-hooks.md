@@ -84,13 +84,23 @@ curl -XPUT \
   http://127.0.0.1:8098/buckets/messages/props
 ```
 
+```ruby
+bucket = client.bucket 'messages'
+bucket.props['precommit'].push({ :mod => 'validate_json', :fun => 'validate' })
+```
+
 Check that the bucket has your pre-commit hook listed in its properties:
 
 ```curl
 curl http://localhost:8098/buckets/messages/props | jsonpp
 ```
 
-The output should look like this:
+```ruby
+bucket = client.bucket 'messages'
+bucket.props.has_key? 'precommit'
+```
+
+If you're using curl, the output should look like this:
 
 ```json
 {
@@ -139,7 +149,16 @@ curl -XPUT \
   localhost:8098/buckets/messages/keys/1        
 ```
 
-The response when `msg3.json` contains invalid JSON:
+```ruby
+bucket = client.bucket 'messages'
+json_object = Riak::RObject.new(bucket, '1')
+json_object.content_type = 'application/json'
+json_object.raw_data = File.open('msg3.json').read
+json_object.store
+```
+
+The console response when `msg3.json` contains invalid JSON:
+
 ```bash
 Invalid JSON: {case_clause,{{const,<<"authorName">>},{decoder,null,160,1,161,comma}}}
 ```
@@ -188,13 +207,23 @@ curl -XPUT \
   http://127.0.0.1:8098/buckets/updates/props
 ```
 
+```ruby
+bucket = client.bucket 'updates'
+bucket.props['postcommit'].push({ :mod => 'log_object', :fun => 'log' })
+```
+
 Check that the bucket has your post-commit hook listed in its properties.
 
 ```curl
 curl localhost:8098/buckets/updates/props | jsonpp
 ```
 
-The output should look like this:
+```ruby
+bucket = client.bucket 'updates'
+bucket.props.has_key? 'postcommit'
+```
+
+If you're using curl, the output should look like this:
 
 ```json
 {
@@ -241,6 +270,14 @@ curl -XPUT \
   -H "Content-Type: application/json" \
   -d @msg2.json \
   localhost:8098/buckets/updates/keys/2
+```
+
+```ruby
+bucket = client.bucket 'updates'
+obj = Riak::RObject.new(bucket, '2')
+obj.content_type = 'application/json'
+obj.raw_data = File.open('msg2.json').read
+obj.store
 ```
 
 You can see the logged value of the object by viewing `console.log`.

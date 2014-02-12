@@ -13,7 +13,7 @@ moved: {
 
 ## Simple Case
 
- Riak's scalable design makes it useful for data sets, like sensor data, that scale rapidly and are subject to heavy read/write loads. Many sensors collect and send data at a given interval. One way to model this in Riak is to create a bucket for each sensor device, and use the interval as a unique key (i.e., a date or combination of date/time), then store update data as the value. You could then query on the interval; or alternatively store a timestamp as a secondary index (piece of queryable metadata attached to the key/value pair) that would allow you to perform queries on specific ranges or perform MapReduce queries against the indexes.
+Riak's scalable design makes it useful for data sets, like sensor data, that scale rapidly and are subject to heavy read/write loads. Many sensors collect and send data at a given interval. One way to model this in Riak is to create a bucket for each sensor device, and use the interval as a unique key (i.e., a date or combination of date/time), then store update data as the value. You could then query on the interval; or alternatively store a timestamp as a secondary index (piece of queryable metadata attached to the key/value pair) that would allow you to perform queries on specific ranges or perform MapReduce queries against the indexes.
 
 ## Complex Case
 

@@ -13,7 +13,7 @@ moved: {
 
 ## Transform functions
 
-Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [[predicate functions|Using Key Filters#Predicate-functions]].  Each function description is followed by a sample usage in JSON notation.
+Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [[predicate functions|Using Key Filters#Predicate-functions]]. Each function description is followed by a sample usage in JSON notation.
 
 When using these from Erlang, function names (and key values) are binaries.
 

@@ -18,7 +18,7 @@ There are numerous ways to index a document in Riak Search.
 The easiest way to index documents stored on the filesystem is to use the "search-cmd" command line tool:
 
 ```bash
-$ bin/search-cmd index <INDEX> <PATH>
+bin/search-cmd index <INDEX> <PATH>
 ```
 
 Parameters:
@@ -29,7 +29,7 @@ Parameters:
 This documents will be indexed into the default field defined by the Index's schema, using the base filename plus extension as the document ID.
 
 ```bash
-$ bin/search-cmd index my_index files/to/index/*.txt
+bin/search-cmd index my_index files/to/index/*.txt
 ```
 
 ## Deleting from the Command Line
@@ -37,7 +37,7 @@ $ bin/search-cmd index my_index files/to/index/*.txt
 To remove previously indexed files from the command line, use the "search-cmd" command line tool.
 
 ```bash
-$ bin/search-cmd delete <INDEX> <PATH>
+bin/search-cmd delete <INDEX> <PATH>
 ```
 
 Parameters:
@@ -48,7 +48,7 @@ Parameters:
 For example:
 
 ```bash
-$ bin/search-cmd delete my_index files/to/index/*.txt
+bin/search-cmd delete my_index files/to/index/*.txt
 ```
 
 Any documents matching the base filename plus extension of the files found will be removed from the index. The actual contents of the files are ignored during this operation.
