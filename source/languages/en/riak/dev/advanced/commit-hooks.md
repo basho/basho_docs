@@ -87,6 +87,7 @@ curl -XPUT \
 ```ruby
 bucket = client.bucket 'messages'
 bucket.props['precommit'].push({ :mod => 'validate_json', :fun => 'validate' })
+bucket.props = {}
 ```
 
 Check that the bucket has your pre-commit hook listed in its properties:

@@ -65,8 +65,7 @@ curl http://127.0.0.1:8091/buckets/images/keys/1.png?r=1
 
 ```ruby
 bucket = client.bucket 'images'
-bucket.props['r'] = 1
-bucket.get '1.ping'
+bucket.get '1.ping', r: 1
 ```
 
 This means that Riak will return a copy of that data if at least 1 copy is present in your cluster.
@@ -86,11 +85,10 @@ curl -v -XPUT \
 
 ```ruby
 bucket = client.bucket 'docs'
-bucket.props['w'] = 3
 story_object = Riak::RObject.new(bucket, 'story.txt')
 story_object.content_type = 'text/plain'
 story_object.raw_data = File.open('story.txt').bytes
-story_object.store
+story_object.store w: 3
 ```
 
 ### Symbolic Consistency Names
