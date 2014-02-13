@@ -13,21 +13,20 @@ moved: {
 
 ## General Recovery Notes
 
-When a Riak node is to be recovered, general rules of recovery apply depending
-on what failed in particular. Check for RAID and file system consistency,
-faulty memory, fully functional network connections, etc.
+A Riak node can fail for many reasons, but a handful of checks can cover the
+most glaring problems. Check for RAID and file system consistency, faulty
+memory, fully functional network connections, etc.
 
 When a failed node comes back up, ensure that it has the same node name as
 before it crashed.  Changing the node name makes the cluster assume this is an
 entirely new node, leaving the old one still as part of the ring.
 
 During the recovery process hinted handoff will kick in and update the data on
-the recovered node with updates accepted from other nodes in the custer.
-
-As a side effect, your cluster may temporarily return "not found" for objects
-that are currently being handed off (see our page on [[Eventual Consistency]]
-for more details on these scenarios, in particular how the system behaves
-while the failed node is not part of the cluster).
+the recovered node with updates accepted from other nodes in the cluster. Your
+cluster may temporarily return "not found" for objects that are currently
+being handed off (see our page on [[Eventual Consistency]] for more details on
+these scenarios, in particular how the system behaves while the failed node is
+not part of the cluster).
 
 ## Node Name Changed
 
@@ -36,7 +35,7 @@ control, you'll want to notify the cluster of its *new* name using the
 following steps:
 
 1. Stop the node you wish to rename with `riak stop` or `service riak stop`
-2. Mark the node "down" from another node in the cluster with `riak-admin down <PREVIOUS_NODE_NAME>`
+2. Mark the node down from another node in the cluster with `riak-admin down <PREVIOUS_NODE_NAME>`
 3. Update the node name in Riak's configuration files
 4. Delete the ring state directory (usually `/var/lib/riak/ring`)
 5. Start the node with `riak start` or `service riak start`
