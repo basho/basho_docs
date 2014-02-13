@@ -38,7 +38,7 @@ Install the following Vagrant plugins:
 ```bash
 vagrant plugin install vagrant-berkshelf
 vagrant plugin install vagrant-omnibus
-vagrant plugin install vagrant-cachier (Use RIAK_CS_USE_CACHE to enable)
+vagrant plugin install vagrant-cachier # Use RIAK_CS_USE_CACHE to enable
 ```
 
 ### Clone the Repository
