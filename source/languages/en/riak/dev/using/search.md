@@ -207,7 +207,14 @@ C3 = riakc_obj:new(<<"cats">>, <<"panthro">>,
 riakc_pb_socket:put(Pid, C3),
 ```
 
-If you've used Riak before, you may have noticed that this is no different than setting values without Riak Search. This is one of the design goals of Riak Search: you insert values like Riak, and you query like Solr. But how does Riak Search know how to index values, given that values are opaque in Riak? For that, we employ extractors.
+If you've used Riak before, you may have noticed that this is no different
+than setting values without Riak Search. This is one of the design goals of
+Riak Search:
+
+> Write it like Riak. Query it like Solr.
+
+But how does Riak Search know how to index values, given that values are
+opaque in Riak? For that, we employ extractors.
 
 ### Extractors
 
