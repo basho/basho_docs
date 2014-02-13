@@ -28,8 +28,8 @@ So what's actually happening here? In the angle brackets, we have the URL the li
 
 Here is what a full PUT request through CURL with the link header would look like:
 
-```
-$ curl -v -XPUT http://127.0.0.1:8091/riak/people/timoreilly \
+```curl
+curl -v -XPUT http://127.0.0.1:8091/riak/people/timoreilly \
   -H 'Link: </riak/people/dhh>; riaktag="friend"' \
   -H "Content-Type: text/plain" \
   -d 'I am an excellent public speaker.'

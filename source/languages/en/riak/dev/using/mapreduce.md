@@ -64,10 +64,37 @@ In this example we will create four objects with the text "pizza" sometimes repe
 ### Data object input commands:
 
 ```curl
-$ curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
+
+curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
+
+curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
+
+curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+```
+
+```ruby
+bucket = client.bucket 'training'
+
+foo = Riak::RObject.new(bucket, 'foo')
+foo.content_type = 'text/plain'
+foo.raw_data = 'pizza data goes here'
+foo.store
+
+bar = Riak::RObject.new(bucket, 'bar')
+bar.content_type = 'text/plain'
+bar.raw_data = 'pizza pizza pizza pizza'
+bar.store
+
+baz = Riak::RObject.new(bucket, 'baz')
+baz.content_type = 'text/plain'
+baz.raw_data = 'nothing to see here'
+baz.store
+
+bam = Riak::RObject.new(bucket, 'bam')
+bam.content_type = 'text/plain'
+bam.raw_data = 'pizza pizza pizza'
+bam.store
 ```
 
 ### MapReduce script and deployment:

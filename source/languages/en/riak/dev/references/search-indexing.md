@@ -157,7 +157,6 @@ Alternatively, the index can be included in the URL, for example "http://hostnam
 
 To add data to the system with Curl:
 
-
 ```curl
 $ curl -XPOST http://localhost:8098/solr/books/update \
        -H 'content-type:text/xml' --data-binary @tests/books.xml

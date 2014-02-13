@@ -46,7 +46,7 @@ Typical error codes:
 So, with that in mind, try this command. This will request (GET) the key `doc2` from the bucket `test.`
 
 ```curl
-$ curl -v http://localhost:8098/buckets/test/keys/doc2
+curl -v http://localhost:8098/buckets/test/keys/doc2
 ```
 
 This should return a `404 Not Found` as the key `doc2` does not exist (you haven't created it yet).
@@ -61,7 +61,9 @@ Your application will often have its own method of generating the keys for its d
 PUT /buckets/BUCKET/keys/KEY
 ```
 
-<div class="info"><code>POST</code> is also a valid verb, for compatibility's sake.</div>
+<div class="info">
+<tt>POST</tt> is also a valid verb, for compatibility's sake.
+</div>
 
 There is no need to intentionally create buckets in Riak.  They pop into existence when keys are added to them, and disappear when all keys have been removed from them.
 
@@ -92,8 +94,8 @@ If `returnbody=true`, any of the response headers expected from a `GET` request 
 
 Let's give it a shot. Try running this in a terminal.
 
-```
-$ curl -v -XPUT http://localhost:8098/buckets/test/keys/doc?returnbody=true \
+```curl
+curl -v -XPUT http://localhost:8098/buckets/test/keys/doc?returnbody=true \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
   -H "Content-Type: application/json" \
   -d '{"bar":"baz"}'

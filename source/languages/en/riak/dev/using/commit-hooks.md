@@ -109,7 +109,7 @@ Pre-commit hooks can be used in many ways in Riak. One such way to use pre-commm
 
 
 var PreCommit = {
-  validate: function(obj){
+  validate: function(obj) {
 
     // A delete is a type of put in Riak so check and see what this
     // operation is doing
@@ -119,32 +119,32 @@ var PreCommit = {
     }
 
     // Make sure the data is valid JSON
-    try{
+    try {
        data = JSON.parse(obj.values[[0]].data);
        validateData(data);
 
-    }catch(error){
-      return {"fail": "Invalid Object: "+error}
+    } catch(error) {
+      return { "fail": "Invalid Object: " + error }
     }
     return obj;
   }
 };
 
-function validateData(data){
+function validateData(data) {
   // Validates that user_info object is in the data
   // and that name and age aren't empty, finally
   // the session_info items array is checked and validated as
   // being populated
 
-  if(
+  if (
     data.user_info != null &&
     data.user_info.name != null &&
     data.user_info.age != null &&
     data.session_info.items.length > 0
-  ){
+  ) {
     return true;
-  }else{
-    throw( "Invalid data" );
+  } else {
+    throw("Invalid data");
   }
 }
 ```
