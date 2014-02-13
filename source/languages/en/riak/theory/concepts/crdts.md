@@ -116,9 +116,9 @@ Datatype | General rule
 :--------|:------------
 Flags | `enable` wins over `disable`
 Registers | The most chronologically recent value wins, based on timestamps
-Counters | 
-Sets | 
-Maps |
+Counters | Each actor keeps an independent count for increments and decrements; upon merge, the pairwise maximum of any two actors will win (e.g. if one actor holds 172 and the other holds 173, 173 will win upon merge)
+Sets | If an element is concurrently added and removed, the add will win
+Maps | If a field is concurrently added or updated and removed, the add/update will win
 
 In a production Riak cluster being hit by lots and lots of writes, value conflicts are inevitable, and Riak datatypes are not perfect, particularly in that they do _not_ guarantee [[strong consistency]]. But the rules that dictate their behavior were carefully chosen to minimize the downsides associated with value conflicts.
 
