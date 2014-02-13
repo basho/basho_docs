@@ -257,10 +257,14 @@ The above JSON will insert a list of three values into Solr to be indexed: `peop
 
 ### Automatic Fields
 
-When a Riak object is indexed, Riak Search automatically inserts a few extra fields as well. These are necessary for a variety of technical reasons, and for the most part you don't need to think about them. However, there are a few fields which you may find useful, all prefixed with `_yz`: `_yz_rk` (Riak key), `_yz_rt` (Riak bucket type), `_yz_rb` (Riak bucket), and `_yz_err` (extraction error). 
+When a Riak object is indexed, Riak Search automatically inserts a few extra fields as well. These are necessary for a variety of technical reasons, and for the most part you don't need to think about them. However, there are a few fields which you may find useful:
+
+- `_yz_rk` (Riak key)
+- `_yz_rt` (Riak bucket type)
+- `_yz_rb` (Riak bucket)
+- `_yz_err` (extraction error)
 
 You can query by these fields, just like any other normal Solr fields. But most of the time you'll use `_yz_rk` as a query result, which tells you the Riak key that matches the query you just ran. Let's see this in detail by running some queries in the next section.
-
 
 ## Querying
 
