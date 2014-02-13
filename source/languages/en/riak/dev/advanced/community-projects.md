@@ -64,7 +64,7 @@ moved: {
 * [Using Nginx as a front-end for Riak](http://rigelgroupllc.com/wp/blog/using-nginx-as-a-front-end-for-riak)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html) (courtesy of Scott M. Likens)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html) (courtesy of Bob Feldbauer)
-* [Storing Apache Logs into Riak via Fluentd](http://docs.fluentd.org/articles/apache-to-riak)
+* [Storing Apache Logs in Riak via Fluentd](http://docs.fluentd.org/articles/apache-to-riak)
 
 ## Other Tools and Projects
 
