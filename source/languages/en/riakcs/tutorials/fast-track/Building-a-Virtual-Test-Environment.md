@@ -53,8 +53,8 @@ cd vagrant-riak-cs-cluster
 
 ### Launch Cluster
 
-With VirtualBox and Vagrant installed, it's time to actually launch our
-virtual environment. The command below will initiate the Vagrant project:
+With VirtualBox and Vagrant installed, it's time to launch our virtual
+environment. The command below will initiate the Vagrant project:
 
 ``` bash
 RIAK_CS_CREATE_ADMIN_USER=1 vagrant up
@@ -95,5 +95,5 @@ end the current virtualized environment:
 vagrant destroy
 ```
 
-**Note**: Executing this command will reset the environment to a clean state
+**Note**: Executing this command will reset the environment to a clean state,
 removing any and all changes that you have committed.
