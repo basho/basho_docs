@@ -95,7 +95,10 @@ With your schema, Solr index, and association all set up, you're ready to start 
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests you use bucket types to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but it requires an additional setup step in on command line.
+In order to lower the overhead of using Riak Search in a cluster within the
+default bucket namespace, [[Bucket Types|Using Bucket Types]] should be used.
+Below are the few additional steps required to associate a search index with a
+bucket type:
 
 ```bash
 $ riak-admin bucket-type create animals '{"props":{}}'
