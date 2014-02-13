@@ -228,7 +228,7 @@ riak-admin bucket-type create type_using_defaults '{"props":{}}'
 Creating bucket types _always_ involves passing stringified JSON to the `create` command. One way to do that is to simply pass a string directly, as above, but you can also do so by passing the contents of a file, such as a `.json` file:
 
 ```bash
-riak-admin bucket-type create from_json_file `cat props.json`
+riak-admin bucket-type create from_json_file '`cat props.json`'
 ```
 
 ### Updating a Bucket Type
