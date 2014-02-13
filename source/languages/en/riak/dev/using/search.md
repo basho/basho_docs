@@ -295,9 +295,14 @@ Docs = Results#search_results.docs,
 io:fwrite("~p~n", [Docs]).
 ```
 
-The response to a query will be an object containing details about the response, such as a query's max score and a list of documents which match the given query. It's worth nothing two things: a) the documents returned are search documents (a set of solr field/values), not a Riak value, and b) the HTTP response is a direct Solr response, while the drivers use protocol buffers and are encoded with different field names.
+The response to a query will be an object containing details about the response, such as a query's max score and a list of documents which match the given query. It's worth noting two things:
 
-This is a common HTTP `response` value.
+- The documents returned are search documents (a set of Solr field/values),
+  not a Riak value
+- The HTTP response is a direct Solr response, while the drivers use Protocol
+  Buffers and are encoded with different field names
+
+This is a common HTTP `response` value:
 
 ```json
 {
