@@ -17,6 +17,20 @@ As of version 2.0, Riak administrators can selectively apportion access to a wid
 
 **Note**: Currently, Riak security commands can be run only through the command line using the `riak-admin security` command. In future versions of Riak, administrators will have the option of issuing those commands through the Protocol Buffers and HTTP interfaces.
 
+## Terminology
+
+* **Authentication** is the process of identifying a role.
+
+* **Authorization** is verifying whether a user has access to perform the requested operation.
+
+* **Users** and **Groups** are the same underlying concept (**Roles**), just used differently by convention.
+
+    Any role can be assigned to other roles to add permissions. Typically authentication
+    will be defined for users but not groups, while permissions may be
+    assigned to either.
+
+* **Sources** are used to define authentication mechanisms. A user cannot be authenticated to Riak until a source is defined.
+
 ## Security Basics
 
 Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
@@ -53,13 +67,13 @@ If security is successfully disabled, the console will return no response.
 
 ### Checking Security Status
 
-To check whether security is currently enabled on a node, simply use the `status` command:
+To check whether security is currently enabled for the cluster, simply use the `status` command:
 
 ```bash
 riak-admin security status
 ```
 
-This command will return a simple `Enabled` or `Disabled`.
+This command will usually return `Enabled` or `Disabled`, but if security is enabled on a mixed-mode cluster (running a combination of Riak 2.0 and older versions) it will indicate that security is enabled but not yet available.
 
 ## User Management
 
@@ -111,7 +125,7 @@ riak-admin security print-users > user_list.txt
 
 ### Retrieving Information About a Single User
 
-You can retrieve all information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
+You can retrieve authorization information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
 
 The output will look like this if the user `riakuser` has been explicitly granted a `riak_kv.get` permission on the bucket `shopping_list` and inherits a set of permissions from the `admin` role:
 
@@ -168,10 +182,16 @@ riak-admin security alter-user riakuser password=opensesame
 
 **Note**: Only one password may be assigned to a user at a time.
 
-When creating or altering a user, any number of `<option>=<value>` pairs can be appended to the end of the command:
+When creating or altering a user, any number of `<option>=<value>` pairs can be appended to the end of the command. Any non-standard options (today, `roles` and `password`) will be stored and displayed via the `riak-admin security print-users` command.
 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
+riak-admin security print-users
++----------+-------+----------+--------------------------------------------------+
+| username | roles | password |                     options                      |
++----------+-------+----------+--------------------------------------------------+
+| riakuser |       |          |[{"fav_color","red"},{"age","47"},{"name","bill"}]|
++----------+-------+----------+--------------------------------------------------+
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user` command. If you attempt to do so by running, for example, `alter-user riakuser username=other-name`, then this will simply add the `{"username","other-name"}` tuple to `riakuser`'s options, which is most likely _not_ the preferred action.
@@ -263,11 +283,7 @@ Permission | Operation |
 
 ### Search Query Permission (Riak Search version 1)
 
-If you are using the original Riak search, you can grant (and revoke) search permissions using `riak_search.query`, e.g.:
-
-```bash
-riak-admin security grant riak_search.query ON ANY TO search-power-user
-```
+Security is incompatible with the original Riak Search.
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
@@ -330,7 +346,7 @@ Riak security sources may be applied to all users/roles or only to a specific us
 
 Source   | Description |
 :--------|:------------|
-`trust` | Always authenticates successfully if access has been granted to a user, a role, or all users on the specified CIDR range |    
+`trust` | Always authenticates successfully if access has been granted to a user, a role, or all users on the specified CIDR range |
 `password` | Check the user's password against the [PBKSD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
@@ -371,7 +387,7 @@ To require a password from users `juliette` and `sanjay` when they connect from 
 riak-admin security add-source juliette,sanjay 10.0.0.0/24 password
 ```
 
-Instructions on assigning passwords are [[above|Riak Security#User-Management]].
+Instructions on assigning passwords are [[above|Authentication and Authorization#User-Management]].
 
 To require all users to authenticate through a PAM login service:
 
@@ -421,6 +437,8 @@ If we'd like to make the user `jane_goodall` both an `admin` and an `archoverlor
 riak-admin alter-user jane_goodall roles=admin,archoverlord
 ```
 
+There is no way to incrementally add roles; even if `jane_goodall` was already an `admin`, it is necessary to list it again when adding the `archoverlord` role.
+
 ### Assigning a Role to Multiple Users
 
 There is no command for assigning a role (or roles) to multiple users at one time, though you may use methods such as `for` loops in your shell:
@@ -440,9 +458,11 @@ There is no command for directly removing a user's roles, but you can assign a u
 riak-admin security alter-user riakuser roles=
 ```
 
+If you wish to unassign a single role from a user while retaining others, simply provide the others to the `alter-user` command.
+
 ## Security Ciphers
 
-To view a list of currently available cipher suites, use the `ciphers` command:
+To view a list of currently available security ciphers or change Riak's preferences, use the `ciphers` command:
 
 ```bash
 riak-admin security ciphers
@@ -463,3 +483,29 @@ Unknown/Unsupported ciphers(32)
 
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 ```
+
+To alter the list (to constrain it and/or to set preferred ciphers higher in the list):
+
+```bash
+riak-admin security ciphers DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+Configured ciphers
+
+DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+
+Valid ciphers(1)
+
+DHE-RSA-AES256-SHA
+
+Unknown/Unsupported ciphers(1)
+
+AES128-GCM-SHA256
+```
+
+A list of available ciphers on a server can be obtained using the `openssl` command:
+
+```bash
+openssl ciphers
+DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DES-CBC3-SHA:DES-CBC3-MD5:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES128-SHA:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:SEED-SHA:RC2-CBC-MD5:RC4-SHA:RC4-MD5:RC4-MD5:EDH-RSA-DES-CBC-SHA:EDH-DSS-DES-CBC-SHA:DES-CBC-SHA:DES-CBC-MD5:EXP-EDH-RSA-DES-CBC-SHA:EXP-EDH-DSS-DES-CBC-SHA:EXP-DES-CBC-SHA:EXP-RC2-CBC-MD5:EXP-RC2-CBC-MD5:EXP-RC4-MD5:EXP-RC4-MD5
+```
+
+Riak's cipher preferences were taken from [Mozilla's Server Side TLS documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
