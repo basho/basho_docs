@@ -380,7 +380,7 @@ riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 
 #### Boolean
 
-You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR` and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:%5B25%20TO%20*%5D`.
+You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR` and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:[25 TO *]`.
 
 ```curl
 curl "$RIAK_HOST/search/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
