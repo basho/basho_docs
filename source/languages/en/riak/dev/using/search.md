@@ -126,9 +126,6 @@ riak-admin security grant search.query ON index TO username
 riak-admin security grant search.query ON index famous TO username
 ```
 
-You can read more about Riak security.
-
-
 ## Indexing Values
 
 With a Solr schema, index, and association in place, we're ready to start using Riak Search. First, populate the `cat` bucket with values.
