@@ -38,7 +38,3 @@ message MapUpdate {
     optional MapOp     map_op      = 6;
 }
 ```
-
-## Response
-
-TODO

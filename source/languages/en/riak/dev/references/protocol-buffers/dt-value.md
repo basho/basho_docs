@@ -20,7 +20,3 @@ message DtValue {
     repeated MapEntry map_value     = 3;
 }
 ```
-
-## Response
-
-TODO

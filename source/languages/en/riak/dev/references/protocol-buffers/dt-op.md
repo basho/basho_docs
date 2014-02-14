@@ -20,7 +20,3 @@ message DtOp {
     optional MapOp     map_op     = 3;
 }
 ```
-
-## Response
-
-TODO

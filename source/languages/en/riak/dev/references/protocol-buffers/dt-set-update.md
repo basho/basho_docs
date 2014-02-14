@@ -19,7 +19,3 @@ message SetOp {
     repeated bytes removes = 2;
 }
 ```
-
-## Response
-
-TODO

@@ -37,7 +37,3 @@ message DtUpdateReq {
     optional bool   include_context = 13 [default=true]; // When return_body is true, should the context be returned too?
 }
 ```
-
-## Response
-
-TODO

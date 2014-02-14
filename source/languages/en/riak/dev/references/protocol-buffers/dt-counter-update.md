@@ -18,7 +18,3 @@ message CounterOp {
     optional sint64 increment = 1;
 }
 ```
-
-## Response
-
-TODO

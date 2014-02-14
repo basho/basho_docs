@@ -34,7 +34,3 @@ message DtFetchReq {
     optional bool include_context = 11 [default=true];
 }
 ```
-
-## Response
-
-TODO
