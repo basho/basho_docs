@@ -37,7 +37,7 @@ Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB perform
 A number of changes have been introduced in the LevelDB backend in Riak 2.0:
 
 * The sizing and resizing of the file cache and block sizes now occurs automatically during operation, with the goal of maximizing total memory usage across a dynamic number of open databases. This optimization occurs in each database (vnode) and affects both total memory allocation and the proportion of memory allocated to the file cache vs. the block cache.
-* Riak users can now set a `delete_threshold` variable that defines the number of tombstones that can be collected in a single `.sst` file before a "grooming" compaction process will be triggered that deletes tombstoned keys until the threshold is once again reached. Even when triggered, this type of compaction will only occur when there is a compaction thread immediately available, so that background processes don't overshadow realtime operations.
+* Riak users can now set a `leveldb.compaction.trigger.tombstone_count` variable that defines the number of tombstones that can be collected in a single `.sst` file before a "grooming" compaction process will be triggered that deletes tombstoned keys until the threshold is once again reached. Even when triggered, this type of compaction will only occur when there is a compaction thread immediately available, so that background processes don't overshadow realtime operations.
 {{/2.0.0+}}
 
 ### Strengths
@@ -120,7 +120,19 @@ Config | Description | Default
 `leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. The memory size can alternatively be assigned as a byte count via `total_leveldb_mem` instead. | 80
 `leveldb.bloom_filter` | Each database `.sst` table file can include an optional Bloom filter that is highly effective in quashing data queries that are destined to not find the requested key, e.g. if the key no longer exists. A bloom filter typically increases the size of a `.sst` file by about 2% if this parameter is set to `on`. | `on`
 `leveldb.block_size_steps` | Defines the number of incremental adjustments to attempt between the `block_size` value and the maximum `block_size` for a `.sst` table file. A value of 0 disables the underlying dynamic `block_size` feature. | `16`
-`leveldb.delete_threshold` | Controls when a background compaction initiates solely due to the number of delete tombstones within an individual `.sst` table file. A value of 0 disables the feature. | `1000`
+`leveldb.compaction.trigger.tombstone_count` | Controls when a background compaction initiates solely due to the number of delete tombstones within an individual `.sst` table file.  Value of `off` disables the feature. | `1000`
+`leveldb.fadvise_willneed` | Option to override LevelDB's use of `fadvise(DONTNEED)` with `fadvise(WILLNEED)` instead.  `WILLNEED` can reduce disk activity on systems where physical memory exceeds the database size. | `false`
+`leveldb.threads` | The number of worker threads performing LevelDB operations. | `71`
+`leveldb.verify_compaction` | Enables or disables the verification of LevelDB data during compaction. | `on`
+`leveldb.verify_checksums` | Enables or disables the verification of the data fetched from LevelDB against internal checksums. | `on`
+`leveldb.block.restart_interval` | Defines the key count threshold for a new key entry in the key index for a block. Most deployments should leave this parameter alone. | `16`
+`leveldb.block.size` | Defines the size threshold for a block/chunk of data within one `.sst` table file. Each new block gets an index entry in the `.sst` table file's master index. | `4KB`
+`leveldb.write_buffer_size_min` | Each vnode first stores new key/value data in a memory-based write buffer. This write buffer is in parallel to the recovery log mentioned in the `sync` parameter. Riak creates each vnode with a randomly sized write buffer for performance reasons. The random size is somewhere between `write_buffer_size_min` and `write_buffer_size_max`. | 
+`leveldb.write_buffer_size_max` | See directly above. | `60MB`
+`leveldb.limited_developer_mem` | This is a Riak-specific option that is used when a developer is testing a high number of vnodes and/or several VMs on a machine with limited physical memory.  Do NOT use this option if making performance measurements. This option overwrites values given to `write_buffer_size_min` and `write_buffer_size_max`. | `off`
+`leveldb.sync_on_write` | Whether LevelDB will flush after every write. Note: If you are familiar with `fsync`, this is analagous to calling `fsync` after every write | `off`
+`leveldb.maximum_memory` | This parameter defines the number of bytes of server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a percentage of total server memory via `leveldb.maximum_memory.percent` (see immediately below). | **none** |
+`leveldb.maximum_memory.percent` | This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size.  The memory size can alternately be assigned as a byte count via `leveldb.maximum_memory` instead (see immediately above). | `80`
 {{/2.0.0+}}
 
 ### Memory Usage per Vnode
