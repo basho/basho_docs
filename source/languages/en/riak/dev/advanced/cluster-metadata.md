@@ -1,20 +1,24 @@
 ---
 title: Cluster Metadata
 project: riak
+version: 2.0.0+
+document: guide
 toc: true
+audience: advanced
+keywords: [developers, advanced, cluster-metadata]
 ---
 
-Cluster metadata is a subsystem inside of Riak (specifically [`riak_core`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl)) that enables applications to work with information that is stored cluster wide. It is useful for storing information that needs to be read without blocking on communication over the network, or if you would like to build an extension to Riak.
+Cluster metadata is a subsystem inside of Riak (specifically [`riak_core`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl)) that enables applications to work with information that is stored cluster wide and can be read without blocking on communication over the network.
 
 Cluster metadata is essentially information in key/value form that needs to be available through a Riak cluster. One example is [[bucket types]]. When you create a new bucket type and assign a set of bucket properties to that type, that information needs to be made available to all nodes. It cannot behave like other Riak data. This is why it needs to be built as a separate subsystem (though it is an important subsystem, on which a great many features relies).
 
+Riak features like [[security|Riak Security]] and [[bucket types]] are examples of systems relying on cluster metadata.
+
 ## How Cluster Metadata Works
 
-The cluster metadata storage system is an eventually consistent key/value store. It is ansynchronously replicated across all nodes in a cluster when it is stored or modified. Writes require acknowledgment from only a single node (`w=1`), while reads return values only from the local node (`r=1`). All updates are eventually consistent.
+The cluster metadata storage system is a simple key/value store that is separate from normal data stored in Riak. Cluster metadata is ansynchronously replicated across all nodes in a cluster when it is stored or modified. Writes require acknowledgment from only a single node (`w=1`), while reads return values only from the local node (`r=1`). All updates are eventually consistent and propagated to all nodes, including nodes that join the cluster after the update has already reached all nodes in the previous set of members.
 
-All cluster metadata is stored both in memory and on disk, but it should be noted that reads are only from memory, while writes are made both to memory and to disk. 
-
-Logical clocks, namely [dotted version vectors](find good link), are used in place of vclocks or timestamps. Values stored as cluster metadata are opaque Erlang terms addressed by a full prefix and a key:
+All cluster metadata is stored both in memory and on disk, but it should be noted that reads are only from memory, while writes are made both to memory and to disk. Logical clocks, namely [dotted version vectors](http://arxiv.org/abs/1011.5808), are used in place of vclocks or timestamps to resolve value conflicts. Values stored as cluster metadata are opaque Erlang terms addressed by a full prefix and a key:
 
 ```erlang
 {atom() | binary(), atom() | binary()}
@@ -22,11 +26,9 @@ Logical clocks, namely [dotted version vectors](find good link), are used in pla
 
 Keys can be _any_ Erlang term.
 
-Updates are replicated to every node in the cluster, including nodes that join the cluster after the update has already reached all nodes in the previous set of members.
-
 ## API
 
-The cluster metadata API is defined by the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module. The API allows you to perform a variety of operations, including getting, putting, and deleting metadata and iterating through keys.
+The cluster metadata API is defined in the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module. The API allows you to perform a variety of operations, including getting, putting, and deleting metadata and iterating through keys.
 
 Performing a put only blocks until the write is effected locally, whereas broadcasting the update takes place asynchronously.
 
@@ -84,114 +86,3 @@ Function | Arguments | Description |
 `is_stale` | `_, undefined` or `RemoteContext, {metadata, Obj}` | Determines if the given context (version vector, *not* vclock) is causally newer than an existing object. If the object is missing or if the context does not represent an ancestor of the current key, `false` is returned. Otherwise, when the context does represent an ancestor of the existing object or the existing object itself, `true` is returned. |
 `descends` | ? | ??? |
 `equal_context` | `Context, {metadata, Obj}` | Returns `true` if the given context and the context of the existing object are equal. |
-
-## Metadata Exchange
-
-[`riak_core_metadata_exchange_fsm`](https://github.com/basho/riak_core/blob/9c2a4c8e67afab61c9d0de86a010c980c281a1c3/src/riak_core_metadata_exchange_fsm.erl)
-
-Function | Arguments | Description |
-:--------|:----------|:------------|
-`start` | `Peer`<br />`Timeout` | Starts an exchange of cluster metadata hash trees between this node and the `Peer` node. `Timeout` is the number of milliseconds the process will wait to acquire the remote lock or to update both trees. |
-
-## Metadata Hash Trees
-
-[`riak_core_metadata_hashtree`](https://github.com/basho/riak_core/blob/9c2a4c8e67afab61c9d0de86a010c980c281a1c3/src/riak_core_metadata_hashtree.erl)
-
-Function | Arguments | Description |
-:--------|:----------|:------------|
-`start_link/0` | **none** | Starts the process using `start_link/1` (directly below), passing in the directory where other cluster metadata is stored in `platform_data_dir` as the root |
-`start_link/1` | `DataRoot` | Starts a registered process that manages a `hashtree_tree` for cluster metadata. 
-
-
-
-
-
-
-## Internals
-
-CMD stores data in a different way from that of clients; e.g. clients are not exposed to logical clocks alongside values (but they are used heavily within the cluster)
-
-`riak_core_metadata_object` defines the internal representation, i.e. the **metadata object**; provides a set of operations that can be performed on metadata objects, e.g. conflict resolution, version reconciliation, accessing values, clock, add'l information about the object, etc.
-
-Logical clocks used by CMD are [dotted version vectors](https://github.com/ricardobcl/Dotted-Version-Vectors); `dvvset.erl`
-
-Nodes manage storage via the `riak_core_metadata_manager` process running on it; the metadata manager is not responsible for replication and is not aware of other nodes; it is, however, aware that writes are causally related by their logical clocks, and it uses this informatio to make local storage decisions, e.g. when an object is causally older than the value already stored; data read from the metadata manager is a metadata object or a raw value
-
-Hash trees are the basis for determining differences betwen data stored on two nodes; used to determine when keys change; `hashtree_tree` module; each node maintains a `hashtree` via the `riak_core_metadata_hashtree` process; only maintained for the life of the running node; rebuilt each time a node starts and are never rebuilt for as long as the node continues to run; backed by LevelDB and cleared on graceful shutdown and each time the node is started; the entire tree is stored in one LevelDB instance
-
-Broadcast: separate subsystem; ties nodes together; `riak_core_broadcast` module; the `riak_core_broadcast_handler` process
-
-## Usage Examples
-
-All operations are of the following form:
-
-```erlang
-(node_name@node_address)> riak_core_metadata:metadata_function(args).
-```
-
-For `metadata_function` substitute any of the functions listed in the table above.
-
-These examples are for the node `dev1@127.0.0.1`. We'll use Eshell (the Erlange shell) for these examples, but you may of course wish to interact with cluster metadata programmatically in your application.
-
-#### Gets
-
-```erlang
-(dev1@127.0.0.1)> riak_core_metadata:get(_, _).
-```
-
-```erlang
-(dev1@127.0.0.1)> riak_core_metadata:get(_, _, _).
-```
-
-#### Puts
-
-```erlang
-(dev1@127.0.0.1)> riak_core_metadata:put(_, _, _).
-```
-
-```erlang
-(dev1@127.0.0.1)> riak_core_metadata:put(_, _, _, _).
-```
-
-#### Deletes
-
-```erlang
-(dev1@127.0.0.1)> riak_core_metadata:delete(_, _).
-```
-
-```erlang
-(dev1@127.0.0.1)> riak_core_metadata:delete(_, _, _).
-```
-
-#### Iteration
-
-## "Controlled Epidemics" talk
-
-http://www.youtube.com/watch?v=s4cCUTPU8GI
-
-Lots of custom bucket properties make Riak *slow*
-
-Gossip system: periodic and change-triggered communication; as ring structure changes, there is a flood of nodes (graph overlay); binary tree with cycles; very chatty
-
-Bucket properties problem; modify one bucket property and all of the others are broadcast around (cold rumor spreading)
-
-https://gist.github.com/jrwest/a0d88571d5d7787758ce
-
-https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl
-https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_exchange_fsm.erl
-https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_hashtree.erl
-https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_manager.erl
-https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata_object.erl
-
-![Riak cluster metadata diagram](https://a248.e.akamai.net/camo.github.com/2bd50766570280a928bf74aafeda4d45018b1c81/687474703a2f2f6563322d35342d3232372d3131372d39392e636f6d707574652d312e616d617a6f6e6177732e636f6d2f636f72652d6b762d6d65657475702d707265736f2f696d616765732f686967682d6c6576656c2e706e67)
-
-
-
-
-
-
-
-
-
-
-
