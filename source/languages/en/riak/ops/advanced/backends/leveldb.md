@@ -33,7 +33,12 @@ LevelDB is a relatively new entrant into the growing list of key/value database 
 {{#2.0.0-}}
 Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB performance for the kinds of "large data" environments that are typical in Riak deployments.
 {{/2.0.0-}}
+{{#2.0.0+}}
+A number of changes have been introduced in the LevelDB backend in Riak 2.0:
 
+* The sizing and resizing of the file cache and block sizes now occurs automatically during operation, with the goal of maximizing total memory usage across a dynamic number of open databases. This optimization occurs in each database (vnode) and affects both total memory allocation and the proportion of memory allocated to the file cache vs. the block cache.
+* Riak users can now set a `delete_threshold` variable that defines the number of tombstones that can be collected in a single `.sst` file before a "grooming" compaction process will be triggered that deletes tombstoned keys until the threshold is once again reached. Even when triggered, this type of compaction will only occur when there is a compaction thread immediately available, so that background processes don't overshadow realtime operations.
+{{/2.0.0+}}
 
 ### Strengths
 
@@ -196,7 +201,7 @@ That's 536870912 bytes (512 MB) per vnode.
 
 Best Case:
 
-     (Number of free GBs / 2) * (1024 ^ 3)
+      (Number of free GBs / 2) * (1024 ^ 3)
     ---------------------------------------- = Cache Size
     (Number of partitions / Number of nodes)
 
@@ -236,11 +241,6 @@ These values can be adjusted to tune between write performance and write safety.
 
 #### Sync
 
-{{#1.4.0+}}
-This parameter defines how new key/value data is placed in the recovery log. The recovery log is only used if the Riak program crashes or the server loses power unexpectedly. The parameter's original intent was to guarantee that each new key/value was written to the physical disk before LevelDB responded with `write good`. The reality in modern servers is that many layers of data caching exist between the database program and the physical disks. This flag influences only one of the layers.
-
-Setting this flag to `true` guarantees that the write operation will be slower, but it does not actually guarantee that the data was written to the physical device. The data has likely been flushed from the operating system cache to the disk controller. The disk controller may or may not save the data if the server power fails. Setting this flag to `false` allows for faster write operations and depends upon the operating system's memory-mapped I/O conventions to provide reasonable recovery should the Riak program fail, but not if server power fails.
-{{/1.4.0+}}
 {{#1.4.0-}}
 If set to `true`, the write will be flushed from the operating system buffer cache before the write is considered complete. Writes will be slower but data more durable.
 
@@ -255,6 +255,11 @@ failure. If data durability is absolutely necessary then make sure you
 disable this feature on your drive or provide battery backup and a proper
 shutdown procedure during power loss.
 {{/1.4.0-}}
+{{#1.4.0+}}
+This parameter defines how new key/value data is placed in the recovery log. The recovery log is only used if the Riak program crashes or the server loses power unexpectedly. The parameter's original intent was to guarantee that each new key/value was written to the physical disk before LevelDB responded with `write good`. The reality in modern servers is that many layers of data caching exist between the database program and the physical disks. This flag influences only one of the layers.
+
+Setting this flag to `true` guarantees that the write operation will be slower, but it does not actually guarantee that the data was written to the physical device. The data has likely been flushed from the operating system cache to the disk controller. The disk controller may or may not save the data if the server power fails. Setting this flag to `false` allows for faster write operations and depends upon the operating system's memory-mapped I/O conventions to provide reasonable recovery should the Riak program fail, but not if server power fails.
+{{/1.4.0+}}
 
 Default: `false`
 
