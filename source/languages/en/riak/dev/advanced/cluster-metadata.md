@@ -18,23 +18,17 @@ Riak features like [[security|Riak Security]] and [[bucket types]] are examples 
 
 The cluster metadata storage system is a simple key/value store that is separate from normal data stored in Riak. Cluster metadata is ansynchronously replicated across all nodes in a cluster when it is stored or modified. Writes require acknowledgment from only a single node (`w=1`), while reads return values only from the local node (`r=1`). All updates are eventually consistent and propagated to all nodes, including nodes that join the cluster after the update has already reached all nodes in the previous set of members.
 
-All cluster metadata is stored both in memory and on disk, but it should be noted that reads are only from memory, while writes are made both to memory and to disk. Logical clocks, namely [dotted version vectors](http://arxiv.org/abs/1011.5808), are used in place of vclocks or timestamps to resolve value conflicts. Values stored as cluster metadata are opaque Erlang terms addressed by a full prefix and a key:
-
-```erlang
-{atom() | binary(), atom() | binary()}
-```
-
-Keys can be _any_ Erlang term.
+All cluster metadata is stored both in memory and on disk, but it should be noted that reads are only from memory, while writes are made both to memory and to disk. Logical clocks, namely [dotted version vectors](http://arxiv.org/abs/1011.5808), are used in place of vclocks or timestamps to resolve value conflicts. Values stored as cluster metadata are opaque Erlang terms addressed by a full prefix and a key.
 
 ## API
 
-The cluster metadata API is defined in the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module. The API allows you to perform a variety of operations, including getting, putting, and deleting metadata and iterating through keys.
+The cluster metadata API is defined in the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module. The API allows you to perform a variety of operations, including retrieving, modifying, and deleting metadata and iterating through metadata keys.
 
-Performing a put only blocks until the write is effected locally, whereas broadcasting the update takes place asynchronously.
+A few things to note about the API:
 
-Deletion of keys is logical and tombstones are not reaped. Delete operations function the same way as put operations in that deletes are blocking only until the operations is effected locally, while broadcasting deletes to other nodes takes place asynchronously.
-
-The API's iterator functions enable you to iterate over either keys, values, or full prefixes. Iterators are neither ordered nor read-isolated. They do, however, guarantee that each key is seen _at most once_ for the lifetime of the iterator (thus no duplicate keys).
+* Performing a put operation blocks only until the write is effected locally, whereas broadcasting the update to other nodes takes place asynchronously.
+* Deletion of keys is logical and tombstones are not reaped. Delete operations function the same way as put operations in that deletes are blocking only until the operations is effected locally, while broadcasting deletes to other nodes takes place asynchronously.
+* The API's iterator functions enable you to iterate through either keys, values, or full prefixes. Iterators are neither ordered nor read-isolated. They do, however, guarantee that each key is seen _at most once_ for the lifetime of the iterator (thus no duplicate keys).
 
 Conflict resolution can be done on read or write; `allow_put` passed to `get/3` or `iterator/2` controls whether or not the resolved value will be written back to local storage and broadcast asynchronously. On write, conflicts are resolved by passing a function instead of a new value to `put/3`  or `put/4`.
 
