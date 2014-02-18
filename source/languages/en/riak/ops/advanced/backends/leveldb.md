@@ -116,11 +116,13 @@ The configuration values that can be set in your {{#2.0.0-}}`[[app.config|Config
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
+
 Config | Description | Default
 :------|:------------|:-------
 `leveldb.data_root` | LevelDB data root | `./data/leveldb`
-`leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. The memory size can alternatively be assigned as a byte count via `total_leveldb_mem` instead. | `70`
+`leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. | `70`
 {{/2.0.0+}}
+
 {{#2.0.0-}}
 ### Memory Usage per Vnode
 
@@ -514,7 +516,6 @@ The above calculations are automated in this [memory model spreadsheet](https://
 {{#1.4.0+}}
 The above calculations are automated in this [memory model spreadsheet](https://github.com/basho/basho_docs/raw/master/source/data/leveldb_sizing_1.4.xls).
 {{/1.4.0+}}
-{{/2.0.0-}}
 
 ## Tuning LevelDB
 
@@ -527,13 +528,7 @@ application variables in the `eLeveldb` application scope.
 
   * **Be aware of file handle limits**
 
-    You can control the number of file descriptors eLevelDB will use with
-    `max_open_files`. eLevelDB configuration defaults to 30 per partition which means that in a
-    cluster with 64 partitions you'll have at most 1920 file handles in use at
-    a given time. This can cause problems on some platforms (e.g. OS X has a
-    default limit of 256 handles). The solution is to increase the number of
-    file handles available. Review the (open files
-    limitations)(Open-Files-Limit) information.
+    You can control the number of file descriptors eLevelDB will use with `max_open_files`. eLevelDB configuration defaults to 30 per partition which means that in a cluster with 64 partitions you'll have at most 1920 file handles in use at a given time. This can cause problems on some platforms (e.g. OS X has a default limit of 256 handles). The solution is to increase the number of file handles available. Review the [[open files limitations|Open Files Limit]] information.
 
   * **Avoid extra disk head seeks by turning off `noatime`**
 
@@ -547,6 +542,7 @@ application variables in the `eLeveldb` application scope.
 /dev/sda5    /data           ext3    noatime  1 1
 /dev/sdb1    /data/inno-log  ext3    noatime  1 2
 ```
+{{/2.0.0-}}
 
 ### Recommended Settings
 
@@ -582,7 +578,7 @@ If you are using https protocol, the 2.6 kernel is widely known for stalling pro
 We recommend setting "clocksource=hpet" on your linux kernel's `boot` line. The TSC clocksource has been identified to cause issues on machines with multiple physical processors and/or CPU throttling.
 
 #### swappiness
-We recommend setting `vm.swappiness`=0 in `/etc/sysctl.conf`. The vm.swappiness default is 60, which is aimed toward laptop users with application windows. This was a key change for MySQL servers and is often referenced in database performance literature.
+We recommend setting `vm.swappiness=0` in `/etc/sysctl.conf`. The `vm.swappiness` default is 60, which is aimed toward laptop users with application windows. This was a key change for MySQL servers and is often referenced in database performance literature.
 
 
 
