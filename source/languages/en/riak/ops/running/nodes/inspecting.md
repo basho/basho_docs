@@ -311,4 +311,4 @@ Related Resources
 
 -   [Configuration and Management: Command Line Tools: riak-admin](http://docs.basho.com/riak/1.2.0/references/riak-admin Command Line/)
 -   [Riaknostic](http://riaknostic.basho.com/)
--   [[HTTP API status|HTTP Status]]
+-   [[HTTP API Status|HTTP Status]]
