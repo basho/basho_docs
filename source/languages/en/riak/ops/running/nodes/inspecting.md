@@ -30,12 +30,12 @@ of `riak-admin status` is categorized and detailed below.
 Please note, for some counters such as node_get_fsm_objsize a minimum of
 5 transactions is required for statistics to be generated.
 
-### One-minute
+### One-Minute Stats
 
-One-minute Counters are data points delineating the number of times a
+One-Minute Stats are data points representing the number of times a
 particular activity has occurred within the last minute on this node.
 
-List of one-minute counters (13):
+#### General One-Minute Stats
 
 -   **node_gets**: Number of GETs coordinated by this node, including
     GETs to non-local vnodes
@@ -51,44 +51,24 @@ List of one-minute counters (13):
 -   **vnode_index_writes_postings**:
 -   **vnode_index_deletes**:
 -   **vnode_index_deletes_postings**:
--   **pbc_active**:
 -   **pbc_connects**:
+-   **node_get_fsm_active_60s**:
+-   **node_put_fsm_active_60s**:
+-   **node_get_fsm_rejected_60s**:
+-   **node_put_fsm_rejected_60s**:
+-   **index_fsm_create**:
+-   **index_fsm_create_error**:
+-   **list_fsm_create**:
+-   **list_fsm_create_error**:
 
-### Totals
+#### FSM Time
 
-Total Counters are data points that represent the total number of times
-a particular activity has occurred since this node was started.
-
-List of total counters (15):
-
--   **node_gets_total**: Number of GETs coordinated by this node, including GETs to non-local vnodes
--   **node_puts_total**: Number of PUTs coordinated by this node, including PUTs to non-local vnodes
--   **vnode_gets_total**: Number of GETs coordinated by local vnodes
--   **vnode_puts_total**: Number of PUTS coordinated by local vnodes
--   **read_repairs_total**: Number of Read Repairs this node has
-    coordinated
--   **coord_redirs_total**: Number of requests this node has redirected
-    to other nodes for coordination
--   **vnode_index_refreshes_total**:
--   **vnode_index_reads_total**:
--   **vnode_index_writes_total**:
--   **vnode_index_writes_postings_total**:
--   **vnode_index_deletes_total**:
--   **vnode_index_deletes_postings_total**:
--   **pbc_connects_total**:
--   **precommit_fail**: Number of pre commit hook failures
--   **postcommit_fail**: Number of post commit hook failures
-
-### FSM_Time
-
-FSM_Time Counters represent the amount of time in microseconds required
+FSM Time Stats represent the amount of time in microseconds required
 to traverse the GET or PUT Finite State Machine code, offering a picture
 of general node health. From your application's perspective, FSM_Time
 effectively represents experienced latency. Mean, Median, and 95th-,
 99th-, and 100th-percentile (Max) counters are displayed. These are
 one-minute stats.
-
-List of Counters (10):
 
 -   **node_get_fsm_time_mean**: Mean time between reception of
     client GET request and subsequent response to client
@@ -111,13 +91,11 @@ List of Counters (10):
 -   **node_put_fsm_time_100**: 100th percentile time between
     reception of client PUT request and subsequent response to client
 
-### GET_FSM_Siblings
+#### GET FSM Siblings
 
-GET_FSM_Sibling Stats offer a count of the number of siblings
+GET FSM Sibling Stats offer a count of the number of siblings
 encountered by this node on the occasion of a GET request. These are
 one-minute stats.
-
-Sample finite state machine sibling counters (5):
 
 -   **node_get_fsm_siblings_mean**: Mean number of siblings
     encountered during all GET operations by this node within the last
@@ -135,15 +113,13 @@ Sample finite state machine sibling counters (5):
     encountered during all GET operations by this node within the last
     minute
 
-### GET_FSM_Objsize
+#### GET FSM Objsize
 
-GET_FSM_Objsize is a window on the sizes of objects flowing through
-this node's GET_FSM. The size of an object is obtained by summing the
-length of the bucket name, key, the serialized vector clock, the value,
-and the serialized metadata of each sibling. GET_FSM_Objsize and
-GET_FSM_Siblings are inextricably linked. These are one-minute stats.
-
-Sample finite state machine object size counters (5):
+GET FSM Objsize Stats represent a view of the sizes of objects flowing through
+this node's GET FSMs. The size of an object is obtained by summing the
+length of the bucket name, key, serialized vector clock, value,
+and serialized metadata of each sibling. GET FSM Objsize and
+GET FSM Siblings are inextricably linked. These are one-minute stats.
 
 -   **node_get_fsm_objsize_mean**: Mean object size encountered by
     this node within the last minute
@@ -156,36 +132,55 @@ Sample finite state machine object size counters (5):
 -   **node_get_fsm_objsize_100** 100th percentile object size
     encountered by this node within the last minute
 
-### General FSM
+### Active Stats
 
-List of general FSM stats (20):
+Active Stats are data points the represent current activity on the node.
 
--   **index_fsm_create**:
--   **index_fsm_create_error**:
--   **index_fsm_active**:
--   **list_fsm_create**:
--   **list_fsm_create_error**:
--   **list_fsm_active**:
+-   **pbc_active**:
 -   **node_get_fsm_active**:
--   **node_get_fsm_active_60s**:
+-   **node_put_fsm_active**:
+-   **index_fsm_active**:
+-   **list_fsm_active**:
+-   **node_get_fsm_rejected**:
+-   **node_put_fsm_rejected**:
+
+### Average Stats
+
+Average Stats are data points that represent an average of total occurrences over number of samples since this node was started.  In the below stats the sample time is 1s, giving us a per-second average.
+
 -   **node_get_fsm_in_rate**:
 -   **node_get_fsm_out_rate**:
--   **node_get_fsm_rejected**:
--   **node_get_fsm_rejected_60s**:
--   **node_get_fsm_rejected_total**:
--   **node_put_fsm_active**:
--   **node_put_fsm_active_60s**:
 -   **node_put_fsm_in_rate**:
 -   **node_put_fsm_out_rate**:
--   **node_put_fsm_rejected**:
--   **node_put_fsm_rejected_60s**:
+
+### Total Stats
+
+Total Stats are data points that represent the total number of times
+a particular activity has occurred since this node was started.
+
+-   **node_gets_total**: Number of GETs coordinated by this node, including GETs to non-local vnodes
+-   **node_puts_total**: Number of PUTs coordinated by this node, including PUTs to non-local vnodes
+-   **vnode_gets_total**: Number of GETs coordinated by local vnodes
+-   **vnode_puts_total**: Number of PUTS coordinated by local vnodes
+-   **read_repairs_total**: Number of Read Repairs this node has
+    coordinated
+-   **coord_redirs_total**: Number of requests this node has redirected
+    to other nodes for coordination
+-   **vnode_index_refreshes_total**:
+-   **vnode_index_reads_total**:
+-   **vnode_index_writes_total**:
+-   **vnode_index_writes_postings_total**:
+-   **vnode_index_deletes_total**:
+-   **vnode_index_deletes_postings_total**:
+-   **pbc_connects_total**:
+-   **precommit_fail**: Number of pre commit hook failures
+-   **postcommit_fail**: Number of post commit hook failures
+-   **node_get_fsm_rejected_total**:
 -   **node_put_fsm_rejected_total**:
 
 ### Timestamps
 
 The various Erlang applications that Riak is comprised of contribute their own statistics to `riak-admin status`.  The below timestamps record, in Epoch time, the last time statistics for that application were generated.
-
-(2)
 
 -   **riak_kv_stat_ts**: The last time Riak KV stats were generated.
 -   **riak_pipe_stat_ts**: The last time Riak Pipe stats were generated.
@@ -193,8 +188,6 @@ The various Erlang applications that Riak is comprised of contribute their own s
 ### Ring
 
 General ring information is reported in `riak-admin status`.
-
-(4)
 
 -   **ring_members**: List of nodes which are members of the ring
 -   **ring_num_partitions** The configured number of partitions in the
@@ -208,8 +201,6 @@ General ring information is reported in `riak-admin status`.
 CPU statistics are taken directly from Erlang’s cpu_sup module.
 Documentation for which can be found at [ErlDocs:
 cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
-
-(4)
 
 -   **cpu_nprocs**: Number of operating system processes
 -   **cpu_avg1**: The average number of active processes for the last 1
@@ -225,8 +216,6 @@ cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
 Memory statistics are taken directly from the Erlang virtual machine.
 Documentation for which can be found at [ErlDocs:
 Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0).
-
-(11)
 
 -   **memory_total**: Total allocated memory (sum of processes and
     system)
@@ -248,9 +237,7 @@ Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memo
 
 ### Erlang VM
 
-The below statistics describe the Erlang VM.
-
-(14)
+The below statistics describe properties of the Erlang VM.
 
 -   **nodename**: The name this node uses to identify itself
 -   **connected_nodes**: A list of the nodes that this node is aware of
@@ -277,8 +264,6 @@ particular to this node.
 
 List of miscellaneous information statistics:
 
-(3)
-
 -   **leveldb_read_block_error**: The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.
 -   **disk**: Information about the disk, taken from Erlang's disksup module.  Reported as [{"ID",KBytes_Used,Percent_Util}].
 -   **storage_backend**:  The storage backend currently in use.
@@ -287,8 +272,6 @@ List of miscellaneous information statistics:
 ### Pipeline Metrics
 
 The following metrics from from riak_pipe are generated during MapReduce operations.
-
-(5)
 
 - **pipeline_active**: The number of pipelines active in the last 60 seconds
 - **pipeline_create_count**: The total number of pipelines created since the node was started
@@ -301,8 +284,6 @@ The following metrics from from riak_pipe are generated during MapReduce operati
 
 The specific version of each Erlang application and subsystem which
 makes up a Riak node is present in `riak-admin status` output.
-
-(30)
 
 -   **erlydtl_version**:
 -   **riak_control_version**: Version of Riak Control application in use
