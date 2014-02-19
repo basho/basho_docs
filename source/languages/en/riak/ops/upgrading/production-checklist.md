@@ -8,13 +8,13 @@ audience: intermediate
 keywords: [operators, building]
 ---
 
-Making the transition from using Riak in a development or testing environment and using it in a realtime, production environment can often be a complex process. While the specifics of the product will often depend on the application at hand, there are some things that you might want to consider and a few questions that you might want to ask while making this transition.
+Making the transition from running Riak in a development or testing environment to deploying it in a realtime, production environment can often be a complex process. While the specifics of that process will always depend on the use case at hand, there are nonethless some things that you might want to consider and a few questions that you might want to ask while making this transition.
 
 ## System
 
-* Are all systems in your cluster as close to identical in both hardware and software as possible?
-* Have you set appropriate [[open files limits]] on all of your systems?
-* Have you applied the changes suggested in the [[Linux tuning recommendations|Linux Performance Tuning]]?
+* Are all systems in your cluster as close to identical as possible in terms of both hardware and software?
+* Have you set appropriate [[open files limits|Open Files Limit]] on all of your systems?
+* Have you applied the [[Linux tuning recommendations|Linux Performance Tuning]]?
 * Have you applied the [[filesystem scheduler recommendations|File System Tuning]]?
 
 ## Network
@@ -23,7 +23,7 @@ Making the transition from using Riak in a development or testing environment an
 * Are your sure that your NTP clients' configuration is monotonic (i.e. that your clocks will not roll back)?
 * Is DNS correctly configured for all systems' production deployments?
 * Are connections correctly routed between all Riak nodes?
-* Are connections correctly set up for your load balancer?
+* Are connections correctly set up in your load balancer?
 * Are your [[firewalls|Security and Firewalls]] correctly configured?
 * Check that network latency and throughput as expected for all of the following (we suggest using [iperf](http://www.ntp.org/) to verify):
   - between nodes in the cluster
@@ -36,16 +36,17 @@ Making the transition from using Riak in a development or testing environment an
 
 * Check [[configuration files]]:
   - Does each machine have the correct name and IP settings in {{#2.0.0-}}`app.config` and `vm.args`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}}?
-  - Are all the {{#2.0.0-}}`app.config`{{/2.0.0+}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} settings identical across the cluster?
+  - Are all of the {{#2.0.0-}}`app.config` and `vm.args`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} settings identical across the cluster?
   - Have all of the settings in your configuration file(s) that were changed for debugging purposes been reverted back to production settings?
   - If you're using [[multiple data backends|Multi]], are all of your {{#2.0.0-}}buckets{{/2.0.0-}}{{#2.0.0+}}bucket types{{/2.0.0+}} configured to use the correct backend?
   - If you're using [[multiple data backends|Multi]], do all machines' config files agree on their configuration?
-  - Do all nodes agree on the value of the [[`allow_mult`|Basic Configuration]] setting?
+  - Do all nodes agree on the value of the `[[allow_mult|Basic Configuration]]`` setting?
   - Do you have a [[sibling resolution|Vector Clocks]] strategy in place if `allow_mult` is set to `true`?
-  - Have you carefully weighed the consistency trade-offs that must be made if `allow_mult`  set to `false`?
+  - Have you carefully weighed the [[consistency trade-offs|Eventual Consistency]] that must be made if `allow_mult` is set to `false`?
   - Are all of your [[CAP controls|Replication Properties]] configured correctly and uniformly across the cluster?
-  - If you are using {{#2.0.0-}}Riak Search{{/2.0.0-}}{{#2.0.0+}}Yokozuna{{/2.0.0+}}, is it enabled on all nodes? If you are _not_, has it been disabled on all nodes?
-  - If you are using [[strong consistency]] for some or all of your data, has the strong consistency subsystem been [[enabled|Using Strong Consistency#Enabling-Strong-Consistency]] turned on in all nodes? {{#2.0.0+}}
+  - If you are using Riak Search, is it enabled on all nodes? If you are not, has it been disabled on all nodes?
+  - If you are using [[strong consistency]] for some or all of your data, has the strong consistency subsystem been [[enabled|Using Strong Consistency#Enabling-Strong-Consistency]] on all nodes? {{#2.0.0+}}
+  - Have all [[bucket types|Using Bucket Types]] that you intend to use been created and successfully activated? {{#2.0.0+}}
   - If you are using [[Riak Control]], is it enabled on the node(s) from which you intend to use it?
 * Check data mount points:
   - Is `/var/lib/riak` mounted?
@@ -53,7 +54,7 @@ Making the transition from using Riak in a development or testing environment an
   - Do all nodes have their own storage systems (i.e. no [SANs](http://en.wikipedia.org/wiki/Storage_area_network)), or do you have a plan in place for switching to that configuration later?
 * Are all Riak nodes up?
   - Run `riak ping` on all nodes. You should get `pong` as a response.
-  - Run `riak-admin wait-for-service riak_kv <node_name>@<IP>` on each node. You should get `riak_kv` is up as a response.
+  - Run `riak-admin wait-for-service riak_kv <node_name>@<IP>` on each node. You should get `riak_kv is up` as a response.
     
     The `<node_name>@<IP>` string should come from your {{#2.0.0-}}`vm.args`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} file.
 * Do all nodes agree on the ring state?
@@ -65,20 +66,20 @@ Making the transition from using Riak in a development or testing environment an
 ## Operations
 
 * Does your monitoring system ensure that [NTP](http://www.ntp.org/) is running?
-* Are you collecting [[time series data|Stats and Monitoring]] on the whole cluster?
+* Are you collecting [[time series data|Statistics and Monitoring]] on the whole cluster?
   - System metrics
     + CPU load
     + Memory used
     + Network throughput
     + Disk space used/available
     + Disk input/output operations per second (IOPS)
-  - Riak metrics (from the [[`/stats`|HTTP Status]] HTTP endpoint or using [[`riak-admin`|Inspecting a Node]])
-    + Latencies: `GET` and `PUT`, mean/median/95th/99th/100th
+  - Riak metrics (from the `[[/stats|HTTP Status]]` HTTP endpoint or using `[[riak-admin|Inspecting a Node]]`)
+    + Latencies: `GET` and `PUT` (mean/median/95th/99th/100th)
     + Vnode stats: `GET`s, `PUT`s, `GET` totals, `PUT` totals
     + Node stats: `GET`s, `PUT`s, `GET` totals, `PUT` totals
     + Finite state machine (FSM) stats:
       * `GET`/`PUT` FSM `objsize` (99th and 100th percentile)
-      * `GET`/`PUT` FSM times (mean/median/95th/99th/100th)
+      * `GET`/`PUT` FSM `times` (mean/median/95th/99th/100th)
     + Protocol buffer connection stats
       * `pbc_connects`
       * `pbc_active`
