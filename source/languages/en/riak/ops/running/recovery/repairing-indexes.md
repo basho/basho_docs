@@ -13,6 +13,38 @@ moved: {
 
 ## Repairing Secondary Indexes
 
+The `riak-admin repair-2i` command can be used to repair any stale or missing secondary indexes.  This command scans and repairs any mismatches between the secondary index data used for querying and the secondary index data stored in the Riak objects. It can be run on all partitions of a node or on a subset of them.  It is recommended that these repairs are only scheduled outside of peak load time.
+
+### Running a Repair
+
+The secondary indexes of a single partition can be repaired by executing:
+
+```bash
+$ riak-admin repair-2i <Partition_ID>
+```
+
+The secondary indexes of every partition can be repaired by executing the same command, without a partition ID:
+
+```bash
+$ riak-admin repair-2i
+```
+
+### Monitoring a Repair
+
+Repairs can be monitored using the below command:
+
+```bash
+$ riak-admin repair-2i status
+```
+
+### Killing a Repair
+
+In the event the secondary index repair operation needs to be halted, all repairs can be killed with:
+
+```bash
+$ riak-admin repair-2i kill
+```
+
 ----
 
 ## Repairing Search Indexes
@@ -60,7 +92,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
 5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
 
 
-### Checking in on a Repair
+### Monitoring a Repair
 
 The above Repair command can be slow, so if you reattach to the console, you can run the repair_status function. You can use the `Partitions` variable defined above to get the status of every partition.
 
