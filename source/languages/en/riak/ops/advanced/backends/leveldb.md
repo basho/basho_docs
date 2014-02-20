@@ -37,7 +37,7 @@ Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB perform
 A number of changes have been introduced in the LevelDB backend in Riak 2.0:
 
 * There is now only _one_ performance-related setting that Riak users need to define---`leveldb.total_mem_percent`---as LevelDB now dynamically sizes the file cache and block sizes based upon active vnodes assigned to the node.
-* The LevelDB backend in Riak 2.0 utilizes a new, faster threading model for background work, i.e. work involved in active anti-entropy and related processes. The new model has increased throughput by at least 10% in all test scenarios.
+* The LevelDB backend in Riak 2.0 utilizes a new, faster threading model for background compaction work on `.sst` table files. The new model has increased throughput by at least 10% in all test scenarios.
 * Delete operations now receive priority handling in compaction selection, leading to a more aggressive reclaiming of disk space than in previous versions of Riak's LevelDB backend.
 * Nodes storing massive key datasets (e.g. in the billions of keys) now receive increased throughput due to automatic management of LevelDB's block size parameter. This parameter is slowly raised to increase the number of files that can open simultaneously, leading to improved random read performance.
 {{/2.0.0+}}
