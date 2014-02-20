@@ -14,7 +14,7 @@ The Active Anti-Entropy fullsync strategy, as it pertains to replication, is cur
 
 ## Overview
 
-Riak Enterprise Multi-Datacenter (MDC) Replication Version 3 (Riak Enterprise version 1.4.0+) can now take advantage of Riak Active Anti-Entropy (AAE), which was first introduced as a technology preview in Riak 1.3.0. The use of AAE in replication can greatly increase the performance of a fullsync. Comparison time between two clusters can become linear with the percentage of differences.
+Riak Enterprise Multi-Datacenter (MDC) Replication Version 3 (Riak Enterprise version 1.4.0+) can now take advantage of Riak Active Anti-Entropy (AAE), which was first introduced as a technology preview in Riak 1.3.0. Comparison time between two clusters can become linear with the percentage of differences.
 
 AAE + Replication uses existing Riak AAE hash trees stored in LevelDB, so if AAE is already active, there is no additional startup delay for enabling the `aae` fullsync strategy. AAE can also be enabled for the first time on a cluster, although some custom settings can enhance performance in this case to help AAE trees be built more quickly. See [[Configuration/AAE Tree Build Optimization|Multi Data Center Replication v3 With AAE#aae-tree-build-optimization]].
 
