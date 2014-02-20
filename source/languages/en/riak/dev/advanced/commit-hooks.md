@@ -90,6 +90,11 @@ bucket.props['precommit'].push({ :mod => 'validate_json', :fun => 'validate' })
 bucket.props = {}
 ```
 
+```python
+bucket = client.bucket('messages')
+bucket.set_property('precommit', { 'mod': 'validate_json', 'fun': 'validate' })
+```
+
 Check that the bucket has your pre-commit hook listed in its properties:
 
 ```curl
@@ -99,6 +104,11 @@ curl http://localhost:8098/buckets/messages/props | jsonpp
 ```ruby
 bucket = client.bucket 'messages'
 bucket.props.has_key? 'precommit'
+```
+
+```python
+bucket = client.bucket('messages')
+if bucket.get_property('precommit')
 ```
 
 If you're using curl, the output should look like this:
@@ -158,6 +168,14 @@ json_object.raw_data = File.open('msg3.json').read
 json_object.store
 ```
 
+```python
+bucket = client.bucket('messages')
+json_object = RiakObject(client, bucket, '1')
+json_object.content_type = 'application/json' # this is the default
+json_object.data = open('msg3.json', 'r').read()
+json_object.store()
+```
+
 The console response when `msg3.json` contains invalid JSON:
 
 ```bash
@@ -211,6 +229,11 @@ curl -XPUT \
 ```ruby
 bucket = client.bucket 'updates'
 bucket.props['postcommit'].push({ :mod => 'log_object', :fun => 'log' })
+```
+
+```python
+bucket = client.bucket('updates')
+bucket.set_property('postcommit', { 'mod': 'log_object', 'fun': 'log' })
 ```
 
 Check that the bucket has your post-commit hook listed in its properties.
