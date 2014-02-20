@@ -8,7 +8,7 @@ audience: advanced
 keywords: [developers, strong-consistency]
 ---
 
-In versions 2.0 and later, Riak allows you to create buckets that provide [[strong consistency]] guarantees for the data stored within them, enabling you to use Riak as a CP system (consistent plus partition tolerant) for at least some of your data. This was added in version 2.0 to complement Riak's standard [[eventually consistent|Eventual Consistency]] high availability mode.
+In versions 2.0 and later, Riak allows you to create buckets that provide [[strong consistency]] guarantees for the data stored within them, enabling you to use Riak as a CP system (consistent plus partition tolerant) for at least some of your data. This option was added to complement Riak's standard [[eventually consistent|Eventual Consistency]], high availability mode.
 
 When data is stored in a bucket with strong consistency guarantees, a value is guaranteed readable by any node *immediately* after a successful write has occurred. The tradeoff is that unavailable nodes will become temporarily unable to accept writes to that key. This tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
@@ -58,6 +58,6 @@ When activation is successful, the console will return the following:
 strongly_consistent has been activated
 ```
 
-Now, any bucket that bears the type `strongly_consistent`---or whatever you wish to name your bucket type---will provide strong consistency guarantees.
+Now, any bucket that bears the type `strongly_consistent`---or whatever you named your bucket type---will provide strong consistency guarantees.
 
-Elsewhere in the Riak docs, you can find more comprehensive information on [[Using Bucket Types]] and the concept of [[Strong Consistency]].
+Elsewhere in the Riak docs you can find more comprehensive information on [[Using Bucket Types]] and the concept of [[Strong Consistency]].

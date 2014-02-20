@@ -17,7 +17,7 @@ Yet one option that was not available in versions prior to 2.0 was the option of
 
 ## Strong vs. Eventual Consistency
 
-If you successfully write a key in a strongly consistent system, the next successful read of that key is guaranteed to show that write. Writes that meet this criterion are known as [atomic updates](http://en.wikipedia.org/wiki/Atomicity_(database_systems)). Strong consistency means that you simply never see out-of-date values. The drawback is that some writes may fail if a node is unreachable.
+If you successfully write a key in a strongly consistent system, the next successful read of that key is guaranteed to show that write. Writes that meet this criterion are known as [atomic updates](http://en.wikipedia.org/wiki/Atomicity_(database_systems)). Strong consistency means that a client simply never sees out-of-date values. The drawback is that some writes may fail if a node is unreachable.
 
 In an eventually consistent system, on the other hand, a read may return an out-of-date value if the object is read from a yet-to-be-replicated node. The advantage of this approach is that data can remain highly available even when some nodes in the cluster are down.
 
@@ -92,7 +92,9 @@ Conflicts are thus sorted out at read time rather than write time. Now, every ti
 
 For some use cases, the rollback to older values in cases of "doubt" and the occasional refusal of writes can be detrimental, especially for those use cases in which it's important to accept all writes unconditionally.
 
-But if non-ambiguity is a primary concern, to the extent that it's worth (a) occasionally discarding logically newer values in favor of logically older ones and (b) occasionally losing write availability, then you might want to consider strong consistency for at least that portion of your data that truly requires it.
+But for other use cases, a slightly outdated value is typically "good enough" and much worth the performance and availability boost that can be achieved using eventual consistency. Depending on your business needs, it may be better to run the risk that an application will occasionally report a slightly out-of-date value than to not be able to provide any value at all.
+
+And so if data non-ambiguity is a primary concern, to the extent that it's worth occasionally (a) discarding logically newer values in favor of logically older ones and (b) losing write availability, then you might want to consider strong consistency for that portion of your data that truly requires it.
 
 ## Important Caveats
 
@@ -102,4 +104,4 @@ There are a few things that we should note about strong consistency as it is imp
 * [[Active Anti-Entropy]] syncing
 * Riak [[Datatypes]]
 
-Second of all, strong consistency can be guaranteed only at the single-key level. There is currently no support for strong consistency across keys or in multi-key operations.
+Second of all, strong consistency can be guaranteed only at the single-key level. There is currently no support for strong consistency across keys or for multi-key operations.
