@@ -53,28 +53,32 @@ One-Minute Stats represent the number of times a particular activity has occurre
 
 #### General One-Minute Stats
 
-Stat                           | Description
--------------------------------|---------------------------------------------------
-`node_gets`                    | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
-`node_puts`                    | Number of PUTs coordinated by this node, including PUTs to non-local vnodes in the last minute
-`vnode_gets`                   | Number of GET operations coordinated by local vnodes on this node in the last minute
-`vnode_puts`                   | Number of PUT operations coordinated by local vnodes on this node in the last minute
-`read_repairs`                 | Number of read repair operations this node has coordinated in the last minute
-`vnode_index_refreshes`        | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
-`vnode_index_reads`            | Number of local replicas participating in secondary index reads in the last minute
-`vnode_index_writes`           | Number of local replcias participating in secondary index writes in the last minute
-`vnode_index_writes_postings`  | Number of individual secondary index values written in the last minute
-`vnode_index_deletes`          | Number of local replicas participating in secondary index deletes in the last minute
-`vnode_index_deletes_postings` | Number of individual secondary index values deleted in the last minute
-`pbc_connects`                 | Number of Protocol Buffers connections made in the last minute
-`node_get_fsm_active_60s`      | Number of GET FSMs active in the last minute
-`node_put_fsm_active_60s`      | Number of PUT FSMs active in the last minute
-`node_get_fsm_rejected_60s`    | Number of GET FSMs rejected by Sidejob's overload protection in the last minute
-`node_put_fsm_rejected_60s`    | Number of PUT FSMs rejected by Sidejob's overload protection in the last minute
-`index_fsm_create`             | Number of Secondary Index query FSMs created in the last minute
-`index_fsm_create_error`       | Number of Secondary Index query FSM creation errors in the last minute
-`list_fsm_create`              | Number of Keylisting FSMs created in the last minute
-`list_fsm_create_error`        | Number of Keylisting FSM creation errors in the last minute
+Stat                                  | Description
+--------------------------------------|---------------------------------------------------
+`node_gets`                           | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
+`node_puts`                           | Number of PUTs coordinated by this node, including PUTs to non-local vnodes in the last minute
+`vnode_gets`                          | Number of GET operations coordinated by local vnodes on this node in the last minute
+`vnode_puts`                          | Number of PUT operations coordinated by local vnodes on this node in the last minute
+`vnode_index_refreshes`               | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
+`vnode_index_reads`                   | Number of local replicas participating in secondary index reads in the last minute
+`vnode_index_writes`                  | Number of local replcias participating in secondary index writes in the last minute
+`vnode_index_writes_postings`         | Number of individual secondary index values written in the last minute
+`vnode_index_deletes`                 | Number of local replicas participating in secondary index deletes in the last minute
+`vnode_index_deletes_postings`        | Number of individual secondary index values deleted in the last minute
+`pbc_connects`                        | Number of Protocol Buffers connections made in the last minute
+`node_get_fsm_active_60s`             | Number of GET FSMs active in the last minute
+`node_put_fsm_active_60s`             | Number of PUT FSMs active in the last minute
+`node_get_fsm_rejected_60s`           | Number of GET FSMs rejected by Sidejob's overload protection in the last minute
+`node_put_fsm_rejected_60s`           | Number of PUT FSMs rejected by Sidejob's overload protection in the last minute
+`index_fsm_create`                    | Number of Secondary Index query FSMs created in the last minute
+`index_fsm_create_error`              | Number of Secondary Index query FSM creation errors in the last minute
+`list_fsm_create`                     | Number of Keylisting FSMs created in the last minute
+`list_fsm_create_error`               | Number of Keylisting FSM creation errors in the last minute
+`read_repairs`                        | Number of read repair operations this node has coordinated in the last minute
+`read_repairs_primary_outofdate_one`  | Number of read repair operations performed on primary vnodes in the last minute due to stale replicas
+`read_repairs_primary_notfound_one`   | Number of read repair operations performed on primary vnodes in the last minute due to missing replicas
+`read_repairs_fallback_outofdate_one` | Number of read repair operations performed on fallback vnodes in the last minute due to stale replicas
+`read_repairs_fallback_notfound_one`  | Number of read repair operations performed on fallback vnodes in the last minute due to missing replicas
 
 #### FSM Time
 
@@ -121,25 +125,29 @@ Stat                          | Description
 
 Total Stats represent the total number of times a particular activity has occurred since this node was started.
 
-Stat                                  | Description
---------------------------------------|---------------------------------------------------
-`node_gets_total`                     | Total number of GETs coordinated by this node, including GETs to non-local vnodes
-`node_puts_total`                     | Total number of PUTs coordinated by this node, including PUTs to non-local vnodes
-`vnode_gets_total`                    | Total number of GETs coordinated by local vnodes
-`vnode_puts_total`                    | Total number of PUTS coordinated by local vnodes
-`read_repairs_total`                  | Total number of Read Repairs this node has coordinated
-`coord_redirs_total`                  | Total number of requests this node has redirected to other nodes for coordination
-`vnode_index_refreshes_total`         | Total number of indexes refreshed during secondary index anti-entropy
-`vnode_index_reads_total`             | Total number of local replicas participating in secondary index reads
-`vnode_index_writes_total`            | Total number of local replicas participating in secondary index writes
-`vnode_index_writes_postings_total`   | Total number of individual secondary index values written 
-`vnode_index_deletes_total`           | Total number of local replicas participating in secondary index deletes
-`vnode_index_deletes_postings_total`  | Total number of individual secondary index values deleted 
-`pbc_connects_total`                  | Total number of Protocol Buffers connections made
-`precommit_fail`                      | Total number of pre-commit hook failures
-`postcommit_fail`                     | Total number of post-commit hook failures
-`node_get_fsm_rejected_total`         | Total number of GET FSMs rejected by Sidejob's overload protection
-`node_put_fsm_rejected_total`         | Total number of PUT FSMs rejected by Sidejob's overload protection
+Stat                                   | Description
+---------------------------------------|---------------------------------------------------
+`node_gets_total`                      | Total number of GETs coordinated by this node, including GETs to non-local vnodes
+`node_puts_total`                      | Total number of PUTs coordinated by this node, including PUTs to non-local vnodes
+`vnode_gets_total`                     | Total number of GETs coordinated by local vnodes
+`vnode_puts_total`                     | Total number of PUTS coordinated by local vnodes
+`read_repairs_total`                   | Total number of Read Repairs this node has coordinated
+`coord_redirs_total`                   | Total number of requests this node has redirected to other nodes for coordination
+`vnode_index_refreshes_total`          | Total number of indexes refreshed during secondary index anti-entropy
+`vnode_index_reads_total`              | Total number of local replicas participating in secondary index reads
+`vnode_index_writes_total`             | Total number of local replicas participating in secondary index writes
+`vnode_index_writes_postings_total`    | Total number of individual secondary index values written 
+`vnode_index_deletes_total`            | Total number of local replicas participating in secondary index deletes
+`vnode_index_deletes_postings_total`   | Total number of individual secondary index values deleted 
+`pbc_connects_total`                   | Total number of Protocol Buffers connections made
+`precommit_fail`                       | Total number of pre-commit hook failures
+`postcommit_fail`                      | Total number of post-commit hook failures
+`node_get_fsm_rejected_total`          | Total number of GET FSMs rejected by Sidejob's overload protection
+`node_put_fsm_rejected_total`          | Total number of PUT FSMs rejected by Sidejob's overload protection
+`read_repairs_primary_outofdate_count` | Total number of read repair operations performed on primary vnodes due to stale replicas
+`read_repairs_primary_notfound_count`  | Total number of read repair operations performed on primary vnodes due to missing replicas
+`read_repairs_fallback_outofdate_count`| Total number of read repair operations performed on fallback vnodes due to stale replicas
+`read_repairs_fallback_notfound_count` | Total number of read repair operations performed on fallback vnodes due to missing replicas
 
 ### Timestamps
 
