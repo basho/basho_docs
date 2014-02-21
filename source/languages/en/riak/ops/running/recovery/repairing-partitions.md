@@ -39,7 +39,7 @@ In the case of data loss in a single partition, just that partition can be repai
 1. From any node in the cluster, attach to Riak:
 
     ```bash
-    $ riak attach
+    riak attach
     ```
 
     You may have to hit enter again to get a console prompt.
@@ -47,13 +47,13 @@ In the case of data loss in a single partition, just that partition can be repai
 2. Execute the repair for a single partition using the below command:
 
     ```erlang
-    > riak_kv_vnode:repair(<Partition_ID>).
+    riak_kv_vnode:repair(<Partition_ID>).
     ```
 
     where `<Partition_ID>` is replaced by the ID of the partition to repair.  For example:
 
     ```erlang
-    > riak_kv_vnode:repair(251195593916248939066258330623111144003363405824).
+    riak_kv_vnode:repair(251195593916248939066258330623111144003363405824).
     ```
 
 3.  Once the command has been executed, detach from Riak using {{#1.3.2-}}`Control-D`{{/1.3.2-}}{{#1.4.0+}}`Control-C`{{/1.4.0+}}.
@@ -65,13 +65,13 @@ If a node is lost, all partitions that node currently owns can be repaired.
 1. From any node in the cluster, attach to Riak:
 
     ```bash
-    $ riak attach
+    riak attach
     ```
 
 2. Get a copy of the current Ring:
 
     ```erlang
-    > {ok, Ring} = riak_core_ring_manager:get_my_ring().
+    {ok, Ring} = riak_core_ring_manager:get_my_ring().
     ```
 
     You will get a lot of output with Ring record information. You can safely ignore it.
@@ -79,7 +79,7 @@ If a node is lost, all partitions that node currently owns can be repaired.
 3. Get a list of partitions owned by the node that needs to be repaired. Replace 'dev1@127.0.0.1' with the name of the node to be repaired.  The name can be found in the vm.args, specified as the `-name` parameter.
 
     ```erlang
-    > Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
+    Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
     ```
 
     _Note: The above is an [Erlang list comprehension](http://www.erlang.org/doc/programming_examples/list_comprehensions.html), that loops over each `{Partition, Node}` tuple in the Ring, and extracts only the partitions that match the given node name, as a list._
@@ -87,7 +87,7 @@ If a node is lost, all partitions that node currently owns can be repaired.
 4. Execute the repair on all the partitions. Executing the repairs all at once will cause a lot of `{shutdown, max_concurrency}` messages in the logs. These can be safely ingored, as it is just the transfers mechanism enforcing an upper limit on the number of concurrent transfers.
 
     ```erlang
-    > [riak_kv_vnode:repair(P) || P <- Partitions].
+    [riak_kv_vnode:repair(P) || P <- Partitions].
     ```
 5. Once the command has been executed, detach from Riak using {{#1.3.2-}}`Control-D`{{/1.3.2-}}{{#1.4.0+}}`Control-C`{{/1.4.0+}}.
 
@@ -100,7 +100,7 @@ The above repair commands can be monitored via the `riak-admin transfers` comman
 Currently there is no easy way to kill an individual repair.  The only option is to kill all repairs targeting a given node.  This is done by running `riak_core_vnode_manager:kill_repairs(Reason)` on the node undergoing repair.  This command can be executed from a `riak attach` session like below:
 
 ```erlang
-> riak_core_vnode_manager:kill_repairs(killed_by_user).
+riak_core_vnode_manager:kill_repairs(killed_by_user).
 ```
 
 Log entries will reflect that repairs were killed manually, and will look similar to:
@@ -112,7 +112,7 @@ Log entries will reflect that repairs were killed manually, and will look simila
 Repairs on a node can also be killed remotely from another node in the cluster.  From a `riak attach` session the below command can be used:
 
 ```erlang
-> rpc:call('dev1@127.0.0.1', riak_core_vnode_manager, kill_repairs, [killed_by_user]).
+rpc:call('dev1@127.0.0.1', riak_core_vnode_manager, kill_repairs, [killed_by_user]).
 ```
 
 

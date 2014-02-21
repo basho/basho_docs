@@ -20,13 +20,13 @@ The `riak-admin repair-2i` command can be used to repair any stale or missing se
 The secondary indexes of a single partition can be repaired by executing:
 
 ```bash
-$ riak-admin repair-2i <Partition_ID>
+riak-admin repair-2i <Partition_ID>
 ```
 
 The secondary indexes of every partition can be repaired by executing the same command, without a partition ID:
 
 ```bash
-$ riak-admin repair-2i
+riak-admin repair-2i
 ```
 
 ### Monitoring a Repair
@@ -34,7 +34,7 @@ $ riak-admin repair-2i
 Repairs can be monitored using the below command:
 
 ```bash
-$ riak-admin repair-2i status
+riak-admin repair-2i status
 ```
 
 ### Killing a Repair
@@ -42,7 +42,7 @@ $ riak-admin repair-2i status
 In the event the secondary index repair operation needs to be halted, all repairs can be killed with:
 
 ```bash
-$ riak-admin repair-2i kill
+riak-admin repair-2i kill
 ```
 
 ----
@@ -62,7 +62,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
 1. From a cluster node with Riak installed, attach to the Riak console:
 
     ```bash
-    $ riak attach
+    riak attach
     ```
 
     You may have to hit enter again to get a console prompt.
@@ -70,7 +70,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
 2. Get a list of partitions owned by the node that needs repair:
 
     ```erlang
-    > {ok, Ring} = riak_core_ring_manager:get_my_ring().
+    {ok, Ring} = riak_core_ring_manager:get_my_ring().
     ```
 
     You will get a lot of output with Ring record information. You can safely ignore it.
@@ -78,7 +78,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
 3. Then run the following code to get a list of partitions. Replace 'dev1@127.0.0.1' with the name of the node you need to repair.
 
     ```erlang
-    > Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
+    Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
     ```
 
     _Note: The above is an [Erlang list comprehension](http://www.erlang.org/doc/programming_examples/list_comprehensions.html), that loops over each `{Partition, Node}` tuple in the Ring, and extracts only the partitions that match the given node name, as a list._
@@ -86,7 +86,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
 4. Execute repair on all the partitions. Executing them all at once like this will cause a lot of `{shutdown,max_concurrency}` spam but it's not anything to worry about. That is just the transfers mechanism enforcing an upper limit on the number of concurrent transactions.
 
     ```erlang
-    > [riak_search_vnode:repair(P) || P <- Partitions].
+    [riak_search_vnode:repair(P) || P <- Partitions].
     ```
 
 5. When you're done, press `Ctrl-D` to disconnect the console. DO NOT RUN q() which will cause the running Riak node to quit. Note that `Ctrl-D` merely disconnects the console from the service, it does not stop the code from running.
@@ -97,7 +97,7 @@ This code will force all keys in each partition on a node to be reread, thus reb
 The above Repair command can be slow, so if you reattach to the console, you can run the repair_status function. You can use the `Partitions` variable defined above to get the status of every partition.
 
 ```erlang
-> [{P, riak_search_vnode:repair_status(P)} || P <- Partitions].
+[{P, riak_search_vnode:repair_status(P)} || P <- Partitions].
 ```
 
 When you're done, press `Ctrl-D` to disconnect the console.
@@ -113,7 +113,7 @@ call.  Here is an example of killing all repairs targeting partitions
 on the local node.
 
 ```erlang
-> riak_core_vnode_manager:kill_repairs(killed_by_user).
+riak_core_vnode_manager:kill_repairs(killed_by_user).
 ```
 
 Log entries will reflect that repairs were killed manually, something akin to this:
@@ -125,7 +125,7 @@ Log entries will reflect that repairs were killed manually, something akin to th
 Here is an example of executing the call remotely.
 
 ```erlang
-> rpc:call('dev1@127.0.0.1', riak_core_vnode_manager, kill_repairs, [killed_by_user]).
+rpc:call('dev1@127.0.0.1', riak_core_vnode_manager, kill_repairs, [killed_by_user]).
 ```
 
 When you're done, press `Ctrl-D` to disconnect the console.
