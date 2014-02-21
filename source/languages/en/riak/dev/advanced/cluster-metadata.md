@@ -14,12 +14,15 @@ One notable example, among many, of a subsystem of Riak relying on cluster metad
 
 ## How Cluster Metadata Works
 
-The crucial difference between cluster metadata and regular data stored in Riak is that it can be accessed only via the Erlang interface provided by the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module and not via HTTP or protocol buffers.
+Cluster metadata is different from other Riak data in two essential ways:
 
-The cluster metadata storage system is a simple key/value store that is capable of ansynchronously replicating information to all nodes in a cluster when it is stored or modified. Writes require acknowledgment from only a single node (`w=1`), while reads return values only from the local node (`r=1`). All updates are eventually consistent and propagated to all nodes, including nodes that join the cluster after the update has already reached all nodes in the previous set of members.
+1. Cluster metadata is intended only for internal Riak applications that require metadata shared on a system-wide basis. Regular stored data, on the other hand, is intended for use outside of Riak.
+2. Because it is intended for use by internal Riak applications, cluster metadata can be accessed only via the Erlang interface provided by the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module and not via HTTP or protocol buffers.
+
+The storage system backing cluster metadata is a simple key/value store that is capable of asynchronously replicating information to all nodes in a cluster when it is stored or modified. Writes require acknowledgment from only a single node (`w=1`), while reads return values only from the local node (`r=1`). All updates are eventually consistent and propagated to all nodes, including nodes that join the cluster after the update has already reached all nodes in the previous set of members.
 
 All cluster metadata is stored both in memory and on disk, but it should be noted that reads are only from memory, while writes are made both to memory and to disk. Logical clocks, namely [dotted version vectors](http://arxiv.org/abs/1011.5808), are used in place of vclocks or timestamps to resolve value conflicts. Values stored as cluster metadata are opaque Erlang terms addressed by both prefix and a key.
 
-## API
+## Erlang Code Interface
 
-The cluster metadata API is defined in the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module. The API allows you to perform a variety of operations, including retrieving, modifying, and deleting metadata and iterating through metadata keys.
+If you'd like to use cluster metadata for an internal Riak application, the Erlang interface is defined in the [`riak_core_metadata`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl) module, which allows you to perform a variety of operations, including retrieving, modifying, and deleting metadata and iterating through metadata keys.
