@@ -180,8 +180,23 @@ joe.visit_page
 joe.visits #=> 1
 ```
 
-We can also create instance methods that add and remove interests
-We can also create instance methods that add and remove interests
+We can also create instance methods that add and remove specific interests:
+
+```ruby
+class User
+  # retain class methods from above
+
+  def add_interest interest
+    @map.sets['interests'].add interest
+  end
+
+  def remove_interest interest
+    unless !interests.include? interest
+      @map.sets['interests'].remove interest
+    end
+  end
+end
+```
 
 ## Converting to JSON
 
@@ -204,8 +219,11 @@ class User
 end
 ```
 
-Now, we can instantly convert our `User` map into a JSON object and pipe it to our client-side application:
+Now, we can instantly convert our `User` map into a stringified JSON object and pipe it to our client-side application:
 
 ```ruby
+bruce = User.new 'Bruce', 'Wayne', ['crime fighting', 'climbing', 'wooing Rachel Dawes']
+
 bruce.as_json
+#=>  "{"first_name":"Bruce","last_name":"Wayne","interests":["climbing","crime fighting","wooing Rachel Dawes"],"visits":0}"
 ```
