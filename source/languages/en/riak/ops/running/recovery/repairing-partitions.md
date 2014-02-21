@@ -16,7 +16,7 @@ If a loss of replicas occurs, you may need to run a Riak KV repair on one or mor
 **You need to run a repair if both of the below are true:**
 
 - Active Anti-Entropy is disabled.
-- You have persistent data, and have keys that are not accessed frequently.
+- You have non-expiring data, and have keys that are not accessed frequently.
 
 **You may not need to run a repair if any of the below are true:**
 
@@ -44,15 +44,21 @@ In the case of data loss in a single partition, just that partition can be repai
 
     You may have to hit enter again to get a console prompt.
 
-2. Execute the repair for a single partition.
+2. Execute the repair for a single partition using the below command:
 
     ```erlang
     > riak_kv_vnode:repair(<Partition_ID>).
     ```
 
+    where `<Partition_ID>` is replaced by the ID of the partition to repair.  For example:
+
+    ```erlang
+    > riak_kv_vnode:repair(251195593916248939066258330623111144003363405824).
+    ```
+
 3.  Once the command has been executed, detach from Riak using {{#1.3.2-}}`Control-D`{{/1.3.2-}}{{#1.4.0+}}`Control-C`{{/1.4.0+}}.
 
-### Repairng All Partitions on a Node
+### Repairing All Partitions on a Node
 
 If a node is lost, all partitions that node currently owns can be repaired.
 
@@ -70,7 +76,7 @@ If a node is lost, all partitions that node currently owns can be repaired.
 
     You will get a lot of output with Ring record information. You can safely ignore it.
 
-3. Get a list of partitions owned by the node that needs to be repaired. Replace 'dev1@127.0.0.1' with the name of the node you need to repair.
+3. Get a list of partitions owned by the node that needs to be repaired. Replace 'dev1@127.0.0.1' with the name of the node to be repaired.  The name can be found in the vm.args, specified as the `-name` parameter.
 
     ```erlang
     > Partitions = [P || {P, 'dev1@127.0.0.1'} <- riak_core_ring:all_owners(Ring)].
