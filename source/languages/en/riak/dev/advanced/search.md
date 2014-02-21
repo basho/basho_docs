@@ -153,12 +153,12 @@ For example, storing the following JSON object in a Search-enabled bucket:
 
 ```json
 {
- "name":"Alyssa P. Hacker",
- "bio":"I'm an engineer, making awesome things.",
- "favorites":{
-              "book":"The Moon is a Harsh Mistress",
-              "album":"Magical Mystery Tour"
-             }
+  "name": "Alyssa P. Hacker",
+  "bio": "I'm an engineer, making awesome things.",
+  "favorites": {
+    "book":"The Moon is a Harsh Mistress",
+    "album":"Magical Mystery Tour"
+  }
 }
 ```
 
@@ -212,8 +212,8 @@ An extractor should export a function `extract` which takes two arguments.  The 
 
 ```erlang
 [
- {<<"field1">>,<<"value1">>},
- {<<"field2">>,<<"value2">>}
+    {<<"field1">>,<<"value1">>},
+    {<<"field2">>,<<"value2">>}
 ]
 ```
 
