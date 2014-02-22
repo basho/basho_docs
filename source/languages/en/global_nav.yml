@@ -14,6 +14,7 @@ riak:
 
   - title: "Riak for Developers"
     sub:
+      - "[[Applications Guide|Building Applications with Riak]]"
       - title: "A Taste of Riak"
         sub:
           - title: CRUD Operations
