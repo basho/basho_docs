@@ -29,7 +29,7 @@ Field | Description
 ------|------------
 `realtime_enabled` {{1.3.0+}} | A list of all realtime sinks that are enabled
 `realtime_started` {{1.3.0+}} | A list of all realtime sinks that are started
-`rt_dirty` | The number of `rt_source_error`s and/or `rt_sink` errors that have been detected. *This value will persist across restarts until a fullsync is complete.*
+`rt_dirty` | The number of errors detected that can prevent objects from being replicated via realtime.  These include: errors on the source or sink connection, and realtime queue overload resulting in objects being dropped from the queue. *This value will persist across restarts until a fullsync is complete.*
 `rt_sink_errors` | A sink error has been detected on the source node. This value will be reset to 0 after a node restarts.
 `rt_source_errors` | A source error has been detected on the source node. This value will be reset to 0 after a node restarts.
 
