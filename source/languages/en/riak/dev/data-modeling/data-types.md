@@ -158,10 +158,6 @@ class User
     @map.flags['paid_account'] = false
   end
 
-  def paid_account?
-    @map.flags['paid_account']
-  end
-
   def upgrade_account
     @map.flags['paid_account'] = true
   end
@@ -194,8 +190,9 @@ class User
     @map.counters['visits'].value
   end
 
-  def upgrade
+  def paid_account
     @map.flags['paid_account']
+  end
 end
 ```
 
