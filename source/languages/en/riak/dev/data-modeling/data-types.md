@@ -297,5 +297,3 @@ def upgrade_user_account bucket, user_key
   user_map_to_modify.flags['paid_account'] = true
 end
 ```
-
-
