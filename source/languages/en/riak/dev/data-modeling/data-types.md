@@ -110,11 +110,10 @@ class User
   def initialize first_name, last_name, interests
     @key = "#{first_name}_#{last_name}"
     @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
-    @map.registers['first_name'] = first_name
-    @map.registers['last_name'] = last_name
-
     # We'll use a batch function here to avoid making more trips to Riak than we need to
     @map.batch do |m|
+      m.registers['first_name'] = first_name
+      m.registers['last_name'] = last_name
       interests.each do |i|
         m.sets['interests'].add i
       end
@@ -136,9 +135,9 @@ Our `visits` variable will work a little bit differently, because when a new use
 class User
   def initialize first_name, last_name, interests
     @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
-    @map.registers['first_name'] = first_name
-    @map.registers['last_name'] = last_name
     @map.batch do |m|
+      m.registers['first_name'] = first_name
+      m.registers['last_name'] = last_name
       interests.each do |i|
         m.sets['interests'].add i
       end
@@ -165,14 +164,14 @@ Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Fla
 class User
   def initialize first_name, last_name, interests
     @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
-    @map.registers['first_name'] = first_name
-    @map.registers['last_name'] = last_name
     @map.batch do |m|
+      m.registers['first_name'] = first_name
+      m.registers['last_name'] = last_name
       interests.each do |i|
         m.sets['interests'].add i
       end
+      m.flags['paid_account'] = false
     end
-    @map.flags['paid_account'] = false
   end
 
   def upgrade_account
@@ -213,7 +212,7 @@ class User
 end
 ```
 
-Now, we can create a new user and then access that user's characteristics from our Riak map:
+Now, we can create a new user and then access that user's characteristics directly from our Riak map:
 
 ```ruby
 joe = User.new 'Joe', 'Armstrong', ['distributed systems', 'Erlang']
