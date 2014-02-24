@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [use-cases, developers, data-modeling, datatypes]
 ---
 
-In our [[tutorial on Riak Data Types|Using Data Types]], we show you how to create and perform a variety of operations on each of the [[Data Types]] available in Riak 2.0 and later: [[registers|Data Types#Registers]], [[flags|Data Types#Flags]], [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
+In our [[tutorial on Riak Data Types|Using Data Types]], we show you how to create and perform a variety of operations on each of the CRDT-inspired [[Data Types]] available in Riak 2.0 and later: [[registers|Data Types#Registers]], [[flags|Data Types#Flags]], [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
 
 While that tutorial covers the basics of using Data Types, most real-world applications would need to use Data Types in a more structured and less ad hoc way. Here, we'll walk through a basic example of how an application might approach Data Types in conjunction with application-side data models, creating a `User` type as the basis for a CRM-style user information store.
 
@@ -54,7 +54,7 @@ Once the bucket type is ready (we'll name the bucket type `map_bucket` for our p
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
 ```
 
-Now, we can begin connecting our data model to a Riak map. We'll do that creating a Riak map when a new `User` is created:
+Now, we can begin connecting our data model to a Riak map. We'll do that creating a map whenever a new `User` object is created:
 
 ```ruby
 class User
@@ -69,7 +69,8 @@ Note that we haven't specified under which key our map will be stored. In a key/
 ```ruby
 class User
   def initialize first_name, last_name
-    @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
+    @key = "#{first_name}_#{last_name}"
+    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
   end
 end
 ```
@@ -81,6 +82,7 @@ At this point, we have a Riak map associated with instantiations of our `User` t
 ```ruby
 class User
   def initialize first_name, last_name
+    @key = "#{first_name}_#{last_name}"
     @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
@@ -103,8 +105,12 @@ class User
     @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
-    interests.each do |i|
-      @map.sets['interests'].add i
+
+    # We'll use a batch function here to avoid making more trips to Riak than we need to
+    @map.batch do |m|
+      interests.each do |i|
+        m.sets['interests'].add i
+      end
     end
   end
 end  
@@ -125,8 +131,10 @@ class User
     @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
-    interests.each do |i|
-      @map.sets['interests'].add i
+    @map.batch do |m|
+      interests.each do |i|
+        m.sets['interests'].add i
+      end
     end
   end
 
@@ -152,8 +160,10 @@ class User
     @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
-    interests.each do |i|
-      @map.sets['interests'].add i
+    @map.batch do |m|
+      interests.each do |i|
+        m.sets['interests'].add i
+      end
     end
     @map.flags['paid_account'] = false
   end
@@ -255,3 +265,37 @@ bruce.visit_page
 bruce.as_json
 #=>  "{"first_name":"Bruce","last_name":"Wayne","interests":["climbing","crime fighting","wooing Rachel Dawes"],"visits":1}"
 ```
+
+## Accessing a Map Later On
+
+While the `User` class created above will create a new map and automatically populate its fields. But in most applications, we would also need to be able to modify that map later without necessarily having access to the object, for example if we wanted to upgrade Bruce Wayne's plan in response to an HTTP request, e.g. a `PUT` request to a `/user/Bruce_Wayne` endpoint.
+
+A map can be located and later modified on the basis of the key associated with it:
+
+```ruby
+# In the Ruby client, the Riak::Crdt::Map.new function can both used to create a map where it does not exist OR modify a map that already exists
+map_to_modify = Riak::Crdt::Map.new '<bucket>' '<key>'
+
+# In our case, we'll be using using the 'users' bucket
+bucket = $client.bucket 'users'
+map_to_modify = Riak::Crdt::Map.new bucket, '<key>'
+```
+
+On that basis, we could upgrade the plan for Bruce Wayne:
+
+```ruby
+bucket = $client.bucket 'users'
+user_to_modify = Riak::Crdt::Map.new bucket, 'Bruce_Wayne'
+user_to_modify.upgrade_account
+```
+
+This can also be done more programmatically:
+
+```ruby
+def upgrade_user_account bucket, user_key
+  user_map_to_modify = Riak::Crdt::Map.new bucket, user_key
+  user_map_to_modify.flags['paid_account'] = true
+end
+```
+
+
