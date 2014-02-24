@@ -131,6 +131,7 @@ riak:
             sub:
               - "[[Failure and Recovery]]"
               - "[[Recovering a Failed Node]]"
+              - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
               - "[[Common Errors]]"
       - title: "Advanced"
