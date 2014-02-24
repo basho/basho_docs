@@ -8,9 +8,9 @@ audience: advanced
 keywords: [developers, strong-consistency]
 ---
 
-Riak allows you to create [[Strongly Consistent|Strong Consistency]] bucket types since version 2.0. This means that a value is guarenteed readable by any node immediately after a write has occurred, with the tradeoff that unavailable nodes will become unavailable to accept a write. This was added in version 2.0 to compliment Riak's standard [[Eventually Consistent|Eventual Consistency]], but high availability, mode.
+Riak allows you to create [[Strongly Consistent|Strong Consistency]] bucket types. This means that as soon as a value is successfully written to Riak, all clients will be able to see that value. This was added in version 2.0 to complement Riak's standard [[Eventually Consistent|Eventual Consistency]] model.
 
-This tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
+The catch? When nodes are unavailable it may be impossible for the cluster to accept a write. An unfortunate [but unavoidable](http://en.wikipedia.org/wiki/CAP_theorem) tradeoff.
 
 ## Creating a Strongly Consistent Bucket Type
 
@@ -18,33 +18,33 @@ This tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.or
 
 To apply strong consistency to a bucket, you must [[create a bucket type|Using Bucket Types]] that sets the `consistent` bucket property to `true`, activate the type, and then begin applying that type to bucket/key pairs.
 
-Create a bucket type `strongly_consistent` (or something else) with `consistent` set to `true`:
+Create a bucket type `strongly_consistent` (the name is up to you) with `consistent` set to `true`:
 
 ```bash
-riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true}}'
+riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true}}'
 
 # Or if your type involves setting other properties to non-default values as well:
-riak-admin bucket-type create consistent_bucket '{"props":{"consistent":true, ... other properties ... }}'
+riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true, ... other properties ... }}'
 ```
 
 Then check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
 
 ```bash
-riak-admin bucket-type status consistent_bucket
+riak-admin bucket-type status strongly_consistent
 ```
 
-If the console outputs `consistent_bucket has been created and may be activated` and the properties listing shows that `consistent` has been set to `true`, then you may proceed with activation:
+If the console outputs `strongly_consistent has been created and may be activated` and the properties listing shows that `consistent` has been set to `true`, then you may proceed with activation:
 
 ```bash
-riak-admin bucket-type activate consistent_bucket
+riak-admin bucket-type activate strongly_consistent
 ```
 
 When activation is successful, the console will return the following:
 
 ```bash
-consistent_bucket has been activated
+strongly_consistent has been activated
 ```
 
-Now, any bucket that bears the type `consistent_bucket`---or whatever you wish to name your bucket type---will provide strong consistency guarantees.
+Now, any bucket that bears the type `strongly_consistent`---or whatever you named your bucket type---will provide strong consistency guarantees.
 
-You can find more comprehensive information on [[Using Bucket Types]], and more information on [[Strong Consistency Concept]].
+You can find more comprehensive information on [[Using Bucket Types]], and more information on [[Strong Consistency]].
