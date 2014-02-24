@@ -40,7 +40,7 @@ riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true, 
 
 **Note**: The bucket type name `strongly_consistent` is not a reserved term. You can name any bucket type whatever you wish, with the exception of `default` (more on the `default` bucket type in the [[Bucket Types]] doc).
 
-Once the `strongly_consistent` bucket type has been creatd, we can check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
+Once the `strongly_consistent` bucket type has been created, we can check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
 
 ```bash
 riak-admin bucket-type status strongly_consistent
