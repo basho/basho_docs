@@ -42,11 +42,11 @@ bill
 #<User:0x007fb7f7885408 @first_name="Bill", @last_name="Murray", @interests=["filming Caddyshack", "being smartly funny"], @visits=10>
 ```
 
-Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps can hold a variety of Data Types within them, in our case a few strings (best modeled as [[registers|Data Types#Registers]]), an array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best modeled as a [[flag|Data Types#Flags]]). Maps can always house other maps, but that will not be covered in this tutorial.
+Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps can hold a variety of Data Types within them, in our case a few strings (best modeled as [[registers|Data Types#Registers]]), an array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best modeled as a [[flag|Data Types#Flags]]). Maps can also house other maps, but that will not be covered in this tutorial.
 
 ## Connecting Our Data Model to Riak
 
-First, we need to create a bucket type suited for maps. More on that can be found in the [[Using Bucket Types]] tutorial.
+First, we need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`. More on that can be found in the [[Using Bucket Types]] tutorial.
 
 Once the bucket type is ready (we'll name the bucket type `map_bucket` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers]] port:
 
@@ -59,9 +59,15 @@ Now, we can begin connecting our data model to a Riak map. We'll do that creatin
 ```ruby
 class User
   def initialize
-    @map = Riak::Crdt::Map.new $bucket, '<key>'
+    @map = Riak::Crdt::Map.new $bucket, '<key>', 'map_bucket'
   end
 end
+
+# In the example above, the map was created specifying a bucket, key, and bucket type. An alternative way of creating maps is to specify a bucket type that will be used for ALL maps:
+
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
+
+# If this parameter is set, you no longer need to specify a bucket type when creating maps. The rest of this tutorial will proceed assum
 ```
 
 Note that we haven't specified under which key our map will be stored. In a key/value store like Riak, choosing a key is very important. We'll keep it simple here and use a string consisting of first and last name (separate by an underscore) as the key:
@@ -83,7 +89,7 @@ At this point, we have a Riak map associated with instantiations of our `User` t
 class User
   def initialize first_name, last_name
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
+    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
   end
@@ -102,7 +108,8 @@ So now we have our `first_name` and `last_name` variables stored in our map, but
 ```ruby
 class User
   def initialize first_name, last_name, interests
-    @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
+    @key = "#{first_name}_#{last_name}"
+    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
 
@@ -152,7 +159,7 @@ joe.visit_page
 
 The page visit counter did not exist prior to this method call, but the counter will be created (and incremented) all at once.
 
-Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Flags]]. Each user will initially be added to Riak as a non-paying user, and we can create a method to upgrade and downgrade the user's account:
+Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Flags]]. Each user will initially be added to Riak as a non-paying user, and we can create methods to upgrade and downgrade the user's account:
 
 ```ruby
 class User
@@ -276,7 +283,7 @@ A map can be located and later modified on the basis of the key associated with 
 # In the Ruby client, the Riak::Crdt::Map.new function can both used to create a map where it does not exist OR modify a map that already exists
 map_to_modify = Riak::Crdt::Map.new '<bucket>' '<key>'
 
-# In our case, we'll be using using the 'users' bucket
+# In our case, we'll be using using the 'users' bucket, as above
 bucket = $client.bucket 'users'
 map_to_modify = Riak::Crdt::Map.new bucket, '<key>'
 ```
@@ -286,7 +293,7 @@ On that basis, we could upgrade the plan for Bruce Wayne:
 ```ruby
 bucket = $client.bucket 'users'
 user_to_modify = Riak::Crdt::Map.new bucket, 'Bruce_Wayne'
-user_to_modify.upgrade_account
+user_to_modify.flags['paid_account'] = true
 ```
 
 This can also be done more programmatically:
