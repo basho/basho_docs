@@ -18,7 +18,6 @@ head(class=data.page.document)
   == (data.page.moved || {}).to_json
   | '>
   meta name="version-range" content=(data.page.version || '0.0.0+')
-  - p %r"\/riak\/#{page_version}\/?$"
   meta name="base-url" content==(current_page.url =~ %r"\/#{data.page.project}\/#{page_version}\/?$" ? '/' : current_page.url)
   title== data.page.title || "Riak Documents"
   == stylesheet_link_tag "standalone/version-bar"
