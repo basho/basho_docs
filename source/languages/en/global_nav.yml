@@ -63,8 +63,8 @@ riak:
               - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
-          - "[[Search Details|Advanced Search]]"
-          - "[[Search Schema|Advanced Search Schema]]"
+          - "[[Search Details]]"
+          - "[[Search Schema]]"
           - "[[MapReduce|Advanced MapReduce]]"
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
@@ -72,7 +72,7 @@ riak:
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
-              # - "[[Search Indexing|Search Indexing Reference]]"
+              # - "[[Search Indexing|Legacy Search Indexing Reference]]"
               # - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
               - "[[Implementing a Backend|Backend API]]"

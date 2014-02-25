@@ -1324,10 +1324,6 @@ div[role="main"] {
       // margin-top  : -108px; // To reduce the appearance 0f excess whitespace before headings
     }
 
-    .CodeRay {
-      max-width : 100%;
-    }
-
     nav.tutorial {
       ul, h4 {
         max-width : 100%;
@@ -1637,6 +1633,12 @@ div[role=main] {
     @include corner(right, top);
     @include corner(right, bottom);
     @include corner(left, bottom);
+    border: 1px solid #ddd;
+  }
+
+  .nav-tabs > li.active > a {
+    border: 1px solid #ddd;
+    border-bottom: 0px;
   }
 
   .note {
@@ -1693,6 +1695,11 @@ div[role=main] {
     }
   }
   
+  div.tab-content {
+    max-width: 600px;
+    font-size: 85%;
+  }
+
   .code {
     //@include bgPattern('code-bg.jpg');
     //@include boxShadow(inset 0 1px 4px #aeb9b6);
