@@ -40,7 +40,7 @@ make
 
 Running it should return:
 
-```
+```text
 -------------------------------
 Test Riak PUT
 -------------------------------
@@ -215,8 +215,9 @@ riak_delete_options *delete_options = riak_delete_options_new(cfg);
 riak_delete_options_set_w(delete_options, 1);
 riak_delete_options_set_dw(delete_options, 1);
 err = riak_delete(cxn, bucket_bin, key_bin, delete_options);
-if(err == ERIAK_OK)
+if(err) {
   …
+}
 ```
 
 
