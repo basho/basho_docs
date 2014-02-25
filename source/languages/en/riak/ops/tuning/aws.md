@@ -202,43 +202,38 @@ this problem occurs.
 
 ## Dealing with IP addresses
 
-EC2 instances that are not provisioned inside a VPC change the following parameters after a restart.
+EC2 instances that are not provisioned inside a VPC can change the following attributes after a restart:
 
 * Private IP address
 * Public IP address
 * Private DNS
 * Public DNS
 
-Since Riak binds to an IP addresses and communicates with other nodes based on this address,
-executing certain admin commands are necessary to bring the node back up.
-Namely the following steps must be performed.
+Because these parameters play a role in an Riak instance's node name, ensure
+that you follow the steps outlined in the [[Node Name Changed|Recovering a Failed Node#Node Name Changed]] section to
+replace it.
 
-* Stop the node to rename with `riak stop`
-* Mark it 'down' from another node in the cluster using `riak-admin down 'old nodename'`.
-* Rename the node in vm.args.
-* Delete the ring directory.
-* Start the node with `riak start`.
-* It will come up as a single instance which you can verify with `riak-admin member-status`.
-* Join the node to the cluster with `riak-admin cluster join 'cluster nodename' `
-* Set it to replace the old instance of itself with `riak-admin cluster force-replace <old nodename> <new nodename>`
-* Plan the changes with `riak-admin cluster plan`
-* Commit the changes with `riak-admin cluster commit`
+To avoid this inconvenience, you can deploy Riak inside a
+[VPC](http://aws.amazon.com/vpc/). Instances inside the VPC do not change
+their private IP address on restart. In addition you get the following
+benefits:
 
-To avoid this inconvenience, you can deploy riak to a [VPC](http://aws.amazon.com/vpc/). Instances inside the VPC do not change their private
-IP address on restart. In addition you get the following benefits.
+* Access control lists can be defined at multiple levels
+* The instance is not automatically open to the internet
+* Amazon VPC is [free](http://aws.amazon.com/vpc/pricing/)
 
-* Access control lists can be defined at various levels (Load balancers / Individual servers / VPC Groups).
-* The Riak instance is not open to arbitrary communication from the internet. Only nodes within a subnet can contact Riak.
-* Should the private nodes need to contact the internet they can do so through a NAT instance.
-* Amazon VPC is [free](http://aws.amazon.com/vpc/pricing/).
+## Choice of Storage
 
-You can also explore other [solutions](http://deepakbala.me/2013/02/08/deploying-riak-on-ec2/) should setting up a VPC
-present an obstacle for you.
+EC2 instances support ephemeral and EBS storage. Ephemeral is local to the
+instance, generally performs better, but disappears when instances go down.
 
-## Choice of storage
+On the other hand, EBS is effectively network attached storage that persists
+after instances go down. Along with EBS you can optionally enable [Provisioned
+IOPS](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.html)
+(PIOPS) provide more stable performance.
 
-EC2 instances support ephemeral and EBS storage. There are [several posts](http://riak-users.197444.n3.nabble.com/EC2-and-RIAK-td2754409.html) on the riak-users list that discuss
-the pros and cons of different approaches. These posts are good starting points to help you make a decision on the type of storage you need.
+For more information on EC2 storage options, please see their
+[documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Storage.html).
 
 ## References
 * [[Linux Performance Tuning]]

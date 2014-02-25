@@ -136,9 +136,9 @@ riak:
             sub:
               - "[[Failure and Recovery]]"
               - "[[Recovering a Failed Node]]"
+              - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
               - "[[Common Errors]]"
-          - "[[Rolling Upgrades]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
@@ -158,6 +158,11 @@ riak:
               - "[[LevelDB]]"
               - "[[Memory]]"
               - "[[Multi]]"
+      - title: "Upgrading a Cluster"
+        sub:
+          - "[[Production Checklist]]"
+          - "[[Rolling Upgrades]]"
+
 
   - title: "Theory & Concepts"
     sub:
