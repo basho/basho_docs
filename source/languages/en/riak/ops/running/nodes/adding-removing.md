@@ -178,64 +178,6 @@ If the plan is to your liking, submit the changes by typing `riak-admin cluster 
 
 _Note: The algorithm that distributes partitions across the cluster during membership changes is non-deterministic.  As a result, there is no optimal ring.  In the event a plan results in a slightly uneven distribution of partitions, the plan can be cleared.  Clearing a cluster plan with `riak-admin cluster clear` and running `riak-admin cluster plan` again will produce a slightly different ring._
 
-{{#<1.0.0}}
-The Node Join Process
----------------------
-When a join request is sent from a new node, it will ask the seed node to send its
-cluster state. When the new node receives the cluster state, it discards
-its own, overwriting it completely with the state it just received. It
-then starts claiming partitions until the number of partitions in the
-cluster reaches an even distribution (or close thereto), taking into
-account the N value to guarantee an optimal physical distribution of
-partitions in the cluster.
-
-While claiming partitions, the new node keeps updating the cluster state
-until an even distribution is reached. Claiming a partition means that
-the new node is now a primary replica for the particular partition.
-
-When the node has recalculated a new cluster state, it gossips the state
-to a random node in the cluster, thus making its own claims known to the
-other nodes.
-
-After it ensured that all the vnodes it's responsible for are running
-(vnodes are mapped to Erlang processes), partition handoff will start,
-transferring data from existing nodes to the new one. The handoff is
-initiated by the existing nodes after they received the new cluster
-state, as the vnodes running on them realize that they're not a primary
-replica for a particular partition anymore, therefore transferring all
-their data to the new primary replica on the node that just joined.
-
-This process happens asynchronously as the gossip is updated across the
-cluster over the next couple of minutes. Remember that after claiming
-its partitions the new node only gossips the new cluster state to a
-random node in the cluster, which then in turn gossips the state to the
-other nodes, so it can take up to a minute until the handoff starts.
-
-During the handoff, the new cluster state is already known throughout
-the cluster, so there are periods where handoff is still active, but the
-new node is already expected to serve requests. Basho is working on
-improving this situation, but in general the application interacting
-with Riak is expected to deal with situations where not all replicas may
-have the data yet. See our page on [[Eventual Consistency]]
-for more details on these scenarios.
-
-<div class ="info">Ryan Zezeski wrote a [[great
-introduction|https://github.com/rzezeski/try-try-try/tree/master/2011/riak-core-the-vnode]]
-of what happens during a vnode's lifecycle, including an overview of the
-different states of handoff.</div>
-{{/<1.0.0}}
-
-{{#1.0.0+}}
-_Note: Since Riak 1.0, all partition ownership decisions in a cluster are made by a single node (the claimant.)_
-
-When a new node joins the cluster, the cluster's claimant creates a new ring, attempting to distribute partitions evenly across the cluster.  This ring is not immediately used, but serves as a template for the final state of the cluster's ring once all partition ownership transfers have completed.
-
-Once created, the claimant uses this new ring to generate a list of pending changes to the cluster. These changes need to occur before the transition to the new ring can be completed. This list consists of partitions whose ownership needs to be transfered between nodes, as well as the state of the transfers (complete or awaiting.)  This list is distributed to the cluster members via the gossip protocol.
-
-Once the pending changes list is gossiped to the other members of the cluster, nodes will begin handing off partitions.  As transfers of partitions between nodes complete, the pending changes list is updated.  The updated pending changes list is distributed to members of the cluster as updates are made to it.
-
-Throughout the handoff process, the claimant uses this updated list to make incremental changes to the ring.  Each time an incremental change is made, the new ring is distributed to all cluster members to reflect the new owner of the recently transfered partition.  Once all transfers are complete, the ring distributed by the claimant will be the one created when the join command was executed, and the ownership handoff process will be complete.
-{{/1.0.0+}}
 
 Removing a Node From a Cluster
 ------------------------------
@@ -274,32 +216,7 @@ Under the hood, both commands basically do the same thing. Running
 
 As with `riak-admin cluster leave`, the plan to have a node leave the cluster must be first reviewed with `riak-admin cluster plan`, and committed with `riak-admin cluster commit` before any changes will actually take place.
 
-{{#<1.0.0}}
-What Happens When You Remove a Node?
-------------------------------------
 
-Removing a node is basically the process of joining a node in reverse.
-Instead of claiming partitions, the node to be removed determines a new
-cluster state, taking out all the partitions it currently owns,
-re-distributing them evenly across the remaining nodes.
-
-The new state is sent to all nodes in the cluster, not just a random
-one, so every node in the cluster immediately knows that the node left.
-Then it sets the cluster state on the leaving node, causing hand-off to
-start, which again is initialized by vnodes realizing they're not the
-primary replicas anymore, transferring the data to the new owners.
-
-When all data is handed off, the Erlang VM process eventually exits.
-
-In case you're using `riak-admin remove` on a different node, this whole
-process will occur on that particular node instead. The last step,
-forcing the old node to hand-off data, will obviously fail in a scenario
-where the node to be removed is not available anymore, but the cluster,
-given enough replicas, will balance itself out even without the failed
-node.
-{{/<1.0.0}}
-
-{{#1.0.0+}}
 How Cluster Membership Changes Work
 ------------------------------------
 
@@ -314,4 +231,3 @@ Once the pending changes list is gossiped to the other members of the cluster, n
 Throughout the handoff process, the claimant uses this updated list to make incremental changes to the ring.  Each time an incremental change is made, the new ring is distributed to all cluster members to reflect the new owner of the recently transfered partition.  Once all transfers are complete, the ring distributed by the claimant will be the one created when the join command was executed, and the ownership handoff process will be complete.
 
 In the case of leaving a node, the leaving node will shutdown once all if it's partitions have been transferred successfully.
-{{/1.0.0+}}
