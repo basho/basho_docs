@@ -176,6 +176,8 @@ Transfers resulting from cluster changes: 51
 
 If the plan is to your liking, submit the changes by typing `riak-admin cluster commit`.
 
+_Note: The algorithm that distributes partitions across the cluster during membership changes is non-deterministic.  As a result, there is no optimal ring.  In the event a plan results in a slightly uneven distribution of partitions, the plan can be cleared.  Clearing a cluster plan with `riak-admin cluster clear` and running `riak-admin cluster plan` again will produce a slightly different ring._
+
 {{#<1.0.0}}
 The Node Join Process
 ---------------------
