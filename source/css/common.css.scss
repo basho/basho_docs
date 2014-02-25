@@ -1730,6 +1730,13 @@ div[role=main] {
       width : 70%;
     }
   }
+
+  table.riak-conf {
+    td:nth-of-type(2) {
+      word-wrap:break-word;
+      max-width: 350px;
+    }
+  }
 }
    
 
