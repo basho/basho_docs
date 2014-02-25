@@ -1637,5 +1637,5 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 </tbody>
-</table>.
+</table>
 {{/2.0.0+}}
