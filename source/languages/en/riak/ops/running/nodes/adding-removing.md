@@ -91,7 +91,7 @@ in the `riak_kv` section that reads:
 Start the Node
 --------------
 
-Just like initial the configuration steps, this step has to be repeated
+Just like the initial configuration steps, this step has to be repeated
 for every node in your cluster. Before a node can join an existing
 cluster it needs to be started. Depending on your mode of installation,
 use either the init scripts installed by the Riak binary packages or
@@ -107,14 +107,8 @@ or
 bin/riak start
 ```
 
-What Happens When You Start a Node?
------------------------------------
+When the node starts, it will look for a cluster description, known as the "ring file", in its data directory. If a ring file does not exist, it will create a new ring file based on the initially configured `ring_creation_size`, claiming all partitions for itself.  Once this process completes, the node will be ready to serve requests.
 
-When you start a node it looks for a cluster description, known as the
-"ring file", in its data directory. If one does not exist it creates a
-new ring description based on the initially configured
-`ring_creation_size`, claiming all partitions for itself. The node is
-then ready to serve requests.
 
 Add a Node to an Existing Cluster
 ---------------------------------
@@ -182,9 +176,9 @@ Transfers resulting from cluster changes: 51
 
 If the plan is to your liking, submit the changes by typing `riak-admin cluster commit`.
 
+{{#<1.0.0}}
 The Node Join Process
 ---------------------
-
 When a join request is sent from a new node, it will ask the seed node to send its
 cluster state. When the new node receives the cluster state, it discards
 its own, overwriting it completely with the state it just received. It
@@ -227,7 +221,19 @@ for more details on these scenarios.
 introduction|https://github.com/rzezeski/try-try-try/tree/master/2011/riak-core-the-vnode]]
 of what happens during a vnode's lifecycle, including an overview of the
 different states of handoff.</div>
+{{/<1.0.0}}
 
+{{#1.0.0+}}
+_Note: Since Riak 1.0, all partition ownership decisions in a cluster are made by a single node (the claimant.)_
+
+When a new node joins the cluster, the cluster's claimant creates a new ring, attempting to distribute partitions evenly across the cluster.  This ring is not immediately used, but serves as a template for the final state of the cluster's ring once all partition ownership transfers have completed.
+
+Once created, the claimant uses this new ring to generate a list of pending changes to the cluster. These changes need to occur before the transition to the new ring can be completed. This list consists of partitions whose ownership needs to be transfered between nodes, as well as the state of the transfers (complete or awaiting.)  This list is distributed to the cluster members via the gossip protocol.
+
+Once the pending changes list is gossiped to the other members of the cluster, nodes will begin handing off partitions.  As transfers of partitions between nodes complete, the pending changes list is updated.  The updated pending changes list is distributed to members of the cluster as updates are made to it.
+
+Throughout the handoff process, the claimant uses this updated list to make incremental changes to the ring.  Each time an incremental change is made, the new ring is distributed to all cluster members to reflect the new owner of the recently transfered partition.  Once all transfers are complete, the ring distributed by the claimant will be the one created when the join command was executed, and the ownership handoff process will be complete.
+{{/1.0.0+}}
 
 Removing a Node From a Cluster
 ------------------------------
@@ -266,6 +272,7 @@ Under the hood, both commands basically do the same thing. Running
 
 As with `riak-admin cluster leave`, the plan to have a node leave the cluster must be first reviewed with `riak-admin cluster plan`, and committed with `riak-admin cluster commit` before any changes will actually take place.
 
+{{#<1.0.0}}
 What Happens When You Remove a Node?
 ------------------------------------
 
@@ -288,3 +295,21 @@ forcing the old node to hand-off data, will obviously fail in a scenario
 where the node to be removed is not available anymore, but the cluster,
 given enough replicas, will balance itself out even without the failed
 node.
+{{/<1.0.0}}
+
+{{#1.0.0+}}
+How Cluster Membership Changes Work
+------------------------------------
+
+_Note: Since Riak 1.0, all partition ownership decisions in a cluster are made by a single node (the claimant.)_
+
+When a node joins or leaves the cluster, the cluster's claimant creates a new ring, attempting to distribute partitions evenly across the cluster.  This ring is not immediately used, but serves as a template for the final state of the cluster's ring once all partition ownership transfers have completed.
+
+Once created, the claimant uses this new ring to generate a list of pending changes to the cluster. These changes need to occur before the transition to the new ring can be completed. This list consists of partitions whose ownership needs to be transfered between nodes, as well as the state of the transfers (complete or awaiting.)  This list is distributed to the cluster members via the gossip protocol.
+
+Once the pending changes list is gossiped to the other members of the cluster, nodes will begin handing off partitions.  As transfers of partitions between nodes complete, the pending changes list is updated.  The updated pending changes list is distributed to members of the cluster as updates are made to it.
+
+Throughout the handoff process, the claimant uses this updated list to make incremental changes to the ring.  Each time an incremental change is made, the new ring is distributed to all cluster members to reflect the new owner of the recently transfered partition.  Once all transfers are complete, the ring distributed by the claimant will be the one created when the join command was executed, and the ownership handoff process will be complete.
+
+In the case of leaving a node, the leaving node will shutdown once all if it's partitions have been transferred successfully.
+{{/1.0.0+}}
