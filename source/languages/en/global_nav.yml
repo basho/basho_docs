@@ -42,7 +42,7 @@ riak:
           - "[[Key/Values|The Basics]]"
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
-          - "[[Datatypes|Using Datatypes]]"
+          - "[[Data Types|Using Data Types]]"
           - "[[Strong Consistency|Using Strong Consistency]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
@@ -52,6 +52,7 @@ riak:
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"
+          - "[[Data Modeling with Riak Data Types]]"
           - title: "High Read/Write"
             sub:
               - "[[Session Storage]]"
@@ -166,7 +167,7 @@ riak:
           # - "[[Bucket Types]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
-          - "[[Datatypes]]"
+          - "[[Data Types]]"
           - "[[Eventual Consistency]]"
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
