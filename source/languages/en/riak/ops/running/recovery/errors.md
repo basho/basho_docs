@@ -217,7 +217,7 @@ reset_disabled | | Attempted to reset a Memory backend in production | Don't use
 
 ### JavaScript
 
-These are some errors related to JavaScript pre-commit functions, map/reduce functions, or simply the management of the pool of JavaScript VMs. If you do not use JavaScript, these should not be encountered. If they are, check your configuration for high `*js_vm*` values or as an epiphenomenon to a real issue, such as low resources.
+These are some errors related to JavaScript pre-commit functions, MapReduce functions, or simply the management of the pool of JavaScript VMs. If you do not use JavaScript, these should not be encountered. If they are, check your configuration for high `*js_vm*` values or as an epiphenomenon to a real issue, such as low resources.
 
 Error    | Message | Description | Resolution
 ---------|---------|-------------|-------

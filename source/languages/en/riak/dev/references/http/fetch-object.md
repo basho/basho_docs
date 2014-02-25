@@ -153,7 +153,9 @@ Siblings:
 6zRSZFUJlHXZ15o9CG0BYl
 * Connection #0 to host 127.0.0.1 left intact
 * Closing connection #0
+```
 
+```curl
 $ curl -v http://127.0.0.1:8098/buckets/test/keys/doc?vtag=16vic4eU9ny46o4KPiDz1f
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected

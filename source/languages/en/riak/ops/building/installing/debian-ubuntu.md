@@ -18,8 +18,7 @@ moved: {
 
 Riak can be installed on Debian or Ubuntu based systems with a binary package or by [[compiling Riak from source code|Installing Riak from Source]]. The following steps have been tested to work with Riak on **Debian version 6.05** and **Ubuntu version 12.04**.
 
-Installing From Apt-Get
------------------------
+## Installing From Apt-Get
 
 If you wish to just install Riak and get on with your life, use `apt-get`.
 
@@ -44,8 +43,7 @@ sudo apt-get install riak
 
 That should be all.
 
-Installing From Package
------------------------
+## Installing From Package
 
 If you wish to install the deb packages by hand follow these instructions.
 
@@ -86,16 +84,16 @@ for the target platform:
 {{#1.2.0-}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak_{{V.V.V}}-1_amd64.deb
-sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
 {{/1.2.0-}}
 {{#1.2.0+}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/lucid/riak_{{V.V.V}}-1_amd64.deb
-sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/lucid/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
 {{/1.2.0+}}
@@ -105,16 +103,16 @@ sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 {{#1.2.0-}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak_{{V.V.V}}-1_amd64.deb
-sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
 {{/1.2.0-}}
 {{#1.2.0+}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/natty/riak_{{V.V.V}}-1_amd64.deb
-sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/natty/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
 {{/1.2.0+}}
@@ -125,16 +123,16 @@ sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 {{#1.2.0-}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak_{{V.V.V}}-1_amd64.deb
-sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
 {{/1.2.0-}}
 {{#1.2.0+}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/precise/riak_{{V.V.V}}-1_amd64.deb
-sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/precise/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
 {{/1.2.0+}}
@@ -145,16 +143,15 @@ sudo dpkg -i riak_{{V.V.V}}-1_amd64.deb
 ### Riak 32-bit Installation
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/ubuntu/lucid/riak_{{V.V.V}}-1_i386.deb
-sudo dpkg -i riak_{{V.V.V}}-1_i386.deb
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/lucid/riak_{{VERSION}}-1_i386.deb
+sudo dpkg -i riak_{{VERSION}}-1_i386.deb
 ```
 
 <div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
 
 {{/1.2.1-1.3.9}}
 
-Installing Riak From Source
----------------------------
+## Installing Riak From Source
 
 First, install Riak dependencies using apt:
 
@@ -169,9 +166,9 @@ If Erlang is not already installed, install it before continuing (see:
 With Erlang installed, proceed to downloading and installing Riak:
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{V.V.V}}/riak-{{V.V.V}}.tar.gz
-tar zxvf riak-{{V.V.V}}.tar.gz
-cd riak-{{V.V.V}}
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
+tar zxvf riak-{{VERSION}}.tar.gz
+cd riak-{{VERSION}}
 make rel
 ```
 

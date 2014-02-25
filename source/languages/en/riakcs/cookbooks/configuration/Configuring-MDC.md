@@ -31,7 +31,7 @@ For each Riak node in the cluster, update the `riak_repl` section of `app.config
 Version 3 replication requires additional configuration on the **source cluster** via the command line. 
 
 ```bash
-$ riak-repl proxy_get enable sink_cluster_name
+riak-repl proxy_get enable sink_cluster_name
 ```
 
 `sink_cluster_name` should be replaced with the name of your configured **sink cluster**. 
@@ -78,3 +78,11 @@ configuration changes. In particular, after restarting a node, be sure that you 
 <p><tt>riak-admin wait-for-service riak_kv &lt;target_node&gt;</tt></p>
 <p>where &lt;target-node&gt; is the node name of the node based on the
 <tt>-name</tt> setting in <tt>vm.args</tt>.</p></div>
+
+## Stanchion Configuration
+
+Though there is no specific configuration for Stanchion, note that
+*Stanchion should be a single, globally unique process* to which every
+Riak CS sends requests, even if there are multiple replicated
+sites. This is because Stanchion manages updates on globally unique
+attributes.

@@ -92,7 +92,7 @@ will redistribute the data accordingly.
 
 Riak is designed, from the ground up, to run in a distributed
 environment. Core operations, such as read/writing data and executing
-map/reduce jobs, actually become faster when more Riak nodes are added
+MapReduce jobs, actually become faster when more Riak nodes are added
 to a cluster.
 
 ### No master node
@@ -251,7 +251,7 @@ stay in sync.
 
 Indexes can be stored and queried via the HTTP interface or the Protocol
 Buffers interface. Additionally, index results can feed directly into a
-Map/Reduce operation, allowing further filtering and processing of index
+MapReduce operation, allowing further filtering and processing of index
 query results.
 
 Riak Search
