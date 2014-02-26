@@ -27,7 +27,7 @@ Basho officially supports a number of open-source [[client libraries]] for vario
 <li><a href="/dev/taste-of-riak/ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
 <li><a href="/dev/taste-of-riak/php/"><img src="/images/plangs/php.png" alt="PHP"></a></li>
 <li><a href="/dev/taste-of-riak/python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
-<li><a href="/dev/taste-of-riak/c/"><img src="" alt="C"></a></li>
+<li><a href="/dev/taste-of-riak/c/"><img src="/images/plangs/The_C_Programming_Language_logo.png" width="180" height="120"  alt="C"></a></li>
 </ul>
 
 ### Community-supported Client Libraries
