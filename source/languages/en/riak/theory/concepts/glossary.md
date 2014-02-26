@@ -61,6 +61,12 @@ Consistent hashing is a technique used to limit the reshuffling of keys when a h
 * [[Dynamo]]
 * [[Wikipedia:Consistent Hashing|http://en.wikipedia.org/wiki/Consistent_hashing]]
 
+## Eventual Consistency
+
+A consistency model that informally guarantees that, if no new updates are made to a given data item, eventually all accesses to that item will return the last updated value.  Details about what this means in terms of Riak can be found in the Eventual Consistency document below.
+
+* [[Eventual Consistency]]
+
 ## Gossiping
 
 Riak uses a "gossip protocol" to share and communicate ring state and bucket properties around the cluster.  Whenever a node changes its claim on the ring, it announces its change via this protocol.  Each node also periodically sends its current view of the ring state to a randomly-selected peer, in case any nodes missed previous updates.
@@ -132,6 +138,10 @@ Quorum in Riak has two meanings:
 * [[Eventual Consistency]]
 * [[Replication Properties]]
 * [[Understanding Riak's Configurable Behaviors: Part 2|http://basho.com/riaks-config-behaviors-part-2/]]
+
+## Sloppy Quorum
+
+During failure scenarios, where `available nodes < total nodes`, sloppy quorum is used to ensure availability of writes.  This means that, when a primary node is unavailable, another node will accept it's write requests.  When the node returns, data is transferred to the primary node via the Hinted Handoff process.
 
 ## Read Repair
 
