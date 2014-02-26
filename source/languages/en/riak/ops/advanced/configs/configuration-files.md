@@ -183,16 +183,13 @@ Base directory for backend data storage. (default: `./data`)
     Riak's ring state is stored on-disk by each node, such that each node may be restarted at any time (purposely, or via automatic failover) and know what its place in the cluster was before it terminated, without needing immediate access to the rest of the cluster.
 
 * **ring_creation_size**
-    The number of partitions to divide the hash space into (default: `64`)
+    The number of partitions the Riak ring will have.  (default: `64`)
 
-    By default, each Riak node will own ring_creation_size/(number of nodes in the cluster) partitions. It is generally a good idea to specify a "ring_creation_size" a few times the number of nodes in your cluster (e.g. specify 64-256 partitions for a 4-node cluster). This gives you room to expand the number of nodes in the cluster, without worrying about under-use due to owning too few partitions. This number should be a power of 2 (64, 128, 256, etc.).
+    This value is used to create a Riak node's initial ring when it is started.  All nodes destined to be part of the same cluster must be started with the same ring_creation_size prior to joining them together.  As nodes are joined together to form a cluster, the number of partitions specified by ring_creation_size are divided amongst them.  This value is not used again unless the ring directory of the Riak node is deleted and the node is restarted.
 
-    {{#1.4.0-}}
-    <div class="info">
-    <div class="title">Ring Size Tip</div>
-    The `ring_creation_size` should be established before your cluster is started, and should not be changed thereafter.
-    </div>
-    {{/1.4.0-}}
+    Selecting a ring_creation_size is dependent on the number of nodes in the cluster and future growth plans.  The most commonly used ring sizes are 128 for clusters ranging from 5-10 nodes, and 256 for clusters ranging from 10-15 nodes.
+
+    In cases where a cluster is created with a ring_creation_size that doesn't meet the needs of the number of nodes or use case, a new Riak feature will allow for the ring to be resized.
 
 * **ssl**
 You can override the default SSL key and certificate settings (default: etc/cert.pem, etc/key.pem)
