@@ -51,7 +51,6 @@ Before you can search for values, you first must index them. In its standard for
 
 If you want a simpler, but less explicit form of indexing, check out the [[Search, KV and MapReduce|Advanced Search#Search-KV-and-MapReduce]] section of [[Advanced Search]].
 
-
 <!-- Was "Riak Search - Querying" -->
 
 ## Query Interfaces
@@ -91,10 +90,10 @@ The following parameters are supported:
       When paginating results with **presort**, note that the results may only be sorted by the search **score** or sorted by the **key order**. There is currently no way to pre-sort on an arbitrary field. This means that if you with to paginate on some field, build your keys to include that field value then use `presort=key`.
       </div>
 
-To query data in the system with curl:
+To query data in the system:
 
 ```curl
-$ curl "http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*"
+curl http://localhost:8098/solr/books/select?start=0&rows=10000&q=prog*
 ```
 
 ### Riak Client API

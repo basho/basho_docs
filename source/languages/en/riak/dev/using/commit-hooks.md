@@ -17,7 +17,7 @@ Pre- and post-commit hooks are invoked before or after a riak_object is persiste
 
 - allow a write to occur with an unmodified object
 - modify the object
-- Fail the update and prevent any modifications
+- fail the update and prevent any modifications
 
 Post-commit hooks are notified after the fact and should not modify the riak_object. Updating riak_objects in post-commit hooks can cause nasty feedback loops which will wedge the hook into an infinite cycle unless the hook functions are carefully written to detect and short-circuit such cycles.
 
@@ -44,7 +44,7 @@ Pre-commit hook functions should take a single argument, the riak_object being m
 
 Erlang pre-commit functions are allowed three possible return values:
 
-- A riak_object -- This can either be the same object passed to the function or an updated version. This allows hooks to modify the object before they are written.
+- A `riak_object` -- This can either be the same object passed to the function or an updated version. This allows hooks to modify the object before they are written.
 - `fail` -- The atom *fail* will cause Riak to fail the write and send a 403 Forbidden along with a generic error message about why the write was blocked.
 - `{fail, Reason}` -- The tuple `{fail, Reason}` will cause the same behavior as in #2 with the addition of `Reason` used as the error text.
 
@@ -62,7 +62,6 @@ precommit_limit_size(Object) ->
   end.
 ```
 
-
 Javascript pre-commit functions should also take a single argument, the JSON encoded version of the riak_object being modified. The JSON format is exactly the same as Riak's MapReduce. Javascript pre-commit functions are allowed three possible return values:
 
 - A JSON encoded Riak object -- Aside from using JSON, this is exactly the
@@ -71,7 +70,6 @@ same as #1 for Erlang functions. Riak will automatically convert it back to it's
 - `{"fail": Reason}`  -- The JSON hash will have the same effect as #3 for Erlang functions. Reason must be a Javascript string.
 
 *Javascript Pre-commit Example*
-
 
 ```javascript
 // Makes sure the object has JSON contents
@@ -84,7 +82,6 @@ function precommitMustBeJSON(object){
   }
 }
 ```
-
 
 ### Chaining
 
@@ -106,7 +103,6 @@ Pre-commit hooks can be used in many ways in Riak. One such way to use pre-commm
     "items": [29, 37, 34]
   }
 }
-
 
 var PreCommit = {
   validate: function(obj) {

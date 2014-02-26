@@ -11,11 +11,11 @@ moved: {
 }
 ---
 
-The basic actions of Riak are the same CRUD (Create, Read, Update, Delete) operations as any key/value store.
+The basic actions of Riak are the same CRUD (Create, Read, Update, Delete) operations that you'd find in any key/value store.
 
 ## Object/Key Operations
 
-Riak organizes data into Buckets, Keys, and Values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
+Riak organizes data into buckets, keys, and values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
 
 Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Although we'll use the Riak HTTP API for illustrative purposes, Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
 
@@ -43,10 +43,20 @@ Typical error codes:
 
 * `404 Not Found`
 
-So, with that in mind, try this command. This will request (GET) the key `doc2` from the bucket `test.`
+So, with that in mind, try this command. This will request (`GET`) the key `doc2` from the bucket `test.`
 
 ```curl
 curl -v http://localhost:8098/buckets/test/keys/doc2
+```
+
+```ruby
+bucket = client.bucket 'test'
+bucket.get 'doc2'
+```
+
+```python
+bucket = client.bucket('test')
+bucket.get('doc2')
 ```
 
 This should return a `404 Not Found` as the key `doc2` does not exist (you haven't created it yet).
@@ -101,6 +111,15 @@ curl -v -XPUT http://localhost:8098/buckets/test/keys/doc?returnbody=true \
   -d '{"bar":"baz"}'
 ```
 
+```ruby
+bucket = client.bucket 'test'
+obj = Riak::RObject.new bucket, 'doc'
+obj.content_type = 'application/json'
+obj.raw_data = '{"bar":"baz"}'
+obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
+obj.store
+```
+
 ### Store a new object and assign random key
 
 If your application would rather leave key-generation up to Riak, issue a `POST` request to the bucket URL instead of a PUT to a bucket/key pair:
@@ -120,9 +139,29 @@ Normal status codes:
 This command will store an object, in the bucket `test` and assign it a key:
 
 ```
-$ curl -v -XPOST http://localhost:8098/buckets/test/keys \
+curl -v -XPOST http://localhost:8098/buckets/test/keys \
   -H 'Content-Type: text/plain' \
   -d 'this is a test'
+```
+
+```ruby
+bucket = client.bucket 'test'
+obj = Riak::RObject.new bucket
+obj.content_type = 'text/plain'
+obj.raw_data = 'this is a test'
+obj.store
+obj.key
+#=> "YQGpaKH9n9rdAeeCgB0FJAY7Zi7"
+```
+
+```python
+bucket = client.bucket('test')
+obj = RiakObject(client, bucket)
+obj.content_type = 'text/plain'
+obj.data = 'this is a test'
+obj.store()
+oby.key
+# 'MCGbrINPY0Z0V4oTm7xeTlDnUr4'
 ```
 
 In the output, the `Location` header will give the you key for that object. To view the newly created object, go to `http://localhost:8098/*_Location_*` in your browser.
@@ -144,7 +183,17 @@ The normal response codes for a `DELETE` operations are `204 No Content` and `40
 Try this:
 
 ```curl
-$ curl -v -XDELETE http://localhost:8098/buckets/test/keys/test2
+curl -v -XDELETE http://localhost:8098/buckets/test/keys/test2
+```
+
+```ruby
+bucket = client.bucket 'test'
+bucket.delete 'test2'
+```
+
+```python
+bucket = client.bucket('test')
+bucket.delete('test2')
 ```
 
 ## Bucket Properties and Operations
@@ -181,10 +230,20 @@ The most important properties to consider for your bucket are:
 
 Let's go ahead and alter the properties of a bucket. The following `PUT` will create a new bucket called `test` with a modified `n_val` of `5`.
 
-```
-$ curl -v -XPUT http://localhost:8098/buckets/test/props \
+```curl
+curl -v -XPUT http://localhost:8098/buckets/test/props \
   -H "Content-Type: application/json" \
   -d '{"props":{"n_val":5}}'
+```
+
+```ruby
+bucket = client.bucket 'test'
+bucket.n_val = 5
+```
+
+```python
+bucket = client.bucket('test')
+bucket.n_val = 5
 ```
 
 ### GET Buckets
@@ -203,7 +262,17 @@ The optional query parameters are:
 With that in mind, go ahead and run this command. This will `GET` the bucket information that we just set with the sample command above:
 
 ```curl
-$ curl -v http://localhost:8098/buckets/test/props
+curl -v http://localhost:8098/buckets/test/props
+```
+
+```ruby
+bucket = client.bucket 'test'
+bucket.properties
+```
+
+```python
+bucket = client.bucket('test')
+bucket.get_properties()
 ```
 
 You can also view this bucket information through any browser by going to `http://localhost:8098/buckets/test/props`

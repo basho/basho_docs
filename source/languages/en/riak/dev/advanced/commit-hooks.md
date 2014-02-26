@@ -86,7 +86,7 @@ curl -XPUT \
 
 ```ruby
 bucket = client.bucket 'messages'
-bucket.props['precommit'].push({ :mod => 'validate_json', :fun => 'validate' })
+bucket.props['precommit'].push({ mod: 'validate_json', fun: 'validate' })
 bucket.props = {}
 ```
 
@@ -228,7 +228,7 @@ curl -XPUT \
 
 ```ruby
 bucket = client.bucket 'updates'
-bucket.props['postcommit'].push({ :mod => 'log_object', :fun => 'log' })
+bucket.props['postcommit'].push({ mod: 'log_object', fun: 'log' })
 ```
 
 ```python
@@ -302,6 +302,13 @@ obj = Riak::RObject.new(bucket, '2')
 obj.content_type = 'application/json'
 obj.raw_data = File.open('msg2.json').read
 obj.store
+```
+
+```python
+bucket = client.bucket('updates')
+obj = RiakObject(bucket, '2')
+obj.content_type = 'application/json'
+obj.data = open('msg2.json').read()
 ```
 
 You can see the logged value of the object by viewing `console.log`.

@@ -15,7 +15,7 @@ moved: {
 
 MapReduce (M/R) is a technique for dividing work across a distributed system. This takes advantage of the parallel processing power of distributed systems, and also reduces network bandwidth as the algorithm is passed around to where the data lives, rather than a potentially huge dataset transferred to a client algorithm. Developers can use MapReduce for things like filtering documents by tags, counting words in documents, and extracting links to related data.
 
-In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the Protocol Buffers API. **Riak MapReduce is intended for batch processing, not real time querying.**
+In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the Protocol Buffers API. **Riak MapReduce is intended for batch processing, not real-time querying.**
 
 ## Features
 
@@ -97,6 +97,30 @@ bam.raw_data = 'pizza pizza pizza'
 bam.store
 ```
 
+```python
+bucket = client.bucket('training')
+
+foo = RiakObject(bucket, 'foo')
+foo.content_type = 'text/plain'
+foo.data = 'pizza data goes here'
+foo.store()
+
+bar = RiakObject(bucket, 'bar')
+bar.content_type = 'text/plain'
+bar.data = 'pizza pizza pizza pizza'
+bar.store()
+
+baz = RiakObject(bucket, 'baz')
+baz.content_type = 'text/plain'
+baz.data = 'nothing to see here'
+baz.store()
+
+bam = RiakObject(bucket, 'bam')
+bam.content_type = 'text/plain'
+bam.data = 'pizza pizza pizza'
+bam.store()
+```
+
 ### MapReduce script and deployment:
 
 ```curl
@@ -113,15 +137,15 @@ curl -XPOST http://localhost:8098/mapred \
 
 ### Output
 
-The output is the key of each  object, followed by the count of the word  "pizza" for that object.  It looks like:
+The output is the key of each  object, followed by the count of the word  "pizza" for that object. It looks like this:
 
-```text
+```
 [["foo",1],["baz",0],["bar",4],["bam",3]]
 ```
 
 ### Recap
 
-We run a Javascript MapReduce function against the `training` bucket, which takes each `riakObject` (a JavaScript representation of a key/value) and searches the text for the word "pizza". `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
+We run a Javascript MapReduce function against the `training` bucket, which takes each `riakObject` (a JavaScript representation of a key/value) and searches the text for the word "pizza." `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
 
 
 <!-- ## NEED TO ADD
