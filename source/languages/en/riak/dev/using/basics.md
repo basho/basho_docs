@@ -11,29 +11,36 @@ moved: {
 }
 ---
 
-The basic actions of Riak are the same CRUD (Create, Read, Update, Delete) operations that you'd find in any key/value store.
+The basic actions of Riak are the same CRUD (**C**reate, **R**ead, **U**pdate, **D**elete) operations that you'd find in any key/value store.
 
 ## Object/Key Operations
 
 Riak organizes data into buckets, keys, and values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
 
-Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Although we'll use the Riak HTTP API for illustrative purposes, Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
+Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
 
 ### Read an Object
 
 Here is the basic command form for retrieving a specific key from a bucket.
 
+{{#2.0.0-}}
 ```bash
 GET /buckets/BUCKET/keys/KEY
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+```bash
+GET /types/TYPE/buckets/BUCKET/keys/KEY
+```
+{{/2.0.0+}}
 
 The body of the response will contain the contents of the object (if it exists).
 
-Riak understands many HTTP-defined headers, like `Accept` for content-type negotiation (relevant when dealing with siblings, see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]], and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
+If you're using HTTP to interact with Riak, as opposed to using a client, Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation (relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
-Riak also accepts many query parameters, including `r` for setting the R-value for this GET request (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to `r=2`.
+Riak also accepts many query parameters, including `r` for setting the R-value for this `GET` request (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to `r=2`.
 
-Normal response codes:
+Normal HTTP response codes:
 
 * `200 OK`
 * `300 Multiple Choices`
@@ -43,64 +50,133 @@ Typical error codes:
 
 * `404 Not Found`
 
-So, with that in mind, try this command. This will request (`GET`) the key `doc2` from the bucket `test.`
+<div class="note">
+<div class="title">Note</div>
+If you're using a Riak client instead of HTTP, these responses will vary a great deal, so make sure to check the documentation for your specific client.
+</div>
+
+With that in mind, try this command. This will attempt to read the key `doc2` from the bucket `test`:
 
 ```curl
 curl -v http://localhost:8098/buckets/test/keys/doc2
+
+# Response
+404 Not Found
 ```
 
 ```ruby
 bucket = client.bucket 'test'
 bucket.get 'doc2'
+
+# Response
+Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found. The requested object was not found.
 ```
 
 ```python
 bucket = client.bucket('test')
 bucket.get('doc2')
+
+# Response
+# This will return an empty RiakObject
+<class 'riak.riak_object.RiakObject'>
 ```
 
-This should return a `404 Not Found` as the key `doc2` does not exist (you haven't created it yet).
+This should return some form of `not_found` response, as the key `doc2` does not exist (you haven't created it yet).
 
-### Store an object
+### Store an Object
 
 Your application will often have its own method of generating the keys for its data.  If so, storing that data is easy.  The basic request looks like this.
 
 *Note that this is not the only URL format available. Alternate forms can be found in the [[HTTP API]].*
 
+{{#2.0.0-}}
 ```bash
 PUT /buckets/BUCKET/keys/KEY
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+```bash
+PUT /types/TYPE/buckets/BUCKET/keys/KEY
+```
+{{/2.0.0+}}
 
 <div class="info">
-<tt>POST</tt> is also a valid verb, for compatibility's sake.
+If you're using HTTP, <tt>POST</tt> is also a valid method, for compatibility's sake.
 </div>
 
-There is no need to intentionally create buckets in Riak.  They pop into existence when keys are added to them, and disappear when all keys have been removed from them.
+There is no need to intentionally create buckets in Riak. They pop into existence when keys are added to them, and disappear when all keys have been removed from them.
 
-Some request headers are required for PUTs:
+Some request headers are required for writes:
 
 * `Content-Type` must be set for the stored object. Set what you expect to receive back when next requesting it.
-* `X-Riak-Vclock` if the object already exists, the vector clock attached to the object when read; if the object is new, this header may be omitted
+* `X-Riak-Vclock` if the object already exists, the vector clock attached to the object when read; if the object is new, this header may be omitted.
 
-Other request headers are optional for PUTs:
+```curl
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -H "X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkymNl+GpUfYYvCwA=" \
+  -d "some text" \
+  http://localhost:8098/buckets/test_bucket/keys/test_key
+```
 
-* `X-Riak-Meta-YOUR_HEADER` any additional metadata headers that should be stored with the object (eg. `X-Riak-Meta-FirstName`).
-* `Link` user and system-defined links to other resources. Read more about [[Links]].
+```ruby
+obj = Riak::RObject.new 'test_bucket', 'test_key'
+obj.content_type = 'text/plain'
+obj.vclock = 'a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkymNl+GpUfYYvCwA='
+obj.raw_data = 'some text'
+obj.store
+```
 
-Similar to how GET requests support the `r` query parameter, `PUT` requests also support these parameters:
+```python
+obj = RiakObject('test_bucket', 'test_key')
+obj.content_type = 'text/plain'
+obj.vclock = 'a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkymNl+GpUfYYvCwA='
+obj.data = 'some text'
+obj.store()
+```
+
+Other request headers are optional for writes:
+
+* `X-Riak-Meta-YOUR_HEADER` for any additional metadata headers that should be stored with the object (eg. `X-Riak-Meta-FirstName`).
+* `Link` user and system-defined links to other resources. Read more about [[Links]]. {{#2.0.0-}}
+
+Similar to how read requests support the `r` query parameter, write requests also support these parameters:
 
 * `r` (default is `2`) how many replicas need to agree when retrieving an existing object before the write
 * `w` (default is `2`) how many replicas to write to before returning a successful response
 * `dw` (default is `0`) how many replicas to commit to durable storage before returning a successful response
 * `returnbody` (boolean, default is `false`) whether to return the contents of the stored object
 
-Normal status codes:
+```curl
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "some text" \
+  http://localhost:8098/buckets/test_bucket/keys/test_key?w=3&returnbody=true
+```
+
+```ruby
+bucket = client.bucket 'test_bucket'
+obj = Riak::RObject.new bucket, 'test_key'
+obj.content_type = 'text/plain'
+obj.raw_data = 'some text'
+obj.store w: 3, returnbody: true
+```
+
+```python
+bucket = client.bucket('test_bucket')
+obj = RiakObject(bucket, 'test_key')
+obj.content_type = 'text/plain'
+obj.data = 'some text'
+obj.store(w=3, return_body=True)
+```
+
+Normal HTTP status codes (responses will vary for Riak client libraries):
 
 * `200 OK`
 * `204 No Content`
 * `300 Multiple Choices`
 
-If `returnbody=true`, any of the response headers expected from a `GET` request may be present. Like a `GET` request, `300 Multiple Choices` may be returned if siblings existed or were created as part of the operation, and the response can be dealt with similarly.
+If `returnbody` is set to `true`, any of the response headers expected from a read request may be present. Like a `GET` request, `300 Multiple Choices` may be returned if siblings existed or were created as part of the operation, and the response can be dealt with similarly.
 
 Let's give it a shot. Try running this in a terminal.
 
@@ -120,25 +196,41 @@ obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
 obj.store
 ```
 
-### Store a new object and assign random key
+```python
+bucket = client.bucket('test')
+obj = RiakObject(bucket, 'doc')
+obj.content_type = 'application/json'
+obj.data = '{"bar":"baz"}'
+obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
+obj.store()
+```
+
+### Store a New Object and Assign Random Key
 
 If your application would rather leave key-generation up to Riak, issue a `POST` request to the bucket URL instead of a PUT to a bucket/key pair:
 
+{{#2.0.0-}}
 ```bash
 POST /buckets/BUCKET/keys
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+```bash
+POST /types/TYPE/buckets/BUCKET/keys
+```
+{{/2.0.0+}}
 
-If you don't pass Riak a "key" name after the bucket, it will know to create one for you.
+If you don't pass Riak a `key` name after the bucket, it will know to create one for you.
 
-Supported headers are the same as for bucket/key PUT requests, though `X-Riak-Vclock` will never be relevant for these POST requests.  Supported query parameters are also the same as for bucket/key PUT requests.
+Supported headers are the same as for bucket/key write requests, though `X-Riak-Vclock` will never be relevant for these POST requests.  Supported query parameters are also the same as for bucket/key PUT requests.
 
 Normal status codes:
 
 * `201 Created`
 
-This command will store an object, in the bucket `test` and assign it a key:
+This command will store an object in the bucket `test` and assign it a key:
 
-```
+```curl
 curl -v -XPOST http://localhost:8098/buckets/test/keys \
   -H 'Content-Type: text/plain' \
   -d 'this is a test'
@@ -168,7 +260,7 @@ In the output, the `Location` header will give the you key for that object. To v
 
 If you've done it correctly, you should see the value (which is "this is a test").
 
-### Delete an object
+### Delete an Object
 
 The delete command, as you can probably guess, follows a predictable pattern and looks like this:
 
@@ -246,7 +338,7 @@ bucket = client.bucket('test')
 bucket.n_val = 5
 ```
 
-### GET Buckets
+### `GET` Buckets
 
 Here is how you use the [[HTTP API]] to retrieve (or `GET`) the bucket properties and/or keys:
 
