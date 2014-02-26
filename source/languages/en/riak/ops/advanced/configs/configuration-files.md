@@ -185,7 +185,7 @@ Base directory for backend data storage. (default: `./data`)
 * **ring_creation_size**
     The number of partitions the Riak ring will have.  (default: `64`)
 
-    This value is used to create a Riak node's initial ring when it is started.  All nodes destined to be part of the same cluster must be started with the same ring_creation_size prior to joining them together.  As nodes are joined together to form a cluster, the number of partitions specified by ring_creation_size are shared across them.  This value is not used again unless the ring directory of the Riak node is deleted and the node is restarted.
+    This value is used to create a Riak node's initial ring when it is started.  All nodes destined to be part of the same cluster must be started with the same ring_creation_size prior to joining them together.  As nodes are joined together to form a cluster, the number of partitions specified by ring_creation_size are divided amongst them.  This value is not used again unless the ring directory of the Riak node is deleted and the node is restarted.
 
     Selecting a ring_creation_size is dependent on the number of nodes in the cluster and future growth plans.  The most commonly used ring sizes are 128 for clusters ranging from 5-10 nodes, and 256 for clusters ranging from 10-15 nodes.
 
