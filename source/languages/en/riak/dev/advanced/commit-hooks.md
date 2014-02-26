@@ -236,7 +236,7 @@ bucket = client.bucket('updates')
 bucket.set_property('postcommit', { 'mod': 'log_object', 'fun': 'log' })
 ```
 
-Check that the bucket has your post-commit hook listed in its properties.
+Check that the bucket has your post-commit hook listed in its properties:
 
 ```curl
 curl localhost:8098/buckets/updates/props | jsonpp
@@ -245,6 +245,11 @@ curl localhost:8098/buckets/updates/props | jsonpp
 ```ruby
 bucket = client.bucket 'updates'
 bucket.props.has_key? 'postcommit'
+```
+
+```python
+bucket = client.bucket('updates')
+'postcommit' in bucket.get_properties().keys()
 ```
 
 If you're using curl, the output should look like this:

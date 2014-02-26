@@ -77,19 +77,19 @@ Link phases find links matching patterns specified in the query definition. The 
 
 "Following a link" means adding it to the output list of this phase. The output of this phase is often most useful as input to a map phase or to another reduce phase.
 
-## HTTP API Examples
+## Examples
 
 Riak supports writing MapReduce query functions in JavaScript and Erlang, as well as specifying query execution over the [[HTTP API]].
 
 <div class="note"><div class="title"><tt>bad encoding</tt> error</div>If you receive an error <tt>bad encoding</tt> from a MapReduce query that includes phases in Javascript, verify that your data does not contain incorrect Unicode escape sequences. Data being transferred into the Javascript VM must be in Unicode format.</div>
 
-### HTTP Example
+### Text Example
 
-This example will store several chunks of text in Riak and then compute word counts on the set of documents using MapReduce via the HTTP API.
+This example will store several chunks of text in Riak and then compute word counts on the set of documents using MapReduce.
 
 #### Load data
 
-We will use the Riak HTTP interface to store the texts we want to process:
+We will use Riak to store the texts we want to process:
 
 ```curl
 curl -XPUT \
@@ -114,7 +114,7 @@ picking the daisies, when suddenly a White Rabbit with pink eyes ran
 close by her.
 EOF
 
-$ curl -XPUT \
+curl -XPUT \
   -H "Content-Type: text/plain" \
   http://localhost:8098/buckets/alice/keys/p5 \
   --data-binary @-<<\EOF
@@ -125,6 +125,44 @@ well.
 EOF
 ```
 
+```ruby
+bucket = client.bucket 'alice'
+
+obj = Riak::RObject.new(bucket, 'p1')
+obj.content_type = 'text/plain'
+obj.raw_data = "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'"
+obj.store
+
+obj2 = Riak::RObject.new(bucket, 'p2')
+obj2.content_type = 'text/plain'
+obj2.raw_data = "So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her."
+obj2.store
+
+obj3 = Riak::RObject.new(bucket, 'p3')
+obj3.content_type = 'text/plain'
+obj3.raw_data = "The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think
+about stopping herself before she found herself falling down a very deep well."
+obj3.store
+```
+
+```python
+bucket = client.bucket('alice')
+
+obj = RiakObject(client, bucket, 'p1')
+obj.content_type = 'text/plain'
+obj.data = "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'"
+obj.store()
+
+obj2 = RiakObject(client, bucket, 'p2')
+obj2.content_type = 'text/plain'
+obj2.data = "So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her."
+obj2.store()
+
+obj3 = RiakObject(client, bucket,  'p3')
+obj3.content_type = 'text/plain'
+obj3.data = "The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well."
+obj3.store()
+```
 
 #### Run query
 
@@ -218,7 +256,7 @@ looks at each JSON object in the input list. It steps through each key in each o
 
 ### HTTP Query Syntax
 
-MapReduce queries are issued over HTTP via a `POST` to the `/mapred` resource. The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`
+MapReduce queries are issued over HTTP via a `POST` to the `/mapred` resource. The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`.
 
 MapReduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document `{"inputs":[...inputs...],"query":[...query...],"timeout": 90000}`.
 

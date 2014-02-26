@@ -127,10 +127,12 @@ bin/search-cmd install my_bucket_name
 Any other method you would normally use to set bucket properties can also be used to enable the Search precommit hook as well.  For example, using curl to install over HTTP:
 
 ```curl
-$ curl -XPUT -H "content-type:application/json" \
-       http://localhost:8098/buckets/demo2/props -d @- << EOF
-{"props":{"precommit":[{"mod":"riak_search_kv_hook","fun":"precommit"}]}}
-EOF
+curl -XPUT \
+  -H "content-type:application/json" \
+  http://localhost:8098/buckets/demo2/props \
+  -d @- << EOF
+    {"props":{"precommit":[{"mod":"riak_search_kv_hook","fun":"precommit"}]}}
+  EOF
 ```
 
 Note, though, that you may want to read the bucket properties first, so you don't clobber any precommit hook already in place.
