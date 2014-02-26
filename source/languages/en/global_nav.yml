@@ -43,7 +43,6 @@ riak:
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Datatypes|Using Datatypes]]"
-          - "[[Strong Consistency|Using Strong Consistency]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
           - "[[MapReduce|Using MapReduce]]"
@@ -72,6 +71,7 @@ riak:
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
+          - "[[Strong Consistency|Using Strong Consistency]]"
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"

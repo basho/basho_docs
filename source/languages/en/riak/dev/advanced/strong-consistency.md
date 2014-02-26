@@ -14,7 +14,7 @@ When data is stored in a bucket with strong consistency guarantees, a value is g
 
 ## Enabling Strong Consistency
 
-The strong consistency subsystem in Riak is disabled by default. You will need to turn it on by changing the configuration your Riak installation's [[`riak.conf`|Configuration Files]] file. To do so, you can simply un-comment the line containing the `strong_consistency = on` setting or add the following if that line is not present:
+The strong consistency subsystem in Riak is disabled by default. You will need to turn it on by changing the configuration your Riak installation's `[[riak.conf|Configuration Files]]` file. To do so, you can simply un-comment the line containing the `strong_consistency = on` setting or add the following if that line is not present:
 
 ```riakconf
 strong_consistency = on
@@ -32,13 +32,9 @@ To give an example, we'll create a bucket type called `strongly_consistent` with
 
 ```bash
 riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true}}'
-
-# Or if your type involves setting other properties to non-default values as well:
-
-riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true, ... other properties ... }}'
 ```
 
-**Note**: The bucket type name `strongly_consistent` is not a reserved term. You can name any bucket type whatever you wish, with the exception of `default` (more on the `default` bucket type in the [[Bucket Types]] doc).
+**Note**: You can name [[bucket types|Using Bucket Types]] whatever you wish, with the exception of `default`, which is a reserved term (a full listing of the properties associated with the `default` bucket type can be found in the documentation on [[bucket properties and operations|The Basics#Bucket-Properties-and-Operations]]).
 
 Once the `strongly_consistent` bucket type has been created, we can check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
 
@@ -60,4 +56,4 @@ strongly_consistent has been activated
 
 Now, any bucket that bears the type `strongly_consistent`---or whatever you named your bucket type---will provide strong consistency guarantees.
 
-Elsewhere in the Riak docs you can find more comprehensive information on [[Using Bucket Types]] and the concept of [[Strong Consistency]].
+Elsewhere in the Riak docs, you can find more information on [[Using Bucket Types]] and on the concept of [[Strong Consistency]].
