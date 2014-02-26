@@ -63,7 +63,7 @@ Consistent hashing is a technique used to limit the reshuffling of keys when a h
 
 ## Eventual Consistency
 
-A consistency model that informally guarantees that, if no new updates are made to a given data item, eventually all accesses to that item will return the last updated value.  Details about what this means in terms of Riak can be found in the Eventual Consistency document below.
+A consistency model that informally guarantees that if no new updates are made to a given data item, all reads on that item will eventually return the last updated value. Details about what this means in Riak can be found in the document below.
 
 * [[Eventual Consistency]]
 
@@ -141,7 +141,7 @@ Quorum in Riak has two meanings:
 
 ## Sloppy Quorum
 
-During failure scenarios, where `available nodes < total nodes`, sloppy quorum is used to ensure availability of writes.  This means that, when a primary node is unavailable, another node will accept it's write requests.  When the node returns, data is transferred to the primary node via the Hinted Handoff process.
+During failure scenarios, in which available nodes < total nodes, sloppy quorum is used to ensure that Riak is still available to take writes. When a primary node is unavailable, another node will accept its write requests. When the node returns, data is transferred to the primary node via the [[Hinted Handoff|Riak Glossary#Hinted-Handoff]] process.
 
 ## Read Repair
 
