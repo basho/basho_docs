@@ -452,7 +452,7 @@ Additional details are available in the
 
 ## top
 
-Top uses Erlang's etop to provide information about what the Erlang processes inside of Riak are doing. Top reports process reductions (an indicator of CPU utilization), memory used and message queue sizes.
+Top uses Erlang's etop to provide information about what the Erlang processes inside of Riak are doing. Top reports process reductions (an indicator of CPU utilization), memory used, and message queue sizes.
 
 ```bash
 riak-admin top [-interval N] [-sort reductions|memory|msg_q] [-lines N]
@@ -462,4 +462,4 @@ The `interval` option specifies the number of seconds between each update of the
 The `sort` option determines what category `riak-admin top` sorts on and defaults to `reductions`.  
 The `lines` option specifies the number of processes to display in the top output and defaults to `10`.  
 
-More information about Erlang's etop can be found in the [etop documentation](http://www.erlang.org/documentation/doc-5.9.1/lib/observer-1.1/doc/html/etop.html).
+More information about Erlang's etop can be found in the [etop documentation](http://www.erlang.org/doc/man/etop.html).
