@@ -3,12 +3,18 @@ title: "Taste of Riak: C"
 project: riak
 version: 1.4.0+
 document: guide
-toc: true
 audience: beginner
 keywords: [developers, client, c]
 ---
 
 This Taste of Riak will show you some simple synchronous operations against Riak. The Riak C client also has an asynchronous mode, but that won't be covered here.
+
+<div class="note">
+<div class="title">Riak C Client status</div>
+
+The Riak C Client is currently under development and is NOT ready to use in a production environment. Expect significant changes to the API.
+</div>
+
 
 If you haven't set up a Riak node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
 
@@ -40,7 +46,7 @@ make
 
 Running it should return:
 
-```text
+```
 -------------------------------
 Test Riak PUT
 -------------------------------
@@ -176,11 +182,9 @@ if(err == ERIAK_OK) {
 // see the taste_of_riak.c file for memory cleanup, etc
 ```
 
-That was easy.  We simply request the objects by bucket and key. 
-
 ###Updating Objects In Riak
 
-To update we simply just store the new value with the same key using the `riak_object` instance that's returned from `riak_get`.
+To perform an update, we store the new value with the same key using the `riak_object` instance that's returned from `riak_get`.
 
 
 ```c
@@ -208,7 +212,8 @@ if(err) {
 ```
 
 ###Deleting Objects From Riak
-Nothing is complete without a delete.
+
+To delete, the bucket and key of an object are specified along with any delete options.
 
 ```c
 riak_delete_options *delete_options = riak_delete_options_new(cfg);
