@@ -1,7 +1,7 @@
 ---
 title: "Multi Data Center Replication v3: Scheduling Fullsync"
 project: riakee
-version: 1.3.0+
+version: 1.4.0+
 document: cookbook
 toc: true
 audience: intermediate

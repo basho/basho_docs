@@ -565,6 +565,13 @@ body[class*="ver-1-4"] {
   }
 }
 
+/* 1.4.8 */
+body[class~="ver-1-4-8"] {
+  .version-icon-watermark:before {
+    content: "\e60b";
+  }
+}
+
 /* 1.4.7 */
 body[class~="ver-1-4-7"] {
   .version-icon-watermark:before {

@@ -50,6 +50,11 @@ fs.file-max = 50384
 
 As seen above, it is generally set high enough for Riak. If you have other things running on the system, you might want to consult the [[sysctl manpage|http://linux.die.net/man/8/sysctl]] for how to change that setting. However, what most needs to be changed is the per-user open files limit. This requires editing `/etc/security/limits.conf`, which you’ll need superuser access to change. If you installed Riak or Riak Search from a binary package, add lines for the riak user like so, substituting your desired hard and soft limits:
 
+```
+riak soft nofile 4096
+riak hard nofile 65536
+```
+
 On Ubuntu, if you’re always relying on the init scripts to start Riak, you can create the file `/etc/default/riak` and specify a manual limit like so:
 
 ```bash
