@@ -18,27 +18,34 @@ Much like Riak, Riak CS exposes statistics on critical operations that are commo
 /riak-cs/stats
 ```
 
-Latency histograms showing mean, median, and 95th and 99th percentiles, as well as meters showing the count and rate, are included in the output for each statistic.
+That will return a JSON object containing a series of latency histograms and counters for a variety of operations, e.g. `object_get` and `block_put`. Alongside each operation there will be a list showing the count and rate for the operation, as well as a latency histogram showing mean, median, and 95th and 99th percentiles:
 
-The results include histograms and counters for the following operations:
+```json
+<operation_name>: [MeterCount, MeterRate, LatencyMean, LatencyMedian, Latency95, Latency99]
+```
 
-* `block_get` --- Total BLOCK GET operations performed
-* `block_put` --- Total BLOCK GET operations performed
-* `block_delete` --- Total BLOCK DELETE operations performed
-* `service_get_buckets` --- Total GET BUCKETS operations performed
-* `bucket_list_keys` --- Total BUCKET LIST KEYS operations performed
-* `bucket_create` --- Total BUCKET CREATE operations performed
-* `bucket_delete` --- Total BUCKET DELETE operations performed
-* `bucket_get_acl` --- Total BUCKET GET ACL operations performed
-* `bucket_put_acl` --- Total BUCKET PUT ACL operations performed
-* `object_get` --- Total GET operations performed
-* `object_put` --- Total PUT operations performed
-* `object_head` --- Total OBJECT HEAD operations performed
-* `object_delete` --- Total OBJECT DELETE operations performed
-* `object_get_acl` --- Total OBJECT GET ACL operations performed
-* `object_put_acl` --- Total OBJECT PUT ACL operations performed
+You will see a list of that form for each of the following operations:
+
+Operation | Description 
+:---------|:-----------
+`block_get` | Total BLOCK GET operations performed
+`block_put` | Total BLOCK GET operations performed
+`block_delete` | Total BLOCK DELETE operations performed
+`service_get_buckets` | Total GET BUCKETS operations performed
+`bucket_list_keys` | Total BUCKET LIST KEYS operations performed
+`bucket_create` | Total BUCKET CREATE operations performed
+`bucket_delete` | Total BUCKET DELETE operations performed
+`bucket_get_acl` | Total BUCKET GET ACL operations performed
+`bucket_put_acl` | Total BUCKET PUT ACL operations performed
+`object_get` | Total GET operations performed
+`object_put` | Total PUT operations performed
+`object_head` | Total OBJECT HEAD operations performed
+`object_delete` | Total OBJECT DELETE operations performed
+`object_get_acl` | Total OBJECT GET ACL operations performed
+`object_put_acl` | Total OBJECT PUT ACL operations performed
 
 ## DTrace Probes
+
 Riak CS is built with some probes for use with [[DTrace|http://dtrace.org/blogs/about/]] to inspect certain operations in the live system, which can be helpful in diagnosing issues.
 
 ### Usage Examples

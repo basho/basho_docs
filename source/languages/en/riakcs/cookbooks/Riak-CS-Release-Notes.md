@@ -14,7 +14,7 @@ keywords: [developer]
 
 [Riak CS 1.4.4 Release Notes](https://github.com/basho/riak_cs/blob/1.4.4/RELEASE-NOTES.md)
 
-## Bugs Fixed
+#### Bugs Fixed
 
 * Create basho-patches directory [riak_cs/775](https://github.com/basho/riak_cs/issues/775) .
 * `sum_bucket` timeout crashes all storage calculation is fixed by [riak_cs/759](https://github.com/basho/riak_cs/issues/759) .
