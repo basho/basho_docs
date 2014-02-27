@@ -11,11 +11,11 @@ moved: {
 }
 ---
 
-The basic actions of Riak are the same CRUD (**C**reate, **R**ead, **U**pdate, **D**elete) operations that you'd find in any key/value store.
+The basic actions available in Riak are the same CRUD (**C**reate, **R**ead, **U**pdate, **D**elete) operations that you'd find in any key/value store.
 
 ## Object/Key Operations
 
-Riak organizes data into buckets, keys, and values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
+Riak organizes data into {{#2.0.0+}}bucket types, {{/2.0.0+}}buckets, keys, and values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. {{#2.0.0+}}Bucket types are full sets of bucket properties Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
 
 Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
 
@@ -90,11 +90,13 @@ Your application will often have its own method of generating the keys for its d
 *Note that this is not the only URL format available. Alternate forms can be found in the [[HTTP API]].*
 
 {{#2.0.0-}}
+
 ```bash
 PUT /buckets/BUCKET/keys/KEY
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
+
 ```bash
 PUT /types/TYPE/buckets/BUCKET/keys/KEY
 ```
@@ -210,11 +212,13 @@ obj.store()
 If your application would rather leave key-generation up to Riak, issue a `POST` request to the bucket URL instead of a PUT to a bucket/key pair:
 
 {{#2.0.0-}}
+
 ```bash
 POST /buckets/BUCKET/keys
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
+
 ```bash
 POST /types/TYPE/buckets/BUCKET/keys
 ```
@@ -252,7 +256,7 @@ obj = RiakObject(client, bucket)
 obj.content_type = 'text/plain'
 obj.data = 'this is a test'
 obj.store()
-oby.key
+obj.key
 # 'MCGbrINPY0Z0V4oTm7xeTlDnUr4'
 ```
 
@@ -264,9 +268,18 @@ If you've done it correctly, you should see the value (which is "this is a test"
 
 The delete command, as you can probably guess, follows a predictable pattern and looks like this:
 
+{{#2.0.0-}}
+
 ```bash
 DELETE /buckets/BUCKET/keys/KEY
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```bash
+DELETE /types/TYPE/buckets/BUCKET/keys/KEY
+```
+{{/2.0.0+}}
 
 The normal response codes for a `DELETE` operations are `204 No Content` and `404 Not Found`
 
