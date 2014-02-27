@@ -67,6 +67,10 @@ Counters are a bucket-level Riak Data Type that can be used either by themselves
 
 First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
 
+```curl
+curl http://localhost:8098/types/<counter_type>/buckets/<counters>/keys/<key>
+```
+
 ```ruby
 bucket = client.bucket 'counters'
 ```
@@ -77,6 +81,10 @@ bucket = client.bucket 'counters'
 ```
 
 To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
+
+```curl
+curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/keys/<key>
+```
 
 ```ruby
 counter = Riak::Crdt::Counter.new bucket, key, bucket_type
@@ -97,7 +105,7 @@ counter = Riak::Crdt::Counter.new counters, 'traffic_tickets', 'counter_bucket'
 # counter buckets to use the counter_bucket bucket type:
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counter_bucket'
-to create our
+
 # This would enable us to create our counter without specifying a bucket type:
 
 counter = Riak::Crdt::Counter.new counters, 'traffic_tickets'
@@ -111,6 +119,13 @@ Counter = riakc_counter:new().
 %% structure with a bucket type, bucket, and key later on.
 ```
 
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  -d 1 \
+  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
+```
+
 Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
 
 ```ruby
@@ -121,6 +136,13 @@ counter.increment
 Counter1 = riakc_counter:increment(Counter).
 ```
 
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  -d 1 \
+  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
+```
+
 The default value of an increment operation is 1, but you can increment by more than one if you'd like (but always by an integer). Let's say that we decide to spend an afternoon flaunting traffic laws and manage to rack up five tickets:
 
 ```ruby
@@ -129,6 +151,13 @@ counter.increment 5
 
 ```erlang
 Counter2 = riakc_counter:increment(5, Counter1).
+```
+
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  -d 5 \
+  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
 ```
 
 If we're curious about how many tickets we have accumulated, we can simply retrieve the value of the counter at any time:
@@ -154,6 +183,13 @@ riakc_counter:value(Counter2).
 {ok, CounterX} = riakc_pb_socket:fetch_type(Pid,
                                     {<<"counter_bucket">>,<<"counters">>},
                                     <<"traffic_tickets">>).
+```
+
+```curl
+curl http://localhost:8098/types/counter_bucket/buckets/counter/keys/traffic_tickets
+
+# Response:
+{"type":"counter", "value": <value>}
 ```
 
 Any good counter needs to decrement in addition to increment, and Riak counters allow you to do precisely that. Let's say that we hire an expert who manages to get a traffic ticket stricken from the record:
@@ -183,6 +219,13 @@ riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>,<<"counters">>},
                             riakc_counter:to_op(Counter4)).
 ```
 
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  -d -3 \
+  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
+```
+
 Operations on counters can be performed singly, as above, but let's say that we now have two counters in play, `dave_traffic_tickets` and `susan_traffic_tickets`. Both of these ne'er-do-wells get a traffic ticket on the same day and we need to increment both counters:
 
 ```ruby
@@ -204,6 +247,15 @@ Counters = [{<<"dave">>, DaveTrafficTickets},
   end || {Key, C} <- Counters ].
 ```
 
+```curl
+for counter in dave_traffic_tickets susan_traffic_tickets; do
+  curl -XPUT \
+    -H "Content-Type: application/json" \
+    -d 1 \
+    http://localhost:8098/types/counter_bucket/buckets/counters/keys/$counter
+done
+```
+
 ### Sets
 
 As with counters (and maps, as shown below), using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
@@ -220,6 +272,10 @@ set = Riak::Crdt::Set.new bucket, key, bucket_type
 %% Like counters, sets are not encapsulated in a
 %% bucket/key in the Erlang client. See below for more
 %% information.
+```
+
+```curl
+curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/keys/<key>
 ```
 
 Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `set_bucket` bucket type we created in the previous section):
@@ -247,6 +303,10 @@ Set = riakc_set:new().
 %% structure with a bucket type, bucket, and key later on.
 ```
 
+```curl
+curl http://localhost:8098/types/set_bucket/buckets/travel/keys/cities
+```
+
 Upon creation, our set is empty. We can verify that it is empty at any time:
 
 ```ruby
@@ -264,6 +324,13 @@ riakc_set:size(Set) == 0.
 %% is 0.
 ```
 
+```curl
+curl http://localhost:8098/types/set_bucket/buckets/travel/keys/cities
+
+# Response
+not found
+```
+
 But let's say that we read a travel brochure saying that Toronto and Montreal are nice places to go. Let's add them to our `cities` set:
 
 ```ruby
@@ -274,6 +341,12 @@ set.add 'Montreal'
 ```erlang
 Set1 = riakc_set:add_element(<<"Toronto">>, Set),
 Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
+```
+
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  
 ```
 
 Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, but if we visit them, we won't have time to visit Montreal. Let's remove Montreal and add the others:
