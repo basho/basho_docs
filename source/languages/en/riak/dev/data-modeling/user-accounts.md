@@ -13,7 +13,7 @@ moved: {
 
 ## Simple Case
 
-User accounts are pretty straight-forward -- the usual practice is to store JSON objects in a 'users' bucket. As far as what to use for a key value, usual app-specific considerations apply. For example, if your application involves user logins, the simplest and most read-efficient way is to use the login username as the object key. Get the username off the login, perform a GET on the user account object and go. There are several drawbacks, however - what if they'll want to change their username or email, later? The most common solution is - use a unique UUID type key for the user, and store their username or email as a Secondary Index, for efficient lookup.
+User accounts are pretty straight-forward -- the usual practice is to store JSON objects in a `users` bucket. As far as what to use for a key, the usual application-specific considerations apply. If your application involves user logins, for example, the simplest and most read-efficient way is to use the login username as the object key. Get the username off the login, perform a GET on the user account object and go. There are several drawbacks, however - what if they'll want to change their username or email, later? The most common solution is - use a unique UUID type key for the user, and store their username or email as a Secondary Index, for efficient lookup.
 
 
 ## Complex Case

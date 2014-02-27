@@ -13,7 +13,7 @@ moved: {
 
 ## Simple Case
 
-The simplest way to model blog posts, articles or other content is by creating a bucket in Riak with some unique attribute for logical division of content - perhaps  "blogs" "articles" or something similar. Keys could be unique identifiers for posts - perhaps the article title, a combination of the title and time/date, or perhaps an integer that can be used as part of a URL string. You can store content anyway you want - HTML blobs, plain text, JSON or XML, or another document type. Keep in mind that data in Riak is opaque, so Riak won't "know" about the object unless it is indexed with Riak Search.
+The simplest way to model blog posts, articles, or other content is to create a bucket in Riak with some unique attribute for logical division of content, e.g. `blogs` or `articles` or something similar. Keys could be unique identifiers for posts, perhaps the article title, a combination of the title and time/date, or even an integer that can be used as part of a URL string. You can store any type of content you wish, including HTML blobs, plain text, JSON or XML, and other document types. {{#2.0.0-}}Keep in mind that data in Riak is opaque, so Riak won't "know" about the object unless it is indexed with Riak Search.{{/2.0.0-}}
 
 
 ## Complex Case

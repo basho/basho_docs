@@ -1,6 +1,10 @@
 ---
 title: Building Applications with Riak
-version: 2.0.0+
+project: riak
+version: 1.0.0+
+document: guide
+audience: beginner
+keywords: [developers, applications]
 ---
 
 So you've decided to build an application using Riak as a data store for some or all of your data. We think that this is a wise choice for a wide variety of use cases. But using Riak in an optimal way requires 
@@ -10,21 +14,22 @@ So you've decided to build an application using Riak as a data store for some or
 This is an important initial question to ask for two reasons:
 
 1. Not all data is a good fit for Riak, and if this is true of your data we would advise seeking out a different storage system
-2. The kind of data you're storing should guide your decision about *how* to store your data in Riak
+2. The kind of data you're storing should guide your decision about *how* to store and access your data in Riak
 
-Riak is an excellent choice for use cases like the following:
+Riak tends to be an excellent choice for data of the following kinds:
 
 * Immutable data
-* Small object size
-* Independent objects
-* Objects with "natural" keys
+* Small objects
+* Independent objects, i.e. objects that don't have complex interdependencies with other objects
+* Objects with "natural" keys, e.g. timestamps or [[usernames|User Accounts]]
+* Mutable data that can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]] {{#2.0.0+}}
 
-Riak is probably not recommended if you need:
+Riak is probably not recommended if you need to store:
 
-* Objects stored that exceed 1-2MB in size (TODO: we should get a definitive max obj size nailed down)
-* Objects with many complex interdependencies that can not be easily denormalized
+* Objects stored that exceed 1-2MB in size (in which case we would recommend checking out [Riak CS](http://docs.basho.com/riakcs/latest/) instead)
+* Objects with many complex interdependencies that can not be easily denormalized (in which case a traditional relational database)
 
-## How Should I Store and Access my Data?
+## The Flexibility of Riak
 
 Riak is an extremely flexible system for three reasons:
 
@@ -38,13 +43,15 @@ The following table
 
 ## How Should I Access My Data?
 
+Riak provides a number of ways of retrieving data, each 
+
 * Key/Value - this is the preferred method for accessing a value stored in Riak. It will have the lowest latency of any operation.
 * Secondary indexes (2i)
 * Riak [[Data Types]]
 * Riak Search
 * Strong consistency
 * Using R vs PR
-* What actually happens when I grab an object? (r value, notfound_ok, read repair, fallback vnodes)
+* What actually happens when I grab an object? (`r` value, `notfound_ok`, read repair, fallback vnodes)
 
 ## How Should I Store My Data?
 

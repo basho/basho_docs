@@ -13,7 +13,7 @@ moved: {
 
 ## Simple Case
 
-A common use case for Riak is using it as a data store for serving ad content to many different web and mobile users with low latency. In Riak, advertising content - images or text - can be stored with unique keys, or with Riak-generated keys. Users will often make keys based on a campaign ID for easy retrieval.
+A common use case for Riak is using it as a data store for serving ad content to many different web and mobile users with low latency. In Riak, advertising content---images or text---can be stored with unique keys, or with Riak-generated keys. Users will often make keys based on a campaign ID for easy retrieval.
 
 ## Complex Case
 
