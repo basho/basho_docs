@@ -1728,6 +1728,21 @@ div[role=main] {
       width : 70%;
     }
   }
+
+  table.riak-conf {
+    td:nth-of-type(1) {
+      overflow-wrap:break-word;
+      max-width: 275px;
+    }
+    td:nth-of-type(2) {
+      overflow-wrap:break-word;
+      max-width: 325px;
+    }
+    td:nth-of-type(3) {
+      overflow-wrap:break-word;
+      max-width: 125px;
+    }
+  }
 }
    
 

@@ -11,6 +11,13 @@ moved: {
 }
 ---
 
+{{#2.0.0+}}
+<div class="info"><div class="title">Internal security</div>This
+document covers network-level security; for authentication and
+authorization introduced with Riak 2.0, see
+[[Authentication and Authorization]].</div>
+{{/2.0.0+}}
+
 The following article discusses standard configurations and port
 settings to use when thinking about how to secure a Riak Cluster.
 

@@ -15,7 +15,7 @@ To try this flavor of Riak, a working installation of Java is required.
 ###Client Setup
 
 
-Download the [all-in-one Riak Java client jar](http://riak-java-client.s3.amazonaws.com/riak-client-1.1.1-jar-with-dependencies.jar) to your working directory. 
+Download the [all-in-one Riak Java client jar](http://riak-java-client.s3.amazonaws.com/riak-client-1.1.4-jar-with-dependencies.jar) to your working directory. 
 
 Next, download [TasteOfRiak.java](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java) source code for this tutorial, and save it to your working directory.
 

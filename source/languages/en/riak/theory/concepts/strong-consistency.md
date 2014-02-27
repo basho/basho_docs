@@ -57,7 +57,7 @@ So when deciding whether to use strong consistency in Riak, the following questi
 
 ## Riak's Mixed Approach
 
-Riak has always been a key/value store, but it is different from others in that it has always required that key/value pairs be stored in namespaces called **buckets**.
+Riak has always been a key/value store, but it is different from others in that it has always required that key/value pairs be stored in namespaces called [[buckets|The Basics#Bucket-Properties-and-Operations]].
 
 The advantage of providing multiple namespaces for keys---as many namespaces as you wish---is that it enables users to fine-tune the availability/consistency trade-off on a bucket-by-bucket basis. Users can set some buckets to accept sloppy quorums, others with `w` and/or `r` equal to `n_val`, and so on, allowing for a mix-and-match approach to data within a Riak cluster.
 

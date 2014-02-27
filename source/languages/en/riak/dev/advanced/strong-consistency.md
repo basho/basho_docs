@@ -38,6 +38,7 @@ riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true}}
 
 Once the `strongly_consistent` bucket type has been created, we can check the status of the type to ensure that it has propagated through all nodes and is thus ready to be used:
 
+
 ```bash
 riak-admin bucket-type status strongly_consistent
 ```
