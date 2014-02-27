@@ -89,15 +89,15 @@ On occasion `_yz_err` can be helpful if you suspect that your extractors are fai
 
 Field   | Name |Description
 --------|------|-----
-_yz_id  | ID   | Unique identifier of this Solr document
-_yz_ed  | Entropy Data | Data related to anti-entropy
-_yz_pn  | Partition Number | Used as a filter query param to remove duplicate replicas across nodes
-_yz_fpn | First Partition Number | The first partition in this doc's preflist, used for further filtering on overlapping partitions
-_yz_vtag| VTag | If there is a sibling, use vtag to differentiate them
-_yz_rk  | Riak Key | The key of the Riak object this doc corresponds to
-_yz_rt  | Riak Bucket Type | The bucket type of the Riak object this doc corresponds to
-_yz_rb  | Riak Bucket | The bucket of the Riak object this doc corresponds to
-_yz_err | Error Flag | indicating if this doc is the product of a failed object extraction
+`_yz_id`  | ID   | Unique identifier of this Solr document
+`_yz_ed`  | Entropy Data | Data related to anti-entropy
+`_yz_pn`  | Partition Number | Used as a filter query param to remove duplicate replicas across nodes
+`_yz_fpn` | First Partition Number | The first partition in this doc's preflist, used for further filtering on overlapping partitions
+`_yz_vtag`| VTag | If there is a sibling, use vtag to differentiate them
+`_yz_rk`  | Riak Key | The key of the Riak object this doc corresponds to
+`_yz_rt`  | Riak Bucket Type | The bucket type of the Riak object this doc corresponds to
+`_yz_rb`  | Riak Bucket | The bucket of the Riak object this doc corresponds to
+`_yz_err` | Error Flag | indicating if this doc is the product of a failed object extraction
 
 
 ### Defining Fields
