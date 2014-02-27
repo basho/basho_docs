@@ -373,6 +373,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tbody>
 
 <tr>
+<td><tt>search<tt></td>
+<td>To enable Search set this to 'on'.</td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
 <td><tt>search.root_dir<tt></td>
 <td>The root directory for Search, under which index data and configuration is stored.</td>
 <td><tt>./data/yz</tt></td>
@@ -406,12 +412,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>search.solr.start_timeout<tt></td>
 <td>How long Riak will wait for Solr to start. The start sequence will be tried twice. If both attempts timeout, then the Riak node will be shutdown. This may need to be increased as more data is indexed and Solr takes longer to start. Values lower than 1s will be rounded up to the minimum 1s.</td>
 <td><tt>30s</tt></td>
-</tr>
-
-<tr>
-<td><tt>search<tt></td>
-<td>To enable Search set this 'on'.</td>
-<td><tt>off</tt></td>
 </tr>
 
 </tbody>
@@ -529,6 +529,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tbody>
 
 <tr>
+<td><tt>jmx<tt></td>
+<td>Turns on Java Management Extensions for Riak</td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
 <td><tt>jmx.refresh_rate<tt></td>
 <td>How often to refresh stats.</td>
 <td><tt>30s</tt></td>
@@ -546,12 +552,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>41110</tt></td>
 </tr>
 
-<tr>
-<td><tt>jmx<tt></td>
-<td>Turns on Java Management Extensions for Riak</td>
-<td><tt>off</tt></td>
-</tr>
-
 </tbody>
 </table>
 
@@ -566,6 +566,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 </thead>
 <tbody>
+
+<tr>
+<td><tt>leveldb.data_root<tt></td>
+<td>Where LevelDB will store its data.</td>
+<td><tt>./data/leveldb</tt></td>
+</tr>
 
 <tr>
 <td><tt>multi_backend.$name.leveldb.delete_threshold<tt></td>
@@ -753,12 +759,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt></tt></td>
 </tr>
 
-<tr>
-<td><tt>leveldb.data_root<tt></td>
-<td>Where LevelDB will store its data.</td>
-<td><tt>./data/leveldb</tt></td>
-</tr>
-
 </tbody>
 </table>
 
@@ -773,6 +773,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 </thead>
 <tbody>
+
+<tr>
+<td><tt>bitcask.data_root<tt></td>
+<td>A path under which bitcask data files will be stored.</td>
+<td><tt>./data/bitcask</tt></td>
+</tr>
 
 <tr>
 <td><tt>multi_backend.$name.bitcask.io_mode<tt></td>
@@ -996,12 +1002,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>4s</tt></td>
 </tr>
 
-<tr>
-<td><tt>bitcask.data_root<tt></td>
-<td>A path under which bitcask data files will be stored.</td>
-<td><tt>./data/bitcask</tt></td>
-</tr>
-
 </tbody>
 </table>
 
@@ -1084,6 +1084,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tbody>
 
 <tr>
+<td><tt>riak_control<tt></td>
+<td>Set to 'off' to disable the admin panel.</td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
 <td><tt>riak_control.auth.user.$username.password<tt></td>
 <td>If riak control's authentication mode (riak_control.auth.mode) is set to 'userlist' then this is the list of usernames and passwords for access to the admin panel.</td>
 <td><tt></tt></td>
@@ -1092,12 +1098,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tr>
 <td><tt>riak_control.auth.mode<tt></td>
 <td>Authentication mode used for access to the admin panel.</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>riak_control<tt></td>
-<td>Set to 'off' to disable the admin panel.</td>
 <td><tt>off</tt></td>
 </tr>
 
@@ -1418,15 +1418,15 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tbody>
 
 <tr>
-<td><tt>distributed_cookie<tt></td>
-<td>Cookie for distributed node communication.  All nodes in the same cluster should use the same cookie or they will not be able to communicate.</td>
-<td><tt>riak</tt></td>
-</tr>
-
-<tr>
 <td><tt>nodename<tt></td>
 <td>Name of the Erlang node</td>
 <td><tt>riak@127.0.0.1</tt></td>
+</tr>
+
+<tr>
+<td><tt>distributed_cookie<tt></td>
+<td>Cookie for distributed node communication.  All nodes in the same cluster should use the same cookie or they will not be able to communicate.</td>
+<td><tt>riak</tt></td>
 </tr>
 
 </tbody>
@@ -1496,6 +1496,24 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tbody>
 
 <tr>
+<td><tt>ssl.cacertfile<tt></td>
+<td>Default signing authority location for https can be overridden with the ssl config variable, for example:</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>ssl.keyfile<tt></td>
+<td>Default key location for https can be overridden with the ssl config variable, for example:</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>ssl.certfile<tt></td>
+<td>Default cert location for https can be overridden with the ssl config variable, for example:</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
 <td><tt>secure_referer_check<tt></td>
 <td>Measures were added to Riak 1.2 to counteract cross-site scripting and request-forgery attacks. Some reverse-proxies cannot remove the Referer header and make serving data directly from Riak impossible. Turning secure_referer_check = off disables this security check.</td>
 <td><tt>on</tt></td>
@@ -1535,24 +1553,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>honor_cipher_order<tt></td>
 <td>Whether to prefer the order in which the server lists its ciphers. When set to 'off', the client's preferred cipher order dictates which cipher is chosen.</td>
 <td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>ssl.cacertfile<tt></td>
-<td>Default signing authority location for https can be overridden with the ssl config variable, for example:</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>ssl.keyfile<tt></td>
-<td>Default key location for https can be overridden with the ssl config variable, for example:</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>ssl.certfile<tt></td>
-<td>Default cert location for https can be overridden with the ssl config variable, for example:</td>
-<td><tt></tt></td>
 </tr>
 
 </tbody>
