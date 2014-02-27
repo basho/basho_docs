@@ -18,7 +18,3 @@ message RpbGetBucketTypeReq {
     required bytes type = 1;
 }
 ```
-
-## Response
-
-TODO

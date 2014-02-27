@@ -19,7 +19,3 @@ message RpbSetBucketTypeReq {
     required RpbBucketProps props = 2;
 }
 ```
-
-## Response
-
-TODO

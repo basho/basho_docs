@@ -1,5 +1,5 @@
 ---
-title: PBC Yokozuna Index Get Response
+title: PBC Yokozuna Index Get
 project: riak
 version: 2.0.0+
 document: api
@@ -8,6 +8,18 @@ audience: advanced
 keywords: [api, protocol-buffer, yokozuna, search]
 group_by: "Object/Key Operations"
 ---
+
+Retrieve a search index
+
+## Request
+
+```bash
+message RpbYokozunaIndexGetReq {
+    optional bytes name  =  1;  // Index name
+}
+```
+
+## Response
 
 ```bash
 message RpbYokozunaIndexGetResp {

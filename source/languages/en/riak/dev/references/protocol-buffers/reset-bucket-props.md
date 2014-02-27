@@ -20,7 +20,3 @@ message RpbSetBucketReq {
     optional bytes type = 3;
 }
 ```
-
-## Response
-
-TODO

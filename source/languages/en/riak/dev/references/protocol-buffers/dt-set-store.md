@@ -1,5 +1,5 @@
 ---
-title: PBC Datatype Set Update
+title: PBC Datatype Set Store
 project: riak
 version: 2.0.0+
 document: api
