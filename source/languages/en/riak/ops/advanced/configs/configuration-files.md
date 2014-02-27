@@ -360,6 +360,8 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 
 Below is a table listing the configurable parameters in `riak.conf`.
 
+## Search
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -411,6 +413,21 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td>To enable Search set this 'on'.</td>
 <td><tt>off</tt></td>
 </tr>
+
+</tbody>
+</table>
+
+## SNMP
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
 
 <tr>
 <td><tt>snmp.nodePutTime100Threshold<tt></td>
@@ -496,6 +513,21 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>on</tt></td>
 </tr>
 
+</tbody>
+</table>
+
+## JMX
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
 <tr>
 <td><tt>jmx.refresh_rate<tt></td>
 <td>How often to refresh stats.</td>
@@ -519,6 +551,21 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td>Turns on Java Management Extensions for Riak</td>
 <td><tt>off</tt></td>
 </tr>
+
+</tbody>
+</table>
+
+## LevelDB
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
 
 <tr>
 <td><tt>multi_backend.$name.leveldb.delete_threshold<tt></td>
@@ -712,35 +759,20 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>./data/leveldb</tt></td>
 </tr>
 
-<tr>
-<td><tt>multi_backend.$name.storage_backend<tt></td>
-<td>Storage_backend specifies the Erlang module defining the storage mechanism that will be used on this node.</td>
-<td><tt>bitcask</tt></td>
-</tr>
+</tbody>
+</table>
 
-<tr>
-<td><tt>multi_backend.default<tt></td>
-<td>The default name of a backend when one is not specified.</td>
-<td><tt></tt></td>
-</tr>
+## Bitcask
 
+<table class="riak-conf">
+<thead>
 <tr>
-<td><tt>riak_control.auth.user.$username.password<tt></td>
-<td>If riak control's authentication mode (riak_control.auth.mode) is set to 'userlist' then this is the list of usernames and passwords for access to the admin panel.</td>
-<td><tt></tt></td>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
 </tr>
-
-<tr>
-<td><tt>riak_control.auth.mode<tt></td>
-<td>Authentication mode used for access to the admin panel.</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>riak_control<tt></td>
-<td>Set to 'off' to disable the admin panel.</td>
-<td><tt>off</tt></td>
-</tr>
+</thead>
+<tbody>
 
 <tr>
 <td><tt>multi_backend.$name.bitcask.io_mode<tt></td>
@@ -970,6 +1002,120 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>./data/bitcask</tt></td>
 </tr>
 
+</tbody>
+</table>
+
+## Memory Backend
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>multi_backend.$name.memory_backend.ttl<tt></td>
+<td></td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>memory_backend.ttl<tt></td>
+<td>Each value written will be written with this "time to live". Once that object's time is up, it will be deleted on the next read of its key. Minimum: 1s</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>multi_backend.$name.memory_backend.max_memory_per_vnode<tt></td>
+<td></td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>memory_backend.max_memory_per_vnode<tt></td>
+<td>The maximum amount of memory consumed per vnode by the memory storage backend.  Minimum: 1MB</td>
+<td><tt></tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Multi Backend
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>multi_backend.$name.storage_backend<tt></td>
+<td>Storage_backend specifies the Erlang module defining the storage mechanism that will be used on this node.</td>
+<td><tt>bitcask</tt></td>
+</tr>
+
+<tr>
+<td><tt>multi_backend.default<tt></td>
+<td>The default name of a backend when one is not specified.</td>
+<td><tt></tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Riak Control
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>riak_control.auth.user.$username.password<tt></td>
+<td>If riak control's authentication mode (riak_control.auth.mode) is set to 'userlist' then this is the list of usernames and passwords for access to the admin panel.</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>riak_control.auth.mode<tt></td>
+<td>Authentication mode used for access to the admin panel.</td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
+<td><tt>riak_control<tt></td>
+<td>Set to 'off' to disable the admin panel.</td>
+<td><tt>off</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Runtime Health
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
 <tr>
 <td><tt>runtime_health.triggers.distribution_port<tt></td>
 <td>Whether distribution ports with full input buffers will be counted as busy. Distribution ports connect Riak nodes within a single cluster.</td>
@@ -1005,6 +1151,21 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td>The threshold at which to warn about the number of processes that are overly busy. Processes with large heaps or that take a long time to garbage collect will count toward this threshold.</td>
 <td><tt>30</tt></td>
 </tr>
+
+</tbody>
+</table>
+
+## Default Bucket Properties
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
 
 <tr>
 <td><tt>buckets.default.postcommit<tt></td>
@@ -1079,6 +1240,27 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
+<td><tt>buckets.default.n_val<tt></td>
+<td>The number of replicas stored. Note: See Replication Properties for further discussion. http://docs.basho.com/riak/latest/dev/advanced/cap-controls/</td>
+<td><tt>3</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Object Settings
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
 <td><tt>object.merge_strategy<tt></td>
 <td>The strategy used when merging objects that potentially have conflicts. * 2: Riak 2.0 default - reduces sibling creation through additional metadata on each sibling (also known as dotted version vectors) * 1: Riak 1.4 and earlier default - may duplicate siblings that originated in the same write</td>
 <td><tt>2</tt></td>
@@ -1109,346 +1291,25 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>secure_referer_check<tt></td>
-<td>Measures were added to Riak 1.2 to counteract cross-site scripting and request-forgery attacks. Some reverse-proxies cannot remove the Referer header and make serving data directly from Riak impossible. Turning secure_referer_check = off disables this security check.</td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.memory_backend.ttl<tt></td>
-<td></td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>memory_backend.ttl<tt></td>
-<td>Each value written will be written with this "time to live". Once that object's time is up, it will be deleted on the next read of its key. Minimum: 1s</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.memory_backend.max_memory_per_vnode<tt></td>
-<td></td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>memory_backend.max_memory_per_vnode<tt></td>
-<td>The maximum amount of memory consumed per vnode by the memory storage backend.  Minimum: 1MB</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>metadata_cache_size<tt></td>
-<td>Controls the size of the metadata cache for each vnode. Set to 'off' to disable the cache.  This shouldn't be necessary on-disk based backends, but can help performance in some cases (i.e. memory backend, data fits in block cache, etc). Note that this is the size of the ETS table, rather than the actual data, to keep the size calculation simple, thus more space may be used than the simple size * vnode_count calculation would imply. disabled by default, to ship with this live, change to 512KB</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
 <td><tt>object.format<tt></td>
 <td>Controls which binary representation of a riak value is stored on disk. * 0: Original erlang:term_to_binary format. Higher space overhead. * 1: New format for more compact storage of small values.</td>
 <td><tt>1</tt></td>
 </tr>
 
-<tr>
-<td><tt>retry_put_coordinator_failure<tt></td>
-<td>If forwarding to a replica-local coordinator on PUT fails, this setting will retry the operation when set to 'on'. * on = Riak 2.0 behavior (strongly recommended) * off = Riak 1.x behavior</td>
-<td><tt>on</tt></td>
-</tr>
+</tbody>
+</table>
 
-<tr>
-<td><tt>max_concurrent_requests<tt></td>
-<td>The maximum number of concurrent requests of each type (get or put) that is allowed. Setting this value to infinite disables overload protection. The 'erlang.process_limit' should be at least 3 times more than this setting.</td>
-<td><tt>50000</tt></td>
-</tr>
+## Erlang VM
 
+<table class="riak-conf">
+<thead>
 <tr>
-<td><tt>javascript.source_dir<tt></td>
-<td>A directory containing Javascript source files which will be loaded by Riak when it initializes Javascript VMs.</td>
-<td><tt></tt></td>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
 </tr>
-
-<tr>
-<td><tt>javascript.maximum_stack_size<tt></td>
-<td>The maximum amount of thread stack memory to allocate to each JavaScript virtual machine.</td>
-<td><tt>16MB</tt></td>
-</tr>
-
-<tr>
-<td><tt>javascript.maximum_heap_size<tt></td>
-<td>The maximum amount of memory allocated to each JavaScript virtual machine.</td>
-<td><tt>8MB</tt></td>
-</tr>
-
-<tr>
-<td><tt>javascript.hook_pool_size<tt></td>
-<td>How many JavaScript virtual machines are available for executing pre-commit hook functions.</td>
-<td><tt>2</tt></td>
-</tr>
-
-<tr>
-<td><tt>javascript.reduce_pool_size<tt></td>
-<td>How many JavaScript virtual machines are available for executing reduce functions.</td>
-<td><tt>6</tt></td>
-</tr>
-
-<tr>
-<td><tt>javascript.map_pool_size<tt></td>
-<td>How many JavaScript virtual machines are available for executing map functions.</td>
-<td><tt>8</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.bloomfilter<tt></td>
-<td></td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.throttle.$tier.delay<tt></td>
-<td></td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.throttle.$tier.mailbox_size<tt></td>
-<td>Sets the throttling tiers for active anti-entropy. Each tier is a minimum vnode mailbox size and a time-delay that the throttle should observe at that size and above. For example: anti_entropy.throttle.tier1.mailbox_size = 0 anti_entropy.throttle.tier1.delay = 0ms anti_entropy.throttle.tier2.mailbox_size = 40 anti_entropy.throttle.tier2.delay = 5ms If configured, there must be a tier which includes a mailbox size of 0. Both .mailbox_size and .delay must be set for each tier.</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.throttle<tt></td>
-<td>Whether the distributed throttle for active anti-entropy is enabled.</td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.max_open_files<tt></td>
-<td></td>
-<td><tt>20</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.write_buffer_size<tt></td>
-<td>The LevelDB options used by AAE to generate the LevelDB-backed on-disk hashtrees.</td>
-<td><tt>4MB</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.data_dir<tt></td>
-<td>The directory where AAE hash trees are stored.</td>
-<td><tt>./data/anti_entropy</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.trigger_interval<tt></td>
-<td>The tick determines how often the AAE manager looks for work to do (building/expiring trees, triggering exchanges, etc). The default is every 15 seconds. Lowering this value will speedup the rate that all replicas are synced across the cluster. Increasing the value is not recommended.</td>
-<td><tt>15s</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.concurrency_limit<tt></td>
-<td>Limit how many AAE exchanges or builds can happen concurrently.</td>
-<td><tt>2</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.tree.expiry<tt></td>
-<td>Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual k/v backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds.</td>
-<td><tt>1w</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.tree.build_limit.per_timespan<tt></td>
-<td></td>
-<td><tt>1h</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy.tree.build_limit.number<tt></td>
-<td>Restrict how fast AAE can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. * .number is the number of builds * .per_timespan is the amount of time in which that .number of builds occurs Default is 1 build per hour.</td>
-<td><tt>1</tt></td>
-</tr>
-
-<tr>
-<td><tt>storage_backend<tt></td>
-<td>Specifies the storage engine used for Riak's key-value data and secondary indexes (if supported).</td>
-<td><tt>bitcask</tt></td>
-</tr>
-
-<tr>
-<td><tt>anti_entropy<tt></td>
-<td>How Riak will repair out-of-sync keys. Some features require this to be set to 'active', including search. * active: out-of-sync keys will be repaired in the background * passive: out-of-sync keys are only repaired on read * active-debug: like active, but outputs verbose debugging information</td>
-<td><tt>active</tt></td>
-</tr>
-
-<tr>
-<td><tt>check_crl<tt></td>
-<td>Whether to check the CRL of a client certificate. This defaults to on but some CAs may not maintain or define a CRL, so this can be disabled if no CRL is available.</td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>tls_protocols.tlsv1.2<tt></td>
-<td></td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>tls_protocols.tlsv1.1<tt></td>
-<td></td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>tls_protocols.tlsv1<tt></td>
-<td></td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>tls_protocols.sslv3<tt></td>
-<td>Determine which SSL/TLS versions are allowed. By default only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is *strongly* recommended that SSLv3 is not enabled unless absolutely necessary. More than one protocol can be enabled at once.</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>honor_cipher_order<tt></td>
-<td>Whether to prefer the order in which the server lists its ciphers. When set to 'off', the client's preferred cipher order dictates which cipher is chosen.</td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>listener.https.$name<tt></td>
-<td>listener.https.<name> is an IP address and TCP port that the Riak HTTPS interface will bind.</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>protobuf.nagle<tt></td>
-<td>Turns off Nagle's algorithm for Protocol Buffers connections. This is equivalent to setting the TCP_NODELAY option on the socket.</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>protobuf.backlog<tt></td>
-<td>The maximum length to which the queue of pending connections may grow. If set, it must be an integer > 0. If you anticipate a huge number of connections being initialized *simultaneously*, set this number higher.</td>
-<td><tt>128</tt></td>
-</tr>
-
-<tr>
-<td><tt>listener.protobuf.$name<tt></td>
-<td>listener.protobuf.<name> is an IP address and TCP port that the Riak Protocol Buffers interface will bind.</td>
-<td><tt>{"127.0.0.1",8087}</tt></td>
-</tr>
-
-<tr>
-<td><tt>listener.http.$name<tt></td>
-<td>listener.http.<name> is an IP address and TCP port that the Riak HTTP interface will bind.</td>
-<td><tt>{"127.0.0.1",8098}</tt></td>
-</tr>
-
-<tr>
-<td><tt>strong_consistency<tt></td>
-<td>Enable consensus subsystem. Set to 'on' to enable the consensus subsystem used for strongly consistent Riak operations.</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>platform_log_dir<tt></td>
-<td></td>
-<td><tt>./log</tt></td>
-</tr>
-
-<tr>
-<td><tt>platform_lib_dir<tt></td>
-<td></td>
-<td><tt>./lib</tt></td>
-</tr>
-
-<tr>
-<td><tt>platform_etc_dir<tt></td>
-<td></td>
-<td><tt>./etc</tt></td>
-</tr>
-
-<tr>
-<td><tt>platform_data_dir<tt></td>
-<td></td>
-<td><tt>./data</tt></td>
-</tr>
-
-<tr>
-<td><tt>platform_bin_dir<tt></td>
-<td>Platform-specific installation paths (substituted by rebar)</td>
-<td><tt>./bin</tt></td>
-</tr>
-
-<tr>
-<td><tt>dtrace<tt></td>
-<td>DTrace support Do not enable 'dtrace' unless your Erlang/OTP runtime is compiled to support DTrace.  DTrace is available in R15B01 (supported by the Erlang/OTP official source package) and in R14B04 via a custom source repository & branch.</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>handoff.ssl.keyfile<tt></td>
-<td>if you need a seperate keyfile for handoff</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>handoff.ssl.certfile<tt></td>
-<td>To encrypt riak_core intra-cluster data handoff traffic, uncomment the following line and edit its path to an appropriate certfile and keyfile.  (This example uses a single file with both items concatenated together.) {commented, "/tmp/erlserver.pem"},</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>handoff.port<tt></td>
-<td>handoff.port is the TCP port that Riak uses for intra-cluster data handoff.</td>
-<td><tt>8099</tt></td>
-</tr>
-
-<tr>
-<td><tt>ssl.cacertfile<tt></td>
-<td>Default signing authority location for https can be overridden with the ssl config variable, for example:</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>ssl.keyfile<tt></td>
-<td>Default key location for https can be overridden with the ssl config variable, for example:</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>ssl.certfile<tt></td>
-<td>Default cert location for https can be overridden with the ssl config variable, for example:</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>ring.state_dir<tt></td>
-<td>Default location of ringstate</td>
-<td><tt>./data/ring</tt></td>
-</tr>
-
-<tr>
-<td><tt>transfer_limit<tt></td>
-<td>Number of concurrent node-to-node transfers allowed.</td>
-<td><tt>2</tt></td>
-</tr>
-
-<tr>
-<td><tt>ring_size<tt></td>
-<td>Number of partitions in the cluster (only valid when first creating the cluster). Must be a power of 2, minimum 8 and maximum 1024.</td>
-<td><tt>64</tt></td>
-</tr>
-
-<tr>
-<td><tt>buckets.default.n_val<tt></td>
-<td>The number of replicas stored. Note: See Replication Properties for further discussion. http://docs.basho.com/riak/latest/dev/advanced/cap-controls/</td>
-<td><tt>3</tt></td>
-</tr>
+</thead>
+<tbody>
 
 <tr>
 <td><tt>erlang.distribution.port_range.maximum<tt></td>
@@ -1510,17 +1371,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>64</tt></td>
 </tr>
 
-<tr>
-<td><tt>distributed_cookie<tt></td>
-<td>Cookie for distributed node communication.  All nodes in the same cluster should use the same cookie or they will not be able to communicate.</td>
-<td><tt>riak</tt></td>
-</tr>
-
-<tr>
-<td><tt>nodename<tt></td>
-<td>Name of the Erlang node</td>
-<td><tt>riak@127.0.0.1</tt></td>
-</tr>
 
 <tr>
 <td><tt>erlang.K<tt></td>
@@ -1551,6 +1401,267 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td>Starts the Erlang runtime system with SMP support enabled. This may fail if no runtime system with SMP support is available. The 'auto' setting starts the Erlang runtime system with SMP support enabled if it is available and more than one logical processor are detected. -smp disable starts a runtime system without SMP support. NOTE: The runtime system with SMP support will not be available on all supported platforms. See also the erlang.schedulers settings. NOTE: Some native extensions (NIFs) require use of the SMP emulator. More information at: http://erlang.org/doc/man/erl.html</td>
 <td><tt>enable</tt></td>
 </tr>
+
+</tbody>
+</table>
+
+## Node Metadata
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>distributed_cookie<tt></td>
+<td>Cookie for distributed node communication.  All nodes in the same cluster should use the same cookie or they will not be able to communicate.</td>
+<td><tt>riak</tt></td>
+</tr>
+
+<tr>
+<td><tt>nodename<tt></td>
+<td>Name of the Erlang node</td>
+<td><tt>riak@127.0.0.1</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## JavaScript MapReduce
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>javascript.source_dir<tt></td>
+<td>A directory containing Javascript source files which will be loaded by Riak when it initializes Javascript VMs.</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>javascript.maximum_stack_size<tt></td>
+<td>The maximum amount of thread stack memory to allocate to each JavaScript virtual machine.</td>
+<td><tt>16MB</tt></td>
+</tr>
+
+<tr>
+<td><tt>javascript.maximum_heap_size<tt></td>
+<td>The maximum amount of memory allocated to each JavaScript virtual machine.</td>
+<td><tt>8MB</tt></td>
+</tr>
+
+<tr>
+<td><tt>javascript.hook_pool_size<tt></td>
+<td>How many JavaScript virtual machines are available for executing pre-commit hook functions.</td>
+<td><tt>2</tt></td>
+</tr>
+
+<tr>
+<td><tt>javascript.reduce_pool_size<tt></td>
+<td>How many JavaScript virtual machines are available for executing reduce functions.</td>
+<td><tt>6</tt></td>
+</tr>
+
+<tr>
+<td><tt>javascript.map_pool_size<tt></td>
+<td>How many JavaScript virtual machines are available for executing map functions.</td>
+<td><tt>8</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Security
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>secure_referer_check<tt></td>
+<td>Measures were added to Riak 1.2 to counteract cross-site scripting and request-forgery attacks. Some reverse-proxies cannot remove the Referer header and make serving data directly from Riak impossible. Turning secure_referer_check = off disables this security check.</td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
+<td><tt>check_crl<tt></td>
+<td>Whether to check the CRL of a client certificate. This defaults to on but some CAs may not maintain or define a CRL, so this can be disabled if no CRL is available.</td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
+<td><tt>tls_protocols.tlsv1.2<tt></td>
+<td></td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
+<td><tt>tls_protocols.tlsv1.1<tt></td>
+<td></td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
+<td><tt>tls_protocols.tlsv1<tt></td>
+<td></td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
+<td><tt>tls_protocols.sslv3<tt></td>
+<td>Determine which SSL/TLS versions are allowed. By default only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is *strongly* recommended that SSLv3 is not enabled unless absolutely necessary. More than one protocol can be enabled at once.</td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
+<td><tt>honor_cipher_order<tt></td>
+<td>Whether to prefer the order in which the server lists its ciphers. When set to 'off', the client's preferred cipher order dictates which cipher is chosen.</td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
+<td><tt>ssl.cacertfile<tt></td>
+<td>Default signing authority location for https can be overridden with the ssl config variable, for example:</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>ssl.keyfile<tt></td>
+<td>Default key location for https can be overridden with the ssl config variable, for example:</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>ssl.certfile<tt></td>
+<td>Default cert location for https can be overridden with the ssl config variable, for example:</td>
+<td><tt></tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Ring
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>ring.state_dir<tt></td>
+<td>Default location of ringstate</td>
+<td><tt>./data/ring</tt></td>
+</tr>
+
+<tr>
+<td><tt>transfer_limit<tt></td>
+<td>Number of concurrent node-to-node transfers allowed.</td>
+<td><tt>2</tt></td>
+</tr>
+
+<tr>
+<td><tt>ring_size<tt></td>
+<td>Number of partitions in the cluster (only valid when first creating the cluster). Must be a power of 2, minimum 8 and maximum 1024.</td>
+<td><tt>64</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## HTTP and HTTPS
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>listener.http.$name<tt></td>
+<td>listener.http.<name> is an IP address and TCP port that the Riak HTTP interface will bind.</td>
+<td><tt>{"127.0.0.1",8098}</tt></td>
+</tr>
+
+<tr>
+<td><tt>listener.https.$name<tt></td>
+<td>listener.https.<name> is an IP address and TCP port that the Riak HTTPS interface will bind.</td>
+<td><tt></tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Protocol Buffers
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>protobuf.nagle<tt></td>
+<td>Turns off Nagle's algorithm for Protocol Buffers connections. This is equivalent to setting the TCP_NODELAY option on the socket.</td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
+<td><tt>protobuf.backlog<tt></td>
+<td>The maximum length to which the queue of pending connections may grow. If set, it must be an integer > 0. If you anticipate a huge number of connections being initialized *simultaneously*, set this number higher.</td>
+<td><tt>128</tt></td>
+</tr>
+
+<tr>
+<td><tt>listener.protobuf.$name<tt></td>
+<td>listener.protobuf.<name> is an IP address and TCP port that the Riak Protocol Buffers interface will bind.</td>
+<td><tt>{"127.0.0.1",8087}</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Lager
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
 
 <tr>
 <td><tt>log.error.messages_per_second<tt></td>
@@ -1638,4 +1749,254 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 </tbody>
 </table>
+
+## Active Anti-Entropy
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>anti_entropy<tt></td>
+<td>How Riak will repair out-of-sync keys. Some features require this to be set to 'active', including search. * active: out-of-sync keys will be repaired in the background * passive: out-of-sync keys are only repaired on read * active-debug: like active, but outputs verbose debugging information</td>
+<td><tt>active</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.bloomfilter<tt></td>
+<td></td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.throttle.$tier.delay<tt></td>
+<td></td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.throttle.$tier.mailbox_size<tt></td>
+<td>Sets the throttling tiers for active anti-entropy. Each tier is a minimum vnode mailbox size and a time-delay that the throttle should observe at that size and above. For example: anti_entropy.throttle.tier1.mailbox_size = 0 anti_entropy.throttle.tier1.delay = 0ms anti_entropy.throttle.tier2.mailbox_size = 40 anti_entropy.throttle.tier2.delay = 5ms If configured, there must be a tier which includes a mailbox size of 0. Both .mailbox_size and .delay must be set for each tier.</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.throttle<tt></td>
+<td>Whether the distributed throttle for active anti-entropy is enabled.</td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.max_open_files<tt></td>
+<td></td>
+<td><tt>20</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.write_buffer_size<tt></td>
+<td>The LevelDB options used by AAE to generate the LevelDB-backed on-disk hashtrees.</td>
+<td><tt>4MB</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.data_dir<tt></td>
+<td>The directory where AAE hash trees are stored.</td>
+<td><tt>./data/anti_entropy</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.trigger_interval<tt></td>
+<td>The tick determines how often the AAE manager looks for work to do (building/expiring trees, triggering exchanges, etc). The default is every 15 seconds. Lowering this value will speedup the rate that all replicas are synced across the cluster. Increasing the value is not recommended.</td>
+<td><tt>15s</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.concurrency_limit<tt></td>
+<td>Limit how many AAE exchanges or builds can happen concurrently.</td>
+<td><tt>2</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.tree.expiry<tt></td>
+<td>Determine how often hash trees are expired after being built. Periodically expiring a hash tree ensures the on-disk hash tree data stays consistent with the actual k/v backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal AAE operation and should be infrequent for performance reasons. The time is specified in milliseconds.</td>
+<td><tt>1w</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.tree.build_limit.per_timespan<tt></td>
+<td></td>
+<td><tt>1h</tt></td>
+</tr>
+
+<tr>
+<td><tt>anti_entropy.tree.build_limit.number<tt></td>
+<td>Restrict how fast AAE can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. * .number is the number of builds * .per_timespan is the amount of time in which that .number of builds occurs Default is 1 build per hour.</td>
+<td><tt>1</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Storage Backend
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>storage_backend<tt></td>
+<td>Specifies the storage engine used for Riak's key-value data and secondary indexes (if supported).</td>
+<td><tt>bitcask</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Directories
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>platform_log_dir<tt></td>
+<td></td>
+<td><tt>./log</tt></td>
+</tr>
+
+<tr>
+<td><tt>platform_lib_dir<tt></td>
+<td></td>
+<td><tt>./lib</tt></td>
+</tr>
+
+<tr>
+<td><tt>platform_etc_dir<tt></td>
+<td></td>
+<td><tt>./etc</tt></td>
+</tr>
+
+<tr>
+<td><tt>platform_data_dir<tt></td>
+<td></td>
+<td><tt>./data</tt></td>
+</tr>
+
+<tr>
+<td><tt>platform_bin_dir<tt></td>
+<td>Platform-specific installation paths (substituted by rebar)</td>
+<td><tt>./bin</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Intra-Cluster Handoff
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>handoff.ssl.keyfile<tt></td>
+<td>if you need a seperate keyfile for handoff</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>handoff.ssl.certfile<tt></td>
+<td>To encrypt riak_core intra-cluster data handoff traffic, uncomment the following line and edit its path to an appropriate certfile and keyfile.  (This example uses a single file with both items concatenated together.) {commented, "/tmp/erlserver.pem"},</td>
+<td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>handoff.port<tt></td>
+<td>handoff.port is the TCP port that Riak uses for intra-cluster data handoff.</td>
+<td><tt>8099</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Strong Consistency
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>strong_consistency<tt></td>
+<td>Enable consensus subsystem. Set to 'on' to enable the consensus subsystem used for strongly consistent Riak operations.</td>
+<td><tt>off</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+## Miscellaneous
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>retry_put_coordinator_failure<tt></td>
+<td>If forwarding to a replica-local coordinator on PUT fails, this setting will retry the operation when set to 'on'. * on = Riak 2.0 behavior (strongly recommended) * off = Riak 1.x behavior</td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
+<td><tt>max_concurrent_requests<tt></td>
+<td>The maximum number of concurrent requests of each type (get or put) that is allowed. Setting this value to infinite disables overload protection. The 'erlang.process_limit' should be at least 3 times more than this setting.</td>
+<td><tt>50000</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+
 {{/2.0.0+}}
+
+<!--
+<tr>
+<td><tt>dtrace<tt></td>
+<td>DTrace support Do not enable 'dtrace' unless your Erlang/OTP runtime is compiled to support DTrace.  DTrace is available in R15B01 (supported by the Erlang/OTP official source package) and in R14B04 via a custom source repository & branch.</td>
+<td><tt>off</tt></td>
+</tr>
+-->
