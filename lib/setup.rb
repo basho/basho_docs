@@ -9,13 +9,15 @@ $versions = {}
 $only_projects = []
 $only_versions = []
 version_file = YAML::load(File.open('data/versions.yml'))
+$gen_projects = version_file['gen_projects'].map{|r| r.to_sym}
 for proj, vs in version_file['currents']
   proj = proj.upcase
+  proj_sym = proj.downcase.to_sym
   vs = ENV["#{proj}_VERSION"] if ENV["#{proj}_VERSION"].present?
   ENV["#{proj}_VERSION"] = vs if ENV["#{proj}_VERSION"].blank? 
-  $only_projects << proj.downcase
-  $only_versions << vs
-  $versions[proj.downcase.to_sym] = vs
+  $only_projects << proj_sym if $gen_projects.include?(proj_sym)
+  $only_versions << vs if $gen_projects.include?(proj_sym)
+  $versions[proj_sym] = vs
   puts "#{proj}_VERSION=#{ENV["#{proj}_VERSION"]}"
 end
 
@@ -26,6 +28,7 @@ if ENV['ONLY']
   }.uniq
 end
 
+$only_versions.uniq!
 $default_project = 'riak'
 
 %w{versionify production_check index sitemap_render_override

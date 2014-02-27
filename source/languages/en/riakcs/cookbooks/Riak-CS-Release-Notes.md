@@ -8,6 +8,20 @@ audience: intermediate
 keywords: [developer]
 ---
 
+{{#1.4.4+}}
+
+## Riak CS 1.4.4
+
+[Riak CS 1.4.4 Release Notes](https://github.com/basho/riak_cs/blob/1.4.4/RELEASE-NOTES.md)
+
+#### Bugs Fixed
+
+* Create basho-patches directory [riak_cs/775](https://github.com/basho/riak_cs/issues/775) .
+* `sum_bucket` timeout crashes all storage calculation is fixed by [riak_cs/759](https://github.com/basho/riak_cs/issues/759) .
+* Failure to throttle access archiver is fixed by [riak_cs/758](https://github.com/basho/riak_cs/issues/758) .
+* Access archiver crash is fixed by [riak_cs/747](https://github.com/basho/riak_cs/issues/747) .
+
+{{/1.4.4+}}
 {{#1.4.3+}}
 
 ## Riak CS 1.4.3

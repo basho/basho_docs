@@ -190,11 +190,22 @@ riak-admin reip <old nodename> <new nodename>
 ## js-reload
 
 Forces the embedded Javascript virtual machines to be restarted. This is useful
-when deploying new custom built-in [[MapReduce|Using MapReduce]] functions. (_This needs to be
-run on all nodes in the cluster_.)
+when deploying new custom built-in [[MapReduce|Using MapReduce]] functions.
+
+**Note**: This needs to be run on _all nodes_ in the cluster.
 
 ```bash
 riak-admin js-reload
+```
+
+## erl-reload
+
+Reloads the Erlang `.beam` files used for [[MapReduce]] jobs, [[pre- and post-commit hooks|Advanced Commit Hooks]], and other purposes. More information on custom Erlang code can be found in the [[Installing Custom Code]] guide.
+
+**Note**: This needs to be run on _all nodes_ in the cluster.
+
+```bash
+riak-admin erl-reload
 ```
 
 ## services
@@ -237,7 +248,15 @@ riak-admin transfers
 
 ## transfer-limit
 
-Change the handoff_concurrency limit.
+Change the handoff_concurrency limit.  The value set by running this command will 
+only persist while the node is running.  If the node is restarted, the transfer-limit 
+will return to the default of 2 or the value specified in the 
+`[[handoff_concurrency|Configuration Files#handoff_concurrency]]`
+setting in the `riak_core` section of the `app.config` file.
+
+Running this command with no arguments will display the current transfer-limit for each
+node in the cluster.
+
 
 ```bash
 riak-admin transfer-limit <node> <limit>
@@ -247,7 +266,7 @@ riak-admin transfer-limit <node> <limit>
 
 <div class="note">
 <div class="title">Deprecation Notice</title></div>
-As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new [[riak-admin cluster force-remove|riak-admin Command Line#cluster-force-remove]] command. The command can still be used by providing a <code>-f</code> option, however.
+As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new `[[riak-admin cluster force-remove|riak-admin Command Line#cluster-force-remove]]` command. The command can still be used by providing a <code>-f</code> option, however.
 </div>
 
 Immediately removes a node from the cluster without ensuring handoff of its replicas. This is a dangerous command, and is designed to only be used in cases were the normal, safe leave behavior cannot be used -- e.g. when the node you are removing had a major hardware failure and is unrecoverable. Using this command will result in a loss of all replicas living on the removed node which will then need to be recovered through other means such as [[read repair|Replication#Read-Repair]]. It's recommended that you use the [[riak-admin leave|riak-admin Command Line#leave]] command whenever possible.

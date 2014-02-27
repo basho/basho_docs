@@ -36,19 +36,23 @@ riak:
               - "[[PHP|Taste of Riak: Querying with PHP]]"
               - "[[Python|Taste of Riak: Querying with Python]]"
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
-      - title: "Querying Riak"
+      - title: "Basic Usage"
         sub:
-          - "[[The Basics]]"
           - "[[Client Libraries]]"
+          - "[[Key/Values|The Basics]]"
+          - "[[Search|Using Search]]"
+          - "[[Bucket Types|Using Bucket Types]]"
+          - "[[Data Types|Using Data Types]]"
+          - "[[Strong Consistency|Using Strong Consistency]]"
+          # - "[[Key Filters|Using Key Filters]]"
+          # - "[[Link Walking]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
-          - "[[Search|Using Search]]"
-          - "[[Key Filters|Using Key Filters]]"
-          - "[[Link Walking]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"
+          - "[[Data Modeling with Riak Data Types]]"
           - title: "High Read/Write"
             sub:
               - "[[Session Storage]]"
@@ -63,17 +67,17 @@ riak:
               - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
+          - "[[Search Details|Advanced Search]]"
+          # - "[[Search Schema|Advanced Search Schema]]"
           - "[[MapReduce|Advanced MapReduce]]"
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
-          - "[[Search|Advanced Search]]"
-          - "[[Search Schema|Advanced Search Schema]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
-              - "[[Search Indexing|Search Indexing Reference]]"
-              - "[[Key Filters|Key Filters Reference]]"
+              # - "[[Search Indexing|Search Indexing Reference]]"
+              # - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
               - "[[Implementing a Backend|Backend API]]"
 
@@ -106,6 +110,7 @@ riak:
           - "[[Basic Configuration]]"
           - "[[Basic Cluster Setup]]"
           - "[[Benchmarking|Basho Bench]]"
+          - "[[Authentication and Authorization]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
@@ -126,19 +131,20 @@ riak:
             sub:
               - "[[riak|riak Command Line]]"
               - "[[riak-admin|riak-admin Command Line]]"
-              - "[[search-cmd|search Command Line]]"
+              # - "[[search-cmd|search Command Line]]"
           - title: "Repair and Recovery"
             sub:
               - "[[Failure and Recovery]]"
               - "[[Recovering a Failed Node]]"
+              - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
               - "[[Common Errors]]"
-          - "[[Rolling Upgrades]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
           - "[[Installing Custom Code]]"
           - "[[Security and Firewalls]]"
+          - "[[Ring Resizing]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
@@ -152,17 +158,25 @@ riak:
               - "[[LevelDB]]"
               - "[[Memory]]"
               - "[[Multi]]"
+      - title: "Upgrading a Cluster"
+        sub:
+          - "[[Production Checklist]]"
+          - "[[Rolling Upgrades]]"
+
 
   - title: "Theory & Concepts"
     sub:
       - title: "Concepts"
         sub:
           - "[[Concepts Overview|Concepts]]"
+          # - "[[Bucket Types]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
+          - "[[Data Types]]"
           - "[[Eventual Consistency]]"
+          - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
-          - "[[Links]]"
+          # - "[[Links]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
       - title: "Riak Compared to"

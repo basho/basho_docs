@@ -12,12 +12,13 @@ head(class=data.page.document)
   meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
   meta name="viewport" content="width=device-width"
   meta name="project" content=(data.page.project || $default_project)
-  meta name="version" content=current_version(data.page.project || $default_project)
+  - page_version = current_version(data.page.project || $default_project)
+  meta name="version" content=page_version
   | <meta name="moved-ranges" content='
   == (data.page.moved || {}).to_json
   | '>
   meta name="version-range" content=(data.page.version || '0.0.0+')
-  meta name="base-url" content==current_page.url
+  meta name="base-url" content==(current_page.url =~ %r"\/#{data.page.project}\/#{page_version}\/?$" ? '/' : current_page.url)
   title== data.page.title || "Riak Documents"
   == stylesheet_link_tag "standalone/version-bar"
   == stylesheet_link_tag "all"
@@ -29,10 +30,7 @@ head(class=data.page.document)
   script hljs.initHighlightingOnLoad();
 - classnames = [(data.page.project || $default_project)]
 - classnames << 'dual' if data.page.dual
-- version_class = 'ver-'
-- version_class += current_version(data.page.project || $default_project)
-- version_class.gsub! '.', '-'
-- classnames << version_class
+- classnames << 'latest' if latest_version?(:riak)
 body class=classnames.join(' ') id=data.page.body_id
   == partial "layouts/primary" unless data.page.skip_nav
   div(role="main" class=(data.page.skip_nav ? "no-nav" : ""))

@@ -810,14 +810,14 @@ a.responsive-toggle, #nav-container a.responsive-toggle {
     background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 768px) {
     display : block;
   }
 }
 
 
 div[role="main"] {
-  @extend .sans;
+  // @extend .sans;
   color     : $textColor;
   font-size : 110%;
   overflow  : visible;
@@ -1153,7 +1153,7 @@ div[role="main"] {
         } 
       }
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 768px) {
         display : none;
       }
     }
@@ -1300,8 +1300,7 @@ div[role="main"] {
     
   .mainarticle {
     position  : relative;
-    // padding   : 150px 0 0 20px;
-    padding   : 146px 0 0 20px;
+    padding   : 100px 0 0 20px;
     font-size : 110%;
     width     : 800px;
     z-index   : 400;
@@ -1318,10 +1317,9 @@ div[role="main"] {
     }
 
     h2 {
-      // padding-top : 106px;
-      // margin-top  : -78px;
-      padding-top : 156px;
-      margin-top  : -108px; // To reduce the appearance 0f excess whitespace before headings
+      // To reduce the appearance 0f excess whitespace before headings
+      padding-top : 106px;
+      margin-top  : -78px;
     }
 
     .CodeRay {
@@ -2004,5 +2002,21 @@ body#dual {
       caption-side:bottom;
     }
     margin:10px;
+  }
+}
+
+body.latest {
+  .mainarticle {
+    padding   : 154px 0 0 20px;
+
+    h2 {
+      // To reduce the appearance 0f excess whitespace before headings
+      padding-top : 154px;
+      margin-top  : -108px;
+    }
+
+     @media screen and (max-width: 768px) {
+       padding   : 54px 0 0 20px;
+     }
   }
 }

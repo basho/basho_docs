@@ -184,6 +184,8 @@ Here is an example `riak_search` configuration:
     {enabled, false}
     ]},
 ```
+* **handoff_concurrency** <a name="handoff_concurrency" id="handoff_concurrency"></a>
+Number of vnodes, per physical node, allowed to perform handoff at once. (default: `2`)
 
 ### lager
 

@@ -16,10 +16,11 @@ to be installed. This document covers how to use Python, [pip](https://github.co
 
 1. Make sure Python is installed.
 1. Install pip, the Python package tool. Installation instructions are [here](http://guide.python-distribute.org/installation.html#installing-pip). pip can also be installed via [Homebrew](http://brew.sh/) for Mac OS X users.
+
 1. Install `virtualenv` and `virtualenvwrapper`:
     
     ```bash
-    $ pip install virtualenv virtualenvwrapper`
+    pip install virtualenv virtualenvwrapper`
     ```
 
 1. Setup `virtualenvwrapper`. Add the following lines to your `.bash_profile` to get the `virtualenvwrapper` scripts in the path.
@@ -31,13 +32,13 @@ to be installed. This document covers how to use Python, [pip](https://github.co
 1. Clone the Keystone repo:
 
     ```bash
-    $ git clone https://github.com/openstack/keystone.git
+    git clone https://github.com/openstack/keystone.git
     ```
 
 1. Navigate to the Keystone repo and checkout the proper tag
 
     ```bash
-    $ git checkout grizzly-2
+    git checkout grizzly-2
     ```
 
 ## Create a Virtual Envrionment for Keystone
@@ -45,7 +46,7 @@ to be installed. This document covers how to use Python, [pip](https://github.co
 Run the following command to create a virtual environment:
 
 ```bash
-$ mkvirtualenv keystone-test
+mkvirtualenv keystone-test
 ```
 
 The `keystone-test` virtual environment is now created, activated, and
@@ -56,7 +57,7 @@ ready to use.
 The dependencies for running Keystone can be found in `tools/pip-requires`.  At the time of this writing, `grizzly-2` is the latest tag of Keystone and the dependencies are based on versions that work with that tag. Use `pip` to install the depencies as follows:
 
 ```bash
-$ pip install -r tools/pip-requires
+pip install -r tools/pip-requires
 ```
 
 ## Configure Keystone
@@ -89,13 +90,13 @@ token_format = UUID
 ## Prepare the database
 
 ```bash
-$ ./bin/keystone-manage db_sync
+./bin/keystone-manage db_sync
 ```
 
 ## Run Keystone
 
 ```bash
-$ ./bin/keystone-all --config-file \
+./bin/keystone-all --config-file \
   /<absolute-path-to-keystone-repo>/keystone/etc/keystone.conf -d --debug
 ```
 

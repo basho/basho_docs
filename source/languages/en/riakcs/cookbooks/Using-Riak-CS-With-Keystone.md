@@ -139,13 +139,13 @@ Follow the procedures given [[here|Keystone-Setup]] to set up and run Keystone.
 1. Create a tenant called `test`:
 
     ```bash
-    $ keystone tenant-create --name test
+    keystone tenant-create --name test
     ```
 
 1. Using the tenant id of the tenant created in the previous step and create a user called `test` that is a member of tenant `test`:
 
     ```bash
-    $ keystone user-create --name test \
+    keystone user-create --name test \
       --pass test --email test@test.com \
       --tenant-id <tenant-id> --enabled true
     ```
@@ -153,36 +153,38 @@ Follow the procedures given [[here|Keystone-Setup]] to set up and run Keystone.
 1. Create a role called `swiftoperator`:
 
     ```bash
-    $ keystone role-create --name swiftoperator
+    keystone role-create --name swiftoperator
     ```
 
 1. Add the `swiftoperator` role for user `test`:
 
     ```bash
-    $ keystone user-role-add --user-id <user-id>  \
+    keystone user-role-add --user-id <user-id>  \
     --role-id <role-id> --tenant-id <tenant-id>
     ```
 
 1. Create ec2 credentials for the user `test`:
 
     ```bash
-    $ keystone ec2-credentials-create --user_id <user-id> \
+    keystone ec2-credentials-create --user_id <user-id> \
     --tenant_id <tenant-id>
     ```
 
 ### Testing Openstack API and Keystone authentication
+
 1. Start Riak, Riak CS, and Stanchion. Make sure that the values for the `rewrite_module` and `auth_module` options in the Riak CS `app.config` file are as follows:
 
     ```erlang
     {rewrite_module, riak_cs_oos_rewrite},
     {auth_module, riak_cs_keystone_auth},
     ```
+
 1. Get an auth token for the `test` user to use in requests to Riak CS:
 
     ```curl
     curl -s -d '{"auth": {"tenantName": "test", "passwordCredentials": {"username": "test", "password": "test"}}}' \
-    -H 'Content-type: application/json' \
-    http://localhost:5000/v2.0/tokens | python -mjson.tool
+      -H 'Content-type: application/json' \
+      http://localhost:5000/v2.0/tokens | python -mjson.tool
     ```
 
     The value of the `id` field of the `token` object in the response is used as the value for the `X-Auth-Token` header in all subsequent requests to Riak CS. The `publicURL` for the `object-store` service listed in the `serviceCatalog` of the response is the base URL used for all API requests to Riak CS.
@@ -197,52 +199,54 @@ Follow the procedures given [[here|Keystone-Setup]] to set up and run Keystone.
 1. Create a bucket (S3 bucket == OpenStack container)
 
     ```curl
-    curl -X PUT -H 'X-Auth-Token: $ID' $URL/bucket1
+    curl -X PUT \
+      -H 'X-Auth-Token: $ID' \
+      $URL/bucket1
     ```
 
 1. List the buckets
 
     ```curl
     curl -H 'X-Auth-Token: $ID' \
-    $URL
+      $URL
     ```
 
 1. Put an object into the bucket
 
     ```curl 
     curl -X PUT \
-    --data 'abcdefghi123456789' \
-    -H 'X-Auth-Token: $ID' \
-    $URL/bucket1/object1
+      -H 'X-Auth-Token: $ID' \
+      --data 'abcdefghi123456789' \
+      $URL/bucket1/object1
     ```
 
 1. List the objects in the bucket
 
     ```curl
     curl -H 'X-Auth-Token: $ID' \
-    $URL/bucket1
+      $URL/bucket1
     ```
 
 1. Fetch the object from the bucket
 
     ```curl
     curl -H 'X-Auth-Token: $ID' \
-    $URL/bucket1/object1
+      $URL/bucket1/object1
     ```
 
 1. Delete the object
 
     ```curl
     curl -X DELETE \
-    -H 'X-Auth-Token: $ID' \
-    $URL/bucket1/object1
+      -H 'X-Auth-Token: $ID' \
+      $URL/bucket1/object1
     ```
 1. Delete the bucket
 
     ```curl
     curl -X DELETE \
-    -H 'X-Auth-Token: $ID' \
-    $URL/bucket1
+      -H 'X-Auth-Token: $ID' \
+      $URL/bucket1
     ```
 
 ### Testing S3 API and Keystone Authentication
@@ -267,41 +271,41 @@ ubiquitous tool.
 1. Create a sample file to upload
 
     ```bash
-    $ echo "ilovechickenilovelivermeowmixmeowmixwilldeliver" > upload.txt
+    echo "ilovechickenilovelivermeowmixmeowmixwilldeliver" > upload.txt
     ```
 
 1. Create a bucket (i.e. container)
 
     ```bash
-    $ s3cmd mb s3://bucket2
+    s3cmd mb s3://bucket2
     ```
 
 1. List the buckets
 
     ```bash
-    $ s3cmd ls
+    s3cmd ls
     ```
 
 1. Put an object into the bucket
 
     ```bash
-    $ s3cmd put upload.txt s3://bucket2
+    s3cmd put upload.txt s3://bucket2
     ```
 
 1. Fetch the object from the bucket
 
     ```bash
-    $ ss3cmd get s3://bucket2/upload.txt download.txt
+    ss3cmd get s3://bucket2/upload.txt download.txt
     ```
 
 1. Delete the object
 
     ```bash
-    $ s3cmd del s3://bucket2/upload.txt
+    s3cmd del s3://bucket2/upload.txt
     ```
 
 1. Delete the bucket
 
     ```bash
-    $ s3cmd rb s3://bucket2
+    s3cmd rb s3://bucket2
     ```
