@@ -902,7 +902,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>bitcask.expiry.grace_time<tt></td>
-<td>By default, Bitcask will trigger a merge whenever a data file contains an expired key. This may result in excessive merging under some usage patterns. To prevent this you can set the `bitcask.expiry.grace_time` option.  Bitcask will defer triggering a merge solely for key expiry by the configured number of seconds. Setting this to `1h` effectively limits each cask to merging for expiry once per hour. Default is: `0`</td>
+<td>By default, Bitcask will trigger a merge whenever a data file contains an expired key. This may result in excessive merging under some usage patterns. To prevent this you can set the `bitcask.expiry.grace_time` option.  Bitcask will defer triggering a merge solely for key expiry by the configured number of seconds. Setting this to `1h` effectively limits each cask to merging for expiry once per hour.</td>
 <td><tt>0</tt></td>
 </tr>
 
@@ -914,7 +914,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>bitcask.expiry<tt></td>
-<td>By default, Bitcask keeps all of your data around. If your data has limited time-value, or if for space reasons you need to purge data, you can set the `expiry` option. If you needed to purge data automatically after 1 day, set the value to `1d`. Default is: `off` which disables automatic expiration</td>
+<td>By default, Bitcask keeps all of your data around. If your data has limited time-value, or if for space reasons you need to purge data, you can set the `expiry` option. If you needed to purge data automatically after 1 day, set the value to `1d`. `off` disables automatic expiration</td>
 <td><tt>off</tt></td>
 </tr>
 
@@ -932,31 +932,31 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>bitcask.merge.thresholds.small_file<tt></td>
-<td>Describes the minimum size a file must have to be _excluded_ from the merge. Files smaller than the threshold will be included. Increasing the value will cause _more_ files to be merged, decreasing the value will cause _fewer_ files to be merged. Default is: 10MB</td>
+<td>Describes the minimum size a file must have to be _excluded_ from the merge. Files smaller than the threshold will be included. Increasing the value will cause _more_ files to be merged, decreasing the value will cause _fewer_ files to be merged.</td>
 <td><tt>10MB</tt></td>
 </tr>
 
 <tr>
 <td><tt>bitcask.merge.thresholds.dead_bytes<tt></td>
-<td>Describes the minimum amount of data occupied by dead keys in a file to cause it to be included in the merge. Increasing the value will cause fewer files to be merged, decreasing the value will cause more files to be merged. Default is: 128MB</td>
+<td>Describes the minimum amount of data occupied by dead keys in a file to cause it to be included in the merge. Increasing the value will cause fewer files to be merged, decreasing the value will cause more files to be merged.</td>
 <td><tt>128MB</tt></td>
 </tr>
 
 <tr>
 <td><tt>bitcask.merge.thresholds.fragmentation<tt></td>
-<td>Describes what ratio of dead keys to total keys in a file will cause it to be included in the merge. The value of this setting is a percentage (0-100). For example, if a data file contains 4 dead keys and 6 live keys, it will be included in the merge at the default ratio. Increasing the value will cause fewer files to be merged, decreasing the value will cause more files to be merged. Default is: `40`</td>
+<td>Describes what ratio of dead keys to total keys in a file will cause it to be included in the merge. The value of this setting is a percentage (0-100). For example, if a data file contains 4 dead keys and 6 live keys, it will be included in the merge at the default ratio. Increasing the value will cause fewer files to be merged, decreasing the value will cause more files to be merged.</td>
 <td><tt>40</tt></td>
 </tr>
 
 <tr>
 <td><tt>bitcask.merge.triggers.dead_bytes<tt></td>
-<td>Describes how much data stored for dead keys in a single file will trigger merging. The value is in bytes. If a file meets or exceeds the trigger value for dead bytes, merge will be triggered. Increasing the value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often. When either of these constraints are met by any file in the directory, Bitcask will attempt to merge files. Default is: 512MB</td>
+<td>Describes how much data stored for dead keys in a single file will trigger merging. The value is in bytes. If a file meets or exceeds the trigger value for dead bytes, merge will be triggered. Increasing the value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often. When either of these constraints are met by any file in the directory, Bitcask will attempt to merge files.</td>
 <td><tt>512MB</tt></td>
 </tr>
 
 <tr>
 <td><tt>bitcask.merge.triggers.fragmentation<tt></td>
-<td>Describes what ratio of dead keys to total keys in a file will trigger merging. The value of this setting is a percentage (0-100). For example, if a data file contains 6 dead keys and 4 live keys, then merge will be triggered at the default setting. Increasing this value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often. Default is: `60`</td>
+<td>Describes what ratio of dead keys to total keys in a file will trigger merging. The value of this setting is a percentage (0-100). For example, if a data file contains 6 dead keys and 4 live keys, then merge will be triggered at the default setting. Increasing this value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often.</td>
 <td><tt>60</tt></td>
 </tr>
 
@@ -1331,8 +1331,8 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>erlang.distribution_buffer_size<tt></td>
-<td>For nodes with many busy_dist_port events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. Erlangers may know this as +zdbbl. The Erlang/OTP default is 1024 (1 megabyte). See: http://www.erlang.org/doc/man/erl.html#%2bzdbbl</td>
-<td><tt></tt></td>
+<td>For nodes with many busy_dist_port events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. Erlangers may know this as +zdbbl. See: http://www.erlang.org/doc/man/erl.html#%2bzdbbl</td>
+<td><tt>1024</tt></td>
 </tr>
 
 <tr>
@@ -1737,7 +1737,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>log.console.level<tt></td>
-<td>The severity level of the console log, default is 'info'.</td>
+<td>The severity level of the console log.</td>
 <td><tt>info</tt></td>
 </tr>
 
@@ -1812,7 +1812,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>anti_entropy.trigger_interval<tt></td>
-<td>The tick determines how often the AAE manager looks for work to do (building/expiring trees, triggering exchanges, etc). The default is every 15 seconds. Lowering this value will speedup the rate that all replicas are synced across the cluster. Increasing the value is not recommended.</td>
+<td>The tick determines how often the AAE manager looks for work to do (building/expiring trees, triggering exchanges, etc). Lowering this value will speedup the rate that all replicas are synced across the cluster. Increasing the value is not recommended.</td>
 <td><tt>15s</tt></td>
 </tr>
 
@@ -1836,7 +1836,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>anti_entropy.tree.build_limit.number<tt></td>
-<td>Restrict how fast AAE can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. * .number is the number of builds * .per_timespan is the amount of time in which that .number of builds occurs Default is 1 build per hour.</td>
+<td>Restrict how fast AAE can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. * .number is the number of builds * .per_timespan is the amount of time in which that number of builds occurs.</td>
 <td><tt>1</tt></td>
 </tr>
 
