@@ -16,16 +16,15 @@ The ad hoc approach to bucket configuration involves setting bucket properties f
 Using bucket *types* also involves dealing with bucket properties, but with a few crucial differences:
 
 * Bucket types enable you to assign a total set of properties to buckets _at the time of their creation_ (instead of setting buckets' properties and then using those buckets)
-* Bucket types must be both created _and_ activated before they can be used (bucket properties can be modified at any time)
+* Bucket types must be both created _and_ activated before they can be used (whereas bucket properties can be modified at any time)
 * Nearly all bucket properties can be updated using bucket types, with two exceptions: the `datatype` and `consistent` properties
 
-It is important to note that buckets are not assigned types in the same way that they are configured [[using `props`|HTTP Set Bucket Properties
-]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
+It is important to note that buckets are not assigned types in the same way that they are configured when using [[bucket properties|The Basics#Bucket-Properties-and-Operations]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
 
 Instead, bucket types are applied to buckets _on the basis of how those buckets are queried_. Queries involving bucket types take the following form:
 
 ```curl
-GET/PUT/DELETE /types/<type>/buckets/<type>/keys/<key>
+GET/PUT/DELETE /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 If you have created the bucket type `no_siblings` (with `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example HTTP query:
