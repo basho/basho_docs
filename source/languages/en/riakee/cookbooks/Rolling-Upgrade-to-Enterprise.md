@@ -15,8 +15,12 @@ Instructions for upgrading to Riak Enterprise:
   3. Uninstall your Riak package.
   4. Install the `riak_ee` package.
   5. A standard package uninstall should not have removed your data directories. If it did, move your backup to where the data directory should be.
-  6. Copy any customizations from your backed-up `vm.args` to the `riak_ee`installed `vm.args` file, these files may be identical.
-  7. The `app.config` file from `riak_ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `app.config` file into the appropriate sections in the new one.
+  6. Copy any customizations from your backed-up `vm.args` to the `riak_ee` installed `vm.args` file, these files may be identical.
+  7. The `app.config` file from `riak_ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `app.config` file into the appropriate sections in the new one. Ensure that the following sections are present in `app.config`:
+    * `riak_core` --- the `cluster_mgr` setting must be present. See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
+    * `riak_repl` --- See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
+    * `riak_jmx` --- See [[JMX Monitoring]] for more information.
+    * `snmp` --- See [[SNMP Configuration]] for more information.
   8. Start Riak on the upgraded node.
 
 ## Basho Patches
