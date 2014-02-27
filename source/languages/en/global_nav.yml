@@ -73,6 +73,7 @@ riak:
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
+          - "[[Strong Consistency|Using Strong Consistency]]"
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
