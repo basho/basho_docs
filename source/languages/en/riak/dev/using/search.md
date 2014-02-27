@@ -27,7 +27,7 @@ Some of Riak's core strengths lie in its scalability, fault tolerance, and ease 
 Riak Search 2.0 is an integration of Solr (for indexing and querying) and Riak (for storage and distribution). There are a few points of interest that a user of Riak Search will have to keep in mind in order to properly store and later query for values.
 
 1. **Schemas** explain to Solr how to index fields
-2. **Indexes** are named Solr indexes which you will query against
+2. **Indexes** are named Solr indexes against which you will query
 3. **Bucket-index association** signals to Riak *when* to index values
 
 Riak Search must first be configured with a Solr *schema*, so Solr knows how to index value fields. If you don't define one, you're provided with a default schema named `_yz_default`. The examples in this document will presume the default. You can read more about creating a custom schema in [[search schema]], which you'll want to do in a production environment.
@@ -81,19 +81,6 @@ Since Riak 2.0, Basho suggests you use [[bucket types|Using Bucket Types]] to na
 riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
 riak-admin bucket-type activate animals
 ```
-
-Then you can *associate the bucket* with an index as you did before, but this time requiring a bucket type as well as a bucket name (in this case, the type is *animals*).
-
-<!-- 
-```curl
-curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/props" \
-     -H'content-type:application/json' \
-     -d'{"props":{"search_index":"famous"}}'
-```
-
-Creating and using indexes is the same we've seen thusfar.
-
--->
 
 ### Security
 

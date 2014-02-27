@@ -283,14 +283,14 @@ The corresponding date type is declared under `<types>` like so.
 
 You can find more information on to customize your own [[search schema]].
 
-Yokozuna comes bundled with a [default schema](https://github.com/basho/yokozuna/blob/v0.9.0/priv/default_schema.xml) called
+Yokozuna comes bundled with a [default schema](https://github.com/basho/yokozuna/blob/develop/priv/default_schema.xml) called
 `_yz_default`.  This is an extremely general schema which makes heavy
 use of dynamic fields -- it is intended for development and
 testing.  In production, a schema should be tailored to the data being
 indexed.
 
 
-## Active Anti-Entroy (AAE)
+## Active Anti-Entropy (AAE)
 
 Active Anti-Entropy (AAE) is the process of discovering and correcting
 entropy (divergence) between the data stored in Riak's key-value
