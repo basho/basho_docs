@@ -24,8 +24,8 @@ AAE + Replication uses existing Riak AAE hash trees stored in LevelDB, so if AAE
 * Riak Enterprise MDC Replication Version 3 enabled on source and sink clusters.
 * Both source and sink clusters must be of the *same ring size*.
 * AAE must be enabled on both source and sink clusters.
-* `fullsync_strategy keylist` must be set to `aae` on both source and sink clusters.
-* AAE trees must have been built on both source and sink clusters.
+* `fullsync_strategy` in the `riak_repl` section of the app.config must be set to `aae` on both source and sink clusters.
+* AAE trees must have been built on both source and sink clusters.  In the event an AAE tree is not built on both the source and sink, fullsync will default to the `keylisting` fullsync strategy for that partition.
 
 
 ## Configuration
