@@ -83,9 +83,15 @@ Here is a bare minimum skeleton Solr Schema. It won't do much for you other than
 </schema>
 ```
 
-If you're missing any of the above fields, Riak Search will reject your custom schema. Here is what each of the above fields mean, though you'll rarely need to use any fields other than `_yz_rt` (bucket type), `_yz_rb` (bucket) and `_yz_rk` (Riak key).
+If you're missing any of the above fields, Riak Search will reject your
+custom schema. The value for `<uniqueKey>` *must* be `_yz_id`.
 
-On occasion `_yz_err` can be helpful if you suspect that your extractors are failing. Malformed JSON or XML will cause Riak Search to index a key and set `_yz_err` to 1, allowing you to reindex with proper values later.
+In the table below, you'll find a description of the various required
+fields. You'll rarely need to use any fields other than `_yz_rt` (bucket
+type), `_yz_rb` (bucket) and `_yz_rk` (Riak key). On occasion `_yz_err`
+can be helpful if you suspect that your extractors are failing.
+Malformed JSON or XML will cause Riak Search to index a key and set
+`_yz_err` to 1, allowing you to reindex with proper values later.
 
 Field   | Name |Description
 --------|------|-----
@@ -98,7 +104,6 @@ Field   | Name |Description
 `_yz_rt`  | Riak Bucket Type | The bucket type of the Riak object this doc corresponds to
 `_yz_rb`  | Riak Bucket | The bucket of the Riak object this doc corresponds to
 `_yz_err` | Error Flag | indicating if this doc is the product of a failed object extraction
-
 
 ### Defining Fields
 
@@ -172,6 +177,38 @@ Besides simple field types, you can also customize analyzers for different langu
    </fieldType>
  </types>
 </schema>
+```
+
+### "Catch-All" Field
+
+Without a catch-all field, an exception will be thrown if data is
+provided to index without a corresponding `<field>` element. The
+following is the catch-all field from the default Yokozuna schema and
+can be used in a custom schema as well.
+
+```xml
+<dynamicField name="*" type="ignored" indexed="false" stored="false" multiValued="true" />
+```
+
+### Dates
+
+The format of strings that represents a date/time is important as [Solr
+only understands ISO8601 UTC date/time
+values](http://lucene.apache.org/solr/4_6_1/solr-core/org/apache/solr/schema/DateField.html).
+An example of a correctly formatted date/time string is
+`1995-12-31T23:59:59Z`. If you provide an incorrectly formatted
+date/time value, an exception similar to this will be logged to `solr.log`:
+
+```log
+2014-02-27 21:30:00,372 [ERROR] <qtp1481681868-421>@SolrException.java:108 org.apache.solr.common.SolrException: Invalid Date String:'Thu Feb 27 21:29:59 +0000 2014'
+        at org.apache.solr.schema.DateField.parseMath(DateField.java:182)
+        at org.apache.solr.schema.TrieField.createField(TrieField.java:611)
+        at org.apache.solr.schema.TrieField.createFields(TrieField.java:650)
+        at org.apache.solr.schema.TrieDateField.createFields(TrieDateField.java:157)
+        at org.apache.solr.update.DocumentBuilder.addField(DocumentBuilder.java:47)
+        ...
+        ...
+        ...
 ```
 
 ## The Default Schema
