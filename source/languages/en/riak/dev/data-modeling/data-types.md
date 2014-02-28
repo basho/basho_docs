@@ -59,7 +59,9 @@ Now, we can begin connecting our data model to a Riak map. We'll do that creatin
 ```ruby
 class User
   def initialize
-    @map = Riak::Crdt::Map.new $bucket, '<key>', 'map_bucket'
+    @bucket = $client.bucket '<bucket_name>'
+    @key = '<key>'
+    @map = Riak::Crdt::Map.new @bucket, @key, 'map_bucket'
   end
 end
 
@@ -75,8 +77,9 @@ Note that we haven't specified under which key our map will be stored. In a key/
 ```ruby
 class User
   def initialize first_name, last_name
+    @bucket = $client.bucket 'users'
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
+    @map = Riak::Crdt::Map.new @bucket, @key
   end
 end
 ```
@@ -88,8 +91,9 @@ At this point, we have a Riak map associated with instantiations of our `User` t
 ```ruby
 class User
   def initialize first_name, last_name
+    @bucket = $client.bucket 'users'
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
+    @map = Riak::Crdt::Map.new @bucket, @key
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
   end
@@ -108,8 +112,9 @@ So now we have our `first_name` and `last_name` variables stored in our map, but
 ```ruby
 class User
   def initialize first_name, last_name, interests
+    @bucket = $client.bucket 'users'
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
+    @map = Riak::Crdt::Map.new @bucket, @key
     # We'll use a batch function here to avoid making more trips to Riak than we need to
     @map.batch do |m|
       m.registers['first_name'] = first_name
@@ -119,7 +124,7 @@ class User
       end
     end
   end
-end  
+end 
 ```
 
 Now when we create new users, we need to specify their interests as a list:
@@ -134,7 +139,9 @@ Our `visits` variable will work a little bit differently, because when a new use
 ```ruby
 class User
   def initialize first_name, last_name, interests
-    @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
+    @bucket = $client.bucket 'users'
+    @key = "#{first_name}_#{last_name}"
+    @map = Riak::Crdt::Map.new @bucket, @key
     @map.batch do |m|
       m.registers['first_name'] = first_name
       m.registers['last_name'] = last_name
@@ -163,7 +170,9 @@ Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Fla
 ```ruby
 class User
   def initialize first_name, last_name, interests
-    @map = Riak::Crdt::Map.new($client.bucket 'users', "#{first_name}_#{last_name}")
+    @bucket = $client.bucket 'users'
+    @key = "#{first_name}_#{last_name}"
+    @map = Riak::Crdt::Map.new @bucket, @key
     @map.batch do |m|
       m.registers['first_name'] = first_name
       m.registers['last_name'] = last_name
