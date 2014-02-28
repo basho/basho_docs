@@ -65,7 +65,7 @@ A:
 
 Q: Can I make Riak use syslog instead of file?
 A:
-  This is not currently possible. Quite often, Riak log messages (mostly backtraces and warnings) are much longer than can be fit into a syslog message. All of the log files, however, are compatible with rotation (with the exception of the `erlang.log.*` files which are automatically rotated by Riak itself). If you're looking for a way to keep track of old log files, your logrotate script could be configured to archive or upload the rotated-out file to another machine.
+  Yes. Please refer to the `lager_syslog` [README](https://github.com/basho/lager_syslog/blob/master/README.org).
 
 <h2>Log Messages</h2>
 
