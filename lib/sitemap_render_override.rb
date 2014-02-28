@@ -282,6 +282,8 @@ module SitemapRenderOverride
         display_lang = case lang
         when "curl"
           "HTTP"
+        when "json"
+          "JSON"
         when "bash"
           "Shell"
         when "appconfig"
@@ -305,7 +307,9 @@ module SitemapRenderOverride
         else
           lang
         end
-        tabs_html += "<li class=\"#{active ? 'active' : ''}\"><a href=\"##{lang}#{block_suffix}\" data-code=\"#{lang}\" data-toggle=\"tab\">#{display_lang}</a></li>"
+        unless display_lang.blank?
+          tabs_html += "<li class=\"#{active ? 'active' : ''}\"><a href=\"##{lang}#{block_suffix}\" data-code=\"#{lang}\" data-toggle=\"tab\">#{display_lang}</a></li>"
+        end
         code_blocks += "<div class=\"tab-pane#{active ? ' active' : ''}\" id=\"#{lang}#{block_suffix}\">#{code}</div>"
         active = false
       end
