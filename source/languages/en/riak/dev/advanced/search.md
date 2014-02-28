@@ -281,7 +281,7 @@ The corresponding date type is declared under `<types>` like so.
 <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
 ```
 
-You can find more information on to customize your own [[search schema]].
+You can find more information on to how customize your own [[search schema]].
 
 Yokozuna comes bundled with a [default schema](https://github.com/basho/yokozuna/blob/develop/priv/default_schema.xml) called
 `_yz_default`.  This is an extremely general schema which makes heavy

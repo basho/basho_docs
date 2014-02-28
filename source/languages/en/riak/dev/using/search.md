@@ -70,12 +70,12 @@ client.create_search_index('famous', '_yz_default')
 riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, [])
 ```
 
-The last setup item you need to perform is to *associate a bucket type* with a Solr index. You only need do this once per bucket type. This setting tells Riak Search which bucket's values are to be indexed on a write to Riak. For example, to associate a bucket named `cats` with the `famous` index, you can set the bucket property `search_index`.
+The last setup item you need to perform is to *associate a bucket type* with a Solr index. You only need do this once per bucket type. This setting tells Riak Search which bucket values are to be indexed on a write to Riak. For example, to associate a bucket named `cats` with the `famous` index, you can set the bucket property `search_index`.
 
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests you use [[bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but it requires an additional setup step in on commandline.
+Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but require an additional setup step in on commandline.
 
 ```bash
 riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
