@@ -314,6 +314,7 @@ bucket = client.bucket('updates')
 obj = RiakObject(bucket, '2')
 obj.content_type = 'application/json'
 obj.data = open('msg2.json').read()
+obj.store()
 ```
 
 You can see the logged value of the object by viewing `console.log`.

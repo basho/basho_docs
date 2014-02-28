@@ -667,11 +667,11 @@ MapReduce phase functions have the same properties, arguments and return values 
 
 *Map functions take three arguments* (in Erlang, arity-3 is required).  Those arguments are:
 
-  1. *Value* : the value found at a key.  This will be a Riak object, which
+  1. *Value*: the value found at a key.  This will be a Riak object, which
     in Erlang is defined and manipulated by the *riak_object* module.
     In Javascript, a Riak object looks like this:
 
-    ```
+    ```json
     {
      "bucket":BucketAsString,
      "key":KeyAsString,
