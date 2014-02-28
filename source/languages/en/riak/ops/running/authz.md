@@ -16,9 +16,7 @@ This document covers only the 2.0 authentication and authorization features. For
 As of version 2.0, Riak administrators can selectively apportion
 access to a wide variety of Riak's functionality, including accessing,
 modifying, and deleting objects, changing bucket properties, and
-running MapReduce jobs. Riak security enables you to create, modify,
-and delete users, assign groups to users, passwords, and other
-characteristics, designate security sources, and more.
+running MapReduce jobs.
 
 **Note**: Currently, Riak security commands can be run only through
   the command line using the `riak-admin security` command. In future
@@ -48,8 +46,8 @@ Riak security may be checked, enabled, or disabled by an operator through the co
 ### Enabling Security
 
 <div class="note"> <div class="title">Danger</div>
-**Enabling security will change the way your client libraries and your
-applications interact with Riak.** Once security is enabled, all
+<b>Enabling security will change the way your client libraries and your
+applications interact with Riak.</b> Once security is enabled, all
 client connections must be encrypted and all permissions will be
 denied by default. Do not enable this in production until you have
 verified that your libraries support Riak security, including
@@ -64,12 +62,10 @@ riak-admin security enable
 
 *As per the warning above, do not do this in production without taking the appropriate precautions.*
 
-Please note all users, groups, authentication sources, and permissions
-can be configured while security is disabled.
-
-This enables you to create security configurations of any level of
-complexity and turn those configurations on and off all at once if you
-wish.
+All users, groups, authentication sources, and permissions can be
+configured while security is disabled, allowing you to create a
+security configuration of any level of complexity without prematurely
+impacting the service.
 
 ### Disabling Security
 
