@@ -1750,6 +1750,23 @@ div[role=main] {
       max-width: 125px;
     }
   }
+
+  table.schemausecase {
+    font-size:80%;
+    th {
+      color:#3a5752;
+      padding: 3px 5px;
+    }
+    td {
+      padding: 3px 5px;
+      a {
+        vertical-align: super;
+        font-size:80%;
+        color:$darkOrange;
+        padding-left:3px;
+      }
+    }
+  }
 }
    
 
