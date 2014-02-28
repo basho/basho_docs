@@ -36,10 +36,10 @@ storage [[Backend API]] for more details.
 |Persistent                                     |✓      |✓      |      |
 |Keyspace in RAM                                |✓      |       |✓     |
 |Keyspace can be greater than available RAM     |       |✓      |      |
-|Keyspace loaded into RAM on startup [0]        |✓      |       |      |
+|Keyspace loaded into RAM on startup<sup>1</sup>|✓      |       |      |
 |Objects in RAM                                 |       |       |✓     |
 |Object Expiration                              |✓      |       |✓     |
 |Secondary Indexes                              |       |✓      |✓     |
 
-[0]: Noted here since this can affect Riak start times for large
+<sup>1</sup>Noted here since this can affect Riak start times for large
 keyspaces.
