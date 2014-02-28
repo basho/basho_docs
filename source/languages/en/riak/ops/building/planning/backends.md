@@ -13,10 +13,12 @@ moved: {
 }
 ---
 
-A key feature of Riak KV is the pluggable storage backends. These allow the
-ability to choose a low-level storage engine that suits specific operational
-needs. For example, if one needs maximum throughput coupled with data
-persistence and has a bounded keyspace, Bitcask is a good choice. On the other hand, if one needs to store a large number of keys, then LevelDB would be a better backend recommendation.
+Pluggable storage backends are a key feature of Riak KV. These allow the
+choice of a low-level storage engine that suits specific operational
+needs. For example, if one needs maximum throughput, data persistence,
+and a bounded keyspace then Bitcask is a good choice. On the other hand,
+if one needs to store a large number of keys or needs secondary indexes,
+then LevelDB would be a better backend recommendation.
 
 These backends are supported:
 
@@ -25,4 +27,19 @@ These backends are supported:
 * [[Memory]]
 * [[Multi]]
 
-Riak supports the use of custom storage backends as well. See the storage [[Backend API]] for more details.
+Riak supports the use of custom storage backends as well. See the
+storage [[Backend API]] for more details.
+
+|Feature or Characteristic                      |Bitcask|LevelDB|Memory|
+|-----------------------------------------------|:-----:|:-----:|:----:|
+|Default Riak backend                           |✓      |       |      |
+|Persistent                                     |✓      |✓      |      |
+|Keyspace in RAM                                |✓      |       |✓     |
+|Keyspace can be greater than available RAM     |       |✓      |      |
+|Keyspace loaded into RAM on startup [0]        |✓      |       |      |
+|Objects in RAM                                 |       |       |✓     |
+|Object Expiration                              |✓      |       |✓     |
+|Secondary Indexes                              |       |✓      |✓     |
+
+[0]: Noted here since this can affect Riak start times for large
+keyspaces.
