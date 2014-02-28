@@ -60,7 +60,8 @@ Riak security is disabled by default. To enable it:
 riak-admin security enable
 ```
 
-*As per the warning above, do not do this in production without taking the appropriate precautions.*
+*As per the warning above, do not enable security in production
+ without taking the appropriate precautions.*
 
 All users, groups, authentication sources, and permissions can be
 configured while security is disabled, allowing you to create a
@@ -214,8 +215,8 @@ riak-admin security alter-user riakuser password=opensesame
 
 When creating or altering a user, any number of `<option>=<value>`
 pairs can be appended to the end of the command. Any non-standard
-options (today, `groups` and `password`) will be stored and displayed
-via the `riak-admin security print-users` command.
+options will be stored and displayed via the `riak-admin security
+print-users` command.
 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
