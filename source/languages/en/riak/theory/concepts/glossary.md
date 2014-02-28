@@ -26,7 +26,7 @@ ensures the integrity of all data stored in Riak. This is particularly useful in
 clusters containing “cold data”: data that may not be read for long periods of
 time, potentially years. Furthermore, unlike the repair command, active anti-
 entropy is an automatic process, requiring no user intervention and is enabled
-by default in Riak 1.3.
+by default.
 
 * [[Replication|Replication#Active-Anti-Entropy-AAE-]]
 
@@ -172,7 +172,7 @@ Riak Pipe is the processing layer that powers Riak's MapReduce. It's best descri
 Riak Search is a distributed, scalable, failure-tolerant, realtime, full-text search engine built around Riak Core and tightly integrated with Riak KV.
 
 * [[Using Search]]
-* [[Advanced Search]]
+* [[Search Details]]
 
 ## Ring
 

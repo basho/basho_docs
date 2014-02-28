@@ -65,22 +65,3 @@ subcommands are supported:
 * [[member-status|riak-admin Command Line#member-status]]
 * [[ring-status|riak-admin Command Line#ring-status]]
 * [[vnode-status|riak-admin Command Line#vnode-status]]
-
-## search-cmd
-
-`[[search-cmd|search Command Line]]` is used to interact with the
-Search functionality included with Riak. The following subcommands are
-supported:
-
-* [[set-schema|search Command Line#set-schema]]
-* [[show-schema|search Command Line#show-schema]]
-* [[clear-schema-cache|search Command Line#clear-schema-cache]]
-* [[search|search Command Line#search]]
-* [[search-doc|search Command Line#search-doc]]
-* [[explain|search Command Line#explain]]
-* [[index|search Command Line#index]]
-* [[delete|search Command Line#delete]]
-* [[solr|search Command Line#solr]]
-* [[install|search Command Line#install]]
-* [[uninstall|search Command Line#uninstall]]
-* [[test|search Command Line#test]]
