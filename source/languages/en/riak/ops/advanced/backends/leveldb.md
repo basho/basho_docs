@@ -548,7 +548,7 @@ application variables in the `eLeveldb` application scope.
 
 Below are **general** configuration recommendations for Linux distributions. Individual users may need to tailor these settings for their application.
 
-For production environments, we recommend the following settings within `/etc/syscfg.conf`:
+For production environments, we recommend the following settings within `/etc/sysctl.conf`:
 
 ```bash
 net.core.wmem_default=8388608

@@ -36,7 +36,7 @@ To **get** the `clustername`:
 
 #### `connect`
 
-The `connect` command establishes communications from a source cluster to a sink cluster. The `host:port` of the sink cluster is used for this.
+The `connect` command establishes communications from a source cluster to a sink cluster of the same ring size. The `host:port` of the sink cluster is used for this.
 
 The `host` can be either an IP address
 

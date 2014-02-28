@@ -251,14 +251,14 @@ Below are the default colors for console messages (using ANSI escape sequences):
 
 ```appconfig
 {colors, [
-	{debug,     "\e[0;38m" },
-	{info,      "\e[1;37m" },
-	{notice,    "\e[1;36m" },
-	{warning,   "\e[1;33m" },
-	{error,     "\e[1;31m" },
-	{critical,  "\e[1;35m" },
-	{alert,     "\e[1;44m" },
-	{emergency, "\e[1;41m" }
+    {debug,     "\e[0;38m" },
+    {info,      "\e[1;37m" },
+    {notice,    "\e[1;36m" },
+    {warning,   "\e[1;33m" },
+    {error,     "\e[1;31m" },
+    {critical,  "\e[1;35m" },
+    {alert,     "\e[1;44m" },
+    {emergency, "\e[1;41m" }
 ]}
 ```
 
