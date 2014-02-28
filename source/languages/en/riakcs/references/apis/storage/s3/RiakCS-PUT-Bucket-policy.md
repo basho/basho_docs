@@ -68,6 +68,8 @@ Supported actions are: `s3:GetObject`, `s3:GetObjectAcl`, `s3:PutObject`, `s3:Pu
 
 Riak supports two keys to be used with these conditions: `aws:SecureTransport` and `aws:SourceIp`.  `aws:SecureTransport` is used with the `Bool` condition to check whether the request was sent with SSL.  Accepted values for this key are `true` and `false`.  `aws:SourceIp` is used with the `IpAddress` and `NotIpAddress` conditions, and represents the requester's IP address.  IPv4 IP addresses in CIDR notation are supported.
 
+More information on S3 Policies can be found in Amazon's [Permissions And Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/PermissionsAndPolicies.html) documentation.
+
 
 ## Response
 
