@@ -17,7 +17,6 @@ moved: {
 <p>If you run riak_control you should disable it during rolling upgrade process.</p>
 </div>
 
-
 Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
 
 In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak.
@@ -25,30 +24,19 @@ In previous Riak versions, users were required to disable new features during th
 {{#1.1.0-}}
 
 <div class="note"><div class="title">Note on upgrading to Riak 1.0</div>
-<p>Rolling upgrades should work when moving from Riak 0.13 or later to Riak 1.0
-following the OS specific instructions below, but there are a few considerations
-to keep in mind when doing so. Riak 1.0 has new features that add additional
-steps to the rolling upgrade procedure, specifically Riak Pipe, the new data
-processing library backing MapReduce, and the updated backend API supporting
-asynchronous keylisting. If these features are not explicitly enabled after
-upgrading, the legacy variant of the feature will be used instead. These
-features can only be enabled once *all* nodes in the cluster have been upgraded
-to 1.0.</p>
+Rolling upgrades should work when moving from Riak 0.13 or later to Riak 1.0
+following the OS specific instructions below, but there are a few considerations to keep in mind when doing so. Riak 1.0 has new features that add additional steps to the rolling upgrade procedure, specifically Riak Pipe, the new data processing library backing MapReduce, and the updated backend API supporting asynchronous keylisting. If these features are not explicitly enabled after upgrading, the legacy variant of the feature will be used instead. These features can only be enabled once *all* nodes in the cluster have been upgraded to 1.0.
 
-<p>Before starting an upgrade to 1.0 issue the following command on each
-pre-1.0.0 node in the cluster to make the transfers command report correctly.
-Use `riak attach`if you are not already on the riak console.</p>
+Before starting an upgrade to 1.0, issue the following command on each pre-1.0.0 node in the cluster to make the transfers command report correctly. Use `riak attach` if you are not already in the Riak console.
 
 ```erlang
-> riak_core_node_watcher:service_up(riak_pipe, self()).
+riak_core_node_watcher:service_up(riak_pipe, self()).
 ```
 
-<p>If you forget (or any of the pre-1.0.0 nodes are restarted) it is safe to
-re-issue the command.</p>
+In case you forget---or if any of the pre-1.0.0 nodes are restarted---it is safe to re-issue the command.
 
-<p>After upgrading to 1.0, make sure to follow steps 9 and 10 of the applicable
-platform specific
-instructions.</p>
+After upgrading to 1.0, make sure to follow steps 9 and 10 of the applicable
+platform-specific instructions.
 </div>
 
 {{/1.1.0-}}
