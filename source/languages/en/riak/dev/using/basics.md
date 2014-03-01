@@ -382,4 +382,4 @@ bucket.get_properties()
 
 You can also view this bucket information through any browser by going to `http://localhost:8098/buckets/test/props`
 
-So, that's the basics of how the [[HTTP API]] works. An in depth reading of the HTTP API page is highly recommended. This will give you details on the headers, parameters, and status that you should keep in mind, even when using a client library.
+So, that's the basics of how the [[HTTP API]] works, along with some sample code from some of the official Riak [[client libraries]]. An in-depth reading of the HTTP API page is highly recommended, as it will give you details on the headers, parameters, status, and other details that you should keep in mind, even when using a client library.
