@@ -11,23 +11,15 @@ moved: {
 }
 ---
 
-Basho Bench is a benchmarking tool created to conduct accurate and
-repeatable performance tests and stress tests, and produce performance
-graphs.
+[Basho Bench](https://github.com/basho/basho_bench) is a benchmarking tool created to conduct accurate and repeatable performance tests and stress tests, and produce performance graphs.
 
-Originally developed by Dave Smith (Dizzy) to benchmark Riak, Basho's
-key/value datastore, it exposes a pluggable driver interface and has
-been extended to serve as a benchmarking tool against a variety of
-projects. New drivers can be written in Erlang and are generally less
-than 200 lines of code.
+Originally developed to benchmark Riak, Basho Bench exposes a pluggable driver interface and has been extended to serve as a benchmarking tool against a variety of projects. New drivers can be written in Erlang and are generally less than 200 lines of code.
 
-Download
---------
+## Download
 
 The main repository for basho_bench is [http://github.com/basho/basho_bench/](http://github.com/basho/basho_bench/).
 
-Documentation
--------------
+## Documentation
 
 <div class="info">
 <div class="title">Note on Documentation</div>
