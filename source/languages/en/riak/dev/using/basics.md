@@ -24,12 +24,12 @@ Most of the interactions you'll have with Riak will be setting or retrieving the
 Here is the basic command form for retrieving a specific key from a bucket.
 
 {{#2.0.0-}}
-```bash
+```
 GET /buckets/BUCKET/keys/KEY
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
-```bash
+```
 GET /types/TYPE/buckets/BUCKET/keys/KEY
 ```
 {{/2.0.0+}}
@@ -81,6 +81,14 @@ bucket.get('doc2')
 <class 'riak.riak_object.RiakObject'>
 ```
 
+```java
+// import com.basho.riak.client.*
+
+Bucket testBucket = client.fetchBucket("test");
+String key = "doc2";
+IRiakObject obj = testBucket.fetch(key).execute();
+```
+
 This should return some form of `not_found` response, as the key `doc2` does not exist (you haven't created it yet).
 
 ### Store an Object
@@ -91,13 +99,13 @@ Your application will often have its own method of generating the keys for its d
 
 {{#2.0.0-}}
 
-```bash
+```
 PUT /buckets/BUCKET/keys/KEY
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
 
-```bash
+```
 PUT /types/TYPE/buckets/BUCKET/keys/KEY
 ```
 {{/2.0.0+}}
@@ -137,6 +145,13 @@ obj.data = 'some text'
 obj.store()
 ```
 
+```java
+Bucket testBucket = client.fetchBucket("test_bucket").execute();
+String key = "test_key";
+String text = "some text";
+testBucket.store(key, text).execute();
+```
+
 Other request headers are optional for writes:
 
 * `X-Riak-Meta-YOUR_HEADER` for any additional metadata headers that should be stored with the object (eg. `X-Riak-Meta-FirstName`).
@@ -172,6 +187,13 @@ obj.data = 'some text'
 obj.store(w=3, return_body=True)
 ```
 
+```java
+Bucket testBucket = client.fetchBucket("test_bucket").execute();
+String key = "test_key";
+String data = "some text";
+testBucket.store(key, data).w(3).returnBody(true).execute();
+```
+
 Normal HTTP status codes (responses will vary for Riak client libraries):
 
 * `200 OK`
@@ -205,6 +227,13 @@ obj.content_type = 'application/json'
 obj.data = '{"bar":"baz"}'
 obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
 obj.store()
+```
+
+```java
+Bucket testBucket = client.fetchBucket("test").execute();
+String key = "doc";
+String rawJsonData = '{"bar":"baz"}';
+testBucket.store(key, rawJsonData).execute();
 ```
 
 ### Store a New Object and Assign Random Key
