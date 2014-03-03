@@ -92,7 +92,7 @@ becomes
 {pb, [ {"192.168.1.10", 8098 } ]},
 ```
 
-Next, edit the `etc/vm.args` file and change the `-name` to the correct hostname:
+Next edit the `etc/vm.args` file and change the `-name` to the correct hostname:
 
 ```vmargs
 -name riak@127.0.0.1
@@ -105,22 +105,40 @@ becomes
 ```
 {{/1.4.0+}}
 {{#2.0.0+}}
-For the sake of example, let’s say that your machine’s IP address is `192.168.1.10` and the desired port is `8098`. In the `[[riak.conf|Configuration Files]]` file, you need to uncomment the line containing `listener.http.internal` and change it to
+For the sake of example, let’s say that your machine’s IP address is `192.168.1.10` and the desired port is `8098`. In the `[[riak.conf|Configuration Files]]` file, you need to change the `listener.http.internal`
 
 ```riakconf
-listener.http.internal = {"192.168.1.10", 8098}
+{http, [ {"127.0.0.1", 8098 } ]},
 ```
 
-The same configuration should be changed for the Protocol Buffers interface if you intend on using it. We'll uncomment the `listener.protobuf.internal` line and use the same IP from above but set it to port `8087`:
+becomes
 
-```riakconf
-listener.protobuf.internal = {"192.168.1.10", 8087}
+```appconfig
+{http, [ {"192.168.1.10", 8098 } ]},
 ```
 
-Next, uncomment and change the `nodename`:
+The same configuration should be changed for the Protocol Buffers interface if you intend on using it:
 
-```riakconf
-nodename = riak@server.example.com
+```appconfig
+{pb, [ {"127.0.0.1", 8098 } ]},
+```
+
+becomes
+
+```appconfig
+{pb, [ {"192.168.1.10", 8098 } ]},
+```
+
+Next edit the `etc/vm.args` file and change the `-name` to the correct hostname:
+
+```vmargs
+-name riak@127.0.0.1
+```
+
+becomes
+
+```vmargs
+-name riak@server.example.com
 ```
 {{/2.0.0+}}
 
@@ -170,7 +188,7 @@ bin/riak-admin cluster join riak@192.168.1.10
 
 Output from the above should resemble:
 
-```
+```bash
 Success: staged join request for riak@192.168.1.11 to riak@192.168.1.10
 ```
 
@@ -183,7 +201,7 @@ bin/riak-admin cluster commit
 
 After the last command, you should see:
 
-```
+```bash
 Cluster changes committed
 ```
 
@@ -197,7 +215,7 @@ bin/riak-admin status | grep ring_members
 
 With output resembling the following:
 
-```
+```bash
 ring_members : ['riak@192.168.1.10','riak@192.168.1.11']
 ```
 
@@ -220,7 +238,7 @@ All nodes in the cluster must have the same initial <tt>ring_creation_size</tt> 
 
 Check the value of all nodes if you receive a message like this:
 
-<tt>Failed: riak@10.0.1.156 has a different ring_creation_size</tt>
+<tt>Failed: riak@10.0.1.156 has a different ring_creation_size
 </div>
 
 ## Running Multiple Nodes on One Host
@@ -228,9 +246,9 @@ Check the value of all nodes if you receive a message like this:
 If you built Riak from source code, or if you are using the Mac OS X
 pre-built package, then you can easily run multiple Riak nodes on the
 same machine. The most common scenario for doing this is to experiment
-with running a Riak cluster.
-
-**Note**: If you have installed the `.deb` or `.rpm` package, you will need to download and build Riak source to follow the directions below.
+with running a Riak cluster. (Note: if you have installed the .deb or
+.rpm package, then you will need to download and build Riak source to
+follow the directions below.)
 
 To run multiple nodes, make copies of the `riak` directory.
 
