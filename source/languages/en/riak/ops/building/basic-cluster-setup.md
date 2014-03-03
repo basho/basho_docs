@@ -11,7 +11,7 @@ moved: {
 }
 ---
 
-Configuration of a Riak cluster requires instructing a node to listen on
+Configuring a Riak cluster requires instructing a node to listen on
 a non-local interface---i.e. _not_ `127.0.0.1`---and then joining nodes
 together for cluster participation.
 
@@ -19,8 +19,8 @@ Most configuration changes will be applied to the {{#2.0.0-}}`[[app.config|Confi
 
 The commands below presume that you are running from a source install,
 but if you have installed Riak with a binary install, you can substitute
-the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak-admin`
-with `sudo /usr/sbin/riak-admin`.
+the usage of `bin/riak` with `sudo /usr/sbin/riak`, `bin/riak-admin`
+with `sudo /usr/sbin/riak-admin`, and so on.
 
 {{#2.0.0-}}
 <div class="info">
