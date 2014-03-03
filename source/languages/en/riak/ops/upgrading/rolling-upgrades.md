@@ -12,43 +12,37 @@ moved: {
 ---
 
 
-<div class="note"><div class="title">Note on upgrading Riak from Older Versions</div>
-<p>Riak upgrades are tested and supported for two feature release versions.  For example, upgrades from 1.1.x to 1.3.x are tested and supported, while upgrades from 1.1.x to 1.4.x are not.  When upgrading to a new version of Riak that is more than two feature releases ahead, we recommend first upgrading to an intermediate version.  For example, in an upgrade from 1.1.x to 1.4.x, we recommend upgrading from 1.1.x to 1.3.x before upgrading to 1.4.x.</p>
-<p>If you run riak_control you should disable it during rolling upgrade process.</p>
+<div class="note">
+<div class="title">Note on upgrading Riak from Older Versions</div>
+Riak upgrades are tested and supported for two feature release versions. For example, upgrades from 1.1.x to 1.3.x are tested and supported, while upgrades from 1.1.x to 1.4.x are not.  When upgrading to a new version of Riak that is more than two feature releases ahead, we recommend first upgrading to an intermediate version.  For example, in an upgrade from 1.1.x to 1.4.x, we recommend upgrading from 1.1.x to 1.3.x before upgrading to 1.4.x.
+
+If you run riak_control you should disable it during rolling upgrade process.
 </div>
 
-
-Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
+Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
 
 In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak.
 
 {{#1.1.0-}}
 
-<div class="note"><div class="title">Note on upgrading to Riak 1.0</div>
-<p>Rolling upgrades should work when moving from Riak 0.13 or later to Riak 1.0
-following the OS specific instructions below, but there are a few considerations
-to keep in mind when doing so. Riak 1.0 has new features that add additional
-steps to the rolling upgrade procedure, specifically Riak Pipe, the new data
-processing library backing MapReduce, and the updated backend API supporting
-asynchronous keylisting. If these features are not explicitly enabled after
-upgrading, the legacy variant of the feature will be used instead. These
-features can only be enabled once *all* nodes in the cluster have been upgraded
-to 1.0.</p>
+<div class="note">
+<div class="title">Note on upgrading to Riak 1.0</div>
+Rolling upgrades should work when moving from Riak 0.13 or later to Riak 1.0
+following the OS specific instructions below, but there are a few considerations to keep in mind when doing so. Riak 1.0 has new features that add additional steps to the rolling upgrade procedure, specifically Riak Pipe, the new data processing library backing MapReduce, and the updated backend API supporting asynchronous keylisting. If these features are not explicitly enabled after upgrading, the legacy variant of the feature will be used instead. These features can only be enabled once <em>all</em> nodes in the cluster have been upgraded to 1.0.
 
-<p>Before starting an upgrade to 1.0 issue the following command on each
+Before starting an upgrade to 1.0 issue the following command on each
 pre-1.0.0 node in the cluster to make the transfers command report correctly.
-Use `riak attach`if you are not already on the riak console.</p>
+Use `riak attach`if you are not already on the riak console.
 
 ```erlang
-> riak_core_node_watcher:service_up(riak_pipe, self()).
+riak_core_node_watcher:service_up(riak_pipe, self()).
 ```
 
-<p>If you forget (or any of the pre-1.0.0 nodes are restarted) it is safe to
-re-issue the command.</p>
+If you forget (or any of the pre-1.0.0 nodes are restarted) it is safe to
+re-issue the command.
 
-<p>After upgrading to 1.0, make sure to follow steps 9 and 10 of the applicable
-platform specific
-instructions.</p>
+After upgrading to 1.0, make sure to follow steps 9 and 10 of the applicable
+platform-specific instructions.
 </div>
 
 {{/1.1.0-}}
@@ -86,22 +80,21 @@ riak start
 ```
 
 
-5\. Verify Riak is running the new version
+5\. Verify that Riak is running the new version
 
 ```bash
 riak-admin status
 ```
 
 
-6\. Wait for the riak_kv service to start
+6\. Wait for the `riak_kv` service to start
 
 ```bash
 riak-admin wait-for-service riak_kv <target_node>
 ```
 
 
-* &lt;target_node&gt; is the node which you have just upgraded (e.g.
-riak@192.168.1.11)
+* `<target_node>` is the node which you have just upgraded (e.g. `riak@192.168.1.11`)
 
 7\. Wait for any hinted handoff transfers to complete
 
@@ -109,26 +102,23 @@ riak@192.168.1.11)
 riak-admin transfers
 ```
 
-
 * While the node was offline other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
 {{#1.3.1+}}
-<div class="info"><div class="title">Note for Secondary Index users</div>
+<div class="info">
+<div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
-Riak version 1.3.1, you need to reformat the indexes using the 
-[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]] command. More details about reformatting indexes are available
- in the
-[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+Riak version 1.3.1, you need to reformat the indexes using the <tt>[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]]</tt> command. More details about reformatting indexes are available in the [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
 {{/1.3.1+}}
 
 {{#1.1.0-}}
 
-<div class="note">Only perform the following two steps if you are upgrading to
-Riak 1.0 from an earlier release.
+<div class="note">
+Only perform the following two steps if you are upgrading to Riak 1.0 from an earlier release.
 </div>
 
 9\. Once all nodes have been upgraded, make the following additions to the
@@ -272,8 +262,6 @@ with the Solaris/OpenSolaris packages provided by Basho.
 ```bash
 riak stop
 ```
-
-
 
 <div class="note">If you are using the service management facility (SMF) to
 manage Riak you will have to stop Riak via "svcadm" instead of using "riak

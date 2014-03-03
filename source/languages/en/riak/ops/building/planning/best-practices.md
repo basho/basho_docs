@@ -13,15 +13,14 @@ moved: {
 
 ## Disk Capacity
 
-Filling up disks is bad, in general you should look to add capacity immediately when either:
+Filling up disks is bad. In general, you should look to add capacity immediately when either
 
- - The disk becomes greater than 80% full.
- - You have less than 10 days capacity remaining at current rates of growth.
-
+- the disk becomes greater than 80% full, or
+- you have less than 10 days capacity remaining at current rates of growth.
 
 ## RAID Levels
 
-Riak provides resilience through its built in redundancy.
+Riak provides resilience through its built-in redundancy.
 
  - RAID0 can be used to increase the performance at the expense of single node reliability.
  - RAID5/6 can be used to increase the reliability over RAID0 but still higher performance than single disks.

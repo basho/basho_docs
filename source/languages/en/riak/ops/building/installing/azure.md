@@ -13,7 +13,7 @@ moved: {
 }
 ---
 
-Steps to install Riak on Centos VMs using the Windows Azure platform.
+Steps to install Riak on CentOS VMs using the Windows Azure platform.
 
 ## Creating CentOS VMs
 
@@ -25,7 +25,7 @@ You will need to sign up for the Windows Azure Virtual Machines preview feature 
 
     ![](/images/antares-iaas-preview-01.png)
 
-3. Scroll down to Virtual Machines & Virtual Networks and click "try it now".
+3. Scroll down to Virtual Machines & Virtual Networks and click **try it now**.
 
     ![](/images/antares-iaas-preview-02.png)
 

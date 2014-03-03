@@ -18,7 +18,7 @@ Use `[[riak-admin member-status|riak-admin Command Line#member-status]]` to dete
 
 ## Ring size
 
-The ring size, in Riak parlance, is the number of data partitions which comprise the cluster. This quantity impacts the scalability and performance of a cluster, and importantly, **it must be established before the cluster starts receiving data**.
+The ring size, in Riak parlance, is the number of data partitions which comprise the cluster. This quantity impacts the scalability and performance of a cluster, and, importantly, **it must be established before the cluster starts receiving data**.
 
 If the ring size is too large for the number of servers, disk I/O will be negatively impacted by the excessive number of concurrent databases running on each server.
 
@@ -35,7 +35,7 @@ If you have a cluster in use and need to preserve its data while resizing the ri
 ### Cluster joined, but no data needs to be preserved
 
 1. Uncomment the `ring_creation_size` parameter (by removing the `%` that precedes it) in the `riak_core` section in `app.config` on each node and set the appropriate quantity {{2.0.0-}}
-1. Uncomment the `ring_size` parameter (by removing the `##` that precedes it) in `riak.conf` on each node and set it to the appropriate quantity, e.g. `ring_size = 32` (the default is 64) {{2.0.0+}}
+1. Uncomment the `ring_size` parameter (by removing the `##` that precedes it) in `riak.conf` on each node and set it to the appropriate quantity (the default is 64), e.g. `ring_size = 32` {{2.0.0+}}
 2. Stop all nodes
 3. Remove the ring data file on each node (see [[Backing up Riak]] for the location of this file)
 4. Start all nodes
@@ -54,7 +54,7 @@ If you have a cluster in use and need to preserve its data while resizing the ri
 The `riak-admin` command can verify the ring size:
 
 ```bash
-riak-admin status | egrep ring
+sudo riak-admin status | egrep ring
 ```
 
 That will output something like the following:

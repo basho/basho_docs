@@ -94,6 +94,7 @@ tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
 Consult the [[Bitcask]] documentation to learn more about this backend.
 
 ## LevelDB Backups
+
 Currently, LevelDB data and log backups require that the node
 *not be running* when the backup is performed. This can present the challenge
 of coordinating node shutdown and startup with the backup process, but
@@ -141,8 +142,8 @@ configuration files from the backup, and **before starting the node**,
 execute the `riak-admin reip` command for each node whose name has changed.
 
 For example, if there are 5 nodes in the cluster with the original node
-names: *riak1.example.com* through *riak5.example.com* and their names are
-changing to *riak101.example.com* through *riak105.example.com* then run the
+names `riak1.example.com` through `riak5.example.com` and their names are
+changing to `riak101.example.com` through `riak105.example.com`, run the
 following `riak-admin reip` commands **on each stopped node**:
 
 ```bash
@@ -171,46 +172,47 @@ restored to that node), then you will need to additionally:
 5. Finally, commit the cluster changes with
 `riak-admin cluster commit`
 
-<div class="info">For more information about the `riak-admin cluster` commands,
-refer to the [[cluster section of "Command Line Tools - riak-admin"|riak-admin Command Line#cluster]].</div>
+<div class="info">For more information about the <tt>riak-admin cluster</tt> commands, refer to the [[cluster section of "Command Line Tools - riak-admin"|riak-admin Command Line#cluster]].</div>
 
 For example, if there are five nodes in the cluster with the original node
-names *riak1.example.com* through *riak5.example.com* and you wish to restore
-*riak1.example.com* as *riak6.example.com*, you would execute the following
-commands on *riak6.example.com*:
-
+names `riak1.example.com` through `riak5.example.com` and you wish to restore
+`riak1.example.com` as `riak6.example.com`, you would execute the following
+commands on `riak6.example.com`:
 
 ```bash
 # Join to any existing, cluster node
 riak-admin cluster join riak@riak2.example.com
+
 # Mark the old instance down
 riak-admin down riak@riak1.example.com
+
 # Force-replace the original instance with the new one
 riak-admin cluster force-replace riak@riak1.example.com riak@riak6.example.com
+
 # Display and review the cluster change plan
 riak-admin cluster plan
+
 # Commit the changes to the cluster.
 riak-admin cluster commit
 ```
 {{/1.2.0+}}
 
-The *-name* setting in the `vm.args` configuration file should also be changed
+{{#2.0.0-}}
+The `-name` setting in the `vm.args` configuration file should also be changed
 to match the new name in addition to running the commands. If the IP address of
-any node has changed, verify that the changes are reflected in the *app.config*
-file to ensure that the HTTP and PB interfaces are binding to the correct
+any node has changed, verify that the changes are reflected in the `app.config`
+file to ensure that the HTTP and PBC interfaces are binding to the correct
 addresses.
+{{/2.0.0-}}
+{{#2.0.0+}}
+The `nodename` setting in the `[[riak.conf|Configuration Files]]` configuration file should be changed to match the new name in addition to running the commands. If the IP address of any node has changed, verify that the changes are reflected in the `riak.conf` file to ensure that the HTTP and PBC interfaces are binding to the correct addresses.
+{{/2.0.0+}}
 
 A robust DNS configuration can simplify the restore process if the IP addresses
 of the nodes change, but the hostnames are used for the node names and the
-hostnames stay the same. Additionally, if the HTTP and PB interface settings are
-configured to bind to all IP interfaces (0.0.0.0), then no changes will need to
-be made to the *app.config* file.
+hostnames stay the same. Additionally, if the HTTP and PB interface settings are configured to bind to all IP interfaces (`0.0.0.0`), then no changes will need to be made to the {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} file.
 
-It is recommended when performing restore operations involving
-{{#1.2.0-}}`riak-admin reip`{{/1.2.0-}}
-{{#1.2.0+}}`riak-admin cluster force-replace`{{/1.2.0+}}
-to start only one node at a time, and verify that each node that is
-started has the correct name for itself and any other nodes whose names have
+It is recommended when performing restore operations involving {{#1.2.0-}}`riak-admin reip`{{/1.2.0-}}{{#1.2.0+}}`riak-admin cluster force-replace`{{/1.2.0+}} to start only one node at a time, and verify that each node that is started has the correct name for itself and any other nodes whose names have
 changed.
 
 First, verify that the correct name is present in the vm.args configuration

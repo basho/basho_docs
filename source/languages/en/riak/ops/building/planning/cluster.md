@@ -125,9 +125,7 @@ Ring Size/Number of Partitions
 
 Ring size is the number of partitions that make up your Riak Cluster.
 This is a number that is configured before you cluster is started, and
-is set in your app.config file under the
-[[ring_creation_size|Configuration Files#app-config]]
-parameter.
+is set in your {{#2.0.0-}}`[[app.config|Configuration Files#app-config]]` file under the `ring_creation_size` parameter{{/2.0.0-}}{{#2.0.0+}}`riak.conf` file under the `ring_size` parameter{{/2.0.0+}}.
 
 The default number of partitions in a Riak cluster is 64. This works for
 smaller clusters, but if you plan to grow your cluster past 5 nodes it
@@ -135,10 +133,12 @@ is recommended you consider a larger ring size. Ring sizes must be a
 power of 2. The minimum number of partitions recommended per node is 10,
 and you can determine the number of partitions that will be allocated
 per node by dividing the number of partitions by the number of nodes.
-{{#<1.4.0}}
+
+{{#1.4.0-}}
 **At the moment, the ring size you choose will be the same for the life
 of the cluster, so taking growth into consideration is extremely
-important.**{{/<1.4.0}}
+important.**
+{{/1.4.0-}}
 
 For most moderate-sized Riak clusters (8-16 nodes) 128, 256, and 512
 partitions are excellent options that will allow you to incrementally
