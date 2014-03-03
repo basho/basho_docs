@@ -12,8 +12,7 @@ moved: {
 }
 ---
 
-This is an overview of the operations you can perform over the Protocol Buffers
-Client (PBC) interface to Riak, and can be used as a guide for developing a PBC-compliant Riak client.
+This is an overview of the operations you can perform over the [Protocol Buffers](https://code.google.com/p/protobuf/) Client (PBC) interface to Riak, and can be used as a guide for developing a PBC-compliant Riak client.
 
 ## Protocol
 
@@ -30,7 +29,7 @@ Messages are all encoded the same way:
 ### Example
 
 
-```bash
+```
 00 00 00 07 09 0A 01 62 12 01 6B
 |----Len---|MC|----Message-----|
 
@@ -44,7 +43,7 @@ key: "k"
 ```
 
 
-### Message Codes
+## Message Codes
 
 Code | Message |
 :----|:--------|
@@ -73,27 +72,27 @@ Code | Message |
 22 | `RpbSetBucketResp` |
 23 | `RpbMapRedReq` |
 24 | `RpbMapRedResp` |
-25 | `RpbIndexReq` {{#1.2.0+}} |
-26 | `RpbIndexResp` {{#1.2.0+}} |
-27 | `RpbSearchQueryReq` {{#1.2.0+}} |
-28 | `RbpSearchQueryResp` {{#1.2.0+}} |
-29 | `RpbAuthReq` {{#2.0.0+}} |
-30 | `RpbGetBucketTypeReq` {{#2.0.0+}} |
-31 | `RpbSetBucketTypeReq` {{#2.0.0+}} |
-32 | `RpbResetBucketReq` {{#2.0.0+}} |
+25 | `RpbIndexReq` {{1.2.0+}} |
+26 | `RpbIndexResp` {{1.2.0+}} |
+27 | `RpbSearchQueryReq` {{1.2.0+}} |
+28 | `RbpSearchQueryResp` {{1.2.0+}} |
+29 | `RpbAuthReq` {{2.0.0+}} |
+30 | `RpbGetBucketTypeReq` {{2.0.0+}} |
+31 | `RpbSetBucketTypeReq` {{2.0.0+}} |
+32 | `RpbResetBucketReq` {{2.0.0+}} |
 
 <div class="info">
 <div class="title">Message Definitions</div>
-All Protocol Buffers messages can be found defined in the [[riak.proto|https://github.com/basho/riak_pb/blob/master/src/riak.proto]] and other .proto files in the RiakPB project.
+All Protocol Buffers messages can be found defined in the <tt>riak.proto</tt> and other <tt>.proto</tt> files in the <tt>/src</tt> directory of the <a href="https://github.com/basho/riak_pb">RiakPB</a> project.
 </div>
 
 ### Error Response
 
-If the server experiences an error processing a request it will return an
-RpbErrorResp message instead of the response expected for the given request
-(e.g. RbpGetResp is the expected response to RbpGetReq).  Error messages contain an error string and an error code.
+If the server experiences an error processing a request, it will return an
+`RpbErrorResp` message instead of the response expected for the given request
+(e.g. `RbpGetResp` is the expected response to `RbpGetReq`).  Error messages contain an error string and an error code, like this:
 
-```bash
+```protobuf
 message RpbErrorResp {
     required bytes errmsg = 1;
     required uint32 errcode = 2;
@@ -104,6 +103,10 @@ Values:
 
 * `errmsg` --- a string representation of what went wrong
 * `errcode` --- a numeric code. Currently only `RIAKC_ERR_GENERAL=1` is defined.
+
+## Protocol Buffers Security
+
+![Protocol Buffers security diagram](http://hijacked.us/~andrew/protobuffs_security4.png)
 
 ## Bucket Operations
 
@@ -138,7 +141,7 @@ Values:
 * [[PBC Get Bucket Type]]
 * [[PBC Set Bucket Type]]
 
-## Datatype Operations
+## Data Type Operations
 
 * [[PBC Datatype Fetch]]
 * [[PBC Datatype Union]]
