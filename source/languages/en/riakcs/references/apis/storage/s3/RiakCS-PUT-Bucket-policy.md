@@ -60,7 +60,7 @@ The Statement element is the main element for a policy. This element is required
 
 **Action** : The Action element describes the type of access that should be allowed or denied.  
 
-Supported actions are: `s3:GetObject`, `s3:GetObjectAcl`, `s3:PutObject`, `s3:PutObjectAcl`, `s3:DeleteObject`, `s3:ListMultipartUploadParts`, `s3:AbortMultipartUpload`.
+Supported actions are: `s3:GetObject`, `s3:GetObjectAcl`, `s3:PutObject` , `s3:PutObjectAcl`, `s3:DeleteObject`, `s3:ListMultipartUploadParts`, `s3:AbortMultipartUpload`, `s3:CreateBucket`, `s3:DeleteBucket`, `s3:ListBucket`, `s3:ListAllMyBuckets`, `s3:GetBucketAcl`, `s3:PutBucketAcl`, `s3:GetBucketPolicy`, `s3:DeleteBucketPolicy`, `s3:PutBucketPolicy`, `s3:ListBucketMultipartUploads` .
 
 **Resource** : The Resource element specifies the object or objects that the statement covers.  Currently, Riak only supports buckets as resources, specified as: `"arn:aws:s3:::<BUCKET_NAME>/*"`.
 
