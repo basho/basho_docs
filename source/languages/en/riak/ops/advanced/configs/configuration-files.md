@@ -376,43 +376,43 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>search</tt></td>
-<td>To enable Search set this to 'on'.</td>
+<td>To enable Search, set this to <tt>on</tt>.</td>
 <td><tt>off</tt></td>
 </tr>
 
 <tr>
 <td><tt>search.root_dir</tt></td>
-<td>The root directory for Search, under which index data and configuration is stored.</td>
+<td>The root directory for Riak Search, under which index data and configuration is stored.</td>
 <td><tt>./data/yz</tt></td>
 </tr>
 
 <tr>
 <td><tt>search.anti_entropy.data_dir</tt></td>
-<td>The directory where Search's Active Anti-Entropy data files are stored</td>
+<td>The directory in which Search's Active Anti-Entropy data files are stored</td>
 <td><tt>./data/yz_anti_entropy</tt></td>
 </tr>
 
 <tr>
 <td><tt>search.solr.jvm_options</tt></td>
-<td>The options to pass to the Solr JVM.  Non-standard options, i.e. -XX, may not be portable across JVM implementations. E.g. -XX:+UseCompressedStrings.</td>
+<td>The options to pass to the Solr JVM. Non-standard options, i.e. <tt>-XX</tt>, may not be portable across JVM implementations. Example: <tt>XX:+UseCompressedStrings</tt></td>
 <td><tt>-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops</tt></td>
 </tr>
 
 <tr>
 <td><tt>search.solr.jmx_port</tt></td>
-<td>The port number which Solr JMX binds to. NOTE: Binds on every interface.</td>
+<td>The port to which Solr JMX binds. <strong>Note</strong>: Binds on every interface.</td>
 <td><tt>8985</tt></td>
 </tr>
 
 <tr>
 <td><tt>search.solr.port</tt></td>
-<td>The port number which Solr binds to. NOTE: Binds on every interface.</td>
+<td>The port to which Solr binds. <strong>Note</strong>: Binds on every interface.</td>
 <td><tt>8093</tt></td>
 </tr>
 
 <tr>
 <td><tt>search.solr.start_timeout</tt></td>
-<td>How long Riak will wait for Solr to start. The start sequence will be tried twice. If both attempts timeout, then the Riak node will be shutdown. This may need to be increased as more data is indexed and Solr takes longer to start. Values lower than 1s will be rounded up to the minimum 1s.</td>
+<td>How long Riak will wait for Solr to start. The start sequence will be tried twice. If both attempts time out, the Riak node will be shutdown. This may need to be increased as more data is indexed and Solr takes longer to start. Values lower than <tt>1s</tt> will be rounded up to the minimum <tt>1s</tt>.</td>
 <td><tt>30s</tt></td>
 </tr>
 
