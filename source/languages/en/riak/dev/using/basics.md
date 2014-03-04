@@ -148,8 +148,10 @@ obj.store()
 ```java
 Bucket testBucket = client.fetchBucket("test_bucket").execute();
 String key = "test_key";
-String text = "some text";
-testBucket.store(key, text).execute();
+String data = "some text";
+byte[] vClock = javax.xml.bind.DatatypeConverter.parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
+IRiakObject obj = RiakObjectBuilder.newBuilder(testBucket.getName(), key).withValue(data).withVClock(vClock).build();
+testBucket.store(key, obj).execute();
 ```
 
 Other request headers are optional for writes:
@@ -232,7 +234,9 @@ obj.store()
 ```java
 Bucket testBucket = client.fetchBucket("test").execute();
 String key = "doc";
-String rawJsonData = '{"bar":"baz"}';
+String rawJsonData = "{\"bar\":\"baz\"}";
+byte[] vClock = javax.xml.bind.DatatypeConverter.parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
+IRiakObject obj = RiakObjectBuilder.newBuilder(testBucket.getName(), key).withValue(rawJsonData).withVClock(vClock).build();
 testBucket.store(key, rawJsonData).execute();
 ```
 
@@ -289,13 +293,19 @@ obj.key
 # 'MCGbrINPY0Z0V4oTm7xeTlDnUr4'
 ```
 
+```java
+Bucket testBucket = client.fetchBucket("test").execute();
+String data = "this is a test";
+testBucket.store(null, data).returnBody().execute();
+```
+
 In the output, the `Location` header will give the you key for that object. To view the newly created object, go to `http://localhost:8098/*_Location_*` in your browser.
 
-If you've done it correctly, you should see the value (which is "this is a test").
+If you've done it correctly, you should see the value (which is `this is a test`).
 
 ### Delete an Object
 
-The delete command, as you can probably guess, follows a predictable pattern and looks like this:
+The delete command follows a predictable pattern and looks like this:
 
 {{#2.0.0-}}
 
@@ -328,6 +338,12 @@ bucket.delete 'test2'
 ```python
 bucket = client.bucket('test')
 bucket.delete('test2')
+```
+
+```java
+Bucket testBucket = client.fetchBucket("test").execute();
+String key = "test2";
+testBucket.delete(key);
 ```
 
 ## Bucket Properties and Operations
@@ -380,6 +396,10 @@ bucket = client.bucket('test')
 bucket.n_val = 5
 ```
 
+```java
+Bucket testBucket = client.createBucket("test").nVal(5);
+```
+
 ### `GET` Buckets
 
 Here is how you use the [[HTTP API]] to retrieve (or `GET`) the bucket properties and/or keys:
@@ -407,6 +427,20 @@ bucket.properties
 ```python
 bucket = client.bucket('test')
 bucket.get_properties()
+```
+
+```java
+Bucket testBucket = client.fetchBucket("test").execute();
+
+/*
+The Java client does not allow you to fetch all bucket properties at once.
+Instead, you can fetch them one at a time, as below:
+*/
+testBucket.getNVal();
+testBucket.getPR();
+testBucket.getLastWriteWins();
+
+// and so on
 ```
 
 You can also view this bucket information through any browser by going to `http://localhost:8098/buckets/test/props`
