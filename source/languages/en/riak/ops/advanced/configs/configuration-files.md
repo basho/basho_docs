@@ -576,21 +576,9 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.delete_threshold<tt></td>
-<td></td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.compaction.trigger.tombstone_count<tt></td>
 <td>Controls when a background compaction initiates solely due to the number of delete tombstones within an individual .sst table file.  Value of 'off' disables the feature.</td>
 <td><tt>1000</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.leveldb.fadvise_willneed<tt></td>
-<td></td>
-<td><tt>false</tt></td>
 </tr>
 
 <tr>
@@ -600,32 +588,14 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.threads<tt></td>
-<td></td>
-<td><tt>71</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.threads<tt></td>
 <td>The number of worker threads performing LevelDB operations.</td>
 <td><tt>71</tt></td>
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.verify_compaction<tt></td>
-<td></td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.verify_compaction<tt></td>
 <td>Enables or disables the verification of LevelDB data during compaction.</td>
-<td><tt>on</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.leveldb.verify_checksums<tt></td>
-<td></td>
 <td><tt>on</tt></td>
 </tr>
 
@@ -636,20 +606,8 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.block.size_steps<tt></td>
-<td></td>
-<td><tt>16</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.block.size_steps<tt></td>
 <td>Defines the number of incremental adjustments to attempt between the block.size value and the maximum block.size for an .sst table file.  Value of zero disables the underlying dynamic block_size feature.</td>
-<td><tt>16</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.leveldb.block.restart_interval<tt></td>
-<td></td>
 <td><tt>16</tt></td>
 </tr>
 
@@ -660,21 +618,9 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.block.size<tt></td>
-<td></td>
-<td><tt>4KB</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.block.size<tt></td>
 <td>Defines the size threshold for a block / chunk of data within one .sst table file. Each new block gets an index entry in the .sst table file's master index.</td>
 <td><tt>4KB</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.leveldb.bloomfilter<tt></td>
-<td></td>
-<td><tt>on</tt></td>
 </tr>
 
 <tr>
@@ -684,21 +630,9 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.write_buffer_size_max<tt></td>
-<td></td>
-<td><tt>30MB</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.write_buffer_size_max<tt></td>
 <td></td>
 <td><tt>60MB</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.leveldb.write_buffer_size_min<tt></td>
-<td></td>
-<td><tt>15MB</tt></td>
 </tr>
 
 <tr>
@@ -708,20 +642,8 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.limited_developer_mem<tt></td>
-<td></td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.limited_developer_mem<tt></td>
 <td>limited_developer_mem is a Riak specific option that is used when a developer is testing a high number of vnodes and/or several VMs on a machine with limited physical memory.  Do NOT use this option if making performance measurements.  This option overwrites values given to write_buffer_size_min and write_buffer_size_max.</td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.leveldb.sync_on_write<tt></td>
-<td></td>
 <td><tt>off</tt></td>
 </tr>
 
@@ -732,33 +654,15 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.maximum_memory<tt></td>
-<td></td>
-<td><tt>512MB</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.maximum_memory<tt></td>
 <td>This parameter defines the number of bytes of server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as percentage of total server memory via leveldb.maximum_memory.percent.</td>
 <td><tt></tt></td>
 </tr>
 
 <tr>
-<td><tt>multi_backend.$name.leveldb.maximum_memory.percent<tt></td>
-<td></td>
-<td><tt>45</tt></td>
-</tr>
-
-<tr>
 <td><tt>leveldb.maximum_memory.percent<tt></td>
 <td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size.  The memory size can alternately be assigned as a byte count via leveldb.maximum_memory instead.</td>
 <td><tt>80</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.leveldb.data_root<tt></td>
-<td></td>
-<td><tt></tt></td>
 </tr>
 
 </tbody>
@@ -780,120 +684,6 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>bitcask.data_root<tt></td>
 <td>A path under which bitcask data files will be stored.</td>
 <td><tt>./data/bitcask</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.io_mode<tt></td>
-<td></td>
-<td><tt>erlang</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.expiry.grace_time<tt></td>
-<td></td>
-<td><tt>0</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.hintfile_checksums<tt></td>
-<td></td>
-<td><tt>strict</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.expiry<tt></td>
-<td></td>
-<td><tt>off</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.fold.max_puts<tt></td>
-<td></td>
-<td><tt>0</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.fold.max_age<tt></td>
-<td></td>
-<td><tt>unlimited</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.thresholds.small_file<tt></td>
-<td></td>
-<td><tt>10MB</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.thresholds.dead_bytes<tt></td>
-<td></td>
-<td><tt>128MB</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.thresholds.fragmentation<tt></td>
-<td></td>
-<td><tt>40</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.merge.triggers.dead_bytes<tt></td>
-<td></td>
-<td><tt>512MB</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.merge.triggers.fragmentation<tt></td>
-<td></td>
-<td><tt>60</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.merge.window.end<tt></td>
-<td></td>
-<td><tt>23</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.merge.window.start<tt></td>
-<td></td>
-<td><tt>0</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.merge.policy<tt></td>
-<td></td>
-<td><tt>always</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.max_file_size<tt></td>
-<td></td>
-<td><tt>2GB</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.sync.interval<tt></td>
-<td></td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.sync.strategy<tt></td>
-<td></td>
-<td><tt>none</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.open_timeout<tt></td>
-<td></td>
-<td><tt>4s</tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.bitcask.data_root<tt></td>
-<td></td>
-<td><tt></tt></td>
 </tr>
 
 <tr>
@@ -1020,20 +810,8 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tbody>
 
 <tr>
-<td><tt>multi_backend.$name.memory_backend.ttl<tt></td>
-<td></td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
 <td><tt>memory_backend.ttl<tt></td>
 <td>Each value written will be written with this "time to live". Once that object's time is up, it will be deleted on the next read of its key. Minimum: 1s</td>
-<td><tt></tt></td>
-</tr>
-
-<tr>
-<td><tt>multi_backend.$name.memory_backend.max_memory_per_vnode<tt></td>
-<td></td>
 <td><tt></tt></td>
 </tr>
 
@@ -1068,6 +846,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>multi_backend.default<tt></td>
 <td>The default name of a backend when one is not specified.</td>
 <td><tt></tt></td>
+</tr>
+
+<tr>
+<td><tt>multi_backend.$name.(existing_setting)</tt></td>
+<td>If you're using multiple backends, you can configure the backends individually by prepending <tt>multi_backend.$name</tt> and then the setting you wish to set. And so if you're using multiple backends and wish to set your LevelDB <tt>data_root</tt> parameter, you would do so by setting <tt>multi_backend.leveldb.data_root</tt>. All backend-specific parameters can be set in this fashion when using multiple backends.</td>
+<td></td>
 </tr>
 
 </tbody>
