@@ -850,7 +850,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>multi_backend.$name.(existing_setting)</tt></td>
-<td>If you're using multiple backends, you can configure the backends individually by prepending <tt>multi_backend.$name</tt> and then the setting you wish to set. And so if you're using multiple backends and wish to set your LevelDB <tt>data_root</tt> parameter, you would do so by setting <tt>multi_backend.leveldb.data_root</tt>. All backend-specific parameters can be set in this fashion when using multiple backends.</td>
+<td>If you're using multiple backends, you can configure the backends individually by prepending the setting with <tt>multi_backend.$name</tt>. And so if you're using multiple backends and wish to set your LevelDB <tt>data_root</tt> parameter, for example, you would do so by setting <tt>multi_backend.leveldb.data_root</tt>. All backend-specific parameters can be set in this fashion when using multiple backends.</td>
 <td></td>
 </tr>
 
