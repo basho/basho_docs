@@ -111,10 +111,12 @@ Kicking off a MapReduce query with the same result set over HTTP would use a POS
 ```json
 {
   "inputs": {
-             "bucket":"mybucket",
-             "query":"foo OR bar"
-            },
-  "query":...
+    "bucket": "mybucket",
+    "query": "foo OR bar"
+  },
+  "query": {
+    ...
+  }
  }
 ```
 
@@ -123,11 +125,13 @@ or
 ```json
 {
   "inputs": {
-             "bucket":"mybucket",
-             "query":"foo OR bar",
-             "filter":"field2:baz"
-            },
-  "query":...
+    "bucket": "mybucket",
+    "query": "foo OR bar",
+    "filter": "field2:baz"
+  },
+  "query": {
+    ...
+  }
  }
 ```
 
@@ -140,11 +144,16 @@ The old but still functioning syntax is:
 ```json
 {
   "inputs": {
-             "module":"riak_search",
-             "function":"mapred_search",
-             "arg":["customers","first_name:john"]
-            },
-  "query":...
+    "module": "riak_search",
+    "function": "mapred_search",
+    "arg": [
+      "customers",
+      "first_name:john"
+    ]
+  },
+  "query": {
+    ...
+  }
  }
 ```
 
