@@ -16,7 +16,8 @@ Cascading Realtime Writes is enabled by default on new clusters running Riak Ent
 
 Cascading realtime requires the `{riak_repl, rtq_meta}` capability to function.
 
-<div class="note">Cascading tracking is a simple list of where an object has been written. This works well for most common configurations. Larger installations, however, may have writes cascade to clusters to which other clusters have already written.
+<div class="note">
+Cascading tracking is a simple list of where an object has been written. This works well for most common configurations. Larger installations, however, may have writes cascade to clusters to which other clusters have already written.
 </div>
 
 
