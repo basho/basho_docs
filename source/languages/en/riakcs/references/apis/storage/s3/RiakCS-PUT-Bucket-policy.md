@@ -68,6 +68,8 @@ Supported actions are: `s3:GetObject`, `s3:GetObjectAcl`, `s3:PutObject` , `s3:P
 
 Riak CS supports two keys to be used with these conditions: `aws:SecureTransport` and `aws:SourceIp`.  `aws:SecureTransport` is used with the `Bool` condition to check whether the request was sent with SSL.  Accepted values for this key are `true` and `false`.  `aws:SourceIp` is used with the `IpAddress` and `NotIpAddress` conditions, and represents the requester's IP address.  IPv4 IP addresses in CIDR notation are supported.
 
+The IP address to be compared with `IpAddress` or `NotIpAddress` is taken from source IP address of TCP connection. If Riak CS is behind a load balancer that does not preserve source IP address and bucket policies related to IP addresses, Riak CS can be configured to adopt IP address described in `X-Forwarded-For` request header which is supposed to be added by the load balancer. Turn `trust_x_forwareded_for` as `true` in `app.config` when the header can be trusted and secure. The default is false, where Riak CS uses the source IP address of TCP connection.
+
 More information on S3 Policies can be found in Amazon's [Permissions And Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/PermissionsAndPolicies.html) documentation.
 
 
