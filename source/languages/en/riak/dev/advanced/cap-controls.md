@@ -39,7 +39,7 @@ To change the `n_val` for a bucket (to something different than the default of 3
 curl -v -XPUT \
   -H "Content-Type: application/json" \
   -d '{"props":{"n_val":2}}' \
-  http://127.0.0.1:8091/buckets/another_bucket/props
+  http://127.0.0.1:8098/buckets/another_bucket/props
 ```
 
 ```ruby
@@ -50,6 +50,10 @@ bucket.props['n_val'] = 2
 ```python
 bucket = client.bucket('another_bucket')
 bucket.set_property('n_val', 2)
+```
+
+```java
+Bucket anotherBucket = client.createBucket("another_bucket").nVal(2).execute();
 ```
 
 This will change the `n_val` of the bucket `another_bucket` to two, meaning that each piece of data in that bucket will be replicated to two partitions in the cluster.
@@ -76,6 +80,11 @@ bucket.get '1.png', r: 1
 ```python
 bucket = client.bucket('images')
 bucket.get('1.png', r=1)
+```
+
+```java
+Bucket imageBucket = client.fetchBucket("images").execute();
+IRiakObject obj = imageBucket.fetch("1.png").r(1).execute();
 ```
 
 This means that Riak will return a copy of that data if at least 1 copy is present in your cluster.
@@ -107,6 +116,18 @@ story_object = RiakObject(client, bucket, 'story.txt')
 story_object.content_type = 'text/plain'
 story_object.data = open('story.txt', 'r').read()
 story_object.store(w=3)
+```
+
+```java
+Bucket docsBucket = client.fetchBucket("docs").execute();
+String key = "story.txt";
+String fileData = useSomeFunctionToConvertFileToString("story.txt");
+IRiakObject obj = RiakObjectBuilder
+        .newBuilder(docsBucket.getName(), null)
+        .withContentType("text/plain")
+        .withValue(fileData)
+        .build();
+docsBucket.store(key, obj).w(3).execute();
 ```
 
 ### Symbolic Consistency Names

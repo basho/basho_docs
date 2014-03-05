@@ -3,7 +3,6 @@ title: The Basics
 project: riak
 version: 1.0.0+
 document: tutorials
-toc: true
 audience: beginner
 keywords: [developers]
 moved: {
@@ -11,11 +10,18 @@ moved: {
 }
 ---
 
-The basic actions available in Riak are the same CRUD (**C**reate, **R**ead, **U**pdate, **D**elete) operations that you'd find in any key/value store.
+Interacting with objects in Riak typically involves the same CRUD (**C**reate, **R**ead, **U**pdate, **D**elete) operations that you'd find in any key/value store.
 
 ## Object/Key Operations
 
-Riak organizes data into {{#2.0.0+}}bucket types, {{/2.0.0+}}buckets, keys, and values. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket. {{#2.0.0+}}Bucket types are full sets of bucket properties Buckets are essentially a flat namespace in Riak and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
+Riak organizes data into bucket types, buckets, keys, and values{{#2.0.0+}}, with [[bucket types|Using Bucket Types]] acting as an additional namespace in versions 2.0 and greater{{/2.0.0+}}. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.{{#2.0.0+}} The [[properties|Buckets]] of each bucket are determined by its bucket type.{{/2.0.0+}}
+
+Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like. They have little intrinsic significant beyond allowing you to store objects with the same key in different places.
+
+
+and have little significance beyond their ability to allow the same key name to exist in multiple buckets and to allow 
+
+provide some per-bucket configurability for things like replication factor and pre/post-commit hooks.
 
 Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
 
@@ -65,8 +71,8 @@ curl -v http://localhost:8098/buckets/test/keys/doc2
 ```
 
 ```ruby
-bucket = client.bucket 'test'
-bucket.get 'doc2'
+bucket = client.bucket('test')
+bucket.get('doc2')
 
 # Response
 Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found. The requested object was not found.
@@ -150,8 +156,13 @@ Bucket testBucket = client.fetchBucket("test_bucket").execute();
 String key = "test_key";
 String data = "some text";
 byte[] vClock = javax.xml.bind.DatatypeConverter.parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
-IRiakObject obj = RiakObjectBuilder.newBuilder(testBucket.getName(), key).withValue(data).withVClock(vClock).build();
+IRiakObject obj = RiakObjectBuilder
+        .newBuilder(testBucket.getName(), key).withValue(data)
+        .withVClock(vClock)
+        .build();
 testBucket.store(key, obj).execute();
+
+// In this example, the vector clock was passed to Riak
 ```
 
 Other request headers are optional for writes:
@@ -174,11 +185,11 @@ curl -XPUT \
 ```
 
 ```ruby
-bucket = client.bucket 'test_bucket'
-obj = Riak::RObject.new bucket, 'test_key'
+bucket = client.bucket('test_bucket')
+obj = Riak::RObject.new(bucket, 'test_key')
 obj.content_type = 'text/plain'
 obj.raw_data = 'some text'
-obj.store w: 3, returnbody: true
+obj.store(w: 3, returnbody: true)
 ```
 
 ```python
@@ -211,11 +222,13 @@ curl -v -XPUT http://localhost:8098/buckets/test/keys/doc?returnbody=true \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
   -H "Content-Type: application/json" \
   -d '{"bar":"baz"}'
+
+# HTTP status codes include
 ```
 
 ```ruby
-bucket = client.bucket 'test'
-obj = Riak::RObject.new bucket, 'doc'
+bucket = client.bucket('test')
+obj = Riak::RObject.new(bucket, 'doc')
 obj.content_type = 'application/json'
 obj.raw_data = '{"bar":"baz"}'
 obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
@@ -274,13 +287,13 @@ curl -v -XPOST http://localhost:8098/buckets/test/keys \
 ```
 
 ```ruby
-bucket = client.bucket 'test'
-obj = Riak::RObject.new bucket
+bucket = client.bucket('test')
+obj = Riak::RObject.new(bucket)
 obj.content_type = 'text/plain'
 obj.raw_data = 'this is a test'
 obj.store
 obj.key
-#=> "YQGpaKH9n9rdAeeCgB0FJAY7Zi7"
+#=> "YQGpaKH9n9rdAeeCgB0FJAY7Zi7" or something along those lines
 ```
 
 ```python
@@ -290,13 +303,21 @@ obj.content_type = 'text/plain'
 obj.data = 'this is a test'
 obj.store()
 obj.key
-# 'MCGbrINPY0Z0V4oTm7xeTlDnUr4'
+# 'MCGbrINPY0Z0V4oTm7xeTlDnUr4' or something along those lines
 ```
 
 ```java
 Bucket testBucket = client.fetchBucket("test").execute();
-String data = "this is a test";
-testBucket.store(null, data).returnBody().execute();
+IRiakObject objWithoutKey = RiakObjectBuilder
+        .newBuilder(testBucket.getName(), null)
+        .withContentType("text/plain")
+        .withValue("this is a test")
+        .build();
+IRiakObject objWithRandomKey = testBucket.store(null, data)
+        .withoutFetch()
+        .returnBody(true)
+        .execute();
+System.out.println(objWithRandomKey.getKey());
 ```
 
 In the output, the `Location` header will give the you key for that object. To view the newly created object, go to `http://localhost:8098/*_Location_*` in your browser.
@@ -404,7 +425,7 @@ Bucket testBucket = client.createBucket("test").nVal(5);
 
 Here is how you use the [[HTTP API]] to retrieve (or `GET`) the bucket properties and/or keys:
 
-```bash
+```
 GET /buckets/BUCKET/props
 ```
 
@@ -443,6 +464,6 @@ testBucket.getLastWriteWins();
 // and so on
 ```
 
-You can also view this bucket information through any browser by going to `http://localhost:8098/buckets/test/props`
+You can also view a bucket information's through any browser by going to `http://localhost:8098/buckets/<bucket>/props`. {{#2.0.0+}}You can see which bucket properties are associated with a specific bucket type in the browser as well, by going to `http://localhost:8098/types/<type>/props`.{{/2.0.0+}}
 
-So, that's the basics of how the [[HTTP API]] works, along with some sample code from some of the official Riak [[client libraries]]. An in-depth reading of the HTTP API page is highly recommended, as it will give you details on the headers, parameters, status, and other details that you should keep in mind, even when using a client library.
+So, that's the basics of how the most essential Riak key/value operations work, along with some sample code from a few of our official Riak [[client libraries]]. In addition to this tutorial, an in-depth reading of the HTTP API page is highly recommended, as it will give you details on the headers, parameters, status, and other details that you should keep in mind, even when using a client library.
