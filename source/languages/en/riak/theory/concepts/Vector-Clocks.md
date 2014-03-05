@@ -13,87 +13,120 @@ moved: {
 
 ## Overview
 
-With any node able to receive any request, and not all nodes needing to
-participate in each request, it is necessary to have a method for
-keeping track of which version of a value is current. This is where
-vector clocks come in.
+Because one of Riak's central goals is high availability, it was built as a multi-node system in which any node is capable of receiving requests without requiring that each node participate in each request. In a system like this, it's important to be able to keep track of which version of a value is the most current. This is where vector clocks come in.
 
-When a value is stored in Riak, it is tagged with a vector clock,
-establishing its initial version. For each update, the vector clock is
-extended in such a way that Riak can later compare two versions of the
-object and determine the following:
+When a value is stored in Riak, it is tagged with a vector clock, establishing its initial version. They are non-human-readable and look something like this:
 
- * Whether one object is a direct descendant of the other.
- * Whether the objects are direct descendants of a common parent.
- * Whether the objects are unrelated in recent heritage.
+```
+a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
+```
 
-Using this knowledge, Riak can possibly auto-repair out-of-sync data,
-or at least provide a client with an opportunity to reconcile
-divergent changesets in an application specific manner.
+For each update, the vector clock is extended in such a way that Riak can later compare two versioned replicas of the object and determine the following:
+
+ * Whether one object is a direct descendant of the other
+ * Whether the objects are direct descendants of a common parent
+ * Whether the objects are unrelated in recent heritage
+
+Using this knowledge, Riak can auto-repair out-of-sync data when feasible or at least provide a client with an opportunity to reconcile divergent changesets in an application-specific manner.
 
 ## Siblings
 
-A _sibling_ is created when Riak is unable to resolve the canonical version of
-an object being stored. These scenarios can create siblings inside of a single
-object.
+A **sibling** is created when Riak is unable to resolve the canonical version of an object being stored. These scenarios can create siblings inside of a single object, usually under one of the following conditions:
 
-1. **Concurrent writes** If two writes occur simultaneously from
-clients with the same vector clock value, Riak will not be able to
-determine the correct object to store and the object is given two
-siblings.  These writes could happen to the same node or different
-ones.
+1. **Concurrent writes** --- If two writes occur simultaneously from clients with the same vector clock value, Riak will not be able to determine the correct object to store, and the object will be given two siblings.  These writes could happen to the same node or to different nodes.
 
-2. **Stale Vector Clock** Writes from any client using a stale vector clock
-value.  This is a less likely scenario from a well behaved client that does a
-read (to get the current vector clock) before a write.  However, a situation
-may occur where a write happens from a different client in between the
-read/write cycle.  This would cause the first client to issue the write with
-an old vector clock value and a sibling would be created.  A misbehaving
-client could continually create siblings if it habitually issued writes with a
-stale vector clock.
+2. **Stale Vector Clock** --- Writes from any client using a stale vector clock
+value. This is a less likely scenario from a well-behaved client that performs a read (to get the current vector clock) before a write. A situation
+may occur, however, in which a write happens from a different client while the read/write cycle is taking place. This would cause the first client to issue the write with an old vector clock value and a sibling to be created. A misbehaving client could continually create siblings if it habitually issued writes with a stale vector clock.
 
-3. **Missing Vector Clock** Writes to an existing object without a vector
-clock.  While the least likely scenario, it can happen when manipulating an
+3. **Missing Vector Clock** --- Writes to an existing object without a vector
+clock. While the least likely scenario, it can happen when manipulating an
 object using a client like `curl` and forgetting to set the `X-Riak-Vclock`
-header.
+header or using a [[Riak client library|Client Libraries]] and failing to take advantage of vector clock-related functionality.
 
 Riak uses siblings because it is impossible to order events with respect to
-time in a distributed system, this means they must be ordered causally.  If
-`allow_mult` is true, when a conflict occurs, Riak will not resolve it for
-you.  You must select one of the siblings or replace the object yourself.
+time in a distributed system, which means that they must be ordered causally. If `allow_mult` is set to `false` {{#2.0.0-}}on a bucket{{/2.0.0-}}{{#2.0.0+}}in the [[bucket type|Using Bucket Types]] that you are using{{/2.0.0+}}, siblings and vector clocks are simply not an issue because Riak prevents siblings from being created. If, however, `allow_mult` is set to `true`, Riak will not resolve conflicts for you, and the responsibility for conflict resolution will be delegated to the application, which will have to either select one of the siblings as being more correct or to delete or replace the object.
 
-Siblings in action:
+### Siblings in Action
 
-```bash
-# create a bucket with allow_mult true (if its not already)
-$ curl -v -XPUT -H "Content-Type: application/json" -d '{"props":{"allow_mult":true}}' \
-http://127.0.0.1:8098/buckets/kitchen/props
+Let's have a more concrete look at how siblings work in Riak. First, we'll create a {{#2.0.0-}}bucket called `siblings_bucket`{{/2.0.0-}}{{#2.0.0+}}bucket type called `siblings_allowed`{{/2.0.0+}} with `allow_mult` set to `true`:
 
-# create an object we will create a sibling of
-$ curl -v -X POST -H "Content-Type: application/json" -d '{"dishes":11}' \
-http://127.0.0.1:8098/buckets/kitchen/keys/sink?returnbody=true
+{{#2.0.0-}}
 
-# the easiest way to create a sibling is update the object without
-# providing a vector clock in the headers
-$ curl -v -XPUT -H "Content-Type: application/json" -d '{"dishes":9}' \
-http://127.0.0.1:8098/buckets/kitchen/keys/sink?returnbody=true
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"allow_mult":true}}' \
+  http://localhost:8098/buckets/siblings_bucket/props
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```
+riak-admin bucket-type create siblings_allowed '{"props":{"allow_mult":true}}'
+riak-admin bucket-type activate siblings_allowed
+riak-admin bucket-type status siblings_allowed
+
+# If the type has been properly activated, the 'status' command should
+# return 'siblings_allowed is active'
+```
+{{/2.0.0+}}
+
+Now, we'll create two objects and write both of them to the same key without providing a vector clock:
+
+{{#2.0.0-}}
+
+```curl
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "ren" \
+  http://localhost:8098/buckets/siblings_bucket/keys/character
+
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "stimpy" \
+  http://localhost:8098/buckets/siblings_bucket/keys/character
+```
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```curl
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "ren" \
+  http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "stimpy" \
+  http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+```
+{{/2.0.0+}}
 
 ### V-Tags
 
-At this point you should have seen the multiple responses provided to curl.
-When requesting an object that has siblings you have two choices.  You can
-retrieve just a list of the siblings using:
+At this point, multiple objects are stored in the same key. You can retrieve a list of the siblings:
 
-```bash
-$ curl http://127.0.0.1:8098/buckets/kitchen/keys/sink
+{{#2.0.0-}}
+
+```curl
+curl http://127.0.0.1:8098/buckets/siblings_bucket/keys/sink
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
 
-You will get the response:
+```curl
+curl http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+```
+{{/2.0.0+}}
 
-    Siblings:
-    175xDv0I3UFCfGRC7K7U9z
-    6zY2mUCFPEoL834vYCDmPe
+You should get the response:
+
+```
+Siblings:
+175xDv0I3UFCfGRC7K7U9z
+6zY2mUCFPEoL834vYCDmPe
+```
 
 Your values will be slightly different but the format will be the same.
 
@@ -104,7 +137,7 @@ single sibling inside of an object.  You can access a single sibling by
 appending the `vtag` parameter to the object's url.  For example:
 
 ```curl
-$ curl http://127.0.0.1:8098/buckets/kitchen/keys/sink?vtag=175xDv0I3UFCfGRC7K7U9z
+curl http://127.0.0.1:8098/buckets/kitchen/keys/sink?vtag=175xDv0I3UFCfGRC7K7U9z
 ```
 
 will give you:
@@ -161,21 +194,22 @@ has been exceeded.
 
 
 ### Sibling Explosion
+
 Sibling explosion occurs when an object rapidly collects siblings without
-being reconciled.  This can lead to a myriad of issues.  Having an enormous
+being reconciled. This can lead to a myriad of issues. Having an enormous
 object in your node can cause reads of that object to crash the entire node.
 Other issues are increased cluster latency as the object is replicated and out
 of memory errors.
 
-
 ### Vector Clock Explosion
+
 Besides sibling explosion, the vector clock can grow extremely large when a
 significant volume of updates are performed on a single object in a small
 period of time.  While updating a single object _extremely_ frequently is not
 recommended, you can tune Riak's vector clock pruning to prevent vector clocks
 from growing too large too quickly.
 
-### How does last_write_wins affect resolution?
+### How does `last_write_wins` affect resolution?
 
 On the surface it seems like `allow_mult` set to `false` (the default)
 and `last_write_wins` set to `true` result in the same behavior, but
