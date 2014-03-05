@@ -14,11 +14,11 @@ Interacting with objects in Riak typically involves the same CRUD (**C**reate, *
 
 ## Object/Key Operations
 
-Riak organizes data into bucket types, buckets, keys, and values{{#2.0.0+}}, with [[bucket types|Using Bucket Types]] acting as an additional namespace in versions 2.0 and greater{{/2.0.0+}}. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.{{#2.0.0+}} The [[properties|Buckets]] of each bucket are determined by its bucket type.{{/2.0.0+}}
+Riak organizes data into {{#2.0.0+}}bucket types, {{/2.0.0+}}buckets, keys, and values{{#2.0.0+}}, with [[bucket types|Using Bucket Types]] acting as an additional namespace in versions 2.0 and greater{{/2.0.0+}}. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.
 
-Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like. They have no intrinsic significant beyond allowing you to store objects with the same key in different buckets. They do, however, enable you to provide common configurations to the keys and values within them, such as [[replication properties]] and [[commit hooks|Using Commit Hooks]].
+Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like. They have no intrinsic significant beyond allowing you to store objects with the same key in different buckets. They do, however, enable you to provide common configurations to the keys and values within them, such as [[replication properties]] and [[commit hooks|Using Commit Hooks]]. {{#2.0.0+}} Their [[properties|Buckets]] are determined by their bucket type.{{/2.0.0+}}
 
-Most of the interactions you'll have with Riak will be setting or retrieving the value of a key. Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
+Most of the interactions you'll have with Riak will involve setting or retrieving the value of a key. Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
 
 ### Read an Object
 
@@ -60,6 +60,11 @@ Bucket myBucket = client.fetchBucket("mybucket").execute();
 String key = "mykey";
 IRiakObject obj = myBucket.fetch(key).execute();
 ```
+
+```php
+$bucket = $client->bucket('mybucket');
+$obj = $bucket->get('mykey');
+```
 {{/2.0.0-}}
 {{#2.0.0+}}
 
@@ -94,6 +99,12 @@ Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found
 */
 ```
 
+```php
+
+TODO
+
+```
+
 If you're using HTTP to interact with Riak, as opposed to using a client, Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation, which is relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
 Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to `r=2`.
@@ -120,6 +131,12 @@ obj = bucket.get('mykey', r=3)
 Bucket myBucket = client.fetchBucket("mybucket").execute();
 String key = "mykey";
 IRiakObject obj = myBucket.fetch(key).r(3).execute();
+```
+
+```php
+$bucket = $client->bucket('mybucket');
+$bucket->setNVal(3);
+$obj = $bucket->get('mykey');
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
@@ -182,6 +199,11 @@ bucket.get('doc2')
 Bucket testBucket = client.fetchBucket("test");
 String key = "doc2";
 IRiakObject obj = testBucket.fetch(key).execute();
+```
+
+```php
+$bucket = $client->bucket('test');
+$bucket->get('doc2');
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
@@ -279,6 +301,13 @@ testBucket.store(key, obj).execute();
 
    https://github.com/basho/riak-java-client/wiki/Storing-data-in-riak
 */
+```
+
+```php
+$bucket = $client->bucket('mybucket');
+$obj = $bucket->newObject('mykey');
+$obj->setData('some text');
+
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
