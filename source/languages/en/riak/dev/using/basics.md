@@ -374,7 +374,7 @@ Normal HTTP status codes (responses will vary for Riak client libraries):
 
 If `returnbody` is set to `true`, any of the response headers expected from a read request may be present. Like a `GET` request, `300 Multiple Choices` may be returned if siblings existed or were created as part of the operation, and the response can be dealt with similarly.
 
-Let's give it a shot. Try running this in a terminal.
+Let's give it a shot:
 
 ```curl
 curl -v -XPUT http://localhost:8098/buckets/test/keys/doc?returnbody=true \
@@ -405,7 +405,8 @@ obj.store()
 Bucket testBucket = client.fetchBucket("test").execute();
 String key = "doc";
 String rawJsonData = "{\"bar\":\"baz\"}";
-byte[] vClock = javax.xml.bind.DatatypeConverter.parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
+byte[] vClock = javax.xml.bind.DatatypeConverter
+          .parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
 IRiakObject obj = RiakObjectBuilder
         .newBuilder(testBucket.getName(), key)
         .withValue(rawJsonData)
