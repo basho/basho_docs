@@ -48,7 +48,7 @@ Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps
 
 First, we need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`. More on that can be found in the [[Using Bucket Types]] tutorial.
 
-Once the bucket type is ready (we'll name the bucket type `map_bucket` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers]] port:
+Once the bucket type is ready (we'll name the bucket type `map_bucket` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers|PBC API]] port:
 
 ```ruby
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
@@ -59,9 +59,9 @@ Now, we can begin connecting our data model to a Riak map. We'll do that creatin
 ```ruby
 class User
   def initialize
-    @bucket = $client.bucket '<bucket_name>'
+    @bucket = $client.bucket('<bucket_name>')
     @key = '<key>'
-    @map = Riak::Crdt::Map.new @bucket, @key, 'map_bucket'
+    @map = Riak::Crdt::Map.new(@bucket, @key, 'map_bucket')
   end
 end
 
@@ -72,12 +72,12 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
 # If this parameter is set, you no longer need to specify a bucket type when creating maps. The rest of this tutorial will proceed assum
 ```
 
-Note that we haven't specified under which key our map will be stored. In a key/value store like Riak, choosing a key is very important. We'll keep it simple here and use a string consisting of first and last name (separate by an underscore) as the key:
+Note that we haven't specified under which key our map will be stored. In a key/value store like Riak, choosing a key is very important. We'll keep it simple here and use a string consisting of first and last name (separated by an underscore) as the key:
 
 ```ruby
 class User
-  def initialize first_name, last_name
-    @bucket = $client.bucket 'users'
+  def initialize(first_name, last_name)
+    @bucket = $client.bucket('users')
     @key = "#{first_name}_#{last_name}"
     @map = Riak::Crdt::Map.new @bucket, @key
   end
@@ -90,10 +90,10 @@ At this point, we have a Riak map associated with instantiations of our `User` t
 
 ```ruby
 class User
-  def initialize first_name, last_name
-    @bucket = $client.bucket 'users'
+  def initialize(first_name, last_name)
+    @bucket = $client.bucket('users')
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new @bucket, @key
+    @map = Riak::Crdt::Map.new(@bucket, @key)
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
   end
@@ -103,7 +103,7 @@ end
 Now, if we create a new user, that user will have a `map` instance variable attached to it, the `first_name` and `last_name` strings will be stored in Riak registers, and the key will be `Bruce_Wayne`:
 
 ```ruby
-bruce = User.new 'Bruce', 'Wayne'
+bruce = User.new('Bruce', 'Wayne')
 #=> #<User:0x007fe2965cafc8 @map=#<Riak::Crdt::Map:0x007fe2965caf78 @bucket=#<Riak::Bucket {users}>, @key"Bruce_Wayne", @bucket_type"map", @options{}, @dirtyfalse, @counters#<Riak::Crdt::TypedCollection:0x007fe296125ae0 @type=Riak::Crdt::InnerCounter, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @flags#<Riak::Crdt::TypedCollection:0x007fe2961257c0 @type=Riak::Crdt::InnerFlag, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @maps#<Riak::Crdt::TypedCollection:0x007fe296125428 @type=Riak::Crdt::InnerMap, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @registers#<Riak::Crdt::TypedCollection:0x007fe296124e60 @type=Riak::Crdt::InnerRegister, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{"last_name"=>"Wayne", "first_name"=>"Bruce"}, @sets#<Riak::Crdt::TypedCollection:0x007fe296124460 @type=Riak::Crdt::InnerSet, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @context"M\x01\x83P\x00\x00\x00\xC4x\x01\xCB`\xCAa```\xCC`\xCA\x05R\x1CG\x836r\a3\x1F\xB1Od\xC9\x02\t3e\x00!H\x82+-\xB3\xA8\xB8$>/175\x85\x81\xAF(31;>\xA5$>\xA7\xBC\xBC(5=\x03\xBB\t\xCCY\x10\xAD\xACNE\xA5\xC9\xA9y\xEC\fB%\xEE\xD1\x1F?\xB1\xC0\x8C\xE4\xCCI$\xD1D\x16\x98\x89\xE1\x89\x95y \x13y\x9B\xC0&f\x01\x00\xAF\x055\xA8"
 ```
 
@@ -111,10 +111,10 @@ So now we have our `first_name` and `last_name` variables stored in our map, but
 
 ```ruby
 class User
-  def initialize first_name, last_name, interests
-    @bucket = $client.bucket 'users'
+  def initialize(first_name, last_name, interests)
+    @bucket = $client.bucket('users')
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new @bucket, @key
+    @map = Riak::Crdt::Map.new(@bucket, @key)
     # We'll use a batch function here to avoid making more trips to Riak than we need to
     @map.batch do |m|
       m.registers['first_name'] = first_name
@@ -130,7 +130,7 @@ end
 Now when we create new users, we need to specify their interests as a list:
 
 ```ruby
-joe = User.new 'Joe', 'Armstrong', ['distributed systems', 'Erlang']
+joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 #=> #<User:0x007f9a4b81ead8 @map=#<Riak::Crdt::Map:0x007f9a4b81ea88 @bucket=#<Riak::Bucket {users}>, @key"\#{first_name}\#{last_name}", @bucket_type"map", @options{}, @dirtyfalse, @counters#<Riak::Crdt::TypedCollection:0x007f9a4b89fae8 @type=Riak::Crdt::InnerCounter, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @flags#<Riak::Crdt::TypedCollection:0x007f9a4b89f8b8 @type=Riak::Crdt::InnerFlag, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @maps#<Riak::Crdt::TypedCollection:0x007f9a4b89f688 @type=Riak::Crdt::InnerMap, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @registers#<Riak::Crdt::TypedCollection:0x007f9a4b89f4a8 @type=Riak::Crdt::InnerRegister, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{"last_name"=>"Armstrong", "first_name"=>"Joe"}, @sets#<Riak::Crdt::TypedCollection:0x007f9a4b89f0e8 @type=Riak::Crdt::InnerSet, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{"interests"=>#<Riak::Crdt::InnerSet:0x007f9a4b89ee90 @parent=#<Riak::Crdt::TypedCollection:0x007f9a4b89f0e8 ...>, @value#<Set: {"Erlang"}, @name="interests">}, @context"M\x01\x83P\x00\x00\x01Ex\x01\xCB`\xCAa```\xCC`\xCA\x05R\x1CG\x836r\a3\x1F\xB1O\xE4\xCC\x02\t3g0A$\xB8\xD22\x8B\x8AK\xE2\xF3\x12sSS\x18\xF8\x8A2\x13\xB3\xE3SJ\xE2s\xCA\xCB\x8BR\xD33\xB0\x9B\xC0\x9E\x05\xD1\xCA\xEC\x95\x9F\x9A\xC7\xCE\xF0%\xF7\xD8\xB2\x8F\x9FX`\x06rf\xE6\x95\xA4\x16\xA5\x16\x97\x14#\x99\x97_T\\\x9E_\x82\xC3<N\xA0yX\x9D\xCA\bv*\xD4\al\xAEE9\x89y\xE98\x14\x02\x8D\x808\x8A3'\x91D\xEFp@\xBD\xC3\xE9X\x94[\\R\x94\x9F\x97\x0E\xF4TF\x1D\xD8SY\x00K\x04Y\xA1"
 ```
 
@@ -138,10 +138,10 @@ Our `visits` variable will work a little bit differently, because when a new use
 
 ```ruby
 class User
-  def initialize first_name, last_name, interests
-    @bucket = $client.bucket 'users'
+  def initialize(first_name, last_name, interests)
+    @bucket = $client.bucket('users')
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new @bucket, @key
+    @map = Riak::Crdt::Map.new(@bucket, @key)
     @map.batch do |m|
       m.registers['first_name'] = first_name
       m.registers['last_name'] = last_name
@@ -169,10 +169,10 @@ Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Fla
 
 ```ruby
 class User
-  def initialize first_name, last_name, interests
-    @bucket = $client.bucket 'users'
+  def initialize(first_name, last_name, interests)
+    @bucket = $client.bucket('users')
     @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new @bucket, @key
+    @map = Riak::Crdt::Map.new(@bucket, @key)
     @map.batch do |m|
       m.registers['first_name'] = first_name
       m.registers['last_name'] = last_name
@@ -224,7 +224,7 @@ end
 Now, we can create a new user and then access that user's characteristics directly from our Riak map:
 
 ```ruby
-joe = User.new 'Joe', 'Armstrong', ['distributed systems', 'Erlang']
+joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 joe.first_name #=> "Joe"
 joe.last_name #=> "Armstrong"
 joe.interests #=> ["distributed systems", "Erlang"]
@@ -275,7 +275,7 @@ end
 Now, we can instantly convert our `User` map into a stringified JSON object and pipe it to our client-side application:
 
 ```ruby
-bruce = User.new 'Bruce', 'Wayne', ['crime fighting', 'climbing', 'wooing Rachel Dawes']
+bruce = User.new('Bruce', 'Wayne', ['crime fighting', 'climbing', 'wooing Rachel Dawes'])
 bruce.visit_page
 bruce.as_json
 #=>  "{"first_name":"Bruce","last_name":"Wayne","interests":["climbing","crime fighting","wooing Rachel Dawes"],"visits":1}"
@@ -289,26 +289,26 @@ A map can be located and later modified on the basis of the key associated with 
 
 ```ruby
 # In the Ruby client, the Riak::Crdt::Map.new function can both used to create a map where it does not exist OR modify a map that already exists
-map_to_modify = Riak::Crdt::Map.new '<bucket>' '<key>'
+map_to_modify = Riak::Crdt::Map.new('<bucket>' '<key>')
 
 # In our case, we'll be using using the 'users' bucket, as above
-bucket = $client.bucket 'users'
-map_to_modify = Riak::Crdt::Map.new bucket, '<key>'
+bucket = $client.bucket('users')
+map_to_modify = Riak::Crdt::Map.new(bucket, '<key>')
 ```
 
 On that basis, we could upgrade the plan for Bruce Wayne:
 
 ```ruby
-bucket = $client.bucket 'users'
-user_to_modify = Riak::Crdt::Map.new bucket, 'Bruce_Wayne'
+bucket = $client.bucket('users')
+user_to_modify = Riak::Crdt::Map.new(bucket, 'Bruce_Wayne')
 user_to_modify.flags['paid_account'] = true
 ```
 
 This can also be done more programmatically:
 
 ```ruby
-def upgrade_user_account bucket, user_key
-  user_map_to_modify = Riak::Crdt::Map.new bucket, user_key
+def upgrade_user_account(bucket, user_key)
+  user_map_to_modify = Riak::Crdt::Map.new(bucket, user_key)
   user_map_to_modify.flags['paid_account'] = true
 end
 ```
