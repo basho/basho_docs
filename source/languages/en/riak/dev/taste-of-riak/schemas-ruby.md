@@ -36,64 +36,76 @@ end
 
 So to use these classes to store data, we will first have to create a user. Then when a user creates a message we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline.  If it's a group message, we'll append it to the Group's timeline, as well as the User's `Sent` timeline.  
 
+#### Buckets and Keys Revisited
+
 Now that we've worked out how we will differentiate data in the system, let's figure out our bucket and key names.
 
-The bucket names are straightforward, we can use `Users`, `Msgs`, and `Timelines`.  The key names however are a little more tricky.  In past examples we've used sequential integers, but this presents a problem - we would need a secondary service to hand out these IDs. This service could easily be a future bottleneck in the system so let's use a natural key.  
+The bucket names are straightforward, we can use `Users`, `Msgs`, and `Timelines`.  The key names however are a little more tricky.  In past examples we've used sequential integers, but this presents a problem - we would need a secondary service to hand out these IDs. This service could easily be a future bottleneck in the system so let's use a natural key. Natural keys are a great fit for Key-Value systems because both humans and computers can easily construct when needed, and most of the time they can be made unique enough for a KV store.
+
+
+| Bucket    | Key Pattern                                | Example Key                         |
+|-----------|--------------------------------------------|-------------------------------------|
+| Users     | &lt;user_name&gt;                          | joeuser                             |
+| Msgs      | &lt;username&gt;_&lt;datetime&gt;          | joeuser_2014-03-06T02:05:13.223556Z |
+| Timelines | &lt;username&gt;\_&lt;type&gt;\_&lt;date&gt; | joeuser_Sent_2014-03-06Z <br> marketing_group_Inbox_2014-03-06Z |
 
 For the Users bucket, we can be certain that we will want each username to be unique, so let's use the `username` as the key.  For the Msgs bucket, lets use a combination of the username and the posting datetime in an [ISO 8601 Long](http://en.wikipedia.org/wiki/ISO_8601) Format. 
 This combination gives us the pattern `<username>_<datetime>`, for something like `joeuser_2014-03-05T23:20:28Z`.
 
-Now for Timelines, we need to differentiate between `Inbox` and `Sent` timelines, so we can simply add that type into the keyname.  We will also want to partition each collection object into some time period, that way the object doesn't grow too large (see note).
-So for Timelines, let's use the pattern `<username>_<type>_<date>` for users, and `<groupname>_inbox_<date>` for groups, which will look like `joeuser_sent_2014-03-05Z` or `engineering_group_inbox_2014-03-05Z`.
+Now for Timelines, we need to differentiate between `Inbox` and `Sent` timelines, so we can simply add that type into the keyname.  
+We will also want to partition each collection object into some time period, that way the object doesn't grow too large (see note below).<br>
+So for Timelines, let's use the pattern `<username>_<type>_<date>` for users, and `<groupname>_Inbox_<date>` for groups, which will look like `joeuser_Sent_2014-03-06Z` or <br>`marketing_group_Inbox_2014-03-05Z`.
 
 
 <div class="note">
 <div class="title">Note</div>Riak prefers objects with sizes under 1-2MB. Objects larger than that can hurt performance, especially if there are many siblings being created.  We will cover siblings, sibling resolution, and sibling explosions in the next chapter.
 </div>
-******
 
-Now that we've figured out our schema, let's write some repositories to enforce them.
+#### Keeping our story straight with Repositories
+
+Now that we've figured out our schema, let's write some repositories to help create and work with these objects in Riak.
 
 ```ruby
 class UserRepository
     BUCKET = "Users"
 
-    :attr_accessor client
+    attr_accessor :client
 
     def initialize(client)      
         @client = client
     end
 
     def save(user)
-        users = @client[BUCKET]
+        users = @client.bucket(BUCKET)
         key = user.user_name
 
-        riak_obj = users[key].exists ? users[key] : users.new(key)
+        riak_obj = users.get_or_new(key)
         riak_obj.data = user
         riak_obj.content_type = "application/json"
         riak_obj.store
     end
 
     def get(user_name)
-        riak_obj = @client[BUCKET][user_name]
-        riak_obj.data
+        riak_obj = @client.bucket(BUCKET)[user_name]
+        User.new(riak_obj.data)
     end
 end
 
 class MsgRepository
     BUCKET = "Msgs"
 
-    :attr_accessor client
+    attr_accessor :client
 
     def initialize(client)      
         @client = client
     end
 
     def save(msg)
-        msgs = @client[BUCKET]
+        msgs = @client.bucket(BUCKET)
         key = generate_key(msg)
 
-        raise "Message already exists" if msgs[key].exists
+        #raise "Message already exists" if msgs.exists?(key)
+        return msgs.get(key) if msgs.exists?(key)
         riak_obj = msgs.new(key)
         riak_obj.data = msg
         riak_obj.content_type = "application/json"
@@ -101,8 +113,8 @@ class MsgRepository
     end
 
     def get(key)
-        riak_obj = @client[BUCKET][key]
-        riak_obj.data
+        riak_obj = @client.bucket(BUCKET).get(key)
+        Msg.new(riak_obj.data)
     end
 
     def generate_key(msg)
@@ -115,8 +127,8 @@ class TimelineRepository
     SENT = "Sent"
     INBOX = "Inbox"
 
-    :attr_reader msg_repo
-    :attr_accessor client
+    attr_reader :msg_repo
+    attr_accessor :client
 
     def initialize(client)      
         @client = client
@@ -134,47 +146,95 @@ class TimelineRepository
         add_to_timeline(msg, INBOX, saved_message.key)
     end
 
+    def get_timeline(owner, type, date)
+        riak_obj = @client.bucket(BUCKET).get(generate_key(owner, type, date))
+        Timeline.new(riak_obj.data) 
+    end
+
     private
 
     def add_to_timeline(msg, type, msg_key)
+        key = generate_key_from_msg(msg, type)
+        riak_obj = nil
 
-        key = generate_key(msg, type)
-        
-        riak_obj = @client[BUCKET][msg_key].exists ? 
-                     add_to_existing_timeline(key, msg_key) : 
-                     create_new_timeline(key, msg_key)
+        if @client.bucket(BUCKET).exists?(msg_key)
+            riak_obj = add_to_existing_timeline(key, msg_key)
+        else
+            riak_obj = create_new_timeline(key, msg, type, msg_key)
+        end
             
         riak_obj.store
     end
 
-    def create_new_timeline(key, msg_key)
-            riak_obj = @client[BUCKET].new(key)
-            riak_obj.data = [msg_key]
-            riak_obj.content_type = "application/json"
+    def create_new_timeline(key, msg, type, msg_key)
+        owner = get_owner(msg, type)    
+        riak_obj = @client.bucket(BUCKET).new(key)
+        riak_obj.data = Timeline.new(owner: owner, type: type, msgs: [msg_key])
+        riak_obj.content_type = "application/json"
+        riak_obj
     end
 
     def add_to_existing_timeline(key, msg_key)
-        riak_obj = @client[BUCKET][key]
-        timeline = riak_obj.data
-        timeline << msg_key
+        riak_obj = @client.bucket(BUCKET).get(key)
+        timeline = Timeline.new(riak_obj.data)
+        timeline.msgs << msg_key
         riak_obj.data = timeline
         riak_obj
     end
 
-    def generate_key(msg, type)
-        header = type == INBOX ? msg.to : msg.from
-        header + "_" + type + msg.created.utc.strftime("%F")
+    def get_owner(msg, type)
+        type == INBOX ? msg.to : msg.from
+    end
+
+    def generate_key_from_msg(msg, type)
+        owner = get_owner(msg, type)
+        generate_key(owner, type, msg.created)
+    end
+
+    def generate_key(owner, type, date)
+        owner + "_" + type + "_" + date.utc.strftime("%FZ")
     end
 end
+```
+
+And finally let's test them.
+
+```ruby
+client = Riak::Client.new(:protocol => "pbc", :pb_port => 10017)
+userRepo = UserRepository.new(client)
+msgsRepo = MsgRepository.new(client)
+timelineRepo = TimelineRepository.new(client)
+
+marleen = User.new(user_name: "marleenmgr", full_name: "Marleen Manager", email: "marleen.manager@basho.com")
+joe = User.new(user_name: "joeuser", full_name: "Joe User", email: "joe.user@basho.com")
+
+userRepo.save(marleen)
+userRepo.save(joe)
+
+msg = Msg.new(from: marleen.user_name, to: joe.user_name, created: Time.now, text: "Welcome to the company!" )
+
+timelineRepo.post_message(msg)
+
+joes_inbox_today = timelineRepo.get_timeline(joe.user_name, "Inbox", Time.now)
+joes_first_message = msgsRepo.get(joes_inbox_today.msgs.first)
+
+puts "From: #{joes_first_message.from}\nMsg : #{joes_first_message.text}"
 
 ```
 
 As you can see, the repository pattern helps us with a few things:
+
  - It helps us to see if an object exists before creating a new one
  - It keeps our buckets and keynames consistent
- - It provides us with a consistent pattern to work with. 
+ - It provides us with a consistent interface to work with. 
+
+While this set of repositories solves many of our problems, it is very minimal and doesn't cover all the edge cases. For instance, what happens if two different people try to create a user with the same username?  
+
+We can also easily "compute" key names now, but how do we quickly look up the last 10 messages a user sent? 
+Many of these answers will be application dependent, for instance if your application shows the last 10 messages in reverse order, you may want to store that set of data in another collection object to make lookup faster. There are drawbacks to every solution, but seek out the key-value based one first, as it will likely be the quickest.
 
 So to recap, in this chapter we learned:
+
  - How to choose bucket names
  - How to choose natural keys based on how we want to partition our data.
 
