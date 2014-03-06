@@ -9,8 +9,8 @@ keywords: [developers, client, 2i, search, ruby, schema]
 ---
 
 ####Getting Started with the Models
-To get started, let's create the models we'll be using.
-Since the Ruby Riak Client uses hashes when converting to and from JSON, we will be using the library [Hashie](http://rdoc.info/github/intridea/hashie) to help automatically coerce class properties to and from hashes. You can install this library with `gem install hashie`.
+
+To get started, let's create the models that we'll be using. Since the Ruby Riak Client uses hashes when converting to and from JSON, we'll use the library [Hashie](http://rdoc.info/github/intridea/hashie) to help automatically coerce class properties to and from hashes. You can install this library with `gem install hashie`.
 
 ```ruby
 class User < Hashie::Dash
@@ -33,37 +33,36 @@ class Timeline < Hashie::Dash
 end
 ```
 
-
-So to use these classes to store data, we will first have to create a user. Then when a user creates a message we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline.  If it's a group message, we'll append it to the Group's timeline, as well as the User's `Sent` timeline.  
+To use these classes to store data, we will first have to create a user. Then, when a user creates a message, we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
 
 #### Buckets and Keys Revisited
 
 Now that we've worked out how we will differentiate data in the system, let's figure out our bucket and key names.
 
-The bucket names are straightforward, we can use `Users`, `Msgs`, and `Timelines`.  The key names however are a little more tricky.  In past examples we've used sequential integers, but this presents a problem - we would need a secondary service to hand out these IDs. This service could easily be a future bottleneck in the system so let's use a natural key. Natural keys are a great fit for Key-Value systems because both humans and computers can easily construct when needed, and most of the time they can be made unique enough for a KV store.
+The bucket names are straightforward. We can use `Users`, `Msgs`, and `Timelines`. The key names, however, are a little more tricky. In past examples we've used sequential integers, but this presents a problem: we would need a secondary service to hand out these IDs. This service could easily be a future bottleneck in the system, so let's use a natural key. Natural keys are a great fit for key/value systems because both humans and computers can easily construct them when needed, and most of the time they can be made unique enough for a KV store.
 
 
-| Bucket    | Key Pattern                                | Example Key                         |
-|-----------|--------------------------------------------|-------------------------------------|
-| Users     | &lt;user_name&gt;                          | joeuser                             |
-| Msgs      | &lt;username&gt;_&lt;datetime&gt;          | joeuser_2014-03-06T02:05:13.223556Z |
-| Timelines | &lt;username&gt;\_&lt;type&gt;\_&lt;date&gt; | joeuser_Sent_2014-03-06Z <br> marketing_group_Inbox_2014-03-06Z |
+| Bucket | Key Pattern | Example Key 
+|:-------|:------------|:-----------
+| `Users` | `<user_name>` | `joeuser`
+| `Msgs` | `<username>_<datetime>` | `joeuser_2014-03-06T02:05:13.223556Z`
+| `Timelines` | `<username>_<type>_<date>` | `joeuser_Sent_2014-03-06Z`<br /> `marketing_group_Inbox_2014-03-06Z` |
 
-For the Users bucket, we can be certain that we will want each username to be unique, so let's use the `username` as the key.  For the Msgs bucket, lets use a combination of the username and the posting datetime in an [ISO 8601 Long](http://en.wikipedia.org/wiki/ISO_8601) Format. 
-This combination gives us the pattern `<username>_<datetime>`, for something like `joeuser_2014-03-05T23:20:28Z`.
+For the `Users` bucket, we can be certain that we will want each username to be unique, so let's use the `username` as the key.  For the `Msgs` bucket, let's use a combination of the username and the posting datetime in an [ISO 8601 Long](http://en.wikipedia.org/wiki/ISO_8601) format. This combination gives us the pattern `<username>_<datetime>`, which produces keys like `joeuser_2014-03-05T23:20:28Z`.
 
-Now for Timelines, we need to differentiate between `Inbox` and `Sent` timelines, so we can simply add that type into the keyname.  
-We will also want to partition each collection object into some time period, that way the object doesn't grow too large (see note below).<br>
-So for Timelines, let's use the pattern `<username>_<type>_<date>` for users, and `<groupname>_Inbox_<date>` for groups, which will look like `joeuser_Sent_2014-03-06Z` or <br>`marketing_group_Inbox_2014-03-05Z`.
+Now for `Timelines`, we need to differentiate between `Inbox` and `Sent` timelines, so we can simply add that type into the key name. We will also want to partition each collection object into some time period, that way the object doesn't grow too large (see note below).
+
+For `Timelines`, let's use the pattern `<username>_<type>_<date>` for users, and `<groupname>_Inbox_<date>` for groups, which will look like `joeuser_Sent_2014-03-06Z` or `marketing_group_Inbox_2014-03-05Z`, respectively.
 
 
 <div class="note">
-<div class="title">Note</div>Riak prefers objects with sizes under 1-2MB. Objects larger than that can hurt performance, especially if there are many siblings being created.  We will cover siblings, sibling resolution, and sibling explosions in the next chapter.
+<div class="title">Note</div>
+Riak performs best with objects under 1-2MB. Objects larger than that can hurt performance, especially many siblings are being created. We will cover siblings, sibling resolution, and sibling explosions in the next chapter.
 </div>
 
-#### Keeping our story straight with Repositories
+#### Keeping our story straight with repositories
 
-Now that we've figured out our schema, let's write some repositories to help create and work with these objects in Riak.
+Now that we've figured out our schema, let's write some repositories to help create and work with these objects in Riak:
 
 ```ruby
 class UserRepository
@@ -197,7 +196,7 @@ class TimelineRepository
 end
 ```
 
-And finally let's test them.
+Finally, let's test them:
 
 ```ruby
 client = Riak::Client.new(:protocol => "pbc", :pb_port => 10017)
@@ -219,19 +218,17 @@ joes_inbox_today = timelineRepo.get_timeline(joe.user_name, "Inbox", Time.now)
 joes_first_message = msgsRepo.get(joes_inbox_today.msgs.first)
 
 puts "From: #{joes_first_message.from}\nMsg : #{joes_first_message.text}"
-
 ```
 
 As you can see, the repository pattern helps us with a few things:
 
  - It helps us to see if an object exists before creating a new one
- - It keeps our buckets and keynames consistent
- - It provides us with a consistent interface to work with. 
+ - It keeps our buckets and key names consistent
+ - It provides us with a consistent interface to work with.
 
 While this set of repositories solves many of our problems, it is very minimal and doesn't cover all the edge cases. For instance, what happens if two different people try to create a user with the same username?  
 
-We can also easily "compute" key names now, but how do we quickly look up the last 10 messages a user sent? 
-Many of these answers will be application dependent, for instance if your application shows the last 10 messages in reverse order, you may want to store that set of data in another collection object to make lookup faster. There are drawbacks to every solution, but seek out the key-value based one first, as it will likely be the quickest.
+We can also easily "compute" key names now, but how do we quickly look up the last 10 messages a user sent? Many of these answers will be application dependent. If your application shows the last 10 messages in reverse order, for example, you may want to store that set of data in another collection object to make lookup faster. There are drawbacks to every solution, but we recommend seeking out the key/value-based solution first, as it will likely be the quickest.
 
 So to recap, in this chapter we learned:
 
