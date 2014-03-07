@@ -11,11 +11,11 @@ moved: {
 }
 ---
 
-Key filters are a way to pre-process [[MapReduce|Using MapReduce]] inputs from a full bucket query by simply examining the key without loading the object first. This is especially useful if your keys are composed of domain-specific information that can be analyzed at query time.
+Key filters are a way to pre-process [[MapReduce|Using MapReduce]] inputs from a full bucket query by simply examining the key, without loading the object first. This is especially useful if your keys are composed of domain-specific information that can be analyzed at query time.
 
 ## Understanding Key Filters
 
-Key filters can be thought of as a series or pipeline of [[transformations|Using Key Filters#Transform-functions]] and [[predicates|Using Key Filters#Predicate-functions]] that attempt to match keys produced by the list-keys operation.  Keys that match the predicates are fed into the MapReduce query as if they had been specified manually.
+Key filters can be thought of as a series or pipeline of [[transformations|Using Key Filters#Transform-functions]] and [[predicates|Using Key Filters#Predicate-functions]] that attempt to match keys produced by the list-keys operation. Keys that match the predicates are fed into the MapReduce query as if they had been specified manually.
 
 Let's say that we're storing customer invoices with a key constructed from the customer name and the date, in a bucket called `invoices`.  Here are some sample keys:
 
@@ -40,13 +40,17 @@ Once the keys are filtered down to only the items that we care about, the normal
 
 Key filters change the structure of the "inputs" portion of the MapReduce query.
 
-When submitting a query in JSON format, this makes the inputs a JSON object containing two entries, "bucket" and "key_filters". All filters are specified as arrays, even if the filter takes no arguments. Example:
+When submitting a query in JSON format, this makes the inputs a JSON object containing two entries, `bucket` and `key_filters`. All filters are specified as arrays, even if the filter takes no arguments. Example:
 
 ```json
 {
-  "inputs":{
-     "bucket":"invoices",
-     "key_filters":[["ends_with", "0603"]]
+  "inputs": {
+     "bucket": "invoices",
+     "key_filters": [
+      [
+        "ends_with", "0603"
+      ]
+    ]
   }
   /* ...rest of mapreduce job */
 }
@@ -58,21 +62,19 @@ When submitting a query from the Erlang local or Protocol Buffers client, the in
 riakc_pb_socket:mapred(Pid, {<<"invoices">>, [[<<"ends_with">>,<<"0603">>]]}, Query).
 ```
 
-
 ## Key Filter Functions
 
-Riak Key Filter provides two kinds of function manipulators: transform and predicate.
+The Riak Key Filter feature provides two kinds of function manipulators: **transform** and **predicate**.
 
-Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [[predicate functions|Key Filters Reference#Predicate-functions]].  Each function description is followed by a sample usage in JSON notation.
+Transform key-filter functions manipulate the key so that it can be turned into a format suitable for testing by the [[predicate functions|Key Filters Reference#Predicate-functions]]. Each function description is followed by a sample usage in JSON notation.
 
 Predicate key-filter functions perform a test on their inputs and return true or false. As such, they should be specified last in a sequence of key-filters and are often preceded by [[transform functions|Key Filters Reference#Transform-functions]].
 
 A full list of keyfilter functions can be found in the [[Key Filters Reference]].
 
-
 ## Example Query Solutions
 
-Find all invoices for a given customer
+Find all invoices for a given customer:
 
 ```json
 {
@@ -87,7 +89,7 @@ Find all invoices for a given customer
 }
 ```
 
-Find all invoices from a range of dates
+Find all invoices from a range of dates:
 
 ```json
 {
@@ -102,7 +104,7 @@ Find all invoices from a range of dates
 }
 ```
 
-Find invoices from customers who have names containing the word "solutions"
+Find invoices from customers who have names containing the word "solutions:"
 
 ```json
 {
@@ -118,7 +120,7 @@ Find invoices from customers who have names containing the word "solutions"
 }
 ```
 
-Find invoices that were sent on the 3rd of June
+Find invoices that were sent on the 3rd of June:
 
 ```json
 {

@@ -124,7 +124,7 @@ bam.store()
 ### MapReduce script and deployment:
 
 ```curl
-curl -XPOST http://localhost:8098/mapred \
+curl -XPOST \
   -H 'Content-Type: application/json' \
   -d '{
     "inputs":"training",
@@ -132,7 +132,8 @@ curl -XPOST http://localhost:8098/mapred \
     "source":"function(riakObject) {
       var val = riakObject.values[0].data.match(/pizza/g);
       return [[riakObject.key, (val ? val.length : 0 )]];
-    }"}}]}'
+    }"}}]}' \
+    http://localhost:8098/mapred
 ```
 
 ### Output
