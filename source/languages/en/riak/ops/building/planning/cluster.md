@@ -119,6 +119,37 @@ in smaller clusters can compromise the fault-tolerance of the system.  Additiona
 5 nodes, a high percentage of the nodes (75-100% of them) will need to respond to each request, putting undue load on the
 cluster that may degrade performance.  For more details on this recommendation, see this [blog post](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/).
 
+Scaling
+-------
+
+Riak can be scaled in two ways, vertically (improved hardware) and
+horizontally (more nodes). Both ways can provide performance and
+capacity benefits, but should be used in different circumstances. The
+[[riak-admin cluster command|riak-admin Command Line#cluster]] can assist in scaling both directions.
+
+#### Vertical Scaling
+Vertical scaling, or improving the capabilities of a node/server, gives
+greater capacity to the node but does not decrease the overall load on
+existing members of the cluster. That is, the ability for the improved
+node to handle existing load is increased, but the load itself is
+unchanged. Reasons to scale vertically include increasing IOPS,
+increasing CPU/RAM capacity, and increasing disk capacity.
+
+#### Horizontal Scaling
+Horizontal scaling, or increasing the number of nodes in the cluster,
+reduces the responsibilities of each member node by reducing the number of partitions, and providing additional endpoints for client
+connections. That is, the capacity of each individual node does not
+change, but its load is decreased. Reasons to scale horizontally include
+increasing I/O concurrency, reducing the load on existing nodes, and
+increasing disk capacity.
+
+*Note: When scaling horizontally, it's best to add all planned nodes at once with multiple `riak-admin cluster join` commands, followed by a `riak-admin cluster plan` and `riak-admin cluster commit`.  This will help reduce the amount of data transfered between nodes in the cluster.*
+
+#### Reducing Horizontal Scale
+In the case where a Riak cluster is over-provisioned, or in response to
+seasonal usage decreases, the horizontal scale of a Riak
+cluster can be decreased as well with the `riak-admin cluster leave` command.
+
 
 Ring Size/Number of Partitions
 ------------------------------
