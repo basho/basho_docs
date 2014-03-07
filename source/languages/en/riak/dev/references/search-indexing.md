@@ -18,18 +18,18 @@ There are numerous ways to index a document in Riak Search.
 The easiest way to index documents stored on the filesystem is to use the "search-cmd" command line tool:
 
 ```bash
-bin/search-cmd index <INDEX> <PATH>
+search-cmd index <INDEX> <PATH>
 ```
 
 Parameters:
 
-* *&lt;INDEX&gt;* - The name of an index.
-* *&lt;PATH&gt;* - Relative or absolute path to the files or directories to recursively index. Wildcards are permitted.
+* `<INDEX>` --- The name of an index.
+* `<PATH>` --- Relative or absolute path to the files or directories to recursively index. Wildcards are permitted.
 
 This documents will be indexed into the default field defined by the Index's schema, using the base filename plus extension as the document ID.
 
 ```bash
-bin/search-cmd index my_index files/to/index/*.txt
+search-cmd index my_index files/to/index/*.txt
 ```
 
 ## Deleting from the Command Line
@@ -37,7 +37,7 @@ bin/search-cmd index my_index files/to/index/*.txt
 To remove previously indexed files from the command line, use the "search-cmd" command line tool.
 
 ```bash
-bin/search-cmd delete <INDEX> <PATH>
+search-cmd delete <INDEX> <PATH>
 ```
 
 Parameters:
@@ -48,7 +48,7 @@ Parameters:
 For example:
 
 ```bash
-bin/search-cmd delete my_index files/to/index/*.txt
+search-cmd delete my_index files/to/index/*.txt
 ```
 
 Any documents matching the base filename plus extension of the files found will be removed from the index. The actual contents of the files are ignored during this operation.
@@ -65,8 +65,8 @@ search:index_dir(Index, Path).
 
 Parameters:
 
-* *Index* - The name of the index.
-* *Path* - Relative or absolute path to the files or directories to recursively index. Wildcards are permitted.
+* *Index* --- The name of the index.
+* *Path* --- Relative or absolute path to the files or directories to recursively index. Wildcards are permitted.
 
 The documents will be indexed into the default field defined by the Index's schema, using the base filename plus extension as the document ID.
 
@@ -82,9 +82,9 @@ search:index_doc(Index, DocId, Fields)
 
 Parameters:
 
-* *&lt;INDEX>* - The name of the index.
-* *&lt;DocID>* - The document ID.
-* *&lt;Fields>* - A key/value list of fields to index.
+* `<INDEX>` --- The name of the index.
+* `<DocID>` --- The document ID.
+* `<Fields>` --- A key/value list of fields to index.
 
 For example:
 
@@ -158,14 +158,16 @@ Alternatively, the index can be included in the URL, for example "http://hostnam
 To add data to the system with Curl:
 
 ```curl
-$ curl -XPOST http://localhost:8098/solr/books/update \
-       -H 'content-type:text/xml' --data-binary @tests/books.xml
+curl -XPOST \
+  -H "Content-Type: text/xml" \
+  --data-binary @tests/books.xml \
+  http://localhost:8098/solr/books/update
 ```
 
 Alternatively, you can index Solr files on the command line:
 
 ```bash
-$ bin/search-cmd solr my_index path/to/solrfile.xml
+search-cmd solr my_index path/to/solrfile.xml
 ```
 
 ## Deleting using the Solr Interface

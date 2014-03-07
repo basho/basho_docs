@@ -14,7 +14,7 @@ Interacting with objects in Riak typically involves the same CRUD (**C**reate, *
 
 ## Object/Key Operations
 
-Riak organizes data into buckets, keys, {{#2.0.0+}}bucket types, {{/2.0.0+}}and values{{#2.0.0+}}, with [[bucket types|Using Bucket Types]] acting as an additional namespace in versions 2.0 and greater{{/2.0.0+}}. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.
+Riak organizes data into buckets, keys, {{#2.0.0+}}bucket types, {{/2.0.0+}}and values{{#2.0.0+}}, with [[bucket types|Using Bucket Types]] acting as an additional namespace in Riak versions 2.0 and greater{{/2.0.0+}}. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.
 
 Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like. They have no intrinsic significance beyond allowing you to store objects with the same key in different buckets. They do, however, enable you to provide common configurations to the keys and values within them, such as [[replication properties]] and [[commit hooks|Using Commit Hooks]]. {{#2.0.0+}} Their [[properties|Buckets]] are determined by their bucket type.{{/2.0.0+}}
 
@@ -44,6 +44,13 @@ Here is an example of a GET performed on the key `mykey` in the bucket `mybucket
 ```curl
 curl http://localhost:8098/buckets/mybucket/keys/mykey
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```curl
+curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
+```
+{{/2.0.0+}}
 
 ```ruby
 bucket = client.bucket('mybucket')
@@ -60,18 +67,6 @@ Bucket myBucket = client.fetchBucket("mybucket").execute();
 String key = "mykey";
 IRiakObject obj = myBucket.fetch(key).execute();
 ```
-{{/2.0.0-}}
-{{#2.0.0+}}
-
-```curl
-curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
-```
-
-```ruby
-bucket = client.bucket('mybucket')
-obj = bucket.get('mykey', bucket_type: 'mytype')
-```
-{{/2.0.0+}}
 
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
 
@@ -105,6 +100,13 @@ Here is an example of attempting a read with `r` set to `3`:
 ```curl
 curl http://localhost:8098/buckets/mybucket/keys/mykey?r=3
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```curl
+curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey?r=3
+```
+{{/2.0.0+}}
 
 ```ruby
 bucket = client.bucket('mybucket')
@@ -121,18 +123,6 @@ Bucket myBucket = client.fetchBucket("mybucket").execute();
 String key = "mykey";
 IRiakObject obj = myBucket.fetch(key).r(3).execute();
 ```
-{{/2.0.0-}}
-{{#2.0.0+}}
-
-```curl
-curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey?r=3
-```
-
-```ruby
-bucket = client.bucket('mybucket')
-obj = bucket.get('mykey', r: 3, bucket_type: 'mytype')
-```
-{{/2.0.0+}}
 
 If you're using HTTP, you will most often see the following response codes:
 
@@ -159,6 +149,16 @@ curl http://localhost:8098/buckets/test/keys/doc2
 # Response
 404 Not Found
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```curl
+curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
+
+# Response
+404 Not Found
+```
+{{/2.0.0+}}
 
 ```ruby
 bucket = client.bucket('test')
@@ -185,23 +185,6 @@ String key = "doc2";
 IRiakObject obj = testBucket.fetch(key).execute();
 ```
 {{/2.0.0-}}
-{{#2.0.0+}}
-
-```curl
-curl http://localhost:8098/types/mytype/buckets/test/keys/doc2
-
-# Response
-404 Not Found
-```
-
-```ruby
-bucket = client.bucket('test')
-bucket.get('doc2', bucket_type: 'mytype')
-
-# Response
-Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found. The requested object was not found.
-```
-{{/2.0.0+}}
 
 This operation returned some form of `not found` response because the key `doc2` does not yet exist (you haven't created it yet).
 

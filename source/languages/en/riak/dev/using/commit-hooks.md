@@ -66,7 +66,7 @@ Erlang pre-commit functions are allowed three possible return values:
 
 Errors that occur when processing Erlang pre-commit hooks will be reported in the `sasl-error.log` file with lines that start with `problem invoking hook`.
 
-##### Erlang Pre-commit Example
+#### Erlang Pre-commit Example
 
 The following pre-commit hook limits object values to 5 MB or smaller:
 
@@ -85,7 +85,7 @@ same as using `riak_object` for Erlang functions. Riak will automatically conver
 - `fail` --- The Javascript string `fail` will cause Riak to fail the write in exactly the same way as for Erlang functions.
 - `{"fail": Reason}` --- The JSON hash will have the same effect as for Erlang functions. `Reason` must be a Javascript string.
 
-*Javascript Pre-commit Example*
+#### Javascript Pre-commit Example
 
 ```javascript
 // Makes sure the object has JSON contents
@@ -103,7 +103,7 @@ function precommitMustBeJSON(object){
 
 The default value of the bucket `precommit` property is an empty list. Adding one or more pre-commit hook functions to the list, as documented above, will cause Riak to start evaluating those hook functions when bucket entries are created, updated, or deleted. Riak stops evaluating pre-commit hooks when a hook function fails the commit.
 
-##### Example
+#### Example
 
 Pre-commit hooks can be used in many ways in Riak. One such way is to validate data before it is written to Riak. Below is an example that uses Javascript to validate a JSON object before it is written to Riak:
 
