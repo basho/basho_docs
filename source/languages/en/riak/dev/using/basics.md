@@ -14,9 +14,9 @@ Interacting with objects in Riak typically involves the same CRUD (**C**reate, *
 
 ## Object/Key Operations
 
-Riak organizes data into {{#2.0.0+}}bucket types, {{/2.0.0+}}buckets, keys, and values{{#2.0.0+}}, with [[bucket types|Using Bucket Types]] acting as an additional namespace in versions 2.0 and greater{{/2.0.0+}}. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.
+Riak organizes data into buckets, keys, {{#2.0.0+}}bucket types, {{/2.0.0+}}and values{{#2.0.0+}}, with [[bucket types|Using Bucket Types]] acting as an additional namespace in versions 2.0 and greater{{/2.0.0+}}. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.
 
-Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like. They have no intrinsic significant beyond allowing you to store objects with the same key in different buckets. They do, however, enable you to provide common configurations to the keys and values within them, such as [[replication properties]] and [[commit hooks|Using Commit Hooks]]. {{#2.0.0+}} Their [[properties|Buckets]] are determined by their bucket type.{{/2.0.0+}}
+Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like. They have no intrinsic significance beyond allowing you to store objects with the same key in different buckets. They do, however, enable you to provide common configurations to the keys and values within them, such as [[replication properties]] and [[commit hooks|Using Commit Hooks]]. {{#2.0.0+}} Their [[properties|Buckets]] are determined by their bucket type.{{/2.0.0+}}
 
 Most of the interactions you'll have with Riak will involve setting or retrieving the value of a key. Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
 
@@ -60,11 +60,6 @@ Bucket myBucket = client.fetchBucket("mybucket").execute();
 String key = "mykey";
 IRiakObject obj = myBucket.fetch(key).execute();
 ```
-
-```php
-$bucket = $client->bucket('mybucket');
-$obj = $bucket->get('mykey');
-```
 {{/2.0.0-}}
 {{#2.0.0+}}
 
@@ -99,12 +94,6 @@ Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found
 */
 ```
 
-```php
-
-TODO
-
-```
-
 If you're using HTTP to interact with Riak, as opposed to using a client, Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation, which is relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
 Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to `r=2`.
@@ -131,12 +120,6 @@ obj = bucket.get('mykey', r=3)
 Bucket myBucket = client.fetchBucket("mybucket").execute();
 String key = "mykey";
 IRiakObject obj = myBucket.fetch(key).r(3).execute();
-```
-
-```php
-$bucket = $client->bucket('mybucket');
-$bucket->setNVal(3);
-$obj = $bucket->get('mykey');
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
@@ -166,11 +149,12 @@ The most common error code:
 If you're using a Riak client instead of HTTP, these responses will vary a great deal, so make sure to check the documentation for your specific client.
 </div>
 
-With that in mind, try this command. This will attempt to read the key `doc2` from the bucket `test`{{#2.0.0+}}, which bears the type `mytype`{{/2.0.0+}}:
+With that in mind, try the following operation, which will attempt to read the key `doc2` from the bucket `test`{{#2.0.0+}}, which bears the type `mytype`{{/2.0.0+}}:
 
 {{#2.0.0-}}
+
 ```curl
-curl -v http://localhost:8098/buckets/test/keys/doc2
+curl http://localhost:8098/buckets/test/keys/doc2
 
 # Response
 404 Not Found
@@ -200,16 +184,11 @@ Bucket testBucket = client.fetchBucket("test");
 String key = "doc2";
 IRiakObject obj = testBucket.fetch(key).execute();
 ```
-
-```php
-$bucket = $client->bucket('test');
-$bucket->get('doc2');
-```
 {{/2.0.0-}}
 {{#2.0.0+}}
 
 ```curl
-curl -v http://localhost:8098/types/mytype/buckets/test/keys/doc2
+curl http://localhost:8098/types/mytype/buckets/test/keys/doc2
 
 # Response
 404 Not Found
@@ -224,7 +203,7 @@ Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found
 ```
 {{/2.0.0+}}
 
-This should return some form of `not found` response, as the key `doc2` does not exist (because you haven't created it yet).
+This operation returned some form of `not found` response because the key `doc2` does not yet exist (you haven't created it yet).
 
 ### Store an Object
 
@@ -247,7 +226,7 @@ PUT /types/TYPE/buckets/BUCKET/keys/KEY
 If you're using HTTP, <tt>POST</tt> is also a valid method, for compatibility's sake.
 </div>
 
-There is no need to intentionally create buckets in Riak. They pop into existence when keys are added to them, and disappear when all keys have been removed from them.
+There is no need to intentionally create buckets in Riak. They pop into existence when keys are added to them, and disappear when all keys have been removed from them.{{#2.0.0+}} If you don't specify a bucket's type, the type `[[default|Using Bucket Types]]` will be applied.{{/2.0.0+}}
 
 If you're using HTTP, some request headers are required for writes:
 
@@ -286,7 +265,8 @@ obj.store()
 Bucket testBucket = client.fetchBucket("mybucket").execute();
 String key = "mykey";
 String data = "some text";
-byte[] vClock = javax.xml.bind.DatatypeConverter.parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
+byte[] vClock = javax.xml.bind.DatatypeConverter
+        .parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
 IRiakObject obj = RiakObjectBuilder
         .newBuilder(testBucket.getName(), key)
         .withValue(data)
@@ -301,13 +281,6 @@ testBucket.store(key, obj).execute();
 
    https://github.com/basho/riak-java-client/wiki/Storing-data-in-riak
 */
-```
-
-```php
-$bucket = $client->bucket('mybucket');
-$obj = $bucket->newObject('mykey');
-$obj->setData('some text');
-
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
@@ -405,11 +378,14 @@ If `returnbody` is set to `true`, any of the response headers expected from a re
 
 Let's give it a shot:
 
+{{#2.0.0-}}
+
 ```curl
-curl -v -XPUT http://localhost:8098/buckets/test/keys/doc?returnbody=true \
+curl -XPUT \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
   -H "Content-Type: application/json" \
-  -d '{"bar":"baz"}'
+  -d '{"bar":"baz"}' \
+  http://localhost:8098/buckets/test/keys/doc?returnbody=true
 ```
 
 ```ruby
@@ -435,7 +411,7 @@ Bucket testBucket = client.fetchBucket("test").execute();
 String key = "doc";
 String rawJsonData = "{\"bar\":\"baz\"}";
 byte[] vClock = javax.xml.bind.DatatypeConverter
-          .parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
+        .parseBase64Binary("a85hYGBgzGDKBVIcypz/fgb9miicwZTImMfKINjfeYYvCwA=");
 IRiakObject obj = RiakObjectBuilder
         .newBuilder(testBucket.getName(), key)
         .withValue(rawJsonData)
@@ -451,6 +427,26 @@ testBucket.store(key, rawJsonData).execute();
    https://github.com/basho/riak-java-client/wiki/Storing-data-in-riak
 */
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```curl
+curl -v -XPUT \
+  -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
+  -H "Content-Type: application/json" \
+  -d '{"bar":"baz"}' \
+  http://localhost:8098/types/test_type/buckets/test/keys/doc?returnbody=true
+```
+
+```ruby
+bucket = client.bucket('test')
+obj = Riak::RObject.new(bucket, 'doc')
+obj.content_type = 'application/json'
+obj.raw_data = '{"bar":"baz"}'
+obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
+obj.store(bucket_type: 'test_type')
+```
+{{/2.0.0+}}
 
 ### Store a New Object and Assign Random Key
 
@@ -482,7 +478,7 @@ This command will store an object in the bucket `test` and assign it a key:
 {{#2.0.0-}}
 
 ```curl
-curl -v -XPOST \
+curl -i -XPOST \
   -H "Content-Type: text/plain" \
   -d "this is a test" \
   http://localhost:8098/buckets/test/keys
@@ -520,7 +516,7 @@ IRiakObject objWithoutKey = RiakObjectBuilder
         .withContentType("text/plain")
         .withValue("this is a test")
         .build();
-IRiakObject objWithRandomKey = testBucket.store(null, data)
+IRiakObject objWithRandomKey = testBucket.store(objWithoutKey)
         .withoutFetch()
         .returnBody(true)
         .execute();
@@ -531,7 +527,7 @@ System.out.println(objWithRandomKey.getKey());
 {{#2.0.0+}}
 
 ```curl
-curl -v -XPOST \
+curl -i -XPOST \
   -H "Content-Type: text/plain" \
   -d "this is a test" \
   http://localhost:8098/types/type/buckets/test/keys
@@ -579,7 +575,7 @@ Try this:
 {{#2.0.0-}}
 
 ```curl
-curl -v -XDELETE http://localhost:8098/buckets/test/keys/test2
+curl -XDELETE http://localhost:8098/buckets/test/keys/test2
 ```
 
 ```ruby
@@ -601,7 +597,7 @@ testBucket.delete(key);
 {{#2.0.0+}}
 
 ```curl
-curl -v -XDELETE http://localhost:8098/types/test/buckets/test/keys/test2
+curl -XDELETE http://localhost:8098/types/test/buckets/test/keys/test2
 ```
 
 ```ruby
@@ -619,8 +615,10 @@ Buckets are essentially a flat namespace in Riak. They allow the same key name t
 Buckets come with virtually no cost <em>except for when you modify the default bucket properties</em>. Modified bucket properties are gossiped around the cluster and therefore add to the amount of data sent around the network. In other words, buckets using the default bucket properties are free.
 </div>
 
+
 ### Setting a Bucket's Properties
 
+{{#2.0.0-}}
 In addition to providing a namespace for keys, the properties of a bucket also define some of the behaviors that Riak will implement for the values stored in that bucket.
 
 To set these properties, issue a `PUT` to the bucket's URL:
@@ -639,18 +637,17 @@ The most important properties to consider for your bucket are:
 
 * `n_val` (defaults to `3`) the number of replicas for objects in this bucket;
   `n_val` should be an integer greater than 0 and less than the number of partitions in the ring.
-  <div class="note">If you change <code>n_val</code> after keys have been added to the bucket it may result in failed reads. The new value may not be replicated to all of the appropriate partitions.</div>
+  <div class="note">If you change <tt>n_val</tt> after keys have been added to the bucket it may result in failed reads. The new value may not be replicated to all of the appropriate partitions.</div>
 
 * `allow_mult` (boolean, defaults to `false`) With `allow_mult` set to `false`, clients will only get the most-recent-by-timestamp object. Otherwise, Riak maintains any sibling objects caused by concurrent writes (or network partitions).
 
-{{#2.0.0-}}
-
-Let's go ahead and alter the properties of a bucket. The following `PUT` will create a new bucket called `test` with a modified `n_val` of `5`.
+Let's go ahead and alter the properties of a bucket. The following write will create a new bucket called `test` with a modified `n_val` of `5`.
 
 ```curl
-curl -v -XPUT http://localhost:8098/buckets/test/props \
+curl -XPUT \
   -H "Content-Type: application/json" \
-  -d '{"props":{"n_val":5}}'
+  -d '{"props":{"n_val":5}}' \
+  http://localhost:8098/buckets/test/props
 ```
 
 ```ruby
@@ -666,12 +663,6 @@ bucket.n_val = 5
 ```java
 Bucket testBucket = client.createBucket("test").nVal(5);
 ```
-{{/2.0.0-}}
-{{#2.0.0+}}
-
-# TODO
-
-{{/2.0.0+}}
 
 ### Fetching Bucket Properties
 
@@ -686,10 +677,10 @@ The optional query parameters are:
 * `props`: `true`|`false` - whether to return the bucket properties (defaults to `true`)
 * `keys`: `true`|`false`|`stream` - whether to return the keys stored in the bucket (defaults to `false`); see the [[HTTP API's list keys|HTTP List Keys]] for details about dealing with a `keys=stream` response
 
-With that in mind, go ahead and run this command. This will `GET` the bucket information that we just set with the sample command above:
+With that in mind, go ahead and run this command. This will `GET` a listing of the bucket properties that we just set with the sample command above:
 
 ```curl
-curl -v http://localhost:8098/buckets/test/props
+curl http://localhost:8098/buckets/test/props
 ```
 
 ```ruby
@@ -716,6 +707,10 @@ testBucket.getLastWriteWins();
 // and so on
 ```
 
-You can also view a bucket information's through any browser by going to `http://localhost:8098/buckets/<bucket>/props`. {{#2.0.0+}}You can see which bucket properties are associated with a specific bucket type in the browser as well, by going to `http://localhost:8098/types/<type>/props`.{{/2.0.0+}}
+You can also view a bucket's information through any browser by going to `http://localhost:8098/buckets/<bucket>/props`.
+{{/2.0.0-}}
+{{#2.0.0+}}
+Buckets' properties are defined by their bucket type. We strongly recommend reading our tutorial on [[using bucket types]], which covers the creation and modification of bucket types and how bucket types are applied to buckets.
+{{/2.0.0-}}
 
-So, that's the basics of how the most essential Riak key/value operations work, along with some sample code from a few of our official Riak [[client libraries]]. In addition to this tutorial, an in-depth reading of the HTTP API page is highly recommended, as it will give you details on the headers, parameters, status, and other details that you should keep in mind, even when using a client library.
+So, that's the basics of how the most essential Riak key/value operations work, along with some sample code from a few of our official Riak [[client libraries]]. In addition to this tutorial, an in-depth reading of the [[HTTP API]] page is highly recommended, as it will give you details on the headers, parameters, status, and other details that you should keep in mind even when using a client library.
