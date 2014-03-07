@@ -8,7 +8,6 @@ audience: advanced
 keywords: [operator, performance, os]
 moved: {
     '1.4.0-': '/cookbooks/File-System-Tuning',
-    '1.4.0-1.4.8': '/ops/tuning/linux'
 }
 ---
 
