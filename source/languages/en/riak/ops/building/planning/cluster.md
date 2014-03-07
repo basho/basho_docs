@@ -122,18 +122,17 @@ cluster that may degrade performance.  For more details on this recommendation, 
 Scaling
 -------
 
-Riak can be scaled in two ways, vertically (improved hardware) and
+Riak can be scaled in two ways: vertically (improved hardware) and
 horizontally (more nodes). Both ways can provide performance and
 capacity benefits, but should be used in different circumstances. The
-[[riak-admin cluster command|riak-admin Command Line#cluster]] can assist in scaling both directions.
+[[riak-admin cluster command|riak-admin Command Line#cluster]] can assist in scaling in both directions.
 
 #### Vertical Scaling
 Vertical scaling, or improving the capabilities of a node/server, gives
 greater capacity to the node but does not decrease the overall load on
 existing members of the cluster. That is, the ability for the improved
 node to handle existing load is increased, but the load itself is
-unchanged. Reasons to scale vertically include increasing IOPS,
-increasing CPU/RAM capacity, and increasing disk capacity.
+unchanged. Reasons to scale vertically include increasing IOPS (I/O Operations Per Second), increasing CPU/RAM capacity, and increasing disk capacity.
 
 #### Horizontal Scaling
 Horizontal scaling, or increasing the number of nodes in the cluster,
