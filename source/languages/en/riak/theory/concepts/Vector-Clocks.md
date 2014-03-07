@@ -87,6 +87,9 @@ curl -XPUT \
   -d "stimpy" \
   http://localhost:8098/buckets/siblings_bucket/keys/character
 ```
+{{/2.0.0-}}
+
+{{#2.0.0+}}
 
 ```ruby
 bucket = client.bucket('siblings_bucket')
@@ -228,6 +231,14 @@ As you can see, reading an object with multiple values will result in some form 
 ```curl
 curl -H "Accept: multipart/mixed" \
   http://localhost:8098/buckets/siblings_bucket/keys/character
+
+# Response (without headers)
+
+ren
+--WUnzXITIPJFwucNwfdaofMkEG7H
+
+stimpy
+--WUnzXITIPJFwucNwfdaofMkEG7H--
 ```
 
 ```ruby
@@ -237,15 +248,32 @@ obj = bucket.get('character')
 # This will return an Array of siblings:
 obj.siblings
 
-# You can 
+# You can access specific siblings as members of the Array, e.g.:
+obj.siblings[0]
+obj.siblings[1].raw_data
+obj.siblings[2].content_type
+# etc.
 ```
 
 ```python
+bucket = client.bucket('siblings_bucket')
+obj = bucket.get('character')
 
+# This will return a list of siblings:
+obj.siblings
+
+# You can access specific siblings as members of the list, e.g.:
+obj.siblings[0]
+obj.siblings[1].data
+obj.siblings[2].content_type
+# etc.
 ```
 
 ```java
-
+/*
+  With the Java client, it's strongly recommended that you manage sibling
+  resolution by creating converter classes that are
+*/
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
@@ -311,10 +339,6 @@ bucket = client.bucket('siblings_bucket')
 
 # First, we get the vector clock from the object with the correct value
 vc = bucket.get('character').siblings
-```
-
-```java
-
 ```
 {{/2.0.0-}}
 
