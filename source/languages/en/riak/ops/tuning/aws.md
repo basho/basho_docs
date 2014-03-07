@@ -16,7 +16,7 @@ tuning of Riak clusters in the Amazon Web Services (AWS) Elastic Compute
 Cloud (EC2) environment.
 
 <div class="info"><div class="title">Tip</div>Be sure to also see
-[[Linux Performance Tuning]] for detailed performance and tuning
+[[System Performance Tuning]] for detailed performance and tuning
 recommendations of a more general sort, which apply to Riak cluster
 installations.</div>
 
@@ -76,8 +76,7 @@ To set the scheduler to deadline, use the following command:
 echo deadline > /sys/block/xvdf/queue/scheduler
 ```
 
-More information on the disk scheduler is available in [[Linux Performance Tuning]]
-and [[File System Tuning]].
+More information on the disk scheduler is available in [[System Performance Tuning]].
 
 ### Virtual Memory Subsystem
 EBS volumes have considerably less bandwidth than hardware disks.  To avoid
@@ -236,7 +235,6 @@ For more information on EC2 storage options, please see their
 [documentation](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Storage.html).
 
 ## References
-* [[Linux Performance Tuning]]
+* [[System Performance Tuning]]
 * [[Failure and Recovery]]
-* [[File System Tuning]]
 * [Basho Client Services Help Desk](https://help.basho.com)

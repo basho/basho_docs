@@ -21,7 +21,7 @@ Unless otherwise specified, the below recommended tunings are for Linux distribu
 
 ## Storage and File System Tuning
 
-### Virtual Memory and Swap
+### Virtual Memory
 
 Due to the heavily I/O-focused profile of Riak, swap usage can result in the entire server becoming unresponsive.  We recommend setting vm.swappiness to 0 `/etc/sysctl.conf` like below to prevent swapping as much as possible:
 
