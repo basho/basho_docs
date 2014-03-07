@@ -8,7 +8,7 @@ audience: beginner
 keywords: [developers, client, schema, search]
 ---
 
-As a developerm you may be nonplussed to see that Secondary Indexes(2i) don't work with the Bitcask backend. You may also be wondering how to work with "sets" of data.
+As a developer you may be nonplussed to see that Secondary Indexes(2i) don't work with the Bitcask backend. You may also be wondering how to work with "sets" of data.
 
 In this chapter, we'll cover how to deal with both, and in the next chapter we'll introduce some important distributed systems concepts such as [[siblings|Vector Clocks#Siblings]], [[eventual consistency]], and [[sibling resolution|Vector Clocks#Siblings]] that you'll need to know to become a pro developer. 
 
@@ -19,9 +19,8 @@ At the data level, we only have a few objects to work with:
  - `User` --- A user object. Contains a `user_name`, a `full_name`, and an `email` address.
  - `Msg` --- A message that a user has sent, has `text`, `from` and `to` addresses, as well as a `created` date.
  - `Timeline` --- A list of `Msg`s. Has an `owner` and a `type`.  The type can be one of three things:
-   - `inbox`: A user's inbox of personal messages.
-   - `sent`: A list of a user's sent messages.
-   - `group`: A public list of messages that anybody can read. 
+   - `Inbox`: A user's inbox of personal messages, or a group's public Msg list.
+   - `Sent`: A list of a user's sent messages.
  
  The `Timeline` objects could easily be implemented with a 2i query across the `Msg` bucket, but in this chapter we'll show how to do it using only key/value operations. 	
 
