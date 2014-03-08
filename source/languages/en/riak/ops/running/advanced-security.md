@@ -1,5 +1,5 @@
 ---
-title: Advanced Security
+title: Managing Security Sources
 project: riak
 version: 2.0.0+
 document: cookbook
@@ -8,7 +8,15 @@ audience: intermediate
 keywords: [operator, security]
 ---
 
-This document provides information on using certificate- and pluggable authentication module (PAM)-based security in conjunction with Riak. If you're looking for more general information on Riak Security, it may be best to start with our guide to [[authentication and authorization]].
+If you're looking for more general information on Riak Security, it may be best to start with our general guide to [[authentication and authorization]].
+
+This document provides more granular information on the four available authentication sources in Riak Security: trusted networks, password, pluggable authentication modules (PAM), and certificates. These sources correspond to `trust`, `password`, `pam`, and `certificate`, respectively, in the `riak-admin security` interface.
+
+## Trust-based Authentication
+
+This form of authentication enables you to specify trusted [CIDRs](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) from which all clients will be authenticated by default.
+
+## Password-based Authentication
 
 ## Certificate-based Authentication
 
@@ -67,6 +75,78 @@ You will want to generate a server certificate <em>for each node in your Riak cl
 Once certificates have been properly generated and configured on all of the nodes in your Riak cluster, you need to perform a [[rolling restart]]. Once that process is complete, you can use the client certificate that you generated for the user `riakuser`.
 
 At that point, clients can use that certificate to authenticate themselves. This process varies from client to client, so make sure and check your Riak client's documentation.
+
+TODO
+
+Note about enabling security
+
+## PAM-based Authentication
+
+PAM service definition file
+`/usr/local/etc/pam.d/riak`
+This sets up a `riak` PAM service
+
+Example file:
+```
+auth        required    /path/to/pampwd_file.dat
+account     required    pam_permit.so
+session     required    pam_permit.so
+password    required    pam_deny.so
+```
+
+Only `auth` is required
+
+```bash
+riak-admin security add-source all 199.199.9.9/32 pam service=riak
+```
+
+```bash
+riak-admin security print-sources
+```
+
+```
++--------------------+----------------+----------+--------------------+
+|       users        |      cidr      |  source  |      options       |
++--------------------+----------------+----------+--------------------+
+|                    | 199.199.9.9/32 |   pam    |[{"service","riak"}]|
+|        all         | 199.199.9.9/32 |   pam    |[{"service","riak"}]|
++--------------------+----------------+----------+--------------------+
+```
+
+This shows that the PAM service named `riak` is now recognized by Riak
+
+```bash
+riak-admin security print-users
+```
+
+```
++------------+-------+----------------+---------------+
+|  username  | roles |    password    |    options    |
++------------+-------+----------------+---------------+
+|  riakuser  |       |                |      []       |
++------------+-------+----------------+---------------+
+```
+
+You can test that setup most easily using `curl`:
+
+```bash
+curl http://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+```
+
+The response will indicate that this action is not authorized:
+
+```
+<html><head><title>401 Unauthorized</title></head><body><h1>Unauthorized</h1>Unauthorized<p><hr><address>mochiweb+webmachine web server</address></body></html>
+```
+
+But if you pass in the appropriate username and password information, the operation will succeed:
+
+```curl
+curl -u 'riakuser:rosebud' \
+  curl http://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+```
+
+Assuming that no object is stored in the bucket type/bucket/key location specified, this read should return `not found`, which shows that 
 
 ## References
 
