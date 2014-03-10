@@ -41,7 +41,7 @@ riak-admin cluster resize-ring 64
 
 If successful, the following would appear in the console:
 
-```bash
+```
 Success: staged resize ring request with new size: 64
 ```
 
@@ -55,7 +55,7 @@ riak-admin cluster plan
 
 This will result in output along the following lines:
 
-```bash
+```
 =============================== Staged Changes ================================
 Action         Details(s)
 -------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ riak-admin cluster commit
 
 If successful, you should see the following in the console:
 
-```bash
+```
 Cluster changes committed
 ```
 
@@ -107,9 +107,11 @@ With the new plan committed, the progress of the resizing operation can be monit
 
 ```bash
 riak-admin ring-status
+```
 
-# Response:
+An example response:
 
+```
 ================================== Claimant ===================================
 Claimant:  'dev1@127.0.0.1'
 Status:     up
@@ -164,9 +166,11 @@ Using `riak-admin transfers` will provide you more information about the partiti
 
 ```bash
 riak-admin transfers
+```
 
-# Response:
+A sample response:
 
+```
 'dev5@127.0.0.1' waiting to handoff 3 partitions
 'dev4@127.0.0.1' waiting to handoff 1 partitions
 'dev3@127.0.0.1' waiting to handoff 1 partitions
@@ -256,7 +260,7 @@ riak-admin cluster resize-ring abort
 
 One of the following messages will appear, depending on the outcome of the `abort` request:
 
-```bash
+```
 Success: staged abort resize ring request
 
 # or
@@ -272,7 +276,7 @@ riak-admin cluster resize-ring plan
 
 In the output, you should find something like the following:
 
-```bash 
+```
 Action         Details(s)
 --------------------------------------
 resize-ring    abort. current size: 128
