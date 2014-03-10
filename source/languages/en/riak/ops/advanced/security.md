@@ -26,32 +26,34 @@ There are two classes of access control for Riak:
 * Other Riak nodes participating in the cluster
 * Clients making use of the Riak cluster
 
-The settings for both access groups are located in `app.config`:
+The settings for both access groups are located in {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}}:
 
+{{#2.0.0-}}
 * `pb_ip` {{1.4.0-}}
 * `pb_port` {{1.4.0-}}
 * `pb` {{1.4.0+}}
 * `http`
 * `https`
+{{/2.0.0-}}
+{{#2.0.0+}}
+* `listener.http.internal`
+* `listener.https.internal`
+* `listener.protobuf.internal`
+{{/2.0.0+}}
 
 Make note of those and configure your firewall to allow incoming TCP
-access to those ports or IP address and port combinations. Exceptions to
-this are the `handoff_ip` and `handoff_port` directives. Those are for
-communication between Riak nodes only.
+access to those ports or IP address and port combinations. {{#2.0.0-}}Exceptions to this are the `handoff_ip` and `handoff_port` directives. Those are for communication between Riak nodes only.{{/2.0.0-}}{{#2.0.0+}}An exception to this is the `handoff.port` setting, which is for communication between Riak nodes only.{{/2.0.0+}}
 
 Riak uses the Erlang distribution mechanism for most inter-node
 communication. Riak identifies other machines in the ring using Erlang
-identifiers (`<hostname or IP>`, ex: `riak@10.9.8.7`). Erlang resolves
+identifiers (`<hostname or IP>`, e.g. `riak@10.9.8.7`). Erlang resolves
 these node identifiers to a TCP port on a given machine via the Erlang
-Port Mapper daemon (epmd) running on each cluster node.
+Port Mapper daemon ([epmd](http://www.erlang.org/documentation/doc-5.5.3/erts-5.5.3/doc/html/epmd.html)) running on each cluster node.
 
 By default, epmd binds to TCP port 4369 and listens on the wildcard interface. For inter-node communication, Erlang uses an unpredictable port by default; it binds to port 0, which means the first available port.
 
-For ease of firewall configuration, Riak can be configured via
-`app.config` to instruct the Erlang interpreter to use a limited range
-of ports. For example, to restrict the range of ports that Erlang will
-use for inter-Erlang node communication to 6000-7999, add the following
-lines to the `app.config` file on each Riak node:
+{{#2.0.0-}}
+For ease of firewall configuration, Riak can be configured via `app.config` to instruct the Erlang interpreter to use a limited range of ports. For example, to restrict the range of ports that Erlang will use for inter-Erlang node communication to 6000-7999, add the following lines to the `app.config` file on each Riak node:
 
 ```erlang
 { kernel, [
@@ -60,21 +62,21 @@ lines to the `app.config` file on each Riak node:
           ]},
 ```
 
-The above lines should be added into the top level list in app.config,
-at the same level as all the other applications (eg. **riak\_core**).
+The above lines should be added into the top level list in `app.config`,
+at the same level as all the other applications (eg. `riak_core`).
 
 Then configure your firewall to allow incoming access to TCP ports 6000
 through 7999 from whichever network(s) contain your Riak nodes.
 
-**Riak nodes in a cluster need to be able to communicate freely with one
-another on the following ports:**
+Riak nodes in a cluster need to be able to communicate freely with one
+another on the following ports:
 
 * epmd listener: TCP:4369
 * handoff_port listener: TCP:8099
 * range of ports specified in `app.config`
 
-**Riak clients must be able to contact at least one machine in a Riak
-cluster on the following ports:**
+Riak clients must be able to contact at least one machine in a Riak
+cluster on the following ports:
 
 * web_port: TCP:8098
 * pb_port: TCP:8087
@@ -158,6 +160,4 @@ Many of the Riak drivers support HTTP basic auth, though this is not a role-base
 
 ### Multi Data Center Replication
 
-For those versions of Riak that support Multi Data Center (MDC) Replication, you can configure Riak 1.2+ to communicate over SSL, to seamlessly encrypt the message traffic.
-
-*No link here yet until the EDS docs are published*
+For those versions of Riak that support [[Multi Data Center Replication]], you can configure Riak 1.2+ to communicate over SSL and thus to seamlessly encrypt the message traffic.

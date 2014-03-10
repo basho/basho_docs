@@ -235,27 +235,47 @@ Riak uses sensible defaults for configuration, but a few items need
 changing for a given deployment. Most importantly, the number of partitions
 in the cluster should be applied before starting any participant node.
 
-Place the ring_creation_size item within the riak_core section in the
+{{#2.0.0-}}
+Place the `ring_creation_size` item within the `riak_core` section in the
 `/etc/riak/app.config` file:
 
+```appconfig
     {riak_core, [
        {ring_creation_size, 256},
        %% ...
        ]}
+```
 
 If using LevelDB as the storage backend (which maintains its own I/O
 thread pool), the number of async threads in Riak's default pool can be
 decreased in the `/etc/riak/vm.args` file:
 
-```text
+```vmargs
 +A 16
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
+Uncomment the line containing the `ring_size` parameter and set it to the desired size, for example `256`:
 
-Further information on Riak configuration is available in the [[Configuration files]] documentation.
+```riakconf
+ring_size = 256
+```
 
-<div class="info"><div class="title">Basho Tip</div>Questions about Riak
-configuration can also be addressed to the Basho Client Services
-<a href="http://help.basho.com/">help desk</a>.</div>
+If using LevelDB as the storage backend (which maintains its own I/O
+thread pool), the number of async threads in Riak's default pool can be
+decreased in the `riak.conf` file:
+
+```vmargs
+erlang.async_threads = 16
+```
+{{/2.0.0+}}
+
+Further information on Riak configuration is available in the [[Configuration Files]] documentation.
+
+<div class="info">
+<div class="title">Basho Tip</div>
+Questions about Riak configuration can also be addressed to the Basho Client Services <a href="http://help.basho.com/">help desk</a>.
+</div>
 
 ## Load balancer configuration
 We recommend placing a load balancing solution, such as
@@ -264,7 +284,7 @@ We recommend placing a load balancing solution, such as
 Below is an example HAProxy configuration that is based on known-good
 configuration values:
 
-```text
+```config
 listen riak 0.0.0.0:8087
     balance    leastconn
     mode       tcp
@@ -313,10 +333,7 @@ increasing CPU/RAM capacity, and increasing disk capacity.
 
 If the improved node can be initialized with the same IP address and
 data as the one it replaces, no changes to Riak are necessary. If the same
-resources are not available to the new node, use `riak-admin cluster replace <oldnode>
-<newnode>` after joining the new node.The node name(s) can be gathered
-from the output of member-status or from the `/etc/riak/vm.args`
-configuration file.
+resources are not available to the new node, use `riak-admin cluster replace <oldnode> <newnode>` after joining the new node. The node name(s) can be gathered from the output of member-status or from the {{#2.0.0-}}`/etc/riak/vm.args`{{/2.0.0-}}{{#2.0.0+}}`/etc/riak.conf`{{/2.0.0+}} configuration file.
 
 ### Horizontal Scaling
 Horizontal scaling, or increasing the number of nodes in the cluster,

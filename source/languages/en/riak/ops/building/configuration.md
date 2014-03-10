@@ -8,66 +8,43 @@ audience: beginner
 keywords: [operators, building, configuration]
 ---
 
-This document captures the parameters that are commonly tweaked when
-setting up a new cluster, but it is highly advisable to review the
-detailed [[Configuration Files]] document before moving a cluster into
-production.
+This document captures the parameters that are commonly tweaked when setting up a new cluster, but it is highly advisable to review the detailed [[Configuration Files]] document before moving a cluster into production.
 
-All configuration values discussed here are managed via the
-`app.config` file on each node, and a node must be restarted for any
-changes to take effect.
+All configuration values discussed here are managed via the {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} file on each node, and a node must be restarted for any changes to take effect.
 
-It is advisable to make as many of the changes below as practical
-**before** joining the nodes together as a cluster. Once `app.config`
-has been configured on each node, refer to [[Basic Cluster Setup]] to
-complete the clustering process.
+It is advisable to make as many of the changes below as practical **before** joining the nodes together as a cluster. Once {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} has been configured on each node, refer to [[Basic Cluster Setup]] to complete the clustering process.
 
-Use [[riak-admin member-status|riak-admin Command Line#member-status]]
-to determine whether any given node is a member of a cluster.
+Use `[[riak-admin member-status|riak-admin Command Line#member-status]]` to determine whether any given node is a member of a cluster.
 
 ## Ring size
 
-The ring size in Riak parlance is the number of data partitions which
-comprise the cluster. This quantity impacts the scalability and
-performance of a cluster, and importantly, **it must be established
-before the cluster starts receiving data**.
+The ring size, in Riak parlance, is the number of data partitions which comprise the cluster. This quantity impacts the scalability and performance of a cluster, and, importantly, **it must be established before the cluster starts receiving data**.
 
-If the ring size is too large for the number of servers, disk I/O will
-be negatively impacted by the excessive number of concurrent databases
-running on each server.
+If the ring size is too large for the number of servers, disk I/O will be negatively impacted by the excessive number of concurrent databases running on each server.
 
-If the ring size is too small, the servers' other resources (primarily
-CPU and RAM) will go underutilized.
+If the ring size is too small, the servers' other resources (primarily CPU and RAM) will go underutilized.
 
-See [[Planning for a Riak System]] and
-[[Scaling and Operating Riak Best Practices]] for more details on
-choosing a ring size.
+See [[Planning for a Riak System]] and [[Scaling and Operating Riak Best Practices]] for more details on choosing a ring size.
 
-The steps involved in changing the ring size depend on whether the
-servers (nodes) in the cluster have already been joined together.
+The steps involved in changing the ring size depend on whether the servers (nodes) in the cluster have already been joined together.
 
 ### Cluster already in active use
 
-If you have a cluster in use and need to preserve its data while
-resizing the ring, you may either migrate your data to a new cluster
-or contact Basho to discuss the possibility of performing a dynamic
-ring resizing operation.
+If you have a cluster in use and need to preserve its data while resizing the ring, you may either migrate your data to a new cluster or contact Basho to discuss the possibility of performing a dynamic {{#2.0.0-}}ring resizing{{/2.0.0-}}{{#2.0.0+}}[[ring resizing]]{{/2.0.0+}} operation.
 
 ### Cluster joined, but no data needs to be preserved
 
-1.  Uncomment the `ring_creation_size` parameter (by removing the `%`
-that precedes it) in the `riak_core` section in `app.config` on each
-node and set the appropriate quantity
-2.  Stop all nodes
-3.  Remove the ring data file on each node (see [[Backing up Riak]] for the location of this file)
-4.  Start all nodes
-5.  Re-add each node to the cluster (see [[Adding and Removing Nodes|Adding and Removing Nodes#Add-a-Node-to-an-Existing-Cluster]]) or finish reviewing this document and proceed to [[Basic Cluster Setup]]
+1. Uncomment the `ring_creation_size` parameter (by removing the `%` that precedes it) in the `riak_core` section in `app.config` on each node and set the appropriate quantity {{2.0.0-}}
+1. Uncomment the `ring_size` parameter (by removing the `##` that precedes it) in `riak.conf` on each node and set it to the appropriate quantity (the default is 64), e.g. `ring_size = 32` {{2.0.0+}}
+2. Stop all nodes
+3. Remove the ring data file on each node (see [[Backing up Riak]] for the location of this file)
+4. Start all nodes
+5. Re-add each node to the cluster (see [[Adding and Removing Nodes|Adding and Removing Nodes#Add-a-Node-to-an-Existing-Cluster]]) or finish reviewing this document and proceed to [[Basic Cluster Setup]]
 
 ### New servers, have not yet joined a cluster
 
-1.  Uncomment the `ring_creation_size` parameter (by removing the `%`
-that precedes it) in the `riak_core` section in `app.config` on each
-node and set the appropriate quantity
+1.  Uncomment the `ring_creation_size` parameter (by removing the `%` that precedes it) in the `riak_core` section in `app.config` on each node and set the appropriate quantity {{2.0.0-}}
+1. Uncomment the `ring_size` parameter (by removing the `##` that precedes it) in `riak.conf` on each node and set it to the appropriate quantity, e.g. `ring_size = 32` (the default is 64) {{2.0.0+}}
 2.  Stop all nodes
 3.  Remove the ring data file on each node (see [[Backing up Riak]] for the location of this file)
 4.  Finish reviewing this document and proceed to [[Basic Cluster Setup]]
@@ -76,54 +53,47 @@ node and set the appropriate quantity
 
 The `riak-admin` command can verify the ring size:
 
-    $ sudo /usr/sbin/riak-admin status | egrep ring
-    ring_members : ['riak@10.160.13.252']
-    ring_num_partitions : 8
-    ring_ownership : <<"[{'riak@10.160.13.252',8}]">>
-    ring_creation_size : 8
+```bash
+sudo riak-admin status | egrep ring
+```
 
-If `ring_num_partitions` and `ring_creation_size` do not agree, that
-means that the `ring_creation_size` value was changed too late and the
-proper steps were not taken to start over with a new ring.
+That will output something like the following:
+
+```
+ring_members : ['riak@10.160.13.252']
+ring_num_partitions : 8
+ring_ownership : <<"[{'riak@10.160.13.252',8}]">>
+ring_creation_size : 8
+```
+
+If `ring_num_partitions` and `ring_creation_size` do not agree, that means that the `ring_creation_size` value was changed too late and the proper steps were not taken to start over with a new ring.
 
 Note that Riak will not allow two nodes with different ring sizes to
 be joined into a cluster.
 
 ## Backend
 
-The most critical decision to be made is the backend to use. The
-choice of backend strongly influences the performance characteristics
-and feature set for a Riak environment.
+The most critical decision to be made involves the choice of data backend. The backend that you choose strongly influences the performance characteristics and feature set for a Riak environment.
 
-See [[Choosing a Backend]] for a list of supported backends; each
-referenced document includes the necessary configuration bits.
+See [[Choosing a Backend]] for a list of supported backends. Each referenced document includes the necessary configuration bits.
 
-As with ring size, changing the backend will result in all data being
-effectively lost, so spend the necessary time up front to evaluate and
-benchmark backends.
+As with ring size, changing the backend will result in all data being effectively lost, so spend the necessary time up front to evaluate and benchmark backends.
 
-If still in doubt, consider using the [[Multi]] backend for future
-flexibility.
+If still in doubt, consider using the [[Multi]] backend for future flexibility.
 
-If you do change backends from the default (typically [[Bitcask]])
-make certain you change it across all nodes. It is possible but
-generally unwise to use different backends on different nodes; this
-would limit the effectiveness of backend-specific features.
+If you do change backends from the default ([[Bitcask]]), make certain you change it across all nodes. It is possible but generally unwise to use different backends on different nodes; this would limit the effectiveness of backend-specific features.
 
 ## Default bucket properties
 
-Bucket properties are also very important to performance and
-behavioral characteristics.
+Bucket properties are also very important to performance and behavioral characteristics.
 
-The properties for any individual bucket can be configured
-dynamically, but default values for those properties can be defined in
-`app.config`, in the `riak_core` section.
+The properties for any individual bucket can be configured dynamically, but default values for those properties can be defined in {{#2.0.0-}}`app.config`, in the `riak_core` section{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}}.
 
-Below is an example of setting default bucket properties (admittedly,
-in this example to the values which Riak would define to them in the
-absence of such a configuration).
+Below is an example of setting default bucket properties:
 
-```
+{{#2.0.0-}}
+
+```appconfig
 {default_bucket_props, [
     {n_val,3},
     {r,quorum},
@@ -132,29 +102,32 @@ absence of such a configuration).
     {last_write_wins,false},
     ]}
 ```
+{{/2.0.0-}}
+{{#2.0.0+}}
 
-In short: replicate data 3 times, require that 2 of those 3 replicas
-respond before any read or write is considered successful, and do not
-present conflicting values to the application for resolution.
+```riakconf
+buckets.default.n_val = 3
+buckets.default.r = quorum
+buckets.default.w = quorum
+buckets.default.allow_mult = false
+buckets.default.last_write_wins=false
+```
+{{/2.0.0+}}
 
-The `r` and `w` values can be overridden with each request, and few
-users need to change `n_val`, but choosing an appropriate value for
-`allow_mult` is vital for a robust application.
+In short: replicate data 3 times, require that 2 of those 3 replicas respond before any read or write is considered successful, and do not present conflicting values to the application for resolution.
 
-For more on the implications of these settings, please see
-[[Eventual Consistency]], [[Replication]], and the Basho blog series,
-"Understanding Riak's Configurable Behaviors":
-[[Part 1|http://basho.com/understanding-riaks-configurable-behaviors-part-1/]],
-[[Part 2|http://basho.com/riaks-config-behaviors-part-2/]],
-[[Part 3|http://basho.com/riaks-config-behaviors-part-3/]],
-[[Part 4|http://basho.com/riaks-config-behaviors-part-4/]], and the
-[[Epilogue|http://basho.com/riaks-config-behaviors-epilogue/]].
+The `r` and `w` values can be overridden with each request, and few users need to change `n_val`, but choosing an appropriate value for `allow_mult` is vital for a robust application.
 
-If the default bucket properties are modified in `app.config` and the
-node restarted, any existing buckets will **not** be directly
-impacted, although the mechanism described in
-[[HTTP Reset Bucket Properties]] can be used to force them to pick up
-the new defaults.
+For more on the implications of these settings, please see [[Eventual Consistency]], [[Replication]], and the Basho blog series "Understanding Riak's Configurable Behaviors:"
+
+* [[Part 1|http://basho.com/understanding-riaks-configurable-behaviors-part-1/]]
+* [[Part 2|http://basho.com/riaks-config-behaviors-part-2/]]
+* [[Part 3|http://basho.com/riaks-config-behaviors-part-3/]]
+* [[Part 4|http://basho.com/riaks-config-behaviors-part-4/]]
+* [[Epilogue|http://basho.com/riaks-config-behaviors-epilogue/]]
+
+If the default bucket properties are modified in {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} and the node restarted, any existing buckets will **not** be directly impacted, although the mechanism described in
+[[HTTP Reset Bucket Properties]] can be used to force them to pick up the new defaults.
 
 ## System tuning
 

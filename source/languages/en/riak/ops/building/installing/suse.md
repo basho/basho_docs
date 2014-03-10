@@ -29,29 +29,31 @@ The Riak package and all of its dependencies (including the base Erlang) can be 
 ## Add the Riak zypper repository
 
 ```bash
-$ zypper ar http://download.opensuse.org/repositories/server:/database/$distro Riak
+zypper ar http://download.opensuse.org/repositories/server:/database/$distro Riak
 ```
-Where $distro is one of:
+
+where `$distro` is one of the following:
+
 * SLE_11_SP1
 * openSUSE_11.2
 * openSUSE_11.3
 * openSUSE_11.4
 
-_NOTE: The first time you try to use the repository after adding it to your system, you may be asked to accept the GPG key for the repo._
+**Note**: The first time you try to use the repository after adding it to your system, you may be asked to accept the GPG key for the repo.
 
 ## Install the Riak package
 
 ```bash
-$ zypper in riak
+zypper in riak
 ```
 
-This should automatically pull in its dependencies, including erlang if you do
+This should automatically pull in its dependencies, including Erlang if you do
 not already have it installed.
 
 ## (Optional) Enable "refresh" on the riak repository to receive updates
 
 ```bash
-$ zypper mr -r Riak
+zypper mr -r Riak
 ```
 
 ## Next Steps?

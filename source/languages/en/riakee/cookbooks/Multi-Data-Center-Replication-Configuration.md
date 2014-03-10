@@ -10,8 +10,10 @@ keywords: [mdc, repl, configuration]
 
 ## File
 
+{{#2.0.0-}}
 The configuration for replication is kept in the `riak_repl` section of `app.config`.
 
+```erlang
     {riak_repl, [
                  {fullsync_on_connect, true},
                  {fullsync_interval, 360},
@@ -25,6 +27,11 @@ The configuration for replication is kept in the `riak_repl` section of `app.con
                  {server_max_pending, 5},
                  {client_ack_frequency, 5}
               ]}
+```
+{{/2.0.0-}}
+{{#2.0.0+}}
+The configuration for replication is managed in `[[riak.conf|Configuration Files]]`. The following settings
+{{/2.0.0+}}
 
 ## Usage
 
@@ -39,7 +46,7 @@ These settings are configured using the standard Erlang config file syntax `{Set
 Once your configuration is set, you can verify its correctness by running the command-line tool:
 
 ```bash
-$ riak chkconfig
+riak chkconfig
 ```
 
 Setting | Options | Default | Description

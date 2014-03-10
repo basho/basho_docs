@@ -15,23 +15,20 @@ This guide introduces some recommended best practices for performance and
 tuning of Riak clusters in the Amazon Web Services (AWS) Elastic Compute
 Cloud (EC2) environment.
 
-<div class="info"><div class="title">Tip</div>Be sure to also see
-[[Linux Performance Tuning]] for detailed performance and tuning
-recommendations of a more general sort, which apply to Riak cluster
-installations.</div>
+<div class="info">
+<div class="title">Tip</div>
+Be sure to also see our [[Linux Performance Tuning]] doc for detailed performance and tuning recommendations of a more general sort, which apply to Riak cluster installations.
+</div>
 
 ## EC2 Instances
+
 EC2 instances are available as predefined types which encapsulate a fixed
 amount of computing resources, the most important of which to Riak are Disk
 I/O, RAM, and Network I/O, followed by CPU cores. With this in mind, Riak
 users have reported success with large, extra large, and cluster compute
 instance types for use as cluster nodes in the AWS EC2 environment.
 
-The most commonly used [instance types](http://aws.amazon.com/ec2/instance-types/)
-for Riak cluster nodes are the
-`m1.large` or `m1.xlarge`. In cases where 10 gigabit Ethernet networking is
-desired, the Cluster Compute class of EC2 instances, such as `cc1.4xlarge`
-or `cc2.8xlarge` can be used.
+The most commonly used [instance types](http://aws.amazon.com/ec2/instance-types/) for Riak cluster nodes are the `m1.large` or `m1.xlarge`. In cases where 10 gigabit Ethernet networking is desired, the Cluster Compute class of EC2 instances, such as `cc1.4xlarge` or `cc2.8xlarge` can be used.
 
 Amazon also offers a High I/O Quadruple Extra Large instance
 (`hi1.4xlarge`) that is backed by solid state drives (SSD) and features
@@ -53,11 +50,9 @@ indexes are not needed for the application.
 In any case, proper benchmarking and tuning are needed to achieve the
 desired performance.
 
-<div class="info"><div class="title">Tip</div>Most successful AWS cluster deployments use more EC2 instances than they
-would the same number of physical nodes to compensate for the
-performance variability caused by shared, virtualized resources. Plan to
-have more EC2 instance based nodes than physical server nodes when estimating
-cluster size with respect to node count.</div>
+<div class="info">
+<div class="title">Tip</div>Most successful AWS cluster deployments use more EC2 instances than they would the same number of physical nodes to compensate for the performance variability caused by shared, virtualized resources. Plan to have more EC2 instance based nodes than physical server nodes when estimating cluster size with respect to node count.
+</div>
 
 ## Operating System
 
@@ -76,8 +71,7 @@ To set the scheduler to deadline, use the following command:
 echo deadline > /sys/block/xvdf/queue/scheduler
 ```
 
-More information on the disk scheduler is available in [[Linux Performance Tuning]]
-and [[File System Tuning]].
+More information on the disk scheduler is available in [[Linux Performance Tuning]] and [[File System Tuning]].
 
 ### Virtual Memory Subsystem
 EBS volumes have considerably less bandwidth than hardware disks.  To avoid

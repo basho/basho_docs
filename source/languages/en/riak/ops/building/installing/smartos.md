@@ -35,7 +35,7 @@ ulimit -n 65536
 
 To increase this value in a persistent manner that will be enforced after restarting the system, add the following to `/etc/system`:
 
-```text
+```config
 set rlim_fd_max=65536
 ```
 
@@ -56,7 +56,7 @@ This is where the `1.6` and `1.8` versions come from in the package naming. It i
 
 For Joyent Cloud users who don't know what dataset was used, in the guest zone type:
 
-```
+```bash
 cat /opt/local/etc/pkgin/repositories.conf
 ```
 
@@ -71,65 +71,65 @@ Download your version of the Riak binary package for SmartOS{{#1.3.0}} *(below w
 
 {{#1.2.1-}}
 
-```bash
+```curl
 curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/11/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
-```
+```bash
 pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.2.1-}}
 {{#1.2.1}}
 
-```bash
+```curl
 curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/11/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
-```
+```bash
 pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.2.1}}
 {{#1.3.0}}
 
-```bash
+```curl
 curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.6/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
-```
+```bash
 pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.3.0}}
 {{#1.3.1-1.3.2}}
 
-```bash
+```curl
 curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.8/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 Next, install the package:
 
-```
+```bash
 pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
 ```
 
 {{/1.3.1-1.3.2}}
 {{#1.4.0+}}
 
-```bash
+```curl
 curl -o /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.8/riak-{{VERSION}}-SmartOS-x86_64.tgz
 ```
 
 Next, install the package:
 
-```
+```bash
 pkg_add /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz
 ```
 
@@ -143,13 +143,13 @@ svcadm -v enable -r riak
 
 Finally, after enabling the services, check to see that they are online:
 
-```
+```bash
 svcs -a | grep -E 'epmd|riak'
 ```
 
 Output from the above command should resemble the following:
 
-```text
+```
 online    17:17:16 svc:/network/epmd:default
 online    17:17:16 svc:/application/riak:default
 ```
@@ -160,14 +160,14 @@ Finally, and provided that the services are shown to be in an **online** state, 
 riak ping
 ```
 
-Pinging Riak will result in a `pong` response if the node is up and reachable, and a `pang` response if the node is up, but has a problem. If the node is not up and reachable, a *not responding to pings* error will result instead.
+Pinging Riak will result in a `pong` response if the node is up and reachable, and no response if the node is up, but has a problem. If the node is not up and reachable, a `not responding to pings` error will result instead.
 
-If all responses indicate that riak is up and running, then you have successfully installed and configured Riak as service on SmartOS.
+If all responses indicate that Riak is up and running, then you have successfully installed and configured Riak as service on SmartOS.
 
 ## Next Steps?
 
 Now that Riak is installed, check out the following resources:
 
--   [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
--   [[Five Minute Install]]: A  guide that will show you how to go from one
+-   [[Post-installation Notes|Post Installation]] for checking Riak health after installation
+-   [[Five-Minute Install]]: A  guide that will show you how to go from one
     node to bigger than Google!

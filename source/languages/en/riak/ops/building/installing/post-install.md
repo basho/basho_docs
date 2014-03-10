@@ -22,13 +22,14 @@ ready to put Riak to work, be sure to check out the resources in the
 
 ## Starting a Riak Node
 
-<div class="note"><div class="title">Note about source installations</div>
-<p>To start a Riak node that was installed by compiling the source code, you
+<div class="note">
+<div class="title">Note about source installations</div>
+To start a Riak node that was installed by compiling the source code, you
 can add the Riak binary directory from the installation directory you've
-chosen to your PATH.</p> <p>For example, if you compiled Riak from source in
-the `/home/riak` directory, then you can add the binary directory
-(`/home/riak/rel/riak/bin`) to your PATH so that Riak commands can be
-used in the same manner as with a packaged installation.</p></div>
+chosen to your PATH.
+
+For example, if you compiled Riak from source in the <tt>/home/riak</tt> directory, then you can add the binary directory (<tt>/home/riak/rel/riak/bin</tt>) to your <tt>PATH</tt> so that Riak commands can be used in the same manner as with a packaged installation.
+</div>
 
 To start a Riak node, use the `riak start` command:
 
@@ -61,16 +62,20 @@ the `riak ping` command:
 
 ```bash
 riak ping
+```
+
+The response if the node is running:
+
+```
 pong
 ```
 
-The command will respond with **pong** if the node is running, or **pang** if
-it is unreachable for any reason.
-
-<div class="note"><div class="title">Open Files Limit</div>
-As you may have noticed, if you haven't adjusted your open files limit (`ulimit -n`), Riak will warn you at startup about the limit. You're advised
+<div class="note">
+<div class="title">Open Files Limit</div>
+As you may have noticed, if you haven't adjusted your open files limit (<tt>ulimit -n</tt>), Riak will warn you at startup about the limit. You're advised
 to increase the operating system default open files limit when running Riak.
-You can read more about why in the [[Open Files Limit]] documentation.</div>
+You can read more about why in the [[Open Files Limit]] documentation.
+</div>
 
 ## Does it work?
 
@@ -83,24 +88,24 @@ riak-admin test
 
 Successful output from `riak-admin test` looks like this:
 
-```text
+```
 Attempting to restart script through sudo -H -u riak
 Successfully completed 1 read/write cycle to 'riak@127.0.0.1'
 ```
 
 You can also test whether Riak is working by using the `curl` command-line
 tool. Now that you have Riak running on a node, try this command to retrieve
-the `test` bucket and its properties:
+the `test` bucket's properties:
 
-```bash
-curl -v http://127.0.0.1:8098/riak/test
+```curl
+curl -v http://127.0.0.1:8098/buckets/test/props
 ```
 
 Replace `127.0.0.1` in the example above with your Riak node's IP address or
 fully qualified domain name; you should get a response from the command that
 looks like this:
 
-```text
+```
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
@@ -140,7 +145,7 @@ utility *Riaknostic*.
 
 Ensure that Riak is running on the node, and issue the following command:
 
-```
+```bash
 riak-admin diag
 ```
 
