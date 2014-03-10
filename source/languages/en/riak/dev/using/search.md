@@ -14,7 +14,7 @@ You must first [[enable Riak Search|Riak Search Settings]] in your environment t
 
 ## Introduction
 
-Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or bucket type) to a Solr index, you simply write values (such as JSON, XML, plain text, datatypes, etc.) into Riak as normal, and then query those indexed values using the Solr API.
+Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault-tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or [[bucket type|Using Bucket Types]]) to a Solr index, you simply write values (such as JSON, XML, plain text, datatypes, etc.) into Riak as normal, and then query those indexed values using the Solr API.
 
 ### Why Riak Search
 
@@ -34,9 +34,7 @@ Riak Search must first be configured with a Solr *schema*, so Solr knows how to 
 
 Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we'll `curl` create an index named `famous` with the default schema.
 
-<div class="info">All `curl` examples in this document require that you first
-set an environment variable named `RIAK_HOST`, which points to a Riak base
-URL, such as `RIAK_HOST="http://localhost:8098"`.</div>
+<div class="info">All <tt>curl</tt> examples in this document require that you first set an environment variable named <tt>RIAK_HOST</tt>, which points to a Riak base URL, such as <tt>RIAK_HOST="http://localhost:8098"</tt>.</div>
 
 ```curl
 export RIAK_HOST="http://localhost:8098"
@@ -75,7 +73,7 @@ The last setup item you need to perform is to *associate a bucket type* with a S
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but require an additional setup step in on commandline.
+Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but require an additional setup step on the commandline.
 
 ```bash
 riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
@@ -399,6 +397,10 @@ Start = ?ROWS_PER_PAGE * (Page - 1),
 
 riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
 ```
+
+### Note About Deleting Indexes
+
+Indexes may not be deleted if they have any buckets associated with them. The `search_index` property (not `search-index`) must be changed to either a different index or to the sentinel value `_dont_index_`.
 
 ### MapReduce
 
