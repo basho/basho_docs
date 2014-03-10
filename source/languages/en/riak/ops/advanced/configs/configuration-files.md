@@ -1,7 +1,7 @@
 ---
 title: Configuration Files
 project: riak
-version: 0.10.0-1.4.8
+version: 0.10.0+
 document: reference
 toc: true
 audience: intermediate
