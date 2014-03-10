@@ -1737,9 +1737,11 @@ div[role=main] {
   }
 
   table.riak-conf {
+    width: 799px;
+    max-width: 799px;
     td:nth-of-type(1) {
       overflow-wrap:break-word;
-      max-width: 275px;
+      max-width: 300px;
     }
     td:nth-of-type(2) {
       overflow-wrap:break-word;
@@ -1747,7 +1749,7 @@ div[role=main] {
     }
     td:nth-of-type(3) {
       overflow-wrap:break-word;
-      max-width: 125px;
+      width: 100px;
     }
   }
 }
