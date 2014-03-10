@@ -24,7 +24,7 @@ Unless otherwise specified, the below recommended tunings are for Linux distribu
 
 Due to the heavily I/O-focused profile of Riak, swap usage can result in the entire server becoming unresponsive.  We recommend setting vm.swappiness to 0 `/etc/sysctl.conf` like below to prevent swapping as much as possible:
 
-```text
+```
 vm.swappiness = 0
 ```
 
@@ -32,7 +32,7 @@ Ideally, we recommend completely disabling swap to ensure Riak's process pages a
 
 In addition to swappiness, the below virtual memory settings help prevent disks from being overwhelmed during periods of high write activity at the expense of peak performance for spiky workloads, and can be added or updated in `/etc/sysctl.conf`:
 
-```text
+```
 vm.dirty_bytes = 209715200
 vm.dirty_background_bytes = 104857600
 
@@ -105,7 +105,7 @@ The following settings are minimally sufficient to improve many aspects of Riak 
 <div class="note"><div class="title">Note</div>
 In general, these recommended values should be compared with the system defaults and only changed if benchmarks or other performance metrics indicate that networking is the bottleneck.</div>
 
-```text
+```
 net.ipv4.tcp_max_syn_backlog = 40000
 net.core.somaxconn=40000
 net.ipv4.tcp_sack = 1
@@ -119,7 +119,7 @@ net.ipv4.tcp_moderate_rcvbuf = 1
 The following settings are optional, but may improve performance on
 a 10Gb network:
 
-```text
+```
 net.core.rmem_max = 134217728
 net.core.wmem_max = 134217728
 net.ipv4.tcp_mem  = 134217728 134217728 134217728
@@ -142,13 +142,13 @@ For a Broadcom chipset NIC using the "bnx" or "bnx2" driver, run:
 ethtool -K eth0 tso off
 ``` 
 
-`ethtool` settings can be persisted across reboots by adding the above command to the /etc/rc.local script.
+`ethtool` settings can be persisted across reboots by adding the above command to the `/etc/rc.local` script.
 
 <div class="info"><div class="title">Tip</div>Tuning of these values will be required if they are changed, as they affect all network operations.</div>
 
 ## Open Files Limit
 
-Riak and the tools can consume a large number of open file handles during normal operation.  For stability, increasing the number of open-files limit is necessary.  See [[Open Files Limit]] for more details.
+Riak and the tools can consume a large number of open file handles during normal operation.  For stability, increasing the number of open files limit is necessary.  See [[Open Files Limit]] for more details.
 
 ## References
 
