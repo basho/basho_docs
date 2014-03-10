@@ -16,8 +16,7 @@ Your use case and environment variables will obviously be specific to
 what you're building, but this document should set you on the right path
 to planning and launching the suitable Riak cluster.
 
-RAM
----
+## RAM
 
 [RAM](http://en.wikipedia.org/wiki/Random-access_memory) should be
 viewed as the most important resource when sizing your Riak cluster.
@@ -66,8 +65,7 @@ lead to higher performance.
 For more information see [[LevelDB]].
 </div>
 
-Disk
-----
+## Disk
 
 Now that you have an idea of how much RAM you'll need, it's time to
 think about disk space. Disk space needs are much easier to calculate
@@ -97,8 +95,7 @@ disks with noatime and having separate disks for your OS and Riak data
 lead to much better performance. See [[System Planning|Planning for a Riak System]] for more
 information.
 
-Read/Write Profile
-------------------
+## Read/Write Profile
 
 Read/write ratios, as well as the the distribution of key access, should
 influence the configuration and design of your cluster. If your use case
@@ -107,8 +104,8 @@ certain portion of keys is accessed regularly, such as a [pareto
 distribution](http://en.wikipedia.org/wiki/Pareto_distribution), you
 won't need as much RAM available to cache those keys' values.
 
-Number of Nodes
----------------
+## Number of Nodes
+
 The number of nodes (i.e. physical servers) in your Riak Cluster depends
 on the number of times data is [[Replicated|Replication]] across the cluster.
 To ensure that the cluster is always available to respond to read and write requests, Basho recommends
@@ -119,9 +116,37 @@ in smaller clusters can compromise the fault-tolerance of the system.  Additiona
 5 nodes, a high percentage of the nodes (75-100% of them) will need to respond to each request, putting undue load on the
 cluster that may degrade performance.  For more details on this recommendation, see this [blog post](http://basho.com/blog/technical/2012/04/27/Why-Your-Riak-Cluster-Should-Have-At-Least-Five-Nodes/).
 
+## Scaling
 
-Ring Size/Number of Partitions
-------------------------------
+Riak can be scaled in two ways: vertically (improved hardware) and
+horizontally (more nodes). Both ways can provide performance and
+capacity benefits, but should be used in different circumstances. The
+[[riak-admin cluster command|riak-admin Command Line#cluster]] can assist in scaling in both directions.
+
+#### Vertical Scaling
+Vertical scaling, or improving the capabilities of a node/server, gives
+greater capacity to the node but does not decrease the overall load on
+existing members of the cluster. That is, the ability for the improved
+node to handle existing load is increased, but the load itself is
+unchanged. Reasons to scale vertically include increasing IOPS (I/O Operations Per Second), increasing CPU/RAM capacity, and increasing disk capacity.
+
+#### Horizontal Scaling
+Horizontal scaling, or increasing the number of nodes in the cluster,
+reduces the responsibilities of each member node by reducing the number of partitions, and providing additional endpoints for client
+connections. That is, the capacity of each individual node does not
+change, but its load is decreased. Reasons to scale horizontally include
+increasing I/O concurrency, reducing the load on existing nodes, and
+increasing disk capacity.
+
+<div class="note"><div class="title">Note</div>When scaling horizontally, it's best to add all planned nodes at once with multiple `riak-admin cluster join` commands, followed by a `riak-admin cluster plan` and `riak-admin cluster commit`.  This will help reduce the amount of data transfered between nodes in the cluster.</div>
+
+#### Reducing Horizontal Scale
+In the case where a Riak cluster is over-provisioned, or in response to
+seasonal usage decreases, the horizontal scale of a Riak
+cluster can be decreased as well with the `riak-admin cluster leave` command.
+
+
+## Ring Size/Number of Partitions
 
 Ring size is the number of partitions that make up your Riak Cluster.
 This is a number that is configured before you cluster is started, and
@@ -147,8 +172,7 @@ partitions to use, [consult the Riak Mailing
 List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
 for some suggestions.
 
-Other Factors
--------------
+## Other Factors
 
 Riak is built to run in a clustered environment and while it will
 compensate for network partitions they cause increased load on the
@@ -185,8 +209,7 @@ data is stored on multiple physical nodes, you can consider forgoing a
 tradition RAID setup for redundancy and focus on providing the least
 latency possible using SATA Drives or SSDs, for example.
 
-Additional resources
---------------------
+## Additional resources
 
 * [[System Planning|Planning for a Riak System]]
 * [[Basho Bench]]

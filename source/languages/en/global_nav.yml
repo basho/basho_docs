@@ -116,8 +116,7 @@ riak:
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
-          - "[[File System Tuning]]"
-          - "[[Linux Performance Tuning]]"
+          - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
       - title: "Running a Cluster"
         sub:
