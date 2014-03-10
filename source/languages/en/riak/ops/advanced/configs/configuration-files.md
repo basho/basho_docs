@@ -1769,10 +1769,3 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 {{/2.0.0+}}
 
-<!--
-<tr>
-<td><tt>dtrace</tt></td>
-<td>DTrace support Do not enable 'dtrace' unless your Erlang/OTP runtime is compiled to support DTrace.  DTrace is available in R15B01 (supported by the Erlang/OTP official source package) and in R14B04 via a custom source repository & branch.</td>
-<td><tt>off</tt></td>
-</tr>
--->
