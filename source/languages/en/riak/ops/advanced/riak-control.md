@@ -171,6 +171,12 @@ The default username and password are `user` and `pass`. Feel free to modify the
 {{/2.0.0-}}
 {{#2.0.0+}}
 
+You can specify any number of username/password combinations by setting `riak_control.auth.user.<username>.password = <password>`. Here are some examples:
+
+```riakconf
+riak_control.auth.user.jtuple1337.password = a1b2c3d4
+riak_control.auth.user.biglou.password = 1a2b3c4d
+```
 {{/2.0.0+}}
 
 **Note**: Any changes to {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} require you to restart your node(s).
