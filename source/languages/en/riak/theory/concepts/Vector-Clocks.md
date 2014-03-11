@@ -88,54 +88,6 @@ curl -XPUT \
   http://localhost:8098/buckets/siblings_bucket/keys/character
 ```
 {{/2.0.0-}}
-
-{{#2.0.0+}}
-
-```ruby
-bucket = client.bucket('siblings_bucket')
-
-obj1 = Riak::RObject.new(bucket, 'character')
-obj1.content_type = 'text/plain'
-obj1.raw_data = 'ren'
-obj1.store
-
-obj2 = Riak::RObject.new(bucket, 'character')
-obj2.content_type = 'text/plain'
-obj2.raw_data = 'stimpy'
-obj2.store
-```
-
-```python
-bucket = client.bucket('siblings_bucket')
-
-obj1 = RiakObject(bucket, 'character')
-obj1.content_type = 'text/plain'
-obj1.data = 'ren'
-obj1.store()
-
-obj2 = RiakObject(bucket, 'character')
-obj2.content_type = 'text/plain'
-obj2.data = 'stimpy'
-obj2.store()
-```
-
-```java
-Bucket siblingsBucket = client.fetchBucket("siblings_bucket").execute();
-String key = "character";
-
-IRiakObject obj1 = RiakObjectBuilder.newBuilder(siblingsBucket.getKey(), key)
-        .withContentType("text/plain")
-        .withValue("ren")
-        .build();
-siblingsBucket.store(obj1).execute();
-
-IRiakObject obj2 = RiakObjectBuilder.newBuilder(siblingsBucket.getKey(), key)
-        .withContentType("text/plain")
-        .withValue("stimpy")
-        .build();
-siblingsBucket.store(obj2).execute();
-```
-{{/2.0.0-}}
 {{#2.0.0+}}
 
 ```curl
@@ -149,20 +101,6 @@ curl -XPUT \
   -d "stimpy" \
   http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
 ```
-
-```ruby
-bucket = client.bucket('siblings_bucket')
-
-obj1 = Riak::RObject.new(bucket, 'character')
-obj1.content_type = 'text/plain'
-obj1.raw_data = 'ren'
-obj1.store(bucket_type: 'siblings_allowed')
-
-obj2 = Riak::RObject.new(bucket, 'character')
-obj2.content_type = 'text/plain'
-obj2.raw_data = 'stimpy'
-obj2.store(bucket_type: 'siblings_allowed')
-```
 {{/2.0.0+}}
 
 ### V-Tags
@@ -174,32 +112,11 @@ At this point, multiple objects are stored in the same key. Let's see what happe
 ```curl
 curl http://127.0.0.1:8098/buckets/siblings_bucket/keys/character
 ```
-
-```ruby
-bucket = client.bucket('siblings_bucket')
-bucket.get('character').raw_data
-```
-
-```python
-bucket = client.bucket('siblings_bucket')
-bucket.get('character').data
-```
-
-```java
-Bucket siblingsBucket = client.fetchBucket("siblings_bucket").execute();
-String key = "character";
-IRiakObject obj = siblingsBucket.fetch(key).execute();
-```
 {{/2.0.0-}}
 {{#2.0.0+}}
 
 ```curl
 curl http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
-```
-
-```ruby
-bucket = client.bucket('siblings_bucket')
-bucket.get('character', bucket_type: 'siblings_allowed').raw_data
 ```
 {{/2.0.0+}}
 
@@ -211,20 +128,9 @@ Siblings:
 6zY2mUCFPEoL834vYCDmPe
 ```
 
-```ruby
-#<Riak::RObject {siblings_bucket,character} [#<Riak::RContent [text/plain]:"ren">, #<Riak::RContent [text/plain]:"stimpy">]>
-```
+As you can see, reading an object with multiple values will result in some form of "multiple choices" response (e.g. `300 Multiple Choices` in HTTP).
 
-```python
-
-riak.ConflictError: 'Object in conflict'
-```
-
-```java
-Siblings found
-```
-
-As you can see, reading an object with multiple values will result in some form of "multiple choices" response (e.g. `300 Multiple Choices` in HTTP). You can view specific objects currently stored under the `character` key:
+You also have the option of viewing all objects currently stored under the `character` key at once:
 
 {{#2.0.0-}}
 
@@ -240,53 +146,19 @@ ren
 stimpy
 --WUnzXITIPJFwucNwfdaofMkEG7H--
 ```
-
-```ruby
-bucket = client.bucket('siblings_bucket')
-obj = bucket.get('character')
-
-# This will return an Array of siblings:
-obj.siblings
-
-# You can access specific siblings as members of the Array, e.g.:
-obj.siblings[0]
-obj.siblings[1].raw_data
-obj.siblings[2].content_type
-# etc.
-```
-
-```python
-bucket = client.bucket('siblings_bucket')
-obj = bucket.get('character')
-
-# This will return a list of siblings:
-obj.siblings
-
-# You can access specific siblings as members of the list, e.g.:
-obj.siblings[0]
-obj.siblings[1].data
-obj.siblings[2].content_type
-# etc.
-```
-
-```java
-/*
-  With the Java client, it's strongly recommended that you manage sibling
-  resolution by creating converter classes that are
-*/
-```
-{{/2.0.0-}}
 {{#2.0.0+}}
 
 ```curl
 curl -H "Accept: multipart/mixed" \
   http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
-```
 
-```ruby
-bucket = client.bucket('siblings_bucket')
-bucket.get('character', bucket_type: 'siblings_allowed')
+  # Response (without headers)
 
+ren
+--WUnzXITIPJFwucNwfdaofMkEG7H
+
+stimpy
+--WUnzXITIPJFwucNwfdaofMkEG7H--
 ```
 {{/2.0.0+}}
 
@@ -295,12 +167,11 @@ If you select the first of the two siblings and retrieve its value, you should s
 ### Conflict Resolution
 
 Once you are presented with multiple options for a single value, you must
-determine the correct value. In an application, this can be done in an
-automatic fashion or by presenting the conflicting objects to the end user.
-To update Riak with the appropriate value you will need the current vector
-clock.
+determine the correct value. In an application, this can be done either in an
+automatic fashion, using a use case-specific resolver, or by presenting the conflicting objects to the end user. 
 
-Right now, there are replicas with two different values: `ren` and `stimpy`. Let's say that we decide that `stimpy` is the correct value on the basis of our application's use case. In order to resolve the conflict, you need to fetch the object's vector clock and then write the correct value to the key _while passing the fetched vector clock to Riak_:
+To update Riak with the appropriate value you will need the current vector
+clock. Right now, there are replicas with two different values: `ren` and `stimpy`. Let's say that we decide that `stimpy` is the correct value on the basis of our application's use case. In order to resolve the conflict, you need to fetch the object's vector clock and then write the correct value to the key _while passing the fetched vector clock to Riak_:
 
 {{#2.0.0-}}
 
@@ -319,88 +190,64 @@ curl -XPUT \
   -d "stimpy" \
   http://localhost:8098/buckets/siblings_bucket/keys/character
 ```
-
-```ruby
-bucket = client.bucket('siblings_bucket')
-
-# First, we get the vector clock from the object with the correct value
-vc = bucket.get('character').siblings[1].vclock
-
-# Then, we perform a write using that vector clock
-obj = Riak::RObject.new(bucket, 'character')
-obj.content_type = 'text/plain'
-obj.raw_data = 'stimpy'
-obj.vclock = vc
-obj.store
-```
-
-```python
-bucket = client.bucket('siblings_bucket')
-
-# First, we get the vector clock from the object with the correct value
-vc = bucket.get('character').siblings
-```
 {{/2.0.0-}}
+{{#2.0.0+}}
+
+```
+curl -i http://localhost:8098/types/siblings_allowed/buckets/siblings_bucket/keys/character
+
+# The vector clock can be found in the "X-Riak-Vclock" header, e.g.
+X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
+
+# Then, you can write the correct value to the "character" key, passing
+# the vector clock as a header:
+
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -H "X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=" \
+  -d "stimpy" \
+  http://localhost:8098/types/siblings_allowed/buckets/siblings_bucket/keys/character
+```
+{{/2.0.0+}}
 
 <div class="note">
 <div class="title">Concurrent conflict resolution</div>
 It should be noted that if you are trying to resolve conflicts automatically,
-you can end up in a condition with which two clients are simultaneously
-resolving and creating new conflicts.  To avoid a pathological divergence you
+you can end up in a condition in which two clients are simultaneously
+resolving and creating new conflicts. To avoid a pathological divergence, you
 should be sure to limit the number of reconciliations and fail once that limit
 has been exceeded.
 </div>
 
-
 ### Sibling Explosion
 
-Sibling explosion occurs when an object rapidly collects siblings without
-being reconciled. This can lead to a myriad of issues. Having an enormous
-object in your node can cause reads of that object to crash the entire node.
-Other issues are increased cluster latency as the object is replicated and out
-of memory errors.
+Sibling explosion occurs when an object rapidly collects siblings without being reconciled. This can lead to myriad issues. Having an enormous object in your node can cause reads of that object to crash the entire node. Other issues include increased cluster latency as the object is replicated and out of memory errors.
 
 ### Vector Clock Explosion
 
 Besides sibling explosion, the vector clock can grow extremely large when a
 significant volume of updates are performed on a single object in a small
-period of time.  While updating a single object _extremely_ frequently is not
+period of time. While updating a single object _extremely_ frequently is not
 recommended, you can tune Riak's vector clock pruning to prevent vector clocks
 from growing too large too quickly.
 
 ### How does `last_write_wins` affect resolution?
 
-On the surface it seems like `allow_mult` set to `false` (the default)
-and `last_write_wins` set to `true` result in the same behavior, but
+On the surface, it seems like setting `allow_mult` to `false` (the default)
+and `last_write_wins` to `true` would result in the same behavior, but
 there is a subtle distinction.
 
-Even though both settings return only one value to the client,
-`allow_mult=false` still uses vector clocks for resolution, whereas
-`last_write_wins=true` simply reads the timestamp to determine the
-latest version. Deeper in the system, `allow_mult=false` will still
-allow siblings to exist when they are created (via concurrent writes
-or network partitions), whereas `last_write_wins=true` will simply
-overwrite the value with the one that has the later timestamp.
+Even though both settings return only one value to the client, setting `allow_mult` to `false` still uses vector clocks for resolution, whereas if `last_write_wins` is `true`, Riak reads the timestamp to determine the latest version. Deeper in the system, if `allow_mult` is `false`, Riak will still allow siblings to exist when they are created (via concurrent writes or network partitions), whereas setting `last_write_wins` to `true` means that Riak will simply overwrite the value with the one that has the later timestamp.
 
-When you don't care about sibling creation, `allow_mult=false` has the
-least surprising behavior --- you get the latest value, but
-network partitions are handled gracefully. However, for cases where
-keys are rewritten often (and quickly) and the new value isn't
-necessarily dependent on the old value, `last_write_wins` will provide
-better performance. Some use-cases where you might want to use
-`last_write_wins` include caching, session storage, and insert-only (no
-updates).
+When you don't care about sibling creation, setting `allow_mult` to `false` has the least surprising behavior: you get the latest value, but network partitions are handled gracefully. However, for cases in which keys are rewritten often (and quickly) and the new value isn't necessarily dependent on the old value, `last_write_wins` will provide better performance. Some use cases where you might want to use `last_write_wins` include caching, session storage, and insert-only (no updates).
 
 <div class="note">
-The combination of bucket properties <code>allow_mult=true</code> and
-<code>last_write_wins=true</code> has undefined behavior and should not be
-used.
+The combination of setting both the <tt>allow_mult</tt> and <tt>last_write_wins</tt> properties to <tt>true</tt> leads to undefined behavior and should not be used.
 </div>
 
 ## Vector Clock Pruning
 
-Riak regularly prunes vector clocks to prevent overgrowth based on four
-parameters which can be set per bucket. These parameters are:
+Riak regularly prunes vector clocks to prevent overgrowth based on four parameters which can be set per bucket:
 
  * `small_vclock`
  * `big_vclock`
@@ -419,19 +266,6 @@ stored with each vclock entry. If the list length is between
 `small_vclock` and `big_vclock` the age of each entry is checked. If
 the entry is younger than `young_vclock` it is not pruned. If the
 entry is older than `old_vclock` than it is pruned.
-
-## Client vs Vnode Vector Clocks
-
-Prior to Riak 1.0, all put requests should have been submitted with a
-client id.  The jobs of coordinating a put request and incrementing
-the associated vector clock were handled by the vnode which received
-the request. If a client id was not submitted, a random one was
-generated and used to increment the vector clock. This resulted in
-potentially unbounded vector clock growth with poorly-behaved clients.
-
-As of Riak 1.0, vector clocks are (by default) managed directly by the
-vnodes using internal counters and identifiers. This constrains the
-growth of the vector clocks but adds some latency to writes.
 
 ## More Information
 
