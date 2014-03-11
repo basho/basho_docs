@@ -12,11 +12,65 @@ If you're looking for more general information on Riak Security, it may be best 
 
 This document provides more granular information on the four available authentication sources in Riak Security: trusted networks, password, pluggable authentication modules (PAM), and certificates. These sources correspond to `trust`, `password`, `pam`, and `certificate`, respectively, in the `riak-admin security` interface.
 
+The examples below will assume that the network in question is `127.0.0.1/32` and that a Riak user named `riakuser` has been [[created|Authentication and Authorization#User-Management]] and that security has been [[enabled|Authentication and Authorization#The-Basics]].
+
+<div class="note">
+<div class="title">Note</div>
+If you use <em>any</em> of the aforementioned security sources, you will need to do so via a secure connection, even <tt>trust</tt>.
+</div>
+
 ## Trust-based Authentication
 
 This form of authentication enables you to specify trusted [CIDRs](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) from which all clients will be authenticated by default.
 
+```bash
+riak-admin security add-source all 127.0.0.1/32 trust
+```
+
+Here, we have specified that anyone connecting to Riak from the designated CIDR (in this case `localhost`) will be successfully authenticated:
+
+```curl
+curl https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+```
+
+If this request returns `not found` or a Riak object, then things have been set up appropriately. You can specify any number of trusted networks in the same fashion.
+
+You can also specify users as trusted users, as in the following example:
+
+```bash
+riak-admin security add-source riakuser 127.0.0.1/32 trust
+```
+
+Now, `riakuser` can interact with Riak without providing credentials. Here's an example in which only the username is passed to Riak:
+
+```curl
+curl -u riakuser: https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+```
+
 ## Password-based Authentication
+
+Authenticating via the `password` source requires that our `riakuser` be given a password. `riakuser` can be assigned a password upon creation, as in this example:
+
+```bash
+riak-admin security add-user riakuser password=captheorem4life
+```
+
+Or a password can be assigned to an already existing user by modifying that user's characteristics:
+
+```bash
+riak-admin security alter-user riakuser password=captheorem4life
+```
+
+You can specify that _all_ users must authenticate themselves via password:
+
+```bash
+riak-admin security add-source all 127.0.0.1/32 password
+```
+
+Or you can 
+
+
+
 
 ## Certificate-based Authentication
 
