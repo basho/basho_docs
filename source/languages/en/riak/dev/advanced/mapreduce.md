@@ -125,51 +125,12 @@ well.
 EOF
 ```
 
-```ruby
-bucket = client.bucket 'alice'
-
-obj = Riak::RObject.new(bucket, 'p1')
-obj.content_type = 'text/plain'
-obj.raw_data = "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'"
-obj.store
-
-obj2 = Riak::RObject.new(bucket, 'p2')
-obj2.content_type = 'text/plain'
-obj2.raw_data = "So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her."
-obj2.store
-
-obj3 = Riak::RObject.new(bucket, 'p3')
-obj3.content_type = 'text/plain'
-obj3.raw_data = "The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think
-about stopping herself before she found herself falling down a very deep well."
-obj3.store
-```
-
-```python
-bucket = client.bucket('alice')
-
-obj = RiakObject(client, bucket, 'p1')
-obj.content_type = 'text/plain'
-obj.data = "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'"
-obj.store()
-
-obj2 = RiakObject(client, bucket, 'p2')
-obj2.content_type = 'text/plain'
-obj2.data = "So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her."
-obj2.store()
-
-obj3 = RiakObject(client, bucket,  'p3')
-obj3.content_type = 'text/plain'
-obj3.data = "The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well."
-obj3.store()
-```
-
 #### Run query
 
 With data loaded, we can now run a query:
 
 ```curl
-$ curl -X POST \
+curl -X POST \
   -H "Content-Type: application/json" \
   http://localhost:8098/mapred \
   --data @-<<\EOF
@@ -319,17 +280,19 @@ Map phases may also be passed static arguments by using the `arg` spec field.
 For example, the following map function will perform a regex match on object values using "arg" and return how often "arg" appears in each object:
 
 ```json
-{"map":
-  {"language":"javascript",
-  "source":"function(v, keyData, arg) {
-    var re = RegExp(arg, \"gi\");
-    var m = v.values[0].data.match(re);
-    if (m == null) {
-      return [{\"key\":v.key, \"count\":0}];
-    } else {
-      return [{\"key\":v.key, \"count\":m.length}];
-    }
-  }",
+{
+  "map":
+    {
+      "language": "javascript",
+      "source": "function(v, keyData, arg) {
+        var re = RegExp(arg, \"gi\");
+        var m = v.values[0].data.match(re);
+        if (m == null) {
+          return [{\"key\":v.key, \"count\":0}];
+        } else {
+          return [{\"key\":v.key, \"count\":m.length}];
+        }
+    }",
   "arg":"static data used in map function"}
 }
 ```
