@@ -13,23 +13,23 @@ moved: {
 
 ## Overview
 
-Pre- and post-commit hooks are invoked before or after a `riak_object` is persisted and can greatly enhance the functionality of any application. Commit hooks can:
+Pre- and post-commit hooks are invoked before or after a `riak_object` is persisted and can greatly enhance the functionality of any application. Commit hooks can accomplish, for example, something like the following:
 
-- allow a write to occur with an unmodified object
-- modify the object
-- fail the update and prevent any modifications
+- Allow a write to occur with an unmodified object
+- Modify the object
+- Fail the update and prevent any modifications
 
-Post-commit hooks are invoked after the fact and should not modify the `riak_object`. Updating `riak_object`s in post-commit hooks can cause nasty feedback loops which will wedge the hook into an infinite cycle unless the hook functions are carefully written to detect and short-circuit such cycles.
+Post-commit hooks are invoked after the fact and should not modify the Riak object itself. Updating a Riak in post-commit hooks can cause nasty feedback loops which will wedge the hook into an infinite cycle unless the hook functions are carefully written to detect and short-circuit such cycles.
 
-{{#2.0.0-}}Pre- and post-commit hooks are defined on a per-bucket basis and are stored in the target bucket's properties.{{/2.0.0-}}{{#2.0.0+}}Pre- and post-commit hooks are defined on a per-bucket basis and applied using [[bucket types|Using Bucket Types]].{{/2.0.0+}} They are run once per successful response to the client.
+Pre- and post-commit hooks are defined on a per-bucket basis and applied using [[bucket types|Using Bucket Types]]. They are run once per successful response to the client.
 
 ## Configuration
 
-Configuring pre- and post-commit hooks is very easy. Simply add a reference to your hook function to the list of functions stored in the correct bucket property. Pre-commit hooks are stored under the bucket property `precommit`, whereas post-commit hooks use the bucket property `postcommit`.
+Configuring pre- and post-commit hooks is very easy. Simply add a reference to your hook function to the list of functions stored in the correct bucket property in your bucket type. Pre-commit hooks are stored under the property `precommit`, whereas post-commit hooks use the bucket property `postcommit`.
 
-Pre-commit hooks can be implemented as named Javascript functions or as Erlang functions. The configuration for each is given below:
+Pre-commit hooks can be implemented either as named Javascript functions or as Erlang functions. The configuration for each is given below:
 
-#### Javascript
+#### JavaScript
 
 ```json
 {
@@ -46,22 +46,18 @@ Pre-commit hooks can be implemented as named Javascript functions or as Erlang f
 }
 ```
 
-Post-commit hooks can be implemented in Erlang only, which is described in more detail under [[Advanced Commit Hooks]]. The reason for this restriction is that Javascript cannot call Erlang code and, thus, is prevented from doing anything useful. Post-commit hooks use the same function reference syntax as pre-commit hooks.
-
-{{#2.0.0-}}
-See [[Advanced MapReduce]] for steps to define your own pre-defined Javascript named functions.
-{{/2.0.0-}}
+Post-commit hooks can be implemented in Erlang only, which is described in more detail under [[Advanced Commit Hooks]]. The reason for this restriction is that Javascript cannot call Erlang code and is thus prevented from doing anything useful in Riak. Post-commit hooks use the same function reference syntax as pre-commit hooks.
 
 ## Pre-Commit Hooks
 
 ### API & Behavior
 
-Pre-commit hook functions should take a single argument: the `riak_object` being modified. Remember that deletes are also considered "writes," so pre-commit hooks will be fired when a delete occurs. Hook functions will need to inspect the object for the `X-Riak-Deleted` metadata entry to determine when a delete is occurring.
+Pre-commit hook functions should take a single argument: the Riak object (`riak_object`) being modified. Remember that deletes are also considered "writes," so pre-commit hooks will be fired when a delete occurs. Hook functions will need to inspect the object for the `X-Riak-Deleted` metadata entry to determine when a delete is occurring.
 
 Erlang pre-commit functions are allowed three possible return values:
 
-- A `riak_object` --- This can be either the same object passed to the function or an updated version. This allows hooks to modify the object before they are written.
-- `fail` --- The atom `fail` will cause Riak to fail the write and send a `403 Forbidden` along with a generic error message about why the write was blocked.
+- A `riak_object` --- This can be either the same object passed to the function or an updated version. This allows hooks to modify the object before the hooks are written.
+- `fail` --- The atom `fail` will cause Riak to fail the write and send a `403 Forbidden` message along with a generic error message about why the write was blocked.
 - `{fail, Reason}` --- The tuple `{fail, Reason}` will cause the same behavior as when `fail` is used, with the addition of `Reason` used as the error text.
 
 Errors that occur when processing Erlang pre-commit hooks will be reported in the `sasl-error.log` file with lines that start with `problem invoking hook`.

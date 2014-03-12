@@ -33,111 +33,74 @@ Riak chooses to focus on the A and P of CAP. This choice puts Riak in the eventu
 
 All data stored in Riak will be replicated to a number of nodes in the cluster according to the N value (`n_val`) property set on the bucket. By default, Riak chooses an `n_val` of 3 for you. This means that data stored in the bucket will be replicated to three different nodes, thus storing three copies. For this to be effective, you need at least three physical nodes in your cluster. The merits of this system can be demonstrated, however, using your local environment.
 
-To change the `n_val` for a bucket (to something different than the default of 3), issue a `PUT` request to the bucket with the new `n_val`. If you still have your three-node Riak cluster running, try this:
+To change the `n_val` for a bucket, you must create and activate a [[bucket type|Using Bucket Types]] that uses the desired `n_val`, let's say 2:
+
+```bash
+riak-admin bucket-type create n_val_is_2 '{"props":{"n_val":2}}'
+riak-admin bucket-type activate n_val_is_2
+```
+
+Now, all buckets that bear the type `n_val_is_5` will have `n_val` set to 2. Here's an example write:
 
 ```curl
-curl -v -XPUT \
-  -H "Content-Type: application/json" \
-  -d '{"props":{"n_val":2}}' \
-  http://127.0.0.1:8098/buckets/another_bucket/props
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "the n_val on this write is 2" \
+  http://localhost:8098/types/n_val_is_5/buckets/test_bucket/keys/test_key
 ```
 
-```ruby
-bucket = client.bucket 'another_bucket'
-bucket.props['n_val'] = 2
-```
-
-```python
-bucket = client.bucket('another_bucket')
-bucket.set_property('n_val', 2)
-```
-
-```java
-Bucket anotherBucket = client.createBucket("another_bucket").nVal(2).execute();
-```
-
-This will change the `n_val` of the bucket `another_bucket` to two, meaning that each piece of data in that bucket will be replicated to two partitions in the cluster.
-
-<div class="note"><div class="title">A Word on Setting the N Value</div><tt>n_val</tt> must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. We advise against modifying the <tt>n_val</tt> of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.</div>
+<div class="note">
+<div class="title">A Word on Setting the N Value</div>
+<tt>n_val</tt> must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. We advise against modifying the <tt>n_val</tt> of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.
+</div>
 
 ### R Value and Read Failure Tolerance
 
-With the last command, we changed the bucket's `n_val` to `2`.
+Above, we create a bucket type with `n_val` set to `2`.
 
-Riak allows the client to supply an *R value* on each direct fetch. The R value represents the number of Riak nodes that must return results for a read before the read is considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
+Riak also allows clients to supply an *R value* on each direct fetch. The R value represents the number of Riak nodes that must return results for a read before the read is considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
 
-For example, in this HTTP request, the r value is set to 1:
+Let's create and activate a bucket type with `r` set to 1
+
+```bash
+riak-admin bucket-type create r_equals_1 '{"props":{"r":1}}'
+riak-admin bucket-type activate r_equals_1
+```
+
+Now, for data that is in a bucket that bears our `r_equals_1` type, at least one copy is present in your cluster. Here's an example read request with `r` set to `1`:
 
 ```curl
-curl http://127.0.0.1:8091/buckets/images/keys/1.png?r=1
+curl http://localhost:8098/types/r_equals_1/buckets/test_bucket/keys/test_key
 ```
-
-```ruby
-bucket = client.bucket 'images'
-bucket.get '1.png', r: 1
-```
-
-```python
-bucket = client.bucket('images')
-bucket.get('1.png', r=1)
-```
-
-```java
-Bucket imageBucket = client.fetchBucket("images").execute();
-IRiakObject obj = imageBucket.fetch("1.png").r(1).execute();
-```
-
-This means that Riak will return a copy of that data if at least 1 copy is present in your cluster.
 
 ### W Value and Write Fault Tolerance
 
 Riak also allows the client to supply a *W value* on each update. The W value represents the number of Riak nodes that must report success before an update is considered complete. This allows Riak to provide write availability even when nodes are down or laggy.
 
-In this `PUT` operation, you can see the `w` value set to `3`.
+Let's create and activate a bucket type with `w` set to `3`:
+
+```bash
+riak-admin bucket-type create w_equals_3 '{"props":{"w":3}}'
+riak-admin activate w_equals_3
+```
+
+Now, we can attempt a write in accordance with that W value:
 
 ```curl
-curl -v -XPUT \
+curl -XPUT \
   -H "Content-type: text/plain" \
   --data-binary @story.txt \
-  http://127.0.0.1:8091/buckets/docs/keys/story.txt?w=3
-```
-
-```ruby
-bucket = client.bucket 'docs'
-story_object = Riak::RObject.new(bucket, 'story.txt')
-story_object.content_type = 'text/plain'
-story_object.raw_data = File.open('story.txt').bytes
-story_object.store w: 3
-```
-
-```python
-bucket = client.bucket('docs')
-story_object = RiakObject(client, bucket, 'story.txt')
-story_object.content_type = 'text/plain'
-story_object.data = open('story.txt', 'r').read()
-story_object.store(w=3)
-```
-
-```java
-Bucket docsBucket = client.fetchBucket("docs").execute();
-String key = "story.txt";
-String fileData = useSomeFunctionToConvertFileToString("story.txt");
-IRiakObject obj = RiakObjectBuilder
-        .newBuilder(docsBucket.getName(), null)
-        .withContentType("text/plain")
-        .withValue(fileData)
-        .build();
-docsBucket.store(key, obj).w(3).execute();
+  http://localhost:8098/types/w_equals_3/buckets/docs/keys/story.txt
 ```
 
 ### Symbolic Consistency Names
 
 Riak 0.12 introduced "symbolic" consistency options for R and W that can be easier to use and understand. They are:
 
-* *all* --- All replicas must reply. This is the same as setting R or W equal to N.
-* *one* --- This is the same as sending 1 as the R or W value.
-* *quorum* --- A majority of the replicas must respond, that is, half plus one. For the default N value of 3, this calculates to 2, an N value of 5 calculates to 3, and so on.
-* *default* --- Uses whatever the per-bucket consistency property is for R or W, which may be any of the above values, or an integer.
+* `all` --- All replicas must reply. This is the same as setting R or W equal to N.
+* `one` --- This is the same as sending 1 as the R or W value.
+* `quorum` --- A majority of the replicas must respond, that is, half plus one. For the default N value of 3, this calculates to 2, an N value of 5 calculates to 3, and so on.
+* `default` --- Uses whatever the per-bucket consistency property is for R or W, which may be any of the above values, or an integer.
 
 Not submitting an R or W value is the same as sending `default`.
 

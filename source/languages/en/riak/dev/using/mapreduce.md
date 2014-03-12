@@ -59,66 +59,30 @@ After running the map function, the results are sent back to the coordinating no
 
 ## Examples
 
-In this example we will create four objects with the text "pizza" sometimes repeated. Javascript MapReduce will be used to count the occurrences of the word "pizza".
+In this example we will create four objects with the text "pizza" repeated a varying number of times. Javascript MapReduce will be used to count the occurrences of the word "pizza."
 
 ### Data object input commands:
 
 ```curl
-curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
+curl -XPUT \
+  -H 'Content-Type: text/plain' \
+  -d 'pizza data goes here' \
+  http://localhost:8098/types/<type>/buckets/training/keys/foo  
 
-curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
+curl -XPUT \
+  -H 'Content-Type: text/plain' \
+  -d 'pizza pizza pizza pizza' \
+  http://localhost:8098/types/<type>/buckets/training/keys/bar
 
-curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
+curl -XPUT \
+  -H 'Content-Type: text/plain' \
+  -d 'pizza pizza pizza pizza' \
+  http://localhost:8098/types/<type>/buckets/training/keys/baz
 
-curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
-```
-
-```ruby
-bucket = client.bucket 'training'
-
-foo = Riak::RObject.new(bucket, 'foo')
-foo.content_type = 'text/plain'
-foo.raw_data = 'pizza data goes here'
-foo.store
-
-bar = Riak::RObject.new(bucket, 'bar')
-bar.content_type = 'text/plain'
-bar.raw_data = 'pizza pizza pizza pizza'
-bar.store
-
-baz = Riak::RObject.new(bucket, 'baz')
-baz.content_type = 'text/plain'
-baz.raw_data = 'nothing to see here'
-baz.store
-
-bam = Riak::RObject.new(bucket, 'bam')
-bam.content_type = 'text/plain'
-bam.raw_data = 'pizza pizza pizza'
-bam.store
-```
-
-```python
-bucket = client.bucket('training')
-
-foo = RiakObject(bucket, 'foo')
-foo.content_type = 'text/plain'
-foo.data = 'pizza data goes here'
-foo.store()
-
-bar = RiakObject(bucket, 'bar')
-bar.content_type = 'text/plain'
-bar.data = 'pizza pizza pizza pizza'
-bar.store()
-
-baz = RiakObject(bucket, 'baz')
-baz.content_type = 'text/plain'
-baz.data = 'nothing to see here'
-baz.store()
-
-bam = RiakObject(bucket, 'bam')
-bam.content_type = 'text/plain'
-bam.data = 'pizza pizza pizza'
-bam.store()
+curl -XPUT \
+  -H 'Content-Type: text/plain' \
+  -d 'pizza pizza pizza' \
+  http://localhost:8098/types/<type>/buckets/training/keys/bam
 ```
 
 ### MapReduce script and deployment:
@@ -147,12 +111,6 @@ The output is the key of each  object, followed by the count of the word  "pizza
 ### Recap
 
 We run a Javascript MapReduce function against the `training` bucket, which takes each `riakObject` (a JavaScript representation of a key/value) and searches the text for the word "pizza." `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
-
-
-<!-- ## NEED TO ADD
-* Errors
-* Tombstones
- -->
 
 ## Further Reading
 
