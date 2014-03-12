@@ -20,4 +20,4 @@ For user account-related data that is simple, frequently read but rarely changed
 
 ## Complex Case
 
- If you find your application frequently writing to the user account, or have dynamically growing user related data such as bookmarks, subscriptions or multiple notifications, then a more advanced data model is called for (see the section on social events/subscriptions)
+If you find your application frequently writing to the user account, or have dynamically growing user related data such as bookmarks, subscriptions or multiple notifications, then a more advanced data model is called for (see the section on social events/subscriptions)
