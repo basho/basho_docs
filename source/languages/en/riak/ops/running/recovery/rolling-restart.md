@@ -17,13 +17,15 @@ The following steps should be undertaken on each Riak node that you wish to rest
 riak stop
 ```
 
-2\. Start Riak again
+2\. Perform any necessary maintenance, upgrade, or other work in your cluster.
+
+3\. Start Riak again
 
 ```bash
 riak start
 ```
 
-3\. Verify that the `riak_kv` service is once again available on the target node
+4\. Verify that the `riak_kv` service is once again available on the target node
 
 ```bash
 riak-admin wait-for-service riak_kv <nodename>
@@ -31,7 +33,7 @@ riak-admin wait-for-service riak_kv <nodename>
 
 If this responds with `riak_kv is up`, then the service is available and you can move on to the next step. Otherwise, the console will periodically return `riak_kv is not up` until the service is available.
 
-4\. Verify that all in-progress handoffs have been completed
+5\. Verify that all in-progress handoffs have been completed
 
 ```bash
 riak-admin transfers
@@ -39,4 +41,4 @@ riak-admin transfers
 
 If this responds with `No transfers active`, then all handoffs are complete. If not, run this command periodically until no more transfers are active.
 
-5\. Repeat the above process for any other nodes that need to be restarted.
+6\. Repeat the above process for any other nodes that need to be restarted.
