@@ -105,13 +105,20 @@ Riak security enables you to control _authorization_ by creating, modifying, and
 
 You may also assign users characteristics beyond those listed above---e.g., listing email addresses or other information---but those values will carry no special significance for Riak.
 
-### Retrieve a Current User List
+### Retrieve a Current User or Group List
 
 A list of currently existing users can be accessed at any time:
 
 ```bash
 riak-admin security print-users
 ```
+
+Same for groups:
+
+```bash
+riak-admin security print-groups
+```
+
 
 Example output, assuming one user with an assigned password:
 
@@ -137,12 +144,16 @@ of `lucius`, the output would look like this:
 ```
 
 If you'd like to see which permissions have been assigned to
-`riakuser`, you would need to use the `print-user` command, detailed
+`riakuser`, you would need to use the `print-grants` command, detailed
 below.
 
-### Retrieving Information About a Single User
+`security print-user` or `security-print-group` (singular) can be used
+with a name as argument to see the same information as above, except
+for only that user or group.
 
-You can retrieve authorization information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
+### Permissions Grants For a Single User or Group
+
+You can retrieve authorization information about a specific user or group using the `print-grants` command, which takes the form of `riak-admin security print-grants <username>`.
 
 The output will look like this if the user `riakuser` has been
 explicitly granted a `riak_kv.get` permission on the bucket
@@ -150,7 +161,7 @@ explicitly granted a `riak_kv.get` permission on the bucket
 group:
 
 ```bash
-Inherited permissions
+Inherited permissions (user/riakuser)
 
 +--------+----------+----------+----------------------------------------+
 | group  |   type   |  bucket  |                 grants                 |
@@ -159,7 +170,7 @@ Inherited permissions
 |        |          |          |              riak_kv.put               |
 +--------+----------+----------+----------------------------------------+
 
-Dedicated permissions (riakuser)
+Dedicated permissions (user/riakuser)
 
 +----------+-------------+----------------------------------------+
 |   type   |   bucket    |                 grants                 |
@@ -167,7 +178,7 @@ Dedicated permissions (riakuser)
 |   ANY    |shopping_list|               riak_kv.get              |
 +----------+-------------+----------------------------------------+
 
-Cumulative permissions (riakuser)
+Cumulative permissions (user/riakuser)
 
 +----------+-------------+----------------------------------------+
 |   type   |   bucket    |                 grants                 |
@@ -179,6 +190,12 @@ Cumulative permissions (riakuser)
 ```
 
 **Note**: The term `admin` is not a reserved term in Riak security. It is used here only for illustrative purposes.
+
+Because the same name can represent both a user and a group, a prefix
+(`user/` or `group/`) can be used before the name (e.g., `print-grants
+user/admin`). If a name collides and no prefix is supplied, grants for
+both will be listed separately.
+
 
 ### Add Group
 
@@ -323,6 +340,10 @@ and bucket types to multiple users:
 ```bash
 riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
 ```
+
+If the same name is used for both a user and a group, the `grant`
+command will ask for the name to be prefixed with `user/` or `group/`
+to disambiguate.
 
 ### Key/Value Permissions
 
