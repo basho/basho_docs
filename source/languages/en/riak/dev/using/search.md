@@ -14,11 +14,11 @@ You must first [[enable Riak Search|Riak Search Settings]] in your environment t
 
 ## Introduction
 
-Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or bucket type) to a Solr index, you simply write values (such as JSON, XML, plain text, datatypes, etc.) into Riak as normal, and then query those indexed values using the Solr API.
+Riak Search 2.0 is a new open-source project integrated with Riak. It allows for distributed, scalable, fault-tolerant, transparent indexing and querying of Riak values. It's easy to use. After connecting a bucket (or [[bucket type|Using Bucket Types]]) to a Solr index, you simply write values (such as JSON, XML, plain text, datatypes, etc.) into Riak as normal, and then query those indexed values using the Solr API.
 
 ### Why Riak Search
 
-Some of Riak's core strengths lie in its scalability, fault tolerance, and ease of operations. However, Riak models its data in key-value objects, and a key-value store is something that few would claim is easy to query. This is the driving force behind Riak Search, to provide an integrated, scalable mechanism to build ad hoc queries against values stored in a Riak cluster, while holding true to Riak's core strengths.
+Some of Riak's core strengths lie in its scalability, fault tolerance, and ease of operations. However, Riak models its data in key-value objects, and a key-value store is something that few would claim is easy to query. The driving force behind Riak Search is to provide an integrated, scalable mechanism to build ad hoc queries against values stored in a Riak cluster, while holding true to Riak's core strengths.
 
 ![Yokozuna](/images/yokozuna.png)
 
@@ -34,9 +34,7 @@ Riak Search must first be configured with a Solr *schema*, so Solr knows how to 
 
 Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we'll `curl` create an index named `famous` with the default schema.
 
-<div class="info">All `curl` examples in this document require that you first
-set an environment variable named `RIAK_HOST`, which points to a Riak base
-URL, such as `RIAK_HOST="http://localhost:8098"`.</div>
+<div class="info">All <tt>curl</tt> examples in this document require that you first set an environment variable named <tt>RIAK_HOST</tt>, which points to a Riak base URL, such as <tt>RIAK_HOST="http://localhost:8098"</tt>.</div>
 
 ```curl
 export RIAK_HOST="http://localhost:8098"
@@ -70,12 +68,11 @@ client.create_search_index('famous', '_yz_default')
 riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, [])
 ```
 
-The last setup item you need to perform is to *associate a bucket type* with a Solr index. You only need do this once per bucket type. This setting tells Riak Search which bucket values are to be indexed on a write to Riak. For example, to associate a bucket named `cats` with the `famous` index, you can set the bucket property `search_index`.
-
+The last setup item you need to perform is to *associate a bucket type* with a Solr index. You only need to do this once per bucket type. This setting tells Riak Search which bucket values are to be indexed on a write to Riak. For example, to associate a bucket named `cats` with the `famous` index, you can set the bucket property `search_index`.
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but require an additional setup step in on commandline.
+Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but require an additional setup step on the command line.
 
 ```bash
 riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
@@ -84,7 +81,7 @@ riak-admin bucket-type activate animals
 
 ### Security
 
-Security is a new feature of Riak that lets an administrator limit access to certain resources. In the case of search, your options are to limit administration of schemas or indexes (permission `search.admin`) to certain users, and to limit querying (permission `search.query`) to any index or a specific one. The example below shows the various options.
+[[Security|Authentication and Authorization]] is a new feature of Riak that lets an administrator limit access to certain resources. In the case of search, your options are to limit administration of schemas or indexes (permission `search.admin`) to certain users, and to limit querying (permission `search.query`) to any index or a specific one. The example below shows the various options.
 
 ```bash
 riak-admin security grant search.admin ON schema TO username
@@ -349,7 +346,7 @@ riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 
 #### Boolean
 
-You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR` and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:[25 TO *]`.
+You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR`, and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:[25 TO *]`.
 
 ```curl
 curl "$RIAK_HOST/search/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
@@ -399,6 +396,25 @@ Start = ?ROWS_PER_PAGE * (Page - 1),
 
 riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
 ```
+
+### Deleting Indexes
+
+Deleting an index is a simple operation:
+
+```curl
+curl -XDELETE "$RIAK_HOST/search/index/famous"
+```
+```ruby
+client.delete_search_index('famous')
+```
+```python
+client.delete_search_index('famous')
+```
+```erlang
+riakc_pb_socket:delete_search_index(Pid, <<"famous">>, []),
+```
+
+It is important to note, however, that indexes may be deleted only if they have no buckets associated with them. If they do have buckets associated with them, they cannot be deleted. Instead, the `search_index` property (not `search-index`) must be changed to either a different index name or to the sentinel value `_dont_index_`.
 
 ### MapReduce
 
