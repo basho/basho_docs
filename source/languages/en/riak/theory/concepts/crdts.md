@@ -66,7 +66,7 @@ Counters are subject to two operations, incremement and decrement, whether they 
 
 ### Sets
 
-Sets are basic collections of binary values, such as strings. All members of a set must be unique. Sets can be used either on their own or embedded in a map.
+Sets are collections of unique binary values, such as strings. Sets can be used either on their own or embedded in a map.
 
 #### Operations
 
