@@ -16,7 +16,7 @@ The examples below will assume that the network in question is `127.0.0.1/32` an
 
 <div class="note">
 <div class="title">Note</div>
-If you use <em>any</em> of the aforementioned security sources, even <tt>trust</tt>, you will need to do so via a secure connection.
+If you use <em>any</em> of the aforementioned security sources, even <tt>trust</tt>, you will need to do so via a secure SSL connection.
 </div>
 
 ## Trust-based Authentication
@@ -44,7 +44,8 @@ riak-admin security add-source riakuser 127.0.0.1/32 trust
 Now, `riakuser` can interact with Riak without providing credentials. Here's an example in which only the username is passed to Riak:
 
 ```curl
-curl -u riakuser: https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+curl -u riakuser: \
+  https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 ## Password-based Authentication
@@ -79,7 +80,8 @@ riak-admin security add-source otheruser 127.0.0.1/32 password
 Now, our `riakuser` must enter a username and password to have any access to Riak whatsoever:
 
 ```curl
-curl -u riakuser:captheorem4life https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+curl -u riakuser:captheorem4life \
+  https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 ## Certificate-based Authentication
@@ -103,7 +105,7 @@ When the `certificate` source is used, `riakuser` must also be entered as the co
 openssl req -new ... '/CN=riakuser'
 ```
 
-You can add a `certificate` source to any number of clients, so long as their `CN` and Riak username match.
+You can add a `certificate` source to any number of clients, as long as their `CN` and Riak username match.
 
 On the server side, you need to configure Riak by specifying a path to your certificates. First, copy all relevant files to your Riak cluster. The default directory for certificates is `/etc`, though you can specify a different directory in your `[[riak.conf|Configuration Files#]]` by either uncommenting those lines if you choose to use the defaults or setting the paths yourself:
 
@@ -152,15 +154,24 @@ That command should output the following:
 You can test that setup most easily by using `curl`. A normal request to Riak without specifying a user will return an `Unauthorized` message:
 
 ```curl
-curl -u riakuser: https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+curl -u riakuser: \
+  https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+```
 
-# Response:
+Response:
 
+```
 <html><head><title>401 Unauthorized</title></head><body><h1>Unauthorized</h1>Unauthorized<p><hr><address>mochiweb+webmachine web server</address></body></html>
 ```
 
-If you identify yourself as `riakuser` and use the password specified in your PAM, you should get either `not found` or a Riak object if one is stored in the specified bucket type/bucket/key path:
+If you identify yourself as `riakuser` and are successfully authenticated by your PAM service, you should get either `not found` or a Riak object if one is stored in the specified bucket type/bucket/key path:
 
 ```curl
-curl -u riakuser:<pam_password> https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
+curl -u riakuser:<pam_password> \
+  https://localhost:8098/types/<type>/buckets/<bucket>/keys/<key>
 ```
+
+## How Sources Are Applied
+
+When managing security sources---any of the sources explained above---you always have the option of applying a source to either a single user/role or to all users (`all`). If specific users and `all` have no sources in common, this presents no difficulty. But what happens if a 
+
