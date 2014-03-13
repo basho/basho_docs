@@ -8,12 +8,12 @@ audience: advanced
 keywords: [upgrading, downgrading]
 ---
 
-Downgrades of Riak are tested and supported for two feature release versions, with the general procedure being similar to that of a [[rolling upgrade|Rolling Upgrades]]:
+Downgrades of Riak are tested and supported for two feature release versions, with the general procedure being similar to that of a [[rolling upgrade|Rolling Upgrades]].
 
-On each node:
+You should perform the following actions on each node:
 
 1.  Stop Riak
-2.  Back up Riak `etc` and `data` directories.
+2.  Back up Riak's `etc` and `data` directories.
 3.  Downgrade Riak
 4.  Start Riak
 5.  Verify Riak is running the downgraded version.
@@ -28,7 +28,7 @@ The below instructions describe the procedures required for a single feature rel
 ## General Guidelines
 
 - Riak Control should be disabled throughout the rolling downgrade process.
-- The app.config and vm.args must be replaced with those of the version being downgraded to.
+- The `app.config` and `vm.args` must be replaced with those of the version being downgraded to.
 - Active Anti-Entropy should be disabled if downgrading to a version below 1.3.
 
 ## Before Stopping a Node
@@ -37,15 +37,15 @@ The below instructions describe the procedures required for a single feature rel
 
 #### Object Format
 
-If the new, more compact object format introduced in Riak 1.4 is in use, the objects will need to be downgraded on each node prior to starting the rolling downgrade. Which object format is in use can be found in the app.config, under the `riak_kv` section as `object_format`. If not specified, this defaults to `v0` which is the old format.
+If the new, more compact object format introduced in Riak 1.4 is in use, the objects will need to be downgraded on each node prior to starting the rolling downgrade. You can determine which object format is in use by checking the `object_format` parameter under the `riak_kv` section of the `app.config`. If not specified, this defaults to `v0` which is the old format.
 
 To downgrade the objects, run the below `riak-admin` command. This command must be run on each node.
 
-```
+```bash
 riak-admin downgrade-objects <kill-handoffs> [<concurrency>]
 ```
 
-The `<kill-handoffs>` parameter is required and is set to either true or false. If false, any ongoing handoff will be waited on before performing the reformat. Otherwise, all in-flight handoff, inbound to the node or outbound from it, will be killed. During and after the reformat the transfer-limit will be set to 0.
+The `<kill-handoffs>` parameter is required and is set to either `true` or `false`. If `false`, any ongoing handoff will be waited on before performing the reformat. Otherwise, all in-flight handoff, inbound to the node or outbound from it, will be killed. During and after the reformat the transfer-limit will be set to 0.
 
 The optional `<concurrency>` argument must be an integer greater than zero. It determines how many partitions are reformatted on the node concurrently. By default the concurrency is two. Additionally, in anticipation that the entire cluster will be downgraded downgrade-objects sets the preferred format to v0. downgrade-objects can be run multiple times in the case of error or if the node crashes.
 
@@ -61,11 +61,11 @@ This can be done using the --downgrade flag with `riak-admin reformat-indexes` M
 
 ### Downgrading from 1.3
 
-In Riak 1.3 a change was made to the LevelDB folder structure. Previously, each partition directory inside /var/lib/riak/leveldb contained the full set of .sst files that make up the LevelDB for that partition. Since 1.3, the levels have been separated into folders titled "sst_*" like below:
+In Riak 1.3 a change was made to the LevelDB folder structure. Previously, each partition directory inside /var/lib/riak/leveldb contained the full set of .sst files that make up the LevelDB for that partition. Since 1.3, the levels have been separated into folders titled "sst_\*" like below:
 
-```
-$ cd 1004782375664995756265033322492444576013453623296/
-$ ls -l 
+```bash
+cd 1004782375664995756265033322492444576013453623296/
+ls -l 
 -rw-r--r-- 1 riak riak        0 Jan  7 17:40 000014.log
 -rw-r--r-- 1 riak riak       16 Jan  7 17:40 CURRENT
 -rw-r--r-- 1 riak riak        0 Jan  7 13:59 LOCK
@@ -81,9 +81,9 @@ drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_5
 drwxr-xr-x 2 riak riak     4096 Jan  7 13:59 sst_6
 ```
 
-In a downgrade from 1.3, all .sst files in these folders will need to be moved from the "sst_*" folders into the top level <PARTITION_ID> folder. A LevelDB repair will need to be run on each partition BEFORE starting the node. In the event a rolling downgrade needs to take place, the below escript, repair.erl can be used:
+In a downgrade from 1.3, all .sst files in these folders will need to be moved from the "sst_\*" folders into the top level <PARTITION_ID> folder. A LevelDB repair will need to be run on each partition *before* starting the node. In the event a rolling downgrade needs to take place, the below escript, repair.erl can be used:
 
-```Erlang
+```erlang
 -module(repair).
 -compile(export_all).
 
@@ -122,19 +122,19 @@ If transfers are not progressing in the `riak-admin transfers` output, killing t
 
 Check the currently used encoding (returns either `encode_raw` or `encode_zlib`):
 
-```Erlang
+```erlang
 riak_core_capability:get({riak_kv, handoff_data_encoding}).
 ```
 
 Kill the capability manager:
 
-```Erlang
+```erlang
 exit(whereis(riak_core_capability), kill).
 ```
 
 Check the encoding used after the capability manager restarts:
 
-```Erlang
+```erlang
 riak_core_capability:get({riak_kv, handoff_data_encoding}).
 ```
 
