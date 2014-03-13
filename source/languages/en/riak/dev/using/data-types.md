@@ -531,7 +531,7 @@ map.registers['phone_number'] = 5551234567.to_s
 ```
 
 ```erlang
-riakc_map:
+%% TODO
 ```
 
 ```curl
@@ -541,8 +541,14 @@ riakc_map:
 
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"first_name_register": "Ahmed", "phone_number_register": "5551234567"}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "first_name_register": "Ahmed",
+      "phone_number_register": "5551234567"
+    }
+  }'
 ```
 
 This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
@@ -562,8 +568,13 @@ map.counters['page_visits'].increment
 
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"page_visits_counter": 1}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "page_visits_counter": 1
+    }
+  }'
 ```
 
 Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
@@ -587,8 +598,13 @@ map.flags['enterprise_customer']
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"enterprise_customer_flag": "enable"}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "enterprise_customer_flag": "enable"
+    }
+  }'
 ```
 
 #### Sets Within Maps
@@ -614,8 +630,19 @@ end
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"interests_set": {"add_all": ["robots", "opera", "motorcycles"]}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "interests_set": {
+        "add_all": [
+          "robots",
+          "opera",
+          "motorcycles"
+        ]
+      }
+    }
+  }'
 ```
 
 We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
@@ -631,8 +658,17 @@ map.sets['interests'].add('indie pop')
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"interests_set": {"remove": "opera", "add": "indie pop"}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "interests_set": {
+        "remove": "opera",
+        "add": "indie pop"
+      }
+    }
+  }
+  '
 ```
 
 #### Maps Within Maps (Within Maps?)
@@ -652,8 +688,20 @@ map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"update": {"first_name_register": "Annika", "last_name_register": "Weiss", "phone_number_register": "5559876543"}}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "annika_info_map": {
+        "update": {
+          "first_name_register": "Annika",
+          "last_name_register": "Weiss",
+          "phone_number_register": "5559876543"
+        }
+      }
+    }
+  }
+  '
 ```
 
 The value of a register in a map can be obtained without a special method:
@@ -678,8 +726,18 @@ map.maps['annika_info'].registers.remove('phone_number')
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"remove": "phone_number_register"}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "annika_info_map": {
+        "update": {
+          "remove": "phone_number_register"
+        }
+      }
+    }
+  }
+  '
 ```
 
 Now, we'll store whether Annika is subscribed to a variety of plans within the company as well:
@@ -693,8 +751,20 @@ map.maps['annika_info'].flags['free_plan'] = true
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"update": {"enterprise_plan_flag": "disable", "family_plan_flag": "disable", "free_plan_flag": "enable"}}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "annika_info_map": {
+        "update": {
+          "enterprise_plan_flag": "disable",
+          "family_plan_flag": "disable",
+          "free_plan_flag": "enable"
+        }
+      }
+    }
+  }
+  '
 ```
 
 The value of a flag can be retrieved at any time:
@@ -719,8 +789,18 @@ map.maps['annika_info'].counters['widget_purchases'].increment
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"update": {"widget_purchases_counter": 1}}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "annika_info_map": {
+        "update": {
+          "widget_purchases_counter": 1
+        }
+      }
+    }
+  }
+  '
 ```
 
 Now let's store Annika's interests in a set:
@@ -732,8 +812,20 @@ map.maps['annika_info'].sets['interests'].add('tango dancing')
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"interests_set": {"add": "tango dancing"}}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "annika_info_map": {
+        "update": {
+          "interests_set": {
+            "add": "tango dancing"
+          }
+        }
+      }
+    }
+  }
+  '
 ```
 
 We can remove that interest in just the way that we would expect:
@@ -745,8 +837,18 @@ map.maps['annika_info'].set['interests'].remove('tango dancing')
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"interests_set": {"remove": "tango dancing"}}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "annika_info_map": {
+        "interests_set": {
+          "remove": "tango dancing"
+        }
+      }
+    }
+  }
+  '
 ```
 
 If we wanted to add store information about one of Annika's specific purchases, we could do so within a map:
@@ -761,9 +863,22 @@ map.maps['annika_info'].maps['purchase'].sets['items'].add('large_widget')
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"update": {"purchase_map": ... }}}}' \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
-
-# As you can see, curl can get a little convoluted. We strongly recommend using
-# the clients instead!
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "annika_info_map": {
+        "update": {
+          "purchase_map": {
+            "first_purchase_flag": "enable",
+            "amount_register": "1271",
+            "items_set": {
+              "add": "large_widget"
+            }
+          }
+        }
+      }
+    }
+  }
+  '
 ```
