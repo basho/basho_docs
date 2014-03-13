@@ -652,7 +652,7 @@ map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  -d '{"update": {"annika_info_map": {"first_name_register": "Annika", "last_name_register": "Weiss", "phone_number_register": "5559876543"}}}' \
+  -d '{"update": {"annika_info_map": {"update": {"first_name_register": "Annika", "last_name_register": "Weiss", "phone_number_register": "5559876543"}}}}' \
   http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
@@ -665,13 +665,21 @@ map.maps['annika_info'].registers['first_name']
 ```
 
 ```curl
-
+# Specific values for fields inside of maps (or maps within maps, for that
+# matter), cannot be obtained directly through the HTTP interface.
 ```
 
 Registers can also be removed:
 
 ```ruby
 map.maps['annika_info'].registers.remove('phone_number')
+```
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"annika_info_map": {"remove": "phone_number_register"}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
 Now, we'll store whether Annika is subscribed to a variety of plans within the company as well:
@@ -682,6 +690,13 @@ map.maps['annika_info'].flags['family_plan'] = false
 map.maps['annika_info'].flags['free_plan'] = true
 ```
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"annika_info_map": {"update": {"enterprise_plan_flag": "disable", "family_plan_flag": "disable", "free_plan_flag": "enable"}}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+```
+
 The value of a flag can be retrieved at any time:
 
 ```ruby
@@ -690,10 +705,22 @@ map.maps['annika_info'].flags['enterprise_plan']
 # false
 ```
 
+```curl
+# Specific values for fields inside of maps (or maps within maps, for that
+# matter), cannot be obtained directly through the HTTP interface.
+```
+
 It's also important to track the number of purchases that Annika has made with our company. Annika just made her first widget purchase:
 
 ```ruby
 map.maps['annika_info'].counters['widget_purchases'].increment
+```
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"annika_info_map": {"update": {"widget_purchases_counter": 1}}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
 Now let's store Annika's interests in a set:
@@ -702,10 +729,24 @@ Now let's store Annika's interests in a set:
 map.maps['annika_info'].sets['interests'].add('tango dancing')
 ```
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"annika_info_map": {"interests_set": {"add": "tango dancing"}}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+```
+
 We can remove that interest in just the way that we would expect:
 
 ```ruby
 map.maps['annika_info'].set['interests'].remove('tango dancing')
+```
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"annika_info_map": {"interests_set": {"remove": "tango dancing"}}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
 If we wanted to add store information about one of Annika's specific purchases, we could do so within a map:
@@ -715,4 +756,14 @@ map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
 map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
 map.maps['annika_info'].maps['purchase'].sets['items'].add('large_widget')
 # and so on
+```
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"annika_info_map": {"update": {"purchase_map": ... }}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+
+# As you can see, curl can get a little convoluted. We strongly recommend using
+# the clients instead!
 ```
