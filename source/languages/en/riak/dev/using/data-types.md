@@ -39,7 +39,7 @@ riak-admin bucket-type status map_bucket
 
 This will return a list of bucket properties and their associated values in the form of `property: value`. If our `map_bucket` bucket type has been set properly, we should see the following pair in our console output:
 
-```bash
+```
 datatype: map
 ```
 
@@ -68,11 +68,14 @@ Counters are a bucket-level Riak Data Type that can be used either by themselves
 First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
 
 ```curl
-curl http://localhost:8098/types/<counter_type>/buckets/<counters>/keys/<key>
+curl http://localhost:8098/types/<bucket_type>/buckets/counters/datatypes/<key>
+
+# Note that this differs from the URL structure for non-Data Type requests,
+# which end in /keys/<key>
 ```
 
 ```ruby
-bucket = client.bucket 'counters'
+bucket = client.bucket('counters')
 ```
 
 ```erlang
@@ -83,11 +86,16 @@ bucket = client.bucket 'counters'
 To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
 
 ```curl
-curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/keys/<key>
+# This will create a counter with an initial value of 0
+
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d 0 \
+  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/<key>
 ```
 
 ```ruby
-counter = Riak::Crdt::Counter.new bucket, key, bucket_type
+counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 ```
 
 ```erlang
@@ -97,8 +105,15 @@ counter = Riak::Crdt::Counter.new bucket, key, bucket_type
 
 Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counter_bucket` bucket type like this:
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d 0 \
+  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+```
+
 ```ruby
-counter = Riak::Crdt::Counter.new counters, 'traffic_tickets', 'counter_bucket'
+counter = Riak::Crdt::Counter.new(counters, 'traffic_tickets', 'counter_bucket')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -108,7 +123,7 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counter_bucket'
 
 # This would enable us to create our counter without specifying a bucket type:
 
-counter = Riak::Crdt::Counter.new counters, 'traffic_tickets'
+counter = Riak::Crdt::Counter.new(counters, 'traffic_tickets')
 ```
 
 ```erlang
@@ -119,14 +134,15 @@ Counter = riakc_counter:new().
 %% structure with a bucket type, bucket, and key later on.
 ```
 
+Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
+
+
 ```curl
 curl -XPUT \
   -H "Content-Type: application/json" \
   -d 1 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
+  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
 ```
-
-Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
 
 ```ruby
 counter.increment
@@ -136,17 +152,10 @@ counter.increment
 Counter1 = riakc_counter:increment(Counter).
 ```
 
-```curl
-curl -XPUT \
-  -H "Content-Type: application/json" \
-  -d 1 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
-```
-
 The default value of an increment operation is 1, but you can increment by more than one if you'd like (but always by an integer). Let's say that we decide to spend an afternoon flaunting traffic laws and manage to rack up five tickets:
 
 ```ruby
-counter.increment 5
+counter.increment(5)
 ```
 
 ```erlang
@@ -157,7 +166,7 @@ Counter2 = riakc_counter:increment(5, Counter1).
 curl -XPUT \
   -H "Content-Type: application/json" \
   -d 5 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
+  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
 ```
 
 If we're curious about how many tickets we have accumulated, we can simply retrieve the value of the counter at any time:
@@ -186,7 +195,7 @@ riakc_counter:value(Counter2).
 ```
 
 ```curl
-curl http://localhost:8098/types/counter_bucket/buckets/counter/keys/traffic_tickets
+curl http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
 
 # Response:
 {"type":"counter", "value": <value>}
@@ -199,7 +208,7 @@ counter.decrement
 
 # Just like incrementing you can also decrement by more than one, e.g.:
 
-counter.decrement 3
+counter.decrement(3)
 ```
 
 ```erlang
@@ -223,7 +232,7 @@ riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>,<<"counters">>},
 curl -XPUT \
   -H "Content-Type: application/json" \
   -d -3 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/keys/traffic_tickets
+  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
 ```
 
 Operations on counters can be performed singly, as above, but let's say that we now have two counters in play, `dave_traffic_tickets` and `susan_traffic_tickets`. Both of these ne'er-do-wells get a traffic ticket on the same day and we need to increment both counters:
@@ -252,7 +261,7 @@ for counter in dave_traffic_tickets susan_traffic_tickets; do
   curl -XPUT \
     -H "Content-Type: application/json" \
     -d 1 \
-    http://localhost:8098/types/counter_bucket/buckets/counters/keys/$counter
+    http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/$counter
 done
 ```
 
@@ -265,7 +274,7 @@ Here is the general syntax for setting up a bucket/key combination to handle a s
 ```ruby
 # Note: both the Riak Ruby Client and Ruby the language have a class called Set. Make sure that you refer to the Ruby version as ::Set and the Riak client version as Riak::Crdt::Set
 
-set = Riak::Crdt::Set.new bucket, key, bucket_type
+set = Riak::Crdt::Set.new(bucket, key, bucket_type)
 ```
 
 ```erlang
@@ -275,14 +284,17 @@ set = Riak::Crdt::Set.new bucket, key, bucket_type
 ```
 
 ```curl
-curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/keys/<key>
+curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
+
+# Note that this differs from the URL structure for non-Data Type requests,
+# which end in /keys/<key>
 ```
 
 Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `set_bucket` bucket type we created in the previous section):
 
 ```ruby
-travel = client.bucket 'travel'
-set = Riak::Crdt::Set.new travel, 'cities', 'set_bucket'
+travel = client.bucket('travel')
+set = Riak::Crdt::Set.new(travel, 'cities', 'set_bucket')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -292,7 +304,7 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'set_bucket'
 
 # This would enable us to create our set without specifying a bucket type:
 
-set = Riak::Crdt::Set.new travel, 'cities'
+set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
 ```erlang
@@ -304,7 +316,8 @@ Set = riakc_set:new().
 ```
 
 ```curl
-curl http://localhost:8098/types/set_bucket/buckets/travel/keys/cities
+# You cannot create an empty set through the HTTP interface. Sets can only
+# be created when an element is added to them, as in the examples below.
 ```
 
 Upon creation, our set is empty. We can verify that it is empty at any time:
@@ -325,7 +338,7 @@ riakc_set:size(Set) == 0.
 ```
 
 ```curl
-curl http://localhost:8098/types/set_bucket/buckets/travel/keys/cities
+curl http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
 
 # Response
 not found
@@ -334,8 +347,8 @@ not found
 But let's say that we read a travel brochure saying that Toronto and Montreal are nice places to go. Let's add them to our `cities` set:
 
 ```ruby
-set.add 'Toronto'
-set.add 'Montreal'
+set.add('Toronto')
+set.add('Montreal')
 ```
 
 ```erlang
@@ -344,23 +357,31 @@ Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
 ```
 
 ```curl
-curl -XPUT \
+curl -XPOST \
   -H "Content-Type: application/json" \
-  
+  -d '{"add_all":["Toronto", "Montreal"]}' \
+  http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
 ```
 
 Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, but if we visit them, we won't have time to visit Montreal. Let's remove Montreal and add the others:
 
 ```ruby
-set.remove 'Montreal'
-set.add 'Hamilton'
-set.add 'Ottawa'
+set.remove('Montreal')
+set.add('Hamilton')
+set.add('Ottawa')
 ```
 
 ```erlang
 Set3 = riakc_set:del_element(<<"Montreal">>, Set2),
 Set4 = riakc_set:add_element(<<"Hamilton">>, Set3),
 Set5 = riakc_set:add_element(<<"Ottawa">>, Set4).
+```
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"remove": "Montreal"}' \
+  http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
 ```
 
 Now, we can check on which cities are currently in our set:
@@ -389,6 +410,20 @@ riakc_set:value(Set5).
                                   <<"cities">>).
 ```
 
+```curl
+curl http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
+
+# Response
+
+{"type":"set","value":["Toronto"],"context":"SwGDUAAAAER4ActgymFgYGDMYMoFUhxHgzZyBzMfsU9kykISZg/JL8rPK8lHEkKoZMzKAgDwJA+e"}
+
+# You can also fetch the value of the set without the context included:
+curl http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities?include_context=false
+
+# Response
+{"type":"set","value":["Toronto"]}
+```
+
 Or we can see whether our set includes a specific member:
 
 ```ruby
@@ -407,6 +442,11 @@ riakc_set:is_element(<<"Vancouver">>, Set5).
 riakc_set:is_element(<<"Ottawa">>, Set5).
 ```
 
+```curl
+# With the HTTP interface, this can be determined from the output of
+# a fetch command like the one displayed in the example above
+```
+
 We can also determine the size of the set:
 
 ```ruby
@@ -415,6 +455,11 @@ set.members.length
 
 ```erlang
 riakc_set:size(Set5).
+```
+
+```curl
+# With the HTTP interface, this can be determined from the output of
+# a fetch command like the one displayed in the example above
 ```
 
 ### Maps
@@ -426,7 +471,7 @@ The semantics of dealing with counters, sets, and maps within maps are usually v
 The general syntax for creating a Riak map is directly analogous to the syntax for creating other data types:
 
 ```ruby
-map = Riak::Crdt::Map.new bucket, key
+map = Riak::Crdt::Map.new(bucket, key)
 ```
 
 ```erlang
@@ -435,11 +480,18 @@ map = Riak::Crdt::Map.new bucket, key
 %% structure with a bucket type, bucket, and key later on.
 ```
 
+```curl
+curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
+
+# Note that this differs from the URL structure for non-Data Type requests,
+# which end in /keys/<key>
+```
+
 Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `map_bucket` bucket type from above):
 
 ```ruby
-customers = client.bucket 'customers'
-map = Riak::Crdt::Map.new customers, 'ahmed_info', 'map_bucket'
+customers = client.bucket('customers')
+map = Riak::Crdt::Map.new(customers, 'ahmed_info', 'map_bucket')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -449,7 +501,7 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
 
 # This would enable us to create our map without specifying a bucket type:
 
-map = Riak::Crdt::Map.new customers, 'ahmed_info'
+map = Riak::Crdt::Map.new(customers, 'ahmed_info')
 ```
 
 ```erlang
@@ -458,6 +510,11 @@ Map = riakc_map:new().
 %% Maps in the Erlang client are opaque data structures that
 %% collect operations as you mutate them. We will associate the data
 %% structure with a bucket type, bucket, and key later on.
+```
+
+```curl
+# You cannot create an empty map through the HTTP interface. Maps can only
+# be created when a field is added to them, as in the examples below.
 ```
 
 #### Registers Within Maps
@@ -477,6 +534,17 @@ map.registers['phone_number'] = 5551234567.to_s
 riakc_map:
 ```
 
+```curl
+# Updates can be performed all at once. The following will create two new
+# registers in the map and also set the value of those registers to the
+# desired values
+
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"first_name_register": "Ahmed", "phone_number_register": "5551234567"}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+```
+
 This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
 
 ### Counters Within Maps
@@ -487,6 +555,15 @@ We also want to know how many times Ahmed has visited our website. We'll use a `
 map.counters['page_visits'].increment
 
 # This operation may return false even if successful
+```
+
+```curl
+# The following will create a new counter and increment it by 1
+
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"page_visits_counter": 1}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
 Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
@@ -505,6 +582,13 @@ We can retrieve the value of that flag at any time:
 map.flags['enterprise_customer']
 
 # false
+```
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"enterprise_customer_flag": "enable"}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
 #### Sets Within Maps
@@ -527,14 +611,28 @@ end
 # This will return three Boolean values
 ```
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"interests_set": {"add_all": ["robots", "opera", "motorcycles"]}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+```
+
 We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
 
 ```ruby
-map.sets['interests'].remove 'opera'
+map.sets['interests'].remove('opera')
 
 # This operation may return false even if successful
 
-map.sets['interests'].add 'indie pop'
+map.sets['interests'].add('indie pop')
+```
+
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"interests_set": {"remove": "opera", "add": "indie pop"}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
 #### Maps Within Maps (Within Maps?)
@@ -551,6 +649,13 @@ map.maps['annika_info'].registers['last_name'] = 'Weiss'
 map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
 ```
 
+```curl
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  -d '{"update": {"annika_info_map": {"first_name_register": "Annika", "last_name_register": "Weiss", "phone_number_register": "5559876543"}}}' \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+```
+
 The value of a register in a map can be obtained without a special method:
 
 ```ruby
@@ -559,10 +664,14 @@ map.maps['annika_info'].registers['first_name']
 # "Annika"
 ```
 
+```curl
+
+```
+
 Registers can also be removed:
 
 ```ruby
-map.maps['annika_info'].registers.remove 'phone_number'
+map.maps['annika_info'].registers.remove('phone_number')
 ```
 
 Now, we'll store whether Annika is subscribed to a variety of plans within the company as well:
@@ -590,13 +699,13 @@ map.maps['annika_info'].counters['widget_purchases'].increment
 Now let's store Annika's interests in a set:
 
 ```ruby
-map.maps['annika_info'].sets['interests'].add 'tango dancing'
+map.maps['annika_info'].sets['interests'].add('tango dancing')
 ```
 
 We can remove that interest in just the way that we would expect:
 
 ```ruby
-map.maps['annika_info'].set['interests'].remove 'tango dancing'
+map.maps['annika_info'].set['interests'].remove('tango dancing')
 ```
 
 If we wanted to add store information about one of Annika's specific purchases, we could do so within a map:
@@ -604,6 +713,6 @@ If we wanted to add store information about one of Annika's specific purchases, 
 ```ruby
 map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
 map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
-map.maps['annika_info'].maps['purchase'].sets['items'].add 'large_widget'
+map.maps['annika_info'].maps['purchase'].sets['items'].add('large_widget')
 # and so on
 ```
