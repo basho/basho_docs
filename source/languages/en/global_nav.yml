@@ -157,6 +157,7 @@ riak:
         sub:
           - "[[Production Checklist]]"
           - "[[Rolling Upgrades]]"
+          - "[[Rolling Downgrades]]"
 
 
   - title: "Theory & Concepts"
