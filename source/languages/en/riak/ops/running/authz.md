@@ -115,12 +115,12 @@ riak-admin security print-users
 
 Example output, assuming one user with an assigned password:
 
-```bash
-+----------+-------+----------------------+------------------------------+
+```
++----------+--------+----------------------+------------------------------+
 | username | groups |       password       |           options            |
-+----------+-------+----------------------+------------------------------+
-| riakuser |       |983e8ae1421574b8733824|              []              |
-+----------+-------+----------------------+------------------------------+
++----------+--------+----------------------+------------------------------+
+| riakuser |        |983e8ae1421574b8733824|              []              |
++----------+--------+----------------------+------------------------------+
 ```
 
 **Note**: All passwords are displayed in encrypted form in console output.
@@ -130,7 +130,7 @@ of `lucius`, the output would look like this:
 
 ```bash
 +----------+----------------+----------------------+---------------------+
-| username |     groups      |       password       |       options       |
+| username |     groups     |       password       |       options       |
 +----------+----------------+----------------------+---------------------+
 | riakuser |      dev       |983e8ae1421574b8733824| [{"name","lucius"}] |
 +----------+----------------+----------------------+---------------------+
@@ -215,12 +215,16 @@ riak-admin security alter-user riakuser password=opensesame
 
 When creating or altering a user, any number of `<option>=<value>`
 pairs can be appended to the end of the command. Any non-standard
-options will be stored and displayed via the `riak-admin security
+options will be stored and displayed via the `riak-admin security 
 print-users` command.
 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
-riak-admin security print-users
+```
+
+Now, the `print-users` command should return this:
+
+```
 +----------+--------+----------+--------------------------------------------------+
 | username | groups | password |                     options                      |
 +----------+--------+----------+--------------------------------------------------+
@@ -229,9 +233,9 @@ riak-admin security print-users
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user`
-  command. If you attempt to do so by running, for example,
-  `alter-user riakuser username=other-name`, then this will add
-  the `{"username","other-name"}` tuple to `riakuser`'s options.
+  command. If you attempt to do so by running `alter-user riakuser 
+  username=other-name`, for example, this will add the 
+  `{"username","other-name"}` tuple to `riakuser`'s options.
 
 ### Managing Groups for a User
 
@@ -427,7 +431,7 @@ While user management enables you to control _authorization_ with regard to user
 
 ### Add Source
 
-Riak security sources may be applied to all users or only to a specific user.
+Riak security sources may be applied to all users/groups or only to a specific user.
 
 #### Available Sources
 
@@ -438,9 +442,9 @@ Source   | Description |
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
 
-### Adding a Trusted Source
+### Example: Adding a Trusted Source
 
-Security sources can be added either to specific users or to all users.
+Security sources can be added either to specific users/groups or to all users.
 
 In general, the `add-source` command takes the following form:
 
@@ -449,8 +453,8 @@ riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...
 ```
 
 Using `all` indicates that the authentication source can be added to
-all users. A source can be added to a specific user or to a list of
-names separated by commas, e.g. `add-source jane,bill,terry,chris`.
+all users. A source can be added to a specific user/group or to a list of
+users/groups separated by commas, e.g. `add-source jane,bill,ops_team,admins`.
 
 Let's say that we want to give all users trusted access to securables (without a password) when requests come from `localhost`:
 
@@ -460,7 +464,7 @@ riak-admin security add-source all 127.0.0.1/32 trust
 
 At that point, the `riak-admin security print-sources` command would print the following:
 
-```bash
+```
 +--------------------+------------+----------+----------+
 |       users        |    cidr    |  source  | options  |
 +--------------------+------------+----------+----------+
@@ -468,36 +472,25 @@ At that point, the `riak-admin security print-sources` command would print the f
 +--------------------+------------+----------+----------+
 ```
 
-#### Source Management Usage Examples
+### Deleting Sources
 
-To require a password from users `juliette` and `sanjay` when they connect from the class C network at `10.0.0.0`:
-
-```bash
-riak-admin security add-source juliette,sanjay 10.0.0.0/24 password
-```
-
-Instructions on assigning passwords are [[above|Authentication and Authorization#User-Management]].
-
-To require all users to authenticate through a PAM login service:
+If we wish to remove the `trust` source that we granted to `all` in the example above, we can simply use the `del-source` command and specify the CIDR.
 
 ```bash
-riak-admin security add-source all 0.0.0.0/0 pam service=login
+riak-admin security del-source all 127.0.0.1/32
 ```
 
+Note that this does not require that you specify which type of source is being deleted. You only need to specify the user(s)/group(s) or `all`, because only one source can be applied to a user or `all` at any given time.
 
+The following command would remove the source for `riakuser` on `localhost`, regardless of which source is being used:
 
-### Delete source
-
-```
-# riak-admin security del-source all 0.0.0.0/0
-# riak-admin security print-sources
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-+--------------------+------------+----------+----------+
+```bash
+riak-admin security del-source riakuser 127.0.0.1/32
 ```
 
+### More Usage Examples
+
+This section provides only a very brief overview of the syntax for working with sources. For more information on using the `trust`, `password`, `pam`, and `certificate` sources, please see our [[Managing Security Sources]] document.
 
 ## Security Ciphers
 
@@ -509,7 +502,7 @@ riak-admin security ciphers
 
 That command will return a large list:
 
-```bash
+```
 Configured ciphers
 
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
@@ -523,10 +516,15 @@ Unknown/Unsupported ciphers(32)
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 ```
 
-To alter the list (to constrain it and/or to set preferred ciphers higher in the list):
+To alter the list, i.e. to constrain it and/or to set preferred ciphers higher in the list:
 
 ```bash
 riak-admin security ciphers DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+```
+
+The list of configured ciphers should now look like this:
+
+```
 Configured ciphers
 
 DHE-RSA-AES256-SHA:AES128-GCM-SHA256
@@ -544,6 +542,11 @@ A list of available ciphers on a server can be obtained using the `openssl` comm
 
 ```bash
 openssl ciphers
+```
+
+That should return a list structured like this:
+
+```
 DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DES-CBC3-SHA:DES-CBC3-MD5:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES128-SHA:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:SEED-SHA:RC2-CBC-MD5:RC4-SHA:RC4-MD5:RC4-MD5:EDH-RSA-DES-CBC-SHA:EDH-DSS-DES-CBC-SHA:DES-CBC-SHA:DES-CBC-MD5:EXP-EDH-RSA-DES-CBC-SHA:EXP-EDH-DSS-DES-CBC-SHA:EXP-DES-CBC-SHA:EXP-RC2-CBC-MD5:EXP-RC2-CBC-MD5:EXP-RC4-MD5:EXP-RC4-MD5
 ```
 
