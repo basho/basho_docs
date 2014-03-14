@@ -39,6 +39,14 @@ If this responds with `riak_kv is up`, then the service is available and you can
 riak-admin transfers
 ```
 
-If this responds with `No transfers active`, then all handoffs are complete. If not, run this command periodically until no more transfers are active.
+If this responds with `No transfers active`, then all handoffs are complete. You can either run this command periodically until no more transfers are active or run the following script, which will run the `riak-admin transfers` command every 5 seconds until the transfers are complete:
+
+```bash
+while ! riak-admin transfers | grep -iqF 'No transfers active'
+do
+    echo 'Transfers in progress'
+    sleep 5
+done
+```
 
 6\. Repeat the above process for any other nodes that need to be restarted.
