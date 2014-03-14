@@ -202,7 +202,7 @@ Secondary Indexing in Riak gives developers the ability to tag an object stored 
 
 ## Value
 
-Riak is most-easily described as a key/value store. In Riak, "values" are opaque BLOBS (binary large objects), identified with a unique key, that can be any type of data, though some programming advantages are gained by using JSON.
+Riak can be best described as a key/value store. In Riak, "values" are opaque BLOBs (binary large objects) identified with a unique key. They can be any type of data, including a string, a JSON object, a text document, etc.
 
 * [[Keys and Objects]]
 * [[Developer Basics|The Basics]]
