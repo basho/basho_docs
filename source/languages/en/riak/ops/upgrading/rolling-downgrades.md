@@ -21,7 +21,7 @@ You should perform the following actions on each node:
 
 Depending on the versions involved in the downgrade, there are additional steps to be performed before, during, and after the upgrade on on each node.  These steps are related to changes or new features that are not present in the downgraded version.
 
-<div class="note"><div class="title">A Note About the Below Instructions</div>
+<div class="note"><div class="title">A Note About the Following Instructions</div>
 The below instructions describe the procedures required for a single feature release version downgrade. In a downgrade between two feature release versions, the steps for the in-between version must also be performed. For example, a downgrade from 1.4 to 1.2 requires that the downgrade steps for both 1.4 and 1.3 are performed.
 </div>
 
