@@ -239,7 +239,7 @@ On the surface, it seems like setting `allow_mult` to `false` (the default)
 and `last_write_wins` to `true` would result in the same behavior, but
 there is a subtle distinction.
 
-Even though both settings return only one value to the client, setting `allow_mult` to `false` still uses vector clocks for resolution, whereas if `last_write_wins` is `true`, Riak reads the timestamp to determine the latest version. Deeper in the system, if `allow_mult` is `false`, Riak will still allow siblings to exist when they are created (via concurrent writes or network partitions), whereas setting `last_write_wins` to `true` means that Riak will simply overwrite the value with the one that has the later timestamp.
+Even though both settings return only one value to the client, setting `allow_mult` to `false` still uses vector clocks for resolution, whereas if `last_write_wins` is `true`, Riak reads the timestamp to determine the latest version. Deeper in the system, if `allow_mult` is `false`, Riak will still allow siblings to exist when they are created (via concurrent writes or network partitions), whereas setting `last_write_wins` to `true` means that Riak will overwrite the value with the one that has the later timestamp.
 
 When you don't care about sibling creation, setting `allow_mult` to `false` has the least surprising behavior: you get the latest value, but network partitions are handled gracefully. However, for cases in which keys are rewritten often (and quickly) and the new value isn't necessarily dependent on the old value, `last_write_wins` will provide better performance. Some use cases where you might want to use `last_write_wins` include caching, session storage, and insert-only (no updates).
 
