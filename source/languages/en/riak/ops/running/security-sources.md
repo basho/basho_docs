@@ -135,6 +135,8 @@ If we want the user `riakuser` to use this PAM service on `localhost`, we need t
 riak-admin security add-source all 127.0.0.1/32 pam service=riak_pam
 ```
 
+**Note**: If you do not specify a name for your PAM service, Riak will use the default, which is `riak`.
+
 To verify that the source has been properly specified:
 
 ```bash
