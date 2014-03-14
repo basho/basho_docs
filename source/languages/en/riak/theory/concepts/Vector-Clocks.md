@@ -45,7 +45,7 @@ object using a client like `curl` and forgetting to set the `X-Riak-Vclock`
 header or using a [[Riak client library|Client Libraries]] and failing to take advantage of vector clock-related functionality.
 
 Riak uses siblings because it is impossible to order events with respect to
-time in a distributed system, which means that they must be ordered causally. If `allow_mult` is set to `false` {{#2.0.0-}}on a bucket{{/2.0.0-}}{{#2.0.0+}}in the [[bucket type|Using Bucket Types]] that you are using{{/2.0.0+}}, siblings and vector clocks are simply not an issue when developing your application because Riak will never return siblings upon read.
+time in a distributed system, which means that they must be ordered causally. If `allow_mult` is set to `false` {{#2.0.0-}}on a bucket{{/2.0.0-}}{{#2.0.0+}}in the [[bucket type|Using Bucket Types]] that you are using{{/2.0.0+}}, siblings and vector clocks don't need to be dealt with on the application side because Riak will never return siblings upon read.
 
 If, however, `allow_mult` is set to `true`, Riak will not resolve conflicts for you, and the responsibility for conflict resolution will be delegated to the application, which will have to either select one of the siblings as being more correct or to delete or replace the object.
 
