@@ -139,6 +139,7 @@ riak:
               - "[[Recovering a Failed Node]]"
               - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
+              - "[[Rolling Restart]]"
               - "[[Common Errors]]"
       - title: "Advanced"
         sub:
