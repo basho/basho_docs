@@ -364,6 +364,32 @@ bucket.search('leader_b:true AND age_i:[30 TO *]')
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
 ```
 
+### Deleting Indexes
+
+Indexes may be deleted if they have no buckets associated with them:
+
+```curl
+curl -XDELETE "$RIAK_HOST/search/index/famous"
+```
+```ruby
+client.delete_search_index('famous')
+```
+```python
+client.delete_search_index('famous')
+```
+```erlang
+riakc_pb_socket:delete_search_index(Pid, <<"famous">>, []),
+```
+
+If an does have a bucket associated with it, then that index's `search_index` property must be changed to either a different index name or to the sentinel value `_dont_index_`.
+
+```curl
+curl -XPUT \
+  -H 'content-type:application/json' \
+  -d '{"props":{"search_index":"_dont_index_"}}' \
+  $RIAK_HOST/types/animals/buckets/cats/props
+```
+
 #### Pagination
 
 A common requirement you may face is paginating searches, where an ordered set of matching documents are returned in non-overlapping sequential subsets (in other words, *pages*). This is easy to do with the `start` and `rows` parameters, where `start` is the number of documents to skip over (the offset) and `rows` are the number of results to return in one go.
