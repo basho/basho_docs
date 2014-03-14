@@ -192,6 +192,7 @@ X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 Using the vector clock, you can then write the correct value to the `character` key, passing the vector clock to Riak as a header:
 
 {{#2.0.0-}}
+
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
