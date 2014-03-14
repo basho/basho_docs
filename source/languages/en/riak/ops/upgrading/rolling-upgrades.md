@@ -16,7 +16,7 @@ moved: {
 <div class="title">Note on upgrading Riak from Older Versions</div>
 Riak upgrades are tested and supported for two feature release versions. For example, upgrades from 1.1.x to 1.3.x are tested and supported, while upgrades from 1.1.x to 1.4.x are not. When upgrading to a new version of Riak that is more than two feature releases ahead, we recommend first upgrading to an intermediate version. For example, in an upgrade from 1.1.x to 1.4.x, we recommend upgrading from 1.1.x to 1.3.x before upgrading to 1.4.x.
 
-And if you run [[Riak Control]], you should disable it during the rolling upgrade process.
+If you run [[Riak Control]], you should disable it during the rolling upgrade process.
 </div>
 
 Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
