@@ -13,7 +13,7 @@ moved: {
 
 ## Overview
 
-Because one of Riak's central goals is high availability, it was built as a multi-node system in which any node is capable of receiving requests without requiring that each node participate in each request. In a system like this, it's important to be able to keep track of which version of a value is the most current. This is where vector clocks come in.
+One of Riak's central goals is high availability. It was built as a multi-node system in which any node is capable of receiving requests without requiring that each node participate in each request. In a system like this, it's important to be able to keep track of which version of a value is the most current. This is where vector clocks come in.
 
 When a value is stored in Riak, it is tagged with a vector clock, establishing its initial version. They are non-human-readable and look something like this:
 
@@ -45,7 +45,9 @@ object using a client like `curl` and forgetting to set the `X-Riak-Vclock`
 header or using a [[Riak client library|Client Libraries]] and failing to take advantage of vector clock-related functionality.
 
 Riak uses siblings because it is impossible to order events with respect to
-time in a distributed system, which means that they must be ordered causally. If `allow_mult` is set to `false` {{#2.0.0-}}on a bucket{{/2.0.0-}}{{#2.0.0+}}in the [[bucket type|Using Bucket Types]] that you are using{{/2.0.0+}}, siblings and vector clocks are simply not an issue because Riak prevents siblings from being created. If, however, `allow_mult` is set to `true`, Riak will not resolve conflicts for you, and the responsibility for conflict resolution will be delegated to the application, which will have to either select one of the siblings as being more correct or to delete or replace the object.
+time in a distributed system, which means that they must be ordered causally. If `allow_mult` is set to `false` {{#2.0.0-}}on a bucket{{/2.0.0-}}{{#2.0.0+}}in the [[bucket type|Using Bucket Types]] that you are using{{/2.0.0+}}, siblings and vector clocks are simply not an issue when developing your application because Riak will never return siblings upon read.
+
+If, however, `allow_mult` is set to `true`, Riak will not resolve conflicts for you, and the responsibility for conflict resolution will be delegated to the application, which will have to either select one of the siblings as being more correct or to delete or replace the object.
 
 ### Siblings in Action
 
@@ -137,30 +139,25 @@ You also have the option of viewing all objects currently stored under the `char
 ```curl
 curl -H "Accept: multipart/mixed" \
   http://localhost:8098/buckets/siblings_bucket/keys/character
-
-# Response (without headers)
-
-ren
---WUnzXITIPJFwucNwfdaofMkEG7H
-
-stimpy
---WUnzXITIPJFwucNwfdaofMkEG7H--
 ```
+{{/2.0.0-}}
 {{#2.0.0+}}
 
 ```curl
 curl -H "Accept: multipart/mixed" \
   http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+```
+{{/2.0.0+}}
 
-  # Response (without headers)
+Response (without headers):
 
+```
 ren
 --WUnzXITIPJFwucNwfdaofMkEG7H
 
 stimpy
 --WUnzXITIPJFwucNwfdaofMkEG7H--
 ```
-{{/2.0.0+}}
 
 If you select the first of the two siblings and retrieve its value, you should see `ren` and not `stimpy`.
 
@@ -177,13 +174,25 @@ clock. Right now, there are replicas with two different values: `ren` and `stimp
 
 ```curl
 curl -i http://localhost:8098/buckets/siblings_bucket/keys/character
+```
+{{/2.0.0-}}
+{{#2.0.0+}}
 
-# The vector clock can be found in the "X-Riak-Vclock" header, e.g.
+```curl
+curl -i http://localhost:8098/types/siblings_allowed/buckets/siblings_bucket/keys/character
+```
+{{/2.0.0+}}
+
+The vector clock can be found in the `X-Riak-Vclock` header. That will look something like this:
+
+```
 X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
+```
 
-# Then, you can write the correct value to the "character" key, passing
-# the vector clock as a header:
+Using the vector clock, you can then write the correct value to the `character` key, passing the vector clock to Riak as a header:
 
+{{#2.0.0-}}
+```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=" \
@@ -193,15 +202,7 @@ curl -XPUT \
 {{/2.0.0-}}
 {{#2.0.0+}}
 
-```
-curl -i http://localhost:8098/types/siblings_allowed/buckets/siblings_bucket/keys/character
-
-# The vector clock can be found in the "X-Riak-Vclock" header, e.g.
-X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
-
-# Then, you can write the correct value to the "character" key, passing
-# the vector clock as a header:
-
+```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=" \
@@ -221,7 +222,7 @@ has been exceeded.
 
 ### Sibling Explosion
 
-Sibling explosion occurs when an object rapidly collects siblings without being reconciled. This can lead to myriad issues. Having an enormous object in your node can cause reads of that object to crash the entire node. Other issues include increased cluster latency as the object is replicated and out of memory errors.
+Sibling explosion occurs when an object rapidly collects siblings without being reconciled. This can lead to myriad issues. Having an enormous object in your node can cause reads of that object to crash the entire node. Other issues include increased cluster latency as the object is replicated and out-of-memory errors.
 
 ### Vector Clock Explosion
 
