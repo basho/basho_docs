@@ -1,7 +1,7 @@
 ---
 title: Rolling Downgrades
 project: riak
-version: 1.2.0+
+version: 1.4.8+
 document: cookbook
 toc: true
 audience: advanced
