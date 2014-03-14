@@ -19,7 +19,7 @@ head(class=data.page.document)
   | '>
   meta name="version-range" content=(data.page.version || '0.0.0+')
   meta name="base-url" content==(current_page.url =~ %r"\/#{data.page.project}\/#{page_version}\/?$" ? '/' : current_page.url)
-  title== data.page.title || "Riak Documents"
+  title== data.page.title || "Riak Docs"
   == stylesheet_link_tag "standalone/version-bar"
   == stylesheet_link_tag "all"
   == stylesheet_link_tag "basho-palette.css"
