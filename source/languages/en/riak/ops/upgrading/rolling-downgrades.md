@@ -33,9 +33,7 @@ The below instructions describe the procedures required for a single feature rel
 
 ## Before Stopping a Node
 
-### Downgrading from 1.4
-
-#### Object Format
+### Object Format
 
 If the new, more compact object format introduced in Riak 1.4 is in use, the objects will need to be downgraded on each node prior to starting the rolling downgrade. You can determine which object format is in use by checking the `object_format` parameter under the `riak_kv` section of the `app.config`. If not specified, this defaults to `v0` which is the old format.
 
@@ -49,19 +47,15 @@ The `<kill-handoffs>` parameter is required and is set to either `true` or `fals
 
 The optional `<concurrency>` argument must be an integer greater than zero. It determines how many partitions are reformatted on the node concurrently. By default the concurrency is two. Additionally, in anticipation that the entire cluster will be downgraded downgrade-objects sets the preferred format to v0. downgrade-objects can be run multiple times in the case of error or if the node crashes.
 
-### Downgrading from 1.3
+### Secondary Indexes
 
-#### Secondary Indexes
-
-If you are using Secondary Indexes and have reformatted them with the `riak-admin reformat-indexes` command, these indexes will need to be downgraded before the rolling downgrade begins. 
+If you are using Secondary Indexes and have reformatted them with the `riak-admin reformat-indexes` command introduced in 1.3, these indexes will need to be downgraded before the rolling downgrade begins. 
 
 This can be done using the --downgrade flag with `riak-admin reformat-indexes` More information on the `riak-admin reformat-indexes` command, and downgrading indexes can be found in the [[riak-admin|riak-admin Command Line#reformat-indexes]] documentation.
 
 ## Before Starting a Node
 
-### Downgrading from 1.3
-
-In Riak 1.3 a change was made to the LevelDB folder structure. Previously, each partition directory inside /var/lib/riak/leveldb contained the full set of .sst files that make up the LevelDB for that partition. Since 1.3, the levels have been separated into folders titled "sst_\*" like below:
+If LevelDB is in use and you are downgrading from 1.3, a change made to the LevelDB folder structure will need to be reverted. Prior to 1.3, each partition directory inside /var/lib/riak/leveldb contained the full set of .sst files that make up the LevelDB for that partition. Since 1.3, the levels have been separated into folders titled "sst_\*" like below:
 
 ```bash
 cd 1004782375664995756265033322492444576013453623296/
@@ -111,10 +105,6 @@ for partition in $(ls /var/lib/riak/leveldb); do sudo riak escript /tmp/repair.e
 ```
 
 ## During the Rolling Downgrade
-
-### Downgrading from 1.4
-
-#### Handoff 
 
 There is a known handoff issue that may occur when performing a rolling downgrade from 1.4. This is a result of the handoff data encoding cababilities not being negotiated correctly between nodes of mixed versions during a rolling downgrade.
 
