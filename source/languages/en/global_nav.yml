@@ -39,7 +39,7 @@ riak:
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
           - title: More Schemas
             sub:
-              - "[[Prerequisites|Taste of Riak: More Schemas]]"
+              - "[[Introduction|Taste of Riak: More Schemas]]"
               - "[[Erlang|Taste of Riak: More Schemas with Erlang]]"
               - "[[Java|Taste of Riak: More Schemas with Java]]"
               - "[[Python|Taste of Riak: More Schemas with Python]]"

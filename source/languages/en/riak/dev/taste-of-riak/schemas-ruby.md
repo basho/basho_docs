@@ -68,8 +68,6 @@ Now that we've figured out our schema, let's write some repositories to help cre
 class UserRepository
     BUCKET = "Users"
 
-    attr_accessor :client
-
     def initialize(client)      
         @client = client
     end
@@ -93,8 +91,6 @@ end
 class MsgRepository
     BUCKET = "Msgs"
 
-    attr_accessor :client
-
     def initialize(client)      
         @client = client
     end
@@ -102,8 +98,7 @@ class MsgRepository
     def save(msg)
         msgs = @client.bucket(BUCKET)
         key = generate_key(msg)
-
-        #raise "Message already exists" if msgs.exists?(key)
+        
         return msgs.get(key) if msgs.exists?(key)
         riak_obj = msgs.new(key)
         riak_obj.data = msg
@@ -126,9 +121,6 @@ class TimelineRepository
     SENT = "Sent"
     INBOX = "Inbox"
 
-    attr_reader :msg_repo
-    attr_accessor :client
-
     def initialize(client)      
         @client = client
         @msg_repo = MsgRepository.new(client)
@@ -137,10 +129,8 @@ class TimelineRepository
     def post_message(msg)
         # Save the cannonical copy
         saved_message = @msg_repo.save(msg)
-
         # Post to sender's Sent timeline
         add_to_timeline(msg, SENT, saved_message.key)
-
         # Post to recipient's Inbox timeline
         add_to_timeline(msg, INBOX, saved_message.key)
     end
@@ -199,21 +189,25 @@ end
 Finally, let's test them:
 
 ```ruby
+# Setup our repositories
 client = Riak::Client.new(:protocol => "pbc", :pb_port => 10017)
 userRepo = UserRepository.new(client)
 msgsRepo = MsgRepository.new(client)
 timelineRepo = TimelineRepository.new(client)
 
+# Create and save users
 marleen = User.new(user_name: "marleenmgr", full_name: "Marleen Manager", email: "marleen.manager@basho.com")
 joe = User.new(user_name: "joeuser", full_name: "Joe User", email: "joe.user@basho.com")
 
 userRepo.save(marleen)
 userRepo.save(joe)
 
+# Create new Msg, post to timelines
 msg = Msg.new(from: marleen.user_name, to: joe.user_name, created: Time.now, text: "Welcome to the company!" )
 
 timelineRepo.post_message(msg)
 
+# Get Joe's inbox for today, get first message
 joes_inbox_today = timelineRepo.get_timeline(joe.user_name, "Inbox", Time.now)
 joes_first_message = msgsRepo.get(joes_inbox_today.msgs.first)
 
