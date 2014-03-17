@@ -84,7 +84,7 @@ backend riak_cs_backend
 
 Note that the above example is considered a starting point and is a work in progress. You should carefully examine this configuration and change it according to your specific environment.
 
-A specific configuration detail worth noting from the example is the commented option for SSL termination. HAProxy supports SSL directly as of version 1.5. Provided that your HAProxy instance was build with OpenSSL support, you can enable it by uncommenting the example line and modifying it to suit your environment. More information is available in the [HAProxy documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
+A specific configuration detail worth noting from the example is the commented option for SSL termination. HAProxy supports SSL directly as of version 1.5. Provided that your HAProxy instance was built with OpenSSL support, you can enable it by uncommenting the example line and modifying it to suit your environment. More information is available in the [HAProxy documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
 
 Also note the option for checking Riak CS health via the `/riak-cs/ping` endpoint. This option is essential for checking each Riak CS node as part of
 the round robin load-balancing method.
