@@ -531,7 +531,9 @@ map.registers['phone_number'] = 5551234567.to_s
 ```
 
 ```erlang
-%% TODO
+Map = riakc_map:new(),
+Map1 = riakc_map:update({<<"first_name">>, register}, fun(R) -> <<"Ahmed">> end, riakc_map:new()),
+Map2 = riakc_map:update({<<"phone_number">>, register}, fun(R) -> <<"5551234567">>, Map1).
 ```
 
 ```curl
@@ -563,6 +565,10 @@ map.counters['page_visits'].increment
 # This operation may return false even if successful
 ```
 
+```erlang
+Map3 = riakc_map:update({<<"page_visits">>, counter}, fun(C) -> riakc_counter:increment(1, C) end, Map2).
+```
+
 ```curl
 # The following will create a new counter and increment it by 1
 
@@ -587,12 +593,8 @@ Now let's say that we add an Enterprise plan to our pricing model. We'll create 
 map.flags['enterprise_customer'] = false
 ```
 
-We can retrieve the value of that flag at any time:
-
-```ruby
-map.flags['enterprise_customer']
-
-# false
+```erlang
+Map4 = riakc_map:update({<<"enterprise_customer">>, flag}, fun(F) -> riakc_flag:disable(F) end, Map3).
 ```
 
 ```curl
@@ -602,9 +604,29 @@ curl -XPOST \
   -d '
   {
     "update": {
-      "enterprise_customer_flag": "enable"
+      "enterprise_customer_flag": "disable"
     }
   }'
+```
+
+We can retrieve the value of that flag at any time:
+
+```ruby
+map.flags['enterprise_customer']
+
+# false
+```
+
+```erlang
+%% The value fetched from Riak is always immutable, whereas the "dirty
+%% value" takes into account local modifications that have not been
+%% sent to the server.
+
+riakc_map:dirty_value(Map4).
+```
+
+```curl
+curl http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
 
 #### Sets Within Maps
@@ -617,14 +639,10 @@ We'd also like to know what Ahmed's interests are so that we can better design a
 end
 ```
 
-We can then verify that the `interests` set includes these three interests:
-
-```ruby
-%w{ robots opera motorcycles }.each do |interest|
-  map.sets['interests'].include? interest
-end
-
-# This will return three Boolean values
+```erlang
+Map4 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"robots">>, S) end, Map3),
+Map5 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"opera">>, S) end, Map4),
+Map6 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"motorcycles">>, S) end, Map4).
 ```
 
 ```curl
@@ -643,6 +661,24 @@ curl -XPOST \
       }
     }
   }'
+```
+
+We can then verify that the `interests` set includes these three interests:
+
+```ruby
+%w{ robots opera motorcycles }.each do |interest|
+  map.sets['interests'].include? interest
+end
+
+# This will return three Boolean values
+```
+
+```erlang
+riakc_map:dirty_value(Map6).
+```
+
+```curl
+curl -XPOST http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info?include_context=false
 ```
 
 We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
