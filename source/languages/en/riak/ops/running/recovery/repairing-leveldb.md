@@ -7,7 +7,7 @@ audience: advanced
 keywords: [leveldb, troubleshooting, backend]
 ---
 
-In the event of major hardware or filesystem problems, LevelDB can become corrupted. These failures are not uncommon, as Riak is a heavily I/O-intensive system
+In the event of major hardware or filesystem problems, LevelDB can become corrupted. These failures are uncommon, but they could happen, as heavy loads can push I/O limits.
 
 ## Checking for Compaction Errors
 
@@ -44,7 +44,15 @@ The first step in properly addressing this problem is to stop the node.
 riak stop
 ```
 
-Repairing the corrupted LevelDB can be done through the [Erlang shell](http://learnyousomeerlang.com/starting-out). In the shell, run the following command:
+Repairing the corrupted LevelDB can be done through the [Erlang shell](http://learnyousomeerlang.com/starting-out). Do not start Riak at this point; use the shell only.
+
+You can fire up the shell by running the `erl` command. To ensure that you start up the shell using the same version of Erlang that's embedded with Riak, you should run the `erl` command as an absolute path. Here's an example:
+
+```bash
+/opt/local/riak/erts-5.8.5/bin/erl
+```
+
+Once you're in the shell, run the following command:
 
 ```erlang
 [application:set_env(eleveldb, Var, Val) || {Var, Val} <- 
@@ -55,7 +63,7 @@ Repairing the corrupted LevelDB can be done through the [Erlang shell](http://le
      {data_root, ""}]].
 ```
 
-For each of the corrupted LevelDBs that you found using the `find` command (as demonstrated above), run the following `repair` command, substituting the the path to your LevelDB vnodes and the appropriate vnode number:
+For each corrupted LevelDB that you found using the `find` command (as demonstrated above), run the following `repair` command, substituting the path to your LevelDB vnodes and the appropriate vnode number:
 
 ```erlang
 eleveldb:repair("/path-to-vnode/<vnode_number>", []).

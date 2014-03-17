@@ -137,9 +137,9 @@ riak:
             sub:
               - "[[Failure and Recovery]]"
               - "[[Recovering a Failed Node]]"
-              - "[[Repairing LevelDB]]"
               - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
+              - "[[Repairing LevelDB]]"
               - "[[Rolling Restart]]"
               - "[[Common Errors]]"
       - title: "Advanced"
