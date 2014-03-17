@@ -61,8 +61,6 @@ For each of the corrupted LevelDBs that you found using the `find` command (as d
 eleveldb:repair("/path-to-vnode/<vnode_number>", []).
 ```
 
-This process will 
-
 This process will likely take several minutes. When it has completed successfully, you can restart the node and continue as usual.
 
 ```bash
