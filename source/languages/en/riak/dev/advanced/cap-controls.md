@@ -58,9 +58,9 @@ curl -XPUT \
 
 Above, we create a bucket type with `n_val` set to `2`.
 
-Riak also allows clients to supply an *R value* on each direct fetch. The R value represents the number of Riak nodes that must return results for a read before the read is considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
+Riak also allows clients to supply an *R value* on each direct read. The R value represents the number of Riak nodes that must return results for a read before the read is considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
 
-Let's create and activate a bucket type with `r` set to 1
+Let's create and activate a bucket type with `r` set to `1`.
 
 ```bash
 riak-admin bucket-type create r_equals_1 '{"props":{"r":1}}'
@@ -93,9 +93,28 @@ curl -XPUT \
   http://localhost:8098/types/w_equals_3/buckets/docs/keys/story.txt
 ```
 
+### Primary Reads and Writes with PR and PW
+
+In Riak's replication model, there are N vnodes that hold primary responsibility for any given key, called *primary vnodes*. Riak will attempt reads and writes to primary vnodes first, but in case of failure, those operations will go to failover nodes in order to comply with the R and W values that you have set.
+
+In addition to R and W, you can also set integer values for the *primary read* (PR) and *primary write* (PW) parameters that specify how many primary nodes must respond to a request in order to report success to the client. The default for both values is zero.
+
+Setting PR and/or PW to non-zero values has the advantage that the client is more likely to receive the most up-to-date values, but at the cost of a higher probability that reads or writes will fail because primary vnodes are unavailable.
+
+<div class="note">
+<div class="title">Note on PW</div>
+If PW is set to a non-zero value, there is a higher risk (usually very small) that failure will be reported to the client upon write. But this does not necessarily mean that the write has failed completely. If there are reachable primary vnodes, those vnodes will still write the new data to Riak. When the failed vnode returns to service, it will receive the new copy of the data via either read repair or Active Anti-Entropy.
+</div>
+
+### Durable Writes with DW
+
+The W and PW parameters specify how many vnodes must _respond_ to a write in order for it to be deemed successful. What they do not specify is whether data has actually been written to disk in the storage backend. The DW parameters enables you to specify a number of vnodes between 1 and N that must write the data to disk before the request is deemed successful. The default is `quorum`.
+
+How quickly and robustly data is written to disk depends on the configuration of your backend or backends. For more details, see the documentation on [[Bitcask]], [[LevelDB]], and [[multiple backends|Multi]].
+
 ### Symbolic Consistency Names
 
-Riak 0.12 introduced "symbolic" consistency options for R and W that can be easier to use and understand. They are:
+Riak 0.12 introduced "symbolic" consistency options for R, W, PR, and RW that can be easier to use and understand. They are:
 
 * `all` --- All replicas must reply. This is the same as setting R or W equal to N.
 * `one` --- This is the same as sending 1 as the R or W value.
