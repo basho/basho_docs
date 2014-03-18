@@ -78,6 +78,10 @@ curl http://localhost:8098/types/<bucket_type>/buckets/counters/datatypes/<key>
 bucket = client.bucket('counters')
 ```
 
+```python
+bucket = client.bucket('counters')
+```
+
 ```erlang
 %% Buckets are simply named binaries in the Erlang client.
 %% See below for more information.
@@ -98,6 +102,10 @@ curl -XPOST \
 counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 ```
 
+```python
+counter = Counter(bucket=bucket, key=key, bucket_type=bucket_type)
+```
+
 ```erlang
 %% Counters are not encapsulated with the bucket/key in the Erlang
 %% client. See below for more information.
@@ -113,7 +121,7 @@ curl -XPOST \
 ```
 
 ```ruby
-counter = Riak::Crdt::Counter.new(counters, 'traffic_tickets', 'counter_bucket')
+counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets', 'counter_bucket')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -123,7 +131,11 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counter_bucket'
 
 # This would enable us to create our counter without specifying a bucket type:
 
-counter = Riak::Crdt::Counter.new(counters, 'traffic_tickets')
+counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
+```
+
+```python
+counter = Counter()
 ```
 
 ```erlang
@@ -148,6 +160,10 @@ curl -XPUT \
 counter.increment
 ```
 
+```python
+counter.increment()
+```
+
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -155,6 +171,10 @@ Counter1 = riakc_counter:increment(Counter).
 The default value of an increment operation is 1, but you can increment by more than one if you'd like (but always by an integer). Let's say that we decide to spend an afternoon flaunting traffic laws and manage to rack up five tickets:
 
 ```ruby
+counter.increment(5)
+```
+
+```python
 counter.increment(5)
 ```
 
@@ -174,6 +194,10 @@ If we're curious about how many tickets we have accumulated, we can simply retri
 ```ruby
 counter.value
 # Output will always be an integer
+```
+
+```python
+counter.value
 ```
 
 ```erlang
