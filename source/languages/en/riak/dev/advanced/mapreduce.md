@@ -77,19 +77,19 @@ Link phases find links matching patterns specified in the query definition. The 
 
 "Following a link" means adding it to the output list of this phase. The output of this phase is often most useful as input to a map phase or to another reduce phase.
 
-## HTTP API Examples
+## Examples
 
 Riak supports writing MapReduce query functions in JavaScript and Erlang, as well as specifying query execution over the [[HTTP API]].
 
 <div class="note"><div class="title"><tt>bad encoding</tt> error</div>If you receive an error <tt>bad encoding</tt> from a MapReduce query that includes phases in Javascript, verify that your data does not contain incorrect Unicode escape sequences. Data being transferred into the Javascript VM must be in Unicode format.</div>
 
-### HTTP Example
+### Text Example
 
-This example will store several chunks of text in Riak and then compute word counts on the set of documents using MapReduce via the HTTP API.
+This example will store several chunks of text in Riak and then compute word counts on the set of documents using MapReduce.
 
 #### Load data
 
-We will use the Riak HTTP interface to store the texts we want to process:
+We will use Riak to store the texts we want to process:
 
 ```curl
 curl -XPUT \
@@ -114,7 +114,7 @@ picking the daisies, when suddenly a White Rabbit with pink eyes ran
 close by her.
 EOF
 
-$ curl -XPUT \
+curl -XPUT \
   -H "Content-Type: text/plain" \
   http://localhost:8098/buckets/alice/keys/p5 \
   --data-binary @-<<\EOF
@@ -125,13 +125,12 @@ well.
 EOF
 ```
 
-
 #### Run query
 
 With data loaded, we can now run a query:
 
 ```curl
-$ curl -X POST \
+curl -X POST \
   -H "Content-Type: application/json" \
   http://localhost:8098/mapred \
   --data @-<<\EOF
@@ -218,7 +217,7 @@ looks at each JSON object in the input list. It steps through each key in each o
 
 ### HTTP Query Syntax
 
-MapReduce queries are issued over HTTP via a `POST` to the `/mapred` resource. The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`
+MapReduce queries are issued over HTTP via a `POST` to the `/mapred` resource. The body should be `application/json` of the form `{"inputs":[...inputs...],"query":[...query...]}`.
 
 MapReduce queries have a default timeout of 60000 milliseconds (60 seconds). The default timeout can be overridden by supplying a different value, in milliseconds, in the JSON document `{"inputs":[...inputs...],"query":[...query...],"timeout": 90000}`.
 
@@ -281,17 +280,19 @@ Map phases may also be passed static arguments by using the `arg` spec field.
 For example, the following map function will perform a regex match on object values using "arg" and return how often "arg" appears in each object:
 
 ```json
-{"map":
-  {"language":"javascript",
-  "source":"function(v, keyData, arg) {
-    var re = RegExp(arg, \"gi\");
-    var m = v.values[0].data.match(re);
-    if (m == null) {
-      return [{\"key\":v.key, \"count\":0}];
-    } else {
-      return [{\"key\":v.key, \"count\":m.length}];
-    }
-  }",
+{
+  "map":
+    {
+      "language": "javascript",
+      "source": "function(v, keyData, arg) {
+        var re = RegExp(arg, \"gi\");
+        var m = v.values[0].data.match(re);
+        if (m == null) {
+          return [{\"key\":v.key, \"count\":0}];
+        } else {
+          return [{\"key\":v.key, \"count\":m.length}];
+        }
+    }",
   "arg":"static data used in map function"}
 }
 ```
@@ -629,11 +630,11 @@ MapReduce phase functions have the same properties, arguments and return values 
 
 *Map functions take three arguments* (in Erlang, arity-3 is required).  Those arguments are:
 
-  1. *Value* : the value found at a key.  This will be a Riak object, which
+  1. *Value*: the value found at a key.  This will be a Riak object, which
     in Erlang is defined and manipulated by the *riak_object* module.
     In Javascript, a Riak object looks like this:
 
-    ```
+    ```json
     {
      "bucket":BucketAsString,
      "key":KeyAsString,

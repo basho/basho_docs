@@ -10,19 +10,12 @@ moved: {
 }
 ---
 
-Riak's storage API uniformly applies to all of the
-[[supported backends|Choosing a Backend]]. This page presents the details of
-the storage backend API in the form of
-[Erlang type specifications](http://www.erlang.org/doc/reference_manual/typespec.html)
-(specs).
+Riak's storage API uniformly applies to all of the [[supported backends|Choosing a Backend]]. This page presents the details of
+the storage backend API in the form of [Erlang type specifications](http://www.erlang.org/doc/reference_manual/typespec.html) (specs).
 
-Specs are used by [dialyzer](http://www.erlang.org/doc/man/dialyzer.html),
-an Erlang static analysis tool. It is recommended to copy these specs into any
-custom backend modules and use them as a guide for development to
-avoid errors and ensure full compatibility with Riak.
+Specs are used by [dialyzer](http://www.erlang.org/doc/man/dialyzer.html), an Erlang static analysis tool. It is recommended to copy these specs into any custom backend modules and use them as a guide for development to avoid errors and ensure full compatibility with Riak.
 
-Also included below is the function export list that can be pasted directly
-into a custom storage backend module.
+Also included below is the function export list that can be pasted directly into a custom storage backend module.
 
 ```erlang
 %% Riak Storage Backend API

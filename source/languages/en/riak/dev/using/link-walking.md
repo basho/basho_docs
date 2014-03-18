@@ -10,9 +10,6 @@ moved: {
 }
 ---
 
-<div class="info"><div class="title">Deprecation Notice</div>Link Walking is a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].</div>
-
-
 ## What are Links?
 
 One of the ways that we are able to extend the fairly-limited data model provided by a key/value store is with the notion "links" and a type of query known as "link walking."
@@ -54,7 +51,7 @@ Look for the "Link" field in the response headers. This will show you your link 
 
 Alright. We've stored the "timoreilly" object with a "friend" tag pointing to the "dhh" object. Now we need to store the "dhh" object to which "timoreilly" is linked:
 
-```curl
+```
 curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
   -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
@@ -92,7 +89,7 @@ Each step you walk is referred to as a phase, because under the hood a link walk
 
 By default, Riak will only include the objects found by the last step. This could be interesting if you want e.g. to build a graph of how the original object ("timoreilly" in this case) relates to the ones found traversing the links. To see how this works out in practice, let's add another object to the mix, "davethomas", who is friends with "timoreilly".
 
-```curl
+```
 curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
   -H 'Link: </riak/people/timoreilly>; riaktag="friend"' \
   -H "Content-Type: text/plain" \
@@ -115,7 +112,7 @@ When you try this out yourself you'll notice that the output has gotten slightly
 
 As a final sugar sprinkle on top, we can make "dhh" friends with "davethomas" directly, so we have a real graph and not just a single path.
 
-```curl
+```
 curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
   -H 'Link: </riak/people/davethomas>; riaktag="friend"' \
   -H "Content-Type: text/plain" \
@@ -163,25 +160,25 @@ If you watched the video, it's apparent how these scripts are used to demonstrat
 To use `load_people.sh` download it to your `dev` directory and run
 
 ```bash
-$ chmod +x load_people.sh
+chmod +x load_people.sh
 ```
 
 followed by
 
 ```bash
-$ ./load_people.sh
+./load_people.sh
 ```
 
 After the several lines of output finish, do the same for "people_queries.sh":
 
 ```bash
-$ chmod +x people_queries.sh
+chmod +x people_queries.sh
 ```
 
 followed by
 
 ```bash
-$ ./people_queries.sh
+./people_queries.sh
 ```
 
 You should then see:
