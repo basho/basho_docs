@@ -208,6 +208,8 @@ Counters = [{<<"dave">>, DaveTrafficTickets},
 
 As with counters (and maps, as shown below), using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
 
+**Note**: Every member of a set must be unique. If a set already contains the string `foo`, adding `foo` to the set again will not change it.
+
 Here is the general syntax for setting up a bucket/key combination to handle a set:
 
 ```ruby
