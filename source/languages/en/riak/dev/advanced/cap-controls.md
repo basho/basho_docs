@@ -108,7 +108,7 @@ If PW is set to a non-zero value, there is a higher risk (usually very small) th
 
 ### Durable Writes with DW
 
-The W and PW parameters specify how many vnodes must _respond_ to a write in order for it to be deemed successful. What they do not specify is whether data has actually been written to disk in the storage backend. The DW parameters enables you to specify a number of vnodes between 1 and N that must write the data to disk before the request is deemed successful. The default is `quorum`.
+The W and PW parameters specify how many vnodes must _respond_ to a write in order for it to be deemed successful. What they do not specify is whether data has actually been written to disk in the storage backend. The DW parameters enables you to specify a number of vnodes between 1 and N that must write the data to disk before the request is deemed successful. The default is `quorum`. The closer to N that DW is set, the more latency will be incurred by each delete request.
 
 How quickly and robustly data is written to disk depends on the configuration of your backend or backends. For more details, see the documentation on [[Bitcask]], [[LevelDB]], and [[multiple backends|Multi]].
 
