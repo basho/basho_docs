@@ -65,3 +65,51 @@ Riak provides a number of ways of retrieving data, each
 * ZOMG Siblings
 * Reading your own writes
 * How do AAE and replication figure into all this?
+
+## Riak Anti-Patterns
+
+Riak is a powerful and flexible data storage system, there are ways of using Riak that play to its fundamental strengths and ways that do not. There are ways of accessing data in Riak that are faster and more scalable than others, there are features that are powerful yet should be used sparingly, and there are things that you should simply never, ever try.
+
+In this guide, we'll walk you through some anti-patterns to bear in mind when developing with Riak.
+
+## Scalability vs. Dynamic Querying
+
+No matter how useful some of Riak's features may be, there is simply no match for basic GET/PUT/DELETE key/value operations in terms of scalability, flexibility, and raw performance. Riak works best when it is given a key and asked to write, retrieve, or delete an object. Period.
+
+While these operations might seem somewhat primitive, especially if you're used to `SELECT * FROM table`-style and other SQL-flavored features, they are extremely flexible, allowing for a great deal of freedom on the application side: the freedom to store any kind of object behind any key, to construct keys any way you like, and to create your own data models---models that may not mesh well with row/column/table relational models.
+
+Because Riak works best as a key/value store, you should always be wary of storing massive amounts of data in Riak and using features [[secondary indexes|Using Secondary Indexes]], [[Riak Search|Using Search]], [[MapReduce operations|Using MapReduce]], and other query features without careful consideration. These features are quite powerful but should be used only when truly necessary. Overuse will most likely lead to subpar performance and diminished scalability.
+
+#### Conclusion
+
+If your problem can be solved with GETs, PUTs, and DELETEs, absolutely choose that path. If not, consider other features.
+
+## Mutable vs. Immutable Data
+
+Because Riak objects live on multiple machines at once, using Riak almost always involves choosing a [[conflict resolution|Vector Clocks#Siblings]] strategy that dictates which objects are deemed most "correct" and up to date. Some resolution strategies, like setting `last_write_wins` to `true`, delegate conflict resolution to Riak itself. 
+
+No matter what conflict resolution strategy you choose, 
+
+#### Conclusion
+
+Storing and fetch immutable data enables you to 
+If your use case requires that data be mutable, Riak can still be a very good choice, as it provides a variety of options.
+
+## Data Normalization vs. Open Namespaces
+
+Riak was not built to allow for things like table joins, foreign key constraints, and other operations. Instead, Riak is mostly agnostic toward the data stored in it, with the exception of [[Riak Data Types|Data Types]]; it lacks the data awareness that would make it a good candidate for true normalization.
+
+Instead, Riak consists of three namespaces: [[bucket types|Using Bucket Types]], [[buckets]], and keys. You can group keys within buckets however you wish, and buckets have no intrinsic meaning beyond the fact that they group keys together and share the same [[bucket properties|Buckets]]. Any effort to group objects together on the basis of the actual _content_ of those objects is bound to fail. Riak simply cannot be made queryable along the lines of `SELECT * FROM table1 LEFT OUTER JOIN table2...` because that kind of operation is antithetical to how Riak works.
+
+#### Conclusion
+
+Instead of seeking data normalization, you should think about other ways of structuring your application's access to Riak. One way to do this is to assign a meaningful key to each object, for example a username or a timestamp, that will enable an application to "know in advance," so to speak, how a Riak object can be accessed.
+
+Although they are a less performant option that basic key/value operations, [[secondary indexes|Using Secondary Indexes]] are another option worth exploring. This feature enables you to attach metadata to each Riak object, beyond the key/value pair itself, that can assist applications in finding objects.
+
+## Object Size: Keep it Small
+
+#### Conclusion
+
+Riak was not built to handle large objects. No matter which configuration options you choose, objects larger than 1-2 MB will entail a performance hit. If your use case demands that objects exceed this size, then we strongly recommend [Riak CS](http://basho.com/riak-cloud-storage/), which is built on top of Riak but with the goal of acting as a storage system for larger objects.
+
