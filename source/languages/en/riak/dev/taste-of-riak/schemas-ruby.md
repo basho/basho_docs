@@ -13,23 +13,27 @@ keywords: [developers, client, 2i, search, ruby, schema]
 To get started, let's create the models that we'll be using. Since the Ruby Riak Client uses hashes when converting to and from JSON, we'll use the library [Hashie](http://rdoc.info/github/intridea/hashie) to help automatically coerce class properties to and from hashes. You can install this library with `gem install hashie`.
 
 ```ruby
+require 'riak'
+require 'hashie'
+require 'time'
+
 class User < Hashie::Dash
-	property :user_name
-	property :full_name
-	property :email
+    property :user_name
+    property :full_name
+    property :email
 end
 
 class Msg < Hashie::Dash
-	property :from
-	property :to
-	property :created
-	property :text
+    property :from
+    property :to
+    property :created
+    property :text
 end
 
 class Timeline < Hashie::Dash
-	property :owner
-	property :type
-	property :msgs
+    property :owner
+    property :type
+    property :msgs
 end
 ```
 
@@ -48,7 +52,7 @@ The bucket names are straightforward. We can use `Users`, `Msgs`, and `Timelines
 | `Msgs` | `<username>_<datetime>` | `joeuser_2014-03-06T02:05:13.223556Z`
 | `Timelines` | `<username>_<type>_<date>` | `joeuser_Sent_2014-03-06Z`<br /> `marketing_group_Inbox_2014-03-06Z` |
 
-For the `Users` bucket, we can be certain that we will want each username to be unique, so let's use the `username` as the key.  For the `Msgs` bucket, let's use a combination of the username and the posting datetime in an [ISO 8601 Long](http://en.wikipedia.org/wiki/ISO_8601) format. This combination gives us the pattern `<username>_<datetime>`, which produces keys like `joeuser_2014-03-05T23:20:28Z`.
+For the `Users` bucket, we can be certain that we will want each username to be unique, so let's use the `username` as the key.  For the `Msgs` bucket, let's use a combination of the username and the posting datetime in an [ISO 8601 Long](http://en.wikipedia.org/wiki/ISO_8601) format. This combination gives us the pattern `<username>_<datetime>`, which produces keys like `joeuser_2014-03-05T23:20:28`.
 
 Now for `Timelines`, we need to differentiate between `Inbox` and `Sent` timelines, so we can simply add that type into the key name. We will also want to partition each collection object into some time period, that way the object doesn't grow too large (see note below).
 
@@ -103,6 +107,7 @@ class MsgRepository
         riak_obj = msgs.new(key)
         riak_obj.data = msg
         riak_obj.content_type = "application/json"
+        riak_obj.prevent_stale_writes = true
         riak_obj.store(returnbody: true)
     end
 
@@ -143,13 +148,13 @@ class TimelineRepository
     private
 
     def add_to_timeline(msg, type, msg_key)
-        key = generate_key_from_msg(msg, type)
+        timeline_key = generate_key_from_msg(msg, type)
         riak_obj = nil
 
-        if @client.bucket(BUCKET).exists?(msg_key)
-            riak_obj = add_to_existing_timeline(key, msg_key)
+        if @client.bucket(BUCKET).exists?(timeline_key)
+            riak_obj = add_to_existing_timeline(timeline_key, msg_key)
         else
-            riak_obj = create_new_timeline(key, msg, type, msg_key)
+            riak_obj = create_new_timeline(timeline_key, msg, type, msg_key)
         end
             
         riak_obj.store
@@ -181,7 +186,7 @@ class TimelineRepository
     end
 
     def generate_key(owner, type, date)
-        owner + "_" + type + "_" + date.utc.strftime("%FZ")
+        owner + "_" + type + "_" + date.utc.strftime("%F")
     end
 end
 ```

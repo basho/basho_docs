@@ -10,13 +10,29 @@ keywords: [developers, client, 2i, search, python, schema]
 
 ####Getting Started with the Models
 
-To get started, let's create the models that we'll be using. 
+To get started, let's create the data structures that we'll be using. 
 
 ```python
+from datetime import datetime
+import string
+import riak
 
+
+marleen = {'user_name': 'marleenmgr',
+           'full_name': 'Marleen Manager',
+           'email': 'marleen.manager@basho.com'}
+
+joe = {'user_name': 'joeuser',
+       'full_name': 'Joe User',
+       'email': 'joe.user@basho.com'}
+
+msg = {'sender': marleen['user_name'],
+       'recipient': joe['user_name'],
+       'created': datetime.utcnow().isoformat(),
+       'text': 'Welcome to the company!'}
 ```
 
-To use these classes to store data, we will first have to create a user. Then, when a user creates a message, we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
+As you can see we first create a user, and then we can use that user to create a message. To sent this message we can append it to one or more `Timelines`. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
 
 #### Buckets and Keys Revisited
 
@@ -29,13 +45,13 @@ The bucket names are straightforward. We can use `Users`, `Msgs`, and `Timelines
 |:-------|:------------|:-----------
 | `Users` | `<user_name>` | `joeuser`
 | `Msgs` | `<username>_<datetime>` | `joeuser_2014-03-06T02:05:13.223556Z`
-| `Timelines` | `<username>_<type>_<date>` | `joeuser_Sent_2014-03-06Z`<br /> `marketing_group_Inbox_2014-03-06Z` |
+| `Timelines` | `<username>_<type>_<date>` | `joeuser_Sent_2014-03-06`<br /> `marketing_group_Inbox_2014-03-06` |
 
-For the `Users` bucket, we can be certain that we will want each username to be unique, so let's use the `username` as the key.  For the `Msgs` bucket, let's use a combination of the username and the posting datetime in an [ISO 8601 Long](http://en.wikipedia.org/wiki/ISO_8601) format. This combination gives us the pattern `<username>_<datetime>`, which produces keys like `joeuser_2014-03-05T23:20:28Z`.
+For the `Users` bucket, we can be certain that we will want each username to be unique, so let's use the `username` as the key.  For the `Msgs` bucket, let's use a combination of the username and the posting datetime in an [ISO 8601 Long](http://en.wikipedia.org/wiki/ISO_8601) format. This combination gives us the pattern `<username>_<datetime>`, which produces keys like `joeuser_2014-03-05T23:20:28`.
 
 Now for `Timelines`, we need to differentiate between `Inbox` and `Sent` timelines, so we can simply add that type into the key name. We will also want to partition each collection object into some time period, that way the object doesn't grow too large (see note below).
 
-For `Timelines`, let's use the pattern `<username>_<type>_<date>` for users, and `<groupname>_Inbox_<date>` for groups, which will look like `joeuser_Sent_2014-03-06Z` or `marketing_group_Inbox_2014-03-05Z`, respectively.
+For `Timelines`, let's use the pattern `<username>_<type>_<date>` for users, and `<groupname>_Inbox_<date>` for groups, which will look like `joeuser_Sent_2014-03-06` or `marketing_group_Inbox_2014-03-05`, respectively.
 
 
 <div class="note">
@@ -48,12 +64,139 @@ Riak performs best with objects under 1-2MB. Objects larger than that can hurt p
 Now that we've figured out our schema, let's write some repositories to help create and work with these objects in Riak:
 
 ```python
+class UserRepository:
+    BUCKET = 'Users'
+
+    def __init__(self, client):
+        self.client = client
+
+    def save(self, user):
+        riak_obj = self.client.bucket(self.BUCKET).get(user['user_name'])
+        riak_obj.data = user
+        return riak_obj.store()
+
+    def get(self, user_name):
+        riak_obj = self.client.bucket(self.BUCKET).get(user_name)
+        return riak_obj.data
+
+
+class MsgRepository:
+    BUCKET = 'Msgs'
+
+    def __init__(self, client):
+        self.client = client
+
+    def save(self, msg):
+        msgs = self.client.bucket(self.BUCKET)
+        key = self._generate_key(msg)
+
+        riak_obj = msgs.get(key)
+
+        if not riak_obj.exists:
+            riak_obj.data = msg
+            riak_obj.store(if_none_match=True)
+
+        return riak_obj
+
+    def get(self, key):
+        riak_obj = self.client.bucket(self.BUCKET).get(key)
+        return riak_obj.data
+
+    def _generate_key(self, msg):
+        return msg['sender'] + '_' + msg['created']
+
+
+class TimelineRepository:
+    BUCKET = 'Timelines'
+    SENT = 'Sent'
+    INBOX = 'Inbox'
+
+    def __init__(self, client):
+        self.client = client
+        self.msg_repo = MsgRepository(client)
+
+    def post_message(self, msg):
+        # Save the cannonical copy
+        saved_message = self.msg_repo.save(msg)
+        msg_key = saved_message.key
+
+        # Post to sender's Sent timeline
+        self._add_to_timeline(msg, self.SENT, msg_key)
+
+        # Post to recipient's Inbox timeline
+        self._add_to_timeline(msg, self.INBOX, msg_key)
+
+    def get_timeline(self, owner, msg_type, date):
+        key = self._generate_key(owner, msg_type, date)
+        riak_obj = self.client.bucket(self.BUCKET).get(key)
+        return riak_obj.data
+
+    def _add_to_timeline(self, msg, msg_type, msg_key):
+        timeline_key = self._generate_key_from_msg(msg, msg_type)
+        riak_obj = self.client.bucket(self.BUCKET).get(timeline_key)
+
+        if riak_obj.exists:
+            riak_obj = self._add_to_existing_timeline(riak_obj,
+                                                      msg_key)
+        else:
+            riak_obj = self._create_new_timeline(riak_obj,
+                                                 msg, msg_type,
+                                                 msg_key)
+
+        return riak_obj.store()
+
+    def _create_new_timeline(self, riak_obj, msg, msg_type, msg_key):
+        owner = self._get_owner(msg, msg_type)
+        new_timeline = {'owner': owner,
+                        'msg_type': msg_type,
+                        'msgs': [msg_key]}
+
+        riak_obj.data = new_timeline
+        return riak_obj
+
+    def _add_to_existing_timeline(self, riak_obj, msg_key):
+        riak_obj.data['msgs'].append(msg_key)
+        return riak_obj
+
+    def _get_owner(self, msg, msg_type):
+        if msg_type == self.INBOX:
+            return msg['recipient']
+        else:
+            return msg['sender']
+
+    def _generate_key_from_msg(self, msg, msg_type):
+        owner = self._get_owner(msg, msg_type)
+        return self._generate_key(owner, msg_type, msg['created'])
+
+    def _generate_key(self, owner, msg_type, datetimestr):
+        dateString = string.split(datetimestr, 'T', 1)[0]
+        return owner + '_' + msg_type + '_' + dateString
 
 ```
 
 Finally, let's test them:
 
 ```python
+client = riak.RiakClient(pb_port=10017, protocol='pbc')
+userRepo = UserRepository(client)
+msgsRepo = MsgRepository(client)
+timelineRepo = TimelineRepository(client)
+
+userRepo.save(marleen)
+userRepo.save(joe)
+
+timelineRepo.post_message(msg)
+
+joes_inbox_today = timelineRepo.get_timeline(
+    joe['user_name'],
+    'Inbox',
+    datetime.utcnow().isoformat())
+
+joes_first_message = msgsRepo.get(joes_inbox_today['msgs'][0])
+
+print 'From: {0}\nMsg : {1}\n\n'.format(
+    joes_first_message['sender'],
+    joes_first_message['text'])
 
 ```
 
