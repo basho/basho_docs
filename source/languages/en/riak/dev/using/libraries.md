@@ -20,7 +20,6 @@ Basho officially supports a number of open-source client libraries for a variety
 |----------|----------------------------------------------------------|---------------|---------------|
 | Erlang   | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client)<br>[riak-erlang-http-client (rhc)](https://github.com/basho/riak-erlang-http-client) | [edoc](http://basho.github.com/riak-erlang-client/)          |               |
 | Java     | [riak-java-client](https://github.com/basho/riak-java-client)                                         | [javadoc](http://basho.github.com/riak-java-client), [wiki](https://github.com/basho/riak-java-client/wiki) | [Maven Central](http://search.maven.org/?#search%7Cgav%7C1%7Cg%3A%22com.basho.riak%22%20AND%20a%3A%22riak-client%22) |
-| PHP      | [riak-php-client](https://github.com/basho/riak-php-client)                                          | [doxygen](http://basho.github.com/riak-php-client)       |               |
 | Python   | [riak-python-client](https://github.com/basho/riak-python-client)                                       | [sphinx](http://basho.github.com/riak-python-client)        | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)          |
 | Ruby     | [riak-ruby-client](https://github.com/basho/riak-ruby-client)                                         | [rdoc](http://rdoc.info/gems/riak-client/frames), [wiki](https://github.com/basho/riak-ruby-client/wiki)    | [RubyGems](https://rubygems.org/gems/riak-client)      |
 
@@ -35,6 +34,7 @@ and related projects [[community projects]].
 |----------|-----------------------------------|---------------|
 | C                   | [riak-c-client](https://github.com/basho/riak-c-client)        | [C Client Documentation](http://basho.github.io/riak-c-client/index.html) |
 | Node.js             | [riak-js](https://github.com/basho/riak-javascript-client) | [riak-js.org](http://riak-js.org/) |
+| PHP      | [riak-php-client](https://github.com/basho/riak-php-client)                                          | [doxygen](http://basho.github.com/riak-php-client)       |               |
 
 
 ### Feature Matrix
