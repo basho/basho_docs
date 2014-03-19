@@ -68,7 +68,17 @@ Counters are a bucket-level Riak Data Type that can be used either by themselves
 First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
 
 ```ruby
-bucket = client.bucket 'counters'
+counters = client.bucket('counters')
+```
+
+```java
+// You cannot create a bucket directly in the Java client. Instead, you can
+// create a bucket type/bucket/key Location that can be used in all future
+// operations on a key:
+
+Location countersBucket = new Location("counters")
+        .setBucketType("counter_bucket")
+        .setKey("<key>");
 ```
 
 ```erlang
@@ -82,6 +92,22 @@ To create a counter, you need to specify a bucket/key pair to hold that counter.
 counter = Riak::Crdt::Counter.new bucket, key, bucket_type
 ```
 
+```java
+// In the Java client, Riak Data Types are not created and then updated.
+// They are only updated. Data Types that don't yet exist will be created
+// upon update:
+
+Location myCounter = new Location("<bucket>")
+        .setBucketType("<bucket_type>")
+        .setKey("<key>");
+CounterUpdate cu = new CounterUpdate(1); // this will increment the counter by 1
+UpdateDatatype<RiakCounter> update = new UpdateDatatype
+        .Builder<RiakCounter>(myCounter)
+        .withUpdate(cu)
+        .build();
+client.execute(update);
+```
+
 ```erlang
 %% Counters are not encapsulated with the bucket/key in the Erlang
 %% client. See below for more information.
@@ -90,7 +116,7 @@ counter = Riak::Crdt::Counter.new bucket, key, bucket_type
 Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counter_bucket` bucket type like this:
 
 ```ruby
-counter = Riak::Crdt::Counter.new counters, 'traffic_tickets', 'counter_bucket'
+counter = Riak::Crdt::Counter.new(counters, 'traffic_tickets', 'counter_bucket')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -101,6 +127,16 @@ to create our
 # This would enable us to create our counter without specifying a bucket type:
 
 counter = Riak::Crdt::Counter.new counters, 'traffic_tickets'
+```
+
+```java
+// In the Java client, you can specify a bucket type/bucket/key location for a
+// Data Type that can then be used as a reference to all further operations
+// performed on the Data Type
+
+Location trafficTickets = new Location("counters")
+        .setBucketType("counter_bucket")
+        .setKey("traffic_tickets");
 ```
 
 ```erlang
@@ -117,6 +153,17 @@ Now that our client knows which bucket/key pairing to use for our counter, `traf
 counter.increment
 ```
 
+```java
+// Using the "trafficTickets" Location from above:
+
+CounterUpdate increment = new CounterUpdate(1);
+UpdateDatatype<RiakCounter> update = new UpdateDatatype
+        .Builder<RiakCounter>(trafficTickets)
+        .withUpdate(increment)
+        .build();
+client.execute(update);
+```
+
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -125,6 +172,17 @@ The default value of an increment operation is 1, but you can increment by more 
 
 ```ruby
 counter.increment 5
+```
+
+```java
+// Using the "trafficTickets" Location from above:
+
+CounterUpdate increment = new CounterUpdate(5);
+UpdateDatatype<RiakCounter> update = new UpdateDatatype
+        .Builder<RiakCounter>(trafficTickets)
+        .withUpdate(increment)
+        .build();
+client.execute(update);
 ```
 
 ```erlang
@@ -136,6 +194,13 @@ If we're curious about how many tickets we have accumulated, we can simply retri
 ```ruby
 counter.value
 # Output will always be an integer
+```
+
+```java
+FetchCounter fetch = new FetchCounter
+        .Builder(trafficTickets)
+        .build();
+FetchCounter.Response<RiakCounter> response = client.execute(fetch);
 ```
 
 ```erlang
@@ -166,6 +231,15 @@ counter.decrement
 counter.decrement 3
 ```
 
+```java
+CounterUpdate decrement = new CounterUpdate(-3);
+UpdateDatatype<RiakCounter> update = new UpdateDatatype
+        .Builder<RiakCounter>(trafficTickets)
+        .withUpdate(decrement)
+        .build();
+client.execute(update);
+```
+
 ```erlang
 Counter3 = riakc_counter:decrement(Counter2).
 
@@ -183,27 +257,6 @@ riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>,<<"counters">>},
                             riakc_counter:to_op(Counter4)).
 ```
 
-Operations on counters can be performed singly, as above, but let's say that we now have two counters in play, `dave_traffic_tickets` and `susan_traffic_tickets`. Both of these ne'er-do-wells get a traffic ticket on the same day and we need to increment both counters:
-
-```ruby
-counters = [dave_traffic_tickets, susan_traffic_tickets]
-
-counters.each do |c|
-  c.increment
-end
-```
-
-```erlang
-Counters = [{<<"dave">>, DaveTrafficTickets},
-            {<<"susan">>, SusanTrafficTickets}].
-
-[ begin
-     Update = riakc_counter:to_op(riakc_counter:increment(C)),
-     riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>, <<"counters">>},
-                                 Key, Update)
-  end || {Key, C} <- Counters ].
-```
-
 ### Sets
 
 As with counters (and maps, as shown below), using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
@@ -215,7 +268,17 @@ Here is the general syntax for setting up a bucket/key combination to handle a s
 ```ruby
 # Note: both the Riak Ruby Client and Ruby the language have a class called Set. Make sure that you refer to the Ruby version as ::Set and the Riak client version as Riak::Crdt::Set
 
-set = Riak::Crdt::Set.new bucket, key, bucket_type
+set = Riak::Crdt::Set.new(bucket, key, bucket_type)
+```
+
+```java
+// In the Java client, you can specify a bucket type/bucket/key location for a
+// Data Type that can then be used as a reference to all further operations
+// performed on the Data Type
+
+Location trafficTickets = new Location("<bucket>")
+        .setBucketType("<bucket_type>")
+        .setKey("<key>");
 ```
 
 ```erlang
@@ -227,8 +290,8 @@ set = Riak::Crdt::Set.new bucket, key, bucket_type
 Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `set_bucket` bucket type we created in the previous section):
 
 ```ruby
-travel = client.bucket 'travel'
-set = Riak::Crdt::Set.new travel, 'cities', 'set_bucket'
+travel = client.bucket('travel')
+set = Riak::Crdt::Set.new(travel, 'cities', 'set_bucket')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -238,7 +301,13 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'set_bucket'
 
 # This would enable us to create our set without specifying a bucket type:
 
-set = Riak::Crdt::Set.new travel, 'cities'
+set = Riak::Crdt::Set.new(travel, 'cities')
+```
+
+```java
+Location citiesSet = new Location("travel")
+        .setBucketType("set_bucket")
+        .setKey("cities");
 ```
 
 ```erlang
@@ -257,6 +326,15 @@ set.empty?
 # true
 ```
 
+```java
+// Using the "citiesSet" Location from above:
+
+FetchSet fetch = FetchSet.Builder(citiesSet).build();
+FetchDatatype.Response<RiakSet> response = client.execute(fetch);
+RiakSet cities = response.getDataType();
+System.out.println(cities.view().toArray().length == 0);
+```
+
 ```erlang
 riakc_set:size(Set) == 0.
 
@@ -273,6 +351,19 @@ set.add 'Toronto'
 set.add 'Montreal'
 ```
 
+```java
+// Using the "citiesSet" Location from above:
+
+SetUpdate citiesUpdate = new SetUpdate()
+        .add("Toronto".getBytes())
+        .add("Montreal".getBytes());
+UpdateDatatype<RiakSet> update = new UpdateDatatype
+        .Builder<RiakSet>(citiesSet)
+        .withUpdate(citiesUpdate)
+        .build();
+client.execute(update);
+```
+
 ```erlang
 Set1 = riakc_set:add_element(<<"Toronto">>, Set),
 Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
@@ -284,6 +375,20 @@ Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, b
 set.remove 'Montreal'
 set.add 'Hamilton'
 set.add 'Ottawa'
+```
+
+```java
+// Using the "citiesSet" Location from above
+
+SetUpdate citiesUpdate = new SetUpdate()
+        .remove("Montreal".getBytes())
+        .add("Hamilton".getBytes())
+        .add("Ottawa".getBytes());
+UpdateDatatype<RiakSet> update = new UpdateDatatype
+        .Builder<RiakSet>(citiesSet)
+        .withUpdate(citiesUpdate)
+        .build();
+client.execute(update);
 ```
 
 ```erlang
@@ -298,6 +403,14 @@ Now, we can check on which cities are currently in our set:
 set.members
 
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
+```
+
+```java
+// Using the "citiesSet" Location from above
+
+FetchSet fetch = new FetchSet.Builder(citiesSet).build();
+FetchDatatype.Response<RiakSet> response = client.execute(fetch);
+RiakSet set = response.getDatatype();
 ```
 
 ```erlang
