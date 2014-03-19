@@ -14,6 +14,19 @@ moved: {
 
 Reports about the performance and configuration of the Riak node to which it was requested. You must have the `{riak_kv_stat,true}` configuration setting in app.config for this endpoint to be active.
 
+## Performance
+
+{{#1.2.0-1.2.1}}
+Requests to the `/stats` endpoint should not be executed more than once
+a minute as statistics are recalculated every time the command is
+executed.
+{{/1.2.0-1.2.1}}
+
+{{#1.3.0+}}
+Repeated requests to the `/stats` endpoint do not have a negative
+performance impact as the statstics are cached internally in Riak.
+{{/1.3.0+}}
+
 ## Request
 
 ```bash

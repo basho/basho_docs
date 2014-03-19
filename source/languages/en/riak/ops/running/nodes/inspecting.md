@@ -20,7 +20,21 @@ riak-admin status
 
 `riak-admin status` is a subcommand of the `riak-admin` command that is included with every installation of Riak. The `status` subcommand provides data related to the current operating status for a node. The output of `riak-admin status` is categorized and detailed below.
 
-Please note, for some counters such as node_get_fsm_objsize a minimum of 5 transactions is required for statistics to be generated.
+Please note, for some counters such as `node_get_fsm_objsize` a minimum of 5 transactions is required for statistics to be generated.
+
+#### Performance
+
+{{#1.2.0-1.2.1}}
+The `riak-admin status` command should not be executed more than once a
+minute as statistics are recalculated every time the command is
+executed.
+{{/1.2.0-1.2.1}}
+
+{{#1.3.0+}}
+Repeated runs of the `riak-admin status` command does not have a
+negative performance impact as the statstics are cached internally in
+Riak.
+{{/1.3.0+}}
 
 ### Active Stats
 
