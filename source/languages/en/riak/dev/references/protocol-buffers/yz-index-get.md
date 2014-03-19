@@ -9,7 +9,7 @@ keywords: [api, protocol-buffer, yokozuna, search]
 group_by: "Object/Key Operations"
 ---
 
-Retrieve a search index
+Retrieve a search index from Riak Search
 
 ## Request
 

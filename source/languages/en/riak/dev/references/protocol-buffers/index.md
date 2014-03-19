@@ -19,8 +19,7 @@ This is an overview of the operations you can perform over the [Protocol Buffers
 Riak listens on a TCP port (8087 by default) for incoming connections. Once
 connected, the client can send a stream of requests on the same connection.
 
-Each operation consists of a request message and one or more response messages.
-Messages are all encoded the same way:
+Each operation consists of a [request message](https://developers.google.com/protocol-buffers/docs/encoding) and one or more response messages. Messages are all encoded the same way:
 
 * 32-bit length of message code + Protocol Buffers message in network order
 * 8-bit message code to identify the Protocol Buffers message
@@ -83,7 +82,7 @@ Code | Message |
 
 <div class="info">
 <div class="title">Message Definitions</div>
-All Protocol Buffers messages can be found defined in the <tt>riak.proto</tt> and other <tt>.proto</tt> files in the <tt>/src</tt> directory of the <a href="https://github.com/basho/riak_pb">RiakPB</a> project.
+All Protocol Buffers messages are defined in the <tt>riak.proto</tt> and other <tt>.proto</tt> files in the <tt>/src</tt> directory of the <a href="https://github.com/basho/riak_pb">RiakPB</a> project.
 </div>
 
 ### Error Response
@@ -105,6 +104,8 @@ Values:
 * `errcode` --- a numeric code. Currently only `RIAKC_ERR_GENERAL=1` is defined.
 
 ## Protocol Buffers Security
+
+
 
 ![Protocol Buffers security diagram](http://hijacked.us/~andrew/protobuffs_security4.png)
 

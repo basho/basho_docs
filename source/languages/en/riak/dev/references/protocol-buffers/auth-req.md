@@ -19,6 +19,3 @@ message RpbAuthReq {
     required bytes password = 2;
 }
 ```
-
-## Response
-
