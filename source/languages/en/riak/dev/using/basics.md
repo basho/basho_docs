@@ -45,7 +45,9 @@ obj = bucket.get('mykey')
 ```
 
 ```erlang
-{ok, Obj} = riakc_pb_socket(Pid, {<<"mytype">>, <<"test_bucket">>}, <<"test_key">>).
+{ok, Obj} = riakc_pb_socket(Pid,
+                            {<<"mytype">>, <<"test_bucket">>},
+                            <<"test_key">>).
 ```
 
 ```curl
@@ -92,7 +94,10 @@ obj.data
 ```
 
 ```erlang
-{ok, Obj} = riakc_pb_socket:get(Pid, {<<"mytype">>, <<"mybucket">>}, <<"mykey">>, [{r, 3}]).
+{ok, Obj} = riakc_pb_socket:get(Pid,
+                                {<<"mytype">>, <<"mybucket">>},
+                                <<"mykey">>,
+                                [{r, 3}]).
 ```
 
 ```curl
@@ -145,7 +150,8 @@ Your application will often have its own method of generating the keys for its d
 PUT /types/TYPE/buckets/BUCKET/keys/KEY
 ```
 
-<div class="info">
+<div class="note">
+<div class="title">Note</div>
 If you're using HTTP, <tt>POST</tt> is also a valid method, for compatibility's sake.
 </div>
 
@@ -180,7 +186,10 @@ obj.store()
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"mytype">>, <<"mybucket">>}, <<"mykey">>, <<"some text">>, <<"text/plain">>).
+Object = riakc_obj:new({<<"mytype">>, <<"mybucket">>},
+                       <<"mykey">>,
+                       <<"some text">>,
+                       <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object).
 ```
 
@@ -232,7 +241,10 @@ obj.store(w=3, return_body=True)
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"test_type">>, <<"test_bucket">>}, <<"test_key">>, <<"some text">>, <<"text/plain">>).
+Object = riakc_obj:new({<<"test_type">>, <<"test_bucket">>},
+                       <<"test_key">>,
+                       <<"some text">>,
+                       <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object).
 ```
 
