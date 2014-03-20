@@ -858,9 +858,14 @@ end
 ```
 
 ```erlang
-Map4 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"robots">>, S) end, Map3),
-Map5 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"opera">>, S) end, Map4),
-Map6 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"motorcycles">>, S) end, Map4).
+Map4 = riakc_map:update({<<"interests">>, set},
+                        fun(S) -> riakc_set:add_element(<<"robots">>, S) end, Map3),
+Map5 = riakc_map:update({<<"interests">>, set},
+                        fun(S) -> riakc_set:add_element(<<"opera">>, S) end,
+                        Map4),
+Map6 = riakc_map:update({<<"interests">>, set},
+                        fun(S) -> riakc_set:add_element(<<"motorcycles">>, S) end,
+                        Map4).
 ```
 
 ```curl
@@ -1031,14 +1036,22 @@ map.maps['annika_info'].registers['first_name']
 Registers can also be removed:
 
 ```java
-// Using our "ahmedMap" location from above:
+// This example uses our "ahmedMap" location from above. Operations that
+// remove fields from maps require that you first fetch the opaque context
+// attached to the map and then include the context in the update operation:
 
-RegisterUpdate ru = new RegisterUpdate().clear();
-MapUpdate removeRegister = new MapUpdate().update("phone_number", ru);
 FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
 FetchDatatype.Response<RiakMap> response = client.execute(fetch);
-RiakMap ahmed = response.getDatatype();
-
+Context ctx = response.getContext();
+MapUpdate annikaUpdate = new MapUpdate()
+        .removeRegister("first_name");
+MapUpdate ahmedUpdate = new MapUpdate()
+        .update("annika_info", annikaUpdate);
+UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+        .withUpdate(ahmedUpdate)
+        .withContext(ctx)
+        .build();
+client.execute(update);
 ```
 
 ```ruby
@@ -1067,21 +1080,17 @@ Now, we'll store whether Annika is subscribed to a variety of plans within the c
 ```java
 // Using our "ahmedMap" location from above:
 
-FlagUpdate setToFalse = new FlagUpdate().set(false);
-FlagUpdate setToTrue = new FlagUpdate().set(true);
-
 FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
 FetchDatatype.Response<RiakMap> response = client.execute(fetch);
-MapUpdate 
-
-RiakMap annikaMap = response.getDatatype()
-        .getMap("annika_info");
-MapUpdate mu = new MapUpdate()
-        .update("enterprise_plan", setToFalse)
-        .update("family_plan", setToFalse)
-        .update("free_plan", setToTrue);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(annikaMap)
-        .withUpdate(mu)
+MapUpdate annikaUpdate = new MapUpdate()
+        .update("enterprise_plan", new FlagUpdate().set(false))
+        .update("family_plan", FlagUpdate setToFalse = new FlagUpdate().set(false))
+        .update("free_plan", FlagUpdate setToTrue = new FlagUpdate().set(true));
+MapUpdate ahmedUpdate = new MapUpdate()
+        .update("annika_info", annikaUpdate);
+UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+        .withUpdate(ahmedUpdate)
+        .withContext(ctx)
         .build();
 client.execute(update);
 ```
@@ -1113,6 +1122,17 @@ curl -XPOST \
 
 The value of a flag can be retrieved at any time:
 
+```java
+// Using our "ahmedMap" location from above:
+
+FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
+FetchDatatype.Response<RiakMap> response = client.execute(fetch);
+boolean enterprisePlan = response.getDatatype()
+        .getMap("annika_info")
+        .getFlag("enterprise_plan")
+        .view();
+```
+
 ```ruby
 map.maps['annika_info'].flags['enterprise_plan']
 
@@ -1125,6 +1145,10 @@ map.maps['annika_info'].flags['enterprise_plan']
 ```
 
 It's also important to track the number of purchases that Annika has made with our company. Annika just made her first widget purchase:
+
+```java
+
+```
 
 ```ruby
 map.maps['annika_info'].counters['widget_purchases'].increment
