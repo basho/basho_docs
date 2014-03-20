@@ -307,7 +307,10 @@ obj.store(return_body=True)
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"mytype">>, <<"test">>}, <<"doc">>, <<"{'bar':'baz'}">>, <<"application/json">>).
+Object = riakc_obj:new({<<"mytype">>, <<"test">>},
+                       <<"doc">>,
+                       <<"{'bar':'baz'}">>,
+                       <<"application/json">>).
 ObjectWithVclock = riakc_obj:set_vclock(Object, <<"a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==">>).
 riakc_pb_socket:put(Pid, ObjectWithVclock).
 ```
