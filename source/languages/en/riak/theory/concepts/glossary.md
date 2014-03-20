@@ -31,7 +31,7 @@ graphs.
 
 ## Bucket
 
-A bucket is a container and keyspace for data stored in Riak, with a set of common properties for its contents, e.g. the number of replicas (`n_val`), whether siblings are returned on reads (`allow_mult`), etc. Buckets' properties are determined by their bucket type (see below).
+A bucket is a namespace for data stored in Riak, with a set of common properties for its contents, e.g. the number of replicas (`n_val`), whether siblings are returned on reads (`allow_mult`), etc. Buckets' properties are determined by their bucket type (see below).
 
 * [[Buckets]]
 * [[HTTP Bucket Operations|HTTP API#Bucket-Operations]]
@@ -207,10 +207,11 @@ While Riak is most well known as an [[eventually consistent|Eventual Consistency
 
 ## Value
 
-Riak is best described as a key/value store. In Riak, "values" are opaque BLOBs (binary large objects) identified with a unique key. They can be any type of data, including a string, a JSON object, a text document, etc.
+Riak is best described as a key/value store. In Riak, "values" are opaque BLOBs (binary large objects) identified with a unique key (the only exception being [[Riak Data Types|Data Types]]. They can be any type of data, including a string, a JSON object, a text document, etc.
 
 * [[Keys and Objects]]
 * [[Developer Basics|The Basics]]
+* [[Data Types]]
 
 ## Vector Clock
 
