@@ -30,6 +30,15 @@ GET /types/TYPE/buckets/BUCKET/keys/KEY
 
 Here is an example of a GET performed on the key `mykey` in the bucket `mybucket`, which bears the type `mytype`:
 
+```java
+// In the Java client, it is best to specify a bucket type/bucket/key
+// Location object that can be used as a reference for further operations.
+
+Location myKey = new Location("mybucket")
+        .setBucketType("mytype")
+        .setKey("mykey");
+```
+
 ```python
 bucket = client.bucket('mybucket', bucket_type='mytype')
 obj = bucket.get('mykey')
@@ -44,6 +53,10 @@ curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
 ```
 
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
+
+```java
+TODO
+```
 
 ```python
 riak.RiakError: 'no_type'
@@ -62,6 +75,15 @@ If you're using HTTP to interact with Riak, as opposed to using a [[client libra
 Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to `r=2`.
 
 Here is an example of attempting a read with `r` set to `3`:
+
+```java
+// Using the "myKey" location specified above:
+
+FetchValue<RiakObject> fetch = new FetchValue.Builder<RiakObject>(myKey)
+        .withOption(FetchOption.R, 3)
+        .build();
+FetchValue.Response<RiakObject> response = client.execute(fetch);
+```
 
 ```python
 bucket = client.bucket('mybucket', bucket_type='mytype')
@@ -93,6 +115,10 @@ If you're using a Riak client instead of HTTP, these responses will vary a great
 </div>
 
 With that in mind, try the following operation, which will attempt to read the key `doc2` from the bucket `test`, which bears the type `mytype`:
+
+```java
+TODO
+```
 
 ```python
 riak.RiakError: 'no_type'
@@ -132,6 +158,19 @@ If you're using HTTP, some request headers are required for writes:
 
 Here is an example of storing an object (just a snippet of text) under the key `mykey` in the bucket `mybucket`, which bears the type `mytype`, and passing that object's vector clock to Riak as part of the request:
 
+```java
+// Using the "myKey" Location from above:
+
+BinaryValue text = BinaryValue.create("some text");
+RiakObject obj = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(text);
+StoreValue<RiakObject> store = new StoreValue
+        .Builder<RiakObject>(myKey, obj)
+        .build();
+client.execute(store);
+```
+
 ```python
 bucket = client.bucket('mybucket', bucket_type='mytype')
 obj = RiakObject(client, bucket, 'mykey')
@@ -168,6 +207,22 @@ Parameter | Default | Description
 
 Here is an example of storing an object (another brief text snippet) under the key `test_key` in the bucket `test_bucket`, which bears the type `test_type`, with `w` set to `3` and `returnbody` set to `true`:
 
+```java
+Location testKey = new Location("test_bucket")
+        .setBucketType("test_type")
+        .setKey("test_key");
+BinaryValue text = BinaryValue.create("some text");
+RiakObject obj = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(text);
+StoreValue<RiakObject> store = new StoreValue
+        .Builder<RiakObject>(myKey, obj)
+        .withOption(StoreOption.W, 3)
+        .withOption(StoreOption.RETURN_BODY, true)
+        .build();
+client.execute(store);
+```
+
 ```python
 bucket = client.bucket('test_bucket', bucket_type='test_type')
 obj = RiakObject(client, bucket, 'test_key')
@@ -197,6 +252,23 @@ Normal HTTP status codes (responses will vary for client libraries):
 If `returnbody` is set to `true`, any of the response headers expected from a read request may be present. Like a `GET` request, `300 Multiple Choices` may be returned if siblings existed or were created as part of the operation, and the response can be dealt with similarly.
 
 Let's give it a shot:
+
+```java
+Location key = new Location("test")
+        .setBucketType("test_type")
+        .setKey("doc");
+BinaryValue json = BinaryValue.create("{'bar':'baz'}");
+VClock vClock = new BasicVClock("a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==".getBytes());
+RiakObject obj = new RiakObject()
+        .setContentType("application/json")
+        .setValue(json);
+StoreValue<RiakObject> store = new StoreValue
+        .Builder<RiakObject>(key, obj)
+        .withOption(StoreOption.RETURN_BODY, true)
+        .withVectorClock(vClock)
+        .build();
+client.execute(store);
+```
 
 ```python
 bucket = client.bucket('test', bucket_type='test_type')
@@ -237,10 +309,26 @@ Normal status codes:
 
 * `201 Created`
 
-This command will store an object in the bucket `test` and assign it a random key:
+This command will store an object in the bucket `test` bearing the bucket type `default` and assign it a random key:
+
+```java
+Location locationWithoutKey = new Location("test")
+        .setBucketType("default");
+BinaryValue text = BinaryValue.create("this is a test");
+RiakObject obj = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(text);
+StoreValue<RiakObject> store = new StoreValue
+        .Builder<RiakObject>(locationWithoutKey, obj)
+        .build();
+String key = client.execute(store).getLocation().getKeyAsString();
+
+// The Java client will assign a random key along the following lines:
+"ZPFF18PUqGW9efVou7EHhfE6h8a"
+```
 
 ```python
-bucket = client.bucket('test', bucket_type='type')
+bucket = client.bucket('test', bucket_type='default')
 obj = RiakObject(client, bucket)
 obj.content_type = 'text/plain'
 obj.data = 'this is a test'
@@ -288,6 +376,14 @@ The normal HTTP response codes for `DELETE` operations are `204 No Content` and 
 
 Try this:
 
+```java
+Location myKey = new Location("mybucket")
+        .setBucketType("mytype")
+        .setKey("mykey");
+DeleteValue delete = new DeleteValue.Builder(myKey).build();
+client.execute(delete);
+```
+
 ```python
 bucket = client.bucket('mybucket', bucket_type='mytype')
 bucket.delete('mykey')
@@ -334,6 +430,21 @@ riak-admin bucket-type activate test_type
 ```
 
 Once the type is activated, we can see which properties are associated with our bucket type (and, by extension, any bucket that bears that type):
+
+```java
+Location testType = new Location("any_bucket_name")
+        .setBucketType("test_type");
+FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
+        .Builder(testType)
+        .build();
+FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
+        .Builder(testType)
+        .build();
+client.execute(fetchProps);
+
+// The properties can be retrieved as follows:
+fetchProps.get().getBucketProperties();
+```
 
 ```python
 bt = BucketType(client, 'test_type')
