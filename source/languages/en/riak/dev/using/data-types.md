@@ -1147,7 +1147,16 @@ map.maps['annika_info'].flags['enterprise_plan']
 It's also important to track the number of purchases that Annika has made with our company. Annika just made her first widget purchase:
 
 ```java
+// Using our "ahmedMap" location from above:
 
+MapUpdate annikaUpdate = new MapUpdate()
+        .update("widget_purchases", new CounterUpdate(1));
+MapUpdate ahmedUpdate = new MapUpdate()
+        .update("annika_info", annikaUpdate);
+UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+        .withUpdate(ahmedUpdate)
+        .build();
+client.execute(update);
 ```
 
 ```ruby
