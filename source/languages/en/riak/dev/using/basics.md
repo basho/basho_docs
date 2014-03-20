@@ -30,6 +30,11 @@ GET /types/TYPE/buckets/BUCKET/keys/KEY
 
 Here is an example of a GET performed on the key `mykey` in the bucket `mybucket`, which bears the type `mytype`:
 
+```ruby
+bucket = client.bucket('mybucket')
+obj = bucket.get('mykey', bucket_type: 'mytype')
+```
+
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
 // Location object that can be used as a reference for further operations.
@@ -46,8 +51,8 @@ obj = bucket.get('mykey')
 
 ```erlang
 {ok, Obj} = riakc_pb_socket(Pid,
-                            {<<"mytype">>, <<"test_bucket">>},
-                            <<"test_key">>).
+                            {<<"mytype">>, <<"mybucket">>},
+                            <<"mykey">>).
 ```
 
 ```curl
@@ -56,8 +61,12 @@ curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
 
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
 
+```ruby
+Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found. The requested object was not found.
+```
+
 ```java
-TODO
+java.lang.NullPointerException
 ```
 
 ```python
@@ -78,13 +87,19 @@ Riak also accepts many query parameters, including `r` for setting the R-value f
 
 Here is an example of attempting a read with `r` set to `3`:
 
+```ruby
+bucket = client.bucket('mybucket')
+obj = bucket.get('mykey', bucket_type: 'mytype', r: 3)
+```
+
 ```java
 // Using the "myKey" location specified above:
 
-FetchValue<RiakObject> fetch = new FetchValue.Builder<RiakObject>(myKey)
-        .withOption(FetchOption.R, 3)
+FetchValue fetch = new FetchValue.Builder(myKey)
+        .withOption(FetchOption.R, new Quorum(3))
         .build();
-FetchValue.Response<RiakObject> response = client.execute(fetch);
+FetchValue.Response response = client.execute(fetch);
+RiakObject obj = response.getValue(RiakObject.class);
 ```
 
 ```python
@@ -119,28 +134,7 @@ The most common error code:
 If you're using a Riak client instead of HTTP, these responses will vary a great deal, so make sure to check the documentation for your specific client.
 </div>
 
-With that in mind, try the following operation, which will attempt to read the key `doc2` from the bucket `test`, which bears the type `mytype`:
-
-```java
-TODO
-```
-
-```python
-riak.RiakError: 'no_type'
-```
-
-```erlang
-{error,notfound}
-```
-
-```curl
-curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
-
-# Response
-404 Not Found
-```
-
-This operation should return some form of `not found` response because the key `doc2` does not yet exist (as you haven't created it yet).
+With that in mind, try the following operation, which will attempt to read the key `doc2` from the bucket `test`, which bears the type `mytype`. This operation should return some form of `not found` response because the key `doc2` does not yet exist (as you haven't created it yet). Language-specific responses can be found in the code window above.
 
 ### Store an Object
 
@@ -164,6 +158,14 @@ If you're using HTTP, some request headers are required for writes:
 
 Here is an example of storing an object (just a snippet of text) under the key `mykey` in the bucket `mybucket`, which bears the type `mytype`, and passing that object's vector clock to Riak as part of the request:
 
+```ruby
+bucket = client.bucket('mybucket')
+obj = Riak::RObject.new(bucket, 'mykey')
+obj.content_type = 'text/plain'
+obj.raw_data = 'some text'
+obj.store(bucket_type: 'mytype')
+```
+
 ```java
 // Using the "myKey" Location from above:
 
@@ -171,8 +173,7 @@ BinaryValue text = BinaryValue.create("some text");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(text);
-StoreValue<RiakObject> store = new StoreValue
-        .Builder<RiakObject>(myKey, obj)
+StoreValue store = new StoreValue.Builder(myKey, obj)
         .build();
 client.execute(store);
 ```
@@ -214,35 +215,41 @@ Parameter | Default | Description
 `dw` | `0` | How many replicas to commit to durable storage before returning a successful response
 `returnbody` | `false` | Whether to return the contents of the stored object
 
-Here is an example of storing an object (another brief text snippet) under the key `test_key` in the bucket `test_bucket`, which bears the type `test_type`, with `w` set to `3` and `returnbody` set to `true`:
+Here is an example of storing an object (another brief text snippet) under the key `mykey` in the bucket `mybucket`, which bears the type `mytype`, with `w` set to `3` and `returnbody` set to `true`:
+
+```ruby
+bucket = client.bucket('mybucket')
+obj = Riak::RObject.new(bucket, 'mykey')
+obj.content_type = 'text/plain'
+obj.raw_data = 'some text'
+obj.store(bucket_type: 'mytype', r: 3, returnbody: true)
+```
 
 ```java
-Location testKey = new Location("test_bucket")
-        .setBucketType("test_type")
-        .setKey("test_key");
+// Using the "myKey" Location from above
+
 BinaryValue text = BinaryValue.create("some text");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(text);
-StoreValue<RiakObject> store = new StoreValue
-        .Builder<RiakObject>(myKey, obj)
-        .withOption(StoreOption.W, 3)
+StoreValue store = new StoreValue.Builder(myKey, obj)
+        .withOption(StoreOption.W, new Quorum(3))
         .withOption(StoreOption.RETURN_BODY, true)
         .build();
 client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('test_bucket', bucket_type='test_type')
-obj = RiakObject(client, bucket, 'test_key')
+bucket = client.bucket('mybucket', bucket_type='mytype')
+obj = RiakObject(client, bucket, 'mykey')
 obj.content_type = 'text/plain'
 obj.data = 'some text'
 obj.store(w=3, return_body=True)
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"test_type">>, <<"test_bucket">>},
-                       <<"test_key">>,
+Object = riakc_obj:new({<<"mytype">>, <<"mybucket">>},
+                       <<"mykey">>,
                        <<"some text">>,
                        <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object).
@@ -252,7 +259,7 @@ riakc_pb_socket:put(Pid, Object).
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "some text" \
-  http://localhost:8098/types/test_type/buckets/test_bucket/keys/test_key?w=3&returnbody=true
+  http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey?w=3&returnbody=true
 ```
 
 Normal HTTP status codes (responses will vary for client libraries):
@@ -265,17 +272,25 @@ If `returnbody` is set to `true`, any of the response headers expected from a re
 
 Let's give it a shot:
 
+```ruby
+bucket = client.bucket('mybucket')
+obj = Riak::RObject.new(bucket, 'doc')
+obj.content_type = 'application/json'
+obj.raw_data = '{"bar": "baz"}'
+obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
+obj.store(bucket_type: 'mytype', returnbody: true)
+```
+
 ```java
 Location key = new Location("test")
-        .setBucketType("test_type")
+        .setBucketType("mytype")
         .setKey("doc");
 BinaryValue json = BinaryValue.create("{'bar':'baz'}");
 VClock vClock = new BasicVClock("a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==".getBytes());
 RiakObject obj = new RiakObject()
         .setContentType("application/json")
         .setValue(json);
-StoreValue<RiakObject> store = new StoreValue
-        .Builder<RiakObject>(key, obj)
+StoreValue store = new StoreValue.Builder(key, obj)
         .withOption(StoreOption.RETURN_BODY, true)
         .withVectorClock(vClock)
         .build();
@@ -283,7 +298,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('test', bucket_type='test_type')
+bucket = client.bucket('test', bucket_type='mytype')
 obj = RiakObject(client, bucket, 'doc')
 obj.content_type = 'application/json'
 obj.data = '{"bar":"baz"}'
@@ -292,7 +307,7 @@ obj.store(return_body=True)
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"test_type">>, <<"test">>}, <<"doc">>, <<"{'bar':'baz'}">>, <<"application/json">>).
+Object = riakc_obj:new({<<"mytype">>, <<"test">>}, <<"doc">>, <<"{'bar':'baz'}">>, <<"application/json">>).
 ObjectWithVclock = riakc_obj:set_vclock(Object, <<"a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==">>).
 riakc_pb_socket:put(Pid, ObjectWithVclock).
 ```
@@ -302,7 +317,7 @@ curl -v -XPUT \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
   -H "Content-Type: application/json" \
   -d '{"bar":"baz"}' \
-  http://localhost:8098/types/test_type/buckets/test/keys/doc?returnbody=true
+  http://localhost:8098/types/mytype/buckets/test/keys/doc?returnbody=true
 ```
 
 ### Store a New Object and Assign a Random Key
@@ -323,6 +338,21 @@ Normal status codes:
 
 This command will store an object in the bucket `test` bearing the bucket type `default` and assign it a random key:
 
+```ruby
+bucket = client.bucket('mybucket')
+obj = Riak::RObject.new(bucket)
+obj.content_type = 'text/plain'
+obj.raw_data = 'this is a test'
+
+# In the Ruby client, if you do not specify a bucket type when you store an
+# object, it will use the "default" type
+obj.store
+
+# The client will assign a key like the following:
+obj.key
+"GB8fW6DDZtXogK19OLmaJf247DN"
+```
+
 ```java
 Location locationWithoutKey = new Location("test")
         .setBucketType("default");
@@ -330,8 +360,7 @@ BinaryValue text = BinaryValue.create("this is a test");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(text);
-StoreValue<RiakObject> store = new StoreValue
-        .Builder<RiakObject>(locationWithoutKey, obj)
+StoreValue store = new StoreValue.Builder(locationWithoutKey, obj)
         .build();
 String key = client.execute(store).getLocation().getKeyAsString();
 
@@ -388,10 +417,14 @@ The normal HTTP response codes for `DELETE` operations are `204 No Content` and 
 
 Try this:
 
+```ruby
+bucket = client.bucket('mybucket')
+bucket.delete('mykey', bucket_type: 'mytype')
+```
+
 ```java
-Location myKey = new Location("mybucket")
-        .setBucketType("mytype")
-        .setKey("mykey");
+// Using the "myKey" location from above:
+
 DeleteValue delete = new DeleteValue.Builder(myKey).build();
 client.execute(delete);
 ```
@@ -429,46 +462,50 @@ Parameter | Description | Default
 `n_val` | The number of replicas for objects in a bucket. The `n_val` should be an integer greater than 0 and less than the number of partitions in the ring.<br /><br />**Note**: If you change the `n_val` after keys have been added to the bucket, it may result in failed reads, as the new value may not be replicated to all of the appropriate partitions.| `3`
 `allow_mult` | With `allow_mult` set to `false`, clients will only get the most recent object as determined by timestamp. Otherwise, Riak maintains any sibling objects caused by concurrent writes (or network partitions). | `false`
 
-Let's go ahead and create a bucket type called `test_type` that sets the `n_val` to 5:
+As an example, let's create a bucket type called `mytype` that sets the `n_val` to 5:
 
 ```bash
-riak-admin bucket-type create test_type '{"props":{"n_val":5}}'
+riak-admin bucket-type create mytype '{"props":{"n_val":5}}'
 ```
 
 We must activate the type for those parameters to take effect:
 
 ```bash
-riak-admin bucket-type activate test_type
+riak-admin bucket-type activate mytype
 ```
 
 Once the type is activated, we can see which properties are associated with our bucket type (and, by extension, any bucket that bears that type):
 
-```java
-Location testType = new Location("any_bucket_name")
-        .setBucketType("test_type");
-FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
-        .Builder(testType)
-        .build();
-FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
-        .Builder(testType)
-        .build();
-client.execute(fetchProps);
+```ruby
+# You cannot currently fetch a bucket type's properties in the Ruby
+# client. We suggest using curl instead. See the example in the code
+# tab to the right.
+```
 
-// The properties can be retrieved as follows:
-fetchProps.get().getBucketProperties();
+```java
+// Fetching the bucket properties of a bucket type/bucket combination
+// must be done using a RiakCluster object rather than a RiakClient.
+
+Location testType = new Location("any_bucket_name")
+        .setBucketType("mytype");
+FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
+        .Builder(testType)
+        .build();
+cluster.execute(fetchProps);
+BucketProperties props = fetchProps.get().getBucketProperties();
 ```
 
 ```python
-bt = BucketType(client, 'test_type')
+bt = BucketType(client, 'mytype')
 bt.get_properties()
 ```
 
 ```erlang
-riakc_pb_socket:get_bucket_type(Pid, <<"test_type">>).
+riakc_pb_socket:get_bucket_type(Pid, <<"mytype">>).
 ```
 
 ```curl
-curl http://localhost:8098/types/test_type/props
+curl http://localhost:8098/types/mytype/props
 ```
 
 This should return JSON of the following form:
