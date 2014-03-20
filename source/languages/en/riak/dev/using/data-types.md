@@ -247,7 +247,8 @@ Counter4 = riakc_counter:decrement(3, Counter3).
 %% using the to_op/1 function, then pass it to
 %% riakc_pb_socket:update_type/4,5.
 
-riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>,<<"counters">>},
+riakc_pb_socket:update_type(Pid,
+                            {<<"counter_bucket">>,<<"counters">>},
                             <<"traffic_tickets">>,
                             riakc_counter:to_op(Counter4)).
 ```
@@ -430,8 +431,8 @@ riakc_set:value(Set5).
 %% To fetch the value stored on the server, use the call below:
 
 {ok, SetX} = riakc_pb_socket:fetch_type(Pid,
-                                 {<<"set_bucket">>,<<"travel">>},
-                                  <<"cities">>).
+                                        {<<"set_bucket">>,<<"travel">>},
+                                        <<"cities">>).
 ```
 
 ```curl
@@ -554,10 +555,15 @@ map.registers['phone_number'] = '5551234567'
 map.registers['phone_number'] = 5551234567.to_s
 ```
 
+Map2 = riakc_map:update({<<"first_name">>, register}, fun(R) -> <<"Bill">> end, Map1).
+
 ```erlang
-Map = riakc_map:new(),
-Map1 = riakc_map:update({<<"first_name">>, register}, fun(R) -> <<"Ahmed">> end, riakc_map:new()),
-Map2 = riakc_map:update({<<"phone_number">>, register}, fun(R) -> <<"5551234567">>, Map1).
+Map1 = riakc_map:update({<<"first_name">>, register},
+                        fun(R) -> riakc_register:set(<<"Ahmed">>, R),
+                        Map).
+Map2 = riakc_map:update({<<"phone_number">>, register},
+                        fun(R) -> riakc_register:set(<<"5551234567">>, R),
+                        Map1).
 ```
 
 ```curl
@@ -590,7 +596,9 @@ map.counters['page_visits'].increment
 ```
 
 ```erlang
-Map3 = riakc_map:update({<<"page_visits">>, counter}, fun(C) -> riakc_counter:increment(1, C) end, Map2).
+Map3 = riakc_map:update({<<"page_visits">>, counter},
+                        fun(C) -> riakc_counter:increment(1, C),
+                        Map2).
 ```
 
 ```curl
@@ -618,7 +626,9 @@ map.flags['enterprise_customer'] = false
 ```
 
 ```erlang
-Map4 = riakc_map:update({<<"enterprise_customer">>, flag}, fun(F) -> riakc_flag:disable(F) end, Map3).
+Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
+                        fun(F) -> riakc_flag:disable(F) end,
+                        Map3).
 ```
 
 ```curl
@@ -664,9 +674,15 @@ end
 ```
 
 ```erlang
-Map4 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"robots">>, S) end, Map3),
-Map5 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"opera">>, S) end, Map4),
-Map6 = riakc_map:update({<<"interests">>, set}, fun(S) -> riakc_set:add_element(<<"motorcycles">>, S) end, Map4).
+Map5 = riakc_map:update({<<"interests">>, set},
+                        riakc_set:add_element(<<"robots">>, S) end,
+                        Map4),
+Map6 = riakc_map:update({<<"interests">>, set},
+                        riakc_set:add_element(<<"opera">>, S) end,
+                        Map5),
+Map7 = riakc_map:update({<<"interests">>, set},
+                        riakc_set:add_element(<<"motorcycles">>, S) end,
+                        Map5).
 ```
 
 ```curl
@@ -698,11 +714,12 @@ end
 ```
 
 ```erlang
-riakc_map:dirty_value(Map6).
+riakc_map:dirty_value(Map7).
 ```
 
 ```curl
-curl -XPOST http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info?include_context=false
+curl -XPOST \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info?include_context=false
 ```
 
 We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
@@ -713,6 +730,15 @@ map.sets['interests'].remove('opera')
 # This operation may return false even if successful
 
 map.sets['interests'].add('indie pop')
+```
+
+```erlang
+Map8 = riakc_map:update({<<"interests">>, set},
+                 fun(S) -> riakc_set:del_element(<<"opera">>, S) end,
+                 Map7),
+Map8 = riakc_map:update({<<"interests">>, set},
+                 fun(S) -> riakc_set:add_element(<<"indie pop">>, S) end,
+                 Map7).
 ```
 
 ```curl
@@ -743,6 +769,14 @@ First, we'll store Annika's first name, last name, and phone number in registers
 map.maps['annika_info'].registers['first_name'] = 'Annika'
 map.maps['annika_info'].registers['last_name'] = 'Weiss'
 map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
+```
+
+```erlang
+Fun1 = fun(R) -> riakc_register:set(<<"Annika">>, R) end,
+Fun2 = fun(M) -> riakc_map:update({<<"annika_info">>, map}, Fun1(Map), M),
+Map9 = riakc_map:update({<<"annika_info">>, map}, Fun2, Map8).
+
+
 ```
 
 ```curl
