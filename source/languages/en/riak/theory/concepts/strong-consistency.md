@@ -84,7 +84,7 @@ An important thing to note here is that only successful writes are guaranteed to
 
 So what happens when values conflict, whether due to concurrent or partial writes or a node coming back into the network or some other reason? We can illustrate this with another hypothetical scenario:
 
-* A client reads a key from a strongly consistent bucket. That key stores conlicting values in different nodes, A in one node and B in the other.
+* A client reads a key from a strongly consistent bucket. That key stores conflicting values in different nodes, A in one node and B in the other.
 * On the basis of DVVs, either value A or B will be deemed logically "older" than the other. If A is selected as being logically older, it will "win" over B.
 * All other nodes will be notified that A is the correct value.
 
