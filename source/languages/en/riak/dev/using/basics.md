@@ -28,31 +28,31 @@ Here is the basic command form for retrieving a specific key from a bucket:
 GET /types/TYPE/buckets/BUCKET/keys/KEY
 ```
 
-Here is an example of a GET performed on the key `mykey` in the bucket `mybucket`, which bears the type `mytype`:
+Here is an example of a GET performed on the key `rufus` in the bucket `dogs`, which bears the type `animals`:
 
 ```ruby
-bucket = client.bucket('mybucket')
-obj = bucket.get('mykey', bucket_type: 'mytype')
+bucket = client.bucket('dogs')
+obj = bucket.get('rufus', bucket_type: 'animals')
 ```
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
 // Location object that can be used as a reference for further operations.
 
-Location myKey = new Location("mybucket")
-        .setBucketType("mytype")
-        .setKey("mykey");
+Location myKey = new Location("dogs")
+        .setBucketType("animals")
+        .setKey("rufus");
 ```
 
 ```python
-bucket = client.bucket('mybucket', bucket_type='mytype')
-obj = bucket.get('mykey')
+bucket = client.bucket('dogs', bucket_type='animals')
+obj = bucket.get('rufus')
 ```
 
 ```erlang
 {ok, Obj} = riakc_pb_socket(Pid,
-                            {<<"mytype">>, <<"mybucket">>},
-                            <<"mykey">>).
+                            {<<"animals">>, <<"dogs">>},
+                            <<"rufus">>).
 ```
 
 ```curl
@@ -88,8 +88,8 @@ Riak also accepts many query parameters, including `r` for setting the R-value f
 Here is an example of attempting a read with `r` set to `3`:
 
 ```ruby
-bucket = client.bucket('mybucket')
-obj = bucket.get('mykey', bucket_type: 'mytype', r: 3)
+bucket = client.bucket('dogs')
+obj = bucket.get('rufus', bucket_type: 'animals', r: 3)
 ```
 
 ```java
@@ -103,15 +103,15 @@ RiakObject obj = response.getValue(RiakObject.class);
 ```
 
 ```python
-bucket = client.bucket('mybucket', bucket_type='mytype')
-obj = bucket.get('mykey', r=3)
+bucket = client.bucket('dogs', bucket_type='animals')
+obj = bucket.get('rufus', r=3)
 obj.data
 ```
 
 ```erlang
 {ok, Obj} = riakc_pb_socket:get(Pid,
-                                {<<"mytype">>, <<"mybucket">>},
-                                <<"mykey">>,
+                                {<<"animals">>, <<"dogs">>},
+                                <<"rufus">>,
                                 [{r, 3}]).
 ```
 
@@ -151,25 +151,23 @@ If you're using HTTP, <tt>POST</tt> is also a valid method, for compatibility's 
 
 There is no need to intentionally create buckets in Riak. They pop into existence when keys are added to them, and disappear when all keys have been removed from them. If you don't specify a bucket's type, the type `[[default|Using Bucket Types]]` will be applied.
 
-If you're using HTTP, some request headers are required for writes:
+#### Specifying Content Type
 
-* `Content-Type` must be set for the stored object. Set what you expect to receive back when next requesting it.
-* `X-Riak-Vclock` if the object already exists. The [[vector clock|Vector Clocks]] is attached to the object when it is read. If the object is new, this header may be omitted.
-
-Here is an example of storing an object (just a snippet of text) under the key `mykey` in the bucket `mybucket`, which bears the type `mytype`, and passing that object's vector clock to Riak as part of the request:
+When making writes, there are some pieces of metadata that you will need to attach to objects. For all writes, you will need to specify a content type, for example `text/plain` or `application/json`.
 
 ```ruby
-bucket = client.bucket('mybucket')
-obj = Riak::RObject.new(bucket, 'mykey')
+bucket = client.bucket('oscar_wilde')
+obj = Riak::RObject.new(bucket, 'genius')
 obj.content_type = 'text/plain'
-obj.raw_data = 'some text'
-obj.store(bucket_type: 'mytype')
+obj.raw_data = 'I have nothing to declare but my genius'
+obj.store(bucket_type: 'quotes')
 ```
 
 ```java
-// Using the "myKey" Location from above:
-
-BinaryValue text = BinaryValue.create("some text");
+Location wildeGeniusQuote = new Location("oscar_wilde")
+        .setBucketType("quotes")
+        .setKey("genius");
+BinaryValue text = BinaryValue.create("I have nothing to declare but my genius");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(text);
@@ -179,17 +177,17 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('mybucket', bucket_type='mytype')
-obj = RiakObject(client, bucket, 'mykey')
+bucket = client.bucket('oscar_wilde', bucket_type: 'quotes')
+obj = RiakObject(bucket, 'genius')
 obj.content_type = 'text/plain'
-obj.data = 'some text'
+obj.data = 'I have nothing to declare but my genius'
 obj.store()
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"mytype">>, <<"mybucket">>},
-                       <<"mykey">>,
-                       <<"some text">>,
+Object = riakc_obj:new({<<"quotes">>, <<"oscar_wilde">>},
+                       <<"genius">>,
+                       <<"I have nothing to declare but my genius">>,
                        <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object).
 ```
@@ -197,14 +195,130 @@ riakc_pb_socket:put(Pid, Object).
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
-  -H "X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkymNl+GpUfYYvCwA=" \
-  -d "some text" \
-  http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
+  -d "I have nothing to declare but my genius" \
+  http://localhost:8098/types/adventurers/buckets/astronauts/keys/john_glenn
 ```
 
-Other HTTP request headers are optional for writes (and not necessary if using a client library):
+#### Using Vector Clocks
+
+If an object already exists under a certain key, you will need to attach a [[vector clock]] to your object as metadata. The vector clock can be obtained when you read the object that already exists.
+
+Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`.
+
+But one season, the Harlem Globetrotters enter the league and dethrone the hapless Generals. We want to write that new information to the `champion` key. Let's fetch the object there and obtain the vector clock.
+
+```ruby
+bucket = client.bucket('nba')
+obj = bucket.get('champion', bucket_type: 'sports')
+obj.vclock
+
+# The vector clock will look something like this:
+# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
+```java
+Location currentChampion = new Location("nba")
+        .setBucketType("sports")
+        .setKey("champion");
+FetchValue fetch = new FetchValue.Builder(currentChampion)
+        .build();
+FetchValue.Response response = client.execute(fetch);
+System.out.println(response.getvClock());
+
+// The vector clock will look something like this:
+// a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
+```python
+bucket = client.bucket('nba', bucket_type: 'sports')
+obj = bucket.get('champion')
+obj.vclock
+
+# The vector clock will look something like this:
+# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
+```erlang
+%% In the Erlang client, you cannot view a vector clock directly, but it 
+%% will be included in the output when you fetch an object:
+
+{ok, Obj} = riakc_pb_socket:get(Pid,
+                                {<<"sports">>, <<"nba">>},
+                                <<"champion">>).
+
+%% In the resulting object Obj, the vector clock can be seen as a long list
+%% of integers, like so:
+
+<<107,206,97,96,96,96,204,...>>
+```
+
+```curl
+# When using curl, the vector clock is attached to the X-Riak-Vclock header
+
+curl -i http://localhost:8098/types/sports/buckets/nba/keys/champion
+
+# In the resulting output, the header will look something like this:
+
+X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
+You can then attach the vector clock to the new object and attempt a write. The vector clock will inform Riak which version of the object the client has seen.
+
+Let's update the value of `champion` to `Harlem Globetrotters` using the vector clock that we obtained in the example above:
+
+```ruby
+bucket = client.bucket('nba')
+obj = Riak::RObject.new(bucket, 'champion')
+obj.content_type = 'text/plain'
+obj.raw_data = 'Harlem Globetrotters'
+obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
+obj.store(bucket_type: 'sports')
+```
+
+```java
+Location johnGlennKey = new Location("nba")
+        .setBucketType("sports")
+        .setKey("champion");
+BinaryValue text = BinaryValue.create("Harlem Globetrotters");
+RiakObject obj = new RiakObject()
+        .setContentType("text/plain")
+        .setVtag("a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=")
+        .setValue(text);
+StoreValue store = new StoreValue.Builder(myKey, obj)
+        .build();
+client.execute(store);
+```
+
+```python
+bucket = client.bucket('nba', bucket_type='sports')
+obj = RiakObject(client, bucket, 'champion')
+obj.content_type = 'text/plain'
+obj.data = 'Harlem Globetrotters'
+obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
+obj.store()
+```
+
+```erlang
+Object = riakc_obj:new({<<"sports">>, <<"nba">>},
+                       <<"champion">>,
+                       <<"Harlem Globetrotters">>,
+                       <<"text/plain">>).
+ObjectWithVclock = riakc_obj:set_vclock(Object, <<"a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=">>).
+riakc_pb_socket:put(Pid, ObjectWithVclock).
+```
+
+```curl
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "first American in space" \
+  http://localhost:8098/types/adventurers/buckets/astronauts/keys/john_glenn
+```
+
+Other request headers are optional for writes (and not necessary if using a client library):
 
 * `X-Riak-Meta-YOUR_HEADER` for any additional metadata headers that should be stored with the object (eg. `X-Riak-Meta-FirstName`).
+
+#### Write Parameters
 
 Similar to how read requests support the `r` query parameter, write requests also support the following parameters:
 
@@ -215,20 +329,79 @@ Parameter | Default | Description
 `dw` | `0` | How many replicas to commit to durable storage before returning a successful response
 `returnbody` | `false` | Whether to return the contents of the stored object
 
-Here is an example of storing an object (another brief text snippet) under the key `mykey` in the bucket `mybucket`, which bears the type `mytype`, with `w` set to `3` and `returnbody` set to `true`:
+Here is an example of storing an object (another brief text snippet) under the key `viper` in the bucket `dodge`, which bears the type `cars`, with `w` set to `3`:
 
 ```ruby
-bucket = client.bucket('mybucket')
-obj = Riak::RObject.new(bucket, 'mykey')
+bucket = client.bucket('dodge')
+obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
-obj.raw_data = 'some text'
-obj.store(bucket_type: 'mytype', r: 3, returnbody: true)
+obj.raw_data = 'vroom'
+obj.store(bucket_type: 'cars', r: 3)
 ```
 
 ```java
-// Using the "myKey" Location from above
+Location viperKey = new Location("dodge")
+        .setBucketType("cars")
+        .setKey("viper");
+BinaryValue text = BinaryValue.create("vroom");
+RiakObject obj = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(text);
+StoreValue store = new StoreValue.Builder(myKey, obj)
+        .withOption(StoreOption.W, new Quorum(3))
+        .build();
+client.execute(store);
+```
 
-BinaryValue text = BinaryValue.create("some text");
+```python
+bucket = client.bucket('dodge', bucket_type='cars')
+obj = RiakObject(client, bucket, 'viper')
+obj.content_type = 'text/plain'
+obj.data = 'vroom'
+obj.store(w=3)
+```
+
+```erlang
+Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
+                       <<"viper">>,
+                       <<"vroom">>,
+                       <<"text/plain">>,
+                       [{w, 3}]).
+riakc_pb_socket:put(Pid, Object).
+```
+
+```curl
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "vroom" \
+  http://localhost:8098/types/cars/buckets/dodge/keys/viper?w=3
+```
+
+Normal HTTP status codes (responses will vary for client libraries):
+
+* `200 OK`
+* `204 No Content`
+* `300 Multiple Choices`
+
+#### Return Body
+
+If `returnbody` is set to `true`, any of the response headers expected from a read request may be present. Like a `GET` request, `300 Multiple Choices` may be returned if siblings existed or were created as part of the operation, and the response can be dealt with similarly.
+
+Let's give it a shot, using the same object from above:
+
+```ruby
+bucket = client.bucket('dodge')
+obj = Riak::RObject.new(bucket, 'viper')
+obj.content_type = 'text/plain'
+obj.raw_data = 'vroom'
+obj.store(bucket_type: 'cars', r: 3, returnbody: true)
+```
+
+```java
+Location viperKey = new Location("dodge")
+        .setBucketType("cars")
+        .setKey("viper");
+BinaryValue text = BinaryValue.create("vroom");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(text);
@@ -240,17 +413,17 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('mybucket', bucket_type='mytype')
-obj = RiakObject(client, bucket, 'mykey')
+bucket = client.bucket('dodge', bucket_type='cars')
+obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
-obj.data = 'some text'
+obj.data = 'vroom'
 obj.store(w=3, return_body=True)
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"mytype">>, <<"mybucket">>},
-                       <<"mykey">>,
-                       <<"some text">>,
+Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
+                       <<"viper">>,
+                       <<"vroom">>,
                        <<"text/plain">>).
 riakc_pb_socket:put(Pid, Object).
 ```
@@ -258,69 +431,8 @@ riakc_pb_socket:put(Pid, Object).
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
-  -d "some text" \
-  http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey?w=3&returnbody=true
-```
-
-Normal HTTP status codes (responses will vary for client libraries):
-
-* `200 OK`
-* `204 No Content`
-* `300 Multiple Choices`
-
-If `returnbody` is set to `true`, any of the response headers expected from a read request may be present. Like a `GET` request, `300 Multiple Choices` may be returned if siblings existed or were created as part of the operation, and the response can be dealt with similarly.
-
-Let's give it a shot:
-
-```ruby
-bucket = client.bucket('mybucket')
-obj = Riak::RObject.new(bucket, 'doc')
-obj.content_type = 'application/json'
-obj.raw_data = '{"bar": "baz"}'
-obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
-obj.store(bucket_type: 'mytype', returnbody: true)
-```
-
-```java
-Location key = new Location("test")
-        .setBucketType("mytype")
-        .setKey("doc");
-BinaryValue json = BinaryValue.create("{'bar':'baz'}");
-VClock vClock = new BasicVClock("a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==".getBytes());
-RiakObject obj = new RiakObject()
-        .setContentType("application/json")
-        .setValue(json);
-StoreValue store = new StoreValue.Builder(key, obj)
-        .withOption(StoreOption.RETURN_BODY, true)
-        .withVectorClock(vClock)
-        .build();
-client.execute(store);
-```
-
-```python
-bucket = client.bucket('test', bucket_type='mytype')
-obj = RiakObject(client, bucket, 'doc')
-obj.content_type = 'application/json'
-obj.data = '{"bar":"baz"}'
-obj.vclock = 'a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA=='
-obj.store(return_body=True)
-```
-
-```erlang
-Object = riakc_obj:new({<<"mytype">>, <<"test">>},
-                       <<"doc">>,
-                       <<"{'bar':'baz'}">>,
-                       <<"application/json">>).
-ObjectWithVclock = riakc_obj:set_vclock(Object, <<"a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==">>).
-riakc_pb_socket:put(Pid, ObjectWithVclock).
-```
-
-```curl
-curl -v -XPUT \
-  -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" \
-  -H "Content-Type: application/json" \
-  -d '{"bar":"baz"}' \
-  http://localhost:8098/types/mytype/buckets/test/keys/doc?returnbody=true
+  -d "vroom" \
+  http://localhost:8098/types/cars/buckets/dodge/keys/viper?w=3&returnbody=true
 ```
 
 ### Store a New Object and Assign a Random Key
@@ -458,12 +570,16 @@ Buckets come with virtually no cost <em>except for when you modify the default b
 
 A comprehensive tutorial on bucket types can be found in the [[Using Bucket Types]] document. Here, we'll discuss some basic parameters that can be managed using bucket types.
 
-The most important properties to consider for buckets are the following:
+Here are some important bucket properties to be aware of:
 
 Parameter | Description | Default
 :---------|:------------|:-------
-`n_val` | The number of replicas for objects in a bucket. The `n_val` should be an integer greater than 0 and less than the number of partitions in the ring.<br /><br />**Note**: If you change the `n_val` after keys have been added to the bucket, it may result in failed reads, as the new value may not be replicated to all of the appropriate partitions.| `3`
-`allow_mult` | With `allow_mult` set to `false`, clients will only get the most recent object as determined by timestamp. Otherwise, Riak maintains any sibling objects caused by concurrent writes (or network partitions). | `false`
+`n_val` | The number of replicas for objects in a bucket. The `n_val` should be an integer greater than 0 and less than or equal to the number of nodes in the cluster.<br /><br />**Note**: If you change the `n_val` after keys have been added to the bucket, it may result in failed reads, as the new value may not be replicated to all of the appropriate partitions.| `3`
+`allow_mult` | With `allow_mult` set to `false`, clients will never have 
+
+
+clients will only get the most recent object as determined by timestamp. Otherwise, Riak maintains any sibling objects caused by concurrent writes (or network partitions). | `false`
+`last_write_wins` | 
 
 As an example, let's create a bucket type called `mytype` that sets the `n_val` to 5:
 
@@ -526,4 +642,4 @@ This should return JSON of the following form:
 
 We can also view this information in our browser at the URL specified above.
 
-So, that's the basics of how the most essential Riak key/value operations work. In addition to this tutorial, an in-depth reading of the [[HTTP API]] page is highly recommended, as it will give you details on the headers, parameters, status, and other details that you should keep in mind even when using a client library.
+That's the basics of how the most essential Riak key/value operations work. In addition to this tutorial, we recommend an in-depth reading of the [[HTTP API]] page, as it will give you details on the headers, parameters, status, and other details that you should keep in mind even when using a client library.
