@@ -178,7 +178,7 @@ client.execute(store);
 
 ```python
 bucket = client.bucket('oscar_wilde', bucket_type: 'quotes')
-obj = RiakObject(bucket, 'genius')
+obj = RiakObject(client, bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.data = 'I have nothing to declare but my genius'
 obj.store()
