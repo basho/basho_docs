@@ -89,10 +89,6 @@ bucket = client.bucket('counters')
 bucket.get('<key>', bucket_type: 'counter_bucket')
 ```
 
-```python
-bucket = client.bucket('counters', bucket_type='counter_bucket')
-```
-
 ```erlang
 %% Buckets are simply named binaries in the Erlang client.
 %% See below for more information.
@@ -120,10 +116,6 @@ curl -XPOST \
 
 ```ruby
 counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
-```
-
-```python
-counter = Counter(bucket=bucket, key=key, bucket_type=bucket_type)
 ```
 
 ```erlang
@@ -160,10 +152,6 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counter_bucket'
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```
 
-```python
-counter = Counter()
-```
-
 ```erlang
 Counter = riakc_counter:new().
 
@@ -195,10 +183,6 @@ curl -XPUT \
 counter.increment
 ```
 
-```python
-counter.increment()
-```
-
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -216,10 +200,6 @@ client.execute(update);
 ```
 
 ```ruby
-counter.increment(5)
-```
-
-```python
 counter.increment(5)
 ```
 
@@ -249,10 +229,6 @@ Long ticketsCount = counter.view();
 ```ruby
 counter.value
 # Output will always be an integer
-```
-
-```python
-counter.value
 ```
 
 ```erlang
@@ -701,9 +677,12 @@ map.registers['phone_number'] = 5551234567.to_s
 ```
 
 ```erlang
-Map = riakc_map:new(),
-Map1 = riakc_map:update({<<"first_name">>, register}, fun(R) -> <<"Ahmed">> end, riakc_map:new()),
-Map2 = riakc_map:update({<<"phone_number">>, register}, fun(R) -> <<"5551234567">>, Map1).
+Map1 = riakc_map:update({<<"first_name">>, register},
+                        fun(R) -> riakc_register:set(<<"Ahmed">>, R) end, 
+                        Map),
+Map2 = riakc_map:update({<<"phone_number">>, register},
+                        fun(R) -> riakc_register:set(<<"5551234567">>, R) end,
+                        Map1).
 ```
 
 ```curl
@@ -748,7 +727,9 @@ map.counters['page_visits'].increment
 ```
 
 ```erlang
-Map3 = riakc_map:update({<<"page_visits">>, counter}, fun(C) -> riakc_counter:increment(1, C) end, Map2).
+Map3 = riakc_map:update({<<"page_visits">>, counter},
+                        fun(C) -> riakc_counter:increment(1, C) end,
+                        Map2).
 ```
 
 ```curl
@@ -788,7 +769,9 @@ map.flags['enterprise_customer'] = false
 ```
 
 ```erlang
-Map4 = riakc_map:update({<<"enterprise_customer">>, flag}, fun(F) -> riakc_flag:disable(F) end, Map3).
+Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
+                        fun(F) -> riakc_flag:disable(F) end,
+                        Map3).
 ```
 
 ```curl
@@ -940,6 +923,14 @@ map.sets['interests'].remove('opera')
 map.sets['interests'].add('indie pop')
 ```
 
+```erlang
+Map7 = riakc_map:update({<<"interests">>, set},
+                        fun(S) -> riakc_set:del_element(<<"robots">>, S) end, Map6),
+Map8 = riakc_map:update({<<"interests">>, set},
+                        fun(S) -> riakc_set:add_element(<<"indie pop">>, S) end,
+                        Map7).
+```
+
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
@@ -989,6 +980,27 @@ map.maps['annika_info'].registers['last_name'] = 'Weiss'
 map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
 ```
 
+```erlang
+Map12 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"first_name">>, register}, 
+        fun(R) -> riakc_register:set(<<"Annika">>, R) end, M) end,
+    Map11),
+Map13 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"last_name">>, register}, 
+        fun(R) -> riakc_register:set(<<"Weiss">>, R) end, M) end,
+    Map12),
+Map14 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"phone_number">>, register}, 
+        fun(R) -> riakc_register:set(<<"5559876543">>, R) end, M) end,
+    Map13).
+```
+
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
@@ -1028,6 +1040,10 @@ map.maps['annika_info'].registers['first_name']
 # "Annika"
 ```
 
+```erlang
+riakc_map:dirty_value(Map14).
+```
+
 ```curl
 # Specific values for fields inside of maps (or maps within maps, for that
 # matter), cannot be obtained directly through the HTTP interface.
@@ -1056,6 +1072,12 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].registers.remove('phone_number')
+```
+
+```erlang
+Map15 = riakc_map:update({<<"annika_info">>, map},
+                         fun(M) -> riakc_map:erase({<<"phone_number">>, register}, M) end,
+                         Map14).
 ```
 
 ```curl
@@ -1101,6 +1123,30 @@ map.maps['annika_info'].flags['family_plan'] = false
 map.maps['annika_info'].flags['free_plan'] = true
 ```
 
+```erlang
+Map16 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"enterprise_plan">>, flag}, 
+        fun(F) -> riakc_flag:disable(F) end,
+        M) end,
+    Map15),
+Map17 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"family_plan">>, flag}, 
+        fun(F) -> riakc_flag:disable(F) end,
+        M) end,
+    Map16),
+Map18 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"free_plan">>, flag}, 
+        fun(F) -> riakc_flag:enable(F) end,
+        M) end,
+    Map17).                
+```
+
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
@@ -1139,6 +1185,10 @@ map.maps['annika_info'].flags['enterprise_plan']
 # false
 ```
 
+```erlang
+riakc_map:dirty_value(Map18).
+```
+
 ```curl
 # Specific values for fields inside of maps (or maps within maps, for that
 # matter), cannot be obtained directly through the HTTP interface.
@@ -1163,6 +1213,16 @@ client.execute(update);
 map.maps['annika_info'].counters['widget_purchases'].increment
 ```
 
+```erlang
+Map19 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"widget_purchases">>, counter}, 
+        fun(C) -> riakc_counter:increment(1, C) end,
+        M) end,
+    Map18).
+```
+
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
@@ -1182,8 +1242,32 @@ curl -XPOST \
 
 Now let's store Annika's interests in a set:
 
+```java
+// Using our "ahmedMap" location from above:
+
+SetUpdate su = new SetUpdate().add(BinaryValue.create("tango dancing"));
+MapUpdate annikaUpdate = new MapUpdate()
+        .update("widget_purchases", su);
+MapUpdate ahmedUpdate = new MapUpdate()
+        .update("annika_info", annikaUpdate);
+UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+        .withUpdate(ahmedUpdate)
+        .build();
+client.execute(update);
+```
+
 ```ruby
 map.maps['annika_info'].sets['interests'].add('tango dancing')
+```
+
+```erlang
+Map20 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"interests">>, set}, 
+        fun(S) -> riakc_set:add_element(<<"tango dancing">>, S) end,
+        M) end,
+    Map19).
 ```
 
 ```curl
@@ -1207,8 +1291,32 @@ curl -XPOST \
 
 We can remove that interest in just the way that we would expect:
 
+```java
+// Using our "ahmedMap" location from above:
+
+SetUpdate su = new SetUpdate().remove(BinaryValue.create("tango dancing"));
+MapUpdate annikaUpdate = new MapUpdate()
+        .update("widget_purchases", su);
+MapUpdate ahmedUpdate = new MapUpdate()
+        .update("annika_info", annikaUpdate);
+UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+        .withUpdate(ahmedUpdate)
+        .build();
+client.execute(update);
+```
+
 ```ruby
 map.maps['annika_info'].set['interests'].remove('tango dancing')
+```
+
+```erlang
+Map21 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"interests">>, set}, 
+        fun(S) -> riakc_set:del_element(<<"tango dancing">>, S) end,
+        M) end,
+    Map20).
 ```
 
 ```curl
@@ -1230,11 +1338,42 @@ curl -XPOST \
 
 If we wanted to add store information about one of Annika's specific purchases, we could do so within a map:
 
+```java
+// Using our "ahmedMap" location from above:
+
+MapUpdate purchaseUpdate = new MapUpdate()
+        .update("first_purchase", new FlagUpdate().set(true))
+        .update("amount", new RegisterUpdate().set(BinaryValue.create("1271")))
+        .update("items", new SetUpdate().add(BinaryValue.create("large widget")));
+MapUpdate annikaUpdate = new MapUpdate()
+        .update("purchase", purchaseUpdate);
+MapUpdate ahmedUpdate = new MapUpdate()
+        .update("annika_info", annikaUpdate);
+UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+        .withUpdate(ahmedUpdate)
+        .build();
+client.execute(update);
+```
+
 ```ruby
 map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
 map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
-map.maps['annika_info'].maps['purchase'].sets['items'].add('large_widget')
+map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
 # and so on
+```
+
+```erlang
+Map22 = riakc_map:update(
+    {<<"annika_info">>, map},
+    fun(M) -> riakc_map:update(
+        {<<"purchase">>, map},
+        fun(M) -> riakc_map:update(
+            {<<"first_purchase">>, flag},
+            fun(R) -> riakc_flag:enable(R) end,
+        M) end,
+    M) end,
+    Map21
+).
 ```
 
 ```curl
@@ -1250,7 +1389,7 @@ curl -XPOST \
             "first_purchase_flag": "enable",
             "amount_register": "1271",
             "items_set": {
-              "add": "large_widget"
+              "add": "large widget"
             }
           }
         }
