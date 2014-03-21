@@ -899,7 +899,7 @@ riakc_map:dirty_value(Map6).
 ```
 
 ```curl
-curl -XPOST http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info?include_context=false
+curl http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info?include_context=false
 ```
 
 We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
