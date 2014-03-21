@@ -8,9 +8,11 @@ audience: intermediate
 keywords: [developers, data-types]
 ---
 
-In versions of 2.0 and greater, Riak users can make use of a variety of Riak-specific data types inspired by research on convergent replicated data types ([[Data Types]]).
+In versions of 2.0 and greater, Riak users can make use of a variety of Riak-specific data types inspired by research on convergent replicated data types ([[Data Types]]), more commonly known as CRDTs.
 
-While Riak was originally built as a mostly data-agnostic key/value store, Riak Data Types enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on five CRDT-inspired data types: [[counters|Data Types#Counters]], [[flags|Data Types#Flags]], [[registers|Data Types#Registers]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]]. Of those five types, counters, sets, and maps can be used as bucket-level data types, whereas flags and registers must be embedded in maps (more on that [[below|Using Data Types#Maps]]).
+While Riak was originally built as a mostly data-agnostic key/value store, Riak Data Types enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on five CRDT-inspired data types: [[counters|Data Types#Counters]], [[flags|Data Types#Flags]], [[registers|Data Types#Registers]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
+
+Of those five types, counters, sets, and maps can be used as bucket-level data types, whereas flags and registers must be embedded in maps (more on that [[below|Using Data Types#Maps]]).
 
 <div class="note">
 <div class="title">Note</div>
@@ -19,7 +21,7 @@ Counters are the one Riak Data Type available in versions prior to 2.0, introduc
 
 ## Setting Up Buckets to Use Riak Data Types
 
-In order to use Riak data types, you must first create a [[bucket type|Using Bucket Types]] that sets the `datatype` bucket parameter to either `counter`, `map`, or `set`.
+In order to use Riak Data Types, you must first create a [[bucket type|Using Bucket Types]] that sets the `datatype` bucket parameter to either `counter`, `map`, or `set`.
 
 The following would create a separate bucket type for each of the three bucket-level data types:
 
@@ -31,7 +33,7 @@ riak-admin bucket-type create counter_bucket '{"props":{"datatype":"counter"}}'
 
 **Note**: The names `map_bucket`, `set_bucket`, and `counter_bucket` are _not_ reserved terms. You are always free to name bucket types whatever you like, with the exception of `default`.
 
-Once you've created a Riak Data Type, you can check to make sure that the bucket property configuration associated with that type is correct. This can be done through the `riak-admin` interface.
+Once you've created a Riak Data Type-specific bucket type, you can check to make sure that the bucket property configuration associated with that type is correct. This can be done through the `riak-admin` interface.
 
 ```bash
 riak-admin bucket-type status map_bucket
@@ -49,7 +51,7 @@ If a bucket type has been properly constructed, it needs to be activated to be u
 riak-admin bucket-type activate map_bucket
 ```
 
-To check whether activation has been successful, simply use the same `bucket-type status` command detailed above.
+To check whether activation has been successful, simply use the same `bucket-type status` command shown above.
 
 ## Usage Examples
 
@@ -57,11 +59,7 @@ The examples below show you how to use Riak Data Types at the application level.
 
 All examples will use the bucket type names from above (`counter_bucket`, `set_bucket`, and `map_bucket`).
 
-### Registers and Flags
-
-Registers and flags cannot be used on their own in Riak. You cannot use a bucket/key pair as a register or flag directly. Instead, they must be used within a map. For usage examples, see the section on [[using maps|Using Data Types#Maps]] below.
-
-### Counters
+## Counters
 
 Counters are a bucket-level Riak Data Type that can be used either by themselves, i.e. associated with a bucket/key pair, or within a map. The examples in this section will show you how to use counters on their own.
 
@@ -300,7 +298,7 @@ curl -XPUT \
   http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
 ```
 
-### Sets
+## Sets
 
 As with counters (and maps, as shown below), using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
 
@@ -576,7 +574,7 @@ riakc_set:size(Set5).
 # a fetch command like the one displayed in the example above
 ```
 
-### Maps
+## Maps
 
 The map is in many ways the richest of the Riak Data Types because all of the other Data Types can be embedded within them, _including maps themselves_, to create arbitrarily complex custom Data Types out of a few basic building blocks.
 
@@ -649,6 +647,10 @@ Map = riakc_map:new().
 # be created when a field is added to them, as in the examples below.
 ```
 
+### Registers and Flags
+
+Registers and flags cannot be used on their own in Riak. You cannot use a bucket/key pair as a register or flag directly.
+
 #### Registers Within Maps
 
 The first piece of info we want to store in our map is Ahmed's name and phone number, both of which are best stored as registers:
@@ -703,50 +705,6 @@ curl -XPOST \
 ```
 
 This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
-
-### Counters Within Maps
-
-We also want to know how many times Ahmed has visited our website. We'll use a `page_visits` counter for that and run the following operation when Ahmed visits our page for the first time:
-
-```java
-// Using our "ahmedMap" location from above:
-
-CounterUpdate cu = new CounterUpdate(1);
-MapUpdate mu = new MapUpdate()
-        .update("page_visits", cu);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(mu)
-        .build();
-client.execute(update);
-```
-
-```ruby
-map.counters['page_visits'].increment
-
-# This operation may return false even if successful
-```
-
-```erlang
-Map3 = riakc_map:update({<<"page_visits">>, counter},
-                        fun(C) -> riakc_counter:increment(1, C) end,
-                        Map2).
-```
-
-```curl
-# The following will create a new counter and increment it by 1
-
-curl -XPOST \
-  -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
-  -d '
-  {
-    "update": {
-      "page_visits_counter": 1
-    }
-  }'
-```
-
-Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
 
 #### Flags Within Maps
 
@@ -814,6 +772,50 @@ riakc_map:dirty_value(Map4).
 ```curl
 curl http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
 ```
+
+#### Counters Within Maps
+
+We also want to know how many times Ahmed has visited our website. We'll use a `page_visits` counter for that and run the following operation when Ahmed visits our page for the first time:
+
+```java
+// Using our "ahmedMap" location from above:
+
+CounterUpdate cu = new CounterUpdate(1);
+MapUpdate mu = new MapUpdate()
+        .update("page_visits", cu);
+UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+        .withUpdate(mu)
+        .build();
+client.execute(update);
+```
+
+```ruby
+map.counters['page_visits'].increment
+
+# This operation may return false even if successful
+```
+
+```erlang
+Map3 = riakc_map:update({<<"page_visits">>, counter},
+                        fun(C) -> riakc_counter:increment(1, C) end,
+                        Map2).
+```
+
+```curl
+# The following will create a new counter and increment it by 1
+
+curl -XPOST \
+  -H "Content-Type: application/json" \
+  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  -d '
+  {
+    "update": {
+      "page_visits_counter": 1
+    }
+  }'
+```
+
+Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
 
 #### Sets Within Maps
 
