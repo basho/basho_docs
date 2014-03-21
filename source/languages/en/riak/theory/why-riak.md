@@ -23,7 +23,7 @@ moved: {
 Riak is a distributed database designed to deliver maximum data availability by distributing data across multiple servers. As long as your client can reach *one* Riak server, it should be able to write data. {{#2.0.0-}}In most failure scenarios, the data you want to read should be available, although it may not be the most up-to-date version of that data.{{/2.0.0-}}{{#2.0.0+}}
 Riak can be used either as an eventually or strongly consistent system, and these two approaches can be mixed and matched in a single cluster.
 
-When Riak is used as an **eventually consistent** system, the data that you want to read should remain available in most failure scenarios, although it may not be the most up-to-date version of that data. When Riak is used as a **strongly** consistent system, on the other hand, reads will return the most up-to-date version of data, with the drawback that some nodes will be temporarily unavailable to receive writes from time to time.
+When Riak is used as an **eventually consistent** system, the data that you want to read should remain available in most failure scenarios, although it may not be the most up-to-date version of that data. When Riak is used as a **strongly** consistent system, on the other hand, reads will return the most up-to-date version of data, with the drawback that some nodes will be temporarily unavailable to receive writes in certain rare situations
 {{/2.0.0+}}
 {{#2.0.0-}}
 This fundamental tradeoff---high availability in exchange for possibly outdated information---informs the key architectural decisions behind Riak. This idea of "eventual consistency" is a common one in distributed systems, with DNS and web caches as two notable examples.
@@ -42,9 +42,9 @@ Goal | Description
 
 If your data does not fit on a single server and demands a distributed database architecture, then you should absolutely take a close look at Riak as a potential solution to your data availability issues. Getting distributed databases right is **very** difficult, and Riak was built to address the problem of data availability with as few trade-offs and downsides as possible.
 
-In essence, Riak's focus on availability makes it a good fit whenever downtime is unacceptable. No one can promise 100% uptime, but Riak is designed to survive network partitions and hardware failures that would significantly disrupt most databases.{{#2.0.0+}} An exception to Riak's high availability approach is the optional [[strong consistency|Using Strong Consistency]] feature, which can be applied on a selective basis.{{/2.0.0+}}
+Riak's focus on availability makes it a good fit whenever downtime is unacceptable. No one can promise 100% uptime, but Riak is designed to survive network partitions and hardware failures that would significantly disrupt most databases.{{#2.0.0+}} An exception to Riak's high availability approach is the optional [[strong consistency|Using Strong Consistency]] feature, which can be applied on a selective basis.{{/2.0.0+}}
 
-A less-heralded feature of Riak is its predictable latency. Because its fundamental operations---read, write, and delete---do not involve complex data joins or locks, it services those requests promptly. Thanks to this capability, Riak is often selected as a data storage backend for other data management software from a variety of paradigms, such as [Datomic](http://www.datomic.com/overview.html).
+A less-heralded feature of Riak is its predictable latency. Because its fundamental operations---read, write, and delete---do not involve complex data joins or locks, it services those requests promptly. Thanks to this capability, Riak is often selected as a data storage backend for data management software from a variety of paradigms, such as [Datomic](http://www.datomic.com/overview.html).
 
 {{#2.0.0+}}
 From the standpoint of the actual content of your data, Riak might also be a good choice if your data can be modeled as one of Riak's currently available [[Data Types|Using Data Types]]: flags, registers, counters, sets, or maps. These Data Types enable you to take advantage of Riak's high availability approach while simplifying application development.
