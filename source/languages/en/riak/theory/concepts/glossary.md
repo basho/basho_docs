@@ -207,11 +207,14 @@ While Riak is most well known as an [[eventually consistent|Eventual Consistency
 
 ## Value
 
-Riak is best described as a key/value store. In Riak, "values" are opaque BLOBs (binary large objects) identified with a unique key (the only exception being [[Riak Data Types|Data Types]]. They can be any type of data, including a string, a JSON object, a text document, etc.
+Riak is best described as a key/value store. In versions of Riak prior to 2.0, all "values" are opaque BLOBs (binary large objects) identified with a unique key. Values can be any type of data, including a string, a JSON object, a text document, etc. Modifying values involves fetching the value that exists in Riak and substituting it for a new value; operations on values are thus basic CRUD operations.
+
+[[Riak Data Types|Data Types]], added in version 2.0, are an important exception to this. While still considered values---because they are stored in bucket type/bucket/key locations, like anything in Riak---Riak Data Types are not BLOBs and are modified by Data Type-specific operations.
 
 * [[Keys and Objects]]
 * [[Developer Basics|The Basics]]
 * [[Data Types]]
+* [[Using Data Types]]
 
 ## Vector Clock
 
