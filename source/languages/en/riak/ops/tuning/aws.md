@@ -61,6 +61,10 @@ cluster size with respect to node count.</div>
 
 ## Operating System
 
+### Clocks
+
+NTP is configured by default on Amazon EC2 Linux instances.  Please refer to the [Set the Time for an Instance](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html) section of the EC2 documentation for steps on verifying if NTP is working properly.  If NTP is not working properly, significant clock drift can occur. 
+
 ### Mounts and Scheduler
 On EBS volumes, the **deadline** scheduler should be used. To check the
 scheduler in use for block device xvdf, for example, use the following
