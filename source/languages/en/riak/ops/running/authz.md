@@ -105,6 +105,8 @@ Riak security enables you to control _authorization_ by creating, modifying, and
 
 You may also assign users characteristics beyond those listed above---e.g., listing email addresses or other information---but those values will carry no special significance for Riak.
 
+**Note**: The `username` is the one user characteristic that cannot be changed once a user has been created.
+
 ### Retrieve a Current User or Group List
 
 A list of currently existing users can be accessed at any time:
@@ -123,11 +125,11 @@ riak-admin security print-groups
 Example output, assuming one user with an assigned password:
 
 ```bash
-+----------+-------+----------------------+------------------------------+
++----------+--------+----------------------+------------------------------+
 | username | groups |       password       |           options            |
-+----------+-------+----------------------+------------------------------+
-| riakuser |       |983e8ae1421574b8733824|              []              |
-+----------+-------+----------------------+------------------------------+
++----------+--------+----------------------+------------------------------+
+| riakuser |        |983e8ae1421574b8733824|              []              |
++----------+--------+----------------------+------------------------------+
 ```
 
 **Note**: All passwords are displayed in encrypted form in console output.
@@ -137,7 +139,7 @@ of `lucius`, the output would look like this:
 
 ```bash
 +----------+----------------+----------------------+---------------------+
-| username |     groups      |       password       |       options       |
+| username |     groups     |       password       |       options       |
 +----------+----------------+----------------------+---------------------+
 | riakuser |      dev       |983e8ae1421574b8733824| [{"name","lucius"}] |
 +----------+----------------+----------------------+---------------------+
@@ -329,10 +331,12 @@ riak-admin security revoke <permissions> ON <bucket-type> FROM all|{<user>|<grou
 riak-admin security revoke <permissions> ON <bucket-type> <bucket> FROM all|{<user>|<group>[,...]}
 ```
 
-In each case, `ANY` represents all bucket types and all buckets with
-them, `all` indicates that all users and groups should receive (or
-lose) the indicated permissions, and any number of users or groups may
-be listed, comma-separated, with no whitespace.
+If you select `ANY`, this means that the permission (or set of permissions) is
+granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
+
+**Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
+
+Selecting `all` grants or revokes a permission (or set of permissions) for all users in all groups. When specifying the user(s)/group(s) to which you want to apply a permission (or set of permissions), you may list any number of users or groups comma-separated with no whitespace, e.g.:
 
 Here is an example of granting multiple permissions across all buckets
 and bucket types to multiple users:
