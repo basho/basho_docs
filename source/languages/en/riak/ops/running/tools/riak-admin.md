@@ -39,7 +39,7 @@ do not take effect immediately. After staging a set of changes, the staged
 plan must be committed using the staging commands to take effect:
 
 ## cluster join
-Join this node to the cluster containing &lt;node&gt;.
+Join this node to the cluster containing `<node>`.
 
 ```bash
 riak-admin cluster join <node>
@@ -52,26 +52,26 @@ Instruct this node to hand off its data partitions, leave the cluster and shutdo
 riak-admin cluster leave
 ```
 
-Instruct &lt;node&gt; to hand off its data partitions, leave the cluster and shutdown.
+Instruct `<node>` to hand off its data partitions, leave the cluster and shutdown.
 
 ```bash
 riak-admin cluster leave <node>
 ```
 ## cluster force-remove
-Remove &lt;node&gt; from the cluster without first handing off data partitions. This command is designed for crashed, unrecoverable nodes, and should be used with caution.
+Remove `<node>` from the cluster without first handing off data partitions. This command is designed for crashed, unrecoverable nodes, and should be used with caution.
 
 ```bash
 riak-admin cluster force-remove <node>
 ```
 ## cluster replace
-Instruct &lt;node1&gt; to transfer all data partitions to &lt;node2&gt;, then leave the cluster and shutdown.
+Instruct `<node1>` to transfer all data partitions to `<node2>`, then leave the cluster and shutdown.
 
 ```bash
 riak-admin cluster replace <node1> <node2>
 ```
 
 ## cluster force-replace
-Reassign all partitions owned by &lt;node1&gt; to &lt;node2&gt; without first handing off data, and then remove &lt;node1&gt; from the cluster.
+Reassign all partitions owned by `<node1>` to `<node2>` without first handing off data, and then remove `<node1>` from the cluster.
 
 ```bash
 riak-admin cluster force-replace <node1> <node2>
@@ -113,7 +113,7 @@ riak-admin cluster commit
 Joins the running node to another running node so that they participate in the
 same cluster.
 
-* &lt;node&gt; is the other node to connect to.
+* `<node>` is the other node to connect to.
 
 
 ```bash
@@ -143,12 +143,12 @@ While the `backup` command backs up an object's siblings, the `restore` command 
 
 Backs up the data from the node or entire cluster into a file.
 
-- \<node\> is the node from which to perform the backup.
-- \<cookie\> is the Erlang cookie/shared secret used to connect to the node.
+- `<node>` is the node from which to perform the backup.
+- `<cookie>` is the Erlang cookie/shared secret used to connect to the node.
 This is "riak" in the [[default configuration|Configuration Files#\-setcookie]].
-- \<filename\> is the file where the backup will be stored. _This should be
+- `<filename>` is the file where the backup will be stored. _This should be
 the full path to the file._
-- [node|all] specifies whether the data on this node or the entire cluster will
+- `[node|all]` specifies whether the data on this node or the entire cluster will
 be backed up, respectively.
 
 
@@ -161,10 +161,10 @@ riak-admin backup <node> <cookie> <filename> [node|all]
 
 Restores data to the node or cluster from a previous backup.
 
-* &lt;node&gt; is the node which will perform the restore.
-* &lt;cookie&gt; is the Erlang cookie/shared secret used to connect to the node.
+- `<node>` is the node which will perform the restore.
+- `<cookie>` is the Erlang cookie/shared secret used to connect to the node.
 By default this is set to "riak" in the [[vm.args|Configuration Files#vm.args]] configuration file.
-* &lt;filename&gt; is the file where the backup is stored. _This should be the
+- `<filename>` is the file where the backup is stored. _This should be the
 full path to the file._
 
 ```bash
@@ -405,7 +405,7 @@ More details on the `aae-status` command are available in the
 
 ## diag
 
-Run diagnostic checks against &lt;node&gt;. {{#<1.3.0}}[riaknostic](http://riaknostic.basho.com/) must be installed in order to run.{{/<1.3.0}}
+Run diagnostic checks against `<node>`. {{#<1.3.0}}[riaknostic](http://riaknostic.basho.com/) must be installed in order to run.{{/<1.3.0}}
 
 ```bash
 riak-admin diag <check>
