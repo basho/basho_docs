@@ -10,13 +10,23 @@ keywords: [developers, client, 2i, search, erlang, schema]
 
 ####Getting Started with the Models
 
-To get started, let's create the models that we'll be using. 
+To get started, let's create the records that we'll be using. 
 
 ```erlang
+-define(USER_BUCKET, <<"Users">>).
+-define(MSG_BUCKET, <<"Msgs">>).
+-define(TIMELINE_BUCKET, <<"Timelines">>).
+-define(INBOX, "Inbox").
+-define(SENT, "Sent").
 
+-record(user, {user_name, full_name, email}).
+
+-record(msg, {sender, recipient, created, text}).
+
+-record(timeline, {owner, msg_type, msgs}).
 ```
 
-To use these classes to store data, we will first have to create a user. Then, when a user creates a message, we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
+To use these records to store data, we will first have to create a user. Then, when a user creates a message, we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
 
 #### Buckets and Keys Revisited
 
@@ -48,13 +58,172 @@ Riak performs best with objects under 1-2MB. Objects larger than that can hurt p
 Now that we've figured out our schema, let's write some repositories to help create and work with these objects in Riak:
 
 ```erlang
+%% User Operations
 
+save_user(ClientPid, User) -> 
+    RUser = riakc_obj:new(?USER_BUCKET, 
+                          list_to_binary(User#user.user_name), 
+                          User),
+    riakc_pb_socket:put(ClientPid, RUser).
+
+get_user(ClientPid, UserName) -> 
+    {ok, RUser} = riakc_pb_socket:get(ClientPid, 
+                                      ?USER_BUCKET, 
+                                      list_to_binary(UserName)),
+    binary_to_term(riakc_obj:get_value(RUser)).
+
+%% Msg Operations
+
+create_msg(Sender, Recipient, Text) ->
+    #msg{sender=Sender,
+         recipient=Recipient,
+         created=get_current_iso_timestamp(),
+         text = Text}.
+
+%% Timeline Operations
+
+post_msg(ClientPid, Msg) -> 
+     %% Save the cannonical copy
+    SavedMsg = save_msg(ClientPid, Msg),
+    MsgKey = binary_to_list(riakc_obj:key(SavedMsg)),
+
+    %% Post to sender's Sent timeline
+    add_to_timeline(ClientPid, Msg, sent, MsgKey),
+
+    %% Post to recipient's Inbox timeline
+    add_to_timeline(ClientPid, Msg, inbox, MsgKey),
+    ok.
+
+get_timeline(ClientPid, Owner, MsgType, Date) -> 
+    TimelineKey = generate_key(Owner, MsgType, Date),
+    {ok, RTimeline} = riakc_pb_socket:get(ClientPid, 
+                                          ?TIMELINE_BUCKET, 
+                                          list_to_binary(TimelineKey)),
+    binary_to_term(riakc_obj:get_value(RTimeline)).
+
+%% Private Helper Functions
+
+get_msg(ClientPid, MsgKey) -> 
+    {ok, RMsg} = riakc_pb_socket:get(ClientPid, 
+                                     ?MSG_BUCKET, 
+                                     MsgKey),
+    binary_to_term(riakc_obj:get_value(RMsg)).
+
+
+save_msg(ClientPid, Msg) -> 
+    MsgKey = Msg#msg.sender ++ "_" ++ Msg#msg.created,
+    ExistingMsg = riakc_pb_socket:get(ClientPid, 
+                                      ?MSG_BUCKET, 
+                                      list_to_binary(MsgKey)),
+    SavedMsg = case ExistingMsg of
+        {error, notfound} ->
+            NewMsg = riakc_obj:new(?MSG_BUCKET, list_to_binary(MsgKey), Msg),
+            {ok, NewSaved} = riakc_pb_socket:put(ClientPid, 
+                                                 NewMsg, 
+                                                 [if_none_match, return_body]),
+            NewSaved;
+        {ok, Existing} -> Existing
+    end,
+    SavedMsg.
+
+add_to_timeline(ClientPid, Msg, MsgType, MsgKey) ->
+    TimelineKey = generate_key_from_msg(Msg, MsgType),
+    ExistingTimeline = riakc_pb_socket:get(ClientPid, 
+                                           ?TIMELINE_BUCKET, 
+                                           list_to_binary(TimelineKey)),
+    UpdatedTimeline = case ExistingTimeline of
+        {error, notfound} ->
+            create_new_timeline(Msg, MsgType, MsgKey, TimelineKey);
+        {ok, Existing} -> 
+            add_to_existing_timeline(Existing, MsgKey)
+    end,
+
+    {ok, SavedTimeline} = riakc_pb_socket:put(ClientPid, 
+                                              UpdatedTimeline, 
+                                              [return_body]),
+    SavedTimeline.
+
+create_new_timeline(Msg, MsgType, MsgKey, TimelineKey) ->
+    Owner = get_owner(Msg, MsgType),
+    Timeline = #timeline{owner=Owner,
+                         msg_type=MsgType,
+                         msgs=[MsgKey]},
+    riakc_obj:new(?TIMELINE_BUCKET, list_to_binary(TimelineKey), Timeline).
+
+add_to_existing_timeline(ExistingRiakObj, MsgKey) ->
+    ExistingTimeline = binary_to_term(riakc_obj:get_value(ExistingRiakObj)),
+    ExistingMsgList = ExistingTimeline#timeline.msgs,
+    UpdatedTimeline = ExistingTimeline#timeline{msgs=[MsgKey|ExistingMsgList]},
+    riakc_obj:update_value(ExistingRiakObj, UpdatedTimeline).
+
+get_owner(Msg, inbox) ->  Msg#msg.recipient;
+get_owner(Msg, sent) ->  Msg#msg.sender.
+
+generate_key_from_msg(Msg, MsgType) ->
+    Owner = get_owner(Msg, MsgType),
+    generate_key(Owner, MsgType, Msg#msg.created).
+
+generate_key(Owner, MsgType, Date) when is_tuple(Date) ->
+    DateString = get_iso_datestamp_from_date(Date),
+    generate_key(Owner, MsgType, DateString);
+
+generate_key(Owner, MsgType, Datetimestamp) ->
+    DateString = get_iso_datestamp_from_iso_timestamp(Datetimestamp),
+    MsgTypeString = case MsgType of
+        inbox -> ?INBOX;
+        sent -> ?SENT
+    end,
+    Owner ++ "_" ++ MsgTypeString ++ "_" ++ DateString.
+
+get_current_iso_timestamp() ->
+    {_,_,MicroSec} = DateTime = erlang:now(),
+    {{Year,Month,Day},{Hour,Min,Sec}} = calendar:now_to_universal_time(DateTime),
+    lists:flatten(
+        io_lib:format("~4..0B-~2..0B-~2..0BT~2..0B:~2..0B:~2..0B.~6..0B",
+            [Year, Month, Day, Hour, Min, Sec, MicroSec])).
+
+get_iso_datestamp_from_date(Date) ->
+    {Year,Month,Day} = Date,
+    lists:flatten(io_lib:format("~4..0B-~2..0B-~2..0B", [Year, Month, Day])).
+
+get_iso_datestamp_from_iso_timestamp(CreatedString) ->
+    {Date, _} = lists:split(10,CreatedString),
+    Date.
 ```
 
 Finally, let's test them:
 
 ```erlang
+c(msgy).
+rr(msgy).
 
+%% Setup our repositories
+{ok, Pid} = riakc_pb_socket:start_link("127.0.0.1", 10017).
+
+%% Create and save users
+Joe = #user{user_name="joeuser",
+            full_name="Joe User",
+            email="joe.user@basho.com"}.
+
+Marleen = #user{user_name="marleenmgr",
+                full_name="Marleen Manager",
+                email="marleen.manager@basho.com"}.
+
+msgy:save_user(Pid, Joe).
+msgy:save_user(Pid, Marleen).
+
+%% Create new Msg, post to timelines
+Msg = msgy:create_msg(Marleen#user.user_name, Joe#user.user_name, "Welcome to the company!").
+msgy:post_msg(Pid, Msg).
+
+
+%% Get Joe's inbox for today, get first message
+{TodaysDate,_} = calendar:now_to_universal_time(erlang:now()).
+JoesInboxToday = msgy:get_timeline(Pid, Joe#user.user_name, inbox, TodaysDate).
+
+JoesFirstMessage = msgy:get_msg(Pid, hd(JoesInboxToday#timeline.msgs)).
+
+io:format("From: ~s~nMsg : ~s~n~n", [JoesFirstMessage#msg.sender, JoesFirstMessage#msg.text]).
 ```
 
 As you can see, the repository pattern helps us with a few things:
