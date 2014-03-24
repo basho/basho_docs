@@ -12,23 +12,27 @@ moved: {
 }
 ---
 
-After you've installed Riak, you might next wish to check the liveness of
-each node and ensure that requests are being properly served.
+After you've installed Riak, we recommend checking the liveness of
+each node to ensure that requests are being properly served.
 
-The following are common ways to verify that your Riak nodes are operating
+In this document, we cover ways of verifying that your Riak nodes are operating
 correctly. After you've determined that your nodes are functioning and you're
 ready to put Riak to work, be sure to check out the resources in the
 **Now What?** section below.
 
 ## Starting a Riak Node
 
-<div class="note"><div class="title">Note about source installations</div>
-<p>To start a Riak node that was installed by compiling the source code, you
+<div class="note">
+<div class="title">Note about source installations</div>
+To start a Riak node that was installed by compiling the source code, you
 can add the Riak binary directory from the installation directory you've
-chosen to your PATH.</p> <p>For example, if you compiled Riak from source in
+chosen to your <tt>PATH</tt>.
+
+For example, if you compiled Riak from source in
 the `/home/riak` directory, then you can add the binary directory
-(`/home/riak/rel/riak/bin`) to your PATH so that Riak commands can be
-used in the same manner as with a packaged installation.</p></div>
+(`/home/riak/rel/riak/bin`) to your `PATH` so that Riak commands can be
+used in the same manner as with a packaged installation.</p>
+</div>
 
 To start a Riak node, use the `riak start` command:
 
@@ -48,7 +52,7 @@ riak console
 A Riak node is typically started in console mode as part of debugging or
 troubleshooting to gather more detailed information from the Riak startup
 sequence. Note that if you start a Riak node in this manner, it is running as
-a foreground process which will be exited when the console is closed.
+a foreground process that will be exited when the console is closed.
 
 You can close the console by issuing this command at the Erlang prompt:
 
@@ -61,20 +65,20 @@ the `riak ping` command:
 
 ```bash
 riak ping
-pong
 ```
 
-The command will respond with **pong** if the node is running, or **pang** if
-it is unreachable for any reason.
+The command will respond with `pong` if the node is running or `Node <nodename>  not responding to pings` if it is not.
 
-<div class="note"><div class="title">Open Files Limit</div>
-As you may have noticed, if you haven't adjusted your open files limit (`ulimit -n`), Riak will warn you at startup about the limit. You're advised
+<div class="note">
+<div class="title">Open Files Limit</div>
+As you may have noticed, if you haven't adjusted your open files limit (`ulimit -n`), Riak will warn you at startup. You're advised
 to increase the operating system default open files limit when running Riak.
-You can read more about why in the [[Open Files Limit]] documentation.</div>
+You can read more about why in the [[Open Files Limit]] documentation.
+</div>
 
 ## Does it work?
 
-One convenient means to test the readiness of an individual Riak node and
+One convenient means of testing the readiness of an individual Riak node and
 its ability to read and write data is with the `riak-admin test` command:
 
 ```bash
@@ -85,22 +89,21 @@ Successful output from `riak-admin test` looks like this:
 
 ```text
 Attempting to restart script through sudo -H -u riak
-Successfully completed 1 read/write cycle to 'riak@127.0.0.1'
+Successfully completed 1 read/write cycle to '<nodename>'
 ```
 
 You can also test whether Riak is working by using the `curl` command-line
-tool. Now that you have Riak running on a node, try this command to retrieve
-the `test` bucket and its properties:
+tool. When you have Riak running on a node, try this command to retrieve
+the the properties associated with the [[bucket type|Using Bucket Types]] `test`:
 
 ```bash
-curl -v http://127.0.0.1:8098/riak/test
+curl -v http://127.0.0.1:8098/types/default/props
 ```
 
 Replace `127.0.0.1` in the example above with your Riak node's IP address or
-fully qualified domain name; you should get a response from the command that
-looks like this:
+fully qualified domain name, and you should get a response that looks like this:
 
-```text
+```
 * About to connect() to 127.0.0.1 port 8098 (#0)
 *   Trying 127.0.0.1... connected
 * Connected to 127.0.0.1 (127.0.0.1) port 8098 (#0)
@@ -127,32 +130,30 @@ looks like this:
  "w":"quorum","young_vclock":20}}
 ```
 
-The above output shows a successful response (HTTP 200 OK) and additional
+The output above shows a successful response (`HTTP 200 OK`) and additional
 details from the verbose option. The response also contains the bucket
-properties for Riak's test bucket.
+properties for the `default` bucket type.
 
-{{#1.3.0+}}
 ## Riaknostic
 
-It is a good idea to also verify some basic configuration and general health
+It is a good idea to verify some basic configuration and general health
 of the Riak node after installation by using Riak's built-in diagnostic
-utility *Riaknostic*.
+utility [Riaknostic](http://riaknostic.basho.com/).
 
 Ensure that Riak is running on the node, and issue the following command:
 
-```
+```bash
 riak-admin diag
 ```
 
 Make the recommended changes from the command output to ensure optimal node
 operation.
-{{/1.3.0+}}
 
 ## Now what?
 
 You have a working Riak node!
 
-From here you might want to check out the following resources.
+From here you might want to check out the following resources:
 
-* Check out the [[Client Libraries]] to use Riak with your favorite programming language
-* [[Learn about the high level concepts of Riak|Concepts]]
+* [[Client Libraries]] to use Riak with your favorite programming language
+* [[High-level concepts in Riak|Concepts]]

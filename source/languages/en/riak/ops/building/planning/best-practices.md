@@ -39,7 +39,7 @@ Riak provides resilience through its built-in redundancy.
 ## CPU Capacity Leeway
 
 * In a steady state, your peak CPU utilization ignoring other processes should be less than 30%.
- - This way you’ll have spare capacity to handle other process, like backups and handoff.
+* This way you’ll have spare capacity to handle other process, like backups and handoff.
 
 
 ## Network Capacity Leeway

@@ -179,9 +179,9 @@ across two datacenters. If your use case requires this capability, Basho offers 
 
 * [Learn more about Riak Enterprise](http://basho.com/products/riak-overview/).
 
-### IO
+### I/O
 
-In general, the biggest bottleneck for Riak will be the amount of IO
+In general, the biggest bottleneck for Riak will be the amount of I/O
 available to it, especially in the case of write-heavy workloads. Riak
 functions much like any other database and the design of your disk
 access should take this into account. Because Riak is clustered and your
