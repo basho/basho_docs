@@ -177,16 +177,20 @@ class TimelineRepository:
 Finally, let's test them:
 
 ```python
+# Setup our repositories
 client = riak.RiakClient(pb_port=10017, protocol='pbc')
 userRepo = UserRepository(client)
 msgsRepo = MsgRepository(client)
 timelineRepo = TimelineRepository(client)
 
+# Save users
 userRepo.save(marleen)
 userRepo.save(joe)
 
+# Post msg to timelines
 timelineRepo.post_message(msg)
 
+# Get Joe's inbox for today, get first message
 joes_inbox_today = timelineRepo.get_timeline(
     joe['user_name'],
     'Inbox',

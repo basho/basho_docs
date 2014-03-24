@@ -17,8 +17,8 @@ For the remainder of the tutorials, we will be implementing pieces of an interna
 At the data level, we only have a few objects to work with:
 
  - `User` --- A user object. Contains a `user_name`, a `full_name`, and an `email` address.
- - `Msg` --- A message that a user has sent, has `text`, `from` and `to` addresses, as well as a `created` date.
- - `Timeline` --- A list of `Msg`s. Has an `owner` and a `type`.  The type can be one of three things:
+ - `Msg` --- A message that a user has sent, has `text`, `sender` and `recipient` addresses, as well as a `created` date.
+ - `Timeline` --- A list of `Msg`s. Has an `owner` and a `msg_type`.  The type can be one of three things:
    - `Inbox`: A user's inbox of personal messages, or a group's public Msg list.
    - `Sent`: A list of a user's sent messages.
  
