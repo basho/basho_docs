@@ -16,7 +16,7 @@ Interacting with objects in Riak typically involves the same CRUD (**C**reate, *
 
 Riak organizes data into bucket types, buckets, keys, and values, with [[bucket types|Using Bucket Types]] acting as an additional namespace in Riak versions 2.0 and greater. Values (or objects) are identifiable by a unique key, and each key/value pair is stored in a bucket.
 
-Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like. They have no intrinsic significance beyond allowing you to store objects with the same key in different buckets. They do, however, enable you to provide common configurations to the keys and values within them, such as [[replication properties]] and [[commit hooks|Using Commit Hooks]]. Such [[properties|Buckets]] are managed using bucket types.
+Buckets are essentially a flat namespace in Riak. You can name them whatever you'd like, even `bucket` or `a90bf521c` or `___` or `:)`. They have no intrinsic significance beyond allowing you to store objects with the same key in different buckets (the same goes for naming keys). Buckets do, however, enable you to provide common configurations to the keys and values within them, such as [[replication properties]] and [[commit hooks|Using Commit Hooks]]. Such [[properties|Buckets]] are managed using bucket types.
 
 Most of the interactions you'll have with Riak will involve setting or retrieving the value of a key. Riak has [[supported client libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and C/C++. In addition, there are [[community-supported projects|Client Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl, Clojure, Scala, Smalltalk, and many others.
 
@@ -28,7 +28,7 @@ Here is the basic command form for retrieving a specific key from a bucket:
 GET /types/TYPE/buckets/BUCKET/keys/KEY
 ```
 
-Here is an example of a GET performed on the key `rufus` in the bucket `dogs`, which bears the type `animals`:
+Here is an example of a read performed on the key `rufus` in the bucket `dogs`, which bears the type `animals`:
 
 ```ruby
 bucket = client.bucket('dogs')
@@ -56,7 +56,7 @@ obj = bucket.get('rufus')
 ```
 
 ```curl
-curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
+curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 ```
 
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
@@ -83,7 +83,7 @@ not found
 
 If you're using HTTP to interact with Riak, as opposed to using a [[client library|Client Libraries]], Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation, which is relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
-Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to `r=2`.
+Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to an R of 2.
 
 Here is an example of attempting a read with `r` set to `3`:
 
@@ -116,7 +116,7 @@ obj.data
 ```
 
 ```curl
-curl http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey?r=3
+curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus?r=3
 ```
 
 If you're using HTTP, you will most often see the following response codes:
@@ -133,8 +133,6 @@ The most common error code:
 <div class="title">Note</div>
 If you're using a Riak client instead of HTTP, these responses will vary a great deal, so make sure to check the documentation for your specific client.
 </div>
-
-With that in mind, try the following operation, which will attempt to read the key `doc2` from the bucket `test`, which bears the type `mytype`. This operation should return some form of `not found` response because the key `doc2` does not yet exist (as you haven't created it yet). Language-specific responses can be found in the code window above.
 
 ### Store an Object
 
@@ -153,7 +151,7 @@ There is no need to intentionally create buckets in Riak. They pop into existenc
 
 #### Specifying Content Type
 
-When making writes, there are some pieces of metadata that you will need to attach to objects. For all writes, you will need to specify a content type, for example `text/plain` or `application/json`.
+For all writes to Riak, you will need to specify a content type, for example `text/plain` or `application/json`.
 
 ```ruby
 bucket = client.bucket('oscar_wilde')
@@ -196,7 +194,7 @@ riakc_pb_socket:put(Pid, Object).
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "I have nothing to declare but my genius" \
-  http://localhost:8098/types/adventurers/buckets/astronauts/keys/john_glenn
+  http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 ```
 
 #### Using Vector Clocks
@@ -310,8 +308,8 @@ riakc_pb_socket:put(Pid, ObjectWithVclock).
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
-  -d "first American in space" \
-  http://localhost:8098/types/adventurers/buckets/astronauts/keys/john_glenn
+  -d "Harlem Globetrotters" \
+  http://localhost:8098/types/spots/buckets/nba/keys/champion
 ```
 
 Other request headers are optional for writes (and not necessary if using a client library):
@@ -425,7 +423,7 @@ Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
                        <<"viper">>,
                        <<"vroom">>,
                        <<"text/plain">>).
-riakc_pb_socket:put(Pid, Object).
+riakc_pb_socket:put(Pid, Object, [return_body]).
 ```
 
 ```curl
@@ -451,17 +449,15 @@ Normal status codes:
 
 * `201 Created`
 
-This command will store an object in the bucket `test` bearing the bucket type `default` and assign it a random key:
+This command will store an object in the bucket `random_user_keys`, which bears the bucket type `users`.
 
 ```ruby
-bucket = client.bucket('mybucket')
+bucket = client.bucket('random_user_keys')
 obj = Riak::RObject.new(bucket)
-obj.content_type = 'text/plain'
-obj.raw_data = 'this is a test'
+obj.content_type = 'application/json'
+obj.raw_data = '{"user":"data"}'
 
-# In the Ruby client, if you do not specify a bucket type when you store an
-# object, it will use the "default" type
-obj.store
+obj.store(bucket_type: 'users')
 
 # The client will assign a key like the following:
 obj.key
@@ -469,11 +465,11 @@ obj.key
 ```
 
 ```java
-Location locationWithoutKey = new Location("test")
-        .setBucketType("default");
-BinaryValue text = BinaryValue.create("this is a test");
+Location locationWithoutKey = new Location("random_user_keys")
+        .setBucketType("users");
+BinaryValue text = BinaryValue.create("{'user':'data'}");
 RiakObject obj = new RiakObject()
-        .setContentType("text/plain")
+        .setContentType("application/json")
         .setValue(text);
 StoreValue store = new StoreValue.Builder(locationWithoutKey, obj)
         .build();
@@ -484,10 +480,10 @@ String key = client.execute(store).getLocation().getKeyAsString();
 ```
 
 ```python
-bucket = client.bucket('test', bucket_type='default')
+bucket = client.bucket('random_user_keys', bucket_type='users')
 obj = RiakObject(client, bucket)
-obj.content_type = 'text/plain'
-obj.data = 'this is a test'
+obj.content_type = 'application/json'
+obj.data = '{"user":"data"}'
 obj.store()
 
 obj.key
@@ -497,13 +493,13 @@ obj.key
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"type">>, <<"test">>}, undefined, <<"this is a test">>, <<"text/plain">>).
+Object = riakc_obj:new({<<"users">>, <<"random_user_keys">>}, undefined, <<"{'user':'data'}">>, <<"application/json">>).
 riakc_pb_socket:put(Pid, Object).
 
 %% The key can be retrieved from the output of the above call.
 %% It will look something like this:
 
-{ok,{riakc_obj,{<<"type">>,<<"test">>},
+{ok,{riakc_obj,{<<"users">>,<<"random_user_keys">>},
                <<"EZ7pp4bpdfpZw0fPUdTUafveQjO">>,undefined,[],undefined,
                undefined}}
 ```
@@ -512,7 +508,7 @@ riakc_pb_socket:put(Pid, Object).
 curl -i -XPOST \
   -H "Content-Type: text/plain" \
   -d "this is a test" \
-  http://localhost:8098/types/type/buckets/test/keys
+  http://localhost:8098/types/users/buckets/random_user_keys/keys
 
 # In the output, you should see a Location header that will give you the
 # location of the object in Riak, with the key at the end:
@@ -530,31 +526,33 @@ DELETE /types/TYPE/buckets/BUCKET/keys/KEY
 
 The normal HTTP response codes for `DELETE` operations are `204 No Content` and `404 Not Found`. 404 responses are *normal*, in the sense that `DELETE` operations are idempotent and not finding the resource has the same effect as deleting it.
 
-Try this:
+Let's try to delete our `genius` key from the `oscar_wilde` bucket (which bears the type `quotes`) from above.
 
 ```ruby
-bucket = client.bucket('mybucket')
-bucket.delete('mykey', bucket_type: 'mytype')
+bucket = client.bucket('oscar_wilde')
+bucket.delete('genius', bucket_type: 'quotes')
 ```
 
 ```java
 // Using the "myKey" location from above:
-
-DeleteValue delete = new DeleteValue.Builder(myKey).build();
+Location geniusQuote = new Location("oscar_wilde")
+        .setBucketType("quotes")
+        .setKey("genius");
+DeleteValue delete = new DeleteValue.Builder(geniusQuote).build();
 client.execute(delete);
 ```
 
 ```python
-bucket = client.bucket('mybucket', bucket_type='mytype')
-bucket.delete('mykey')
+bucket = client.bucket('oscar_wilde', bucket_type='quotes')
+bucket.delete('genius')
 ```
 
 ```erlang
-riakc_pb_socket:delete(Pid, {<<"mytype">>, <<"mybucket">>}, <<"mykey">>)
+riakc_pb_socket:delete(Pid, {<<"quotes">>, <<"oscar_wilde">>}, <<"genius">>)
 ```
 
 ```curl
-curl -XDELETE http://localhost:8098/types/mytype/buckets/mybucket/keys/mykey
+curl -XDELETE http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 ```
 
 ## Bucket Properties and Operations
@@ -563,7 +561,8 @@ Buckets are essentially a flat namespace in Riak. They allow the same key name t
 
 <div class="info">
 <div class="title">How Many Buckets Can I Have?</div>
-Buckets come with virtually no cost <em>except for when you modify the default bucket properties</em>. Modified bucket properties are gossiped around the cluster and therefore add to the amount of data sent around the network. In other words, buckets using the <tt>default</tt> bucket type are free. More on that in the next section.
+Buckets come with virtually no cost <em>except for when you modify the default bucket properties</em>. Modified bucket properties are gossiped around the 
+cluster and therefore add to the amount of data sent around the network. In other words, buckets using the <tt>default</tt> bucket type are free. More on that in the next section.
 </div>
 
 ### Bucket Types
@@ -575,22 +574,24 @@ Here are some important bucket properties to be aware of:
 Parameter | Description | Default
 :---------|:------------|:-------
 `n_val` | The number of replicas for objects in a bucket. The `n_val` should be an integer greater than 0 and less than or equal to the number of nodes in the cluster.<br /><br />**Note**: If you change the `n_val` after keys have been added to the bucket, it may result in failed reads, as the new value may not be replicated to all of the appropriate partitions.| `3`
-`allow_mult` | With `allow_mult` set to `false`, clients will never have 
+`allow_mult` | With `allow_mult` set to `false`, clients will never be presented with siblings upon read. Though siblings will often be created in Riak during concurrent writes or network partitions even if `allow_mult` is set to `false`, only the most recent object as determined by timestamp will be presented to the client. If this parameter is set to `true`, Riak will present sibling objects to the client, which will then be responsible for resolving the confict. | `true`
+`last_write_wins` | If `allow_mult` is set to `false`, setting `last_write_wins` to `true`, Riak will _always_ overwrite existing objects and will ignore the timestamps associated with those objects. | `false`
 
+<div class="note">
+<div class="title">Note</div>
+Setting <tt>allow_mult</tt> to <tt>true</tt> and <tt>last_write_wins</tt> to false leads to unpredictable behavior and should not be used.
+</div>
 
-clients will only get the most recent object as determined by timestamp. Otherwise, Riak maintains any sibling objects caused by concurrent writes (or network partitions). | `false`
-`last_write_wins` | 
-
-As an example, let's create a bucket type called `mytype` that sets the `n_val` to 5:
+As an example, let's create a bucket type called `n_val_of_5` that sets the `n_val` to 5:
 
 ```bash
-riak-admin bucket-type create mytype '{"props":{"n_val":5}}'
+riak-admin bucket-type create n_val_of_5 '{"props":{"n_val":5}}'
 ```
 
 We must activate the type for those parameters to take effect:
 
 ```bash
-riak-admin bucket-type activate mytype
+riak-admin bucket-type activate n_val_of_5
 ```
 
 Once the type is activated, we can see which properties are associated with our bucket type (and, by extension, any bucket that bears that type):
@@ -606,7 +607,7 @@ Once the type is activated, we can see which properties are associated with our 
 // must be done using a RiakCluster object rather than a RiakClient.
 
 Location testType = new Location("any_bucket_name")
-        .setBucketType("mytype");
+        .setBucketType("n_val_of_5");
 FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
         .Builder(testType)
         .build();
@@ -615,16 +616,16 @@ BucketProperties props = fetchProps.get().getBucketProperties();
 ```
 
 ```python
-bt = BucketType(client, 'mytype')
+bt = BucketType(client, 'n_val_of_5')
 bt.get_properties()
 ```
 
 ```erlang
-riakc_pb_socket:get_bucket_type(Pid, <<"mytype">>).
+riakc_pb_socket:get_bucket_type(Pid, <<"n_val_of_5">>).
 ```
 
 ```curl
-curl http://localhost:8098/types/mytype/props
+curl http://localhost:8098/types/n_val_of_5/props
 ```
 
 This should return JSON of the following form:
