@@ -15,6 +15,33 @@ moved: {
 
 Riak Search is built for ease-of-use, namely, the philosophy that you write values into Riak, and you query for values using Solr. Riak Search does a lot of work under the covers to convert your values (plain text, JSON, XML, datatypes) into something that can be indexed and searched later. However, you still have to explain to Riak/Solr how to index a value. Are you providing an array of strings? Or an integer? Or a date? Is your text in English or Russian? The way you explain to Riak Search how a value is to be indexed is by defining a **Solr schema**.
 
+## Setting a Schema
+
+If you just want to get started quickly, and alredy know all about creating your own Riak Search schema (it's similar, but not exactly the same as a standard Solr schema, so read on).
+
+Here's how you can create a custom schema named `cartoons`, where the schema xml data is stored in a file named `cartoons.xml`
+
+```curl
+curl -XPUT "http://localhost:8098/search/schema/cartoons" \
+  -H'content-type:application/xml' \
+  --data-binary @cartoons.xml
+```
+```ruby
+schema_data = File.read("cartoons.xml")
+client.create_search_schema("cartoons", schema_data)
+```
+```python
+xml_file = open('cartoons.xml', 'r')
+schema_data = xml_file.read()
+client.create_search_schema('cartoons', schema_data)
+xml_file.close()
+```
+```erlang
+{ok, SchemaData} = file:read_file("cartoons.xml"),
+riakc_pb_socket:create_search_schema(Pid, <<"cartoons">>, SchemaData).
+```
+
+
 ## Creating a Custom Schema
 
 The first step in creating a custom schema is to define exactly what fields you must index. Part of that step is understanding how Riak Search extractors function.
