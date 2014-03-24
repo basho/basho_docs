@@ -13,12 +13,12 @@ moved: {
 ---
 
 This is a description of the Riak command-line tools and their subcommands.
-These tools are located in the `bin` directory of an embedded node, and the path
-when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
+These tools are located in the `bin` directory of an embedded node, and the
+path when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
 
 This is a description of the Riak command-line tools and their subcommands.
-These tools are located in the `bin` directory of an embedded node, and the path
-when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
+These tools are located in the `bin` directory of an embedded node, and the
+path when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
 
 ## riak
 
@@ -37,9 +37,8 @@ Riak node process. The following subcommands are available:
 ## riak-admin
 
 `[[riak-admin|riak-admin Command Line]]` performs operations not related
-to node-liveness, including node membership, backup, and basic status reporting.
-The node must be running for most of these commands to work. The following
-subcommands are supported:
+to node liveness, including node membership, backup, and basic status reporting. The node must be running for most of these commands to work.
+The following subcommands are supported:
 
 * [[cluster|riak-admin Command Line#cluster]]
   * [[cluster join|riak-admin Command Line#cluster join]]
