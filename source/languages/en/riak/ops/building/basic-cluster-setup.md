@@ -20,7 +20,7 @@ Most configuration changes will be applied to the configuration file located in 
 The commands below presume that you are running from a source install,
 but if you have installed Riak with a binary install, you can substitute
 the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak-admin`
-with `sudo /usr/sbin/riak-admin`. The `riak` and `riak-admin` executables are located in the `/bin` directory of your installation.
+with `sudo /usr/sbin/riak-admin`. The `riak` and `riak-admin` scripts are located in the `/bin` directory of your installation.
 
 <div class="info">
 <div class="title">Note on changing the <tt>-name</tt> value</div>
