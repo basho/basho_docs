@@ -138,14 +138,17 @@ riak-admin leave -f
 
 ## backup
 
+<div class="note"><div class="title">Functionality Note</title></div>
+While the `backup` command backs up an object's siblings, the `restore` command (detailed below) currently does not restore the siblings of an object.  If preservation of siblings during the backup and restore process is important to your use case, please see the [[Backing Up Riak]] document for more backup options.</div>
+
 Backs up the data from the node or entire cluster into a file.
 
-* &lt;node&gt; is the node from which to perform the backup.
-* &lt;cookie&gt; is the Erlang cookie/shared secret used to connect to the node.
+- \<node\> is the node from which to perform the backup.
+- \<cookie\> is the Erlang cookie/shared secret used to connect to the node.
 This is "riak" in the [[default configuration|Configuration Files#\-setcookie]].
-* &lt;filename&gt; is the file where the backup will be stored. _This should be
+- \<filename\> is the file where the backup will be stored. _This should be
 the full path to the file._
-* [node|all] specifies whether the data on this node or the entire cluster will
+- [node|all] specifies whether the data on this node or the entire cluster will
 be backed up, respectively.
 
 
