@@ -22,7 +22,7 @@ div#select-project
   - version = $production ? "latest" : nil
   div.project
     a href="/riakee/#{version || $versions[:riakee]}/"
-      span.big
+      span.big.sans
         | Riak&nbsp;
         strong Enterprise
       span.small
@@ -42,7 +42,7 @@ div#select-project
 
   div.project
     a href="/riakcs/#{version || $versions[:riakcs]}/"
-      span.big
+      span.big.sans
         | Riak&nbsp;
         strong Cloud Storage
       span.small
