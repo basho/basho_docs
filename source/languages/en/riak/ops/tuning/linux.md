@@ -26,7 +26,7 @@ Unless otherwise specified, the tunings recommended below are for Linux distribu
 
 Due to the heavily I/O-focused profile of Riak, swap usage can result in the entire server becoming unresponsive. We recommend setting `vm.swappiness` to 0 in `/etc/sysctl.conf` to prevent swapping as much as possible:
 
-```conf
+```config
 vm.swappiness = 0
 ```
 
@@ -34,7 +34,7 @@ Ideally, you should disable swap to ensure that Riak's process pages are not swa
 
 In addition to swappiness, the below virtual memory settings help prevent disks from being overwhelmed during periods of high write activity at the expense of peak performance for spiky workloads, and can be added or updated in `/etc/sysctl.conf`:
 
-```conf
+```config
 vm.dirty_bytes = 209715200
 vm.dirty_background_bytes = 104857600
 ```
@@ -111,7 +111,7 @@ The following settings are minimally sufficient to improve many aspects of Riak 
 In general, these recommended values should be compared with the system defaults and only changed if benchmarks or other performance metrics indicate that networking is the bottleneck.
 </div>
 
-```conf
+```config
 net.ipv4.tcp_max_syn_backlog = 40000
 net.core.somaxconn=40000
 net.ipv4.tcp_sack = 1
@@ -125,7 +125,7 @@ net.ipv4.tcp_moderate_rcvbuf = 1
 The following settings are optional, but may improve performance on
 a 10Gb network:
 
-```conf
+```config
 net.core.rmem_max = 134217728
 net.core.wmem_max = 134217728
 net.ipv4.tcp_mem  = 134217728 134217728 134217728
