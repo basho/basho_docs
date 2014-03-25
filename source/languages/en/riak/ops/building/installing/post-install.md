@@ -29,9 +29,8 @@ can add the Riak binary directory from the installation directory you've
 chosen to your <tt>PATH</tt>.
 
 For example, if you compiled Riak from source in
-the `/home/riak` directory, then you can add the binary directory
-(`/home/riak/rel/riak/bin`) to your `PATH` so that Riak commands can be
-used in the same manner as with a packaged installation.</p>
+the <tt>/home/riak</tt> directory, then you can add the binary directory
+(<tt>/home/riak/rel/riak/bin</tt>) to your <tt>PATH</tt> so that Riak commands can be used in the same manner as with a packaged installation.
 </div>
 
 To start a Riak node, use the `riak start` command:
