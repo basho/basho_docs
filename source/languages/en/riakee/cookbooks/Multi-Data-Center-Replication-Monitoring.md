@@ -24,22 +24,24 @@ Identification and trending of issues or delays in realtime replication is impor
 Through the monitoring and graphing of realtime replication statistics, the following questions can be answered:
 
 - Is the realtime replication queue backed up?
-- Have any errors occurred on either the `source` or `sink` cluster, that may have impacted realtime replication?
-- Have any objects been dropped from the realtime queue, meaning their replication to the `sink` cluster is unconfirmed?
+- Have any errors occurred on either the `source` or `sink` cluster?
+- Have any objects been dropped from the realtime queue?
 
 ---
 
 #### Is the realtime replication queue backed up?
 
-Identifying times when the realtime replication queue experiences increases in the number of `pending` objects can help identify problems with realtime replication, or identify times where replication becomes overloaded due to increases in traffic. The `pending` statistic, found under the `realtime_queue_stats` section of `riak-repl status` should be monitored and graphed. Graphing this statistic allows for increases in the number of `pending` objects to be trended. Any trend, indicating predictable increases in the number of `pending` objects, can help determine if any tuning or cluster expansion is required. Unpredictable increases can help identify unexpected load, network or system errors, or Riak errors. 
+Identifying times when the realtime replication queue experiences increases in the number of `pending` objects can help identify problems with realtime replication, or identify times where replication becomes overloaded due to increases in traffic. The `pending` statistic, found under the `realtime_queue_stats` section of the replication status output should be monitored and graphed. Graphing this statistic allows for increases in the number of `pending` objects to be trended. Any trend, indicating predictable increases in the number of `pending` objects, can help determine if any tuning or cluster expansion is required. Unpredictable increases can help identify unexpected load, network or system errors, or Riak errors. 
 
 #### Have any errors occurred on either the `source` or `sink` cluster?
 
-Errors experienced on either the `source` or `sink` cluster can result in failure to replicate object(s) via realtime replication. The top level `rt_dirty` statistic in `riak-repl status` indicates if such an error has occurred, and how many times. This statistic only tracks errors, and does not definitively indicate that an object was not successfully replicated. It is suggested that any time `rt_dirty` is non-zero, a fullsync should be performed. Once a fullsync successfully completes, `rt_dirty` is reset to 0. While the size of `rt_dirty` can quantify the number of errors have have occurred and should be graphed, any non-zero value should also alert so that a fullsync can be performed (if not regularly scheduled). Like realtime queue back ups, trends in `rt_dirty` can reveal problems with the network, system, or Riak.
+Errors experienced on either the `source` or `sink` cluster can result in failure to replicate object(s) via realtime replication. The top level `rt_dirty` statistic in `riak-repl status` indicates if such an error has occurred, and how many times. This statistic only tracks errors, and does not definitively indicate that an object was not successfully replicated. It is suggested that any time `rt_dirty` is non-zero a fullsync is performed. Once a fullsync successfully completes, `rt_dirty` is reset to 0. 
+
+The size of `rt_dirty` can quantify the number of errors that have occurred and should be graphed. Since any non-zero value indicates an error, an alert should be set so that a fullsync can be performed (if not regularly scheduled). Like realtime queue back ups, trends in `rt_dirty` can reveal problems with the network, system, or Riak.
 
 #### Have any objects been dropped from the realtime queue?
 
-The realtime replication queue will drop objects when the queue is full, with the dropped object(s) being the last (oldest) in the queue. Each time an object is dropped the `drops` statistic, found under the `realtime_queue_stats` section of `riak-repl status`, is incremented. It is safe to assume that an object dropped from the queue has not been replicated and a fullsync is required. A dropped object can indicate a halt or delay in replication, or indicate that the realtime queue is overloaded. In cases of high load, tunings to the maximum size of the queue (displayed in the `realtime_queue_stats` section of `riak-repl status` as `max_bytes`) can be made to accomodate a particular usage pattern of expected high load.
+The realtime replication queue will drop objects when the queue is full, with the dropped object(s) being the last (oldest) in the queue. Each time an object is dropped the `drops` statistic, found under the `realtime_queue_stats` section of the replication status output, is incremented. It is safe to assume that an object dropped from the queue has not been replicated and a fullsync is required. A dropped object can indicate a halt or delay in replication, or indicate that the realtime queue is overloaded. In cases of high load, increases to the maximum size of the queue (displayed in the `realtime_queue_stats` section of the replication status output as `max_bytes`) can be made to accommodate a particular usage pattern of expected high load.
 
 ---
 
@@ -64,9 +66,9 @@ By expanding upon the general process above, the following questions can be answ
 
 #### Is a backed up realtime replication queue still replicating objects within a defined SLA?
 
-Buidling on the final step of the general process, we can determine if our objects are being replicated from the `source` cluster to the `sink` cluster within a certain SLA time period by adding the following steps:
+Building on the final step of the general process, we can determine if our objects are being replicated from the `source` cluster to the `sink` cluster within a certain SLA time period by adding the following steps:
 
-- If the state of the object on the `source` cluster is not equal to the state of the object on the `sink` cluster repeat step 3 until an SLA time threshold is exceeded.
+- If the state of the object on the `source` cluster is not equal to the state of the object on the `sink` cluster, repeat step 3 until an SLA time threshold is exceeded.
 - If the SLA time threshold is exceeded, alert that replication is not meeting the necessary SLA.
 
 #### How long is it taking for objects to be replicated from the `source` cluster to the `sink` cluster?
