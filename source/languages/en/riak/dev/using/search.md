@@ -70,21 +70,49 @@ client.create_search_index('famous', '_yz_default')
 riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, [])
 ```
 
-The last setup item you need to perform is to *associate a bucket type* with a Solr index. You only need do this once per bucket type. This setting tells Riak Search which bucket values are to be indexed on a write to Riak. For example, to associate a bucket named `cats` with the `famous` index, you can set the bucket property `search_index`.
+The last setup item you need to perform is to associate either a bucket
+or a bucket type with a Solr index. You only need do this once per
+bucket type, and all buckets within that type will use the same Solr
+index.  For example, to associate a bucket type named `animals` with the
+`famous` index, you can set the bucket type property `search_index`. If
+a Solr index is to be used by only *one* Riak bucket, you can set the
+`search_index` property on that bucket. If more than one bucket is to
+share a Solr index, a bucket type should be used.
 
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but require an additional setup step in on commandline.
+Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]]
+to namespace all buckets you create. Bucket types have a lower
+overhead within the cluster than the default bucket namespace, but
+require an additional setup step in on commandline.
 
 ```bash
 riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
 riak-admin bucket-type activate animals
 ```
 
+
+### Bucket Properties
+
+If your Solr index is to be used by only one bucket, you can set the
+`search_index` property for a bucket in this manner:
+
+```curl
+curl -XPUT "$RIAK_HOST/buckets/animals/props" \
+     -H'content-type:application/json' \
+     -d'{"props":{"search_index":"famous"}}'
+```
+
+
 ### Security
 
-Security is a new feature of Riak that lets an administrator limit access to certain resources. In the case of search, your options are to limit administration of schemas or indexes (permission `search.admin`) to certain users, and to limit querying (permission `search.query`) to any index or a specific one. The example below shows the various options.
+Security is a new feature of Riak that lets an administrator limit
+access to certain resources. In the case of search, your options are to
+limit administration of schemas or indexes (permission `search.admin`)
+to certain users, and to limit querying (permission `search.query`) to
+any index or a specific one. The example below shows the various
+options.
 
 ```bash
 riak-admin security grant search.admin ON schema TO username
@@ -95,11 +123,13 @@ riak-admin security grant search.query ON index famous TO username
 
 ## Indexing Values
 
-With a Solr schema, index, and association in place, we're ready to start using Riak Search. First, populate the `cat` bucket with values.
+With a Solr schema, index, and association in place, we're ready to
+start using Riak Search. First, populate the `cat` bucket with values.
 
-Depending on the driver you use, you may have to specify the `Content-Type`,
-which for this example is `application/json`. In the case of Ruby and Python
-the content type is automatically set for you based on the object given.
+Depending on the driver you use, you may have to specify the
+`Content-Type`, which for this example is `application/json`. In the
+case of Ruby and Python the content type is automatically set for you
+based on the object given.
 
 ```curl
 curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/liono" \
