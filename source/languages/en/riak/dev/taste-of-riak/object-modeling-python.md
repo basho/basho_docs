@@ -1,7 +1,7 @@
 ---
 title: "Taste of Riak: Object Modeling with Python"
 project: riak
-version: 1.3.1+
+version: 1.4.8+
 document: tutorials
 toc: true
 audience: beginner
