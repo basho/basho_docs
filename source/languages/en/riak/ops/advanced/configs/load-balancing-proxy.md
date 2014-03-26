@@ -11,17 +11,15 @@ moved: {
 }
 ---
 
-The recommended best practice mode of production Riak operation suggests
-placing Riak behind a load balancing or proxy solution, either hardware or
-software based, and never exposing Riak directly to public network interfaces.
+The recommended best practice for operating Riak in production is to place 
+Riak behind a load-balancing or proxy solution, either hardware- or software-
+based, while never directly exposing Riak to public network interfaces.
 
-Riak users have reported success in using Riak with a variety of load
-balancing and proxy solutions. Common solutions include proprietary hardware
-based load balancers, cloud based load balancing options, such as Amazon's
-Elastic Load Balancer, and open source software based projects like HAProxy
-and Nginx.
+Riak users have reported success in using Riak with a variety of load-
+balancing and proxy solutions. Common solutions include proprietary
+hardware-based load balancers, cloud-based load balancing options, such as Amazon's Elastic Load Balancer, and open-source software based projects like HAProxy and Nginx.
 
-This guide briefly explores the commonly used open source software based
+This guide briefly explores the commonly used open-source software-based
 solutions HAProxy and Nginx, and provides some configuration and operational
 tips gathered from community users and operations oriented engineers at Basho.
 
@@ -30,8 +28,8 @@ provide a starting point for choosing and implementing your own solution.
 
 ## HAProxy
 
-[HAProxy](http://haproxy.1wt.eu/) is a fast and reliable open source solution
-for load balancing and proxying of HTTP and TCP based application traffic.
+[HAProxy](http://haproxy.1wt.eu/) is a fast and reliable open-source solution
+for load balancing and proxying of HTTP- and TCP-based application traffic.
 
 Users have reported success in using HAProxy in combination with Riak in a
 number of configurations and scenarios. Much of the information and example
@@ -40,9 +38,9 @@ Riak community in addition to suggestions from Basho engineering.
 
 ### Example Configuration
 
-The following is an example starting point configuration for HAProxy to act
-as a load balancer to a 4 node Riak cluster for access by clients using
-the Protocol Buffers and HTTP interfaces.
+The following is an example starting-point configuration for HAProxy to act as
+a load balancer. The example cluster has 4 nodes and will be accessed by Riak
+clients using both the Protocol Buffers and HTTP interfaces.
 
 <div class="info">The operating system's open files limits need to be greater than 256000 for the example configuration that follows. Consult the [[Open Files Limit]] documentation for details on configuring the value for different operating systems.</div>
 
@@ -106,24 +104,23 @@ frontend riak_protocol_buffer
 ```
 
 Note that the above example is considered a starting point and is a work
-in progress based upon [this example](https://gist.github.com/1507077). You
+in progress based on [this example](https://gist.github.com/1507077). You
 should carefully examine the configuration and change it according to your
 specific environment.
 
 ### Maintaining Nodes Behind HAProxy
 
 When using HAProxy with Riak, you can instruct HAProxy to ping each node in
-the cluster and automatically remove nodes which do not respond.
+the cluster and automatically remove nodes that do not respond.
 
-You can also specify a round robin configuration in HAProxy and have your
+You can also specify a round-robin configuration in HAProxy and have your
 application handle connection failures by retrying after a timeout, thereby
 reaching a functioning node upon retrying the connection attempt.
 
 HAPproxy also has a standby system you can use to remove a node from rotation
 while allowing existing requests to finish. You can remove nodes from
 HAProxy directly from the command line by interacting with the HAProxy stats
-socket with a utility such as
-[socat](http://www.dest-unreach.org/socat/):
+socket with a utility such as [socat](http://www.dest-unreach.org/socat/):
 
 ```bash
 echo "disable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
@@ -131,7 +128,7 @@ echo "disable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxyso
 
 At this point, you can perform maintenance on the node, down the node, and
 so on. When you've finished working with the node and it is again available
-for requests, you can re-enable the node:
+for requests, you can re-enable it:
 
 ```bash
 echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
@@ -152,19 +149,21 @@ to a Riak cluster *through GET requests only* is provided here for reference.
 ### Example Configuration
 
 The following is an example starting point configuration for Nginx to act
-as a front end proxy to a 5 node Riak cluster.
+as a front-end proxy to a 5-node Riak cluster.
 
 This example forwards all GET requests to Riak nodes while rejecting all other
 HTTP operations.
 
-<div class="note"><div class="title">Nginx version notes</div> This example
+<div class="note"><div class="title">Nginx version notes</div>This example
 configuration was verified on <strong>Nginx version 1.2.3</strong>. Please be
-aware that early versions of Nginx did not support any HTTP 1.1 semantics for
+aware that earlier versions of Nginx did not support any HTTP 1.1 semantics for
 upstream communication to backends. You should carefully examine this
 configuration and make changes appropriate to your specific environment
 before attempting to use it.</div>
 
-```
+Here is an example `nginx.conf` file:
+
+```config
 upstream riak_hosts {
   # server  10.0.1.10:8098;
   # server  10.0.1.11:8098;
@@ -218,11 +217,13 @@ server {
 }
 ```
 
-<div class="note"><div class="title">Note</div>
+<div class="note">
+<div class="title">Note</div>
 Even when filtering and limiting requests to GETs only as done in the example,
 you should strongly consider additional access controls beyond what Nginx can
 provide directly, such as specific firewall rules to limit inbound connections
-to trusted sources.</div>
+to trusted sources.
+</div>
 
 ### Querying Secondary Indexes Over HTTP
 
