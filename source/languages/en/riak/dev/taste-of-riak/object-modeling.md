@@ -29,10 +29,10 @@ At the data level, we only have a few objects to work with:
 Please select the language you'd like to proceed with.
 
 <ul class="planguages">
-<li><a href="/dev/taste-of-riak/object-model-java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
-<li><a href="/dev/taste-of-riak/object-model-erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
-<li><a href="/dev/taste-of-riak/object-model-ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
-<li><a href="/dev/taste-of-riak/object-model-python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
+<li><a href="/dev/taste-of-riak/object-modeling-java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
+<li><a href="/dev/taste-of-riak/object-modeling-erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="/dev/taste-of-riak/object-modeling-ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
+<li><a href="/dev/taste-of-riak/object-modeling-python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
 </ul>
 
 
