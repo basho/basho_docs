@@ -1,5 +1,5 @@
 ---
-title: Testing
+title: Riak 2.0
 project: riak
 version: 2.0.0+
 document: guide
@@ -74,7 +74,10 @@ parameter.sub-parameter = setting
 
 Based on Basho's [Cuttlefish](https://github.com/basho/cuttlefish) project, the new system is both simpler, leaving behind the Erlang syntax required in `app.config`, and more comprehensive, with a wide range of new configuration options specific to version 2.0.
 
-**Note**: Version 2.0 will support both the old and the new configuration system, in case you're upgrading.
+<div class="note">
+<div class="title">Note</div>
+Version 2.0 will support both the old and the new configuration system, in case you're upgrading.
+</div>
 
 #### Relevant Docs
 
