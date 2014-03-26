@@ -1,11 +1,11 @@
 ---
-title: "Taste of Riak: More Schemas with Java"
+title: "Taste of Riak: Object Modeling with Java"
 project: riak
 version: 1.3.1+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, 2i, search, java, schema]
+keywords: [developers, client, 2i, search, java, modeling]
 ---
 
 ####Getting Started with the Models
@@ -127,7 +127,7 @@ Riak performs best with objects under 1-2MB. Objects larger than that can hurt p
 
 #### Keeping our story straight with repositories
 
-Now that we've figured out our schema, let's write some repositories to help create and work with these objects in Riak:
+Now that we've figured out our object model, let's write some repositories to help create and work with these objects in Riak:
 
 ```java
 package com.basho.msgy.Repositories;

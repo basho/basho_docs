@@ -1,11 +1,11 @@
 ---
-title: "Taste of Riak: More Schemas with Ruby"
+title: "Taste of Riak: Object Modeling with Ruby"
 project: riak
 version: 1.3.1+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, 2i, search, ruby, schema]
+keywords: [developers, client, 2i, search, ruby, modeling]
 ---
 
 ####Getting Started with the Models
@@ -66,7 +66,7 @@ Riak performs best with objects under 1-2MB. Objects larger than that can hurt p
 
 #### Keeping our story straight with repositories
 
-Now that we've figured out our schema, let's write some repositories to help create and work with these objects in Riak:
+Now that we've figured out our object models, let's write some repositories to help create and work with these objects in Riak:
 
 ```ruby
 class UserRepository

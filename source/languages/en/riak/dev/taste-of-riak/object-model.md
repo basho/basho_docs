@@ -1,11 +1,11 @@
 ---
-title: "Taste of Riak: More Schemas"
+title: "Taste of Riak: Object Modeling"
 project: riak
 version: 1.3.1+
 document: tutorials
 toc: true
 audience: beginner
-keywords: [developers, client, schema, search]
+keywords: [developers, client, modeling]
 ---
 
 As a developer you may be nonplussed to see that Secondary Indexes(2i) don't work with the Bitcask backend. You may also be wondering how to work with "sets" of data.
@@ -29,10 +29,10 @@ At the data level, we only have a few objects to work with:
 Please select the language you'd like to proceed with.
 
 <ul class="planguages">
-<li><a href="/dev/taste-of-riak/schemas-java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
-<li><a href="/dev/taste-of-riak/schemas-erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
-<li><a href="/dev/taste-of-riak/schemas-ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
-<li><a href="/dev/taste-of-riak/schemas-python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
+<li><a href="/dev/taste-of-riak/object-model-java/"><img src="/images/plangs/java.jpg" alt="Java"></a></li>
+<li><a href="/dev/taste-of-riak/object-model-erlang/"><img src="/images/plangs/erlang.jpg" alt="Erlang"></a></li>
+<li><a href="/dev/taste-of-riak/object-model-ruby/"><img src="/images/plangs/ruby.jpg" alt="Ruby"></a></li>
+<li><a href="/dev/taste-of-riak/object-model-python/"><img src="/images/plangs/python.png" alt="Python"></a></li>
 </ul>
 
 
