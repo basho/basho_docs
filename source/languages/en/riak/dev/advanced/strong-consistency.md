@@ -66,6 +66,10 @@ For the most part, performing reads, writes, and deletes on data in strongly con
 Riak::Conflict: The object is in conflict (has siblings) and cannot be treated singly or saved:
 ```
 
+```java
+java.lang.IllegalArgumentException: VClock cannot be null.
+```
+
 ```python
 riak.RiakError: 'failed'
 ```
