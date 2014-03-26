@@ -8,6 +8,7 @@ riak:
     class: "start"
     sub:
       - "[[Start Here|Riak]]"
+      - "[[Riak 2.0]]"
       - "[[Why Riak?|Why Riak]]"
       - "[[Download Riak|Downloads]]"
       - "[[Five-Minute Install|Five Minute Install]]"
