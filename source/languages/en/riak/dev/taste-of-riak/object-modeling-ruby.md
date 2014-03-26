@@ -13,27 +13,29 @@ keywords: [developers, client, 2i, search, ruby, modeling]
 To get started, let's create the models that we'll be using. Since the Ruby Riak Client uses hashes when converting to and from JSON, we'll use the library [Hashie](http://rdoc.info/github/intridea/hashie) to help automatically coerce class properties to and from hashes. You can install this library with `gem install hashie`.
 
 ```ruby
+# Encoding: utf-8
+
 require 'riak'
 require 'hashie'
 require 'time'
 
 class User < Hashie::Dash
-    property :user_name
-    property :full_name
-    property :email
+  property :user_name
+  property :full_name
+  property :email
 end
 
 class Msg < Hashie::Dash
-    property :from
-    property :to
-    property :created
-    property :text
+  property :from
+  property :to
+  property :created
+  property :text
 end
 
 class Timeline < Hashie::Dash
-    property :owner
-    property :type
-    property :msgs
+  property :owner
+  property :type
+  property :msgs
 end
 ```
 
@@ -70,124 +72,126 @@ Now that we've figured out our object models, let's write some repositories to h
 
 ```ruby
 class UserRepository
-    BUCKET = "Users"
+  BUCKET = 'Users'
 
-    def initialize(client)      
-        @client = client
-    end
+  def initialize(client)
+    @client = client
+  end
 
-    def save(user)
-        users = @client.bucket(BUCKET)
-        key = user.user_name
+  def save(user)
+    users = @client.bucket(BUCKET)
+    key = user.user_name
 
-        riak_obj = users.get_or_new(key)
-        riak_obj.data = user
-        riak_obj.content_type = "application/json"
-        riak_obj.store
-    end
+    riak_obj = users.get_or_new(key)
+    riak_obj.data = user
+    riak_obj.content_type = 'application/json'
+    riak_obj.store
+  end
 
-    def get(user_name)
-        riak_obj = @client.bucket(BUCKET)[user_name]
-        User.new(riak_obj.data)
-    end
+  def get(user_name)
+    riak_obj = @client.bucket(BUCKET)[user_name]
+    User.new(riak_obj.data)
+  end
 end
 
 class MsgRepository
-    BUCKET = "Msgs"
+  BUCKET = 'Msgs'
 
-    def initialize(client)      
-        @client = client
-    end
+  def initialize(client)
+    @client = client
+  end
 
-    def save(msg)
-        msgs = @client.bucket(BUCKET)
-        key = generate_key(msg)
-        
-        return msgs.get(key) if msgs.exists?(key)
-        riak_obj = msgs.new(key)
-        riak_obj.data = msg
-        riak_obj.content_type = "application/json"
-        riak_obj.prevent_stale_writes = true
-        riak_obj.store(returnbody: true)
-    end
+  def save(msg)
+    msgs = @client.bucket(BUCKET)
+    key = generate_key(msg)
 
-    def get(key)
-        riak_obj = @client.bucket(BUCKET).get(key)
-        Msg.new(riak_obj.data)
-    end
+    return msgs.get(key) if msgs.exists?(key)
+    riak_obj = msgs.new(key)
+    riak_obj.data = msg
+    riak_obj.content_type = 'application/json'
+    riak_obj.prevent_stale_writes = true
+    riak_obj.store(returnbody: true)
+  end
 
-    def generate_key(msg)
-        msg.from + "_" + msg.created.utc.iso8601(6)
-    end
+  def get(key)
+    riak_obj = @client.bucket(BUCKET).get(key)
+    Msg.new(riak_obj.data)
+  end
+
+  def generate_key(msg)
+    msg.from + '_' + msg.created.utc.iso8601(6)
+  end
 end
 
 class TimelineRepository
-    BUCKET = "Timelines"
-    SENT = "Sent"
-    INBOX = "Inbox"
+  BUCKET = 'Timelines'
+  SENT = 'Sent'
+  INBOX = 'Inbox'
 
-    def initialize(client)      
-        @client = client
-        @msg_repo = MsgRepository.new(client)
+  def initialize(client)
+    @client = client
+    @msg_repo = MsgRepository.new(client)
+  end
+
+  def post_message(msg)
+    # Save the cannonical copy
+    saved_message = @msg_repo.save(msg)
+    # Post to sender's Sent timeline
+    add_to_timeline(msg, SENT, saved_message.key)
+    # Post to recipient's Inbox timeline
+    add_to_timeline(msg, INBOX, saved_message.key)
+  end
+
+  def get_timeline(owner, type, date)
+    riak_obj = @client.bucket(BUCKET).get(generate_key(owner, type, date))
+    Timeline.new(riak_obj.data)
+  end
+
+  private
+
+  def add_to_timeline(msg, type, msg_key)
+    timeline_key = generate_key_from_msg(msg, type)
+    riak_obj = nil
+
+    if @client.bucket(BUCKET).exists?(timeline_key)
+      riak_obj = add_to_existing_timeline(timeline_key, msg_key)
+    else
+      riak_obj = create_new_timeline(timeline_key, msg, type, msg_key)
     end
 
-    def post_message(msg)
-        # Save the cannonical copy
-        saved_message = @msg_repo.save(msg)
-        # Post to sender's Sent timeline
-        add_to_timeline(msg, SENT, saved_message.key)
-        # Post to recipient's Inbox timeline
-        add_to_timeline(msg, INBOX, saved_message.key)
-    end
+    riak_obj.store
+  end
 
-    def get_timeline(owner, type, date)
-        riak_obj = @client.bucket(BUCKET).get(generate_key(owner, type, date))
-        Timeline.new(riak_obj.data) 
-    end
+  def create_new_timeline(key, msg, type, msg_key)
+    owner = get_owner(msg, type)
+    riak_obj = @client.bucket(BUCKET).new(key)
+    riak_obj.data = Timeline.new(owner: owner,
+                                 type: type,
+                                 msgs: [msg_key])
+    riak_obj.content_type = 'application/json'
+    riak_obj
+  end
 
-    private
+  def add_to_existing_timeline(key, msg_key)
+    riak_obj = @client.bucket(BUCKET).get(key)
+    timeline = Timeline.new(riak_obj.data)
+    timeline.msgs << msg_key
+    riak_obj.data = timeline
+    riak_obj
+  end
 
-    def add_to_timeline(msg, type, msg_key)
-        timeline_key = generate_key_from_msg(msg, type)
-        riak_obj = nil
+  def get_owner(msg, type)
+    type == INBOX ? msg.to : msg.from
+  end
 
-        if @client.bucket(BUCKET).exists?(timeline_key)
-            riak_obj = add_to_existing_timeline(timeline_key, msg_key)
-        else
-            riak_obj = create_new_timeline(timeline_key, msg, type, msg_key)
-        end
-            
-        riak_obj.store
-    end
+  def generate_key_from_msg(msg, type)
+    owner = get_owner(msg, type)
+    generate_key(owner, type, msg.created)
+  end
 
-    def create_new_timeline(key, msg, type, msg_key)
-        owner = get_owner(msg, type)    
-        riak_obj = @client.bucket(BUCKET).new(key)
-        riak_obj.data = Timeline.new(owner: owner, type: type, msgs: [msg_key])
-        riak_obj.content_type = "application/json"
-        riak_obj
-    end
-
-    def add_to_existing_timeline(key, msg_key)
-        riak_obj = @client.bucket(BUCKET).get(key)
-        timeline = Timeline.new(riak_obj.data)
-        timeline.msgs << msg_key
-        riak_obj.data = timeline
-        riak_obj
-    end
-
-    def get_owner(msg, type)
-        type == INBOX ? msg.to : msg.from
-    end
-
-    def generate_key_from_msg(msg, type)
-        owner = get_owner(msg, type)
-        generate_key(owner, type, msg.created)
-    end
-
-    def generate_key(owner, type, date)
-        owner + "_" + type + "_" + date.utc.strftime("%F")
-    end
+  def generate_key(owner, type, date)
+    owner + '_' + type + '_' + date.utc.strftime('%F')
+  end
 end
 ```
 
@@ -195,26 +199,34 @@ Finally, let's test them:
 
 ```ruby
 # Setup our repositories
-client = Riak::Client.new(:protocol => "pbc", :pb_port => 10017)
-userRepo = UserRepository.new(client)
-msgsRepo = MsgRepository.new(client)
-timelineRepo = TimelineRepository.new(client)
+client = Riak::Client.new(protocol: 'pbc', pb_port: 10017)
+user_repo = UserRepository.new(client)
+msgs_repo = MsgRepository.new(client)
+timeline_repo = TimelineRepository.new(client)
 
 # Create and save users
-marleen = User.new(user_name: "marleenmgr", full_name: "Marleen Manager", email: "marleen.manager@basho.com")
-joe = User.new(user_name: "joeuser", full_name: "Joe User", email: "joe.user@basho.com")
+marleen = User.new(user_name: 'marleenmgr',
+                   full_name: 'Marleen Manager',
+                   email: 'marleen.manager@basho.com')
 
-userRepo.save(marleen)
-userRepo.save(joe)
+joe = User.new(user_name: 'joeuser',
+               full_name: 'Joe User',
+               email: 'joe.user@basho.com')
+
+user_repo.save(marleen)
+user_repo.save(joe)
 
 # Create new Msg, post to timelines
-msg = Msg.new(from: marleen.user_name, to: joe.user_name, created: Time.now, text: "Welcome to the company!" )
+msg = Msg.new(from: marleen.user_name,
+              to: joe.user_name,
+              created: Time.now,
+              text: 'Welcome to the company!')
 
-timelineRepo.post_message(msg)
+timeline_repo.post_message(msg)
 
 # Get Joe's inbox for today, get first message
-joes_inbox_today = timelineRepo.get_timeline(joe.user_name, "Inbox", Time.now)
-joes_first_message = msgsRepo.get(joes_inbox_today.msgs.first)
+joes_inbox_today = timeline_repo.get_timeline(joe.user_name, 'Inbox', Time.now)
+joes_first_message = msgs_repo.get(joes_inbox_today.msgs.first)
 
 puts "From: #{joes_first_message.from}\nMsg : #{joes_first_message.text}"
 ```
