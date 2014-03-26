@@ -99,8 +99,8 @@ cp validate_json.beam /tmp/beams/
 
 After copying the compiled module into `/tmp/beams/`, you must update your configuration file to enable Riak to load compiled modules from the directory where they're stored (in our example `/tmp/beams`):
 
-```riakconf
-
+```advancedconf
+add_paths = /tmp/beams
 ```
 
 ```appconfig
