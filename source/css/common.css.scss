@@ -383,7 +383,6 @@ em {
 blockquote {
   @extend .serif-italic;
   @include allCorners();
-  @include boxShadow(inset 0 2px 3px lighten($orange, 25%));
   margin     : 2em 40px;
   background : lighten($orange, 30%);
   border     : 1px solid lighten($orange, 15%);
