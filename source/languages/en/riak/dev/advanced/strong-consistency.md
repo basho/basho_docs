@@ -57,3 +57,24 @@ strongly_consistent has been activated
 Now, any bucket that bears the type `strongly_consistent`---or whatever you named your bucket type---will provide strong consistency guarantees.
 
 Elsewhere in the Riak docs, you can find more information on [[Using Bucket Types]] and on the concept of [[Strong Consistency]].
+
+## Error Messages
+
+For the most part, performing reads, writes, and deletes on data in strongly consistent buckets works much like it does in non-strongly consistent buckets. One important exception to this is how reads are performed. Strongly consistent buckets cannot allow siblings by definition, and so all writes to existing keys must include a [[vector clock|Vector Clocks]]. If it does not, you will receive the following error:
+
+```ruby
+Riak::Conflict: The object is in conflict (has siblings) and cannot be treated singly or saved:
+```
+
+```python
+riak.RiakError: 'failed'
+```
+
+```erlang
+{error,<<"failed">>}
+```
+
+```curl
+<html><head><title>412 Precondition Failed</title></head><body><h1>Precondition Failed</h1>Precondition Failed<p><hr><address>mochiweb+webmachine web server</address></body></html>%
+```
+
