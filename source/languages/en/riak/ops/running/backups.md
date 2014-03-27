@@ -11,7 +11,7 @@ moved: {
 }
 ---
 
-Riak backups can be performed using OS features or filesystems, such as LVM or ZFS, that support snapshots, or by using tools like rsync or tar. Choosing your Riak backup strategy will largely depend on your already established backup methodologies, as well as the backend configuration of your nodes. When backing up a node, it is important to back up the data, ring, and configuration directories of your nodes.
+Riak backups can be performed using OS features or filesystems that support snapshots, such as LVM or ZFS, or by using tools like rsync or tar. Choosing your Riak backup strategy will largely depend on your already established backup methodologies, as well as the backend configuration of your nodes. When backing up a node, it is important to back up the data, ring, and configuration directories of your nodes.
 
 Due to Riak's eventually consistent nature, backups can become slightly inconsistent from node to node. Data could exist on some nodes and not others at the exact time a backup is made. Any inconsistency will be corrected once a backup is restored, either by Riak's [[Active Anti-Entropy|Replication#Active-Anti-Entropy-AAE-]], or on GET by [[read repair|Replication#Read-Repair]].
 
