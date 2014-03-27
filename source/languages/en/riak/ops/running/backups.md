@@ -15,7 +15,7 @@ Riak backups can be performed using OS features or filesystems that support snap
 
 Due to Riak's eventually consistent nature, backups can become slightly inconsistent from node to node. Data could exist on some nodes and not others at the exact time a backup is made. Any inconsistency will be corrected once a backup is restored, either by Riak's [[Active Anti-Entropy|Replication#Active-Anti-Entropy-AAE-]], or on GET by [[read repair|Replication#Read-Repair]].
 
-Additionally, if you are not using an OS feature or filesystem that supports snapshotting, backups must be performed on a stopped node to prevent data loss as a result of the background merging and compaction processes of Riak's backends.
+Additionally, backups must be performed on a stopped node to prevent data loss as a result of the background merging and compaction processes of Riak's backends. Downtime of a node can be significantly reduced by using an OS feature or filesystem that supports snapshotting.
 
 ### OS Specific Directory Locations
 
@@ -69,7 +69,7 @@ package was extracted.
 
 ### Performing Backups
 
-Backups of both Bitcask and LevelDB can be accomplished through a variety of common methods. Standard utilities such `cp`, `rsync`, and `tar` can be used as well as any backup system or method already in place in your environment.  When using one of these standard utilities, the node must *not* be running.
+Backups of both Bitcask and LevelDB can be accomplished through a variety of common methods. Standard utilities such `cp`, `rsync`, and `tar` can be used as well as any backup system or method already in place in your environment.  Please remember that the node must *not* be running while performing the backup.
 
 A simple shell command such as the following example is sufficient for creating a backup of your Bitcask or LevelDB data, ring, and Riak configuration directories for a binary package-based Riak Linux installation:
 
@@ -109,7 +109,7 @@ node is is a simple process:
 2. Restore your old node's configuration files, data directory, and ring directory.
 3. Start the node and verify proper operation with `riak ping`, `riak-admin status`, and other methods you use to check node health.
 
-If any node names have been changed (that is, the *-name* argument in the `vm.args` configuration file for any node is different than the backup being restored to that node), then you will need to additionally:
+If the node name of a restored node (*-name* argument in `vm.args` or `nodename` parameter in `riak.conf`) is different than the name of the node that the restored backup was taken from, you will need to additionally:
 
 1. Mark the original instance down in the cluster using `[[riak-admin down <node>|riak-admin Command Line#down]]`
 2. Join the restored node to the cluster using `[[riak-admin cluster join <node>|riak-admin Command Line#cluster-join]]`
