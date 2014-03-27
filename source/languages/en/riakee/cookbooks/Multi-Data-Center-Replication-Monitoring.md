@@ -19,6 +19,8 @@ Identification and trending of issues or delays in realtime replication is impor
 - Monitoring Riak's replication status output, from either `riak-repl status` or the HTTP `/riak-repl/stats` endpoint
 - Using canary (test) objects to test replication and establish trip times from `source` to `sink` clusters
 
+<div class="note"><div class="title">Note</div>Riak's statistics are calculated on a sliding 60 second window.  Each time you query the stats interface, each sliding statistic shown is a sum or histogram value calculated from the previous 60 seconds of data.  Because of this, the stats interface should not be queried more than once per minute.</div>
+
 ### Statistics
 
 Through the monitoring and graphing of realtime replication statistics, the following questions can be answered:
@@ -31,25 +33,25 @@ Through the monitoring and graphing of realtime replication statistics, the foll
 
 #### Is the realtime replication queue backed up?
 
-Identifying times when the realtime replication queue experiences increases in the number of `pending` objects can help identify problems with realtime replication, or identify times where replication becomes overloaded due to increases in traffic. The `pending` statistic, found under the `realtime_queue_stats` section of the replication status output should be monitored and graphed. Graphing this statistic allows for increases in the number of `pending` objects to be trended. Any trend, indicating predictable increases in the number of `pending` objects, can help determine if any tuning or cluster expansion is required. Unpredictable increases can help identify unexpected load, network or system errors, or Riak errors. 
+Identifying times when the realtime replication queue experiences increases in the number of `pending` objects can help identify problems with realtime replication, or identify times where replication becomes overloaded due to increases in traffic. The `pending` statistic, found under the `realtime_queue_stats` section of the replication status output should be monitored and graphed. Graphing this statistic allows for the identification of trends in the number of `pending` objects. Any repeating or predictable trend in this statistic can be used to help identify a need for tuning and capacity changes, while unexpected variation in this statistic may indicate either sudden changes in load, or errors at the network, system or Riak level.
 
 #### Have any errors occurred on either the `source` or `sink` cluster?
 
-Errors experienced on either the `source` or `sink` cluster can result in failure to replicate object(s) via realtime replication. The top level `rt_dirty` statistic in `riak-repl status` indicates if such an error has occurred, and how many times. This statistic only tracks errors, and does not definitively indicate that an object was not successfully replicated. It is suggested that any time `rt_dirty` is non-zero a fullsync is performed. Once a fullsync successfully completes, `rt_dirty` is reset to 0. 
+Errors experienced on either the `source` or `sink` cluster can result in failure to replicate object(s) via realtime replication. The top level `rt_dirty` statistic in `riak-repl status` indicates if such an error has occurred, and how many times. This statistic only tracks errors, and does not definitively indicate that an object was not successfully replicated. For this reason, any time `rt_dirty` is non-zero a fullsync should be performed. Once a fullsync successfully completes, `rt_dirty` is reset to 0. 
 
 The size of `rt_dirty` can quantify the number of errors that have occurred and should be graphed. Since any non-zero value indicates an error, an alert should be set so that a fullsync can be performed (if not regularly scheduled). Like realtime queue back ups, trends in `rt_dirty` can reveal problems with the network, system, or Riak.
 
 #### Have any objects been dropped from the realtime queue?
 
-The realtime replication queue will drop objects when the queue is full, with the dropped object(s) being the last (oldest) in the queue. Each time an object is dropped the `drops` statistic, found under the `realtime_queue_stats` section of the replication status output, is incremented. It is safe to assume that an object dropped from the queue has not been replicated and a fullsync is required. A dropped object can indicate a halt or delay in replication, or indicate that the realtime queue is overloaded. In cases of high load, increases to the maximum size of the queue (displayed in the `realtime_queue_stats` section of the replication status output as `max_bytes`) can be made to accommodate a particular usage pattern of expected high load.
+The realtime replication queue will drop objects when the queue is full, with the dropped object(s) being the last (oldest) in the queue. Each time an object is dropped, the `drops` statistic, which can be found under the `realtime_queue_stats` section of the replication status output, is incremented. An object dropped from the queue has not been replicated successfully, and a fullsync should be performed when a drop occurs. A dropped object can indicate a halt or delay in replication, or indicate that the realtime queue is overloaded. In cases of high load, increases to the maximum size of the queue (displayed in the `realtime_queue_stats` section of the replication status output as `max_bytes`) can be made to accommodate a usage pattern of expected high load.
 
 ---
 
-Although the above statistics were highlighted for answering specific questions, other statistics can also be helpful in diagnosing issues with realtime replication.  We recommend graphing any statistic that is reported as a number.  While their values and trends may not answer common questions or those we've highlighted here, they may be important when investigating issues in the future. Other questions, that cannot be answered from statistics, can be answered through the use of canary objects.
+Although the above statistics have been highlighted to answer specific questions, other statistics can also be helpful in diagnosing issues with realtime replication.  We recommend graphing any statistic that is reported as a number.  While their values and trends may not answer common questions, or those we've highlighted here, they may be important when investigating issues in the future. Other questions, that cannot be answered from statistics alone, may be addressed through the use of canary objects.
 
 ### Canary Objects
 
-A canary or test object is an object that exists in your environment that you can guarantee has no actors other than your test infrastructure. This allows for the object to have predictable states where an unexpected change or lack of change in state can indicate an issue.
+Canary object testing is a technique that uses a test object stored in your environment with your production data, but is not used or modified by your application. This allows for the test object to have predictable states, and can be used to answer questions about the functionality and duration of realtime replication.
 
 The general process for using canary objects to test realtime replication is:
 
