@@ -11,7 +11,7 @@ moved: {
 }
 ---
 
-Riak supports the use of Erlang named functions in compiled modules for pre-commit hooks, post-commit hooks, and MapReduce operations. This cookbook
+Riak supports the use of Erlang named functions in compiled modules for pre-commit hooks, post-commit hooks, and MapReduce operations. This tutorial
 explains the process for using your own named functions, including module
 compilation, configuration, and installation steps with simple examples
 detailed for each use case.
