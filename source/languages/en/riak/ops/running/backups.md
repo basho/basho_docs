@@ -109,7 +109,7 @@ node is is a simple process:
 2. Restore your old node's configuration files, data directory, and ring directory.
 3. Start the node and verify proper operation with `riak ping`, `riak-admin status`, and other methods you use to check node health.
 
-If the node name of a restored node (*-name* argument in `vm.args` or `nodename` parameter in `riak.conf`) is different than the name of the node that the restored backup was taken from, you will need to additionally:
+If the node name of a restored node (`-name` argument in `vm.args` or `nodename` parameter in `riak.conf`) is different than the name of the node that the restored backup was taken from, you will need to additionally:
 
 1. Mark the original instance down in the cluster using `[[riak-admin down <node>|riak-admin Command Line#down]]`
 2. Join the restored node to the cluster using `[[riak-admin cluster join <node>|riak-admin Command Line#cluster-join]]`
