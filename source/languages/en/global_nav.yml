@@ -254,6 +254,7 @@ riakee:
       - "[[Version Comparison|Multi Data Center Replication: Comparison]]"
       - "[[Upgrade Guide|Multi Data Center Replication: Upgrading from V2 to V3]]"
       - "[[Statistics|Multi Data Center Replication: Statistics]]"
+      - "[[Monitoring|Multi Data Center Replication: Monitoring]]"
       - "[[Per Bucket|Multi Data Center Replication: Per Bucket]]"
       - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
   - title: "Operating Riak Enterprise"
