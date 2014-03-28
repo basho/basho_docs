@@ -20,7 +20,7 @@ Riak CS is built on Riak. When an object is uploaded, Riak CS breaks the object 
 
 In a Riak CS system, any node can respond to client requests - there is no master node and each node has the same responsibilities. Since data is replicated (three replicas per object by default), and other nodes automatically take over the responsibility of failed or non-communicative nodes, data remains available even in the event of node failure or network partition.
 
-When an object is uploaded via the [[storage API|RiakCS Storage API]], Riak CS breaks the object into smaller chunks that are streamed, written, and replicated in Riak. Each chunk is associated with metadata for later retrieval. The diagram below provides a visualization. 
+When an object is uploaded via the [[storage API|RiakCS S3 Storage API]], Riak CS breaks the object into smaller chunks that are streamed, written, and replicated in Riak. Each chunk is associated with metadata for later retrieval. The diagram below provides a visualization. 
 
 ![Riak CS Chunking](/images/Riak-CS-Overview.png)
 
