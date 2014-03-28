@@ -1,7 +1,7 @@
 ---
 title: Replication Properties
 project: riak
-version: 2.0.0+
+version: 0.10.0+
 document: tutorial
 audience: beginner
 keywords: [developers, cap, replication]
@@ -36,17 +36,17 @@ All data stored in Riak will be replicated to a number of nodes in the cluster a
 To change the `n_val` for a bucket, you must create and activate a [[bucket type|Using Bucket Types]] that uses the desired `n_val`, let's say 2:
 
 ```bash
-riak-admin bucket-type create n_val_is_2 '{"props":{"n_val":2}}'
-riak-admin bucket-type activate n_val_is_2
+riak-admin bucket-type create n_val_equals_2 '{"props":{"n_val":2}}'
+riak-admin bucket-type activate n_val_equals_2
 ```
 
-Now, all buckets that bear the type `n_val_is_5` will have `n_val` set to 2. Here's an example write:
+Now, all buckets that bear the type `n_val_equals_2` will have `n_val` set to 2. Here's an example write:
 
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "the n_val on this write is 2" \
-  http://localhost:8098/types/n_val_is_5/buckets/test_bucket/keys/test_key
+  http://localhost:8098/types/n_val_is_2/buckets/test_bucket/keys/test_key
 ```
 
 <div class="note">
@@ -95,11 +95,11 @@ curl -XPUT \
 
 ### Primary Reads and Writes with PR and PW
 
-In Riak's replication model, there are N vnodes that hold primary responsibility for any given key, called *primary vnodes*. Riak will attempt reads and writes to primary vnodes first, but in case of failure, those operations will go to failover nodes in order to comply with the R and W values that you have set.
+In Riak's replication model, there are N vnodes, called *primary vnodes*, that hold primary responsibility for any given key. Riak will attempt reads and writes to primary vnodes first, but in case of failure, those operations will go to failover nodes in order to comply with the R and W values that you have set. This failover option is called *sloppy quorum*.
 
 In addition to R and W, you can also set integer values for the *primary read* (PR) and *primary write* (PW) parameters that specify how many primary nodes must respond to a request in order to report success to the client. The default for both values is zero.
 
-Setting PR and/or PW to non-zero values has the advantage that the client is more likely to receive the most up-to-date values, but at the cost of a higher probability that reads or writes will fail because primary vnodes are unavailable.
+Setting PR and/or PW to non-zero values produces a mode of operation called *strict quorum*. This mode has the advantage that the client is more likely to receive the most up-to-date values, but at the cost of a higher probability that reads or writes will fail because primary vnodes are unavailable.
 
 <div class="note">
 <div class="title">Note on PW</div>
