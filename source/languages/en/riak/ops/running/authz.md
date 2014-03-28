@@ -385,6 +385,11 @@ Permission | Operation |
 `search.admin` | The ability to perform search admin-related tasks, such as creating and deleting indexes and adding and modifying search schemas |
 `search.query` | The ability to query an index |
 
+<div class="note">
+<div class="title">Note on Search Permissions</div>
+Search must be enabled in order to successfully grant/revoke search permissions. If you attempt to grant/revoke permissions while search is disabled, you will get the following error: `{error,{unknown_permission,"search.query"}}`.  More information on Riak Search and how to enable it can be found in the [[Riak Search Settings]] document.
+</div>
+
 #### Usage Examples
 
 To grant the user `riakuser` the ability to query all indexes:
@@ -408,19 +413,19 @@ riak-admin security grant search.query ON schema TO riakuser
 To grant the user `riakuser` admin privileges only on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.admin ON index riakuser_index TO riakuser
+riak-admin security grant search.admin ON index riakusers_index TO riakuser
 
 # To revoke:
-# riak-admin security revoke search.admin ON index riakuser_index FROM riakuser
+# riak-admin security revoke search.admin ON index riakusers_index FROM riakuser
 ```
 
-To grant `riakuser` querying and admin permissions on the index `riakuser_index`:
+To grant `riakuser` querying and admin permissions on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.query,search.admin ON index TO riakuser
+riak-admin security grant search.query,search.admin ON index riakusers_index TO riakuser
 
 # To revoke:
-# riak-admin security revoke search.query,search.admin ON index FROM riakuser
+# riak-admin security revoke search.query,search.admin ON index riakusers_index FROM riakuser
 ```
 
 More comprehensive information on search-related security can be found under [[Riak Search Security]].
