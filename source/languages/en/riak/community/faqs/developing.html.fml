@@ -45,52 +45,131 @@ A:
 
 Q: Why do secondary indexes (2i) return inconsistent results after using `force-remove` to drop a node from the cluster?
 A:
-  When a node fails or is taken out of the cluster without using `riak-admin leave`, all of the data held by that node is lost to the cluster. This leaves N - 1 consistent replicas of the data. If `riak-admin force-remove` is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held. The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed.
+  The Riak key-value store distributes values across all of the partitions in the ring.  In order to minimize synchronisation issues with secondary indexes, Riak stores index information in the same partition as the data values. 
 
-  As a simplistic example, consider a 5-node cluster (nodes A-E) with ring size = 8 and `n_val` = 3. The data for each partition is stored on 3 different nodes with a possible configuration like so:
+   When a node fails or is taken out of the cluster without using riak-admin leave, all of the data held by that node is lost to the cluster. This leaves N - 1 consistent replicas of the data. If riak-admin force-remove is used to remove the downed node, the remaining clusters will claim the partitions the failed node previously held. The data in the newly claimed vnodes will be made consistent one key at a time through the read-repair mechanism as each key is accessed, or through active anti-entropy (AAE) if enabled.
 
-  ```
-  A: 0__3__4__5__8
-  B: 0__1__4__5__6
-  C: 0__1__2__5__6__7
-  D: 1__2__3__6__7__8
-  E: 2__3__4__7__8
-  ```
+  As a simplistic example, consider this hypothetical cluster:  
+  - 5 nodes (nodes A-E)  
+  - ring size = 16  
+  - n\_val = 3.  
+  The partitions are assigned to the nodes as so:  
+ (For this example, I am using simple small integers instead of the actual 160-bit partition index values)
 
-  Index information for each partition is co-located with the value data. In order to get a full result set for a 2I query, Riak will need to consult a minimum of 1/`n_val` nodes, in this case 2. The 2 nodes will be selected such that there is a primary replica of each of the 8 partitions between the 2 nodes, so A-C and A-D are coverage sets while A-B and A-E are not.
+  <pre>
+    A: 0-5-10-15
+    B: 1-6-11
+    C: 2-7-12
+    D: 3-8-12
+    E: 4-9-14
+  </pre>
 
-  When a node is `force-remove`d, it leaves the cluster without transferring its data to other nodes, and the remaining nodes then claim the unowned partitions, designating new primary replicas to comply with `n_val`, but do not populate the data or indexes until read-repair is triggered by gets or puts on the individual keys.
+  When a value is stored in Riak, the {bucket, key} is hashed to determine it’s first primary partition, and the value is stored in that partition and the next n\_val - 1 partitions in the ring.
+  A preflist consists of the vnode which owns the key, and the next n\_val vnodes in the ring, in order.  In this scenario there are 16 preflists:
+  <table>
+  <tr><td>0-1-2</td><td>1-2-3</td><td>2-3-4</td><td>3-4-5</td></tr>
+  <tr><td>4-5-6</td><td>5-6-7</td><td>6-7-8</td><td>7-8-9</td></tr>
+  <tr><td>8-9-10</td><td>9-10-11</td><td>10-11-12</td><td>11-12-13</td></tr>
+  <tr><td>12-13-14</td><td>13-14-15</td><td>14-15-0</td><td>15-0-1</td></tr>
+  <tr><td></table>
 
-  One possible configuration after `force-remove`ing node C and rebalancing:
+  Index information for each partition is co-located with the value data.  In order to get a full result set for a 2I query, Riak will need to consult a “covering set” of vnodes that includes at least one member of each preflist.  
+  This will require a minimum of 1/n\_val of the vnodes, rounded up, in this case 6.  
+  There are 56 possible covering sets consisting of 6 vnodes:
 
-  ```
-  A: 0__3__4__5__8__2__*6*
-  B: 0__1__4__5__6__*7*
-  D: 1__2__3__6__7__8__*0*
-  E: 2__3__4__7__8__*1*__*5*
-  ```
+  <table>
+  <tr><td>0-1-4-7-10-13</td><td>0-2-4-7-10-13</td><td>0-2-5-7-10-13</td><td>0-2-5-8-10-13</td></tr>
+  <tr><td>0-2-5-8-11-13</td><td>0-2-5-8-11-14</td><td>0-3-4-7-10-13</td><td>0-3-5-7-10-13</td></tr>
+  <tr><td>0-3-5-8-10-13</td><td>0-3-5-8-11-13</td><td>0-3-5-8-11-14</td><td>0-3-6-7-10-13</td></tr>
+  <tr><td>0-3-6-8-10-13</td><td>0-3-6-8-11-13</td><td>0-3-6-8-11-14</td><td>0-3-6-9-10-13</td></tr>
+  <tr><td>0-3-6-9-11-13</td><td>0-3-6-9-11-14</td><td>0-3-6-9-12-13</td><td>0-3-6-9-12-14</td></tr>
+  <tr><td>0-3-6-9-12-15</td><td>1-2-5-8-11-14</td><td>1-3-5-8-11-14</td><td>1-3-6-8-11-14</td></tr>
+  <tr><td>1-3-6-9-11-14</td><td>1-3-6-9-12-14</td><td>1-3-6-9-12-15</td><td>1-4-5-8-11-14</td></tr>
+  <tr><td>1-4-6-8-11-14</td><td>1-4-6-9-11-14</td><td>1-4-6-9-12-14</td><td>1-4-6-9-12-15</td></tr>
+  <tr><td>1-4-7-8-11-14</td><td>1-4-7-9-11-14</td><td>1-4-7-9-12-14</td><td>1-4-7-9-12-15</td></tr>
+  <tr><td>1-4-7-10-11-14</td><td>1-4-7-10-12-14</td><td>1-4-7-10-12-15</td><td>1-4-7-10-13-14</td></tr>
+  <tr><td>1-4-7-10-13-15</td><td>2-3-6-9-12-15</td><td>2-4-6-9-12-15</td><td>2-4-7-9-12-15</td></tr>
+  <tr><td>2-4-7-10-12-15</td><td>2-4-7-10-13-15</td><td>2-5-6-9-12-15</td><td>2-5-7-9-12-15</td></tr>
+  <tr><td>2-5-7-10-12-15</td><td>2-5-7-10-13-15</td><td>2-5-8-9-12-15</td><td>2-5-8-10-12-15</td></tr>
+  <tr><td>2-5-8-10-13-15</td><td>2-5-8-11-12-15</td><td>2-5-8-11-13-15</td><td>2-5-8-11-14-15</td></tr>
+  </table>
 
-  The partitions marked with `*` are the newly created primary partitions that will not contain any data or index information until `read-repair` is triggered by get/put operations.
 
-  In this new 4-node configuration, any 2 nodes will constitute a coverage set. Until consistency is restored via `read-repair`, however, not all vnodes will contain the data that would otherwise be present.
+  When a node fails or is marked down, its vnodes will not be considered for coverage queries.  Fallback vnodes will be created on other nodes so that put and get operations can be handled, but only primary vnodes are considered for secondary index coverage queries.  
+  If a covering set cannot be found, {error, insufficient\_vnodes} will be returned.  Thus the reply will either be complete or an error.
+  
+  When a node is force-removed, it is dropped from the cluster without transferring its data to other nodes, and the remaining nodes then claim the unowned partitions, designating new primary replicas to comply with n\_val, but do not immediately populate the data or indexes. 
+  
+  Read-repair, triggered by gets or puts on the individual keys, and/or active anti-entropy will eventually repopulate the data, restoring consistency.  
+  A get operation for a key will request the data from all of the vnodes in its preflist, by default waiting for over half of them to respond.  This results in consistent responses to get even when one of the vnodes in the preflist has been compromised.  
+  
+  Secondary index queries, however, consult a covering set which may include only 1 member of the preflist.  If that vnode is empty due to the force remove operation, none of the keys from that preflist will be returned.
 
-  So making a few assumptions for demonstration purposes:
+  Continuing with the above example, consider if node C is force remove’d. 
+  This is one possible configuration after rebalancing:
+  <pre>
+    A: 0-5-10-15
+    B: 1-6-11-\*2\*
+    D: 3-8-12-\*7\*
+    E: 4-9-14-\*12\*
+  </pre>
 
-  1. The keys a, b, and c are stored in partitions 0, 1, and 2 respectively
-  2. The cluster is not loaded, so no get or put operations are being performed
+  Vnodes 2,7, and 12 (marked with \*) are newly created primary partitions that do not contain any values or index information.
 
-  Since the coordinating node will attempt to spread the load by not using the same partitions for its coverage query, successive 2i queries that should return all 3 keys will vary depending on the nodes chosen for the coverage set. The 6 possible sets in this configuration would return:
+  In this new 4-node configuration any coverage set that includes vnodes 2,7, or 12 will return incomplete results until consistency is restored via read-repair or AAE, because not all vnodes will contain the data that would otherwise be present.
 
-  ```
-  AB - [a,b,c]
-  AD - [a,b,c]
-  AE - [a,c]
-  BD - [a,b,c]
-  BE - [a,b,c]
-  DE - [b,c]
-  ```
 
-  If a get request were made for keys a and b, `read-repair` would restore the missing values and indexes on nodes D and E, restoring consistency to the cluster.
+  So making a couple of assumptions for demonstration purposes:  
+  1 - the keys a,b, and c are stored in the following preflists:
+  <pre>
+  a - 0-1-2
+  b - 6-7-8
+  c - 10-11-12
+  </pre>
+  2 - the cluster is not loaded, so no get/put or other coverage queries are being performed
+  3 - AAE is not enabled
+
+  The coordinating node (the one that receives the request from the client) will attempt to spread the load by not using the same partitions for successive coverage queries.  
+
+  The results from secondary index queries that should return all 3 keys will vary depending on the nodes chosen for the coverage set:
+
+  Of the 56 possible covering sets ...
+
+  … 20 sets (35.7% of sets) will return all 3 keys {a,b,c}
+  <table>
+  <tr><td>0-2-5-8-10-13</td><td>0-2-5-8-11-13</td><td>0-2-5-8-11-14</td><td>0-3-5-8-10-13</td></tr>
+  <tr><td>0-3-5-8-11-13</td><td>0-3-5-8-11-14</td><td>0-3-6-8-10-13</td><td>0-3-6-8-11-13</td></tr>
+  <tr><td>0-3-6-8-11-14</td><td>0-3-6-9-10-13</td><td>0-3-6-9-11-13</td><td>0-3-6-9-11-14</td></tr>
+  <tr><td>1-2-5-8-11-14</td><td>1-3-5-8-11-14</td><td>1-3-6-8-11-14</td><td>1-3-6-9-11-14</td></tr>
+  <tr><td>1-4-5-8-11-14</td><td>1-4-6-8-11-14</td><td>1-4-6-9-11-14</td><td>1-4-7-8-11-14</td></tr>
+  </table>
+
+  … 24 sets (42.9%) will return 2 of the 3 keys:
+  <table>
+  <tr><td colspan=4>{a,b} (7 sets)</td></tr>
+  <tr><td>0-3-6-9-12-13</td><td>0-3-6-9-12-14</td><td>0-3-6-9-12-15</td><td>1-3-6-9-12-14</td><td></td></tr></td></tr>
+  <tr><td>1-3-6-9-12-15</td><td>1-4-6-9-12-14</td><td>1-4-6-9-12-15</td></tr></td></tr>
+  <tr><td colspan=4>{a,c} (12 sets)</td></tr>
+  <tr><td>0-1-4-7-10-13</td><td>0-2-4-7-10-13</td><td>0-2-5-7-10-13</td><td>0-3-4-7-10-13</td></tr>
+  <tr><td>0-3-5-7-10-13</td><td>0-3-6-7-10-13</td><td>1-4-7-10-11-14</td><td>1-4-7-10-12-14</td></tr>
+  <tr><td>1-4-7-10-12-15</td><td>1-4-7-10-13-14</td><td>1-4-7-10-13-15</td><td>1-4-7-9-11-14</td><td></td></tr>
+  <tr><td colspan=4>{b,c} (5 sets)</td></tr>
+  <tr><td>2-5-8-10-12-15</td><td>2-5-8-10-13-15</td><td>2-5-8-11-12-15</td></tr>
+  <tr><td>2-5-8-11-13-15</td><td>2-5-8-11-14-15</td></tr>
+  </table>
+
+  … 10 sets (17.8%) will return only one of the 3 keys
+  <table>
+  <tr><td colspan=4>{a} (2 sets)</td></tr>
+  <tr><td>1-4-7-9-12-14</td><td>1-4-7-9-12-15</td></tr>
+  <tr><td colspan=4>{b} (4 sets)</td></tr>
+  <tr><td>2-3-6-9-12-15</td><td>2-4-6-9-12-15</td><td>2-5-6-9-12-15</td><td>2-5-8-9-12-15</td></tr>
+  <tr><td colspan=4>{c} (4 sets)</td></tr>
+  <tr><td>2-4-7-10-12-15</td><td>2-4-7-10-13-15</td><td>2-5-7-10-12-15</td><td>2-5-7-10-13-15</td></tr>
+  </table>
+
+  … and 2 sets (3.6%) will not return any of the 3 keys
+  <table><tr><td>2-4-7-9-12-15</td><td>2-5-7-9-12-15</td></table>
 
 Q: Why does my binary data come back a different size compared to when I stored it?
   When storing a non-text object like a `.png` file in Riak and then retrieving it with `curl`, it comes back a different size. For Example:
