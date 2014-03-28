@@ -35,7 +35,7 @@ The Github version includes erlang type specifications, which have been omitted 
 -record(timeline, {owner, msg_type, msgs}).
 ```
 
-To use these records to store data, we will first have to create a user. Then, when a user creates a message, we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
+To use these records to store data, we will first have to create a user record. Then, when a user creates a message, we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and to the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
 
 #### Buckets and Keys Revisited
 
@@ -59,7 +59,7 @@ For `Timelines`, let's use the pattern `<username>_<type>_<date>` for users, and
 
 <div class="note">
 <div class="title">Note</div>
-Riak performs best with objects under 1-2MB. Objects larger than that can hurt performance, especially many siblings are being created. We will cover siblings, sibling resolution, and sibling explosions in the next chapter.
+Riak performs best with objects under 1-2MB. Objects larger than that can hurt performance, especially if many siblings are being created. We will cover siblings, sibling resolution, and sibling explosions in the next chapter.
 </div>
 
 #### Keeping our story straight with repositories

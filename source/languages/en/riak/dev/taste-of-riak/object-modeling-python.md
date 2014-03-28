@@ -32,7 +32,7 @@ msg = {'sender': marleen['user_name'],
        'text': 'Welcome to the company!'}
 ```
 
-As you can see we first create a user, and then we can use that user to create a message. To sent this message we can append it to one or more `Timelines`. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
+As you can see, we first create a user, and then we can use that user to create a message. To send this message we can append it to one or more `Timeline`s. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
 
 #### Buckets and Keys Revisited
 
