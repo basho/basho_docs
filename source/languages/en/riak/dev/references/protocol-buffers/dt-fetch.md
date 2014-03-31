@@ -39,7 +39,7 @@ message DtFetchReq {
 
 ## Response
 
-The response to a fetch request (`[[DtFetchReq|PBC Datatypes Fetch Request]]`) is a `DtFetchResp` message. If the `include_context` option is specified, an opaque "context" value will be returned along with the user-readable data. When sending an update request, the client should send this context as well, just as one would send a [[vclock|Vector Clocks]] for standard KV updates.
+The response to a fetch request (`[[DtFetchReq|PBC Data Type Fetch Request]]`) is a `DtFetchResp` message. If the `include_context` option is specified, an opaque "context" value will be returned along with the user-readable data. When sending an update request, the client should send this context as well, just as one would send a [[vclock|Vector Clocks]] for standard KV updates.
 
 The `type` field indicates which value type to expect. When the `value` field is missing from the message, the client should interpret it as not found.
 

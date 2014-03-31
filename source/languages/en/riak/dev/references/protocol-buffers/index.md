@@ -136,7 +136,6 @@ Values:
 * [[PBC Set Client ID]]
 * [[PBC Server Info]]
 
-{{#2.0.0+}}
 ## Bucket Type Operations
 
 * [[PBC Get Bucket Type]]
@@ -144,12 +143,12 @@ Values:
 
 ## Data Type Operations
 
-* [[PBC Datatype Fetch]]
-* [[PBC Datatype Union]]
-* [[PBC Datatype Store]]
-* [[PBC Datatype Counter Store]]
-* [[PBC Datatype Set Store]]
-* [[PBC Datatype Map Store]]
+* [[PBC Data Type Fetch]]
+* [[PBC Data Type Union]]
+* [[PBC Data Type Store]]
+* [[PBC Data Type Counter Store]]
+* [[PBC Data Type Set Store]]
+* [[PBC Data Type Map Store]]
 
 ## Yokozuna Operations
 
@@ -160,4 +159,3 @@ Values:
 * [[PBC Yokozuna Schema Query]]
 * [[PBC Yokozuna Schema Get]]
 * [[PBC Yokozuna Schema Put]]
-{{/2.0.0+}}

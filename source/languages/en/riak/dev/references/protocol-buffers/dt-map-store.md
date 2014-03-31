@@ -1,5 +1,5 @@
 ---
-title: PBC Datatype Map Store
+title: PBC Data Type Map Store
 project: riak
 version: 2.0.0+
 document: api
