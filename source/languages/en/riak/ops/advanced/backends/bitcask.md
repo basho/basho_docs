@@ -84,23 +84,26 @@ number of designs that involve log file merging.
 
 ## Installing Bitcask
 
-Riak ships with Bitcask included within the distribution. In fact it is the
-default storage engine and no separate installation is required.
+Riak ships with Bitcask included within the distribution. In fact, Bitcask is
+the default storage engine for Riak and thus requires no separate installation.
 
-The default configuration values found in the `app.config` for Bitcask are as
-follows:
+## Configuring Bitcask
 
-```erlang
+The default configuration values for Bitcask are as follows:
+
+```riakconf
+bitcask.data_root = ./data/bitcask
+bitcask.io_mode = erlang
+```
+
+```appconfig
 %% Bitcask Config
     {bitcask, [
         {data_root, "/var/lib/riak/bitcask"}
     ]},
 ```
 
-## Configuring Bitcask
-
-Modify the default behavior by adding these settings into the `bitcask` section
-in your [[app.config|Configuration Files]].
+You can modify Bitcask's behavior by adjusting these settings in your [[configuration files]]. If you are using the new, `riak.conf`-based configuration system, there are a variety of additional configurable parameters listed in the [[Bitcask|Configuration Files#Bitcask]] section of the documentation.
 
 ### Open Timeout
 
