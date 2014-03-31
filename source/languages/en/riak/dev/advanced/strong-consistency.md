@@ -60,7 +60,9 @@ Elsewhere in the Riak docs, you can find more information on [[Using Bucket Type
 
 ## Error Messages
 
-For the most part, performing reads, writes, and deletes on data in strongly consistent buckets works much like it does in non-strongly consistent buckets. One important exception to this is how reads are performed. Strongly consistent buckets cannot allow siblings by definition, and so all writes to existing keys must include a [[vector clock|Vector Clocks]]. If it does not, you will receive the following error:
+For the most part, performing reads, writes, and deletes on data in strongly consistent buckets works much like it does in non-strongly consistent buckets. One important exception to this is how writes are performed. Strongly consistent buckets cannot allow siblings by definition, and so all writes to existing keys must include a [[vector clock|Vector Clocks]].
+
+If you attempt a write to a non-empty key without including a vector clock, you will receive the following error:
 
 ```ruby
 Riak::Conflict: The object is in conflict (has siblings) and cannot be treated singly or saved:
@@ -79,6 +81,6 @@ riak.RiakError: 'failed'
 ```
 
 ```curl
-<html><head><title>412 Precondition Failed</title></head><body><h1>Precondition Failed</h1>Precondition Failed<p><hr><address>mochiweb+webmachine web server</address></body></html>%
+<html><head><title>412 Precondition Failed</title></head><body><h1>Precondition Failed</h1>Precondition Failed<p><hr><address>mochiweb+webmachine web server</address></body></html>
 ```
 
