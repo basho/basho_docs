@@ -23,7 +23,7 @@ Usage: riak-admin { cluster | join | leave | backup | restore | test |
                     reip | js-reload | erl-reload | wait-for-service |
                     ringready | transfers | force-remove | down |
                     cluster-info | member-status | ring-status | vnode-status |
-                    diag | status | transfer-limit | top {{#2.0.0+}} | search {{/2.0.0}} }
+                    diag | status | transfer-limit | top{{#2.0.0+}} | search {{/2.0.0+}} }
 ```
 
 ## cluster
@@ -508,13 +508,17 @@ the average number of keys repaired for all exchange rounds since the
 node has started. The `Max` column is the maximum number of keys
 repaired for a given exchange round since the node has started.
 
-### swtich-to-new-search
+### switch-to-new-search
 
  <div class="info">
  <div class="title">Only For Legacy Migration</div>
 This is only needed when migrating from legacy riak search to the new
 Search (Yokozuna).
  </div>
+
+```bash
+riak-admin search switch-to-new-search
+```
 
 Switch handling of the HTTP `/solr/<index>/select` resource and
 protocol buffer query messages from legacy Riak Search to new Search
