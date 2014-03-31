@@ -23,7 +23,7 @@ Usage: riak-admin { cluster | join | leave | backup | restore | test |
                     reip | js-reload | erl-reload | wait-for-service |
                     ringready | transfers | force-remove | down |
                     cluster-info | member-status | ring-status | vnode-status |
-                    diag | status | transfer-limit | top }
+                    diag | status | transfer-limit | top{{#2.0.0+}} | search {{/2.0.0+}} }
 ```
 
 ## cluster
@@ -466,3 +466,63 @@ The `sort` option determines what category `riak-admin top` sorts on and default
 The `lines` option specifies the number of processes to display in the top output and defaults to `10`.  
 
 More information about Erlang's etop can be found in the [etop documentation](http://www.erlang.org/doc/man/etop.html).
+
+{{#2.0.0+}}
+
+## search
+
+The search command provides sub-commands for various administrative
+work related to the new Riak Search.
+
+```bash
+riak-admin search <command>
+```
+
+### aae-status
+
+```bash
+riak-admin search aae-status
+```
+
+Output active anti-entropy (AAE) statistics for search. There are
+three sections. Each section contains statistics for a specific aspect
+of AAE for every partition owned by the local node.
+
+The first section provides information on exchanges. Exchange is the
+process of comparing hash trees to determine divergences between KV
+data and search indexes. The `Index` column contains the partition
+number. The `Last (ago)` column is the amount of time that has passed
+since the last exchange. The `All (ago)` column is the amount of time
+that has passed since all preflists for that partition have been
+exchanged.
+
+The second section lists how much time has passed since the hashtree
+for that partition has been built from scratch. By default trees
+expire after 1 week and are rebuilt from scratch.
+
+The third section presents statistics on repair operations that have
+occurred. Repair is performed when AAE notices that the KV and search
+hashtree don't match for a particular key. The `Last` column is the
+number of keys repaired during the last exchange. The `Mean` column is
+the average number of keys repaired for all exchange rounds since the
+node has started. The `Max` column is the maximum number of keys
+repaired for a given exchange round since the node has started.
+
+### switch-to-new-search
+
+ <div class="info">
+ <div class="title">Only For Legacy Migration</div>
+This is only needed when migrating from legacy riak search to the new
+Search (Yokozuna).
+ </div>
+
+```bash
+riak-admin search switch-to-new-search
+```
+
+Switch handling of the HTTP `/solr/<index>/select` resource and
+protocol buffer query messages from legacy Riak Search to new Search
+(Yokozuna).
+
+
+{{/2.0.0+}}
