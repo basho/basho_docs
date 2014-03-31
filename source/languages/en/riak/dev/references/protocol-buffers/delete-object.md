@@ -16,7 +16,7 @@ Deletes an object from the specified bucket / key.
 
 ## Request
 
-```bash
+```protobuf
 message RpbDelReq {
     required bytes bucket = 1;
     required bytes key = 2;
@@ -27,6 +27,10 @@ message RpbDelReq {
     optional uint32 pr = 7;
     optional uint32 pw = 8;
     optional uint32 dw = 9;
+    optional uint32 timeout = 10;
+    optional bool sloppy_quorum = 11;
+    optional uint32 n_val = 12;
+    optional bytes type = 13;
 }
 ```
 
@@ -68,7 +72,7 @@ Only the message code is returned.
 
 Request
 
-```bash
+```protobuf
 Hex      00 00 00 12 0D 0A 0A 6E 6F 74 61 62 75 63 6B 65
          74 12 01 6B 18 01
 Erlang <<0,0,0,18,13,10,10,110,111,116,97,98,117,99,107,101,116,18,1,107,24,1>>
@@ -82,7 +86,7 @@ rw: 1
 
 Response
 
-```bash
+```protobuf
 Hex      00 00 00 01 0E
 Erlang <<0,0,0,1,14>>
 

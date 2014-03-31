@@ -13,7 +13,7 @@ Assigns a set of bucket properties to a bucket type name
 
 ## Request
 
-```bash
+```protobuf
 message RpbSetBucketTypeReq {
     required bytes type = 1;
     required RpbBucketProps props = 2;

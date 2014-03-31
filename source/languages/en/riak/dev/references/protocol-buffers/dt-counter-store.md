@@ -9,3 +9,10 @@ keywords: [api, protocol-buffer, datatypes]
 group_by: "Object/Key Operations"
 ---
 
+An operation to update a [[counter|Using Data Types]]. The `increment` value specifies how much the counter will be incremented or decremented (depending on whether the value is positive or negative). This operation can be used to update counters that are stored on their own in a specific key or [[within a map|PBC Datatype Map Store]].
+
+```protobuf
+message CounterOp {
+    optional sint64 increment = 1;
+}
+```

@@ -13,7 +13,7 @@ Create a new index or modify an existing index
 
 ## Request
 
-```bash
+```protobuf
 message RpbYokozunaIndexPutReq {
     required RpbYokozunaIndex index  =  1;
 }

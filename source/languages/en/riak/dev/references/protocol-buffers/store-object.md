@@ -17,7 +17,7 @@ Riak assign a key to a new object.
 
 #### Request
 
-```bash
+```protobuf
 message RpbPutReq {
     required bytes bucket = 1;
     optional bytes key = 2;

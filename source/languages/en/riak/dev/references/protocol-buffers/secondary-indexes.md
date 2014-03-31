@@ -17,7 +17,7 @@ Request a set of keys that match a secondary index query.
 ## Request
 
 
-```bash
+```protobuf
 message RpbIndexReq {
     enum IndexQueryType {
         eq = 0;
@@ -68,7 +68,7 @@ The results of a Secondary Index query are returned as a repeating list of
 0 or more keys that match the given request parameters.
 
 
-```bash
+```protobuf
 message RpbIndexResp {
     repeated bytes keys = 1;
     repeated RpbPair results = 2;

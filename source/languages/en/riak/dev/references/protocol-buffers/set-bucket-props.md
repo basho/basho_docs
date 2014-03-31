@@ -24,7 +24,7 @@ The PBC interface does not currently support all bucket properties. It is curren
 ## Request
 
 
-```bash
+```protobuf
 message RpbSetBucketReq {
     required bytes bucket = 1;
     required RpbBucketProps props = 2;

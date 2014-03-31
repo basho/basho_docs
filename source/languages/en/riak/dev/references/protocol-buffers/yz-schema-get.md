@@ -13,7 +13,7 @@ Fetch a [[search schema]] from Riak Search.
 
 ## Request
 
-```bash
+```protobuf
 message RpbYokozunaSchemaGetReq {
     required bytes name  =  1;  // Schema name
 }
@@ -22,7 +22,7 @@ message RpbYokozunaSchemaGetReq {
 ## Response
 
 
-```bash
+```protobuf
 message RpbYokozunaSchemaGetResp {
   required RpbYokozunaSchema schema =  1;
 }

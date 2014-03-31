@@ -13,7 +13,7 @@ An operation to update a set, either on its own (at the bucket level) or inside 
 
 ## Request
 
-```bash
+```protobuf
 message SetOp {
     repeated bytes adds    = 1;
     repeated bytes removes = 2;

@@ -19,7 +19,7 @@ Just the RpbGetServerInfoReq message code. No request message defined.
 ## Response
 
 
-```bash
+```protobuf
 message RpbGetServerInfoResp {
     optional bytes node = 1;
     optional bytes server_version = 2;

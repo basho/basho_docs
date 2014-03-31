@@ -13,7 +13,7 @@ Request to reset the properties of a given bucket or bucket type
 
 ## Request
 
-```bash
+```protobuf
 message RpbSetBucketReq {
     required bytes bucket = 1;
     required RpbBucketProps props = 2;

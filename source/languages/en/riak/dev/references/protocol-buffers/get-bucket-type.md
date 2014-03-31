@@ -13,7 +13,7 @@ Gets the bucket properties associated with a bucket type
 
 ## Request
 
-```bash
+```protobuf
 message RpbGetBucketTypeReq {
     required bytes type = 1;
 }

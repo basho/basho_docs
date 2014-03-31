@@ -13,7 +13,7 @@ Retrieve a search index from Riak Search
 
 ## Request
 
-```bash
+```protobuf
 message RpbYokozunaIndexGetReq {
     optional bytes name  =  1;  // Index name
 }
@@ -21,7 +21,7 @@ message RpbYokozunaIndexGetReq {
 
 ## Response
 
-```bash
+```protobuf
 message RpbYokozunaIndexGetResp {
     repeated RpbYokozunaIndex index  =  1;
 }

@@ -27,31 +27,10 @@ Just the `RpbGetClientIdReq` message code. No request message defined.
 
 ## Response
 
-```bash
+```protobuf
 // Get ClientId Request - no message defined, just send RpbGetClientIdReq
 message code
 message RpbGetClientIdResp {
     required bytes client_id = 1; // Client id in use for this connection
 }
-```
-
-## Example
-
-Request
-
-```bash
-Hex     00 00 00 01 03
-Erlang  <<0,0,0,1,3>>
-```
-
-
-Response
-
-```bash
-Hex     00 00 00 07 04 0A 04 01 65 01 B5
-Erlang <<0,0,0,7,4,10,4,1,101,1,181>>
-
-RpbGetClientIdResp protoc decode:
-client_id: "001e001265"
-
 ```

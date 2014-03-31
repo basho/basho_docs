@@ -16,8 +16,7 @@ Fetch an object from Riak.
 
 ## Request
 
-
-```bash
+```protobuf
 message RpbGetReq {
     required bytes bucket = 1;
     required bytes key = 2;
@@ -60,7 +59,7 @@ get the metadata without a potentially large value
 ## Response
 
 
-```bash
+```protobuf
 message RpbGetResp {
     repeated RpbContent content = 1;
     optional bytes vclock = 2;
@@ -82,7 +81,7 @@ has not been modified, this will be set to true
 The content entries hold the object value and any metadata
 
 
-```bash
+```protobuf
 // Content message included in get/put responses
 message RpbContent {
     required bytes value = 1;
@@ -100,13 +99,11 @@ message RpbContent {
 ```
 
 
-Each object can contain user-supplied metadata (X-Riak-Meta-\* in the HTTP
-interface) consisting of a key/value pair. (e.g. key=X-Riak-Meta-ACL
-value=users:r,administrators:f would allow an application to store access
+Each object can contain user-supplied metadata (`X-Riak-Meta-` in the HTTP
+interface) consisting of a key/value pair. (e.g. `key=X-Riak-Meta-ACLvalue=users:r,administrators:f` would allow an application to store access
 control information for it to enforce (*not* Riak)).
 
-
-```bash
+```protobuf
 // Key/value pair - used for user metadata
 message RpbPair {
     required bytes key = 1;
@@ -119,7 +116,7 @@ Links store references to related bucket/keys and can be accessed through link
 walking in MapReduce.
 
 
-```bash
+```protobuf
 // Link metadata
 message RpbLink {
     optional bytes bucket = 1;
@@ -128,49 +125,9 @@ message RpbLink {
 }
 ```
 
-
-
-<div class="note"><div class="title">Missing keys</div>
-<p>Remember - if a key is not stored in Riak an RpbGetResp without content and
-vclock fields will be returned. This should be mapped to whatever convention the
-client language uses to return not found, e.g. the erlang client returns an atom
-<code>{error, notfound}</code></p>
+<div class="note">
+<div class="title">Missing keys</div>
+Remember: if a key is not stored in Riak, an <tt>RpbGetResp</tt> response
+without content and vclock fields will be returned. This should be mapped to whatever convention the client language uses to return not found, e.g. the
+Erlang client returns an atom <tt>{error, notfound}</tt>.
 </div>
-
-
-## Example
-
-Request
-
-```bash
-Hex      00 00 00 07 09 0A 01 62 12 01 6B
-Erlang <<0,0,0,7,9,10,1,98,18,1,107>>
-
-RpbGetReq protoc decode:
-bucket: "b"
-key: "k"
-```
-
-
-Response
-
-```bash
-Hex      00 00 00 4A 0A 0A 26 0A 02 76 32 2A 16 33 53 44
-         6C 66 34 49 4E 4B 7A 38 68 4E 64 68 79 49 6D 4B
-         49 72 75 38 BB D7 A2 DE 04 40 E0 B9 06 12 1F 6B
-         CE 61 60 60 60 CC 60 CA 05 52 2C AC C2 5B 3F 65
-         30 25 32 E5 B1 32 EC 56 B7 3D CA 97 05 00
-Erlang <<0,0,0,74,10,10,38,10,2,118,50,42,22,51,83,68,108,102,52,73,78,75,122,
-         56,104,78,100,104,121,73,109,75,73,114,117,56,187,215,162,222,4,64,
-         224,185,6,18,31,107,206,97,96,96,96,204,96,202,5,82,44,172,194,91,63,
-         101,48,37,50,229,177,50,236,86,183,61,202,151,5,0>>
-
-RpbGetResp protoc decode:
-content {
-  value: "v2"
-  vtag: "3SDlf4INKz8hNdhyImKIru"
-  last_mod: 1271442363
-  last_mod_usecs: 105696
-}
-vclock: "k316a```314`312005R,254302[?e0%23452612354V267=312227005000"
-```

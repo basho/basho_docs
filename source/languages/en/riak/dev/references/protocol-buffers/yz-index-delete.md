@@ -13,7 +13,7 @@ Delete a search index
 
 ## Request
 
-```bash
+```protobuf
 message RpbYokozunaIndexDeleteReq {
     required bytes name  =  1;  // Index name
 }

@@ -17,7 +17,7 @@ Get the properties for a bucket
 ## Request
 
 
-```bash
+```protobuf
 message RpbGetBucketReq {
     required bytes bucket = 1;
 }
@@ -31,7 +31,7 @@ Required Parameters
 ## Response
 
 
-```bash
+```protobuf
 message RpbGetBucketResp {
     required RpbBucketProps props = 1;
 }
@@ -53,7 +53,7 @@ clients
 
 Request
 
-```bash
+```protobuf
 Hex      00 00 00 0B 13 0A 08 6D 79 62 75 63 6B 65 74
 Erlang <<0,0,0,11,19,10,8,109,121,98,117,99,107,101,116>>
 
@@ -65,7 +65,7 @@ bucket: "mybucket"
 
 Response
 
-```bash
+```protobuf
 Hex      00 00 00 07 14 0A 04 08 05 10 01
 Erlang <<0,0,0,7,20,10,4,8,5,16,1>>
 

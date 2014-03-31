@@ -29,7 +29,7 @@ Only the message code is required.
 ## Response
 
 
-```bash
+```protobuf
 message RpbListBucketsResp {
     repeated bytes buckets = 1;
 }

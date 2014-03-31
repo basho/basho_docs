@@ -9,7 +9,7 @@ keywords: [api, protocol-buffer, yokozuna, search]
 group_by: "Object/Key Operations"
 ---
 
-```bash
+```protobuf
 message RpbYokozunaSchema {
     required bytes name    =  1;  // Index name
     optional bytes content =  2;  // Schema data

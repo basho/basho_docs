@@ -11,7 +11,7 @@ group_by: "Object/Key Operations"
 
 Request:
 
-```bash
+```protobuf
 message RpbYokozunaSchemaPutReq {
     required RpbYokozunaSchema schema =  1;
 }
