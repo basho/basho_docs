@@ -56,3 +56,29 @@ message DtFetchResp {
     optional DtValue  value   = 3;
 }
 ```
+
+The current value of the Data Type is contained in the `value` field, which contains a `DtValue` message, which will have the following structure:
+
+```protobuf
+message DtValue {
+    optional sint64   counter_value = 1;
+    repeated bytes    set_value     = 2;
+    repeated MapEntry map_value     = 3;
+}
+```
+
+If the Data Type queried is a counter, it will return an integer value for the counter; it a set, it will return the sets current value, in bytes, if a map it will return a `MapEntry` message. `MapEntry` messages are structured as follows:
+
+```protobuf
+message MapEntry {
+    required MapField field = 1;
+    optional sint64   counter_value  = 2;
+    repeated bytes    set_value      = 3;
+    optional bytes    register_value = 4;
+    optional bool     flag_value     = 5;
+    repeated MapEntry map_value      = 6;
+}
+```
+
+
+
