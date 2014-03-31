@@ -1,5 +1,5 @@
 ---
-title: PBC Datatype Fetch
+title: PBC Data Type Fetch
 project: riak
 version: 2.0.0+
 document: api

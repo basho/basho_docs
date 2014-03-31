@@ -11,6 +11,8 @@ group_by: "Object/Key Operations"
 
 A request to update the value of a [[Riak Data Type|Using Data Types]]. A `DtUpdateReq` message requires that you specify the location of the Data Type in Riak, which operations are to be performed, the request operations, and whether the Data Type's opaque context should be returned in the resulting `DtUpdateResp`.
 
+The `DtOp` value specifies which Data Type-specific operation is being performed. More on that in the [[PBC Data Type Union]] document.
+
 ## Request
 
 ```protobuf

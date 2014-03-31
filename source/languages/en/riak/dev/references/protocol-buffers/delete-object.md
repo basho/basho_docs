@@ -12,7 +12,7 @@ moved: {
 }
 ---
 
-Deletes an object from the specified bucket / key.
+Deletes an object from the specified bucket type/bucket/key (specified by `bucket`, `type`, and `key`).
 
 ## Request
 
@@ -34,7 +34,7 @@ message RpbDelReq {
 }
 ```
 
-Optional Parameters
+#### Optional Parameters
 
 * **rw** - how many replicas to delete before returning a successful
 response; possible values include a special number to denote 'one'

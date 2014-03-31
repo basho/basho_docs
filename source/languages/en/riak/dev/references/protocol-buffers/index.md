@@ -71,14 +71,14 @@ Code | Message |
 22 | `RpbSetBucketResp` |
 23 | `RpbMapRedReq` |
 24 | `RpbMapRedResp` |
-25 | `RpbIndexReq` {{1.2.0+}} |
-26 | `RpbIndexResp` {{1.2.0+}} |
-27 | `RpbSearchQueryReq` {{1.2.0+}} |
-28 | `RbpSearchQueryResp` {{1.2.0+}} |
-29 | `RpbAuthReq` {{2.0.0+}} |
-30 | `RpbGetBucketTypeReq` {{2.0.0+}} |
-31 | `RpbSetBucketTypeReq` {{2.0.0+}} |
-32 | `RpbResetBucketReq` {{2.0.0+}} |
+25 | `RpbIndexReq` |
+26 | `RpbIndexResp` |
+27 | `RpbSearchQueryReq` |
+28 | `RbpSearchQueryResp` |
+29 | `RpbAuthReq` |
+30 | `RpbGetBucketTypeReq` |
+31 | `RpbSetBucketTypeReq` |
+32 | `RpbResetBucketReq` |
 
 <div class="info">
 <div class="title">Message Definitions</div>
@@ -102,12 +102,6 @@ Values:
 
 * `errmsg` --- a string representation of what went wrong
 * `errcode` --- a numeric code. Currently only `RIAKC_ERR_GENERAL=1` is defined.
-
-## Protocol Buffers Security
-
-
-
-![Protocol Buffers security diagram](http://hijacked.us/~andrew/protobuffs_security4.png)
 
 ## Bucket Operations
 
