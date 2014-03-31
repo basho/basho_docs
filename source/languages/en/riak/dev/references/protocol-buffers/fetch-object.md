@@ -12,7 +12,7 @@ moved: {
 }
 ---
 
-Fetch an object from Riak.
+Fetch an object from the specified bucket type/bucket/key location (specified by `bucket`, `type`, and `key`, respectively). If the bucket type is not specified, the `default` bucket type will be used, as is the case for all messages sent to Riak that have the bucket type as an optional parameter.
 
 ## Request
 
@@ -27,37 +27,35 @@ message RpbGetReq {
     optional bytes if_modified = 7;
     optional bool head = 8;
     optional bool deletedvclock = 9;
+    optional uint32 timeout = 10;
+    optional bool sloppy_quorum = 11;
+    optional uint32 n_val = 12;
+    optional bytes type = 13;
 }
 ```
 
 
-Optional Parameters
+## Optional Parameters
 
-* **r** - (read quorum) how many replicas need to agree when
-retrieving the object; possible values include a special number to
-denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **pr** - (primary read quorum) how many primary replicas need to be
-available when retrieving the object; possible values include a
-special number to denote 'one' (4294967295-1), 'quorum'
-(4294967295-2), 'all' (4294967295-3), 'default' (4294967295-4), or any
-integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **basic_quorum** - whether to return early in some failure cases (eg. when r=1
-and you get 2 errors and a success basic_quorum=true would return an error)
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **notfound_ok** - whether to treat notfounds as successful reads for the
-purposes of R ([[default is defined per the bucket|PBC API#Set Bucket
-Properties]])
-* **if_modified** - when a vclock is supplied as this option only return the
-object if the vclocks don't match
-* **head** - return the object with the value(s) set as empty - allows you to
-get the metadata without a potentially large value
-* **deletedvclock** - return the tombstone's vclock, if applicable
+<div class="note">
+<div class="title">Note on defaults and special values</div>
+All of the optional parameters below have default values determined on a
+per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+
+Furthermore, you can assign an integer value to the <tt>r</tt> and <tt>pr</tt> parameters, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
+</div>
+
+Parameter | Description |
+:---------|:------------|
+`basic_quorum` | Whether to return early in some failure cases, e.g. when `r=1` and you get 2 errors and a success basic_quorum=true would return an error
+`notfound_ok` | Whether to treat `not found` responses as successful reads for the purposes of R
+`if_modified` | When a vclock is supplied as this option, the response will only return the object if the vclocks don't match
+`head` | If set to `true`, Riak will return the object with the value(s) set as empty, which allows you to get the metadata without a potentially large value accompanying it
+`deletedvclock` | If set to `true`, Riak will return the tombstone's vclock, if applicable
+`timeout` | 
+`sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 
 ## Response
-
 
 ```protobuf
 message RpbGetResp {
@@ -67,19 +65,17 @@ message RpbGetResp {
 }
 ```
 
+#### Values
 
-Values
+Value | Description
+:-----|:-----------
+`content` | The value plus metadata entries for the object. If there are siblings, there will be more than one entry. If the key is not found, the content will be empty.
+`vclock` | The opaque vector clock that must be included in the `RpbPutReq`
+to resolve the siblings
+`unchanged` | If `if_modified` was specified in the GET request but the object
+has not been modified, this will be set to `true`
 
-* **content** - value+metadata entries for the object. If there are siblings
-there will be more than one entry. If the key is not found, content will be
-empty.
-* **vclock** - vclock Opaque vector clock that must be included in *RpbPutReq*
-to resolve the siblings.
-* **unchanged** - if if_modified was specified in the get request but the object
-has not been modified, this will be set to true
-
-The content entries hold the object value and any metadata
-
+The <tt>content</tt> entries hold the object value and any metadata. Below is the structure of a <tt>RpbContent</tt> message, which is included in GET/PUT responses (`RpbGetResp` (above) and `[[RpbPutResp|PBC Store Object]]`, respectively):
 
 ```protobuf
 // Content message included in get/put responses
@@ -112,31 +108,17 @@ message RpbPair {
 ```
 
 
-Links store references to related bucket/keys and can be accessed through link
-walking in MapReduce.
-
-
-```protobuf
-// Link metadata
-message RpbLink {
-    optional bytes bucket = 1;
-    optional bytes key = 2;
-    optional bytes tag = 3;
-}
-```
-
 <div class="note">
-<div class="title">Missing keys</div>
+<div class="title">Note on missing keys</div>
 Remember: if a key is not stored in Riak, an <tt>RpbGetResp</tt> response
-without content and vclock fields will be returned. This should be mapped to whatever convention the client language uses to return not found, e.g. the
-Erlang client returns an atom <tt>{error, notfound}</tt>.
+without the <tt>content</tt> and <tt>vclock</tt> fields will be returned. This should be mapped to whatever convention the client language uses to return not found. The Erlang client, for example, returns the atom <tt>{error, notfound}</tt>.
 </div>
 
 ## Example
 
 #### Request
 
-```bash
+```
 Hex      00 00 00 07 09 0A 01 62 12 01 6B
 Erlang <<0,0,0,7,9,10,1,98,18,1,107>>
 
@@ -147,7 +129,7 @@ key: "k"
 
 #### Response
 
-```bash
+```
 Hex      00 00 00 4A 0A 0A 26 0A 02 76 32 2A 16 33 53 44
          6C 66 34 49 4E 4B 7A 38 68 4E 64 68 79 49 6D 4B
          49 72 75 38 BB D7 A2 DE 04 40 E0 B9 06 12 1F 6B
