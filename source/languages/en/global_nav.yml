@@ -37,6 +37,13 @@ riak:
               - "[[PHP|Taste of Riak: Querying with PHP]]"
               - "[[Python|Taste of Riak: Querying with Python]]"
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
+          - title: Object Modeling
+            sub:
+              - "[[Introduction|Taste of Riak: Object Modeling]]"
+              - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
+              - "[[Java|Taste of Riak: Object Modeling with Java]]"
+              - "[[Python|Taste of Riak: Object Modeling with Python]]"
+              - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
       - title: "Querying Riak"
         sub:
           - "[[The Basics]]"
