@@ -36,9 +36,30 @@ tar -xvzf <riak-cs-os-x.tar.gz>
 
 Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are installing.
 
-### Installing Riak CS on Ubuntu
+### Installing Riak CS on Debian or Ubuntu
 
-The following command installs Riak CS on a machine running either Debian or Ubuntu:
+You can either install using apt *(recommended)*,
+
+First install the signing key
+
+```curl
+$ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+```
+
+Then add the Basho repository to your apt sources list (and update them).
+
+```
+sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
+sudo apt-get update
+```
+
+Now install Riak CS.
+
+```bash
+sudo apt-get install riak-cs
+```
+
+...or install the deb package manually.
 
 ```bash
 sudo dpkg -i <riak-cs-package.deb>
@@ -46,9 +67,26 @@ sudo dpkg -i <riak-cs-package.deb>
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
-### Installing Riak CS on CentOS
+### Installing Riak CS on RHEL or CentOS
 
-The following command installs Riak CS on a machine running CentOS:
+You can either install using yum *(recommended)*,
+
+For CentOS/RHEL 6
+
+```
+sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
+```
+
+For CentOS/RHEL 5
+```
+sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
+```
+
+```
+sudo yum install riak-cs
+```
+
+...or install the rpm package manually.
 
 ```bash
 rpm -Uvh <riak-cs-package.rpm>
@@ -82,19 +120,53 @@ Then, unpack the downloaded tarball:
 tar -xvzf <stanchion-os-x.tar.gz>
 ```
 
-### Installing Stanchion on Ubuntu
+### Installing Stanchion on Debian or Ubuntu
 
-The following command installs Stanchion on a machine running Ubuntu:
+You can either install using apt *(recommended)*,
+
+If the signing key and Apt repository have already been added, skip straight to the install.
+
+```curl
+$ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+```
+
+```
+sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
+sudo apt-get update
+```
 
 ```bash
-sudo dpkg -i <riak-cs-package.deb>
+sudo apt-get install stanchion
+```
+
+...or install the deb package manually.
+
+```bash
+sudo dpkg -i <stanchion-package.deb>
 ```
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
-### Installing Stanchion on CentOS
+### Installing Stanchion on RHEL or CentOS
 
-The following command installs Stanchion on a machine running either Red Hat linux or CentOS:
+You can either install using yum *(recommended)*,
+
+For CentOS/RHEL 6
+
+```
+sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
+```
+
+For CentOS/RHEL 5
+```
+sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
+```
+
+```
+sudo yum install stanchion
+```
+
+...or install the rpm package manually.
 
 ```bash
 sudo rpm -Uvh <stanchion-package.rpm>
