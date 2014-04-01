@@ -51,7 +51,7 @@ Parameter | Description
 All of the optional parameters below have default values determined on a
 per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
 
-Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt>w</tt>, <tt>pr</tt>, <tt>pw</tt>, and <tt>dw</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
+Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt>pr</tt>, and <tt>pw</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
 </div>
 
 `key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the requests's
