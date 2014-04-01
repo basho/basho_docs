@@ -9,7 +9,9 @@ keywords: [api, protocol-buffer, datatypes]
 group_by: "Object/Key Operations"
 ---
 
-A "union" type for update operations. The included operation depends on the Data Type that is being updated. `DtOp` messages are sent only as part of a `[[DtUpdateReq|PBC Data Type Store}]]` message.
+A "union" type for update operations.
+
+## Request
 
 ```protobuf
 message DtOp {
@@ -18,3 +20,5 @@ message DtOp {
     optional MapOp     map_op     = 3;
 }
 ```
+
+The included operation depends on the Data Type that is being updated. `DtOp` messages are sent only as part of a `[[DtUpdateReq|PBC Data Type Store}]]` message.

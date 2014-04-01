@@ -9,11 +9,9 @@ keywords: [api, protocol-buffer, datatypes]
 group_by: "Object/Key Operations"
 ---
 
-The equivalent of `[[RpbGetReq|PBC Fetch Object]]` for [[Riak Data Types|Using Data Types]]. This request results in a `DtFetchResp` message (explained in the **Response** section below). Request-time options are limited to those that are relevant to structured Riak Data Types.
+The equivalent of `[[RpbGetReq|PBC Fetch Object]]` for [[Riak Data Types|Using Data Types]]. This request results in a `DtFetchResp` message (explained in the **Response** section below).
 
 ## Request
-
-When fetching a Riak Data Types, you must specify the Data Type's location via `bucket`, `key`, and bucket type (`type`), as well as [[replication properties]] such as `r`, `n_val`, and `notfound_ok`, a `timeout` for the request, and whether or not the Data Type's opaque "context" should be included in the return message.
 
 ```protobuf
 message DtFetchReq {
@@ -62,9 +60,7 @@ Parameter | Description
 
 ## Response
 
-The response to a fetch request (`[[DtFetchReq|PBC Data Type Fetch Request]]`) is a `DtFetchResp` message. If the `include_context` option is specified, an opaque "context" value will be returned along with the user-readable data. When sending an update request, the client should send this context as well, just as one would send a [[vclock|Vector Clocks]] for standard KV updates.
-
-The `type` field indicates which value type to expect. When the `value` field is missing from the message, the client should interpret it as not found.
+The response to a fetch request (`[[DtFetchReq|PBC Data Type Fetch Request]]`) is a `DtFetchResp` message.
 
 ```protobuf
 message DtFetchResp {
@@ -80,7 +76,11 @@ message DtFetchResp {
 }
 ```
 
-The current value of the Data Type is contained in the `value` field, which contains a `DtValue` message, which will have the following structure:
+If the `include_context` option is specified, an opaque "context" value will be returned along with the user-readable data. When sending an update request, the client should send this context as well, just as one would send a [[vclock|Vector Clocks]] for standard KV updates.
+
+The type of the Data Type is specified in the `type` field, and must be one of the three possible values of the `DataType` enum (`COUNTER`, `SET`, or `MAP`).
+
+The current value of the Data Type is contained in the `value` field, which itself contains a `DtValue` message. This message will have the following structure:
 
 ```protobuf
 message DtValue {
@@ -102,6 +102,4 @@ message MapEntry {
     repeated MapEntry map_value      = 6;
 }
 ```
-
-
 

@@ -41,7 +41,7 @@ message MapField {
 }
 ```
 
-The `MapFieldType` specifies which type of field is being updated, and the `name` parameter specifies the name of that field.
+The `MapFieldType` specifies which type of field is being updated, and must be one of the possible values of the `MapFieldType` enum (either `COUNTER`, `SET`, `REGISTER`, `FLAG`, or `MAP`). The `name` parameter specifies the name of the field that will be updated.
 
 If you wish to update a map field, you can do so using a `MapUpdate` message, which has the following structure:
 

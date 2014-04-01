@@ -80,33 +80,38 @@ The <tt>content</tt> entries hold the object value and any metadata. Below is th
 ```protobuf
 message RpbContent {
     required bytes value = 1;
-    optional bytes content_type = 2;     // the media type/format
+    optional bytes content_type = 2;
     optional bytes charset = 3;
     optional bytes content_encoding = 4;
     optional bytes vtag = 5;
-    repeated RpbLink links = 6;          // links to other resources
+    repeated RpbLink links = 6;
     optional uint32 last_mod = 7;
     optional uint32 last_mod_usecs = 8;
-    repeated RpbPair usermeta = 9;       // user metadata stored with the object
+    repeated RpbPair usermeta = 9;
     repeated RpbPair indexes = 10;
     optional bool deleted = 11;
 }
 ```
 
-From the above, we can see that an `RpbContent` message will always contain the `value` of the object. 
+From the above, we can see that an `RpbContent` message will always contain the binary `value` of the object. But it could also contain any of the following optional parameters:
 
+* `content_type` --- The content type of the object, e.g. `text/plain` or `application/json`
+* `charset` --- The character encoding of the object, e.g. `utf-8`
+* `content_encoding` --- The content encoding of the object, e.g. `video/mp4`
+* `vtag` --- The object's [[vtag|Vector Clocks]]
+* `links` --- This parameter is associated with the now-deprecated link walking feature and should not be used by Riak clients.
+* `last_mod` | A timestamp for when the object was last modified, in [ISO 8601 time](http://en.wikipedia.org/wiki/ISO_8601)
+* `last_mod_usecs` | A timestamp for when the object was last modified, in [Unix time](http://en.wikipedia.org/wiki/Unix_time)
+* `usermeta` --- This field stores user-specified key/value metadata pairs to be associated with the object. `RpbPair` messages used to send metadata of this sort are structured like this:
 
-Each object can contain user-supplied metadata (`X-Riak-Meta-` in the HTTP
-interface) consisting of a key/value pair. (e.g. `key=X-Riak-Meta-ACLvalue=users:r,administrators:f` would allow an application to store access
-control information for it to enforce (*not* Riak)).
-
-```protobuf
-message RpbPair {
-    required bytes key = 1;
-    optional bytes value = 2;
-}
-```
-
+    ```protobuf
+    message RpbPair {
+        required bytes key = 1;
+        optional bytes value = 2;
+    }
+    ```
+    Notice that both a key and value can be stored or just a key. `RpbPair` messages are also used to attach [[secondary indexes|Using Secondary Indexes]] to objects (in the optional `indexes` field).
+* `deleted` | Whether the object has been deleted (i.e. whether a tombstone for the object has been found under the specified key)
 
 <div class="note">
 <div class="title">Note on missing keys</div>

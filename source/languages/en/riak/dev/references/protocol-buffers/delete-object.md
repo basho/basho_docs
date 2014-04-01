@@ -12,7 +12,7 @@ moved: {
 }
 ---
 
-Delete an object in the specified bucket type/bucket/key location (specified by `bucket`, `type`, and `key`, respectively). If the bucket type is not specified, the `default` bucket type will be used, as is the case for all messages sent to Riak that have the bucket type as an optional parameter.
+Delete an object in the specified [[bucket type|Using Bucket Types]]/bucket/key location.
 
 ## Request
 
@@ -34,7 +34,14 @@ message RpbDelReq {
 }
 ```
 
-## Optional Parameters
+#### Required Parameters
+
+Parameter | Description |
+:---------|:------------|
+`bucket` | The name of the bucket in which the object is stored
+`key` | The key under which the object is stored
+
+#### Optional Parameters
 
 <div class="note">
 <div class="title">Note on defaults and special values</div>
@@ -56,7 +63,7 @@ Parameter | Description |
 `vclock` | Opaque vector clock provided by an earlier `RpbGetResp` message Used to prevent deleting of objects that have been modified since the last GET request (sent as a byte array)
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 `n_val` | The number of nodes to which the delete request will be sent
-`type` | The [[bucket type|Using Bucket Types]] associated with the object. If not specified, Riak will use the `default` bucket type. 
+`type` | The [[bucket type|Using Bucket Types]] associated with the object. If the bucket type is not specified, the `default` bucket type will be used, as is the case for all messages sent to Riak that have the bucket type as an optional parameter.
 
 ## Response
 

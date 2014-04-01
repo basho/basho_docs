@@ -12,7 +12,7 @@ moved: {
 }
 ---
 
-Get the properties for a bucket. The bucket's name (`bucket`) must be specified as a binary. The [[bucket type|Using Bucket Types]] parameter (`type`) is optional. If it is not specified, the `default` bucket type will be used.
+Fetch a bucket's properties.
 
 ## Request
 
@@ -22,6 +22,8 @@ message RpbGetBucketReq {
     optional bytes type = 2;
 }
 ```
+
+The bucket's name (`bucket`) must be specified. The [[bucket type|Using Bucket Types]] parameter (`type`) is optional. If it is not specified, the `default` bucket type will be used.
 
 ## Response
 

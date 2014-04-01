@@ -60,26 +60,26 @@ Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `return_body` | Whether to return the contents of the now-stored object. Defaults to `false`.
 `pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted
-`if_not_modified` | When a vclock is supplied
-`if_none_match` | 
 `return_head` | Return the metadata for the now-stored object without returning the value of the object
 `timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
-`asis` | 
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 `n_val` | The number of nodes on which the value is to be stored
+
+The `if_not_modified`, `if_none_match`, and `asis` parameters are set only for messages sent between nodes in a Riak cluster and should not be set by Riak clients.
 
 #### Response
 
 ```bash
 message RpbPutResp {
     repeated RpbContent contents = 1;
-    optional bytes vclock = 2;        // the opaque vector clock for the object
-    optional bytes key = 3;           // the key generated, if any
+    optional bytes vclock = 2;
+    optional bytes key = 3;
 }
 ```
 
+If `return_body` is set to `true` on the PUT request, the `RpbPutResp` will contain the current object after the PUT completes, in `contents`, as well as the object's [[vector clock|Vector Clocks]], in the `vclock` field. The `key` will be sent only if the server generated a random key for the object.
 
-If `return_body` is set to `true` on the PUT request, the `RpbPutResp` will contain the current object after the PUT completes. The `key` parameter will be set only if the server generated a key for the object, but it will be set regardless of `return_body`. If `return_body` is not set and no key is generated, the PUT response is empty.
+If `return_body` is not set and no key is generated, the PUT response will be empty.
 
 ## Example
 
