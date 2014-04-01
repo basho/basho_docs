@@ -878,7 +878,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <tr>
 <td><tt>erlang.distribution_buffer_size</tt></td>
 <td>For nodes with many <tt>busy_dist_port</tt> events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. Erlangers may know this as <tt>+zdbbl</tt>. See more <a href="http://www.erlang.org/doc/man/erl.html#%2bzdbbl">here</a>.</td>
-<td><tt>1024</tt></td>
+<td><tt>32MB</tt></td>
 </tr>
 
 <tr>
