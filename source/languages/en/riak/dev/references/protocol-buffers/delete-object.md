@@ -52,8 +52,11 @@ Parameter | Description |
 `pr` | Primary read quorum, i.e. how many primary replicas need to be available when retrieving the object
 `pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
+`timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
 `vclock` | Opaque vector clock provided by an earlier `RpbGetResp` message Used to prevent deleting of objects that have been modified since the last GET request (sent as a byte array)
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
+`n_val` | The number of nodes to which the delete request will be sent
+`type` | The [[bucket type|Using Bucket Types]] associated with the object. If not specified, Riak will use the `default` bucket type. 
 
 ## Response
 

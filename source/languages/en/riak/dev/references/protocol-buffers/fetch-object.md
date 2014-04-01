@@ -52,7 +52,7 @@ Parameter | Description |
 `if_modified` | When a vclock is supplied as this option, the response will only return the object if the vclocks don't match
 `head` | If set to `true`, Riak will return the object with the value(s) set as empty, which allows you to get the metadata without a potentially large value accompanying it
 `deletedvclock` | If set to `true`, Riak will return the tombstone's vclock, if applicable
-`timeout` | 
+`timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 
 ## Response

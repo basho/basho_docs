@@ -12,8 +12,7 @@ moved: {
 }
 ---
 
-Stores an object under the specified bucket/key. Storing an object comes in two forms, depending on whether you want to use a key of your choosing or let
-Riak assign a key to a new object.
+Stores an object under the specified location. A bucket must always be specified (via `bucket`). If no key is specified, Riak will assign a random key to the object. If no [[bucket type|Using Bucket Types]] is assigned, Riak will use the `default` bucket type.
 
 #### Request
 
@@ -33,14 +32,17 @@ message RpbPutReq {
 }
 ```
 
+#### Required Parameters
 
-Required Parameters
+Parameter | Description
+:---------|:-----------
+`bucket` | The name of the bucket, in bytes, in which the key/value is to reside
+`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp`
 
-* **bucket** - bucket key resides in
 * **content** - new/updated content for object - uses the same RpbContent
 message RpbGetResp returns data in and consists of metadata and a value.
 
-Optional Parameters
+#### Optional Parameters
 
 * **key** - key to create/update. If this is not specified the server will
 generate one.
