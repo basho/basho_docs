@@ -60,7 +60,7 @@ Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `return_body` | Whether to return the contents of the now-stored object. Defaults to `false`.
 `pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted
-`if_not_modified` | <!-- When a vclock is supplied as this option, the response will only return the object if the vclocks don't match -->
+`if_not_modified` | When a vclock is supplied
 `if_none_match` | 
 `return_head` | Return the metadata for the now-stored object without returning the value of the object
 `timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
@@ -68,34 +68,7 @@ Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 `n_val` | The number of nodes on which the value is to be stored
 
-
-
-* **w** - (write quorum) how many replicas to write to before
-returning a successful response; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **dw** - how many replicas to commit to durable storage before
-returning a successful response; possible values include a special
-number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
-(4294967295-3), 'default' (4294967295-4), or any integer <= N
-([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **return_body** - whether to return the contents of the stored object.
-Defaults to false.
-* **pw** - how many primary nodes must be up when the write is
- attempted; possible values include a special number to denote 'one'
- (4294967295-1), 'quorum' (4294967295-2), 'all' (4294967295-3),
- 'default' (4294967295-4), or any integer <= N
- ([[default is defined per the bucket|PBC API#Set Bucket Properties]])
-* **if_not_modified** - update the value only if the vclock in the supplied
-object matches the one in the database
-* **if_none_match** - store the value only if this bucket/key combination are
-not already defined
-* **return_head** - like *return_body" except that the value(s) in the object
-are blank to avoid returning potentially large value(s)
-
 #### Response
-
 
 ```bash
 message RpbPutResp {
@@ -106,21 +79,13 @@ message RpbPutResp {
 ```
 
 
-If returnbody is set to true on the put request, the RpbPutResp will contain the
-current object after the put completes. The key parameter will be set only if
-the server generated a key for the object but it will be set regardless of
-returnbody. If returnbody is not set and no key is generated, the put response
-is empty.
+If `return_body` is set to `true` on the PUT request, the `RpbPutResp` will contain the current object after the PUT completes. The `key` parameter will be set only if the server generated a key for the object, but it will be set regardless of `return_body`. If `return_body` is not set and no key is generated, the PUT response is empty.
 
+## Example
 
-<div class="note"><p>N.B. this could contain siblings just like an RpbGetResp does.</p></div>
+#### Request
 
-
-#### Example
-
-Request
-
-```bash
+```
 Hex      00 00 00 1C 0B 0A 01 62 12 01 6B 22 0F 0A 0D 7B
          22 66 6F 6F 22 3A 22 62 61 72 22 7D 28 02 38 01
 Erlang <<0,0,0,28,11,10,1,98,18,1,107,34,15,10,13,123,34,102,111,111,34,58,34,
@@ -137,10 +102,9 @@ return_body: true
 
 ```
 
+#### Response
 
-Response
-
-```bash
+```
 Hex      00 00 00 62 0C 0A 31 0A 0D 7B 22 66 6F 6F 22 3A
          22 62 61 72 22 7D 2A 16 31 63 61 79 6B 4F 44 39
          36 69 4E 41 68 6F 6D 79 65 56 6A 4F 59 43 38 AF

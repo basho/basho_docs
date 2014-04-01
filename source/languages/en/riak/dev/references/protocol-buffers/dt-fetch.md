@@ -17,12 +17,9 @@ When fetching a Riak Data Types, you must specify the Data Type's location via `
 
 ```protobuf
 message DtFetchReq {
-    // The identifier: bucket, key, and bucket type
     required bytes bucket = 1;
     required bytes key    = 2;
     required bytes type  = 3;
-
-    // Request options
     optional uint32 r             =  4;
     optional uint32 pr            =  5;
     optional bool   basic_quorum  =  6;
@@ -30,12 +27,38 @@ message DtFetchReq {
     optional uint32 timeout       =  8;
     optional bool   sloppy_quorum =  9;
     optional uint32 n_val         = 10;
-
-    // For read-only requests or context-free operations, you can set
-    // this to false to reduce the size of the response payload.
     optional bool include_context = 11 [default=true];
 }
 ```
+
+#### Required Parameters
+
+Parameter | Description
+:---------|:-----------
+`bucket` | The name of the bucket in which the Data Type is stored
+`key` | The key where the Data Type is stored
+`type` | The [[bucket type|Using Bucket Types]] of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map)
+
+#### Optional Parameters
+
+<div class="note">
+<div class="title">Note on defaults and special values</div>
+All of the optional parameters below have default values determined on a
+per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+
+Furthermore, you can assign an integer value to the <tt>r</tt> and <tt>pr</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
+</div>
+
+Parameter | Description
+:---------|:-----------
+`r` | Read quorum, i.e. how many replicas need to agree when retrieving the object
+`pr` | Primary read quorum, i.e. how many primary replicas need to be available when retrieving the object
+`basic_quorum` | Whether to return early in some failure cases, e.g. when `r=1` and you get 2 errors and a success basic_quorum=true would return an error
+`notfound_ok` | Whether to treat `not found` responses as successful reads for the purposes of R
+`timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
+`sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
+`n_val` | The number of nodes to which the delete request will be sent
+`include_context` | If `return_body` is set to `true`, the Data Type's opaque "context" will be returned to the client when the `DtUpdateResp` is sent to the client.
 
 ## Response
 

@@ -78,7 +78,6 @@ has not been modified, this will be set to `true`
 The <tt>content</tt> entries hold the object value and any metadata. Below is the structure of a <tt>RpbContent</tt> message, which is included in GET/PUT responses (`RpbGetResp` (above) and `[[RpbPutResp|PBC Store Object]]`, respectively):
 
 ```protobuf
-// Content message included in get/put responses
 message RpbContent {
     required bytes value = 1;
     optional bytes content_type = 2;     // the media type/format
@@ -94,13 +93,14 @@ message RpbContent {
 }
 ```
 
+From the above, we can see that an `RpbContent` message will always contain the `value` of the object. 
+
 
 Each object can contain user-supplied metadata (`X-Riak-Meta-` in the HTTP
 interface) consisting of a key/value pair. (e.g. `key=X-Riak-Meta-ACLvalue=users:r,administrators:f` would allow an application to store access
 control information for it to enforce (*not* Riak)).
 
 ```protobuf
-// Key/value pair - used for user metadata
 message RpbPair {
     required bytes key = 1;
     optional bytes value = 2;

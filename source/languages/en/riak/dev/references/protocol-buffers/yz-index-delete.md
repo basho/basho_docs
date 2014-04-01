@@ -9,12 +9,14 @@ keywords: [api, protocol-buffer, yokozuna, search]
 group_by: "Object/Key Operations"
 ---
 
-Delete a search index
+Delete a search index.
 
 ## Request
 
+The `name` parameter is the name of the index to delete as a binary.
+
 ```protobuf
 message RpbYokozunaIndexDeleteReq {
-    required bytes name  =  1;  // Index name
+    required bytes name  =  1;
 }
 ```

@@ -64,7 +64,7 @@ Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, and
 
 Parameter | Description
 :---------|:-----------
-`key` | The binary key where the Data Type is stored. If not specified, Riak will assign a random key and return that key to the client is `return_body` is set to `true`.
+`key` | The key where the Data Type is stored. If not specified, Riak will assign a random key and return that key to the client is `return_body` is set to `true`.
 `context` | The opaque binary "context" that informs Riak which version of a Data Type the client has seen, analogous to a [[vclock|Vector Clocks]]
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
