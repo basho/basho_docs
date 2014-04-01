@@ -9,7 +9,7 @@ keywords: [api, protocol-buffer, yokozuna, search]
 group_by: "Object/Key Operations"
 ---
 
-Create a new index or modify an existing index
+Create a new index or modify an existing index.
 
 ## Request
 
@@ -18,3 +18,5 @@ message RpbYokozunaIndexPutReq {
     required RpbYokozunaIndex index  =  1;
 }
 ```
+
+Each message must contain a `RpbYokozunaIndex` message providing information about the index being stored. More on that message type can be found in [[PBC Yokozuna Index Get]].

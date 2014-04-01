@@ -13,7 +13,7 @@ Delete a search index.
 
 ## Request
 
-The `name` parameter is the name of the index to delete as a binary.
+The `name` parameter is the name of the index to delete, as a binary.
 
 ```protobuf
 message RpbYokozunaIndexDeleteReq {

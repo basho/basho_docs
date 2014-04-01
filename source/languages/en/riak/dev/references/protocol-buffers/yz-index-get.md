@@ -31,14 +31,4 @@ message RpbYokozunaIndexGetResp {
 }
 ```
 
-This message will contain any number of `RpbYokozunaIndex` messages, depending on how many indexes are returned. Those messages are structured like this:
-
-```protobuf
-message RpbYokozunaIndex {
-    required bytes name   =  1;
-    optional bytes schema =  2;
-    optional uint32 n_val =  3;
-}
-```
-
-Each message will include the name of the index (`name`), the schema (`schema`), and the `n_val`, i.e. the number of replicas returned.
+This message will contain any number of `RpbYokozunaIndex` messages, depending on how many indexes are returned. More on this message type can be found in [[PBC Yokozuna Index Query]].
