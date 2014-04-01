@@ -110,35 +110,28 @@ and IOPS.
 
 ## Cluster Recovery From Backups
 The general procedure for recovering a cluster from catastrophic failure
-involves installation of Riak on the new nodes to establish a cluster with
-the same number of nodes, restoration of the original configuration, and
-restoration of previous data.
+involves:
 
-Specifically, you should follow this basic process, ensuring that Riak
-is **not started** on any node during steps 1-7:
+- Installation of Riak on new nodes to establish a cluster with
+the same number of nodes as the cluster where backups were taken.
+- Restoration of the original configuration from the backed up cluster.
+- Restoration of previous data from the backed up cluster.
+
+You should follow the below process, ensuring that Riak is **not started** on any node during steps 1-5.
+
+<div class="note"><div class="title">Note</div>
+If you are restoring in an environment where the new nodes will have new network addresses (such as with AWS for example) or you will otherwise need to give the nodes new names, you will need to rename the nodes in the cluster.  After performing steps 1-5, use the instructions in the [[Renaming Nodes]] document to finish restoring this cluster.
+</div>
 
 1. Establish replacement cluster configured with the same number of nodes.
 2. Restore the Riak configuration to each of the nodes.
 3. Ensure that Riak is not running on any of the nodes.
 4. Remove any previous Riak data (e.g., from `/var/lib/riak`) to ensure that
-   the node is not started with no data present.
-5. Restore the backup data to each node's data root (e.g, `/var/lib/riak`)
-6. If you are restoring in an environment where the new nodes will have new
-   network addresses (such as with AWS for example) or you will otherwise
-   need to give the nodes new names, you need to execute `riak-admin reip`
-   to change the network name for every node in the cluster from each node.
-7. After renaming the nodes with `riak-admin reip` if necessary, you should
-   check the `vm.args` configuration file to ensure that each node has the
-   updated name.
-8. Start the first node and check that its name is correct; one way to do
-   this is to start the node, then attach to the node with `riak attach`.
-   You should see the node name as part of the prompt as in the example
-   below. Once you've verified the correct node name, exit the console
-   with CTRL-D.
-9. Execute `riak-admin member-status` on the node and verify that it
-   returns expected output.
-10. Start each of the remaining nodes, verifying the details in the same
-    manner as the first node.
+   the node is not started with data present.
+5. Restore the backup data to each node's data root (e.g, `/var/lib/riak`).
+6. Start the first node with `riak start`.
+7. Execute `riak-admin member-status` on the node and verify that it returns expected output.
+8. Start each of the remaining nodes, verifying the details in the same manner as the first node.
 
 <div class="info"><div class="title">Tip</div> If you are a licensed Riak Enterprise or CS customer and require assistance or further advice with a cluster recovery, please file a ticket with the <a href="https://help.basho.com">Basho Helpdesk</a>.
 </div>
