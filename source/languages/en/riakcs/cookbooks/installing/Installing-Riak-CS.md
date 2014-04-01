@@ -38,28 +38,32 @@ Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are
 
 ### Installing Riak CS on Debian or Ubuntu
 
-You can either install using apt *(recommended)*,
+On Debian or Ubuntu, you can either use `apt` or install the `.deb` package manually.
 
-First install the signing key
+#### Installing Using `apt` (recommended)
+
+First, install the signing key:
 
 ```curl
-$ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 ```
 
-Then add the Basho repository to your apt sources list (and update them).
+Then, add the Basho repository to your `apt` sources list (and update them):
 
-```
+```bash
 sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
 sudo apt-get update
 ```
 
-Now install Riak CS.
+Now, install Riak CS:
 
 ```bash
 sudo apt-get install riak-cs
 ```
 
-...or install the deb package manually.
+#### Installing the `.deb` Package Manually (not recommended)
+
+To install manually, use `dpkg`:
 
 ```bash
 sudo dpkg -i <riak-cs-package.deb>
@@ -69,24 +73,29 @@ Replace `<riak-cs-package.deb>` with the actual filename for the package you are
 
 ### Installing Riak CS on RHEL or CentOS
 
-You can either install using yum *(recommended)*,
+On RHEL or CentOS, you can either use `yum` or install the `.rpm` package manually.
 
-For CentOS/RHEL 6
+#### Installing Using `yum` (recommended)
 
-```
+For CentOS/RHEL 6:
+
+```bash
 sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
 ```
 
-For CentOS/RHEL 5
-```
+For CentOS/RHEL 5:
+
+```bash
 sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
 ```
 
-```
+Once the `.rpm` package has been installed, install Riak CS:
+
+```bash
 sudo yum install riak-cs
 ```
 
-...or install the rpm package manually.
+### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
 rpm -Uvh <riak-cs-package.rpm>
@@ -122,24 +131,30 @@ tar -xvzf <stanchion-os-x.tar.gz>
 
 ### Installing Stanchion on Debian or Ubuntu
 
-You can either install using apt *(recommended)*,
+On Debian or Ubuntu, you can either use `apt` or install the `.deb` package manually.
 
-If the signing key and Apt repository have already been added, skip straight to the install.
+#### Installing Using `apt` (recommended)
+
+First, install the signing key:
 
 ```curl
-$ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 ```
 
-```
+If the signing key and `apt` repository have already been added, add the Basho repository to your `apt` sources list (and update them):
+
+```bash
 sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
 sudo apt-get update
 ```
+
+Now, install Riak CS:
 
 ```bash
 sudo apt-get install stanchion
 ```
 
-...or install the deb package manually.
+#### Installing the `.deb` Package Manually (not recommended)
 
 ```bash
 sudo dpkg -i <stanchion-package.deb>
@@ -149,24 +164,29 @@ Replace `<riak-cs-package.deb>` with the actual filename for the package you are
 
 ### Installing Stanchion on RHEL or CentOS
 
-You can either install using yum *(recommended)*,
+On RHEL or CentOS, you can either use `yum` or install the `.rpm` package manually.
 
-For CentOS/RHEL 6
+#### Installing Using `yum` (recommended)
 
-```
+For CentOS/RHEL 6:
+
+```bash
 sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
 ```
 
-For CentOS/RHEL 5
+For CentOS/RHEL 5:
+
 ```
 sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
 ```
 
-```
+Once the `.rpm` package has been installed, install Stanchion:
+
+```basho
 sudo yum install stanchion
 ```
 
-...or install the rpm package manually.
+### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
 sudo rpm -Uvh <stanchion-package.rpm>
@@ -177,7 +197,9 @@ Replace `<stanchion-package.rpm>` with the actual filename for the package you a
 <div class="note"><div class="title">Note</div>CentOS enables Security-Enhanced Linux (SELinux) by default. If you encounter errors during installation, try disabling SELinux.</div>
 
 ## Installing Riak
+
 If you have not yet installed Riak, follow the [[Riak Installation|Installing and Upgrading]] documentation to do so.
 
 ## What's Next?
+
 Once you've completed installation of Riak CS and Riak, you're ready to learn more about [[Configuring Riak CS]].
