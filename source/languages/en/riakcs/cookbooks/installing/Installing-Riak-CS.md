@@ -95,7 +95,7 @@ Once the `.rpm` package has been installed, install Riak CS:
 sudo yum install riak-cs
 ```
 
-### Installing the `.rpm` Package Manually (not recommended)
+#### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
 rpm -Uvh <riak-cs-package.rpm>
@@ -186,7 +186,7 @@ Once the `.rpm` package has been installed, install Stanchion:
 sudo yum install stanchion
 ```
 
-### Installing the `.rpm` Package Manually (not recommended)
+#### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
 sudo rpm -Uvh <stanchion-package.rpm>
