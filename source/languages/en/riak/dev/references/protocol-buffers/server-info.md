@@ -12,12 +12,13 @@ moved: {
 }
 ---
 
+A message from Riak that contains two pieces of information about the server: the name of the node and the version of Riak in use on that node.
+
 ## Request
 
-Just the RpbGetServerInfoReq message code. No request message defined.
+A request consists only of the `RpbGetServerInfoReq` message code. No request message is defined.
 
 ## Response
-
 
 ```protobuf
 message RpbGetServerInfoResp {
@@ -28,7 +29,7 @@ message RpbGetServerInfoResp {
 
 ## Example
 
-Request
+#### Request
 
 ```bash
 Hex      00 00 00 01 07
@@ -37,8 +38,7 @@ Erlang <<0,0,0,1,7>>
 RpbGetServerInfoReq - only message code defined
 ```
 
-
-Response
+#### Response
 
 ```bash
 Hex      00 00 00 17 08 0A 0E 72 69 61 6B 40 31 32 37 2E

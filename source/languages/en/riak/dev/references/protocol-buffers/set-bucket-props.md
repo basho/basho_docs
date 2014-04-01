@@ -12,9 +12,7 @@ moved: {
 }
 ---
 
-Sets the properties for a bucket. You must specify the name of the bucket (`bucket`) and include an `RpbBucketProps` message. More on that message type can be found in the [[PBC Get Bucket Properties]] documentation.
-
-You can also specify a [[bucket type|Using Bucket Types]] using the `type` value. If you do not specify a bucket type, the `default` bucket type will be used by Riak.
+Sets the properties for a bucket.
 
 ## Request
 
@@ -26,6 +24,10 @@ message RpbSetBucketReq {
 }
 ```
 
+You must specify the name of the bucket (`bucket`) and include an `RpbBucketProps` message. More on that message type can be found in the [[PBC Get Bucket Properties]] documentation.
+
+You can also specify a [[bucket type|Using Bucket Types]] using the `type` value. If you do not specify a bucket type, the `default` bucket type will be used by Riak.
+
 ## Response
 
 Only the message code is returned.
@@ -34,7 +36,7 @@ Only the message code is returned.
 
 Change `allow_mult` to true for the bucket `friends`:
 
-Request
+#### Request
 
 ```bash
 Hex      00 00 00 0E 15 0A 07 66 72 69 65 6E 64 73 12 02
@@ -49,7 +51,7 @@ props {
 
 ```
 
-Response
+#### Response
 
 ```bash
 Hex      00 00 00 01 16
