@@ -28,7 +28,12 @@ message RpbPutReq {
     optional uint32 pw = 8;
     optional bool if_not_modified = 9;
     optional bool if_none_match = 10;
-    optional bool return_head = 11;%
+    optional bool return_head = 11;
+    optional uint32 timeout = 12;
+    optional bool asis = 13;
+    optional bool sloppy_quorum = 14;
+    optional uint32 n_val = 15;
+    optional bytes type = 16;
 }
 ```
 
@@ -37,17 +42,34 @@ message RpbPutReq {
 Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket, in bytes, in which the key/value is to reside
-`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp`
-
-* **content** - new/updated content for object - uses the same RpbContent
-message RpbGetResp returns data in and consists of metadata and a value.
+`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [[PBC Fetch Object]]
 
 #### Optional Parameters
 
-* **key** - key to create/update. If this is not specified the server will
-generate one.
-* **vclock** - opaque vector clock provided by an earlier RpbGetResp message.
-Omit if this is a new key or you deliberately want to create a sibling
+<div class="note">
+<div class="title">Note on defaults and special values</div>
+All of the optional parameters below have default values determined on a
+per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+
+Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt>w</tt>, <tt>pr</tt>, <tt>pw</tt>, and <tt>dw</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
+</div>
+
+`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the requests's
+`vclock` | Opaque vector clock provided by an earlier `[[RpbGetResp|PBC Fetch Object]]` message. Omit if this is a new key or if you deliberately want to create a sibling.
+`w` | Write quorum, i.e. how many replicas to write to before returning a successful response
+`dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
+`return_body` | Whether to return the contents of the now-stored object. Defaults to `false`.
+`pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted
+`if_not_modified` | <!-- When a vclock is supplied as this option, the response will only return the object if the vclocks don't match -->
+`if_none_match` | 
+`return_head` | Return the metadata for the now-stored object without returning the value of the object
+`timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
+`asis` | 
+`sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
+`n_val` | The number of nodes on which the value is to be stored
+
+
+
 * **w** - (write quorum) how many replicas to write to before
 returning a successful response; possible values include a special
 number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
