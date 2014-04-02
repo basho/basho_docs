@@ -186,7 +186,7 @@ All of these projects and libraries are at various stages of completeness and ma
 
 *Dart*
 
-* [[riak-dart|http://code.google.com/p/riak-dart/]] - HTTP client for Riak written in Dart.
+* [[riak-dart|https://github.com/agilord/riak_dart_client]] - HTTP client for Riak written in Dart.
 
 *Django*
 

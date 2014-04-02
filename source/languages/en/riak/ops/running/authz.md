@@ -105,13 +105,22 @@ Riak security enables you to control _authorization_ by creating, modifying, and
 
 You may also assign users characteristics beyond those listed above---e.g., listing email addresses or other information---but those values will carry no special significance for Riak.
 
-### Retrieve a Current User List
+**Note**: The `username` is the one user characteristic that cannot be changed once a user has been created.
+
+### Retrieve a Current User or Group List
 
 A list of currently existing users can be accessed at any time:
 
 ```bash
 riak-admin security print-users
 ```
+
+Same for groups:
+
+```bash
+riak-admin security print-groups
+```
+
 
 Example output, assuming one user with an assigned password:
 
@@ -137,12 +146,16 @@ of `lucius`, the output would look like this:
 ```
 
 If you'd like to see which permissions have been assigned to
-`riakuser`, you would need to use the `print-user` command, detailed
+`riakuser`, you would need to use the `print-grants` command, detailed
 below.
 
-### Retrieving Information About a Single User
+`security print-user` or `security-print-group` (singular) can be used
+with a name as argument to see the same information as above, except
+for only that user or group.
 
-You can retrieve authorization information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
+### Permissions Grants For a Single User or Group
+
+You can retrieve authorization information about a specific user or group using the `print-grants` command, which takes the form of `riak-admin security print-grants <username>`.
 
 The output will look like this if the user `riakuser` has been
 explicitly granted a `riak_kv.get` permission on the bucket
@@ -150,7 +163,7 @@ explicitly granted a `riak_kv.get` permission on the bucket
 group:
 
 ```bash
-Inherited permissions
+Inherited permissions (user/riakuser)
 
 +--------+----------+----------+----------------------------------------+
 | group  |   type   |  bucket  |                 grants                 |
@@ -159,7 +172,7 @@ Inherited permissions
 |        |          |          |              riak_kv.put               |
 +--------+----------+----------+----------------------------------------+
 
-Dedicated permissions (riakuser)
+Dedicated permissions (user/riakuser)
 
 +----------+-------------+----------------------------------------+
 |   type   |   bucket    |                 grants                 |
@@ -167,7 +180,7 @@ Dedicated permissions (riakuser)
 |   ANY    |shopping_list|               riak_kv.get              |
 +----------+-------------+----------------------------------------+
 
-Cumulative permissions (riakuser)
+Cumulative permissions (user/riakuser)
 
 +----------+-------------+----------------------------------------+
 |   type   |   bucket    |                 grants                 |
@@ -179,6 +192,12 @@ Cumulative permissions (riakuser)
 ```
 
 **Note**: The term `admin` is not a reserved term in Riak security. It is used here only for illustrative purposes.
+
+Because the same name can represent both a user and a group, a prefix
+(`user/` or `group/`) can be used before the name (e.g., `print-grants
+user/admin`). If a name collides and no prefix is supplied, grants for
+both will be listed separately.
+
 
 ### Add Group
 
@@ -316,10 +335,12 @@ riak-admin security revoke <permissions> ON <bucket-type> FROM all|{<user>|<grou
 riak-admin security revoke <permissions> ON <bucket-type> <bucket> FROM all|{<user>|<group>[,...]}
 ```
 
-In each case, `ANY` represents all bucket types and all buckets with
-them, `all` indicates that all users and groups should receive (or
-lose) the indicated permissions, and any number of users or groups may
-be listed, comma-separated, with no whitespace.
+If you select `ANY`, this means that the permission (or set of permissions) is
+granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
+
+**Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
+
+Selecting `all` grants or revokes a permission (or set of permissions) for all users in all groups. When specifying the user(s)/group(s) to which you want to apply a permission (or set of permissions), you may list any number of users or groups comma-separated with no whitespace, e.g.:
 
 Here is an example of granting multiple permissions across all buckets
 and bucket types to multiple users:
@@ -327,6 +348,10 @@ and bucket types to multiple users:
 ```bash
 riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
 ```
+
+If the same name is used for both a user and a group, the `grant`
+command will ask for the name to be prefixed with `user/` or `group/`
+to disambiguate.
 
 ### Key/Value Permissions
 

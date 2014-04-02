@@ -383,7 +383,6 @@ em {
 blockquote {
   @extend .serif-italic;
   @include allCorners();
-  @include boxShadow(inset 0 2px 3px lighten($orange, 25%));
   margin     : 2em 40px;
   background : lighten($orange, 30%);
   border     : 1px solid lighten($orange, 15%);
@@ -1737,9 +1736,11 @@ div[role=main] {
   }
 
   table.riak-conf {
+    width: 799px;
+    max-width: 799px;
     td:nth-of-type(1) {
       overflow-wrap:break-word;
-      max-width: 275px;
+      max-width: 300px;
     }
     td:nth-of-type(2) {
       overflow-wrap:break-word;
@@ -1747,7 +1748,24 @@ div[role=main] {
     }
     td:nth-of-type(3) {
       overflow-wrap:break-word;
-      max-width: 125px;
+      width: 100px;
+    }
+  }
+
+  table.schemausecase {
+    font-size:80%;
+    th {
+      color:#3a5752;
+      padding: 3px 5px;
+    }
+    td {
+      padding: 3px 5px;
+      a {
+        vertical-align: super;
+        font-size:80%;
+        color:$darkOrange;
+        padding-left:3px;
+      }
     }
   }
 }

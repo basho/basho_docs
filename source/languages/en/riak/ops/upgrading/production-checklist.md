@@ -14,8 +14,7 @@ Making the transition from running Riak in a development or testing environment 
 
 * Are all systems in your cluster as close to identical as possible in terms of both hardware and software?
 * Have you set appropriate [[open files limits|Open Files Limit]] on all of your systems?
-* Have you applied the [[Linux tuning recommendations|Linux Performance Tuning]]?
-* Have you applied the [[filesystem scheduler recommendations|File System Tuning]]?
+* Have you applied the [[System tuning recommendations|System Performance Tuning]]?
 
 ## Network
 

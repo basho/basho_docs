@@ -65,9 +65,9 @@ This mixed approach is still possible, except that strong consistency has been i
 
 ## How Riak Implements Strong Consistency
 
-Strong consistency in Riak is handled by a subsystem called `[riak_ensemble](https://github.com/basho/riak_ensemble)`. When this subsystem is enabled---more on that in the [[Using Strong Consistency|Using Strong Consistency#Enabling-Strong-Consistency]] doc---all operations performed on strongly consistent are placed on a special code path that is separate from the path that handles eventually consistent data.
+Strong consistency in Riak is handled by a subsystem called [`riak_ensemble`](https://github.com/basho/riak_ensemble). When this subsystem is enabled---more on that in the [[Using Strong Consistency|Using Strong Consistency#Enabling-Strong-Consistency]] doc---all operations performed on strongly consistent are placed on a special code path that is separate from the path that handles eventually consistent data.
 
-There are many conceivable ways of implementing strong consistency. Riak's approach involves the use of **[dotted version vectors](http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf)** (DVVs), which are attached as metadata to every object stored in strongly consistent buckets. DVVs are similar to [[vclocks]] in that they record logical rather than chronological causality (which makes them very different from timestamps). DVVs are used by Riak to ensure **recency**, i.e. that any read will see the most recent successful write.
+There are many conceivable ways of implementing strong consistency. Riak's approach involves the use of **[dotted version vectors](http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf)** (DVVs), which are attached as metadata to every object stored in strongly consistent buckets. DVVs are similar to [[vector clocks]] in that they record logical rather than chronological causality (which makes them very different from timestamps). DVVs are used by Riak to ensure **recency**, i.e. that any read will see the most recent successful write.
 
 This can be illustrated using the following hypothetical scenario:
 
@@ -84,7 +84,7 @@ An important thing to note here is that only successful writes are guaranteed to
 
 So what happens when values conflict, whether due to concurrent or partial writes or a node coming back into the network or some other reason? We can illustrate this with another hypothetical scenario:
 
-* A client reads a key from a strongly consistent bucket. That key stores conlicting values in different nodes, A in one node and B in the other.
+* A client reads a key from a strongly consistent bucket. That key stores conflicting values in different nodes, A in one node and B in the other.
 * On the basis of DVVs, either value A or B will be deemed logically "older" than the other. If A is selected as being logically older, it will "win" over B.
 * All other nodes will be notified that A is the correct value.
 

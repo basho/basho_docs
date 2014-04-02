@@ -286,37 +286,37 @@ Let's say that you'd like to create a bucket type called `user_account_bucket` w
 
 1. Creating a JavaScript object containing the appropriate `props` settings:
 
-```json
-{
-  "props": {
-    "precommit": ["syntax_check"],
-    "postcommit": ["welcome_email", "update_registry"]
-  }
-}
-```
+    ```json
+    {
+      "props": {
+        "precommit": ["syntax_check"],
+        "postcommit": ["welcome_email", "update_registry"]
+      }
+    }
+    ```
 
 2. Passing that JSON to the `bucket-type create` command:
 
-```bash
-riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ["syntax_check"], ... }}'
-```
+    ```bash
+    riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ["syntax_check"], ... }}'
+    ```
 
-If creation is successful, the console will return `user_account_bucket created`.
+    If creation is successful, the console will return `user_account_bucket created`.
 
 3. Verifying that the type is ready to be activated:
 
-Once the type is created, you can check whether your new type is ready to be activated by running:
+    Once the type is created, you can check whether your new type is ready to be activated by running:
 
-```bash
-riak-admin bucket-type status user_account_bucket
-```
+    ```bash
+    riak-admin bucket-type status user_account_bucket
+    ```
 
-If the first line reads `user_account_bucket has been created and may be activated`, then you can proceed to the next step. If it reads `user_account_bucket has been created and is not ready to activate`, then wait a moment and try again. If it still does not work, then there may be network partition or other issues that need to be addressed in your cluster.
+    If the first line reads `user_account_bucket has been created and may be activated`, then you can proceed to the next step. If it reads `user_account_bucket has been created and is not ready to activate`, then wait a moment and try again. If it still does not work, then there may be network partition or other issues that need to be addressed in your cluster.
 
 4. Activating the new bucket type:
 
-```bash
-riak-admin bucket-type activate user_account_bucket
-```
+    ```bash
+    riak-admin bucket-type activate user_account_bucket
+    ```
 
-If activation is successful, the console will return `user_account_bucket has been activated`. The bucket type is now fully ready to be used.
+    If activation is successful, the console will return `user_account_bucket has been activated`. The bucket type is now fully ready to be used.

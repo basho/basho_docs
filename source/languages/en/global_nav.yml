@@ -75,6 +75,7 @@ riak:
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
           - "[[Strong Consistency|Using Strong Consistency]]"
+          - "[[Cluster Metadata]]"
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
@@ -117,8 +118,7 @@ riak:
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
-          - "[[File System Tuning]]"
-          - "[[Linux Performance Tuning]]"
+          - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
       - title: "Running a Cluster"
         sub:
@@ -141,6 +141,8 @@ riak:
               - "[[Recovering a Failed Node]]"
               - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
+              - "[[Repairing LevelDB]]"
+              - "[[Rolling Restart]]"
               - "[[Common Errors]]"
       - title: "Advanced"
         sub:
@@ -165,6 +167,7 @@ riak:
         sub:
           - "[[Production Checklist]]"
           - "[[Rolling Upgrades]]"
+          - "[[Rolling Downgrades]]"
 
 
   - title: "Theory & Concepts"
