@@ -436,7 +436,7 @@ While user management enables you to control _authorization_ with regard to user
 
 ### Add Source
 
-Riak security sources may be applied to all users/groups or only to a specific user.
+Riak security sources may be applied to all users (`all`) or only to a specific user.
 
 #### Available Sources
 
@@ -449,7 +449,7 @@ Source   | Description |
 
 ### Example: Adding a Trusted Source
 
-Security sources can be added either to specific users/groups or to all users.
+Security sources can be added either to a specific user or users or to all users (`all`).
 
 In general, the `add-source` command takes the following form:
 
@@ -458,8 +458,7 @@ riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...
 ```
 
 Using `all` indicates that the authentication source can be added to
-all users. A source can be added to a specific user/group or to a list of
-users/groups separated by commas, e.g. `add-source jane,bill,ops_team,admins`.
+all users. A source can be added to a specific user, e.g. `add-source superuser`, or to a list of users separated by commas, e.g. `add-source jane,bill,admin`.
 
 Let's say that we want to give all users trusted access to securables (without a password) when requests come from `localhost`:
 
@@ -485,7 +484,7 @@ If we wish to remove the `trust` source that we granted to `all` in the example 
 riak-admin security del-source all 127.0.0.1/32
 ```
 
-Note that this does not require that you specify which type of source is being deleted. You only need to specify the user(s)/group(s) or `all`, because only one source can be applied to a user or `all` at any given time.
+Note that this does not require that you specify which type of source is being deleted. You only need to specify the user(s) or `all`, because only one source can be applied to a user or `all` at any given time.
 
 The following command would remove the source for `riakuser` on `localhost`, regardless of which source is being used:
 
