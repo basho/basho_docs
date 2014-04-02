@@ -158,7 +158,7 @@ from Basho is strongly recommended.
 
 Using a tool such as [Basho Bench](https://github.com/basho/basho_bench),
 you can generate load that simulates application operations by constructing
-and communicating approximately- ompatible data payloads with the Riak
+and communicating approximately-compatible data payloads with the Riak
 cluster directly.
 
 Benchmarking is critical to determining the appropriate EC2 instance
