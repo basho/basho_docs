@@ -22,10 +22,6 @@ Some of Riak's core strengths lie in its scalability, fault tolerance, and ease 
 
 ![Yokozuna](/images/yokozuna.png)
 
-## JVM Installation
-
-Because Solr is a Java application, you will need to install the Java Virtual Machine (JVM) on all of the nodes in your cluster if you want to use Riak Search. We recommend Oracle's [JDK 7u25](http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html). Installation packages can be found on the [Java SE 7 Downloads page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR) and instructions on the [documentation page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
-
 ## Simple Setup
 
 Riak Search 2.0 is an integration of Solr (for indexing and querying) and Riak (for storage and distribution). There are a few points of interest that a user of Riak Search will have to keep in mind in order to properly store and later query for values.

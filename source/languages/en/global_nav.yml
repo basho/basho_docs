@@ -92,6 +92,7 @@ riak:
             sub:
               - "[[Installing and Upgrading]]"
               - "[[Installing Erlang]]"
+              - "[[Installing the JVM]]"
               - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
               - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
               - "[[Mac OS X|Installing on Mac OS X]]"
