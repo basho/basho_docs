@@ -175,7 +175,7 @@ curl -u riakuser:<pam_password> \
 
 ## How Sources Are Applied
 
-When managing security sources---any of the sources explained above---you always have the option of applying a source to either a single user or to all users (`all`). If specific users and `all` have no sources in common, this presents no difficulty. But what happens if one source is applied to `all` and a different source is applied to a specific user?
+When managing security sources---any of the sources explained above---you always have the option of applying a source to either a single user, multiple users, or all users (`all`). If specific users and `all` have no sources in common, this presents no difficulty. But what happens if one source is applied to `all` and a different source is applied to a specific user?
 
 The short answer is that the more specifically assigned source---i.e. to the user---will be consider a user's security source. We'll illustrate that with the following example, in which the `certificate` source is assigned to `all`, but the `password` source is assigned to `riakuser`:
 

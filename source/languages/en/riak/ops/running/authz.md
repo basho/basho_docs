@@ -461,7 +461,7 @@ While user management enables you to control _authorization_ with regard to user
 
 ### Add Source
 
-Riak security sources may be applied to all users (`all`) or only to a specific user.
+Riak security sources may be applied to a specific user, multiple users, or all users (`all`).
 
 #### Available Sources
 
@@ -474,7 +474,7 @@ Source   | Description |
 
 ### Example: Adding a Trusted Source
 
-Security sources can be added either to a specific user or users or to all users (`all`).
+Security sources can be added either to a specific user, multiple users, or all users (`all`).
 
 In general, the `add-source` command takes the following form:
 
