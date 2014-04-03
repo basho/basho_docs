@@ -373,11 +373,13 @@ More details on the `aae-status` command are available in the [Riak version 1.3 
 
 ## diag
 
-Run diagnostic checks against `<node>`.
+The `diag` command invokes the [Riaknostic](http://riaknostic.basho.com/) diagnostic system.
 
 ```bash
-riak-admin diag <node>
+riak-admin diag
 ```
+
+This command allows you to specify which diagnostic checks you would like to run, which types of diagnostic messages you wish to see, and so on. More comprehensive information can be found in the documentation on [[inspecting a node]].
 
 ## status
 
