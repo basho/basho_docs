@@ -13,7 +13,7 @@ moved: {
 
 # riak
 
-This is the primary script for controlling the Riak node process. Running this command by itself will output a listing of available commands:
+This is the primary script for controlling the processes associated with a Riak node. Running the `riak` command by itself will output a listing of available commands:
 
 ```bash
 Usage: riak «command»

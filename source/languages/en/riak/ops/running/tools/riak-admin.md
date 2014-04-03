@@ -15,8 +15,7 @@ moved: {
 
 This script performs operations unrelated to node-liveness, including node
 membership, backup, and basic status reporting. The node must be running for
-most of these commands to work.
-
+most of these commands to work. Running the `riak-admin` command by itself will output a listing of available commands:
 
 ```
 Usage: riak-admin { cluster | join | leave | backup | restore | test |
@@ -30,17 +29,15 @@ Usage: riak-admin { cluster | join | leave | backup | restore | test |
 
 ## cluster
 
-As of version 1.2, Riak provides a multi-phased approach to cluster administration that allows changes to be staged and reviewed before being committed.
+Riak provides a multi-phased approach to cluster administration that allows changes to be staged and reviewed before being committed. This approach allows multiple cluster changes to be grouped together, such as adding multiple nodes at once or adding some nodes while removing others.
 
-This approach to cluster administration allows multiple changes to be grouped together, such as adding multiple nodes at once or adding some nodes while removing others.
-
-Details about how a set of staged changes will impact the cluster, listing the future ring ownership as well as the number of transfers necessary to implement the planned changes, are provided by the new interface.
+Details about how a set of staged changes will impact the cluster, listing the future ring ownership as well as the number of transfers necessary to implement the planned changes, are provided by this interface.
 
 The following commands stage changes to cluster membership. These commands do not take effect immediately. After staging a set of changes, the staged plan must be committed using the staging commands to take effect:
 
 ## cluster join
 
-Join this node to the cluster containing `<node>`.
+Join this node to the cluster containing `<node>`:
 
 ```bash
 riak-admin cluster join <node>
@@ -48,13 +45,13 @@ riak-admin cluster join <node>
 
 ## cluster leave
 
-Instruct this node to hand off its data partitions, leave the cluster and shutdown.
+Instruct this node to hand off its data partitions, leave the cluster and shut down:
 
 ```bash
 riak-admin cluster leave
 ```
 
-Instruct `<node>`` to hand off its data partitions, leave the cluster, and shut down.
+Instruct `<node>` to hand off its data partitions, leave the cluster, and shut down:
 
 ```bash
 riak-admin cluster leave <node>
