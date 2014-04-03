@@ -13,15 +13,19 @@ moved: {
 
 ## Introduction
 
-MapReduce (M/R) is a technique for dividing work across a distributed system. This takes advantage of the parallel processing power of distributed systems, and also reduces network bandwidth as the algorithm is passed around to where the data lives, rather than a potentially huge dataset transferred to a client algorithm. Developers can use MapReduce for things like filtering documents by tags, counting words in documents, and extracting links to related data.
+MapReduce (M/R) is a technique for dividing work across a distributed system. This takes advantage of the parallel processing power of distributed systems and also reduces network bandwidth as the algorithm is passed around to where the data lives, rather than a potentially huge dataset transferred to a client algorithm.
 
-In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the Protocol Buffers API. **Riak MapReduce is intended for batch processing, not real time querying.**
+Developers can use MapReduce for things like filtering documents by tags, counting words in documents, and extracting links to related data. In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the Protocol Buffers API.
+
+<div class="note">
+<div class="title">MapReduce <em>not</em> for production use</div>
+Riak MapReduce operations are very expensive computationally. MapReduce operations are intended for batch processing, not real-time querying.
+</div>
 
 ## Features
 
 * Map phases execute in parallel with data locality
 * Reduce phases execute in parallel on the node where the job was submitted
-* Javascript MapReduce support
 * Erlang MapReduce support
 
 ## When to Use MapReduce
@@ -59,29 +63,71 @@ After running the map function, the results are sent back to the coordinating no
 
 ## Examples
 
-In this example we will create four objects with the text "pizza" sometimes repeated. Javascript MapReduce will be used to count the occurrences of the word "pizza".
+In this example we will create four objects with the text "pizza" repeated a varying number of times and store those objects in the bucket `training` (which bears the [[bucket type|Using Bucket Types]] ``. Javascript MapReduce will be used to count the occurrences of the word "pizza."
 
 ### Data object input commands:
 
 ```curl
-$ curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+curl -XPUT \
+  -H 'Content-Type: text/plain' \
+  -d 'pizza data goes here' \
+  http://localhost:8098/buckets/training/keys/foo
+
+curl -XPUT \
+  -H 'Content-Type: text/plain' \
+  -d 'pizza pizza pizza pizza' \
+  http://localhost:8098/buckets/training/keys/bar  
+
+curl -XPUT \
+  http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
+curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
 ```
 
-### MapReduce script and deployment:
+### MapReduce script and deployment
+
+First, the map function, which specifies that we want to get the key for :
+
+```erlang
+-module(pizza_mapreduce_example).
+-export([get_keys/3]).
+
+get_keys(Value, _KeyData, Arg) ->
+    Type = riak_object:type(Value),
+    Bucket = riak_object:bucket(Value),
+    Key = riak_object:key(Value),
+    case erlang:byte_size(Key) of
+        L when L > Arg ->
+            [{Type, Bucket, Key}];
+        _ -> []
+    end
+end.
+```
+
+Once the function has been written
+
+Here's the MapReduce job as JSON, stored in a `mapreduce.json` file:
+
+```json
+{
+  "inputs":"training",
+  "query": [
+    {
+      "map": {
+        "language": "javascript",
+        "source": "function(riakObject) {
+          var val = riakObject.values[0].data.match(/pizza/g);
+          return [[riakObject.key, (val ? val.length : 0 )]];
+        }"
+      }
+    }
+  ]
+}
+```
 
 ```curl
 curl -XPOST http://localhost:8098/mapred \
   -H 'Content-Type: application/json' \
-  -d '{
-    "inputs":"training",
-    "query":[{"map":{"language":"javascript",
-    "source":"function(riakObject) {
-      var val = riakObject.values[0].data.match(/pizza/g);
-      return [[riakObject.key, (val ? val.length : 0 )]];
-    }"}}]}'
+  -d @mapreduce.json
 ```
 
 ### Output
@@ -94,7 +140,7 @@ The output is the key of each  object, followed by the count of the word  "pizza
 
 ### Recap
 
-We run a Javascript MapReduce function against the `training` bucket, which takes each `riakObject` (a JavaScript representation of a key/value) and searches the text for the word "pizza". `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
+We ran an Erlang MapReduce function against the `training` bucket, which takes each `riak_object` (an Erlang representation of a key/value) and searches the text for the word "pizza". `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
 
 
 ## Further Reading
