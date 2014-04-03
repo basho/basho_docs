@@ -99,7 +99,7 @@ Below is a listing of the `props` associated with the `default` bucket type:
 ```json
 {
   "props": {
-    "allow_mult": true,
+    "allow_mult": false,
     "basic_quorum": false,
     "big_vclock": 50,
     "chash_keyfun": {
@@ -126,6 +126,36 @@ Below is a listing of the `props` associated with the `default` bucket type:
     "young_vclock": 20
   }
 }
+```
+
+## Bucket Types and the `allow_mult` Setting
+
+In versions of Riak prior to 2.0, the `allow_mult` setting was set to `false` by default. When this setting is set to `false`, Riak does not create [[siblings|Vector Clocks#siblings]], which means that applications using Riak don't need to deal with [[vector clocks]] or manage sibling resolution themselves.
+
+In Riak 2.0, that has changed. As you can see in the section above, `allow_mult` is still set to `false` in the `default` bucket type, which means that it will remain set as `false` if you do not specify a bucket type when performing an operation against Riak. However, if you use custom bucket types, `allow_mult` will be set to `true` by default.
+
+To give an example, let's say that we create a bucket type called `n_val_of_2`, which sets the `n_val` to 2:
+
+```bash
+riak-admin bucket-type create n_val_of_2 '{"props":{"n_val":2}}'
+```
+
+When specifying this bucket type's properties as above, the `allow_mult` parameter was not changed. However, if we view the bucket type's properties, we can see in the console output that `allow_mult` is set to `true`:
+
+```bash
+riak-admin bucket-type status n_val_of_2 | grep allow_mult
+```
+
+The output:
+
+```
+allow_mult: true
+```
+
+This is extremely important to bear in mind when using versions of Riak 2.0 and later any time that you create, activate, and use your own bucket types. It is still possible to to set `allow_mult` to `false` in any given bucket type, but it must be done explicitly. To do so in our `n_val_of_2` bucket type from above, we would need to do so either when the bucket type is created or modify the already existing type as follows:
+
+```bash
+riak-admin bucket-type update n_val_of_2 '{"props":{"allow_mult":false}}'
 ```
 
 ## Usage Example
