@@ -17,13 +17,19 @@ moved: {
 }
 ---
 
-Here, we are going to talk about how Riak distributes your data around the cluster and lets you tune your levels of consistency and availability. This has immense value and implications for your applications and is one of the features that we feel truly differentiates Riak from other technologies.
+Riak was built with the assumption that any Riak installation acts as a multi-node [[cluster|Clusters]], distributing data across multiple physical servers. This design was chosen with [high availability](http://basho.com/relational-to-riak-high-availability-part-1/) and partition tolerance as two of its central goals.
 
-At the bottom of this page, there is a final screencast that briefly touches on how to adjust your replication levels to match your application and business needs. Before you watch, however, have a quick read of the content below.
+Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is always a trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off. On one extreme, you can use Riak to maximize availability by leveraging [[eventual consistency]], and on the other extreme, you can even use Riak as a [[strongly consistent|Strong Consistency]] system. The ability to make choices has immense value and implications for your applications and is one of the features that we feel truly differentiates Riak from other technologies.
+
+In this tutorial, we'll talk about how this trade-off can be managed by controlling the number of nodes on which data is stored, 
+
+At the bottom of the page, you'll find a screencast that briefly explains how to adjust your replication levels to match your application and business needs.
 
 ## A Primer on N, R, and W
 
-Riak exposes replication controls to the developers in such a way that they can tune, down to the bucket level, how many copies of data they want to store, how many copes they wish to read from at a time, and how many copies must write to be considered a success. We do this using N, R, and W values.
+The most important thing to note about Riak's replication
+
+Riak exposes replication controls to developers in such a way that they can tune, down to the bucket level, how many copies of data they want to store, how many copes they wish to read from at a time, and how many copies must write to be considered a success. We do this using N, R, and W values.
 
 Riak's guiding design principle is Dr. Eric Brewer's [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem). The CAP theorem defines distributed systems in terms of three desired properties: consistency, availability, and partition (i.e. failure) tolerance. The theorem states that you can only rely on having two of the three properties at any time.
 
