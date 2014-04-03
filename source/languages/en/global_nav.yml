@@ -43,7 +43,6 @@ riak:
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"
-          - "[[Strong Consistency|Using Strong Consistency]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
           - "[[MapReduce|Using MapReduce]]"
@@ -152,6 +151,7 @@ riak:
               - "[[Search|Riak Search Settings]]"
               - "[[Secondary Indexes|Configuring Secondary Indexes]]"
               - "[[Load Balancing & Proxy|Load Balancing and Proxy Configuration]]"
+              - "[[Strong Consistency|Using Strong Consistency]]"
           - title: "Backends"
             sub:
               - "[[Bitcask]]"
