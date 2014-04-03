@@ -17,11 +17,15 @@ moved: {
 }
 ---
 
-Riak was built with the assumption that any Riak installation acts as a multi-node [[cluster|Clusters]], distributing data across multiple physical servers. This design was chosen with [high availability](http://basho.com/relational-to-riak-high-availability-part-1/) and partition tolerance as two of its central goals.
+Riak was built with the assumption that a Riak installation acts as a multi-node [[cluster|Clusters]], distributing data across multiple physical servers. This design was chosen with [high availability](http://basho.com/relational-to-riak-high-availability-part-1/) and partition tolerance as two of its central goals.
 
-Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is always a trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off. On one extreme, you can use Riak to maximize availability by leveraging [[eventual consistency]], and on the other extreme, you can even use Riak as a [[strongly consistent|Strong Consistency]] system. The ability to make choices has immense value and implications for your applications and is one of the features that we feel truly differentiates Riak from other technologies.
+Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is a necessary trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off, offering a number of possibilities:
 
-In this tutorial, we'll talk about how this trade-off can be managed by controlling the number of nodes on which data is stored, 
+* Using Riak to maximize availability by leveraging [[eventual consistency]]
+* Sacrificing availability in the name of better data consistency by requiring that data be 
+* Use Riak as a [[strongly consistent|Strong Consistency]] system, sacrificing all availability guarantees. Using Riak in this way is fundamentally different and won't be covered in this tutorial. We suggest reading the [[Using Strong Consistency]] tutorial instead.
+
+The ability to make these kinds of fundamental choices has immense value for your applications and is one of the features that we feel truly differentiates Riak from other technologies.
 
 At the bottom of the page, you'll find a screencast that briefly explains how to adjust your replication levels to match your application and business needs.
 
