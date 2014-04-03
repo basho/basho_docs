@@ -336,6 +336,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
+<td><tt>leveldb.compression</tt></td>
+<td>Enables or disables the compression of LevelDB data on disk. Enabling compression (the default) saves disk space, whereas disabling may reduce read latency but increase overall disk activity. This option can be changed at any time but will not impact data on disk until the next time a file requires compaction.</td>
+<td><tt>on</tt></td>
+</tr>
+
+<tr>
 <td><tt>leveldb.compaction.trigger.tombstone_count</tt></td>
 <td>Controls when a background compaction initiates solely due to the number of delete tombstones within an individual <tt>.sst</tt> table file.  Value of <tt>off</tt> disables the feature.</td>
 <td><tt>1000</tt></td>
