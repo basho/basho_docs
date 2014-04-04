@@ -7,27 +7,33 @@ audience: beginner
 keywords: [developers, applications]
 ---
 
-So you've decided to build an application using Riak as a data store for some or all of your data. We think that this is a wise choice for a wide variety of use cases. But using Riak in an optimal way requires 
+So you've decided to build an application using Riak as a data store. We think that this is a wise choice for a wide variety of use cases. But using Riak isn't always straightforward, especially if you're used to developing with RDBMSs like MySQL or Postgres or non-persistent key/value stores like Redis. 
+
+In this guide, we'll walk you through a set of questions that you should ask about your use case before getting started. The answer to some of these questions might say a lot about which Riak features you should use, what kind of replication and conflict resolution strategies you should employ, and even how you should build parts of your application.
 
 ## What Kind of Data is Being Stored?
 
-This is an important initial question to ask for two reasons:
+This is an important initial question for two reasons:
 
-1. Not all data is a good fit for Riak, and if this is true of your data we would advise seeking out a different storage system
-2. The kind of data you're storing should guide your decision about *how* to store and access your data in Riak
+1. Not all data is a good fit for Riak. If your data isn't a good fit, we would advise seeking out a different storage system.
+2. The kind of data you're storing should guide your decision about *how* to store and access your data in Riak and which Riak features would be helpful (and which harmful).
 
 Riak tends to be an excellent choice for data of the following kinds:
 
-* Immutable data
-* Small objects
-* Independent objects, i.e. objects that don't have complex interdependencies with other objects
+* **Immutable data** --- While Riak provides a number of means of resolving conflicts between different replicas of objects, those processes can produce latency. Storing immutable data means avoiding those processes altogether.
+* **Small objects** --- Riak was not built as a store for large objects, like video files or other large [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built [RiakCS](http://basho.com/riak-cloud-storage/) for that. Riak is great, however, for JSON, [[log files|Log Data]], [[sensor data]], and filetypes that tend to run smaller than 1 MB, like HTML files.
+* **Independent objects** --- Objects that have complex interdependencies 
 * Objects with "natural" keys, e.g. timestamps or [[usernames|User Accounts]]
-* Mutable data that can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]] {{#2.0.0+}}
+* Mutable data that can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]]
 
 Riak is probably not recommended if you need to store:
 
-* Objects stored that exceed 1-2MB in size (in which case we would recommend checking out [Riak CS](http://docs.basho.com/riakcs/latest/) instead)
+* Objects stored that exceed 1-2MB in size. If you will be storing a lot of objects over that size, we would recommend checking out [Riak CS](http://docs.basho.com/riakcs/latest/), which was built as 
 * Objects with many complex interdependencies that can not be easily denormalized (in which case a traditional relational database)
+
+#### Conclusion
+
+If Riak fits your needs, move on to the next section
 
 ## The Flexibility of Riak
 

@@ -14,7 +14,6 @@ riak:
 
   - title: "Riak for Developers"
     sub:
-      - "[[Applications Guide|Building Applications with Riak]]"
       - title: "A Taste of Riak"
         sub:
           - title: CRUD Operations
@@ -39,6 +38,7 @@ riak:
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
       - title: "Basic Usage"
         sub:
+          - "[[Applications Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
           - "[[Key/Values|The Basics]]"
           - "[[Search|Using Search]]"
