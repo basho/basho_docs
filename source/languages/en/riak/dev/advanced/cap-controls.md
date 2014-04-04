@@ -27,7 +27,7 @@ At the bottom of the page, you'll find a screencast that briefly explains how to
 
 ## A Primer on N, R, and W
 
-The most important thing to note about Riak's replication controls is that they operate at the bucket level. You can use [[bucket types|Using Bucket Types]] to set up bucket `A` to use a particular set of replication properties and bucket `B` to use entirely different ones.
+The most important thing to note about Riak's replication controls is that they can be at the bucket level. You can use [[bucket types|Using Bucket Types]] to set up bucket `A` to use a particular set of replication properties and bucket `B` to use entirely different properties.
 
 At the bucket level, you can choose how many copies of data you want to store in your cluster (N, or `n_val`), how many copies you wish to read from at one time (R, or `r`), and how many copies must be written to be considered a success (W, or `w`).
 
@@ -143,17 +143,23 @@ Deleting an object requires successfully reading an object and then writing a to
 
 If R and W are undefined, however, the RW (`rw`) value will substitute for both R and W during object deletes. In recent versions of Riak, it is nearly impossible to make reads or writes that do not somehow specify both R and W, and so you will likely never need to worry about RW.
 
-## Early Failure Return with `basic_quorum`
-
 ## The Implications of `notfound_ok`
 
-The `notfound_ok` parameter is a bucket property that determines how Riak responds if a read fails on a node. If `notfound_ok` is set to `true` (this is the default) is the equivalent to setting R to 1: if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client.
+The `notfound_ok` parameter is a bucket property that determines how Riak responds if a read fails on a node. If `notfound_ok` is set to `true` (this is the default) is the equivalent to setting R to 1: if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `not found` error to the client.
 
-On the other hand, setting `notfound_ok` to `false` means that the responding vnode will wait for something other than a `notfound` error before reporting a value to the client. If an object doesn't exist under a key, the coordinating vnode will wait for N vnodes to respond with `notfound` before it reports `notfound` to the client.
+On the other hand, setting `notfound_ok` to `false` means that the responding vnode will wait for something other than a `not found` error before reporting a value to the client. If an object doesn't exist under a key, the coordinating vnode will wait for N vnodes to respond with `not found` before it reports `not found` to the client.
 
-In general, setting `notfound_ok` to `true` will return any `notfound`responses to the client more quickly, instead of potentially leaving clients hanging on the line, with the drawback that Riak will falsely return `notfound` if it turns out that the data lives on a vnode that is not checked for the value.
+In general, setting `notfound_ok` to `true` will return any `not found`responses to the client more quickly, instead of potentially leaving clients hanging on the line, with the drawback that Riak will falsely return `not found` if it turns out that the data lives on a vnode that is not checked for the value.
 
-Setting `notfound_ok` to `false` will be more thorough in checking for the value but at the cost of a small performance hit in cases where the coordinating vnode waits for responses from all vnodes and all return a `notfound`. One way to mitigate this problem is to set `basic_quorum` to `true`, which will instruct the coordinating vnode to wait for only two responses instead of three to return a `notfound` error.
+Setting `notfound_ok` to `false` will be more thorough in checking for the value but at the cost of a small performance hit in cases where the coordinating vnode waits for responses from all vnodes and all return a `not found`. This problem can be mitigated by setting `basic_quorum` to `true`, which is discussed in the next section.
+
+## Early Failure Return with `basic_quorum`
+
+Setting `notfound_ok` to `false` on a request (or as a bucket property) is likely to introduce additional latency. If you read a non-existent key, Riak will check all three responsible vnodes for the value before returning `not found` instead of checking just one.
+
+This latency problem can be mitigated by setting `basic_quorum` to `true`. If N is set to 3, for example, Riak will return `not found` after querying only 2 vnodes instead of 3. If N is set to 5, 3 nodes need to return `not found` (and so on).
+
+The default for `basic_quorum` is `false`, so you will need to explicitly set it to `true` on reads or in a bucket's properties. While the scope of this setting is fairly narrow, it can greatly reduce latency in read-heavy use cases.
 
 ## Symbolic Consistency Names
 
