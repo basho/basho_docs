@@ -23,7 +23,7 @@ It is important to note that buckets are not assigned types in the same way that
 
 Instead, bucket types are applied to buckets _on the basis of how those buckets are queried_. Queries involving bucket types take the following form:
 
-```curl
+```
 GET/PUT/DELETE /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
