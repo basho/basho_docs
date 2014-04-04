@@ -12,7 +12,7 @@ Depending on the size of your objects and your replication latency needs, you ma
 
 ## Linux
 
-Refer to the Kernel and Network Tuning section of [[Linux Performance Tuning|Linux Performance Tuning#Linux-Tuning]]
+Refer to the Kernel and Network Tuning section of [[System Performance Tuning|System Performance Tuning#Kernel-and-Network-Tuning]]
 
 ## Solaris
 On Solaris, the following settings are suggested.

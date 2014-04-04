@@ -20,6 +20,7 @@ moved: {
 * [Riak-Console](https://github.com/lucaspiller/riak-console) --- An interactive command line interface to Riak 
 * [Rekon](https://github.com/basho/rekon) --- Riak Node Data Browser 
 * [Gmond Python Modules for Riak](http://github.com/jnewland/gmond_python_modules/tree/master/riak) --- Ganglia Module for connecting to Riak
+* [riak-admin](https://github.com/pentium10/riak-admin) --- Admin panel written in PHP (supports delete bucket via keys stream)
 * [riak-admin](http://bitbucket.org/harmen/riak-admin/) --- A Java program with GUI to browse and update a Riak database
 * [Riak Admin](http://github.com/frank06/riak-admin) --- A Futon-like web interface for Riak
 * [riak-session-manager](https://github.com/jbrisbin/riak-session-manager) --- A Riak-backed Tomcat Session Manager
@@ -64,7 +65,7 @@ moved: {
 * [Using Nginx as a front-end for Riak](http://rigelgroupllc.com/wp/blog/using-nginx-as-a-front-end-for-riak)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004387.html) (courtesy of Scott M. Likens)
 * [Sample HA Proxy Configuration for Protocol Buffers Interface](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-May/004388.html) (courtesy of Bob Feldbauer)
-
+* [Storing Apache Logs in Riak via Fluentd](http://docs.fluentd.org/articles/apache-to-riak)
 
 ## Other Tools and Projects
 
@@ -92,7 +93,7 @@ moved: {
 * [riak-jscouch](https://github.com/jimpick/riak-jscouch) --- JSCouch examples done with Riak
 * [riak_tokyo_cabinet](http://github.com/jebu/riak_tokyo_cabinet) --- A Tokyo Cabinet backend for Riak
 * [Logstash Riak Output](http://logstash.net/docs/1.1.9/outputs/riak) --- An output plugin for Logstash
-
+* [Fluentd plugin for Riak](http://github.com/kuenishi/fluent-plugin-riak) --- An output plugin for [Fluentd](http://fluentd.org)
 
 ## Sample Applications
 

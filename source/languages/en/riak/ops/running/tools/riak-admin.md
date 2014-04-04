@@ -14,13 +14,13 @@ moved: {
 # riak-admin
 
 This script performs operations unrelated to node-liveness, including node
-membership, backup, and basic status reporting.  The node must be running for
+membership, backup, and basic status reporting. The node must be running for
 most of these commands to work.
 
 
 ```
 Usage: riak-admin { cluster | join | leave | backup | restore | test |
-                    reip | js-reload | erl-reload | wait-for-service |
+                    {{#2.0.0-}}reip | {{/2.0.0-}}js-reload | erl-reload | wait-for-service |
                     ringready | transfers | force-remove | down |
                     cluster-info | member-status | ring-status | vnode-status |
                     diag | status | transfer-limit | top }
@@ -30,16 +30,15 @@ Usage: riak-admin { cluster | join | leave | backup | restore | test |
 
 As of version 1.2, Riak provides a multi-phased approach to cluster administration that allows changes to be staged and reviewed before being committed.
 
-This approach to cluster administration allows multiple changes to be grouped together, such as adding multiple nodes at once, or adding some nodes while removing others.
+This approach to cluster administration allows multiple changes to be grouped together, such as adding multiple nodes at once or adding some nodes while removing others.
 
-Details about how a set of staged changes will impact the cluster, listing the future ring ownership as well as the number of transfers necessary to implement the planned changes are provided by the new interface.
+Details about how a set of staged changes will impact the cluster, listing the future ring ownership as well as the number of transfers necessary to implement the planned changes, are provided by the new interface.
 
-The following commands stage changes to cluster membership. These commands
-do not take effect immediately. After staging a set of changes, the staged
-plan must be committed using the staging commands to take effect:
+The following commands stage changes to cluster membership. These commands do not take effect immediately. After staging a set of changes, the staged plan must be committed using the staging commands to take effect:
 
 ## cluster join
-Join this node to the cluster containing &lt;node&gt;.
+
+Join this node to the cluster containing `<node>`.
 
 ```bash
 riak-admin cluster join <node>
@@ -52,26 +51,29 @@ Instruct this node to hand off its data partitions, leave the cluster and shutdo
 riak-admin cluster leave
 ```
 
-Instruct &lt;node&gt; to hand off its data partitions, leave the cluster and shutdown.
+Instruct `<node>`` to hand off its data partitions, leave the cluster, and shut down.
 
 ```bash
 riak-admin cluster leave <node>
 ```
+
 ## cluster force-remove
-Remove &lt;node&gt; from the cluster without first handing off data partitions. This command is designed for crashed, unrecoverable nodes, and should be used with caution.
+Remove `<node>` from the cluster without first handing off data partitions. This command is designed for crashed, unrecoverable nodes and should be used with caution.
 
 ```bash
 riak-admin cluster force-remove <node>
 ```
+
 ## cluster replace
-Instruct &lt;node1&gt; to transfer all data partitions to &lt;node2&gt;, then leave the cluster and shutdown.
+Instruct `<node>` to transfer all data partitions to `<node>`, then leave the cluster and shut down.
 
 ```bash
 riak-admin cluster replace <node1> <node2>
 ```
 
 ## cluster force-replace
-Reassign all partitions owned by &lt;node1&gt; to &lt;node2&gt; without first handing off data, and then remove &lt;node1&gt; from the cluster.
+
+Re-assign all partitions owned by `<node1>` to `<node2>` without first handing off data, and then remove `<node1>` from the cluster.
 
 ```bash
 riak-admin cluster force-replace <node1> <node2>
@@ -83,6 +85,7 @@ riak-admin cluster force-replace <node1> <node2>
 The following commands are used to work with staged changes:
 
 #### cluster plan
+
 Display the currently staged cluster changes.
 
 ```bash
@@ -90,6 +93,7 @@ riak-admin cluster plan
 ```
 
 #### cluster clear
+
 Clear the currently staged cluster changes.
 
 ```bash
@@ -97,6 +101,7 @@ riak-admin cluster clear
 ```
 
 #### cluster commit
+
 Commit the currently staged cluster changes. Staged cluster changes must be reviewed with `riak-admin cluster plan` prior to being committed.
 
 ```bash
@@ -106,14 +111,12 @@ riak-admin cluster commit
 
 ## join
 
-<div class="note"><div class="title">Deprecation Notice</title></div>
-  <p>As of Riak version 1.2, the <tt>riak-admin join</tt> command has been deprecated in favor of the [[riak-admin cluster join|riak-admin Command Line#cluster-join]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
+<div class="note"><div class="title">Deprecation Notice</div>
+As of Riak version 1.2, the <tt>riak-admin join</tt> command has been deprecated in favor of the <tt>[[riak-admin cluster join|riak-admin Command Line#cluster-join]]</tt> command. However, this command can still be used by providing a <tt>-f</tt> option (which forces the command).
 </div>
 
 Joins the running node to another running node so that they participate in the
-same cluster.
-
-* &lt;node&gt; is the other node to connect to.
+same cluster. `<node>` is the other node to connect to.
 
 
 ```bash
@@ -123,10 +126,9 @@ riak-admin join -f <node>
 
 ## leave
 
-<div class="note"><div class="title">Deprecation Notice</title></div>
-  <p>As of Riak version 1.2, the <tt>riak-admin leave</tt> command has been deprecated in favor of the new [[riak-admin cluster leave|riak-admin Command Line#cluster-leave]] command. The command can still be used by providing a <tt>-f</tt> option, however.</p>
+<div class="note"><div class="title">Deprecation Notice</div>
+As of Riak version 1.2, the <tt>riak-admin leave</tt> command has been deprecated in favor of the new <tt>[[riak-admin cluster leave|riak-admin Command Line#cluster-leave]]</tt> command. However, this command can still be used by providing a <tt>-f</tt> option (which forces the command).</p>
 </div>
-
 
 Causes the node to leave the cluster in which it participates. After this is run, the node in question will hand-off all its replicas to other nodes in the cluster before it completely exits.
 
@@ -140,12 +142,12 @@ riak-admin leave -f
 
 Backs up the data from the node or entire cluster into a file.
 
-* &lt;node&gt; is the node from which to perform the backup.
-* &lt;cookie&gt; is the Erlang cookie/shared secret used to connect to the node.
-This is "riak" in the [[default configuration|Configuration Files#\-setcookie]].
-* &lt;filename&gt; is the file where the backup will be stored. _This should be
+* `<node>` is the node from which to perform the backup.
+* `<cookie>` is the Erlang cookie/shared secret used to connect to the node.
+This is `riak` in the {{#2.0.0-}}[[default configuration|Configuration Files#Configuring-Your-code-vm-args-code-]]{{/2.0.0-}}{{#2.0.0+}}[[default configuration|Configuration Files#Node-Metadata]]{{/2.0.0+}}.
+* `<filename>` is the file where the backup will be stored. _This should be
 the full path to the file._
-* [node|all] specifies whether the data on this node or the entire cluster will
+* `[node|all]` specifies whether the data on this node or the entire cluster will
 be backed up, respectively.
 
 
@@ -158,10 +160,10 @@ riak-admin backup <node> <cookie> <filename> [node|all]
 
 Restores data to the node or cluster from a previous backup.
 
-* &lt;node&gt; is the node which will perform the restore.
-* &lt;cookie&gt; is the Erlang cookie/shared secret used to connect to the node.
-By default this is set to "riak" in the [[vm.args|Configuration Files#vm.args]] configuration file.
-* &lt;filename&gt; is the file where the backup is stored. _This should be the
+* `<node>` is the node which will perform the restore.
+* `<cookie>` is the Erlang cookie/shared secret used to connect to the node.
+This is `riak` in the {{#2.0.0-}}[[default configuration|Configuration Files#Configuring-Your-code-vm-args-code-]]{{/2.0.0-}}{{#2.0.0+}}[[default configuration|Configuration Files#Node-Metadata]]{{/2.0.0+}}.
+* `<filename>` is the file where the backup is stored. _This should be the
 full path to the file._
 
 ```bash
@@ -176,9 +178,11 @@ Runs a test of a few standard Riak operations against the running node.
 riak-admin test
 ```
 
+{{#2.0.0-}}
+
 ## reip
 
-_This will likely be removed in future versions. Instead use `riak-admin cluster replace`._
+_This will likely be removed in future versions. Use `riak-admin cluster replace` instead._
 
 Renames a node. The current ring state will be backed up in the process. **The
 node must NOT be running for this to work.**
@@ -186,20 +190,32 @@ node must NOT be running for this to work.**
 ```bash
 riak-admin reip <old nodename> <new nodename>
 ```
+{{/2.0.0-}}
 
 ## js-reload
 
 Forces the embedded Javascript virtual machines to be restarted. This is useful
-when deploying new custom built-in [[MapReduce|Using MapReduce]] functions. (_This needs to be
-run on all nodes in the cluster_.)
+when deploying custom built-in [[MapReduce|Using MapReduce]] functions.
+
+**Note**: This needs to be run on _all nodes_ in the cluster.
 
 ```bash
 riak-admin js-reload
 ```
 
+## erl-reload
+
+Reloads the Erlang `.beam` files used for [[MapReduce|Using MapReduce]] jobs, [[pre- and post-commit hooks|Advanced Commit Hooks]], and other purposes. More information on custom Erlang code can be found in the [[Installing Custom Code]] guide.
+
+**Note**: This needs to be run on _all nodes_ in the cluster.
+
+```bash
+riak-admin erl-reload
+```
+
 ## services
 
-Lists available services on the node (e.g. **riak_kv**)
+Lists available services on the node (e.g. `riak_kv`).
 
 ```bash
 riak-admin services
@@ -207,9 +223,9 @@ riak-admin services
 
 ## wait-for-service
 
-Waits on a specific watchable service to be available (typically _riak_kv_).
+Waits on a specific watchable service to be available (typically `riak_kv`).
 This is useful when (re-)starting a node while the cluster is under load. Use
-"services" to see what services are available on a running node.
+`riak-admin services` to see which services are available on a running node.
 
 ```
 riak-admin wait-for-service <service> <nodename>
@@ -217,9 +233,9 @@ riak-admin wait-for-service <service> <nodename>
 
 ## ringready
 
-Checks whether all nodes in the cluster agree on the ring state. Prints "FALSE"
+Checks whether all nodes in the cluster agree on the ring state. Prints `FALSE`
 if the nodes do not agree. This is useful after changing cluster membership to
-make sure that ring state has settled.
+make sure that the ring state has settled.
 
 ```bash
 riak-admin ringready
@@ -227,8 +243,7 @@ riak-admin ringready
 
 ## transfers
 
-Identifies nodes that are awaiting transfer of one or more partitions. This
-usually occurs when partition ownership has changed (after adding or removing a
+Identifies nodes that are awaiting transfer of one or more partitions. This usually occurs when partition ownership has changed (after adding or removing a
 node) or after node recovery.
 
 ```bash
@@ -237,11 +252,7 @@ riak-admin transfers
 
 ## transfer-limit
 
-Change the handoff_concurrency limit.  The value set by running this command will 
-only persist while the node is running.  If the node is restarted, the transfer-limit 
-will return to the default of 2 or the value specified in the 
-`[[handoff_concurrency|Configuration Files#handoff_concurrency]]`
-setting in the `riak_core` section of the `app.config` file.
+Change the `handoff_concurrency` limit.  The value set by running this command will only persist while the node is running.  If the node is restarted, the `transfer-limit` will return to the default of `2` or the value specified in the {{#2.0.0-}}`[[handoff_concurrency|Configuration Files#handoff_concurrency]]` setting in the `riak_core` section of the `app.config` file{{/2.0.0-}}{{#2.0.0+}}`[[transfer_limit|Configuration Files#Ring]]` setting in the `riak.conf` configuration file{{/2.0.0+}}.
 
 Running this command with no arguments will display the current transfer-limit for each
 node in the cluster.
@@ -254,11 +265,11 @@ riak-admin transfer-limit <node> <limit>
 ## force-remove
 
 <div class="note">
-<div class="title">Deprecation Notice</title></div>
-As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new `[[riak-admin cluster force-remove|riak-admin Command Line#cluster-force-remove]]` command. The command can still be used by providing a <code>-f</code> option, however.
+<div class="title">Deprecation Notice</div>
+As of Riak version 1.2, the <tt>riak-admin force-remove</tt> command has been deprecated in favor of the new `[[riak-admin cluster force-remove|riak-admin Command Line#cluster-force-remove]]` command. However, this command can still be used by providing a <tt>-f</tt> option (which forces the command).
 </div>
 
-Immediately removes a node from the cluster without ensuring handoff of its replicas. This is a dangerous command, and is designed to only be used in cases were the normal, safe leave behavior cannot be used -- e.g. when the node you are removing had a major hardware failure and is unrecoverable. Using this command will result in a loss of all replicas living on the removed node which will then need to be recovered through other means such as [[read repair|Replication#Read-Repair]]. It's recommended that you use the [[riak-admin leave|riak-admin Command Line#leave]] command whenever possible.
+Immediately removes a node from the cluster without ensuring handoff of its replicas. This is a dangerous command, and is designed to only be used in cases in which the normal, safe leave behavior cannot be used---e.g. when the node you are removing has suffered a major hardware failure and is unrecoverable. Using this command will result in a loss of all replicas living on the removed node which will then need to be recovered through other means such as [[read repair|Replication#Read-Repair]]. It's recommended that you use the `[[riak-admin leave|riak-admin Command Line#leave]]` command whenever possible.
 
 ```bash
 riak-admin force-remove -f <node>
@@ -279,25 +290,29 @@ Output system information from a Riak cluster. This command will collect
 information from all nodes or a subset of nodes and output the data to a single
 text file.
 
+```bash
+riak-admin cluster_info <output file> [<node list>]
+```
+
 The following information is collected:
 
  * Current time and date
  * VM statistics
- * erlang:memory() summary
+ * `erlang:memory()` summary
  * Top 50 process memory hogs
  * Registered process names
- * Registered process name via regs()
+ * Registered process name via `regs()`
  * Non-zero mailbox sizes
  * Ports
  * Applications
  * Timer status
  * ETS summary
  * Nodes summary
- * net_kernel summary
- * inet_db summary
+ * `net_kernel` summary
+ * `inet_db` summary
  * Alarm summary
  * Global summary
- * erlang:system_info() summary
+ * `erlang:system_info()` summary
  * Loaded modules
  * Riak Core config files
  * Riak Core vnode modules
@@ -308,10 +323,6 @@ The following information is collected:
  * Riak KV ringready
  * Riak KV transfers
 
-```bash
-riak-admin cluster_info <output file> [<node list>]
-```
-
 Examples:
 
 ```bash
@@ -319,7 +330,7 @@ Examples:
 riak-admin cluster_info /tmp/cluster_info.txt
 ```
 
-```
+```bash
 # Output information from the current node
 riak-admin cluster_info /tmp/cluster_info.txt local
 ```
@@ -340,8 +351,7 @@ riak-admin member-status
 
 ## ring-status
 
-Outputs the current claimant, its status, ringready, pending ownership handoffs
-and a list of unreachable nodes.
+Outputs the current claimant, its status, ringready, pending ownership handoffs, and a list of unreachable nodes.
 
 ```bash
 riak-admin ring-status
@@ -358,7 +368,7 @@ riak-admin vnode-status
 {{#1.3.0+}}
 ## aae-status
 
-This command provides insight into operation of Riak's Active Anti Entropy
+This command provides insight into operation of Riak's Active Anti-Entropy
 (AAE) feature.
 
 ```
@@ -385,24 +395,21 @@ entropy tree building, and key repairs which were triggered by AAE.
 
 <div class="info">All AAE status information is in-memory and is reset across a node restart. Only tree build times are persistent (since trees themselves are persistent).</div>
 
-More details on the `aae-status` command are available in the
-[Riak version 1.3 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy).
+More details on the `aae-status` command are available in the [Riak version 1.3 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy).
 {{/1.3.0+}}
 
 ## diag
 
-Run diagnostic checks against &lt;node&gt;. {{#<1.3.0}}[riaknostic](http://riaknostic.basho.com/) must be installed in order to run.{{/<1.3.0}}
+Run diagnostic checks against `<node>`. {{#1.3.0-}}[riaknostic](http://riaknostic.basho.com/) must be installed in order to run this command.{{/1.3.0-}}
 
 ```bash
-riak-admin diag <check>
+riak-admin diag <node>
 ```
 
 ## status
 
 Prints status information, including performance statistics, system health
-information, and version numbers. The statistics-aggregator must be enabled in
-the [[configuration|Configuration Files#riak_kv_stat]] for this to work. Further
-information about the output is available [[here|Inspecting a Node]].
+information, and version numbers. {{#2.0.0-}}The statistics-aggregator must be enabled in the [[configuration|Configuration Files#riak_kv_stat]] for this to work. {{/2.0.0-}}Further information about the output is available in the documentation on [[inspecting a node]].
 
 
 ```bash
@@ -420,13 +427,13 @@ correct results.
 riak-admin reformat-indexes [<concurrency>] [<batch size>] --downgrade
 ```
 
-The `concurrency` option defaults to *2* and controls how many partitions are
+The `concurrency` option defaults to `2` and controls how many partitions are
 concurrently reformatted.
 
 The `batch size` option controls the number of simultaneous key operations
-and defaults to *100*.
+and defaults to `100`.
 
-The command can be executed while the node is serving requests, and default
+This command can be executed while the node is serving requests, and default
 values are recommended for most cases. You should only change the default
 values after testing impact on cluster performance.
 
@@ -435,14 +442,21 @@ Information is written to `console.log` upon completion of the process.
 A `--downgrade` switch can be specified when downgrading a node to a version
 of Riak prior to version 1.3.1.
 
-Additional details are available in the
-[Riak 1.3.1 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md).
+Additional details are available in the [Riak 1.3.1 release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md).
 {{/1.3.1+}}
 
 ## top
 
-Top provides information about what the Erlang processes inside of Riak are doing. Top reports process reductions (an indicator of CPU utilization), memory used and message queue sizes
+Top uses Erlang's etop to provide information about what the Erlang processes inside of Riak are doing. Top reports process reductions (an indicator of CPU utilization), memory used, and message queue sizes.
 
 ```bash
-riak-admin top
+riak-admin top [-interval N] [-sort reductions|memory|msg_q] [-lines N]
 ```
+
+Options:
+
+* `interval` specifies the number of seconds between each update of the top output and defaults to `5`
+* `sort` determines on which category `riak-admin top` sorts and defaults to `reductions`
+* `lines` specifies the number of processes to display in the top output and defaults to `10`
+
+More information about Erlang's etop can be found in the [etop documentation](http://www.erlang.org/doc/man/etop.html).

@@ -18,7 +18,7 @@ A few other settings must be modified to configure a Riak node as part of a Riak
 
 ## Setting up the Proper Riak Backend
 
-First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv `section. The `app.config` file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
+First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv` section. The `app.config` file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
 
 ```erlang
 {storage_backend, riak_kv_bitcask_backend},
@@ -171,3 +171,13 @@ Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/
 -env ERL_MAX_PORTS 64000
 ```
 {{/1.2.0+}}
+
+### Disable JavaScript MapReduce
+
+It is recommended that you not use JavaScript MapReduce in conjunction with _any_ version of Riak CS, and that you disable the VM that performs JavaScript MapReduce operations (for performance reasons). To do so, set the following in your `app.config`, in the `riak_kv` section:
+
+```erlang
+{map_js_vm_count, 0},
+{reduce_js_vm_count, 0},
+{hook_js_vm_count, 0}
+```

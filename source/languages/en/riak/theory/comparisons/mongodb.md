@@ -95,7 +95,7 @@ The table below gives a high level comparison of Riak and MongoDB features/capab
             </ul>
 
     </td>
-        <td>MongoDB has a query interface that has some similarities to relational databases, including secondary indexes that can be derived from the stored documents. MongoDB also has a facilities for performing MapReduce queries and ad-hoc queries on documents. Hadoop support is available, too.
+        <td>MongoDB has a query interface that has some similarities to relational databases, including secondary indexes that can be derived from the stored documents. MongoDB also has facilities for performing MapReduce queries and ad-hoc queries on documents. Hadoop support is available, too.
                 <ul>
                 <li>[[Querying|http://www.mongodb.org/display/DOCS/Querying]]</li>
                 <li>[[Indexes|http://www.mongodb.org/display/DOCS/Indexes]]</li>

@@ -218,7 +218,7 @@ A:
 
 Q: Is there a limit on the size of files that can be stored on Riak?
 A:
-  There isn't a limit on object size, but we suggest you keep it below 10 MB for performance reasons. Variables such as network speed can directly affect the maximum usable object size for a given cluster. You should use a tool like [[Basho Bench]] to determine the performance of your cluster with a given object size before moving to production use. Or if your use case demands storing many large objects, you may want to consider the [[Riak CS]] object storage system, which is designed for precisely that purpose.
+  There isn't a limit on object size, but we suggest you keep it to no more than 1-2MB for performance reasons. Variables such as network speed can directly affect the maximum usable object size for a given cluster. You should use a tool like [[Basho Bench]] to determine the performance of your cluster with a given object size before moving to production use. Or if your use case demands storing many large objects, you may want to consider the [[Riak CS]] object storage system, which is designed for precisely that purpose.
   
 Q: Does the bucket name impact key storage size?
 A:
@@ -400,56 +400,3 @@ A:
   ```
 
   JSON has no "tuple" notion. For the time being, a recommended workaround would be to use a list of length-2 lists.
-
-<h2>Search</h2>
-
-Q: How do I apply a new schema to a bucket?
-A:
-  1. Purge the bucket of all data
-  2. Install the new schema
-  3. Run `search-cmd clear-schema-cache`
-  4. Repopulate the bucket
-
-  This will clear the schema on connected nodes. However, if a network partition results in an unreachable---but still running---node, then that node will continue to use the old cached version of the schema.
-
-Q: How do I index objects that are already in a bucket?
-A:
-  Take a look at [[Repairing Indexes]].
-
-Q: What is the `too_many_results` error?
-  When I try to run the query I get the error: `too many results`. I may have hundreds of thousands of results.
-
-  ```erlang
-  {error,
-      {throw,
-          {too_many_results,
-              {scope,#Ref<0.0.78.140604>,"user_profile","value",
-                  {scope,#Ref<0.0.78.140603>,undefined,"country",
-                      {term,#Ref<0.0.78.140609>,<<"USA">>,
-                          [{'riak@10.230.7.111',28438},
-                           {'riak@10.230.21.243',28438},
-                           {'riak@10.230.45.195',28438}],
-                          28438.0,1.0,
-                          #Fun}}}},
-          [{riak_search_client,'-search/5-fun-0-',4},
-           {riak_search_client,fold_results,5},
-           {riak_search_client,search,6},
-           {riak_search_client,search_doc,6},
-           {riak_solr_searcher_wm,run_query,1},
-           {riak_solr_searcher_wm,to_xml,2},
-           {webmachine_resource,resource_call,3},
-           {webmachine_resource,do,3}]}}
-  ```
-
-A:
-  The error you see is caused by a protective configuration setting. By default, the system will stop the query after 100,000 results and return an error to the system. It is intended to prevent Riak Search from exhausting all available memory when faced with a large result set. This fail-safe is applied prior to the `rows` parameter.
-
-  Most people will never encounter the `max_results` setting. Those who do will have special use cases with especially large queries. In those cases, testing and tuning to find a number that is large enough to handle your queries while still small enough to prevent memory exhaustion is required. Tuning will depend upon both your available memory and your object size.
-
-  The default value of 100,000 can be custom tuned with the `max_search_results` setting in the `etc/app.config` file.
-
-Q: What is the relationship between Riak Search and Lucene or Solr?
-A:
-  Riak Search does not use Lucene or Solr. It provides a very similar interface to those search systems in order to ease the transition for developers but is an independent piece of software from top to bottom. Indexes are stored in Riak Search's own storage engine, queries are parsed by Riak Search's parser, and so on.
-
-  The closest thing there is to such a relationship is that you can---but do not need to---use the same text analyzer libraries in Riak Search that you use in Lucene.

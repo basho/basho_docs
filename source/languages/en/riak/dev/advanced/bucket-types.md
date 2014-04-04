@@ -16,19 +16,18 @@ The ad hoc approach to bucket configuration involves setting bucket properties f
 Using bucket *types* also involves dealing with bucket properties, but with a few crucial differences:
 
 * Bucket types enable you to assign a total set of properties to buckets _at the time of their creation_ (instead of setting buckets' properties and then using those buckets)
-* Bucket types must be both created _and_ activated before they can be used (bucket properties can be modified at any time)
+* Bucket types must be both created _and_ activated before they can be used (whereas bucket properties can be modified at any time)
 * Nearly all bucket properties can be updated using bucket types, with two exceptions: the `datatype` and `consistent` properties
 
-It is important to note that buckets are not assigned types in the same way that they are configured [[using `props`|HTTP Set Bucket Properties
-]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
+It is important to note that buckets are not assigned types in the same way that they are configured when using [[bucket properties|The Basics#Bucket-Properties-and-Operations]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
 
 Instead, bucket types are applied to buckets _on the basis of how those buckets are queried_. Queries involving bucket types take the following form:
 
 ```curl
-GET/PUT/DELETE /types/<type>/buckets/<type>/keys/<key>
+GET/PUT/DELETE /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
-If you have created the bucket type `no_siblings` (with `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example HTTP query:
+If you have created the bucket type `no_siblings` (with the property `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example write:
 
 ```curl
 curl -XPUT \
@@ -37,9 +36,17 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/sensitive_user_data/keys/user19735
 ```
 
+```ruby
+bucket = client.bucket 'sensitive_user_data'
+obj = Riak::RObject.new bucket, 'user19735'
+obj.content_type = 'application/json'
+obj.raw_data = '{ ... user data ... }'
+obj.store bucket_type: 'no_siblings'
+```
+
 In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the query's structure_.
 
-This is because buckets act as a separate namespace in Riak, in addition to buckets and keys. More on this in the section directly below.
+This is because buckets act as a separate namespace in Riak, in addition to buckets and keys.
 
 ## Buckets as Namespaces
 
@@ -49,6 +56,11 @@ In versions of Riak prior to 2.0, all queries are made to a bucket/key pair, as 
 curl http://localhost:8098/buckets/my_bucket/keys/my_key
 ```
 
+```ruby
+bucket = client.bucket 'my_bucket'
+bucket.get 'my_key'
+```
+
 With the addition of bucket types in Riak 2.0, bucket types can be used as _an additional namespace_ on top of buckets and keys. The same bucket name can be associated with completely different data if it used in accordance with a different type. Thus, the following two requests will be made to _completely different keys_, even though the bucket and key names are the same:
 
 ```curl
@@ -56,9 +68,16 @@ curl http://localhost:8098/types/type1/my_bucket/my_key
 curl http://localhost:8098/types/type2/my_bucket/my_key
 ```
 
+```ruby
+bucket = client.bucket 'my_bucket'
+
+bucket.get 'my_key', bucket_type: 'type1'
+bucket.get 'my_key', bucket_type: 'type2'
+```
+
 <div class="note">
 <div class="title">Note</div>
-In Riak 2.x, <em>all_ requests</em> must be made to a location specified by a bucket type, bucket, and key rather than to a bucket/key pair, as in previous versions.
+In Riak 2.x, <em>all requests</em> must be made to a location specified by a bucket type, bucket, and key rather than to a bucket/key pair, as in previous versions.
 </div>
 
 If requests are made to a bucket/key pair without a specified bucket type, the `default` bucket type will be used. The following queries are thus identical:
@@ -66,6 +85,13 @@ If requests are made to a bucket/key pair without a specified bucket type, the `
 ```curl
 curl http://localhost:8098/buckets/my_bucket/keys/my_key
 curl http://localhost:8098/types/default/my_bucket/keys/my_key
+```
+
+```ruby
+bucket = client.bucket 'my_bucket'
+
+bucket.get 'my_key'
+bucket.get 'my_key', bucket_type: 'default'
 ```
 
 Below is a listing of the `props` associated with the `default` bucket type:
@@ -115,16 +141,24 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/old_memes/keys/all_your_base
 ```
 
-This query would both create the bucket `old_memes` and ensure that the configuration contained in the `no_siblings` is applied to the bucket all at once.
+```ruby
+bucket = client.bucket 'old_memes'
+obj = Riak::RObject.new bucket, 'all_your_base'
+obj.content_type = 'text/plain'
+obj.raw_data = 'all your base are belong to us'
+obj.store bucket_type: 'no_siblings'
+```
 
-If we wished, we could also store store some both old and new memes in buckets with different types. We could use the `no_siblings` bucket from above if we didn't want to deal with siblings, vclocks, and the like, and we could use a `siblings_allowed` bucket type (with all of the default properties except `allow_mult` set to `true`). This would give use four bucket type/bucket pairs:
+This query would both create the bucket `old_memes` and ensure that the configuration contained in the `no_siblings` bucket type is applied to the bucket all at once.
+
+If we wished, we could also store store both old and new memes in buckets with different types. We could use the `no_siblings` bucket from above if we didn't want to deal with siblings, vclocks, and the like, and we could use a `siblings_allowed` bucket type (with all of the default properties except `allow_mult` set to `true`). This would give use four bucket type/bucket pairs:
 
 * `no_siblings` / `old_memes`
 * `no_siblings` / `new_memes`
 * `siblings_allowed` / `old_memes`
 * `siblings_allowed` / `new_memes`
 
-All four of these pairs are isolated keyspaces. The key `favorite_meme` could hold separate values in all four bucket type/bucket spaces.
+All four of these pairs are isolated keyspaces. The key `favorite_meme` could hold different values in all four bucket type/bucket spaces.
 
 ## Managing Bucket Types Through the Command Line
 
@@ -241,48 +275,48 @@ riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 
 <div class="note">
 <div class="title">Note</div>
-Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <tt>consistent</tt> and <tt>type</tt>. If a bucket type entails strong consistency (requiring that <tt>consistent</tt> be set to <tt>true</tt>) or is set up as a [[CRDT]]&mdash;<tt>map</tt>, <tt>set</tt>, or <tt>counter</tt>&mdash;then this will be true of the bucket type once and for all.
+Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <tt>consistent</tt> and <tt>datatype</tt>. If a bucket type entails strong consistency (requiring that <tt>consistent</tt> be set to <tt>true</tt>) or is set up as a <tt>map</tt>, <tt>set</tt>, or <tt>counter</tt>, then this will be true of the bucket type once and for all.
 
 If you need to change one of these properties, it is recommended that you simply create a new bucket type.
 </div>
 
 ## Bucket Type Example
 
-Let's say that you'd like to create a bucket type called `user_account_bucket` with a [[pre-commit hook|Pre-Commit Hooks]] called `syntax_check` and two [[post-commit hooks|Post-Commit Hooks]] called `welcome_email` and `update_registry`. This would involve four steps:
+Let's say that you'd like to create a bucket type called `user_account_bucket` with a [[pre-commit hook|Using Commit Hooks#Pre-Commit-Hooks]] called `syntax_check` and two [[post-commit hooks|Using Commit Hooks#Post-Commit-Hooks]] called `welcome_email` and `update_registry`. This would involve four steps:
 
 1. Creating a JavaScript object containing the appropriate `props` settings:
 
-```json
-{
-  "props": {
-    "precommit": ["syntax_check"],
-    "postcommit": ["welcome_email", "update_registry"]
-  }
-}
-```
+    ```json
+    {
+      "props": {
+        "precommit": ["syntax_check"],
+        "postcommit": ["welcome_email", "update_registry"]
+      }
+    }
+    ```
 
 2. Passing that JSON to the `bucket-type create` command:
 
-```bash
-riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ["syntax_check"], ... }}'
-```
+    ```bash
+    riak-admin bucket-type create user_account_bucket '{"props":{"precommit": ["syntax_check"], ... }}'
+    ```
 
-If creation is successful, the console will return `user_account_bucket created`.
+    If creation is successful, the console will return `user_account_bucket created`.
 
 3. Verifying that the type is ready to be activated:
 
-Once the type is created, you can check whether your new type is ready to be activated by running:
+    Once the type is created, you can check whether your new type is ready to be activated by running:
 
-```bash
-riak-admin bucket-type status user_account_bucket
-```
+    ```bash
+    riak-admin bucket-type status user_account_bucket
+    ```
 
-If the first line reads `user_account_bucket has been created and may be activated`, then you can proceed to the next step. If it reads `user_account_bucket has been created and is not ready to activate`, then wait a moment and try again. If it still does not work, then there may be network partition or other issues that need to be addressed in your cluster.
+    If the first line reads `user_account_bucket has been created and may be activated`, then you can proceed to the next step. If it reads `user_account_bucket has been created and is not ready to activate`, then wait a moment and try again. If it still does not work, then there may be network partition or other issues that need to be addressed in your cluster.
 
 4. Activating the new bucket type:
 
-```bash
-riak-admin bucket-type activate user_account_bucket
-```
+    ```bash
+    riak-admin bucket-type activate user_account_bucket
+    ```
 
-If activation is successful, the console will return `user_account_bucket has been activated`.
+    If activation is successful, the console will return `user_account_bucket has been activated`. The bucket type is now fully ready to be used.

@@ -24,6 +24,7 @@ riak:
               - "[[PHP|Taste of Riak: PHP]]"
               - "[[Python|Taste of Riak: Python]]"
               - "[[Ruby|Taste of Riak: Ruby]]"
+              - "[[C|Taste of Riak: C]]"
               - "[[OCaml|Taste of Riak: OCaml]]"
               - "[[Clojure|Taste of Riak: Clojure]]"
               - "[[Csharp|Taste of Riak: C-Sharp]]"
@@ -43,7 +44,7 @@ riak:
           - "[[Key/Values|The Basics]]"
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
-          - "[[Datatypes|Using Datatypes]]"
+          - "[[Data Types|Using Data Types]]"
           - "[[Strong Consistency|Using Strong Consistency]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
@@ -53,6 +54,7 @@ riak:
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"
+          - "[[Data Modeling with Riak Data Types]]"
           - title: "High Read/Write"
             sub:
               - "[[Session Storage]]"
@@ -67,16 +69,18 @@ riak:
               - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
-          - "[[Search Details|Advanced Search]]"
-          # - "[[Search Schema|Advanced Search Schema]]"
+          - "[[Search Details]]"
+          - "[[Search Schema]]"
           - "[[MapReduce|Advanced MapReduce]]"
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
+          - "[[Strong Consistency|Using Strong Consistency]]"
+          - "[[Cluster Metadata]]"
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
-              # - "[[Search Indexing|Search Indexing Reference]]"
+              # - "[[Search Indexing|Legacy Search Indexing Reference]]"
               # - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
               - "[[Implementing a Backend|Backend API]]"
@@ -111,11 +115,11 @@ riak:
           - "[[Basic Cluster Setup]]"
           - "[[Benchmarking|Basho Bench]]"
           - "[[Authentication and Authorization]]"
+          - "[[Managing Security Sources]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
-          - "[[File System Tuning]]"
-          - "[[Linux Performance Tuning]]"
+          - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
       - title: "Running a Cluster"
         sub:
@@ -136,9 +140,11 @@ riak:
             sub:
               - "[[Failure and Recovery]]"
               - "[[Recovering a Failed Node]]"
+              - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
+              - "[[Repairing LevelDB]]"
+              - "[[Rolling Restart]]"
               - "[[Common Errors]]"
-          - "[[Rolling Upgrades]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
@@ -158,6 +164,12 @@ riak:
               - "[[LevelDB]]"
               - "[[Memory]]"
               - "[[Multi]]"
+      - title: "Upgrading a Cluster"
+        sub:
+          - "[[Production Checklist]]"
+          - "[[Rolling Upgrades]]"
+          - "[[Rolling Downgrades]]"
+
 
   - title: "Theory & Concepts"
     sub:
@@ -167,7 +179,7 @@ riak:
           # - "[[Bucket Types]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
-          - "[[Datatypes]]"
+          - "[[Data Types]]"
           - "[[Eventual Consistency]]"
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
