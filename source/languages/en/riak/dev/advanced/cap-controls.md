@@ -17,33 +17,34 @@ moved: {
 }
 ---
 
-Riak was built with the assumption that a Riak installation acts as a multi-node [[cluster|Clusters]], distributing data across multiple physical servers. This design was chosen with [high availability](http://basho.com/relational-to-riak-high-availability-part-1/) and partition tolerance as two of its central goals.
+Riak was built with the assumption that a Riak installation acts as a multi-node [[cluster|Clusters]], distributing data across multiple physical servers.
 
-Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is a necessary trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off, offering a number of possibilities:
+Riak's guiding design principle is Dr. Eric Brewer's [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem). The CAP theorem defines distributed systems in terms of three desired properties: consistency, availability, and partition (i.e. failure) tolerance. Riak chooses to focus on the A and P of CAP, which puts it in the eventually consistent camp. It should be stated, however, that the window for "eventually consistent" is usually in the neighborhood of milliseconds, which can be good enough for many applications.
 
-* Using Riak to maximize availability by leveraging [[eventual consistency]]
-* Sacrificing availability in the name of better data consistency by requiring that data be 
-* Use Riak as a [[strongly consistent|Strong Consistency]] system, sacrificing all availability guarantees. Using Riak in this way is fundamentally different and won't be covered in this tutorial. We suggest reading the [[Using Strong Consistency]] tutorial instead.
-
-The ability to make these kinds of fundamental choices has immense value for your applications and is one of the features that we feel truly differentiates Riak from other technologies.
+Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is a necessary trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off. The ability to make these kinds of fundamental choices has immense value for your applications and is one of the features that we feel truly differentiates Riak from other technologies.
 
 At the bottom of the page, you'll find a screencast that briefly explains how to adjust your replication levels to match your application and business needs.
 
 ## A Primer on N, R, and W
 
-The most important thing to note about Riak's replication
+The most important thing to note about Riak's replication controls is that they operate at the bucket level. You can use [[bucket types|Using Bucket Types]] to set up bucket `A` to use a particular set of replication properties and bucket `B` to use entirely different ones.
 
-Riak exposes replication controls to developers in such a way that they can tune, down to the bucket level, how many copies of data they want to store, how many copes they wish to read from at a time, and how many copies must write to be considered a success. We do this using N, R, and W values.
+At the bucket level, you can choose how many copies of data you want to store in your cluster (N, or `n_val`), how many copies you wish to read from at one time (R, or `r`), and how many copies must be written to be considered a success (W, or `w`).
 
-Riak's guiding design principle is Dr. Eric Brewer's [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem). The CAP theorem defines distributed systems in terms of three desired properties: consistency, availability, and partition (i.e. failure) tolerance. The theorem states that you can only rely on having two of the three properties at any time.
+In addition to the bucket level, you can also specify replication properties on the client side for any given read or write. The examples immediately below will deal with bucket-level replication settings, but check out the [[section below|Replication Properties#client-level-replication-settings]] for more information on setting properties on a per-operation basis.
 
-Riak chooses to focus on the A and P of CAP. This choice puts Riak in the eventually consistent camp. It should be stated, however, that the window for "eventually consistent" is usually in the neighborhood of milliseconds, which can be good enough for many applications.
+<div class="note">
+<div class="title">Note on strong consistency</div>
+An option introduced in Riak version 2.0 is to use Riak as a <a href="/theory/concepts/strong-consistency/">strongly consistent</a> system for data in specified buckets. Using Riak in this way is fundamentally different from adjusting replication properties and fine-tuning the availability/consistency trade-off, as it sacrifices <em>all</em> availability guarantees when necessary. Therefore, you should consult the <a href="/dev/advanced/strong-consistency">Using Strong Consistency</a> documentation, as this option will not be covered in this tutorial.
+</div>
 
-### N Value and Replication
+## N Value and Replication
 
-All data stored in Riak will be replicated to a number of nodes in the cluster according to the N value (`n_val`) property set on the bucket. By default, Riak chooses an `n_val` of 3 for you. This means that data stored in the bucket will be replicated to three different nodes, thus storing three copies. For this to be effective, you need at least three physical nodes in your cluster. The merits of this system can be demonstrated, however, using your local environment.
+All data stored in Riak will be replicated to the number of nodes in the cluster specified by a bucket's N value (`n_val`). The default `n_val` in Riak is 3, which means that data stored in a bucket with the default N will be replicated to three different nodes, thus storing three replicas of the object.
 
-To change the `n_val` for a bucket, you must create and activate a [[bucket type|Using Bucket Types]] that uses the desired `n_val`, let's say 2:
+In order for this to be effective, you need at least three nodes in your cluster. The merits of this system, however, can be demonstrated using your local environment.
+
+Let's create a bucket type that sets the `n_val` for any bucket with that type to 2. To do so, you must create and activate a bucket type that sets this property:
 
 ```bash
 riak-admin bucket-type create n_val_equals_2 '{"props":{"n_val":2}}'
@@ -56,45 +57,49 @@ Now, all buckets that bear the type `n_val_equals_2` will have `n_val` set to 2.
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "the n_val on this write is 2" \
-  http://localhost:8098/types/n_val_is_2/buckets/test_bucket/keys/test_key
+  http://localhost:8098/types/n_val_equals_2/buckets/test_bucket/keys/test_key
 ```
+
+Now, whenever we write to a bucket of this type, Riak will write two replicas to two different nodes.
 
 <div class="note">
 <div class="title">A Word on Setting the N Value</div>
 <tt>n_val</tt> must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. We advise against modifying the <tt>n_val</tt> of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.
 </div>
 
-### R Value and Read Failure Tolerance
+## R Value and Read Failure Tolerance
 
-Above, we create a bucket type with `n_val` set to `2`.
+In addition to specifying the number of nodes to which data is written, you can also supply an R value (`r`) that applies to reads instead of writes. This value tells Riak how many nodes have to return a result on a given read for the read to be considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
 
-Riak also allows clients to supply an *R value* on each direct read. The R value represents the number of Riak nodes that must return results for a read before the read is considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
+You can set this value anywhere from 1 to N; lower values mean faster response time but a higher likelihood of Riak not finding the object you're looking for, while higher values mean that Riak is more likely to find the object but takes longer to look.
 
-Let's create and activate a bucket type with `r` set to `1`.
+As an example, let's create and activate a bucket type with `r` set to `1`. All reads performed on data in buckets with this type require a result from only one node.
 
 ```bash
 riak-admin bucket-type create r_equals_1 '{"props":{"r":1}}'
 riak-admin bucket-type activate r_equals_1
 ```
 
-Now, for data that is in a bucket that bears our `r_equals_1` type, at least one copy is present in your cluster. Here's an example read request with `r` set to `1`:
+Here's an example read request with `r` set to `1`:
 
 ```curl
 curl http://localhost:8098/types/r_equals_1/buckets/test_bucket/keys/test_key
 ```
 
-### W Value and Write Fault Tolerance
+As explained above, reads to buckets with the `r_equals_1` type will typically be completed more quickly, but if the first node where Riak attempts to find the object is down, Riak will return a `not found` response (which may happen even if the object lives on one or more other nodes). Setting `r` to a higher value will mitigate this risk.
 
-Riak also allows the client to supply a *W value* on each update. The W value represents the number of Riak nodes that must report success before an update is considered complete. This allows Riak to provide write availability even when nodes are down or laggy.
+## W Value and Write Fault Tolerance
 
-Let's create and activate a bucket type with `w` set to `3`:
+Riak also enables you to supply a W value (`w`) that specifies how many nodes must report success on writes for the write to be considered successful---a direct analogy to R. This allows Riak to provide write availability even when nodes are down or laggy. As with R, you can set W to any value between 1 and N. The same performance vs. fault tolerance trade-offs that apply to R apply to W.
+
+As an example, let's create and activate a bucket type with `w` set to `3`:
 
 ```bash
 riak-admin bucket-type create w_equals_3 '{"props":{"w":3}}'
 riak-admin activate w_equals_3
 ```
 
-Now, we can attempt a write in accordance with that W value:
+Now, we can attempt a write to a bucket bearing the type `w_equals_3`:
 
 ```curl
 curl -XPUT \
@@ -103,9 +108,11 @@ curl -XPUT \
   http://localhost:8098/types/w_equals_3/buckets/docs/keys/story.txt
 ```
 
-### Primary Reads and Writes with PR and PW
+Writing our `story.txt` will return a success response from Riak only if three nodes respond that the write was successful. Setting `w` to 1, for example, would mean that Riak would return a response more quickly, but with a higher risk that the write will fail because the first node it seeks to write the object to is down.
 
-In Riak's replication model, there are N vnodes, called *primary vnodes*, that hold primary responsibility for any given key. Riak will attempt reads and writes to primary vnodes first, but in case of failure, those operations will go to failover nodes in order to comply with the R and W values that you have set. This failover option is called *sloppy quorum*.
+## Primary Reads and Writes with PR and PW
+
+In Riak's replication model, there are N [[vnodes|Riak Glossay#vnodes]], called *primary vnodes*, that hold primary responsibility for any given key. Riak will attempt reads and writes to primary vnodes first, but in case of failure, those operations will go to failover nodes in order to comply with the R and W values that you have set. This failover option is called *sloppy quorum*.
 
 In addition to R and W, you can also set integer values for the *primary read* (PR) and *primary write* (PW) parameters that specify how many primary nodes must respond to a request in order to report success to the client. The default for both values is zero.
 
@@ -116,13 +123,13 @@ Setting PR and/or PW to non-zero values produces a mode of operation called *str
 If PW is set to a non-zero value, there is a higher risk (usually very small) that failure will be reported to the client upon write. But this does not necessarily mean that the write has failed completely. If there are reachable primary vnodes, those vnodes will still write the new data to Riak. When the failed vnode returns to service, it will receive the new copy of the data via either read repair or Active Anti-Entropy.
 </div>
 
-### Durable Writes with DW
+## Durable Writes with DW
 
 The W and PW parameters specify how many vnodes must _respond_ to a write in order for it to be deemed successful. What they do not specify is whether data has actually been written to disk in the storage backend. The DW parameters enables you to specify a number of vnodes between 1 and N that must write the data to disk before the request is deemed successful. The default is `quorum`.
 
 How quickly and robustly data is written to disk depends on the configuration of your backend or backends. For more details, see the documentation on [[Bitcask]], [[LevelDB]], and [[multiple backends|Multi]].
 
-### The Implications of `notfound_ok`
+## The Implications of `notfound_ok`
 
 The `notfound_ok` parameter is a bucket property that determines how Riak responds if a read fails on a node. If `notfound_ok` is set to `true` (this is the default) is the equivalent to setting R to 1: if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client.
 
@@ -132,7 +139,7 @@ In general, setting `notfound_ok` to `true` will return any `notfound`responses 
 
 Setting `notfound_ok` to `false` will be more thorough in checking for the value but at the cost of a small performance hit in cases where the coordinating vnode waits for responses from all vnodes and all return a `notfound`. One way to mitigate this problem is to set `basic_quorum` to `true`, which will instruct the coordinating vnode to wait for only two responses instead of three to return a `notfound` error.
 
-### Symbolic Consistency Names
+## Symbolic Consistency Names
 
 Riak 0.12 introduced "symbolic" consistency options for R, W, PR, and RW that can be easier to use and understand. They are:
 
@@ -142,6 +149,50 @@ Riak 0.12 introduced "symbolic" consistency options for R, W, PR, and RW that ca
 * `default` --- Uses whatever the per-bucket consistency property is for R or W, which may be any of the above values, or an integer.
 
 Not submitting an R or W value is the same as sending `default`.
+
+## Client-level Replication Settings
+
+Adjusting replication properties at the bucket level, using [[bucket types|Using Bucket Types]], is a way of managing those properties at an abstract level, determining those properties for _all_ reads from and writes to a bucket. But you can also set replication properties for a given read or write without setting those properties at the bucket level, specifying them on a per-operation basis.
+
+Let's say that you want to set `r` to 2 and `notfound_ok` to `true` for just one read. We'll fetch [John Stockton](http://en.wikipedia.org/wiki/John_Stockton)'s statistics from the `nba_stats` bucket. We won't specify a [[bucket type|Using Bucket Types]], which means that Riak will use the `default` bucket type.
+
+```ruby
+bucket = client.bucket('nba_stats')
+obj = bucket.get('john_stockton', r: 2, notfound_ok: true)
+```
+
+```java
+Location johnStocktonStats = new Location("nba_stats")
+        .setKey("john_stockton");
+FetchValue fetch = new FetchValue.Builder(johnStocktonStats)
+        .withOption(FetchOption.R, 2)
+        .withOption(FetchOption.NOTFOUND_OK, true)
+        .build();
+client.execute(fetch);
+```
+
+```python
+bucket = client.bucket('nba_stats')
+obj = bucket.get('john_stockton', r=2, notfound_ok=True)
+```
+
+```erlang
+{ok, Obj} = riakc_pb_socket:get(Pid,
+                                {<<"nba_stats">>},
+                                <<"john_stockton">>,
+                                [{r, 2}, {notfound_ok, true}]).
+```
+
+```curl
+curl http://localhost:8098/buckets/nba_stats/keys/john_stockton?r=2&notfound_ok=true
+```
+
+All of Basho's [[official Riak clients|Client Libraries]] enable you to set replication properties this way. For more detailed information, refer to the tutorial on [[basic key/value operations in Riak|The Basics]] or to client-specific documentation:
+
+* [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.markdown)
+* [Java](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+* [Python](http://basho.github.io/riak-python-client/)
+* [Erlang](http://basho.github.io/riak-erlang-client/)
 
 ## N, R and W in Action
 
