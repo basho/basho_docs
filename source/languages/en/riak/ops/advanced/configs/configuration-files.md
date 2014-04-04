@@ -153,10 +153,10 @@ The storage backend that Riak should use is set using the `storage_backend` prop
 
 Backend | Description |
 :-------|:------------|
-`riak_kv_bitcask_backend` | Data is stored in Bitcask append-only storage. See the [[Bitcask configuration page|Bitcask]] for more information. |
-`riak_kv_eleveldb_backend` | Data is stored in LevelDB. See the [[LevelDB configuration page|LevelDB]] for more information.
-`riak_kv_memory_backend` | A backend that behaves as an LRU-with-timed-expiry cache. Read the [[Memory backend configuration page|Memory]] for more information. |
-`riak_kv_multi_backend` | Enables storing data for different buckets in different backends. See the [[Multi configuration page|Multi]] for more details.
+`riak_kv_bitcask_backend` | Data is stored in Bitcask append-only storage. See the <a href="/ops/advanced/backends/bitcask">Bitcask configuration page</a> for more information. |
+`riak_kv_eleveldb_backend` | Data is stored in LevelDB. See the <a href="/ops/advanced/backends/leveldb">LevelDB configuration page</a> for more information.
+`riak_kv_memory_backend` | A backend that behaves as an LRU-with-timed-expiry cache. Read the <a href="/ops/advanced/backends/memory">Memory backend configuration page</a> for more information. |
+`riak_kv_multi_backend` | Enables storing data for different buckets in different backends. See the <a href="/ops/advanced/backends/multi">Multi backend configuration page</a> for more details.
 
 ## `webmachine_logger_module`
 
