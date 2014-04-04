@@ -45,4 +45,3 @@ Riak Search runs a Solr process per node to manage its index and search function
 Concerning ports, be sure to take the necessary security precautions to prevent exposing the extra solr and JMX ports to the outside world.
 
 
-<!-- connecting to JMX -->
