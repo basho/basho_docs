@@ -22,9 +22,10 @@ Riak tends to be an excellent choice for data of the following kinds:
 
 * **Immutable data** --- While Riak provides a number of means of resolving conflicts between different replicas of objects, those processes can produce latency. Storing immutable data means avoiding those processes altogether.
 * **Small objects** --- Riak was not built as a store for large objects, like video files or other large [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built [RiakCS](http://basho.com/riak-cloud-storage/) for that. Riak is great, however, for JSON, [[log files|Log Data]], [[sensor data]], and filetypes that tend to run smaller than 1 MB, like HTML files.
-* **Independent objects** --- Objects that have complex interdependencies 
-* Objects with "natural" keys, e.g. timestamps or [[usernames|User Accounts]]
-* Mutable data that can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]]
+* **Independent objects** --- Objects that have complex interdependencies on other objects are not a good fit for Riak due to Riak's distributed nature. 
+* **Objects with "natural" keys** --- It is almost always advisable to build keys for objects out of timestamps, [[usernames|User Accounts]], or other ["natural" markers](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example) that distinguish that an object from other objects.
+* **Riak Data Type-compatible immutable data** --- If you're working with mutable data, you can run CRUD operations on that data in traditional key/value fashion and manage conflict resolution yourself or allow Riak to do so.
+that can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]]
 
 Riak is probably not recommended if you need to store:
 

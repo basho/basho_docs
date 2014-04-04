@@ -39,7 +39,7 @@ riak:
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
       - title: "Basic Usage"
         sub:
-          - "[[Applications Guide|Building Applications with Riak]]"
+          - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
           - "[[Key/Values|The Basics]]"
           - "[[Search|Using Search]]"
