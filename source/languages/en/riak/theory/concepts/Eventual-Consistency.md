@@ -37,17 +37,7 @@ Data inconsistencies can best be mitigated by immutability. Conflicting data is 
 
 ## Replication Properties and Request Tuning
 
-There is a variety of configuration options which will influence Riak's behavior when responding to write and read requests.
-
-The parameters that we're concerned with:
-
-Parameter | Often referred to as | Default Value | Summary
-:---------|:---------------------|:--------------|:-------
-`n_val` | **N** | `3` | Replication factor
-`r` | **R** | `quorum` | The number of servers that must respond to a read request
-`w` | **W**| `quorum` | The number of servers that must respond to a write request
-`pr` | **PR** | `0` | The number of _primary_ servers that must respond to a read request
-`pw` | **PW** | `0` | The number of _primary_ servers that must respond to a write request
+There is a wide variety of configuration options that will influence Riak's behavior when responding to write and read requests. An in-depth discussion of these behaviors, and how they can be implemented on the application side and using [[bucket types|Using Bucket Types]], can be found in the [[Replication Properties]] documentation.
 
 A value of `quorum` indicates a majority of the `N` value (`N`/2 + 1, or 2 for a default `N` value of 3, 3 for an `N` value of 5, 4 for 6, and so on).
 

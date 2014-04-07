@@ -21,7 +21,7 @@ Here, we are going to talk about how Riak distributes your data around the clust
 
 At the bottom of this page, there is a final screencast that briefly touches on how to adjust your replication levels to match your application and business needs. Before you watch, however, have a quick read of the content below.
 
-The table below lists the replication parameters that are available in Riak. Symbolic values like `quorum` are discussed [[below|Replication Properties#symbolic-consistency-names]]. Each parameter will be explained in more detail in the sections below:
+The table below lists the most frequently used replication parameters that are available in Riak. Symbolic values like `quorum` are discussed [[below|Replication Properties#symbolic-consistency-names]]. Each parameter will be explained in more detail in the sections below:
 
 Parameter | Common name | Default value | Description
 :---------|:------------|:--------------|:-----------
@@ -31,8 +31,14 @@ Parameter | Common name | Default value | Description
 `pr` | PR | `0` | The number of primary [[vnodes|Riak Glossary#vnode]] that must respond to a read request
 `pw` | PW | `0` | The number of primary [[vnodes|Riak Glossary#vnode]] that must respond to a write request
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
+
+The following parameters are also available to define the replication properties of a bucket, bucket type, or specific request. They tend to be seldom used, but you may either encounter them when viewing the properties associated with a bucket type and in some rare cases you may need to adjust them yourself:
+
+Parameter | Common name | Default value | Description
+:---------|:------------|:--------------|:-----------
 `rw` | RW | `quorum` | If R and W are undefined, this parameter will substitute for both R and W during object deletes. It is extremely unlikely that you will need to adjust this parameter.
 `notfound_ok` | N/A | `true` | This parameter determines how Riak responds if a read fails on a node. Setting to `true` (the default) is the equivalent to setting R to 1: if the first node to respond doesn't have a copy of the object, Riak will immediately return a `not found` error. If set to `false`, Riak will continue to look for the object on the number of nodes specified by N (aka `n_val`).
+`basic_quorum` | N/A | `false` | If `notfound_ok` is set to `false`, Riak will be more thorough in looking for an object on multiple nodes. Setting `basic_quorum` to `true` in this case will instruct Riak to wait for only a `quorum` of reponses to return a `notfound` error instead of N responses.
 
 ## A Primer on N, R, and W
 
