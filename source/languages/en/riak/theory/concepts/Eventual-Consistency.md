@@ -39,9 +39,7 @@ Data inconsistencies can best be mitigated by immutability. Conflicting data is 
 
 There is a wide variety of configuration options that will influence Riak's behavior when responding to write and read requests. An in-depth discussion of these behaviors, and how they can be implemented on the application side and using [[bucket types|Using Bucket Types]], can be found in the [[Replication Properties]] documentation.
 
-A value of `quorum` indicates a majority of the `N` value (`N`/2 + 1, or 2 for a default `N` value of 3, 3 for an `N` value of 5, 4 for 6, and so on).
-
-There are additional configuration items that are closely related to the above which are not covered in this document: `notfound_ok`, `basic_quorum` and `dw`. See the [Understanding Riak's Configurable Behaviors blog series](http://basho.com/understanding-riaks-configurable-behaviors-part-1/) for more on all of these parameters.
+In addition to our official documentation, we also recommend checking out the [Understanding Riak's Configurable Behaviors](http://basho.com/understanding-riaks-configurable-behaviors-part-1/) series from [our blog](http://basho.com/blog/).
 
 See also the documentation on [[vector clocks]] for a discussion of key configuration options that impact conflict resolution.
 
