@@ -250,7 +250,7 @@ obj = bucket.get('john_stockton', r: 2, notfound_ok: true)
 Location johnStocktonStats = new Location("nba_stats")
         .setKey("john_stockton");
 FetchValue fetch = new FetchValue.Builder(johnStocktonStats)
-        .withOption(FetchOption.R, 2)
+        .withOption(FetchOption.R, new Quorum(2))
         .withOption(FetchOption.NOTFOUND_OK, true)
         .build();
 client.execute(fetch);
@@ -290,8 +290,8 @@ RiakObject obj = new RiakObject()
         .setValue(BinaryValue.create("{'stats':{ ... large stats object ... }}"));
 StoreValue store = new StoreValue.Builder(obj)
         .withLocation(michaelJordanKey)
-        .withOption(StoreOption.W, 3)
-        .withOption(StoreOption.DW, 2)
+        .withOption(StoreOption.W, new Quorum(3))
+        .withOption(StoreOption.DW, new Quorum(2))
         .build();
 client.execute(store);
 ```
