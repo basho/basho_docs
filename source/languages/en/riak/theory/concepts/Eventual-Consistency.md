@@ -11,14 +11,20 @@ moved: {
 }
 ---
 
-An introduction to eventual consistency and what it means in terms of handling data with Riak.
+In a distributed and fault-tolerant environment like Riak, server and network failures are expected. Riak is designed to respond to requests even when servers are offline or the cluster is experiencing a network partition. Riak accomplishes this by enabling conflicting copies of data stored in the same location, as specified by [[bucket type|Using Bucket Types]], bucket, and key, to exist at the same time in the cluster.
 
-In a distributed and fault-tolerant environment like Riak, server and network failures are expected. Riak is designed to respond to requests even when servers are offline or the cluster is experiencing a network partition.
+Let's say that node A holds a value in the key `super_bowl_winner` in the bucket `sports_champions` (which bears the bucket type `[[default|Using Bucket Types]]`). That value is current until the day before the Super Bowl, when the node goes down for 24 hours. It comes back up the next day, after the Super Bowl 
+
+As we can see from this example, data can be inconsistent across a cluster. This is in the very nature of distributed, multi-node systems. One of the things that makes Riak's eventual consistency model powerful is that there are a wide variety of ways that data inconsistency can be resolved.
+
+The 
 
 This has two notable consequences:
 
-* Requests can (and should) be tuned based on data model and business needs.
-* Data can be inconsistent across a cluster.
+* Requests can (and should) be tuned based on your data model(s) and business needs
+* Data can be inconsistent across a cluster
+
+
 
 <div class="note">
 Data inconsistencies can best be mitigated by immutability. Conflicting data is impossible in the absence of updates.

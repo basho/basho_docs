@@ -28,9 +28,7 @@ a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 
 ## Vector Clock Tagging
 
-When a value is stored in Riak, it is tagged with a vector clock, establishing its initial version. 
-
-Using this knowledge, Riak can auto-repair out-of-sync data when feasible or at least provide a client with an opportunity to reconcile divergent changesets in an application-specific manner.
+When a value is stored in Riak, it is tagged with a vector clock, establishing its initial version. Using this knowledge, Riak can auto-repair out-of-sync data when feasible or at least provide a client with an opportunity to reconcile divergent changesets in an application-specific manner.
 
 ## Siblings
 
