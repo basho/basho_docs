@@ -24,6 +24,11 @@ This has two notable consequences:
 * Requests can (and should) be tuned based on your data model(s) and business needs
 * Data can be inconsistent across a cluster
 
+While Riak's eventual consistency model gives rise to any number of possible replication and conflict resolution strategies (some of which will be discussed below and in [[Replication Properties]]), a few rules of thumb hold true:
+
+* The best way to do deal with the problem data inconsistency is to avoid it altogether by storing immutable data that is never updated. This makes Riak an ideal use case for data like session storage, log data, or sensor data, which is stored on the basis of timestamp. Other data models can also be 
+* 
+
 
 
 <div class="note">

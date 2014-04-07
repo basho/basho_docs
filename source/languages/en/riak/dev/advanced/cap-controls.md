@@ -21,6 +21,13 @@ Here, we are going to talk about how Riak distributes your data around the clust
 
 At the bottom of this page, there is a final screencast that briefly touches on how to adjust your replication levels to match your application and business needs. Before you watch, however, have a quick read of the content below.
 
+The table below lists the replication parameters that are available in Riak. Symbolic values like `quorum` are discussed [[below|Replication Properties#symbolic-consistency-names]]. Each parameter will be explained in more detail in the sections below:
+
+Parameter | Common name | Default value | Description
+:---------|:------------|:--------------|:-----------
+`n_val` | N | `3` | Replication factor, i.e. the number of nodes in the cluster on which an object is to be stored
+`r` | R | `quorum` | 
+
 ## A Primer on N, R, and W
 
 Riak exposes replication controls to the developers in such a way that they can tune, down to the bucket level, how many copies of data they want to store, how many copes they wish to read from at a time, and how many copies must write to be considered a success. We do this using N, R, and W values.
