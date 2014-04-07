@@ -15,7 +15,11 @@ One of Riak's central goals is high availability. It was built as a multi-node s
 
 ## Vector Clocks and Relationships Between Objects
 
-Vector clocks enable Riak to compare two objects stored in a specific location, as defined by the object's [[bucket|Buckets]] and [[key|Keys and Objects]], as well as the [[bucket type|Using Bucket Types]] defining the bucket's properties, and determine the relationship between the two objects. A number of important aspects of that relationship can be determined using vector clocks:
+All Riak objects are stored in a location defined by the object's [[bucket|Buckets]] and [[key|Keys and Objects]], as well as the [[bucket type|Using Bucket Types]] defining the bucket's properties. It is possible to [[configure Riak|Conflict Resolution]] to ensure that only one copy of an object ever exists in a specific location. This will ensure that at most one object is returned when a read is performed on a bucket type/bucket/key location. If Riak is configured this way, vector clocks are non-issue for clients connecting to Riak.
+
+It is also possible, however, to configure Riak to allow **siblings** to be created when more than one object is written to a location. The problem with siblings, though, is that they _by definition_ conflict with one another. When an application tries to read an object, multiple **replicas** of the object will be stored in the location where it's looking.
+
+Vector clocks enable Riak to compare two objects stored in a specific location, as defined by the object's  , and determine the relationship between the two objects. A number of important aspects of that relationship can be determined using vector clocks:
 
  * Whether one object is a direct descendant of the other
  * Whether the objects are direct descendants of a common parent
