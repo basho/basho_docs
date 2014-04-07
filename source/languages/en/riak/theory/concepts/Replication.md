@@ -11,13 +11,18 @@ moved: {
 }
 ---
 
-Replication is fundamental and automatic in Riak, providing security that your data will still be there if a node in your Riak cluster goes down. All data stored in Riak will be replicated to a number of nodes in the cluster according to the n_val property set on the bucket.
+Data replication is a core feature of Riak's basic architecture. Riak was designed to operate as a [[clustered|Clusters]] system containing multiple Riak [[nodes|Riak Glossary#nodes]]. In such a system
+
+providing security that your data will live on multiple machines at once in case a node in your cluster goes down.
+
+Replication is fundamental and automatic in Riak, providing security that your data will still be there if a node in your Riak cluster goes down. All data stored in Riak will be replicated to a number of nodes in the cluster according to the N value (`n_val`) property set in a bucket's [[bucket type|Using Bucket Types]].
 
 <div class="note">
 You can read more about Riak's [[Multi Data Center Replication: Architecture]].
 </div>
 
 ## Selecting an N value (n_val)
+
 By default, Riak chooses an n_val of 3 for you. This means that data stored in the bucket will be replicated to 3 different nodes. For this to be effective, you need at least 3 nodes in your cluster.
 
 How to choose an N value depends largely on the application and the shape of the data. If your data is very transient and can be reconstructed easily by the application, choosing a lower N value will give you greater performance. If you need high assurance that data is available even after node failure, increasing the N value will help protect against loss. How many nodes do you expect will fail at any one time? Choose an N value larger than that and your data will still be accessible when they go down.
@@ -25,6 +30,7 @@ How to choose an N value depends largely on the application and the shape of the
 The N value also affects the behavior of read (GET) and write (PUT) requests. The tunable parameters you can submit with requests are bound by the N value. For example, if N=3, the maximum read quorum (known as “R”) you can request is also 3. If some nodes containing the data you are requesting are down, an R value larger than the number of available nodes with the data will cause the read to fail.
 
 ## Setting the N value (n_val)
+
 To change the N value for a bucket issue a PUT request to the bucket with the new value:
 
 ```bash
