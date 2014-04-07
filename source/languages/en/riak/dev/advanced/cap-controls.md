@@ -82,10 +82,36 @@ riak-admin bucket-type create r_equals_1 '{"props":{"r":1}}'
 riak-admin bucket-type activate r_equals_1
 ```
 
-Here's an example read request with `r` set to `1`:
+Here's an example read request using the `r_equals_1` bucket type:
+
+```ruby
+bucket = client.bucket('animal_facts')
+obj = bucket.get('chimpanzee', bucket_type: 'r_equals_1')
+```
+
+```java
+Location chimpanzeeFact = new Location("animal_facts")
+        .setBucketType("r_equals_1")
+        .setKey("chimpanzee");
+FetchValue fetch = new FetchValue.Builder(chimpanzeeFact).build();
+FetchValue.Response response = client.execute(fetch);
+RiakObject obj = response.getValue(RiakObject.class);
+System.out.println(obj.getValue().toString());
+```
+
+```python
+bucket = client.bucket('animal_facts', bucket_type='r_equals_1')
+bucket.get('chimpanzee')
+```
+
+```erlang
+{ok, Obj} = riakc_pb_socket:get(Pid,
+                                {<<"r_equals_1">>, <<"animal_facts">>},
+                                <<"chimpanzee">>).
+```
 
 ```curl
-curl http://localhost:8098/types/r_equals_1/buckets/test_bucket/keys/test_key
+curl http://localhost:8098/types/r_equals_1/buckets/animal_facts/keys/chimpanzee
 ```
 
 As explained above, reads to buckets with the `r_equals_1` type will typically be completed more quickly, but if the first node where Riak attempts to find the object is down, Riak will return a `not found` response (which may happen even if the object lives on one or more other nodes). Setting `r` to a higher value will mitigate this risk.
@@ -105,11 +131,48 @@ riak-admin activate w_equals_3
 
 Now, we can attempt a write to a bucket bearing the type `w_equals_3`:
 
+```ruby
+bucket = client.bucket('animal_facts')
+obj = Riak::RObject.new(bucket, 'giraffe')
+obj.raw_data = 'The species name of the giraffe is Giraffa camelopardalis'
+obj.content_type = 'text/plain'
+obj.store(bucket_type: 'w_equals_3')
+```
+
+```java
+Location storyKey = new Location("animal_facts")
+        .setBucketType("w_equals_3")
+        .setKey(filename);
+RiakObject obj = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(BinaryValue.create("The species name of the giraffe is Giraffa camelopardalis"));
+StoreValue store = new StoreValue.Builder(obj)
+        .withLocation("giraffe")
+        .build();
+client.execute(store);
+```
+
+```python
+bucket = client.bucket('animal_facts', bucket_type='w_equals_3')
+obj = RiakObject(client, bucket, 'giraffe')
+obj.content_type = 'text/plain'
+obj.data = 'The species name of the giraffe is Giraffa camelopardalis'
+obj.store()
+```
+
+```erlang
+Obj = riakc_object:new({<<"w_equals_3">>, <<"animal_facts">>},
+                       <<"giraffe">>,
+                       <<"The species name of the giraffe is Giraffa camelopardalis">>,
+                       <<"text/plain">>),
+riakc_pb_socket:put(Pid, Obj).
+```
+
 ```curl
 curl -XPUT \
   -H "Content-type: text/plain" \
-  --data-binary @story.txt \
-  http://localhost:8098/types/w_equals_3/buckets/docs/keys/story.txt
+  -d "The species name of the giraffe is Giraffa camelopardalis" \
+  http://localhost:8098/types/w_equals_3/buckets/animal_facts/keys/giraffe
 ```
 
 Writing our `story.txt` will return a success response from Riak only if three nodes respond that the write was successful. Setting `w` to 1, for example, would mean that Riak would return a response more quickly, but with a higher risk that the write will fail because the first node it seeks to write the object to is down.
@@ -200,13 +263,52 @@ obj = bucket.get('john_stockton', r=2, notfound_ok=True)
 
 ```erlang
 {ok, Obj} = riakc_pb_socket:get(Pid,
-                                {<<"nba_stats">>},
+                                <<"nba_stats">>,
                                 <<"john_stockton">>,
                                 [{r, 2}, {notfound_ok, true}]).
 ```
 
 ```curl
 curl http://localhost:8098/buckets/nba_stats/keys/john_stockton?r=2&notfound_ok=true
+```
+
+Now, let's say that you want to attempt a write with `w` set to 3 and `dw` set to 2. As in the previous example, we'll be using the `default` bucket type, which enables us to not specify a bucket type upon write. Here's what that would look like:
+
+```ruby
+bucket = client.bucket('nba_stats')
+obj = Riak::RObject.new(bucket, 'michael_jordan')
+obj.content_type = 'application/json'
+obj.data = '{"stats":{ ... large stats object ... }}'
+obj.store(w: 3, dw: 2)
+```
+
+```java
+Location michaelJordanKey = new Location("nba_stats")
+        .setKey("michael_jordan");
+RiakObject obj = new RiakObject()
+        .setContentType("application/json")
+        .setValue(BinaryValue.create("{'stats':{ ... large stats object ... }}"));
+StoreValue store = new StoreValue.Builder(obj)
+        .withLocation(michaelJordanKey)
+        .withOption(StoreOption.W, 3)
+        .withOption(StoreOption.DW, 2)
+        .build();
+client.execute(store);
+```
+
+```erlang
+Obj = riakc_obj:new(<<"nba_stats">>,
+                    <<"michael_jordan">>,
+                    <<"{'stats':{ ... large stats object ... }}">>,
+                    <<"application/json">>),
+riakc_pb_socket:put(Pid, Obj).
+```
+
+```curl
+curl -XPUT \
+  -H "Content-Type: application/json" \
+  -d '{"stats":{ ... large stats object ... }}' \
+  http://localhost:8098/buckets/nba_stats/keys/michael_jordan?w=3&dw=2
 ```
 
 All of Basho's [[official Riak clients|Client Libraries]] enable you to set replication properties this way. For more detailed information, refer to the tutorial on [[basic key/value operations in Riak|The Basics]] or to client-specific documentation:
