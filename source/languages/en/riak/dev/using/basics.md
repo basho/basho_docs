@@ -83,7 +83,15 @@ not found
 
 If you're using HTTP to interact with Riak, as opposed to using a [[client library|Client Libraries]], Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation, which is relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
-Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to an R of 2.
+#### Read Parameters
+
+Parameter | Default | Description
+:---------|:--------|:-----------
+`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
+`pr` | `0` | How many vnodes must respond for a read to be deemed successful
+`notfound_ok` | If set to `true`, if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client
+
+Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response).
 
 Here is an example of attempting a read with `r` set to `3`:
 
@@ -322,8 +330,8 @@ Similar to how read requests support the `r` query parameter, write requests als
 
 Parameter | Default | Description
 :---------|:--------|:-----------
-`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
 `w` | `2` | How many replicas to write to before returning a successful response
+`pw` | `0` | How many primary vnodes must respond for a write to be deemed successful
 `dw` | `0` | How many replicas to commit to durable storage before returning a successful response
 `returnbody` | `false` | Whether to return the contents of the stored object
 
