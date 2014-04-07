@@ -17,10 +17,9 @@ moved: {
 <p>If you run riak_control you should disable it during rolling upgrade process.</p>
 </div>
 
-
 Riak nodes now negotiate with each other to determine supported operating modes. This allows clusters containing mixed-versions of Riak to properly interoperate without special configuration, and simplifies rolling upgrades.
 
-In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak.
+In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak. For more on this process, see our documentation on [[capability negotiation]].
 
 {{#1.1.0-}}
 
