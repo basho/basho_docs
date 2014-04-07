@@ -24,7 +24,8 @@ In previous Riak versions, users were required to disable new features during th
 
 {{#1.1.0-}}
 
-<div class="note"><div class="title">Note on upgrading to Riak 1.0</div>
+<div class="note">
+<div class="title">Note on upgrading to Riak 1.0</div>
 <p>Rolling upgrades should work when moving from Riak 0.13 or later to Riak 1.0
 following the OS specific instructions below, but there are a few considerations
 to keep in mind when doing so. Riak 1.0 has new features that add additional
