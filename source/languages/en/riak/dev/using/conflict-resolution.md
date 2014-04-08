@@ -62,16 +62,21 @@ riak-admin bucket-type status siblings_allowed
 
 If the type has been properly activated, the `status` command should return `siblings_allowed is active`. Now, we'll create two objects and write both of them to the same key without providing a vector clock:
 
+```ruby
+bucket = client.bucket('nickolodeon')
+
+```
+
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "ren" \
-  http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+  http://localhost:8098/types/siblings_allowed/nickolodeon/whatever/keys/best_character
 
 curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "stimpy" \
-  http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+  http://localhost:8098/types/siblings_allowed/nickolodeon/whatever/keys/best_character
 ```
 
 ### V-tags
@@ -79,7 +84,7 @@ curl -XPUT \
 At this point, multiple objects are stored in the same key. Let's see what happens if you try to read contents of the object:
 
 ```curl
-curl http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+curl http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
 
 You should get the response:
@@ -96,7 +101,7 @@ You also have the option of viewing all objects currently stored under the `char
 
 ```curl
 curl -H "Accept: multipart/mixed" \
-  http://localhost:8098/types/siblings_allowed/buckets/whatever/keys/character
+  http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
 
 Response (without headers):
@@ -121,7 +126,7 @@ To update Riak with the appropriate value you will need the current vector
 clock. Right now, there are replicas with two different values: `ren` and `stimpy`. Let's say that we decide that `stimpy` is the correct value on the basis of our application's use case. In order to resolve the conflict, you need to fetch the object's vector clock and then write the correct value to the key _while passing the fetched vector clock to Riak_:
 
 ```curl
-curl -i http://localhost:8098/types/siblings_allowed/buckets/siblings_bucket/keys/character
+curl -i http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
 
 The vector clock can be found in the `X-Riak-Vclock` header. That will look something like this:
@@ -137,7 +142,7 @@ curl -XPUT \
   -H "Content-Type: text/plain" \
   -H "X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=" \
   -d "stimpy" \
-  http://localhost:8098/types/siblings_allowed/buckets/siblings_bucket/keys/character
+  http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
 
 <div class="note">

@@ -13,53 +13,52 @@ moved: {
 
 In a distributed and fault-tolerant environment like Riak, server and network failures are expected. Riak is designed to respond to requests even when servers are offline or the cluster is experiencing a network partition. Riak accomplishes this by enabling conflicting copies of data stored in the same location, as specified by [[bucket type|Using Bucket Types]], bucket, and key, to exist at the same time in the cluster.
 
-Let's say that node A holds a value in the key `super_bowl_winner` in the bucket `sports_champions` (which bears the bucket type `[[default|Using Bucket Types]]`). That value is current until the day before the Super Bowl, when the node goes down for 24 hours. It comes back up the next day, after the Super Bowl 
+When developing using Riak, the problem of data inconsistency must always be borne in mind. Such inconsistency is in the very nature of highly-available distributed, [[clustered|Clusters]] systems because those systems necessarily do not allow for so-called [ACID transactions](http://en.wikipedia.org/wiki/ACID) that ensure that conflicts cannot occur.
 
-As we can see from this example, data can be inconsistent across a cluster. This is in the very nature of distributed, multi-node systems. One of the things that makes Riak's eventual consistency model powerful is that there are a wide variety of ways that data inconsistency can be resolved.
+## Eventual Consistency and Data Inconsistency
 
-The 
+One of the things that makes Riak's eventual consistency model powerful is Riak is very non-opinionated about how data resolution takes place. While Riak does have a set of [[defaults|Replication Properties#available-parameters]], there is a wide variety of ways that data inconsistency can be resolved. The following basic options are available:
 
-This has two notable consequences:
+* **Allowing Riak to resolve all conflicts**. If the `[[allow_mult|Conflict Resolution#siblings]]` parameter is set to `false`, conflict between data replicas can still take place, but Riak resolves those conflicts behind the scenes on the basis of [[vector clocks]]. This unburdens Riak clients from engaging in conflict resolution, delegating that responsibility to Riak itself. While this can ease the development process, it has the important drawback that applications cannot form their own deterministic merge logic.
 
-* Requests can (and should) be tuned based on your data model(s) and business needs
-* Data can be inconsistent across a cluster
+  Another way to prevent conflicts is to set the `[[last_write_wins|Conflict Resolution#last-write-wins]]` parameter to `true` instead of `allow_mult`. The last-write-wins strategy means that conflicts will be resolved on the basis of which object has the most recent timestamp. While this can also ease the development process by guaranteeing that clients don't have to deal with siblings, using clock time as a resolution mechanism in a distributed system can lead to unpredictable results.
 
-While Riak's eventual consistency model gives rise to any number of possible replication and conflict resolution strategies (some of which will be discussed below and in [[Replication Properties]]), a few rules of thumb hold true:
+  <div class="note">
+  <div class="title">Undefined behavior warning</div>
+  Setting both <tt>allow_mult</tt> and <tt>last_write_wins</tt> to <tt>true</tt> necessarily leads to unpredictable behavior and should always be avoided.
+  </div>
 
-* The best way to do deal with the problem data inconsistency is to avoid it altogether by storing immutable data that is never updated. This makes Riak an ideal use case for data like session storage, log data, or sensor data, which is stored on the basis of timestamp. Other data models can also be 
-* 
+* **Allow Riak to form siblings and resolve conflicts on the application side**. If `allow_mult` is set to `true`, Riak will form [[siblings|Conflict Resolution#siblings]] if you write multiple objects to a key without providing Riak with a [[vector clock]] that would enable it to judge which object should be considered most up to date. When sibling objects are formed, applications need to decide which of the objects is "correct" (the definition of which depends on the application itself).
 
+  An application can resolve sibling conflicts by [[passing a vector clock|Conflict Resolution#vector-clocks]] to Riak that shows which replica (or version) of an object that particular client has seen. Or, it can provide some other conflict resolution logic. You could specify, for example, that some objects cannot be "correct" because they're too large, their timestamps show them to be too old, the number of items in the [[shopping cart|Dynamo]] has too items, etc. In effect, the sky's the limit when applications are in control of conflict resolution.
 
-
-<div class="note">
-Data inconsistencies can best be mitigated by immutability. Conflicting data is impossible in the absence of updates.
-</div>
+Conflict resolution in Riak can be a complex business, but the presence of this variety of options means that all requests to Riak can always be made in accordance with your data model(s), business needs, and use cases.
 
 ## Replication Properties and Request Tuning
 
-There is a wide variety of configuration options that will influence Riak's behavior when responding to write and read requests. An in-depth discussion of these behaviors, and how they can be implemented on the application side and using [[bucket types|Using Bucket Types]], can be found in the [[Replication Properties]] documentation.
+In addition to providing you different means of resolving conflicts, Riak also enables you to fine-tune **replication properties**, i.e. the number of nodes on which you want to store data, the number of nodes that need to respond to requests, etc. An in-depth discussion of these behaviors, and how they can be implemented on the application side and using [[bucket types|Using Bucket Types]], can be found in the [[Replication Properties]] documentation.
 
 In addition to our official documentation, we also recommend checking out the [Understanding Riak's Configurable Behaviors](http://basho.com/understanding-riaks-configurable-behaviors-part-1/) series from [our blog](http://basho.com/blog/).
 
-See also the documentation on [[vector clocks]] for a discussion of key configuration options that impact conflict resolution.
+See also the documentation on [[Conflict Resolution]] for a discussion of key configuration options that impact conflict resolution.
 
 ## A Simple Example of Eventual Consistency
 
-_Unless specified otherwise, assume that all configuration values are left at their default._
+Let's assume for the moment that a sports news web application is storing data in Riak. One piece of data that tells the application who the current manager of Manchester United is. It's stored in the key `manchester-manager` in the bucket `premier-league-managers`, which has `allow_mult` set to `false`, which means that Riak will resolve all conflicts by itself.
 
-Let's assume for the moment that a server in a Riak cluster has recently recovered from failure and has an old copy of the key `manchester-manager` stored in it, with the value `Alex Ferguson`. The current value of that key on the other servers in the cluster is `David Moyes`.
+Now let's stay that a server in this cluster has recently recovered from failure and has an old copy of the key `manchester-manager` stored in it, with the value `Alex Ferguson`. The problem is that Sir Ferguson stepped down in 2013 and is no longer the manager. Fortunately, the other servers in the cluster hold the value `David Moyes`, which is correct.
 
-Shortly after the server comes back online and other cluster members recognize that it is available, a read request for `manchester-manager` arrives.
+Shortly after the recovered server comes back online, other cluster members recognize that it is available. Then, a read request for `manchester-manager` arrives from the application. Regardless of which order the responses arrive to the server that is coordinating this request, `David Moyes` will be returned as the value to the client, because `Alex Ferguson` is recognized as an older value.
 
-Such a request would have an `R` value of 2, meaning that while the request will be sent to all `N` (3 in this case) servers responsible for the data, 2 must reply with a value before the client is informed of its value.
-
-Regardless of which order the responses arrive to the server that is coordinating this request, `David Moyes` will be returned as the value to the client, because `Alex Ferguson` is recognized as an older value.
-
-Behind the scenes, after `David Moyes` is sent to the client, a read repair mechanism will occur on the cluster to fix the older value on the server that just came back online.
+Why is this? How does Riak make this decision? Behind the scenes, after `David Moyes` is sent to the client, a [[read repair|Riak Glossary#read-repair]] mechanism will occur on the cluster to fix the older value on the server that just came back online. Because Riak tags all objects with versioning information, it can make these kinds of decisions on its own, if you wish.
 
 ### R=1
 
-If we keep all of the above scenario the same but tweak the request slightly with `R=1`, perhaps to allow for a faster response to the client, it _is_ possible that the client will be fed `Alex Ferguson` as the response, if the recently recovered server is the first to reply.
+Let's say that you keep the above scenario the same, except you tweak the request and set R to 1, perhaps because you want faster responses to the client. In this case, it _is_ possible that the client will receive the outdated value `Alex Ferguson` because it is only waiting for a response from one server. If the recently recovered server is the first to reply
+
+Relationship between replication properties and conflict resolution
+
+If we keep the above scenario the same but tweak the request slightly with `R=1`, perhaps to allow for a faster response to the client, it _is_ possible that the client will be fed `Alex Ferguson` as the response, if the recently recovered server is the first to reply.
 
 However, the read repair mechanism will kick in and fix the value, so the
 next time someone asks for the value of `manchester-manager`, `David Moyes` will indeed be the answer.
@@ -84,11 +83,11 @@ In the scenario we've been discussing, for example, the possibility of a server 
 
 When that server failed, using `R=2` as we've discussed or even `R=3` for a read request would still work properly: a failover server (sloppy quorum again) would be tasks to take responsibility for that key, and when it receives a request for it, it would reply that it doesn't have any such key, but the two surviving primary servers still know who the `manchester-manager` is.
 
-However, if the `PR` (primary read) value is specified, only the two surviving primary servers are considered valid sources for that data.
+However, if the PR (primary read) value is specified, only the two surviving primary servers are considered valid sources for that data.
 
-So, setting `PR` to 2 works fine, because there are still 2 such servers, but a read request with `PR=3` would fail because the 3rd primary server is offline, and no failover server can take its place *as a primary*.
+So, setting PR to 2 works fine, because there are still 2 such servers, but a read request with PR=3 would fail because the 3rd primary server is offline, and no failover server can take its place *as a primary*.
 
-The same is true of writes: `W=2` or `W=3` will work fine with the primary server offline, as will `PW=2` (primary write), but `PW=3` will result in an error.
+The same is true of writes: W=2 or W=3 will work fine with the primary server offline, as will PW=2 (primary write), but PW=3 will result in an error.
 
 <div class="note">
 <div class="title">Errors and Failures</div>

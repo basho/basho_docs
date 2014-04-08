@@ -25,6 +25,8 @@ Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates th
 
 At the bottom of the page, you'll find a screencast that briefly explains how to adjust your replication levels to match your application and business needs.
 
+## Available Parameters
+
 The table below lists the most frequently used replication parameters that are available in Riak. Symbolic values like `quorum` are discussed [[below|Replication Properties#symbolic-consistency-names]]. Each parameter will be explained in more detail in the sections below:
 
 Parameter | Common name | Default value | Description

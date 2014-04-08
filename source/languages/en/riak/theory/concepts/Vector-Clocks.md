@@ -17,8 +17,6 @@ One of Riak's central goals is high availability. It was built as a multi-node s
 
 All Riak objects are stored in a location defined by the object's [[bucket|Buckets]] and [[key|Keys and Objects]], as well as the [[bucket type|Using Bucket Types]] defining the bucket's properties. It is possible to [[configure Riak|Conflict Resolution]] to ensure that only one copy of an object ever exists in a specific location. This will ensure that _at most_ one object is returned when a read is performed on a bucket type/bucket/key location (and no objects if Riak returns `not found`).
 
-
-
 If Riak is configured this way, Riak may still make use of vector clocks behind the scenes to make intelligent decisions about which replica of an object should be deemed the most recent. vector clocks are a non-issue for clients connecting to Riak.
 
 ## Siblings
