@@ -199,7 +199,7 @@ curl -XPUT \
 
 #### Using Vector Clocks
 
-If an object already exists under a certain key, you will need to attach a [[vector clock]] to your object as metadata. The vector clock can be obtained when you read the object that already exists.
+If an object already exists under a certain key, you will need to attach a [[vector clock|Vector Clocks]] to your object as metadata. The vector clock can be obtained when you read the object that already exists.
 
 Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`.
 
