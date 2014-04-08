@@ -5,7 +5,7 @@ version: 2.0.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [operator, security]
+keywords: [operator, security, authentication, authorization]
 ---
 
 <div class="info">
@@ -41,7 +41,7 @@ running MapReduce jobs.
 
 ## Security Basics
 
-Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
+Riak security may be checked, enabled, or disabled by an administrator through the command line. This allows an administrator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
 
 ### Enabling Security
 
