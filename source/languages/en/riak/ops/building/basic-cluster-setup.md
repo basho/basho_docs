@@ -11,33 +11,22 @@ moved: {
 }
 ---
 
-Configuring a Riak cluster involves instructing a node to listen on
-a non-local interface (i.e., not `127.0.0.1`) and then joining nodes
-together for cluster participation.
+Configuring a Riak cluster involves instructing each node to listen on a non-local interface, i.e. not `127.0.0.1`, and then joining all of the nodes together to participate in the cluster.
 
-Most configuration changes will be applied to the configuration file located in your `rel/riak/etc/` directory (if you compiled from source) or `/etc/riak/` (if you used a binary install of Riak).
+Most configuration changes will be applied to the [[configuration file|Configuration Files]] located in your `rel/riak/etc/` directory (if you compiled from source) or `/etc/riak/` (if you used a binary install of Riak).
 
-The commands below presume that you are running from a source install,
-but if you have installed Riak with a binary install, you can substitute
-the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak-admin`
+The commands below presume that you are running from a source install, but if you have installed Riak with a binary install, you can substitute the usage of `bin/riak` with `sudo /usr/sbin/riak` and `bin/riak-admin`
 with `sudo /usr/sbin/riak-admin`. The `riak` and `riak-admin` scripts are located in the `/bin` directory of your installation.
 
 <div class="info">
-<div class="title">Note on changing the <tt>-name</tt> value</div>
-If possible, you should avoid starting Riak prior to editing the
-<tt>-name</tt> parameter in <tt>vm.args</tt> as described below. If
-you have already started Riak with the default settings, you cannot change
-the <tt>-name</tt> setting and then successfully restart the
-node.
+<div class="title">Note on changing the <tt>name</tt> value</div>
+If possible, you should avoid starting Riak prior to editing the name of a node. This setting corresponds to the <tt>nodename</tt> parameter in the <tt>riak.conf</tt> file if you are using the newer configuration system, and to
+the <tt>-name</tt> parameter in <tt>vm.args</tt> (as described below) if you are using the older configuration system. If you have already started Riak with the default settings, you cannot change the <tt>-name</tt> setting and then successfully restart the node.
 
 If you cannot restart after changing the <tt>-name</tt> value you have two options:
 <ol>
-<li>Discard the existing ring metadata by removing the contents of
-the <tt>ring</tt> directory. This will require rejoining all nodes into
-a cluster again</li>
-<li>Rename the node using the [[riak-admin cluster replace|riak-admin
-Command Line#cluster-replace]] command. This will not work if you have
-previously only started riak with a single node.</li>
+<li>Discard the existing ring metadata by removing the contents of the <tt>ring</tt> directory. This will require rejoining all nodes into a cluster again</li>
+<li>Rename the node using the [[riak-admin cluster replace|riak-admin Command Line#cluster-replace]] command. This will not work if you have previously only started riak with a single node.</li>
 </ol>
 </div>
 
@@ -51,7 +40,7 @@ riak stop
 
 #### Select an IP address and port
 
-Let's say that the IP address for your cluster is 192.168.1.10 and that you'll be using the default port. If you're using the [[Protocol Buffers interface|PBC API]] to Riak (which we recommend over the HTTP interface due to performance gains), you should change your configuration file:
+Let's say that the IP address for your cluster is 192.168.1.10 and that you'll be using the default port (8087). If you're using the [[Protocol Buffers interface|PBC API]] to Riak (which we recommend over the HTTP interface due to performance gains), you should change your configuration file:
 
 ```riakconf
 listener.protobuf.$name = 127.0.0.1:8087
@@ -81,7 +70,7 @@ If you are upgrading to Riak version 2.0 or later from an pre-2.0 release, you c
 
 Below, examples will be provided for both the old and new configuration systems. Bear in mind that you need to use one or the other and never both.
  
-More on configuring Riak can be found in the <a href="/latest/ops/advanced/configs/configuration-files">Configuration Files</a> doc.
+More on configuring Riak can be found in the <a href="/latest/ops/advanced/configs/configuration-files">Configuration Files </a> doc.
 </div>
 
 If you're using the HTTP interface, you will need to alter your configuration in an analogous way:
@@ -131,10 +120,10 @@ nodename = riak@192.168.1.10
 
 <div class="note">
 <div class="title">Node Names</div>
-Use fully qualified domain names (FQDNs) rather than IP addresses for the cluster member node names. For example, <tt>riak@cluster.example.com</tt> and <tt>riak@192.168.1.10</tt> are both acceptable node naming schemes, but using the FQDN style is preferred.
+Use fully qualified domain names (<a href="http://en.wikipedia.org/wiki/Fully_qualified_domain_name">FQDN</a>s) rather than IP addresses for the cluster member node names. For example, <tt>riak@cluster.example.com</tt> and <tt>riak@192.168.1.10</tt> are both acceptable node naming schemes, but using the FQDN style is preferred.
 
 Once a node has been started, in order to change the name you must either
-remove ring files from the data directory or [[riak-admin cluster force-replace|riak-admin Command Line#cluster-force-replace]] the node.
+remove ring files from the data directory or <tt>[[riak-admin cluster force-replace|riak-admin Command Line#cluster-force-replace]]</tt> the node.
 </div>
 
 #### Start the node
