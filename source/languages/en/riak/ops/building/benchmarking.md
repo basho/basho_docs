@@ -12,23 +12,23 @@ moved: {
 ---
 
 Basho Bench is a benchmarking tool created to conduct accurate and
-repeatable performance tests and stress tests, and produce performance
+repeatable performance tests and stress tests and to produce performance
 graphs.
 
 Basho Bench exposes a pluggable driver interface and has been extended to serve as a benchmarking tool against a variety of projects. New drivers can be written in Erlang and are generally less than 200 lines of code.
 
 ## Download
 
-The main repository for Basho Bench is on [GitHub](http://github.com/basho/basho_bench/).
+The main repository for Basho Bench is [on GitHub](http://github.com/basho/basho_bench/).
 
 ## How does it work?
 
-When Basho Bench starts (`basho_bench.erl`), it reads the configuration (`basho_bench_config.erl`), creates a new results directory, then sets
+When Basho Bench starts (`basho_bench.erl`), it reads the configuration (`basho_bench_config.erl`), creates a new results directory, and then sets
 up the test (`basho_bench_app.erl` and `basho_bench_sup.erl`).
 
-During test setup, Basho Bench creates:
+During test setup, Basho Bench creates the following:
 
-* One **stats process** (`basho_bench_stats.erl`). This receives notifications when an operation completes, plus the elapsed time of the operation, and stores it in a histogram. At regular intervals, the histograms are dumped to `summary.csv` as well as operation-specific latency CSVs (e.g. `put_latencies.csv` for the PUT operation).
+* One **stats process** (`basho_bench_stats.erl`). This process receives notifications when an operation completes, plus the elapsed time of the operation, and stores it in a histogram. At regular intervals, the histograms are dumped to `summary.csv` as well as operation-specific latency CSVs (e.g. `put_latencies.csv` for the PUT operation).
 * N **workers**, where N is specified by the [[concurrent|Basho Bench#concurrent]] configuration setting (`basho_bench_worker.erl`). The worker process wraps a driver module, specified by the [[driver|Basho Bench#driver]] configuration setting. The driver is randomly invoked using the distribution of operations as specified by the [[operations|Basho Bench#operations]] configuration setting. The rate at which the driver invokes operations is governed by the [[mode|Basho Bench#mode]] setting.
 
 Once these processes have been created and initialized, Basho Bench

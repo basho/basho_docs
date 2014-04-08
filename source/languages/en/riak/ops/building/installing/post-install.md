@@ -139,14 +139,13 @@ It is a good idea to verify some basic configuration and general health
 of the Riak node after installation by using Riak's built-in diagnostic
 utility [Riaknostic](http://riaknostic.basho.com/).
 
-Ensure that Riak is running on the node, and issue the following command:
+To start up Riaknostic, ensure that Riak is running on the node and issue the following command:
 
 ```bash
 riak-admin diag
 ```
 
-Make the recommended changes from the command output to ensure optimal node
-operation.
+More extensive documentation for Riaknostic can be found in the [[Inspecting a Node]] guide.
 
 ## Now what?
 

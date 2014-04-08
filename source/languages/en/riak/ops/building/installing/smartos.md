@@ -102,7 +102,7 @@ Finally, and provided that the services are shown to be in an **online** state, 
 riak ping
 ```
 
-Pinging Riak will result in a `pong` response if the node is up and reachable, and a `pang` response if the node is up, but has a problem. If the node is not up and reachable, a *not responding to pings* error will result instead.
+Pinging Riak will result in a `pong` response if the node is up and reachable. If the node is not up and reachable, a `Node <nodename> not responding to pings` error will result instead.
 
 If all responses indicate that riak is up and running, then you have successfully installed and configured Riak as service on SmartOS.
 
