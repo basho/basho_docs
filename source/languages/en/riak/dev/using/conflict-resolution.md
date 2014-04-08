@@ -64,18 +64,72 @@ If the type has been properly activated, the `status` command should return `sib
 
 ```ruby
 bucket = client.bucket('nickolodeon')
+obj1 = Riak::RObject.new(bucket, 'best_character')
+obj1.content_type = 'text/plain'
+obj1.raw_data = 'Ren'
+obj1.store(bucket_type: 'siblings_allowed')
 
+obj2 = Riak::RObject.new(bucket, 'best_character')
+obj2.content_type = 'text/plain'
+obj2.raw_data = 'Stimpy'
+obj2.store(bucket_type: 'siblings_allowed')
+```
+
+```java
+Location bestCharacterKey = new Location("nickolodeon")
+        .setBucketType("siblings_allowed")
+        .setKey("best_character");
+RiakObject obj1 = new RiakObject()
+        .withContentType("text/plain")
+        .withValue(BinaryValue.create("Ren"));
+RiakObject obj2 = new RiakObject()
+        .withContentType("text/plain")
+        .withValue(BinaryValue.create("Stimpy"));
+StoreValue store1 = new StoreValue.Builder(obj1)
+        .withLocation(bestCharacterKey)
+        .build();
+StoreValue store2 = new StoreValue.Builder(obj2)
+        .withLocation(bestCharacterKey)
+        .build();
+client.execute(store1);
+client.execute(store2);
+```
+
+```python
+bucket = client.bucket('nickolodeon', bucket_type='siblings_allowed')
+obj1 = RiakObject(client, bucket, 'best_character')
+obj1.content_type = 'text/plain'
+obj1.data = 'Ren'
+obj1.store()
+
+obj2 = RiakObject(client, bucket, 'best_character')
+obj2.content_type = 'text/plain'
+obj2.data = 'Stimpy'
+obj2.store()
+```
+
+```erlang
+Obj1 = riakc_obj:new({<<"siblings_allowed">>, <<"nickolodeon">>},
+                     <<"best_character">>,
+                     <<"Ren">>,
+                     <<"text/plain">>),
+Obj2 = riakc_obj:new({<<"siblings_allowed">>, <<"nickolodeon">>},
+                     <<"best_character">>,
+                     <<"Stimpy">>,
+                     <<"text/plain">>),
+riakc_pb_socket:put(Pid, Obj1),
+riakc_pb_socket:put(Pid, Obj2).
 ```
 
 ```curl
 curl -XPUT \
   -H "Content-Type: text/plain" \
-  -d "ren" \
+  -d "Ren" \
   http://localhost:8098/types/siblings_allowed/nickolodeon/whatever/keys/best_character
 
 curl -XPUT \
   -H "Content-Type: text/plain" \
-  -d "stimpy" \
+  -d "Stimpy" \
   http://localhost:8098/types/siblings_allowed/nickolodeon/whatever/keys/best_character
 ```
 
@@ -83,11 +137,45 @@ curl -XPUT \
 
 At this point, multiple objects are stored in the same key. Let's see what happens if you try to read contents of the object:
 
+```ruby
+bucket = client.bucket('nickolodeon')
+obj = bucket.get('best_character', bucket_type: 'siblings_allowed')
+obj
+```
+
+```java
+Location bestCharacterKey = new Location("nickolodeon")
+        .setBucketType("siblings_allowed")
+        .setKey("best_character");
+FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
+FetchValue.Response response = client.execute(fetch);
+RiakObject obj = response.getValue(RiakObject.class);
+System.out.println(obj.getValue().toString());
+```
+
+```python
+bucket = client.bucket('nickolodeon', bucket_type='siblings_allowed')
+obj = bucket.get('best_character')
+obj.siblings
+```
+
 ```curl
 curl http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
 
 You should get the response:
+
+```ruby
+<Riak::RObject {nickolodeon,best_character} [#<Riak::RContent [text/plain]:"Ren">, #<Riak::RContent [text/plain]:"Stimpy">]>
+```
+
+```java
+com.basho.riak.client.cap.UnresolvedConflictException: Siblings found
+```
+
+```python
+[<riak.content.RiakContent object at 0x10a00eb90>, <riak.content.RiakContent object at 0x10a00ebd0>]
+```
 
 ```curl
 Siblings:
@@ -97,7 +185,7 @@ Siblings:
 
 As you can see, reading an object with multiple values will result in some form of "multiple choices" response (e.g. `300 Multiple Choices` in HTTP).
 
-You also have the option of viewing all objects currently stored under the `character` key at once:
+If you want to view all objects using the HTTP interface, you can attach an `Accept: multipart/mixed` header to your request:
 
 ```curl
 curl -H "Accept: multipart/mixed" \
@@ -114,26 +202,61 @@ stimpy
 --WUnzXITIPJFwucNwfdaofMkEG7H--
 ```
 
-If you select the first of the two siblings and retrieve its value, you should see `ren` and not `stimpy`.
+If you select the first of the two siblings and retrieve its value, you should see `Ren` and not `Stimpy`.
 
-### Conflict Resolution
+### Conflict Resolution Using Vector Clocks
 
 Once you are presented with multiple options for a single value, you must
 determine the correct value. In an application, this can be done either in an
 automatic fashion, using a use case-specific resolver, or by presenting the conflicting objects to the end user. 
 
 To update Riak with the appropriate value you will need the current vector
-clock. Right now, there are replicas with two different values: `ren` and `stimpy`. Let's say that we decide that `stimpy` is the correct value on the basis of our application's use case. In order to resolve the conflict, you need to fetch the object's vector clock and then write the correct value to the key _while passing the fetched vector clock to Riak_:
+clock. Right now, there are replicas with two different values: `Ren` and `Stimpy`. Now, let's say that we decide that `Stimpy` is the correct value on the basis of our application's use case. In order to resolve the conflict, we need to fetch the object's vector clock and then write the correct value to the key _while passing the fetched vector clock to Riak_:
+
+```ruby
+bucket = client.bucket('nickolodeon')
+obj = bucket.get('best_character', bucket_type: 'siblings_allowed')
+vclock = obj.vclock
+new_obj = Riak::RObject.new(bucket, 'best_character')
+new_obj.content_type = 'text/plain'
+new_obj.raw_data = 'Stimpy'
+new_obj.store(bucket_type: 'siblings_allowed', vclock: vclock)
+```
+
+```java
+Location bestCharacterKey = new Location("nickolodeon")
+        .setBucketType("siblings_allowed")
+        .setKey("best_character");
+FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
+FetchValue.Response res = client.execute(fetch);
+VClock vClock = res.getVClock();
+RiakObject newObj = new RiakObject()
+        .withValue(BinaryValue.create("Stimpy"));
+StoreValue store = new StoreValue.Builder(newObj)
+        .withLocation(bestCharacterKey)
+        .withVectorClock(vClock);
+client.execute(store);
+```
+
+```python
+bucket = client.bucket('nickolodeon', bucket_type='siblings_allowed')
+obj = bucket.get('best_character')
+vclock = obj.vclock
+new_obj = Riak::RObject.new(bucket, 'best_character')
+new_obj.content_type = 'text/plain'
+new_obj.data = 'Stimpy'
+new_obj.store(vclock=vclock)
+```
 
 ```curl
 curl -i http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
-```
 
-The vector clock can be found in the `X-Riak-Vclock` header. That will look something like this:
+# In the HTTP interface, the vector clock can be found in the "X-Riak-Vclock" header. That will look something like this:
 
-```
 X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 ```
+
+In Riak clients, you can access the vector clock as part of the object.
 
 Using the vector clock, you can then write the correct value to the `character` key, passing the vector clock to Riak as a header:
 
