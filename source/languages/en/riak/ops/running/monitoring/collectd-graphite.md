@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [operator, monitoring, collectd]
 ---
 
-This tutorial guides you through using the [collectd](http://collectd.org) data collection daemon to gather performance and other data from Riak as well as the [Graphite](http://graphite.wikidot.com/) graphing library to visualize collectd data.
+This tutorial guides you through using the [collectd](http://collectd.org) data collection daemon to gather performance and other data from Riak as well as the [Graphite](http://graphite.readthedocs.org/en/latest/) graphing library to visualize collectd data.
 
 <div class="note">
 <div class="title">Note</div>
@@ -241,7 +241,7 @@ Note that you  will need to install Python, [pip](https://pypi.python.org/pypi/p
 
 #### Configuring Graphite
 
-In every installation of [Graphite](http://graphite.wikidot.com), there is a `carbon.conf.example` file location in the `/conf` subdirectory. You can [modify this file](https://graphite.readthedocs.org/en/1.0/config-carbon.html) if you wish, but we recommend simply using the example configuration to begin with.
+In every installation of [Graphite](http://graphite.readthedocs.org/en/latest/), there is a `carbon.conf.example` file location in the `/conf` subdirectory. You can [modify this file](https://graphite.readthedocs.org/en/1.0/config-carbon.html) if you wish, but we recommend simply using the example configuration to begin with.
 
 #### Starting Graphite
 
