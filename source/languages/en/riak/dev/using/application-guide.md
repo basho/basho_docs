@@ -50,15 +50,16 @@ The following table
 
 ## How Should I Access My Data?
 
-Riak provides a number of ways of retrieving data, each 
+Riak provides a number of ways of retrieving data, each of which has its own set of advantages and disadvantages.
 
-* Key/Value - this is the preferred method for accessing a value stored in Riak. It will have the lowest latency of any operation.
-* Secondary indexes (2i)
-* Riak [[Data Types]]
-* Riak Search
-* Strong consistency
-* Using R vs PR
-* What actually happens when I grab an object? (`r` value, `notfound_ok`, read repair, fallback vnodes)
+Feature | Description
+:-------|:-----------
+Key/Value CRUD operations | This is the preferred method for accessing values stored in Riak (i.e. reading, writing, updating, and deleting). This way of using Riak will almost always entail the lowest latency cost
+[[Secondary indexes (2i)|Using Secondary Indexes]] | 
+Riak [[Data Types]] | 
+[[Riak Search|Using Search]] | 
+[[Strong consistency|Using Strong Consistency]] | This feature can be useful if it is crucially important that 
+[[MapReduce|Using MapReduce]] | [MapReduce](http://en.wikipedia.org/wiki/MapReduce) operations are a means of processing large data sets that involves running a filtering (i.e. map) operation on a data set (in Riak, a [[bucket|Buckets]]) followed by some sort of computation (i.e. a reduce operation) on the result of the map operation. Examples include 
 
 ## How Should I Store My Data?
 
