@@ -9,11 +9,13 @@ keywords: [developers]
 
 Riak version 2.0 includes deep changes affecting all facets of Riak and a wide variety of new features unavailable in previous versions. Here, we'd like to describe these new features and direct you to sections of the documentation that explain how you can put them to work in your Riak installation.
 
+Don't worry: if you intend to continue using a version of Riak prior to 2.0, these changes will not affect your installation.
+
 ## Riak Data Types
 
 In distributed systems, there is an unavoidable trade-off between consistency and availability. This can complicate some aspects of application design if you're using Riak as a key/value store because the application is responsible for resolving conflicts between replicas of objects stored in different Riak nodes.
 
-Riak 2.0 offers a solution to this problem for a wide range of uses cases in the form of [[Riak Data Types]]. Instead of forcing the application to resolve conflicts, Riak offers five Data Types that can cut through some of the complexities of developing using Riak: [[flags|Data Types#Flags]], [[registers|Data Types#Registers]], [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
+Riak 2.0 offers a new approach to this problem for a wide range of uses cases in the form of [[Riak Data Types]]. Instead of forcing the application to resolve conflicts, Riak offers five Data Types that can cut through some of the complexities of developing using Riak: [[flags|Data Types#Flags]], [[registers|Data Types#Registers]], [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
 
 #### Relevant Docs
 
@@ -26,7 +28,7 @@ Riak 2.0 offers a solution to this problem for a wide range of uses cases in the
 
 ## Riak Search 2.0 (codename: Yokozuna)
 
-Riak Search 2.0 is a complete, top-to-bottom re-implentation of Riak Search, integrating Riak with [Apache Solr](https://lucene.apache.org/solr/)'s full-text search capabilities and supporting Solr's client query APIs.
+Riak Search 2.0 is a complete, top-to-bottom replacement for Riak Search, integrating Riak with [Apache Solr](https://lucene.apache.org/solr/)'s full-text search capabilities and supporting Solr's client query APIs.
 
 #### Relevant Docs
 
@@ -66,13 +68,13 @@ In version 2.0, Riak enables you to manage both **authorization** to perform spe
 
 ## Simplified Configuration Management
 
-In older versions of Riak, a Riak node's configuration was determined by two separate files: `app.config` and `vm.args`. In Riak 2.0, you have the option of either continuing to use these files (in case you're upgrading) or to manage configuration through a single `riak.conf` file in which parameters are set using the following syntax:
+In older versions of Riak, a Riak node's configuration was determined by two separate files: `app.config` and `vm.args`. In Riak 2.0, you have the option of either continuing to use these files, which can be useful if you're upgrading to 2.0, or to manage configuration through a single `riak.conf` file in which parameters are set using the following syntax:
 
 ```riakconf
 parameter.sub-parameter = setting
 ```
 
-Based on Basho's [Cuttlefish](https://github.com/basho/cuttlefish) project, the new system is both simpler, leaving behind the Erlang syntax required in `app.config`, and more comprehensive, with a wide range of new configuration options specific to version 2.0.
+Based on Basho's [Cuttlefish](https://github.com/basho/cuttlefish) project, the new system is much simpler, leaving behind the Erlang syntax required in `app.config`.
 
 <div class="note">
 <div class="title">Note</div>
