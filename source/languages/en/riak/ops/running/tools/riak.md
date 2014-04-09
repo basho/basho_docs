@@ -105,7 +105,7 @@ riak ertspath
 
 ## chkconfig
 
-Checks whether the {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} configuration file is valid. If so, `config is OK` will be included in the output.
+Checks whether the [[configuration file|Configuration Files]] is valid. If so, `config is OK` will be included in the output.
 
 ```bash
 riak chkconfig
