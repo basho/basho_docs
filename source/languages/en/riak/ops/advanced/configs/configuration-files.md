@@ -50,7 +50,7 @@ Parameter | Description | Default |
 Parameter | Description | Default | 
 :---------|:------------|:--------|
 `choose_claim_fun` | Designates a module/function pair---using a `{Module, Function}` syntax---to claim vnodes from the passed-in ring and then return the resulting ring. | **none** |
-`cluster_name` | The name of the cluster (as a string). This is used internal to the ring, and can be used for identifying multiple clusters within a larger infrastructure. Any custom cluster_names should be established before your cluster is started and should not be changed thereafter. | `riak` |
+`cluster_name` | The name of the cluster (as a string). This is used internal to the ring, and can be used for identifying multiple clusters within a larger infrastructure. Any custom `cluster_name` values should be established before your cluster is started and should not be changed thereafter. | `riak` |
 `default_bucket_props` | See detailed discussion below in the **Default Bucket Properties** section below |  |
 `delayed_start` | Sleep a specified number of milliseconds before starting `riak_core`. | `unset` |
 `disable_http_nagle` | When set to `true`, this option will disable the Nagle buffering algorithm for HTTP traffic. This is equivalent to setting the `TCP_NODELAY` option on the HTTP socket. If you experience consistent minimum latencies in multiples of 20 milliseconds, setting this option to `true` may reduce latency. | `false` |
