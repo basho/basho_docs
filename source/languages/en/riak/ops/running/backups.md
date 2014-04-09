@@ -22,6 +22,15 @@ Additionally, backups must be performed on a stopped node to prevent data loss a
 The default Riak data, ring, and configuration directories for each of
 the supported operating systems is as follows:
 
+<div class="note">
+<div class="title">Note</div>
+If you are upgrading to Riak version 2.0 or later from an pre-2.0 release, you can use either your old <tt>app.config</tt> configuration file or the newer <tt>riak.conf</tt> if you wish.
+ 
+If you have installed Riak 2.0 directly, you should use only <tt>riak.conf</tt>.
+ 
+More on configuring Riak can be found in the <a href="/latest/ops/advanced/configs/configuration-files">Configuration Files</a> doc.
+</div>
+
 **Debian and Ubuntu**
 
 * Bitcask data: `/var/lib/riak/bitcask`
