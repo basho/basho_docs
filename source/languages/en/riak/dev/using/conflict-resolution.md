@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 ---
 
-One of Riak's central goals is high availability. It was built as a multi-node system in which any node is capable of receiving requests without requiring that each node participate in each request. In a system like this, it's important to be able to keep track of which version of a value is the most current. This is where vector clocks come in.
+One of Riak's central goals is high availability. It was built as a multi-node system in which any node is capable of receiving requests without requiring that each node participate in each request. In distributed systems like this, it's important to be able to keep track of which version of a value is the most current. This is where vector clocks come in.
 
 ## Vector Clocks and Relationships Between Objects
 
