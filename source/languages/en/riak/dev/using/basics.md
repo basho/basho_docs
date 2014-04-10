@@ -207,11 +207,20 @@ curl -XPUT \
 
 #### Using Vector Clocks
 
-If an object already exists under a certain key, you will need to attach a [[vector clock|Vector Clocks]] to your object as metadata. The vector clock can be obtained when you read the object that already exists.
+If an object already exists under a certain key and you want to write a new object to that key, Riak needs to know what to do, especially if multiple writes are happening at the same time. Which of the objects being written should be deemed correct? These kinds of scenarios can arise quite frequently in distributed, [[eventually consistent|Eventual Consistency]] systems.
 
-Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`.
+One way of the ways that Riak can make intelligent decisions about which object should be deemed correct is to use [[vector clocks]] to make that decision. If you're writing an object to a key that already exists, you'll need to do the following:
 
-But one season, the Harlem Globetrotters enter the league and dethrone the hapless Generals. We want to write that new information to the `champion` key. Let's fetch the object there and obtain the vector clock.
+* Read the existing object
+* Fetch the vector clock from the object's metadata
+* Attach the vector clock to the new object's metadata
+* Write the new object
+
+A more detailed tutorial on vector clocks and object updates more generally can be found in the [[Conflict Resolution]] doc. Here, we'll walk you through a basic example.
+
+Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`. The value of the object is a simple text snippet that says `Washington Generals`.
+
+But one day the Harlem Globetrotters enter the league and dethrone the hapless Generals (forever, as it turns out). Because we want our Riak database to reflect this new development in the league, we want to make a new write to the `champion` key. Let's read the object stored there and fetch the vector clock.
 
 ```ruby
 bucket = client.bucket('nba')
