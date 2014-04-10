@@ -50,6 +50,30 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 
 Below is a table listing the configurable parameters in `riak.conf`.
 
+## Advanced Configuration
+
+For most Riak installations, the `riak.conf` file should be sufficient for configuration management.
+Same format as `app.config`. Example:
+
+```advancedconf
+[
+  {riak_core,
+    [
+      {cluster_mgr, {"127.0.0.1", 8098 } },
+      %% more riak_core configs
+    ]},
+
+  {riak_repl,
+    [
+      {data_root, "/var/db/riak/riak_repl/"},
+      %% more riak_repl configs
+    ]
+  }
+]
+```
+
+"The following advanced.config was used in generating the configuration and may have overridden some options that were commented out above"
+
 ## Storage Backend
 
 <table class="riak-conf">
