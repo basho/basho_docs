@@ -18,7 +18,7 @@ This is the primary script for controlling the processes associated with a Riak 
 ```bash
 Usage: riak «command»
 where «command» is one of the following:
-    { help | start | stop | restart | reboot | ping | console | attach
+    { help | start | stop | restart | ping | console | attach
       attach-direct | ertspath | chkconfig | escript | version | getpid
       top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] } |
       config { effective | describe VARIABLE }
@@ -51,14 +51,6 @@ Prints `ok` when successful, `Node <nodename> not responding to pings.` when the
 
 ```bash
 riak restart
-```
-
-## reboot
-
-Stops and then starts the running Riak node, exiting the Erlang VM. Prints `ok` when successful or `Node <nodename> not responding to pings.` when the node is already stopped or not responding.
-
-```bash
-riak reboot
 ```
 
 ## ping
