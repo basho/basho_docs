@@ -11,30 +11,31 @@ moved: {
 }
 ---
 
-In a distributed and fault-tolerant environment like Riak, server and network failures are expected. Riak is designed to respond to requests even when servers are offline or the cluster is experiencing a network partition. Riak accomplishes this by enabling conflicting copies of data stored in the same location, as specified by [[bucket type|Using Bucket Types]], bucket, and key, to exist at the same time in the cluster.
+In a distributed and fault-tolerant environment like Riak, server and network failures are expected. Riak is designed to respond to requests even when servers are offline or the cluster is experiencing a network partition.
 
-## Eventual Consistency and Data Inconsistency
+Riak handles this problem by enabling conflicting copies of data stored in the same location, as specified by [[bucket type|Using Bucket Types]], bucket, and key, to exist at the same time in the cluster. This gives rise to the problem of **data inconsistency**.
 
-When developing using Riak, the problem of data inconsistency must always be borne in mind. Such inconsistency is in the very nature of highly-available distributed, [[clustered|Clusters]] systems because those systems necessarily do not allow for so-called [ACID transactions](http://en.wikipedia.org/wiki/ACID) that ensure that conflicts cannot occur.
+## Data Inconsistency
 
+Conflicts between replicas of an object are inevitable in highly-available, [[clustered|Clusters]] systems like Riak because there is nothing in those system do not allow for so-called [ACID transactions](http://en.wikipedia.org/wiki/ACID) that ensure that no conflicts are allowed to originate. Instead, these systems need to rely on some form of conflict-resolution mechanism.
 
-One of the things that makes Riak's eventual consistency model powerful is Riak is very non-opinionated about how data resolution takes place. While Riak does have a set of [[defaults|Replication Properties#available-parameters]], there is a wide variety of ways that data inconsistency can be resolved. The following basic options are available:
+One of the things that makes Riak's eventual consistency model powerful is that Riak does not dictate how data resolution takes place. While Riak does ship with a set of defaults regarding how data is [[replicated|Eventual Consistency#replication-properties-and-request-tuning]] and how [[conflicts are resolved|Conflict Resolution]], you can override these defaults if you want to employ a different strategy.
 
+Among those strategies, you can enable Riak to resolve object conflicts automatically, whether via internal [[vector clocks]], timestamps, or special eventually consistent [[data types]], or you can resolve those conflicts on the application side by employing a use case-specific logic of your choosing. More information on this can be found in our guide to [[conflict resolution]].
 
-
-Conflict resolution in Riak can be a complex business, but the presence of this variety of options means that all requests to Riak can always be made in accordance with your data model(s), business needs, and use cases.
+This variety of options enables you to manage Riak's eventually consistent behavior in accordance with your application's [[data model or models|Use Cases]].
 
 ## Replication Properties and Request Tuning
 
-In addition to providing you different means of resolving conflicts, Riak also enables you to fine-tune **replication properties**, i.e. the number of nodes on which you want to store data, the number of nodes that need to respond to requests, etc. An in-depth discussion of these behaviors, and how they can be implemented on the application side and using [[bucket types|Using Bucket Types]], can be found in the [[Replication Properties]] documentation.
+In addition to providing you different means of resolving conflicts, Riak also enables you to fine-tune **replication properties**, which determine things like the number of nodes on which data should be stored and the number of nodes that are required to respond to read, write, and other requests.
+
+An in-depth discussion of these behaviors and how they can be implemented on the application side can be found in our guides to [[replication properties]] and [[conflict resolution]].
 
 In addition to our official documentation, we also recommend checking out the [Understanding Riak's Configurable Behaviors](http://basho.com/understanding-riaks-configurable-behaviors-part-1/) series from [our blog](http://basho.com/blog/).
 
-See also the documentation on [[Conflict Resolution]] for a discussion of key configuration options that impact conflict resolution.
-
 ## A Simple Example of Eventual Consistency
 
-Let's assume for the moment that a sports news web application is storing data in Riak. One piece of data that tells the application who the current manager of Manchester United is. It's stored in the key `manchester-manager` in the bucket `premier-league-managers`, which has `allow_mult` set to `false`, which means that Riak will resolve all conflicts by itself.
+Let's assume for the moment that a sports news application is storing all of its data in Riak. One thing that the application always needs to be able to report to users is the identity of the current manager of Manchester United, which is stored in the key `manchester-manager` in the bucket `premier-league-managers`. This bucket has `allow_mult` set to `false`, which means that Riak will resolve all conflicts by itself.
 
 Now let's stay that a server in this cluster has recently recovered from failure and has an old copy of the key `manchester-manager` stored in it, with the value `Alex Ferguson`. The problem is that Sir Ferguson stepped down in 2013 and is no longer the manager. Fortunately, the other servers in the cluster hold the value `David Moyes`, which is correct.
 
