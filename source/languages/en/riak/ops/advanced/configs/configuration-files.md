@@ -49,7 +49,7 @@ Parameter | Description | Default |
 
 Parameter | Description | Default | 
 :---------|:------------|:--------|
-`choose_claim_fun` | Designates a module/function pair---using a `{Module, Function}` syntax---to claim vnodes from the passed-in ring and then return the resulting ring. | **none** |
+`choose_claim_fun` | Designates a module/function pair---using a `{Module, Function}` syntax---to claim vnodes from the passed-in ring and then return the resulting ring.<br /><br />**Note**: Please contact Basho support for more information. | `{riak_core_claim, default_choose_claim}`, which defaults to `{riak_core_claim, choose_claim_v2}` for most cases. |
 `cluster_name` | The name of the cluster (as a string). This is used internal to the ring, and can be used for identifying multiple clusters within a larger infrastructure. Any custom `cluster_name` values should be established before your cluster is started and should not be changed thereafter. | `riak` |
 `default_bucket_props` | See detailed discussion below in the **Default Bucket Properties** section below |  |
 `delayed_start` | Sleep a specified number of milliseconds before starting `riak_core`. | `unset` |
@@ -68,7 +68,7 @@ Parameter | Description | Default |
 `ssl` | You can override the default SSL key and certificate settings. | `etc/cert.pem`, `etc/key.pem` |
 `target_n_val` | The highest `n_val` that you generally intend to use. This affects how partitions are distributed amongst the cluster and how preflists are calculated, helping to ensure that data is never stored to the same physical node more than once. You will need to change this setting only in rare circumstances.<br /><br />Assuming that `ring_creation_size` is a power of 2, the ideal value for this setting is both greater than or equal to the largest `n_val` of any bucket, and an even divisor of the number of partitions in your ring (i.e. `ring_creation_size`).<br /><br />The default value is 4, and for this to be effective at preventing hot spots, your cluster size (the number of physical nodes) must be equal to or larger than `target_n_val`. | `4` |
 `vnode_management_timer` | Frequency (in milliseconds) at which Riak checks for primary partitions that need to be transferred. | `10000` | {{1.1.2+}}
-`wants_claim_fun` | A module/function pairing, in `{Module, Function}` format, that returns a Boolean expressing whether or not this node wants to claim more vnodes. | **none** |
+`wants_claim_fun` | A module/function pairing, in `{Module, Function}` format, that returns a Boolean expressing whether or not this node wants to claim more vnodes.<br /><br />**Note**: Please contact Basho support for more information. | `{riak_core_claim, default_wants_claim}`, which defaults to `{riak_core_claim, wants_claim_v2}` for most cases.|
 `enable_health_checks` | Boolean expressing whether or not all health checks should be enabled. Set to `true` to enable all health checks. | **none** |
 `stat_cache_ttl` | {{#1.2.0-1.3.1}}The time to live (TTL), in seconds, for stats in the cache. If stats are requested from the cache and they're older than TTL seconds, they will be calculated.{{/1.2.0-1.3.1}}{{#1.3.2+}}The interval, in seconds, between stat cache population runs. All Riak stats are served from the stat cache. This setting controls how frequently that cache is refreshed.{{/1.3.2+}} | `1` |
 
