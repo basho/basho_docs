@@ -324,25 +324,18 @@ The combination of setting both the <tt>allow_mult</tt> and <tt>last_write_wins<
 
 ## Vector Clock Pruning
 
-Riak regularly prunes vector clocks to prevent overgrowth based on four parameters which can be set per bucket:
+Riak regularly prunes vector clocks to prevent overgrowth based on four parameters which can be set in any bucket type that you create:
 
- * `small_vclock`
- * `big_vclock`
- * `young_vclock`
- * `old_vclock`
+Parameter | Default value | Description
+:---------|:--------------|:-----------
+`small_vclock` | `50` | If the length of the vector clock list is smaller than this value, the list will not be pruned
+`big_vclock` | `50` | If the length of the vector clock list is larger than this value, the list will be pruned
+`young_vclock` | `20` | If a vector clock is younger than this value (in milliseconds), it will not be pruned.
+`old_vclock` | `86400` (one day) | If a vector clock is older than this value (in milliseconds), it will be pruned
 
-The `small_vclock` and `big_vclock` parameters refer to the length of
-the vector clock list. If the length of the list is smaller than
-`small_vclock` it will not be pruned. If the length is greater than
-`big_vclock` it will be pruned.
+This diagram shows how the values of these parameters dictate the vector clock pruning process:
 
 ![Vclock Pruning](/images/vclock-pruning.png)
-
-The `young_vclock` and `old_vclock` parameters refer to a timestamp
-stored with each vclock entry. If the list length is between
-`small_vclock` and `big_vclock` the age of each entry is checked. If
-the entry is younger than `young_vclock` it is not pruned. If the
-entry is older than `old_vclock` than it is pruned.
 
 ## More Information
 
