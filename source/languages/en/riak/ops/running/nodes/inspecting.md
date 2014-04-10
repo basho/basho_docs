@@ -313,7 +313,7 @@ Note that under ideal operation and with the exception of `riak_search_vnodes_ru
 
 {{#1.3.0-}}Riaknostic is an open source project developed by Basho Technologies and Riak community members. The code is available in the Riaknostic Github repository.
 
-Getting started with Riaknostic is easy, and instructions for installation and use are provided on the Riaknostic website (linked above). Once downloaded and installed, Riaknostic adds a `diag` subcommand to the `riak-admin` command.{{/1.3.0-}}
+Getting started with Riaknostic is easy, and instructions for installation and use are provided on the [Riaknostic website](http://riaknostic.basho.com/). Once downloaded and installed, Riaknostic adds a `diag` subcommand to the `riak-admin` command.{{/1.3.0-}}
 
 {{#1.3.0+}}As of Riak version 1.3, Riaknostic is installed with Riak by default and exposed through the `riak-admin diag` command interface. It is an open source project developed by Basho Technologies and Riak community members. The code is available in the Riaknostic Github repository. {{/1.3.0+}}
 
@@ -322,8 +322,8 @@ Getting started with Riaknostic is easy, and instructions for installation and u
 Running `riak-admin diag` by itself will perform a check of all of the data partitions in your cluster. It will return a listing of partitions that have been checked, each of which looks something like this:
 
 ```
-{1392993748081016843912887106182707253109560705024, # the partition checked
- 'dev-rel@127.0.0.1'},                              # that partition's nodename
+{1392993748081016843912887106182707253109560705024, % the partition checked
+ 'dev-rel@127.0.0.1'},                              % that partition's nodename
 ```
 
 At the end of that (potentially very long) listing of checked partitions, it will print notices, warnings, and other pieces of information about issues that it has found, including date/time, message type, and a detailed description. Here's an example:
