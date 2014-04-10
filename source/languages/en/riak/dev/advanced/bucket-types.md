@@ -27,6 +27,20 @@ Instead, bucket types are applied to buckets _on the basis of how those buckets 
 GET/PUT/DELETE /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
+<div class="note">
+<div class="title">When to use bucket types</div>
+In many respects, bucket types are a major improvement over the older system of bucket configuration, including the following:
+<ul>
+<li>Bucket types are more flexible because they enable you to define total configurations of bucket properties all at once and then change them if you need to.</li>
+<li>Bucket types are more reliable because the buckets that bear a given type only have their properties changed when the type is changed. Previously, it was possible to change the properties of a bucket only through client requests.</li>
+<li>Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The <tt>riak-admin bucket-type</tt> interface (discussed in depth below) enables you to manage bucket configurations without recourse to clients.</li>
+</ul>
+
+For these reasons, we recommend <tt>always</tt> using bucket types.
+</div>
+
+## Usage Example
+
 If you have created the bucket type `no_siblings` (with the property `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example write:
 
 ```ruby
