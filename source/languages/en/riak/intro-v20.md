@@ -7,20 +7,20 @@ audience: beginner
 keywords: [developers]
 ---
 
-Riak version 2.0 includes deep changes affecting all facets of Riak and a wide variety of new features unavailable in previous versions. Here, we'd like to describe these new features and direct you to sections of the documentation that explain how you can put them to work in your Riak installation.
+Riak version 2.0 includes deep changes affecting all facets of Riak and a wide variety of new features unavailable in previous versions. Here, we'd like to briefly describe these new features and direct you to sections of the documentation that explain how you can put them to work in your Riak installation. For more in-depth implementation details, we suggest checking out the [version 2.0 release notes](https://github.com/basho/riak/blob/riak-2.0.0/RELEASE-NOTES.md).
 
 If you're upgrading to Riak 2.0 from an earlier version, please be aware that all of the new features listed below are purely optional:
 
-* **Riak Data Types** --- While Riak's new [[CRDT|Data Types]]-based Data Types are powerful data abstractions that can greatly simplify the development cycle, they are only used in buckets that are explicitly set up to use them.
-* **Strong Consistency, Riak Security, and Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance.
-* **Security** --- The new authentication- and authorization-related security features can be enabled or disabled at any time.
-* **Configuration management** --- The new configuration management system streamlines configuration into a single `riak.conf` file. If your cluster is configured using the previous `app.config`/`vm.args`-based system, however, your old configs will still be recognied in version 2.0.
-* **Bucket Types** --- While we strongly recommend using bucket types if you upgrade to version 2, if you do not specify a bucket type, Riak 2.0 will default to using the `default` bucket type, the properties of which are explained in in our documentation on [[using bucket types]].
+* **Riak Data Types** --- Riak's new CRDT-based [[Data Types]] can simplify modeling data in Riak, but are only used in buckets explicitly configured to use them.
+* **Strong Consistency, Riak Security, and the new Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak
+* **Security** --- [[Authentication and authorization]] can be enabled or disabled at any time.
+* **Configuration management** --- Riak configuration has been streamlined and now uses a file named `riak.conf`. However, existing `app.config` and `vm.args` files are still recognized in version 2.0.
+* **Bucket Types** --- While we strongly recommend [[using bucket types]] when creating new buckets, they are not required.
 
 In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it to. But even if you don't plan on using the new features, there are a number of improvements that make upgrading a good choice, including the following:
 
-* [[Cluster Metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which reduces latency.
-* [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been dramatically improved in version 2.0.
+* [[Cluster Metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
+* [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
 * Bug patches --- A variety of bugs present in earlier versions have been identified and patched 
 
 ## Riak Data Types
