@@ -13,24 +13,14 @@ moved: {
 
 In a distributed and fault-tolerant environment like Riak, server and network failures are expected. Riak is designed to respond to requests even when servers are offline or the cluster is experiencing a network partition. Riak accomplishes this by enabling conflicting copies of data stored in the same location, as specified by [[bucket type|Using Bucket Types]], bucket, and key, to exist at the same time in the cluster.
 
+## Eventual Consistency and Data Inconsistency
+
 When developing using Riak, the problem of data inconsistency must always be borne in mind. Such inconsistency is in the very nature of highly-available distributed, [[clustered|Clusters]] systems because those systems necessarily do not allow for so-called [ACID transactions](http://en.wikipedia.org/wiki/ACID) that ensure that conflicts cannot occur.
 
-## Eventual Consistency and Data Inconsistency
 
 One of the things that makes Riak's eventual consistency model powerful is Riak is very non-opinionated about how data resolution takes place. While Riak does have a set of [[defaults|Replication Properties#available-parameters]], there is a wide variety of ways that data inconsistency can be resolved. The following basic options are available:
 
-* **Allowing Riak to resolve all conflicts**. If the `[[allow_mult|Conflict Resolution#siblings]]` parameter is set to `false`, conflict between data replicas can still take place, but Riak resolves those conflicts behind the scenes on the basis of [[vector clocks]]. This unburdens Riak clients from engaging in conflict resolution, delegating that responsibility to Riak itself. While this can ease the development process, it has the important drawback that applications cannot form their own deterministic merge logic.
 
-  Another way to prevent conflicts is to set the `[[last_write_wins|Conflict Resolution#last-write-wins]]` parameter to `true` instead of `allow_mult`. The last-write-wins strategy means that conflicts will be resolved on the basis of which object has the most recent timestamp. While this can also ease the development process by guaranteeing that clients don't have to deal with siblings, using clock time as a resolution mechanism in a distributed system can lead to unpredictable results.
-
-  <div class="note">
-  <div class="title">Undefined behavior warning</div>
-  Setting both <tt>allow_mult</tt> and <tt>last_write_wins</tt> to <tt>true</tt> necessarily leads to unpredictable behavior and should always be avoided.
-  </div>
-
-* **Allow Riak to form siblings and resolve conflicts on the application side**. If `allow_mult` is set to `true`, Riak will form [[siblings|Conflict Resolution#siblings]] if you write multiple objects to a key without providing Riak with a [[vector clock]] that would enable it to judge which object should be considered most up to date. When sibling objects are formed, applications need to decide which of the objects is "correct" (the definition of which depends on the application itself).
-
-  An application can resolve sibling conflicts by [[passing a vector clock|Conflict Resolution#vector-clocks]] to Riak that shows which replica (or version) of an object that particular client has seen. Or, it can provide some other conflict resolution logic. You could specify, for example, that some objects cannot be "correct" because they're too large, their timestamps show them to be too old, the number of items in the [[shopping cart|Dynamo]] has too items, etc. In effect, the sky's the limit when applications are in control of conflict resolution.
 
 Conflict resolution in Riak can be a complex business, but the presence of this variety of options means that all requests to Riak can always be made in accordance with your data model(s), business needs, and use cases.
 
