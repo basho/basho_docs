@@ -48,7 +48,7 @@ bucket = client.bucket('sensitive_user_data')
 obj = Riak::RObject.new(bucket, 'user19735')
 obj.content_type = 'application/json'
 obj.raw_data = '{ ... user data ... }'
-obj.store(bucket_type: 'no_siblings')
+obj.store(type: 'no_siblings')
 ```
 
 ```java
