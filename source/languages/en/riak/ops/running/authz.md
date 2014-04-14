@@ -5,7 +5,7 @@ version: 2.0.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [operator, security]
+keywords: [operator, security, authentication, authorization]
 ---
 
 <div class="info">
@@ -13,79 +13,102 @@ keywords: [operator, security]
 This document covers only the 2.0 authentication and authorization features. For a look at network security in Riak, see [[Security and Firewalls]].
 </div>
 
-As of version 2.0, Riak administrators can selectively apportion access to a wide variety of Riak's functionality, including accessing, modifying, and deleting objects, changing bucket properties, and running MapReduce jobs. Riak security enables you to create, modify, and delete users, assign roles to users, passwords, and other characteristics, designate security sources, and more.
+As of version 2.0, Riak administrators can selectively apportion
+access to a wide variety of Riak's functionality, including accessing,
+modifying, and deleting objects, changing bucket properties, and
+running MapReduce jobs.
 
-**Note**: Currently, Riak security commands can be run only through the command line using the `riak-admin security` command. In future versions of Riak, administrators will have the option of issuing those commands through the Protocol Buffers and HTTP interfaces.
+**Note**: Currently, Riak security commands can be run only through
+  the command line using the `riak-admin security` command. In future
+  versions of Riak, administrators may have the option of issuing
+  those commands through the Protocol Buffers and HTTP interfaces.
 
 ## Terminology
 
-* **Authentication** is the process of identifying a role.
+* **Authentication** is the process of identifying a user.
 
-* **Authorization** is verifying whether a user has access to perform the requested operation.
+* **Authorization** is verifying whether a user has access to perform
+    the requested operation.
 
-* **Users** and **Groups** are the same underlying concept (**Roles**), just used differently by convention.
+* **Groups** can have permissions assigned to them, but cannot be
+    authenticated.
 
-    Any role can be assigned to other roles to add permissions. Typically authentication
-    will be defined for users but not groups, while permissions may be
-    assigned to either.
+* **Users** can be authenticated and authorized; permissions
+    (authorization) may be granted directly or via group membership.
 
-* **Sources** are used to define authentication mechanisms. A user cannot be authenticated to Riak until a source is defined.
+* **Sources** are used to define authentication mechanisms. A user
+    cannot be authenticated to Riak until a source is defined.
 
 ## Security Basics
 
-Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
+Riak security may be checked, enabled, or disabled by an administrator through the command line. This allows an administrator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
 
 ### Enabling Security
 
-Riak security is disabled by default. To enable it at any time, simply run the `security enable` command:
+<div class="note"> <div class="title">Danger</div>
+<b>Enabling security will change the way your client libraries and your
+applications interact with Riak.</b> Once security is enabled, all
+client connections must be encrypted and all permissions will be
+denied by default. Do not enable this in production until you have
+verified that your libraries support Riak security, including
+encrypted HTTP or protocol buffers traffic, and that your applications
+are assigned user accounts with the proper permissions.
+</div>
+
+Riak security is disabled by default. To enable it:
 
 ```bash
 riak-admin security enable
 ```
 
-If security is successfully enabled, the console will simply return no response.
+*As per the warning above, do not enable security in production
+ without taking the appropriate precautions.*
 
-Please note that most security-related commands can be run while security is disabled, including the following:
-
-* [[User management|Authentication and Authorization#Modifying-User-Characteristics]] --- Creating/deleting users and modifying user characteristics (more on that in the  section below)
-* [[Permissions management|Authentication and Authorization#Permissions-Management]] --- Granting and revoking specific permissions vis-à-vis specific users
-* [[Security source management|Authentication and Authorization#Security-Source-Management]] --- Adding and deleting security sources
-
-This enables you to create security configurations of any level of complexity and turn those configurations on and off all at once if you wish.
-
-If enabling security is successful, there should be no response in the console.
+All users, groups, authentication sources, and permissions can be
+configured while security is disabled, allowing you to create a
+security configuration of any level of complexity without prematurely
+impacting the service.
 
 ### Disabling Security
 
-Disabling security only disables the various permissions checks that take place when executing operations against Riak. Users, roles, and other security attributes remain untouched.
+Disabling security only disables the various permissions checks that
+take place when executing operations against Riak. Users, groups, and
+other security attributes remain untouched.
 
 ```bash
 riak-admin security disable
 ```
 
-If security is successfully disabled, the console will return no response.
+If security is successfully disabled, the console will return no
+response, and the database will no longer require (but will still
+permit) encrypted client traffic.
 
 ### Checking Security Status
 
-To check whether security is currently enabled for the cluster, simply use the `status` command:
+To check whether security is currently enabled for the cluster, use the `status` command:
 
 ```bash
 riak-admin security status
 ```
 
-This command will usually return `Enabled` or `Disabled`, but if security is enabled on a mixed-mode cluster (running a combination of Riak 2.0 and older versions) it will indicate that security is enabled but not yet available.
+This command will usually return `Enabled` or `Disabled`, but if
+security is enabled on a mixed-mode cluster (running a combination of
+Riak 2.0 and older versions) it will indicate that security is enabled
+but not yet available.
 
 ## User Management
 
 Riak security enables you to control _authorization_ by creating, modifying, and deleting user characteristics and to grant users selective access to Riak functionality (and also to revoke access). Users can be assigned one or more of the following characteristics:
 
 * `username`
-* `roles`
+* `groups`
 * `password`
 
-You may also assign users characteristics beyond those listed above---e.g. listing email addresses or other information---but those values will bear no special significance for Riak.
+You may also assign users characteristics beyond those listed above---e.g., listing email addresses or other information---but those values will carry no special significance for Riak.
 
-### Retrieve a Current User List
+**Note**: The `username` is the one user characteristic that cannot be changed once a user has been created.
+
+### Retrieve a Current User or Group List
 
 A list of currently existing users can be accessed at any time:
 
@@ -93,53 +116,72 @@ A list of currently existing users can be accessed at any time:
 riak-admin security print-users
 ```
 
-If there is only one currently existing user, `riakuser`, who has been assigned a password in addition to a username, the output will look something like this:
+Same for groups:
 
 ```bash
-+----------+-------+----------------------+------------------------------+
-| username | roles |       password       |           options            |
-+----------+-------+----------------------+------------------------------+
-| riakuser |       |983e8ae1421574b8733824|              []              |
-+----------+-------+----------------------+------------------------------+
+riak-admin security print-groups
+```
+
+
+Example output, assuming one user with an assigned password:
+
+```
++----------+--------+----------------------+------------------------------+
+| username | groups |       password       |           options            |
++----------+--------+----------------------+------------------------------+
+| riakuser |        |983e8ae1421574b8733824|              []              |
++----------+--------+----------------------+------------------------------+
 ```
 
 **Note**: All passwords are displayed in encrypted form in console output.
 
-If the user `riakuser` were assigned a [[role|Authentication and Authorization#Role-Management]] alongside `other_riakuser` and the `name` of `lucius`, the output would look like this:
+If the user `riakuser` were assigned to the group `dev` and a `name`
+of `lucius`, the output would look like this:
 
 ```bash
 +----------+----------------+----------------------+---------------------+
-| username |     roles      |       password       |       options       |
+| username |     groups     |       password       |       options       |
 +----------+----------------+----------------------+---------------------+
-| riakuser | other_riakuser |983e8ae1421574b8733824| [{"name","lucius"}] |
+| riakuser |      dev       |983e8ae1421574b8733824| [{"name","lucius"}] |
 +----------+----------------+----------------------+---------------------+
 ```
 
-If you'd like to see which permissions have been assigned to `riakuser`, you would need to use the `print-user` command, detailed in the section below.
+If you'd like to see which permissions have been assigned to
+`riakuser`, you would need to use the `print-grants` command, detailed
+below.
 
-If you'd like to preserve a record of your current list, you can simply pipe the output of `print-users` to a file or process, e.g. to a `user_list.txt` file:
+`security print-user` or `security-print-group` (singular) can be used
+with a name as argument to see the same information as above, except
+for only that user or group.
+
+### Permissions Grants For a Single User or Group
+
+You can retrieve authorization information about a specific user or group using the `print-grants` command, which takes the form of `riak-admin security print-grants <username>`.
+
+The output will look like this if the user `riakuser` has been
+explicitly granted a `riak_kv.get` permission on the bucket
+`shopping_list` and inherits a set of permissions from the `admin`
+group:
 
 ```bash
-riak-admin security print-users > user_list.txt
-```
-
-### Retrieving Information About a Single User
-
-You can retrieve authorization information about a specific user using the `print-user` command, which takes the form of `riak-admin security print-user <username>`.
-
-The output will look like this if the user `riakuser` has been explicitly granted a `riak_kv.get` permission on the bucket `shopping_list` and inherits a set of permissions from the `admin` role:
-
-```bash
-Inherited permissions
+Inherited permissions (user/riakuser)
 
 +--------+----------+----------+----------------------------------------+
-|  role  |   type   |  bucket  |                 grants                 |
+| group  |   type   |  bucket  |                 grants                 |
 +--------+----------+----------+----------------------------------------+
 | admin  |    *     |    *     |      riak_kv.get, riak_kv.delete,      |
 |        |          |          |              riak_kv.put               |
 +--------+----------+----------+----------------------------------------+
 
-Applied permissions
+Dedicated permissions (user/riakuser)
+
++----------+-------------+----------------------------------------+
+|   type   |   bucket    |                 grants                 |
++----------+-------------+----------------------------------------+
+|   ANY    |shopping_list|               riak_kv.get              |
++----------+-------------+----------------------------------------+
+
+Cumulative permissions (user/riakuser)
 
 +----------+-------------+----------------------------------------+
 |   type   |   bucket    |                 grants                 |
@@ -150,15 +192,26 @@ Applied permissions
 +----------+-------------+----------------------------------------+
 ```
 
-Inherited permissions are those that stem from the user's roles, whereas applied permissions include both inherited permissions and those that have been assigned to the user directly. The `Applied permissions` section thus lists _all_ permissions granted to a user.
-
 **Note**: The term `admin` is not a reserved term in Riak security. It is used here only for illustrative purposes.
+
+Because the same name can represent both a user and a group, a prefix
+(`user/` or `group/`) can be used before the name (e.g., `print-grants
+user/admin`). If a name collides and no prefix is supplied, grants for
+both will be listed separately.
+
+
+### Add Group
+
+For easier management of permissions across several users, it is
+possible to create groups to be assigned to those users.
+
+```bash
+riak-admin security add-group admin
+```
 
 ### Add User
 
-The previous section presumed that the user `riakuser` had already been created. In this section, we will presume that the user list is empty.
-
-To create a user with the username `riakuser`, we simply use the `add-user` command:
+To create a user with the username `riakuser`, we use the `add-user` command:
 
 ```bash
 riak-admin security add-user riakuser
@@ -180,44 +233,86 @@ While passwords and other characteristics can be set upon user creation, it ofte
 riak-admin security alter-user riakuser password=opensesame
 ```
 
-**Note**: Only one password may be assigned to a user at a time.
-
-When creating or altering a user, any number of `<option>=<value>` pairs can be appended to the end of the command. Any non-standard options (today, `roles` and `password`) will be stored and displayed via the `riak-admin security print-users` command.
+When creating or altering a user, any number of `<option>=<value>`
+pairs can be appended to the end of the command. Any non-standard
+options will be stored and displayed via the `riak-admin security 
+print-users` command.
 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
-riak-admin security print-users
-+----------+-------+----------+--------------------------------------------------+
-| username | roles | password |                     options                      |
-+----------+-------+----------+--------------------------------------------------+
-| riakuser |       |          |[{"fav_color","red"},{"age","47"},{"name","bill"}]|
-+----------+-------+----------+--------------------------------------------------+
 ```
 
-**Note**: Usernames _cannot_ be changed using the `alter-user` command. If you attempt to do so by running, for example, `alter-user riakuser username=other-name`, then this will simply add the `{"username","other-name"}` tuple to `riakuser`'s options, which is most likely _not_ the preferred action.
+Now, the `print-users` command should return this:
 
-### Deleting a User
+```
++----------+--------+----------+--------------------------------------------------+
+| username | groups | password |                     options                      |
++----------+--------+----------+--------------------------------------------------+
+| riakuser |        |          |[{"fav_color","red"},{"age","47"},{"name","bill"}]|
++----------+--------+----------+--------------------------------------------------+
+```
 
-If you'd like to remove a user, e.g. `riakuser`, from the current user list, simply use the `del-user` command:
+**Note**: Usernames _cannot_ be changed using the `alter-user`
+  command. If you attempt to do so by running `alter-user riakuser 
+  username=other-name`, for example, this will add the 
+  `{"username","other-name"}` tuple to `riakuser`'s options.
+
+### Managing Groups for a User
+
+If we have a user `jane_goodall` and we'd like to assign her to the
+`admin` group, we assign the value `admin` to the option `groups`:
+
+```bash
+riak-admin security alter-user jane_goodall groups=admin
+```
+
+If we'd like to make the user `jane_goodall` both an `admin` and an
+`archoverlord`:
+
+```bash
+riak-admin alter-user jane_goodall groups=admin,archoverlord
+```
+
+There is no way to incrementally add groups; even if `jane_goodall` was
+already an `admin`, it is necessary to list it again when adding the
+`archoverlord` group.
+
+Thus, to remove a group from a user, use `alter-user` and list all
+*other* groups.
+
+If the user should be removed from all groups, use `groups=` with no
+list:
+
+```bash
+riak-admin alter-user jane_goodall groups=
+```
+
+### Managing Groups for Groups
+
+Groups can be added to other groups for cascading permissions.
+
+```bash
+riak-admin alter-group admin groups=dev
+```
+
+### Deleting a User or Group
+
+If you'd like to remove a user, use the `del-user` command:
 
 ```
 riak-admin security del-user riakuser
 ```
 
-<div class="note"><div class="title">Note</div>
-The <tt>del-user</tt> command is used to delete both users <em>and roles</em> (because users and roles are ultimately the same thing). This means that if you have several users assigned the role <tt>superuser</tt>, running the <tt>del-user superuser</tt> command will remove the role <tt>superuser</tt> from all users currently assigned to that role. This command should thus be used with due care.
-</div>
+For groups, use the `del-group` command:
 
-### Deleting Multiple Users
-
-The `riak-admin security` command does not currently allow you to delete multiple users using a single command. An alternative way to do so, however, is to run the `del-user` command for each user you're deleting, e.g. `del-user user1` followed `del-user user2`. A more succinct way is to use a simple `for` loop in your shell (or in a shell script):
-
-```bash
-for username in larry moe curly
-do
-  riak-admin security del-user $username
-done
 ```
+riak-admin security del-group admin
+```
+
+### Adding or Deleting Multiple Users
+
+The `riak-admin security` command does not currently allow you to
+add or delete multiple users using a single command.
 
 ## Managing Permissions
 
@@ -225,18 +320,39 @@ Permission to perform a wide variety of operations against Riak can be granted t
 
 ### Basic Form
 
-The `grant` and `revoke` commands take the following forms, respectively:
+The `grant` command takes one of the following forms:
 
 ```bash
-riak-admin security grant <permissions> ON ANY|<type> [bucket] TO <users>
-riak-admin security revoke <permissions> ON ANY|<type> [bucket] FROM <users>
+riak-admin security grant <permissions> on any to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> <bucket> to all|{<user>|<group>[,...]}
 ```
 
-You can grant/revoke multiple permissions by separating permissions with a comma (with no spaces). You can also manage permissions with respect to several users---or roles---at a time. Here is an example of granting multiple permissions to multiple users:
+The `revoke` command is the same, but with `from` instead of `to`:
 
 ```bash
-riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
+riak-admin security revoke <permissions> on any from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> <bucket> from all|{<user>|<group>[,...]}
 ```
+
+If you select `any`, this means that the permission (or set of permissions) is
+granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
+
+**Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
+
+Selecting `all` grants or revokes a permission (or set of permissions) for all users in all groups. When specifying the user(s)/group(s) to which you want to apply a permission (or set of permissions), you may list any number of users or groups comma-separated with no whitespace, e.g.:
+
+Here is an example of granting multiple permissions across all buckets
+and bucket types to multiple users:
+
+```bash
+riak-admin security grant riak_kv.get,riak_search.query on any to jane,ahmed
+```
+
+If the same name is used for both a user and a group, the `grant`
+command will ask for the name to be prefixed with `user/` or `group/`
+to disambiguate.
 
 ### Key/Value Permissions
 
@@ -255,11 +371,12 @@ Permission | Operation |
 `riak_kv.list_keys` and `riak_kv.list_buckets` are both very expensive operations that should be performed very rarely and never in production.
 </div>
 
-If you'd like to create, for example, a `client` role that is allowed only to run `GET` and `PUT` requests on all buckets:
+If you'd like to create, for example, a `client` account that is
+allowed only to run `GET` and `PUT` requests on all buckets:
 
 ```bash
 riak-admin security add-user client
-riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
+riak-admin security grant riak_kv.get,riak_kv.put on any to client
 ```
 
 ### MapReduce Permissions
@@ -267,7 +384,7 @@ riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
 Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
 
 ```bash
-riak-admin security grant riak_kv.mapreduce ON ANY TO mapreduce-power-user
+riak-admin security grant riak_kv.mapreduce on any to mapreduce-power-user
 ```
 
 ### Bucket Type Permissions
@@ -294,42 +411,47 @@ Permission | Operation |
 `search.admin` | The ability to perform search admin-related tasks, such as creating and deleting indexes and adding and modifying search schemas |
 `search.query` | The ability to query an index |
 
+<div class="note">
+<div class="title">Note on Search Permissions</div>
+Search must be enabled in order to successfully grant/revoke search permissions. If you attempt to grant/revoke permissions while search is disabled, you will get the following error: <tt>{error,{unknown_permission,"search.query"}}</tt>. More information on Riak Search and how to enable it can be found in the [[Riak Search Settings]] document.
+</div>
+
 #### Usage Examples
 
 To grant the user `riakuser` the ability to query all indexes:
 
 ```bash
-riak-admin security grant search.query ON index TO riakuser
+riak-admin security grant search.query on index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON index FROM riakuser
+# riak-admin security revoke search.query on index from riakuser
 ```
 
 To grant the user `riakuser` the ability to query all schemas:
 
 ```bash
-riak-admin security grant search.query ON schema TO riakuser
+riak-admin security grant search.query on schema to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON schema FROM riakuser
+# riak-admin security revoke search.query on schema from riakuser
 ```
 
 To grant the user `riakuser` admin privileges only on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.admin ON index riakuser_index TO riakuser
+riak-admin security grant search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.admin ON index riakuser_index FROM riakuser
+# riak-admin security revoke search.admin on index riakusers_index from riakuser
 ```
 
-To grant `riakuser` querying and admin permissions on the index `riakuser_index`:
+To grant `riakuser` querying and admin permissions on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.query,search.admin ON index TO riakuser
+riak-admin security grant search.query,search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query,search.admin ON index FROM riakuser
+# riak-admin security revoke search.query,search.admin on index riakusers_index from riakuser
 ```
 
 More comprehensive information on search-related security can be found under [[Riak Search Security]].
@@ -340,20 +462,20 @@ While user management enables you to control _authorization_ with regard to user
 
 ### Add Source
 
-Riak security sources may be applied to all users/roles or only to a specific user or role.
+Riak security sources may be applied to a specific user, multiple users, or all users (`all`).
 
 #### Available Sources
 
 Source   | Description |
 :--------|:------------|
-`trust` | Always authenticates successfully if access has been granted to a user, a role, or all users on the specified CIDR range |
-`password` | Check the user's password against the [PBKSD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
+`trust` | Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range |
+`password` | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
 
-### Adding a Trusted Source
+### Example: Adding a Trusted Source
 
-Security sources can be added either to specific users or roles or to all users.
+Security sources can be added either to a specific user, multiple users, or all users (`all`).
 
 In general, the `add-source` command takes the following form:
 
@@ -361,7 +483,8 @@ In general, the `add-source` command takes the following form:
 riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...]]
 ```
 
-The `all|<users>` designates that sources can be added to all users/roles. A source can be added to a specific user/role by simply listing the `username`, whereas a grouping of users/roles can be added if the `usernames` are separated by commas, e.g. `add-source jane,bill,terry,chris`.
+Using `all` indicates that the authentication source can be added to
+all users. A source can be added to a specific user, e.g. `add-source superuser`, or to a list of users separated by commas, e.g. `add-source jane,bill,admin`.
 
 Let's say that we want to give all users trusted access to securables (without a password) when requests come from `localhost`:
 
@@ -371,7 +494,7 @@ riak-admin security add-source all 127.0.0.1/32 trust
 
 At that point, the `riak-admin security print-sources` command would print the following:
 
-```bash
+```
 +--------------------+------------+----------+----------+
 |       users        |    cidr    |  source  | options  |
 +--------------------+------------+----------+----------+
@@ -379,86 +502,25 @@ At that point, the `riak-admin security print-sources` command would print the f
 +--------------------+------------+----------+----------+
 ```
 
-#### Source Management Usage Examples
+### Deleting Sources
 
-To require a password from users `juliette` and `sanjay` when they connect from the class C network at `10.0.0.0`:
-
-```bash
-riak-admin security add-source juliette,sanjay 10.0.0.0/24 password
-```
-
-Instructions on assigning passwords are [[above|Authentication and Authorization#User-Management]].
-
-To require all users to authenticate through a PAM login service:
+If we wish to remove the `trust` source that we granted to `all` in the example above, we can simply use the `del-source` command and specify the CIDR.
 
 ```bash
-riak-admin security add-source all 0.0.0.0/0 pam service=login
+riak-admin security del-source all 127.0.0.1/32
 ```
 
+Note that this does not require that you specify which type of source is being deleted. You only need to specify the user(s) or `all`, because only one source can be applied to a user or `all` at any given time.
 
-
-### Delete source
-
-```
-# riak-admin security del-source all 0.0.0.0/0
-# riak-admin security print-sources
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-+--------------------+------------+----------+----------+
-```
-
-## Managing Roles
-
-Riak security understands security roles slightly differently from other database systems because roles and users are one and the same.
-
-### Creating a New Role
-
-In an example above, a new user was created with the username `riakuser`. It's important to bear in mind that `riakuser` is _also a role_. Roles and users are completely interchangeable. And so if you'd like to create an `admin` role, you could perform permitted operations as `admin` _or_ assign the role of `admin` to other users.
-
-As expected, creating a new role involves the `add-user` command:
+The following command would remove the source for `riakuser` on `localhost`, regardless of which source is being used:
 
 ```bash
-riak-admin security add-user admin
+riak-admin security del-source riakuser 127.0.0.1/32
 ```
 
-### Assigning a Role to a User
+### More Usage Examples
 
-If we have a user `jane_goodall` and we'd like to assign her the role `admin`, we simply assign the value `admin` to the option `roles`:
-
-```bash
-riak-admin security alter-user jane_goodall roles=admin
-```
-
-If we'd like to make the user `jane_goodall` both an `admin` and an `archoverlord`:
-
-```bash
-riak-admin alter-user jane_goodall roles=admin,archoverlord
-```
-
-There is no way to incrementally add roles; even if `jane_goodall` was already an `admin`, it is necessary to list it again when adding the `archoverlord` role.
-
-### Assigning a Role to Multiple Users
-
-There is no command for assigning a role (or roles) to multiple users at one time, though you may use methods such as `for` loops in your shell:
-
-```bash
-for user in larry moe curly
-do
-  riak-admin security alter-user $user roles=stooge
-done
-```
-
-### Removing Roles From a User
-
-There is no command for directly removing a user's roles, but you can assign a user an empty value for the `roles` option:
-
-```bash
-riak-admin security alter-user riakuser roles=
-```
-
-If you wish to unassign a single role from a user while retaining others, simply provide the others to the `alter-user` command.
+This section provides only a very brief overview of the syntax for working with sources. For more information on using the `trust`, `password`, `pam`, and `certificate` sources, please see our [[Managing Security Sources]] document.
 
 ## Security Ciphers
 
@@ -470,7 +532,7 @@ riak-admin security ciphers
 
 That command will return a large list:
 
-```bash
+```
 Configured ciphers
 
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
@@ -484,10 +546,15 @@ Unknown/Unsupported ciphers(32)
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 ```
 
-To alter the list (to constrain it and/or to set preferred ciphers higher in the list):
+To alter the list, i.e. to constrain it and/or to set preferred ciphers higher in the list:
 
 ```bash
 riak-admin security ciphers DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+```
+
+The list of configured ciphers should now look like this:
+
+```
 Configured ciphers
 
 DHE-RSA-AES256-SHA:AES128-GCM-SHA256
@@ -505,6 +572,11 @@ A list of available ciphers on a server can be obtained using the `openssl` comm
 
 ```bash
 openssl ciphers
+```
+
+That should return a list structured like this:
+
+```
 DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DES-CBC3-SHA:DES-CBC3-MD5:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES128-SHA:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:SEED-SHA:RC2-CBC-MD5:RC4-SHA:RC4-MD5:RC4-MD5:EDH-RSA-DES-CBC-SHA:EDH-DSS-DES-CBC-SHA:DES-CBC-SHA:DES-CBC-MD5:EXP-EDH-RSA-DES-CBC-SHA:EXP-EDH-DSS-DES-CBC-SHA:EXP-DES-CBC-SHA:EXP-RC2-CBC-MD5:EXP-RC2-CBC-MD5:EXP-RC4-MD5:EXP-RC4-MD5
 ```
 

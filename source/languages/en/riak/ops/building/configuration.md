@@ -163,8 +163,7 @@ Please review the following documents before conducting any
 cluster.
 
 * [[Open Files Limit]]
-* [[File System Tuning]]
-* [[Linux Performance Tuning]]
+* [[System Performance Tuning]]
 * [[AWS Performance Tuning]]
 * [[Configuration Files]]
 

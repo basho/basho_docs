@@ -24,6 +24,7 @@ riak:
               - "[[PHP|Taste of Riak: PHP]]"
               - "[[Python|Taste of Riak: Python]]"
               - "[[Ruby|Taste of Riak: Ruby]]"
+              - "[[C|Taste of Riak: C]]"
               - "[[OCaml|Taste of Riak: OCaml]]"
               - "[[Clojure|Taste of Riak: Clojure]]"
               - "[[Csharp|Taste of Riak: C-Sharp]]"
@@ -43,7 +44,6 @@ riak:
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"
-          - "[[Strong Consistency|Using Strong Consistency]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
           - "[[MapReduce|Using MapReduce]]"
@@ -67,16 +67,18 @@ riak:
               - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
-          - "[[Search Details|Advanced Search]]"
-          # - "[[Search Schema|Advanced Search Schema]]"
+          - "[[Search Details]]"
+          - "[[Search Schema]]"
           - "[[MapReduce|Advanced MapReduce]]"
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
+          - "[[Strong Consistency|Using Strong Consistency]]"
+          - "[[Cluster Metadata]]"
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
-              # - "[[Search Indexing|Search Indexing Reference]]"
+              # - "[[Search Indexing|Legacy Search Indexing Reference]]"
               # - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
               - "[[Implementing a Backend|Backend API]]"
@@ -111,11 +113,11 @@ riak:
           - "[[Basic Cluster Setup]]"
           - "[[Benchmarking|Basho Bench]]"
           - "[[Authentication and Authorization]]"
+          - "[[Managing Security Sources]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
-          - "[[File System Tuning]]"
-          - "[[Linux Performance Tuning]]"
+          - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
       - title: "Running a Cluster"
         sub:
@@ -138,6 +140,8 @@ riak:
               - "[[Recovering a Failed Node]]"
               - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
+              - "[[Repairing LevelDB]]"
+              - "[[Rolling Restart]]"
               - "[[Common Errors]]"
       - title: "Advanced"
         sub:
@@ -152,6 +156,7 @@ riak:
               - "[[Search|Riak Search Settings]]"
               - "[[Secondary Indexes|Configuring Secondary Indexes]]"
               - "[[Load Balancing & Proxy|Load Balancing and Proxy Configuration]]"
+              - "[[Strong Consistency|Using Strong Consistency]]"
           - title: "Backends"
             sub:
               - "[[Bitcask]]"
@@ -162,6 +167,7 @@ riak:
         sub:
           - "[[Production Checklist]]"
           - "[[Rolling Upgrades]]"
+          - "[[Rolling Downgrades]]"
 
 
   - title: "Theory & Concepts"

@@ -8,13 +8,13 @@ audience: intermediate
 keywords: [mdc, repl, bnw]
 ---
 
-The Riak Multi-Datacenter Replication Quick Start will walk you through the process of configuring Riak's v3 Replication to perform replication between two sample Riak clusters on separate networks. This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.
+This guide will walk you through the process of configuring Riak's v3 Replication to perform replication between two sample Riak clusters on separate networks. This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.  It is important to note that both clusters must have the same ring size, but can have a different number of nodes.
 
 ### Prerequisites
-This Guide assumes that you have completed the following steps:
+This guide assumes that you have completed the following steps:
 
 * Install [[Riak Enterprise]]
-* Perform [[System Turning|Linux Performance Tuning]]
+* Perform [[System Tuning|System Performance Tuning]]
 * Review [[Configuration|Multi Data Center Replication v3 Configuration]]
 
 ### About v3 Replication in 1.3

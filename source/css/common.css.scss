@@ -383,7 +383,6 @@ em {
 blockquote {
   @extend .serif-italic;
   @include allCorners();
-  @include boxShadow(inset 0 2px 3px lighten($orange, 25%));
   margin     : 2em 40px;
   background : lighten($orange, 30%);
   border     : 1px solid lighten($orange, 15%);
@@ -1322,10 +1321,6 @@ div[role="main"] {
       margin-top  : -78px;
     }
 
-    .CodeRay {
-      max-width : 100%;
-    }
-
     nav.tutorial {
       ul, h4 {
         max-width : 100%;
@@ -1635,6 +1630,12 @@ div[role=main] {
     @include corner(right, top);
     @include corner(right, bottom);
     @include corner(left, bottom);
+    border: 1px solid #ddd;
+  }
+
+  .nav-tabs > li.active > a {
+    border: 1px solid #ddd;
+    border-bottom: 0px;
   }
 
   .note {
@@ -1691,6 +1692,11 @@ div[role=main] {
     }
   }
   
+  div.tab-content {
+    max-width: 600px;
+    font-size: 85%;
+  }
+
   .code {
     //@include bgPattern('code-bg.jpg');
     //@include boxShadow(inset 0 1px 4px #aeb9b6);
@@ -1726,6 +1732,40 @@ div[role=main] {
     }
     td:last-child {
       width : 70%;
+    }
+  }
+
+  table.riak-conf {
+    width: 799px;
+    max-width: 799px;
+    td:nth-of-type(1) {
+      overflow-wrap:break-word;
+      max-width: 300px;
+    }
+    td:nth-of-type(2) {
+      overflow-wrap:break-word;
+      max-width: 325px;
+    }
+    td:nth-of-type(3) {
+      overflow-wrap:break-word;
+      width: 100px;
+    }
+  }
+
+  table.schemausecase {
+    font-size:80%;
+    th {
+      color:#3a5752;
+      padding: 3px 5px;
+    }
+    td {
+      padding: 3px 5px;
+      a {
+        vertical-align: super;
+        font-size:80%;
+        color:$darkOrange;
+        padding-left:3px;
+      }
     }
   }
 }

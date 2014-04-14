@@ -11,15 +11,28 @@ moved: {
 }
 ---
 
-The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node. Both Version 2 Replication and Version 3 Replication statistics are obtained by using the `riak-repl status` command.
+The following definitions describe the output of `riak-repl status`.
+Both Version 2 Replication and Version 3 Replication statistics are
+obtained by using the `riak-repl status` command.
 
-**All statistic counts will be reset to 0 upon restarting Riak Enterprise unless otherwise noted.**
+**Please note that many of these statistics will only appear on the
+current leader node.**
+
+**All statistic counts will be reset to 0 upon restarting Riak
+Enterprise unless otherwise noted.**
 
 Field | Description
 ------|------------
 `cluster_leader` {{1.3.0+}} | Which node is the current leader of the cluster
 connected_clusters {{1.3.0+}} | A list of all sink clusters to which this source is connected
 
+## Performance
+
+The `riak-repl status` command should not be executed more than once a
+minute as statistics are recalculated every time the command is
+executed, and some statistics require network communication between
+nodes. This performance note also applies to the HTTP `/riak-repl/stats`
+endpoint.
 
 ## Realtime Replication Statistics
 
