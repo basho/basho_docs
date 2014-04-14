@@ -52,7 +52,8 @@ client connections must be encrypted and all permissions will be
 denied by default. Do not enable this in production until you have
 verified that your libraries support Riak security, including
 encrypted HTTP or protocol buffers traffic, and that your applications
-are assigned user accounts with the proper permissions.  </div>
+are assigned user accounts with the proper permissions.
+</div>
 
 Riak security is disabled by default. To enable it:
 
@@ -322,20 +323,20 @@ Permission to perform a wide variety of operations against Riak can be granted t
 The `grant` command takes one of the following forms:
 
 ```bash
-riak-admin security grant <permissions> ON ANY TO all|{<user>|<group>[,...]}
-riak-admin security grant <permissions> ON <bucket-type> TO all|{<user>|<group>[,...]}
-riak-admin security grant <permissions> ON <bucket-type> <bucket> TO all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on any to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> <bucket> to all|{<user>|<group>[,...]}
 ```
 
-The `revoke` command is the same, but with `FROM` instead of `TO`:
+The `revoke` command is the same, but with `from` instead of `to`:
 
 ```bash
-riak-admin security revoke <permissions> ON ANY FROM all|{<user>|<group>[,...]}
-riak-admin security revoke <permissions> ON <bucket-type> FROM all|{<user>|<group>[,...]}
-riak-admin security revoke <permissions> ON <bucket-type> <bucket> FROM all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on any from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> <bucket> from all|{<user>|<group>[,...]}
 ```
 
-If you select `ANY`, this means that the permission (or set of permissions) is
+If you select `any`, this means that the permission (or set of permissions) is
 granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
 
 **Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
@@ -346,7 +347,7 @@ Here is an example of granting multiple permissions across all buckets
 and bucket types to multiple users:
 
 ```bash
-riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
+riak-admin security grant riak_kv.get,riak_search.query on any to jane,ahmed
 ```
 
 If the same name is used for both a user and a group, the `grant`
@@ -375,7 +376,7 @@ allowed only to run `GET` and `PUT` requests on all buckets:
 
 ```bash
 riak-admin security add-user client
-riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
+riak-admin security grant riak_kv.get,riak_kv.put on any to client
 ```
 
 ### MapReduce Permissions
@@ -383,7 +384,7 @@ riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
 Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
 
 ```bash
-riak-admin security grant riak_kv.mapreduce ON ANY TO mapreduce-power-user
+riak-admin security grant riak_kv.mapreduce on any to mapreduce-power-user
 ```
 
 ### Bucket Type Permissions
@@ -420,37 +421,37 @@ Search must be enabled in order to successfully grant/revoke search permissions.
 To grant the user `riakuser` the ability to query all indexes:
 
 ```bash
-riak-admin security grant search.query ON index TO riakuser
+riak-admin security grant search.query on index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON index FROM riakuser
+# riak-admin security revoke search.query on index from riakuser
 ```
 
 To grant the user `riakuser` the ability to query all schemas:
 
 ```bash
-riak-admin security grant search.query ON schema TO riakuser
+riak-admin security grant search.query on schema to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON schema FROM riakuser
+# riak-admin security revoke search.query on schema from riakuser
 ```
 
 To grant the user `riakuser` admin privileges only on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.admin ON index riakusers_index TO riakuser
+riak-admin security grant search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.admin ON index riakusers_index FROM riakuser
+# riak-admin security revoke search.admin on index riakusers_index from riakuser
 ```
 
 To grant `riakuser` querying and admin permissions on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.query,search.admin ON index riakusers_index TO riakuser
+riak-admin security grant search.query,search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query,search.admin ON index riakusers_index FROM riakuser
+# riak-admin security revoke search.query,search.admin on index riakusers_index from riakuser
 ```
 
 More comprehensive information on search-related security can be found under [[Riak Search Security]].
