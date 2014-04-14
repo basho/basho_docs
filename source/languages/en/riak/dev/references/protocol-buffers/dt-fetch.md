@@ -35,7 +35,7 @@ Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket in which the Data Type is stored
 `key` | The key where the Data Type is stored
-`type` | The [[bucket type|Using Bucket Types]] of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map)
+`type` | The [[Using Bucket Types]] of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map)
 
 #### Optional Parameters
 
@@ -60,7 +60,7 @@ Parameter | Description
 
 ## Response
 
-The response to a fetch request (`[[DtFetchReq|PBC Data Type Fetch Request]]`) is a `DtFetchResp` message.
+The response to a fetch request (`[[DtFetchReq|PBC Data Type Fetch]]`) is a `DtFetchResp` message.
 
 ```protobuf
 message DtFetchResp {

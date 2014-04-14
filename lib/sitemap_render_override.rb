@@ -304,6 +304,8 @@ module SitemapRenderOverride
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
         when "vmargs"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+        when "protobuf"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])protobuf(["']\>)/, '\\1objectivec\\2')
         else
           lang
         end

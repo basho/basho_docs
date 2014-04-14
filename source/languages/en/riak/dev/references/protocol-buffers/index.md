@@ -129,8 +129,6 @@ message RpbErrorResp {
 ## Server Operations
 
 * [[PBC Ping]]
-* [[PBC Get Client ID]]
-* [[PBC Set Client ID]]
 * [[PBC Server Info]]
 
 ## Bucket Type Operations
@@ -149,10 +147,8 @@ message RpbErrorResp {
 
 ## Yokozuna Operations
 
-* [[PBC Yokozuna Index Query]]
 * [[PBC Yokozuna Index Get]]
 * [[PBC Yokozuna Index Put]]
 * [[PBC Yokozuna Index Delete]]
-* [[PBC Yokozuna Schema Query]]
 * [[PBC Yokozuna Schema Get]]
 * [[PBC Yokozuna Schema Put]]

@@ -1,5 +1,5 @@
 ---
-title: PBC Yokozuna Schema Put Request
+title: PBC Yokozuna Schema Put
 project: riak
 version: 2.0.0+
 document: api
@@ -9,7 +9,7 @@ keywords: [api, protocol-buffer, yokozuna, search]
 group_by: "Object/Key Operations"
 ---
 
-Create a new [[Riak Search schema|Advanced Search#Schemas]] or modify an existing schema.
+Create a new Solr [[search schema]].
 
 ## Request
 
@@ -19,4 +19,13 @@ message RpbYokozunaSchemaPutReq {
 }
 ```
 
-Each message must contain an `RpbYokozunaSchema` message under `schema`. More details on that message type can be found in [[PBC Yokozuna Schema Query]].
+Each message must contain a `RpbYokozunaSchema` object structure.
+
+```protobuf
+message RpbYokozunaSchema {
+    required bytes name    =  1;
+    optional bytes content =  2;
+}
+```
+
+This message *must* include both the schema `name` and its solr [[search schema]] `content` xml.

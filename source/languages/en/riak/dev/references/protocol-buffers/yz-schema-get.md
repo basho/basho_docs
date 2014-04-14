@@ -29,4 +29,13 @@ message RpbYokozunaSchemaGetResp {
 }
 ```
 
-The response message will include an `RpbYokozunaSchema` message. More information about this message type can be found in [[PBC Yokozuna Schema Query]].
+The response message will include a `RpbYokozunaSchema` structure.
+
+```protobuf
+message RpbYokozunaSchema {
+    required bytes name    =  1;
+    optional bytes content =  2;
+}
+```
+
+This message includes the schema `name` and its xml `content`.
