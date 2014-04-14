@@ -20,7 +20,7 @@ Riak can be installed on Debian or Ubuntu based systems with a binary package or
 
 ## Installing From Apt-Get
 
-If you wish to just install Riak and get on with your life, use `apt-get`.
+For the simplest installation process on LTS (Long Term Support) releases, use `apt-get`.
 
 First you must get the signing key.
 
@@ -35,7 +35,7 @@ sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/s
 sudo apt-get update
 ```
 
-Now install riak.
+Now install the `riak` package.
 
 ```bash
 sudo apt-get install riak

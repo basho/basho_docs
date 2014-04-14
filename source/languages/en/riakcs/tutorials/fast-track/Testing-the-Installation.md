@@ -91,6 +91,6 @@ ls -lah test_file
 ## What's Next
 If you have made it this far, congratulations! You now have a working Riak CS test instance (either virtual or local). There is still a fair bit of learning to be done, so make sure and check out the Reference section (click "Reference" on the nav on the left side of this page). A few items that may be of particular interest:
 
-* [[Details about API operations|RiakCS Storage API]]
+* [[Details about API operations|RiakCS S3 Storage API]]
 * [[Information about the Ruby Fog client|Fog on Riak CS]]
 * [[Release Notes]]

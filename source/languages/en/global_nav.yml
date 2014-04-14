@@ -37,6 +37,13 @@ riak:
               - "[[PHP|Taste of Riak: Querying with PHP]]"
               - "[[Python|Taste of Riak: Querying with Python]]"
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
+          - title: Object Modeling
+            sub:
+              - "[[Introduction|Taste of Riak: Object Modeling]]"
+              - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
+              - "[[Java|Taste of Riak: Object Modeling with Java]]"
+              - "[[Python|Taste of Riak: Object Modeling with Python]]"
+              - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
       - title: "Basic Usage"
         sub:
           - "[[Client Libraries]]"
@@ -267,6 +274,7 @@ riakee:
       - "[[Version Comparison|Multi Data Center Replication: Comparison]]"
       - "[[Upgrade Guide|Multi Data Center Replication: Upgrading from V2 to V3]]"
       - "[[Statistics|Multi Data Center Replication: Statistics]]"
+      - "[[Monitoring|Multi Data Center Replication: Monitoring]]"
       - "[[Per Bucket|Multi Data Center Replication: Per Bucket]]"
       - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
   - title: "Operating Riak Enterprise"

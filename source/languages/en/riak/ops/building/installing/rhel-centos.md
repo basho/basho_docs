@@ -29,7 +29,7 @@ When installing Riak on CentOS or Red Hat you can install from source or from ou
 
 You can either install using yum *(recommended)*,
 
-```
+```bash
 sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
 sudo yum install riak
 ```
@@ -47,8 +47,8 @@ sudo rpm -Uvh riak-{{VERSION}}-1.el5.x86_64.rpm
 {{#1.2.0+}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/rhel/5/riak-{{VERSION}}-2.el5.x86_64.rpm
-sudo rpm -Uvh riak-{{VERSION}}-2.el5.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/rhel/5/riak-{{VERSION}}-1.el5.x86_64.rpm
+sudo rpm -Uvh riak-{{VERSION}}-1.el5.x86_64.rpm
 ```
 
 {{/1.2.0+}}
@@ -75,8 +75,8 @@ sudo rpm -Uvh riak-{{VERSION}}-1.el6.x86_64.rpm
 {{#1.2.0+}}
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/rhel/6/riak-{{VERSION}}-2.el6.x86_64.rpm
-sudo rpm -Uvh riak-{{VERSION}}-2.el6.x86_64.rpm
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/rhel/6/riak-{{VERSION}}-1.el6.x86_64.rpm
+sudo rpm -Uvh riak-{{VERSION}}-1.el6.x86_64.rpm
 ```
 
 {{/1.2.0+}}
