@@ -45,7 +45,7 @@ Location myKey = new Location("dogs")
 ```
 
 ```python
-bucket = client.bucket('dogs', type='animals')
+bucket = client.bucket('dogs', bucket_type='animals')
 obj = bucket.get('rufus')
 ```
 
@@ -103,7 +103,7 @@ RiakObject obj = response.getValue(RiakObject.class);
 ```
 
 ```python
-bucket = client.bucket('dogs', type='animals')
+bucket = client.bucket('dogs', bucket_type='animals')
 obj = bucket.get('rufus', r=3)
 obj.data
 ```
@@ -175,7 +175,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('oscar_wilde', type: 'quotes')
+bucket = client.bucket('oscar_wilde', bucket_type='quotes')
 obj = RiakObject(client, bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.data = 'I have nothing to declare but my genius'
@@ -228,7 +228,7 @@ System.out.println(response.getvClock());
 ```
 
 ```python
-bucket = client.bucket('nba', type: 'sports')
+bucket = client.bucket('nba', bucket_type='sports')
 obj = bucket.get('champion')
 obj.vclock
 
@@ -288,7 +288,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('nba', type='sports')
+bucket = client.bucket('nba', bucket_type='sports')
 obj = RiakObject(client, bucket, 'champion')
 obj.content_type = 'text/plain'
 obj.data = 'Harlem Globetrotters'
@@ -352,7 +352,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('dodge', type='cars')
+bucket = client.bucket('dodge', bucket_type='cars')
 obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
@@ -411,7 +411,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('dodge', type='cars')
+bucket = client.bucket('dodge', bucket_type='cars')
 obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
@@ -480,7 +480,7 @@ String key = client.execute(store).getLocation().getKeyAsString();
 ```
 
 ```python
-bucket = client.bucket('random_user_keys', type='users')
+bucket = client.bucket('random_user_keys', bucket_type='users')
 obj = RiakObject(client, bucket)
 obj.content_type = 'application/json'
 obj.data = '{"user":"data"}'
@@ -543,7 +543,7 @@ client.execute(delete);
 ```
 
 ```python
-bucket = client.bucket('oscar_wilde', type='quotes')
+bucket = client.bucket('oscar_wilde', bucket_type='quotes')
 bucket.delete('genius')
 ```
 
