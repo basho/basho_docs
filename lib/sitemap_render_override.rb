@@ -93,7 +93,7 @@ module SitemapRenderOverride
 
     if raw_version_str
       # Ignore rcX if this is a pre-release
-      version_str = raw_version_str.sub(/(rc\d+|pre\d+)/i, '')
+      version_str = raw_version_str.sub(/(rc\d+|pre\d+|beta\d+)/i, '')
       version = Versionomy.parse(version_str)
 
       # Create a version placeholder
@@ -137,7 +137,7 @@ module SitemapRenderOverride
       data.gsub!(/(\<li(?:\s[^\>]*?)?\>(?:(?!\<li).)*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/m) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
-        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+)?[\+\-]?$/
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
           in_version_range?(liversion, version) ? startli + endli : ''
         else
           startli + endli
@@ -147,7 +147,7 @@ module SitemapRenderOverride
       data.gsub!(/(\<tr(?:\s[^\>]*?)?\>(?:(?!\<tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/tr\>)/m) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
-        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+)?[\+\-]?$/
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
           in_version_range?(liversion, version) ? startli + endli : ''
         else
           startli + endli
@@ -186,13 +186,13 @@ module SitemapRenderOverride
         next "<a #{anchor.gsub(href, url)}>"
       end
 
-      match_index = href =~ /^\/(#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+)?\/$/
+      match_index = href =~ /^\/(#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+|beta\d+)?\/$/
 
       # force the root page to point to the latest projcets
       if $production && project == :root && match_index
         "<a href=\"/#{$1}/latest/\">"
       # /riak*/version/ links should be relative, unless they cross projects
-      elsif match_index #href =~ /^\/(riak[^\/]*?)\/[\d\.]+(?:rc\d+|pre\d+)?\/$/
+      elsif match_index #href =~ /^\/(riak[^\/]*?)\/[\d\.]+(?:rc\d+|pre\d+|beta\d+)?\/$/
         if ($1 || $default_project).to_sym == project
           url = prepend_dir_depth('', depth_to_root)
           "<a #{anchor.gsub(href, url)}>"

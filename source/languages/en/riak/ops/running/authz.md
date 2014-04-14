@@ -454,7 +454,7 @@ riak-admin security grant search.query,search.admin on index riakusers_index to 
 # riak-admin security revoke search.query,search.admin on index riakusers_index from riakuser
 ```
 
-More comprehensive information on search-related security can be found under [[Riak Search Security]].
+<!-- More comprehensive information on search-related security can be found under [[Riak Search Security]]. -->
 
 ## Managing Sources
 

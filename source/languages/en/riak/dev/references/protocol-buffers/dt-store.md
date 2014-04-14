@@ -40,7 +40,7 @@ message DtUpdateReq {
 Parameter | Description
 :---------|:-----------
 `bucket` | The name of the bucket in which the Data Type is stored
-`type` | The [[bucket type|Using Bucket Types]] of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map)
+`type` | The bucket type of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map). Learn more about [[using bucket types]].
 
 Also required is a `DtOp` message that specifies which operation is to be performed, depending on whether the Data Type being updated is a [[counter|PBC Data Type Counter Store]], [[set|PBC Data Type Set Store]], or [[map|PBC Data Type Map Store]].
 
@@ -65,7 +65,7 @@ Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, and
 Parameter | Description
 :---------|:-----------
 `key` | The key where the Data Type is stored. If not specified, Riak will assign a random key and return that key to the client is `return_body` is set to `true`.
-`context` | The opaque binary "context" that informs Riak which version of a Data Type the client has seen, analogous to a [[vclock|Vector Clocks]]
+`context` | The opaque binary "context" that informs Riak which version of a data type the client has seen, analogous to [[vector clocks]]
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
 `dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
 `pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted

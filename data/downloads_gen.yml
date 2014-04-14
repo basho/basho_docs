@@ -3266,6 +3266,149 @@ riak:
               file: riak-2.0.0pre20.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0pre20/riak-2.0.0pre20.tar.gz
               file_size: 15991573
+  2.0.0beta1:
+    debian:
+      versions:
+        '6':
+          arch:
+            amd64:
+              file: riak_2.0.0beta1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/debian/6/riak_2.0.0beta1-1_amd64.deb
+              file_size: 60104104
+              csum: riak_2.0.0beta1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/debian/6/riak_2.0.0beta1-1_amd64.deb.sha
+              csum_size: 94
+        '7':
+          arch:
+            amd64:
+              file: riak_2.0.0beta1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/debian/7/riak_2.0.0beta1-1_amd64.deb
+              file_size: 60114124
+              csum: riak_2.0.0beta1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/debian/7/riak_2.0.0beta1-1_amd64.deb.sha
+              csum_size: 94
+    fedora:
+      versions:
+        '19':
+          arch:
+            src:
+              file: riak-2.0.0beta1-1.fc19.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/fedora/19/riak-2.0.0beta1-1.fc19.src.rpm
+              file_size: 16030444
+              csum: riak-2.0.0beta1-1.fc19.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/fedora/19/riak-2.0.0beta1-1.fc19.src.rpm.sha
+              csum_size: 97
+            x86_64:
+              file: riak-2.0.0beta1-1.fc19.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/fedora/19/riak-2.0.0beta1-1.fc19.x86_64.rpm
+              file_size: 58105984
+              csum: riak-2.0.0beta1-1.fc19.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/fedora/19/riak-2.0.0beta1-1.fc19.x86_64.rpm.sha
+              csum_size: 100
+    freebsd:
+      versions:
+        '10':
+          arch:
+            unknown:
+              file: riak-2.0.0beta1.txz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/freebsd/10/riak-2.0.0beta1.txz
+              file_size: 61398336
+              csum: riak-2.0.0beta1.txz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/freebsd/10/riak-2.0.0beta1.txz.sha
+              csum_size: 86
+        '9.2':
+          arch:
+            amd64:
+              file: riak-2.0.0beta1-FreeBSD-amd64.tbz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/freebsd/9.2/riak-2.0.0beta1-FreeBSD-amd64.tbz
+              file_size: 66837676
+              csum: riak-2.0.0beta1-FreeBSD-amd64.tbz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/freebsd/9.2/riak-2.0.0beta1-FreeBSD-amd64.tbz.sha
+              csum_size: 100
+    rhel:
+      versions:
+        '5':
+          arch:
+            x86_64:
+              file: riak-2.0.0beta1-1.el5.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/5/riak-2.0.0beta1-1.el5.x86_64.rpm
+              file_size: 61455743
+              csum: riak-2.0.0beta1-1.el5.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/5/riak-2.0.0beta1-1.el5.x86_64.rpm.sha
+              csum_size: 99
+            src:
+              file: riak-2.0.0beta1-1.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/5/riak-2.0.0beta1-1.src.rpm
+              file_size: 16021170
+              csum: riak-2.0.0beta1-1.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/5/riak-2.0.0beta1-1.src.rpm.sha
+              csum_size: 92
+        '6':
+          arch:
+            src:
+              file: riak-2.0.0beta1-1.el6.src.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/6/riak-2.0.0beta1-1.el6.src.rpm
+              file_size: 15997492
+              csum: riak-2.0.0beta1-1.el6.src.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/6/riak-2.0.0beta1-1.el6.src.rpm.sha
+              csum_size: 96
+            x86_64:
+              file: riak-2.0.0beta1-1.el6.x86_64.rpm
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/6/riak-2.0.0beta1-1.el6.x86_64.rpm
+              file_size: 58538792
+              csum: riak-2.0.0beta1-1.el6.x86_64.rpm.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/rhel/6/riak-2.0.0beta1-1.el6.x86_64.rpm.sha
+              csum_size: 99
+    smartos:
+      versions:
+        '13.1':
+          arch:
+            x86_64:
+              file: riak-2.0.0beta1-SmartOS-x86_64.tgz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/smartos/13.1/riak-2.0.0beta1-SmartOS-x86_64.tgz
+              file_size: 69570106
+              csum: riak-2.0.0beta1-SmartOS-x86_64.tgz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/smartos/13.1/riak-2.0.0beta1-SmartOS-x86_64.tgz.sha
+              csum_size: 101
+    solaris:
+      versions:
+        '10':
+          arch:
+            x86_64:
+              file: BASHOriak-2.0.0beta1-Solaris10-x86_64.pkg.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/solaris/10/BASHOriak-2.0.0beta1-Solaris10-x86_64.pkg.gz
+              file_size: 66256890
+              csum: BASHOriak-2.0.0beta1-Solaris10-x86_64.pkg.gz.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/solaris/10/BASHOriak-2.0.0beta1-Solaris10-x86_64.pkg.gz.sha
+              csum_size: 111
+    ubuntu:
+      versions:
+        lucid:
+          arch:
+            amd64:
+              file: riak_2.0.0beta1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/ubuntu/lucid/riak_2.0.0beta1-1_amd64.deb
+              file_size: 60090902
+              csum: riak_2.0.0beta1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/ubuntu/lucid/riak_2.0.0beta1-1_amd64.deb.sha
+              csum_size: 94
+        precise:
+          arch:
+            amd64:
+              file: riak_2.0.0beta1-1_amd64.deb
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/ubuntu/precise/riak_2.0.0beta1-1_amd64.deb
+              file_size: 60066196
+              csum: riak_2.0.0beta1-1_amd64.deb.sha
+              static_csum: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/ubuntu/precise/riak_2.0.0beta1-1_amd64.deb.sha
+              csum_size: 94
+    source:
+      versions:
+        any:
+          arch:
+            src:
+              file: riak-2.0.0beta1.tar.gz
+              static_file: http://s3.amazonaws.com/downloads.basho.com/riak/2.0/2.0.0beta1/riak-2.0.0beta1.tar.gz
+              file_size: 16024837
 riak-cs:
   1.2.1: 
   1.3.0:
