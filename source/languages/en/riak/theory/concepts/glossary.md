@@ -180,7 +180,7 @@ Riak Pipe is the processing layer that powers Riak's MapReduce. It's best descri
 Riak Search is a distributed, scalable, failure-tolerant, realtime, full-text search engine integrating [Apache Solr](https://lucene.apache.org/solr/) with Riak KV.
 
 * [[Using Search]]
-* [[Advanced Search]]
+* [[Search Details]]
 
 ## Ring
 

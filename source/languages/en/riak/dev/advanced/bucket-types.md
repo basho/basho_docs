@@ -246,7 +246,7 @@ Below is a listing of the `props` associated with the `default` bucket type:
 
 ## Bucket Types and the `allow_mult` Setting
 
-Prior to Riak 2.0, Riak created [[siblings|Conflict Resolution#siblings]] in the case of conflicting updates only when explicitly instructed to do so, by setting `allow_mult` to `true`. The default `allow_mult` setting was thus `false`.
+Prior to Riak 2.0, Riak created [[siblings|Vector Clocks#Siblings]] in the case of conflicting updates only when explicitly instructed to do so, by setting `allow_mult` to `true`. The default `allow_mult` setting was thus `false`.
 
 In version 2.0, this is changing in a subtle way. Now, there are two different default settings for `allow_mult` in play:
 

@@ -43,4 +43,4 @@ message RpbYokozunaIndex {
 }
 ```
 
-Each message specifying an index must include the index's name as a binary (as `name`). Optionally, you can specify a `[[schema|search schemas]]` name and/or an `n_val`, i.e. the number of nodes on which the index is stored (for GET requests) or on which you wish the index to be stored (for PUT requests). An index's `n_val` must match the associated bucket's `n_val`.
+Each message specifying an index must include the index's name as a binary (as `name`). Optionally, you can specify a `[[schema|search schema]]` name and/or an `n_val`, i.e. the number of nodes on which the index is stored (for GET requests) or on which you wish the index to be stored (for PUT requests). An index's `n_val` must match the associated bucket's `n_val`.

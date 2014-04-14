@@ -9,7 +9,6 @@ riak:
     sub:
       - "[[Start Here|Riak]]"
       - "[[Why Riak?|Why Riak]]"
-      - "[[Download Riak|Downloads]]"
       - "[[Five-Minute Install|Five Minute Install]]"
 
   - title: "Riak for Developers"
@@ -89,6 +88,7 @@ riak:
         sub:
           - title: "Installation"
             sub:
+              - "[[Download Riak|Downloads]]"
               - "[[Installing and Upgrading]]"
               - "[[Installing Erlang]]"
               - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"

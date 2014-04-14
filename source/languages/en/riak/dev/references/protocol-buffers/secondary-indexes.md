@@ -58,7 +58,7 @@ Parameter | Description
 `max_results` | If pagination is turned on, the number of results to be returned to the client
 `continuation` | If set to `true`, values are returned in a paginated response
 `timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
-`type` | The [[bucket type|Using Bucket Types]] of the bucket that is being queried. If not set, the bucket type `default` will be used.
+`type` | The bucket type of the bucket that is being queried. If not set, the bucket type `default` will be used. Learn more about [[using bucket types]].
 `term_regex` | If set to a regular expression (as a binary), a term filter will be applied to the index query
 `pagination_sort` | If set to `true`, paginated results will be sorted, first by index value, then by key
 
