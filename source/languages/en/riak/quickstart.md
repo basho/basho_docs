@@ -15,7 +15,15 @@ Let's install Riak and build a [five-node](http://basho.com/why-your-riak-cluste
 
 ## Install Riak
 
-Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install Erlang|Installing Erlang]]. Building Riak from source requires Erlang {{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02{{/2.0.0+}}.
+Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install Erlang|Installing Erlang]].
+
+We strongly recommend using Basho's patched version of Erlang to install Riak 2.0 if you wish to build from source. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz).
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz
+tar -xvf otp_src_R16B02-basho4.tar.gz
+cd otp_src_R16B02-basho4
+```
 
 ### Get the Source
 
