@@ -84,7 +84,7 @@ bucket = client.bucket('counters')
 # Instead, bucket types are specified when the bucket performs operations.
 # Here is an example using our "counter_bucket" type:
 
-bucket.get('<key>', bucket_type: 'counter_bucket')
+bucket.get('<key>', type: 'counter_bucket')
 ```
 
 ```erlang
