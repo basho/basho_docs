@@ -328,7 +328,7 @@ riak-admin security grant <permissions> on <bucket-type> to all|{<user>|<group>[
 riak-admin security grant <permissions> on <bucket-type> <bucket> to all|{<user>|<group>[,...]}
 ```
 
-The `revoke` command is the same, but with `FROM` instead of `TO`:
+The `revoke` command is the same, but with `from` instead of `to`:
 
 ```bash
 riak-admin security revoke <permissions> on any from all|{<user>|<group>[,...]}
@@ -336,7 +336,7 @@ riak-admin security revoke <permissions> on <bucket-type> from all|{<user>|<grou
 riak-admin security revoke <permissions> on <bucket-type> <bucket> from all|{<user>|<group>[,...]}
 ```
 
-If you select `ANY`, this means that the permission (or set of permissions) is
+If you select `any`, this means that the permission (or set of permissions) is
 granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
 
 **Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
