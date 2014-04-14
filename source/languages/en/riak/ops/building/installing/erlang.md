@@ -13,7 +13,7 @@ moved: {
 }
 ---
 
-Riak requires [Erlang](http://erlang.org/) {{#1.2.0-}}R14B03{{/1.2.0-}}{{#1.2.0+}}R15B01{{/1.2.0+}}{{#2.0.0+}}R16B02{{/2.0.0+}}.
+An Erlang installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz).
 
 For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of ncurses and openssl.
 
