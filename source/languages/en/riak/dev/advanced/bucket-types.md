@@ -215,7 +215,7 @@ Below is a listing of the `props` associated with the `default` bucket type:
 ```json
 {
   "props": {
-    "allow_mult": true,
+    "allow_mult": false,
     "basic_quorum": false,
     "big_vclock": 50,
     "chash_keyfun": {
@@ -242,6 +242,53 @@ Below is a listing of the `props` associated with the `default` bucket type:
     "young_vclock": 20
   }
 }
+```
+
+## Bucket Types and the `allow_mult` Setting
+
+Prior to Riak 2.0, Riak created [[siblings|Conflict Resolution#siblings]] in the case of conflicting updates only when explicitly instructed to do so, by setting `allow_mult` to `true`. The default `allow_mult` setting was thus `false`.
+
+In version 2.0, this is changing in a subtle way. Now, there are two different default settings for `allow_mult` in play:
+
+* For the `default` bucket type, `allow_mult` is set to `false` by default, as in previous versions of Riak
+* For all newly-created bucket types, the default is now `true`. It is possible to set `allow_mult` to `false` if you wish to avoid resolving sibling conflicts, but this needs to be done explicitly.
+
+This means that applications that have previously ignored conflict resolutions in certain buckets (or all buckets) can continue to do so. New applications, however, are encouraged to retain and resolve siblings with the appropriate application-side business logic.
+
+To give an example, let's have a look at the properties associated with the `default` bucket type:
+
+```bash
+riak-admin bucket-type status default | grep allow_mult
+```
+
+The output:
+
+```
+allow_mult: false
+```
+
+Now, let's create a new bucket type called `n_val_of_2`, which sets the `n_val` to 2 but doesn't explicitly set `allow_mult`:
+
+```bash
+riak-admin bucket-type create n_val_of_2 '{"props":{"n_val":2}}'
+```
+
+When specifying this bucket type's properties as above, the `allow_mult` parameter was not changed. However, if we view the bucket type's properties, we can see in the console output that `allow_mult` is set to `true`:
+
+```bash
+riak-admin bucket-type status n_val_of_2 | grep allow_mult
+```
+
+The output:
+
+```
+allow_mult: true
+```
+
+This is important to bear in mind when using versions of Riak 2.0 and later any time that you create, activate, and use your own bucket types. It is still possible to set `allow_mult` to `false` in any given bucket type, but it must be done explicitly. If we wanted to to set `allow_mult` to `false` in our `n_val_of_2` bucket type from above, we would need to create or modify the already existing type as follows:
+
+```bash
+riak-admin bucket-type update n_val_of_2 '{"props":{"allow_mult":false}}'
 ```
 
 ## Usage Example
