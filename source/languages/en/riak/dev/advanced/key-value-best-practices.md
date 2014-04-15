@@ -1,8 +1,30 @@
 ---
 title: Key/Value Best Practices
 project: riak
-
+version: 2.0.0+
+document: guide
+audience: intermediate
+keywords: [keys, values, data-types]
 ---
+
+While Riak enables you to take advantage of a wide variety of features that can be useful in application development, such as [[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]], and [[Riak Data Types|Using Data Types]], Riak almost always performs best when you you limit your application to basic CRUD operations (create, read, update, and delete) on objects, i.e. when you use Riak as a "pure" key/value store.
+
+## Advantages of Key/Value Operations
+
+Riak's key/value architecture enables it to be more performant than relational databases in most scenarios because there are no lock, join, union, or other operations that need to be performed when working with objects. Objects are stored as opaque binaries, i.e. Riak doesn't usually care about their content type, and are stored on the basis of three locators:
+
+* The object's [[key|Keys and Objects#keys]], which can anything you want and are [Unicode compliant](http://www.unicode.org/)
+* The [[bucket|Buckets]] which houses the object and its key
+* The [[bucket type|Using Bucket Types]] that determines the bucket's [[replication|Replication Properties]] and other properties
+
+The most important benefit of this setup is that basic lookup operations are extremely fast. Riak doesn't need to search through columns or tables to find an object. Instead, it stores them on the basis of a concrete "address," so to speak, and when given an explicit address, Riak can locate an object just about as quickly with billions of keys in a cluster as when there are only a handful of keys.
+
+## Limitations of Key/Value Operations
+
+While 
+
+But working with a key/value store can be tricky at first, especially if you're used to relational databases. The central difficulty is that your application needs to know what it's looking for.
+
 
 More in [this video](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo), with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example)
 
