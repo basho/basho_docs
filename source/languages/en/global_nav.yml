@@ -58,7 +58,7 @@ riak:
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"
-          - "[[Data Modeling with Riak Data Types]]"
+          - "[[Data Types|Data Modeling with Riak Data Types]]"
           - title: "High Read/Write"
             sub:
               - "[[Session Storage]]"
