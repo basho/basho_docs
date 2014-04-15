@@ -248,4 +248,11 @@ You should now have a five-node Riak cluster up and running. Congratulations!
 
 <div class="note">
 <div class="title">HTTP interface ports</div>
-The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `8098`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.</div>
+The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `8098`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.
+</div>
+
+## JVM Installation (for Riak Search)
+
+If you will be using [[Riak Search|Using Search]] in your Riak installation, you will also need to install a version of the Java Virtual Machine (JVM) that is capable of running [Solr](https://lucene.apache.org/solr/), the Java application undergirding Riak Search.
+
+We recommend installing Oracle's [JDK 7u25](http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html). Installation packages can be found on the [Java SE 7 Downloads page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR) and instructions on the [documentation page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).

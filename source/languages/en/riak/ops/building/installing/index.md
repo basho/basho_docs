@@ -27,6 +27,10 @@ detailed Riak installation instructions.
   * [[AWS Marketplace|Installing on AWS Marketplace]]
   * [[From Source|Installing Riak from Source]] *(for unlisted-operating systems, requires [[Erlang installation|Installing Erlang]])*
 
+### Installing Java and Solr for Riak Search 2.0
+
+* [[Installing the JVM]]
+
 ### Chef Cookbooks
 
   * [[Installing Riak With Chef]]
