@@ -27,7 +27,7 @@ In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it
 
 In distributed systems, there is an unavoidable trade-off between consistency and availability. This can complicate some aspects of application design if you're using Riak as a key/value store because the application is responsible for resolving conflicts between replicas of objects stored in different Riak nodes.
 
-Riak 2.0 offers a new approach to this problem for a wide range of uses cases in the form of [[Riak Data Types]]. Instead of forcing the application to resolve conflicts, Riak offers five Data Types that can cut through some of the complexities of developing using Riak: [[flags|Data Types#Flags]], [[registers|Data Types#Registers]], [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
+Riak 2.0 offers a new approach to this problem for a wide range of uses cases in the form of [[Riak Data Types|using data types]]. Instead of forcing the application to resolve conflicts, Riak offers five Data Types that can cut through some of the complexities of developing using Riak: [[flags|Data Types#Flags]], [[registers|Data Types#Registers]], [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
 
 #### Relevant Docs
 
