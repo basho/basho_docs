@@ -5,7 +5,7 @@ version: 2.0.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [operator, security]
+keywords: [operator, security, authentication, authorization]
 ---
 
 <div class="info">
@@ -41,7 +41,7 @@ running MapReduce jobs.
 
 ## Security Basics
 
-Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
+Riak security may be checked, enabled, or disabled by an administrator through the command line. This allows an administrator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
 
 ### Enabling Security
 
@@ -52,7 +52,8 @@ client connections must be encrypted and all permissions will be
 denied by default. Do not enable this in production until you have
 verified that your libraries support Riak security, including
 encrypted HTTP or protocol buffers traffic, and that your applications
-are assigned user accounts with the proper permissions.  </div>
+are assigned user accounts with the proper permissions.
+</div>
 
 Riak security is disabled by default. To enable it:
 
@@ -124,7 +125,7 @@ riak-admin security print-groups
 
 Example output, assuming one user with an assigned password:
 
-```bash
+```
 +----------+--------+----------------------+------------------------------+
 | username | groups |       password       |           options            |
 +----------+--------+----------------------+------------------------------+
@@ -234,12 +235,16 @@ riak-admin security alter-user riakuser password=opensesame
 
 When creating or altering a user, any number of `<option>=<value>`
 pairs can be appended to the end of the command. Any non-standard
-options will be stored and displayed via the `riak-admin security
+options will be stored and displayed via the `riak-admin security 
 print-users` command.
 
 ```bash
 riak-admin security alter-user riakuser name=bill age=47 fav_color=red
-riak-admin security print-users
+```
+
+Now, the `print-users` command should return this:
+
+```
 +----------+--------+----------+--------------------------------------------------+
 | username | groups | password |                     options                      |
 +----------+--------+----------+--------------------------------------------------+
@@ -248,9 +253,9 @@ riak-admin security print-users
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user`
-  command. If you attempt to do so by running, for example,
-  `alter-user riakuser username=other-name`, then this will add
-  the `{"username","other-name"}` tuple to `riakuser`'s options.
+  command. If you attempt to do so by running `alter-user riakuser 
+  username=other-name`, for example, this will add the 
+  `{"username","other-name"}` tuple to `riakuser`'s options.
 
 ### Managing Groups for a User
 
@@ -318,20 +323,20 @@ Permission to perform a wide variety of operations against Riak can be granted t
 The `grant` command takes one of the following forms:
 
 ```bash
-riak-admin security grant <permissions> ON ANY TO all|{<user>|<group>[,...]}
-riak-admin security grant <permissions> ON <bucket-type> TO all|{<user>|<group>[,...]}
-riak-admin security grant <permissions> ON <bucket-type> <bucket> TO all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on any to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> <bucket> to all|{<user>|<group>[,...]}
 ```
 
-The `revoke` command is the same, but with `FROM` instead of `TO`:
+The `revoke` command is the same, but with `from` instead of `to`:
 
 ```bash
-riak-admin security revoke <permissions> ON ANY FROM all|{<user>|<group>[,...]}
-riak-admin security revoke <permissions> ON <bucket-type> FROM all|{<user>|<group>[,...]}
-riak-admin security revoke <permissions> ON <bucket-type> <bucket> FROM all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on any from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> <bucket> from all|{<user>|<group>[,...]}
 ```
 
-If you select `ANY`, this means that the permission (or set of permissions) is
+If you select `any`, this means that the permission (or set of permissions) is
 granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
 
 **Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
@@ -342,7 +347,7 @@ Here is an example of granting multiple permissions across all buckets
 and bucket types to multiple users:
 
 ```bash
-riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
+riak-admin security grant riak_kv.get,riak_search.query on any to jane,ahmed
 ```
 
 If the same name is used for both a user and a group, the `grant`
@@ -371,7 +376,7 @@ allowed only to run `GET` and `PUT` requests on all buckets:
 
 ```bash
 riak-admin security add-user client
-riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
+riak-admin security grant riak_kv.get,riak_kv.put on any to client
 ```
 
 ### MapReduce Permissions
@@ -379,7 +384,7 @@ riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
 Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
 
 ```bash
-riak-admin security grant riak_kv.mapreduce ON ANY TO mapreduce-power-user
+riak-admin security grant riak_kv.mapreduce on any to mapreduce-power-user
 ```
 
 ### Bucket Type Permissions
@@ -406,45 +411,50 @@ Permission | Operation |
 `search.admin` | The ability to perform search admin-related tasks, such as creating and deleting indexes and adding and modifying search schemas |
 `search.query` | The ability to query an index |
 
+<div class="note">
+<div class="title">Note on Search Permissions</div>
+Search must be enabled in order to successfully grant/revoke search permissions. If you attempt to grant/revoke permissions while search is disabled, you will get the following error: <tt>{error,{unknown_permission,"search.query"}}</tt>. More information on Riak Search and how to enable it can be found in the [[Riak Search Settings]] document.
+</div>
+
 #### Usage Examples
 
 To grant the user `riakuser` the ability to query all indexes:
 
 ```bash
-riak-admin security grant search.query ON index TO riakuser
+riak-admin security grant search.query on index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON index FROM riakuser
+# riak-admin security revoke search.query on index from riakuser
 ```
 
 To grant the user `riakuser` the ability to query all schemas:
 
 ```bash
-riak-admin security grant search.query ON schema TO riakuser
+riak-admin security grant search.query on schema to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON schema FROM riakuser
+# riak-admin security revoke search.query on schema from riakuser
 ```
 
 To grant the user `riakuser` admin privileges only on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.admin ON index riakuser_index TO riakuser
+riak-admin security grant search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.admin ON index riakuser_index FROM riakuser
+# riak-admin security revoke search.admin on index riakusers_index from riakuser
 ```
 
-To grant `riakuser` querying and admin permissions on the index `riakuser_index`:
+To grant `riakuser` querying and admin permissions on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.query,search.admin ON index TO riakuser
+riak-admin security grant search.query,search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query,search.admin ON index FROM riakuser
+# riak-admin security revoke search.query,search.admin on index riakusers_index from riakuser
 ```
 
-More comprehensive information on search-related security can be found under [[Riak Search Security]].
+<!-- More comprehensive information on search-related security can be found under [[Riak Search Security]]. -->
 
 ## Managing Sources
 
@@ -452,20 +462,20 @@ While user management enables you to control _authorization_ with regard to user
 
 ### Add Source
 
-Riak security sources may be applied to all users or only to a specific user.
+Riak security sources may be applied to a specific user, multiple users, or all users (`all`).
 
 #### Available Sources
 
 Source   | Description |
 :--------|:------------|
 `trust` | Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range |
-`password` | Check the user's password against the [PBKSD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
+`password` | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
 
-### Adding a Trusted Source
+### Example: Adding a Trusted Source
 
-Security sources can be added either to specific users or to all users.
+Security sources can be added either to a specific user, multiple users, or all users (`all`).
 
 In general, the `add-source` command takes the following form:
 
@@ -474,8 +484,7 @@ riak-admin security add-source all|<users> <CIDR> <source> [<option>=<value>[...
 ```
 
 Using `all` indicates that the authentication source can be added to
-all users. A source can be added to a specific user or to a list of
-names separated by commas, e.g. `add-source jane,bill,terry,chris`.
+all users. A source can be added to a specific user, e.g. `add-source superuser`, or to a list of users separated by commas, e.g. `add-source jane,bill,admin`.
 
 Let's say that we want to give all users trusted access to securables (without a password) when requests come from `localhost`:
 
@@ -485,7 +494,7 @@ riak-admin security add-source all 127.0.0.1/32 trust
 
 At that point, the `riak-admin security print-sources` command would print the following:
 
-```bash
+```
 +--------------------+------------+----------+----------+
 |       users        |    cidr    |  source  | options  |
 +--------------------+------------+----------+----------+
@@ -493,36 +502,25 @@ At that point, the `riak-admin security print-sources` command would print the f
 +--------------------+------------+----------+----------+
 ```
 
-#### Source Management Usage Examples
+### Deleting Sources
 
-To require a password from users `juliette` and `sanjay` when they connect from the class C network at `10.0.0.0`:
-
-```bash
-riak-admin security add-source juliette,sanjay 10.0.0.0/24 password
-```
-
-Instructions on assigning passwords are [[above|Authentication and Authorization#User-Management]].
-
-To require all users to authenticate through a PAM login service:
+If we wish to remove the `trust` source that we granted to `all` in the example above, we can simply use the `del-source` command and specify the CIDR.
 
 ```bash
-riak-admin security add-source all 0.0.0.0/0 pam service=login
+riak-admin security del-source all 127.0.0.1/32
 ```
 
+Note that this does not require that you specify which type of source is being deleted. You only need to specify the user(s) or `all`, because only one source can be applied to a user or `all` at any given time.
 
+The following command would remove the source for `riakuser` on `localhost`, regardless of which source is being used:
 
-### Delete source
-
-```
-# riak-admin security del-source all 0.0.0.0/0
-# riak-admin security print-sources
-+--------------------+------------+----------+----------+
-|       users        |    cidr    |  source  | options  |
-+--------------------+------------+----------+----------+
-|        all         |127.0.0.1/32|  trust   |    []    |
-+--------------------+------------+----------+----------+
+```bash
+riak-admin security del-source riakuser 127.0.0.1/32
 ```
 
+### More Usage Examples
+
+This section provides only a very brief overview of the syntax for working with sources. For more information on using the `trust`, `password`, `pam`, and `certificate` sources, please see our [[Managing Security Sources]] document.
 
 ## Security Ciphers
 
@@ -534,7 +532,7 @@ riak-admin security ciphers
 
 That command will return a large list:
 
-```bash
+```
 Configured ciphers
 
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
@@ -548,10 +546,15 @@ Unknown/Unsupported ciphers(32)
 ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256: ...
 ```
 
-To alter the list (to constrain it and/or to set preferred ciphers higher in the list):
+To alter the list, i.e. to constrain it and/or to set preferred ciphers higher in the list:
 
 ```bash
 riak-admin security ciphers DHE-RSA-AES256-SHA:AES128-GCM-SHA256
+```
+
+The list of configured ciphers should now look like this:
+
+```
 Configured ciphers
 
 DHE-RSA-AES256-SHA:AES128-GCM-SHA256
@@ -569,6 +572,11 @@ A list of available ciphers on a server can be obtained using the `openssl` comm
 
 ```bash
 openssl ciphers
+```
+
+That should return a list structured like this:
+
+```
 DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DES-CBC3-SHA:DES-CBC3-MD5:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES128-SHA:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:SEED-SHA:RC2-CBC-MD5:RC4-SHA:RC4-MD5:RC4-MD5:EDH-RSA-DES-CBC-SHA:EDH-DSS-DES-CBC-SHA:DES-CBC-SHA:DES-CBC-MD5:EXP-EDH-RSA-DES-CBC-SHA:EXP-EDH-DSS-DES-CBC-SHA:EXP-DES-CBC-SHA:EXP-RC2-CBC-MD5:EXP-RC2-CBC-MD5:EXP-RC4-MD5:EXP-RC4-MD5
 ```
 

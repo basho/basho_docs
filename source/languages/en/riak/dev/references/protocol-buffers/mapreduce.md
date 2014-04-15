@@ -17,7 +17,7 @@ Execute a MapReduce job.
 ## Request
 
 
-```bash
+```protobuf
 message RpbMapRedReq {
     required bytes request = 1;
     required bytes content_type = 2;
@@ -45,7 +45,7 @@ result, encoded in the same format the job was submitted in. Multiple response
 messages will be returned followed by a final message at the end of the job.
 
 
-```bash
+```protobuf
 message RpbMapRedResp {
     optional uint32 phase = 1;
     optional bytes response = 2;
@@ -65,7 +65,7 @@ Values
 Here is how submitting a JSON encoded job to sum up a bucket full of JSON
 encoded values.
 
-```bash
+```
 {"inputs": "bucket_501653",
  "query":
     [{"map": {"arg": null,
@@ -77,7 +77,6 @@ encoded values.
                    "language": "javascript",
                    "keep": true}}]}"
 ```
-
 
 Request
 

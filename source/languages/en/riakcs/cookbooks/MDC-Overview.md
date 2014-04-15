@@ -27,4 +27,4 @@ default is 6 hours. In fullsync replication, each cluster computes a hash for ea
 
 #### Realtime Mode
 
-Realtime sync is triggered when an update is sent from a client to a primary Riak CS implementation. Once replicated in the first location, the updates are streamed in real time to the secondary site. But what happens if a client requests an object from the secondary cluster and not all of its blocks have been replicated to that cluster? With Riak multi-site replication, the secondary cluster will request any missing blocks from the primary cluster so that the client can be served.
+Realtime sync is triggered when an update is sent from a client to a primary Riak CS implementation. Once replicated in the first location, the updated manifests are streamed in real time to the secondary site. But what happens if a client requests an object from the secondary cluster and not all of its blocks have been replicated to that cluster? With Riak multi-site replication, the secondary cluster will request any missing blocks via `proxy_get` from the primary cluster so that the client can be served.

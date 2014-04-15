@@ -271,10 +271,10 @@ would run the JavaScript function declared in the content of the Riak object und
 would run the builtin JavaScript function `mapValuesJson`, if you choose to store your JavaScript functions on disk. Any JS files should live in a directory defined by the `js_source_dir` field in your `app.config` file.
 
 ```json
-{"map":{"language":"erlang","module":"riak_mapreduce","function":"map_object_value"}}
+{"map":{"language":"erlang","module":"riak_kv_mapreduce","function":"map_object_value"}}
 ```
 
-The above would run the Erlang function `riak_mapreduce:map_object_value/3`, whose compiled beam file should be discoverable by each Riak node process (more details can be found under [[advanced commit hooks]]).
+The above would run the Erlang function `riak_kv_mapreduce:map_object_value/3`, whose compiled beam file should be discoverable by each Riak node process (more details can be found under [[advanced commit hooks]]).
 
 Map phases may also be passed static arguments by using the `arg` spec field.
 

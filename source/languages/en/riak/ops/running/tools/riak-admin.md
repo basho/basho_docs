@@ -24,7 +24,8 @@ Usage: riak-admin { cluster | join | leave | backup | restore | test |
                     cluster-info | member-status | ring-status | vnode-status |
                     aae-status | diag | status | transfer-limit | reformat-indexes |
                     top [-interval N] [-sort reductions|memory|msg_q] [-lines N] |
-                    downgrade-objects | security | bucket-type | repair-2i }
+                    downgrade-objects | security | bucket-type | repair-2i |
+                    search }
 ```
 
 ## cluster
@@ -59,7 +60,7 @@ riak-admin cluster leave <node>
 
 ## cluster force-remove
 
-Remove `<node>` from the cluster without first handing off data partitions. This command is designed for crashed, unrecoverable nodes and should be used with caution.
+Remove `<node>` from the cluster without first handing off data partitions. This command is designed for crashed, unrecoverable nodes, and should be used with caution.
 
 ```bash
 riak-admin cluster force-remove <node>
@@ -67,7 +68,7 @@ riak-admin cluster force-remove <node>
 
 ## cluster replace
 
-Instruct `<node>` to transfer all data partitions to `<node>`, then leave the cluster and shut down.
+Instruct `<node1>` to transfer all data partitions to `<node2>`, then leave the cluster and shutdown.
 
 ```bash
 riak-admin cluster replace <node1> <node2>
@@ -75,7 +76,7 @@ riak-admin cluster replace <node1> <node2>
 
 ## cluster force-replace
 
-Re-assign all partitions owned by `<node1>` to `<node2>` without first handing off data, and then remove `<node1>` from the cluster.
+Reassign all partitions owned by `<node1>` to `<node2>` without first handing off data, and then remove `<node1>` from the cluster.
 
 ```bash
 riak-admin cluster force-replace <node1> <node2>
@@ -135,6 +136,9 @@ riak-admin leave -f
 ```
 
 ## backup
+
+<div class="note"><div class="title">Functionality Note</title></div>
+While the `backup` command backs up an object's siblings, the `restore` command (detailed below) currently does not restore the siblings of an object.  If preservation of siblings during the backup and restore process is important to your use case, please see the [[Backing Up Riak]] document for more backup options.</div>
 
 Backs up the data from the node or entire cluster into a file.
 
@@ -515,3 +519,58 @@ The repair process can be stopped at any moment using the `kill` command:
 ```bash
 riak-admin repair-2i kill
 ```
+
+## search
+
+The search command provides sub-commands for various administrative
+work related to the new Riak Search.
+
+```bash
+riak-admin search <command>
+```
+
+### aae-status
+
+```bash
+riak-admin search aae-status
+```
+
+Output active anti-entropy (AAE) statistics for search. There are
+three sections. Each section contains statistics for a specific aspect
+of AAE for every partition owned by the local node.
+
+The first section provides information on exchanges. Exchange is the
+process of comparing hash trees to determine divergences between KV
+data and search indexes. The `Index` column contains the partition
+number. The `Last (ago)` column is the amount of time that has passed
+since the last exchange. The `All (ago)` column is the amount of time
+that has passed since all preflists for that partition have been
+exchanged.
+
+The second section lists how much time has passed since the hashtree
+for that partition has been built from scratch. By default trees
+expire after 1 week and are rebuilt from scratch.
+
+The third section presents statistics on repair operations that have
+occurred. Repair is performed when AAE notices that the KV and search
+hashtree don't match for a particular key. The `Last` column is the
+number of keys repaired during the last exchange. The `Mean` column is
+the average number of keys repaired for all exchange rounds since the
+node has started. The `Max` column is the maximum number of keys
+repaired for a given exchange round since the node has started.
+
+### switch-to-new-search
+
+ <div class="info">
+ <div class="title">Only For Legacy Migration</div>
+This is only needed when migrating from legacy riak search to the new
+Search (Yokozuna).
+ </div>
+
+```bash
+riak-admin search switch-to-new-search
+```
+
+Switch handling of the HTTP `/solr/<index>/select` resource and
+protocol buffer query messages from legacy Riak Search to new Search
+(Yokozuna).
