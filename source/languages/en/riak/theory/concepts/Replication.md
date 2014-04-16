@@ -75,13 +75,13 @@ faulty hardware components.
 Read repair occurs when a successful read occurs---i.e. when the target number of nodes have responded, as determined by R---but not all replicas of the object agree on the value. There are two possibilities here for the errant nodes:
 
   1. The node responded with a `not found` for the object, meaning that it doesn't have a copy.
-  2. The node responded with a [[vector clock|Vector Clock]] that is an ancestor of the vector clock of the successful read.
+  2. The node responded with a [[vector clock|Vector Clocks]] that is an ancestor of the vector clock of the successful read.
 
 When this situation occurs, Riak will force the errant nodes to update the object's value based on the value of the successful read.
 
 ### Forcing Read Repair
 
-When you increase the `n_val` of a bucket, you may start to see failed read operations, especially if the R value you use is larger than the number of replicas that originally stored the object. Forcing read repair will solve this issue.
+When you increase the `n_val` of a bucket, you may start to see failed read operations, especially if the R value you use is larger than the number of replicas that originally stored the object. Forcing read repair will solve this issue. Or if you have [[active anti-entropy|Replication#active-anti-entropy]] enabled, your values will eventually replicate as a background task.
 
 For each object that fails read (or the whole bucket, if you like), read the object using an R value less than or equal to the original number of replicas. For example, if your original `n_val` was 3 and you increased it to 5, perform your read operations with R=3 or less. This will cause the nodes that do not have the object(s) yet to respond with `not found`, invoking read repair.
 
@@ -135,7 +135,7 @@ The DocIdx hash is a 160-bit integer:
 1045375627425331784151332358177649483819648417632
 ```
 
-The node looks up the hashed key in the ring, which returns a list of "preferred" partitions for the given key.
+The node looks up the hashed key in the ring, which returns a list of _preferred_ partitions for the given key.
 
 ```erlang
 (node1@127.0.0.1)> Preflist = riak_core_ring:preflist(DocIdx, Ring).

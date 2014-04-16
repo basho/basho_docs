@@ -31,7 +31,7 @@ In addition to providing you different means of resolving conflicts, Riak also e
 
 An in-depth discussion of these behaviors and how they can be implemented on the application side can be found in our guides to [[replication properties]] and [[conflict resolution]].
 
-In addition to our official documentation, we also recommend checking out the [Understanding Riak's Configurable Behaviors](http://basho.com/understanding-riaks-configurable-behaviors-part-1/) series from [our blog](http://basho.com/blog/).
+In addition to our official documentation, we also recommend checking out the [Understanding Riak's Configurable Behaviors](http://basho.com/understanding-riaks-configurable-behaviors-part-1/) series from [the Basho blog](http://basho.com/blog/).
 
 ## A Simple Example of Eventual Consistency
 
@@ -49,7 +49,7 @@ Let's say that you keep the above scenario the same, except you tweak the reques
 
 Relationship between replication properties and conflict resolution
 
-If we keep the above scenario the same but tweak the request slightly with `R=1`, perhaps to allow for a faster response to the client, it _is_ possible that the client will be fed `Alex Ferguson` as the response, if the recently recovered server is the first to reply.
+If we keep the above scenario the same but tweak the request slightly with `r=1`, perhaps to allow for a faster response to the client, it _is_ possible that the client will be fed `Alex Ferguson` as the response, if the recently recovered server is the first to reply.
 
 However, the read repair mechanism will kick in and fix the value, so the
 next time someone asks for the value of `manchester-manager`, `David Moyes` will indeed be the answer.

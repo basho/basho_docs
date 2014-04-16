@@ -1,9 +1,8 @@
 ---
 title: Conflict Resolution
 project: riak
-version: 1.0.0+
+version: 2.0.0+
 document: tutorials
-toc: true
 audience: intermediate
 keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 ---
