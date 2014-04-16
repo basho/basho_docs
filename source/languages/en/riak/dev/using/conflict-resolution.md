@@ -85,12 +85,12 @@ bucket = client.bucket('nickolodeon')
 obj1 = Riak::RObject.new(bucket, 'best_character')
 obj1.content_type = 'text/plain'
 obj1.raw_data = 'Ren'
-obj1.store(bucket_type: 'siblings_allowed')
+obj1.store(type: 'siblings_allowed')
 
 obj2 = Riak::RObject.new(bucket, 'best_character')
 obj2.content_type = 'text/plain'
 obj2.raw_data = 'Stimpy'
-obj2.store(bucket_type: 'siblings_allowed')
+obj2.store(type: 'siblings_allowed')
 ```
 
 ```java
@@ -157,7 +157,7 @@ At this point, multiple objects are stored in the same key. Let's see what happe
 
 ```ruby
 bucket = client.bucket('nickolodeon')
-obj = bucket.get('best_character', bucket_type: 'siblings_allowed')
+obj = bucket.get('best_character', type: 'siblings_allowed')
 obj
 ```
 
@@ -233,12 +233,12 @@ clock. Right now, there are replicas with two different values: `Ren` and `Stimp
 
 ```ruby
 bucket = client.bucket('nickolodeon')
-obj = bucket.get('best_character', bucket_type: 'siblings_allowed')
+obj = bucket.get('best_character', type: 'siblings_allowed')
 vclock = obj.vclock
 new_obj = Riak::RObject.new(bucket, 'best_character')
 new_obj.content_type = 'text/plain'
 new_obj.raw_data = 'Stimpy'
-new_obj.store(bucket_type: 'siblings_allowed', vclock: vclock)
+new_obj.store(type: 'siblings_allowed', vclock: vclock)
 ```
 
 ```java
