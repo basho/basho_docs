@@ -12,7 +12,7 @@ If you plan on using Riak CS in production, we highly recommend that you place R
 network interfaces.
 
 Riak CS users have reported success in using Riak CS with a variety of load-balancing and proxy solutions. Common solutions include proprietary hardware-based load balancers, cloud-based load-balancing options---such as Amazon's
-Elastic Load Balancer---and open-source software based projects like [HAProxy](http://haproxy.1wt.eu/) and [Nginx](http://wiki.nginx.org/Main).
+Elastic Load Balancer---and open-source software-based projects like [HAProxy](http://haproxy.1wt.eu/) and [Nginx](http://wiki.nginx.org/Main).
 
 This guide briefly explores the commonly used open-source software-based
 solutions HAProxy and Nginx and provides some configuration and operational
@@ -32,7 +32,7 @@ Riak CS community in addition to suggestions from Basho engineering.
 
 ### Example Configuration
 
-The following is an example starting-point configuration for HAProxy to act
+The following is an example starting point configuration for HAProxy to act
 as a load balancer to a Riak CS installation.
 
 <div class="info">The operating system's open files limits need to be greater than 256000 for the example configuration that follows. Consult the [[Open Files Limit|Open-Files-Limit]] documentation for details on configuring the value for different operating systems.</div>
@@ -76,15 +76,15 @@ backend riak_cs_backend
     timeout connect 60s
     timeout http-request 60s
     server riak1 r1s01.example.com:8081 weight 1 maxconn 1024 check
-    server riak2 r1s02.example.com:8081 weight 1 maxconn 1024 check backup
-    server riak3 r1s03.example.com:8081 weight 1 maxconn 1024 check backup
-    server riak4 r1s04.example.com:8081 weight 1 maxconn 1024 check backup
-    server riak5 r1s05.example.com:8081 weight 1 maxconn 1024 check backup
+    server riak2 r1s02.example.com:8081 weight 1 maxconn 1024 check
+    server riak3 r1s03.example.com:8081 weight 1 maxconn 1024 check
+    server riak4 r1s04.example.com:8081 weight 1 maxconn 1024 check
+    server riak5 r1s05.example.com:8081 weight 1 maxconn 1024 check
 ```
 
 Note that the above example is considered a starting point and is a work in progress. You should carefully examine this configuration and change it according to your specific environment.
 
-A specific configuration detail worth noting from the example is the commented option for SSL termination. HAProxy supports SSL directly as of version 1.5. Provided that your HAProxy instance was build with OpenSSL support, you can enable it by uncommenting the example line and modifying it to suit your environment. More information is available in the [HAProxy documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
+A specific configuration detail worth noting from the example is the commented option for SSL termination. HAProxy supports SSL directly as of version 1.5. Provided that your HAProxy instance was built with OpenSSL support, you can enable it by uncommenting the example line and modifying it to suit your environment. More information is available in the [HAProxy documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
 
 Also note the option for checking Riak CS health via the `/riak-cs/ping` endpoint. This option is essential for checking each Riak CS node as part of
 the round robin load-balancing method.
@@ -120,6 +120,12 @@ server {
     proxy_buffer_size          64k;  # If set to a smaller value,
                                      # nginx can complain with a
                                      # "headers too large" error
+
+    proxy_buffers 8  64k;   # Increase from default of (8, 8k). 
+                            # If left to default with increased 
+                            # proxy_buffer_size, nginx complains 
+                            # that proxy_busy_buffers_size is too 
+                            # large.
       
     proxy_pass http://riak_cs_host;
   }

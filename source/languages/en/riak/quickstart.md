@@ -15,7 +15,15 @@ Let's install Riak and build a [five-node](http://basho.com/why-your-riak-cluste
 
 ## Install Riak
 
-Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install Erlang|Installing Erlang]]. Building Riak from source requires Erlang {{#2.0.0-}}R15B01{{/2.0.0-}}{{#2.0.0+}}R16B02{{/2.0.0+}}.
+Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install Erlang|Installing Erlang]].
+
+We strongly recommend using Basho's patched version of Erlang to install Riak 2.0 if you wish to build from source. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz).
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz
+tar -xvf otp_src_R16B02-basho4.tar.gz
+cd otp_src_R16B02-basho4
+```
 
 ### Get the Source
 
@@ -240,4 +248,11 @@ You should now have a five-node Riak cluster up and running. Congratulations!
 
 <div class="note">
 <div class="title">HTTP interface ports</div>
-The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `8098`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.</div>
+The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `8098`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.
+</div>
+
+## JVM Installation (for Riak Search)
+
+If you will be using [[Riak Search|Using Search]] in your Riak installation, you will also need to install a version of the Java Virtual Machine (JVM) that is capable of running [Solr](https://lucene.apache.org/solr/), the Java application undergirding Riak Search.
+
+We recommend installing Oracle's [JDK 7u25](http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html). Installation packages can be found on the [Java SE 7 Downloads page](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR) and instructions on the [documentation page](http://www.oracle.com/technetwork/java/javase/documentation/index.html).
