@@ -21,9 +21,14 @@ Riak was built with the assumption that a Riak installation acts as a multi-node
 
 Riak's guiding design principle is Dr. Eric Brewer's [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem). The CAP theorem defines distributed systems in terms of three desired properties: consistency, availability, and partition (i.e. failure) tolerance. Riak chooses to focus on the A and P of CAP, which puts it in the eventually consistent camp. It should be stated, however, that the window for "eventually consistent" is usually in the neighborhood of milliseconds, which can be good enough for many applications.
 
-Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is a necessary trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off. The ability to make these kinds of fundamental choices has immense value for your applications and is one of the features that we feel truly differentiates Riak from other technologies.
+Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is a necessary trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off. The ability to make these kinds of fundamental choices has immense value for your applications and is one of the features that differentiates Riak from other technologies.
 
-At the bottom of the page, you'll find a screencast that briefly explains how to adjust your replication levels to match your application and business needs.
+<div class="note">
+<div class="title">Note on strong consistency</div>
+An option introduced in Riak version 2.0 is to use Riak as a <a href="/theory/concepts/strong-consistency/">strongly consistent</a> system for data in specified buckets. Using Riak in this way is fundamentally different from adjusting replication properties and fine-tuning the availability/consistency trade-off, as it sacrifices <em>all</em> availability guarantees when necessary. Therefore, you should consult the <a href="/dev/advanced/strong-consistency">Using Strong Consistency</a> documentation, as this option will not be covered in this tutorial.
+</div>
+
+At the bottom of the page, you'll find a [[screencast|Replication Properties#screencast]] that briefly explains how to adjust your replication levels to match your application and business needs.
 
 ## Available Parameters
 
@@ -34,8 +39,8 @@ Parameter | Common name | Default value | Description
 `n_val` | N | `3` | Replication factor, i.e. the number of nodes in the cluster on which an object is to be stored
 `r` | R | `quorum` | The number of servers that must respond to a read request
 `w` | W | `quorum` | Number of servers that must respond to a write request
-`pr` | PR | `0` | The number of primary [[vnodes|Riak Glossary#vnode]] that must respond to a read request
-`pw` | PW | `0` | The number of primary [[vnodes|Riak Glossary#vnode]] that must respond to a write request
+`pr` | PR | `0` | The number of primary <a href="/latest/theory/concepts/glossary#vnode">vnodes</a> that must respond to a read request
+`pw` | PW | `0` | The number of primary <a href="/latest/theory/concepts/glossary#vnode">vnodes</a> that must respond to a write request
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
 
 The following parameters are also available to define the replication properties of a bucket, bucket type, or specific request. They tend to be seldom used, but you may either encounter them when viewing the properties associated with a bucket type and in some rare cases you may need to adjust them yourself:
@@ -53,11 +58,6 @@ The most important thing to note about Riak's replication controls is that they 
 At the bucket level, you can choose how many copies of data you want to store in your cluster (N, or `n_val`), how many copies you wish to read from at one time (R, or `r`), and how many copies must be written to be considered a success (W, or `w`).
 
 In addition to the bucket level, you can also specify replication properties on the client side for any given read or write. The examples immediately below will deal with bucket-level replication settings, but check out the [[section below|Replication Properties#client-level-replication-settings]] for more information on setting properties on a per-operation basis.
-
-<div class="note">
-<div class="title">Note on strong consistency</div>
-An option introduced in Riak version 2.0 is to use Riak as a <a href="/theory/concepts/strong-consistency/">strongly consistent</a> system for data in specified buckets. Using Riak in this way is fundamentally different from adjusting replication properties and fine-tuning the availability/consistency trade-off, as it sacrifices <em>all</em> availability guarantees when necessary. Therefore, you should consult the <a href="/dev/advanced/strong-consistency">Using Strong Consistency</a> documentation, as this option will not be covered in this tutorial.
-</div>
 
 The most general trade-off to be aware of when setting these values is the trade-off between **data accuracy** and **client responsiveness**. Choosing higher values for N, R, and W will mean higher accuracy because more nodes are checked for the correct value on read and data is written to more nodes upon write; but higher values will also entail degraded responsiveness, especially if one or more nodes is failing, because Riak has to wait for more responses.
 
@@ -107,7 +107,7 @@ Here's an example read request using the `r_equals_1` bucket type:
 
 ```ruby
 bucket = client.bucket('animal_facts')
-obj = bucket.get('chimpanzee', bucket_type: 'r_equals_1')
+obj = bucket.get('chimpanzee', type: 'r_equals_1')
 ```
 
 ```java
@@ -135,11 +135,11 @@ bucket.get('chimpanzee')
 curl http://localhost:8098/types/r_equals_1/buckets/animal_facts/keys/chimpanzee
 ```
 
-As explained above, reads to buckets with the `r_equals_1` type will typically be completed more quickly, but if the first node where Riak attempts to find the object is down, Riak will return a `not found` response (which may happen even if the object lives on one or more other nodes). Setting `r` to a higher value will mitigate this risk.
+As explained above, reads to buckets with the `r_equals_1` type will typically be completed more quickly, but if the first node to respond to a read request has yet to receive a replica of the object, Riak will return a `not found` response (which may happen even if the object lives on one or more other nodes). Setting `r` to a higher value will mitigate this risk.
 
 ## W Value and Write Fault Tolerance
 
-As with read requests, writes to Riak are sent to all N nodes that are know to be currently responsible for the data. The W value (`w`) enables you to specify how many nodes must report success on writes for the write to be considered successful---a direct analogy to R. This allows Riak to provide write availability even when nodes are down or laggy.
+As with read requests, writes to Riak are sent to all N nodes that are know to be currently responsible for the data. The W value (`w`) enables you to specify how many nodes must complete a write to be considered successful---a direct analogy to R. This allows Riak to provide write availability even when nodes are down or laggy.
 
 As with R, you can set W to any value between 1 and N. The same performance vs. fault tolerance trade-offs that apply to R apply to W.
 
@@ -157,7 +157,7 @@ bucket = client.bucket('animal_facts')
 obj = Riak::RObject.new(bucket, 'giraffe')
 obj.raw_data = 'The species name of the giraffe is Giraffa camelopardalis'
 obj.content_type = 'text/plain'
-obj.store(bucket_type: 'w_equals_3')
+obj.store(type: 'w_equals_3')
 ```
 
 ```java
@@ -196,7 +196,7 @@ curl -XPUT \
   http://localhost:8098/types/w_equals_3/buckets/animal_facts/keys/giraffe
 ```
 
-Writing our `story.txt` will return a success response from Riak only if three nodes respond that the write was successful. Setting `w` to 1, for example, would mean that Riak would return a response more quickly, but with a higher risk that the write will fail because the first node it seeks to write the object to is down.
+Writing our `story.txt` will return a success response from Riak only if 3 nodes respond that the write was successful. Setting `w` to 1, for example, would mean that Riak would return a response more quickly, but with a higher risk that the write will fail because the first node it seeks to write the object to is unavailable.
 
 ## Primary Reads and Writes with PR and PW
 
@@ -213,7 +213,7 @@ If PW is set to a non-zero value, there is a higher risk (usually very small) th
 
 ## Durable Writes with DW
 
-The W and PW parameters specify how many vnodes must _respond_ to a write in order for it to be deemed successful. What they do not specify is whether data has actually been written to disk in the storage backend. The DW parameters enables you to specify a number of vnodes between 1 and N that must write the data to disk before the request is deemed successful. The default is `quorum` (more on symbolic names below).
+The W and PW parameters specify how many vnodes must _respond_ to a write in order for it to be deemed successful. What they do not specify is whether data has actually been written to disk in the storage backend. The DW parameters enables you to specify a number of vnodes between 1 and N that must write the data to disk before the request is deemed successful. The default value is `quorum` (more on symbolic names below).
 
 How quickly and robustly data is written to disk depends on the configuration of your backend or backends. For more details, see the documentation on [[Bitcask]], [[LevelDB]], and [[multiple backends|Multi]].
 
@@ -225,25 +225,21 @@ It is no longer necessary to specify an RW value when making delete requests. We
 
 Deleting an object requires successfully reading an object and then writing a tombstone to the object's key that specifies that an object once resided there. In the course of their operation, all deletes must comply with any R, W, PR, and PW values that apply along the way.
 
-If R and W are undefined, however, the RW (`rw`) value will substitute for both R and W during object deletes. In recent versions of Riak, it is nearly impossible to make reads or writes that do not somehow specify both R and W, and so you will likely never need to worry about RW.
+If R and W are undefined, however, the RW (`rw`) value will substitute for both R and W during object deletes. In recent versions of Riak, it is nearly impossible to make reads or writes that do not somehow specify both R and W, and so you will never need to worry about RW.
 
 ## The Implications of `notfound_ok`
 
-The `notfound_ok` parameter is a bucket property that determines how Riak responds if a read fails on a node. If `notfound_ok` is set to `true` (this is the default) is the equivalent to setting R to 1: if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `not found` error to the client.
+The `notfound_ok` parameter is a bucket property that determines how Riak responds if a read fails on a node. If `notfound_ok` is set to `true` (the default value) and the first vnode to respond doesn't have a copy of the object, Riak will assume that the missing value is authoritative and immediately return a `not found` result to the client. This will generally lead to faster response times.
 
-On the other hand, setting `notfound_ok` to `false` means that the responding vnode will wait for something other than a `not found` error before reporting a value to the client. If an object doesn't exist under a key, the coordinating vnode will wait for N vnodes to respond with `not found` before it reports `not found` to the client.
-
-In general, setting `notfound_ok` to `true` will return any `not found`responses to the client more quickly, instead of potentially leaving clients hanging on the line, with the drawback that Riak will falsely return `not found` if it turns out that the data lives on a vnode that is not checked for the value.
-
-Setting `notfound_ok` to `false` will be more thorough in checking for the value but at the cost of a small performance hit in cases where the coordinating vnode waits for responses from all vnodes and all return a `not found`. This problem can be mitigated by setting `basic_quorum` to `true`, which is discussed in the next section.
+On the other hand, setting `notfound_ok` to `false` means that the responding vnode will wait for something other than a `not found` error before reporting a value to the client. If an object doesn't exist under a key, the coordinating vnode will wait for N vnodes to respond with `not found` before it reports `not found` to the client. This setting makes Riak search more thoroughly for objects but at the cost of slower response times, a problem can be mitigated by setting `basic_quorum` to `true`, which is discussed in the next section.
 
 ## Early Failure Return with `basic_quorum`
 
-Setting `notfound_ok` to `false` on a request (or as a bucket property) is likely to introduce additional latency. If you read a non-existent key, Riak will check all three responsible vnodes for the value before returning `not found` instead of checking just one.
+Setting `notfound_ok` to `false` on a request (or as a bucket property) is likely to introduce additional latency. If you read a non-existent key, Riak will check all 3 responsible vnodes for the value before returning `not found` instead of checking just one.
 
-This latency problem can be mitigated by setting `basic_quorum` to `true`. If N is set to 3, for example, Riak will return `not found` after querying only 2 vnodes instead of 3. If N is set to 5, 3 nodes need to return `not found` (and so on).
+This latency problem can be mitigated by setting `basic_quorum` to `true`, which will instruct Riak to query a quorum of nodes instead of N nodes. A quorum of nodes is calculated as floor(N/2) + 1, meaning that 5 nodes will produce a quorum of 3, 6 nodes a quorum of 4, 7 nodes a quorum of 4, 8 nodes a quorum of 5, etc.
 
-The default for `basic_quorum` is `false`, so you will need to explicitly set it to `true` on reads or in a bucket's properties. While the scope of this setting is fairly narrow, it can greatly reduce latency in read-heavy use cases.
+The default for `basic_quorum` is `false`, so you will need to explicitly set it to `true` on reads or in a bucket's properties. While the scope of this setting is fairly narrow, it can reduce latency in read-heavy use cases.
 
 ## Symbolic Consistency Names
 
@@ -258,9 +254,9 @@ Not submitting a value for R, W, PR, RW, or DW is the same as using `default`.
 
 ## Client-level Replication Settings
 
-Adjusting replication properties at the bucket level, using [[bucket types|Using Bucket Types]], is a way of managing those properties at an abstract level, determining those properties for _all_ reads from and writes to a bucket. But you can also set replication properties for a given read or write without setting those properties at the bucket level, specifying them on a per-operation basis.
+Adjusting replication properties at the bucket level by [[using bucket types]] is how you set default properties for _all_ of a bucket's reads and writes. But you can also set replication properties for specific reads and writes without setting those properties at the bucket level, instead specifying them on a per-operation basis.
 
-Let's say that you want to set `r` to 2 and `notfound_ok` to `true` for just one read. We'll fetch [John Stockton](http://en.wikipedia.org/wiki/John_Stockton)'s statistics from the `nba_stats` bucket. We won't specify a [[bucket type|Using Bucket Types]], which means that Riak will use the `default` bucket type.
+Let's say that you want to set `r` to 2 and `notfound_ok` to `true` for just one read. We'll fetch [John Stockton](http://en.wikipedia.org/wiki/John_Stockton)'s statistics from the `nba_stats` bucket.
 
 ```ruby
 bucket = client.bucket('nba_stats')
@@ -350,8 +346,8 @@ These scenarios assume that a read request is sent to all 3 primary vnodes respo
 Scenario | What happens in Riak
 :--------|:--------------------
 All 3 vnodes agree on the value | Once the first 2 vnodes return the value, that value is returned to the client
-2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or [[siblings|Vector Clocks#siblings]]
-2 conflicting values reach the coordinating node and [[vector clocks]] allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
+2 of 3 vnodes agree on the value, and those 2 are the first to reach the coordinating node | The value is returned returned to the client. Read repair will deal with the conflict per the later scenarios, which means that a future read may return a different value or <a href="/latest/theory/concepts/vector-clocks#siblings">siblings</a>
+2 conflicting values reach the coordinating node and <a href="/latest/theory/concepts/vector-clocks">vector clocks</a> allow for resolution | The vector clocks are used to resolve the conflict and return a single value, which is propagated via read repair to the relevant vnodes
 2 conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `false` | The object with the most recent timestamp is returned and propagated via read repair to the relevant vnodes
 2 siblings or conflicting values reach the coordinating node, vector clocks indicate a fork in the object history, and `allow_mult` is set to `true` | All keys are returned as siblings, optionally with associated values (depending on how the request is made)
 
@@ -367,7 +363,7 @@ A vector clock is included with the write request but conflicts with (or is olde
 A vector clock is not included with the write request and an object already exists, with `allow_mult` set to `true` | The new value is created as a sibling for future reads
 A vector clock is not included with the write request and an object already exists, with `allow_mult` set to `false` | The new value overwrites the existing value
 
-## N, R and W in Action
+## Screencast
 
 Here is a brief screencast that shows just how the N, R, and W values function in our running three-node Riak cluster:
 
