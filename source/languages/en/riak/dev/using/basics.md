@@ -32,7 +32,7 @@ Here is an example of a read performed on the key `rufus` in the bucket `dogs`, 
 
 ```ruby
 bucket = client.bucket('dogs')
-obj = bucket.get('rufus', bucket_type: 'animals')
+obj = bucket.get('rufus', type: 'animals')
 ```
 
 ```java
@@ -97,7 +97,7 @@ Here is an example of attempting a read with `r` set to `3`:
 
 ```ruby
 bucket = client.bucket('dogs')
-obj = bucket.get('rufus', bucket_type: 'animals', r: 3)
+obj = bucket.get('rufus', type: 'animals', r: 3)
 ```
 
 ```java
@@ -166,7 +166,7 @@ bucket = client.bucket('oscar_wilde')
 obj = Riak::RObject.new(bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.raw_data = 'I have nothing to declare but my genius'
-obj.store(bucket_type: 'quotes')
+obj.store(type: 'quotes')
 ```
 
 ```java
@@ -224,7 +224,7 @@ But one day the Harlem Globetrotters enter the league and dethrone the hapless G
 
 ```ruby
 bucket = client.bucket('nba')
-obj = bucket.get('champion', bucket_type: 'sports')
+obj = bucket.get('champion', type: 'sports')
 obj.vclock
 
 # The vector clock will look something like this:
@@ -287,7 +287,7 @@ obj = Riak::RObject.new(bucket, 'champion')
 obj.content_type = 'text/plain'
 obj.raw_data = 'Harlem Globetrotters'
 obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
-obj.store(bucket_type: 'sports')
+obj.store(type: 'sports')
 ```
 
 ```java
@@ -351,7 +351,7 @@ bucket = client.bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(bucket_type: 'cars', r: 3)
+obj.store(type: 'cars', r: 3)
 ```
 
 ```java
@@ -409,7 +409,7 @@ bucket = client.bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(bucket_type: 'cars', r: 3, returnbody: true)
+obj.store(type: 'cars', r: 3, returnbody: true)
 ```
 
 ```java
@@ -474,7 +474,7 @@ obj = Riak::RObject.new(bucket)
 obj.content_type = 'application/json'
 obj.raw_data = '{"user":"data"}'
 
-obj.store(bucket_type: 'users')
+obj.store(type: 'users')
 
 # The client will assign a key like the following:
 obj.key
@@ -547,7 +547,7 @@ Let's try to delete our `genius` key from the `oscar_wilde` bucket (which bears 
 
 ```ruby
 bucket = client.bucket('oscar_wilde')
-bucket.delete('genius', bucket_type: 'quotes')
+bucket.delete('genius', type: 'quotes')
 ```
 
 ```java
