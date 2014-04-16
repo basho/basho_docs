@@ -9,7 +9,7 @@ keywords: [developers, applications]
 
 So you've decided to build an application using Riak as a data store. We think that this is a wise choice for a wide variety of use cases. But using Riak isn't always straightforward, especially if you're used to developing with RDBMSs like MySQL or Postgres or non-persistent key/value stores like Redis. 
 
-In this guide, we'll walk you through a set of questions that you should ask about your use case before getting started. The answer to some of these questions might say a lot about which Riak features you should use, what kind of replication and conflict resolution strategies you should employ, and even how you should build parts of your application.
+In this guide, we'll walk you through a set of questions that you should ask about your use case before getting started. The answer to some of these questions could inform decisions about which Riak features you should use, what kind of replication and conflict resolution strategies you should employ, and even how you should build parts of your application.
 
 ## What Kind of Data is Being Stored?
 
@@ -18,37 +18,53 @@ This is an important initial question for two reasons:
 1. Not all data is a good fit for Riak. If your data isn't a good fit, we would advise seeking out a different storage system.
 2. The kind of data you're storing should guide your decision about *how* to store and access your data in Riak and which Riak features would be helpful (and which harmful).
 
-Riak tends to be an excellent choice for data of the following kinds:
+#### Good for Riak
 
-* **Immutable data** --- While Riak provides a number of means of resolving conflicts between different replicas of objects, those processes can produce latency. Storing immutable data means avoiding those processes altogether.
-* **Small objects** --- Riak was not built as a store for large objects, like video files or other large [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built [RiakCS](http://basho.com/riak-cloud-storage/) for that. Riak is great, however, for JSON, [[log files|Log Data]], [[sensor data]], and filetypes that tend to run smaller than 1 MB, like HTML files.
-* **Independent objects** --- Objects that have complex interdependencies on other objects are not a good fit for Riak due to Riak's distributed nature. 
+Riak tends to be an excellent choice if you're dealing with any of the following:
+
+* **Immutable data** --- While Riak provides several means of resolving conflicts between different replicas of objects, those processes can produce latency. Storing immutable data means avoiding those processes altogether.
+* **Small objects** --- Riak was not built as a store for large objects, like video files or other large [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built [RiakCS](http://basho.com/riak-cloud-storage/) for that. Riak is great, however, for JSON, [[log files|Log Data]], [[sensor data]], and filetypes that tend to run smaller than 1 MB, such as HTML files.
+* **Independent objects** --- Objects that have complex interdependencies on other objects are not a good fit for Riak due to Riak's [[eventually consistent|Eventual Consistency]] nature.
 * **Objects with "natural" keys** --- It is almost always advisable to build keys for objects out of timestamps, [[usernames|User Accounts]], or other ["natural" markers](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example) that distinguish that an object from other objects.
-* **Riak Data Type-compatible immutable data** --- If you're working with mutable data, you can run CRUD operations on that data in traditional key/value fashion and manage conflict resolution yourself or allow Riak to do so.
-that can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]]
+* **Data compatible with [[Riak Data Types|Using Data Types]]** --- If you're working with mutable data, you can run CRUD operations on that data in traditional key/value fashion and manage conflict resolution yourself or allow Riak to do so. If your data can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]]
+
+#### Bad for Riak
 
 Riak is probably not recommended if you need to store:
 
-* Objects stored that exceed 1-2MB in size. If you will be storing a lot of objects over that size, we would recommend checking out [Riak CS](http://docs.basho.com/riakcs/latest/), which was built as 
-* Objects with many complex interdependencies that can not be easily denormalized (in which case a traditional relational database)
+* **Objects stored that exceed 1-2MB in size** --- If you will be storing a lot of objects over that size, we would recommend checking out [Riak CS](http://docs.basho.com/riakcs/latest/), which was built as 
+* **Objects with complex interdependencies** --- If your data cannot be easily denormalized or if it requires that objects can be easily assembled into and accessible as larger wholes---think columns or tables---then you might want to consider a relational database instead.
+* **Highly mutable objects** --- While Riak handles most mutable data just fine, if your application involves changing objects very frequently, you may want to consider either a different data store or a 
 
-#### Conclusion
+### Conclusion
 
-If Riak fits your needs, move on to the next section
+If it sounds like Riak suits your needs, move on to the next section.
 
-## The Flexibility of Riak
+## How Should I Store My Data?
+
+* "happy path" - the ideal case.
+* What can go wrong, and how do I recover? Timeouts, quorum not met
+* Using W vs PW
+* What actually happens when I store an object? (w value, fallback vnodes)
+
+Riak is a highly flexible storage system because it allows you to:
+
+* store any type of data, from plain text to JSON to BLOBs to the five currently available [[Riak Data Types|Using Data Types]]: counters, sets, registers, flags, and maps
+* fine-tune your cluster's [[replication properties]] and thus 
+
 
 Riak is an extremely flexible system for three reasons:
 
 1. It allows you to store any type of data, from plain text to JSON to binary large objects (BLOBs) to [[Riak Data Types|Using Data Types]] inspired by research on [[CRDTs|Data Types]].
-2. It enables you to access your data in myriad ways, from simple [[key/value|The Basics]] retrieval to [[secondary indexes|Using Secondary Indexes]] to rich [[search capabilities|Using Search]] to [[MapReduce]] and pre- and post-[[commit hooks|Using Commit Hooks]].
-3. While Riak is typically thought of as an AP system---favoring data availability over data consistency---there are a variety of ways of fine-tuning the trade-off between availability and consistency by adjusting [[N, R, and W values|Replication Properties]]. {{#2.0.0+}}You can even use Riak as a [[strongly consistent|Strong Consistency]] system for some or all of your data.{{/2.0.0+}}
+3. While Riak is typically thought of as an AP system---favoring data availability over data consistency---there are a variety of ways of fine-tuning the trade-off between availability and consistency by adjusting [[N, R, and W values|Replication Properties]]. You can even use Riak as a [[strongly consistent|Strong Consistency]] system for some or all of your data.
 
 TODO: link to denormalization / data modeling document
 
-The following table
+The following table 
 
 ## How Should I Access My Data?
+
+Riak enables you to access your data in myriad ways, from simple [[key/value|The Basics]] retrieval to [[secondary indexes|Using Secondary Indexes]] to rich [[search capabilities|Using Search]] to [[MapReduce]] and pre- and post-[[commit hooks|Using Commit Hooks]].
 
 Riak provides a number of ways of retrieving data, each of which has its own set of advantages and disadvantages.
 
@@ -60,13 +76,6 @@ Riak [[Data Types]] |
 [[Riak Search|Using Search]] | 
 [[Strong consistency|Using Strong Consistency]] | This feature can be useful if it is crucially important that 
 [[MapReduce|Using MapReduce]] | [MapReduce](http://en.wikipedia.org/wiki/MapReduce) operations are a means of processing large data sets that involves running a filtering (i.e. map) operation on a data set (in Riak, a [[bucket|Buckets]]) followed by some sort of computation (i.e. a reduce operation) on the result of the map operation. Examples include 
-
-## How Should I Store My Data?
-
-* "happy path" - the ideal case.
-* What can go wrong, and how do I recover? Timeouts, quorum not met
-* Using W vs PW
-* What actually happens when I store an object? (w value, fallback vnodes)
 
 ## Riak gotchas
 
