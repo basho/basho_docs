@@ -109,7 +109,7 @@ frontend riak_protocol_buffer
 
 A specific configuration detail worth noting from the example is the commented option for SSL termination. HAProxy supports SSL directly as of version 1.5. Provided that your HAProxy instance was built with OpenSSL support, you can enable it by uncommenting the example line and modifying it to suit your environment. More information is available in the [HAProxy documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
 
-Also that the above example is considered a starting point and is a work
+Also note that the above example is considered a starting point and is a work
 in progress based upon [this example](https://gist.github.com/1507077). You
 should carefully examine the configuration and change it according to your
 specific environment.
