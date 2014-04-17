@@ -21,8 +21,6 @@ The most important benefit of this setup is that basic lookup operations are ext
 
 ## Limitations of Key/Value Operations
 
-While 
-
 But working with a key/value store can be tricky at first, especially if you're used to relational databases. The central difficulty is that your application needs to know what it's looking for.
 
 
@@ -52,10 +50,62 @@ Timestamps, e.g. `2013-11-05T08:15:30-05:00`
 
 For example, the name of the data type in your application, plus an identifier: `user_17711`. If you're using Riak as a CMS and you want to manage multiple site domains, you could create a separate bucket for each, e.g. `main-site`, `login-sites`, and `user-homepages`, and store `user_<USER_ID>` keys in each.
 
+The problem that emerges here, though, is that 
+
 ## Riak Data Types
 
 [[Riak Data Types|Using Data Types]] are special in Riak 
 
 You can use [[sets|Data Types#sets]] to keep track of which user keys are in the bucket
 
+Notes
+=====
 
+Non-relational data modeling is a completely different kind of enterprise
+Problem of schemas; resolution needs to be done on the client side
+Retrieving data can't be ad hoc; it can in a limited sense, i.e. using 2i, but not in a granular sense; and if you try too hard, you will pay a performance penalty
+NoSQL => write-heavy workloads, scalability (no penalty as number of objects grows)
+Best way to think of KV stores is as a data hash:
+
+```ruby
+bucket[key]
+
+luc_perkins = client['people']['lucperkins']
+```
+
+Basic query structure:
+
+```
+/types/<type>/buckets/<bucket>/keys/<key>
+```
+
+Means of verification can be contained in the key itself. For example, you could store all user data in the bucket `users` with keys beginning with the fragment `user_` followed by a username. For example `user_coderoshi` or `user_macintux`. If an object with an inappropriate key is stored in that bucket, it won't even be seen by your application because it will only ever query keys that begin with `user_`:
+
+```ruby
+def get_user_by_username(username)
+  bucket = client.bucket('users')
+  obj = bucket.get('user_#{username}')
+  return obj
+end
+```
+
+```java
+// Assuming that we've created a class User:
+
+public User getUserByUsername(String username) {
+    String usernameKey = String.format("user_%s", username)
+    Location loc = new Location("users")
+            .setKey(usernameKey);
+    FetchValue fetchUser = new FetchValue.Builder(loc).build();
+    FetchValue.Response res = client.execute(fetchUser);
+    User userObject = res.getValue(User.class);
+    return userObject;
+}
+```
+
+```python
+def get_user_by_username(username):
+  bucket = client.bucket('users')
+  obj = bucket.get('user_{}'.format(username))
+  return obj
+```
