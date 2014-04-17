@@ -1,7 +1,7 @@
 ---
 title: Capability Negotiation
 project: riak
-version: 1.2.0+
+version: 1.4.8+
 document: appendix
 audience: advanced
 keywords: [appendix, concepts, capability]
