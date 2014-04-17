@@ -19,32 +19,9 @@ modifying, and deleting objects, changing bucket properties, and
 running MapReduce jobs.
 
 **Note**: Currently, Riak security commands can be run only through
-  the command line using the `riak-admin security` command. In future
-  versions of Riak, administrators may have the option of issuing
-  those commands through the Protocol Buffers and HTTP interfaces.
-
-## Overview
-
-It's easy to miss a key step in establishing your security
-configuration, and mistakes can lead to broken applications. Here are
-the essential steps.
-
-1. Define users (and optionally groups)
-
-2. Define an authentication source for each user
-
-3. Grant the necessary permissions to each user (and/or group)
-
-4. Make certain your client software will work properly:
-
-    * It must pass authentication information with each request
-    * It must support HTTPS or encrypted protobuf traffic
-    * If using HTTPS, the proper port (presumably 443) is open from client to server
-        * Encrypted protocol buffer traffic will use the same port as unencrypted traffic used to
-
-Once all of the above has been performed and vetted, **then** it is
-appropriate to enable security, but if any of the above are not in
-place, your applications will stop working.
+the command line using the `riak-admin security` command. In future
+versions of Riak, administrators may have the option of issuing
+those commands through the Protocol Buffers and HTTP interfaces.
 
 ## Terminology
 
@@ -61,6 +38,24 @@ place, your applications will stop working.
 
 * **Sources** are used to define authentication mechanisms. A user
     cannot be authenticated to Riak until a source is defined.
+
+## Security Checklist
+
+There are a few key steps that all applications using will need to
+undertake when setting up a Riak security configuration. Missing one
+of these steps can lead to operational problems later on, so make sure
+that you have done each of the following before enabling security:
+
+1. Define [[users|Authentication and Authorization#user-management]] and, optionally, groups
+2. Define an [[authentication source|Authentication and Authorization#managing-sources]] for each user
+3. Grant the necessary [[permissions|Authentication and Authorization#managing-permissions]] to each user (and/or group)
+4. Make sure that your client software will work properly:
+    * It must pass authentication information with each request
+    * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
+    * If using HTTPS, the proper port (presumably 443) is open from client to server
+    * Encrypted Protocol Buffers traffic will use the same port as unencrypted traffic
+
+Security should be enabled only after all of the above steps have been performed and your security setup has been properly vetted.
 
 ## Security Basics
 
@@ -144,7 +139,6 @@ Same for groups:
 ```bash
 riak-admin security print-groups
 ```
-
 
 Example output, assuming one user with an assigned password:
 
