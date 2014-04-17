@@ -23,6 +23,29 @@ running MapReduce jobs.
   versions of Riak, administrators may have the option of issuing
   those commands through the Protocol Buffers and HTTP interfaces.
 
+## Overview
+
+It's easy to miss a key step in establishing your security
+configuration, and mistakes can lead to broken applications. Here are
+the essential steps.
+
+1. Define users (and optionally groups)
+
+2. Define an authentication source for each user
+
+3. Grant the necessary permissions to each user (and/or group)
+
+4. Make certain your client software will work properly:
+
+    * It must pass authentication information with each request
+    * It must support HTTPS or encrypted protobuf traffic
+    * If using HTTPS, the proper port (presumably 443) is open from client to server
+        * Encrypted protocol buffer traffic will use the same port as unencrypted traffic used to
+
+Once all of the above has been performed and vetted, **then** it is
+appropriate to enable security, but if any of the above are not in
+place, your applications will stop working.
+
 ## Terminology
 
 * **Authentication** is the process of identifying a user.
