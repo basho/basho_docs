@@ -18,13 +18,10 @@ moved: {
 ## Overview
 
 [Bitcask](https://github.com/basho/bitcask) is an Erlang application that
-provides an API for storing and retrieving key/value data into a log-structured
-hash table that provides very fast access. The
-[design](http://downloads.basho.com/papers/bitcask-intro.pdf) of Bitcash owes a lot to the
-principles found in log-structured file systems and draws inspiration from a
-number of designs that involve log file merging.
+provides an API for storing and retrieving key/value data using log-structured
+hash tables that provide very fast access. The [design](http://downloads.basho.com/papers/bitcask-intro.pdf) of Bitcask was inspired, in part, by log-structured file systems and log file merging.
 
-### Strengths:
+### Bitcask's Strengths
 
 * **Low latency per item read or written**
 
@@ -41,15 +38,14 @@ number of designs that involve log file merging.
 * **Ability to handle datasets larger than RAM without degradation**
 
     Because access to data in Bitcask involves direct lookup from an
-    in-memory hash   table finding data on disk is very efficient, even when
+    in-memory hash table, finding data on disk is very efficient, even when
     data sets are very large.
 
 * **Single seek to retrieve any value**
 
-    Bitcask's in-memory hash-table of keys point directly to locations on disk
+    Bitcask's in-memory hash table of keys points directly to locations on disk
     where the data lives. Bitcask never uses more than one disk seek to read a
-    value and sometimes, due to file-system caching done by the operating
-    system, even that isn't necessary.
+    value and sometimes even that isn't necessary due to filesystem caching done by the operating system.
 
 * **Predictable lookup _and_ insert performance**
 
@@ -73,21 +69,24 @@ number of designs that involve log file merging.
     Any utility that archives or copies files in disk-block order will properly
     backup or copy a Bitcask database.
 
-### Weaknesses:
+### Weaknesses
 
 * Keys must fit in memory
 
-    Bitcask keeps all keys in memory at all times, this means that your system
-    must have enough memory to contain your entire keyspace with room for other
-    operational components and operating system resident filesystem buffer
+    Bitcask keeps all keys in memory at all times, which means that your system
+    must have enough memory to contain your entire keyspace, with room for other     operational components and operating system resident filesystem buffer
     space.
 
 ## Installing Bitcask
 
 Riak ships with Bitcask included within the distribution. In fact, Bitcask is
-the default storage engine for Riak and thus requires no separate installation.
+the default storage engine for Riak and thus requires no separate installation. You can verify that Bitcask is the current storage backend using the `[[riak|riak Command Line]]` command interface:
 
-## Configuring Bitcask
+```bash
+riak config effective | grep backend
+```
+
+## Enabling and Configuring Bitcask
 
 The default configuration values for Bitcask are as follows:
 
@@ -109,16 +108,22 @@ You can modify Bitcask's behavior by adjusting these settings in your [[configur
 
 The `open_timeout` setting specifies the maximum time Bitcask will block on
 startup while attempting to create or open the data directory. The value is
-in seconds and the default is `4`. You generally need not change this value.
-If for some reason the timeout is exceeded on open you'll see a log message
-of the form: `"Failed to start bitcask backend: ...`. Only then should you
-consider a longer timeout.
+in seconds and the default is 4 seconds. You generally don't need to change
+this value. If the timeout is exceeded for some reasons on open you'll see a 
+log message of the form `Failed to start bitcask backend: ...`. Only then 
+should you consider a longer timeout.
 
-```erlang
+Here are the default settings:
+
+```riakconf
+bitcask.sync.open_timeout = 4s
+```
+
+```appconfig
 {bitcask, [
-        ...,
-            {open_timeout, 4} %% Wait time to open a keydir (in seconds)
-        ...
+    ...,
+        {open_timeout, 4} %% Wait time to open a keydir (in seconds)
+    ...
 ]}
 ```
 
@@ -146,7 +151,11 @@ write will have to wait for the write to complete.
   * `o_sync` --- uses the `O_SYNC` flag which forces syncs on every write
   * `{seconds, N}` --- Riak will force Bitcask to sync every `N` seconds
 
-```erlang
+```riakconf
+bitcask.sync.strategy = none
+```
+
+```appconfig
 {bitcask, [
     ...,
         {sync_strategy, none}, %% Let the O/S decide when to flush to disk
@@ -212,11 +221,15 @@ be surprised by larger than working set on disk data sizes.
 
 The default is `16#80000000`, which is 2GB in bytes.
 
-```erlang
+```riakconf
+bitcask.max_file_size = 2GB
+```
+
+```appconfig
 {bitcask, [
-        ...,
-        {max_file_size, 16#80000000}, %% 2GB default
-        ...
+    ...,
+    {max_file_size, 16#80000000}, %% 2GB default
+    ...
 ]}
 ```
 
@@ -233,11 +246,15 @@ to be read properly.
 * `true` --- disregard any `.hint` file that does not contain a CRC value 
 * `false` ---  use `.hint` files that are otherwise valid except for missing CRC
 
-```erlang
+```riakconf
+
+```
+
+```appconfig
 {bitcask, [
-        ...,
-        {require_hint_crc, true},
-        ...
+    ...,
+    {require_hint_crc, true},
+    ...
 ]}
 ```
 
@@ -249,11 +266,15 @@ file access.  Valid settings are:
 * `erlang` (default) use Erlang file module
 * `nif` use native implemented function module written in C
 
-```erlang
+```riakconf
+bitcask.io_mode = erlang
+```
+
+```appconfig
 {bitcask, [
-        ...,
-        {io_mode, erlang},
-        ...
+    ...,
+    {io_mode, erlang},
+    ...
 ]}
 ```
 
@@ -280,19 +301,21 @@ merges will occur less frequently, leading to increased disk space usage.
 
 The default is `always`.
 
-```erlang
+```riakconf
+bitcask.
+```
+
+```appconfig
 {bitcask, [
     ...,
-        {merge_window, always}, %% Span of hours during which merge is acceptable.
+    {merge_window, always}, %% Span of hours during which merge is acceptable.
     ...
 ]}
 ```
 
-<div class="note"><div class="title"> `merge_window` and Multi-Backend</div>
-When using Bitcask with [[Multi-Backend|Multi]], please note that if you
-wish to use a merge window, you *must* set it in the global `bitcask`
-section of your `app.config`.  `merge_window` settings in per-backend
-sections are ignored.
+<div class="note"><div class="title"><tt>merge_window</tt> and the Multi backend</div>
+When using Bitcask with the [[Multi]] backend, please note that if you
+wish to use a merge window, you <em>must</em> set it in the global <tt>bitcask</tt> section of your configuration file. `merge_window` settings in per-backend sections are ignored.
 </div>
 
 
@@ -322,7 +345,11 @@ invoked.
 
 The default is `536870912`, which is 512MB in bytes.
 
-```erlang
+```riakconf
+bitcask.merge.triggers.dead_bytes = 512MB
+```
+
+```appconfig
 {bitcask, [
         ...,
         %% Trigger a merge if any of the following are true:
