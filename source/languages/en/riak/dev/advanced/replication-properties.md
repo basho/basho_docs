@@ -19,6 +19,8 @@ moved: {
 
 Riak was built with the assumption that a Riak installation acts as a multi-node [[cluster|Clusters]], distributing data across multiple physical servers.
 
+
+
 Riak's guiding design principle is Dr. Eric Brewer's [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem). The CAP theorem defines distributed systems in terms of three desired properties: consistency, availability, and partition (i.e. failure) tolerance. Riak chooses to focus on the A and P of CAP, which puts it in the eventually consistent camp. It should be stated, however, that the window for "eventually consistent" is usually in the neighborhood of milliseconds, which can be good enough for many applications.
 
 Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is a necessary trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off. The ability to make these kinds of fundamental choices has immense value for your applications and is one of the features that differentiates Riak from other technologies.
