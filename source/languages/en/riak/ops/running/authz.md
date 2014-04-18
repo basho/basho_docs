@@ -41,21 +41,22 @@ those commands through the Protocol Buffers and HTTP interfaces.
 
 ## Security Checklist
 
-There are a few key steps that all applications using will need to
-undertake when setting up a Riak security configuration. Missing one
-of these steps can lead to operational problems later on, so make sure
-that you have done each of the following before enabling security:
+There are a few key steps that all applications will need to undertake
+when turning on Riak security. Missing one of these steps will almost
+certainly break your application, so make sure that you have done each
+of the following **before** enabling security:
 
-1. Define [[users|Authentication and Authorization#user-management]] and, optionally, groups
-2. Define an [[authentication source|Authentication and Authorization#managing-sources]] for each user
-3. Grant the necessary [[permissions|Authentication and Authorization#managing-permissions]] to each user (and/or group)
+1. Define [[users|Authentication and Authorization#User-Management]] and, optionally, groups
+2. Define an [[authentication source|Authentication and Authorization#Managing-Sources]] for each user
+3. Grant the necessary [[permissions|Authentication and Authorization#Managing-Permissions]] to each user (and/or group)
 4. Make sure that your client software will work properly:
     * It must pass authentication information with each request
     * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
     * If using HTTPS, the proper port (presumably 443) is open from client to server
-    * Encrypted Protocol Buffers traffic will use the same port as unencrypted traffic
 
 Security should be enabled only after all of the above steps have been performed and your security setup has been properly vetted.
+
+Clients that use protocol buffers will typically have to be reconfigured/restarted with the proper credentials once security is enabled.
 
 ## Security Basics
 
