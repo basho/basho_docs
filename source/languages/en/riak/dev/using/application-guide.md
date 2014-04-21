@@ -18,19 +18,19 @@ This is an important initial question for two reasons:
 1. Not all data is a good fit for Riak. If your data isn't a good fit, we would advise seeking out a different storage system.
 2. The kind of data you're storing should guide your decision about *how* to store and access your data in Riak and which Riak features would be helpful (and which harmful).
 
-#### Good for Riak
+#### Good Fits for Riak
 
 Riak tends to be an excellent choice if you're dealing with any of the following:
 
 * **Immutable data** --- While Riak provides several means of resolving conflicts between different replicas of objects, those processes can produce latency. Storing immutable data means avoiding those processes altogether.
 * **Small objects** --- Riak was not built as a store for large objects, like video files or other large [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built [RiakCS](http://basho.com/riak-cloud-storage/) for that. Riak is great, however, for JSON, [[log files|Log Data]], [[sensor data]], and filetypes that tend to run smaller than 1 MB, such as HTML files.
-* **Independent objects** --- Objects that have complex interdependencies on other objects are not a good fit for Riak due to Riak's [[eventually consistent|Eventual Consistency]] nature.
-* **Objects with "natural" keys** --- It is almost always advisable to build keys for objects out of timestamps, [[usernames|User Accounts]], or other ["natural" markers](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example) that distinguish that an object from other objects.
+* **Independent objects** --- Objects that do not have interdependencies on other objects are a good fit for Riak's [[eventually consistent|Eventual Consistency]] nature.
+* **Objects with "natural" keys** --- It is almost always advisable to build keys for objects out of timestamps, [[usernames|User Accounts]], or other ["natural" markers](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example) that distinguish that an object from other objects. Data that can be modeled this way fits nicely with Riak because Riak emphasizes fast object lookup.
 * **Data compatible with [[Riak Data Types|Using Data Types]]** --- If you're working with mutable data, you can run CRUD operations on that data in traditional key/value fashion and manage conflict resolution yourself or allow Riak to do so. If your data can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]]
 
-#### Bad for Riak
+#### Not-so-good Fits for Riak
 
-Riak is probably not recommended if you need to store:
+Riak may not such be a good choice if you use it with the following:
 
 * **Objects stored that exceed 1-2MB in size** --- If you will be storing a lot of objects over that size, we would recommend checking out [Riak CS](http://docs.basho.com/riakcs/latest/), which was built as 
 * **Objects with complex interdependencies** --- If your data cannot be easily denormalized or if it requires that objects can be easily assembled into and accessible as larger wholes---think columns or tables---then you might want to consider a relational database instead.
@@ -38,9 +38,20 @@ Riak is probably not recommended if you need to store:
 
 ### Conclusion
 
-If it sounds like Riak suits your needs, move on to the next section.
+If it sounds like the data that you're storing is a good fit for Riak, move on to the next section.
 
-## How Should I Store My Data?
+## Which Features Should I Use?
+
+While CRUD operations on key/value objects constitute the ideal use case for Riak, there are a number of additional Riak features that you might want to consider for some use cases. These features tend to fall into two camps:
+
+1. **Querying** --- You can almost always achieve the best performance by finding objects by providing Riak a bucket and key and asking it to return what it finds. But some use cases require more complex querying capabilities.
+2. **Automatic conflict resolution** --- 
+
+should consider if you expect that you'll need more complex querying capabilities ([[secondary indexes|Using Secondary Indexes]], [[MapReduce|Using MapReduce]], or [[Search|Using Search]]) or if you'd like to explore new ways of managing eventual consistency with [[Riak Data Types|Using Data Types]].
+
+## Conflict Resolution
+
+If you're using (a) mutable data in Riak and (b) you wish to allow Riak to produce multiple copies of objects in cases of conflict, you will need to choose a conflict resolution strategy
 
 * "happy path" - the ideal case.
 * What can go wrong, and how do I recover? Timeouts, quorum not met
