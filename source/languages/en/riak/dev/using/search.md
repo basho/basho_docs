@@ -135,10 +135,10 @@ any index or a specific one. The example below shows the various
 options.
 
 ```bash
-riak-admin security grant search.admin ON schema TO username
-riak-admin security grant search.admin ON index TO username
-riak-admin security grant search.query ON index TO username
-riak-admin security grant search.query ON index famous TO username
+riak-admin security grant search.admin on schema to username
+riak-admin security grant search.admin on index to username
+riak-admin security grant search.query on index to username
+riak-admin security grant search.query on index famous to username
 ```
 
 ## Indexing Values

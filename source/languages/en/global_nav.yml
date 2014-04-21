@@ -8,6 +8,7 @@ riak:
     class: "start"
     sub:
       - "[[Start Here|Riak]]"
+      - "[[Riak 2.0]]"
       - "[[Why Riak?|Why Riak]]"
       - "[[Five-Minute Install|Five Minute Install]]"
 
@@ -58,7 +59,7 @@ riak:
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"
-          - "[[Data Modeling with Riak Data Types]]"
+          - "[[Data Types|Data Modeling with Riak Data Types]]"
           - title: "High Read/Write"
             sub:
               - "[[Session Storage]]"
@@ -98,6 +99,7 @@ riak:
               - "[[Download Riak|Downloads]]"
               - "[[Installing and Upgrading]]"
               - "[[Installing Erlang]]"
+              - "[[Installing the JVM]]"
               - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
               - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
               - "[[Mac OS X|Installing on Mac OS X]]"

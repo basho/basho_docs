@@ -56,8 +56,8 @@ default:
               name: "9.2 AMD 64"
         "10":
           arch:
-            amd64:
-              name: "10 AMD 64"
+            unknown:
+              name: "10.0 64"
     osx:
       name: "Mac"
       icon: "mac.png"
