@@ -53,6 +53,13 @@ client.create_search_index('famous')
 riakc_pb_socket:create_search_index(Pid, <<"famous">>)
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
 Note that the above command is exactly the same as the following, which explicitly defines the default schema.
 
 ```curl

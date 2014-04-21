@@ -85,6 +85,13 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/sensitive_user_data/keys/user19735
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
 In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the query's structure_.
 
 This is because buckets act as a separate namespace in Riak, in addition to buckets and keys.
