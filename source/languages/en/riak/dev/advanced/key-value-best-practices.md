@@ -7,11 +7,12 @@ audience: intermediate
 keywords: [keys, values, data-types]
 ---
 
-While Riak enables you to take advantage of a wide variety of features that can be useful in application development, such as [[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]], and [[Riak Data Types|Using Data Types]], Riak almost always performs best when you you limit your application to basic CRUD operations (create, read, update, and delete) on objects, i.e. when you use Riak as a "pure" key/value store.
+While Riak enables you to take advantage of a wide variety of features that can be useful in application development, such as [[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]], and [[Riak Data Types|Using Data Types]], Riak almost always performs best when you limit your application to basic CRUD operations (create, read, update, and delete) on objects, i.e. when you use Riak as a "pure" key/value store.
 
 ## Advantages of Key/Value Operations
 
-Riak's key/value architecture enables it to be more performant than relational databases in most scenarios because there are no lock, join, union, or other operations that need to be performed when working with objects. Objects are stored as opaque binaries, i.e. Riak doesn't usually care about their content type, and are stored on the basis of three locators:
+Riak's key/value architecture enables it to be more performant than relational databases in most scenarios because there are no lock, join, union, or other operations that need to be performed when working with objects. Objects are
+stored as opaque binaries, i.e. Riak doesn't usually care about their content type, and are stored on the basis of three locators:
 
 * The object's [[key|Keys and Objects#keys]], which can anything you want and are [Unicode compliant](http://www.unicode.org/)
 * The [[bucket|Buckets]] which houses the object and its key
@@ -19,30 +20,22 @@ Riak's key/value architecture enables it to be more performant than relational d
 
 The most important benefit of this setup is that basic lookup operations are extremely fast. Riak doesn't need to search through columns or tables to find an object. Instead, it stores them on the basis of a concrete "address," so to speak, and when given an explicit address, Riak can locate an object just about as quickly with billions of keys in a cluster as when there are only a handful of keys.
 
-## Limitations of Key/Value Operations
+## Overcoming the Limitations of Key/Value Operations
 
-But working with a key/value store can be tricky at first, especially if you're used to relational databases. The central difficulty is that your application needs to know what it's looking for.
+Working with a key/value store can be tricky at first, especially if you're used to relational databases. The central difficulty is that **your application already needs to know where to look** when it needs to find an object. It can't run a `SELECT * FROM table`-style operation that locates objects according to criteria. It has to know the object's location in advance.
+
+The best way to achieve this is to provide **structured bucket and/or key names** for objects that make them easily discoverable. Here are some example sources for bucket and key names:
+
+* Timestamps, e.g. `2013-11-05T08:15:30-05:00`
+* [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier)s, e.g. `9b1899b5-eb8c-47e4-83c9-2c62f0300596`
+* Geographical coordinates, e.g. `40.172N-21.273E`
 
 
 More in [this video](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo), with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example)
 
-RDBMSes => relationships, transactions, schemas, ability to extend pre-existing structure easily, ad-hoc queries
-
-NoSQL => no joins, no grouping across shards
-
-Interface is basically a hash => { key: value }
-
-Everything is binary data; all of it is opaque (with the exception of Riak Data Types, discussed below)
-
 ## Example
 
 Possible sources for "natural" keys:
-
-#### Timestamps
-
-Timestamps, e.g. `2013-11-05T08:15:30-05:00`
-
-#### UUIDs
 
 
 
@@ -109,3 +102,7 @@ def get_user_by_username(username):
   obj = bucket.get('user_{}'.format(username))
   return obj
 ```
+
+## The Hash Analogy
+
+Most modern programming languages supported data structures called [hashes](http://en.wikipedia.org/wiki/Hash_table) (in some languages they're known as maps or dicts or hashmaps). A useful way to think about key/value operations in Riak is to imagine object lookup as fetching values in a hash. 
