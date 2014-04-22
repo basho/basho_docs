@@ -39,21 +39,60 @@ import java.security.cert.X509Certificate;
 // Specify the location of the CA and create an input stream:
 File cacert = new File("/path/to/ssl/cacertfile.pem");
 FileInputStream inputStream = new FileInputStream(cacert);
+
+// Create an X509Certificate object using the input stream:
 CertificateFactory cFactory = CertificateFactory.getInstance("X.509");
 X509Certificate caCert = (X509Certificate) cFactory.generateCertificate(inputStream);
 inputStream.close();
+
+// Identify a key store to be used during the authentication phase:
 KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
 ks.load(null, "rosebud".toCharArray());
-ks.setCertificateEntry("mycert", caCert);
+ks.setCertificateEntry("cert.pem", caCert);
 
-// Now, a node can be created with the certificate specified upon creation:
+// You can then create a node using your username, password,
+// and KeyStore object:
 RiakNode node = new RiakNode.Builder()
-        .withAuth("riakuser", "rosebud")
+        .withAuth("riakuser", "rosebud", ks)
+        .withRemoteAddress("127.0.0.1")
+        .withRemotePort(10017);
 ```
 
 ## Connecting
 
-Once your client has been set up to
+Once your client has been set up, you can verify that the security setup is working by performing a basic PUT operation followed by a GET:
+
+```ruby
+client = Riak::Client.new(host: '127.0.0.1', pb_port: 10017)
+bucket = client.bucket('certificate_test')
+obj = Riak::RObject.new(bucket, 'test_key')
+obj.content_type = 'text/plain'
+obj.raw_data = 'SSL now works!'
+obj.store
+bucket.get('test_key').data
+```
+
+```java
+RiakNode node1 = new RiakNode.Build()
+        .withAuth("riakuser", "rosebud", ks)
+        .withRemoteAddress("127.0.0.1")
+        .withRemotePort(10017);
+RiakCluster cluster = new RiakCluster.Builder(node1).build();
+RiakClient client = new RiakClient(cluster);
+RiakObject testObject = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(BinaryValue.create("SSL now works!"));
+Location loc = new Location("certificate_test").setKey("test_key")
+StoreValue store = new StoreValue.Builder(testObject)
+        .withLocation(loc);
+client.execute(store);
+FetchValue fetch = new FetchValue.Builder(loc).build();
+FetchValue.Response res = client.execute(fetch);
+RiakObject fetchedObject = res.getValue(RiakObject.class);
+System.out.println(fetchObject.getValue().toString());
+```
+
+If you get the `SSL now works!` as a response, then your client-side authentication setup should be working normally.
 
 ## Resources
 
