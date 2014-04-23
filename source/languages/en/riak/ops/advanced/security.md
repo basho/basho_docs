@@ -47,22 +47,29 @@ use for inter-Erlang node communication to 6000-7999, add the following
 lines to the configuration file on each Riak node:
 
 {{#2.0.0+}}
-For riak.conf:
 
-```conf
+```riakconf
 erlang.distribution.port_range.minimum = 6000
 erlang.distribution.port_range.maximum = 7999
 ```
 
-{{/2.0.0+}}
-For app.config:
-
-```erlang
+```appconfig
 { kernel, [
             {inet_dist_listen_min, 6000},
             {inet_dist_listen_max, 7999}
           ]},
 ```
+{{/2.0.0+}}
+
+{{#2.0.0-}}
+
+```appconfig
+{ kernel, [
+            {inet_dist_listen_min, 6000},
+            {inet_dist_listen_max, 7999}
+          ]},
+```
+{{/2.0.0-}}
 
 The above lines should be added into the top level list in app.config,
 at the same level as all the other applications (e.g. **riak\_core**).
