@@ -625,19 +625,10 @@ application variables in the `eLeveldb` application scope.
 
 Below are **general** configuration recommendations for Linux distributions. Individual users may need to tailor these settings for their application.
 
-For production environments, we recommend the following settings within `/etc/sysctl.conf`:
+#### `sysctl`
 
-```bash
-net.core.wmem_default=8388608
-net.core.rmem_default=8388608
-net.core.wmem_max=8388608
-net.core.rmem_max=8388608
-net.core.netdev_max_backlog=10000
-net.core.somaxconn=4000
-net.ipv4.tcp_max_syn_backlog=40000
-net.ipv4.tcp_fin_timeout=15
-net.ipv4.tcp_tw_reuse=1
-```
+For production environments, please see [[Linux Performance Tuning]] for
+the recommended `/etc/sysctl.conf` settings.
 
 #### Block Device Scheduler
 Beginning with the 2.6 kernel, Linux gives you a choice of four I/O [elevator models](http://www.gnutoolbox.com/linux-io-elevator/). We recommend using the NOOP elevator. You can do this by changing the scheduler on the Linux boot line: `elevator=noop`.
