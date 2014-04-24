@@ -24,32 +24,17 @@ The most important benefit of this setup is that basic lookup operations are ext
 
 Working with a key/value store can be tricky at first, especially if you're used to relational databases. The central difficulty is that **your application already needs to know where to look** when it needs to find an object. It can't run a `SELECT * FROM table`-style operation that locates objects according to criteria. It has to know the object's location in advance.
 
-The best way to achieve this is to provide **structured bucket and/or key names** for objects that make them easily discoverable. Here are some example sources for bucket and key names:
+The best way to achieve this is to provide **structured bucket and/or key names** for objects that make them more easily discoverable. Here are some example sources for bucket or key names:
 
 * Timestamps, e.g. `2013-11-05T08:15:30-05:00`
 * [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier)s, e.g. `9b1899b5-eb8c-47e4-83c9-2c62f0300596`
 * Geographical coordinates, e.g. `40.172N-21.273E`
 
+You could use these names by themselves or in combination with other markers. Sensor data keys could be prefaced by `sensor_` or `temp_sensor1_` followed by timestamp (e.g. ). User data keys could be prefaced with `user_` followed by a UUID (e.g. `user_9b1899b5-eb8c-47e4-83c9-2c62f0300596`).
 
-More in [this video](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo), with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example)
+Any of the above suggestions could apply to bucket names as well as key names. If you were building Twitter using Riak, for example, you could store tweets from each user in a different bucket and then construct key names using a combination of the prefix `tweet_` and then a timestamp. In that case, all the tweets from the user ``
 
-## Example
-
-Possible sources for "natural" keys:
-
-
-
-#### Combination
-
-For example, the name of the data type in your application, plus an identifier: `user_17711`. If you're using Riak as a CMS and you want to manage multiple site domains, you could create a separate bucket for each, e.g. `main-site`, `login-sites`, and `user-homepages`, and store `user_<USER_ID>` keys in each.
-
-The problem that emerges here, though, is that 
-
-## Riak Data Types
-
-[[Riak Data Types|Using Data Types]] are special in Riak 
-
-You can use [[sets|Data Types#sets]] to keep track of which user keys are in the bucket
+The possibilities are essentially endless and, as always, defined by the use case at hand.
 
 Notes
 =====
@@ -106,3 +91,7 @@ def get_user_by_username(username):
 ## The Hash Analogy
 
 Most modern programming languages supported data structures called [hashes](http://en.wikipedia.org/wiki/Hash_table) (in some languages they're known as maps or dicts or hashmaps). A useful way to think about key/value operations in Riak is to imagine object lookup as fetching values in a hash. 
+
+## Resources
+
+More on key/value modeling in Riak can be found in [this presentation](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo) by Basho evangelist [Hector Castro](https://github.com/hectcastro) with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example).
