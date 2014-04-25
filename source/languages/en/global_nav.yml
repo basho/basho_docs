@@ -120,6 +120,7 @@ riak:
           - "[[File System Tuning]]"
           - "[[Linux Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
+          - "[[Latency Reduction|Latency Reduction Checklist]]"
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
