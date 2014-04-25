@@ -29,7 +29,7 @@ distributed Erlang.
 If your use case requires larger objects, we recommend checking out [[Riak CS]],
 which is intended as a cloud object storage system.
 
-#### Mitigation
+### Mitigation
 
 The best way to find out if large objects are impacting latency is to monitor
 each node's object size stats. If you run `[[riak-admin status|riak-admin Command Line#status]]`,
@@ -72,7 +72,7 @@ conflict without client intervention. While sibling production is normal,
 about if many siblings of an object are produced. The negative effects are the
 same as those associated with [[large objects|Latency Reduction Checklist#large-objects]].
 
-#### Mitigation
+### Mitigation
 
 The best way to monitor siblings is through the same `[[riak-admin status|riak-admin Command Line#status]]`
 interface used to monitor object size. In the output of `riak-admin status` in
@@ -82,17 +82,93 @@ Metric | Explanation
 :------|:-----------
 `node_get_fsm_siblings_mean` | The mean number of siblings encountered during all GET operations by this node within the last minute
 `node_get_fsm_siblings_median` | The median number of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_95` | The 95th percentile of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_99` | The 99th percentile of siblings encountered during all GET operations by this node within the last minute
-`node_get_fsm_siblings_100` | The 100th percentile of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_95` | The 95th percentile of the number of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_99` | The 99th percentile of the number of siblings encountered during all GET operations by this node within the last minute
+`node_get_fsm_siblings_100` | The 100th percentile of the number of siblings encountered during all GET operations by this node within the last minute
 
 Is there an upward trend in these statistics over time? Are there any large
-outliers? 
+outliers? Do these trends correspond to your observed latency spikes?
+
+If you believe that sibling creation problems could be responsible for latency
+issues in your cluster, you can start by checking the following:
+
+* If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done.
+* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy.
 
 ## Compaction and Merging
 
+The [[Bitcask]] and [[LevelDB]] storage backends occasionally go through heavily
+I/O-intensive compaction phases during which they remove deleted data and 
+reorganize data files on disk. During these phases, affected nodes may be slower
+to respond to requests than other nodes.
+
+### Mitigation
+
+To determine whether compaction and merging cycles align with, keep an eye on on
+your `console.log` files (and LevelDB `LOG` files if you're using LevelDB). Do
+Bitcask merging or LevelDB compaction events overlap with increased latencies?
+
+Our first recommendation is to examine your [[replication strategy|Replication Properties]]
+to make sure that neither R nor W are set to N, i.e. that you're not requiring
+that reads or writes go to all nodes in the cluster. The problem with setting
+R=N or W=N is that any request will only respond as quickly as the slowest node
+in the cluster. Setting R 
+
+Beyond checking for R=N or W=N for requests, the recommended mitigation strategy
+depends on the backend:
+
+#### Bitcask
+
+With Bitcask, it's recommended that you:
+
+* Limit merging to off-peak hours to decrease the effect of merging cycles on node traffic
+* Stagger merge windows between nodes so that no more than one node is undergoing a merge phase at any given time
+
+Instructions on how to accomplish both can be found in our guide to [[tuning Bitcask|Bitcask#tuning-bitcask]].
+
+It's also important that you adjust your maximum file size and merge threshold
+settings appropriately. This setting is labeled `max_file_size` in the older,
+`app.config`-based [[configuration system|Configuration Files]] and
+`bitcask.max_file_size` in the newer, `riak.conf`-based system.
+
+Setting the maximum file size lower will cause Bitcask to merge more often
+(with less I/O churn), while setting it higher will induce less frequent merges
+with more I/O churn. To find settings that are ideal for your use case, we
+recommend checking out our guide to [[configuring Bitcask|Bitcask#configuring-bitcask]].
+
+#### LevelDB
+
+The more files you keep in memory, the better LevelDB will perform in general.
+To make sure that you are using your system resources appropriately with
+LevelDB, check out our guide to [[LevelDB parameter planning|LevelDB#parameter-planning]].
+
 ## OS Tuning
+
+While a number of latency-related problems can manifest themselves in
+development and testing environments, some performance limits only become clear
+in production environments.
+
+### Mitigation
+
+If you suspect that you OS-level issues might be impacting latency, it might be
+worthwhile to revisit your OS-specific configurations. In particular, the
+following guides 
+
+* [[Open files limit]]
+* [[File system tuning]]
+* General [[Linux system tuning]]
+* [[AWS performance tuning]] if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
 ## IO/Network Bottlenecks
 
 ## Overload Protection
+
+Versions of Riak 1.3.2 and later come equipped with an overload protection
+feature intended to prevent cascading failures in overly busy nodes. This
+feature limits the number of GET and PUT finite state machines (FSMs) that can
+exist simultaneously on a single Riak node. Increased latency can result if a 
+node is frequently running up against these maximums.
+
+### Mitigation
+
+
