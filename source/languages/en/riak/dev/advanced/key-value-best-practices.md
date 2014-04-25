@@ -34,7 +34,27 @@ You could use these names by themselves or in combination with other markers. Se
 
 Any of the above suggestions could apply to bucket names as well as key names. If you were building Twitter using Riak, for example, you could store tweets from each user in a different bucket and then construct key names using a combination of the prefix `tweet_` and then a timestamp. In that case, all the tweets from the user ``
 
-The possibilities are essentially endless and, as always, defined by the use case at hand.
+The possibilities are essentially endless and, as always, defined by the use case at hand. The most important thing is to ensure consistency. If you structure key or bucket names a certain way, your application may not be able to access that information later.
+
+For example, if you've been storing sensor data in a bucket with keys starting with `sensor1_` and you store an object in that bucket with the key `a1b2c3d4`, that object may be invisible to your application. The only way to see _all_ buckets available in a cluster is to run a [[list buckets|HTTP List Buckets]] operation, and the only way to see all keys available in a bucket is through a [[list keys|HTTP List Keys]] operation. Both of these operations, however, are extremely expensive, and we do not recommend relying on them in production environments.
+
+## Knowing How to Find Keys
+
+If you've developed a use case-specific naming strategy for keys, this often leaves an application with the following question: how do I know which keys are in a bucket? How do I knew which keys in a bucket correspond to a certain naming scheme? How can I determine
+
+There are two Riak features that can assist you with this problem, each with pros and cons: [[secondary indexes|Using Secondary Indexes]] and [[Riak Data Types|Using Data Types]].
+
+#### Object Discovery with Secondary Indexes
+
+If you are using the [[LevelDB]] storage backend for Riak, you can attach metadata to objects that enable you to find them more easily later. 
+
+#### Object Discovery with Riak Sets
+
+[[Sets|Using Data Types#sets]] are essentially lists of binaries that you can store in Riak a bucket/key location. While Riak sets have many possible uses, they can be useful for storing lists of keys (or lists of bucket names, for that matter).
+
+Let's say that you're developing a human resources application that stores employee data for several companies. Each employee's data is stored in keys labeled `emp_` followed by the employee's UUID, e.g. `emp_1a2b3c4d5e`. Each company has its own storage bucket, corresponding to the company's name, e.g. `acme`.
+
+If we wanted to know which employee data objects are stored in a given bucket, we could keep a list of those keys in a Riak set. We could store that set in a bucket called `employee_lists`
 
 Notes
 =====
