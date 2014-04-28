@@ -48,7 +48,7 @@ bucket = client.bucket('sensitive_user_data')
 obj = Riak::RObject.new(bucket, 'user19735')
 obj.content_type = 'application/json'
 obj.raw_data = '{ ... user data ... }'
-obj.store(bucket_type: 'no_siblings')
+obj.store(type: 'no_siblings')
 ```
 
 ```java
@@ -125,8 +125,8 @@ With the addition of bucket types in Riak 2.0, bucket types can be used as _an a
 ```ruby
 bucket = client.bucket('my_bucket')
 
-bucket.get('my_key', bucket_type: 'type1')
-bucket.get('my_key', bucket_type: 'type2')
+bucket.get('my_key', type: 'type1')
+bucket.get('my_key', type: 'type2')
 ```
 
 ```java
@@ -174,7 +174,7 @@ If requests are made to a bucket/key pair without a specified bucket type, the `
 bucket = client.bucket('my_bucket')
 
 bucket.get('my_key')
-bucket.get('my_key', bucket_type: 'default')
+bucket.get('my_key', type: 'default')
 ```
 
 ```java
@@ -303,7 +303,7 @@ bucket = client.bucket('old_memes')
 obj = Riak::RObject.new(bucket, 'all_your_base')
 obj.content_type = 'text/plain'
 obj.raw_data = 'all your base are belong to us'
-obj.store(bucket_type: 'no_siblings')
+obj.store(type: 'no_siblings')
 ```
 
 ```java
