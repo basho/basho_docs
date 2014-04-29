@@ -96,7 +96,7 @@ riak-admin bucket-type activate animals
 
 curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/props" \
      -H'content-type: application/json' \
-     -d'{"props":{"search_index":"people"}}'
+     -d'{"props":{"search_index":"famous"}}'
 ```
 
 Or optionally, you can set the `search_index` as a default property
