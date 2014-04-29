@@ -49,7 +49,15 @@ default:
         "9":
           arch:
             amd64:
-              name: "AMD 64"
+              name: "9.0 AMD 64"
+        "9.2":
+          arch:
+            amd64:
+              name: "9.2 AMD 64"
+        "10":
+          arch:
+            unknown:
+              name: "10.0 64"
     osx:
       name: "Mac"
       icon: "mac.png"
@@ -109,6 +117,12 @@ default:
               name: "17 x86 64"
             src:
               name: "17 Source"
+        "19":
+          arch:
+            x86_64:
+              name: "19 x86 64"
+            src:
+              name: "19 Source"
     smartos:
       name: "SmartOS"
       icon: "smartos.png"
