@@ -58,6 +58,17 @@ RiakNode node = new RiakNode.Builder()
         .withRemotePort(10017);
 ```
 
+
+```erlang
+CertDir = "/path/to/ssl",
+{ok, Pid} = riakc_pb_socket:start(
+    "127.0.0.1", 10017,
+    [{credentials, "riakuser", "rosebud"},
+     {cacertfile, filename:join([CertDir, "certfile.pem"])},
+     {certfile, filename:join([CertDir, "cert.pem"])}
+    ]).
+```
+
 ## Connecting
 
 Once your client has been set up, you can verify that the security setup is working by performing a basic PUT operation followed by a GET:
@@ -90,6 +101,19 @@ FetchValue fetch = new FetchValue.Builder(loc).build();
 FetchValue.Response res = client.execute(fetch);
 RiakObject fetchedObject = res.getValue(RiakObject.class);
 System.out.println(fetchObject.getValue().toString());
+```
+
+```erlang
+%% Using the Pid variable from the code sample above:
+Object = riakc_obj:new(<<"certificate_test">>,
+                       <<"test_key">>,
+                       <<"SSL now works!">>,
+                       <<"text/plain">>),
+riakc_pb_socket:put(Pid, Object).
+
+{ok, FetchedObject} = riakc_pb_socket:get(Pid,
+                                          <<"certificate_test">>,
+                                          <<"test_key">>).
 ```
 
 If you get the `SSL now works!` as a response, then your client-side authentication setup should be working normally.
