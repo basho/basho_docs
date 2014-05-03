@@ -45,7 +45,7 @@ You can also set a more useful name for the Riak CS node, which is helpful to id
 -name riak_cs@127.0.0.1
 ```
 
-Change `127.0.0.1` to the IP address or hostname for the server on which Riak CS is running, or any other descriptive name ... XXX ?
+Change `127.0.0.1` to the IP address or hostname for the server on which Riak CS is running.
 
 ## Specifying the Admin User
 
