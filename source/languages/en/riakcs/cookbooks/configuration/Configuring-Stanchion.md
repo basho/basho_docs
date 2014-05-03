@@ -28,12 +28,12 @@ The `stanchion_ssl` variable is set to `false` by default. If you want to use SS
 
 ## Specifying Riak Information
 
-If you have a single node, you don't have to change the setting for the Riak address because Stanchion and Riak are both on the local host. If your Riak CS system has multiple nodes, you must set the IP address and port for Riak in the Stanchion `app.config` file, which is located in the `/etc/riak-cs` folder. The settings appear in the Stanchion config section of the file.
+If you are running a single node for experimentation, or if a Riak node is running locally and configured to listen for protocol buffer traffic on `0.0.0.0`, the default Riak configuration for Stanchion should be fine.
+
+Otherwise, update the IP address and port for Riak in the Stanchion `app.config` file. The settings appear in the `stanchion` section.
 
 * `riak_ip` --- Replace `127.0.0.1` with the IP address of the Riak node.
 
-<div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the Protocol Buffers interface in the Riak <tt>app.config</tt> file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set <tt>riak_ip</tt> to <tt>0.0.0.0</tt>. </div>
-
-If you configured Riak to use a different port for Protocol Buffers, change the following port setting and then restart Riak:
+If you configured Riak to use a different port for protocol buffers, change the following port setting.
 
 * `riak_pb_port` --- Replace `8087` with the port number set in the Riak `app.config` file.
