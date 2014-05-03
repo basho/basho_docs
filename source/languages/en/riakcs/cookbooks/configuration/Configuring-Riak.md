@@ -42,11 +42,9 @@ Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the 
 ]},
 ```
 
-where **X.Y.Z** is the version of Riak CS that you have installed.
+This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
-This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
-
-<div class="note"><div class="title">Note</div>The path for <tt>add_paths</tt> may be <tt>/usr/lib/riak-cs</tt> or <tt>/usr/lib64/riak-cs</tt> depending on your operating system.</div>
+<div class="note"><div class="title">Note</div>The path for <tt>add_paths</tt> may be <tt>/usr/lib/riak-cs</tt> or <tt>/usr/lib64/riak-cs</tt> or an alternative path you created depending on your operating system and method of installation. Similarly, the `data_root` values can be altered to fit your system's needs.</div>
 
 Next, add this to the `riak_core` section of `app.config`:
 
@@ -61,16 +59,13 @@ potentially leading to data loss and other inconsistencies.
 Riak CS will refuse to start if <tt>allow_mult</tt> is not set to <tt>true</tt>.</div>
 {{/1.4.0+}}
 
-Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak and connect to its console (using `riak attach`), then run:
+Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak.
 
-```erlang
-(riak@127.0.0.1)1> code:which(riak_cs_kv_multi_backend).
-"/usr/lib64/riak-cs/lib/riak_cs-X.Y.Z/ebin/riak_cs_kv_multi_backend.beam"
-```
+!!! XXX : flesh this out
 
-If the path that you added to Riak's `app.config` is returned, your node is configured correctly. If the atom `non_existing` is returned instead, then Riak was unable to find the Riak CS code.
-
-<div class="note"><div class="title">Note</div>It is important to use <tt>CTRL+D</tt> to detach the console and leave Riak running after doing a <tt>riak attach</tt>. <tt>CTRL+C</tt> will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
+* `bin/riak start`
+* `bin/riak ping`
+* `invalid_storage_backend`
 
 ## Specifying the Riak IP Address
 By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak `vm.args` configuration file, which is located in the `/etc/riak` folder.
@@ -120,7 +115,7 @@ It is also recommended that you increase the size of Riak's `pb_backlog` to be g
 * `pb_backlog` --- Replace the default Riak configuration
 
     ```erlang
-    %% {pb_backlog, 64}, 
+    %% {pb_backlog, 64},
     ```
 
     with the following:
@@ -128,30 +123,33 @@ It is also recommended that you increase the size of Riak's `pb_backlog` to be g
     ```erlang
     {pb_backlog, 256},
     ```
- 
+
 If the `request_pool` value in Riak CS is changed, the `pb_backlog` value in Riak should be updated as well.
 
 ### Enabling SSL in Riak
 
-In the Riak `app.config` file, first uncomment the following lines:
+In the Riak `app.config` file under the `riak_core` section, comment out the `http` listener by adding 1 or more `%` in front:
 
 ```erlang
-%% https is a list of IP addresses and TCP ports that the Riak
-%% HTTPS interface will bind.
-%{https, [{ "127.0.0.1", 8098 }]},
-%% Default cert and key locations for https can be overridden
-%% with the ssl config variable, for example:
-%{ssl, [
-%       {certfile, "/etc/riak/cert.pem"},
-%       {keyfile, "/etc/riak/key.pem"} ]},
-%      ]},
+              {http, [ {"127.0.0.1", 8098 } ]},
+```
+
+Then below that uncomment these lines:
+
+```erlang
+              %{https, [{ "127.0.0.1", 8098 }]},
+
+              %{ssl, [
+              %       {certfile, "./etc/cert.pem"},
+              %       {keyfile, "./etc/key.pem"}
+              %      ]},
 ```
 
 For the `https` variable, replace the IP address with the address of the Riak node. Replace the port number if necessary.
 
-For the `certfile` and `keyfile` variables, replace the text in quotes with the path and filename for your SSL encryption files.
+For the `certfile` and `keyfile` variables, it is recommended that you replace the text in quotes with the path and filename to SSL certificate files that you generate.
 
-###Other Riak Settings
+### Other Riak Settings
 
 The `app.config` file includes other settings, such as turning on the creation of log files and specifying where to store them. These settings have default values that work in most cases.
 
