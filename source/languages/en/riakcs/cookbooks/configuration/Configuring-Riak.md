@@ -52,20 +52,18 @@ Next, add this to the `riak_core` section of `app.config`:
 {default_bucket_props, [{allow_mult, true}]},
 ```
 
-You should never set `allow_mult` to any value other than `true`. If this is not set to `true`, certain writes will be chosen arbitrarily by timestamp,
-potentially leading to data loss and other inconsistencies.
+**For Riak nodes that support Riak CS, never set `allow_mult` to any
+value other than `true`.** (As of version 1.4, Riak CS will refuse to
+start if `allow_mult` is not set to `true`.)
 
-{{#1.4.0+}} <div class="note"><div class="title">Note</div>As of version 1.4,
-Riak CS will refuse to start if <tt>allow_mult</tt> is not set to <tt>true</tt>.</div>
-{{/1.4.0+}}
+Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly:
 
-Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak.
+1. Attempt to start Riak: `bin/riak start`
+2. Test to see whether the node is running: `bin/riak ping`
 
-!!! XXX : flesh this out
+If the `ping` command displays `pong`, Riak is running. If it displays `Node not responding to pings`, then something has gone wrong.
 
-* `bin/riak start`
-* `bin/riak ping`
-* `invalid_storage_backend`
+If the Riak node has not started properly, look at `log/erlang.log.1`. One common error is `invalid_storage_backend`, which indicates that the path to the Riak CS library in Riak's `app.config` is incorrect (or that Riak CS is not installed on the server). *Do not change the storage backend from `riak_cs_kv_multi_backend` to `riak_kv_multi_backend`.*
 
 ## Specifying the Riak IP Address
 By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak `vm.args` configuration file, which is located in the `/etc/riak` folder.
@@ -76,7 +74,7 @@ Initially, the line that specifies the riak node IP address is set to the local 
 -name riak@127.0.0.1
 ```
 
-Replace `127.0.0.1` with the IP address for the Riak node.
+Replace `127.0.0.1` with the IP address or hostname for the Riak node.
 
 ## Setting Up Riak to Use Protocol Buffers
 The Riak Protocol Buffers settings reside in the Riak `app.config` file, which is located in the `/etc/riak` folder. The settings appear in the` riak_api` config section of the file.
