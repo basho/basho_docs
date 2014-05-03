@@ -126,29 +126,6 @@ It is also recommended that you increase the size of Riak's `pb_backlog` to be g
 
 If the `request_pool` value in Riak CS is changed, the `pb_backlog` value in Riak should be updated as well.
 
-### Enabling SSL in Riak
-
-In the Riak `app.config` file under the `riak_core` section, comment out the `http` listener by adding 1 or more `%` in front:
-
-```erlang
-              {http, [ {"127.0.0.1", 8098 } ]},
-```
-
-Then below that uncomment these lines:
-
-```erlang
-              %{https, [{ "127.0.0.1", 8098 }]},
-
-              %{ssl, [
-              %       {certfile, "./etc/cert.pem"},
-              %       {keyfile, "./etc/key.pem"}
-              %      ]},
-```
-
-For the `https` variable, replace the IP address with the address of the Riak node. Replace the port number if necessary.
-
-For the `certfile` and `keyfile` variables, it is recommended that you replace the text in quotes with the path and filename to SSL certificate files that you generate.
-
 ### Other Riak Settings
 
 The `app.config` file includes other settings, such as turning on the creation of log files and specifying where to store them. These settings have default values that work in most cases.
