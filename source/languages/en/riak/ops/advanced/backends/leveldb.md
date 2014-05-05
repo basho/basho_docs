@@ -91,19 +91,24 @@ net.ipv4.tcp_tw_reuse=1
 ```
 
 #### Block Device Scheduler
+
 Beginning with the 2.6 kernel, Linux gives you a choice of four I/O [elevator models](http://www.gnutoolbox.com/linux-io-elevator/). We recommend using the NOOP elevator. You can do this by changing the scheduler on the Linux boot line: `elevator=noop`.
 
 #### ext4 Options
+
 The ext4 filesystem defaults include two options that increase integrity but slow performance. Because Riak's integrity is based on multiple nodes holding the same data, these two options can be changed to boost LevelDB's performance. We recommend setting: `barrier`=0 and `data`=writeback.
 
 #### CPU Throttling
+
 If CPU throttling is enabled, disabling it can boost LevelDB performance in some cases.
 
 #### No Entropy
+
 If you are using https protocol, the 2.6 kernel is widely known for stalling programs waiting for SSL entropy bits. If you are using https, we recommend installing the [HAVEGE](http://www.irisa.fr/caps/projects/hipsor/) package for pseudorandom number generation.
 
 #### clocksource
-We recommend setting "clocksource=hpet" on your linux kernel's `boot` line. The TSC clocksource has been identified to cause issues on machines with multiple physical processors and/or CPU throttling.
+
+We recommend setting `clocksource=hpet` on your Linux kernel's `boot` line. The TSC clocksource has been identified to cause issues on machines with multiple physical processors and/or CPU throttling.
 
 #### swappiness
 
@@ -111,15 +116,14 @@ We recommend setting `vm.swappiness=0` in `/etc/sysctl.conf`. The `vm.swappiness
 
 ## Implementation Details
 
-[LevelDB](http://leveldb.googlecode.com/svn/trunk/doc/impl.html) is a Google
-sponsored open source project that has been incorporated into an Erlang
+[LevelDB](http://leveldb.googlecode.com/svn/trunk/doc/impl.html) is a Google-sponsored open source project that has been incorporated into an Erlang
 application and integrated into Riak for storage of key/value information on
 disk. The implementation of LevelDB is similar in spirit to the representation
 of a single Bigtable tablet (section 5.3).
 
 ### How "Levels" Are Managed
 
-LevelDB is a memtable/sstable design. The set of sorted tables are organized
+LevelDB is a memtable/sstable design. The set of sorted tables is organized
 into a sequence of levels. Each level stores approximately ten times as much
 data as the level before it. The sorted table generated from a flush is placed
 in a special young level (also called level-0). When the number of young files
@@ -305,3 +309,11 @@ leveldb/
 
 64 directories, 433 files
 ```
+
+## Tiered Storage
+
+Google's original LevelDB implemented stored all `.sst` table files in a single database directory. In Riak 1.3, the original LevelDB code was modified to store `.sst` files in subdirectories representing each "level" of the file, i.e. `sst_0`, `sst_1`, etc., in the name of speeding up database repair operations. The downside was that Riak operators needed to manually create the necessary directory links. Beginning with Riak 2.0, the process of using alternative storage arrays based on levels has been automated. 
+
+The advantage of using multiple storage arrays is that LevelDB is a heavily write intensive in its lower levels.
+
+**Note**: If you would like to use tiered storage in an installation that is not currently using it, you need to _manually_ move your insallation's `.sst` table files from one configuration to another. If you're starting a fresh installation of Riak, however, this is not necessary.
