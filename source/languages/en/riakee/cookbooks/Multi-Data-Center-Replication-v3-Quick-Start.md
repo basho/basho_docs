@@ -14,7 +14,7 @@ This guide will walk you through the process of configuring Riak's v3 Replicatio
 This guide assumes that you have completed the following steps:
 
 * Install [[Riak Enterprise]]
-* Perform [[System Turning|Linux Performance Tuning]]
+* Perform [[System Tuning|System Performance Tuning]]
 * Review [[Configuration|Multi Data Center Replication v3 Configuration]]
 
 ### About v3 Replication in 1.3

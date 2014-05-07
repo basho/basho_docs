@@ -56,10 +56,9 @@ The primary directories are:
 
 These can be configured and changed in the platform_etc_dir/app.config.
 
-Add /usr/local/sbin to your path to run the riak, riak-admin, and search-cmd
-scripts directly.
+Add /usr/local/sbin to your path to run the riak and riak-admin scripts directly.
 
-Man pages are available for riak(1), riak-admin(1), and search-cmd(1)
+Man pages are available for riak(1) and riak-admin(1)
 ```
 
 If instead of this message, you receive an error during installation regarding OpenSSL, similar to this one:
