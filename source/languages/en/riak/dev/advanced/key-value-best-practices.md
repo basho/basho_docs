@@ -12,43 +12,37 @@ While Riak enables you to take advantage of a wide variety of features that can 
 ## Advantages of Key/Value Operations
 
 Riak's key/value architecture enables it to be more performant than relational databases in most scenarios because there are no lock, join, union, or other operations that need to be performed when working with objects. Objects are
-stored as opaque binaries, i.e. Riak doesn't usually care about their content type, and are stored on the basis of three locators:
+stored as in Riak on the basis of three locators:
 
-* The object's [[key|Keys and Objects#keys]], which can anything you want and are [Unicode compliant](http://www.unicode.org/)
-* The [[bucket|Buckets]] which houses the object and its key
+* The object's [[key|Keys and Objects#keys]], which can be anything you want as long as it is [Unicode compliant](http://www.unicode.org/)
+* The [[bucket|Buckets]] which houses the object and its key (bucket names are also Unicode compliant)
 * The [[bucket type|Using Bucket Types]] that determines the bucket's [[replication|Replication Properties]] and other properties
 
-The most important benefit of this setup is that basic lookup operations are extremely fast. Riak doesn't need to search through columns or tables to find an object. Instead, it stores them on the basis of a concrete "address," so to speak, and when given an explicit address, Riak can locate an object just about as quickly with billions of keys in a cluster as when there are only a handful of keys.
+The most important benefit of this setup is that basic lookup operations are extremely fast. Riak doesn't need to search through columns or tables to find an object. Instead, it stores them on the basis of a concrete "address," and when given an explicit address, Riak can locate an object just about as quickly with billions of keys in a cluster as when there are only a handful of keys.
 
 ## Overcoming the Limitations of Key/Value Operations
 
-Working with a key/value store can be tricky at first, especially if you're used to relational databases. The central difficulty is that **your application already needs to know where to look** when it needs to find an object. It can't run a `SELECT * FROM table`-style operation that locates objects according to criteria. It has to know the object's location in advance.
+Using any key/value store can be tricky at first, especially if you're used to relational databases. The central difficulty is that your application cannot run arbitrary selection queries and needs to know where to look for objects in advance.
 
-The best way to achieve this is to provide **structured bucket and/or key names** for objects that make them more easily discoverable. Here are some example sources for bucket or key names:
+If you're interested in using Riak as a key/value store, one of the best ways to enable applications to discover objects more easily is to provide **structured bucket and key names** for objects. This approach often involves wrapping information about the object in the object's location data.
+
+Here are some example sources for bucket or key names:
 
 * Timestamps, e.g. `2013-11-05T08:15:30-05:00`
 * [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier)s, e.g. `9b1899b5-eb8c-47e4-83c9-2c62f0300596`
 * Geographical coordinates, e.g. `40.172N-21.273E`
 
-You could use these names by themselves or in combination with other markers. Sensor data keys could be prefaced by `sensor_` or `temp_sensor1_` followed by timestamp (e.g. ). User data keys could be prefaced with `user_` followed by a UUID (e.g. `user_9b1899b5-eb8c-47e4-83c9-2c62f0300596`).
+You could use these markers by themselves or in combination with other markers. For example, sensor data keys could be prefaced by `sensor_` or `temp_sensor1_` followed by a timestamp (e.g. `sensor1_2013-11-05T08:15:30-05:00`), or user data keys could be prefaced with `user_` followed by a UUID (e.g. `user_9b1899b5-eb8c-47e4-83c9-2c62f0300596`).
 
-Any of the above suggestions could apply to bucket names as well as key names. If you were building Twitter using Riak, for example, you could store tweets from each user in a different bucket and then construct key names using a combination of the prefix `tweet_` and then a timestamp. In that case, all the tweets from the user ``
+Any of the above suggestions could apply to bucket names as well as key names. If you were building Twitter using Riak, for example, you could store tweets from each user in a different bucket and then construct key names using a combination of the prefix `tweet_` and then a timestamp. In that case, all the tweets from the user BashoWhisperer123 could be housed in a bucket named `BashoWhisperer123`, and keys for tweets would look like `tweet_<timestamp>`.
 
-The possibilities are essentially endless and, as always, defined by the use case at hand. The most important thing is to ensure consistency. If you structure key or bucket names a certain way, your application may not be able to access that information later.
+The possibilities are essentially endless and, as always, defined by the use case at hand.
 
-For example, if you've been storing sensor data in a bucket with keys starting with `sensor1_` and you store an object in that bucket with the key `a1b2c3d4`, that object may be invisible to your application. The only way to see _all_ buckets available in a cluster is to run a [[list buckets|HTTP List Buckets]] operation, and the only way to see all keys available in a bucket is through a [[list keys|HTTP List Keys]] operation. Both of these operations, however, are extremely expensive, and we do not recommend relying on them in production environments.
+## A Valuable Analogy: Hashes
 
-## Knowing How to Find Keys
+Most modern programming languages supported data structures called [hashes](http://en.wikipedia.org/wiki/Hash_table) (in some languages they're known as maps or dicts or hashmaps). A useful way to think about key/value operations in Riak is to imagine object lookup as fetching values in a hash. 
 
-If you've developed a use case-specific naming strategy for keys, this often leaves an application with the following question: how do I know which keys are in a bucket? How do I knew which keys in a bucket correspond to a certain naming scheme? How can I determine
-
-There are two Riak features that can assist you with this problem, each with pros and cons: [[secondary indexes|Using Secondary Indexes]] and [[Riak Data Types|Using Data Types]].
-
-#### Object Discovery with Secondary Indexes
-
-If you are using the [[LevelDB]] storage backend for Riak, you can attach metadata to objects that enable you to find them more easily later. 
-
-#### Object Discovery with Riak Sets
+## Object Discovery with Riak Sets
 
 [[Sets|Using Data Types#sets]] are essentially lists of binaries that you can store in Riak a bucket/key location. While Riak sets have many possible uses, they can be useful for storing lists of keys (or lists of bucket names, for that matter).
 
@@ -107,10 +101,6 @@ def get_user_by_username(username):
   obj = bucket.get('user_{}'.format(username))
   return obj
 ```
-
-## The Hash Analogy
-
-Most modern programming languages supported data structures called [hashes](http://en.wikipedia.org/wiki/Hash_table) (in some languages they're known as maps or dicts or hashmaps). A useful way to think about key/value operations in Riak is to imagine object lookup as fetching values in a hash. 
 
 ## Resources
 
