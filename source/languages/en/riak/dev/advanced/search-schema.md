@@ -86,7 +86,7 @@ Here is a bare minimum skeleton Solr Schema. It won't do much for you other than
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
-<schema name="schedule" version="1.0">
+<schema name="schedule" version="1.5">
  <fields>
 
    <!-- All of these fields are required by Riak Search -->
