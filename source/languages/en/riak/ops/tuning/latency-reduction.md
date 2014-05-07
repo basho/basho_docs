@@ -7,34 +7,33 @@ audience: intermediate
 keywords: [operator, troubleshooting, latency]
 ---
 
-Although _some_ latency is unavoidable in distributed systems like Riak, there
-are a number of actions that can be undertaken to reduce latency to the lowest
-levels possible within a cluster. In this guide, we'll list potential sources of
-high latency and what you can do about it.
+Although _some_ latency is unavoidable in distributed systems like Riak,
+there are a number of actions that can be undertaken to reduce latency
+to the lowest levels possible within a cluster. In this guide, we'll
+list potential sources
+of high latency and what you can do about it.
 
 ## Large Objects
 
-Riak always performs best with smaller objects. Large objects, inserted
-mistakenly by your application or caused by siblings (see below) can
-often have a negative effect on latency.
+Riak always performs best with smaller objects. Large objects, which can
+be mistakenly inserted into Riak by your application or caused by
+siblings (see below), can often increase on latency.
 
 We recommend keeping all objects stored in Riak smaller than 1-2 MB,
 preferably below 100 KB. Large objects lead to increased I/O activity
-and strain on memory resources.
-
-Even a few large objects can impact requests that are unrelated to those
-objects due to the nature of networking buffers in distributed Erlang.
+and can put strain on memory resources. In some cases, just a few large
+objects can impact latency in a cluster, even for requests that are
+unrelated to those objects.
 
 If your use case requires large objects, we recommend checking out
-[[Riak CS]], which is intended as a cloud object storage system.
+[[Riak CS]], which is intended as a storage system for large objects.
 
 ### Mitigation
 
 The best way to find out if large objects are impacting latency is to
-monitor each node's object size stats. If you run `[[riak-admin
-status|riak-admin Command Line#status]]`, or make an `HTTP GET` request
-to Riak's `/stats` endpoint, you will see the results for the following
-metrics related to object size:
+monitor each node's object size stats. If you run `[[riak-admin status|riak-admin Command Line#status]]`,
+or make an HTTP `GET` request to Riak's `/stats` endpoint, you will see
+the results for the following metrics related to object size:
 
 Metric                        | Explanation
 :-----------------------------|:-----------
@@ -45,8 +44,8 @@ Metric                        | Explanation
 `fsm_node_get_objsize_100`    | The 100th-percentile object size encountered by this node in the last minute.
 
 The `mean` and `median` measurements may not be good indicators,
-especially if you're storing billions of keys. You should be on the
-lookout for trends in the `95`, `99`, and `100` measures:
+especially if you're storing billions of keys. Instead, you should be on
+the lookout for trends in the `95`, `99`, and `100` measures:
 
 * Is there an upward trend?
 * Do the metrics indicate that there are outliers?
@@ -59,7 +58,6 @@ Files]]:
 * If you are using the newer, `riak.conf`-based configuration system,
 the commented-out value for `erlang.distribution_buffer_size` is `32MB`.
 Uncomment this setting and re-start your node.
-
 * If you are using the older, `app.config`/`vm.args`-based configuration
 system, try increasing the `+zddbl` setting in `vm.args` to `32768` or
 higher (measured in kilobytes). This increases the size of the
@@ -70,6 +68,7 @@ Large objects can also impact latency even if they're only present on
 some nodes. If increased latency occurs only on N nodes, where N is your
 replication factor (or `n_val`), this could indicate that a single large
 object and its replicas are slowing down _all_ requests on those nodes.
+
 {{#1.4.8+}}
 Riak will log large objects and their keys to the `console.log` file.
 You can use this data to track down these objects and delete them,
@@ -84,21 +83,19 @@ Reduction Checklist#siblings]].
 
 In Riak, object conflicts are handled by keeping multiple versions of
 the object in the cluster either until a client takes action to resolve
-the conflict or until [[active anti-entropy|Riak
-Glossary#active-anti-entropy]] resolves the conflict without client
-intervention. While sibling production is normal, [[sibling
-explosion|Vector Clocks#sibling-explosion]] is a problem that can come
-about if many siblings of an object are produced. The negative effects
-are the same as those associated with [[large objects|Latency Reduction
-Checklist#large-objects]].
+the conflict or until [[active anti-entropy|Riak Glossary#active-anti-entropy]]
+resolves the conflict without client intervention. While sibling
+production is normal, [[sibling explosion|Vector Clocks#sibling-explosion]]
+is a problem that can come about if many siblings of an object are
+produced. The negative effects are the same as those associated with
+[[large objects|Latency Reduction Checklist#large-objects]].
 
 ### Mitigation
 
-The best way to monitor siblings is through the same `[[riak-admin
-status|riak-admin Command Line#status]]` interface used to monitor
-object size (or via `HTTP GET` to `/stats`). In the output of
-`riak-admin status` in each node, you'll see the following
-sibling-related statistics:
+The best way to monitor siblings is through the same `[[riak-admin status|riak-admin Command Line#status]]`
+interface used to monitor object size (or via an HTTP `GET` request to
+`/stats`). In the output of `riak-admin status` in each node, you'll see
+the following sibling-related statistics:
 
 Metric                         | Explanation
 :------------------------------|:-----------
@@ -119,7 +116,6 @@ latency issues in your cluster, you can start by checking the following:
 sure that your application is correctly resolving siblings. Be sure to
 read our documentation on [[conflict resolution]] for a fuller picture
 of how this can be done.
-
 * Application errors are a common source of problems with siblings.
 Updating the same key over and over without passing a [[vector
 clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems
@@ -139,11 +135,11 @@ eye on on your `console.log` files (and LevelDB `LOG` files if you're
 using LevelDB). Do Bitcask merging or LevelDB compaction events overlap
 with increased latencies?
 
-Our first recommendation is to examine your [[replication
-strategy|Replication Properties]] to make sure that neither R nor W are
-set to N, i.e. that you're not requiring that reads or writes go to all
-nodes in the cluster. The problem with setting `R=N` or `W=N` is that any
-request will only respond as quickly as the slowest node in the cluster.
+Our first recommendation is to examine your [[replication strategy|Replication Properties]]
+to make sure that neither R nor W are set to N, i.e. that you're not
+requiring that reads or writes go to all nodes in the cluster. The
+problem with setting `R=N` or `W=N` is that any request will only
+respond as quickly as the slowest node in the cluster.
 
 Beyond checking for `R=N` or `W=N` for requests, the recommended
 mitigation strategy depends on the backend:
@@ -154,7 +150,6 @@ With Bitcask, it's recommended that you:
 
 * Limit merging to off-peak hours to decrease the effect of merging
 cycles on node traffic
-
 * Stagger merge windows between nodes so that no more than one node is
 undergoing a merge phase at any given time
 
@@ -201,7 +196,7 @@ particular, the following guides
 
 Commands to diagnose:
 
-```
+```bash
 iowait
 netstat -i
 netstat -s
