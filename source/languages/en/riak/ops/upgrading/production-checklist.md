@@ -38,7 +38,7 @@ Making the transition from running Riak in a development or testing environment 
   - Are all of the {{#2.0.0-}}`app.config` and `vm.args`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} settings identical across the cluster?
   - Have all of the settings in your configuration file(s) that were changed for debugging purposes been reverted back to production settings?
   - If you're using [[multiple data backends|Multi]], are all of your {{#2.0.0-}}buckets{{/2.0.0-}}{{#2.0.0+}}bucket types{{/2.0.0+}} configured to use the correct backend?
-  - If you are using Riak Security, have you checked off all items in the [[security checklist|Authentication and Authorization#security-checklist]]?
+  - If you are using Riak Security, have you checked off all items in the [[security checklist|Authentication and Authorization#security-checklist]] and turned on security?
   - If you're using [[multiple data backends|Multi]], do all machines' config files agree on their configuration?
   - Do all nodes agree on the value of the `[[allow_mult|Basic Configuration]]`` setting?
   - Do you have a [[sibling resolution|Vector Clocks]] strategy in place if `allow_mult` is set to `true`?
