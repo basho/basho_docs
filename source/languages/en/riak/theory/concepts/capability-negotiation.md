@@ -22,11 +22,11 @@ With the addition of automatic capability negotiation, there are some configurat
 
 Setting | Description
 :-------|:-----------
-`riak_core/legacy_vnode_routing` | Uses the newer [[vnode|Riak Glossary#vnode]] routing layer when supported; otherwise defaults to the legacy routing protocol
+`riak_core/legacy_vnode_routing` | Uses the newer <a href="/theory/concepts/glossary/#vnode">vnode</a> routing layer when supported; otherwise defaults to the legacy routing protocol
 `riak_kv/legacy_keylisting` | Uses coverage-based keylisting (introduced in Riak 1.0) when supported; otherwise defaults to the legacy keylisting behavior
 `riak_kv/listkeys_backpressure` | Enables listkeys backpressure (introduced in Riak 1.1) when supported
-`riak_kv/mapred_2i_pipe` | Use parallel secondary-index input to [[MapReduce|Using MapReduce]] jobs (introduced in Riak 1.1) when supported
-`riak_kv/mapred_system` | Use `riak_pipe` for [[MapReduce|Using MapReduce]] jobs (introduced in Riak 1.0) when supported; otherwise default to the legacy `luke` system
+`riak_kv/mapred_2i_pipe` | Use parallel secondary-index input to <a href="/riak/latest/dev/using/mapreduce">MapReduce</a> jobs (introduced in Riak 1.1) when supported
+`riak_kv/mapred_system` | Use `riak_pipe` for <a href="/riak/latest/dev/using/mapreduce">MapReduce</a> jobs (introduced in Riak 1.0) when supported; otherwise default to the legacy `luke` system
 
 Although is not recommended, you can override capability negotiation if you wish. This must be done on a per-component basis in each node's `app.config`. You can either instruct Riak not to use capability negotiation for a specific component by setting `use` to `false` as in this example, which turns off capability negotiation for the `listkeys_backpressure` setting:
 
