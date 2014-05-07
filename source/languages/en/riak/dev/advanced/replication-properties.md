@@ -13,7 +13,8 @@ interest: [
 "[[Use Cases]]"
 ]
 moved: {
-  '1.4.0-': '/tutorials/fast-track/Tunable-CAP-Controls-in-Riak'
+  '1.4.0-1.9.9': '/tutorials/fast-track/Tunable-CAP-Controls-in-Riak',
+  '2.0.0+': '/advanced/cap-controls'
 }
 ---
 
