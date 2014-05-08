@@ -343,21 +343,27 @@ leveldb.tiered.path.fast = /mnt/fast_raid
 leveldb.tiered.path.slow = /mnt/slow_raid
 ```
 
+With this configuration, level directories `sst_0` through `sst_3` will be stored in `/mnt/fast_raid`, while directories `sst_4` and `sst_6` will be stored in `/mnt/slow_raid`.
+
 ### Selecting a Level
 
-LevelDB will perform optimally when as much data as possible is stored in the faster array. The amount of data that can be stored in the faster array depends on the size of your array and the total number of LevelDB databases (i.e. the total number of Riak [[vnodes|Riak Glossary#vnode]]) in your cluster. The following table shows approximate sizes (in megabytes) for each level in a LevelDB database:
+LevelDB will perform optimally when as much data as possible is stored in the faster array. The amount of data that can be stored in the faster array depends on the size of your array and the total number of LevelDB databases (i.e. the total number of Riak [[vnodes|Riak Glossary#vnode]]) in your cluster. The following table shows approximate sizes (in megabytes) for each of the following sizes: the amount of raw data stored in the level, the cumulative size of all levels up to the specified level, and the cumulative size including active anti-entropy data.
 
-Level | Size
-:-----|:----
-0 | 360 | 360 | 
-1 | 2160 | 2520 | 
-2 | 2940 | 5460 | 
-3 | 6144 | 11604 | 
-4 | 122880 |  |
-5 | 2362232 |  |
-6 | not limited |  |
+Level | Level Size | Cumulative Size | Cumulative with AAE
+:-----|:-----------|:----------------|:-------------------
+0 | 360 | 360 | 720
+1 | 2,160 | 2,520 | 5,040
+2 | 2,940 | 5,460 | 10,920
+3 | 6,144 | 11,604 | 23,208
+4 | 122,880 | 134,484 | 268,968
+5 | 2,362,232 | 2,496,716 | 4,993,432
+6 | not limited | not limited | not limited
 
-First: (ring size) / nodes - 1
+To select the appropriate value for `leveldb.tiered`, use the following steps:
+
+* Determine the value of (ring size) / (N - 1), where ring size is the value of the `ring_size` configuration parameter and N is the number of nodes in the cluster. For a `ring_size` of 128 and a cluster with 10 nodes, the value would be 14.
+* Select either the **Cumulative Size** or **Cumulative with AAE** column from the table above. Select the third column if you are not using active anti-entropy or the fourth column if you are (i.e. if the `anti_entropy` [[configuration parameter|Configuration Files#active-anti-entropy]] is set to `active`).
+* Multiply the value from the first step by the cumulative column in each row in the table. The first result that exceeds your fast storage array capacity will provide the level number that should be used for your `leveldb.tiered` setting.
 
 ### Migrating from One Configuration to Another
 
