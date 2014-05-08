@@ -349,13 +349,13 @@ LevelDB will perform optimally when as much data as possible is stored in the fa
 
 Level | Size
 :-----|:----
-0 | 360
-1 | 2160
-2 | 2940
-3 | 6144
-4 | 122880 
-5 | 2362232
-6 | not limited
+0 | 360 | 360 | 
+1 | 2160 | 2520 | 
+2 | 2940 | 5460 | 
+3 | 6144 | 11604 | 
+4 | 122880 |  |
+5 | 2362232 |  |
+6 | not limited |  |
 
 First: (ring size) / nodes - 1
 
