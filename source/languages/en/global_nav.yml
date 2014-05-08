@@ -178,6 +178,7 @@ riak:
           - "[[Clusters]]"
           - "[[Eventual Consistency]]"
           - "[[Keys and Objects]]"
+          - "[[Active Anti-Entropy]]"
           - "[[Links]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"

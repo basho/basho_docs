@@ -15,10 +15,10 @@ distributed systems are built to handle. These conflicts occur when
 objects are:
 
 * **missing**, as when one node holds a replica of the object and another node does not, or
-* **divergent**, as when 
+* **divergent**, as when the values of an existing object differ across nodes
 
-
-Riak offers two means of resolving such conflicts: read repair and active anti-entropy.
+Riak offers two means of resolving object conflicts: read repair and
+active anti-entropy.
 
 ## Read Repair
 
@@ -27,7 +27,8 @@ In versions of Riak prior to 1.3, replica conflicts were were healed via
 anti-entropy mechanism that heals object conflicts only when a read
 request reaches Riak from a client. If the [[vnode|Riak Glossary#vnode]]
 coordinating the read request determines that different nodes hold
-divergent values for the object, the repair process will begin.
+divergent values for the object, the repair process will be set in
+motion.
 
 One advantage of using read repair alone is that it is less expensive
 for CPU and network resources. The drawback of this approach, however,
