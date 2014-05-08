@@ -60,3 +60,6 @@ Files|Configuration Files#default_bucket_props]],
 
 ### backend
 Specify which named backend to use for the bucket when using `riak_kv_multi_backend`.
+
+### dvv_enabled
+Specifies whether dotted version vectors (DVVs) are enabled for objects in a bucket. The default is `true`. If set to `false`, conflict resolution will take place using the older [[vector clock|Vector Clocks]]-based system.
