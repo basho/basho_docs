@@ -263,58 +263,47 @@ After performing a large number of PUT (write) operations, the Riak cluster
 running eLevelDB will look something like this:
 
 ```bash
-$ tree leveldb/
-leveldb/
-|-- 0
-|   |-- 000118.sst
-|   |-- 000119.sst
-|   |-- 000120.sst
-|   |-- 000121.sst
-|   |-- 000123.sst
-|   |-- 000126.sst
-|   |-- 000127.log
-|   |-- CURRENT
-|   |-- LOCK
-|   |-- LOG
-|   |-- LOG.old
-|   `-- MANIFEST-000125
-|-- 1004782375664995756265033322492444576013453623296
-|   |-- 000120.sst
-|   |-- 000121.sst
-|   |-- 000122.sst
-|   |-- 000123.sst
-|   |-- 000125.sst
-|   |-- 000128.sst
-|   |-- 000129.log
-|   |-- CURRENT
-|   |-- LOCK
-|   |-- LOG
-|   |-- LOG.old
-|   `-- MANIFEST-000127
-|-- 1027618338748291114361965898003636498195577569280
-|   |-- 000003.log
-|   |-- CURRENT
-|   |-- LOCK
-|   |-- LOG
-|   `-- MANIFEST-000002
+tree leveldb
+```
+
+The result should look something like this:
+
+```
+├── 0
+│   ├── 000003.log
+│   ├── CURRENT
+│   ├── LOCK
+│   ├── LOG
+│   ├── MANIFEST-000002
+│   ├── sst_0
+│   ├── sst_1
+│   ├── sst_2
+│   ├── sst_3
+│   ├── sst_4
+│   ├── sst_5
+│   └── sst_6
+├── 1004782375664995756265033322492444576013453623296
+│   ├── 000003.log
+│   ├── CURRENT
+│   ├── LOCK
+│   ├── LOG
+│   ├── MANIFEST-000002
+│   ├── sst_0
+│   ├── sst_1
+│   ├── sst_2
+│   ├── sst_3
+│   ├── sst_4
+│   ├── sst_5
+│   └── sst_6
 
 ... etc ...
-
-`-- 981946412581700398168100746981252653831329677312
-    |-- 000003.log
-    |-- CURRENT
-    |-- LOCK
-    |-- LOG
-    `-- MANIFEST-000002
-
-64 directories, 433 files
 ```
 
 ## Tiered Storage
 
 Google's original LevelDB implemented stored all `.sst` table files in a single database directory. In Riak 1.3, the original LevelDB code was modified to store `.sst` files in subdirectories representing each "level" of the file, e.g. `sst_0` or `sst_1`, in the name of speeding up database repair operations.
 
-An additional advantage of this approach is that it enables Riak operators to mount alternative storage devices at each level of a LevelDB database. This can be an effective strategy because LevelDB is heavily write intensive in lower levels, with the write intensity declining as the level number increases. This is due to LevelDB's storage strategy, which places more frequently updated data in lower levels.
+An additional advantage of this approach is that it enables Riak operators to mount alternative storage devices at each level of a LevelDB database. This can be an effective strategy because LevelDB is write intensive in lower levels, with the write intensity declining as the level number increases. This is due to LevelDB's storage strategy, which places more frequently updated data in lower levels.
 
 Because write intensity differs by level, performance can be improved by mounting faster, more expensive storage arrays in lower levels and slower, less expensive arrays at higher levels. Tiered storage enables you to configure the level at which LevelDB switches from a faster array to a slower array. 
 
