@@ -11,7 +11,7 @@ Bucket types allow groups of buckets to share configuration details and for Riak
 
 <div class="note">
 <div class="title">Important note on cluster downgrades</div>
-If you upgrade a Riak to version 2.0 or later, you can still downgrade the cluster to a pre-2.0 version <em>if and only if you have not created and activated a bucket type in the cluster</em>. Once any bucket type has been created and activated, you can no longer downgrade the cluster to a pre-2.0 version.
+If you upgrade a Riak to version 2.0 or later, you can still downgrade the cluster to a pre-2.0 version <em>if you have not created and activated a bucket type in the cluster</em>. Once any bucket type has been created and activated, you can no longer downgrade the cluster to a pre-2.0 version.
 </div>
 
 ## How Bucket Types Work
