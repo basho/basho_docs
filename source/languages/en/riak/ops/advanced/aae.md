@@ -1,5 +1,5 @@
 ---
-title: Active Anti-Entropy
+title: Managing Active Anti-Entropy
 project: riak
 version: 1.3.0+
 document: guide
