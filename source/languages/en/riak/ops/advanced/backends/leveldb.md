@@ -312,33 +312,55 @@ leveldb/
 
 ## Tiered Storage
 
-Google's original LevelDB implemented stored all `.sst` table files in a single database directory. In Riak 1.3, the original LevelDB code was modified to store `.sst` files in subdirectories representing each "level" of the file, i.e. `sst_0`, `sst_1`, etc., in the name of speeding up database repair operations. The downside was that Riak operators needed to manually create the necessary directory links. Beginning with Riak 2.0, the process of using alternative storage arrays based on levels has been automated. 
+Google's original LevelDB implemented stored all `.sst` table files in a single database directory. In Riak 1.3, the original LevelDB code was modified to store `.sst` files in subdirectories representing each "level" of the file, e.g. `sst_0` or `sst_1`, in the name of speeding up database repair operations.
 
-The advantage of using multiple storage arrays is that LevelDB is a heavily write intensive in its lower levels, with write intensity declining as the level number increases. Furthermore, frequently updated data tends to be in lower levels. Thus, it's optimal to have faster, more expensive storage arrays for the higher-intensity lower levels and slower, less expensive arrays at higher levels.
+An additional advantage of this approach is that it enables Riak operators to mount alternative storage devices at each level of a LevelDB database. This can be an effective strategy because LevelDB is heavily write intensive in lower levels, with the write intensity declining as the level number increases. This is due to LevelDB's storage strategy, which places more frequently updated data in lower levels.
 
-Be aware that high-volume, sustained write operations can fill the higher-speed storage arrays before LevelDB has had the opportunity to move data to the low-speed arrays. LevelDB's write throttle will slow incoming write operations to allow compactions to catch up, as would be the case when using a single storage array.
+Because write intensity differs by level, performance can be improved by mounting faster, more expensive storage arrays in lower levels and slower, less expensive arrays at higher levels. Tiered storage enables you to configure the level at which LevelDB switches from a faster array to a slower array. 
+
+<div class="note">
+<div class="title">Note on write throttling</div>
+High-volume, sustained write operations can occasionally fill the higher-speed storage arrays before LevelDB has had the opportunity to move data to the low-speed arrays. LevelDB's write throttle will slow incoming write operations to allow compactions to catch up, as would be the case when using a single storage array.
+</div>
 
 ### Configuration
 
-The following parameters can be used to tune tiered storage.
+The following parameters can be used to configure LevelDB tiered storage:
 
 Parameter | Description
 :---------|:-----------
-`leveldb.tiered` | The level number at which data should switch to the slower array. The default is `_0`, which disables the feature.
+`leveldb.tiered` | The level number at which data should switch to the slower array. The default is `0`, which disables the feature.
 `leveldb.tiered.path.fast` | The path prefix for `.sst` files below the level set by `leveldb.tiered`
 `leveldb.tiered.path.slow` | The path prefix for `.sst` files at and above the level set by `leveldb.tiered`
 
-The following example LevelDB tiered storage configuration for Riak 2.0 sets the 
+#### Example
+
+The following example LevelDB tiered storage [[configuration|Configuration Files]] for Riak 2.0 sets the level for switching storage arrays to 4 and the file path prefix to `fast_raid` for the faster array and `slow_raid` for the slower array:
 
 ```riakconf
-leveldb.data_root = .
 leveldb.tiered = 4
 leveldb.tiered.path.fast = /mnt/fast_raid
 leveldb.tiered.path.slow = /mnt/slow_raid
 ```
 
-**Note**: If you would like to use tiered storage in an installation that is not currently using it, you need to _manually_ move your insallation's `.sst` table files from one configuration to another. If you're starting a fresh installation of Riak, however, this is not necessary.
-
 ### Selecting a Level
 
-LevelDB will perform optimally when as much data as possible is stored in the faster array. How much data can be stored in the faster array depends on the size of your array and the total number of databases (i.e. the total number of Riak [[vnodes|Riak Glossary#vnode]])
+LevelDB will perform optimally when as much data as possible is stored in the faster array. The amount of data that can be stored in the faster array depends on the size of your array and the total number of LevelDB databases (i.e. the total number of Riak [[vnodes|Riak Glossary#vnode]]) in your cluster. The following table shows approximate sizes (in megabytes) for each level in a LevelDB database:
+
+Level | Size
+:-----|:----
+0 | 360
+1 | 2160
+2 | 2940
+3 | 6144
+4 | 122880 
+5 | 2362232
+6 | not limited
+
+First: (ring size) / nodes - 1
+
+### Migrating from One Configuration to Another
+
+If you want to use tiered storage in a new Riak installation, you don't need to take any steps beyond setting configuration. The rest is automated.
+
+But if you'd like to use tiered storage in an existing installation that is not currently using it, you will need to manually move your installation's `.sst` files from one configuration to another.
