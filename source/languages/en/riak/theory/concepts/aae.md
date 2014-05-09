@@ -43,6 +43,9 @@ called "cold data" that may not be read for long periods of time, even
 months or years, and is thus not reachable by read repair.
 
 Although AAE is enabled by default, it can be turned off if necessary.
+See our documentation on [[managing active anti-entropy]] for
+information on how to enable and disable AAE, as well as on configuring
+and monitoring AAE.
 
 ## AAE and Scalability
 
@@ -68,13 +71,15 @@ are twofold:
 * Riak nodes can be restarted without needing to rebuild hash trees
 
 In addition, hash trees are updated in real time as new writes come in,
-which reduces the time that it takes for detect and repair missing or
-divergent replicas. And as an additional fallback measure, Riak
-periodically clears and regenerates all hash trees from on-disk key/
-value data, which enables Riak to detect silent data corruption to on-
-disk data arising from disk failure, faulty hardware, and other sources.
-The default time period for this regeneration is one week, but this can
-be adjusted in each node's [[configuration file|Configuration Files#active-anti-entropy]].
+which reduces the time that it takes to detect and repair missing or
+divergent replicas.
+
+As an additional fallback measure, Riak periodically clears and
+regenerates all hash trees from on-disk key/value data, which enables
+Riak to detect silent data corruption to on-disk data arising from disk
+failure, faulty hardware, and other sources. The default time period for
+this regeneration is one week, but this can be adjusted in each node's
+[[configuration file|Configuration Files#active-anti-entropy]].
 
 ## Resources
 
