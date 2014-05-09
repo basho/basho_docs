@@ -80,13 +80,13 @@ This means that our schema should handle `name`, `age`, `leader`, `aliases.name`
 
 ### Required Schema Fields
 
-Solr schemas can be very complex with many types and analyzers. Refer to the [Solr 4.4 reference guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.4.pdf) for a complete list. But Riak Search requires a few fields in order to properly distribute an object across a cluster. These fields are all prefixed with `_yz`, which stands for *Yokozuna*, the project name that makes Riak Search function.
+Solr schemas can be very complex with many types and analyzers. Refer to the [Solr 4.7 reference guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.7.pdf) for a complete list. But Riak Search requires a few fields in order to properly distribute an object across a cluster. These fields are all prefixed with `_yz`, which stands for *Yokozuna*, the project name that makes Riak Search function.
 
 Here is a bare minimum skeleton Solr Schema. It won't do much for you other than allow Riak Search to properly manage your stored objects.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
-<schema name="schedule" version="1.0">
+<schema name="schedule" version="1.5">
  <fields>
 
    <!-- All of these fields are required by Riak Search -->
