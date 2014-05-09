@@ -20,7 +20,7 @@ objects are:
 Riak offers two means of resolving object conflicts: read repair and
 active anti-entropy.
 
-## Read Repair
+## Read Repair vs. AAE
 
 In versions of Riak prior to 1.3, replica conflicts were were healed via
 [[read repair|Riak Glossary#read-repair]] alone, which is a _passive_
@@ -42,7 +42,7 @@ not run continuously. AAE is most useful in clusters containing so-
 called "cold data" that may not be read for long periods of time, even
 months or years, and is thus not reachable by read repair.
 
-AAE is enabled by default in Riak.
+Although AAE is enabled by default, it can be turned off if necessary.
 
 ## AAE and Scalability
 
@@ -57,12 +57,12 @@ This enables Riak to compare hashes of values instead of
 the entire value of objects, which ensures that roughly the same amount
 of information is exchanged when there are 10 differing replicas out of
 1 million keys as when there are 10 differing replicas out of 1 billion
-keys. The result is that AAE is able to run repair operations regardless
-of how many objects are stored in a cluster.
+keys. The result is that AAE is able to efficiently run repair
+operations regardless of how many objects are stored in a cluster.
 
 In contrast with related systems, Riak uses persistent, on-disk hash
-trees instead of in-memory hash trees for use in repair operations. The
-advantages of this approach are twofold:
+trees instead of in-memory hash trees. The advantages of this approach
+are twofold:
 
 * Riak can run AAE operations with a minimal impact on memory usage
 * Riak nodes can be restarted without needing to rebuild hash trees
