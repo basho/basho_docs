@@ -74,7 +74,7 @@ Stat                                  | Description
 `vnode_puts`                          | Number of PUT operations coordinated by local vnodes on this node in the last minute
 `vnode_index_refreshes`               | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
 `vnode_index_reads`                   | Number of local replicas participating in secondary index reads in the last minute
-`vnode_index_writes`                  | Number of local replcias participating in secondary index writes in the last minute
+`vnode_index_writes`                  | Number of local replicas participating in secondary index writes in the last minute
 `vnode_index_writes_postings`         | Number of individual secondary index values written in the last minute
 `vnode_index_deletes`                 | Number of local replicas participating in secondary index deletes in the last minute
 `vnode_index_deletes_postings`        | Number of individual secondary index values deleted in the last minute
