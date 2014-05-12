@@ -45,12 +45,44 @@ The role that DVVs play in Riak is directly analogous to that of
 [[vector clocks]], as both are used to resolve object conflicts, whether
 during background operations like [[active anti-entropy]] or
 [[read repair|Riak Glossary#read-repair]], or when applications engage
-in client-side [[conflict resolution]].
+in client-side [[conflict resolution]]. The crucial difference between
+them, however, lies in the way that they handle concurrent updates.
 
-There are, however, a few core differences:
+Vector clocks do not have a mechanism to detect concurrent updates. If
+an object stored in the bucket `frequent_updates` with the
+key `update_me` is updated by five different clients concurrently and
+tagged with vector clocks, Riak will not be given a means to decide
+which object should be deemed most causally recent. The result is that
+concurrent updates will often produce duplicate values, which can in 
+turn lead to [[sibling explosion|Vector Clocks#sibling-explosion]] and
+thus undue [[latency|Latency Reduction Checklist]].
 
-* DVVs are better than vector clocks at preventing [[sibling explosion|Vector Clocks#sibling-explosion]] because they contain more granular information. The difference is that in the case of causally concurrent values, all values are kept.
-* DVVs are more scalable than vector clocks because they are both more lightweight in terms of raw byte length and also in terms of how they grow in size. In contrast to vector clocks, the size of DVVs remains proportional to their objects' replication degree.
+DVVs, on the other hand, were designed with concurrent updates in mind.
+They carry more granular information about causality than vector clocks.
+If five clients concurrently update the object above (in the bucket 
+`frequent_updates`, with the key `update_me`), each of these updates
+will be marked with a _dotted_ vector that indicates both which actors
+have updated the object and how many times they have done so. While
+siblings can still be created in case of concurrent updates when using
+DVVs, sibling explosion is far less likely.
+
+In terms of performance, the different between vector clocks and DVVs
+should be minimal in most cases, although it should be noted that
+DVVs tend to be more lightweight.
+
+## Usage
+
+From an application's perspective, vector clocks and DVVs function in
+exactly the same fashion. Object updates using DVVs involve the same
+sequence in interacting with Riak: fetch an object from Riak, read the
+vector clock or DVV from the object's metadata, and then pass that 
+vector clock or DVV back to Riak when you update the object. There's a 
+good chance that you will not need to modify your application code, with
+the exception of ensuring that the right bucket types and buckets are
+being targeted after the `dvv_enabled` parameter has been changed.
+
+More on using vector clocks and DVVs on the application side can be
+found in the our documentation on [[conflict resolution]].
 
 ## Resources
 
