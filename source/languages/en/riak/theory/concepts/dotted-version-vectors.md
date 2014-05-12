@@ -9,7 +9,7 @@ audience: advanced
 When storing data in [[eventually consistent|Eventual Consistency]]---as
 opposed to [[strongly consistent|Strong Consistency]]---systems,
 applications need to select a means of dealing with [[object replica conflicts|Conflict Resolution]],
-which are always a possibility due to the very nature of multi-node,
+which are always a possibility due to the nature of multi-node,
 [[clustered|Clusters]] systems.
 
 In versions of Riak prior to 2.0, conflict resolution, whether on the
