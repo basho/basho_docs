@@ -94,19 +94,24 @@ disks with noatime and having separate disks for your OS and Riak data
 lead to much better performance. See [[System Planning|Planning for a Riak System]]
 for more information.
 
-<div class="note">
-<div class="title">Note on cluster capacity and ownership handoff</div>
-When Riak nodes fail or leave the cluster for some other reason, other
-nodes in the cluster begin engaging in the process of <strong>ownership
-handoff</strong>, whereby the remaining nodes assume ownership of the
-data partitions handled by the node that has left.
+### Disk Space Planning and Ownership Handoff
 
-While this is a normal state of affairs in Riak, one side effect is that
-this requires more intensive disk space usage from the other nodes,
-in rare cases to the point of filling the disk of one or more of those
-nodes. This possibility should be borne in mind when making disk space
-planning decisions.
-</div>
+When Riak nodes fail or leave the cluster for some other reason, other
+nodes in the cluster begin engaging in the process of **ownership
+handoff**, whereby the remaining nodes assume ownership of the
+data partitions handled by the node that has left. While this is an
+expected state of affairs in Riak, one side effect is that this requires
+more intensive disk space usage from the other nodes, in rare cases to
+the point of filling the disk of one or more of those nodes.
+
+When making disk space planning decisions, we recommend that you:
+
+* assume that one or more nodes may be down at any time, and
+* monitor your disk space usage and add additional space when usage exceeds 50-60% of available space.
+
+Another possibility worth considering is using Riak with a filesystem
+that allows for growth, for example [LVM](http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)),
+[RAID](http://en.wikipedia.org/wiki/RAID), or [ZFS](http://en.wikipedia.org/wiki/ZFS).
 
 ## Read/Write Profile
 
