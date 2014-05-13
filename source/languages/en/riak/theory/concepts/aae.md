@@ -31,7 +31,7 @@ Instructions on doing so
 
 {{/2.0.0+}}
 
-## Read Repair vs. AAE
+## Read Repair vs. Active Anti-Entropy
 
 In versions of Riak prior to 1.3, replica conflicts were were healed via
 [[read repair|Riak Glossary#read-repair]] alone, which is a _passive_
@@ -58,7 +58,7 @@ See our documentation on [[managing active anti-entropy]] for
 information on how to enable and disable AAE, as well as on configuring
 and monitoring AAE.
 
-## AAE and Scalability
+## Active Anti-Entropy and Scalability
 
 In order to compare object values between replicas without using more
 resources than necessary, Riak relies on [Merkle tree](http://en.wikipedia.org/wiki/Merkle_tree)
@@ -95,4 +95,5 @@ this regeneration is one week, but this can be adjusted in each node's
 ## Resources
 
 * [Active Anti-Entropy video](http://coffee.jtuple.com/video/AAE.html) by Basho engineer [Joseph Blomstedt](https://github.com/jtuple)
+* [Riak 1.3 Release Notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy)
 

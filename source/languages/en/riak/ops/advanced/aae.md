@@ -12,7 +12,7 @@ that repairs object conflicts stemming from missing or divergent object
 values across nodes. Riak operators can turn AAE on and off and
 configure and monitor its functioning.
 
-## Enabling AAE
+## Enabling Active Anti-Entropy
 
 Whether AAE is currently enabled in a node is determined by the value of
 the `anti_entropy` parameter in the node's [[configuration files]]. In
@@ -51,7 +51,7 @@ anti_entropy = active-debug
 Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
 for any configuration-related changes to take effect.
 
-## Disabling AAE
+## Disabling Active Anti-Entropy
 
 Alternatively, AAE can be switched off if you would like to repair
 object conflicts using [[read repair|Active Anti-Entropy#read-repair]]
@@ -85,6 +85,9 @@ example above, but this can be changed. See the section below titled
 
 Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
 for any configuration-related changes to take effect.
+
+The directory deletion method above can also be used to force a
+rebuilding of hash trees.
 
 ## Monitoring AAE
 
@@ -251,3 +254,5 @@ concurrently. The default is `2`.
 The `anti_entropy.max_open_files` parameter sets an open-files limit for
 AAE-related background tasks, analogous to [[open files limit]] settings
 used in operating systems. The default is `20`.
+
+## AAE and Performance
