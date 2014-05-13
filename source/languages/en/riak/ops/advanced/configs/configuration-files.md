@@ -1295,7 +1295,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><tt>anti_entropy</tt></td>
-<td>How Riak will repair out-of-sync keys. Some features require this to be set to <tt>active</tt>, including search. If set to <tt>active</tt>, out-of-sync keys will be repaired in the background; if set to <tt>passive</tt>, out-of-sync keys are only repaired on read; and if set to <tt>active-debug</tt>, verbose debugging information will be output.</td>
+<td>How Riak will repair out-of-sync keys. If set to <tt>active</tt>, out-of-sync keys will be repaired in the background; if set to <tt>passive</tt>, out-of-sync keys are only repaired on read; and if set to <tt>active-debug</tt>, verbose debugging information will be output.</td>
 <td><tt>active</tt></td>
 </tr>
 
