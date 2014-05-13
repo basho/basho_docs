@@ -57,6 +57,11 @@ Next, add this to the `riak_core` section of `app.config`:
 You should never set `allow_mult` to any value other than `true`. If this is not set to `true`, certain writes will be chosen arbitrarily by timestamp,
 potentially leading to data loss and other inconsistencies.
 
+<div class="note">
+<div class="title">Note on <tt>allow_mult</tt> and Riak clients</div>
+In Riak CS, the <tt>allow_mult=true</tt> setting is used only internally. Clients connecting to Riak will not need to engage in conflict resolution or deal with siblings.
+</div>
+
 {{#1.4.0+}} <div class="note"><div class="title">Note</div>As of version 1.4,
 Riak CS will refuse to start if <tt>allow_mult</tt> is not set to <tt>true</tt>.</div>
 {{/1.4.0+}}
