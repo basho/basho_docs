@@ -86,6 +86,66 @@ example above, but this can be changed. See the section below titled
 Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
 for any configuration-related changes to take effect.
 
+## Monitoring AAE
+
+Riak's command-line interface includes a command that provides insight
+into AAE-related processes and performance:
+
+```bash
+riak-admin aae-status
+```
+
+When you run this command in a node, the output will look like this
+(shortened for the sake of brevity):
+
+```
+================================== Exchanges ==================================
+Index                                              Last (ago)    All (ago)
+-------------------------------------------------------------------------------
+0                                                  19.0 min      20.3 min
+22835963083295358096932575511191922182123945984    18.0 min      20.3 min
+45671926166590716193865151022383844364247891968    17.3 min      19.8 min
+68507889249886074290797726533575766546371837952    16.5 min      18.3 min
+91343852333181432387730302044767688728495783936    15.8 min      17.3 min
+...
+
+================================ Entropy Trees ================================
+Index                                              Built (ago)
+-------------------------------------------------------------------------------
+0                                                  5.7 d
+22835963083295358096932575511191922182123945984    5.6 d
+45671926166590716193865151022383844364247891968    5.5 d
+68507889249886074290797726533575766546371837952    4.3 d
+91343852333181432387730302044767688728495783936    4.8 d
+
+================================ Keys Repaired ================================
+Index                                                Last      Mean      Max
+-------------------------------------------------------------------------------
+0                                                     0         0         0
+22835963083295358096932575511191922182123945984       0         0         0
+45671926166590716193865151022383844364247891968       0         0         0
+68507889249886074290797726533575766546371837952       0         0         0
+91343852333181432387730302044767688728495783936       0         0         0
+
+```
+
+Each of these three tables contains information for each [[vnode|Riak Glossary#vnode]]
+in your cluster in these three categories:
+
+Category | Measures | Description
+:--------|:---------|:-----------
+**Exchanges** | `Last` | When the most recent exchange between a data partition and one of its sibling replicas was performed
+  | `All` | How long it has been since a partition exchanged will all of its sibling replicas
+**Entropy Trees** | `Built` | When the hash trees for a given partition were created
+**Keys Repaired** | `Last` | The number of keys repaired during all key exchanges since the last node restart
+  | `Mean` | The mean number of keys repaired during all key exchanges since the last node restart
+  | `Max` | The maximum number of keys repaired during all key exchanges since the last node restart
+
+All AAE status information obtainable using the `riak-admin aae-status`
+command is stored in-memory and is reset when a node is restarted with
+the exception of hash tree build information, which is persisted on disk
+(because hash trees themselves are persisted on disk).
+
 ## Configuring AAE
 
 Riak's [[configuration files]] enable you not just to turn AAE on and
