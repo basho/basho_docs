@@ -18,7 +18,18 @@ objects are:
 * **divergent**, as when the values of an existing object differ across nodes
 
 Riak offers two means of resolving object conflicts: read repair and
-active anti-entropy.
+active anti-entropy (AAE).
+
+{{#2.0.0+}}
+
+<div class="note">
+<div class="title">Note on AAE and strong consistency</div>
+If you wish to use Riak's <a href="/riak/dev/advanced/strong-consistency">strong consistency</a>
+feature for some or all of your data, you will need to activate AAE.
+Instructions on doing so 
+</div>
+
+{{/2.0.0+}}
 
 ## Read Repair vs. AAE
 

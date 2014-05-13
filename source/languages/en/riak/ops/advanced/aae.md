@@ -12,7 +12,7 @@ that repairs object conflicts stemming from missing or divergent object
 values across nodes. Riak operators can turn AAE on and off and
 configure and monitor its functioning.
 
-## Enabling and Disabling AAE
+## Enabling AAE
 
 Whether AAE is currently enabled in a node is determined by the value of
 the `anti_entropy` parameter in the node's [[configuration files]]. In
@@ -48,6 +48,11 @@ anti_entropy = active-debug
 ]}
 ```
 
+Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
+for any configuration-related changes to take effect.
+
+## Disabling AAE
+
 Alternatively, AAE can be switched off if you would like to repair
 object conflicts using [[read repair|Active Anti-Entropy#read-repair]]
 alone:
@@ -66,15 +71,27 @@ anti_entropy = passive
 ]}
 ```
 
-Remember that you will need to then [[restart the node|riak-admin Command Line#restart]]
-for those changes to take effect.
+If you would like to reclaim the disk space used by AAE operations, you
+must manually delete the directory in which AAE-related data is stored
+in each node.
+
+```bash
+rm -Rf <path_to_riak_node>/data/anti_entropy/*
+```
+
+The default directory for AAE data is `./data/anti_entropy`, as in the
+example above, but this can be changed. See the section below titled
+**Data Directory**.
+
+Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
+for any configuration-related changes to take effect.
 
 ## Configuring AAE
 
 Riak's [[configuration files]] enable you not just to turn AAE on and
-off but also to fine-tune your cluster's use of AAE, for example how
-much memory AAE processes consume, how frequently specific processes are
-run, etc.
+off but also to fine-tune your cluster's use of AAE, e.g. how
+much memory AAE processes should consume, how frequently specific
+processes should be run, etc.
 
 ### Data Directory
 
@@ -93,13 +110,45 @@ default is `on`.
 
 #### Throttling Tiers
 
+If you active AAE throttling, you can use **tiered throttling** to
+establish a series of vnode mailbox-size thresholds past which a
+user-specified time delay should be observed. This enables you to
+establish, for example, that a delay of 10 milliseconds should be
+observed if the mailbox of any vnode reaches 50 messages.
 
+The general form for setting throttling tiers is as follows:
+
+```riakconf
+anti_entropy.throttle.$tier.mailbox_size
+anti_entropy.throttle.$tier.delay
+```
+
+In the above example, `$tier` should be replaced with the desired
+name for that tier, e.g. `tier1`, `large_mailbox_tier`, etc. If you
+choose to set throttling tiers, you will need to set the mailbox size
+for one of the tiers to 0. Both the `.mailbox_size` and `.delay`
+parameters must be set for each tier.
+
+Below is an example configuration for three tiers, with mailbox sizes of
+0, 50, and 100 and time delays of 5, 10, and 15 milliseconds,
+respectively:
+
+```riakconf
+anti_entropy.throttle.tier1.mailbox_size = 0
+anti_entropy.throttle.tier1.delay = 5ms
+anti_entropy.throttle.tier1.mailbox_size = 50
+anti_entropy.throttle.tier1.delay = 10ms
+anti_entropy.throttle.tier1.mailbox_size = 100
+anti_entropy.throttle.tier1.delay = 15ms
+```
 
 ### Bloom Filters
 
 Bloom filters are mechanisms used to prevent reads that are destined to
 fail because no object exists in the location that they're querying.
-Using bloom filters can speed 
+Using bloom filters can improve reaction time for some queries, but
+entail a small general performance cost. You can switch bloom filters
+on and off using the `anti_entropy.bloomfilter` parameter.
 
 ### Trigger Interval
 
@@ -111,7 +160,7 @@ at the risk of
 
 ### Hash Trees
 
-As fallback measure in addition to the normal operation of AAE on-disk
+As a fallback measure in addition to the normal operation of AAE on-disk
 hash trees, Riak periodically clears and regenerates all hash trees
 stored on disk to ensure that hash trees correspond to the key/value
 data stored in Riak. This enables Riak to detect silent data corruption
@@ -123,15 +172,22 @@ is once a week (`1w`). You can set up this process to run once a day
 In addition to specifying how often Riak expires hash trees after they
 are built, you can also specify how quickly and how many hash trees are
 built. You can set the frequency using the `anti_entropy.tree.build_limit.per_timespan`
-parameter, for which the default is every hour (`1h`); the number of 
+parameter, for which the default is every hour (`1h`); the number of
+hash trees
 
-### Concurrency Limits
+### Write Buffer Size
+
+While you are free to choose the backend for data storage in Riak, 
+background AAE processes use [[LevelDB]]. You can adjust the size of the
+write buffer used by LevelDB for hash tree generation using the 
+`anti_entropy.write_buffer_size` parameter. The default is `4MB`.
+
+### Open Files and Concurrency Limits
 
 The `anti_entropy.concurrency_limit` parameter determines how many AAE
 cross-node information exchanges or hash tree builds can happen
 concurrently. The default is `2`.
 
-## Monitoring AAE
-
-
-
+The `anti_entropy.max_open_files` parameter sets an open-files limit for
+AAE-related background tasks, analogous to [[open files limit]] settings
+used in operating systems. The default is `20`.
