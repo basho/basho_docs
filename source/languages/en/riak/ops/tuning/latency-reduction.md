@@ -10,8 +10,7 @@ keywords: [operator, troubleshooting, latency]
 Although _some_ latency is unavoidable in distributed systems like Riak,
 there are a number of actions that can be undertaken to reduce latency
 to the lowest levels possible within a cluster. In this guide, we'll
-list potential sources
-of high latency and what you can do about it.
+list potential sources of high latency and what you can do about it.
 
 ## Large Objects
 
@@ -221,5 +220,5 @@ discarded due to overload protection.
 
 * The fsm limits can be increased, but disabling overload protection
 entirely is not recommended.  More details on these settings are
-available in the release notes:
-https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md
+available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md)
+for Riak version 1.3.
