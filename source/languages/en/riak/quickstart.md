@@ -40,7 +40,7 @@ The following links provide platform-specific instructions for downloading and i
 
 ### Build Riak
 
-So now you have a copy of Riak installed locally. It's time to build it. Do this by accessing the *riak* directory and running `make all`
+You should now have a copy of Riak installed locally. It's time to build it. Do this by accessing the `riak` directory from your install and running `make all`:
 
 ```bash
 cd riak-{{VERSION}}
@@ -51,7 +51,7 @@ make all
 
 ## Start Up Five Nodes
 
-Now that Riak is built, we are going to use [Rebar](https://github.com/basho/rebar), a packaging and build system for Erlang applications, to get five self-contained Riak nodes running on your machine. When you put Riak into production, Rebar will enable you to ship a pre-built Riak package to your deployment machines. But for now, we'll just stick to the five nodes. You can set the number of nodes you wish to create via `DEVNODES` To start these up, run:
+Now that Riak is built, use [Rebar](https://github.com/basho/rebar), a packaging and build system for Erlang applications, to get five self-contained Riak nodes running on your machine. When you put Riak into production, Rebar will enable you to ship a pre-built Riak package to your deployment machines. But for now, we'll just stick to the five nodes. You can set the number of nodes you wish to create via `DEVNODES`. To start up five nodes:
 
 ```bash
 make devrel DEVNODES=5
@@ -63,23 +63,24 @@ You have just generated a `dev` directory. Let's go into that directory to check
 cd dev; ls
 ```
 
-That should give you the following:
+You will see that five directories beginning with `dev` have been created:
 
 ```bash
 dev1       dev2       dev3       dev4       dev5
 ```
 
-Each directory starting with `dev` is a complete, self-contained package containing a Riak node. We need to start each node individually. Let's start with `dev1`:
+Each of these directories is a complete, self-contained package containing a Riak node. We need to start each node individually. Let's start with `dev1`:
 
 ```bash
 dev1/bin/riak start
 ```
 
 <div class="note">
-<div class="title"><tt>ulimit</tt> warning</div>At this point you may receive a warning message to increase the number of open file handles (<tt>ulimit</tt>).  See [[Open Files Limit]] for platform-specific instructions on doing this.
+<div class="title"><tt>ulimit</tt> warning</div>
+At this point, you may receive a warning message to increase the number of open file handles <tt>ulimit</tt> in your operating system. See [[Open Files Limit]] for platform-specific instructions on doing this.
 </div>
 
-Then do the same for `dev2` through `dev5`
+Once you've started the node in `dev1`, do the same for `dev2` through `dev5`:
 
 ```bash
 dev2/bin/riak start
@@ -91,7 +92,7 @@ dev5/bin/riak start
 Of if you prefer more succinct commands, you can use a `for` loop to iterate through and start the available nodes:
 
 ```bash
-$ for node in `ls`; do $node/bin/riak start; done
+for node in `ls`; do $node/bin/riak start; done
 ```
 
 ### Check Running Nodes
@@ -108,13 +109,13 @@ This should give you granular details on the five running Riak nodes. If you'd l
 dev1/bin/riak ping
 ```
 
-If the response is `PONG`, then the node is up and running. Otherwise, the node is currently stopped and will return something like the following:
+If the response is `pong`, then the node is up and running. Otherwise, the node is currently stopped and will return something like the following:
 
 ```bash
 Node 'dev1@127.0.0.1' not responding to pings.
 ```
 
-Alternatively, you can run a command like the following to iterate through each node and return its current status:
+Alternatively, you can run a command to iterate through each node and return its current status:
 
 ```bash
 for node in `ls`; do $node/bin/riak ping; done
@@ -122,7 +123,9 @@ for node in `ls`; do $node/bin/riak ping; done
 
 ## Create the Cluster
 
-The next step is to join these five nodes together to form a *cluster*. You can do this using the Riak Admin tool. Specifically, what we want to do is join `dev2`, `dev3`, `dev4`, and `dev5` to `dev1`:
+You now have five nodes up and running, they are not yet connected to one another, i.e. they do not yet form a Riak [[cluster|Clusters]]. And so the next step is to join the nodes together into a cohesive unity. You can do this using the `[[riak-admin|riak-admin Command Line]]` command interface. The `riak-admin` script, like the `riak` script used above, is found in the `bin` directory of each Riak node.
+
+This command will link `dev1` to `dev2`, `dev3`, `dev4`, and `dev5`:
 
 ```bash
 dev2/bin/riak-admin cluster join dev1@127.0.0.1
@@ -137,7 +140,9 @@ Or alternatively:
 for n in {2..5}; do dev$n/bin/riak-admin cluster join dev1@127.0.0.1; done
 ```
 
-To make the above joins take effect, you first must review the `plan`:
+Notice that you don't need to connect every node to every single other node. Once two nodes have been joined, they will share all the information necessary to join _all_ of the nodes into a unity. Thus, if `dev1` is joined to `dev2` and also to `dev5`, `dev2` and `dev5` will be able to communicate with one another.
+
+At this point, the nodes have not yet been joined. Instead, the join operations have been _staged_ and are ready to be committed. To make those joins take effect, you first must review the planned cluster changes:
 
 ```bash
 dev1/bin/riak-admin cluster plan
@@ -145,7 +150,7 @@ dev1/bin/riak-admin cluster plan
 
 **Note**: The plan for the entire cluster can be reviewed on *any* node in the cluster.
 
-The plan will print out a synopsis of what it plans to do, and how the cluster will look after this is completed.
+The `plan` command will print out a synopsis of what changes will be made to the cluster on commit and how the cluster will look after the changes are complete.
 
 ```bash
 =============================== Staged Changes ================================
@@ -182,7 +187,7 @@ Transfers resulting from cluster changes: 51
   13 transfers from 'dev1@127.0.0.1' to 'dev2@127.0.0.1'
 ```
 
-Finally, you can commit the batch:
+Finally, you can commit the join commands that you staged and then reviewed:
 
 ```bash
 dev2/bin/riak-admin cluster commit
@@ -191,13 +196,13 @@ dev2/bin/riak-admin cluster commit
 **Note**: Changes to a cluster can be committed from any node.
 
 <div class="info">
-<div class="title">About riak-admin</div>
-<tt>riak-admin</tt> is Riak's administrative tool. It's used to perform any operational tasks other than starting and stopping a node (e.g. to join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the <tt>riak-admin</tt> command [[here|riak-admin Command Line]].
+<div class="title">About <tt>riak-admin</tt></div>
+<tt>riak-admin</tt> is Riak's administrative tool. It's used to perform any operational tasks beyond starting and stopping a node (e.g. to join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the <tt>riak-admin</tt> command [[here|riak-admin Command Line]].
 </div>
 
 ## Test the Cluster
 
-Now we now a have a running five-node Riak cluster. Let's make sure it's working properly. For this we have a couple of options. A simple option is to run the `member-status` command on one of our nodes:
+Now we now a have a running five-node Riak cluster. Let's make sure it's working properly. For this we have a couple of options, the simplest of which is to run the `member-status` command on one of our nodes:
 
 ```bash
 dev1/bin/riak-admin member-status
@@ -218,22 +223,56 @@ valid      18.8%      --      'dev5@127.0.0.1'
 Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 ```
 
-If you wish, you can add a file to your Riak cluster and test whether or not it's working properly. Let's say that we want to store an image in Riak and to make sure it's accessible. First, copy an image to your directory if you don't already have one:
+If you wish, you can add a file to your Riak cluster and test whether or not it's working properly. Let's store a simple object in Riak (a text snippet) and then fetch it. The easiest way to get started is Riak's [[HTTP API]].
 
-```bash
-cp ~/image/location/image_name.jpg .
-```
-
-We can then `PUT` that image into Riak using a `curl` command. Your HTTP port might differ, so check your [[configuration file|Configuration Files]] for the valid port for your cluster (in `app.config` if you're using the older configuration system, in `riak.conf` if you're using the newer system). Let's say that the HTTP port for your cluster is set to 10018. The following `curl` command would store an image named `1.jpg` in Riak, in the bucket `images`:
+We'll use [curl](http://httpkit.com/resources/HTTP-from-the-Command-Line/) to make a `PUT` request to the [[key|Keys and Objects#keys]] `german` in the [[bucket|Buckets]] `welcome`.
 
 ```curl
-curl -XPUT \
-  -H "Content-type: image/jpeg" \
-  --data-binary @image_name.jpg \
-  http://127.0.0.1:10018/buckets/images/keys/1.jpg
+curl -XPUT http://localhost:8098/buckets/welcome/keys/german \
+  -H 'Content-Type: text/plain' \
+  -d 'herzlich willkommen'
 ```
 
-You can then verify that image was in fact stored. To do this, simply copy the URL where we `PUT` the image and paste it into a browser. Your image should appear. Alternatively, you can use `curl` to 
+Your HTTP port might differ, so check your [[configuration file|Configuration Files]] for the valid port in your cluster (in `/etc/app.config` if you're using the older configuration system, in `/etc/riak.conf` if you're using the newer system).
+
+<div class="note">
+<div class="title">Note on the HTTP API</div>
+While the HTTP API can be useful for getting started or for running basic test operations, we strongly recommend using [[client libraries]] that utilize Riak's [[PBC API]] when building applications.
+</div>
+
+If the `PUT` request above succeeded, that means that you've stored your first object in Riak. Now attempt a `GET` request to the same HTTP endpoint:
+
+```curl
+curl http://localhost:8098/buckets/hello/keys/german
+```
+
+You should get the following result:
+
+```
+herzlich willkommen
+```
+
+Now try something a little bit more involved. Copy a [JPEG](http://en.wikipedia.org/wiki/JPEG) image file from somewhere on your hard drive into the root directory of your cluster:
+
+```bash
+cp ~/image/location/<image_name>.jpg .
+```
+
+Use curl to `PUT` the image into Riak:
+
+```curl
+curl -XPUT http://localhost:8098/buckets/images/keys/<image_name>.jpg \
+  -H 'Content-Type: image/jpeg' \
+  --data-binary @<image_name>.jpg
+```
+
+You can verify that the image has been propery stored by navigating to the URL above in a browser or issuing a `GET` request:
+
+```curl
+curl http://localhost:8098/buckets/images/keys/<image_name>.jpg
+```
+
+If the response is an indecipherable binary, then your read request has succeeded.
 
 You should now have a five-node Riak cluster up and running. Congratulations!
 
