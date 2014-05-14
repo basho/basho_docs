@@ -34,6 +34,8 @@ Riak Search must first be configured with a Solr *schema*, so Solr knows how to 
 
 Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we'll `curl` create an index named `famous` with the default schema.
 
+*Note that index names may only be ascii values from 32-127 (spaces, standard puncutation, digits and word characters). This may change in the future to allow full unicode support.*
+
 <div class="info">All `curl` examples in this document require that you first
 set an environment variable named `RIAK_HOST`, which points to a Riak base
 URL, such as `RIAK_HOST="http://localhost:8098"`.</div>
