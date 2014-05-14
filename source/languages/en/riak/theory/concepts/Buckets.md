@@ -10,21 +10,29 @@ moved: {
 }
 ---
 
-Buckets are used to define a virtual keyspace and provide the ability to define
-isolated non-default configuration. Buckets might be compared to tables or
-folders in relational databases or file systems, respectively. Buckets with
-default configuration are essentially free, while non-default configuration will
-be gossiped around the ring.
+Buckets are used to define a virtual keyspace for storing Riak objects.
+They enable you to define non-default configurations over that keyspace
+concerning [[replication properties]] and [[other parameters|Buckets#configuration]].
+
+In certain respects, buckets can be compared to tables in relational
+databases or folders in filesystems, respectively. From the standpoint
+of performance, buckets with default configurations are essentially
+"free," while non-default configurations, defined [[using bucket types]],
+will be gossiped around [[the ring|Clusters#the-ring]] using Riak's
+[[cluster metadata]] subsystem.
 
 ## Configuration
 
-For each bucket a number of configuration properties can be selectively defined,
-overriding the defaults.
+Bucket configurations are defined [[using bucket types]], which enables
+you to create and modify sets of configurations and apply them to as
+many buckets as you wish. With bucket types, you can configure the
+following bucket-level parameters, overriding the default values if you
+wish.
 
 ### n_val
 
-*integer* (default: `3`). Specifies the number of copies of each object to be
-stored in the cluster. See [[Replication]].
+*integer* (default: `3`). Specifies the number of copies of each object
+to be stored in the cluster. See [[Replication]].
 
 ### allow_mult
 
