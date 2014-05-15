@@ -11,64 +11,71 @@ moved: {
 }
 ---
 
-This section is a high level overview of concepts, technology choices,
-and implementation details that are at work in Riak.
+This section is a high-level overview of concepts, technology choices,
+and implementation details for Riak.
 
-What is Riak
-------------
+## What is Riak?
 
-Simply put, Riak is a distributed, scalable, open source key/value
-store. We like to say that Riak is the most powerful open-source,
+Simply put, Riak is a distributed, scalable, open-source key/value
+store with a wide variety of features, including [[Riak Data Types|Using Data Types]],
+[[secondary indexes (2i)|Using Secondary Indexes]], [[Riak Search|Using Search]],
+[[MapReduce]], [[Strong Consistency|Using Strong Consistency]],
+[[Security|Authentication and Authorization]], and more.
+
+We like to say that Riak is the most powerful open-source,
 distributed database you’ll ever put into production. Riak scales
 predictably and easily and simplifies development by giving users the
 ability to quickly prototype, test, and deploy their applications.
 
-Basics and History
-------------------
+The most recent major release of Riak is [[version 2.0|Riak 2.0]].
 
-Riak is based on technology originally developed by [[Basho
-Technologies|http://basho.com]] to run a Salesforce automation business.
-There was more interest in the datastore technology than the
-applications built on it so Basho decided to build a business around
-Riak itself.
+## Basics and History
 
-Riak is heavily influenced by Dr. Eric Brewer’s [[CAP Theorem|http://en.wikipedia.org/wiki/CAP_theorem]] and [[Amazon’s Dynamo Paper|Dynamo]].
-Most of the core team comes from Akamai which informed Riak’s focus on operational ease and fault tolerance.
+Riak is based on technology originally developed by [Basho Technologies](http://basho.com)
+to run a Salesforce automation business. The marketplace showed more
+interest in the datastore technology than in the applications built on
+it, so Basho decided to build a business around Riak itself.
 
-The Riak APIs
--------------
+At its core, Riak is heavily influenced by Dr. Eric Brewer’s
+[CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) and [[Amazon’s Dynamo Paper|Dynamo]].
+In more recent years, some of Riak's features have been inspired by
+newer computer science research, e.g. [[Riak Data Types|Data Types]],
+inspired by research on [convergent replicated data types](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf).
 
-The team that wrote Riak is also responsible for the Erlang REST
-framework [Webmachine](http://webmachine.basho.com), so it’s not surprising Riak uses [[a REST
-API|HTTP API]] for one of the two ways you can access data in Riak.
-Storage operations use HTTP PUTs or POSTs and fetches use HTTP GETs.
-Storage operations are submitted to a pre-defined URL which defaults to
-‘/riak’.
+## The Riak APIs
 
-In addition to HTTP, Riak also ships with a fully-featured [[Protocol
-Buffers API|PBC-API]]. This is a simple binary protocol based on the
-library Google’s open source project of the same name.
+The team that wrote the core bits of Riak were also responsible for the
+Erlang REST framework [Webmachine](http://webmachine.basho.com). Today,
+Riak can still be accessed through an [[HTTP API]], but for performance
+reasons we strongly recommend Riak's fully-featured [[Protocol Buffers API|PBC API]],
+a simple binary protocol based on Google’s open-source project of the
+same name.
 
-Client Libraries
-----------------
+## Client Libraries
 
 Basho and the Riak community support and develop a wide variety of
-client libraries that connect to Riak.
+[[client libraries]] that connect to Riak.
 
-Currently Basho [[supports libraries|Client Libraries]] for Ruby, Java, Erlang, Python, PHP, and C/C++.
+Currently, Basho supports client libraries for [Ruby](https://github.com/basho/riak-ruby-client),
+[Python](https://github.com/basho/riak-python-client), [Java](https://github.com/basho/riak-java-client),
+and [Erlang](https://github.com/basho/riak-erlang-client). An official
+[C client](https://github.com/basho/riak-c-client) is also currently in
+development.
 
-The Riak Community writes and supports [[client libraries]] for languages and frameworks like Node.js, Go, Groovy,
-Haskell, and much more.
+Unofficial libraries exist for a wide variety of languages, including
+JavaScript/NodeJS, PHP, Go, Clojure, Scala, Dart, Haskell, LISP, C#,
+Perl, OCaml, Smalltalk, Groovy, and more.
 
-Buckets, Keys, and Values
--------------------------
 
-[[Buckets]] and [[keys|Keys and Objects]] are the only way to organize
-data inside of Riak. Data is stored and referenced by bucket/key pairs.
-Each key is attached to a unique value that can be any data type.
+## Bucket Types, Buckets, Keys, and Values
 
-Clustering
-----------
+Data inside of Riak can be organized only in terms of [[bucket types|Using Bucket Types]],
+[[buckets]], and [[keys|Keys and Objects]] Data is stored and referenced
+as a bucket type/bucket/key location. Each key is attached to a unique
+value that can be any data type, from JSON to JPEGs to brief text
+snippets.
+
+## Clustering
 
 Central to any Riak cluster is a 160-bit integer space which is divided
 into equally-sized partitions.
@@ -117,8 +124,7 @@ can cause a node to run out of resources such as file handles. These
 resource restrictions might not impact performance but they can
 represent another limit on the maximum number of buckets.
 
-Replication
------------
+## Replication
 
 [[Replication]] is built into the core of Riak’s architecture. Riak
 controls how many replicas of a datum are stored via a setting called
@@ -138,8 +144,7 @@ nodes in a cluster. Neighbors of a failed node will pick up the slack
 and perform the work of the failed node allowing the cluster to continue
 processing as usual. This can be considered a form of self-healing.
 
-Reading, Writing, and Updating Data
------------------------------------
+## Reading, Writing, and Updating Data
 
 Using the Riak APIs, Riak objects can be fetched directly if the client
 knows the bucket and key. This is the fastest way to get data out of
@@ -193,8 +198,7 @@ example, an 8 node cluster with an N of 8 and a W of 2 will be able to
 tolerate up to 6 nodes being down before becoming unavailable for
 writes.
 
-Local Disk Storage and Pluggable Backends
------------------------------------------
+## Local Disk Storage and Pluggable Backends
 
 Riak uses a [[backend API]] to interact with its storage subsystem. The
 API allows Riak to support multiple backends which can be selected based
@@ -206,20 +210,16 @@ As of the 0.12 release, [[Bitcask]] is the default backend for Riak.
 Bitcask is a simple yet powerful local key/value store that serves as
 Riak’s low latency, high throughput storage back end.
 
-<div class="info">
-<div class="title">More on Bitcask</div>
+More on Bitcask:
 
 * [[Hello, Bitcask (from the Basho Blog)|http://blog.basho.com/2010/04/27/hello-bitcask/]]
 * [[An Architectural Overview of Bitcask (PDF)|http://downloads.basho.com/papers/bitcask-intro.pdf]]
 
-</div>
-
-[[LevelDB]] is an open source library release by Google. It has
+[[LevelDB]] is an open-source library release by Google. It has
 different production properties than Bitcask and is required if you’re
 planning to use Riak’s [[Using Secondary Indexes]] functionality.
 
-MapReduce
----------
+## MapReduce
 
 [[MapReduce|Using MapReduce]] in Riak allows you to process your data in real time in
 parallel utilizing the hardware resources of your entire cluster.
@@ -230,8 +230,7 @@ MapReduce in Riak can be thought of as a real time "mini-Hadoop". A job
 is submitted via HTTP and the results are returned in JSON-encoded form.
 (A Protocol Buffers interface is also supported.)
 
-Secondary Indexes
------------------
+## Secondary Indexes
 
 Version 1.0 of Riak added support for [[Using Secondary Indexes]]. This
 feature allows a developer to tag a Riak value with one or more
