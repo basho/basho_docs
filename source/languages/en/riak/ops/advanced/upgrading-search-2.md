@@ -24,7 +24,7 @@ You will continue running your queries against Riak Search in this phase. Once n
 
 ## Steps to Upgrading
 
-1.  First, you'll perform a normal [[rolling upgrade|rolling upgrades]]. As you upgrade, enable `yokozuna` (the new riak search library) on each node. If you're still using `app.config` it's called `yokozuna`. If you've chosen to upgrade to the new `riak.conf` config option, it's called `search`.
+1.  First, you'll perform a normal [[rolling upgrade|rolling upgrades]]. As you upgrade, enable `yokozuna` (the new Riak Search library) on each node. If you're still using `app.config` it's called `yokozuna`. If you've chosen to upgrade to the new `riak.conf` config option, it's called `search`.
 
     ```appconfig
      {yokozuna, [
@@ -65,7 +65,7 @@ You will continue running your queries against Riak Search in this phase. Once n
 
 5.  The new Search [[AAE|Replication#Active-Anti-Entropy-AAE-]] trees can be manually cleared so that AAE will notice the missing indexes.
 
-    First, attach to one of the Riak node by calling `riak attach`. Next, paste the following code into the shell. It clears the AAE tree for each node in the cluster, which triggers index repair actions.
+    First, attach to one of the Riak nodes by calling `riak attach`. Next, paste the following code into the shell. It clears the AAE tree for each node in the cluster, which triggers index repair actions.
 
     ```erlang
     {ok, Ring} = riak_core_ring_manager:get_my_ring().
@@ -75,7 +75,7 @@ You will continue running your queries against Riak Search in this phase. Once n
 
     You can press `ctrl-C` to exit from the attached shell.
 
-    In the background AAE will start building trees for Yokozuna and exchange them with KV. These exchanges will notice objects are missing and index them in Yokozuna.
+    In the background AAE will start building trees for new Search and exchange them with KV. These exchanges will notice objects are missing and index them in new Search.
 
     <!-- no re-index command currently exists -->
 
@@ -98,7 +98,7 @@ You will continue running your queries against Riak Search in this phase. Once n
     ```curl
     curl -XPUT "http://localhost:8098/buckets/my_bucket/props" \
          -H'content-type:application/json' \
-         -d'{"props":{"search":false}'
+         -d'{"props":{"search":false}}'
     ```
 
 9.  You can finally disable the Riak Search process on each node by setting `riak_search` `enabled` to `false`.
