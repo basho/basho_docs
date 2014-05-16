@@ -85,7 +85,7 @@ You will continue running your queries against Riak Search in this phase. Once n
     riak-admin search aae-status
     ```
 
-    Eventually all partitions will be exchanged (or buckets re-indexed).
+    Eventually all partitions will be exchanged (or buckets re-indexed). You'll know this when there are no listed statuses.
 
 7.  Next, call the following command that will give HTTP and PB query control to the new Riak Search.
 
