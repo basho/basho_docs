@@ -158,6 +158,7 @@ riak:
           - "[[Installing Custom Code]]"
           - "[[Security and Firewalls]]"
           - "[[Ring Resizing]]"
+          - "[[Object Deletion]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
