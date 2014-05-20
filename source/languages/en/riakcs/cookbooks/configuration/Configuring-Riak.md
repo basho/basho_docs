@@ -46,7 +46,7 @@ where **X.Y.Z** is the version of Riak CS that you have installed.
 
 This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
-<div class="note"><div class="title">Note</div>The path for <tt>add_paths</tt> may be <tt>/usr/lib/riak-cs</tt> or <tt>/usr/lib64/riak-cs</tt> depending on your operating system.</div>
+<div class="note"><div class="title">Note</div>The path for <code>add_paths</code> may be <code>/usr/lib/riak-cs</code> or <code>/usr/lib64/riak-cs</code> depending on your operating system.</div>
 
 Next, add this to the `riak_core` section of `app.config`:
 
@@ -58,12 +58,12 @@ You should never set `allow_mult` to any value other than `true`. If this is not
 potentially leading to data loss and other inconsistencies.
 
 <div class="note">
-<div class="title">Note on <tt>allow_mult</tt> and Riak clients</div>
-In Riak CS, the <tt>allow_mult=true</tt> setting is used only internally. Clients connecting to Riak will not need to engage in conflict resolution or deal with siblings.
+<div class="title">Note on <code>allow_mult</code> and Riak clients</div>
+In Riak CS, the <code>allow_mult=true</code> setting is used only internally. Clients connecting to Riak will not need to engage in conflict resolution or deal with siblings.
 </div>
 
 {{#1.4.0+}} <div class="note"><div class="title">Note</div>As of version 1.4,
-Riak CS will refuse to start if <tt>allow_mult</tt> is not set to <tt>true</tt>.</div>
+Riak CS will refuse to start if <code>allow_mult</code> is not set to <code>true</code>.</div>
 {{/1.4.0+}}
 
 Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak and connect to its console (using `riak attach`), then run:
@@ -75,7 +75,7 @@ Save and exit the editing session on the `app.config` file. To test that you hav
 
 If the path that you added to Riak's `app.config` is returned, your node is configured correctly. If the atom `non_existing` is returned instead, then Riak was unable to find the Riak CS code.
 
-<div class="note"><div class="title">Note</div>It is important to use <tt>CTRL+D</tt> to detach the console and leave Riak running after doing a <tt>riak attach</tt>. <tt>CTRL+C</tt> will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
+<div class="note"><div class="title">Note</div>It is important to use <code>CTRL+D</code> to detach the console and leave Riak running after doing a <code>riak attach</code>. <code>CTRL+C</code> will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
 
 ## Specifying the Riak IP Address
 By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak `vm.args` configuration file, which is located in the `/etc/riak` folder.
