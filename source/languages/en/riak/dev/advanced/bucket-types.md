@@ -445,10 +445,10 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 
 Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
 
-If you'd like to create a bucket type with no specified parameters, you can either pass an empty JavaScript object to the `props` parameter when you create the type:
+If you'd like to create a bucket type with no specified parameters, you can simply create the type without specifying a `props` object:
 
 ```bash
-riak-admin bucket-type create no_specified_props '{"props":{}}'
+riak-admin bucket-type create no_specified_props
 ```
 
 Or, alternatively, you can pass in no parameters:
