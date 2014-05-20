@@ -7,8 +7,8 @@ audience: intermediate
 keywords: [operator, troubleshooting, latency]
 ---
 
-Although _some_ latency is unavoidable in distributed systems like Riak,
-there are a number of actions that can be undertaken to reduce latency
+Although latency is unavoidable in distributed systems like Riak, there
+are a number of actions that can be undertaken to reduce latency
 to the lowest levels possible within a cluster. In this guide, we'll
 list potential sources of high latency and what you can do about it.
 
@@ -16,7 +16,7 @@ list potential sources of high latency and what you can do about it.
 
 Riak always performs best with smaller objects. Large objects, which can
 be mistakenly inserted into Riak by your application or caused by
-siblings (see below), can often increase on latency.
+siblings (see below), can often increase latency.
 
 We recommend keeping all objects stored in Riak smaller than 1-2 MB,
 preferably below 100 KB. Large objects lead to increased I/O activity
@@ -30,7 +30,7 @@ If your use case requires large objects, we recommend checking out
 ### Mitigation
 
 The best way to find out if large objects are impacting latency is to
-monitor each node's object size stats. If you run `[[riak-admin status|riak-admin Command Line#status]]`,
+monitor each node's object size stats. If you run `[[riak-admin status|riak-admin Command Line#status]]`
 or make an HTTP `GET` request to Riak's `/stats` endpoint, you will see
 the results for the following metrics related to object size:
 
@@ -111,14 +111,9 @@ spikes?
 If you believe that sibling creation problems could be responsible for
 latency issues in your cluster, you can start by checking the following:
 
-* If `allow_mult` is set to `true` for some or all of your buckets, be
-sure that your application is correctly resolving siblings. Be sure to
-read our documentation on [[conflict resolution]] for a fuller picture
-of how this can be done.
-* Application errors are a common source of problems with siblings.
-Updating the same key over and over without passing a [[vector
-clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems
-to be the issue, modify your application's conflict resolution strategy.
+* If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done.
+* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy. {{2.0.0-}}
+* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy.
 
 ## Compaction and Merging
 
