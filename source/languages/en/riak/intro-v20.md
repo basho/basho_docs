@@ -111,7 +111,7 @@ In older versions of Riak, bucket properties were managed on a bucket-by-bucket,
 
 ## New Client Libraries
 
-While Basho offered official client libraries for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
+While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
 
 * [Java](https://github.com/basho/riak-java-client)
   * [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
