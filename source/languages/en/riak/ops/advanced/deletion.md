@@ -7,19 +7,36 @@ audience: advanced
 keywords: [operators, deletion, delete_mode, tombstones]
 ---
 
-In [[eventually consistent|Eventual Consistency]], [[clustered|Clusters]]
-systems like Riak, object deletion is a non-trivial problem because
-partition tolerance---the "P" in [CAP](http://en.wikipedia.org/wiki/CAP_theorem)---
-demands that the number of nodes specified by N (`n_val`) in your
-[[replication properties]] must agree that an object has been deleted
-before it is removed from the storage backend.
+In single-server, non-clustered data storage systems, object deletion
+is a trivial process. In an [[eventually consistent|Eventual Consistency]],
+[[clustered|Clusters]] system like Riak, however, object deletion
+is less trivial because objects live on multiple [[nodes|Riak Glossary#nodes]],
+which means that a deletion process must be chosen to determine when an
+object can be removed from the storage backend.
+
+This problem can be illustrated more concretely using the following
+example:
+
+* An object is stored on nodes A, B, and C
+* Node C suddenly goes offline
+* A Riak client sends a delete request to node A, which forwards that request to node B
+* Node C comes back online
+
+At this point, a decision needs to be made about whether the object
+should be removed from storage. In Riak, that decision can be
+configured using [[replication properties]] and the `delete_mode`
+parameter.
+
+## Configuring Deletion
+
 
 ## Tombstones
 
-Riak addresses this problem by marking deleted objects with a so-called
-**tombstone**, i.e. a metadata object `X-Riak-Deleted` with a value of
-`true` is added, and the value of the object is set to an empty Erlang
-object (`<<>>`). When processes like [[read repair|Active Anti-Entropy#read-repair]]
+Riak addresses the problem of deletion in distributed systems by marking
+deleted objects with a so-called **tombstone**, i.e. a metadata object
+`X-Riak-Deleted` with a value of `true` is added, and the value of the
+object is set to an empty Erlang object (`<<>>`). When processes like
+[[read repair|Active Anti-Entropy#read-repair]]
 
 Most useful when deleting and then re-creating keys rapidly
 Default is `keep`
