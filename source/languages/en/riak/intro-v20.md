@@ -109,6 +109,10 @@ In older versions of Riak, bucket properties were managed on a bucket-by-bucket,
 
 * [[Using Bucket Types]] explains how to create, modify, and activate bucket types, as well as how the new system
 
+#### Video
+
+[Bucket Types and Config](https://www.youtube.com/watch?v=lZk8cD-qFHM) hangout with Basho engineers [Joe DeVivo](https://github.com/joedevivo) and [Jordan West](https://github.com/jrwest).
+
 ## New Client Libraries
 
 While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
@@ -121,8 +125,4 @@ While Basho offered official [[client libraries]] for Java, Ruby, Python, and Er
   * [Sphinx docs](http://basho.github.io/riak-python-client/)
 * [Erlang](https://github.com/basho/riak-erlang-client)
   * [EDocs](http://basho.github.io/riak-erlang-client/)
-
-### Video
-
-[Bucket Types and Config](https://www.youtube.com/watch?v=lZk8cD-qFHM) hangout with Basho engineers [Joe DeVivo](https://github.com/joedevivo) and [Jordan West](https://github.com/jrwest).
 
