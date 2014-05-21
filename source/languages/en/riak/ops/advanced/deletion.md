@@ -39,10 +39,18 @@ issue; this problem can be avoided using `delete_mode`
 Fetching the vclock for a deleted key => setting `deletedvclock` to
 `true` via PBC [[PBC Fetch Object]]
 
+## Fetch Tombstone Vector Clocks Using Clients
+
 ```java
 FetchValue fetch = new FetchValue.Builder(location)
 		.withOption(Option.DELETED_VCLOCK, true)
 		.build();
+```
+
+```ruby
+object.delete
+deleted_object = bucket.get('test', 'test', deletedvclock: true)
+deleted_object.vclock
 ```
 
 ## Resources
