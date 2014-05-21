@@ -1,7 +1,7 @@
 ---
 title: Riak Monitoring with collectd and Graphite
 project: riak
-version: 1.2.0+
+version: 1.4.8+
 document: tutorial
 toc: true
 audience: intermediate
