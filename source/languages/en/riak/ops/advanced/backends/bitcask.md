@@ -15,50 +15,53 @@ moved: {
 }
 ---
 
-## Overview
+[Bitcask](https://github.com/basho/bitcask) is an Erlang application
+that provides an API for storing and retrieving key/value data using
+log-structured hash tables that provide very fast access. The
+[design](http://downloads.basho.com/papers/bitcask-intro.pdf) of Bitcask
+was inspired, in part, by log-structured file systems and log file
+merging.
 
-[Bitcask](https://github.com/basho/bitcask) is an Erlang application that
-provides an API for storing and retrieving key/value data using log-structured
-hash tables that provide very fast access. The [design](http://downloads.basho.com/papers/bitcask-intro.pdf) of Bitcask was inspired, in part, by log-structured file systems and log file merging.
-
-### Bitcask's Strengths
+## Bitcask's Strengths
 
 * **Low latency per item read or written**
 
-    This is due to the write-once, append-only nature of the Bitcask database
-    files.
+    This is due to the write-once, append-only nature of Bitcask
+    database files.
 
-* **High throughput, especially when writing an incoming stream of random items**
+* **High throughput, especially when writing an incoming stream of
+    random items**
 
-    Because the data being written doesn't need to be ordered on disk and
-    because the log structured design allows for minimal disk head movement
-    during writes, these operations generally saturate the I/O and disk
-    bandwidth.
+    Because data being written to Bitcask doesn't need to be ordered on
+    disk and because the log-structured design allows for minimal disk
+    head movement during writes, write operations generally saturate I/O
+    and disk bandwidth.
 
 * **Ability to handle datasets larger than RAM without degradation**
 
     Because access to data in Bitcask involves direct lookup from an
-    in-memory hash table, finding data on disk is very efficient, even when
-    data sets are very large.
+    in-memory hash table, finding data on disk is very efficient, even
+    when data sets are very large.
 
 * **Single seek to retrieve any value**
 
-    Bitcask's in-memory hash table of keys points directly to locations on disk
-    where the data lives. Bitcask never uses more than one disk seek to read a
-    value and sometimes even that isn't necessary due to filesystem caching done by the operating system.
+    Bitcask's in-memory hash table of keys points directly to locations
+    on disk where the data lives. Bitcask never uses more than one disk
+    seek to read a value and sometimes even that isn't necessary due to
+    filesystem caching done by the operating system.
 
 * **Predictable lookup _and_ insert performance**
 
-    As you might expect from the description above, read operations have a
-    fixed, predictable behavior. What you might not expect is that this is
-    also true for writes. Write operations are at most a seek to the end of
-    the current file open writing and an append to that file.
+    As you might expect from the description above, read operations have
+    fixed, predictable behavior. What you might not expect is that this
+    is also true for writes. Write operations require, at most, one seek
+    to the end of the current open file and an append to that file.
 
 * **Fast, bounded crash recovery**
 
-    Due to the append-only write once nature of Bitcask files, recovery is easy
-    and fast. The only items that might be lost are partially written records
-    at the tail of the file last opened for writes. Recovery need only review
+    Due to the append-only, write-once nature of Bitcask files, recovery
+    is easy and fast. The only items that might be lost are partially
+    written records at the tail of the file last opened for writes. Recovery need only review
     the last record or two written and verify CRC data to ensure that the data
     is consistent.
 
