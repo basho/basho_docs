@@ -247,13 +247,13 @@ This is the hard limit of fullsync workers that will be running on the source si
 * *Example:* `riak-repl fullsync max_fssource_cluster 5`
 
 
-**fullsync max_fssink_node**
+#### `fullsync max_fssink_node`
 
 This limits the number of fullsync workers allowed to run on each individual node in a sink cluster. This is a hard limit for each fullsync source node interacting with a sink node. Thus, multiple simultaneous source connections to a sink node will have to share the sink node’s number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 
-* *Syntax* `riak-repl fullsync max_fssink_cluster <value>`
+* *Syntax* `riak-repl fullsync max_fssink_node <value>`
 * *Default* `1`
-* *Example* `riak-repl fullsync max_fssink_cluster 5`
+* *Example* `riak-repl fullsync max_fssink_node 5`
 
 
 ## Mixing Version 2 Replication with Version 3 Replication
