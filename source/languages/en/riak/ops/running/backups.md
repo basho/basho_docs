@@ -11,24 +11,50 @@ moved: {
 }
 ---
 
-Riak backups can be performed using OS features or filesystems that support snapshots, such as LVM or ZFS, or by using tools like rsync or tar. Choosing your Riak backup strategy will largely depend on your already established backup methodologies, as well as the backend configuration of your nodes. When backing up a node, it is important to back up the data, ring, and configuration directories of your nodes.
+Riak is a [[clustered|Clusters]], [[multi-node|Riak Glossary#node]]
+system built to survive a wide range of failure scenarios, including the
+loss of nodes due to network or hardware failure. Although this is one
+of Riak's core strengths, it cannot withstand _all_ failure scenarios.
+Like any storage system, it remains susceptible to contingencies such as
+accidental or malicious deletions. Many Riak users confront this
+possibility by backing up their data, i.e. duplicating their database
+onto a different long-term storage mechanism. This document covers how
+to perform such backups.
 
-Due to Riak's eventually consistent nature, backups can become slightly inconsistent from node to node. Data could exist on some nodes and not others at the exact time a backup is made. Any inconsistency will be corrected once a backup is restored, either by Riak's [[Active Anti-Entropy|Replication#Active-Anti-Entropy-AAE-]], or on GET by [[read repair|Replication#Read-Repair]].
+Riak backups can be performed using OS features or filesystems that
+support snapshots, such as LVM or ZFS, or by using tools like rsync or
+tar. Choosing your Riak backup strategy will largely depend on your
+already-established backup methodologies, as well as the backend
+configuration of your nodes. When backing up a node, it is important to
+back up the data, ring, and configuration directories of your nodes.
 
-Additionally, backups must be performed on a stopped node to prevent data loss as a result of the background merging and compaction processes of Riak's backends. Downtime of a node can be significantly reduced by using an OS feature or filesystem that supports snapshotting.
+Due to Riak's eventually consistent nature, backups can become slightly
+inconsistent from node to node. Data could exist on some nodes and not
+others at the exact time a backup is made. Any inconsistency will be
+corrected once a backup is restored, either by Riak's [[Active Anti-Entropy]],
+or on `GET` by [[read repair|Replication#Read-Repair]].
 
-### OS Specific Directory Locations
+Additionally, backups must be performed on a stopped node to prevent
+data loss as a result of the background merging and compaction processes
+of Riak's backends. Downtime of a node can be significantly reduced by
+using an OS feature or filesystem that supports snapshotting.
+
+### OS-Specific Directory Locations
 
 The default Riak data, ring, and configuration directories for each of
 the supported operating systems is as follows:
 
 <div class="note">
 <div class="title">Note</div>
-If you are upgrading to Riak version 2.0 or later from an pre-2.0 release, you can use either your old <tt>app.config</tt> configuration file or the newer <tt>riak.conf</tt> if you wish.
+If you are upgrading to Riak version 2.0 or later from an pre-2.0
+release, you can use either your old <tt>app.config</tt> configuration
+file or the newer <tt>riak.conf</tt> if you wish.
  
-If you have installed Riak 2.0 directly, you should use only <tt>riak.conf</tt>.
+If you have installed Riak 2.0 directly, you should use only
+<tt>riak.conf</tt>.
  
-More on configuring Riak can be found in the <a href="/latest/ops/advanced/configs/configuration-files">Configuration Files</a> doc.
+More on configuring Riak can be found in the [[configuration files]]
+doc.
 </div>
 
 **Debian and Ubuntu**
