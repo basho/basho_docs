@@ -425,6 +425,24 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><code>80</code></td>
 </tr>
 
+<tr>
+<td><code>leveldb.tiered</code></td>
+<td>The level number at which LevelDB data switches from the faster to the slower array. The default of <code>0</code> disables the feature. More information can be found in the <a href="/ops/advanced/backends/leveldb">LevelDB</a> documentation.</td>
+<td><code>0</code></td>
+</tr>
+
+<tr>
+<td><code>leveldb.tiered.path.fast</code></td>
+<td>The path prefix for <code>.sst</code> files below the level set by <code>leveldb.tiered</code>.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>leveldb.tiered.path.slow</code></td>
+<td>The path prefix for <code>.sst</code> files below the level set by <code>leveldb.tiered</code>.</td>
+<td></td>
+</tr>
+
 </tbody>
 </table>
 
