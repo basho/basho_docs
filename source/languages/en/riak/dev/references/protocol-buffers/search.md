@@ -17,7 +17,7 @@ Send a Search request to retrieve a list of documents, along with a few stats.
 ## Request
 
 
-```bash
+```protobuf
 message RpbSearchQueryReq {
   required bytes  q      =  1;
   required bytes  index  =  2;
@@ -58,7 +58,7 @@ parameters. It also returns the maximum search score and the number
 of results.
 
 
-```bash
+```protobuf
 // RbpPair is a generic key/value pair datatype used for other message types
 message RpbPair {
   required bytes key = 1;
