@@ -1586,8 +1586,6 @@ If you are upgrading to Riak 2.x and wish to upgrade to the new [[Search|Using S
 ]
 ```
 
-More information on upgrading Riak Search 
-
 #### Other settings
 
 There are two non-`riak_repl` settings available in `advanced.config`.
