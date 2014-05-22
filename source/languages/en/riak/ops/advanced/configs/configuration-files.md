@@ -1447,6 +1447,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
+<td><tt>dtrace</tt></td>
+<td>Whether <a href="http://dtrace.org/blogs/">DTrace</a> is enabled. Do not enable unless your Erlang/OTP runtime is compiled to support DTrace, which is available in R15B01 (supported by the official source package) and in R14B04 via a custom repository and branch.</td>
+<td><tt>off</tt></td>
+</tr>
+
+<tr>
 <td><tt>max_concurrent_requests</tt></td>
 <td>The maximum number of concurrent requests of each type (GET or PUT) that is allowed. Setting this value to <tt>infinite</tt> disables overload protection. The <tt>erlang.process_limit</tt> should be at least 3 times this setting.</td>
 <td><tt>50000</tt></td>
