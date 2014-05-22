@@ -115,7 +115,7 @@ the same number of nodes, restoration of the original configuration, and
 restoration of previous data.
 
 Specifically, you should follow this basic process, ensuring that Riak
-is **not started** on any node during steps 1-7:
+is **not started** on any node during steps 1-8:
 
 1. Establish replacement cluster configured with the same number of nodes.
 2. Restore the Riak configuration to each of the nodes.
@@ -130,14 +130,18 @@ is **not started** on any node during steps 1-7:
 7. After renaming the nodes with `riak-admin reip` if necessary, you should
    check the `vm.args` configuration file to ensure that each node has the
    updated name.
-8. Start the first node and check that its name is correct; one way to do
+8. Make sure the [[firewall settings|Security and Firewalls]] for the new
+   nodes allow the same traffic that was permitted between the old nodes.
+   The first node will not be able to start up if attempts to contact the
+   other down nodes hang instead of being refused.
+9. Start the first node and check that its name is correct; one way to do
    this is to start the node, then attach to the node with `riak attach`.
    You should see the node name as part of the prompt as in the example
    below. Once you've verified the correct node name, exit the console
    with CTRL-D.
-9. Execute `riak-admin member-status` on the node and verify that it
+10. Execute `riak-admin member-status` on the node and verify that it
    returns expected output.
-10. Start each of the remaining nodes, verifying the details in the same
+11. Start each of the remaining nodes, verifying the details in the same
     manner as the first node.
 
 <div class="info"><div class="title">Tip</div> If you are a licensed Riak Enterprise or CS customer and require assistance or further advice with a cluster recovery, please file a ticket with the <a href="https://help.basho.com">Basho Helpdesk</a>.
