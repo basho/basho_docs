@@ -948,6 +948,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><tt>enable</tt></td>
 </tr>
 
+<tr>
+<td>erlang.shutdown_time</td>
+<td>Useful when running a <tt>riak_test</tt> devrel</td>
+<td>10s</td>
+</tr>
+
 </tbody>
 </table>
 
