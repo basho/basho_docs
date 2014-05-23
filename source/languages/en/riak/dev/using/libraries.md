@@ -174,6 +174,7 @@ All of these projects and libraries are at various stages of completeness and ma
 * [[Welle|http://clojureriak.info]] - An expressive Clojure client with batteries included
 * [[clj-riak|http://github.com/mmcgrana/clj-riak]] - Clojure bindings to the Riak Protocol Buffers API
 * [[sumo|https://github.com/reiddraper/sumo]] - A Protocol Buffer specific client for Riak with KV, 2i, and MapReduce support
+* [[kria|https://github.com/bluemont/kria]] - Riak 2.0 Asynchronous (NIO.2) Clojure client. Callback-driven, low-level, Protocol Buffer API, Java 7.
 
 *ColdFusion*
 

@@ -100,8 +100,8 @@ And so if data non-ambiguity is a primary concern, to the extent that it's worth
 
 There are a few things that we should note about strong consistency as it is implemented in Riak. First of all, the following Riak features are not available in strongly consistent buckets:
 
-* [[Secondary indexes]]
-* [[Active Anti-Entropy]] syncing
-* Riak [[Datatypes]]
+* [[Secondary indexes|Using Secondary Indexes]]
+* [[Active Anti-Entropy|Riak Glossary#Active-Anti-Entropy-AAE]] syncing
+* [[Riak Data Types|Using Data Types]]
 
 Second of all, strong consistency can be guaranteed only at the single-key level. There is currently no support for strong consistency across keys or for multi-key operations.

@@ -12,6 +12,8 @@ Cluster metadata is a subsystem inside of Riak that enables systems built on top
 
 One notable example, among many, of a subsystem of Riak relying on cluster metadata is Riak's [[bucket types|Using Bucket Types]] feature, which requires that a particular form of key/value pairs, namely bucket types and their associated bucket properties, be asynchronously broadcast to all nodes in a Riak cluster.
 
+Though it is different in crucial respects, [etcd](https://coreos.com/docs/cluster-management/setup/getting-started-with-etcd/) is a roughly analogous cluster metadata key/value store for [CoreOS](https://coreos.com/) clusters.
+
 ## How Cluster Metadata Works
 
 Cluster metadata is different from other Riak data in two essential ways:
