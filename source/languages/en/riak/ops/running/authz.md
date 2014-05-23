@@ -225,9 +225,9 @@ Alternatively, a password---or other attributes---can be assigned to the user up
 riak-admin security add-user riakuser password=Test1234
 ```
 
-### Assign a Password and Altering Existing User Characteristics
+### Assigning a Password and Altering Existing User Characteristics
 
-While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user already exists. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modify our `riakuser` user:
+While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user has already been created. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modify our `riakuser` user:
 
 ```bash
 riak-admin security alter-user riakuser password=opensesame
