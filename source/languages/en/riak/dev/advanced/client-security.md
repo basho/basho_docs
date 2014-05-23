@@ -36,13 +36,6 @@ client = Riak::Client.new(
 )
 ```
 
-#### Java
-
-```java
-RiakNode node = new RiakNode.Builder()
-        .withAuth("riakuser", "")
-```
-
 #### Erlang
 
 In the Erlang client, username and password are specified when you establish a process ID for the client's [[Protocol Buffers|PBC API]] socket connection. The following opens a connection without specifying username and password:
@@ -76,6 +69,8 @@ Because
 In general, we do not recommend using Riak's HTTP interface in conjunction with SSL certificates.
 </div>
 
+#### Ruby
+
 ```ruby
 client = Riak::Client.new(
   host: '127.0.0.1',
@@ -89,32 +84,7 @@ client = Riak::Client.new(
 )
 ```
 
-```java
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-
-// Specify the location of the CA and create an input stream:
-File cacert = new File("/path/to/ssl/cacertfile.pem");
-FileInputStream inputStream = new FileInputStream(cacert);
-
-// Create an X509Certificate object using the input stream:
-CertificateFactory cFactory = CertificateFactory.getInstance("X.509");
-X509Certificate caCert = (X509Certificate) cFactory.generateCertificate(inputStream);
-inputStream.close();
-
-// Identify a key store to be used during the authentication phase:
-KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
-ks.load(null, "rosebud".toCharArray());
-ks.setCertificateEntry("cert.pem", caCert);
-
-// You can then create a node using your username, password,
-// and KeyStore object:
-RiakNode node = new RiakNode.Builder()
-        .withAuth("riakuser", "rosebud", ks)
-        .withRemoteAddress("127.0.0.1")
-        .withRemotePort(10017);
-```
-
+#### Erlang
 
 ```erlang
 CertDir = "/path/to/ssl",
@@ -126,6 +96,8 @@ CertDir = "/path/to/ssl",
     ]).
 ```
 
+## Testing Your Setup
+
 #### Ruby
 
 ```ruby
@@ -136,28 +108,6 @@ obj.content_type = 'text/plain'
 obj.raw_data = 'SSL now works!'
 obj.store
 bucket.get('test_key').data
-```
-
-#### Java
-
-```java
-RiakNode node1 = new RiakNode.Build()
-        .withAuth("riakuser", "rosebud", ks)
-        .withRemoteAddress("127.0.0.1")
-        .withRemotePort(10017);
-RiakCluster cluster = new RiakCluster.Builder(node1).build();
-RiakClient client = new RiakClient(cluster);
-RiakObject testObject = new RiakObject()
-        .setContentType("text/plain")
-        .setValue(BinaryValue.create("SSL now works!"));
-Location loc = new Location("certificate_test").setKey("test_key")
-StoreValue store = new StoreValue.Builder(testObject)
-        .withLocation(loc);
-client.execute(store);
-FetchValue fetch = new FetchValue.Builder(loc).build();
-FetchValue.Response res = client.execute(fetch);
-RiakObject fetchedObject = res.getValue(RiakObject.class);
-System.out.println(fetchObject.getValue().toString());
 ```
 
 #### Erlang
