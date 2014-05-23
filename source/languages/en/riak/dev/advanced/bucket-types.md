@@ -33,7 +33,7 @@ In many respects, bucket types are a major improvement over the older system of 
 <ul>
 <li>Bucket types are more flexible because they enable you to define total configurations of bucket properties all at once and then change them if you need to.</li>
 <li>Bucket types are more reliable because the buckets that bear a given type only have their properties changed when the type is changed. Previously, it was possible to change the properties of a bucket only through client requests.</li>
-<li>Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The <tt>riak-admin bucket-type</tt> interface (discussed in depth below) enables you to manage bucket configurations without recourse to clients.</li>
+<li>Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The <code>riak-admin bucket-type</code> interface (discussed in depth below) enables you to manage bucket configurations without recourse to clients.</li>
 </ul>
 
 For these reasons, we recommend <em>always</em> using bucket types.
@@ -473,7 +473,7 @@ riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 
 <div class="note">
 <div class="title">Note</div>
-Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <tt>consistent</tt> and <tt>datatype</tt>. If a bucket type entails strong consistency (requiring that <tt>consistent</tt> be set to <tt>true</tt>) or is set up as a <tt>map</tt>, <tt>set</tt>, or <tt>counter</tt>, then this will be true of the bucket type once and for all.
+Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <code>consistent</code> and <code>datatype</code>. If a bucket type entails strong consistency (requiring that <code>consistent</code> be set to <code>true</code>) or is set up as a <code>map</code>, <code>set</code>, or <code>counter</code>, then this will be true of the bucket type once and for all.
 
 If you need to change one of these properties, it is recommended that you simply create a new bucket type.
 </div>
