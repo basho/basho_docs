@@ -11,32 +11,30 @@ moved: {
 }
 ---
 
-MapReduce, the data processing paradigm popularized by [Google](http://research.google.com/archive/mapreduce.html),
-is provided by Riak to aggregate results as background batch processes.
-In the first half of this document, we'll explore some examples more
-advanced than those found in the [[Using MapReduce]] guide; in the
-second half, we'll dive into how Riak has implemented MapReduce.
+MapReduce, the data processing paradigm popularized by
+[Google](http://research.google.com/archive/mapreduce.html), is provided
+by Riak to aggregate results as background batch processes.
 
 ## MapReduce
 
 In Riak, MapReduce is one of the primary methods for
 non-primary-key-based querying in Riak, alongside [[secondary indexes|Using Secondary Indexes]].
-Riak enables you to run MapReduce jobs through both the Erlang
-API, the [[HTTP API]], and the [[Protocol Buffers API|PBC API]]. For
-this tutorial, we will primarily use the HTTP API.
+Riak enables you to run MapReduce jobs through the Erlang API, the
+[[HTTP API]], and the [[Protocol Buffers API|PBC API]]. For this
+tutorial, we will primarily use the HTTP API.
 
 ### Why Do We Use MapReduce for Querying Riak?
 
 Key/value stores like Riak generally do not offer the kinds of complex
-querying capabilities found in other data storage systems like
-relational databases. MapReduce enables you to perform more powerful
-queries over the data stored in Riak and fits nicely with the functional
+querying capabilities found in other data storage systems, such as
+relational databases. MapReduce enables you to perform powerful queries
+over the data stored in Riak and fits nicely with the functional
 programming orientation of Riak's core code and the distributed nature
 of Riak's data storage model.
 
 The main goal of MapReduce is to spread the processing of a query across
 many systems to take advantage of parallel processing power. This is
-generally done by dividing the query into several steps, e.g. dividing
+generally done by dividing the query into several steps, i.e. dividing
 the dataset into several chunks and then running those step/chunk pairs
 on separate physical hosts. Riak's MapReduce has an additional goal:
 increasing data locality. When processing a large dataset, it's often
@@ -45,16 +43,11 @@ bring the data to the computation.
 
 "Map" and "Reduce" are phases in the query process. Map functions take
 one piece of data as input and produce zero or more results as output.
-If you're familiar with "mapping over a list" in functional programming
-style, you're already familiar with "map" steps in a MapReduce query.
+If you're familiar with [mapping over a list](http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map)
+in functional programming languages, you're already familiar with the
+"Map" steps in a MapReduce query.
 
 ## How Riak Spreads Processing
-
-The remainder of this page details how Riak implements MapReduce. It
-covers how Riak spreads processing across the cluster, the mechanics of
-how queries are specified and run, how to run MapReduce queries through
-the HTTP and Erlang APIs, streaming MapReduce, phase functions, and
-configuration details.
 
 When processing a large dataset, it's often much more efficient to take
 the computation to the data than it is to bring the data to the
@@ -72,26 +65,30 @@ request directly to the node responsible for maintaining the input data.
 Map-step results are sent back to the coordinating node, where
 reduce-step processing can produce a unified result.
 
-Put more simply: Riak runs map-step functions right on the node holding
+To put it more simply: Riak runs map-step functions on the node holding
 the input data for those functions, and it runs reduce-step functions on
 the node coordinating the MapReduce query.
 
-<div class="note"><div class="title">R=1</div>One consequence of Riak's
-processing model is that MapReduce queries have an effective <code>R</code>
-value of 1. The queries are distributed to a representative sample of
-the cluster where the data is expected to be found, and if one server
-lacks a copy of data it's supposed to have, a MapReduce job will not
-attempt to look for it elsewhere.
+<div class="note">
+<div class="title">R=1</div>
+One consequence of Riak's processing model is that MapReduce queries
+have an effective <code>R</code> value of 1. The queries are distributed
+to a representative sample of the cluster where the data is expected to
+be found, and if one server lacks a copy of data it's supposed to have,
+a MapReduce job will not attempt to look for it elsewhere.
+
+For more on the value of R, see our documentation on [[replication
+properties]].
 </div>
 
 ## How Riak's MapReduce Queries Are Specified
 
-MapReduce queries in Riak have two components: a list of inputs and a
-list of "steps," or "phases."
+MapReduce queries in Riak have two components: (1) a list of inputs and
+(2) a list of "steps," or "phases."
 
 Each element of the input list is a bucket-key pair. This bucket-key
-pair may also be annotated with "key-data,"" which will be passed as an
-argument to a map function, when evaluated on the object stored under
+pair may also be annotated with "key-data," which will be passed as an
+argument to a map function when evaluated on the object stored under
 that bucket-key pair.
 
 Each element of the phases list is a description of a map function, a
@@ -112,14 +109,14 @@ phase.
 ### Map Phase
 
 The input list to a map phase must be a list of (possibly annotated)
-bucket-key pairs. For each pair, Riak will send the request to evalua
-e
+bucket-key pairs. For each pair, Riak will send the request to evaluate
 the map function to the partition that is responsible for storing the
-data for that bucket-key. The vnode hosting that partition will look up
-the object stored under that bucket-key and evaluate the map function
-with the object as an argument. The other arguments to the function will
-be the annotation, if any is included, with the bucket-key, and the
-static data for the phase, as specified in the query.
+data for that bucket-key. The [[vnode|Riak Glossary#vnode]] hosting that
+partition will look up the object stored under that bucket-key and
+evaluate the map function with the object as an argument. The other
+arguments to the function will be the annotation, if any is included,
+with the bucket-key, and the static data for the phase, as specified in
+the query.
 
 <div class="note">
 <div class="title">Tombstones</div>
