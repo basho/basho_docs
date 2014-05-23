@@ -36,7 +36,7 @@ In many respects, bucket types are a major improvement over the older system of 
 <li>Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The <tt>riak-admin bucket-type</tt> interface (discussed in depth below) enables you to manage bucket configurations without recourse to clients.</li>
 </ul>
 
-For these reasons, we recommend <tt>always</tt> using bucket types.
+For these reasons, we recommend <em>always</em> using bucket types.
 </div>
 
 ## Usage Example
