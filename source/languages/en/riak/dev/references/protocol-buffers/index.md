@@ -93,7 +93,7 @@ Code | Message |
 80 | `DtFetchReq` |
 81 | `DtFetchResp` |
 82 | `DtUpdateReq` |
-83 | `RpbAuthReq` |
+83 | `DtUpdateResp` |
 253 | `RpbAuthReq` |
 254 | `RpbAuthResp` |
 255 | `RpbStartTls` |
