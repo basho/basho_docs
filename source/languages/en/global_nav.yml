@@ -183,7 +183,6 @@ riak:
     sub:
       - title: "Concepts"
         sub:
-          - "[[Concepts Overview|Concepts]]"
           # - "[[Bucket Types]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
@@ -191,7 +190,6 @@ riak:
           - "[[Eventual Consistency]]"
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
-          # - "[[Links]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
       - title: "Riak Compared to"
