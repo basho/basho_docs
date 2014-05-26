@@ -96,7 +96,7 @@ Errors that occur when processing Erlang pre-commit hooks will be
 reported in the `sasl-error.log` file with lines that start with
 `problem invoking hook`.
 
-##### Pre-commit Example
+##### Object Size Example
 
 This Erlang pre-commit hook will limit object values to 5 MB or smaller:
 
@@ -108,6 +108,15 @@ precommit_limit_size(Object) ->
   end.
 ```
 
+The Erlang function `precommit_limit_size` takes the Riak object
+(`Object`) as its input and runs a pattern-matching operation on the
+object. If the [`erlang:byte_size`](http://www.erlang.org/doc/man/erlang.html#byte_size-1)
+function determines that the object's size (determined by the `riak_object:get_value`
+function) is greater than 5,242,880 (5 MB in bytes), then the commit
+will return failure and the message `Object size is larger than 5 MB`.
+This will stop the write. If the object is not larger than 5 MB, Riak
+will return the object and allow the write to proceed.
+
 ### Chaining
 
 The default value of the bucket type's `precommit` property is an empty
@@ -117,7 +126,7 @@ will cause Riak to start evaluating those hook functions when bucket
 entries are created, updated, or deleted. Riak stops evaluating
 pre-commit hooks when a hook function fails the commit.
 
-##### Example
+##### JSON Validation Example
 
 Pre-commit hooks can be used in many ways in Riak. One such way to use
 pre-commmit hooks is to validate data before it is written to Riak.
@@ -141,54 +150,14 @@ Below is a sample JSON object that will be evaluated by the hook:
 
 The following hook will validate the JSON object:
 
-```javascript
-var PreCommit = {
-  validate: function(obj){
-
-    // A delete is a type of put in Riak so check and see what this
-    // operation is doing
-
-    if (obj.values[[0]][['metadata']][['X-Riak-Deleted']]){
-      return obj;
-    }
-
-    // Make sure the data is valid JSON
-    try{
-       data = JSON.parse(obj.values[[0]].data);
-       validateData(data);
-
-    }catch(error){
-      return {"fail": "Invalid Object: "+error}
-    }
-    return obj;
-  }
-};
-
-function validateData(data){
-  // Validates that user_info object is in the data
-  // and that name and age aren't empty, finally
-  // the session_info items array is checked and validated as
-  // being populated
-
-  if(
-    data.user_info != null &&
-    data.user_info.name != null &&
-    data.user_info.age != null &&
-    data.session_info.items.length > 0
-  ){
-    return true;
-  }else{
-    throw( "Invalid data" );
-  }
-}
+```erlang
+%% Need an Erlang function here
 ```
 
 **Note**: All post-commit hook functions are executed for each create,
 update, or delete.
 
 ## Post-Commit Hooks
-
-### API & Behavior
 
 Post-commit hooks are run after a write has completed successfully. More
 specifically, the hook function is called immediately before the calling
