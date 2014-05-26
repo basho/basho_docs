@@ -13,60 +13,90 @@ moved: {
 
 ## Overview
 
-Pre- and post-commit hooks are invoked before or after an object has been written to Riak and can greatly enhance the functionality of any application. 
-
-Commit hooks can:
+Pre- and post-commit hooks are functions that are invoked before or
+after an object has been written to Riak. To provide a few examples,
+commit hooks can:
 
 - allow a write to occur with an unmodified object
 - modify an object
-- fail the update and prevent any modifications
+- fail an update and prevent any modifications to the object
 
-Post-commit hooks are notified after the fact and should not modify the object. Updating Riak objects in post-commit hooks can cause nasty feedback loops which will wedge the hook into an infinite cycle unless the hook functions are carefully written to detect and short-circuit such cycles.
+Post-commit hooks are notified _after the fact_ and should not modify
+the object directly. Updating Riak objects while post-commit hooks are
+invoked can cause nasty feedback loops which will wedge the hook into an
+infinite cycle unless the hook functions are carefully written to detect
+and short-circuit such cycles.
 
-Pre- and post-commit hooks are defined on a per-bucket basis and are stored in the target bucket's properties. They are run once per successful response to the client.
+Pre- and post-commit hooks are applied at the [[bucket|Buckets]] level,
+[[using bucket types]]. They are run once per successful response to the
+client.
+
+Both pre- and post-commit hooks are named [Erlang](http://learnyousomeerlang.com/)
+functions.
 
 ## Setting Commit Hooks Using Bucket Types
 
-Because hooks are defined at the bucket level, you can create [[bucket types|Using Bucket Types]] that associate one or more hooks with any bucket that bears that type. Let's create a bucket type `with_post_commit` that adds a post-commit hook called `my_post_commit_hook` to operations on any bucket that bears the `with_post_commit` type. First, we can create the bucket type:
+Because hooks are defined at the bucket level, you can create [[bucket types|Using Bucket Types]]
+that associate one or more hooks with any bucket that bears that type.
+Let's create a bucket type called `with_post_commit` that adds a
+post-commit hook to operations on any bucket that bears the
+`with_post_commit` type.
 
-```bash
-riak-admin bucket-type create with_post_commit '{"props":{"postcommit":["my_post_commit_hook"]}'
+The format for specifying commit hooks is to identify the module (`mod`)
+and then the name of the function (`fun`) as a JavaScript object. The
+following specifies a commit hook called `my_custom_hook` in the module
+`commit_hooks_module`:
+
+```json
+{
+  "mod": "commit_hooks_module",
+  "fun": "my_custom_hook"
+}
 ```
 
-Pre- and post-commit hooks are stored in lists named `precommit` and `postcommit`, respectively. Once our bucket type has been created, we must activate it so that it will be usable through our Riak cluster:
+When we create our `with_post_commit` bucket type, we add that object
+to either the `precommit` or `postcommit` list in the bucket type's
+properties. Pre- and post-commit hooks are stored in lists named
+`precommit` and `postcommit`, respectively. Let's add the hook we
+specified above to the `postcommit` property when we create our bucket
+type:
+
+```bash
+riak-admin bucket-type create with_post_commit \
+  '{"props":{"postcommit":["my_post_commit_hook"]}'
+```
+
+Once our bucket type has been created, we must activate it so that it
+will be usable through our Riak cluster:
 
 ```bash
 riak-admin bucket-type activate with_post_commit
 ```
 
-## Configuration
-
-Configuring either pre- or post-commit hooks is very easy. Simply add a reference to your hook function to the list of functions stored in the correct bucket property. Pre-commit hooks are stored under the bucket property *precommit*. Post-commit hooks use the bucket property *postcommit*.
-
-Pre-commit hooks can be implemented as named Javascript functions or as Erlang functions. The configuration for each is given below:
-
-Javascript: `{"name": "Foo.beforeWrite"}`
-Erlang: `{"mod": "foo", "fun": "beforeWrite"}`
-
-Post-commit hooks can be implemented in Erlang only, and is described in more detail under [[Advanced Commit Hooks]]. The reason for this restriction is Javascript cannot call Erlang code and, thus, is prevented from doing anything useful. This restriction will be revisited when the state of Erlang/Javascript integration is improved. Post-commit hooks use the same function reference syntax as pre-commit hooks.
-
-See [[Advanced MapReduce]] for steps to define your own pre-defined Javascript named functions.
+If the response is `with_post_commit has been activated`, then the
+bucket type is ready for use.
 
 ## Pre-Commit Hooks
 
-### API & Behavior
-
-Pre-commit hook functions should take a single argument, the riak_object being modified. Remember that deletes are also considered "writes" so pre-commit hooks will be fired when a delete occurs. Hook functions will need to inspect the object for the *X-Riak-Deleted* metadata entry to determine when a delete is occurring.
+Pre-commit hook Erlang functions should take a single argument, the
+Riak object being modified. Remember that deletes are also considered
+"writes," and so pre-commit hooks will be fired when a delete occurs in
+the bucket as well. This means that hook functions will need to inspect
+the object for the `X-Riak-Deleted` metadata entry (more on this in our
+documentation on [[object deletion]]) to determine whether a delete is
+occurring.
 
 Erlang pre-commit functions are allowed three possible return values:
 
-- A riak_object --- This can either be the same object passed to the function or an updated version. This allows hooks to modify the object before they are written.
-- `fail` --- The atom *fail* will cause Riak to fail the write and send a 403 Forbidden along with a generic error message about why the write was blocked.
-- `{fail, Reason}` --- The tuple `{fail, Reason}` will cause the same behavior as in #2 with the addition of `Reason` used as the error text.
+- A Riak object --- This can either be the same object passed to the function or an updated version of the object. This allows hooks to modify the object before they are written.
+- `fail` --- The atom `fail` will cause Riak to fail the write and send a 403 Forbidden error response (in the [[HTTP API]]) along with a generic error message about why the write was blocked.
+- `{fail, Reason}` --- The tuple `{fail, Reason}` will cause the same behavior as in the case above, but with the addition of `Reason` used as the error text.
 
-Errors that occur when processing Erlang pre-commit hooks will be reported in the `sasl-error.log` file with lines that start with "problem invoking hook".
+Errors that occur when processing Erlang pre-commit hooks will be
+reported in the `sasl-error.log` file with lines that start with
+`problem invoking hook`.
 
-##### Erlang Pre-commit Example
+##### Pre-commit Example
 
 This Erlang pre-commit hook will limit object values to 5 MB or smaller:
 
@@ -78,52 +108,40 @@ precommit_limit_size(Object) ->
   end.
 ```
 
-
-Javascript pre-commit functions should also take a single argument, the JSON encoded version of the riak_object being modified. The JSON format is exactly the same as Riak's MapReduce. Javascript pre-commit functions are allowed three possible return values:
-
-- A JSON-encoded Riak object -- Aside from using JSON, this is exactly the
-same as #1 for Erlang functions. Riak will automatically convert it back to it's native format before writing.
-- `fail` -- The Javascript string "fail" will cause Riak to fail the write in exactly the same way as #2 for Erlang functions.
-- `{"fail": Reason}`  -- The JSON hash will have the same effect as #3 for Erlang functions. Reason must be a Javascript string.
-
-*Javascript Pre-commit Example*
-
-
-```javascript
-// Makes sure the object has JSON contents
-function precommitMustBeJSON(object){
-  try {
-    Riak.mapValuesJson(object);
-    return object;
-  } catch(e) {
-    return {"fail":"Object is not JSON"};
-  }
-}
-```
-
-
 ### Chaining
 
-The default value of the bucket *precommit* property is an empty list. Adding one or more pre-commit hook functions, as documented above, to the list will cause Riak to start evaluating those hook functions when bucket entries are created, updated, or deleted. Riak stops evaluating pre-commit hooks when a hook function fails the commit.
+The default value of the bucket type's `precommit` property is an empty
+list, meaning that no pre-commit hooks are specified by default. Adding
+one or more pre-commit hook functions to this list, as documented above,
+will cause Riak to start evaluating those hook functions when bucket
+entries are created, updated, or deleted. Riak stops evaluating
+pre-commit hooks when a hook function fails the commit.
 
 ##### Example
 
-Pre-commit hooks can be used in many ways in Riak. One such way to use pre-commmit hooks is to validate data before it is written to Riak.  Below is an example that uses Javascript to validate a JSON object before it is written to Riak.
+Pre-commit hooks can be used in many ways in Riak. One such way to use
+pre-commmit hooks is to validate data before it is written to Riak.
+Below is an example that uses Javascript to validate a JSON object
+before it is written to Riak.
 
-```javascript
-//Sample Object
+Below is a sample JSON object that will be evaluated by the hook:
+
+```json
 {
   "user_info": {
-    "name": "Mark Phillips",
-    "age": "25",
+    "name": "Daenerys Targaryen",
+    "age": "17"
   },
   "session_info": {
     "id": 3254425,
     "items": [29, 37, 34]
   }
 }
+```
 
+The following hook will validate the JSON object:
 
+```javascript
 var PreCommit = {
   validate: function(obj){
 
@@ -165,18 +183,29 @@ function validateData(data){
 }
 ```
 
+**Note**: All post-commit hook functions are executed for each create,
+update, or delete.
+
 ## Post-Commit Hooks
 
 ### API & Behavior
 
 Post-commit hooks are run after a write has completed successfully. More
-specifically, the hook function is called immediately before the calling process is notified of the successful write.
+specifically, the hook function is called immediately before the calling
+process is notified of the successful write.
 
-Hook functions must accept a single argument: the object instance just written. The return value of the function is ignored. As with pre-commit hooks, deletes are considered writes, so post-commit hook functions will need to inspect object metadata for the presence of `X-Riak-Deleted` to determine when a delete has occurred. Errors that occur when processing post-commit hooks will be reported in the `sasl-error.log` file with lines that start with `problem invoking hook`.
+Hook functions must accept a single argument: the object instance just
+written. The return value of the function is ignored. As with pre-commit
+hooks, deletes are considered writes, so post-commit hook functions will
+need to inspect the object's metadata for the presence of `X-Riak-Deleted`
+to determine whether a delete has occurred. As with pre-commit hooks,
+errors that occur when processing post-commit hooks will be reported in
+the `sasl-error.log` file with lines that start with `problem invoking hook`.
 
 ##### Example
 
-The following Erlang post-commit hook creates a secondary index on the `email` field of a JSON object:
+The following post-commit hook creates a secondary index on the `email`
+field of a JSON object:
 
 ```erlang
 postcommit_index_on_email(Object) ->
@@ -192,14 +221,20 @@ postcommit_index_on_email(Object) ->
     %% Create a new object for the target bucket
     %% NOTE: This doesn't handle the case where the
     %%       index object already exists!
-    IndexObj = riak_object:new(Bucket, Key,<<>>, %% no object contents
-                               dict:from_list(
-                                 [
-                                  {<<"content-type">>, "text/plain"},
-                                  {<<"Links">>,
-                                   [
-                                    {{riak_object:bucket(Object), riak_object:key(Object)},<<"indexed">>}]}
-                                 ])),
+    IndexObj = riak_object:new(
+        Bucket, Key, <<>>, %% no object contents
+            dict:from_list(
+                [
+                    {<<"content-type">>, "text/plain"},
+                    {<<"Links">>,
+                        [
+                            {
+                                {riak_object:bucket(Object), riak_object:key(Object)},
+                                <<"indexed">>
+                            }]}
+                        ]
+            )
+    ),
 
     %% Get a riak client
     {ok, C} = riak:local_client(),
@@ -211,6 +246,13 @@ postcommit_index_on_email(Object) ->
 
 ### Chaining
 
-The default value of the bucket `postcommit` property is an empty list. Adding one or more post-commit hook functions to the list, as documented above, will cause Riak to start evaluating those hook functions immediately after data has been created, updated, or deleted. Each post-commit hook function runs in a separate process so it's possible for several hook functions, triggered by the same update, to execute in parallel.
+The default value of the bucket `postcommit` property is an empty list,
+meaning that no post-commit hooks are specified by default. Adding one
+or more post-commit hook functions to the list, as documented above,
+will cause Riak to start evaluating those hook functions immediately
+after data has been created, updated, or deleted. Each post-commit hook
+function runs in a separate process so it's possible for several hook
+functions, triggered by the same update, to execute in parallel.
 
-**Note**: All post-commit hook functions are executed for each create, update, or delete.
+**Note**: All post-commit hook functions are executed for each create,
+update, or delete.

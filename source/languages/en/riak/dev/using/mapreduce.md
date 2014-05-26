@@ -68,19 +68,21 @@ In this example we will create four objects with the text "pizza" repeated a var
 ### Data object input commands:
 
 ```curl
-curl -XPUT \
+curl -XPUT http://localhost:8098/buckets/training/keys/foo \
   -H 'Content-Type: text/plain' \
-  -d 'pizza data goes here' \
-  http://localhost:8098/buckets/training/keys/foo
+  -d 'pizza data goes here'
 
-curl -XPUT \
+curl -XPUT http://localhost:8098/buckets/training/keys/bar \
   -H 'Content-Type: text/plain' \
-  -d 'pizza pizza pizza pizza' \
-  http://localhost:8098/buckets/training/keys/bar  
+  -d 'pizza pizza pizza pizza'
 
-curl -XPUT \
-  http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
-curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+curl -XPUT http://localhost:8098/buckets/training/keys/baz \
+  -H 'Content-Type: text/plain' \
+  -d 'nothing to see here'
+
+curl -XPUT http://localhost:8098/buckets/training/keys/bam \
+  -H 'Content-Type: text/plain' \
+  -d 'pizza pizza pizza'
 ```
 
 ### MapReduce script and deployment
