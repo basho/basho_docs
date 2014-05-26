@@ -80,8 +80,8 @@ available where and when they are needed.
 
 <div class="note">
 <div class="title">Note</div>
-Ensure that the directory chosen above can be read by the
-<code>riak</code> user.
+Ensure that the directory chosen above can be read by the <code>riak</code>
+user.
 </div>
 
 Successful compilation will result in a new `.beam` file,

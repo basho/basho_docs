@@ -86,8 +86,9 @@ properties]].
 MapReduce queries in Riak have two components: (1) a list of inputs and
 (2) a list of "steps," or "phases."
 
-Each element of the input list is a bucket-key pair. This bucket-key
-pair may also be annotated with "key-data," which will be passed as an
+Each element of the input list is an object location, as specified by
+[[bucket type|Using Bucket Types]], bucket, and key. This location may
+also be annotated with "key-data," which will be passed as an
 argument to a map function when evaluated on the object stored under
 that bucket-key pair.
 
@@ -288,7 +289,6 @@ usually seen as opaque **missing-function** or **function-clause**
 errors. Especially in the case of differing module versions, this can be
 difficult to diagnose without expecting the issue and knowing of
 `Module:info/0`.
-
 </div>
 
 Link phases are expressed in the following form:
