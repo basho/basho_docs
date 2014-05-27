@@ -18,24 +18,48 @@ moved: {
 }
 ---
 
-Riak was built with the assumption that a Riak installation acts as a multi-node [[cluster|Clusters]], distributing data across multiple physical servers.
+Riak was built with the assumption that a Riak installation acts as a
+multi-node [[cluster|Clusters]], distributing data across multiple
+physical servers. Riak's guiding design principle is Dr. Eric Brewer's
+[CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem).
 
+The CAP theorem defines distributed systems in terms of three desired
+properties: consistency, availability, and partition (i.e. failure)
+tolerance. Riak chooses to focus on the A and P of CAP, which puts it in
+the eventually consistent camp. It should be stated, however, that the
+window for "eventually consistent" is usually in the neighborhood of
+milliseconds, which can be good enough for many applications.
 
-
-Riak's guiding design principle is Dr. Eric Brewer's [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem). The CAP theorem defines distributed systems in terms of three desired properties: consistency, availability, and partition (i.e. failure) tolerance. Riak chooses to focus on the A and P of CAP, which puts it in the eventually consistent camp. It should be stated, however, that the window for "eventually consistent" is usually in the neighborhood of milliseconds, which can be good enough for many applications.
-
-Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem) dictates that there is a necessary trade-off between data consistency and availability, Riak enables you to fine-tune that trade-off. The ability to make these kinds of fundamental choices has immense value for your applications and is one of the features that differentiates Riak from other technologies.
+Although the [CAP theorem](http://en.wikipedia.org/wiki/CAP_theorem)
+dictates that there is a necessary trade-off between data consistency
+and availability, Riak enables you to fine-tune that trade-off.
+The ability to make these kinds of fundamental choices has immense value
+for your applications and is one of the features that differentiates
+Riak from other technologies.
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
-An option introduced in Riak version 2.0 is to use Riak as a <a href="/theory/concepts/strong-consistency/">strongly consistent</a> system for data in specified buckets. Using Riak in this way is fundamentally different from adjusting replication properties and fine-tuning the availability/consistency trade-off, as it sacrifices <em>all</em> availability guarantees when necessary. Therefore, you should consult the <a href="/dev/advanced/strong-consistency">Using Strong Consistency</a> documentation, as this option will not be covered in this tutorial.
+An option introduced in Riak version 2.0 is to use Riak as a
+<a href="/theory/concepts/strong-consistency/">strongly consistent</a>
+system for data in specified buckets. Using Riak in this way is
+fundamentally different from adjusting replication properties and
+fine-tuning the availability/consistency trade-off, as it sacrifices
+<em>all</em> availability guarantees when necessary. Therefore, you
+should consult the <a href="/dev/advanced/strong-consistency">Using
+Strong Consistency</a> documentation, as this option will not be covered
+in this tutorial.
 </div>
 
-At the bottom of the page, you'll find a [[screencast|Replication Properties#screencast]] that briefly explains how to adjust your replication levels to match your application and business needs.
+At the bottom of the page, you'll find a [[screencast|Replication Properties#screencast]]
+that briefly explains how to adjust your replication levels to match
+your application and business needs.
 
 ## Available Parameters
 
-The table below lists the most frequently used replication parameters that are available in Riak. Symbolic values like `quorum` are discussed [[below|Replication Properties#symbolic-consistency-names]]. Each parameter will be explained in more detail in the sections below:
+The table below lists the most frequently used replication parameters
+that are available in Riak. Symbolic values like `quorum` are discussed
+[[below|Replication Properties#symbolic-consistency-names]]. Each
+parameter will be explained in more detail in later sections:
 
 Parameter | Common name | Default value | Description
 :---------|:------------|:--------------|:-----------
@@ -56,46 +80,80 @@ Parameter | Common name | Default value | Description
 
 ## A Primer on N, R, and W
 
-The most important thing to note about Riak's replication controls is that they can be at the bucket level. You can use [[bucket types|Using Bucket Types]] to set up bucket `A` to use a particular set of replication properties and bucket `B` to use entirely different properties.
+The most important thing to note about Riak's replication controls is
+that they can be at the bucket level. You can use [[bucket types|Using Bucket Types]]
+to set up bucket `A` to use a particular set of replication properties
+and bucket `B` to use entirely different properties.
 
-At the bucket level, you can choose how many copies of data you want to store in your cluster (N, or `n_val`), how many copies you wish to read from at one time (R, or `r`), and how many copies must be written to be considered a success (W, or `w`).
+At the bucket level, you can choose how many copies of data you want to
+store in your cluster (N, or `n_val`), how many copies you wish to read
+from at one time (R, or `r`), and how many copies must be written to be
+considered a success (W, or `w`).
 
-In addition to the bucket level, you can also specify replication properties on the client side for any given read or write. The examples immediately below will deal with bucket-level replication settings, but check out the [[section below|Replication Properties#client-level-replication-settings]] for more information on setting properties on a per-operation basis.
+In addition to the bucket level, you can also specify replication
+properties on the client side for any given read or write. The examples
+immediately below will deal with bucket-level replication settings, but
+check out the [[section below|Replication Properties#client-level-replication-settings]]
+for more information on setting properties on a per-operation basis.
 
-The most general trade-off to be aware of when setting these values is the trade-off between **data accuracy** and **client responsiveness**. Choosing higher values for N, R, and W will mean higher accuracy because more nodes are checked for the correct value on read and data is written to more nodes upon write; but higher values will also entail degraded responsiveness, especially if one or more nodes is failing, because Riak has to wait for more responses.
+The most general trade-off to be aware of when setting these values is
+the trade-off between **data accuracy** and **client responsiveness**.
+Choosing higher values for N, R, and W will mean higher accuracy because
+more nodes are checked for the correct value on read and data is written
+to more nodes upon write; but higher values will also entail degraded
+responsiveness, especially if one or more nodes is failing, because Riak
+has to wait for responses from more nodes.
 
 ## N Value and Replication
 
-All data stored in Riak will be replicated to the number of nodes in the cluster specified by a bucket's N value (`n_val`). The default `n_val` in Riak is 3, which means that data stored in a bucket with the default N will be replicated to three different nodes, thus storing three replicas of the object.
+All data stored in Riak will be replicated to the number of nodes in the
+cluster specified by a bucket's N value (`n_val`). The default `n_val`
+in Riak is 3, which means that data stored in a bucket with the default
+N will be replicated to three different nodes, thus storing three
+**replicas** of the object.
 
-In order for this to be effective, you need at least three nodes in your cluster. The merits of this system, however, can be demonstrated using your local environment.
+In order for this to be effective, you need at least three nodes in your
+cluster. The merits of this system, however, can be demonstrated using
+your local environment.
 
-Let's create a bucket type that sets the `n_val` for any bucket with that type to 2. To do so, you must create and activate a bucket type that sets this property:
+Let's create a bucket type that sets the `n_val` for any bucket with
+that type to 2. To do so, you must create and activate a bucket type
+that sets this property:
 
 ```bash
 riak-admin bucket-type create n_val_equals_2 '{"props":{"n_val":2}}'
 riak-admin bucket-type activate n_val_equals_2
 ```
 
-Now, all buckets that bear the type `n_val_equals_2` will have `n_val` set to 2. Here's an example write:
+Now, all buckets that bear the type `n_val_equals_2` will have `n_val`
+set to 2. Here's an example write:
 
 ```curl
-curl -XPUT \
+curl -XPUT http://localhost:8098/types/n_val_equals_2/buckets/test_bucket/keys/test_key \
   -H "Content-Type: text/plain" \
-  -d "the n_val on this write is 2" \
-  http://localhost:8098/types/n_val_equals_2/buckets/test_bucket/keys/test_key
+  -d "the n_val on this write is 2"
 ```
 
-Now, whenever we write to a bucket of this type, Riak will write two replicas to two different nodes.
+Now, whenever we write to a bucket of this type, Riak will write a
+replica of the object to two different nodes.
 
 <div class="note">
 <div class="title">A Word on Setting the N Value</div>
-<tt>n_val</tt> must be greater than 0 and less than or equal to the number of actual nodes in your cluster to get all the benefits of replication. We advise against modifying the <tt>n_val</tt> of a bucket after its initial creation as this may result in failed reads because the new value may not be replicated to all the appropriate partitions.
+<code>n_val</code> must be greater than 0 and less than or equal to the
+number of actual nodes in your cluster to get all the benefits of
+replication. We advise against modifying the <code>n_val</code> of a
+bucket after its initial creation as this may result in failed reads
+because the new value may not be replicated to all the appropriate
+partitions.
 </div>
 
 ## R Value and Read Failure Tolerance
 
-Read requests to Riak are sent to all N nodes that are know to be currently responsible for the data. The R value (`r`) enables you to specify how many of those nodes have to return a result on a given read for the read to be considered successful. This allows Riak to provide read availability even when nodes are down or laggy.
+Read requests to Riak are sent to all N nodes that are know to be
+currently responsible for the data. The R value (`r`) enables you to
+specify how many of those nodes have to return a result on a given read
+for the read to be considered successful. This allows Riak to provide
+read availability even when nodes are down or laggy.
 
 You can set R anywhere from 1 to N; lower values mean faster response time but a higher likelihood of Riak not finding the object you're looking for, while higher values mean that Riak is more likely to find the object but takes longer to look.
 
@@ -223,7 +281,7 @@ How quickly and robustly data is written to disk depends on the configuration of
 ## Delete Quorum with RW
 
 <div class="note"><div class="title">Deprecation notice</div>
-It is no longer necessary to specify an RW value when making delete requests. We explain its meaning here, however, because RW still shows up as a property of Riak buckets (as <tt>rw</tt>) for the sake of backwards compatibility. Feel free and skip this explanation unless you are curious about what RW means.
+It is no longer necessary to specify an RW value when making delete requests. We explain its meaning here, however, because RW still shows up as a property of Riak buckets (as <code>rw</div>) for the sake of backwards compatibility. Feel free and skip this explanation unless you are curious about what RW means.
 </div> 
 
 Deleting an object requires successfully reading an object and then writing a tombstone to the object's key that specifies that an object once resided there. In the course of their operation, all deletes must comply with any R, W, PR, and PW values that apply along the way.
