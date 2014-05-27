@@ -155,9 +155,14 @@ specify how many of those nodes have to return a result on a given read
 for the read to be considered successful. This allows Riak to provide
 read availability even when nodes are down or laggy.
 
-You can set R anywhere from 1 to N; lower values mean faster response time but a higher likelihood of Riak not finding the object you're looking for, while higher values mean that Riak is more likely to find the object but takes longer to look.
+You can set R anywhere from 1 to N; lower values mean faster response
+time but a higher likelihood of Riak not finding the object you're
+looking for, while higher values mean that Riak is more likely to find
+the object but takes longer to look.
 
-As an example, let's create and activate a bucket type with `r` set to `1`. All reads performed on data in buckets with this type require a result from only one node.
+As an example, let's create and activate a bucket type with `r` set to
+`1`. All reads performed on data in buckets with this type require a
+result from only one node.
 
 ```bash
 riak-admin bucket-type create r_equals_1 '{"props":{"r":1}}'
@@ -196,15 +201,26 @@ bucket.get('chimpanzee')
 curl http://localhost:8098/types/r_equals_1/buckets/animal_facts/keys/chimpanzee
 ```
 
-As explained above, reads to buckets with the `r_equals_1` type will typically be completed more quickly, but if the first node to respond to a read request has yet to receive a replica of the object, Riak will return a `not found` response (which may happen even if the object lives on one or more other nodes). Setting `r` to a higher value will mitigate this risk.
+As explained above, reads to buckets with the `r_equals_1` type will
+typically be completed more quickly, but if the first node to respond
+to a read request has yet to receive a replica of the object, Riak will
+return a `not found` response (which may happen even if the object lives
+on one or more other nodes). Setting `r` to a higher value will mitigate
+this risk.
 
 ## W Value and Write Fault Tolerance
 
-As with read requests, writes to Riak are sent to all N nodes that are know to be currently responsible for the data. The W value (`w`) enables you to specify how many nodes must complete a write to be considered successful---a direct analogy to R. This allows Riak to provide write availability even when nodes are down or laggy.
+As with read requests, writes to Riak are sent to all N nodes that are
+know to be currently responsible for the data. The W value (`w`) enables
+you to specify how many nodes must complete a write to be considered
+successful---a direct analogy to R. This allows Riak to provide write
+availability even when nodes are down or laggy.
 
-As with R, you can set W to any value between 1 and N. The same performance vs. fault tolerance trade-offs that apply to R apply to W.
+As with R, you can set W to any value between 1 and N. The same
+performance vs. fault tolerance trade-offs that apply to R apply to W.
 
-As an example, let's create and activate a bucket type with `w` set to `3`:
+As an example, let's create and activate a bucket type with `w` set to
+`3`:
 
 ```bash
 riak-admin bucket-type create w_equals_3 '{"props":{"w":3}}'
@@ -257,67 +273,137 @@ curl -XPUT \
   http://localhost:8098/types/w_equals_3/buckets/animal_facts/keys/giraffe
 ```
 
-Writing our `story.txt` will return a success response from Riak only if 3 nodes respond that the write was successful. Setting `w` to 1, for example, would mean that Riak would return a response more quickly, but with a higher risk that the write will fail because the first node it seeks to write the object to is unavailable.
+Writing our `story.txt` will return a success response from Riak only if
+3 nodes respond that the write was successful. Setting `w` to 1, for
+example, would mean that Riak would return a response more quickly, but
+with a higher risk that the write will fail because the first node it
+seeks to write the object to is unavailable.
 
 ## Primary Reads and Writes with PR and PW
 
-In Riak's replication model, there are N [[vnodes|Riak Glossay#vnodes]], called *primary vnodes*, that hold primary responsibility for any given key. Riak will attempt reads and writes to primary vnodes first, but in case of failure, those operations will go to failover nodes in order to comply with the R and W values that you have set. This failover option is called *sloppy quorum*.
+In Riak's replication model, there are N [[vnodes|Riak Glossay#vnodes]],
+called *primary vnodes*, that hold primary responsibility for any given
+key. Riak will attempt reads and writes to primary vnodes first, but in
+case of failure, those operations will go to failover nodes in order to
+comply with the R and W values that you have set. This failover option
+is called *sloppy quorum*.
 
-In addition to R and W, you can also set integer values for the *primary read* (PR) and *primary write* (PW) parameters that specify how many primary nodes must respond to a request in order to report success to the client. The default for both values is zero.
+In addition to R and W, you can also set integer values for the *primary
+read* (PR) and *primary write* (PW) parameters that specify how many
+primary nodes must respond to a request in order to report success to
+the client. The default for both values is zero.
 
-Setting PR and/or PW to non-zero values produces a mode of operation called *strict quorum*. This mode has the advantage that the client is more likely to receive the most up-to-date values, but at the cost of a higher probability that reads or writes will fail because primary vnodes are unavailable.
+Setting PR and/or PW to non-zero values produces a mode of operation
+called *strict quorum*. This mode has the advantage that the client is
+more likely to receive the most up-to-date values, but at the cost of a
+higher probability that reads or writes will fail because primary vnodes
+are unavailable.
 
 <div class="note">
 <div class="title">Note on PW</div>
-If PW is set to a non-zero value, there is a higher risk (usually very small) that failure will be reported to the client upon write. But this does not necessarily mean that the write has failed completely. If there are reachable primary vnodes, those vnodes will still write the new data to Riak. When the failed vnode returns to service, it will receive the new copy of the data via either read repair or Active Anti-Entropy.
+If PW is set to a non-zero value, there is a higher risk (usually very
+small) that failure will be reported to the client upon write. But this
+does not necessarily mean that the write has failed completely. If there
+are reachable primary vnodes, those vnodes will still write the new data
+to Riak. When the failed vnode returns to service, it will receive the
+new copy of the data via either read repair or active anti-entropy.
 </div>
 
 ## Durable Writes with DW
 
-The W and PW parameters specify how many vnodes must _respond_ to a write in order for it to be deemed successful. What they do not specify is whether data has actually been written to disk in the storage backend. The DW parameters enables you to specify a number of vnodes between 1 and N that must write the data to disk before the request is deemed successful. The default value is `quorum` (more on symbolic names below).
+The W and PW parameters specify how many vnodes must _respond_ to a
+write in order for it to be deemed successful. What they do not specify
+is whether data has actually been written to disk in the storage backend.
+The DW parameters enables you to specify a number of vnodes between 1
+and N that must write the data to disk before the request is deemed
+successful. The default value is `quorum` (more on symbolic names below).
 
-How quickly and robustly data is written to disk depends on the configuration of your backend or backends. For more details, see the documentation on [[Bitcask]], [[LevelDB]], and [[multiple backends|Multi]].
+How quickly and robustly data is written to disk depends on the
+configuration of your backend or backends. For more details, see the
+documentation on [[Bitcask]], [[LevelDB]], and [[multiple backends|Multi]].
 
 ## Delete Quorum with RW
 
-<div class="note"><div class="title">Deprecation notice</div>
-It is no longer necessary to specify an RW value when making delete requests. We explain its meaning here, however, because RW still shows up as a property of Riak buckets (as <code>rw</div>) for the sake of backwards compatibility. Feel free and skip this explanation unless you are curious about what RW means.
+<div class="note">
+<div class="title">Deprecation notice</div>
+It is no longer necessary to specify an RW value when making delete
+requests. We explain its meaning here, however, because RW still shows
+up as a property of Riak buckets (as <code>rw</code>) for the sake of
+backwards compatibility. Feel free to skip this explanation unless you
+are curious about the meaning of RW.
 </div> 
 
-Deleting an object requires successfully reading an object and then writing a tombstone to the object's key that specifies that an object once resided there. In the course of their operation, all deletes must comply with any R, W, PR, and PW values that apply along the way.
+Deleting an object requires successfully reading an object and then
+writing a tombstone to the object's key that specifies that an object
+once resided there. In the course of their operation, all deletes must
+comply with any R, W, PR, and PW values that apply along the way.
 
-If R and W are undefined, however, the RW (`rw`) value will substitute for both R and W during object deletes. In recent versions of Riak, it is nearly impossible to make reads or writes that do not somehow specify both R and W, and so you will never need to worry about RW.
+If R and W are undefined, however, the RW (`rw`) value will substitute
+for both R and W during object deletes. In recent versions of Riak, it
+is nearly impossible to make reads or writes that do not somehow specify 
+oth R and W, and so you will never need to worry about RW.
 
 ## The Implications of `notfound_ok`
 
-The `notfound_ok` parameter is a bucket property that determines how Riak responds if a read fails on a node. If `notfound_ok` is set to `true` (the default value) and the first vnode to respond doesn't have a copy of the object, Riak will assume that the missing value is authoritative and immediately return a `not found` result to the client. This will generally lead to faster response times.
+The `notfound_ok` parameter is a bucket property that determines how
+Riak responds if a read fails on a node. If `notfound_ok` is set to
+`true` (the default value) and the first vnode to respond doesn't have a
+copy of the object, Riak will assume that the missing value is
+authoritative and immediately return a `not found` result to the client.
+This will generally lead to faster response times.
 
-On the other hand, setting `notfound_ok` to `false` means that the responding vnode will wait for something other than a `not found` error before reporting a value to the client. If an object doesn't exist under a key, the coordinating vnode will wait for N vnodes to respond with `not found` before it reports `not found` to the client. This setting makes Riak search more thoroughly for objects but at the cost of slower response times, a problem can be mitigated by setting `basic_quorum` to `true`, which is discussed in the next section.
+On the other hand, setting `notfound_ok` to `false` means that the
+responding vnode will wait for something other than a `not found` error
+before reporting a value to the client. If an object doesn't exist under
+a key, the coordinating vnode will wait for N vnodes to respond with
+`not found` before it reports `not found` to the client. This setting
+makes Riak search more thoroughly for objects but at the cost of slower
+response times, a problem can be mitigated by setting `basic_quorum` to
+`true`, which is discussed in the next section.
 
 ## Early Failure Return with `basic_quorum`
 
-Setting `notfound_ok` to `false` on a request (or as a bucket property) is likely to introduce additional latency. If you read a non-existent key, Riak will check all 3 responsible vnodes for the value before returning `not found` instead of checking just one.
+Setting `notfound_ok` to `false` on a request (or as a bucket property)
+is likely to introduce additional latency. If you read a non-existent
+key, Riak will check all 3 responsible vnodes for the value before
+returning `not found` instead of checking just one.
 
-This latency problem can be mitigated by setting `basic_quorum` to `true`, which will instruct Riak to query a quorum of nodes instead of N nodes. A quorum of nodes is calculated as floor(N/2) + 1, meaning that 5 nodes will produce a quorum of 3, 6 nodes a quorum of 4, 7 nodes a quorum of 4, 8 nodes a quorum of 5, etc.
+This latency problem can be mitigated by setting `basic_quorum` to
+`true`, which will instruct Riak to query a quorum of nodes instead of N
+nodes. A quorum of nodes is calculated as floor(N/2) + 1, meaning that 5
+nodes will produce a quorum of 3, 6 nodes a quorum of 4, 7 nodes a
+quorum of 4, 8 nodes a quorum of 5, etc.
 
-The default for `basic_quorum` is `false`, so you will need to explicitly set it to `true` on reads or in a bucket's properties. While the scope of this setting is fairly narrow, it can reduce latency in read-heavy use cases.
+The default for `basic_quorum` is `false`, so you will need to
+explicitly set it to `true` on reads or in a bucket's properties. While
+the scope of this setting is fairly narrow, it can reduce latency in
+read-heavy use cases.
 
 ## Symbolic Consistency Names
 
-Riak provides a number of "symbolic" consistency options for R, W, PR, RW, and DW that are often easier to use and understand than specifying integer values. The following symbolic names are available:
+Riak provides a number of "symbolic" consistency options for R, W, PR,
+RW, and DW that are often easier to use and understand than specifying
+integer values. The following symbolic names are available:
 
 * `all` --- All replicas must reply. This is the same as setting R, W, PR, RW, or DW equal to N.
 * `one` --- This is the same as setting 1 as the value for R, W, PR, RW, or DW.
 * `quorum` --- A majority of the replicas must respond, that is, half plus one. For the default N value of 3, this calculates to 2, an N value of 5 calculates to 3, and so on.
 * `default` --- Uses whatever the per-bucket consistency property is for R, W, PR, RW, or DW, which may be any of the above symbolic values or an integer.
 
-Not submitting a value for R, W, PR, RW, or DW is the same as using `default`.
+Not submitting a value for R, W, PR, RW, or DW is the same as using
+`default`.
 
 ## Client-level Replication Settings
 
-Adjusting replication properties at the bucket level by [[using bucket types]] is how you set default properties for _all_ of a bucket's reads and writes. But you can also set replication properties for specific reads and writes without setting those properties at the bucket level, instead specifying them on a per-operation basis.
+Adjusting replication properties at the bucket level by [[using bucket types]]
+is how you set default properties for _all_ of a bucket's reads and
+writes. But you can also set replication properties for specific reads
+and writes without setting those properties at the bucket level, instead
+specifying them on a per-operation basis.
 
-Let's say that you want to set `r` to 2 and `notfound_ok` to `true` for just one read. We'll fetch [John Stockton](http://en.wikipedia.org/wiki/John_Stockton)'s statistics from the `nba_stats` bucket.
+Let's say that you want to set `r` to 2 and `notfound_ok` to `true` for
+just one read. We'll fetch [John Stockton](http://en.wikipedia.org/wiki/John_Stockton)'s
+statistics from the `nba_stats` bucket.
 
 ```ruby
 bucket = client.bucket('nba_stats')
@@ -350,7 +436,10 @@ obj = bucket.get('john_stockton', r=2, notfound_ok=True)
 curl http://localhost:8098/buckets/nba_stats/keys/john_stockton?r=2&notfound_ok=true
 ```
 
-Now, let's say that you want to attempt a write with `w` set to 3 and `dw` set to 2. As in the previous example, we'll be using the `default` bucket type, which enables us to not specify a bucket type upon write. Here's what that would look like:
+Now, let's say that you want to attempt a write with `w` set to 3 and
+`dw` set to 2. As in the previous example, we'll be using the `default`
+bucket type, which enables us to not specify a bucket type upon write.
+Here's what that would look like:
 
 ```ruby
 bucket = client.bucket('nba_stats')
@@ -389,7 +478,10 @@ curl -XPUT \
   http://localhost:8098/buckets/nba_stats/keys/michael_jordan?w=3&dw=2
 ```
 
-All of Basho's [[official Riak clients|Client Libraries]] enable you to set replication properties this way. For more detailed information, refer to the tutorial on [[basic key/value operations in Riak|The Basics]] or to client-specific documentation:
+All of Basho's [[official Riak clients|Client Libraries]] enable you to
+set replication properties this way. For more detailed information,
+refer to the tutorial on [[basic key/value operations in Riak|The Basics]]
+or to client-specific documentation:
 
 * [Ruby](https://github.com/basho/riak-ruby-client/blob/master/README.markdown)
 * [Java](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
@@ -398,11 +490,17 @@ All of Basho's [[official Riak clients|Client Libraries]] enable you to set repl
 
 ## Illustrative Scenarios
 
-In case the above explanations were a bit too abstract for your tastes, the following table lays out a number of possible scenarios for reads and writes in Riak and how Riak is likely to respond. Some of these scenarios involve issues surrounding conflict resolution, vector clocks, and siblings, so we recommend reading the [[Vector Clocks]] documentation for more information.
+In case the above explanations were a bit too abstract for your tastes,
+the following table lays out a number of possible scenarios for reads
+and writes in Riak and how Riak is likely to respond. Some of these
+scenarios involve issues surrounding conflict resolution, vector clocks,
+and siblings, so we recommend reading the [[Vector Clocks]]
+documentation for more information.
 
 #### Read Scenarios
 
-These scenarios assume that a read request is sent to all 3 primary vnodes responsible for an object.
+These scenarios assume that a read request is sent to all 3 primary
+vnodes responsible for an object.
 
 Scenario | What happens in Riak
 :--------|:--------------------
@@ -414,7 +512,8 @@ All 3 vnodes agree on the value | Once the first 2 vnodes return the value, that
 
 #### Write Scenarios
 
-These scenarios assume that a write request is sent to all 3 primary vnodes responsible for an object.
+These scenarios assume that a write request is sent to all 3 primary
+vnodes responsible for an object.
 
 Scenario | What happens in Riak
 :--------|:--------------------
@@ -426,7 +525,8 @@ A vector clock is not included with the write request and an object already exis
 
 ## Screencast
 
-Here is a brief screencast that shows just how the N, R, and W values function in our running three-node Riak cluster:
+Here is a brief screencast that shows just how the N, R, and W values
+function in our running three-node Riak cluster:
 
 <div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/11172656"></div>
 
