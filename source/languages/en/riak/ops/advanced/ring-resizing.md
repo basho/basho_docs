@@ -24,7 +24,7 @@ There are a number of important considerations to bear in mind while running a r
 * For a resize to succeed, all nodes should be up. The only cluster operation permitted during a ring resize is `force-remove`. Other operations will be delayed while the resize completes.
 * If you perform a [[listkeys|HTTP List Keys]] or [[secondary index|Using Secondary Indexes]] query during a ring resize, you may get duplicates or miscounts in coverage queries. In an upcoming release of Riak, this will be self-healing (see [this pull request](https://github.com/basho/riak_kv/pull/685) for more information).
 * Resizing partitions can take up a lot of disk space. Make sure that you have sufficient storage to complete the resize operation.
-* It is *not* recommended that you use the `force-replace` command that is part of the `[[riak-admin|riak-admin Command Line#cluster-force-replace]]` interface during ring resizing.
+* Basho strongly recommends that you do _not_ use the `force-replace` command that is part of the `[[riak-admin|riak-admin Command Line#cluster-force-replace]]` interface during ring resizing.
 
 ## Starting the Resize
 
