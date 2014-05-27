@@ -19,7 +19,7 @@ moved: {
 that provides an API for storing and retrieving key/value data using
 log-structured hash tables that provide very fast access. The
 [design](http://downloads.basho.com/papers/bitcask-intro.pdf) of Bitcask
-was inspired, in part, by log-structured file systems and log file
+was inspired, in part, by log-structured filesystems and log file
 merging.
 
 ## Bitcask's Strengths
@@ -32,16 +32,17 @@ merging.
 * **High throughput, especially when writing an incoming stream of
     random items**
 
-    Because data being written to Bitcask doesn't need to be ordered on
-    disk and because the log-structured design allows for minimal disk
-    head movement during writes, write operations generally saturate I/O
-    and disk bandwidth.
+    Write operations to Bitcask generally saturate I/O and disk
+    bandwidth for two reasons: because (1) data that is written to 
+    Bitcask doesn't need to be ordered on disk, and (2) the
+    log-structured design of Bitcask allows for minimal disk head 
+    movement during writes.
 
 * **Ability to handle datasets larger than RAM without degradation**
 
-    Because access to data in Bitcask involves direct lookup from an
-    in-memory hash table, finding data on disk is very efficient, even
-    when data sets are very large.
+    Access to data in Bitcask involves direct lookup from an in-memory
+    hash table. This makes finding data very efficient, even when data
+    setes are very large.
 
 * **Single seek to retrieve any value**
 
@@ -52,42 +53,49 @@ merging.
 
 * **Predictable lookup _and_ insert performance**
 
-    As you might expect from the description above, read operations have
-    fixed, predictable behavior. What you might not expect is that this
-    is also true for writes. Write operations require, at most, one seek
-    to the end of the current open file and an append to that file.
+    For the reasons listed above, read operations from Bitcask have
+    fixed, predictable behavior. This is also true of writes to Bitask
+    because write operations require, at most, one seek to the end of
+    the current open file followed by and append to that file.
 
 * **Fast, bounded crash recovery**
 
-    Due to the append-only, write-once nature of Bitcask files, recovery
-    is easy and fast. The only items that might be lost are partially
-    written records at the tail of the file last opened for writes. Recovery need only review
-    the last record or two written and verify CRC data to ensure that the data
-    is consistent.
+    Crash recovery is easy and fast with Bitcask because Bitcask files
+    are append only and write once. The only items that may be lost are
+    partially written records at the tail of the last file that was
+    opened for writes. Recovery operations need to review only the last
+    record or two written and verify CRC data to ensure that the data is
+    consistent.
 
 * **Easy Backup**
 
-    In most systems backup can be very complicated but here again Bitcask
-    simplifies this process due to it's append-only write once disk format.
-    Any utility that archives or copies files in disk-block order will properly
-    backup or copy a Bitcask database.
+    In most systems, backup can be very complicated. Bitcask simplifies
+    this process due to its append-only, write-once disk format. Any
+    utility that archives or copies files in disk-block order will
+    properly back up or copy a Bitcask database.
 
 ### Weaknesses
 
 * Keys must fit in memory
 
-    Bitcask keeps all keys in memory at all times, which means that your system
-    must have enough memory to contain your entire keyspace, with room for other     operational components and operating system resident filesystem buffer
-    space.
+    Bitcask keeps all keys in memory at all times, which means that your
+    system must have enough memory to contain your entire keyspace, plus
+    additional space for other operational components and operating-
+    system-resident filesystem buffer space.
 
 ## Installing Bitcask
 
-Riak ships with Bitcask included within the distribution. In fact, Bitcask is
-the default storage engine for Riak and thus requires no separate installation. You can verify that Bitcask is the current storage backend using the `[[riak|riak Command Line]]` command interface:
+Bitcask is the default storage engine for Riak and requires no separate
+installation. You can verify that Bitcask is the current storage backend
+using the `[[riak|riak Command Line]]` command interface:
 
 ```bash
 riak config effective | grep backend
 ```
+
+If this operation returns anything other than `bitcask`, read our
+documentation on Riak's [[configuration files|Configuration Files#storage-backend]]
+for information on how to change the storage backend.
 
 ## Enabling and Configuring Bitcask
 
@@ -105,7 +113,11 @@ bitcask.io_mode = erlang
     ]},
 ```
 
-You can modify Bitcask's behavior by adjusting these settings in your [[configuration files]]. If you are using the new, `riak.conf`-based configuration system, there are a variety of additional configurable parameters listed in the [[Bitcask|Configuration Files#Bitcask]] section of the documentation.
+You can modify Bitcask's behavior by adjusting these settings in your
+[[configuration files]]. If you are using the new, `riak.conf`-based
+configuration system, there are a variety of additional configurable
+parameters listed in the [[Bitcask|Configuration Files#Bitcask]] section
+of the documentation.
 
 ### Open Timeout
 
@@ -251,7 +263,7 @@ to be read properly.
 
 ```riakconf
 
-```
+```s
 
 ```appconfig
 {bitcask, [
