@@ -519,7 +519,7 @@ Scenario | What happens in Riak
 :--------|:--------------------
 A vector clock is included with the write request, and is newer than the vclock attached to the existing object | The new value is written and success is indicated as soon as 2 vnodes acknowledge the write
 A vector clock is included with the write request but conflicts with the vclock attached to the existing object, with `allow_mult` set to `true` | The new value is created as a sibling for future reads
-A vector clock is included with the write request but conflicts with (or is older than) the vclock attached to the existing object, with `allow_mult` set to `false` | The new value overwrites the old
+A vector clock is included with the write request but conflicts with (or is older than) the vclock attached to the existing object, with `allow_mult` set to `false` | Riak will decide which object "wins" on the basis of timestamps; no sibling will be created
 A vector clock is not included with the write request and an object already exists, with `allow_mult` set to `true` | The new value is created as a sibling for future reads
 A vector clock is not included with the write request and an object already exists, with `allow_mult` set to `false` | The new value overwrites the existing value
 
