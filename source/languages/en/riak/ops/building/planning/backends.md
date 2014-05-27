@@ -13,14 +13,14 @@ moved: {
 }
 ---
 
-Pluggable storage backends are a key feature of Riak KV. These allow the
-choice of a low-level storage engine that suits specific operational
-needs. For example, if one needs maximum throughput, data persistence,
-and a bounded keyspace then Bitcask is a good choice. On the other hand,
-if one needs to store a large number of keys or needs secondary indexes,
-then LevelDB would be a better backend recommendation.
+Pluggable storage backends are a key feature of Riak. They enable you to
+choose a low-level storage engine that suits specific operational
+needs. For example, if your use case requires maximum throughput,
+data persistence, and a bounded keyspace, then Bitcask is a good choice. On
+the other hand, if you need to store a large number of keys or to use
+secondary indexes, LevelDB is likely a better choice.
 
-These backends are supported:
+The following backends are supported:
 
 * [[Bitcask]]
 * [[LevelDB]]
@@ -41,5 +41,5 @@ storage [[Backend API]] for more details.
 |Object Expiration                              |✓      |       |✓     |
 |Secondary Indexes                              |       |✓      |✓     |
 
-<sup>1</sup>Noted here since this can affect Riak start times for large
+<sup>1</sup> Noted here since this can affect Riak start times for large
 keyspaces.

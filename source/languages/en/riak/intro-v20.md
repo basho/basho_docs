@@ -12,7 +12,7 @@ Riak version 2.0 includes deep changes affecting all facets of Riak and a wide v
 If you're upgrading to Riak 2.0 from an earlier version, please be aware that all of the new features listed below are purely optional:
 
 * **Riak Data Types** --- Riak's new CRDT-based [[Data Types]] can simplify modeling data in Riak, but are only used in buckets explicitly configured to use them.
-* **Strong Consistency, Riak Security, and the new Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak
+* **Strong Consistency, Riak Security, and the new Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak.
 * **Security** --- [[Authentication and authorization]] can be enabled or disabled at any time.
 * **Configuration management** --- Riak configuration has been streamlined and now uses a file named `riak.conf`. However, existing `app.config` and `vm.args` files are still recognized in version 2.0.
 * **Bucket Types** --- While we strongly recommend [[using bucket types]] when creating new buckets, they are not required.
@@ -21,7 +21,7 @@ In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it
 
 * [[Cluster Metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
-* Bug patches --- A variety of bugs present in earlier versions have been identified and patched 
+* Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
 
 ## Riak Data Types
 

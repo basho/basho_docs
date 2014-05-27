@@ -41,7 +41,7 @@ riak-admin cluster resize-ring 64
 
 If successful, the following would appear in the console:
 
-```bash
+```
 Success: staged resize ring request with new size: 64
 ```
 
@@ -55,7 +55,7 @@ riak-admin cluster plan
 
 This will result in output along the following lines:
 
-```bash
+```
 =============================== Staged Changes ================================
 Action         Details(s)
 -------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ riak-admin cluster commit
 
 If successful, you should see the following in the console:
 
-```bash
+```
 Cluster changes committed
 ```
 
@@ -107,9 +107,11 @@ With the new plan committed, the progress of the resizing operation can be monit
 
 ```bash
 riak-admin ring-status
+```
 
-# Response:
+Response:
 
+```
 ================================== Claimant ===================================
 Claimant:  'dev1@127.0.0.1'
 Status:     up
@@ -150,13 +152,17 @@ Index: 1370157784997721485815954530671515330927436759040
 All nodes are up and reachable
 ```
 
-You can also throttle the ring resize activity using `riak-admin transfer-limit`, which will change the `handoff_concurrency` limit:
+You can also throttle the ring resize activity using `riak-admin transfer-limit`, which will change the `handoff_concurrency` limit.
+
+For the whole cluster:
 
 ```bash
-# For the whole cluster:
 riak-admin transfer-limit <limit>
+```
 
-# For a specific node:
+For a specific node:
+
+```bash
 riak-admin transfer-limit <node> <limit>
 ```
 
@@ -164,9 +170,11 @@ Using `riak-admin transfers` will provide you more information about the partiti
 
 ```bash
 riak-admin transfers
+```
 
-# Response:
+Response:
 
+```
 'dev5@127.0.0.1' waiting to handoff 3 partitions
 'dev4@127.0.0.1' waiting to handoff 1 partitions
 'dev3@127.0.0.1' waiting to handoff 1 partitions
@@ -231,8 +239,11 @@ You can confirm that the resize operation is no longer running using the `transf
 
 ```
 riak-admin transfers
+```
 
-# Response:
+Response:
+
+```
 No transfers active
 ```
 
@@ -254,13 +265,15 @@ Submit an `abort` request:
 riak-admin cluster resize-ring abort
 ```
 
-One of the following messages will appear, depending on the outcome of the `abort` request:
+One of the following messages will appear, depending on the outcome of the `abort` request. If successful:
 
-```bash
+```
 Success: staged abort resize ring request
+```
 
-# or
+If unsuccessful:
 
+```
 Failure: ring is not resizing or resize has completed
 ```
 
@@ -272,7 +285,7 @@ riak-admin cluster resize-ring plan
 
 In the output, you should find something like the following:
 
-```bash 
+```
 Action         Details(s)
 --------------------------------------
 resize-ring    abort. current size: 128

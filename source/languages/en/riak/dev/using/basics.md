@@ -59,6 +59,13 @@ obj = bucket.get('rufus')
 curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with your
+client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
 
 ```ruby
@@ -183,7 +190,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('oscar_wilde', bucket_type: 'quotes')
+bucket = client.bucket('oscar_wilde', bucket_type='quotes')
 obj = RiakObject(client, bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.data = 'I have nothing to declare but my genius'
@@ -245,7 +252,7 @@ System.out.println(response.getvClock());
 ```
 
 ```python
-bucket = client.bucket('nba', bucket_type: 'sports')
+bucket = client.bucket('nba', bucket_type='sports')
 obj = bucket.get('champion')
 obj.vclock
 
