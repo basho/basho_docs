@@ -11,18 +11,20 @@ moved: {
 }
 ---
 
-Let's install Riak and build a [five-node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/) cluster running on your local machine.
+In this tutorial, we'll install Riak and build a [five-node](http://basho.com/why-your-riak-cluster-should-have-at-least-five-nodes/) Riak cluster running on your local machine.
 
 ## Install Riak
 
-Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. However, this tutorial is based on a source build, so if you do not have Erlang already installed, first [[install Erlang|Installing Erlang]].
+Basho's pre-packaged Riak binaries (found under [[Downloads]]) embed the Erlang runtime. This tutorial, however, is based on a source build, so you will need to [[install Erlang|Installing Erlang]] if it is not installed on your machine already.
 
-We strongly recommend using Basho's patched version of Erlang to install Riak 2.0 if you wish to build from source. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz).
+If you wish to build Riak 2.0 from source, we strongly recommend using Basho's patched version of Erlang. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz).
 
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz
 tar -xvf otp_src_R16B02-basho4.tar.gz
 cd otp_src_R16B02-basho4
+./configure
+make
 ```
 
 ### Get the Source
