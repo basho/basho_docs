@@ -46,29 +46,12 @@ Now, any bucket that bears the type `n_val_of_2` will propagate objects to 2 nod
 Changing the N value after a bucket has data in it is <strong>not recommended</strong>. If you do change the value, especially if you increase it, you might need to force read repair (more on that below). Overwritten objects and newly stored objects will automatically be replicated to the correct number of nodes.
 </div>
 
-## Active Anti-Entropy (AAE)
+## Active Anti-Entropy
 
-Active anti-entropy (AAE) is a continuous background process that compares and repairs any divergent, missing, or corrupted replicas. Unlike [[read repair|Replication#Read-Repair]], which is only triggered when data is read, the active anti-entropy system ensures the integrity of all data stored in Riak. This is particularly useful in clusters containing "cold data,", i.e. data that may not be read for long periods of time, potentially years. Furthermore, unlike the repair command, active anti-entropy is an automatic process, requiring no user intervention and is enabled by default in Riak.
+Riak's active anti-entropy (AAE) subsystem is a continuous background process that compares and repairs any divergent or missing object replicas. For more information on AAE, see the following documents:
 
-Riak’s active anti-entropy feature is based on hash tree exchange, which enables differences between replicas to be determined with minimal exchange of
-information. The amount of information exchanged in the process is
-proportional to the differences between two replicas, not the amount of data
-that they contain. Approximately the same amount of information is exchanged
-when there are 10 differing keys out of 1 million keys as when there are 10
-differing keys out of 10 billion keys. This enables Riak to provide continuous
-data protection regardless of cluster size.
-
-Additionally, Riak uses persistent, on-disk hash trees rather than purely in-
-memory trees, a key difference from similar implementations in other products.
-This allows Riak to maintain entropy information for billions of keys with
-minimal additional memory usage, as well as allows Riak nodes to be restarted
-without losing any anti-entropy information. Furthermore, Riak maintains the
-hash trees in real time, updating the tree as new write requests come in. This
-reduces the time it takes Riak to detect and repair missing/divergent replicas.
-For added protection, Riak periodically (default: once a week) clears and
-regenerates all hash trees from the on-disk KV data. This enables Riak to
-detect silent data corruption to the on-disk data arising from bad disks and
-faulty hardware components.
+* [[Active Anti-Entropy]]
+* [[Managing Active Anti-Entropy]]
 
 ## Read Repair
 
