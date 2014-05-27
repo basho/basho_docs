@@ -72,9 +72,9 @@ This means that the application will need to develop a strategy for
 
 ## More Information
 
-Additional background information on vector clocks:
+Additional information on vector clocks:
 
-* [[Conflict Resolution]]
+* [[Conflict Resolution]] in Riak
 * [[Vector Clocks on Wikipedia|http://en.wikipedia.org/wiki/Vector_clock]]
 * [[Why Vector Clocks are Easy|http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/]]
 * [[Why Vector Clocks are Hard|http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/]]
