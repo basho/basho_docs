@@ -58,20 +58,8 @@ riak:
           - "[[Commit Hooks|Using Commit Hooks]]"
       - title: "Data Modeling"
         sub:
-          - "[[Overview|Use Cases]]"
+          - "[[Use Cases for Riak|Use Cases]]"
           - "[[Data Types|Data Modeling with Riak Data Types]]"
-          - title: "High Read/Write"
-            sub:
-              - "[[Session Storage]]"
-              - "[[Serving Ads|Serving Advertisements]]"
-              - "[[Log Data]]"
-              - "[[Sensor Data]]"
-          - title: "Relationships"
-            sub:
-              - "[[User Accounts]]"
-              - "[[User Settings & Prefs|User Settings/Preferences]]"
-              - "[[User Events & Timelines|User Subscriptions/Events/Timelines]]"
-              - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
           - "[[Search Details]]"
