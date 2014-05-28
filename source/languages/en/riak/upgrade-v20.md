@@ -9,7 +9,11 @@ keywords: [2.0, developers]
 
 Upgrading vs. fresh install
 
-## Siblings in Riak 2.0
+## New allow_mult Behavior
+
+One of the biggest changes in version 2.0 involves default behavior surrounding [[siblings|Vector Clocks#siblings]]. In versions of Riak prior to 2.0, the `allow_mult` setting was set to `false` by default for all buckets, which means that Riak's default behavior was to resolve object replica [[conflicts|Conflict Resolution]] between nodes on its own, and thus not to force connecting clients to resolve those conflicts.
+
+In version 2.0, Riak's new default behavior is 
 
 ## Bucket Types
 
