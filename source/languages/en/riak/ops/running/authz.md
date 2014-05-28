@@ -367,7 +367,7 @@ Permission | Operation |
 `riak_kv.list_keys` | List all of the keys in a bucket
 `riak_kv.list_buckets` | List all buckets
 
-<div class="note"><div class="title">Note</div>
+<div class="note"><div class="title">Note on Listing Keys and Buckets</div>
 `riak_kv.list_keys` and `riak_kv.list_buckets` are both very expensive operations that should be performed very rarely and never in production.
 </div>
 
@@ -517,6 +517,18 @@ The following command would remove the source for `riakuser` on `localhost`, reg
 ```bash
 riak-admin security del-source riakuser 127.0.0.1/32
 ```
+
+<div class="note">
+<div class="title">Note on Removing Sources</div>
+If you apply a security source both to <code>all</code> and to specific users and then wish to remove that source, you will need to do so in separate steps. The <code>riak-admin security del-source all ...</code> command by itself is not sufficient.
+
+For example, if you have assigned the source <code>password</code> to both <code>all</code> and to the user <code>riakuser</code> on the network <code>127.0.0.1/32</code>, the following two-step process would be required to fully remove the source:
+
+<code>
+riak-admin security del-source all 127.0.0.1/32 password
+riak-admin security del-source riakuser 127.0.0.1/32 password
+</code>
+</div>
 
 ### More Usage Examples
 
