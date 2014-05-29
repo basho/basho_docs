@@ -7,15 +7,31 @@ audience: intermediate
 keywords: [2.0, developers]
 ---
 
-Upgrading vs. fresh install
+If you are upgrading to Riak 2.0 from an earlier version, we strongly
+recommend reading through each of the sections of this guide for
+information on which concrete steps need to be undertaken to
+successfully upgrade and which default Riak behaviors have changed.
+
+If you are looking for an overview of the new features and functionality
+included in version 2.0, we recommend checking out our [[intro to 2.0|Riak 2.0]]
+guide.
+
+## Bucket Types
+
+
 
 ## New allow_mult Behavior
 
-One of the biggest changes in version 2.0 involves default behavior surrounding [[siblings|Vector Clocks#siblings]]. In versions of Riak prior to 2.0, the `allow_mult` setting was set to `false` by default for all buckets, which means that Riak's default behavior was to resolve object replica [[conflicts|Conflict Resolution]] between nodes on its own, and thus not to force connecting clients to resolve those conflicts.
+One of the biggest changes in version 2.0 involves default behavior
+surrounding [[siblings|Vector Clocks#siblings]]. In versions of Riak
+prior to 2.0, the `allow_mult` setting was set to `false` by default for
+all buckets, which means that Riak's default behavior was to resolve
+object replica [[conflicts|Conflict Resolution]] between nodes on its
+own, and thus not to force connecting clients to resolve those conflicts.
 
-In version 2.0, Riak's new default behavior is 
+In version 2.0, Riak's new default behavior is as follows:
 
-## Bucket Types
+* If you 
 
 ## When Downgrading is No Longer an Option
 
