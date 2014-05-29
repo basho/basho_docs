@@ -11,8 +11,6 @@ moved: {
 }
 ---
 
-<div class="info">Also see the [[riak-admin backup|riak-admin Command Line#backup]] and [[riak-admin restore|riak-admin Command Line#restore]] commands.</div>
-
 Choosing your Riak backup strategy will largely depend on the backend
 configuration of your nodes. In many cases, Riak will conform to your
 already established backup methodologies. When backing up a node, it is
