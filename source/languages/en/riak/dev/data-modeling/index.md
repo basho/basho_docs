@@ -12,17 +12,19 @@ moved: {
 }
 ---
 
-The examples of data models laid out here are not necessarily right for
-your application. This section is designed to illustrate some common
-approaches to thinking about and implementing data models in Riak that
-fit certain high-level, common application patterns.
+Riak is a deeply flexible data storage technology capable of addressing
+a wide variety of problems in a scalable way. In this guide, we'll list
+a number of potential use cases and data models for Riak, some of which
+are already being used in production for projects large and small. We'll
+also suggest possibilities for implementation and provide links to
+videos and documentation for further exploration.
 
 How you structure your application to run on Riak should take into
 account the unique needs of your use case, including access patterns
 such as read/write distribution, latency differences between various
-operations, use of Riak features including [[MapReduce]], [[Search|Using Search]],
-and [[secondary indexes (2i)|Using Secondary Indexes]], and more. This
-guide is intended to be illustrative only.
+operations, use of Riak features including [[Data Types]], [[MapReduce]],
+[[Search|Using Search]], and [[secondary indexes (2i)|Using Secondary Indexes]]
+and more. This guide is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
 
