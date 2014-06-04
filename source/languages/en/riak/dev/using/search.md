@@ -485,6 +485,19 @@ Start = ?ROWS_PER_PAGE * (Page - 1),
 riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
 ```
 
+Just be careful what you sort by.
+
+##### A Pagination Warning
+
+Distributed pagination in Riak Search cannot be used reliably when sorting on fields that can have different values per replica of the same object, namely: `score`, `_yz_id`. In the case of sorting by these fields, you may receive redundant objects. In the case of `score`, the top-N can return different results over multiple runs.
+
+If you are paginating simply to get all keys that match and don't care about the score, then you can sort on type-bucket-key (eg. `_yz_rt asc`, `_yz_rb asc`, `_yz_rk asc`) to get consistent results.
+
+If you want to sort by score without repeating results then you must set `rows` >= `numFound`. This requires having some idea of how many rows will match before running the query.
+
+[This issue](https://github.com/basho/yokozuna/issues/355) is caused by the way Search must minimally distribute a query across multiple Solr nodes (called a *coverage plan*), and then filter duplicate results to retrieve a full result set. Since this plan is frequently recalculated, successive page queries may use a different plan, and thus calculate alternate `score`s or filter different `_yz_id` values. We have plans to fix this shortcoming in the next version of Riak.
+
+
 ### MapReduce
 
 Riak Search allows for piping search results as inputs for MapReduce jobs. This is a useful crossection for performing a post calculations of results, or aggregations of ad-hoc queries. The Riak Search MapReduce integration works similar to regular mapreduce, with the notable exception that your input is not a bucket, but index and query arguments to the `yokozuna` module and `mapred_search` function (an Erlang module:function pair that adds the Riak Search hook to MapReduce).
