@@ -53,6 +53,7 @@ riak:
           - "[[Data Types|Using Data Types]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
+          - "[[Conflict Resolution]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Commit Hooks|Using Commit Hooks]]"

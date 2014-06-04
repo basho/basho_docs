@@ -90,7 +90,15 @@ not found
 
 If you're using HTTP to interact with Riak, as opposed to using a [[client library|Client Libraries]], Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation, which is relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
-Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to an R of 2.
+#### Read Parameters
+
+Parameter | Default | Description
+:---------|:--------|:-----------
+`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
+`pr` | `0` | How many vnodes must respond for a read to be deemed successful
+`notfound_ok` | If set to `true`, if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client
+
+Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response).
 
 Here is an example of attempting a read with `r` set to `3`:
 
@@ -206,11 +214,20 @@ curl -XPUT \
 
 #### Using Vector Clocks
 
-If an object already exists under a certain key, you will need to attach a [[vector clock|Vector Clocks]] to your object as metadata. The vector clock can be obtained when you read the object that already exists.
+If an object already exists under a certain key and you want to write a new object to that key, Riak needs to know what to do, especially if multiple writes are happening at the same time. Which of the objects being written should be deemed correct? These kinds of scenarios can arise quite frequently in distributed, [[eventually consistent|Eventual Consistency]] systems.
 
-Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`.
+Riak decides which object to choose in case of conflict using [[vector clocks]]. If you're writing an object to a key that already exists, you'll need to do the following:
 
-But one season, the Harlem Globetrotters enter the league and dethrone the hapless Generals. We want to write that new information to the `champion` key. Let's fetch the object there and obtain the vector clock.
+* Read the existing object
+* Fetch the vector clock from the object's metadata
+* Attach the vector clock to the new object's metadata
+* Write the new object
+
+A more detailed tutorial on vector clocks and object updates more generally can be found in the [[conflict resolution]] doc. Here, we'll walk you through a basic example.
+
+Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`. The value of the object is a simple text snippet that says `Washington Generals`.
+
+But one day the Harlem Globetrotters enter the league and dethrone the hapless Generals (forever, as it turns out). Because we want our Riak database to reflect this new development in the league, we want to make a new write to the `champion` key. Let's read the object stored there and fetch the vector clock.
 
 ```ruby
 bucket = client.bucket('nba')
@@ -329,8 +346,8 @@ Similar to how read requests support the `r` query parameter, write requests als
 
 Parameter | Default | Description
 :---------|:--------|:-----------
-`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
 `w` | `2` | How many replicas to write to before returning a successful response
+`pw` | `0` | How many primary vnodes must respond for a write to be deemed successful
 `dw` | `0` | How many replicas to commit to durable storage before returning a successful response
 `returnbody` | `false` | Whether to return the contents of the stored object
 
