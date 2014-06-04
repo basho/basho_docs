@@ -9,6 +9,11 @@ keywords: [developers, buckets]
 
 Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a more efficient way.
 
+<div class="note">
+<div class="title">Important note on cluster downgrades</div>
+If you upgrade a Riak to version 2.0 or later, you can still downgrade the cluster to a pre-2.0 version <em>if you have not created and activated a bucket type in the cluster</em>. Once any bucket type has been created and activated, you can no longer downgrade the cluster to a pre-2.0 version.
+</div>
+
 ## How Bucket Types Work
 
 The ad hoc approach to bucket configuration involves setting bucket properties for specific buckets either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. With this approach, you can take a bucket `my_bucket` and modify any number of its properties, from `n_val` to `allow_mult` and far beyond.
