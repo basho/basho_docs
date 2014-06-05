@@ -14,10 +14,10 @@ moved: {
 
 Riak is a deeply flexible data storage technology capable of addressing
 a wide variety of problems in a scalable way. In this guide, we'll list
-a number of potential use cases and data models for Riak, some of which
-are already being used in production for projects large and small. We'll
-also suggest possibilities for implementation and provide links to
-videos and documentation for further exploration.
+a number of use cases and data models that are a good fit for Riak. Some
+of these use cases are already being used in production for projects
+large and small. We'll also suggest possibilities for implementation and
+provide links to videos and documentation for further exploration.
 
 How you structure your application to run on Riak should take into
 account the unique needs of your use case, including access patterns
@@ -28,8 +28,9 @@ and more. This guide is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
 
-The following application types require high read/write performance
-without necessarily utilizing complex data structures:
+The following are examples of Riak use cases that require high
+read/write performance without necessarily utilizing complex data
+structures:
 
 * [[Session Storage|Use Cases#session-storage]]
 * [[Serving Advertisements|Use Cases#serving-advertisements]]
@@ -48,8 +49,6 @@ between objects, e.g. one-to-many and many-to-many relationships.
 
 ## Session Storage
 
-#### Simple Case
-
 Riak was originally created to serve as a highly scalable session store.
 This is an ideal use case for Riak, which is always most performant and
 predictable when used as a key/value store. Since user and session IDs
@@ -61,14 +60,14 @@ administrative changes to schemas.
 
 #### Complex Case
 
-Riak has other features that enable more complex session storage use
-cases. The [[Bitcask]] storage backend supports automatic expiry of
-keys, which frees application developers from implementing manual
-session expiry. Riak's [[MapReduce]] system can also be used to perform
-batch processing analysis on large bodies of session data, for example
-to compute the average number of active users. If sessions must be
-retrieved using multiple keys (e.g. a UUID or email address), 
-[[using secondary indexes]] can provide an easy solution.
+Riak has features that allow for more complex session storage use cases.
+The [[Bitcask]] storage backend supports automatic expiry of keys, which
+frees application developers from implementing manual session expiry.
+Riak's [[MapReduce]] system can also be used to perform batch processing
+analysis on large bodies of session data, for example to compute the
+average number of active users. If sessions must be retrieved using
+multiple keys (e.g. a UUID or email address), [[using secondary indexes]]
+can provide an easy solution.
 
 #### Community Examples
 
@@ -86,13 +85,12 @@ retrieved using multiple keys (e.g. a UUID or email address),
 
 ## Serving Advertisements
 
-#### Simple Case
-
-A common use case for Riak is using it as a data store for serving ad
-content to many different web and mobile users with low latency. In
-Riak, advertising content---e.g. images or text---can be stored with
-unique keys or with Riak-generated keys. Users will often make keys
-based on a campaign ID for easy retrieval.
+Riak is very often a good choice for serving advertising content to many
+different web and mobile users simultaneously with low latency. Content
+of this sort, e.g. images or text, can be stored in Riak either using
+unique keys generated either by the application or by Riak. Keys can
+be created, for example, based on a campaign or company ID for easy
+retrieval.
 
 #### Complex Case
 
@@ -113,18 +111,16 @@ serving reads.
     </td>
     <td><a href="http://player.vimeo.com/video/49775483" target="_blank" title="Riak at OpenX">Riak at OpenX</a>
     <br>
-    Los Angeles-based OpenX will serve around four trillion ads this
-    year. In this talk, Anthony Molinaro, Engineer at OpenX, goes
-    in depth on their architecture, how they've built their system, and
-    why/how they are switching to Riak for data storage after using
-    databases like CouchDB and Cassandra in production.
+    Los Angeles-based OpenX will serves trillions of ads a year. In this
+    talk, Anthony Molinaro, Engineer at OpenX, goes in depth on their
+    architecture, how they've built their system, and why/how they're
+    switching to Riak for data storage after using databases like
+    CouchDB and Cassandra in production.
     </td>
   </tr>
 </table>
 
 ## Log Data
-
-#### Simple Case
 
 A common use case for Riak is storing large amounts of log data for
 analysis with [[MapReduce]] or as the primary storage for log data with
@@ -163,18 +159,16 @@ maintain higher performance and yield more predictable latency.
 
 ## Sensor Data
 
-#### Simple Case
-
- Riak's scalable design makes it useful for data sets, like sensor data,
- that scale rapidly and are subject to heavy read/write loads. Many
- sensors collect and send data at a given interval. One way to model
- this in Riak is to create a bucket for each sensor device, and use the
- interval as a unique key (i.e., a date or combination of date/time),
- then store update data as the value. You could then query on the
- interval; or alternatively store a timestamp as a secondary index
- (piece of queryable metadata attached to the key/value pair) that would
- allow you to perform queries on specific ranges or perform MapReduce
- queries against the indexes.
+Riak's scalable design makes it useful for data sets, like sensor data,
+that scale rapidly and are subject to heavy read/write loads. Many
+sensors collect and send data at a given interval. One way to model
+this in Riak is to create a bucket for each sensor device, and use the
+interval as a unique key (i.e., a date or combination of date/time),
+then store update data as the value. You could then query on the
+interval; or alternatively store a timestamp as a secondary index
+(piece of queryable metadata attached to the key/value pair) that would
+allow you to perform queries on specific ranges or perform MapReduce
+queries against the indexes.
 
 #### Complex Case
 
@@ -194,8 +188,6 @@ object size of about 1-2MB in order to avoid performance problems in the
 cluster.
 
 ## User Accounts
-
-#### Simple Case
 
 User accounts are pretty straight-forward -- the usual practice is to
 store JSON objects in a 'users' bucket. As far as what to use for a key
@@ -232,8 +224,6 @@ account.
 
 ## User Settings and Preferences
 
-#### Simple Case
-
 For user account-related data that is simple, frequently read but rarely
 changed (such as a privacy setting or theme preference), consider
 storing it in the user object itself. Another common pattern is to
@@ -248,8 +238,6 @@ user ID for easy one-read retrieval.
  model is called for (see the section on social events/subscriptions)
 
 ## User Events and Timelines
-
-#### Simple Case
 
 Sometimes you may want to do more complex or specific kinds of modeling
 user data. A common example would be storing data for assembling a
@@ -289,8 +277,6 @@ store additional data - such as a timestamp, category or list properties
 </table>
 
 ## Articles, Blog Posts, and Other Content
-
-#### Simple Case
 
 The simplest way to model blog posts, articles or other content is by
 creating a bucket in Riak with some unique attribute for logical
