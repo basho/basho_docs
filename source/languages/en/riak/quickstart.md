@@ -96,7 +96,7 @@ dev5/bin/riak start
 Of if you prefer more succinct commands, you can use a `for` loop to iterate through and start the available nodes:
 
 ```bash
-for node in `ls`; do $node/bin/riak start; done
+for node in dev*; do $node/bin/riak start; done
 ```
 
 ### Check Running Nodes
@@ -122,7 +122,7 @@ Node 'dev1@127.0.0.1' not responding to pings.
 Alternatively, you can run a command to iterate through each node and return its current status:
 
 ```bash
-for node in `ls`; do $node/bin/riak ping; done
+for node in dev*; do $node/bin/riak ping; done
 ```
 
 ## Create the Cluster
@@ -230,7 +230,7 @@ Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 In order to test whether our cluster is working properly, let's store an object (just a short text snippet) and then attempt to fetch it. The easiest way to get started is Riak's [[HTTP API]]. We'll use [curl](http://httpkit.com/resources/HTTP-from-the-Command-Line/) to make a `PUT` request to the [[key|Keys and Objects#keys]] `german` in the [[bucket|Buckets]] `welcome`.
 
 ```curl
-curl -XPUT http://localhost:8098/buckets/welcome/keys/german \
+curl -XPUT http://localhost:10018/buckets/welcome/keys/german \
   -H 'Content-Type: text/plain' \
   -d 'herzlich willkommen'
 ```
@@ -245,7 +245,7 @@ While the HTTP API can be useful for getting started or for running basic test o
 If the `PUT` request above succeeded, that means that you've stored your first object in Riak. Now attempt a `GET` request to the same HTTP endpoint:
 
 ```curl
-curl http://localhost:8098/buckets/hello/keys/german
+curl http://localhost:10018/buckets/hello/keys/german
 ```
 
 You should get the following result:
@@ -263,7 +263,7 @@ cp ~/image/location/<image_name>.jpg .
 Use curl to `PUT` the image into Riak:
 
 ```curl
-curl -XPUT http://localhost:8098/buckets/images/keys/<image_name>.jpg \
+curl -XPUT http://localhost:10018/buckets/images/keys/<image_name>.jpg \
   -H 'Content-Type: image/jpeg' \
   --data-binary @<image_name>.jpg
 ```
@@ -271,16 +271,16 @@ curl -XPUT http://localhost:8098/buckets/images/keys/<image_name>.jpg \
 You can verify that the image has been properly stored by navigating to the URL above in a browser or issuing a `GET` request:
 
 ```curl
-curl http://localhost:8098/buckets/images/keys/<image_name>.jpg
+curl -O http://localhost:10018/buckets/images/keys/<image_name>.jpg
 ```
 
-If the response is an indecipherable binary, then your read request has succeeded.
+This will save the image to the current directory. You can open it with an image editor to verify that the image has been stored and retrieved correctly.
 
 You should now have a five-node Riak cluster up and running. Congratulations!
 
 <div class="note">
 <div class="title">HTTP interface ports</div>
-The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `8098`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.
+The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `10018`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.
 </div>
 
 ## Setting Up Your Riak Client
