@@ -8,6 +8,10 @@ keywords: [blog]
 ---
 
 Basho's [official blog](http://basho.com/blog/) periodically features
+articles of interest to developers using Riak, including guides to
+implementation details behind Riak's architecture, discussions of Riak
+development best practices, and instructions on using Riak in
+conjunction with third-party tools. Here are some examples:
 
 * [Riak Quick Start with Docker](http://basho.com/riak-quick-start-with-docker/)
 * [Entropy in Riak](http://basho.com/entropy-in-riak/)
