@@ -20,7 +20,13 @@ These migration steps are as automated as they can reasonably be, with some manu
 
 The general outline of this migration is to first create, then mirror, all legacy indexes to new Solr indexes. This is done live, and new writes will occur on both sets of indexes. This means more disk usage.  How much more will depend on the schema but tests have shown Solr to generally use less disk.  A prudent plan will expect new Search to use as much disk as legacy. Also expect more CPU usage as analysis will temporarily be performed by both systems.  Finally, Solr runs on a JVM process, requiring its own RAM.  A good start is 2GB but more is required for heavier workloads.  On the contrary, do not make too large a heap as it could cause lengthy garbage collection pauses.
 
-You will continue running your queries against legacy Search in this phase. Once new the indexes are up to date, you can disable legacy Search for all buckets. Finally, you can disable legacy Search on all nodes. Once you're satisfied that the new search is working as expected, you can delete the unused `merge_index` data and reclaim this disk space.
+As the KV data is being indexed under the new Search system by AAE, incoming queries will still be serviced by legacy search.  Once you have determined the new indexes are consistent with KV you can perform a live switch to the new system and turn off legacy Search.  Finally, you can remove the old merge index directories to reclaim disk space.
+
+<div class="note">
+<div class="title">Downgrading and Merge Index</div>
+It may be tempting to tempting to keep the merge index files in case of a downgrade.  Don't do that if writes are being made to these buckets during upgrade.  Once `search: false` is set on a bucket all new KV data written will have missing indexes in merge index and overwritten data will have inconsistent indexes.  At this point a downgrade requires a full reindex of the data as legacy Search has no mechanism to cope with inconsistency (such as AAE in new Search).
+</div>
+
 
 ## Steps to Upgrading
 
@@ -101,7 +107,7 @@ You will continue running your queries against legacy Search in this phase. Once
          -d'{"props":{"search":false}}'
     ```
 
-9.  You can finally disable the Riak Search process on each node by setting `riak_search` `enabled` to `false`.
+9.  Disable the Riak Search process on each node by setting `riak_search` `enabled` to `false`.
 
     ```appconfig
      {riak_search, [
@@ -109,4 +115,6 @@ You will continue running your queries against legacy Search in this phase. Once
                 ]},
     ```
 
-Once you're convinced that legacy Search no longer needs the merge index directories, you may delete them to reclaim disk space. Don't rush into deleting them. Give yourself plenty of time to get comfortable with the new search before doing this, maybe a few weeks or more. If you run into any problems with these steps, feel free to reach out the the [[Riak community|Help and Community]] for help.
+10. Finally, delete the merge index directories to relcaim disk space.
+
+For any questions reach out the the [[Riak community|Help and Community]].  Preferably, ask your questions up front rather than during the middle of a migration.
