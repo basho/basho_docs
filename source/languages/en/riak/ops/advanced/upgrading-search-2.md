@@ -29,6 +29,12 @@ As the new Search indexes catch up with the old, incoming queries will still be 
 It may be tempting to keep the merge index files in case of a downgrade.  Don't do that if writes are being made to these buckets during upgrade.  Once `search: false` is set on a bucket all new KV data written will have missing indexes in merge index and overwritten data will have inconsistent indexes.  At this point a downgrade requires a full reindex of the data as legacy Search has no mechanism to cope with inconsistency (such as AAE in new Search).
 </div>
 
+<div class="note">
+<div class="title">AAE Required</div>
+Migration requires that Riak's AAE subsystem be enabled.  It's responsible for finding all the missing index entries for existing data and adding them.  Technically, the migration can be performed without AAE, but it will require a key listing or map-reduce job that re-indexes every object.  This method will use more CPU, network, and especially disk space from merge index as it's GC algorithm is bad at getting rid of large index files.
+</div>
+
+
 
 ## Steps to Upgrading
 
