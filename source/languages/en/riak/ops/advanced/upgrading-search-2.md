@@ -8,7 +8,7 @@ audience: advanced
 keywords: [search, upgrading]
 ---
 
-If you're using Search in a version of Riak prior to 2.0 (1.3.0 to 1.4.x), you should follow these steps to migrate your search indexes from the legacy `merge_index`, to the new Solr backed ([[yokozuna|search details]]) indexes. The legacy version of Riak Search is now deprecated, and does not support most new 2.0 features (no [[datatypes|using data types]], [[bucket types|using bucket types]], [[strong consistency]], [[security|authentication and authorization]]), so we highly recommend you migrate.
+If you're using Search in a version of Riak prior to 2.0 (1.3.0 to 1.4.x), you should follow these steps to migrate your search indexes from the legacy `merge_index`, to the new Solr backed ([[yokozuna|search details]]) indexes. The legacy version of Riak Search is now deprecated, and does not support most new 2.0 features (no [[datatypes|using data types]], [[bucket types|using bucket types]], [[security|authentication and authorization]]), so we highly recommend you migrate.
 
 The legacy `merge_index`-based search (aka legacy Search) will be removed in the future.
 
