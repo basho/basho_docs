@@ -29,6 +29,16 @@ class User
 end
 ```
 
+```python
+class User:
+    def __init__(self, first_name, last_name, interests, visits, paid_account):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.interests = interests
+        self.visits = visits
+        self.paid_account = paid_account
+```
+
 This enables us to create new `User`s and modify those characteristics:
 
 ```ruby
@@ -39,7 +49,13 @@ bill.interests = ['filming Caddyshack', 'being smartly funny']
 bill.visits = 10
 bill.paid_account = false
 bill
-#<User:0x007fb7f7885408 @first_name="Bill", @last_name="Murray", @interests=["filming Caddyshack", "being smartly funny"], @visits=10>
+# <User:0x007fb7f7885408 @first_name="Bill", @last_name="Murray", @interests=["filming Caddyshack", "being smartly funny"], @visits=10>
+```
+
+```python
+bill = User('Bill', 'Murray', ['filming Caddyshack', 'being smartly funny'], 10, False)
+bill
+# <__main__.User instance at 0x10134dc68>
 ```
 
 Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps can hold a variety of Data Types within them, in our case a few strings (best modeled as [[registers|Data Types#Registers]]), an array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best modeled as a [[flag|Data Types#Flags]]). Maps can also house other maps, but that will not be covered in this tutorial.
@@ -52,6 +68,13 @@ Once the bucket type is ready (we'll name the bucket type `map_bucket` for our p
 
 ```ruby
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
+```
+
+```python
+from riak import RiakClient
+
+global client
+client = RiakClient(protocol='pbc', host='localhost', pb_port=8087)
 ```
 
 Now, we can begin connecting our data model to a Riak map. We'll do that creating a map whenever a new `User` object is created:
@@ -69,7 +92,18 @@ end
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
 
-# If this parameter is set, you no longer need to specify a bucket type when creating maps. The rest of this tutorial will proceed assum
+# If this parameter is set, you no longer need to specify a bucket type when creating maps.
+```
+
+```python
+from riak.datatypes import Map
+
+class User:
+    def __init__(self, first_name, last_name, interests, visits, paid_account):
+        # including the init variables from above
+        self.bucket = client.bucket_type('map_bucket').bucket('<bucket_name>')
+        self.key = '<key>'
+        self.map = Map(self.bucket, self.key)
 ```
 
 Note that we haven't specified under which key our map will be stored. In a key/value store like Riak, choosing a key is very important. We'll keep it simple here and use a string consisting of first and last name (separated by an underscore) as the key:
@@ -82,6 +116,15 @@ class User
     @map = Riak::Crdt::Map.new @bucket, @key
   end
 end
+```
+
+```python
+class User:
+    def __init__(self, first_name, last_name, interests, visits, paid_account):
+        # including the init variables from above
+        self.bucket = client.bucket_type('map_bucket').bucket('users')
+        self.key = "{}_{}".format(self.first_name, self.last_name)
+        self.map = Map(self.bucket, self.key)
 ```
 
 ## Storing An Object's Properties in Our Riak Map
@@ -100,11 +143,26 @@ class User
 end
 ```
 
+```python
+class User:
+    def __init__(self, first_name, last_name, interests, visits, paid_account):
+        # including the init variables from above
+        self.bucket = client.bucket_type('map_bucket').bucket('users')
+        self.key = "{}_{}".format(self.first_name, self.last_name)
+        self.map = Map(self.bucket, self.key)
+        self.map.registers['first_name'] = self.first_name
+        self.map.registers['last_name'] = self.last_name
+```
+
 Now, if we create a new user, that user will have a `map` instance variable attached to it, the `first_name` and `last_name` strings will be stored in Riak registers, and the key will be `Bruce_Wayne`:
 
 ```ruby
 bruce = User.new('Bruce', 'Wayne')
 #=> #<User:0x007fe2965cafc8 @map=#<Riak::Crdt::Map:0x007fe2965caf78 @bucket=#<Riak::Bucket {users}>, @key"Bruce_Wayne", @bucket_type"map", @options{}, @dirtyfalse, @counters#<Riak::Crdt::TypedCollection:0x007fe296125ae0 @type=Riak::Crdt::InnerCounter, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @flags#<Riak::Crdt::TypedCollection:0x007fe2961257c0 @type=Riak::Crdt::InnerFlag, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @maps#<Riak::Crdt::TypedCollection:0x007fe296125428 @type=Riak::Crdt::InnerMap, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @registers#<Riak::Crdt::TypedCollection:0x007fe296124e60 @type=Riak::Crdt::InnerRegister, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{"last_name"=>"Wayne", "first_name"=>"Bruce"}, @sets#<Riak::Crdt::TypedCollection:0x007fe296124460 @type=Riak::Crdt::InnerSet, @parent=#<Riak::Crdt::Map:0x007fe2965caf78 ...>, @contents{}, @context"M\x01\x83P\x00\x00\x00\xC4x\x01\xCB`\xCAa```\xCC`\xCA\x05R\x1CG\x836r\a3\x1F\xB1Od\xC9\x02\t3e\x00!H\x82+-\xB3\xA8\xB8$>/175\x85\x81\xAF(31;>\xA5$>\xA7\xBC\xBC(5=\x03\xBB\t\xCCY\x10\xAD\xACNE\xA5\xC9\xA9y\xEC\fB%\xEE\xD1\x1F?\xB1\xC0\x8C\xE4\xCCI$\xD1D\x16\x98\x89\xE1\x89\x95y \x13y\x9B\xC0&f\x01\x00\xAF\x055\xA8"
+```
+
+```python
+
 ```
 
 So now we have our `first_name` and `last_name` variables stored in our map, but we still need to account for `interests` and `visits`. First, let's modify our class definition to store each user's interests in a set within the map:
