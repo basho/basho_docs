@@ -11,13 +11,22 @@ moved: {
 }
 ---
 
-# Command Line Tools - `riak`
+# riak
 
-This is the primary script for controlling the Riak node process.
+This is the primary script for controlling the processes associated with a Riak node. Running the `riak` command by itself will output a listing of available commands:
 
 ```bash
-Usage: riak { start | stop | restart | reboot | ping | console | attach | chkconfig }
+Usage: riak «command»
+where «command» is one of the following:
+    { help | start | stop | restart | ping | console | attach
+      attach-direct | ertspath | chkconfig | escript | version | getpid
+      top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] } |
+      config { effective | describe VARIABLE }
 ```
+
+## help
+
+Provides a brief description of all available commands.
 
 ## start
 
@@ -44,14 +53,6 @@ Prints `ok` when successful, `Node <nodename> not responding to pings.` when the
 riak restart
 ```
 
-## reboot
-
-Stops and then starts the running Riak node, exiting the Erlang VM. Prints `ok` when successful or `Node <nodename> not responding to pings.` when the node is already stopped or not responding.
-
-```bash
-riak reboot
-```
-
 ## ping
 
 Checks that the Riak node is running. Prints `pong` when successful or `Node <nodename> not responding to pings.` when the node is stopped or not responding.
@@ -64,7 +65,7 @@ riak ping
 
 Starts the Riak node in the foreground, giving access to the Erlang shell and
 runtime messages. Prints `Node is already running - use 'riak attach' instead`
-when the node is running in the background.
+when the node is running in the background. You can exit the shell by pressing **Ctrl-C** twice.
 
 ```bash
 riak console
@@ -78,10 +79,89 @@ Attaches to the console of a Riak node running in the background, giving access 
 riak attach
 ```
 
+## attach-direct
+
+Attaches to the console of a Riak running in the background using a directly-connected first-in-first-out (FIFO), providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached. You can exit the shell by pressing **Ctrl-D**.
+
+```bash
+riak attach-direct
+```
+
+## ertspath
+
+Outputs the path of the Riak Erlang runtime environment:
+
+```bash
+riak ertspath
+```
+
 ## chkconfig
 
-Checks whether the {{#2.0.0-}}`app.config`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} configuration file is valid. If so, `config is OK` will be included in the output.
+Checks whether the [[configuration file|Configuration Files]] is valid. If so, `config is OK` will be included in the output.
 
 ```bash
 riak chkconfig
 ```
+
+## escript
+
+Provides a means of calling [escript](http://www.erlang.org/doc/man/escript.html) scripts using the Riak Erlang runtime environment:
+
+```bash
+riak escript <filename>
+```
+
+## version
+
+Outputs the Riak version identifier:
+
+```bash
+riak version
+```
+
+## getpid
+
+Outputs the process identifier for the currently-running instance of Riak:
+
+```bash
+riak getpid
+```
+
+## top
+
+The `riak top` command is the direct equivalent of `riak-admin top`:
+
+```bash
+riak top [-interval N] [-sort { reductions | memory | msg_q }] [-lines N] }
+```
+
+More detailed information can be found in the `[[riak-admin|riak-admin Command Line#top]]` documentation.
+
+## config
+
+Provides information about the current [[configuration|Configuration Files]] of a Riak node, i.e. the parameters and values in the node's `riak.conf` or `app.config` (depending on which configuration system is being used).
+
+```bash
+riak config { effective | describe VARIABLE }
+```
+
+* `effective` prints the effective configuration in the following syntax:
+    
+    ```
+    parameter1 = value1
+    parameter2 = value2
+    ```
+
+* `describe VARIABLE` prints the setting specified by `VARIABLE`, along with documentation and other useful information, such as the affected location in the configuration file, the data type of the value, the default value, and the effective value. For example, running `riak config describe storage_backend` will return the following:
+    
+    ```
+    Documentation for storage_backend
+    Specifies the storage engine used for Riak's key-value data
+    and secondary indexes (if supported).
+
+    Datatype     : [{enum,[bitcask,leveldb,memory,multi]}]
+    Default Value: bitcask
+    Set Value    : leveldb
+    app.config   : riak_kv.storage_backend
+    ```
+

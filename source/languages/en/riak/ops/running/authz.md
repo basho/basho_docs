@@ -5,7 +5,7 @@ version: 2.0.0+
 document: cookbook
 toc: true
 audience: intermediate
-keywords: [operator, security]
+keywords: [operator, security, authentication, authorization]
 ---
 
 <div class="info">
@@ -19,9 +19,9 @@ modifying, and deleting objects, changing bucket properties, and
 running MapReduce jobs.
 
 **Note**: Currently, Riak security commands can be run only through
-  the command line using the `riak-admin security` command. In future
-  versions of Riak, administrators may have the option of issuing
-  those commands through the Protocol Buffers and HTTP interfaces.
+the command line using the `riak-admin security` command. In future
+versions of Riak, administrators may have the option of issuing
+those commands through the Protocol Buffers and HTTP interfaces.
 
 ## Terminology
 
@@ -39,9 +39,28 @@ running MapReduce jobs.
 * **Sources** are used to define authentication mechanisms. A user
     cannot be authenticated to Riak until a source is defined.
 
+## Security Checklist
+
+There are a few key steps that all applications will need to undertake
+when turning on Riak security. Missing one of these steps will almost
+certainly break your application, so make sure that you have done each
+of the following **before** enabling security:
+
+1. Define [[users|Authentication and Authorization#User-Management]] and, optionally, groups
+2. Define an [[authentication source|Authentication and Authorization#Managing-Sources]] for each user
+3. Grant the necessary [[permissions|Authentication and Authorization#Managing-Permissions]] to each user (and/or group)
+4. Make sure that your client software will work properly:
+    * It must pass authentication information with each request
+    * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
+    * If using HTTPS, the proper port (presumably 443) is open from client to server
+
+Security should be enabled only after all of the above steps have been performed and your security setup has been properly vetted.
+
+Clients that use protocol buffers will typically have to be reconfigured/restarted with the proper credentials once security is enabled.
+
 ## Security Basics
 
-Riak security may be checked, enabled, or disabled by an operator through the command line. This allows an operator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
+Riak security may be checked, enabled, or disabled by an administrator through the command line. This allows an administrator to change security settings for the whole cluster quickly, avoiding changing per-node configuration files.
 
 ### Enabling Security
 
@@ -52,7 +71,8 @@ client connections must be encrypted and all permissions will be
 denied by default. Do not enable this in production until you have
 verified that your libraries support Riak security, including
 encrypted HTTP or protocol buffers traffic, and that your applications
-are assigned user accounts with the proper permissions.  </div>
+are assigned user accounts with the proper permissions.
+</div>
 
 Riak security is disabled by default. To enable it:
 
@@ -120,7 +140,6 @@ Same for groups:
 ```bash
 riak-admin security print-groups
 ```
-
 
 Example output, assuming one user with an assigned password:
 
@@ -224,9 +243,9 @@ Alternatively, a password---or other attributes---can be assigned to the user up
 riak-admin security add-user riakuser password=Test1234
 ```
 
-### Assign a Password and Altering Existing User Characteristics
+### Assigning a Password and Altering Existing User Characteristics
 
-While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user already exists. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modify our `riakuser` user:
+While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user has already been created. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modify our `riakuser` user:
 
 ```bash
 riak-admin security alter-user riakuser password=opensesame
@@ -322,20 +341,20 @@ Permission to perform a wide variety of operations against Riak can be granted t
 The `grant` command takes one of the following forms:
 
 ```bash
-riak-admin security grant <permissions> ON ANY TO all|{<user>|<group>[,...]}
-riak-admin security grant <permissions> ON <bucket-type> TO all|{<user>|<group>[,...]}
-riak-admin security grant <permissions> ON <bucket-type> <bucket> TO all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on any to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> to all|{<user>|<group>[,...]}
+riak-admin security grant <permissions> on <bucket-type> <bucket> to all|{<user>|<group>[,...]}
 ```
 
-The `revoke` command is the same, but with `FROM` instead of `TO`:
+The `revoke` command is the same, but with `from` instead of `to`:
 
 ```bash
-riak-admin security revoke <permissions> ON ANY FROM all|{<user>|<group>[,...]}
-riak-admin security revoke <permissions> ON <bucket-type> FROM all|{<user>|<group>[,...]}
-riak-admin security revoke <permissions> ON <bucket-type> <bucket> FROM all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on any from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> from all|{<user>|<group>[,...]}
+riak-admin security revoke <permissions> on <bucket-type> <bucket> from all|{<user>|<group>[,...]}
 ```
 
-If you select `ANY`, this means that the permission (or set of permissions) is
+If you select `any`, this means that the permission (or set of permissions) is
 granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
 
 **Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
@@ -346,7 +365,7 @@ Here is an example of granting multiple permissions across all buckets
 and bucket types to multiple users:
 
 ```bash
-riak-admin security grant riak_kv.get,riak_search.query ON ANY TO jane,ahmed
+riak-admin security grant riak_kv.get,riak_search.query on any to jane,ahmed
 ```
 
 If the same name is used for both a user and a group, the `grant`
@@ -375,7 +394,7 @@ allowed only to run `GET` and `PUT` requests on all buckets:
 
 ```bash
 riak-admin security add-user client
-riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
+riak-admin security grant riak_kv.get,riak_kv.put on any to client
 ```
 
 ### MapReduce Permissions
@@ -383,7 +402,7 @@ riak-admin security grant riak_kv.get,riak_kv.put ON ANY TO client
 Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
 
 ```bash
-riak-admin security grant riak_kv.mapreduce ON ANY TO mapreduce-power-user
+riak-admin security grant riak_kv.mapreduce on any to mapreduce-power-user
 ```
 
 ### Bucket Type Permissions
@@ -420,40 +439,40 @@ Search must be enabled in order to successfully grant/revoke search permissions.
 To grant the user `riakuser` the ability to query all indexes:
 
 ```bash
-riak-admin security grant search.query ON index TO riakuser
+riak-admin security grant search.query on index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON index FROM riakuser
+# riak-admin security revoke search.query on index from riakuser
 ```
 
 To grant the user `riakuser` the ability to query all schemas:
 
 ```bash
-riak-admin security grant search.query ON schema TO riakuser
+riak-admin security grant search.query on schema to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query ON schema FROM riakuser
+# riak-admin security revoke search.query on schema from riakuser
 ```
 
 To grant the user `riakuser` admin privileges only on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.admin ON index riakusers_index TO riakuser
+riak-admin security grant search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.admin ON index riakusers_index FROM riakuser
+# riak-admin security revoke search.admin on index riakusers_index from riakuser
 ```
 
 To grant `riakuser` querying and admin permissions on the index `riakusers_index`:
 
 ```bash
-riak-admin security grant search.query,search.admin ON index riakusers_index TO riakuser
+riak-admin security grant search.query,search.admin on index riakusers_index to riakuser
 
 # To revoke:
-# riak-admin security revoke search.query,search.admin ON index riakusers_index FROM riakuser
+# riak-admin security revoke search.query,search.admin on index riakusers_index from riakuser
 ```
 
-More comprehensive information on search-related security can be found under [[Riak Search Security]].
+<!-- More comprehensive information on search-related security can be found under [[Riak Search Security]]. -->
 
 ## Managing Sources
 
@@ -468,7 +487,7 @@ Riak security sources may be applied to a specific user, multiple users, or all 
 Source   | Description |
 :--------|:------------|
 `trust` | Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range |
-`password` | Check the user's password against the [PBKSD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
+`password` | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
 

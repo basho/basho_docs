@@ -47,18 +47,9 @@ Note that you must restart to have the above settings take effect.
 
 Download your version of the Riak binary package for Solaris 10:
 
-{{#1.4.0-}}
-
-```bash
-curl -o /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/solaris/10/BASHOriak-{{VERSION}}-1-Solaris10-i386.pkg.gz
-```
-{{/1.4.0-}}
-{{#1.4.0+}}
-
 ```bash
 curl -o /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg.gz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/solaris/10/BASHOriak-{{VERSION}}-Solaris10-x86_64.pkg.gz
 ```
-{{/1.4.0+}}
 
 Next, install the package:
 
@@ -68,12 +59,11 @@ pkgadd /tmp/BASHOriak-{{VERSION}}-Solaris10-i386.pkg
 ```
 
 After installing the package, be sure to include `/opt/riak/bin` in the
-appropriate user's PATH. After doing so, you can then start Riak:
+appropriate user's `PATH`. After doing so, you can then start Riak:
 
 ```bash
 riak start
 ```
-
 
 Finally, go ahead and ping Riak to ensure it is running:
 
@@ -81,7 +71,7 @@ Finally, go ahead and ping Riak to ensure it is running:
 riak ping
 ```
 
-Pinging Riak will result in a `pong` response if the node is up and reachable, and a `pang` response if the node is up, but has a problem. If the node is not up and reachable, a *not responding to pings* error will result instead.
+Pinging Riak will result in a `pong` response if the node is up and reachable. If the node is not up and reachable, a `Node <nodename> not responding to pings` error will result instead.
 
 If all responses indicate that riak is up and running, then you have successfully installed Riak on Solaris 10.
 

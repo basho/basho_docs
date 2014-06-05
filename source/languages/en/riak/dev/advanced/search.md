@@ -117,7 +117,7 @@ property must be a single name, not a list.
 
 See the [ADMIN][] page for details on creating an index.
 
-[ADMIN]: https://github.com/basho/yokozuna/blob/master/docs/ADMIN.md
+[ADMIN]: https://github.com/basho/yokozuna/blob/develop/docs/ADMIN.md
 
 
 ## Extractors

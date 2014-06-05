@@ -14,8 +14,8 @@ These calculators will assist you in sizing your cluster if you plan to use the
 default [[Bitcask]] storage back end.
 
 This page is designed to give you a rough estimate when sizing your cluster.
-The calculations are a _best guess_, and the tend to be a bit on the
-conservative side.  It's important to include a bit of head-room as well as
+The calculations are a _best guess_, and they tend to be a bit on the
+conservative side. It's important to include a bit of head room as well as
 room for unexpected growth so that if demand exceeds expectations you'll be
 able to add more nodes to the cluster and stay ahead of your requirements.
 
@@ -62,16 +62,15 @@ able to add more nodes to the cluster and stay ahead of your requirements.
 
 ### Details on Bitcask RAM Calculation
 
-With the above information in mind, the following variables will factor into your RAM
-calculation:
-* *Static bitcask per key overhead* - 22 bytes per key
-* *Estimated average bucket+key length* - this is the combined number
-  of characters your bucket+keynames will require (on average). We'll
+With the above information in mind, the following variables will factor into your RAM calculation:
+* *Static bitcask per key overhead* --- 22 bytes per key
+* *Estimated average bucket+key length* --- this is the combined number
+  of characters your bucket + keynames will require (on average). We'll
   assume 1 byte per character.
-* *Estimated Total Objects* - the total number of key/value pairs your
+* *Estimated Total Objects* --- the total number of key/value pairs your
   cluster will have when started
-* *Replication Value (n_val)* - the number of times each key will be
-replicated when written to Riak; defaults to 3
+* *Replication Value (`n_val`)* --- the number of times each key will be
+replicated when written to Riak (the default is 3)
 
 **And the actual equation**
 
@@ -87,6 +86,6 @@ The amount of RAM you would need for Bitcask is about **9.78 GBs across
 your entire cluster.**
 
 Additionally, Bitcask relies on your operating system's filesystem cache
-to deliver high performance reads. So, when sizing your cluster take
+to deliver high performance reads. So when sizing your cluster, take
 this into account and plan on having several more gigabytes of RAM
 available for your filesystem cache.
