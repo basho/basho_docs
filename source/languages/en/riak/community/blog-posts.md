@@ -13,8 +13,6 @@ implementation details behind Riak's architecture, discussions of Riak
 development best practices, and instructions on using Riak in
 conjunction with third-party tools.
 
-## Using Riak
-
 * [Riak Development Anti-Patterns](http://basho.com/riak-development-anti-patterns/)
 * [Riak Quick Start with Docker](http://basho.com/riak-quick-start-with-docker/)
 * [Leveraging Riak with Cloud Foundry](http://basho.com/leveraging-riak-with-cloud-foundry/)
@@ -24,17 +22,8 @@ conjunction with third-party tools.
 	- [Part 4](http://basho.com/riaks-config-behaviors-part-4/)
 	- [Epilogue](http://basho.com/riaks-config-behaviors-epilogue/)
 * [Using Riak as a Storage Backend for Datomic](http://basho.com/using-riak-as-a-storage-backend-for-datomic/)
-
-## Data Modeling
-
 * [Throw Some Keys on It](http://basho.com/throw-some-keys-on-it-slides/)
 * [Fluentd Loves Riak: Robust Log Collection with a Robust NoSQL Backend](http://basho.com/fluentd-loves-riak/)
-
-## Riak Internals
-
 * [Entropy in Riak](http://basho.com/entropy-in-riak/)
 * [Clocks Are Bad, Or, Welcome to the Wonderful World of Distributed Systems](http://basho.com/clocks-are-bad-or-welcome-to-distributed-systems/)
-
-## Riak and Erlang
-
 * [Erlang at Basho, Five Years Later](http://basho.com/erlang-at-basho-five-years-later/)
