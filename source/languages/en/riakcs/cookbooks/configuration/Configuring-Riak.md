@@ -46,7 +46,7 @@ where **X.Y.Z** is the version of Riak CS that you have installed.
 
 This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
-<div class="note"><div class="title">Note</div>The path for <code>add_paths</code> may be <code>/usr/lib/riak-cs</code> or <code>/usr/lib64/riak-cs</code> depending on your operating system.</div>
+<div class="note"><div class="title">Note</div>The path for <code>add_paths</code> may be <code>/usr/lib/riak-cs</code> or <code>/usr/lib64/riak-cs</code> [[depending on your operating system|Installing and Upgrading]].</div>
 
 Next, add this to the `riak_core` section of `app.config`:
 
@@ -59,7 +59,7 @@ potentially leading to data loss and other inconsistencies.
 
 <div class="note">
 <div class="title">Note on <code>allow_mult</code> and Riak clients</div>
-In Riak CS, the <code>allow_mult=true</code> setting is used only internally. Clients connecting to Riak will not need to engage in conflict resolution or deal with siblings.
+In Riak, the <code>allow_mult=true</code> setting is used only internally. Clients connecting to Riak CS will not need to engage in conflict resolution or deal with siblings.
 </div>
 
 {{#1.4.0+}} <div class="note"><div class="title">Note</div>As of version 1.4,
