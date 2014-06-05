@@ -16,9 +16,46 @@ If you are looking for an overview of the new features and functionality
 included in version 2.0, we recommend checking out our [[intro to 2.0|Riak 2.0]]
 guide.
 
+## New Clients
+
+If you are upgrading to Riak 2.0 or later, we recommend upgrading your
+application to use a client that was built 
+
 ## Bucket Types
 
+In versions of Riak prior to 2.0, the location of objects was determined
+by objects' [[bucket|Buckets]] and [[key|Keys and Objects]] and all
+bucket-level configurations were managed by setting
+[[bucket properties|The Basics#bucket-properties-and-operations]]. In
+Riak 2.0, [[bucket types|Using Bucket Types]] are both an additional
+namespace for location objects and a new means of configuring bucket
+properties.
 
+More comprehensive details on usage can be found in the documentation on
+[[using bucket types]]. Here, we'll list some of the things to be aware
+of while upgrading.
+
+#### Bucket types and object location
+
+With the introduction of bucket types, the location of all Riak objects
+is determined by bucket, key, _and_ bucket type, meaning that there
+are three namespaces involved in object location instead of two. If your
+application was written in conjunction with a version of Riak prior to
+2.0, you should make sure that any endpoint in Riak targeted by
+
+#### Features that rely on bucket types
+
+#### Bucket types are not strictly necessary
+
+Although we [[strongly recommend|Using Bucket Types#how-bucket-types-work]]
+using bucket types, you do not have to use them after upgrading to 2.0.
+If you do not, you can still manage bucket configurations using the
+older, [[bucket properties|The Basics#bucket-properties-and-operations]]-based
+system.
+
+If you do decide to use bucket types, though, please bear in mind that
+you cannot downgrade your cluster to a version of Riak prior to 2.0 if
+you have (a) created and (b) activated a bucket type.
 
 ## New allow_mult Behavior
 
@@ -58,7 +95,14 @@ the older configuration system is being used. You should be aware,
 however, that some settings must be set in an `advanced.config` file.
 For a listing of those parameters, see our documentation on [[advanced configuration|Configuration Files#advanced-configuration]].
 
-
 ## Disk Usage Expectations
 
+* Upgrade process could be resource intensive
+* 
+
 ## Upgrading Search
+
+#### Note on Riak client libraries
+
+* Older clients using PBC can use the new Riak Search; clients using HTTP cannot
+
