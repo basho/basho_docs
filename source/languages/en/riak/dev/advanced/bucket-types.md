@@ -451,12 +451,6 @@ If you'd like to create a bucket type with no specified parameters, you can simp
 riak-admin bucket-type create no_specified_props
 ```
 
-Or, alternatively, you can pass in no parameters:
-
-```bash
-riak-admin bucket-type create look_ma_no_parameters
-```
-
 Please note that when you create a bucket type without specifying any parameters, the resulting bucket type does _not_ extend Riak's default bucket properties. Thus, in both of the cases above, `allow_mult` and `dvv_enabled` will be set to `true` in the resulting bucket type, whereas both are set to `false` for all non-typed buckets.
 
 **Note**: The `create` command can be run multiple times prior to a bucket type being activated. Riak will persist only those properties contained in the final call of the command.
