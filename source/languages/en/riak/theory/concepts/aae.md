@@ -1,7 +1,7 @@
 ---
 title: Active Anti-Entropy
 project: riak
-version: 1.4.8+
+version: 1.4.9+
 document: appendix
 audience: intermediate
 keywords: [aae, active anti-entropy]
@@ -24,10 +24,9 @@ active anti-entropy (AAE).
 
 <div class="note">
 <div class="title">Note on AAE and strong consistency</div>
-If you wish to use Riak's <a href="/riak/dev/advanced/strong-consistency">strong consistency</a>
-feature for some or all of your data, you will need to activate AAE.
-Instructions on doing so can be found in the documentation on
-<a href="/riak/dev/advanced/strong-consistency">using strong consistency</a>.
+If you wish to use Riak's [[strong consistency]] feature for some or all
+of your data, you will need to activate AAE. Instructions on doing so
+can be found in the documentation on [[using strong consistency]].
 </div>
 
 {{/2.0.0+}}
@@ -42,10 +41,12 @@ request reaches Riak from a client. Under read repair, if the
 that different nodes hold divergent values for the object, the repair
 process will be set in motion.
 
-One advantage of using read repair alone is that it is less expensive
-for CPU and network resources. The drawback of this approach, however,
-is that the healing process only reaches those objects that are read by
-clients.
+One advantage of using read repair alone is that it doesn't require any
+kind of background process to take effect, which can cut down on CPU
+resource usage. The drawback of the read repair-only approach, however,
+is that the healing process only can only ever reach those objects that
+are read by clients. Any conflicts in objects that are not read by
+clients will go undetected.
 
 The _active_ anti-entropy (AAE) subsystem was added to Riak in
 versions 1.3 and later to enable conflict resolution to run as a
@@ -65,12 +66,14 @@ In order to compare object values between replicas without using more
 resources than necessary, Riak relies on [Merkle tree](http://en.wikipedia.org/wiki/Merkle_tree)
 hash exchanges between nodes.
 
-Using this type of exchange enables Riak to compare hashes of values
-instead of the entire value of objects, which ensures that roughly the
-same amount of information is exchanged when there are 10 differing
-replicas out of 1 million keys as when there are 10 differing replicas
-out of 1 billion keys. The result is that AAE is able to efficiently run
-repair operations regardless of how many objects are stored in a cluster.
+Using this type of exchange enables Riak to compare a balanced tree of
+Riak object hashes. Any difference at a higher level in the hierarchy
+means that at least one value has changed at a lower level. AAE
+recursively compares the tree, level by level, until it pinpoints exact
+values with a difference between nodes. The result is that AAE is able
+to run repair operations efficiently regardless of how many objects are
+stored in a cluster, since it need only repair specific objects instead
+of all objects.
 
 In contrast with related systems, Riak uses persistent, on-disk hash
 trees instead of in-memory hash trees. The advantages of this approach
