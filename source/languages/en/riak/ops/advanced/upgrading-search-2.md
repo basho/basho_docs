@@ -18,13 +18,15 @@ The legacy `merge_index`-based search (aka legacy Search) will be removed in the
 
 These migration steps are as automated as they can reasonably be, with some manual steps for safety. They are meant to be run on a live cluster, so there's no need to take all of your nodes down. Like all migration activities, you should attempt these steps at a time when your cluster is relatively light on traffic, for example, *not* the week before Christmas.
 
-The general outline of this migration is to first create, then mirror, all legacy indexes to new Solr indexes. This is done live, and new writes will occur on both sets of indexes. This means more disk usage.  How much more will depend on the schema but tests have shown Solr to generally use less disk.  A prudent plan will expect new Search to use as much disk as legacy. Also expect more CPU usage as analysis will temporarily be performed by both systems.  Finally, Solr runs on a JVM process, requiring its own RAM.  A good start is 2GB but more is required for heavier workloads.  On the contrary, do not make too large a heap as it could cause lengthy garbage collection pauses.
+The main goal of a live migration is to stand up indexes in new Search that parallel the existing ones in legacy.  New writes add entries to both indexes while AAE adds entires in the new indexes for existing data.
 
-As the KV data is being indexed under the new Search system by AAE, incoming queries will still be serviced by legacy search.  Once you have determined the new indexes are consistent with KV you can perform a live switch to the new system and turn off legacy Search.  Finally, you can remove the old merge index directories to reclaim disk space.
+Parallel indexes means more disk usage.  How much more will depend on the schema but tests have shown Solr to generally use less disk.  A prudent plan will expect new Search to use as much disk as legacy. Also expect more CPU usage as analysis will temporarily be performed by both systems.  Finally, Solr runs on a JVM process, requiring its own RAM.  A good start is 2GB but more is required for heavier workloads.  On the contrary, do not make too large a heap as it could cause lengthy garbage collection pauses.
+
+As the new Search indexes catch up with the old, incoming queries will still be serviced by legacy Search.  Once you have determined the new indexes are consistent with KV you can perform a live switch to the new system and turn off legacy Search.  Finally, you can remove the old merge index directories to reclaim disk space.
 
 <div class="note">
 <div class="title">Downgrading and Merge Index</div>
-It may be tempting to tempting to keep the merge index files in case of a downgrade.  Don't do that if writes are being made to these buckets during upgrade.  Once `search: false` is set on a bucket all new KV data written will have missing indexes in merge index and overwritten data will have inconsistent indexes.  At this point a downgrade requires a full reindex of the data as legacy Search has no mechanism to cope with inconsistency (such as AAE in new Search).
+It may be tempting to keep the merge index files in case of a downgrade.  Don't do that if writes are being made to these buckets during upgrade.  Once `search: false` is set on a bucket all new KV data written will have missing indexes in merge index and overwritten data will have inconsistent indexes.  At this point a downgrade requires a full reindex of the data as legacy Search has no mechanism to cope with inconsistency (such as AAE in new Search).
 </div>
 
 
