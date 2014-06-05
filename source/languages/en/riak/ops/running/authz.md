@@ -524,10 +524,10 @@ If you apply a security source both to <code>all</code> and to specific users an
 
 For example, if you have assigned the source <code>password</code> to both <code>all</code> and to the user <code>riakuser</code> on the network <code>127.0.0.1/32</code>, the following two-step process would be required to fully remove the source:
 
-<code>
+<pre>
 riak-admin security del-source all 127.0.0.1/32 password
 riak-admin security del-source riakuser 127.0.0.1/32 password
-</code>
+</pre>
 </div>
 
 ### More Usage Examples
