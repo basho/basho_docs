@@ -12,7 +12,7 @@ Riak version 2.0 includes deep changes affecting all facets of Riak and a wide v
 If you're upgrading to Riak 2.0 from an earlier version, please be aware that all of the new features listed below are purely optional:
 
 * **Riak Data Types** --- Riak's new CRDT-based [[Data Types]] can simplify modeling data in Riak, but are only used in buckets explicitly configured to use them.
-* **Strong Consistency, Riak Security, and the new Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak
+* **Strong Consistency, Riak Security, and the new Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak.
 * **Security** --- [[Authentication and authorization]] can be enabled or disabled at any time.
 * **Configuration management** --- Riak configuration has been streamlined and now uses a file named `riak.conf`. However, existing `app.config` and `vm.args` files are still recognized in version 2.0.
 * **Bucket Types** --- While we strongly recommend [[using bucket types]] when creating new buckets, they are not required.
@@ -21,7 +21,7 @@ In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it
 
 * [[Cluster Metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
-* Bug patches --- A variety of bugs present in earlier versions have been identified and patched 
+* Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
 
 ## Riak Data Types
 
@@ -109,7 +109,20 @@ In older versions of Riak, bucket properties were managed on a bucket-by-bucket,
 
 * [[Using Bucket Types]] explains how to create, modify, and activate bucket types, as well as how the new system
 
-### Video
+#### Video
 
 [Bucket Types and Config](https://www.youtube.com/watch?v=lZk8cD-qFHM) hangout with Basho engineers [Joe DeVivo](https://github.com/joedevivo) and [Jordan West](https://github.com/jrwest).
+
+## New Client Libraries
+
+While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
+
+* [Java](https://github.com/basho/riak-java-client)
+  * [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+* [Ruby](https://github.com/basho/riak-ruby-client) (docs on main GitHub page)
+  * [[Data Modeling with Riak Data Types]]
+* [Python](https://github.com/basho/riak-python-client)
+  * [Sphinx docs](http://basho.github.io/riak-python-client/)
+* [Erlang](https://github.com/basho/riak-erlang-client)
+  * [EDocs](http://basho.github.io/riak-erlang-client/)
 

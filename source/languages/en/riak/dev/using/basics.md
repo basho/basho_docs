@@ -32,7 +32,7 @@ Here is an example of a read performed on the key `rufus` in the bucket `dogs`, 
 
 ```ruby
 bucket = client.bucket('dogs')
-obj = bucket.get('rufus', bucket_type: 'animals')
+obj = bucket.get('rufus', type: 'animals')
 ```
 
 ```java
@@ -59,6 +59,13 @@ obj = bucket.get('rufus')
 curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with your
+client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
 
 ```ruby
@@ -83,13 +90,21 @@ not found
 
 If you're using HTTP to interact with Riak, as opposed to using a [[client library|Client Libraries]], Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation, which is relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
-Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to an R of 2.
+#### Read Parameters
+
+Parameter | Default | Description
+:---------|:--------|:-----------
+`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
+`pr` | `0` | How many vnodes must respond for a read to be deemed successful
+`notfound_ok` | If set to `true`, if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client
+
+Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response).
 
 Here is an example of attempting a read with `r` set to `3`:
 
 ```ruby
 bucket = client.bucket('dogs')
-obj = bucket.get('rufus', bucket_type: 'animals', r: 3)
+obj = bucket.get('rufus', type: 'animals', r: 3)
 ```
 
 ```java
@@ -158,7 +173,7 @@ bucket = client.bucket('oscar_wilde')
 obj = Riak::RObject.new(bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.raw_data = 'I have nothing to declare but my genius'
-obj.store(bucket_type: 'quotes')
+obj.store(type: 'quotes')
 ```
 
 ```java
@@ -175,7 +190,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('oscar_wilde', bucket_type: 'quotes')
+bucket = client.bucket('oscar_wilde', bucket_type='quotes')
 obj = RiakObject(client, bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.data = 'I have nothing to declare but my genius'
@@ -199,15 +214,24 @@ curl -XPUT \
 
 #### Using Vector Clocks
 
-If an object already exists under a certain key, you will need to attach a [[vector clock|Vector Clocks]] to your object as metadata. The vector clock can be obtained when you read the object that already exists.
+If an object already exists under a certain key and you want to write a new object to that key, Riak needs to know what to do, especially if multiple writes are happening at the same time. Which of the objects being written should be deemed correct? These kinds of scenarios can arise quite frequently in distributed, [[eventually consistent|Eventual Consistency]] systems.
 
-Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`.
+Riak decides which object to choose in case of conflict using [[vector clocks]]. If you're writing an object to a key that already exists, you'll need to do the following:
 
-But one season, the Harlem Globetrotters enter the league and dethrone the hapless Generals. We want to write that new information to the `champion` key. Let's fetch the object there and obtain the vector clock.
+* Read the existing object
+* Fetch the vector clock from the object's metadata
+* Attach the vector clock to the new object's metadata
+* Write the new object
+
+A more detailed tutorial on vector clocks and object updates more generally can be found in the [[conflict resolution]] doc. Here, we'll walk you through a basic example.
+
+Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`. The value of the object is a simple text snippet that says `Washington Generals`.
+
+But one day the Harlem Globetrotters enter the league and dethrone the hapless Generals (forever, as it turns out). Because we want our Riak database to reflect this new development in the league, we want to make a new write to the `champion` key. Let's read the object stored there and fetch the vector clock.
 
 ```ruby
 bucket = client.bucket('nba')
-obj = bucket.get('champion', bucket_type: 'sports')
+obj = bucket.get('champion', type: 'sports')
 obj.vclock
 
 # The vector clock will look something like this:
@@ -228,7 +252,7 @@ System.out.println(response.getvClock());
 ```
 
 ```python
-bucket = client.bucket('nba', bucket_type: 'sports')
+bucket = client.bucket('nba', bucket_type='sports')
 obj = bucket.get('champion')
 obj.vclock
 
@@ -270,7 +294,7 @@ obj = Riak::RObject.new(bucket, 'champion')
 obj.content_type = 'text/plain'
 obj.raw_data = 'Harlem Globetrotters'
 obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
-obj.store(bucket_type: 'sports')
+obj.store(type: 'sports')
 ```
 
 ```java
@@ -322,8 +346,8 @@ Similar to how read requests support the `r` query parameter, write requests als
 
 Parameter | Default | Description
 :---------|:--------|:-----------
-`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
 `w` | `2` | How many replicas to write to before returning a successful response
+`pw` | `0` | How many primary vnodes must respond for a write to be deemed successful
 `dw` | `0` | How many replicas to commit to durable storage before returning a successful response
 `returnbody` | `false` | Whether to return the contents of the stored object
 
@@ -334,7 +358,7 @@ bucket = client.bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(bucket_type: 'cars', r: 3)
+obj.store(type: 'cars', r: 3)
 ```
 
 ```java
@@ -392,7 +416,7 @@ bucket = client.bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(bucket_type: 'cars', r: 3, returnbody: true)
+obj.store(type: 'cars', r: 3, returnbody: true)
 ```
 
 ```java
@@ -457,7 +481,7 @@ obj = Riak::RObject.new(bucket)
 obj.content_type = 'application/json'
 obj.raw_data = '{"user":"data"}'
 
-obj.store(bucket_type: 'users')
+obj.store(type: 'users')
 
 # The client will assign a key like the following:
 obj.key
@@ -530,7 +554,7 @@ Let's try to delete our `genius` key from the `oscar_wilde` bucket (which bears 
 
 ```ruby
 bucket = client.bucket('oscar_wilde')
-bucket.delete('genius', bucket_type: 'quotes')
+bucket.delete('genius', type: 'quotes')
 ```
 
 ```java

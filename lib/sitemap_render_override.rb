@@ -292,6 +292,8 @@ module SitemapRenderOverride
           "vm.args"
         when "riakconf"
           "riak.conf"
+        when "advancedconfig"
+          "advanced.config"
         else
           lang && lang.capitalize
         end
@@ -299,6 +301,8 @@ module SitemapRenderOverride
         when "curl"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1bash\\2')
         when "appconfig"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
+        when "advancedconfig"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
         when "riakconf"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
