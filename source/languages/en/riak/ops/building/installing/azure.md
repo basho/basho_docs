@@ -13,7 +13,7 @@ moved: {
 }
 ---
 
-Steps to install Riak on Centos VMs using the Windows Azure platform.
+Steps to install Riak on CentOS VMs using the Windows Azure platform.
 
 ## Creating CentOS VMs
 
@@ -180,6 +180,7 @@ Visit DNS address listed on the dashboard, at the port we opened as an endpoint:
 ```
 http://testlinuxvm.cloudapp.net:8098/riak/rekon/go
 ```
+
 Further Reading:
 
 - [[Basic Riak API Operations|The Basics]]

@@ -53,6 +53,7 @@ riak:
           - "[[Data Types|Using Data Types]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
+          - "[[Conflict Resolution]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
@@ -177,13 +178,13 @@ riak:
           - "[[Production Checklist]]"
           - "[[Rolling Upgrades]]"
           - "[[Rolling Downgrades]]"
+          - "[[Upgrading Search from 1.x to 2.x]]"
 
 
   - title: "Theory & Concepts"
     sub:
       - title: "Concepts"
         sub:
-          - "[[Concepts Overview|Concepts]]"
           # - "[[Bucket Types]]"
           - "[[Buckets]]"
           - "[[Clusters]]"

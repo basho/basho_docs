@@ -70,16 +70,11 @@ client := riakpbc.NewClient([]string{
 })
 ```
 
-From there, we make a connection to all of the nodes (using `Dial`) and
-specify a client ID:
+From there, we make a connection to all of the nodes (using `Dial`):
 
 ```go
 if err := client.Dial(); err != nil {
     log.Fatalf("Dialing failed: %v", err)
-}
-
-if _, err := client.SetClientId("taste-of-riak"); err != nil {
-    log.Fatalf("Setting client ID failed: %v", err)
 }
 ```
 
