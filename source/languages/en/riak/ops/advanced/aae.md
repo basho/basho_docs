@@ -1,22 +1,37 @@
 ---
 title: Managing Active Anti-Entropy
 project: riak
-version: 1.4.8+
+version: 1.4.9+
 document: guide
 audience: advanced
 keywords: [operators, aae, active anti-entropy]
 ---
 
-Riak's [[active anti-entropy]] (AAE) subsystem is a background process
-that repairs object conflicts stemming from missing or divergent object
-values across nodes. Riak operators can turn AAE on and off and
-configure and monitor its functioning.
+Riak's [[active anti-entropy]] (AAE) subsystem is a set of background
+processes that repair object conflicts stemming from missing or
+divergent object values across nodes. Riak operators can turn AAE on and
+off and configure and monitor its functioning.
 
 ## Enabling Active Anti-Entropy
 
 Whether AAE is currently enabled in a node is determined by the value of
-the `anti_entropy` parameter in the node's [[configuration files]]. In
-Riak versions 2.0 and later, AAE is turned on by default.
+the `anti_entropy` parameter in the node's [[configuration files]].
+
+{{#2.0.0-}}
+AAE is turned off by default. To use it, you will need to turn it on in
+the `riak_kv` section of your `app.config`:
+
+```appconfig
+{riak_kv, [
+
+  {anti_entropy, {on, []}},
+
+    %% More riak_kv settings...
+]}
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+In Riak versions 2.0 and later, AAE is turned on by default.
 
 ```riakconf
 anti_entropy = active
@@ -31,12 +46,18 @@ anti_entropy = active
 ]}
 ```
 
+{{/2.0.0+}}
+
 For monitoring purposes, you can also activate AAE debugging, which
 provides verbose debugging message output:
+
+{{#2.0.0+}}
 
 ```riakconf
 anti_entropy = active-debug
 ```
+
+{{/2.0.0+}}
 
 ```appconfig
 {riak_kv, [
@@ -57,9 +78,13 @@ Alternatively, AAE can be switched off if you would like to repair
 object conflicts using [[read repair|Active Anti-Entropy#read-repair]]
 alone:
 
+{{#2.0.0+}}
+
 ```riakconf
 anti_entropy = passive
 ```
+
+{{/2.0.0+}}
 
 ```appconfig
 {riak_kv, [
@@ -162,6 +187,8 @@ By default, data related to AAE operations is stored in the `./data/anti_entropy
 directory in each Riak node. This can be changed by setting the `anti_entropy.data_dir`
 parameter to a different value.
 
+{{#2.0.0+}}
+
 ### Throttling
 
 AAE has a built-in throttling mechanism that can insert delays between
@@ -255,4 +282,4 @@ The `anti_entropy.max_open_files` parameter sets an open-files limit for
 AAE-related background tasks, analogous to [[open files limit]] settings
 used in operating systems. The default is `20`.
 
-## AAE and Performance
+{{/2.0.0+}}
