@@ -80,8 +80,8 @@ dev1/bin/riak start
 ```
 
 <div class="note">
-<div class="title"><tt>ulimit</tt> warning</div>
-At this point, you may receive a warning message to increase the number of open file handles <tt>ulimit</tt> in your operating system. See our [[Open Files Limit]] guide for platform-specific instructions on doing so.
+<div class="title"><code>ulimit</code> warning</div>
+At this point, you may receive a warning message to increase the number of open file handles <code>ulimit</code> in your operating system. See our [[Open Files Limit]] guide for platform-specific instructions on doing so.
 </div>
 
 Once you've started the node in `dev1`, do the same for `dev2` through `dev5`:
@@ -200,8 +200,8 @@ dev2/bin/riak-admin cluster commit
 **Note**: Changes to a cluster can be committed from any node.
 
 <div class="info">
-<div class="title">About <tt>riak-admin</tt></div>
-<tt>riak-admin</tt> is Riak's administrative tool. It's used to perform any operational tasks beyond starting and stopping a node (e.g. to make a node join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the <tt>riak-admin</tt> command [[here|riak-admin Command Line]].
+<div class="title">About <code>riak-admin</code></div>
+<code>riak-admin</code> is Riak's administrative tool. It's used to perform any operational tasks beyond starting and stopping a node (e.g. to make a node join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the <code>riak-admin</code> command [[here|riak-admin Command Line]].
 </div>
 
 ## Test the Cluster
