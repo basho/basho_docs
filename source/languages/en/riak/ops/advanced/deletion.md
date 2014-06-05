@@ -39,34 +39,35 @@ handle deletion. More on configuration can be found in the
 ## Tombstones
 
 Riak addresses the problem of deletion in distributed systems by marking
-deleted objects with a so-called **tombstone**, i.e. an `X-Riak-Deleted`
-metadata key is added to the object and given the value `true` while the
-object itself is set to an empty Erlang object, `<<>>`.
+deleted objects with a so-called **tombstone**. This means that an
+`X-Riak-Deleted` metadata key is added to the object and given the value 
+`true`, while the object itself is set to an empty Erlang object,
+i.e. `<<>>`.
 
-The causal process behind deletion goes something like this:
+When a delete request is sent to Riak, the following process is set in
+motion:
 
 1. A tombstone object (`<<>>`) is written to N nodes (with N defined by `[[n_val|Replication Properties#n-value-and-replication]]`)
 2. If all N nodes store the tombstone, the object is removed
-3. If fallback nodes are in use, the object will not be removed
-
-Step 3 in this process is where 
-
-Most useful when deleting and then re-creating keys rapidly
-Default is `keep`
+3. If fallback nodes are in use, the object will not be immediately removed
 
 ## Configuring Object Deletion
 
+If step 3 in the process above is reached, the `delete_mode` setting
+in your [[configuration files]] will determine what happens next. This
+setting determines how long Riak will wait after identifying an object
+for deletion and actually removing the object from the storage backend.
 
-The `delete_mode` setting provides control over how that process
-functions; it dictates what happens in the time window between (a) the 
-GET FSM deciding that an object can be removed and (b) that removal
-taking place.
-
-Settings:
+There are three possible settings:
 
 * `keep` --- Disables tombstone removal; protects against an edge case in which an object is deleted and recreated on the owning nodes while a fallback is either down or awaiting handoff
 * `immediate` --- The tombstone is removed as soon as the request is received. 
-* interval --- How long to wait until the tombstone is removed
+* Custom time interval --- How long to wait until the tombstone is removed
+
+The default is to wait 3 seconds 
+
+If you plan to delete and recreate objects under the same key frequently,
+we recommend setting `delete_mode` to `keep`.
 
 MDC => the problem is that deleted objects can be resurrected when
 synchronizing between multiple DCs, especially when connectivity is an
@@ -80,9 +81,13 @@ Fetching the vclock for a deleted key => setting `deletedvclock` to
 
 
 ```java
-FetchValue fetch = new FetchValue.Builder(location)
+Location loc = new Location("<bucket>")
+		.setBucketType("<bucket_type>")
+		.setKey("<key>");
+FetchValue fetch = new FetchValue.Builder(loc)
 		.withOption(Option.DELETED_VCLOCK, true)
 		.build();
+FetchValue.Response response = 
 ```
 
 ```ruby
