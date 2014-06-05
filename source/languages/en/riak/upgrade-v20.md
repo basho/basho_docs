@@ -18,15 +18,29 @@ guide.
 
 ## New Clients
 
-If you are upgrading to Riak 2.0 or later, we recommend upgrading your
-application to use a client that was built to use 2.0-specific features.
-The following Basho-supported clients are feature complete for version
-2.0:
+If you want to take advantage of the new features available in Riak 2.0,
+we recommand upgrading your application to an official Basho client
+that was built with those features in mind. There exist official
+2.0-compatible clients in the following languages:
 
 * [Ruby](https://github.com/basho/riak-ruby-client)
 * [Java](https://github.com/basho/riak-java-client)
 * [Python](https://github.com/basho/riak-python-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
+
+Clients not built with version 2.0 in mind will not be able to utilize
+the following features:
+
+* [[Bucket types|Using Bucket Types]]
+* [[Strong consistency]]
+* [[Riak Data Types|Using Data Types]]
+* [[Riak Security|Authentication and Authorization]]
+
+If you are upgrading to version 2.0 solely for the performance and other
+benefits on offer and do not plan on using any of these features,
+there's a chance that an older Riak client will still work. This will
+need to be determined, however, on a case-by-case, application-specific
+basis.
 
 ## Bucket Types
 
@@ -36,11 +50,9 @@ bucket-level configurations were managed by setting
 [[bucket properties|The Basics#bucket-properties-and-operations]]. In
 Riak 2.0, [[bucket types|Using Bucket Types]] are both an additional
 namespace for locating objects _and_ a new means of configuring bucket
-properties.
-
-More comprehensive details on usage can be found in the documentation on
-[[using bucket types]]. Here, we'll list some of the things to be aware
-of while upgrading.
+properties in a more systematic fashion. More comprehensive details on
+usage can be found in the documentation on [[using bucket types]]. Here,
+we'll list some of the things to be aware of when upgrading.
 
 #### Bucket types and object location
 
@@ -111,25 +123,35 @@ obj = bucket.get('test_key')
 	                            <<"test_key">>).
 ```
 
+If you're using a pre-2.0-specific client and targeting a location
+specified only by bucket and key, Riak will use the default bucket
+configurations. The following URLs are equivalent in Riak 2.0:
+
+```
+/buckets/<bucket>/keys/<key>
+/types/default/buckets/<bucket>/keys/<key>
+```
+
+If you use object locations that don't specify a bucket type, you have
+three options:
+
+* Accept Riak's [[default bucket configurations|Using Bucket Types#buckets-as-namespaces]]
+* Change Riak's defaults using your [[configuration files|Configuration Files#default-bucket-properties]]
+* Manage multiple sets of bucket properties by specifying those properties for all transactions (not recommended)
+
 #### Features that rely on bucket types
 
 One of the reasons that we recommend using bucket types for Riak 2.0 and
 later is because a variety of newer Riak features were built with
-bucket types as a precondition, including the following:
+bucket types as an essential precondition:
 
 * [[Strong consistency]] --- Using Riak's strong consistency subsystem requires you to set the `consistent` parameter on a bucket type to `true`
-* [[Riak Data Types|Using Data Types]] --- In order to use Riak Data Types, you have to 
+* [[Riak Data Types|Using Data Types]] --- In order to use Riak Data Types, you must [[create bucket types|Using Data Types#setting-up-buckets-to-use-riak-data-types]] specific to the Data Type you are using
 
-#### Bucket types are not strictly necessary
+#### Bucket types and downgrades
 
-Although we [[strongly recommend|Using Bucket Types#how-bucket-types-work]]
-using bucket types, you do not have to use them after upgrading to 2.0.
-If you do not, you can still manage bucket configurations using the
-older, [[bucket properties|The Basics#bucket-properties-and-operations]]-based
-system.
-
-If you do decide to use bucket types, though, please bear in mind that
-you cannot [[downgrade|Rolling Downgrades]] your cluster to a version of
+If you do decide to use bucket types, please bear in mind that you
+cannot [[downgrade|Rolling Downgrades]] your cluster to a version of
 Riak prior to 2.0 if you have both (a) created and (b) activated a
 bucket type.
 
@@ -141,21 +163,44 @@ application development involves Riak's default behavior regarding
 `allow_mult` setting was set to `false` by default for all buckets,
 which means that Riak's default behavior was to resolve
 object replica [[conflicts|Conflict Resolution]] between nodes on its
-own, and thus not to force connecting clients to resolve those conflicts.
+own, thus relieving connecting clients of the need to resolve those
+conflicts.
 
-In version 2.0, Riak's new default behavior is as follows:
+**In 2.0, `allow_mult` is set to `true` for any bucket type that you
+(a) create and (b) activate.**
 
-* If you 
+If you wish to set `allow_mult` to `false` in version 2.0, you have a
+few options:
+
+* Use the default bucket configuration
+* Create an activate bucket types that explicitly set `allow_mult` to `false`
+
+More information on handling siblings can be found in our documentation
+on [[conflict resolution]].
 
 ## When Downgrading is No Longer an Option
+
+If you decide to upgrade to version 2.0, you can still downgrade your
+cluster to an earlier version of Riak if you wish, _unless_ you perform
+one of the following actions in your cluster:
+
+* Index data to be used in conjunction with the new [[Riak Search|Using Search]] (codename Yokozuna).
+* Create _and_ activate one or more [[bucket types|Using Bucket Types]]. By extension, you will not be able to downgrade your cluster if you have used the following features, both of which rely on bucket types:
+	- [[Strong consistency]]
+	- [[Riak Data Types|Using Data Types]]
+
+If you use other new features, such as [[Riak Security|Authentication and Authorization]]
+or the new [[configuration system|Configuration Files]], you can still
+downgrade your cluster, but you will not be able to use those features.
 
 ## Upgrading Your Configuration System
 
 Riak 2.0 offers a replacement configuration system, based on the
 [Cuttlefish](https://github.com/basho/cuttlefish) project, that both
-simplifies configuration syntax and utilizes one file, `riak.conf`,
-instead of two (`app.config` and `vm.args`). Full documentation of the
-new system can be in the [[configuration files]] document.
+simplifies configuration syntax and utilizes one configuration file,
+`riak.conf`, instead of two (`app.config` and `vm.args`). Full
+documentation of the new system can be in the [[configuration files]]
+document.
 
 If you're upgrading to Riak 2.0 from an earlier version, you have two
 configuration options:
@@ -165,7 +210,8 @@ configuration options:
 
 If you choose the first option, make sure to consult the [[configuration files]]
 documentation, as many configuration parameters have changed names,
-some no longer exist, and others have been added.
+some no longer exist, and others have been added that were not
+previously available.
 
 If you choose the second option, Riak will automatically determine that
 the older configuration system is being used. You should be aware,
@@ -173,9 +219,6 @@ however, that some settings must be set in an `advanced.config` file.
 For a listing of those parameters, see our documentation on [[advanced configuration|Configuration Files#advanced-configuration]].
 
 ## Disk Usage Expectations
-
-* Upgrade process could be resource intensive
-* 
 
 ## Upgrading Search
 
