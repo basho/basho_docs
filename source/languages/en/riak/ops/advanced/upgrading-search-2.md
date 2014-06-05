@@ -16,11 +16,11 @@ The legacy `merge_index`-based search (aka legacy Search) will be removed in the
 
 **Please Read This**
 
-These migration steps are as automated as they can reasonably be, with some manual steps for safety. They are means to be run on a live cluster, so there's no need to take all of your nodes down. Like all migration activities, you should attempt these steps at a time when your cluster is relatively light on traffic, for example, *not* the week before Christmas.
+These migration steps are as automated as they can reasonably be, with some manual steps for safety. They are meant to be run on a live cluster, so there's no need to take all of your nodes down. Like all migration activities, you should attempt these steps at a time when your cluster is relatively light on traffic, for example, *not* the week before Christmas.
 
 The general outline of this migration is to first create, then mirror, all legacy indexes to new Solr indexes. This is done live, and new writes will occur on both sets of indexes. This means that you can expect your index size to be at least double. You must have **plenty of disk space** to handle two sets of indexes. You'll also be doubling your index operations at this time, so you will see a **bump in network traffic**. Finally, Solr runs on a JVM process, which means it will also require **more RAM**--at least 2GB extra per node *at minimum*.
 
-You will continue running your queries against Riak Search in this phase. Once new the indexes are up to date, you can disable legacy search for all buckets. Finally, you can disable legacy Riak Search on all nodes. Once you're satisfied that the new search is working as expected, you can delete the unused `merge_index` data and reclaim this disk space.
+You will continue running your queries against legacy Search in this phase. Once new the indexes are up to date, you can disable legacy Search for all buckets. Finally, you can disable legacy Search on all nodes. Once you're satisfied that the new search is working as expected, you can delete the unused `merge_index` data and reclaim this disk space.
 
 ## Steps to Upgrading
 
@@ -35,7 +35,7 @@ You will continue running your queries against Riak Search in this phase. Once n
     search = on
     ```
 
-2.  For every schema in legacy Riak Search, you must create a comparable schema in new Search. If you want to use the default schema named [[_yz_default|search schema]], you can skip this step, but we highly recommend you create your own custom schema.
+2.  For every schema in legacy Search, you must create a comparable schema in new Search. If you want to use the default schema named [[_yz_default|search schema]], you can skip this step, but we highly recommend you create your own custom schema.
 
     To create a schema, you can follow the Solr [[search schema]] instructions to learn how to define your xml file. Once you've created the file, you can upload it to the cluster.
 
@@ -45,7 +45,7 @@ You will continue running your queries against Riak Search in this phase. Once n
       --data-binary @my_schema.xml
     ```
 
-3.  For every index in legacy Riak Search, you must create a comparable index in new Search, setting the appropriate schema that you created in the previous step. This index can have the same name as your legacy Riak Search index. You can find more details about index creation under [[Using Search|Using Search#Simple-Setup]].
+3.  For every index in legacy Search, you must create a comparable index in new Search, setting the appropriate schema that you created in the previous step. This index can have the same name as your legacy Search index. You can find more details about index creation under [[Using Search|Using Search#Simple-Setup]].
 
     ```curl
     curl -XPUT "http://localhost:8098/search/index/my_index" \
@@ -53,7 +53,7 @@ You will continue running your queries against Riak Search in this phase. Once n
          -d'{"schema":"my_schema"}'
     ```
 
-4.  For each bucket which is indexed by legacy Riak Search, you must add the `search_index' bucket property to point to the new Search index. This new index is what we are attempting to migrate all of our index data to. You can find more details about this step under [[Using Search|Using Search#Simple-Setup]].
+4.  For each bucket which is indexed by legacy Search, you must add the `search_index` bucket property to point to the new Search index. This new index is what we are attempting to migrate all of our index data to. You can find more details about this step under [[Using Search|Using Search#Simple-Setup]].
 
     ```curl
     curl -XPUT "http://localhost:8098/buckets/my_bucket/props" \
@@ -61,9 +61,9 @@ You will continue running your queries against Riak Search in this phase. Once n
          -d'{"props":{"search_index":"my_index"}}'
     ```
 
-    Once a bucket is associated with the new Search, all objects that are written or modified in Riak will be indexed by **both** legacy and new Search. However, the HTTP and client query interfaces will still continue to use the legacy Riak Search.
+    Once a bucket is associated with the new Search, all objects that are written or modified in Riak will be indexed by **both** legacy and new Search. However, the HTTP and client query interfaces will still continue to use the legacy Search.
 
-5.  The new Search [[AAE|Replication#Active-Anti-Entropy-AAE-]] trees can be manually cleared so that AAE will notice the missing indexes.
+5.  The new Search [[AAE|Replication#Active-Anti-Entropy-AAE-]] trees must be manually cleared so that AAE will notice the missing indexes.
 
     First, attach to one of the Riak nodes by calling `riak attach`. Next, paste the following code into the shell. It clears the AAE tree for each node in the cluster, which triggers index repair actions.
 
@@ -93,7 +93,7 @@ You will continue running your queries against Riak Search in this phase. Once n
     riak-admin search switch-to-new-search
     ```
 
-8.  Set the `search` bucket property to `false` for all legacy indexed buckets. This deactivates the legacy Riak Search.
+8.  Set the `search` bucket property to `false` for all legacy indexed buckets. This deactivates legacy Search.
 
     ```curl
     curl -XPUT "http://localhost:8098/buckets/my_bucket/props" \
@@ -109,4 +109,4 @@ You will continue running your queries against Riak Search in this phase. Once n
                 ]},
     ```
 
-Once you're convinced that legacy Riak Search no longer needs the merge index directories, you may delete them to reclaim disk space. Don't rush into deleting them. Give yourself plenty of time to get comfortable with the new search before doing this, maybe a few weeks or more. If you run into any problems with these steps, feel free to reach out the the [[Riak community|Help and Community]] for help.
+Once you're convinced that legacy Search no longer needs the merge index directories, you may delete them to reclaim disk space. Don't rush into deleting them. Give yourself plenty of time to get comfortable with the new search before doing this, maybe a few weeks or more. If you run into any problems with these steps, feel free to reach out the the [[Riak community|Help and Community]] for help.
