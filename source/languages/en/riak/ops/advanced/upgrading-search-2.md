@@ -82,17 +82,17 @@ Migration requires that Riak's AAE subsystem be enabled.  It's responsible for f
 
     Once a bucket is associated with the new Search, all objects that are written or modified in Riak will be indexed by **both** legacy and new Search. However, the HTTP and client query interfaces will still continue to use the legacy Search.
 
-5.  The new Search [[AAE|Replication#Active-Anti-Entropy-AAE-]] trees must be manually cleared so that AAE will notice the missing indexes.
+5.  The new Search [[AAE|Replication#Active-Anti-Entropy-AAE-]] hash trees must be manually cleared so that AAE will notice the missing indexes.
 
-    First, attach to one of the Riak nodes by calling `riak attach`. Next, paste the following code into the shell. It clears the AAE tree for each node in the cluster, which triggers index repair actions.
+    Attach to one of the Riak nodes by calling `riak attach-direct`. Paste the following code into the shell. It clears the Search hash trees for each node in the cluster.
 
     ```erlang
-    riak_core_until:rpc_every_member_ann(yz_entropy_mgr, clear_trees, [], infinity).
+    riak_core_util:rpc_every_member_ann(yz_entropy_mgr, clear_trees, [], infinity).
     ```
 
-    You can press `ctrl-C` to exit from the attached shell.
+    Press `Ctrl-D` to exit from the attached shell.
 
-    In the background AAE will rebuilt the hash trees for new Search and exchange them with KV. These exchanges will notice objects are missing and index them in new Search.
+    In the background AAE will rebuild the hash trees and exchange them with KV. These exchanges will notice objects are missing and index them in new Search.
 
     <!-- no re-index command currently exists -->
 
