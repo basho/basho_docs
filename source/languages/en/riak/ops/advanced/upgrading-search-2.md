@@ -87,14 +87,12 @@ Migration requires that Riak's AAE subsystem be enabled.  It's responsible for f
     First, attach to one of the Riak nodes by calling `riak attach`. Next, paste the following code into the shell. It clears the AAE tree for each node in the cluster, which triggers index repair actions.
 
     ```erlang
-    {ok, Ring} = riak_core_ring_manager:get_my_ring().
-    Cluster = riak_core_ring:all_members(Ring).
-    [ok = rpc:call(Node, yz_entropy_mgr, clear_trees, []) || Node <- Cluster].
+    riak_core_until:rpc_every_member_ann(yz_entropy_mgr, clear_trees, [], infinity).
     ```
 
     You can press `ctrl-C` to exit from the attached shell.
 
-    In the background AAE will start building trees for new Search and exchange them with KV. These exchanges will notice objects are missing and index them in new Search.
+    In the background AAE will rebuilt the hash trees for new Search and exchange them with KV. These exchanges will notice objects are missing and index them in new Search.
 
     <!-- no re-index command currently exists -->
 
