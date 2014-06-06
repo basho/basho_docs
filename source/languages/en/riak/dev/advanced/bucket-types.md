@@ -7,22 +7,22 @@ audience: intermediate
 keywords: [developers, buckets]
 ---
 
-Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a more efficient way.
+Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties more efficiently and programmatically than in the older configuration system based on [[bucket properties|The Basics#bucket-properties-and-operations]].
 
 <div class="note">
 <div class="title">Important note on cluster downgrades</div>
-If you upgrade a Riak to version 2.0 or later, you can still downgrade the cluster to a pre-2.0 version <em>if you have not created and activated a bucket type in the cluster</em>. Once any bucket type has been created and activated, you can no longer downgrade the cluster to a pre-2.0 version.
+If you upgrade a Riak to version 2.0 or later, you can still downgrade the cluster to a pre-2.0 version <em>as long as you have not created and activated a bucket type in the cluster</em>. Once any bucket type has been created and activated, you can no longer downgrade the cluster to a pre-2.0 version.
 </div>
 
 ## How Bucket Types Work
 
-The ad hoc approach to bucket configuration involves setting bucket properties for specific buckets either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. With this approach, you can take a bucket `my_bucket` and modify any number of its properties, from `n_val` to `allow_mult` and far beyond.
+The older configuration system, based on bucket properties, involves setting bucket properties for specific buckets either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. With this approach, you can take any given bucket and modify a wide range of properties, from `n_val` to `allow_mult` and far beyond.
 
 Using bucket *types* also involves dealing with bucket properties, but with a few crucial differences:
 
-* Bucket types enable you to assign a total set of properties to buckets _at the time of their creation_ (instead of setting buckets' properties and then using those buckets)
+* Bucket types enable you to create total sets of bucket configurations and assign those configurations to as many buckets as you wish (whereas the older system required configurations to be set on an ad hoc basis)
 * Bucket types must be both created _and_ activated before they can be used (whereas bucket properties can be modified at any time)
-* Nearly all bucket properties can be updated using bucket types, with two exceptions: the `datatype` and `consistent` properties
+* Nearly all bucket properties can be updated using bucket types, with two exceptions: the `datatype` and `consistent` properties related to [[Riak Data Types|Data Types]] and [[strong consistency]], respectively
 
 It is important to note that buckets are not assigned types in the same way that they are configured when using [[bucket properties|The Basics#Bucket-Properties-and-Operations]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
 
@@ -32,17 +32,21 @@ Instead, bucket types are applied to buckets _on the basis of how those buckets 
 GET/PUT/DELETE /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
-<div class="note">
-<div class="title">When to use bucket types</div>
-In many respects, bucket types are a major improvement over the older system of bucket configuration, including the following:
-<ul>
-<li>Bucket types are more flexible because they enable you to define total configurations of bucket properties all at once and then change them if you need to.</li>
-<li>Bucket types are more reliable because the buckets that bear a given type only have their properties changed when the type is changed. Previously, it was possible to change the properties of a bucket only through client requests.</li>
-<li>Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The <code>riak-admin bucket-type</code> interface (discussed in depth below) enables you to manage bucket configurations without recourse to clients.</li>
-</ul>
+In the older system, only bucket and key are specified in queries:
 
-For these reasons, we recommend <em>always</em> using bucket types.
-</div>
+```
+GET/PUT/DELETE /buckets/<bucket>/keys/<key>
+```
+
+## When to Use Bucket Types
+
+In many respects, bucket types are a major improvement over the older system of bucket configuration, including the following:
+
+* Bucket types are more flexible because they enable you to define total configurations of bucket properties all at once and then change them if you need to.
+* Bucket types are more reliable because the buckets that bear a given type only have their properties changed when the type is changed. Previously, it was possible to change the properties of a bucket only through client requests.
+* Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The `riak-admin bucket-type` interface (discussed in depth below) enables you to manage bucket configurations on the operations side, without recourse to Riak clients.
+
+For these reasons, we recommend _always_ using bucket types in versions of Riak 2.0 and later.
 
 ## Managing Bucket Types Through the Command Line
 
@@ -74,15 +78,27 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 
 Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
 
-If you'd like to create a bucket type that simply extends Riak's defaults, for example, pass an empty JavaScript object to the `props` parameter:
+If you'd like to create a bucket type that simply extends Riak's defaults, for example, run the `create` command without assigning properties:
 
 ```bash
-riak-admin bucket-type create type_using_defaults '{"props":{}}'
+riak-admin bucket-type create type_using_defaults
+```
+
+If creations is successful, you should see the following output:
+
+```
+type_using_defaults created
 ```
 
 **Note**: The `create` command can be run multiple times prior to a bucket type being activated. Riak will persist only those properties contained in the final call of the command.
 
-Creating bucket types _always_ involves passing stringified JSON to the `create` command. One way to do that is to simply pass a string directly, as above, but you can also do so by passing the contents of a file, such as a `.json` file:
+Creating bucket types that assign properties _always_ involves passing stringified JSON to the `create` command. One way to do that is to pass a JSON string directly. The following creates a bucket type `n_equals_1`, which sets `n_val` to 1:
+
+```bash
+riak-admin bucket-type create n_equals_1 '{"props":{"n_val":1}}'
+```
+
+If you wish, you can also pass in a JSON string through a file, such as a `.json` file:
 
 ```bash
 riak-admin bucket-type create from_json_file '`cat props.json`'
@@ -90,15 +106,21 @@ riak-admin bucket-type create from_json_file '`cat props.json`'
 
 ### Activating a Bucket Type
 
-Simply run the `activate` command to activate a type:
+Activating a bucket type involves the `activate` from the same `bucket-type` interface:
 
 ```bash
 riak-admin bucket-type activate my_bucket_type
 ```
 
+When activation has succeeded, you should the following output:
+
+```
+my_bucket_type has been activated
+```
+
 <div class="note">
-<div class="title">Note</div>
-A bucket type can be activated only when it is considered ready by Riak (i.e. when the type has been propagated to all running nodes). You can check on the type's readiness by running `riak-admin bucket-type status <type_name>`. The first line of output will indicate whether or not the type is ready.
+<div class="title">Note on activation in Riak clusters</div>
+A bucket type can be activated only when the type has been propagated to all running nodes. You can check on the type's readiness by running `riak-admin bucket-type status <type_name>`. The first line of output will indicate whether or not the type is ready.
 
 In a stable cluster, bucket types should propagate very quickly. If, however, a cluster is experiencing network partitions or other issues, you will need to resolve those issues before bucket types can be activated.
 </div>
@@ -115,8 +137,11 @@ This will return a simple list of types along with their current status (either 
 
 ```bash
 riak-admin bucket-type list
+```
 
-# Response:
+An example response:
+
+```
 type1 (active)
 type2 (not active)
 type3 (active)
@@ -161,12 +186,12 @@ riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 <div class="title">Note</div>
 Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <code>consistent</code> and <code>datatype</code>. If a bucket type entails strong consistency (requiring that <code>consistent</code> be set to <code>true</code>) or is set up as a <code>map</code>, <code>set</code>, or <code>counter</code>, then this will be true of the bucket type once and for all.
 
-If you need to change one of these properties, it is recommended that you simply create a new bucket type.
+If you need to change one of these properties, it is recommended that you simply create and activate a new bucket type.
 </div>
 
 ## Buckets as Namespaces
 
-In versions of Riak prior to 2.0, all queries are made to a bucket/key pair, as in the following example URL:
+In versions of Riak prior to 2.0, all queries are made to a bucket/key pair, as in the following example read request:
 
 ```ruby
 bucket = client.bucket('my_bucket')
@@ -234,16 +259,16 @@ bucket2.get('my_key')
 ```
 
 ```curl
-curl http://localhost:8098/types/type1/my_bucket/my_key
-curl http://localhost:8098/types/type2/my_bucket/my_key
+curl http://localhost:8098/types/type1/buckets/my_bucket/keys/my_key
+curl http://localhost:8098/types/type2/buckets/my_bucket/keys/my_key
 ```
 
 <div class="note">
-<div class="title">Note</div>
+<div class="title">Note on object location</div>
 In Riak 2.x, <em>all requests</em> must be made to a location specified by a bucket type, bucket, and key rather than to a bucket/key pair, as in previous versions.
 </div>
 
-If requests are made to a bucket/key pair without a specified bucket type, the `default` bucket type will be used. The following queries are thus identical:
+If requests are made to a bucket/key pair without a specified bucket type, `default` will be used in place of a bucket type. The following queries are thus identical:
 
 ```ruby
 bucket = client.bucket('my_bucket')
@@ -285,7 +310,9 @@ curl http://localhost:8098/buckets/my_bucket/keys/my_key
 curl http://localhost:8098/types/default/my_bucket/keys/my_key
 ```
 
-Below is a listing of the `props` associated with the `default` bucket type:
+## Default Bucket Properties
+
+Below is a listing of the default bucket properties (i.e. `props`) associated with the `default` bucket type:
 
 ```json
 {
@@ -321,14 +348,14 @@ Below is a listing of the `props` associated with the `default` bucket type:
 
 ## Bucket Types and the `allow_mult` Setting
 
-Prior to Riak 2.0, Riak created [[siblings|Vector Clocks#Siblings]] in the case of conflicting updates only when explicitly instructed to do so, by setting `allow_mult` to `true`. The default `allow_mult` setting was thus `false`.
+Prior to Riak 2.0, Riak created [[siblings|Vector Clocks#Siblings]] in the case of conflicting updates only when explicitly instructed to do so, i.e. when `allow_mult` is to `true`. The default `allow_mult` setting was `false`.
 
 In version 2.0, this is changing in a subtle way. Now, there are two different default settings for `allow_mult` in play:
 
-* For the `default` bucket type, `allow_mult` is set to `false` by default, as in previous versions of Riak
+* For the `default` bucket type, `allow_mult` is set to `false` by default, as in previous versions of Riak.
 * For all newly-created bucket types, the default is now `true`. It is possible to set `allow_mult` to `false` if you wish to avoid resolving sibling conflicts, but this needs to be done explicitly.
 
-This means that applications that have previously ignored conflict resolutions in certain buckets (or all buckets) can continue to do so. New applications, however, are encouraged to retain and resolve siblings with the appropriate application-side business logic.
+The consequence is that applications that have previously ignored conflict resolutions in certain buckets (or all buckets) can continue to do so. New applications, however, are encouraged to retain and [[resolve siblings|Conflict Resolution]] with the appropriate application-side business logic.
 
 To give an example, let's have a look at the properties associated with the `default` bucket type:
 
@@ -407,7 +434,14 @@ Let's say that you'd like to create a bucket type called `user_account_bucket` w
 
     If activation is successful, the console will return `user_account_bucket has been activated`. The bucket type is now fully ready to be used.
 
-## Usage Example
+## Client Usage Example
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
 
 If you have created the bucket type `no_siblings` (with the property `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example write:
 
@@ -453,14 +487,7 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/sensitive_user_data/keys/user19735
 ```
 
-<div class="note">
-<div class="title">Getting started with Riak clients</div>
-If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting started with
-your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
-</div>
-
-In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the query's structure_. This is because buckets act as a separate namespace in Riak, in addition to buckets and keys.
+In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the query's structure_. This is because buckets act as a [[separate namespace|Using Bucket Types#buckets-as-namespaces]] in Riak, in addition to [[buckets]] and [[keys|Keys and Objects]].
 
 Let's say that we're using Riak to store internet memes. We've been using a bucket called `current_memes` using the bucket type `no_siblings` (from above). At a certain point, we decide that our application needs to use a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
 
