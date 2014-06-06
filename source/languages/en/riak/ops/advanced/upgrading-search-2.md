@@ -49,6 +49,11 @@ Migration requires that Riak's AAE subsystem be enabled.  It's responsible for f
     search = on
     ```
 
+    <div class="note">
+    <div class="title">Upgrade First</div>
+    Don't proceed until all nodes have been upgraded to the newest version.  This way all nodes have new Search capabilities before running the next steps which require them.
+    </div>
+
 2.  For every schema in legacy Search, you must create a comparable schema in new Search. If you want to use the default schema named [[_yz_default|search schema]], you can skip this step, but we highly recommend you create your own custom schema.
 
     To create a schema, you can follow the Solr [[search schema]] instructions to learn how to define your xml file. Once you've created the file, you can upload it to the cluster.
