@@ -3,7 +3,6 @@ title: Multi
 project: riak
 version: 1.0.0+
 document: tutorials
-toc: true
 audience: intermediate
 keywords: [backends, planning, multi, leveldb, memory, bitcask]
 prev: "[[Memory]]"
@@ -14,48 +13,88 @@ moved: {
 }
 ---
 
-## Overview
-
-Riak allows you to run multiple backends within a single Riak instance.  This
-is very useful for two very different use cases.
-
-  1. You may want to use different backends for different buckets or
-  2. You may need to use the same storage engine in different ways for different buckets.
-
-The Multi backend allows you to configure more than one backend at the same time
-on a single cluster.
-
-## Installing Multi-Backend Support
-
-Riak ships with Multi backend support included within the distribution so there
-is no separate installation required.
+Riak allows you to run multiple backends within a single Riak cluster.
+Selecting the Multi backend for your cluster enables you to use
+different storage backends for different buckets. Any combination of
+the three available backends--[[Bitcask]], [[LevelDB]], and [[Memory]]--
+can be used.
 
 ## Configuring Multiple Backends
 
-Modify the default behavior by adding these settings in your
-[[app.config|Configuration-Files]].  The `multi_backend` configuration must be
-within the `riak_kv` section of the `app.config`.
+You can set up your cluster to use the Multi backend using Riak's
+[[configuration files]].
 
-```erlang
-%% Riak KV config
-{riak_kv, [
-    %% ...
-    %% Use the Multi Backend
-    {storage_backend, riak_kv_multi_backend},
-    %% ...
-]}
+```riakconf
+storage_backend = multi
 ```
 
-Then later anywhere in the `riak_kv` section (but you'll likely want this in the
-section with other backend-related information) add a section to configure the
-multiple backends.
+```appconfig
+{riak_kv, [
+    %% ...
+    {storage_backend, riak_kv_multi_backend},
+    %% ...
+]},
+```
 
-If you are defining multiple file based backends of the same type, each of these must have a separate `data_root` defined.
+Remember that you must stop and then re-start each node when you change
+storage backends or modify any other configuration.
 
-<div class="info"><div class="title">Organizing Configuration</div><p>While these configuration directives can be placed anywhere within the <tt>riak_kv</tt> section of <tt>app.config</tt>, we recommend that you place them in the section with other backend-related settings to keep the settings organized.</p></div>
+## Using Multiple Backends
 
-```erlang
-%% Use bitcask by default
+In Riak 2.0 and later, we recommend using multiple backends by applying
+them to buckets [[using bucket types]]. This process involves three
+steps:
+
+1. Creating bucket types that define
+
+
+## Configuring Multiple Backends
+
+Once you've set up your cluster to use multiple backends, you can
+configure each backend on its own. All configuration options available
+for LevelDB, Bitcask, and Memory are all available to you when using the
+Multi backend.
+
+#### Using the Newer Configuration System
+
+If you are using the newer,
+`riak.conf`-based [[configuration system|Configuration Files]], you can 
+configure the backends by prefacing each configuration with `multi_backend`.
+
+If you are using, for example, the LevelDB and Bitcask backends and wish
+to set LevelDB's `bloomfilter` setting to `off` and the Bitcask
+backend's `io_mode` setting to `nif`, you would do that as follows:
+
+```riakconf
+multi_backend.leveldb.bloomfilter = off
+multi_backend.bitcask.io_mode = nif
+```
+
+Below is the more general form for configuring multiple backends:
+
+```riakconf
+multi_backend.$name.$setting_name = setting
+```
+
+#### Using the Older Configuration System
+
+If you are using the older, `app.config`-based configuration system,
+configuring multiple backends involves adding one or more backend-
+specific sections to your `riak_kv` settings (in addition to setting
+the `storage_backend` setting to `riak_kv_multi_backend`, as shown
+above).
+
+**Note**: If you are defining multiple file-based backends of the same
+type, each of these must have a separate `data_root` defined.
+
+While all configuration parameters can be placed anywhere within the
+`riak_kv` section of `app.config`, in general we recommend that you
+place them in the section containing other backend-related settings to
+keep the settings organized.
+
+Below is the general form for your `app.config` file:
+
+```appconfig
 {riak_kv, [
     %% ...
     {multi_backend_default, <<"bitcask_mult">>},
@@ -94,51 +133,23 @@ If you are defining multiple file based backends of the same type, each of these
 ]},
 ```
 
-<div class="note"><div class="title">Multi-Backend Memory Use</div>Each backend
-has settings for how much memory the backend can use. It might be for caching,
-like in LevelDB, or for the entire set of data, like in the Memory Backend. Each
-of these backends suggests allocating up to 50% of available memory for this.
-When using Multi Backend, it is important that the sum of all backend memory
-use is at 50% or less. Three backends each set to use 50% of available memory
-would cause problems.</div>
+Note that in each of the subsections of the `multi_backend` setting,
+the name of each backend you wish to configure can be anything you would
+like as long as it ends in `_mult`. Directly after naming the backend,
+you must specify which of the backends corresponds to that name, i.e.
+`riak_kv_bitcask_backend`, `riak_kv_eleveldb_backend`, or
+`riak_kv_memory_backend`. Once you have done that, the various
+configurations for each named backend can be set as objects in an Erlang
+list.
 
-<div class="note"><div class="title">Multi-Backend settings</div>
-Certain settings, such as Bitcask's `merge_window`, are set per-node,
-rather than per-backend, and as such must be set in the top level backend
-sections of your `app.config`.</div>
+## Multi Backend Memory Use
 
-Once configured start the Riak cluster.  Riak will use the
-`multi_backend_default` for all new bucket storage unless you configure a
-bucket to use one of the alternate storage engines.  This can be done using
-either the Erlang console or the HTTP interface, both methods simply change the
-bucket properties.  Here are two examples:
+Each Riak storage backend has settings for configuring how much memory
+the backend can use, e.g. caching for LevelDB or for the entire set of
+data for the Memory backend. Each of these backends suggests allocating
+up to 50% of available memory for this purpose. When using the Multi
+backend, make sure that the sum of all backend memory use is at 50% 
+or less. Using, for example, three backends with each set to 50% memory
+usage will inevitable lead to memory problems.
 
-  - Using the Erlang console
-    You can connect to a live node using the Erlang console and directly set
-    the bucket properties.
-
-    ```bash
-    $ riak attach
-    ...
-    1> riak_core_bucket:set_bucket(<<"MY_BUCKET">>, [{backend, <<"second_bitcask_mult">>}]).
-    ```
-
-  - Using the HTTP REST API
-    You can also connect to Riak using the HTTP API and change the bucket
-    properties.
-
-    ```
-    $ curl -XPUT http://riaknode:8098/buckets/transient_example_bucketname/props \
-      -H "Content-Type: application/json" \
-      -d '{"props":{"backend":"memory_mult"}}'
-    ```
-
-Note that if you change the default bucket storage engine via the app.config
-settings, then you will need to restart the node, or nodes, for that change to
-take effect.
-
-## Changing Backends
-
-The `backend` bucket property designates which backend should be used for storing objects in the specified bucket.  This setting should be configured *before* loading the bucket with data.  Changing a bucket's backend *after* data has been loaded will cause the data to appear lost, as the bucket will be associated with a separate backend that does not contain previously inserted keys.  
-
-There is no built-in functionality in Riak to automatically change the underlying datastore of a bucket.  In order to migrate keys from one backend to another, the keys must be manually migrated using GET and PUT operations.
+## Usage Example
