@@ -42,11 +42,43 @@ storage backends or modify any other configuration.
 ## Using Multiple Backends
 
 In Riak 2.0 and later, we recommend using multiple backends by applying
-them to buckets [[using bucket types]]. This process involves three
-steps:
+them to buckets [[using bucket types]]. Assuming that the cluster has
+already been configured to use the `multi` backend, this process
+involves three steps:
 
-1. Creating bucket types that define
+1. Creating a bucket type that enables buckets of that type to use the desired backends
+2. Activating that bucket type
+3. Setting up your application to use that type
 
+Let's say that we've set up our cluster to use the Multi backend and we
+want to use [[LevelDB]] and the [[Memory]] backend for different sets of
+data. First, we need to create two bucket types, one which sets the
+`backend` bucket property to `leveldb` and the other which sets that
+property to `memory`. All bucket type-related activity is performed
+through the `[[riak-admin|riak-admin Command Line]]` command interface.
+
+We'll call our two types `leveldb_backend` and `memory_backend`, but you
+can use whichever names you wish.
+
+```bash
+riak-admin bucket-type create leveldb_backend '{"props":{"backend":"leveldb"}}'
+riak-admin bucket-type create memory_backend '{"props":{"backend":"memory"}}'
+```
+
+Then, we must activate those bucket types so that they can be used in
+our cluster:
+
+```bash
+riak-admin bucket-type activate leveldb_backend
+riak-admin bucket-type activate memory_backend
+```
+
+Once those types have been activated, any objects stored in buckets 
+bearing the type `leveldb_backend` will be stored in LevelDB, whereas
+all objects stored in buckets of the type `memory_backend` will be
+stored in the Memory backend.
+
+More information can be found in our documentation on [[using bucket types]].
 
 ## Configuring Multiple Backends
 
@@ -151,5 +183,3 @@ up to 50% of available memory for this purpose. When using the Multi
 backend, make sure that the sum of all backend memory use is at 50% 
 or less. Using, for example, three backends with each set to 50% memory
 usage will inevitable lead to memory problems.
-
-## Usage Example
