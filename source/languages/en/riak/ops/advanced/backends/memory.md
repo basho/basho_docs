@@ -54,41 +54,71 @@ the [[Multi backend documentation|Multi]].
 ## Configuring the Memory Backend
 
 The Memory backend enables you to configure two fundamental aspects of
-object storage: object expiry and maximum memory usage per
-[[vnode|Riak Glossary#vnode]].
+object storage: maximum memory usage per [[vnode|Riak Glossary#vnode]]
+and object expiry.
 
-### Max Memory
+#### Max Memory
 
+This setting specifies the maximum amount of memory consumed by the
+Memory backend. It's important to note that this setting acts on a 
+*per-vnode basis*, not on a per-node or per-cluster basis. This should
+be taken into account when planning for memory usage with the Memory
+backend, as the total memory used will be max memory times the number
+of vnodes in the cluster.
 
-If you are using the older, `app.config`-based configuration system, you
-can modify the default memory backend behavior by adding a `memory_backend`
-subsection to the `riak_kv` section of each node's [[app.config|Configuration Files#app-config]]
-using the following settings.
+If you are using the newer, `riak.conf`-based configuration system, you
+can configure maximum memory using the `memory_backend.max_memory_per_vnode`
+setting. You can specify `max_memory_per_vnode` however you'd like,
+using kilobytes, megabytes, or even gigabytes.
 
+The following are all possible settings:
 
-  The amount of memory in megabytes to limit the backend to per vnode. An instance
-  of the memory backend is running per vnode on each physical node. Use the
-  recommendations in [[LevelDB cache_size|LevelDB#Cache-Size]] in determining this.
-
-```erlang
-{riak_kv, [
-          %% Storage_backend specifies the Erlang module defining the storage
-          %% mechanism that will be used on this node.
-          % {storage_backend, riak_kv_bitcask_backend},
-          {storage_backend, riak_kv_memory_backend},
-          {memory_backend, [
-              ...,
-                  {max_memory, 4096}, %% 4GB in megabytes
-              ...
-          ]}
+```riakconf
+memory_backend.max_memory_per_vnode = 500KB
+memory_backend.max_memory_per_vnode = 10MB
+memory_backend.max_memory_per_vnode = 2GB
 ```
 
+If you are using the older, `app.config`-based configuration system, you
+you can specify maximum memory using the `max_memory` setting, specified
+in megabytes. The following example sets `max_memory` to 4 GB:
 
-### TTL
+```appconfig
+{riak_kv, [
+        %% Storage_backend specifies the Erlang module defining the storage
+        %% mechanism that will be used on this node.
+        % {storage_backend, riak_kv_bitcask_backend},
+        {storage_backend, riak_kv_memory_backend},
+        {memory_backend, [
+            ...,
+                {max_memory, 4096}, %% 4GB in megabytes
+            ...
+        ]}
+```
 
-  The time in seconds before an object expires.
+To determine an optimal max memory setting, we recommend consulting the
+documentation on [[LevelDB cache size|LevelDB#Cache-Size]].
 
-```erlang
+#### TTL
+
+The time-to-live parameter (`ttl`) specifies the amount of time an
+object remains in memory before it expires. The minimum time is one
+second.
+
+In the newer, `riak.conf`-based configuration system, you can specify
+`ttl` in seconds, minutes, hours, days, etc. The following are all
+possible settings:
+
+```riakconf
+memory_backend.ttl = 1s
+memory_backend.ttl = 10m
+memory_backend.ttl = 3h
+```
+
+In the older, `app.config`-based configuration system, the `ttl` setting
+is specified in seconds, as in the following example:
+
+```appconfig
 {memory_backend, [
         ...,
             {ttl, 86400}, %% 1 Day in seconds
@@ -96,9 +126,11 @@ using the following settings.
 ]}
 ```
 
-<div class="note"><div class="title">Dynamically Changing ttl</div>
-<p>There is currently no way to dynamically change the ttl per bucket. The
-current work around would be to define multiple "riak_kv_memory_backends" under
-"riak_kv_multi_backend" with different ttl values. For more details read about
-the [[Multi Backend|Multi]].</p>
+<div class="note">
+<div class="title">Dynamically Changing <code>ttl</code></div>
+There is currently no way to dynamically change the <code>ttl</code>
+setting for a bucket or bucket type. The current workaround would be to
+define multiple Memory backends using the Multi backend, each with
+different <code>ttl</code> values. For more information, consult the
+documentatino on the [[Multi]] backend.
 </div>
