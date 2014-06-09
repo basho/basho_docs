@@ -1,3 +1,4 @@
+
 ---
 title: Using Data Types
 project: riak
@@ -26,20 +27,20 @@ In order to use Riak Data Types, you must first create a [[bucket type|Using Buc
 The following would create a separate bucket type for each of the three bucket-level data types:
 
 ```bash
-riak-admin bucket-type create map_bucket '{"props":{"datatype":"map"}}'
-riak-admin bucket-type create set_bucket '{"props":{"datatype":"set"}}'
-riak-admin bucket-type create counter_bucket '{"props":{"datatype":"counter"}}'
+riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
+riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
+riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
 ```
 
-**Note**: The names `map_bucket`, `set_bucket`, and `counter_bucket` are _not_ reserved terms. You are always free to name bucket types whatever you like, with the exception of `default`.
+**Note**: The names `maps`, `sets`, and `counters` are _not_ reserved terms. You are always free to name bucket types whatever you like, with the exception of `default`.
 
 Once you've created a Riak Data Type-specific bucket type, you can check to make sure that the bucket property configuration associated with that type is correct. This can be done through the `riak-admin` interface.
 
 ```bash
-riak-admin bucket-type status map_bucket
+riak-admin bucket-type status maps
 ```
 
-This will return a list of bucket properties and their associated values in the form of `property: value`. If our `map_bucket` bucket type has been set properly, we should see the following pair in our console output:
+This will return a list of bucket properties and their associated values in the form of `property: value`. If our `maps` bucket type has been set properly, we should see the following pair in our console output:
 
 ```
 datatype: map
@@ -48,7 +49,7 @@ datatype: map
 If a bucket type has been properly constructed, it needs to be activated to be usable in Riak. This can also be done using the `bucket-type` command interface:
 
 ```bash
-riak-admin bucket-type activate map_bucket
+riak-admin bucket-type activate maps
 ```
 
 To check whether activation has been successful, simply use the same `bucket-type status` command shown above.
@@ -57,7 +58,7 @@ To check whether activation has been successful, simply use the same `bucket-typ
 
 The examples below show you how to use Riak Data Types at the application level. Code samples are currently available in Ruby (using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
 
-All examples will use the bucket type names from above (`counter_bucket`, `set_bucket`, and `map_bucket`).
+All examples will use the bucket type names from above (`counters`, `sets`, and `maps`).
 
 ## Counters
 
@@ -67,11 +68,11 @@ First, we need to create and name a Riak bucket to house our counter (or as many
 
 ```java
 Location countersBucket = new Location("counters")
-        .setBucketType("counter_bucket");
+        .setBucketType("counters");
 ```
 
 ```curl
-curl http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/<key>
+curl http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
 
 # Note that this differs from the URL structure for non-Data Type requests,
 # which end in /keys/<key>
@@ -82,9 +83,9 @@ bucket = client.bucket('counters')
 
 # In the Ruby client, buckets are no instantiated bearing a bucket type.
 # Instead, bucket types are specified when the bucket performs operations.
-# Here is an example using our "counter_bucket" type:
+# Here is an example using our "counters" type:
 
-bucket.get('<key>', type: 'counter_bucket')
+bucket.get('<key>', type: 'counters')
 ```
 
 ```erlang
@@ -106,7 +107,7 @@ To create a counter, you need to specify a bucket/key pair to hold that counter.
 // before you perform operations on them:
 
 Location counter = new Location("counters")
-        .setBucketType("counter_bucket")
+        .setBucketType("counters")
         .setKey("<key>");
 ```
 
@@ -116,7 +117,7 @@ Location counter = new Location("counters")
 curl -XPOST \
   -H "Content-Type: application/json" \
   -d 0 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/<key>
+  http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
 ```
 
 ```ruby
@@ -128,11 +129,11 @@ counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 %% client. See below for more information.
 ```
 
-Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counter_bucket` bucket type like this:
+Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counters` bucket type like this:
 
 ```java
 Location trafficTickets = new Location("counters")
-        .setBucketType("counter_bucket")
+        .setBucketType("counters")
         .setKey("traffic_tickets");
 ```
 
@@ -140,17 +141,17 @@ Location trafficTickets = new Location("counters")
 curl -XPOST \
   -H "Content-Type: application/json" \
   -d 0 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
 ```
 
 ```ruby
-counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets', 'counter_bucket')
+counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets', 'counters')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
-# counter buckets to use the counter_bucket bucket type:
+# counter buckets to use the counters bucket type:
 
-Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counter_bucket'
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counters'
 
 # This would enable us to create our counter without specifying a bucket type:
 
@@ -181,7 +182,7 @@ client.execute(update);
 curl -XPUT \
   -H "Content-Type: application/json" \
   -d 1 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
 ```
 
 ```ruby
@@ -216,7 +217,7 @@ Counter2 = riakc_counter:increment(5, Counter1).
 curl -XPUT \
   -H "Content-Type: application/json" \
   -d 5 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
 ```
 
 If we're curious about how many tickets we have accumulated, we can simply retrieve the value of the counter at any time:
@@ -250,12 +251,12 @@ riakc_counter:value(Counter2).
 %% To fetch the value stored on the server, use the call below:
 
 {ok, CounterX} = riakc_pb_socket:fetch_type(Pid,
-                                    {<<"counter_bucket">>,<<"counters">>},
+                                    {<<"counters">>,<<"counters">>},
                                     <<"traffic_tickets">>).
 ```
 
 ```curl
-curl http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+curl http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
 
 # Response:
 {"type":"counter", "value": <value>}
@@ -293,7 +294,7 @@ Counter4 = riakc_counter:decrement(3, Counter3).
 %% using the to_op/1 function, then pass it to
 %% riakc_pb_socket:update_type/4,5.
 
-riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>,<<"counters">>},
+riakc_pb_socket:update_type(Pid, {<<"counters">>,<<"counters">>},
                             <<"traffic_tickets">>,
                             riakc_counter:to_op(Counter4)).
 ```
@@ -302,7 +303,7 @@ riakc_pb_socket:update_type(Pid, {<<"counter_bucket">>,<<"counters">>},
 curl -XPUT \
   -H "Content-Type: application/json" \
   -d -3 \
-  http://localhost:8098/types/counter_bucket/buckets/counters/datatypes/traffic_tickets
+  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
 ```
 
 ## Sets
@@ -340,26 +341,26 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # which end in /keys/<key>
 ```
 
-Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `set_bucket` bucket type we created in the previous section):
+Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `sets` bucket type we created in the previous section):
 
 ```java
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
 Location cities = new Location("travel")
-        .setBucketType("set_bucket")
+        .setBucketType("sets")
         .setKey("cities");
 ```
 
 ```ruby
 travel = client.bucket('travel')
-set = Riak::Crdt::Set.new(travel, 'cities', 'set_bucket')
+set = Riak::Crdt::Set.new(travel, 'cities', 'sets')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
-# set buckets to use the set_bucket bucket type:
+# set buckets to use the sets bucket type:
 
-Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'set_bucket'
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 
 # This would enable us to create our set without specifying a bucket type:
 
@@ -407,7 +408,7 @@ riakc_set:size(Set) == 0.
 ```
 
 ```curl
-curl http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
+curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 
 # Response
 not found
@@ -441,7 +442,7 @@ Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
 curl -XPOST \
   -H "Content-Type: application/json" \
   -d '{"add_all":["Toronto", "Montreal"]}' \
-  http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
+  http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 ```
 
 Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, but if we visit them, we won't have time to visit Montreal. Let's remove Montreal and add the others:
@@ -475,7 +476,7 @@ Set5 = riakc_set:add_element(<<"Ottawa">>, Set4).
 curl -XPOST \
   -H "Content-Type: application/json" \
   -d '{"remove": "Montreal"}' \
-  http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
+  http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 ```
 
 Now, we can check on which cities are currently in our set:
@@ -512,19 +513,19 @@ riakc_set:value(Set5).
 %% To fetch the value stored on the server, use the call below:
 
 {ok, SetX} = riakc_pb_socket:fetch_type(Pid,
-                                 {<<"set_bucket">>,<<"travel">>},
+                                 {<<"sets">>,<<"travel">>},
                                   <<"cities">>).
 ```
 
 ```curl
-curl http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities
+curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 
 # Response
 
 {"type":"set","value":["Toronto"],"context":"SwGDUAAAAER4ActgymFgYGDMYMoFUhxHgzZyBzMfsU9kykISZg/JL8rPK8lHEkKoZMzKAgDwJA+e"}
 
 # You can also fetch the value of the set without the context included:
-curl http://localhost:8098/types/set_bucket/buckets/travel/datatypes/cities?include_context=false
+curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities?include_context=false
 
 # Response
 {"type":"set","value":["Toronto"]}
@@ -615,26 +616,26 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # which end in /keys/<key>
 ```
 
-Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `map_bucket` bucket type from above):
+Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `maps` bucket type from above):
 
 ```java
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
 Location ahmedMap = new Location("customers")
-        .setBucketType("map_bucket")
+        .setBucketType("maps")
         .setKey("ahmed_info");
 ```
 
 ```ruby
 customers = client.bucket('customers')
-map = Riak::Crdt::Map.new(customers, 'ahmed_info', 'map_bucket')
+map = Riak::Crdt::Map.new(customers, 'ahmed_info', 'maps')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
-# map buckets to use the map_bucket bucket type:
+# map buckets to use the maps bucket type:
 
-Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
 
 # This would enable us to create our map without specifying a bucket type:
 
@@ -701,7 +702,7 @@ Map2 = riakc_map:update({<<"phone_number">>, register},
 
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -742,7 +743,7 @@ Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -777,7 +778,7 @@ riakc_map:dirty_value(Map4).
 ```
 
 ```curl
-curl http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info
+curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
 ```
 
 #### Counters Within Maps
@@ -813,7 +814,7 @@ Map3 = riakc_map:update({<<"page_visits">>, counter},
 
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -863,7 +864,7 @@ Map6 = riakc_map:update({<<"interests">>, set},
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -906,7 +907,7 @@ riakc_map:dirty_value(Map6).
 ```
 
 ```curl
-curl http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info?include_context=false
+curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info?include_context=false
 ```
 
 We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
@@ -943,7 +944,7 @@ Map8 = riakc_map:update({<<"interests">>, set},
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1013,7 +1014,7 @@ Map14 = riakc_map:update(
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1092,7 +1093,7 @@ Map15 = riakc_map:update({<<"annika_info">>, map},
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1159,7 +1160,7 @@ Map18 = riakc_map:update(
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1235,7 +1236,7 @@ Map19 = riakc_map:update(
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1282,7 +1283,7 @@ Map20 = riakc_map:update(
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1331,7 +1332,7 @@ Map21 = riakc_map:update(
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1388,7 +1389,7 @@ Map22 = riakc_map:update(
 ```curl
 curl -XPOST \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/map_bucket/buckets/customers/datatypes/ahmed_info \
+  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
