@@ -15,18 +15,20 @@ moved: {
 }
 ---
 
-## Overview
+The Memory storage backend uses in-memory tables to store all data.
+This data is never persisted to disk or to any other storage mechanism.
+The Memory storage engine is best used for testing Riak clusters or for
+storing small amounts of transient state in production systems.
 
-The Memory storage backend uses in-memory tables to store all data. This data is never persisted to disk or to any other storage mechanism. The Memory storage engine is best used for testing Riak clusters or for small amounts of transient state in production systems.
+Internally, the Memory backend uses Erlang Ets tables to manage data.
+More information can be found in the
+[official Erlang documentation](http://www.erlang.org/doc/man/ets.html).
 
-## Installing the Memory Backend
+## Enabling the Memory Backend
 
-Riak ships with the Memory Backend included within the distribution so there is
-no separate installation required.
-
-## Enabling and Configuring the Memory Backend
-
-To enable the memory backend, edit your [[configuration files]] for each Riak node and specify the memory backend as shown in the following example:
+To enable the memory backend, edit your [[configuration files]] for each
+Riak node and specify the Memory backend as shown in the following
+example:
 
 ```riakconf
 storage_backend = memory
@@ -40,19 +42,29 @@ storage_backend = memory
 ]}
 ```
 
-Note that if you *replace* the existing specified backend by removing it or
-commenting it out as shown in the above example, data belonging to the
-previously specified backend will still preserved on the filesystem, but will
-no longer be accessible through Riak unless the backend is enabled again.
+**Note**: If you *replace* the existing specified backend by removing it
+or commenting it out as shown in the above example, data belonging to
+the previously specified backend will still preserved on the filesystem,
+but will no longer be accessible through Riak unless the backend is
+enabled again.
 
-If you require multiple backends in your configuration, please consult the
-[[multi backend documentation|Multi]].
+If you require multiple backends in your configuration, please consult
+the [[Multi backend documentation|Multi]].
 
-You can modify the default memory backend behavior by adding a
-`memory_backend` subsection to the `riak_kv` section of each node's
-[[app.config|Configuration Files#app-config]] using the following settings.
+## Configuring the Memory Backend
+
+The Memory backend enables you to configure two fundamental aspects of
+object storage: object expiry and maximum memory usage per
+[[vnode|Riak Glossary#vnode]].
 
 ### Max Memory
+
+
+If you are using the older, `app.config`-based configuration system, you
+can modify the default memory backend behavior by adding a `memory_backend`
+subsection to the `riak_kv` section of each node's [[app.config|Configuration Files#app-config]]
+using the following settings.
+
 
   The amount of memory in megabytes to limit the backend to per vnode. An instance
   of the memory backend is running per vnode on each physical node. Use the
@@ -90,7 +102,3 @@ current work around would be to define multiple "riak_kv_memory_backends" under
 "riak_kv_multi_backend" with different ttl values. For more details read about
 the [[Multi Backend|Multi]].</p>
 </div>
-
-## Memory Backend Implementation Details
-
-This backend uses the Erlang `ets` tables internally to manage data.
