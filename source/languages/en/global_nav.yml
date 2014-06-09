@@ -173,6 +173,7 @@ riak:
               - "[[LevelDB]]"
               - "[[Memory]]"
               - "[[Multi]]"
+              - "[[Backend Migration]]"
       - title: "Upgrading a Cluster"
         sub:
           - "[[Production Checklist]]"
