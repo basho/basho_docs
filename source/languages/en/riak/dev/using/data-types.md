@@ -114,10 +114,9 @@ Location counter = new Location("counters")
 ```curl
 # This will create a counter with an initial value of 0
 
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/<key> \
   -H "Content-Type: application/json" \
-  -d 0 \
-  http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
+  -d 0
 ```
 
 ```ruby
@@ -138,10 +137,9 @@ Location trafficTickets = new Location("counters")
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d 0 \
-  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
+  -d 0
 ```
 
 ```ruby
@@ -179,10 +177,9 @@ client.execute(update);
 ```
 
 ```curl
-curl -XPUT \
+curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d 1 \
-  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
+  -d 1
 ```
 
 ```ruby
@@ -214,10 +211,9 @@ Counter2 = riakc_counter:increment(5, Counter1).
 ```
 
 ```curl
-curl -XPUT \
+curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d 5 \
-  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
+  -d 5
 ```
 
 If we're curious about how many tickets we have accumulated, we can simply retrieve the value of the counter at any time:
@@ -300,10 +296,9 @@ riakc_pb_socket:update_type(Pid, {<<"counters">>,<<"counters">>},
 ```
 
 ```curl
-curl -XPUT \
+curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d -3 \
-  http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets
+  -d -3
 ```
 
 ## Sets
@@ -439,10 +434,9 @@ Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -H "Content-Type: application/json" \
-  -d '{"add_all":["Toronto", "Montreal"]}' \
-  http://localhost:8098/types/sets/buckets/travel/datatypes/cities
+  -d '{"add_all":["Toronto", "Montreal"]}'
 ```
 
 Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, but if we visit them, we won't have time to visit Montreal. Let's remove Montreal and add the others:
@@ -473,10 +467,9 @@ Set5 = riakc_set:add_element(<<"Ottawa">>, Set4).
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -H "Content-Type: application/json" \
-  -d '{"remove": "Montreal"}' \
-  http://localhost:8098/types/sets/buckets/travel/datatypes/cities
+  -d '{"remove": "Montreal"}'
 ```
 
 Now, we can check on which cities are currently in our set:
@@ -700,9 +693,8 @@ Map2 = riakc_map:update({<<"phone_number">>, register},
 # registers in the map and also set the value of those registers to the
 # desired values
 
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -741,9 +733,8 @@ Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -812,9 +803,8 @@ Map3 = riakc_map:update({<<"page_visits">>, counter},
 ```curl
 # The following will create a new counter and increment it by 1
 
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -862,9 +852,8 @@ Map6 = riakc_map:update({<<"interests">>, set},
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -942,9 +931,8 @@ Map8 = riakc_map:update({<<"interests">>, set},
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1012,9 +1000,8 @@ Map14 = riakc_map:update(
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1091,9 +1078,8 @@ Map15 = riakc_map:update({<<"annika_info">>, map},
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1158,9 +1144,8 @@ Map18 = riakc_map:update(
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1234,9 +1219,8 @@ Map19 = riakc_map:update(
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1281,9 +1265,8 @@ Map20 = riakc_map:update(
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1330,9 +1313,8 @@ Map21 = riakc_map:update(
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
@@ -1387,9 +1369,8 @@ Map22 = riakc_map:update(
 ```
 
 ```curl
-curl -XPOST \
+curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
-  http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -d '
   {
     "update": {
