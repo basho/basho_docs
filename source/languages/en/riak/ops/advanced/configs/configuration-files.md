@@ -135,6 +135,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Search
 
+Configuration parameters for [[Riak Search|Using Search]].
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -191,6 +193,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## SNMP
+
+Configurable parameters for the [[Simple Network Management Protocol|SNMP Configuration]] (SNMP) server built into [[Riak Enterprise]].
 
 <table class="riak-conf">
 <thead>
@@ -291,6 +295,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## JMX
 
+Configuration parameters for the [[JMX Monitoring]] system built into [[Riak Enterprise]].
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -329,6 +335,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## LevelDB
+
+Configurable parameters for Riak's [[LevelDB]] storage backend.
 
 <table class="riak-conf">
 <thead>
@@ -446,6 +454,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Bitcask
+
+Configurable parameters for Riak's [[Bitcask]] storage backend.
 
 <table class="riak-conf">
 <thead>
@@ -576,6 +586,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Memory Backend
 
+Configurable parameters for Riak's [[Memory]] backend.
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -603,6 +615,22 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Multi Backend
 
+Configurable parameters for Riak's [[Multi]] backend, which enables you to utilize multiple data backends in a single Riak cluster.
+
+If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend, i.e. `bitcask`, `leveldb`, `memory`, or `multi`.
+
+Below is the general form for setting multi-backend parameters:
+
+```riakconf
+multi_backend.$name.(existing_setting) = <setting>
+```
+
+To give an example, if you're using multiple backends and wish to set your LevelDB `data_root` parameter to `./leveldb`, you would do so as follows:
+
+```riakconf
+multi_backend.leveldb.data_root = ./leveldb
+```
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -612,12 +640,6 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </tr>
 </thead>
 <tbody>
-
-<tr>
-<td><code>multi_backend.$name.(existing_setting)</code></td>
-<td>If you're using multiple backends, you can configure the backends individually by prepending the setting with <code>multi_backend.$name</code>. And so if you're using multiple backends and wish to set your LevelDB <code>data_root</code> parameter, for example, you would do so by setting <code>multi_backend.leveldb.data_root</code>. All backend-specific parameters can be set in this fashion when using multiple backends.</td>
-<td></td>
-</tr>
 
 <tr>
 <td><code>multi_backend.$name.storage_backend</code></td>
@@ -635,6 +657,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Riak Control
+
+Riak Control is a web-based administrative console for inspecting and manipulating Riak clusters. The configurable parameters below enable you to turn the Riak Control subsystem on and off and to configure console authorization.
 
 <table class="riak-conf">
 <thead>
@@ -668,6 +692,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Runtime Health
+
+Configurable parameters for interaction between Riak and the underlying operating system.
 
 <table class="riak-conf">
 <thead>
@@ -719,6 +745,13 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Default Bucket Properties
+
+When configuring buckets [[using bucket types]], the table below lists the bucket properties that are used when no bucket type is specified, i.e. when a request is made to one of the following endpoints:
+
+```
+/types/default/buckets/<bucket>/keys/<key>
+/buckets/<bucket>/keys/<key>
+```
 
 <table class="riak-conf">
 <thead>
@@ -813,6 +846,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Object Settings
 
+Configurable parameters for [[conflict resolution]] and dealing with [[sibling explosion|Conflict Resolution#sibling-explosion]].
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -863,6 +898,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Erlang VM
+
+In the older configuration system, the Erlang VM in which Riak runs was configured using a `vm.args` file. In the new, `riak.conf`-based system, the Erlang VM can be configured using the parameters in the table below.
 
 <table class="riak-conf">
 <thead>
@@ -970,6 +1007,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Node Metadata
 
+Every Riak node has a name and a cookie used to facilitate inter-node communication. The following parameters enable you to customize the name and cookie.
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -996,6 +1035,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## JavaScript MapReduce
+
+Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce]] system.
 
 <table class="riak-conf">
 <thead>
@@ -1047,6 +1088,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Security
+
+Configurable parameters for [[Riak Security|Authentication and Authorization]].
 
 <table class="riak-conf">
 <thead>
@@ -1123,6 +1166,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Ring
 
+Configurable parameters for your cluster's [[ring|Clusters#the-ring]].
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -1155,6 +1200,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Client Interfaces
+
+Configurable parameters for clients connecting to Riak either through Riak's [[Protocol Buffers|PBC API]] or [[HTTP|HTTP API]] API.
 
 <table class="riak-conf">
 <thead>
@@ -1200,6 +1247,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Lager
+
+Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logging system.
 
 <table class="riak-conf">
 <thead>
@@ -1300,6 +1349,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Active Anti-Entropy
 
+Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-Entropy]] subsystem.
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -1393,6 +1444,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 ## Intra-Cluster Handoff
 
+Configurable parameters for intra-cluster, i.e. inter-node, handoff.
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -1425,6 +1478,8 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 </table>
 
 ## Strong Consistency
+
+The `strong_consistency` parameter enables you to turn Riak's [[strong consistency]] subsystem on and off.
 
 <table class="riak-conf">
 <thead>
