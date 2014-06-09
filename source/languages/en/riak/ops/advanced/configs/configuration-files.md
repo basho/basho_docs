@@ -60,6 +60,13 @@ versions prior to 2.0. If this applies to your installation, please see the
 
 ## Storage Backend
 
+Riak enables you to choose from the following storage backends:
+
+* [[Bitcask]] --- [[configuration|Configuration Files#bitcask]]
+* [[LevelDB]] --- [[configuration|Configuration Files#leveldb]]
+* [[Memory]] --- [[configuration|Configuration Files#memory-backend]]
+* [[Multi]] --- [[configuration|Configuration Files#multi-backend]]
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -72,7 +79,7 @@ versions prior to 2.0. If this applies to your installation, please see the
 
 <tr>
 <td><code>storage_backend</code></td>
-<td>Specifies the storage engine used for Riak's key-value data and secondary indexes (if supported).</td>
+<td>Specifies the storage engine used for Riak's key-value data and secondary indexes (if supported).<br /><br />The available options are <code>bitcask</code> (the default), <code>leveldb</code>, <code>memory</code>, and <code>multi</code>.</td>
 <td><code>bitcask</code></td>
 </tr>
 
@@ -80,6 +87,8 @@ versions prior to 2.0. If this applies to your installation, please see the
 </table>
 
 ## Directories
+
+The directories in which Riak stores data, logs, dependencies, executables, and configuration files can be configured using the parameters below.
 
 <table class="riak-conf">
 <thead>
@@ -93,31 +102,31 @@ versions prior to 2.0. If this applies to your installation, please see the
 
 <tr>
 <td><code>platform_log_dir</code></td>
-<td></td>
+<td>The directory in which Riak's log files are stored, e.g. <code>console.log</code>, <code>erlang.log</code>, and <code>crash.log</code> files.</td>
 <td><code>./log</code></td>
 </tr>
 
 <tr>
 <td><code>platform_lib_dir</code></td>
-<td></td>
+<td>The directory in which Riak's dependencies are housed.</td>
 <td><code>./lib</code></td>
 </tr>
 
 <tr>
 <td><code>platform_etc_dir</code></td>
-<td></td>
+<td>The directory in which Riak's configuration files are stored.</td>
 <td><code>./etc</code></td>
 </tr>
 
 <tr>
 <td><code>platform_data_dir</code></td>
-<td></td>
+<td>The directory in which Riak stores its storage backend data, as well as [[ring state|Clusters]] data, [[active anti-entropy]] data, and [[cluster metadata]].</td>
 <td><code>./data</code></td>
 </tr>
 
 <tr>
 <td><code>platform_bin_dir</code></td>
-<td></td>
+<td>The directory in which the `[[riak|riak Command Line]]`, `[[riak-admin|riak-admin Command Line]]`, `riak-debug`, and `[[search-cmd|search Command Line]]` executables are stored.</td>
 <td><code>./bin</code></td>
 </tr>
 
