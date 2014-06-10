@@ -282,4 +282,13 @@ The `anti_entropy.max_open_files` parameter sets an open-files limit for
 AAE-related background tasks, analogous to [[open files limit]] settings
 used in operating systems. The default is `20`.
 
+## AAE and Riak Search
+
+Riak's AAE subsystem works to repair object conflicts both with for
+normal key/value objects as well as data related to [[Riak Search|Using Search]].
+In particular, AAE acts on indexes stored in [Solr](http://lucene.apache.org/solr/),
+the search platform that drives Riak Search.
+
+More information on AAE and Search can be found in the [[Search Details|Search Details#active-anti-entropy-AAE-]] documentation.
+
 {{/2.0.0+}}
