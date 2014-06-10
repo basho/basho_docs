@@ -336,6 +336,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
+<td><code>leveldb.compression</code></td>
+<td>Enabling this setting (<code>on</code>), which is the default, saves disk space. Disabling it may reduce read latency but increase overall disk activity. This option can be changed at any time, but it will not impact data on disk until the next time a file requires compaction.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
 <td><code>leveldb.compaction.trigger.tombstone_count</code></td>
 <td>Controls when a background compaction initiates solely due to the number of delete tombstones within an individual <code>.sst</code> table file.  Value of <code>off</code> disables the feature.</td>
 <td><code>1000</code></td>
@@ -363,6 +369,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 <td><code>leveldb.verify_checksums</code></td>
 <td>Enables or disables the verification of the data fetched from LevelDB against internal checksums.</td>
 <td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>leveldb.block_cache_threshold</code></td>
+<td>This setting defines the limit past which block cache memory can no longer be released in favor of the page cache. This setting has no impact in favor of file cache. The value is set on a per-vnode basis.</td>
+<td><code>32MB</code></td>
 </tr>
 
 <tr>
@@ -1485,6 +1497,12 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 </thead>
 <tbody>
+
+<tr>
+<td><code>metadata_cache_size</code></td>
+<td>This setting controls the size of the metadata cache for each vnode. The cache can be disabled by setting it to <code>off</code> (this is the default). Enabling the cache should not be necessary in disk-based backends (i.e. LevelDB and Bitcask) but it can help performance in the Memory backend. Note that this setting adjusts the size of the ETS table rather than the actual data. Thus, more space may be used than the simple size * number-of-vnodes calculation would imply.<br /><br /><strong>Caution</strong>: This setting should not be changed without extensive benchmarking.</td>
+<td><code>off</code></td>
+</tr>
 
 <tr>
 <td><code>retry_put_coordinator_failure</code></td>
