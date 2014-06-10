@@ -207,3 +207,34 @@ these maximums.
 
 * Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an idea of how many operations your nodes are coordinating.  If you see non-zero values in `node_get_fsm_rejected` or `node_get_fsm_rejected_60s`, that means that some of your requests are being discarded due to overload protection.  
 * The fsm limits can be increased, but disabling overload protection entirely is not recommended. More details on these settings are available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for Riak version 1.3.
+
+## Object Settings
+
+In version 2.0 and later, Riak enables you to configure a variety of
+settings regarding Riak objects, including allowable object sizes, how
+many [[siblings|Vector Clocks#siblings]] to allow, and so on. This
+document is intended as a general guide to those settings and may be
+particularly useful for [[reducing latency|Latency Reduction Checklist]]
+in your Riak cluster.
+
+A concise listing of object-related settings can be found in the
+[[Riak configuration|Configuration Files#object-settings]]
+documentation.
+
+#### Object Size
+
+Basho recommends _always_ keeping objects below 1-2 MB and preferably
+below 100 KB. 
+
+#### Sibling Explosion Management
+
+#### Object Storage Format
+
+There are currently two possible binary representations of object stored
+in Riak:
+
+* Erlang's native `term_to_binary` format
+* A newer, Riak-specific format for 
+
+You can set the object storage format using the `object.format`
+parameter.
