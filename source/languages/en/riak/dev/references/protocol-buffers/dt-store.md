@@ -90,7 +90,7 @@ message DtUpdateResp {
 }
 ```
 
-If a counter is updated, the response will include an integer as the `counter_value`; if a set is updated, a list of binaries will be return as the `set_value`; and if a map is updated, the returned `map_value` will be a `MapEntry` message. That message takes the following form:
+Assuming `return_body` is set to `true`: if a counter is updated, the response will include an integer as the `counter_value`; if a set is updated, a list of binaries will be return as the `set_value`; and if a map is updated, the returned `map_value` will be a `MapEntry` message. That message takes the following form:
 
 ```protobuf
 message MapEntry {
