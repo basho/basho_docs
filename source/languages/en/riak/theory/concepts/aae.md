@@ -18,7 +18,9 @@ objects are either
 * **divergent**, as when the values of an existing object differ across nodes.
 
 Riak offers two means of resolving object conflicts: read repair and
-active anti-entropy (AAE).
+active anti-entropy (AAE). Both of these conflict resolution mechanisms
+apply both to normal key/value data in Riak as well as to
+[[search indexes|Search Details#indexes]].
 
 {{#2.0.0+}}
 
