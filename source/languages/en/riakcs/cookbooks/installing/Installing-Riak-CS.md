@@ -36,9 +36,34 @@ tar -xvzf <riak-cs-os-x.tar.gz>
 
 Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are installing.
 
-### Installing Riak CS on Ubuntu
+### Installing Riak CS on Debian or Ubuntu
 
-The following command installs Riak CS on a machine running either Debian or Ubuntu:
+On Debian or Ubuntu, you can either use `apt` or install the `.deb` package manually.
+
+#### Installing Using `apt` (recommended)
+
+First, install the signing key:
+
+```curl
+curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+```
+
+Then, add the Basho repository to your `apt` sources list (and update them):
+
+```bash
+sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
+sudo apt-get update
+```
+
+Now, install Riak CS:
+
+```bash
+sudo apt-get install riak-cs
+```
+
+#### Installing the `.deb` Package Manually (not recommended)
+
+To install manually, use `dpkg`:
 
 ```bash
 sudo dpkg -i <riak-cs-package.deb>
@@ -46,9 +71,31 @@ sudo dpkg -i <riak-cs-package.deb>
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
-### Installing Riak CS on CentOS
+### Installing Riak CS on RHEL or CentOS
 
-The following command installs Riak CS on a machine running CentOS:
+On RHEL or CentOS, you can either use `yum` or install the `.rpm` package manually.
+
+#### Installing Using `yum` (recommended)
+
+For CentOS/RHEL 6:
+
+```bash
+sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
+```
+
+For CentOS/RHEL 5:
+
+```bash
+sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
+```
+
+Once the `.rpm` package has been installed, install Riak CS:
+
+```bash
+sudo yum install riak-cs
+```
+
+#### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
 rpm -Uvh <riak-cs-package.rpm>
@@ -58,7 +105,13 @@ Replace `<riak-cs-package.rpm>` with the actual filename for the package you are
 
 ## Installing Stanchion
 
-In a Riak CS system, Stanchion is installed on only one of the nodes in the system. Running Stanchion on more than one node can lead to problems if Riak CS nodes are configured to communicate using multiple Stanchion nodes. In this situation, the uniqueness of bucket names and user email addresses might not be enforced which, in turn, could lead to unexpected behavior. Use the commands in the section for your operating system to install a pre-built Stanchion package on the node you choose for Stanchion.
+Stanchion is an application that ensures unique user accounts and bucket names across the whole system.
+
+Problems can occur if all Riak CS nodes are not configured to communicate with a single Stanchion node. Although Stanchion instances may be installed and running on each node, only one may be actively used by the cluster.  This could mean the inability to create user accounts and buckets, or the inability to enforce their uniqueness.
+
+As only a single instance of Stanchion can be used by the Riak CS cluster at any time, it's not uncommon for a load balancer to be used to handle Stanchion failover in the event the primary Stachion node becomes unavailable.  This can be accomplished by specifying a load balancer IP as the Stanchion IP in the Riak CS app.config.  This load balancer must be configured to send all requests to a single Stanchion node, failing over to a secondary Stanchion node if the primary is unavailable.  Details on specifying the Stanchion IP can be found in the [[Specifying the Stanchion Node|Configuring Riak CS#Specifying-the-Stanchion-Node]] section of [[Configuring Riak CS]].
+
+Use the commands in the section for your operating system to install a pre-built Stanchion package on the node you choose for Stanchion.
 
 ### Installing Stanchion on Mac OS X
 
@@ -76,19 +129,64 @@ Then, unpack the downloaded tarball:
 tar -xvzf <stanchion-os-x.tar.gz>
 ```
 
-### Installing Stanchion on Ubuntu
+### Installing Stanchion on Debian or Ubuntu
 
-The following command installs Stanchion on a machine running Ubuntu:
+On Debian or Ubuntu, you can either use `apt` or install the `.deb` package manually.
+
+#### Installing Using `apt` (recommended)
+
+First, install the signing key:
+
+```curl
+curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+```
+
+If the signing key and `apt` repository have already been added, add the Basho repository to your `apt` sources list (and update them):
 
 ```bash
-sudo dpkg -i <riak-cs-package.deb>
+sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
+sudo apt-get update
+```
+
+Now, install Riak CS:
+
+```bash
+sudo apt-get install stanchion
+```
+
+#### Installing the `.deb` Package Manually (not recommended)
+
+```bash
+sudo dpkg -i <stanchion-package.deb>
 ```
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
 
-### Installing Stanchion on CentOS
+### Installing Stanchion on RHEL or CentOS
 
-The following command installs Stanchion on a machine running either Red Hat linux or CentOS:
+On RHEL or CentOS, you can either use `yum` or install the `.rpm` package manually.
+
+#### Installing Using `yum` (recommended)
+
+For CentOS/RHEL 6:
+
+```bash
+sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
+```
+
+For CentOS/RHEL 5:
+
+```
+sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
+```
+
+Once the `.rpm` package has been installed, install Stanchion:
+
+```basho
+sudo yum install stanchion
+```
+
+#### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
 sudo rpm -Uvh <stanchion-package.rpm>
@@ -99,7 +197,9 @@ Replace `<stanchion-package.rpm>` with the actual filename for the package you a
 <div class="note"><div class="title">Note</div>CentOS enables Security-Enhanced Linux (SELinux) by default. If you encounter errors during installation, try disabling SELinux.</div>
 
 ## Installing Riak
+
 If you have not yet installed Riak, follow the [[Riak Installation|Installing and Upgrading]] documentation to do so.
 
 ## What's Next?
+
 Once you've completed installation of Riak CS and Riak, you're ready to learn more about [[Configuring Riak CS]].

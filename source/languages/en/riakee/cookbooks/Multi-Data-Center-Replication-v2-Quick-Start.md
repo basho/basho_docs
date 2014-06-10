@@ -14,7 +14,7 @@ The Riak Multi Data Center Replication Quick Start will walk you through the pro
 This Guide assumes that you have completed the following steps:
 
 * Install [[Riak Enterprise]]
-* Perform [[System Tuning|Linux Performance Tuning]]
+* Perform [[System Tuning|System Performance Tuning]]
 * Review [[Configuration|Multi Data Center Replication: Configuration]]
 
 ### Scenario

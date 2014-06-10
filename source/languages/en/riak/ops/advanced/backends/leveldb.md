@@ -33,7 +33,14 @@ LevelDB is a relatively new entrant into the growing list of key/value database 
 {{#2.0.0-}}
 Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB performance for the kinds of "large data" environments that are typical in Riak deployments.
 {{/2.0.0-}}
+{{#2.0.0+}}
+A number of changes have been introduced in the LevelDB backend in Riak 2.0:
 
+* There is now only _one_ performance-related setting that Riak users need to define---`leveldb.total_mem_percent`---as LevelDB now dynamically sizes the file cache and block sizes based upon active vnodes assigned to the node.
+* The LevelDB backend in Riak 2.0 utilizes a new, faster threading model for background compaction work on `.sst` table files. The new model has increased throughput by at least 10% in all test scenarios.
+* Delete operations now receive priority handling in compaction selection, leading to a more aggressive reclaiming of disk space than in previous versions of Riak's LevelDB backend.
+* Nodes storing massive key datasets (e.g. in the billions of keys) now receive increased throughput due to automatic management of LevelDB's block size parameter. This parameter is slowly raised to increase the number of files that can open simultaneously, leading to improved random read performance.
+{{/2.0.0+}}
 
 ### Strengths
 
@@ -109,52 +116,26 @@ The configuration values that can be set in your {{#2.0.0-}}`[[app.config|Config
 ```
 {{/2.0.0-}}
 {{#2.0.0+}}
-```config
-leveldb.data_root
-# LevelDB data root
-# default: ./data/leveldb
 
-leveldb.total_mem_percent
-# Defines the percentage (between 1 and 100) of total server memory
-# to assign to LevelDB. LevelDB will dynamically adjust its internal
-# cache sizes as Riak activates/inactivates vnodes on this server to
-# stay within this size. The memory size can alternatively be assigned
-# as a byte count via total_leveldb_mem instead.
-# default: 80
-
-leveldb.bloom_filter
-# Each database .sst table file can include an optional Bloom filter
-# that is highly effective in quashing data queries that are destined
-# to not find the requested key. A bloom filter typically increases
-# the size of a .sst file by about 2% if this parameter is set to on.
-# default: on
-
-leveldb.block_size_steps
-# Defines the number of incremental adjustments to attempt between the 
-# block_size value and the maximum block_size for an .sst table file. A
-# value of 0 disables the underlying dynamic block_size feature.
-# default: 16
-
-leveldb.delete_threshold
-# Controls when a background compaction initiates solely due to the
-# number of delete tombstones within an individual .sst table file. A
-# value of 0 disables the feature.
-# default: 1000
-```
+Config | Description | Default
+:------|:------------|:-------
+`leveldb.data_root` | LevelDB data root | `./data/leveldb`
+`leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. | `70`
 {{/2.0.0+}}
 
+{{#2.0.0-}}
 ### Memory Usage per Vnode
 
-The following values help adjust the memory usage per vnode.
+The following values adjust the memory usage per vnode.
 
 #### Max Open Files
 
-The `max_open_files` value is multiplied by 4 megabytes to create a file cache. The file cache may end up holding more or fewer files at any given moment due to variations in file metadata size. `max_open_files` applies to a single vnode, not to the entire server. See calculation details in [[Parameter Planning|LevelDB#Parameter-Planning]].
+The `max_open_files` value is multiplied by 4 megabytes to create a file cache. The file cache may end up holding more or fewer files at any given moment due to variations in file metadata size. `max_open_files` applies to a single vnode and not to the entire server, as each vnode runs its own self-contained instance of LevelDB. See calculation details in [[Parameter Planning|LevelDB#Parameter-Planning]].
 
 Where server resources allow, the value of `max_open_files` should exceed the count of `.sst` table files within the vnode's database directory. Memory budgeting for this variable is more important to random read operations than the `cache_size` discussed in the next section.
 
 {{#1.4.0-}}
-Number of open files that can be used by the DB. You may need to increase this if your database has a large working set (budget one open file per 2 MB of working set divided by `ring_creation_size`).
+You may need to increase this if your database has a large working set (budget one open file per 2 MB of working set divided by `ring_creation_size`).
 
 The minimum `max_open_files` is 20. The default is 30. However, if you start Riak with no value for `max_open_files` (meaning you've included the setting in your `app.config` but not specified a value) it will be set to 1000.  
 
@@ -173,6 +154,8 @@ The minimum `max_open_files` is 20. The default is 30. However, if you start Ria
 {{#1.4.0+}}
 The minimum `max_open_files` is 30. The default is also 30.
 
+In `app.config`:
+
 ```erlang
 {eleveldb, [
     ...,
@@ -180,11 +163,18 @@ The minimum `max_open_files` is 30. The default is also 30.
     ...
 ]}
 ```
+
+In `riak.conf`:
+
+```config
+max_open_files = 30
+```
+
 {{/1.4.0+}}
 
 {{#1.4.0-1.5.0}}
 <div class="note"><div class="title">Riak 1.4 Update</div>
-<tt>max_open_files</tt> was originally a file handle limit, but file metadata is now a much larger resource concern. The impact of Basho's larger table files and Google's recent addition of Bloom filters made the accounting switch necessary.
+<tt>max_open_files</tt> was originally a file handle limit, but file metadata is now a much more pressing resource concern. The impact of Basho's larger table files and Google's recent addition of Bloom filters made the accounting switch necessary.
 </div>
 {{/1.4.0-1.5.0}}
 
@@ -212,7 +202,7 @@ That's 536870912 bytes (512 MB) per vnode.
 
 Best Case:
 
-     (Number of free GBs / 2) * (1024 ^ 3)
+      (Number of free GBs / 2) * (1024 ^ 3)
     ---------------------------------------- = Cache Size
     (Number of partitions / Number of nodes)
 
@@ -252,11 +242,6 @@ These values can be adjusted to tune between write performance and write safety.
 
 #### Sync
 
-{{#1.4.0+}}
-This parameter defines how new key/value data is placed in the recovery log. The recovery log is only used if the Riak program crashes or the server loses power unexpectedly. The parameter's original intent was to guarantee that each new key/value was written to the physical disk before LevelDB responded with `write good`. The reality in modern servers is that many layers of data caching exist between the database program and the physical disks. This flag influences only one of the layers.
-
-Setting this flag to `true` guarantees that the write operation will be slower, but it does not actually guarantee that the data was written to the physical device. The data has likely been flushed from the operating system cache to the disk controller. The disk controller may or may not save the data if the server power fails. Setting this flag to `false` allows for faster write operations and depends upon the operating system's memory-mapped I/O conventions to provide reasonable recovery should the Riak program fail, but not if server power fails.
-{{/1.4.0+}}
 {{#1.4.0-}}
 If set to `true`, the write will be flushed from the operating system buffer cache before the write is considered complete. Writes will be slower but data more durable.
 
@@ -271,6 +256,11 @@ failure. If data durability is absolutely necessary then make sure you
 disable this feature on your drive or provide battery backup and a proper
 shutdown procedure during power loss.
 {{/1.4.0-}}
+{{#1.4.0+}}
+This parameter defines how new key/value data is placed in the recovery log. The recovery log is only used if the Riak program crashes or the server loses power unexpectedly. The parameter's original intent was to guarantee that each new key/value was written to the physical disk before LevelDB responded with `write good`. The reality in modern servers is that many layers of data caching exist between the database program and the physical disks. This flag influences only one of the layers.
+
+Setting this flag to `true` guarantees that the write operation will be slower, but it does not actually guarantee that the data was written to the physical device. The data has likely been flushed from the operating system cache to the disk controller. The disk controller may or may not save the data if the server power fails. Setting this flag to `false` allows for faster write operations and depends upon the operating system's memory-mapped I/O conventions to provide reasonable recovery should the Riak program fail, but not if server power fails.
+{{/1.4.0+}}
 
 Default: `false`
 
@@ -538,13 +528,7 @@ application variables in the `eLeveldb` application scope.
 
   * **Be aware of file handle limits**
 
-    You can control the number of file descriptors eLevelDB will use with
-    `max_open_files`. eLevelDB configuration defaults to 30 per partition which means that in a
-    cluster with 64 partitions you'll have at most 1920 file handles in use at
-    a given time. This can cause problems on some platforms (e.g. OS X has a
-    default limit of 256 handles). The solution is to increase the number of
-    file handles available. Review the (open files
-    limitations)(Open-Files-Limit) information.
+    You can control the number of file descriptors eLevelDB will use with `max_open_files`. eLevelDB configuration defaults to 30 per partition which means that in a cluster with 64 partitions you'll have at most 1920 file handles in use at a given time. This can cause problems on some platforms (e.g. OS X has a default limit of 256 handles). The solution is to increase the number of file handles available. Review the [[open files limitations|Open Files Limit]] information.
 
   * **Avoid extra disk head seeks by turning off `noatime`**
 
@@ -558,12 +542,13 @@ application variables in the `eLeveldb` application scope.
 /dev/sda5    /data           ext3    noatime  1 1
 /dev/sdb1    /data/inno-log  ext3    noatime  1 2
 ```
+{{/2.0.0-}}
 
 ### Recommended Settings
 
 Below are **general** configuration recommendations for Linux distributions. Individual users may need to tailor these settings for their application.
 
-For production environments, we recommend the following settings within `/etc/syscfg.conf`:
+For production environments, we recommend the following settings within `/etc/sysctl.conf`:
 
 ```bash
 net.core.wmem_default=8388608
@@ -593,7 +578,7 @@ If you are using https protocol, the 2.6 kernel is widely known for stalling pro
 We recommend setting "clocksource=hpet" on your linux kernel's `boot` line. The TSC clocksource has been identified to cause issues on machines with multiple physical processors and/or CPU throttling.
 
 #### swappiness
-We recommend setting `vm.swappiness`=0 in `/etc/sysctl.conf`. The vm.swappiness default is 60, which is aimed toward laptop users with application windows. This was a key change for MySQL servers and is often referenced in database performance literature.
+We recommend setting `vm.swappiness=0` in `/etc/sysctl.conf`. The `vm.swappiness` default is 60, which is aimed toward laptop users with application windows. This was a key change for MySQL servers and is often referenced in database performance literature.
 
 
 
@@ -708,9 +693,9 @@ records.
 
 ### eLevelDB Database Files
 
-Below there are two directory listings showing what you would expect to find on
-disk when using eLevelDB. In this example we use a 64 partition ring which
-results in 64 separate directories, each with their own LevelDB database.
+Below are two directory listings showing what you would expect to find on
+disk when using eLevelDB. In this example, we use a 64-partition ring which
+results in 64 separate directories, each with their own LevelDB database:
 
 ```bash
 leveldb/
@@ -748,8 +733,8 @@ leveldb/
 64 directories, 378 files
 ```
 
-After performing a large number "put" (write) operations the Riak cluster
-running eLevelDB will look something like this.
+After performing a large number of "put" (write) operations, the Riak cluster
+running eLevelDB will look something like this:
 
 ```bash
 $ tree leveldb/

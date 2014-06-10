@@ -10,7 +10,7 @@ keywords: [operator, configuration]
 
 ## Specifying the Admin User
 
-The admin user is authorized to perform actions such as creating buckets or obtaining billing statistics. An admin user account is no different from any other user account.
+The admin user is authorized to perform actions such as creating users or obtaining billing statistics. An admin user account is no different from any other user account.
 
 <div class="note"><div class="title">Note</div>
 Before creating an admin user, you must first set <tt>{anonymous_user_creation, true}</tt> in the Riak CS <tt>app.config</tt>. You may disable this again once the admin user has been created.

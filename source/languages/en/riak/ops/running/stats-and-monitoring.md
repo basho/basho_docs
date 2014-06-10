@@ -15,7 +15,7 @@ moved: {
 
 Riak provides data related to current operating status, which includes statistics in the form of counters and histograms. These statistics are made available through the HTTP API via the `[[/stats|HTTP Status]]` endpoint, or through the `[[riak-admin status|Inspecting a Node#riak-admin-status]]` command.
 
-This page presents the most commonly monitored and gathered statistics, as well as numerous solutions for monitoring and gathering statistics that our customers and community report using successfully in Riak cluster environments. You can learn more about the specific Riak statistics provided in the [[Inspecting a Node]] documentation.
+This page presents the most commonly monitored and gathered statistics, as well as numerous solutions for monitoring and gathering statistics that our customers and community report using successfully in Riak cluster environments. You can learn more about the specific Riak statistics provided in the [[Inspecting a Node]] and [[HTTP Status]] documentation.
 
 ### Counters
 Riak provides counters for GETs, PUTs, read repairs, and other common operations.  By default, these counters count either the number of operations occurring within the last minute, or for the runtime duration of the node.
@@ -23,30 +23,13 @@ Riak provides counters for GETs, PUTs, read repairs, and other common operations
 #### Gets and Puts
 GET/PUT counters are provided for both nodes and vnodes. These counters are commonly graphed over time for trend analysis, capacity planning, and so forth.
 
-Metric             | Description   |
--------------------| ------------- |
-`node_gets`        | Number of GETs coordinated by this node within the last minute, including GETs to non-local vnodes on this node |
-`node_gets_total`  | Number of GETs coordinated by this node since startup, including GETs to non-local vnodes                       |
-`node_puts`        | Number of PUTs coordinated by this node, including PUTs to non-local vnodes on this node within the last minute |
-`node_puts_total`  | Number of PUTs coordinated by this node since startup, including PUTs to non-local vnodes                       |
-`vnode_gets`       | Number of GET operations coordinated by vnodes on this node within the last minute                              |
-`vnode_gets_total` | Number of GETs coordinated by local vnodes since node startup                                                   |
-`vnode_puts_total` | Number of PUTS coordinated by local vnodes since node startup                                                   |
+At a minimum, the following stats should be graphed: `node_gets`, `node_gets_total`, `node_puts`, `node_puts_total`, `vnode_gets`, `vnode_gets_total`, `vnode_puts_total`.
 
 #### Read Repairs
 Read repair counters are commonly graphed and monitored for abnormally high totals, which can be indicative of an issue.
 
-Metric               | Description |
----------------------|-------------|
-`read_repairs`       | Number of read repair operations this node has coordinated in the last minute         |
-`read_repairs_total` | Number of read repair operations this node has coordinated since the node was started |
-
 #### Coordinated Redirection
 Counters representing the number of coordinated node redirection operations are provided in total since node startup.
-
-Metric               | Description |
----------------------|-------------|
-`coord_redirs_total` | Number of requests this node has redirected to other nodes for coordination since startup |
 
 ### Statistics
 Riak provides statistics for a range of operations.  By default, Riak provides the mean, median, 95th percentile, 99th percentile, and 100th percentile over a 60 second window.
@@ -60,38 +43,8 @@ GET FSM Object Size (`node_get_fsm_objsize_*`) measures the size of objects flow
 #### GET FSM Siblings
 GET FSM Sibling (`node_get_fsm_siblings_*`) provides a histogram (with 60 second window) of the number of siblings encountered by this node on the occasion of a GET request.
 
-
-## Riak Metrics To Graph
-
-Metric                        | Description   |
-------------------------------| ------------- |
-`node_get_fsm_objsize_mean`   | Mean object size encountered by this node within the last minute                                      |
-`node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute                                    |
-`node_get_fsm_objsize_95`     | 95th percentile object size encountered by this node within the last minute                           |
-`node_get_fsm_objsize_99`     | 99th percentile object size encountered by this node within the last minute                           |
-`node_get_fsm_objsize_100`    | 100th percentile object size encountered by this node within the last minute                          |
-`node_get_fsm_time_mean`      | Mean time between reception of client GET request and subsequent response to client                   |
-`node_get_fsm_time_median`    | Median time between reception of client GET request and subsequent response to client                 |
-`node_get_fsm_time_95`        | 95th percentile time between reception of client GET request and subsequent response to client        |
-`node_get_fsm_time_99`        | 99th percentile time between reception of client GET request and subsequent response to client        |
-`node_get_fsm_time_100`       | 100th percentile time between reception of client GET request and subsequent response to client       |
-`node_put_fsm_time_mean`      | Mean time between reception of client PUT request and subsequent response to client                   |
-`node_put_fsm_time_median`    | Median time between reception of client PUT request and subsequent response to client                 |
-`node_put_fsm_time_95`        | 95th percentile time between reception of client PUT request and subsequent response to client        |
-`node_put_fsm_time_99`        | 99th percentile time between reception of client PUT request and subsequent response to client        |
-`node_put_fsm_time_100`       | 100th percentile time between reception of client PUT request and subsequent response to client       |
-`node_get_fsm_siblings_mean`  | Mean number of siblings encountered during all GET operations by this node within the last minute     |
-`node_get_fsm_siblings_median`| Median number of siblings encountered during all GET operations by this node within the last minute   |
-`node_get_fsm_siblings_95`    | 95th percentile of siblings encountered during all GET operations by this node within the last minute |
-`node_get_fsm_siblings_99`    | 99th percentile of siblings encountered during all GET operations by this node within the last minute |
-`node_get_fsm_siblings_100`   | 100th percentile of siblings encountered during all GET operations by this node within the last minute|
-`memory_processes_used`       | Total amount of memory used by Erlang processes                                                       |
-`read_repairs`                | Number of Read Repairs this node has coordinated within the last minute                               |
-`read_repairs_total`          | Number of Read Repairs this node has coordinated since startup                                        |
-`sys_process_count`           | Number of Erlang processes                                                                            |
-`coord_redirs_total`          | Number of requests this node has redirected to other nodes for coordination since startup             |
-`pbc_connect`                 | Number of new Protocol Buffers connections established during the last minute                                              |
-`pbc_active`                  | Number of currently active Protocol Buffers connections                                                          |
+### Additional Riak Metrics to Graph
+`memory_processes_used`, `sys_process_count`, `pbc_connect`, `pbc_active`.
 
 
 ## Systems Metrics To Graph
@@ -166,7 +119,7 @@ Splunk can be used to aggregate all Riak cluster node operational log files, inc
 ## Summary
 Riak exposes numerous forms of vital statistic information which can be aggregated, monitored, analyzed, graphed, and reported on in a variety of ways using numerous open source and commercial solutions.
 
-If you use a solution not listed here with Riak and would like to include it (or would otherwise like to update the information on this page), feel free to fork the docs, add it in the appropriate section, and send a pull request to the [Riak Docs project](https://github.com/basho/basho_docs).
+If you use a solution not listed here with Riak and would like to include it (or would otherwise like to update the information on this page), feel free to fork the docs, add it in the appropriate section, and send a pull request to the [Riak Docs](https://github.com/basho/basho_docs).
 
 ## References
 

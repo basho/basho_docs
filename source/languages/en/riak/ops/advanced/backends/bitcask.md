@@ -20,45 +20,45 @@ moved: {
 [Bitcask](https://github.com/basho/bitcask) is an Erlang application that
 provides an API for storing and retrieving key/value data into a log-structured
 hash table that provides very fast access. The
-[design](http://downloads.basho.com/papers/bitcask-intro.pdf) owes a lot to the
+[design](http://downloads.basho.com/papers/bitcask-intro.pdf) of Bitcash owes a lot to the
 principles found in log-structured file systems and draws inspiration from a
 number of designs that involve log file merging.
 
 ### Strengths:
 
-  * Low latency per item read or written
+* **Low latency per item read or written**
 
     This is due to the write-once, append-only nature of the Bitcask database
     files.
 
-  * High throughput, especially when writing an incoming stream of random items
+* **High throughput, especially when writing an incoming stream of random items**
 
     Because the data being written doesn't need to be ordered on disk and
     because the log structured design allows for minimal disk head movement
-    during writes these operations generally saturate the I/O and disk
+    during writes, these operations generally saturate the I/O and disk
     bandwidth.
 
-  * Ability to handle datasets larger than RAM w/o degradation
+* **Ability to handle datasets larger than RAM without degradation**
 
-    Because access to data in Bitcask is direct lookup from an in-memory hash
-    table finding data on disk is very effecient, even when data sets are very
-    large.
+    Because access to data in Bitcask involves direct lookup from an
+    in-memory hash   table finding data on disk is very efficient, even when
+    data sets are very large.
 
-  * Single Seek to Retrieve Any Value
+* **Single seek to retrieve any value**
 
     Bitcask's in-memory hash-table of keys point directly to locations on disk
     where the data lives. Bitcask never uses more than one disk seek to read a
     value and sometimes, due to file-system caching done by the operating
     system, even that isn't necessary.
 
-  * Predictable Lookup _and_ Insert Performance
+* **Predictable lookup _and_ insert performance**
 
     As you might expect from the description above, read operations have a
     fixed, predictable behavior. What you might not expect is that this is
     also true for writes. Write operations are at most a seek to the end of
     the current file open writing and an append to that file.
 
-  * Fast, bounded Crash Recovery
+* **Fast, bounded crash recovery**
 
     Due to the append-only write once nature of Bitcask files, recovery is easy
     and fast. The only items that might be lost are partially written records
@@ -66,7 +66,7 @@ number of designs that involve log file merging.
     the last record or two written and verify CRC data to ensure that the data
     is consistent.
 
-  * Easy Backup
+* **Easy Backup**
 
     In most systems backup can be very complicated but here again Bitcask
     simplifies this process due to it's append-only write once disk format.
@@ -75,7 +75,7 @@ number of designs that involve log file merging.
 
 ### Weaknesses:
 
-  * Keys Must Fit In Memory
+* Keys must fit in memory
 
     Bitcask keeps all keys in memory at all times, this means that your system
     must have enough memory to contain your entire keyspace with room for other
@@ -91,10 +91,10 @@ The default configuration values found in the `app.config` for Bitcask are as
 follows:
 
 ```erlang
- %% Bitcask Config
- {bitcask, [
-             {data_root, "/var/lib/riak/bitcask"}
-           ]},
+%% Bitcask Config
+    {bitcask, [
+        {data_root, "/var/lib/riak/bitcask"}
+    ]},
 ```
 
 ## Configuring Bitcask
@@ -104,12 +104,12 @@ in your [[app.config|Configuration Files]].
 
 ### Open Timeout
 
-  The `open_timeout` setting specifies the maximum time Bitcask will block on
-  startup while attempting to create or open the data directory. The value is
-  in seconds and the default is `4`. You generally need not change this value.
-  If for some reason the timeout is exceeded on open you'll see a log message
-  of the form: `"Failed to start bitcask backend: ...`. Only then should you
-  consider a longer timeout.
+The `open_timeout` setting specifies the maximum time Bitcask will block on
+startup while attempting to create or open the data directory. The value is
+in seconds and the default is `4`. You generally need not change this value.
+If for some reason the timeout is exceeded on open you'll see a log message
+of the form: `"Failed to start bitcask backend: ...`. Only then should you
+consider a longer timeout.
 
 ```erlang
 {bitcask, [
@@ -121,51 +121,53 @@ in your [[app.config|Configuration Files]].
 
 ### Sync Strategy
 
-  The `sync_strategy` setting changes the durability of writes by specifying
-  when to synchronize data to disk. The default setting protects against data
-  loss in the event of application failure (process death) but leaves open a
-  small window wherein data could be lost in the event of complete system
-  failure (e.g. hardware, O/S, power).
+The `sync_strategy` setting changes the durability of writes by specifying
+when to synchronize data to disk. The default setting protects against data
+loss in the event of application failure (process death) but leaves open a
+small window wherein data could be lost in the event of complete system
+failure (e.g. hardware, O/S, power).
 
-  The default mode, `none`, writes data into operating system buffers which
-  which will be written to the disks when those buffers are flushed by the
-  operating system. If the system fails (power loss, crash, etc.) before
-  before those buffers are flushed to stable storage that data is lost.
+The default mode, `none`, writes data into operating system buffers which
+which will be written to the disks when those buffers are flushed by the
+operating system. If the system fails (power loss, crash, etc.) before
+before those buffers are flushed to stable storage that data is lost.
 
-  This is prevented by the setting `o_sync` which forces the operating system
-  to flush to stable storage at every write. The effect of flushing each
-  write is better durability, however write throughput will suffer as each
-  write will have to wait for the write to complete.
+This is prevented by the setting `o_sync` which forces the operating system
+to flush to stable storage at every write. The effect of flushing each
+write is better durability, however write throughput will suffer as each
+write will have to wait for the write to complete.
 
-  ___Available Sync Strategies___
+#### Available Sync Strategies
 
-  * `none` - (default) Lets the operating system manage syncing writes.
-  * `o_sync` - Uses the O_SYNC flag which forces syncs on every write.
-  * `{seconds, N}` - Riak will force Bitcask to sync every `N` seconds.
+  * `none` --- lets the operating system manage syncing writes (default)
+  * `o_sync` --- uses the `O_SYNC` flag which forces syncs on every write
+  * `{seconds, N}` --- Riak will force Bitcask to sync every `N` seconds
 
 ```erlang
 {bitcask, [
-        ...,
-            {sync_strategy, none}, %% Let the O/S decide when to flush to disk
-        ...
+    ...,
+        {sync_strategy, none}, %% Let the O/S decide when to flush to disk
+    ...
 ]}
 ```
 
-<div class="note"><div class="title">Bitcask doesn't actually set O_SYNC on
-Linux</div><p>At the time of this writing, due to an unresolved Linux <a
+<div class="note">
+<div class="title">Bitcask doesn't actually set <tt>O_SYNC</tt> on
+Linux</div>
+At the time of this writing, due to an unresolved Linux <a
 href="http://permalink.gmane.org/gmane.linux.kernel/1123952">kernel issue</a>
 related to the <a
 href="https://github.com/torvalds/linux/blob/master/fs/fcntl.c#L146..L198">implementation
-of <code>fcntl</code></a> it turns out that Bitcask will not set the
-<code>O_SYNC</code> flag on the file opened for writing, the call to
-<code>fcntl</code> doesn't fail, it is silently ignored by the Linux kernel.
+of <tt>fcntl</tt></a>, it turns out that Bitcask will not set the <tt>O_SYNC</tt> flag on the file opened for writing. The call to
+<tt>fcntl</tt> doesn't fail. Instead, it is silently ignored by the Linux kernel.
 You will notice a <a
 href="https://github.com/basho/riak_kv/commit/6a29591ecd9da73e27223a1a55acd80c21d4d17f#src/riak_kv_bitcask_backend.erl">warning
-message</a> in the log files of the format:<br /><code>{sync_strategy,o_sync} not
-implemented on Linux</code><br /> indicating that this issue exists on your system.
-Without the <code>O_SYNC</code> setting enabled there is potential for data
+message</a> in the log files of the format:<br /><tt>{sync_strategy,o_sync} not
+implemented on Linux</tt><br /> indicating that this issue exists on your system.
+Without the <tt>O_SYNC</tt> setting enabled there is the potential for data
 loss if the OS or system dies (power outtage, kernel panic, reboot without a
-sync) with dirty buffers not yet written to stable storage.</div>
+sync, etc.) with dirty buffers not yet written to stable storage.
+</div>
 
 ### Disk-Usage and Merging Settings
 
@@ -205,7 +207,7 @@ of data in the bitcask directories before the first merge is triggered
 irrespective of your working set size. Plan storage accordingly and don't
 be surprised by larger than working set on disk data sizes.
 
-Default is: `16#80000000` which is 2GB in bytes
+The default is `16#80000000`, which is 2GB in bytes.
 
 ```erlang
 {bitcask, [
@@ -225,8 +227,8 @@ disk during startup, and thereby the time required to startup.  The
 when it does not contain a CRC signature, but is otherwise able
 to be read properly.  
 
-* `true` - disregard any `.hint` file that does not contain a CRC value 
-* `false` -  use `.hint` files that are otherwise valid except for missing CRC
+* `true` --- disregard any `.hint` file that does not contain a CRC value 
+* `false` ---  use `.hint` files that are otherwise valid except for missing CRC
 
 ```erlang
 {bitcask, [
@@ -257,9 +259,9 @@ file access.  Valid settings are:
 The `merge_window` setting lets you specify when during the day merge
 operations are allowed to be triggered. Valid options are:
 
-* `always` (default) No restrictions
-* `never` Merge will never be attempted
-* `{Start, End}` Hours during which merging is permitted, where `Start` and
+* `always` --- no restrictions (default)
+* `never` --- merge will never be attempted
+* `{Start, End}` --- hours during which merging is permitted, where `Start` and
   `End` are integers between 0 and 23. A window defined as `{1, 3}` means that
   merging will be allowed to start between 01:00 and 03:59.
 
@@ -273,13 +275,13 @@ ensures that at most one node at the time can be affected by merging, leaving
 the remaining nodes to handle requests. The main drawback of this approach is that
 merges will occur less frequently, leading to increased disk space usage.
 
-Default is: `always`
+The default is `always`.
 
 ```erlang
 {bitcask, [
-        ...,
-            {merge_window, always}, %% Span of hours during which merge is acceptable.
-        ...
+    ...,
+        {merge_window, always}, %% Span of hours during which merge is acceptable.
+    ...
 ]}
 ```
 
@@ -296,7 +298,7 @@ sections are ignored.
 Merge triggers determine under what conditions merging will be
 invoked.
 
-* _Fragmentation_: The `frag_merge_trigger` setting describes what ratio of
+* Fragmentation --- The `frag_merge_trigger` setting describes what ratio of
   dead keys to total keys in a file will trigger merging. The value of this
   setting is a percentage (0-100). For example, if a data file contains 6
   dead keys and 4 live keys, then merge will be triggered at the default
@@ -305,7 +307,7 @@ invoked.
 
   Default is: `60`
 
-* _Dead Bytes_: The `dead_bytes_merge_trigger` setting describes how much
+* Dead Bytes --- The `dead_bytes_merge_trigger` setting describes how much
   data stored for dead keys in a single file will trigger merging. The
   value is in bytes. If a file meets or exceeds the trigger value for dead
   bytes, merge will be triggered. Increasing the value will cause merging
@@ -315,7 +317,7 @@ invoked.
   When either of these constraints are met by any file in the directory,
   Bitcask will attempt to merge files.
 
-  Default is: `536870912` which is 512MB in bytes
+The default is `536870912`, which is 512MB in bytes.
 
 ```erlang
 {bitcask, [
@@ -371,12 +373,13 @@ included in the merge operation.
 ]}
 ```
 
-<div class="note"><div class="title">Choosing Threshold Values</div><p>The
-values for <code>frag_threshold</code> and <code>dead_bytes_threshold</code>
-<i>must be equal to or less than their corresponding trigger values</i>. If
-they are set higher, Bitcask will trigger merges where no files meet the
-thresholds, and thus never resolve the conditions that triggered
-merging.</p></div>
+<div class="note">
+<div class="title">Choosing Threshold Values</div>
+The values for <tt>frag_threshold</tt> and <tt>dead_bytes_threshold</tt>
+<em>must be equal to or less than their corresponding trigger values</em>. If
+they are set higher, Bitcask will trigger merges where no files meet the 
+thresholds, and thus never resolve the conditions that triggered merging.
+</div>
 
 #### Log Needs Merge
 
@@ -431,12 +434,12 @@ Default is: `-1` which disables automatic expiration
 ]}
 ```
 
-<div class="note"><p>Space occupied by stale data <i>may not be reclaimed
+<div class="note">
+Space occupied by stale data <i>may not be reclaimed
 immediately</i>, but the data will become immediately inaccessible to client
 requests. Writing to a key will set a new modification timestamp on the value
-and prevent it from being expired.</p></div>
-
-{{#1.2.1+}}
+and prevent it from being expired.
+</div>
 
 By default, Bitcask will trigger a merge whenever a data file contains
 an expired key. This may result in excessive merging under some usage
@@ -454,8 +457,6 @@ Default is: `0`
         ...
 ]}
 ```
-
-{{/1.2.1+}}
 
 ## Tuning Bitcask
 
@@ -589,8 +590,11 @@ partition's data however there are no Bitcask-specific files as yet.
 
 After performing one "put" (write) into the Riak cluster running Bitcask.
 
-```
-curl http://localhost:8098/riak/test/test -XPUT -d 'hello' -H 'content-type: text/plain'
+```bash
+curl -XPUT \
+  -H "Content-Type: text/plain" \
+  -d "hello" \
+  http://localhost:8098/buckets/test/keys/test
 ```
 
 The "N" value for this cluster is 3 so you'll see that the three vnode

@@ -43,3 +43,12 @@ A: You can specify the location of **all** Riak CS bucket data by changing the s
   first time; if you do make these changes *after* you've started Riak, the previous data will not be available unless you manually move it to to the new location.
 
   This will allow you to change the location of all bucket data. Riak CS does not yet currently support specifying per-bucket filesystem granularity.
+
+Q: Does Riak CS encrypt data at rest?
+A: No, Riak CS does not currently support encryption of data at rest.
+
+Q: Does Riak CS support compression of objects at rest?
+A: Currently, no compression is performed during object ingest. Any object compression would need to be performed by the client.
+
+Q: Does Riak CS support object search?
+A: There is currently no search functionality in Riak CS. Search functionality can be provided using an external application to read and index items stored in Riak CS (provided that they are not encrypted).
