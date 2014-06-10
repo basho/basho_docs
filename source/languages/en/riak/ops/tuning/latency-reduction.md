@@ -129,7 +129,7 @@ eye on on your `console.log` files (and LevelDB `LOG` files if you're
 using LevelDB). Do Bitcask merging or LevelDB compaction events overlap
 with increased latencies?
 
-Our first recommendation is to examine your [[replication strategy|Replication Properties]]
+If so, our first recommendation is to examine your [[replication strategy|Replication Properties]]
 to make sure that neither R nor W are set to N, i.e. that you're not
 requiring that reads or writes go to all nodes in the cluster. The
 problem with setting `R=N` or `W=N` is that any request will only
@@ -177,24 +177,22 @@ become clear in production environments.
 
 ### Mitigation
 
-If you suspect that you OS-level issues might be impacting latency, it
-might be worthwhile to revisit your OS-specific configurations. In
-particular, the following guides 
+If you suspect that OS-level issues might be impacting latency, it might
+be worthwhile to revisit your OS-specific configurations. The following
+guides may be of help:
 
 * [[Open files limit]]
 * [[File system tuning]]
 * General [[Linux system tuning]]
 * [[AWS performance tuning]] if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
-## IO/Network Bottlenecks
+## I/O and Network Bottlenecks
 
-Commands to diagnose:
+There are a number of Linux tools that you can use to diagnose I/O
+bottlenecks, including [iowait](http://www.linuxquestions.org/questions/linux-newbie-8/what-is-iowait-415961/)
+and [netstat](http://en.wikipedia.org/wiki/Netstat).
 
-```bash
-iowait
-netstat -i
-netstat -s
-```
+### Mitigation
 
 ## Overload Protection
 
@@ -207,13 +205,5 @@ these maximums.
 
 ### Mitigation
 
-* Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an
-idea of how many operations your nodes are coordinating.  If you see
-non-zero values in `node_get_fsm_rejected` or
-`node_get_fsm_rejected_60s` then some of your requests are being
-discarded due to overload protection.  
-
-* The fsm limits can be increased, but disabling overload protection
-entirely is not recommended.  More details on these settings are
-available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md)
-for Riak version 1.3.
+* Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an idea of how many operations your nodes are coordinating.  If you see non-zero values in `node_get_fsm_rejected` or `node_get_fsm_rejected_60s`, that means that some of your requests are being discarded due to overload protection.  
+* The fsm limits can be increased, but disabling overload protection entirely is not recommended. More details on these settings are available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for Riak version 1.3.
