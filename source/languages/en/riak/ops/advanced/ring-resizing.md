@@ -10,12 +10,12 @@ keywords: [ops, ring, ring-resizing]
 
 The ring resizing feature in Riak 2.0 and greater enables Riak operators to change the number of partitions in a Riak cluster's ring during normal operations, under load.
 
-Previously, a cluster was limited to having `ring_creation_size` partitions throughout its entire lifespan. In order to change the number of partitions, a separate cluster would need to be spun up along side the original and the data migrated between the two by external means.
+Previously, a cluster was limited to having `ring_creation_size` partitions throughout its entire lifespan. In order to change the number of partitions, a separate cluster would need to be spun up alongside the original and the data migrated between the two by external means.
 
 The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and need to change this without disrupting operations more than necessary.
 
 <div class="note">
-<div class="title">Note</div>
+<div class="title">Note on ring resizing and scalability</div>
 Ring resizing is <em>not</em> intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions can limit the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in highly specific scenarios.
 </div>
 
@@ -24,6 +24,7 @@ There are a number of important considerations to bear in mind while running a r
 * For a resize to succeed, all nodes should be up. The only cluster operation permitted during a ring resize is `force-remove`. Other operations will be delayed while the resize completes.
 * If you perform a [[listkeys|HTTP List Keys]] or [[secondary index|Using Secondary Indexes]] query during a ring resize, you may get duplicates or miscounts in coverage queries. In an upcoming release of Riak, this will be self-healing (see [this pull request](https://github.com/basho/riak_kv/pull/685) for more information).
 * Resizing partitions can take up a lot of disk space. Make sure that you have sufficient storage to complete the resize operation.
+* Basho strongly recommends that you do _not_ use the `force-replace` command that is part of the `[[riak-admin|riak-admin Command Line#cluster-force-replace]]` interface during ring resizing.
 
 ## Starting the Resize
 
@@ -41,7 +42,7 @@ riak-admin cluster resize-ring 64
 
 If successful, the following would appear in the console:
 
-```bash
+```
 Success: staged resize ring request with new size: 64
 ```
 
@@ -55,7 +56,7 @@ riak-admin cluster plan
 
 This will result in output along the following lines:
 
-```bash
+```
 =============================== Staged Changes ================================
 Action         Details(s)
 -------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ riak-admin cluster commit
 
 If successful, you should see the following in the console:
 
-```bash
+```
 Cluster changes committed
 ```
 
@@ -107,9 +108,11 @@ With the new plan committed, the progress of the resizing operation can be monit
 
 ```bash
 riak-admin ring-status
+```
 
-# Response:
+Response:
 
+```
 ================================== Claimant ===================================
 Claimant:  'dev1@127.0.0.1'
 Status:     up
@@ -150,13 +153,17 @@ Index: 1370157784997721485815954530671515330927436759040
 All nodes are up and reachable
 ```
 
-You can also throttle the ring resize activity using `riak-admin transfer-limit`, which will change the `handoff_concurrency` limit:
+You can also throttle the ring resize activity using `riak-admin transfer-limit`, which will change the `handoff_concurrency` limit.
+
+For the whole cluster:
 
 ```bash
-# For the whole cluster:
 riak-admin transfer-limit <limit>
+```
 
-# For a specific node:
+For a specific node:
+
+```bash
 riak-admin transfer-limit <node> <limit>
 ```
 
@@ -164,9 +171,11 @@ Using `riak-admin transfers` will provide you more information about the partiti
 
 ```bash
 riak-admin transfers
+```
 
-# Response:
+Response:
 
+```
 'dev5@127.0.0.1' waiting to handoff 3 partitions
 'dev4@127.0.0.1' waiting to handoff 1 partitions
 'dev3@127.0.0.1' waiting to handoff 1 partitions
@@ -231,8 +240,11 @@ You can confirm that the resize operation is no longer running using the `transf
 
 ```
 riak-admin transfers
+```
 
-# Response:
+Response:
+
+```
 No transfers active
 ```
 
@@ -254,13 +266,15 @@ Submit an `abort` request:
 riak-admin cluster resize-ring abort
 ```
 
-One of the following messages will appear, depending on the outcome of the `abort` request:
+One of the following messages will appear, depending on the outcome of the `abort` request. If successful:
 
-```bash
+```
 Success: staged abort resize ring request
+```
 
-# or
+If unsuccessful:
 
+```
 Failure: ring is not resizing or resize has completed
 ```
 
@@ -272,7 +286,7 @@ riak-admin cluster resize-ring plan
 
 In the output, you should find something like the following:
 
-```bash 
+```
 Action         Details(s)
 --------------------------------------
 resize-ring    abort. current size: 128

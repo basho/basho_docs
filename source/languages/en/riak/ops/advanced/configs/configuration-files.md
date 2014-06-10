@@ -1,9 +1,8 @@
 ---
 title: Configuration Files
 project: riak
-version: 2.0.0+
+version: 1.0.0+
 document: reference
-toc: true
 audience: intermediate
 ---
 
@@ -49,6 +48,15 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 ```
 
 Below is a table listing the configurable parameters in `riak.conf`.
+
+#### The `advanced.config` file
+
+For most Riak installations, the `riak.conf` file should be sufficient for
+configuration management. But some installations, particularly those upgrading 
+from an earlier version of Riak to version 2.0 or later, may need to make use
+of an `advanced.config` file to control some settings available only in
+versions prior to 2.0. If this applies to your installation, please see the 
+[[Advanced Configuration|Configuration Files#advanced-configuration]] section below.
 
 ## Storage Backend
 
@@ -1331,7 +1339,7 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 <tr>
 <td><code>anti_entropy</code></td>
-<td>How Riak will repair out-of-sync keys. Some features require this to be set to <code>active</code>, including search. If set to <code>active</code>, out-of-sync keys will be repaired in the background; if set to <code>passive</code>, out-of-sync keys are only repaired on read; and if set to <code>active-debug</code>, verbose debugging information will be output.</td>
+<td>How Riak will repair out-of-sync keys. If set to <code>active</code>, out-of-sync keys will be repaired in the background; if set to <code>passive</code>, out-of-sync keys are only repaired on read; and if set to <code>active-debug</code>, verbose debugging information will be output.</td>
 <td><code>active</code></td>
 </tr>
 
@@ -1505,9 +1513,9 @@ Below is a table listing the configurable parameters in `riak.conf`.
 </tr>
 
 <tr>
-<td><code>retry_put_coordinator_failure</code></td>
-<td>If forwarding to a replica-local coordinator on PUT fails, this setting will retry the operation when set to <code>on</code>, which is the default in Riak 2.0. It's recommended that this be set to <code>off</code> in Riak 1.x.</td>
-<td><code>on</code></td>
+<td><code>max_concurrent_requests</code></td>
+<td>The maximum number of concurrent requests of each type (GET or PUT) that is allowed. Setting this value to <code>infinite</code> disables overload protection. The <code>erlang.process_limit</code> should be at least 3 times this setting.</td>
+<td><code>50000</code></td>
 </tr>
 
 <tr>
@@ -1524,3 +1532,160 @@ Below is a table listing the configurable parameters in `riak.conf`.
 
 </tbody>
 </table>
+
+## Advanced Configuration
+
+The `advanced.config` file takes the same format as the `app.config` file
+familiar to users of versions of Riak prior to 2.0. Here is an example:
+
+```advancedconf
+[
+  {riak_core,
+    [
+      {cluster_mgr, {"127.0.0.1", 8098 } },
+      %% more riak_core configs
+    ]},
+
+  {riak_repl,
+    [
+      {data_root, "/var/db/riak/riak_repl/"},
+      %% more riak_repl configs
+    ]
+  }
+]
+```
+
+The following settings are available in the `advanced.config` file:
+
+#### `riak_repl` settings
+
+Most settings that are configurable through `advanced.config` are related to
+Riak's `riak_repl` subsystem.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>data_root</tt></td>
+<td>Path (relative or absolute) to the working directory for the replication process.</td>
+<td><tt>/var/db/riak/riak_repl/</tt></td>
+</tr>
+
+<tr>
+<td><tt>max_fssource_cluster</tt></td>
+<td>The hard limit of fullsync workers that will be running on the source side of a cluster across all nodes on that cluster for a fullsync to a sink cluster. This means that if you have configured fullsync for two different clusters, both with a <tt>max_fssource_cluster</tt> of 5, 10 fullsync workers can be in progress. This only affects nodes on the source cluster on which this parameter is defined, either via the configuration file or command line.</td>
+<td><tt>5</tt></td>
+</tr>
+
+<tr>
+<td><tt>max_fssource_node</tt></td>
+<td>This setting limits the number of fullsync workers that will be running on each individual node in a source cluster. This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. This only affects nodes on the source cluster on which this parameter is defined, either via the configuration file or command line.</td>
+<td><tt>1</tt></td>
+</tr>
+
+<tr>
+<td><tt>max_fssink_node</tt></td>
+<td>This setting limits the number of fullsync workers allowed to run on each individual node in a sink cluster. This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. This only affects nodes on the source cluster on which this parameter is defined, either via the configuration file or command line.</td>
+<td><tt>1</tt></td>
+</tr>
+
+<tr>
+<td><tt>fullsync_on_connect</tt></td>
+<td>Whether to initiate a fullsync on initial connection from the sink cluster.</td>
+<td><tt>true</tt></td>
+</tr>
+
+<tr>
+<td><tt>fullsync_interval</tt></td>
+<td>A single-integer value representing the duration to wait, in minutes, between fullsyncs, or a list of <tt>{clustername, time_in_minutes}</tt> pairs for each sink participating in fullsync replication.</td>
+<td><tt>30</tt></td>
+</tr>
+
+<tr>
+<td><tt>rtq_max_bytes</tt></td>
+<td>The maximum size, in bytes, to which the realtime replication queue can grow before new objects are dropped. Dropped objects will need to be replicated with a fullsync.</td>
+<td><tt>104857600</tt></td>
+</tr>
+
+<tr>
+<td><tt>proxy_get</tt></td>
+<td>Whether to enable Riak CS <tt>proxy_get</tt> and block filter.</td>
+<td><tt>disabled</tt></td>
+</tr>
+
+<tr>
+<td><tt>rt_heartbeat_interval</tt></td>
+<td>A heartbeat message is sent from the source to the sink every <tt>rt_heartbeat_interval</tt>. Setting <tt>rt_heartbeat_interval</tt> to <tt>undefined</tt> disables the realtime heartbeat. This feature is available only in Riak Enterprise 1.3.2 and later.</td>
+<td><tt>15</tt></td>
+</tr>
+
+<tr>
+<td><tt>rt_heartbeat_timeout</tt></td>
+<td>If a heartbeat response is not received within the time period specified by this setting (in seconds), the source connection exits and will be re-established. This feature is available only in Riak Enterprise 1.3.2 and later.</td>
+<td><tt>15</tt></td>
+</tr>
+
+<tr>
+<td><tt>fullsync_use_background_manager</tt></td>
+<td>By default, fullsync replication will attempt to coordinate with other Riak subsystems that may be contending for the same resources. This will help to prevent system response degradations during times of heavy load from multiple background tasks. To disable background coordination, set this parameter to `false`. This feature is available only in Riak Enterprise 2.0 and later.</td>
+<td><tt>true</tt></td>
+</tr>
+
+</tbody>
+</table>
+
+#### Upgrading Riak Search with `advanced.config`
+
+If you are upgrading to Riak 2.x and wish to upgrade to the new [[Search|Using Search]] (codename Yokozuna), you will need to enable legacy Search while the upgrade is underway. You can add the following snippet to your `advanced.config` configuration to do so:
+
+```advancedconfig
+[
+	{riak_search, [ {enabled, true} ]},
+	{merge_index, [
+		{data_root, "/var/lib/riak/merge_index"},
+		{buffer_rollover_size, 1048576},
+		{max_compact_segments, 20}
+	]}
+]
+```
+
+#### Other settings
+
+There are two non-`riak_repl` settings available in `advanced.config`.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Section</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><tt>cluster_mgr</tt></td>
+<td><tt>riak_core</tt></td>
+<td>The cluster manager listens for connections from remote clusters on the specified IP and port. Every node runs one cluster manager, but only the cluster manager running on the cluster leader will service requests. This can change as nodes enter and leave the cluster.</td>
+<td><tt>{"127.0.0.1", 9080}</tt></td>
+</tr>
+
+<tr>
+<td><tt>delete_mode</tt></td>
+<td><tt>riak_kv</tt></td>
+<td>The <tt>advanced.config</tt> configuration file enables you to specify how Riak behaves after objects are marked for deletion with a tombstone. There are three possible options for the <tt>delete_mode</tt> setting: <tt>keep</tt> (the default) disables tombstone removal altogether; <tt>immediate</tt> removes objects' tombstones as soon as the delete request is received; and setting <tt>delete_mode</tt> to an integer value specifies the number of milliseconds that Riak will wait prior to removing tombstones.<br /><br />We recommend leaving <tt>delete_mode</tt> set to <tt>keep</tt> if you plan on deleting and recreating objects under the same key rapidly.
+</td>
+<td><tt>keep</tt></td>
+</tr>
+
+</tbody>
+</table>
+

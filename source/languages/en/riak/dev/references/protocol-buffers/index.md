@@ -73,10 +73,30 @@ Code | Message |
 26 | `RpbIndexResp` |
 27 | `RpbSearchQueryReq` |
 28 | `RbpSearchQueryResp` |
-29 | `RpbAuthReq` |
-30 | `RpbGetBucketTypeReq` |
-31 | `RpbSetBucketTypeReq` |
-32 | `RpbResetBucketReq` |
+29 | `RpbResetBucketReq` |
+30 | `RpbResetBucketResp` |
+31 | `RpbGetBucketTypeReq` |
+32 | `RpbSetBucketTypeResp` |
+40 | `RpbCSBucketReq` |
+41 | `RpbCSUpdateReq` |
+50 | `RpbCounterUpdateReq` |
+51 | `RpbCounterUpdateResp` |
+52 | `RpbCounterGetReq` |
+53 | `RpbCounterGetResp` |
+54 | `RpbYokozunaIndexGetReq` |
+55 | `RpbYokozunaIndexGetResp` |
+56 | `RpbYokozunaIndexPutReq` |
+57 | `RpbYokozunaIndexPutResp` |
+58 | `RpbYokozunaSchemaGetReq` |
+59 | `RpbYokozunaSchemaGetResp` |
+60 | `RpbYokozunaSchemaPutReq` |
+80 | `DtFetchReq` |
+81 | `DtFetchResp` |
+82 | `DtUpdateReq` |
+83 | `DtUpdateResp` |
+253 | `RpbAuthReq` |
+254 | `RpbAuthResp` |
+255 | `RpbStartTls` |
 
 <div class="info">
 <div class="title">Message Definitions</div>
