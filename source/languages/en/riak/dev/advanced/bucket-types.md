@@ -389,8 +389,11 @@ This will return a simple list of types along with their current status (either 
 
 ```bash
 riak-admin bucket-type list
+```
 
-# Response:
+An example response:
+
+```
 type1 (active)
 type2 (not active)
 type3 (active)
@@ -454,11 +457,13 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 
 Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
 
-If you'd like to create a bucket type that simply extends Riak's defaults, for example, pass an empty JavaScript object to the `props` parameter:
+If you'd like to create a bucket type with no specified parameters, you can simply create the type without specifying a `props` object:
 
 ```bash
-riak-admin bucket-type create type_using_defaults '{"props":{}}'
+riak-admin bucket-type create no_specified_props
 ```
+
+Please note that when you create a bucket type without specifying any parameters, the resulting bucket type does _not_ extend Riak's default bucket properties. Thus, in both of the cases above, `allow_mult` and `dvv_enabled` will be set to `true` in the resulting bucket type, whereas both are set to `false` for all non-typed buckets.
 
 **Note**: The `create` command can be run multiple times prior to a bucket type being activated. Riak will persist only those properties contained in the final call of the command.
 
