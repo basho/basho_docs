@@ -61,13 +61,13 @@ administrative changes to schemas.
 #### Complex Case
 
 Riak has features that allow for more complex session storage use cases.
-The [[Bitcask]] storage backend supports automatic expiry of keys, which
-frees application developers from implementing manual session expiry.
-Riak's [[MapReduce]] system can also be used to perform batch processing
-analysis on large bodies of session data, for example to compute the
-average number of active users. If sessions must be retrieved using
-multiple keys (e.g. a UUID or email address), [[using secondary indexes]]
-can provide an easy solution.
+The [[Bitcask]] storage backend, for example, supports automatic expiry
+of keys, which frees application developers from implementing manual
+session expiry. Riak's [[MapReduce]] system can also be used to perform
+batch processing analysis on large bodies of session data, for example
+to compute the average number of active users. If sessions must be
+retrieved using multiple keys (e.g. a UUID or email address),
+[[using secondary indexes]] can provide an easy solution.
 
 #### Community Examples
 
@@ -85,12 +85,11 @@ can provide an easy solution.
 
 ## Serving Advertisements
 
-Riak is very often a good choice for serving advertising content to many
+Riak is often a good choice for serving advertising content to many
 different web and mobile users simultaneously with low latency. Content
-of this sort, e.g. images or text, can be stored in Riak either using
-unique keys generated either by the application or by Riak. Keys can
-be created, for example, based on a campaign or company ID for easy
-retrieval.
+of this sort, e.g. images or text, can be stored in Riak using unique
+generated either by the application or by Riak. Keys can be created
+based on, for example, a campaign or company ID for easy retrieval.
 
 #### Complex Case
 
@@ -100,8 +99,8 @@ tuning a database. Riak's tunable [[Replication Properties]] can be set
 to favor fast read performance. By setting R to 1, only one of N
 replicas will need to be returned to complete a read operation, yielding
 lower read latency than an R value equal to the number of replicas
-(i.e. R=N). This is ideal for advertising traffic which is primarily
-serving reads.
+(i.e. R=N). This is ideal for advertising traffic, which primarily
+involves serving reads.
 
 #### Community Examples
 
@@ -122,27 +121,30 @@ serving reads.
 
 ## Log Data
 
-A common use case for Riak is storing large amounts of log data for
-analysis with [[MapReduce]] or as the primary storage for log data with
-a secondary analytics cluster used to perform more advanced analytics
-tasks. For this, you can create a bucket called `logs` (or whatever
-you'd like) and use a unique value, such as a date, for the key. Log
-files would be the values associated with the unique keys. For storing
-log data from different systems, you could create a unique bucket for
-each system and write associated logs to that bucket. In terms of
-analyzing log data, you could then use Riak's MapReduce for aggregation
-tasks such as summing the counts of records for a date, or Riak Search
-for more robust, text-based queries.
+A common use case for Riak is storing large amounts of log data, either
+for analysis using [[MapReduce]] or as a storage system used in
+conjunction with a secondary analytics cluster used to perform more
+advanced analytics tasks. To store log data, you can use a bucket called
+`logs` (just to give an example) and use a unique value, such as a date,
+for the key. Log files would then be the values associated with each
+unique key.
+
+For storing log data from different systems, you could use unique
+buckets for each system (e.g. `system1_log_data`, `system2_log_data`,
+etc.) and write associated logs to the corresponding buckets. To
+analyze that data, you could use Riak's MapReduce system for aggregation
+tasks, such as summing the counts of records for a date or Riak Search
+for a more robust, text-based queries.
 
 #### Complex Case
 
-For storing a large amount of log data that is frequently writing data
-to Riak, some users might consider doing primary storage of logs in a
+For storing a large amount of log data that is frequently written to
+Riak, some users might consider doing primary storage of logs in a
 Riak cluster and then replicating data to a secondary cluster to run
 heavy analytics jobs, either over another Riak cluster or another
 solution such as Hadoop. Because the access patterns of reading and
 writing data to Riak is very different from the access pattern of
-something like a MapReduce job which is iterating over many keys,
+something like a MapReduce job, which iterates over many keys,
 separating the write workload from the analytics workload will let you
 maintain higher performance and yield more predictable latency.
 
@@ -162,52 +164,61 @@ maintain higher performance and yield more predictable latency.
 Riak's scalable design makes it useful for data sets, like sensor data,
 that scale rapidly and are subject to heavy read/write loads. Many
 sensors collect and send data at a given interval. One way to model
-this in Riak is to create a bucket for each sensor device, and use the
-interval as a unique key (i.e., a date or combination of date/time),
-then store update data as the value. You could then query on the
-interval; or alternatively store a timestamp as a secondary index
-(piece of queryable metadata attached to the key/value pair) that would
-allow you to perform queries on specific ranges or perform MapReduce
-queries against the indexes.
+this in Riak is to use a bucket for each sensor device and use the time
+interval as a unique key (i.e. a date or combination of date and time),
+and then store update data as the value.
+
+That data could then be queried on the basis of the interval.
+Alternatively, a timestamp could be attached to each object as a
+[[secondary index|Using Secondary Indexes]], which would allow you to
+perform queries on specific time interval ranges or to perform
+[[MapReduce]] queries against the indexes.
 
 #### Complex Case
 
-If you are dealing with thousands or millions of sensors, yet very small
-data sets, storing all of a single device's updates as unique keys may
-be overly cumbersome when it comes to reading that device's data.
-Retrieving it all would mean calling a number of keys. Instead, you
-could store all of a device's updates in a document with a unique key to
-identify the device. Stored as a JSON document, you can read and parse
-all of those updates on the client side. Riak doesn't allow you to
-append data to a document without reading the object and writing it back
-to the key, however. This strategy would mean more simplicity and
-performance on the read side in tradeoff for slightly more work at write
-time and on the client side. You also have to keep an eye out for the
-total size of the document as it grows - we tend to recommend a sensible
-object size of about 1-2MB in order to avoid performance problems in the
-cluster.
+If you are dealing with thousands or millions of sensors yet with very
+small data sets, storing all of a single device's updates as unique keys
+may be cumbersome when it comes to reading that device's data.
+Retrieving it all would mean calling a number of keys.
+
+Instead, you could store all of a device's updates in a document with a
+unique key to identify the device. Stored as a JSON document, you could
+read and parse all of those updates on the client side. Riak, however,
+doesn't allow you to append data to a document without reading the
+object and writing it back to the key. This strategy would mean more
+simplicity and performance on the read side as a tradeoff for slightly
+more work at write time and on the client side.
+
+It's also important to keep an eye out for the total size of documents
+as they grow, as we tend to recommend that Riak objects stay smaller
+than 1-2 MB and preferably below 100 KB. Otherwise, performance problems
+in the cluster are likely.
 
 ## User Accounts
 
-User accounts are pretty straight-forward -- the usual practice is to
-store JSON objects in a 'users' bucket. As far as what to use for a key
-value, usual app-specific considerations apply. For example, if your
-application involves user logins, the simplest and most read-efficient
-way is to use the login username as the object key. Get the username off
-the login, perform a GET on the user account object and go. There are
-several drawbacks, however - what if they'll want to change their
-username or email, later? The most common solution is - use a UUID-type
-key for the user, and store their username or email as a secondary index
-for efficient lookup.
+User accounts tend to rely on fairly straightforward data models. One
+way of storing user account data in Riak would be store each user's data
+as a JSON object in a bucket called `users` (or whatever you wish). Keys
+for user data objects could be constructed using application-specific
+considerations. If your application involves user logins, for example,
+the simplest and most read-efficient strategy would be to use the login
+username as the object key. The username could be extracted upon login,
+and a read request could be performed on the corresponding key.
+
+There are, however, several drawbacks to this approach. What happens if
+a user wants to change their username later on? The most common solution
+would be to use a UUID-type key for the user and store the user's
+username as a [[secondary index|Using Secondary Indexes]] for efficient
+lookup.
 
 #### Complex Case
 
-For simple retrieval of a specific account, a user id (plus perhaps a
-secondary index on a username/email) is enough. If you foresee the need
-to make queries on additional user attributes (creation time, user type,
-region), plan ahead and either set up additional Secondary Indexes, or
-consider using Riak Search to index the JSON contents of the user
-account.
+For simple retrieval of a specific account, a user ID (plus perhaps a
+secondary index on a username or email) is enough. If you foresee the
+need to make queries on additional user attributes (e.g. creation time,
+user type, or region), plan ahead and either set up additional secondary
+indexes or consider using [[Riak Search|Using Search]] to index the JSON
+contents of the user account.
 
 #### Community Examples
 
@@ -224,33 +235,35 @@ account.
 
 ## User Settings and Preferences
 
-For user account-related data that is simple, frequently read but rarely
-changed (such as a privacy setting or theme preference), consider
+For user account-related data that is simple and frequently read but
+rarely changed (such as a privacy setting or theme preference), consider
 storing it in the user object itself. Another common pattern is to
-create a companion User Settings type of object, also keyed off of the
+create a companion user settings-type of object, with keys based on
 user ID for easy one-read retrieval.
 
 #### Complex Case
 
- If you find your application frequently writing to the user account, or
- have dynamically growing user related data such as bookmarks,
- subscriptions or multiple notifications, then a more advanced data
- model is called for (see the section on social events/subscriptions)
+If you find your application frequently writing to the user account or
+have dynamically growing user-related data such as bookmarks,
+subscriptions, or multiple notifications, then a more advanced data
+model may be called for.
 
 ## User Events and Timelines
 
 Sometimes you may want to do more complex or specific kinds of modeling
 user data. A common example would be storing data for assembling a
-social network timeline. To create a user timeline, you could make
-"timeline" a bucket in Riak, and make keys a unique user ID. You would
-store timeline information as a value - a list of status update IDs
-which could then be used to retrieve the full information from another
-bucket, or perhaps containing the full status update. If you want to
-store additional data - such as a timestamp, category or list properties
-- turn the list into an array of hashes containing this additional
-- information. Note that in Riak, you cannot append information to an
-- object, so to add events in the timeline, you would have to read the
-- full object, add the new values to the hash, and write it back.
+social network timeline. To create a user timeline, you could use a
+`timeline` bucket in Riak and form keys on the basis of a unique user
+ID. You would store timeline information as the value, e.g. a list of
+status update IDs which could then be used to retrieve the full
+information from another bucket, or perhaps containing the full status
+update. If you want to store additional data, such as a timestamp,
+category or list of properties, you can turn the list into an array of
+hashes containing this additional information.
+
+Note than in Riak you cannot append information to an object, so adding
+events in the timeline would necessarily involve reading the full object,
+modifying it, and writing back the new value.
 
 #### Community Examples
 
@@ -278,44 +291,42 @@ store additional data - such as a timestamp, category or list properties
 
 ## Articles, Blog Posts, and Other Content
 
-The simplest way to model blog posts, articles or other content is by
-creating a bucket in Riak with some unique attribute for logical
-division of content, perhaps  `blogs` or `articles` or something
-similar. Keys could be unique identifiers for posts, perhaps the article
-title, a combination of the title and time/date, or perhaps an integer
-that can be used as part of a URL string. You can store content anyway
-you want, from HTML blobs to plain text to JSON or XML or another
-document type entirely. Keep in mind that data in Riak is opaque, with
-the exception of [[Riak Data Types|Data Types]], so Riak won't "know"
-about the object unless it is indexed [[using Riak Search]] or
-[[using secondary indexes]].
+The simplest way to model blog posts, articles, or similar content is
+to use a bucket in Riak with some unique attribute for logical division
+of content, such as `blogs` or `articles`. Keys could be constructed out
+of unique identifiers for posts, perhaps the title of each article, a
+combination of the title and data/time, an integer that can be used as
+part of a URL string, etc.
 
+In Riak, you can store content of any kind, from HTML files to plain
+text to JSON or XML or another document type entirely. Keep in mind that
+data in Riak is opaque, with the exception of [[Riak Data Types|Data Types]],
+and so Riak won't "know" about the object unless it is indexed
+[[using Riak Search]] or [[using secondary indexes]].
 
 #### Complex Case
 
-Setting up a data model for content gets more complex based on the
-querying and search requirements of your application or its various
-aspects. For example, you may have different kinds of content you want
-to generate in a view - not just a post, but comments, users and profile
-information, etc. For many Riak developers, it will make sense to divide
-out content into different buckets - a bucket for comments, for example,
-that would be stored in the Riak cluster along with the posts bucket.
-Comments for a given post could be stored as a document with the same
-key as the content post - only the bucket/key combination must be
-unique. Or you could store each comment with its own ID. Loading the
-full view with comments would mean your application would need to call
-from the posts and comments bucket to assemble the view. Another common
-case that is slightly more complex is when you want to perform search
-and query operations on content beyond just retrieving key/value pairs.
-Riak Search, our full-text search engine that implements a SOLR-like API
-and query model, is a great use case for text content, and users like
-Clipboard have some great work available on how to optimize search
-performance. For lighter-weight querying, secondary indexes allow you to
-add additional metadata to objects for querying on exact match or range
-values. Using secondary indexes, you could tag posts with dates,
-timestamps, topic areas or others of interest. It's important to make
-sure that your dataset will be a use case with 2i, as it can be
-performance-prohibitive in clusters with over 512 partitions.
+Setting up a data model for content becomes more complex based on the
+querying and search requirements of your application. For example, you
+may have different kinds of content that you want to generate in a view,
+e.g. not just a post but also comments, user profile information, etc.
+
+For many Riak developers, it will make sense to divide content into
+different buckets, e.g. a bucket for comments that would be stored in
+the Riak cluster along with the posts bucket. Comments for a given post
+could be stored as a document with the same key as the content post,
+though with a different bucket/key combination. Another possibility
+would be to store each comment with its own ID. Loading the full view
+with comments would require your application to call from the posts
+and comments buckets to assemble the view.
+
+Other possible cases may involve performing operations on content beyond
+key/value pairs. [[Using Riak Search]] is recommended for use cases
+involving full-text search. For lighter-weight querying,
+[[using secondary indexes]] (2i) enables you to add metadata to objects to
+either query for exact matches or to perform range queries. 2i also
+enables you to tag posts with dates, timestamps, topic areas, or other
+pieces of information useful for later retrieval.
 
 #### Community Examples
 
