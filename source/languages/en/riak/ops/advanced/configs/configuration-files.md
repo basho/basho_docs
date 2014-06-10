@@ -338,7 +338,7 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
-<td><code>leveldb.total_mem_percent</code></td>
+<td><code>leveldb.maximum_memory.percent</code></td>
 <td>Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size.</td>
 <td><code>70</code></td>
 </tr>
@@ -410,15 +410,15 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
-<td><code>leveldb.write_buffer_size_max</code></td>
-<td>See <code>leveldb.write_buffer_size_min</code> directly below.</td>
-<td><code>60MB</code></td>
-</tr>
-
-<tr>
 <td><code>leveldb.write_buffer_size_min</code></td>
 <td>Each vnode first stores new key/value data in a memory-based write buffer. This write buffer is in parallel to the recovery log mentioned in the <code>sync</code> parameter. Riak creates each vnode with a randomly sized write buffer for performance reasons. The random size is somewhere between <code>write_buffer_size_min</code> and <code>write_buffer_size_max</code>.</td>
 <td><code>30MB</code></td>
+</tr>
+
+<tr>
+<td><code>leveldb.write_buffer_size_max</code></td>
+<td>See <code>leveldb.write_buffer_size_min</code> directly above.</td>
+<td><code>60MB</code></td>
 </tr>
 
 <tr>
@@ -434,12 +434,6 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
-<td><code>leveldb.maximum_memory</code></td>
-<td>This parameter defines the number of bytes of server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as percentage of total server memory via <code>leveldb.maximum_memory.percent</code>.</td>
-<td><code></code></td>
-</tr>
-
-<tr>
 <td><code>leveldb.maximum_memory.percent</code></td>
 <td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a byte count via <code>leveldb.maximum_memory</code> instead.</td>
 <td><code>80</code></td>
@@ -447,8 +441,8 @@ versions prior to 2.0. If this applies to your installation, please see the
 
 <tr>
 <td><code>leveldb.tiered</code></td>
-<td>The level number at which LevelDB data switches from the faster to the slower array. The default of <code>0</code> disables the feature. More information can be found in the <a href="/ops/advanced/backends/leveldb">LevelDB</a> documentation.</td>
-<td><code>0</code></td>
+<td>The level number at which LevelDB data switches from the faster to the slower array. The default of <code>off</code> disables the feature.</td>
+<td><code>off</code></td>
 </tr>
 
 <tr>
@@ -521,9 +515,9 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
-<td><code>bitcask.merge.thresholds.small_file</code></td>
-<td>Describes the minimum size a file must have to be excluded from the merge. Files smaller than the threshold will be included. Increasing the value will cause more files to be merged, whereas decreasing the value will cause fewer files to be merged.</td>
-<td><code>10MB</code></td>
+<td><code>bitcask.merge.thresholds.fragmentation</code></td>
+<td>Describes which ratio of dead keys to total keys in a file will cause it to be included in the merge. The value of this setting is a percentage from 0 to 100. For example, if a data file contains 4 dead keys and 6 live keys, it will be included in the merge at the default ratio (which is 40). Increasing the value will cause fewer files to be merged, decreasing the value will cause more files to be merged.</td>
+<td><code>40</code></td>
 </tr>
 
 <tr>
@@ -533,9 +527,9 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
-<td><code>bitcask.merge.thresholds.fragmentation</code></td>
-<td>Describes which ratio of dead keys to total keys in a file will cause it to be included in the merge. The value of this setting is a percentage from 0 to 100. For example, if a data file contains 4 dead keys and 6 live keys, it will be included in the merge at the default ratio (which is 40). Increasing the value will cause fewer files to be merged, decreasing the value will cause more files to be merged.</td>
-<td><code>40</code></td>
+<td><code>bitcask.merge.thresholds.small_file</code></td>
+<td>Describes the minimum size a file must have to be excluded from the merge. Files smaller than the threshold will be included. Increasing the value will cause more files to be merged, whereas decreasing the value will cause fewer files to be merged.</td>
+<td><code>10MB</code></td>
 </tr>
 
 <tr>
@@ -609,13 +603,13 @@ versions prior to 2.0. If this applies to your installation, please see the
 
 <tr>
 <td><code>memory_backend.ttl</code></td>
-<td>Each value written will be written with this "time to live." Once that object's time is up, it will be deleted on the next read of its key. Minimum: <code>1s</code></td>
+<td>Each value written will be written with this "time to live." Once that object's time is up, it will be deleted on the next read of its key. Minimum: <code>1s</code>.</td>
 <td><code></code></td>
 </tr>
 
 <tr>
 <td><code>memory_backend.max_memory_per_vnode</code></td>
-<td>The maximum amount of memory consumed per vnode by the memory storage backend. Minimum: <code>1MB</code></td>
+<td>The maximum amount of memory consumed per vnode by the memory storage backend. Minimum: <code>1MB</code>.</td>
 <td><code></code></td>
 </tr>
 
@@ -770,6 +764,12 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
+<td><code>buckets.default.merge_strategy</code></td>
+<td>The strategy used when merging objects that potentially have conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets and <code>1</code> for non-typed buckets. This setting reduces sibling creation through additional metadata on each sibling (also known as dotted version vectors). Setting this to <code>1</code> is the default for Riak 1.4 and earlier, and may duplicate siblings that originated in the same write.</td>
+<td><code>1</code></td>
+</tr>
+
+<tr>
 <td><code>buckets.default.allow_mult</code></td>
 <td>Whether or not siblings are allowed. <strong>Note</strong>: See <a href="/theory/concepts/Vector-Clocks">Vector Clocks</a> for a discussion of sibling resolution.</td>
 <td><code>true</code></td>
@@ -845,9 +845,9 @@ versions prior to 2.0. If this applies to your installation, please see the
 <tbody>
 
 <tr>
-<td><code>object.merge_strategy</code></td>
-<td>The strategy used when merging objects that potentially have conflicts. The default is <code>2</code> in Riak 2.0. This setting reduces sibling creation through additional metadata on each sibling (also known as dotted version vectors). Setting this to <code>1</code> is the default for Riak 1.4 and earlier, and may duplicate siblings that originated in the same write.</td>
-<td><code>2</code></td>
+<td><code>object.format</code></td>
+<td>Controls which binary representation of a riak value is stored on disk. Options are <code>0</code>, which will use the original <code>erlang:term_to_binary</code> format but has a higher space overhead, or <code>1</code>, which will tell Riak to utilize a new format for more compact storage of small values.</td>
+<td><code>1</code></td>
 </tr>
 
 <tr>
@@ -874,12 +874,6 @@ versions prior to 2.0. If this applies to your installation, please see the
 <td><code>5MB</code></td>
 </tr>
 
-<tr>
-<td><code>object.format</code></td>
-<td>Controls which binary representation of a riak value is stored on disk. Options are <code>0</code>, which will use the original <code>erlang:term_to_binary</code> format but has a higher space overhead, or <code>1</code>, which will tell Riak to utilize a new format for more compact storage of small values.</td>
-<td><code>1</code></td>
-</tr>
-
 </tbody>
 </table>
 
@@ -896,14 +890,14 @@ versions prior to 2.0. If this applies to your installation, please see the
 <tbody>
 
 <tr>
-<td><code>erlang.distribution.port_range.maximum</code></td>
-<td>See the description for <code>erlang.distribution.port_range.minimum</code> directly below.</td>
+<td><code>erlang.distribution.port_range.minimum</code></td>
+<td>For ease of firewall configuration, the Erlang distribution can be bound to a limited range of TCP ports. If this parameter is set, and <code>erlang.distribution.port_range.maximum</code> is not set, only this port will be used. If the minimum is unset, no restriction will be made on the port range. Instead, Erlang will listen on a random high-numbered port. More information <a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and <a href="http://www.erlang.org/doc/man/kernel_app.html">here</a>.</td>
 <td><code></code></td>
 </tr>
 
 <tr>
-<td><code>erlang.distribution.port_range.minimum</code></td>
-<td>For ease of firewall configuration, the Erlang distribution can be bound to a limited range of TCP ports. If this parameter is set, and <code>erlang.distribution.port_range.maximum</code> is not set, only this port will be used. If the minimum is unset, no restriction will be made on the port range. Instead, Erlang will listen on a random high-numbered port. More information <a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and <a href="http://www.erlang.org/doc/man/kernel_app.html">here</a>.</td>
+<td><code>erlang.distribution.port_range.maximum</code></td>
+<td>See the description for <code>erlang.distribution.port_range.minimum</code> directly above.</td>
 <td><code></code></td>
 </tr>
 
@@ -963,14 +957,14 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
-<td><code>erlang.schedulers.online</code></td>
-<td>See the description for <code>erlang.schedulers.total</code> directly below.</td>
+<td><code>erlang.schedulers.total</code></td>
+<td>Sets the number of scheduler threads to create and scheduler threads to set online when <code>erlang.smp</code> support has been enabled. The maximum for both values is 1024. If the Erlang runtime system is able to determine the amount of logical processors configured and logical processors available, <code>schedulers.total</code> will default to logical processors configured, and <code>schedulers.online</code> will default to the number of logical processors available. Otherwise, the default values will be 1. Schedulers may be omitted if <code>schedulers.online</code> is not and vice versa. If <code>schedulers.total</code> or <code>schedulers.online</code> is specified as a negative number, the value is subtracted from the default number of logical processors configured or logical processors available, respectively. Specifying the value <code>0</code> for <code>Schedulers</code> or <code>SchedulersOnline</code> resets the number of scheduler threads or scheduler threads online respective to its default value. This option is ignored if the emulator doesn't have SMP support enabled (see the <code>erlang.smp</code> flag). More information <a href="http://erlang.org/doc/man/erl.html +S Schedulers:SchedulerOnline">here</a>.</td>
 <td><code></code></td>
 </tr>
 
 <tr>
-<td><code>erlang.schedulers.total</code></td>
-<td>Sets the number of scheduler threads to create and scheduler threads to set online when <code>erlang.smp</code> support has been enabled. The maximum for both values is 1024. If the Erlang runtime system is able to determine the amount of logical processors configured and logical processors available, <code>schedulers.total</code> will default to logical processors configured, and <code>schedulers.online</code> will default to the number of logical processors available. Otherwise, the default values will be 1. Schedulers may be omitted if <code>schedulers.online</code> is not and vice versa. If <code>schedulers.total</code> or <code>schedulers.online</code> is specified as a negative number, the value is subtracted from the default number of logical processors configured or logical processors available, respectively. Specifying the value <code>0</code> for <code>Schedulers</code> or <code>SchedulersOnline</code> resets the number of scheduler threads or scheduler threads online respective to its default value. This option is ignored if the emulator doesn't have SMP support enabled (see the <code>erlang.smp</code> flag). More information <a href="http://erlang.org/doc/man/erl.html +S Schedulers:SchedulerOnline">here</a>.</td>
+<td><code>erlang.schedulers.online</code></td>
+<td>See the description for <code>erlang.schedulers.total</code> directly above.</td>
 <td><code></code></td>
 </tr>
 
@@ -984,12 +978,6 @@ versions prior to 2.0. If this applies to your installation, please see the
 <td><code>erlang.smp</code></td>
 <td>Starts the Erlang runtime system with SMP support enabled. This may fail if no runtime system with SMP support is available. The <code>auto</code> setting starts the Erlang runtime system with SMP support enabled if it is available and more than one logical processor is detected. A value of <code>disable</code> starts a runtime system without SMP support. <strong>Note</strong>: The runtime system with SMP support will not be available on all supported platforms. See also the <code>erlang.schedulers settings</code>. Some native extensions (NIFs) require use of the SMP emulator. More information <a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>enable</code></td>
-</tr>
-
-<tr>
-<td>erlang.shutdown_time</td>
-<td>Useful when running a <code>riak_test</code> devrel</td>
-<td>10s</td>
 </tr>
 
 </tbody>
@@ -1525,9 +1513,15 @@ versions prior to 2.0. If this applies to your installation, please see the
 </tr>
 
 <tr>
-<td><code>max_concurrent_requests</code></td>
-<td>The maximum number of concurrent requests of each type (GET or PUT) that is allowed. Setting this value to <code>infinite</code> disables overload protection. The <code>erlang.process_limit</code> should be at least 3 times this setting.</td>
-<td><code>50000</code></td>
+<td><code>retry_put_coordinator_failure</code></td>
+<td>When a PUT (i.e. write) request fails, Riak will retry the operation if this setting is set to <code>on</code>, which is the default. Setting it to <code>off</code> will speed response times on PUT requests in general, but at the risk of potentially increasing the likelihood of write failure.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>background_manager</code></td>
+<td>Riak's background manager is a subsystem that coordinates access to shared resources from other Riak subsystems. The background manager can help to prevent system response degradation under times of heavy load caused by multiple background tasks.</td>
+<td><code>on</code></td>
 </tr>
 
 </tbody>
