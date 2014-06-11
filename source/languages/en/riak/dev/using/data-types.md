@@ -1,4 +1,3 @@
-
 ---
 title: Using Data Types
 project: riak
@@ -67,8 +66,7 @@ Counters are a bucket-level Riak Data Type that can be used either by themselves
 First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
 
 ```java
-Location countersBucket = new Location("counters")
-        .setBucketType("counters");
+Namespace countersBucket = new Namespace("counters", "counters");
 ```
 
 ```curl
@@ -106,9 +104,8 @@ To create a counter, you need to specify a bucket/key pair to hold that counter.
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location counter = new Location("counters")
-        .setBucketType("counters")
-        .setKey("<key>");
+Location counter =
+  new Location(new Namespace("counters", "counters"), "<key>");
 ```
 
 ```curl
@@ -131,9 +128,8 @@ counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counters` bucket type like this:
 
 ```java
-Location trafficTickets = new Location("counters")
-        .setBucketType("counters")
-        .setKey("traffic_tickets");
+Location trafficTickets =
+  new Location(new Namespace("counters", "counters"), "traffic_tickets");
 ```
 
 ```curl
@@ -307,14 +303,12 @@ As with counters (and maps, as shown below), using sets involves setting up a bu
 
 Here is the general syntax for setting up a bucket type/bucket/key combination to handle a set:
 
-
 ```java
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location counter = new Location("<bucket>")
-        .setBucketType("<bucket_type>")
-        .setKey("<key>");
+Location set =
+  new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
 
 ```ruby
@@ -342,9 +336,8 @@ Let's say that we want to use a set to store a list of cities that we want to vi
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location cities = new Location("travel")
-        .setBucketType("sets")
-        .setKey("cities");
+Location cities =
+  new Location(new Namespace("sets", "travel"), "cities");
 ```
 
 ```ruby
@@ -587,9 +580,8 @@ The general syntax for creating a Riak map is directly analogous to the syntax f
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location counter = new Location("<bucket>")
-        .setBucketType("<bucket_type>")
-        .setKey("<key>");
+Location map =
+  new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
 
 ```ruby
@@ -615,9 +607,8 @@ Let's say that we want to use Riak to store information about our company's cust
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location ahmedMap = new Location("customers")
-        .setBucketType("maps")
-        .setKey("ahmed_info");
+Location ahmedMap =
+  new Location(new Namespace("maps", "customers"), "ahmed_info");
 ```
 
 ```ruby
