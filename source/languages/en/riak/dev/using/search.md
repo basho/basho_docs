@@ -34,6 +34,8 @@ Riak Search must first be configured with a Solr *schema*, so Solr knows how to 
 
 Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we'll `curl` create an index named `famous` with the default schema.
 
+*Note that index names may only be ascii values from 32-127 (spaces, standard puncutation, digits and word characters). This may change in the future to allow full unicode support.*
+
 <div class="info">All `curl` examples in this document require that you first
 set an environment variable named `RIAK_HOST`, which points to a Riak base
 URL, such as `RIAK_HOST="http://localhost:8098"`.</div>
@@ -52,6 +54,13 @@ client.create_search_index('famous')
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"famous">>)
 ```
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
 
 Note that the above command is exactly the same as the following, which explicitly defines the default schema.
 
@@ -87,19 +96,39 @@ to namespace all buckets you create. Bucket types have a lower
 overhead within the cluster than the default bucket namespace, but
 require an additional setup step in on commandline.
 
+When creating a new bucket type, you can create a bucket type without
+any properties, and set individual buckets to be indexed.
+
+```bash
+riak-admin bucket-type create animals '{"props":{}}'
+riak-admin bucket-type activate animals
+
+curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/props" \
+     -H'content-type: application/json' \
+     -d'{"props":{"search_index":"famous"}}'
+```
+
+Or optionally, you can set the `search_index` as a default property
+of the bucket type. This means any bucket under that type will
+inherit that setting and be its values will be indexed.
+
 ```bash
 riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
 riak-admin bucket-type activate animals
 ```
 
+If you ever need to turn off indexing for a bucket, set `search_index`
+property to the `_dont_index_` sentinel.
+
 
 ### Bucket Properties
 
-If your Solr index is to be used by only one bucket, you can set the
-`search_index` property for a bucket in this manner:
+Although we recommend all new buckets use under a bucket type, if you have
+existing data with a type-free bucket (or under the `default` bucket type)
+you can set the `search_index` property for a bucket in this manner.
 
 ```curl
-curl -XPUT "$RIAK_HOST/buckets/animals/props" \
+curl -XPUT "$RIAK_HOST/buckets/cats/props" \
      -H'content-type:application/json' \
      -d'{"props":{"search_index":"famous"}}'
 ```
@@ -115,10 +144,10 @@ any index or a specific one. The example below shows the various
 options.
 
 ```bash
-riak-admin security grant search.admin ON schema TO username
-riak-admin security grant search.admin ON index TO username
-riak-admin security grant search.query ON index TO username
-riak-admin security grant search.query ON index famous TO username
+riak-admin security grant search.admin on schema to username
+riak-admin security grant search.admin on index to username
+riak-admin security grant search.query on index to username
+riak-admin security grant search.query on index famous to username
 ```
 
 ## Indexing Values
@@ -149,23 +178,23 @@ curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/panthro" \
      -d'{"name_s":"Panthro", "age_i":36}'
 ```
 ```ruby
-bucket = client.bucket("animals", "cats")
+bucket = client.bucket("animals")
 
 cat = bucket.get_or_new("liono")
 cat.data = {"name_s" => "Lion-o", "age_i" => 30, "leader_b" => true}
-cat.store
+cat.store(:bucket_type => "cats")
 
 cat = bucket.get_or_new("cheetara")
 cat.data = {"name_s" => "Cheetara", "age_i" => 28, "leader_b" => false}
-cat.store
+cat.store(:bucket_type => "cats")
 
 cat = bucket.get_or_new("snarf")
 cat.data = {"name_s" => "Snarf", "age_i" => 43}
-cat.store
+cat.store(:bucket_type => "cats")
 
 cat = bucket.get_or_new("panthro")
 cat.data = {"name_s" => "Panthro", "age_i" => 36}
-cat.store
+cat.store(:bucket_type => "cats")
 ```
 ```python
 bucket = client.bucket('animals', 'cats')

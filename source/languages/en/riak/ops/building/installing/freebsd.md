@@ -41,7 +41,7 @@ sudo pkg_add -r http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSI
 
 When Riak is installed, a message is displayed with information about the installation and available documentation.
 
-```bash
+```
 Thank you for installing Riak.
 
 Riak has been installed in /usr/local owned by user:group riak:riak
@@ -63,7 +63,7 @@ Man pages are available for riak(1) and riak-admin(1)
 
 If instead of this message, you receive an error during installation regarding OpenSSL, similar to this one:
 
-```bash
+```
 Package dependency openssl-1.0.0_7 for /tmp/riak-{{VERSION}}-FreeBSD-amd64.tbz not found!
 ```
 

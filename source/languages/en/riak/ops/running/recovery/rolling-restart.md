@@ -1,7 +1,7 @@
 ---
 title: Rolling Restart
 project: riak
-version: 1.0.0+
+version: 1.4.8+
 document: tutorial
 audience: advanced
 keywords: [kv, troubleshooting]

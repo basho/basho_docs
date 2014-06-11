@@ -119,7 +119,7 @@ Splunk can be used to aggregate all Riak cluster node operational log files, inc
 ## Summary
 Riak exposes numerous forms of vital statistic information which can be aggregated, monitored, analyzed, graphed, and reported on in a variety of ways using numerous open source and commercial solutions.
 
-If you use a solution not listed here with Riak and would like to include it (or would otherwise like to update the information on this page), feel free to fork the docs, add it in the appropriate section, and send a pull request to the [Riak Docs project](https://github.com/basho/basho_docs).
+If you use a solution not listed here with Riak and would like to include it (or would otherwise like to update the information on this page), feel free to fork the docs, add it in the appropriate section, and send a pull request to the [Riak Docs](https://github.com/basho/basho_docs).
 
 ## References
 

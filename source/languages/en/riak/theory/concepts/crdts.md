@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [appendix, concepts]
 ---
 
-A pure key/value store is completely agnostic toward the data stored within it. Any key can be associated with values of any conceivable type, from short strings to large JSON objects to video files. Riak began as a pure key/value store, but over time it has become more and more aware of the data stored in it through features like [[secondary indexes]], [[search capabilities|Riak Search]], and [[counters]].
+A pure key/value store is completely agnostic toward the data stored within it. Any key can be associated with values of any conceivable type, from short strings to large JSON objects to video files. Riak began as a pure key/value store, but over time it has become more and more aware of the data stored in it through features like [[secondary indexes|using secondary indexes]], [[search capabilities|using search]], and [[counters|Data Types#Counters]].
 
 In version 2.0, Riak continued this evolution by introducing a series of eventually convergent **Data Types** inspired by academic research on convergent replicated data types (CRDTs), most notably the work of Shapiro, Preguiça, Baquero, and Zawirski ([paper](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf)).
 

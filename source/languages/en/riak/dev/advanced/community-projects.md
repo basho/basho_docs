@@ -110,6 +110,7 @@ This a collection of sample applications built on Riak and Riak Core.
 * [riak-url-shortener](http://github.com/seancribbs/riak-url-shortener) --- A small Ruby app (with Sinatra) that creates short URLs and stores them in Riak
 * [wriaki](https://github.com/basho/wriaki) --- A wiki app backed by Riak
 * [riagi](https://github.com/basho/riagi) --- A simple imgur.com clone built using Riak, Django, and Riak Search
+* [SimpleSAMLphp](https://simplesamlphp.org/docs/stable/) --- An authentication tool written in PHP, using Riak as a storage backend.
 
 ### Riak Core
 
