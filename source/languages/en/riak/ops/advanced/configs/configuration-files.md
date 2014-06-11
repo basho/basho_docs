@@ -88,19 +88,7 @@ Riak enables you to choose from the following storage backends:
 
 ## Directories
 
-The directories in which Riak stores data, logs, dependencies, executables, and configuration files can be configured using the parameters below. Each of these directory parameters can be used to construct values for other parameters by placing it within a `$(...)`. Thus, `platform_log_dir` becomes `$(platform_log_dir)` and so on.
-
-To give an example, you can select the directory used by Riak's [[active anti-entropy|Configuration Files#active-anti-entropy]] system using the `anti_entropy.data_dir` parameter. When setting that parameter, you can specify an absolute directory, as below:
-
-```riakconf
-anti_entropy.data_dir = /path/to/anti_entropy
-```
-
-Or you can use the value of `platform_data_dir`:
-
-```riakconf
-anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
-```
+The directories in which Riak stores data, logs, dependencies, executables, and configuration files can be configured using the parameters below.
 
 <table class="riak-conf">
 <thead>
@@ -144,6 +132,20 @@ anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
 
 </tbody>
 </table>
+
+Each of these directory parameters can be used to construct values for other parameters by placing it within a `$(...)`. Thus, `platform_log_dir` becomes `$(platform_log_dir)` and so on.
+
+To give an example, you can select the directory used by Riak's [[active anti-entropy|Configuration Files#active-anti-entropy]] system using the `anti_entropy.data_dir` parameter. When setting that parameter, you can specify an absolute directory, as below:
+
+```riakconf
+anti_entropy.data_dir = /path/to/anti_entropy
+```
+
+Or you can use the value of `platform_data_dir`:
+
+```riakconf
+anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
+```
 
 ## Search
 
@@ -199,148 +201,6 @@ Configuration parameters for [[Riak Search|Using Search]].
 <td><code>search.solr.start_timeout</code></td>
 <td>How long Riak will wait for Solr to start. The start sequence will be tried twice. If both attempts time out, the Riak node will be shut down. This may need to be increased as more data is indexed and Solr takes longer to start. Values lower than <code>1s</code> will be rounded up to the minimum <code>1s</code>.</td>
 <td><code>30s</code></td>
-</tr>
-
-</tbody>
-</table>
-
-## SNMP
-
-Configurable parameters for the [[Simple Network Management Protocol|SNMP Configuration]] (SNMP) server built into [[Riak Enterprise]].
-
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><code>snmp.nodePutTime100Threshold</code></td>
-<td>Maximum PUT time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodePutTime99Threshold</code></td>
-<td>99th percentile PUT time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodePutTime95Threshold</code></td>
-<td>95th percentile PUT time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodePutTimeMedianThreshold</code></td>
-<td>Median PUT time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodePutTimeMeanThreshold</code></td>
-<td>Mean PUT time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodeGetTime100Threshold</code></td>
-<td>Maximum GET time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodeGetTime99Threshold</code></td>
-<td>99th percentile GET time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodeGetTime95Threshold</code></td>
-<td>95th percentile GET time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodeGetTimeMedianThreshold</code></td>
-<td>Median GET time</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.nodeGetTimeMeanThreshold</code></td>
-<td>The threshold for the SNMP gauge at which traps are sent. Set to <code>off</code> to disable traps for this gauge. When set to a positive integer in microseconds, the rising trap will be sent when the gauge crosses above the threshold, and the falling trap will be sent when the gauge crosses below the threshold. In the case of the <code>nodeGetTimeMean</code> gauge, the threshold is <code>nodeGetTimeMeanThreshold</code>, the rising trap is <code>nodeGetTimeMeanAlarmRising</code>, and the falling trap is <code>nodeGetTimeMeanFalling</code>. Other gauge thresholds follow this naming pattern.</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.traps.replication</code></td>
-<td>Enable or disable traps for Multi-Datacenter Replication.</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.refresh_frequency</code></td>
-<td>How often SNMP will refresh its counters out of Riak's internal stats.</td>
-<td><code>1m</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.database_dir</code></td>
-<td>The directory in which SNMP will store its internal database.</td>
-<td><code>./data/snmp/agent/db</code></td>
-</tr>
-
-<tr>
-<td><code>snmp.force_reload</code></td>
-<td>Whether to force SNMP information to be repopulated on startup.</td>
-<td><code>on</code></td>
-</tr>
-
-</tbody>
-</table>
-
-## JMX
-
-Configuration parameters for the [[JMX Monitoring]] system built into [[Riak Enterprise]].
-
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><code>jmx</code></td>
-<td>Turns on Java Management Extensions for Riak</td>
-<td><code>off</code></td>
-</tr>
-
-<tr>
-<td><code>jmx.refresh_rate</code></td>
-<td>How often to refresh stats</td>
-<td><code>30s</code></td>
-</tr>
-
-<tr>
-<td><code>jmx.restart_check</code></td>
-<td>Time to wait between restarts of JMX. This is only for retrying JMX if the JMX server crashes.</td>
-<td><code>10m</code></td>
-</tr>
-
-<tr>
-<td><code>jmx.port</code></td>
-<td>The port on which JMX will listen</td>
-<td><code>41110</code></td>
 </tr>
 
 </tbody>
@@ -602,7 +462,7 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 <tr>
 <td><code>bitcask.sync.interval</code></td>
 <td>See the description of the <code>bitcask.sync.strategy</code> directly below.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -637,13 +497,13 @@ Configurable parameters for Riak's [[Memory]] backend.
 <tr>
 <td><code>memory_backend.ttl</code></td>
 <td>Each value written will be written with this "time to live." Once that object's time is up, it will be deleted on the next read of its key. Minimum: <code>1s</code>.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
 <td><code>memory_backend.max_memory_per_vnode</code></td>
 <td>The maximum amount of memory consumed per vnode by the memory storage backend. Minimum: <code>1MB</code>.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 </tbody>
@@ -652,20 +512,6 @@ Configurable parameters for Riak's [[Memory]] backend.
 ## Multi Backend
 
 Configurable parameters for Riak's [[Multi]] backend, which enables you to utilize multiple data backends in a single Riak cluster.
-
-If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend, i.e. `bitcask`, `leveldb`, `memory`, or `multi`.
-
-Below is the general form for setting multi-backend parameters:
-
-```riakconf
-multi_backend.$name.(existing_setting) = <setting>
-```
-
-To give an example, if you're using multiple backends and wish to set your LevelDB `data_root` parameter to `./leveldb`, you would do so as follows:
-
-```riakconf
-multi_backend.leveldb.data_root = ./leveldb
-```
 
 <table class="riak-conf">
 <thead>
@@ -686,11 +532,25 @@ multi_backend.leveldb.data_root = ./leveldb
 <tr>
 <td><code>multi_backend.default</code></td>
 <td>The default name of a backend when one is not specified.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 </tbody>
 </table>
+
+If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend, i.e. `bitcask`, `leveldb`, `memory`, or `multi`.
+
+Below is the general form for setting multi-backend parameters:
+
+```riakconf
+multi_backend.$name.(existing_setting) = <setting>
+```
+
+To give an example, if you're using multiple backends and wish to set your LevelDB `data_root` parameter to `./leveldb`, you would do so as follows:
+
+```riakconf
+multi_backend.leveldb.data_root = ./leveldb
+```
 
 ## Riak Control
 
@@ -715,7 +575,7 @@ Riak Control is a web-based administrative console for inspecting and manipulati
 <tr>
 <td><code>riak_control.auth.user.$username.password</code></td>
 <td>If Riak Control's authentication mode (<code>riak_control.auth.mode</code>) is set to <code>userlist</code>, then this is the list of usernames and passwords for access to the admin panel.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -782,12 +642,7 @@ Configurable parameters for interaction between Riak and the underlying operatin
 
 ## Default Bucket Properties
 
-When configuring buckets [[using bucket types]], the table below lists the bucket properties that are used when no bucket type is specified, i.e. when a request is made to one of the following endpoints:
-
-```
-/types/default/buckets/<bucket>/keys/<key>
-/buckets/<bucket>/keys/<key>
-```
+When configuring buckets [[using bucket types]], the table below lists the bucket properties that are used when no bucket type is specified.
 
 <table class="riak-conf">
 <thead>
@@ -802,13 +657,13 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 <tr>
 <td><code>buckets.default.postcommit</code></td>
 <td>A space-delimited list of functions that will be run after a value is stored. Only Erlang functions are allowed, using the <code>module:function</code>format.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
 <td><code>buckets.default.precommit</code></td>
 <td>A space delimited list of functions that will be run before a value is stored, and that can abort the write. For Erlang functions, use <code>module:function</code>, and for JavaScript use <code>functionName</code>.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -950,19 +805,19 @@ In the older configuration system, the Erlang VM in which Riak runs was configur
 <tr>
 <td><code>erlang.distribution.port_range.minimum</code></td>
 <td>For ease of firewall configuration, the Erlang distribution can be bound to a limited range of TCP ports. If this parameter is set, and <code>erlang.distribution.port_range.maximum</code> is not set, only this port will be used. If the minimum is unset, no restriction will be made on the port range. Instead, Erlang will listen on a random high-numbered port. More information <a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and <a href="http://www.erlang.org/doc/man/kernel_app.html">here</a>.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
 <td><code>erlang.distribution.port_range.maximum</code></td>
 <td>See the description for <code>erlang.distribution.port_range.minimum</code> directly above.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
 <td><code>erlang.schedulers.force_wakeup_interval</code></td>
 <td>Set the scheduler forced wakeup interval. All run queues will be scanned each time period specified (in milliseconds). While there are sleeping schedulers in the system, one scheduler will be woken for each non-empty run queue found. An interval of zero disables this feature, which is the default. This feature is a workaround for lengthy executing native code, and native code that does not properly bump reductions. More information <a href="http://www.erlang.org/doc/man/erl.html#+sfwi">here</a>.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -1017,13 +872,13 @@ In the older configuration system, the Erlang VM in which Riak runs was configur
 <tr>
 <td><code>erlang.schedulers.total</code></td>
 <td>Sets the number of scheduler threads to create and scheduler threads to set online when <code>erlang.smp</code> support has been enabled. The maximum for both values is 1024. If the Erlang runtime system is able to determine the amount of logical processors configured and logical processors available, <code>schedulers.total</code> will default to logical processors configured, and <code>schedulers.online</code> will default to the number of logical processors available. Otherwise, the default values will be 1. Schedulers may be omitted if <code>schedulers.online</code> is not and vice versa. If <code>schedulers.total</code> or <code>schedulers.online</code> is specified as a negative number, the value is subtracted from the default number of logical processors configured or logical processors available, respectively. Specifying the value <code>0</code> for <code>Schedulers</code> or <code>SchedulersOnline</code> resets the number of scheduler threads or scheduler threads online respective to its default value. This option is ignored if the emulator doesn't have SMP support enabled (see the <code>erlang.smp</code> flag). More information <a href="http://erlang.org/doc/man/erl.html +S Schedulers:SchedulerOnline">here</a>.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
 <td><code>erlang.schedulers.online</code></td>
 <td>See the description for <code>erlang.schedulers.total</code> directly above.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -1087,7 +942,7 @@ Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce]] syste
 <tr>
 <td><code>javascript.source_dir</code></td>
 <td>A directory containing the Javascript source files which will be loaded by Riak when it initializes Javascript VMs.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -1276,7 +1131,7 @@ Configurable parameters for clients connecting to Riak either through Riak's [[P
 <tr>
 <td><code>listener.https.$name</code></td>
 <td>This is the IP address and TCP port to which the Riak HTTPS interface will bind.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 </tbody>
@@ -1412,13 +1267,13 @@ Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-En
 <tr>
 <td><code>anti_entropy.throttle.$tier.mailbox_size</code></td>
 <td>Sets the throttling tiers for Active Anti-Entropy. Each tier is a minimum vnode mailbox size and a time-delay that the throttle should observe at that size and above. For example, <code>anti_entropy.throttle.tier1.mailbox_size = 0</code>, <code>anti_entropy.throttle.tier1.delay = 0ms</code>, <code>anti_entropy.throttle.tier2.mailbox_size = 40</code>, <code>anti_entropy.throttle.tier2.delay = 5ms</code>, etc. If configured, there must be a tier which includes a mailbox size of 0. Both <code>.mailbox_size</code> and <code>.delay</code> must be set for each tier.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
 <td><code>anti_entropy.throttle.$tier.delay</code></td>
 <td>See the description for <code>anti_entropy.throttle.$tier.mailbox_size</code> above.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -1495,13 +1350,13 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 <tr>
 <td><code>handoff.ssl.certfile</code></td>
 <td>To encrypt <code>riak_core</code> intra-cluster data handoff traffic, uncomment this line and edit its path to an appropriate certfile and keyfile.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
 <td><code>handoff.ssl.keyfile</code></td>
 <td>The keyfile paired with the certfile specified in <code>.certfile</code>.</td>
-<td><code></code></td>
+<td></td>
 </tr>
 
 <tr>
@@ -1553,6 +1408,148 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 <td><code>datatypes.compression_level</code></td>
 <td>Whether serialized Data Types will use compression and at what level. When set to an integer, the parameter refers to the aggressiveness of compression, on a scale from 0 to 9. <code>on</code> is equivalent to 6, whereas <code>off</code> is equivalent to 0. Higher values for compression tend to be more CPU intensive.<td>
 <td><code>1</code></td>
+</tr>
+
+</tbody>
+</table>
+
+## SNMP
+
+Configurable parameters for the [[Simple Network Management Protocol|SNMP Configuration]] (SNMP) server built into [[Riak Enterprise]].
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>snmp.nodePutTime100Threshold</code></td>
+<td>Maximum PUT time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodePutTime99Threshold</code></td>
+<td>99th percentile PUT time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodePutTime95Threshold</code></td>
+<td>95th percentile PUT time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodePutTimeMedianThreshold</code></td>
+<td>Median PUT time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodePutTimeMeanThreshold</code></td>
+<td>Mean PUT time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodeGetTime100Threshold</code></td>
+<td>Maximum GET time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodeGetTime99Threshold</code></td>
+<td>99th percentile GET time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodeGetTime95Threshold</code></td>
+<td>95th percentile GET time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodeGetTimeMedianThreshold</code></td>
+<td>Median GET time</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.nodeGetTimeMeanThreshold</code></td>
+<td>The threshold for the SNMP gauge at which traps are sent. Set to <code>off</code> to disable traps for this gauge. When set to a positive integer in microseconds, the rising trap will be sent when the gauge crosses above the threshold, and the falling trap will be sent when the gauge crosses below the threshold. In the case of the <code>nodeGetTimeMean</code> gauge, the threshold is <code>nodeGetTimeMeanThreshold</code>, the rising trap is <code>nodeGetTimeMeanAlarmRising</code>, and the falling trap is <code>nodeGetTimeMeanFalling</code>. Other gauge thresholds follow this naming pattern.</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.traps.replication</code></td>
+<td>Enable or disable traps for Multi-Datacenter Replication.</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.refresh_frequency</code></td>
+<td>How often SNMP will refresh its counters out of Riak's internal stats.</td>
+<td><code>1m</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.database_dir</code></td>
+<td>The directory in which SNMP will store its internal database.</td>
+<td><code>./data/snmp/agent/db</code></td>
+</tr>
+
+<tr>
+<td><code>snmp.force_reload</code></td>
+<td>Whether to force SNMP information to be repopulated on startup.</td>
+<td><code>on</code></td>
+</tr>
+
+</tbody>
+</table>
+
+## JMX
+
+Configuration parameters for the [[JMX Monitoring]] system built into [[Riak Enterprise]].
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>jmx</code></td>
+<td>Turns on Java Management Extensions for Riak</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>jmx.refresh_rate</code></td>
+<td>How often to refresh stats</td>
+<td><code>30s</code></td>
+</tr>
+
+<tr>
+<td><code>jmx.restart_check</code></td>
+<td>Time to wait between restarts of JMX. This is only for retrying JMX if the JMX server crashes.</td>
+<td><code>10m</code></td>
+</tr>
+
+<tr>
+<td><code>jmx.port</code></td>
+<td>The port on which JMX will listen</td>
+<td><code>41110</code></td>
 </tr>
 
 </tbody>
