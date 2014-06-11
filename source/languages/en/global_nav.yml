@@ -54,6 +54,7 @@ riak:
         sub:
           - "[[Overview|Use Cases]]"
           - "[[Data Modeling with Riak Data Types]]"
+          - "[[Key/Value Modeling]]"
           - title: "High Read/Write"
             sub:
               - "[[Session Storage]]"
