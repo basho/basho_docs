@@ -872,6 +872,11 @@ client.execute(update);
 map.flags['enterprise_customer'] = false
 ```
 
+```python
+map.flags['enterprise_customer'].disable()
+map.store()
+```
+
 ```erlang
 Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
                         fun(F) -> riakc_flag:disable(F) end,
@@ -906,6 +911,10 @@ map.flags['enterprise_customer']
 # false
 ```
 
+```python
+map.reload().flags['enterprise_customer'].value
+```
+
 ```erlang
 %% The value fetched from Riak is always immutable, whereas the "dirty
 %% value" takes into account local modifications that have not been
@@ -938,6 +947,11 @@ client.execute(update);
 map.counters['page_visits'].increment
 
 # This operation may return false even if successful
+```
+
+```python
+map.counters['page_visits'].increment()
+map.store()
 ```
 
 ```erlang
@@ -984,6 +998,12 @@ client.execute(update);
 %w{ robots opera motorcycles }.each do |interest|
   map.sets['interests'].add interest
 end
+```
+
+```python
+for interest in ['robots', 'opera', 'motorcycles']:
+    map.sets['interests'].add(interest)
+map.store()
 ```
 
 ```erlang
@@ -1037,6 +1057,12 @@ end
 # This will return three Boolean values
 ```
 
+```python
+reloaded_map = map.reload()
+for interest in ['robots', 'opera', 'motorcycles']:
+    interest in reloaded_map.sets['interests'].value
+```
+
 ```erlang
 riakc_map:dirty_value(Map6).
 ```
@@ -1066,6 +1092,12 @@ map.sets['interests'].remove('opera')
 # This operation may return false even if successful
 
 map.sets['interests'].add('indie pop')
+```
+
+```python
+map.sets['interests'].discard('opera')
+map.sets['interests'].add('indie pop')
+map.store()
 ```
 
 ```erlang
@@ -1122,6 +1154,13 @@ client.execute(update);
 map.maps['annika_info'].registers['first_name'] = 'Annika'
 map.maps['annika_info'].registers['last_name'] = 'Weiss'
 map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
+```
+
+```python
+map.maps['annika_info'].registers['first_name'].assign('Annika')
+map.maps['annika_info'].registers['last_name'].assign('Weiss')
+map.maps['annika_info'].registers['phone_number'].assign(str(5559876543))
+map.store()
 ```
 
 ```erlang
@@ -1183,6 +1222,10 @@ map.maps['annika_info'].registers['first_name']
 # "Annika"
 ```
 
+```python
+map.reload().maps['annika_info'].registers['first_name'].value
+```
+
 ```erlang
 riakc_map:dirty_value(Map14).
 ```
@@ -1215,6 +1258,10 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].registers.remove('phone_number')
+```
+
+```python
+
 ```
 
 ```erlang
@@ -1263,6 +1310,13 @@ client.execute(update);
 map.maps['annika_info'].flags['enterprise_plan'] = false
 map.maps['annika_info'].flags['family_plan'] = false
 map.maps['annika_info'].flags['free_plan'] = true
+```
+
+```python
+map.maps['annika_info'].flags['enterprise_plan'].disable()
+map.maps['annika_info'].flags['family_plan'].disable()
+map.maps['annika_info'].flags['free_plan'].enable()
+map.store()
 ```
 
 ```erlang
@@ -1326,6 +1380,10 @@ map.maps['annika_info'].flags['enterprise_plan']
 # false
 ```
 
+```python
+map.reload().maps['annika_info'].flags['enterprise_plan'].value
+```
+
 ```erlang
 riakc_map:dirty_value(Map18).
 ```
@@ -1352,6 +1410,11 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].counters['widget_purchases'].increment
+```
+
+```python
+map.maps['annika_info'].counters['widget_purchases'].increment()
+map.store()
 ```
 
 ```erlang
@@ -1400,6 +1463,11 @@ client.execute(update);
 map.maps['annika_info'].sets['interests'].add('tango dancing')
 ```
 
+```python
+map.maps['annika_info'].sets['interests'].add('tango dancing')
+map.store()
+```
+
 ```erlang
 Map20 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -1445,7 +1513,12 @@ client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].set['interests'].remove('tango dancing')
+map.maps['annika_info'].sets['interests'].remove('tango dancing')
+```
+
+```python
+map.maps['annika_info'].sets['interests'].discard('tango dancing')
+map.store()
 ```
 
 ```erlang
@@ -1498,6 +1571,14 @@ map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
 map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
 map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
 # and so on
+```
+
+```ruby
+map.maps['annika_info'].maps['purchase'].flags['first_purchase'].enable()
+map.maps['annika_info'].maps['purchase'].register['amount'].assign(str(1271))
+map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
+# and so on
+map.store()
 ```
 
 ```erlang
