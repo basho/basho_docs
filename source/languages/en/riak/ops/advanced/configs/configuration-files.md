@@ -35,7 +35,7 @@ riak config describe ring_size
 
 This will output the following:
 
-```bash
+```
 Documentation for ring_size
 Number of partitions in the cluster (only valid when first
 creating the cluster). Must be a power of 2, minimum 8 and maximum
@@ -88,7 +88,19 @@ Riak enables you to choose from the following storage backends:
 
 ## Directories
 
-The directories in which Riak stores data, logs, dependencies, executables, and configuration files can be configured using the parameters below.
+The directories in which Riak stores data, logs, dependencies, executables, and configuration files can be configured using the parameters below. Each of these directory parameters can be used to construct values for other parameters by placing it within a `$(...)`. Thus, `platform_log_dir` becomes `$(platform_log_dir)` and so on.
+
+To give an example, you can select the directory used by Riak's [[active anti-entropy|Configuration Files#active-anti-entropy]] system using the `anti_entropy.data_dir` parameter. When setting that parameter, you can specify an absolute directory, as below:
+
+```riakconf
+anti_entropy.data_dir = /path/to/anti_entropy
+```
+
+Or you can use the value of `platform_data_dir`:
+
+```riakconf
+anti_entropy.data_dir = $(platform_data_dir)/anti_entropy
+```
 
 <table class="riak-conf">
 <thead>
