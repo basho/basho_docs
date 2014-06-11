@@ -126,9 +126,9 @@ obj2.store(type: 'siblings_allowed')
 ```
 
 ```java
-Location bestCharacterKey = new Location("nickolodeon")
-        .setBucketType("siblings_allowed")
-        .setKey("best_character");
+Location bestCharacterKey =
+  new Location(new Namespace("siblings_allowed", "nickolodeon"), "best_character");
+
 RiakObject obj1 = new RiakObject()
         .withContentType("text/plain")
         .withValue(BinaryValue.create("Ren"));
@@ -193,9 +193,9 @@ obj
 ```
 
 ```java
-Location bestCharacterKey = new Location("nickolodeon")
-        .setBucketType("siblings_allowed")
-        .setKey("best_character");
+Location bestCharacterKey =
+  new Location(new Namespace("siblings_allowed", "nickolodeon"), "best_character");
+
 FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
@@ -283,9 +283,9 @@ new_obj.store(type: 'siblings_allowed', vclock: vclock)
 ```
 
 ```java
-Location bestCharacterKey = new Location("nickolodeon")
-        .setBucketType("siblings_allowed")
-        .setKey("best_character");
+Location bestCharacterKey =
+  new Location(new Namespace("siblings_allowed", "nickolodeon"), "best_character");
+
 FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
 FetchValue.Response res = client.execute(fetch);
 VClock vClock = res.getVClock();
