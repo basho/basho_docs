@@ -173,7 +173,7 @@ If you wish to set `allow_mult` to `false` in version 2.0, you have a
 few options:
 
 * Use the default bucket configuration
-* Create an activate bucket types that explicitly set `allow_mult` to `false`
+* Create and activate bucket types that explicitly set `allow_mult` to `false`
 
 More information on handling siblings can be found in our documentation
 on [[conflict resolution]].
@@ -191,7 +191,8 @@ one of the following actions in your cluster:
 
 If you use other new features, such as [[Riak Security|Authentication and Authorization]]
 or the new [[configuration system|Configuration Files]], you can still
-downgrade your cluster, but you will not be able to use those features.
+downgrade your cluster, but you will no longer be able to use those
+features after the downgrade.
 
 ## Upgrading Your Configuration System
 
@@ -218,11 +219,7 @@ the older configuration system is being used. You should be aware,
 however, that some settings must be set in an `advanced.config` file.
 For a listing of those parameters, see our documentation on [[advanced configuration|Configuration Files#advanced-configuration]].
 
-## Disk Usage Expectations
-
 ## Upgrading Search
 
-#### Note on Riak client libraries
-
-* Older clients using PBC can use the new Riak Search; clients using HTTP cannot
-
+Information on upgrading Riak Search to 2.0 can be found in our
+[[Search upgrade guide|Upgrading Search from 1.x to 2.x]].
