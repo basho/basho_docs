@@ -815,13 +815,16 @@ map.registers['first_name'] = 'Ahmed'
 map.registers['phone_number'] = '5551234567'
 
 # Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
-
 map.registers['phone_number'] = 5551234567.to_s
 ```
 
 ```python
 map.registers['first_name'].assign('Ahmed')
 map.registers['phone_number'].assign('5551234567')
+
+# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+map.registers['phone_number'].assign(str(5551234567))
+
 map.store()
 ```
 
@@ -1261,7 +1264,8 @@ map.maps['annika_info'].registers.remove('phone_number')
 ```
 
 ```python
-
+del map.maps['annika_info'].registers['phone_number']
+map.store()
 ```
 
 ```erlang
