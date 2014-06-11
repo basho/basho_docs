@@ -101,7 +101,8 @@ from riak.datatypes import Map
 
 class User:
     def __init__(self):
-        self.map = Map('map_bucket', '<key>')
+        bucket = client.bucket_type('map_bucket').bucket('<bucket>')
+        self.user_map = Map(bucket, '<key>')
 ```
 
 Note that we haven't specified under which key our map will be stored. In a key/value store like Riak, choosing a key is very important. We'll keep it simple here and use a string consisting of first and last name (separate by an underscore) as the key:
@@ -120,7 +121,10 @@ class User:
     def __init__(self, first_name, last_name):
         bucket = client.bucket_type('map_bucket').bucket('users')
         key = "{}_{}".format(first_name, last_name)
-        user_map = Map(bucket, key)
+
+        # The Python client can use the new() function to automatically
+        # detect that a map is being targeted by the client
+        user_map = bucket.new(key)
 ```
 
 ## Storing An Object's Properties in Our Riak Map
@@ -332,18 +336,23 @@ end
 class User:
     # retain class methods from above
 
+    @property
     def first_name(self):
         return self.user_map.reload().registers['first_name'].value
 
+    @property
     def last_name(self):
         return self.user_map.reload().registers['last_name'].value
 
+    @property
     def interests(self):
         return self.user_map.reload().sets['interests'].value
 
+    @property
     def visits(self):
         return self.user_map.reload().counters['visits'].value
 
+    @property
     def paid_account(self):
         return self.user_map.reload().flags['paid_account'].value
 ```
@@ -362,12 +371,12 @@ joe.visits #=> 1
 
 ```python
 joe = User('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
-joe.first_name() # 'Joe'
-joe.last_name() # 'Armstrong'
-joe.interests() # frozenset(['Erlang', 'distributed systems'])
-joe.visits() # 0
+joe.first_name # 'Joe'
+joe.last_name # 'Armstrong'
+joe.interests # frozenset(['Erlang', 'distributed systems'])
+joe.visits # 0
 joe.visit_page()
-joe.visits() # 1
+joe.visits # 1
 ```
 
 We can also create instance methods that add and remove specific interests:
