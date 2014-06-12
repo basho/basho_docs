@@ -1577,7 +1577,7 @@ map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
 # and so on
 ```
 
-```ruby
+```python
 map.maps['annika_info'].maps['purchase'].flags['first_purchase'].enable()
 map.maps['annika_info'].maps['purchase'].register['amount'].assign(str(1271))
 map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
