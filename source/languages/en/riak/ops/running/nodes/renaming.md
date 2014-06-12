@@ -246,96 +246,130 @@ Success: staged join request for 'riak@192.168.17.12' to 'riak@192.168.17.11'
 
 ### Renaming a Cluster from Backups
 
-The above steps describe a process for renaming nodes in a running cluster. When building a new cluster using backups from another cluster, it may not be possible to start every node in the cluster to perform the above steps. If the nodenames, as set by the `-name` paramenter in `vm.args`, do not resolve to the new hosts, the nodes will be unable to communicate with each other to perform the `force-replace` operations.
+The above steps describe a process for renaming nodes in a running cluster. When seeding a new cluster with backups where the nodes must have new names, typically done as a secondary cluster or in a disaster recovery scenario, a slightly different process must be used. This is because the nodenames, set as `nodename` in `riak.conf`, must resolve to the new hosts in order for the nodes to start and communicate with each other.
 
-Expanding on the Example Scenario above, the below steps can be used to rename nodes in a cluster that is being restored from backups.
+Expanding on the Example Scenario above, the below steps can be used to rename nodes in a cluster that is being restored from backups. The below steps assume every node is offline, and they will indicate when to bring each node online.
 
-**Bringing Up the First Node**  
-Starting with the first node, which has 192.168.17.11 as its IP, and was created with the backups from 10.1.42.11:
+#### Bringing Up the First Node
 
-- Leave the `-name` parameter in the `vm.args` as `riak@10.1.42.11` and add an entry in `/etc/hosts` mapping 10.1.42.11 to 192.168.17.11.
-- Start the node with `riak start`.
+In order to bring our first node online, we'll first need to utilize the `riak-admin reip` command on a single node. In this example, we'll use `riak@10.1.42.11` as our first node.
 
-At this time, the node should start, and its members in `riak-admin member-status` should be listed as those from the backed up cluster.
+1.  In `riak.conf` change `nodename` from `riak@10.1.42.11` to your new nodename, `riak@192.168.17.11`.
 
-- Mark the rest of the nodes listed in `riak-admin member-status` as down with `riak-admin down <node_name>`. For example, `riak@10.1.42.12` would be marked down with `riak-admin down riak@10.1.42.12`.
+2.  On `node1.localdomain` run `riak-admin reip riak@10.1.42.11 riak@192.168.17.11`. This will change the name of `riak@10.1.42.11` to `riak@192.168.17.11` in the Riak ring.
 
-Marking these nodes down, which are part of the cluster we backed up, will allow us to make changes to the cluster using the `riak-admin cluster` commands.
+3.  Start Riak on `node1.localdomain`.
 
-**Bringing Up and Renaming the Rest of the Nodes**  
-On the second node, which has the 192.168.17.12 as its IP:
+4.  Once Riak is started on `node1.localdomain`, mark the rest of the nodes in the cluster down, using `riak-admin down`. For example, we would down `riak@10.1.42.12` with `riak-admin down riak@10.1.42.12`.
 
-- Add an entry in `/etc/hosts` mapping 10.1.42.11 to 192.168.17.11. This will allow us to connect to our first node.
-- Move aside the contents of the `ring` directory.
-- Change the `-name` parameter in the `vm.args` to `riak@192.168.17.12`.
-- Start the node with `riak start`.
-- Perform the steps from step 5 of [[Reconfigure Node to Use New Address|Renaming-Nodes#reconfigure]] on 192.168.17.12. Those steps are:
-      
-      ```
-      riak-admin cluster join riak@10.1.42.11
-      riak-admin cluster force-replace riak@10.1.42.12 riak@192.168.17.12
-      riak-admin cluster plan
-      riak-admin cluster commit
-      ```
+5.  Confirm every other node in the cluster is marked down by running `riak-admin member-status` on `node1.localdomain`:
 
-At this time, `riak@10.1.42.12` will have been successfully replaced with `riak@192.168.17.12` and the cluster will have two members currently up, `riak@10.1.42.11` and `riak@192.168.17.12`.
+    ```
+    ================================= Membership ==================================
+    Status     Ring        Pending    Node
+    -------------------------------------------------------------------------------
+    valid       20.3%      --      'riak@192.168.17.11'
+    down        20.3%      --      'riak@10.1.42.12'
+    down        20.3%      --      'riak@10.1.42.13'
+    down        20.3%      --      'riak@10.1.42.14'
+    down        18.8%      --      'riak@10.1.42.15'
+    -------------------------------------------------------------------------------
+    Valid:1 / Leaving:0 / Exiting:0 / Joining:0 / Down:4
 
-The steps performed on 192.168.17.12 can be repeated on 192.168.17.13, 192.168.17.14, and 192.168.17.15.
+    ```
 
-Once complete, a `riak-admin member-status` will look like the one below:
+6.  Ensure `riak@192.168.17.11` is listed as the claimant by running `riak-admin ring-status` on `node1.localdomain`:
 
-```
-Attempting to restart script through sudo -H -u riak
-============================= Membership ==============================
-Status     Ring    Pending    Node
------------------------------------------------------------------------
-valid      20.3%      --      'riak@10.1.42.11'
-valid      20.3%      --      'riak@192.168.17.12'
-valid      20.3%      --      'riak@192.168.17.13'
-valid      20.3%      --      'riak@192.168.17.14'
-valid      18.8%      --      'riak@192.168.17.15'
------------------------------------------------------------------------
-Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
-```
+    ```
+    ================================== Claimant ===================================
+    Claimant:  'riak@192.168.17.11'
+    Status:     up
+    Ring Ready: true
 
-**Renaming the First Node**
+    ============================== Ownership Handoff ==============================
+    No pending changes.
 
-The final step in this process is to rename our first node.
+    ============================== Unreachable Nodes ==============================
+    All nodes are up and reachable
+    ```
 
-On 192.168.17.11:
+Once all nodes are marked as down and our first node is listed as the claimant, we can proceed with the rest of the nodes.
 
-- Stop Riak with `riak stop`.
-- Move aside the contents of the `ring` directory.
-- Change the `-name` parameter in the `vm.args` from `riak@10.1.42.11` to `riak@192.168.17.11`.
-- Start Riak with `riak start`.
+#### Bringing Up the Remaining Nodes
 
-On 192.168.17.12:
+1.  On each of the remaining nodes, change nodename in `riak.conf` as described above.
 
-- Mark `riak@10.1.42.11` down with `riak-admin down riak@10.1.42.11`.
+2.  Move aside the ring directory, typically found in `/var/lib/riak/ring`.
 
-On 192.168.17.11, run the same steps to join and force-replace from above:
-      
-```
-riak-admin cluster join riak@192.168.17.12
-riak-admin cluster force-replace riak@10.1.42.11 riak@192.168.17.11
-riak-admin cluster plan
-riak-admin cluster commit
-```
+3.  Start each node. They will start as if they are each a member of their own cluster, but will retain their restored data.
 
-The `riak-admin member-status` will now show every node successfully renamed:
+4.  Join each node to our first node using `riak-admin cluster join riak@192.168.17.11`.
 
-```
-Attempting to restart script through sudo -H -u riak
-============================= Membership ==============================
-Status     Ring    Pending    Node
------------------------------------------------------------------------
-valid      20.3%      --      'riak@192.168.17.11'
-valid      20.3%      --      'riak@192.168.17.12'
-valid      20.3%      --      'riak@192.168.17.13'
-valid      20.3%      --      'riak@192.168.17.14'
-valid      18.8%      --      'riak@192.168.17.15'
------------------------------------------------------------------------
-Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
-```
+5.  Force replace each node with its old name. For example, `riak-admin cluster force-replace riak@10.1.42.12 riak@192.168.17.12`.
 
-The entry for 10.1.42.11 can now be removed from the `/etc/hosts` file of each node, as the renaming is complete.
+6.  Once the above is complete for each node, run `riak-admin cluster plan` on any node. The output should look similar to below:
+
+    ```
+    =============================== Staged Changes ================================
+    Action         Details(s)
+    -------------------------------------------------------------------------------
+    force-replace  'riak@10.1.42.12' with 'riak@192.168.17.12'
+    force-replace  'riak@10.1.42.13' with 'riak@192.168.17.13'
+    force-replace  'riak@10.1.42.14' with 'riak@192.168.17.14'
+    force-replace  'riak@10.1.42.15' with 'riak@192.168.17.15'
+    join           'riak@192.168.17.12'
+    join           'riak@192.168.17.13'
+    join           'riak@192.168.17.14'
+    join           'riak@192.168.17.15'
+    -------------------------------------------------------------------------------
+
+    WARNING: All of 'riak@10.1.42.12' replicas will be lost
+    WARNING: All of 'riak@10.1.42.13' replicas will be lost
+    WARNING: All of 'riak@10.1.42.14' replicas will be lost
+    WARNING: All of 'riak@10.1.42.15' replicas will be lost
+
+    NOTE: Applying these changes will result in 1 cluster transition
+
+    ###############################################################################
+                             After cluster transition 1/1
+    ###############################################################################
+
+    ================================= Membership ==================================
+    Status     Ring    Pending    Node
+    -------------------------------------------------------------------------------
+    valid       20.3%      --      'riak@192.168.17.11'
+    valid       20.3%      --      'riak@192.168.17.12'
+    valid       20.3%      --      'riak@192.168.17.13'
+    valid       20.3%      --      'riak@192.168.17.14'
+    valid       18.8%      --      'riak@192.168.17.15'
+    -------------------------------------------------------------------------------
+    Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+
+    Partitions reassigned from cluster changes: 51
+      13 reassigned from 'riak@10.1.42.12' to 'riak@192.168.17.12'
+      13 reassigned from 'riak@10.1.42.13' to 'riak@192.168.17.13'
+      13 reassigned from 'riak@10.1.42.14' to 'riak@192.168.17.14'
+      12 reassigned from 'riak@10.1.42.15' to 'riak@192.168.17.15'
+    ```
+
+    The plan will alert you that replicas will be lost, however in this application of `riak-admin force-replace` that is not the case.
+
+7.  If the above plan looks correct, commit the cluster changes with `riak-admin cluster commit`.
+
+8.  Once the cluster transition has completed, all node names should be changed and be marked as valid in `riak-admin member-status` like below, completing the rename from backups:
+
+    ```
+    ================================= Membership ==================================
+    Status       Ring       Pending    Node
+    -------------------------------------------------------------------------------
+    valid        20.3%      --        'riak@192.168.17.11'
+    valid        20.3%      --        'riak@192.168.17.12'
+    valid        20.3%      --        'riak@192.168.17.13'
+    valid        20.3%      --        'riak@192.168.17.14'
+    valid        18.8%      --        'riak@192.168.17.15'
+    -------------------------------------------------------------------------------
+    Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+
+    ```
+
+
