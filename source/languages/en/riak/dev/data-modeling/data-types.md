@@ -543,6 +543,40 @@ class User:
         return self.user_map.reload().flags['paid_account'].value
 ```
 
+```java
+public class User {
+	private RiakMap getMap() throws Exception {
+		FetchMap fetch = new FetchMap.Builder(location).build();
+		return client.execute(fetch).getDatatype();
+	}
+
+	public String getFirstName() {
+		return getMap().getRegister("first_name").toString();
+	}
+
+	public String getLastName() {
+		return getMap().getRegister("last_name").toString();
+	}
+
+	public Set<String> getInterests() {
+		Set<String> setBuilder = new HashSet<String>();
+		Set<BinaryValue> binarySet = getMap().getSet("interests").viewAsSet();
+		binarySet.forEach((BinaryValue item) -> {
+			setBuilder.add(item.toString());
+		});
+		return setBuilder;
+	}
+
+	public Long getVisits() {
+		return getMap().getCounter("visits").view();
+	}
+
+	public boolean getPaidAccount() {
+		return getMap().getFlag("paid_account").view();
+	}
+}
+```
+
 Now, we can create a new user and then access that user's characteristics directly from our Riak map:
 
 ```ruby
@@ -563,6 +597,20 @@ joe.interests # frozenset(['Erlang', 'distributed systems'])
 joe.visits # 0
 joe.visit_page()
 joe.visits # 1
+```
+
+```java
+Set<String> interests = new HashSet<String>();
+interests.add("distributed systems");
+interests.add("Erlang");
+User joe = new User("Joe", "Armstrong", interests);
+
+joe.getFirstName();
+joe.getLastName();
+joe.getInterests();
+joe.getVisits();
+joe.visitPage();
+joe.getVisits();
 ```
 
 We can also create instance methods that add and remove specific interests:
@@ -594,6 +642,28 @@ class User:
     def remove_interest(self, interest):
         self.user_map.sets['interests'].discard(interest)
         self.user_map.store()
+```
+
+```java
+public class User {
+	// Stuff from above
+
+	public void addInterest(String interest) {
+		SetUpdate su = new SetUpdate().add(BinaryValue.create(interest));
+		MapUpdate mu = new MapUpdate()
+				.update("interests", su);
+		updateMapWithoutContext(mu);
+	}
+
+	public void removeInterest(String interest) {
+		SetUpdate su = new SetUpdate().remove(BinaryValue.create(interest));
+		Context ctx = getMapContext();
+		MapUpdate mu = new MapUpdate()
+				.withContext(ctx)
+				.update("interests", mu);
+		updateMapWithContext(mu);
+	}
+}
 ```
 
 ## Converting to JSON
