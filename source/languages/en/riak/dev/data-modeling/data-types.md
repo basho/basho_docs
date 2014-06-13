@@ -39,6 +39,28 @@ class User:
         self.paid_account = None
 ```
 
+```java
+public class User {
+	public String firstName;
+	public String lastName;
+	public Set<String> interests;
+	public Long visits;
+	public boolean paidAccount;
+
+	public User() {}
+
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	// and so on for the other attributes
+}
+```
+
 This enables us to create new `User`s and modify those characteristics:
 
 ```ruby
@@ -63,6 +85,17 @@ bill
 # <__main__.User instance at 0x1063febd8>
 ```
 
+```java
+User bill = new User();
+bill.setFirstName("Bill");
+bill.setLastName("Murray");
+Set<String> interests = new HashSet<>();
+interests.add("filming Caddyshack").add("being smartly funny");
+bill.setInterests(interests);
+bill.setVisits(10);
+bill.setPaidAccount(false);
+```
+
 Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps can hold a variety of Data Types within them, in our case a few strings (best modeled as [[registers|Data Types#Registers]]), an array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best modeled as a [[flag|Data Types#Flags]]). Maps can also house other maps, but that will not be covered in this tutorial.
 
 ## Connecting Our Data Model to Riak
@@ -78,6 +111,18 @@ $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
 ```python
 from riak import RiakClient
 client = RiakClient(protocol='pbc', pb_port=8087)
+```
+
+```java
+public class User {
+	private RiakClient client;
+
+	public User() {
+		// Assuming that you have initialized and started a RiakCluster object:
+
+		this.client = new RiakClient(cluster);
+	}
+}
 ```
 
 Now, we can begin connecting our data model to a Riak map. We'll do that creating a map whenever a new `User` object is created:
@@ -105,6 +150,20 @@ class User:
         self.user_map = Map(bucket, '<key>')
 ```
 
+```java
+public class User {
+	final private String bucket = "users";
+	final private String bucketType = "maps";
+	private String key;
+	private Location location;
+
+	public User(String firstName, String lastName) {
+		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+		this.location = new Location(new Namespace(bucketType, bucket), key);
+	}
+}
+```
+
 Note that we haven't specified under which key our map will be stored. In a key/value store like Riak, choosing a key is very important. We'll keep it simple here and use a string consisting of first and last name (separate by an underscore) as the key:
 
 ```ruby
@@ -125,6 +184,18 @@ class User:
         # The Python client can use the new() function to automatically
         # detect that a map is being targeted by the client
         user_map = bucket.new(key)
+```
+
+```java
+public class User {
+	public User(String firstName, String lastName) {
+		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+		this.location = new Location(new Namespace(bucketType, bucket), key);
+
+		// In the Java client, maps are updated on the basis of the map's
+		// location, we specified in the line directly above
+	}
+}
 ```
 
 ## Storing An Object's Properties in Our Riak Map
@@ -153,6 +224,39 @@ class User:
         user_map.store()
 ```
 
+```java
+public class User {
+	private Context getMapContext() throws Exception {
+		FetchMap fetch = new FetchMap.Builder(location).build();
+		return client.execute(fetch).getContext();
+	}
+
+	private void updateMapWithContext(MapUpdate mu) throws Exception {
+		Context ctx = getMapContext();
+		UpdateMap update = new UpdateMap.Builder(location, mu)
+				.withContext(ctx)
+				.build();
+		client.execute(update);
+	}
+
+	private void updateMapWithoutContext(MapUpdate mu) throws Exception {
+		UpdateMap update = new UpdateMap.Builder(location, mu).build();
+		client.execute(update);
+	}
+
+	public User(String firstName, String lastName) {
+		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+		this.location = new Location(new Namespace(bucketType, bucket), key);
+		RegisterUpdate ru1 = new RegisterUpdate(BinaryValue.create(firstName));
+		RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create(lastName));
+		MapUpdate mu = new MapUpdate()
+				.update("first_name", ru1)
+				.update("last_name", ru2);
+		updateMapWithoutContext(mu);
+	}
+}
+```
+
 Now, if we create a new user, that user will have a `map` instance variable attached to it, the `first_name` and `last_name` strings will be stored in Riak registers, and the key will be `Bruce_Wayne`:
 
 ```ruby
@@ -162,6 +266,10 @@ bruce = User.new 'Bruce', 'Wayne'
 
 ```python
 bruce = User('Bruce', 'Wayne')
+```
+
+```java
+User bruce = new User("Bruce", "Wayne");
 ```
 
 So now we have our `first_name` and `last_name` variables stored in our map, but we still need to account for `interests` and `visits`. First, let's modify our class definition to store each user's interests in a set within the map:
@@ -196,6 +304,33 @@ class User:
         user_map.store()
 ```
 
+```java
+public class User {
+	// Retaining our getMapContext() and other functions from above
+
+	private SetUpdate setIntoSetUpdate(Set<String> rawSet) {
+		SetUpdate su = new SetUpdate():
+		rawSet.forEach((String item) -> {
+			su.add(BinaryValue.create(item));
+		});
+		return su;
+	}
+
+	public User(String firstName, String lastName, Set<String> interests) {
+		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+		this.location = new Location(new Namespace(bucketType, bucket), key);
+		RegisterUpdate ru1 = new RegisterUpdate(BinaryValue.create(firstName));
+		RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create(lastName));
+		SetUpdate su = setIntoSetUpdate(rawSet);		
+		MapUpdate mu = new MapUpdate()
+				.update("first_name", ru1)
+				.update("last_name", ru2)
+				.update("interests", su);
+		updateMapWithoutContext(mu);
+	}
+}
+```
+
 Now when we create new users, we need to specify their interests as a list:
 
 ```ruby
@@ -205,6 +340,13 @@ joe = User.new 'Joe', 'Armstrong', ['distributed systems', 'Erlang']
 
 ```python
 joe = User('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
+```
+
+```java
+Set<String> interests = new HashSet<String>();
+interests.add("distributed systems");
+interests.add("Erlang");
+User joe = new User("Joe", "Armstrong", interests);
 ```
 
 Our `visits` variable will work a little bit differently, because when a new user is created the value will simply be zero. So let's create a new instance method `visit_page` that increments the `visits` counter by one every time it is called:
@@ -245,6 +387,23 @@ class User:
         self.user_map.store()
 ```
 
+```java
+public class User {
+	public User() {
+		// Retaining from above
+	}
+
+	public void visitPage() {
+		CounterUpdate cu = new CounterUpdate(1);
+		MapUpdate mu = new MapUpdate()
+				.update("visits", cu);
+
+		// Using our updateMapWithoutContext from above
+		updateMapWithoutContext(mu);
+	}
+}
+```
+
 And then we can have Joe Armstrong visit our page:
 
 ```ruby
@@ -253,6 +412,10 @@ joe.visit_page
 
 ```python
 joe.visit_page()
+```
+
+```java
+joe.visitPage();
 ```
 
 The page visit counter did not exist prior to this method call, but the counter will be created (and incremented) all at once.
@@ -302,6 +465,29 @@ class User:
     def downgrade_account(self):
         self.user_map.flags['paid_account'].disable()
         self.user_map.store()
+```
+
+```java
+public class User {
+	// Using all the material from above
+
+	public void upgradeAccount() {
+		FlagUpdate setToTrue = new FlagUpdate().set(true);
+		Context ctx = getMapContext();
+		MapUpdate mu = new MapUpdate()
+				.withContext(ctx)
+				.update("paid_account", setToTrue);
+		updateMapWithContext(mu);
+	}
+
+	public void downgradeAccount() {
+		FlagUpdate setToFalse = new FlagUpdate().set(false);
+		MapUpdate mu = new MapUpdate()
+				.withContext(ctx)
+				.update("paid_account", setToFalse);
+		updateMapWithContext(mu);
+	}
+}
 ```
 
 The problem with our `User` model so far is that we can't actually _retrieve_ any information about specific users from Riak. So let's create some getters to do that:
