@@ -48,7 +48,7 @@ Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps
 
 First, we need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`. More on that can be found in the [[Using Bucket Types]] tutorial.
 
-Once the bucket type is ready (we'll name the bucket type `map_bucket` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers]] port:
+Once the bucket type is ready (we'll name the bucket type `map_bucket` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers|PBC API]] port:
 
 ```ruby
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)

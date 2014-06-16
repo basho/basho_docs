@@ -8,8 +8,8 @@ riak:
     class: "start"
     sub:
       - "[[Start Here|Riak]]"
+      - "[[Riak 2.0]]"
       - "[[Why Riak?|Why Riak]]"
-      - "[[Download Riak|Downloads]]"
       - "[[Five-Minute Install|Five Minute Install]]"
 
   - title: "Riak for Developers"
@@ -37,6 +37,13 @@ riak:
               - "[[PHP|Taste of Riak: Querying with PHP]]"
               - "[[Python|Taste of Riak: Querying with Python]]"
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
+          - title: Object Modeling
+            sub:
+              - "[[Introduction|Taste of Riak: Object Modeling]]"
+              - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
+              - "[[Java|Taste of Riak: Object Modeling with Java]]"
+              - "[[Python|Taste of Riak: Object Modeling with Python]]"
+              - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
       - title: "Basic Usage"
         sub:
           - "[[Client Libraries]]"
@@ -44,16 +51,16 @@ riak:
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"
-          - "[[Strong Consistency|Using Strong Consistency]]"
           # - "[[Key Filters|Using Key Filters]]"
           # - "[[Link Walking]]"
+          - "[[Conflict Resolution]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
       - title: "Data Modeling"
         sub:
           - "[[Overview|Use Cases]]"
-          - "[[Data Modeling with Riak Data Types]]"
+          - "[[Data Types|Data Modeling with Riak Data Types]]"
           - "[[Key/Value Modeling]]"
           - title: "High Read/Write"
             sub:
@@ -91,8 +98,10 @@ riak:
         sub:
           - title: "Installation"
             sub:
+              - "[[Download Riak|Downloads]]"
               - "[[Installing and Upgrading]]"
               - "[[Installing Erlang]]"
+              - "[[Installing the JVM]]"
               - "[[Debian and Ubuntu|Installing on Debian and Ubuntu]]"
               - "[[RHEL and CentOS|Installing on RHEL and CentOS]]"
               - "[[Mac OS X|Installing on Mac OS X]]"
@@ -158,6 +167,7 @@ riak:
               - "[[Search|Riak Search Settings]]"
               - "[[Secondary Indexes|Configuring Secondary Indexes]]"
               - "[[Load Balancing & Proxy|Load Balancing and Proxy Configuration]]"
+              - "[[Strong Consistency|Using Strong Consistency]]"
           - title: "Backends"
             sub:
               - "[[Bitcask]]"
@@ -169,13 +179,13 @@ riak:
           - "[[Production Checklist]]"
           - "[[Rolling Upgrades]]"
           - "[[Rolling Downgrades]]"
+          - "[[Upgrading Search from 1.x to 2.x]]"
 
 
   - title: "Theory & Concepts"
     sub:
       - title: "Concepts"
         sub:
-          - "[[Concepts Overview|Concepts]]"
           # - "[[Bucket Types]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
@@ -183,7 +193,6 @@ riak:
           - "[[Eventual Consistency]]"
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
-          # - "[[Links]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
       - title: "Riak Compared to"
@@ -268,6 +277,7 @@ riakee:
       - "[[Version Comparison|Multi Data Center Replication: Comparison]]"
       - "[[Upgrade Guide|Multi Data Center Replication: Upgrading from V2 to V3]]"
       - "[[Statistics|Multi Data Center Replication: Statistics]]"
+      - "[[Monitoring|Multi Data Center Replication: Monitoring]]"
       - "[[Per Bucket|Multi Data Center Replication: Per Bucket]]"
       - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
   - title: "Operating Riak Enterprise"
