@@ -7,11 +7,11 @@ audience: beginner
 keywords: [developers, applications]
 ---
 
-So you've decided to build an application using Riak as a data store. We think that this is a wise choice for a wide variety of use cases. But using Riak isn't always straightforward, especially if you're used to developing with RDBMSs like MySQL or Postgres or non-persistent key/value stores like Redis. 
+So you've decided to build an application using Riak as a data store. We think that this is a wise choice for a broad variety of use cases. But using Riak isn't always straightforward, especially if you're used to developing with RDBMSs like MySQL or Postgres or non-persistent key/value stores like Redis. 
 
-In this guide, we'll walk you through a set of questions that you should ask about your use case before getting started. The answer to some of these questions could inform decisions about which Riak features you should use, what kind of replication and conflict resolution strategies you should employ, and perhaps even how parts of your application should be built.
+In this guide, we'll walk you through a set of questions that you should ask about your use case before getting started. The answer to those questions may inform decisions about which Riak features you should use, what kind of replication and conflict resolution strategies you should employ, and perhaps even how parts of your application should be built.
 
-## What Kind of Data am I Storing?
+## What Kind of Data Are You Storing?
 
 This is an important initial question for two reasons:
 
@@ -39,17 +39,9 @@ Riak may not such be a good choice if you use it with the following:
 
 If it sounds like Riak is a good choice for some or all of your application's data needs, move on to the next sections, where you can find out more about which Riak features are recommendable for your use case, how you should model your data, and what kinds of development strategies we recommend.
 
-## What Features Should I Consider?
+## What Features Should You Consider?
 
-Basic CRUD operations are almost always the most performant operations when using Riak. If your needs can be served using CRUD operations, we recommend checking out our tutorial on [[key/value modeling]] for some basic guidelines.
-
-If you think that you'll need something more than just CRUD operations,
-
-While basic CRUD operations are almost always the most performant way to use Riak, Riak nonetheless offers a variety of features that can be helpful when basic key/value operations are not enough. Here, we'll list those features and explain when they're recommended.
-
-#### Secondary Indexes (2i)
-
-[[Using Secondary Indexes]]
+Basic CRUD key/value operations are almost always the most performant operations when using Riak. If your needs can be served using CRUD operations, we recommend checking out our tutorial on [[key/value modeling]] for some basic guidelines. But if basic CRUD key/value operations don't quite suffice for your use cases, Riak offers a variety of features that may be just what you're looking for.
 
 #### Search
 
@@ -64,51 +56,50 @@ While basic CRUD operations are almost always the most performant way to use Ria
 
 [[Using MapReduce]]
 
+#### Secondary Indexes (2i)
+
+[[Using Secondary Indexes]]
+
 #### Mixed Approach
 
 One thing to always bear in mind is that Riak enables you to mix and match a wide variety of approaches in a single cluster. You can use basic CRUD operations for some of your data, attach secondary indexes to a handful of objects, run occasional MapReduce operations over a subset of your buckets, etc. You are always free to use a wide array of features or none at all.
 
-## How Should I Model My Data?
+## How Should You Model Your Data?
 
-It's difficult to offer universally applicable data modeling guidelines because data models differ to markedly from use case to use case. What works when storing [[user data]], for example, might be a poor fit when working with [[sensor data]]. Nonetheless, there's a variety of material in our documentation that might be helpful when thinking about data modeling.
+It's difficult to offer universally applicable data modeling guidelines because data models differ so markedly from use case to use case. What works when storing [[user data|Use Cases#user-data]], for example, might be a poor fit when working with [[sensor data|Use Cases#sensor-data]]. Nonetheless, there's a variety of material in our documentation that might be helpful when thinking about data modeling:
 
-#### Help with Modeling
-
-* [[Taste of Riak: Object Modeling]]
+* [[Object Modeling in Riak|Taste of Riak: Object Modeling]]
     - [[Java|Taste of Riak: Object Modeling with Java]]
     - [[Ruby|Taste of Riak: Object Modeling with Ruby]]
     - [[Python|Taste of Riak: Object Modeling with Python]]
     - [[Erlang|Taste of Riak: Object Modeling with Erlang]]
-* [[Data Modeling with Riak Data Types]]
 * [[Key/Value Modeling]]
 
 #### Data Types
 
-One possibility to always bear in mind is using [[Riak Data Types|Using Data Types]] if some or all of your data can be modeled in accordance with the Data Types currently available. The table below lists the five available Riak Data Types:
+One feature to always bear in mind when using Riak is [[Riak Data Types|Using Data Types]]. If some or all of your data can be modeled in accordance with Riak Data Types, you might be able to streamline application development by using them as an alternative to key/value operations. To see if this feature might be a good fit for your application, we recommend checking out the following documentation:
 
-Data Type | Description
-:---------|:-----------
-Flags |
-Registers |
-Counters |
-Sets |
-Maps |
+* [[Data Types]]
+* [[Using Data Types]]
+* [[Data Modeling with Riak Data Types]]
 
-## What are My Consistency Requirements?
+## What are Your Consistency Requirements?
 
-In the past, Riak has typically been known as an [[eventually consistent|Eventual Consistency]], AP system, i.e. a system that favors availability and partitional tolerance over data consistency.
+Riak has traditionally been thought of as an [[eventually consistent|Eventual Consistency]], AP system, i.e. a system that favors availability and partitional tolerance over data consistency. In Riak versions 2.0 and later, the option of applying strong consistency guarantees is available to developers that want to use Riak as a strict CP system. One of the advantages of Riak's approach to strong consistency is that you don't need to store all of your data in a strongly consistent fashion if you use this feature. Instead, you can mix and match a CP approach with an AP approach in a single cluster in any way you wish.
 
-#### I Don't Need Much Consistency
+If you need some or all of your data to be subject to strong consistency requirements, we recommend checking out the following documentation:
 
-#### I Need Strong Consistency
+* [[Strong Consistency]]
+* [[Using Strong Consistency]]
 
-#### I Need Something Inbetween
+## Are Your Objects Mutable?
 
-## My Objects are Mutable
+Although Riak always performs best when storing and retrieving immutable data, Riak also handles mutable objects very ably using a variety of eventual consistency principles. Storing mutable data in Riak, however, can get tricky because it requires you to choose and implement a conflict resolution strategy for when object conflicts arise, which is a normal occurrence in Riak. For more implementation details, we recommend checking out the following docs:
 
-As stated above, Riak always 
+* [[Conflict Resolution]]
+* [[Replication Properties]]
 
-## How Do I Get Started?
+## Getting Started
 
 If you have a good sense of how you will be using Riak for your application (or if you just want to experiment), the set of steps below will help you get up and running.
 
