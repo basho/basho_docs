@@ -39,10 +39,9 @@ conflict. See [[Conflict resolution|Concepts#Conflict-resolution]].
 
 ### r, pr, w, dw, pw, rw
 
-`all`, `quorum`, `one`, or an *integer* (default: `quorum`). Sets for reads and
+`all`, `quorum`, `one`, `default`, or an *integer* (default: `quorum`). Sets for reads and
 writes the number of responses required before an operation is considered
-successful. See [[Reading Data|Concepts#Reading-Writing-and-Updating-Data]] and [[Writing and
-Updating Data|Concepts#Reading-Writing-and-Updating-Data]].
+successful. See [[Replication Properties]].
 
 ### precommit
 
@@ -59,4 +58,5 @@ Files|Configuration Files#default_bucket_props]],
 [[HTTP Set Bucket Properties]], or the documentation for your client driver.
 
 ### backend
+
 Specify which named backend to use for the bucket when using `riak_kv_multi_backend`.

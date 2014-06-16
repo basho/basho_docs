@@ -90,19 +90,19 @@ Here is a bare minimum skeleton Solr Schema. It won't do much for you other than
  <fields>
 
    <!-- All of these fields are required by Riak Search -->
-   <field name="_yz_id"   type="_yz_str" indexed="true" stored="true" required="true"/>
-   <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_fpn"  type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_vtag" type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_rk"   type="_yz_str" indexed="true" stored="true"/>
-   <field name="_yz_rt"   type="_yz_str" indexed="true" stored="true"/>
-   <field name="_yz_rb"   type="_yz_str" indexed="true" stored="true"/>
-   <field name="_yz_err"  type="_yz_str" indexed="true" stored="false"/>
+   <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
+   <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_fpn"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_vtag" type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_rk"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
+   <field name="_yz_rt"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
+   <field name="_yz_rb"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
+   <field name="_yz_err"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
  </fields>
- 
+
  <uniqueKey>_yz_id</uniqueKey>
- 
+
  <types>
     <!-- YZ String: Used for non-analyzed fields -->
     <fieldType name="_yz_str" class="solr.StrField" sortMissingLast="true" />
@@ -152,17 +152,17 @@ Besides a field `type`, you also must decide if a value is to be `indexed` (usua
    <dynamicField name="*_fr" type="text_fr" indexed="true" stored="true" multiValued="true" />
 
    <!-- All of these fields are required by Riak Search -->
-   <field name="_yz_id"   type="_yz_str" indexed="true" stored="true" required="true"/>
-   <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_fpn"  type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_vtag" type="_yz_str" indexed="true" stored="false"/>
-   <field name="_yz_rk"   type="_yz_str" indexed="true" stored="true"/>
-   <field name="_yz_rt"   type="_yz_str" indexed="true" stored="true"/>
-   <field name="_yz_rb"   type="_yz_str" indexed="true" stored="true"/>
-   <field name="_yz_err"  type="_yz_str" indexed="true" stored="false"/>
+   <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
+   <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_fpn"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_vtag" type="_yz_str" indexed="true" stored="false" multiValued="false"/>
+   <field name="_yz_rk"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
+   <field name="_yz_rt"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
+   <field name="_yz_rb"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
+   <field name="_yz_err"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
  </fields>
- 
+
  <uniqueKey>_yz_id</uniqueKey>
 ```
 
@@ -214,7 +214,7 @@ following is the catch-all field from the default Yokozuna schema and
 can be used in a custom schema as well.
 
 ```xml
-<dynamicField name="*" type="ignored" indexed="false" stored="false" multiValued="true" />
+<dynamicField name="*" type="ignored"  />
 ```
 
 ### Dates
