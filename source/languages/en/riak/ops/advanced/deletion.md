@@ -51,34 +51,58 @@ motion:
 2. If all N nodes store the tombstone, the object is removed
 3. If fallback nodes are in use, the object will not be immediately removed
 
+What this means is that there is always the possibility that a client
+can send a delete request to Riak 
+
 ## Configuring Object Deletion
 
-If step 3 in the process above is reached, the `delete_mode` setting
-in your [[configuration files]] will determine what happens next. This
-setting determines how long Riak will wait after identifying an object
-for deletion and actually removing the object from the storage backend.
+If step 3 in the process explained above is reached, the `delete_mode`
+setting in your [[configuration files|Configuration Files#advanced-configuration]] will determine what happens
+next. This setting determines how long Riak will wait after identifying
+an object for deletion and actually removing the object from the storage
+backend.
 
 There are three possible settings:
 
 * `keep` --- Disables tombstone removal; protects against an edge case in which an object is deleted and recreated on the owning nodes while a fallback is either down or awaiting handoff
 * `immediate` --- The tombstone is removed as soon as the request is received. 
-* Custom time interval --- How long to wait until the tombstone is removed
+* Custom time interval --- How long to wait until the tombstone is removed (the default is to `3s`, i.e. to wait 3 seconds)
 
-The default is to wait 3 seconds 
+In general, we recommend setting the `delete_mode` parameter to `keep`
+if you plan to delete and recreate objects under the same key
+frequently. This is the default setting.
 
-If you plan to delete and recreate objects under the same key frequently,
-we recommend setting `delete_mode` to `keep`.
+Setting `delete_mode` to `immediate` can be useful in situations in
+which an aggressive space reclamation process is necessary, but we do
+not recommend this in general.
 
-MDC => the problem is that deleted objects can be resurrected when
-synchronizing between multiple DCs, especially when connectivity is an
-issue; this problem can be avoided using `delete_mode`
-
-Fetching the vclock for a deleted key => setting `deletedvclock` to
-`true` via PBC [[PBC Fetch Object]]
+Setting `delete_mode` to a specific
+time duration can be useful in certain edge cases involving
+[[Multi-Datacenter Replication|Multi Data Center Replication v3 Architecture]],
+e.g. when network connectivity is an issue. In general, however, we 
+recommend keeping `delete_mode` set to the default of `keep`.
 
 ## Client Library Examples
 
+If you are updating an object that has been deleted---or if you suspect
+that an update might target a deleted object---it is recommended that
+you first fetch [[vector clock]] of the object prior to updating. This
+can be done by setting `deletedvclock` parameter to `true` as part of
+the [[fetch operation|PBC Fetch Object]]. This can also be done with the
+official Riak clients for Ruby, Java, and Erlang, as in the example
+below:
 
+
+```ruby
+object.delete
+deleted_object = bucket.get('test', 'test', deletedvclock: true)
+deleted_object.vclock
+```
+
+```python
+# It is not currently possible to fetch the vector clock for a deleted
+# key in the Python client
+```
 
 ```java
 Location loc = new Location("<bucket>")
@@ -90,13 +114,15 @@ FetchValue fetch = new FetchValue.Builder(loc)
 FetchValue.Response response = 
 ```
 
-```ruby
-object.delete
-deleted_object = bucket.get('test', 'test', deletedvclock: true)
-deleted_object.vclock
-```
+```erlang
+{ok, Obj} = riakc_pb_socket:get(Pid,
+	                            {<<"bucket_type">>, <<"bucket">>},
+	                            <<"key">>,
+	                            [{deleted_vclock}]).
 
-Fetching a deleted object's vector clock prior to deletion
+%% In the Erlang client, the vector clock is accessible using the Obj
+%% object obtained above.
+```
 
 ## Resources
 
