@@ -212,29 +212,53 @@ these maximums.
 
 In version 2.0 and later, Riak enables you to configure a variety of
 settings regarding Riak objects, including allowable object sizes, how
-many [[siblings|Vector Clocks#siblings]] to allow, and so on. This
-document is intended as a general guide to those settings and may be
-particularly useful for [[reducing latency|Latency Reduction Checklist]]
-in your Riak cluster.
+many [[siblings|Vector Clocks#siblings]] to allow, and so on. If you 
+suspect that undue latency in your cluster stems from object size or
+related factors, you may consider adjusting these settings.
 
 A concise listing of object-related settings can be found in the
 [[Riak configuration|Configuration Files#object-settings]]
-documentation.
+documentation. The sections below explain these settings in detail.
+
+<div class="note">
+<div class="title">Note on configuration files in 2.0</div>
+The object settings listed below are only available using the new
+system for [[configuration files]] specific to Riak 2.0. If you are
+using the older, <tt>app.config</tt>-based system, you will not have
+access to these settings.
+</div>
 
 #### Object Size
 
-Basho recommends _always_ keeping objects below 1-2 MB and preferably
-below 100 KB. 
+As stated above, Basho recommends _always_ keeping objects below 1-2 MB
+and preferably below 100 KB if possible. If you want to ensure that
+objects above a certain size do not get stored in Riak, you can do so
+by setting the `object.size.maximum` parameter lower than the default
+of `50MB`, which is far above the ideal object size. If you set this
+parameter to, say, `1MB` and attempt to store a 2 MB object, the write
+will fail and an error message will be returned to the client.
+
+You can also set an object size threshold past which a write will
+succeed but will register a warning in the logs, you can adjust the
+`object.size.warning_threshold` parameter. The default is `5MB`.
 
 #### Sibling Explosion Management
 
+In order to prevent or cut down on [[sibling explosion|Vector Clocks#sibling explosion]],
+you can either prevent Riak from storing additional siblings when a
+specified sibling count is reached or set a warning threshold past which
+Riak logs an error (or both). This can be done using the `object.siblings.maximum`
+and `object.siblings.warning_threshold` settings. The default maximum is
+100 and the default warning threshold is 25. 
+
 #### Object Storage Format
 
-There are currently two possible binary representations of object stored
-in Riak:
+There are currently two possible binary representations for objects
+stored in Riak:
 
-* Erlang's native `term_to_binary` format
-* A newer, Riak-specific format for 
+* Erlang's native `term_to_binary` format, which tends to have a higher space overhead
+* A newer, Riak-specific format developed for more compact storage of smaller values
 
 You can set the object storage format using the `object.format`
-parameter.
+parameter: `0` selects Erlang's `term_to_binary` format while `1` (the
+default) selects the Riak-specific format. 
