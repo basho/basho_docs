@@ -100,9 +100,9 @@ Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps
 
 ## Connecting Our Data Model to Riak
 
-First, we need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`. More on that can be found in the [[Using Bucket Types]] tutorial.
+First, we need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`. More on that can be found in the tutorial on [[using bucket types]].
 
-Once the bucket type is ready (we'll name the bucket type `map_bucket` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers|PBC API]] port:
+Once the bucket type is ready (we'll name the bucket type `maps` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers|PBC API]] port:
 
 ```ruby
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
@@ -130,13 +130,13 @@ Now, we can begin connecting our data model to a Riak map. We'll do that creatin
 ```ruby
 class User
   def initialize
-    @map = Riak::Crdt::Map.new $bucket, '<key>', 'map_bucket'
+    @map = Riak::Crdt::Map.new $bucket, '<key>', 'maps'
   end
 end
 
 # In the example above, the map was created specifying a bucket, key, and bucket type. An alternative way of creating maps is to specify a bucket type that will be used for ALL maps:
 
-Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'map_bucket'
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
 
 # If this parameter is set, you no longer need to specify a bucket type when creating maps. The rest of this tutorial will proceed assum
 ```
@@ -146,7 +146,7 @@ from riak.datatypes import Map
 
 class User:
     def __init__(self):
-        bucket = client.bucket_type('map_bucket').bucket('<bucket>')
+        bucket = client.bucket_type('maps').bucket('<bucket>')
         self.user_map = Map(bucket, '<key>')
 ```
 
@@ -178,7 +178,7 @@ end
 ```python
 class User:
     def __init__(self, first_name, last_name):
-        bucket = client.bucket_type('map_bucket').bucket('users')
+        bucket = client.bucket_type('maps').bucket('users')
         key = "{}_{}".format(first_name, last_name)
 
         # The Python client can use the new() function to automatically
