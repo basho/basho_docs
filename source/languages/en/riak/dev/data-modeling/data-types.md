@@ -117,29 +117,17 @@ class User:
         user_map = Map(bucket, key)
         user_map.registers['first_name'].assign(first_name)
         user_map.registers['last_name'].assign(last_name)
+
+        # Thus far, all changes to the user_map object have only been
+        # made locally. To commit them to Riak, we have to use the
+        # store() method. You can alter Riak Data Types as much as you
+        # wish on the client side prior to committing those changes to
+        # Riak.
         user_map.store()
 ```
 
 ```java
 public class User {
-	private Context getMapContext() throws Exception {
-		FetchMap fetch = new FetchMap.Builder(location).build();
-		return client.execute(fetch).getContext();
-	}
-
-	private void updateMapWithContext(MapUpdate mu) throws Exception {
-		Context ctx = getMapContext();
-		UpdateMap update = new UpdateMap.Builder(location, mu)
-				.withContext(ctx)
-				.build();
-		client.execute(update);
-	}
-
-	private void updateMapWithoutContext(MapUpdate mu) throws Exception {
-		UpdateMap update = new UpdateMap.Builder(location, mu).build();
-		client.execute(update);
-	}
-
 	public User(String firstName, String lastName) {
 		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
 		this.location = new Location(new Namespace(bucketType, bucket), key);
@@ -149,6 +137,43 @@ public class User {
 				.update("first_name", ru1)
 				.update("last_name", ru2);
 		updateMapWithoutContext(mu);
+	}
+
+	/*
+		While we're at it, we'll create a couple of private helper
+		methods that will assist us later in the tutorial. The function
+		below fetches our map's abstract context object, which assists
+		Riak in making intelligent decisions behind the scenes about
+		map convergence:
+	*/
+
+	private Context getMapContext() throws Exception {
+		FetchMap fetch = new FetchMap.Builder(location).build();
+		return client.execute(fetch).getContext();
+	}
+
+	/*
+		This function updates our map using the abstract context object
+		fetched using the getMapContext() function above. This is
+		highly recommended for some map updates:
+	*/
+
+	private void updateMapWithContext(MapUpdate mu) throws Exception {
+		Context ctx = getMapContext();
+		UpdateMap update = new UpdateMap.Builder(location, mu)
+				.withContext(ctx)
+				.build();
+		client.execute(update);
+	}
+
+	/*
+		Not all map updates require a context object. This function will
+		assist us in those cases:
+	*/
+
+	private void updateMapWithoutContext(MapUpdate mu) throws Exception {
+		UpdateMap update = new UpdateMap.Builder(location, mu).build();
+		client.execute(update);
 	}
 }
 ```
@@ -175,7 +200,10 @@ class User
   def initialize first_name, last_name, interests
     @key = "#{first_name}_#{last_name}"
     @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
-    # We'll use a batch function here to avoid making more trips to Riak than we need to
+
+    # We'll use a batch function here to avoid making more trips to Riak
+    # than we need to. We highly recommend using batch functions of this
+    # sort whenever possible.
     @map.batch do |m|
       m.registers['first_name'] = first_name
       m.registers['last_name'] = last_name
@@ -202,15 +230,7 @@ class User:
 
 ```java
 public class User {
-	// Retaining our getMapContext() and other functions from above
-
-	private SetUpdate setIntoSetUpdate(Set<String> rawSet) {
-		SetUpdate su = new SetUpdate():
-		rawSet.forEach((String item) -> {
-			su.add(BinaryValue.create(item));
-		});
-		return su;
-	}
+	// Retaining our getMapContext() and other functions from above:
 
 	public User(String firstName, String lastName, Set<String> interests) {
 		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
@@ -224,13 +244,23 @@ public class User {
 				.update("interests", su);
 		updateMapWithoutContext(mu);
 	}
+
+	// This function transforms a set of Strings into a SetUpdate that
+	// can be sent to Riak, such as the interest set above:
+	private SetUpdate setIntoSetUpdate(Set<String> rawSet) {
+		SetUpdate su = new SetUpdate():
+		rawSet.forEach((String item) -> {
+			su.add(BinaryValue.create(item));
+		});
+		return su;
+	}
 }
 ```
 
 Now when we create new users, we need to specify their interests as a list:
 
 ```ruby
-joe = User.new 'Joe', 'Armstrong', ['distributed systems', 'Erlang']
+joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 #=> #<User:0x007f9a4b81ead8 @map=#<Riak::Crdt::Map:0x007f9a4b81ea88 @bucket=#<Riak::Bucket {users}>, @key"\#{first_name}\#{last_name}", @bucket_type"map", @options{}, @dirtyfalse, @counters#<Riak::Crdt::TypedCollection:0x007f9a4b89fae8 @type=Riak::Crdt::InnerCounter, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @flags#<Riak::Crdt::TypedCollection:0x007f9a4b89f8b8 @type=Riak::Crdt::InnerFlag, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @maps#<Riak::Crdt::TypedCollection:0x007f9a4b89f688 @type=Riak::Crdt::InnerMap, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{}, @registers#<Riak::Crdt::TypedCollection:0x007f9a4b89f4a8 @type=Riak::Crdt::InnerRegister, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{"last_name"=>"Armstrong", "first_name"=>"Joe"}, @sets#<Riak::Crdt::TypedCollection:0x007f9a4b89f0e8 @type=Riak::Crdt::InnerSet, @parent=#<Riak::Crdt::Map:0x007f9a4b81ea88 ...>, @contents{"interests"=>#<Riak::Crdt::InnerSet:0x007f9a4b89ee90 @parent=#<Riak::Crdt::TypedCollection:0x007f9a4b89f0e8 ...>, @value#<Set: {"Erlang"}, @name="interests">}, @context"M\x01\x83P\x00\x00\x01Ex\x01\xCB`\xCAa```\xCC`\xCA\x05R\x1CG\x836r\a3\x1F\xB1O\xE4\xCC\x02\t3g0A$\xB8\xD22\x8B\x8AK\xE2\xF3\x12sSS\x18\xF8\x8A2\x13\xB3\xE3SJ\xE2s\xCA\xCB\x8BR\xD33\xB0\x9B\xC0\x9E\x05\xD1\xCA\xEC\x95\x9F\x9A\xC7\xCE\xF0%\xF7\xD8\xB2\x8F\x9FX`\x06rf\xE6\x95\xA4\x16\xA5\x16\x97\x14#\x99\x97_T\\\x9E_\x82\xC3<N\xA0yX\x9D\xCA\bv*\xD4\al\xAEE9\x89y\xE98\x14\x02\x8D\x808\x8A3'\x91D\xEFp@\xBD\xC3\xE9X\x94[\\R\x94\x9F\x97\x0E\xF4TF\x1D\xD8SY\x00K\x04Y\xA1"
 ```
 
@@ -245,7 +275,7 @@ interests.add("Erlang");
 User joe = new User("Joe", "Armstrong", interests);
 ```
 
-Our `visits` variable will work a little bit differently, because when a new user is created the value will simply be zero. So let's create a new instance method `visit_page` that increments the `visits` counter by one every time it is called:
+Our `visits` variable will work a little bit differently, because when a new user is created the value will simply be zero. This is true of _all_ Riak counters. If you fetch the value of a counter that has not yet been modified, it will be zero, even if you query a counter in a random bucket and key. Let's create a new instance method that increments the `visits` counter by one every time it is called:
 
 ```ruby
 class User
@@ -290,11 +320,15 @@ public class User {
 	}
 
 	public void visitPage() {
+
+		// When constructing CounterUpdate objects, the only argument
+		// you need to pass is the integer increment or decrement.
+		// You can decrement a counter by passing in a negative number.
 		CounterUpdate cu = new CounterUpdate(1);
 		MapUpdate mu = new MapUpdate()
 				.update("visits", cu);
 
-		// Using our updateMapWithoutContext from above
+		// Using our updateMapWithoutContext method from above
 		updateMapWithoutContext(mu);
 	}
 }
@@ -316,7 +350,7 @@ joe.visitPage();
 
 The page visit counter did not exist prior to this method call, but the counter will be created (and incremented) all at once.
 
-Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Flags]]. Each user will initially be added to Riak as a non-paying user, and we can create methods to upgrade and downgrade the user's account:
+Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Flags]]. Each user will initially be added to Riak as a non-paying user, and we can create methods to upgrade and downgrade the user's account at will:
 
 ```ruby
 class User
@@ -365,7 +399,7 @@ class User:
 
 ```java
 public class User {
-	// Using all the material from above
+	// Retaining all of the class methods from above
 
 	public void upgradeAccount() {
 		FlagUpdate setToTrue = new FlagUpdate().set(true);
@@ -441,6 +475,11 @@ class User:
 
 ```java
 public class User {
+	/*
+		First, we'll create a class method that fetches the map from
+		Riak in its current state. This enables us to fetch the current
+		values of the fields of the map:
+	*/
 	private RiakMap getMap() throws Exception {
 		FetchMap fetch = new FetchMap.Builder(location).build();
 		return client.execute(fetch).getDatatype();
@@ -467,7 +506,7 @@ public class User {
 		return getMap().getCounter("visits").view();
 	}
 
-	public boolean getPaidAccount() {
+	public boolean getAccountStatus() {
 		return getMap().getFlag("paid_account").view();
 	}
 }
@@ -507,6 +546,7 @@ joe.getInterests();
 joe.getVisits();
 joe.visitPage();
 joe.getVisits();
+joe.getAccountStatus();
 ```
 
 We can also create instance methods that add and remove specific interests:
@@ -542,7 +582,7 @@ class User:
 
 ```java
 public class User {
-	// Stuff from above
+	// Retaining all of the class methods from above
 
 	public void addInterest(String interest) {
 		SetUpdate su = new SetUpdate().add(BinaryValue.create(interest));
@@ -602,20 +642,55 @@ class User:
       return json.dumps(user_dict)
 ```
 
+```java
+// For JSON generation, we'll use the Jackson JSON library
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+class User {
+	// Retaining all of the class methods from above
+
+	public String toJson() throws Exception {
+		ObjectMapper jsonMapper = new ObjectMapper();
+		Map<String, Object> userJsonMap = new HashMap<String, Object>();
+
+		// Using our getMap() function from above to fetch the map in
+		// its current state in Riak:
+		RiakMap userRiakMap = getMap();
+
+		userJsonMap.put("firstName", userRiakMap.getRegister("first_name").getValue().toString());
+		userJsonMap.put("lastName", userRiakMap.getRegister("last_name").getValue().toString());
+        userJsonMap.put("interests", userRiakMap.getSet("interests").viewAsSet());
+        userJsonMap.put("visits", userRiakMap.getCounter("visits").view());
+        userJsonMap.put("paidAccount", userRiakMap.getFlag("paid_account").view());
+
+        return jsonMapper.writeValueAsString(userJsonMap);
+	}
+}
+```
+
 Now, we can instantly convert our `User` map into a stringified JSON object and pipe it to our client-side application:
 
 ```ruby
-bruce = User.new('Bruce', 'Wayne', ['crime fighting', 'climbing', 'wooing Rachel Dawes'])
+bruce = User.new('Bruce', 'Wayne', ['crime fighting', 'climbing stuff'])
 bruce.visit_page
 bruce.as_json
-#=>  "{"first_name":"Bruce","last_name":"Wayne","interests":["climbing","crime fighting","wooing Rachel Dawes"],"visits":1}"
+#=>  "{"first_name":"Bruce","last_name":"Wayne","interests":["climbing","crime fighting"],"visits":1}"
 ```
 
 ```python
-bruce = User('Bruce', 'Wayne', ['crime fighting', 'climbing', 'wooing Rachel Dawes'])
+bruce = User('Bruce', 'Wayne', ['crime fighting', 'climbing stuff'])
 bruce.visit_page()
 bruce.as_json()
-# '{"interests": ["climbing", "crime fighting", "wooing Rachel Dawes"], "lastName": "Wayne", "visits": 1, "firstName": "Bruce", "paidAccount": false}'
+# '{"interests": ["climbing", "crime fighting"], "lastName": "Wayne", "visits": 1, "firstName": "Bruce", "paidAccount": false}'
+```
+
+```java
+Set<String> interests = new HashSet<String>();
+interests.add("crime fighting");
+interests.add("climbing stuff");
+User bruce = new User("Bruce", "Wayne", interests);
+bruce.toJson();
 ```
 
 ## Accessing a Map Later On
