@@ -13,7 +13,7 @@ While that tutorial covers the basics of using Data Types, most real-world appli
 
 ## Creating the Basic Data Model
 
-We'll begin with a `User` type that will house the following information about each user:
+We can begin by creating a new type, `User`, that will house the following information about each user:
 
 * first name
 * last name
@@ -21,88 +21,15 @@ We'll begin with a `User` type that will house the following information about e
 * visits to our site
 * whether the user has a paid account
 
-And so we can begin constructing our data model by creating a `User` class that provides us getters and setters for each of those characteristics:
+We can see from the above that a `User` is best modeled as a Riak map because maps can hold a variety of Data Types within them, in our case a few strings (best modeled as [[registers|Data Types#Registers]]), an array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best modeled as a [[flag|Data Types#Flags]]). Maps can also house other maps, but that will not be covered in this tutorial.
 
-```ruby
-class User
-  attr_accessor :first_name, :last_name, :interests, :visits, :paid_account
-end
-```
-
-```python
-class User:
-    def __init__(self):
-        self.first_name = None
-        self.last_name = None
-        self.interests = None
-        self.visits = None
-        self.paid_account = None
-```
-
-```java
-public class User {
-	public String firstName;
-	public String lastName;
-	public Set<String> interests;
-	public Long visits;
-	public boolean paidAccount;
-
-	public User() {}
-
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	// and so on for the other attributes
-}
-```
-
-This enables us to create new `User`s and modify those characteristics:
-
-```ruby
-bill = User.new
-bill.first_name = 'Bill'
-bill.last_name = 'Murray'
-bill.interests = ['filming Caddyshack', 'being smartly funny']
-bill.visits = 10
-bill.paid_account = false
-bill
-# <User:0x007fb7f7885408 @first_name="Bill", @last_name="Murray", @interests=["filming Caddyshack", "being smartly funny"], @visits=10>
-```
-
-```python
-bill = User()
-bill.first_name = 'Bill'
-bill.last_name = 'Murray'
-bill.interests = ['filming Caddyshack', 'being smartly funny']
-bill.visits = 10
-bill.paid_account = False
-bill
-# <__main__.User instance at 0x1063febd8>
-```
-
-```java
-User bill = new User();
-bill.setFirstName("Bill");
-bill.setLastName("Murray");
-Set<String> interests = new HashSet<>();
-interests.add("filming Caddyshack").add("being smartly funny");
-bill.setInterests(interests);
-bill.setVisits(10);
-bill.setPaidAccount(false);
-```
-
-Amongst the Riak [[Data Types]], a `User` is best modeled as a map, because maps can hold a variety of Data Types within them, in our case a few strings (best modeled as [[registers|Data Types#Registers]]), an array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best modeled as a [[flag|Data Types#Flags]]). Maps can also house other maps, but that will not be covered in this tutorial.
+Our basic modeling approach will be to create a `User` class that ties any given `User` object directly to a map in Riak. From there, we'll create class methods that define interactions with Riak, so that the map can be properly updated when updates are made to the `User` object.
 
 ## Connecting Our Data Model to Riak
 
-First, we need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`. More on that can be found in the tutorial on [[using bucket types]].
+The first step in connecting our data model to Riak is the same step that is always involved with using Riak maps. We need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`, which is covered in our tutorial on [[using bucket types]].
 
-Once the bucket type is ready (we'll name the bucket type `maps` for our purposes here), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers|PBC API]] port:
+Once the bucket type is ready (we'll name it `maps` for the sake of simplicity, although you can name yours whatever you'd like), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers|PBC API]] port:
 
 ```ruby
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
@@ -114,6 +41,8 @@ client = RiakClient(protocol='pbc', pb_port=8087)
 ```
 
 ```java
+// For the Java example, 
+
 public class User {
 	private RiakClient client;
 
@@ -125,52 +54,19 @@ public class User {
 }
 ```
 
-Now, we can begin connecting our data model to a Riak map. We'll do that creating a map whenever a new `User` object is created:
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+This tutorial requires a basic familiarity with Basho's official [[client libraries]]. You can find more information about getting started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
+Now, we can begin connecting our data model to a Riak map. We can do that by creating a reference to a bucket type, bucket, and key. We already know which bucket type we're using (`maps`) from above. So from there we need to choose a bucket and key. In this tutorial, we'll assume that all user maps are stored in the bucket `maps`, and for the key we'll do something a bit more creative: we'll construct a key out of each user's first and last name, with an underscore in the middle. And so the map for the user Brian May would have the key `brian_may`. Below, we'll start building our class, initializing the class with a reference to the appropriate map:
+
 
 ```ruby
 class User
-  def initialize
-    @map = Riak::Crdt::Map.new $bucket, '<key>', 'maps'
-  end
-end
-
-# In the example above, the map was created specifying a bucket, key, and bucket type. An alternative way of creating maps is to specify a bucket type that will be used for ALL maps:
-
-Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
-
-# If this parameter is set, you no longer need to specify a bucket type when creating maps. The rest of this tutorial will proceed assum
-```
-
-```python
-from riak.datatypes import Map
-
-class User:
-    def __init__(self):
-        bucket = client.bucket_type('maps').bucket('<bucket>')
-        self.user_map = Map(bucket, '<key>')
-```
-
-```java
-public class User {
-	final private String bucket = "users";
-	final private String bucketType = "maps";
-	private String key;
-	private Location location;
-
-	public User(String firstName, String lastName) {
-		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
-		this.location = new Location(new Namespace(bucketType, bucket), key);
-	}
-}
-```
-
-Note that we haven't specified under which key our map will be stored. In a key/value store like Riak, choosing a key is very important. We'll keep it simple here and use a string consisting of first and last name (separate by an underscore) as the key:
-
-```ruby
-class User
-  def initialize first_name, last_name
-    @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
+  def initialize(first_name, last_name)
+    key = "#{first_name}_#{last_name}"
+    @map = Riak::Crdt::Map.new($client.bucket('users'), key)
   end
 end
 ```
@@ -193,20 +89,20 @@ public class User {
 		this.location = new Location(new Namespace(bucketType, bucket), key);
 
 		// In the Java client, maps are updated on the basis of the map's
-		// location, we specified in the line directly above
+		// location, which we specified in the line directly above
 	}
 }
 ```
 
 ## Storing An Object's Properties in Our Riak Map
 
-At this point, we have a Riak map associated with instantiations of our `User` type, but that map will be empty. Let's modify our initializer function to populate registers in the map with first name and last name information:
+At this point, we have a Riak map associated with instantiations of our `User` type, but that map will be empty. Let's modify our initializer function to populate [[registers|Data Types#Registers]] in the map with first name and last name information:
 
 ```ruby
 class User
-  def initialize first_name, last_name
-    @key = "#{first_name}_#{last_name}"
-    @map = Riak::Crdt::Map.new($client.bucket 'users', @key)
+  def initialize(first_name, last_name)
+    key = "#{first_name}_#{last_name}"
+    @map = Riak::Crdt::Map.new($client.bucket 'users', key)
     @map.registers['first_name'] = first_name
     @map.registers['last_name'] = last_name
   end
@@ -580,7 +476,7 @@ public class User {
 Now, we can create a new user and then access that user's characteristics directly from our Riak map:
 
 ```ruby
-joe = User.new 'Joe', 'Armstrong', ['distributed systems', 'Erlang']
+joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
 joe.first_name #=> "Joe"
 joe.last_name #=> "Armstrong"
 joe.interests #=> ["distributed systems", "Erlang"]
@@ -709,7 +605,7 @@ class User:
 Now, we can instantly convert our `User` map into a stringified JSON object and pipe it to our client-side application:
 
 ```ruby
-bruce = User.new 'Bruce', 'Wayne', ['crime fighting', 'climbing', 'wooing Rachel Dawes']
+bruce = User.new('Bruce', 'Wayne', ['crime fighting', 'climbing', 'wooing Rachel Dawes'])
 bruce.visit_page
 bruce.as_json
 #=>  "{"first_name":"Bruce","last_name":"Wayne","interests":["climbing","crime fighting","wooing Rachel Dawes"],"visits":1}"
@@ -730,7 +626,7 @@ A map can be located and later modified on the basis of the key associated with 
 
 ```ruby
 # In the Ruby client, the Riak::Crdt::Map.new function can be used both to create a map where it does not exist OR to modify a map that already exists
-map_to_modify = Riak::Crdt::Map.new '<bucket>' '<key>'
+map_to_modify = Riak::Crdt::Map.new('<bucket>' '<key>')
 
 # In our case, we'll be using using the 'users' bucket, as above
 bucket = $client.bucket 'users'
@@ -750,8 +646,8 @@ map_to_modify = Map(bucket, '<key>')
 On that basis, we could upgrade the plan for Bruce Wayne:
 
 ```ruby
-bucket = $client.bucket 'users'
-user_to_modify = Riak::Crdt::Map.new bucket, 'Bruce_Wayne'
+bucket = $client.bucket('users')
+user_to_modify = Riak::Crdt::Map.new(bucket, 'Bruce_Wayne')
 user_to_modify.flags['paid_account'] = true
 ```
 
@@ -766,7 +662,7 @@ This can also be done more programmatically:
 
 ```ruby
 def upgrade_user_account bucket, user_key
-  user_map_to_modify = Riak::Crdt::Map.new bucket, user_key
+  user_map_to_modify = Riak::Crdt::Map.new(bucket, user_key)
   user_map_to_modify.flags['paid_account'] = true
 end
 ```
