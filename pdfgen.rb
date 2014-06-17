@@ -11,6 +11,8 @@ class String
 	end
 end
 
+$dont_render = ['release-notes.md']
+
 markdown_toc_parser = Redcarpet::Markdown.new(Redcarpet::Render::HTML_TOC.new(),
 	:fenced_code_blocks => true,
   :autolink => true,
@@ -27,13 +29,16 @@ markdown_parser = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(),
 
 $html_string = ""
 $toc_string = ""
+
+dirs_to_render = ['dev', 'ops', 'theory']
+
 Dir['source/languages/en/riak/**/*.md'].each do |file|
-	raw_file_contents = File.read(file)
-	raw_file_contents.gsub!(/\/images/, 'source/images')
-	raw_file_contents.del!('http://b.vimeocdn.com/ts/135/477/135477978_200.jpg')
-	raw_file_contents.del!('http://basho.comsource/images/riak-on-drugs.jpg')
-	$html_string << markdown_parser.render(raw_file_contents)
-	$toc_string << markdown_parser.render(raw_file_contents)
+	if !($dont_render.include? file)
+		raw_file_contents = File.read(file)
+		raw_file_contents.gsub!(/\/images/, 'source/images')
+		$html_string << markdown_parser.render(raw_file_contents)
+		$toc_string << markdown_parser.render(raw_file_contents)
+	end
 end
 
 html = $html_string
