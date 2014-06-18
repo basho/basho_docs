@@ -13,17 +13,20 @@ moved: {
 
 ## Introduction
 
-MapReduce (M/R) is a technique for dividing work across a distributed
-system. This takes advantage of the parallel processing power of
-distributed systems and also reduces network bandwidth as the algorithm
-is passed around to where the data lives, rather than a potentially huge
-dataset transferred to a client algorithm.
+MapReduce (M/R) is a technique for dividing data processing work across
+a distributed system. It takes advantage of the parallel processing
+power of distributed systems and also reduces network bandwidth, as the
+algorithm is passed around to where the data lives, rather than
+transferring a potentially huge dataset to a client algorithm.
 
 Developers can use MapReduce for things like filtering documents by
 tags, counting words in documents, and extracting links to related data.
-In Riak, MapReduce is one method for non-key-based querying. MapReduce
-jobs can be submitted through the [[HTTP API]] or the
-[[Protocol Buffers API|PBC API]].
+In Riak, MapReduce is one method for querying that is not strictly based
+on key querying, alongside [[secondary indexes|Using Secondary Indexes]]
+and [[Search|Using Search]]. MapReduce jobs can be submitted through the
+[[HTTP API]] or the [[Protocol Buffers API|PBC API]], although we
+strongly recommend using the Protocol Buffers API for performance
+reasons.
 
 <div class="note">
 <div class="title">MapReduce <em>not</em> for production use</div>
@@ -93,7 +96,7 @@ orchestrates a MapReduce job.
 
 ## Examples
 
-In this example, we will create four objects with the text "caremad"
+In this example, we'll create four objects with the text "caremad"
 repeated a varying number of times and store those objects in the bucket
 `training` (which does not bear a [[bucket type|Using Bucket Types]]).
 An Erlang MapReduce function will be used to count the occurrences of
@@ -101,7 +104,7 @@ the word "caremad."
 
 ### Data object input commands
 
-For the sake of simplicity, we'll use Riak's [curl](http://curl.haxx.se/)
+For the sake of simplicity, we'll use [curl](http://curl.haxx.se/)
 in conjunction with Riak's [[HTTP API]] to store the objects:
 
 ```curl
@@ -173,7 +176,7 @@ The output is the key for each object, followed by the count of the word
 
 We ran an Erlang MapReduce function against the `training` bucket, which
 takes each key/value object in the bucket and searches the text for the
-word "pizza".
+word "pizza."
 
 ## Advanced MapReduce Queries
 

@@ -96,7 +96,7 @@ Errors that occur when processing Erlang pre-commit hooks will be
 reported in the `sasl-error.log` file with lines that start with
 `problem invoking hook`.
 
-##### Object Size Example
+#### Object Size Example
 
 This Erlang pre-commit hook will limit object values to 5 MB or smaller:
 
@@ -126,7 +126,7 @@ will cause Riak to start evaluating those hook functions when bucket
 entries are created, updated, or deleted. Riak stops evaluating
 pre-commit hooks when a hook function fails the commit.
 
-##### JSON Validation Example
+#### JSON Validation Example
 
 Pre-commit hooks can be used in many ways in Riak. One such way to use
 pre-commmit hooks is to validate data before it is written to Riak.
@@ -171,7 +171,7 @@ to determine whether a delete has occurred. As with pre-commit hooks,
 errors that occur when processing post-commit hooks will be reported in
 the `sasl-error.log` file with lines that start with `problem invoking hook`.
 
-##### Example
+#### Example
 
 The following post-commit hook creates a secondary index on the `email`
 field of a JSON object:
