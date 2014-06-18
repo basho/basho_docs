@@ -47,9 +47,9 @@ i.e. `<<>>`.
 When a delete request is sent to Riak, the following process is set in
 motion:
 
-1. A tombstone object (`<<>>`) is written to N nodes (with N defined by `[[n_val|Replication Properties#n-value-and-replication]]`)
-2. If all N nodes store the tombstone, the object is removed
-3. If fallback nodes are in use, the object will not be immediately removed
+1. A tombstone object (`<<>>`) is written to N [[vnodes|Riak Glossary#vnode]] (with N defined by `[[n_val|Replication Properties#n-value-and-replication]]`)
+2. If all N vnodes store the tombstone, the object is removed
+3. If fallback vnodes are in use, the object will not be immediately removed
 
 What this means is that there is always the possibility that a client
 can send a delete request to Riak 
@@ -86,7 +86,7 @@ recommend keeping `delete_mode` set to the default of `keep`.
 
 If you are updating an object that has been deleted---or if you suspect
 that an update might target a deleted object---it is recommended that
-you first fetch [[vector clock]] of the object prior to updating. This
+you first fetch the [[vector clock]] of the object prior to updating. This
 can be done by setting `deletedvclock` parameter to `true` as part of
 the [[fetch operation|PBC Fetch Object]]. This can also be done with the
 official Riak clients for Ruby, Java, and Erlang, as in the example
