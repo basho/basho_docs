@@ -51,43 +51,127 @@ Going back to our user data example, instead of simply storing user records in o
 
 We can interact with that set on the basis of its location:
 
+```ruby
+require 'riak'
+
+Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = "sets"
+
+set_bucket = client.bucket('sets')
+user_id_set = Riak::Crdt::Set.new(set_bucket, 'usernames')
+```
+
+```java
+Location userIdSet = new Location(new Namespace("sets", "sets"), "usernames");
+
+// With this location, we can construct fetch operations like this:
+FetchSet fetchUserIdSet = new FetchSet.Builder(userIdSet).build();
+```
+
 ```python
 from riak.datatypes import Set
 
 bucket = client.bucket_type('sets').bucket('sets')
-set = Set(bucket, 'usernames')
+user_id_set = Set(bucket, 'usernames')
 ```
 
 Then, we can create a function that stores a user record's key in that set every time a record is created:
 
-```python
-# using the "set" object from above
+```ruby
+class User
+  attr_accessor :username, :info
+end
 
+def store_record(user)
+  # First we create an empty object and specify its bucket and key
+  obj = Riak::RObject.new(client.bucket('users'), user.username)
+
+  # We'll keep it simple by storing plain text for each user's info
+  obj.content_type = 'text/plain'
+  obj.raw_data = user.info
+  obj.store
+
+  # Finally, we'll add the user's username to the set
+  user_id_set.add(user.username)
+end
+```
+
+```java
+// A User class for constructing user records
+class User {
+	public String username;
+	public String info;
+
+	public User(String username, String info) {
+		this.username = username;
+		this.info = info;
+	}
+}
+
+// A function for storing a user record that has been created
+public void storeUserRecord(User user) {
+	Location userObjectLocation =
+		new Location(new Namespace("users"), user.username);
+	RiakObject userObject = new RiakObject()
+			.setContentType("text/plain")
+			.setValue(user.info);
+	StoreValue store = new StoreValue.Builder(userObjectLocation, userObject)
+			.build();
+	client.execute(store);
+
+	Location userIdSet =
+		new Location(new Namespace("sets", "sets"), "usernames");
+	SetUpdate su = new SetUpdate()
+			.add(BinaryValue.create(user.username));
+	UpdateSet update = new UpdateSet.Builder(su, update)
+			.build();
+	client.execute(update);
+}
+```
+
+```python
 class User:
     def __init__(self, username, info):
         this.username = username
         this.info = info
 
+# Using the "user_id_set" object from above
 def store_record(user):
+	# First we create an empty object and specify its bucket and key
     obj = RiakObject(client, 'users', user.username)
+
+    # We'll keep it simple by storing plain text for each user's info
     obj.content_type = 'text/plain'
     obj.data = user.info
     obj.store()
-    set.add(username)
-    set.store()
+
+    # Finally, we'll add the user's username to the set
+    user_id_set.add(username)
+    user_id_set.store()
 ```
 
 Now, let's say that we want to be able to pull up all user records in the bucket at once. We could do so by iterating through the usernames stored in our set and then fetching the object corresponding to each username:
+
+```ruby
+# Using the "user_id_set" set from above
+def fetch_all_user_records:
+  users_bucket = client.bucket('users')
+  user_records = Array.new
+  user_id_set.members.each do |user_id|
+    user_records = users_bucket.get(user_id)
+    user_records.push(user_record)
+  end
+  user_records
+```
 
 ```python
 # We'll create a generator object that will yield a list of Riak objects
 def fetch_all_user_records():
 	users_bucket = client.bucket('users')
-    user_id_list = list(set.reload().value)
+    user_id_list = list(user_id_set.reload().value)
     for user_id in user_id_list:
     	yield users_bucket.get(user_id)
 
-# We can then retrieve that list of Riak objects at any point:
+# We can retrieve that list of Riak objects later on:
 list(fetch_all_user_records())
 ```
 
