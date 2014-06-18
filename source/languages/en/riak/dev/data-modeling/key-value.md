@@ -128,7 +128,7 @@ def get_user_by_username(username):
 
 Riak [[bucket types|Using Bucket Types]] have two essential functions: they enable you to manage [[bucket configurations|Buckets]] in an efficient and streamlined way and, more importantly for our purposes here, they act as a third namespace in Riak in addition to buckets and keys. Thus, in Riak versions 2.0 and later you have access to a third layer of information for locating objects if you wish.
 
-While bucket types are typically used to assign different bucket properties to groups of buckets, you can also create named bucket types that simply extend Riak's [[defaults|Using Bucket Types#bucket-types-as-namespaces]] or multiple bucket times that have the same configuration but have different names.
+While bucket types are typically used to assign different bucket properties to groups of buckets, you can also create named bucket types that simply extend Riak's [[defaults|Using Bucket Types#bucket-types-as-namespaces]] or multiple bucket types that have the same configuration but have different names.
 
 Here's an example of creating four bucket types that only extend Riak's defaults:
 
@@ -142,13 +142,13 @@ riak-admin bucket-type create john-paul
 Or you can create five different bucket types that all set `n_val` to 2 but have different names:
 
 ```bash
-riak-admin bucket-type create earth '{"props":{"n_val":5}}'
-riak-admin bucket-type create fire '{"props":{"n_val":5}}'
-riak-admin bucket-type create wind '{"props":{"n_val":5}}'
-riak-admin bucket-type create water '{"props":{"n_val":5}}'
-riak-admin bucket-type create heart '{"props":{"n_val":5}}'
+riak-admin bucket-type create earth '{"props":{"n_val":2}}'
+riak-admin bucket-type create fire '{"props":{"n_val":2}}'
+riak-admin bucket-type create wind '{"props":{"n_val":2}}'
+riak-admin bucket-type create water '{"props":{"n_val":2}}'
+riak-admin bucket-type create heart '{"props":{"n_val":2}}'
 ```
 
 ## Resources
 
-More on key/value modeling in Riak can be found in [this presentation](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo) by Basho evangelist [Hector Castro](https://github.com/hectcastro) with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example).
+More on key/value modeling in Riak can be found in [this presentation](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo) by Basho evangelist [Hector Castro](https://github.com/hectcastro),s with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example).
