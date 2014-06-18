@@ -9,7 +9,7 @@ keywords: [keys, values, data-types]
 
 While Riak enables you to take advantage of a wide variety of features that can be useful in application development, such as [[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]], and [[Riak Data Types|Using Data Types]], Riak almost always performs best when you limit your application to basic CRUD operations (create, read, update, and delete) on objects, i.e. when you use Riak as a "pure" key/value store.
 
-If you'd like to use those features, we recommend checking out the documentation for each of them. In this tutorial, we'll suggest some strategies for object naming and modeling for "pure" key/value interactions with Riak.
+If you'd like to use those features, we recommend checking out the documentation for each of them. In this tutorial, we'll suggest some strategies for object naming and modeling for "pure" key/vsalue interactions with Riak.
 
 ## Advantages of Key/Value Operations
 
@@ -80,15 +80,15 @@ def store_record(user):
 Now, let's say that we want to be able to pull up all user records in the bucket at once. We could do so by iterating through the usernames stored in our set and then fetching the object corresponding to each username:
 
 ```python
-bucket = client.bucket('users')
-
+# We'll create a generator object that will yield a list of Riak objects
 def fetch_all_user_records():
-    all_user_ids = list(set.reload().value)
-    user_records = []
-    for id in all_user_ids:
-        obj = bucket.get(id)
-        user_records.append(obj)
-    return user_records
+	users_bucket = client.bucket('users')
+    user_id_list = list(set.reload().value)
+    for user_id in user_id_list:
+    	yield users_bucket.get(user_id)
+
+# We can then retrieve that list of Riak objects at any point:
+list(fetch_all_user_records())
 ```
 
 ## Naming and Object Verification
