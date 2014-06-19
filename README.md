@@ -283,3 +283,17 @@ This is still a work in progress, but adding `INDEX=true` will deploy the docs t
 ```
 RIAK_VERSION=1.4.0 INDEX=true DEPLOY=true bundle exec middleman build
 ```
+
+## PDF Generation
+
+Generate a single HTML document:
+
+```bash
+ruby pdf/pdfgen.rb
+```
+
+To generate using Pandoc:
+
+```bash
+pandoc pdf/build/docs.html -o docs.pdf --latex-engine=xelatex
+```
