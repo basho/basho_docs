@@ -72,6 +72,7 @@ proportional to the number of concurrent updates.
 
 In terms of performance, the difference between vector clocks and DVVs
 should be minimal in most cases. Because DVVs de-duplicate updates,
+they should generally be smaller than objects that use vector clocks.
 
 ## Usage
 
