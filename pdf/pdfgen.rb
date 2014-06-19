@@ -32,12 +32,12 @@ dirs_to_render = ['dev', 'ops', 'theory']
 $html_string << markdown_parser.render(File.read('build/index.md'))
 
 Dir['../source/languages/en/riak/**/*.md'].each do |file|
-	if !($dont_render.include? file)
-		raw_file_contents = File.read(file)
-		raw_file_contents.gsub!(/\/images/, '../source/images')
-		$html_string << markdown_parser.render(raw_file_contents)
-		# $toc_string << markdown_parser.render(raw_file_contents)
-	end
+  if !($dont_render.include? file)
+    raw_file_contents = File.read(file)
+    raw_file_contents.gsub!(/\/images/, '../source/images')
+    $html_string << markdown_parser.render(raw_file_contents)
+    # $toc_string << markdown_parser.render(raw_file_contents)
+  end
 end
 
 html = $html_string
