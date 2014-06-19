@@ -14,16 +14,17 @@ def generate_index_markdown
         subsection['sub'].each do |ss|
           if ss.is_a? String
             markdown_string.concat("#{ss}\n")
-					elsif ss.is_a? Hash
+          elsif ss.is_a? Hash
             ss['sub'].each do |sss|
               markdown_string.concat("#{sss}\n")
             end
           end
-				end
-			end
-		end
-	end
-	p markdown_string
-	File.write('pdf/build/index.md', markdown_string)
+        end
+      end
+    end
+  end
+  p markdown_string
+  File.write('pdf/build/index.md', markdown_string)
 end
+
 generate_index_markdown

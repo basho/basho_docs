@@ -35,12 +35,8 @@ Dir['../source/languages/en/riak/**/*.md'].each do |file|
 	if !($dont_render.include? file)
 		raw_file_contents = File.read(file)
 		raw_file_contents.gsub!(/\/images/, '../source/images')
-    raw_file_contents.del!('✓')
-    raw_file_contents.del!('✗')
-    raw_file_contents.del!('ﬁ')
-    raw_file_contents.del!('&rarr;')
 		$html_string << markdown_parser.render(raw_file_contents)
-		$toc_string << markdown_parser.render(raw_file_contents)
+		# $toc_string << markdown_parser.render(raw_file_contents)
 	end
 end
 
