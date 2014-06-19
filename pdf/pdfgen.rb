@@ -29,10 +29,14 @@ $toc_string = ""
 
 dirs_to_render = ['dev', 'ops', 'theory']
 
-Dir['source/languages/en/riak/**/*.md'].each do |file|
+Dir['../source/languages/en/riak/**/*.md'].each do |file|
 	if !($dont_render.include? file)
 		raw_file_contents = File.read(file)
-		raw_file_contents.gsub!(/\/images/, 'source/images')
+		raw_file_contents.gsub!(/\/images/, '../source/images')
+    raw_file_contents.del!('✓')
+    raw_file_contents.del!('✗')
+    raw_file_contents.del!('ﬁ')
+    raw_file_contents.del!('→')
 		$html_string << markdown_parser.render(raw_file_contents)
 		$toc_string << markdown_parser.render(raw_file_contents)
 	end
@@ -49,4 +53,4 @@ final_string = """<html>
   </body>
 </html>"
 
-File.write('docs.html', final_string)
+File.write('build/docs.html', final_string)

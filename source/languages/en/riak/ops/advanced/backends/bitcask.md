@@ -543,7 +543,7 @@ Riak will create a Bitcask database directory for each vnode in a cluster. In
 each of those directories there will be at most one database file open for
 writing at any given time. The file being written to will grow until it
 exceeds a size threshold at which time it is closed and a new ﬁle is created
-for additional writes. Once a ﬁle is closed, either purposefully or due to
+for additional writes. Once a file is closed, either purposefully or due to
 server exit, it is considered immutable and will never be opened for writing
 again.
 
