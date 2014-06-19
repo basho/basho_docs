@@ -77,7 +77,6 @@ This page is a collection of videos, slides, papers, and other media detailing v
 	</tr>	
     <tr>
         <td class="vid_td">
-            <a href="http://www.infoq.com/presentations/Case-Study-Riak-on-Drugs" target="_blank" title="Riak on Drugs (and the Other Way Around)"><img class="vid_img"src="http://basho.com/images/riak-on-drugs.jpg"/></a>
         </td>
         <td class="vid_td">
             <a href="http://www.infoq.com/presentations/Case-Study-Riak-on-Drugs" target="_blank" title="Riak on Drugs (and the Other Way Around)">Riak on Drugs (and the Other Way Around)</a><br />October 11, 2011 --- Kresten Krab Thorup discusses a MySQL project that was moved to Riak for high availability and scalability and to run in multiple datacenters, sharing experiences, pitfalls, and lessons learned. 
