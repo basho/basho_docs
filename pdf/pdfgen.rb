@@ -53,3 +53,16 @@ final_string = """<html>
 </html>"
 
 File.write('docs.html', final_string)
+
+def generate_index_markdown
+  markdown_string = String.new
+  markdown_string.concat("Welcome to the Riak Docs!\n\n")
+  riak_nav = YAML.load_file('source/languages/en/global_nav.yml')['riak']
+  Array(0..riak_nav.length - 1).each do |section|
+    markdown_string.concat("## #{riak_nav[section]['title']}\n\n")
+    
+  end
+  p markdown_string
+  File.write('index.md', markdown_string)
+end
+generate_index_markdown

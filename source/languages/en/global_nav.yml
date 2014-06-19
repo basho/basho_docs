@@ -79,7 +79,6 @@ riak:
           - "[[Replication Properties]]"
           - title: "Reference"
             sub:
-              # - "[[Bucket References]]"
               - "[[Search Indexing|Search Indexing Reference]]"
               - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
@@ -184,7 +183,6 @@ riak:
           - "[[Capability Negotiation]]"
       - title: "Riak Compared to"
         sub:
-          # - "[[Riak Comparisons Overview|Riak Comparisons]]"
           - "[[Cassandra|Riak Compared to Cassandra]]"
           - "[[Couchbase|Riak Compared to Couchbase]]"
           - "[[CouchDB|Riak Compared to CouchDB]]"
