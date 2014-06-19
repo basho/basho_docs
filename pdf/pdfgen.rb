@@ -4,6 +4,7 @@
 require 'rubygems'
 require 'yaml'
 require 'redcarpet'
+require './generate_index'
 
 class String
 	def del!(regex)
