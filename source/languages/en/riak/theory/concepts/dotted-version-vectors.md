@@ -49,27 +49,29 @@ during background operations like [[active anti-entropy]] or
 in client-side [[conflict resolution]]. The crucial difference between
 them, however, lies in the way that they handle concurrent updates.
 
-Vector clocks do not have a mechanism to detect concurrent updates. If
-an object stored in the bucket `frequent_updates` with the
-key `update_me` is updated by five different clients concurrently and
-tagged with vector clocks, Riak will have no means at its disposal to
-decide which object should be deemed most causally recent. The result is
-that concurrent updates will often produce duplicate values, which can
+Vector clocks can detect concurrent updates to the same object but do
+not identify which value was associated with each update. If an object
+stored in the bucket `frequent_updates` with the key `update_me` is
+updated by five different clients concurrently and tagged with the
+same vector clock, then five values should be created as siblings.
+However, depending on the order of delivery of those updates to
+the different replicas, sibling values may be duplicated, which can
 in turn lead to [[sibling explosion|Vector Clocks#sibling-explosion]]
 and thus undue [[latency|Latency Reduction Checklist]].
 
-DVVs, on the other hand, were designed with concurrent updates in mind.
-They carry more granular information about causality than vector clocks.
-If five clients concurrently update the object above (in the bucket 
-`frequent_updates`, with the key `update_me`), each of these updates
-will be marked with a _dotted_ vector that indicates both (a) which
-actors have updated the object and (b) how many times they have done so.
-When using DVVs, siblings can still be created in the event of
-concurrent updates, but sibling explosion is far less likely.
+DVVs, on the other hand, identify each value with the update that
+created it. If five clients concurrently update the object above (in
+the bucket `frequent_updates`, with the key `update_me`), each of
+these updates will be marked with a _dot_ (a minimal
+[[vector clock|vector clocks]]) that indicates the specific event that
+introduced it. This means that duplicate values can always be
+identified and removed, reducing the likelihood of
+[[sibling explosion|Vector Clocks#sibling-explosion]]. Rather than
+being potentially unbounded, the number of sibling values will be
+proportional to the number of concurrent updates.
 
 In terms of performance, the difference between vector clocks and DVVs
-should be minimal in most cases, although it should be noted that
-DVVs tend to be more lightweight.
+should be minimal in most cases. Because DVVs de-duplicate updates,
 
 ## Usage
 
