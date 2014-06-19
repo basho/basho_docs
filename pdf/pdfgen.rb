@@ -29,6 +29,8 @@ $toc_string = ""
 
 dirs_to_render = ['dev', 'ops', 'theory']
 
+$html_string << markdown_parser.render(File.read('build/index.md'))
+
 Dir['../source/languages/en/riak/**/*.md'].each do |file|
 	if !($dont_render.include? file)
 		raw_file_contents = File.read(file)
@@ -36,7 +38,7 @@ Dir['../source/languages/en/riak/**/*.md'].each do |file|
     raw_file_contents.del!('✓')
     raw_file_contents.del!('✗')
     raw_file_contents.del!('ﬁ')
-    raw_file_contents.del!('→')
+    raw_file_contents.del!('&rarr;')
 		$html_string << markdown_parser.render(raw_file_contents)
 		$toc_string << markdown_parser.render(raw_file_contents)
 	end
