@@ -26,3 +26,5 @@ def generate_index_markdown
   File.write('./build/index.md', markdown_string)
   p 'Generated a Markdown index in /build out of global_nav.yml'
 end
+
+generate_index_markdown
