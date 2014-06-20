@@ -1623,6 +1623,18 @@ Data Type contexts are similar to vector clocks in that they are opaque (i.e. no
 
 In the example below, we'll fetch the context from the user data map we created for Ahmed:
 
+
+```java
+// Using the "ahmedMap" Location from above:
+
+FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
+FetchMap.Response response = client.execute(fetch);
+Context ctx = response.getContext();
+System.out.prinntln(ctx.getValue().toString())
+
+// An indecipherable string of Unicode characters should then appear
+```
+
 ```ruby
 bucket = client.bucket('users')
 ahmed_map = Riak::Crdt::Map.new(bucket, 'ahmed_info', 'maps')
@@ -1637,15 +1649,10 @@ bucket = client.bucket_type('maps').bucket('users')
 # g2wAAAABaAJtAAAACCMJ/vlTlb0zYQFq
 ```
 
-```java
-// Using the "ahmedMap" Location from above:
-
-FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
-FetchMap.Response response = client.execute(fetch);
-Context ctx = response.getContext();
-System.out.prinntln(ctx.getValue().toString())
-
-// An indecipherable string of Unicode characters should then appear
+```erlang
+%% You cannot fetch a Data Type's context directly using the Erlang
+%% client. This is actually quite all right, as the client automatically
+%% manages contexts when making updates.
 ```
 
 <div class="note">
