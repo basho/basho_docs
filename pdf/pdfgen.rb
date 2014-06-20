@@ -1,11 +1,18 @@
 require 'rubygems'
 require 'yaml'
 require 'redcarpet'
-require './generate_index'
 
 class String
   def del!(regex)
     gsub!(regex, '')
+  end
+end
+
+def generate_markdown_files_list
+  
+  
+  Dir[all_markdown_files].each do |file|
+
   end
 end
 
@@ -43,14 +50,18 @@ def gen_html
   File.write('build/docs.html', html_string)
 end
 
+def generate_latex
+  # TODO
+end
+
 def generate_pdf
   gen_html
 
-  
+  # gen_latex
 
-  # Use Pandoc to generate the actual PDF
+  # Use Pandoc to generate the final PDF
   puts 'Generating PDF...'
-  `pandoc build/docs.html -o docs.pdf --latex-engine=xelatex`
+  `pandoc build/docs.html -o docs.tex --latex-engine=xelatex`
 
   puts 'Generation complete!'
 end
