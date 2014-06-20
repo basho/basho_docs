@@ -1,4 +1,3 @@
-
 ---
 title: Using Data Types
 project: riak
@@ -1614,4 +1613,65 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
     }
   }
   '
+```
+
+## Data Types and Context
+
+When performing normal key/value updates in Riak, you're advised to use [[vector clocks]], which enable Riak to make intelligent decisions behind the scenes about which objects should be considered more causally recent. In some of the examples above, you saw references to **context** metadata included with each Data Type stored in Riak.
+
+Data Type contexts are similar to vector clocks in that they are opaque (i.e. not readable by humans) and also perform a similar function to that of vector clocks, i.e. they inform Riak which version of the Data Type a client is attempting to modify. This information is often essential to Riak when making decisions about convergence.
+
+In the example below, we'll fetch the context from the user data map we created for Ahmed:
+
+```ruby
+bucket = client.bucket('users')
+ahmed_map = Riak::Crdt::Map.new(bucket, 'ahmed_info', 'maps')
+ahmed_map.instance_variable_get(:@context)
+
+# => "\x83l\x00\x00\x00\x01h\x02m\x00\x00\x00\b#\t\xFE\xF9S\x95\xBD3a\x01j"
+```
+
+```python
+bucket = client.bucket_type('maps').bucket('users')
+
+# g2wAAAABaAJtAAAACCMJ/vlTlb0zYQFq
+```
+
+```java
+// Using the "ahmedMap" Location from above:
+
+FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
+FetchMap.Response response = client.execute(fetch);
+Context ctx = response.getContext();
+System.out.prinntln(ctx.getValue().toString())
+
+// An indecipherable string of Unicode characters should then appear
+```
+
+<div class="note">
+<div class="title">Context and the Ruby, Python, and Erlang clients</div>
+In the Ruby, Python, and Erlang clients, you will not need to manually handle context when making Data Type updates. The clients will do it all for you. The one exception amongst the official clients is the Java client. We'll explain how to use Data Type contexts with the Java client directly below.
+</div>
+
+With the Java client, you'll need to manually fetch and return Data Type contexts for the following operations:
+
+* Disabling a flag within a map
+* Removing an item from a set (whether the set is on its own or within a map)
+* Removing a field from a map
+
+Without context, these operations simply will not succeed due to the convergence logic driving Riak Data Types. The example below shows you how to fetch a Data Type's context and then pass it back to Riak. More specifially, we'll remove the `paid_account` flag from the map:
+
+```java
+// This example uses our "ahmedMap" location from above:
+
+FetchMap fetch = new FetchMap.Builder(ahmedMap)
+    .build();
+FetchMap.Response response = client.execute(fetch);
+Context ctx = response.getContext();
+MapUpdate removePaidAccountField = new MapUpdate()
+        .removeFlag("paid_account");
+UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
+        .withContext(ctx)
+        .build();
+client.execute(update);
 ```
