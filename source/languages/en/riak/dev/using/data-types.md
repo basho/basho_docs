@@ -88,6 +88,10 @@ bucket = client.bucket('counters')
 bucket.get('<key>', type: 'counters')
 ```
 
+```python
+bucket = client.bucket_type('counter_bucket').bucket('counters')
+```
+
 ```erlang
 %% Buckets are simply named binaries in the Erlang client.
 %% See below for more information.
@@ -123,6 +127,16 @@ curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/<key
 counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 ```
 
+```python
+# The client detects the bucket-type's datatype and automatically
+# returns the right datatype for you, in this case a Counter.
+counter = bucket.new(key)
+
+# This way is also acceptable:
+from riak.datatypes import Counter
+counter = Counter(bucket, key)
+```
+
 ```erlang
 %% Counters are not encapsulated with the bucket/key in the Erlang
 %% client. See below for more information.
@@ -156,6 +170,10 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counters'
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```
 
+```python
+counter = bucket.new('traffic_tickets')
+```
+
 ```erlang
 Counter = riakc_counter:new().
 
@@ -186,6 +204,14 @@ curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traff
 counter.increment
 ```
 
+```python
+counter.increment()
+
+# Updates are staged locally and have to be explicitly sent to Riak
+# using the `store()` method.
+counter.store()
+```
+
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -203,6 +229,10 @@ client.execute(update);
 ```
 
 ```ruby
+counter.increment(5)
+```
+
+```python
 counter.increment(5)
 ```
 
@@ -231,6 +261,22 @@ Long ticketsCount = counter.view();
 ```ruby
 counter.value
 # Output will always be an integer
+```
+
+```python
+counter.dirty_value
+
+# The value fetched from Riak is always immutable, whereas the "dirty
+# value" takes into account local modifications that have not been
+# sent to the server. For example, whereas the call above would return
+# '6', the call below will return '0' since we started with an empty
+# counter:
+
+counter.value
+
+# To fetch the value stored on the server, use the call below. Note
+# that this will clear any unsent increments.
+counter.reload()
 ```
 
 ```erlang
@@ -278,6 +324,15 @@ counter.decrement
 counter.decrement(3)
 ```
 
+```python
+counter.decrement()
+
+# Just like incrementing you can also decrement by more than one, e.g.:
+
+counter.decrement(3)
+```
+
+
 ```erlang
 Counter3 = riakc_counter:decrement(Counter2).
 
@@ -323,6 +378,25 @@ Location counter = new Location("<bucket>")
 set = Riak::Crdt::Set.new(bucket, key, bucket_type)
 ```
 
+```python
+# Note: The Python standard library `collections` module has an abstract
+# base class called Set, which the Riak Client version subclasses as
+# `riak.datatypes.Set`. These classes are not directly interchangeable.
+# In addition to the base methods, `riak.datatypes.Set` also
+# implements the `add` and `discard` methods from
+# `collections.MutableSet`, but does not implement the rest of its
+# API. Be careful when importing, or simply use the instances returned
+# by `RiakBucket.get()` and `RiakBucket.new()` instead of directly
+# importing the class.
+
+set = bucket.new(key)
+
+# or
+
+from riak.datatypes import Set
+set = Set(bucket, key)
+```
+
 ```erlang
 %% Like counters, sets are not encapsulated in a
 %% bucket/key in the Erlang client. See below for more
@@ -362,6 +436,14 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
+```python
+travel = client.bucket_type('set_bucket').bucket('travel')
+
+# The client detects the bucket-type's datatype and automatically
+# returns the right datatype for you, in this case a Set.
+set = travel.new('cities')
+```
+
 ```erlang
 Set = riakc_set:new().
 
@@ -391,6 +473,10 @@ boolean isEmpty = set.view().size() == 0;
 set.empty?
 
 # true
+```
+
+```python
+len(set) == 0
 ```
 
 ```erlang
@@ -428,6 +514,11 @@ set.add('Toronto')
 set.add('Montreal')
 ```
 
+```python
+set.add('Toronto')
+set.add('Montreal')
+```
+
 ```erlang
 Set1 = riakc_set:add_element(<<"Toronto">>, Set),
 Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
@@ -456,6 +547,12 @@ client.execute(update);
 
 ```ruby
 set.remove('Montreal')
+set.add('Hamilton')
+set.add('Ottawa')
+```
+
+```python
+set.discard('Montreal')
 set.add('Hamilton')
 set.add('Ottawa')
 ```
@@ -490,6 +587,22 @@ for (BinaryValue city : citiesSet) {
 set.members
 
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
+```
+
+```python
+set.dirty_value
+
+# The value fetched from Riak is always immutable, whereas the "dirty
+# value" takes into account local modifications that have not been
+# sent to the server. For example, where the call above would return
+# frozenset(['Toronto', 'Hamilton', 'Ottawa']), the call below would
+# return frozenset([]).
+
+set.value
+
+# To fetch the value stored on the server, use the call below. Note
+# that this will clear any unsent additions or deletions.
+set.reload()
 ```
 
 ```erlang
@@ -541,6 +654,14 @@ set.include? 'Ottawa'
 # true
 ```
 
+```python
+'Vancouver' in set
+# False
+
+'Ottawa' in set
+# True
+```
+
 ```erlang
 %% At this point, Set5 is the most "recent" set from the standpoint
 %% of our application.
@@ -564,6 +685,10 @@ int numberOfCities = citiesSet.size();
 
 ```ruby
 set.members.length
+```
+
+```python
+len(set)
 ```
 
 ```erlang
@@ -594,6 +719,16 @@ Location counter = new Location("<bucket>")
 
 ```ruby
 map = Riak::Crdt::Map.new(bucket, key)
+```
+
+```python
+# The client detects the bucket-type's datatype and automatically
+# returns the right datatype for you, in this case a Map.
+map = bucket.new(key)
+
+# This way is also acceptable:
+from riak.datatypes import Map
+map = Map(bucket, key)
 ```
 
 ```erlang
@@ -633,6 +768,11 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
 # This would enable us to create our map without specifying a bucket type:
 
 map = Riak::Crdt::Map.new(customers, 'ahmed_info')
+```
+
+```python
+customers = client.bucket_type('map_bucket').bucket('customers')
+map = customers.net('ahmed_info')
 ```
 
 ```erlang
@@ -675,8 +815,17 @@ map.registers['first_name'] = 'Ahmed'
 map.registers['phone_number'] = '5551234567'
 
 # Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
-
 map.registers['phone_number'] = 5551234567.to_s
+```
+
+```python
+map.registers['first_name'].assign('Ahmed')
+map.registers['phone_number'].assign('5551234567')
+
+# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+map.registers['phone_number'].assign(str(5551234567))
+
+map.store()
 ```
 
 ```erlang
@@ -726,6 +875,11 @@ client.execute(update);
 map.flags['enterprise_customer'] = false
 ```
 
+```python
+map.flags['enterprise_customer'].disable()
+map.store()
+```
+
 ```erlang
 Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
                         fun(F) -> riakc_flag:disable(F) end,
@@ -760,6 +914,10 @@ map.flags['enterprise_customer']
 # false
 ```
 
+```python
+map.reload().flags['enterprise_customer'].value
+```
+
 ```erlang
 %% The value fetched from Riak is always immutable, whereas the "dirty
 %% value" takes into account local modifications that have not been
@@ -792,6 +950,11 @@ client.execute(update);
 map.counters['page_visits'].increment
 
 # This operation may return false even if successful
+```
+
+```python
+map.counters['page_visits'].increment()
+map.store()
 ```
 
 ```erlang
@@ -838,6 +1001,12 @@ client.execute(update);
 %w{ robots opera motorcycles }.each do |interest|
   map.sets['interests'].add interest
 end
+```
+
+```python
+for interest in ['robots', 'opera', 'motorcycles']:
+    map.sets['interests'].add(interest)
+map.store()
 ```
 
 ```erlang
@@ -891,6 +1060,12 @@ end
 # This will return three Boolean values
 ```
 
+```python
+reloaded_map = map.reload()
+for interest in ['robots', 'opera', 'motorcycles']:
+    interest in reloaded_map.sets['interests'].value
+```
+
 ```erlang
 riakc_map:dirty_value(Map6).
 ```
@@ -920,6 +1095,12 @@ map.sets['interests'].remove('opera')
 # This operation may return false even if successful
 
 map.sets['interests'].add('indie pop')
+```
+
+```python
+map.sets['interests'].discard('opera')
+map.sets['interests'].add('indie pop')
+map.store()
 ```
 
 ```erlang
@@ -976,6 +1157,13 @@ client.execute(update);
 map.maps['annika_info'].registers['first_name'] = 'Annika'
 map.maps['annika_info'].registers['last_name'] = 'Weiss'
 map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
+```
+
+```python
+map.maps['annika_info'].registers['first_name'].assign('Annika')
+map.maps['annika_info'].registers['last_name'].assign('Weiss')
+map.maps['annika_info'].registers['phone_number'].assign(str(5559876543))
+map.store()
 ```
 
 ```erlang
@@ -1037,6 +1225,10 @@ map.maps['annika_info'].registers['first_name']
 # "Annika"
 ```
 
+```python
+map.reload().maps['annika_info'].registers['first_name'].value
+```
+
 ```erlang
 riakc_map:dirty_value(Map14).
 ```
@@ -1069,6 +1261,11 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].registers.remove('phone_number')
+```
+
+```python
+del map.maps['annika_info'].registers['phone_number']
+map.store()
 ```
 
 ```erlang
@@ -1117,6 +1314,13 @@ client.execute(update);
 map.maps['annika_info'].flags['enterprise_plan'] = false
 map.maps['annika_info'].flags['family_plan'] = false
 map.maps['annika_info'].flags['free_plan'] = true
+```
+
+```python
+map.maps['annika_info'].flags['enterprise_plan'].disable()
+map.maps['annika_info'].flags['family_plan'].disable()
+map.maps['annika_info'].flags['free_plan'].enable()
+map.store()
 ```
 
 ```erlang
@@ -1180,6 +1384,10 @@ map.maps['annika_info'].flags['enterprise_plan']
 # false
 ```
 
+```python
+map.reload().maps['annika_info'].flags['enterprise_plan'].value
+```
+
 ```erlang
 riakc_map:dirty_value(Map18).
 ```
@@ -1206,6 +1414,11 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].counters['widget_purchases'].increment
+```
+
+```python
+map.maps['annika_info'].counters['widget_purchases'].increment()
+map.store()
 ```
 
 ```erlang
@@ -1254,6 +1467,11 @@ client.execute(update);
 map.maps['annika_info'].sets['interests'].add('tango dancing')
 ```
 
+```python
+map.maps['annika_info'].sets['interests'].add('tango dancing')
+map.store()
+```
+
 ```erlang
 Map20 = riakc_map:update(
     {<<"annika_info">>, map},
@@ -1299,7 +1517,12 @@ client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].set['interests'].remove('tango dancing')
+map.maps['annika_info'].sets['interests'].remove('tango dancing')
+```
+
+```python
+map.maps['annika_info'].sets['interests'].discard('tango dancing')
+map.store()
 ```
 
 ```erlang
@@ -1352,6 +1575,14 @@ map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
 map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
 map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
 # and so on
+```
+
+```python
+map.maps['annika_info'].maps['purchase'].flags['first_purchase'].enable()
+map.maps['annika_info'].maps['purchase'].register['amount'].assign(str(1271))
+map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
+# and so on
+map.store()
 ```
 
 ```erlang
