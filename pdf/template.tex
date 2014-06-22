@@ -1,0 +1,230 @@
+\documentclass[letter]{book}
+special{papersize=8.5in,11in}
+
+\usepackage[
+	urlcolor = blue,
+	colorlinks = true,
+	citecolor = black,
+	linkcolor = black]{hyperref}
+\usepackage{graphicx}
+\usepackage{xltxtra}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage{framed,color}
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
+\usepackage{perpage}
+
+\definecolor{shadecolor}{gray}{1.00}
+
+\setromanfont[Mapping=tex-text,BoldFont={* Bold}]{Andale Mono}
+\setmonofont[Scale=.85]{Andale Mono }
+
+\XeTeXlinebreaklocale{en}
+
+\settowidth{\parindent}{\\qquad}
+
+\title{A Little Riak Book}
+\author{Eric Redmond}
+
+\makeatletter
+\let\savedauthor=\@author
+\let\savedtitle=\@title
+\def\imgwidth{.6\linewidth}
+\def\maxwidth{\ifdim\Gin@nat@width>\imgwidth\imgwidth
+\else\Gin@nat@width\fi}
+\makeatother
+
+\title{\textbf{\savedtitle}}
+\author{\textbf{\savedauthor}\thanks{Generic placeholder thanks for now}}
+\date{\w3cdtfymd}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\makeatletter
+
+  \setlength\headheight{12\p@}
+  \setlength\headsep   {.25in}
+  \setlength\topskip   {10\p@}
+  \setlength\footskip{.35in}
+  \setlength\textwidth{400\p@}
+  
+  \setlength\@tempdima{\paperheight}
+  \addtolength\@tempdima{-<%= isprint ? 1.8 : 2 %>in}
+  \divide\@tempdima\baselineskip
+  \@tempcnta=\@tempdima
+  \setlength\textheight{\@tempcnta\baselineskip}
+  \addtolength\textheight{\topskip}
+  
+  \setlength\@tempdima        {\paperwidth}
+  \addtolength\@tempdima      {-\textwidth}
+  \setlength\oddsidemargin    {\paperwidth}
+  \addtolength\oddsidemargin  {-<%= isprint ? 2.05 : 2.35 %>in}
+  \addtolength\oddsidemargin  {-\textwidth}
+  \setlength\marginparwidth   {0pt}
+  \@settopoint\oddsidemargin
+  \@settopoint\marginparwidth
+  \setlength\evensidemargin  {\paperwidth}
+  \addtolength\evensidemargin{-<%= isprint ? 2.05 : 2.35 %>in}
+  \addtolength\evensidemargin{-\textwidth}
+  \@settopoint\evensidemargin
+  
+  \setlength\topmargin{\paperheight}
+  \addtolength\topmargin{-2in}
+  \addtolength\topmargin{-\headheight}
+  \addtolength\topmargin{-\headsep}
+  \addtolength\topmargin{-\textheight}
+  \addtolength\topmargin{-\footskip}     % this might be wrong!
+  \addtolength\topmargin{-.5\topmargin}
+  \@settopoint\topmargin
+\makeatother
+
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\footnotesize\textbf\thepage}}
+\pagestyle{plain}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\newcounter{img}[chapter]
+\renewcommand{\theimg}{\thechapter.\arabic{img}}
+\newcommand{\img}[2]{\begin{figure}[ht!]
+	\refstepcounter{img}
+	\label{img:\theimg}
+  \centering\includegraphics[width=\maxwidth]{figures/#1.png}
+  \textbf{\caption{#2}}
+\end{figure}}
+
+\newcounter{tab}[chapter]
+\renewcommand{\thetab}{\thechapter.\arabic{tab}}
+
+\newcommand{\prechap}{<%= config['prechap'] %>}
+\newcommand{\postchap}{<%= config['postchap'] %>}
+\newcommand{\presect}{<%= config['presect'] %>}
+\newcommand{\postsect}{<%= config['postsect'] %>}
+\renewcommand{\chaptermark}[1]{\markboth{\textbf{\prechap \thechapter \postchap}\hspace*{1ex}#1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{\textbf{\presect \thesection \postsect}\hspace*{1ex}#1}}
+\newcommand{\chap}[1]{\newpage\thispagestyle{empty}\chapter{#1}\label{chap:\thechapter}}
+\newcommand{\chapref}[1]{\hyperref[chap:#1]{\prechap #1\postchap}}
+\newcommand{\imgref}[1]{\hyperref[img:#1]{<%= config['fig'] %>#1}}
+\newcommand{\tabref}[1]{\hyperref[tab:#1]{<%= config['tab'] %>#1}}
+\newcommand{\e}[1]{$ \times 10^{#1}$}
+\renewcommand{\contentsname}{<%= config['con'] %>}
+\renewcommand{\figurename}{<%= config['fig'] %>}
+\renewcommand{\tablename}{<%= config['tab'] %>}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{<%= isprint ? 40 : 50 %>\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \huge\bfseries \prechap \thechapter \postchap
+        \par\nobreak
+        \vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip <%= isprint ? 30 : 40 %>\p@
+  }}
+\makeatother
+
+\DefineShortVerb[commandchars=\\\{\}]{\|}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+% \ifxetex
+%   \usepackage[setpagesize=false, % page size defined by xetex
+%               unicode=false, % unicode breaks when used with xetex
+%               xetex,
+%               colorlinks=true,
+%               linkcolor=blue]{hyperref}
+% \else
+%   \usepackage[unicode=true,
+%               colorlinks=true,
+%               linkcolor=blue]{hyperref}
+% \fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+% \EndDefineVerbatimEnvironment{Highlighting}
+
+\mdfdefinestyle{AsideFrame}{%
+    outerlinewidth=0pt,
+    leftline=false,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    roundcorner=6pt,
+    innerbottommargin=0.6\baselineskip,
+    innertopmargin=0.6\baselineskip,
+    skipabove=7pt,
+    skipbelow=7pt,
+    % font=\Huge,
+    backgroundcolor=gray!20
+    % splittopskip=0.5\baselineskip,
+    % frametitleaboveskip=\baselineskip% \baselineskip distance from top rule
+    }
+
+% \newenvironment{aside}[1][]
+%   {\begin{mdframed}[style=0,%
+%       leftline=false,rightline=false,leftmargin=2em,rightmargin=2em,%
+%       innerleftmargin=18pt,innerrightmargin=18pt,linewidth=0pt,%
+%       innerbottommargin=0.6\baselineskip,innertopmargin=0.6\baselineskip,%
+%       roundcorner=10pt,backgroundcolor=gray!20,%
+%       skipabove=7pt,skipbelow=7pt,font=\small,#1]\small}
+%   {\end{mdframed}}
+
+\newenvironment{aside}[1][]
+  {\begin{mdframed}[style=AsideFrame,font=\small,#1]\small}
+  {\end{mdframed}}
+
+
+\linespread{1.3}
+
+\begin{document}
+\frontmatter
+<%= "\\includepdf{assets/cover.pdf}" if !isprint %>
+\maketitle
+\vspace*{2.5in}
+\begin{center}
+    <%= config['license'] %>
+
+    <%= config['typeface'] %>
+\end{center}
+\setcounter{tocdepth}{4}
+\tableofcontents\newpage\thispagestyle{empty}
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+\mainmatter
+\fancyhf{}
+\fancyhead[LE]{{\small\leftmark}}
+\fancyhead[RO]{{\small\rightmark}}
+\fancyhead[RE,LO]{{\small\savedauthor\hspace*{1ex}\textbf{\savedtitle}}}
+\fancyfoot[LE,RO]{\small\textbf\thepage}
+\pagestyle{fancy}
+
+<%= latex %>
+\end{document}

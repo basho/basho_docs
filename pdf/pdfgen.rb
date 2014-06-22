@@ -29,7 +29,7 @@ def gen_html
   html_string << markdown_parser.render(File.read('build/index.md'))
 
   # Parse the files.txt list into an array
-  ordered_files_list = File.read('files.txt').each_line.to_a
+  ordered_files_list = File.read('2.0-index.txt').each_line.to_a
 
   ordered_files_list.each do |file|
     filename = file.gsub("\n", '')
@@ -47,7 +47,22 @@ def gen_html
 end
 
 def generate_latex
-  # TODO
+  ordered_files_list = File.read('2.0-index.txt').each_line.to_a
+
+  markdown_string = String.new
+
+  ordered_files_list.each do |file|
+    filename = file.del!("\n")
+    raw_file_contents = File.read(filename)
+    # raw_file_contents.del!(/---(.*)---/m)
+    raw_file_contents.gsub!(/\/images/, '../source/images')
+    markdown_string << raw_file_contents
+  end
+
+  File.write('all.md', markdown_string)
+
+  # `pandoc -p --no-wrap -f markdown -t latex all.md -o final.tex`
+  # `rm all.md`
 end
 
 def generate_pdf
@@ -62,4 +77,4 @@ def generate_pdf
   puts 'Generation complete!'
 end
 
-generate_pdf
+generate_latex

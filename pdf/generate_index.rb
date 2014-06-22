@@ -28,7 +28,7 @@ def generate_index_markdown
     end
   end
   File.write('./build/index.md', markdown_string)
-  pust "Generated a Markdown index in /build out of global_nav.yml"
+  puts "Generated a Markdown index in /build out of global_nav.yml"
 end
 
 generate_index_markdown
