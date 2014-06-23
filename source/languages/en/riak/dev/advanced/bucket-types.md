@@ -57,9 +57,8 @@ obj.store(type: 'no_siblings')
 ```
 
 ```java
-Location key = new Location("sensitive_user_data")
-        .setBucketType("no_siblings")
-        .setKey("user19735");
+Location key =
+  new Location(new Namespace("no_siblings", "sensitive_user_data"), "user19735");
 RiakObject obj = new RiakObject()
         .setContentType("application/json")
         .setValue(BinaryValue.create("{ ... user data ... }"));
@@ -111,8 +110,7 @@ bucket.get('my_key')
 ```
 
 ```java
-Location myKey = new Location("my_bucket")
-        .setKey("my_key");
+Location myKey = new Location(new Namespace("my_bucket"), "my_key");
 FetchValue fetch = new FetchValue.Builder(myKey).build();
 client.execute(fetch);
 ```
@@ -142,12 +140,10 @@ bucket.get('my_key', type: 'type2')
 ```
 
 ```java
-Location key1 = new Location("my_bucket")
-        .setBucketType("type1")
-        .setKey("my_key");
-Location key2 = new Location("my_bucket")
-        .setBucketType("type2")
-        .setKey("my_key");
+Location key1 =
+  new Location(new Namepace("type1", "my_bucket"), "my_key");
+Location key2 =
+  new Location(new Namepace("type2", "my_bucket"), "my_key");
 FetchValue fetch1 = new FetchValue.Builder(key1).build();
 FetchValue fetch2 = new FetchValue.Builder(key2).build();
 client.execute(fetch1);
@@ -190,11 +186,10 @@ bucket.get('my_key', type: 'default')
 ```
 
 ```java
-Location withDefaultBucketType = new Location("my_bucket")
-        .setBucketType("default")
-        .setKey("my_key");
-Location noBucketType = new Location("my_bucket")
-        .setKey("my_key");
+Location withDefaultBucketType =
+  new Location(new Namespace("default", "my_bucket"), "my_key");
+Location noBucketType =
+  new Location(new Namespace("my_bucket"), "my_key");
 FetchValue fetch1 = new FetchValue.Builder(withDefaultBucketType).build();
 FetchValue fetch2 = new FetchValue.Builder(noBucketType).build();
 client.execute(fetch1);
@@ -234,6 +229,7 @@ Below is a listing of the `props` associated with the `default` bucket type:
       "fun": "chash_std_keyfun",
       "mod": "riak_core_util"
     },
+    "dvv_enabled": false,
     "dw": "quorum",
     "last_write_wins": false,
     "linkfun": {
@@ -309,7 +305,6 @@ Let's say that we're using Riak to store internet memes. We've been using a buck
 
 The following request seeks to add the meme "all your base are belong to us" to the `old_memes` bucket. If the bucket type `no_siblings` has been created and activated, the request will ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
 
-
 ```ruby
 bucket = client.bucket('old_memes')
 obj = Riak::RObject.new(bucket, 'all_your_base')
@@ -319,9 +314,8 @@ obj.store(type: 'no_siblings')
 ```
 
 ```java
-Location allYourBaseKey = new Location("old_memes")
-        .setBucketType("no_siblings")
-        .setKey("all_your_base");
+Location allYourBaseKey =
+  new Location(new Namespace("no_siblings", "old_memes"), "all_your_base");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(BinaryValue.create("all your base are belong to us"));
@@ -389,8 +383,11 @@ This will return a simple list of types along with their current status (either 
 
 ```bash
 riak-admin bucket-type list
+```
 
-# Response:
+An example response:
+
+```
 type1 (active)
 type2 (not active)
 type3 (active)
@@ -454,11 +451,13 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 
 Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
 
-If you'd like to create a bucket type that simply extends Riak's defaults, for example, pass an empty JavaScript object to the `props` parameter:
+If you'd like to create a bucket type with no specified parameters, you can simply create the type without specifying a `props` object:
 
 ```bash
-riak-admin bucket-type create type_using_defaults '{"props":{}}'
+riak-admin bucket-type create no_specified_props
 ```
+
+Please note that when you create a bucket type without specifying any parameters, the resulting bucket type does _not_ extend Riak's default bucket properties. Thus, in both of the cases above, `allow_mult` and `dvv_enabled` will be set to `true` in the resulting bucket type, whereas both are set to `false` for all non-typed buckets.
 
 **Note**: The `create` command can be run multiple times prior to a bucket type being activated. Riak will persist only those properties contained in the final call of the command.
 

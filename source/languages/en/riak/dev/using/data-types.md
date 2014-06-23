@@ -1,4 +1,3 @@
-
 ---
 title: Using Data Types
 project: riak
@@ -67,8 +66,12 @@ Counters are a bucket-level Riak Data Type that can be used either by themselves
 First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
 
 ```java
-Location countersBucket = new Location("counters")
-        .setBucketType("counters");
+// In the Java client, a bucket/bucket type combination is specified
+// using a Namespace object. To specify bucket, bucket type, and key,
+// use a Location object that incorporates the Namespace object, as is
+// done below.
+
+Namespace countersBucket = new Namespace("counters", "counters");
 ```
 
 ```curl
@@ -88,6 +91,10 @@ bucket = client.bucket('counters')
 bucket.get('<key>', type: 'counters')
 ```
 
+```python
+bucket = client.bucket_type('counter_bucket').bucket('counters')
+```
+
 ```erlang
 %% Buckets are simply named binaries in the Erlang client.
 %% See below for more information.
@@ -103,12 +110,17 @@ your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-c
 To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
 
 ```java
-// In the Java client, you specify the location of Data Types
-// before you perform operations on them:
+// Here, we'll use the Namespace object that we created above and
+// incorporate it into a Location object that includes the key (as yet
+// unspecified) for our counter.
 
-Location counter = new Location("counters")
-        .setBucketType("counters")
-        .setKey("<key>");
+// Using the countersBucket Namespace object from above:
+
+Location counter = new Location(countersBucket, "<key>");
+
+// Or we can specify the Location all at once:
+
+Location counter = new Location(new Namespace("counters", "counters"), "<key>");
 ```
 
 ```curl
@@ -123,6 +135,16 @@ curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/<key
 counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 ```
 
+```python
+# The client detects the bucket-type's datatype and automatically
+# returns the right datatype for you, in this case a Counter.
+counter = bucket.new(key)
+
+# This way is also acceptable:
+from riak.datatypes import Counter
+counter = Counter(bucket, key)
+```
+
 ```erlang
 %% Counters are not encapsulated with the bucket/key in the Erlang
 %% client. See below for more information.
@@ -131,9 +153,9 @@ counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
 Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counters` bucket type like this:
 
 ```java
-Location trafficTickets = new Location("counters")
-        .setBucketType("counters")
-        .setKey("traffic_tickets");
+// Using the countersBucket Namespace object from above:
+
+Location trafficTickets = new Location(countersBucket, "traffic_tickets");
 ```
 
 ```curl
@@ -156,6 +178,10 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counters'
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```
 
+```python
+counter = bucket.new('traffic_tickets')
+```
+
 ```erlang
 Counter = riakc_counter:new().
 
@@ -170,9 +196,8 @@ Now that our client knows which bucket/key pairing to use for our counter, `traf
 // Using the "trafficTickets" Location from above:
 
 CounterUpdate cu = new CounterUpdate(1);
-UpdateDatatype<RiakCounter> update = new UpdateDatatype.Builder<RiakCounter>(trafficTickets)
-        .withUpdate(cu)
-        .build();
+UpdateCounter update = new UpdateCounter.Builder(trafficTickets, cu)
+		.build();
 client.execute(update);
 ```
 
@@ -186,6 +211,14 @@ curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traff
 counter.increment
 ```
 
+```python
+counter.increment()
+
+# Updates are staged locally and have to be explicitly sent to Riak
+# using the `store()` method.
+counter.store()
+```
+
 ```erlang
 Counter1 = riakc_counter:increment(Counter).
 ```
@@ -196,13 +229,16 @@ The default value of an increment operation is 1, but you can increment by more 
 // Using the "trafficTickets" Location from above:
 
 CounterUpdate cu = new CounterUpdate(5);
-UpdateDatatype<RiakCounter> update = new UpdateDatatype.Builder<RiakCounter>(trafficTickets)
-        .withUpdate(cu)
-        .build();
+UpdateCounter update = new UpdateCounter.Builder(trafficTickets, cu)
+		.build();
 client.execute(update);
 ```
 
 ```ruby
+counter.increment(5)
+```
+
+```python
 counter.increment(5)
 ```
 
@@ -222,8 +258,8 @@ If we're curious about how many tickets we have accumulated, we can simply retri
 // Using the "trafficTickets" Location from above:
 
 FetchCounter fetch = new FetchCounter.Builder(trafficTickets)
-        .build();
-FetchDatatype.Response<RiakCounter> response = client.execute(fetch);
+		.build();
+FetchCounter.Response response = client.execute(fetch);
 RiakCounter counter = response.getDatatype();
 Long ticketsCount = counter.view();
 ```
@@ -231,6 +267,22 @@ Long ticketsCount = counter.view();
 ```ruby
 counter.value
 # Output will always be an integer
+```
+
+```python
+counter.dirty_value
+
+# The value fetched from Riak is always immutable, whereas the "dirty
+# value" takes into account local modifications that have not been
+# sent to the server. For example, whereas the call above would return
+# '6', the call below will return '0' since we started with an empty
+# counter:
+
+counter.value
+
+# To fetch the value stored on the server, use the call below. Note
+# that this will clear any unsent increments.
+counter.reload()
 ```
 
 ```erlang
@@ -264,8 +316,7 @@ Any good counter needs to decrement in addition to increment, and Riak counters 
 // Using the "trafficTickets" Location from above:
 
 CounterUpdate cu = new CounterUpdate(5);
-UpdateDatatype<RiakCounter> update = new UpdateDatatype.Builder<RiakCounter>(trafficTickets)
-        .withUpdate(cu)
+UpdateCounter update = new UpdateCounter.Builder(trafficTickets, cu)
         .build();
 client.execute(update);
 ```
@@ -277,6 +328,15 @@ counter.decrement
 
 counter.decrement(3)
 ```
+
+```python
+counter.decrement()
+
+# Just like incrementing you can also decrement by more than one, e.g.:
+
+counter.decrement(3)
+```
+
 
 ```erlang
 Counter3 = riakc_counter:decrement(Counter2).
@@ -307,20 +367,39 @@ As with counters (and maps, as shown below), using sets involves setting up a bu
 
 Here is the general syntax for setting up a bucket type/bucket/key combination to handle a set:
 
-
 ```java
-// In the Java client, you specify the location of Data Types
-// before you perform operations on them:
+// In the Java client, a bucket/bucket type combination is specified
+// using a Namespace object. To specify bucket, bucket type, and key,
+// use a Location object that incorporates the Namespace object, as is
+// done below.
 
-Location counter = new Location("<bucket>")
-        .setBucketType("<bucket_type>")
-        .setKey("<key>");
+Location set =
+  new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
 
 ```ruby
 # Note: both the Riak Ruby Client and Ruby the language have a class called Set. Make sure that you refer to the Ruby version as ::Set and the Riak client version as Riak::Crdt::Set
 
 set = Riak::Crdt::Set.new(bucket, key, bucket_type)
+```
+
+```python
+# Note: The Python standard library `collections` module has an abstract
+# base class called Set, which the Riak Client version subclasses as
+# `riak.datatypes.Set`. These classes are not directly interchangeable.
+# In addition to the base methods, `riak.datatypes.Set` also
+# implements the `add` and `discard` methods from
+# `collections.MutableSet`, but does not implement the rest of its
+# API. Be careful when importing, or simply use the instances returned
+# by `RiakBucket.get()` and `RiakBucket.new()` instead of directly
+# importing the class.
+
+set = bucket.new(key)
+
+# or
+
+from riak.datatypes import Set
+set = Set(bucket, key)
 ```
 
 ```erlang
@@ -342,9 +421,8 @@ Let's say that we want to use a set to store a list of cities that we want to vi
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location cities = new Location("travel")
-        .setBucketType("sets")
-        .setKey("cities");
+Location cities =
+  new Location(new Namespace("sets", "travel"), "cities");
 ```
 
 ```ruby
@@ -360,6 +438,14 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 # This would enable us to create our set without specifying a bucket type:
 
 set = Riak::Crdt::Set.new(travel, 'cities')
+```
+
+```python
+travel = client.bucket_type('set_bucket').bucket('travel')
+
+# The client detects the bucket-type's datatype and automatically
+# returns the right datatype for you, in this case a Set.
+set = travel.new('cities')
 ```
 
 ```erlang
@@ -381,16 +467,20 @@ Upon creation, our set is empty. We can verify that it is empty at any time:
 // Using our "cities" Location from above:
 
 FetchSet fetch = new FetchSet.Builder(cities)
-        .build();
-FetchDatatype.Response<RiakSet> response = client.execute(fetch);
+		.build();
+FetchSet.Response response = client.execute(fetch);
 RiakSet set = response.getDatatype();
-boolean isEmpty = set.view().size() == 0;
+boolean isEmpty = set.viewAsSet().isEmpty();
 ```
 
 ```ruby
 set.empty?
 
 # true
+```
+
+```python
+len(set) == 0
 ```
 
 ```erlang
@@ -417,13 +507,17 @@ But let's say that we read a travel brochure saying that Toronto and Montreal ar
 SetUpdate su = new SetUpdate()
         .add(BinaryValue.create("Toronto"))
         .add(BinaryValue.create("Montreal"));
-UpdateDatatype<RiakSet> update = new UpdateDatatype.Builder<RiakSet>(cities)
-        .withUpdate(su)
+UpdateSet update = new UpdateSet.Builder(cities, su)
         .build();
 client.execute(update);
 ```
 
 ```ruby
+set.add('Toronto')
+set.add('Montreal')
+```
+
+```python
 set.add('Toronto')
 set.add('Montreal')
 ```
@@ -448,14 +542,19 @@ SetUpdate su = new SetUpdate()
         .remove(BinaryValue.create("Montreal"))
         .add(BinaryValue.create("Hamilton"))
         .add(BinaryValue.create("Ottawa"));
-UpdateDatatype<RiakSet> update = new UpdateDatatype.Builder<RiakSet>(cities)
-        .withUpdate(su)
+UpdateSet update = new UpdateSet.Builder(cities, su)
         .build();
 client.execute(update);
 ```
 
 ```ruby
 set.remove('Montreal')
+set.add('Hamilton')
+set.add('Ottawa')
+```
+
+```python
+set.discard('Montreal')
 set.add('Hamilton')
 set.add('Ottawa')
 ```
@@ -479,10 +578,10 @@ Now, we can check on which cities are currently in our set:
 
 FetchSet fetch = new FetchSet.Builder(cities)
         .build();
-FetchDatatype.Response<RiakSet> response = client.execute(fetch);
-Set<BinaryValue> citiesSet = response.getDatatype().view();
+FetchSet.Response response = client.execute(fetch);
+Set<BinaryValue> citiesSet = response.getDatatype().viewAsSet();
 for (BinaryValue city : citiesSet) {
-  System.out.println(new String(city));
+  System.out.println(city.toString());
 }
 ```
 
@@ -490,6 +589,22 @@ for (BinaryValue city : citiesSet) {
 set.members
 
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
+```
+
+```python
+set.dirty_value
+
+# The value fetched from Riak is always immutable, whereas the "dirty
+# value" takes into account local modifications that have not been
+# sent to the server. For example, where the call above would return
+# frozenset(['Toronto', 'Hamilton', 'Ottawa']), the call below would
+# return frozenset([]).
+
+set.value
+
+# To fetch the value stored on the server, use the call below. Note
+# that this will clear any unsent additions or deletions.
+set.reload()
 ```
 
 ```erlang
@@ -541,6 +656,14 @@ set.include? 'Ottawa'
 # true
 ```
 
+```python
+'Vancouver' in set
+# False
+
+'Ottawa' in set
+# True
+```
+
 ```erlang
 %% At this point, Set5 is the most "recent" set from the standpoint
 %% of our application.
@@ -566,6 +689,10 @@ int numberOfCities = citiesSet.size();
 set.members.length
 ```
 
+```python
+len(set)
+```
+
 ```erlang
 riakc_set:size(Set5).
 ```
@@ -584,16 +711,27 @@ The semantics of dealing with counters, sets, and maps within maps are usually v
 The general syntax for creating a Riak map is directly analogous to the syntax for creating other data types:
 
 ```java
-// In the Java client, you specify the location of Data Types
-// before you perform operations on them:
+// In the Java client, a bucket/bucket type combination is specified
+// using a Namespace object. To specify bucket, bucket type, and key,
+// use a Location object that incorporates the Namespace object, as is
+// done below.
 
-Location counter = new Location("<bucket>")
-        .setBucketType("<bucket_type>")
-        .setKey("<key>");
+Location map =
+  new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
 
 ```ruby
 map = Riak::Crdt::Map.new(bucket, key)
+```
+
+```python
+# The client detects the bucket-type's datatype and automatically
+# returns the right datatype for you, in this case a Map.
+map = bucket.new(key)
+
+# This way is also acceptable:
+from riak.datatypes import Map
+map = Map(bucket, key)
 ```
 
 ```erlang
@@ -615,9 +753,8 @@ Let's say that we want to use Riak to store information about our company's cust
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location ahmedMap = new Location("customers")
-        .setBucketType("maps")
-        .setKey("ahmed_info");
+Location ahmedMap =
+  new Location(new Namespace("maps", "customers"), "ahmed_info");
 ```
 
 ```ruby
@@ -633,6 +770,11 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:map] = 'maps'
 # This would enable us to create our map without specifying a bucket type:
 
 map = Riak::Crdt::Map.new(customers, 'ahmed_info')
+```
+
+```python
+customers = client.bucket_type('map_bucket').bucket('customers')
+map = customers.net('ahmed_info')
 ```
 
 ```erlang
@@ -664,8 +806,7 @@ RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create("5551234567"));
 MapUpdate mu = new MapUpdate()
         .update("first_name", ru1)
         .update("phone_number", ru2);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(mu)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
           .build();
 client.execute(update);
 ```
@@ -675,8 +816,17 @@ map.registers['first_name'] = 'Ahmed'
 map.registers['phone_number'] = '5551234567'
 
 # Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
-
 map.registers['phone_number'] = 5551234567.to_s
+```
+
+```python
+map.registers['first_name'].assign('Ahmed')
+map.registers['phone_number'].assign('5551234567')
+
+# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+map.registers['phone_number'].assign(str(5551234567))
+
+map.store()
 ```
 
 ```erlang
@@ -716,14 +866,18 @@ Now let's say that we add an Enterprise plan to our pricing model. We'll create 
 FlagUpdate setToFalse = new FlagUpdate().set(false);
 MapUpdate mu = new MapUpdate()
         .update("enterprise_customer", setToFalse);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(mu)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
         .build();
 client.execute(update);
 ```
 
 ```ruby
 map.flags['enterprise_customer'] = false
+```
+
+```python
+map.flags['enterprise_customer'].disable()
+map.store()
 ```
 
 ```erlang
@@ -749,7 +903,7 @@ We can retrieve the value of that flag at any time:
 // Using our "ahmedMap" location from above:
 
 FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
-FetchDatatype.Response<RiakMap> response = client.execute(fetch);
+FetchMap.Response response = client.execute(fetch);
 RiakMap map = response.getDatatype();
 System.out.println(map.getFlag("enterprise_customer").view());
 ```
@@ -758,6 +912,10 @@ System.out.println(map.getFlag("enterprise_customer").view());
 map.flags['enterprise_customer']
 
 # false
+```
+
+```python
+map.reload().flags['enterprise_customer'].value
 ```
 
 ```erlang
@@ -782,8 +940,7 @@ We also want to know how many times Ahmed has visited our website. We'll use a `
 CounterUpdate cu = new CounterUpdate(1);
 MapUpdate mu = new MapUpdate()
         .update("page_visits", cu);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(mu)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
         .build();
 client.execute(update);
 ```
@@ -792,6 +949,11 @@ client.execute(update);
 map.counters['page_visits'].increment
 
 # This operation may return false even if successful
+```
+
+```python
+map.counters['page_visits'].increment()
+map.store()
 ```
 
 ```erlang
@@ -828,8 +990,7 @@ SetUpdate su = new SetUpdate()
         .add(BinaryValue.create("motorcycles"));
 MapUpdate mu = new MapUpdate()
         .update("interests", su);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(mu)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
         .build();
 client.execute(update);
 ```
@@ -838,6 +999,12 @@ client.execute(update);
 %w{ robots opera motorcycles }.each do |interest|
   map.sets['interests'].add interest
 end
+```
+
+```python
+for interest in ['robots', 'opera', 'motorcycles']:
+    map.sets['interests'].add(interest)
+map.store()
 ```
 
 ```erlang
@@ -873,11 +1040,12 @@ We can then verify that the `interests` set includes these three interests:
 ```java
 // Using our "ahmedMap" location from above:
 
-FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
-FetchDatatype.Response<RiakMap> response = client.execute(fetch);
+FetchMap fetch = new FetchMap.Builder(ahmedMap)
+		.build();
+FetchMap.Response response = client.execute(fetch);
 RiakMap map = response.getDatatype();
 RiakSet interestSet = map.getSet("interests");
-Set<BinaryValue> interests = interestSet.view();
+Set<BinaryValue> interests = interestSet.viewAsSet();
 System.out.println(interests.contains(BinaryValue.create("robots")));
 
 // Checking for "opera" and "motorcycles" works the same way
@@ -889,6 +1057,12 @@ System.out.println(interests.contains(BinaryValue.create("robots")));
 end
 
 # This will return three Boolean values
+```
+
+```python
+reloaded_map = map.reload()
+for interest in ['robots', 'opera', 'motorcycles']:
+    interest in reloaded_map.sets['interests'].value
 ```
 
 ```erlang
@@ -908,8 +1082,7 @@ SetUpdate su = new SetUpdate()
         .remove(BinaryValue.create("opera"));
 MapUpdate mu = new MapUpdate()
         .update("interests", su);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(mu)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
         .build();
 client.execute(update);
 ```
@@ -920,6 +1093,12 @@ map.sets['interests'].remove('opera')
 # This operation may return false even if successful
 
 map.sets['interests'].add('indie pop')
+```
+
+```python
+map.sets['interests'].discard('opera')
+map.sets['interests'].add('indie pop')
+map.store()
 ```
 
 ```erlang
@@ -966,8 +1145,7 @@ MapUpdate annikaUpdate = new MapUpdate()
         .update("phone_number", ru3);
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(ahmedUpdate)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
         .build();
 client.execute(update);
 ```
@@ -976,6 +1154,13 @@ client.execute(update);
 map.maps['annika_info'].registers['first_name'] = 'Annika'
 map.maps['annika_info'].registers['last_name'] = 'Weiss'
 map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
+```
+
+```python
+map.maps['annika_info'].registers['first_name'].assign('Annika')
+map.maps['annika_info'].registers['last_name'].assign('Weiss')
+map.maps['annika_info'].registers['phone_number'].assign(str(5559876543))
+map.store()
 ```
 
 ```erlang
@@ -1023,7 +1208,7 @@ The value of a register in a map can be obtained without a special method:
 // Using our "ahmedMap" location from above:
 
 FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
-FetchDatatype.Response<RiakMap> response = client.execute(fetch);
+FetchMap.Response response = client.execute(fetch);
 String annikaFirstName = response.getDatatype()
         .getMap("annika_info")
         .getRegister("first_name")
@@ -1035,6 +1220,10 @@ String annikaFirstName = response.getDatatype()
 map.maps['annika_info'].registers['first_name']
 
 # "Annika"
+```
+
+```python
+map.reload().maps['annika_info'].registers['first_name'].value
 ```
 
 ```erlang
@@ -1053,15 +1242,15 @@ Registers can also be removed:
 // remove fields from maps require that you first fetch the opaque context
 // attached to the map and then include the context in the update operation:
 
-FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
-FetchDatatype.Response<RiakMap> response = client.execute(fetch);
+FetchMap fetch = new FetchMap.Builder(ahmedMap)
+		.build();
+FetchMap.Response response = client.execute(fetch);
 Context ctx = response.getContext();
 MapUpdate annikaUpdate = new MapUpdate()
         .removeRegister("first_name");
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(ahmedUpdate)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
         .withContext(ctx)
         .build();
 client.execute(update);
@@ -1069,6 +1258,11 @@ client.execute(update);
 
 ```ruby
 map.maps['annika_info'].registers.remove('phone_number')
+```
+
+```python
+del map.maps['annika_info'].registers['phone_number']
+map.store()
 ```
 
 ```erlang
@@ -1099,15 +1293,15 @@ Now, we'll store whether Annika is subscribed to a variety of plans within the c
 // Using our "ahmedMap" location from above:
 
 FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
-FetchDatatype.Response<RiakMap> response = client.execute(fetch);
+FetchMap.Response response = client.execute(fetch);
+Context ctx = response.getContext();
 MapUpdate annikaUpdate = new MapUpdate()
         .update("enterprise_plan", new FlagUpdate().set(false))
         .update("family_plan", FlagUpdate setToFalse = new FlagUpdate().set(false))
         .update("free_plan", FlagUpdate setToTrue = new FlagUpdate().set(true));
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(ahmedUpdate)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
         .withContext(ctx)
         .build();
 client.execute(update);
@@ -1117,6 +1311,13 @@ client.execute(update);
 map.maps['annika_info'].flags['enterprise_plan'] = false
 map.maps['annika_info'].flags['family_plan'] = false
 map.maps['annika_info'].flags['free_plan'] = true
+```
+
+```python
+map.maps['annika_info'].flags['enterprise_plan'].disable()
+map.maps['annika_info'].flags['family_plan'].disable()
+map.maps['annika_info'].flags['free_plan'].enable()
+map.store()
 ```
 
 ```erlang
@@ -1167,7 +1368,7 @@ The value of a flag can be retrieved at any time:
 // Using our "ahmedMap" location from above:
 
 FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
-FetchDatatype.Response<RiakMap> response = client.execute(fetch);
+FetchMap.Response response = client.execute(fetch);
 boolean enterprisePlan = response.getDatatype()
         .getMap("annika_info")
         .getFlag("enterprise_plan")
@@ -1178,6 +1379,10 @@ boolean enterprisePlan = response.getDatatype()
 map.maps['annika_info'].flags['enterprise_plan']
 
 # false
+```
+
+```python
+map.reload().maps['annika_info'].flags['enterprise_plan'].value
 ```
 
 ```erlang
@@ -1198,14 +1403,18 @@ MapUpdate annikaUpdate = new MapUpdate()
         .update("widget_purchases", new CounterUpdate(1));
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(ahmedUpdate)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
         .build();
 client.execute(update);
 ```
 
 ```ruby
 map.maps['annika_info'].counters['widget_purchases'].increment
+```
+
+```python
+map.maps['annika_info'].counters['widget_purchases'].increment()
+map.store()
 ```
 
 ```erlang
@@ -1244,14 +1453,18 @@ MapUpdate annikaUpdate = new MapUpdate()
         .update("widget_purchases", su);
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
-        .withUpdate(ahmedUpdate)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
         .build();
 client.execute(update);
 ```
 
 ```ruby
 map.maps['annika_info'].sets['interests'].add('tango dancing')
+```
+
+```python
+map.maps['annika_info'].sets['interests'].add('tango dancing')
+map.store()
 ```
 
 ```erlang
@@ -1292,14 +1505,19 @@ MapUpdate annikaUpdate = new MapUpdate()
         .update("widget_purchases", su);
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
         .withUpdate(ahmedUpdate)
         .build();
 client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].set['interests'].remove('tango dancing')
+map.maps['annika_info'].sets['interests'].remove('tango dancing')
+```
+
+```python
+map.maps['annika_info'].sets['interests'].discard('tango dancing')
+map.store()
 ```
 
 ```erlang
@@ -1341,7 +1559,7 @@ MapUpdate annikaUpdate = new MapUpdate()
         .update("purchase", purchaseUpdate);
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
-UpdateDatatype<RiakMap> update = new UpdateDatatype.Builder<RiakMap>(ahmedMap)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
         .withUpdate(ahmedUpdate)
         .build();
 client.execute(update);
@@ -1352,6 +1570,14 @@ map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
 map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
 map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
 # and so on
+```
+
+```python
+map.maps['annika_info'].maps['purchase'].flags['first_purchase'].enable()
+map.maps['annika_info'].maps['purchase'].register['amount'].assign(str(1271))
+map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
+# and so on
+map.store()
 ```
 
 ```erlang
@@ -1388,4 +1614,76 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
     }
   }
   '
+```
+
+## Data Types and Context
+
+When performing normal key/value updates in Riak, we advise that you use [[vector clocks]], which enable Riak to make intelligent decisions behind the scenes about which objects should be considered more causally recent. In some of the examples above, you saw references to **context** metadata included with each Data Type stored in Riak.
+
+Data Type contexts are similar to [[vector clocks]] in that they are opaque (i.e. not readable by humans) and also perform a similar function to that of vector clocks, i.e. they inform Riak which version of the Data Type a client is attempting to modify. This information is required by Riak when making decisions about convergence.
+
+In the example below, we'll fetch the context from the user data map we created for Ahmed:
+
+
+```java
+// Using the "ahmedMap" Location from above:
+
+FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
+FetchMap.Response response = client.execute(fetch);
+Context ctx = response.getContext();
+System.out.prinntln(ctx.getValue().toString())
+
+// An indecipherable string of Unicode characters should then appear
+```
+
+```ruby
+bucket = client.bucket('users')
+ahmed_map = Riak::Crdt::Map.new(bucket, 'ahmed_info', 'maps')
+ahmed_map.instance_variable_get(:@context)
+
+# => "\x83l\x00\x00\x00\x01h\x02m\x00\x00\x00\b#\t\xFE\xF9S\x95\xBD3a\x01j"
+```
+
+```python
+bucket = client.bucket_type('maps').bucket('users')
+ahmed_map = Map(bucket, 'ahmed_info')
+ahmed_map.context
+
+# g2wAAAABaAJtAAAACCMJ/vlTlb0zYQFq
+```
+
+```erlang
+%% You cannot fetch a Data Type's context directly using the Erlang
+%% client. This is actually quite all right, as the client automatically
+%% manages contexts when making updates.
+```
+
+<div class="note">
+<div class="title">Context and the Ruby, Python, and Erlang clients</div>
+In the Ruby, Python, and Erlang clients, you will not need to manually handle context when making Data Type updates. The clients will do it all for you. The one exception amongst the official clients is the Java client. We'll explain how to use Data Type contexts with the Java client directly below.
+</div>
+
+#### Context and the Java Client
+
+With the Java client, you'll need to manually fetch and return Data Type contexts for the following operations:
+
+* Disabling a flag within a map
+* Removing an item from a set (whether the set is on its own or within a map)
+* Removing a field from a map
+
+Without context, these operations simply will not succeed due to the convergence logic driving Riak Data Types. The example below shows you how to fetch a Data Type's context and then pass it back to Riak. More specifially, we'll remove the `paid_account` flag from the map:
+
+```java
+// This example uses our "ahmedMap" location from above:
+
+FetchMap fetch = new FetchMap.Builder(ahmedMap)
+    .build();
+FetchMap.Response response = client.execute(fetch);
+Context ctx = response.getContext();
+MapUpdate removePaidAccountField = new MapUpdate()
+        .removeFlag("paid_account");
+UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
+        .withContext(ctx)
+        .build();
+client.execute(update);
 ```

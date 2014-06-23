@@ -10,32 +10,33 @@ moved: {
 }
 ---
 
-Buckets are used to define a virtual keyspace and provide the ability to define
-isolated non-default configuration. Buckets might be compared to tables or
-folders in relational databases or file systems, respectively. Buckets with
-default configuration are essentially free, while non-default configuration will
-be gossiped around the ring.
+Buckets are used to define a virtual keyspace and provide the ability to
+define isolated non-default configuration. Buckets might be compared to
+tables or folders in relational databases or file systems, respectively.
+Buckets with default configuration are essentially free, while non-
+default configuration will be gossiped around the ring.
 
 ## Configuration
 
-For each bucket a number of configuration properties can be selectively defined,
-overriding the defaults.
+For each bucket a number of configuration properties can be selectively
+defined, overriding the defaults.
 
 ### n_val
 
-*integer* (default: `3`). Specifies the number of copies of each object to be
-stored in the cluster. See [[Replication]].
+*integer* (default: `3`). Specifies the number of copies of each object
+to be stored in the cluster. See [[Replication]].
 
 ### allow_mult
 
-*boolean* (default: `false`). Determines whether sibling values can be created.
-See [[Siblings|Vector Clocks#Siblings]].
+*boolean* (default: `false`). Determines whether sibling values can be
+created. See [[Siblings|Vector Clocks#Siblings]].
 
 ### last_write_wins
 
-*boolean* (default: `false`). Indicates if an object's vector clocks will be
-used to decide the canonical write based on time of write in the case of a
-conflict. See [[Conflict resolution|Concepts#Conflict-resolution]].
+*boolean* (default: `false`). Indicates if an object's vector clocks
+will be used to decide the canonical write based on time of write in the
+case of a conflict. See [[Conflict resolution|
+Concepts#Conflict-resolution]].
 
 ### r, pr, w, dw, pw, rw
 
@@ -60,3 +61,8 @@ Files|Configuration Files#default_bucket_props]],
 ### backend
 
 Specify which named backend to use for the bucket when using `riak_kv_multi_backend`.
+
+### dvv_enabled
+Specifies whether [[dotted version vectors]] (aka DVVs) are enabled for objects in a bucket.
+The default is `true`. If set to `false`, conflict resolution will take place using the older
+[[vector clock|Vector Clocks]]-based system.

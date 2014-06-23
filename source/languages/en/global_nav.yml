@@ -9,6 +9,7 @@ riak:
     sub:
       - "[[Start Here|Riak]]"
       - "[[Riak 2.0]]"
+      - "[[Upgrading to 2.0]]"
       - "[[Why Riak?|Why Riak]]"
       - "[[Five-Minute Install|Five Minute Install]]"
 
@@ -46,6 +47,7 @@ riak:
               - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
       - title: "Basic Usage"
         sub:
+          - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
           - "[[Key/Values|The Basics]]"
           - "[[Search|Using Search]]"
@@ -59,20 +61,8 @@ riak:
           - "[[Commit Hooks|Using Commit Hooks]]"
       - title: "Data Modeling"
         sub:
-          - "[[Overview|Use Cases]]"
+          - "[[Use Cases for Riak|Use Cases]]"
           - "[[Data Types|Data Modeling with Riak Data Types]]"
-          - title: "High Read/Write"
-            sub:
-              - "[[Session Storage]]"
-              - "[[Serving Ads|Serving Advertisements]]"
-              - "[[Log Data]]"
-              - "[[Sensor Data]]"
-          - title: "Relationships"
-            sub:
-              - "[[User Accounts]]"
-              - "[[User Settings & Prefs|User Settings/Preferences]]"
-              - "[[User Events & Timelines|User Subscriptions/Events/Timelines]]"
-              - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
           - "[[Search Details]]"
@@ -159,6 +149,7 @@ riak:
           - "[[Installing Custom Code]]"
           - "[[Security and Firewalls]]"
           - "[[Ring Resizing]]"
+          - "[[Object Deletion]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
@@ -192,6 +183,7 @@ riak:
           - "[[Eventual Consistency]]"
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
+          - "[[Dotted Version Vectors]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
       - title: "Riak Compared to"
@@ -225,6 +217,7 @@ riak:
           - "[[Riak Community|Riak Community FAQs]]"
       - "[[Community Help|Help and Community]]"
       - "[[Community Projects]]"
+      - "[[Blog Posts]]"
       - "[[Reporting Bugs]]"
       - "[[Style Guide|Documentation Style Guide]]"
       - "[[Riak Images]]"
