@@ -9,6 +9,7 @@ riak:
     sub:
       - "[[Start Here|Riak]]"
       - "[[Riak 2.0]]"
+      - "[[Upgrading to 2.0]]"
       - "[[Why Riak?|Why Riak]]"
       - "[[Five-Minute Install|Five Minute Install]]"
 
