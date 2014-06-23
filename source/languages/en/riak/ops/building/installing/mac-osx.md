@@ -45,15 +45,32 @@ After the release is untarred, you will be able to `cd` into the riak directory 
 
 ## Homebrew
 
-<div class="note">Homebrew's Riak recipe is community supported, and thus is not always up to date with the latest Riak package. Please ensure that the current recipe is using the latest supported code (and don't be scared to update it if it's not).</div>
+<div class="note">
+<div class="title">Warning: Homebrew not always up to date</div>
+Homebrew's Riak recipe is community supported, and thus is not always up to date with the latest Riak package. Please ensure that the current recipe is using the latest supported code (and don't be scared to update it if it's not).
+</div>
 
-Installing with Homebrew is easy:
+Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
 
 ```bash
-brew install riak
+brew install --devel riak
 ```
 
-Homebrew will install Erlang if you don't have it already.
+By default, this will place a `{{VERSION}}` folder in `/usr/local/Cellar/riak`.
+
+Be aware that you will most likely see the following message after running `brew install`:
+
+```
+Error: The `brew link` step did not complete successfully
+The formula built, but is not symlinked into /usr/local
+
+You can try again using:
+  brew link riak
+```
+
+We do not recommend using `brew link` with Riak. Instead, we recommend either copying that directory to a desired location on your machine, aliasing the executables in the `/bin` directory, or interacting with the Riak installation directory via environment variables.
+
+**Note**: Homebrew will install Erlang if you don't have it already.
 
 ## From Source
 

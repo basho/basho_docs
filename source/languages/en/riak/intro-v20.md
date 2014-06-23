@@ -23,6 +23,8 @@ In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
 * Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
 
+More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading to 2.0]].
+
 ## Riak Data Types
 
 In distributed systems, there is an unavoidable trade-off between consistency and availability. This can complicate some aspects of application design if you're using Riak as a key/value store because the application is responsible for resolving conflicts between replicas of objects stored in different Riak nodes.
