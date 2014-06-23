@@ -54,16 +54,16 @@ Here are some examples of a read request for an object in the bucket
 `test_bucket` with the key `test_key` using older versions of the
 official Riak clients:
 
-```ruby
-bucket = client.bucket('test_bucket')
-obj = bucket.get('test_key')
-```
-
 ```java
 // Using an already instantiated "client" object:
 
 Bucket testBucket = client.fetchBucket("test_bucket").execute();
 IRiakObject obj = testBucket.fetch("test_key").execute();
+```
+
+```ruby
+bucket = client.bucket('test_bucket')
+obj = bucket.get('test_key')
 ```
 
 ```python
@@ -81,11 +81,6 @@ The following code samples use 2.0-specific official Riak clients to
 fetch an object with the same bucket and key as before---`test_bucket`
 and `test_key`, respectively---but with a bucket type of `custom_bucket_type`:
 
-```ruby
-bucket = client.bucket('test_bucket')
-obj = bucket.get('test_key', type: 'custom_bucket_type')
-```
-
 ```java
 // Note that the Java client uses a new Location class to designate
 // object location:
@@ -96,6 +91,11 @@ Location loc =
 FetchValue fetch = new FetchValue.Builder(loc).build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
+```
+
+```ruby
+bucket = client.bucket('test_bucket')
+obj = bucket.get('test_key', type: 'custom_bucket_type')
 ```
 
 ```python
