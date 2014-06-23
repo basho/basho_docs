@@ -1617,9 +1617,9 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
 
 ## Data Types and Context
 
-When performing normal key/value updates in Riak, you're advised to use [[vector clocks]], which enable Riak to make intelligent decisions behind the scenes about which objects should be considered more causally recent. In some of the examples above, you saw references to **context** metadata included with each Data Type stored in Riak.
+When performing normal key/value updates in Riak, we advise that you use [[vector clocks]], which enable Riak to make intelligent decisions behind the scenes about which objects should be considered more causally recent. In some of the examples above, you saw references to **context** metadata included with each Data Type stored in Riak.
 
-Data Type contexts are similar to vector clocks in that they are opaque (i.e. not readable by humans) and also perform a similar function to that of vector clocks, i.e. they inform Riak which version of the Data Type a client is attempting to modify. This information is often essential to Riak when making decisions about convergence.
+Data Type contexts are similar to [[vector clocks]] in that they are opaque (i.e. not readable by humans) and also perform a similar function to that of vector clocks, i.e. they inform Riak which version of the Data Type a client is attempting to modify. This information is required by Riak when making decisions about convergence.
 
 In the example below, we'll fetch the context from the user data map we created for Ahmed:
 
@@ -1645,6 +1645,8 @@ ahmed_map.instance_variable_get(:@context)
 
 ```python
 bucket = client.bucket_type('maps').bucket('users')
+ahmed_map = Map(bucket, 'ahmed_info')
+ahmed_map.context
 
 # g2wAAAABaAJtAAAACCMJ/vlTlb0zYQFq
 ```
@@ -1659,6 +1661,8 @@ bucket = client.bucket_type('maps').bucket('users')
 <div class="title">Context and the Ruby, Python, and Erlang clients</div>
 In the Ruby, Python, and Erlang clients, you will not need to manually handle context when making Data Type updates. The clients will do it all for you. The one exception amongst the official clients is the Java client. We'll explain how to use Data Type contexts with the Java client directly below.
 </div>
+
+#### Context and the Java Client
 
 With the Java client, you'll need to manually fetch and return Data Type contexts for the following operations:
 
