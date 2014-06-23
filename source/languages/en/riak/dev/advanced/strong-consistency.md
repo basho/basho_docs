@@ -22,7 +22,7 @@ strong_consistency = on
 
 **Note**: This will enable you to use strong consistency in Riak, but this setting will _not_ apply to all of the data in your Riak cluster. Instead, strong consistency is applied only at the bucket level, [[using bucket types]] (as show directly below).
 
-A second necessary step in activating strong consistency is to enable Riak's [[active anti-entropy|Riak Glossary#active-anti-entropy-aae]] subsystem. This can be done by setting the `anti_entropy` parameter in your [[configuration files]] to either `active` or `active-debug`.
+A second necessary step in activating strong consistency is to ensure that Riak's [[active anti-entropy|Riak Glossary#active-anti-entropy-aae]] subsystem is enabled (as it is by default). If it is not currently enabled, you can set the `anti_entropy` parameter in your [[configuration files]] to either `active` or `active-debug`.
 
 ## Creating a Strongly Consistent Bucket Type
 
