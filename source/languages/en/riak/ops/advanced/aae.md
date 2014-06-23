@@ -8,7 +8,7 @@ keywords: [operators, aae, active anti-entropy]
 ---
 
 Riak's [[active anti-entropy]] (AAE) subsystem is a set of background
-processes that repair object conflicts stemming from missing or
+processes that repair object inconsistencies stemming from missing or
 divergent object values across nodes. Riak operators can turn AAE on and
 off and configure and monitor its functioning.
 
@@ -75,7 +75,7 @@ for any configuration-related changes to take effect.
 ## Disabling Active Anti-Entropy
 
 Alternatively, AAE can be switched off if you would like to repair
-object conflicts using [[read repair|Active Anti-Entropy#read-repair]]
+object inconsistencies using [[read repair|Active Anti-Entropy#read-repair]]
 alone:
 
 {{#2.0.0+}}
@@ -284,7 +284,7 @@ used in operating systems. The default is `20`.
 
 ## AAE and Riak Search
 
-Riak's AAE subsystem works to repair object conflicts both with for
+Riak's AAE subsystem works to repair object inconsistencies both with for
 normal key/value objects as well as data related to [[Riak Search|Using Search]].
 In particular, AAE acts on indexes stored in [Solr](http://lucene.apache.org/solr/),
 the search platform that drives Riak Search.
