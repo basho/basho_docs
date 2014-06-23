@@ -181,14 +181,17 @@ riak-admin test
 
 ## reip
 
-_This will likely be removed in future versions. Instead use `riak-admin cluster replace`._
-
-Renames a node. The current ring state will be backed up in the process. **The
-node must NOT be running for this to work.**
+Renames a node. This process backs up and edits the Riak ring, and **MUST** be run while the node is stopped. Reip should only be run in cases where `riak-admin cluster force-replace` cannot be used to rename the nodes of a cluster. For more information, visit the [[Renaming Nodes]] document.
 
 ```bash
 riak-admin reip <old nodename> <new nodename>
 ```
+
+<div class="note">
+<div class="title">Note about reip prior to Riak 2.0</title></div>
+Several bugs have been fixed related to reip in Riak 2.0.  We recommend against using reip prior to 2.0, if possible.
+</div>
+
 
 ## js-reload
 
