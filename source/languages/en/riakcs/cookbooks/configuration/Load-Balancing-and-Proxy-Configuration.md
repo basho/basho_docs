@@ -120,6 +120,12 @@ server {
     proxy_buffer_size          64k;  # If set to a smaller value,
                                      # nginx can complain with a
                                      # "headers too large" error
+
+    proxy_buffers 8  64k;   # Increase from default of (8, 8k). 
+                            # If left to default with increased 
+                            # proxy_buffer_size, nginx complains 
+                            # that proxy_busy_buffers_size is too 
+                            # large.
       
     proxy_pass http://riak_cs_host;
   }

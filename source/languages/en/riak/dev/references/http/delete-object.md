@@ -17,8 +17,7 @@ Deletes an object from the specified bucket / key.
 ## Request
 
 ```
-DELETE /riak/bucket/key           # Old format
-DELETE /buckets/bucket/keys/key   # New format
+DELETE /buckets/bucket/keys/key
 ```
 
 Optional query parameters:

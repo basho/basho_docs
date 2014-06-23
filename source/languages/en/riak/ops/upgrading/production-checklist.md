@@ -45,8 +45,8 @@ Making the transition from running Riak in a development or testing environment 
   - Have you carefully weighed the [[consistency trade-offs|Eventual Consistency]] that must be made if `allow_mult` is set to `false`?
   - Are all of your [[CAP controls|Replication Properties]] configured correctly and uniformly across the cluster?
   - If you are using Riak Search, is it enabled on all nodes? If you are not, has it been disabled on all nodes?
-  - If you are using [[strong consistency]] for some or all of your data, has the strong consistency subsystem been [[enabled|Using Strong Consistency#Enabling-Strong-Consistency]] on all nodes? {{#2.0.0+}}
-  - Have all [[bucket types|Using Bucket Types]] that you intend to use been created and successfully activated? {{#2.0.0+}}
+  - If you are using [[strong consistency]] for some or all of your data, has the strong consistency subsystem been [[enabled|Using Strong Consistency#Enabling-Strong-Consistency]] on all nodes? {{2.0.0+}}
+  - Have all [[bucket types|Using Bucket Types]] that you intend to use been created and successfully activated? {{2.0.0+}}
   - If you are using [[Riak Control]], is it enabled on the node(s) from which you intend to use it?
 * Check data mount points:
   - Is `/var/lib/riak` mounted?

@@ -141,6 +141,8 @@ riak:
               - "[[Recovering a Failed Node]]"
               - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
+              - "[[Repairing LevelDB]]"
+              - "[[Rolling Restart]]"
               - "[[Common Errors]]"
       - title: "Advanced"
         sub:
@@ -179,6 +181,7 @@ riak:
           - "[[Links]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
+          - "[[Capability Negotiation]]"
       - title: "Riak Compared to"
         sub:
           # - "[[Riak Comparisons Overview|Riak Comparisons]]"
