@@ -257,7 +257,13 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 </tr>
 
 <tr>
-<td><code>leveldb.verify_compaction</code></td>
+<td><tt>leveldb.tiered</tt></td>
+<td>The level (as an integer) at which LevelDB should switch to the slow array. Setting this value to `0` (the default), disables the tiered storage feature.</td>
+<td><tt>0</tt></td>
+</tr>
+
+<tr>
+<td><tt>leveldb.verify_compaction</tt></td>
 <td>Enables or disables the verification of LevelDB data during compaction.</td>
 <td><code>on</code></td>
 </tr>

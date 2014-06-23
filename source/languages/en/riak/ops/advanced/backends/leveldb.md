@@ -30,23 +30,18 @@ LevelDB is a relatively new entrant into the growing list of key/value database 
 
 **Note**: Riak uses a fork of LevelDB. The code can be found [on Github](https://github.com/basho/leveldb).
 
-{{#2.0.0-}}
-Riak 1.2 introduced changes in eLevelDB that allow users to tune LevelDB performance for the kinds of "large data" environments that are typical in Riak deployments.
-{{/2.0.0-}}
-{{#2.0.0+}}
 A number of changes have been introduced in the LevelDB backend in Riak 2.0:
 
 * There is now only _one_ performance-related setting that Riak users need to define---`leveldb.total_mem_percent`---as LevelDB now dynamically sizes the file cache and block sizes based upon active vnodes assigned to the node.
 * The LevelDB backend in Riak 2.0 utilizes a new, faster threading model for background compaction work on `.sst` table files. The new model has increased throughput by at least 10% in all test scenarios.
-* Delete operations now receive priority handling in compaction selection, leading to a more aggressive reclaiming of disk space than in previous versions of Riak's LevelDB backend.
-* Nodes storing massive key datasets (e.g. in the billions of keys) now receive increased throughput due to automatic management of LevelDB's block size parameter. This parameter is slowly raised to increase the number of files that can open simultaneously, leading to improved random read performance.
-{{/2.0.0+}}
+* Delete operations now receive priority handling in compaction selection, which means more aggressive reclaiming of disk space than in previous versions of Riak's LevelDB backend.
+* Nodes storing massive key datasets (e.g. in the billions of keys) now receive increased throughput due to automatic management of LevelDB's block size parameter. This parameter is slowly raised to increase the number of files that can open simultaneously, improving random read performance.
 
 ### Strengths
 
 * License
 
-    The LevelDB and eLevelDB licenses are the [New BSD License](http://www.opensource.org/licenses/bsd-license.php) and the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html), respectively. We'd like to thank Google and the authors of LevelDB at Google for choosing a completely F/LOSS license so that everyone can benefit from this innovative storage engine.
+    The LevelDB and eLevelDB licenses are the [New BSD License](http://www.opensource.org/licenses/bsd-license.php) and the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html), respectively. We'd like to thank Google and the authors of LevelDB at Google for choosing a completely FLOSS license so that everyone can benefit from this innovative storage engine.
 
 * Data compression
 
@@ -60,489 +55,43 @@ A number of changes have been introduced in the LevelDB backend in Riak 2.0:
 
 ## Installing eLevelDB
 
-Riak ships with eLevelDB included within the distribution, so there is no separate installation required. However, Riak is configured to use the Bitcask storage engine by default. To switch to eLevelDB, set the `storage_backend` variable in {{#2.0.0-}}`[[app.config|Configuration Files]]`{{/2.0.0-}}{{#2.0.0+}}`[[riak.conf|Configuration Files]]`{{/2.0.0+}} to `riak_kv_eleveldb_backend`.
+Riak ships with eLevelDB included within the distribution, so there is no separate installation required. However, Riak is configured to use the Bitcask storage engine by default. To switch to eLevelDB, set the `storage_backend` variable in `[[riak.conf|Configuration Files]]` to `leveldb`:
 
-```erlang
+```riakconf
+storage_backend = leveldb
+```
+
+```appconfig
 {riak_kv, [
+
     {storage_backend, riak_kv_eleveldb_backend},
+    
+    %% Other riak_kv settings
+]}
 ```
 
 ## Configuring eLevelDB
 
-eLevelDb's default behavior can be modified by adding/changing parameters in the `eleveldb` section of the {{#2.0.0-}}`[[app.config|Configuration Files]]`{{/2.0.0-}}{{#2.0.0+}}`[[riak.conf|Configuration Files]]`{{/2.0.0+}}. The [[Key Parameters|LevelDB#Key-Parameters]] section below details the parameters you'll use to modify eLevelDB. The [[Parameter Planning|LevelDB#Parameter-Planning]] section gives a step-by-step example illustrating how to choose parameter values based on your application requirements.
+eLevelDb's default behavior can be modified by adding/changing parameters in the `eleveldb` section of the `[[riak.conf|Configuration Files]]`. The [[Key Parameters|LevelDB#Key-Parameters]] section below details the parameters you'll use to modify eLevelDB. The [[Parameter Planning|LevelDB#Parameter-Planning]] section gives a step-by-step example illustrating how to choose parameter values based on your application requirements.
 
-The configuration values that can be set in your {{#2.0.0-}}`[[app.config|Configuration Files]]`{{/2.0.0-}}{{#2.0.0+}}`[[riak.conf|Configuration Files]]`{{/2.0.0+}} for eLevelDB are as follows:
-
-{{#2.0.0-}}
-```erlang
- %% LevelDB Config
- {eleveldb, [
-     %% Required. Set to your data storage directory
-     {data_root, "/var/lib/riak/leveldb"},
-
-     %% Memory usage per vnode
-
-     %% Maximum number of files open at once per partition
-     %% Default. You must calculate to adjust (see below)
-     {max_open_files, 30},
-     %% Default. You must calculate to adjust (see below)
-     {cache_size, 8388608},
-
-     %% Write performance, Write safety
-
-     %% this is default, recommended
-     {sync, false},
-     %% this is default, recommended
-     {write_buffer_size_min, 31457280},
-     %% this is default, recommended
-     {write_buffer_size_max, 62914560},
-
-     %% Read performance
-
-     %% Required, strongly recommended to be true
-     {use_bloomfilter, true},
-     %% Default. Recommended to be 4k
-     {sst_block_size, 4096},
-     %% Default. Recommended to be 16
-     {block_restart_interval, 16},
-
-     %% Database integrity
-
-     %% Default. Strongly recommended to be true
-     {verify_checksums, true},
-     %% Default. Strongly recommended to be true
-     {verify_compactions, true}
- ]},
-```
-{{/2.0.0-}}
-{{#2.0.0+}}
+The configuration values that can be set in your `[[riak.conf|Configuration Files]]` for eLevelDB are as follows:
 
 Config | Description | Default
 :------|:------------|:-------
 `leveldb.data_root` | LevelDB data root | `./data/leveldb`
-`leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. | `70`
-{{/2.0.0+}}
+`leveldb.maximum_memory.percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. | `70`
 
-{{#2.0.0-}}
-### Memory Usage per Vnode
+If you are using the older, `app.config`-based system, the equivalent to the `leveldb.data_root` is the `data_root` setting, as in the following example:
 
-The following values adjust the memory usage per vnode.
-
-#### Max Open Files
-
-The `max_open_files` value is multiplied by 4 megabytes to create a file cache. The file cache may end up holding more or fewer files at any given moment due to variations in file metadata size. `max_open_files` applies to a single vnode and not to the entire server, as each vnode runs its own self-contained instance of LevelDB. See calculation details in [[Parameter Planning|LevelDB#Parameter-Planning]].
-
-Where server resources allow, the value of `max_open_files` should exceed the count of `.sst` table files within the vnode's database directory. Memory budgeting for this variable is more important to random read operations than the `cache_size` discussed in the next section.
-
-{{#1.4.0-}}
-You may need to increase this if your database has a large working set (budget one open file per 2 MB of working set divided by `ring_creation_size`).
-
-The minimum `max_open_files` is 20. The default is 30. However, if you start Riak with no value for `max_open_files` (meaning you've included the setting in your `app.config` but not specified a value) it will be set to 1000.  
-
-```erlang
+```appconfig
 {eleveldb, [
-    ...,
-    {max_open_files, 30},
-    ...
+    {data_root, "/path/to/leveldb"},
+
+    %% Other eleveldb-specific settings
 ]}
 ```
 
-<div class="note"><div class="title">Changing <tt>max_open_files</tt></div>Users that have manually set <tt>max_open_files</tt> in versions of Riak prior to 1.2 will need to reduce this value by half in Riak 1.2 (e.g. if you have <tt>max_open_files</tt> set to 250 in Riak 1.1, set it to 125 in Riak 1.2.).
-</div>
-
-{{/1.4.0-}}
-{{#1.4.0+}}
-The minimum `max_open_files` is 30. The default is also 30.
-
-In `app.config`:
-
-```erlang
-{eleveldb, [
-    ...,
-    {max_open_files, 30},
-    ...
-]}
-```
-
-In `riak.conf`:
-
-```config
-max_open_files = 30
-```
-
-{{/1.4.0+}}
-
-{{#1.4.0-1.5.0}}
-<div class="note"><div class="title">Riak 1.4 Update</div>
-<tt>max_open_files</tt> was originally a file handle limit, but file metadata is now a much more pressing resource concern. The impact of Basho's larger table files and Google's recent addition of Bloom filters made the accounting switch necessary.
-</div>
-{{/1.4.0-1.5.0}}
-
-<div class="note">
-<div class="title">Check your system's open files limits</div>
-Due to the large number of open files used by this storage engine, it is imperative that you review and properly set your system’s open files limits. If you are seeing an error that contains <tt>emfile</tt>, then it is highly likely that you've exceeded limits on your system for open files. Read more about this below in [[Tips and Tricks|LevelDB#Tips-Tricks]] to see how to fix this issue.
-</div>
-
-#### Cache Size
-
-The `cache_size` determines the size of each vnode's block cache. The block cache holds data blocks that LevelDB has recently retrieved from `.sst` table files. Any given block contains one or more complete key/value pairs. The cache speeds up repeat access to the same key and potential access to adjacent keys.
-
-<div class="note"><div class="title">Riak 1.2 bug</div>
-<p>A bug exists in Riak 1.2 where read performance is dramatically reduced if this value is greater than the default 8,388,608. The bug was fixed in 1.3 and the cache performance tested well to values as high as 2 gigabytes.</p>
-</div>
-
-The `cache_size` determines how much data LevelDB caches in memory. The higher the proportion of your data set that can fit in memory, the better LevelDB will perform. The LevelDB cache works in conjunction with your operating system and filesystem caches. Do _not_ disable or undersize them. If you are running a 64-bit Erlang VM, `cache_size` can safely be set above 2 GB assuming that you have enough memory available. Unlike Bitcask, LevelDB keeps keys and values in a block cache, which allows for management of key spaces that are larger than available memory. eLevelDB creates a separate LevelDB instance for each partition of the cluster and so each partition will have its own cache.
-
-We recommend that you set this to be 20-30% of available RAM (available means _after_ subtracting RAM consumed by other services, including the filesystem cache overhead from physical memory).
-
-For example, take a cluster with 64 partitions running on 4 physical nodes with 16GB of RAM free on each. In a best-case scenario all the nodes are
-running, so a good cache size would be half the available RAM (8 GB) divided
-by the number of expected active vnodes on each node, which would be 64/4 = 16.
-That's 536870912 bytes (512 MB) per vnode.
-
-Best Case:
-
-      (Number of free GBs / 2) * (1024 ^ 3)
-    ---------------------------------------- = Cache Size
-    (Number of partitions / Number of nodes)
-
-But in reality, a node may fail. What happens to this cluster when a physical node fails? The 16 vnodes that were managed by that node are now handled by the remaining active nodes in the cluster (3 in this case). Now, rather than
-16 vnodes, each node will be handling approximately 22 vnodes (16 + some
-number of fallback vnodes they are managing on behalf of the failed node).
-With the cache size set for the optimal case, the total cache is now consuming
-22 * 512 MB = 11 GB instead of the expected 16 * 512 MB = 8 GB. The total available memory is now weighted too heavily towards cache. You'll want to add in some wiggle room for this case.
-
-Real Life:
-
-        (Number of free GBs / 2) * (1024 ^ 3)
-    ---------------------------------------------- = Cache Size
-    (Number of partitions / (Number of nodes - F))
-
-    F = Number of nodes that can fail before impacting cache use of memory
-        on remaining systems
-
-If we wanted 1 physical node to be able to fail before impacting cache memory
-utilization, we'd use an F = 1. Now we're dividing half the available memory (still 8 GB) by (64 / (4-1)) = 21.3333 (round up to 22!). This turns out to be 390451572 or 372 MB. Now, each physical node can cache up to 22 vnodes before hitting the 50% memory usage mark. If a second node went down, this cluster would feel that.
-
-You might ask yourself, why only 50% of available RAM? The answer is that the other physical RAM will be used by the operating system, the Erlang VM, and by the operating system's filesystem cache (the buffer pool on Linux). That filesystem cache will translate into much faster access times (read and write) for your cluster. A second reason for the buffer is to avoid paging memory to disk. Virtual memory helps prevent failure due to out of memory conditions, but the costs of paging memory to/from disk are very high and cause noticeable impact on cluster performance.
-
-Default: 8 MB
-
-```erlang
-{eleveldb, [
-    ...,
-    {cache_size, 8388608}, %% 8 MB default cache size per-partition
-    ...
-]}
-```
-
-### Write Performance/Write Safety
-
-These values can be adjusted to tune between write performance and write safety. The general rule is that the faster you want your writes perform (e.g. a larger buffer), the less safe they are (more data could be lost in a crash).
-
-#### Sync
-
-{{#1.4.0-}}
-If set to `true`, the write will be flushed from the operating system buffer cache before the write is considered complete. Writes will be slower but data more durable.
-
-If this flag is set to `false` and the machine crashes, some recent writes may be lost. Note that if it is just the process that crashes (i.e., the machine does not reboot), no writes will be lost, even if `sync` is set to `false`.
-
-In other words, a DB write with `sync` set to `false` has similar crash semantics as the `write()` system call. A DB write when sync is `true` has similar crash semantics to a `write()` system call followed by `fsync()`.
-
-One other consideration is that the hard disk itself may be buffering the write in its memory (a write-ahead cache) and responding before the data has
-been written to the disk. This may or may not be safe based on whether or
-not the hard disk has enough power to save its memory in the event of a power
-failure. If data durability is absolutely necessary then make sure you
-disable this feature on your drive or provide battery backup and a proper
-shutdown procedure during power loss.
-{{/1.4.0-}}
-{{#1.4.0+}}
-This parameter defines how new key/value data is placed in the recovery log. The recovery log is only used if the Riak program crashes or the server loses power unexpectedly. The parameter's original intent was to guarantee that each new key/value was written to the physical disk before LevelDB responded with `write good`. The reality in modern servers is that many layers of data caching exist between the database program and the physical disks. This flag influences only one of the layers.
-
-Setting this flag to `true` guarantees that the write operation will be slower, but it does not actually guarantee that the data was written to the physical device. The data has likely been flushed from the operating system cache to the disk controller. The disk controller may or may not save the data if the server power fails. Setting this flag to `false` allows for faster write operations and depends upon the operating system's memory-mapped I/O conventions to provide reasonable recovery should the Riak program fail, but not if server power fails.
-{{/1.4.0+}}
-
-Default: `false`
-
-```erlang
-{eleveldb, [
-    ...,
-    {sync, false},  %% do not write()/fsync() every time
-    ...
-]}
-```
-
-<div id="Write-Buffer-Size"></div>
-#### Write Buffer Size
-
-Each vnode first stores new key/value data in a memory-based write buffer. This write buffer is in parallel to the recovery log mentioned in the `sync` parameter. Riak creates each vnode with a randomly sized write buffer for performance reasons. The random size is somewhere between `write_buffer_size_min` and `write_buffer_size_max`.
-
-If unspecified in [[app.config|Configuration Files]], eLevelDB will default to a `write_buffer_size_min` of 31,457,280 Bytes (30 MB) and `write_buffer_size_max` of 62,914,560 Bytes (60 MB). In this case, the average write buffer will be 47,185,920 bytes (45 MB).
-
-Other portions of Basho's LevelDB tuning assume these two values have the default values. Changing the values higher or lower will likely impact overall write throughput in a negative fashion.
-
-```erlang
-{eleveldb, [
-    ...,
-    {write_buffer_size_min, 31457280},  %% 30 MB in bytes
-    {write_buffer_size_max, 62914560},  %% 60 MB in bytes
-    ...
-]}
-```
-
-If you choose to change the write buffer size by setting `write_buffer_size_min` and `write_buffer_size_max`, `write_buffer_size_min` must be at least 30 MB, and `write_buffer_size_min` should be about half the size of `write_buffer_size_max`.
-
-If you wish to set all write buffers to the same size, use the `write_buffer_size` parameter. This will override the `write_buffer_size_min` and `write_buffer_size_max` parameters. This is not recommended.
-
-Larger write buffers increase performance, especially during bulk loads. Up to two write buffers may be held in memory at the same time, so you may wish to adjust this parameter to control memory usage.
-
-### Read Performance
-
-These parameters can be set/adjusted to increase read performance.
-
-The `block_size` and `block_restart_interval` parameters determine how LevelDB will organize the key space within each `.sst` table file. The defaults are very good for all researched cases and therefore recommended.
-
-#### Bloom filter
-
-Each database `.sst` table file includes an optional Bloom filter that is highly effective in shortcutting queries for keys that are not present. The Bloom filter typically increases the size of an `.sst` table file by about 2%. To disable this feature, this option must be set to `false` in [[app.config|Configuration Files]] explicitly. 
-
-Default: `true`
-
-```erlang
-{eleveldb, [
-    ...,
-    %% Disabling the Bloom filter in LevelDB will marginally decrease
-    %% file size at the expense of increased lookup time for misses.
-    %% Running with the Bloom filter disabled is generally not 
-    %% recommended and must be tested aggressively with your workload 
-    %% to determine the impacts to your application's performance. 
-    {use_bloomfilter, false},   
-    ...
-]}
-```
-
-#### Block Size
-
-{{#1.4.0+}}
-`sst_block_size` defines the size threshold for a block / chunk of data within one `.sst` table file. Each new block gets an index entry in the `.sst` table file's master index.
-{{/1.4.0+}}
-{{#1.4.0-}}
-Approximate size of user data packed per block. For very large databases
-bigger block sizes are likely to perform better so increasing the block size
-to 256k (or another power of 2) may be a good idea. Keep in mind that
-LevelDB's default internal block cache is only 8MB so if you increase the
-block size you will want to resize `cache_size` as well.
-{{/1.4.0-}}
-
-Default: `4096` (4K)
-
-{{#1.3.0-}}
-
-```erlang
-{eleveldb, [
-    ...,
-    {block_size, 4096},  %% 4K blocks
-    ...
-]}
-```
-
-<div class="note"><div class="title">Block size in Riak 1.2</div>
-<p>It is not recommended to change block size from default in Riak 1.2. Block sizes larger than 4K can hurt performance.</p>
-</div>
-
-{{/1.3.0-}}
-{{#1.3.0+}}
-
-```erlang
-{eleveldb, [
-    ...,
-    {sst_block_size, 4096},  %% 4K blocks
-    ...
-]}
-```
-{{/1.3.0+}}
-
-#### Block Restart Interval
-
-`block_restart_interval` defines the key count threshold for a new key entry in the key index for a block.
-
-Most clients should leave this parameter alone.
-
-Default: `16`
-
-```erlang
-{eleveldb, [
-      ...,
-      {block_restart_interval, 16}, %% # of keys before restarting delta encoding
-      ...
-]}
-```
-
-### Database Integrity
-
-The `verify_checksums` and `verify_compactions` options control whether or not each data block from the disk is first validated via a CRC32c checksum. The tradeoff is this:  disk read operations are slightly faster without the CRC32c validation, but it is quite likely Riak will crash if a corrupted block is passed from the disk to LevelDB unvalidated.
-
-#### Verify Checksums
-
-`verify_checksums` controls whether or not validation occurs when Riak requests data from the LevelDB database on behalf of the user.
-
-{{#1.4.0-}}
-Default: `false`
-{{/1.4.0-}}
-{{#1.4.0+}}
-Default: `true`
-{{/1.4.0+}}
-
-```erlang
-{eleveldb, [
-    ...,
-    {verify_checksums, true}, %% make sure data is what we expected it to be
-    ...
-]}
-```
-
-#### Verify Compaction
-
-`verify_compaction` controls whether or not validation occurs when LevelDB reads data as part of its background compaction operations.
-
-Default: `true`
-
-```erlang
-{eleveldb, [
-    ...,
-    {verify_compaction, true},
-    ...
-]}
-```
-
-
-## Parameter Planning
-
-The following steps walk you through setting parameters and evaluating how much working memory (i.e. RAM) you'll need for a given LevelDB implementation.
-
-### Step 1:  Calculate Available Working Memory
-
-Current Unix-like systems (Linux / Solaris / SmartOS) use physical memory that is not allocated by programs as buffer space for disk operations. In Riak 1.2, LevelDB is modeled to depend upon this Operating System (OS) buffering. You must leave 25-50% of the physical memory available for the operating system (25-35% if servers have Solid State Drive (SSD) arrays, 35-50% if servers have spinning hard drives).
-
-LevelDB working memory is calculated simply as the memory not reserved for the OS.
-
-```bash
-leveldb_working_memory = server_physical_memory * (1 - percent_reserved_for_os)
-```
-
-Example:
-
- If a server has 32G RAM and we wish to reserve 50%,
-
-```bash
-leveldb_working_memory = 32G * (1 - .50) = 16G
-```
-
-### Step 2: Calculate Working Memory per vnode
-
-Riak 1.2 configures/assigns memory allocations by vnode. To calculate the vnode working memory, divide LevelDB's total working memory by the number of vnodes.
-
-```bash
-vnode_working_memory = leveldb_working_memory / vnode_count
-```
-
-Example:
-
-If a physical server contains 64 vnodes,
-
-```bash
-vnode_working_memory = 16G / 64 = 268,435,456 Bytes per vnode
-```
-
-
-### Step 3: Estimate Memory Used by Open Files
-
-There are many variables that determine the exact memory any given file will require when open. The formula below gives an approximation that should be accurate within 10% for moderately large LevelDB implementations.
-
-```bash
-open_file_memory = (max_open_files-10) * (184 + (average_sst_filesize/2048) * (8 + ((average_key_size+average_value_size)/2048 +1) * 0.6)
-```
-
- If a physical server contains 64 vnodes and the parameter values in the table below,
-
-```bash
-open_file_memory =  (150-10)* (184 + (314,572,800/2048) * (8+((28+1024)/2048 +1)*0.6 = 191,587,760 Bytes
-```
-
-Example:
-
-Parameter | Value |
-:---------|:------|
-`max_open_files` | 150 |
-`average_sst_filesize` | 314,572,800 bytes |
-`average_key_size` | 28 bytes |
-`average_value_size` | 1,024 bytes |
-**Total** | **191,587,760 bytes** |
-
-### Step 4: Calculate Average Write Buffer
-
-Calculate the average of `write_buffer_size_min` and `write_buffer_size_max` (see [[write buffer size|LevelDB#Write-Buffer-Size]] for more  on these parameters). The defaults are 31,457,280 Bytes (30 MB) and 62,914,560 Bytes (60 MB), respectively. Therefore the default average is 47,185,920 bytes (45 MB).
-
-
-### Step 5: Calculate vnode Memory Used
-
-The estimated amount of memory used by a vnode is the sum of:
-
-* `average_write_buffer_size` (from Step 4)
-* `cache_size` (from [[app.config|Configuration Files]])
-* `open_file_memory` (from step 3)
-* 20 MB (for management files)
-
-Example:
-
-Parameter | Bytes |
-:---------|:------|
-average write buffer size | 47,185,920 |
-cache size | 8,388,608 |
-open files | 191,587,760 |
-management files | 20,971,520 |
-**Total** | **268,133,808 (~255 MB)** |
-
-### Step 6: Compare Step 2 and Step 5 and Adjust Variables
-
-Example:
-
-In Step 2 we calculated a working memory per vnode of 268,435,456 Bytes. In Step 5, we estimated vnodes would consume approximately 268,133,808 Bytes. Step 2 and step 5 are within 301,648 Bytes (~300 kB) of each other. This is exceptionally close, but happens to be more precise than really needed. The values are good enough when they are within 5%.
-
-{{#1.4.0-}}
-The above calculations are automated in this [memory model spreadsheet](https://github.com/basho/basho_docs/raw/master/source/data/LevelDB1.2MemModel_calculator.xls).
-{{/1.4.0-}}
-
-{{#1.4.0+}}
-The above calculations are automated in this [memory model spreadsheet](https://github.com/basho/basho_docs/raw/master/source/data/leveldb_sizing_1.4.xls).
-{{/1.4.0+}}
-
-## Tuning LevelDB
-
-While eLevelDB can be extremely fast for a durable store, its performance
-varies based on how you tune it. All the configuration is exposed via
-application variables in the `eLeveldb` application scope.
-
-<div id="Tips-Tricks"></div>
-### Tips & Tricks:
-
-  * **Be aware of file handle limits**
-
-    You can control the number of file descriptors eLevelDB will use with `max_open_files`. eLevelDB configuration defaults to 30 per partition which means that in a cluster with 64 partitions you'll have at most 1920 file handles in use at a given time. This can cause problems on some platforms (e.g. OS X has a default limit of 256 handles). The solution is to increase the number of file handles available. Review the [[open files limitations|Open Files Limit]] information.
-
-  * **Avoid extra disk head seeks by turning off `noatime`**
-
-    eLevelDB is very aggressive at reading and writing files. As such, you
-    can get a big speed boost by adding the `noatime` mounting option to
-    `/etc/fstab`. This will disable the recording of the "last accessed time"
-    for all files. If you need last access times but you'd like some of the
-    benefits of this optimization you can try `relatime`.
-
-```bash
-/dev/sda5    /data           ext3    noatime  1 1
-/dev/sdb1    /data/inno-log  ext3    noatime  1 2
-```
-{{/2.0.0-}}
+The `leveldb.maximum_memory.percent` setting is only available in the newer configuration system.
 
 ### Recommended Settings
 
@@ -563,41 +112,39 @@ net.ipv4.tcp_tw_reuse=1
 ```
 
 #### Block Device Scheduler
+
 Beginning with the 2.6 kernel, Linux gives you a choice of four I/O [elevator models](http://www.gnutoolbox.com/linux-io-elevator/). We recommend using the NOOP elevator. You can do this by changing the scheduler on the Linux boot line: `elevator=noop`.
 
 #### ext4 Options
+
 The ext4 filesystem defaults include two options that increase integrity but slow performance. Because Riak's integrity is based on multiple nodes holding the same data, these two options can be changed to boost LevelDB's performance. We recommend setting: `barrier`=0 and `data`=writeback.
 
 #### CPU Throttling
+
 If CPU throttling is enabled, disabling it can boost LevelDB performance in some cases.
 
 #### No Entropy
+
 If you are using https protocol, the 2.6 kernel is widely known for stalling programs waiting for SSL entropy bits. If you are using https, we recommend installing the [HAVEGE](http://www.irisa.fr/caps/projects/hipsor/) package for pseudorandom number generation.
 
 #### clocksource
-We recommend setting "clocksource=hpet" on your linux kernel's `boot` line. The TSC clocksource has been identified to cause issues on machines with multiple physical processors and/or CPU throttling.
+
+We recommend setting `clocksource=hpet` on your Linux kernel's `boot` line. The TSC clocksource has been identified to cause issues on machines with multiple physical processors and/or CPU throttling.
 
 #### swappiness
+
 We recommend setting `vm.swappiness=0` in `/etc/sysctl.conf`. The `vm.swappiness` default is 60, which is aimed toward laptop users with application windows. This was a key change for MySQL servers and is often referenced in database performance literature.
-
-
-
-## FAQ
-
-  * As of Riak 1.0 use of secondary indexes (2I) requires that the bucket
-    being indexed be configured to use eLevelDB.
 
 ## Implementation Details
 
-[LevelDB](http://leveldb.googlecode.com/svn/trunk/doc/impl.html) is a Google
-sponsored open source project that has been incorporated into an Erlang
+[LevelDB](http://leveldb.googlecode.com/svn/trunk/doc/impl.html) is a Google-sponsored open source project that has been incorporated into an Erlang
 application and integrated into Riak for storage of key/value information on
 disk. The implementation of LevelDB is similar in spirit to the representation
 of a single Bigtable tablet (section 5.3).
 
 ### How "Levels" Are Managed
 
-LevelDB is a memtable/sstable design. The set of sorted tables are organized
+LevelDB is a memtable/sstable design. The set of sorted tables is organized
 into a sequence of levels. Each level stores approximately ten times as much
 data as the level before it. The sorted table generated from a flush is placed
 in a special young level (also called level-0). When the number of young files
@@ -733,53 +280,113 @@ leveldb/
 64 directories, 378 files
 ```
 
-After performing a large number of "put" (write) operations, the Riak cluster
+After performing a large number of PUT (write) operations, the Riak cluster
 running eLevelDB will look something like this:
 
 ```bash
-$ tree leveldb/
-leveldb/
-|-- 0
-|   |-- 000118.sst
-|   |-- 000119.sst
-|   |-- 000120.sst
-|   |-- 000121.sst
-|   |-- 000123.sst
-|   |-- 000126.sst
-|   |-- 000127.log
-|   |-- CURRENT
-|   |-- LOCK
-|   |-- LOG
-|   |-- LOG.old
-|   `-- MANIFEST-000125
-|-- 1004782375664995756265033322492444576013453623296
-|   |-- 000120.sst
-|   |-- 000121.sst
-|   |-- 000122.sst
-|   |-- 000123.sst
-|   |-- 000125.sst
-|   |-- 000128.sst
-|   |-- 000129.log
-|   |-- CURRENT
-|   |-- LOCK
-|   |-- LOG
-|   |-- LOG.old
-|   `-- MANIFEST-000127
-|-- 1027618338748291114361965898003636498195577569280
-|   |-- 000003.log
-|   |-- CURRENT
-|   |-- LOCK
-|   |-- LOG
-|   `-- MANIFEST-000002
+tree leveldb
+```
+
+The result should look something like this:
+
+```
+├── 0
+│   ├── 000003.log
+│   ├── CURRENT
+│   ├── LOCK
+│   ├── LOG
+│   ├── MANIFEST-000002
+│   ├── sst_0
+│   ├── sst_1
+│   ├── sst_2
+│   ├── sst_3
+│   ├── sst_4
+│   ├── sst_5
+│   └── sst_6
+├── 1004782375664995756265033322492444576013453623296
+│   ├── 000003.log
+│   ├── CURRENT
+│   ├── LOCK
+│   ├── LOG
+│   ├── MANIFEST-000002
+│   ├── sst_0
+│   ├── sst_1
+│   ├── sst_2
+│   ├── sst_3
+│   ├── sst_4
+│   ├── sst_5
+│   └── sst_6
 
 ... etc ...
-
-`-- 981946412581700398168100746981252653831329677312
-    |-- 000003.log
-    |-- CURRENT
-    |-- LOCK
-    |-- LOG
-    `-- MANIFEST-000002
-
-64 directories, 433 files
 ```
+
+## Tiered Storage
+
+Google's original LevelDB implemented stored all `.sst` table files in a single database directory. In Riak 1.3, the original LevelDB code was modified to store `.sst` files in subdirectories representing each "level" of the file, e.g. `sst_0` or `sst_1`, in the name of speeding up database repair operations.
+
+An additional advantage of this approach is that it enables Riak operators to mount alternative storage devices at each level of a LevelDB database. This can be an effective strategy because LevelDB is write intensive in lower levels, with the write intensity declining as the level number increases. This is due to LevelDB's storage strategy, which places more frequently updated data in lower levels.
+
+Because write intensity differs by level, performance can be improved by mounting faster, more expensive storage arrays in lower levels and slower, less expensive arrays at higher levels. Tiered storage enables you to configure the level at which LevelDB switches from a faster array to a slower array. 
+
+<div class="note">
+<div class="title">Note on write throttling</div>
+High-volume, sustained write operations can occasionally fill the higher-speed storage arrays before LevelDB has had the opportunity to move data to the low-speed arrays. LevelDB's write throttle will slow incoming write operations to allow compactions to catch up, as would be the case when using a single storage array.
+</div>
+
+### Configuration
+
+If you are using the newer, `riak.conf`-based configuration system, the following parameters can be used to configure LevelDB tiered storage:
+
+Parameter | Description
+:---------|:-----------
+`leveldb.tiered` | The level number at which data should switch to the slower array. The default is `0`, which disables the feature.
+`leveldb.tiered.path.fast` | The path prefix for `.sst` files below the level set by `leveldb.tiered`
+`leveldb.tiered.path.slow` | The path prefix for `.sst` files at and above the level set by `leveldb.tiered`
+
+If you are using the older, `app.config`-based system, the example below will show you the equivalents of the settings listed in the table above.
+
+#### Example
+
+The following example LevelDB tiered storage [[configuration|Configuration Files]] for Riak 2.0 sets the level for switching storage arrays to 4 and the file path prefix to `fast_raid` for the faster array and `slow_raid` for the slower array:
+
+```riakconf
+leveldb.tiered = 4
+leveldb.tiered.path.fast = /mnt/fast_raid
+leveldb.tiered.path.slow = /mnt/slow_raid
+```
+
+```appconfig
+{eleveldb, [
+    {tiered_slow_level, 4},
+    {tiered_fast_prefix, "/mnt/fast_raid"},
+    {tiered_slow_prefix, "/mnt/slow_raid"}
+]}
+```
+
+With this configuration, level directories `sst_0` through `sst_3` will be stored in `/mnt/fast_raid`, while directories `sst_4` and `sst_6` will be stored in `/mnt/slow_raid`.
+
+### Selecting a Level
+
+LevelDB will perform optimally when as much data as possible is stored in the faster array. The amount of data that can be stored in the faster array depends on the size of your array and the total number of LevelDB databases (i.e. the total number of Riak [[vnodes|Riak Glossary#vnode]]) in your cluster. The following table shows approximate sizes (in megabytes) for each of the following sizes: the amount of raw data stored in the level, the cumulative size of all levels up to the specified level, and the cumulative size including active anti-entropy data.
+
+Level | Level Size | Cumulative Size | Cumulative with AAE
+:-----|:-----------|:----------------|:-------------------
+0 | 360 | 360 | 720
+1 | 2,160 | 2,520 | 5,040
+2 | 2,940 | 5,460 | 10,920
+3 | 6,144 | 11,604 | 23,208
+4 | 122,880 | 134,484 | 268,968
+5 | 2,362,232 | 2,496,716 | 4,993,432
+6 | not limited | not limited | not limited
+
+To select the appropriate value for `leveldb.tiered`, use the following steps:
+
+* Determine the value of (ring size) / (N - 1), where ring size is the value of the `ring_size` configuration parameter and N is the number of nodes in the cluster. For a `ring_size` of 128 and a cluster with 10 nodes, the value would be 14.
+* Select either the **Cumulative Size** or **Cumulative with AAE** column from the table above. Select the third column if you are not using active anti-entropy or the fourth column if you are (i.e. if the `anti_entropy` [[configuration parameter|Configuration Files#active-anti-entropy]] is set to `active`).
+* Multiply the value from the first step by the cumulative column in each row in the table. The first result that exceeds your fast storage array capacity will provide the level number that should be used for your `leveldb.tiered` setting.
+
+### Migrating from One Configuration to Another
+
+If you want to use tiered storage in a new Riak installation, you don't need to take any steps beyond setting configuration. The rest is automated.
+
+But if you'd like to use tiered storage in an existing installation that is not currently using it, you will need to manually move your installation's `.sst` files from one configuration to another.
