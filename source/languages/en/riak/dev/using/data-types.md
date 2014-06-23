@@ -66,12 +66,10 @@ Counters are a bucket-level Riak Data Type that can be used either by themselves
 First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
 
 ```java
-/*
-   In the Java client, a bucket/bucket type combination is specified
-   using a Namespace object. To specify bucket, bucket type, and key,
-   use a Location object that incorporates the Namespace object, as is
-   done below.
-*/
+// In the Java client, a bucket/bucket type combination is specified
+// using a Namespace object. To specify bucket, bucket type, and key,
+// use a Location object that incorporates the Namespace object, as is
+// done below.
 
 Namespace countersBucket = new Namespace("counters", "counters");
 ```
@@ -112,11 +110,9 @@ your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-c
 To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
 
 ```java
-/*
-	Here, we'll use the Namespace object that we created above and
-	incorporate it into a Location object that includes the key (as yet
-	unspecified) for our counter.
-*/
+// Here, we'll use the Namespace object that we created above and
+// incorporate it into a Location object that includes the key (as yet
+// unspecified) for our counter.
 
 // Using the countersBucket Namespace object from above:
 
@@ -373,12 +369,10 @@ Here is the general syntax for setting up a bucket type/bucket/key combination t
 
 
 ```java
-/*
-   In the Java client, a bucket/bucket type combination is specified
-   using a Namespace object. To specify bucket, bucket type, and key,
-   use a Location object that incorporates the Namespace object, as is
-   done below.
-*/
+// In the Java client, a bucket/bucket type combination is specified
+// using a Namespace object. To specify bucket, bucket type, and key,
+// use a Location object that incorporates the Namespace object, as is
+// done below.
 
 Location set = new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
@@ -713,12 +707,10 @@ The semantics of dealing with counters, sets, and maps within maps are usually v
 The general syntax for creating a Riak map is directly analogous to the syntax for creating other data types:
 
 ```java
-/*
-   In the Java client, a bucket/bucket type combination is specified
-   using a Namespace object. To specify bucket, bucket type, and key,
-   use a Location object that incorporates the Namespace object, as is
-   done below.
-*/
+// In the Java client, a bucket/bucket type combination is specified
+// using a Namespace object. To specify bucket, bucket type, and key,
+// use a Location object that incorporates the Namespace object, as is
+// done below.
 
 Location map = new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
