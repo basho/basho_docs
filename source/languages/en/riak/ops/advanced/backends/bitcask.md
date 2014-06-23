@@ -33,8 +33,9 @@ merging.
     random items**
 
     Write operations to Bitcask generally saturate I/O and disk
-    bandwidth for two reasons: because (1) data that is written to 
-    Bitcask doesn't need to be ordered on disk, and (2) the
+    bandwidth, which is a good thing from a performance perspective.
+    This saturation occurs for two reasons: because (1) data that is
+    written to Bitcask doesn't need to be ordered on disk, and (2) the
     log-structured design of Bitcask allows for minimal disk head 
     movement during writes.
 
@@ -129,7 +130,10 @@ bitcask.io_mode = erlang
 ```appconfig
 %% Bitcask Config
     {bitcask, [
-        {data_root, "/var/lib/riak/bitcask"}
+        {data_root, "/var/lib/riak/bitcask"},
+        {io_mode, erlang},
+
+        %% Other Bitcask-specific settings
     ]},
 ```
 
@@ -173,10 +177,11 @@ when to synchronize data to disk, i.e. by choosing a sync strategy. The
 default setting (`none`) writes data into operating system buffers that
 will be written to disk when those buffers are flushed by the operating
 system. If the system fails before those buffers are flushed, e.g. due
-to power loss, that data is lost.
+to power loss, that data is lost. This possibility holds for any
+database in which values are asynchronously flushed to disk.
 
-Thus, using the default setting of `none` protects against data loss in the
-event of application failure, i.e. process death, but leaves open a
+Thus, using the default setting of `none` protects against data loss in
+the event of application failure, i.e. process death, but leaves open a
 small window in which data could be lost in the event of a complete
 system failure, e.g. hardware or OS failure.
 
