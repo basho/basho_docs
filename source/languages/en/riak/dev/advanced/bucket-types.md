@@ -234,6 +234,7 @@ Below is a listing of the `props` associated with the `default` bucket type:
       "fun": "chash_std_keyfun",
       "mod": "riak_core_util"
     },
+    "dvv_enabled": false,
     "dw": "quorum",
     "last_write_wins": false,
     "linkfun": {
@@ -308,7 +309,6 @@ riak-admin bucket-type update n_val_of_2 '{"props":{"allow_mult":false}}'
 Let's say that we're using Riak to store internet memes. We've been using a bucket called `current_memes` using the bucket type `no_siblings` (from above). At a certain point, we decide that our application needs to use a new bucket called `old_memes` to store memes that have gone woefully out of fashion, but that bucket also needs to bear the type `no_siblings`.
 
 The following request seeks to add the meme "all your base are belong to us" to the `old_memes` bucket. If the bucket type `no_siblings` has been created and activated, the request will ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
-
 
 ```ruby
 bucket = client.bucket('old_memes')
