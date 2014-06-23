@@ -367,14 +367,14 @@ As with counters (and maps, as shown below), using sets involves setting up a bu
 
 Here is the general syntax for setting up a bucket type/bucket/key combination to handle a set:
 
-
 ```java
 // In the Java client, a bucket/bucket type combination is specified
 // using a Namespace object. To specify bucket, bucket type, and key,
 // use a Location object that incorporates the Namespace object, as is
 // done below.
 
-Location set = new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
+Location set =
+  new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
 
 ```ruby
@@ -418,7 +418,11 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `sets` bucket type we created in the previous section):
 
 ```java
-Location cities = new Location(new Namespace("sets", "travel"), "cities");
+// In the Java client, you specify the location of Data Types
+// before you perform operations on them:
+
+Location cities =
+  new Location(new Namespace("sets", "travel"), "cities");
 ```
 
 ```ruby
@@ -712,7 +716,8 @@ The general syntax for creating a Riak map is directly analogous to the syntax f
 // use a Location object that incorporates the Namespace object, as is
 // done below.
 
-Location map = new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
+Location map =
+  new Location(new Namespace("<bucket_type>", "<bucket>"), "<key>");
 ```
 
 ```ruby
@@ -745,7 +750,11 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `maps` bucket type from above):
 
 ```java
-Location ahmedMap = new Location(new Namespace("maps", "customers"), "ahmed_info");
+// In the Java client, you specify the location of Data Types
+// before you perform operations on them:
+
+Location ahmedMap =
+  new Location(new Namespace("maps", "customers"), "ahmed_info");
 ```
 
 ```ruby

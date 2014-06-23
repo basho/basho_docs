@@ -39,9 +39,7 @@ obj = bucket.get('rufus', type: 'animals')
 // In the Java client, it is best to specify a bucket type/bucket/key
 // Location object that can be used as a reference for further operations.
 
-Location myKey = new Location("dogs")
-        .setBucketType("animals")
-        .setKey("rufus");
+Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
 
 ```python
@@ -177,9 +175,7 @@ obj.store(type: 'quotes')
 ```
 
 ```java
-Location wildeGeniusQuote = new Location("oscar_wilde")
-        .setBucketType("quotes")
-        .setKey("genius");
+Location wildeGeniusQuote = new Location(new Namespace("quotes", "oscar_wilde"), "genius");
 BinaryValue text = BinaryValue.create("I have nothing to declare but my genius");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -239,9 +235,7 @@ obj.vclock
 ```
 
 ```java
-Location currentChampion = new Location("nba")
-        .setBucketType("sports")
-        .setKey("champion");
+Location currentChampion = new Location(new Namespace("sports", "nba"), "champion");
 FetchValue fetch = new FetchValue.Builder(currentChampion)
         .build();
 FetchValue.Response response = client.execute(fetch);
@@ -298,9 +292,7 @@ obj.store(type: 'sports')
 ```
 
 ```java
-Location johnGlennKey = new Location("nba")
-        .setBucketType("sports")
-        .setKey("champion");
+Location johnGlennKey = new Location(new Namespace("sports", "nba"), "champion");
 BinaryValue text = BinaryValue.create("Harlem Globetrotters");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -362,9 +354,7 @@ obj.store(type: 'cars', r: 3)
 ```
 
 ```java
-Location viperKey = new Location("dodge")
-        .setBucketType("cars")
-        .setKey("viper");
+Location viperKey = new Location(new Namespace("cars", "dodge"), "viper");
 BinaryValue text = BinaryValue.create("vroom");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -420,9 +410,7 @@ obj.store(type: 'cars', r: 3, returnbody: true)
 ```
 
 ```java
-Location viperKey = new Location("dodge")
-        .setBucketType("cars")
-        .setKey("viper");
+Location viperKey = new Location(new Namespace("cars", "dodge"), "viper");
 BinaryValue text = BinaryValue.create("vroom");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -489,8 +477,7 @@ obj.key
 ```
 
 ```java
-Location locationWithoutKey = new Location("random_user_keys")
-        .setBucketType("users");
+Namespace locationWithoutKey = new Namespace("users", "random_user_keys");
 BinaryValue text = BinaryValue.create("{'user':'data'}");
 RiakObject obj = new RiakObject()
         .setContentType("application/json")
@@ -558,10 +545,7 @@ bucket.delete('genius', type: 'quotes')
 ```
 
 ```java
-// Using the "myKey" location from above:
-Location geniusQuote = new Location("oscar_wilde")
-        .setBucketType("quotes")
-        .setKey("genius");
+Location geniusQuote = new Location(new Namespace("quotes", "oscar_wilde"), "genius");
 DeleteValue delete = new DeleteValue.Builder(geniusQuote).build();
 client.execute(delete);
 ```
@@ -629,9 +613,7 @@ Once the type is activated, we can see which properties are associated with our 
 ```java
 // Fetching the bucket properties of a bucket type/bucket combination
 // must be done using a RiakCluster object rather than a RiakClient.
-
-Location testType = new Location("any_bucket_name")
-        .setBucketType("n_val_of_5");
+Namespace testType = new Namespace("n_val_of_5", "any_bucket_name");
 FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
         .Builder(testType)
         .build();
