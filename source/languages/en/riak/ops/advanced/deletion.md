@@ -64,7 +64,7 @@ backend.
 
 There are three possible settings:
 
-* `keep` --- Disables tombstone removal; protects against an edge case in which an object is deleted and recreated on the owning nodes while a fallback is either down or awaiting handoff
+* `keep` --- Disables tombstone removal; protects against an edge case in which an object is deleted and recreated on the owning [[vnodes|Riak Glossary#vnode]] while a fallback is either down or awaiting handoff
 * `immediate` --- The tombstone is removed as soon as the request is received. 
 * Custom time interval --- How long to wait until the tombstone is removed (the default is to `3s`, i.e. to wait 3 seconds)
 
@@ -111,7 +111,8 @@ Location loc = new Location("<bucket>")
 FetchValue fetch = new FetchValue.Builder(loc)
 		.withOption(Option.DELETED_VCLOCK, true)
 		.build();
-FetchValue.Response response = 
+FetchValue.Response response = client.execute(fetch);
+System.out.println(response.getVclock().asString());
 ```
 
 ```erlang
@@ -126,4 +127,4 @@ FetchValue.Response response =
 
 ## Resources
 
-http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-October/006048.html
+* [Discussion on the Riak mailing list](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-October/006048.html)
