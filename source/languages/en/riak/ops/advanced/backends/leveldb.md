@@ -61,6 +61,15 @@ Riak ships with eLevelDB included within the distribution, so there is no separa
 storage_backend = leveldb
 ```
 
+```appconfig
+{riak_kv, [
+
+    {storage_backend, riak_kv_eleveldb_backend},
+    
+    %% Other riak_kv settings
+]}
+```
+
 ## Configuring eLevelDB
 
 eLevelDb's default behavior can be modified by adding/changing parameters in the `eleveldb` section of the `[[riak.conf|Configuration Files]]`. The [[Key Parameters|LevelDB#Key-Parameters]] section below details the parameters you'll use to modify eLevelDB. The [[Parameter Planning|LevelDB#Parameter-Planning]] section gives a step-by-step example illustrating how to choose parameter values based on your application requirements.
@@ -70,7 +79,19 @@ The configuration values that can be set in your `[[riak.conf|Configuration File
 Config | Description | Default
 :------|:------------|:-------
 `leveldb.data_root` | LevelDB data root | `./data/leveldb`
-`leveldb.total_mem_percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. | `70`
+`leveldb.maximum_memory.percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. | `70`
+
+If you are using the older, `app.config`-based system, the equivalent to the `leveldb.data_root` is the `data_root` setting, as in the following example:
+
+```appconfig
+{eleveldb, [
+    {data_root, "/path/to/leveldb"},
+
+    %% Other eleveldb-specific settings
+]}
+```
+
+The `leveldb.maximum_memory.percent` setting is only available in the newer configuration system.
 
 ### Recommended Settings
 
@@ -314,13 +335,15 @@ High-volume, sustained write operations can occasionally fill the higher-speed s
 
 ### Configuration
 
-The following parameters can be used to configure LevelDB tiered storage:
+If you are using the newer, `riak.conf`-based configuration system, the following parameters can be used to configure LevelDB tiered storage:
 
 Parameter | Description
 :---------|:-----------
 `leveldb.tiered` | The level number at which data should switch to the slower array. The default is `0`, which disables the feature.
 `leveldb.tiered.path.fast` | The path prefix for `.sst` files below the level set by `leveldb.tiered`
 `leveldb.tiered.path.slow` | The path prefix for `.sst` files at and above the level set by `leveldb.tiered`
+
+If you are using the older, `app.config`-based system, the example below will show you the equivalents of the settings listed in the table above.
 
 #### Example
 
@@ -330,6 +353,14 @@ The following example LevelDB tiered storage [[configuration|Configuration Files
 leveldb.tiered = 4
 leveldb.tiered.path.fast = /mnt/fast_raid
 leveldb.tiered.path.slow = /mnt/slow_raid
+```
+
+```appconfig
+{eleveldb, [
+    {tiered_slow_level, 4},
+    {tiered_fast_prefix, "/mnt/fast_raid"},
+    {tiered_slow_prefix, "/mnt/slow_raid"}
+]}
 ```
 
 With this configuration, level directories `sst_0` through `sst_3` will be stored in `/mnt/fast_raid`, while directories `sst_4` and `sst_6` will be stored in `/mnt/slow_raid`.
