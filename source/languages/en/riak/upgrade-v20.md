@@ -19,7 +19,7 @@ guide.
 ## New Clients
 
 If you want to take advantage of the new features available in Riak 2.0,
-we recommand upgrading your application to an official Basho client
+we recommend upgrading your application to an official Basho client
 that was built with those features in mind. There exist official
 2.0-compatible clients in the following languages:
 
@@ -27,20 +27,6 @@ that was built with those features in mind. There exist official
 * [Java](https://github.com/basho/riak-java-client)
 * [Python](https://github.com/basho/riak-python-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
-
-Clients not built with version 2.0 in mind will not be able to utilize
-the following features:
-
-* [[Bucket types|Using Bucket Types]]
-* [[Strong consistency]]
-* [[Riak Data Types|Using Data Types]]
-* [[Riak Security|Authentication and Authorization]]
-
-If you are upgrading to version 2.0 solely for the performance and other
-benefits on offer and do not plan on using any of these features,
-there's a chance that an older Riak client will still work. This will
-need to be determined, however, on a case-by-case, application-specific
-basis.
 
 ## Bucket Types
 
@@ -97,16 +83,16 @@ and `test_key`, respectively---but with a bucket type of `custom_bucket_type`:
 
 ```ruby
 bucket = client.bucket('test_bucket')
-obj = bucket.get('test_key', bucket_type: 'custom_bucket_type')
+obj = bucket.get('test_key', type: 'custom_bucket_type')
 ```
 
 ```java
-// Note that the Java client uses a new Location class to designated
+// Note that the Java client uses a new Location class to designate
 // object location:
 
-Location loc = new Location("test_bucket")
-		.setBucketType("custom_bucket_type")
-		.setKey("test_key");
+Location loc =
+	new Location(new Namespace("custom_bucket_type", "test_bucket"), "test_key");
+
 FetchValue fetch = new FetchValue.Builder(loc).build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
@@ -152,7 +138,7 @@ bucket types as an essential precondition:
 
 If you do decide to use bucket types, please bear in mind that you
 cannot [[downgrade|Rolling Downgrades]] your cluster to a version of
-Riak prior to 2.0 if you have both (a) created and (b) activated a
+Riak prior to 2.0 if you have both created and activated a
 bucket type.
 
 ## New allow_mult Behavior
@@ -167,13 +153,13 @@ own, thus relieving connecting clients of the need to resolve those
 conflicts.
 
 **In 2.0, `allow_mult` is set to `true` for any bucket type that you
-(a) create and (b) activate.**
+create and activate.**
 
 If you wish to set `allow_mult` to `false` in version 2.0, you have a
 few options:
 
-* Use the default bucket configuration
-* Create and activate bucket types that explicitly set `allow_mult` to `false`
+* Don't use bucket types
+* Set your bucket type's `allow_mult` property to `false`
 
 More information on handling siblings can be found in our documentation
 on [[conflict resolution]].
@@ -184,7 +170,7 @@ If you decide to upgrade to version 2.0, you can still downgrade your
 cluster to an earlier version of Riak if you wish, _unless_ you perform
 one of the following actions in your cluster:
 
-* Index data to be used in conjunction with the new [[Riak Search|Using Search]] (codename Yokozuna).
+* Index data to be used in conjunction with the new [[Riak Search|Using Search]].
 * Create _and_ activate one or more [[bucket types|Using Bucket Types]]. By extension, you will not be able to downgrade your cluster if you have used the following features, both of which rely on bucket types:
 	- [[Strong consistency]]
 	- [[Riak Data Types|Using Data Types]]
