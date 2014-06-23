@@ -193,7 +193,6 @@ riak:
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
           - "[[Dotted Version Vectors]]"
-          # - "[[Links]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
       - title: "Riak Compared to"
