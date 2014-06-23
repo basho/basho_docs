@@ -37,7 +37,7 @@ Below is a series of tables listing the configurable parameters in `app.config`.
 
 ## `riak_api` Settings
 
-Parameter | Description | Default | 
+Parameter | Description | Default |
 :---------|:------------|:--------|
 `pb_backlog` | The maximum length to which the queue of pending *simultaneous* Protocol Buffers connections may grow. If set, it must be an integer >= 0. If you anticipate a larger number of connections than the default being simultaneously initialized, set this number to a higher value accordingly. You should adjust this value to meet your anticipated simultaneous connection demand or if experiencing connection resets. | `5` |
 `pb` | A list of IP addresses and ports on which Riak's Protocol Buffers interface should listen. | `{"127.0.0.1",8087}` | {{1.4.0+}}
@@ -47,7 +47,7 @@ Parameter | Description | Default |
 
 ## `riak_core` Settings
 
-Parameter | Description | Default | 
+Parameter | Description | Default |
 :---------|:------------|:--------|
 `choose_claim_fun` | Designates a module/function pair---using a `{Module, Function}` syntax---to claim vnodes from the passed-in ring and then return the resulting ring.<br /><br />**Note**: Please contact Basho support for more information. | `{riak_core_claim, default_choose_claim}`, which defaults to `{riak_core_claim, choose_claim_v2}` for most cases. |
 `cluster_name` | The name of the cluster (as a string). This is used internal to the ring, and can be used for identifying multiple clusters within a larger infrastructure. Any custom `cluster_name` values should be established before your cluster is started and should not be changed thereafter. | `riak` |
@@ -113,7 +113,7 @@ Parameter | Description | Default |
 
 ## `riak_kv` Settings
 
-Parameter | Description | Default | 
+Parameter | Description | Default |
 :---------|:------------|:--------|
 `anti_entropy` | Enable the AAE subsystem and optional debug messages.<br /><br />AAE with no debugging:<br />`{anti_entropy, {on, []}}`<br />For AAE with debugging:<br />`{anti_entropy, {on, [debug]}}`<br />No AAE:<br />`{anti_entropy, {off, []}}` | **none** |
 `anti_entropy_build_limit` | Restrict how quickly AAE can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. The format is `{number-of-builds, per-timespan-in-milliseconds}`. Example:<br /><br />`{anti_entropy_build_limit, {1, 3600000}},` | **none** |
@@ -145,6 +145,8 @@ Parameter | Description | Default |
 `riak_search` | Riak Search is now enabled via the `app.config`. To enable it in your app, simply set it to `true` in Riak Search configs section (more on this in **Riak Search Settings** below). | **none** |
 `vnode_mr_timeout` | How long (in milliseconds) a map function is permitted to execute on a vnode before it times out and is retried on another vnode. | `1000` |
 `vnode_mailbox_limit` | Configures the `riak_kv` health check that monitors message queue lengths of `riak_kv` vnodes, in `{EnableThreshold, DisableThreshold}` format. If a K/V vnode's message queue length reaches `DisableThreshold`, the `riak_kv` service is disabled on the node. The service will not be re-enabled until the message queue length drops below `EnableThreshold`. | **none** | {{1.3.0+}}
+`warn_object_size` | Objects encountered that are larger than the number of bytes specified will write a warning entry to the `console.log` file. | 5000000 | {{1.4.8+}}
+`warn_siblings` | Objects encountered whose siblings exceed the number specified will write a warning entry to the `console.log` file. | 25 | {{1.4.8+}}
 `secondary_index_timeout` | The number of milliseconds before a secondary index query times out. A value of `0` indicates that no timeout will occur. | `0` | {{1.4.1+}}
 
 ### Riak Storage Backends
@@ -162,7 +164,7 @@ Backend | Description |
 
 This needs to be set in order to enable access logs.
 
-Parameter | Description | Default | 
+Parameter | Description | Default |
 :---------|:------------|:--------|
 `webmachine_logger_module` | This needs to be set in order to enable access logs.<br /><br />**Note**: The additional disk I/O of an access log imposes a performance cost you may not wish to pay. Therefore, by default, Riak does not produce access logs. | **none** |
 
@@ -174,7 +176,7 @@ Here is an example:
 
 ## `riak_search` Settings
 
-Parameter | Description | Default | 
+Parameter | Description | Default |
 :---------|:------------|:--------|
 `enabled` | Enable search functionality. | `false` |
 `max_search_results` | Maximum number of results to accumulate before erroring, typically used to prevent or reduce memory exhaustion (which can sometimes reach levels that can bring down an entire VM). | `100000` |
@@ -195,7 +197,7 @@ Number of vnodes, per physical node, allowed to perform handoff at once. (defaul
 
 Lager is the logging engine introduced in Riak 1.0. It is designed to be more stable than Erlang's `error_logger` as well as to play nicely with standard logging tools.
 
-Parameter | Description | Default | 
+Parameter | Description | Default |
 :---------|:------------|:--------|
 `async_threshold` | The maximum number of log messages to be queued in asynchronous mode before switching to synchronous mode. | `20` |
 `async_threshold_window` | See detailed information in the **Async Threshold Window Settings** section below. | |
@@ -297,7 +299,7 @@ More details about each of these settings can be found in the Erlang documentati
 
 Riak CS and Enterprise may make different choices for some of these configurations, so we advise relying on the `vm.args` file supplied with those packages.
 
-Parameter | Description | Default | 
+Parameter | Description | Default |
 :---------|:------------|:--------|
 `-name` | The name of the Erlang node. The default value (`riak@127.0.0.2`) will work for running Riak locally, but for distributed---i.e. multi-node---use, the portion of the name after the `@` should be changed to the IP address of the machine on which the node is running. If you have a properly configured DNS, the short form of this name can be used, e.g. `riak`. The name of the node will then be `riak@Host.Domain`. | `riak@127.0.0.1` |
 `-setcookie` | Cookie for the Erlang node. Erlang nodes grant or deny access based on the sharing of a previously shared cookie. You should use the same cookie for every node in your Riak cluster, but it should be a not-easily-guessed string unique to your deployment, for the sake of preventing non-authorized access. | `riak` |
