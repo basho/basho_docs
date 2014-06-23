@@ -1,6 +1,4 @@
 \documentclass[letter]{book}
-special{papersize=8.5in,11in}
-
 \usepackage[
 	urlcolor = blue,
 	colorlinks = true,
@@ -20,18 +18,18 @@ special{papersize=8.5in,11in}
 \usepackage{pdfpages}
 \usepackage{wrapfig}
 \usepackage{perpage}
+\usepackage{longtable}
 
 \definecolor{shadecolor}{gray}{1.00}
 
-\setromanfont[Mapping=tex-text,BoldFont={* Bold}]{Andale Mono}
-\setmonofont[Scale=.85]{Andale Mono }
+\setromanfont{Hoefler Text}
 
-\XeTeXlinebreaklocale{en}
+\setmonofont[Scale=.85]{AndaleMono}
 
-\settowidth{\parindent}{\\qquad}
+\settowidth{\parindent}{<%= config['indent'] %>}
 
-\title{A Little Riak Book}
-\author{Eric Redmond}
+\title{The Riak Docs}
+\author{Basho Technologies}
 
 \makeatletter
 \let\savedauthor=\@author
@@ -42,7 +40,7 @@ special{papersize=8.5in,11in}
 \makeatother
 
 \title{\textbf{\savedtitle}}
-\author{\textbf{\savedauthor}\thanks{Generic placeholder thanks for now}}
+\def\w3cdtfymd{<%= config['version'] %> <%= "\\the\\year-\\ifnum\\month<10 0\\fi\\the\\month-\\ifnum\\day<10 0\\fi\\the\\day" %>}
 \date{\w3cdtfymd}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
@@ -55,7 +53,7 @@ special{papersize=8.5in,11in}
   \setlength\textwidth{400\p@}
   
   \setlength\@tempdima{\paperheight}
-  \addtolength\@tempdima{-<%= isprint ? 1.8 : 2 %>in}
+  \addtolength\@tempdima{-2in}
   \divide\@tempdima\baselineskip
   \@tempcnta=\@tempdima
   \setlength\textheight{\@tempcnta\baselineskip}
@@ -64,13 +62,13 @@ special{papersize=8.5in,11in}
   \setlength\@tempdima        {\paperwidth}
   \addtolength\@tempdima      {-\textwidth}
   \setlength\oddsidemargin    {\paperwidth}
-  \addtolength\oddsidemargin  {-<%= isprint ? 2.05 : 2.35 %>in}
+  \addtolength\oddsidemargin  {-2.35in}
   \addtolength\oddsidemargin  {-\textwidth}
   \setlength\marginparwidth   {0pt}
   \@settopoint\oddsidemargin
   \@settopoint\marginparwidth
   \setlength\evensidemargin  {\paperwidth}
-  \addtolength\evensidemargin{-<%= isprint ? 2.05 : 2.35 %>in}
+  \addtolength\evensidemargin{-2.35in}
   \addtolength\evensidemargin{-\textwidth}
   \@settopoint\evensidemargin
   
@@ -79,7 +77,7 @@ special{papersize=8.5in,11in}
   \addtolength\topmargin{-\headheight}
   \addtolength\topmargin{-\headsep}
   \addtolength\topmargin{-\textheight}
-  \addtolength\topmargin{-\footskip}     % this might be wrong!
+  \addtolength\topmargin{-\footskip}
   \addtolength\topmargin{-.5\topmargin}
   \@settopoint\topmargin
 \makeatother
@@ -119,7 +117,7 @@ special{papersize=8.5in,11in}
 
 \makeatletter
 \def\@makechapterhead#1{%
-  \vspace*{<%= isprint ? 40 : 50 %>\p@}%
+  \vspace*{50p@}%
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
       \if@mainmatter
@@ -130,7 +128,7 @@ special{papersize=8.5in,11in}
     \fi
     \interlinepenalty\@M
     \Huge \bfseries #1\par\nobreak
-    \vskip <%= isprint ? 30 : 40 %>\p@
+    \vskip 40\p@
   }}
 \makeatother
 
@@ -205,7 +203,6 @@ special{papersize=8.5in,11in}
 
 \begin{document}
 \frontmatter
-<%= "\\includepdf{assets/cover.pdf}" if !isprint %>
 \maketitle
 \vspace*{2.5in}
 \begin{center}

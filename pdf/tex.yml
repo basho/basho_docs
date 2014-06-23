@@ -1,0 +1,18 @@
+default:
+  lang: "en"
+  version: 1.4.9
+  font: Crimson
+  bold: "{* Bold}"
+  mono: Andale Mono
+  prechap: "Chapter "
+  postchap: ""
+  presect: "Section "
+  postsect: ""
+  dql: "“"
+  dqr: "”"
+  con: "Contents"
+  fig: "Figure "
+  tab: "Table "
+  indent: "\\qquad"
+  license: "This book is licensed under the Creative Commons Attribution-Non Commercial-Share Alike 3.0 license."
+  typeface: "Body typeface is Crimson."
