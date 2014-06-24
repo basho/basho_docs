@@ -162,6 +162,10 @@ Migration requires that Riak's AAE subsystem be enabled.  It's responsible for f
                 ]},
     ```
 
-10. Finally, delete the merge index directories to relcaim disk space.
+10.  Perform a rolling restart.  This is needed both to stop legacy Search as well as properly remove the legacy Search commit hooks.  A bug in the 1.4.x series allowed bucket properties to leak into what Riak developers call the "raw ring".  In the case of legacy Search it causes the commit hooks to persist even when legacy Search is disable and the search property is set to false.
+
+    New Search has code to expunge the legacy hooks from the raw ring but it only occurs during start-up and requires that legacy Search be disabled in the configuration.  Thus, the easiest way to fix things is to disable legacy Search (in step 9) and then perform a rolling restart of the cluster.
+
+11. Finally, delete the merge index directories to relcaim disk space.
 
 For any questions reach out the the [[Riak community|Help and Community]].  Preferably, ask your questions up front rather than during the middle of a migration.
