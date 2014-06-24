@@ -96,13 +96,49 @@ Migration requires that Riak's AAE subsystem be enabled.  It's responsible for f
 
     <!-- no re-index command currently exists -->
 
-6.  Watch the [[AAE|Replication#Active-Anti-Entropy-AAE-]] status. This will show you the progress of the new search index building.
+6.  Monitor the AAE status of every node until a full round of exchanges have occurred on every node.
 
     ```curl
     riak-admin search aae-status
     ```
 
-    Eventually all partitions will be exchanged (or buckets re-indexed). You'll know this when there are no listed statuses.
+    First, you must wait until all trees are rebuilt.  This may take a while as each node is configured, by default, to build a maximum of one tree per hour.  You can determine when a tree is build by looking at the `Entropy Trees` section.  When a tree is not built it will show `--` under the `Built (ago)` column.  Otherwise, it will list how long ago the tree was built in a human friendly format.  Here is an example of trees that are not built:
+
+    ```
+    ================================ Entropy Trees ================================
+    Index                                              Built (ago)
+    -------------------------------------------------------------------------------
+    ...
+    296867520082839655260123481645494988367611297792   --
+    319703483166135013357056057156686910549735243776   --
+    ...
+    ```
+
+    Here is an example of built trees:
+
+    ```
+    ================================ Entropy Trees ================================
+    Index                                              Built (ago)
+    -------------------------------------------------------------------------------
+    ...
+    296867520082839655260123481645494988367611297792   12.3 hr
+    319703483166135013357056057156686910549735243776   5.3 hr
+    ...
+    ```
+
+    After all the trees are built you then have to wait for a full exchange round to occur for every partition on every node.  That is, the full exchange round must be **NEWER** than the time the tree was built.  That way you know the exchange was based on the latest tree.  The exchange information is found under the `Exchanges` section.  Under that section there are two columns: `Last (ago)` and `All (ago)`.  In this was you want to wait until the `All (ago)` section is newer than the value of `Built (ago)` in the `Entropy Trees` section.  For example, given the entropy tree output above this output would indicate both partitions have had a full exchange round since the latest tree was built:
+
+    ```
+    ================================== Exchanges ==================================
+    Index                                              Last (ago)    All (ago)
+    -------------------------------------------------------------------------------
+    ...
+    296867520082839655260123481645494988367611297792   12.1 hr       12.1 hr
+    319703483166135013357056057156686910549735243776   5.1 hr        5.2 hr
+    ...
+    ```
+
+    Notice that `12.1 hr` is newer than `12.3 hr` and `5.2 hr` newer than `5.3 hr`.  Once the exchange is newer for every partition on every node you know that AAE has brought all new indexes up to date.
 
 7.  Next, call the following command that will give HTTP and PB query control to the new Riak Search.
 
