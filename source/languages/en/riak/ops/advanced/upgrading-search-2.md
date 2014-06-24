@@ -146,6 +146,11 @@ Migration requires that Riak's AAE subsystem be enabled.  It's responsible for f
     riak-admin search switch-to-new-search
     ```
 
+    <div class="note">
+    <div class="title">Check Results Before Switching (Optional)</div>
+    Up until this point all incoming queries are serviced by the legacy Search system.  After the `switch-to-new-search` is run all queries will be handled by new Search.  If you first want to verify the results of new Search before switching then you can use its dedicated HTTP resource at `/search/query/<index>?q=...`.
+    </div>
+
 8.  Set the `search` bucket property to `false` for all legacy indexed buckets. This deactivates legacy Search.
 
     ```curl
