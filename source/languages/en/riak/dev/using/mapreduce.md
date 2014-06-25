@@ -107,4 +107,3 @@ We run a Javascript MapReduce function against the `training` bucket, which take
 ## Further Reading
 
 * [[Advanced MapReduce]]: Details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details
-* [[Using Key Filters]]: Pre-processing MapReduce inputs from a full bucket query by examining the key
