@@ -14,10 +14,10 @@ moved: {
 ---
 
 Riak allows you to run multiple backends within a single Riak cluster.
-Selecting the Multi backend for your cluster enables you to use
-different storage backends for different buckets. Any combination of
-the three available backends--[[Bitcask]], [[LevelDB]], and [[Memory]]--
-can be used.
+Selecting the Multi backend enables you to use different storage
+backends for different [[buckets]]. Any combination of the three
+available backends---[[Bitcask]], [[LevelDB]], and [[Memory]]---can be
+used.
 
 ## Configuring Multiple Backends
 
@@ -57,8 +57,8 @@ data. First, we need to create two bucket types, one which sets the
 property to `memory`. All bucket type-related activity is performed
 through the `[[riak-admin|riak-admin Command Line]]` command interface.
 
-We'll call our two types `leveldb_backend` and `memory_backend`, but you
-can use whichever names you wish.
+We'll call our bucket types `leveldb_backend` and `memory_backend`, but
+you can use whichever names you wish.
 
 ```bash
 riak-admin bucket-type create leveldb_backend '{"props":{"backend":"leveldb"}}'
@@ -89,9 +89,15 @@ Multi backend.
 
 #### Using the Newer Configuration System
 
-If you are using the newer,
-`riak.conf`-based [[configuration system|Configuration Files]], you can 
-configure the backends by prefacing each configuration with `multi_backend`.
+If you are using the newer, `riak.conf`-based [[configuration system|Configuration Files]],
+you can configure the backends by prefacing each configuration with `multi_backend`.
+
+Here is an example of the general form for configuring multiple
+backends:
+
+```riakconf
+multi_backend.$name.$setting_name = setting
+```
 
 If you are using, for example, the LevelDB and Bitcask backends and wish
 to set LevelDB's `bloomfilter` setting to `off` and the Bitcask
@@ -100,12 +106,6 @@ backend's `io_mode` setting to `nif`, you would do that as follows:
 ```riakconf
 multi_backend.leveldb.bloomfilter = off
 multi_backend.bitcask.io_mode = nif
-```
-
-Below is the more general form for configuring multiple backends:
-
-```riakconf
-multi_backend.$name.$setting_name = setting
 ```
 
 #### Using the Older Configuration System
@@ -117,7 +117,7 @@ the `storage_backend` setting to `riak_kv_multi_backend`, as shown
 above).
 
 **Note**: If you are defining multiple file-based backends of the same
-type, each of these must have a separate `data_root` defined.
+type, each of these must have a separate `data_root` directory defined.
 
 While all configuration parameters can be placed anywhere within the
 `riak_kv` section of `app.config`, in general we recommend that you
@@ -181,5 +181,5 @@ the backend can use, e.g. caching for LevelDB or for the entire set of
 data for the Memory backend. Each of these backends suggests allocating
 up to 50% of available memory for this purpose. When using the Multi
 backend, make sure that the sum of all backend memory use is at 50% 
-or less. Using, for example, three backends with each set to 50% memory
-usage will inevitable lead to memory problems.
+or less. For example, using three backends with each set to 50% memory
+usage will inevitably lead to memory problems.

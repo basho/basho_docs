@@ -111,14 +111,26 @@ storage_backend = bitcask
 {riak_kv, [
 	{storage_backend, riak_kv_bitcask_backend},
 	%% Other riak_kv settings...
-]},
-%% Other settings...
+
+    ]},
 ```
 
 ## Configuring Bitcask
 
 Bitcask enables you to configure a wide variety of its behaviors, from
 object storage syncing strategy to merge settings and more.
+
+<div class="note">
+<div class="title">Note on configuration systems</div>
+Riak 2.0 enables you to use either the newer [[configuration system|Configuration Files]]
+based on a single <code>riak.conf</code> file or the older system, based
+on an <code>app.config</code> configuration file.
+
+Instructions for both systems will be included below. Narrative
+descriptions of the various settings will be tailored to the newer
+configuration system, whereas instructions for the older system will
+largely be contained in the code tabs.
+</div>
 
 The default configuration values for Bitcask are as follows:
 
@@ -128,16 +140,16 @@ bitcask.io_mode = erlang
 ```
 
 ```appconfig
-%% Bitcask Config
-    {bitcask, [
-        {data_root, "/var/lib/riak/bitcask"},
-        {io_mode, erlang},
+{bitcask, [
+    {data_root, "/var/lib/riak/bitcask"},
+    {io_mode, erlang},
 
-        %% Other Bitcask-specific settings
-    ]},
+    %% Other Bitcask-specific settings
+    ]}
 ```
 
-All other available settings can be added to your configuration files.
+All of the other available settings listed below can be added to your
+configuration files.
 
 ### Open Timeout
 
@@ -149,25 +161,20 @@ In general, you will not need to adjust this setting. If, however, you
 begin to receive log messages of the form `Failed to start bitcask
 backend: ...`, you may want to consider using a longer timeout.
 
-In the newer, `riak.conf`-based configuration system, open timeout is
-specified using the `bitcask.sync.open_timeout` parameter, and can be
-set in terms of seconds, minutes, hours, etc. The following example
-sets the parameter to 10 seconds:
+Open timeout is specified using the `bitcask.sync.open_timeout`
+parameter, and can be set in terms of seconds, minutes, hours, etc.
+The following example sets the parameter to 10 seconds:
 
 ```riakconf
 bitcask.sync.open_timeout = 10s
 ```
 
-In the older, `app.config`-based configuration system, open timeout is
-specified using the `open_timeout` parameter, and is set in seconds. The
-following example sets the parameter to 10 seconds:
-
 ```appconfig
 {bitcask, [
-    %% Other Bitcask settings...
-        {open_timeout, 10},
-    %% Other Bitcask settings...
-]}
+    ...,
+    {open_timeout, 10} %% This value must be expressed in seconds
+    ...
+    ]}
 ```
 
 ### Sync Strategy
@@ -214,17 +221,18 @@ bitcask.sync.interval = 10s
         {sync_strategy, o_sync},
         {sync_strategy, {seconds, 10}}, %% The time interval must be specified in seconds
     ...
-]}
+    ]}
 ```
 
-#### `O_SYNC` on Linux
+### `O_SYNC` on Linux
 
 At the moment, Bitcask doesn't acutally set `O_SYNC` on Linux, due to an
 unresolved [kernel issue](http://permalink.gmane.org/gmane.linux.kernel/1123952)
-related to implementation of `[fcntl](https://github.com/torvalds/linux/blob/master/fs/fcntl.c#L146..L198)`.
+related to the implementation of
+`[fcntl](https://github.com/torvalds/linux/blob/master/fs/fcntl.c#L146..L198)`.
 
 When a file is opened for writing by Bitcask, it will not set the `O_SYNC`
-flag. The call to `fcntl` doesn't fail, but rather silently ignored by
+flag. The call to `fcntl` doesn't fail but is rather silently ignored by
 the Linux kernel. You may notice [warning messages](https://github.com/basho/riak_kv/commit/6a29591ecd9da73e27223a1a55acd80c21d4d17f#src/riak_kv_bitcask_backend.erl)
 of the following format in your log files:
 
@@ -250,13 +258,13 @@ within the data files, and a write lock file. The design of Bitcask
 allows for recovery even when data isn't fully synchronized to disk
 (partial writes). This is accomplished by maintaining data files that
 are append-only (i.e. never modified in-place) and are never reopened
-for modification (i.e. only for reading).
+for modification (i.e. they are only for reading).
 
 This data management strategy trades disk space for operational
 efficiency. There can be a significant storage overhead that is
 unrelated to your working data set but can be tuned in a way that best
 fits your use case. In short, disk space is used until a threshold is
-met, while unused space is reclaimed through a process of merging. The
+met while unused space is reclaimed through a process of merging. The
 merge process traverses data files and reclaims space by eliminating
 out-of-date versions of key/value pairs, writing only the current 
 key/value pairs to a new set of files within the directory.
@@ -266,7 +274,7 @@ sections below. In those sections, "dead" refers to keys that no longer
 contain the most up-to-date values, while "live" refers to keys that
 do contain the most up-to-date value and have not been deleted.
 
-#### Max File Size
+### Max File Size
 
 The `max_file_size` setting describes the maximum permitted size for any
 single data file in the Bitcask directory. If a write causes the current
@@ -284,27 +292,25 @@ is triggered, irrespective of your working set size. You should plan
 storage accordingly and be aware that it is possible to see disk data
 sizes that are larger than the working set.
 
-In the newer, `riak.conf`-based configuration system, `max_file_size`
-can be specified using kilobytes, megabytes, etc. The following example
-sets the max file size to 1 GB:
+The `max_file_size` setting can be specified using kilobytes, megabytes,
+etc. The following example sets the max file size to 1 GB:
 
 ```riakconf
-bitcask.max_file_size = 1GB
+bitcask.max_file_size = 2GB
 ```
-
-In the older, `app.config`-based configuration system, `max_file_size`
-must be specified in bytes. The default of 2 GB, for example, would be
-set as `16#80000000`:
 
 ```appconfig
+%% The max_file_size setting must be expressed in bytes, as in the
+%% example below
+
 {bitcask, [
     ...,
-    {max_file_size, 16#80000000}, %% 2GB default
+    {max_file_size, 16#80000000}, %% 2 GB expressed in bytes
     ...
-]}
+    ]}
 ```
 
-#### Hint File CRC Check
+### Hint File CRC Check
 
 During startup, Bitcask will read from `.hint` files in order to build
 its in-memory representation of the key space, falling back to `.data`
@@ -316,31 +322,28 @@ containing a CRC value or to use them anyway.
 If you are using the newer, `riak.conf`-based configuration system,
 you can instruct Bitcask to disregard `.hint` files that do not contain
 a CRC value by setting the `hintfile_checksums` setting to `strict` (the
-default):
+default). To use Bitcask in a backward-compatible mode that allows for
+`.hint` files without CRC signatures, change the setting to `allow_missing`.
+
+The following example sets the parameter to `strict`:
 
 ```riakconf
 bitcask.hintfile_checksums = strict
 ```
 
-To use Bitcask in a backward-compatible mode that allows for `.hint`
-files without CRC signatures, change this setting to `allow_missing`.
-
-If you are using the older, `app.config`-based configuration system,
-you can instruct Bitcask to disregard `.hint` files that do not contain
-a CRC value by setting `require_hint_crc` to `true`, as in this example:
-
 ```appconfig
+%% In the app.config-based system, substitute "require_hint_crc" for
+%% "hintfile_checksums", "true" for "strict", and "false" for
+%% "allow_missing"
+
 {bitcask, [
     ...,
     {require_hint_crc, true},
     ...
-]}
+    ]}
 ```
 
-Setting `require_hint_crc` to `false` will instruct Bitcask to accept
-otherwise-valid `.hint` files without CRC values.
-
-#### I/O Mode
+### I/O Mode
 
 The `io_mode` setting specifies which code module Bitcask should use for 
 file access. The available settings are:
@@ -359,14 +362,14 @@ bitcask.io_mode = erlang
     ...,
     {io_mode, erlang},
     ...
-]}
+    ]}
 ```
 
 In general, the `nif` IO mode provies higher throughput for certain
 workloads, but it has the potential to negatively impact the Erlang VM,
 leading to higher worst-case latencies and possible throughput collapse.
 
-#### Merge Policy
+### Merge Policy
 
 Bitcask enables you to select a merge policy, i.e. when during the day
 merge operations are allowed to be triggered. The valid options are:
@@ -381,7 +384,15 @@ following example sets the merge policy to `never`:
 
 ```riakconf
 bitcask.merge_policy = never
-``` 
+```
+
+```appconfig
+{bitcask, [
+    ...,
+    {merge_window, never},
+    ...
+    ]}
+```
 
 If you opt to specify start and end hours for merge operations, you can
 do so by specifying the `merge.window.start` and `merge.window.end`
@@ -394,30 +405,15 @@ bitcask.merge.window.start = 3
 bitcask.merge.window.end = 17
 ```
 
-If you are using the older, `app.config`-based configuration system, you
-can specify a merge policy using the `merge_window` setting. The 
-following example sets the merge policy to `never`:
-
 ```appconfig
-{bitcask, [
-    ...,
-    {merge_window, never},
-    ...
-]}
-```
+%% In the app.config-based system, you specify the merge window using
+%% a tuple, as in the following example:
 
-If you wish to specify a time interval instead, you can select a window
-as an Erlang tuple of the form `{Start, End}`, where `Start` and `End`
-are both integers between 0 and 23, with 0 signifying midnight and 23
-signifying 11 pm. The following example enables merging between 3 am and
-4:59 pm:
-
-```appconfig
 {bitcask, [
     ...,
     {merge_window, {3, 17}},
     ...
-]}
+    ]}
 ```
 
 <div class="note">
@@ -440,7 +436,7 @@ affected by merging, leaving the remaining nodes to handle requests.
 The main drawback of this approach is that merges will occur less
 frequently, leading to increased disk space usage.
 
-#### Merge Triggers
+### Merge Triggers
 
 Merge triggers determine the conditions under which merging will be
 invoked. These conditions fall under two basic categories:
@@ -461,8 +457,7 @@ invoked. These conditions fall under two basic categories:
   When either of these constraints are met by any file in the directory,
   Bitcask will attempt to merge files. The default is 512 MB.
 
-If you are using the newer, `riak.conf`-based configuration system,
-you can set the triggers described above using `merge.triggers.fragmentation`
+You can set the triggers described above using `merge.triggers.fragmentation`
 and `merge.triggers.dead_bytes`, respectively. The former is expressed
 as an integer between 0 and 100, whereas the latter can be expressed in
 terms of kilobytes, megabytes, gigabytes, etc. The following example
@@ -474,23 +469,20 @@ bitcask.merge.fragmentation = 55
 bitcask.merge.triggers.dead_bytes = 1GB
 ```
 
-If you are using the older, `app.config`-based configuration system, you
-can set the triggers described above using the `dead_bytes_merge_trigger`
-and `frag_merge_trigger` parameters, respectively. The former is
-expressed as an integer between 0 and 100, whereas the latter can be
-expressed in terms of bytes. The following example sets the dead bytes
-threshold to 55% and the fragmentation threshold to 1 GB:
-
 ```appconfig
+%% The equivalent settings in the app.config-based system are
+%% frag_merge_trigger and dead_bytes_merge_trigger, respectively. The
+%% latter must be expressed in bytes.
+
 {bitcask, [
     ...,
     {frag_merge_trigger, 60},
     {dead_bytes_merge_trigger, 1073741824},
     ...
-]}
+    ]}
 ```
 
-#### Merge Thresholds
+### Merge Thresholds
 
 Merge thresholds determine which files will be chosen for inclusion in
 a merge operation.
@@ -515,10 +507,9 @@ a merge operation.
   merged, while decreasing the value will case fewer files to be merged.
   The default is 10 MB.
 
-If you are using the newer, `riak.conf`-based configuration system, you
-can set the thresholds described above using the `merge.thresholds.fragmentation`,
-`merge.thresholds.dead_bytes`, and `merge.threshold.small_file` settings,
-respectively.
+You can set the thresholds described above using the
+`merge.thresholds.fragmentation`, `merge.thresholds.dead_bytes`, and
+`merge.threshold.small_file` settings, respectively.
 
 The `fragmentation` setting is expressed as an integer
 between 0 and 100, and the `dead_bytes` and `small_file` settings can be
@@ -532,25 +523,19 @@ bitcask.merge.thresholds.dead_bytes = 200MB
 bitcask.merge.thresholds.small_file = 25MB
 ```
 
-If you are using the older, `app.config`-based configuration system,
-you can set the thresholds described above using the `frag_threshold`,
-`dead_bytes_threshold`, and `small_file_threshold` parameters,
-respectively.
+```appconfig
+%% In the app.config-based system, the settings corresponding to those
+%% listed above are frag_threshold, dead_bytes_threshold, and
+%% small_files threshold, respectively. The latter two settings must be
+%% expressed in bytes:
 
-The `frag_threshold` setting is expressed as an integer
-between 0 and 100, while the `dead_bytes_threshold` and `small_file_threshold`
-parameters are expressed in terms of bytes. The following example sets
-the fragmentation threshold to 45%, the dead bytes threshold to 200 MB,
-and the small file threshold to 25 MB:
-
-```erlang
 {bitcask, [
-        ...,
-        {frag_threshold, 45},
-        {dead_bytes_threshold, 209715200},
-        {small_file_threshold, 26214400},
-        ...
-]}
+    ...,
+    {frag_threshold, 45},
+    {dead_bytes_threshold, 209715200},
+    {small_file_threshold, 26214400},
+    ...
+    ]}
 ```
 
 <div class="note">
@@ -562,7 +547,7 @@ no files meet the thresholds, and thus never resolve the conditions that
 triggered merging.
 </div>
 
-#### Log Needs Merge
+### Log Needs Merge
 
 If you are using the older, `app.config`-based configuration system, you
 can use the `log_needs_merge` setting to tune and troubleshoot Bitcask
@@ -575,18 +560,20 @@ be logged.
     ...,
     {log_needs_merge, true},
     ...
-]}
+    ]}
 ```
 
 <div class="note">
 <div class="title">Note on <code>log_needs_merge</code> and the Multi backend</div>
-When using Bitcask with the [[Multi]] backend, please note that
-<code>log_needs_merge</code> _must_ be set in the global <code>bitcask</code>
-section of your <code>app.config</code>. All <code>log_needs_merge</code>
-settings in per-backend sections are ignored.
+If you are using Bitcask with the [[Multi]] backend in conjunction with
+the older, <code>app.config</code>-based configuration system, please
+note that <code>log_needs_merge</code> _must_ be set in the global
+<code>bitcask</code> section of your <code>app.config</code>.
+All <code>log_needs_merge</code> settings in per-backend sections are
+ignored.
 </div>
 
-#### Fold Keys Threshold
+### Fold Keys Threshold
 
 Fold keys thresholds will reuse the keydir (a) if another fold was
 started less than a specified time interval ago and (b) there were fewer
@@ -595,8 +582,7 @@ all current fold keys complete and then start. The default time interval
 is 0, while the default number of updates is unlimited. Both thresholds
 can be disabled.
 
-If you are using the newer, `riak.conf`-based configuration system,
-the conditions described above can be set using the `fold.max_age` and
+The conditions described above can be set using the `fold.max_age` and
 `fold.max_puts` parameters, respectively. The former can be expressed in
 terms of minutes, hours, days, etc., while the latter is expressed as an
 integer. Each threshold can be disabled by setting the value to
@@ -608,50 +594,47 @@ bitcask.max_age = 0.5s
 bitcask.max_puts = 1000
 ```
 
-If you are using the older, `app.config`-based configuration system,
-the conditions described above can be set using the `max_fold_age` and
-`max_fold_puts` parameters, respectively. The former can be expressed in
-terms of microseconds, while the latter is expressed as an
-integer. The thresholds can be disabled by setting the value to
-`-1`, which means unlimited. The following example sets the
-`max_fold_age` to 1/2 second and the `max_fold_puts` to 1000:
-
 ```appconfig
+%% In the app.config-based system, the corresponding parameters are
+%% max_fold_age and max_fold_puts, respectively. The former must be
+%% expressed in milliseconds, while the latter must be an integer:
+
 {bitcask, [
     ...,
     {max_fold_age, 500},
     {max_fold_puts, 1000},
     ...
-]}
+    ]}
+
+%% Each of these thresholds can be disabled by setting the value to -1
 ```
 
-#### Automatic Expiration
+### Automatic Expiration
 
-By default, Bitcask keeps all of your data. If your data has limited
+By default, Bitcask keeps all of your data. But if your data has limited
 time value or if you need to purge data for space reasons, you can
-configure object expiry. By default, object expiry is disabled.
+configure object expiry. This feature is disabled by default.
 
-If you are using the newer, `riak.conf`-based configuration system, you
-can configure object expiry using the `expiry` setting and either
-specifying a time interval in seconds, minutes, hours, etc., or turning
-expiry off (`off`). The following example configures objects to expire
-after 1 day:
+You can enable and configure object expiry using the `expiry` setting
+and either specifying a time interval in seconds, minutes, hours, etc.,
+or turning expiry off (`off`). The following example configures objects
+to expire after 1 day:
 
 ```riakconf
 bitcask.expiry = 1d
 ```
 
-If you are using the older, `app.config`-based configuration system, you
-can configure object expiry using the `expiry_secs` option and either
-specifying a time interval in seconds or turning expiry off (`-1`). The
-following example configures objects to expire after 1 day:
+```appconfig
+%% In the app.config-based system, expiry is expressed in terms of
+%% seconds:
 
-```erlang
 {bitcask, [
     ...,
-    {expiry_secs, 86400},
+    {expiry_secs, 86400}, %% Sets the duration to 1 day
     ...
-]}
+    ]}
+
+%% Expiry can be turned off by setting this value to -1
 ```
 
 <div class="note">
@@ -671,23 +654,21 @@ configured amount of time. The default is 0, signifying no grace time.
 If you are using the newer, `riak.conf`-based configuration system, you
 can set an expiry grace time using the `expiry.grace_time` setting and
 in terms of minutes, hours, days, etc. The following example sets the
-grace time to 1 hour:
+grace period to 1 hour:
 
 ```riakconf
 bitcask.expiry.grace_time = 1h
 ```
 
-If you are using the newer, `app.config`-based configuration system, you
-can set an expiry grace time using the `expiry_grace_time` setting,
-which is expressed in seconds. The following example sets the grace time
-to 1 hour:
+```appconfig
+%% The equivalent setting in the app.config-based system is
+%% expiry_grace_time. This must be expressed in seconds:
 
-```erlang
 {bitcask, [
     ...,
-    {expiry_grace_time, 3600},
+    {expiry_grace_time, 3600}, %% Sets the grace period to 1 hour
     ...
-]}
+    ]}
 ```
 
 ## Tuning Bitcask
@@ -877,8 +858,8 @@ bitcask/
 
 ```
 
-As more data is written to the cluster, more Bitcask files are created until
-merges are triggered.
+As more data is written to the cluster, more Bitcask files are created
+until merges are triggered.
 
 ```
 bitcask/

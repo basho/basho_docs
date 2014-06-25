@@ -34,19 +34,19 @@ example:
 storage_backend = memory
 ```
 
-```erlang
+```appconfig
 {riak_kv, [
-    ...
+    ...,
     {storage_backend, riak_kv_memory_backend},
     ...
-]}
+    ]}
 ```
 
 **Note**: If you *replace* the existing specified backend by removing it
 or commenting it out as shown in the above example, data belonging to
-the previously specified backend will still preserved on the filesystem,
-but will no longer be accessible through Riak unless the backend is
-enabled again.
+the previously specified backend will still be preserved on the
+filesystem but will no longer be accessible through Riak unless the
+backend is enabled again.
 
 If you require multiple backends in your configuration, please consult
 the [[Multi backend documentation|Multi]].
@@ -57,7 +57,7 @@ The Memory backend enables you to configure two fundamental aspects of
 object storage: maximum memory usage per [[vnode|Riak Glossary#vnode]]
 and object expiry.
 
-#### Max Memory
+### Max Memory
 
 This setting specifies the maximum amount of memory consumed by the
 Memory backend. It's important to note that this setting acts on a 
@@ -66,8 +66,7 @@ be taken into account when planning for memory usage with the Memory
 backend, as the total memory used will be max memory times the number
 of vnodes in the cluster.
 
-If you are using the newer, `riak.conf`-based configuration system, you
-can configure maximum memory using the `memory_backend.max_memory_per_vnode`
+You can configure maximum memory using the `memory_backend.max_memory_per_vnode`
 setting. You can specify `max_memory_per_vnode` however you'd like,
 using kilobytes, megabytes, or even gigabytes.
 
@@ -79,27 +78,26 @@ memory_backend.max_memory_per_vnode = 10MB
 memory_backend.max_memory_per_vnode = 2GB
 ```
 
-If you are using the older, `app.config`-based configuration system, you
-you can specify maximum memory using the `max_memory` setting, specified
-in megabytes. The following example sets `max_memory` to 4 GB:
-
 ```appconfig
+%% In the app.config-based system, the equivalent setting is max_memory,
+%% which must be expressed in megabytes:
+
 {riak_kv, [
-        %% Storage_backend specifies the Erlang module defining the storage
-        %% mechanism that will be used on this node.
-        % {storage_backend, riak_kv_bitcask_backend},
-        {storage_backend, riak_kv_memory_backend},
-        {memory_backend, [
-            ...,
-                {max_memory, 4096}, %% 4GB in megabytes
-            ...
-        ]}
+    %% storage_backend specifies the Erlang module defining the storage
+    %% mechanism that will be used on this node.
+
+    {storage_backend, riak_kv_memory_backend},
+    {memory_backend, [
+        ...,
+            {max_memory, 4096}, %% 4GB in megabytes
+        ...
+    ]}
 ```
 
 To determine an optimal max memory setting, we recommend consulting the
 documentation on [[LevelDB cache size|LevelDB#Cache-Size]].
 
-#### TTL
+### TTL
 
 The time-to-live parameter (`ttl`) specifies the amount of time an
 object remains in memory before it expires. The minimum time is one
@@ -115,15 +113,15 @@ memory_backend.ttl = 10m
 memory_backend.ttl = 3h
 ```
 
-In the older, `app.config`-based configuration system, the `ttl` setting
-is specified in seconds, as in the following example:
-
 ```appconfig
+%% In the app.config-based system, the ttl setting must be expressed in
+%% seconds:
+
 {memory_backend, [
-        ...,
-            {ttl, 86400}, %% 1 Day in seconds
-        ...
-]}
+    ...,
+        {ttl, 86400}, %% Set to 1 day
+    ...
+    ]}
 ```
 
 <div class="note">
@@ -132,5 +130,5 @@ There is currently no way to dynamically change the <code>ttl</code>
 setting for a bucket or bucket type. The current workaround would be to
 define multiple Memory backends using the Multi backend, each with
 different <code>ttl</code> values. For more information, consult the
-documentatino on the [[Multi]] backend.
+documentation on the [[Multi]] backend.
 </div>
