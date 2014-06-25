@@ -42,8 +42,8 @@ merging.
 * **Ability to handle datasets larger than RAM without degradation**
 
     Access to data in Bitcask involves direct lookup from an in-memory
-    hash table. This makes finding data very efficient, even when data
-    setes are very large.
+    hash table. This makes finding data very efficient, even when
+    datasets are very large.
 
 * **Single seek to retrieve any value**
 
@@ -118,7 +118,7 @@ storage_backend = bitcask
 ## Configuring Bitcask
 
 Bitcask enables you to configure a wide variety of its behaviors, from
-object storage syncing strategy to merge settings and more.
+filesystem sync strategy to merge settings and more.
 
 <div class="note">
 <div class="title">Note on configuration systems</div>
@@ -224,56 +224,6 @@ bitcask.sync.interval = 10s
     ]}
 ```
 
-### `O_SYNC` on Linux
-
-At the moment, Bitcask doesn't acutally set `O_SYNC` on Linux, due to an
-unresolved [kernel issue](http://permalink.gmane.org/gmane.linux.kernel/1123952)
-related to the implementation of
-`[fcntl](https://github.com/torvalds/linux/blob/master/fs/fcntl.c#L146..L198)`.
-
-When a file is opened for writing by Bitcask, it will not set the `O_SYNC`
-flag. The call to `fcntl` doesn't fail but is rather silently ignored by
-the Linux kernel. You may notice [warning messages](https://github.com/basho/riak_kv/commit/6a29591ecd9da73e27223a1a55acd80c21d4d17f#src/riak_kv_bitcask_backend.erl)
-of the following format in your log files:
-
-```log
-{sync_strategy, o_sync} not implemented on Linux`
-```
-
-These messages indicate that this issue exists on your system. Without
-the `O_SYNC` setting enabled, there is the potential for data loss if
-the OS or system dies, e.g. due to a power outage, kernel panic, reboot
-without sync, etc., with dirty buffers not yet written to stable
-storage.
-
-### Disk Usage and Merging Settings
-
-Riak stores each [[vnode partition|Riak Glossary#vnodes]] of the
-[[ring|Clusters#the-ring]] as a separate Bitcask directory within the
-configured Bitcask data directory.
-
-Each of these directories will contain multiple files with key/value
-data, one or more "hint" files that record where the various keys exist
-within the data files, and a write lock file. The design of Bitcask
-allows for recovery even when data isn't fully synchronized to disk
-(partial writes). This is accomplished by maintaining data files that
-are append-only (i.e. never modified in-place) and are never reopened
-for modification (i.e. they are only for reading).
-
-This data management strategy trades disk space for operational
-efficiency. There can be a significant storage overhead that is
-unrelated to your working data set but can be tuned in a way that best
-fits your use case. In short, disk space is used until a threshold is
-met while unused space is reclaimed through a process of merging. The
-merge process traverses data files and reclaims space by eliminating
-out-of-date versions of key/value pairs, writing only the current 
-key/value pairs to a new set of files within the directory.
-
-The merge process is affected by all of the settings described in the
-sections below. In those sections, "dead" refers to keys that no longer
-contain the most up-to-date values, while "live" refers to keys that
-do contain the most up-to-date value and have not been deleted.
-
 ### Max File Size
 
 The `max_file_size` setting describes the maximum permitted size for any
@@ -368,6 +318,59 @@ bitcask.io_mode = erlang
 In general, the `nif` IO mode provies higher throughput for certain
 workloads, but it has the potential to negatively impact the Erlang VM,
 leading to higher worst-case latencies and possible throughput collapse.
+
+### `O_SYNC` on Linux
+
+Synchronous file I/O via [`o_sync`](http://linux.about.com/od/commands/l/blcmdl2_open.htm)
+is supported in Bitcask if `io_mode` is set to `nif` and is not
+supported in the `erlang` mode.
+
+If you enable `o_sync` by setting `io_mode` to `nif`, however, you will
+still get an incorrect warning along the following lines:
+
+```log
+[warning] <0.445.0>@riak_kv_bitcask_backend:check_fcntl:429 {sync_strategy,o_sync} not implemented on Linux
+```
+
+If you are using the older, `app.config`-based configuration system, you
+can disable the check that generates this warning by adding the
+following to the `riak_kv` section of your `app.config`:
+
+```appconfig
+{riak_kv, [
+    ...,
+    {o_sync_warning_logged, false},
+    ...
+    ]}
+```
+
+### Disk Usage and Merging Settings
+
+Riak stores each [[vnode|Riak Glossary#vnodes]] of the [[ring|Clusters#the-ring]]
+as a separate Bitcask directory within the configured Bitcask data
+directory.
+
+Each of these directories will contain multiple files with key/value
+data, one or more "hint" files that record where the various keys exist
+within the data files, and a write lock file. The design of Bitcask
+allows for recovery even when data isn't fully synchronized to disk
+(partial writes). This is accomplished by maintaining data files that
+are append-only (i.e. never modified in-place) and are never reopened
+for modification (i.e. they are only for reading).
+
+This data management strategy trades disk space for operational
+efficiency. There can be a significant storage overhead that is
+unrelated to your working data set but can be tuned in a way that best
+fits your use case. In short, disk space is used until a threshold is
+met at which point unused space is reclaimed through a process of
+merging. The merge process traverses data files and reclaims space by
+eliminating out-of-date of deleted key/value pairs, writing only the
+current key/value pairs to a new set of files within the directory.
+
+The merge process is affected by all of the settings described in the
+sections below. In those sections, "dead" refers to keys that no longer
+contain the most up-to-date values, while "live" refers to keys that
+do contain the most up-to-date value and have not been deleted.
 
 ### Merge Policy
 
