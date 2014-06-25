@@ -9,6 +9,11 @@ keywords: [developers, buckets]
 
 Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties in a more efficient way.
 
+<div class="note">
+<div class="title">Important note on cluster downgrades</div>
+If you upgrade a Riak to version 2.0 or later, you can still downgrade the cluster to a pre-2.0 version <em>if you have not created and activated a bucket type in the cluster</em>. Once any bucket type has been created and activated, you can no longer downgrade the cluster to a pre-2.0 version.
+</div>
+
 ## How Bucket Types Work
 
 The ad hoc approach to bucket configuration involves setting bucket properties for specific buckets either through [[HTTP|HTTP Set Bucket Properties]] or [[Protocol Buffers|PBC Set Bucket Properties]]. With this approach, you can take a bucket `my_bucket` and modify any number of its properties, from `n_val` to `allow_mult` and far beyond.
@@ -33,10 +38,10 @@ In many respects, bucket types are a major improvement over the older system of 
 <ul>
 <li>Bucket types are more flexible because they enable you to define total configurations of bucket properties all at once and then change them if you need to.</li>
 <li>Bucket types are more reliable because the buckets that bear a given type only have their properties changed when the type is changed. Previously, it was possible to change the properties of a bucket only through client requests.</li>
-<li>Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The <tt>riak-admin bucket-type</tt> interface (discussed in depth below) enables you to manage bucket configurations without recourse to clients.</li>
+<li>Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The <code>riak-admin bucket-type</code> interface (discussed in depth below) enables you to manage bucket configurations without recourse to clients.</li>
 </ul>
 
-For these reasons, we recommend <tt>always</tt> using bucket types.
+For these reasons, we recommend <em>always</em> using bucket types.
 </div>
 
 ## Usage Example
@@ -52,9 +57,8 @@ obj.store(type: 'no_siblings')
 ```
 
 ```java
-Location key = new Location("sensitive_user_data")
-        .setBucketType("no_siblings")
-        .setKey("user19735");
+Location key =
+  new Location(new Namespace("no_siblings", "sensitive_user_data"), "user19735");
 RiakObject obj = new RiakObject()
         .setContentType("application/json")
         .setValue(BinaryValue.create("{ ... user data ... }"));
@@ -85,6 +89,13 @@ curl -XPUT \
   http://localhost:8098/types/no_siblings/buckets/sensitive_user_data/keys/user19735
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
 In this example, the bucket `sensitive_user_data` bears the configuration established by the `no_siblings` bucket type, and it bears that configuration _on the basis of the query's structure_.
 
 This is because buckets act as a separate namespace in Riak, in addition to buckets and keys.
@@ -99,8 +110,7 @@ bucket.get('my_key')
 ```
 
 ```java
-Location myKey = new Location("my_bucket")
-        .setKey("my_key");
+Location myKey = new Location(new Namespace("my_bucket"), "my_key");
 FetchValue fetch = new FetchValue.Builder(myKey).build();
 client.execute(fetch);
 ```
@@ -130,12 +140,10 @@ bucket.get('my_key', type: 'type2')
 ```
 
 ```java
-Location key1 = new Location("my_bucket")
-        .setBucketType("type1")
-        .setKey("my_key");
-Location key2 = new Location("my_bucket")
-        .setBucketType("type2")
-        .setKey("my_key");
+Location key1 =
+  new Location(new Namepace("type1", "my_bucket"), "my_key");
+Location key2 =
+  new Location(new Namepace("type2", "my_bucket"), "my_key");
 FetchValue fetch1 = new FetchValue.Builder(key1).build();
 FetchValue fetch2 = new FetchValue.Builder(key2).build();
 client.execute(fetch1);
@@ -178,11 +186,10 @@ bucket.get('my_key', type: 'default')
 ```
 
 ```java
-Location withDefaultBucketType = new Location("my_bucket")
-        .setBucketType("default")
-        .setKey("my_key");
-Location noBucketType = new Location("my_bucket")
-        .setKey("my_key");
+Location withDefaultBucketType =
+  new Location(new Namespace("default", "my_bucket"), "my_key");
+Location noBucketType =
+  new Location(new Namespace("my_bucket"), "my_key");
 FetchValue fetch1 = new FetchValue.Builder(withDefaultBucketType).build();
 FetchValue fetch2 = new FetchValue.Builder(noBucketType).build();
 client.execute(fetch1);
@@ -222,6 +229,7 @@ Below is a listing of the `props` associated with the `default` bucket type:
       "fun": "chash_std_keyfun",
       "mod": "riak_core_util"
     },
+    "dvv_enabled": false,
     "dw": "quorum",
     "last_write_wins": false,
     "linkfun": {
@@ -297,7 +305,6 @@ Let's say that we're using Riak to store internet memes. We've been using a buck
 
 The following request seeks to add the meme "all your base are belong to us" to the `old_memes` bucket. If the bucket type `no_siblings` has been created and activated, the request will ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
 
-
 ```ruby
 bucket = client.bucket('old_memes')
 obj = Riak::RObject.new(bucket, 'all_your_base')
@@ -307,9 +314,8 @@ obj.store(type: 'no_siblings')
 ```
 
 ```java
-Location allYourBaseKey = new Location("old_memes")
-        .setBucketType("no_siblings")
-        .setKey("all_your_base");
+Location allYourBaseKey =
+  new Location(new Namespace("no_siblings", "old_memes"), "all_your_base");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(BinaryValue.create("all your base are belong to us"));
@@ -377,8 +383,11 @@ This will return a simple list of types along with their current status (either 
 
 ```bash
 riak-admin bucket-type list
+```
 
-# Response:
+An example response:
+
+```
 type1 (active)
 type2 (not active)
 type3 (active)
@@ -442,11 +451,13 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 
 Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
 
-If you'd like to create a bucket type that simply extends Riak's defaults, for example, pass an empty JavaScript object to the `props` parameter:
+If you'd like to create a bucket type with no specified parameters, you can simply create the type without specifying a `props` object:
 
 ```bash
-riak-admin bucket-type create type_using_defaults '{"props":{}}'
+riak-admin bucket-type create no_specified_props
 ```
+
+Please note that when you create a bucket type without specifying any parameters, the resulting bucket type does _not_ extend Riak's default bucket properties. Thus, in both of the cases above, `allow_mult` and `dvv_enabled` will be set to `true` in the resulting bucket type, whereas both are set to `false` for all non-typed buckets.
 
 **Note**: The `create` command can be run multiple times prior to a bucket type being activated. Riak will persist only those properties contained in the final call of the command.
 
@@ -466,7 +477,7 @@ riak-admin bucket-type update type_to_update '{"props":{ ... }}'
 
 <div class="note">
 <div class="title">Note</div>
-Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <tt>consistent</tt> and <tt>datatype</tt>. If a bucket type entails strong consistency (requiring that <tt>consistent</tt> be set to <tt>true</tt>) or is set up as a <tt>map</tt>, <tt>set</tt>, or <tt>counter</tt>, then this will be true of the bucket type once and for all.
+Any bucket properties associated with a type can be modified after a bucket is created, with two important exceptions: <code>consistent</code> and <code>datatype</code>. If a bucket type entails strong consistency (requiring that <code>consistent</code> be set to <code>true</code>) or is set up as a <code>map</code>, <code>set</code>, or <code>counter</code>, then this will be true of the bucket type once and for all.
 
 If you need to change one of these properties, it is recommended that you simply create a new bucket type.
 </div>

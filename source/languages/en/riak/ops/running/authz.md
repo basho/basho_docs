@@ -19,9 +19,9 @@ modifying, and deleting objects, changing bucket properties, and
 running MapReduce jobs.
 
 **Note**: Currently, Riak security commands can be run only through
-  the command line using the `riak-admin security` command. In future
-  versions of Riak, administrators may have the option of issuing
-  those commands through the Protocol Buffers and HTTP interfaces.
+the command line using the `riak-admin security` command. In future
+versions of Riak, administrators may have the option of issuing
+those commands through the Protocol Buffers and HTTP interfaces.
 
 ## Terminology
 
@@ -38,6 +38,25 @@ running MapReduce jobs.
 
 * **Sources** are used to define authentication mechanisms. A user
     cannot be authenticated to Riak until a source is defined.
+
+## Security Checklist
+
+There are a few key steps that all applications will need to undertake
+when turning on Riak security. Missing one of these steps will almost
+certainly break your application, so make sure that you have done each
+of the following **before** enabling security:
+
+1. Define [[users|Authentication and Authorization#User-Management]] and, optionally, groups
+2. Define an [[authentication source|Authentication and Authorization#Managing-Sources]] for each user
+3. Grant the necessary [[permissions|Authentication and Authorization#Managing-Permissions]] to each user (and/or group)
+4. Make sure that your client software will work properly:
+    * It must pass authentication information with each request
+    * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
+    * If using HTTPS, the proper port (presumably 443) is open from client to server
+
+Security should be enabled only after all of the above steps have been performed and your security setup has been properly vetted.
+
+Clients that use protocol buffers will typically have to be reconfigured/restarted with the proper credentials once security is enabled.
 
 ## Security Basics
 
@@ -121,7 +140,6 @@ Same for groups:
 ```bash
 riak-admin security print-groups
 ```
-
 
 Example output, assuming one user with an assigned password:
 
@@ -225,9 +243,9 @@ Alternatively, a password---or other attributes---can be assigned to the user up
 riak-admin security add-user riakuser password=Test1234
 ```
 
-### Assign a Password and Altering Existing User Characteristics
+### Assigning a Password and Altering Existing User Characteristics
 
-While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user already exists. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modify our `riakuser` user:
+While passwords and other characteristics can be set upon user creation, it often makes sense to change user characteristics after the user has already been created. Let's say that the user `riakuser` was created without a password (or created _with_ a password that we'd like to change). The `alter-user` command can be used to modify our `riakuser` user:
 
 ```bash
 riak-admin security alter-user riakuser password=opensesame
@@ -367,7 +385,7 @@ Permission | Operation |
 `riak_kv.list_keys` | List all of the keys in a bucket
 `riak_kv.list_buckets` | List all buckets
 
-<div class="note"><div class="title">Note</div>
+<div class="note"><div class="title">Note on Listing Keys and Buckets</div>
 `riak_kv.list_keys` and `riak_kv.list_buckets` are both very expensive operations that should be performed very rarely and never in production.
 </div>
 
@@ -517,6 +535,18 @@ The following command would remove the source for `riakuser` on `localhost`, reg
 ```bash
 riak-admin security del-source riakuser 127.0.0.1/32
 ```
+
+<div class="note">
+<div class="title">Note on Removing Sources</div>
+If you apply a security source both to <code>all</code> and to specific users and then wish to remove that source, you will need to do so in separate steps. The <code>riak-admin security del-source all ...</code> command by itself is not sufficient.
+
+For example, if you have assigned the source <code>password</code> to both <code>all</code> and to the user <code>riakuser</code> on the network <code>127.0.0.1/32</code>, the following two-step process would be required to fully remove the source:
+
+<pre>
+riak-admin security del-source all 127.0.0.1/32 password
+riak-admin security del-source riakuser 127.0.0.1/32 password
+</pre>
+</div>
 
 ### More Usage Examples
 

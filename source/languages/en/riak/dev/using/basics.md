@@ -39,9 +39,7 @@ obj = bucket.get('rufus', type: 'animals')
 // In the Java client, it is best to specify a bucket type/bucket/key
 // Location object that can be used as a reference for further operations.
 
-Location myKey = new Location("dogs")
-        .setBucketType("animals")
-        .setKey("rufus");
+Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
 
 ```python
@@ -58,6 +56,13 @@ obj = bucket.get('rufus')
 ```curl
 curl http://localhost:8098/types/animals/buckets/dogs/keys/rufus
 ```
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with your
+client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
 
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
 
@@ -83,7 +88,15 @@ not found
 
 If you're using HTTP to interact with Riak, as opposed to using a [[client library|Client Libraries]], Riak understands many HTTP-defined headers, such as `Accept` for content-type negotiation, which is relevant when dealing with siblings (see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]]), and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
-Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to an R of 2.
+#### Read Parameters
+
+Parameter | Default | Description
+:---------|:--------|:-----------
+`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
+`pr` | `0` | How many vnodes must respond for a read to be deemed successful
+`notfound_ok` | If set to `true`, if the first vnode to respond doesn't have a copy of the object, Riak will deem the failure authoritative and immediately return a `notfound` error to the client
+
+Riak also accepts many query parameters, including `r` for setting the R-value for GET requests (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response).
 
 Here is an example of attempting a read with `r` set to `3`:
 
@@ -162,9 +175,7 @@ obj.store(type: 'quotes')
 ```
 
 ```java
-Location wildeGeniusQuote = new Location("oscar_wilde")
-        .setBucketType("quotes")
-        .setKey("genius");
+Location wildeGeniusQuote = new Location(new Namespace("quotes", "oscar_wilde"), "genius");
 BinaryValue text = BinaryValue.create("I have nothing to declare but my genius");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -199,11 +210,20 @@ curl -XPUT \
 
 #### Using Vector Clocks
 
-If an object already exists under a certain key, you will need to attach a [[vector clock|Vector Clocks]] to your object as metadata. The vector clock can be obtained when you read the object that already exists.
+If an object already exists under a certain key and you want to write a new object to that key, Riak needs to know what to do, especially if multiple writes are happening at the same time. Which of the objects being written should be deemed correct? These kinds of scenarios can arise quite frequently in distributed, [[eventually consistent|Eventual Consistency]] systems.
 
-Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`.
+Riak decides which object to choose in case of conflict using [[vector clocks]]. If you're writing an object to a key that already exists, you'll need to do the following:
 
-But one season, the Harlem Globetrotters enter the league and dethrone the hapless Generals. We want to write that new information to the `champion` key. Let's fetch the object there and obtain the vector clock.
+* Read the existing object
+* Fetch the vector clock from the object's metadata
+* Attach the vector clock to the new object's metadata
+* Write the new object
+
+A more detailed tutorial on vector clocks and object updates more generally can be found in the [[conflict resolution]] doc. Here, we'll walk you through a basic example.
+
+Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`. The value of the object is a simple text snippet that says `Washington Generals`.
+
+But one day the Harlem Globetrotters enter the league and dethrone the hapless Generals (forever, as it turns out). Because we want our Riak database to reflect this new development in the league, we want to make a new write to the `champion` key. Let's read the object stored there and fetch the vector clock.
 
 ```ruby
 bucket = client.bucket('nba')
@@ -215,9 +235,7 @@ obj.vclock
 ```
 
 ```java
-Location currentChampion = new Location("nba")
-        .setBucketType("sports")
-        .setKey("champion");
+Location currentChampion = new Location(new Namespace("sports", "nba"), "champion");
 FetchValue fetch = new FetchValue.Builder(currentChampion)
         .build();
 FetchValue.Response response = client.execute(fetch);
@@ -274,9 +292,7 @@ obj.store(type: 'sports')
 ```
 
 ```java
-Location johnGlennKey = new Location("nba")
-        .setBucketType("sports")
-        .setKey("champion");
+Location johnGlennKey = new Location(new Namespace("sports", "nba"), "champion");
 BinaryValue text = BinaryValue.create("Harlem Globetrotters");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -322,8 +338,8 @@ Similar to how read requests support the `r` query parameter, write requests als
 
 Parameter | Default | Description
 :---------|:--------|:-----------
-`r` | `2` | How many replicas need to agree when retrieving an existing object before the write
 `w` | `2` | How many replicas to write to before returning a successful response
+`pw` | `0` | How many primary vnodes must respond for a write to be deemed successful
 `dw` | `0` | How many replicas to commit to durable storage before returning a successful response
 `returnbody` | `false` | Whether to return the contents of the stored object
 
@@ -338,9 +354,7 @@ obj.store(type: 'cars', r: 3)
 ```
 
 ```java
-Location viperKey = new Location("dodge")
-        .setBucketType("cars")
-        .setKey("viper");
+Location viperKey = new Location(new Namespace("cars", "dodge"), "viper");
 BinaryValue text = BinaryValue.create("vroom");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -396,9 +410,7 @@ obj.store(type: 'cars', r: 3, returnbody: true)
 ```
 
 ```java
-Location viperKey = new Location("dodge")
-        .setBucketType("cars")
-        .setKey("viper");
+Location viperKey = new Location(new Namespace("cars", "dodge"), "viper");
 BinaryValue text = BinaryValue.create("vroom");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -465,8 +477,7 @@ obj.key
 ```
 
 ```java
-Location locationWithoutKey = new Location("random_user_keys")
-        .setBucketType("users");
+Namespace locationWithoutKey = new Namespace("users", "random_user_keys");
 BinaryValue text = BinaryValue.create("{'user':'data'}");
 RiakObject obj = new RiakObject()
         .setContentType("application/json")
@@ -534,10 +545,7 @@ bucket.delete('genius', type: 'quotes')
 ```
 
 ```java
-// Using the "myKey" location from above:
-Location geniusQuote = new Location("oscar_wilde")
-        .setBucketType("quotes")
-        .setKey("genius");
+Location geniusQuote = new Location(new Namespace("quotes", "oscar_wilde"), "genius");
 DeleteValue delete = new DeleteValue.Builder(geniusQuote).build();
 client.execute(delete);
 ```
@@ -605,9 +613,7 @@ Once the type is activated, we can see which properties are associated with our 
 ```java
 // Fetching the bucket properties of a bucket type/bucket combination
 // must be done using a RiakCluster object rather than a RiakClient.
-
-Location testType = new Location("any_bucket_name")
-        .setBucketType("n_val_of_5");
+Namespace testType = new Namespace("n_val_of_5", "any_bucket_name");
 FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
         .Builder(testType)
         .build();

@@ -13,33 +13,94 @@ moved: {
 
 ## General Recovery Notes
 
-A Riak node can fail for many reasons, but a handful of checks can cover the
-most glaring problems. Check for RAID and file system consistency, faulty
-memory, fully functional network connections, etc.
+A Riak node can fail for many reasons, but a handful of checks enable you to
+uncover some of the most common problems that can lead to node failure, 
+such as checking for RAID and filesystem consistency or faulty memory and 
+ensuring that your network connections are fully functioning.
 
-When a failed node comes back up, ensure that it has the same node name as
-before it crashed.  Changing the node name makes the cluster assume this is an
-entirely new node, leaving the old one still as part of the ring.
+When a node fails and is then brought back into the cluster, make sure that it has the same node name that it did before it crashed. If the name has changed, the cluster will assume that the node is entirely new and that the crashed node is still part of the cluster.
 
-During the recovery process hinted handoff will kick in and update the data on
+During the recovery process, hinted handoff will kick in and update the data on
 the recovered node with updates accepted from other nodes in the cluster. Your
-cluster may temporarily return "not found" for objects that are currently
+cluster may temporarily return `not found` for objects that are currently
 being handed off (see our page on [[Eventual Consistency]] for more details on
 these scenarios, in particular how the system behaves while the failed node is
 not part of the cluster).
 
 ## Node Name Changed
 
-If you are recovering from a scenario where node name changes are out of your
-control, you'll want to notify the cluster of its *new* name using the
+If you are recovering from a scenario in which node name changes are out of
+your control, you'll want to notify the cluster of its *new* name using the
 following steps:
 
-1. Stop the node you wish to rename with `riak stop` or `service riak stop`
-2. Mark the node down from another node in the cluster with `riak-admin down <PREVIOUS_NODE_NAME>`
-3. Update the node name in Riak's configuration files
-4. Delete the ring state directory (usually `/var/lib/riak/ring`)
-5. Start the node with `riak start` or `service riak start`
-6. Ensure that the node comes up as a single instance (verify this with `riak-admin member-status`)
-7. Join the node to the cluster with `riak-admin cluster join <NODE_NAME_OF_A_MEMBER_OF_THE_CLUSTER>`
-8. Replace the old instance of the node with the new with `riak-admin cluster force-replace <PREVIOUS_NODE_NAME> <NEW_NODE_NAME>`
-9. Review the changes with: `riak-admin cluster plan` and commit them with `riak-admin cluster commit`
+1. Stop the node you wish to rename:
+    
+    ```bash
+    riak stop
+    ```
+    
+
+2. Mark the node down from another node in the cluster:
+    
+    ```bash
+    riak-admin down <previous_node_name>
+    ```
+
+3. Update the node name in Riak's configuration files:
+
+    ```appconfig
+    nodename = <updated_node_name>
+    ```
+
+    ```vmargs
+    -name <updated_node_name>
+    ```
+
+4. Delete the ring state directory (usually `/var/lib/riak/ring`).
+
+5. Start the node again:
+
+    ```bash
+    riak start
+    ```
+
+6. Ensure that the node comes up as a single instance:
+    
+    ```bash
+    riak-admin member-status
+    ```
+
+    The output should look something like this:
+
+    ```
+    ========================= Membership ==========================
+Status     Ring    Pending    Node
+---------------------------------------------------------------
+valid     100.0%      --      'dev-rel@127.0.0.1'
+---------------------------------------------------------------
+Valid:1 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+    ```
+
+7. Join the node to the cluster:
+
+    ```bash
+    riak-admin cluster join <node_name_of_a_member_of_the_cluster>
+    ```
+
+8. Replace the old instance of the node with the new:
+
+    ```bash
+    riak-admin cluster force-replace <previous_node_name> <new_node_name>
+    ```
+
+9. Review the changes:
+
+    ```bash
+    riak-admin cluster plan
+    ```
+
+    Finally, commit those changes:
+
+    ```bash
+    riak-admin cluster commit
+    ```

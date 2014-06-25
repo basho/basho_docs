@@ -23,6 +23,8 @@ In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
 * Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
 
+More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading to 2.0]].
+
 ## Riak Data Types
 
 In distributed systems, there is an unavoidable trade-off between consistency and availability. This can complicate some aspects of application design if you're using Riak as a key/value store because the application is responsible for resolving conflicts between replicas of objects stored in different Riak nodes.
@@ -109,7 +111,20 @@ In older versions of Riak, bucket properties were managed on a bucket-by-bucket,
 
 * [[Using Bucket Types]] explains how to create, modify, and activate bucket types, as well as how the new system
 
-### Video
+#### Video
 
 [Bucket Types and Config](https://www.youtube.com/watch?v=lZk8cD-qFHM) hangout with Basho engineers [Joe DeVivo](https://github.com/joedevivo) and [Jordan West](https://github.com/jrwest).
+
+## New Client Libraries
+
+While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
+
+* [Java](https://github.com/basho/riak-java-client)
+  * [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+* [Ruby](https://github.com/basho/riak-ruby-client) (docs on main GitHub page)
+  * [[Data Modeling with Riak Data Types]]
+* [Python](https://github.com/basho/riak-python-client)
+  * [Sphinx docs](http://basho.github.io/riak-python-client/)
+* [Erlang](https://github.com/basho/riak-erlang-client)
+  * [EDocs](http://basho.github.io/riak-erlang-client/)
 
