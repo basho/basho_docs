@@ -84,8 +84,14 @@ class User:
 
 ```java
 public class User {
+	private String key;
+	private Location location;
+
 	public User(String firstName, String lastName) {
-		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+		String key =
+			String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
+
+		this.key = key;
 		this.location = new Location(new Namespace(bucketType, bucket), key);
 
 		// In the Java client, maps are updated on the basis of the map's
@@ -128,6 +134,9 @@ class User:
 
 ```java
 public class User {
+	private String key;
+	private Location location;
+
 	public User(String firstName, String lastName) {
 		this.key = String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
 		this.location = new Location(new Namespace(bucketType, bucket), key);
@@ -139,24 +148,20 @@ public class User {
 		updateMapWithoutContext(mu);
 	}
 
-	/*
-		While we're at it, we'll create a couple of private helper
-		methods that will assist us later in the tutorial. The function
-		below fetches our map's abstract context object, which assists
-		Riak in making intelligent decisions behind the scenes about
-		map convergence:
-	*/
+	// While we're at it, we'll create a couple of private helper
+	// methods that will assist us later in the tutorial. The function
+	// below fetches our map's abstract context object, which assists
+	// Riak in making intelligent decisions behind the scenes about
+	// map convergence:
 
 	private Context getMapContext() throws Exception {
 		FetchMap fetch = new FetchMap.Builder(location).build();
 		return client.execute(fetch).getContext();
 	}
 
-	/*
-		This function updates our map using the abstract context object
-		fetched using the getMapContext() function above. This is
-		highly recommended for some map updates:
-	*/
+	// This function updates our map using the abstract context object
+	// fetched using the getMapContext() function above. This is
+	// highly recommended for some map updates:
 
 	private void updateMapWithContext(MapUpdate mu) throws Exception {
 		Context ctx = getMapContext();
@@ -166,10 +171,8 @@ public class User {
 		client.execute(update);
 	}
 
-	/*
-		Not all map updates require a context object. This function will
-		assist us in those cases:
-	*/
+	// Not all map updates require a context object. This function will
+	// assist us in those cases:
 
 	private void updateMapWithoutContext(MapUpdate mu) throws Exception {
 		UpdateMap update = new UpdateMap.Builder(location, mu).build();
@@ -475,11 +478,10 @@ class User:
 
 ```java
 public class User {
-	/*
-		First, we'll create a class method that fetches the map from
-		Riak in its current state. This enables us to fetch the current
-		values of the fields of the map:
-	*/
+	// First, we'll create a class method that fetches the map from
+	// Riak in its current state. This enables us to fetch the current
+	// values of the fields of the map:
+	
 	private RiakMap getMap() throws Exception {
 		FetchMap fetch = new FetchMap.Builder(location).build();
 		return client.execute(fetch).getDatatype();
