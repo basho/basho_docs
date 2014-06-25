@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [developers, buckets]
 ---
 
-Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties more efficiently and programmatically than in the older configuration system based on [[bucket properties|The Basics#bucket-properties-and-operations]].
+Bucket types allow groups of buckets to share configuration details and for Riak users to manage bucket properties more efficiently than in the older configuration system based on [[bucket properties|The Basics#bucket-properties-and-operations]].
 
 <div class="note">
 <div class="title">Important note on cluster downgrades</div>
@@ -20,9 +20,9 @@ The older configuration system, based on bucket properties, involves setting buc
 
 Using bucket *types* also involves dealing with bucket properties, but with a few crucial differences:
 
-* Bucket types enable you to create total sets of bucket configurations and assign those configurations to as many buckets as you wish (whereas the older system required configurations to be set on an ad hoc basis)
-* Bucket types must be both created _and_ activated before they can be used (whereas bucket properties can be modified at any time)
+* Bucket types enable you to create bucket configurations and assign those configurations to as many buckets as you wish, whereas the previous system required configuration to be set on a per-bucket basis
 * Nearly all bucket properties can be updated using bucket types, with two exceptions: the `datatype` and `consistent` properties related to [[Riak Data Types|Data Types]] and [[strong consistency]], respectively
+* Bucket types are more performant than bucket properties in because divergence from Riak's defaults doesn't have to be gossiped around the cluster for every bucket, which means less computational overhead
 
 It is important to note that buckets are not assigned types in the same way that they are configured when using [[bucket properties|The Basics#Bucket-Properties-and-Operations]]. You cannot simply take a bucket `my_bucket` and assign it a type the way that you would, say, set `allow_mult` to `false` or `n_val` to `5`, because there is no `type` parameter contained within the bucket's properties (i.e. `props`).
 
@@ -42,7 +42,7 @@ GET/PUT/DELETE /buckets/<bucket>/keys/<key>
 
 In many respects, bucket types are a major improvement over the older system of bucket configuration, including the following:
 
-* Bucket types are more flexible because they enable you to define total configurations of bucket properties all at once and then change them if you need to.
+* Bucket types are more flexible because they enable you to define a bucket configuration and then change it if you need to.
 * Bucket types are more reliable because the buckets that bear a given type only have their properties changed when the type is changed. Previously, it was possible to change the properties of a bucket only through client requests.
 * Whereas bucket properties can only be altered by clients interacting with Riak, bucket types are more of an operational concept. The `riak-admin bucket-type` interface (discussed in depth below) enables you to manage bucket configurations on the operations side, without recourse to Riak clients.
 
@@ -76,7 +76,7 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 }
 ```
 
-Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default config. 
+Any property/value pair that is contained in the `props` object will either add a property that is not currently specified or override a default bucket property. 
 
 If you'd like to create a bucket type that simply extends Riak's defaults, for example, run the `create` command without assigning properties:
 
@@ -84,7 +84,7 @@ If you'd like to create a bucket type that simply extends Riak's defaults, for e
 riak-admin bucket-type create type_using_defaults
 ```
 
-If creations is successful, you should see the following output:
+If creation is successful, you should see the following output:
 
 ```
 type_using_defaults created
@@ -104,9 +104,11 @@ If you wish, you can also pass in a JSON string through a file, such as a `.json
 riak-admin bucket-type create from_json_file '`cat props.json`'
 ```
 
+Like all bucket types, this type needs to be activated to be usable within the cluster.
+
 ### Activating a Bucket Type
 
-Activating a bucket type involves the `activate` from the same `bucket-type` interface:
+Activating a bucket type involves the `activate` command from the same `bucket-type` interface used before:
 
 ```bash
 riak-admin bucket-type activate my_bucket_type
@@ -118,12 +120,9 @@ When activation has succeeded, you should the following output:
 my_bucket_type has been activated
 ```
 
-<div class="note">
-<div class="title">Note on activation in Riak clusters</div>
 A bucket type can be activated only when the type has been propagated to all running nodes. You can check on the type's readiness by running `riak-admin bucket-type status <type_name>`. The first line of output will indicate whether or not the type is ready.
 
 In a stable cluster, bucket types should propagate very quickly. If, however, a cluster is experiencing network partitions or other issues, you will need to resolve those issues before bucket types can be activated.
-</div>
 
 ### Listing Bucket Types
 
@@ -199,8 +198,7 @@ bucket.get('my_key')
 ```
 
 ```java
-Location myKey = new Location("my_bucket")
-        .setKey("my_key");
+Location myKey = new Location(new Namespace("my_bucket"), "my_key");
 FetchValue fetch = new FetchValue.Builder(myKey).build();
 client.execute(fetch);
 ```
@@ -432,7 +430,7 @@ Let's say that you'd like to create a bucket type called `user_account_bucket` w
     riak-admin bucket-type activate user_account_bucket
     ```
 
-    If activation is successful, the console will return `user_account_bucket has been activated`. The bucket type is now fully ready to be used.
+    If activation is successful, the console will return `user_account_bucket has been activated`. The bucket type is now ready to be used.
 
 ## Client Usage Example
 
