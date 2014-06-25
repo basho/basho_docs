@@ -57,36 +57,43 @@ The client makes a request to Riak. The node the client contacts to make the req
 
 After running the map function, the results are sent back to the coordinating node. The coordinating node concatenates the list and then passes that information over to a reduce phase on the same coordinating node (assuming reduce is the next phase in the list).
 
-## Examples
+## Example
 
 In this example we will create four objects with the text "pizza" sometimes repeated. Javascript MapReduce will be used to count the occurrences of the word "pizza".
 
-### Data object input commands:
+### Data object input commands
 
 ```curl
-$ curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
-$ curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
+
+curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
+
+curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
+
+curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
 ```
 
-### MapReduce script and deployment:
+### MapReduce script and deployment
+
+The code sample below runs a MapReduce job that returns a list of tuples. The first member of each tuple is the key of the object, while the second member states the number of times that the word "pizza" has occurred in the text body of that object.
+
+Here is the Erlang function:
+
+```erlang
+%% Need an Erlang function here
+```
+
+Here is the HTTP call that 
 
 ```curl
 curl -XPOST http://localhost:8098/mapred \
   -H 'Content-Type: application/json' \
-  -d '{
-    "inputs":"training",
-    "query":[{"map":{"language":"javascript",
-    "source":"function(riakObject) {
-      var val = riakObject.values[0].data.match(/pizza/g);
-      return [[riakObject.key, (val ? val.length : 0 )]];
-    }"}}]}'
+  -d '{ function }'
 ```
 
 ### Output
 
-The output is the key of each  object, followed by the count of the word  "pizza" for that object.  It looks like:
+The output is the key of each object, followed by the count of the word "pizza" for that object.  It looks like:
 
 ```text
 [["foo",1],["baz",0],["bar",4],["bam",3]]
