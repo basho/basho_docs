@@ -48,7 +48,7 @@ Q: Does Riak CS encrypt data at rest?
 A: No, Riak CS does not currently support encryption of data at rest.
 
 Q: Does Riak CS support compression of objects at rest?
-A: By default, the LevelDB backend used by Riak CS uses [gzip](http://www.gzip.org/) compression for data at higher levels in LevelDB's storage system. Any additional object compression needs to be performed by clients connecting to Riak CS.
+A: By default, the LevelDB backend used by Riak CS relies on [gzip](http://www.gzip.org/) compression for data at higher levels in LevelDB's storage system. Any additional object compression needs to be performed by clients connecting to Riak CS.
 
 Q: Does Riak CS support object search?
 A: There is currently no search functionality in Riak CS. Search functionality can be provided using an external application to read and index items stored in Riak CS (provided that they are not encrypted).
