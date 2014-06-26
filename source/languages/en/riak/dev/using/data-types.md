@@ -1687,3 +1687,18 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .build();
 client.execute(update);
 ```
+
+## Data Type State
+
+An important thing to bear in mind when using Riak Data Types is that
+all of Basho's official Riak clients make a distinction between client-
+and server-side state, i.e. they all allow you to modify Data Types as
+much as you would like on the client prior to submitting those updates
+to Riak as binding. This enables you to eliminate unnecessary calls to
+Riak when using Data Types.
+
+You may have noticed in some of the examples above that multiple updates
+were combined in a single transaction in the client. Here, we'd like to
+go into a bit more detail about that by way of an example. Let's take
+the user map for Ahmed that we were working with in the previous
+examples.
