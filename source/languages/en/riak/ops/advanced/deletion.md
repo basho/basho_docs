@@ -87,9 +87,9 @@ recommend keeping `delete_mode` set to the default of `keep`.
 If you are updating an object that has been deleted---or if you suspect
 that an update might target a deleted object---it is recommended that
 you first fetch the [[vector clock]] of the object prior to updating. This
-can be done by setting `deletedvclock` parameter to `true` as part of
-the [[fetch operation|PBC Fetch Object]]. This can also be done with the
-official Riak clients for Ruby, Java, and Erlang, as in the example
+can be done by setting the `deletedvclock` parameter to `true` as part
+of the [[fetch operation|PBC Fetch Object]]. This can also be done with
+the official Riak clients for Ruby, Java, and Erlang, as in the example
 below:
 
 

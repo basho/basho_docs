@@ -1754,7 +1754,7 @@ There are two non-`riak_repl` settings available in `advanced.config`.
 <tr>
 <td><tt>delete_mode</tt></td>
 <td><tt>riak_kv</tt></td>
-<td>The <tt>advanced.config</tt> configuration file enables you to specify how Riak behaves after objects are marked for deletion with a tombstone. There are three possible options for the <tt>delete_mode</tt> setting: <tt>keep</tt> (the default) disables tombstone removal altogether; <tt>immediate</tt> removes objects' tombstones as soon as the delete request is received; and setting <tt>delete_mode</tt> to an integer value specifies the number of milliseconds that Riak will wait prior to removing tombstones.<br /><br />We recommend leaving <tt>delete_mode</tt> set to <tt>keep</tt> if you plan on deleting and recreating objects under the same key rapidly.
+<td>This parameter enables you to specify how Riak behaves after objects are marked for deletion with a tombstone. There are three possible options for the <tt>delete_mode</tt> setting: <tt>keep</tt> (the default) disables tombstone removal altogether; <tt>immediate</tt> removes objects' tombstones as soon as the delete request is received; and setting <tt>delete_mode</tt> to an integer value specifies the number of milliseconds that Riak will wait prior to removing tombstones.<br /><br />We recommend leaving <tt>delete_mode</tt> set to <tt>keep</tt> if you plan on deleting and recreating objects under the same key rapidly.<br /><br />More information can be found in our documentation on <a href="/ops/advanced/deletion">object deletion</a>.
 </td>
 <td><tt>keep</tt></td>
 </tr>
