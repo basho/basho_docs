@@ -62,6 +62,10 @@ These settings enabling you to manage [[vector clock pruning|Conflict Resolution
 
 If you are using the [[Multi]] backend, this property enables you to determine which of Riak's available backends---[[Bitcask]], [[LevelDB]], or [[Memory]]---will be used in buckets of this type.
 
+#### consistent
+
+If you wish to use Riak's [[strong consistency]] feature for buckets bearing a type, this setting must be set to `true`. The default is `false`. More information can be found in our documentation on [[using strong consistency]].
+
 #### datatype
 
 If you are using [[Riak Data Types|Using Data Types]], this setting determines [[which data type|Using Data Types#setting-up-buckets-to-use-riak-data-types]] will be used in buckets of this bucket type. Possible values: `counter`, `set`, or `map`.
