@@ -267,7 +267,7 @@ its in-memory representation of the key space, falling back to `.data`
 files if necessary. This reduces the amount of data that must be read
 from the disk during startup, thereby also reducing the time required to
 start up. You can configure Bitcask to either disregard `.hint` files
-containing a CRC value or to use them anyway.
+that don't contain a CRC value or to use them anyway.
 
 If you are using the newer, `riak.conf`-based configuration system,
 you can instruct Bitcask to disregard `.hint` files that do not contain
@@ -442,23 +442,25 @@ frequently, leading to increased disk space usage.
 ### Merge Triggers
 
 Merge triggers determine the conditions under which merging will be
-invoked. These conditions fall under two basic categories:
+invoked. These conditions fall into two basic categories:
 
 * **Fragmentation** --- This describes the ratio of dead keys to total
   keys in a file that will trigger merging. The value of this setting is
   an integer percentage (0-100). For example, if a data file contains 6
-  dead keys and 4 live keys, merge will be triggered the default setting
-  (60%). Increasing this value will cause merging to occur less often,
-  whereas decreasing the value will cause merging to happen more often.
+  dead keys and 4 live keys, a merge will be triggered by the default
+  setting (60%). Increasing this value will cause merging to occur less
+  often, whereas decreasing the value will cause merging to happen more
+  often.
 
-* **Dead Bytes** --- This setting describes how much data stored for dead
-  keys in a single file will trigger merging. If a file meets or exceeds
-  the trigger value for dead bytes, merge will be triggered. Increasing
-  the value will cause merging to occur less often, whereas decreasing
-  the value will cause merging to happen more often.
+* **Dead Bytes** --- This setting describes how much data stored for
+  dead keys in a single file will trigger merging. If a file meets or
+  exceeds the trigger value for dead bytes, a merge will be triggered.
+  Increasing the value will cause merging to occur less often, whereas
+  decreasing the value will cause merging to happen more often. The
+  default is 512 MB.
 
   When either of these constraints are met by any file in the directory,
-  Bitcask will attempt to merge files. The default is 512 MB.
+  Bitcask will attempt to merge files.
 
 You can set the triggers described above using `merge.triggers.fragmentation`
 and `merge.triggers.dead_bytes`, respectively. The former is expressed
@@ -490,7 +492,7 @@ bitcask.merge.triggers.dead_bytes = 1GB
 Merge thresholds determine which files will be chosen for inclusion in
 a merge operation.
 
-* **Fragmentation** --- This setting describes which ration of dead keys
+* **Fragmentation** --- This setting describes which ratio of dead keys
   to total keys in a file will cause it to be included in the merge. The
   value of this setting is a percentage (0-100). For example, if a data
   file contains 4 dead keys and 6 live keys, it will be included in the
@@ -746,23 +748,23 @@ possible and to minimize latency and maximize throughput.
 
     If you are using [[Riak Enterprise]] with the replication feature
     enabled, your clusters might experience higher production of
-    fragmentation and dead bytes caused by replays. Additionally,
-    because the fullsync feature operates across entire partitions, it
-    will be made more efficient by accessing data as sequentially as
-    possible (across fewer files). Lowering both the fragmentation and
-    dead-bytes settings will improve performance.
+    fragmentation and dead bytes. Additionally, because the fullsync
+    feature operates across entire partitions, it will be made more
+    efficient by accessing data as sequentially as possible (across
+    fewer files). Lowering both the fragmentation and dead-bytes
+    settings will improve performance.
 
 ## FAQ
 
   * [[Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?|Developing on Riak FAQs#why-does-it-seem-that-bitc]]
   * [[If the size of key index exceeds the amount of memory, how does Bitcask handle it?|Operating Riak FAQs#if-the-size-of-key-index-e]]
-  * [[Bitcask Capacity Planning]] Guide
+  * [[Bitcask Capacity Planning]]
 
 ## Bitcask Implementation Details
 
 Riak will create a Bitcask database directory for each [[vnode|Riak Glossary#vnodes]]
 in a [[cluster|Clusters]]. In each of those directories, at most one
-database fill will be open for writing at any given time. The file being
+database file will be open for writing at any given time. The file being
 written to will grow until it exceeds a specified size threshold, at
 which time it is closed and a new file is created for additional writes.
 Once a file is closed, whether purposely or due to server exit, it is
