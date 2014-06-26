@@ -151,11 +151,19 @@ Below is a sample JSON object that will be evaluated by the hook:
 The following hook will validate the JSON object:
 
 ```erlang
-%% Need an Erlang function here
+validate(Object) ->
+  try
+    mochijson2:decode(riak_object:get_value(Object)),
+    Object
+  catch
+    throw:invalid_utf8 ->
+      {fail, "Invalid JSON: Illegal UTF-8 character"};
+    error:Error ->
+      {fail, "Invalid JSON: " ++ binary_to_list(list_to_binary(io_lib:format("~p", [Error])))}
+  end.
 ```
 
-**Note**: All post-commit hook functions are executed for each create,
-update, or delete.
+**Note**: All pre-commit hook functions are executed for each create and update operation.
 
 ## Post-Commit Hooks
 
