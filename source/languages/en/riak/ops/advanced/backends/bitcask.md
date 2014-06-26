@@ -237,7 +237,7 @@ Bitcask to create more numerous, smaller files that are merged more
 frequently.
 
 To give an example, if your ring size is 16, your servers could see as
-much as 32GB of data in the bitcask directories before the first merge
+much as 32 GB of data in the bitcask directories before the first merge
 is triggered, irrespective of your working set size. You should plan
 storage accordingly and be aware that it is possible to see disk data
 sizes that are larger than the working set.
