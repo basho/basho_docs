@@ -62,6 +62,7 @@ riak:
       - title: "Data Modeling"
         sub:
           - "[[Use Cases for Riak|Use Cases]]"
+          - "[[Key/Value Modeling]]"
           - "[[Data Types|Data Modeling with Riak Data Types]]"
       - title: "Advanced"
         sub:
