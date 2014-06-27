@@ -11,20 +11,20 @@ moved: {
 }
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and Neo4j.
+This is intended to be a brief, objective, and technical comparison of Riak and Neo4j.
 
-## High Level Differences
+## High-Level Differences
 
 Riak and Neo4j are meant for storing fundamentally different types of data:
 
-* Riak is a document database and key/value store, designed to store semi-structured documents or objects of varying sizes.
-* Neo4j is a graph database, designed to store and traverse a network of related information. (e.g. Social Networks)
+* Riak is primarily a key/value store with a variety of features included, e.g. [[Riak Data Types|Using Data Types]], [[Riak Search|Using Search]], [[secondary indexes|Using Secondary Indexes]], and more
+* Neo4j is a graph database, designed to store and traverse a network of related information, e.g. social network
 
-In most cases, the needs of your application will clearly dictate whether you should use a key/value store or a graph database. And in many cases, it may make sense to combine the two. An application like Facebook, for example, might store user profile information, wall posts, and images in a key/value or document database, and store the network of friends and associations in a graph database.
+In most cases, the needs of your application will clearly dictate whether you should use a key/value store or a graph database, and in many cases it may make sense to combine the two. An application like Facebook, for example, might store user profile information, wall posts, and images in a key/value database like Riak while storing information about connections between friends in a graph database like Neo4j.
 
 ## Scalability
 
-Riak was built to scale elastically, meaning that you can scale your cluster from one node to 100 nodes and beyond simply and easily. As you add nodes to your cluster, Riak automatically takes care of redistributing an equal share of the load to each server in your cluster. Likewise, if you scale your cluster down in size, Riak takes care of re-apportioning the data from the removed node evenly to the remaining nodes.
+Riak was built to scale elastically, meaning that you can scale your cluster from one node to 100 nodes and beyond with ease. As you add nodes to your cluster, Riak automatically takes care of redistributing an equal share of the load to each server in your cluster. Likewise, if you scale your cluster down in size, Riak takes care of re-apportioning the data from the removed node evenly to the remaining nodes.
 
 [[Adding Nodes to Riak|Basic Configuration]]
 
