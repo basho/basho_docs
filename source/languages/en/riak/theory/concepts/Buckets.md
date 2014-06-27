@@ -10,59 +10,70 @@ moved: {
 }
 ---
 
-Buckets are used to define a virtual keyspace and provide the ability to
-define isolated non-default configuration. Buckets might be compared to
-tables or folders in relational databases or file systems, respectively.
-Buckets with default configuration are essentially free, while non-
-default configuration will be gossiped around the ring.
+Buckets are used to define a virtual keyspace for storing Riak objects.
+They enable you to define non-default configurations over that keyspace
+concerning [[replication properties]] and [[other parameters|Buckets#configuration]].
+
+In certain respects, buckets can be compared to tables in relational
+databases or folders in filesystems, respectively. From the standpoint
+of performance, buckets with default configurations are essentially
+"free," while non-default configurations, defined [[using bucket types]],
+will be gossiped around [[the ring|Clusters#the-ring]] using Riak's
+[[cluster metadata]] subsystem.
 
 ## Configuration
 
-For each bucket a number of configuration properties can be selectively
-defined, overriding the defaults.
+Bucket configurations are defined [[using bucket types]], which enables
+you to create and modify sets of configurations and apply them to as
+many buckets as you wish. With bucket types, you can configure the
+following bucket-level parameters, overriding the default values if you
+wish.
 
-### n_val
+#### allow_mult
 
-*integer* (default: `3`). Specifies the number of copies of each object
-to be stored in the cluster. See [[Replication]].
+Determines whether sibling values can be created. See [[siblings|Vector Clocks#Siblings]]. The default can be `true` or `false` depending on the context. See the documentation on [[`allow_mult` in Riak 2.0|Using Bucket Types#bucket-types-and-the-allow_mult-setting]] for more information.
 
-### allow_mult
+#### n_val
 
-*boolean* (default: `false`). Determines whether sibling values can be
-created. See [[Siblings|Vector Clocks#Siblings]].
+Specifies the number of copies of each object to be stored in the cluster. See the documentation on [[replication properties]]. Default: `3`.
 
-### last_write_wins
+#### last_write_wins
 
-*boolean* (default: `false`). Indicates if an object's vector clocks
-will be used to decide the canonical write based on time of write in the
-case of a conflict. See [[Conflict resolution|
-Concepts#Conflict-resolution]].
+Indicates if an object's timestamp will be used to decide the canonical write in the case of a conflict. See the documentation on [[vector clocks]] and on [[conflict resolution]] for more information. Default: `false`.
 
-### r, pr, w, dw, pw, rw
 
-`all`, `quorum`, `one`, `default`, or an *integer* (default: `quorum`). Sets for reads and
-writes the number of responses required before an operation is considered
-successful. See [[Replication Properties]].
+#### r, pr, w, dw, pw, rw, notfound_ok, basic_quorum
 
-### precommit
+See the documentation on [[replication properties]] for more information on all of these properties.
 
-A list of erlang or javascript functions to be executed before writing an
-object. See [[Pre-Commit Hooks|Using Commit Hooks#Pre-Commit-Hooks]].
+#### precommit
 
-### postcommit
+A list of Erlang functions to be executed before writing an object. See our documentation on [[pre-commit hooks|Using Commit Hooks#pre-commit-hooks]] for more information. Default: no pre-commit hooks.
 
-A list of erlang functions to be executed after writing an object. See
-[[Post-Commit Hooks|Using Commit Hooks#Post-Commit-Hooks]].
+#### postcommit
 
-For more details on setting bucket properties see [[Configuration
-Files|Configuration Files#default_bucket_props]],
-[[HTTP Set Bucket Properties]], or the documentation for your client driver.
+`postcommit` | A list of Erlang functions to be executed after writing an object. See our documentation on [[post-commit hooks|Using Commit Hooks#post-commit-hooks]] for more information. Default: no post-commit hooks.
 
-### backend
+#### old_vclock, young_vclock, small_vclock, big_vclock
 
-Specify which named backend to use for the bucket when using `riak_kv_multi_backend`.
+These settings enable you to manage [[vector clock pruning|Conflict Resolution#vector-clock-pruning]].
 
-### dvv_enabled
-Specifies whether [[dotted version vectors]] (aka DVVs) are enabled for objects in a bucket.
-The default is `true`. If set to `false`, conflict resolution will take place using the older
-[[vector clock|Vector Clocks]]-based system.
+#### backend
+
+If you are using the [[Multi]] backend, this property enables you to determine which of Riak's available backends---[[Bitcask]], [[LevelDB]], or [[Memory]]---will be used in buckets of this type.
+
+#### consistent
+
+If you wish to use Riak's [[strong consistency]] feature for buckets bearing a type, this setting must be set to `true`. The default is `false`. More information can be found in our documentation on [[using strong consistency]].
+
+#### datatype
+
+If you are using [[Riak Data Types|Using Data Types]], this setting determines [[which data type|Using Data Types#setting-up-buckets-to-use-riak-data-types]] will be used in buckets of this bucket type. Possible values: `counter`, `set`, or `map`.
+
+#### dvv_enabled
+
+Whether [[dotted version vectors]] will be used instead of traditional [[vector clocks]] for [[conflict resolution]]. Default: `false`.
+
+#### chash_keyfun, linkfun
+
+These settings involve features that have been deprecated. You will not need to adjust these values.
