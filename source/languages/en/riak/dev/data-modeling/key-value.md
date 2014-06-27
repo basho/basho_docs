@@ -7,7 +7,7 @@ audience: intermediate
 keywords: [keys, values, data-types]
 ---
 
-While Riak enables you to take advantage of a wide variety of features that can be useful in application development, such as [[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]], and [[Riak Data Types|Using Data Types]], Riak almost always performs best when you limit your application to basic CRUD operations (create, read, update, and delete) on objects, i.e. when you use Riak as a "pure" key/value store.
+While Riak enables you to take advantage of a wide variety of features that can be useful in application development, such as [[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]], and [[Riak Data Types|Using Data Types]], Riak almost always performs best when you build your application around basic CRUD operations (create, read, update, and delete) on objects, i.e. when you use Riak as a "pure" key/value store.
 
 In this tutorial, we'll suggest some strategies for naming and modeling for key/value object interactions with Riak. If you'd like to use some of Riak's other features, we recommend checking out the documentation for each of them or consulting our guide to [[building applications with Riak]] for a better sense of which features you might need.
 
@@ -96,7 +96,11 @@ FetchSet fetchUserIdSet = new FetchSet.Builder(userIdSet).build();
 require 'riak'
 
 set_bucket = client.bucket('user_info_sets')
-user_id_set = Riak::Crdt::Set.new(set_bucket, 'usernames', 'sets')
+
+# We'll make this set global because we'll use it
+# inside of a function later on
+
+$user_id_set = Riak::Crdt::Set.new(set_bucket, 'usernames', 'sets')
 ```
 
 ```python
@@ -213,14 +217,16 @@ public Set<User> fetchAllUserRecords() {
 
 ```ruby
 # Using the "user_id_set" set from above
-def fetch_all_user_records:
-  users_bucket = client.bucket('users')
+
+def fetch_all_user_records
+  users_bucket = $client.bucket('users')
   user_records = Array.new
-  user_id_set.members.each do |user_id|
-    user_records = users_bucket.get(user_id)
-    user_records.push(user_record)
+  $user_id_set.members.each do |user_id|
+    user_record = users_bucket.get(user_id).data
+   	user_records.push(user_record)
   end
   user_records
+end
 ```
 
 ```python
@@ -231,7 +237,7 @@ def fetch_all_user_records():
     for user_id in user_id_list:
     	yield users_bucket.get(user_id)
 
-# We can retrieve that list of Riak objects later on:
+# We can retrieve that list of Riak objects later on
 list(fetch_all_user_records())
 ```
 
@@ -342,4 +348,4 @@ If your data is best modeled as a three-layered hash, you may want to consider u
 
 ## Resources
 
-More on key/value modeling in Riak can be found in [this presentation](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo) by Basho evangelist [Hector Castro](https://github.com/hectcastro),s with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example).
+More on key/value modeling in Riak can be found in [this presentation](http://www.youtube.com/watch?v=-_3Us7Ystyg#aid=P-4heI_bFwo) by Basho evangelist [Hector Castro](https://github.com/hectcastro), with the presentation slides available [on Speaker Deck](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example).
