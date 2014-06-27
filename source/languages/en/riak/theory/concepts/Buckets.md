@@ -56,7 +56,7 @@ A list of Erlang functions to be executed before writing an object. See our docu
 
 #### old_vclock, young_vclock, small_vclock, big_vclock
 
-These settings enabling you to manage [[vector clock pruning|Conflict Resolution#vector-clock-pruning]].
+These settings enable you to manage [[vector clock pruning|Conflict Resolution#vector-clock-pruning]].
 
 #### backend
 
