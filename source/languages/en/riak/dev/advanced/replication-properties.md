@@ -186,7 +186,7 @@ System.out.println(obj.getValue().toString());
 ```
 
 ```python
-bucket = client.bucket('animal_facts', bucket_type='r_equals_1')
+bucket = client.bucket_type('r_equals_1').bucket('animal_facts')
 bucket.get('chimpanzee')
 ```
 
@@ -249,7 +249,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('animal_facts', bucket_type='w_equals_3')
+bucket = client.bucket_type('w_equals_3').bucket('animal_facts')
 obj = RiakObject(client, bucket, 'giraffe')
 obj.content_type = 'text/plain'
 obj.data = 'The species name of the giraffe is Giraffa camelopardalis'
