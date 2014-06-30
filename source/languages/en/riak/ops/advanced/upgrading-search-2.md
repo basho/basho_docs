@@ -8,7 +8,7 @@ audience: advanced
 keywords: [search, upgrading]
 ---
 
-If you're using Search in a version of Riak prior to 2.0 (1.3.0 to 1.4.x), you should follow these steps to migrate your search indexes from the legacy `merge_index`, to the new Solr backed ([[yokozuna|search details]]) indexes. The legacy version of Riak Search is now deprecated, and does not support most new 2.0 features (no [[datatypes|using data types]], [[bucket types|using bucket types]], [[security|authentication and authorization]]), so we highly recommend you migrate.
+If you're using Search in a version of Riak prior to 2.0 (1.3.0 to 1.4.x), you should follow these steps to migrate your search indexes from the legacy `merge_index`, to the new Solr backed ([[yokozuna|search details]]) indexes. The legacy version of Riak Search is now deprecated, and does not support most new 2.0 features (no [[datatypes|using data types]], [[bucket types|using bucket types]], [[strong consistency]], [[security|authentication and authorization]]), so we highly recommend you migrate.
 
 The legacy `merge_index`-based search (aka legacy Search) will be removed in the future.
 
@@ -18,7 +18,7 @@ The legacy `merge_index`-based search (aka legacy Search) will be removed in the
 
 These migration steps are as automated as they can reasonably be, with some manual steps for safety. They are meant to be run on a live cluster, so there's no need to take all of your nodes down. Like all migration activities, you should attempt these steps at a time when your cluster is relatively light on traffic, for example, *not* the week before Christmas.
 
-The main goal of a live migration is to stand up indexes in new Search that parallel the existing ones in legacy.  New writes add entries to both indexes while AAE adds entires in the new indexes for existing data.
+The main goal of a live migration is to stand up indexes in new Search that parallel the existing ones in legacy.  New writes add entries to both indexes while AAE adds entries in the new indexes for existing data.
 
 Parallel indexes means more disk usage.  How much more will depend on the schema but tests have shown Solr to generally use less disk.  A prudent plan will expect new Search to use as much disk as legacy. Also expect more CPU usage as analysis will temporarily be performed by both systems.  Finally, Solr runs on a JVM process, requiring its own RAM.  A good start is 2GB but more is required for heavier workloads.  On the contrary, do not make too large a heap as it could cause lengthy garbage collection pauses.
 
