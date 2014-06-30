@@ -83,6 +83,10 @@ import com.basho.riak.client.convert.RiakKey;
 public class User {
     @RiakKey
     public String UserName;
+
+    @RiakBucketName
+    final String bucketName = "msgs";
+
     public String FullName;
     public String Email;
 
@@ -140,19 +144,23 @@ import com.basho.riak.client.bucket.Bucket;
 public class MsgRepository {
 
     static final String BUCKET_NAME = "Msgs";
-    protected IRiakClient client;
+    protected RiakClient client;
 
-    public MsgRepository(IRiakClient client) {
+    public MsgRepository(RiakClient client) {
 
         this.client = client;
     }
 
     public Msg get(String msgKey) throws RiakRetryFailedException {
-        Bucket bucket = client.fetchBucket(BUCKET_NAME).execute();
-        return bucket.fetch(msgKey, Msg.class).execute();
+        Location key = new Location(new Namespace(BUCKET_NAME), msgKey);
+        FetchValue fetch = new FetchValue.Builder(key).build();
+        FetchValue.Response response = client.execute(fetch);
+        return response.getValue(Msg.class);
     }
 
     public String save(Msg msg) throws RiakRetryFailedException {
+        StoreValue store = new StoreValue.Builder(msg).build();
+
         String msgKey = generateKey(msg);
         Bucket bucket = client.fetchBucket(BUCKET_NAME).execute();
         bucket.store(msgKey, msg).execute();
