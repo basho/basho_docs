@@ -159,7 +159,7 @@ validate(Object) ->
     throw:invalid_utf8 ->
       {fail, "Invalid JSON: Illegal UTF-8 character"};
     error:Error ->
-      {fail, "Invalid JSON: " ++ binary_to_list(list_to_binary(io_lib:format("~p", [Error])))}
+      {fail, lists:flatten(io_lib:format("Invalid JSON: ~p",[Error]))}
   end.
 ```
 
