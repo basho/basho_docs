@@ -41,8 +41,6 @@ client = RiakClient(protocol='pbc', pb_port=8087)
 ```
 
 ```java
-// For the Java example, 
-
 public class User {
 	private RiakClient client;
 
@@ -92,10 +90,10 @@ public class User {
 			String.format("%s_%s", firstName.toLowerCase(), lastName.toLowerCase());
 
 		this.key = key;
-		this.location = new Location(new Namespace(bucketType, bucket), key);
 
-		// In the Java client, maps are updated on the basis of the map's
-		// location, which we specified in the line directly above
+        // In the Java client, maps are updated on the basis of the
+        // map's bucket type/bucket/key Location:
+		this.location = new Location(new Namespace(bucketType, bucket), key);
 	}
 }
 ```
@@ -148,20 +146,21 @@ public class User {
 		updateMapWithoutContext(mu);
 	}
 
-	// While we're at it, we'll create a couple of private helper
-	// methods that will assist us later in the tutorial. The function
-	// below fetches our map's abstract context object, which assists
-	// Riak in making intelligent decisions behind the scenes about
-	// map convergence:
+    /**
+     * Fetches our map's abstract context object, which assists Riak in
+     * making intelligent decisions about map convergence behind the
+     * scenes. This will assist us later in the tutorial.
+     */
 
 	private Context getMapContext() throws Exception {
 		FetchMap fetch = new FetchMap.Builder(location).build();
 		return client.execute(fetch).getContext();
 	}
 
-	// This function updates our map using the abstract context object
-	// fetched using the getMapContext() function above. This is
-	// highly recommended for some map updates:
+    /**
+     * Updates our map using the abstract context object fetched using
+     * the private getMapContext() function above.
+     */
 
 	private void updateMapWithContext(MapUpdate mu) throws Exception {
 		Context ctx = getMapContext();
@@ -171,8 +170,10 @@ public class User {
 		client.execute(update);
 	}
 
-	// Not all map updates require a context object. This function will
-	// assist us in those cases:
+    /**
+     * Updates our map without an abstract context object. Context is not
+     * needed for some map updates.
+     */
 
 	private void updateMapWithoutContext(MapUpdate mu) throws Exception {
 		UpdateMap update = new UpdateMap.Builder(location, mu).build();
@@ -248,13 +249,16 @@ public class User {
 		updateMapWithoutContext(mu);
 	}
 
-	// This function transforms a set of Strings into a SetUpdate that
-	// can be sent to Riak, such as the interest set above:
+  /**
+   * Transforms a Set of Strings into a SetUpdate that can be sent to
+   * Riak:
+   */
+
 	private SetUpdate setIntoSetUpdate(Set<String> rawSet) {
 		SetUpdate su = new SetUpdate():
-		rawSet.forEach((String item) -> {
-			su.add(BinaryValue.create(item));
-		});
+    for (String item : rawSet) {
+      su.add(BinaryValue.create(item));
+    }
 		return su;
 	}
 }
@@ -323,15 +327,16 @@ public class User {
 	}
 
 	public void visitPage() {
+        CounterUpdate cu = new CounterUpdate(1);
 
-		// When constructing CounterUpdate objects, the only argument
-		// you need to pass is the integer increment or decrement.
-		// You can decrement a counter by passing in a negative number.
-		CounterUpdate cu = new CounterUpdate(1);
+        // To decrement a counter, pass a negative number to the
+        // CounterUpdate object
+
 		MapUpdate mu = new MapUpdate()
 				.update("visits", cu);
 
-		// Using our updateMapWithoutContext method from above
+		// Using our updateMapWithoutContext method from above, as
+        // context is not necessary for counter updates
 		updateMapWithoutContext(mu);
 	}
 }
@@ -478,9 +483,12 @@ class User:
 
 ```java
 public class User {
-	// First, we'll create a class method that fetches the map from
-	// Riak in its current state. This enables us to fetch the current
-	// values of the fields of the map:
+
+    /**
+     * Fetches our map from Riak in its current state, which enables us
+     * to fetch current values for all of the fields of the map, as
+     * in the methods below.
+     */
 	
 	private RiakMap getMap() throws Exception {
 		FetchMap fetch = new FetchMap.Builder(location).build();
@@ -524,6 +532,7 @@ joe.interests #=> ["distributed systems", "Erlang"]
 joe.visits #=> 0
 joe.visit_page
 joe.visits #=> 1
+joe.paid_account #=> fase
 ```
 
 ```python
@@ -534,6 +543,7 @@ joe.interests # frozenset(['Erlang', 'distributed systems'])
 joe.visits # 0
 joe.visit_page()
 joe.visits # 1
+joe.paid_account # false
 ```
 
 ```java
@@ -542,13 +552,13 @@ interests.add("distributed systems");
 interests.add("Erlang");
 User joe = new User("Joe", "Armstrong", interests);
 
-joe.getFirstName();
-joe.getLastName();
-joe.getInterests();
-joe.getVisits();
+joe.getFirstName(); // Joe
+joe.getLastName(); // Armstrong
+joe.getInterests(); // ["distributed systems", "Erlang"]
+joe.getVisits(); // 0
 joe.visitPage();
-joe.getVisits();
-joe.getAccountStatus();
+joe.getVisits(); // 1
+joe.getAccountStatus(); // false
 ```
 
 We can also create instance methods that add and remove specific interests:
@@ -632,16 +642,15 @@ class User:
     # retain class methods from above
 
     def as_json():
-      m = self.user_map.reload()
-      user_dict = {
-          'firstName': m.registers['first_name'].value,
-          'lastName': m.registers['last_name'].value,
-          'interests': list(m.sets['interests'].value),
-          'visits': m.counters['visits'].value,
-          'paidAccount': m.flags['paid_account'].value
-
-      }
-      return json.dumps(user_dict)
+        m = self.user_map.reload()
+        user_dict = {
+            'firstName': m.registers['first_name'].value,
+            'lastName': m.registers['last_name'].value,
+            'interests': list(m.sets['interests'].value),
+            'visits': m.counters['visits'].value,
+            'paidAccount': m.flags['paid_account'].value
+        }
+        return json.dumps(user_dict)
 ```
 
 ```java
@@ -652,16 +661,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 class User {
 	// Retaining all of the class methods from above
 
-	public String toJson() throws Exception {
-		ObjectMapper jsonMapper = new ObjectMapper();
-		Map<String, Object> userJsonMap = new HashMap<String, Object>();
+    public String toJson() throws Exception {
+        ObjectMapper jsonMapper = new ObjectMapper();
+        
+        Map<String, Object> userJsonMap = new HashMap<String, Object>();
 
-		// Using our getMap() function from above to fetch the map in
-		// its current state in Riak:
-		RiakMap userRiakMap = getMap();
+        RiakMap userRiakMap = getMap();
 
-		userJsonMap.put("firstName", userRiakMap.getRegister("first_name").getValue().toString());
-		userJsonMap.put("lastName", userRiakMap.getRegister("last_name").getValue().toString());
+        userJsonMap.put("firstName", userRiakMap.getRegister("first_name").getValue().toString());
+        userJsonMap.put("lastName", userRiakMap.getRegister("last_name").getValue().toString());
         userJsonMap.put("interests", userRiakMap.getSet("interests").viewAsSet());
         userJsonMap.put("visits", userRiakMap.getCounter("visits").view());
         userJsonMap.put("paidAccount", userRiakMap.getFlag("paid_account").view());
