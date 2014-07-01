@@ -11,7 +11,7 @@ moved: {
 }
 ---
 
-This document is intended to be a brief, objective, and technical comparison of Riak and Neo4j.
+This document is intended as a brief, objective, and technical comparison of Riak and Neo4j. If you feel this comparison is unfaithful for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
 
 ## High-Level Differences
 
