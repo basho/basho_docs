@@ -67,6 +67,8 @@ Setting | Options | Default | Description
 `fullsync_on_connect` | `true`, `false` | `true` | Whether to initiate a fullsync on initial connection from the secondary cluster
 `data_root` | `path` (string) | `data/riak_repl` | Path (relative or absolute) to the working directory for the replication process
 `fullsync_interval` | `minutes` (integer) OR `[{sink_cluster, minutes(integer)}, ...]` | `360` | A single integer value representing the duration to wait in minutes between fullsyncs, or a list of `{"clustername", time_in_minutes}` pairs for each sink participating in fullsync replication.
+`rtq_overload_threshold` | `length` (integer) | `2000` | The maximum length to which the realtime replication queue can grow before new objects are dropped. Dropped objects will need to be replicated with a fullsync.
+`rtq_overload_recover` | `length` (integer) | `1000` | The length to which the realtime replication queue, in an overload mode, must shrink before new objects are replicated again.
 `rtq_max_bytes` | `bytes` (integer) | `104857600` | The maximum size to which the realtime replication queue can grow before new objects are dropped. Defaults to 100MiB. Dropped objects will need to be replicated with a fullsync.
 `proxy_get` | `enabled`, `disabled` | `disabled` | Enable Riak CS `proxy_get` and block filter.
 `rt_heartbeat_interval` | `seconds` (integer) | `15` | A heartbeat message is sent from the source to the sink every `rt_heartbeat_interval` seconds. Setting `rt_heartbeat_interval` to `undefined` disables the realtime heartbeat. This feature is only available in Riak Enterprise 1.3.2+.

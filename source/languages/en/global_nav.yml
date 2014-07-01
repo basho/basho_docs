@@ -120,6 +120,7 @@ riak:
           - "[[Open Files Limit]]"
           - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
+          - "[[Managing Active Anti-Entropy]]"
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
@@ -185,8 +186,10 @@ riak:
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
           - "[[Dotted Version Vectors]]"
+          - "[[Active Anti-Entropy]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
+          - "[[Capability Negotiation]]"
       - title: "Riak Compared to"
         sub:
           # - "[[Riak Comparisons Overview|Riak Comparisons]]"
