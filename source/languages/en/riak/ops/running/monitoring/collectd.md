@@ -43,7 +43,7 @@ The configuration file also sets up collectd to use the following plugins:
 Plugin | Description
 :------|:-----------
 [syslog](https://collectd.org/wiki/index.php/Plugin:SysLog) | Receives log messages from the collectd daemon and dispatches them to syslog. In this installation, messages at log levels `info` and `debug` will be emitted.
-[logfile](https://collectd.org/wiki/index.php/Plugin:LogFile) | Receives log messages from the daemon and writes them to a text file. Here, those messages are written to `/var/log/collectd.log` via stdout and include timestamps and `info`- and `debug`-level log messages.
+[logfile](https://collectd.org/wiki/index.php/Plugin:LogFile) | Receives log messages from the daemon and writes them to a text file. Here, those messages are written to `/var/log/collectd.log` via stdout and include timestamps and `info`- and `debug`-level log messages. This is useful primarily when setting up collectd and testing it by running it in the foreground.
 [cURL_JSON](https://collectd.org/wiki/index.php/Plugin:cURL-JSON) | Queries an HTTP endpoint and parses it as JSON, specified by `URL`. This is particularly useful in Riak, as the `[[/stats|HTTP Status]]` endpoint of any Riak node returns a wide variety of Riak metrics as JSON. The cURL_JSON plugin here is set up here to display the values of a wide variety of keys in JSON returned from `/stats`, e.g. `memory_total`, `memory_proccesses`, etc. A complete list of these metrics can be found in the documentation on [[Inspecting a Node]].
 
   **Note**: While the other plugins are optional and included here for illustrative purposes, cURL_JSON plugin support is required to use collectd with Riak.
