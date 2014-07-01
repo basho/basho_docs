@@ -43,7 +43,7 @@ Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
 
 ```python
-bucket = client.bucket('dogs', bucket_type='animals')
+bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
 ```
 
@@ -116,7 +116,7 @@ RiakObject obj = response.getValue(RiakObject.class);
 ```
 
 ```python
-bucket = client.bucket('dogs', bucket_type='animals')
+bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r=3)
 obj.data
 ```
@@ -186,7 +186,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('oscar_wilde', bucket_type='quotes')
+bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 obj = RiakObject(client, bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.data = 'I have nothing to declare but my genius'
@@ -246,7 +246,7 @@ System.out.println(response.getvClock());
 ```
 
 ```python
-bucket = client.bucket('nba', bucket_type='sports')
+bucket = client.bucket_type('sports').bucket('nba')
 obj = bucket.get('champion')
 obj.vclock
 
@@ -304,7 +304,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('nba', bucket_type='sports')
+bucket = client.bucket_type('sports').bucket('nba')
 obj = RiakObject(client, bucket, 'champion')
 obj.content_type = 'text/plain'
 obj.data = 'Harlem Globetrotters'
@@ -366,7 +366,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('dodge', bucket_type='cars')
+bucket = client.bucket_type('cars').bucket('dodge')
 obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
@@ -423,7 +423,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('dodge', bucket_type='cars')
+bucket = client.bucket_type('cars').bucket('dodge')
 obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
@@ -491,7 +491,7 @@ String key = client.execute(store).getLocation().getKeyAsString();
 ```
 
 ```python
-bucket = client.bucket('random_user_keys', bucket_type='users')
+bucket = client.bucket_type('users').bucket('random_user_keys')
 obj = RiakObject(client, bucket)
 obj.content_type = 'application/json'
 obj.data = '{"user":"data"}'
@@ -551,7 +551,7 @@ client.execute(delete);
 ```
 
 ```python
-bucket = client.bucket('oscar_wilde', bucket_type='quotes')
+bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 bucket.delete('genius')
 ```
 

@@ -146,7 +146,7 @@ client.execute(store2);
 ```
 
 ```python
-bucket = client.bucket('nickolodeon', bucket_type='siblings_allowed')
+bucket = client.bucket_type('siblings_allowed').bucket('nickolodeon')
 obj1 = RiakObject(client, bucket, 'best_character')
 obj1.content_type = 'text/plain'
 obj1.data = 'Ren'
@@ -203,7 +203,7 @@ System.out.println(obj.getValue().toString());
 ```
 
 ```python
-bucket = client.bucket('nickolodeon', bucket_type='siblings_allowed')
+bucket = client.bucket_type('siblings_allowed').bucket('nickolodeon')
 obj = bucket.get('best_character')
 obj.siblings
 ```
@@ -298,7 +298,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('nickolodeon', bucket_type='siblings_allowed')
+bucket = client.bucket_type('siblings_allowed').bucket('nickolodeon')
 obj = bucket.get('best_character')
 vclock = obj.vclock
 new_obj = Riak::RObject.new(bucket, 'best_character')
