@@ -257,13 +257,13 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 </tr>
 
 <tr>
-<td><tt>leveldb.tiered</tt></td>
+<td><code>leveldb.tiered</code></td>
 <td>The level (as an integer) at which LevelDB should switch to the slow array. Setting this value to `0` (the default), disables the tiered storage feature.</td>
-<td><tt>0</tt></td>
+<td><code>0</code></td>
 </tr>
 
 <tr>
-<td><tt>leveldb.verify_compaction</tt></td>
+<td><code>leveldb.verify_compaction</code></td>
 <td>Enables or disables the verification of LevelDB data during compaction.</td>
 <td><code>on</code></td>
 </tr>
@@ -1646,69 +1646,69 @@ Riak's `riak_repl` subsystem.
 <tbody>
 
 <tr>
-<td><tt>data_root</tt></td>
+<td><code>data_root</code></td>
 <td>Path (relative or absolute) to the working directory for the replication process.</td>
-<td><tt>/var/db/riak/riak_repl/</tt></td>
+<td><code>/var/db/riak/riak_repl/</code></td>
 </tr>
 
 <tr>
-<td><tt>max_fssource_cluster</tt></td>
-<td>The hard limit of fullsync workers that will be running on the source side of a cluster across all nodes on that cluster for a fullsync to a sink cluster. This means that if you have configured fullsync for two different clusters, both with a <tt>max_fssource_cluster</tt> of 5, 10 fullsync workers can be in progress. This only affects nodes on the source cluster on which this parameter is defined, either via the configuration file or command line.</td>
-<td><tt>5</tt></td>
+<td><code>max_fssource_cluster</code></td>
+<td>The hard limit of fullsync workers that will be running on the source side of a cluster across all nodes on that cluster for a fullsync to a sink cluster. This means that if you have configured fullsync for two different clusters, both with a <code>max_fssource_cluster</code> of 5, 10 fullsync workers can be in progress. This only affects nodes on the source cluster on which this parameter is defined, either via the configuration file or command line.</td>
+<td><code>5</code></td>
 </tr>
 
 <tr>
-<td><tt>max_fssource_node</tt></td>
+<td><code>max_fssource_node</code></td>
 <td>This setting limits the number of fullsync workers that will be running on each individual node in a source cluster. This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. This only affects nodes on the source cluster on which this parameter is defined, either via the configuration file or command line.</td>
-<td><tt>1</tt></td>
+<td><code>1</code></td>
 </tr>
 
 <tr>
-<td><tt>max_fssink_node</tt></td>
+<td><code>max_fssink_node</code></td>
 <td>This setting limits the number of fullsync workers allowed to run on each individual node in a sink cluster. This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. This only affects nodes on the source cluster on which this parameter is defined, either via the configuration file or command line.</td>
-<td><tt>1</tt></td>
+<td><code>1</code></td>
 </tr>
 
 <tr>
-<td><tt>fullsync_on_connect</tt></td>
+<td><code>fullsync_on_connect</code></td>
 <td>Whether to initiate a fullsync on initial connection from the sink cluster.</td>
-<td><tt>true</tt></td>
+<td><code>true</code></td>
 </tr>
 
 <tr>
-<td><tt>fullsync_interval</tt></td>
-<td>A single-integer value representing the duration to wait, in minutes, between fullsyncs, or a list of <tt>{clustername, time_in_minutes}</tt> pairs for each sink participating in fullsync replication.</td>
-<td><tt>30</tt></td>
+<td><code>fullsync_interval</code></td>
+<td>A single-integer value representing the duration to wait, in minutes, between fullsyncs, or a list of <code>{clustername, time_in_minutes}</code> pairs for each sink participating in fullsync replication.</td>
+<td><code>30</code></td>
 </tr>
 
 <tr>
-<td><tt>rtq_max_bytes</tt></td>
+<td><code>rtq_max_bytes</code></td>
 <td>The maximum size, in bytes, to which the realtime replication queue can grow before new objects are dropped. Dropped objects will need to be replicated with a fullsync.</td>
-<td><tt>104857600</tt></td>
+<td><code>104857600</code></td>
 </tr>
 
 <tr>
-<td><tt>proxy_get</tt></td>
-<td>Whether to enable Riak CS <tt>proxy_get</tt> and block filter.</td>
-<td><tt>disabled</tt></td>
+<td><code>proxy_get</code></td>
+<td>Whether to enable Riak CS <code>proxy_get</code> and block filter.</td>
+<td><code>disabled</code></td>
 </tr>
 
 <tr>
-<td><tt>rt_heartbeat_interval</tt></td>
-<td>A heartbeat message is sent from the source to the sink every <tt>rt_heartbeat_interval</tt>. Setting <tt>rt_heartbeat_interval</tt> to <tt>undefined</tt> disables the realtime heartbeat. This feature is available only in Riak Enterprise 1.3.2 and later.</td>
-<td><tt>15</tt></td>
+<td><code>rt_heartbeat_interval</code></td>
+<td>A heartbeat message is sent from the source to the sink every <code>rt_heartbeat_interval</code>. Setting <code>rt_heartbeat_interval</code> to <code>undefined</code> disables the realtime heartbeat. This feature is available only in Riak Enterprise 1.3.2 and later.</td>
+<td><code>15</code></td>
 </tr>
 
 <tr>
-<td><tt>rt_heartbeat_timeout</tt></td>
+<td><code>rt_heartbeat_timeout</code></td>
 <td>If a heartbeat response is not received within the time period specified by this setting (in seconds), the source connection exits and will be re-established. This feature is available only in Riak Enterprise 1.3.2 and later.</td>
-<td><tt>15</tt></td>
+<td><code>15</code></td>
 </tr>
 
 <tr>
-<td><tt>fullsync_use_background_manager</tt></td>
+<td><code>fullsync_use_background_manager</code></td>
 <td>By default, fullsync replication will attempt to coordinate with other Riak subsystems that may be contending for the same resources. This will help to prevent system response degradations during times of heavy load from multiple background tasks. To disable background coordination, set this parameter to `false`. This feature is available only in Riak Enterprise 2.0 and later.</td>
-<td><tt>true</tt></td>
+<td><code>true</code></td>
 </tr>
 
 </tbody>
@@ -1745,18 +1745,18 @@ There are two non-`riak_repl` settings available in `advanced.config`.
 <tbody>
 
 <tr>
-<td><tt>cluster_mgr</tt></td>
-<td><tt>riak_core</tt></td>
+<td><code>cluster_mgr</code></td>
+<td><code>riak_core</code></td>
 <td>The cluster manager listens for connections from remote clusters on the specified IP and port. Every node runs one cluster manager, but only the cluster manager running on the cluster leader will service requests. This can change as nodes enter and leave the cluster.</td>
-<td><tt>{"127.0.0.1", 9080}</tt></td>
+<td><code>{"127.0.0.1", 9080}</code></td>
 </tr>
 
 <tr>
-<td><tt>delete_mode</tt></td>
-<td><tt>riak_kv</tt></td>
-<td>The <tt>advanced.config</tt> configuration file enables you to specify how Riak behaves after objects are marked for deletion with a tombstone. There are three possible options for the <tt>delete_mode</tt> setting: <tt>keep</tt> (the default) disables tombstone removal altogether; <tt>immediate</tt> removes objects' tombstones as soon as the delete request is received; and setting <tt>delete_mode</tt> to an integer value specifies the number of milliseconds that Riak will wait prior to removing tombstones.<br /><br />We recommend leaving <tt>delete_mode</tt> set to <tt>keep</tt> if you plan on deleting and recreating objects under the same key rapidly.
+<td><code>delete_mode</code></td>
+<td><code>riak_kv</code></td>
+<td>This parameter enables you to specify how Riak behaves after objects are marked for deletion with a tombstone. There are three possible options for the <code>delete_mode</code> setting: <code>keep</code> (the default) disables tombstone removal altogether; <code>immediate</code> removes objects' tombstones as soon as the delete request is received; and setting <code>delete_mode</code> to an integer value specifies the number of milliseconds that Riak will wait prior to removing tombstones.<br /><br />We recommend leaving <code>delete_mode</code> set to <code>keep</code> if you plan on deleting and recreating objects under the same key rapidly.<br /><br />More information can be found in our documentation on <a href="/ops/advanced/deletion">object deletion</a>.
 </td>
-<td><tt>keep</tt></td>
+<td><code>keep</code></td>
 </tr>
 
 </tbody>
