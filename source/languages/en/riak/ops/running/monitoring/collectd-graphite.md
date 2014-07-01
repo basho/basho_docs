@@ -1,21 +1,14 @@
 ---
-title: Riak Monitoring with collectd and Graphite
+title: Riak Monitoring with collectd
 project: riak
-version: 1.4.8+
+version: 2.0.0+
 document: tutorial
 toc: true
 audience: intermediate
 keywords: [operator, monitoring, collectd]
 ---
 
-This tutorial guides you through using the [collectd](http://collectd.org) data collection daemon to gather performance and other data from Riak as well as the [Graphite](http://graphite.readthedocs.org/en/latest/) graphing library to visualize collectd data.
-
-<div class="note">
-<div class="title">Note</div>
-While this tutorial covers the specific interaction between collectd and Graphite, please bear in mind that collectd can be used with any number of visualization tools and Graphite with a broad range of data collection tools.
-</div>
-
-## Riak and collectd
+This tutorial guides you through using the [collectd](http://collectd.org) data collection daemon to gather performance and other data from Riak.
 
 Using [collectd](http://collectd.org) in conjunction with Riak involves three basic steps:
 
@@ -23,13 +16,13 @@ Using [collectd](http://collectd.org) in conjunction with Riak involves three ba
 2. Configuring your collectd installation's `[collectd.conf](http://collectd.org/documentation/manpages/collectd.conf.5.shtml)` configuration file
 3. Starting the daemon
 
-#### Installing collectd
+## Installing collectd
 
 Detailed and OS-specific installation instructions can be found on collectd's [downloads page](https://collectd.org/download.shtml).
 
 While we won't detail the installation process here, it's important to note that it might be useful to install binary collectd distributions using a tool such as `[tar](http://unixhelp.ed.ac.uk/CGI/man-cgi?tar)`. In general, binary distributions are easier to copy to and install on multiple Riak nodes. Instructions on creating binary distributions can also be found on the collectd [downloads page](https://collectd.org/download.shtml).
 
-#### Configuring collectd
+## Configuring collectd
 
 Once collectd has been installed, the installation's `[collectd.conf](http://collectd.org/documentation/manpages/collectd.conf.5.shtml)` file needs to be configured to tell collectd which plugins to use, how each plugin should be configured, which local URL to interact with, and so on.
 
@@ -54,7 +47,7 @@ Plugin | Description
 [cURL_JSON](https://collectd.org/wiki/index.php/Plugin:cURL-JSON) | Queries an HTTP endpoint and parses it as JSON, specified by `URL`. This is particularly useful in Riak, as the `[[/stats|HTTP Status]]` endpoint of any Riak node returns a wide variety of Riak metrics as JSON. The cURL_JSON plugin here is set up here to display the values of a wide variety of keys in JSON returned from `/stats`, e.g. `memory_total`, `memory_proccesses`, etc. A complete list of these metrics can be found in the documentation on [[Inspecting a Node]].
 
   **Note**: While the other plugins are optional and included here for illustrative purposes, cURL_JSON plugin support is required to use collectd with Riak.
-[Write Graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) | Stores values in the [Carbon](https://pypi.python.org/pypi/carbon/) storage layer for Graphite. This plugin enables you to use Graphite as a visualization engine. More on using Graphite with collectd in the [[Riak and Graphite|Riak Monitoring with collectd and Graphite#riak-and-graphite]] section below.
+
 
 <div class="note">
 <div class="note">Note</div>
@@ -71,7 +64,6 @@ TypesDB     "/usr/local/share/collectd/types.db"
 LoadPlugin logfile
 LoadPlugin syslog
 LoadPlugin curl_json
-LoadPlugin write_graphite
 
 <Plugin syslog>
   LogLevel info
@@ -211,39 +203,8 @@ LoadPlugin write_graphite
     </Key>
   </URL>
 </Plugin>
-
-<Plugin write_graphite>
-  <Carbon>
-    Host "10.0.3.3"
-    Port "2003"
-    Protocol "tcp"
-    LogSendErrors true
-    Prefix "collectd"
-    Postfix "-collectd"
-    StoreRates true
-    AlwaysAppendDS false
-    EscapeCharacter "_"
-  </Carbon>
-</Plugin>
 ```
 
-#### Starting collectd
+## Starting collectd
 
 Once collectd has been installed and configured, you can start the daemon using the `collectd` script in the `/sbin` subdirectory of your collectd installation.
-
-## Riak and Graphite
-
-Once collectd has been installed and configured to use Graphite for visualization (using the [Write Graphite](https://collectd.org/wiki/index.php/Plugin:Write_Graphite) plugin), you will need to install, configure, and start Graphite to begin monitoring.
-
-#### Installing Graphite
-
-Detailed instructions on installing Graphite and related tools like [Carbon](https://pypi.python.org/pypi/carbon/) can be found in the [Installing Graphite](http://graphite.wikidot.com/installation) documentation. This [Ubuntu 12.04-specific guide](https://www.digitalocean.com/community/articles/installing-and-configuring-graphite-and-statsd-on-an-ubuntu-12-04-vps) may be useful as well.
-
-Note that you  will need to install Python, [pip](https://pypi.python.org/pypi/pip), [memcached](http://memcached.org/), the [Apache2](http://httpd.apache.org/) web server, and a variety of other tools to use Graphite.
-
-#### Configuring Graphite
-
-In every installation of [Graphite](http://graphite.readthedocs.org/en/latest/), there is a `carbon.conf.example` file location in the `/conf` subdirectory. You can [modify this file](https://graphite.readthedocs.org/en/1.0/config-carbon.html) if you wish, but we recommend simply using the example configuration to begin with.
-
-#### Starting Graphite
-

@@ -116,7 +116,6 @@ riak:
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
-          - "[[Statistics and Monitoring]]"
           - title: "Node Operations"
             sub:
               - "[[Adding/Removing|Adding and Removing Nodes]]"
@@ -135,6 +134,10 @@ riak:
               - "[[Repairing Partitions]]"
               - "[[Repairing Indexes]]"
               - "[[Common Errors]]"
+          - title: "Monitoring"
+            sub:
+              - "[[Statistics and Monitoring]]"
+              - "[[Riak Monitoring with collectd]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
