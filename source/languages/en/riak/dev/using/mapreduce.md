@@ -144,9 +144,7 @@ Here's the MapReduce job as JSON, stored in a `mapreduce.json` file:
     {
       "map": {
         "language": "erlang",
-        "source": "function(riakObject) {
-          // function here
-        }"
+        "source": // function here
       }
     }
   ]
