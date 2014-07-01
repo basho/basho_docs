@@ -206,7 +206,7 @@ riak-admin js-reload
 
 ## erl-reload
 
-Reloads the Erlang `.beam` files used for [[MapReduce]] jobs, [[pre- and post-commit hooks|Advanced Commit Hooks]], and other purposes. More information on custom Erlang code can be found in the [[Installing Custom Code]] guide.
+Reloads the Erlang `.beam` files used for [[MapReduce|Using MapReduce]] jobs, [[pre- and post-commit hooks|Advanced Commit Hooks]], and other purposes. More information on custom Erlang code can be found in the [[Installing Custom Code]] guide.
 
 **Note**: This needs to be run on _all nodes_ in the cluster.
 
@@ -254,14 +254,20 @@ riak-admin transfers
 
 ## transfer-limit
 
-Change the handoff_concurrency limit.  The value set by running this command will 
-only persist while the node is running.  If the node is restarted, the transfer-limit 
-will return to the default of 2 or the value specified in the 
-`[[handoff_concurrency|Configuration Files#handoff_concurrency]]`
-setting in the `riak_core` section of the `app.config` file.
+Change the `handoff_concurrency` limit. The value set by running this command
+will only persist while the node is running. If the node is restarted, the
+transfer-limit will return to the default of 2 or the value specified by the
+`[[handoff_concurrency|Configuration Files#handoff_concurrency]]` setting in
+the `riak_core` section of the `app.config` file.
 
-Running this command with no arguments will display the current transfer-limit for each
-node in the cluster.
+Running this command with no `node` argument will set the transfer-limit for
+every node in the cluster. Running this command with no arguments will display
+the current transfer-limit for each node in the cluster.
+
+<div class="note">
+<div class="title">Hinted vs. Ownership handoff</title></div>
+<code>riak-admin transfer-limit</code> allows setting a value greater than 8, which will apply when [[hinted handoff|Failure and Recovery#Data-Loss]] is occurring. [[Ownership handoff|Adding and Removing Nodes]] concurrency has a hard limit of 8 partitions at a time.
+</div>
 
 
 ```bash
