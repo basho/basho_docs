@@ -26,19 +26,6 @@ In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it
 
 More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading to 2.0]].
 
-## New Client Libraries
-
-While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
-
-* [Java](https://github.com/basho/riak-java-client)
-  * [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
-* [Ruby](https://github.com/basho/riak-ruby-client) (docs on main GitHub page)
-  * [[Data Modeling with Riak Data Types]]
-* [Python](https://github.com/basho/riak-python-client)
-  * [Sphinx docs](http://basho.github.io/riak-python-client/)
-* [Erlang](https://github.com/basho/riak-erlang-client)
-  * [EDocs](http://basho.github.io/riak-erlang-client/)
-
 ## Riak Data Types
 
 In distributed systems, there is an unavoidable trade-off between consistency and availability. This can complicate some aspects of application design if you're using Riak as a key/value store because the application is responsible for resolving conflicts between replicas of objects stored in different Riak nodes.
@@ -136,3 +123,16 @@ In prior versions of Riak, [[conflict resolution]] was managed using [[vector cl
 #### Relevant Docs
 
 * [[Dotted Version Vectors]] explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs
+
+## New Client Libraries
+
+While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
+
+Language | Docs
+:--------|:----
+[Java](https://github.com/basho/riak-java-client) | [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+[Ruby](https://github.com/basho/riak-ruby-client) | [GitHub](https://github.com/basho/riak-ruby-client)
+[Python](https://github.com/basho/riak-python-client) | [Sphinx](http://basho.github.io/riak-python-client/)
+[Erlang](https://github.com/basho/riak-erlang-client) | [EDocs](http://basho.github.io/riak-erlang-client/)
+
+You will also notice that our documentation now features a wide variety of code samples from all four officially supported clients.
