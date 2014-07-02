@@ -95,7 +95,7 @@ still labeled `X-Riak-Vclock` if you're using the [[HTTP API]] and
 `vclock` if using the [[Protocol Buffers interface|PBC Fetch Object]].
 
 More on using vector clocks and DVVs on the application side can be
-found in the our documentation on [[conflict resolution]].
+found in our documentation on [[conflict resolution]].
 
 ## Resources
 
