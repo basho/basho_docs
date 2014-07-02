@@ -8,8 +8,8 @@ keywords: [runtime, ops, troubleshooting]
 ---
 
 Riak's [[configuration system|Configuration Files]] provides a variety
-of parameters that enable you to fine-tune how Riak interacts with the
-underlying operating system.
+of parameters that enable you to fine-tune how Riak interacts with
+elements of the underlying operating system.
 
 ## Ports
 
