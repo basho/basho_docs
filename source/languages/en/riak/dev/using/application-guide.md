@@ -120,4 +120,5 @@ If you have a good sense of how you will be using Riak for your application (or 
 
 * [[Five-Minute Install]] --- Install Riak and start up a five-node Riak cluster
 * [[Client Libraries]] --- A listing of official and non-official client libraries for building applications with Riak
+* [[Getting Started with Client Libraries|Five-Minute Install#setting-up-your-riak-client]] --- How to get up and going with one of Basho's official client libraries (Java, Ruby, Python, and Erlang)
 * [[Riak Glossary]] --- A listing of frequently used terms in Riak's documentation

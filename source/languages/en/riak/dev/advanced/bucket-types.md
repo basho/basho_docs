@@ -76,15 +76,13 @@ Creating new bucket types involves using the `create <type> <json>` command, whe
 }
 ```
 
-```java
-Location key =
-  new Location(new Namespace("no_siblings", "sensitive_user_data"), "user19735");
-RiakObject obj = new RiakObject()
-        .setContentType("application/json")
-        .setValue(BinaryValue.create("{ ... user data ... }"));
-StoreValue store = new StoreValue.Builder(obj).build();
-client.execute(store);
-```
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting
+started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
 
 If creation is successful, you should see the following output:
 
@@ -433,13 +431,6 @@ Let's say that you'd like to create a bucket type called `user_account_bucket` w
     If activation is successful, the console will return `user_account_bucket has been activated`. The bucket type is now ready to be used.
 
 ## Client Usage Example
-
-<div class="note">
-<div class="title">Getting started with Riak clients</div>
-If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting started with
-your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
-</div>
 
 If you have created the bucket type `no_siblings` (with the property `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example write:
 
