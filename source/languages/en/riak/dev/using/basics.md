@@ -283,11 +283,15 @@ You can then attach the vector clock to the new object and attempt a write. The 
 Let's update the value of `champion` to `Harlem Globetrotters` using the vector clock that we obtained in the example above:
 
 ```ruby
+# In the Ruby client, you do not need to explicity pass a vector clock
+# to Riak during normal update operations. And so the following set of
+# operations will automatically fetch the vector clock as one of the
+# objects properties and then pass it back to Riak:
+
 bucket = client.bucket('nba')
 obj = Riak::RObject.new(bucket, 'champion')
 obj.content_type = 'text/plain'
 obj.raw_data = 'Harlem Globetrotters'
-obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
 obj.store(type: 'sports')
 ```
 
@@ -304,11 +308,15 @@ client.execute(store);
 ```
 
 ```python
+# In the Python client, you do not need to explicity pass a vector clock
+# to Riak during normal update operations. And so the following set of
+# operations will automatically fetch the vector clock as one of the
+# objects properties and then pass it back to Riak:
+
 bucket = client.bucket_type('sports').bucket('nba')
 obj = RiakObject(client, bucket, 'champion')
 obj.content_type = 'text/plain'
 obj.data = 'Harlem Globetrotters'
-obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
 obj.store()
 ```
 
