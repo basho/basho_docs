@@ -1,7 +1,7 @@
 ---
 title: Latency Reduction Checklist
 project: riak
-version: 1.0.0+
+version: 1.4.9+
 document: guide
 audience: intermediate
 keywords: [operator, troubleshooting, latency]
@@ -32,7 +32,8 @@ If your use case requires large objects, we recommend checking out
 The best way to find out if large objects are impacting latency is to
 monitor each node's object size stats. If you run `[[riak-admin status|riak-admin Command Line#status]]`
 or make an HTTP `GET` request to Riak's `/stats` endpoint, you will see
-the results for the following metrics related to object size:
+the results for the following metrics related to object size, all of
+which are calculated only for `GET` operations (i.e. reads):
 
 Metric                        | Explanation
 :-----------------------------|:-----------
@@ -113,7 +114,7 @@ latency issues in your cluster, you can start by checking the following:
 
 * If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done.
 * Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy. {{2.0.0-}}
-* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy.
+* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] (DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion.
 
 ## Compaction and Merging
 
@@ -133,7 +134,8 @@ If so, our first recommendation is to examine your [[replication strategy|Replic
 to make sure that neither R nor W are set to N, i.e. that you're not
 requiring that reads or writes go to all nodes in the cluster. The
 problem with setting `R=N` or `W=N` is that any request will only
-respond as quickly as the slowest node in the cluster.
+respond as quickly as the slowest node amongst the N nodes involved in
+the request.
 
 Beyond checking for `R=N` or `W=N` for requests, the recommended
 mitigation strategy depends on the backend:
