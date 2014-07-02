@@ -64,6 +64,7 @@ riak:
           - "[[Use Cases for Riak|Use Cases]]"
           - "[[Key/Value Modeling]]"
           - "[[Data Types|Data Modeling with Riak Data Types]]"
+          - "[[Migrating from an SQL Database to Riak]]"
       - title: "Advanced"
         sub:
           - "[[Search Details]]"
