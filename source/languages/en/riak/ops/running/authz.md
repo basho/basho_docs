@@ -53,6 +53,7 @@ of the following **before** enabling security:
     * It must pass authentication information with each request
     * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
     * If using HTTPS, the proper port (presumably 443) is open from client to server
+    * Code that uses Riak's deprecated [[Link Walking]] **will not work** with security enabled
 
 Security should be enabled only after all of the above steps have been performed and your security setup has been properly vetted.
 
