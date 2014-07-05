@@ -112,7 +112,7 @@ spikes?
 If you believe that sibling creation problems could be responsible for
 latency issues in your cluster, you can start by checking the following:
 
-* If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done.
+* If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done. {{#2.0.0+}}**Note**: In Riak version 2.0 and later, `allow_mult` is set to `true` by default for all bucket types that you create and activate. If you wish to set `allow_mult` to `false` on a bucket type, you will have to do so explicitly.{{/2.0.0+}}
 * Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy. {{2.0.0-}}
 * Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] (DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion.
 
@@ -190,22 +190,24 @@ guides may be of help:
 
 ## I/O and Network Bottlenecks
 
-There are a number of Linux tools that you can use to diagnose I/O
-bottlenecks, including [iowait](http://www.linuxquestions.org/questions/linux-newbie-8/what-is-iowait-415961/)
+Riak is a heavily I/O- and network resource-intensive system.
+Bottlenecks on either front can lead to undue latency in your cluster.
+We recommend an active monitoring strategy to detect problems
+immediately when they arise.
+
+### Mitigation
+
+To diagnose potential I/O bottlenecks, there are a number of Linux tools
+at your disposal, including [iowait](http://www.linuxquestions.org/questions/linux-newbie-8/what-is-iowait-415961/)
 and [netstat](http://en.wikipedia.org/wiki/Netstat).
 
-### Mitigation
-
-## Overload Protection
-
-Versions of Riak 1.3.2 and later come equipped with an overload
-protection feature intended to prevent cascading failures in overly busy
-nodes. This feature limits the number of GET and PUT finite state
-machines (FSMs) that can exist simultaneously on a single Riak node.
-Increased latency can result if a node is frequently running up against
+To diagnose potential overloads, Riak versions 1.3.2 and later come
+equipped with an overload protection feature designed to prevent
+cascading failures in overly busy nodes. This feature limits the number
+of GET and PUT finite state machines (FSMs) that can exist
+simultaneously on a single Riak node. Increased latency can result if a
+node is frequently running up against
 these maximums.
-
-### Mitigation
 
 * Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an idea of how many operations your nodes are coordinating.  If you see non-zero values in `node_get_fsm_rejected` or `node_get_fsm_rejected_60s`, that means that some of your requests are being discarded due to overload protection.  
 * The fsm limits can be increased, but disabling overload protection entirely is not recommended. More details on these settings are available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for Riak version 1.3.
