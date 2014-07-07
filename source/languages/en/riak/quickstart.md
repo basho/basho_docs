@@ -329,7 +329,7 @@ All that remains is to create a `RiakClient` object that refers to the `cluster`
 RiakClient client = new RiakClient(cluster);
 ```
 
-Before you can use the `client` object to make calls to Riak, however, you must start your `cluster` object:
+Before you can use the `client` object to make calls to Riak, however, you must start your cluster:
 
 ```java
 cluster.start();

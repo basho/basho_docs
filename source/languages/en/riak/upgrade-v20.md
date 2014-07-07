@@ -157,8 +157,8 @@ conflicts.
 **In 2.0, `allow_mult` is set to `true` for any bucket type that you
 create and activate.**
 
-If you wish to set `allow_mult` to `false` in version 2.0, you have a
-few options:
+If you wish to set `allow_mult` to `false` in version 2.0, you have two
+options:
 
 * Set your bucket type's `allow_mult` property to `false`
 * Don't use bucket types
