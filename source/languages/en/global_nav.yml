@@ -75,6 +75,7 @@ riak:
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
           - "[[Strong Consistency|Using Strong Consistency]]"
+          - "[[Client-side Security]]"
           - title: "Reference"
             sub:
               # - "[[Bucket References]]"
