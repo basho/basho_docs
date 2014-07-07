@@ -25,7 +25,9 @@ Parameter | Description | Default
 
 ## Processes
 
-Riak logs warnings related to busy operating system processes and garbage collection. You can specify the conditions in which warnings are triggered using the following parameters:
+Riak will log warnings related to busy operating system processes and
+garbage collection. You can specify the conditions in which warnings are
+triggered using the following parameters:
 
 Parameter | Description | Default
 :---------|:------------|:-------
