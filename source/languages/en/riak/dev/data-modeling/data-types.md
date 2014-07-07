@@ -54,7 +54,9 @@ public class User {
 
 <div class="note">
 <div class="title">Getting started with Riak clients</div>
-This tutorial requires a basic familiarity with Basho's official [[client libraries]]. You can find more information about getting started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting
+started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
 </div>
 
 Now, we can begin connecting our data model to a Riak map. We can do that by creating a reference to a bucket type, bucket, and key. We already know which bucket type we're using (`maps`) from above. So from there we need to choose a bucket and key. In this tutorial, we'll assume that all user maps are stored in the bucket `maps`, and for the key we'll do something a bit more creative: we'll construct a key out of each user's first and last name, with an underscore in the middle. And so the map for the user Brian May would have the key `brian_may`. Below, we'll start building our class, initializing the class with a reference to the appropriate map:
