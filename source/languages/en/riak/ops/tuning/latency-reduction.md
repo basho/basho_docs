@@ -70,12 +70,6 @@ some nodes. If increased latency occurs only on N nodes, where N is your
 this could indicate that a single large object and its replicas are
 slowing down _all_ requests on those nodes.
 
-{{#1.4.8+}}
-Riak will log large objects and their keys to the `console.log` file.
-You can use this data to track down these objects and delete them,
-reduce their size, or resolve their siblings (if present).
-{{/1.4.8+}}
-
 If large objects are suspected, you should also audit the behavior of
 siblings in your cluster, as explained in the [[next section|Latency
 Reduction Checklist#siblings]].
@@ -169,7 +163,7 @@ Bitcask|Bitcask#configuring-bitcask]].
 
 #### LevelDB
 
-The more files you keep in memory, the better LevelDB will perform in
+The more files you keep in memory, the faster LevelDB will perform in
 general. To make sure that you are using your system resources
 appropriately with LevelDB, check out our guide to [[LevelDB parameter
 planning|LevelDB#parameter-planning]].
@@ -214,6 +208,8 @@ these maximums.
 
 * Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an idea of how many operations your nodes are coordinating. If you see non-zero values in `node_get_fsm_rejected` or `node_get_fsm_rejected_60s`, that means that some of your requests are being discarded due to overload protection.  
 * The FSM limits can be increased, but disabling overload protection entirely is not recommended. More details on these settings are available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for Riak version 1.3.
+
+{{#2.0.0+}}
 
 ## Object Settings
 
@@ -269,3 +265,5 @@ stored in Riak:
 You can set the object storage format using the `object.format`
 parameter: `0` selects Erlang's `term_to_binary` format while `1` (the
 default) selects the Riak-specific format.
+
+{{/2.0.0+}}
