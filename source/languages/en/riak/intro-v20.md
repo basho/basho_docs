@@ -16,12 +16,13 @@ If you're upgrading to Riak 2.0 from an earlier version, please be aware that al
 * **Security** --- [[Authentication and authorization]] can be enabled or disabled at any time.
 * **Configuration Management** --- Riak configuration has been streamlined and now uses a file named `riak.conf`. However, existing `app.config` and `vm.args` files are still recognized in version 2.0.
 * **Bucket Types** --- While we strongly recommend [[using bucket types]] when creating new buckets, they are not required.
-* **Dotted Version Vectors (DVVs)** --- This alternative to traditional [[vector clocks]] is enabled by default in all [[bucket types|Using Bucket Types]], but DVVs can be disabled. 
+* **Dotted Version Vectors (DVVs)** --- This alternative to traditional [[vector clocks]] is enabled by default in all [[bucket types|Using Bucket Types]], but DVVs can be disabled by setting the `dvv_enabled` property to `false` on any bucket type.
 
 In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it to. But even if you don't plan on using the new features, there are a number of improvements that make upgrading a good choice, including the following:
 
 * [[Cluster Metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
+* 
 * Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
 
 More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading to 2.0]].
@@ -118,11 +119,7 @@ In older versions of Riak, bucket properties were managed on a bucket-by-bucket,
 
 ## Dotted Version Vectors
 
-In prior versions of Riak, [[conflict resolution]] was managed using [[vector clocks]], which are a mechanism for tracking object update causality. Riak 2.0 has added support for dotted version vectors (DVVs). DVVs serve an analogous role to vector clocks but are more effective at containing [[sibling explosion|Vector Clocks#sibing-explosion]] and can thus reduce Riak cluster latency.
-
-#### Relevant Docs
-
-* [[Dotted Version Vectors]] explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs
+In prior versions of Riak, [[conflict resolution]] was managed using [[vector clocks]], which are a mechanism for tracking object update causality. Riak 2.0 has added support for dotted version vectors (DVVs). DVVs serve an analogous role to vector clocks but are more effective at containing [[sibling explosion|Vector Clocks#sibing-explosion]] and can thus reduce Riak cluster latency. The [[dotted version vectors]] doc explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs.
 
 ## New Client Libraries
 
