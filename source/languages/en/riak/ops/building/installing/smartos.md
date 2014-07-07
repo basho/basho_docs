@@ -16,7 +16,7 @@ moved: {
 }
 ---
 
-The following steps have been tested to work with Riak version 1.2 on SmartOS version <strong>joyent_20120614T184600Z</strong>. They demonstrate installation of a Riak node on SmartOS as the root user.
+The following steps have been tested to work with Riak version 1.2 on SmartOS version **joyent_20120614T184600Z**. They demonstrate installation of a Riak node on SmartOS as the root user.
 
 ## Open Files Limit
 
@@ -35,11 +35,9 @@ ulimit -n 65536
 
 To increase this value in a persistent manner that will be enforced after restarting the system, add the following to `/etc/system`:
 
-```text
+```bash
 set rlim_fd_max=65536
 ```
-
-{{#1.3.0+}}
 
 ## Choosing a Version
 
@@ -67,61 +65,7 @@ cat /opt/local/etc/pkgin/repositories.conf
 
 ## Download and Install
 
-Download your version of the Riak binary package for SmartOS{{#1.3.0}} *(below we installing with SmartOS version 1.6, for version 1.8 just replace the `1.6` in the download url with `1.8`)*{{/1.3.0}}:
-
-{{#1.2.1-}}
-
-```bash
-curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/11/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-Next, install the package:
-
-```
-pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-{{/1.2.1-}}
-{{#1.2.1}}
-
-```bash
-curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/11/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-Next, install the package:
-
-```
-pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-{{/1.2.1}}
-{{#1.3.0}}
-
-```bash
-curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.6/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-Next, install the package:
-
-```
-pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-{{/1.3.0}}
-{{#1.3.1-1.3.2}}
-
-```bash
-curl -o /tmp/riak-{{VERSION}}-SmartOS-i386.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.8/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-Next, install the package:
-
-```
-pkg_add /tmp/riak-{{VERSION}}-SmartOS-i386.tgz
-```
-
-{{/1.3.1-1.3.2}}
-{{#1.4.0+}}
+Download your version of the Riak binary package for SmartOS:
 
 ```bash
 curl -o /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/smartos/1.8/riak-{{VERSION}}-SmartOS-x86_64.tgz
@@ -132,8 +76,6 @@ Next, install the package:
 ```
 pkg_add /tmp/riak-{{VERSION}}-SmartOS-x86_64.tgz
 ```
-
-{{/1.4.0+}}
 
 After installing the package, enable the Riak and Erlang Port Mapper Daemon (epmd) services:
 
@@ -149,7 +91,7 @@ svcs -a | grep -E 'epmd|riak'
 
 Output from the above command should resemble the following:
 
-```text
+```
 online    17:17:16 svc:/network/epmd:default
 online    17:17:16 svc:/application/riak:default
 ```
@@ -160,7 +102,7 @@ Finally, and provided that the services are shown to be in an **online** state, 
 riak ping
 ```
 
-Pinging Riak will result in a `pong` response if the node is up and reachable, and a `pang` response if the node is up, but has a problem. If the node is not up and reachable, a *not responding to pings* error will result instead.
+Pinging Riak will result in a `pong` response if the node is up and reachable. If the node is not up and reachable, a `Node <nodename> not responding to pings` error will result instead.
 
 If all responses indicate that riak is up and running, then you have successfully installed and configured Riak as service on SmartOS.
 

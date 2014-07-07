@@ -19,7 +19,7 @@ All commands need to be run only once on a single node of a cluster for the chan
 
 #### `clustername`
 
-Set the `clustername` for all nodes in a Riak cluster. The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
+Set the `clustername` for all nodes in a Riak cluster.
 
 * Without a parameter, returns the current name of the cluster
 * With a parameter, names the current cluster
@@ -36,7 +36,7 @@ To **get** the `clustername`:
 
 #### `connect`
 
-The `connect` command establishes communications from a source cluster to a sink cluster of the same ring size. The `host:port` of the sink cluster is used for this.
+The `connect` command establishes communications from a source cluster to a sink cluster of the same ring size. The `host:port` of the sink cluster is used for this. The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
 
 The `host` can be either an IP address
 
@@ -205,21 +205,46 @@ NAT changes will be applied once fullsync and/or realtime replication has been s
 
 ## Riak CS MDC Gets
 
-**riak-repl proxy-get enable**
+#### `proxy-get enable`
+Enable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
 
-Enable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
+* *Syntax:* `proxy-get enable  <sink_clustername>`
+* *Example:* `riak-repl proxy-get enable  newyorkbackup`
 
-    Enable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
-    * *Syntax:* `proxy-get enable  <sink_clustername>`
-    * *Example:* `riak-repl proxy-get enable  newyorkbackup`
+#### `proxy-get disable`
+Disable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
 
-**riak-repl proxy-get disable**
+* *Syntax:* `proxy-get disable <sink_clustername>`
+* *Example:* `riak-repl proxy-get disable newyorkbackup`
 
-Disable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
+#### `add-block-provider-redirect`
+Provide a redirection to the <to-cluster-id> for proxy_get if the <from-cluster> is going to be decommissioned.
 
-    Disable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
-    * *Syntax:* `proxy-get disable <sink_clustername>`
-    * *Example:* `riak-repl proxy-get disable newyorkbackup`
+* *Syntax:* `riak-repl add-block-provider-redirect <from-cluster> <to-cluster>`
+* *Example:* `riak-repl add-block-provider-redirect "{'dev1@127.0.0.1',{1391,544501,519016}}" "{'dev3@127.0.0.1',{1299,512501,511032}}"`
+
+#### `show-block-provider-redirect`
+Show the mapping for a given cluster-id redirect.
+
+* *Syntax:* `riak-repl show-block-provider-redirect <from-cluster>`
+* *Example:* `riak-repl show-block-provider-redirect "{'dev1@127.0.0.1',{1391,544501,519016}}"`
+
+#### `delete-block-provider-redirect`
+Delete a existing redirect such that proxy_gets go again to the original provider cluster id.
+
+* *Syntax:* `riak-repl delete-block-provider-redirect <from-cluster>`
+* *Example:* `riak-repl delete-block-provider-redirect "{'dev1@127.0.0.1', {1391,544501,519016}}"`
+
+#### `show-local-cluster-id`
+Display this cluster's cluster-id tuple, for use with the *-block-provider-redirect commands. **Note**: a cluster-id is surrounded by double quotes, which need to be included when passed to *-block-provider-redirect
+
+* *Syntax:* `riak-repl show-local-cluster-id`
+* *Example:* 
+
+```
+$ riak-repl show-local-cluster-id
+local cluster id: "{'dev1@127.0.0.1',{1391,544501,519016}}"
+```
 
 ## `riak-repl` Status Output
 
@@ -247,13 +272,13 @@ This is the hard limit of fullsync workers that will be running on the source si
 * *Example:* `riak-repl fullsync max_fssource_cluster 5`
 
 
-**fullsync max_fssink_node**
+#### `fullsync max_fssink_node`
 
 This limits the number of fullsync workers allowed to run on each individual node in a sink cluster. This is a hard limit for each fullsync source node interacting with a sink node. Thus, multiple simultaneous source connections to a sink node will have to share the sink node’s number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 
-* *Syntax* `riak-repl fullsync max_fssink_cluster <value>`
+* *Syntax* `riak-repl fullsync max_fssink_node <value>`
 * *Default* `1`
-* *Example* `riak-repl fullsync max_fssink_cluster 5`
+* *Example* `riak-repl fullsync max_fssink_node 5`
 
 
 ## Mixing Version 2 Replication with Version 3 Replication

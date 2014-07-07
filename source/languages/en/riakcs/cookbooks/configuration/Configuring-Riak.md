@@ -18,7 +18,7 @@ A few other settings must be modified to configure a Riak node as part of a Riak
 
 ## Setting up the Proper Riak Backend
 
-First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv `section. The `app.config` file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
+First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv` section. The `app.config` file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
 
 ```erlang
 {storage_backend, riak_kv_bitcask_backend},
@@ -46,7 +46,7 @@ where **X.Y.Z** is the version of Riak CS that you have installed.
 
 This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `riak-cs-machine:/usr/lib/riak-cs/lib/riak_cs-X.Y.Z/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
 
-<div class="note"><div class="title">Note</div>The path for <tt>add_paths</tt> may be <tt>/usr/lib/riak-cs</tt> or <tt>/usr/lib64/riak-cs</tt> depending on your operating system.</div>
+<div class="note"><div class="title">Note</div>The path for <code>add_paths</code> may be <code>/usr/lib/riak-cs</code> or <code>/usr/lib64/riak-cs</code> [[depending on your operating system|Installing and Upgrading]].</div>
 
 Next, add this to the `riak_core` section of `app.config`:
 
@@ -57,8 +57,13 @@ Next, add this to the `riak_core` section of `app.config`:
 You should never set `allow_mult` to any value other than `true`. If this is not set to `true`, certain writes will be chosen arbitrarily by timestamp,
 potentially leading to data loss and other inconsistencies.
 
+<div class="note">
+<div class="title">Note on <code>allow_mult</code> and Riak clients</div>
+In Riak, the <code>allow_mult=true</code> setting is used only internally. Clients connecting to Riak CS will not need to engage in conflict resolution or deal with siblings.
+</div>
+
 {{#1.4.0+}} <div class="note"><div class="title">Note</div>As of version 1.4,
-Riak CS will refuse to start if <tt>allow_mult</tt> is not set to <tt>true</tt>.</div>
+Riak CS will refuse to start if <code>allow_mult</code> is not set to <code>true</code>.</div>
 {{/1.4.0+}}
 
 Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly, start Riak and connect to its console (using `riak attach`), then run:
@@ -70,7 +75,7 @@ Save and exit the editing session on the `app.config` file. To test that you hav
 
 If the path that you added to Riak's `app.config` is returned, your node is configured correctly. If the atom `non_existing` is returned instead, then Riak was unable to find the Riak CS code.
 
-<div class="note"><div class="title">Note</div>It is important to use <tt>CTRL+D</tt> to detach the console and leave Riak running after doing a <tt>riak attach</tt>. <tt>CTRL+C</tt> will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
+<div class="note"><div class="title">Note</div>It is important to use <code>CTRL+D</code> to detach the console and leave Riak running after doing a <code>riak attach</code>. <code>CTRL+C</code> will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
 
 ## Specifying the Riak IP Address
 By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak `vm.args` configuration file, which is located in the `/etc/riak` folder.
@@ -115,9 +120,9 @@ The `pb` values in the Riak `app.config` file must match the values for `riak_ip
 
 <div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
 
-It is also recommended that you increase the size of Riak's `pb_backlog` to be greater than the size of `request_pool` specified in the Riak CS `app.config` file.
+It is also recommended that you increase the size of Riak's `pb_backlog` to be greater than the size of `request_pool` specified in the Riak CS `app.config` file. At minimum, `pb_backlog` should be set to `64`. The default value is `5`.
 
-* `pb_backlog` --- Replace the default Riak configuration
+* `pb_backlog` --- Replace the default Riak configuration, which has `pb_backlog` commented out with `%%`
 
     ```erlang
     %% {pb_backlog, 64}, 
@@ -171,3 +176,13 @@ Riak `vm.args` configuration file, which is located in the `/etc/riak` or `/opt/
 -env ERL_MAX_PORTS 64000
 ```
 {{/1.2.0+}}
+
+### Disable JavaScript MapReduce
+
+It is recommended that you not use JavaScript MapReduce in conjunction with _any_ version of Riak CS, and that you disable the VM that performs JavaScript MapReduce operations (for performance reasons). To do so, set the following in your `app.config`, in the `riak_kv` section:
+
+```erlang
+{map_js_vm_count, 0},
+{reduce_js_vm_count, 0},
+{hook_js_vm_count, 0}
+```

@@ -15,14 +15,6 @@ body_id: downloads
 
 h1 Download #{project.capitalize} #{version}
 
-| {{#1.4.8}}
-
-.info
-  .title AAE 1.4.8 Upgrade Warning
-  p Upgrading to 1.4.8 fixes a bug with anti-active entropy which existed from 1.4.3 to 1.4.7. If you're upgrading to 1.4.8 from 1.4.3 or greater, delete your `data/anti_entropy` directories on each node before upgrading. This will avoid potentially large amounts of repair activity once correct hashes start being added.
-
-| {{/1.4.8}}
-
 p You should be able to find your operating system in the choices below.
 p If your OS is unlisted, you may download the [[source|Downloads#source]] at the bottom of this page, and follow the instructions to [[build Riak|Installing Riak from Source]].
 
@@ -51,4 +43,11 @@ p If your OS is unlisted, you may download the [[source|Downloads#source]] at th
                   img src="/images/layout/hash.png" title="SHA1 Checksum"
   - if os_data['install'].present?
     p.install_instruction Here are further instructions for [[#{os_data['install']}]]
-  
+
+h2 JVM Installation (for Riak Search)
+p If you will be using [[Riak Search|Using Search]] in your Riak installation, you will also need to install a version of the Java Virtual Machine (JVM) that is capable of running <a href="https://lucene.apache.org/solr/">Solr</a>, the Java application undergirding Riak Search.
+
+h2 Client Libraries
+p Basho currently offers official Riak [[client libraries]] for <a href="https://github.com/basho/riak-java-client">Java</a>, <a href="https://github.com/basho/riak-python-client">Python</a>, <a href="https://github.com/basho/riak-ruby-client">Ruby</a>, and <a href="https://github.com/basho/riak-erlang-client">Erlang</a>.
+
+p We recommend installing Oracle's <a href="http://www.oracle.com/technetwork/java/javase/7u25-relnotes-1955741.html">JDK 7u25</a>. Installation packages can be found on the <a href="http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jre-7u25-oth-JPR">Java SE 7 Downloads page</a> and instructions on the <a href="http://www.oracle.com/technetwork/java/javase/documentation/index.html">documentation page</a>.

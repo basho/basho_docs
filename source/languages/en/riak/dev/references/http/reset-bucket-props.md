@@ -27,11 +27,6 @@ Normal status codes:
 
 * `204 No Content`
 
-Typical error codes:
-
-* `405 Method Not Allowed` - returned if the operation is attempted using the old API
-format `/riak/bucket`.
-
 ## Example
 
 ```curl

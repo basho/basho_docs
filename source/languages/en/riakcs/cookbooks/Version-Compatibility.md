@@ -38,6 +38,7 @@ Riak version  | Stanchion version | Riak CS version
 1.3.0         | 1.3.0             | 1.3.0
 1.4.0         | 1.4.0             | 1.4.0
 1.4.1         | 1.4.0             | 1.4.0
+1.4.9         | 1.4.3             | 1.4.5
 
 Basic functionality testing consists of account creation, object storage and
 retrieval, bucket listing operations, and Access Control List (ACL) enforcement
