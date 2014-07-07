@@ -38,7 +38,7 @@ online documentation for [Riak](http://docs.basho.com/) and
         <th WIDTH="43%">HBase</th>
     </tr>
     <tr>
-        <td>Data Model</td>
+        <td><strong>Data Model</strong></td>
         <td>Riak stores key/value pairs under [[keys|Keys and Objects]] in [[buckets]]. [[Using bucket types]] you can set bucket-level configurations for things like [[replication properties]]. In addition to basic [[key/value lookup|Key/Value Modeling]], Riak has a variety of features for discovering objects, including [[Riak Search|Using Search]] and [[secondary indexes|Using Secondary Indexes]].</td>
         <td>HBase stores data in a pre-defined column family format (each grouping of data has a key, and any number of column attributes which may be versioned individually). Data in HBase is sorted, sparse, and physically grouped by column family (rather than by row, as in a relational database). HBase calls their groupings "tables."
             <ul>
@@ -48,7 +48,7 @@ online documentation for [Riak](http://docs.basho.com/) and
         </td>
     </tr>
     <tr>
-        <td>Storage Model</td>
+        <td><strong>Storage Model</strong></td>
         <td>Riak has a modular, extensible local storage system that lets you plug in a backend store of your choice to suit your use case. The default backend is [[Bitcask]].
             <ul>
               <li>[[Riak Supported Storage Backends|Choosing a Backend]]</li>
@@ -64,7 +64,7 @@ online documentation for [Riak](http://docs.basho.com/) and
         </td>
     </tr>
     <tr>
-        <td>Data Access and APIs</td>
+        <td><strong>Data Access and APIs</strong></td>
         <td>Riak offers two primary interfaces (in addition to raw Erlang access):
             <ul>
             <li>[[Protocol Buffers|PBC API]] (strongly recommended)</li>
@@ -76,7 +76,7 @@ online documentation for [Riak](http://docs.basho.com/) and
         </td>
     </tr>
     <tr>
-        <td>Query Types and Queryability</td>
+        <td><strong>Query Types and Queryability</strong></td>
         <tr>
         <td>Query Types and Queryability</td>
         <td>There are currently five ways to query data in Riak:
@@ -98,7 +98,7 @@ online documentation for [Riak](http://docs.basho.com/) and
     </td>
     </tr>
     <tr>
-        <td>Data Versioning and Consistency</td>
+        <td><strong>Data Versioning and Consistency</strong></td>
         <td>Riak uses a data structure called a vector clock to reason about causality and staleness of stored values. Vector clocks enable clients to always write to the database in exchange for consistency conflicts being resolved at read time by either application or client code. Vector clocks can be configured to store copies of a given datum based on size and age of said datum. There is also an option to disable vector clocks and fall back to simple time-stamp based "last-write-wins".
             <ul>
               <li>[[Vector Clocks]]</li>
@@ -114,7 +114,7 @@ online documentation for [Riak](http://docs.basho.com/) and
             </ul>
      </td>
     </tr>
-        <td>Concurrency</td>
+        <td><strong>Concurrency</strong></td>
         <td> In Riak, any node in the cluster can coordinate a read/write operation for any other node. Riak stresses availability for writes and reads, and puts the burden of resolution on the client at read time.
          </td>
 
@@ -126,7 +126,7 @@ online documentation for [Riak](http://docs.basho.com/) and
      </td>
     </tr>
     <tr>
-        <td>Replication</td>
+        <td><strong>Replication</strong></td>
         <td>Riak's replication system is heavily influenced by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
             <ul>
               <li>[[Replication]]</li>
@@ -145,7 +145,7 @@ online documentation for [Riak](http://docs.basho.com/) and
      </td>
     </tr>
     <tr>
-        <td>Scaling Out and In</td>
+        <td><strong>Scaling Out and In</strong></td>
         <td>Riak allows you to [[elastically grow and shrink|Adding and Removing Nodes]] your cluster while evenly balancing the load on each machine. No node in Riak is special or has any particular role. In other words, all nodes are masterless. When you add a physical machine to Riak, the cluster is made aware of its membership via gossiping of [[ring state|Clusters#the-ring]]. Once it's a member of the ring, it's assigned an equal percentage of the partitions and subsequently takes ownership of the data belonging to those partitions. The process for removing a machine is the inverse of this. Riak also ships with a comprehensive suite of [[command line tools|riak-admin Command Line]] to help make node operations simple and straightforward.
         </td>
         <td>HBase shards by way or regions, that automatically split and redistribute growing data. A crash on a region requires crash recovery. HBase can be made to scale in with some intervention on the part of the developer or DBA.
@@ -157,7 +157,7 @@ online documentation for [Riak](http://docs.basho.com/) and
     </td>
     </tr>
     <tr>
-        <td>Multi-Datacenter Replication and Awareness</td>
+        <td><strong>Multi-Datacenter Replication and Awareness</strong></td>
 
         <td>Riak features two distinct types of [[replication]]. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0-licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
 
@@ -173,7 +173,7 @@ online documentation for [Riak](http://docs.basho.com/) and
     </td>
     </tr>
     <tr>
-        <td>Graphical Monitoring/Admin Console</td>
+        <td><strong>Graphical Monitoring/Admin Console</strong></td>
         <td>Riak ships with [[Riak Control]], an open source graphical console for monitoring and managing Riak clusters.</td>
         <td>HBase has a few community supported graphical tools, and a command-line admin console.
         <ul>
