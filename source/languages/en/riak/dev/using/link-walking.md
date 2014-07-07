@@ -12,7 +12,7 @@ moved: {
 
 <div class="info"><div class="title">Deprecation Notice</div>Link Walking is a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].
 <br />
-Link walking **will not work** when [[security|Authentication and Authorization]] is enabled.
+Link walking <strong>will not work</strong> when [[security|Authentication and Authorization]] is enabled.
 </div>
 
 
@@ -190,6 +190,6 @@ $ ./people_queries.sh
 You should then see:
 
 ```
-Press [[Enter]] after each query description to execute.
+Press [Enter] after each query description to execute.
 Q: Get Sean's friends (A:Mark, Kevin)
 ```
