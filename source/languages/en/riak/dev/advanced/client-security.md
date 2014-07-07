@@ -1,5 +1,5 @@
 ---
-title: Client-Side Security
+title: Client-side Security
 project: riak
 version: 2.0.0+
 document: tutorial
@@ -7,25 +7,38 @@ audience: advanced
 keywords: [developers, security, ssl, certificate]
 ---
 
-If you have enabled [[Riak Security|Authentication and Authorization]] and chosen either `password`, `certificate`, or `pam` as your [[security source|Managing Security Sources]], any client attempting to connect to Riak will have to authenticate itself, either using username and password (for the `password` or `pam` security sources) or a client-side SSL certificate that matches the certificate on your Riak server.
+If you have enabled [[Riak Security|Authentication and Authorization]]
+and chosen either `password`, `certificate`, or `pam` as your
+[[security source|Managing Security Sources]], any client attempting to
+connect to Riak will have to authenticate itself, either using username
+and password (for the `password` or `pam` security sources) or a
+client-side SSL certificate signed by the same authority as the SSL
+certificate recognized by your Riak cluster.
 
-This tutorial will show you to implement client-side authentication for each of Riak's officially supported [[client libraries]]. A guide to server-side certificate management can be found in our documentation on [[security source management|Managing Security Sources#certificate-based-authentication]].
-
-**Note**: The examples below use host 127.0.0.1 and port 8087 to establish a [[Protocol Buffers|PBC API]] connection to Riak and a username of `riakuser` and password of `rosebud` for authentication.
+This tutorial will show you to implement client-side authentication for
+each of Riak's officially supported [[client libraries]]. A guide to
+server-side certificate management can be found in our documentation on
+[[security source management|Managing Security Sources#certificate-based-authentication]].
 
 ## Password-based Security
 
-The sections below cover password-based security for each of the official Basho Riak clients.
+The sections below cover password-based security for each of the
+official Basho Riak clients. Each example uses the username of
+`riakuser` and a password of `rosebud`.
 
-#### Ruby
+### Ruby
 
-In the Ruby client, username and password are specified when you create a client object using the `[Riak::Client](https://github.com/basho/riak-ruby-client/blob/master/lib/riak/client.rb)` class. Here is a client object (we'll name it `client`) without a specified username and password:
+In the Ruby client, username and password are specified when you create
+a client object using the `[Riak::Client](https://github.com/basho/riak-ruby-client/blob/master/lib/riak/client.rb)`
+class. Here is a client object (we'll name it `client`) without a
+specified username and password:
 
 ```ruby
 client = Riak::Client.new(host: '127.0.0.1', pb_port: 8087)
 ```
 
-Username and password are specified within an `authentication` hash:
+To specify a username and password, do so within an `authentication`
+hash along with the host and port:
 
 ```ruby
 client = Riak::Client.new(
@@ -38,15 +51,19 @@ client = Riak::Client.new(
 )
 ```
 
-#### Erlang
+### Erlang
 
-In the Erlang client, username and password are specified when you establish a process ID for the client's [[Protocol Buffers|PBC API]] socket connection. The following opens a connection without specifying username and password:
+In the Erlang client, username and password are specified when you
+establish a process ID for the client's [[Protocol Buffers|PBC API]]
+socket connection. The following opens a connection without specifying
+username and password:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start("127.0.0.1", 8087).
 ```
 
-The following opens a connection with username and password:
+To specify a username and password, do so within a `credentials` tuple
+passed to the `start` function along with the host and port:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start(
@@ -55,21 +72,34 @@ The following opens a connection with username and password:
 ).
 ```
 
-
 ## Certificate-based Security
 
-Let's say that (a) your server-side SSL certificates have already been created and signed and that your Riak servers have been configured to recognize those certificates, (b) you have copies of those certificates in an `/ssl` directory that is accessible to your Riak client, and (c) your client's username is `riakuser` and the password is `rosebud`.
+The examples below will assume that you have already done the following:
 
-This tutorial will not cover the basics of generating certificates, and will assume that your signing authority and cert correspond to the files specified in your `riak.conf` [[configuration file|Configuration Files]] under `ssl.cacertfile` and `ssl.certfile`, respectively. For this example, we'll use the default names for those files: `cacertfile.pem` and `cert.pem`.
+1. Your server-side SSL certificates have been created and signed and your Riak servers have been configured to recognize a cert (`cert.pem`) and a signing authority (`cacertfile.pem`)
+2. Your client has access to a `/ssl` directory that houses a CA file to validate the server cert (`ca.crt`), an SSL key file (`key.pem`), and the server cert and signing authority in #1 above
+3. The required username and password for your client are `riakuser` and `rosebud`, respectively
 
-You will need to point your client to those certificates upon instantiation. Let's say that you're instantiating a client for a one-node cluster, using the host `127.0.0.1` and port `8087`.
+This tutorial will not cover the basics of generating certificates, and
+will assume that your signing authority and cert correspond to the files
+specified in your `riak.conf` [[configuration file|Configuration Files]]
+under `ssl.cacertfile` and `ssl.certfile`, respectively. For this
+example, we'll use the default names for those files: `cacertfile.pem`
+and `cert.pem`.
 
 <div class="note">
 <div class="title">Note on certificates and the HTTP interface</div>
-In general, we do not recommend using Riak's HTTP interface in conjunction with SSL certificates.
+In general, we advise against using Riak's HTTP interface in
+conjunction with SSL certificates.
 </div>
 
-#### Ruby
+### Ruby
+
+In the Ruby client, SSL certificate information is passed to a `client`
+object in the same `authentication` hash used to specify username and
+password. The following example specifies the CA, key, and client and
+server certificates on the basis of their respective filenames (using
+the filenames listed above, i.e. `ca.crt`, etc.):
 
 ```ruby
 client = Riak::Client.new(
@@ -78,21 +108,48 @@ client = Riak::Client.new(
   authentication: {
     user: 'riakuser',
     password: 'rosebud',
-
-    # Certificate authority to validate the server cert
-    ca_file: '/path/to/ssl/ca.crt',
-    key: OpenSSL::PKey::RSA.new(File.read('/path/to/ssl/key.pem')),
-    server_cert: File.read('/path/to/ssl/cert.pem'),
-
-    # Client cert authentication parameters support filenames, OpenSSL-
-    # compatible string data, or properly initialized OpenSSL objects,
-    # as in the following examples:
-    server_ca: File.read('/path/to/ssl/cacertfile.pem')
+    ca_file: '/ssl/ca.crt',
+    key: '/ssl/key.pem',
+    server_cert: '/ssl/cert.pem',
+    server_ca: '/ssl/cacertfile.pem'
   }
 )
 ```
 
-#### Erlang
+In addition to specifying certs on the basis of filenames, you can also
+pass in either OpenSSL-compatible string data or properly initialized
+OpenSSL objects. The following example passes in string data:
+
+```ruby
+client = Riak::Client.new(
+  # connection info from above
+  authentication: {
+    # username/password from abvoe
+    ca_file: File.read('/ssl/ca.crt'),
+    key: File.read('/ssl/key.pem'),
+    server_cert: File.read('/ssl/cert.pem'),
+    server_ca: File.read('/ssl/cacertfile.pem')
+  }
+)
+```
+
+This example uses OpenSSL-compatible objects, using the
+[`jruby-openssl`](https://rubygems.org/gems/jruby-openssl) gem:
+
+```ruby
+client = Riak::Client.new(
+  # connection info from above
+  authentication: {
+    # username/password from abvoe
+    ca_file: OpenSSL::X509::Certificate.new(File.read('/ssl/ca.crt')),
+    key: OpenSSL::PKey::RSA.new(File.read('/ssl/key.pem')),
+    server_cert: OpenSSL::X509::Certificate.new(File.read('/ssl/cert.pem')),
+    server_ca: OpenSSL::X509::Certificate.new('/ssl/cacertfile.pem')
+  }
+)
+```
+
+### Erlang
 
 ```erlang
 CertDir = "/path/to/ssl",
@@ -106,12 +163,10 @@ CertDir = "/path/to/ssl",
 
 ## Testing Your Setup
 
-Now that things have been set up properly
-
-#### Ruby
+### Ruby
 
 ```ruby
-# Using our client object from the example above:
+# Using the client object from the example above:
 bucket = client.bucket('certificate_test')
 
 # We'll create a new object and store it
