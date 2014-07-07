@@ -14,7 +14,7 @@ moved: {
 This is intended to be a brief, objective, and technical comparison of
 Riak and Amazon DynamoDB. The DynamoDB version described is API Version
 2011-12-05. The Riak version described is Riak 2.x. If you feel this
-comparison is unfaithful for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new)
+comparison is unfaithful for whatever reason, please [submit an issue](https://github.com/basho/basho_docs/issues/new)
 or send an email to **docs@basho.com**.
 
 ## At A Very High Level

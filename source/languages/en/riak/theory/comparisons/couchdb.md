@@ -14,7 +14,7 @@ moved: {
 This is intended to be a brief, objective, and technical comparison of
 Riak and CouchDB.  The CouchDB version described is 1.2.x. The Riak
 version described is Riak 2.x. If you feel this comparison is unfaithful
-for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new)
+for whatever reason, please [submit an issue](https://github.com/basho/basho_docs/issues/new)
 or send an email to **docs@basho.com**.
 
 ## At A Very High Level
@@ -85,7 +85,7 @@ the online documentation for both [Riak](http://docs.basho.com/) and
      </td>
     </tr>
     <tr>
-        <td>Query Types and Query-ability</td>
+        <td>Query Types and Queryability</td>
         <td>There are currently five ways to query data in Riak:
             <ul>
             <li>Via [[primary key operations|The Basics]] (GET, PUT, DELETE, UPDATE)</li>
