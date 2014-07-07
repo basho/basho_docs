@@ -20,16 +20,11 @@ migration&mdash;an approach that may not work well with your use case.
 
 ## Our Example
 
-1. Issue caveats about use cases and specificity
-2. Convert SQL table data to a set of objects (on a per-row basis)
-3. Fetch columns names
-4. Convert each object to JSON
-5. Store objects in Riak with keys stored in a set
-6. Functions for fetching all objects, fetching objects based on primary key, etc.
-
-## Basic Approach
-
-## Our SQL Table
+In this tutorial, we'll store a [PostgreSQL](http://www.postgresql.org/)
+table storing blog posts in Riak using a [Python](https://www.python.org/)
+script relying on the [psycopg2](http://initd.org/psycopg/docs/)
+library. The `posts` table we'll be converting was created using the
+following SQL script:
 
 ```sql
 CREATE TABLE posts (
@@ -41,7 +36,14 @@ CREATE TABLE posts (
 );
 ```
 
-## Converting a Table to JSON
+Our basic conversion and storage approach will be the following:
+
+1. Each row will be converted into a JSON object storing all of the fields except the `id` field
+2. The `id` field will not be in the JSON object because the `id`, an integer in this case, will act as our Riak [[key|Keys and Objects#keys]]
+3. All of the JSON objects produced from the `posts` table will be stored in a single Riak [[bucket|Buckets]] called `posts`
+4. The keys for our various objects will be stored in a [[Riak set|Using Data Types#sets]] so that all stored objects can be queried at once if need be
+
+## Converting the Table to JSON Objects
 
 For the database 'blog_database':
 
