@@ -8,7 +8,7 @@ audience: beginner
 keywords: [developers, client, modeling]
 ---
 
-As a developer, you may be nonplussed to see that Secondary Indexes(2i) don't work with the Bitcask backend. You may also be wondering how to work with "sets" of data.
+As a developer, you may be nonplussed to see that Secondary Indexes (2i) don't work with the Bitcask backend. You may also be wondering how to work with "sets" of data.
 
 In this chapter, we'll cover how to deal with both, and in the next chapter we'll introduce some important distributed systems concepts such as [[siblings|Vector Clocks#Siblings]], [[eventual consistency]], and [[sibling resolution|Vector Clocks#Siblings]] that you'll need to know to become a pro Riak developer. 
 

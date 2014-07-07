@@ -8,8 +8,6 @@ audience: beginner
 keywords: [developers, client, 2i, search, ruby, modeling]
 ---
 
-####Getting Started with the Models
-
 To get started, let's create the models that we'll be using. Since the [Ruby Riak Client](https://github.com/basho/riak-ruby-client) uses hashes when converting to and from JSON, we'll use the library [Hashie](http://rdoc.info/github/intridea/hashie) to help automatically coerce class properties to and from hashes. You can install this library with `gem install hashie`.
 
 ```ruby

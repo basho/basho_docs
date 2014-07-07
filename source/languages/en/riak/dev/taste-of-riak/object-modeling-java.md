@@ -8,8 +8,6 @@ audience: beginner
 keywords: [developers, client, 2i, search, java, modeling]
 ---
 
-####Getting Started with the Models
-
 To get started, let's create the models that we'll be using. 
 
 ```java
@@ -90,7 +88,7 @@ public class User {
     public String FullName;
     public String Email;
 
-    public User() { }
+    public User() {}
 
     public User(String userName, String fullName, String email) {
         this.UserName = userName;
@@ -147,24 +145,20 @@ public class MsgRepository {
     protected RiakClient client;
 
     public MsgRepository(RiakClient client) {
-
         this.client = client;
     }
 
-    public Msg get(String msgKey) throws RiakRetryFailedException {
+    public Msg get(String msgKey) throws Exception {
         Location key = new Location(new Namespace(BUCKET_NAME), msgKey);
         FetchValue fetch = new FetchValue.Builder(key).build();
         FetchValue.Response response = client.execute(fetch);
         return response.getValue(Msg.class);
     }
 
-    public String save(Msg msg) throws RiakRetryFailedException {
+    public String save(Msg msg) throws Exception {
         StoreValue store = new StoreValue.Builder(msg).build();
-
-        String msgKey = generateKey(msg);
-        Bucket bucket = client.fetchBucket(BUCKET_NAME).execute();
-        bucket.store(msgKey, msg).execute();
-        return msgKey;
+        client.execute(store);
+        return generateKey(msg);
     }
 
     private String generateKey(Msg msg) {
@@ -190,15 +184,15 @@ import java.util.TimeZone;
 public class TimelineRepository {
 
     static final String BUCKET_NAME = "Timelines";
-    protected IRiakClient client;
+    protected RiakClient client;
     protected MsgRepository msgRepo;
 
-    public TimelineRepository(IRiakClient client) {
+    public TimelineRepository(RiakClient client) {
         this.client = client;
         this.msgRepo = new MsgRepository(this.client);
     }
 
-    public void postMsg(Msg msg) throws RiakRetryFailedException {
+    public void postMsg(Msg msg) throws Exception {
         String msgKey = msgRepo.save(msg);
 
         // Post to recipient's Inbox timeline
@@ -209,19 +203,21 @@ public class TimelineRepository {
     }
 
 
-    private void addToTimeline(Msg msg, Timeline.TimelineType type, String msgKey) throws RiakRetryFailedException {
+    private void addToTimeline(Msg msg, Timeline.TimelineType type, String msgKey) throws Exception {
         String timelineKey = generateKeyFromMsg(msg, type);
 
-        Bucket bucket = client.fetchBucket(BUCKET_NAME).execute();
-        Timeline timeline = bucket.fetch(timelineKey, Timeline.class).execute();
+        Location loc = new Location(new Namespace(BUCKET_NAME), timelineKey);
+        FetchValue fetch = new FetchValue.Builder(loc).build();
+        Timeline timeline = client.execute(fetch).getValue(Timeline.class);
 
-        if(timeline != null) {
+        if (timeline != null) {
             timeline = addToExistingTimeline(timeline,msgKey);
         } else {
             timeline = createNewTimeline(msg, type, msgKey);
         }
 
-        bucket.store(timelineKey, timeline).execute();
+        StoreValue store = new StoreValue.Builder(timeline).build();
+        client.execute(store);
     }
 
     public Timeline createNewTimeline(Msg msg, Timeline.TimelineType type, String msgKey) {

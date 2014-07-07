@@ -8,14 +8,13 @@ audience: beginner
 keywords: [developers, client, 2i, search, erlang, modeling]
 ---
 
-####Getting Started with the Models
-
 To get started, let's create the records that we'll be using. 
 
 <div class="note">
 <div class="title">Code Download</div>
 You can also download the code for this chapter at [Github](https://github.com/basho/taste-of-riak/tree/am-dem-erlang-modules/erlang/Ch03-Msgy-Schema).
-The Github version includes erlang type specifications, which have been omitted here for brevity.
+
+The Github version includes Erlang type specifications which have been omitted here for brevity.
 </div>
 
 
@@ -35,9 +34,11 @@ The Github version includes erlang type specifications, which have been omitted 
 -record(timeline, {owner, msg_type, msgs}).
 ```
 
+We'll be using the bucket `Users` to store our data. We won't be [[using bucket types]] here, so we don't need to specify one.
+
 To use these records to store data, we will first have to create a user record. Then, when a user creates a message, we will append that message to one or more timelines. If it's a private message, we'll append it to the Recipient's `Inbox` timeline and to the User's own `Sent` timeline. If it's a group message, we'll append it to the Group's timeline, as well as to the User's `Sent` timeline.  
 
-#### Buckets and Keys Revisited
+#### Buckets and keys revisited
 
 Now that we've worked out how we will differentiate data in the system, let's figure out our bucket and key names.
 
@@ -59,7 +60,7 @@ For `Timelines`, let's use the pattern `<username>_<type>_<date>` for users, and
 
 <div class="note">
 <div class="title">Note</div>
-Riak performs best with objects under 1-2MB. Objects larger than that can hurt performance, especially if many siblings are being created. We will cover siblings, sibling resolution, and sibling explosions in the next chapter.
+Riak performs best with objects under 1-2 MB. Objects larger than that can hurt performance, especially if many siblings are being created. We will cover siblings, sibling resolution, and sibling explosions in the next chapter.
 </div>
 
 #### Keeping our story straight with repositories
