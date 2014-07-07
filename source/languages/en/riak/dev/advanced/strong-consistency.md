@@ -87,3 +87,10 @@ riak.RiakError: 'failed'
 <html><head><title>412 Precondition Failed</title></head><body><h1>Precondition Failed</h1>Precondition Failed<p><hr><address>mochiweb+webmachine web server</address></body></html>
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting
+started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+

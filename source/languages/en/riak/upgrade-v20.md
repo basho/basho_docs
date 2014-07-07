@@ -4,7 +4,7 @@ project: riak
 version: 2.0.0+
 document: guide
 audience: intermediate
-keywords: [2.0, developers]
+keywords: [developers, upgrading]
 ---
 
 If you are upgrading to Riak 2.0 from an earlier version, we strongly

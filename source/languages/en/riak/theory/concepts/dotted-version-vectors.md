@@ -90,12 +90,12 @@ switch all Riak objects in your cluster to DVVs. You should make sure,
 however, that the right bucket types and buckets are being targeted by
 your application after the `dvv_enabled` parameter has been changed.
 
-For compatibility's sake, DVVs contained in Riak objects' metadata is
+For compatibility's sake, DVVs contained in Riak objects' metadata are
 still labeled `X-Riak-Vclock` if you're using the [[HTTP API]] and
 `vclock` if using the [[Protocol Buffers interface|PBC Fetch Object]].
 
 More on using vector clocks and DVVs on the application side can be
-found in the our documentation on [[conflict resolution]].
+found in our documentation on [[conflict resolution]].
 
 ## Resources
 

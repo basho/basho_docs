@@ -110,6 +110,13 @@ bucket = client.bucket_type('sets').bucket('user_info_sets')
 user_id_set = Set(bucket, 'usernames')
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting
+started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
 Then, we can create a function that stores a user record's key in that set every time a record is created:
 
 ```java

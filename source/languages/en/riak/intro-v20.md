@@ -12,15 +12,17 @@ Riak version 2.0 includes deep changes affecting all facets of Riak along with a
 If you're upgrading to Riak 2.0 from an earlier version, please be aware that all of the new features listed below are purely optional:
 
 * **Riak Data Types** --- Riak's new CRDT-based [[Data Types]] can simplify modeling data in Riak, but are only used in buckets explicitly configured to use them.
-* **Strong Consistency, Riak Security, and the new Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak.
+* **Strong Consistency, Riak Security, and the New Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak.
 * **Security** --- [[Authentication and authorization]] can be enabled or disabled at any time.
 * **Configuration management** --- Riak's [[configuration files]] have been streamlined into a single file named `riak.conf`. If you are upgrading, however, your existing `app.config` and `vm.args` files will still be recognized in version 2.0.
 * **Bucket Types** --- While we strongly recommend [[using bucket types]] when creating new buckets, they are not required.
+* **Dotted Version Vectors (DVVs)** --- This alternative to traditional [[vector clocks]] is enabled by default in all [[bucket types|Using Bucket Types]], but DVVs can be disabled by setting the `dvv_enabled` property to `false` on any bucket type.
 
 In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it to. But even if you don't plan on using the new features, there are a number of improvements that make upgrading a good choice, including the following:
 
 * [[Cluster metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
+* 
 * Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
 
 More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading to 2.0]].
@@ -115,6 +117,10 @@ In older versions of Riak, bucket properties were managed on a bucket-by-bucket,
 
 [Bucket Types and Config](https://www.youtube.com/watch?v=lZk8cD-qFHM) hangout with Basho engineers [Joe DeVivo](https://github.com/joedevivo) and [Jordan West](https://github.com/jrwest).
 
+## Dotted Version Vectors
+
+In prior versions of Riak, [[conflict resolution]] was managed using [[vector clocks]], which are a mechanism for tracking object update causality. Riak 2.0 has added support for dotted version vectors (DVVs). DVVs serve an analogous role to vector clocks but are more effective at containing [[sibling explosion|Vector Clocks#sibing-explosion]] and can thus reduce Riak cluster latency. The [[dotted version vectors]] doc explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs.
+
 ## New Client Libraries
 
 While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
@@ -126,3 +132,4 @@ Language | Docs
 [Python](https://github.com/basho/riak-python-client) | [Sphinx](http://basho.github.io/riak-python-client/)
 [Erlang](https://github.com/basho/riak-erlang-client) | [EDocs](http://basho.github.io/riak-erlang-client/)
 
+You will also notice that our documentation now features a wide variety of code samples from all four officially supported clients.

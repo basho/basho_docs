@@ -181,6 +181,13 @@ curl -XPUT http://localhost:8098/types/siblings_allowed/nickolodeon/whatever/key
   -d "Stimpy"
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting
+started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
 ### V-tags
 
 At this point, multiple objects are stored in the same key. Let's see
