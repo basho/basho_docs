@@ -7,6 +7,19 @@ audience: advanced
 keywords: [migration, sql]
 ---
 
+Relational databases are powerful and reliable technologies, but there
+are many [[use cases]] for which Riak is a better fit. If 
+
+<div class="note">
+<div class="title">Use cases warning</div>
+Because data models vary so widely, it is difficult if not impossible to
+generalize across all potential paths from an SQL database to Riak. This
+document is intended only to suggest one possible approach to SQL data
+migration&mdash;an approach that may not work well with your use case.
+</div>
+
+## Our Example
+
 1. Issue caveats about use cases and specificity
 2. Convert SQL table data to a set of objects (on a per-row basis)
 3. Fetch columns names
