@@ -11,11 +11,15 @@ moved: {
 }
 ---
 
-This is intended to be a brief, objective, and technical comparison of Riak and MongoDB. The MongoDB version described is 2.2.x. The Riak version described is Riak 1.2.x. If you feel this comparison is unfaithful for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective, and technical comparison of
+Riak and MongoDB. The MongoDB version described is 2.2.x. The Riak
+version described is Riak 1.2.x. If you feel this comparison is
+unfaithful for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new)
+or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
-* Riak is Apache 2.0 licensed; MongoDB is distributed under the AGPL
+* Riak is [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) licensed; MongoDB is distributed under the [AGPL](http://www.gnu.org/licenses/agpl-3.0.html)
 * Riak is written primarily in Erlang with some bits in C; MongoDB is written in C++
 
 ## Feature/Capability Comparison
