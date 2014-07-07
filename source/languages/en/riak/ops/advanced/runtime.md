@@ -7,10 +7,10 @@ audience: advanced
 keywords: [runtime, ops, troubleshooting]
 ---
 
-Riak's [[configuration system|Configuration Files]] provides a variety
-of parameters that enable you to fine-tune how Riak interacts with
-two important elements of the underlying operating system: distribution
-ports and 
+Riak's [[configuration files]] provide a variety of parameters that
+enable you to fine-tune how Riak interacts with two important elements
+of the underlying operating system: distribution ports and OS processes/
+garbage collection.
 
 ## Ports
 
