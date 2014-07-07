@@ -51,7 +51,7 @@ The table below provides a high-level comparison of Riak and MongoDB features an
             </ul>
 
         You can also write your own storage backend for Riak using our [[backend API|Backend API]].
-     </td>
+        </td>
         <td>MongoDB's default storage system is the Memory-Mapped Storage Engine. It uses memory-mapped files for all disk I/O. It is the responsibility of the OS to manage flushing data to disk and paging data in and out.
             <ul>
              <li>[[Caching|http://www.mongodb.org/display/DOCS/Caching]]</li>
@@ -132,13 +132,16 @@ The table below provides a high-level comparison of Riak and MongoDB features an
     </tr>
     <tr>
         <td>Replication</td>
-        <td>Riak's replication system is heavily influenced by the [[Dynamo Paper|http://docs.basho.com/riak/2.0.0beta1/theory/dynamo/]] and by Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
+        <td>Riak's replication system is heavily influenced by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
             <ul>
               <li>[[Replication]]</li>
-              <li>[[Clustering|Clusters]]</li>
+              <li>[[Clustering|Concepts#Clustering]]</li>
             </ul>
 
-            Riak's APIs expose tunable [[consistency and availability parameters|Replication Properties]] that let you select which configuration is best for your use case. Replication is configurable at the bucket level [[using bucket types]] when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
+            The Riak APIs expose tunable consistency and availability parameters that let you select which level of configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
+                <ul>
+                    <li>[[Reading, Writing, and Updating Data|Concepts#Reading, Writing, and Updating Data]]</li>
+                </ul>
      </td>
         <td>Mongo manages replication via replica sets, a form of asynchronous master/slave replication. Traditional master/slave replication is available but not recommended.
             <ul>

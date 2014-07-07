@@ -11,16 +11,23 @@ moved: {
 }
 ---
 
-This is intended to be a brief, objective, and technical comparison of Riak and Amazon DynamoDB.  The DynamoDB version described is API Version 2011-12-05. The Riak version described is Riak 1.3.x. If you feel this comparison is unfaithful for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective, and technical comparison of
+Riak and Amazon DynamoDB. The DynamoDB version described is API Version
+2011-12-05. The Riak version described is Riak 2.x. If you feel this
+comparison is unfaithful for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new)
+or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
-* Riak is an Apache 2.0 open-source-licensed project. DynamoDB is a fully managed NoSQL database service that is provided by Amazon as part of Amazon Web Services.
-* Because DynamoDB is a database service, its implementation details (language, architecture, etc.) cannot be verified.
+* Riak is an [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) open-source-licensed project; DynamoDB is a fully managed NoSQL database service that is provided by Amazon as part of Amazon Web Services
+* Because DynamoDB is a database service, its implementation details (language, architecture, etc.) cannot be verified
 
 ## Feature/Capability Comparison
 
-The table below gives a high-level comparison of Riak and DynamoDB's features and capabilities. To keep this page relevant in the face of rapid development on both sides, low-level details can be found in links to specific pages in the online documentation for both systems.
+The table below gives a high-level comparison of Riak and DynamoDB's
+features and capabilities. To keep this page relevant in the face of
+rapid development on both sides, low-level details can be found in links
+to specific pages in the online documentation for both systems.
 
 <table>
     <tr>

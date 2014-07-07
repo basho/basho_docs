@@ -11,17 +11,25 @@ moved: {
 }
 ---
 
-This is intended to be a brief, objective and technical comparison of Riak and HBase. The HBase version described is 0.94.x. The Riak version described is Riak 1.2.x. If you feel this comparison is unfaithful for whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new) or send an email to **docs@basho.com**.
+This is intended to be a brief, objective and technical comparison of
+Riak and HBase. The HBase version described is 0.94.x. The Riak version
+described is Riak 1.2.x. If you feel this comparison is unfaithful for
+whatever reason, please [fix it](https://github.com/basho/basho_docs/issues/new)
+or send an email to **docs@basho.com**.
 
 ## At A Very High Level
 
-* Riak and HBase are both Apache 2.0 licensed
-* Riak is based on Amazon's Dynamo paper; HBase is based on Google's BigTable
+* Riak and HBase are both [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) licensed
+* Riak is based on Amazon's [Dynamo paper](http://docs.basho.com/riak/latest/theory/dynamo/); HBase is based on Google's [BigTable](http://research.google.com/archive/bigtable.html)
 * Riak is written primarily in Erlang with some C; HBase is written in Java
 
 ## Feature/Capability Comparison
 
-The table below gives a high level comparison of Riak and HBase features and capabilities. To keep this page relevant in the face of rapid development on both sides, low level details are found in links to Riak and HBase online documentation.
+The table below gives a high level comparison of Riak and HBase features
+and capabilities. To keep this page relevant in the face of rapid
+development on both sides, low level details are found in links to the
+online documentation for [Riak](http://docs.basho.com/) and
+[HBase](http://hbase.apache.org/book.html).
 
 <table>
     <tr>
@@ -31,12 +39,8 @@ The table below gives a high level comparison of Riak and HBase features and cap
     </tr>
     <tr>
         <td>Data Model</td>
-        <td>Riak stores key/value pairs in a higher level namespace called a bucket.
-            <ul>
-              <li>[[Buckets, Keys, and Values|Concepts#Buckets, Keys, and Values]] </li>
-            </ul>
-        </td>
-        <td>HBase stores data in a pre-defined column family format (each grouping of data has a key, and any number of column attributes which may be versioned individually). Data in HBase is sorted, sparse, and physically grouped by column family (rather than by row, as in a relational database). HBase calls their groupings "tables".
+        <td>Riak stores key/value pairs under [[keys|Keys and Objects]] in [[buckets]]. [[Using bucket types]] you can set bucket-level configurations for things like [[replication properties]]. In addition to basic [[key/value lookup|Key/Value Modeling]], Riak has a variety of features for discovering objects, including [[Riak Search|Using Search]] and [[secondary indexes|Using Secondary Indexes]].</td>
+        <td>HBase stores data in a pre-defined column family format (each grouping of data has a key, and any number of column attributes which may be versioned individually). Data in HBase is sorted, sparse, and physically grouped by column family (rather than by row, as in a relational database). HBase calls their groupings "tables."
             <ul>
                 <li>[[HBase Data Model|http://hbase.apache.org/book/datamodel.html]]</li>
                 <li>[[Supported Data Types|http://hbase.apache.org/book/supported.datatypes.html]]</li>
@@ -45,12 +49,13 @@ The table below gives a high level comparison of Riak and HBase features and cap
     </tr>
     <tr>
         <td>Storage Model</td>
-        <td>Riak has a modular, extensible local storage system which features pluggable backend stores designed to fit a variety of use cases. The default Riak backend store is Bitcask.
+        <td>Riak has a modular, extensible local storage system that lets you plug in a backend store of your choice to suit your use case. The default backend is [[Bitcask]].
             <ul>
               <li>[[Riak Supported Storage Backends|Choosing a Backend]]</li>
             </ul>
+
         You can also write your own storage backend for Riak using our [[backend API|Backend API]].
-     </td>
+        </td>
         <td>Hadoop Distributed File System (HDFS) is the storage system used by HBase. Data is stored in MemStores and StoreFiles, where data is streamed to disk (implemented via HFiles, a format based on BigTable's SSTable). Implementations generally use the native JVM-managed I/O file stream.
             <ul>
              <li>[[HDFS|http://en.wikipedia.org/wiki/Apache_Hadoop#Hadoop_Distributed_File_System]]</li>
@@ -59,36 +64,31 @@ The table below gives a high level comparison of Riak and HBase features and cap
         </td>
     </tr>
     <tr>
-        <td>Data Access and Application Programming Interfaces (APIs)</td>
-        <td>In addition to raw Erlang access, Riak offers two primary APIs:
-			<ul>
-				<li>[[HTTP|HTTP API]]</li>
-				<li>[[Protocol Buffers|PBC API]]</li>
-			</ul>
-			Riak Client libraries are wrappers around these APIs, and client support exists for dozens of languages.
-			<ul>
-				<li>[[Client Libraries]]</li><li>[[Community Projects]]</li>
-			</ul>
-			</td>
-        <td>HBase communicates primarily through code that runs on the JVM (Java, Jython, Groovy, etc.). Alternatively, HBase provides external protocols; either REST or Thrift (a cross-language data service format).
+        <td>Data Access and APIs</td>
+        <td>Riak offers two primary interfaces (in addition to raw Erlang access):
             <ul>
-                <li>[[Java Interface|http://hbase.apache.org/book/architecture.html]]</li>
-                <li>[[REST|http://wiki.apache.org/hadoop/Hbase/Stargate]]</li>
-                <li>[[Thrift|http://thrift.apache.org/]]</li>
+            <li>[[Protocol Buffers|PBC API]] (strongly recommended)</li>
+            <li>[[HTTP|HTTP API]]</li>
             </ul>
-     </td>
+            Riak [[client libraries]] are wrappers around these APIs, and client support exists for dozens of languages. Basho currently has officially supported clients for [[Java|https://github.com/basho/riak-java-client]], [[Ruby|https://github.com/basho/riak-ruby-client]], [[Python|https://github.com/basho/riak-python-client]], and [[Erlang|https://github.com/basho/riak-erlang-client]].
+            </td>
+        <td>HBase communicates primarily through code that runs on the JVM ([[Java|http://hbase.apache.org/book/architecture.html]], Jython, Groovy, etc.). Alternatively, HBase provides external protocols for [REST]() or [Thrift](https://thrift.apache.org/) (a cross-language data service format).
+        </td>
     </tr>
     <tr>
         <td>Query Types and Query-ability</td>
-        <td>There are currently four ways to query Riak.
+        <tr>
+        <td>Query Types and Queryability</td>
+        <td>There are currently five ways to query data in Riak:
             <ul>
-            <li>Primary key operations (GET, PUT, DELETE, UPDATE)</li>
-            <li>[[MapReduce|Using MapReduce]]</li>
-            <li>[[Using Secondary Indexes]]</li>
+            <li>Via [[primary key operations|The Basics]] (GET, PUT, DELETE, UPDATE)</li>
+            <li>[[Using MapReduce]]</li>
+            <li>[[Using secondary indexes]]</li>
             <li>[[Using Search]]</li>
+            <li>[[Using Data Types]]</li>
             </ul>
 
-    </td>
+        </td>
         <td>HBase has two query options: looking up values by getting/scanning through ordered keys (optionally filtering out values or using a secondary index), or by using Hadoop to perform MapReduce.
             <ul>
                 <li>[[Scanning|http://hbase.apache.org/book/client.filter.html]]</li>
@@ -146,11 +146,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
     </tr>
     <tr>
         <td>Scaling Out and In</td>
-        <td>Riak allows you to elastically grow and shrink your cluster while evenly balancing the load on each machine. No node in Riak is special or has any particular role. In other words, all nodes are masterless. When you add a physical machine to Riak, the cluster is made aware of its membership via gossiping of ring state. Once it's a member of the ring, it's assigned an equal percentage of the partitions and subsequently takes ownership of the data belonging to those partitions. The process for removing a machine is the inverse of this. Riak also ships with a comprehensive suite of command line tools to help make node operations simple and straightforward.
-    <ul>
-        <li>[[Adding and Removing Nodes]]</li>
-        <li>[[Command Line Tools]]</li>
-    </ul>
+        <td>Riak allows you to [[elastically grow and shrink|Adding and Removing Nodes]] your cluster while evenly balancing the load on each machine. No node in Riak is special or has any particular role. In other words, all nodes are masterless. When you add a physical machine to Riak, the cluster is made aware of its membership via gossiping of [[ring state|Clusters#the-ring]]. Once it's a member of the ring, it's assigned an equal percentage of the partitions and subsequently takes ownership of the data belonging to those partitions. The process for removing a machine is the inverse of this. Riak also ships with a comprehensive suite of [[command line tools|riak-admin Command Line]] to help make node operations simple and straightforward.
         </td>
         <td>HBase shards by way or regions, that automatically split and redistribute growing data. A crash on a region requires crash recovery. HBase can be made to scale in with some intervention on the part of the developer or DBA.
             <ul>
@@ -163,7 +159,8 @@ The table below gives a high level comparison of Riak and HBase features and cap
     <tr>
         <td>Multi-Datacenter Replication and Awareness</td>
 
-        <td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
+        <td>Riak features two distinct types of [[replication]]. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0-licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
+
         <ul>
             <li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
         </ul>
@@ -177,12 +174,7 @@ The table below gives a high level comparison of Riak and HBase features and cap
     </tr>
     <tr>
         <td>Graphical Monitoring/Admin Console</td>
-        <td>Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
-            <ul>
-                <li>[[Riak Control]]</li>
-                <li>[[Introducing Riak Control|http://basho.com/blog/technical/2012/02/22/Riak-Control/]]
-            </ul>
-    </td>
+        <td>Riak ships with [[Riak Control]], an open source graphical console for monitoring and managing Riak clusters.</td>
         <td>HBase has a few community supported graphical tools, and a command-line admin console.
         <ul>
         <li>[[Admin Console Tools|http://hbase.apache.org/book/ops_mgt.html#tools]]</li>
