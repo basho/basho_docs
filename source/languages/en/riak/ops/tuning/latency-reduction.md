@@ -37,11 +37,11 @@ which are calculated only for `GET` operations (i.e. reads):
 
 Metric                        | Explanation
 :-----------------------------|:-----------
-`fsm_node_get_objsize_mean`   | The mean object size encountered by this node in the last minute.
-`fsm_node_get_objsize_median` | The median object size encountered by this node in the last minute.
-`fsm_node_get_objsize_95`     | The 95th-percentile object size encountered by this node in the last minute.
-`fsm_node_get_objsize_99`     | The 99th-percentile object size encountered by this node in the last minute.
-`fsm_node_get_objsize_100`    | The 100th-percentile object size encountered by this node in the last minute.
+`fsm_node_get_objsize_mean`   | The mean object size encountered by this node in the last minute
+`fsm_node_get_objsize_median` | The median object size encountered by this node in the last minute
+`fsm_node_get_objsize_95`     | The 95th-percentile object size encountered by this node in the last minute
+`fsm_node_get_objsize_99`     | The 99th-percentile object size encountered by this node in the last minute
+`fsm_node_get_objsize_100`    | The 100th-percentile object size encountered by this node in the last minute
 
 The `mean` and `median` measurements may not be good indicators,
 especially if you're storing billions of keys. Instead, you should be on
@@ -66,8 +66,9 @@ node when configuration changes have been made.
 
 Large objects can also impact latency even if they're only present on
 some nodes. If increased latency occurs only on N nodes, where N is your
-replication factor (or `n_val`), this could indicate that a single large
-object and its replicas are slowing down _all_ requests on those nodes.
+[[replication factor|Replication Properties#n-value-and-replication]] (or `n_val`),
+this could indicate that a single large object and its replicas are
+slowing down _all_ requests on those nodes.
 
 {{#1.4.8+}}
 Riak will log large objects and their keys to the `console.log` file.
@@ -114,21 +115,23 @@ latency issues in your cluster, you can start by checking the following:
 
 * If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done. {{#2.0.0+}}**Note**: In Riak version 2.0 and later, `allow_mult` is set to `true` by default for all bucket types that you create and activate. If you wish to set `allow_mult` to `false` on a bucket type, you will have to do so explicitly.{{/2.0.0+}}
 * Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy. {{2.0.0-}}
-* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] (DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion.
+* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] (DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion. {{2.0.0+}}
 
 ## Compaction and Merging
 
 The [[Bitcask]] and [[LevelDB]] storage backends occasionally go through
 heavily I/O-intensive compaction phases during which they remove deleted
 data and reorganize data files on disk. During these phases, affected
-nodes may be slower to respond to requests than other nodes.
+nodes may be slower to respond to requests than other nodes. If your
+cluster is using one or both of these backends, there are steps that can
+be taken to monitor and address latency issues.
 
 ### Mitigation
 
-To determine whether compaction and merging cycles align with, keep an
-eye on on your `console.log` files (and LevelDB `LOG` files if you're
-using LevelDB). Do Bitcask merging or LevelDB compaction events overlap
-with increased latencies?
+To determine whether compaction and merging cycles align with increased
+latency, keep an eye on on your `console.log` files (and LevelDB `LOG`
+files if you're using LevelDB). Do Bitcask merging and/or LevelDB
+compaction events overlap with increased latencies?
 
 If so, our first recommendation is to examine your [[replication strategy|Replication Properties]]
 to make sure that neither R nor W are set to N, i.e. that you're not
@@ -154,9 +157,9 @@ Instructions on how to accomplish both can be found in our guide to
 
 It's also important that you adjust your maximum file size and merge
 threshold settings appropriately. This setting is labeled
-`max_file_size` in the older, `app.config`-based [[configuration
-system|Configuration Files]] and `bitcask.max_file_size` in the newer,
-`riak.conf`-based system.
+`bitcask.max_file_size` in the newer, `riak.conf`-based
+[[configuration system|Configuration Files]] and `max_file_size` in the
+older, `app.config`-based system.
 
 Setting the maximum file size lower will cause Bitcask to merge more
 often (with less I/O churn), while setting it higher will induce less
@@ -167,7 +170,7 @@ Bitcask|Bitcask#configuring-bitcask]].
 #### LevelDB
 
 The more files you keep in memory, the better LevelDB will perform in
-general.  To make sure that you are using your system resources
+general. To make sure that you are using your system resources
 appropriately with LevelDB, check out our guide to [[LevelDB parameter
 planning|LevelDB#parameter-planning]].
 
@@ -209,8 +212,8 @@ simultaneously on a single Riak node. Increased latency can result if a
 node is frequently running up against
 these maximums.
 
-* Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an idea of how many operations your nodes are coordinating.  If you see non-zero values in `node_get_fsm_rejected` or `node_get_fsm_rejected_60s`, that means that some of your requests are being discarded due to overload protection.  
-* The fsm limits can be increased, but disabling overload protection entirely is not recommended. More details on these settings are available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for Riak version 1.3.
+* Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an idea of how many operations your nodes are coordinating. If you see non-zero values in `node_get_fsm_rejected` or `node_get_fsm_rejected_60s`, that means that some of your requests are being discarded due to overload protection.  
+* The FSM limits can be increased, but disabling overload protection entirely is not recommended. More details on these settings are available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for Riak version 1.3.
 
 ## Object Settings
 
@@ -232,7 +235,7 @@ using the older, <tt>app.config</tt>-based system, you will not have
 access to these settings.
 </div>
 
-#### Object Size
+### Object Size
 
 As stated above, Basho recommends _always_ keeping objects below 1-2 MB
 and preferably below 100 KB if possible. If you want to ensure that
@@ -246,7 +249,7 @@ You can also set an object size threshold past which a write will
 succeed but will register a warning in the logs, you can adjust the
 `object.size.warning_threshold` parameter. The default is `5MB`.
 
-#### Sibling Explosion Management
+### Sibling Explosion Management
 
 In order to prevent or cut down on [[sibling explosion|Vector Clocks#sibling explosion]],
 you can either prevent Riak from storing additional siblings when a
@@ -255,7 +258,7 @@ Riak logs an error (or both). This can be done using the `object.siblings.maximu
 and `object.siblings.warning_threshold` settings. The default maximum is
 100 and the default warning threshold is 25. 
 
-#### Object Storage Format
+### Object Storage Format
 
 There are currently two possible binary representations for objects
 stored in Riak:
@@ -265,4 +268,4 @@ stored in Riak:
 
 You can set the object storage format using the `object.format`
 parameter: `0` selects Erlang's `term_to_binary` format while `1` (the
-default) selects the Riak-specific format. 
+default) selects the Riak-specific format.
