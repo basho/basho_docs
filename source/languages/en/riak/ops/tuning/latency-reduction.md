@@ -127,7 +127,7 @@ latency, keep an eye on on your `console.log` files (and LevelDB `LOG`
 files if you're using LevelDB). Do Bitcask merging and/or LevelDB
 compaction events overlap with increased latencies?
 
-If so, our first recommendation is to examine your [[replication strategy|Replication Properties]]
+If so, our first recommendation is to examine your [[replication properties]]
 to make sure that neither R nor W are set to N, i.e. that you're not
 requiring that reads or writes go to all nodes in the cluster. The
 problem with setting `R=N` or `W=N` is that any request will only
@@ -152,7 +152,7 @@ Instructions on how to accomplish both can be found in our guide to
 It's also important that you adjust your maximum file size and merge
 threshold settings appropriately. This setting is labeled
 `bitcask.max_file_size` in the newer, `riak.conf`-based
-[[configuration system|Configuration Files]] and `max_file_size` in the
+[[configuration files]] and `max_file_size` in the
 older, `app.config`-based system.
 
 Setting the maximum file size lower will cause Bitcask to merge more
