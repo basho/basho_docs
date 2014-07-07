@@ -42,14 +42,14 @@ The following links provide platform-specific instructions for downloading and i
 
 ### Build Riak
 
-Now that you've downloaded and installed Riak using the instructions above, it's time to build it. Do this by accessing the `riak` directory from your install and running `make all`:
+Now that you've downloaded and installed Riak using the instructions above, it's time to build it. Access the `riak` directory from your install and run `make all`:
 
 ```bash
 cd riak-{{VERSION}}
 make all
 ```
 
-`make all` grabs all of Riak's dependencies for you so that you don't have to chase them down on your own. This process will likely take a few moments.
+The `make all` command grabs all of Riak's dependencies for you so that you don't have to chase them down on your own. This process will likely take a few moments.
 
 ## Start Up Five Nodes
 
@@ -73,7 +73,7 @@ You will see that five directories beginning with `dev` have been created:
 dev1       dev2       dev3       dev4       dev5
 ```
 
-Each of these directories is a complete, self-contained package containing a Riak node. We need to start each node individually. Let's start with `dev1`:
+Each of these directories is a complete, self-contained package containing a Riak node. We need to start each node individually using the `start` command in the `bin` directory. Let's start with `dev1`:
 
 ```bash
 dev1/bin/riak start
@@ -81,7 +81,7 @@ dev1/bin/riak start
 
 <div class="note">
 <div class="title"><code>ulimit</code> warning</div>
-At this point, you may receive a warning message to increase the number of open file handles <code>ulimit</code> in your operating system. See our [[Open Files Limit]] guide for platform-specific instructions on doing so.
+At this point, you may receive a warning message to increase the number of open file handles, i.e. <code>ulimit</code>, in your operating system. See our [[Open Files Limit]] guide for platform-specific instructions on doing so.
 </div>
 
 Once you've started the node in `dev1`, do the same for `dev2` through `dev5`:
@@ -129,7 +129,7 @@ for node in dev*; do $node/bin/riak ping; done
 
 Although you now have five nodes up and running, they are not yet connected to one another, i.e. they do not yet form a Riak [[cluster|Clusters]]. The next step is to join the nodes together into a cohesive unity. You can do this using the `[[riak-admin|riak-admin Command Line]]` command interface. The `riak-admin` script, like the `riak` script used above, is found in the `bin` directory of each Riak node.
 
-This command will link `dev1` to `dev2`, `dev3`, `dev4`, and `dev5`:
+The command below will link `dev1` to `dev2`, `dev3`, `dev4`, and `dev5`:
 
 ```bash
 dev2/bin/riak-admin cluster join dev1@127.0.0.1
@@ -154,7 +154,7 @@ dev1/bin/riak-admin cluster plan
 
 **Note**: The plan for the entire cluster can be reviewed on *any* node in the cluster.
 
-The `plan` command will print out a synopsis of what changes will be made to the cluster on commit and how the cluster will look after the changes are complete. The output looks like this:
+The `plan` command will print out a synopsis of what changes will be made to the cluster on commit and how the cluster will look after the changes are complete. The output should look like this:
 
 ```
 =============================== Staged Changes ================================
@@ -201,7 +201,7 @@ dev2/bin/riak-admin cluster commit
 
 <div class="info">
 <div class="title">About <code>riak-admin</code></div>
-<code>riak-admin</code> is Riak's administrative tool. It's used to perform any operational tasks beyond starting and stopping a node (e.g. to make a node join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the <code>riak-admin</code> command [[here|riak-admin Command Line]].
+<code>riak-admin</code> is Riak's administrative tool. It's used to perform any operational tasks beyond starting and stopping a node (e.g. to make a node join and leave a cluster), to back up data, and to manage general cluster operations. You can read more about the <code>riak-admin</code> command in the [[riak-admin command line]] documentation.
 </div>
 
 ## Test the Cluster
@@ -227,7 +227,7 @@ valid      18.8%      --      'dev5@127.0.0.1'
 Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 ```
 
-In order to test whether our cluster is working properly, let's store an object (just a short text snippet) and then attempt to fetch it. The easiest way to get started is Riak's [[HTTP API]]. We'll use [curl](http://httpkit.com/resources/HTTP-from-the-Command-Line/) to make a `PUT` request to the [[key|Keys and Objects#keys]] `german` in the [[bucket|Buckets]] `welcome`.
+In order to test whether our cluster is working properly, let's store an object (just a short text snippet) and then attempt to fetch it. The easiest way to get started is by using Riak's [[HTTP API]]. We'll use [curl](http://httpkit.com/resources/HTTP-from-the-Command-Line/) to make a `PUT` request to the [[key|Keys and Objects#keys]] `german` in the [[bucket|Buckets]] `welcome`.
 
 ```curl
 curl -XPUT http://localhost:10018/buckets/welcome/keys/german \
@@ -235,11 +235,11 @@ curl -XPUT http://localhost:10018/buckets/welcome/keys/german \
   -d 'herzlich willkommen'
 ```
 
-Your HTTP port might differ, so check your [[configuration file|Configuration Files]] for the valid port in your cluster (in `/etc/app.config` if you're using the older configuration system, in `/etc/riak.conf` if you're using the newer system).
+Your HTTP port might differ, so check your [[configuration files]] for the valid port in your cluster. That information can be found in `/etc/riak.conf` if you're using the newer configuration system or in `/etc/app.config` if you're using the older system.
 
 <div class="note">
 <div class="title">Note on the HTTP API</div>
-While the HTTP API can be useful for getting started or for running basic test operations, we strongly recommend using [[client libraries]] that utilize Riak's [[PBC API]] when building applications.
+While the HTTP API can be useful for getting started or for running basic test operations, we strongly recommend using [[client libraries]] that utilize Riak's [[Protocol Buffers API|PBC API]] when building applications.
 </div>
 
 If the `PUT` request above succeeded, that means that you've stored your first object in Riak. Now attempt a `GET` request to the same HTTP endpoint:
@@ -276,11 +276,11 @@ curl -O http://localhost:10018/buckets/images/keys/<image_name>.jpg
 
 This will save the image to the current directory. You can open it with an image editor to verify that the image has been stored and retrieved correctly.
 
-You should now have a five-node Riak cluster up and running. Congratulations!
+ Congratulations! You should now have a five-node Riak cluster up and running.
 
 <div class="note">
 <div class="title">HTTP interface ports</div>
-The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038` and `10048` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `10018`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.
+The above configuration sets up nodes with HTTP interfaces listening on ports `10018`, `10028`, `10038`, `10048`, and `10058` for `dev1`, `dev2`, `dev3`, `dev4`, and `dev5` respectively. The default port for single nodes to listen on is `10018`, and users will need to take note of this when trying to use any of the default settings for Riak client libraries.
 </div>
 
 ## Setting Up Your Riak Client
@@ -296,9 +296,9 @@ In each of the above docs, you'll find detailed client installation and setup in
 
 #### Java
 
-In the new 2.0 version of the Java client, Riak is accessed at the [[cluster|Clusters]] level rather than at the basic client level, as in previous versions of the client. This enables you to provide host and port information for all nodes of your cluster.
+In the new 2.0 version of the Java client, Riak is accessed at the [[cluster|Clusters]] level rather than at the basic client level, as in previous versions of the client. This enables you to provide host and port information for all of the nodes in your cluster.
 
-In order to set up a client, we must first create a `RiakNode` object for each node in your cluster and add each node to a single `RiakCluster` object. Let's say that your cluster consists of three nodes, each with a [[Protocol Buffers|PBC API]] port of 8087 and IPs of 101.0.0.1, 101.0.0.2, and 101.0.0.3, respectively. First, we need to create node objects for each:
+In order to set up a client, you must first create a `RiakNode` object for each node in your cluster and add each node to a single `RiakCluster` object. Let's say that your cluster consists of three nodes, each with a [[Protocol Buffers|PBC API]] port of 8087 and IPs of 101.0.0.1, 101.0.0.2, and 101.0.0.3, respectively. First, we need to create node objects for each:
 
 ```java
 Integer port = 8087;
@@ -382,18 +382,19 @@ If you're developing using a single-node cluster, you can create a `client` obje
 ```python
 from riak import RiakClient
 
-client = RiakClient(host='101.0.0.1', pb_port=8087)
+client = RiakClient(host='101.0.0.1', protocol='pbc', pb_port=8087)
 ```
 
 If connecting to multiple nodes, you can specify the connection information for those nodes when you instantiate the `client` object (or whatever you wish to call this object). Let's say that your cluster consists of three nodes, each with a Protocol Buffers port of 8087 and IPs of 101.0.0.1, 101.0.0.2, and 101.0.0.3, respectively. We can specify this information in the hash that we pass to the client:
 
 ```python
+protocol = 'pbc'
 port = 8087
 
 client = Riak::Client.new(nodes=[
-  { 'host': '127.0.0.1', 'pb_port': port },
-  { 'host': '127.0.0.2', 'pb_port': port },
-  { 'host': '127.0.0.3', 'pb_port': port }
+  { 'host': '127.0.0.1', 'protocol': protocol, 'pb_port': port },
+  { 'host': '127.0.0.2', 'protocol': protocol, 'pb_port': port },
+  { 'host': '127.0.0.3', 'protocol': protocol, 'pb_port': port }
 ])
 ```
 
