@@ -24,21 +24,23 @@ server-side certificate management can be found in our documentation on
 
 The sections below cover password-based security for each of the
 official Basho Riak clients. Each example uses the username of
-`riakuser` and a password of `rosebud`.
+`riakuser` and a password of `rosebud` and makes use of a `ca.crt`
+certificate authority (CA) to validate server-side certs (located in the
+`/ssl` directory).
 
 ### Ruby
 
-In the Ruby client, username and password are specified when you create
-a client object using the `[Riak::Client](https://github.com/basho/riak-ruby-client/blob/master/lib/riak/client.rb)`
-class. Here is a client object (we'll name it `client`) without a
-specified username and password:
+In the Ruby client, you can specify username, password, and CA when you
+create a client object using the `[Riak::Client](https://github.com/basho/riak-ruby-client/blob/master/lib/riak/client.rb)`
+module. For the sake of comparison, here is a client object _without_ a
+specified username or password:
 
 ```ruby
 client = Riak::Client.new(host: '127.0.0.1', pb_port: 8087)
 ```
 
-To specify a username and password, do so within an `authentication`
-hash along with the host and port:
+To specify a username, password, and CA, do so within an
+`authentication` hash along with the host and port:
 
 ```ruby
 client = Riak::Client.new(
@@ -46,7 +48,25 @@ client = Riak::Client.new(
   pb_port: 8087,
   authentication: {
   	user: 'riakuser',
-  	password: 'rosebud'
+  	password: 'rosebud',
+    ca_file: '/ssl/ca.crt'
+  }
+)
+```
+
+In the example above, the CA was referred to on the basis of its
+filename, but you can also pass in an OpenSSL-compatible string or via
+properly created OpenSSL objects. The following specifications of
+`ca_file` are thus equally valid:
+
+```ruby
+client = Riak::Client.new(
+  # Retaining the host/port from above
+  authentication: {
+    # Retaining the username/password from above
+    ca_file: '/ssl/ca.crt' # filename
+    ca_file: File.read('/ssl/ca.crt') # string
+    ca_file: OpenSSL::PKey::RSA.new(File.read('/ssl/ca.crt')) # OpenSSL object
   }
 )
 ```
