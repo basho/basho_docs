@@ -98,13 +98,12 @@ to specific pages in the online documentation for both systems.
         <td>Riak uses a data structure called a [[vector clock|Vector Clocks]] to reason about causality and staleness of stored values. Vector clocks enable clients to always write to the database in exchange for consistency conflicts being resolved either at read time by application or client code or by Riak's [[active anti-entropy]] subsystem. Vector clocks can be configured to store copies of a given object based on the size and age of that object. There is also an option to disable vector clocks and fall back to simple timestamp-based resolution, known as [[last write wins|Conflict Resolution#Client-and-Server-side-Conflict-Resolution]].
 
         <ul>
-              <li>[[Why Vector Clocks Are Easy|http://basho.com/blog/technical/2010/01/29/why-vector-clocks-are-easy/]]</li>
-              <li>[[Why Vector Clocks Are Hard|http://basho.com/blog/technical/2010/04/05/why-vector-clocks-are-hard/]]</li>
-            </ul>
-
+            <li>[[Why Vector Clocks Are Easy|http://basho.com/blog/technical/2010/01/29/why-vector-clocks-are-easy/]]</li>
+            <li>[[Why Vector Clocks Are Hard|http://basho.com/blog/technical/2010/04/05/why-vector-clocks-are-hard/]]</li>
+        </ul>
+        
         In addition, as of version 2.0 you can use Riak in a [[strongly consistent|Strong Consistency]] fashion.
-
-         </td>
+        </td>
 
         <td>DynamoDB data is eventually consistent, meaning that your read request immediately after a write operation might not show the latest change. However, it also offers you the option to request the most up-to-date version of the data.
             <ul>
@@ -136,23 +135,18 @@ to specific pages in the online documentation for both systems.
               <li>[[Clustering|Concepts#Clustering]]</li>
             </ul>
 
-            The Riak APIs expose tunable consistency and availability parameters that let you select which level configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
+            The Riak APIs expose tunable consistency and availability parameters that let you select which level of configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.
                 <ul>
-                    <li>[[Reading, Writing, and Updating Data|Concepts#Reading-Writing-and-Updating-Data]]</li>
+                    <li>[[Reading, Writing, and Updating Data|Concepts#Reading, Writing, and Updating Data]]</li>
                 </ul>
-
-     </td>
+        </td>
         <td>DynamoDB synchronously replicates your data across multiple [[Availability Zones|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] within a [[Region|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] to help protect data against individual machine or facility failures.
      </td>
     </tr>
     <tr>
         <td>Scaling Out and In</td>
-        <td>Riak allows you to elastically grow and shrink your cluster while evenly balancing the load on each machine. No node in Riak is special or has any particular role. In other words, all nodes are masterless. When you add a physical machine to Riak, the cluster is made aware of its membership via gossiping of ring state. Once it's a member of the ring, it's assigned an equal percentage of the partitions and subsequently takes ownership of the data belonging to those partitions. The process for removing a machine is the inverse of this. Riak also ships with a comprehensive suite of command line tools to help make node operations simple and straightforward.
-
-         <ul>
-          <li>[[Adding and Removing Nodes]]</li>
-          <li>[[Command Line Tools]]</li>
-        </ul>
+        <td>Riak allows you to [[elastically grow and shrink|Adding and Removing Nodes]] your cluster while evenly balancing the load on each machine. No node in Riak is special or has any particular role. In other words, all nodes are masterless. When you add a physical machine to Riak, the cluster is made aware of its membership via gossiping of [[ring state|Clusters#the-ring]]. Once it's a member of the ring, it's assigned an equal percentage of the partitions and subsequently takes ownership of the data belonging to those partitions. The process for removing a machine is the inverse of this. Riak also ships with a comprehensive suite of [[command line tools|riak-admin Command Line]] to help make node operations simple and straightforward.
+        </td>
 
         <td>DynamoDB requires that you specify your required read and write throughput values when you create a table – throughput values can be increased and decreased later as access requirements change. This is used to reserve sufficient hardware resources and appropriately partitions your data over multiple servers to meet your throughput requirements.
           <ul>
@@ -163,23 +157,19 @@ to specific pages in the online documentation for both systems.
     <tr>
         <td>Multi-Datacenter Replication</td>
 
-        <td>Riak features two distinct types of replication. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0 database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
+        <td>Riak features two distinct types of [[replication]]. Users can replicate to any number of nodes in one cluster (which is usually contained within one datacenter over a LAN) using the Apache 2.0-licensed database. Riak Enterprise, Basho's commercial extension to Riak, is required for Multi-Datacenter deployments (meaning the ability to run active Riak clusters in N datacenters).
 
         <ul>
             <li><a href="http://basho.com/products/riak-enterprise/">Riak Enterprise</a></li>
-        <ul>
+        </ul>
 
+        </td>
         <td>DynamoDB has the ability to spread instances over multiple [[Availability Zones|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]] within a Region, but not across multiple [[Regions|http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html]]. Availability Zones are not geographically dispersed.
         </td>
     </tr>
     <tr>
         <td>Graphical Monitoring/Admin Console</td>
-        <td>Riak ships with Riak Control, an open source graphical console for monitoring and managing Riak clusters.
-            <ul>
-                <li>[[Riak Control]]</li>
-                <li>[[Introducing Riak Control|http://basho.com/blog/technical/2012/02/22/Riak-Control/]]
-            </ul>
-    </td>
+        <td>Riak ships with [[Riak Control]], an open source graphical console for monitoring and managing Riak clusters.</td>
         <td>DynamoDB and [[CloudWatch|http://aws.amazon.com/cloudwatch/]] are integrated, which allows you to monitor a variety of metrics.
             <ul>
                 <li>[[Monitoring Amazon DynamoDB|http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/MonitoringDynamoDB.html]]</li>
