@@ -46,7 +46,7 @@ client = Riak::Client.new(
   pb_port: 8087,
   authentication: {
   	user: 'riakuser',
-  	pass: 'rosebud'
+  	password: 'rosebud'
   }
 )
 ```
@@ -77,7 +77,7 @@ passed to the `start` function along with the host and port:
 The examples below will assume that you have already done the following:
 
 1. Your server-side SSL certificates have been created and signed and your Riak servers have been configured to recognize a cert (`cert.pem`) and a signing authority (`cacertfile.pem`)
-2. Your client has access to a `/ssl` directory that houses a CA file to validate the server cert (`ca.crt`), an SSL key file (`key.pem`), and the server cert and signing authority in #1 above
+2. Your client has access to a `/ssl` directory that houses a CA file to validate the server cert (`ca.crt`) and an SSL key file (`key.pem`)
 3. The required username and password for your client are `riakuser` and `rosebud`, respectively
 
 This tutorial will not cover the basics of generating certificates, and
@@ -110,8 +110,7 @@ client = Riak::Client.new(
     password: 'rosebud',
     ca_file: '/ssl/ca.crt',
     key: '/ssl/key.pem',
-    server_cert: '/ssl/cert.pem',
-    server_ca: '/ssl/cacertfile.pem'
+    ca_path: '/ssl/certs'
   }
 )
 ```
@@ -127,8 +126,7 @@ client = Riak::Client.new(
     # username/password from abvoe
     ca_file: File.read('/ssl/ca.crt'),
     key: File.read('/ssl/key.pem'),
-    server_cert: File.read('/ssl/cert.pem'),
-    server_ca: File.read('/ssl/cacertfile.pem')
+    ca_path: Dir.glob('/ssl/certs/*')
   }
 )
 ```
@@ -143,8 +141,7 @@ client = Riak::Client.new(
     # username/password from abvoe
     ca_file: OpenSSL::X509::Certificate.new(File.read('/ssl/ca.crt')),
     key: OpenSSL::PKey::RSA.new(File.read('/ssl/key.pem')),
-    server_cert: OpenSSL::X509::Certificate.new(File.read('/ssl/cert.pem')),
-    server_ca: OpenSSL::X509::Certificate.new('/ssl/cacertfile.pem')
+    ca_path: # ?
   }
 )
 ```
@@ -165,21 +162,14 @@ CertDir = "/path/to/ssl",
 
 ### Ruby
 
+In the Ruby client, you can test your setup using the `ping` method on
+the client object you set up:
+
 ```ruby
-# Using the client object from the example above:
-bucket = client.bucket('certificate_test')
+# Using the client object from above
 
-# We'll create a new object and store it
-obj = Riak::RObject.new(bucket, 'test_key')
-obj.content_type = 'text/plain'
-obj.raw_data = 'SSL now works!'
-obj.store
-
-# Now we'll retrieve it
-bucket.get('test_key').data
+client.ping
 ```
-
-If you get `SSL now works!` as a response, then your client-side authentication setup should be working normally.
 
 #### Erlang
 
