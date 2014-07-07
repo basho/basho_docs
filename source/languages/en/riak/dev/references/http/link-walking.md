@@ -20,8 +20,7 @@ is a special case of [[MapReduce|Using MapReduce]], and can be expressed more ve
 ## Request
 
 ```bash
-GET /riak/bucket/key/[bucket],[tag],[keep]            # Old format
-GET /buckets/bucket/keys/key/[bucket],[tag],[keep]    # New format
+GET /buckets/bucket/keys/key/[bucket],[tag],[keep]
 ```
 
 <div class="info"><div class="title">Link filters</div>
