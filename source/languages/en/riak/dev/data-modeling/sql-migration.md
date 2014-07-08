@@ -21,7 +21,7 @@ migration&mdash;an approach that may not work well with your use case.
 ## Our Example
 
 In this tutorial, we'll store a [PostgreSQL](http://www.postgresql.org/)
-table storing blog posts in Riak using a [Python](https://www.python.org/)
+table housing a series of blog posts in Riak using a [Python](https://www.python.org/)
 script relying on the [psycopg2](http://initd.org/psycopg/docs/)
 library. The `posts` table we'll be converting was created using the
 following SQL script:
@@ -36,6 +36,20 @@ CREATE TABLE posts (
 );
 ```
 
+A typical post looks like this when queried:
+
+```sql
+SELECT * FROM posts WHERE id = 99;
+```
+
+The response:
+
+```
+ id |   author   |             title              |            body            |  created
+----+------------+--------------------------------+----------------------------+------------
+ 99 | John Daily | Riak Development Anti-Patterns | Writing an application ... | 2014-01-07
+```
+
 Our basic conversion and storage approach will be the following:
 
 1. Each row will be converted into a JSON object storing all of the fields except the `id` field
@@ -43,7 +57,10 @@ Our basic conversion and storage approach will be the following:
 3. All of the JSON objects produced from the `posts` table will be stored in a single Riak [[bucket|Buckets]] called `posts`
 4. The keys for our various objects will be stored in a [[Riak set|Using Data Types#sets]] so that all stored objects can be queried at once if need be
 
-## Converting the Table to JSON Objects
+## Converting the Table to a List
+
+Using the pysopg2 library, we can establish a connection to our database
+(we'll call the database)
 
 For the database 'blog_database':
 
@@ -77,6 +94,14 @@ def convert_row_to_dict(row):
 	}
 ```
 
+## Converting the Table to JSON Objects
+
+Converting rows in an SQL table to JSON can be tricky because rows can
+contain a wide variety of data types, each of which must be converted
+into one of the data types 
+[compatible with JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example).
+In our example, that conversion
+
 Then, we can write a function that converts each row (as a dict) into a
 Riak object:
 
@@ -96,3 +121,29 @@ That enables us to write an iterator that stores all rows:
 for row in table:
 	store_row_in_riak(row)
 ```
+
+## Querying our Set of Objects
+
+Once all of our JSON objects have been stored in Riak, we can perform
+normal key/value operations to fetch them one by one. Here's an example:
+
+```curl
+curl http://localhost:8098/buckets/posts/keys/99
+```
+
+That will return a JSON object containing one of the blog posts from our
+original table:
+
+```json
+{
+  "author": "John Daily",
+  "title": "Riak Development Anti-Patterns",
+  "body": "Writing an application ...",
+  "created": "2014-01-07"
+}
+```
+
+But we can also fetch all of those objects at once if need be.
+Previously, we stored the keys for all of our objects in a [[Riak set|Data Types#sets]].
+We can write a function that fetches all of the values from that set
+and then fetches all of the objects from the various keys in that set.
