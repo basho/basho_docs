@@ -60,25 +60,46 @@ Our basic conversion and storage approach will be the following:
 ## Converting the Table to a List
 
 Using the pysopg2 library, we can establish a connection to our database
-(we'll call the database)
-
-For the database 'blog_database':
+(we'll call the database `blog_db`) and create a
+[cursor](http://www.postgresql.org/docs/9.2/static/plpgsql-cursors.html)
+object:
 
 ```python
 import psycopg2
 
-connection = psycopg2.connection('dbname=blog_database', ...)
+connection = psycopg2.connection('dbname=blog_database')
 cursor = connection.cursor()
 ```
 
-Extract all the table information (as a list of tuples) and have a look
-at one of the table entries:
+With that cursor, we can execute a `SELECT * FROM posts` query and then
+fetch the information from the cursor using the `fetchall` function:
 
 ```python
-table = cursor.execute('SELECT * FROM posts;')
-table[0]
-# (101, 'John Daily', 'Riak Development Anti-Patterns', 'Writing an application that can take full advantage...', datetime.date(2014, 1, 7))
+cursor.execute('SELECT * FROM posts')
+table = cursor.fetchall()
 ```
+
+The `table` object consists of a Python list of tuples that looks
+something like this:
+
+```python
+[(1, 'John Doe', 'Post 1 title', 'Post body ...', datetime.date(2014, 1, 1)),
+ (2, 'Jane Doe', 'Post 2 title', 'Post body ...', datetime.date(2014, 1, 2)),
+ # more posts in the list
+]
+```
+
+As we can see, psycopg2 has automatically converted the `created` row
+from a Postgres `DATE` data type into a Python datetime. At this point,
+we need to convert each row into a Python [dictionary](https://docs.python.org/2/tutorial/datastructures.html#dictionaries).
+
+## Converting Rows to JSON Objects
+
+Converting rows in an SQL table to JSON can be tricky because rows can
+contain a wide variety of data types, each of which must be converted
+into one of the data types 
+[compatible with JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example).
+In our example, that conversion
 
 Now, we can convert each row into a dict:
 
@@ -94,19 +115,12 @@ def convert_row_to_dict(row):
 	}
 ```
 
-## Converting the Table to JSON Objects
-
-Converting rows in an SQL table to JSON can be tricky because rows can
-contain a wide variety of data types, each of which must be converted
-into one of the data types 
-[compatible with JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example).
-In our example, that conversion
-
-Then, we can write a function that converts each row (as a dict) into a
-Riak object:
+Then, we can write a function that converts each row (as a dictionary)
+into a Riak object and then stores that object:
 
 ```python
 def store_row_in_riak(row):
+	#
 	obj = RiakObject(client, bucket, row[0])
 	obj.content_type = 'application/json'
 	obj.data = convert_row_to_dict(row)
