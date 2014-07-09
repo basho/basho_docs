@@ -53,6 +53,7 @@ of the following **before** enabling security:
     * It must pass authentication information with each request
     * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
     * If using HTTPS, the proper port (presumably 443) is open from client to server
+    * Code that uses Riak's deprecated [[Link Walking]] **will not work** with security enabled
 
 Security should be enabled only after all of the above steps have been performed and your security setup has been properly vetted.
 
@@ -431,7 +432,7 @@ Permission | Operation |
 
 <div class="note">
 <div class="title">Note on Search Permissions</div>
-Search must be enabled in order to successfully grant/revoke search permissions. If you attempt to grant/revoke permissions while search is disabled, you will get the following error: <tt>{error,{unknown_permission,"search.query"}}</tt>. More information on Riak Search and how to enable it can be found in the [[Riak Search Settings]] document.
+Search must be enabled in order to successfully grant/revoke search permissions. If you attempt to grant/revoke permissions while search is disabled, you will get the following error: <tt>{error,{unknown_permission,"search.query"}}</tt>. More information on Riak Search and how to enable it can be found in the [[Riak Search|Riak Search Settings]] document.
 </div>
 
 #### Usage Examples
@@ -471,8 +472,6 @@ riak-admin security grant search.query,search.admin on index riakusers_index to 
 # To revoke:
 # riak-admin security revoke search.query,search.admin on index riakusers_index from riakuser
 ```
-
-<!-- More comprehensive information on search-related security can be found under [[Riak Search Security]]. -->
 
 ## Managing Sources
 
