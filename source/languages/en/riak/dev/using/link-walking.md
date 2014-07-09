@@ -10,8 +10,12 @@ moved: {
 }
 ---
 
-<div class="info"><div class="title">Deprecation Notice</div>Link Walking is a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].</div>
+<div class="info">
+<div class="title">Deprecation Notice</div>
+Link Walking is a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].
 
+Furthermore, link walking cannot be used in conjunction with the [[security features|Authentication and Authorization]] available in Riak versions 2.0 and later.
+</div>
 
 ## What are Links?
 

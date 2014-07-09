@@ -22,7 +22,6 @@ In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it
 
 * [[Cluster metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
-* 
 * Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
 
 More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading to 2.0]].

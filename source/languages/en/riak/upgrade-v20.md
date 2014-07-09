@@ -211,3 +211,13 @@ For a listing of those parameters, see our documentation on [[advanced configura
 
 Information on upgrading Riak Search to 2.0 can be found in our
 [[Search upgrade guide|Upgrading Search from 1.x to 2.x]].
+
+## Link Walking Incompatibility
+
+The [[link walking]] feature available in versions of Riak prior to 2.0
+is now deprecated. You may continue to use link walking in version 2.0,
+but it is not recommended.
+
+One thing you should be aware of, however, is that link walking is
+incompatible with the new [[security features|Authentication and Authorization]]
+available in Riak versions 2.0 and later.
