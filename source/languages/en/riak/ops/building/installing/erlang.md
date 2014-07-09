@@ -13,9 +13,9 @@ moved: {
 }
 ---
 
-An [Erlang](http://erlang.org) installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz).
+An [Erlang](http://erlang.org) installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz).
 
-For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of ncurses and openssl.
+For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of [ncurses](http://www.gnu.org/software/ncurses/) and [OpenSSL](https://www.openssl.org/).
 
 <div class="note">
 <div class="title">Erlang Version Note</div>
@@ -24,7 +24,7 @@ The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS in
 
 ## Install using kerl
 
-You can install different Erlang versions in a simple manner with the [kerl](https://github.com/spawngrid/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following commands:
+You can install different Erlang versions in a simple manner using the [kerl](https://github.com/spawngrid/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following commands:
 
 ```curl
 curl -O https://raw.githubusercontent.com/spawngrid/kerl/master/kerl
@@ -38,11 +38,16 @@ KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
                         --enable-kernel-poll  --enable-darwin-64bit"
 ```
 
+<div class="note">
+<div class="title">Note on autoconf installation</div>
+
+</div>
+
 Note that when building Erlang on a FreeBSD/Solaris system (including SmartOS), HIPE should be disabled on these platforms as well with the above `--disable-hipe` option.
 
 Building with kerl on GNU/Linux has the same prerequisites as building from source.
 
-Building the Erlang release of your choice involves one command. As of Riak version 1.2, you should build and use, say, Erlang version R15B01 like this:
+Building the Erlang release of your choice involves one command. You can build and use, say, Erlang version R15B01 like this:
 
 ```bash
 ./kerl build R15B01 r15b01
@@ -57,7 +62,7 @@ When successfully built, you can install the build as follows:
 . ~/erlang/r15b01/activate
 ```
 
-The last line activates the Erlang build that was just installed into `~/erlang/r15b01`. See the [kerl readme](https://github.com/spawngrid/kerl) for more details on the available commands.
+The last line activates the Erlang build that was just installed into `~/erlang/r15b01`. See the kerl [README](https://github.com/spawngrid/kerl) for more details on the available commands.
 
 If you prefer to install Erlang manually from the source code, the following section will show you how.
 
