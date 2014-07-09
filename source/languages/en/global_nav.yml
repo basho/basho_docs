@@ -120,6 +120,7 @@ riak:
           - "[[File System Tuning]]"
           - "[[Linux Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
+          - "[[Latency Reduction|Latency Reduction Checklist]]"
           - "[[Managing Active Anti-Entropy]]"
       - title: "Running a Cluster"
         sub:
