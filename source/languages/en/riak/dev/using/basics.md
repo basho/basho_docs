@@ -218,7 +218,7 @@ Riak decides which object to choose in case of conflict using [[vector clocks]].
 2. Modify the object's value (without modifying the fetched vector clock)
 3. Write the new object to Riak
 
-Step 2 is the most important here. All of Basho's official Riak clients enable you to modify an object's value without modifying its vector clock. Although a more detailed tutorial on vector clocks and object updates can be found in the [[conflict resolution]] doc, we'll walk you through a basic example here.
+Step 2 is the most important here. All of Basho's official Riak clients enable you to modify an object's value without modifying its vector clock. Although a more detailed tutorial on vector clocks and object updates can be found in [[Conflict Resolution]], we'll walk you through a basic example here.
 
 Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`. The value of the object is a simple text snippet that says `Washington Generals`.
 
@@ -270,11 +270,11 @@ X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 # accompany the write for Riak to be able to use the vector clock
 ```
 
-In the samples above, we didn't need to actual interact with the vector
-clock, as retaining and passing along the vector clock was accomplished
-automatically by the client. If, however, you do need access to an
-object's vector clock, the clients enable you to fetch it from the
-object:
+In the samples above, we didn't need to actually interact with the
+vector clock, as retaining and passing along the vector clock was
+accomplished automatically by the client. If, however, you do need
+access to an object's vector clock, the clients enable you to fetch it
+from the object:
 
 ```java
 // Using the RiakObject obj from above:
