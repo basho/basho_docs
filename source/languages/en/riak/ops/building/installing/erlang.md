@@ -27,7 +27,7 @@ The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS in
 You can install different Erlang versions in a simple manner with the [kerl](https://github.com/spawngrid/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following commands:
 
 ```curl
-curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+curl -O https://raw.githubusercontent.com/spawngrid/kerl/master/kerl
 chmod a+x kerl
 ```
 
@@ -77,7 +77,10 @@ sudo apt-get install build-essential libncurses5-dev openssl libssl-dev fop xslt
 
 If you'll be using a graphical environment (such as for development purposes) and would like to use Erlang's GUI utilities, then you'll need to install some additional dependencies.
 
-<div class="info">Note that these packages are not required for operation of a Riak node and notes in the build output about missing support for wxWidgets can be safely ignored when installing Riak in a typical non-graphical server environment.</div>
+<div class="note">
+<div class="title">Note on build output</div>
+Note that these packages are not required for operation of a Riak node and notes in the build output about missing support for wxWidgets can be safely ignored when installing Riak in a typical non-graphical server environment.
+</div>
 
 To install packages for graphics support, use this command:
 
@@ -98,9 +101,9 @@ sudo yum install gcc glibc-devel make ncurses-devel openssl-devel autoconf
 Next, download, build, and install Erlang:
 
 ```bash
-wget http://erlang.org/download/otp_src_R15B01.tar.gz
-tar zxvf otp_src_R15B01.tar.gz
-cd otp_src_R15B01
+wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz
+tar zxvf otp_src_R16B02-basho5.tar.gz
+cd otp_src_R16B02-basho5
 ./configure && make && sudo make install
 ```
 
@@ -115,9 +118,9 @@ To build from source, you must have Xcode tools installed from the Apple [Develo
 First, download and unpack the source:
 
 ```bash
-curl -O http://erlang.org/download/otp_src_R15B01.tar.gz
-tar zxvf otp_src_R15B01.tar.gz
-cd otp_src_R15B01
+curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz
+tar zxvf otp_src_R16B02-basho5.tar.gz
+cd otp_src_R16B02-basho5
 ```
 
 Next, configure Erlang.
