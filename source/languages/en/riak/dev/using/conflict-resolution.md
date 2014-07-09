@@ -110,20 +110,8 @@ riak-admin bucket-type status siblings_allowed
 
 If the type has been properly activated, the `status` command should
 return `siblings_allowed is active`. Now, we'll create two objects and
-write both of them to the same key without providing a vector clock:
-
-```ruby
-bucket = client.bucket('nickolodeon')
-obj1 = Riak::RObject.new(bucket, 'best_character')
-obj1.content_type = 'text/plain'
-obj1.raw_data = 'Ren'
-obj1.store(type: 'siblings_allowed')
-
-obj2 = Riak::RObject.new(bucket, 'best_character')
-obj2.content_type = 'text/plain'
-obj2.raw_data = 'Stimpy'
-obj2.store(type: 'siblings_allowed')
-```
+write both of them to the same key without first fetching the object
+(which obtains the vector clock):
 
 ```java
 Location bestCharacterKey =
@@ -143,6 +131,19 @@ StoreValue store2 = new StoreValue.Builder(obj2)
         .build();
 client.execute(store1);
 client.execute(store2);
+```
+
+```ruby
+bucket = client.bucket('nickolodeon')
+obj1 = Riak::RObject.new(bucket, 'best_character')
+obj1.content_type = 'text/plain'
+obj1.raw_data = 'Ren'
+obj1.store(type: 'siblings_allowed')
+
+obj2 = Riak::RObject.new(bucket, 'best_character')
+obj2.content_type = 'text/plain'
+obj2.raw_data = 'Stimpy'
+obj2.store(type: 'siblings_allowed')
 ```
 
 ```python
@@ -191,13 +192,7 @@ started with your client in our [[quickstart guide|Five-Minute Install#setting-u
 ### V-tags
 
 At this point, multiple objects are stored in the same key. Let's see
-what happens if you try to read contents of the object:
-
-```ruby
-bucket = client.bucket('nickolodeon')
-obj = bucket.get('best_character', type: 'siblings_allowed')
-obj
-```
+what happens if we try to read contents of the object:
 
 ```java
 Location bestCharacterKey =
@@ -207,6 +202,12 @@ FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
 System.out.println(obj.getValue().toString());
+```
+
+```ruby
+bucket = client.bucket('nickolodeon')
+obj = bucket.get('best_character', type: 'siblings_allowed')
+obj
 ```
 
 ```python
@@ -219,14 +220,14 @@ obj.siblings
 curl http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
 
-You should get the response:
-
-```ruby
-<Riak::RObject {nickolodeon,best_character} [#<Riak::RContent [text/plain]:"Ren">, #<Riak::RContent [text/plain]:"Stimpy">]>
-```
+We should get this response:
 
 ```java
 com.basho.riak.client.cap.UnresolvedConflictException: Siblings found
+```
+
+```ruby
+<Riak::RObject {nickolodeon,best_character} [#<Riak::RContent [text/plain]:"Ren">, #<Riak::RContent [text/plain]:"Stimpy">]>
 ```
 
 ```python
@@ -269,48 +270,62 @@ should see `Ren` and not `Stimpy`.
 Once you are presented with multiple options for a single value, you
 must determine the correct value. In an application, this can be done
 either in an automatic fashion, using a use case-specific resolver, or
-by presenting the conflicting objects to the end user. 
+by presenting the conflicting objects to the end user.
 
-To update Riak with the appropriate value you will need the current
-vector clock. Right now, there are replicas with two different values:
-`Ren` and `Stimpy`. Now, let's say that we decide that `Stimpy` is the
-correct value on the basis of our application's use case. In order to
-resolve the conflict, we need to fetch the object's vector clock and
-then write the correct value to the key _while passing the fetched
-vector clock to Riak_:
+At the moment, we have two replicas with two different values, one with
+`Ren`, the other with `Stimpy`. But let's say that we decide that
+`Stimpy` is the correct value based on our application's use case. In
+order to resolve the conflict, we need to do three things:
 
-```ruby
-bucket = client.bucket('nickolodeon')
-obj = bucket.get('best_character', type: 'siblings_allowed')
-vclock = obj.vclock
-new_obj = Riak::RObject.new(bucket, 'best_character')
-new_obj.content_type = 'text/plain'
-new_obj.raw_data = 'Stimpy'
-new_obj.store(type: 'siblings_allowed', vclock: vclock)
-```
+1. Fetch the current object (which will return both siblings)
+2. Modify the value of the object, i.e. make the value `Stimpy`
+3. Write the object back to the `best_character` key
+
+What happens when we fetch the object first, prior to the update, is
+that the object handled by the client has a vector clock attached. At
+that point, we can modify the object's value, and when we write the
+object back to Riak, _the vector clock will automatically be attached
+to it_. Let's see what that looks like in practice:
 
 ```java
+// First, we fetch the object
 Location bestCharacterKey =
   new Location(new Namespace("siblings_allowed", "nickolodeon"), "best_character");
-
 FetchValue fetch = new FetchValue.Builder(bestCharacterKey).build();
 FetchValue.Response res = client.execute(fetch);
-VClock vClock = res.getVClock();
-RiakObject newObj = new RiakObject()
-        .withValue(BinaryValue.create("Stimpy"));
-StoreValue store = new StoreValue.Builder(newObj)
-        .withLocation(bestCharacterKey)
-        .withVectorClock(vClock);
+RiakObject obj = res.getValue(RiakObject.class);
+
+
+// Then we modify the object's value
+obj.setValue(BinaryValue.create("Stimpy"));
+
+// Then we store the object, which has the vector clock already attached
+StoreValue store = new StoreValue.Builder(obj)
+        .withLocation(bestCharacterKey);
 client.execute(store);
 ```
 
+```ruby
+# First, we fetch the object
+bucket = client.bucket('nickolodeon')
+obj = bucket.get('best_character', type: 'siblings_allowed')
+
+# Then we modify the object's value
+obj.raw_data = 'Stimpy'
+
+# Then we store the object, which has the vector clock already attached
+obj.store
+```
+
 ```python
+# First, we fetch the object
 bucket = client.bucket_type('siblings_allowed').bucket('nickolodeon')
 obj = bucket.get('best_character')
-vclock = obj.vclock
-new_obj = Riak::RObject.new(bucket, 'best_character')
-new_obj.content_type = 'text/plain'
+
+# Then we modify the object's value
 new_obj.data = 'Stimpy'
+
+# Then we store the object, which has the vector clock already attached 
 new_obj.store(vclock=vclock)
 ```
 
@@ -320,18 +335,9 @@ curl -i http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/be
 # In the HTTP interface, the vector clock can be found in the "X-Riak-Vclock" header. That will look something like this:
 
 X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
-```
 
-In Riak clients, you can access the vector clock as part of the object.
-
-Using the vector clock, you can then write the correct value to the
-`character` key, passing the vector clock to Riak as a header:
-
-```curl
-curl -XPUT http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character \
-  -H "Content-Type: text/plain" \
-  -H "X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=" \
-  -d "stimpy"
+# When performing a write to the same key, that same header needs to
+# accompany the write for Riak to be able to use the vector clock
 ```
 
 <div class="note">
