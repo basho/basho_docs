@@ -36,13 +36,6 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
     <tr>
         <td><strong>Data Model</strong></td>
         <td>Riak stores key/value pairs under [[keys|Keys and Objects]] in [[buckets]]. [[Using bucket types]] you can set bucket-level configurations for things like [[replication properties]]. In addition to basic [[key/value lookup|Key/Value Modeling]], Riak has a variety of features for discovering objects, including [[Riak Search|Using Search]] and [[secondary indexes|Using Secondary Indexes]].</td>
-        <td>MongoDB's data format is BSON (a binary equivalent to JSON) stored as documents (self-contained records with no intrinsic relationships). Documents in MongoDB may store any of the defined BSON types and are grouped in collections.
-            <ul>
-                <li>[[Documents|http://www.mongodb.org/display/DOCS/Documents]]</li>
-                <li>[[Data Types and Conventions|http://www.mongodb.org/display/DOCS/Data+Types+and+Conventions]]</li>
-
-            </ul>
-        </td>
         <td>Cassandra's data model resembles column storage, consisting of Keyspaces, Column Families, and several other parameters.
             <ul>
               <li>[[Cassandra Data Model|http://www.datastax.com/docs/0.7/data_model/index]] </li>
