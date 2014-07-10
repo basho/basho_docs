@@ -13,18 +13,16 @@ moved: {
 }
 ---
 
-An [Erlang](http://erlang.org) installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz). **If you do not use this version, you will not be able to use Riak's [[security features|Authentication and Authorization]]**.
+An [Erlang](http://erlang.org) installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0.
+All of the patches in this version have been incorporated into later versions of the official Erlang/OTP release.
 
-For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of [ncurses](http://www.gnu.org/software/ncurses/) and [OpenSSL](https://www.openssl.org/).
+The tar file for this version of Erlang can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz). **If you do not use this version, you will not be able to use Riak's [[security features|Authentication and Authorization]]**.
 
-<div class="note">
-<div class="title">Erlang Version Note</div>
-The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS include an Erlang distribution, and do not require that you build Erlang from source. However, <strong>you must download and install Erlang if you are planning on completing the [[Five-Minute Install]]</strong>.
-</div>
+For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of [ncurses](http://www.gnu.org/software/ncurses/) and [OpenSSL](https://www.openssl.org/). The Riak binary packages for Debian and Ubuntu, Mac OS X, and RHEL and CentOS include an Erlang distribution, and do not require that you build Erlang from source. However, **you must download and install Erlang if you are planning on completing the [[Five-Minute Install]]**.
 
 ## Install using kerl
 
-You can install different Erlang versions in a simple manner using the [kerl](https://github.com/spawngrid/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following commands:
+You can install different Erlang versions in a simple manner using the [kerl](https://github.com/yrashk/kerl) script. This is probably the easiest way to install Erlang from source on a system, and typically only requires a few commands to do so. Install kerl by running the following commands:
 
 ```curl
 curl -O https://raw.githubusercontent.com/spawngrid/kerl/master/kerl
@@ -51,7 +49,7 @@ When successfully built, you can install the build as follows:
 . ~/erlang/R16B02-basho5/activate
 ```
 
-The last line activates the Erlang build that was just installed into `~/erlang/R16B02-basho5`. See the kerl [README](https://github.com/spawngrid/kerl) for more details on the available commands.
+The last line activates the Erlang build that was just installed into `~/erlang/R16B02-basho5`. See the kerl [README](https://github.com/yrashk/kerl) for more details on the available commands.
 
 If you prefer to install Erlang manually from the source code, the following section will show you how.
 
@@ -64,7 +62,7 @@ KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
                         --enable-kernel-poll --without-odbc --enable-darwin-64bit"
 ```
 
-On Mac OS X, you will also need to install [autoconf](https://www.gnu.org/software/autoconf/). The simplest way to do so is via Homebrew:
+If you are running OS X 10.9 (Mavericks) or later, you may need to install [autoconf](https://www.gnu.org/software/autoconf/). To check for the presence of autoconf, run `which autoconf`. If this returns `autoconf not found`, the simplest way to install it is via Homebrew:
 
 ```bash
 brew install autoconf
