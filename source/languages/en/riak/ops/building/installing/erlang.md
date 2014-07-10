@@ -13,7 +13,7 @@ moved: {
 }
 ---
 
-An [Erlang](http://erlang.org) installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz).
+An [Erlang](http://erlang.org) installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. The tar file for this version can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz). **If you do not use this version, you will not be able to use Riak's [[security features|Authentication and Authorization]]**.
 
 For Erlang to build and install, you must have a GNU-compatible build system, and the development bindings of [ncurses](http://www.gnu.org/software/ncurses/) and [OpenSSL](https://www.openssl.org/).
 
@@ -31,40 +31,48 @@ curl -O https://raw.githubusercontent.com/spawngrid/kerl/master/kerl
 chmod a+x kerl
 ```
 
-To compile Erlang as 64-bit on Mac OS X, you need to instruct kerl to pass the correct flags to the `configure` command. The easiest way to do this is by creating a `~/.kerlrc` file with the following contents:
+Once kerl is installed, you can install Basho's recommended version of Erlang [from Github](https://github.com/basho/otp) using the following command:
 
 ```bash
-KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
-                        --enable-kernel-poll  --enable-darwin-64bit"
+kerl build git git://github.com/basho/otp.git OTP_R16B02_basho5 R16B02-basho5
 ```
 
 <div class="note">
-<div class="title">Note on autoconf installation</div>
-
+<div class="title">Note on building on Mac OS X, FreeBSD, or Solaris</div>
+If you are building Basho's recommended version of Erlang using kerl on Mac OS X, FreeBSD, or Solaris, consult the corresponding sections below for a list of prerequisites that should be fulfilled <em>prior</em> to building with kerl.
 </div>
-
-Note that when building Erlang on a FreeBSD/Solaris system (including SmartOS), HIPE should be disabled on these platforms as well with the above `--disable-hipe` option.
-
-Building with kerl on GNU/Linux has the same prerequisites as building from source.
-
-Building the Erlang release of your choice involves one command. You can build and use, say, Erlang version R15B01 like this:
-
-```bash
-./kerl build R15B01 r15b01
-```
 
 This builds the Erlang distribution and performs all of the steps required to manually install Erlang for you.
 
 When successfully built, you can install the build as follows:
 
 ```bash
-./kerl install r15b01 ~/erlang/r15b01
-. ~/erlang/r15b01/activate
+./kerl install R16B02-basho5 ~/erlang/R16B02-basho5
+. ~/erlang/R16B02-basho5/activate
 ```
 
-The last line activates the Erlang build that was just installed into `~/erlang/r15b01`. See the kerl [README](https://github.com/spawngrid/kerl) for more details on the available commands.
+The last line activates the Erlang build that was just installed into `~/erlang/R16B02-basho5`. See the kerl [README](https://github.com/spawngrid/kerl) for more details on the available commands.
 
 If you prefer to install Erlang manually from the source code, the following section will show you how.
+
+### Mac OS X Prerequisites
+
+To compile Erlang as 64-bit on Mac OS X, prior to running the `build` command shown above you need to instruct kerl to pass the correct flags to the `configure` command. The easiest way to do this is by creating a `~/.kerlrc` file with the following contents:
+
+```bash
+KERL_CONFIGURE_OPTIONS="--disable-hipe --enable-smp-support --enable-threads
+                        --enable-kernel-poll --without-odbc --enable-darwin-64bit"
+```
+
+On Mac OS X, you will also need to install [autoconf](https://www.gnu.org/software/autoconf/). The simplest way to do so is via Homebrew:
+
+```bash
+brew install autoconf
+```
+
+### FreeBSD/Solaris Prerequisites
+
+When building Erlang using kerl on a FreeBSD/Solaris system (including SmartOS), HIPE should be disabled on these platforms as well with the `--disable-hipe` option shown in the **Mac OS X Prerequisites** section above.
 
 ## Installing on GNU/Linux
 
