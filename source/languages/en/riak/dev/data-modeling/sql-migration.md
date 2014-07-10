@@ -8,7 +8,10 @@ keywords: [migration, sql]
 ---
 
 Relational databases are powerful and reliable technologies, but there
-are many [[use cases]] for which Riak is a better fit. If 
+are many [[use cases]] for which Riak is a better fit, e.g. when data
+availability is more important than SQL-style queryability or when
+relational databases begin to run into scalability problems. You can
+find out more in [[Why Riak]].
 
 <div class="note">
 <div class="title">Use cases warning</div>
@@ -20,11 +23,9 @@ migration&mdash;an approach that may not work well with your use case.
 
 ## Our Example
 
-In this tutorial, we'll store a [PostgreSQL](http://www.postgresql.org/)
-table housing a series of blog posts in Riak using a [Python](https://www.python.org/)
-script relying on the [psycopg2](http://initd.org/psycopg/docs/)
-library. The `posts` table we'll be converting was created using the
-following SQL script:
+Let's say that we've been storing a series of blog posts in
+[PostgreSQL](http://www.postgresql.org/), in a database called `blog`
+and a table called `posts`. This table has the following schema:
 
 ```sql
 CREATE TABLE posts (
@@ -58,6 +59,11 @@ Our basic conversion and storage approach will be the following:
 4. The keys for our various objects will be stored in a [[Riak set|Using Data Types#sets]] so that all stored objects can be queried at once if need be
 
 ## Converting the Table to a List
+
+In this tutorial, we'll store a table housing a series of blog posts in
+Riak using a [Python](https://www.python.org/) script relying on
+[psycopg2](http://initd.org/psycopg/docs/), a PostgreSQL driver for
+Python.
 
 Using the pysopg2 library, we can establish a connection to our database
 (we'll call the database `blog_db`) and create a
