@@ -11,7 +11,8 @@ Relational databases are powerful and reliable technologies, but there
 are many [[use cases]] for which Riak is a better fit, e.g. when data
 availability is more important than SQL-style queryability or when
 relational databases begin to run into scalability problems. You can
-find out more in [[Why Riak]].
+find out more in [[Why Riak]]. If you decide that Riak is a better fit,
+this tutorial walks you through migrating from an SQL system to Riak.
 
 <div class="note">
 <div class="title">Use cases warning</div>
@@ -235,3 +236,70 @@ fetch_all_objects('posts')
 ```
 
 That will return the full list of Python dictionaries we stored earlier.
+
+## Enhanced Discoverability with Secondary Indexes (2i)
+
+While storing all of the objects' keys in a Riak set is a good way to be
+able to fetch all objects from the `posts` bucket if necessary, a much
+more powerful querying technique would be to mark each object with
+[[secondary indexes|Using Secondary Indexes]] that enable us to fetch
+particular blog posts on the basis of some piece of information about
+those posts.
+
+Let's say that we stored all of our blog posts with keywords attached,
+and that our original schema actually looked like this:
+
+```sql
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    author VARCHAR(30) NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    body TEXT NOT NULL,
+    created DATE NOT NULL,
+    keywords TEXT[] NOT NULL
+);
+```
+
+Here's an example insert into that table:
+
+```sql
+INSERT INTO posts (author, title, body, created, keywords) VALUES 
+	('Basho', 'Moving from MySQL to Riak', 'Traditional database architectures...',
+	current_date, '{"mysql","riak","migration","rdbms"}');
+```
+
+What we can do now is add a binary secondary index for each of these
+keywords to each post. Let's write a function to take a Riak object
+and attach a binary secondary index for each keyword:
+
+```python
+def add_keyword_2i_to_object(obj, keywords):
+	for keyword in keywords:
+		obj.add_index('keywords_bin', keyword)
+```
+
+Then we can insert that function into the `store_row_in_riak` function
+that we created above:
+
+```python
+bucket = client.bucket('posts')
+
+def store_row_in_riak(row):
+	obj = RiakObject(client, bucket, row[0])
+	obj.content_type = 'application/json'
+	obj.data = convert_row_to_dict(row)
+	add_keyword_2i_to_object(obj, row[5])
+	obj.store()
+```
+
+Now, we can fetch blog posts on the basis of their keywords:
+
+```python
+bucket = client.bucket('posts')
+
+def fetch_posts_by_keyword(keyword):
+	for key in bucket.get_index('keywords_bin', keyword):
+		return bucket.get(key)
+```
+
+This will then return a list of objects marked with keyword metadata.
