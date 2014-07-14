@@ -13,8 +13,7 @@ moved: {
 }
 ---
 
-An [Erlang](http://erlang.org) installation is required to run Riak. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0.
-All of the patches in this version have been incorporated into later versions of the official Erlang/OTP release.
+While pre-packaged versions of Riak include an [Erlang](http://erlang.org) installation, you will need to install Erlang on your own if you wish to build and run Riak from souce. We strongly recommend using Basho's patched version of Erlang to install Riak 2.0. All of the patches in this version have been incorporated into later versions of the official Erlang/OTP release.
 
 The tar file for this version of Erlang can be downloaded [here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz). **If you do not use this version, you will not be able to use Riak's [[security features|Authentication and Authorization]]**.
 
