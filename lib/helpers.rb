@@ -50,6 +50,7 @@ module BashoDocsHelpers
     url = pa.url.sub(/\.html/, '/')
     url.sub!(%r"languages\/\w+\/#{projects_regex}\/", '')
     if project != current_project
+      version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
       url = "/#{project}/#{version}#{url}"
     end
     url

@@ -33,6 +33,7 @@ ready do
     if new_path =~ /(#{projects_regex})\-index\.html/
       project = $1
       version = $versions[project.to_sym]
+      version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
       page "/#{project}/#{version}/index.html", :proxy => proxy, :directory_index => false, :ignore => true
     else
       project = new_path.scan(/^[^\/]+/).first
