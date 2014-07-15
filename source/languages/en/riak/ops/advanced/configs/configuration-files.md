@@ -1741,7 +1741,7 @@ There are two non-`riak_repl` settings available in `advanced.config`.
 <tr>
 <td><code>add_paths</code></td>
 <td><code>riak_kv</code></td>
-<td>If you are <a href="/ops/advanced/install-custom-code">installing custom code</a> for Riak, e.g. for the purpose of running <a href="/dev/using/mapreduce">MapReduce</a> jobs or <a href="/dev/using/commit-hooks">commit hooks</a>, this setting specifies the path to any compiled <code>.beam</code> files that you wish to use. This is expressed as an absolute path on the node's filesystem, e.g. <code>/tmp</code>.</td>
+<td>If you are <a href="/ops/advanced/install-custom-code">installing custom code</a> for Riak, e.g. for the purpose of running <a href="/dev/using/mapreduce">MapReduce</a> jobs or <a href="/dev/using/commit-hooks">commit hooks</a>, this setting specifies the paths to any compiled <code>.beam</code> files that you wish to use. This is expressed as a list of absolute paths on the node's filesystem, e.g. <code>[ "/tmp", "/other" ]</code>.</td>
 <td></td>
 </tr>
 
