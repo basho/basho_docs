@@ -17,8 +17,7 @@ Reads an object from the specified bucket / key.
 ## Request
 
 ```bash
-GET /riak/bucket/key            # Old format
-GET /buckets/bucket/keys/key    # New format
+GET /buckets/bucket/keys/key
 ```
 
 Important headers:

@@ -19,7 +19,7 @@ All commands need to be run only once on a single node of a cluster for the chan
 
 #### `clustername`
 
-Set the `clustername` for all nodes in a Riak cluster. The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
+Set the `clustername` for all nodes in a Riak cluster.
 
 * Without a parameter, returns the current name of the cluster
 * With a parameter, names the current cluster
@@ -36,7 +36,7 @@ To **get** the `clustername`:
 
 #### `connect`
 
-The `connect` command establishes communications from a source cluster to a sink cluster of the same ring size. The `host:port` of the sink cluster is used for this.
+The `connect` command establishes communications from a source cluster to a sink cluster of the same ring size. The `host:port` of the sink cluster is used for this. The IP and port to connect to can be found in the `app.config` of the remote cluster, under `riak_core` » `cluster_mgr`.
 
 The `host` can be either an IP address
 
@@ -272,13 +272,13 @@ This is the hard limit of fullsync workers that will be running on the source si
 * *Example:* `riak-repl fullsync max_fssource_cluster 5`
 
 
-**fullsync max_fssink_node**
+#### `fullsync max_fssink_node`
 
 This limits the number of fullsync workers allowed to run on each individual node in a sink cluster. This is a hard limit for each fullsync source node interacting with a sink node. Thus, multiple simultaneous source connections to a sink node will have to share the sink node’s number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 
-* *Syntax* `riak-repl fullsync max_fssink_cluster <value>`
+* *Syntax* `riak-repl fullsync max_fssink_node <value>`
 * *Default* `1`
-* *Example* `riak-repl fullsync max_fssink_cluster 5`
+* *Example* `riak-repl fullsync max_fssink_node 5`
 
 
 ## Mixing Version 2 Replication with Version 3 Replication

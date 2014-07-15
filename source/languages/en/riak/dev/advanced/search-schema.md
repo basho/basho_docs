@@ -17,7 +17,7 @@ Riak Search is built for ease-of-use, namely, the philosophy that you write valu
 
 ## Setting a Schema
 
-If you just want to get started quickly, and alredy know all about creating your own Riak Search schema (it's similar, but not exactly the same as a standard Solr schema, so read on).
+If you just want to get started quickly, and already know all about creating your own Riak Search schema (it's similar, but not exactly the same as a standard Solr schema, so read on).
 
 Here's how you can create a custom schema named `cartoons`, where the schema xml data is stored in a file named `cartoons.xml`
 

@@ -9,6 +9,7 @@ riak:
     sub:
       - "[[Start Here|Riak]]"
       - "[[Riak 2.0]]"
+      - "[[Upgrading to 2.0]]"
       - "[[Why Riak?|Why Riak]]"
       - "[[Five-Minute Install|Five Minute Install]]"
 
@@ -46,6 +47,7 @@ riak:
               - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
       - title: "Basic Usage"
         sub:
+          - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
           - "[[Key/Values|The Basics]]"
           - "[[Search|Using Search]]"
@@ -59,20 +61,9 @@ riak:
           - "[[Commit Hooks|Using Commit Hooks]]"
       - title: "Data Modeling"
         sub:
-          - "[[Overview|Use Cases]]"
+          - "[[Use Cases for Riak|Use Cases]]"
+          - "[[Key/Value Modeling]]"
           - "[[Data Types|Data Modeling with Riak Data Types]]"
-          - title: "High Read/Write"
-            sub:
-              - "[[Session Storage]]"
-              - "[[Serving Ads|Serving Advertisements]]"
-              - "[[Log Data]]"
-              - "[[Sensor Data]]"
-          - title: "Relationships"
-            sub:
-              - "[[User Accounts]]"
-              - "[[User Settings & Prefs|User Settings/Preferences]]"
-              - "[[User Events & Timelines|User Subscriptions/Events/Timelines]]"
-              - "[[Articles & Blog Posts|Blog Posts, Articles and Other Content]]"
       - title: "Advanced"
         sub:
           - "[[Search Details]]"
@@ -129,10 +120,10 @@ riak:
           - "[[Open Files Limit]]"
           - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
+          - "[[Managing Active Anti-Entropy]]"
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
-          - "[[Statistics and Monitoring]]"
           - title: "Node Operations"
             sub:
               - "[[Adding/Removing|Adding and Removing Nodes]]"
@@ -153,12 +144,17 @@ riak:
               - "[[Repairing LevelDB]]"
               - "[[Rolling Restart]]"
               - "[[Common Errors]]"
+          - title: "Monitoring"
+            sub:
+              - "[[Statistics and Monitoring]]"
+              - "[[Riak Monitoring with collectd]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
           - "[[Installing Custom Code]]"
           - "[[Security and Firewalls]]"
           - "[[Ring Resizing]]"
+          - "[[Object Deletion]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
@@ -192,8 +188,11 @@ riak:
           - "[[Eventual Consistency]]"
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
+          - "[[Dotted Version Vectors]]"
+          - "[[Active Anti-Entropy]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
+          - "[[Capability Negotiation]]"
       - title: "Riak Compared to"
         sub:
           # - "[[Riak Comparisons Overview|Riak Comparisons]]"
@@ -225,6 +224,7 @@ riak:
           - "[[Riak Community|Riak Community FAQs]]"
       - "[[Community Help|Help and Community]]"
       - "[[Community Projects]]"
+      - "[[Blog Posts]]"
       - "[[Reporting Bugs]]"
       - "[[Style Guide|Documentation Style Guide]]"
       - "[[Riak Images]]"

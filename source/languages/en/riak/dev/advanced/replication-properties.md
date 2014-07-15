@@ -177,9 +177,8 @@ obj = bucket.get('chimpanzee', type: 'r_equals_1')
 ```
 
 ```java
-Location chimpanzeeFact = new Location("animal_facts")
-        .setBucketType("r_equals_1")
-        .setKey("chimpanzee");
+Location chimpanzeeFact =
+  new Location(new Namespace("r_equals_1", "animal_facts"), "chimpanzee");
 FetchValue fetch = new FetchValue.Builder(chimpanzeeFact).build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
@@ -187,7 +186,7 @@ System.out.println(obj.getValue().toString());
 ```
 
 ```python
-bucket = client.bucket('animal_facts', bucket_type='r_equals_1')
+bucket = client.bucket_type('r_equals_1').bucket('animal_facts')
 bucket.get('chimpanzee')
 ```
 
@@ -238,9 +237,8 @@ obj.store(type: 'w_equals_3')
 ```
 
 ```java
-Location storyKey = new Location("animal_facts")
-        .setBucketType("w_equals_3")
-        .setKey(filename);
+Location storyKey =
+  new Location(new Namespace("w_equals_3", "animal_facts"), "giraffe");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
         .setValue(BinaryValue.create("The species name of the giraffe is Giraffa camelopardalis"));
@@ -251,7 +249,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('animal_facts', bucket_type='w_equals_3')
+bucket = client.bucket_type('w_equals_3').bucket('animal_facts')
 obj = RiakObject(client, bucket, 'giraffe')
 obj.content_type = 'text/plain'
 obj.data = 'The species name of the giraffe is Giraffa camelopardalis'
@@ -411,8 +409,8 @@ obj = bucket.get('john_stockton', r: 2, notfound_ok: true)
 ```
 
 ```java
-Location johnStocktonStats = new Location("nba_stats")
-        .setKey("john_stockton");
+Location johnStocktonStats =
+  new Namespace(new Namespace("nba_stats"), "john_stockton");
 FetchValue fetch = new FetchValue.Builder(johnStocktonStats)
         .withOption(FetchOption.R, new Quorum(2))
         .withOption(FetchOption.NOTFOUND_OK, true)
@@ -450,8 +448,8 @@ obj.store(w: 3, dw: 2)
 ```
 
 ```java
-Location michaelJordanKey = new Location("nba_stats")
-        .setKey("michael_jordan");
+Location michaelJordanKey =
+  new Location(new Namespace("nba_stats"), "michael_jordan");
 RiakObject obj = new RiakObject()
         .setContentType("application/json")
         .setValue(BinaryValue.create("{'stats':{ ... large stats object ... }}"));

@@ -30,22 +30,20 @@ GET /types/TYPE/buckets/BUCKET/keys/KEY
 
 Here is an example of a read performed on the key `rufus` in the bucket `dogs`, which bears the type `animals`:
 
+```java
+// In the Java client, it is best to specify a bucket type/bucket/key
+// Location object that can be used as a reference for further operations.
+
+Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
+```
+
 ```ruby
 bucket = client.bucket('dogs')
 obj = bucket.get('rufus', type: 'animals')
 ```
 
-```java
-// In the Java client, it is best to specify a bucket type/bucket/key
-// Location object that can be used as a reference for further operations.
-
-Location myKey = new Location("dogs")
-        .setBucketType("animals")
-        .setKey("rufus");
-```
-
 ```python
-bucket = client.bucket('dogs', bucket_type='animals')
+bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
 ```
 
@@ -68,12 +66,12 @@ client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client
 
 If there is no object stored under that particular key, Riak will return a message indicating that the object doesn't exist.
 
-```ruby
-Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found. The requested object was not found.
-```
-
 ```java
 java.lang.NullPointerException
+```
+
+```ruby
+Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found. The requested object was not found.
 ```
 
 ```python
@@ -102,11 +100,6 @@ Riak also accepts many query parameters, including `r` for setting the R-value f
 
 Here is an example of attempting a read with `r` set to `3`:
 
-```ruby
-bucket = client.bucket('dogs')
-obj = bucket.get('rufus', type: 'animals', r: 3)
-```
-
 ```java
 // Using the "myKey" location specified above:
 
@@ -117,8 +110,13 @@ FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
 ```
 
+```ruby
+bucket = client.bucket('dogs')
+obj = bucket.get('rufus', type: 'animals', r: 3)
+```
+
 ```python
-bucket = client.bucket('dogs', bucket_type='animals')
+bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r=3)
 obj.data
 ```
@@ -168,18 +166,8 @@ There is no need to intentionally create buckets in Riak. They pop into existenc
 
 For all writes to Riak, you will need to specify a content type, for example `text/plain` or `application/json`.
 
-```ruby
-bucket = client.bucket('oscar_wilde')
-obj = Riak::RObject.new(bucket, 'genius')
-obj.content_type = 'text/plain'
-obj.raw_data = 'I have nothing to declare but my genius'
-obj.store(type: 'quotes')
-```
-
 ```java
-Location wildeGeniusQuote = new Location("oscar_wilde")
-        .setBucketType("quotes")
-        .setKey("genius");
+Location wildeGeniusQuote = new Location(new Namespace("quotes", "oscar_wilde"), "genius");
 BinaryValue text = BinaryValue.create("I have nothing to declare but my genius");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -189,8 +177,16 @@ StoreValue store = new StoreValue.Builder(myKey, obj)
 client.execute(store);
 ```
 
+```ruby
+bucket = client.bucket('oscar_wilde')
+obj = Riak::RObject.new(bucket, 'genius')
+obj.content_type = 'text/plain'
+obj.raw_data = 'I have nothing to declare but my genius'
+obj.store(type: 'quotes')
+```
+
 ```python
-bucket = client.bucket('oscar_wilde', bucket_type='quotes')
+bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 obj = RiakObject(client, bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.data = 'I have nothing to declare but my genius'
@@ -216,48 +212,38 @@ curl -XPUT \
 
 If an object already exists under a certain key and you want to write a new object to that key, Riak needs to know what to do, especially if multiple writes are happening at the same time. Which of the objects being written should be deemed correct? These kinds of scenarios can arise quite frequently in distributed, [[eventually consistent|Eventual Consistency]] systems.
 
-Riak decides which object to choose in case of conflict using [[vector clocks]]. If you're writing an object to a key that already exists, you'll need to do the following:
+Riak decides which object to choose in case of conflict using [[vector clocks]]. If you're writing an object to a key that already exists, your application needs to perform the following steps:
 
-* Read the existing object
-* Fetch the vector clock from the object's metadata
-* Attach the vector clock to the new object's metadata
-* Write the new object
+1. Fetch the object
+2. Modify the object's value (without modifying the fetched vector clock)
+3. Write the new object to Riak
 
-A more detailed tutorial on vector clocks and object updates more generally can be found in the [[conflict resolution]] doc. Here, we'll walk you through a basic example.
+Step 2 is the most important here. All of Basho's official Riak clients enable you to modify an object's value without modifying its vector clock. Although a more detailed tutorial on vector clocks and object updates can be found in [[Conflict Resolution]], we'll walk you through a basic example here.
 
 Let's say that the current NBA champion is the Washington Generals. We've stored that data in Riak under the key `champion` in the bucket `nba`, which bears the bucket type `sports`. The value of the object is a simple text snippet that says `Washington Generals`.
 
-But one day the Harlem Globetrotters enter the league and dethrone the hapless Generals (forever, as it turns out). Because we want our Riak database to reflect this new development in the league, we want to make a new write to the `champion` key. Let's read the object stored there and fetch the vector clock.
+But one day the Harlem Globetrotters enter the league and dethrone the hapless Generals (forever, as it turns out). Because we want our Riak database to reflect this new development in the league, we want to make a new write to the `champion` key. Let's read the object stored there and modify the value.
+
+```java
+Location currentChampion = new Location(new Namespace("sports", "nba"), "champion");
+FetchValue fetch = new FetchValue.Builder(currentChampion)
+        .build();
+FetchValue.Response response = client.execute(fetch);
+RiakObject obj = response.getValue(RiakObject.class);
+obj.setValue(BinaryValue.create("Harlem Globetrotters"))
+```
 
 ```ruby
 bucket = client.bucket('nba')
 obj = bucket.get('champion', type: 'sports')
-obj.vclock
-
-# The vector clock will look something like this:
-# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
-```
-
-```java
-Location currentChampion = new Location("nba")
-        .setBucketType("sports")
-        .setKey("champion");
-FetchValue fetch = new FetchValue.Builder(currentChampion)
-        .build();
-FetchValue.Response response = client.execute(fetch);
-System.out.println(response.getvClock());
-
-// The vector clock will look something like this:
-// a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+obj.raw_data = 'Harlem Globetrotters'
+obj.store
 ```
 
 ```python
-bucket = client.bucket('nba', bucket_type='sports')
+bucket = client.bucket_type('sports').bucket('nba')
 obj = bucket.get('champion')
-obj.vclock
-
-# The vector clock will look something like this:
-# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+obj.data = 'Harlem Globetrotters'
 ```
 
 ```erlang
@@ -266,12 +252,9 @@ obj.vclock
 
 {ok, Obj} = riakc_pb_socket:get(Pid,
                                 {<<"sports">>, <<"nba">>},
-                                <<"champion">>).
-
-%% In the resulting object Obj, the vector clock can be seen as a long list
-%% of integers, like so:
-
-<<107,206,97,96,96,96,204,...>>
+                                <<"champion">>),
+UpdatedObj = riakc_obj:update_value(Obj, <<"Harlem Globetrotters">>),
+{ok, NewestObj} = riakc_pb_socket:put(Pid, UpdatedObj, [return_body]).
 ```
 
 ```curl
@@ -282,63 +265,54 @@ curl -i http://localhost:8098/types/sports/buckets/nba/keys/champion
 # In the resulting output, the header will look something like this:
 
 X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+
+# When performing a write to the same key, that same header needs to
+# accompany the write for Riak to be able to use the vector clock
 ```
 
-You can then attach the vector clock to the new object and attempt a write. The vector clock will inform Riak which version of the object the client has seen.
-
-Let's update the value of `champion` to `Harlem Globetrotters` using the vector clock that we obtained in the example above:
-
-```ruby
-bucket = client.bucket('nba')
-obj = Riak::RObject.new(bucket, 'champion')
-obj.content_type = 'text/plain'
-obj.raw_data = 'Harlem Globetrotters'
-obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
-obj.store(type: 'sports')
-```
+In the samples above, we didn't need to actually interact with the
+vector clock, as retaining and passing along the vector clock was
+accomplished automatically by the client. If, however, you do need
+access to an object's vector clock, the clients enable you to fetch it
+from the object:
 
 ```java
-Location johnGlennKey = new Location("nba")
-        .setBucketType("sports")
-        .setKey("champion");
-BinaryValue text = BinaryValue.create("Harlem Globetrotters");
-RiakObject obj = new RiakObject()
-        .setContentType("text/plain")
-        .setVtag("a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=")
-        .setValue(text);
-StoreValue store = new StoreValue.Builder(myKey, obj)
-        .build();
-client.execute(store);
+// Using the RiakObject obj from above:
+
+Vclock vClock = obj.getVclock();
+System.out.println(vClock.asString());
+
+// The vector clock will look something like this:
+// a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
+```ruby
+# Using the RObject obj from above:
+
+obj.vclock
+
+# The vector clock will look something like this:
+# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
 ```python
-bucket = client.bucket('nba', bucket_type='sports')
-obj = RiakObject(client, bucket, 'champion')
-obj.content_type = 'text/plain'
-obj.data = 'Harlem Globetrotters'
-obj.vclock = 'a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA='
-obj.store()
+# Using the RiakObject obj from above:
+
+obj.vclock
+
+# The vector clock will look something like this:
+# a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
 ```erlang
-Object = riakc_obj:new({<<"sports">>, <<"nba">>},
-                       <<"champion">>,
-                       <<"Harlem Globetrotters">>,
-                       <<"text/plain">>).
-ObjectWithVclock = riakc_obj:set_vclock(Object, <<"a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=">>).
-riakc_pb_socket:put(Pid, ObjectWithVclock).
+%% Using the Obj object from above:
+
+riakc_obj:vclock(Obj).
+
+%% The vector clock will look something like this in the Erlang shell:
+%% <107,206,97,96,96,96,204,96,202,5,82,28,202,156,255,126,
+%% 6,175,157,255,57,131,41,145,49,143,149,225,240,...>>
 ```
-
-```curl
-curl -XPUT \
-  -H "Content-Type: text/plain" \
-  -d "Harlem Globetrotters" \
-  http://localhost:8098/types/spots/buckets/nba/keys/champion
-```
-
-Other request headers are optional for writes (and not necessary if using a client library):
-
-* `X-Riak-Meta-YOUR_HEADER` for any additional metadata headers that should be stored with the object (eg. `X-Riak-Meta-FirstName`).
 
 #### Write Parameters
 
@@ -353,18 +327,8 @@ Parameter | Default | Description
 
 Here is an example of storing an object (another brief text snippet) under the key `viper` in the bucket `dodge`, which bears the type `cars`, with `w` set to `3`:
 
-```ruby
-bucket = client.bucket('dodge')
-obj = Riak::RObject.new(bucket, 'viper')
-obj.content_type = 'text/plain'
-obj.raw_data = 'vroom'
-obj.store(type: 'cars', r: 3)
-```
-
 ```java
-Location viperKey = new Location("dodge")
-        .setBucketType("cars")
-        .setKey("viper");
+Location viperKey = new Location(new Namespace("cars", "dodge"), "viper");
 BinaryValue text = BinaryValue.create("vroom");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -375,8 +339,16 @@ StoreValue store = new StoreValue.Builder(myKey, obj)
 client.execute(store);
 ```
 
+```ruby
+bucket = client.bucket('dodge')
+obj = Riak::RObject.new(bucket, 'viper')
+obj.content_type = 'text/plain'
+obj.raw_data = 'vroom'
+obj.store(type: 'cars', r: 3)
+```
+
 ```python
-bucket = client.bucket('dodge', bucket_type='cars')
+bucket = client.bucket_type('cars').bucket('dodge')
 obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
@@ -411,18 +383,8 @@ If `returnbody` is set to `true`, any of the response headers expected from a re
 
 Let's give it a shot, using the same object from above:
 
-```ruby
-bucket = client.bucket('dodge')
-obj = Riak::RObject.new(bucket, 'viper')
-obj.content_type = 'text/plain'
-obj.raw_data = 'vroom'
-obj.store(type: 'cars', r: 3, returnbody: true)
-```
-
 ```java
-Location viperKey = new Location("dodge")
-        .setBucketType("cars")
-        .setKey("viper");
+Location viperKey = new Location(new Namespace("cars", "dodge"), "viper");
 BinaryValue text = BinaryValue.create("vroom");
 RiakObject obj = new RiakObject()
         .setContentType("text/plain")
@@ -434,8 +396,16 @@ StoreValue store = new StoreValue.Builder(myKey, obj)
 client.execute(store);
 ```
 
+```ruby
+bucket = client.bucket('dodge')
+obj = Riak::RObject.new(bucket, 'viper')
+obj.content_type = 'text/plain'
+obj.raw_data = 'vroom'
+obj.store(type: 'cars', r: 3, returnbody: true)
+```
+
 ```python
-bucket = client.bucket('dodge', bucket_type='cars')
+bucket = client.bucket_type('cars').bucket('dodge')
 obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
@@ -475,6 +445,20 @@ Normal status codes:
 
 This command will store an object in the bucket `random_user_keys`, which bears the bucket type `users`.
 
+```java
+Namespace locationWithoutKey = new Namespace("users", "random_user_keys");
+BinaryValue text = BinaryValue.create("{'user':'data'}");
+RiakObject obj = new RiakObject()
+        .setContentType("application/json")
+        .setValue(text);
+StoreValue store = new StoreValue.Builder(locationWithoutKey, obj)
+        .build();
+String key = client.execute(store).getLocation().getKeyAsString();
+
+// The Java client will assign a random key along the following lines:
+"ZPFF18PUqGW9efVou7EHhfE6h8a"
+```
+
 ```ruby
 bucket = client.bucket('random_user_keys')
 obj = Riak::RObject.new(bucket)
@@ -488,23 +472,8 @@ obj.key
 "GB8fW6DDZtXogK19OLmaJf247DN"
 ```
 
-```java
-Location locationWithoutKey = new Location("random_user_keys")
-        .setBucketType("users");
-BinaryValue text = BinaryValue.create("{'user':'data'}");
-RiakObject obj = new RiakObject()
-        .setContentType("application/json")
-        .setValue(text);
-StoreValue store = new StoreValue.Builder(locationWithoutKey, obj)
-        .build();
-String key = client.execute(store).getLocation().getKeyAsString();
-
-// The Java client will assign a random key along the following lines:
-"ZPFF18PUqGW9efVou7EHhfE6h8a"
-```
-
 ```python
-bucket = client.bucket('random_user_keys', bucket_type='users')
+bucket = client.bucket_type('users').bucket('random_user_keys')
 obj = RiakObject(client, bucket)
 obj.content_type = 'application/json'
 obj.data = '{"user":"data"}'
@@ -552,22 +521,19 @@ The normal HTTP response codes for `DELETE` operations are `204 No Content` and 
 
 Let's try to delete our `genius` key from the `oscar_wilde` bucket (which bears the type `quotes`) from above.
 
+```java
+Location geniusQuote = new Location(new Namespace("quotes", "oscar_wilde"), "genius");
+DeleteValue delete = new DeleteValue.Builder(geniusQuote).build();
+client.execute(delete);
+```
+
 ```ruby
 bucket = client.bucket('oscar_wilde')
 bucket.delete('genius', type: 'quotes')
 ```
 
-```java
-// Using the "myKey" location from above:
-Location geniusQuote = new Location("oscar_wilde")
-        .setBucketType("quotes")
-        .setKey("genius");
-DeleteValue delete = new DeleteValue.Builder(geniusQuote).build();
-client.execute(delete);
-```
-
 ```python
-bucket = client.bucket('oscar_wilde', bucket_type='quotes')
+bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 bucket.delete('genius')
 ```
 
@@ -629,9 +595,7 @@ Once the type is activated, we can see which properties are associated with our 
 ```java
 // Fetching the bucket properties of a bucket type/bucket combination
 // must be done using a RiakCluster object rather than a RiakClient.
-
-Location testType = new Location("any_bucket_name")
-        .setBucketType("n_val_of_5");
+Namespace testType = new Namespace("n_val_of_5", "any_bucket_name");
 FetchBucketPropsOperation fetchProps = new FetchBucketPropsOperation
         .Builder(testType)
         .build();

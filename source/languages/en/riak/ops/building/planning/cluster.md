@@ -45,15 +45,22 @@ If you want to read more about what the keydir is and what it entails,
 as well as more about Bitcask in general, see the [Hello Bitcask](http://blog.basho.com/2010/04/27/hello-bitcask/) article from the Basho blog as well
 as Basho's [Introduction to Bitcask](http://downloads.basho.com/papers/bitcask-intro.pdf) paper.
 
-When you calculate that your RAM needs will exceed your hardware resources---in other words, if you can't afford the RAM to enable you to use Bitcask---then we recommend that you use LevelDB.
 
-Check out [[Bitcask Capacity Planning]] for more details on designing a Bitcask-backed cluster.
+When you calculate that your RAM needs will exceed your hardware
+resources--in other words, if you can't afford the RAM to enable you to
+use Bitcask---we recommend that you use LevelDB.
+
+Check out [[Bitcask Capacity Planning]] for more details on designing a
+Bitcask-backed cluster.
 
 ### LevelDB
 
-If the RAM requirements for Bitcask are prohibitive, Basho recommends using
-the [[LevelDB]] backend. While LevelDB doesn't require a large amount of RAM to
-operate, supplying it with the maximum memory available will lead to higher performance.
+If RAM requirements for Bitcask are prohibitive, Basho recommends use of
+the LevelDB backend. While LevelDB doesn't require a large amount of RAM
+to operate, supplying it with the maximum amount of memory available
+will lead to higher performance.
+
+For more information see [[LevelDB]].
 
 ## Disk
 
@@ -61,9 +68,9 @@ Now that you have an idea of how much RAM you'll need, it's time to
 think about disk space. Disk space needs are much easier to calculate
 and essentially boil down to this simple equation:
 
-<div class="info">
+```
 Estimated Total Objects * Average Object Size * n_val
-</div>
+```
 
 For example, with
 
@@ -71,7 +78,7 @@ For example, with
 * an average object size of two kilobytes (2,048 bytes)
 * the default `n_val` of 3
 
-you would need just over approximately **286 GBs** of disk space in
+then you would need just over approximately **286 GB** of disk space in
 the entire cluster to accommodate your data.
 
 We believe that databases should be durable out of the box. When we
@@ -81,7 +88,28 @@ calculation assumes that you'll be keeping the entire data set on disk.
 
 Many of the considerations taken when configuring a machine to serve a
 database can be applied to configuring a node for Riak as well. Mounting
-disks with [noatime](http://tldp.org/LDP/solrhe/Securing-Optimizing-Linux-RH-Edition-v1.3/chap6sec73.html) and having separate disks for your OS and Riak data lead to much better performance. See [[System Planning|Planning for a Riak System]] for more information.
+disks with noatime and having separate disks for your OS and Riak data
+lead to much better performance. See [[System Planning|Planning for a Riak System]]
+for more information.
+
+### Disk Space Planning and Ownership Handoff
+
+When Riak nodes fail or leave the cluster for some other reason, other
+nodes in the cluster begin engaging in the process of **ownership
+handoff**, whereby the remaining nodes assume ownership of the
+data partitions handled by the node that has left. While this is an
+expected state of affairs in Riak, one side effect is that this requires
+more intensive disk space usage from the other nodes, in rare cases to
+the point of filling the disk of one or more of those nodes.
+
+When making disk space planning decisions, we recommend that you:
+
+* assume that one or more nodes may be down at any time, and
+* monitor your disk space usage and add additional space when usage exceeds 50-60% of available space.
+
+Another possibility worth considering is using Riak with a filesystem
+that allows for growth, for example [LVM](http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)),
+[RAID](http://en.wikipedia.org/wiki/RAID), or [ZFS](http://en.wikipedia.org/wiki/ZFS).
 
 ## Read/Write Profile
 
