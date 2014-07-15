@@ -1739,6 +1739,13 @@ There are two non-`riak_repl` settings available in `advanced.config`.
 <tbody>
 
 <tr>
+<td><code>add_paths</code></td>
+<td><code>riak_kv</code></td>
+<td>If you are <a href="/ops/advanced/install-custom-code">installing custom code</a> for Riak, e.g. for the purpose of running <a href="/dev/using/mapreduce">MapReduce</a> jobs or <a href="/dev/using/commit-hooks">commit hooks</a>, this setting specifies the path to any compiled <code>.beam</code> files that you wish to use. This is expressed as an absolute path on the node's filesystem, e.g. <code>/tmp</code>.</td>
+<td></td>
+</tr>
+
+<tr>
 <td><tt>cluster_mgr</tt></td>
 <td><tt>riak_core</tt></td>
 <td>The cluster manager listens for connections from remote clusters on the specified IP and port. Every node runs one cluster manager, but only the cluster manager running on the cluster leader will service requests. This can change as nodes enter and leave the cluster.</td>
