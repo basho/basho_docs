@@ -11,8 +11,6 @@ moved: {
 }
 ---
 
-## Overview
-
 Pre- and post-commit hooks are functions that are invoked before or
 after an object has been written to Riak. To provide a few examples,
 commit hooks can:
@@ -138,8 +136,8 @@ Below is a sample JSON object that will be evaluated by the hook:
 ```json
 {
   "user_info": {
-    "name": "Daenerys Targaryen",
-    "age": "17"
+    "name": "Mark Phillips",
+    "age": "25"
   },
   "session_info": {
     "id": 3254425,
