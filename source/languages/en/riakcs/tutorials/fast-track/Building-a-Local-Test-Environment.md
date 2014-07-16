@@ -319,9 +319,9 @@ same Riak CS machine where the `anonymous_user_creation` configuration
 option was enabled:
 
 ```curl
-curl -H 'Content-Type: application/json' \
-  -X POST http://localhost:8080/riak-cs/user \
-  --data '{"email":"admin@admin.com", "name":"admin"}'
+curl -XPOST http://localhost:8080/riak-cs/user \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"admin@admin.com", "name":"admin"}'
 ```
 
 The output of this command will be a JSON object that looks something like this:
