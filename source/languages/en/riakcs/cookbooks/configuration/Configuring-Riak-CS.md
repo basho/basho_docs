@@ -139,6 +139,66 @@ data.riakcs.net
 *.data.riakcs.net
 ```
 
+## Garbage Collection Settings
+
+The following options are available to make adjustments to the Riak CS
+garbage collection system. More details about garbage collection in
+Riak CS are available [[here|Garbage-Collection]].
+
+* `leeway_seconds` --- The number of seconds that must
+  elapse before an object version that has been explicitly deleted or
+  overwritten is eligible for garbage collection. The default value is
+  86400 (24 hours).
+* `gc_interval` --- The interval, in seconds, that the garbage
+  collection daemon runs at to search for and reap eligible object
+  versions. The default value is 900 seconds (15 minutes).
+* `gc_retry_interval` --- The number of seconds that must elapse
+  before another attempt is made to write a record for an object
+  manifest in the `pending_delete` state to the garbage collection
+  eligibility bucket. In general, this condition should be rare, but
+  could happen if an error condition caused the original record in the
+  garbage collection eligibility bucket to be removed prior to the
+  reaping process completing. The default value is 21600 seconds (6 hours).
+* `epoch_start` --- The time that the garbage collection daemon uses
+  to begin collecting keys from the garbage collection eligibility
+  bucket. Records in this bucket use keys based on the epoch time the
+  record is created + `leeway_seconds`. The default is 0 and should be
+  sufficient for general use. A case for adjusting this value is if
+  the secondary index query run by the garbage collection daemon
+  continually times out. Raising the starting value can decrease the
+  range of the query and make it more likely the query will
+  succeed. The value must be specified in Erlang binary format. *e.g.*
+  To set it to 10, specify `<<"10">>`.
+{{#1.4.2+}}
+* `initial_gc_delay` --- The number of seconds to wait in addition to
+  the `gc_interval` value before the first execution of the garbage
+  collection daemon when the Riak CS node is started. This is option
+  could be used in order stagger the execution of garbage collection
+  on multiple nodes since there is currently no coordination among
+  Riak CS nodes. to The default value is 0.
+{{/1.4.2+}}
+{{#1.4.3+}}
+* `max_scheduled_delete_manifests` --- The maximum number of
+  manifests (representative of object versions) that can be in the
+  `scheduled_delete` state for a given key. A value of `unlimited`
+  means there is no maximum, and pruning will not happen based on
+  count. An example of where this option is useful is a use case
+  involving a lot of churn on a fixed set of keys in a time frame that
+  is relatively short compared to the `leeway_seconds` value. This can
+  result in the manifest objects reaching a size that can negatively
+  impact system performance. The default value is `unlimited`.
+* `gc_paginated_indexes` ---  This option indicates whether or not the
+  garbage collection daemon should use paginated secondary index
+  queries when searching the garbage collection bucket for eligible
+  records to reap. Setting this option to `true` is generally more
+  efficient and is recommended for cases where the underlying Riak
+  nodes are of version 1.4.0 or above. The default value is `false`.
+* `gc_batch_size` --- This option is only used when
+  `gc_paginated_indexes` is set to `true`. It represents the size used
+  for paging the results of the secondary index query. The default
+  value is 1000.
+{{/1.4.3+}}
+
 ## Other Riak CS Settings
 
 {{#1.4.0+}}

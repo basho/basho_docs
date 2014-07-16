@@ -323,7 +323,7 @@ riakcs:
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
       - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
       - "[[Monitoring and Metrics]]"
-      - "[[Object Chunking and Garbage Collection]]"
+      - "[[Garbage Collection]]"
       - "[[Rolling Upgrades For Riak CS]]"
       - "[[Riak CS Control]]"
   - title: "S3 Clients"
