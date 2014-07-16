@@ -165,7 +165,7 @@ Here's our function:
 bucket = client.bucket('posts')
 
 def store_row_in_riak(row):
-	key = row[1][0:29].lower().replace(' ', '-')
+	key = row[2][0:29].lower().replace(' ', '-')
 	obj = RiakObject(client, bucket, key)
 	obj.content_type = 'application/json'
 	obj.data = convert_row_to_dict(row)
