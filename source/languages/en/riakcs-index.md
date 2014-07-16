@@ -43,9 +43,9 @@ Riak CS is open source and [[free for download|Download Riak CS]].
 </td>
 </tr>
 <tr>
-<td><strong>Multi-Datacenter Replication<br><i>(Enterprise Edition Only)</i></strong>{{1.3.0+}}</td>
+<td><strong>Multi-Datacenter Replication<br><em>(Enterprise Edition Only)</em></strong>{{1.3.0+}}</td>
 <td>
-<p>Riak CS [[Enterprise Edition|Riak Enterprise]] provides Multi-Datacenter Replication for active backups, disaster recovery, and data locality. Provide low-latency storage wherever your users are and maintain availability even in the event of site failure.</p>
+<p>Riak CS [[Enterprise Edition|Riak Enterprise]] provides Multi-Datacenter Replication for active backups, disaster recovery, and data locality. This enables you to provide low-latency storage for your users wherever they are and to maintain availability even in the event of site failure.</p>
 </td>
 </tr>
 </tbody>
