@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [command-line, riak-cs]
 ---
 
-Riak CS comes equipped with a variety of command-line interfaces that you can use to manage each node in your Riak CS cluster.
+Riak CS comes equipped with a variety of command-line interfaces that you can use to manage each node in your Riak CS cluster. The scripts for these commands are available by default in the `/bin` directory of each node.
 
 ## riak-cs
 
@@ -24,11 +24,19 @@ Usage: riak-cs {start | stop | restart | reboot | ping | console | attach |
 
 Starts the Riak CS node.
 
+```bash
+riak-cs start
+```
+
 If starting the node is successful, you will see no return output. If the node is already running, this command will return `Node is already running!`.
 
 #### stop
 
 Stops the Riak CS node.
+
+```bash
+riak-cs stop
+```
 
 This command will print `ok` if the stoppage is successful.
 
@@ -41,7 +49,13 @@ Node is not running!
 
 #### restart
 
-Stops and then starts a running Riak CS node without exiting the Erlang VM. Prints `ok` when successful. If the node is already stopped or not responding, you will see the following output:
+Stops and then starts a running Riak CS node without exiting the Erlang VM.
+
+```bash
+riak-cs restart
+```
+
+Prints `ok` when successful. If the node is already stopped or not responding, you will see the following output:
 
 ```
 Node <nodename> not responding to pings.
@@ -51,6 +65,10 @@ Node <nodename> not responding to pings.
 
 Stops all applications and starts without restarting the Erlang VM.
 
+```bash
+riak-cs reboot
+```
+
 <div class="note">
 <div class="title">Deprecation notice</div>
 The <code>riak-cs reboot</code> command has been deprecated. We recommend using the <code>riak-cs restart</code> command instead.
@@ -58,15 +76,33 @@ The <code>riak-cs reboot</code> command has been deprecated. We recommend using 
 
 #### ping
 
-Checks whether the Riak CS node is currently running. Prints `pong` when the node is running or `Node <nodename> not responding to pings` when the node is stopped or not responding.
+Checks whether the Riak CS node is currently running.
+
+```bash
+riak-cs ping
+```
+
+Prints `pong` when the node is running or `Node <nodename> not responding to pings` when the node is stopped or not responding.
 
 #### console
 
-Starts the Riak CS node in the foreground, providing direct access to the node via the Erlang shell. If the node is already running in the background, you will see the output `Node is already running - use 'riak-cs attach' instead`. If the command is successful, you can exit the shell by pressing **Ctrl-C** twice.
+Starts the Riak CS node in the foreground, providing direct access to the node via the Erlang shell.
+
+```bash
+riak-cs console
+```
+
+If the node is already running in the background, you will see the output `Node is already running - use 'riak-cs attach' instead`. If the command is successful, you can exit the shell by pressing **Ctrl-C** twice.
 
 #### attach
 
-Attaches to the console of a Riak CS node running in the background, providing access to the Erlang shell and runtime messages. Prints `Node is not running!` when the node cannot be reached.
+Attaches to the console of a Riak CS node running in the background, providing access to the Erlang shell and runtime messages.
+
+```bash
+riak-cs attach
+```
+
+Prints `Node is not running!` when the node cannot be reached.
 
 #### attach-direct
 
