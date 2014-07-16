@@ -54,10 +54,10 @@ The response:
 
 Our basic conversion and storage approach will be the following:
 
-1. Each row will be converted into a JSON object storing all of the fields except the `id` field
-2. The `id` field will not be in the JSON object because the `id`, an integer in this case, will act as our Riak [[key|Keys and Objects#keys]]
-3. All of the JSON objects produced from the `posts` table will be stored in a single Riak [[bucket|Buckets]] called `posts`
-4. The keys for our various objects will be stored in a [[Riak set|Using Data Types#sets]] so that all stored objects can be queried at once if need be
+1. Each row will be converted into a JSON object storing all of the fields except the `id` field.
+2. The `id` field will be excluded from the JSON object stored in Riak. It will not act as each object's [[key|Keys and Objects#keys]]. Instead, the key for each object will be the post's title, up to 30 characters, lowercased and with hyphens separating the words in the title. And so the example post shown above will have the key `riak-development-anti-patterns`.
+3. All of the JSON objects produced from the `posts` table will be stored in a single Riak [[bucket|Buckets]] called `posts`.
+4. The keys for our various objects will be stored in a [[Riak set|Using Data Types#sets]] so that all stored objects can be queried at once if need be.
 
 ## Converting the Table to a List
 
@@ -152,16 +152,21 @@ That will convert each row into a dictionary that looks like this:
 
 ## Storing Row Objects
 
-Then, we can write a function that converts each row (as a dictionary)
-into a Riak object and then stores that object:
+Now that we can convert each row into a Python dictionary, we can store
+each row in Riak directly. Our `store_row_in_riak` function will do two
+things:
+
+1. It will construct a key out of each post's title, taking the first 30 characters, lowercasing the whole string, and then replacing all spaces with a hyphen, i.e. `This is a blog post` will be transformed into `this-is-a-blog-post`.
+2. Each row will be converted into a proper Riak object and stored.
+
+Here's our function:
 
 ```python
 bucket = client.bucket('posts')
 
 def store_row_in_riak(row):
-	# We'll use the "id" column for the key, which is the first field
-	# in each row tuple
-	obj = RiakObject(client, bucket, row[0])
+	key = row[1][0:29].lower().replace(' ', '-')
+	obj = RiakObject(client, bucket, key)
 	obj.content_type = 'application/json'
 	obj.data = convert_row_to_dict(row)
 	obj.store()
@@ -237,7 +242,7 @@ fetch_all_objects('posts')
 
 That will return the full list of Python dictionaries we stored earlier.
 
-## Enhanced Discoverability with Secondary Indexes (2i)
+## Enhanced Discoverability with Secondary Indexes
 
 While storing all of the objects' keys in a Riak set is a good way to be
 able to fetch all objects from the `posts` bucket if necessary, a much
