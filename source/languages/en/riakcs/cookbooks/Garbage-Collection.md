@@ -9,17 +9,17 @@ audience: advanced
 keywords: [garbage, gc, deletion, cleanup]
 ---
 
-In Riak CS, any given named object bears multiple **versions** that are
+In Riak CS, any named object bears multiple **versions** that are
 stored in the system at any given time. Each version of the object is
 accessible via an object manifest that includes a
 [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier) for
-the version.
+that version.
 
-At the system level, Riak CS attempts to have only one
-_active_ manifest for a named object at any given time, although
-multiple active manifests can coexist in some cases. It is important to 
-note, however, that **only one active object manifest is available to
-users accessing Riak CS at any given time**.
+At the system level, Riak CS attempts to have only one _active_ manifest
+for a named object at any given time, although multiple active manifests
+can coexist in some cases. It is important to note, however, that **only
+one active object manifest is available to users accessing Riak CS at
+any given time**.
 
 Garbage collection of object versions involves a variety of actions that
 can be divided into two essential phases:
@@ -44,35 +44,36 @@ means that no active versions remain and thus that the object is no
 longer externally available to users.
 
 Behind the scenes, overwriting or deleting an object also means that a
-set of eligible manifest versions is determined 
-
-Also, as part of the overwrite or delete action, a set of eligible
-manifest versions are determined and the state of each eligible
-manifest is changed to `pending_delete` and the `delete_marked_time`
-field is set to a time value representing the current time.
+set of eligible manifest versions is determined, while the state of each
+eligible manifest is changed to `pending_delete` and the
+`delete_marked_time` field is set to a time value representing the
+current time.
 
 The method for compiling the list of eligible manifests is dependent
-on the operation.
+on the operation, i.e. whether the object is being overwritten or
+deleted.
 
-For object overwrites, the previously `active` manifest version is
-selected along with any manifest versions that are in the `writing`
-state where the `last_block_written_time` field (or the
-`write_start_time` if `last_block_written_time` is undefined) of the
-manifest represents a time value greater than `leeway_seconds` seconds
-ago. If a manifest version remains in the `writing` state for greater
-than `leeway_seconds` seconds, it is assumed that that manifest
-version represents a failed upload attempt and therefore it is
-acceptable to reap any object blocks that may have been
-written. Manifest versions in the `writing` state whose
-`last_block_written_time` has not exceeded the `leeway_seconds`
-threshold are not deemed eligible because they could represent an
-object version that is still in the progress of writing its blocks.
+If the object is being overwritten, the previously `active` manifest
+version is selected along with any manifest versions that are in the
+`writing` state. An object is in a `writing` state if the
+`last_block_written_time` field represents a time value greater than
+`leeway_seconds` ago (or the `write_start_time` in cases where the
+`last_block_written_time` is undefined).
+
+If a manifest version remains in the `writing` state for greater than
+`leeway_seconds` seconds, Riak CS assumes that that manifest version
+represents a failed upload attempt. In that case, Riak CS deems it
+acceptable to reap any object blocks that may have been written.
+Manifest versions in the `writing` state whose `last_block_written_time`
+has not exceeded the `leeway_seconds` threshold are _not_ deemed
+eligible because they could represent an object version that is still in
+the process of writings its blocks.
 
 Object deletes are more straightforward. Since no object is externally
-available to the user after the delete operation, then any manifest
-versions in the `active` or `writing` state are eligible to be
-cleaned up. There is no concern about reaping the object version
-that is currently being written to become the next `active` version.
+available to the user after a delete operation, any manifest versions
+in the `active` or `writing` state are eligible to be cleaned up. In
+this case, there is no concern about reaping the object version that is
+currently being written to become the next `active` version.
 
 Once the states of the eligible manifests have been updated to
 `pending_delete` the manifest information for any `pending_delete`
@@ -93,7 +94,7 @@ After these actions have been attempted, the synchronous portion of the
 garbage collection process is concluded and a response is returned to the
 user who issued the request.
 
-### Garbage Collection Daemon
+## Garbage Collection Daemon
 
 The asynchronous portion of the garbage collection process is
 orchestrated by the garbage collection daemon that wakes up at
@@ -140,7 +141,7 @@ more in the *Object Block Reaping* section below.
 Once the object blocks represented by a key in the `riak-cs-gc` bucket
 have all been deleted, the key is deleted from the `riak-cs-gc` bucket.
 
-### Controlling the GC Daemon
+## Controlling the GC Daemon
 
 The garbage collection daemon may be queried and manipulated using the
 `riak-cs-gc` script. The script is installed to the `sbin` directory
@@ -158,7 +159,7 @@ with no command provided displays a list of the available commands.
 * **resume** - Resume a paused garbage collection batch. It has no
     effect if there is no previously paused batch.
 
-### Manifest Updates
+## Manifest Updates
 
 Manifest versions are retrieved and updated by the
 `riak_cs_manifest_fsm` module with very few exceptions. This module
@@ -166,7 +167,7 @@ encapsulates the logic needed to retrieve the manifests, resolve any
 conflicts due to siblings, and write updated manifest versions back to
 Riak.
 
-### Object Block Reaping
+## Object Block Reaping
 
 The actual deletion of the blocks of an object is managed by the
 `riak_cs_delete_fsm` module. It starts up a number of delete workers
@@ -184,7 +185,7 @@ versions to delete the entire object manifest data structure. The goal
 of this final step is to avoid the cost of scanning through empty
 manifest keys that could linger indefinitely.
 
-### Trade-offs
+## Trade-offs
 
 1. An **slow** reader may have blocks GC'd as it is reading an
 object if the read exceeds the leeway interval.
@@ -196,8 +197,8 @@ dictates due to clock skew.
 and appear active, it would then continually serve requests whose
 blocks could not be found.
 
-### Configuration
+## Configuration
 
-The GC implementation gives the deployer several knobs to adjust
-system performace.  More information about that can be found
-[[here|Configuring-Riak-CS#Garbage-Collection-Settings]].
+Riak CS's garbage collection implementation gives the deployer several
+knobs to adjust for fine-tuning system performace. More information
+can be found in our documentation on [[configuring Riak CS|Configuring Riak CS#Garbage-Collection-Settings]].
