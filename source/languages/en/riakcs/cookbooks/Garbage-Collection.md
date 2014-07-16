@@ -9,33 +9,42 @@ audience: advanced
 keywords: [garbage, gc, deletion, cleanup]
 ---
 
-First, a reminder that for a given named object, multiple internal
-*versions* of that object may be stored in the system at one
-time. Each *version* of the object is accessible by an object manifest
-that includes a UUID identifying the particular version. The system
-always works toward having only one *active* manifest for a named
-object, but in some cases greater than one may coexist. At any one
-time, however, there is only one active version that is externally
-available to a Riak CS user.
+In Riak CS, any given named object bears multiple **versions** that are
+stored in the system at any given time. Each version of the object is
+accessible via an object manifest that includes a
+[UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier) for
+the version.
 
-Garbage collection of an object version involves several different
-actions. These actions can be divided into two phases: synchronous
-actions that occur while the user is waiting for notification of
-successful command completion and asynchronous actions that are not
-directly tied to user actions and occur in the background. These two
-phases are described in more detail in the following sections.
+At the system level, Riak CS attempts to have only one
+_active_ manifest for a named object at any given time, although
+multiple active manifests can coexist in some cases. It is important to 
+note, however, that **only one active object manifest is available to
+users accessing Riak CS at any given time**.
 
-### Synchronous GC Actions
+Garbage collection of object versions involves a variety of actions that
+can be divided into two essential phases:
 
-There are two direct actions a user may take to initiate the garbage
-collection of an object version: overwriting the object with a new
-version or deleting the object.
+1. Synchronous actions that occur in the foreground while the user is waiting for notification of successful command completion
+2. Asynchronous actions that occur in the background and are not directly tied to user actions
 
-When an object version is overwritten a new object manifest is written
-with the state set to `active`. This new version becomes what is
-available to the user. In the case of an explicit delete no `active`
-state manifest versions remain and the object is no longer externally
-available.
+These two phases are described in more detail in the following sections.
+
+## Synchronous GC Actions
+
+Riak CS users can undertake two actions to initiate garbage collection
+of an object version:
+
+1. Overwriting the object with a new version
+2. Deleting the object
+
+When an object version is overwritten, a new object manifest is written
+with the state set to `active`. This new version is then made available
+to Riak CS users. When an object is explicitly deleted, however, this 
+means that no active versions remain and thus that the object is no
+longer externally available to users.
+
+Behind the scenes, overwriting or deleting an object also means that a
+set of eligible manifest versions is determined 
 
 Also, as part of the overwrite or delete action, a set of eligible
 manifest versions are determined and the state of each eligible
