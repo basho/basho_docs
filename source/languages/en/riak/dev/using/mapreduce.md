@@ -125,56 +125,54 @@ curl -XPUT http://localhost:8098/buckets/training/keys/bam \
   -d 'caremad caremad caremad'
 ```
 
-### MapReduce script and deployment
+### MapReduce invocation
+
+To invoke a MapReduce function from a compiled Erlang program requires
+that the function be compiled and distributed to all nodes.
+
+For interactive use, however, it's not necessary to do so; instead, we
+can invoke the client library from the
+[Erlang shell](http://www.erlang.org/doc/man/shell.html) and define
+functions to send to Riak on the fly.
 
 First, the map function, which specifies that we want to get the key
 for each object in the bucket `training` that contains the text
-`caremad`:
+`caremad`.
+
+We're going to generalize and optimize it a bit by supplying a
+compiled regular expression when we invoke MapReduce; our function
+will expect that as the 3rd argument.
 
 ```erlang
-%% Need a function here
+> ReFun = fun(O, _, Re) -> case re:run(riak_object:get_value(O), Re, [global]) of
+>    {match, Matches} -> [{riak_object:key(O), length(Matches)}];
+>    nomatch -> [{riak_object:key(O), 0}]
+> end end.
 ```
 
-Here's the MapReduce job as JSON, stored in a `mapreduce.json` file:
+Next, to call `ReFun` on all keys in the `training` bucket, we can do
+the following. **Do not use this in a production environment; listing
+all keys to identify those in the `training` bucket is a very
+expensive process.**
 
-```json
-{
-  "inputs":"training",
-  "query": [
-    {
-      "map": {
-        "language": "erlang",
-        "source": // function here
-      }
-    }
-  ]
-}
-```
-
-To run the query through the [[HTTP API]], we can `POST` that query
-to the `/mapred` endpoint, specifying `application/json` as the content
-type:
-
-```curl
-curl -XPOST http://localhost:8098/mapred \
-  -H 'Content-Type: application/json' \
-  -d @mapreduce.json
-```
-
-### Output
-
-The output is the key for each object, followed by the count of the word 
-"caremad" for that object. The output should look like this:
-
-```
-[["foo",1],["baz",0],["bar",4],["bam",3]]
+```erlang
+> {ok, Re} = re:compile("caremad").
+{ok,{re_pattern,0,0,
+                <<69,82,67,80,69,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,99,0,100,
+                  ...>>}}
+> {ok, Riak} = riakc_pb_socket:start_link("127.0.0.1", 8087).
+{ok,<0.34.0>}
+> riakc_pb_socket:mapred_bucket(Riak, <<"training">>,
+>    [{map, {qfun, ReFun}, Re, true}]).
+{ok,[{0,
+      [{<<"foo">>,1},{<<"bam">>,3},{<<"baz">>,0},{<<"bar">>,4}]}]}
 ```
 
 ### Recap
 
 We ran an Erlang MapReduce function against the `training` bucket, which
 takes each key/value object in the bucket and searches the text for the
-word "pizza."
+word "caremad."
 
 ## Advanced MapReduce Queries
 
