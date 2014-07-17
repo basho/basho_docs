@@ -22,9 +22,10 @@ provide links to videos and documentation for further exploration.
 How you structure your application to run on Riak should take into
 account the unique needs of your use case, including access patterns
 such as read/write distribution, latency differences between various
-operations, use of Riak features including [[Data Types]], [[MapReduce]],
-[[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]]
-and more. This guide is intended to be illustrative only.
+operations, use of Riak features including [[Data Types]],
+[[MapReduce|Using MapReduce]], [[Search|Using Search]], 
+[[secondary indexes (2i)|Using Secondary Indexes]] and more. This guide 
+is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
 
@@ -63,11 +64,11 @@ administrative changes to schemas.
 Riak has features that allow for more complex session storage use cases.
 The [[Bitcask]] storage backend, for example, supports automatic expiry
 of keys, which frees application developers from implementing manual
-session expiry. Riak's [[MapReduce]] system can also be used to perform
-batch processing analysis on large bodies of session data, for example
-to compute the average number of active users. If sessions must be
-retrieved using multiple keys (e.g. a UUID or email address),
-[[using secondary indexes]] can provide an easy solution.
+session expiry. Riak's [[MapReduce|Using MapReduce]] system can also be 
+used to perform batch processing analysis on large bodies of session 
+data, for example to compute the average number of active users. If 
+sessions must be retrieved using multiple keys (e.g. a UUID or email 
+address), [[using secondary indexes]] can provide an easy solution.
 
 #### Community Examples
 
@@ -122,7 +123,7 @@ involves serving reads.
 ## Log Data
 
 A common use case for Riak is storing large amounts of log data, either
-for analysis using [[MapReduce]] or as a storage system used in
+for analysis [[using MapReduce]] or as a storage system used in
 conjunction with a secondary analytics cluster used to perform more
 advanced analytics tasks. To store log data, you can use a bucket called
 `logs` (just to give an example) and use a unique value, such as a date,
@@ -172,7 +173,7 @@ That data could then be queried on the basis of the interval.
 Alternatively, a timestamp could be attached to each object as a
 [[secondary index|Using Secondary Indexes]], which would allow you to
 perform queries on specific time interval ranges or to perform
-[[MapReduce]] queries against the indexes.
+[[MapReduce|Using MapReduce]] queries against the indexes.
 
 #### Complex Case
 
@@ -302,7 +303,7 @@ In Riak, you can store content of any kind, from HTML files to plain
 text to JSON or XML or another document type entirely. Keep in mind that
 data in Riak is opaque, with the exception of [[Riak Data Types|Data Types]],
 and so Riak won't "know" about the object unless it is indexed
-[[using Riak Search]] or [[using secondary indexes]].
+[[using Riak Search|Using Search]] or [[using secondary indexes]].
 
 #### Complex Case
 
@@ -321,7 +322,7 @@ with comments would require your application to call from the posts
 and comments buckets to assemble the view.
 
 Other possible cases may involve performing operations on content beyond
-key/value pairs. [[Using Riak Search]] is recommended for use cases
+key/value pairs. [[Riak Search|Using Search]] is recommended for use cases
 involving full-text search. For lighter-weight querying,
 [[using secondary indexes]] (2i) enables you to add metadata to objects to
 either query for exact matches or to perform range queries. 2i also
