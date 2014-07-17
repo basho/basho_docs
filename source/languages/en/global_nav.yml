@@ -155,6 +155,7 @@ riak:
           - "[[Security and Firewalls]]"
           - "[[Ring Resizing]]"
           - "[[Object Deletion]]"
+          - "[[Runtime Interaction]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
