@@ -41,7 +41,7 @@ installations on supported platforms
 
 OS | Location
 :--|:--------
-**CentOS & Linux** | `/usr/lib64/riak/erts-5.9.1/bin/erlc`
+**CentOS & Red Hat** | `/usr/lib64/riak/erts-5.9.1/bin/erlc`
 **Debian & Ubuntu** | `/usr/lib64/riak/erts-5.9.1/bin/erlc`
 **FreeBSD** | `/usr/local/lib/riak/erts-5.9.1/bin/erlc`
 **SmartOS** | `/opt/local/lib/riak/erts-5.9.1/bin/erlc`
