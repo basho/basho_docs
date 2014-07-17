@@ -16,8 +16,8 @@ and later: [[registers|Data Types#Registers]],
 
 While that tutorial covers the basics of using Data Types, most 
 real-world applications would need to use Data Types in a more 
-structured and less ad hoc way. Here, we'll walk through a basic example 
-of how an application might approach Data Types in conjunction with 
+structured way. Here, we'll walk through a basic example of how an 
+application might approach Data Types in conjunction with
 application-side data models, creating a `User` type as the basis for a 
 CRM-style user information store.
 
@@ -92,9 +92,10 @@ there we need to choose a bucket and key. In this tutorial, we'll assume
 that all user maps are stored in the bucket `maps`, and for the key 
 we'll do something a bit more creative: we'll construct a key out of 
 each user's first and last name, with an underscore in the middle. And 
-so the map for the user Brian May would have the key `brian_may`. Below, 
-we'll start building our class, initializing the class with a reference 
-to the appropriate map:
+so the map for the user Brian May would have the key `brian_may`, Ozzy
+Osbourne would have the key `ozzie_osbourne`, etc. Below, we'll start 
+building our class, initializing the class with a reference to the 
+appropriate map:
 
 
 ```ruby
