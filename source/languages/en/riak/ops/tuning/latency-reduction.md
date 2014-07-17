@@ -66,13 +66,13 @@ node when configuration changes have been made.
 
 Large objects can also impact latency even if they're only present on
 some nodes. If increased latency occurs only on N nodes, where N is your
-[[replication factor|Replication Properties#n-value-and-replication]] (or `n_val`),
-this could indicate that a single large object and its replicas are
-slowing down _all_ requests on those nodes.
+[[replication factor|Replication Properties#n-value-and-replication]],
+also known as `n_val`, this could indicate that a single large object
+and its replicas are slowing down _all_ requests on those nodes.
 
 If large objects are suspected, you should also audit the behavior of
 siblings in your cluster, as explained in the [[next section|Latency
-Reduction Checklist#siblings]].
+Reduction Checklist#Siblings]].
 
 ## Siblings
 
@@ -83,7 +83,7 @@ resolves the conflict without client intervention. While sibling
 production is normal, [[sibling explosion|Vector Clocks#sibling-explosion]]
 is a problem that can come about if many siblings of an object are
 produced. The negative effects are the same as those associated with
-[[large objects|Latency Reduction Checklist#large-objects]].
+[[large objects|Latency Reduction Checklist#Large-Objects]].
 
 ### Mitigation
 
@@ -181,8 +181,7 @@ be worthwhile to revisit your OS-specific configurations. The following
 guides may be of help:
 
 * [[Open files limit]]
-* [[File system tuning]]
-* General [[Linux system tuning]]
+* General [[Linux performance tuning]]
 * [[AWS performance tuning]] if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
 ## I/O and Network Bottlenecks
