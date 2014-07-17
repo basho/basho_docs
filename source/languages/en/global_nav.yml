@@ -199,6 +199,7 @@ riak:
           - "[[Cassandra|Riak Compared to Cassandra]]"
           - "[[Couchbase|Riak Compared to Couchbase]]"
           - "[[CouchDB|Riak Compared to CouchDB]]"
+          - "[[Elasticsearch|Riak Search Compared to Elasticsearch]]"
           - "[[HBase|Riak Compared to HBase]]"
           - "[[MongoDB|Riak Compared to MongoDB]]"
           - "[[Neo4j|Riak Compared to Neo4j]]"
