@@ -8,22 +8,39 @@ audience: intermediate
 keywords: [developers, data-types]
 ---
 
-In versions of 2.0 and greater, Riak users can make use of a variety of Riak-specific data types inspired by research on convergent replicated data types ([[Data Types]]), more commonly known as CRDTs.
+In versions of 2.0 and greater, Riak users can make use of a variety of 
+Riak-specific data types inspired by research on convergent replicated 
+[[data types]], more commonly known as CRDTs.
 
-While Riak was originally built as a mostly data-agnostic key/value store, Riak Data Types enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on five CRDT-inspired data types: [[counters|Data Types#Counters]], [[flags|Data Types#Flags]], [[registers|Data Types#Registers]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
+While Riak was originally built as a mostly data-agnostic key/value 
+store, Riak Data Types enable you to use Riak as a _data-aware_ system 
+and thus to perform a variety of transactions on five data types drawn
+from research on CRDTs: [[counters|Data Types#Counters]], 
+[[flags|Data Types#Flags]], [[registers|Data Types#Registers]], 
+[[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
 
-Of those five types, counters, sets, and maps can be used as bucket-level data types, whereas flags and registers must be embedded in maps (more on that [[below|Using Data Types#Maps]]).
+Of those five types, counters, sets, and maps can be used as 
+bucket-level data types, whereas flags and registers must be embedded in 
+maps (more on that [[below|Using Data Types#Maps]]).
 
 <div class="note">
 <div class="title">Note</div>
-Counters are the one Riak Data Type available in versions prior to 2.0, introduced in version 1.4. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak 2.0+, we strongly recommend that you follow the usage documentation here rather than documentation for the older version of counters.
+Counters are the one Riak Data Type available in versions prior to 2.0, 
+introduced in version 1.4. The implentation of counters in version 2.0 
+has been almost completely revamped, and so if you are using Riak 2.0+, 
+we strongly recommend that you follow the usage documentation here 
+rather than documentation for the older version of counters.
 </div>
 
 ## Setting Up Buckets to Use Riak Data Types
 
-In order to use Riak Data Types, you must first create a [[bucket type|Using Bucket Types]] that sets the `datatype` bucket parameter to either `counter`, `map`, or `set`.
+In order to use Riak Data Types, you must first create a 
+[[bucket type|Using Bucket Types]] that sets the `datatype` bucket 
+parameter to either `counter`, `map`, or `set`, depending on which Riak
+Data Type you want to work with.
 
-The following would create a separate bucket type for each of the three bucket-level data types:
+The following would create a separate bucket type for each of the three 
+bucket-level data types:
 
 ```bash
 riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
@@ -31,39 +48,55 @@ riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
 riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
 ```
 
-**Note**: The names `maps`, `sets`, and `counters` are _not_ reserved terms. You are always free to name bucket types whatever you like, with the exception of `default`.
+**Note**: The names `maps`, `sets`, and `counters` are _not_ reserved 
+terms. You are always free to name bucket types whatever you like, with 
+the exception of `default`.
 
-Once you've created a Riak Data Type-specific bucket type, you can check to make sure that the bucket property configuration associated with that type is correct. This can be done through the `riak-admin` interface.
+Once you've created a Riak Data Type-specific bucket type, you can check 
+to make sure that the bucket property configuration associated with that 
+type is correct. This can be done through the `riak-admin` interface.
 
 ```bash
 riak-admin bucket-type status maps
 ```
 
-This will return a list of bucket properties and their associated values in the form of `property: value`. If our `maps` bucket type has been set properly, we should see the following pair in our console output:
+This will return a list of bucket properties and their associated values 
+in the form of `property: value`. If our `maps` bucket type has been set 
+properly, we should see the following pair in our console output:
 
 ```
 datatype: map
 ```
 
-If a bucket type has been properly constructed, it needs to be activated to be usable in Riak. This can also be done using the `bucket-type` command interface:
+If a bucket type has been properly constructed, it needs to be activated 
+to be usable in Riak. This can also be done using the `bucket-type` 
+command interface:
 
 ```bash
 riak-admin bucket-type activate maps
 ```
 
-To check whether activation has been successful, simply use the same `bucket-type status` command shown above.
+To check whether activation has been successful, simply use the same 
+`bucket-type status` command shown above.
 
 ## Usage Examples
 
-The examples below show you how to use Riak Data Types at the application level. Code samples are currently available in Ruby (using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
+The examples below show you how to use Riak Data Types at the 
+application level. Code samples are currently available in Ruby 
+(using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
 
-All examples will use the bucket type names from above (`counters`, `sets`, and `maps`).
+All examples will use the bucket type names from above (`counters`, 
+`sets`, and `maps`).
 
 ## Counters
 
-Counters are a bucket-level Riak Data Type that can be used either by themselves, i.e. associated with a bucket/key pair, or within a map. The examples in this section will show you how to use counters on their own.
+Counters are a bucket-level Riak Data Type that can be used either by 
+themselves, i.e. associated with a bucket/key pair, or within a map. The 
+examples in this section will show you how to use counters on their own.
 
-First, we need to create and name a Riak bucket to house our counter (or as many counters as we'd like). We'll keep it simple and name our bucket `counters`:
+First, we need to create and name a Riak bucket to house our counter (or 
+as many counters as we'd like). We'll keep it simple and name our bucket 
+`counters`:
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified
@@ -77,16 +110,16 @@ Namespace countersBucket = new Namespace("counters", "counters");
 ```curl
 curl http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
 
-# Note that this differs from the URL structure for non-Data Type requests,
-# which end in /keys/<key>
+# Note that this differs from the URL structure for non-Data Type
+# requests, which end in /keys/<key>
 ```
 
 ```ruby
 bucket = client.bucket('counters')
 
-# In the Ruby client, buckets are no instantiated bearing a bucket type.
-# Instead, bucket types are specified when the bucket performs operations.
-# Here is an example using our "counters" type:
+# In the Ruby client, buckets do not bear a bucket type when they are
+# instantiated. Instead, bucket types are specified when the bucket 
+# performs operations. Here is an example using our "counters" type:
 
 bucket.get('<key>', type: 'counters')
 ```
@@ -103,11 +136,12 @@ bucket = client.bucket_type('counter_bucket').bucket('counters')
 <div class="note">
 <div class="title">Getting started with Riak clients</div>
 If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting started with
-your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+[[client libraries]], you can find more information about getting 
+started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
 </div>
 
-To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
+To create a counter, you need to specify a bucket/key pair to hold that 
+counter. Here is the general syntax for doing so:
 
 ```java
 // Here, we'll use the Namespace object that we created above and
@@ -124,11 +158,14 @@ Location counter = new Location(new Namespace("counters", "counters"), "<key>");
 ```
 
 ```curl
-# This will create a counter with an initial value of 0
+# This will create a counter and increment it by 1:
 
 curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/<key> \
   -H "Content-Type: application/json" \
-  -d 0
+  -d 1
+
+# You cannot create empty counters in Riak. They come into being only
+# when they are incremented or decremented.
 ```
 
 ```ruby
@@ -150,7 +187,10 @@ counter = Counter(bucket, key)
 %% client. See below for more information.
 ```
 
-Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counters` bucket type like this:
+Let's say that we want to create a counter called `traffic_tickets` in 
+our `counters` bucket to keep tabs on our legal misbehavior. We can 
+create this counter and ensure that the `counters` bucket will use our 
+`counters` bucket type like this:
 
 ```java
 // Using the countersBucket Namespace object from above:
@@ -190,7 +230,9 @@ Counter = riakc_counter:new().
 %% structure with a bucket type, bucket, and key later on.
 ```
 
-Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
+Now that our client knows which bucket/key pairing to use for our 
+counter, `traffic_tickets` will start out at 0 by default. If we happen 
+to get a ticket that afternoon, we would need to increment the counter:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -223,7 +265,10 @@ counter.store()
 Counter1 = riakc_counter:increment(Counter).
 ```
 
-The default value of an increment operation is 1, but you can increment by more than one if you'd like (but always by an integer). Let's say that we decide to spend an afternoon flaunting traffic laws and manage to rack up five tickets:
+The default value of an increment operation is 1, but you can increment 
+by more than one if you'd like (but always by an integer). Let's say 
+that we decide to spend an afternoon flaunting traffic laws and manage 
+to rack up five tickets:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -252,7 +297,8 @@ curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traff
   -d 5
 ```
 
-If we're curious about how many tickets we have accumulated, we can simply retrieve the value of the counter at any time:
+If we're curious about how many tickets we have accumulated, we can 
+simply retrieve the value of the counter at any time:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -310,7 +356,9 @@ curl http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tic
 {"type":"counter", "value": <value>}
 ```
 
-Any good counter needs to decrement in addition to increment, and Riak counters allow you to do precisely that. Let's say that we hire an expert who manages to get a traffic ticket stricken from the record:
+Any good counter needs to decrement in addition to increment, and Riak 
+counters allow you to do precisely that. Let's say that we hire an 
+expert who manages to get a traffic ticket stricken from the record:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -363,9 +411,12 @@ curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traff
 
 ## Sets
 
-As with counters (and maps, as shown below), using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
+As with counters (and maps, as shown below), using sets involves setting 
+up a bucket/key pair to house a set and running set-specific operations 
+on that pair.
 
-Here is the general syntax for setting up a bucket type/bucket/key combination to handle a set:
+Here is the general syntax for setting up a bucket type/bucket/key 
+combination to handle a set:
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified
@@ -411,11 +462,14 @@ set = Set(bucket, key)
 ```curl
 curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 
-# Note that this differs from the URL structure for non-Data Type requests,
-# which end in /keys/<key>
+# Note that this differs from the URL structure for non-Data Type
+# requests, which end in /keys/<key>
 ```
 
-Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set, simply called `set`, stored in the key `cities` in the bucket `travel` (using the `sets` bucket type we created in the previous section):
+Let's say that we want to use a set to store a list of cities that we 
+want to visit. Let's create a Riak set, simply called `set`, stored in 
+the key `cities` in the bucket `travel` (using the `sets` bucket type we 
+created in the previous section):
 
 ```java
 // In the Java client, you specify the location of Data Types
@@ -457,11 +511,13 @@ Set = riakc_set:new().
 ```
 
 ```curl
-# You cannot create an empty set through the HTTP interface. Sets can only
-# be created when an element is added to them, as in the examples below.
+# You cannot create an empty set through the HTTP interface. Sets can 
+# only be created when an element is added to them, as in the examples
+# below.
 ```
 
-Upon creation, our set is empty. We can verify that it is empty at any time:
+Upon creation, our set is empty. We can verify that it is empty at any 
+time:
 
 ```java
 // Using our "cities" Location from above:
@@ -499,7 +555,8 @@ curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 not found
 ```
 
-But let's say that we read a travel brochure saying that Toronto and Montreal are nice places to go. Let's add them to our `cities` set:
+But let's say that we read a travel brochure saying that Toronto and 
+Montreal are nice places to go. Let's add them to our `cities` set:
 
 ```java
 // Using our "cities" Location from above:
@@ -533,7 +590,9 @@ curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -d '{"add_all":["Toronto", "Montreal"]}'
 ```
 
-Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, but if we visit them, we won't have time to visit Montreal. Let's remove Montreal and add the others:
+Later on, we hear that Hamilton and Ottawa are nice cities to visit in 
+Canada, but if we visit them, we won't have time to visit Montreal. 
+Let's remove Montreal and add the others:
 
 ```java
 // Using our "cities" Location from above:
@@ -704,11 +763,17 @@ riakc_set:size(Set5).
 
 ## Maps
 
-The map is in many ways the richest of the Riak Data Types because all of the other Data Types can be embedded within them, _including maps themselves_, to create arbitrarily complex custom Data Types out of a few basic building blocks.
+The map is in many ways the richest of the Riak Data Types because all 
+of the other Data Types can be embedded within them, _including maps 
+themselves_, to create arbitrarily complex custom Data Types out of a 
+few basic building blocks.
 
-The semantics of dealing with counters, sets, and maps within maps are usually very similar to working with those types at the bucket level, and so usage is usually very intuitive.
+The semantics of dealing with counters, sets, and maps within maps are 
+usually very similar to working with those types at the bucket level, 
+and so usage is usually very intuitive.
 
-The general syntax for creating a Riak map is directly analogous to the syntax for creating other data types:
+The general syntax for creating a Riak map is directly analogous to the 
+syntax for creating other data types:
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified
@@ -747,7 +812,12 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # which end in /keys/<key>
 ```
 
-Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `maps` bucket type from above):
+Let's say that we want to use Riak to store information about our 
+company's customers. We'll use the bucket `customers` to do so. Each 
+customer's data will be contained in its own key in the `customers` 
+bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our 
+bucket and simply call it `map` for simplicity's sake (we'll use the 
+`maps` bucket type from above):
 
 ```java
 // In the Java client, you specify the location of Data Types
@@ -786,17 +856,20 @@ Map = riakc_map:new().
 ```
 
 ```curl
-# You cannot create an empty map through the HTTP interface. Maps can only
-# be created when a field is added to them, as in the examples below.
+# You cannot create an empty map through the HTTP interface. Maps can 
+# only be created when a field is added to them, as in the examples 
+# below.
 ```
 
 ### Registers and Flags
 
-Registers and flags cannot be used on their own in Riak. You cannot use a bucket/key pair as a register or flag directly.
+Registers and flags cannot be used on their own in Riak. You cannot use 
+a bucket/key pair as a register or flag directly.
 
 #### Registers Within Maps
 
-The first piece of info we want to store in our map is Ahmed's name and phone number, both of which are best stored as registers:
+The first piece of info we want to store in our map is Ahmed's name and 
+phone number, both of which are best stored as registers:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -815,7 +888,8 @@ client.execute(update);
 map.registers['first_name'] = 'Ahmed'
 map.registers['phone_number'] = '5551234567'
 
-# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+# Integers need to be stored as strings and then converted back when the 
+# data is retrieved. The following would work as well:
 map.registers['phone_number'] = 5551234567.to_s
 ```
 
@@ -823,7 +897,8 @@ map.registers['phone_number'] = 5551234567.to_s
 map.registers['first_name'].assign('Ahmed')
 map.registers['phone_number'].assign('5551234567')
 
-# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+# Integers need to be stored as strings and then converted back when the 
+# data is retrieved. The following would work as well:
 map.registers['phone_number'].assign(str(5551234567))
 
 map.store()
@@ -839,9 +914,9 @@ Map2 = riakc_map:update({<<"phone_number">>, register},
 ```
 
 ```curl
-# Updates can be performed all at once. The following will create two new
-# registers in the map and also set the value of those registers to the
-# desired values
+# Updates can be performed all at once. The following will create two
+# new registers in the map and also set the value of those registers to 
+# the desired values
 
 curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info \
   -H "Content-Type: application/json" \
@@ -854,16 +929,20 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }'
 ```
 
-This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
+This will work even though registers `first_name` and `phone_number` did 
+not previously exist, as Riak will create those registers for you.
 
 #### Flags Within Maps
 
-Now let's say that we add an Enterprise plan to our pricing model. We'll create an `enterprise_customer` flag to track whether Ahmed has signed up for the new plan. He hasn't yet, so we'll set it to `false`:
+Now let's say that we add an Enterprise plan to our pricing model. We'll 
+create an `enterprise_customer` flag to track whether Ahmed has signed 
+up for the new plan. He has indeed signed up for the plan, so we'll set
+the flag to `true`:
 
 ```java
 // Using our "ahmedMap" location from above:
 
-FlagUpdate setToFalse = new FlagUpdate().set(false);
+FlagUpdate setToFalse = new FlagUpdate().set(true);
 MapUpdate mu = new MapUpdate()
         .update("enterprise_customer", setToFalse);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
@@ -872,17 +951,17 @@ client.execute(update);
 ```
 
 ```ruby
-map.flags['enterprise_customer'] = false
+map.flags['enterprise_customer'] = true
 ```
 
 ```python
-map.flags['enterprise_customer'].disable()
+map.flags['enterprise_customer'].enable()
 map.store()
 ```
 
 ```erlang
 Map4 = riakc_map:update({<<"enterprise_customer">>, flag},
-                        fun(F) -> riakc_flag:disable(F) end,
+                        fun(F) -> riakc_flag:enable(F) end,
                         Map3).
 ```
 
@@ -892,7 +971,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   -d '
   {
     "update": {
-      "enterprise_customer_flag": "disable"
+      "enterprise_customer_flag": "enable"
     }
   }'
 ```
@@ -906,16 +985,20 @@ FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
 FetchMap.Response response = client.execute(fetch);
 RiakMap map = response.getDatatype();
 System.out.println(map.getFlag("enterprise_customer").view());
+
+// true
 ```
 
 ```ruby
 map.flags['enterprise_customer']
 
-# false
+# true
 ```
 
 ```python
 map.reload().flags['enterprise_customer'].value
+
+# True
 ```
 
 ```erlang
@@ -924,15 +1007,21 @@ map.reload().flags['enterprise_customer'].value
 %% sent to the server.
 
 riakc_map:dirty_value(Map4).
+
+%% true
 ```
 
 ```curl
 curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
+
+# true
 ```
 
 #### Counters Within Maps
 
-We also want to know how many times Ahmed has visited our website. We'll use a `page_visits` counter for that and run the following operation when Ahmed visits our page for the first time:
+We also want to know how many times Ahmed has visited our website. We'll 
+use a `page_visits` counter for that and run the following operation 
+when Ahmed visits our page for the first time:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -975,11 +1064,16 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }'
 ```
 
-Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
+Even though the `page_visits` counter did not exist previously, the 
+above operation will create it (with a default starting point of 0) and 
+the increment operation will bump the counter up to 1.
 
 #### Sets Within Maps
 
-We'd also like to know what Ahmed's interests are so that we can better design a user experience for him. Through his purchasing decisions, we find out that Ahmed likes robots, opera, and motorcyles. We'll store that information in a set inside of our map:
+We'd also like to know what Ahmed's interests are so that we can better 
+design a user experience for him. Through his purchasing decisions, we 
+find out that Ahmed likes robots, opera, and motorcyles. We'll store 
+that information in a set inside of our map:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1035,7 +1129,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }'
 ```
 
-We can then verify that the `interests` set includes these three interests:
+We can then verify that the `interests` set includes these three 
+interests:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1073,7 +1168,9 @@ riakc_map:dirty_value(Map6).
 curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info?include_context=false
 ```
 
-We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
+We learn from a recent purchasing decision that Ahmed actually doesn't 
+seem to like opera. He's much more keen on indie pop. Let's change the 
+`interests` set to reflect that:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1126,11 +1223,18 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
 
 #### Maps Within Maps (Within Maps?)
 
-We've stored a wide of variety of information---of a wide variety of types---within the `ahmed_info` map thus far, but we have yet to explore recursively storing maps within maps (which can be nested as deeply as you wish).
+We've stored a wide of variety of information---of a wide variety of 
+types---within the `ahmed_info` map thus far, but we have yet to explore 
+recursively storing maps within maps (which can be nested as deeply as 
+you wish).
 
-Our company is doing well and we have lots of useful information about Ahmed, but now we want to store information about Ahmed's contacts as well. We'll start with storing some information about Ahmed's colleague Annika inside of a map called `annika_info`.
+Our company is doing well and we have lots of useful information about 
+Ahmed, but now we want to store information about Ahmed's contacts as 
+well. We'll start with storing some information about Ahmed's colleague 
+Annika inside of a map called `annika_info`.
 
-First, we'll store Annika's first name, last name, and phone number in registers:
+First, we'll store Annika's first name, last name, and phone number in 
+registers:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1202,7 +1306,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   '
 ```
 
-The value of a register in a map can be obtained without a special method:
+The value of a register in a map can be obtained without a special 
+method:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1231,16 +1336,17 @@ riakc_map:dirty_value(Map14).
 ```
 
 ```curl
-# Specific values for fields inside of maps (or maps within maps, for that
-# matter), cannot be obtained directly through the HTTP interface.
+# Specific values for fields inside of maps (or maps within maps, for 
+# that matter), cannot be obtained directly through the HTTP interface.
 ```
 
 Registers can also be removed:
 
 ```java
 // This example uses our "ahmedMap" location from above. Operations that
-// remove fields from maps require that you first fetch the opaque context
-// attached to the map and then include the context in the update operation:
+// remove fields from maps require that you first fetch the opaque
+// context attached to the map and then include the context in the
+// update operation:
 
 FetchMap fetch = new FetchMap.Builder(ahmedMap)
 		.build();
@@ -1287,7 +1393,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   '
 ```
 
-Now, we'll store whether Annika is subscribed to a variety of plans within the company as well:
+Now, we'll store whether Annika is subscribed to a variety of plans 
+within the company as well:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1390,11 +1497,12 @@ riakc_map:dirty_value(Map18).
 ```
 
 ```curl
-# Specific values for fields inside of maps (or maps within maps, for that
-# matter), cannot be obtained directly through the HTTP interface.
+# Specific values for fields inside of maps (or maps within maps, for 
+# that matter), cannot be obtained directly through the HTTP interface.
 ```
 
-It's also important to track the number of purchases that Annika has made with our company. Annika just made her first widget purchase:
+It's also important to track the number of purchases that Annika has 
+made with our company. Annika just made her first widget purchase:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1546,7 +1654,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   '
 ```
 
-If we wanted to add store information about one of Annika's specific purchases, we could do so within a map:
+If we wanted to add store information about one of Annika's specific 
+purchases, we could do so within a map:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1618,11 +1727,20 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
 
 ## Data Types and Context
 
-When performing normal key/value updates in Riak, we advise that you use [[vector clocks]], which enable Riak to make intelligent decisions behind the scenes about which objects should be considered more causally recent. In some of the examples above, you saw references to **context** metadata included with each Data Type stored in Riak.
+When performing normal key/value updates in Riak, we advise that you use 
+[[vector clocks]], which enable Riak to make intelligent decisions 
+behind the scenes about which objects should be considered more causally 
+recent. In some of the examples above, you saw references to **context** 
+metadata included with each Data Type stored in Riak.
 
-Data Type contexts are similar to [[vector clocks]] in that they are opaque (i.e. not readable by humans) and also perform a similar function to that of vector clocks, i.e. they inform Riak which version of the Data Type a client is attempting to modify. This information is required by Riak when making decisions about convergence.
+Data Type contexts are similar to [[vector clocks]] in that they are 
+opaque (i.e. not readable by humans) and also perform a similar function 
+to that of vector clocks, i.e. they inform Riak which version of the 
+Data Type a client is attempting to modify. This information is required 
+by Riak when making decisions about convergence.
 
-In the example below, we'll fetch the context from the user data map we created for Ahmed:
+In the example below, we'll fetch the context from the user data map we 
+created for Ahmed:
 
 
 ```java
@@ -1665,13 +1783,17 @@ In the Ruby, Python, and Erlang clients, you will not need to manually handle co
 
 #### Context and the Java Client
 
-With the Java client, you'll need to manually fetch and return Data Type contexts for the following operations:
+With the Java client, you'll need to manually fetch and return Data Type 
+contexts for the following operations:
 
 * Disabling a flag within a map
 * Removing an item from a set (whether the set is on its own or within a map)
 * Removing a field from a map
 
-Without context, these operations simply will not succeed due to the convergence logic driving Riak Data Types. The example below shows you how to fetch a Data Type's context and then pass it back to Riak. More specifially, we'll remove the `paid_account` flag from the map:
+Without context, these operations simply will not succeed due to the 
+convergence logic driving Riak Data Types. The example below shows you 
+how to fetch a Data Type's context and then pass it back to Riak. More 
+specifially, we'll remove the `paid_account` flag from the map:
 
 ```java
 // This example uses our "ahmedMap" location from above:
