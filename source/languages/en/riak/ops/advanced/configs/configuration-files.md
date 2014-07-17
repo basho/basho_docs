@@ -1725,7 +1725,7 @@ If you are upgrading to Riak 2.x and wish to upgrade to the new [[Riak Search|Us
 
 #### Other settings
 
-There are two non-`riak_repl` settings available in `advanced.config`.
+There are three non-`riak_repl` settings available in `advanced.config`.
 
 <table>
 <thead>
