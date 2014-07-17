@@ -94,3 +94,8 @@ If you are connecting to Riak using one of Basho's official
 started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
 </div>
 
+## Strong Consistency and Riak Search
+
+Riak's strong consistency feature currently works with [[Riak Search|Using Search]], meaning that objects indexed by Riak Search can be subject to strong consistency requirements. Please be aware, however, that there is an important known caveat: **Riak Search indexes themselves are currently eventually consistent only**.
+
+This means that failed PUTs to [[strongly consistent buckets|Using Strong Consistency#Creating-a-Strongly-Consistent-Bucket-Type]] can potentially create false positive indexes. Those indexes will be [[repaired upon read|Active Anti-Entropy#Read-Repair-vs-Active-Anti-Entropy]].
