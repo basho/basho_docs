@@ -126,7 +126,7 @@ The directories in which Riak stores data, logs, dependencies, executables, and 
 
 <tr>
 <td><code>platform_bin_dir</code></td>
-<td>The directory in which the `[[riak|riak Command Line]]`, `[[riak-admin|riak-admin Command Line]]`, `riak-debug`, and `[[search-cmd|search Command Line]]` executables are stored.</td>
+<td>The directory in which the <code>[[riak|riak Command Line]]</code>, <code>[[riak-admin|riak-admin Command Line]]</code>, <code>riak-debug</code>, and (the now deprecated) <code>search-cmd</code> executables are stored.</td>
 <td><code>./bin</code></td>
 </tr>
 
@@ -927,7 +927,7 @@ Every Riak node has a name and a cookie used to facilitate inter-node communicat
 
 ## JavaScript MapReduce
 
-Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce]] system.
+Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce|Using MapReduce]] system.
 
 <table class="riak-conf">
 <thead>
@@ -1415,7 +1415,7 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 
 ## SNMP
 
-Configurable parameters for the [[Simple Network Management Protocol|SNMP Configuration]] (SNMP) server built into [[Riak Enterprise]].
+Configurable parameters for the [[Simple Network Management Protocol|SNMP Configuration]] \(SNMP) server built into [[Riak Enterprise]].
 
 <table class="riak-conf">
 <thead>
@@ -1710,7 +1710,7 @@ Riak's `riak_repl` subsystem.
 
 #### Upgrading Riak Search with `advanced.config`
 
-If you are upgrading to Riak 2.x and wish to upgrade to the new [[Search|Using Search]] (codename Yokozuna), you will need to enable legacy Search while the upgrade is underway. You can add the following snippet to your `advanced.config` configuration to do so:
+If you are upgrading to Riak 2.x and wish to upgrade to the new [[Riak Search|Using Search]] \(codename Yokozuna), you will need to enable legacy Search while the upgrade is underway. You can add the following snippet to your `advanced.config` configuration to do so:
 
 ```advancedconfig
 [
