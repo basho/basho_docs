@@ -279,7 +279,7 @@ seeks to write the object to is unavailable.
 
 ## Primary Reads and Writes with PR and PW
 
-In Riak's replication model, there are N [[vnodes|Riak Glossay#vnodes]],
+In Riak's replication model, there are N [[vnodes|Riak Glossary#vnodes]],
 called *primary vnodes*, that hold primary responsibility for any given
 key. Riak will attempt reads and writes to primary vnodes first, but in
 case of failure, those operations will go to failover nodes in order to
