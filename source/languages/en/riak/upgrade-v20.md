@@ -13,19 +13,26 @@ information on which concrete steps need to be undertaken to
 successfully upgrade and which default Riak behaviors have changed.
 
 If you are looking for an overview of the new features and functionality
-included in version 2.0, we recommend checking out our guide to [[Riak 2.0]].
+included in version 2.0, we recommend checking out our guide to
+[[Riak 2.0]].
 
 ## New Clients
 
 To take advantage of the new features available in Riak 2.0, we
 recommend upgrading your application to an official Basho client that
-was built with those features in mind. There exist official 2.0-
-compatible clients in the following languages:
+was built with those features in mind. There exist official
+2.0-compatible clients in the following languages:
 
 * [Java](https://github.com/basho/riak-java-client)
 * [Ruby](https://github.com/basho/riak-ruby-client)
 * [Python](https://github.com/basho/riak-python-client)
 * [Erlang](https://github.com/basho/riak-erlang-client)
+
+While we strongly recommend using the newest versions of these clients,
+older versions will still work with Riak 2.0, with the drawback that
+those older clients will not able to take advantage of
+[[new features|Riak 2.0]] like [[data types|Using Data Types]]
+or the new [[Riak Search|Using Search]].
 
 ## Bucket Types
 
