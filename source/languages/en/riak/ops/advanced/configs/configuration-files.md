@@ -734,7 +734,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored. <strong>Note</strong>: See <a href="/dev/advanced/cap-controls">Replication Properties</a> for further discussion.</td>
+<td>The number of replicas stored. <strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
 <td><code>3</code></td>
 </tr>
 
