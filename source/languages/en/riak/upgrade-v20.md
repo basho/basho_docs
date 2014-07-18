@@ -50,73 +50,14 @@ we'll list some of the things to be aware of when upgrading.
 #### Bucket types and object location
 
 With the introduction of bucket types, the location of all Riak objects
-is determined by bucket, key, _and_ bucket type, meaning that there
-are three namespaces involved in object location instead of two. If your
-application was written in conjunction with a version of Riak prior to
-2.0, you should make sure that any endpoint in Riak targeted in terms of
-a bucket/key pairing be changed to accommodate a bucket type/bucket/key
-location.
+is determined by bucket type, bucket, and key, meaning that there
+are three namespaces involved in object location instead of two. A full
+tutorial can be found in [[Using Bucket Types]].
 
-Here are some examples of a read request for an object in the bucket
-`test_bucket` with the key `test_key` using older versions of the
-official Riak clients:
-
-```java
-// Using an already instantiated "client" object:
-
-Bucket testBucket = client.fetchBucket("test_bucket").execute();
-IRiakObject obj = testBucket.fetch("test_key").execute();
-```
-
-```ruby
-# Using an already instantiated "client" object:
-bucket = client.bucket('test_bucket')
-obj = bucket.get('test_key')
-```
-
-```python
-# Using an already instantiated "client" object:
-bucket = client.bucket('test_bucket')
-obj = bucket.get('test_key')
-```
-
-```erlang
-%% Using an already instatiated Pid:
-
-{ok, Obj} = riakc_pb_socket:get(Pid, <<"test_bucket">>, <<"test_key">>).
-```
-
-The following code samples use 2.0-specific official Riak clients to
-fetch an object with the same bucket and key as before---`test_bucket`
-and `test_key`, respectively---but with a bucket type of `custom_bucket_type`:
-
-```java
-// Note that the Java client uses a new Location class to designate
-// object location:
-
-Location loc =
-	new Location(new Namespace("custom_bucket_type", "test_bucket"), "test_key");
-
-FetchValue fetch = new FetchValue.Builder(loc).build();
-FetchValue.Response response = client.execute(fetch);
-RiakObject obj = response.getValue(RiakObject.class);
-```
-
-```ruby
-bucket = client.bucket('test_bucket')
-obj = bucket.get('test_key', type: 'custom_bucket_type')
-```
-
-```python
-bucket = client.bucket_type('custom_bucket_type').bucket('test_bucket')
-obj = bucket.get('test_key')
-```
-
-```erlang
-{ok, Obj} = riakc_pb_socket:get(Pid,
-	                            {<<"custom_bucket_type">>, <<"test_bucket">>},
-	                            <<"test_key">>).
-```
+If your application was written in conjunction with a version of Riak 
+prior to 2.0, you should make sure that any endpoint in Riak targeted in 
+terms of a bucket/key pairing be changed to accommodate a bucket
+type/bucket/key location.
 
 If you're using a pre-2.0-specific client and targeting a location
 specified only by bucket and key, Riak will use the default bucket
@@ -132,7 +73,7 @@ three options:
 
 * Accept Riak's [[default bucket configurations|Using Bucket Types#buckets-as-namespaces]]
 * Change Riak's defaults using your [[configuration files|Configuration Files#default-bucket-properties]]
-* Manage multiple sets of bucket properties by specifying those properties for all transactions (not recommended)
+* Manage multiple sets of bucket properties by specifying those properties for all operations (not recommended)
 
 #### Features that rely on bucket types
 
@@ -162,7 +103,10 @@ own, thus relieving connecting clients of the need to resolve those
 conflicts.
 
 **In 2.0, `allow_mult` is set to `true` for any bucket type that you
-create and activate.**
+create and activate.** This means that the default when [[using bucket
+types]] is to handle [[conflict resolution]] on the client side using
+either traditional [[vector clocks]] or the newer [[dotted version
+vectors]].
 
 If you wish to set `allow_mult` to `false` in version 2.0, you have two
 options:
@@ -191,12 +135,11 @@ downgrade.
 
 ## Upgrading Your Configuration System
 
-Riak 2.0 offers a replacement configuration system, based on the
-[Cuttlefish](https://github.com/basho/cuttlefish) project, that both
-simplifies configuration syntax and utilizes one configuration file,
-,`riak.conf`, instead of two, `app.config` and `vm.args`. Full
-documentation of the new system can be found in the [[configuration files]]
-document.
+Riak 2.0 offers a new configuration system that both simplifies 
+configuration syntax and utilizes one configuration file, ,`riak.conf`,
+instead of the two files, `app.config` and `vm.args`, required by the
+older system. Full documentation of the new system can be found in 
+[[Configuration Files]].
 
 If you're upgrading to Riak 2.0 from an earlier version, you have two
 configuration options:
