@@ -301,7 +301,7 @@ After the schema, index, association, population/extraction/indexing has taken p
 The basic query parameter is `q` via HTTP, or the first parameter of your chosen driver's `search` function. All Distributed Solr queries are supported, which actually includes most of the single-node solr queries. This example is searching for all documents where the `name_s` value begins with *Lion* by means of a glob (wildcard) match.
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=name_s:Lion*" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=name_s:Lion*" | jsonpp
 ```
 ```ruby
 results = client.search("famous", "name_s:Lion*")
@@ -392,7 +392,7 @@ Searches within a [range](https://cwiki.apache.org/confluence/display/solr/The+S
 To find the ages of all famous cats who are 30 or younger: `age_i:[0 TO 30]`. If you wanted to find all cats 30 or older, you could include a glob as a top end of the range: `age_i:[30 TO *]`.
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 ```
 ```ruby
 client.search("famous", "age_i:[30 TO *]")
@@ -411,7 +411,7 @@ riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR` and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:[25 TO *]`.
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
 ```
 ```ruby
 client.search("famous", "leader_b:true AND age_i:[30 TO *]")
@@ -460,7 +460,7 @@ ROWS_PER_PAGE=2
 PAGE=2
 START=$(($ROWS_PER_PAGE * ($PAGE-1)))
 
-curl "$RIAK_HOST/search/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
 ```
 ```ruby
 ROWS_PER_PAGE=2
@@ -484,6 +484,19 @@ Start = ?ROWS_PER_PAGE * (Page - 1),
 
 riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
 ```
+
+Just be careful what you sort by.
+
+##### A Pagination Warning
+
+Distributed pagination in Riak Search cannot be used reliably when sorting on fields that can have different values per replica of the same object, namely: `score`, `_yz_id`. In the case of sorting by these fields, you may receive redundant objects. In the case of `score`, the top-N can return different results over multiple runs.
+
+If you are paginating simply to get all keys that match and don't care about the score, then you can sort on type-bucket-key (eg. `_yz_rt asc`, `_yz_rb asc`, `_yz_rk asc`) to get consistent results.
+
+If you want to sort by score without repeating results then you must set `rows` >= `numFound`. This requires having some idea of how many rows will match before running the query.
+
+[This issue](https://github.com/basho/yokozuna/issues/355) is caused by the way Search must minimally distribute a query across multiple Solr nodes (called a *coverage plan*), and then filter duplicate results to retrieve a full result set. Since this plan is frequently recalculated, successive page queries may use a different plan, and thus calculate alternate `score`s or filter different `_yz_id` values. We have plans to fix this shortcoming in the next version of Riak.
+
 
 ### MapReduce
 
@@ -529,7 +542,7 @@ curl -XPOST "$RIAK_HOST/mapred" \
 Cats age about 7 times faster than humans, so to calculate an age in "cat years", you can multiply the cat's age by 7 using the `product` function. It's only one out of many built-in [Solr Functions](https://cwiki.apache.org/confluence/display/solr/Function+Queries#FunctionQueries-AvailableFunctions).
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" | jsonpp
 ```
  -->
 

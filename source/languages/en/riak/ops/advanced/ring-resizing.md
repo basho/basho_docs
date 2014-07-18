@@ -10,12 +10,12 @@ keywords: [ops, ring, ring-resizing]
 
 The ring resizing feature in Riak 2.0 and greater enables Riak operators to change the number of partitions in a Riak cluster's ring during normal operations, under load.
 
-Previously, a cluster was limited to having `ring_creation_size` partitions throughout its entire lifespan. In order to change the number of partitions, a separate cluster would need to be spun up along side the original and the data migrated between the two by external means.
+Previously, a cluster was limited to having `ring_creation_size` partitions throughout its entire lifespan. In order to change the number of partitions, a separate cluster would need to be spun up alongside the original and the data migrated between the two by external means.
 
 The intended purpose of the ring resizing feature is to support users who create a cluster with either too few or two many partitions and need to change this without disrupting operations more than necessary.
 
 <div class="note">
-<div class="title">Note</div>
+<div class="title">Note on ring resizing and scalability</div>
 Ring resizing is <em>not</em> intended as a scaling feature for clusters to add or remove concurrent processing ability. Since the number of partitions can limit the number of nodes in the cluster, ring resizing can be used to increase capacity in that regard. In short, the feature is intended for infrequent use in highly specific scenarios.
 </div>
 
@@ -24,6 +24,7 @@ There are a number of important considerations to bear in mind while running a r
 * For a resize to succeed, all nodes should be up. The only cluster operation permitted during a ring resize is `force-remove`. Other operations will be delayed while the resize completes.
 * If you perform a [[listkeys|HTTP List Keys]] or [[secondary index|Using Secondary Indexes]] query during a ring resize, you may get duplicates or miscounts in coverage queries. In an upcoming release of Riak, this will be self-healing (see [this pull request](https://github.com/basho/riak_kv/pull/685) for more information).
 * Resizing partitions can take up a lot of disk space. Make sure that you have sufficient storage to complete the resize operation.
+* Basho strongly recommends that you do _not_ use the `force-replace` command that is part of the `[[riak-admin|riak-admin Command Line#cluster-force-replace]]` interface during ring resizing.
 
 ## Starting the Resize
 

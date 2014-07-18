@@ -127,6 +127,7 @@ module VersionDirs
             # $versions.values.uniq.each do |version|
             $only_versions.each do |version|
               # key = f.sub(/\.\/build\//, "shared/#{version}/")
+              version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
               move_to = f.sub(/\.\/build\//, "./build/shared/#{version}/")
               copy(f, move_to)
             end
@@ -135,6 +136,7 @@ module VersionDirs
           elsif f =~ /^\.\/build\/(?:fonts|js|css)\//
             $versions.each do |proj, version|
               next unless $only_versions.include?(version)
+              version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
               move_to = f.sub(/\.\/build\//, "./build/#{proj.to_s}/#{version}/")
               copy(f, move_to)
             end
@@ -154,6 +156,7 @@ module VersionDirs
             next
           else
             version = $versions[project.to_sym]
+            version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
             move_to = f.sub(/\.\/build\//, "./build/#{project}/#{version}/")
           end
 

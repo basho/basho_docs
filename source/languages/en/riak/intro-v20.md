@@ -7,21 +7,25 @@ audience: beginner
 keywords: [developers]
 ---
 
-Riak version 2.0 includes deep changes affecting all facets of Riak and a wide variety of new features unavailable in previous versions. Here, we'd like to briefly describe these new features and direct you to sections of the documentation that explain how you can put them to work in your Riak installation. For more in-depth implementation details, we suggest checking out the [version 2.0 release notes](https://github.com/basho/riak/blob/riak-2.0.0/RELEASE-NOTES.md).
+Riak version 2.0 includes deep changes affecting all facets of Riak along with a wide variety of new features unavailable in previous versions. Here, we'd like to briefly describe these new features and direct you to sections of the documentation that explain how you can put them to work in your Riak installation. For more in-depth implementation details, we suggest checking out the [version 2.0 release notes](https://github.com/basho/riak/blob/riak-2.0.0/RELEASE-NOTES.md).
 
 If you're upgrading to Riak 2.0 from an earlier version, please be aware that all of the new features listed below are purely optional:
 
 * **Riak Data Types** --- Riak's new CRDT-based [[Data Types]] can simplify modeling data in Riak, but are only used in buckets explicitly configured to use them.
-* **Strong Consistency, Riak Security, and the new Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak.
+* **Strong Consistency, Riak Security, and the New Riak Search** --- These are subsystems in Riak that must be explicitly turned on to work. If not turned on, they will have no impact on performance. Furthermore, the older Riak Search will continue to be included with Riak.
 * **Security** --- [[Authentication and authorization]] can be enabled or disabled at any time.
-* **Configuration management** --- Riak configuration has been streamlined and now uses a file named `riak.conf`. However, existing `app.config` and `vm.args` files are still recognized in version 2.0.
+* **Configuration management** --- Riak's [[configuration files]] have been streamlined into a single file named `riak.conf`. If you are upgrading, however, your existing `app.config` and `vm.args` files will still be recognized in version 2.0.
 * **Bucket Types** --- While we strongly recommend [[using bucket types]] when creating new buckets, they are not required.
+* **Dotted Version Vectors (DVVs)** --- This alternative to traditional [[vector clocks]] is enabled by default in all [[bucket types|Using Bucket Types]], but DVVs can be disabled by setting the `dvv_enabled` property to `false` on any bucket type.
 
 In a nutshell, upgrading to 2.0 will change how you use Riak only if you want it to. But even if you don't plan on using the new features, there are a number of improvements that make upgrading a good choice, including the following:
 
-* [[Cluster Metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
+* [[Cluster metadata]] --- This is a subsystem of Riak added in 2.0 that reduces the amount of inter-node gossip in Riak clusters, which can reduce network congestion.
 * [[Active Anti-Entropy|Replication#active-anti-entropy-aae]] --- While Riak has had an Active Anti-Entropy (AAE) feature that is turned on by default since version 1.3, AAE performance has been improved in version 2.0.
+* 
 * Bug patches --- A variety of bugs present in earlier versions have been identified and patched.
+
+More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading to 2.0]].
 
 ## Riak Data Types
 
@@ -31,8 +35,8 @@ Riak 2.0 offers a new approach to this problem for a wide range of uses cases in
 
 #### Relevant Docs
 
-* [[Using Data Types]] explains how to use Riak Data Types on the application side, with usage examples for all five Data Types in a variety of languages
-* [[Data Types]] explains some of the theoretical concerns that drive Riak Data Types and shares some details about how they are implemented under the hood in Riak.
+* [[Using Data Types]] explains how to use Riak Data Types on the application side, with usage examples for all five Data Types in all of Basho's officially supported clients (Java, Ruby, Python, and Erlang) and for Riak's HTTP interface
+* [[Data Types]] explains some of the theoretical concerns that drive Riak Data Types and shares some details about how they are implemented under the hood in Riak
 
 #### Video
 
@@ -89,7 +93,7 @@ parameter.sub-parameter = setting
 Based on Basho's [Cuttlefish](https://github.com/basho/cuttlefish) project, the new system is much simpler, leaving behind the Erlang syntax required in `app.config`.
 
 <div class="note">
-<div class="title">Note</div>
+<div class="title">Note on upgrading</div>
 Version 2.0 will support both the old and the new configuration system, in case you're upgrading.
 </div>
 
@@ -107,9 +111,25 @@ In older versions of Riak, bucket properties were managed on a bucket-by-bucket,
 
 #### Relevant Docs
 
-* [[Using Bucket Types]] explains how to create, modify, and activate bucket types, as well as how the new system
+* [[Using Bucket Types]] explains how to create, modify, and activate bucket types, as well as how the new system differs from the older, bucket properties-based system
 
-### Video
+#### Video
 
 [Bucket Types and Config](https://www.youtube.com/watch?v=lZk8cD-qFHM) hangout with Basho engineers [Joe DeVivo](https://github.com/joedevivo) and [Jordan West](https://github.com/jrwest).
 
+## Dotted Version Vectors
+
+In prior versions of Riak, [[conflict resolution]] was managed using [[vector clocks]], which are a mechanism for tracking object update causality. Riak 2.0 has added support for dotted version vectors (DVVs). DVVs serve an analogous role to vector clocks but are more effective at containing [[sibling explosion|Vector Clocks#sibing-explosion]] and can thus reduce Riak cluster latency. The [[dotted version vectors]] doc explains some of the theoretical nuances behind the distinction between DVVs and vector clocks and offers instructions on implementing DVVs.
+
+## New Client Libraries
+
+While Basho offered official [[client libraries]] for Java, Ruby, Python, and Erlang for versions of Riak prior to 2.0, all four clients have undergone major changes in anticipation of the 2.0 release.
+
+Language | Docs
+:--------|:----
+[Java](https://github.com/basho/riak-java-client) | [Javadoc](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+[Ruby](https://github.com/basho/riak-ruby-client) | [GitHub](https://github.com/basho/riak-ruby-client)
+[Python](https://github.com/basho/riak-python-client) | [Sphinx](http://basho.github.io/riak-python-client/)
+[Erlang](https://github.com/basho/riak-erlang-client) | [EDocs](http://basho.github.io/riak-erlang-client/)
+
+You will also notice that our documentation now features a wide variety of code samples from all four officially supported clients.

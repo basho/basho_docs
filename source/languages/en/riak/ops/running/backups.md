@@ -193,3 +193,8 @@ by typing `x.` and pressing enter. The prompt obtained should contain the
 correct node name. Disconnect from the attached session with `^d` (control-d).
 Finally, run `riak-admin member_status` to list all of the nodes and verify
 that all nodes listed have the correct names.
+
+## Restoring a Cluster
+
+Restoring a cluster from backups is documented [[on its own page|Failure
+and Recovery#Cluster-Recovery-From-Backups]].

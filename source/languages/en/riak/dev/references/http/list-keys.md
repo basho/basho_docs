@@ -24,10 +24,8 @@ This operation requires traversing all keys stored in the cluster and should not
 ## Request
 
 ```bash
-GET /riak/bucket?keys=true            # List all keys, old format
-GET /buckets/bucket/keys?keys=true    # List all keys, new format
-GET /riak/bucket?keys=stream          # Stream keys to the client, old format
-GET /buckets/bucket/keys?keys=stream  # Stream keys to the client, new format
+GET /buckets/bucket/keys?keys=true    # List all keys
+GET /buckets/bucket/keys?keys=stream  # Stream keys to the client
 ```
 
 Required query parameters:
@@ -35,11 +33,6 @@ Required query parameters:
 * `keys` - defaults to `false`. When set to `true` all keys will be returned in
 a single payload.  When set to `stream`, keys will be returned in
 chunked-encoding.
-
-Optional query parameters (**only** relevant to requests sent using the old `/riak/` path)
-
-* `props` - defaults to `true`, which will also return [[bucket properties|HTTP-Get-Bucket-Properties]] in the response. Set to `false` to suppress properties
-in the response.
 
 ## Response
 
