@@ -93,7 +93,7 @@ orchestrates a MapReduce job.
 
 ![MapReduce Diagram](/images/MapReduce-diagram.png)
 
-## Examples
+## Example
 
 In this example, we'll create four objects with the text "caremad"
 repeated a varying number of times and store those objects in the bucket
