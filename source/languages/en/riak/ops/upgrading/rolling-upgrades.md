@@ -150,21 +150,6 @@ Riak version 1.3.1, you need to reformat the indexes using the <tt>[[riak-admin 
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
 
-## Rolling Upgrade to Enterprise
-
-1. Back up your `etc` (`app.config` and `vm.args`) and `data` directories.
-2. Shutdown the node you are going to upgrade.
-3. Uninstall your Riak package.
-4. Install the `riak_ee` package.
-5. A standard package uninstall should not have removed your data directories. If it did, move your backup to where the data directory should be.
-6. Copy any customizations from your backed-up `vm.args` to the `riak_ee` installed `vm.args` file, these files may be identical.
-7. The `app.config` file from `riak_ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `app.config` file into the appropriate sections in the new one. Ensure that the following sections are present in `app.config`:
-  * `riak_core` --- the `cluster_mgr` setting must be present. See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
-  * `riak_repl` --- See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
-  * `riak_jmx` --- See [[JMX Monitoring]] for more information.
-  * `snmp` --- See [[SNMP]] for more information.
-8. Start Riak on the upgraded node.
-
 
 ## Solaris/OpenSolaris
 
@@ -244,45 +229,26 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
-{{#1.3.1+}}
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the <tt>[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]]</tt> command. More details about reformatting indexes are available in the [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
-{{/1.3.1+}}
 
-{{#1.1.0-}}
 
-<div class="note">Only perform the following two steps if you are upgrading to
-Riak 1.0 from an earlier release.
-</div>
+## Rolling Upgrade to Enterprise
 
-9\. Once all nodes have been upgraded, add the following additions to the
-`app.config` file in `/etc/riak` on each node. First, add the following to the `riak_kv` section:
-
-```erlang
-{legacy_keylisting, false},
-{mapred_system, pipe},
-{vnode_vclocks, true}
-```
-
-Then, add the following to the `riak_core` section:
-
-```erlang
-{platform_data_dir, "/opt/riak/data"}
-```
-
-10\. Either run `riak stop` followed by `riak start` on all of the nodes in
-the cluster or use `riak attach` on each node and execute the following
-commands:
-
-```erlang
-> application:set_env(riak_kv, legacy_keylisting, false).
-> application:set_env(riak_kv, mapred_system, pipe).
-> application:set_env(riak_kv, vnode_vclocks, true).
-```
-
-{{/1.1.0-}}
+1. Back up your `etc` (`app.config` and `vm.args`) and `data` directories.
+2. Shutdown the node you are going to upgrade.
+3. Uninstall your Riak package.
+4. Install the `riak_ee` package.
+5. A standard package uninstall should not have removed your data directories. If it did, move your backup to where the data directory should be.
+6. Copy any customizations from your backed-up `vm.args` to the `riak_ee` installed `vm.args` file, these files may be identical.
+7. The `app.config` file from `riak_ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `app.config` file into the appropriate sections in the new one. Ensure that the following sections are present in `app.config`:
+  * `riak_core` --- the `cluster_mgr` setting must be present. See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
+  * `riak_repl` --- See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
+  * `riak_jmx` --- See [[JMX Monitoring]] for more information.
+  * `snmp` --- See [[SNMP]] for more information.
+8. Start Riak on the upgraded node.
 
 ## Basho Patches
 
