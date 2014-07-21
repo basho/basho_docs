@@ -1383,7 +1383,7 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 
 <tr>
 <td><code>datatypes.compression_level</code></td>
-<td>Whether serialized Data Types will use compression and at what level. When set to an integer, the parameter refers to the aggressiveness of compression, on a scale from 0 to 9. <code>on</code> is equivalent to 6, whereas <code>off</code> is equivalent to 0. Higher values for compression tend to be more CPU intensive.<td>
+<td>Whether serialized Data Types will use compression and at what level. When set to an integer, the parameter refers to the aggressiveness of compression, on a scale from 0 to 9. <code>on</code> is equivalent to 6, whereas <code>off</code> is equivalent to 0. Higher values for compression tend to be more CPU intensive.</td>
 <td><code>1</code></td>
 </tr>
 
@@ -1744,9 +1744,10 @@ There are three non-`riak_repl`, non-strong-consistency-related settings availab
 
 ## Strong Consistency
 
-Riak's [[strong consistency]]
+Riak's strong consistency feature has a variety of tunable parameters
+that enable you to modify the behavior of leaders and followers, set various timeouts, and more. More information can be found in our [[strong consistency]] documentation.
 
-The `strong_consistency` parameter enables you to turn Riak's [[strong consistency]] subsystem on and off.
+The `strong_consistency` parameter enables you to turn Riak's strong consistency subsystem on and off. It's available in your `riak.conf` file.
 
 <table class="riak-conf">
 <thead>
@@ -1841,7 +1842,7 @@ Unlike the `strong_consistency` setting, the settings listed below are available
 
 <tr>
 <td><code>tree_validation</code></td>
-<td>Determines whether Riak considers peer Merkle trees to be trusted after a node restart. When validation is enabled (the default), Riak does not trust peer trees after a restart, instead requiring the peer to sync with a trusted majority. This is the safest option, as it protects Riak against undetected corruption of the Merkle tree. However, this mode reduces Riak availability since it can sometimes require more than a simple majority of nodes to be online and reachable.<td>
+<td>Determines whether Riak considers peer Merkle trees to be trusted after a node restart. When validation is enabled (the default), Riak does not trust peer trees after a restart, instead requiring the peer to sync with a trusted majority. This is the safest option, as it protects Riak against undetected corruption of the Merkle tree. However, this mode reduces Riak availability since it can sometimes require more than a simple majority of nodes to be online and reachable.</td>
 <td><code>true</code></td>
 </tr>
 
