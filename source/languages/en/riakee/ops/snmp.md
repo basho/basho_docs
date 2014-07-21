@@ -1,16 +1,20 @@
 ---
-title: SNMP Configuration
+title: SNMP
 project: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [snmp]
+moved: {
+    '2.0.0-': '/cookbooks/SNMP-Configuration'
+}
 ---
 
 Riak Enterprise provides a built-in SNMP server that allows an external system, such as Hyperic, to query the Riak node for statistics such as the average get and put times as well as the number of puts and gets. This document only covers SNMP v2c support at this time.
 
 ## Configuration
+
 The first step in configuring your SNMP setup is to edit the appropriate files in the Riak node's `etc/snmp/agent/conf/` directory.
 
 First, edit the `agent.conf` file and set the appropriate IP on which the SNMP server should listen (Ex: `192.168.1.20`):
@@ -92,3 +96,62 @@ $ snmpwalk -OS -c public -v 2c -m ALL \
   -M +/usr/lib64/riak/lib/riak_snmp-0.2/priv/mibs \
   192.168.52.129:4000 RIAK 
 ```
+
+
+## SNMP Counters
+
+**vnodeGets**  
+*Type:* Counter  
+Number of vnode-level GETs in past minute
+
+**vnodePuts**  
+*Type:* Counter  
+Number of vnode-level PUTs in past minute
+
+**nodeGets**  
+*Type:* Counter  
+Number of GETs in past minute
+
+**nodePuts**  
+*Type:* Counter  
+Number of PUTs in past minute
+
+**nodeGetTimeMean**  
+*Type:* Gauge  
+Mean GET time (microseconds)
+
+**nodeGetTimeMedian**  
+*Type:* Gauge  
+Median GET time (microseconds)
+
+**nodeGetTime95**  
+*Type:* Gauge  
+95th percentile GET time (microseconds)
+
+**nodeGetTime99**  
+*Type:* Gauge  
+99th percentile GET time (microseconds)
+
+**nodeGetTime100**  
+*Type:* Gauge  
+Maximum GET time (microseconds)
+
+**nodePutTime95**  
+*Type:* Gauge  
+95th percentile PUT time (microseconds)
+
+**nodePutTime99**  
+*Type:* Gauge  
+99th percentile PUT time (microseconds)
+
+**nodePutTime100**  
+*Type:* Gauge  
+Maximum PUT time (microseconds)
+
+**nodePutTimeMean**  
+*Type:* Gauge  
+Mean PUT time (microseconds)
+
+**nodePutTimeMedian**  
+*Type:* Gauge  
+Median PUT time (microseconds)

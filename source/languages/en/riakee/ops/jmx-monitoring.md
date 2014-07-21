@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, config]
+moved: {
+    '2.0.0-': '/cookbooks/JMX-Monitoring'
+}
 ---
 
 Riak exposes monitoring data via JMX.  To enable JMX monitoring, edit the `[[app.config|Configuration Files#app-config]]` associated with your Riak installation and set the `enabled` property of the `riak_jmx` section to `true` as shown below.  The TCP port on which the JMX provider listens is also configurable in this section (the default JMX port is `41110`).
