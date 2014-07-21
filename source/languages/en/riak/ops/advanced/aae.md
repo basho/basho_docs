@@ -7,7 +7,7 @@ audience: advanced
 keywords: [operators, aae, active anti-entropy]
 ---
 
-Riak's [[active anti-entropy]] (AAE) subsystem is a set of background
+Riak's [[active anti-entropy]] \(AAE) subsystem is a set of background
 processes that repair object inconsistencies stemming from missing or
 divergent object values across nodes. Riak operators can turn AAE on and
 off and configure and monitor its functioning.
@@ -28,6 +28,7 @@ the `riak_kv` section of your `app.config`:
 
     %% More riak_kv settings...
 ]}
+```
 {{/2.0.0-}}
 {{#2.0.0+}}
 
