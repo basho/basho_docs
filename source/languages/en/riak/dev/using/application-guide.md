@@ -7,7 +7,7 @@ audience: beginner
 keywords: [developers, applications]
 ---
 
-So you've decided to build an application using Riak as a data store. We think that this is a wise choice for a broad variety of use cases. But using Riak isn't always straightforward, especially if you're used to developing with RDBMSs like MySQL or Postgres or non-persistent key/value stores like Redis. 
+So you've decided to build an application using Riak as a data store. We think that this is a wise choice for a broad variety of use cases. But using Riak isn't always straightforward, especially if you're used to developing with RDBMSs like MySQL or PostgreSQL or non-persistent key/value stores like Redis. 
 
 In this guide, we'll walk you through a set of questions that should be asked about your use case before getting started. The answer to those questions may inform decisions about which Riak features you should use, what kind of replication and conflict resolution strategies you should employ, and perhaps even how parts of your application should be built.
 
@@ -15,17 +15,17 @@ In this guide, we'll walk you through a set of questions that should be asked ab
 
 This is an important initial question for two reasons:
 
-1. Not all data is a good fit for Riak. If your data isn't a good fit, we would advise seeking out a storage system that better suits your needs.
+1. Not all data is a good fit for Riak. If your data isn't a good fit, we would advise that you seek out a storage system that better suits your needs.
 2. The kind of data you're storing should guide your decision about _how_ to store and access your data in Riak and which Riak features would be helpful (and which ones might even be harmful).
 
 ### Good Fits for Riak
 
 Riak tends to be an excellent choice if you're dealing with any of the following:
 
-* **Immutable data** --- While Riak provides several means of resolving conflicts between different replicas of objects, those processes can lead to slower performance in some cases. Storing immutable data means taht you can avoid those processes altogether and get the most out of Riak.
-* **Small objects** --- Riak was not built as a store for large objects, like video files or other large [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built [Riak CS](http://basho.com/riak-cloud-storage/) for that. Riak is great, however, for JSON, [[log files|Use Cases#log-data]], [[sensor data|Use Cases#sensor-data]], HTML files, and other objects that tend to run smaller than 1 MB.
+* **Immutable data** --- While Riak provides several means of resolving conflicts between different replicas of objects, those processes can lead to slower performance in some cases. Storing immutable data means that you can avoid those processes altogether and get the most out of Riak.
+* **Small objects** --- Riak was not built as a store for large objects like video files or other [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built [Riak CS](http://basho.com/riak-cloud-storage/) for that. Riak is great, however, for JSON, [[log files|Use Cases#log-data]], [[sensor data|Use Cases#sensor-data]], HTML files, and other objects that tend to run smaller than 1 MB.
 * **Independent objects** --- Objects that do not have interdependencies on other objects are a good fit for Riak's [[eventually consistent|Eventual Consistency]] nature.
-* **Objects with "natural" keys** --- It is almost always advisable to build keys for objects out of timestamps, [[usernames|User Accounts]], or other ["natural" markers](https://speakerdeck.com/hectcastro/throw-some-keys-on-it-data-modeling-for-key-value-data-stores-by-example) that distinguish that object from other objects. Data that can be modeled this way fits nicely with Riak because Riak emphasizes extremely fast object lookup.
+* **Objects with "natural" keys** --- It is almost always advisable to build keys for objects out of timestamps, [[usernames|User Accounts]], or other [["natural" markers|Key/Value Modeling]] that distinguish that object from other objects. Data that can be modeled this way fits nicely with Riak because Riak emphasizes extremely fast object lookup.
 * **Data compatible with [[Riak Data Types|Using Data Types]]** --- If you're working with mutable data, one option is to run basic CRUD operations on that data in a standard key/value fashion and either manage conflict resolution yourself or allow Riak to do so. But if your data can be modeled as a [[counter|Data Types#Counters]], [[set|Data Types#Sets]], or [[map|Data Types#Map]], you should seriously consider using [[Riak Data Types|Using Data Types]], which can speed application development and transfer a great deal of complexity away from the application and to Riak itself.
 
 ### Not-so-good Fits for Riak
@@ -92,7 +92,7 @@ It's difficult to offer universally applicable data modeling guidelines because 
 
 ### Data Types
 
-One feature to always bear in mind when using Riak is [[Riak Data Types|Using Data Types]]. If some or all of your data can be modeled in accordance with Riak Data Types, you might be able to streamline application development by using them as an alternative to key/value operations. In some cases, it might even be worthwhile to transform your data modeling strategy in accordance with To see if this feature might be a good fit for your application, we recommend checking out the following documentation:
+One feature to always bear in mind when using Riak is [[Riak Data Types|Using Data Types]]. If some or all of your data can be modeled in accordance with one of the available Data Types---flags (similar to Booleans), registers (good for storing small binaries or text snippets), [[counters|Using Data Types#counters]], [[sets|Using Data Types#sets]], or [[maps|Using Data Types#maps]]---you might be able to streamline application development by using them as an alternative to key/value operations. In some cases, it might even be worthwhile to transform your data modeling strategy in accordance with To see if this feature might be a good fit for your application, we recommend checking out the following documentation:
 
 * [[Data Types]]
 * [[Using Data Types]]
@@ -100,7 +100,7 @@ One feature to always bear in mind when using Riak is [[Riak Data Types|Using Da
 
 ## What are Your Consistency Requirements?
 
-Riak has traditionally been thought of as an [[eventually consistent|Eventual Consistency]], AP system, i.e. a system that favors availability and partitional tolerance over data consistency. In Riak versions 2.0 and later, the option of applying strong consistency guarantees is available to developers that want to use Riak as a strict CP system. One of the advantages of Riak's approach to strong consistency is that you don't need to store all of your data in a strongly consistent fashion if you use this feature. Instead, you can mix and match a CP approach with an AP approach in a single cluster in any way you wish.
+Riak has traditionally been thought of as an [[eventually consistent|Eventual Consistency]], AP system, i.e. as a system that favors availability and partition tolerance over data consistency. In Riak versions 2.0 and later, the option of applying strong consistency guarantees is available to developers that want to use Riak as a strict CP system. One of the advantages of Riak's approach to strong consistency is that you don't need to store all of your data in a strongly consistent fashion if you use this feature. Instead, you can mix and match a CP approach with an AP approach in a single cluster in any way you wish.
 
 If you need some or all of your data to be subject to strong consistency requirements, we recommend checking out the following documentation:
 
@@ -121,4 +121,5 @@ If you have a good sense of how you will be using Riak for your application (or 
 * [[Five-Minute Install]] --- Install Riak and start up a five-node Riak cluster
 * [[Client Libraries]] --- A listing of official and non-official client libraries for building applications with Riak
 * [[Getting Started with Client Libraries|Five-Minute Install#setting-up-your-riak-client]] --- How to get up and going with one of Basho's official client libraries (Java, Ruby, Python, and Erlang)
+* [[The Basics]] --- A guide to basic key/value operations in Riak
 * [[Riak Glossary]] --- A listing of frequently used terms in Riak's documentation

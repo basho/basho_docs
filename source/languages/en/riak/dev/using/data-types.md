@@ -24,12 +24,8 @@ bucket-level data types, whereas flags and registers must be embedded in
 maps (more on that [[below|Using Data Types#Maps]]).
 
 <div class="note">
-<div class="title">Note</div>
-Counters are the one Riak Data Type available in versions prior to 2.0, 
-introduced in version 1.4. The implentation of counters in version 2.0 
-has been almost completely revamped, and so if you are using Riak 2.0+, 
-we strongly recommend that you follow the usage documentation here 
-rather than documentation for the older version of counters.
+<div class="title">Note on counters in earlier versions of Riak</div>
+Counters are the one Riak Data Type available in versions prior to 2.0, introduced in version 1.4. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak version 2.0 or later, we strongly recommend that you follow the usage documentation here rather than documentation for the older version of counters.
 </div>
 
 ## Setting Up Buckets to Use Riak Data Types
@@ -81,9 +77,7 @@ To check whether activation has been successful, simply use the same
 
 ## Usage Examples
 
-The examples below show you how to use Riak Data Types at the 
-application level. Code samples are currently available in Ruby 
-(using Basho's oficial [Riak Ruby client](https://github.com/basho/riak-ruby-client/tree/bk-crdt-doc)).
+The examples below show you how to use Riak Data Types at the application level using each of Basho's officially supported Riak clients. All examples will use the bucket type names from above (`counters`, `sets`, and `maps`).
 
 All examples will use the bucket type names from above (`counters`, 
 `sets`, and `maps`).
@@ -94,9 +88,7 @@ Counters are a bucket-level Riak Data Type that can be used either by
 themselves, i.e. associated with a bucket/key pair, or within a map. The 
 examples in this section will show you how to use counters on their own.
 
-First, we need to create and name a Riak bucket to house our counter (or 
-as many counters as we'd like). We'll keep it simple and name our bucket 
-`counters`:
+First, we need to point our client to the bucket type/bucket/key location that will house our counter. We'll keep it simple and use the `counters` bucket type created and activated above and a bucket called `counters`.
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified
@@ -131,6 +123,13 @@ bucket = client.bucket_type('counter_bucket').bucket('counters')
 ```erlang
 %% Buckets are simply named binaries in the Erlang client.
 %% See below for more information.
+```
+
+```curl
+curl http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
+
+# Note that this differs from the URL structure for non-Data Type requests,
+# which end in /keys/<key>
 ```
 
 <div class="note">
@@ -187,21 +186,20 @@ counter = Counter(bucket, key)
 %% client. See below for more information.
 ```
 
-Let's say that we want to create a counter called `traffic_tickets` in 
-our `counters` bucket to keep tabs on our legal misbehavior. We can 
-create this counter and ensure that the `counters` bucket will use our 
-`counters` bucket type like this:
+```curl
+# This will create a counter with an initial value of 0
+
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/<key> \
+  -H "Content-Type: application/json" \
+  -d 0
+```
+
+Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counters` bucket type like this:
 
 ```java
 // Using the countersBucket Namespace object from above:
 
 Location trafficTickets = new Location(countersBucket, "traffic_tickets");
-```
-
-```curl
-curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
-  -H "Content-Type: application/json" \
-  -d 0
 ```
 
 ```ruby
@@ -230,9 +228,13 @@ Counter = riakc_counter:new().
 %% structure with a bucket type, bucket, and key later on.
 ```
 
-Now that our client knows which bucket/key pairing to use for our 
-counter, `traffic_tickets` will start out at 0 by default. If we happen 
-to get a ticket that afternoon, we would need to increment the counter:
+```curl
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
+  -H "Content-Type: application/json" \
+  -d 0
+```
+
+Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -243,12 +245,6 @@ UpdateCounter update = new UpdateCounter.Builder(trafficTickets, cu)
 client.execute(update);
 ```
 
-```curl
-curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
-  -H "Content-Type: application/json" \
-  -d 1
-```
-
 ```ruby
 counter.increment
 ```
@@ -257,7 +253,7 @@ counter.increment
 counter.increment()
 
 # Updates are staged locally and have to be explicitly sent to Riak
-# using the `store()` method.
+# using the store() method.
 counter.store()
 ```
 
@@ -265,10 +261,13 @@ counter.store()
 Counter1 = riakc_counter:increment(Counter).
 ```
 
-The default value of an increment operation is 1, but you can increment 
-by more than one if you'd like (but always by an integer). Let's say 
-that we decide to spend an afternoon flaunting traffic laws and manage 
-to rack up five tickets:
+```curl
+curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
+  -H "Content-Type: application/json" \
+  -d 1
+```
+
+The default value of an increment operation is 1, but you can increment by more than one if you'd like (but always by an integer). Let's say that we decide to spend an afternoon flaunting traffic laws and manage to rack up five tickets:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -356,14 +355,12 @@ curl http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tic
 {"type":"counter", "value": <value>}
 ```
 
-Any good counter needs to decrement in addition to increment, and Riak 
-counters allow you to do precisely that. Let's say that we hire an 
-expert who manages to get a traffic ticket stricken from the record:
+Any good counter needs to decrement in addition to increment, and Riak counters allow you to do precisely that. Let's say that we hire an expert lawyer who manages to get a traffic ticket stricken from our record:
 
 ```java
 // Using the "trafficTickets" Location from above:
 
-CounterUpdate cu = new CounterUpdate(5);
+CounterUpdate cu = new CounterUpdate(-1);
 UpdateCounter update = new UpdateCounter.Builder(trafficTickets, cu)
         .build();
 client.execute(update);
@@ -384,7 +381,6 @@ counter.decrement()
 
 counter.decrement(3)
 ```
-
 
 ```erlang
 Counter3 = riakc_counter:decrement(Counter2).
@@ -466,22 +462,19 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # requests, which end in /keys/<key>
 ```
 
-Let's say that we want to use a set to store a list of cities that we 
-want to visit. Let's create a Riak set, simply called `set`, stored in 
-the key `cities` in the bucket `travel` (using the `sets` bucket type we 
-created in the previous section):
+Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set stored in the key `cities` in the bucket `travel` (using the `sets` bucket type we created in the previous section):
 
 ```java
 // In the Java client, you specify the location of Data Types
 // before you perform operations on them:
 
-Location cities =
+Location citiesSet =
   new Location(new Namespace("sets", "travel"), "cities");
 ```
 
 ```ruby
 travel = client.bucket('travel')
-set = Riak::Crdt::Set.new(travel, 'cities', 'sets')
+cities_set = Riak::Crdt::Set.new(travel, 'cities', 'sets')
 
 # Alternatively, the Ruby client enables you to set a bucket type as being
 # globally associated with a Riak Data Type. The following would set all
@@ -491,7 +484,7 @@ Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 
 # This would enable us to create our set without specifying a bucket type:
 
-set = Riak::Crdt::Set.new(travel, 'cities')
+cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
 
 ```python
@@ -499,11 +492,16 @@ travel = client.bucket_type('set_bucket').bucket('travel')
 
 # The client detects the bucket-type's datatype and automatically
 # returns the right datatype for you, in this case a Set.
-set = travel.new('cities')
+cities_set = travel.new('cities')
+
+# You can also create a reference to a set explicitly:
+from riak.datatypes import Set
+
+cities_set = Set(travel, 'cities')
 ```
 
 ```erlang
-Set = riakc_set:new().
+CitiesSet = riakc_set:new().
 
 %% Sets in the Erlang client are opaque data structures that
 %% collect operations as you mutate them. We will associate the data
@@ -522,7 +520,7 @@ time:
 ```java
 // Using our "cities" Location from above:
 
-FetchSet fetch = new FetchSet.Builder(cities)
+FetchSet fetch = new FetchSet.Builder(citiesSet)
 		.build();
 FetchSet.Response response = client.execute(fetch);
 RiakSet set = response.getDatatype();
@@ -530,17 +528,19 @@ boolean isEmpty = set.viewAsSet().isEmpty();
 ```
 
 ```ruby
-set.empty?
+cities_set.empty?
 
 # true
 ```
 
 ```python
-len(set) == 0
+len(cities_set) == 0
+
+# true
 ```
 
 ```erlang
-riakc_set:size(Set) == 0.
+riakc_set:size(CitiesSet) == 0.
 
 %% Query functions like size/1, is_element/2, and fold/3 operate over
 %% the immutable value fetched from the server. In the case of a new
@@ -564,24 +564,24 @@ Montreal are nice places to go. Let's add them to our `cities` set:
 SetUpdate su = new SetUpdate()
         .add(BinaryValue.create("Toronto"))
         .add(BinaryValue.create("Montreal"));
-UpdateSet update = new UpdateSet.Builder(cities, su)
+UpdateSet update = new UpdateSet.Builder(citiesSet, su)
         .build();
 client.execute(update);
 ```
 
 ```ruby
-set.add('Toronto')
-set.add('Montreal')
+cities_set.add('Toronto')
+cities_set.add('Montreal')
 ```
 
 ```python
-set.add('Toronto')
-set.add('Montreal')
+cities_set.add('Toronto')
+cities_set.add('Montreal')
 ```
 
 ```erlang
-Set1 = riakc_set:add_element(<<"Toronto">>, Set),
-Set2 = riakc_set:add_element(<<"Montreal">>, Set1).
+CitiesSet1 = riakc_set:add_element(<<"Toronto">>, CitiesSet),
+CitiesSet2 = riakc_set:add_element(<<"Montreal">>, CitiesSet1).
 ```
 
 ```curl
@@ -601,27 +601,27 @@ SetUpdate su = new SetUpdate()
         .remove(BinaryValue.create("Montreal"))
         .add(BinaryValue.create("Hamilton"))
         .add(BinaryValue.create("Ottawa"));
-UpdateSet update = new UpdateSet.Builder(cities, su)
+UpdateSet update = new UpdateSet.Builder(citiesSet, su)
         .build();
 client.execute(update);
 ```
 
 ```ruby
-set.remove('Montreal')
-set.add('Hamilton')
-set.add('Ottawa')
+cities_set.remove('Montreal')
+cities_set.add('Hamilton')
+cities_set.add('Ottawa')
 ```
 
 ```python
-set.discard('Montreal')
-set.add('Hamilton')
-set.add('Ottawa')
+cities_set.discard('Montreal')
+cities_set.add('Hamilton')
+cities_set.add('Ottawa')
 ```
 
 ```erlang
-Set3 = riakc_set:del_element(<<"Montreal">>, Set2),
-Set4 = riakc_set:add_element(<<"Hamilton">>, Set3),
-Set5 = riakc_set:add_element(<<"Ottawa">>, Set4).
+CitiesSet3 = riakc_set:del_element(<<"Montreal">>, CitiesSet2),
+CitiesSet4 = riakc_set:add_element(<<"Hamilton">>, CitiesSet3),
+CitiesSet5 = riakc_set:add_element(<<"Ottawa">>, CitiesSet4).
 ```
 
 ```curl
@@ -635,23 +635,23 @@ Now, we can check on which cities are currently in our set:
 ```java
 // Using our "cities" Location from above:
 
-FetchSet fetch = new FetchSet.Builder(cities)
+FetchSet fetch = new FetchSet.Builder(citiesSet)
         .build();
 FetchSet.Response response = client.execute(fetch);
-Set<BinaryValue> citiesSet = response.getDatatype().viewAsSet();
-for (BinaryValue city : citiesSet) {
+Set<BinaryValue> binarySet = response.getDatatype().viewAsSet();
+for (BinaryValue city : binarySet) {
   System.out.println(city.toString());
 }
 ```
 
 ```ruby
-set.members
+cities_set.members
 
 #<Set: {"Hamilton", "Ottawa", "Toronto"}>
 ```
 
 ```python
-set.dirty_value
+cities_set.dirty_value
 
 # The value fetched from Riak is always immutable, whereas the "dirty
 # value" takes into account local modifications that have not been
@@ -659,15 +659,15 @@ set.dirty_value
 # frozenset(['Toronto', 'Hamilton', 'Ottawa']), the call below would
 # return frozenset([]).
 
-set.value
+cities_set.value
 
 # To fetch the value stored on the server, use the call below. Note
 # that this will clear any unsent additions or deletions.
-set.reload()
+cities_set.reload()
 ```
 
 ```erlang
-riakc_set:dirty_value(Set5).
+riakc_set:dirty_value(CitiesSet5).
 
 %% The value fetched from Riak is always immutable, whereas the "dirty
 %% value" takes into account local modifications that have not been
@@ -675,13 +675,13 @@ riakc_set:dirty_value(Set5).
 %% [<<"Hamilton">>, <<"Ottawa">>, <<"Toronto">>], the call below would
 %% return []. These are essentially ordsets:
 
-riakc_set:value(Set5).
+riakc_set:value(CitiesSet5).
 
 %% To fetch the value stored on the server, use the call below:
 
 {ok, SetX} = riakc_pb_socket:fetch_type(Pid,
-                                 {<<"sets">>,<<"travel">>},
-                                  <<"cities">>).
+                                        {<<"sets">>,<<"travel">>},
+                                         <<"cities">>).
 ```
 
 ```curl
@@ -708,18 +708,18 @@ System.out.println(citiesSet.contains(BinaryValue.create("Ottawa")));
 ```
 
 ```ruby
-set.include? 'Vancouver'
+cities_set.include? 'Vancouver'
 # false
 
-set.include? 'Ottawa'
+cities_set.include? 'Ottawa'
 # true
 ```
 
 ```python
-'Vancouver' in set
+'Vancouver' in cities_set
 # False
 
-'Ottawa' in set
+'Ottawa' in cities_set
 # True
 ```
 
@@ -727,8 +727,8 @@ set.include? 'Ottawa'
 %% At this point, Set5 is the most "recent" set from the standpoint
 %% of our application.
 
-riakc_set:is_element(<<"Vancouver">>, Set5).
-riakc_set:is_element(<<"Ottawa">>, Set5).
+riakc_set:is_element(<<"Vancouver">>, CitiesSet5).
+riakc_set:is_element(<<"Ottawa">>, CitiesSet5).
 ```
 
 ```curl
@@ -745,15 +745,15 @@ int numberOfCities = citiesSet.size();
 ```
 
 ```ruby
-set.members.length
+cities_set.members.length
 ```
 
 ```python
-len(set)
+len(cities_set)
 ```
 
 ```erlang
-riakc_set:size(Set5).
+riakc_set:size(CitiesSet5).
 ```
 
 ```curl
