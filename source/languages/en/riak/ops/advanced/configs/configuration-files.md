@@ -1767,6 +1767,8 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 </tbody>
 </table>
 
+Unlike the `strong_consistency` setting, the settings listed below are available only in `advanced.config`, in particular in the `riak_ensemble` section of that file.
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -1839,15 +1841,15 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 
 <tr>
 <td><code>tree_validation</code></td>
-<td>Determines whether Riak considers peer Merkle trees to be trusted or not</td>
-<td><code></code></td>
+<td>Determines whether Riak considers peer Merkle trees to be trusted after a node restart. When validation is enabled (the default), Riak does not trust peer trees after a restart, instead requiring the peer to sync with a trusted majority. This is the safest option, as it protects Riak against undetected corruption of the Merkle tree. However, this mode reduces Riak availability since it can sometimes require more than a simple majority of nodes to be online and reachable.<td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>synchronous_tree_updates</code></td>
+<td>Determines whether the metadata updates to follower Merkle trees are handled synchronously or not. When set to <code>true</code>, Riak requires two quorum round trips to occur before replying back to the client, the first quorum request to write the actual object and the second to write the Merkle tree data. When set to <code>false</code>, Riak will respond back to the client after the first round trip, letting the metadata update happen asynchronously.<br /><br />It's important to note that the leader <em>always</em> updates its local Merkle tree before responding to the client. This setting only affects the metadata writes sent to followers.<br /><br />In principle, asynchronous updates are unsafe. If the leader crashes before sending the metadata updates and all followers that had acknowledged the object write somehow revert to the object value immediately prior to a write request, a future read could return the immediately preceding value without realizing that it was incorrect. Given that this scenario is unlikely, this setting defaults to <code>false</code> in the name of improved performance.</td>
+<td><code>false</code></td>
 </tr>
 
 </tbody>
 </table>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
-</tr>
