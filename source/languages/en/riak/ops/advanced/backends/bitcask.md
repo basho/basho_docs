@@ -693,7 +693,7 @@ possible and to minimize latency and maximize throughput.
 
   * **Be aware of file handle limits**
 
-    Review the documentation on [[open files limits]].
+    Review the documentation on [[open files limit]].
 
   * **Avoid the overhead of updating file metadata (such as last access time) on every read or write operation**
 
@@ -746,7 +746,7 @@ possible and to minimize latency and maximize throughput.
 
   * **Multi-cluster replication (Riak Enterprise)**
 
-    If you are using [[Riak Enterprise]] with the replication feature
+    If you are using [Riak Enterprise](http://basho.com/riak-enterprise/) with the replication feature
     enabled, your clusters might experience higher production of
     fragmentation and dead bytes. Additionally, because the fullsync
     feature operates across entire partitions, it will be made more

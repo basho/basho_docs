@@ -7,7 +7,6 @@ audience: beginner
 keywords: [developers, cap, replication]
 interest: [
 "[[Installing and Upgrading]]",
-"[[Concepts]]",
 "[[Planning for a Riak System]]",
 "[[Cluster Capacity Planning]]",
 "[[Use Cases]]"

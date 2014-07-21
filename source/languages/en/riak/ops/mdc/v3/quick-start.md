@@ -17,7 +17,7 @@ This guide will walk you through the process of configuring Riak's v3 Replicatio
 ### Prerequisites
 This guide assumes that you have completed the following steps:
 
-* Install [[Riak Enterprise]]
+* Install [Riak Enterprise](http://basho.com/riak-enterprise/)
 * Perform [[System Tuning|System Performance Tuning]]
 * Review [[Configuration|Multi Data Center Replication v3 Configuration]]
 

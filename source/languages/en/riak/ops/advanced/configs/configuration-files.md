@@ -1415,7 +1415,7 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 
 ## SNMP
 
-Configurable parameters for the [[Simple Network Management Protocol|SNMP]] \(SNMP) server built into [[Riak Enterprise]].
+Configurable parameters for the [[Simple Network Management Protocol|SNMP]] \(SNMP) server built into [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
 <thead>
@@ -1516,7 +1516,7 @@ Configurable parameters for the [[Simple Network Management Protocol|SNMP]] \(SN
 
 ## JMX
 
-Configuration parameters for the [[JMX Monitoring]] system built into [[Riak Enterprise]].
+Configuration parameters for the [[JMX Monitoring]] system built into [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
 <thead>
