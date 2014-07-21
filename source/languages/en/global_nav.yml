@@ -361,5 +361,4 @@ root:
     class: "active"
     sub:
       - "[[Riak]]"
-      - "[[Riak Enterprise]]"
       - "[[Riak CS]]"

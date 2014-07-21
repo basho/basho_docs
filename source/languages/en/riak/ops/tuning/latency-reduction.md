@@ -181,7 +181,7 @@ be worthwhile to revisit your OS-specific configurations. The following
 guides may be of help:
 
 * [[Open files limit]]
-* General [[Linux performance tuning]]
+* General [[System performance tuning]]
 * [[AWS performance tuning]] if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
 ## I/O and Network Bottlenecks
