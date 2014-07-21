@@ -1,13 +1,14 @@
 ---
 title: SNMP
-project: riakee
+project: riak
+header: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [snmp]
 moved: {
-    '2.0.0-': '/cookbooks/SNMP-Configuration'
+    '2.0.0-': 'riakee:/cookbooks/SNMP-Configuration'
 }
 ---
 

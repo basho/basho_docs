@@ -1,13 +1,14 @@
 ---
 title: "Multi Data Center Replication: Upgrading from V2 to V3"
-project: riakee
+project: riak
+header: riakee
 version: 1.3.2+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl]
 moved: {
-    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-UpgradeV2toV3'
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-UpgradeV2toV3'
 }
 ---
 
@@ -156,7 +157,7 @@ In all of the following examples, the source cluster is named `newyork` while th
     $ riak-repl fullsync start boston
     ```
 
-    See the [[Multi Data Center Replication v3: Scheduling Fullsync]] guide for configuring scheduled replication fullsyncs.
+    See the [[Multi Data Center Replication: v3 Scheduling Fullsync]] guide for configuring scheduled replication fullsyncs.
 
 18. Disable Version 2 Replication Bucket Hooks
 

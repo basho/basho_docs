@@ -1,13 +1,14 @@
 ---
 title: "Multi Data Center Replication: System Tuning"
-project: riakee
+project: riak
+header: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, os]
 moved: {
-    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-UpgradeV2toV3'
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-UpgradeV2toV3'
 }
 ---
 

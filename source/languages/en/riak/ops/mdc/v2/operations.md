@@ -1,13 +1,14 @@
 ---
 title: "Multi Data Center Replication: Operations"
-project: riakee
+project: riak
+header: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, operator]
 moved: {
-    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-Operations'
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-Operations'
 }
 ---
 
@@ -107,8 +108,8 @@ Field | Description
 `leader` | Which node is the current leader of the cluster
 `local_leader_message_queue_len` | The length of the object queue on the leader
 `local_leader_heap_size `| The amount of memory the leader is using
-`client_stats` | See <a href="/cookbooks/Multi-Data-Center-Replication-Operations/#Client-Statistics" class="riakee">Client Statistics</a>
-`server_stats` | See <a href="/cookbooks/Multi-Data-Center-Replication-Operations/#Server-Statistics" class="riakee">Server Statistics</a>
+`client_stats` | See <a href="/ops/mdc/v2/operations/#Client-Statistics">Client Statistics</a>
+`server_stats` | See <a href="/ops/mdc/v2/operations/#Server-Statistics">Server Statistics</a>
 
 
 ## Client Statistics
@@ -131,7 +132,7 @@ Field | Description
 `site` | The connected site name configured with `riak-repl add-site`
 `strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist`, `syncv1`
 `fullsync_worker` | The Erlang process ID of the fullsync worker
-`bounded_queue` | See <a href="/cookbooks/Multi-Data-Center-Replication-Operations/#Bounded-Queue" class="riakee">Bounded Queue</a>
+`bounded_queue` | See <a href="/ops/mdc/v2/operations/#Bounded-Queue">Bounded Queue</a>
 `state` | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>**`wait_for_partition`**</li><li>**`build_keylist`**</li><li>**`wait_keylist`**</li><li>**`diff_bloom`**</li><li>**`diff_keylist`**</li></ul>
 `message_queue_len` | The number of Erlang messages that are waiting to be process by the server
 

@@ -1,13 +1,14 @@
 ---
 title: "Multi Data Center Replication: Architecture"
-project: riakee
+project: riak
+header: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl]
 moved: {
-    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-Architecture'
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-Architecture'
 }
 ---
 

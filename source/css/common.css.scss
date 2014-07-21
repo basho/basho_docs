@@ -862,6 +862,11 @@ div[role="main"] {
       }
     }
     
+    div.small {
+      font-size: 70%;
+      line-height:1;
+    }
+
     a {
       color : $headerColor;
     }
@@ -1268,7 +1273,7 @@ div[role="main"] {
     }
   }
 
-  .info, .note, blockquote {
+  .enterprise, .info, .note, blockquote {
     @extend .box-green;
     @extend .serif-italic;
     @include allCorners();
@@ -1295,6 +1300,21 @@ div[role="main"] {
       top         : 17px;
       left        : 9px;
     }
+  }
+  .enterprise {
+     @include gradient('575e64', rgba(87,95,101,1.0), rgba(73,81,88,1.0));
+     border: 0px;
+     color: #fff;
+     font-size: 100%;
+     font-family : 'OpenSansBold', sans-serif;
+     a {
+      color: $orange;
+      text-decoration : none;
+        &[href^="http://"], &[href^="https://"] {
+          background    : none;
+          padding-right : 0;
+        }
+     }
   }
     
   .mainarticle {

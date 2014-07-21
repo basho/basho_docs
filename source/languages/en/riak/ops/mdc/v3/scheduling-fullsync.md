@@ -1,13 +1,14 @@
 ---
-title: "Multi Data Center Replication v3: Scheduling Fullsync"
-project: riakee
+title: "Multi Data Center Replication: v3 Scheduling Fullsync"
+project: riak
+header: riakee
 version: 1.4.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, schedule, fullsync]
 moved: {
-    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-v3-Scheduling-Full-Sync'
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-v3-Scheduling-Full-Sync'
 }
 ---
 

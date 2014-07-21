@@ -1,13 +1,14 @@
 ---
 title: JMX Monitoring
-project: riakee
+project: riak
+header: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, config]
 moved: {
-    '2.0.0-': '/cookbooks/JMX-Monitoring'
+    '2.0.0-': 'riakee:/cookbooks/JMX-Monitoring'
 }
 ---
 

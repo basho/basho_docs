@@ -1,13 +1,14 @@
 ---
 title: "Multi Data Center Replication v2 Quick Start"
-project: riakee
+project: riak
+header: riakee
 version: 1.2.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, bnw]
 moved: {
-    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-v2-Quick-Start'
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-v2-Quick-Start'
 }
 ---
 
@@ -64,7 +65,7 @@ $ riak-repl add-site 172.16.1.11 9010 Cluster1
 
 ### Verify the Replication Configuration
 
-Verify the replication configuration using `riak-repl status` on a Cluster1 node and a Cluster2 node.  A full description of the `riak-repl status` command's output can be found at the [riak-repl status output documentation](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Operations/#riak-repl-status-output).
+Verify the replication configuration using `riak-repl status` on a Cluster1 node and a Cluster2 node.  A full description of the `riak-repl status` command's output can be found at the [[riak-repl status output documentation|Multi Data Center Replication: Operations#riak-repl-status-output]].
 
 On the Cluster1 node, verify that there are `listener_<nodename>`s for each listening node, and that `leader` and `server_stats` are populated.  They should look similar to the following:
 
@@ -170,7 +171,7 @@ $ riak-repl add-site 192.168.1.21 9010 Cluster2
 ```
 
 ### Verify the Replication Configuration
-Verify the replication configuration using `riak-repl status` on a Cluster1 node and a Cluster2 node. A full description of the `riak-repl status` command's output can be found at the [riak-repl status output documentation](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Operations/#riak-repl-status-output).
+Verify the replication configuration using `riak-repl status` on a Cluster1 node and a Cluster2 node. A full description of the `riak-repl status` command's output can be found at the [[riak-repl status output documentation|Multi Data Center Replication: Operations#riak-repl-status-output]].
 
 On the Cluster1 node, verify that `Cluster2_ips`, `leader`, and `client_stats` are populated. They should look similar to the following:
 

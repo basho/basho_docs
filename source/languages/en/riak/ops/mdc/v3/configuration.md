@@ -1,14 +1,15 @@
 ---
 title: "Multi Data Center Replication v3 Configuration"
-project: riakee
+project: riak
+header: riakee
 version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, configuration]
 moved: {
-    '1.4.0-1.9.9': '/cookbooks/Multi-Data-Center-Replication-Configuration-New',
-    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-v3-Configuration'
+    '1.4.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-Configuration-New',
+    '1.4.0-2.0.0': 'riakee:/cookbooks/Multi-Data-Center-Replication-v3-Configuration'
 }
 ---
 
@@ -85,9 +86,9 @@ Setting | Options | Default | Description
 `keyfile` | `path` (string) | `undefined` | Fully qualified path to an ssl `.pem` key file
 `cacertdir` | `path` (string) | `undefined` | The `cacertdir` is a fully-qualified directory containing all the CA certificates needed to verify the CA chain back to the root
 `certfile` | `path` (string) | `undefined` | Fully qualified path to a `.pem` cert file
-`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f1" class="riakee">1</a>.
+`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See <a href="/ops/mdc/v2/configuration/#f1">1</a>.
 `ssl_enabled` | `true`, `false` | `false` | Enable SSL communications
-`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide multiple ACLs as a list of strings, and you can wildcard the leftmost part of the common name, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f4" class="riakee">2</a>.
+`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide multiple ACLs as a list of strings, and you can wildcard the leftmost part of the common name, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See <a href="/ops/mdc/v2/configuration/#f4">2</a>.
 
 
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid certification path. If depth is `0` the PEER must be signed by the trusted ROOT-CA directly; if `1` the path can be PEER, CA, ROOT-CA; if depth is `2` then PEER, CA, CA, ROOT-CA and so on.

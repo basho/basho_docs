@@ -1,12 +1,12 @@
 ---
 title: Riak Enterprise FAQs
-project: riakee
+project: riak
 version: 2.0.0+
 document: cookbook
 audience: beginner
 keywords: [faq]
 moved: {
-    '2.0.0-': '/cookbooks/faqs/riak-ee'
+    '2.0.0-': 'riakee:/cookbooks/faqs/riak-ee'
 }
 ---
 
