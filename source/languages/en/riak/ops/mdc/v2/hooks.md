@@ -1,11 +1,15 @@
 ---
 title: "Multi Data Center Replication: Hooks"
-project: riakee
+project: riak
+header: riakee
 version: 1.2.0+
 document: cookbook
 toc: true
 audience: advanced
 keywords: [operator, troubleshooting]
+moved: {
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-Hooks'
+}
 ---
 
 ## Overview

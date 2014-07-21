@@ -1,11 +1,15 @@
 ---
 title: "Multi Data Center Replication v3 Quick Start"
-project: riakee
+project: riak
+header: riakee
 version: 1.3.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, bnw]
+moved: {
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-v3-Quick-Start'
+}
 ---
 
 This guide will walk you through the process of configuring Riak's v3 Replication to perform replication between two sample Riak clusters on separate networks. This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.  It is important to note that both clusters must have the same ring size, but can have a different number of nodes.
