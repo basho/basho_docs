@@ -11,7 +11,7 @@ moved: {
 }
 ---
 
-Below is a list of terms that you may run into frequently in the documentation for Riak, along with links to more in-depth treatments. You should also visit our [[Concepts]] page for an overview of many of these ideas.
+Below is a list of terms that you may run into frequently in the documentation for Riak, along with links to more in-depth treatments.
 
 ## Active Anti-Entropy (AAE)
 

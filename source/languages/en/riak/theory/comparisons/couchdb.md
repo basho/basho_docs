@@ -140,7 +140,7 @@ the online documentation for both [Riak](http://docs.basho.com/) and
         <td>Riak's replication system is heavily influenced by the Dynamo Paper and Dr. Eric Brewer's CAP Theorem. Riak uses consistent hashing to replicate and distribute N copies of each value around a Riak cluster composed of any number of physical machines. Under the hood, Riak uses virtual nodes to handle the distribution and dynamic rebalancing of data, thus decoupling the data distribution from physical assets.
             <ul>
               <li>[[Replication]]</li>
-              <li>[[Clustering|Concepts#Clustering]]</li>
+              <li>[[Clustering|Clusters]]</li>
             </ul>
 
             The Riak APIs expose tunable consistency and availability parameters that let you select which level of configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.

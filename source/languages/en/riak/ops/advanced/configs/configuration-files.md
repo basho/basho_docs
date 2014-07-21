@@ -734,7 +734,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored. <strong>Note</strong>: See <a href="/dev/advanced/cap-controls">Replication Properties</a> for further discussion.</td>
+<td>The number of replicas stored. <strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
 <td><code>3</code></td>
 </tr>
 
@@ -1415,7 +1415,7 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 
 ## SNMP
 
-Configurable parameters for the [[Simple Network Management Protocol|SNMP Configuration]] \(SNMP) server built into [[Riak Enterprise]].
+Configurable parameters for the [[Simple Network Management Protocol|SNMP]] \(SNMP) server built into [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
 <thead>
@@ -1516,7 +1516,7 @@ Configurable parameters for the [[Simple Network Management Protocol|SNMP Config
 
 ## JMX
 
-Configuration parameters for the [[JMX Monitoring]] system built into [[Riak Enterprise]].
+Configuration parameters for the [[JMX Monitoring]] system built into [Riak Enterprise](http://basho.com/riak-enterprise/).
 
 <table class="riak-conf">
 <thead>

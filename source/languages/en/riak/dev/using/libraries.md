@@ -12,7 +12,7 @@ moved: {
 }
 ---
 
-## Basho Supported Libraries
+## Basho-Supported Libraries
 
 Basho officially supports a number of open-source client libraries for a variety of programming languages and environments.
 
@@ -27,7 +27,7 @@ Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [rdoc](ht
 
 In addition to the official clients, Basho provides some unofficial
 client libraries, listed below. There are also many client libraries
-and related projects [[community projects]].
+and related [[community projects]].
 
 Language | Source | Documentation
 :--------|:-------|:-------------
