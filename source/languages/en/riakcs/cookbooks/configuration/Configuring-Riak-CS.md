@@ -64,6 +64,59 @@ If you configured Riak to use a different port for Protocol Buffers, you must ch
 
 After modifying the port numbers, restart Riak if is already running.
 
+## Connection Pools
+
+Riak CS uses two distinct connection pools for communication with
+Riak.
+
+The primary connection pool is used to service the majority fo API requests
+related to the upload or retrieval of objects. It is identified in the
+configuration file as *request_pool*. The default size of this pool is 128.
+
+The secondary connection pool is used strictly for requests to list
+the contents of buckets. The reason for a separate connnection pool
+for this operation is that it can be taxing on the system and it can
+prove useful for system operators to limit the number of concurrent
+bucket listing requests that may be issued concurrently in order to
+prevent detrimental impacts to system performance. This secondary
+connection pool is identified in the configuration file as
+*bucket_listing_pool*. The default size of this pool is 5.
+
+The following shows the `connection_pools` default configuration entry
+that can be found in the `app.config` file:
+
+```erlang
+{connection_pools,
+ [
+  {request_pool, {128, 0} },
+  {bucket_list_pool, {5, 0} }
+ ]},
+```
+
+The value for each pool is represented as a pair with the first element
+representing the normal size of the pool. This is representative of
+the number of concurrent requests of a particular type that a Riak CS node may
+service. The second element represents the number of allowed
+overflow pool requests that are allowed. It is not recommended to use
+any value other than 0 for the overflow amount unless careful analysis
+and testing has shown it to be beneficial for a particular use case.
+
+### Tuning
+
+It is strongly recommended to increase the value of the Riak
+`pb_backlog` setting as described in
+[[this section|Configuring Riak for CS#Setting-Up-Riak-to-Use-Protocol-Buffers]]
+of the documentation on configuring Riak for use with Riak CS. When a
+Riak CS node is started each connection pool begins to establish
+connections to Riak. This can result in a thundering herd problem
+where connections in the pool believe they are connected to Riak, but
+in reality some of the connections have been reset. Due to TCP `RST`
+packet rate limiting (controlled by `net.inet.icmp.icmplim`) some of
+the connections may not receive notification until they are used to
+service a user's request.  This manifests as an `{error,
+disconnected}` message in the Riak CS logs and an error to returned to
+the user.
+
 ## Specifying the Stanchion Node
 
 If you have a single node, you don't have to change the Stanchion settings because Stanchion runs on the local host. If your Riak CS system has multiple nodes, you must set the IP address and port for the Stanchion node and whether or not SSL is enabled.
