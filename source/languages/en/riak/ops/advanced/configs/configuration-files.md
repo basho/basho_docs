@@ -1368,29 +1368,6 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 </tbody>
 </table>
 
-## Strong Consistency
-
-The `strong_consistency` parameter enables you to turn Riak's [[strong consistency]] subsystem on and off.
-
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><code>strong_consistency</code></td>
-<td>Enables the consensus subsystem. Set to <code>on</code> to enable the consensus subsystem used for strongly consistent Riak operations.</td>
-<td><code>off</code></td>
-</tr>
-
-</tbody>
-</table>
-
 ## Riak Data Types
 
 <table class="riak-conf">
@@ -1622,6 +1599,10 @@ familiar to users of versions of Riak prior to 2.0. Here is an example:
 ]
 ```
 
+Settings in `advanced.config` related to Riak's [[strong consistency]]
+subsystem are available in the [[strong consistency section|Configuration
+Files#Strong-Consistency]]
+
 The following settings are available in the `advanced.config` file:
 
 #### `riak_repl` settings
@@ -1725,7 +1706,7 @@ If you are upgrading to Riak 2.x and wish to upgrade to the new [[Riak Search|Us
 
 #### Other settings
 
-There are three non-`riak_repl` settings available in `advanced.config`.
+There are three non-`riak_repl`, non-strong-consistency-related settings available in `advanced.config`.
 
 <table>
 <thead>
@@ -1763,3 +1744,106 @@ There are three non-`riak_repl` settings available in `advanced.config`.
 </tbody>
 </table>
 
+## Strong Consistency
+
+Riak's [[strong consistency]]
+
+The `strong_consistency` parameter enables you to turn Riak's [[strong consistency]] subsystem on and off.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>strong_consistency</code></td>
+<td>Enables the consensus subsystem. Set to <code>on</code> to enable the consensus subsystem used for strongly consistent Riak operations.</td>
+<td><code>off</code></td>
+</tr>
+
+</tbody>
+</table>
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>ensemble_tick</code></td>
+<td>The rate, in milliseconds, at which a leader performs its periodic duties, including refreshing the leader lease. This setting must be lower than both the <code>lease_duration</code> and <code>follower_timeout</code> settings (both listed below).</td>
+<td><code>500</code></td>
+</tr>
+
+<tr>
+<td><code>lease_duration</code></td>
+<td>Determines how long a leader lease remains valid without being refreshed. This should be set higher than the <code>ensemble_tick</code> setting (listed above) so that leaders have time to refresh their leases before they time out, and it must be set lower than the <code>follower_timeout</code> setting (listed below).</td>
+<td><code>ensemble_tick</code> * 2/3</td>
+</tr>
+
+<tr>
+<td><code>follower_timeout</code></td>
+<td>Determines how long a follower waits to hear from a leader before it abandons the leader. This must be set greater than the <code>lease_duration</code> setting.</td>
+<td><code>lease_duration</code> * 4</td>
+</tr>
+
+<tr>
+<td><code>alive_tokens</code></td>
+<td>Determines the number of ticks the leader will wait to hear from its associated [[vnode|Riak Glossary#vnode]] before assuming that the vnode is unhealthy and stepping down as leader. If the vnode does not respond to the leader before <code>ensemble_tick</code> * <code>alive_tokens</code> milliseconds have elapsed, the leader will give up leadership. It may be necessary to raise this setting if your Riak vnodes are frequently stalling out on slow backend reads/writes. If this setting is too low, it may cause slow requests to time out earlier than the requests request timeout.</a></td>
+<td><code>2</code></td>
+</tr>
+
+<tr>
+<td><code>storage_delay</code></td>
+<td>Determines how long the consensus subsystem delays syncing to disk when performing certain metadata operations. This delay allows multiple operations to be coalesced into a single disk write. We do not recommend that you change this setting.</td>
+<td><code>50</code></td>
+</tr>
+
+<tr>
+<td><code>storage_tick</code></td>
+<td>Determines how often the consensus subsystem writes data to disk that was requested to be written asynchronously. We do not recommend that you change this setting.</td>
+<td><code></code></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+
+</tbody>
+</table>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
