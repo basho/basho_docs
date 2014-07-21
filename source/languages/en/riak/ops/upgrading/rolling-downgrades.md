@@ -128,6 +128,6 @@ Check the encoding used after the capability manager restarts:
 riak_core_capability:get({riak_kv, handoff_data_encoding}).
 ```
 
-## After the Rolling Downgrade
+### After the Rolling Downgrade
 
 If Active Anti-Entropy was enabled, and the downgraded version is below 1.3, the anti-entropy directory on each node can be deleted after the rolling downgrade is complete.

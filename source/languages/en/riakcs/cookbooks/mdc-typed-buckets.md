@@ -1,6 +1,7 @@
 ---
 title: Multi-Datacenter Version 3 Replication with Bucket Types
-project: riakee
+project: riakcs
+header: riakee
 version: 2.0.0+
 document: cookbook
 toc: true

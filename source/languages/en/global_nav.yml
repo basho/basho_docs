@@ -134,7 +134,6 @@ riak:
             sub:
               - "[[riak|riak Command Line]]"
               - "[[riak-admin|riak-admin Command Line]]"
-              # - "[[search-cmd|search Command Line]]"
           - title: "Repair and Recovery"
             sub:
               - "[[Failure and Recovery]]"
@@ -148,6 +147,8 @@ riak:
             sub:
               - "[[Statistics and Monitoring]]"
               - "[[Riak Monitoring with collectd]]"
+              - "[[JMX Monitoring]]"
+              - "[[SNMP]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
@@ -170,12 +171,43 @@ riak:
               - "[[LevelDB]]"
               - "[[Memory]]"
               - "[[Multi]]"
+
       - title: "Upgrading a Cluster"
         sub:
           - "[[Production Checklist]]"
           - "[[Rolling Upgrades]]"
           - "[[Rolling Downgrades]]"
           - "[[Upgrading Search from 1.x to 2.x]]"
+      - title: "Multi-Datacenter"
+        sub:
+          - title: "Version 2 Replication"
+            sub:
+              - "[[Architecture|Multi Data Center Replication: Architecture]]"
+              - "[[Configuration|Multi Data Center Replication: Configuration]]"
+              - "[[Operations|Multi Data Center Replication: Operations]]"
+              - "[[Quick Start|Multi Data Center Replication v2 Quick Start]]"
+              - "[[Scheduling Fullsync|Multi Data Center Replication: Scheduling Fullsync]]"
+              - "[[SSL|Multi Data Center Replication: SSL]]"
+              - "[[With NAT|Multi Data Center Replication: With NAT]]"
+              - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
+          - title: "Version 3 Replication"
+            sub:
+              - "[[Architecture|Multi Data Center Replication v3 Architecture]]"
+              - "[[Configuration|Multi Data Center Replication v3 Configuration]]"
+              - "[[Operations|Multi Data Center Replication v3 Operations]]"
+              - "[[Quick Start|Multi Data Center Replication v3 Quick Start]]"
+              - "[[Scheduling Fullsync|Multi Data Center Replication v3: Scheduling Fullsync]]"
+              - "[[SSL|Multi Data Center Replication v3 SSL]]"
+              - "[[With NAT|Multi Data Center Replication v3 With NAT]]"
+              - "[[Active Anti-Entropy|Multi Data Center Replication v3 With AAE]]"
+              - "[[Cascading Writes|Multi Data Center Replication: Cascading Realtime Writes]]"
+          - "[[System Tuning|Multi Data Center Replication: System Tuning]]"
+          - "[[Version Comparison|Multi Data Center Replication: Comparison]]"
+          - "[[Upgrade Guide|Multi Data Center Replication: Upgrading from V2 to V3]]"
+          - "[[Statistics|Multi Data Center Replication: Statistics]]"
+          - "[[Monitoring|Multi Data Center Replication: Monitoring]]"
+          - "[[Per Bucket|Multi Data Center Replication: Per Bucket]]"
+          - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
 
 
   - title: "Theory & Concepts"
@@ -234,67 +266,6 @@ riak:
     sub:
       - "[[HTTP API]]"
       - "[[Protocol Buffers|PBC API]]"
-
-
-riakee:
-  #- title: "Shortcuts"
-  #  class: "active shortcuts"
-  #  sub:
-  #    - "[[APIs|/dev/references/http/]]"
-  #    - "[[FAQs|Riak Enterprise FAQs]]"
-
-  - title: "Start Here"
-    class: "start"
-    sub:
-      - "[[Riak Enterprise]]"
-      # - "[[The Riak Fast Track]]"
-      - "[[Rolling Upgrade to Enterprise]]"
-      # - "[[Query Choices|Querying Riak]]"
-  - title: "Multi Data Center"
-    sub:
-      - title: "Version 2 Replication"
-        sub:
-          - "[[Architecture|Multi Data Center Replication: Architecture]]"
-          - "[[Configuration|Multi Data Center Replication: Configuration]]"
-          - "[[Operations|Multi Data Center Replication: Operations]]"
-          - "[[Quick Start|Multi Data Center Replication v2 Quick Start]]"
-          - "[[Scheduling Fullsync|Multi Data Center Replication: Scheduling Fullsync]]"
-          - "[[SSL|Multi Data Center Replication: SSL]]"
-          - "[[With NAT|Multi Data Center Replication: With NAT]]"
-          - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
-      - title: "Version 3 Replication"
-        sub:
-          - "[[Architecture|Multi Data Center Replication v3 Architecture]]"
-          - "[[Configuration|Multi Data Center Replication v3 Configuration]]"
-          - "[[Operations|Multi Data Center Replication v3 Operations]]"
-          - "[[Quick Start|Multi Data Center Replication v3 Quick Start]]"
-          - "[[Scheduling Fullsync|Multi Data Center Replication v3: Scheduling Fullsync]]"
-          - "[[SSL|Multi Data Center Replication v3 SSL]]"
-          - "[[With NAT|Multi Data Center Replication v3 With NAT]]"
-          - "[[Active Anti-Entropy|Multi Data Center Replication v3 With AAE]]"
-          - "[[Cascading Writes|Multi Data Center Replication: Cascading Realtime Writes]]"
-      - "[[System Tuning|Multi Data Center Replication: System Tuning]]"
-      - "[[Version Comparison|Multi Data Center Replication: Comparison]]"
-      - "[[Upgrade Guide|Multi Data Center Replication: Upgrading from V2 to V3]]"
-      - "[[Statistics|Multi Data Center Replication: Statistics]]"
-      - "[[Monitoring|Multi Data Center Replication: Monitoring]]"
-      - "[[Per Bucket|Multi Data Center Replication: Per Bucket]]"
-      - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
-  - title: "Operating Riak Enterprise"
-    sub:
-      - "[[Multi Data Center Replication|Multi Data Center Replication v3 Operations]]"
-      - "[[JMX Monitoring]]"
-      - "[[SNMP Configuration]]"
-  - title: "Reference"
-    sub:
-      - "[[SNMP Counters]]"
-      - "[[Riak Enterprise FAQs|Riak Enterprise FAQs]]"
-      - "[[Riak FAQs|Riak FAQs]]"
-  - title: "APIs"
-    sub:
-      - "[[HTTP API]]"
-      - "[[Protocol Buffers|PBC API]]"
-      - "[[Backend API]]"
 
 riakcs:
   #- title: "Shortcuts"

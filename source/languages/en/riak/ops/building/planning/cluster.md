@@ -203,7 +203,7 @@ reliable access to data. A Riak cluster can be deployed in many
 different network topologies, but it is recommended that you produce as
 little latency between nodes as possible, as high latency leads to sub-optimal
 performance. It is not recommended that you deploy a single Riak cluster
-across two datacenters. If your use case requires this capability, Basho offers a [Multi-Datacenter Replication](http://docs.basho.com/riakee/latest/cookbooks/Multi-Data-Center-Replication-Architecture/) option that is built to keep multiple Riak clusters in sync across several geographically diverse deployments.
+across two datacenters. If your use case requires this capability, Basho offers a [[Multi Data Center Replication: Architecture]] option that is built to keep multiple Riak clusters in sync across several geographically diverse deployments.
 
 * [Learn more about Riak Enterprise](http://basho.com/products/riak-overview/).
 

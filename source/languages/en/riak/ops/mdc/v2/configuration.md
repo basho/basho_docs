@@ -1,11 +1,15 @@
 ---
 title: "Multi Data Center Replication: Configuration"
-project: riakee
+project: riak
+header: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, configuration]
+moved: {
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-Configuration'
+}
 ---
 
 ## File
@@ -57,17 +61,17 @@ Setting | Options | Default | Description
 `client_connect_timeout` | `ms` (integer) | `15000` | The number of milliseconds to wait before a client connection timeout occurs
 `client_retry_timeout` | `ms` (integer) | `30000` | The number of milliseconds to wait before trying to connect after a retry has occurred
 `sndbuf` | `bytes` (integer) | OS dependent | The buffer size for the listener (server) socket measured in bytes
-`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f1" class="riakee">1</a>.
+`ssl_depth` | `depth` (integer) | `1` | Set the depth to check for SSL CA certs. See <a href="/ops/mdc/v2/configuration/#f1">1</a>.
 `ssl_enabled` | `true`, `false` | `false` | Enable SSL communications
 `recbuf` | `bytes` (integer) | OS dependent | The buffer size for the site (client) socket measured in bytes
 `vnode_gets` | `true`, `false` | `true` | If `true`, repl will do a direct get against the vnode, rather than use a `GET` finite state machine
 `shuffle_ring` | `true`, `false` | `true `| If `true`, the ring is shuffled randomly. If `false`, the ring is traversed in order. Useful when a sync is restarted to reduce the chance of syncing the same partitions.
 `diff_batch_size` | `objects` (integer) | `100` | Defines how many fullsync objects to send before waiting for an acknowledgment from the client site
-`max_get_workers` | `max` (integer) | `100` | The maximum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f2" class="riakee">2</a>.
-`max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f3" class="riakee">3</a>.
-`min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f2" class="riakee">2</a>.
-`min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f3" class="riakee">3</a>.
-`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide multiple ACLs as a list of strings, and you can wildcard the leftmost part of the common name, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See <a href="/cookbooks/Multi-Data-Center-Replication-Configuration/#f4" class="riakee">4</a>.
+`max_get_workers` | `max` (integer) | `100` | The maximum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f2">2</a>.
+`max_put_workers` | `max` (integer) | `100` | The maximum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f3">3</a>.
+`min_get_workers` | `min` (integer) | `5` | The minimum number of get workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f2">2</a>.
+`min_put_workers` | `min` (integer) | `5` | The minimum number of put workers spawned for fullsync. Every time a replication difference is found, a `GET` will be performed to get the actual object to send. See <a href="/ops/mdc/v2/configuration/#f3">3</a>.
+`peer_common_name_acl` | `cert` (string) | `"*"` | Verify an SSL peer’s certificate common name. You can provide multiple ACLs as a list of strings, and you can wildcard the leftmost part of the common name, so `*.basho.com` would match `site3.basho.com` but not `foo.bar.basho.com` or `basho.com`. See <a href="/ops/mdc/v2/configuration/#f4">4</a>.
 
 
 1. <a name="f1"></a>SSL depth is the maximum number of non-self-issued intermediate certificates that may follow the peer certificate in a valid certification path. If depth is `0`, the PEER must be signed by the trusted ROOT-CA directly; if `1` the path can be PEER, CA, ROOT-CA; if depth is `2` then PEER, CA, CA, ROOT-CA and so on.

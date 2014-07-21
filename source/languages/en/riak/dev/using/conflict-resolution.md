@@ -31,7 +31,7 @@ The following basic options are available:
   Setting both <code>allow_mult</code> and <code>last_write_wins</code> to <code>true</code> necessarily leads to unpredictable behavior and should always be avoided.
   </div>
 
-* **Allow Riak to form siblings and resolve conflicts on the application side**. If `allow_mult` is set to `true`, Riak will form [[siblings|Conflict Resolution#siblings]] if you write multiple objects to a key without providing Riak with a [[vector clock]] that would enable it to judge which object should be considered most up to date. When sibling objects are formed, applications need to decide which of the objects is "correct" (the definition of which depends on the application itself).
+* **Allow Riak to form siblings and resolve conflicts on the application side**. If `allow_mult` is set to `true`, Riak will form [[siblings|Conflict Resolution#siblings]] if you write multiple objects to a key without providing Riak with a [[vector clock|vector clocks]] that would enable it to judge which object should be considered most up to date. When sibling objects are formed, applications need to decide which of the objects is "correct" (the definition of which depends on the application itself).
 
   An application can resolve sibling conflicts by [[passing a vector clock|Conflict Resolution#vector-clocks]] to Riak that shows which replica (or version) of an object that particular client has seen. Or, if you wish, it can provide some other conflict resolution logic. You could specify, for example, that some objects cannot be "correct" because they're too large, their timestamps show them to be too old, the number of items in the [[shopping cart|Dynamo]] has too few items, etc.
 

@@ -1,10 +1,13 @@
 ---
 title: Riak Enterprise FAQs
-project: riakee
-version: 1.2+
+project: riak
+version: 2.0.0+
 document: cookbook
 audience: beginner
 keywords: [faq]
+moved: {
+    '2.0.0-': 'riakee:/cookbooks/faqs/riak-ee'
+}
 ---
 
 Q: Is it possible to replicate some buckets between datacenters but not others?
