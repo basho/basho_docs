@@ -1,7 +1,7 @@
 ---
 title: Garbage Collection
 project: riakcs
-version: 1.2.0+
+version: 1.4.5+
 document: tutorial
 toc: true
 index: true
@@ -39,7 +39,7 @@ of an object version:
 
 When an object version is overwritten, a new object manifest is written
 with the state set to `active`. This new version is then made available
-to Riak CS users. When an object is explicitly deleted, however, this 
+to Riak CS users. When an object is explicitly deleted, however, this
 means that no active versions remain and thus that the object is no
 longer externally available to users.
 
