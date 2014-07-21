@@ -178,7 +178,7 @@ riak:
           - "[[Rolling Upgrades]]"
           - "[[Rolling Downgrades]]"
           - "[[Upgrading Search from 1.x to 2.x]]"
-      - title: "Multi Data Center"
+      - title: "Multi-Datacenter"
         sub:
           - title: "Version 2 Replication"
             sub:

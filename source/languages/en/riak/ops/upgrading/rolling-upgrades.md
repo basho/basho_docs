@@ -23,36 +23,6 @@ Riak nodes now negotiate with each other to determine supported operating modes.
 
 In previous Riak versions, users were required to disable new features during the rolling upgrade process, and then enable them after all nodes were upgraded. This is now handled automatically by Riak. For more on this process, see our documentation on [[capability negotiation]].
 
-{{#1.1.0-}}
-
-<div class="note">
-<div class="title">Note on upgrading to Riak 1.0</div>
-<p>Rolling upgrades should work when moving from Riak 0.13 or later to Riak 1.0
-following the OS specific instructions below, but there are a few considerations
-to keep in mind when doing so. Riak 1.0 has new features that add additional
-steps to the rolling upgrade procedure, specifically Riak Pipe, the new data
-processing library backing MapReduce, and the updated backend API supporting
-asynchronous keylisting. If these features are not explicitly enabled after
-upgrading, the legacy variant of the feature will be used instead. These
-features can only be enabled once *all* nodes in the cluster have been upgraded
-to 1.0.</p>
-
-<p>Before starting an upgrade to 1.0 issue the following command on each
-pre-1.0.0 node in the cluster to make the transfers command report correctly.
-Use `riak attach`if you are not already on the riak console.</p>
-
-```erlang
-riak_core_node_watcher:service_up(riak_pipe, self()).
-```
-
-In case you forget---or if any of the pre-1.0.0 nodes are restarted---it is safe to re-issue the command.
-
-After upgrading to 1.0, make sure to follow steps 9 and 10 of the applicable
-platform-specific instructions.
-</div>
-
-{{/1.1.0-}}
-
 ## Debian/Ubuntu
 
 The following example demonstrates upgrading a Riak node that has been installed with the Debian packages provided by Basho.
@@ -112,47 +82,12 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
-{{#1.3.1+}}
 <div class="info">
 <div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the <tt>[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]]</tt> command. More details about reformatting indexes are available in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
-{{/1.3.1+}}
-
-{{#1.1.0-}}
-
-<div class="note">Only perform the following two steps if you are upgrading to
-Riak 1.0 from an earlier release.
-</div>
-
-9\. Once all nodes have been upgraded, make the following additions to the
-`app.config` file in `/etc/riak` on each node. First, add the following to the `riak_kv` section:
-
-```erlang
-{legacy_keylisting, false},
-{mapred_system, pipe},
-{vnode_vclocks, true}
-```
-
-Then, add the following to the `riak_core` section:
-
-```erlang
-{platform_data_dir, "/var/lib/riak"}
-```
-
-10\. Either run `riak stop` followed by `riak start` on all of the nodes in
-the cluster or use `riak attach` on each node and execute the following
-commands:
-
-```erlang
-application:set_env(riak_kv, legacy_keylisting, false).
-application:set_env(riak_kv, mapred_system, pipe).
-application:set_env(riak_kv, vnode_vclocks, true).
-```
-
-{{/1.1.0-}}
 
 ## RHEL/CentOS
 
@@ -209,45 +144,12 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
-{{#1.3.1+}}
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the <tt>[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]]</tt> command. More details about reformatting indexes are available in the
 [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
-{{/1.3.1+}}
 
-{{#1.1.0-}}
-<div class="note">Only perform the following two steps if you are upgrading to
-Riak 1.0 from an earlier release.
-</div>
-
-9\. Once all nodes have been upgraded, add the following additions to the
-`app.config` file in `/etc/riak` on each node. First, add the following to the `riak_kv` section:
-
-```erlang
-{legacy_keylisting, false},
-{mapred_system, pipe},
-{vnode_vclocks, true}
-```
-
-Then, add the following to the `riak_core` section:
-
-```erlang
-{platform_data_dir, "/var/lib/riak"}
-```
-
-10\. Either run `riak stop` followed by `riak start` on all of the nodes in
-the cluster or use `riak attach` on each node and execute the following
-commands:
-
-```erlang
-application:set_env(riak_kv, legacy_keylisting, false).
-application:set_env(riak_kv, mapred_system, pipe).
-application:set_env(riak_kv, vnode_vclocks, true).
-```
-
-{{/1.1.0-}}
 
 ## Solaris/OpenSolaris
 
@@ -327,45 +229,26 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
-{{#1.3.1+}}
 <div class="info"><div class="title">Note for Secondary Index users</div>
 If you use Riak's Secondary Indexes and are upgrading from a version prior to
 Riak version 1.3.1, you need to reformat the indexes using the <tt>[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]]</tt> command. More details about reformatting indexes are available in the [release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
-{{/1.3.1+}}
 
-{{#1.1.0-}}
 
-<div class="note">Only perform the following two steps if you are upgrading to
-Riak 1.0 from an earlier release.
-</div>
+## Rolling Upgrade to Enterprise
 
-9\. Once all nodes have been upgraded, add the following additions to the
-`app.config` file in `/etc/riak` on each node. First, add the following to the `riak_kv` section:
-
-```erlang
-{legacy_keylisting, false},
-{mapred_system, pipe},
-{vnode_vclocks, true}
-```
-
-Then, add the following to the `riak_core` section:
-
-```erlang
-{platform_data_dir, "/opt/riak/data"}
-```
-
-10\. Either run `riak stop` followed by `riak start` on all of the nodes in
-the cluster or use `riak attach` on each node and execute the following
-commands:
-
-```erlang
-> application:set_env(riak_kv, legacy_keylisting, false).
-> application:set_env(riak_kv, mapred_system, pipe).
-> application:set_env(riak_kv, vnode_vclocks, true).
-```
-
-{{/1.1.0-}}
+1. Back up your `etc` (`app.config` and `vm.args`) and `data` directories.
+2. Shutdown the node you are going to upgrade.
+3. Uninstall your Riak package.
+4. Install the `riak_ee` package.
+5. A standard package uninstall should not have removed your data directories. If it did, move your backup to where the data directory should be.
+6. Copy any customizations from your backed-up `vm.args` to the `riak_ee` installed `vm.args` file, these files may be identical.
+7. The `app.config` file from `riak_ee` will be significantly different from your backed-up file. While it will contain all of the same sections as your original, it will have many new ones. Copy the customizations from your original `app.config` file into the appropriate sections in the new one. Ensure that the following sections are present in `app.config`:
+  * `riak_core` --- the `cluster_mgr` setting must be present. See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
+  * `riak_repl` --- See [[MDC v3 Configuration|Multi Data Center Replication v3 Configuration]] for more information.
+  * `riak_jmx` --- See [[JMX Monitoring]] for more information.
+  * `snmp` --- See [[SNMP]] for more information.
+8. Start Riak on the upgraded node.
 
 ## Basho Patches
 
@@ -409,7 +292,6 @@ supported operating system:
 </tbody>
 </table>
 
-{{#1.3.0+}}
 ## Riaknostic
 
 It is a good idea to also verify some basic configuration and general health
@@ -424,4 +306,3 @@ riak-admin diag
 
 Make the recommended changes from the command output to ensure optimal node
 operation.
-{{/1.3.0+}}

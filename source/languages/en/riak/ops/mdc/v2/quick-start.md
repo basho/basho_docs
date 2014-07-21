@@ -17,7 +17,7 @@ The Riak Multi Data Center Replication Quick Start will walk you through the pro
 ### Prerequisites
 This Guide assumes that you have completed the following steps:
 
-* Install [[Riak Enterprise]]
+* Install [Riak Enterprise](http://basho.com/riak-enterprise/)
 * Perform [[System Tuning|System Performance Tuning]]
 * Review [[Configuration|Multi Data Center Replication: Configuration]]
 
