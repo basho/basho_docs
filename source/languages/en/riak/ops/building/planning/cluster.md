@@ -113,7 +113,7 @@ that allows for growth, for example [LVM](http://en.wikipedia.org/wiki/Logical_V
 
 ## Read/Write Profile
 
-Read/write ratios, as well as the the distribution of key access, should
+Read/write ratios, as well as the distribution of key access, should
 influence the configuration and design of your cluster. If your use case
 is write heavy, you will need less RAM for caching, and if only a
 certain portion of keys is accessed regularly, such as a [Pareto
