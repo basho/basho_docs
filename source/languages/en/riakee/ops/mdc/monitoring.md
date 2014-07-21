@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, operator, bnw, monitoring]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-Monitoring'
+}
 ---
 
 Monitoring Riak's realtime replication allows you to identify trends and alert during times when replication is halted or delayed. Issues or delays in replication can be caused by:

@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, replication, realtime, cascading]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-Cascading-Writes'
+}
 ---
 
 ## Introduction

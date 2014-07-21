@@ -6,9 +6,13 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-Schedule-Fullsync'
+}
 ---
 
 ## Scheduling Fullsync Operation
+
 With the pause and resume commands it is possible to limit the fullsync operation to off-peak times. First, disable `fullsync_interval` and set `fullsync_on_connect` to `false`. Then, using cron or something similar, execute the commands below at the start of the sync window. In these examples, the commands are combined in a `.sh` or analogous file:
 
 ```bash

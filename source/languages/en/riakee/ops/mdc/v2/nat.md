@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, nat]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-With-NAT'
+}
 ---
 
 Riak Enterprise now supports replication of data on networks that use static NAT.

@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, os]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-UpgradeV2toV3'
+}
 ---
 
 Depending on the size of your objects and your replication latency needs, you may need to configure your kernel settings to optimize throughput.

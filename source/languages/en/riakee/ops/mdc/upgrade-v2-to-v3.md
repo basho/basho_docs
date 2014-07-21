@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-UpgradeV2toV3'
+}
 ---
 
 This guide walks you through the process of upgrading Riak Enterprise MDC Replication from version 2 to version 3. Please read the [[Multi Data Center Replication: Comparison]] guide for terminology differences between versions.

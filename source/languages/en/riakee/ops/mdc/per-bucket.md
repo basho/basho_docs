@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, bucket]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-Pre-Bucket'
+}
 ---
 
 To enable or disable replication per bucket, you can use the `repl` bucket property.

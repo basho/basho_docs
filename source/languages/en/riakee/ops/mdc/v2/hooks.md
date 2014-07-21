@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: advanced
 keywords: [operator, troubleshooting]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-Hooks'
+}
 ---
 
 ## Overview

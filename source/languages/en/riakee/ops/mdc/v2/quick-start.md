@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, bnw]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-v2-Quick-Start'
+}
 ---
 
 The Riak Multi Data Center Replication Quick Start will walk you through the process of configuring Riak's version 2 Replication to perform replication between two sample Riak clusters in separate networks.  This guide will also cover bidirectional replication, which is accomplished by setting up unidirectional replication in both directions between the clusters.

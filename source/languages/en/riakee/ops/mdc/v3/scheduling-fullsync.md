@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, schedule, fullsync]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-v3-Scheduling-Full-Sync'
+}
 ---
 
 The `fullsync_interval` parameter can be configured in the `riak-repl` section of `[[app.config|Configuration Files#app.config]]` with:

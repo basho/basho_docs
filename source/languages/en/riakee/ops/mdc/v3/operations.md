@@ -7,7 +7,8 @@ toc: true
 audience: intermediate
 keywords: [mdc, repl, operator, bnw]
 moved: {
-    '1.4.0-': '/cookbooks/Multi-Data-Center-Replication-Operations-New'
+    '1.4.0-1.9.9': '/cookbooks/Multi-Data-Center-Replication-Operations-New',
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-v3-Operations'
 }
 ---
 

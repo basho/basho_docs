@@ -6,6 +6,9 @@ document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, nat]
+moved: {
+    '2.0.0-': '/cookbooks/Multi-Data-Center-Replication-v3-With-NAT'
+}
 ---
 
 Riak Enterprise Version 3 Replication supports replication of data on networks that use static NAT.
