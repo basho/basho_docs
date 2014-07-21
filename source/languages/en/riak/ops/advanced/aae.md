@@ -28,6 +28,7 @@ the `riak_kv` section of your `app.config`:
 
     %% More riak_kv settings...
 ]}
+```
 {{/2.0.0-}}
 {{#2.0.0+}}
 
