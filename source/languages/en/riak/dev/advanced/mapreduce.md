@@ -18,19 +18,18 @@ by Riak to aggregate results as background batch processes.
 ## MapReduce
 
 In Riak, MapReduce is one of the primary methods for
-non-primary-key-based querying in Riak, alongside [[secondary indexes|Using Secondary Indexes]].
-Riak enables you to run MapReduce jobs through the Erlang API, the
-[[HTTP API]], and the [[Protocol Buffers API|PBC API]]. For this
-tutorial, we will primarily use the HTTP API.
+non-primary-key-based querying in Riak, alongside
+[[secondary indexes|Using Secondary Indexes]].  Riak allows you to
+run MapReduce jobs using Erlang or JavaScript, but JavaScript support
+is deprecated as of Riak 2.0, so this document covers Erlang exclusively.
+
 
 ### Why Do We Use MapReduce for Querying Riak?
 
 Key/value stores like Riak generally do not offer the kinds of complex
 querying capabilities found in other data storage systems, such as
 relational databases. MapReduce enables you to perform powerful queries
-over the data stored in Riak and fits nicely with the functional
-programming orientation of Riak's core code and the distributed nature
-of Riak's data storage model.
+over the data stored in Riak but should be used with caution.
 
 The main goal of MapReduce is to spread the processing of a query across
 many systems to take advantage of parallel processing power. This is
@@ -47,39 +46,44 @@ If you're familiar with [mapping over a list](http://hackage.haskell.org/package
 in functional programming languages, you're already familiar with the
 "Map" steps in a MapReduce query.
 
-## How Riak Spreads Processing
+## MapReduce caveats
 
-When processing a large dataset, it's often much more efficient to take
-the computation to the data than it is to bring the data to the
-computation. In practice, your MapReduce job code is likely less than 10
-kilobytes, and so it is far more efficient to send the code to the
-gigabytes of data being processed than it is to stream gigabytes of data
-to your 10k of code.
+MapReduce should generally be treated as a fallback rather than a
+standard part of an application. There are often ways to model data
+such that dynamic queries become single key retrievals, which are
+dramatically faster and more reliable in Riak, and tools such as Riak
+Search and 2i are simpler to use and may place less strain on a
+cluster.
 
-It is Riak's solution to the data locality problem that determines how
-Riak spreads the processing across the cluster. In the same way that any
-Riak node can coordinate a read or write by sending requests directly to
-the other nodes responsible for maintaining that data, any Riak node can
-also coordinate a MapReduce query by sending a map-step evaluation
-request directly to the node responsible for maintaining the input data.
-Map-step results are sent back to the coordinating node, where
-reduce-step processing can produce a unified result.
+### R=1
 
-To put it more simply: Riak runs map-step functions on the node holding
-the input data for those functions, and it runs reduce-step functions on
-the node coordinating the MapReduce query.
-
-<div class="note">
-<div class="title">R=1</div>
 One consequence of Riak's processing model is that MapReduce queries
-have an effective <code>R</code> value of 1. The queries are distributed
+have an effective `R` value of 1. The queries are distributed
 to a representative sample of the cluster where the data is expected to
 be found, and if one server lacks a copy of data it's supposed to have,
 a MapReduce job will not attempt to look for it elsewhere.
 
-For more on the value of R, see our documentation on [[replication
+For more on the value of `R`, see our documentation on [[replication
 properties]].
-</div>
+
+### Key lists
+
+Asking Riak to generate a list of all keys in a production environment
+is generally a bad idea. It's an expensive operation.
+
+Attempting to constrain that operation to a bucket (e.g.,
+`mapred_bucket` as used below) does not help because Riak must still
+pull all keys from storage to determine which ones are in the
+specified bucket.
+
+If at all possible, run MapReduce against a list of known keys.
+
+### Code distribution
+
+As we'll discuss in this document, the functions invoked from Erlang
+MapReduce must be available on all servers in the cluster *unless*
+using the client library from an Erlang shell.
+
 
 ## How Riak's MapReduce Queries Are Specified
 
@@ -170,327 +174,11 @@ definition. The patterns specify which buckets and tags links must have.
 output of this phase is often most useful as input to a map phase or to
 another reduce phase.
 
-## MapReduce Examples
-
-Riak supports describing MapReduce queries in Erlang syntax through the
-Protocol Buffers API. This section demonstrates how to do so using the
-Erlang client.
-
-<div class="note">
-<div class="title">Distributing Erlang MapReduce Code</div>
-Any modules and functions you use in your Erlang MapReduce calls must be
-available on all nodes in the cluster. You can add them in Erlang
-applications by specifying the <code>-pz</code> option in [[vm.args|Configuration Files]]
-or by adding the path to the <code>add_paths</code> setting in your
-<code>app.config</code> configuration file.
-</div>
-
-### Erlang Example
-
-Before running some MapReduce queries, let's create some objects to run
-them on.
-
-```erlang
-1> {ok, Client} = riakc_pb_socket:start("127.0.0.1", 8087).
-2> Mine = riakc_obj:new(<<"groceries">>, <<"mine">>,
-                        term_to_binary(["eggs", "bacon"])).
-3> Yours = riakc_obj:new(<<"groceries">>, <<"yours">>,
-                         term_to_binary(["bread", "bacon"])).
-4> riakc_pb_socket:put(Client, Yours, [{w, 1}]).
-5> riakc_pb_socket:put(Client, Mine, [{w, 1}]).
-```
-
-Now that we have a client and some data, let's run a query and count how
-many occurrences of groceries.
-
-```erlang
-6> Count = fun(G, undefined, none) ->
-             [dict:from_list([{I, 1}
-              || I <- binary_to_term(riak_object:get_value(G))])]
-           end.
-7> Merge = fun(Gcounts, none) ->
-             [lists:foldl(fun(G, Acc) ->
-                            dict:merge(fun(_, X, Y) -> X+Y end,
-                                       G, Acc)
-                          end,
-                          dict:new(),
-                          Gcounts)]
-           end.
-8> {ok, [{1, [R]}]} = riakc_pb_socket:mapred(
-                         Client,
-                         [{<<"groceries">>, <<"mine">>},
-                          {<<"groceries">>, <<"yours">>}],
-                         [{map, {qfun, Count}, none, false},
-                          {reduce, {qfun, Merge}, none, true}]).
-9> L = dict:to_list(R).
-```
-
-<div class="note">
-<div class="title">Riak Object Representations</div>
-Note how the <code>riak_object</code> module is used in the MapReduce
-function but the <code>riakc_obj</code> module is used on the client.
-Riak objects are represented differently internally to the cluster than
-they are externally.
-</div>
-
-Given the lists of groceries we created, the sequence of commands above
-would result in L being bound to `[{"bread",1},{"eggs",1},{"bacon",2}]`.
-
-### Erlang Query Syntax
-
-`riakc_pb_socket:mapred/3` takes a client and two lists as arguments.
-The first list contains bucket-key pairs, inputs to the MapReduce query.
-The second list contains the phases of the query.
-
-#### Inputs
-
-The input objects are given as a list of tuples in the format `{Bucket, Key}`
-or `{{Bucket, Key}, KeyData}`. `Bucket` and `Key` should be binaries,
-and `KeyData` can be any Erlang term.  The former form is equivalent to
-`{{Bucket,Key},undefined}`.
-
-#### Query
-
-The query is given as a list of map, reduce and link phases. Map and
-reduce phases are each expressed as tuples in the following form:
-
-
-```erlang
-{Type, FunTerm, Arg, Keep}
-```
-
-`Type` is an atom, either `map` or `reduce`. `Arg` is a static argument
-(any Erlang term) to pass to each execution of the phase. `Keep` is
-either `true` or `false` and determines whether results from the phase
-will be included in the final value of the query.  Riak assumes that the
-final phase will return results.
-
-`FunTerm` is a reference to the function that the phase will execute and
-takes any of the following forms:
-
-* `{modfun, Module, Function}` where `Module` and `Function` are atoms that name an Erlang function in a specific module.
-* `{qfun,Fun}` where `Fun` is a callable fun term (closure or anonymous function).
-* `{jsfun,Name}` where `Name` is a binary that, when evaluated in Javascript, points to a built-in Javascript function.
-* `{jsanon, Source}` where `Source` is a binary that, when evaluated in Javascript is an anonymous function.
-* `{jsanon, {Bucket, Key}}` where the object at `{Bucket, Key}` contains the source for an anonymous Javascript function.
-
-<div class="info">
-<div class="title">qfun Note</div>
-Using `qfun` can be a fragile operation. Please keep the following
-points in mind.
-
-1. The module in which the function is defined must be present and
-2. **exactly the same version** on both the client and Riak nodes.
-2. Any modules and functions used by this function (or any function in
-3. the resulting call stack) must also be present on the Riak nodes.
-
-Errors about failures to ensure both 1 and 2 are often surprising,
-usually seen as opaque **missing-function** or **function-clause**
-errors. Especially in the case of differing module versions, this can be
-difficult to diagnose without expecting the issue and knowing of
-`Module:info/0`.
-</div>
-
-Link phases are expressed in the following form:
-
-
-```erlang
-{link, Bucket, Tag, Keep}
-```
-
-
-`Bucket` is either a binary name of a bucket to match, or the atom `_`,
-which matches any bucket. `Tag` is either a binary tag to match, or the
-atom `_`, which matches any tag. `Keep` has the same meaning as in map
-and reduce phases.
-
-
-<div class="info">
-There is a small group of prebuilt Erlang MapReduce functions available
-with Riak. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
-</div>
-
-
-## Bigger Data Examples
-
-### Loading Data
-
-This Erlang script will load historical stock-price data for Google
-(ticker symbol "GOOG") into your existing Riak cluster so we can use it.
-Paste the code below into a file called `load_data.erl` inside the `dev`
-directory (or download it below).
-
-```erlang
-#!/usr/bin/env escript
-%% -*- erlang -*-
-main([Filename]) ->
-    {ok, Data} = file:read_file(Filename),
-    Lines = tl(re:split(Data, "\r?\n", [{return, binary},trim])),
-    lists:foreach(fun(L) -> LS = re:split(L, ","), format_and_insert(LS) end, Lines).
-
-format_and_insert(Line) ->
-    JSON = io_lib:format("{\"Date\":\"~s\",\"Open\":~s,\"High\":~s,\"Low\":~s,\"Close\":~s,\"Volume\":~s,\"Adj. Close\":~s}", Line),
-    Command = io_lib:format("curl -XPUT http://127.0.0.1:8091/buckets/goog/keys/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
-    io:format("Inserting: ~s~n", [hd(Line)]),
-    os:cmd(Command).
-```
-
-Make the script executable:
-
-```bash
-chmod +x load_data.erl
-```
-
-Download the CSV file of stock data linked below and place it in the
-`dev` directory where we've been working.
-
-* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) --- Google historical stock data
-* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) --- Alternative script in Ruby to load the data
-* [load_data.erl](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) --- Erlang script to load data (as shown in snippet)
-
-Now load the data into Riak.
-
-```bash
-./load_data.erl goog.csv
-```
-
-<div class="note">
-<div class="title">Submitting MapReduce queries from the shell</div>
-To run a query from the shell, here's the curl command to use:
-
-<code>
-curl -XPOST localhost:8091/mapred \
-  -H "Content-Type: application/json"
-  -d @-
-</code>
-
-After pressing **Return**, paste your job in, for example the one shown
-below in the section "Complete Job," press **Return** again, and then
-**Ctrl-D** to submit it. This way of running MapReduce queries is not
-specific to this tutorial, but it comes in handy when running quick
-fire-and-forget queries from the command line. With a client library,
-most of the work of assembling the JSON that's sent to Riak will be done
-for you.
-</div>
-
-### Map: find the days on which the high was over $600.00
-
-*Phase Function*
-
-```javascript
-function(value, keyData, arg) {
-  var data = Riak.mapValuesJson(value)[0];
-  if(data.High && data.High > 600.00)
-    return [value.key];
-  else
-    return [];
-}
-```
-
-*Complete Job*
-
-```json
-{"inputs":"goog",
- "query":[{"map":{"language":"javascript",
-                  "source":"function(value, keyData, arg) { var data = Riak.mapValuesJson(value)[0]; if(data.High && parseFloat(data.High) > 600.00) return [value.key]; else return [];}",
-                  "keep":true}}]
-}
-```
-
-[sample-highs-over-600.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-highs-over-600.json)
-
-#### Map: find the days on which the close is lower than open
-
-*Phase Function*
-
-```javascript
-function(value, keyData, arg) {
-  var data = Riak.mapValuesJson(value)[0];
-  if(data.Close < data.Open)
-    return [value.key];
-  else
-    return [];
-}
-```
-
-*Complete Job*
-
-```json
-{"inputs":"goog",
- "query":[{"map":{"language":"javascript",
-                  "source":"function(value, keyData, arg) { var data = Riak.mapValuesJson(value)[0]; if(data.Close < data.Open) return [value.key]; else return [];}",
-                  "keep":true}}]
-}
-```
-
-[sample-close-lt-open.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-close-lt-open.json)
-
-#### Map and Reduce: find the maximum daily variance in price by month
-
-*Phase functions*
-
-```javascript
-/* Map function to compute the daily variance and key it by the month */
-function(value, keyData, arg){
-  var data = Riak.mapValuesJson(value)[0];
-  var month = value.key.split('-').slice(0,2).join('-');
-  var obj = {};
-  obj[month] = data.High - data.Low;
-  return [ obj ];
-}
-
-/* Reduce function to find the maximum variance per month */
-function(values, arg){
-  return [ values.reduce(function(acc, item){
-             for(var month in item){
-                 if(acc[month]) { acc[month] = (acc[month] < item[month]) ? item[month] : acc[month]; }
-                 else { acc[month] = item[month]; }
-             }
-             return acc;
-            })
-         ];
-}
-```
-
-*Complete Job*
-
-```json
-{
-  "inputs": "goog",
-  "query": [
-    {
-      "map": {
-        "language": "javascript",
-        "source": "function(value, keyData, arg){ var data = Riak.mapValuesJson(value)[0]; var month = value.key.split('-').slice(0,2).join('-'); var obj = {}; obj[month] = data.High - data.Low; return [ obj ];}"
-      }
-    },
-    {
-      "reduce": {
-        "language": "javascript",
-        "source":"function(values, arg){ return [ values.reduce(function(acc, item){ for(var month in item){ if(acc[month]) { acc[month] = (acc[month] < item[month]) ? item[month] : acc[month]; } else { acc[month] = item[month]; } } return acc;  }) ];}",
-        "keep":true
-      }
-    }
-  ]
-}
-```
-
-[sample-max-variance-by-month.json](https://github.com/basho/basho_docs/raw/master/source/data/sample-max-variance-by-month.json)
-
-#### A MapReduce Challenge
-
-Here is a scenario involving the data you already have loaded up.
-
-MapReduce Challenge: Find the largest day for each month in terms of
-dollars traded, and subsequently the largest overall day.
-
-**Hint**: You will need at least one each of map and reduce phases.
-
-## Erlang Functions
-
-As an example, we'll define a simple module that implements a map
-function to return the key value pairs contained and use it in a
-MapReduce query via Riak's HTTP API.
+## Invoking MapReduce
+
+To illustrate some key ideas, we'll define a simple module that
+implements a map function to return the key value pairs contained in a
+bucket and use it in a MapReduce query via Riak's HTTP API.
 
 Here is our example MapReduce function:
 
@@ -510,11 +198,7 @@ Save this file as `mr_example.erl` and proceed to compiling the module.
 <div class="title">Note on the Erlang Compiler</div>
 You must use the Erlang compiler (<code>erlc</code>) associated with the
 Riak installation or the version of Erlang used when compiling Riak from
-source. For packaged Riak installations, you can consult Table 1 above
-for the default location of Riak's <code>erlc</code> for each supported
-platform. If you compiled from source, use the <code>erlc</code> from
-the Erlang version you used to compile Riak.</div>
-
+source.</div>
 
 Compiling the module is a straightforward process:
 
@@ -522,22 +206,14 @@ Compiling the module is a straightforward process:
 erlc mr_example.erl
 ```
 
-Next, you'll need to define a path from which to store and load compiled
-modules. For our example, we'll use a temporary directory (`/tmp/beams`),
-but you should choose a different directory for production functions
-such that they will be available where needed.
-
-<div class="info">
-Ensure that the directory chosen above can be read by
-the <code>riak</code> user.
-</div>
-
 Successful compilation will result in a new `.beam` file, `mr_example.beam`.
 
-Send this file to your operator, or read about [[installing custom code]]
-on your Riak nodes. Once your file has been installed, all that remains
-is to try the custom function in a MapReduce query. For example, let's
-return keys contained within the `messages` bucket:
+Send this file to your operator, or read about
+[[installing custom code]] on your Riak nodes. Once your file has been
+installed, all that remains is to try the custom function in a
+MapReduce query. For example, let's return keys contained within a
+bucket named `messages` (please pick a bucket which contains keys in
+your environment).
 
 ```curl
 curl -XPOST localhost:8098/mapred \
@@ -545,11 +221,7 @@ curl -XPOST localhost:8098/mapred \
   -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
 ```
 
-The results should look similar to this:
-
-```json
-{"messages":"4","messages":"1","messages":"3","messages":"2"}
-```
+The result should be a JSON map of bucket and key names expressed as key/value pairs.
 
 <div class="info">
 Be sure to install the MapReduce function as described above on all of
@@ -658,6 +330,335 @@ fun(ValueList, _Arg) ->
   lists:sort(ValueList)
 end.
 ```
+
+## MapReduce Examples
+
+Riak supports describing MapReduce queries in Erlang syntax through the
+Protocol Buffers API. This section demonstrates how to do so using the
+Erlang client.
+
+<div class="note">
+<div class="title">Distributing Erlang MapReduce Code</div>
+Any modules and functions you use in your Erlang MapReduce calls must be
+available on all nodes in the cluster. You can add them in Erlang
+applications by specifying the <code>-pz</code> option in [[vm.args|Configuration Files]]
+or by adding the path to the <code>add_paths</code> setting in your
+<code>app.config</code> configuration file.
+</div>
+
+### Erlang Example
+
+Before running some MapReduce queries, let's create some objects to
+run them on.  Unlike the first example when we compiled
+`mr_example.erl` and distributed it across the cluster, this time
+we'll use the
+[Erlang client library](https://github.com/basho/riak-erlang-client)
+and shell.
+
+```erlang
+1> {ok, Client} = riakc_pb_socket:start("127.0.0.1", 8087).
+2> Mine = riakc_obj:new(<<"groceries">>, <<"mine">>,
+                        term_to_binary(["eggs", "bacon"])).
+3> Yours = riakc_obj:new(<<"groceries">>, <<"yours">>,
+                         term_to_binary(["bread", "bacon"])).
+4> riakc_pb_socket:put(Client, Yours, [{w, 1}]).
+5> riakc_pb_socket:put(Client, Mine, [{w, 1}]).
+```
+
+Now that we have a client and some data, let's run a query and count how
+many occurrences of groceries.
+
+```erlang
+6> Count = fun(G, undefined, none) ->
+             [dict:from_list([{I, 1}
+              || I <- binary_to_term(riak_object:get_value(G))])]
+           end.
+7> Merge = fun(Gcounts, none) ->
+             [lists:foldl(fun(G, Acc) ->
+                            dict:merge(fun(_, X, Y) -> X+Y end,
+                                       G, Acc)
+                          end,
+                          dict:new(),
+                          Gcounts)]
+           end.
+8> {ok, [{1, [R]}]} = riakc_pb_socket:mapred(
+                         Client,
+                         [{<<"groceries">>, <<"mine">>},
+                          {<<"groceries">>, <<"yours">>}],
+                         [{map, {qfun, Count}, none, false},
+                          {reduce, {qfun, Merge}, none, true}]).
+9> L = dict:to_list(R).
+```
+
+<div class="note">
+<div class="title">Riak Object Representations</div>
+Note how the <code>riak_object</code> module is used in the MapReduce
+function but the <code>riakc_obj</code> module is used on the client.
+Riak objects are represented differently internally to the cluster than
+they are externally.
+</div>
+
+Given the lists of groceries we created, the sequence of commands above
+would result in L being bound to `[{"bread",1},{"eggs",1},{"bacon",2}]`.
+
+### Erlang Query Syntax
+
+`riakc_pb_socket:mapred/3` takes a client and two lists as arguments.
+The first list contains bucket-key pairs.  The second list contains
+the phases of the query.
+
+`riakc_pb_socket:mapred_bucket/3` replaces the first list of
+bucket-key pairs with the name of a bucket; see the warnings above
+about using this in a production environment.
+
+#### Inputs
+
+The `mapred/3` input objects are given as a list of tuples in the
+format `{Bucket, Key}` or `{{Bucket, Key}, KeyData}`. `Bucket` and
+`Key` should be binaries, and `KeyData` can be any Erlang term.  The
+former form is equivalent to `{{Bucket,Key},undefined}`.
+
+#### Query
+
+The query is given as a list of map, reduce and link phases. Map and
+reduce phases are each expressed as tuples in the following form:
+
+
+```erlang
+{Type, FunTerm, Arg, Keep}
+```
+
+`Type` is an atom, either `map` or `reduce`. `Arg` is a static argument
+(any Erlang term) to pass to each execution of the phase. `Keep` is
+either `true` or `false` and determines whether results from the phase
+will be included in the final value of the query.  Riak assumes that the
+final phase will return results.
+
+`FunTerm` is a reference to the function that the phase will execute and
+takes any of the following forms:
+
+* `{modfun, Module, Function}` where `Module` and `Function` are atoms that name an Erlang function in a specific module.
+* `{qfun,Fun}` where `Fun` is a callable fun term (closure or anonymous function).
+* `{jsfun,Name}` where `Name` is a binary that, when evaluated in Javascript, points to a built-in Javascript function.
+* `{jsanon, Source}` where `Source` is a binary that, when evaluated in Javascript is an anonymous function.
+* `{jsanon, {Bucket, Key}}` where the object at `{Bucket, Key}` contains the source for an anonymous Javascript function.
+
+<div class="info">
+<div class="title">qfun Note</div>
+Using `qfun` in compiled applications can be a fragile
+operation. Please keep the following points in mind.
+
+1. The module in which the function is defined must be present and
+**exactly the same version** on both the client and Riak nodes.
+
+2. Any modules and functions used by this function (or any function in
+the resulting call stack) must also be present on the Riak nodes.
+
+Errors about failures to ensure both 1 and 2 are often surprising,
+usually seen as opaque **missing-function** or **function-clause**
+errors. Especially in the case of differing module versions, this can be
+difficult to diagnose without expecting the issue and knowing of
+`Module:info/0`.
+
+When using the Erlang shell, anonymous MapReduce functions can be
+defined and sent to Riak instead of deploying them to all servers in
+advance, but condition #2 above still holds.
+</div>
+
+Link phases are expressed in the following form:
+
+
+```erlang
+{link, Bucket, Tag, Keep}
+```
+
+
+`Bucket` is either a binary name of a bucket to match, or the atom `_`,
+which matches any bucket. `Tag` is either a binary tag to match, or the
+atom `_`, which matches any tag. `Keep` has the same meaning as in map
+and reduce phases.
+
+
+<div class="info">
+There is a small group of prebuilt Erlang MapReduce functions available
+with Riak. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
+</div>
+
+
+## Bigger Data Examples
+
+### Loading Data
+
+This Erlang script will load historical stock-price data for Google
+(ticker symbol "GOOG") into your existing Riak cluster so we can use it.
+Paste the code below into a file called `load_data.erl` inside the `dev`
+directory (or download it below).
+
+```erlang
+#!/usr/bin/env escript
+%% -*- erlang -*-
+main([]) ->
+    io:format("Requires one argument: filename with the CSV data~n");
+main([Filename]) ->
+    {ok, Data} = file:read_file(Filename),
+    Lines = tl(re:split(Data, "\r?\n", [{return, binary},trim])),
+    lists:foreach(fun(L) -> LS = re:split(L, ","), format_and_insert(LS) end, Lines).
+
+format_and_insert(Line) ->
+    JSON = io_lib:format("{\"Date\":\"~s\",\"Open\":~s,\"High\":~s,\"Low\":~s,\"Close\":~s,\"Volume\":~s,\"Adj. Close\":~s}", Line),
+    Command = io_lib:format("curl -XPUT http://127.0.0.1:8098/buckets/goog/keys/~s -d '~s' -H 'content-type: application/json'", [hd(Line),JSON]),
+    io:format("Inserting: ~s~n", [hd(Line)]),
+    os:cmd(Command).
+```
+
+Make the script executable:
+
+```bash
+chmod +x load_data.erl
+```
+
+Download the CSV file of stock data linked below and place it in the
+`dev` directory where we've been working.
+
+* [goog.csv](https://github.com/basho/basho_docs/raw/master/source/data/goog.csv) --- Google historical stock data
+* [load_stocks.rb](https://github.com/basho/basho_docs/raw/master/source/data/load_stocks.rb) --- Alternative script in Ruby to load the data
+* [load_data.erl](https://github.com/basho/basho_docs/raw/master/source/data/load_data.erl) --- Erlang script to load data (as shown in snippet)
+
+Now load the data into Riak.
+
+```bash
+./load_data.erl goog.csv
+```
+
+
+### Map only: find the days on which the high was over $600.00
+
+From the Erlang shell with the client library loaded, let's define a
+function which will check each value in our `goog` bucket to see if
+the stock's high for the day was above $600.
+
+```erlang
+> HighFun = fun(O, _, LowVal) ->
+>   {struct, Map} = mochijson2:decode(riak_object:get_value(O)),
+>   High = proplists:get_value(<<"High">>, Map, -1.0),
+>   case High > LowVal of
+>      true -> [riak_object:key(O)];
+>      false -> []
+> end end.
+#Fun<erl_eval.18.80484245>
+```
+
+Now we'll use `mapred_bucket/3` to send that function to the cluster.
+
+```erlang
+> riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, HighFun}, 600, true}]).                                                                       {ok,[{0,
+      [<<"2007-11-29">>,<<"2008-01-02">>,<<"2008-01-17">>,
+       <<"2010-01-08">>,<<"2007-12-05">>,<<"2007-10-24">>,
+       <<"2007-10-26">>,<<"2007-10-11">>,<<"2007-11-09">>,
+       <<"2007-12-06">>,<<"2007-12-19">>,<<"2007-11-01">>,
+       <<"2007-11-07">>,<<"2007-11-16">>,<<"2009-12-28">>,
+       <<"2007-12-26">>,<<"2007-11-05">>,<<"2008-01-16">>,
+       <<"2007-11-13">>,<<"2007-11-08">>,<<"2007-12-07">>,
+       <<"2008-01-"...>>,<<"2007"...>>,<<...>>|...]}]}
+```
+
+#### Map only: find the days on which the close is lower than open
+
+This example is slightly more complicated: instead of comparing a
+single field against a fixed value, we're looking for days when the
+stock declined.
+
+```erlang
+> CloseLowerFun = fun(O, _, _) ->
+>    {struct, Map} = mochijson2:decode(riak_object:get_value(O)),
+>    Close = proplists:get_value(<<"Close">>, Map, -1.0),
+>    Open = proplists:get_value(<<"Open">>, Map, -2.0),
+>    case Close < Open of
+>       true -> [riak_object:key(O)];
+>       false -> []
+> end end.
+#Fun<erl_eval.18.80484245>
+
+> riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, CloseLowerFun}, none, true}]).
+{ok,[{0,
+      [<<"2008-05-13">>,<<"2008-12-19">>,<<"2009-06-10">>,
+       <<"2006-07-06">>,<<"2006-07-07">>,<<"2009-02-25">>,
+       <<"2009-07-17">>,<<"2005-10-05">>,<<"2006-08-18">>,
+       <<"2008-10-30">>,<<"2009-06-18">>,<<"2006-10-26">>,
+       <<"2008-01-17">>,<<"2010-04-16">>,<<"2007-06-29">>,
+       <<"2005-12-12">>,<<"2008-08-20">>,<<"2007-03-30">>,
+       <<"2006-07-20">>,<<"2006-10-24">>,<<"2006-05-26">>,
+       <<"2007-02-"...>>,<<"2008"...>>,<<...>>|...]}]}
+```
+
+#### Map and Reduce: find the maximum daily variance in price by month
+
+Here things start to get tricky. We'll use map to determine each day's
+rise or fall, and our reduce phase will identify each month's largest
+variance.
+
+```erlang
+DailyMap = fun(O, _, _) ->
+   {struct, Map} = mochijson2:decode(riak_object:get_value(O)),
+   Date = binary_to_list(proplists:get_value(<<"Date">>, Map, "0000-00-00")),
+   High = proplists:get_value(<<"High">>, Map, 0.0),
+   Low = proplists:get_value(<<"Low">>, Map, 0.0),
+   Month = string:substr(Date, 1, 7),
+   [{Month, abs(High - Low)}]
+end.
+
+MonthReduce = fun(List, _) ->
+    {Highs, _} = lists:foldl(
+      fun({Month, _Value}=Item, {Accum, PrevMonth}) ->
+              case Month of
+                  PrevMonth ->
+                      %% Highest value is always first in the list, so
+                      %% skip over this one
+                      {Accum, PrevMonth};
+                  _ ->
+                      {[Item] ++ Accum, Month}
+              end
+      end,
+      {[], ""},
+      List),
+    Highs
+    end.
+> riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, DailyMap}, none, false}, {reduce, {qfun, MonthReduce}, none, true}]).
+{ok,[{1,
+      [{"2010-02",10.099999999999909},
+       {"2006-02",11.420000000000016},
+       {"2004-08",8.100000000000009},
+       {"2008-08",14.490000000000009},
+       {"2006-05",11.829999999999984},
+       {"2005-10",4.539999999999964},
+       {"2006-06",7.300000000000011},
+       {"2008-06",9.690000000000055},
+       {"2006-03",11.770000000000039},
+       {"2006-12",4.880000000000052},
+       {"2005-09",9.050000000000011},
+       {"2008-03",15.829999999999984},
+       {"2008-09",14.889999999999986},
+       {"2010-04",9.149999999999977},
+       {"2008-06",14.909999999999968},
+       {"2008-05",13.960000000000036},
+       {"2005-05",2.780000000000001},
+       {"2005-07",6.680000000000007},
+       {"2008-10",21.390000000000043},
+       {"2009-09",4.180000000000007},
+       {"2006-08",8.319999999999993},
+       {"2007-08",5.990000000000009},
+       {[...],...},
+       {...}|...]}]}
+```
+
+#### A MapReduce Challenge
+
+Here is a scenario involving the data you already have loaded.
+
+MapReduce Challenge: Find the largest day for each month in terms of
+dollars traded, and subsequently the largest overall day.
+
+**Hint**: You will need at least one each of map and reduce phases.
 
 ## Streaming MapReduce
 
