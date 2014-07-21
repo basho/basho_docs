@@ -324,7 +324,7 @@ and comments buckets to assemble the view.
 Other possible cases may involve performing operations on content beyond
 key/value pairs. [[Riak Search|Using Search]] is recommended for use cases
 involving full-text search. For lighter-weight querying,
-[[using secondary indexes]] (2i) enables you to add metadata to objects to
+[[using secondary indexes]] \(2i) enables you to add metadata to objects to
 either query for exact matches or to perform range queries. 2i also
 enables you to tag posts with dates, timestamps, topic areas, or other
 pieces of information useful for later retrieval.

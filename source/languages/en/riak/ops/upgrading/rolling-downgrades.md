@@ -100,7 +100,7 @@ usage() ->
 
 This script, saved as repair.erl, can be called with:
 
-```shell
+```bash
 for partition in $(ls /var/lib/riak/leveldb); do sudo riak escript /tmp/repair.erl /var/lib/riak/leveldb/$partition; done
 ```
 

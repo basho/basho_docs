@@ -4,7 +4,7 @@ project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
-keywords: [developers, cap, replication]
+keywords: [cap, replication]
 interest: [
 "[[Installing and Upgrading]]",
 "[[Concepts]]",
