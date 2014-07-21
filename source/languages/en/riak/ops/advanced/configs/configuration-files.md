@@ -1601,9 +1601,7 @@ familiar to users of versions of Riak prior to 2.0. Here is an example:
 
 Settings in `advanced.config` related to Riak's [[strong consistency]]
 subsystem are available in the [[strong consistency section|Configuration
-Files#Strong-Consistency]]
-
-The following settings are available in the `advanced.config` file:
+Files#Strong-Consistency]] below. All other available settings are listed below:
 
 #### `riak_repl` settings
 
@@ -1787,13 +1785,13 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 
 <tr>
 <td><code>lease_duration</code></td>
-<td>Determines how long a leader lease remains valid without being refreshed. This should be set higher than the <code>ensemble_tick</code> setting (listed above) so that leaders have time to refresh their leases before they time out, and it must be set lower than the <code>follower_timeout</code> setting (listed below).</td>
+<td>Determines how long a leader lease remains valid without being refreshed (in milliseconds). This should be set higher than the <code>ensemble_tick</code> setting (listed above) so that leaders have time to refresh their leases before they time out, and it must be set lower than the <code>follower_timeout</code> setting (listed below).</td>
 <td><code>ensemble_tick</code> * 2/3</td>
 </tr>
 
 <tr>
 <td><code>follower_timeout</code></td>
-<td>Determines how long a follower waits to hear from a leader before it abandons the leader. This must be set greater than the <code>lease_duration</code> setting.</td>
+<td>Determines how long a follower waits to hear from a leader before it abandons the leader (in milliseconds). This must be set greater than the <code>lease_duration</code> setting.</td>
 <td><code>lease_duration</code> * 4</td>
 </tr>
 
@@ -1805,37 +1803,43 @@ The `strong_consistency` parameter enables you to turn Riak's [[strong consisten
 
 <tr>
 <td><code>storage_delay</code></td>
-<td>Determines how long the consensus subsystem delays syncing to disk when performing certain metadata operations. This delay allows multiple operations to be coalesced into a single disk write. We do not recommend that you change this setting.</td>
+<td>Determines how long the consensus subsystem delays syncing to disk when performing certain metadata operations (in milliseconds). This delay allows multiple operations to be coalesced into a single disk write. We do not recommend that you change this setting.</td>
 <td><code>50</code></td>
 </tr>
 
 <tr>
 <td><code>storage_tick</code></td>
-<td>Determines how often the consensus subsystem writes data to disk that was requested to be written asynchronously. We do not recommend that you change this setting.</td>
+<td>Determines how often the consensus subsystem writes data to disk that was requested to be written asynchronously (in milliseconds). We do not recommend that you change this setting.</td>
+<td><code>5000</code></td>
+</tr>
+
+<tr>
+<td><code>trust_lease</code></td>
+<td>Determines whether leader leases are used to optimize reads. When set to <code>true</code>, a leader with a valid lease will handle the read directly without contacting any followers; hen set to <code>false</code>, the leader will always contact followers. For more information, see our internal documentation on <a href="https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md#leader-leases">leader leases</a>.</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>peer_get_timeout</code></td>
+<td>Determines the timeout, in milliseconds, used internally for reading consistent data. This setting must be greater than the highest request timeout used by your application.</td>
+<td><code>60000</code></td>
+</tr>
+
+<tr>
+<td><code>peer_put_timeout</code></td>
+<td>Determines the timeout, in milliseconds, used internally for writing consistent data. This setting must be greater than the highest request timeout used by your application.</td>
 <td><code></code></td>
 </tr>
 
 <tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
+<td><code>peer_workers</code></td>
+<td>The number of concurrent workers used by the leader to service requests. Increasing this setting may boost performance depending on the workload.</td>
+<td><code>1</code></td>
 </tr>
 
 <tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
+<td><code>tree_validation</code></td>
+<td>Determines whether Riak considers peer Merkle trees to be trusted or not</td>
 <td><code></code></td>
 </tr>
 
