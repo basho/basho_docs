@@ -71,7 +71,6 @@ Thus, likely outcomes from a write:
 The following Riak features are not currently available in strongly consistent buckets:
 
 * [[Secondary indexes|Using Secondary Indexes]]
-* [[Active Anti-Entropy|Riak Glossary#Active-Anti-Entropy-AAE]]
 * [[Riak Data Types|Using Data Types]]
 
 Strongly-consistent writes operate only on single keys. There is currently no support within Riak for strongly consistent operations against multiple keys, although it is always possible to incorporate write and read locks in an application that uses strongly-consistent Riak.
