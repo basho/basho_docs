@@ -136,7 +136,7 @@ downgrade.
 ## Upgrading Your Configuration System
 
 Riak 2.0 offers a new configuration system that both simplifies 
-configuration syntax and utilizes one configuration file, ,`riak.conf`,
+configuration syntax and utilizes one configuration file, `riak.conf`,
 instead of the two files, `app.config` and `vm.args`, required by the
 older system. Full documentation of the new system can be found in 
 [[Configuration Files]].
