@@ -695,3 +695,69 @@ For examples, see:
 
 1. [MapReduce localstream.erl](/data/MapReduce-localstream.erl){{1.3.0-}}
 2. [MapReduce pbstream.erl](/data/MapReduce-pbstream.erl)
+
+## Troubleshooting MapReduce, illustrated
+
+The most important advice: when developing Erlang MapReduce against
+Riak, prototype against a development environment using the Erlang
+shell. The shell allows for rapid feedback and iteration; once code
+needs to be deployed to a server for production use, changing it is
+more time-consuming.
+
+### Module not in path
+
+```bash
+$ curl -XPOST localhost:8098/mapred \
+>   -H 'Content-Type: application/json'   \
+>   -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
+
+{"phase":0,"error":"invalid module named in PhaseSpec function:\n must be a valid module name (failed to load mr_example: nofile)"}
+```
+
+### Node in process of starting
+
+```bash
+$ curl -XPOST localhost:8098/mapred   -H 'Content-Type: application/json'     -d '{"inputs":"messages","query":[{"map":{"language":"erlang","module":"mr_example","function":"get_keys"}}]}'
+
+<html><head><title>500 Internal Server Error</title></head><body><h1>Internal Server Error</h1>The server encountered an error while processing this request:<br><pre>{error,{error,function_clause,
+              [{chashbin,itr_value,
+                         [done],
+                         [{file,"src/chashbin.erl"},{line,139}]},
+               {chashbin,itr_next_while,2,
+                         [{file,"src/chashbin.erl"},{line,183}]},
+...
+```
+
+### Erlang errors
+
+```erlang
+> riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, DailyFun}, none, true}]).
+{error,<<"{\"phase\":0,\"error\":\"function_clause\",\"input\":\"{ok,{r_object,<<\\\"goog\\\">>,<<\\\"2009-06-10\\\">>,[{r_content,{dic"...>>}
+```
+
+The Erlang shell truncates error messages; when using MapReduce, typically the information you need is buried more deeply within the stack.
+
+We can get a longer error message this way:
+
+```erlang
+> {error, ErrorMsg} = riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, DailyFun}, none, true}]).
+{error,<<"{\"phase\":0,\"error\":\"function_clause\",\"input\":\"{ok,{r_object,<<\\\"goog\\\">>,<<\\\"2009-06-10\\\">>,[{r_content,{dic"...>>}
+
+> io:format("~p~n", [ErrorMsg]).
+<<"{\"phase\":0,\"error\":\"function_clause\",\"input\":\"{ok,{r_object,<<\\\"goog\\\">>,<<\\\"2009-06-10\\\">>,[{r_content,{dict,6,16,16,8,80,48,{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},{{[],[],[[<<\\\"Links\\\">>]],[],[],[],[],[],[],[],[[<<\\\"content-type\\\">>,97,112,112,108,105,99,97,116,105,111,110,47,106,115,111,110],[<<\\\"X-Riak-VTag\\\">>,55,87,101,79,53,120,65,121,50,67,49,77,72,104,54,100,89,65,67,74,55,70]],[[<<\\\"index\\\">>]],[],[[<<\\\"X-Riak-Last-Modified\\\">>|{1405,709865,48668}]],[],[[<<\\\"X-Riak-Meta\\\">>]]}}},<<\\\"{\\\\\\\"Date\\\\\\\":\\\\\\\"2009-06-10\\\\\\\",\\\\\\\"Open\\\\\\\":436.23,\\\\\\\"High\\\\\\\":437.89,\\\\\\\"L...\\\">>}],...},...}\",\"type\":\"error\",\"stack\":\"[{string,substr,[\\\"2009-06-10\\\",0,7],[{file,\\\"string.erl\\\"},{line,207}]},{erl_eval,do_apply,6,[{file,\\\"erl_eval.erl\\\"},{line,573}]},{erl_eval,expr,5,[{file,\\\"erl_eval.erl\\\"},{line,364}]},{erl_eval,exprs,5,[{file,\\\"erl_eval.erl\\\"},{line,118}]},{riak_kv_mrc_map,map,3,[{file,\\\"src/riak_kv_mrc_map.erl\\\"},{line,172}]},{riak_kv_mrc_map,process,3,[{file,\\\"src/riak_kv_mrc_map.erl\\\"},{line,144}]},{riak_pipe_vnode_worker,process_input,3,[{file,\\\"src/riak_pipe_vnode_worker.erl\\\"},{line,446}]},{riak_pipe_vnode_worker,wait_for_input,...}]\"}">>
+```
+
+Still truncated, but this provides enough context to see the problem:
+`string,substr,[\\\"2009-06-10\\\",0,7]`. Erlang's `string:substr`
+function starts indexing strings at 1, not 0.
+
+### Exceptional tip
+
+When experimenting with MapReduce from the Erlang shell, it is helpful
+to avoid breaking the connection to Riak when an exception is trapped
+by the shell. Use `catch_exception`:
+
+```erlang
+> catch_exception(true).
+false
+```
