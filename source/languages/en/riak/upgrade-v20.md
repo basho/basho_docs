@@ -54,8 +54,8 @@ is determined by bucket type, bucket, and key, meaning that there
 are three namespaces involved in object location instead of two. A full
 tutorial can be found in [[Using Bucket Types]].
 
-If your application was written in conjunction with a version of Riak 
-prior to 2.0, you should make sure that any endpoint in Riak targeted in 
+If your application was written in conjunction with a version of Riak
+prior to 2.0, you should make sure that any endpoint in Riak targeted in
 terms of a bucket/key pairing be changed to accommodate a bucket
 type/bucket/key location.
 
@@ -117,6 +117,14 @@ options:
 More information on handling siblings can be found in our documentation
 on [[conflict resolution]].
 
+## Enabling Security
+
+The
+[[authentication and authorization|Authentication and Authorization]]
+mechanisms included with Riak 2.0 should only be turned on after careful
+testing in a non-production environment. Security changes the way in
+which all applications interact with Riak.
+
 ## When Downgrading is No Longer an Option
 
 If you decide to upgrade to version 2.0, you can still downgrade your
@@ -125,8 +133,8 @@ one of the following actions in your cluster:
 
 * Index data to be used in conjunction with the new [[Riak Search|Using Search]].
 * Create _and_ activate one or more [[bucket types|Using Bucket Types]]. By extension, you will not be able to downgrade your cluster if you have used the following features, both of which rely on bucket types:
-	- [[Strong consistency]]
-	- [[Riak Data Types|Using Data Types]]
+    - [[Strong consistency]]
+    - [[Riak Data Types|Using Data Types]]
 
 If you use other new features, such as [[Riak Security|Authentication and Authorization]]
 or the new [[configuration files]], you can still downgrade your
@@ -135,10 +143,10 @@ downgrade.
 
 ## Upgrading Your Configuration System
 
-Riak 2.0 offers a new configuration system that both simplifies 
+Riak 2.0 offers a new configuration system that both simplifies
 configuration syntax and utilizes one configuration file, `riak.conf`,
 instead of the two files, `app.config` and `vm.args`, required by the
-older system. Full documentation of the new system can be found in 
+older system. Full documentation of the new system can be found in
 [[Configuration Files]].
 
 If you're upgrading to Riak 2.0 from an earlier version, you have two
