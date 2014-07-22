@@ -18,14 +18,14 @@ membership, backup, and basic status reporting. The node must be running for
 most of these commands to work. Running the `riak-admin` command by itself will output a listing of available commands:
 
 ```
-Usage: riak-admin { cluster | join | leave | backup | restore | test |
-                    reip | js-reload | erl-reload | wait-for-service |
+Usage: riak-admin { cluster | join | leave | backup | restore | test | 
+                    reip | js-reload | erl-reload | wait-for-service | 
                     ringready | transfers | force-remove | down |
                     cluster-info | member-status | ring-status | vnode-status |
                     aae-status | diag | status | transfer-limit | reformat-indexes |
                     top [-interval N] [-sort reductions|memory|msg_q] [-lines N] |
                     downgrade-objects | security | bucket-type | repair-2i |
-                    search }
+                    search | services | ensemble-status }
 ```
 
 ## cluster
@@ -209,14 +209,6 @@ Reloads the Erlang `.beam` files used for [[MapReduce|Using MapReduce]] jobs, [[
 
 ```bash
 riak-admin erl-reload
-```
-
-## services
-
-Lists available services on the node (e.g. `riak_kv`).
-
-```bash
-riak-admin services
 ```
 
 ## wait-for-service
@@ -568,11 +560,11 @@ repaired for a given exchange round since the node has started.
 
 ### switch-to-new-search
 
- <div class="info">
- <div class="title">Only For Legacy Migration</div>
+<div class="info">
+<div class="title">Only For Legacy Migration</div>
 This is only needed when migrating from legacy riak search to the new
 Search (Yokozuna).
- </div>
+</div>
 
 ```bash
 riak-admin search switch-to-new-search
@@ -581,3 +573,56 @@ riak-admin search switch-to-new-search
 Switch handling of the HTTP `/solr/<index>/select` resource and
 protocol buffer query messages from legacy Riak Search to new Search
 (Yokozuna).
+
+## services
+
+Lists available services on the node (e.g. `riak_kv`).
+
+```bash
+riak-admin services
+```
+
+## ensemble-status
+
+This command is used to provide insight into the current status of the
+consensus subsystem undergirding Riak's [[strong consistency]] feature.
+
+```bash
+riak-admin ensemble-status
+```
+
+If the consensus subsystem is enabled, you will see output like this:
+
+```
+============================== Consensus System ===============================
+Enabled:     true
+Active:      true
+Ring Ready:  true
+Validation:  strong (trusted majority required)
+Metadata:    best-effort replication (asynchronous)
+
+================================== Ensembles ==================================
+ Ensemble     Quorum        Nodes      Leader
+-------------------------------------------------------------------------------
+   root       4 / 4         4 / 4      riak@riak1
+    2         3 / 3         3 / 3      riak@riak2
+    3         3 / 3         3 / 3      riak@riak4
+    4         3 / 3         3 / 3      riak@riak1
+    5         3 / 3         3 / 3      riak@riak2
+    6         3 / 3         3 / 3      riak@riak2
+    7         3 / 3         3 / 3      riak@riak4
+    8         3 / 3         3 / 3      riak@riak4
+```
+
+The following table provides a guide to `ensemble-status` output:
+
+Item | Meaning
+:----|:-------
+`Enabled` | Whether the consensus subsystem is enabled on the current node
+`Active` | Whether the consensus subsystem is also active
+`Ring Ready` | Whether enough nodes are active in the cluster to use the consensus subsystem
+`Validation` |
+
+
+If this subsystem is not currently enabled, you will see `Note: The
+consensus subsystem is not enabled.` in the output of the command.
