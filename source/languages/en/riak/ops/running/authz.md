@@ -46,11 +46,13 @@ when turning on Riak security. Missing one of these steps will almost
 certainly break your application, so make sure that you have done each
 of the following **before** enabling security:
 
-1. Define [[users|Authentication and Authorization#User-Management]] and, optionally, groups
-2. Define an [[authentication source|Authentication and Authorization#Managing-Sources]] for each user
-3. Grant the necessary [[permissions|Authentication and Authorization#Managing-Permissions]] to each user (and/or group)
-4. Check any Erlang MapReduce code for invocations of Riak modules other than `riak_kv_mapreduce`. Enabling security will prevent those from succeeding unless those modules are available via the `add_path` mechanism documented in [[Installing Custom Code]].
-5. Make sure that your client software will work properly:
+1. Make certain that the original Riak Search (version 1) is no longer
+in use or required. Enabling security will break it.
+2. Define [[users|Authentication and Authorization#User-Management]] and, optionally, groups
+3. Define an [[authentication source|Authentication and Authorization#Managing-Sources]] for each user
+4. Grant the necessary [[permissions|Authentication and Authorization#Managing-Permissions]] to each user (and/or group)
+5. Check any Erlang MapReduce code for invocations of Riak modules other than `riak_kv_mapreduce`. Enabling security will prevent those from succeeding unless those modules are available via the `add_path` mechanism documented in [[Installing Custom Code]].
+6. Make sure that your client software will work properly:
     * It must pass authentication information with each request
     * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
     * If using HTTPS, the proper port (presumably 443) is open from client to server
@@ -71,9 +73,8 @@ Riak security may be checked, enabled, or disabled by an administrator through t
 applications interact with Riak.</b> Once security is enabled, all
 client connections must be encrypted and all permissions will be
 denied by default. Do not enable this in production until you have
-verified that your libraries support Riak security, including
-encrypted HTTP or protocol buffers traffic, and that your applications
-are assigned user accounts with the proper permissions.
+worked through the security checklist above and tested everything in a
+non-production environment.
 </div>
 
 Riak security is disabled by default. To enable it:
@@ -82,8 +83,8 @@ Riak security is disabled by default. To enable it:
 riak-admin security enable
 ```
 
-*As per the warning above, do not enable security in production
- without taking the appropriate precautions.*
+**As per the warning above, do not enable security in production
+ without taking the appropriate precautions.**
 
 All users, groups, authentication sources, and permissions can be
 configured while security is disabled, allowing you to create a
@@ -420,7 +421,7 @@ Permission | Operation |
 
 ### Search Query Permission (Riak Search version 1)
 
-Security is incompatible with the original Riak Search.
+Security is incompatible with the original Riak Search. Riak Search version 1 will stop working if security is enabled.
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
