@@ -46,8 +46,7 @@ when turning on Riak security. Missing one of these steps will almost
 certainly break your application, so make sure that you have done each
 of the following **before** enabling security:
 
-1. Make certain that the original Riak Search (version 1) is no longer
-in use or required. Enabling security will break it.
+1. Make certain that the original Riak Search (version 1) and link walking are not required. Enabling security will break this functionality.
 2. Define [[users|Authentication and Authorization#User-Management]] and, optionally, groups
 3. Define an [[authentication source|Authentication and Authorization#Managing-Sources]] for each user
 4. Grant the necessary [[permissions|Authentication and Authorization#Managing-Permissions]] to each user (and/or group)
@@ -93,17 +92,18 @@ impacting the service.
 
 ### Disabling Security
 
-Disabling security only disables the various permissions checks that
-take place when executing operations against Riak. Users, groups, and
-other security attributes remain untouched.
+Disabling security disables the various permissions checks that take
+place when executing operations against Riak. Users, groups, and other
+security attributes will still be stored for security to be re-enabled
+in the future.
+
+Clients will also need to be reconfigured to no longer require TLS and
+send credentials.
+
 
 ```bash
 riak-admin security disable
 ```
-
-If security is successfully disabled, the console will return no
-response, and the database will no longer require (but will still
-permit) encrypted client traffic.
 
 ### Checking Security Status
 
@@ -256,7 +256,7 @@ riak-admin security alter-user riakuser password=opensesame
 
 When creating or altering a user, any number of `<option>=<value>`
 pairs can be appended to the end of the command. Any non-standard
-options will be stored and displayed via the `riak-admin security 
+options will be stored and displayed via the `riak-admin security
 print-users` command.
 
 ```bash
@@ -274,8 +274,8 @@ Now, the `print-users` command should return this:
 ```
 
 **Note**: Usernames _cannot_ be changed using the `alter-user`
-  command. If you attempt to do so by running `alter-user riakuser 
-  username=other-name`, for example, this will add the 
+  command. If you attempt to do so by running `alter-user riakuser
+  username=other-name`, for example, this will add the
   `{"username","other-name"}` tuple to `riakuser`'s options.
 
 ### Managing Groups for a User
@@ -358,7 +358,7 @@ riak-admin security revoke <permissions> on <bucket-type> <bucket> from all|{<us
 ```
 
 If you select `any`, this means that the permission (or set of permissions) is
-granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination. 
+granted/revoked for all buckets and [[bucket types|Using Bucket Types]]. If you specify a bucket type only, then the permission is granted/revoked for all buckets of that type. If you specify a bucket type _and_ a bucket, the permission is granted/revoked only for that bucket type/bucket combination.
 
 **Note**: You cannot grant/revoke permissions with respect only to a bucket. You must specify either a bucket type by itself or a bucket type and bucket.
 
