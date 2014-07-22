@@ -69,9 +69,9 @@ After modifying the port numbers, restart Riak if is already running.
 Riak CS uses two distinct connection pools for communication with
 Riak.
 
-The primary connection pool is used to service the majority fo API requests
+The primary connection pool is used to service the majority of API requests
 related to the upload or retrieval of objects. It is identified in the
-configuration file as *request_pool*. The default size of this pool is 128.
+configuration file as `request_pool`. The default size of this pool is 128.
 
 The secondary connection pool is used strictly for requests to list
 the contents of buckets. The reason for a separate connnection pool
@@ -80,7 +80,7 @@ prove useful for system operators to limit the number of concurrent
 bucket listing requests that may be issued concurrently in order to
 prevent detrimental impacts to system performance. This secondary
 connection pool is identified in the configuration file as
-*bucket_listing_pool*. The default size of this pool is 5.
+`bucket_list_pool`. The default size of this pool is 5.
 
 The following shows the `connection_pools` default configuration entry
 that can be found in the `app.config` file:
