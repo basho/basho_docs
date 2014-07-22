@@ -14,13 +14,15 @@ When data is stored in a bucket with strong consistency guarantees, a value is g
 
 ## Enabling Strong Consistency
 
+In order to use strong consistency, your Riak cluster must have **at least three nodes**. If it does not, you will need to [[add nodes|Basic Cluster Setup]].
+
 The strong consistency subsystem in Riak is disabled by default. You will need to turn it on by changing the configuration your Riak installation's `[[riak.conf|Configuration Files]]` file. To do so, you can simply un-comment the line containing the `strong_consistency = on` setting or add the following if that line is not present:
 
 ```riakconf
 strong_consistency = on
 ```
 
-**Note**: This will enable you to use strong consistency in Riak, but this setting will _not_ apply to all of the data in your Riak cluster. Instead, strong consistency is applied only at the bucket level, [[using bucket types]] (as show directly below).
+**Note**: This will enable you to use strong consistency in Riak, but this setting will _not_ apply to all of the data in your Riak cluster. Instead, strong consistency is applied only at the bucket level, [[using bucket types]] \(as show directly below).
 
 A second necessary step in activating strong consistency is to ensure that Riak's [[active anti-entropy|Riak Glossary#active-anti-entropy-aae]] subsystem is enabled (as it is by default). If it is not currently enabled, you can set the `anti_entropy` parameter in your [[configuration files]] to either `active` or `active-debug`.
 

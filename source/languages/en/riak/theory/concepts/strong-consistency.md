@@ -12,9 +12,11 @@ Consistency]] system, fundamentally geared toward providing partition
 (i.e. fault) tolerance and high read and write availability.
 
 While this focus on high availability is a great fit for many data
-storage needs, there exist use cases for which strong data consistency
-is more important than availability. Thus, Basho introduced with Riak
-2.0 a new option for strongly-consistent data.
+storage needs, there are also many use cases for which strong data
+consistency is more important than availability. Basho introduced a new
+strong consistency option in version 2.0 to address these use cases,
+enabling developers to apply strong consistency on a per-key, i.e.
+per-object, basis.
 
 ## Strong vs. Eventual Consistency
 
