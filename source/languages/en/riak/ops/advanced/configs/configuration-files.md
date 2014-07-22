@@ -530,12 +530,6 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 </tr>
 
 <tr>
-<td><code>bitcask.merge_check_jitter</code></td>
-<td></td>
-<td><code>30%</code></td>
-</tr>
-
-<tr>
 <td><code>bitcask.max_file_size</code></td>
 <td>Describes the maximum permitted size for any single data file in the Bitcask directory. If a write causes the current file to exceed this size threshold then that file is closed, and a new file is opened for writes.</td>
 <td><code>2GB</code></td>
