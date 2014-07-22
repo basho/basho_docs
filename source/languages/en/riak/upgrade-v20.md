@@ -117,6 +117,14 @@ options:
 More information on handling siblings can be found in our documentation
 on [[conflict resolution]].
 
+## Enabling Security
+
+The
+[[authentication and authorization|Authentication and Authorization]]
+mechanisms with Riak 2.0 should only be turned on after careful
+testing in a non-production environment. Security changes the way in
+which all applications interact with Riak.
+
 ## When Downgrading is No Longer an Option
 
 If you decide to upgrade to version 2.0, you can still downgrade your

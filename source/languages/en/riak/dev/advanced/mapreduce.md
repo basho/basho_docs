@@ -84,6 +84,17 @@ As we'll discuss in this document, the functions invoked from Erlang
 MapReduce must be available on all servers in the cluster *unless*
 using the client library from an Erlang shell.
 
+### Security restrictions
+
+If Riak 2.0's security functionality is enabled, there are two restrictions on MapReduce that come into play:
+
+* The `riak_kv.mapreduce` permission must be granted to the user (or
+  via the user's groups)
+* Other than the module `riak_kv_mapreduce`, any Erlang modules
+  distributed with Riak will **not** be accessible to custom MapReduce
+  code unless made available via the `add_path` mechanism documented
+  in [[Installing Custom Code]].
+
 
 ## How Riak's MapReduce Queries Are Specified
 

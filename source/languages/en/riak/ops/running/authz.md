@@ -49,7 +49,8 @@ of the following **before** enabling security:
 1. Define [[users|Authentication and Authorization#User-Management]] and, optionally, groups
 2. Define an [[authentication source|Authentication and Authorization#Managing-Sources]] for each user
 3. Grant the necessary [[permissions|Authentication and Authorization#Managing-Permissions]] to each user (and/or group)
-4. Make sure that your client software will work properly:
+4. Check any Erlang MapReduce code for invocations of Riak modules other than `riak_kv_mapreduce`. Enabling security will prevent those from succeeding unless those modules are available via the `add_path` mechanism documented in [[Installing Custom Code]].
+5. Make sure that your client software will work properly:
     * It must pass authentication information with each request
     * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]] traffic
     * If using HTTPS, the proper port (presumably 443) is open from client to server
