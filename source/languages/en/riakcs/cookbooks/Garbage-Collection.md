@@ -9,8 +9,9 @@ audience: advanced
 keywords: [garbage, gc, deletion, cleanup]
 ---
 
-In Riak CS, any named object bears multiple **versions** that are
-stored in the system at any given time. Each version of the object is
+In Riak CS, any named object bears multiple internal **versions**
+(*i.e* versions that are not exposed to the end user) that are stored
+in the system at any given time. Each version of the object is
 accessible via an object manifest that includes a
 [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier) for
 that version.
@@ -149,14 +150,14 @@ along with the primary `riak-cs` script. The available commands that can
 be used with the `riak-cs-gc` script are listed below. Running the script
 with no command provided displays a list of the available commands.
 
-* **batch** - Manually start garbage collection for a batch of
+* `batch` - Manually start garbage collection for a batch of
     eligible objects
-* **status** - Get the current status of the garbage collection
+* `status` - Get the current status of the garbage collection
     daemon. The output is dependent on the current state of the
     daemon.
-* **pause** - Pause the current batch of object garbage collection. It
+* `pause` - Pause the current batch of object garbage collection. It
     has no effect if there is no active batch.
-* **resume** - Resume a paused garbage collection batch. It has no
+* `resume` - Resume a paused garbage collection batch. It has no
     effect if there is no previously paused batch.
 
 ## Manifest Updates
