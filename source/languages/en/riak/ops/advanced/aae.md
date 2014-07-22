@@ -52,13 +52,7 @@ anti_entropy = active
 For monitoring purposes, you can also activate AAE debugging, which
 provides verbose debugging message output:
 
-{{#2.0.0+}}
-
-```riakconf
-anti_entropy = active-debug
-```
-
-{{/2.0.0+}}
+{{#2.0.0-}}
 
 ```appconfig
 {riak_kv, [
@@ -70,6 +64,25 @@ anti_entropy = active-debug
 ]}
 ```
 
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```riakconf
+anti_entropy = active-debug
+```
+
+```appconfig
+{riak_kv, [
+
+    %% With debugging
+    {anti_entropy, {on, [debug]}},
+
+    %% More riak_kv settings...
+]}
+```
+
+{{/2.0.0+}}
+
 Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
 for any configuration-related changes to take effect.
 
@@ -79,13 +92,7 @@ Alternatively, AAE can be switched off if you would like to repair
 object inconsistencies using [[read repair|Active Anti-Entropy#read-repair]]
 alone:
 
-{{#2.0.0+}}
-
-```riakconf
-anti_entropy = passive
-```
-
-{{/2.0.0+}}
+{{#2.0.0-}}
 
 ```appconfig
 {riak_kv, [
@@ -96,6 +103,25 @@ anti_entropy = passive
     %% More riak_kv settings...
 ]}
 ```
+
+{{/2.0.0-}}
+{{#2.0.0+}}
+
+```riakconf
+anti_entropy = passive
+```
+
+```appconfig
+{riak_kv, [
+
+    %% AAE turned off
+    {anti_entropy, {off, []}},
+
+    %% More riak_kv settings...
+]}
+```
+
+{{/2.0.0+}}
 
 If you would like to reclaim the disk space used by AAE operations, you
 must manually delete the directory in which AAE-related data is stored
