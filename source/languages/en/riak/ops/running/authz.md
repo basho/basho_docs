@@ -94,11 +94,11 @@ impacting the service.
 
 Disabling security disables the various permissions checks that take
 place when executing operations against Riak. Users, groups, and other
-security attributes will still be stored for security to be re-enabled
-in the future.
+security attributes remain available for configuration while security
+is disabled, and will be applied if and when security is re-enabled.
 
-Clients will also need to be reconfigured to no longer require TLS and
-send credentials.
+Clients will need to be reconfigured to no longer require TLS and send
+credentials while security is disabled.
 
 
 ```bash
