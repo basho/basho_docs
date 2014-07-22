@@ -102,9 +102,9 @@ be [[restarted|riak-admin Command Line]].
 
 ## Updates
 
-Once a folder is defined for custom modules and Riak restarted, new
-modules will be automatically discovered, but changes to existing
-modules will not.
+Once a folder is defined for custom modules and Riak has been
+restarted, new modules will be automatically discovered, while changes
+to existing modules will not.
 
 Once the updated `.beam` file has been copied to all nodes, attaching
 to any Riak node via `riak attach` and running `nl(<module-name>)`
@@ -113,7 +113,7 @@ will cause all nodes to recognize the changes.
 Using our `validate_json.beam` example from above:
 
 ```bash
-$ ./riak attach
+./riak attach
 Remote Shell: Use "Ctrl-C a" to quit. q() or init:stop() will terminate the riak node.
 Erlang R16B02-basho4 (erts-5.10.3) [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false] [dtrace]
 
