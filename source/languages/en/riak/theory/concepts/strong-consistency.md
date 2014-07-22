@@ -89,6 +89,26 @@ consider using Riak in a strongly consistent way for the data that
 demands it, while bearing in mind that other data can still be stored in
 Riak in an eventually consistent way.
 
+## Strong Consistency in Riak
+
+In Riak, strong consistency is applied [[using bucket types]], which
+enables you to specify which objects in your cluster will have strong
+consistency guarantees applied to them. In strongly consistent buckets,
+there are four types of atomic operations on objects:
+
+* **Get** operations work just as they do against non-strongly-consistent keys, but with two crucial differences:
+  1. connecting clients are guaranteed to return the most recently written value
+  2. reads on strongly consistent keys *never* return siblings
+* **Conditional put** operations write an object only if no object currently exists in that key. The operation will fail if the key already exists; if the key was never written or has been deleted, the operation succeeds.
+* **Conditional modify** operations are compare-and-swap (CAS) operations that succeed only if the value of a key has not changed since it was previously read.
+* **Delete** operations work just as they do against non-strongly-consistent keys.
+
+From the standpoint of clients connecting to Riak, there is no
+difference between strongly and non-strongly consistent data. The
+operations performed on objects---reads, writes, deletes, etc.---are the
+same, which means that the client API for strong consistency is exactly
+the same.
+
 ## How Riak Implements Strong Consistency
 
 Strong consistency in Riak is handled by a subsystem called
