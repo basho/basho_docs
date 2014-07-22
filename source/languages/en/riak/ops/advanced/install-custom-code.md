@@ -12,13 +12,13 @@ moved: {
 ---
 
 Riak supports the use of Erlang named functions in compiled modules for
-[[pre- and post-commit hooks|Advanced Commit Hooks]] and 
-[[MapReduce|Using MapReduce]] operations. This document contains 
+[[pre- and post-commit hooks|Advanced Commit Hooks]] and
+[[MapReduce|Using MapReduce]] operations. This document contains
 installation steps with simple examples for each use case.
 
 Your developers can compile [[custom Erlang code|Advanced Commit Hooks]]
-which they can send to you as a `.beam` file. You should note that in 
-Erlang, a filename must have the same name as the module. So if you are 
+which they can send to you as a `.beam` file. You should note that in
+Erlang, a filename must have the same name as the module. So if you are
 given a file named `validate_json.beam`, do not rename it.
 
 ## Compiling
@@ -31,7 +31,7 @@ your developers, keep the following notes in mind.
 You must use the Erlang compiler (<code>erlc</code>) associated with the
 Riak installation or the version of Erlang used when compiling Riak from
 source. For packaged Riak installations, you can consult Table 1 below
-for the default location of Riak's <code>erlc</code> for each supported 
+for the default location of Riak's <code>erlc</code> for each supported
 platform. If you compiled from source, use the <code>erlc</code> from
 the Erlang version you used to compile Riak.
 </div>
@@ -53,10 +53,10 @@ Compiling the module is a straightforward process.
 erlc validate_json.erl
 ```
 
-Next, you'll need to define a path from which compiled modules can be 
-stored and loaded. For our example, we'll use a temporary directory 
-`/tmp/beams`, but you should choose a directory for production functions 
-based on your own requirements such that they will be available where 
+Next, you'll need to define a path from which compiled modules can be
+stored and loaded. For our example, we'll use a temporary directory
+`/tmp/beams`, but you should choose a directory for production functions
+based on your own requirements such that they will be available where
 and when needed.
 
 <div class="info">
@@ -69,15 +69,15 @@ Successful compilation will result in a new `.beam` file,
 
 ## Configuration
 
-Take the `validate_json.beam` and copy this file to the `/tmp/beams` 
+Take the `validate_json.beam` and copy this file to the `/tmp/beams`
 directory.
 
 ```bash
 cp validate_json.beam /tmp/beams/
 ```
 
-After copying the compiled module into `/tmp/beams/`, you must update 
-your configuration file to enable Riak to load compiled modules from the 
+After copying the compiled module into `/tmp/beams/`, you must update
+your configuration file to enable Riak to load compiled modules from the
 directory where they're stored (in our example `/tmp/beams`).
 
 If you are using the older, `app.config`-based configuration system, you
@@ -92,10 +92,36 @@ can add one or more paths using the `add_paths` parameter in the
 ```
 
 If you are using the newer configuration system (with most configuration
-handled by the `riak.conf` file), you can add custom code paths in the 
+handled by the `riak.conf` file), you can add custom code paths in the
 same way as shown above but in an `advanced.config` file. More
 information can be found in our documentation on
 [[advanced configuration|Configuration Files#Advanced-Configuration]].
 
 After updating the appropriate configuration file, your Riak node must
 be [[restarted|riak-admin Command Line]].
+
+## Updates
+
+Once a folder is defined for custom modules and Riak restarted, new
+modules will be automatically discovered, but changes to existing
+modules will not.
+
+Once the updated `.beam` file has been copied to all nodes, attaching
+to any Riak node via `riak attach` and running `nl(<module-name>)`
+will cause all nodes to recognize the changes.
+
+Using our `validate_json.beam` example from above:
+
+```bash
+$ ./riak attach
+Remote Shell: Use "Ctrl-C a" to quit. q() or init:stop() will terminate the riak node.
+Erlang R16B02-basho4 (erts-5.10.3) [source] [64-bit] [smp:8:8] [async-threads:10] [kernel-poll:false] [dtrace]
+
+Eshell V5.10.3  (abort with ^G)
+(riak@127.0.0.1)1> nl(validate_json).
+abcast
+(riak@127.0.0.1)2>
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+a
+```
