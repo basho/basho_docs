@@ -103,12 +103,11 @@ and testing has shown it to be beneficial for a particular use case.
 
 ### Tuning
 
-It is strongly recommended to increase the value of the Riak
-`pb_backlog` setting as described in
-[[this section|Configuring Riak for CS#Setting-Up-Riak-to-Use-Protocol-Buffers]]
-of the documentation on configuring Riak for use with Riak CS. When a
-Riak CS node is started each connection pool begins to establish
-connections to Riak. This can result in a thundering herd problem
+We strongly recommend you
+[[increase the value of the pb_backlog setting|Configuring Riak for CS#Setting-Up-Riak-to-Use-Protocol-Buffers]]
+in Riak. When a Riak CS node is started each connection pool begins to
+establish connections to Riak.  This can result in a
+[[thundering herd problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]]
 where connections in the pool believe they are connected to Riak, but
 in reality some of the connections have been reset. Due to TCP `RST`
 packet rate limiting (controlled by `net.inet.icmp.icmplim`) some of

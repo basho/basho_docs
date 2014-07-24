@@ -122,7 +122,7 @@ The `pb` values in the Riak `app.config` file must match the values for `riak_ip
 
 It is also recommended that you increase the size of Riak's
 `pb_backlog` to be greater than or equal to the size of `request_pool`
-+ the size of the `bucket_listing_pool` specified in the Riak CS
++ the size of the `bucket_list_pool` specified in the Riak CS
 `app.config` file. Assuming the default sizes for each of the
 connection pools, `pb_backlog` should be set to at least `133`, but
 using a value of `256` is recommended just to provide more leeway. The
