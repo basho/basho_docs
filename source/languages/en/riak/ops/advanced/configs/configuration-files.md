@@ -6,7 +6,7 @@ document: reference
 audience: intermediate
 ---
 
-Riak has a `riak.conf` configuration file located in `/etc` if you are using a source install or in `/etc/riak` if you used a binary install.
+Riak has a `riak.conf` configuration file located in `/etc` if you are using a source install or in `/etc/riak` or `/usr/local/etc` if you used a binary install.
 
 The `riak.conf` file is used to set a wide variety of attributes for the node, from the storage backend that the node will use to store data to the location of SSL-related files to sibling resolution parameters and beyond.
 
@@ -180,15 +180,15 @@ Configuration parameters for [[Riak Search|Using Search]].
 </tr>
 
 <tr>
-<td><code>search.solr.jvm_options</code></td>
-<td>The options to pass to the Solr JVM. Non-standard options, i.e. <code>-XX</code>, may not be portable across JVM implementations. Example: <code>XX:+UseCompressedStrings</code></td>
-<td><code>-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops</code></td>
-</tr>
-
-<tr>
 <td><code>search.solr.jmx_port</code></td>
 <td>The port to which Solr JMX binds. <strong>Note</strong>: Binds on every interface.</td>
 <td><code>8985</code></td>
+</tr>
+
+<tr>
+<td><code>search.solr.jvm_options</code></td>
+<td>The options to pass to the Solr JVM. Non-standard options, i.e. <code>-XX</code>, may not be portable across JVM implementations. Example: <code>XX:+UseCompressedStrings</code></td>
+<td><code>-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops</code></td>
 </tr>
 
 <tr>
@@ -228,8 +228,14 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 
 <tr>
 <td><code>leveldb.maximum_memory.percent</code></td>
-<td>Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size.</td>
+<td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a byte count via leveldb.maximum_memory instead.</td>
 <td><code>70</code></td>
+</tr>
+
+<tr>
+<td><code>leveldb.maximum_memory</code></td>
+<td>This parameter defines the server memory (in bytes) to assign to LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set leveldb memory as a percentage of system total.</td>
+<td><code>80</code></td>
 </tr>
 
 <tr>
@@ -323,12 +329,6 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 </tr>
 
 <tr>
-<td><code>leveldb.maximum_memory.percent</code></td>
-<td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a byte count via <code>leveldb.maximum_memory</code> instead.</td>
-<td><code>80</code></td>
-</tr>
-
-<tr>
 <td><code>leveldb.tiered</code></td>
 <td>The level number at which LevelDB data switches from the faster to the slower array. The default of <code>off</code> disables the feature.</td>
 <td><code>off</code></td>
@@ -376,6 +376,12 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 </tr>
 
 <tr>
+<td><code>bitcask.expiry</code></td>
+<td>By default, Bitcask keeps all of your data around. If your data has limited time value, or if for space reasons you need to purge data, you can set the <code>expiry</code> option. For example, if you need to purge data automatically after 1 day, set the value to <code>1d</code>. <code>off</code> disables automatic expiration</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
 <td><code>bitcask.expiry.grace_time</code></td>
 <td>By default, Bitcask will trigger a merge whenever a data file contains an expired key. This may result in excessive merging under some usage patterns. To prevent this you can set the <code>bitcask.expiry.grace_time</code> option.  Bitcask will defer triggering a merge solely for key expiry by the configured number of seconds. Setting this to <code>1h</code> effectively limits each cask to merging for expiry once per hour.</td>
 <td><code>0</code></td>
@@ -385,12 +391,6 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 <td><code>bitcask.hintfile_checksums</code></td>
 <td>Whether to allow the CRC to be present at the end of hintfiles. Setting this to <code>allow_missing</code> runs Bitcask in a backwards-compatible mode in which old hint files will still be accepted without CRC signatures.</td>
 <td><code>strict</code></td>
-</tr>
-
-<tr>
-<td><code>bitcask.expiry</code></td>
-<td>By default, Bitcask keeps all of your data around. If your data has limited time value, or if for space reasons you need to purge data, you can set the <code>expiry</code> option. For example, if you need to purge data automatically after 1 day, set the value to <code>1d</code>. <code>off</code> disables automatic expiration</td>
-<td><code>off</code></td>
 </tr>
 
 <tr>
@@ -425,7 +425,7 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 
 <tr>
 <td><code>bitcask.merge.triggers.dead_bytes</code></td>
-<td>Describes how much data stored for dead keys in a single file will trigger merging. The value is in bytes. If a file meets or exceeds the trigger value for dead bytes, merge will be triggered. Increasing the value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often. When either of these constraints are met by any file in the directory, Bitcask will attempt to merge files.</td>
+<td>Describes how much data stored for dead keys in a single file will trigger merging. If a file meets or exceeds the trigger value for dead bytes, merge will be triggered. Increasing the value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often. When either of these constraints are met by any file in the directory, Bitcask will attempt to merge files.</td>
 <td><code>512MB</code></td>
 </tr>
 
@@ -451,6 +451,24 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 <td><code>bitcask.merge.policy</code></td>
 <td>Lets you specify when during the day merge operations are allowed to be triggered. Valid options are: <code>always</code>, meaning no restrictions; <code>never</code>, meaning that merging will never be attempted; and <code>window</code>, specifying the hours during which merging is permitted, where <code>bitcask.merge.window.start</code> and <code>bitcask.merge.window.end</code> are integers between 0 and 23. If merging has a significant impact on performance of your cluster, or your cluster has quiet periods in which little storage activity occurs, you may want to change this setting from the default.</td>
 <td><code>always</code></td>
+</tr>
+
+<tr>
+<td><code>bitcask.merge_check_interval</code></td>
+<td>Time in between the checks that trigger Bitcask merges.</td>
+<td><code>3m</code></td>
+</tr>
+
+<tr>
+<td><code>bitcask.merge_check_jitter</code></td>
+<td>Jitter used to randomize the time in between the checks that trigger Bitcask merges.</td>
+<td><code>3m</code></td>
+</tr>
+
+<tr>
+<td><code>bitcask.max_merge_size</code></td>
+<td>Maximum amount of data to merge in one go in the Bitcask backend.</td>
+<td><code>100GB</code></td>
 </tr>
 
 <tr>
