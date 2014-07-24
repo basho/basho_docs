@@ -42,7 +42,7 @@ You can optionally send and receive XML if you set the `Content-Type` to `applic
 
 Once the admin user exists, you must specify the credentials of the admin user on each node in the Riak CS system. The admin user credential settings reside in the Riak CS `app.config` file, which is located in the `etc/riak-cs directory. The settings appear in the Riak CS config` section of the file. Paste the `key_id` string between the quotes for the `admin_key`. Paste the `key_secret` string into the `admin_secret` variable, as shown here:
 
-```erlang
+```appconfig
 %% Admin user credentials
 {admin_key, "LXAAII1MVLI93IN2ZMDD"},
 {admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
@@ -67,25 +67,22 @@ After modifying the port numbers, restart Riak if is already running.
 ## Connection Pools
 
 Riak CS uses two distinct connection pools for communication with
-Riak.
+Riak: a **primary** and a **secondary** pool.
 
 The primary connection pool is used to service the majority of API requests
 related to the upload or retrieval of objects. It is identified in the
 configuration file as `request_pool`. The default size of this pool is 128.
 
 The secondary connection pool is used strictly for requests to list
-the contents of buckets. The reason for a separate connnection pool
-for this operation is that it can be taxing on the system and it can
-prove useful for system operators to limit the number of concurrent
-bucket listing requests that may be issued concurrently in order to
-prevent detrimental impacts to system performance. This secondary
-connection pool is identified in the configuration file as
-`bucket_list_pool`. The default size of this pool is 5.
+the contents of buckets. The separate connnection pool is maintained
+in order to improve performance. This secondary connection pool is
+identified in the configuration file as `bucket_list_pool`. The
+default size of this pool is 5.
 
 The following shows the `connection_pools` default configuration entry
 that can be found in the `app.config` file:
 
-```erlang
+```appconfig
 {connection_pools,
  [
   {request_pool, {128, 0} },
@@ -93,18 +90,19 @@ that can be found in the `app.config` file:
  ]},
 ```
 
-The value for each pool is represented as a pair with the first element
-representing the normal size of the pool. This is representative of
-the number of concurrent requests of a particular type that a Riak CS node may
-service. The second element represents the number of allowed
-overflow pool requests that are allowed. It is not recommended to use
-any value other than 0 for the overflow amount unless careful analysis
-and testing has shown it to be beneficial for a particular use case.
+The value for each pool is represented as a pair with the first
+element representing the normal size of the pool. This is
+representative of the number of concurrent requests of a particular
+type that a Riak CS node may service. The second element represents
+the number of allowed overflow pool requests that are allowed. It is
+not recommended that you use any value other than 0 for the overflow
+amount unless careful analysis and testing has shown it to be
+beneficial for a particular use case.
 
 ### Tuning
 
 We strongly recommend you
-[[increase the value of the pb_backlog setting|Configuring Riak for CS#Setting-Up-Riak-to-Use-Protocol-Buffers]]
+[[increase the value of the `pb_backlog` setting|Configuring Riak for CS#Setting-Up-Riak-to-Use-Protocol-Buffers]]
 in Riak. When a Riak CS node is started each connection pool begins to
 establish connections to Riak.  This can result in a
 [[thundering herd problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]]
@@ -146,7 +144,7 @@ Replace `127.0.0.1` with the IP address for the Riak CS node.
 ## Enabling SSL in Riak CS
 In the Riak CS `app.config` file, first uncomment the following lines:
 
-```erlang
+```appconfig
 %%{ssl, [
 %%    {certfile, "./etc/cert.pem"},
 %%    {keyfile, "./etc/key.pem"}
