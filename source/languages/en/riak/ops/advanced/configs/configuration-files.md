@@ -74,14 +74,15 @@ Every Riak node has a name and a cookie used to facilitate inter-node communicat
 
 <tr>
 <td><code>nodename</code></td>
-<td>The name of the Erlang node</td>
+<td>The name of the Riak node.</td>
 <td><code>riak@127.0.0.1</code></td>
 </tr>
 
 <tr>
 <td><code>distributed_cookie</code></td>
-<td>Cookie for distributed node communication. All nodes in the same cluster should use the same cookie or they will not be able to communicate.</td>
-<td><code>riak</code></td>
+<td>Cookie for distributed node communication within a Riak clustering_size</code></td>
+<td>Number of partitions in the cluster (only valid when first creating the cluster). Must be a power of 2. The minimum is 8 and the maximum is 1024.</td>
+<td><code>64</code></td>
 </tr>
 
 </tbody>
@@ -525,7 +526,7 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 
 <tr>
 <td><code>bitcask.merge_check_jitter</code></td>
-<td></td>
+<td>In order to prevent merge operations from taking place on different nodes at the same time, Riak can apply random variance to merge times, expressed as a percentage of <code>bitcask.merge_check_interval</code>.</td>
 <td><code>30%</code></td>
 </tr>
 
@@ -744,7 +745,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.dw</code></td>
-<td>The number of replicas which must reply to a write request, indicating that the write was committed to durable storage.</td>
+<td>The number of replicas which must reply to a write request indicating that the write was committed to durable storage for the write to be deemed successful.</td>
 <td><code>quorum</code></td>
 </tr>
 
@@ -762,7 +763,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored. <strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
+<td>The number of replicas stored.<br /><br /> <strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
 <td><code>3</code></td>
 </tr>
 
@@ -774,7 +775,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.postcommit</code></td>
-<td>A space-delimited list of functions that will be run after a value is stored. Only Erlang functions are allowed, using the <code>module:function</code>format.</td>
+<td>A space-delimited list of functions that will be run after a value is stored. Only Erlang functions are allowed, using the <code>module:function</code> format.</td>
 <td></td>
 </tr>
 
@@ -786,7 +787,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.precommit</code></td>
-<td>A space delimited list of functions that will be run before a value is stored, and that can abort the write. For Erlang functions, use <code>module:function</code>, and for JavaScript use <code>functionName</code>.</td>
+<td>A space-delimited list of functions that will be run before a value is stored, and that can abort the write. Only Erlang functions are allowed, using the <code>module:function</code> format.</td>
 <td></td>
 </tr>
 
