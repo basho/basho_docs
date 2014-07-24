@@ -228,13 +228,13 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 
 <tr>
 <td><code>leveldb.maximum_memory.percent</code></td>
-<td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a byte count via leveldb.maximum_memory instead.</td>
+<td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a byte count via <code>leveldb.maximum_memory</code> instead.</td>
 <td><code>70</code></td>
 </tr>
 
 <tr>
 <td><code>leveldb.maximum_memory</code></td>
-<td>This parameter defines the server memory (in bytes) to assign to LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set leveldb memory as a percentage of system total.</td>
+<td>This parameter defines the server memory (in bytes) to assign to LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set LevelDB memory as a percentage of system total.</td>
 <td><code>80</code></td>
 </tr>
 
@@ -377,7 +377,7 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 
 <tr>
 <td><code>bitcask.expiry</code></td>
-<td>By default, Bitcask keeps all of your data around. If your data has limited time value, or if for space reasons you need to purge data, you can set the <code>expiry</code> option. For example, if you need to purge data automatically after 1 day, set the value to <code>1d</code>. <code>off</code> disables automatic expiration</td>
+<td>By default, Bitcask keeps all of your data around. If your data has limited time value, or if you need to purge data for space reasons, you can set the <code>expiry</code> option. For example, if you need to purge data automatically after 1 day, set the value to <code>1d</code>. <code>off</code> disables automatic expiration</td>
 <td><code>off</code></td>
 </tr>
 
@@ -531,6 +531,20 @@ Configurable parameters for Riak's [[Memory]] backend.
 
 Configurable parameters for Riak's [[Multi]] backend, which enables you to utilize multiple data backends in a single Riak cluster.
 
+If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend. `$name` can be any valid configuration word, like `customer_data`, `my_data`, `foo_bar_backend`, etc.
+
+Below is the general form for setting multi-backend parameters:
+
+```riakconf
+multi_backend.$name.(existing_setting) = <setting>
+```
+
+To give an example, if you have a LevelDB backend named `customer_backend` and wish to set the data_root` parameter to `$(platform_data_dir)/leveldb_backends/customer_backend/`, you would do so as follows:
+
+```riakconf
+multi_backend.customer_backend.storage_backend = leveldb
+multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
+```
 <table class="riak-conf">
 <thead>
 <tr>
@@ -555,20 +569,6 @@ Configurable parameters for Riak's [[Multi]] backend, which enables you to utili
 
 </tbody>
 </table>
-
-If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend, i.e. `bitcask`, `leveldb`, `memory`, or `multi`.
-
-Below is the general form for setting multi-backend parameters:
-
-```riakconf
-multi_backend.$name.(existing_setting) = <setting>
-```
-
-To give an example, if you're using multiple backends and wish to set your LevelDB `data_root` parameter to `./leveldb`, you would do so as follows:
-
-```riakconf
-multi_backend.leveldb.data_root = ./leveldb
-```
 
 ## Riak Control
 
