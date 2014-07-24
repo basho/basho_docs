@@ -733,7 +733,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.allow_mult</code></td>
-<td>Whether or not siblings are allowed. <strong>Note</strong>: See <a href="/theory/concepts/Vector-Clocks">Vector Clocks</a> for a discussion of sibling resolution.</td>
+<td>Whether or not siblings are allowed.<br /><br /><strong>Note</strong>: See <a href="/theory/concepts/Vector-Clocks">Vector Clocks</a> for a discussion of sibling resolution.</td>
 <td><code>true</code></td>
 </tr>
 
@@ -763,7 +763,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored.<br /><br /> <strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
+<td>The number of replicas stored.<br /><br /><strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
 <td><code>3</code></td>
 </tr>
 
