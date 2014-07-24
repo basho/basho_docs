@@ -155,7 +155,9 @@ with no command provided displays a list of the available commands.
 * `status` - Get the current status of the garbage collection
     daemon. The output is dependent on the current state of the
     daemon.
-* `pause` - Pause the current batch of object garbage collection. It
+* `pause` - Pause the current batch of object garbage collection and
+    halt any furhter garbage collection until the daemon is resumed.
+* `cancel` - Cancel the current batch of object garbage collection. It
     has no effect if there is no active batch.
 * `resume` - Resume a paused garbage collection batch. It has no
     effect if there is no previously paused batch.
