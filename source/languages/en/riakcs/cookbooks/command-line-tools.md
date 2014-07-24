@@ -278,7 +278,19 @@ documentation, see [[the section above|Riak CS Command Line Tools#riak-cs-admin]
 
 ## riak-cs-multibag
 
+Riak CS version 1.5 offers support for multibag operations. The
+`multibag` command interface enables you to interact with that system.
+
+<div class="note">
+<div class="title">Note: technical preview</div>
+Riak CS multibag support is available only as a technical preview for
+users of Riak CS installations with support for Multi-Datacenter
+Replication.
+</div>
+
 #### list-bags
+
+Lists the bags currently available in a multi-cluster Riak CS setup.
 
 ```bash
 riak-cs-multibag list-bags
