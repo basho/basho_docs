@@ -58,6 +58,71 @@ of an `advanced.config` file to control some settings available only in
 versions prior to 2.0. If this applies to your installation, please see the 
 [[Advanced Configuration|Configuration Files#advanced-configuration]] section below.
 
+## Node Metadata
+
+Every Riak node has a name and a cookie used to facilitate inter-node communication. The following parameters enable you to customize the name and cookie.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>nodename</code></td>
+<td>The name of the Riak node.</td>
+<td><code>riak@127.0.0.1</code></td>
+</tr>
+
+<tr>
+<td><code>distributed_cookie</code></td>
+<td>Cookie for distributed node communication within a Riak clustering_size</code></td>
+<td>Number of partitions in the cluster (only valid when first creating the cluster). Must be a power of 2. The minimum is 8 and the maximum is 1024.</td>
+<td><code>64</code></td>
+</tr>
+
+</tbody>
+</table>
+
+## Ring
+
+Configurable parameters for your cluster's [[ring|Clusters#the-ring]].
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>ring_size</code></td>
+<td>Number of partitions in the cluster (only valid when first creating the cluster). Must be a power of 2. The minimum is 8 and the maximum is 1024.</td>
+<td><code>64</code></td>
+</tr>
+
+<tr>
+<td><code>ring.state_dir</code></td>
+<td>Default location of ringstate.</td>
+<td><code>./data/ring</code></td>
+</tr>
+
+<tr>
+<td><code>transfer_limit</code></td>
+<td>Number of concurrent node-to-node transfers allowed.</td>
+<td><code>2</code></td>
+</tr>
+
+</tbody>
+</table>
+
 ## Storage Backend
 
 Riak enables you to choose from the following storage backends:
@@ -180,15 +245,15 @@ Configuration parameters for [[Riak Search|Using Search]].
 </tr>
 
 <tr>
-<td><code>search.solr.jmx_port</code></td>
-<td>The port to which Solr JMX binds. <strong>Note</strong>: Binds on every interface.</td>
-<td><code>8985</code></td>
+<td><code>search.solr.jvm_options</code></td>
+<td>The options to pass to the Solr JVM. Non-standard options, i.e. <code>-XX</code>, may not be portable across JVM implementations. Example: <code>XX:+UseCompressedStrings</code></td>
+<td><code>-d64 -Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops</code></td>
 </tr>
 
 <tr>
-<td><code>search.solr.jvm_options</code></td>
-<td>The options to pass to the Solr JVM. Non-standard options, i.e. <code>-XX</code>, may not be portable across JVM implementations. Example: <code>XX:+UseCompressedStrings</code></td>
-<td><code>-Xms1g -Xmx1g -XX:+UseStringCache -XX:+UseCompressedOops</code></td>
+<td><code>search.solr.jmx_port</code></td>
+<td>The port to which Solr JMX binds. <strong>Note</strong>: Binds on every interface.</td>
+<td><code>8985</code></td>
 </tr>
 
 <tr>
@@ -455,14 +520,14 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 
 <tr>
 <td><code>bitcask.merge_check_interval</code></td>
-<td>Time in between the checks that trigger Bitcask merges.</td>
+<td>Bitcask periodically runs checks to determine whether merges are necessary. This parameter determines how often those checks take place. Expressed as a time unit, e.g. `10s` for 10 seconds, `5m` for 5 minutes, etc.</td>
 <td><code>3m</code></td>
 </tr>
 
 <tr>
 <td><code>bitcask.merge_check_jitter</code></td>
-<td>Jitter used to randomize the time in between the checks that trigger Bitcask merges.</td>
-<td><code>3m</code></td>
+<td>In order to prevent merge operations from taking place on different nodes at the same time, Riak can apply random variance to merge times, expressed as a percentage of <code>bitcask.merge_check_interval</code>.</td>
+<td><code>30%</code></td>
 </tr>
 
 <tr>
@@ -591,15 +656,15 @@ Riak Control is a web-based administrative console for inspecting and manipulati
 </tr>
 
 <tr>
-<td><code>riak_control.auth.user.$username.password</code></td>
-<td>If Riak Control's authentication mode (<code>riak_control.auth.mode</code>) is set to <code>userlist</code>, then this is the list of usernames and passwords for access to the admin panel.</td>
-<td></td>
-</tr>
-
-<tr>
 <td><code>riak_control.auth.mode</code></td>
 <td>Authentication mode used for access to the admin panel. Options are <code>off</code> (which is the default) or <code>userlist</code>.</td>
 <td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>riak_control.auth.user.$username.password</code></td>
+<td>If Riak Control's authentication mode (<code>riak_control.auth.mode</code>) is set to <code>userlist</code>, then this is the list of usernames and passwords for access to the admin panel.</td>
+<td></td>
 </tr>
 
 </tbody>
@@ -673,15 +738,21 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 <tbody>
 
 <tr>
-<td><code>buckets.default.postcommit</code></td>
-<td>A space-delimited list of functions that will be run after a value is stored. Only Erlang functions are allowed, using the <code>module:function</code>format.</td>
-<td></td>
+<td><code>buckets.default.allow_mult</code></td>
+<td>Whether or not siblings are allowed.<br /><br /><strong>Note</strong>: See <a href="/theory/concepts/Vector-Clocks">Vector Clocks</a> for a discussion of sibling resolution.</td>
+<td><code>true</code></td>
 </tr>
 
 <tr>
-<td><code>buckets.default.precommit</code></td>
-<td>A space delimited list of functions that will be run before a value is stored, and that can abort the write. For Erlang functions, use <code>module:function</code>, and for JavaScript use <code>functionName</code>.</td>
-<td></td>
+<td><code>buckets.default.basic_quorum</code></td>
+<td>Whether not-founds will invoke the "basic quorum" optimization. This setting will short-circuit fetches where the majority of replicas report that the key is not found. Only used when <code>notfound_ok</code> is set to <code>false</code>.</td>
+<td><code>false</code></td>
+</tr>
+
+<tr>
+<td><code>buckets.default.dw</code></td>
+<td>The number of replicas which must reply to a write request indicating that the write was committed to durable storage for the write to be deemed successful.</td>
+<td><code>quorum</code></td>
 </tr>
 
 <tr>
@@ -697,15 +768,9 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 </tr>
 
 <tr>
-<td><code>buckets.default.allow_mult</code></td>
-<td>Whether or not siblings are allowed. <strong>Note</strong>: See <a href="/theory/concepts/Vector-Clocks">Vector Clocks</a> for a discussion of sibling resolution.</td>
-<td><code>true</code></td>
-</tr>
-
-<tr>
-<td><code>buckets.default.basic_quorum</code></td>
-<td>Whether not-founds will invoke the "basic quorum" optimization. This setting will short-circuit fetches where the majority of replicas report that the key is not found. Only used when <code>notfound_ok</code> is set to <code>false</code>.</td>
-<td><code>false</code></td>
+<td><code>buckets.default.n_val</code></td>
+<td>The number of replicas stored.<br /><br /><strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
+<td><code>3</code></td>
 </tr>
 
 <tr>
@@ -715,33 +780,9 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 </tr>
 
 <tr>
-<td><code>buckets.default.rw</code></td>
-<td>The number of replicas which must reply to a delete request.</td>
-<td><code>quorum</code></td>
-</tr>
-
-<tr>
-<td><code>buckets.default.dw</code></td>
-<td>The number of replicas which must reply to a write request, indicating that the write was committed to durable storage.</td>
-<td><code>quorum</code></td>
-</tr>
-
-<tr>
-<td><code>buckets.default.pw</code></td>
-<td>The number of primary, non-fallback replicas which must reply to a write request.</td>
-<td><code>0</code></td>
-</tr>
-
-<tr>
-<td><code>buckets.default.w</code></td>
-<td>The number of replicas which must reply to a write request, indicating that the write was received.</td>
-<td><code>quorum</code></td>
-</tr>
-
-<tr>
-<td><code>buckets.default.r</code></td>
-<td>The number of replicas which must reply to a read request.</td>
-<td><code>quorum</code></td>
+<td><code>buckets.default.postcommit</code></td>
+<td>A space-delimited list of functions that will be run after a value is stored. Only Erlang functions are allowed, using the <code>module:function</code> format.</td>
+<td></td>
 </tr>
 
 <tr>
@@ -751,9 +792,33 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 </tr>
 
 <tr>
-<td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored. <strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
-<td><code>3</code></td>
+<td><code>buckets.default.precommit</code></td>
+<td>A space-delimited list of functions that will be run before a value is stored, and that can abort the write. Only Erlang functions are allowed, using the <code>module:function</code> format.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>buckets.default.pw</code></td>
+<td>The number of primary, non-fallback replicas which must reply to a write request.</td>
+<td><code>0</code></td>
+</tr>
+
+<tr>
+<td><code>buckets.default.r</code></td>
+<td>The number of replicas which must reply to a read request.</td>
+<td><code>quorum</code></td>
+</tr>
+
+<tr>
+<td><code>buckets.default.rw</code></td>
+<td>The number of replicas which must reply to a delete request.</td>
+<td><code>quorum</code></td>
+</tr>
+
+<tr>
+<td><code>buckets.default.w</code></td>
+<td>The number of replicas which must reply to a write request, indicating that the write was received.</td>
+<td><code>quorum</code></td>
 </tr>
 
 </tbody>
@@ -914,35 +979,6 @@ In the older configuration system, the Erlang VM in which Riak runs was configur
 </tbody>
 </table>
 
-## Node Metadata
-
-Every Riak node has a name and a cookie used to facilitate inter-node communication. The following parameters enable you to customize the name and cookie.
-
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><code>nodename</code></td>
-<td>The name of the Erlang node</td>
-<td><code>riak@127.0.0.1</code></td>
-</tr>
-
-<tr>
-<td><code>distributed_cookie</code></td>
-<td>Cookie for distributed node communication. All nodes in the same cluster should use the same cookie or they will not be able to communicate.</td>
-<td><code>riak</code></td>
-</tr>
-
-</tbody>
-</table>
-
 ## JavaScript MapReduce
 
 Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce|Using MapReduce]] system.
@@ -1073,41 +1109,6 @@ Configurable parameters for [[Riak Security|Authentication and Authorization]].
 </tbody>
 </table>
 
-## Ring
-
-Configurable parameters for your cluster's [[ring|Clusters#the-ring]].
-
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><code>ring.state_dir</code></td>
-<td>Default location of ringstate</td>
-<td><code>./data/ring</code></td>
-</tr>
-
-<tr>
-<td><code>transfer_limit</code></td>
-<td>Number of concurrent node-to-node transfers allowed</td>
-<td><code>2</code></td>
-</tr>
-
-<tr>
-<td><code>ring_size</code></td>
-<td>Number of partitions in the cluster (only valid when first creating the cluster). Must be a power of 2. The minimum is 8 and the maximum is 1024.</td>
-<td><code>64</code></td>
-</tr>
-
-</tbody>
-</table>
-
 ## Client Interfaces
 
 Configurable parameters for clients connecting to Riak either through Riak's [[Protocol Buffers|PBC API]] or [[HTTP|HTTP API]] API.
@@ -1170,6 +1171,12 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 <tbody>
 
 <tr>
+<td><code>sasl</code></td>
+<td>Whether to enable Erlang's built-in error logger.</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
 <td><code>log.error.messages_per_second</code></td>
 <td>Maximum number of <code>error_logger</code> messages to handle in a second</td>
 <td><code>100</code></td>
@@ -1178,6 +1185,12 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 <tr>
 <td><code>log.error.redirect</code></td>
 <td>Whether to redirect <code>error_logger</code> messages into lager.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>log.crash</code></td>
+<td>Whether to enable the crash log.</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1209,18 +1222,6 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 <td><code>log.crash.file</code></td>
 <td>If the crash log is enabled, the file where its messages will be written.</td>
 <td><code>./log/crash.log</code></td>
-</tr>
-
-<tr>
-<td><code>log.crash</code></td>
-<td>Whether to enable the crash log.</td>
-<td><code>on</code></td>
-</tr>
-
-<tr>
-<td><code>sasl</code></td>
-<td>Whether to enable Erlang's built-in error logger.</td>
-<td><code>off</code></td>
 </tr>
 
 <tr>
@@ -1332,7 +1333,7 @@ Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-En
 
 <tr>
 <td><code>anti_entropy.tree.expiry</code></td>
-<td>Determines how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal Active Anti-Entropy operations and should be infrequent for performance reasons. The time is specified in milliseconds.</td>
+<td>Determines how often hash trees are expired after being built. Periodically expiring a hash tree ensures that the on-disk hash tree data stays consistent with the actual K/V backend data. It also helps Riak identify silent disk failures and bit rot. However, expiration is not needed for normal active anti-entropy operations and should be infrequent for performance reasons. The time is specified in milliseconds.</td>
 <td><code>1w</code></td>
 </tr>
 
@@ -1346,6 +1347,12 @@ Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-En
 <td><code>anti_entropy.tree.build_limit.number</code></td>
 <td>Restrict how fast AAE can build hash trees. Building the tree for a given partition requires a full scan over that partition's data. Once built, trees stay built until they are expired. <code>.number</code> is the number of builds; <code>.per_timespan</code> is the amount of time in which that number of builds occurs.</td>
 <td><code>1</code></td>
+</tr>
+
+<tr>
+<td><code>anti_entropy.use_background_manager</code></td>
+<td>Whether AAE is to use a background process to limit AAE tree rebuilds. If set to <code>on</code>, this will help to prevent system response degradation under times of heavy load from multiple background tasks that contend for the same system resources; setting this parameter to <code>off</code> can cut down on system resource usage.</td>
+<td><code>off</code></td>
 </tr>
 
 </tbody>
@@ -1381,6 +1388,12 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 <td><code>handoff.port</code></td>
 <td>Specifies the TCP port that Riak uses for intra-cluster data handoff.</td>
 <td><code>8099</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.use_background_manager</code></td>
+<td>Whether Riak will use a background manager to limit K/V handoff. This can help to prevent system response degradation during times of heavy load caused by multiple background tasks that contend for the same system resources; setting this parameter to <code>off</code> can cut down on system resource usage.</td>
+<td>off</td>
 </tr>
 
 </tbody>
