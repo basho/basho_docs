@@ -209,17 +209,15 @@ NAT changes will be applied once fullsync and/or realtime replication has been s
 
 Enable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
 
-    Enable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
-    * *Syntax:* `proxy-get enable  <sink_clustername>`
-    * *Example:* `riak-repl proxy-get enable  newyorkbackup`
+* *Syntax:* `proxy-get enable  <sink_clustername>`
+* *Example:* `riak-repl proxy-get enable  newyorkbackup`
 
 **riak-repl proxy-get disable**
 
 Disable Riak CS proxy_get requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
 
-    Disable Riak CS `proxy_get` requests from a **sink** cluster (if `proxy_get` has been enabled in `app.config`).
-    * *Syntax:* `proxy-get disable <sink_clustername>`
-    * *Example:* `riak-repl proxy-get disable newyorkbackup`
+* *Syntax:* `proxy-get disable <sink_clustername>`
+* *Example:* `riak-repl proxy-get disable newyorkbackup`
 
 ## `riak-repl` Status Output
 
