@@ -156,6 +156,7 @@ riak:
           - "[[Ring Resizing]]"
           - "[[Object Deletion]]"
           - "[[Runtime Interaction]]"
+          - "[[Managing Strong Consistency]]"
           - title: "Configurations"
             sub:
               - "[[Configuration Files]]"
