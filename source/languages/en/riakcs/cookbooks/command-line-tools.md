@@ -440,6 +440,7 @@ stanchion getpid
 
 Riak CS version 1.5 offers support for multibag operations. The
 `multibag` command interface enables you to interact with that system.
+More information can be found in [[Riak CS Multibag Support]].
 
 <div class="note">
 <div class="title">Note: technical preview</div>
@@ -467,9 +468,11 @@ bag-B 127.0.0.1:10027
 
 #### weight
 
-You can use the commands under the `weight` heading to set, list, and
-refresh weight information stored in the master bag (which is shared
-between all Riak nodes).
+When new buckets are created, they are randomly assigned to a bag. The
+weight of each bag is the likelihood, expressed as a percentage, that
+new buckets will be stored in a given bag. You can use the commands
+under the `weight` heading to set, list, and refresh weight information
+stored in the master bag (which is shared between all Riak nodes).
 
 When the `weight` command itself is used without an argument, it will
 return the weights of all bags.
@@ -490,6 +493,14 @@ You can also set the weight for a bag:
 ```bash
 riak-cs-multibag weight <bag id> <weight>
 ```
+
+This command would set the weight for bag `bag-A` to 40%:
+
+```bash
+riak-cs-multibag weight bag-A 40
+```
+
+
 
 #### weight-manifest
 
