@@ -594,9 +594,15 @@ Configurable parameters for Riak's [[Memory]] backend.
 
 ## Multi Backend
 
-Configurable parameters for Riak's [[Multi]] backend, which enables you to utilize multiple data backends in a single Riak cluster.
+Configurable parameters for Riak's [[Multi]] backend, which enables you
+to utilize multiple data backends in a single Riak cluster.
 
-If you use multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend. `$name` can be any valid configuration word, like `customer_data`, `my_data`, or `foo_bar_backend`, and should consist of alphanumeric characters and optional underscores.
+If you use multiple backends, you can configure the backends
+individually by prepending the setting with `multi_backend.$name`, where
+`$name` is the name of the backend. `$name` can be any valid
+configuration word, like `customer_data`, `my_data`, or
+`foo_bar_backend`, and should consist of alphanumeric characters and
+optional underscores.
 
 Below is the general form for setting multi-backend parameters:
 
@@ -604,7 +610,10 @@ Below is the general form for setting multi-backend parameters:
 multi_backend.$name.(existing_setting) = <setting>
 ```
 
-To give an example, if you have a LevelDB backend named `customer_backend` and wish to set the data_root` parameter to `$(platform_data_dir)/leveldb_backends/customer_backend/` and `leveldb.maximum_memory.percent` to `50` , you would do so as follows:
+To give an example, if you have a LevelDB backend named
+`customer_backend` and wish to set the data_root` parameter to
+`$(platform_data_dir)/leveldb_backends/customer_backend/` and
+`leveldb.maximum_memory.percent` to `50` , you would do so as follows:
 
 ```riakconf
 multi_backend.customer_backend.storage_backend = leveldb
@@ -639,7 +648,10 @@ multi_backend.customer_backend.maximum_memory.percent = 50
 
 ## Riak Control
 
-Riak Control is a web-based administrative console for inspecting and manipulating Riak clusters. The configurable parameters below enable you to turn the Riak Control subsystem on and off and to configure console authorization.
+Riak Control is a web-based administrative console for inspecting and
+manipulating Riak clusters. The configurable parameters below enable you
+to turn the Riak Control subsystem on and off and to configure console
+authorization.
 
 <table class="riak-conf">
 <thead>
@@ -763,10 +775,9 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 <td><code>false</code></td>
 </tr>
 
-<!-- TODO: link to DVV document when available -->
 <tr>
 <td><code>buckets.default.merge_strategy</code></td>
-<td>The strategy used when merging objects that potentially have conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets and <code>1</code> for non-typed buckets. This setting reduces sibling creation through additional metadata on each sibling (also known as dotted version vectors). Setting this to <code>1</code> is the default for Riak 1.4 and earlier, and may duplicate siblings that originated in the same write.</td>
+<td>The strategy used when merging objects that potentially have conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets and <code>1</code> for non-typed buckets. This setting reduces sibling creation through additional metadata on each sibling (also known as <a href="/theory/concepts/dotted-version-vectors">Dotted Version Vectors</a>). Setting this to <code>1</code> is the default for Riak 1.4 and earlier, and may duplicate siblings that originated in the same write.</td>
 <td><code>1</code></td>
 </tr>
 
