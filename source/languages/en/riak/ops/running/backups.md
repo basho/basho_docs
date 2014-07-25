@@ -63,6 +63,7 @@ doc.
 * LevelDB data: `/var/lib/riak/leveldb`
 * Ring data: `/var/lib/riak/ring`
 * Configuration: `/etc/riak`
+* Strong consistency data: `/var/lib/riak/ensembles`
 
 **Fedora and RHEL**
 
@@ -87,6 +88,7 @@ package was extracted.
 * LevelDB data: `./data/leveldb`
 * Ring data: `./data/riak/ring`
 * Configuration: `./etc`
+* Strong consistency data: `./data/ensemble`
 
 **SmartOS**
 
