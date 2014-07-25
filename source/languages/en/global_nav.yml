@@ -312,6 +312,7 @@ riakcs:
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
+      - "[[Riak CS Multibag Support]]"
 
   - title: "Riak CS for Operators"
     sub:
