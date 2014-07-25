@@ -777,7 +777,14 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.merge_strategy</code></td>
-<td>The strategy used when merging objects that potentially have conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets and <code>1</code> for non-typed buckets. This setting reduces sibling creation through additional metadata on each sibling (also known as <a href="/theory/concepts/dotted-version-vectors">Dotted Version Vectors</a>). Setting this to <code>1</code> is the default for Riak 1.4 and earlier, and may duplicate siblings that originated in the same write.</td>
+<td>The strategy used when merging objects that potentially have
+conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets
+and <code>1</code> for non-typed buckets. This setting reduces sibling
+creation through additional metadata on each sibling (also known as
+<a href="/theory/concepts/dotted-version-vectors">Dotted Version
+Vectors</a>). Setting this to <code>1</code> is the default for Riak
+1.4 and earlier, and may duplicate siblings that originated in the same
+write.</td>
 <td><code>1</code></td>
 </tr>
 
@@ -807,7 +814,8 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.pr</code></td>
-<td>The number of primary, non-fallback replicas that must reply to a read request.</td>
+<td>The number of primary, non-fallback replicas that must reply to a
+read request.</td>
 <td><code>0</code></td>
 </tr>
 
@@ -825,7 +833,8 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.w</code></td>
-<td>The number of replicas which must reply to a write request, indicating that the write was received.</td>
+<td>The number of replicas which must reply to a write request,
+indicating that the write was received.</td>
 <td><code>quorum</code></td>
 </tr>
 
@@ -837,7 +846,8 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 
 <tr>
 <td><code>buckets.default.dw</code></td>
-<td>The number of replicas which must reply to a write request, indicating that the write was committed to durable storage.</td>
+<td>The number of replicas which must reply to a write request,
+indicating that the write was committed to durable storage.</td>
 <td><code>quorum</code></td>
 </tr>
 
