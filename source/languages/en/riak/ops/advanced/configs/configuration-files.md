@@ -6,7 +6,7 @@ document: reference
 audience: intermediate
 ---
 
-Riak has a `riak.conf` configuration file located in `/etc` if you are using a source install or in `/etc/riak` if you used a binary install.
+Riak has a `riak.conf` configuration file located in `/etc` if you are using a source install or in `/etc/riak` or `/usr/local/etc` if you used a binary install.
 
 The `riak.conf` file is used to set a wide variety of attributes for the node, from the storage backend that the node will use to store data to the location of SSL-related files to sibling resolution parameters and beyond.
 
@@ -293,8 +293,14 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 
 <tr>
 <td><code>leveldb.maximum_memory.percent</code></td>
-<td>Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size.</td>
+<td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a byte count via <code>leveldb.maximum_memory</code> instead.</td>
 <td><code>70</code></td>
+</tr>
+
+<tr>
+<td><code>leveldb.maximum_memory</code></td>
+<td>This parameter defines the server memory (in bytes) to assign to LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set LevelDB memory as a percentage of system total.</td>
+<td><code>80</code></td>
 </tr>
 
 <tr>
@@ -388,12 +394,6 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 </tr>
 
 <tr>
-<td><code>leveldb.maximum_memory.percent</code></td>
-<td>This parameter defines the percentage of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes to stay within this size. The memory size can alternately be assigned as a byte count via <code>leveldb.maximum_memory</code> instead.</td>
-<td><code>80</code></td>
-</tr>
-
-<tr>
 <td><code>leveldb.tiered</code></td>
 <td>The level number at which LevelDB data switches from the faster to the slower array. The default of <code>off</code> disables the feature.</td>
 <td><code>off</code></td>
@@ -441,6 +441,12 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 </tr>
 
 <tr>
+<td><code>bitcask.expiry</code></td>
+<td>By default, Bitcask keeps all of your data around. If your data has limited time value, or if you need to purge data for space reasons, you can set the <code>expiry</code> option. For example, if you need to purge data automatically after 1 day, set the value to <code>1d</code>. <code>off</code> disables automatic expiration</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
 <td><code>bitcask.expiry.grace_time</code></td>
 <td>By default, Bitcask will trigger a merge whenever a data file contains an expired key. This may result in excessive merging under some usage patterns. To prevent this you can set the <code>bitcask.expiry.grace_time</code> option.  Bitcask will defer triggering a merge solely for key expiry by the configured number of seconds. Setting this to <code>1h</code> effectively limits each cask to merging for expiry once per hour.</td>
 <td><code>0</code></td>
@@ -450,12 +456,6 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 <td><code>bitcask.hintfile_checksums</code></td>
 <td>Whether to allow the CRC to be present at the end of hintfiles. Setting this to <code>allow_missing</code> runs Bitcask in a backwards-compatible mode in which old hint files will still be accepted without CRC signatures.</td>
 <td><code>strict</code></td>
-</tr>
-
-<tr>
-<td><code>bitcask.expiry</code></td>
-<td>By default, Bitcask keeps all of your data around. If your data has limited time value, or if for space reasons you need to purge data, you can set the <code>expiry</code> option. For example, if you need to purge data automatically after 1 day, set the value to <code>1d</code>. <code>off</code> disables automatic expiration</td>
-<td><code>off</code></td>
 </tr>
 
 <tr>
@@ -490,7 +490,7 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 
 <tr>
 <td><code>bitcask.merge.triggers.dead_bytes</code></td>
-<td>Describes how much data stored for dead keys in a single file will trigger merging. The value is in bytes. If a file meets or exceeds the trigger value for dead bytes, merge will be triggered. Increasing the value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often. When either of these constraints are met by any file in the directory, Bitcask will attempt to merge files.</td>
+<td>Describes how much data stored for dead keys in a single file will trigger merging. If a file meets or exceeds the trigger value for dead bytes, merge will be triggered. Increasing the value will cause merging to occur less often, whereas decreasing the value will cause merging to happen more often. When either of these constraints are met by any file in the directory, Bitcask will attempt to merge files.</td>
 <td><code>512MB</code></td>
 </tr>
 
@@ -528,6 +528,12 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 <td><code>bitcask.merge_check_jitter</code></td>
 <td>In order to prevent merge operations from taking place on different nodes at the same time, Riak can apply random variance to merge times, expressed as a percentage of <code>bitcask.merge_check_interval</code>.</td>
 <td><code>30%</code></td>
+</tr>
+
+<tr>
+<td><code>bitcask.max_merge_size</code></td>
+<td>Maximum amount of data to merge in one go in the Bitcask backend.</td>
+<td><code>100GB</code></td>
 </tr>
 
 <tr>
@@ -590,6 +596,20 @@ Configurable parameters for Riak's [[Memory]] backend.
 
 Configurable parameters for Riak's [[Multi]] backend, which enables you to utilize multiple data backends in a single Riak cluster.
 
+If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend. `$name` can be any valid configuration word, like `customer_data`, `my_data`, `foo_bar_backend`, etc.
+
+Below is the general form for setting multi-backend parameters:
+
+```riakconf
+multi_backend.$name.(existing_setting) = <setting>
+```
+
+To give an example, if you have a LevelDB backend named `customer_backend` and wish to set the data_root` parameter to `$(platform_data_dir)/leveldb_backends/customer_backend/`, you would do so as follows:
+
+```riakconf
+multi_backend.customer_backend.storage_backend = leveldb
+multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
+```
 <table class="riak-conf">
 <thead>
 <tr>
@@ -614,20 +634,6 @@ Configurable parameters for Riak's [[Multi]] backend, which enables you to utili
 
 </tbody>
 </table>
-
-If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend, i.e. `bitcask`, `leveldb`, `memory`, or `multi`.
-
-Below is the general form for setting multi-backend parameters:
-
-```riakconf
-multi_backend.$name.(existing_setting) = <setting>
-```
-
-To give an example, if you're using multiple backends and wish to set your LevelDB `data_root` parameter to `./leveldb`, you would do so as follows:
-
-```riakconf
-multi_backend.leveldb.data_root = ./leveldb
-```
 
 ## Riak Control
 
