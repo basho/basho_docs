@@ -276,6 +276,166 @@ riak-cs-admin cluster-info <output_file>
 This command is the direct equivalent to `riak-cs-admin gc`. For
 documentation, see [[the section above|Riak CS Command Line Tools#riak-cs-admin]].
 
+## riak-cs-stanchion
+
+This command interface controls aspects of the interaction between Riak
+CS and Stanchion, the access control and user management platform
+undergirding Riak CS.
+
+#### switch
+
+```bash
+riak-cs-stanchion switch HOST PORT
+```
+
+#### show
+
+## riak-cs-storage
+
+This command is the direct equivalent of `riak-cs-admin storage`
+documented [[above|Riak CS Command Line Tools#riak-cs-admin]].
+
+## stanchion
+
+This command interface enables you to control Stanchion, the user
+management and access control platform undergirding Riak CS.
+
+#### start
+
+Starts Stanchion in the background.
+
+```bash
+stanchion start
+```
+
+If Stanchion is already running on the node, the message `Node is
+already running!` will be returned.
+
+#### stop
+
+Stops Stanchion on the node.
+
+```bash
+stanchion stop
+```
+
+Prints `ok` when successful or `Node <nodename> not responding to
+pings` if the Stanchion node is not running.
+
+#### restart
+
+Stops and then starts the running Stanchion node without exiting the
+Erlang VM. Prints `ok` when successful or `Node <nodename> not
+responding to pings.` when the node is stopped or not responding.
+
+```bash
+stanchion restart
+```
+
+#### reboot
+
+Stops and then restarts the running node, exiting the Erlang VM. Prints
+`ok` when successful or `Node <nodename> not responding to pings.` when
+the node is stopped or not responding.
+
+```bash
+stanchion reboot
+```
+
+#### ping
+
+Checks that the Stanchion node is running. Prints `pong` when
+successful or `Node <nodename> not responding to pings.` when the
+Stanchion node is stopped or not responding.
+
+```bash
+stanchion ping
+```
+
+#### console
+
+Starts the Stanchion node in the foreground, providing access to the
+Erlang shell and to runtime messages.
+
+```bash
+stanchion console
+```
+
+Prints `Node is already running - use 'stanchion attach' instead` if
+the node is already running in the background.
+
+#### attach
+
+Attaches to the console of a Stanchion node running in the background,
+providing access to the Erlang shell and to runtime messages.
+
+```bash
+stanchion attach
+```
+
+Prints `Node is not running!` when the node cannot be reached.
+
+#### attach-direct
+
+Attaches to the console of a Stanchion node running in the background
+using a directly connected first-in-first-out (FIFO), providing access
+to the Erlang shell and to runtime messages.
+
+```bash
+stanchion attach-direct
+```
+
+Prints `Node is not running!` when the node cannot be reached. You can
+exit the shell by typing **Ctrl-D**.
+
+#### ertspath
+
+Outputs the path of the Stanchion node's Erlang runtime environment.
+
+```bash
+stanchion ertspath
+```
+
+#### chkconfig
+
+Checks whether Stanchion's configuration file is valid.
+
+```bash
+stanchion chkconfig
+```
+
+If the file is valid, `config is OK` will be returned. If not,
+appropriate error messages will be returned.
+
+#### escript
+
+Provides a means of calling [escript](http://www.erlang.org/doc/man/escript.html)
+scripts using Stanchion's Erlang runtime environment.
+
+```bash
+stanchion escript <filename>
+```
+
+#### version
+
+Outputs the Stanchion version identifier.
+
+```bash
+stanchion version
+```
+
+#### getpid
+
+Outputs the process identifier for the currently running instance of
+Stanchion.
+
+```bash
+stanchion getpid
+```
+
+#### top
+
+
 ## riak-cs-multibag
 
 Riak CS version 1.5 offers support for multibag operations. The
@@ -296,72 +456,87 @@ Lists the bags currently available in a multi-cluster Riak CS setup.
 riak-cs-multibag list-bags
 ```
 
+The output will list the name, host, and port for each bag, as in the
+following example output:
+
+```
+bag-A 127.0.0.1:10017
+bag-B 127.0.0.1:10027
+# and so on
+```
+
 #### weight
+
+You can use the commands under the `weight` heading to set, list, and
+refresh weight information stored in the master bag (which is shared
+between all Riak nodes).
+
+When the `weight` command itself is used without an argument, it will
+return the weights of all bags.
 
 ```bash
 riak-cs-multibag weight
 ```
 
+You can also return the weight for a specific bag on the basis of its
+bag ID:
+
+```
+riak-cs-multibag weight <bag id>
+```
+
+You can also set the weight for a bag:
+
+```bash
+riak-cs-multibag weight <bag id> <weight>
+```
+
 #### weight-manifest
+
+Retrieves the weight manifests for all currently available bags.
 
 ```bash
 riak-cs-multibag weight-manifest
 ```
 
+You can also retrieve the weight manifest for a specific bag on the
+basis of its bag ID:
+
+```bash
+riak-cs-multibag weight-manifest <bag id>
+```
+
+You can also set the weight manifest for a bag:
+
+```bash
+riak-cs-multibag weight-manifest <bag id> <weight>
+```
+
 #### weight-block
+
+Retrieves the weight block for all currently available bags.
 
 ```bash
 riak-cs-multibag weight-block
 ```
 
+You can also retrieve the weight block for a specific bag on the basis
+of its bag ID:
+
+```bash
+riak-cs-multibag weight-block <bag id>
+```
+
+Or you can set the weight block for a specific bag:
+
+```bash
+riak-cs-multibag weight-block <bag id> <weight>
+```
+
 #### refresh
+
+At any time you can refresh all weights:
 
 ```bash
 riak-cs-multibag refresh
 ```
-
-## riak-cs-stanchion
-
-#### switch
-
-```bash
-riak-cs-stanchion switch HOST PORT
-```
-
-#### show
-
-## riak-cs-storage
-
-This command is the direct equivalent of `riak-cs-admin storage`
-documented [[above|Riak CS Command Line Tools#riak-cs-admin]].
-
-## stanchion
-
-#### start
-
-#### stop
-
-#### restart
-
-#### reboot
-
-#### ping
-
-#### console
-
-#### attach
-
-#### attach-direct
-
-#### ertspath
-
-#### chkconfig
-
-#### escript
-
-#### version
-
-#### getpid
-
-#### top
-
