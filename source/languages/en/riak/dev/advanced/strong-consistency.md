@@ -19,8 +19,8 @@ When data is stored in a bucket with strong consistency guarantees, a
 value is guaranteed readable by any node *immediately* after a
 successful write has occurred. The tradeoff is that unavailable nodes
 will become temporarily unable to accept writes to that key. This
-tradeoff is necessary, but the [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem)
-to make.
+tradeoff is necessary, but the [choice is now
+yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
 ## Enabling Strong Consistency
 
@@ -41,7 +41,7 @@ strong_consistency = on
 **Note**: This will enable you to use strong consistency in Riak, but
 this setting will _not_ apply to all of the data in your Riak cluster.
 Instead, strong consistency is applied only at the bucket level, [[using
-bucket types]] \(as show directly below).
+bucket types]] \(as shown directly below).
 
 A second necessary step in activating strong consistency is to ensure
 that Riak's [[active anti-entropy]] subsystem is enabled (as it is by
@@ -49,7 +49,7 @@ default). If it is not currently enabled, you can set the `anti_entropy`
 parameter in your [[configuration files]] to either `active` or
 `active-debug`.
 
-## Creating a Strongly Consistent Bucket Type
+## Creating Consistent Bucket Types
 
 [[Strong consistency]] requirements in Riak are applied on a
 bucket-by-bucket basis, meaning that you can use some buckets in an
@@ -65,7 +65,8 @@ To give an example, we'll create a bucket type called
 `strongly_consistent` with `consistent` set to `true`:
 
 ```bash
-riak-admin bucket-type create strongly_consistent '{"props":{"consistent":true}}'
+riak-admin bucket-type create strongly_consistent \
+    '{"props":{"consistent":true}}'
 ```
 
 **Note**: You can name [[bucket types|Using Bucket Types]] whatever you

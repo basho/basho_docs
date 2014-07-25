@@ -109,11 +109,12 @@ operations performed on objects---reads, writes, deletes, etc.---are the
 same, which means that the client API for strong consistency is exactly
 the same.
 
-## How Riak Implements Strong Consistency
+## Implementation Details
 
 Strong consistency in Riak is handled by a subsystem called
-[`riak_ensemble`](https://github.com/basho/riak_ensemble). Documentation
-on enabling it is found in [[Using Strong Consistency|Using Strong Consistency#Enabling-Strong-Consistency]].
+[`riak_ensemble`](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
+Documentation on enabling it is found in [[Using Strong
+Consistency|Using Strong Consistency#Enabling-Strong-Consistency]].
 
 There are a few formal models for provable strong consistency in a
 distributed system. Riak uses multi-Paxos, adapted for the database's
