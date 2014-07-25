@@ -22,18 +22,40 @@ have a set of [[defaults|Replication Properties#available-parameters]],
 there is a wide variety of ways that data inconsistency can be resolved.
 The following basic options are available:
 
-* **Allowing Riak to manage conflict resolution**. If the `[[allow_mult|Conflict Resolution#siblings]]` parameter is set to `false`, conflict between data replicas can still take place, but Riak resolves those conflicts on the basis of timestamps. While this unburdens applications using Riak from resolving conflicts on their own, timestamps are an unreliable means of handling concurrent updates. Because of this, **we do not recommend setting `allow_mult` to `false**.`
+* **Timestamp-based resolution**. If the
+  `[[allow_mult|Conflict Resolution#siblings]]` parameter is set to
+  `false`, Riak resolves all object replica conflicts on the basis of
+  timestamps. While this unburdens applications using Riak from
+  resolving conflicts on their own, timestamps are an unreliable means
+  of handling concurrent updates, and they bear a strong risk of data
+  loss.
 
-  Instead, we recommend Another way to manage conflicts is to set the `[[last_write_wins|Conflict Resolution#last-write-wins]]` parameter to `true` instead of `allow_mult`. The last-write-wins strategy means that conflicts will be resolved on the basis of which object has the most recent timestamp. While this can also ease the development process by guaranteeing that clients don't have to deal with siblings, using clock time as a resolution mechanism in a distributed system can lead to unpredictable results.
+  Because of this, **we do not recommend setting `allow_mult` to `false`**.
+* **Last-write-wins**. Another way to manage conflicts is to
+  set the `[[last_write_wins|Conflict Resolution#last-write-wins]]`
+  parameter to `true` instead of `allow_mult`. The last-write-wins
+  strategy means that conflicts will be resolved on the basis of which
+  object has the most recent timestamp. While this can also ease the
+  development process by guaranteeing that clients don't have to deal
+  with siblings, using clock time as a resolution mechanism in a
+  distributed system can lead to unpredictable results.
 
-  <div class="note">
-  <div class="title">Undefined behavior warning</div>
-  Setting both <code>allow_mult</code> and <code>last_write_wins</code> to <code>true</code> necessarily leads to unpredictable behavior and should always be avoided.
-  </div>
+    **Warning**: Setting both `allow_mult` and `last_write_wins` to `true`
+    leads to unpredictable behavior and should always be avoided.
+* **Resolve conflicts on the application side**. If `allow_mult` is set
+  to `true`, Riak will form [[siblings|Conflict Resolution#siblings]].
+  When sibling objects are formed, applications need to decide which of
+  the objects is "correct" (the definition of which depends on the
+  application itself).
 
-* **Allow Riak to form siblings and resolve conflicts on the application side**. If `allow_mult` is set to `true`, Riak will form [[siblings|Conflict Resolution#siblings]] if you write multiple objects to a key without providing Riak with a [[vector clock|Vector Clocks]] that would enable it to judge which object should be considered most up to date. When sibling objects are formed, applications need to decide which of the objects is "correct" (the definition of which depends on the application itself).
-
-  An application can resolve sibling conflicts by [[passing a vector clock|Conflict Resolution#vector-clocks]] to Riak that shows which replica (or version) of an object that particular client has seen. Or, if you wish, it can provide some other conflict resolution logic. You could specify, for example, that some objects cannot be "correct" because they're too large, their timestamps show them to be too old, the number of items in the [[shopping cart|Dynamo]] has too few items, etc.
+  An application can resolve sibling conflicts by [[passing a vector
+  clock|Conflict Resolution#vector-clocks]] to Riak that shows which
+  replica (or version) of an object that particular client has seen. Or,
+  if you wish, it can provide some other conflict resolution logic. You
+  could specify, for example, that some objects cannot be "correct"
+  because they're too large, their timestamps show them to be too old,
+  the number of items in the [[shopping cart|Dynamo]] has too few items,
+  etc.
 
 Conflict resolution in Riak can be a complex business, but the presence
 of this variety of options means that all requests to Riak can always be
