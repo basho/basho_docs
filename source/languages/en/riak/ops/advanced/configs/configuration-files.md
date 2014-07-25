@@ -596,7 +596,7 @@ Configurable parameters for Riak's [[Memory]] backend.
 
 Configurable parameters for Riak's [[Multi]] backend, which enables you to utilize multiple data backends in a single Riak cluster.
 
-If you are using multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend. `$name` can be any valid configuration word, like `customer_data`, `my_data`, `foo_bar_backend`, etc.
+If you use multiple backends, you can configure the backends individually by prepending the setting with `multi_backend.$name`, where `$name` is the name of the backend. `$name` can be any valid configuration word, like `customer_data`, `my_data`, or `foo_bar_backend`, and should consist of alphanumeric characters and optional underscores.
 
 Below is the general form for setting multi-backend parameters:
 
@@ -604,12 +604,14 @@ Below is the general form for setting multi-backend parameters:
 multi_backend.$name.(existing_setting) = <setting>
 ```
 
-To give an example, if you have a LevelDB backend named `customer_backend` and wish to set the data_root` parameter to `$(platform_data_dir)/leveldb_backends/customer_backend/`, you would do so as follows:
+To give an example, if you have a LevelDB backend named `customer_backend` and wish to set the data_root` parameter to `$(platform_data_dir)/leveldb_backends/customer_backend/` and `leveldb.maximum_memory.percent` to `50` , you would do so as follows:
 
 ```riakconf
 multi_backend.customer_backend.storage_backend = leveldb
 multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
+multi_backend.customer_backend.maximum_memory.percent = 50
 ```
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -761,6 +763,7 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 <td><code>false</code></td>
 </tr>
 
+<!-- TODO: link to DVV document when available -->
 <tr>
 <td><code>buckets.default.merge_strategy</code></td>
 <td>The strategy used when merging objects that potentially have conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets and <code>1</code> for non-typed buckets. This setting reduces sibling creation through additional metadata on each sibling (also known as dotted version vectors). Setting this to <code>1</code> is the default for Riak 1.4 and earlier, and may duplicate siblings that originated in the same write.</td>
@@ -786,15 +789,15 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 </tr>
 
 <tr>
-<td><code>buckets.default.pr</code></td>
-<td>The number of primary, non-fallback replicas that must reply to a read request.</td>
-<td><code>0</code></td>
-</tr>
-
-<tr>
 <td><code>buckets.default.precommit</code></td>
 <td>A space-delimited list of functions that will be run before a value is stored, and that can abort the write. Only Erlang functions are allowed, using the <code>module:function</code> format.</td>
 <td></td>
+</tr>
+
+<tr>
+<td><code>buckets.default.pr</code></td>
+<td>The number of primary, non-fallback replicas that must reply to a read request.</td>
+<td><code>0</code></td>
 </tr>
 
 <tr>
@@ -810,14 +813,20 @@ When configuring buckets [[using bucket types]], the table below lists the bucke
 </tr>
 
 <tr>
+<td><code>buckets.default.w</code></td>
+<td>The number of replicas which must reply to a write request, indicating that the write was received.</td>
+<td><code>quorum</code></td>
+</tr>
+
+<tr>
 <td><code>buckets.default.rw</code></td>
 <td>The number of replicas which must reply to a delete request.</td>
 <td><code>quorum</code></td>
 </tr>
 
 <tr>
-<td><code>buckets.default.w</code></td>
-<td>The number of replicas which must reply to a write request, indicating that the write was received.</td>
+<td><code>buckets.default.dw</code></td>
+<td>The number of replicas which must reply to a write request, indicating that the write was committed to durable storage.</td>
 <td><code>quorum</code></td>
 </tr>
 
