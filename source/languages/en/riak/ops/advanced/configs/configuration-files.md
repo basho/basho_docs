@@ -1010,7 +1010,11 @@ originated in the same write.</td>
 
 <tr>
 <td><code>buckets.default.n_val</code></td>
-<td>The number of replicas stored.<br /><br /><strong>Note</strong>: See <a href="/dev/advanced/replication-properties">Replication Properties</a> for further discussion.</td>
+<td>The number of replicas stored.
+<br /><br />
+<strong>Note</strong>: See 
+<a href="/dev/advanced/replication-properties">Replication Properties</a>
+for further discussion.</td>
 <td><code>3</code></td>
 </tr>
 
@@ -1022,25 +1026,31 @@ originated in the same write.</td>
 
 <tr>
 <td><code>buckets.default.postcommit</code></td>
-<td>A space-delimited list of functions that will be run after a value is stored. Only Erlang functions are allowed, using the <code>module:function</code> format.</td>
+<td>A space-delimited list of functions that will be run after a value
+is stored. Only Erlang functions are allowed, using the
+<code>module:function</code> format.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>buckets.default.pr</code></td>
-<td>The number of primary, non-fallback replicas that must reply to a read request.</td>
+<td>The number of primary, non-fallback replicas that must reply to a
+read request.</td>
 <td><code>0</code></td>
 </tr>
 
 <tr>
 <td><code>buckets.default.precommit</code></td>
-<td>A space-delimited list of functions that will be run before a value is stored, and that can abort the write. Only Erlang functions are allowed, using the <code>module:function</code> format.</td>
+<td>A space-delimited list of functions that will be run before a value
+is stored, and that can abort the write. Only Erlang functions are
+allowed, using the <code>module:function</code> format.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>buckets.default.pw</code></td>
-<td>The number of primary, non-fallback replicas which must reply to a write request.</td>
+<td>The number of primary, non-fallback replicas which must reply to a
+write request.</td>
 <td><code>0</code></td>
 </tr>
 
@@ -1058,7 +1068,8 @@ originated in the same write.</td>
 
 <tr>
 <td><code>buckets.default.w</code></td>
-<td>The number of replicas which must reply to a write request, indicating that the write was received.</td>
+<td>The number of replicas which must reply to a write request,
+indicating that the write was received.</td>
 <td><code>quorum</code></td>
 </tr>
 
@@ -1067,7 +1078,8 @@ originated in the same write.</td>
 
 ## Object Settings
 
-Configurable parameters for [[conflict resolution]] and dealing with [[sibling explosion|Conflict Resolution#sibling-explosion]].
+Configurable parameters for [[conflict resolution]] and dealing with
+[[sibling explosion|Conflict Resolution#sibling-explosion]].
 
 <table class="riak-conf">
 <thead>
@@ -1081,31 +1093,39 @@ Configurable parameters for [[conflict resolution]] and dealing with [[sibling e
 
 <tr>
 <td><code>object.format</code></td>
-<td>Controls which binary representation of a riak value is stored on disk. Options are <code>0</code>, which will use the original <code>erlang:term_to_binary</code> format but has a higher space overhead, or <code>1</code>, which will tell Riak to utilize a new format for more compact storage of small values.</td>
+<td>Controls which binary representation of a riak value is stored on
+disk. Options are <code>0</code>, which will use the original
+<code>erlang:term_to_binary</code> format but has a higher space
+overhead, or <code>1</code>, which will tell Riak to utilize a new
+format for more compact storage of small values.</td>
 <td><code>1</code></td>
 </tr>
 
 <tr>
 <td><code>object.siblings.maximum</code></td>
-<td>Writing an object with more than this number of siblings will send a failure to the client.</td>
+<td>Writing an object with more than this number of siblings will send
+a failure to the client.</td>
 <td><code>100</code></td>
 </tr>
 
 <tr>
 <td><code>object.siblings.warning_threshold</code></td>
-<td>Writing an object with more than this number of siblings will generate a warning in the logs.</td>
+<td>Writing an object with more than this number of siblings will
+generate a warning in the logs.</td>
 <td><code>25</code></td>
 </tr>
 
 <tr>
 <td><code>object.size.maximum</code></td>
-<td>Writing an object larger than this will send a failure to the client.</td>
+<td>Writing an object larger than this will send a failure to the
+client.</td>
 <td><code>50MB</code></td>
 </tr>
 
 <tr>
 <td><code>object.size.warning_threshold</code></td>
-<td>Reading or writing objects larger than this size will write a warning in the logs.</td>
+<td>Reading or writing objects larger than this size will write a
+warning in the logs.</td>
 <td><code>5MB</code></td>
 </tr>
 
@@ -1114,7 +1134,10 @@ Configurable parameters for [[conflict resolution]] and dealing with [[sibling e
 
 ## Erlang VM
 
-In the older configuration system, the Erlang VM in which Riak runs was configured using a `vm.args` file. In the new, `riak.conf`-based system, the Erlang VM can be configured using the parameters in the table below.
+In the older configuration system, the Erlang VM in which Riak runs was
+configured using a `vm.args` file. In the new, `riak.conf`-based
+system, the Erlang VM can be configured using the parameters in the
+table below.
 
 <table class="riak-conf">
 <thead>
@@ -1128,25 +1151,46 @@ In the older configuration system, the Erlang VM in which Riak runs was configur
 
 <tr>
 <td><code>erlang.distribution.port_range.minimum</code></td>
-<td>For ease of firewall configuration, the Erlang distribution can be bound to a limited range of TCP ports. If this parameter is set, and <code>erlang.distribution.port_range.maximum</code> is not set, only this port will be used. If the minimum is unset, no restriction will be made on the port range. Instead, Erlang will listen on a random high-numbered port. More information <a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and <a href="http://www.erlang.org/doc/man/kernel_app.html">here</a>.</td>
+<td>For ease of firewall configuration, the Erlang distribution can be
+bound to a limited range of TCP ports. If this parameter is set, and
+<code>erlang.distribution.port_range.maximum</code> is not set, only
+this port will be used. If the minimum is unset, no restriction will be 
+made on the port range. Instead, Erlang will listen on a random
+high-numbered port. More information
+<a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and
+<a href="http://www.erlang.org/doc/man/kernel_app.html">here</a>.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>erlang.distribution.port_range.maximum</code></td>
-<td>See the description for <code>erlang.distribution.port_range.minimum</code> directly above.</td>
+<td>See the description for
+<code>erlang.distribution.port_range.minimum</code> directly above.
+</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>erlang.schedulers.force_wakeup_interval</code></td>
-<td>Set the scheduler forced wakeup interval. All run queues will be scanned each time period specified (in milliseconds). While there are sleeping schedulers in the system, one scheduler will be woken for each non-empty run queue found. An interval of zero disables this feature, which is the default. This feature is a workaround for lengthy executing native code, and native code that does not properly bump reductions. More information <a href="http://www.erlang.org/doc/man/erl.html#+sfwi">here</a>.</td>
+<td>Set the scheduler forced wakeup interval. All run queues will be
+scanned each time period specified (in milliseconds). While there are
+sleeping schedulers in the system, one scheduler will be woken for each
+non-empty run queue found. An interval of zero disables this feature,
+which is the default. This feature is a workaround for lengthy
+executing native code, and native code that does not properly bump
+reductions. More information
+<a href="http://www.erlang.org/doc/man/erl.html#+sfwi">here</a>.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>erlang.distribution_buffer_size</code></td>
-<td>For nodes with many <code>busy_dist_port</code> events, Basho recommends raising the sender-side network distribution buffer size. 32MB may not be sufficient for some workloads and is a suggested starting point. Erlangers may know this as <code>+zdbbl</code>. See more <a href="http://www.erlang.org/doc/man/erl.html#%2bzdbbl">here</a>.</td>
+<td>For nodes with many <code>busy_dist_port</code> events, Basho
+recommends raising the sender-side network distribution buffer size.
+32MB may not be sufficient for some workloads and is a suggested
+starting point. Erlangers may know this as <code>+zdbbl</code>. See
+more <a href="http://www.erlang.org/doc/man/erl.html#%2bzdbbl">here</a>
+.</td>
 <td><code>32MB</code></td>
 </tr>
 
@@ -1170,50 +1214,95 @@ In the older configuration system, the Erlang VM in which Riak runs was configur
 
 <tr>
 <td><code>erlang.fullsweep_after</code></td>
-<td>A non-negative integer which indicates how many times generational garbage collections can be done without forcing a fullsweep collection. In low-memory systems (especially without virtual memory), setting the value to <code>0</code> can help to conserve memory. More information <a href="http://www.erlang.org/doc/man/erlang.html#system_flag-2">here</a>.</td>
+<td>A non-negative integer which indicates how many times generational
+garbage collections can be done without forcing a fullsweep collection.
+In low-memory systems (especially without virtual memory), setting the
+value to <code>0</code> can help to conserve memory. More information
+<a href="http://www.erlang.org/doc/man/erlang.html#system_flag-2">here</a>.
+</td>
 <td><code>0</code></td>
 </tr>
 
 <tr>
 <td><code>erlang.max_ports</code></td>
-<td>The number of concurrent ports/sockets. The valid range is 1024 to 134217727.</td>
+<td>The number of concurrent ports/sockets. The valid range is 1024 to
+134217727.</td>
 <td><code>65536</code></td>
 </tr>
 
 <tr>
 <td><code>erlang.async_threads</code></td>
-<td>Sets the number of threads in the async thread pool. The valid range is 0 to 1024. If thread support is available, the default is 64. More information <a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
+<td>Sets the number of threads in the async thread pool. The valid
+range is 0 to 1024. If thread support is available, the default is 64.
+More information <a href="http://erlang.org/doc/man/erl.html">here</a>.
+</td>
 <td><code>64</code></td>
 </tr>
 
 
 <tr>
 <td><code>erlang.K</code></td>
-<td>Enables or disables the kernel poll functionality if the emulator supports it. If the emulator does not support kernel poll, and the <code>K</code> flag is passed to the emulator, a warning is issued at startup. Similar information <a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
+<td>Enables or disables the kernel poll functionality if the emulator
+supports it. If the emulator does not support kernel poll, and the
+<code>K</code> flag is passed to the emulator, a warning is issued at
+startup. Similar information
+<a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
 <td><code>erlang.schedulers.total</code></td>
-<td>Sets the number of scheduler threads to create and scheduler threads to set online when <code>erlang.smp</code> support has been enabled. The maximum for both values is 1024. If the Erlang runtime system is able to determine the amount of logical processors configured and logical processors available, <code>schedulers.total</code> will default to logical processors configured, and <code>schedulers.online</code> will default to the number of logical processors available. Otherwise, the default values will be 1. Schedulers may be omitted if <code>schedulers.online</code> is not and vice versa. If <code>schedulers.total</code> or <code>schedulers.online</code> is specified as a negative number, the value is subtracted from the default number of logical processors configured or logical processors available, respectively. Specifying the value <code>0</code> for <code>Schedulers</code> or <code>SchedulersOnline</code> resets the number of scheduler threads or scheduler threads online respective to its default value. This option is ignored if the emulator doesn't have SMP support enabled (see the <code>erlang.smp</code> flag). More information <a href="http://erlang.org/doc/man/erl.html +S Schedulers:SchedulerOnline">here</a>.</td>
+<td>Sets the number of scheduler threads to create and scheduler
+threads to set online when <code>erlang.smp</code> support has been
+enabled. The maximum for both values is 1024. If the Erlang runtime
+system is able to determine the amount of logical processors configured
+and logical processors available, <code>schedulers.total</code> will
+default to logical processors configured, and
+<code>schedulers.online</code> will default to the number of logical
+processors available. Otherwise, the default values will be 1.
+Schedulers may be omitted if <code>schedulers.online</code> is not and
+vice versa. If <code>schedulers.total</code> or
+<code>schedulers.online</code> is specified as a negative number, the
+value is subtracted from the default number of logical processors
+configured or logical processors available, respectively. Specifying
+the value <code>0</code> for <code>Schedulers</code> or
+<code>SchedulersOnline</code> resets the number of scheduler threads or
+scheduler threads online respective to its default value. This option
+is ignored if the emulator doesn't have SMP support enabled (see the
+<code>erlang.smp</code> flag). More information
+<a href="http://erlang.org/doc/man/erl.html +S Schedulers:SchedulerOnline">here</a>.
+</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>erlang.schedulers.online</code></td>
-<td>See the description for <code>erlang.schedulers.total</code> directly above.</td>
+<td>See the description for <code>erlang.schedulers.total</code>
+directly above.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>erlang.W</code></td>
-<td>Sets the mapping of warning messages for <code>error_logger</code>. Messages sent to the error logger using one of the warning routines can be mapped either to <code>errors</code>, warnings (<code>w</code>, which is the default), or info reports (<code>i</code>).</td>
+<td>Sets the mapping of warning messages for <code>error_logger</code>. 
+Messages sent to the error logger using one of the warning routines can
+be mapped either to <code>errors</code>, warnings (<code>w</code>,
+which is the default), or info reports (<code>i</code>).</td>
 <td><code>w</code></td>
 </tr>
 
 <tr>
 <td><code>erlang.smp</code></td>
-<td>Starts the Erlang runtime system with SMP support enabled. This may fail if no runtime system with SMP support is available. The <code>auto</code> setting starts the Erlang runtime system with SMP support enabled if it is available and more than one logical processor is detected. A value of <code>disable</code> starts a runtime system without SMP support. <strong>Note</strong>: The runtime system with SMP support will not be available on all supported platforms. See also the <code>erlang.schedulers settings</code>. Some native extensions (NIFs) require use of the SMP emulator. More information <a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
+<td>Starts the Erlang runtime system with SMP support enabled. This may
+fail if no runtime system with SMP support is available. The
+<code>auto</code> setting starts the Erlang runtime system with SMP
+support enabled if it is available and more than one logical processor
+is detected. A value of <code>disable</code> starts a runtime system
+without SMP support. <strong>Note</strong>: The runtime system with SMP
+support will not be available on all supported platforms. See also the
+<code>erlang.schedulers settings</code>. Some native extensions (NIFs)
+require use of the SMP emulator. More information
+<a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>enable</code></td>
 </tr>
 
@@ -1222,7 +1311,8 @@ In the older configuration system, the Erlang VM in which Riak runs was configur
 
 ## JavaScript MapReduce
 
-Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce|Using MapReduce]] system.
+Configurable parameters for Riak's now-deprecated JavaScript
+[[MapReduce|Using MapReduce]] system.
 
 <table class="riak-conf">
 <thead>
@@ -1236,37 +1326,43 @@ Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce|Using M
 
 <tr>
 <td><code>javascript.source_dir</code></td>
-<td>A directory containing the Javascript source files which will be loaded by Riak when it initializes Javascript VMs.</td>
+<td>A directory containing the Javascript source files which will be
+loaded by Riak when it initializes Javascript VMs.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>javascript.maximum_stack_size</code></td>
-<td>The maximum amount of thread stack memory to allocate to each JavaScript virtual machine.</td>
+<td>The maximum amount of thread stack memory to allocate to each
+JavaScript virtual machine.</td>
 <td><code>16MB</code></td>
 </tr>
 
 <tr>
 <td><code>javascript.maximum_heap_size</code></td>
-<td>The maximum amount of memory allocated to each JavaScript virtual machine.</td>
+<td>The maximum amount of memory allocated to each JavaScript virtual
+machine.</td>
 <td><code>8MB</code></td>
 </tr>
 
 <tr>
 <td><code>javascript.hook_pool_size</code></td>
-<td>The number of JavaScript virtual machines available for executing pre-commit hook functions.</td>
+<td>The number of JavaScript virtual machines available for executing
+pre-commit hook functions.</td>
 <td><code>2</code></td>
 </tr>
 
 <tr>
 <td><code>javascript.reduce_pool_size</code></td>
-<td>The number of JavaScript virtual machines available for executing reduce functions.</td>
+<td>The number of JavaScript virtual machines available for executing
+reduce functions.</td>
 <td><code>6</code></td>
 </tr>
 
 <tr>
 <td><code>javascript.map_pool_size</code></td>
-<td>The number of JavaScript virtual machines available for executing map functions.</td>
+<td>The number of JavaScript virtual machines available for executing
+map functions.</td>
 <td><code>8</code></td>
 </tr>
 
@@ -1275,7 +1371,8 @@ Configurable parameters for Riak's now-deprecated JavaScript [[MapReduce|Using M
 
 ## Security
 
-Configurable parameters for [[Riak Security|Authentication and Authorization]].
+Configurable parameters for [[Riak Security|Authentication and
+Authorization]].
 
 <table class="riak-conf">
 <thead>
@@ -1307,19 +1404,30 @@ Configurable parameters for [[Riak Security|Authentication and Authorization]].
 
 <tr>
 <td><code>secure_referer_check</code></td>
-<td>Measures were added to Riak 1.2 to counteract cross-site scripting and request-forgery attacks. Some reverse proxies cannot remove the <code>Referer</code> header and make serving data directly from Riak impossible. Turning this setting to <code>off</code> disables this security check.</td>
+<td>Measures were added to Riak 1.2 to counteract cross-site scripting
+and request-forgery attacks. Some reverse proxies cannot remove the
+<code>Referer</code> header and make serving data directly from Riak
+impossible. Turning this setting to <code>off</code> disables this
+security check.</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
 <td><code>check_crl</code></td>
-<td>Whether to check the CRL of a client certificate. This defaults to <code>on</code> but some CAs may not maintain or define a CRL, so this can be disabled if no CRL is available.</td>
+<td>Whether to check the CRL of a client certificate. This defaults to
+<code>on</code> but some CAs may not maintain or define a CRL, so this
+can be disabled if no CRL is available.</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
 <td><code>tls_protocols.sslv3</code></td>
-<td>Determine which SSL/TLS versions are allowed. By default, only TLS 1.2 is allowed, but other versions can be enabled if clients don't support the latest TLS standard. It is strongly recommended that SSLv3 not be enabled unless absolutely necessary. More than one protocol can be enabled at once. The <code>tls_protocols</code> parameters below can be used to turn different versions on and off.</td>
+<td>Determine which SSL/TLS versions are allowed. By default, only
+TLS 1.2 is allowed, but other versions can be enabled if clients don't
+support the latest TLS standard. It is strongly recommended that SSLv3
+not be enabled unless absolutely necessary. More than one protocol can
+be enabled at once. The <code>tls_protocols</code> parameters below can
+be used to turn different versions on and off.</td>
 <td><code>off</code></td>
 </tr>
 
@@ -1343,7 +1451,9 @@ Configurable parameters for [[Riak Security|Authentication and Authorization]].
 
 <tr>
 <td><code>honor_cipher_order</code></td>
-<td>Whether to prefer the order in which the server lists its ciphers. When set to <code>off</code>, the client's preferred cipher order dictates which cipher is chosen.</td>
+<td>Whether to prefer the order in which the server lists its ciphers.
+When set to <code>off</code>, the client's preferred cipher order
+dictates which cipher is chosen.</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1352,7 +1462,8 @@ Configurable parameters for [[Riak Security|Authentication and Authorization]].
 
 ## Client Interfaces
 
-Configurable parameters for clients connecting to Riak either through Riak's [[Protocol Buffers|PBC API]] or [[HTTP|HTTP API]] API.
+Configurable parameters for clients connecting to Riak either through
+Riak's [[Protocol Buffers|PBC API]] or [[HTTP|HTTP API]] API.
 
 <table class="riak-conf">
 <thead>
@@ -1366,31 +1477,39 @@ Configurable parameters for clients connecting to Riak either through Riak's [[P
 
 <tr>
 <td><code>protobuf.nagle</code></td>
-<td>Turns off Nagle's algorithm for Protocol Buffers connections. This is equivalent to setting the <code>TCP_NODELAY</code> option on the socket.</td>
+<td>Turns off Nagle's algorithm for Protocol Buffers connections. This
+is equivalent to setting the <code>TCP_NODELAY</code> option on the
+socket.</td>
 <td><code>off</code></td>
 </tr>
 
 <tr>
 <td><code>protobuf.backlog</code></td>
-<td>The maximum length to which the queue of pending connections may grow. If set, it must be an integer greater than zero. If you anticipate a huge number of connections being initialized simultaneously, set this number higher.</td>
+<td>The maximum length to which the queue of pending connections may
+grow. If set, it must be an integer greater than zero. If you
+anticipate a huge number of connections being initialized
+simultaneously, set this number higher.</td>
 <td><code>128</code></td>
 </tr>
 
 <tr>
 <td><code>listener.protobuf.$name</code></td>
-<td>This is the IP address and TCP port to which the Riak Protocol Buffers interface will bind.</td>
+<td>This is the IP address and TCP port to which the Riak Protocol
+Buffers interface will bind.</td>
 <td><code>{"127.0.0.1",8087}</code></td>
 </tr>
 
 <tr>
 <td><code>listener.http.$name</code></td>
-<td>This is the IP address and TCP port to which the Riak HTTP interface will bind.</td>
+<td>This is the IP address and TCP port to which the Riak HTTP
+interface will bind.</td>
 <td><code>{"127.0.0.1",8098}</code></td>
 </tr>
 
 <tr>
 <td><code>listener.https.$name</code></td>
-<td>This is the IP address and TCP port to which the Riak HTTPS interface will bind.</td>
+<td>This is the IP address and TCP port to which the Riak HTTPS
+interface will bind.</td>
 <td></td>
 </tr>
 
@@ -1399,7 +1518,8 @@ Configurable parameters for clients connecting to Riak either through Riak's [[P
 
 ## Lager
 
-Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logging system.
+Configurable parameters for [Lager](https://github.com/basho/lager),
+Riak's logging system.
 
 <table class="riak-conf">
 <thead>
@@ -1419,13 +1539,15 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 
 <tr>
 <td><code>log.error.messages_per_second</code></td>
-<td>Maximum number of <code>error_logger</code> messages to handle in a second</td>
+<td>Maximum number of <code>error_logger</code> messages to handle in a
+second</td>
 <td><code>100</code></td>
 </tr>
 
 <tr>
 <td><code>log.error.redirect</code></td>
-<td>Whether to redirect <code>error_logger</code> messages into lager.</td>
+<td>Whether to redirect <code>error_logger</code> messages into
+lager.</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1437,13 +1559,17 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 
 <tr>
 <td><code>log.crash.rotation.keep</code></td>
-<td>The number of rotated crash logs to keep. When set to <code>current</code>, only the current open log file is kept. Otherwise, an integer can be specified.</td>
+<td>The number of rotated crash logs to keep. When set to
+<code>current</code>, only the current open log file is kept.
+Otherwise, an integer can be specified.</td>
 <td><code>5</code></td>
 </tr>
 
 <tr>
 <td><code>log.crash.rotation</code></td>
-<td>The schedule on which to rotate the crash log. More information <a href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation">here</a>.</td>
+<td>The schedule on which to rotate the crash log. More information
+<a href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation">here</a>.
+</td>
 <td><code>$D0</code></td>
 </tr>
 
@@ -1461,7 +1587,8 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 
 <tr>
 <td><code>log.crash.file</code></td>
-<td>If the crash log is enabled, the file where its messages will be written.</td>
+<td>If the crash log is enabled, the file where its messages will be
+written.</td>
 <td><code>./log/crash.log</code></td>
 </tr>
 
@@ -1479,7 +1606,9 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 
 <tr>
 <td><code>log.console.file</code></td>
-<td>When <code>log.console</code> is set to <code>file</code> or <code>both</code>>, the file where console messages will be logged.</td>
+<td>When <code>log.console</code> is set to <code>file</code> or
+<code>both</code>>, the file where console messages will be logged
+</td>
 <td><code>./log/console.log</code></td>
 </tr>
 
@@ -1491,7 +1620,14 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 
 <tr>
 <td><code>log.console</code></td>
-<td>Where to emit the default log messages (typically at <code>info</code> severity). Possible values: <code>off</code>, which disables console log messages; <code>file</code>, which specifies that log messages will be output to the file specified by <code>log.console.file</code>; <code>console</code>, which outputs messages to standard output (seen when using <code>riak attach-direct</code>); or <code>both</code>, which outputs messages both to the file specified in <code>log.console.file</code> and to standard out.</td>
+<td>Where to emit the default log messages (typically at
+<code>info</code> severity). Possible values: <code>off</code>, which
+disables console log messages; <code>file</code>, which specifies that
+log messages will be output to the file specified by <cod
+>log.console.file</code>; <code>console</code>, which outputs messages
+to standard output (seen when using <code>riak attach-direct</code>);
+or <code>both</code>, which outputs messages both to the file specified
+in <code>log.console.file</code> and to standard out.</td>
 <td><code>file</code></td>
 </tr>
 
@@ -1500,7 +1636,8 @@ Configurable parameters for [Lager](https://github.com/basho/lager), Riak's logg
 
 ## Active Anti-Entropy
 
-Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-Entropy]] subsystem.
+Configurable parameters for Riak's [[active anti-entropy|Managing
+Active Anti-Entropy]] subsystem.
 
 <table class="riak-conf">
 <thead>
@@ -1514,31 +1651,48 @@ Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-En
 
 <tr>
 <td><code>anti_entropy</code></td>
-<td>How Riak will repair out-of-sync keys. If set to <code>active</code>, out-of-sync keys will be repaired in the background; if set to <code>passive</code>, out-of-sync keys are only repaired on read; and if set to <code>active-debug</code>, verbose debugging information will be output.</td>
+<td>How Riak will repair out-of-sync keys. If set to
+<code>active</code>, out-of-sync keys will be repaired in the
+background; if set to <code>passive</code>, out-of-sync keys are only
+repaired on read; and if set to <code>active-debug</code>, verbose
+debugging information will be output.</td>
 <td><code>active</code></td>
 </tr>
 
 <tr>
 <td><code>anti_entropy.throttle</code></td>
-<td>Whether the distributed throttle for Active Anti-Entropy is enabled.</td>
+<td>Whether the distributed throttle for Active Anti-Entropy is
+enabled.</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
 <td><code>anti_entropy.throttle.$tier.mailbox_size</code></td>
-<td>Sets the throttling tiers for Active Anti-Entropy. Each tier is a minimum vnode mailbox size and a time-delay that the throttle should observe at that size and above. For example, <code>anti_entropy.throttle.tier1.mailbox_size = 0</code>, <code>anti_entropy.throttle.tier1.delay = 0ms</code>, <code>anti_entropy.throttle.tier2.mailbox_size = 40</code>, <code>anti_entropy.throttle.tier2.delay = 5ms</code>, etc. If configured, there must be a tier which includes a mailbox size of 0. Both <code>.mailbox_size</code> and <code>.delay</code> must be set for each tier.</td>
+<td>Sets the throttling tiers for Active Anti-Entropy. Each tier is a
+minimum vnode mailbox size and a time-delay that the throttle should
+observe at that size and above. For example, <cod
+>anti_entropy.throttle.tier1.mailbox_size = 0</code>,
+<code>anti_entropy.throttle.tier1.delay = 0ms</code>,
+<code>anti_entropy.throttle.tier2.mailbox_size = 40</code>,
+<code>anti_entropy.throttle.tier2.delay = 5ms</code>, etc. If
+configured, there must be a tier which includes a mailbox size of 0.
+Both <code>.mailbox_size</code> and <code>.delay</code> must be set for
+each tier.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>anti_entropy.throttle.$tier.delay</code></td>
-<td>See the description for <code>anti_entropy.throttle.$tier.mailbox_size</code> above.</td>
+<td>See the description for
+<code>anti_entropy.throttle.$tier.mailbox_size</code> above.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>anti_entropy.bloomfilter</code></td>
-<td>Bloom filters are highly effective in shortcutting data queries that are destined to not find the requested key, though they tend to entail a small performance cost.</td>
+<td>Bloom filters are highly effective in shortcutting data queries
+that are destined to not find the requested key, though they tend to
+entail a small performance cost.</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1550,7 +1704,8 @@ Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-En
 
 <tr>
 <td><code>anti_entropy.write_buffer_size</code></td>
-<td>The LevelDB options used by Active Anti-Entropy to generate the LevelDB-backed on-disk hashtrees.</td>
+<td>The LevelDB options used by Active Anti-Entropy to generate the
+LevelDB-backed on-disk hashtrees.</td>
 <td><code>4MB</code></td>
 </tr>
 
@@ -1562,13 +1717,18 @@ Configurable parameters for Riak's [[active anti-entropy|Managing Active Anti-En
 
 <tr>
 <td><code>anti_entropy.trigger_interval</code></td>
-<td>The tick determines how often the Active Anti-Entropy manager looks for work to do (building/expiring trees, triggering exchanges, etc). Lowering this value will speed up the rate at which all replicas are synced across the cluster. Increasing the value is not recommended.</td>
+<td>The tick determines how often the Active Anti-Entropy manager looks
+for work to do (building/expiring trees, triggering exchanges, etc).
+Lowering this value will speed up the rate at which all replicas are
+synced across the cluster. Increasing the value is not recommended.
+</td>
 <td><code>15s</code></td>
 </tr>
 
 <tr>
 <td><code>anti_entropy.concurrency_limit</code></td>
-<td>Limit how many Active Anti-Entropy exchanges or builds can happen concurrently.</td>
+<td>Limit how many Active Anti-Entropy exchanges or builds can happen
+concurrently.</td>
 <td><code>2</code></td>
 </tr>
 
