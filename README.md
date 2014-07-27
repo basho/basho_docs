@@ -43,7 +43,7 @@ To make a change&mdash;be it as simple as a typo fix or as weighty as the creati
 
 	If you run into errors, [Middleman's install page](http://middlemanapp.com/basics/getting-started/) is a good place to start.
 
-	Now point a browser at `[http://0.0.0.0:4567](http://0.0.0.0:4567)`. Here you'll find Middleman serving up static HTML on the fly (generated from Markdown source files).
+	Now point a browser at [http://0.0.0.0:4567](http://0.0.0.0:4567). Here you'll find Middleman serving up static HTML on the fly (generated from Markdown source files).
 
 3. 	Create a new branch
 
