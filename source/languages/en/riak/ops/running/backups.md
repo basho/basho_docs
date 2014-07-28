@@ -210,9 +210,9 @@ the following commands on `riak6.example.com`.
 
 1. Join to any existing cluster node.
 
-    ```bash
-    riak-admin cluster join riak@riak2.example.com
-    ```
+  ```bash
+  riak-admin cluster join riak@riak2.example.com
+  ```
 
 2. Mark the old instance down.
 
