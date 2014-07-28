@@ -190,9 +190,12 @@ riak-cs top [-interval N] [-sort reductions|memory|msg_q] [-lines N]
 
 Options:
 
-* `interval` specifies the number of seconds between each update of the `top` output and defaults to 5
-* `sort` determines the category on which `riak-cs top` sorts and defaults to `reductions`
-* `lines` specifies the number of processes to display in the `top` output and defaults to 10
+* `interval` specifies the number of seconds between each update of the
+  `top` output and defaults to 5
+* `sort` determines the category on which `riak-cs top` sorts and
+  defaults to `reductions`
+* `lines` specifies the number of processes to display in the `top`
+  output and defaults to 10
 
 More information about Erlang's etop tool can be found in the
 [official documentation](http://www.erlang.org/doc/man/etop.html).
@@ -284,11 +287,42 @@ undergirding Riak CS.
 
 #### switch
 
+Temporarily changes the host and/or port used by Stanchion. This change
+is effective until the node is restarted, at which point Stanchion will
+begin listening on the host and port specified in your [[configuration
+files]].
+
 ```bash
 riak-cs-stanchion switch HOST PORT
 ```
 
+The following command would change the host to 100.0.0.1 and the port to
+9999:
+
+```bash
+riak-cs-stanchion switch 100.0.0.1 9999
+```
+
+The following output would appear if the change were successful:
+
+```
+Succesfully switched stanchion to 100.0.0.1:9999: This change is only effective until restart.
+To make permanent change, be sure to edit app.config file.
+```
+
 #### show
+
+Shows the current host/port address for Stanchion.
+
+```bash
+riak-cs-stanchion show
+```
+
+The output should look something like this:
+
+```
+Current Stanchion Address: http://127.0.0.1:8085
+```
 
 ## riak-cs-storage
 
@@ -435,6 +469,27 @@ stanchion getpid
 
 #### top
 
+The `stanchion top` command provides information about what the Erlang
+processes inside of Stanchion are doing. `top` reports process
+reductions (an indicator of CPU utilization), memory used, and message
+queue sizes.
+
+```bash
+stanchion top [-interval N] [-sort reductions|memory|msg_q] [-lines N]
+```
+
+Options:
+
+* `interval` specifies the number of seconds between each update of the
+  `top` output and defaults to 5
+* `sort` determines the category on which `riak-cs top` sorts and
+  defaults to `reductions`
+* `lines` specifies the number of processes to display in the `top`
+  output and defaults to 10
+
+More information about Erlang's etop tool can be found in the
+[official documentation](http://www.erlang.org/doc/man/etop.html).
+
 
 ## riak-cs-multibag
 
@@ -494,13 +549,16 @@ You can also set the weight for a bag:
 riak-cs-multibag weight <bag id> <weight>
 ```
 
-This command would set the weight for bag `bag-A` to 40%:
+This command would set the weight for bag `bag-A` to 40:
 
 ```bash
 riak-cs-multibag weight bag-A 40
 ```
 
-
+Weights are assigned to bags as an integer. The percentage weight
+applied to a given bag is a function of the total weight assigned to all
+bags. So if you assign 30 to bag A, 30 to bag B, and 60 to bag C, they
+will bear the following weights, respectively: 25%, 25%, and 50%.
 
 #### weight-manifest
 
