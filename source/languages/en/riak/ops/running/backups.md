@@ -32,7 +32,7 @@ Due to Riak's eventually consistent nature, backups can become slightly
 inconsistent from node to node. Data could exist on some nodes and not
 others at the exact time a backup is made. Any inconsistency will be
 corrected once a backup is restored, either by Riak's [[active
-anti-entropy]] processes or on `GET` by [[read repair|
+anti-entropy]] processes or when the object is read, via [[read repair|
 Replication#Read-Repair]].
 
 Additionally, backups must be performed on a stopped node to prevent
@@ -50,10 +50,10 @@ the supported operating systems is as follows:
 If you are upgrading to Riak version 2.0 or later from a pre-2.0
 release, you can use either your old <tt>app.config</tt> configuration
 file or the newer <tt>riak.conf</tt> if you wish.
- 
+
 If you have installed Riak 2.0 directly, you should use only
 <code>riak.conf</code>.
- 
+
 More on configuring Riak can be found in the [[configuration files]]
 doc.
 </div>
@@ -72,7 +72,7 @@ doc.
 * LevelDB data: `/var/lib/riak/leveldb`
 * Ring data: `/var/lib/riak/ring`
 * Configuration: `/etc/riak`
-* Strong consistency data: `/var/lib/riak/ensemble` 
+* Strong consistency data: `/var/lib/riak/ensemble`
 
 **FreeBSD**
 
@@ -109,6 +109,15 @@ package was extracted.
 * Configuration: `/opt/riak/etc`
 * Strong consistency data: `/opt/riak/data/bitcask`
 
+<div class="note">
+<div class="title">Note on strong consistency directories</div>
+The listings above show directories for data related to Riak's
+[[strong consistency]] feature. This feature is purely optional, so
+<code>/ensemble</code> directories will not exist in your installation
+if this feature is not being used. For more information, see [[Using
+Using Strong Consistency]] and [[Managing Strong Consistency]].
+</div>
+
 ### Performing Backups
 
 Backups of both Bitcask and LevelDB can be accomplished through a
@@ -140,8 +149,8 @@ The basic process for getting a backup of Riak from a node is as
 follows:
 
 1. Stop the node with `riak stop`
-2. Back up the appropriate data, ring, and configuration directories as
-   relevant to your operating system.
+2. Back up the appropriate data, ring, configuration, and strong consistency
+   (if applicable) directories as relevant to your operating system
 3. Start the node
 
 Consult the [[Bitcask]] and [[LevelDB]] documentation to learn more
