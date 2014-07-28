@@ -34,7 +34,7 @@ communication between Riak nodes only.
 
 Riak uses the Erlang distribution mechanism for most inter-node
 communication. Riak identifies other machines in the ring using Erlang
-identifiers (`<hostname or IP>`, ex: `riak@10.9.8.7`). Erlang resolves
+identifiers (`<hostname or IP>`, e.g. `riak@10.9.8.7`). Erlang resolves
 these node identifiers to a TCP port on a given machine via the Erlang
 Port Mapper daemon (epmd) running on each cluster node.
 
@@ -44,17 +44,35 @@ For ease of firewall configuration, Riak can be configured via
 `app.config` to instruct the Erlang interpreter to use a limited range
 of ports. For example, to restrict the range of ports that Erlang will
 use for inter-Erlang node communication to 6000-7999, add the following
-lines to the `app.config` file on each Riak node:
+lines to the configuration file on each Riak node:
 
-```erlang
+{{#2.0.0+}}
+
+```riakconf
+erlang.distribution.port_range.minimum = 6000
+erlang.distribution.port_range.maximum = 7999
+```
+
+```appconfig
 { kernel, [
             {inet_dist_listen_min, 6000},
             {inet_dist_listen_max, 7999}
           ]},
 ```
+{{/2.0.0+}}
+
+{{#2.0.0-}}
+
+```appconfig
+{ kernel, [
+            {inet_dist_listen_min, 6000},
+            {inet_dist_listen_max, 7999}
+          ]},
+```
+{{/2.0.0-}}
 
 The above lines should be added into the top level list in app.config,
-at the same level as all the other applications (eg. **riak\_core**).
+at the same level as all the other applications (e.g. **riak\_core**).
 
 Then configure your firewall to allow incoming access to TCP ports 6000
 through 7999 from whichever network(s) contain your Riak nodes.
@@ -64,16 +82,13 @@ another on the following ports:**
 
 * epmd listener: TCP:4369
 * handoff_port listener: TCP:8099
-* range of ports specified in `app.config`
+* range of ports specified in `app.config` or `riak.conf`
 
 **Riak clients must be able to contact at least one machine in a Riak
 cluster on the following ports:**
 
 * web_port: TCP:8098
 * pb_port: TCP:8087
-
-<div class="info"><div class="title">Important note</div>The epmd process will continue to run on a given node even after all Erlang interpreters have exited. If <tt>inet_dist_listen_min</tt> and <tt>inet_dist_listen_max</tt> are added to <tt>app.config</tt>, epmd must be killed so that it will pick up the new settings.</div>
-
 
 ---
 
@@ -93,7 +108,7 @@ Though we make every effort to thwart security vulnerabilities whenever possible
 
 ### Balance
 
-More layers of security increase operational and administrative costs. Sometimes those costs are warranted, sometimes they are not. Our approach is to strike an appropriate balance between effort, cost and security.
+More layers of security increase operational and administrative costs. Sometimes those costs are warranted, sometimes they are not. Our approach is to strike an appropriate balance between effort, cost, and security.
 
 For example, Riak does not have fine-grained role-base security. Though it can be an attractive bullet-point in a database comparison chart, you're usually better off finely controlling data access through your application or a service layer.
 
@@ -106,8 +121,8 @@ dialog with the security community on how best to handle a possible exploit with
 
 For sensitive topics, you may send a secure message. The security team's GPG key is:
 
-```
------BEGIN PGP PUBLIC KEY BLOCK-----
+
+<pre><tt>-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.12 (Darwin)
 
 mQENBFAQM40BCADGjCmwn9Q9xpWfJ4HpKGwt5kGyf4Oq4PglC28MhtscT9cGwtJv
@@ -137,7 +152,7 @@ HtU5clY0rP8W/Nr7tC+ZGH2bjT1bmN1E9IM4wjBdyWGTosvY6ciIxuY5p5Iy/UhB
 7Xk9zl4ZkKcsVnuscYQPNE2jb393XAhFEg==
 =1KRp
 -----END PGP PUBLIC KEY BLOCK-----
-```
+</tt></pre>
 
 ## Security Best Practices
 
@@ -153,4 +168,4 @@ Many of the Riak drivers support HTTP basic auth, though this is not a role-base
 
 For those versions of Riak that support Multi Data Center (MDC) Replication, you can configure Riak 1.2+ to communicate over SSL, to seamlessly encrypt the message traffic.
 
-*No link here yet until the EDS docs are published*
+See also: [[Multi Data Center Replication: SSL]] in the Enterprise Documentation

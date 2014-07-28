@@ -120,6 +120,8 @@ riak:
           - "[[File System Tuning]]"
           - "[[Linux Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
+          - "[[Latency Reduction|Latency Reduction Checklist]]"
+          - "[[Managing Active Anti-Entropy]]"
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
@@ -178,9 +180,11 @@ riak:
           - "[[Clusters]]"
           - "[[Eventual Consistency]]"
           - "[[Keys and Objects]]"
+          - "[[Active Anti-Entropy]]"
           - "[[Links]]"
           - "[[Replication]]"
           - "[[Vector Clocks]]"
+          - "[[Capability Negotiation]]"
       - title: "Riak Compared to"
         sub:
           # - "[[Riak Comparisons Overview|Riak Comparisons]]"

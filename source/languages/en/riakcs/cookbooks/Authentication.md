@@ -12,7 +12,7 @@ keywords: [operator, authentication]
 ## Authentication Options
 * S3 Signature Authentication
     * Module name: `riak_cs_s3_auth`
-    * [Documentation](http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html)
+    * [Documentation](http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html)
 * Keystone Authentication
     * Module name: `riak-cs_keystone_auth`
     * [Documentation](http://docs.openstack.org/api/openstack-identity-service/2.0/content/index.html)

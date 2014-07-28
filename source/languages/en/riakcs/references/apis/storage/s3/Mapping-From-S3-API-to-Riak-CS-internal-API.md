@@ -54,7 +54,7 @@ rewritten format that is processed by Webmachine.
 * `List Multipart Uploads`
     * `GET /?uploads` -> `GET /buckets/<bucket>/uploads`
 * `Delete Multiple Objects` (This is listed in the S3 docs as an object operation, but it fits better here)
-    * `POST /?delete` -> `POST /buckets/<bucket>/objects`
+    * `POST /?delete` -> `POST /buckets/<bucket>/delete`
 
 ### Object Operations
 

@@ -46,6 +46,8 @@ This assumes Riak and Riak CS packages are installed on the same machine. If the
 
 <div class="note"><div class="title">Note</div>The path for <tt>add_paths</tt> may be <tt>/usr/lib/riak-cs</tt> or <tt>/usr/lib64/riak-cs</tt> or an alternative path you created depending on your operating system and method of installation. Similarly, the `data_root` values can be altered to fit your system's needs.</div>
 
+<div class="note"><div class="title">Note</div>The path for <code>add_paths</code> may be <code>/usr/lib/riak-cs</code> or <code>/usr/lib64/riak-cs</code> [[depending on your operating system|Installing and Upgrading]].</div>
+
 Next, add this to the `riak_core` section of `app.config`:
 
 ```erlang
@@ -56,7 +58,14 @@ Next, add this to the `riak_core` section of `app.config`:
 value other than `true`.** (As of version 1.4, Riak CS will refuse to
 start if `allow_mult` is not set to `true`.)
 
-Save and exit the editing session on the `app.config` file. To test that you have configured a Riak node correctly:
+<div class="note">
+<div class="title">Note on <code>allow_mult</code> and Riak clients</div>
+In Riak, the <code>allow_mult=true</code> setting is used only internally. Clients connecting to Riak CS will not need to engage in conflict resolution or deal with siblings.
+</div>
+
+{{#1.4.0+}} <div class="note"><div class="title">Note</div>As of version 1.4,
+Riak CS will refuse to start if <code>allow_mult</code> is not set to <code>true</code>.</div>
+{{/1.4.0+}}
 
 1. Attempt to start Riak: `bin/riak start`
 2. Test to see whether the node is running: `bin/riak ping`
@@ -64,6 +73,8 @@ Save and exit the editing session on the `app.config` file. To test that you hav
 If the `ping` command displays `pong`, Riak is running. If it displays `Node not responding to pings`, then something has gone wrong.
 
 If the Riak node has not started properly, look at `log/erlang.log.1`. One common error is `invalid_storage_backend`, which indicates that the path to the Riak CS library in Riak's `app.config` is incorrect (or that Riak CS is not installed on the server). *Do not change the storage backend from `riak_cs_kv_multi_backend` to `riak_kv_multi_backend`.*
+
+<div class="note"><div class="title">Note</div>It is important to use <code>CTRL+D</code> to detach the console and leave Riak running after doing a <code>riak attach</code>. <code>CTRL+C</code> will cause the Riak node to exit and in many cases this is not the desired outcome of detaching from the console.</div>
 
 ## Specifying the Riak IP Address
 By setting the Riak IP address you ensure that your Riak nodes have unique IP addresses, whether you work with a single node or add additional nodes to the system. The Riak IP address setting resides in the Riak `vm.args` configuration file, which is located in the `/etc/riak` folder.
@@ -108,9 +119,9 @@ The `pb` values in the Riak `app.config` file must match the values for `riak_ip
 
 <div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
 
-It is also recommended that you increase the size of Riak's `pb_backlog` to be greater than the size of `request_pool` specified in the Riak CS `app.config` file.
+It is also recommended that you increase the size of Riak's `pb_backlog` to be greater than the size of `request_pool` specified in the Riak CS `app.config` file. At minimum, `pb_backlog` should be set to `64`. The default value is `5`.
 
-* `pb_backlog` --- Replace the default Riak configuration
+* `pb_backlog` --- Replace the default Riak configuration, which has `pb_backlog` commented out with `%%`
 
     ```erlang
     %% {pb_backlog, 64},

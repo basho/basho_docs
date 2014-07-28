@@ -64,7 +64,17 @@ Be sure to check the Riak CS [[Version Compatibility]] chart to ensure that your
 	<p>If you are upgrading Riak CS Enterprise Edition from a version before 1.3.0, a change to the package name can result in an upgrade error.  To address this, uninstall the old Riak CS package before installing the new one.</p>
 	</div>
 
-6. Examine the differences between your backed up `app.config` files and the newly installed copies in `etc/riak`, `etc/riak-cs`, and `etc/stanchion`. There may be new settings in the new `app.config` files.  Make any changes that are specific to your installation.
+6. Examine the differences between your backed up `app.config` files and the newly installed copies in `etc/riak`, `etc/riak-cs`, and `etc/stanchion`. There may be new settings in the new `app.config` files. Make any changes that are specific to your installation.
+
+	One thing that you will likely need to update is the location of any `.beam` files that you are using for MapReduce jobs or commit hooks, in the `add_paths` subsection of the `riak_kv` settings in `app.config`. Here's an example:
+
+	```appconfig
+	{add_paths, ["/old/path/to/beam/files"]},
+
+	# should be changed to:
+
+	{add_paths, ["/new/path/to/beam/files"]},
+	```
 
 7. If you are upgrading from a version prior to 1.3, locate the following setting in the `/etc/riak-cs/app.config` file for Riak CS:
 
