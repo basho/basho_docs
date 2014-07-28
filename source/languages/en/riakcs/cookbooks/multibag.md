@@ -37,15 +37,13 @@ specific bags by tagging objects with a bag ID.
 ## The Master Bag
 
 In a Riak CS multibag setup, there is one special bag, known as the
-master bag, that bears a set of special responsibilities, storing the
-following objects:
+master bag, that bears a set of special responsibilities. It stores
+objects such as:
 
 * User information (for authentication and other purposes)
 * Bucket-related information, e.g. the bag in which each bucket is
   stored
 * Access statistics regarding Riak CS usage
-
-
 
 ## Multibag Configuration
 
@@ -58,16 +56,91 @@ section:
 
 ```appconfig
 {riak_cs_multibag, [
+	%% Other configs
     {bags,
      [
-      {"bag-A", "127.0.0.1", 10017},
-      {"bag-B", "127.0.0.1", 10027},
-      {"bag-C", "127.0.0.1", 10037}
+      {"bagA", "127.0.0.1", 10017},
+      {"bagB", "127.0.0.1", 10027},
+      {"bagC", "127.0.0.1", 10037}
      ]},
      %% Other configs
 ]},
 ```
 
 As with all configuration changes, each node must be restarted for the
-changes to take effect. More information can be found in our
-documentation 
+changes to take effect.
+
+In addition to configuring Riak CS to use multibag support, you will
+need to mirror the `app.config` changes shown above in Stanchion. In the
+`app.config` file in each Stanchion node, the following section would
+need to be inserted:
+
+```appconfig
+{stanchion, [
+	%% Other configs
+	{bags,
+	 [
+	  {"bagA", "127.0.0.1", 10017},
+	  {"bagB", "127.0.0.1", 10027},
+	  {"bagC", "127.0.0.1", 10037}
+	 ]
+	}
+	%% Other configs
+]},
+```
+
+## Transitioning to Multibag Support
+
+If you have an existing Riak CS installation without multibag support
+and would like to add it, there is a series of basic steps to follow.
+
+### Stanchion
+
+Because most of the special functionality required for Riak CS multibag
+is contained in Stanchion rather than Riak CS itself, the first step in
+enabling multibag support requires setting up Stanchion for multibag
+support. That involves performing the following steps on each node:
+
+1. Stop the node
+2. Upgrade Stanchion to a version that supports Riak CS multibag, i.e.
+   Riak CS 1.5.0 and later
+3. Set your desired Stanchion [[configuration|Configuring Stanchion]].
+4. Start Stanchion on each node
+
+### Add Bags
+
+To add bags to your Riak CS installation, you must set up one or more
+new Riak clusters, each running both Riak CS and Stanchion version 1.5.0
+or later. In order for the clusters to communicate with one another, you
+must add the connection information for each cluster as explained above
+in the section on [[multibag configuration|Riak CS Multibag
+Support#Multibag-Configuration]].
+
+### Set Weights
+
+Because each bag in a multibag Riak CS installation must bear a weight,
+you will need to set the weight of each bag using the `riak-cs-multibag`
+command-line interface. While complete instructions can be found in our
+documentation on [[Riak CS command line tools]], we'll provide an
+example here nonetheless.
+
+Let's say that we've set up three bags, `bagA`, `bagB`, and `bagC`. We
+want to assign them the weights 40, 40, and 20, respectively. The
+following commands would accomplish that:
+
+```bash
+riak-cs-multibag bagA 40
+riak-cs-multibag bagB 40
+riak-cs-multibag bagC 20
+```
+
+These weights can be modified at any time.
+
+Congratulations! Your Riak CS installation is now ready to use the new
+multibag feature.
+
+## Command Line Interface
+
+Complete documentation for the `riak-cs-multibag` interface can be found
+in our documentation on [[Riak CS Command Line Tools|Riak CS Command
+Line Tools#riak-cs-multibag]].
