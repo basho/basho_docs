@@ -12,8 +12,22 @@ keywords: [installing]
 A fully functional Riak CS system is comprised of Riak CS, Stanchion,
 and Riak. The supported operating systems include Ubuntu, CentOS,
 Fedora, Solaris, SmartOS, FreeBSD, and OS X. Riak CS is *not* supported
-on Microsoft Windows. You can install Riak CS on a single node or using
-an automated deployment tool.
+on Microsoft Windows.
+
+You can install Riak CS on a single node or using an automated
+deployment tool. Any Riak CS installation involves three components, all
+of which must be installed separately:
+
+* [Riak](http://docs.basho.com/riak/latest/) --- The distributed
+  database on top of which Riak CS is built
+* Riak CS itself
+* [Stanchion](https://github.com/basho/stanchion) --- An application
+  used to manage globally unique entities, such as users and buckets
+
+## Installing Riak
+
+If you have not yet installed Riak, follow the [[Riak Installation|Five-
+Minute Install]] documentation to do so.
 
 ## Installing Riak CS on a Node
 
@@ -120,7 +134,7 @@ rpm -Uvh <riak-cs-package.rpm>
 Replace `<riak-cs-package.rpm>` with the actual filename for the package
 you are installing.
 
-## Installing Stanchion
+## Installing Stanchion on a Node
 
 Stanchion is an application that manages globally unique entities within
 a Riak CS cluster. It performs actions such as ensuring unique user
@@ -157,7 +171,7 @@ curl -O http://s3.amazonaws.com/downloads.basho.com/stanchion/1.4/1.4.3/osx/10.8
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvzf <stanchion-os-x.tar.gz>
+stanchion-1.4.3-OSX-x86_64.tar.gz
 ```
 
 ### Installing Stanchion on Debian or Ubuntu
@@ -235,11 +249,6 @@ package you are installing.
 CentOS enables Security-Enhanced Linux (SELinux) by default. If you
 encounter errors during installation, try disabling SELinux.
 </div>
-
-## Installing Riak
-
-If you have not yet installed Riak, follow the [[Riak Installation|
-Installing and Upgrading]] documentation to do so.
 
 ## What's Next?
 
