@@ -11,15 +11,14 @@ moved: {
 }
 ---
 
-Riak is a [[clustered|Clusters]], [[multi-node|Riak Glossary#node]]
-system built to survive a wide range of failure scenarios, including the
-loss of nodes due to network or hardware failure. Although this is one
-of Riak's core strengths, it cannot withstand _all_ failure scenarios.
-Like any storage system, it remains susceptible to contingencies such as
-accidental or malicious deletions. Many Riak users confront this
-possibility by backing up their data, i.e. duplicating their database
-onto a different long-term storage mechanism. This document covers how
-to perform such backups.
+Riak is a [[clustered|Clusters]] system built to survive a wide range of
+failure scenarios, including the loss of nodes due to network or
+hardware failure. Although this is one of Riak's core strengths, it
+cannot withstand _all_ failure scenarios. Like any storage system, it
+remains susceptible to contingencies such as accidental or malicious
+deletions. Many Riak users confront this possibility by backing up their
+data, i.e. duplicating their database onto a different long-term storage
+mechanism. This document covers how to perform such backups.
 
 Riak backups can be performed using OS features or filesystems that
 support snapshots, such as LVM or ZFS, or by using tools like rsync or
@@ -42,8 +41,8 @@ using an OS feature or filesystem that supports snapshotting.
 
 ### OS-Specific Directory Locations
 
-The default Riak data, ring, and configuration directories for each of
-the supported operating systems is as follows:
+The default Riak data, ring, strong consistency, and configuration
+directories for each of the supported operating systems is as follows:
 
 <div class="note">
 <div class="title">Note on upgrading</div>
@@ -115,7 +114,7 @@ The listings above show directories for data related to Riak's
 [[strong consistency]] feature. This feature is purely optional, so
 <code>/ensemble</code> directories will not exist in your installation
 if this feature is not being used. For more information, see [[Using
-Using Strong Consistency]] and [[Managing Strong Consistency]].
+Strong Consistency]] and [[Managing Strong Consistency]].
 </div>
 
 ### Performing Backups
@@ -129,7 +128,7 @@ running while performing the backup.
 A simple shell command such as the following example is sufficient for
 creating a backup of your Bitcask or LevelDB data, ring, and Riak
 configuration directories for a binary package-based Riak Linux
-installation:
+installation. The following examples use `tar`:
 
 #### Bitcask
 
@@ -143,6 +142,16 @@ tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
 ```bash
 tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
   /var/lib/riak/leveldb /var/lib/riak/ring /etc/riak
+```
+
+#### Strong Consistency Data
+
+Persistently stored data used by Riak's [[strong consistency]] feature
+can be stored in an analogous fashion:
+
+```bash
+tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
+  /var/lib/riak/ensemble
 ```
 
 The basic process for getting a backup of Riak from a node is as
