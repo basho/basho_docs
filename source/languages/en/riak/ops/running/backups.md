@@ -63,7 +63,7 @@ doc.
 * LevelDB data: `/var/lib/riak/leveldb`
 * Ring data: `/var/lib/riak/ring`
 * Configuration: `/etc/riak`
-* Strong consistency data: `/var/lib/riak/ensemble`
+* Strong consistency data: `/var/lib/riak/ensembles`
 
 **Fedora and RHEL**
 
@@ -71,7 +71,7 @@ doc.
 * LevelDB data: `/var/lib/riak/leveldb`
 * Ring data: `/var/lib/riak/ring`
 * Configuration: `/etc/riak`
-* Strong consistency data: `/var/lib/riak/ensemble`
+* Strong consistency data: `/var/lib/riak/ensembles`
 
 **FreeBSD**
 
@@ -79,7 +79,7 @@ doc.
 * LevelDB data: `/var/db/riak/leveldb`
 * Ring data: `/var/db/riak/ring`
 * Configuration: `/usr/local/etc/riak`
-* Strong consistency data: `/var/db/riak/ensemble`
+* Strong consistency data: `/var/db/riak/ensembles`
 
 **OS X**
 
@@ -90,7 +90,7 @@ package was extracted.
 * LevelDB data: `./data/leveldb`
 * Ring data: `./data/riak/ring`
 * Configuration: `./etc`
-* Strong consistency data: `./data/ensemble`
+* Strong consistency data: `./data/ensembles`
 
 **SmartOS**
 
@@ -98,7 +98,7 @@ package was extracted.
 * LevelDB data: `/var/db/riak/leveldb`
 * Ring data: `/var/db/riak/ring`
 * Configuration: `/opt/local/etc/riak`
-* Strong consistency data: `/var/db/riak/ensemble`
+* Strong consistency data: `/var/db/riak/ensembles`
 
 **Solaris**
 
@@ -106,13 +106,13 @@ package was extracted.
 * LevelDB data: `/opt/riak/data/leveldb`
 * Ring data: `/opt/riak/ring`
 * Configuration: `/opt/riak/etc`
-* Strong consistency data: `/opt/riak/data/bitcask`
+* Strong consistency data: `/opt/riak/data/ensembles`
 
 <div class="note">
 <div class="title">Note on strong consistency directories</div>
 The listings above show directories for data related to Riak's
 [[strong consistency]] feature. This feature is purely optional, so
-<code>/ensemble</code> directories will not exist in your installation
+<code>/ensembles</code> directories will not exist in your installation
 if this feature is not being used. For more information, see [[Using
 Strong Consistency]] and [[Managing Strong Consistency]].
 </div>
@@ -151,7 +151,7 @@ can be stored in an analogous fashion:
 
 ```bash
 tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
-  /var/lib/riak/ensemble
+  /var/lib/riak/ensembles
 ```
 
 The basic process for getting a backup of Riak from a node is as
@@ -173,7 +173,7 @@ environment.
 
 If you are replacing a node with a new node that has the same node name
 (typically a fully qualified domain name or IP address), then restoring
-the node is is a simple process:
+the node is a simple process:
 
 1. Install Riak on the new node.
 2. Restore your old node's configuration files, data directory, and ring
