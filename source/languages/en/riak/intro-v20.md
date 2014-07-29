@@ -64,6 +64,7 @@ Riak is typically known as an AP system, favoring high availability and partitio
 
 * [[Using Strong Consistency]] shows you how to enable Riak's strong consistency subsystem and to apply strong consistency guarantees to data stored in specified buckets
 * [[Strong Consistency]] provides a theoretical treatment of how a strongly consistent system differs from an [[eventually consistent|Eventual Consistency]] system, as well as details about how strong consistency is implemented in Riak
+* [[Managing Strong Consistency]] is a guide for Riak operators, with sections on configuring and monitoring strong consistency
 
 #### Video
 
