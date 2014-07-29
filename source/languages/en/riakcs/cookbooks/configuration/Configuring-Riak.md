@@ -8,50 +8,89 @@ audience: intermediate
 keywords: [operator, configuration]
 ---
 
-The default backend used by Riak is the Bitcask backend, but the Riak CS package includes a special backend that should be used by the Riak cluster that is part of the Riak CS system. It is a custom version of the standard multi backend that ships with Riak.
+The default backend used by Riak is the Bitcask backend, but the Riak CS
+package includes a special backend that should be used by the Riak
+cluster that is part of the Riak CS system. It is a custom version of
+the standard [[Multi]] backend that ships with Riak.
 
-Some of the Riak buckets used internally by Riak CS use secondary indexes, which currently requires the [[eLevelDB|LevelDB]] backend. Other parts of the Riak CS system can benefit from the use of the Bitcask backend. The use of the custom multi backend enables Riak CS to take advantage of the strengths of both of these backends to achieve the best blend of performance and features. The next section covers how to properly set up Riak to use this multi backend.
+Some of the Riak buckets used internally by Riak CS use secondary
+indexes, which currently requires the [[LevelDB]] backend. Other parts
+of the Riak CS system can benefit from the use of the Bitcask backend.
+The use of the custom [[Multi]] backend enables Riak CS to take
+advantage of the strengths of both of these backends to achieve the best
+blend of performance and features. The next section covers how to
+properly set up Riak to use this multi backend.
 
-Additionally, the Riak CS storage calculation system uses Riak's MapReduce to sum the files in a bucket. This means that you must tell all of your Riak nodes where to find Riak CS's compiled files before calculating storage.
+Additionally, the Riak CS storage calculation system uses Riak's
+[[MapReduce|Using MapReduce]] to sum the files in a bucket. This means
+that you must tell all of your Riak nodes where to find Riak CS's
+compiled files before calculating storage.
 
-A few other settings must be modified to configure a Riak node as part of a Riak CS system, such as the node IP address and the IP address and port to use for communicating through Protocol Buffers. Other settings can be modified if necessary. The following sections describe how to configure a Riak node to work as part of a Riak CS system.
+A few other settings must be modified to configure a Riak node as part
+of a Riak CS system, such as the node IP address and the IP address and
+port to use for communicating through Protocol Buffers. Other settings
+can be modified if necessary. The following sections describe how to
+configure a Riak node to work as part of a Riak CS system.
 
 ## Setting up the Proper Riak Backend
 
-First, edit Riak's `app.config` file and find and delete the line containing the `storage_backend` property in the `riak_kv` section. The `app.config` file can be found in the `/etc/riak` or `/opt/riak/etc` directory. The default setting is for the Bitcask backend and would look like this:
+First, edit Riak's `app.config` [[configuration file|Configuration
+Files]]. The `app.config` file can be found in the `/etc/riak` or
+`/opt/riak/etc` directory. By default, Riak uses the [[Bitcask]]
+backend. The first thing we need to do is to change that by removing the
+following line:
 
-```erlang
-{storage_backend, riak_kv_bitcask_backend},
+```appconfig
+{riak_kv, [
+    %% Delete this line:
+    {storage_backend, riak_kv_bitcask_backend},
+]}
 ```
 
-Next, expose the necessary Riak CS modules to Riak and instruct Riak to use the custom multi backend. Continue editing Riak's `app.config` file, and add this to the `riak_kv` section:
+Next, we need to expose the necessary Riak CS modules to Riak and to
+instruct Riak to use a the custom backend used by Riak CS. In the same
+`riak_kv` section from which we deleted the line shown above, we need
+to insert the following section:
 
-```erlang
-{add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
-{storage_backend, riak_cs_kv_multi_backend},
-{multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
-{multi_backend_default, be_default},
-{multi_backend, [
-  {be_default, riak_kv_eleveldb_backend, [
-    {max_open_files, 50},
-      {data_root, "/var/lib/riak/leveldb"}
-  ]},
-    {be_blocks, riak_kv_bitcask_backend, [
-      {data_root, "/var/lib/riak/bitcask"}
-  ]}
-]},
+```appconfig
+{riak_kv, [
+    {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
+    {storage_backend, riak_cs_kv_multi_backend},
+    {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
+    {multi_backend_default, be_default},
+    {multi_backend, [
+        {be_default, riak_kv_eleveldb_backend, [
+            {max_open_files, 50},
+            {data_root, "/var/lib/riak/leveldb"}
+        ]},
+        {be_blocks, riak_kv_bitcask_backend, [
+            {data_root, "/var/lib/riak/bitcask"}
+        ]}
+    ]},
+]}
 ```
 
-This assumes Riak and Riak CS packages are installed on the same machine. If the Riak CS package is not installed on the Riak box, then the files `/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin/*` must be copied to the Riak box, with the copy destination added to the `add_paths` directive.
+It's important to note that many of these values will depend on various
+directories specific to your installation, so make sure to adjust them
+accordingly. The `add_paths` parameter, for example, assumes that Riak
+CS is installed in `/usr/lib/riak-cs`, while the `data_root` parameters
+assume that Riak is installed in `/var/lib`.
 
-<div class="note"><div class="title">Note</div>The path for <tt>add_paths</tt> may be <tt>/usr/lib/riak-cs</tt> or <tt>/usr/lib64/riak-cs</tt> or an alternative path you created depending on your operating system and method of installation. Similarly, the `data_root` values can be altered to fit your system's needs.</div>
+This configuration also assumes that the Riak CS package is installed on
+the same machine as Riak. If not, the package will need to be copied on
+to the same box.
 
-<div class="note"><div class="title">Note</div>The path for <code>add_paths</code> may be <code>/usr/lib/riak-cs</code> or <code>/usr/lib64/riak-cs</code> [[depending on your operating system|Installing and Upgrading]].</div>
+<div class="note">
+<div class="title">Note</div>
+The path for <code>add_paths</code> may be <code>/usr/lib/riak-cs</code> or <code>/usr/lib64/riak-cs</code> [[depending on your operating system|Installing and Upgrading]].
+</div>
 
 Next, add this to the `riak_core` section of `app.config`:
 
-```erlang
-{default_bucket_props, [{allow_mult, true}]},
+```appconfig
+{riak_core, [
+
+]}
 ```
 
 **For Riak nodes that support Riak CS, never set `allow_mult` to any
