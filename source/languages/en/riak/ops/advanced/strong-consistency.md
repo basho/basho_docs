@@ -104,4 +104,47 @@ Item | Meaning
 `Ring Ready` | If `true`, then all of the vnodes in the cluster have seen the current [[ring|Clusters#The-Ring]], which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed a node to/from the cluster, it may take some time for `Ring Ready` to change.
 `Validation` | This will display `strong` if the `tree_validation` setting in `[[riak.conf|Configuration Files#Strong-Consistency]]` has been set to `on` and `weak` if set to `off`.
 `Metadata` | This depends on the value of the `synchronous_tree_updates` setting in `[[riak.conf|Configuration Files#Strong-Consistency]]`, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
-`Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.
+`Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.<br /><br /><ul><li></li><li></li><li></li><li></li></ul>
+
+### Inspecting Specific Ensembles
+
+The `ensemble-status` command enables you to inspect any currently
+ensembles, i.e. the ensembles listed under `Ensembles` in the sample
+`ensemble-status` output displayed above.
+
+To inspect a specific ensemble, specify the ID:
+
+```bash
+riak-admin ensemble-status <id>
+```
+
+The following would inspect ensemble `2`:
+
+```bash
+riak-admin ensemble-status 2
+```
+
+Below is sample output:
+
+```
+================================= Ensemble #2 =================================
+Id:           {kv,0,3}
+Leader:       riak@riak2 (2)
+Leader ready: true
+
+==================================== Peers ====================================
+ Peer  Status     Trusted          Epoch         Node
+-------------------------------------------------------------------------------
+  1    following    yes             1            riak@riak1
+  2     leading     yes             1            riak@riak2
+  3    following    yes             1            riak@riak2
+```
+
+The table below provides a guide to the output:
+
+Item | Meaning
+:----|:-------
+`Id` | The ID for the ensemble used internally by Riak
+`Leader` | Identifies the ensemble's leader
+`Leader ready` | States whether the ensemble's leader is ready to respond to requests. If not, requests to the ensemble will fail.
+`Peers` | A list of peer [[vnodes|Riak Glossary#vnode]] associated with the ensemble.<br /><br /><ul><li>**Peer** --- The ID of the peer</li><li>**Status** --- Whether the peer is a leader or a follower</li><li>**Trusted** --- Whether the peer's Merkle tree is currently considered trusted or not</li><li>**Epoch** --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li></li></ul>
