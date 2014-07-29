@@ -57,3 +57,51 @@ stored by that peer. These trees
 The consensus subsystem delays syncing to disk when performing certain
 operations, which enables it to combine multiple operations into a
 single write to disk.
+
+## ensemble-status
+
+This command is used to provide insight into the current status of the
+consensus subsystem undergirding Riak's [[strong consistency]] feature.
+
+```bash
+riak-admin ensemble-status
+```
+
+If this subsystem is not currently enabled, you will see `Note: The
+consensus subsystem is not enabled.` in the output of the command.
+
+If the consensus subsystem is enabled, you will see output like this:
+
+```
+============================== Consensus System ===============================
+Enabled:     true
+Active:      true
+Ring Ready:  true
+Validation:  strong (trusted majority required)
+Metadata:    best-effort replication (asynchronous)
+
+================================== Ensembles ==================================
+ Ensemble     Quorum        Nodes      Leader
+-------------------------------------------------------------------------------
+   root       4 / 4         4 / 4      riak@riak1
+    2         3 / 3         3 / 3      riak@riak2
+    3         3 / 3         3 / 3      riak@riak4
+    4         3 / 3         3 / 3      riak@riak1
+    5         3 / 3         3 / 3      riak@riak2
+    6         3 / 3         3 / 3      riak@riak2
+    7         3 / 3         3 / 3      riak@riak4
+    8         3 / 3         3 / 3      riak@riak4
+```
+
+### Interpreting ensemble-status Output
+
+The following table provides a guide to `ensemble-status` output:
+
+Item | Meaning
+:----|:-------
+`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in `[[riak.conf|Configuration Files#Strong-Consistency]]` has been set to `on`. If this reads `false` and you wish to enable strong consistency, see our documentation on [[enabling strong consistency|Using Strong Consistency#Enabling-Strong-Consistency]].
+`Active` | Whether the consensus subsystem is active, i.e. whether there are enough nodes in the cluster to use strong consistency, which requires at least three nodes.
+`Ring Ready` | If `true`, then all of the vnodes in the cluster have seen the current [[ring|Clusters#The-Ring]], which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed a node to/from the cluster, it may take some time for `Ring Ready` to change.
+`Validation` | This will display `strong` if the `tree_validation` setting in `[[riak.conf|Configuration Files#Strong-Consistency]]` has been set to `on` and `weak` if set to `off`.
+`Metadata` | This depends on the value of the `synchronous_tree_updates` setting in `[[riak.conf|Configuration Files#Strong-Consistency]]`, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
+`Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.

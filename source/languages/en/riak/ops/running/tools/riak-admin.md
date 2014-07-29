@@ -591,38 +591,5 @@ consensus subsystem undergirding Riak's [[strong consistency]] feature.
 riak-admin ensemble-status
 ```
 
-If the consensus subsystem is enabled, you will see output like this:
-
-```
-============================== Consensus System ===============================
-Enabled:     true
-Active:      true
-Ring Ready:  true
-Validation:  strong (trusted majority required)
-Metadata:    best-effort replication (asynchronous)
-
-================================== Ensembles ==================================
- Ensemble     Quorum        Nodes      Leader
--------------------------------------------------------------------------------
-   root       4 / 4         4 / 4      riak@riak1
-    2         3 / 3         3 / 3      riak@riak2
-    3         3 / 3         3 / 3      riak@riak4
-    4         3 / 3         3 / 3      riak@riak1
-    5         3 / 3         3 / 3      riak@riak2
-    6         3 / 3         3 / 3      riak@riak2
-    7         3 / 3         3 / 3      riak@riak4
-    8         3 / 3         3 / 3      riak@riak4
-```
-
-The following table provides a guide to `ensemble-status` output:
-
-Item | Meaning
-:----|:-------
-`Enabled` | Whether the consensus subsystem is enabled on the current node
-`Active` | Whether the consensus subsystem is also active
-`Ring Ready` | Whether enough nodes are active in the cluster to use the consensus subsystem
-`Validation` |
-
-
-If this subsystem is not currently enabled, you will see `Note: The
-consensus subsystem is not enabled.` in the output of the command.
+Complete documentation of this command can be found in [[Managing Strong
+Consistency|Managing Strong Consistency#ensemble-status]].
