@@ -192,15 +192,15 @@ If you need to change one of these properties, it is recommended that you simply
 
 In versions of Riak prior to 2.0, all queries are made to a bucket/key pair, as in the following example read request:
 
-```ruby
-bucket = client.bucket('my_bucket')
-bucket.get('my_key')
-```
-
 ```java
 Location myKey = new Location(new Namespace("my_bucket"), "my_key");
 FetchValue fetch = new FetchValue.Builder(myKey).build();
 client.execute(fetch);
+```
+
+```ruby
+bucket = client.bucket('my_bucket')
+bucket.get('my_key')
 ```
 
 ```python
@@ -220,13 +220,6 @@ curl http://localhost:8098/buckets/my_bucket/keys/my_key
 
 With the addition of bucket types in Riak 2.0, bucket types can be used as _an additional namespace_ on top of buckets and keys. The same bucket name can be associated with completely different data if it used in accordance with a different type. Thus, the following two requests will be made to _completely different keys_, even though the bucket and key names are the same:
 
-```ruby
-bucket = client.bucket('my_bucket')
-
-bucket.get('my_key', type: 'type1')
-bucket.get('my_key', type: 'type2')
-```
-
 ```java
 Location key1 =
   new Location(new Namepace("type1", "my_bucket"), "my_key");
@@ -236,6 +229,13 @@ FetchValue fetch1 = new FetchValue.Builder(key1).build();
 FetchValue fetch2 = new FetchValue.Builder(key2).build();
 client.execute(fetch1);
 client.execute(fetch2);
+```
+
+```ruby
+bucket = client.bucket('my_bucket')
+
+bucket.get('my_key', type: 'type1')
+bucket.get('my_key', type: 'type2')
 ```
 
 ```python
@@ -266,13 +266,6 @@ In Riak 2.x, <em>all requests</em> must be made to a location specified by a buc
 
 If requests are made to a bucket/key pair without a specified bucket type, `default` will be used in place of a bucket type. The following queries are thus identical:
 
-```ruby
-bucket = client.bucket('my_bucket')
-
-bucket.get('my_key')
-bucket.get('my_key', type: 'default')
-```
-
 ```java
 Location withDefaultBucketType =
   new Location(new Namespace("default", "my_bucket"), "my_key");
@@ -282,6 +275,13 @@ FetchValue fetch1 = new FetchValue.Builder(withDefaultBucketType).build();
 FetchValue fetch2 = new FetchValue.Builder(noBucketType).build();
 client.execute(fetch1);
 client.execute(fetch2);
+```
+
+```ruby
+bucket = client.bucket('my_bucket')
+
+bucket.get('my_key')
+bucket.get('my_key', type: 'default')
 ```
 
 ```python
@@ -434,14 +434,6 @@ Let's say that you'd like to create a bucket type called `user_account_bucket` w
 
 If you have created the bucket type `no_siblings` (with the property `allow_mult` set to `false`) and would like that type to be applied to the bucket `sensitive_user_data`, you would need to run operations on that bucket in accordance with the format above. Here is an example write:
 
-```ruby
-bucket = client.bucket('sensitive_user_data')
-obj = Riak::RObject.new(bucket, 'user19735')
-obj.content_type = 'application/json'
-obj.raw_data = '{ ... user data ... }'
-obj.store(type: 'no_siblings')
-```
-
 ```java
 Location key = new Location("sensitive_user_data")
         .setBucketType("no_siblings")
@@ -451,6 +443,14 @@ RiakObject obj = new RiakObject()
         .setValue(BinaryValue.create("{ ... user data ... }"));
 StoreValue store = new StoreValue.Builder(obj).build();
 client.execute(store);
+```
+
+```ruby
+bucket = client.bucket('sensitive_user_data')
+obj = Riak::RObject.new(bucket, 'user19735')
+obj.content_type = 'application/json'
+obj.raw_data = '{ ... user data ... }'
+obj.store(type: 'no_siblings')
 ```
 
 ```python
@@ -482,14 +482,6 @@ Let's say that we're using Riak to store internet memes. We've been using a buck
 
 The following request seeks to add the meme "all your base are belong to us" to the `old_memes` bucket. If the bucket type `no_siblings` has been created and activated, the request will ensure that the `old_memes` bucket inherits all of the properties from the type `no_siblings`:
 
-```ruby
-bucket = client.bucket('old_memes')
-obj = Riak::RObject.new(bucket, 'all_your_base')
-obj.content_type = 'text/plain'
-obj.raw_data = 'all your base are belong to us'
-obj.store(type: 'no_siblings')
-```
-
 ```java
 Location allYourBaseKey =
   new Location(new Namespace("no_siblings", "old_memes"), "all_your_base");
@@ -498,6 +490,14 @@ RiakObject obj = new RiakObject()
         .setValue(BinaryValue.create("all your base are belong to us"));
 StoreValue store = new StoreValue.Builder(obj).build();
 client.execute(store);
+```
+
+```ruby
+bucket = client.bucket('old_memes')
+obj = Riak::RObject.new(bucket, 'all_your_base')
+obj.content_type = 'text/plain'
+obj.raw_data = 'all your base are belong to us'
+obj.store(type: 'no_siblings')
 ```
 
 ```python
