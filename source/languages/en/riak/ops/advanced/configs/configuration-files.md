@@ -2063,13 +2063,13 @@ available only in `advanced.config`, in particular in the
 ```
 
 Further instructions on setting parameters in `advanced.config` can be
-found in the [[advanced configuration|Configuration Files#Advanced-Configuration]]
-section below.
+found in the [[advanced configuration|Configuration 
+Files#Advanced-Configuration]] section below.
 
-These settings demand a basic understanding of the implementation
-details behind Riak's implementation of strong consistency. We strongly
-recommend reading the documentation on the [[implementation details|
-Strong Consistency#Implementation-Details]].
+These settings demand a basic understanding of the architecture of 
+Riak's implementation of strong consistency. We highly recommend reading
+our documentation on the [[implementation details|Strong 
+Consistency#Implementation-Details]].
 
 <table class="riak-conf">
 <thead>

@@ -18,8 +18,8 @@ All of the parameters listed below must be set in each node's
 `advanced.config` file, _not_ in `riak.conf`. More information on the
 syntax and usage of `advanced.config` can be found in our documentation
 on [[advanced configuration|Configuration Files#Advanced-Configuration]],
-as well as a full listing of [[strong consistency-related parameters|
-Configuration Files#Strong-Consistency]].
+as well as a full listing of [[strong consistency-related
+parameters|Configuration Files#Strong-Consistency]].
 
 ## Timeouts
 
@@ -27,7 +27,7 @@ A variety of timeout settings are available for managing the performance
 of strong consistency.
 
 Parameter | Description | Default
-:---------:-------------:--------
+:---------|:------------|:--------
 `peer_get_timeout` | The timeout used internally (in milliseconds) for reading consistent data. Longer timeouts will decrease the likelihood that some reads will fail, while shorter timeouts will entail shorter wait times for connecting clients but a greater risk	of failed operations. | 60000 (60 seconds)
 `peer_put_timeout` | The analogous timeout for writes. As with the `peer_get_timeout` setting, longer timeouts will decrease the likelihood that some reads will fail, while shorter timeouts entail shorter wait times for connecting clients but a greater risk of failed operations. | 60000 (60 seconds)
 
@@ -99,11 +99,11 @@ The following table provides a guide to `ensemble-status` output:
 
 Item | Meaning
 :----|:-------
-`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in `[[riak.conf|Configuration Files#Strong-Consistency]]` has been set to `on`. If this reads `false` and you wish to enable strong consistency, see our documentation on [[enabling strong consistency|Using Strong Consistency#Enabling-Strong-Consistency]].
+`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in `<a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a>` has been set to `on`. If this reads `false` and you wish to enable strong consistency, see our documentation on <a href="/dev/advanced/strong-consistency#Enabling-Strong-Consistency">enabling strong consistency</a>.
 `Active` | Whether the consensus subsystem is active, i.e. whether there are enough nodes in the cluster to use strong consistency, which requires at least three nodes.
-`Ring Ready` | If `true`, then all of the vnodes in the cluster have seen the current [[ring|Clusters#The-Ring]], which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed a node to/from the cluster, it may take some time for `Ring Ready` to change.
-`Validation` | This will display `strong` if the `tree_validation` setting in `[[riak.conf|Configuration Files#Strong-Consistency]]` has been set to `on` and `weak` if set to `off`.
-`Metadata` | This depends on the value of the `synchronous_tree_updates` setting in `[[riak.conf|Configuration Files#Strong-Consistency]]`, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
+`Ring Ready` | If `true`, then all of the vnodes in the cluster have seen the current <a href="/theory/concepts/clusters#The-Ring">ring</a>, which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed a node to/from the cluster, it may take some time for `Ring Ready` to change.
+`Validation` | This will display `strong` if the `tree_validation` setting in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code> has been set to `on` and `weak` if set to `off`.
+`Metadata` | This depends on the value of the `synchronous_tree_updates` setting in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code>, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
 `Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.<br /><br /><ul><li></li><li></li><li></li><li></li></ul>
 
 ### Inspecting Specific Ensembles
@@ -147,4 +147,71 @@ Item | Meaning
 `Id` | The ID for the ensemble used internally by Riak
 `Leader` | Identifies the ensemble's leader
 `Leader ready` | States whether the ensemble's leader is ready to respond to requests. If not, requests to the ensemble will fail.
-`Peers` | A list of peer [[vnodes|Riak Glossary#vnode]] associated with the ensemble.<br /><br /><ul><li>**Peer** --- The ID of the peer</li><li>**Status** --- Whether the peer is a leader or a follower</li><li>**Trusted** --- Whether the peer's Merkle tree is currently considered trusted or not</li><li>**Epoch** --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li></li></ul>
+`Peers` | A list of peer vnodes associated with the ensemble.<br /><ul><li>**Peer** --- The ID of the peer</li><li>**Status** --- Whether the peer is a leader or a follower</li><li>**Trusted** --- Whether the peer's Merkle tree is currently considered trusted or not</li><li>**Epoch** --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li></li></ul>
+
+## Monitoring Strong Consistency
+
+```
+consistent_gets
+consistent_gets_total
+consistent_get_objsize_mean
+consistent_get_objsize_median
+consistent_get_objsize_95
+consistent_get_objsize_99
+consistent_get_objsize_100
+consistent_get_time_mean
+consistent_get_time_median
+consistent_get_time_95
+consistent_get_time_99
+consistent_get_time_100
+
+consistent_puts
+consistent_puts_total
+consistent_put_objsize_mean
+consistent_put_objsize_median
+consistent_put_objsize_95
+consistent_put_objsize_99
+consistent_put_objsize_100
+consistent_put_time_mean
+consistent_put_time_median
+consistent_put_time_95
+consistent_put_time_99
+consistent_put_time_100
+```
+
+## Known Issues 
+
+There are a few known issues that you should be aware of when using the
+latest version of strong consistency.
+
+
+* Consistent deletes do not clear tombstones
+* Consistent reads of never-written keys create tombstones --- A
+  tombstone will be written if you perform a read against a key that a
+  majority of peers claims to not exist. This is necessary for certain
+  corner cases in which offline or unreachable replicas containing
+  partially written data need to be rolled back in the future.
+* **Consistent keys and key listing** --- In Riak, key listing
+  operations, such as listing all the keys in a bucket, do not filter
+  out tombstones. While this is rarely a problem for non-strongly-
+  consistent keys, it does present an issue for strong consistency due
+  to the tombstone issues mentioned above.
+* **Secondary indexes not supported** --- Strongly consistent
+  operations do not support [[secondary indexes|Using Strong
+  Consistency]] \(2i) at this time. Furthermore, any other metadata
+  attached to objects will be silently ignored by Riak.
+* **Multi-Datacenter Replication not supported** --- At this time,
+  consistent keys are *not* replicated across clusters using [[Multi-
+  Datacenter Replication]] \(MDC). This is because MDC replication
+  currently supports only eventually consistent replication across
+  clusters. Mixing strongly consistent data within a cluster with
+  eventually consistent data between clusters is difficult to reason
+  about from the perspective of applications. In a future version of
+  Riak, we will add support for strongly consistent replication across
+  multiple datacenters/clusters.
+* **Client library exceptions** --- Basho's official [[client
+  libraries]] convert errors return by Riak as generic exceptions with
+  a message derived from the returned server-side error message. More
+  information on this problem can be found in [[Using Strong
+  Consistency|Using Strong Consistency#Error-Messages]].
+

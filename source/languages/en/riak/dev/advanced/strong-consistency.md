@@ -12,7 +12,7 @@ In versions 2.0 and later, Riak allows you to create buckets that
 provide [[strong consistency]] guarantees for the data stored within
 them, enabling you to use Riak as a CP system (consistent plus partition
 tolerant) for at least some of your data. This option was added to
-complement Riak's standard [[eventually consistent|Eventual
+complement Riak's standard [[eventually consistent|Eventual 
 Consistency]], high availability mode.
 
 When data is stored in a bucket with strong consistency guarantees, a
@@ -140,6 +140,23 @@ riak.RiakError: 'failed'
 <div class="title">Getting started with Riak clients</div>
 If you are connecting to Riak using one of Basho's official
 [[client libraries]], you can find more information about getting
-started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+started with your client in our [[quickstart guide|Five-Minute
+Install#setting-up-your-riak-client]].
 </div>
+
+### Known Issue with Client Libraries
+
+All of Basho's currently existing [[client libraries]] for Riak convert
+errors returned by Riak into generic exceptions, with a message derived
+from the error message returned by Riak. In many cases this presents no
+problems, since error conditions are exceptions in normal Riak usage.
+
+When working with strong consistency, however, operations like
+[[conditional puts|Strong Consistency#Strong-Consistency-in-Riak]]
+commonly produce certain errors that are difficult for clients to
+interpret. For example, it is expected behavior for conditional puts to
+fail in the case of concurrent updates to an object. At present, the
+official Riak clients will 
+
+
 
