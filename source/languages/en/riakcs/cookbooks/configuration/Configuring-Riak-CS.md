@@ -13,14 +13,16 @@ A Riak CS node typically runs on the same server as its corresponding
 Riak node, which means that changes will only be necessary if Riak is
 configured using non-default settings.
 
-The settings reside in the Riak CS `app.config` file, which is located
-in the `/etc/riak-cs` directory. Configurable parameters related to
-Riak CS specifically can be found in the `riak_cs` section of that file.
+The settings reside in the Riak CS `app.config` file, which is typically
+located in the `/etc` directory. Configurable parameters related to Riak
+CS specifically can be found in the `riak_cs` section of that file.
 That section looks something like this:
 
 ```appconfig
 {riak_cs, [
-	%% Configs
+  {parameter1, value},
+  {parameter2, value},
+  %% and so on...
 ]},
 ```
 
@@ -42,8 +44,8 @@ unless Riak CS is running on a completely different network and address
 translation is required.
 </div>
 
-After making any changes to the `app.config` file in Riak CS, restart it
-if it is already running.
+After making any changes to the `app.config` file in Riak CS, restart
+the node if it is already running.
 
 ## Specifying the Stanchion Node
 
@@ -56,29 +58,30 @@ The Stanchion settings reside in the Riak CS `app.config` file, which is
 located in the `/etc` directory of each Riak CS node. The settings
 appear in the `riak_cs` config section of the file.
 
-* `stanchion_ip` --- Replace `127.0.0.1` with the IP address of the
-  Stanchion node
+To set the host and port for Stanchion, do the following:
 
-If you configured Stanchion to use a different port, you must change the
-following port setting:
+* For the `stanchion_ip` setting, replace `127.0.0.1` with the address
+  of the Stanchion node
+* For the `stanchion_port` setting, replace `8085` with the port for the
+  node
 
-* `stanchion_port` --- Replace `8085` with the port number set in the
-  `stanchion_port` variable
+### Enabling SSL
 
-The `stanchion_ssl` variable is set to `false` by default. If Stanchion
-is configured to use SSL, change this variable to `true`. The following
-example configuration would set the host to `localhost`, the port to
-`8085` (the default), and set up Stanchion to use SSL:
+SSL is turned off by default in Stanchion, i.e. the `stanchion_ssl`
+variable is set to `false`. If Stanchion is configured to use SSL,
+change this variable to `true`. The following example configuration
+would set the host to `localhost`, the port to `8085` (the default), and
+set up Stanchion to use SSL:
 
 ```appconfig
 {riak_cs, [
-	        %% Other configs
-            
-            {stanchion_ip, "127.0.0.1"},
-            {stanchion_host, 8085},
-            {stanchion_ssl, true},
+    %% Other configs
 
-            %% Other configs
+    {stanchion_ip, "127.0.0.1"},
+    {stanchion_host, 8085},
+    {stanchion_ssl, true},
+
+    %% Other configs
 ]}
 ```
 
@@ -112,8 +115,8 @@ Before creating an admin user, you must first set
 has been created.
 </div>
 
-To create an account for the admin user, use an HTTP `POST` with the
-username you want to use for the admin account. The following is an
+To create an account for the admin user, use an HTTP `POST` request with
+the username you want to use for the admin account. The following is an
 example:
 
 ```curl
@@ -155,12 +158,12 @@ the admin user credentials:
 
 ```appconfig
 {riak_cs, [
-			%% Other configs
+    %% Other configs
 
-            {admin_key, "324ABC0713CD0B420EFC086821BFAE7ED81442C"},
-			{admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
-
-			%% Other configs
+    {admin_key, "324ABC0713CD0B420EFC086821BFAE7ED81442C"},
+    {admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
+    
+    %% Other configs
 ]}
 ```
 
@@ -170,10 +173,10 @@ To enable SSL, first uncomment the following lines in your Riak CS
 `app.config` file:
 
 ```erlang
-%%{ssl, [
-%%    {certfile, "./etc/cert.pem"},
-%%    {keyfile, "./etc/key.pem"}
-%%   ]},
+%% {ssl, [
+%%        {certfile, "./etc/cert.pem"},
+%%        {keyfile, "./etc/key.pem"}
+%%       ]},
 ```
 
 Then replace the text in quotes with the path and filename for your SSL
@@ -181,14 +184,16 @@ encryption files.
 
 ## Proxy vs. Direct Configuration
 
-Riak CS can interact with S3 clients in one of two ways. A **proxy**
-configuration enables an S3 client to communicate with Riak CS as if it
-were Amazon S3 itself, i.e. using typical Amazon URLs. A **direct**
-configuration requires that an S3 client connecting to Riak CS be
-configured for an "S3-compatible service," i.e. with a Riak CS endpoint
-that is not masquerading as Amazon S3. Examples of such services include
-[Transmit](http://panic.com/transmit/), [s3cmd](http://s3tools.org/s3cmd),
-and [DragonDisk](http://www.dragondisk.com/).
+Riak CS can interact with S3 clients in one of two ways:
+
+* A **proxy** configuration enables an S3 client to communicate with
+  Riak CS as if it were Amazon S3 itself, i.e. using typical Amazon URLs.
+* A **direct** configuration requires that an S3 client connecting to
+  Riak CS be configured for an "S3-compatible service," i.e. with a Riak
+  CS endpoint that is not masquerading as Amazon S3. Examples of such
+  services include [Transmit](http://panic.com/transmit/),
+  [s3cmd](http://s3tools.org/s3cmd), and
+  [DragonDisk](http://www.dragondisk.com/).
 
 ### Proxy
 
