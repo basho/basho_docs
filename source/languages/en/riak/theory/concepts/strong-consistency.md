@@ -14,9 +14,15 @@ Consistency]] system, fundamentally geared toward providing partition
 While this focus on high availability is a great fit for many data
 storage needs, there are also many use cases for which strong data
 consistency is more important than availability. Basho introduced a new
-strong consistency option in version 2.0 to address these use cases,
-enabling developers to apply strong consistency on a per-key, i.e.
-per-object, basis.
+strong consistency option in version 2.0 to address these use cases.
+In Riak, strong consistency is applied [[using bucket types]], which
+enables developers to apply strong consistency guarantees on a per-key
+basis.
+
+Elsewhere in the documentation there are instructions for [[enabling
+and using|Using Strong Consistency]] strong consistency, as well as a
+[[guide for operators|Managing Strong Consistency]] looking to manage,
+configure, and monitor strong consistency.
 
 ## Strong vs. Eventual Consistency
 
@@ -90,33 +96,72 @@ and the second system undesirable. However:
    then the second system has a significant advantage.
 
 So when deciding whether to use strong consistency in Riak, the
-following question needs to be asked: _for the specific use case at
-hand, is it better for reads to fail than to return a potentially
-out-of-date value?_ If the answer is yes, then you should seriously
-consider using Riak in a strongly consistent way for the data that
-demands it, while bearing in mind that other data can still be stored in
-Riak in an eventually consistent way.
+following question needs to be asked:
+
+#### For the specific use case at hand, is it better for reads to fail than to return a potentially out-of-date value? 
+
+If the answer is yes, then you should seriously consider using Riak in a
+strongly consistent way for the data that demands it, while bearing in
+mind that other data can still be stored in Riak in an eventually
+consistent way.
+
+## Trade-offs
+
+Using Riak in a strongly consistent fashion comes with an unavoidable
+trade-off: strongly consistent operations are necessarily less highly
+available than eventually consistent operations because they require a
+quorum to succeed.
+
+If there is a network partition that leaves less than a quorum of object
+replicas available within an ensemble, strongly consistent operations
+against the keys managed by that ensemble will fail.
+
+Nonetheless, consistent operations do provide a great deal of fault
+tolerance. Those operations can still succeed even when a minority of
+replicas in each ensemble can be offline, faulty, or unreachable. In
+other words, **strongly consistent operations will succeed as long as
+quorum is maintained**.
+
+## Vector Clocks and Context
+
+The salient point for developers is that the
+metadata field historically used for causal consistency in Riak,
+[[vector clocks]], is repurposed as a context for strongly consistent
+writes. If a value exists in Riak, **it cannot be modified unless the
+most recent context value is supplied with a write operation**.
+
+Thus, likely outcomes from a write:
+
+* A quorum of servers that own the key are not available, thus the write fails.
+* The key does not exist: any write is successful.
+* The key does exist:
+    * All writes that supply no context fail.
+    * All writes that supply an out-of-date context fail.
+    * Any write with the most recent context succeeds, and any future
+    * writers must read the new context to be able to successfully write
+    * a newer value.
 
 ## Implementation Details
 
 Strong consistency in Riak is handled by a subsystem called
 [`riak_ensemble`](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
-Instructions on enabling it can be found in [[Using Strong Consistency|
-Using Strong Consistency#Enabling-Strong-Consistency]]. A guide for
-operators can be found in [[Managing Strong Consistency]].
+This system functions differently from other systems in Riak in a number
+of ways, and many of these differences are important for operators
+configuring and [[managing strong consistency]].
 
 ### Basic Operations
 
-In Riak, strong consistency is applied [[using bucket types]], which
-enables you to specify which objects in your cluster will have strong
-consistency guarantees applied to them. In strongly consistent buckets,
+The first major difference is that strongly consistent Riak involves a
+different set of operations from [[eventually
+consistent|Eventual Consistency]] Riak. In strongly consistent buckets,
 there are four types of atomic operations on objects:
 
 * **Get** operations work just as they do against
   non-strongly-consistent keys, but with two crucial differences:
   1. connecting clients are guaranteed to return the most recently
-     written value
-  2. reads on strongly consistent keys *never* return siblings
+     written value (the **C** in CAP)
+  2. reads on strongly consistent keys *never* return siblings, hence
+     there is no need for [[conflict resolution]]
 * **Conditional put** operations write an object only if no object
   currently exists in that key. The operation will fail if the key
   already exists; if the key was never written or has been deleted, the
@@ -152,43 +197,9 @@ The important thing to note is that [[replication properties]] such as
 `n_val`, `p`, `w`, and the like are meaningless for strongly consistent
 operations. If you set these properties
 
-## Trade-offs
+### Leaders, Followers, and Peers
 
-Using Riak in a strongly consistent fashion comes with an unavoidable
-trade-off: strongly consistent operations are necessarily less highly
-available than eventually consistent operations because they require a
-quorum to succeed.
-
-If there is a network partition that leaves less than a quorum of object
-replicas available within an ensemble, strongly consistent operations
-against the keys managed by that ensemble will fail.
-
-Nonetheless, consistent operations do provide a great deal of fault
-tolerance. Those operations can still succeed even when a minority of
-replicas in each ensemble can be offline, faulty, or unreachable. In
-other words, **strongly consistent operations will succeed as long as
-quorum is maintained**.
-
-
-## Vector Clocks and Context
-
-
-The salient point for developers is that the
-metadata field historically used for causal consistency in Riak,
-[[vector clocks]], is repurposed as a context for strongly consistent
-writes. If a value exists in Riak, **it cannot be modified unless the
-most recent context value is supplied with a write operation**.
-
-Thus, likely outcomes from a write:
-
-* A quorum of servers that own the key are not available, thus the write fails.
-* The key does not exist: any write is successful.
-* The key does exist:
-    * All writes that supply no context fail.
-    * All writes that supply an out-of-date context fail.
-    * Any write with the most recent context succeeds, and any future
-    * writers must read the new context to be able to successfully write
-    * a newer value.
+In any ensemble, there are a number of **peers**
 
 ## Important Caveats
 
