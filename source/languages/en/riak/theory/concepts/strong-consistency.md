@@ -136,7 +136,7 @@ Using Strong Consistency#Error-Messages]].
 
 ### Ensembles
 
-The core actors in Riak's implementation of strong consistency are
+The main actors in Riak's implementation of strong consistency are
 **ensembles**, which are independent groups that watch over a portion of
 a Riak cluster's key space. In this regard they are somewhat like
 [[vnodes|Riak Glossary#vnode]], although with important differences.
@@ -145,21 +145,23 @@ Ensembles operate in terms of **quorum** between object replicas,
 meaning that strongly consistent operations can succeed only if
 `n_val` / 2 + 1 primary replicas of an object are online and reachable.
 Thus, 4 replicas must be available in a 7-node cluster, 5 in a 9-node
-cluster, etc.
+cluster, etc. If a quorum of replicas cannot be reached, then strongly
+consistent operations will fail.
 
+The important thing to note is that [[replication properties]] such as
+`n_val`, `p`, `w`, and the like are meaningless for strongly consistent
+operations. If you set these properties
 
 ## Trade-offs
 
-Using Riak in a strongly consistent fashion comes with two unavoidable
-trade-offs:
+Using Riak in a strongly consistent fashion comes with an unavoidable
+trade-off: strongly consistent operations are necessarily less highly
+available than eventually consistent operations because they require a
+quorum to succeed.
 
-1. **Less availability** --- Strongly consistent operations are
-   necessarily less highly available than eventually consistent
-   operations because they require a quorum to succeed. If there is a
-   network partition that leaves less than a quorum of object replicas
-   available within an ensemble, strongly consistent operations against
-   the keys managed by that ensemble will fail.
-2. **Less fault tolerance** --- As stated directly above, any 
+If there is a network partition that leaves less than a quorum of object
+replicas available within an ensemble, strongly consistent operations
+against the keys managed by that ensemble will fail.
 
 Nonetheless, consistent operations do provide a great deal of fault
 tolerance. Those operations can still succeed even when a minority of
@@ -168,18 +170,12 @@ other words, **strongly consistent operations will succeed as long as
 quorum is maintained**.
 
 
-
-
-There are a few formal models for provable strong consistency in a
-distributed system. Riak uses multi-Paxos, adapted for the Riak's
-key/value architecture. What developers should bear in mind is that
-strong consistency 
-[[vector clocks]]
+## Vector Clocks and Context
 
 
 The salient point for developers is that the
 metadata field historically used for causal consistency in Riak,
-[[vector clocks]], is repurposed as a context for strongly-consistent
+[[vector clocks]], is repurposed as a context for strongly consistent
 writes. If a value exists in Riak, **it cannot be modified unless the
 most recent context value is supplied with a write operation**.
 

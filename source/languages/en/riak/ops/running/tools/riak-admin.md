@@ -591,5 +591,12 @@ consensus subsystem undergirding Riak's [[strong consistency]] feature.
 riak-admin ensemble-status
 ```
 
+This command can also be used to check on the status of a specific
+consensus group in your cluster:
+
+```bash
+riak-admin ensemble-status <group id>
+```
+
 Complete documentation of this command can be found in [[Managing Strong
 Consistency|Managing Strong Consistency#ensemble-status]].

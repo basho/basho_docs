@@ -156,7 +156,9 @@ When working with strong consistency, however, operations like
 commonly produce certain errors that are difficult for clients to
 interpret. For example, it is expected behavior for conditional puts to
 fail in the case of concurrent updates to an object. At present, the
-official Riak clients will 
+official Riak clients will convert this failure into an exception that
+is no different from other error conditions, i.e. they will not indicate
+strong-consistency-specific errors.
 
 
 
