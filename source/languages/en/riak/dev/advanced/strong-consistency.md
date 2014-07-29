@@ -146,19 +146,35 @@ Install#setting-up-your-riak-client]].
 
 ### Known Issue with Client Libraries
 
-All of Basho's currently existing [[client libraries]] for Riak convert
-errors returned by Riak into generic exceptions, with a message derived
-from the error message returned by Riak. In many cases this presents no
-problems, since error conditions are exceptions in normal Riak usage.
+All of Basho's official [[client libraries]] currently convert errors
+returned by Riak into generic exceptions, with a message derived from
+the error message returned by Riak. In many cases this presents no
+problems, since many error conditions are normal when using Riak.
 
 When working with strong consistency, however, operations like
-[[conditional puts|Strong Consistency#Strong-Consistency-in-Riak]]
-commonly produce certain errors that are difficult for clients to
-interpret. For example, it is expected behavior for conditional puts to
-fail in the case of concurrent updates to an object. At present, the
-official Riak clients will convert this failure into an exception that
-is no different from other error conditions, i.e. they will not indicate
+[[conditional puts|Strong Consistency#Implementation-Details]] commonly
+produce errors that are difficult for clients to interpret. For example,
+it is expected behavior for conditional puts to fail in the case of
+concurrent updates to an object. At present, the official Riak clients
+will convert this failure into an exception that is no different from
+other error conditions, i.e. they will not indicate any
 strong-consistency-specific errors.
+
+The best solution to this problem at the moment is to catch these
+exceptions on the application side and parse server-side error messages
+to see if the error involved a conditional failure. If so, you should
+set up your application to retry any updates, perhaps a specified number
+of times or perhaps indefinitely, depending on the use case.
+
+If you do set up a retry logic of this sort, however, it is necessary
+to retry the entire read/modify/put cycle, meaning that you will need
+to fetch the object, modify it, and then write. If you perform a simple
+put over and over again, without reading the object, the update will
+continue to fail.
+
+A future version of Riak will address these issues by modifying the
+server API to more accurately report errors specific to strongly
+consistent operations.
 
 
 
