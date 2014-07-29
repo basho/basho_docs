@@ -287,10 +287,10 @@ The above configuration sets up nodes with HTTP interfaces listening on ports `1
 
 Basho maintains official [[client libraries]] for Java, Ruby, Python, and Erlang. Below are links to client-specific documentation for each language:
 
-[Java](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
-[Ruby](https://github.com/basho/riak-ruby-client)
-[Python](http://basho.github.io/riak-python-client/)
-[Erlang](http://basho.github.io/riak-erlang-client/)
+* [Java](http://basho.github.io/riak-java-client/2.0.0-SNAPSHOT/)
+* [Ruby](https://github.com/basho/riak-ruby-client)
+* [Python](http://basho.github.io/riak-python-client/)
+* [Erlang](http://basho.github.io/riak-erlang-client/)
 
 In each of the above docs, you'll find detailed client installation and setup instructions. Here, we'll walk you through the basics of establishing a client connection to Riak in each of the four official clients. In each case, it will be assumed that the client has been successfully installed and that your application has been configured to use it.
 
