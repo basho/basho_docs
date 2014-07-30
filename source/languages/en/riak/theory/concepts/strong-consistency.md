@@ -193,13 +193,8 @@ Thus, 4 replicas must be available in a 7-node cluster, 5 in a 9-node
 cluster, etc. If a quorum of replicas cannot be reached, then strongly
 consistent operations will fail.
 
-The important thing to note is that [[replication properties]] such as
-`n_val`, `p`, `w`, and the like are meaningless for strongly consistent
-operations. If you set these properties
-
-### Leaders, Followers, and Peers
-
-In any ensemble, there are a number of **peers**
+Ensemble behavior can be [[configured|Managing Strong
+Consistency#Configuring-Strong-Consistency]] in a variety of ways.
 
 ## Important Caveats
 
