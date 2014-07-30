@@ -40,9 +40,8 @@ on which they are based, the convergence logic is _state based_ behind
 the scenes. In other words, Riak Data Types enable applications to use
 CRDTs through a simple interface, without being exposed to the complex
 state-based logic underneath. More on Data Types and state can be found
-in the section on [[implementation|Data
+in the section on [[implementation|Data 
 Types#Riak-Data-Types-Under-the-Hood]] below.
-r the Hood</a> section below.
 
 ## Advantages and Disadvantages of Data Types
 
