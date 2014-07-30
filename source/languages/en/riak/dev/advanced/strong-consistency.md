@@ -122,29 +122,24 @@ Whereas eventually consistent operations enable you to set values for a
 variety of [[replication properties]] either on each request or at the
 bucket level, [[using bucket types]]. Most of these settings, including
 `r`, `pr`, `w`, and `rw` are quietly ignored for strongly consistent
-operations.
+operations. The exceptions are `n_val` and `return_body`.
 
-The exceptions are `n_val`, `return_body`, and 
+## Object Context
 
-## Vector Clocks and Context
+Riak uses context objects called [[vector clocks]] to determine the
+causal history of objects. In Riak versions 2.0 and later, there is an
+option to use [[dotted version vectors]], which function much like
+vector clocks from the standpoint of clients. Here, we'll refer to both
+as an object's **context**.
 
-An important thing for developers to bear in mind when using strongly
-consistent operations is that the metadata field historically used for
-causal consistency in Riak, [[vector clocks]], is repurposed as an
-opaque context for strongly consistent writes. If a value exists in
-Riak, **it cannot be modified unless the most recent context value is
-supplied with a write operation**.
-
-Thus, likely outcomes from a write:
-
-* A quorum of servers that own the key are not available, thus the write fails.
-* The key does not exist: any write is successful.
-* The key does exist:
-    * All writes that supply no context fail.
-    * All writes that supply an out-of-date context fail.
-    * Any write with the most recent context succeeds, and any future
-    * writers must read the new context to be able to successfully write
-    * a newer value.
+While we strongly recommend attaching context to objects for all
+updates---whether traditional vector clocks or the newer dotted version
+vectors---they are purely [[optional|Conflict Resolution]] for all
+eventually consistent operations in Riak. This is not the case for
+strongly consistent operations. **When modifying strongly consistent
+objects in Riak, you _must_ attach a context object**. If you attempt to
+modify a strongly consistent object without attaching a context to the
+request, the request will always fail.
 
 ## Error Messages
 
@@ -152,10 +147,10 @@ For the most part, performing reads, writes, and deletes on data in
 strongly consistent buckets works much like it does in non-strongly
 consistent buckets. One important exception to this is how writes are
 performed. Strongly consistent buckets cannot allow siblings by
-definition, and so all writes to existing keys must include a [[vector
-clock|Vector Clocks]].
+definition, and so all writes to existing keys must include a context
+with the object (as explained in the section above).
 
-If you attempt a write to a non-empty key without including a vector
+If you attempt a write to a non-empty key without including a s
 clock, you will receive the following error:
 
 ```ruby
