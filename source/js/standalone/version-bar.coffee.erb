@@ -113,7 +113,13 @@ $ ->
 
           for vr_link in moved_ranges_obj
             if window.inVersionRange(vsp, vr_link[0])
-              vData.href = "/#{project}/#{vsi}#{vr_link[1]}"
+              linkProject = project
+              linkPath = vr_link[1]
+              if /\w+\:/.test(vr_link[1])
+                links = vr_link[1].split(/\:/, 2)
+                linkProject = links[0]
+                linkPath = links[1]
+              vData.href = "/#{linkProject}/#{vsi}#{linkPath}"
 
           lists.unshift(vData)
         else

@@ -183,7 +183,7 @@ The table below provides a high-level comparison of Riak and MongoDB features an
             
             <ul>
               <li>[[Replication]]</li>
-              <li>[[Clustering|Concepts#Clustering]]</li>
+              <li>[[Clustering|Clusters]]</li>
             </ul>
 
             The Riak APIs expose tunable consistency and availability parameters that let you select which level of configuration is best for your use case. Replication is configurable at the bucket level when first storing data in Riak. Subsequent reads and writes to that data can have request-level parameters.

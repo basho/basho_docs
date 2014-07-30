@@ -122,7 +122,7 @@ lwt _result = riak_put conn bucket (Some key) value put_options in
 
 ### Fetching Data from Riak
 
-Next, we can fetch data from Riak using a bucket and key. Since the the
+Next, we can fetch data from Riak using a bucket and key. Since the
 `riak_get` function might not find a value at the specified key, you'll have
 to pattern match against the `Maybe` value returned. If a value exists at the
 specified key, you'll have to pattern match against `Maybe` as well to

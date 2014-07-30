@@ -36,9 +36,7 @@ Next, you must create a named Solr index through Riak Search. This index represe
 
 *Note that index names may only be ascii values from 32-127 (spaces, standard puncutation, digits and word characters). This may change in the future to allow full unicode support.*
 
-<div class="info">All `curl` examples in this document require that you first
-set an environment variable named `RIAK_HOST`, which points to a Riak base
-URL, such as `RIAK_HOST="http://localhost:8098"`.</div>
+All `curl` examples in this document assume that you have set an environment variable named `RIAK_HOST`, which points to a Riak base URL, such as `http://localhost:8098`.
 
 ```curl
 export RIAK_HOST="http://localhost:8098"
@@ -237,7 +235,7 @@ If you've used Riak before, you may have noticed that this is no different
 than setting values without Riak Search. This is one of the design goals of
 Riak Search:
 
-> Write it like Riak. Query it like Solr.
+**Write it like Riak. Query it like Solr.**
 
 But how does Riak Search know how to index values, given that values are
 opaque in Riak? For that, we employ extractors.

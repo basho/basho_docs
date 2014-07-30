@@ -40,11 +40,13 @@ body class=classnames.join(' ') id=data.page.body_id
         == partial "layouts/versions"
       - unless !data.page.title || data.page.simple
         header
-          h1== data.page.title
+          - title = data.page.title
+          - if title =~ /Multi.Data.Center.Replication.?\:?(.*)/
+            - title = "<div class=small>Multi-Datacenter Replication:</div> #{$1}" 
+          h1== title
       - unless data.page.simple
-        - if data.page.project == 'riakee'
-          .info
-            .title== I18n.t(:"riak_ee.info.title")
+        - if data.page.header == 'riakee'
+          .enterprise
             == I18n.t(:"riak_ee.info.body")
 
         - unless data.page.toc == false

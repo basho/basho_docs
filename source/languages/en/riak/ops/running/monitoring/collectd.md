@@ -32,9 +32,9 @@ Setting | Value
 :-------|:-----
 Hostname | `ubuntu-12`
 Base directory for collectd | `/var/lib/collectd`
-collectd [pid file](http://collectd.org/documentation/manpages/collectd.1.shtml) | `/var/run/collectd.pid`
+collectd [`.pid` file](http://collectd.org/documentation/manpages/collectd.1.shtml) | `/var/run/collectd.pid`
 collectd [plugin](https://collectd.org/wiki/index.php/Table_of_Plugins) directory | `/usr/local/lib/collectd`
-collectd `[types.db](http://collectd.org/documentation/manpages/types.db.5.shtml)` file | `/usr/local/share/collectd/types.db`
+collectd [`types.db`](http://collectd.org/documentation/manpages/types.db.5.shtml) file | `/usr/local/share/collectd/types.db`
 Riak stats URL | `http://localhost:8098/stats`
 Riak node/instance name | `riak1@127.0.0.1`
 
@@ -44,13 +44,12 @@ Plugin | Description
 :------|:-----------
 [syslog](https://collectd.org/wiki/index.php/Plugin:SysLog) | Receives log messages from the collectd daemon and dispatches them to syslog. In this installation, messages at log levels `info` and `debug` will be emitted.
 [logfile](https://collectd.org/wiki/index.php/Plugin:LogFile) | Receives log messages from the daemon and writes them to a text file. Here, those messages are written to `/var/log/collectd.log` via stdout and include timestamps and `info`- and `debug`-level log messages. This is useful primarily when setting up collectd and testing it by running it in the foreground.
-[cURL_JSON](https://collectd.org/wiki/index.php/Plugin:cURL-JSON) | Queries an HTTP endpoint and parses it as JSON, specified by `URL`. This is particularly useful in Riak, as the `[[/stats|HTTP Status]]` endpoint of any Riak node returns a wide variety of Riak metrics as JSON. The cURL_JSON plugin here is set up here to display the values of a wide variety of keys in JSON returned from `/stats`, e.g. `memory_total`, `memory_proccesses`, etc. A complete list of these metrics can be found in the documentation on [[Inspecting a Node]].
+[cURL_JSON](https://collectd.org/wiki/index.php/Plugin:cURL-JSON) | Queries an HTTP endpoint and parses it as JSON, specified by `URL`. This is particularly useful in Riak, as the `/stats` endpoint of any Riak node returns a wide variety of Riak metrics as JSON. The cURL_JSON plugin here is set up here to display the values of a wide variety of keys in JSON returned from `/stats`, e.g. `memory_total`, `memory_proccesses`, etc. A complete list of these metrics can be found in the documentation on [[Inspecting a Node]].
 
   **Note**: While the other plugins are optional and included here for illustrative purposes, cURL_JSON plugin support is required to use collectd with Riak.
 
-
 <div class="note">
-<div class="note">Note</div>
+<div class="title">Note on template</div>
 The specifics of your operating system, Riak node(s), and collectd installation may differ markedly from those in this configuration file. It should be used only as a suggestive template. We recommend checking out the <a href="http://collectd.org/documentation.shtml">collectd documentation</a> for more information.
 </div>
 
