@@ -47,8 +47,8 @@ Types#Riak-Data-Types-Under-the-Hood]] below.
 
 [[Conflict resolution]] in Riak can be difficult because it involves
 reasoning about concurrency, [[eventual consistency]], [[siblings|Vector
-Clocks#Siblings]], and other issues that other databases don't require
-you to take into account.
+Clocks#Siblings]], and other issues that many other databases don't
+require you to take into account.
 
 One of the core purposes behind Data Types is to relieve developers
 using Riak of the burden of producing data convergence at the
@@ -198,19 +198,22 @@ conflicts by applying Data Type-specific rules. In general, Riak does
 this by remembering the **history** of a value and broadcasting that
 history along with the current value in the form of a [[context
 object|Using Data Types#Data-Types-and-Context]] that is similar to a
-[[vector clock]] or [[dotted version vector|Dotted Version Vectors]].
+[[vector clock|Vector Clocks]] or [[dotted version vector|Dotted Version
+Vectors]]. Riak uses the history of each Data Type to make deterministic
+judgments about which value should be deemed correct.
 
-Riak uses the history of each Data Types to make deterministic judgments
-about which value should be deemed correct. To give a basic example,
-imagine a set stored in the key `fruits`. On one [[node|Riak
+#### Example
+
+Imagine a set stored in the key `fruits`. On one [[node|Riak
 Glossary#Node]], the set `fruits` has two elements, `apple` and
 `orange`, while on another node the set has only one element, `apple`.
 What happens when the two nodes communicate and note the divergence?
 
 In this case Riak would declare the set with two elements the winner.
 At that point, the node with the incorrect set would be told: "The set
-`fruits` should have elements `apple` and `orange`." In general,
-convergence involves the following stages:
+`fruits` should have elements `apple` and `orange`."
+
+In general, convergence involves the following stages:
 
 1. Check for divergence. If the Data Types have the same value, Riak
    does nothing. But if divergence is noted...
