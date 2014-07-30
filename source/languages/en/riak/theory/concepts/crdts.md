@@ -194,9 +194,6 @@ subsystem called [`riak_dt`](https://github.com/basho/riak_dt).
 
 ### Data Type Convergence
 
-While the client interface for Riak Data Types is operations based,
-within Riak itself Data Types are 
-
 The beauty of Data Types is that Riak "knows" how to resolve value
 conflicts by applying Data Type-specific rules. In general, Riak does
 this by remembering the **history** of a value and broadcasting that
@@ -224,9 +221,6 @@ convergence involves the following stages:
    the relevant [[vnodes|Riak Glossary#vnode]] are notified and act to
    correct the divergence.
 
-The `riak_dt` subsystem behind Riak Data Types is constantly at work
-performing these operations
-
 ### Convergence Rules
 
 Thus far, we have not yet specified which rules actually govern
@@ -243,15 +237,10 @@ Counters | Each actor keeps an independent count for increments and decrements; 
 Sets | If an element is concurrently added and removed, the add will win
 Maps | If a field is concurrently added or updated and removed, the add/update will win
 
-In a production Riak cluster being hit by lots and lots of writes, value
-conflicts are inevitable, and Riak Data Types are not perfect,
-particularly in that they do _not_ guarantee [[strong consistency]]. But
-the rules that dictate their behavior were carefully chosen to minimize
-the downsides associated with value conflicts.
-
-<div class="note">
-<div class="title">Note</div>
-Conflicts between values very often exist for only a few milliseconds,
-and so eventual consistency should be thought of in terms of that
-timescale (as opposed to minutes or hours).
-</div>
+In a production Riak cluster being hit by lots and lots of concurrent
+writes, value conflicts are inevitable, and Riak Data Types are not
+perfect, particularly in that they do _not_ guarantee [[strong
+consistency]] and in that you cannot specify the rules yourself. But the
+rules that dictate the convergence logic behind the five Riak Data Types
+were carefully chosen to minimize the potential downsides associated
+with value conflicts.
