@@ -246,9 +246,19 @@ of strong consistency.
 
 All peers in Riak's strong consistency system maintain persistent
 [Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for all data
-stored by that peer.
+stored by that peer. These trees are especially useful when nodes enter
+and leave the cluster.
 
+The `tree_validation` parameter determines whether Riak considers Merkle
+trees to be trusted after a node restart. When enabled, i.e. when
+`tree_validation` is set to `true`, Riak does not trust .
 
+Tree updates can happen synchronously or asynchronously. This is
+determined by the `synchronous_tree_updates` parameter. When set to
+`false`, which is the default, Riak responds to the client after the
+first roundtrip, allowing the Merkle tree update to happen
+asynchronously in the background; when set to `true`, Riak requires two
+quorum roundtrips to occur before replying back to the client.
 
 ### Syncing
 
