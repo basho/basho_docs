@@ -114,6 +114,38 @@ you named your bucket type---will provide strong consistency guarantees.
 Elsewhere in the Riak docs, you can find more information on [[using
 bucket types]] and on the concept of [[strong consistency]].
 
+## Replication Properties
+
+Strongly consistent operations in Riak function much differently from
+their [[eventually consistent|Eventual Consistency]] counterparts.
+Whereas eventually consistent operations enable you to set values for a
+variety of [[replication properties]] either on each request or at the
+bucket level, [[using bucket types]]. Most of these settings, including
+`r`, `pr`, `w`, and `rw` are quietly ignored for strongly consistent
+operations.
+
+The exceptions are `n_val`, `return_body`, and 
+
+## Vector Clocks and Context
+
+An important thing for developers to bear in mind when using strongly
+consistent operations is that the metadata field historically used for
+causal consistency in Riak, [[vector clocks]], is repurposed as an
+opaque context for strongly consistent writes. If a value exists in
+Riak, **it cannot be modified unless the most recent context value is
+supplied with a write operation**.
+
+Thus, likely outcomes from a write:
+
+* A quorum of servers that own the key are not available, thus the write fails.
+* The key does not exist: any write is successful.
+* The key does exist:
+    * All writes that supply no context fail.
+    * All writes that supply an out-of-date context fail.
+    * Any write with the most recent context succeeds, and any future
+    * writers must read the new context to be able to successfully write
+    * a newer value.
+
 ## Error Messages
 
 For the most part, performing reads, writes, and deletes on data in
@@ -185,6 +217,3 @@ continue to fail.
 A future version of Riak will address these issues by modifying the
 server API to more accurately report errors specific to strongly
 consistent operations.
-
-
-

@@ -107,39 +107,39 @@ consistent way.
 
 ## Trade-offs
 
-Using Riak in a strongly consistent fashion comes with an unavoidable
-trade-off: strongly consistent operations are necessarily less highly
-available than eventually consistent operations because they require a
-quorum to succeed.
+Using Riak in a strongly consistent fashion comes with two unavoidable
+trade-offs:
+
+1. Less availability
+2. Slightly slower performance
+
+Strongly consistent operations are necessarily less highly available
+than eventually consistent operations because they require a **quorum**
+of available object replicas to succeed. Quorum is defined as N / 2 + 1,
+or `n_val` / 2 + 1. If N is set to 7, at least 4 object replicas must be
+available, 2 must be available if N=3, etc.
 
 If there is a network partition that leaves less than a quorum of object
 replicas available within an ensemble, strongly consistent operations
 against the keys managed by that ensemble will fail.
 
 Nonetheless, consistent operations do provide a great deal of fault
-tolerance. Those operations can still succeed even when a minority of
+tolerance. Consistent operations can still succeed when a minority of
 replicas in each ensemble can be offline, faulty, or unreachable. In
 other words, **strongly consistent operations will succeed as long as
-quorum is maintained**.
+quorum is maintained**. A fuller discussion can be found in the
+[[operations|Managing Strong Consistency#Fault-Tolerance]]
+documentation.
 
-## Vector Clocks and Context
+A second trade-off regards performance. Riak's implementation of strong
+consistency involves a complex [[consensus subsystem|Strong
+Consistency#Implementation-Details]] that typically requires more
+communication between Riak nodes than eventually consistency operations,
+which can entail a performance hit of varying proportions, depending on
+a variety of factors.
 
-The salient point for developers is that the
-metadata field historically used for causal consistency in Riak,
-[[vector clocks]], is repurposed as a context for strongly consistent
-writes. If a value exists in Riak, **it cannot be modified unless the
-most recent context value is supplied with a write operation**.
-
-Thus, likely outcomes from a write:
-
-* A quorum of servers that own the key are not available, thus the write fails.
-* The key does not exist: any write is successful.
-* The key does exist:
-    * All writes that supply no context fail.
-    * All writes that supply an out-of-date context fail.
-    * Any write with the most recent context succeeds, and any future
-    * writers must read the new context to be able to successfully write
-    * a newer value.
+Ways to address this issue can be found in [[strong consistency and
+performance|Managing Strong Consistency#Performance]].
 
 ## Implementation Details
 

@@ -1833,34 +1833,6 @@ cut down on system resource usage.</td>
 </tbody>
 </table>
 
-## Strong Consistency
-
-The `strong_consistency` parameter enables you to turn Riak's [[strong
-consistency]] subsystem on and off.
-
-<table class="riak-conf">
-<thead>
-<tr>
-<td><code>handoff.use_background_manager</code></td>
-<td>Whether Riak will use a background manager to limit K/V handoff.
-This can help to prevent system response degradation during times of
-heavy load caused by multiple background tasks that contend for the
-same system resources; setting this parameter to <code>off</code> can
-cut down on system resource usage.</td>
-<td>off</td>
-</tr>
-
-<tr>
-<td><code>strong_consistency</code></td>
-<td>Enables the consensus subsystem. Set to <code>on</code> to enable
-the consensus subsystem used for strongly consistent Riak operations.
-</td>
-<td><code>off</code></td>
-</tr>
-
-</tbody>
-</table>
-
 ## Riak Data Types
 
 <table class="riak-conf">
@@ -2094,10 +2066,11 @@ Further instructions on setting parameters in `advanced.config` can be
 found in the [[advanced configuration|Configuration 
 Files#Advanced-Configuration]] section below.
 
-These settings demand a basic understanding of the architecture of 
-Riak's implementation of strong consistency. We highly recommend reading
-our documentation on the [[implementation details|Strong 
-Consistency#Implementation-Details]].
+Using these settings properly demands a basic understanding of the
+architecture of Riak's implementation of strong consistency. We highly
+recommend reading our documentation on the [[implementation
+details|Strong Consistency#Implementation-Details]] behind strong
+consistency.
 
 <table class="riak-conf">
 <thead>

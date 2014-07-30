@@ -21,6 +21,11 @@ on [[advanced configuration|Configuration Files#Advanced-Configuration]],
 as well as a full listing of [[strong consistency-related
 parameters|Configuration Files#Strong-Consistency]].
 
+We also recommend reading about some of the [[implementation
+details|Strong Consistency#]] behind strong consistency before changing
+any of the currently available [[configurable parameters|Configuration
+Files#Strong-Consistency]].
+
 ## Timeouts
 
 A variety of timeout settings are available for managing the performance
@@ -31,44 +36,78 @@ Parameter | Description | Default
 `peer_get_timeout` | The timeout used internally (in milliseconds) for reading consistent data. Longer timeouts will decrease the likelihood that some reads will fail, while shorter timeouts will entail shorter wait times for connecting clients but a greater risk	of failed operations. | 60000 (60 seconds)
 `peer_put_timeout` | The analogous timeout for writes. As with the `peer_get_timeout` setting, longer timeouts will decrease the likelihood that some reads will fail, while shorter timeouts entail shorter wait times for connecting clients but a greater risk of failed operations. | 60000 (60 seconds)
 
-## Worker and Leader Behavior
+## Fault Tolerance
 
-Ensemble leaders rely upon one or more concurrent workers to service
-requests. You can choose how many workers are assigned to leaders using
-the `peer_workers` setting. The default is 1. Increasing the number of
-workers will make strong consistency system more computationally
-expensive but can improve performance in some cases, depending on the
-workload.
+Strongly consistent operations in Riak are necessarily less highly
+available than eventually consistent operations because strongly
+consistent operations can only succeed if a **quorum** of object
+replicas are currently reachable. A quorum can be expressed as
+N / 2 + 1 (or `n_val` / 2 + 1), meaning 4 replicas if N=7, 5 replicas
+if N=9, etc. If N=9 and 5 replicas are unavailable, no strongly
+consistent operations on that object can succeed.
 
-Parameter | Description | Default
-:---------|:------------|:-------
-`trust_lease` | | Determines whether leader leases are used to optimize reads. When set to `true`, a leader with a valid lease can handle reads directly without needing to contact any followers.
-`ensemble_tick` | Determines how frequently, in milliseconds, leaders perform their periodic duties, including refreshing the leader lease. This setting must be lower than both `lease_duration` and `follower_timeout`. | 500
-`lease_duration` | Determines how long a leader lease remains valid without being refreshed. This setting _should_ be higher than the `ensemble_tick` setting to ensure that leaders have time to refresh their leases before they time out, and it _must_ be lower than `follower_timeout`. | `ensemble_tick` * 2/3
+While Riak uses an N of 3 by default, bear in mind that **higher values
+of N will allow for more fault tolerance**. The table below shows the
+number of allowable missing replicas for assorted values of N:
 
-## Merkle Tree Settings
+Replicas | Allowable missing replicas
+:--------|:--------------------------
+3 | 1
+5 | 2
+7 | 3
+9 | 4
+15 | 7
 
-All peers in Riak's strong consistency system maintain persistent
-[Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for all data
-stored by that peer. These trees 
+Because of this, we recommend that you use at least N=5 for strongly
+consistent data. You can achieve this [[using bucket types]]. You can
+create and activate a bucket type with N set to 5 and strong consistency
+enabled (we'll call it `consistent_and_fault_tolerant`) using the
+following series of [[commands|riak-admin Command Line]]:
 
-## Syncing
+```bash
+riak-admin bucket-type create consistent_and_fault_tolerant \
+  '{"props": {"consistent":true,"n_val":5}}'
+riak-admin bucket-type activate consistent_and_fault_tolerant
+```
 
-The consensus subsystem delays syncing to disk when performing certain
-operations, which enables it to combine multiple operations into a
-single write to disk.
+More on creating and activating bucket types can be found in our
+[[bucket types|Using Bucket
+Types#Managing-Bucket-Types-Through-the-Command-Line]] documentation.
 
-## ensemble-status
+## Performance
 
-This command is used to provide insight into the current status of the
-consensus subsystem undergirding Riak's [[strong consistency]] feature.
+Strongly consistent operations in Riak are typically slower than their
+eventually consistent counterparts, to varying degrees, because
+consistent operations require more communication between Riak nodes.
+
+If you are running into performance issues, bear in mind that the key
+space in a Riak cluster is spread across multiple [[consensus
+groups|Strong Consistency#Implementation-Details]], each of which
+manages a portion of that key space. Increasing the [[ring
+size|Clusters#The-Ring]] means more independent consensus groups, which
+can provide for more concurrency and higher throughput, and thus better
+performance. Instructions on increasing the ring size in an
+already-running cluster can be found in [[Ring Resizing]].
+
+Adding nodes to your cluster is another means of enhancing the
+performance of strongly consistent operations. More information can be
+found in [[Adding and Removing Nodes]].
+
+## The ensemble-status Command-Line Interface
+
+the `[[riak-admin|riak-admin Command Line#ensemble-status]]` interface
+has an `ensemble-status` command that provides insight into the current
+status of the consensus subsystem undergirding strong consistency.
+
+Running the command by itself will provide general insight:
 
 ```bash
 riak-admin ensemble-status
 ```
 
-If this subsystem is not currently enabled, you will see `Note: The
-consensus subsystem is not enabled.` in the output of the command.
+If the strong consistency subsystem is not currently enabled, you will
+see `Note: The consensus subsystem is not enabled.` in the output of the
+command.
 
 If the consensus subsystem is enabled, you will see output like this:
 
@@ -149,6 +188,45 @@ Item | Meaning
 `Leader ready` | States whether the ensemble's leader is ready to respond to requests. If not, requests to the ensemble will fail.
 `Peers` | A list of peer vnodes associated with the ensemble.<br /><ul><li>**Peer** --- The ID of the peer</li><li>**Status** --- Whether the peer is a leader or a follower</li><li>**Trusted** --- Whether the peer's Merkle tree is currently considered trusted or not</li><li>**Epoch** --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li></li></ul>
 
+## Configuring Strong Consistency
+
+The sections below detail the broad variety of configurable parameters
+that you can use to fine-tune strong consistency in Riak. Please note
+that all strong consistency-related settings must be set in each node's
+`advanced.config` file, _not_ in `riak.conf`. More information can be
+found in the [[configuration files|Configuration
+Files#Strong-Consistency]] documentation.
+
+### Worker and Leader Behavior
+
+Any consensus group managing a portion of the [[key
+space|Clusters#The-Ring]] in your cluster relies upon concurrent workers
+to service requests. You can choose how many workers are assigned to
+these groups using the `peer_workers` setting. The default is 1.
+Increasing the number of workers will make strong consistency system
+more computationally expensive but can improve performance in some
+cases, depending on the workload.
+
+
+
+Parameter | Description | Default
+:---------|:------------|:-------
+`trust_lease` | | Determines whether leader leases are used to optimize reads. When set to `true`, a leader with a valid lease can handle reads directly without needing to contact any followers.
+`ensemble_tick` | Determines how frequently, in milliseconds, leaders perform their periodic duties, including refreshing the leader lease. This setting must be lower than both `lease_duration` and `follower_timeout`. | 500
+`lease_duration` | Determines how long a leader lease remains valid without being refreshed. This setting _should_ be higher than the `ensemble_tick` setting to ensure that leaders have time to refresh their leases before they time out, and it _must_ be lower than `follower_timeout`. | `ensemble_tick` * 2/3
+
+### Merkle Tree Settings
+
+All peers in Riak's strong consistency system maintain persistent
+[Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for all data
+stored by that peer. These trees enable 
+
+### Syncing
+
+The consensus subsystem delays syncing to disk when performing certain
+operations, which enables it to combine multiple operations into a
+single write to disk.
+
 ## Monitoring Strong Consistency
 
 ```
@@ -183,7 +261,6 @@ consistent_put_time_100
 
 There are a few known issues that you should be aware of when using the
 latest version of strong consistency.
-
 
 * Consistent deletes do not clear tombstones
 * Consistent reads of never-written keys create tombstones --- A
