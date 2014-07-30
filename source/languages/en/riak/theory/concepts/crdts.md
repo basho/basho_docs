@@ -16,52 +16,76 @@ more aware of the data stored in it through features like [[secondary
 indexes|using secondary indexes]] and [[Search|using search]].
 
 In version 2.0, Riak continued this evolution by introducing a series of
-eventually convergent **Data Types** inspired by academic research on
-convergent replicated data types (CRDTs), most notably the work of
-Shapiro, Preguiça, Baquero, and Zawirski
-([paper](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf)).
+eventually convergent **Data Types**. Riak Data Types are convergent
+replicated data types, also known as CRDTs, inspired above all by the
+work of Shapiro, Preguiça, Baquero, and Zawirski
+([paper](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf)). We
+would also recommend [this reading
+list](http://christophermeiklejohn.com/crdt/2014/07/22/readings-in-crdts.html).
 
-The central difference between Riak Data Types and other data stored in
-Riak is that Riak Data Types are **operations based**. Instead of the
-usual reads, writes, and deletes performed on key/value pairs, you
-instead perform operations like removing a register from a map, or
-telling a counter to increment itself by 5, or enabling a flag that was
-previously disabled (more on each of these types below).
+## CRDTs vs. Other Riak Data
+
+The central difference between Riak Data Types and typical key/value
+data stored in Riak is that Riak Data Types are **operations based**
+from the standpoint of Riak clients. Instead of the usual
+CRUD---**C**reate, **R**ead, **U**pdate, and **D**elete---operations
+performed on key/value pairs, Data Types enable you to perform
+operations, such as removing a register from a map, telling a counter to
+increment itself by 5, or enabling a flag that was previously disabled
+(more on each of these types below).
+
+It's important to note, however, that Riak Data Types are operations
+based _only from the standpoint of connecting clients_. Like the CRDTs
+on which they are based, the convergence logic is _state based_ behind
+the scenes. In other words, Riak Data Types enable applications to use
+CRDTs through a simple interface, without being exposed to the complex
+state-based logic underneath. More on Data Types and state can be found
+in the section on [[implementation|Data
+Types#Riak-Data-Types-Under-the-Hood]] below.
+r the Hood</a> section below.
+
+## Advantages and Disadvantages of Data Types
+
+[[Conflict resolution]] in Riak can be difficult because it involves
+reasoning about concurrency, [[eventual consistency]], [[siblings|Vector
+Clocks#Siblings]], and other issues that other databases don't require
+you to take into account.
 
 One of the core purposes behind Data Types is to relieve developers
 using Riak of the burden of producing data convergence at the
-application level by absorbing some of that complexity into Riak itself.
-Riak manages this complexity by building eventual consistency _into the
-Data Types themselves_.
+application level by absorbing a great deal of that complexity into Riak
+itself. Riak manages this complexity by building eventual consistency
+_into the Data Types themselves_ instead of requiring clients to do so.
 
-You can still build applications with Riak---and you will always be able
-to---that treat Riak as a highly available key/value store. That is not
-going away. What _is_ being provided is additional flexibility and more
-choices.
+You can still build applications with Riak that treat it as a highly
+available key/value store, and you will always have this choice. What
+Riak Data Types provide is additional flexibility and a broader choice
+palette.
 
-The trade-off that Data Types present is that using them takes away your
-ability to customize exactly how convergence takes place. If your use
-case demands that you create your own deterministic merge functions,
-then Riak Data Types might not be a good fit.
+The trade-off that Data Types necessarily present is that they don't
+allow you to produce your own convergence logic. If your use case
+demands that you be able to create your own deterministic merge
+functions, then Riak Data Types might not be a good fit.
 
-## Riak's Data Types
+## Riak's Five Data Types
 
-There is a vast and ever-growing number of CRDTs. Riak implements five
-of them in total: **flags**, **registers**, **counters**, **sets**, and
-**maps**. Each will be described in turn in the sections below.
+There is a vast and ever-growing number of CRDTs. Riak currently
+implements five of them: **flags**, **registers**, **counters**,
+**sets**, and **maps**. Each will be described in turn in the sections
+below.
 
 ### Flags
 
-Flags behave much like Boolean values, with two possible values:
-`enable` and `disable`. Flags cannot be used on their own, i.e. a flag
-cannot be stored in a bucket/key by itself. Instead, flags can only be
-stored within maps.
+Flags behave much like Boolean values, except that instead of `true` or
+`false` flags bear the value `enable` or `disable`. Flags cannot be used
+on their own, i.e. a flag cannot be stored in a bucket/key by itself.
+Instead, flags can only be stored within maps.
 
 #### Operations
 
-Flags support only one two operations: `enable` and `disable`. Flags can
-be added to or removed from a map, but those operations are on the map
-and not on the flag directly.
+Flags support only two operations: `enable` and `disable`. Flags can be
+added to or removed from a map, but those operations are performed on
+the map and not on the flag directly.
 
 #### Examples
 
@@ -76,9 +100,10 @@ be used on their own and must be embedded in Riak maps.
 
 #### Operations
 
-Registers can have the binaries stored in them changed. They can be
-added to and removed from maps, but those operations take place on the
-map in which the register is nested and not on the register itself.
+Registers are subject to only operation. They can only have the binaries
+stored within them changed. They can be added to and removed from maps,
+but those operations take place on the map in which the register is
+nested, and not on the register itself.
 
 #### Examples
 
@@ -89,9 +114,10 @@ map in which the register is nested and not on the register itself.
 
 Counters are the one Riak Data Type that existed prior to version 2.0
 (introduced in version 1.4.0). Their value can only be a positive or
-negative integer. They are useful when a fairly accurate estimate of a
-quantity is needed, and not reliable if you require unique, ordered IDs
-(such as UUIDs), because uniqueness cannot be guaranteed.
+negative integer or zero. They are useful when a fairly accurate
+estimate of a quantity is needed, and not reliable if you require
+unique, ordered IDs (such as UUIDs), because uniqueness cannot be
+guaranteed.
 
 #### Operations
 
@@ -102,12 +128,15 @@ whether they are used on their own or in a map.
 
 * The number of people following someone on Twitter
 * The number of "likes" on a Facebook post
-* The number of points scored by a player in an in-browser role-playing game
+* The number of points scored by a player in a role-playing game
 
 ### Sets
 
-Sets are collections of unique binary values, such as strings. Sets can
-be used either on their own or embedded in a map.
+Sets are collections of unique binary values, such as strings. All of
+the values in a set are unique. For example, if you attempt to add the
+element `shovel` to a set that already contains `shovel`, the operation
+will be ignored by Riak. Sets can be used either on their own or
+embedded in a map.
 
 #### Operations
 
@@ -131,19 +160,19 @@ those maps, and so on).
 You can perform two types of operations on maps:
 
 1. Operations performed directly on the map itself, which includes
-   adding and removing fields from the map (e.g. adding a flag or
-   removing a counter).
-2. Operations performed on the Data Types nested in the map (e.g.
-   incrementing a counter in the map or setting a flag to `enable`).
+   adding fields to and removing fields from the map (e.g. adding a flag
+   or removing a counter).
+2. Operations performed on the Data Types nested in the map, e.g.
+   incrementing a counter in the map or setting a flag to `enable`.
    Those operations behave just like the operations specific to that
    Data Type.
 
 #### Examples
 
-Maps are best suited to complex, multi-faceted Data Types. The following
+Maps are best suited to complex, multi-faceted data. The following
 JSON-inspired pseudocode shows how a tweet might be structured as a map:
 
-```json
+```
 Map tweet {
     Counter: numberOfRetweets,
     Register: username,
@@ -159,31 +188,54 @@ Conflicts between replicas are inevitable in a distributed system like
 Riak. If a map is stored in the key `my_map`, for example, it is always
 possible that the value of `my_map` will be different in nodes A and B.
 Without using Data Types, that conflict must be resolved using
-timestamps, vclocks, dotted version vectors, or some other means. With
-Data Types, conflicts are resolved by Riak itself using a subsystem
-called [`riak_dt`](https://github.com/basho/riak_dt).
+timestamps, [[vector clocks]], [[dotted version vectors]], or some other
+means. With Data Types, conflicts are resolved by Riak itself, using a
+subsystem called [`riak_dt`](https://github.com/basho/riak_dt).
+
+### Data Type Convergence
+
+While the client interface for Riak Data Types is operations based,
+within Riak itself Data Types are 
 
 The beauty of Data Types is that Riak "knows" how to resolve value
 conflicts by applying Data Type-specific rules. In general, Riak does
 this by remembering the **history** of a value and broadcasting that
-history along with the current value. Riak uses this history to make
-deterministic judgments about which value is more "true" than the
-others.
+history along with the current value in the form of a [[context
+object|Using Data Types#Data-Types-and-Context]] that is similar to a
+[[vector clock]] or [[dotted version vector|Dotted Version Vectors]].
 
-To give an example, think of a set stored in the key `my_set`. On one
-node, the set has two elements (A and B), and in another node the set
-has three elements (A, B, and C). In this case, Riak would choose the
-set with more elements, and then tell the former set: "This is the
-correct value. You need to have elements A, B, and C." Once this
-operation is complete, the set will have elements A, B, and C on both
-nodes.
+Riak uses the history of each Data Types to make deterministic judgments
+about which value should be deemed correct. To give a basic example,
+imagine a set stored in the key `fruits`. On one [[node|Riak
+Glossary#Node]], the set `fruits` has two elements, `apple` and
+`orange`, while on another node the set has only one element, `apple`.
+What happens when the two nodes communicate and note the divergence?
 
-And so conflicts between replicas of sets will always weighted, so to
-speak, in favor of sets with more elements. All Data Types have their
-own internal weights that dictate what happens in case of a conflict, as
-outlined in the table below:
+In this case Riak would declare the set with two elements the winner.
+At that point, the node with the incorrect set would be told: "The set
+`fruits` should have elements `apple` and `orange`." In general,
+convergence involves the following stages:
 
-Data Type | General rule
+1. Check for divergence. If the Data Types have the same value, Riak
+   does nothing. But if divergence is noted...
+2. Riak applies Data Type-specific merge rules, like in the `fruits`
+   set example above, which will result in a "correct" value.
+3. After the merge logic is applied and the correct value is determined,
+   the relevant [[vnodes|Riak Glossary#vnode]] are notified and act to
+   correct the divergence.
+
+The `riak_dt` subsystem behind Riak Data Types is constantly at work
+performing these operations
+
+### Convergence Rules
+
+Thus far, we have not yet specified which rules actually govern
+convergence, with the exception of the set example above. Convergence
+essentially means that Data Type conflicts are _weighted_ in a certain
+direction. All five of Riak's Data Types have their own internal
+weights that dictate what happens in case of conflict.
+
+Data Type | Convergence rule
 :--------|:------------
 Flags | `enable` wins over `disable`
 Registers | The most chronologically recent value wins, based on timestamps
