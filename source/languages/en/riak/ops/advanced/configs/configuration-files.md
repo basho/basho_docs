@@ -1878,7 +1878,7 @@ the consensus subsystem used for strongly consistent Riak operations.
 level. When set to an integer, the parameter refers to the
 aggressiveness of compression, on a scale from 0 to 9. <code>on</code>
 is equivalent to 6, whereas <code>off</code> is equivalent to 0. Higher
-values for compression tend to be more CPU intensive.<td>
+values for compression tend to be more CPU intensive.</td>
 <td><code>1</code></td>
 </tr>
 
