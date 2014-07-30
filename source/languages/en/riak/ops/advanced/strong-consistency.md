@@ -26,16 +26,6 @@ details|Strong Consistency#]] behind strong consistency before changing
 any of the currently available [[configurable parameters|Configuration
 Files#Strong-Consistency]].
 
-## Timeouts
-
-A variety of timeout settings are available for managing the performance
-of strong consistency.
-
-Parameter | Description | Default
-:---------|:------------|:--------
-`peer_get_timeout` | The timeout used internally (in milliseconds) for reading consistent data. Longer timeouts will decrease the likelihood that some reads will fail, while shorter timeouts will entail shorter wait times for connecting clients but a greater risk	of failed operations. | 60000 (60 seconds)
-`peer_put_timeout` | The analogous timeout for writes. As with the `peer_get_timeout` setting, longer timeouts will decrease the likelihood that some reads will fail, while shorter timeouts entail shorter wait times for connecting clients but a greater risk of failed operations. | 60000 (60 seconds)
-
 ## Fault Tolerance
 
 Strongly consistent operations in Riak are necessarily less highly
@@ -93,7 +83,7 @@ Adding nodes to your cluster is another means of enhancing the
 performance of strongly consistent operations. More information can be
 found in [[Adding and Removing Nodes]].
 
-## The ensemble-status Command-Line Interface
+## riak-admin ensemble-status
 
 the `[[riak-admin|riak-admin Command Line#ensemble-status]]` interface
 has an `ensemble-status` command that provides insight into the current
@@ -138,12 +128,12 @@ The following table provides a guide to `ensemble-status` output:
 
 Item | Meaning
 :----|:-------
-`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in `<a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a>` has been set to `on`. If this reads `false` and you wish to enable strong consistency, see our documentation on <a href="/dev/advanced/strong-consistency#Enabling-Strong-Consistency">enabling strong consistency</a>.
+`Enabled` | Whether the consensus subsystem is enabled on the current node, i.e. whether the `strong_consistency` parameter in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code> has been set to `on`. If this reads `off` and you wish to enable strong consistency, see our documentation on <a href="/dev/advanced/strong-consistency#Enabling-Strong-Consistency">enabling strong consistency</a>.
 `Active` | Whether the consensus subsystem is active, i.e. whether there are enough nodes in the cluster to use strong consistency, which requires at least three nodes.
 `Ring Ready` | If `true`, then all of the vnodes in the cluster have seen the current <a href="/theory/concepts/clusters#The-Ring">ring</a>, which means that the strong consistency subsystem can be used; if `false`, then the system is not yet ready. If you have recently added or removed a node to/from the cluster, it may take some time for `Ring Ready` to change.
 `Validation` | This will display `strong` if the `tree_validation` setting in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code> has been set to `on` and `weak` if set to `off`.
 `Metadata` | This depends on the value of the `synchronous_tree_updates` setting in <code><a href="/ops/advanced/configs/configuration-files#Strong-Consistency">riak.conf</a></code>, which determines whether strong consistency-related Merkle trees are updated synchronously or asynchronously. If `best-effort replication (asynchronous)`, then `synchronous_tree_updates` is set to `false`; if `guaranteed replication (synchronous)` then `synchronous_tree_updates` is set to `true`.
-`Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.<br /><br /><ul><li></li><li></li><li></li><li></li></ul>
+`Ensembles` | This displays a list of all of the currently existing ensembles active in the cluster.<br /><ul><li><code>Ensemble</code> --- The ID of the ensemble</li><li><code>Quorum</code> --- The number of ensemble peers that are either leading or following</li><li><code>Nodes</code> --- The number of nodes currently online</li><li><code>Leader</code> --- The current leader node for the ensemble</li></ul>
 
 ### Inspecting Specific Ensembles
 
@@ -163,7 +153,7 @@ The following would inspect ensemble `2`:
 riak-admin ensemble-status 2
 ```
 
-Below is sample output:
+Below is sample output for a single ensemble:
 
 ```
 ================================= Ensemble #2 =================================
@@ -183,43 +173,82 @@ The table below provides a guide to the output:
 
 Item | Meaning
 :----|:-------
-`Id` | The ID for the ensemble used internally by Riak
-`Leader` | Identifies the ensemble's leader
+`Id` | The ID for the ensemble used internally by Riak, expressed as a 3-tuple. All ensembles are `kv`; the second element names the ring partition for which the ensemble is responsible; and the third element is the `n_val` for the keys for which the ensemble is responsible.
+`Leader` | Identifies the ensemble's leader. In this case, the leader is on node `riak@riak2` and is identified as leader `2` on that node.
 `Leader ready` | States whether the ensemble's leader is ready to respond to requests. If not, requests to the ensemble will fail.
-`Peers` | A list of peer vnodes associated with the ensemble.<br /><ul><li>**Peer** --- The ID of the peer</li><li>**Status** --- Whether the peer is a leader or a follower</li><li>**Trusted** --- Whether the peer's Merkle tree is currently considered trusted or not</li><li>**Epoch** --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li></li></ul>
+`Peers` | A list of peer vnodes associated with the ensemble.<br /><ul><li><code>Peer</code> --- The ID of the peer</li><li><code>Status</code> --- Whether the peer is a leader or a follower</li><li><code>Trusted</code> --- Whether the peer's Merkle tree is currently considered trusted or not</li><li><code>Epoch</code> --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li><code>Node</code> --- The node on which the peer resides.</li></ul>
 
 ## Configuring Strong Consistency
 
 The sections below detail the broad variety of configurable parameters
 that you can use to fine-tune strong consistency in Riak. Please note
 that all strong consistency-related settings must be set in each node's
-`advanced.config` file, _not_ in `riak.conf`. More information can be
-found in the [[configuration files|Configuration
+`advanced.config` file, _not_ in `riak.conf` or `app.config`. More
+information can be found in the [[configuration files|Configuration
 Files#Strong-Consistency]] documentation.
 
-### Worker and Leader Behavior
+### Leaders, Followers, and Workers
 
-Any consensus group managing a portion of the [[key
-space|Clusters#The-Ring]] in your cluster relies upon concurrent workers
-to service requests. You can choose how many workers are assigned to
-these groups using the `peer_workers` setting. The default is 1.
-Increasing the number of workers will make strong consistency system
-more computationally expensive but can improve performance in some
-cases, depending on the workload.
+Any ensemble responsible for a portion of the cluster's key space at any
+point in time consists of **leaders** and **followers** that coordinate
+on most requests. If you wish, leaders can be granted **leases** that
+empower them to respond to read requests on their own, without
+contacting any followers.
 
+In addition to leaders and followers, any ensemble managing a portion of
+the [[key space|Clusters#The-Ring]] in your cluster relies upon
+concurrent **workers** to service requests.
 
+#### Leader Behavior
 
-Parameter | Description | Default
-:---------|:------------|:-------
-`trust_lease` | | Determines whether leader leases are used to optimize reads. When set to `true`, a leader with a valid lease can handle reads directly without needing to contact any followers.
-`ensemble_tick` | Determines how frequently, in milliseconds, leaders perform their periodic duties, including refreshing the leader lease. This setting must be lower than both `lease_duration` and `follower_timeout`. | 500
-`lease_duration` | Determines how long a leader lease remains valid without being refreshed. This setting _should_ be higher than the `ensemble_tick` setting to ensure that leaders have time to refresh their leases before they time out, and it _must_ be lower than `follower_timeout`. | `ensemble_tick` * 2/3
+The `trust_lease` setting determines whether leader leases are used to
+optimize reads. When set to `true`, a leader with a valid lease can
+handle reads directly without needing to contact any followers. When
+`false`, the leader will always contact followers. The default is
+`true`.
+
+All leaders have periodic duties that they perform, including refreshing
+the leader lease. You can determine how frequently this occurs, in
+milliseconds, using the `ensemble_tick` setting. The default is 500
+milliseconds. This setting must be lower than both `lease_duration` and
+`follower_timeout` (both explained below).
+
+If you set `trust_lease` to `true`, you can also specify how long a
+leader lease remains valid without being refreshed, using the
+`lease_duration` setting, which is specified in milliseconds. This
+setting should be higher than `ensemble_tick` to ensure that leaders
+have to time to refresh their leases before they time out, and it _must_
+be lower than `follower_timeout`. The default is `ensemble_tick` * 2/3,
+i.e. if `ensemble_tick` is 600, `lease_duration` will default to 400.
+
+#### Worker Settings
+
+You can choose how many workers are assigned to ensembles using the
+`peer_workers` setting. The default is 1. Increasing the number of
+workers will make the strong consistency system more computationally
+expensive but it can improve performance in some cases, depending on the
+workload. The default is `1`.
+
+### Timeouts
+
+You can establish timeouts for both gets and puts, using the
+`peer_get_timeout` and `peer_put_timeout` settings, respectively. Both
+are expressed in milliseconds and default to 60000 (i.e. 1 minute).
+
+Longer timeouts will decrease the likelihood that get or put operations
+will fail; shorter timeouts entail shorter wait times for connecting
+clients, but at a greater risk of failed operations.
+
+A variety of timeout settings are available for managing the performance
+of strong consistency.
 
 ### Merkle Tree Settings
 
 All peers in Riak's strong consistency system maintain persistent
 [Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for all data
-stored by that peer. These trees enable 
+stored by that peer.
+
+
 
 ### Syncing
 

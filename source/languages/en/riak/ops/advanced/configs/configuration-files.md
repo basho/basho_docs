@@ -2506,6 +2506,24 @@ rapidly.
 <td><code>keep</code></td>
 </tr>
 
+<tr>
+<td><code>target_n_val</code></td>
+<td><code>riak_core</code></td>
+<td>The highest <code>n_val</code> that you generally intend to use.
+This setting affects how partitions are distributed within the cluster,
+helping to ensure that "hot spots" don't occur, i.e. that data is never
+stored more than once on the same physical node. You will need to change
+this setting only in rare circumstances. Assuming that
+<code>ring_size</code> is a power of 2, the ideal value for this setting
+is both (a) greater than or equal to the largest <code>n_val</code> for
+any bucket type and (b) an even divisor of the number of partitions in
+the ring, i.e. <code>ring_size</code>. The default is <code>4</code>,
+and the number of physical nodes in your cluster must be greater than
+<code>target_n_val</code> for this setting to be effective at preventing
+hot spots.</td>
+<td><code>4</code></td>
+</tr>
+
 </tbody>
 </table>
 
