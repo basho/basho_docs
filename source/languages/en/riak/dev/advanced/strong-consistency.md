@@ -43,22 +43,6 @@ this setting will _not_ apply to all of the data in your Riak cluster.
 Instead, strong consistency is applied only at the bucket level, [[using
 bucket types]] \(as shown directly below).
 
-### Strong Consistency and Active Anti-Entropy
-
-Riak's [[active anti-entropy]] \(AAE) feature _can_ repair strongly
-consistent data. Although it is not necessary to use active anti-entropy
-if you are using strong consistency, we nonetheless recommend doing so.
-
-Without AAE, all object conflicts are repaired via [[read
-repair|Active Anti-Entropy#Read-Repair-vs.-Active-Anti-Entropy]].
-Read repair, however, cannot repair conflicts in so-called "cold data,"
-i.e. data that may not be read for long periods of time. While using AAE
-does entail small performance losses, not using AAE can lead to problems
-with silent on-disk corruption. 
-
-To avoid these problems, you should [[enable active anti-entropy|Managing
-Active Anti-Entropy##Enabling-Active-Anti-Entropy]].
-
 ## Creating Consistent Bucket Types
 
 [[Strong consistency]] requirements in Riak are applied on a
