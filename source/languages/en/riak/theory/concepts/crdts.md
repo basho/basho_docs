@@ -40,7 +40,7 @@ on which they are based, the convergence logic is _state based_ behind
 the scenes. In other words, Riak Data Types enable applications to use
 CRDTs through a simple interface, without being exposed to the complex
 state-based logic underneath. More on Data Types and state can be found
-in the section on [[implementation|Data 
+in the section on [[implementation|Data
 Types#Riak-Data-Types-Under-the-Hood]] below.
 
 ## Advantages and Disadvantages of Data Types
@@ -235,7 +235,7 @@ Data Type | Convergence rule
 :--------|:------------
 Flags | `enable` wins over `disable`
 Registers | The most chronologically recent value wins, based on timestamps
-Counters | Each actor keeps an independent count for increments and decrements; upon merge, the pairwise maximum of any two actors will win (e.g. if one actor holds 172 and the other holds 173, 173 will win upon merge)
+Counters | Each actor keeps an independent count for increments and decrements; upon merge, the pairwise maximum of the count held by the actors will win (e.g. if one actor holds a count of 172 and the other holds 173, 173 will win upon merge)
 Sets | If an element is concurrently added and removed, the add will win
 Maps | If a field is concurrently added or updated and removed, the add/update will win
 
