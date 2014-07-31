@@ -187,12 +187,13 @@ Riak CS are available [[here|Garbage-Collection]].
   is relatively short compared to the `leeway_seconds` value. This can
   result in the manifest objects reaching a size that can negatively
   impact system performance. The default value is `unlimited`.
-* `gc_paginated_indexes` ---  This option indicates whether or not the
-  garbage collection daemon should use paginated secondary index
-  queries when searching the garbage collection bucket for eligible
-  records to reap. Setting this option to `true` is generally more
-  efficient and is recommended for cases where the underlying Riak
-  nodes are of version 1.4.0 or above. The default value is `false`.
+* `gc_paginated_indexes` ---  This option indicates whether the garbage
+  collection daemon should use paginated secondary index queries when
+  searching the garbage collection bucket for eligible records to reap.
+  Setting this option to `true` is generally more efficient and is
+  recommended for cases where the underlying Riak nodes are of version
+  1.4.0 or above. The default value is {{#1.5.0-}}`false`{{/1.5.0-}}
+  {{#1.5.0+}}`true`{{/1.5.0+}}.
 * `gc_batch_size` --- This option is only used when
   `gc_paginated_indexes` is set to `true`. It represents the size used
   for paging the results of the secondary index query. The default
