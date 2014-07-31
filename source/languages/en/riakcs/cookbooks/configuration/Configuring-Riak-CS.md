@@ -199,6 +199,12 @@ Riak CS are available [[here|Garbage-Collection]].
   for paging the results of the secondary index query. The default
   value is 1000.
 {{/1.4.3+}}
+{{#1.5.0+}}
+* `gc_max_workers` --- The maximum number of worker processes that may
+  be started by the garbage collection daemon to use for concurrent
+  reaping of garbage-collection-eligible objects. The default value is
+  5.
+{{/1.5.0+}}
 
 ## Other Riak CS Settings
 
