@@ -219,19 +219,8 @@ Options:
 
 #### gc
 
-```bash
-riak-cs-admin gc [subcommand]
-```
-
-Subcommands:
-
-* `batch [<leeway_seconds>]`
-* `status`
-* `pause`
-* `resume`
-* `cancel`
-* `set-interval <interval_seconds>`
-* `set-leeway <leeway_seconds>`
+This command is the direct equivalent of the `[[riak-cs-gc|Riak CS
+Command Line Tools#riak-cs-gc]]` command described below.
 
 #### access
 
@@ -276,8 +265,71 @@ riak-cs-admin cluster-info <output_file>
 
 ## riak-cs-gc
 
+This command controls Riak CS's [[garbage collection]] system.
+
+```bash
+riak-cs-gc <subcommand>
+```
+
+#### batch
+
+Starts garbage collection for a batch of eligible objects.
+
+```bash
+riak-cs-gc batch
+```
+
+Optionally, you can specify the number of leeway seconds:
+
+```bash
+riak-cs-gc batch <leeway_seconds>
+```
+
+#### status
+
+Returns the status of the garbage collection daemon, depending on its
+current state.
+
+```bash
+riak-cs-gc status
+```
+
+#### pause
+
+Pauses the current batched garbage collection process and halts any
+further garbage collection until the daemon is resumed.
+
+```bash
+riak-cs-gc pause
+```
+
+#### resume
+
+Resumes a paused garbage collection process. This will have no effect if
+there is no previously paused process.
+
+```bash
+riak-cs-gc resume
+```
+
+#### cancel
+
+Cancels the current batch of garbage collection. This will have no
+effect if there is no currently running garbage collection process.
+
+```bash
+riak-cs-gc cancel
+```
+
+#### set-interval
+
+
+* `set-interval <interval_seconds>`
+* `set-leeway <leeway_seconds>`
+
 This command is the direct equivalent to `riak-cs-admin gc`. For
-documentation, see [[the section above|Riak CS Command Line Tools#riak-cs-admin]].
+documentation, see [[the section above|Riak CS Command Line
+Tools#riak-cs-admin]].
 
 ## riak-cs-stanchion
 
