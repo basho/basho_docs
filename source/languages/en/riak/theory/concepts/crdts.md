@@ -235,7 +235,7 @@ Data Type | Convergence rule
 :--------|:------------
 Flags | `enable` wins over `disable`
 Registers | The most chronologically recent value wins, based on timestamps
-Counters | Each actor keeps an independent count for increments and decrements; upon merge, the pairwise maximum of the count held by the actors will win (e.g. if one actor holds a count of 172 and the other holds 173, 173 will win upon merge)
+Counters | Each actor keeps an independent count for increments and decrements; upon merge, the pairwise maximum of the counts for each actor will win (e.g. if one count for an actor holds 172 and the other holds 173, 173 will win upon merge)
 Sets | If an element is concurrently added and removed, the add will win
 Maps | If a field is concurrently added or updated and removed, the add/update will win
 
