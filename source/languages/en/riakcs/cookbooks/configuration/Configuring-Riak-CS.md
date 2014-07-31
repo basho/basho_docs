@@ -69,50 +69,57 @@ After modifying the port numbers, restart Riak if is already running.
 Riak CS uses two distinct connection pools for communication with
 Riak: a **primary** and a **secondary** pool.
 
-The primary connection pool is used to service the majority of API requests
-related to the upload or retrieval of objects. It is identified in the
-configuration file as `request_pool`. The default size of this pool is 128.
+The primary connection pool is used to service the majority of API
+requests related to the upload or retrieval of objects. It is identified
+in the configuration file as `request_pool`. The default size of this
+pool is 128.
 
-The secondary connection pool is used strictly for requests to list
-the contents of buckets. The separate connnection pool is maintained
-in order to improve performance. This secondary connection pool is
-identified in the configuration file as `bucket_list_pool`. The
-default size of this pool is 5.
+The secondary connection pool is used strictly for requests to list the
+contents of buckets. The separate connnection pool is maintained in
+order to improve performance. This secondary connection pool is
+identified in the configuration file as `bucket_list_pool`. The default
+size of this pool is 5.
 
 The following shows the `connection_pools` default configuration entry
 that can be found in the `app.config` file:
 
 ```appconfig
-{connection_pools,
- [
-  {request_pool, {128, 0} },
-  {bucket_list_pool, {5, 0} }
- ]},
+{riak_cs, [
+    %% Other configs
+
+    {connection_pools,
+    [
+     {request_pool, {128, 0} },
+     {bucket_list_pool, {5, 0} }
+    ]},
+
+    %% Other configs
+]}
 ```
 
-The value for each pool is represented as a pair with the first
-element representing the normal size of the pool. This is
-representative of the number of concurrent requests of a particular
-type that a Riak CS node may service. The second element represents
-the number of allowed overflow pool requests that are allowed. It is
-not recommended that you use any value other than 0 for the overflow
-amount unless careful analysis and testing has shown it to be
-beneficial for a particular use case.
+The value for each pool is represented as a pair with the first element
+representing the normal size of the pool. This is representative of the
+number of concurrent requests of a particular type that a Riak CS node
+may service. The second element represents the number of allowed
+overflow pool requests that are allowed. It is not recommended that you
+use any value other than 0 for the overflow amount unless careful
+analysis and testing has shown it to be beneficial for a particular use
+case.
 
 ### Tuning
 
-We strongly recommend you
-[[increase the value of the `pb_backlog` setting|Configuring Riak for CS#Setting-Up-Riak-to-Use-Protocol-Buffers]]
-in Riak. When a Riak CS node is started each connection pool begins to
-establish connections to Riak.  This can result in a
-[[thundering herd problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]]
-where connections in the pool believe they are connected to Riak, but
-in reality some of the connections have been reset. Due to TCP `RST`
-packet rate limiting (controlled by `net.inet.icmp.icmplim`) some of
-the connections may not receive notification until they are used to
-service a user's request.  This manifests as an `{error,
-disconnected}` message in the Riak CS logs and an error to returned to
-the user.
+We strongly recommend you that you [[increase the value of the
+`pb_backlog` setting|Configuring Riak for
+CS#Setting-Up-Riak-to-Use-Protocol-Buffers]] in Riak. When a Riak CS
+node is started, each connection pool begins to establish connections to
+Riak.  This can result in a [[thundering herd
+problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]] in which
+connections in the pool believe they are connected to Riak, but in
+reality some of the connections have been reset. Due to TCP `RST` packet
+rate limiting (controlled by `net.inet.icmp.icmplim`) some of the
+connections may not receive notification until they are used to service
+a user's request.  This manifests as an `{error, disconnected}` message
+in the Riak CS logs and an error to returned to the user.
 
 ## Specifying the Stanchion Node
 
