@@ -69,7 +69,7 @@ One-Minute Stats represent the number of times a particular activity has occurre
 Stat                                  | Description
 --------------------------------------|---------------------------------------------------
 `node_gets`                           | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
-`node_puts`                           | Number of PUTs coordinated by this node, including PUTs to non-local vnodes in the last minute
+`node_puts`                           | Number of PUTs coordinated by this node, where a PUT is sent to a local vnode in the last minute
 `vnode_gets`                          | Number of GET operations coordinated by local vnodes on this node in the last minute
 `vnode_puts`                          | Number of PUT operations coordinated by local vnodes on this node in the last minute
 `vnode_index_refreshes`               | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
