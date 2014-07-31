@@ -1015,7 +1015,7 @@ write.</td>
 <td><code>buckets.default.n_val</code></td>
 <td>The number of replicas stored.
 <br /><br />
-<strong>Note</strong>: See 
+<strong>Note</strong>: See
 <a href="/dev/advanced/replication-properties">Replication Properties</a>
 for further discussion.</td>
 <td><code>3</code></td>
@@ -1164,7 +1164,7 @@ table below.
 <td>For ease of firewall configuration, the Erlang distribution can be
 bound to a limited range of TCP ports. If this parameter is set, and
 <code>erlang.distribution.port_range.maximum</code> is not set, only
-this port will be used. If the minimum is unset, no restriction will be 
+this port will be used. If the minimum is unset, no restriction will be
 made on the port range. Instead, Erlang will listen on a random
 high-numbered port. More information
 <a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and
@@ -1294,7 +1294,7 @@ directly above.</td>
 
 <tr>
 <td><code>erlang.W</code></td>
-<td>Sets the mapping of warning messages for <code>error_logger</code>. 
+<td>Sets the mapping of warning messages for <code>error_logger</code>.
 Messages sent to the error logger using one of the warning routines can
 be mapped either to <code>errors</code>, warnings (<code>w</code>,
 which is the default), or info reports (<code>i</code>).</td>
@@ -2309,7 +2309,7 @@ node's filesystem, e.g. <code>[ "/tmp", "/other" ]</code>.</td>
 <td><code>riak_core</code></td>
 <td>The cluster manager listens for connections from remote clusters on
 the specified IP and port. Every node runs one cluster manager, but
-only the cluster manager running on the cluster leader will servic
+only the cluster manager running on the cluster leader will service
 requests. This can change as nodes enter and leave the cluster.</td>
 <td><code>{"127.0.0.1", 9080}</code></td>
 </tr>
