@@ -82,6 +82,8 @@ in the `active` or `writing` state are eligible to be cleaned up. In
 this case, there is no concern about reaping the object version that is
 currently being written to become the next `active` version.
 
+{{#1.5.0-}}
+
 Once the states of the eligible manifests have been updated to
 `pending_delete`, the manifest information for any `pending_delete`
 manifest versions are collected into a CRDT set and the set is written
@@ -93,6 +95,31 @@ successful then the state for each manifest in the set is updated to
 been scheduled for deletion by the garbage collection daemon and
 avoids other manifest resolution processes for the object from
 scheduling unnecessary deletions.
+{{/1.5.0-}}
+{{#1.5.0+}}
+
+Once the states of the eligible manifests have been updated to
+`pending_delete` the manifest information for any `pending_delete`
+manifest versions are collected into a CRDT set and the set is written
+as a value to the `riak-cs-gc` bucket keyed by a time value
+representing the current epoch time. If that write is
+successful then the state for each manifest in the set is updated to
+`scheduled_delete`. This indicates that the blocks of the object have
+been scheduled for deletion by the garbage collection daemon and
+avoids other manifest resolution processes for the object from
+scheduling unnecessary deletions.
+
+The use of the current epoch time as the basis for the keys in the
+`riak-cs-gc` bucket is a change from previous versions of Riak
+CS. Previously the current epoch time the value of `leeway_seconds`
+was used. This change means that the `leeway_seconds` interval is
+enforced by the garbage collection daemon process and not during the
+synchronous portion of the garbage collection process. The benefit of
+this is that the `leeway_seconds` interval may be changed for objects
+that have already been deleted or overwritten and allows system
+operators to potentially reap objects sooner than originally specified
+`leeway_seconds` interval if it is necessary.
+{{/1.5.0+}}
 
 Once the manifest enters the `scheduled_delete` state it remains as a
 tombstone for a minimum of `leeway_seconds`.
@@ -102,6 +129,8 @@ garbage collection process is concluded and a response is returned to
 the user who issued the request.
 
 ## Garbage Collection Daemon
+
+{{#1.5.0-}}
 
 The asynchronous portion of the garbage collection process is
 orchestrated by the garbage collection daemon that wakes up at
@@ -149,6 +178,68 @@ Collection#Object-Block-Reaping]] section below.
 Once all of the object blocks represented by a key in the `riak-cs-gc`
 bucket have been deleted, the key is deleted from the `riak-cs-gc`
 bucket.
+{{/1.5.0-}}
+{{#1.5.0+}}
+
+The asynchronous portion of the garbage collection process is
+orchestrated by the garbage collection daemon that wakes up at specific
+intervals and checks the `riak-cs-gc` bucket for any scheduled entries
+that are eligible for reaping.
+
+The daemon gathers the eligible keys for deletion by performing a
+secondary index range query on the `$key` index with a lower bound of
+time *0* and an upper bound of the current time. This allows the
+daemon to collect all the keys that are eligible for deletion and have
+some way of accounting for clock skew.
+
+The daemon may also be configured to use more efficient paginated
+index queries to gather the deletion-eligible keys by setting the
+`gc_paginated_indexes` configuration option to `true`. In this case the gc
+daemon requests up to `gc_batch_size` keys from the GC bucket and
+deletes the manifests associated with those keys before requesting the
+next set of keys.
+
+The initial query performed by the garbage collection daemon may
+return a subset of the eligible records if `gc_paginated_indexes` is
+`true` or all eligible records otherwise.
+
+The daemon starts up a worker process to carry out the actual reaping
+of the records and passes it the batch of keys from the query of the
+`riak-cs-gc` bucket. The value for each key received by the worker
+process is a set containing one or more object manifests that must be
+reaped.  The worker process removes the objects represented by each
+object manifest in the set and then notifies the garbage collection
+daemon that it has completed the task and is available for more work.
+
+Meanwhile, the daemon repeats the process of querying the `riak-cs-gc`
+bucket for more eligible records to delete and feeding the resulting
+keys to worker processes until either the maximum number of worker
+processes is reached (`gc_max_workers`) or there are no remaining
+records eligible for removal.
+
+Deletion eligibility is determined using the key values in the
+`riak-cs-gc` bucket. The keys in the `riak-cs-gc` bucket are
+representations of epoch time values with random suffixes
+appended. The purpose of the random suffix is to avoid hot keys when
+the system is dealing with high volumes of deletes or overwrites. If
+the current time according to the daemon minus the leeway interval is
+later than the time represented by a key then the blocks for any
+object manifests stored at that key are eligible for deletion and the
+daemon passes them off to a worker process that attempts to delete
+them.
+
+There are two levels of concurrency within the garbage collection
+process. The first is the use of worker processes by the garbage
+collection daemon to allow different groups of eligible records from
+the garbage collection bucket to be processed independently.  The
+second is that multiple workers processes can be employed in the
+deletion of data blocks associated with a single object. The latter is
+discussed more in the *Object Block Reaping* section below.
+
+Once all of the objects represented by manifests stored for a
+particular key in the `riak-cs-gc` bucket have been deleted, the key
+is deleted from the `riak-cs-gc` bucket.
+{{/1.5.0+}}
 
 ## Controlling the GC Daemon
 
@@ -159,17 +250,31 @@ The available commands that can be used with the `riak-cs-gc` script are
 listed below. Running the script with no command provided displays a
 list of the available commands.
 
-* `batch` - Manually start garbage collection for a batch of
-    eligible objects
-* `status` - Get the current status of the garbage collection
-    daemon. The output is dependent on the current state of the
-    daemon.
-* `pause` - Pause the current batch of object garbage collection and
-    halt any furhter garbage collection until the daemon is resumed.
-* `cancel` - Cancel the current batch of object garbage collection. It
-    has no effect if there is no active batch.
-* `resume` - Resume a paused garbage collection batch. It has no
-    effect if there is no previously paused batch.
+{{#1.5.0-}}
+* `batch` --- Manually start garbage collection for a batch of
+  eligible objects
+{{/1.5.0-}}
+{{#1.5.0+}}
+* `batch` --- Manually start garbage collection for a batch of
+  eligible objects. This command takes an optional argument to
+  indicate a leeway time other than the currently configured
+  `leeway_seconds` time for the batch.
+{{/1.5.0+}}
+* `status` --- Get the current status of the garbage collection
+  daemon. The output is dependent on the current state of the
+  daemon.
+* `pause` --- Pause the current batch of object garbage collection. It
+  has no effect if there is no active batch.
+* `resume` --- Resume a paused garbage collection batch. It has no
+  effect if there is no previously paused batch.
+* `set-interval` --- Set or update the garbage collection
+  interval. This setting uses a unit of seconds.
+{{#1.5.0+}}
+* `set-leeway` --- Set or update the garbage collection leeway
+  time. This setting indicates how many seconds must elapse after an
+  object is deleted or overwritten before the garbage collection
+  system may reap the object. This setting uses a unit of seconds.
+{{/1.5.0+}}
 
 For more information, see our documentation on [[Riak CS command line
 tools]].
