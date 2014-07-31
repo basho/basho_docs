@@ -256,4 +256,6 @@ version 1.4.0.
   but the option to disable it is provided as a safety measure. The
   default value for this option is `true`.
 
-The `app.config` file includes other settings, such as whether to create log files and where to store them. These settings have default values that work in most cases.
+The `app.config` file includes other settings, such as whether to create
+log files and where to store them. These settings have default values
+that work in most cases.
