@@ -200,7 +200,7 @@ Options:
 More information about Erlang's etop tool can be found in the
 [official documentation](http://www.erlang.org/doc/man/etop.html).
 
-## riak-cs-access
+## riak-cs-admin access
 
 #### flush
 
@@ -215,60 +215,12 @@ Options:
 
 * `w` --- Specifies the number of retries. Defaults to 10.
 
-## riak-cs-admin
-
-#### gc
-
-This command is the direct equivalent of the `[[riak-cs-gc|Riak CS
-Command Line Tools#riak-cs-gc]]` command described below.
-
-#### access
-
-```bash
-riak-cs-admin access [subcommand]
-```
-
-Subcommands:
-
-* `flush`
-
-#### storage
-
-```bash
-riak-cs-admin storage [subcommand]
-```
-
-Subcommands:
-
-* `batch`
-* `status`
-* `pause`
-* `resume`
-* `cancel`
-
-#### stanchion
-
-```bash
-riak-cs-admin stanchion [subcommand]
-```
-
-Subcommands:
-
-* `switch HOST PORT`
-* `show`
-
-#### cluster-info
-
-```bash
-riak-cs-admin cluster-info <output_file>
-```
-
-## riak-cs-gc
+## riak-cs-admin gc
 
 This command controls Riak CS's [[garbage collection]] system.
 
 ```bash
-riak-cs-gc <subcommand>
+riak-cs-admin gc <subcommand>
 ```
 
 #### batch
@@ -276,13 +228,13 @@ riak-cs-gc <subcommand>
 Starts garbage collection for a batch of eligible objects.
 
 ```bash
-riak-cs-gc batch
+riak-cs-admin gc batch
 ```
 
 Optionally, you can specify the number of leeway seconds:
 
 ```bash
-riak-cs-gc batch <leeway_seconds>
+riak-cs-admin gc batch <leeway_seconds>
 ```
 
 #### status
@@ -291,7 +243,7 @@ Returns the status of the garbage collection daemon, depending on its
 current state.
 
 ```bash
-riak-cs-gc status
+riak-cs-admin gc status
 ```
 
 #### pause
@@ -300,7 +252,7 @@ Pauses the current batched garbage collection process and halts any
 further garbage collection until the daemon is resumed.
 
 ```bash
-riak-cs-gc pause
+riak-cs-admin gc pause
 ```
 
 #### resume
@@ -309,7 +261,7 @@ Resumes a paused garbage collection process. This will have no effect if
 there is no previously paused process.
 
 ```bash
-riak-cs-gc resume
+riak-cs-admin gc resume
 ```
 
 #### cancel
@@ -318,18 +270,28 @@ Cancels the current batch of garbage collection. This will have no
 effect if there is no currently running garbage collection process.
 
 ```bash
-riak-cs-gc cancel
+riak-cs-admin gc cancel
 ```
 
 #### set-interval
 
+Sets or updates the garbage collection interval. Expressed in terms of
+seconds:
 
-* `set-interval <interval_seconds>`
-* `set-leeway <leeway_seconds>`
+```bash
+riak-cs-admin gc set-interval <interval_in_seconds>
+```
 
-This command is the direct equivalent to `riak-cs-admin gc`. For
-documentation, see [[the section above|Riak CS Command Line
-Tools#riak-cs-admin]].
+#### set-leeway
+
+Sets or updates the garbage collection leeway time, which indicates how
+many seconds must elapse after an object is deleted or overwritten
+before the garbage collection system may reap the object. Expressed in
+seconds.
+
+```bash
+riak-cs-admin gc set-leeway <interval_in_seconds>
+```
 
 ## riak-cs-stanchion
 
@@ -376,7 +338,7 @@ The output should look something like this:
 Current Stanchion Address: http://127.0.0.1:8085
 ```
 
-## riak-cs-storage
+## riak-cs-admin storage
 
 This command is the direct equivalent of `riak-cs-admin storage`
 documented [[above|Riak CS Command Line Tools#riak-cs-admin]].
