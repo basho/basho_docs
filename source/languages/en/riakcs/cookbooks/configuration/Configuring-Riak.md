@@ -120,12 +120,17 @@ The `pb` values in the Riak `app.config` file must match the values for `riak_ip
 
 <div class="note"><div class="title">Note</div>A different port number might be required if the port number conflicts with ports used by another application or you use a load balancer or proxy server.</div>
 
-It is also recommended that you increase the size of Riak's `pb_backlog` to be greater than the size of `request_pool` specified in the Riak CS `app.config` file. At minimum, `pb_backlog` should be set to `64`. The default value is `5`.
+It is also recommended that you increase the size of Riak's `pb_backlog`
+to be greater than or equal to the size of `request_pool` + the size of
+the `bucket_list_pool` specified in the Riak CS `app.config` file.
+Assuming the default sizes for each of the connection pools,
+`pb_backlog` should be set to at least `133`, but using a value of `256`
+is recommended to provide more leeway. The default value is `5`.
 
-* `pb_backlog` --- Replace the default Riak configuration, which has `pb_backlog` commented out with `%%`
+* `pb_backlog` --- Replace the default Riak configuration, which has `pb_backlog` commented out with `%%`:
 
     ```erlang
-    %% {pb_backlog, 64}, 
+    %% {pb_backlog, 64},
     ```
 
     with the following:
@@ -133,7 +138,7 @@ It is also recommended that you increase the size of Riak's `pb_backlog` to be g
     ```erlang
     {pb_backlog, 256},
     ```
- 
+
 If the `request_pool` value in Riak CS is changed, the `pb_backlog` value in Riak should be updated as well.
 
 ### Enabling SSL in Riak
