@@ -9,21 +9,27 @@ audience: advanced
 keywords: [garbage, gc, deletion, cleanup]
 ---
 
-In Riak CS, any named object bears multiple internal **versions**
-(*i.e* versions that are not exposed to the end user) that are stored
-in the system at any given time. Each version of the object is
-accessible via an object manifest that includes a
+This document describes some of the implementation details behind Riak
+CS's garbage collection process. For information on configuring this
+system, please see our documentation on [[configuring Riak CS]].
+
+## Versions and Manifests
+
+In Riak CS, any named object bears multiple **versions** that are stored
+in the system at any given time. These versions are not exposed to end
+users and are used only for internal purposes. Each version of the
+object is accessible via an object **manifest** that includes a
 [UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier) for
 that version.
 
 At the system level, Riak CS attempts to have only one _active_ manifest
 for a named object at any given time, although multiple active manifests
-can coexist in some cases. It is important to note, however, that **only
-one active object manifest is available to users accessing Riak CS at
-any given time**.
+can coexist in some cases. In spite of this, **only one active object
+manifest is available to users accessing Riak CS at any given time**,
+which means that Riak CS users are never exposed to multiple manifests.
 
-Garbage collection of object versions involves a variety of actions that
-can be divided into two essential phases:
+Garbage collection (GC) of object versions involves a variety of actions
+that can be divided into two essential phases:
 
 1. Synchronous actions that occur in the foreground while the user is waiting for notification of successful command completion
 2. Asynchronous actions that occur in the background and are not directly tied to user actions
@@ -77,11 +83,11 @@ this case, there is no concern about reaping the object version that is
 currently being written to become the next `active` version.
 
 Once the states of the eligible manifests have been updated to
-`pending_delete` the manifest information for any `pending_delete`
+`pending_delete`, the manifest information for any `pending_delete`
 manifest versions are collected into a CRDT set and the set is written
 as a value to the `riak-cs-gc` bucket keyed by a time value
-representing the current epoch time plus the leeway interval (*i.e.*
-the `leeway_seconds` configuration option). If that write is
+representing the current epoch time plus the leeway interval, i.e.
+the `leeway_seconds` configuration option. If that write is
 successful then the state for each manifest in the set is updated to
 `scheduled_delete`. This indicates that the blocks of the object have
 been scheduled for deletion by the garbage collection daemon and
@@ -92,8 +98,8 @@ Once the manifest enters the `scheduled_delete` state it remains as a
 tombstone for a minimum of `leeway_seconds`.
 
 After these actions have been attempted, the synchronous portion of the
-garbage collection process is concluded and a response is returned to the
-user who issued the request.
+garbage collection process is concluded and a response is returned to
+the user who issued the request.
 
 ## Garbage Collection Daemon
 
@@ -102,11 +108,11 @@ orchestrated by the garbage collection daemon that wakes up at
 specific intervals and checks the `riak-cs-gc` bucket for any
 scheduled entries that are eligible for reaping. The daemon enters a
 *working* state and begins to delete the object blocks associated with
-the eligible keys and continues until all keys have been
-processed. The duration of this *working* state varies depending on
-the number of keys involved and the size of the objects they
-represent. The daemon checks for messages after processing each object
-so that the work interval may be manually interrupted if needed.
+the eligible keys and continues until all keys have been processed.
+The duration of this working state varies depending on the the number of
+keys involved and the size of the objects they represent. The daemon
+checks for messages after processing each object so that the work
+interval may be manually interrupted if needed.
 
 Deletion eligibility is determined using the key values in the
 `riak-cs-gc` bucket. The keys in the `riak-cs-gc` bucket are
@@ -115,12 +121,12 @@ appended. The purpose of the random suffix is to avoid hot keys when
 the system is dealing with high volumes of deletes or overwrites. If
 the current time according to the daemon is later than the time
 represented by a key plus the leeway interval then the blocks for any
-object manifests stored at that key are eligible for deletion and the
+object manifests stored in that key are eligible for deletion and the
 daemon attempts to delete them.
 
 The daemon gathers the eligible keys for deletion by performing a
 secondary index range query on the `$key` index with a lower bound of
-time *0* and an upper bound of the current time. This allows the
+time 0 and an upper bound of the current time. This allows the
 daemon to collect all the keys that are eligible for deletion and have
 some way of accounting for clock skew.
 
@@ -133,22 +139,25 @@ next set of keys. The value for `gc_batch_size` may be configured and
 the default value is 1000.
 
 The daemon also has two options to add concurrency to the GC
-process. Concurrency can be added in order to use multiple GC worker
+process: concurrency can be added in order to use multiple GC worker
 processes to operate on different groups of keys from the GC bucket or
 it may be added to have multiple workers process the deletion of data
 blocks associated with a particular manifest. The latter is discussed
-more in the *Object Block Reaping* section below.
+more in the [[Object Block Reaping|Garbage
+Collection#Object-Block-Reaping]] section below.
 
-Once the object blocks represented by a key in the `riak-cs-gc` bucket
-have all been deleted, the key is deleted from the `riak-cs-gc` bucket.
+Once all of the object blocks represented by a key in the `riak-cs-gc`
+bucket have been deleted, the key is deleted from the `riak-cs-gc`
+bucket.
 
 ## Controlling the GC Daemon
 
 The garbage collection daemon may be queried and manipulated using the
-`riak-cs-gc` script. The script is installed to the `sbin` directory
-along with the primary `riak-cs` script. The available commands that can
-be used with the `riak-cs-gc` script are listed below. Running the script
-with no command provided displays a list of the available commands.
+`riak-cs-gc` script. The script is installed to the `bin` or `sbin`
+directory (depending on OS) along with the primary `riak-cs` script.
+The available commands that can be used with the `riak-cs-gc` script are
+listed below. Running the script with no command provided displays a
+list of the available commands.
 
 * `batch` - Manually start garbage collection for a batch of
     eligible objects
@@ -161,6 +170,9 @@ with no command provided displays a list of the available commands.
     has no effect if there is no active batch.
 * `resume` - Resume a paused garbage collection batch. It has no
     effect if there is no previously paused batch.
+
+For more information, see our documentation on [[Riak CS command line
+tools]].
 
 ## Manifest Updates
 
