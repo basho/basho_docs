@@ -2320,18 +2320,18 @@ requests. This can change as nodes enter and leave the cluster.</td>
 <td>The <code>advanced.config</code> configuration file enables you to
 specify how Riak behaves after objects are marked for deletion with a
 tombstone. There are three possible options for the
-<code>delete_mode</code> setting: <code>keep</code> (the default)
-disables tombstone removal altogether; <code>immediate</code> removes
-objects' tombstones as soon as the delete request is received; and
-setting <code>delete_mode</code> to an integer value specifies the
-number of milliseconds that Riak will wait prior to removing
-tombstones.
+<code>delete_mode</code> setting: <code>keep</code> disables tombstone
+removal altogether; <code>immediate</code> removes objects' tombstones
+as soon as the delete request is received; and setting
+<code>delete_mode</code> to an integer value specifies the number of
+milliseconds that Riak will wait prior to removing tombstones. The
+default is for Riak to wait 3000 milliseconds (3 seconds) to remove
+tombstones. 
 <br /><br />
-We recommend leaving <code>delete_mode</code> set to <code>keep</code>
-if you plan on deleting and recreating objects under the same key
-rapidly.
+More detailed information on this setting can be found in
+<a href="/ops/advanced/deletion">Object Deletion</a>.
 </td>
-<td><code>keep</code></td>
+<td><code>3000</code> (ms)</td>
 </tr>
 
 </tbody>
