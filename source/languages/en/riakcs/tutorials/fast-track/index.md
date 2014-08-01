@@ -35,7 +35,7 @@ Riak CS, but can still be useful for more experienced users as well.
 
 ## What does the Fast Track Cover?
 
-The Fast Track takes you through the following sections:  
+The Fast Track takes you through the following sections:
 
 * [[What is Riak CS?|What is Riak CS]] --- A high-level overview of Riak
   CS and its architecture
