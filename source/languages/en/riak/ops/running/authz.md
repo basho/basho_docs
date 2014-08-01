@@ -89,10 +89,11 @@ per-node configuration files.
 
 ### Enabling Security
 
-<div class="note"> <div class="title">Danger</div>
-<b>Enabling security will change the way your client libraries and your
-applications interact with Riak.</b> Once security is enabled, all
-client connections must be encrypted and all permissions will be
+<div class="note">
+<div class="title">Danger</div>
+<strong>Enabling security will change the way your client libraries and
+your applications interact with Riak.</strong> Once security is enabled,
+all client connections must be encrypted and all permissions will be
 denied by default. Do not enable this in production until you have
 worked through the security checklist above and tested everything in a
 non-production environment.
@@ -104,8 +105,8 @@ Riak security is disabled by default. To enable it:
 riak-admin security enable
 ```
 
-**As per the warning above, do not enable security in production
- without taking the appropriate precautions.**
+**As per the warning above, do not enable security in production without
+taking the appropriate precautions.**
 
 All users, groups, authentication sources, and permissions can be
 configured while security is disabled, allowing you to create a
@@ -252,7 +253,6 @@ Because the same name can represent both a user and a group, a prefix
 user/admin`). If a name collides and no prefix is supplied, grants for
 both will be listed separately.
 
-
 ### Add Group
 
 For easier management of permissions across several users, it is
@@ -314,10 +314,10 @@ Now, the `print-users` command should return this:
 +----------+--------+----------+--------------------------------------------------+
 ```
 
-**Note**: Usernames _cannot_ be changed using the `alter-user`
-  command. If you attempt to do so by running `alter-user riakuser
-  username=other-name`, for example, this will add the
-  `{"username","other-name"}` tuple to `riakuser`'s options.
+**Note**: Usernames _cannot_ be changed using the `alter-user` command.
+If you attempt to do so by running `alter-user riakuser
+username=other-name`, for example, this will add the
+`{"username","other-name"}` tuple to `riakuser`'s options.
 
 ### Managing Groups for a User
 
@@ -497,9 +497,10 @@ as creating and deleting indexes and adding and modifying search schemas |
 <div class="title">Note on Search Permissions</div>
 Search must be enabled in order to successfully grant/revoke search
 permissions. If you attempt to grant/revoke permissions while search is
-disabled, you will get the following error: <tt>{error,{unknown_permission,"search.query"}}</tt>.
-More information on Riak Search and how to enable it can be found in the
-[[Riak Search|Riak Search Settings]] document.
+disabled, you will get the following error:
+<code>{error,{unknown_permission,"search.query"}}</code>. More
+information on Riak Search and how to enable it can be found in the
+[[Riak Search Settings]] document.
 </div>
 
 #### Usage Examples
@@ -562,7 +563,7 @@ or all users (`all`).
 Source   | Description |
 :--------|:------------|
 `trust` | Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range |
-`password` | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2) hashed password stored in Riak |
+`password` | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2)-hashed password stored in Riak |
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service |
 `certificate` | Authenticate using a client certificate |
 
