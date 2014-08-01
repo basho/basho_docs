@@ -96,15 +96,15 @@ and would like to add it, there is a series of basic steps to follow.
 
 ### Stanchion
 
-Because some of the special functionality required for Riak CS multibag
-is contained in Stanchion, the first step is to upgrade Stanchion to a
-version that supports Riak CS multibag. That involves performing the
-following steps on each node:
+Stanchion houses some of the basic functionality required for Riak CS
+multibag support. The first step in transitioning to multibag support
+is to upgrade Stanchion to a version that supports Riak CS multibag.
+That involves performing the following steps on each node:
 
 1. Stop the node
 2. Upgrade Stanchion to a version that supports Riak CS multibag, i.e.
    Riak CS 1.5.0 and later
-3. Set your desired Stanchion [[configuration|Configuring Stanchion]].
+3. Set your desired Stanchion [[configuration|Configuring Stanchion]]
 4. Start Stanchion on each node
 
 ### Add Clusters
