@@ -125,6 +125,43 @@ objects in Riak, you _must_ attach a context object**. If you attempt to
 modify a strongly consistent object without attaching a context to the
 request, the request will always fail.
 
+## Strongly Consistent Writes
+
+The best practice for writing to strongly consistent keys is essentially
+the same as for writing to non-strongly-consistent objects. You should
+bear the following in mind:
+
+1. If you _know_ that a key does not yet exist, you can write to that
+   key without supplying a [[vector clock|Vector Clocks]].
+2. If, however, an object already exists under a key, strong consistency
+   demands that you supply a vector clock. If you do not supply a vector
+   clock, the update will necessarily fail.
+3. Because strongly consistent writes must occasionally
+   [[sacrifice availability|Strong
+   Consistency#Strong-vs.-Eventual-Consistency]] for the sake of
+   consistency, strongly consistent updates can fail even under normal
+   conditions, particularly in the event of concurrent updates.
+
+### Recommendations
+
+If you are updating a key that already exists or might already exist,
+any update to that key should use a read-modify-write strategy. This
+strategy ensures that vector clocks are fetched prior to any
+modification to the object and hence that the vector clock is passed
+back to Riak when the write operation takes place. Below is a series of
+examples.
+
+```python
+obj = client.bucket_type('consistent').bucket('champions').get('nba')
+obj.data = 'San Antonio Spurs'
+obj.store()
+```
+
+Because strongly consistent writes are more likely to fail than
+eventually consistent writes, we recommend using some kind of retry
+logic for strongly consistent updates whereby your application attempts
+a write multiple times in case the initial write fails.
+
 ## Error Messages
 
 For the most part, performing reads, writes, and deletes on data in
@@ -134,7 +171,7 @@ performed. Strongly consistent buckets cannot allow siblings by
 definition, and so all writes to existing keys must include a context
 with the object (as explained in the section above).
 
-If you attempt a write to a non-empty key without including a s
+If you attempt a write to a non-empty key without including a vector
 clock, you will receive the following error:
 
 ```ruby
