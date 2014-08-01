@@ -90,7 +90,7 @@ per-node configuration files.
 ### Enabling Security
 
 <div class="note">
-<div class="title">Danger</div>
+<div class="title">Warning: Enable security with caution</div>
 <strong>Enabling security will change the way your client libraries and
 your applications interact with Riak.</strong> Once security is enabled,
 all client connections must be encrypted and all permissions will be
