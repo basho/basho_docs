@@ -144,10 +144,12 @@ The JSON response will look something like this:
 You can optionally send and receive XML if you set the `Content-Type` to
 `application/xml`, as in this example:
 
-```curl
-curl -XPOST http://localhost:8080/riak-cs/user \
-  -H 'Content-Type: application/xml' \
-  --data '<?xml version="1.0"?><email>foobar@example.com</email><name>admin user</name>'
+Once the admin user exists, you must specify the credentials of the admin user on each node in the Riak CS system. The admin user credential settings reside in the Riak CS `app.config` file, which is located in the `etc/riak-cs directory. The settings appear in the Riak CS config` section of the file. Paste the `key_id` string between the quotes for the `admin_key`. Paste the `key_secret` string into the `admin_secret` variable, as shown here:
+
+```appconfig
+%% Admin user credentials
+{admin_key, "LXAAII1MVLI93IN2ZMDD"},
+{admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
 ```
 
 Once the admin user exists, you must specify the credentials of the
@@ -162,23 +164,105 @@ the admin user credentials:
 {riak_cs, [
     %% Other configs
 
-    {admin_key, "324ABC0713CD0B420EFC086821BFAE7ED81442C"},
-    {admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
-    
+* `riak_ip` --- Replace `127.0.0.1` with the IP address of the Riak node you want Riak CS to connect to
+
+If you configured Riak to use a different port for Protocol Buffers, you must change the following port setting:
+
+* `riak_pb_port` --- Replace `8087` with the port number set in the variable `pb_port` in the Riak `app.config` file
+
+<div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the Protocol Buffers interface in the Riak <tt>app.config</tt> file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set <tt>riak_ip</tt> to <tt>0.0.0.0</tt>.</div>
+
+After modifying the port numbers, restart Riak if is already running.
+
+## Connection Pools
+
+Riak CS uses two distinct connection pools for communication with
+Riak: a **primary** and a **secondary** pool.
+
+The primary connection pool is used to service the majority of API
+requests related to the upload or retrieval of objects. It is identified
+in the configuration file as `request_pool`. The default size of this
+pool is 128.
+
+The secondary connection pool is used strictly for requests to list the
+contents of buckets. The separate connnection pool is maintained in
+order to improve performance. This secondary connection pool is
+identified in the configuration file as `bucket_list_pool`. The default
+size of this pool is 5.
+
+The following shows the `connection_pools` default configuration entry
+that can be found in the `app.config` file:
+
+```appconfig
+{riak_cs, [
+    %% Other configs
+
+    {connection_pools,
+    [
+     {request_pool, {128, 0} },
+     {bucket_list_pool, {5, 0} }
+    ]},
+
     %% Other configs
 ]}
 ```
 
+The value for each pool is represented as a pair with the first element
+representing the normal size of the pool. This is representative of the
+number of concurrent requests of a particular type that a Riak CS node
+may service. The second element represents the number of allowed
+overflow pool requests that are allowed. It is not recommended that you
+use any value other than 0 for the overflow amount unless careful
+analysis and testing has shown it to be beneficial for a particular use
+case.
+
+### Tuning
+
+We strongly recommend you that you [[increase the value of the
+`pb_backlog` setting|Configuring Riak for
+CS#Setting-Up-Riak-to-Use-Protocol-Buffers]] in Riak. When a Riak CS
+node is started, each connection pool begins to establish connections to
+Riak.  This can result in a [[thundering herd
+problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]] in which
+connections in the pool believe they are connected to Riak, but in
+reality some of the connections have been reset. Due to TCP `RST` packet
+rate limiting (controlled by `net.inet.icmp.icmplim`) some of the
+connections may not receive notification until they are used to service
+a user's request.  This manifests as an `{error, disconnected}` message
+in the Riak CS logs and an error to returned to the user.
+
+## Specifying the Stanchion Node
+
+If you have a single node, you don't have to change the Stanchion settings because Stanchion runs on the local host. If your Riak CS system has multiple nodes, you must set the IP address and port for the Stanchion node and whether or not SSL is enabled.
+
+The Stanchion settings reside in the Riak CS `app.config` file, which is located in the `/etc/Riak-CS` directory. The settings appear in the Riak CS config section of the file.
+
+* `stanchion_ip` --- Replace `127.0.0.1` with the IP address of the Stanchion node
+
+If you configured Stanchion to use a different port, you must change the following port setting:
+
+* `stanchion_port` --- Replace `8085` with the port number set in the variable `stanchion_port` in the Stanchion `app.config` file
+
+The `stanchion_ssl` variable is set to `false` by default. If you want to use SSL, change this variable to `true`.
+
+## Specifying the Node IP Address
+
+You can also set the IP address for the Riak CS node, which is helpful if you must debug code or identify the node from which requests originate. The Riak CS IP address setting resides in the Riak CS `vm.args` configuration file, which is located in the `/etc/riak-cs` directory.
+
+Initially, the line that specifies the Riak CS node IP address is set to `localhost`, as follows:
+
+```config
+## Name of the riak node
+-name riak_cs@127.0.0.1
+```
+
 ## Enabling SSL in Riak CS
 
-To enable SSL, first uncomment the following lines in your Riak CS 
-`app.config` file:
-
-```erlang
-%% {ssl, [
-%%        {certfile, "./etc/cert.pem"},
-%%        {keyfile, "./etc/key.pem"}
-%%       ]},
+```appconfig
+%%{ssl, [
+%%    {certfile, "./etc/cert.pem"},
+%%    {keyfile, "./etc/key.pem"}
+%%   ]},
 ```
 
 Then replace the text in quotes with the path and filename for your SSL

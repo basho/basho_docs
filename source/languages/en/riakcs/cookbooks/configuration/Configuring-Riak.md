@@ -193,7 +193,7 @@ with this:
 {riak_api, [
     %% Other configs
 
-    {pb_backlog, 64},
+If you need to use a different port, replace `8087` with the port number you want to use.
 
     %% Other configs
 ]}
