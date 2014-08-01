@@ -7,24 +7,34 @@ audience: advanced
 keywords: [operators, strong-consistency]
 ---
 
-Riak's [[strong consistency]] feature provides you with a variety of
-tunable parameters.
+This document is intended for Riak operators looking to configure and
+monitor their Riak cluster's [[strong consistency]] subsystem.
+Documentation for developers building applications using Riak's strong
+consistency feature can be found in [[Using Strong Consistency]], while
+a more theoretical treatment can be in found in [[Strong Consistency]].
 
-Documentation for developers using strong consistency can be found in
-[[Using Strong Consistency]], while a more theoretical treatment of the
-feature can be in found in [[Strong Consistency]].
+## Cluster Size
 
-All of the parameters listed below must be set in each node's
-`advanced.config` file, _not_ in `riak.conf`. More information on the
-syntax and usage of `advanced.config` can be found in our documentation
-on [[advanced configuration|Configuration Files#Advanced-Configuration]],
-as well as a full listing of [[strong consistency-related
-parameters|Configuration Files#Strong-Consistency]].
+In order to use strong consistency in Riak, **your cluster must consist
+of at least three nodes**. If it does not, all strongly consistent
+operations will fail. If your cluster is large enough, you can
+[[enable strong consistency|Managing Strong
+Consistency#Enabling-Strong-Consistency]] on a node-by-node basis; if
+your cluster is smaller than three nodes, you will need to [[add
+more|Adding and Removing Nodes]].
 
-We also recommend reading about some of the [[implementation
-details|Strong Consistency#]] behind strong consistency before changing
-any of the currently available [[configurable parameters|Configuration
-Files#Strong-Consistency]].
+## Enabling Strong Consistency
+
+Riak's strong consistency subsystem is disabled by default. If your Riak
+cluster consists of at least three nodes, you can enable strong
+consistency in your [[configuration files]].
+
+```riakconf
+strong_consistency = on
+```
+
+Remember that you must [[restart your node|riak Command Line]] for
+configuration changes to take effect.
 
 ## Fault Tolerance
 
@@ -33,8 +43,8 @@ available than eventually consistent operations because strongly
 consistent operations can only succeed if a **quorum** of object
 replicas are currently reachable. A quorum can be expressed as
 N / 2 + 1 (or `n_val` / 2 + 1), meaning 4 replicas if N=7, 5 replicas
-if N=9, etc. If N=9 and 5 replicas are unavailable, no strongly
-consistent operations on that object can succeed.
+if N=9, etc. If N=9 and 5 replicas are unavailable, for example, no
+strongly consistent operations on that object can succeed.
 
 While Riak uses an N of 3 by default, bear in mind that **higher values
 of N will allow for more fault tolerance**. The table below shows the
@@ -49,10 +59,11 @@ Replicas | Allowable missing replicas
 15 | 7
 
 Because of this, we recommend that you use at least N=5 for strongly
-consistent data. You can achieve this [[using bucket types]]. You can
-create and activate a bucket type with N set to 5 and strong consistency
-enabled (we'll call it `consistent_and_fault_tolerant`) using the
-following series of [[commands|riak-admin Command Line]]:
+consistent data. You can achieve change the value of N for buckets
+[[using bucket types]]. For exampe, you can create and activate a bucket
+type with N set to 5 and strong consistency enabled---we'll call it
+`consistent_and_fault_tolerant`---using the following series of
+[[commands|riak-admin Command Line]]:
 
 ```bash
 riak-admin bucket-type create consistent_and_fault_tolerant \
@@ -85,7 +96,7 @@ found in [[Adding and Removing Nodes]].
 
 ## riak-admin ensemble-status
 
-the `[[riak-admin|riak-admin Command Line#ensemble-status]]` interface
+The `[[riak-admin|riak-admin Command Line#ensemble-status]]` interface
 has an `ensemble-status` command that provides insight into the current
 status of the consensus subsystem undergirding strong consistency.
 
@@ -180,12 +191,16 @@ Item | Meaning
 
 ## Configuring Strong Consistency
 
-The sections below detail the broad variety of configurable parameters
-that you can use to fine-tune strong consistency in Riak. Please note
-that all strong consistency-related settings must be set in each node's
-`advanced.config` file, _not_ in `riak.conf` or `app.config`. More
-information can be found in the [[configuration files|Configuration
-Files#Strong-Consistency]] documentation.
+All of the parameters listed below must be set in each node's
+`advanced.config` file, _not_ in `riak.conf`. Information on the syntax
+and usage of `advanced.config` can be found in our documentation on
+[[advanced configuration|Configuration Files#Advanced-Configuration]],
+as well as a full listing of [[strong-consistency-related
+parameters|Configuration Files#Strong-Consistency]].
+
+We also recommend reading about some of the [[implementation
+details|Strong Consistency#]] behind strong consistency before changing
+any of these parameters.
 
 ### Leaders, Followers, and Workers
 
@@ -239,32 +254,43 @@ Longer timeouts will decrease the likelihood that get or put operations
 will fail; shorter timeouts entail shorter wait times for connecting
 clients, but at a greater risk of failed operations.
 
-A variety of timeout settings are available for managing the performance
-of strong consistency.
-
 ### Merkle Tree Settings
 
 All peers in Riak's strong consistency system maintain persistent
 [Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for all data
-stored by that peer. These trees are especially useful when nodes enter
-and leave the cluster.
+stored by that peer. These trees are particularly useful when nodes
+enter and leave the cluster.
+
+#### Tree Validation
 
 The `tree_validation` parameter determines whether Riak considers Merkle
 trees to be trusted after a node restart. When enabled, i.e. when
-`tree_validation` is set to `true`, Riak does not trust .
+`tree_validation` is set to `true` (the default), Riak does not trust
+peer trees after a restart, instead requiring the peer to sync with a
+trusted majority. While this is the safest mode because it protects Riak
+against silent corruption in Merkle trees, it carries the drawback that
+it can reduce Riak availability by requiring more than a simple majority
+of nodes to be online and reachable.
 
-Tree updates can happen synchronously or asynchronously. This is
+#### Synchronous vs. Asynchronous Tree Updates
+
+Merkle tree updates can happen synchronously or asynchronously. This is
 determined by the `synchronous_tree_updates` parameter. When set to
 `false`, which is the default, Riak responds to the client after the
 first roundtrip, allowing the Merkle tree update to happen
 asynchronously in the background; when set to `true`, Riak requires two
 quorum roundtrips to occur before replying back to the client.
 
-### Syncing
-
-The consensus subsystem delays syncing to disk when performing certain
-operations, which enables it to combine multiple operations into a
-single write to disk.
+Please note that this setting applies only to the metadata writes sent
+to followers. Leaders _always_ update their local Merkle trees before
+responding to the client. Asynchronous updates can be unsafe in certain
+scenarios. For example, if a leader crashes before sending metadata
+updates to followers _and_ all followers that had acknowledged the write
+somehow revert the object value immediately prior to the write request,
+a future read could hypothetically return the immediately preceding
+value without realizing that the value was incorrect. Setting
+`synchronous_tree_updates` to `false` does bear this possibility, but it
+is exceedingly unlikely.
 
 ## Monitoring Strong Consistency
 
