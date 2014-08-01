@@ -14,15 +14,15 @@ Riak node, which means that changes will only be necessary if Riak is
 configured using non-default settings.
 
 The settings reside in the Riak CS `app.config` file, which is typically
-located in the `/etc` directory. Configurable parameters related to Riak
-CS specifically can be found in the `riak_cs` section of that file.
-That section looks something like this:
+located in the `/etc` directory on each node. Configurable parameters
+related to Riak CS specifically can be found in the `riak_cs` section of
+that file. That section looks something like this:
 
 ```appconfig
 {riak_cs, [
-  {parameter1, value},
-  {parameter2, value},
-  %% and so on...
+    {parameter1, value},
+    {parameter2, value},
+    %% and so on...
 ]},
 ```
 
@@ -84,6 +84,8 @@ set up Stanchion to use SSL:
     %% Other configs
 ]}
 ```
+
+
 
 ## Specifying the Node Name
 
@@ -180,7 +182,9 @@ To enable SSL, first uncomment the following lines in your Riak CS
 ```
 
 Then replace the text in quotes with the path and filename for your SSL
-encryption files.
+encryption files. By default, there's a `cert.pem` and a `key.pem` in
+each node's `/etc` directory. You're free to use those or to supply your
+own.
 
 ## Proxy vs. Direct Configuration
 
