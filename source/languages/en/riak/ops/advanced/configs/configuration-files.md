@@ -2324,9 +2324,9 @@ tombstone. There are three possible options for the
 removal altogether; <code>immediate</code> removes objects' tombstones
 as soon as the delete request is received; and setting
 <code>delete_mode</code> to an integer value specifies the number of
-milliseconds to wait before removing tombstones. The default is `3000`,
-which instructs Riak to wait 3000 milliseconds (3 seconds) to remove
-tombstones.
+milliseconds to wait before removing tombstones. The default is
+<code>3000</code>, which instructs Riak to wait 3000 milliseconds (3
+seconds) to remove tombstones.
 <br /><br />
 More detailed information on this setting can be found in
 <a href="/ops/advanced/deletion">Object Deletion</a>.
