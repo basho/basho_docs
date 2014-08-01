@@ -39,7 +39,7 @@ After downloading Riak CS, Stanchion, and Riak, install them using your
 operating system's package management commands.
 
 <div class="note">
-<div class="title">Note</div>
+<div class="title">Note on Riak CS and public ports</div>
 <strong>Riak CS is not designed to function directly on TCP port 80, and
 it should not be operated in a manner that exposes it directly to the
 public internet</strong>. Instead, consider a load-balancing solution
@@ -62,6 +62,8 @@ Then, unpack the downloaded tarball:
 ```bash
 tar -xvzf riak-cs-{{VERSION}}-OSX-x86_64.tar.gz
 ```
+
+At this point, you can move on to [[configuring Riak CS]].
 
 ### Installing Riak CS on Debian or Ubuntu
 
@@ -89,6 +91,9 @@ Now, install Riak CS:
 sudo apt-get install riak-cs
 ```
 
+At this point, you can move on to [[installing Stancion|Installing Riak
+CS#Installing-Stanchion-on-a-Node]].
+
 #### Installing the `.deb` Package Manually (not recommended)
 
 To install manually, use `dpkg`:
@@ -99,6 +104,9 @@ sudo dpkg -i <riak-cs-package.deb>
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package
 you are installing.
+
+At this point, you can move on to [[installing Stancion|Installing Riak
+CS#Installing-Stanchion-on-a-Node]].
 
 ### Installing Riak CS on RHEL or CentOS
 
@@ -125,6 +133,9 @@ Once the `.rpm` package has been installed, install Riak CS:
 sudo yum install riak-cs
 ```
 
+At this point, you can move on to [[installing Stancion|Installing Riak
+CS#Installing-Stanchion-on-a-Node]].
+
 #### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
@@ -133,6 +144,9 @@ rpm -Uvh <riak-cs-package.rpm>
 
 Replace `<riak-cs-package.rpm>` with the actual filename for the package
 you are installing.
+
+At this point, you can move on to [[installing Stancion|Installing Riak
+CS#Installing-Stanchion-on-a-Node]].
 
 ## Installing Stanchion on a Node
 
@@ -174,6 +188,8 @@ Then, unpack the downloaded tarball:
 stanchion-1.4.3-OSX-x86_64.tar.gz
 ```
 
+At this point, you can move on to [[configuring Riak CS]].
+
 ### Installing Stanchion on Debian or Ubuntu
 
 On Debian or Ubuntu, you can either use `apt` or install the `.deb`
@@ -201,6 +217,8 @@ Now, install Riak CS:
 sudo apt-get install stanchion
 ```
 
+At this point, you can move on to [[configuring Riak CS]].
+
 #### Installing the `.deb` Package Manually (not recommended)
 
 ```bash
@@ -209,6 +227,8 @@ sudo dpkg -i <stanchion-package.deb>
 
 Replace `<riak-cs-package.deb>` with the actual filename for the package
 you are installing.
+
+At this point, you can move on to [[configuring Riak CS]].
 
 ### Installing Stanchion on RHEL or CentOS
 
@@ -235,6 +255,8 @@ Once the `.rpm` package has been installed, install Stanchion:
 sudo yum install stanchion
 ```
 
+At this point, you can move on to [[configuring Riak CS]].
+
 #### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
@@ -244,8 +266,10 @@ sudo rpm -Uvh <stanchion-package.rpm>
 Replace `<stanchion-package.rpm>` with the actual filename for the
 package you are installing.
 
+At this point, you can move on to [[configuring Riak CS]].
+
 <div class="note">
-<div class="title">Note</div>
+<div class="title">Note on SELinux</div>
 CentOS enables Security-Enhanced Linux (SELinux) by default. If you
 encounter errors during installation, try disabling SELinux.
 </div>
