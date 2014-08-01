@@ -71,6 +71,7 @@ Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 * [[PUT Object ACL|RiakCS PUT Object ACL]] - Sets the ACLs associated with an object
 * [[HEAD Object|RiakCS HEAD Object]] - Retrieves object metadata (not the full content of the object)
 * [[DELETE Object|RiakCS DELETE Object]] - Deletes an object
+* [[DELETE Multiple Objects|RiakCS DELETE Multiple Objects]] - Deletes multiple objects
 
 ## Multipart Upload
 
