@@ -317,8 +317,8 @@ riakcs:
     sub:
       - "[[Configuring Riak CS Overview]]"
       - "[[Configuring Riak|Configuring Riak for CS]]"
-      - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
+      - "[[Configuring Riak CS]]"
       - "[[Designating an Admin User]]"
       - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
       - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
