@@ -36,6 +36,11 @@ strong_consistency = on
 Remember that you must [[restart your node|riak Command Line]] for
 configuration changes to take effect.
 
+For strong consistency requirements to be applied to specific keys,
+those keys must be in [[buckets]] bearing a bucket type with the
+`consistent` property set to `true`. More information can be found in
+[[Using Bucket Types]].
+
 ## Fault Tolerance
 
 Strongly consistent operations in Riak are necessarily less highly
@@ -58,12 +63,14 @@ Replicas | Allowable missing replicas
 9 | 4
 15 | 7
 
-Because of this, we recommend that you use at least N=5 for strongly
-consistent data. You can achieve change the value of N for buckets
-[[using bucket types]]. For exampe, you can create and activate a bucket
-type with N set to 5 and strong consistency enabled---we'll call it
-`consistent_and_fault_tolerant`---using the following series of
-[[commands|riak-admin Command Line]]:
+### `n_val` Recommendations
+
+Due to the quorum requirements explained above, we recommend that you
+use at least N=5 for strongly consistent data. You can achieve change
+the value of N for buckets [[using bucket types]]. For example, you can
+create and activate a bucket type with N set to 5 and strong consistency
+enabled---we'll call it `consistent_and_fault_tolerant`---using the
+following series of [[commands|riak-admin Command Line]]:
 
 ```bash
 riak-admin bucket-type create consistent_and_fault_tolerant \
@@ -74,6 +81,25 @@ riak-admin bucket-type activate consistent_and_fault_tolerant
 More on creating and activating bucket types can be found in our
 [[bucket types|Using Bucket
 Types#Managing-Bucket-Types-Through-the-Command-Line]] documentation.
+
+<div class="note">
+<div class="title">Note on bucket types and the <code>consistency</code>
+property</div>
+The <code>consistent</code> bucket property is one of two bucket
+properties, alongside <code>datatype</code>, that cannot be changed once
+a bucket type has been created and activated.
+</div>
+
+### Offline Node Recommendations
+
+In general, strongly consistent Riak is more sensitive to the number of
+nodes in the cluster than eventually consistent Riak, due to the quorum
+requirements mentioned above. While Riak is designed to withstand many
+a variety of failure scenarios that remove nodes from the cluster, e.g.
+hardware or network failure, we nonetheless recommend that you limit the
+number of nodes that you intentionally down or reboot, because having
+multiple nodes leave the cluster at once can threaten quorum and thus
+affect the viability of some or all strongly consistent operations.
 
 ## Performance
 
