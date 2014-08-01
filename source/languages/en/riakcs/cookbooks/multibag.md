@@ -37,7 +37,7 @@ specific bags by tagging objects with a bag ID.
 ## The Master Bag
 
 In a Riak CS multibag setup, there is one special bag, known as the
-master bag, that bears a set of special responsibilities. It stores
+**master bag**, that bears a set of special responsibilities. It stores
 objects such as:
 
 * User information (for authentication and other purposes)
@@ -96,10 +96,10 @@ and would like to add it, there is a series of basic steps to follow.
 
 ### Stanchion
 
-Because most of the special functionality required for Riak CS multibag
-is contained in Stanchion rather than Riak CS itself, the first step in
-enabling multibag support requires setting up Stanchion for multibag
-support. That involves performing the following steps on each node:
+Because some of the special functionality required for Riak CS multibag
+is contained in Stanchion, the first step is to upgrade Stanchion to a
+version that supports Riak CS multibag. That involves performing the
+following steps on each node:
 
 1. Stop the node
 2. Upgrade Stanchion to a version that supports Riak CS multibag, i.e.
@@ -107,14 +107,12 @@ support. That involves performing the following steps on each node:
 3. Set your desired Stanchion [[configuration|Configuring Stanchion]].
 4. Start Stanchion on each node
 
-### Add Bags
+### Add Clusters
 
-To add bags to your Riak CS installation, you must set up one or more
-new Riak clusters, each running both Riak CS and Stanchion version 1.5.0
-or later. In order for the clusters to communicate with one another, you
-must add the connection information for each cluster as explained above
-in the section on [[multibag configuration|Riak CS Multibag
-Support#Multibag-Configuration]].
+To add clusters to a multibag installation, you must set up Riak CS and
+Stanchion to communicate with those clusters. You can specify the
+connection information as explained above in the [[Multibag
+Configuration|Riak CS Multibag Support#Multibag-Configuration]] section.
 
 ### Set Weights
 
@@ -129,9 +127,9 @@ want to assign them the weights 40, 40, and 20, respectively. The
 following commands would accomplish that:
 
 ```bash
-riak-cs-multibag bagA 40
-riak-cs-multibag bagB 40
-riak-cs-multibag bagC 20
+riak-cs-multibag weight bagA 40
+riak-cs-multibag weight bagB 40
+riak-cs-multibag weight bagC 20
 ```
 
 These weights can be modified at any time.
