@@ -352,7 +352,7 @@ disk and network resources and time, and the coordination of ownership
 transitions takes additional time. As such, the rate of handoff is
 intentionally limited in the default Riak configuration to avoid
 impacting normal operations. This limit can be changed temporarily, in
-cases where greater handoff throughput or lower impact is desired, using
+cases where greater handoff throughput or lower impact is desired, by using
 the [[riak-admin transfer-limit command|riak-admin Command Line#transfer-limit]].
 
 Additionally, nodes that become unavailable due to errors or maintenance

@@ -41,6 +41,13 @@ default:
               name: "10.04 (Lucid) i386"
             amd64:
               name: "10.04 (Lucid) AMD 64"
+        trusty:
+          name: "(Trusty Tahr)"
+          arch:
+            i386:
+              name: "14.04 (Trusty) i386"
+            amd64:
+              name: "14.04 (Trusty) AMD 64"
     freebsd:
       name: "FreeBSD"
       icon: "freebsd.png"

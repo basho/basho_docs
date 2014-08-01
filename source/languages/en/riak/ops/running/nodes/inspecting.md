@@ -69,12 +69,12 @@ One-Minute Stats represent the number of times a particular activity has occurre
 Stat                                  | Description
 --------------------------------------|---------------------------------------------------
 `node_gets`                           | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
-`node_puts`                           | Number of PUTs coordinated by this node, including PUTs to non-local vnodes in the last minute
+`node_puts`                           | Number of PUTs coordinated by this node, where a PUT is sent to a local vnode in the last minute
 `vnode_gets`                          | Number of GET operations coordinated by local vnodes on this node in the last minute
 `vnode_puts`                          | Number of PUT operations coordinated by local vnodes on this node in the last minute
 `vnode_index_refreshes`               | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
 `vnode_index_reads`                   | Number of local replicas participating in secondary index reads in the last minute
-`vnode_index_writes`                  | Number of local replcias participating in secondary index writes in the last minute
+`vnode_index_writes`                  | Number of local replicas participating in secondary index writes in the last minute
 `vnode_index_writes_postings`         | Number of individual secondary index values written in the last minute
 `vnode_index_deletes`                 | Number of local replicas participating in secondary index deletes in the last minute
 `vnode_index_deletes_postings`        | Number of individual secondary index values deleted in the last minute
@@ -250,8 +250,8 @@ Stat                            | Description
 `pipeline_active`               | The number of pipelines active in the last 60 seconds
 `pipeline_create_count`         | The total number of pipelines created since the node was started
 `pipeline_create_error_count`   | The total number of pipeline creation errors since the node was started
-`pipeline_create_error_one`     | The number of pipelines created in the last 60 seconds
-`pipeline_create_one`           | The number of pipeline creation errors in the last 60 seconds
+`pipeline_create_error_one`     | The number of pipeline creation errors in the last 60 seconds
+`pipeline_create_one`           | The number of pipelines created in the last 60 seconds
 {{/1.2.0+}}
 
 ### Application and Subsystem Versions

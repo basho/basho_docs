@@ -181,14 +181,17 @@ riak-admin test
 
 ## reip
 
-_This will likely be removed in future versions. Instead use `riak-admin cluster replace`._
-
-Renames a node. The current ring state will be backed up in the process. **The
-node must NOT be running for this to work.**
+Renames a node. This process backs up and edits the Riak ring, and **MUST** be run while the node is stopped. Reip should only be run in cases where `riak-admin cluster force-replace` cannot be used to rename the nodes of a cluster. For more information, visit the [[Renaming Nodes]] document.
 
 ```bash
 riak-admin reip <old nodename> <new nodename>
 ```
+
+<div class="note">
+<div class="title">Note about reip prior to Riak 2.0</title></div>
+Several bugs have been fixed related to reip in Riak 2.0.  We recommend against using reip prior to 2.0, if possible.
+</div>
+
 
 ## js-reload
 
@@ -203,7 +206,7 @@ riak-admin js-reload
 
 ## erl-reload
 
-Reloads the Erlang `.beam` files used for [[MapReduce]] jobs, [[pre- and post-commit hooks|Advanced Commit Hooks]], and other purposes. More information on custom Erlang code can be found in the [[Installing Custom Code]] guide.
+Reloads the Erlang `.beam` files used for [[MapReduce|Using MapReduce]] jobs, [[pre- and post-commit hooks|Advanced Commit Hooks]], and other purposes. More information on custom Erlang code can be found in the [[Installing Custom Code]] guide.
 
 **Note**: This needs to be run on _all nodes_ in the cluster.
 
@@ -251,14 +254,20 @@ riak-admin transfers
 
 ## transfer-limit
 
-Change the handoff_concurrency limit.  The value set by running this command will 
-only persist while the node is running.  If the node is restarted, the transfer-limit 
-will return to the default of 2 or the value specified in the 
-`[[handoff_concurrency|Configuration Files#handoff_concurrency]]`
-setting in the `riak_core` section of the `app.config` file.
+Change the `handoff_concurrency` limit. The value set by running this command
+will only persist while the node is running. If the node is restarted, the
+transfer-limit will return to the default of 2 or the value specified by the
+`[[handoff_concurrency|Configuration Files#handoff_concurrency]]` setting in
+the `riak_core` section of the `app.config` file.
 
-Running this command with no arguments will display the current transfer-limit for each
-node in the cluster.
+Running this command with no `node` argument will set the transfer-limit for
+every node in the cluster. Running this command with no arguments will display
+the current transfer-limit for each node in the cluster.
+
+<div class="note">
+<div class="title">Hinted vs. Ownership handoff</title></div>
+<code>riak-admin transfer-limit</code> allows setting a value greater than 8, which will apply when [[hinted handoff|Failure and Recovery#Data-Loss]] is occurring. [[Ownership handoff|Adding and Removing Nodes]] concurrency has a hard limit of 8 partitions at a time.
+</div>
 
 
 ```bash
