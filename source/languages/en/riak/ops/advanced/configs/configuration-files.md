@@ -807,16 +807,7 @@ Below is the general form for setting multi-backend parameters:
 multi_backend.$name.(existing_setting) = <setting>
 ```
 
-To give an example, if you have a LevelDB backend named
-`customer_backend` and wish to set the data_root` parameter to
-`$(platform_data_dir)/leveldb_backends/customer_backend`, you would
-do so as follows:
-
-```riakconf
-multi_backend.customer_backend.storage_backend = leveldb
-multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
-multi_backend.customer_backend.maximum_memory.percent = 50
-```
+Below is a listing of the available paramaters:
 
 <table class="riak-conf">
 <thead>
@@ -843,6 +834,17 @@ mechanism that will be used on this node.</td>
 
 </tbody>
 </table>
+
+To give an example, if you have a LevelDB backend named
+`customer_backend` and wish to set the `data_root` parameter to
+`$(platform_data_dir)/leveldb_backends/customer_backend/`, you would
+do so as follows:
+
+```riakconf
+multi_backend.customer_backend.storage_backend = leveldb
+multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
+multi_backend.customer_backend.maximum_memory.percent = 50
+```
 
 ## Riak Control
 
@@ -1015,7 +1017,7 @@ write.</td>
 <td><code>buckets.default.n_val</code></td>
 <td>The number of replicas stored.
 <br /><br />
-<strong>Note</strong>: See 
+<strong>Note</strong>: See
 <a href="/dev/advanced/replication-properties">Replication Properties</a>
 for further discussion.</td>
 <td><code>3</code></td>
@@ -1164,7 +1166,7 @@ table below.
 <td>For ease of firewall configuration, the Erlang distribution can be
 bound to a limited range of TCP ports. If this parameter is set, and
 <code>erlang.distribution.port_range.maximum</code> is not set, only
-this port will be used. If the minimum is unset, no restriction will be 
+this port will be used. If the minimum is unset, no restriction will be
 made on the port range. Instead, Erlang will listen on a random
 high-numbered port. More information
 <a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and
@@ -1294,7 +1296,7 @@ directly above.</td>
 
 <tr>
 <td><code>erlang.W</code></td>
-<td>Sets the mapping of warning messages for <code>error_logger</code>. 
+<td>Sets the mapping of warning messages for <code>error_logger</code>.
 Messages sent to the error logger using one of the warning routines can
 be mapped either to <code>errors</code>, warnings (<code>w</code>,
 which is the default), or info reports (<code>i</code>).</td>
@@ -1852,7 +1854,7 @@ cut down on system resource usage.</td>
 level. When set to an integer, the parameter refers to the
 aggressiveness of compression, on a scale from 0 to 9. <code>on</code>
 is equivalent to 6, whereas <code>off</code> is equivalent to 0. Higher
-values for compression tend to be more CPU intensive.<td>
+values for compression tend to be more CPU intensive.</td>
 <td><code>1</code></td>
 </tr>
 
@@ -2481,7 +2483,7 @@ node's filesystem, e.g. <code>[ "/tmp", "/other" ]</code>.</td>
 <td><code>riak_core</code></td>
 <td>The cluster manager listens for connections from remote clusters on
 the specified IP and port. Every node runs one cluster manager, but
-only the cluster manager running on the cluster leader will servic
+only the cluster manager running on the cluster leader will service
 requests. This can change as nodes enter and leave the cluster.</td>
 <td><code>{"127.0.0.1", 9080}</code></td>
 </tr>
@@ -2492,18 +2494,18 @@ requests. This can change as nodes enter and leave the cluster.</td>
 <td>The <code>advanced.config</code> configuration file enables you to
 specify how Riak behaves after objects are marked for deletion with a
 tombstone. There are three possible options for the
-<code>delete_mode</code> setting: <code>keep</code> (the default)
-disables tombstone removal altogether; <code>immediate</code> removes
-objects' tombstones as soon as the delete request is received; and
-setting <code>delete_mode</code> to an integer value specifies the
-number of milliseconds that Riak will wait prior to removing
-tombstones.
+<code>delete_mode</code> setting: <code>keep</code> disables tombstone
+removal altogether; <code>immediate</code> removes objects' tombstones
+as soon as the delete request is received; and setting
+<code>delete_mode</code> to an integer value specifies the number of
+milliseconds to wait before removing tombstones. The default is
+<code>3000</code>, which instructs Riak to wait 3000 milliseconds (3
+seconds) to remove tombstones.
 <br /><br />
-We recommend leaving <code>delete_mode</code> set to <code>keep</code>
-if you plan on deleting and recreating objects under the same key
-rapidly.
+More detailed information on this setting can be found in
+<a href="/ops/advanced/deletion">Object Deletion</a>.
 </td>
-<td><code>keep</code></td>
+<td><code>3000</code></td>
 </tr>
 
 <tr>

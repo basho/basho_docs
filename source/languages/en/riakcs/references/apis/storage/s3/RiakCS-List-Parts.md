@@ -98,7 +98,7 @@ This implementation of the operation uses only response headers that are common 
 **Owner** - Container element that identifies the object owner, after the object is created.
 
 * *Type*: Container
-* *Children*:  `ID`, `DisplayName`
+* *Children*: `ID`, `DisplayName`
 * *Ancestors*: `ListPartsResult`
 
 **PartNumberMarker** - Part number after which listing begins.
@@ -124,7 +124,7 @@ This implementation of the operation uses only response headers that are common 
 **Part** - Container for elements related to a particular part.
 
 * *Type*: String
-* *Children*:  `PartNumber`, `LastModified`, `ETag`, `Size`
+* *Children*: `PartNumber`, `LastModified`, `ETag`, `Size`
 * *Ancestors*: `ListPartsResult`
 
 **PartNumber** - Part number identifying the part.
