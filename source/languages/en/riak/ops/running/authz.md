@@ -71,8 +71,8 @@ of the following **before** enabling security:
       traffic
     * If using HTTPS, the proper port (presumably 443) is open from
       client to server
-    * Code that uses Riak's deprecated [[Link Walking]] **will not
-      work** with security enabled
+    * Code that uses Riak's deprecated [[Link Walking]] feature **will
+      not work** with security enabled
     * Code that uses Riak's now-deprecated original search feature
       **will not work**. If you wish to use both security and Search,
       you will need to use the [[new Search feature|Using Search]].
@@ -721,13 +721,18 @@ If you are using [[certificate-based authentication|Managing Security
 Sources#Certificate-Based-Authentication]], you will need to ensure that
 your node's [[configuration files|Configuration Files#Security]] point
 to the proper paths for your generated certs. By default, Riak assumes
-that all certs are stored in the `/etc` directory
+that all certs are stored in each node's `/etc` directory.
+
+If you are using the newer, `riak.conf`-based configuration system, you
+can change the location of the `/etc` directory by modifying the
+`platform_etc_dir`. More information can be found in our documentation
+on [[configuring directories|Configuration Files#Directories]].
 
 <table class="riak-conf">
   <thead>
     <tr>
       <th>Type</th>
-      <th>Config</th>
+      <th>Parameter</th>
       <th>Default</th>
     </tr>
   </thead>
@@ -750,3 +755,19 @@ that all certs are stored in the `/etc` directory
   </tbody>
 </table>
 
+If you are using the older, `app.config`-based configuration system,
+these paths can be set in the `ssl` subsection of the `riak_core`
+section. The corresponding parameters are. Here's an example:
+
+```appconfig
+{riak_core, [
+    %% Other configs
+
+    {ssl, [
+           {certfile, "./etc/cert.pem"},
+           {keyfile, "./etc/key.pem"}
+          ]},
+
+    %% Other configs
+]}
+```
