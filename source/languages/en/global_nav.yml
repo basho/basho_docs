@@ -328,6 +328,7 @@ riakcs:
       - "[[Garbage Collection]]"
       - "[[Rolling Upgrades For Riak CS]]"
       - "[[Riak CS Control]]"
+      - "[[Riak CS Logging]]"
   - title: "S3 Clients"
     sub:
       - "[[Configuring an S3 client]]"
