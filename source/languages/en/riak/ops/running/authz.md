@@ -765,7 +765,8 @@ section. The corresponding parameters are. Here's an example:
 
     {ssl, [
            {certfile, "./etc/cert.pem"},
-           {keyfile, "./etc/key.pem"}
+           {keyfile, "./etc/key.pem"},
+           {cacertfile, "./etc/cacertfile.pem"}
           ]},
 
     %% Other configs
