@@ -170,7 +170,7 @@ can achieve this by specifying a load balancer IP as the Stanchion UP
 in each Riak CS node's `app.config`. This load balancer must be
 configured to send all requests to a single Stanchion node, failing over
 to a secondary Stanchion node if the primary is unavailable. More
-details can be found in [[Specifying the Stanchion Node#Configuring Riak
+details can be found in [[Specifying the Stanchion Node|Configuring Riak
 CS#Specifying-the-Stanchion-Node]].
 
 ### Installing Stanchion on Mac OS X
