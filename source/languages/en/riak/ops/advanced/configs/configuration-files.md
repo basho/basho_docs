@@ -807,16 +807,7 @@ Below is the general form for setting multi-backend parameters:
 multi_backend.$name.(existing_setting) = <setting>
 ```
 
-To give an example, if you have a LevelDB backend named
-`customer_backend` and wish to set the data_root` parameter to
-`$(platform_data_dir)/leveldb_backends/customer_backend/`, you would
-do so as follows:
-
-```riakconf
-multi_backend.customer_backend.storage_backend = leveldb
-multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
-multi_backend.customer_backend.maximum_memory.percent = 50
-```
+Below is a listing of the available paramaters:
 
 <table class="riak-conf">
 <thead>
@@ -843,6 +834,17 @@ mechanism that will be used on this node.</td>
 
 </tbody>
 </table>
+
+To give an example, if you have a LevelDB backend named
+`customer_backend` and wish to set the `data_root` parameter to
+`$(platform_data_dir)/leveldb_backends/customer_backend/`, you would
+do so as follows:
+
+```riakconf
+multi_backend.customer_backend.storage_backend = leveldb
+multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
+multi_backend.customer_backend.maximum_memory.percent = 50
+```
 
 ## Riak Control
 
