@@ -15,15 +15,15 @@ available only to <a href="http://basho.com/riak-enterprise/">Riak
 Enterprise</a> customers. It is not yet suitable for production use.
 </div>
 
-While Riak CS [Enterprise](http://basho.com/riak-enterprise) enables
-you to distribute Riak CS object across multiple data centers in a
+While [Riak CS Enterprise](http://basho.com/riak-enterprise) enables
+you to distribute Riak CS objects across multiple data centers in a
 [[source/sink pattern|Multi Data Center Replication v3 Architecture]],
 all linked clusters are treated the same. In Riak CS version 1.5.0,
 however, Basho has added **multibag** support to Riak CS Enterprise.
 
 With multibag support, you can store object manifests and blocks in
-separate clusters, enhancing scalability and the overall storage
-capabilities of a Riak CS installation.
+separate clusters or groups of clusters, a.k.a. **bags**, enhancing the
+scalability and overall storage capabilities of a Riak CS installation.
 
 ## Bags
 
