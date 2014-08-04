@@ -312,7 +312,6 @@ riakcs:
       - "[[Querying Access Statistics]]"
       - "[[Querying Storage Statistics]]"
       - "[[Usage and Billing Data]]"
-      - "[[Riak CS Multibag Support]]"
 
   - title: "Riak CS for Operators"
     sub:
@@ -329,6 +328,7 @@ riakcs:
       - "[[Garbage Collection]]"
       - "[[Rolling Upgrades For Riak CS]]"
       - "[[Riak CS Control]]"
+      - "[[Riak CS Multibag Support]]"
       - "[[Riak CS Logging]]"
   - title: "S3 Clients"
     sub:

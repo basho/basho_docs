@@ -37,9 +37,9 @@ Bucket Object Versions | <abbr title="Unsupported" class="unsupported">✗</abbr
 GET Bucket Info (HEAD) | <abbr title="Supported" class="supported">✓</abbr> | |
 Bucket Request Payment | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
 PUT Object | <abbr title="Supported" class="supported">✓</abbr> | |
-Put Object (Copy) | <abbr title="Supported" class="supported">✓</abbr> | | {{1.5.0+}}
-PUT Object (Copy) | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. | {{1.3.0-1.5.0}}
-PUT Object (Copy)| Coming Soon | Planned for future release | {{1.3.0-}}
+Put Object (Copy) {{1.5.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
+PUT Object (Copy) {{1.3.0-1.5.0}} | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. |
+PUT Object (Copy) {{1.3.0-}} | Coming Soon | Planned for future release |
 DELETE Object | <abbr title="Supported" class="supported">✓</abbr> | |
 DELETE Multiple Objects | <abbr title="Supported" class="supported">✓</abbr> | |
 GET Object {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
@@ -75,14 +75,14 @@ Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 
 ## Object-level Operations
 
-* [[GET Object|RiakCS GET Object]]- Retrieves an object
-* [[GET Object ACL|RiakCS GET Object ACL]] - Returns the ACLs associated with an object
-* [[PUT Object|RiakCS PUT Object]] - Stores an object to a bucket
-* {{1.3.0+}} [[PUT Object (Copy)|RiakCS PUT Object (Copy)]] - Creates a copy of an object
-* [[PUT Object ACL|RiakCS PUT Object ACL]] - Sets the ACLs associated with an object
-* [[HEAD Object|RiakCS HEAD Object]] - Retrieves object metadata (not the full content of the object)
-* [[DELETE Object|RiakCS DELETE Object]] - Deletes an object
-* [[DELETE Multiple Objects|RiakCS DELETE Multiple Objects]] - Deletes multiple objects
+* [[GET Object|RiakCS GET Object]] --- Retrieves an object
+* [[GET Object ACL|RiakCS GET Object ACL]] --- Returns the ACLs associated with an object
+* [[PUT Object|RiakCS PUT Object]] --- Stores an object to a bucket
+* {{1.3.0+}} [[PUT Object (Copy)|RiakCS PUT Object (Copy)]] --- Creates a copy of an object
+* [[PUT Object ACL|RiakCS PUT Object ACL]] --- Sets the ACLs associated with an object
+* [[HEAD Object|RiakCS HEAD Object]] --- Retrieves object metadata (not the full content of the object)
+* [[DELETE Object|RiakCS DELETE Object]] --- Deletes an object
+* [[DELETE Multiple Objects|RiakCS DELETE Multiple Objects]] --- Deletes multiple objects
 
 ## Multipart Upload
 

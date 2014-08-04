@@ -162,5 +162,6 @@ Line Tools#riak-cs-multibag]].
 
 ## Limitations
 
-Riak CS multibag does not currently support [[proxy gets|Multi Data
-Center Replication v3 Overview#Riak-CS-MDC-Gets]] from sink clusters.
+Riak CS multibag does not currently support [[proxy
+gets|Multi Data Center Replication v3 Operations#Riak-CS-MDC-Gets]] from
+sink clusters.
