@@ -66,13 +66,13 @@ node when configuration changes have been made.
 
 Large objects can also impact latency even if they're only present on
 some nodes. If increased latency occurs only on N nodes, where N is your
-[[replication factor|Replication Properties#n-value-and-replication]] (or `n_val`),
-this could indicate that a single large object and its replicas are
-slowing down _all_ requests on those nodes.
+[[replication factor|Replication Properties#n-value-and-replication]],
+also known as `n_val`, this could indicate that a single large object
+and its replicas are slowing down _all_ requests on those nodes.
 
 If large objects are suspected, you should also audit the behavior of
 siblings in your cluster, as explained in the [[next section|Latency
-Reduction Checklist#siblings]].
+Reduction Checklist#Siblings]].
 
 ## Siblings
 
@@ -83,7 +83,7 @@ resolves the conflict without client intervention. While sibling
 production is normal, [[sibling explosion|Vector Clocks#sibling-explosion]]
 is a problem that can come about if many siblings of an object are
 produced. The negative effects are the same as those associated with
-[[large objects|Latency Reduction Checklist#large-objects]].
+[[large objects|Latency Reduction Checklist#Large-Objects]].
 
 ### Mitigation
 
@@ -109,7 +109,7 @@ latency issues in your cluster, you can start by checking the following:
 
 * If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done. {{#2.0.0+}}**Note**: In Riak version 2.0 and later, `allow_mult` is set to `true` by default for all bucket types that you create and activate. If you wish to set `allow_mult` to `false` on a bucket type, you will have to do so explicitly.{{/2.0.0+}}
 * Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy. {{2.0.0-}}
-* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] (DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion. {{2.0.0+}}
+* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] \(DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion. {{2.0.0+}}
 
 ## Compaction and Merging
 
@@ -181,8 +181,7 @@ be worthwhile to revisit your OS-specific configurations. The following
 guides may be of help:
 
 * [[Open files limit]]
-* [[File system tuning]]
-* General [[Linux system tuning]]
+* General [[Linux performance tuning]]
 * [[AWS performance tuning]] if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
 ## I/O and Network Bottlenecks

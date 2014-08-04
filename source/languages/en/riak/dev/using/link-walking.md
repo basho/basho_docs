@@ -153,7 +153,7 @@ In the above screencast, Sean makes use of several scripts to demonstrate some d
 If you watched the video, it's apparent how these scripts are used to demonstrate link walking. For those of you who didn't watch or who want to run and tweak the scripts themselves, check out this graphic:
 ![Circle of Friends](/images/circle-of-friends.png)
 
-`load_people.sh` will automatically load data into your running three node Riak Cluster that pertains to the the above graphic and has the requisite links attached.
+`load_people.sh` will automatically load data into your running three node Riak Cluster that pertains to the above graphic and has the requisite links attached.
 
 `people_queries.sh` is a series of link walking queries that expresses the relationships that were preloaded with the `load_people.sh` script.
 
