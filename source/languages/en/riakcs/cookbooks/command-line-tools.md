@@ -200,11 +200,6 @@ Options:
 More information about Erlang's etop tool can be found in the
 [official documentation](http://www.erlang.org/doc/man/etop.html).
 
-## riak-cs-access
-
-This command is the direct equivalent of `riak-cs-admin access`,
-documented [[above|Riak CS]]
-
 ## riak-cs-admin gc
 
 This command controls Riak CS's [[garbage collection]] system.
@@ -494,6 +489,10 @@ Options:
 More information about Erlang's etop tool can be found in the
 [official documentation](http://www.erlang.org/doc/man/etop.html).
 
+## riak-cs-access
+
+This command is the direct equivalent of `riak-cs-admin access`,
+documented [[above|Riak CS Command-line Tools#riak-cs-admin-access]].
 
 ## riak-cs-multibag
 
@@ -563,23 +562,25 @@ Weights are assigned to bags as an integer. The percentage weight
 applied to a given bag is a function of the total weight assigned to all
 bags. So if you assign 30 to bag A, 30 to bag B, and 60 to bag C, they
 will bear the following weights, respectively: 25%, 25%, and 50%.
+Consequently, there is no specific number to which all bag weights need
+to add up.
 
 #### weight-manifest
 
-Retrieves the weight manifests for all currently available bags.
+Retrieves the manifest weights for all currently available bags.
 
 ```bash
 riak-cs-multibag weight-manifest
 ```
 
-You can also retrieve the weight manifest for a specific bag on the
+You can also retrieve the manifest weights for a specific bag on the
 basis of its bag ID:
 
 ```bash
 riak-cs-multibag weight-manifest <bag id>
 ```
 
-You can also set the weight manifest for a bag:
+You can also set the manifest weight for a specific bag:
 
 ```bash
 riak-cs-multibag weight-manifest <bag id> <weight>
@@ -587,13 +588,13 @@ riak-cs-multibag weight-manifest <bag id> <weight>
 
 #### weight-block
 
-Retrieves the weight block for all currently available bags.
+Retrieves the block weights for all currently available bags.
 
 ```bash
 riak-cs-multibag weight-block
 ```
 
-You can also retrieve the weight block for a specific bag on the basis
+You can also retrieve the block weight for a specific bag on the basis
 of its bag ID:
 
 ```bash
@@ -608,7 +609,8 @@ riak-cs-multibag weight-block <bag id> <weight>
 
 #### refresh
 
-At any time you can refresh all weights:
+At any time you can refresh all weights, which assigns all bags equal
+weights:
 
 ```bash
 riak-cs-multibag refresh
