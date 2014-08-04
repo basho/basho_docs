@@ -21,12 +21,10 @@ successful write has occurred to a given key. In this sense, single-key
 strongly consistent operations are atomic, and operations on a given key
 are [linearizable](http://en.wikipedia.org/wiki/Linearizability). This
 behavior comes at the expense of availability because a [[quorum|Strong
-Consistency#Trade-offs]] of primary [[vnodes|Riak Glossary#vnode]] for
-the portion of the keyspace containing the key included in the client
-request must be online and reachable from the coordinating vnode of the
-client request, or the request will fail.
+Consistency#Trade-offs]] of primary [[vnodes|Riak Glossary#vnode]]
+responsible for the key must be online and reachable or the request will fail.
 
-This trade-off is necessary for strongly consistent data, but the
+This trade-off is unavoidable for strongly consistent data, but the
 [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
 ## Enabling Strong Consistency
