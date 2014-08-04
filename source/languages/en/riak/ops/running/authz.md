@@ -716,3 +716,37 @@ Riak's cipher preferences were taken from [Mozilla's Server Side TLS
 documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 ## Certificate Configuration
+
+If you are using [[certificate-based authentication|Managing Security
+Sources#Certificate-Based-Authentication]], you will need to ensure that
+your node's [[configuration files|Configuration Files#Security]] point
+to the proper paths for your generated certs. By default, Riak assumes
+that all certs are stored in the `/etc` directory
+
+<table class="riak-conf">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Config</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cert</strong></td>
+      <td><code>ssl.certfile</code></td>
+      <td><code>#(platform_etc_dir)/cert.pem</code></td>
+    </tr>
+    <tr>
+      <td><strong>Key file</strong></td>
+      <td><code>ssl.keyfile</code></td>
+      <td><code>#(platform_etc_dir)/key.pem</code></td>
+    </tr>
+    <tr>
+      <td><strong>Signing authority</strong></td>
+      <td><code>ssl.cacertfile</code></td>
+      <td><code>#(platform_etc_dir)/cacertfile.pem</code></td>
+    </tr>
+  </tbody>
+</table>
+
