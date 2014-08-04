@@ -321,7 +321,7 @@ data.riakcs.net
 
 The following options are available to make adjustments to the Riak CS
 garbage collection system. More details about garbage collection in
-Riak CS are available [[here|Garbage-Collection]].
+Riak CS are available in [[Garbage Collection]].
 
 * `leeway_seconds` --- The number of seconds that must
   elapse before an object version that has been explicitly deleted or

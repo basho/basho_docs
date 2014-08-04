@@ -31,8 +31,10 @@ which means that Riak CS users are never exposed to multiple manifests.
 Garbage collection (GC) of object versions involves a variety of actions
 that can be divided into two essential phases:
 
-1. Synchronous actions that occur in the foreground while the user is waiting for notification of successful command completion
-2. Asynchronous actions that occur in the background and are not directly tied to user actions
+1. Synchronous actions that occur in the foreground while the user is
+   waiting for notification of successful command completion
+2. Asynchronous actions that occur in the background and are not
+   directly tied to user actions
 
 These two phases are described in more detail in the following sections.
 
@@ -250,33 +252,17 @@ The available commands that can be used with the `riak-cs-gc` script are
 listed below. Running the script with no command provided displays a
 list of the available commands.
 
-{{#1.5.0-}}
-* `batch` --- Manually start garbage collection for a batch of
-  eligible objects
-{{/1.5.0-}}
-{{#1.5.0+}}
-* `batch` --- Manually start garbage collection for a batch of
-  eligible objects. This command takes an optional argument to
-  indicate a leeway time other than the currently configured
-  `leeway_seconds` time for the batch.
-{{/1.5.0+}}
-* `status` --- Get the current status of the garbage collection
-  daemon. The output is dependent on the current state of the
-  daemon.
-* `pause` --- Pause the current batch of object garbage collection. It
-  has no effect if there is no active batch.
-* `resume` --- Resume a paused garbage collection batch. It has no
-  effect if there is no previously paused batch.
-* `set-interval` --- Set or update the garbage collection
-  interval. This setting uses a unit of seconds.
-{{#1.5.0+}}
-* `set-leeway` --- Set or update the garbage collection leeway
-  time. This setting indicates how many seconds must elapse after an
-  object is deleted or overwritten before the garbage collection
-  system may reap the object. This setting uses a unit of seconds.
-{{/1.5.0+}}
+Command | Description
+:-------|:-----------
+`batch` | Manually start garbage collection for a batch of eligible objects {{1.5.0-}}
+`batch` | Manually start garbage collection for a batch of eligible objects. This command takes an optional argument to indicate a leeway time other than the currently configured `leeway_seconds` time for the batch. {{1.5.0+}}
+`status` | Get the current status of the garbage collection daemon. The output is dependent on the current state of the daemon.
+`pause` | Pause the current batch of object garbage collection. It has no effect if there is no active batch.
+`resume` | Resume a paused garbage collection batch. It has no effect if there is no previously paused batch.
+`set-interval` | Set or update the garbage collection interval. This setting uses a unit of seconds.
+`set-leeway` | Set or update the garbage collection leeway time. This setting indicates how many seconds must elapse after an object is deleted or overwritten before the garbage collection system may reap the object. This setting uses a unit of seconds. {{1.5.0+}}
 
-For more information, see our documentation on [[Riak CS command line
+For more information, see our documentation on [[Riak CS command-line
 tools]].
 
 ## Manifest Updates
@@ -307,18 +293,19 @@ manifest keys that could linger indefinitely.
 
 ## Trade-offs
 
-1. An **slow** reader may have blocks GC'd as it is reading an
-object if the read exceeds the leeway interval.
-1. There is some reliance on system clocks and this could lead to object
-blocks being deleted earlier or later than their intended eligibility window
-dictates due to clock skew.
-1. A network partition (or machine failure) lasting longer than
-`leeway_seconds` could cause a manifest to "come back to life"
-and appear active, it would then continually serve requests whose
-blocks could not be found.
+1. A **slow** reader may have blocks GC'd as it is reading an object if
+   the read exceeds the leeway interval.
+2. There is some reliance on system clocks and this could lead to object
+   blocks being deleted earlier or later than their intended eligibility
+   window dictates due to clock skew.
+3. A network partition (or machine failure) lasting longer than
+   `leeway_seconds` could cause a manifest to "come back to life" and
+   appear active, it would then continually serve requests whose blocks
+   could not be found.
 
 ## Configuration
 
 Riak CS's garbage collection implementation gives the deployer several
 knobs to adjust for fine-tuning system performace. More information
-can be found in our documentation on [[configuring Riak CS|Configuring Riak CS#Garbage-Collection-Settings]].
+can be found in our documentation on [[configuring Riak CS|Configuring
+Riak CS#Garbage-Collection-Settings]].
