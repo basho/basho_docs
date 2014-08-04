@@ -36,7 +36,7 @@ The following is an example starting point configuration for HAProxy to act
 as a load balancer to a Riak CS installation.
 
 <div class="info">The operating system's open files limits need to be greater than 256000 for the example configuration that follows. Consult the [[Open Files Limit|Open-Files-Limit]] documentation for details on configuring the value for different operating systems.</div>
-  
+
 ```config
 global
     log 127.0.0.1     local0
