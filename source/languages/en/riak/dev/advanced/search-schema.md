@@ -217,6 +217,12 @@ can be used in a custom schema as well.
 <dynamicField name="*" type="ignored"  />
 ```
 
+The following is required to be a child of the `types` element in the schema:
+
+```xml
+<fieldtype name="ignored" stored="false" indexed="false" multiValued="true" class="solr.StrField" />
+```
+
 ### Dates
 
 The format of strings that represents a date/time is important as [Solr
