@@ -809,7 +809,7 @@ multi_backend.$name.(existing_setting) = <setting>
 
 To give an example, if you have a LevelDB backend named
 `customer_backend` and wish to set the data_root` parameter to
-`$(platform_data_dir)/leveldb_backends/customer_backend/`, you would
+`$(platform_data_dir)/leveldb_backends/customer_backend`, you would
 do so as follows:
 
 ```riakconf
