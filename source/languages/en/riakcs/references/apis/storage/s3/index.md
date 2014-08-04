@@ -37,9 +37,9 @@ Bucket Object Versions | <abbr title="Unsupported" class="unsupported">✗</abbr
 GET Bucket Info (HEAD) | <abbr title="Supported" class="supported">✓</abbr> | |
 Bucket Request Payment | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
 PUT Object | <abbr title="Supported" class="supported">✓</abbr> | |
-PUT Object (Copy) | <abbr title="Supported" class="supported">✓</abbr> | | {{1.5.0+}}
-PUT Object (Copy) {{1.3.0-1.5.0}} | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. |
-PUT Object (Copy) {{1.3.0-}} | Coming Soon | Planned for future release |
+Put Object (Copy) | <abbr title="Supported" class="supported">✓</abbr> | | {{1.5.0+}}
+PUT Object (Copy) | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. | {{1.3.0-1.5.0}}
+PUT Object (Copy)| Coming Soon | Planned for future release | {{1.3.0-}}
 DELETE Object | <abbr title="Supported" class="supported">✓</abbr> | |
 DELETE Multiple Objects | <abbr title="Supported" class="supported">✓</abbr> | |
 GET Object {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
