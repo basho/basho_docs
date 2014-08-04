@@ -37,7 +37,7 @@ PUT Object | <abbr title="Supported" class="supported">✓</abbr> | |
 PUT Object (Copy) {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. |
 PUT Object (Copy) {{1.3.0-}} | Coming Soon | Planned for future release |
 DELETE Object | <abbr title="Supported" class="supported">✓</abbr> | |
-DELETE Multiple Objects | <abbr title="Unsupported" class="unsupported">✗</abbr> | Planned for future release |
+DELETE Multiple Objects | <abbr title="Unsupported" class="unsupported">✓</abbr> | |
 GET Object {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
 GET Object {{1.3.0-}} | <abbr title="Supported" class="supported">✓</abbr> | Range query unimplemented |
 Object ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |
@@ -71,6 +71,7 @@ Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 * [[PUT Object ACL|RiakCS PUT Object ACL]] - Sets the ACLs associated with an object
 * [[HEAD Object|RiakCS HEAD Object]] - Retrieves object metadata (not the full content of the object)
 * [[DELETE Object|RiakCS DELETE Object]] - Deletes an object
+* [[DELETE Multiple Objects|RiakCS DELETE Multiple Objects]] - Deletes multiple objects
 
 ## Multipart Upload
 

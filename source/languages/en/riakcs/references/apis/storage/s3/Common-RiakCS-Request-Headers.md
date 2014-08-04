@@ -16,6 +16,8 @@ These are the headers that are common to all Riak CS REST requests.
 
 **Authorization** - Information required to request authentication. This header is not required for anonymous requests.
 
+**Cache-Control** - 
+
 **Content-Length** - Length of message without headers according to RFC 2616. This header is required for PUTs and operations that load XML.
 
 **Content-Type** - The content type of the resource.
