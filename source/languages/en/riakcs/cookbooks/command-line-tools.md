@@ -1,5 +1,5 @@
 ---
-title: Riak CS Command Line Tools
+title: Riak CS Command-line Tools
 project: riakcs
 version: 1.5.0+
 document: cookbook
@@ -200,20 +200,10 @@ Options:
 More information about Erlang's etop tool can be found in the
 [official documentation](http://www.erlang.org/doc/man/etop.html).
 
-## riak-cs-admin access
+## riak-cs-access
 
-#### flush
-
-This command is the direct equivalent to `riak-cs-admin access`. For
-documentation, see [[the section above|Riak CS Command Line Tools#riak-cs-admin]].
-
-```bash
-riak-cs flush [-w N]
-```
-
-Options:
-
-* `w` --- Specifies the number of retries. Defaults to 10.
+This command is the direct equivalent of `riak-cs-admin access`,
+documented [[above|Riak CS]]
 
 ## riak-cs-admin gc
 
