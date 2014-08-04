@@ -51,6 +51,10 @@ of the following **before** enabling security:
 1. Make certain that the original Riak Search (version 1) and link
    walking are not required. Enabling security will break this
    functionality.
+2. If you are using SSL certificates, make sure that the appropriate
+   certs have been generated and that the node's [[configuration files]]
+   point to the [[right paths|Authentication and
+   Authorization#Certificate-Configuration]]
 2. Define [[users|Authentication and Authorization#User-Management]]
    and, optionally, groups
 3. Define an [[authentication source|Authentication and
@@ -710,3 +714,5 @@ DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DE
 
 Riak's cipher preferences were taken from [Mozilla's Server Side TLS
 documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
+
+## Certificate Configuration
