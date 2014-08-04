@@ -29,7 +29,6 @@ Authorization: signature_value
     <Quiet>true</Quiet>
     <Object>
          <Key>Key</Key>
-         <VersionId>VersionId</VersionId>
     </Object>
     <Object>
          <Key>Key</Key>
