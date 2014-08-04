@@ -30,9 +30,12 @@ capabilities of a Riak CS installation.
 A bag is a set of clusters linked together via [[Multi-Datacenter
 Replication|Multi Data Center Replication v3 Architecture]] \(MDC).
 Without MDC support, a bag consists of a single cluster. With MDC
-support, however, a bag can consist of several linked clusters. When
-objects are stored in Riak CS with multibag support, you can target
-specific bags by tagging objects with a bag ID.
+support, however, a bag can consist of several linked clusters. You can
+assign bags **weights** that determine the likelihood that objects,
+blocks, and manifests will be stored there. For example, if you expect
+to use one bag more heavily than another you can increase the weight of
+that bag using the interface described in [[Riak CS Command-line
+Tools]].
 
 ## The Master Bag
 
@@ -116,15 +119,26 @@ Configuration|Riak CS Multibag Support#Multibag-Configuration]] section.
 
 ### Set Weights
 
-Because each bag in a multibag Riak CS installation must bear a weight,
-you will need to set the weight of each bag using the `riak-cs-multibag`
-command-line interface. While complete instructions can be found in our
-documentation on [[Riak CS command line tools]], we'll provide an
-example here nonetheless.
+When a new bag is added, you must first set the weight of that bag to
+zero using the [[`riak-cs-multibag`|Riak CS Command-Line Tools]]
+command-line interface. The example below sets the weight of the
+recently added bag `bagA` to zero:
 
-Let's say that we've set up three bags, `bagA`, `bagB`, and `bagC`. We
-want to assign them the weights 40, 40, and 20, respectively. The
-following commands would accomplish that:
+```bash
+riak-cs-multibag weight bagA 0
+```
+
+All weights are stored in the [[master bag|Riak CS Multibag
+Support#The-Master-Bag]] and shared with all Riak CS nodes, which means
+that you only have to set weights once for them to be valid throughout
+your cluster.
+
+All bags must begin their life with a weight of zero. However, you can
+set non-zero weights once all Riak CS and Stanchion nodes are properly
+set up to recognize one another in the cluster. Let's say that we've set
+up three bags, `bagA`, `bagB`, and `bagC`. We want to assign them the
+weights 40, 40, and 20, respectively. The following commands would
+accomplish that:
 
 ```bash
 riak-cs-multibag weight bagA 40
@@ -132,7 +146,10 @@ riak-cs-multibag weight bagB 40
 riak-cs-multibag weight bagC 20
 ```
 
-These weights can be modified at any time.
+The weights don't need to add up to 100 or to any specific number. Each
+weight will be calculated as a percentage of the total assigned weights.
+Thus, if a fourth bag were added, you could assign it a weight of 30
+without changing the other weights.
 
 Congratulations! Your Riak CS installation is now ready to use the new
 multibag feature.
