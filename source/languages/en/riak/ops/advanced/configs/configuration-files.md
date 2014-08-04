@@ -2120,7 +2120,7 @@ to the leader before <code>ensemble_tick</code> *
 give up leadership. It may be necessary to raise this setting if your
 Riak vnodes are frequently stalling out on slow backend reads/writes. If
 this setting is too low, it may cause slow requests to time out earlier
-than the requests request timeout.</a></td>
+than the request timeout.</a></td>
 <td><code>2</code></td>
 </tr>
 
@@ -2145,7 +2145,7 @@ not recommend that you change this setting.</td>
 <td><code>trust_lease</code></td>
 <td>Determines whether leader leases are used to optimize reads. When
 set to <code>true</code>, a leader with a valid lease will handle the
-read directly without contacting any followers; hen set to
+read directly without contacting any followers; when set to
 <code>false</code>, the leader will always contact followers. For more
 information, see our internal documentation on
 <a href="https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md#leader-leases">leader

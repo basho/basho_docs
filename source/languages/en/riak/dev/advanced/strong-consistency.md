@@ -16,11 +16,18 @@ complement Riak's standard [[eventually consistent|Eventual
 Consistency]], high availability mode.
 
 When data is stored in a bucket with strong consistency guarantees, a
-value is guaranteed readable by any node *immediately* after a
-successful write has occurred. The tradeoff is that unavailable nodes
-will become temporarily unable to accept writes to that key. This
-tradeoff is necessary, but the [choice is now
-yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
+value is guaranteed readable by any client _immediately_ after a
+successful write has occurred to a given key. In this sense, single-key
+strongly consistent operations are atomic, and operations on a given key
+are [linearizable](http://en.wikipedia.org/wiki/Linearizability). This
+behavior comes at the expense of availability because a [[quorum|Strong
+Consistency#Trade-offs]] of primary [[vnodes|Riak Glossary#vnode]] for
+the portion of the keyspace containing the key included in the client
+request must be online and reachable from the coordinating vnode of the
+client request, or the request will fail.
+
+This trade-off is necessary for strongly consistent data, but the
+[choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
 ## Enabling Strong Consistency
 
@@ -29,7 +36,7 @@ least three nodes**. If it does not, you will need to [[add nodes|Basic
 Cluster Setup]].
 
 The strong consistency subsystem in Riak is disabled by default. You
-can turn it on by changing the configuration your Riak installation's
+can turn it on by changing the configuration of each Riak node's
 `[[riak.conf|Configuration Files]]` file. Simply un-comment the line
 containing the `strong_consistency = on` setting or add the following
 if that line is not present:
@@ -125,10 +132,14 @@ objects in Riak, you _must_ attach a context object**. If you attempt to
 modify a strongly consistent object without attaching a context to the
 request, the request will always fail.
 
+The vector clocks used by Riak's strong consistency subsystem differ
+from those used for eventually consistent operations, but their usage
+by connecting clients is the same.
+
 ## Strongly Consistent Writes
 
 The best practice for writing to strongly consistent keys is essentially
-the same as for writing to non-strongly-consistent objects. You should
+the same as for writing to eventually consistent objects. You should
 bear the following in mind:
 
 1. If you _know_ that a key does not yet exist, you can write to that
