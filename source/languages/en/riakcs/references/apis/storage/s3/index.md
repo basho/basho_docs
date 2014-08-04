@@ -41,7 +41,7 @@ PUT Object (Copy) {{1.3.0+}} | <abbr title="Supported" class="supported">✓</ab
 PUT Object (Copy) {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | | {{#1.5.0+}}
 PUT Object (Copy) {{1.3.0-}} | Coming Soon | Planned for future release |
 DELETE Object | <abbr title="Supported" class="supported">✓</abbr> | |
-DELETE Multiple Objects | <abbr title="Unsupported" class="unsupported">✗</abbr> | Planned for future release |
+DELETE Multiple Objects | <abbr title="Unsupported" class="unsupported">✓</abbr> | |
 GET Object {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
 GET Object {{1.3.0-}} | <abbr title="Supported" class="supported">✓</abbr> | Range query unimplemented |
 Object ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |
@@ -75,17 +75,14 @@ Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 
 ## Object-level Operations
 
-* [[GET Object|RiakCS GET Object]] --- Retrieves an object
-* [[GET Object ACL|RiakCS GET Object ACL]] --- Returns the ACLs
-  associated with an object
-* [[PUT Object|RiakCS PUT Object]] --- Stores an object to a bucket
-* [[PUT Object (Copy)|RiakCS PUT Object (Copy)]] --- Creates a copy of
-  an object {{1.3.0+}}
-* [[PUT Object ACL|RiakCS PUT Object ACL]] --- Sets the ACLs associated
-  with an object
-* [[HEAD Object|RiakCS HEAD Object]] --- Retrieves object metadata (not
-  the full content of the object)
-* [[DELETE Object|RiakCS DELETE Object]] --- Deletes an object
+* [[GET Object|RiakCS GET Object]]- Retrieves an object
+* [[GET Object ACL|RiakCS GET Object ACL]] - Returns the ACLs associated with an object
+* [[PUT Object|RiakCS PUT Object]] - Stores an object to a bucket
+* {{1.3.0+}} [[PUT Object (Copy)|RiakCS PUT Object (Copy)]] - Creates a copy of an object
+* [[PUT Object ACL|RiakCS PUT Object ACL]] - Sets the ACLs associated with an object
+* [[HEAD Object|RiakCS HEAD Object]] - Retrieves object metadata (not the full content of the object)
+* [[DELETE Object|RiakCS DELETE Object]] - Deletes an object
+* [[DELETE Multiple Objects|RiakCS DELETE Multiple Objects]] - Deletes multiple objects
 
 ## Multipart Upload
 
