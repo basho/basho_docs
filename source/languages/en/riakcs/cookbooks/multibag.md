@@ -159,3 +159,8 @@ multibag feature.
 Complete documentation for the `riak-cs-multibag` interface can be found
 in our documentation on [[Riak CS Command Line Tools|Riak CS Command
 Line Tools#riak-cs-multibag]].
+
+## Limitations
+
+Riak CS multibag does not currently support [[proxy gets|Multi Data
+Center Replication v3 Overview#Riak-CS-MDC-Gets]] from sink clusters.
