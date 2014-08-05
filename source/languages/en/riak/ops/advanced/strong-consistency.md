@@ -72,7 +72,7 @@ Replicas | Allowable missing replicas
 ### `n_val` Recommendations
 
 Due to the quorum requirements explained above, we recommend that you
-use at least N=5 for strongly consistent data. You can change the value
+use at least N=5 for strongly consistent data. You can set the value
 of N, i.e. `n_val`, for buckets [[using bucket types]]. For example, you
 can create and activate a bucket type with N set to 5 and strong
 consistency enabled---we'll call it `consistent_and_fault_tolerant`---using
