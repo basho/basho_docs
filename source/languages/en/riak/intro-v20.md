@@ -249,8 +249,14 @@ of code samples from all four officially supported clients.
 
 ## Incompatibilities
 
-|   | Search | Strong Consistency | Data Types | Ring Resizing |
-|:--|:-------|:-------------------|:-----------|:--------------|
-|Secondary Indexes|<abbr class="unsupported">✗</abbr>|<abbr class="supported">✓</abbr>|<abbr class="unsupported">✗</abbr>|<abbr class="supported">✓</abbr>|
-|Data Types|<abbr class="supported">✓</abbr>|<abbr class="unsupported">✗</abbr>| |
-|Strong Consistency|<abbr class="supported">✓</abbr>| |<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>|
+|   | Search 2.0 | Strong Consistency | Data Types | Ring Resizing | Secondary Indexes | Legacy Search | Security |
+|:--|:-----------|:-------------------|:-----------|:--------------|:------------------|:--------------|:---------|
+|Search 2.0| |<abbr class="unsupported">~</abbr>| |<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">*</abbr>|
+|Strong Consistency|<abbr class="unsupported">~</abbr>| |<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>|
+|Data Types|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>| | |<abbr class="unsupported">✗</abbr>| |
+|Ring Resizing|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>| | |
+|Secondary Indexes|<abbr class="unsupported">✗</abbr>| |<abbr class="unsupported">✗</abbr>| |
+|Legacy Search|<abbr class="unsupported">*</abbr>|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>| |<abbr class="unsupported">✗</abbr>| |<abbr class="unsupported">✗</abbr>|
+|Security| | | | | |<abbr class="unsupported">✗</abbr>| |
+
+<sup>~</sup> Stuff
