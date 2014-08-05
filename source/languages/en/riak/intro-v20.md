@@ -226,10 +226,10 @@ DVVs and vector clocks and offers instructions on implementing DVVs.
 ## Ring Resizing
 
 In previous versions of Riak, the size of a cluster's
-[[ring|Clusters#The-Ring]] was more or less fixed for the entire life
-cycle of the cluster. With the release of version 2.0, it is now
-possible to adjust the size of your cluster's ring at any point in the
-life of a cluster. Our [[Ring Resizing]] doc explains how.
+[[ring|Clusters#The-Ring]] was fixed for the entire life cycle of the
+cluster. In version 2.0 it is possible to adjust the size of your
+cluster's ring at any point in the cluster's life cycle. Our [[Ring
+Resizing]] doc explains how.
 
 ## New Client Libraries
 
