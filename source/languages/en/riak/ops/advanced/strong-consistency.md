@@ -88,13 +88,21 @@ More on creating and activating bucket types can be found in our
 [[bucket types|Using Bucket
 Types#Managing-Bucket-Types-Through-the-Command-Line]] documentation.
 
-<div class="note">
-<div class="title">Note on bucket types and the <code>consistent</code>
-property</div>
-The <code>consistent</code> bucket property is one of two bucket
-properties, alongside <code>datatype</code>, that cannot be changed once
-a bucket type has been created and activated.
-</div>
+### Note on Bucket Properties
+
+The `consistent` bucket property is one of two bucket properties,
+alongside `[[datatype|Using Data Types]]`, that cannot be changed once a
+bucket type has been created.
+
+Furthermore, if `consistent` is set to `true` for a bucket type, you
+cannot change the `n_val` for the bucket type once it's been created. If
+you attempt to do so, you'll see the following error:
+
+```
+Error updating bucket <bucket_type_name>:
+n_val cannot be modified for existing consistent type
+```
+
 
 ### Fault Tolerance and Cluster Size
 
@@ -118,8 +126,8 @@ If you're using strong consistency and you do need to reboot multiple
 nodes, we recommend rebooting nodes very carefully. Rebooting nodes too
 quickly in succession can force the cluster to lose quorum and thus to
 be unable to service strongly consistent operations. The best strategy
-is to reboot nodes one at a time and waiting for each node to rejoin
-all existing ensembles before continuing to the next node. At any point
+is to reboot nodes one at a time and wait for each node to rejoin
+existing ensembles before continuing to the next node. At any point
 in time, the state of currently existing ensembles can be checked using
 `[[riak-admin ensemble-status|Managing Strong
 Consistency#riak-admin-ensemble-status]]`.
@@ -282,8 +290,8 @@ leader lease remains valid without being refreshed, using the
 `lease_duration` setting, which is specified in milliseconds. This
 setting should be higher than `ensemble_tick` to ensure that leaders
 have to time to refresh their leases before they time out, and it _must_
-be lower than `follower_timeout`. The default is `ensemble_tick` * 2,
-i.e. if `ensemble_tick` is 400, `lease_duration` will default to 800.
+be lower than `follower_timeout`. The default is `ensemble_tick` * 3/2,
+i.e. if `ensemble_tick` is 400, `lease_duration` will default to 600.
 
 #### Worker Settings
 
