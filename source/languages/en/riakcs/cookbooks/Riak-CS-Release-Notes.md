@@ -12,6 +12,7 @@ keywords: [developer]
 
 ### Additions
 
+* Added Multibag Technical Preview to Riak CS. More info is available [here](http://docs.basho.com/riakcs/latest/cookbooks/multibag/)
 * A new command `riak-cs-debug` including `cluster-info` [riak_cs/#769](https://github.com/basho/riak_cs/pull/769), [riak_cs/#832](https://github.com/basho/riak_cs/pull/832)
 * Tie up all existing commands into a new command `riak-cs-admin` [riak_cs/#839](https://github.com/basho/riak_cs/pull/839)
 * Add a command `riak-cs-admin stanchion` to switch Stanchion IP and port manually [riak_cs/#657](https://github.com/basho/riak_cs/pull/657)
@@ -121,6 +122,15 @@ running `riak-cs-admin gc set-interval infinity` .
 
 Multi data center cluster should be upgraded more carefully, as to
 make sure GC is not running while upgrading.
+
+#### Riak CS Multibag
+
+Multibag, the ability to store object manifests and blocks in separate
+clusters or groups of clusters, has been added as an Enterprise feature,
+but it is in early preview status. `proxy_get` has not yet been
+implemented for this preview feature, so multibag is intended for a
+single DC only at this time. More information on Multibag is available
+[[here|Riak CS Multibag Support]].
 
 ### Known Issues and Limitations
 
