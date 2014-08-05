@@ -552,6 +552,56 @@ no files meet the thresholds, and thus never resolve the conditions that
 triggered merging.
 </div>
 
+### Merge Interval
+
+Bitcask periodically runs checks to determine whether merges are
+necessary. You can determine how often those checks take place using
+the `bitcask.merge_check_interval` parameter. The default is 3 minutes.
+
+```riakconf
+bitcask.merge_check_interval = 3m
+```
+
+```appconfig
+%% In the app.config-based system, this setting is expressed in
+%% milliseconds and found in the riak_kv section rather than the bitcask
+%% section:
+
+{riak_kv, [
+    %% Other configs
+
+    {bitcask_merge_check_interval, 180000},
+
+    %% Other configs
+    ]}
+```
+
+Bitcask prevents merge check operations from occurring at the same time
+on different nodes by applying a **jitter** to those operations. A
+jitter is a random variation applied to merge times that you can alter
+using the `bitcask.merge_check_jitter` parameter. This parameter is
+expressed as a percentage of `bitcask.merge_check_interval`. The default
+is 30%.
+
+```riakconf
+bitcask.merge_check_jitter = 30%
+```
+
+```appconfig
+%% In the app.config-based system, this setting is expressed as an
+%% integer and found in the riak_kv section rather than the bitcask
+%% section:
+
+{riak_kv, [
+    %% Other configs
+
+    {bitcask_merge_check_jitter, 30},
+
+    %% Other configs
+    ]}
+```
+
+
 ### Log Needs Merge
 
 If you are using the older, `app.config`-based configuration system, you
@@ -560,7 +610,7 @@ merge settings. When set to `true` (as in the example below), each time
 a merge trigger is met, the partition/vnode ID and mergeable files will
 be logged.
 
-```erlang
+```appconfig
 {bitcask, [
     ...,
     {log_needs_merge, true},
