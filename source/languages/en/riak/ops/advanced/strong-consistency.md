@@ -13,7 +13,7 @@ Documentation for developers building applications using Riak's strong
 consistency feature can be found in [[Using Strong Consistency]], while
 a more theoretical treatment can be found in [[Strong Consistency]].
 
-## Cluster Size
+## Minimum Cluster Size
 
 In order to use strong consistency in Riak, **your cluster must consist
 of at least three nodes**. If it does not, all strongly consistent
@@ -103,13 +103,31 @@ Error updating bucket <bucket_type_name>:
 n_val cannot be modified for existing consistent type
 ```
 
-
 ### Fault Tolerance and Cluster Size
 
 From the standpoint of strongly consistent operations, larger clusters
 tend to be more fault tolerant. Spreading ensembles across more nodes
 will decrease the number of ensembles active on each node and thus
-decrease the number of quorums affected by a 
+decrease the number of quorums affected when a node goes down.
+
+Imagine a 3-node cluster in which all ensembles are N=3 ensembles. If a
+single node goes down, _all_ ensembles will lose quorum and be unable to
+function. Strongly consistent operations on the entire keyspace will
+fail until the node is brought back online.
+
+Now imagine a 50-node cluster with N=5 ensembles. In this cluster, each
+node is involved in only 10% of the total ensembles; if a single node
+fails, that failure will thus impact only 10% of ensembles. In addition,
+because N is set to 5, that will not impact quorum for _any_ ensemble in
+the cluster; two additional node failures would need to occur for quorum
+to be lost for any ensemble. And even in the case of three nodes
+failing, it is highly unlikely that that failure would impact the same
+ensembles; if it did, only those ensembles would become unavailable,
+affecting only 10% of the key space, as opposed to 100% in the example
+of a 3-node cluster consisting of N=3 ensembles.
+
+These examples illustrate why we recommend higher values for N---again,
+at least N=5 and preferably N=7---as well as larger clusters.
 
 ### Offline Node Recommendations
 
