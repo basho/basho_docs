@@ -41,23 +41,23 @@ when a cluster is experiencing significant service degradation.
 Building on the example presented in the [[eventual consistency]] doc,
 imagine that information about who manages Manchester United is stored
 in Riak, in the key `manchester-manager`. In the eventual consistency
-example, the value associated with this key was originally `Alex
-Ferguson`, meaning that that was the first successful write to that key.
-But then `David Moyes` became Man U's manager, and a write was executed
-to change the value of `manchester-manager`.
+example, the value associated with this key was originally
+`David Moyes`, meaning that that was the first successful write to that
+key. But then `Louis van Gaal` became Man U's manager, and a write was
+executed to change the value of `manchester-manager`.
 
 Now imagine that this write failed on one node in a multi-node cluster.
-Thus, all nodes report that the value of `manchester-manager` is `David
-Moyes` except for one. On the errant node, the value of the
-`manchester-manager` key is still `Alex Ferguson`. An eventually
+Thus, all nodes report that the value of `manchester-manager` is `Louis
+van Gaal` except for one. On the errant node, the value of the
+`manchester-manager` key is still `David Moyes`. An eventually
 consistent system is one in which a get request will most likely return
-`David Moyes` but could return the outdated value `Alex Ferguson`.
+`Louis van Gaal` but could return the outdated value `David Moyes`.
 
 In a strongly consistent system, conversely, any successful read on
-`manchester-manager` will return `David Moyes` and never `Alex
-Ferguson`. Reads will return `David Moyes` every single time until Man U
-gets a new manager and someone performs a successful write to
-`manchester-manager` to change its value.
+`manchester-manager` will return `Louis van Gaal` and never `David Moyes`.
+Reads will return `David Moyes` every single time until Man U gets a new
+manager and someone performs a successful write to `manchester-manager`
+to change its value.
 
 It might also be useful to imagine it a bit more abstractly. The
 following causal sequence would characterize a strongly consistent
