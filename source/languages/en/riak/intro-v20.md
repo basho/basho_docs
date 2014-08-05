@@ -246,3 +246,11 @@ Language | Docs
 
 You will also notice that our documentation now features a wide variety
 of code samples from all four officially supported clients.
+
+## Incompatibilities
+
+|   | Search | Strong Consistency | Data Types | Ring Resizing |
+|:--|:-------|:-------------------|:-----------|:--------------|
+|Secondary Indexes|<abbr class="unsupported">✗</abbr>|<abbr class="supported">✓</abbr>|<abbr class="unsupported">✗</abbr>|<abbr class="supported">✓</abbr>|
+|Data Types|<abbr class="supported">✓</abbr>|<abbr class="unsupported">✗</abbr>| |
+|Strong Consistency|<abbr class="supported">✓</abbr>| |<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>|
