@@ -96,6 +96,13 @@ properties, alongside <code>datatype</code>, that cannot be changed once
 a bucket type has been created and activated.
 </div>
 
+### Fault Tolerance and Cluster Size
+
+From the standpoint of strongly consistent operations, larger clusters
+tend to be more fault tolerant. Spreading ensembles across more nodes
+will decrease the number of ensembles active on each node and thus
+decrease the number of quorums affected by a 
+
 ### Offline Node Recommendations
 
 In general, strongly consistent Riak is more sensitive to the number of
