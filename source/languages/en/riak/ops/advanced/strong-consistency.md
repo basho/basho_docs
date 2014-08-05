@@ -346,6 +346,9 @@ against silent corruption in Merkle trees, it carries the drawback that
 it can reduce Riak availability by requiring more than a simple majority
 of nodes to be online and reachable.
 
+If you are using ensembles with N=3, we recommend setting
+`tree_validation` to `false`.
+
 #### Synchronous vs. Asynchronous Tree Updates
 
 Merkle tree updates can happen synchronously or asynchronously. This is
@@ -452,13 +455,13 @@ latest version of strong consistency.
   attached to objects will be silently ignored by Riak.
 * **Multi-Datacenter Replication not supported** --- At this time,
   consistent keys are *not* replicated across clusters using [[Multi-
-  Datacenter Replication]] \(MDC). This is because MDC replication
-  currently supports only eventually consistent replication across
-  clusters. Mixing strongly consistent data within a cluster with
-  eventually consistent data between clusters is difficult to reason
-  about from the perspective of applications. In a future version of
-  Riak, we will add support for strongly consistent replication across
-  multiple datacenters/clusters.
+  Datacenter Replication|Multi Data Center Replication: Architecture]]
+  \(MDC). This is because MDC replication currently supports only
+  eventually consistent replication across clusters. Mixing strongly
+  consistent data within a cluster with eventually consistent data
+  between clusters is difficult to reason about from the perspective of
+  applications. In a future version of Riak, we will add support for
+  strongly consistent replication across multiple datacenters/clusters.
 * **Client library exceptions** --- Basho's official [[client
   libraries]] convert errors returned by Riak into generic exceptions,
   with a message derived from the returned server-side error message.
