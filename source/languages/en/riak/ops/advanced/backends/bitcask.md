@@ -576,31 +576,31 @@ bitcask.merge_check_interval = 3m
     ]}
 ```
 
-Bitcask prevents merge check operations from occurring at the same time
-on different nodes by applying a **jitter** to those operations. A
-jitter is a random variation applied to merge times that you can alter
-using the `bitcask.merge_check_jitter` parameter. This parameter is
-expressed as a percentage of `bitcask.merge_check_interval`. The default
-is 30%.
+If merge check operations happen at the same time on different
+[[vnodes|Riak Glossary#vnode]] on the same node, this can produce spikes
+in I/O usage and undue latency. Bitcask makes it less likely that merge
+check operations will occur at the same time on different vnodes by
+applying a **jitter** to those operations. A jitter is a random
+variation applied to merge times that you can alter using the
+`bitcask.merge_check_jitter` parameter. This parameter is expressed as a
+percentage of `bitcask.merge_check_interval`. The default is 30%.
 
 ```riakconf
 bitcask.merge_check_jitter = 30%
 ```
 
 ```appconfig
-%% In the app.config-based system, this setting is expressed as an
-%% integer and found in the riak_kv section rather than the bitcask
-%% section:
+%% In the app.config-based system, this setting is expressed as a float
+%% and found in the riak_kv section rather than the bitcask section:
 
 {riak_kv, [
     %% Other configs
 
-    {bitcask_merge_check_jitter, 30},
+    {bitcask_merge_check_jitter, 0.3},
 
     %% Other configs
     ]}
 ```
-
 
 ### Log Needs Merge
 
