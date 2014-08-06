@@ -602,6 +602,11 @@ bitcask.merge_check_jitter = 30%
     ]}
 ```
 
+For example, if you set the merge check interval to 4 minutes and the
+jitter to 25%, merge checks will occur at intervals between 3 and 5
+minutes. With the default of 3 minutes and 30%, checks will occur at
+intervals between roughly 2 and 4 minutes.
+
 ### Log Needs Merge
 
 If you are using the older, `app.config`-based configuration system, you
