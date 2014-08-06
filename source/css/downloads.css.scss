@@ -13,10 +13,13 @@
   table {
     width:100%;
     td.arch{
-      width:10em;
+      width:35%;
+    }
+    td.link {
+      width:45%;
     }
     td.size {
-      width:6em;
+      width:20%;
     }
     /*
     td.checksum {
@@ -36,6 +39,17 @@
       }
     }
     */
+  }
+}
+
+#downloads {
+  table {
+    a {
+      &[href^="http"], &[href^="https"] {
+        padding-right: 0px;
+        background: none;
+      }
+    }
   }
 }
 
