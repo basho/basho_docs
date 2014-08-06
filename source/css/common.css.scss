@@ -355,6 +355,10 @@ td {
   padding        : 10px;
   vertical-align : top;
   border-right   : 1px solid #ccc;
+
+  &:first-child {
+    @extend .sans;
+  }
   
   &:last-child {
     border-right : 0;
