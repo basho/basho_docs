@@ -330,7 +330,6 @@ ul {
 }
 
 table {
-  @include bgPattern('light-green-bg.jpg');
   margin-top: 10px;
   //@include boxShadow(0 1px 3px #999);
   //border : 1px solid #959CA6;
