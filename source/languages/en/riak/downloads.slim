@@ -36,11 +36,10 @@ p If your OS is unlisted, you may download the [[source|Downloads#source]] at th
               ==arch_data['file']
           td.size
             ==downloads.file_size(arch_data['file_size'])
-          - unless os_data['simple']
-            td.checksum
+            | &nbsp;&nbsp;
+            - unless os_data['simple']
               - if arch_data['csum'].present?
-                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])
-                  img src="/images/layout/hash.png" title="SHA1 Checksum"
+                a href="#{downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])}" hash
   - if os_data['install'].present?
     p.install_instruction Here are further instructions for [[#{os_data['install']}]]
 
