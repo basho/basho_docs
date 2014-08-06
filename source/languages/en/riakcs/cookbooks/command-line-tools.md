@@ -609,9 +609,14 @@ riak-cs-multibag weight-block <bag id> <weight>
 
 #### refresh
 
-At any time you can refresh all weights, which assigns all bags equal
-weights:
+Fetches all current weights from the master bag.
 
 ```bash
 riak-cs-multibag refresh
 ```
+
+When a bag's weight is updated, that weight is stored in the [[master
+bag|Riak CS Multibag Support#The-Master-Bag]] and cached in Riak CS.
+Riak CS fetches weights from the master bag only periodically. The
+`refresh` command
+
