@@ -1275,7 +1275,7 @@ div[role="main"] {
 
   .enterprise, .info, .note, blockquote {
     @extend .box-green;
-    @extend .serif-italic;
+    //@extend .serif-italic;
     @include allCorners();
     //background  : inline-image('layout/info-bg.jpg') left top repeat transparent;
     margin      : 2em 0;
