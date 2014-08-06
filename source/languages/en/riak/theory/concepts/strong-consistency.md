@@ -141,61 +141,6 @@ a variety of factors.
 Ways to address this issue can be found in [[strong consistency and
 performance|Managing Strong Consistency#Performance]].
 
-## Implementation Details
-
-Strong consistency in Riak is handled by a subsystem called
-[`riak_ensemble`](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
-This system functions differently from other systems in Riak in a number
-of ways, and many of these differences are important for operators
-configuring and [[managing strong consistency]].
-
-### Basic Operations
-
-The first major difference is that strongly consistent Riak involves a
-different set of operations from [[eventually
-consistent|Eventual Consistency]] Riak. In strongly consistent buckets,
-there are four types of atomic operations on objects:
-
-* **Get** operations work just as they do against
-  non-strongly-consistent keys, but with two crucial differences:
-  1. connecting clients are guaranteed to return the most recently
-     written value (the **C** in CAP)
-  2. reads on strongly consistent keys *never* return siblings, hence
-     there is no need for [[conflict resolution]]
-* **Conditional put** operations write an object only if no object
-  currently exists in that key. The operation will fail if the key
-  already exists; if the key was never written or has been deleted, the
-  operation succeeds.
-* **Conditional modify** operations are compare-and-swap (CAS)
-  operations that succeed only if the value of a key has not changed
-  since it was previously read.
-* **Delete** operations work just as they do against
-  non-strongly-consistent keys.
-
-From the standpoint of clients connecting to Riak, there is no
-difference between strongly and non-strongly consistent data. The
-operations performed on objects---reads, writes, deletes, etc.---are the
-same, which means that the client API for strong consistency is
-essentially the same, with the important exception of [[error handling|
-Using Strong Consistency#Error-Messages]].
-
-### Ensembles
-
-The main actors in Riak's implementation of strong consistency are
-**ensembles**, which are independent groups that watch over a portion of
-a Riak cluster's key space. In this regard they are somewhat like
-[[vnodes|Riak Glossary#vnode]], although with important differences.
-
-Ensembles operate in terms of **quorum** between object replicas,
-meaning that strongly consistent operations can succeed only if
-`n_val` / 2 + 1 primary replicas of an object are online and reachable.
-Thus, 4 replicas must be available in a 7-node cluster, 5 in a 9-node
-cluster, etc. If a quorum of replicas cannot be reached, then strongly
-consistent operations will fail.
-
-Ensemble behavior can be [[configured|Managing Strong
-Consistency#Configuring-Strong-Consistency]] in a variety of ways.
-
 ## Important Caveats
 
 The following Riak features are not currently available in strongly
