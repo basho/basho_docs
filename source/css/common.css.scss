@@ -330,7 +330,7 @@ ul {
 }
 
 table {
-  margin: 0 0 10px 0;
+  margin-top: 10px;
   //@include boxShadow(0 1px 3px #999);
   border : 1px solid #959CA6;
 }
@@ -346,16 +346,18 @@ tr {
 
 th {
   @include bgPattern('light-green-bg.jpg');
-  border-bottom : 1px solid $darkGreen;
+  //background: white;
+  border-bottom : 1px solid #959CA6;
   text-align : left;
   padding    : 5px 10px;
-  color      : $fadedGreen;
+  //color      : black;
+  //font-weight: bold
 }
 
 td {
   padding        : 10px;
   vertical-align : top;
-  border-right   : 1px solid #ccc;
+  //border-right   : 1px solid #ccc;
 
   &:first-child {
     @extend .sans;
