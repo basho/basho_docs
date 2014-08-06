@@ -330,8 +330,9 @@ ul {
 }
 
 table {
-  @include boxShadow(0 1px 3px #999);
-  border : 5px solid #fff;
+  margin: 0 0 10px 0;
+  //@include boxShadow(0 1px 3px #999);
+  border : 1px solid #959CA6;
 }
 
 tr {
@@ -1763,16 +1764,18 @@ div[role=main] {
     width: 799px;
     max-width: 799px;
     td:nth-of-type(1) {
+      font-size: 90%;
       overflow-wrap:break-word;
-      max-width: 300px;
+      //max-width: 300px;
     }
     td:nth-of-type(2) {
+      font: 90%;
       overflow-wrap:break-word;
-      max-width: 325px;
+      //max-width: 325px;
     }
     td:nth-of-type(3) {
       overflow-wrap:break-word;
-      width: 100px;
+      //width: 100px;
     }
   }
 
