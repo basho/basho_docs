@@ -53,7 +53,7 @@ Set the authentication module to specify the Keystone authentication module:
 {auth_module, riak_cs_keystone_auth}
 ```
 
-####  Operator Roles
+#### Operator Roles
 
 You may optionally override the default list of valid operator roles. The
 default roles are `admin` and `swiftoperator`, but others may be used:

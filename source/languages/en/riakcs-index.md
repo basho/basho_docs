@@ -66,8 +66,7 @@ headers</a>.</p>
 </td>
 </tr>
 <tr>
-<td><strong>Multi-Datacenter Replication<br><i>(Enterprise Edition
-Only)</i></strong>{{1.3.0+}}</td>
+<td><strong>Multi-Datacenter Replication<br><em>(Enterprise Edition Only)</em></strong>{{1.3.0+}}</td>
 <td>
 <p>Riak CS <a href="http://basho.com/riak-enterprise">Enterprise</a>
 Multi-Datacenter Replication for active backups, disaster recovery,
