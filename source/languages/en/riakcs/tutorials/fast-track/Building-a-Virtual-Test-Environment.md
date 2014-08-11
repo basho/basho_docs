@@ -83,7 +83,7 @@ Secret key: RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
 
 ## Next Steps
 
-Congratulations! You have deployed a virtualized environment of Riak CS.  You
+Congratulations! You have deployed a virtualized environment of Riak CS. You
 are ready to progress to [[Testing the Riak CS Installation]].
 
 ### Stopping Your Virtual Environment
