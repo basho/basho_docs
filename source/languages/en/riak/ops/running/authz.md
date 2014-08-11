@@ -760,7 +760,7 @@ on [[configuring directories|Configuration Files#Directories]].
 
 If you are using the older, `app.config`-based configuration system,
 these paths can be set in the `ssl` subsection of the `riak_core`
-section. The corresponding parameters are. Here's an example:
+section. The corresponding parameters are shown in the example below:
 
 ```appconfig
 {riak_core, [
