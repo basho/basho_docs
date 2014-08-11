@@ -230,8 +230,8 @@ and [[cluster metadata]].</td>
 <td><code>platform_bin_dir</code></td>
 <td>The directory in which the <code>[[riak|riak Command Line]]</code>,
 <code>[[riak-admin|riak-admin Command Line]]</code>,
-<code>riak-debug</code>, and (the now deprecated)
-<code>search-cmd</code> executables are stored.</td>
+<code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
+executables are stored.</td>
 <td><code>./bin</code></td>
 </tr>
 
