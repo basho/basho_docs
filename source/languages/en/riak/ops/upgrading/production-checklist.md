@@ -38,14 +38,15 @@ Making the transition from running Riak in a development or testing environment 
   - Are all of the {{#2.0.0-}}`app.config` and `vm.args`{{/2.0.0-}}{{#2.0.0+}}`riak.conf`{{/2.0.0+}} settings identical across the cluster?
   - Have all of the settings in your configuration file(s) that were changed for debugging purposes been reverted back to production settings?
   - If you're using [[multiple data backends|Multi]], are all of your {{#2.0.0-}}buckets{{/2.0.0-}}{{#2.0.0+}}bucket types{{/2.0.0+}} configured to use the correct backend?
+  - If you are using Riak Security, have you checked off all items in the [[security checklist|Authentication and Authorization#security-checklist]] and turned on security?
   - If you're using [[multiple data backends|Multi]], do all machines' config files agree on their configuration?
   - Do all nodes agree on the value of the `[[allow_mult|Basic Configuration]]`` setting?
   - Do you have a [[sibling resolution|Vector Clocks]] strategy in place if `allow_mult` is set to `true`?
   - Have you carefully weighed the [[consistency trade-offs|Eventual Consistency]] that must be made if `allow_mult` is set to `false`?
   - Are all of your [[CAP controls|Replication Properties]] configured correctly and uniformly across the cluster?
   - If you are using Riak Search, is it enabled on all nodes? If you are not, has it been disabled on all nodes?
-  - If you are using [[strong consistency]] for some or all of your data, has the strong consistency subsystem been [[enabled|Using Strong Consistency#Enabling-Strong-Consistency]] on all nodes? {{#2.0.0+}}
-  - Have all [[bucket types|Using Bucket Types]] that you intend to use been created and successfully activated? {{#2.0.0+}}
+  - If you are using [[strong consistency]] for some or all of your data, has the strong consistency subsystem been [[enabled|Using Strong Consistency#Enabling-Strong-Consistency]] on all nodes? {{2.0.0+}}
+  - Have all [[bucket types|Using Bucket Types]] that you intend to use been created and successfully activated? {{2.0.0+}}
   - If you are using [[Riak Control]], is it enabled on the node(s) from which you intend to use it?
 * Check data mount points:
   - Is `/var/lib/riak` mounted?

@@ -21,7 +21,7 @@ The simplest way to test the installation is using the `s3cmd` script. We can in
 sudo apt-get -y install s3cmd
 ```
 
-For our OS X users, either use the package manager of your preference or download the S3 cmd package at [[http://s3tools.org/download]].  You will need to extract the `.tar` file, change directories into the folder, and build the package. The process should look something like this:
+For our OS X users, either use the package manager of your preference or download the S3 cmd package at [[http://s3tools.org/download]]. You will need to extract the `.tar` file, change directories into the folder, and build the package. The process should look something like this:
 
 ``` bash
 tar -xvzf s3cmd-1.5.0-alpha1.tar.gz
@@ -77,20 +77,35 @@ We can see if it was properly uploaded by typing:
 s3cmd -c ~/.s3cfgfasttrack ls s3://test-bucket
 ```
 
-We can now download the test file:
+We can now download the test file. First, let's remove the file we generated previously:
 
 ``` bash
-# remove the local test file
 rm test_file
-# download from Riak CS
+```
+
+Now, we can download the `test_file`stored in Riak CS:
+
+```bash
 s3cmd -c ~/.s3cfgfasttrack get s3://test-bucket/test_file
-# verify that the download was successful
+```
+
+We should immediately see output like this:
+
+```
+s3://test-bucket/test_file -> ./test_file  [1 of 1]
+ 2097152 of 2097152   100% in    0s    59.63 MB/s  done
+```
+
+To verify that the file has been downloaded into the current directory:
+
+```bash
 ls -lah test_file
 ```
 
 ## What's Next
+
 If you have made it this far, congratulations! You now have a working Riak CS test instance (either virtual or local). There is still a fair bit of learning to be done, so make sure and check out the Reference section (click "Reference" on the nav on the left side of this page). A few items that may be of particular interest:
 
-* [[Details about API operations|RiakCS Storage API]]
+* [[Details about API operations|Riak CS Storage API]]
 * [[Information about the Ruby Fog client|Fog on Riak CS]]
 * [[Release Notes]]

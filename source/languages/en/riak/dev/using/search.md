@@ -34,9 +34,9 @@ Riak Search must first be configured with a Solr *schema*, so Solr knows how to 
 
 Next, you must create a named Solr index through Riak Search. This index represents a collection of similar data that you connect with to perform queries. When creating an index, you can optionally provide a schema. If you do not, the default schema will be used. Here we'll `curl` create an index named `famous` with the default schema.
 
-<div class="info">All `curl` examples in this document require that you first
-set an environment variable named `RIAK_HOST`, which points to a Riak base
-URL, such as `RIAK_HOST="http://localhost:8098"`.</div>
+*Note that index names may only be ascii values from 32-127 (spaces, standard puncutation, digits and word characters). This may change in the future to allow full unicode support.*
+
+All `curl` examples in this document assume that you have set an environment variable named `RIAK_HOST`, which points to a Riak base URL, such as `http://localhost:8098`.
 
 ```curl
 export RIAK_HOST="http://localhost:8098"
@@ -52,6 +52,13 @@ client.create_search_index('famous')
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"famous">>)
 ```
+
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
 
 Note that the above command is exactly the same as the following, which explicitly defines the default schema.
 
@@ -70,36 +77,86 @@ client.create_search_index('famous', '_yz_default')
 riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, [])
 ```
 
-The last setup item you need to perform is to *associate a bucket type* with a Solr index. You only need do this once per bucket type. This setting tells Riak Search which bucket values are to be indexed on a write to Riak. For example, to associate a bucket named `cats` with the `famous` index, you can set the bucket property `search_index`.
+The last setup item you need to perform is to associate either a bucket
+or a bucket type with a Solr index. You only need do this once per
+bucket type, and all buckets within that type will use the same Solr
+index.  For example, to associate a bucket type named `animals` with the
+`famous` index, you can set the bucket type property `search_index`. If
+a Solr index is to be used by only *one* Riak bucket, you can set the
+`search_index` property on that bucket. If more than one bucket is to
+share a Solr index, a bucket type should be used.
 
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]] to namespace all buckets you create. Bucket types have a lower overhead within the cluster than the default bucket namespace, but require an additional setup step in on commandline.
+Since Riak 2.0, Basho suggests you [[use bucket types|Using Bucket Types]]
+to namespace all buckets you create. Bucket types have a lower
+overhead within the cluster than the default bucket namespace, but
+require an additional setup step in on commandline.
+
+When creating a new bucket type, you can create a bucket type without
+any properties, and set individual buckets to be indexed.
+
+```bash
+riak-admin bucket-type create animals '{"props":{}}'
+riak-admin bucket-type activate animals
+
+curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/props" \
+     -H'content-type: application/json' \
+     -d'{"props":{"search_index":"famous"}}'
+```
+
+Or optionally, you can set the `search_index` as a default property
+of the bucket type. This means any bucket under that type will
+inherit that setting and be its values will be indexed.
 
 ```bash
 riak-admin bucket-type create animals '{"props":{"search_index":"famous"}}'
 riak-admin bucket-type activate animals
 ```
 
+If you ever need to turn off indexing for a bucket, set `search_index`
+property to the `_dont_index_` sentinel.
+
+
+### Bucket Properties
+
+Although we recommend all new buckets use under a bucket type, if you have
+existing data with a type-free bucket (or under the `default` bucket type)
+you can set the `search_index` property for a bucket in this manner.
+
+```curl
+curl -XPUT "$RIAK_HOST/buckets/cats/props" \
+     -H'content-type:application/json' \
+     -d'{"props":{"search_index":"famous"}}'
+```
+
+
 ### Security
 
-Security is a new feature of Riak that lets an administrator limit access to certain resources. In the case of search, your options are to limit administration of schemas or indexes (permission `search.admin`) to certain users, and to limit querying (permission `search.query`) to any index or a specific one. The example below shows the various options.
+Security is a new feature of Riak that lets an administrator limit
+access to certain resources. In the case of search, your options are to
+limit administration of schemas or indexes (permission `search.admin`)
+to certain users, and to limit querying (permission `search.query`) to
+any index or a specific one. The example below shows the various
+options.
 
 ```bash
-riak-admin security grant search.admin ON schema TO username
-riak-admin security grant search.admin ON index TO username
-riak-admin security grant search.query ON index TO username
-riak-admin security grant search.query ON index famous TO username
+riak-admin security grant search.admin on schema to username
+riak-admin security grant search.admin on index to username
+riak-admin security grant search.query on index to username
+riak-admin security grant search.query on index famous to username
 ```
 
 ## Indexing Values
 
-With a Solr schema, index, and association in place, we're ready to start using Riak Search. First, populate the `cat` bucket with values.
+With a Solr schema, index, and association in place, we're ready to
+start using Riak Search. First, populate the `cat` bucket with values.
 
-Depending on the driver you use, you may have to specify the `Content-Type`,
-which for this example is `application/json`. In the case of Ruby and Python
-the content type is automatically set for you based on the object given.
+Depending on the driver you use, you may have to specify the
+`Content-Type`, which for this example is `application/json`. In the
+case of Ruby and Python the content type is automatically set for you
+based on the object given.
 
 ```curl
 curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/liono" \
@@ -119,23 +176,23 @@ curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/panthro" \
      -d'{"name_s":"Panthro", "age_i":36}'
 ```
 ```ruby
-bucket = client.bucket("animals", "cats")
+bucket = client.bucket("animals")
 
 cat = bucket.get_or_new("liono")
 cat.data = {"name_s" => "Lion-o", "age_i" => 30, "leader_b" => true}
-cat.store
+cat.store(:bucket_type => "cats")
 
 cat = bucket.get_or_new("cheetara")
 cat.data = {"name_s" => "Cheetara", "age_i" => 28, "leader_b" => false}
-cat.store
+cat.store(:bucket_type => "cats")
 
 cat = bucket.get_or_new("snarf")
 cat.data = {"name_s" => "Snarf", "age_i" => 43}
-cat.store
+cat.store(:bucket_type => "cats")
 
 cat = bucket.get_or_new("panthro")
 cat.data = {"name_s" => "Panthro", "age_i" => 36}
-cat.store
+cat.store(:bucket_type => "cats")
 ```
 ```python
 bucket = client.bucket('animals', 'cats')
@@ -178,7 +235,7 @@ If you've used Riak before, you may have noticed that this is no different
 than setting values without Riak Search. This is one of the design goals of
 Riak Search:
 
-> Write it like Riak. Query it like Solr.
+**Write it like Riak. Query it like Solr.**
 
 But how does Riak Search know how to index values, given that values are
 opaque in Riak? For that, we employ extractors.
@@ -242,7 +299,7 @@ After the schema, index, association, population/extraction/indexing has taken p
 The basic query parameter is `q` via HTTP, or the first parameter of your chosen driver's `search` function. All Distributed Solr queries are supported, which actually includes most of the single-node solr queries. This example is searching for all documents where the `name_s` value begins with *Lion* by means of a glob (wildcard) match.
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=name_s:Lion*" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=name_s:Lion*" | jsonpp
 ```
 ```ruby
 results = client.search("famous", "name_s:Lion*")
@@ -333,7 +390,7 @@ Searches within a [range](https://cwiki.apache.org/confluence/display/solr/The+S
 To find the ages of all famous cats who are 30 or younger: `age_i:[0 TO 30]`. If you wanted to find all cats 30 or older, you could include a glob as a top end of the range: `age_i:[30 TO *]`.
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 ```
 ```ruby
 client.search("famous", "age_i:[30 TO *]")
@@ -352,7 +409,7 @@ riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
 You can perform logical conjunctive, disjunctive, and negative operations on query elements as, repectively, `AND`, `OR` and `NOT`. Let's say we want to see who is capable of being a US Senator (at least 30 years old, and a leader). It requires a conjunctive query: `leader_b:true AND age_i:[25 TO *]`.
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
 ```
 ```ruby
 client.search("famous", "leader_b:true AND age_i:[30 TO *]")
@@ -362,6 +419,32 @@ bucket.search('leader_b:true AND age_i:[30 TO *]')
 ```
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
+```
+
+### Deleting Indexes
+
+Indexes may be deleted if they have no buckets associated with them:
+
+```curl
+curl -XDELETE "$RIAK_HOST/search/index/famous"
+```
+```ruby
+client.delete_search_index('famous')
+```
+```python
+client.delete_search_index('famous')
+```
+```erlang
+riakc_pb_socket:delete_search_index(Pid, <<"famous">>, []),
+```
+
+If an does have a bucket associated with it, then that index's `search_index` property must be changed to either a different index name or to the sentinel value `_dont_index_`.
+
+```curl
+curl -XPUT \
+  -H 'content-type:application/json' \
+  -d '{"props":{"search_index":"_dont_index_"}}' \
+  $RIAK_HOST/types/animals/buckets/cats/props
 ```
 
 #### Pagination
@@ -375,7 +458,7 @@ ROWS_PER_PAGE=2
 PAGE=2
 START=$(($ROWS_PER_PAGE * ($PAGE-1)))
 
-curl "$RIAK_HOST/search/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
 ```
 ```ruby
 ROWS_PER_PAGE=2
@@ -399,6 +482,19 @@ Start = ?ROWS_PER_PAGE * (Page - 1),
 
 riakc_pb_socket:search(Pid, <<"famous">>, <<"*:*">>, [{start, Start},{rows, ?ROWS_PER_PAGE}]),
 ```
+
+Just be careful what you sort by.
+
+##### A Pagination Warning
+
+Distributed pagination in Riak Search cannot be used reliably when sorting on fields that can have different values per replica of the same object, namely: `score`, `_yz_id`. In the case of sorting by these fields, you may receive redundant objects. In the case of `score`, the top-N can return different results over multiple runs.
+
+If you are paginating simply to get all keys that match and don't care about the score, then you can sort on type-bucket-key (eg. `_yz_rt asc`, `_yz_rb asc`, `_yz_rk asc`) to get consistent results.
+
+If you want to sort by score without repeating results then you must set `rows` >= `numFound`. This requires having some idea of how many rows will match before running the query.
+
+[This issue](https://github.com/basho/yokozuna/issues/355) is caused by the way Search must minimally distribute a query across multiple Solr nodes (called a *coverage plan*), and then filter duplicate results to retrieve a full result set. Since this plan is frequently recalculated, successive page queries may use a different plan, and thus calculate alternate `score`s or filter different `_yz_id` values. We have plans to fix this shortcoming in the next version of Riak.
+
 
 ### MapReduce
 
@@ -444,7 +540,7 @@ curl -XPOST "$RIAK_HOST/mapred" \
 Cats age about 7 times faster than humans, so to calculate an age in "cat years", you can multiply the cat's age by 7 using the `product` function. It's only one out of many built-in [Solr Functions](https://cwiki.apache.org/confluence/display/solr/Function+Queries#FunctionQueries-AvailableFunctions).
 
 ```curl
-curl "$RIAK_HOST/search/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" | jsonpp
 ```
  -->
 

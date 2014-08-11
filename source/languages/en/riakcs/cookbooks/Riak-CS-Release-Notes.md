@@ -8,7 +8,32 @@ audience: intermediate
 keywords: [developer]
 ---
 
-{{#1.4.4+}}
+## Riak CS 1.4.5
+
+#### Bugs Fixed
+
+* Fix several 'data hiding' bugs with the v2 list objects FSM [riak_cs/788](https://github.com/basho/riak_cs/issues/788) .
+* Don't treat HEAD requests toward BytesOut in access statistics [riak_cs/791](https://github.com/basho/riak_cs/issues/791) .
+* Handle whitespace in POST/PUT XML documents [riak_cs/795](https://github.com/basho/riak_cs/issues/795) .
+* Handle unicode user-names and XML [riak_cs/807](https://github.com/basho/riak_cs/issues/807) .
+* Fix missing XML fields on storage usage [riak_cs/808](https://github.com/basho/riak_cs/issues/808) .
+* Adjust fold-objects timeout [riak_cs/811](https://github.com/basho/riak_cs/issues/811) .
+* Prune deleted buckets from user record [riak_cs/812](https://github.com/basho/riak_cs/issues/812) .
+* Fix bad bucketname in storage usage [riak_cs/800](https://github.com/basho/riak_cs/issues/800) .
+
+Riak CS 1.4.4 introduced
+[a bug (#800)](https://github.com/basho/riak_cs/issues/800) where
+storage calculations made while running that version would have the
+bucket-name replaced by the string "struct". This version fixes the
+bug, but can't go back and retroactively fix the old storage
+calculations. Aggregations on an entire user-account should still be
+accurate, but you won't be able to break-down storage by bucket, as
+they will all share the name "struct".
+
+
+#### Additions
+
+* Optimize the list objects v2 FSM for prefix requests [riak_cs/804](https://github.com/basho/riak_cs/issues/804) .
 
 ## Riak CS 1.4.4
 
@@ -20,9 +45,6 @@ keywords: [developer]
 * `sum_bucket` timeout crashes all storage calculation is fixed by [riak_cs/759](https://github.com/basho/riak_cs/issues/759) .
 * Failure to throttle access archiver is fixed by [riak_cs/758](https://github.com/basho/riak_cs/issues/758) .
 * Access archiver crash is fixed by [riak_cs/747](https://github.com/basho/riak_cs/issues/747) .
-
-{{/1.4.4+}}
-{{#1.4.3+}}
 
 ## Riak CS 1.4.3
 
@@ -42,8 +64,6 @@ keywords: [developer]
 * Update to Lager 2.0.1
 * Optionally prune manifests based on count, in addition to time
 * Allow multiple access archiver processes to run concurrently
-
-{{/1.4.3+}}
 
 ## Riak CS 1.4.2
 

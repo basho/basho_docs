@@ -330,31 +330,43 @@ ul {
 }
 
 table {
-  @include boxShadow(0 1px 3px #999);
-  border : 5px solid #fff;
+  margin-top: 10px;
+  //@include boxShadow(0 1px 3px #999);
+  //border : 1px solid #959CA6;
+  code {
+    background: transparent;
+  }
 }
 
 tr {
+  /*
   &:nth-child(even) {
     background : #f1f1f1;
   }
   &:nth-child(odd) {
     background : #dfdfdf;
   }
+  */
 }
 
 th {
-  @include bgPattern('light-green-bg.jpg');
-  border-bottom : 1px solid $darkGreen;
+  //@include bgPattern('light-green-bg.jpg');
+  //background: transparent;
+  border-bottom : 1px solid #959CA6;
   text-align : left;
   padding    : 5px 10px;
-  color      : $fadedGreen;
+  //color      : black;
+  //font-weight: bold
 }
 
 td {
   padding        : 10px;
   vertical-align : top;
-  border-right   : 1px solid #ccc;
+  //border-right   : 1px solid #ccc;
+
+  &:first-child {
+    @extend .serif;
+  }
   
   &:last-child {
     border-right : 0;
@@ -383,7 +395,6 @@ em {
 blockquote {
   @extend .serif-italic;
   @include allCorners();
-  @include boxShadow(inset 0 2px 3px lighten($orange, 25%));
   margin     : 2em 40px;
   background : lighten($orange, 30%);
   border     : 1px solid lighten($orange, 15%);
@@ -863,6 +874,11 @@ div[role="main"] {
       }
     }
     
+    div.small {
+      font-size: 70%;
+      line-height:1;
+    }
+
     a {
       color : $headerColor;
     }
@@ -1269,9 +1285,9 @@ div[role="main"] {
     }
   }
 
-  .info, .note, blockquote {
+  .enterprise, .info, .note, blockquote {
     @extend .box-green;
-    @extend .serif-italic;
+    //@extend .serif-italic;
     @include allCorners();
     //background  : inline-image('layout/info-bg.jpg') left top repeat transparent;
     margin      : 2em 0;
@@ -1296,6 +1312,21 @@ div[role="main"] {
       top         : 17px;
       left        : 9px;
     }
+  }
+  .enterprise {
+     @include gradient('575e64', rgba(87,95,101,1.0), rgba(73,81,88,1.0));
+     border: 0px;
+     color: #fff;
+     font-size: 100%;
+     font-family : 'OpenSansBold', sans-serif;
+     a {
+      color: $orange;
+      text-decoration : none;
+        &[href^="http://"], &[href^="https://"] {
+          background    : none;
+          padding-right : 0;
+        }
+     }
   }
     
   .mainarticle {
@@ -1740,16 +1771,35 @@ div[role=main] {
     width: 799px;
     max-width: 799px;
     td:nth-of-type(1) {
+      //font-size: 90%;
       overflow-wrap:break-word;
-      max-width: 300px;
+      //max-width: 300px;
     }
     td:nth-of-type(2) {
+      font: 90%;
       overflow-wrap:break-word;
-      max-width: 325px;
+      //max-width: 325px;
     }
     td:nth-of-type(3) {
       overflow-wrap:break-word;
-      width: 100px;
+      //width: 100px;
+    }
+  }
+
+  table.schemausecase {
+    font-size:80%;
+    th {
+      color:#3a5752;
+      padding: 3px 5px;
+    }
+    td {
+      padding: 3px 5px;
+      a {
+        vertical-align: super;
+        font-size:80%;
+        color:$darkOrange;
+        padding-left:3px;
+      }
     }
   }
 }
