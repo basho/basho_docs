@@ -225,7 +225,7 @@ module SitemapRenderOverride
 
     # shared resources (css, js, images, etc) are put under /shared/version
     if version_str || project == :root
-      version_str ||= $versions[:riak]
+      version_str = (version_str || $versions[:riak]).sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
       data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/mu) do
         base, href, cap = $1, $2, $3
         href.gsub!(/\.{2}\//, '')
@@ -301,13 +301,13 @@ module SitemapRenderOverride
         when "curl"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1bash\\2')
         when "appconfig"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])appconfig(["']\>)/, '\\1erlang\\2')
         when "advancedconfig"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])advancedconfig(["']\>)/, '\\1erlang\\2')
         when "riakconf"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])riakconf(["']\>)/, '\\1matlab\\2')
         when "vmargs"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])vmargs(["']\>)/, '\\1ini\\2')
         when "protobuf"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])protobuf(["']\>)/, '\\1objectivec\\2')
         else

@@ -54,7 +54,7 @@ If you are running Ubuntu 11.10 or later, you will also need the `libssl0.9.8` p
 sudo apt-get install -y libssl0.9.8
 ```
 
-Now, grab the appropriate packages: Riak, Riak CS, and Stanchion.  See [[Download Riak|Downloads]] and [[Download Riak CS]]. You can skip Riak CS Control for now.
+Now, grab the appropriate packages: Riak, Riak CS, and Stanchion. See [[Download Riak|Downloads]] and [[Download Riak CS]]. You can skip Riak CS Control for now.
 
 Once you have the packages, install them per the instructions below.
 
@@ -319,9 +319,9 @@ same Riak CS machine where the `anonymous_user_creation` configuration
 option was enabled:
 
 ```curl
-curl -H 'Content-Type: application/json' \
-  -X POST http://localhost:8080/riak-cs/user \
-  --data '{"email":"admin@admin.com", "name":"admin"}'
+curl -XPOST http://localhost:8080/riak-cs/user \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"admin@admin.com", "name":"admin"}'
 ```
 
 The output of this command will be a JSON object that looks something like this:
@@ -337,7 +337,7 @@ The output of this command will be a JSON object that looks something like this:
 }
 ```
 
-The user's access key and secret key are returned in the `key_id` and `key_secret` fields respectively.  Take note of these keys as they will be required in the testing step.
+The user's access key and secret key are returned in the `key_id` and `key_secret` fields respectively. Take note of these keys as they will be required in the testing step.
 
 In this case, those keys are:
 

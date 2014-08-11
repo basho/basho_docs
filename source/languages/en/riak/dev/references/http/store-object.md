@@ -19,10 +19,8 @@ Riak assign a key to a new object.
 ## Request
 
 ```bash
-POST /riak/bucket               # Riak-defined key, old format
-POST /buckets/bucket/keys       # Riak-defined key, new format
-PUT /riak/bucket/key            # User-defined key, old format
-PUT /buckets/bucket/keys/key    # User-defined key, new format
+POST /buckets/bucket/keys       # Riak-defined key
+PUT /buckets/bucket/keys/key    # User-defined key
 ```
 
 For the sake of compatibility with older clients, `POST` is also acceptable in

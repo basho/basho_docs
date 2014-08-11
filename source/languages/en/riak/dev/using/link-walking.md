@@ -10,7 +10,10 @@ moved: {
 }
 ---
 
-<div class="info"><div class="title">Deprecation Notice</div>Link Walking is a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].</div>
+<div class="info"><div class="title">Deprecation Notice</div>Link Walking is a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].
+<br />
+Link walking <strong>will not work</strong> when [[security|Authentication and Authorization]] is enabled.
+</div>
 
 
 ## What are Links?
@@ -156,7 +159,7 @@ In the above screencast, Sean makes use of several scripts to demonstrate some d
 If you watched the video, it's apparent how these scripts are used to demonstrate link walking. For those of you who didn't watch or who want to run and tweak the scripts themselves, check out this graphic:
 ![Circle of Friends](/images/circle-of-friends.png)
 
-`load_people.sh` will automatically load data into your running three node Riak Cluster that pertains to the the above graphic and has the requisite links attached.
+`load_people.sh` will automatically load data into your running three node Riak Cluster that pertains to the above graphic and has the requisite links attached.
 
 `people_queries.sh` is a series of link walking queries that expresses the relationships that were preloaded with the `load_people.sh` script.
 
@@ -187,6 +190,6 @@ $ ./people_queries.sh
 You should then see:
 
 ```
-Press [[Enter]] after each query description to execute.
+Press [Enter] after each query description to execute.
 Q: Get Sean's friends (A:Mark, Kevin)
 ```

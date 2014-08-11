@@ -154,4 +154,3 @@ You have a working Riak node!
 From here you might want to check out the following resources:
 
 * [[Client Libraries]] to use Riak with your favorite programming language
-* [[High-level concepts in Riak|Concepts]]

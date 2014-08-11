@@ -869,7 +869,7 @@ are unavailable. However, in practice, most Amazon services in production set a 
 the desired level of durability. A more detailed discussion of configuring N, R and W follows in section 6.
 
 # [[Multi Datacenter Replication|Multi Data Center Replication: Architecture]] is implemented
-# in the commercial extension to Riak, called [[Riak Enterprise Edition|Riak Enterprise]].
+# in the commercial extension to Riak, called [Riak Enterprise Edition](http://basho.com/riak-enterprise/).
 
 It is imperative that a highly available storage system be capable of handling the failure of an 
 entire data center(s). Data center failures happen due to power outages, cooling failures, network 

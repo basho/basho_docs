@@ -32,7 +32,7 @@ At some point, for various reasons, you might need to replace a node in your Ria
   4. Plan the join of the new **riak7** node to an existing node already participating in
     he cluster; for example **riak0** with the
     `[[riak-admin cluster join|riak-admin Command Line#cluster]]` command executed
-    on the the new **riak7** node:
+    on the new **riak7** node:
 
     ```bash
     riak-admin cluster join riak0
@@ -56,7 +56,7 @@ At some point, for various reasons, you might need to replace a node in your Ria
 
   6. Examine the proposed cluster changes with the
     `[[riak-admin cluster plan|riak-admin Command Line#cluster]]` command executed
-    on the the new **riak7** node:
+    on the new **riak7** node:
 
     ```bash
     riak-admin cluster plan

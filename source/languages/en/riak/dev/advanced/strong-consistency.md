@@ -20,7 +20,9 @@ The strong consistency subsystem in Riak is disabled by default. You will need t
 strong_consistency = on
 ```
 
-**Note**: This will enable you to use strong consistency in Riak, but this setting will _not_ apply to all of the data in your Riak cluster. Instead, strong consistency is applied only at the bucket level, using bucket types (as show directly below).
+**Note**: This will enable you to use strong consistency in Riak, but this setting will _not_ apply to all of the data in your Riak cluster. Instead, strong consistency is applied only at the bucket level, [[using bucket types]] \(as shown directly below).
+
+A second necessary step in activating strong consistency is to ensure that Riak's [[active anti-entropy|Riak Glossary#active-anti-entropy-aae]] subsystem is enabled (as it is by default). If it is not currently enabled, you can set the `anti_entropy` parameter in your [[configuration files]] to either `active` or `active-debug`.
 
 ## Creating a Strongly Consistent Bucket Type
 
@@ -57,7 +59,7 @@ strongly_consistent has been activated
 
 Now, any bucket that bears the type `strongly_consistent`---or whatever you named your bucket type---will provide strong consistency guarantees.
 
-Elsewhere in the Riak docs, you can find more information on [[Using Bucket Types]] and on the concept of [[Strong Consistency]].
+Elsewhere in the Riak docs, you can find more information on [[using bucket types]] and on the concept of [[strong consistency]].
 
 ## Error Messages
 
@@ -85,3 +87,15 @@ riak.RiakError: 'failed'
 <html><head><title>412 Precondition Failed</title></head><body><h1>Precondition Failed</h1>Precondition Failed<p><hr><address>mochiweb+webmachine web server</address></body></html>
 ```
 
+<div class="note">
+<div class="title">Getting started with Riak clients</div>
+If you are connecting to Riak using one of Basho's official
+[[client libraries]], you can find more information about getting
+started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+</div>
+
+## Strong Consistency and Riak Search
+
+Riak's strong consistency feature currently works with [[Riak Search|Using Search]], meaning that objects indexed by Riak Search can be subject to strong consistency requirements. Please be aware, however, that there is an important known caveat: **Riak Search indexes themselves are currently eventually consistent only**.
+
+This means that failed writes to [[strongly consistent buckets|Using Strong Consistency#Creating-a-Strongly-Consistent-Bucket-Type]] can potentially create false positive indexes. Those indexes will be [[repaired upon read|Active Anti-Entropy#Read-Repair-vs-Active-Anti-Entropy]].
