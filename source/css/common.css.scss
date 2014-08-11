@@ -946,10 +946,26 @@ div[role="main"] {
     a {
       white-space : normal;
     }
+  }
 
-    // For use in the 2.0 feature compatibility table
+  table.compatibility-matrix {
+        // For use in the 2.0 feature compatibility table
+
+    thead {
+      border-bottom: 1px solid black;
+    }
+
+    tbody {
+      border-bottom: 1px solid black;
+    }
+
     .grayed {
-      background-color: gray;
+      background-color: #F3F3F5;
+    }
+
+    .dark-grayed {
+      background-color: #DBDCE0;
+      border: 1px solid black;
     }
   }
 

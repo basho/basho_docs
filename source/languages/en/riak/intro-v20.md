@@ -249,39 +249,72 @@ of code samples from all four officially supported clients.
 
 ## Incompatibilities
 
-<table>
+<table class="compatibility-matrix">
   <thead>
     <tr>
+      <td></td>
       <td>Search 2.0</td>
       <td>Strong consistency</td>
       <td>Data Types</td>
       <td>Ring resizing</td>
       <td>Secondary indexes</td>
       <td>Legacy Search</td>
-      <td>Security</td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>1</td>
+      <td>Strong consistency</td>
+      <td><abbr class="unsupported">~</abbr></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Data Types</td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Ring resizing</td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Secondary indexes</td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Legacy Search</td>
+      <td><abbr class="unsupported">*</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td class="dark-grayed"></td>
+    </tr>
+    <tr>
+      <td>Security</td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
-      <td></td>
+      <td><abbr class="unsupported">✗</abbr></td>
     </tr>
   </tbody>
 </table>
-
-|   | Search 2.0 | Strong Consistency | Data Types | Ring Resizing | Secondary Indexes | Legacy Search | Security |
-|:--|:-----------|:-------------------|:-----------|:--------------|:------------------|:--------------|:---------|
-|Search 2.0| |<abbr class="unsupported">~</abbr>| |<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">*</abbr>|
-|Strong Consistency|<abbr class="unsupported">~</abbr>| |<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>|
-|Data Types|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>| | |<abbr class="unsupported">✗</abbr>| |
-|Ring Resizing|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>| | |
-|Secondary Indexes|<abbr class="unsupported">✗</abbr>| |<abbr class="unsupported">✗</abbr>| |
-|Legacy Search|<abbr class="unsupported">*</abbr>|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>| |<abbr class="unsupported">✗</abbr>| |<abbr class="unsupported">✗</abbr>|
-|Security| | | | | |<abbr class="unsupported">✗</abbr>| |
-
-<sup>~</sup> Stuff
