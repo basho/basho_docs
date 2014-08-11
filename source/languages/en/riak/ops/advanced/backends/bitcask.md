@@ -545,12 +545,67 @@ bitcask.merge.thresholds.small_file = 25MB
 
 <div class="note">
 <div class="title">Note on choosing threshold values</div>
-The values for <code>frag_threshold</code> and <code>dead_bytes_threshold</code>
-<em>must be equal to or less than their corresponding trigger
-values</em>. If they are set higher, Bitcask will trigger merges where
-no files meet the thresholds, and thus never resolve the conditions that
-triggered merging.
+The values for <code>frag_threshold</code> and
+<code>dead_bytes_threshold</code> <em>must be equal to or less than
+their corresponding trigger values</em>. If they are set higher,
+Bitcask will trigger merges where no files meet the thresholds, and thus
+never resolve the conditions that triggered merging.
 </div>
+
+### Merge Interval
+
+Bitcask periodically runs checks to determine whether merges are
+necessary. You can determine how often those checks take place using
+the `bitcask.merge_check_interval` parameter. The default is 3 minutes.
+
+```riakconf
+bitcask.merge_check_interval = 3m
+```
+
+```appconfig
+%% In the app.config-based system, this setting is expressed in
+%% milliseconds and found in the riak_kv section rather than the bitcask
+%% section:
+
+{riak_kv, [
+    %% Other configs
+
+    {bitcask_merge_check_interval, 180000},
+
+    %% Other configs
+    ]}
+```
+
+If merge check operations happen at the same time on different
+[[vnodes|Riak Glossary#vnode]] on the same node, this can produce spikes
+in I/O usage and undue latency. Bitcask makes it less likely that merge
+check operations will occur at the same time on different vnodes by
+applying a **jitter** to those operations. A jitter is a random
+variation applied to merge times that you can alter using the
+`bitcask.merge_check_jitter` parameter. This parameter is expressed as a
+percentage of `bitcask.merge_check_interval`. The default is 30%.
+
+```riakconf
+bitcask.merge_check_jitter = 30%
+```
+
+```appconfig
+%% In the app.config-based system, this setting is expressed as a float
+%% and found in the riak_kv section rather than the bitcask section:
+
+{riak_kv, [
+    %% Other configs
+
+    {bitcask_merge_check_jitter, 0.3},
+
+    %% Other configs
+    ]}
+```
+
+For example, if you set the merge check interval to 4 minutes and the
+jitter to 25%, merge checks will occur at intervals between 3 and 5
+minutes. With the default of 3 minutes and 30%, checks will occur at
+intervals between roughly 2 and 4 minutes.
 
 ### Log Needs Merge
 
@@ -560,7 +615,7 @@ merge settings. When set to `true` (as in the example below), each time
 a merge trigger is met, the partition/vnode ID and mergeable files will
 be logged.
 
-```erlang
+```appconfig
 {bitcask, [
     ...,
     {log_needs_merge, true},
@@ -569,7 +624,8 @@ be logged.
 ```
 
 <div class="note">
-<div class="title">Note on <code>log_needs_merge</code> and the Multi backend</div>
+<div class="title">Note on <code>log_needs_merge</code> and the Multi
+backend</div>
 If you are using Bitcask with the [[Multi]] backend in conjunction with
 the older, <code>app.config</code>-based configuration system, please
 note that <code>log_needs_merge</code> _must_ be set in the global
@@ -695,7 +751,8 @@ possible and to minimize latency and maximize throughput.
 
     Review the documentation on [[open files limit]].
 
-  * **Avoid the overhead of updating file metadata (such as last access time) on every read or write operation**
+  * **Avoid the overhead of updating file metadata (such as last access
+    time) on every read or write operation**
 
     You can achieve a substantial speed boost by adding the `noatime`
     mounting option to Linux's `/etc/fstab`. This will disable the
@@ -746,29 +803,33 @@ possible and to minimize latency and maximize throughput.
 
   * **Multi-cluster replication (Riak Enterprise)**
 
-    If you are using [Riak Enterprise](http://basho.com/riak-enterprise/) with the replication feature
-    enabled, your clusters might experience higher production of
-    fragmentation and dead bytes. Additionally, because the fullsync
-    feature operates across entire partitions, it will be made more
-    efficient by accessing data as sequentially as possible (across
-    fewer files). Lowering both the fragmentation and dead-bytes
-    settings will improve performance.
+    If you are using [Riak Enterprise](http://basho.com/riak-enterprise/)
+    with the replication feature enabled, your clusters might experience
+    higher production of fragmentation and dead bytes. Additionally,
+    because the fullsync feature operates across entire partitions, it
+    will be made more efficient by accessing data as sequentially as
+    possible (across fewer files). Lowering both the fragmentation and
+    dead-bytes settings will improve performance.
 
 ## FAQ
 
-  * [[Why does it seem that Bitcask merging is only triggered when a Riak node is restarted?|Developing on Riak FAQs#why-does-it-seem-that-bitc]]
-  * [[If the size of key index exceeds the amount of memory, how does Bitcask handle it?|Operating Riak FAQs#if-the-size-of-key-index-e]]
+  * [[Why does it seem that Bitcask merging is only triggered when a
+    Riak node is restarted?|Developing on Riak
+    FAQs#why-does-it-seem-that-bitc]]
+  * [[If the size of key index exceeds the amount of memory, how does
+    Bitcask handle it?|Operating Riak FAQs#if-the-size-of-key-index-e]]
   * [[Bitcask Capacity Planning]]
 
 ## Bitcask Implementation Details
 
-Riak will create a Bitcask database directory for each [[vnode|Riak Glossary#vnodes]]
-in a [[cluster|Clusters]]. In each of those directories, at most one
-database file will be open for writing at any given time. The file being
-written to will grow until it exceeds a specified size threshold, at
-which time it is closed and a new file is created for additional writes.
-Once a file is closed, whether purposely or due to server exit, it is
-considered immutable and will never again be opened for writing.
+Riak will create a Bitcask database directory for each [[vnode|Riak
+Glossary#vnodes]] in a [[cluster|Clusters]]. In each of those
+directories, at most one database file will be open for writing at any
+given time. The file being written to will grow until it exceeds a
+specified size threshold, at which time it is closed and a new file is
+created for additional writes. Once a file is closed, whether purposely
+or due to server exit, it is considered immutable and will never again
+be opened for writing.
 
 The file currenlty open for writes is only written by appending, which
 means that sequential writes do not require disk seeking, which can
@@ -779,15 +840,15 @@ metadata blocks. The primary speed advantage from a log-based database
 stems of its ability to minimize disk head seeks.
 
 Deleting a value from Bitcask is a two-step process: first, a
-"tombstone" is recorded in the open file for writes, which indicates
-that a value was marked for deletion at that time, while references to
-that key are removed from the in-memory "keydir" information; later,
-during a merge operation, non-active data files are scanned, and only 
-those values without tombstones are merged into the active data file.
-This effectively removes the obsolete data and reclaims disk space
-associated with it. This data management strategy may use up a lot of
-space over time, since Bitcask writes new values without touching the
-old ones.
+[[tombstone|Object Deletion]] is recorded in the open file for writes,
+which indicates that a value was marked for deletion at that time, while
+references to that key are removed from the in-memory "keydir"
+information; later, during a merge operation, non-active data files are
+scanned, and only  those values without tombstones are merged into the
+active data file. This effectively removes the obsolete data and
+reclaims disk space associated with it. This data management strategy
+may use up a lot of space over time, since Bitcask writes new values
+without touching the old ones.
 
 The compaction process referred to as "merging" solves this
 problem. The merge process iterates over all non-active (i.e. immutable)
