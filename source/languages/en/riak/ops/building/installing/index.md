@@ -25,7 +25,11 @@ detailed Riak installation instructions.
   * [[SUSE|Installing on SUSE]]
   * [[Windows Azure|Installing on Windows Azure]]
   * [[AWS Marketplace|Installing on AWS Marketplace]]
-  * [[From Source|Installing Riak from Source]] *(for unlisted-operating systems, requires [[Erlang installation|Installing Erlang]])*
+  * [[From Source|Installing Riak from Source]] --- For unlisted operating systems, this will require you to [[install Erlang|Installing Erlang]]
+
+### Installing Java and Solr for Riak Search 2.0
+
+* [[Installing the JVM]]
 
 ### Chef Cookbooks
 

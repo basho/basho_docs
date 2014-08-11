@@ -40,7 +40,7 @@ A:
   [lager](https://github.com/basho/lager) is the logging engine introduced in Riak 1.0. It is designed to be more stable than Erlang's [`error_logger`](http://www.erlang.org/doc/man/error_logger.html) as well as to play nicely with standard logging tools.
   
   * `handlers` --- allows the selection of log handlers with differing options
-    * `lager_console_backend` --- logs to the the console  with the specified log level
+    * `lager_console_backend` --- logs to the console with the specified log level
     * `lager_file_backend` --- logs to the given list of files, each with their own log level
   * `crash_log` --- whether or not to write a crash log and where (default: no crash logger)
   * `crash_log_size` --- maximum size in bytes of events in the crash log (default: `65536`)

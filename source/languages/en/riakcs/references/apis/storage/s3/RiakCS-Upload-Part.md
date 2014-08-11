@@ -41,13 +41,6 @@ Authorization: signatureValue
 * *Default*: None
 * *Constraints*: None
 
-**Content-Type** - A standard MIME type that describes the content format.
-
-* *Type*: String
-* *Default*: binary/octet-stream
-* *Valid Values*: 100-continue
-* *Constraints*: None
-
 **Expect** - When you use `100-continue` in your application, it doesn't send the request body until it receives an acknowledgment. That way, the body of the message isn't sent if the message is rejected based on the headers.
 
 * *Type*: String

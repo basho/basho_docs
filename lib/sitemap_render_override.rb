@@ -93,7 +93,7 @@ module SitemapRenderOverride
 
     if raw_version_str
       # Ignore rcX if this is a pre-release
-      version_str = raw_version_str.sub(/(rc\d+|pre\d+)/i, '')
+      version_str = raw_version_str.sub(/(rc\d+|pre\d+|beta\d+)/i, '')
       version = Versionomy.parse(version_str)
 
       # Create a version placeholder
@@ -137,7 +137,7 @@ module SitemapRenderOverride
       data.gsub!(/(\<li(?:\s[^\>]*?)?\>(?:(?!\<li).)*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/m) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
-        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+)?[\+\-]?$/
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
           in_version_range?(liversion, version) ? startli + endli : ''
         else
           startli + endli
@@ -147,7 +147,7 @@ module SitemapRenderOverride
       data.gsub!(/(\<tr(?:\s[^\>]*?)?\>(?:(?!\<tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/tr\>)/m) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
-        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+)?[\+\-]?$/
+        if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
           in_version_range?(liversion, version) ? startli + endli : ''
         else
           startli + endli
@@ -186,13 +186,13 @@ module SitemapRenderOverride
         next "<a #{anchor.gsub(href, url)}>"
       end
 
-      match_index = href =~ /^\/(#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+)?\/$/
+      match_index = href =~ /^\/(#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+|beta\d+)?\/$/
 
       # force the root page to point to the latest projcets
       if $production && project == :root && match_index
         "<a href=\"/#{$1}/latest/\">"
       # /riak*/version/ links should be relative, unless they cross projects
-      elsif match_index #href =~ /^\/(riak[^\/]*?)\/[\d\.]+(?:rc\d+|pre\d+)?\/$/
+      elsif match_index #href =~ /^\/(riak[^\/]*?)\/[\d\.]+(?:rc\d+|pre\d+|beta\d+)?\/$/
         if ($1 || $default_project).to_sym == project
           url = prepend_dir_depth('', depth_to_root)
           "<a #{anchor.gsub(href, url)}>"
@@ -225,7 +225,7 @@ module SitemapRenderOverride
 
     # shared resources (css, js, images, etc) are put under /shared/version
     if version_str || project == :root
-      version_str ||= $versions[:riak]
+      version_str = (version_str || $versions[:riak]).sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
       data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/mu) do
         base, href, cap = $1, $2, $3
         href.gsub!(/\.{2}\//, '')
@@ -282,6 +282,8 @@ module SitemapRenderOverride
         display_lang = case lang
         when "curl"
           "HTTP"
+        when "json"
+          "JSON"
         when "bash"
           "Shell"
         when "appconfig"
@@ -290,6 +292,8 @@ module SitemapRenderOverride
           "vm.args"
         when "riakconf"
           "riak.conf"
+        when "advancedconfig"
+          "advanced.config"
         else
           lang && lang.capitalize
         end
@@ -297,15 +301,21 @@ module SitemapRenderOverride
         when "curl"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1bash\\2')
         when "appconfig"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])appconfig(["']\>)/, '\\1erlang\\2')
+        when "advancedconfig"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])advancedconfig(["']\>)/, '\\1erlang\\2')
         when "riakconf"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])riakconf(["']\>)/, '\\1matlab\\2')
         when "vmargs"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])vmargs(["']\>)/, '\\1ini\\2')
+        when "protobuf"
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])protobuf(["']\>)/, '\\1objectivec\\2')
         else
           lang
         end
-        tabs_html += "<li class=\"#{active ? 'active' : ''}\"><a href=\"##{lang}#{block_suffix}\" data-code=\"#{lang}\" data-toggle=\"tab\">#{display_lang}</a></li>"
+        unless display_lang.blank?
+          tabs_html += "<li class=\"#{active ? 'active' : ''}\"><a href=\"##{lang}#{block_suffix}\" data-code=\"#{lang}\" data-toggle=\"tab\">#{display_lang}</a></li>"
+        end
         code_blocks += "<div class=\"tab-pane#{active ? ' active' : ''}\" id=\"#{lang}#{block_suffix}\">#{code}</div>"
         active = false
       end

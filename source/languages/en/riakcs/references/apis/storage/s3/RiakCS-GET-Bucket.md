@@ -38,6 +38,21 @@ You can use prefixes to separate the objects in a bucket into groupings of keys.
 * *Type*: String
 * *Default*: None
 
+**Delimiter** - Keys that contain the same string between the `prefix` and the first occurrence of the `delimiter` are rolled up into a single result in the `CommonPrefixes` collection and aren't returned anywhere else in the response.
+
+* *Type*: String
+* *Default*: None
+
+**Marker** - The starting location in the bucket for the list of objects.
+
+* *Type*: String
+* *Default*: None
+
+**MaxKeys** - The maximum number of keys returned in the response body.
+
+* *Type*: String
+* *Default*: 1000
+
 ## Response Elements
 
 **Contents** - Metadata about each object returned in the response.
