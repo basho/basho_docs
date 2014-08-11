@@ -249,6 +249,31 @@ of code samples from all four officially supported clients.
 
 ## Incompatibilities
 
+<table>
+  <thead>
+    <tr>
+      <td>Search 2.0</td>
+      <td>Strong consistency</td>
+      <td>Data Types</td>
+      <td>Ring resizing</td>
+      <td>Secondary indexes</td>
+      <td>Legacy Search</td>
+      <td>Security</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 |   | Search 2.0 | Strong Consistency | Data Types | Ring Resizing | Secondary Indexes | Legacy Search | Security |
 |:--|:-----------|:-------------------|:-----------|:--------------|:------------------|:--------------|:---------|
 |Search 2.0| |<abbr class="unsupported">~</abbr>| |<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">✗</abbr>|<abbr class="unsupported">*</abbr>|

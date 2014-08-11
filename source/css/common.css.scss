@@ -934,6 +934,11 @@ div[role="main"] {
     a {
       white-space : normal;
     }
+
+    // For use in the 2.0 feature compatibility table
+    .grayed {
+      background-color: gray;
+    }
   }
 
   h1 a, h2 a {
