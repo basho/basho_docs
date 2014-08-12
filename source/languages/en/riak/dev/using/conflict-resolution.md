@@ -10,14 +10,32 @@ keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 One of Riak's central goals is high availability. It was built as a
 multi-node system in which any [[node|Riak Glossary#node]] is capable of
 receiving requests without requiring that each node participate in each
-request. If you are using Riak in an [[eventually consistent|Eventual
-Consistency]] way, conflicts between object values on different nodes is
-unavoidable.
+request.
 
-When Riak can't decide which value is correct, it produces
-[[siblings|Conflict Resolution#Siblings]]. While using [[vector
-clocks]] or [[dotted version vectors]] can help to reduce the incidence
-of siblings by 
+If you are using Riak in an [[eventually consistent|Eventual
+Consistency]] way, conflicts between object values on different nodes is
+unavoidable. Often, Riak can resolve these conflicts on its own
+internally, especially if you use [[vector clocks]] when updating
+objects. Instructions on using vector clocks can be found in the section
+[[below|Conflict Resolution#Siblings]].
+
+But even when you use [[vector clocks]] \(or their close equivalent,
+[[dotted version vectors]]), Riak cannot always decide which value is
+most causally recent, especially in cases involving concurrent updates.
+How Riak behaves in that case is your choice. A list of options is
+available in the section on client- and server-side resolution
+[[below|Conflict Resolution#Client-and-Server-side-Resolution]].
+
+In general, we recommend allowing Riak to generate [[siblings|Conflict
+Resolution#Siblings]] and to resolve conflicts on the application side.
+Developing your own **conflict resolution strategy** can be tricky, but
+it has clear advantages over 
+
+Because of this, it's important to develop a **conflict resolution**
+strategy that can resolve conflicts in a way that serves the goals of
+your application. While it's difficult to generalize about resolution
+strategies, we offer an example in the [[section below|Conflict
+Resolution#Sibling-Resolution-Example]].
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
@@ -26,66 +44,83 @@ a strongly consistent fashion. This document pertains to usage of Riak
 as an <em>eventually</em> consistent system. If you'd like to use Riak's
 strong consistency feature, please refer to the following documents:
 
-[[Using Strong Consistency]] --- A guide for developers<br />
-[[Managing Strong Consistency]] --- A guide for operators<br />
-[[Strong Consistency]] --- A theoretical treatment of strong consistency
+* [[Using Strong Consistency]] --- A guide for developers<br />
+* [[Managing Strong Consistency]] --- A guide for operators<br />
+* [[Strong Consistency]] --- A theoretical treatment of strong consistency
 </div>
-
-Because of this, it's important that you develop a conflict resolution
-strategy for any application using Riak in an eventually consistent way.
-
-
-
- In distributed systems like this, it's important to be able to
-keep track of which version of a value is the most current. This is
-where [[vector clocks]] come in.
 
 ## Client- and Server-side Conflict Resolution
 
-Riak's eventual consistency model is powerful partially because Riak is
-non-opinionated about how data resolution takes place. While Riak _does_
-have a set of [[defaults|Replication Properties#available-parameters]],
-there is a wide variety of ways that data inconsistency can be resolved.
-The following basic options are available:
+Riak's eventual consistency model is powerful because Riak is
+fundamentally non-opinionated about how data resolution takes place.
+While Riak _does_ have a set of [[defaults|Replication
+Properties#available-parameters]], there is a variety of general
+approaches to conflict resolution that are available. In Riak, you can
+mix and match conflict resolution strategies at the bucket level,
+[[using bucket types]]. The most important [[bucket properties|Buckets]]
+to consider when reasoning about conflict resolution are the
+`allow_mult` and `last_write_wins` properties.
 
-* **Timestamp-based resolution**. If the `[[allow_mult|Conflict
-  Resolution#siblings]]` parameter is set to `false`, Riak resolves all
-  object replica conflicts on the basis of timestamps. While this
-  unburdens applications using Riak from resolving conflicts on their
-  own, timestamps are an unreliable means of handling concurrent
-  updates, and they bear a strong risk of data loss.
+These properties provide you with the following basic options:
 
-  Because of this, **we do not recommend setting `allow_mult` to `false`**.
-* **Last-write-wins**. Another way to manage conflicts is to
-  set the `[[last_write_wins|Conflict Resolution#last-write-wins]]`
-  parameter to `true` instead of `allow_mult`. The last-write-wins
-  strategy means that conflicts will be resolved on the basis of which
-  object has the most recent timestamp. While this can also ease the
-  development process by guaranteeing that clients don't have to deal
-  with siblings, using clock time as a resolution mechanism in a
-  distributed system can lead to unpredictable results.
+### Timestamp-based Resolution
 
-    **Warning**: Setting both `allow_mult` and `last_write_wins` to `true`
-    leads to unpredictable behavior and should always be avoided.
-* **Resolve conflicts on the application side**. If `allow_mult` is set
-  to `true`, Riak will form [[siblings|Conflict Resolution#siblings]].
-  When sibling objects are formed, applications need to decide which of
-  the objects is "correct" (the definition of which depends on the
-  application itself).
+If the `[[allow_mult|Conflict Resolution#siblings]]` parameter is set to
+`false`, Riak resolves all object replica conflicts internally and does
+not return siblings to the client. How Riak resolves those conflicts
+depends on the value that you set for a different bucket property,
+`[[last_write_wins|Buckets]]`. If `last_write_wins` is set to `false`,
+Riak will resolve all conflicts on the basis of
+[timestamps](http://en.wikipedia.org/wiki/Timestamp), which are
+attached to all Riak objects as metadata.
 
-  An application can resolve sibling conflicts by [[passing a vector
-  clock|Conflict Resolution#vector-clocks]] to Riak that shows which
-  replica (or version) of an object that particular client has seen. Or,
-  if you wish, it can provide some other conflict resolution logic. You
-  could specify, for example, that some objects cannot be "correct"
-  because they're too large, their timestamps show them to be too old,
-  the number of items in the [[shopping cart|Dynamo]] has too few items,
-  etc.
+The problem with timestamps is that they are not a reliable resolution
+mechanism in distributed systems, and they always bear the risk of data
+loss. A better yet still-problematic option is to adopt a
+last-write-wins strategy, described directly below.
+
+### Last-write-wins
+
+Another way to manage conflicts is to set `allow_mult` to `false`, as
+with timestamp-based resolution, and the `[[last_write_wins|Conflict
+Resolution#last-write-wins]]` parameter to `true`. This produces a
+so-called last-write-wins (LWW) strategy whereby all conflicts are
+resolved internally in Riak on the basis of [[vector clocks]]. While
+this strategy is preferred to timestamp-based strategies because it
+takes object update causality into account instead of timestamps, it
+still bears the risk that writes will be lost.
+
+The problem is that LWW will necessarily drop some writes in the case of
+concurrent updates in the name of preventing sibling creation. If your
+use case requires that your application be able to reason about
+differing values produced in the case of concurrent updates, then we
+advise against LWW as a conflict resolution strategy.
+
+<div class="note">
+<div class="title">Undefined behavior warning</div>
+Setting both <code>allow_mult</code> and <code>last_write_wins</code> to
+<code>true</code> necessarily leads to unpredictable behavior and should
+always be avoided.
+</div>
+
+### Resolve Conflicts on the Application Side
+
+While setting `allow_mult` to `false` unburdens applications from having
+to reason about siblings, delegating that responsibility to Riak itself,
+it bears all of the drawbacks explained above. On the other hand,
+setting `allow_mult` to `true` has the following benefits:
+
+* Riak will retain writes even in the case of concurrent updates to a
+  key, which enables you to capture the benefits of high availability
+  with a lower risk of data loss
+* If your application encounters siblings, it can apply its own
+  use case-specific conflict resolution logic
 
 Conflict resolution in Riak can be a complex business, but the presence
 of this variety of options means that all requests to Riak can always be
 made in accordance with your data model(s), business needs, and use
-cases.
+cases. For an example of client-side sibling resolution, see the
+[[section below|Conflict Resolution#Sibling-Resolution-Example]].
 
 ## Vector Clocks and Relationships Between Objects
 
