@@ -7,11 +7,11 @@ audience: advanced
 keywords: [operators, strong-consistency]
 ---
 
-This document is intended for Riak operators looking to configure and
-monitor their Riak cluster's [[strong consistency]] subsystem.
-Documentation for developers building applications using Riak's strong
-consistency feature can be found in [[Using Strong Consistency]], while
-a more theoretical treatment can be found in [[Strong Consistency]].
+This document provides information on configuring and monitoring a Riak
+cluster's optional [[strong consistency]] subsystem. Documentation for
+developers building applications using Riak's strong consistency feature
+can be found in [[Using Strong Consistency]], while a more theoretical
+treatment can be found in [[Strong Consistency]].
 
 ## Minimum Cluster Size
 
@@ -19,13 +19,13 @@ In order to use strong consistency in Riak, **your cluster must consist
 of at least three nodes**. If it does not, all strongly consistent
 operations will fail. If your cluster is smaller than three nodes, you
 will need to [[add more nodes|Adding and Removing Nodes]] and make sure
-that strong consistency is enabled in all of them.
+that strong consistency is [[enabled|Managing Strong
+Consistency#Enabling-Strong-Consistency]] in all of them.
 
 ## Enabling Strong Consistency
 
-Riak's strong consistency subsystem is disabled by default. If your Riak
-cluster consists of at least three nodes, you can enable strong
-consistency in your [[configuration files]].
+Riak's strong consistency subsystem is disabled by default. You can
+enable it in each node's [[configuration files]].
 
 ```riakconf
 strong_consistency = on
@@ -72,7 +72,7 @@ Replicas | Allowable missing replicas
 ### `n_val` Recommendations
 
 Due to the quorum requirements explained above, we recommend that you
-use at least N=5 for strongly consistent data. You can set the value
+use _at least_ N=5 for strongly consistent data. You can set the value
 of N, i.e. `n_val`, for buckets [[using bucket types]]. For example, you
 can create and activate a bucket type with N set to 5 and strong
 consistency enabled---we'll call it `consistent_and_fault_tolerant`---using
