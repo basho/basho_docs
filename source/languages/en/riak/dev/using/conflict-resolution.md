@@ -122,22 +122,34 @@ made in accordance with your data model(s), business needs, and use
 cases. For an example of client-side sibling resolution, see the
 [[section below|Conflict Resolution#Sibling-Resolution-Example]].
 
+In Riak versions 2.0 and later, `allow_mult` is set to `true` by default
+for any [[bucket types|Using Bucket Types]] that you create. If you wish
+to avoid client-side sibling resolution, you have a few options:
+
+* Explicitly create and activate [[bucket types|Using Bucket Types]]
+  that set `allow_mult` to `false`.
+* Use Riak's [[configuration files]] to change the [[default bucket
+  properties|Configuration Files#Default-Bucket-Properties]] for your
+  cluster. If you set the `buckets.default.allow_mult` parameter to
+  `false`, all bucket types that you create will have `allow_mult` set
+  to `false` by default.
+
 ## Vector Clocks and Relationships Between Objects
 
-Vector clocks enable Riak to compare two objects stored in a specific
-location---as defined by the object's [[bucket|Buckets]] and
-[[key|Keys and Objects]], as well as the [[bucket type|Using Bucket Types]]
-defining the bucket's properties---and determine the relationship
-between the two objects. A number of important aspects of that
-relationship can be determined using vector clocks:
+When a value is stored in Riak, it is tagged with a vector clock,
+establishing its initial version. That vector clock changes value over
+time if the object is updated.
+
+Vector clocks enable Riak to compare objects stored in a key and
+determine a number of important aspects of the relationship between the
+objects:
 
  * Whether one object is a direct descendant of the other
  * Whether the objects are direct descendants of a common parent
  * Whether the objects are unrelated in recent heritage
 
-Using this knowledge, Riak can auto-repair out-of-sync data when
-feasible or at least provide a client with an opportunity to reconcile
-divergent changesets in an application-specific manner.
+Using this knowledge, Riak is frequently, though not always, able to
+resolve conflicts without producing siblings. 
 
 Vector clocks are non-human-readable and look something like this:
 
@@ -145,24 +157,23 @@ Vector clocks are non-human-readable and look something like this:
 a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 ```
 
-## Vector Clock Tagging
-
-When a value is stored in Riak, it is tagged with a vector clock,
-establishing its initial version. Using this knowledge, Riak can auto-
-repair out-of-sync data when feasible or at least provide a client with
-an opportunity to reconcile divergent changesets in an
-application-specific manner.
+If `allow_mult` is set to `true`, you should _always_ [[use vector
+clocks|Conflict Resolution#Siblings]] when updating objects, _unless
+you are certain that no object exists under that key_. Failing to use
+vector clocks can lead to [[sibling explosion|Latency
+Reduction#Siblings]], which can produce a variety of problems in your
+cluster.
 
 ## Siblings
 
 A **sibling** is created when Riak is unable to resolve the canonical
-version of an object being stored. These scenarios can create siblings
-inside of a single object, usually under one of the following conditions:
+version of an object being stored. The following scenarios can create
+siblings inside of a single object:
 
 1. **Concurrent writes** --- If two writes occur simultaneously from
    clients with the same vector clock value, Riak will not be able to
    determine the correct object to store, and the object will be given
-   two siblings. These writes could happen to the same node or to
+   two siblings. These writes could happen on the same node or on
    different nodes.
 
 2. **Stale Vector Clock** --- Writes from any client using a stale
@@ -184,10 +195,10 @@ inside of a single object, usually under one of the following conditions:
 
 Riak uses siblings because it is impossible to order events with respect
 to time in a distributed system, which means that they must be ordered
-causally. If `allow_mult` is set to `false` in the [[bucket type|Using Bucket Types]]
-that you are using, siblings and vector clocks don't need to be dealt
-with on the application side because Riak will never return siblings
-upon read.
+causally. If `allow_mult` is set to `false` in the [[bucket type|Using
+Bucket Types]] that you are using, siblings and vector clocks don't need
+to be dealt with on the application side because Riak will never return
+siblings upon read.
 
 If, however, `allow_mult` is set to `true`, Riak will not automatically
 resolve conflicts for you, and the responsibility for conflict
