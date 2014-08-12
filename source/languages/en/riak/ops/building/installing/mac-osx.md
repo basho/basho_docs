@@ -16,9 +16,9 @@ moved: {
 }
 ---
 
-The following steps are known to work with Mac OS X 10.8 and 10.9
-(Mavericks). You can install from source or download a precompiled
-tarball.
+The following steps are known to work with Mac OS X 10.8, 10.9
+(Mavericks), and Yosemite. You can install from source or download a
+precompiled tarball.
 
 ## Install Types
 
