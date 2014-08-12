@@ -2021,14 +2021,14 @@ if the JMX server crashes.</td>
 ## Strong Consistency
 
 Riak's strong consistency feature has a variety of tunable parameters
-that enable you to enable and disable strong consistency, modify the
+that allow you to enable and disable strong consistency, modify the
 behavior of leaders and followers, set various timeouts, and more. More
 detailed information can be found in our documentation on [[managing
 strong consistency]].
 
 The `strong_consistency` parameter enables you to turn Riak's strong
-consistency subsystem on and off. It's available in your `riak.conf`
-file.
+consistency subsystem on and off. It's available in each node's
+`riak.conf` file.
 
 <table class="riak-conf">
 <thead>
@@ -2042,9 +2042,8 @@ file.
 
 <tr>
 <td><code>strong_consistency</code></td>
-<td>Enables the consensus subsystem. Set to <code>on</code> to enable
-the consensus subsystem used for strongly consistent Riak operations.
-</td>
+<td>Enables the consensus subsystem used for strongly consistent Riak
+operations if set to <code>on</code>.</td>
 <td><code>off</code></td>
 </tr>
 
@@ -2067,11 +2066,11 @@ Further instructions on setting parameters in `advanced.config` can be
 found in the [[advanced configuration|Configuration 
 Files#Advanced-Configuration]] section below.
 
-Using these settings properly demands an understanding of the basic
+Using these settings properly demands a firm understanding of the basic
 architecture of Riak's implementation of strong consistency. We highly
 recommend reading our documentation on the [[implementation
 details|Managing Strong Consistency#Implementation-Details]] behind
-strong consistency.
+strong consistency before changing the defaults on these parameters.
 
 <table class="riak-conf">
 <thead>
@@ -2085,10 +2084,14 @@ strong consistency.
 
 <tr>
 <td><code>ensemble_tick</code></td>
-<td>The rate, in milliseconds, at which a leader performs its periodic
-duties, including refreshing the leader lease. This setting must be
-lower than both the <code>lease_duration</code> and
-<code>follower_timeout</code> settings (both listed below).</td>
+<td>The rate at which leaders perform their periodic duties, including
+refreshing the leader lease, in milliseconds. This setting must be lower
+than both the <code>lease_duration</code> and 
+<code>follower_timeout</code> settings (both listed below). Lower values
+mean that leaders perform their duties more frequently, which can allow
+for faster convergence if a leader goes offline and then returns to the
+ensemble; higher values mean that leaders perform their duties less
+frequently, which can reduce network overhead.</td>
 <td><code>500</code></td>
 </tr>
 
@@ -2100,7 +2103,7 @@ refreshed (in milliseconds). This should be set higher than the
 time to refresh their leases before they time out, and it must be set
 lower than the <code>follower_timeout</code> setting (listed below).
 </td>
-<td><code>ensemble_tick</code> * 2/3</td>
+<td><code>ensemble_tick</code> * 3/2</td>
 </tr>
 
 <tr>
@@ -2121,7 +2124,7 @@ to the leader before <code>ensemble_tick</code> *
 give up leadership. It may be necessary to raise this setting if your
 Riak vnodes are frequently stalling out on slow backend reads/writes. If
 this setting is too low, it may cause slow requests to time out earlier
-than the request timeout.</a></td>
+than the request timeout.</td>
 <td><code>2</code></td>
 </tr>
 
@@ -2149,15 +2152,15 @@ set to <code>true</code>, a leader with a valid lease will handle the
 read directly without contacting any followers; when set to
 <code>false</code>, the leader will always contact followers. For more
 information, see our internal documentation on
-<a href="https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md#leader-leases">leader
-leases</a>.</td>
+<a href="https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md#leader-leases">
+leader leases</a>.</td>
 <td><code>true</code></td>
 </tr>
 
 <tr>
 <td><code>peer_get_timeout</code></td>
-<td>Determines the timeout, in milliseconds, used internally for reading
-consistent data. This setting must be greater than the highest request
+<td>Determines the timeout used internally for reading consistent data,
+in milliseconds. This setting must be greater than the highest request
 timeout used by your application.</td>
 <td><code>60000</code> (1 minute)</td>
 </tr>
