@@ -85,7 +85,7 @@ If you do not have Erlang already installed, see [[Installing Erlang]]. Don't wo
 Next, download and unpack the source distribution.
 
 ```bash
-wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
 tar zxvf riak-{{VERSION}}.tar.gz
 cd riak-{{VERSION}}
 make rel
