@@ -22,9 +22,9 @@ precompiled tarball.
 
 ## Install Types
 
-* Precompiled Tarballs
-* Homebrew
-* Source
+* [[Precompiled Tarballs|Installing on Mac OS X#From-Precompiled-Tarballs]]
+* [[Homebrew|Installing on Mac OS X#Homebrew]]
+* [[Source|Installing on Mac OS X#From-Source]]
 
 <div class="note">
 <div class="title"><code>ulimit</code> on OS X</div>
@@ -91,7 +91,7 @@ You must have Xcode tools installed from [Apple's Developer
 website](http://developer.apple.com/).
 
 <div class="note">
-<div title="title">Note on Clang</div>
+<div class="title">Note on Clang</div>
 Riak will not compile with Clang. Please make sure that your default
 C/C++ compiler is GCC.
 </div>
