@@ -8,11 +8,37 @@ keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 ---
 
 One of Riak's central goals is high availability. It was built as a
-multi-node system in which any node is capable of receiving requests
-without requiring that each node participate in each request. In
-distributed systems like this, it's important to be able to keep track
-of which version of a value is the most current. This is where vector
-clocks come in.
+multi-node system in which any [[node|Riak Glossary#node]] is capable of
+receiving requests without requiring that each node participate in each
+request. If you are using Riak in an [[eventually consistent|Eventual
+Consistency]] way, conflicts between object values on different nodes is
+unavoidable.
+
+When Riak can't decide which value is correct, it produces
+[[siblings|Conflict Resolution#Siblings]]. While using [[vector
+clocks]] or [[dotted version vectors]] can help to reduce the incidence
+of siblings by 
+
+<div class="note">
+<div class="title">Note on strong consistency</div>
+In versions of Riak 2.0 and later, you have the option of using Riak in
+a strongly consistent fashion. This document pertains to usage of Riak
+as an <em>eventually</em> consistent system. If you'd like to use Riak's
+strong consistency feature, please refer to the following documents:
+
+[[Using Strong Consistency]] --- A guide for developers<br />
+[[Managing Strong Consistency]] --- A guide for operators<br />
+[[Strong Consistency]] --- A theoretical treatment of strong consistency
+</div>
+
+Because of this, it's important that you develop a conflict resolution
+strategy for any application using Riak in an eventually consistent way.
+
+
+
+ In distributed systems like this, it's important to be able to
+keep track of which version of a value is the most current. This is
+where [[vector clocks]] come in.
 
 ## Client- and Server-side Conflict Resolution
 
@@ -22,18 +48,39 @@ have a set of [[defaults|Replication Properties#available-parameters]],
 there is a wide variety of ways that data inconsistency can be resolved.
 The following basic options are available:
 
-* **Allowing Riak to resolve all conflicts**. If the `[[allow_mult|Conflict Resolution#siblings]]` parameter is set to `false`, conflict between data replicas can still take place, but Riak resolves those conflicts behind the scenes on the basis of [[vector clocks]]. This unburdens Riak clients from engaging in conflict resolution, delegating that responsibility to Riak itself. While this can ease the development process, it has the important drawback that applications cannot form their own deterministic merge logic.
+* **Timestamp-based resolution**. If the `[[allow_mult|Conflict
+  Resolution#siblings]]` parameter is set to `false`, Riak resolves all
+  object replica conflicts on the basis of timestamps. While this
+  unburdens applications using Riak from resolving conflicts on their
+  own, timestamps are an unreliable means of handling concurrent
+  updates, and they bear a strong risk of data loss.
 
-  Another way to prevent conflicts is to set the `[[last_write_wins|Conflict Resolution#last-write-wins]]` parameter to `true` instead of `allow_mult`. The last-write-wins strategy means that conflicts will be resolved on the basis of which object has the most recent timestamp. While this can also ease the development process by guaranteeing that clients don't have to deal with siblings, using clock time as a resolution mechanism in a distributed system can lead to unpredictable results.
+  Because of this, **we do not recommend setting `allow_mult` to `false`**.
+* **Last-write-wins**. Another way to manage conflicts is to
+  set the `[[last_write_wins|Conflict Resolution#last-write-wins]]`
+  parameter to `true` instead of `allow_mult`. The last-write-wins
+  strategy means that conflicts will be resolved on the basis of which
+  object has the most recent timestamp. While this can also ease the
+  development process by guaranteeing that clients don't have to deal
+  with siblings, using clock time as a resolution mechanism in a
+  distributed system can lead to unpredictable results.
 
-  <div class="note">
-  <div class="title">Undefined behavior warning</div>
-  Setting both <code>allow_mult</code> and <code>last_write_wins</code> to <code>true</code> necessarily leads to unpredictable behavior and should always be avoided.
-  </div>
+    **Warning**: Setting both `allow_mult` and `last_write_wins` to `true`
+    leads to unpredictable behavior and should always be avoided.
+* **Resolve conflicts on the application side**. If `allow_mult` is set
+  to `true`, Riak will form [[siblings|Conflict Resolution#siblings]].
+  When sibling objects are formed, applications need to decide which of
+  the objects is "correct" (the definition of which depends on the
+  application itself).
 
-* **Allow Riak to form siblings and resolve conflicts on the application side**. If `allow_mult` is set to `true`, Riak will form [[siblings|Conflict Resolution#siblings]] if you write multiple objects to a key without providing Riak with a [[vector clock|Vector Clocks]] that would enable it to judge which object should be considered most up to date. When sibling objects are formed, applications need to decide which of the objects is "correct" (the definition of which depends on the application itself).
-
-  An application can resolve sibling conflicts by [[passing a vector clock|Conflict Resolution#vector-clocks]] to Riak that shows which replica (or version) of an object that particular client has seen. Or, if you wish, it can provide some other conflict resolution logic. You could specify, for example, that some objects cannot be "correct" because they're too large, their timestamps show them to be too old, the number of items in the [[shopping cart|Dynamo]] has too few items, etc.
+  An application can resolve sibling conflicts by [[passing a vector
+  clock|Conflict Resolution#vector-clocks]] to Riak that shows which
+  replica (or version) of an object that particular client has seen. Or,
+  if you wish, it can provide some other conflict resolution logic. You
+  could specify, for example, that some objects cannot be "correct"
+  because they're too large, their timestamps show them to be too old,
+  the number of items in the [[shopping cart|Dynamo]] has too few items,
+  etc.
 
 Conflict resolution in Riak can be a complex business, but the presence
 of this variety of options means that all requests to Riak can always be
@@ -77,11 +124,28 @@ A **sibling** is created when Riak is unable to resolve the canonical
 version of an object being stored. These scenarios can create siblings
 inside of a single object, usually under one of the following conditions:
 
-1. **Concurrent writes** --- If two writes occur simultaneously from clients with the same vector clock value, Riak will not be able to determine the correct object to store, and the object will be given two siblings. These writes could happen to the same node or to different nodes.
+1. **Concurrent writes** --- If two writes occur simultaneously from
+   clients with the same vector clock value, Riak will not be able to
+   determine the correct object to store, and the object will be given
+   two siblings. These writes could happen to the same node or to
+   different nodes.
 
-2. **Stale Vector Clock** --- Writes from any client using a stale vector clock value. This is a less likely scenario from a well-behaved client that performs a read (to fetch the current vector clock) before performing a write. A situation may occur, however, in which a write happens from a different client while the read/write cycle is taking place. This would cause the first client to issue the write with an old vector clock value and a sibling to be created. A misbehaving client could continually create siblings if it habitually issued writes with a stale vector clock.
+2. **Stale Vector Clock** --- Writes from any client using a stale
+   vector clock value. This is a less likely scenario from a
+   well-behaved client that performs a read (to fetch the current vector
+   clock) before performing a write. A situation may occur, however, in
+   which a write happens from a different client while the read/write
+   cycle is taking place. This would cause the first client to issue the
+   write with an old vector clock value and a sibling to be created. A
+   misbehaving client could continually create siblings if it habitually
+   issued writes with a stale vector clock.
 
-3. **Missing Vector Clock** --- Writes to an existing object without a vector clock. While the least likely scenario, it can happen when manipulating an object using a client like `curl` and forgetting to set the `X-Riak-Vclock` header or using a [[Riak client library|Client Libraries]] and failing to take advantage of vector clock-related functionality.
+3. **Missing Vector Clock** --- Writes to an existing object without a
+   vector clock. While the least likely scenario, it can happen when
+   manipulating an object using a client like `curl` and forgetting to
+   set the `X-Riak-Vclock` header or using a [[Riak client
+   library|Client Libraries]] and failing to take advantage of vector
+   clock-related functionality.
 
 Riak uses siblings because it is impossible to order events with respect
 to time in a distributed system, which means that they must be ordered
@@ -412,6 +476,22 @@ This diagram shows how the values of these parameters dictate the vector
 clock pruning process:
 
 ![Vclock Pruning](/images/vclock-pruning.png)
+
+## Conflict Resolution Example
+
+If `allow_mult` is set to `true` (which is the default for any created
+[[bucket types|Using Bucket Types]]) in Riak versions 2.0 and later,
+the occurrence of siblings can never be prevented, even if you use
+vector clocks or dotted version vectors. There is always a possibility
+that Riak will encounter a situation in which it can't decide which
+value is most causally recent, especially when it is confronted by many
+concurrent writes.
+
+How your application deals with siblings will _always_ depend on the
+goals of your application. If you're building a social network
+application and storing [[user profiles|Use Cases#User Accounts]], it
+might be best to choose the object with more user information rather
+than less.
 
 ## More Information
 
