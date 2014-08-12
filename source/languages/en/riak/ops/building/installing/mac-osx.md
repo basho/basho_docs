@@ -91,10 +91,11 @@ cd riak-{{VERSION}}
 make rel
 ```
 
-If you get errors when building about "incompatible architecture", please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher: 64bit{{#1.4.0-}}, everything else: 32bit{{/1.4.0-}}).
+If you get errors when building about "incompatible architecture," please verify that you built Erlang with the same architecture as your system (Snow Leopard and higher: 64bit{{#1.4.0-}}, everything else: 32bit{{/1.4.0-}}).
 
 ## Next Steps?
-From here you might want to check out:
 
-  * [[Post Installation]]: for checking Riak health after installation
-  * [[Five Minute Install]]: a guide that will show you how to go from one node to bigger than Google!
+From here, you might want to check out:
+
+  * [[Post Installation]] --- Information on checking Riak health after installation
+  * [[Five-Minute Install]] --- A guide that will show you how to go from one node to as many as you'd like
