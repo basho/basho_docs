@@ -36,7 +36,7 @@ riak_core:register([{repl_helper, MyMod}]).
 The following is a simple replication hook that will log when an object
 is received via replication. For more information about the functions in
 the sample, see the [[Replication Hook API|Multi Data Center
-Replication#Replication-Hook-API]] section below.
+Replication: Hooks#Replication-Hook-API]] section below.
 
 Here is the relevant Erlang code:
 
