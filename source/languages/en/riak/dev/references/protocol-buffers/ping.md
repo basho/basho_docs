@@ -16,11 +16,11 @@ Check if the server is alive
 
 ## Request
 
-Just the `RpbPingReq` message code. No request message defined.
+Just the RpbPingReq message code. No request message defined.
 
 ## Response
 
-Just the `RpbPingResp` message code. No response message defined.
+Just the RpbPingResp message code. No response message defined.
 
 ## Example
 
