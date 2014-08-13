@@ -35,8 +35,8 @@ riak_core:register([{repl_helper, MyMod}]).
 
 The following is a simple replication hook that will log when an object
 is received via replication. For more information about the functions in
-the sample, see the <a href="#ReplicationHookApi">Replication Hook
-API</a> section below.
+the sample, see the [[Replication Hook API|Multi Data Center
+Replication#Replication-Hook-API]] section below.
 
 Here is the relevant Erlang code:
 
@@ -104,9 +104,9 @@ to compile Riak.
 </div>
 
 Distribution | Path
---- | ---
+:------------|:----
 CentOS & RHEL Linux | `/usr/lib64/riak/erts-5.9.1/bin/erlc` |
-Debian & Ubuntu Linux	| `/usr/lib/riak/erts-5.9.1/bin/erlc` |
+Debian & Ubuntu Linux | `/usr/lib/riak/erts-5.9.1/bin/erlc` |
 FreeBSD	| `/usr/local/lib/riak/erts-5.9.1/bin/erlc` |
 SmartOS	| `/opt/local/lib/riak/erts-5.9.1/bin/erlc`
 Solaris 10 | `/opt/riak/lib/erts-5.9.1/bin/erlc`
@@ -143,9 +143,7 @@ hook:
 -run riak_repl_hook_sample register
 ```
 
-
-## Replication Hook API <a name="ReplicationHookApi"></a>
-
+## Replication Hook API
 
 A replication hook must implement the following functions:
 
@@ -157,25 +155,32 @@ A replication hook must implement the following functions:
 
 This hook controls whether an [object](https://github.com/basho/riak_kv/blob/master/src/riak_object.erl)
 replicated in realtime should be sent. To send this object, return `ok`;
-to prevent the object from being sent, return 'cancel'. You can also
+to prevent the object from being sent, return `cancel`. You can also
 return a list of Riak objects to be replicated immediately *before* the
 current object. This is useful when you have an object that refers to
-other objects, e.g. a chunked file, and want to ensure all of the
+other objects, e.g. a chunked file, and want to ensure that all of the
 dependency objects are replicated before the dependent object.
    
 ### send/2
 
-**([riak_object](https://github.com/basho/riak_kv/blob/{{VERSION}}/src/riak_object.erl), RiakClient) -> ok | cancel | [[riak_object](https://github.com/basho/riak_kv/blob/{{VERSION}}/src/riak_object.erl)]**
+```erlang
+(riak_object, RiakClient) -> ok | cancel | [riak_object]
+```
 
-   This hook is used in fullsync replication. To send this object, return 'ok', to prevent 
-   the object from being sent return 'cancel', or you can also return a list of riak objects 
-   to be replicated immediately *before* the current object. This is useful for when you have
-   an object that refers to other objects—a chunked file, for example—and want to be sure all the 
-   dependency objects are replicated before the dependent object.
+This hook is used in fullsync replication. To send this
+[object](https://github.com/basho/riak_kv/blob/master/src/riak_object.erl),
+return `ok`; to prevent the object from being sent, return `cancel`. You
+can also return a list of Riak objects to be replicated immediately
+*before* the current object. This is useful for when you have an object
+that refers to other objects, e.g. a chunked file, and want ensure that
+all the  dependency objects are replicated before the dependent object.
 
 ### recv/1
 
-**([riak_object](https://github.com/basho/riak_kv/blob/{{VERSION}}/src/riak_object.erl)) -> ok | cancel**
+```erlang
+(riak_object) -> ok | cancel
+```
 
-   When an object is received by the client site, this hook is run. You can use
-   it to update some metadata, or to deny the object.
+When an [object](https://github.com/basho/riak_kv/blob/master/src/riak_object.erl)
+is received by the client site, this hook is run. You can use it to
+update metadata or to deny the object.
