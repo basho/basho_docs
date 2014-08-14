@@ -12,12 +12,13 @@ Depending on the size of your objects and your replication latency needs, you ma
 
 ## Linux
 
-Refer to the Kernel and Network Tuning section of [[Linux Performance Tuning|Linux Performance Tuning#Linux-Tuning]]
+Refer to our documentation on [[Linux Performance Tuning|System Performance Tuning]].
 
 ## Solaris
+
 On Solaris, the following settings are suggested.
 
-```
+```bash
 /usr/sbin/ndd -set /dev/tcp tcp_ip_abort_interval 60000
 /usr/sbin/ndd -set /dev/tcp tcp_keepalive_interval 900000
 /usr/sbin/ndd -set /dev/tcp tcp_rexmit_interval_initial 3000

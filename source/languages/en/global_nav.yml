@@ -118,7 +118,7 @@ riak:
         sub:
           - "[[Open Files Limit]]"
           - "[[File System Tuning]]"
-          - "[[Linux Performance Tuning]]"
+          - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
           - "[[Latency Reduction|Latency Reduction Checklist]]"
           - "[[Managing Active Anti-Entropy]]"
