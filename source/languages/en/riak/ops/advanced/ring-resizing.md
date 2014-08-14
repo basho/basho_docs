@@ -328,7 +328,7 @@ Failure: ring is not resizing or resize has completed
 View planned changes:
 
 ```bash
-riak-admin cluster resize-ring plan
+riak-admin cluster plan
 ```
 
 In the output, you should find something like the following:
@@ -342,7 +342,7 @@ resize-ring    abort. current size: 128
 Commit planned changes:
 
 ```bash
-riak-admin cluster resize-ring commit
+riak-admin cluster commit
 ```
 
 If successful, you should see the following:
