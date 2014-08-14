@@ -10,12 +10,6 @@ moved: {
 }
 ---
 
-<div class="info"><div class="title">Deprecation Notice</div>Link Walking is a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].
-<br />
-Link walking <strong>will not work</strong> when [[security|Authentication and Authorization]] is enabled.
-</div>
-
-
 ## What are Links?
 
 One of the ways that we are able to extend the fairly-limited data model provided by a key/value store is with the notion "links" and a type of query known as "link walking."
@@ -34,8 +28,8 @@ So what's actually happening here? In the angle brackets, we have the URL the li
 
 Here is what a full PUT request through CURL with the link header would look like:
 
-```curl
-curl -v -XPUT http://127.0.0.1:8091/riak/people/timoreilly \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/timoreilly \
   -H 'Link: </riak/people/dhh>; riaktag="friend"' \
   -H "Content-Type: text/plain" \
   -d 'I am an excellent public speaker.'
@@ -50,15 +44,15 @@ Try it. It's easy, right? You've just attached a link to an object in Riak!
 To retrieve that object to see the attached link, simply to do the following:
 
 ```curl
-curl -v http://127.0.0.1:8091/riak/people/timoreilly
+$ curl -v http://127.0.0.1:8091/riak/people/timoreilly
 ```
 
 Look for the "Link" field in the response headers. This will show you your link information.
 
 Alright. We've stored the "timoreilly" object with a "friend" tag pointing to the "dhh" object. Now we need to store the "dhh" object to which "timoreilly" is linked:
 
-```curl
-curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
   -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
 ```
@@ -74,7 +68,7 @@ Once you have tagged objects in Riak with links, you can then traverse them with
 To continue with the example from above, the "timoreilly" object is now pointer to the "dhh" object located in the "people" bucket. We can use a link walking query to follow the link from "timoreilly" to "dhh." Here is what that query would look like:
 
 ```curl
-curl -v http://127.0.0.1:8091/riak/people/timoreilly/people,friend,1
+$ curl -v http://127.0.0.1:8091/riak/people/timoreilly/people,friend,1
 ```
 
 You'll notice that at the end of that request we've tacked on "/people,friend,1" That is the link specification. It's composed of three parts:
@@ -88,15 +82,15 @@ If all went well, the response body from the above request should include the re
 You can replace both the "bucket" and the "tag" fields in the link spec with an underscore. This will tell the query to match any bucket or tag name. For instance, the following request should return the same data as the fully-specified request above:
 
 ```curl
-curl -v http://127.0.0.1:8091/riak/people/timoreilly/_,friend,1
+$ curl -v http://127.0.0.1:8091/riak/people/timoreilly/_,friend,1
 ```
 
 Each step you walk is referred to as a phase, because under the hood a link walking request uses the same mechanism as MapReduce, where every step specified in the URL is translated into a single MapReduce phase. If you want to walk multiple steps you can use the Keep parameter to specify which steps your particularly interested in.
 
 By default, Riak will only include the objects found by the last step. This could be interesting if you want e.g. to build a graph of how the original object ("timoreilly" in this case) relates to the ones found traversing the links. To see how this works out in practice, let's add another object to the mix, "davethomas", who is friends with "timoreilly".
 
-```curl
-curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
   -H 'Link: </riak/people/timoreilly>; riaktag="friend"' \
   -H "Content-Type: text/plain" \
   -d 'I publish books'
@@ -105,21 +99,21 @@ curl -v -XPUT http://127.0.0.1:8091/riak/people/davethomas \
 Now we can walk from "davethomas" to "dhh" in one go, and you'll see the last parameter in action:
 
 ```curl
-curl -v localhost:8091/riak/people/davethomas/_,friend,_/_,friend,_/
+$ curl -v localhost:8091/riak/people/davethomas/_,friend,_/_,friend,_/
 ```
 
 As a result you'll only get the "dhh" object. Leaving the last parameter for each step as "_" defaults to Riak not returning objects from intermittent steps (i.e. 0), and to 1 for the last step. So to get everything in between you set the last parameter to 1 for the steps you're interested in.
 
 ```curl
-curl -v localhost:8091/riak/people/davethomas/_,friend,1/_,friend,_/
+$ curl -v localhost:8091/riak/people/davethomas/_,friend,1/_,friend,_/
 ```
 
 When you try this out yourself you'll notice that the output has gotten slightly more confusing, because it now consists of two parts with a bunch of objects contained in each.
 
 As a final sugar sprinkle on top, we can make "dhh" friends with "davethomas" directly, so we have a real graph and not just a single path.
 
-```curl
-curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
+```
+$ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
   -H 'Link: </riak/people/davethomas>; riaktag="friend"' \
   -H "Content-Type: text/plain" \
   -d 'I drive a Zonda.'
@@ -128,7 +122,7 @@ curl -v -XPUT http://127.0.0.1:8091/riak/people/dhh \
 You can add more link phases to the request, or you can walk from "dhh" to "timoreilly" through "davethomas", or even from "davethomas" to "davethomas", by adding another step to Link Walking specification.
 
 ```curl
-curl -v localhost:8091/riak/people/davethomas/_,friend,_/_,friend,_/_,friend,_/
+$ curl -v localhost:8091/riak/people/davethomas/_,friend,_/_,friend,_/_,friend,_/
 ```
 
 So, let's review what we just did:
@@ -190,6 +184,6 @@ $ ./people_queries.sh
 You should then see:
 
 ```
-Press [Enter] after each query description to execute.
+Press [[Enter]] after each query description to execute.
 Q: Get Sean's friends (A:Mark, Kevin)
 ```
