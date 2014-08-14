@@ -255,7 +255,7 @@ list of the available commands.
 Command | Description
 :-------|:-----------
 `batch` | Manually start garbage collection for a batch of eligible objects.{{#1.5.0+}} This command takes an optional argument to indicate a leeway time other than the currently configured `leeway_seconds` time for the batch.{{/1.5.0+}}
-`status` | Get the current status of the garbage collection daemon. The output is dependent on the current state of the daemon.{{1.5.0-}}
+`status` | Get the current status of the garbage collection daemon. The output is dependent on the current state of the daemon.
 `pause` | Pause the current batch of object garbage collection. It has no effect if there is no active batch.
 `resume` | Resume a paused garbage collection batch. It has no effect if there is no previously paused batch.
 `set-interval` | Set or update the garbage collection interval. This setting uses a unit of seconds.
