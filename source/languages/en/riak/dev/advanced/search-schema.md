@@ -1,5 +1,5 @@
 ---
-title: Search Schema
+title: Advanced Search Schema
 project: riak
 version: 0.14.0+
 document: cookbook
@@ -11,371 +11,212 @@ moved: {
 }
 ---
 
-<div class="info">This document refers to the new Riak Search 2.0 with [[Solr|http://lucene.apache.org/solr/]] integration (codenamed Yokozuna). For information about the deprecated Riak Search Schema, visit [[the old Riak Search Schema|http://docs.basho.com/riak/1.4.8/dev/advanced/search-schema/]].</div>
+Riak Search was designed to work seamlessly with Riak. As a result, it retains many of the same properties as Riak, including a schema-free design. In other words, you can start adding data to a new index without having to explicitly define the index fields.
 
-Riak Search is built for ease-of-use, namely, the philosophy that you write values into Riak, and you query for values using Solr. Riak Search does a lot of work under the covers to convert your values (plain text, JSON, XML, datatypes) into something that can be indexed and searched later. However, you still have to explain to Riak/Solr how to index a value. Are you providing an array of strings? Or an integer? Or a date? Is your text in English or Russian? The way you explain to Riak Search how a value is to be indexed is by defining a **Solr schema**.
-
-## Setting a Schema
-
-If you just want to get started quickly, and already know all about creating your own Riak Search schema (it's similar, but not exactly the same as a standard Solr schema, so read on).
-
-Here's how you can create a custom schema named `cartoons`, where the schema xml data is stored in a file named `cartoons.xml`
-
-```curl
-curl -XPUT "http://localhost:8098/search/schema/cartoons" \
-  -H'content-type:application/xml' \
-  --data-binary @cartoons.xml
-```
-```ruby
-schema_data = File.read("cartoons.xml")
-client.create_search_schema("cartoons", schema_data)
-```
-```python
-xml_file = open('cartoons.xml', 'r')
-schema_data = xml_file.read()
-client.create_search_schema('cartoons', schema_data)
-xml_file.close()
-```
-```erlang
-{ok, SchemaData} = file:read_file("cartoons.xml"),
-riakc_pb_socket:create_search_schema(Pid, <<"cartoons">>, SchemaData).
-```
-
-
-## Creating a Custom Schema
-
-The first step in creating a custom schema is to define exactly what fields you must index. Part of that step is understanding how Riak Search extractors function.
-
-### Extractors
-
-The extractors of Riak Search are modules responsible for pulling out a list of fields and values from a Riak object. How this is achieved depends on the object's content type, but the two common cases are JSON and XML, which operate similarly, so our examples will use JSON.
-
-The following JSON object represents the character [Lion-o](http://en.wikipedia.org/wiki/List_of_ThunderCats_characters#Lion-O) from the Thundercats. He has a name, age, is the team leader, and has a list of aliases in other languages.
-
-```json
-{
-  "name":"Lion-o",
-  "age":30,
-  "leader":true,
-  "aliases":[
-    {"name":"León-O", "desc_es":"Señor de los ThunderCats"},
-    {"name":"Starlion", "desc_fr":"Le jeune seigneur des Cosmocats"},
-  ]
-}
-```
-
-The extractor will flatten the above objects into a list of field/value pairs. Nested objects will be seperated with a dot (`.`) and arrays will simply repeat the fields. The above object will be extracted to the following list of Solr document fields.
-
-```
-name=Lion-o
-age=30
-leader=true
-aliases.name=León-O
-aliases.desc_es=Señor de los ThunderCats
-aliases.name=Starlion
-aliases.desc_fr=Le jeune seigneur des Cosmocats
-```
-
-This means that our schema should handle `name`, `age`, `leader`, `aliases.name` (a `dot` is a valid field character), and `aliases.desc_*` which is a description in the given language of the suffix (Spanish and French).
-
-### Required Schema Fields
-
-Solr schemas can be very complex with many types and analyzers. Refer to the [Solr 4.7 reference guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.7.pdf) for a complete list. But Riak Search requires a few fields in order to properly distribute an object across a cluster. These fields are all prefixed with `_yz`, which stands for *Yokozuna*, the project name that makes Riak Search function.
-
-Here is a bare minimum skeleton Solr Schema. It won't do much for you other than allow Riak Search to properly manage your stored objects.
-
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<schema name="schedule" version="1.5">
- <fields>
-
-   <!-- All of these fields are required by Riak Search -->
-   <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
-   <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_fpn"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_vtag" type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_rk"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
-   <field name="_yz_rt"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
-   <field name="_yz_rb"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
-   <field name="_yz_err"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
- </fields>
-
- <uniqueKey>_yz_id</uniqueKey>
-
- <types>
-    <!-- YZ String: Used for non-analyzed fields -->
-    <fieldType name="_yz_str" class="solr.StrField" sortMissingLast="true" />
- </types>
-</schema>
-```
-
-If you're missing any of the above fields, Riak Search will reject your
-custom schema. The value for `<uniqueKey>` *must* be `_yz_id`.
-
-In the table below, you'll find a description of the various required
-fields. You'll rarely need to use any fields other than `_yz_rt` (bucket
-type), `_yz_rb` (bucket) and `_yz_rk` (Riak key). On occasion `_yz_err`
-can be helpful if you suspect that your extractors are failing.
-Malformed JSON or XML will cause Riak Search to index a key and set
-`_yz_err` to 1, allowing you to reindex with proper values later.
-
-Field   | Name |Description
---------|------|-----
-`_yz_id`  | ID   | Unique identifier of this Solr document
-`_yz_ed`  | Entropy Data | Data related to anti-entropy
-`_yz_pn`  | Partition Number | Used as a filter query param to remove duplicate replicas across nodes
-`_yz_fpn` | First Partition Number | The first partition in this doc's preflist, used for further filtering on overlapping partitions
-`_yz_vtag`| VTag | If there is a sibling, use vtag to differentiate them
-`_yz_rk`  | Riak Key | The key of the Riak object this doc corresponds to
-`_yz_rt`  | Riak Bucket Type | The bucket type of the Riak object this doc corresponds to
-`_yz_rb`  | Riak Bucket | The bucket of the Riak object this doc corresponds to
-`_yz_err` | Error Flag | indicating if this doc is the product of a failed object extraction
-
-### Defining Fields
-
-With your required fields known, and the skeleton schema elements in place, it's time to add your own fields. Since you know your object structure, you need to map the name and type of each field (a string, integer, boolean, etc).
-
-When creating fields you can either create specific fields via the `field` element, or an asterisk (`*`) wildcard field via `dynamicField`. Any field that matches a specific field name will win, and if not, it will attempt to match a dynamic field pattern.
-
-Besides a field `type`, you also must decide if a value is to be `indexed` (usually `true`) and `stored`. When a value is `stored` that means that you can get the value back as a result of a query, but it also doubles the storage of the field (once in Riak, again in Solr). If a single Riak object can have more than one copy of the same matching field, you also must set `multiValued` to `true`.
-
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<schema name="schedule" version="1.0">
- <fields>
-   <field name="name"   type="string"  indexed="true" stored="true" />
-   <field name="age"    type="int"     indexed="true" stored="false" />
-   <field name="leader" type="boolean" indexed="true" stored="false" />
-   <field name="aliases.name" type="string" indexed="true" stored="true" multiValued="true" />
-   <dynamicField name="*_es" type="text_es" indexed="true" stored="true" multiValued="true" />
-   <dynamicField name="*_fr" type="text_fr" indexed="true" stored="true" multiValued="true" />
-
-   <!-- All of these fields are required by Riak Search -->
-   <field name="_yz_id"   type="_yz_str" indexed="true" stored="true"  multiValued="false" required="true"/>
-   <field name="_yz_ed"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_pn"   type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_fpn"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_vtag" type="_yz_str" indexed="true" stored="false" multiValued="false"/>
-   <field name="_yz_rk"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
-   <field name="_yz_rt"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
-   <field name="_yz_rb"   type="_yz_str" indexed="true" stored="true"  multiValued="false"/>
-   <field name="_yz_err"  type="_yz_str" indexed="true" stored="false" multiValued="false"/>
- </fields>
-
- <uniqueKey>_yz_id</uniqueKey>
-```
-
-Next take note of the types you used in the fields, and ensure that each of the field types are defined as a `fieldType` under the `types` element. Basic types such as `string`, `boolean`, `int` have matching Solr classes. There are dozens more types, including many kinds of number (`float`, `tdouble`, `random`), `date` fields, and even geolocation types.
-
-Besides simple field types, you can also customize analyzers for different languages. In our example, we mapped any field that ends with `*_es` to Spanish, and `*_de` to German.
-
-```xml
- <types>
-   <!-- YZ String: Used for non-analyzed fields -->
-   <fieldType name="_yz_str" class="solr.StrField" sortMissingLast="true" />
-
-   <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
-   <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
-   <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
-
-   <!-- Spanish -->
-   <fieldType name="text_es" class="solr.TextField" positionIncrementGap="100">
-     <analyzer>
-       <tokenizer class="solr.StandardTokenizerFactory"/>
-       <filter class="solr.LowerCaseFilterFactory"/>
-       <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_es.txt" format="snowball" />
-       <filter class="solr.SpanishLightStemFilterFactory"/>
-       <!-- more aggressive: <filter class="solr.SnowballPorterFilterFactory" language="Spanish"/> -->
-     </analyzer>
-   </fieldType>
-
-   <!-- German -->
-   <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
-     <analyzer>
-       <tokenizer class="solr.StandardTokenizerFactory"/>
-       <filter class="solr.LowerCaseFilterFactory"/>
-       <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_de.txt" format="snowball" />
-       <filter class="solr.GermanNormalizationFilterFactory"/>
-       <filter class="solr.GermanLightStemFilterFactory"/>
-       <!-- less aggressive: <filter class="solr.GermanMinimalStemFilterFactory"/> -->
-       <!-- more aggressive: <filter class="solr.SnowballPorterFilterFactory" language="German2"/> -->
-     </analyzer>
-   </fieldType>
- </types>
-</schema>
-```
-
-### "Catch-All" Field
-
-Without a catch-all field, an exception will be thrown if data is
-provided to index without a corresponding `<field>` element. The
-following is the catch-all field from the default Yokozuna schema and
-can be used in a custom schema as well.
-
-```xml
-<dynamicField name="*" type="ignored"  />
-```
-
-The following is required to be a child of the `types` element in the schema:
-
-```xml
-<fieldtype name="ignored" stored="false" indexed="false" multiValued="true" class="solr.StrField" />
-```
-
-### Dates
-
-The format of strings that represents a date/time is important as [Solr
-only understands ISO8601 UTC date/time
-values](http://lucene.apache.org/solr/4_6_1/solr-core/org/apache/solr/schema/DateField.html).
-An example of a correctly formatted date/time string is
-`1995-12-31T23:59:59Z`. If you provide an incorrectly formatted
-date/time value, an exception similar to this will be logged to `solr.log`:
-
-```log
-2014-02-27 21:30:00,372 [ERROR] <qtp1481681868-421>@SolrException.java:108 org.apache.solr.common.SolrException: Invalid Date String:'Thu Feb 27 21:29:59 +0000 2014'
-        at org.apache.solr.schema.DateField.parseMath(DateField.java:182)
-        at org.apache.solr.schema.TrieField.createField(TrieField.java:611)
-        at org.apache.solr.schema.TrieField.createFields(TrieField.java:650)
-        at org.apache.solr.schema.TrieDateField.createFields(TrieDateField.java:157)
-        at org.apache.solr.update.DocumentBuilder.addField(DocumentBuilder.java:47)
-        ...
-        ...
-        ...
-```
-
-## Field Properties By Use-Case
-
-Sometimes it can be tricky to decide whether a value should be `stored`, or whether `multiValued` is allowed. This handy table from the [Solr documentation](https://cwiki.apache.org/confluence/display/solr/Field+Properties+by+Use+Case) may help you pick field properties.
-
-An entry of `true` or `false` in the table indicates that the option must be set to the given value for the use case to function correctly. If no entry is provided, the setting of that attribute has no impact on the case.
-
-<table class=schemausecase>
-<thead>
-<tr>
-<th>Use Case</th>
-<th><code>indexed</code></th>
-<th><code>stored</code></th>
-<th><code>multiValued</code></th>
-<th><code>omitNorms</code></th>
-<th><code>termVectors</code></th>
-<th><code>termPositions</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>search within field</td>
-<td><code>true</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>retrieve contents</td>
-<td></td>
-<td><code>true</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>use as unique key</td>
-<td><code>true</code></td>
-<td></td>
-<td><code>false</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>sort on field</td>
-<td><code>true</code></td>
-<td></td>
-<td><code>false</code></td>
-<td><code>true</code>[[1|Search Schema#notes]]</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>use field boosts[[5|Search Schema#notes]]</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td><code>false</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>document boosts affect searches within field</td>
-<td></td>
-<td></td>
-<td></td>
-<td><code>false</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>highlighting</td>
-<td><code>true</code>[[4|Search Schema#notes]]</td>
-<td><code>true</code></td>
-<td></td>
-<td></td>
-<td>[[2|Search Schema#notes]]</td>
-<td><code>true</code>[[3|Search Schema#notes]]</td>
-</tr>
-<tr>
-<td>faceting[[5|Search Schema#notes]]</td>
-<td><code>true</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>add multiple values, maintaining order</td>
-<td></td>
-<td></td>
-<td><code>true</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>field length affects doc score</td>
-<td></td>
-<td></td>
-<td></td>
-<td><code>false</code></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>MoreLikeThis[[5|Search Schema#notes]]</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><code>true</code>[[6|Search Schema#notes]]</td>
-<td></td>
-</tr>
-</tbody></table>
-
-### <a name="notes"></a>Notes
-
-1. <a name="s1"></a>Recommended but not necessary.
-2. <a name="s2"></a>Will be used if present, but not necessary.
-3. <a name="s3"></a>(if `termVectors`=`true`)
-4. <a name="s4"></a>A tokenizer must be defined for the field, but it doesn't need to be indexed.
-5. <a name="s5"></a>Described in Understanding Analyzers, Tokenizers, and Filters.
-6. <a name="s6"></a>Term vectors are not mandatory here. If not true, then a stored field is analyzed. So term vectors are recommended, but only required if stored=false.
-
+That said, Riak Search does provide the ability to define a custom schema. This allows you to specify required fields and custom analyzer factories, among other things.
 
 ## The Default Schema
 
-Riak Search comes bundled with a default schema named `_yz_default`. It defaults to many dynamic field types, where the suffix defines its type. This is an easy path to start development, but we recommend in production that you define your own schema. Take special note of `dynamicField name="*"`, which is a catchall index for any value. Sufficiently sized objects can potentially take up tremendous disk space.
+The default schema treats all fields as strings, unless you suffix your field name as follows:
 
-You can find the [yokozuna default solr schema](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml) on github.
+* *FIELDNAME_num* - Numeric field. Uses Integer analyzer. Values are padded to 10 characters.
+* *FIELDNAME_int* - Numeric field. Uses Integer analyzer. Values are padded to 10 characters.
+* *FIELDNAME_dt* - Date field. Uses No-Op analyzer.
+* *FIELDNAME_date* - Date field. Uses No-Op analyzer.
+* *FIELDNAME_txt* - Full text field. Uses Standard Analyzer.
+* *FIELDNAME_text* - Full text field. Uses Standard Analyzer.
+* All other fields use the Whitespace analyzer.
+
+The default field is named *value*.
+
+## Defining a Schema
+
+The schema definition for an index is stored in the Riak bucket `_rs_schema`, with a key of the same name as the index. For example, the schema for the "books" index is stored under `_rs_schema/books`. Writing to the `_rs_schema` bucket is highly discouraged.
+
+Alternatively, you can set or retrieve the schema for an index
+using command line tools:
+
+
+```bash
+# Set an index schema.
+bin/search-cmd set-schema Index SchemaFile
+
+# View the schema for an Index.
+bin/search-cmd show-schema Index
+```
+
+Note that changes to the Schema File *will not* affect previously indexed data. It is recommended that if you change field definitions, especially settings such as "type" or "analyzer_factory", that you re-index your documents by listing the appropriate keys, reading and rewriting that document to Riak.
+
+Below is an example schema file. The schema is formatted as an Erlang term. Spacing does not matter, but it is important to match opening and closing brackets and braces, to include commas between all list items, and to include the final period after the last brace:
+
+
+```erlang
+{
+    schema,
+    [
+        {version, "1.1"},
+        {default_field, "title"},
+        {default_op, "or"},
+        {n_val, 3},
+        {analyzer_factory, {erlang, text_analyzers, whitespace_analyzer_factory}}
+    ],
+    [
+        %% Don't parse the field, treat it as a single token.
+        {field, [
+            {name, "id"},
+            {analyzer_factory, {erlang, text_analyzers, noop_analyzer_factory}}
+        ]},
+
+        %% Parse the field in preparation for full-text searching.
+        {field, [
+            {name, "title"},
+            {required, true},
+            {analyzer_factory, {erlang, text_analyzers, standard_analyzer_factory}}
+        ]},
+
+        %% Treat the field as a date, which currently uses noop_analyzer_factory.
+        {field, [
+            {name, "published"},
+            {type, date}
+        ]},
+
+        %% Treat the field as an integer. Pad it with zeros to 10 places.
+        {field, [
+            {name, "count"},
+            {type, integer},
+            {padding_size, 10}
+        ]},
+
+        %% Alias a field
+        {field, [
+            {name, "name"},
+            {analyzer_factory, {erlang, text_analyzers, standard_analyzer_factory}},
+            {alias, "LastName"},
+            {alias, "FirstName"}
+        ]},
+
+        %% A dynamic field. Anything ending in "_text" will use the standard_analyzer_factory.
+        {dynamic_field, [
+            {name, "*_text"},
+            {analyzer_factory, {erlang, text_analyzers, standard_analyzer_factory}}
+        ]},
+
+        %% A dynamic field. Catches any remaining fields in the
+        %% document, and uses the analyzer_factory setting defined
+        %% above for the schema.
+        {dynamic_field, [
+            {name, "*"}
+        ]}
+    ]
+}.
+```
+
+
+## Schema-level Properties
+
+The following properties are defined at a schema level:
+
+* *version* - Required. A version number, currently unused.
+* *default_field* - Required. Specify the default field used for searching.
+* *default_op* - Optional. Set to "and" or "or" to define the default boolean. Defaults to "or".
+* *n_val* - Optional. Set the number of replicas of search data. Defaults to 3.
+* *analyzer_factory* - Optional. Defaults to "com.basho.search.analysis.DefaultAnalyzerFactory"
+
+## Fields and Field-Level Properties
+
+Fields can either by static or dynamic. A static field is denoted with `field` at the start of the field definition, whereas a dynamic field is denoted with `dynamic_field` at the start of the field definition.
+
+The difference is that a static field will perform an exact string match on a field name, and a dynamic field will perform a wildcard match on the string name. The wildcard can appear anywhere within the field, but it usually occurs at the beginning or end. (The default schema, described above, uses dynamic fields, allowing you to use fieldname suffixes to create fields of different data types.)
+
+
+<div class="info">Field matching occurs in the order of appearance in the schema definition. This allows you to create a number of static fields followed by a dynamic field as a "catch all" to match the rest.</div>
+
+
+The following properties are defined at a field level, and apply to both static and dynamic fields:
+
+* *name* - Required. The name of the field. Dynamic fields can use wildcards. Note that the unique field identifying a document *must* be named "id".
+* *required* - Optional. Boolean flag indicating whether this field is required in an incoming search document. If missing, then the document will fail validation. Defaults to false.
+* *type* - Optional. The type of field, either "string" or "integer". If "integer" is specified, and no field-level analyzer_factory is defined, then the field will use the Whitespace analyzer. Defaults to "string".
+* *analyzer_factory* - Optional. Specify the analyzer factory to use when parsing the field. If not specified, defaults to the analyzer factory for the schema. (Unless the field is an integer type. See above.)
+* *skip* - Optional. When "true", the field is stored, but not indexed. Defaults to "false".
+* *alias* - Optional. An alias that should be mapped to the current field definition, effectively indexing multiple fields of different names into the same field. You can add as many `alias` settings as you like.
+* *padding_size* - Optional. Values are padded up to this size. Defaults to 0 for string types, 10 for integer types.
+* *inline* - Optional. Valid values are "true", "false", and "only" (default is "false"). When "only", the field will not be searchable by itself but can be used as a "filter" for searches on other fields. This will enhance the performance of some queries (such as ranges in some cases) but will consume more storage space because the field value is stored "inline" with the indexes for other fields.  When "true", the field will be stored normally in addition to inline. Filtering on inline fields is currently only supported via the [[Solr|Using Search#Query-Interfaces]] interface.
+
+<div class="info"><div class="title">A Note on Aliases</div>
+
+1. You should never attempt to give an alias the same name as a field name. Attempting to do so will cause a field value to be indexed under an undetermined name.
+2. Multiple aliases will be concatenated with a space. If Name has two aliases, the value {LastName:"Smith", FirstName:"Dave"} would store as "Smith Dave".
+</div>
+
+## Analyzers
+
+Riak Search ships with a number of different analyzer factories:
+
+## Whitespace Analyzer Factory
+
+The Whitespace Analyzer Factory tokenizes a field by splitting the text according to whitespace, including spaces, tabs, newlines, carriage returns, etc.
+
+For example, the text "It's well-known fact that a picture is worth 1000 words." is split into the following tokens: ["It's", "a", "well-known", "fact", "that", "a", "picture", "is", "worth", "1000", "words."]. Notice that capitalization and punctuation is preserved.
+
+To use the whitespace analyzer, set the *analyzer_factory* setting as seen below:
+
+```erlang
+{analyzer_factory, {erlang, text_analyzers, whitespace_analyzer_factory}}}
+```
+
+
+## Standard Analyzer Factory
+
+The Standard Analyzer Factory mimics the Java/Lucene Standard Tokenizer. The Standard Analyzer is useful for full-text searches across documents written in English. It tokenizes a field according to the following rules:
+
+1. Split on all punctuation except for periods followed by a character.
+2. Lowercase all tokens.
+3. Strip out any tokens smaller than 3 characters as well as stopwords (common English words).
+
+The stopwords are defined as: "an", "as", "at", "be", "by", "if", "in", "is", "it", "no", "of", "on", "or", "to", "and", "are", "but", "for", "not", "the", "was", "into", "such", "that", "then", "they", "this", "will""their", "there", "these".
+
+The text "It's well-known fact that a picture is worth 1000 words." will result in the following tokens: ["well", "known", "fact", "picture", "worth", "1000", "words"].
+
+To use the standard analyzer, set the *analyzer_factory* setting as seen below:
+
+```erlang
+{analyzer_factory, {erlang, text_analyzers, standard_analyzer_factory}}}
+```
+
+
+## Integer Analyzer Factory
+
+The Integer Analyzer Factory tokenizes a field by finding any integers within the field. An integer is defined as as string of numbers without any punctuation between them, possibly starting with a '-' to indicate a negative number.
+
+For example, the text "It's well-known fact that a picture is worth 1000 words." will result in only one token, "1000".
+
+To use the integer analyzer, set the *analyzer_factory* setting as seen below:
+
+```erlang
+{analyzer_factory, {erlang, text_analyzers, integer_analyzer_factory}}}
+```
+
+## No-Op Analyzer Factory
+
+The No-Op Analyzer Factory doesn't tokenize a field, it simply returns back the full value of the field. For this reason, it is useful for identity fields.
+
+For example, the text "WPRS10-11#B" will tokenize unchanged into "WPRS10-11#B".
+
+To use the no-op analyzer, set the *analyzer_factory* setting as seen below:
+
+```erlang
+{analyzer_factory, {erlang, text_analyzers, noop_analyzer_factory}}}
+```
+
+## Custom Analyzers
+
+You can create your own custom analyzers in Erlang.
+
+Some tips:
+
+* Model your custom analyzer after an existing analyzer.  See [[https://github.com/basho/riak_search/blob/master/src/text_analyzers.erl]] for sample code.
+
+* The analyzer should take a string and configuration parameters and return a list of tokens. The order of tokens is important for proximity searching.
+
+* Make sure to put your compiled analyzer on the code path.

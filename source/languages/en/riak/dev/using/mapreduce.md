@@ -11,178 +11,98 @@ moved: {
 }
 ---
 
-MapReduce (M/R) is a technique for dividing data processing work across
-a distributed system. It takes advantage of the parallel processing
-power of distributed systems and also reduces network bandwidth, as the
-algorithm is passed around to where the data lives rather than
-transferring a potentially huge dataset to a client algorithm.
+## Introduction
 
-Developers can use MapReduce for things like filtering documents by
-tags, counting words in documents, and extracting links to related data.
-In Riak, MapReduce is one method for querying that is not strictly based
-on key querying, alongside [[secondary indexes|Using Secondary Indexes]]
-and [[Search|Using Search]]. MapReduce jobs can be submitted through the
-[[HTTP API]] or the [[Protocol Buffers API|PBC API]], although we
-strongly recommend using the Protocol Buffers API for performance
-reasons.
+MapReduce (M/R) is a technique for dividing work across a distributed system. This takes advantage of the parallel processing power of distributed systems, and also reduces network bandwidth as the algorithm is passed around to where the data lives, rather than a potentially huge dataset transferred to a client algorithm. Developers can use MapReduce for things like filtering documents by tags, counting words in documents, and extracting links to related data.
 
-<div class="note">
-<div class="title">MapReduce <em>not</em> for production use</div>
-Riak MapReduce operations are very expensive computationally. Running an
-expensive MapReduce job in production could have a significant
-performance impact on your cluster. Because of this, we recommend
-MapReduce operations only for batch processing purposes, not for real-
-time querying.
-</div>
+In Riak, MapReduce is one method for non-key-based querying. MapReduce jobs can be submitted through the HTTP API or the Protocol Buffers API. **Riak MapReduce is intended for batch processing, not real time querying.**
 
 ## Features
 
 * Map phases execute in parallel with data locality
 * Reduce phases execute in parallel on the node where the job was submitted
-* MapReduce queries written in Erlang
+* Javascript MapReduce support
+* Erlang MapReduce support
 
 ## When to Use MapReduce
 
-* When you know the set of objects over which you want to MapReduce (i.e. the locations of the objects, as specified by [[bucket type|Using Bucket Types]], bucket, and key)
-* When you want to return actual objects or pieces of objects and not just the keys. [[Search|Using Search]] and [[secondary indexes|Using Secondary Indexes]] are other means of returning objects based on non-key-based queries, but they only return lists of keys and not whole objects.
-* When you need the utmost flexibility in querying your data. MapReduce gives you full access to your object and lets you pick it apart any way you want.
+* When you know the set of objects you want to MapReduce over (the bucket-key pairs)
+* When you want to return actual objects or pieces of the object – not just the keys, as do [[Search|Using Search]] and [[Secondary Indexes|Using Secondary Indexes]]
+* When you need utmost flexibility in querying your data. MapReduce gives you full access to your object and lets you pick it apart any way you want.
 
 ## When Not to Use MapReduce
 
-* When you want to query data over an entire bucket. MapReduce uses a list of keys, which can place a lot of demand on the cluster.
+* When you want to query data of an entire bucket. MapReduce uses a list of keys, which can place a lot of demand on the cluster.
 * When you want latency to be as predictable as possible.
 
 ## How it Works
 
-The MapReduce framework helps developers divide a query into steps,
-divide the dataset into chunks, and then run those step/chunk pairs in
-separate physical hosts.
+The MapReduce framework helps developers divide a query into steps, divide the dataset into chunks, and then run those step/chunk pairs in separate physical hosts.
 
 There are two steps in a MapReduce query:
 
-* **Map** --- The data collection phase, which breaks up large chunks of work into smaller ones and then takes action on each chunk. Map phases consist of a function and a list of objects on which the map operation will operate.
-* **Reduce** --- The data collation or processing phase, which combines the results from the map step into a single output. The reduce phase is optional.
+* **Map**: data collection phase. Map breaks up large chunks of work into smaller ones and then takes action on each chunk.
+* **Reduce**: data collation or processing phase. Reduce combines the many results from the map step into a single output _(this step is optional)_.
+
+![MapReduce Diagram](/images/MapReduce-diagram.png)
 
 Riak MapReduce queries have two components:
 
 * A list of inputs
 * A list of phases
 
-The elements of the input list are object locations as specified by
-[[bucket type|Using Bucket Types]], bucket, and key. The elements of the
-phases list are chunks of information related to a map, a reduce, or a
-link function.
+The elements of the input list are bucket-key pairs. The elements of the phases list are chunks of information related to a map, a reduce, or a link function.
 
-A MapReduce query begins when a client makes the request to Riak. The
-node that the client contacts to make the request becomes the
-**coordinating node** responsible for the MapReduce job. As described
-above, each job consists of a list of phases, where each phase is either
-a map or a reduce phase. The coordinating node uses the list of phases
-to route the object keys and the function that will operate
-over the objects stored in those keys and instruct the proper
-[[vnode|Riak Glossary#Vnode]] to run that function over the right 
-objects.
+The client makes a request to Riak. The node the client contacts to make the request becomes the coordinating node for the MapReduce job. The MapReduce job consists of a list of phases-- either a map or a reduce. The map phase consists of a function and a list of objects the function will operate on, bucketed by the object's key. The coordinator uses the list to route the object keys and the function with a request for the vnode to run that function over those particular objects.
 
-After running the map function, the results are sent back to the
-coordinating node. This node then concatenates the list and passes that
-information over to a reduce phase on the same coordinating node, 
-assuming that the next phase in the list is a reduce phase.
+After running the map function, the results are sent back to the coordinating node. The coordinating node concatenates the list and then passes that information over to a reduce phase on the same coordinating node (assuming reduce is the next phase in the list).
 
-## Example
+## Examples
 
-![MapReduce Diagram](/images/MapReduce-diagram.png)
+In this example we will create four objects with the text "pizza" sometimes repeated. Javascript MapReduce will be used to count the occurrences of the word "pizza".
 
-### Data object input commands
-
-In this example, we'll create four objects with the text "caremad"
-repeated a varying number of times and store those objects in the bucket
-`training` (which does not bear a [[bucket type|Using Bucket Types]]).
-An Erlang MapReduce function will be used to count the occurrences of
-the word "caremad."
-
-### Data object input commands
-
-For the sake of simplicity, we'll use [curl](http://curl.haxx.se/)
-in conjunction with Riak's [[HTTP API]] to store the objects:
+### Data object input commands:
 
 ```curl
-curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
-
-curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
-
-curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
-
-curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+$ curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
+$ curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
+$ curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
+$ curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
 ```
 
-### MapReduce script and deployment
-
-The code sample below runs a MapReduce job that returns a list of tuples. The first member of each tuple is the key of the object, while the second member states the number of times that the word "pizza" has occurred in the text body of that object.
-
-Here is the Erlang function:
-
-```erlang
-%% Need an Erlang function here
-```
-
-Here is the HTTP call that 
+### MapReduce script and deployment:
 
 ```curl
 curl -XPOST http://localhost:8098/mapred \
   -H 'Content-Type: application/json' \
-  -d '{ function }'
+  -d '{
+    "inputs":"training",
+    "query":[{"map":{"language":"javascript",
+    "source":"function(riakObject) {
+      var val = riakObject.values[0].data.match(/pizza/g);
+      return [[riakObject.key, (val ? val.length : 0 )]];
+    }"}}]}'
 ```
 
-Next, to call `ReFun` on all keys in the `training` bucket, we can do
-the following in the Erlang shell. **Do not use this in a production 
-environment; listing all keys to identify those in the `training` bucket 
-is a very expensive process.**
+### Output
 
-The output is the key of each object, followed by the count of the word "pizza" for that object.  It looks like:
+The output is the key of each  object, followed by the count of the word  "pizza" for that object.  It looks like:
 
-That will return output along the following lines, verifying that
-compilation has completed:
-
-```
-{ok,{re_pattern,0,0,
-                <<69,82,67,80,69,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,99,0,100,
-                  ...>>}}
-```
-
-Then, we can create a socket link to our cluster:
-
-```erlang
-{ok, Riak} = riakc_pb_socket:start_link("127.0.0.1", 8087).
-
-%% This should return a process ID:
-%% {ok,<0.34.0>}
-```
-
-Then we can run the compiled MapReduce job on the `training` bucket:
-
-```erlang
-riakc_pb_socket:mapred_bucket(Riak, <<"training">>,
-    [{map, {qfun, ReFun}, Re, true}]).
-```
-
-That will return a list of tuples. The first element in each tuple is
-the key for each object in the bucket, while the second element displays
-the number of instances of the word "caremad" in the object:
-
-```
-{ok,[{0,
-      [{<<"foo">>,1},{<<"bam">>,3},{<<"baz">>,0},{<<"bar">>,4}]}]}
+```text
+[["foo",1],["baz",0],["bar",4],["bam",3]]
 ```
 
 ### Recap
 
-In this tutorial, we ran an Erlang MapReduce function against a total of
-four object in the `training` bucket. This job took each key/value
-object in the bucket and searched the text for the word "caremad,"
-counting the number of instances of the word.
+We run a Javascript MapReduce function against the `training` bucket, which takes each `riakObject` (a JavaScript representation of a key/value) and searches the text for the word "pizza". `val` is the result of the search, which includes zero or more regular expression matches. The function then returns the `key` of the `riakObject` along with the number of matches.
 
-## Advanced MapReduce Queries
+
+<!-- ## NEED TO ADD
+* Errors
+* Tombstones
+ -->
 
 ## Further Reading
 
 * [[Advanced MapReduce]]: Details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details
+* [[Using Key Filters]]: Pre-processing MapReduce inputs from a full bucket query by examining the key

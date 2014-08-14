@@ -35,6 +35,13 @@ before returning a successful response
 
 ## Response
 
+<div class="note"><div class="title">Client ID</div>
+<p>All requests to Riak &lt;1.0 or Riak 1.0 without `vnode_vclocks` enabled
+should include the `X-Riak-ClientId` header, which can be any string that
+uniquely identifies the client, for purposes of tracing object modifications in
+the [[vector clock|Vector Clocks]].</p>
+</div>
+
 Normal response codes:
 
 * `204 No Content`

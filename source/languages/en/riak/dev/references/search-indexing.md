@@ -1,20 +1,15 @@
 ---
-title: Riak Search 1.0 Indexing Reference
+title: Search Indexing Reference
 project: riak
 version: 1.0.0+
 document: reference
 toc: true
 audience: advanced
-keywords: []
+keywords: [developers, reference, search]
 moved: {
   '1.4.0-': '/cookbooks/Riak-Search---Indexing'
 }
 ---
-
-{{#2.0.0+}}
-<div class="info">This document refers to the now <em>deprecated</em> Riak Search. Visit [[Using Search]] for information about the new Riak Search (codenamed Yokozuna). Note that the new Riak Search does not currently support the manual index management that this document covers, instead prefering to automatically index Riak values.</div>
-{{/2.0.0+}}
-
 
 There are numerous ways to index a document in Riak Search.
 

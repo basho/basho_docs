@@ -41,14 +41,19 @@ without side-effects.
 
 ## Sibling Resolution
 
-In order to give applications the opportunity to recover from conflicting or
-partitioned writes to a key, Riak can be configured to present the client
-multiple versions of the value, also known as [[siblings|Vector Clocks#Siblings]]. It then becomes the responsibility of the application to
-resolve those siblings in a way that is meaningful to the application domain.  
-Clients should provide a way to encapsulate resolution behavior such that it
-can be run automatically when sibling values are detected, potentially multiple
-times in the course of a fetch or storage operation.  Without sibling 
-resolution, [[the number of stored versions will continually grow|Vector Clocks#Siblings]], resulting in degraded performance across the cluster in the form of extremely high per-operation latencies or apparent unresponsiveness.
+In order to give applications the opportunity to recover from
+conflicting or partitioned writes to a key, Riak can be configured to present the
+client multiple versions of the value, also known as
+[[siblings|Vector Clocks#Siblings]].  It then becomes the
+responsibility of the application to resolve those siblings in a way
+that is meaningful to the application domain.  Clients should provide
+a way to encapsulate resolution behavior such that it can be run
+automatically when sibling values are detected, potentially multiple
+times in the course of a fetch or storage operation.  Without sibling
+resolution,
+[[the number of stored versions will continually grow|Vector Clocks#Siblings]],
+resulting in degraded performance across the cluster in the form of
+extremely high per-operation latencies or apparent unresponsiveness.
 
 ## Read-before-Write & Vector Clocks
 

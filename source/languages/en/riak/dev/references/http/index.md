@@ -17,6 +17,13 @@ operations you can perform via HTTP and can be used as a guide for developing a
 compliant client.  All URLs assume the default configuration values where
 applicable. All examples use `curl` to interact with Riak.
 
+<div class="note"><div class="title">Client ID</div>
+<p>All requests to Riak &lt;1.0 or Riak 1.0 without `vnode_vclocks` enabled
+should include the `X-Riak-ClientId` header, which can be any string that
+uniquely identifies the client, for purposes of tracing object modifications in
+the [[vector clock|Vector Clocks]].</p>
+</div>
+
 <div class="note"><div class="title">URL Escaping</div>
 <p>Buckets, keys, and link specifications may not contain unescaped slashes. Use
 a URL-escaping library or replace slashes with `%2F`.</p>
@@ -51,7 +58,7 @@ the keys in a bucket, you'll need to delete them all individually.</P>
 ## Object/Key Operations
 
 The combination of bucket, key, value and metadata are referred to as a "Riak
-object."" The operations below affect individual objects in Riak.
+Object". The operations below affect individual objects in Riak.
 
 * [[HTTP Fetch Object]]
 * [[HTTP Store Object]]

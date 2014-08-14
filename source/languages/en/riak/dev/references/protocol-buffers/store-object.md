@@ -12,11 +12,13 @@ moved: {
 }
 ---
 
-Stores an object under the specified location. A bucket must always be specified (via `bucket`). If no key is specified, Riak will assign a random key to the object. If no [[bucket type|Using Bucket Types]] is assigned, Riak will use the `default` bucket type.
+Stores an object under the specified bucket / key. Storing an object comes in
+two forms, depending on whether you want to use a key of your choosing, or let
+Riak assign a key to a new object.
 
 #### Request
 
-```protobuf
+```bash
 message RpbPutReq {
     required bytes bucket = 1;
     optional bytes key = 2;
@@ -28,64 +30,75 @@ message RpbPutReq {
     optional uint32 pw = 8;
     optional bool if_not_modified = 9;
     optional bool if_none_match = 10;
-    optional bool return_head = 11;
-    optional uint32 timeout = 12;
-    optional bool asis = 13;
-    optional bool sloppy_quorum = 14;
-    optional uint32 n_val = 15;
-    optional bytes type = 16;
+    optional bool return_head = 11;%
 }
 ```
 
-#### Required Parameters
 
-Parameter | Description
-:---------|:-----------
-`bucket` | The name of the bucket, in bytes, in which the key/value is to reside
-`content` | The new or updated contented of the object. Uses the same `RpbContent` message returned as part of an `RpbGetResp` message, documented in [[PBC Fetch Object]]
+Required Parameters
 
-#### Optional Parameters
+* **bucket** - bucket key resides in
+* **content** - new/updated content for object - uses the same RpbContent
+message RpbGetResp returns data in and consists of metadata and a value.
 
-<div class="note">
-<div class="title">Note on defaults and special values</div>
-All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+Optional Parameters
 
-Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt>pr</tt>, and <tt>pw</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
-</div>
-
-`key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the requests's
-`vclock` | Opaque vector clock provided by an earlier `[[RpbGetResp|PBC Fetch Object]]` message. Omit if this is a new key or if you deliberately want to create a sibling.
-`w` | Write quorum, i.e. how many replicas to write to before returning a successful response
-`dw` | Durable write quorum, i.e. how many replicas to commit to durable storage before returning a successful response
-`return_body` | Whether to return the contents of the now-stored object. Defaults to `false`.
-`pw` | Primary write quorum, i.e. how many primary nodes must be up when the write is attempted
-`return_head` | Return the metadata for the now-stored object without returning the value of the object
-`timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
-`sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
-`n_val` | The number of nodes on which the value is to be stored
-
-The `if_not_modified`, `if_none_match`, and `asis` parameters are set only for messages sent between nodes in a Riak cluster and should not be set by Riak clients.
+* **key** - key to create/update. If this is not specified the server will
+generate one.
+* **vclock** - opaque vector clock provided by an earlier RpbGetResp message.
+Omit if this is a new key or you deliberately want to create a sibling
+* **w** - (write quorum) how many replicas to write to before
+returning a successful response; possible values include a special
+number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
+(4294967295-3), 'default' (4294967295-4), or any integer <= N
+([[default is defined per the bucket|PBC API#Set Bucket Properties]])
+* **dw** - how many replicas to commit to durable storage before
+returning a successful response; possible values include a special
+number to denote 'one' (4294967295-1), 'quorum' (4294967295-2), 'all'
+(4294967295-3), 'default' (4294967295-4), or any integer <= N
+([[default is defined per the bucket|PBC API#Set Bucket Properties]])
+* **return_body** - whether to return the contents of the stored object.
+Defaults to false.
+* **pw** - how many primary nodes must be up when the write is
+ attempted; possible values include a special number to denote 'one'
+ (4294967295-1), 'quorum' (4294967295-2), 'all' (4294967295-3),
+ 'default' (4294967295-4), or any integer <= N
+ ([[default is defined per the bucket|PBC API#Set Bucket Properties]])
+* **if_not_modified** - update the value only if the vclock in the supplied
+object matches the one in the database
+* **if_none_match** - store the value only if this bucket/key combination are
+not already defined
+* **return_head** - like *return_body" except that the value(s) in the object
+are blank to avoid returning potentially large value(s)
 
 #### Response
+
 
 ```bash
 message RpbPutResp {
     repeated RpbContent contents = 1;
-    optional bytes vclock = 2;
-    optional bytes key = 3;
+    optional bytes vclock = 2;        // the opaque vector clock for the object
+    optional bytes key = 3;           // the key generated, if any
 }
 ```
 
-If `return_body` is set to `true` on the PUT request, the `RpbPutResp` will contain the current object after the PUT completes, in `contents`, as well as the object's [[vector clock|Vector Clocks]], in the `vclock` field. The `key` will be sent only if the server generated a random key for the object.
 
-If `return_body` is not set and no key is generated, the PUT response will be empty.
+If returnbody is set to true on the put request, the RpbPutResp will contain the
+current object after the put completes. The key parameter will be set only if
+the server generated a key for the object but it will be set regardless of
+returnbody. If returnbody is not set and no key is generated, the put response
+is empty.
 
-## Example
 
-#### Request
+<div class="note"><p>N.B. this could contain siblings just like an RpbGetResp
+does.</p></div>
 
-```
+
+#### Example
+
+Request
+
+```bash
 Hex      00 00 00 1C 0B 0A 01 62 12 01 6B 22 0F 0A 0D 7B
          22 66 6F 6F 22 3A 22 62 61 72 22 7D 28 02 38 01
 Erlang <<0,0,0,28,11,10,1,98,18,1,107,34,15,10,13,123,34,102,111,111,34,58,34,
@@ -102,9 +115,10 @@ return_body: true
 
 ```
 
-#### Response
 
-```
+Response
+
+```bash
 Hex      00 00 00 62 0C 0A 31 0A 0D 7B 22 66 6F 6F 22 3A
          22 62 61 72 22 7D 2A 16 31 63 61 79 6B 4F 44 39
          36 69 4E 41 68 6F 6D 79 65 56 6A 4F 59 43 38 AF

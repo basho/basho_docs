@@ -1500,6 +1500,7 @@ div[role="main"] {
       }
 
       .big {
+        @extend .sans;
         border-bottom : 1px solid #cfcfcf;
         width         : 92%;
         margin        : 107px auto 0;

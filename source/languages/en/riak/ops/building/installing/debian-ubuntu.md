@@ -25,12 +25,12 @@ For the simplest installation process on LTS (Long Term Support) releases, use `
 First you must get the signing key.
 
 ```curl
-curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+$ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 ```
 
 Then add the Basho repository to your apt sources list (and update them).
 
-```bash
+```
 sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
 sudo apt-get update
 ```
@@ -81,24 +81,75 @@ for the target platform:
 
 #### Ubuntu Lucid Lynx (10.04)
 
+{{#1.2.0-}}
+
+```bash
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
+```
+
+{{/1.2.0-}}
+{{#1.2.0+}}
+
 ```bash
 wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/lucid/riak_{{VERSION}}-1_amd64.deb
 sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
+{{/1.2.0+}}
+
 #### Ubuntu Natty Narwhal (11.04)
+
+{{#1.2.0-}}
+
+```bash
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
+```
+
+{{/1.2.0-}}
+{{#1.2.0+}}
 
 ```bash
 wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/natty/riak_{{VERSION}}-1_amd64.deb
 sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
 
+{{/1.2.0+}}
+
+
 #### Ubuntu Precise Pangolin (12.04)
+
+{{#1.2.0-}}
+
+```bash
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak_{{VERSION}}-1_amd64.deb
+sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
+```
+
+{{/1.2.0-}}
+{{#1.2.0+}}
 
 ```bash
 wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/precise/riak_{{VERSION}}-1_amd64.deb
 sudo dpkg -i riak_{{VERSION}}-1_amd64.deb
 ```
+
+{{/1.2.0+}}
+
+
+{{#1.2.1-1.3.9}}
+
+### Riak 32-bit Installation
+
+```bash
+wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/ubuntu/lucid/riak_{{VERSION}}-1_i386.deb
+sudo dpkg -i riak_{{VERSION}}-1_i386.deb
+```
+
+<div class="note"><div class="title">Upgrading Riak</div>If upgrading the Riak package, and the user named "riak" exists without a home directory, create a home directory (`/var/lib/riak`), and execute `chown riak:riak /var/lib/riak` before starting Riak.</div>
+
+{{/1.2.1-1.3.9}}
 
 ## Installing Riak From Source
 
@@ -124,7 +175,8 @@ make rel
 If the build was successful, a fresh build of Riak will exist in the
 `rel/riak` directory.
 
-## Next Steps?
+Next Steps?
+-----------
 
 Now that Riak is installed, check out the following resources:
 

@@ -16,7 +16,8 @@ Request a set of keys that match a secondary index query.
 
 ## Request
 
-```protobuf
+
+```bash
 message RpbIndexReq {
     enum IndexQueryType {
         eq = 0;
@@ -32,42 +33,42 @@ message RpbIndexReq {
     optional bool stream = 8;
     optional uint32 max_results = 9;
     optional bytes continuation = 10;
-    optional uint32 timeout = 11;
-    optional bytes type = 12;
-    optional bytes term_regex = 13;
-    optional bool pagination_sort = 14;
 }
 ```
 
-#### Required Parameters
 
-Parameter | Description
-:---------|:-----------
-`bucket` | The name of the bucket in which the Data Type is stored
-`index` | The name of the index to be queried
-`qtype` | The type of index query to be performed. This can take either of the two possible values of the `IndexQueryType` enum: `eq` for an exact index match for the given `key` or `range` for a range query
+Required Parameters
 
-#### Optional Parameters
+* **bucket** - the bucket the index is for
+* **index** - specify the index to use
+* **qtype** - an IndexQueryType of either 0 (eq) or 1 (range)
 
-Parameter | Description
-:---------|:-----------
-`key` | The name of the index to be queried if `qtype` is set to `eq`
-`range_min` and `range_max` | The minimum and maximum values for a range query if `qtype` is set to `range`
-`return_terms` | If set to `true`, the response will include matched indexed values (for range queries only)
-`stream` | If set to `true`, keys matching the index query will be streamed to the client instead of waiting for `max_results` or the full result to be tabulated
-`max_results` | If pagination is turned on, the number of results to be returned to the client
-`continuation` | If set to `true`, values are returned in a paginated response
-`timeout` | The timeout duration, in milliseconds, after which Riak will return an error message
-`type` | The bucket type of the bucket that is being queried. If not set, the bucket type `default` will be used. Learn more about [[using bucket types]].
-`term_regex` | If set to a regular expression (as a binary), a term filter will be applied to the index query
-`pagination_sort` | If set to `true`, paginated results will be sorted, first by index value, then by key
+Index queries are one of two types
+
+* **eq** - Exactly match the query for the given `key`
+* **range** - Match over a min and max range (`range_min`, `range_max`)
+
+Pagination
+
+* **max_results** - Number of results to return
+* **continuation** - Value returned in paginated response to use in conjunction with `max_results` to request the next page of results
+
+Optional Parameters
+
+* **key** - the exact value to match by. only used if qtype is eq
+* **range_min** - the minimum value for a range query to match. only used if qtype is range
+* **range_max** - the maximum value for a range query to match. only used if qtype is range
+* **return_terms** - Include matched index values in response (range queries only)
+* **stream** - Stream responses back to the client instead of waiting for `max_results` or the full result set to be tabulated
+
 
 ## Response
 
 The results of a Secondary Index query are returned as a repeating list of
 0 or more keys that match the given request parameters.
 
-```protobuf
+
+```bash
 message RpbIndexResp {
     repeated bytes keys = 1;
     repeated RpbPair results = 2;
@@ -76,20 +77,18 @@ message RpbIndexResp {
 }
 ```
 
-#### Values
+Values
 
-Parameter | Description
-:---------|:-----------
-`keys` | A list of keys that match the index request
-`results` | If `return_terms` is specified with range queries, used to return matched index values as key/value pairs in `RpbPair` messages. More on `RpbPair` messages can be found in [[PBC Fetch Object]].
-`continuation` | Used for paginated responses
-`done` | Used for streaming. The value will be `true` when the current stream is done (either `max_results` has been reached or there are no more results).
+* **keys** - a list of keys that match the index request
+* **results** - If `return_terms` is specified with range queries, used to return matched index values
+* **continuation** - For paginated responses
+* **done** - For streaming: the current stream is done (either `max_results` reached or no more results)
 
 ## Example
 
-#### Request
+Request
 
-Here we look for any exact matches of `chicken` on an `animal_bin` index for a bucket named `farm`.
+Here we look for any exact matches of "chicken" on an "animal_bin" index for a bucket named "farm".
 
 ```bash
 RpbIndexReq protoc decode:
@@ -105,7 +104,7 @@ Erlang  <<0,0,0,30,25,10,10,4,102,97,114,109,18,10,97,110,105,
           101,110>>
 ```
 
-#### Response
+Response
 
 ```bash
 Hex     00 00 00 0F 1A 0A 03 68 65 6E 0A 07 72 6F 6F 73 74 65 72
