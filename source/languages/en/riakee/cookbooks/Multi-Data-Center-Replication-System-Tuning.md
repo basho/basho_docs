@@ -12,7 +12,7 @@ Depending on the size of your objects and your replication latency needs, you ma
 
 ## Linux
 
-Refer to our documentation on [[Linux Performance Tuning|System Performance Tuning]].
+Refer to our documentation on [[System Performance Tuning]].
 
 ## Solaris
 

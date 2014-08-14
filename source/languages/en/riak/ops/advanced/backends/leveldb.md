@@ -627,7 +627,7 @@ Below are **general** configuration recommendations for Linux distributions. Ind
 
 #### `sysctl`
 
-For production environments, please see [[Linux Performance Tuning]] for
+For production environments, please see [[System Performance Tuning]] for
 the recommended `/etc/sysctl.conf` settings.
 
 #### Block Device Scheduler
