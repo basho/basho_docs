@@ -12,20 +12,23 @@ moved: {
 }
 ---
 
-To enable or disable replication per bucket, you can use the `repl` bucket property.
+To enable or disable replication per bucket, you can use the `repl`
+bucket property.
 
 Some changes have occurred between 1.1 and 1.2.
 
-These `repl` values are available in Riak Enterprise version 1.1 and above:
+These `repl` values are available in Riak Enterprise version 1.1 and
+above:
 
-  * `true`: enable replication (realtime + fullsync)
-  * `false`: disable replication (realtime + fullsync)
+  * `true` --- Enable replication (realtime + fullsync)
+  * `false` --- Disable replication (realtime + fullsync)
 
-These option values are only available in Riak Enterprise version 1.2 and above:
+These option values are only available in Riak Enterprise version 1.2
+and above:
 
-  * `realtime`: replication only occurs in realtime for this bucket
-  * `fullsync`: replication only occurs during a fullsync operation
-  * `both`: replication occurs in realtime and during fullsync
+  * `realtime` --- Replication only occurs in realtime for this bucket
+  * `fullsync` --- Replication only occurs during a fullsync operation
+  * `both` --- Replication occurs in realtime and during fullsync
 
 ### Example of Disabling
 
