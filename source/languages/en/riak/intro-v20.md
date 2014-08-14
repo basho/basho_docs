@@ -223,14 +223,6 @@ thus reduce Riak cluster latency. The [[dotted version vectors]] doc
 explains some of the theoretical nuances behind the distinction between
 DVVs and vector clocks and offers instructions on implementing DVVs.
 
-## Ring Resizing
-
-In previous versions of Riak, the size of a cluster's
-[[ring|Clusters#The-Ring]] was fixed for the entire life cycle of the
-cluster. In version 2.0 it is possible to adjust the size of your
-cluster's ring at any point in the cluster's life cycle. Our [[Ring
-Resizing]] doc explains how.
-
 ## New Client Libraries
 
 While Basho offered official [[client libraries]] for Java, Ruby,
