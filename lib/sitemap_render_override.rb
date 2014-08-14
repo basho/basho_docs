@@ -134,7 +134,7 @@ module SitemapRenderOverride
 
       # if it's in a list in a different version, remove the entire <li></li>
       # data.gsub!(/(\<li(?:\s[^\>]*?)?\>.*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/) do
-      data.gsub!(/(\<li(?:\s[^\>]*?)?\>(?:(?!\<li).)*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/m) do
+      data.gsub!(/(\<li(?:\s[^\>]*?)?\>(?:(?!\<li|tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/m) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
         if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
@@ -145,12 +145,12 @@ module SitemapRenderOverride
       end
 
       data.gsub!(/(\<tr(?:\s[^\>]*?)?\>(?:(?!\<tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/tr\>)/m) do
-        startli, liversion, endli = $1, $2, $3
+        starttr, liversion, endtr = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
         if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
-          in_version_range?(liversion, version) ? startli + endli : ''
+          in_version_range?(liversion, version) ? starttr + endtr : ''
         else
-          startli + endli
+          starttr + endtr
         end
       end
     end
