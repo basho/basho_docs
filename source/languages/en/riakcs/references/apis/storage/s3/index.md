@@ -47,7 +47,7 @@ GET Object {{1.3.0-}} | <abbr title="Supported" class="supported">✓</abbr> | R
 Object ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |
 HEAD Object | <abbr title="Supported" class="supported">✓</abbr> | |
 POST Object | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
-Copy Object | <abbr title="Unsupported" class="unsupported">✗</abbr> | Planned for future release |
+Copy Object | <abbr title="Supported" class="supported">✓</abbr> | |
 Multipart Uploads {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | UploadPartCopy unimplemented |
 Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 
