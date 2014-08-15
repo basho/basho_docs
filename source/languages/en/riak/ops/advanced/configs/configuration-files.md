@@ -2023,12 +2023,12 @@ if the JMX server crashes.</td>
 Riak's strong consistency feature has a variety of tunable parameters
 that allow you to enable and disable strong consistency, modify the
 behavior of leaders and followers, set various timeouts, and more. More
-detailed information can be found in our documentation on [[managing
-strong consistency]].
+detailed information from an operations perspective can be found in our
+documentation on [[managing strong consistency]].
 
-The `strong_consistency` parameter enables you to turn Riak's strong
-consistency subsystem on and off. It's available in each node's
-`riak.conf` file.
+Strong consistency is disabled by default. The `strong_consistency`
+parameter enables you to turn it on. This setting is available in each
+node's `riak.conf` file.
 
 <table class="riak-conf">
 <thead>
@@ -2051,15 +2051,15 @@ operations if set to <code>on</code>.</td>
 </table>
 
 Unlike the `strong_consistency` setting, the settings listed below are
-available only in `advanced.config`, in particular in the
-`riak_ensemble` section of that file, which looks like this:
+available only in `advanced.config`, in the `riak_ensemble` section of
+that file. That section which looks like this:
 
 ```advancedconf
 {riak_ensemble, [
 		{parameter1, value},
 		{parameter2, value},
 		%% Other setting
-	]},
+	]}
 ```
 
 Further instructions on setting parameters in `advanced.config` can be
