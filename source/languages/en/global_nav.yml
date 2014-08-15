@@ -20,31 +20,24 @@ riak:
           - title: CRUD Operations
             sub:
               - "[[Prerequisites|Taste of Riak: Prerequisites]]"
-              - "[[Erlang|Taste of Riak: Erlang]]"
               - "[[Java|Taste of Riak: Java]]"
-              - "[[PHP|Taste of Riak: PHP]]"
-              - "[[Python|Taste of Riak: Python]]"
               - "[[Ruby|Taste of Riak: Ruby]]"
-              - "[[C|Taste of Riak: C]]"
-              - "[[OCaml|Taste of Riak: OCaml]]"
-              - "[[Clojure|Taste of Riak: Clojure]]"
-              - "[[Csharp|Taste of Riak: C-Sharp]]"
-              - "[[Go|Taste of Riak: Go]]"
+              - "[[Python|Taste of Riak: Python]]"
+              - "[[Erlang|Taste of Riak: Erlang]]"
           - title: A Taste of Querying
             sub:
               - "[[Prerequisites|Taste of Riak: Querying]]"
-              - "[[Erlang|Taste of Riak: Querying with Erlang]]"
               - "[[Java|Taste of Riak: Querying with Java]]"
-              - "[[PHP|Taste of Riak: Querying with PHP]]"
-              - "[[Python|Taste of Riak: Querying with Python]]"
               - "[[Ruby|Taste of Riak: Querying with Ruby]]"
+              - "[[Python|Taste of Riak: Querying with Python]]"
+              - "[[Erlang|Taste of Riak: Querying with Erlang]]"
           - title: Object Modeling
             sub:
               - "[[Introduction|Taste of Riak: Object Modeling]]"
-              - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
               - "[[Java|Taste of Riak: Object Modeling with Java]]"
-              - "[[Python|Taste of Riak: Object Modeling with Python]]"
               - "[[Ruby|Taste of Riak: Object Modeling with Ruby]]"
+              - "[[Python|Taste of Riak: Object Modeling with Python]]"
+              - "[[Erlang|Taste of Riak: Object Modeling with Erlang]]"
       - title: "Basic Usage"
         sub:
           - "[[Application Guide|Building Applications with Riak]]"
