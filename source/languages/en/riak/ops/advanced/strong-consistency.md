@@ -88,6 +88,23 @@ More on creating and activating bucket types can be found in our
 [[bucket types|Using Bucket
 Types#Managing-Bucket-Types-Through-the-Command-Line]] documentation.
 
+### Setting `target_n_val`
+
+The `target_n_val` parameter sets the highest `n_val` that you intend to
+use in an entire cluster. The purpose of this parameter is to ensure
+that so-called "hot spots" don't occur, i.e. that data is never stored
+more than once on the same physical node, which can happen in rare cases
+if no `target_n_val` is set.
+
+A problem to be aware of if you're using strong consistency is that the
+default for `target_n_val` is 4, while our suggested minimum `n_val` for
+strongly consistent bucket types is 5. This means that you will need to
+raise `target_n_val` if you intend to use an `n_val` over 4 for _any_
+bucket type. This setting is not contained in `riak.conf`, and must
+instead be set in `advanced.config`. For more information, see our
+documentation on [[advanced configuration|Configuration
+Files#Advanced-Configuration]].
+
 ### Note on Bucket Properties
 
 The `consistent` bucket property is one of two bucket properties,
