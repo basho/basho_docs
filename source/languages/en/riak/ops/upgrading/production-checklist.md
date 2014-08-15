@@ -70,11 +70,17 @@ to ask while making this transition.
     Consistency]] that must be made if `allow_mult` is set to `false`?
   - Are all of your [[replication properties]] configured correctly and
     uniformly across the cluster?
-  - If you are using [[Riak Search|Search]], is it enabled on all nodes?
-    If you are not, has it been disabled on all nodes?
+  - If you are using [[Riak Search|Using Search]], is it enabled on all
+    nodes? If you are not, has it been disabled on all nodes?
   - If you are using [[strong consistency]] for some or all of your
-    data, has the strong consistency subsystem been [[enabled|Managing
-    Strong Consistency#Enabling-Strong-Consistency]] on all nodes?
+    data:
+      * Has the strong consistency subsystem been [[enabled|Managing
+        Strong Consistency#Enabling-Strong-Consistency]] on all nodes?
+      * Is the `[[target_n_val|Configuration Files#Advanced-Configuration]]`
+        that is set on each node higher than any `n_val` that you intend
+        to use for strongly consistent bucket types (or _any_ bucket
+        types for that matter)? The default is 4, which will likely need
+        to be raised. 
   - Have all [[bucket types|Using Bucket Types]] that you intend to use
     been created and successfully activated?
   - If you are using [[Riak Control]], is it enabled on the node(s) from
