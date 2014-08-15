@@ -110,7 +110,8 @@ the following commands must be issued:
     At this point realtime replication commences.
 
 <ol start="3">
-<li>Nodes with queued updates establish connections to the sink cluster and replication begins.</li>
+<li>Nodes with queued updates establish connections to the sink cluster
+and replication begins.</li>
 </ol>
 
 <br />

@@ -16,11 +16,13 @@ moved: {
 
 ## Version 3 Replication Configuration
 
-* **Note**: The `cluster_mgr` variable MUST be set in order for v3 Replication to run.
+**Note**: The `cluster_mgr` variable *must* be set in order for version 3
+Replication to run.
 
-The configuration for replication is kept in the both the `riak_core` and `riak_repl` sections of `etc/app.config`.
+The configuration for replication is kept in the both the `riak_core`
+and `riak_repl` sections of `etc/app.config`.
 
-```erlang
+```appconfig
 {riak_core, [
     %% Every *node* runs one cluster_mgr
     {cluster_mgr, {"0.0.0.0", 9080 }}
@@ -40,25 +42,32 @@ The configuration for replication is kept in the both the `riak_core` and `riak_
     {fullsync_on_connect, false}
 ]}
 ```
-* **Note**: One or more percent signs `%` in `app.config` begins a comment that continues to the end of the line.
+
+*Note**: One or more percent signs `%` in `app.config` begins a comment
+that continues to the end of the line.
 
 ### Settings
 
-These settings are configured using the standard Erlang config file syntax `{Setting, Value}`. For example, if you wished to set `fullsync_on_connect` to `false`, you would insert this line into the `riak_repl` section (appending a comma if you have more settings to follow):
+These settings are configured using the standard Erlang config file
+syntax `{Setting, Value}`. For example, if you wished to set
+`fullsync_on_connect` to `false`, you would insert this line into the
+`riak_repl` section (appending a comma if you have more settings to
+follow):
 
-```erlang
+```appconfig
 {fullsync_on_connect, false}
 ```
 
 Once your configuration is set, you can verify its correctness by running the command-line tool:
 
 ```bash
-$ riak chkconfig
+riak chkconfig
 ```
 
 ---
 
-Riak MDC Replication `app.config` settings, **`riak_repl` section**
+Riak Multi-Datacenter Replication `app.config` settings, `riak_repl`
+section
 
 Setting | Options | Default | Description
 --------|---------|---------|------------
@@ -79,7 +88,8 @@ Setting | Options | Default | Description
 
 ---
 
-Riak MDC Replication `app.config` settings, **`riak_core` section**
+Riak Multi-Datacenter Replication `app.config` settings, `riak_core`
+section
 
 Setting | Options | Default | Description
 --------|---------|---------|------------
