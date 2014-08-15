@@ -34,13 +34,13 @@ Set the `clustername` for all nodes in a Riak cluster.
 
 To **set** the `clustername`:
 
-* *Syntax:* `riak-repl clustername <clustername>`
-* *Example:* `riak-repl clustername Boston`
+* Syntax: `riak-repl clustername <clustername>`
+* Example: `riak-repl clustername Boston`
 
 To **get** the `clustername`:
 
-* *Syntax:* `riak-repl clustername`
-* *Example:* `riak-repl clustername`
+* Syntax: `riak-repl clustername`
+* Example: `riak-repl clustername`
 
 #### connect
 
@@ -57,8 +57,8 @@ The `host` can be either an IP address
 
 ...or a hostname that will resolve to an IP address.
 
-* *Syntax:* `riak-repl connect <host>:<port>`
-* *Example:* `riak-repl connect Austin:9080`
+* Syntax: `riak-repl connect <host>:<port>`
+* Example: `riak-repl connect Austin:9080`
 
 #### disconnect
 
@@ -66,20 +66,20 @@ Disconnecting a source cluster from a sink cluster.
 
 You may define a `host:port` combination
 
-* *Syntax:* `riak-repl disconnect <host>:<port>`
-* *Example:* `riak-repl disconnect 192.168.2.1:9080`
+* Syntax: `riak-repl disconnect <host>:<port>`
+* Example: `riak-repl disconnect 192.168.2.1:9080`
 
 ...or use the *name* of the cluster.
 
-* *Syntax:* `riak-repl disconnect <sink_clustername>`
-* *Example:* `riak-repl disconnect Austin`
+* Syntax: `riak-repl disconnect <sink_clustername>`
+* Example: `riak-repl disconnect Austin`
 
 #### connections
 
 Display a list of connections between source and sink clusters.
 
-* *Syntax:* `riak-repl connections`
-* *Example:* `riak-repl connections`
+* Syntax: `riak-repl connections`
+* Example: `riak-repl connections`
 
 #### clusterstats
 
@@ -94,9 +94,9 @@ optional `protocol-id`.
 
 The `clusterstats` command in use:
 
-* *Syntax:* `riak-repl clusterstats <host>:<port> <protocol-id>`
-* *Example:* `riak-repl clusterstats 192.168.2.1:9080`
-* *Example:* `riak-repl clusterstats 192.168.2.1:9080 fs_repl`
+* Syntax: `riak-repl clusterstats <host>:<port> <protocol-id>`
+* Example: `riak-repl clusterstats 192.168.2.1:9080`
+* Example: `riak-repl clusterstats 192.168.2.1:9080 fs_repl`
 
 
 ## Realtime Replication Commands
@@ -108,15 +108,15 @@ Enable realtime replication from a source cluster to sink clusters.
 This will start queuing updates for replication. The cluster will still
 require an invocation of `realtime start` for replication to occur.
 
-* *Syntax:* `riak-repl realtime enable <sink_clustername>`
-* *Example:* `riak-repl realtime enable Austin`
+* Syntax: `riak-repl realtime enable <sink_clustername>`
+* Example: `riak-repl realtime enable Austin`
 
 #### realtime disable
 
 Disable realtime replication from a source cluster to sink clusters.
 
-* *Syntax:* `riak-repl realtime disable <sink_clustername>`
-* *Example:* `riak-repl realtime disable Austin`
+* Syntax: `riak-repl realtime disable <sink_clustername>`
+* Example: `riak-repl realtime disable Austin`
 
 
 #### realtime start
@@ -124,15 +124,15 @@ Disable realtime replication from a source cluster to sink clusters.
 Start realtime replication connections from a source cluster to sink
 clusters. See also `realtime enable` (above).
 
-* *Syntax:* `riak-repl realtime start <sink_clustername>`
-* *Example:* `riak-repl realtime start Austin`
+* Syntax: `riak-repl realtime start <sink_clustername>`
+* Example: `riak-repl realtime start Austin`
 
 #### realtime stop
 
 Stop realtime replication from a source cluster to sink clusters.
 
-* *Syntax* `riak-repl realtime stop <sink_clustername>`
-* *Example* `riak-repl realtime stop Austin`
+* Syntax `riak-repl realtime stop <sink_clustername>`
+* Example `riak-repl realtime stop Austin`
 
 
 ## Fullsync Replication Commands
@@ -147,15 +147,15 @@ Enable fullsync replication from a source cluster to sink clusters. By
 default, a fullsync will begin as soon as a connection to the remote
 cluster is established.
 
-* *Syntax:* `riak-repl fullsync enable <sink_clustername>`
-* *Example:* `riak-repl fullsync enable Austin`
+* Syntax: `riak-repl fullsync enable <sink_clustername>`
+* Example: `riak-repl fullsync enable Austin`
 
 #### fullsync disable
 
 Disables fullsync for a cluster.
 
-* *Syntax:* `riak-repl fullsync disable <sink_clustername>`
-* *Example:* `riak-repl fullsync disable Austin`
+* Syntax: `riak-repl fullsync disable <sink_clustername>`
+* Example: `riak-repl fullsync disable Austin`
 
 #### fullsync start
 
@@ -165,15 +165,15 @@ manually. This is also used to trigger a periodic fullsync using a cron
 job. While a fullsync is in progress, a `start` command is ignored and a
 message is logged.
 
-* *Syntax:* `riak-repl fullsync start <sink_clustername>`
-* *Example:* `riak-repl fullsync start Austin`
+* Syntax: `riak-repl fullsync start <sink_clustername>`
+* Example: `riak-repl fullsync start Austin`
 
 #### fullsync stop
 
 Stops a fullsync.
 
-* *Syntax:* `riak-repl fullsync stop <sink_clustername>`
-* *Example:* `riak-repl fullsync stop Austin`
+* Syntax: `riak-repl fullsync stop <sink_clustername>`
+* Example: `riak-repl fullsync stop Austin`
 
 ## Cascading Realtime Writes
 
@@ -184,22 +184,22 @@ guide.
 
 Shows the current cascading realtime setting.
 
-* *Syntax*: `realtime cascades`
-* *Example*: `riak-repl realtime cascades`
+* Syntax: `realtime cascades`
+* Example: `riak-repl realtime cascades`
 
 #### realtime cascades always
 
 Enable realtime cascading writes.
 
-* *Syntax*: `realtime cascades always`
-* *Example*: `riak-repl realtime cascades always`
+* Syntax: `realtime cascades always`
+* Example: `riak-repl realtime cascades always`
 
 #### realtime cascades never
 
 Disable realtime cascading writes.
 
-* *Syntax*: `realtime cascades never`
-* *Example*: `riak-repl realtime cascades never`
+* Syntax: `realtime cascades never`
+* Example: `riak-repl realtime cascades never`
 
 
 ## NAT
@@ -211,23 +211,23 @@ With NAT]] for more information.
 
 Show the current NAT mapping table.
 
-* *Syntax:* `nat-map show`
-* *Example:* `riak-repl nat-map show`
+* Syntax: `nat-map show`
+* Example: `riak-repl nat-map show`
 
 #### nat-map add
 
 Adds a NAT map from the external IP, with an optional port, to an
 internal IP.
 
-* *Syntax:* `nat-map add <externalip>[:port] <internalip>`
-* *Example:* `riak-repl nat-map add 128.205.106.1:5555 192.168.1.2`
+* Syntax: `nat-map add <externalip>[:port] <internalip>`
+* Example: `riak-repl nat-map add 128.205.106.1:5555 192.168.1.2`
 
 #### nat-map del
 
 Deletes a specific NAT map entry.
 
-* *Syntax:* `nat-map del <externalip>[:port] <internalip>`
-* *Example:* `riak-repl nat-map del 128.205.106.1:5555 192.168.1.2`
+* Syntax: `nat-map del <externalip>[:port] <internalip>`
+* Example: `riak-repl nat-map del 128.205.106.1:5555 192.168.1.2`
 
 NAT changes will be applied once fullsync and/or realtime replication
 has been stopped and started.
@@ -240,15 +240,16 @@ has been stopped and started.
 Enable Riak CS `proxy_get` requests from a **sink** cluster (if
 `proxy_get` has been enabled in `app.config`).
 
-* *Syntax:* `proxy-get enable  <sink_clustername>`
-* *Example:* `riak-repl proxy-get enable  newyorkbackup`
+* Syntax: `proxy-get enable  <sink_clustername>`
+* Example: `riak-repl proxy-get enable  newyorkbackup`
 
 #### `proxy-get disable`
+
 Disable Riak CS `proxy_get` requests from a **sink** cluster (if
 `proxy_get` has been enabled in `app.config`).
 
-* *Syntax:* `proxy-get disable <sink_clustername>`
-* *Example:* `riak-repl proxy-get disable newyorkbackup`
+* Syntax: `proxy-get disable <sink_clustername>`
+* Example: `riak-repl proxy-get disable newyorkbackup`
 
 #### `add-block-provider-redirect`
 
@@ -261,15 +262,15 @@ Provide a redirection to the `<to-cluster-id>` for `proxy_get` if the
 #### `show-block-provider-redirect`
 Show the mapping for a given cluster-id redirect.
 
-* *Syntax:* `riak-repl show-block-provider-redirect <from-cluster>`
-* *Example:* `riak-repl show-block-provider-redirect "{'dev1@127.0.0.1',{1391,544501,519016}}"`
+* Syntax: `riak-repl show-block-provider-redirect <from-cluster>`
+* Example: `riak-repl show-block-provider-redirect "{'dev1@127.0.0.1',{1391,544501,519016}}"`
 
 #### `delete-block-provider-redirect`
 Delete a existing redirect such that proxy_gets go again to the original
 provider cluster id.
 
-* *Syntax:* `riak-repl delete-block-provider-redirect <from-cluster>`
-* *Example:* `riak-repl delete-block-provider-redirect "{'dev1@127.0.0.1', {1391,544501,519016}}"`
+* Syntax:* `riak-repl delete-block-provider-redirect <from-cluster>`
+* Example:* `riak-repl delete-block-provider-redirect "{'dev1@127.0.0.1', {1391,544501,519016}}"`
 
 #### `show-local-cluster-id`
 
@@ -279,13 +280,18 @@ Display this cluster's cluster-id tuple, for use with the
 **Note**: A cluster-id is surrounded by double quotes, which need to be
 included when passed to `*-block-provider-redirect`.
 
-* *Syntax:* `riak-repl show-local-cluster-id`
-* *Example:* 
+* Syntax: `riak-repl show-local-cluster-id`
+* Example: 
 
-```
-$ riak-repl show-local-cluster-id
-local cluster id: "{'dev1@127.0.0.1',{1391,544501,519016}}"
-```
+    ```bash
+    riak-repl show-local-cluster-id
+    ```
+
+    Possible output:
+
+    ```
+    local cluster id: "{'dev1@127.0.0.1',{1391,544501,519016}}"
+    ```
 
 ## `riak-repl` Status Output
 
@@ -308,9 +314,9 @@ fullsyncs that are enabled. Additional fullsync configurations will
 node. This only affects nodes on the source cluster on which this
 parameter is defined via the configuration file or command line.
 
-* *Syntax:* `riak-repl fullsync max_fssource_node <value>`
-* *Default:* `1`
-* *Example:* `riak-repl fullsync max_fssource_node 2`
+* Syntax: `riak-repl fullsync max_fssource_node <value>`
+* Default: `1`
+* Example: `riak-repl fullsync max_fssource_node 2`
 
 #### `fullsync max_fssource_cluster`
 
@@ -322,9 +328,9 @@ workers can be in progress. Only affects nodes on the source cluster on
 which this parameter is defined via the configuration file or the
 command line.
 
-* *Syntax:* `riak-repl fullsync max_fssource_cluster <value>`
-* *Default:* `5`
-* *Example:* `riak-repl fullsync max_fssource_cluster 5`
+* Syntax: `riak-repl fullsync max_fssource_cluster <value>`
+* Default: `5`
+* Example: `riak-repl fullsync max_fssource_cluster 5`
 
 
 #### `fullsync max_fssink_node`
@@ -337,9 +343,9 @@ sink node’s number of maximum connections. Only affects nodes on the
 sink cluster on which this parameter is defined via the configuration
 file or command line.
 
-* *Syntax* `riak-repl fullsync max_fssink_node <value>`
-* *Default* `1`
-* *Example* `riak-repl fullsync max_fssink_node 5`
+* Syntax: `riak-repl fullsync max_fssink_node <value>`
+* Default: `1`
+* Example: `riak-repl fullsync max_fssink_node 5`
 
 
 ## Mixing Version 2 Replication with Version 3 Replication
@@ -352,22 +358,32 @@ replication bucket hooks with the `riak-repl modes` command.
 #### `riak-repl modes`
 
 `modelist` is one or both of `mode_repl12` (Version 2) or `mode_repl13`
-(Version 3) separated by *spaces* (without commas).
+(Version 3) separated by spaces (without commas).
 
-* *Syntax:* `riak-repl modes <modelist>` 
-* *Example:* 
+* Syntax: `riak-repl modes <modelist>` 
+* Example: 
 
     ```bash
-    $ riak-repl modes mode_repl12 mode_repl13
+    riak-repl modes mode_repl12 mode_repl13
+    ```
+
+    Possible output:
+
+    ```
     Current replication modes: [mode_repl12,mode_repl13]
     ```
 
 To check the current replication modes:
 
-* *Syntax:* `riak-repl modes` 
-* *Example:*
+* Syntax: `riak-repl modes` 
+* Example:
 
     ```bash
-    $ riak-repl modes
+    riak-repl modes
+    ```
+
+    Possible output:
+
+    ```
     Current replication modes: [mode_repl12,mode_repl13]
     ```
