@@ -41,7 +41,8 @@ to ask while making this transition.
   - between application servers and the load balancer
 * Do all Riak nodes appear in the load balancer's rotation?
 * Is the load balancer configured to balance connections with roundrobin
-  or a similarly random [[distribution scheme|Load Balancing and Proxy Configuration]]?
+  or a similarly random [[distribution scheme|Load Balancing and Proxy
+  Configuration]]?
 
 ## Riak
 
@@ -178,7 +179,8 @@ be addressed before going to production.
     On-call engineers respond to urgent requests within 30 minutes,
     24/7.
 * Does your team know how to gather `riak-debug` results from the whole
-  cluster when opening tickets? If not, that process goes something like this:
+  cluster when opening tickets? If not, that process goes something like
+  this:
   - SSH into each machine, run `riak-debug`, and grab the resultant
     `.tar.gz` file
   - Attach all debug tarballs from the whole cluster each time you open
