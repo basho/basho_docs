@@ -569,7 +569,7 @@ Parameter | Description | Default
 
 <div class="note">
 <div class="title">Note</div>
-Setting <tt>allow_mult</tt> to <tt>true</tt> and <tt>last_write_wins</tt> to false leads to unpredictable behavior and should not be used.
+Setting both <code>allow_mult</code> and <code>last_write_wins</code> to <code>true</code> necessarily leads to unpredictable behavior and should always be avoided.
 </div>
 
 As an example, let's create a bucket type called `n_val_of_5` that sets the `n_val` to 5:
