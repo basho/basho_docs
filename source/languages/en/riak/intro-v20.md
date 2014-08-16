@@ -182,9 +182,9 @@ in case you're upgrading.
 #### Relevant Docs
 
 * [[Configuration Files]] lists and describes all of the configurable
-* parameters available in Riak 2.0, from configuring your chosen storage
-* backend(s) to setting default bucket properties to controlling Riak's
-* logging system and much more.
+  parameters available in Riak 2.0, from configuring your chosen storage
+  backend(s) to setting default bucket properties to controlling Riak's
+  logging system and much more.
 
 #### Video
 
@@ -203,8 +203,8 @@ and keys.
 #### Relevant Docs
 
 * [[Using Bucket Types]] explains how to create, modify, and activate
-* bucket types, as well as how the new system differs from the older,
-* bucket properties-based system
+  bucket types, as well as how the new system differs from the older,
+  bucket properties-based system
 
 #### Video
 
