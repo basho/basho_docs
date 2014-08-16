@@ -7,6 +7,22 @@ audience: advanced
 keywords: [erlang, operator]
 ---
 
+A table listing all available configurable parameters can be found in
+our [[configuration files|Configuration Files#Erlang-VM]] documentation.
+
+## SMP
+
+Some operating systems are equipped to provide Erlang VMs with
+symmetric multiprocessing capabilities, aka
+[SMP](http://en.wikipedia.org/wiki/Symmetric_multiprocessing). SMP
+support can be turned on and off by setting the `erlang.smp` parameter
+to `enable` or `disable`. It is enabled by default.
+
+Riak is supported on some operating systems that do not provide SMP
+support. Make sure that you ensure that your OS supports SMP before
+enabling it for use by Riak's Erlang VM. If it does not, you should set
+set `erlang.smp` to `disable` prior to starting up your cluster.
+
 ## Schedulers
 
 If [[SMP support|Erlang VM Tuning#SMP]] has been enabled on your Erlang
@@ -41,13 +57,17 @@ the value for `schedulers.total` will be 50. Setting either parameter to
 If SMP support is not enabled, i.e. if `erlang.smp` is set to `disable`,
 then `schedulers.total` and `schedulers.online` will be ignored.
 
-## Port Range
+## Port Settings
 
 Riak uses the Erlang distribution mechanism for most inter-node
 communication, identifying other nodes in the [[cluster|Clusters]]
 using Erlang identifiers, e.g. `riak@10.9.8.7`. The Erlang Port Mapper
 Daemon ([epmd](http://www.erlang.org/doc/man/epmd.html)) running on each
-node resolves these node identifiers to a TCP port.
+node resolves these node identifiers to a TCP port. You can specify a
+port or range of ports for Riak nodes to listen on as well as the
+maximum number of concurrent
+
+### Port Range
 
 By default, epmd binds to TCP port 4369 and listens on the wildcard
 interface. epmd uses an unpredictable port for inter-node communication
@@ -96,3 +116,8 @@ erlang.distribution.port_range.minimum = 5000
 If the minimum port is unset, the Erlang VM will listen on a random
 high-numbered port.
 
+### Maximum Ports
+
+You can set the maximum number of concurrent sockets used by the Erlang
+VM using the `erlang.max_ports` setting. Possible values range from 1024
+to 134217727.
