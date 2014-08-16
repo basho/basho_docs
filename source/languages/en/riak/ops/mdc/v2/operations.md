@@ -212,32 +212,6 @@ Field | Description
 `connected` | A list of connected clients<ul><li>`connected` --- The IP address and port of a connected client (site)</li><li>`cluster_name` --- The name of the connected client (site)</li><li>`connecting` --- The PID, IP address, and port of a client currently establishing a connection</li></ul>
 `state` | State shows what the current replication strategy is currently processing. The following definitions appear in the status output if keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>`request_partition`</li><li>`wait_for_fullsync`</li><li>`send_keylist`</li><li>`wait_ack`</li></ul>
 
-## Server Statistics
-
-Field | Description
-------|------------
-`node`  | A unique ID for the Riak node on which the server (listener) is running
-`site` | The connected site name configured with `riak-repl add-site`
-`strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist` or `syncv1`.
-`fullsync_worker` | The Erlang process ID of the fullsync worker
-`bounded_queue` | See [[Bounded Queue|Multi Data Center Replication: Operations#Bounded-Queue]] {{1.2.1+}}
-`state` | State shows what the current replication strategy is processing. The following definitions appear in the status output if the keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>`wait_for_partition`</li><li>`build_keylist`</li><li>`wait_keylist`</li><li>`diff_bloom`</li><li>`diff_keylist`</li></ul>s
-`message_queue_len` | The number of Erlang messages that are waiting to be processed by the server
-
-## Keylist Strategy
-
-These similar fields are under both the `keylist_server` and
-`keylist_client` fields. Any differences are described in the table.
-
-Field | Description
-------|------------
-`fullsync` | On the client, the number of partitions that remain to be processed. On the server, the partition currently being processed by fullsync replication.
-`partition_start` | The number of elapsed seconds since replication has started on a given partition
-`stage_start` | The number of elapsed seconds since replication has started on a given stage
-`get_pool_size` | The number of Riak get finite state workers available to process requests
-
-{{#1.2.1+}}
-
 ## Bounded Queue
 
 The bounded queue is responsible for holding objects that are waiting to
@@ -255,4 +229,27 @@ Field | Description
 `queue_percentage` | The percentage of the queue that is full
 `queue_pending` | The current count of "in-flight" objects we've sent that the client has not acknowledged
 `queue_max_pending` | The maximum number of objects that can be "in flight" before we refuse to send any more.
-{{/1.2.1+}}
+
+## Server Statistics
+
+Field | Description
+------|------------
+`node`  | A unique ID for the Riak node on which the server (listener) is running
+`site` | The connected site name configured with `riak-repl add-site`
+`strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist` or `syncv1`.
+`fullsync_worker` | The Erlang process ID of the fullsync worker
+`bounded_queue` | See the [[Bounded Queue|Multi Data Center Replication: Operations#Bounded-Queue]] section above
+`state` | State shows what the current replication strategy is processing. The following definitions appear in the status output if the keylist strategy is being used. They can be used by Basho support to identify replication issues.<ul><li>`wait_for_partition`</li><li>`build_keylist`</li><li>`wait_keylist`</li><li>`diff_bloom`</li><li>`diff_keylist`</li></ul>s
+`message_queue_len` | The number of Erlang messages that are waiting to be processed by the server
+
+## Keylist Strategy
+
+These similar fields are under both the `keylist_server` and
+`keylist_client` fields. Any differences are described in the table.
+
+Field | Description
+------|------------
+`fullsync` | On the client, the number of partitions that remain to be processed. On the server, the partition currently being processed by fullsync replication.
+`partition_start` | The number of elapsed seconds since replication has started on a given partition
+`stage_start` | The number of elapsed seconds since replication has started on a given stage
+`get_pool_size` | The number of Riak get finite state workers available to process requests
