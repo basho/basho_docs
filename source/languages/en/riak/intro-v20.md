@@ -268,7 +268,7 @@ in the table below.
   <tbody>
     <tr>
       <td>Strong consistency</td>
-      <td><abbr class="unsupported">~</abbr></td>
+      <td><abbr class="unsupported">&dagger;</abbr></td>
       <td class="dark-grayed"></td>
       <td class="grayed"></td>
       <td class="grayed"></td>
@@ -296,7 +296,7 @@ in the table below.
     <tr>
       <td>Secondary indexes</td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="unsupported">&dagger;</abbr></td>
+      <td><abbr class="unsupported">&Dagger;</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="supported">✓</abbr></td>
       <td class="dark-grayed"></td>
@@ -323,10 +323,11 @@ in the table below.
   </tbody>
 </table>
 
-**~** The data indexed by Riak Search can be stored in a strongly
-fashion, but indexes themselves are eventually consistent<br />
-&dagger; If secondary indexes are attached to an object, you can
-perform strongly consistent operations on the object but the secondary
-indexes will be ignored<br />
-<strong>\*</strong> Legacy Search and Search 2.0 _can_ be run side by
-side, but we do not recommend this
+**&dagger;** &nbsp;&nbsp;&nbsp; The data indexed by Riak Search can be
+stored in a strongly consistent fashion, but indexes themselves are
+eventually consistent<br />
+**&Dagger;** &nbsp;&nbsp;&nbsp; If secondary indexes are attached to an
+object, you can perform strongly consistent operations on the object but
+the secondary indexes will be ignored<br />
+<strong>\*</strong> &nbsp;&nbsp;&nbsp; Legacy Search and Search 2.0
+_can_ be run side by side, but we do not recommend this
