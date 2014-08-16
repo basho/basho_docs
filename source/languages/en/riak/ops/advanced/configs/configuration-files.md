@@ -1282,7 +1282,7 @@ the value <code>0</code> for <code>Schedulers</code> or
 scheduler threads online respective to its default value. This option
 is ignored if the emulator doesn't have SMP support enabled (see the
 <code>erlang.smp</code> flag). More information
-<a href="http://erlang.org/doc/man/erl.html +S Schedulers:SchedulerOnline">here</a>.
+<a href="http://www.erlang.org/doc/man/erl.html#+S">here</a>.
 </td>
 <td></td>
 </tr>

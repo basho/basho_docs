@@ -7,7 +7,39 @@ audience: advanced
 keywords: [erlang, operator]
 ---
 
-## SMP
+## Schedulers
+
+If [[SMP support|Erlang VM Tuning#SMP]] has been enabled on your Erlang
+VM, i.e. if the `erlang.smp` parameter is set to `enable`, you can
+configure the number of logical processors, or [scheduler
+threads](http://www.erlang.org/doc/man/erl.html#+S), that are created
+when starting Riak, as well as the number of available scheduler
+threads.
+
+The total number of threads can be set using the
+`erlang.schedulers.total` parameter, whereas the number of threads set
+online can be determined using `erlang.schedulers.online`. These
+parameters map directly onto `Schedulers` and `SchedulersOnline`, both
+of which are used by `[erl](http://www.erlang.org/doc/man/erl.html#+S)`.
+
+The maximum for both parameters is 1024. There is no universal default
+for either of these parameters. Instead, the Erlang VM will attempt to
+determine the number of configured processors as well as the number of
+available processors. If the Erlang VM can make that determination,
+`schedulers.total` will default to the number of configured processors
+while `schedulers.online` will default to the number of processors
+available; tf the Erlang VM can't make that determination, both values
+will default to 1.
+
+If either parameter is set to a negative integer, this value will be
+subtracted from the default number of processors that are configured
+or available, depending on the parameter. For example, if there are 100
+configured processors and `schedulers.total` is set to `-50`, then
+the value for `schedulers.total` will be 50. Setting either parameter to
+0, on the other hand, will reset both values to their defaults.
+
+If SMP support is not enabled, i.e. if `erlang.smp` is set to `disable`,
+then `schedulers.total` and `schedulers.online` will be ignored.
 
 ## Port Range
 
