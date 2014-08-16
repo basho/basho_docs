@@ -288,7 +288,7 @@ in the table below.
       <td>Ring resizing</td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td></td>
+      <td><abbr class="supported">✓</abbr></td>
       <td class="dark-grayed"></td>
       <td class="grayed"></td>
       <td class="grayed"></td>
@@ -296,9 +296,9 @@ in the table below.
     <tr>
       <td>Secondary indexes</td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td></td>
+      <td><abbr class="unsupported">&dagger;</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td></td>
+      <td><abbr class="supported">✓</abbr></td>
       <td class="dark-grayed"></td>
       <td class="grayed"></td>
     </tr>
@@ -307,17 +307,17 @@ in the table below.
       <td><abbr class="unsupported">*</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td></td>
+      <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td class="dark-grayed"></td>
     </tr>
     <tr>
       <td>Security</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
     </tr>
   </tbody>
@@ -325,5 +325,8 @@ in the table below.
 
 **~** The data indexed by Riak Search can be stored in a strongly
 fashion, but indexes themselves are eventually consistent<br />
+&dagger; If secondary indexes are attached to an object, you can
+perform strongly consistent operations on the object but the secondary
+indexes will be ignored<br />
 <strong>\*</strong> Legacy Search and Search 2.0 _can_ be run side by
 side, but we do not recommend this
