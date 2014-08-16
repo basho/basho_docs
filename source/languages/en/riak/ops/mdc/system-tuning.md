@@ -22,7 +22,7 @@ Refer to the [[System Performance Tuning]] document.
 
 ## Solaris
 
-On Solaris, the following settings are suggested.
+On Solaris, the following settings are suggested:
 
 ```bash
 /usr/sbin/ndd -set /dev/tcp tcp_ip_abort_interval 60000

@@ -13,11 +13,10 @@ moved: {
 }
 ---
 
-
 ## Version 3 Replication Configuration
 
-**Note**: The `cluster_mgr` variable *must* be set in order for version 3
-Replication to run.
+**Note**: The `cluster_mgr` variable *must* be set in order for version
+3 Replication to run.
 
 The configuration for replication is kept in the both the `riak_core`
 and `riak_repl` sections of `etc/app.config`.
@@ -25,8 +24,8 @@ and `riak_repl` sections of `etc/app.config`.
 ```appconfig
 {riak_core, [
     %% Every *node* runs one cluster_mgr
-    {cluster_mgr, {"0.0.0.0", 9080 }}
-    ...
+    {cluster_mgr, {"0.0.0.0", 9080 }},
+    % ...
 ]},
 {riak_repl, [
     %% Pick the correct data_root for your platform
@@ -39,14 +38,12 @@ and `riak_repl` sections of `etc/app.config`.
     {max_fssource_cluster, 5},
     {max_fssource_node, 2},
     {max_fssink_node, 2},
-    {fullsync_on_connect, false}
+    {fullsync_on_connect, false},
+    % ...
 ]}
 ```
 
-*Note**: One or more percent signs `%` in `app.config` begins a comment
-that continues to the end of the line.
-
-### Settings
+## Settings
 
 These settings are configured using the standard Erlang config file
 syntax `{Setting, Value}`. For example, if you wished to set
@@ -58,7 +55,8 @@ follow):
 {fullsync_on_connect, false}
 ```
 
-Once your configuration is set, you can verify its correctness by running the command-line tool:
+Once your configuration is set, you can verify its correctness by
+running the `riak` command-line tool:
 
 ```bash
 riak chkconfig
@@ -74,7 +72,7 @@ Setting | Options | Default | Description
 `cluster_mgr` | `{ip_address, port}` | **REQUIRED** | The cluster manager will listen for connections from remote clusters on this `ip_address` and `port`. Every node runs one cluster manager, but only the cluster manager running on the `cluster_leader` will service requests. This can change as nodes enter and leave the cluster. The value is a combination of an IP address (**not hostname**) followed by a port number.
 `max_fssource_cluster` | `nodes` (integer) | `5` | The hard limit on the number of workers which will participate in the source cluster during a fullsync replication. This means that if one has configured fullsync for two different clusters, both with a `max_fssource_cluster` of 5, 10 fullsync workers can be in progress. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
 `max_fssource_node` | `nodes` (integer) | `1` | Limits the number of fullsync workers that will be running on each individual node in a source cluster. This is a hard limit for all fullsyncs enabled; additional fullsync configurations will not increase the number of fullsync workers allowed to run on any node. Only affects nodes on the source cluster on which this parameter is defined via the configuration file or command line.
-`max_fssink_node` | `nodes` (integer) | `1` | Limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for all fullsync sources interacting with the sink cluster. Thus, multiple simultaneous source connections to the sink cluster will have to share the sink node's number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
+`max_fssink_node` | `nodes` (integer) | `1` | Limits the number of fullsync workers allowed to run on each individual node in a sink cluster.  This is a hard limit for all fullsync sources interacting with the sink cluster. Thus, multiple simultaneous source connections to the sink cluster will have to share the sink nodes number of maximum connections. Only affects nodes on the sink cluster on which this parameter is defined via the configuration file or command line.
 `fullsync_on_connect` | `true`, `false` | `true` | Whether to initiate a fullsync on initial connection from the secondary cluster
 `data_root` | `path` (string) | `data/riak_repl` | Path (relative or absolute) to the working directory for the replication process
 `fullsync_interval` | `minutes` (integer) OR `[{sink_cluster, minutes(integer)}, ...]` | `360` | A single integer value representing the duration to wait in minutes between fullsyncs, or a list of `{"clustername", time_in_minutes}` pairs for each sink participating in fullsync replication.
