@@ -249,6 +249,10 @@ of code samples from all four officially supported clients.
 
 ## Incompatibilities
 
+Some 2.0-specific features are currently not compatible with one
+another. Incompatibilities are marked with a <abbr class="unsupported">✗</abbr>
+in the table below.
+
 <table class="compatibility-matrix">
   <thead>
     <tr>
@@ -318,3 +322,8 @@ of code samples from all four officially supported clients.
     </tr>
   </tbody>
 </table>
+
+**~** The data indexed by Riak Search can be stored in a strongly
+fashion, but indexes themselves are eventually consistent<br />
+<strong>\*</strong> Legacy Search and Search 2.0 _can_ be run side by
+side, but we do not recommend this
