@@ -237,6 +237,16 @@ riak:
 
 Running `bundle exec middleman build` after that should update `data/downloads_gen.yml`, which drives the downloads page.
 
+### Tagging
+
+You should provide a tag any time a new version is released, for the
+sake of future reference and for easing the co-existence of multiple
+long-running branches. To tag, say, version 1.2.3:
+
+```bash
+git tag -a 1.2.3
+```
+
 ## Deploying to S3
 
 Before deployment, you must specify an environment variable with Basho's S3 access/secret key. You also must specify the S3 bucket to which we're deploying as well as the CloudFront ID (the CDN that we must invalidate to force a publication to be found).
