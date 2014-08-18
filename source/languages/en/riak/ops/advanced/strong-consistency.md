@@ -31,6 +31,17 @@ enable it in each node's [[configuration files]].
 strong_consistency = on
 ```
 
+```appconfig
+%% In the older, app.config-based system, the strong consistency
+%% parameter is enable_consensus:
+
+{riak_core, [
+             % ...
+             {enable_consensus, on},
+             % ...
+]}
+```
+
 Remember that you must [[restart your node|riak Command Line]] for
 configuration changes to take effect.
 
