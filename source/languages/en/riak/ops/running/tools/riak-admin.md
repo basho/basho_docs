@@ -82,11 +82,11 @@ Reassign all partitions owned by `<node1>` to `<node2>` without first handing of
 riak-admin cluster force-replace <node1> <node2>
 ```
 
-### Staging Commands
+## Staging Commands
 
 The following commands are used to work with staged changes:
 
-#### cluster plan
+## cluster plan
 
 Display the currently staged cluster changes.
 
@@ -94,7 +94,7 @@ Display the currently staged cluster changes.
 riak-admin cluster plan
 ```
 
-#### cluster clear
+## cluster clear
 
 Clear the currently staged cluster changes.
 
@@ -102,7 +102,7 @@ Clear the currently staged cluster changes.
 riak-admin cluster clear
 ```
 
-#### cluster commit
+## cluster commit
 
 Commit the currently staged cluster changes. Staged cluster changes must be reviewed with `riak-admin cluster plan` prior to being committed.
 
