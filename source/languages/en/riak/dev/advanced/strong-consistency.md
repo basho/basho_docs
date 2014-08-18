@@ -11,7 +11,7 @@ keywords: [developers, strong-consistency]
 In versions 2.0 and later, Riak allows you to create buckets that
 provide [[strong consistency]] guarantees for the data stored within
 them, enabling you to use Riak as a CP system (consistent plus partition
-tolerant) for at least some of your data. This option was added to
+tolerant) for some or all of you data. This option was added to
 complement Riak's standard [[eventually consistent|Eventual
 Consistency]], high availability mode.
 
@@ -22,31 +22,17 @@ strongly consistent operations are atomic, and operations on a given key
 are [linearizable](http://en.wikipedia.org/wiki/Linearizability). This
 behavior comes at the expense of availability because a [[quorum|Strong
 Consistency#Trade-offs]] of primary [[vnodes|Riak Glossary#vnode]]
-responsible for the key must be online and reachable or the request will fail.
+responsible for the key must be online and reachable or the request will
+fail.
 
 This trade-off is unavoidable for strongly consistent data, but the
 [choice is now yours](http://en.wikipedia.org/wiki/CAP_theorem) to make.
 
 ## Enabling Strong Consistency
 
-In order to use strong consistency, your Riak cluster must have **at
-least three nodes**. If it does not, you will need to [[add nodes|Basic
-Cluster Setup]].
-
-The strong consistency subsystem in Riak is disabled by default. You
-can turn it on by changing the configuration of each Riak node's
-`[[riak.conf|Configuration Files]]` file. Simply un-comment the line
-containing the `strong_consistency = on` setting or add the following
-if that line is not present:
-
-```riakconf
-strong_consistency = on
-```
-
-**Note**: This will enable you to use strong consistency in Riak, but
-this setting will _not_ apply to all of the data in your Riak cluster.
-Instead, strong consistency is applied only at the bucket level, [[using
-bucket types]] \(as shown directly below).
+Complete instructions on enabling strong consistency can be found in
+our documentation on [[strong consistency for operators|Managing Strong
+Consistency#Enabling-Strong-Consistency]].
 
 ## Creating Consistent Bucket Types
 
@@ -57,27 +43,30 @@ fashion, depending on your use case.
 
 To apply strong consistency to a bucket, you must create a [[bucket type
 |Using Bucket Types]] that sets the `consistent` bucket property to
-`true`, activate the type, and then begin applying that type to
+`true`, activate the type, and then apply that type to specific
 bucket/key pairs.
 
 To give an example, we'll create a bucket type called
-`strongly_consistent` with `consistent` set to `true`:
+`strongly_consistent` with the `consistent` bucket property set to
+`true`:
 
 ```bash
 riak-admin bucket-type create strongly_consistent \
     '{"props":{"consistent":true}}'
 ```
 
-**Note**: You can name [[bucket types|Using Bucket Types]] whatever you
-wish, with the exception of `default`, which is a reserved term (a full
-listing of the properties associated with the `default` bucket type can
-be found in the documentation on [[bucket properties and operations|The
+<div class="note">
+<div class="title">Note on bucket type names</div>
+You can name [[bucket types|Using Bucket Types]] whatever you wish, with
+the exception of `default`, which is a reserved term (a full listing of
+the properties associated with the `default` bucket type can be found in
+the documentation on [[bucket properties and operations|The
 Basics#Bucket-Properties-and-Operations]]).
+</div>
 
 Once the `strongly_consistent` bucket type has been created, we can
 check the status of the type to ensure that it has propagated through
-all nodes and is thus ready to be used:
-
+all nodes and is thus ready to be activated:
 
 ```bash
 riak-admin bucket-type status strongly_consistent
@@ -98,10 +87,11 @@ strongly_consistent has been activated
 ```
 
 Now, any bucket that bears the type `strongly_consistent`---or whatever
-you named your bucket type---will provide strong consistency guarantees.
+you wish to name it---will provide strong consistency guarantees.
 
 Elsewhere in the Riak docs, you can find more information on [[using
-bucket types]] and on the concept of [[strong consistency]].
+bucket types]], on the concept of [[strong consistency]], and on strong
+consistency [[for operators|Managing Strong Consistency]].
 
 ## Replication Properties
 
@@ -109,9 +99,25 @@ Strongly consistent operations in Riak function much differently from
 their [[eventually consistent|Eventual Consistency]] counterparts.
 Whereas eventually consistent operations enable you to set values for a
 variety of [[replication properties]] either on each request or at the
-bucket level, [[using bucket types]]. Most of these settings, including
-`r`, `pr`, `w`, and `rw` are quietly ignored for strongly consistent
-operations. The exceptions are `n_val` and `return_body`.
+bucket level, [[using bucket types]], these settings are quietly ignored
+for strongly consistent operations. These settings include `r`, `pr`,
+`w`, `rw`, and others. Two replication properties that _can_ be set,
+however, are `n_val` and `return_body`.
+
+The `n_val` property is extremely important for two reasons:
+
+1. It dictates how fault tolerant a strongly consistent bucket is. More
+   information can be found in [[our recommendations for
+   operators|Managing Strong Consistency#Fault-Tolerance]].
+2. Once the `n_val` property is set for a given bucket type, it cannot
+   be changed. If you wish to change the `n_val` for one or more
+   strongly consistent buckets [[using bucket types]], you will need to
+   create a new bucket type with the desired `n_val`.
+
+We also recommend setting the `n_val` on strongly consistent buckets
+to at least 5, and preferably to 7. More on why we make this
+recommendation can be found in [[Fault Tolerance|Managing Strong
+Consistency#Fault-Tolerance]].
 
 ## Object Context
 
@@ -126,39 +132,47 @@ updates---whether traditional vector clocks or the newer dotted version
 vectors---they are purely [[optional|Conflict Resolution]] for all
 eventually consistent operations in Riak. This is not the case for
 strongly consistent operations. **When modifying strongly consistent
-objects in Riak, you _must_ attach a context object**. If you attempt to
-modify a strongly consistent object without attaching a context to the
-request, the request will always fail.
+objects in Riak, you _must_ attach a context object**.
 
-The vector clocks used by Riak's strong consistency subsystem differ
-from those used for eventually consistent operations, but their usage
-by connecting clients is the same.
+If you attempt to modify a strongly consistent object without attaching
+a context to the request, the request will always fail. And while it is
+possible to make writes to non-existing keys without attaching context,
+we recommend doing this only if you are certain that the key does not
+yet exist.
+
+Instructions on using context objects can be found in our documentation
+on [[siblings|Conflict Resolution#Siblings]]. More theoretical
+treatments can be found in [[Vector Clocks]] and [[Dotted Version
+Vectors]].
 
 ## Strongly Consistent Writes
 
-The best practice for writing to strongly consistent keys is essentially
-the same as for writing to eventually consistent objects. You should
-bear the following in mind:
+Writing to strongly consistent keys involves some of the same best
+practices that we advise when writing to eventually consistent keys. We
+recommend bearing the following in mind:
 
 1. If you _know_ that a key does not yet exist, you can write to that
-   key without supplying a [[vector clock|Vector Clocks]].
-2. If, however, an object already exists under a key, strong consistency
-   demands that you supply a vector clock. If you do not supply a vector
-   clock, the update will necessarily fail.
+   key without supplying a [[context with the object|Using Strong
+   Consistency#Object-Context]]]. If you are unsure, then you should
+   default to supplying a context object.
+2. If an object already exists under a key, strong consistency demands
+   that you supply an [[object context|Using Strong
+   Consistency#Object-Context]]. If you do not supply one, the update
+   will necessarily fail.
 3. Because strongly consistent writes must occasionally
    [[sacrifice availability|Strong
    Consistency#Strong-vs.-Eventual-Consistency]] for the sake of
-   consistency, strongly consistent updates can fail even under normal
-   conditions, particularly in the event of concurrent updates.
+   consistency, **strongly consistent updates can fail even under normal
+   conditions**, particularly in the event of concurrent updates.
 
 ## Error Messages
 
 For the most part, performing reads, writes, and deletes on data in
-strongly consistent buckets works much like it does in non-strongly
-consistent buckets. One important exception to this is how writes are
-performed. Strongly consistent buckets cannot allow siblings by
-definition, and so all writes to existing keys must include a context
-with the object (as explained in the section above).
+strongly consistent buckets works much like it does in
+non-strongly-consistent-buckets. One important exception to this is how
+writes are performed. Strongly consistent buckets cannot allow siblings
+by definition, and so all writes to existing keys must include a context
+with the object.
 
 If you attempt a write to a non-empty key without including a vector
 clock, you will receive the following error:
