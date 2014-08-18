@@ -17,9 +17,9 @@ partitions specified in its configuration throughout its entire
 lifespan. This number is determined by the `ring_size` parameter in the
 newer, `riak.conf`-based configuration system, and by
 `ring_creation_size` in the older, `app.config`-based system. In order
-to change the number of partitions, a separate cluster would need to be
-spun up alongside the original cluster and the data migrated between
-the two.
+to change the number of partitions previously, a separate cluster would
+need to be spun up alongside the original cluster and the data migrated
+between the two.
 
 The purpose of the ring resizing feature is to support users who create
 a cluster with either too few or two many partitions and need to change
