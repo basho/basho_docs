@@ -12,7 +12,7 @@ In versions 2.0 and later, Riak allows you to create buckets that
 provide [[strong consistency]] guarantees for the data stored within
 them, enabling you to use Riak as a CP system (consistent plus partition
 tolerant) for at least some of your data. This option was added to
-complement Riak's standard [[eventually consistent|Eventual 
+complement Riak's standard [[eventually consistent|Eventual
 Consistency]], high availability mode.
 
 When data is stored in a bucket with strong consistency guarantees, a
@@ -150,26 +150,6 @@ bear the following in mind:
    Consistency#Strong-vs.-Eventual-Consistency]] for the sake of
    consistency, strongly consistent updates can fail even under normal
    conditions, particularly in the event of concurrent updates.
-
-### Recommendations
-
-If you are updating a key that already exists or might already exist,
-any update to that key should use a read-modify-write strategy. This
-strategy ensures that vector clocks are fetched prior to any
-modification to the object and hence that the vector clock is passed
-back to Riak when the write operation takes place. Below is a series of
-examples.
-
-```python
-obj = client.bucket_type('consistent').bucket('champions').get('nba')
-obj.data = 'San Antonio Spurs'
-obj.store()
-```
-
-Because strongly consistent writes are more likely to fail than
-eventually consistent writes, we recommend using some kind of retry
-logic for strongly consistent updates whereby your application attempts
-a write multiple times in case the initial write fails.
 
 ## Error Messages
 
