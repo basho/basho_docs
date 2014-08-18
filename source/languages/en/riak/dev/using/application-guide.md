@@ -11,7 +11,7 @@ So you've decided to build an application using Riak as a data store. We
 think that this is a wise choice for a broad variety of use cases. But
 using Riak isn't always straightforward, especially if you're used to
 developing with RDBMSs like MySQL or PostgreSQL or non-persistent
-key/value stores like Redis. 
+key/value stores like Redis.
 
 In this guide, we'll walk you through a set of questions that should be
 asked about your use case before getting started. The answer to those
@@ -35,12 +35,12 @@ This is an important initial question for two reasons:
 Riak tends to be an excellent choice if you're dealing with any of the
 following:
 
-* **Immutable data** --- While Riak provides several means of resolving
-  conflicts between different replicas of objects, those processes can
-  lead to slower performance in some cases. Storing immutable data means
-  that you can avoid those processes altogether and get the most out of
-  Riak.
-* **Small objects** --- Riak was not built as a store for large objects 
+* **Immutable data** --- While Riak provides several means of
+  [[resolving conflicts|Conflict Resolution]] between different replicas
+  of objects, those processes can lead to slower performance in some
+  cases. Storing immutable data means that you can avoid those processes
+  altogether and get the most out of Riak.
+* **Small objects** --- Riak was not built as a store for large objects
   like video files or other
   [BLOB](http://en.wikipedia.org/wiki/Binary_large_object)s. We built
   [Riak CS](http://basho.com/riak-cloud-storage/) for that. Riak is
