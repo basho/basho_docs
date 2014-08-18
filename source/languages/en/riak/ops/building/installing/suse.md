@@ -15,8 +15,7 @@ moved: {
 
 The following steps should get you up and running with Riak on SuSE.
 
-Riak may be installed on the following x86/x86_64 flavors of SuSE via
-community-provided support:
+Riak may be installed on the following x86/x86_64 flavors of SuSE:
 
 * SLES11-SP1
 * OpenSUSE 11.2
@@ -37,10 +36,10 @@ zypper ar http://download.opensuse.org/repositories/server:/database/$distro Ria
 
 Where `$distro` is one of:
 
-* SLE_11_SP1
-* openSUSE_11.2
-* openSUSE_11.3
-* openSUSE_11.4
+* `SLE_11_SP1`
+* `openSUSE_11.2`
+* `openSUSE_11.3`
+* `openSUSE_11.4`
 
 <div class="note">
 <div class="title">Note on GPG keys</div>
@@ -57,7 +56,10 @@ zypper in riak
 This should automatically pull in the `riak` package's dependencies,
 including Erlang if you do not already have it installed.
 
-## (Optional) Enable "refresh" on the riak repository to receive updates
+## Enabling Refresh
+
+You have the option of enabling refresh on the `riak` repository to
+receive updates by running the following command:
 
 ```bash
 zypper mr -r Riak
