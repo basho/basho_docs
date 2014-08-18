@@ -114,7 +114,7 @@ Activating a bucket type involves the `activate` command from the same `bucket-t
 riak-admin bucket-type activate my_bucket_type
 ```
 
-When activation has succeeded, you should the following output:
+When activation has succeeded, you should see the following output:
 
 ```
 my_bucket_type has been activated

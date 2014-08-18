@@ -184,9 +184,9 @@ in case you're upgrading.
 #### Relevant Docs
 
 * [[Configuration Files]] lists and describes all of the configurable
-* parameters available in Riak 2.0, from configuring your chosen storage
-* backend(s) to setting default bucket properties to controlling Riak's
-* logging system and much more.
+  parameters available in Riak 2.0, from configuring your chosen storage
+  backend(s) to setting default bucket properties to controlling Riak's
+  logging system and much more.
 
 #### Video
 
@@ -205,8 +205,8 @@ and keys.
 #### Relevant Docs
 
 * [[Using Bucket Types]] explains how to create, modify, and activate
-* bucket types, as well as how the new system differs from the older,
-* bucket properties-based system
+  bucket types, as well as how the new system differs from the older,
+  bucket properties-based system
 
 #### Video
 
@@ -224,14 +224,6 @@ containing [[sibling explosion|Vector Clocks#sibing-explosion]] and can
 thus reduce Riak cluster latency. The [[dotted version vectors]] doc
 explains some of the theoretical nuances behind the distinction between
 DVVs and vector clocks and offers instructions on implementing DVVs.
-
-## Ring Resizing
-
-In previous versions of Riak, the size of a cluster's
-[[ring|Clusters#The-Ring]] was fixed for the entire life cycle of the
-cluster. In version 2.0 it is possible to adjust the size of your
-cluster's ring at any point in the cluster's life cycle. Our [[Ring
-Resizing]] doc explains how.
 
 ## New Client Libraries
 

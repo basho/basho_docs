@@ -14,24 +14,27 @@ moved: {
 ---
 
 The following definitions describe the output of `riak-repl status`.
-Both Version 2 Replication and Version 3 Replication statistics are
-obtained by using the `riak-repl status` command.
+Both Version 2 and Version 3 Replication statistics can be obtained
+using the `riak-repl status` command.
 
-**Please note that many of these statistics will only appear on the
-current leader node.**
+There are two things that you should note:
 
-**All statistic counts will be reset to 0 upon restarting Riak
-Enterprise unless otherwise noted.**
+1. Many of these statistics will appear only on the current
+   leader node
+2. The counts for all statistics will be reset to 0 upon restarting Riak
+   Riak Enterprise unless otherwise noted
+
+{{1.3.0+}}
 
 Field | Description
-------|------------
-`cluster_leader` {{1.3.0+}} | Which node is the current leader of the cluster
-connected_clusters {{1.3.0+}} | A list of all sink clusters to which this source is connected
+:-----|:----------
+`cluster_leader` | Which node is the current leader of the cluster
+`connected_clusters` | A list of all sink clusters to which this source is connected
 
 ## Performance
 
 The `riak-repl status` command should not be executed more than once a
-minute as statistics are recalculated every time the command is
+minute, as statistics are recalculated every time the command is
 executed, and some statistics require network communication between
 nodes. This performance note also applies to the HTTP `/riak-repl/stats`
 endpoint.
@@ -120,7 +123,6 @@ Field | Description
 `stage_start` | Elapsed time in seconds since the `state` started running on the source
 `get_pool_size` | The number of workers that are used to read data from Riak during a fullsync
 
-
 ## Socket Statistics
 
 Many sections of the status output include a `socket` section. A reading is taken once every 10 seconds, and the last 7 readings are stored.
@@ -140,9 +142,11 @@ Field | Description
 
 ## Version 2 Replication Statistics
 
-The following definitions describe the output of `riak-repl status`. Please note that many of these statistics will only appear on the current leader node.
+The following definitions describe the output of `riak-repl status`.
+Please note that many of these statistics will only appear on the
+current leader node.
 
-**All counts will be reset to 0 upon restarting Riak Enterprise.**
+**Note**: All counts will be reset to 0 upon restarting Riak Enterprise.
 
 Field | Description
 ------|------------
@@ -178,7 +182,7 @@ Field | Description
 Field | Description
 ------|------------
 `node` | A unique ID for the Riak node that the sink in running on
-`site` | The connected site (sink) name. *Warning: This will be renamed in a future version of Riak*
+`site` | The connected site (sink) name. **Warning**: This will be renamed in a future version of Riak.
 `strategy` | A replication strategy defines an implementation of the Riak Replication protocol. Valid values: `keylist`, `syncv1`.
 `fullsync_worker` | The Erlang process ID of the fullsync worker
 `waiting_to_retry` | The primaries currently waiting to retry replication after a failure
@@ -201,7 +205,12 @@ Field | Description
 
 ## Bounded Queue
 
-The bounded queue is responsible for holding objects that are waiting to participate in realtime replication. Please see the [[Riak Enterprise MDC Replication Configuration (version 2)|Multi Data Center Replication: Configuration]] or [[Riak Enterprise MDC Replication Configuration (version 3)|Multi-Data-Center Replication v3 Configuration]] guides for more information.
+The bounded queue is responsible for holding objects that are waiting to
+participate in realtime replication. Please see the [[Riak Enterprise
+MDC Replication Configuration (version 2)|Multi Data Center Replication:
+Configuration]] or [[Riak Enterprise MDC Replication Configuration
+(version 3)|Multi-Data-Center Replication v3 Configuration]] guides for
+more information.
 
 Field | Description
 ------|------------
@@ -217,7 +226,8 @@ Field | Description
 
 ## Accessing Replication Web-Based Statistics
 
-These stats can be accessed via the command line with the following command:
+These stats can be accessed via the command line with the following
+command:
 
 ```curl
 curl -q http://127.0.0.1:8098/riak-repl/stats
