@@ -195,7 +195,7 @@ cat.data = {"name_s" => "Panthro", "age_i" => 36}
 cat.store(:bucket_type => "cats")
 ```
 ```python
-bucket = client.bucket('animals', 'cats')
+bucket = client.bucket_type('animals').bucket('cats')
 
 cat = bucket.new('liono', {'name_s': 'Lion-o', 'age_i': 30, 'leader_b': True})
 cat.store()
@@ -307,10 +307,9 @@ p results
 p results['docs']
 ```
 ```python
-import pprint
-results = bucket.search('name_s:Lion*')
-pprint.pprint(results)
-pprint.pprint(results['docs'])
+results = client.fulltext_search('famous', 'name_s:Lion*')
+print results
+print results['docs']
 ```
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"famous">>, <<"name_s:Lion*">>),
@@ -365,9 +364,9 @@ p object.data
 ```
 ```python
 doc = results['docs'][0]
-bucket = client.bucket(doc['_yz_rt'], doc['_yz_rb']) # animals/cats
+bucket = client.bucket_type(doc['_yz_rt']).bucket(doc['_yz_rb']) # animals/cats
 object = bucket.get(doc['_yz_rk'])    # liono
-pprint.pprint(object.data)
+print object.data
 # {"name_s": "Lion-o", "age_i": 30, "leader_b": true}
 ```
 ```erlang
@@ -396,7 +395,7 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 client.search("famous", "age_i:[30 TO *]")
 ```
 ```python
-bucket.search('age_i:[30 TO *]')
+client.fulltext_search('famous', 'age_i:[30 TO *]')
 ```
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
@@ -415,7 +414,7 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25
 client.search("famous", "leader_b:true AND age_i:[30 TO *]")
 ```
 ```python
-bucket.search('leader_b:true AND age_i:[30 TO *]')
+client.fulltext_search('famous', 'leader_b:true AND age_i:[30 TO *]')
 ```
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">>),
@@ -472,7 +471,7 @@ ROWS_PER_PAGE=2
 page = 2
 start = ROWS_PER_PAGE * (page - 1)
 
-bucket.search('*:*', start=start, rows=ROWS_PER_PAGE)
+client.fulltext_search('famous', '*:*', start=start, rows=ROWS_PER_PAGE)
 ```
 ```erlang
 -define(ROWS_PER_PAGE, 2).
