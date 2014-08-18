@@ -22,10 +22,18 @@ will need to [[add more nodes|Adding and Removing Nodes]] and make sure
 that strong consistency is [[enabled|Managing Strong
 Consistency#Enabling-Strong-Consistency]] in all of them.
 
+Strongly consistent operations will also fail if your cluster consists
+of more than three nodes and a network partition or other event cuts the
+cluster down to fewer than three running, reachable nodes. This is one
+reason, among others, why we recommend using strong consistency in
+larger clusters. More on that in the section on [[fault
+tolerance|Managing Strong Consistency#Fault-Tolerance]].
+
 ## Enabling Strong Consistency
 
 Riak's strong consistency subsystem is disabled by default. You can
-enable it in each node's [[configuration files]].
+enable it in each node's [[configuration files|Configuration
+Files#Strong-Consistency]].
 
 ```riakconf
 strong_consistency = on
@@ -36,10 +44,10 @@ strong_consistency = on
 %% parameter is enable_consensus:
 
 {riak_core, [
-             % ...
-             {enable_consensus, on},
-             % ...
-]}
+    % ...
+    {enable_consensus, on},
+    % ...
+    ]}
 ```
 
 Remember that you must [[restart your node|riak Command Line]] for
@@ -64,9 +72,10 @@ Strongly consistent operations in Riak are necessarily less highly
 available than eventually consistent operations because strongly
 consistent operations can only succeed if a **quorum** of object
 replicas are currently reachable. A quorum can be expressed as
-N / 2 + 1 (or `n_val` / 2 + 1), meaning 3 replicas if N=5, 4 replicas
-if N=7, etc. If N=7 and 4 replicas are unavailable, for example, no
-strongly consistent operations on that object can succeed.
+N / 2 + 1 (or `n_val` / 2 + 1), meaning that 3 replicas constitutes a
+quorum if N=5, 4 replicas if N=7, etc. If N=7 and 4 replicas are
+unavailable, for example, no strongly consistent operations on that
+object can succeed.
 
 While Riak uses an N of 3 by default, bear in mind that **higher values
 of N will allow for more fault tolerance**. The table below shows the
@@ -80,14 +89,18 @@ Replicas | Allowable missing replicas
 9 | 4
 15 | 7
 
+Thus, we recommend setting `n_val` higher than the default of 3 for
+strongly consistent operations. More on `n_val` in the section below.
+
 ### `n_val` Recommendations
 
 Due to the quorum requirements explained above, we recommend that you
 use _at least_ N=5 for strongly consistent data. You can set the value
 of N, i.e. `n_val`, for buckets [[using bucket types]]. For example, you
 can create and activate a bucket type with N set to 5 and strong
-consistency enabled---we'll call it `consistent_and_fault_tolerant`---using
-the following series of [[commands|riak-admin Command Line]]:
+consistency enabled---we'll call the bucket type
+`consistent_and_fault_tolerant`---using the following series of
+[[commands|riak-admin Command Line]]:
 
 ```bash
 riak-admin bucket-type create consistent_and_fault_tolerant \
@@ -95,28 +108,32 @@ riak-admin bucket-type create consistent_and_fault_tolerant \
 riak-admin bucket-type activate consistent_and_fault_tolerant
 ```
 
-More on creating and activating bucket types can be found in our
-[[bucket types|Using Bucket
-Types#Managing-Bucket-Types-Through-the-Command-Line]] documentation.
+If the `activate` command outputs `consistent_and_fault_tolerant has
+been activated`, the bucket type is now ready to provide strong
+consistency guarantees.
 
-### Setting `target_n_val`
+#### Setting the `target_n_val` parameter
 
 The `target_n_val` parameter sets the highest `n_val` that you intend to
 use in an entire cluster. The purpose of this parameter is to ensure
 that so-called "hot spots" don't occur, i.e. that data is never stored
 more than once on the same physical node, which can happen in rare cases
-if no `target_n_val` is set.
+if `target_n_val` is not set.
 
 A problem to be aware of if you're using strong consistency is that the
 default for `target_n_val` is 4, while our suggested minimum `n_val` for
 strongly consistent bucket types is 5. This means that you will need to
 raise `target_n_val` if you intend to use an `n_val` over 4 for _any_
-bucket type. This setting is not contained in `riak.conf`, and must
-instead be set in `advanced.config`. For more information, see our
-documentation on [[advanced configuration|Configuration
+bucket type. If you anticipate using an `n_val` of 7 as the largest
+`n_val` within your cluster, for example, you will need to set
+`target_n_val` to 7.
+
+This setting is not contained in `riak.conf`, and must instead be set in
+the `advanced.config` file. For more information, see our documentation
+on [[advanced configuration|Configuration
 Files#Advanced-Configuration]].
 
-### Note on Bucket Properties
+#### Note on Bucket Properties
 
 The `consistent` bucket property is one of two bucket properties,
 alongside `[[datatype|Using Data Types]]`, that cannot be changed once a
@@ -130,6 +147,10 @@ you attempt to do so, you'll see the following error:
 Error updating bucket <bucket_type_name>:
 n_val cannot be modified for existing consistent type
 ```
+
+If you've created a bucket type with a specific `n_val` and wish to
+change it, you will need to create a new bucket type with the
+appropriate `n_val`.
 
 ### Fault Tolerance and Cluster Size
 
@@ -148,7 +169,7 @@ node is involved in only 10% of the total ensembles; if a single node
 fails, that failure will thus impact only 10% of ensembles. In addition,
 because N is set to 5, that will not impact quorum for _any_ ensemble in
 the cluster; two additional node failures would need to occur for quorum
-to be lost for any ensemble. And even in the case of three nodes
+to be lost for _any_ ensemble. And even in the case of three nodes
 failing, it is highly unlikely that that failure would impact the same
 ensembles; if it did, only those ensembles would become unavailable,
 affecting only 10% of the key space, as opposed to 100% in the example
@@ -162,11 +183,11 @@ at least N=5 and preferably N=7---as well as larger clusters.
 In general, strongly consistent Riak is more sensitive to the number of
 nodes in the cluster than eventually consistent Riak, due to the quorum
 requirements mentioned above. While Riak is designed to withstand a
-variety of failure scenarios that remove nodes from the cluster, e.g.
-hardware or network failure, we nonetheless recommend that you limit the
-number of nodes that you intentionally down or reboot, because having
-multiple nodes leave the cluster at once can threaten quorum and thus
-affect the viability of some or all strongly consistent operations.
+variety of failure scenarios that make nodes in the cluster unreachable,
+such as hardware or network failure, we nonetheless recommend that you
+limit the number of nodes that you intentionally down or reboot, because
+having multiple nodes leave the cluster at once can threaten quorum and
+thus affect the viability of some or all strongly consistent operations.
 
 If you're using strong consistency and you do need to reboot multiple
 nodes, we recommend rebooting nodes very carefully. Rebooting nodes too
@@ -193,7 +214,8 @@ performance.
 Strong consistency is currently incompatible with the
 <a href="/ops/advanced/ring-resizing">ring resizing</a> feature
 available in Riak versions 2.0 and later. Our recommendations concerning
-ring size should thus be taken into account prior to cluster creation.
+ring size should thus be taken into account <em>prior to</em> cluster
+creation.
 </div>
 
 Adding nodes to your cluster is another means of enhancing the
@@ -302,7 +324,7 @@ Strong consistency in Riak is handled by a subsystem called
 [`riak_ensemble`](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
 This system functions differently from other systems in Riak in a number
 of ways, and many of these differences are important for operators
-configuring and [[managing strong consistency]].
+configuring strong consistency.
 
 ### Basic Operations
 
@@ -313,10 +335,12 @@ there are four types of atomic operations on objects:
 
 * **Get** operations work just as they do against
   non-strongly-consistent keys, but with two crucial differences:
-  1. connecting clients are guaranteed to return the most recently
-     written value (the **C** in CAP)
-  2. reads on strongly consistent keys *never* return siblings, hence
-     there is no need for [[conflict resolution]]
+  1. Connecting clients are guaranteed to return the most recently
+     written value (which makes those operations CP, i.e. consistent and
+     partition tolerant)
+  2. Reads on strongly consistent keys *never* return siblings, hence
+     there is no need to develop any sort of [[conflict resolution]]
+     strategy for those keys
 * **Conditional put** operations write an object only if no object
   currently exists in that key. The operation will fail if the key
   already exists; if the key was never written or has been deleted, the
@@ -327,12 +351,13 @@ there are four types of atomic operations on objects:
 * **Delete** operations work just as they do against
   non-strongly-consistent keys.
 
-From the standpoint of clients connecting to Riak, there is no
-difference between strongly and non-strongly consistent data. The
+**From the standpoint of clients connecting to Riak, there is no
+difference between strongly and non-strongly consistent data**. The
 operations performed on objects---reads, writes, deletes, etc.---are the
 same, which means that the client API for strong consistency is
-essentially the same, with the important exception of [[error handling|
-Using Strong Consistency#Error-Messages]].
+essentially the same as it is for eventually consistent operations, with
+the important exception of [[error
+handling|Using Strong Consistency#Error-Messages]].
 
 ### Ensembles
 
@@ -341,66 +366,97 @@ The main actors in Riak's implementation of strong consistency are
 a Riak cluster's key space. In this regard they are somewhat like
 [[vnodes|Riak Glossary#vnode]], although with important differences.
 
-Ensembles operate in terms of **quorum** between object replicas,
+Ensembles operate in terms of a **quorum** between object replicas,
 meaning that strongly consistent operations can succeed only if
 `n_val` / 2 + 1 primary replicas of an object are online and reachable.
 Thus, 4 replicas must be available in a 7-node cluster, 5 in a 9-node
 cluster, etc. If a quorum of replicas cannot be reached, then strongly
-consistent operations will fail.
-
-Ensemble behavior can be [[configured|Managing Strong
-Consistency#Configuring-Strong-Consistency]] in a variety of ways.
-
-## Configuring Strong Consistency
-
-All of the parameters listed below must be set in each node's
-`advanced.config` file, _not_ in `riak.conf`. Information on the syntax
-and usage of `advanced.config` can be found in our documentation on
-[[advanced configuration|Configuration Files#Advanced-Configuration]],
-as well as a full listing of [[strong-consistency-related
-parameters|Configuration Files#Strong-Consistency]].
+consistent operations will fail. More can be found in the section on
+[[fault tolerance|Managing Strong Consistency#Fault-Tolerance]] above.
 
 ### Leaders, Followers, and Workers
 
-Any ensemble responsible for a portion of the cluster's key space at any
-point in time consists of **leaders** and **followers** that coordinate
-on most requests. If you wish, leaders can be granted **leases** that
-empower them to respond to read requests on their own, without
-contacting any followers.
+All ensembles in strongly consistent Riak consist of **leaders** and
+**followers** that coordinate with one another on most requests. While
+leaders and followers coordinate on all puts and deletes, you can
+enable leaders to respond to gets without the need to coordinate with
+followers. This is known as granting a **leader lease**. Leader leases
+are granted at the cluster level and are turned on by default.
 
-In addition to leaders and followers, any ensemble managing a portion of
-the [[key space|Clusters#The-Ring]] in your cluster relies upon
-concurrent **workers** to service requests.
+Leaders and followers act as **peers** within an ensemble. In addition
+to leaders and followers, any strong consistency ensemble relies upon
+**workers** to assist in servicing some requests.
+
+These terms should be borne in mind in the following sections concerning
+configuration.
+
+### Integrity Checking
+
+An essential part of implementing a strong consistency subsystem in an
+eventually consistent system is **integrity checking**, a process that
+guards against data corruption and inconsistency even in the face of
+network partitions and other adverse events that Riak was built to
+handle gracefully.
+
+Like Riak's [[active anti-entropy]] subsystem, strong consistency
+integrity checking utilizes [Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree)
+that are persisted on disk. All peers in an ensemble, i.e. all leaders
+and followers, maintain their Merkle trees and update those trees in the
+event of most strongly consistent operations. Those updates can happen
+synchronously or asynchronously, depending on the configuration.
+
+While integrity checking takes place automatically in Riak, there are
+important aspects of its behavior that you can configure. See the
+**Merkle Tree settings** section below for more information on
+configurable parameters.
+
+## Configuring Strong Consistency
+
+The `riak_ensemble` subsystem provides a wide variety of tunable
+parameters that you can adjust to fit the needs of your Riak cluster.
+All `riak_ensemble`-specific parameters, with the exception of the
+`strong_consistency` parameter used to [[enable strong
+consistency|Managing Strong Consistency#Enabling-Strong-Consistency]],
+must be set in each node's `advanced.config` file, _not_ in `riak.conf`
+or `app.config`. Information on the syntax and usage of
+`advanced.config` can be found in our documentation on [[advanced
+configuration|Configuration Files#Advanced-Configuration]]. That same
+document also contains a full listing of [[strong-consistency-related
+configuration parameters|Configuration Files#Strong-Consistency]].
 
 #### Leader Behavior
 
 The `trust_lease` setting determines whether leader leases are used to
 optimize reads. When set to `true`, a leader with a valid lease can
 handle reads directly without needing to contact any followers. When
-`false`, the leader will always contact followers. The default is
-`true`.
+`false`, the leader will always contact followers, which can lead to
+degraded read performance. The default is `true`. We recommend leaving
+leader leases enabled for performance reasons.
 
 All leaders have periodic duties that they perform, including refreshing
 the leader lease. You can determine how frequently this occurs, in
 milliseconds, using the `ensemble_tick` setting. The default is 500
-milliseconds. This setting must be lower than both `lease_duration` and
-`follower_timeout` (both explained below).
+milliseconds. Please note that this setting must be lower than both
+the `lease_duration` and `follower_timeout` settings (both explained
+below).
 
 If you set `trust_lease` to `true`, you can also specify how long a
-leader lease remains valid without being refreshed, using the
+leader lease remains valid without being refreshed using the
 `lease_duration` setting, which is specified in milliseconds. This
 setting should be higher than `ensemble_tick` to ensure that leaders
 have to time to refresh their leases before they time out, and it _must_
-be lower than `follower_timeout`. The default is `ensemble_tick` * 3/2,
-i.e. if `ensemble_tick` is 400, `lease_duration` will default to 600.
+be lower than `follower_timeout`, explained in the section below. The
+default is `ensemble_tick` * 3/2, i.e. if `ensemble_tick` is 400,
+`lease_duration` will default to 600.
 
 #### Worker Settings
 
 You can choose how many workers are assigned to ensembles using the
-`peer_workers` setting. Increasing the number of workers will make the
-strong consistency system more computationally expensive but it can
-improve performance in some cases, depending on the workload. The
-default is `1`.
+`peer_workers` setting. Workers are lightweight processes spawned by
+leaders and followers. While increasing the number of workers will make
+the strong consistency subsystem slightly more computationally
+expensive, more workers can mean improved performance in many cases,
+depending on the workload. The default is 1.
 
 ### Timeouts
 
@@ -414,9 +470,10 @@ clients, but at a greater risk of failed operations.
 
 ### Merkle Tree Settings
 
-All peers in Riak's strong consistency system maintain persistent
-[Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for all data
-stored by that peer.
+Leaders and followers in Riak's strong consistency system maintain
+persistent [Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree) for
+all data stored by that peer. More information can be found in the
+**Integrity Checking** section above.
 
 #### Tree Validation
 
@@ -424,13 +481,13 @@ The `tree_validation` parameter determines whether Riak considers Merkle
 trees to be trusted after a peer restart. When enabled, i.e. when
 `tree_validation` is set to `true` (the default), Riak does not trust
 peer trees after a restart, instead requiring the peer to sync with a
-trusted majority. While this is the safest mode because it protects Riak
+trusted quorum. While this is the safest mode because it protects Riak
 against silent corruption in Merkle trees, it carries the drawback that
 it can reduce Riak availability by requiring more than a simple majority
 of nodes to be online and reachable.
 
-If you are using ensembles with N=3, we recommend setting
-`tree_validation` to `false`.
+If you are using ensembles with N=3, we strong recommend setting
+`tree_validatio:` to `false`.
 
 #### Synchronous vs. Asynchronous Tree Updates
 
@@ -439,9 +496,10 @@ determined by the `synchronous_tree_updates` parameter. When set to
 `false`, which is the default, Riak responds to the client after the
 first roundtrip, allowing the Merkle tree update to happen
 asynchronously in the background; when set to `true`, Riak requires two
-quorum roundtrips to occur before replying back to the client.
+quorum roundtrips to occur before replying back to the client, which can
+increase per-request latency.
 
-Please note that this setting applies only to the metadata writes sent
+Please note that this setting applies only to Merkle tree updates sent
 to followers. Leaders _always_ update their local Merkle trees before
 responding to the client. Asynchronous updates can be unsafe in certain
 scenarios. For example, if a leader crashes before sending metadata
@@ -456,13 +514,14 @@ is exceedingly unlikely.
 
 Riak provides a wide variety of data related to the current operating
 status of a node. This data is available by running the `[[riak-admin
-status|Inspecting a Node#riak-admin-status]]` command.
+status|Inspecting a Node#riak-admin-status]]` command. That data now
+includes statistics specific to strongly consistent operations.
 
 A full listing of these stats is available in [[Inspecting a Node]].
 All strong consistency-related stats are prefixed with `consistent_`,
-e.g. `consistent_gets`, `consistent_puts`, etc. Most of these stats
-are so-called "one-minute stats," meaning that they reflect node
-activity in the last minute.
+e.g. `consistent_gets`, `consistent_puts`, etc. Many of these stats are
+so-called "one-minute stats," meaning that they reflect node activity in
+the last minute.
 
 Strong consistency stats fall into two categories: GET-related and
 PUT-related stats.
@@ -512,10 +571,10 @@ repair|Active Anti-Entropy#Read-Repair-vs.-Active-Anti-Entropy]].
 Read repair, however, cannot repair conflicts in so-called "cold data,"
 i.e. data that may not be read for long periods of time. While using AAE
 does entail small performance losses, not using AAE can lead to problems
-with silent on-disk corruption. 
+with silent on-disk corruption.
 
 To avoid these problems, you should [[enable active anti-entropy|Managing
-Active Anti-Entropy##Enabling-Active-Anti-Entropy]].
+Active Anti-Entropy##Enabling-Active-Anti-Entropy]] in your cluster.
 
 ## Important Caveats
 
@@ -532,7 +591,7 @@ against multiple keys, although it is always possible to incorporate
 write and read locks in an application that uses strongly-consistent
 Riak.
 
-## Known Issues 
+## Known Issues
 
 There are a few known issues that you should be aware of when using the
 latest version of strong consistency.
