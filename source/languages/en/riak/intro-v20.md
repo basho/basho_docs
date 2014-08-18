@@ -125,6 +125,8 @@ some (or perhaps all) of your data.
   strongly consistent system differs from an [[eventually
   consistent|Eventual Consistency]] system, as well as details about how
   strong consistency is implemented in Riak
+* [[Managing Strong Consistency]] is a guide to strong consistency for
+  Riak operators
 
 #### Video
 

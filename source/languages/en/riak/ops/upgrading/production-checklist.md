@@ -74,13 +74,17 @@ to ask while making this transition.
     nodes? If you are not, has it been disabled on all nodes?
   - If you are using [[strong consistency]] for some or all of your
     data:
-      * Has the strong consistency subsystem been [[enabled|Managing
-        Strong Consistency#Enabling-Strong-Consistency]] on all nodes?
+      * Does your cluster consist of at least three nodes? If it does
+        not, you will not be able to use this feature, and you are
+        advised against enabling it.
+      * If your cluster does consist of at least three nodes, has the
+        strong consistency subsystem been [[enabled|Managing Strong
+        Consistency#Enabling-Strong-Consistency]] on all nodes?
       * Is the `[[target_n_val|Configuration Files#Advanced-Configuration]]`
         that is set on each node higher than any `n_val` that you intend
         to use for strongly consistent bucket types (or _any_ bucket
         types for that matter)? The default is 4, which will likely need
-        to be raised. 
+        to be raised if you are using strong consistency.
   - Have all [[bucket types|Using Bucket Types]] that you intend to use
     been created and successfully activated?
   - If you are using [[Riak Control]], is it enabled on the node(s) from
@@ -95,7 +99,7 @@ to ask while making this transition.
   - Run `riak ping` on all nodes. You should get `pong` as a response.
   - Run `riak-admin wait-for-service riak_kv <node_name>@<IP>` on each
     node. You should get `riak_kv is up` as a response.
-    
+
     The `<node_name>@<IP>` string should come from your [[configuration
     file(s)|Configuration Files#Node-Metadata]].
 * Do all nodes agree on the ring state?

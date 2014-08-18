@@ -98,7 +98,7 @@ and the second system undesirable. However:
 So when deciding whether to use strong consistency in Riak, the
 following question needs to be asked:
 
-#### For the specific use case at hand, is it better for reads to fail than to return a potentially out-of-date value? 
+#### For the specific use case at hand, is it better for reads to fail than to return a potentially out-of-date value?
 
 If the answer is yes, then you should seriously consider using Riak in a
 strongly consistent way for the data that demands it, while bearing in
@@ -141,16 +141,3 @@ a variety of factors.
 Ways to address this issue can be found in [[strong consistency and
 performance|Managing Strong Consistency#Performance]].
 
-## Important Caveats
-
-The following Riak features are not currently available in strongly
-consistent buckets:
-
-* [[Secondary indexes|Using Secondary Indexes]]
-* [[Riak Data Types|Using Data Types]]
-
-Strongly-consistent writes operate only on single keys. There is
-currently no support within Riak for strongly consistent operations
-against multiple keys, although it is always possible to incorporate
-write and read locks in an application that uses strongly-consistent
-Riak.
