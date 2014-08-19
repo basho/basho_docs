@@ -53,8 +53,6 @@ riak:
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"
-          # - "[[Key Filters|Using Key Filters]]"
-          # - "[[Link Walking]]"
           - "[[Conflict Resolution]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
@@ -76,11 +74,12 @@ riak:
           - "[[Strong Consistency|Using Strong Consistency]]"
           - "[[Client-side Security]]"
           - "[[Cluster Metadata]]"
+          - title: "Client-side Security"
+            sub:
+              - "[[Introduction|Client-side Security]]"
+              - "[[Ruby|Client-side Security: Ruby]]"
           - title: "Reference"
             sub:
-              # - "[[Bucket References]]"
-              # - "[[Search Indexing|Legacy Search Indexing Reference]]"
-              # - "[[Key Filters|Key Filters Reference]]"
               - "[[Implementing a Client|Client Implementation Guide]]"
               - "[[Implementing a Backend|Backend API]]"
 

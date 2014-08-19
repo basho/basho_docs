@@ -7,13 +7,29 @@ audience: advanced
 keywords: [developers, security, ssl, certificate]
 ---
 
-If you have enabled [[Riak Security|Authentication and Authorization]]
-and chosen either `password`, `certificate`, or `pam` as your
-[[security source|Managing Security Sources]], any client attempting to
-connect to Riak will have to authenticate itself, either using username
-and password (for the `password` or `pam` security sources) or a
-client-side SSL certificate signed by the same authority as the SSL
-certificate recognized by your Riak cluster.
+Versions of Riak 2.0 and later provide you the option of requiring that
+all connecting clients authenticate themselves over a secure SSL
+connection prior to being able to perform specific actions in Riak. You
+can assign one of four [[security sources|Managing Security Sources]] to
+connecting clients:
+
+* [[Trust|Managing Security Sources#Trust-based-Authentication]]-based
+  authentication enables you to specify trusted
+  [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)s
+  from which all clients will be authenticated by default
+* [[Password|Managing Security
+  Sources#Password-based-Authentication]]-based authentication requires
+  that clients provide a username and password
+* [[Certificate|Managing Security
+    Sources#Certificate-based-Authentication]]-based authentication
+  requires that clients
+
+All of the above security sources can be used simultaneously in a single
+Riak cluster. You can specify, for example, that clients performing
+[[MapReduce|Using MapReduce]] operations authenticate using certficates
+while clients performing [[K/V Operations|The Basics]]
+
+This document provides a theoretical
 
 This tutorial will show you to implement client-side authentication for
 each of Riak's officially supported [[client libraries]]. A guide to
