@@ -7,20 +7,28 @@ audience: advanced
 keywords: [developers, security, ssl, python]
 ---
 
-This tutorial shows you how to set up a Python Riak client to
-authenticate itself when connecting to Riak using all four of the
-[[available security sources|Managing Security Sources]]:
+This tutorial shows you how to set up a Riak Python client to
+authenticate itself when connecting to Riak.
 
-* [[trust|Managing Security Sources#PAM-based-Authentication]]
-* [[password|Managing Security Sources#Password-based-Authentication]]
-* [[certificates|Managing Security Sources#Certificate-based-Authentication]]
-* [[pluggable authentication modules (PAM)|Managing Security
-  Sources#PAM-based-Authentication]])
+If you are using [[trust-|Managing Security Sources]], [[PAM-|Managing
+Security Sources#PAM-based-authentication]], you can use the security
+setup described [[below|Client-side Security:
+Python#Python-Client-Basics]]. [[Password|Managing Security
+Sources#Password-based-Authentication]]-based authentication is covered
+in a [[later section|Client-side Security:
+Python#Password-based-Authentication]]. If you are using
+[[certificate|Managing Security
+Sources#Certificate-based-Authentication]]-based authentication, follow
+the instructions in the [[section below|Client-side Security:
+Python#Certificate-Based-Authentication]].
 
-**Note**: This tutorial does not cover certificate generation. It
-assumes that all necessary certificates have already been created and
-are stored in a directory called `/ssl_dir`. This directory name is used
-only for example purposes.
+<div class="note">
+<div class="title">Note on certificate generation</div>
+This tutorial does not cover certificate generation. It assumes that all
+necessary certificates have already been created and are stored in a
+directory called `/ssl_dir`. This directory name is used only for
+example purposes.
+</div>
 
 ## OpenSSL Versions
 
