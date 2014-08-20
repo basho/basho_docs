@@ -20,7 +20,19 @@ of at least three nodes**. If it does not, all strongly consistent
 operations will fail. If your cluster is smaller than three nodes, you
 will need to [[add more nodes|Adding and Removing Nodes]] and make sure
 that strong consistency is [[enabled|Managing Strong
-Consistency#Enabling-Strong-Consistency]] in all of them.
+Consistency#Enabling-Strong-Consistency]] on all of them.
+
+Strongly consistent operations on a given key may also fail if a
+majority of the peers (i.e. leaders and followers) in the ensemble group
+for that key are not available due to slowness, crashes, or network
+partitions. To decrease the probability that data will be unavailable,
+we suggest increasing the number of nodes such that a smaller percentage
+of nodes are likely to fail at any given time. Another advantage of
+adding more nodes is that this spreads the key space across nodes in a
+way that decreases the probability that any given node affects a large
+number of keys. For these reasons, we suggest using strong consistency
+in larger clusters. More information can be found in the section on
+[[fault tolerance|Managing Strong Consistency#Fault-Tolerance]].
 
 Strongly consistent operations will also fail if your cluster consists
 of more than three nodes and a network partition or other event cuts the
@@ -77,9 +89,9 @@ quorum if N=5, 4 replicas if N=7, etc. If N=7 and 4 replicas are
 unavailable, for example, no strongly consistent operations on that
 object can succeed.
 
-While Riak uses an N of 3 by default, bear in mind that **higher values
-of N will allow for more fault tolerance**. The table below shows the
-number of allowable missing replicas for assorted values of N:
+While Riak uses N=3 by default, bear in mind that **higher values of N
+will allow for more fault tolerance**. The table below shows the number
+of allowable missing replicas for assorted values of N:
 
 Replicas | Allowable missing replicas
 :--------|:--------------------------
