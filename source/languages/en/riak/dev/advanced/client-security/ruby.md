@@ -110,9 +110,9 @@ converted into the appropriate OpenSSL object.
 
 ## Certificate Revocation Lists
 
-If you create certificates specifying Certificate Revocation List (CRL)
-distribution points, those certs will be checked against the CRLs
-specified. You can specify a list in the `authentication` hash:
+If you create certificates specifying a CA-signed Certificate Revocation
+List (CRL), those certs will be checked against the CRLs specified. You
+can specify the location of the list in the `authentication` hash:
 
 ```ruby
 client = Riak::Client.new(
@@ -132,8 +132,8 @@ client object.
 
 ## Online Certificate Status Protocol
 
-If you create certificates with Online Certificate Status Protocol
-([OCSP](http://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol)),
+If you create certificates with a specified Online Certificate Status
+Protocol ([OCSP](http://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol)),
 the OCSP endpoint will automatically be checked. If that endpoint is not
-available or checking is running slowly, you can disable OCSP checking
-by setting `ocsp` to `false` in the `authentication` hash.
+available or if checking is running slowly, you can disable OCSP
+checking by setting `ocsp` to `false` in the `authentication` hash.
