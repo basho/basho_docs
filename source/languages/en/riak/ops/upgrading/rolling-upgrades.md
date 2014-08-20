@@ -27,7 +27,7 @@ upgrade process.
 </div>
 
 Riak nodes now negotiate with each other to determine supported
-operating modes. This allows clusters containing mixed-versions of Riak
+operating modes. This allows clusters containing mixed versions of Riak
 to properly interoperate without special configuration, and simplifies
 rolling upgrades.
 
@@ -35,6 +35,16 @@ In previous Riak versions, users were required to disable new features
 during the rolling upgrade process, and then enable them after all nodes
 were upgraded. This is now handled automatically by Riak. For more on
 this process, see our documentation on [[capability negotiation]].
+
+## Disk Space Usage During Backups
+
+When upgrading Riak, it is important to back up each node's `/etc` and
+`/data` directories. Following a successful upgrade, you may notice that
+disk usage has changed between versions, i.e. each node may end up
+storing more or less that it did in a previous version. Please be aware
+that this is normal behavior. Any changes in disk usage are likely
+attributable to code changes made to [[Bitcask]] or [[LevelDB]] or to
+routine effects of automated processes such as [[active anti-entropy]].
 
 ## Debian/Ubuntu
 
@@ -82,7 +92,7 @@ riak-admin status
 riak-admin wait-for-service riak_kv <target_node>
 ```
 
-* `<target_node>` is the node which you have just upgraded (e.g.
+`<target_node>` is the node which you have just upgraded (e.g.
 `riak@192.168.1.11`)
 
 7\. Wait for any hinted handoff transfers to complete
@@ -162,10 +172,14 @@ behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
 
-<div class="info"><div class="title">Note for Secondary Index users</div>
-If you use Riak's Secondary Indexes and are upgrading from a version prior to
-Riak version 1.3.1, you need to reformat the indexes using the <code>[[riak-admin reformat-indexes|riak-admin Command Line#reformat-indexes]]</code> command. More details about reformatting indexes are available in the
-[release notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
+<div class="note">
+<div class="title">Note for Secondary Index users</div>
+If you use Riak's Secondary Indexes and are upgrading from a version
+prior to Riak version 1.3.1, you need to reformat the indexes using the
+<code>[[riak-admin reformat-indexes|riak-admin Command
+Line#reformat-indexes]]</code> command. More details about reformatting
+indexes are available in the [release
+notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 </div>
 
 
@@ -209,12 +223,6 @@ sudo pkgrm BASHOriak
 sudo pkgadd -d <riak_package_name>.pkg
 ```
 
-{{#1.1.0-}}
-<div class="note">If you are upgrading from Riak 0.12, you will have to restore
-the etc directory from the backups made in step 2. The 0.12 package removes the
-etc files when uninstalled.</div>
-{{/1.1.0-}}
-
 4\. Restart Riak
 
 ```bash
@@ -247,7 +255,7 @@ riak-admin wait-for-service riak_kv <target_node>
 riak-admin transfers
 ```
 
-* While the node was offline, other nodes may have accepted writes on its
+While the node was offline, other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
