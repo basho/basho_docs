@@ -25,7 +25,7 @@ only for example purposes.
 ## Ruby Client Basics
 
 When connecting to Riak using a Ruby-based client, you typically
-instantiate an object of from the `Riak::Client` class that then handles
+instantiate an object from the `Riak::Client` class that then handles
 all interactions with Riak. All authentication-related information that
 needs to be used by the client object can be passed to the object upon
 instantiation in an `authentication` hash.
@@ -40,6 +40,8 @@ username, and points the client to a CA located at
 `/ssl_dir/cacertfile.pem`.
 
 ```ruby
+require 'riak'
+
 client = Riak::Client.new(
   host: '127.0.0.1',
   pb_port: 8087,
@@ -108,7 +110,7 @@ object created using the
 gem. If you use specify filenames, those files will be loaded and
 converted into the appropriate OpenSSL object.
 
-## Certificate Revocation Lists
+## Specifying a Certificate Revocation List
 
 If you create certificates specifying a CA-signed Certificate Revocation
 List (CRL), those certs will be checked against the CRLs specified. You
