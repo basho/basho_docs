@@ -9,15 +9,16 @@ keywords: [developers, advanced, cluster-metadata]
 ---
 
 Cluster metadata is a subsystem inside of Riak that enables systems
-built on top of [`riak_core`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl)
+built on top of
+[`riak_core`](https://github.com/basho/riak_core/blob/develop/src/riak_core_metadata.erl)
 to work with information that is stored cluster wide and can be read
 without blocking on communication over the network.
 
 One notable example of a subsystem of Riak relying on cluster metadata
 is Riak's [[bucket types|Using Bucket Types]] feature. This feature
 requires that a particular form of key/value pairs, namely bucket type
-names (the key) and their associated bucket properties (the value),
-be asynchronously broadcast to all nodes in a Riak cluster.
+names (the key) and their associated bucket properties (the value), be
+asynchronously broadcast to all nodes in a Riak cluster.
 
 Though it is different in crucial respects,
 [etcd](https://coreos.com/docs/cluster-management/setup/getting-started-with-etcd/)
