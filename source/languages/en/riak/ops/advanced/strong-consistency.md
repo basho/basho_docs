@@ -176,7 +176,7 @@ affecting only 10% of the key space, as opposed to 100% in the example
 of a 3-node cluster consisting of N=3 ensembles.
 
 These examples illustrate why we recommend higher values for N---again,
-at least N=5 and preferably N=7---as well as larger clusters.
+at least N=5---as well as larger clusters.
 
 ### Offline Node Recommendations
 

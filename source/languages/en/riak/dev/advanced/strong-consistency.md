@@ -114,10 +114,9 @@ The `n_val` property is extremely important for two reasons:
    strongly consistent buckets [[using bucket types]], you will need to
    create a new bucket type with the desired `n_val`.
 
-We also recommend setting the `n_val` on strongly consistent buckets
-to at least 5, and preferably to 7. More on why we make this
-recommendation can be found in [[Fault Tolerance|Managing Strong
-Consistency#Fault-Tolerance]].
+We also recommend setting the `n_val` on strongly consistent buckets to
+at least 5. More on why we make this recommendation can be found in
+[[Fault Tolerance|Managing Strong Consistency#Fault-Tolerance]].
 
 ## Object Context
 
