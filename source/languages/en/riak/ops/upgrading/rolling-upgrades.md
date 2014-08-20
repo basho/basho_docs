@@ -36,7 +36,7 @@ during the rolling upgrade process, and then enable them after all nodes
 were upgraded. This is now handled automatically by Riak. For more on
 this process, see our documentation on [[capability negotiation]].
 
-## Disk Space Usage During Backups
+## Disk Space Usage Following Backups
 
 When upgrading Riak, it is important to back up each node's `/etc` and
 `/data` directories. Following a successful upgrade, you may notice that
