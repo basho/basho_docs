@@ -7,6 +7,28 @@ audience: advanced
 keywords: [erlang, operator]
 ---
 
+[Erlang](http://www.erlang.org/) is the heart of Riak. Riak was written
+almost exclusively in Erlang and runs in an Erlang virtual machine (VM).
+Because of this, proper Erlang VM tuning is an important part of
+optimizing Riak performance.
+
+Some of the the Erlang-specific configurable parameters provided by Riak
+correspond directly to parameters that you can use when starting up any
+Erlang application via `erl`. A full listing of these parameters can be
+found on [this page](http://erlang.org/doc/man/erl.html).  The table
+below lists parameters that are available. More specific information on
+each can be found in the sections below.
+
+Erlang param | Riak param
+:------------|:----------
+`+A` | `erlang.async_threads`
+`+K` | `erlang.K`
+`+S` | `erlang.schedulers.total`, `erlang.schedulers.online`
+`+Q` | `erlang.max_ports`
+`+W` | `erlang.W`
+`-smp` | `erlang.smp`
+`+zdbbl` | `erlang.distribution_buffer_size`
+
 A table listing all available configurable parameters can be found in
 our [[configuration files|Configuration Files#Erlang-VM]] documentation.
 
