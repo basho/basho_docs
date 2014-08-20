@@ -58,7 +58,9 @@ networking is the bottleneck.
 ```text
 vm.swappiness = 0
 net.ipv4.tcp_max_syn_backlog = 40000
-net.core.somaxconn=40000
+net.core.somaxconn = 40000
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
 net.ipv4.tcp_sack = 1
 net.ipv4.tcp_window_scaling = 1
 net.ipv4.tcp_fin_timeout = 15
