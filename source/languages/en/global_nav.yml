@@ -72,12 +72,12 @@ riak:
           - "[[Commit Hooks|Advanced Commit Hooks]]"
           - "[[Replication Properties]]"
           - "[[Strong Consistency|Using Strong Consistency]]"
-          - "[[Client-side Security]]"
           - "[[Cluster Metadata]]"
           - title: "Client-side Security"
             sub:
               - "[[Introduction|Client-side Security]]"
               - "[[Ruby|Client-side Security: Ruby]]"
+              - "[[Python|Client-side Security: Python]]"
           - title: "Reference"
             sub:
               - "[[Implementing a Client|Client Implementation Guide]]"
