@@ -70,10 +70,11 @@ client = RiakClient(host='127.0.0.1', pb_port=8087, credentials=creds)
 
 This client object is not currently set up to to use any of the
 available security sources with the exception of trust-based auth,
-provided that the CIDR from which the client is connecting has been
-specified as trusted. More on specifying trusted CIDRs can be found in
-[[Trust-based Authentication|Managing Security
-Sources#Trust-based-Authentication]].
+provided that the
+[CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) from
+which the client is connecting has been specified as trusted. More on
+specifying trusted CIDRs can be found in [[Trust-based
+Authentication|Managing Security Sources#Trust-based-Authentication]].
 
 **Note**: The examples in the following sections specify certs on the
 basis of their filepaths, e.g. `/ssl_dir/cacertfile.pem`. In addition to
