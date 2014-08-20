@@ -21,8 +21,8 @@ broadcast to all nodes in a Riak cluster.
 
 Though it is different in crucial respects,
 [etcd](https://coreos.com/docs/cluster-management/setup/getting-started-with-etcd/)
-is a roughly analogous cluster metadata key/value store for
-[CoreOS](https://coreos.com/) clusters.
+is a roughly analogous cluster metadata key/value store developed for
+use in [CoreOS](https://coreos.com/) clusters.
 
 ## How Cluster Metadata Works
 
