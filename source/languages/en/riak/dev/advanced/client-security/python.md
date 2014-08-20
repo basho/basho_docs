@@ -145,8 +145,7 @@ OpenSSL objects.
 
 Cert | File path | OpenSSL object | Class
 :----|:----------|:---------------|:-----
-Certificate Authority (CA) | `cacert_file` | `cacert` |
-`OpenSSL.crypto.X509`
+Certificate Authority (CA) | `cacert_file` | `cacert` | `OpenSSL.crypto.X509`
 Private key | `key_file` | `key` | `OpenSSL.crypto.PKey`
 CA-generated cert | `cert` | `cert_file` | `OpenSSL.crypto.X509`
 CRL | `crl` | `crl_file` | `OpenSSL.crypto.CRL`
