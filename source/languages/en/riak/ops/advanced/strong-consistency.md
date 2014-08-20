@@ -190,6 +190,16 @@ of a 3-node cluster consisting of N=3 ensembles.
 These examples illustrate why we recommend higher values for N---again,
 at least N=5---as well as larger clusters.
 
+<div class="note">
+<div class="title">Note on cluster size</div>
+In general, we define large clusters as clusters in which no [[node|Riak
+Glossary#Node]] has more than 10 [[vnodes|Riak Glossary#vnode]]. Thus,
+the ideal cluster size depends on the [[ring size|Clusters#The-Ring]].
+With a ring size of 128, for example, we would recommend at least 12
+nodes, at least 7 with a ring size of 64, and so on.
+</div>
+
+
 ### Offline Node Recommendations
 
 In general, strongly consistent Riak is more sensitive to the number of
