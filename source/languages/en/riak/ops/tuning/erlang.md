@@ -10,6 +10,12 @@ keywords: [erlang, operator]
 A table listing all available configurable parameters can be found in
 our [[configuration files|Configuration Files#Erlang-VM]] documentation.
 
+<div class="note">
+<div class="title">Note on upgrading to 2.0</div>
+In versions of Erlang prior to 2.0, Erlang VM-related parameters were
+specified in a `vm.args` file. If you're using
+</div>
+
 ## SMP
 
 Some operating systems are equipped to provide Erlang VMs with
