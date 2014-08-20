@@ -12,13 +12,18 @@ moved: {
 }
 ---
 
-Riak Enterprise Version 3 Replication supports replication of data on networks that use static NAT.
+Riak Enterprise Version 3 Replication supports replication of data on
+networks that use static NAT.
 
-This can be used for replicating data over the internet where servers have both internal and public IP addresses (see the [[Replication SSL docs|Multi Data Center Replication v3 SSL]] if you replicate data over a public network).
+This can be used for replicating data over the internet where servers
+have both internal and public IP addresses (see the [[Replication SSL
+docs|Multi Data Center Replication v3 SSL]] if you replicate data over a
+public network).
 
 ### Requirements
 
-In order for Replication to work on a server configured with NAT, the NAT addresses must be configured **statically**.
+In order for Replication to work on a server configured with NAT, the
+NAT addresses must be configured *statically*.
 
 ## Configuration
 
@@ -30,7 +35,9 @@ NAT rules can be configured at runtime, from the command line.
 
 * `nat-map add <externalip>[:port] <internalip>`
 
-    Adds a NAT map from the external IP, with an optional port, to an internal IP. The port number refers to a port that is automatically mapped to the internal `cluster_mgr` port number.
+    Adds a NAT map from the external IP, with an optional port, to an
+    internal IP. The port number refers to a port that is automatically
+    mapped to the internal `cluster_mgr` port number.
 
 * `nat-map del <externalip>[:port] <internalip>`
 
@@ -38,12 +45,14 @@ NAT rules can be configured at runtime, from the command line.
 
 ### Applying Changes at Runtime
 
-* Realtime NAT replication changes will be applied once realtime is stopped and started using the following command:
+* Realtime NAT replication changes will be applied once realtime is
+  stopped and started using the following command:
 
     * `riak-repl realtime stop <clustername>`
     * `riak-repl realtime start <clustername>`
 
-* Fullsync NAT replication changes will be applied on the next run of a fullsync, or you can stop and start the current fullsync.
+* Fullsync NAT replication changes will be applied on the next run of a
+  fullsync, or you can stop and start the current fullsync.
 
     * `riak-repl fullsync stop <clustername>`
     * `riak-repl fullsync start <clustername>`
@@ -56,7 +65,8 @@ NAT rules can be configured at runtime, from the command line.
 
 ### Cluster_A Setup
 
-Cluster_A is set up with nodes using the following **internal** IP addresses:
+Cluster_A is set up with nodes using the following **internal** IP
+addresses:
 
 Internal IP    | Public IP
 ---------------|-------------------
@@ -78,12 +88,13 @@ Internal IP    | Public IP
 `192.168.2.43` | `50.16.238.123:5555`
 `192.168.2.44` | `50.16.238.124:5555`
 
-In this example, the `cluster_mgr` port number is the default of `9080`, while
-the configured NAT port listens on `5555`.
+In this example, the `cluster_mgr` port number is the default of `9080`,
+while the configured NAT port listens on `5555`.
 
 ### Cluster_C Setup
 
-A node from Cluster_C is set up with **static NAT**, configured with the following IP addresses:
+A node from Cluster_C is set up with **static NAT**, configured with the
+following IP addresses:
 
 Internal IP    | Public IP
 ---------------|-------------------
@@ -93,7 +104,8 @@ Internal IP    | Public IP
 `192.168.3.63` | `50.16.238.200:5553`
 `192.168.3.64` | `50.16.238.200:5554`
 
-In this example, the `cluster_mgr` port number is the default of `9080`, while the configured NAT port listens on `5566`.
+In this example, the `cluster_mgr` port number is the default of `9080`,
+while the configured NAT port listens on `5566`.
 
 ```bash
 # on any node of Cluster_A

@@ -54,10 +54,19 @@ The response:
 
 Our basic conversion and storage approach will be the following:
 
-1. Each row will be converted into a JSON object storing all of the fields except the `id` field.
-2. The `id` field will be excluded from the JSON object stored in Riak. It will not act as each object's [[key|Keys and Objects#keys]]. Instead, the key for each object will be the post's title, up to 30 characters, lowercased and with hyphens separating the words in the title. And so the example post shown above will have the key `riak-development-anti-patterns`.
-3. All of the JSON objects produced from the `posts` table will be stored in a single Riak [[bucket|Buckets]] called `posts`.
-4. The keys for our various objects will be stored in a [[Riak set|Using Data Types#sets]] so that all stored objects can be queried at once if need be.
+1. Each row will be converted into a JSON object storing all of the
+   fields except the `id` field.
+2. The `id` field will be excluded from the JSON object stored in Riak.
+   It will not act as each object's [[key|Keys and Objects#keys]].
+   Instead, the key for each object will be the post's title, up to 30
+   characters, lowercased and with hyphens separating the words in the
+   title. And so the example post shown above will have the key
+   `riak-development-anti-patterns`.
+3. All of the JSON objects produced from the `posts` table will be
+   stored in a single Riak [[bucket|Buckets]] called `posts`.
+4. The keys for our various objects will be stored in a [[Riak set|Using
+   Data Types#sets]] so that all stored objects can be queried at once
+   if need be.
 
 ## Converting the Table to a List
 
@@ -116,8 +125,8 @@ those dictionaries directly in Riak.
 
 Converting rows in an SQL table to dictionaries can be tricky because
 rows can contain a wide variety of data types, each of which must be
-converted into one of the data types 
-[compatible with JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example).
+converted into one of the data types [compatible with
+JSON](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example).
 That conversion is fairly straightforward in our example, as the `name`,
 `title`, and `body` columns are automatically converted into strings.
 
@@ -156,7 +165,10 @@ Now that we can convert each row into a Python dictionary, we can store
 each row in Riak directly. Our `store_row_in_riak` function will do two
 things:
 
-1. It will construct a key out of each post's title, taking the first 30 characters, lowercasing the whole string, and then replacing all spaces with a hyphen, i.e. `This is a blog post` will be transformed into `this-is-a-blog-post`.
+1. It will construct a key out of each post's title, taking the first 30
+   characters, lowercasing the whole string, and then replacing all
+   spaces with a hyphen, i.e. `This is a blog post` will be transformed
+   into `this-is-a-blog-post`.
 2. Each row will be converted into a proper Riak object and stored.
 
 Here's our function:
@@ -268,7 +280,7 @@ CREATE TABLE posts (
 Here's an example insert into that table:
 
 ```sql
-INSERT INTO posts (author, title, body, created, keywords) VALUES 
+INSERT INTO posts (author, title, body, created, keywords) VALUES
 	('Basho', 'Moving from MySQL to Riak', 'Traditional database architectures...',
 	current_date, '{"mysql","riak","migration","rdbms"}');
 ```

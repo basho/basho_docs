@@ -26,7 +26,7 @@ that file. That section looks something like this:
 ]},
 ```
 
-### Host and Port
+## Host and Port
 
 To connect Riak CS to Riak, make sure that the following parameters are
 set to the host and port used by Riak:
@@ -65,7 +65,7 @@ To set the host and port for Stanchion, do the following:
 * For the `stanchion_port` setting, replace `8085` with the port for the
   node
 
-### Enabling SSL
+## Enabling SSL
 
 SSL is turned off by default in Stanchion, i.e. the `stanchion_ssl`
 variable is set to `false`. If Stanchion is configured to use SSL,
@@ -84,8 +84,6 @@ set up Stanchion to use SSL:
     %% Other configs
 ]}
 ```
-
-
 
 ## Specifying the Node Name
 
@@ -144,7 +142,13 @@ The JSON response will look something like this:
 You can optionally send and receive XML if you set the `Content-Type` to
 `application/xml`, as in this example:
 
-Once the admin user exists, you must specify the credentials of the admin user on each node in the Riak CS system. The admin user credential settings reside in the Riak CS `app.config` file, which is located in the `etc/riak-cs directory. The settings appear in the Riak CS config` section of the file. Paste the `key_id` string between the quotes for the `admin_key`. Paste the `key_secret` string into the `admin_secret` variable, as shown here:
+Once the admin user exists, you must specify the credentials of the
+admin user on each node in the Riak CS system. The admin user credential
+settings reside in the Riak CS `app.config` file, which is located in
+the `etc/riak-cs` directory. The settings appear in the Riak CS config
+section of the file. Paste the `key_id` string between the quotes for
+the `admin_key`. Paste the `key_secret` string into the `admin_secret`
+variable, as shown here:
 
 ```appconfig
 %% Admin user credentials
@@ -156,23 +160,6 @@ Once the admin user exists, you must specify the credentials of the
 admin user in the `app.config` file. Those will be the same credentials
 that you received as a JSON object when you ran the `POST` request to
 create the user.
-
-In the `riak_cs` section of `app.config`, add the following to establish
-the admin user credentials:
-
-```appconfig
-{riak_cs, [
-    %% Other configs
-
-* `riak_ip` --- Replace `127.0.0.1` with the IP address of the Riak node you want Riak CS to connect to
-
-If you configured Riak to use a different port for Protocol Buffers, you must change the following port setting:
-
-* `riak_pb_port` --- Replace `8087` with the port number set in the variable `pb_port` in the Riak `app.config` file
-
-<div class="note"><div class="title">Note</div>The IP address you enter here must match the IP address specified for the Protocol Buffers interface in the Riak <tt>app.config</tt> file. If a server has more than one network interface card (NIC), you can use the IP address for a specific NIC. If you want Riak CS to listen on all of them, set <tt>riak_ip</tt> to <tt>0.0.0.0</tt>.</div>
-
-After modifying the port numbers, restart Riak if is already running.
 
 ## Connection Pools
 
@@ -233,23 +220,37 @@ in the Riak CS logs and an error to returned to the user.
 
 ## Specifying the Stanchion Node
 
-If you have a single node, you don't have to change the Stanchion settings because Stanchion runs on the local host. If your Riak CS system has multiple nodes, you must set the IP address and port for the Stanchion node and whether or not SSL is enabled.
+If you have a single node, you don't have to change the Stanchion
+settings because Stanchion runs on the local host. If your Riak CS
+system has multiple nodes, you must set the IP address and port for the
+Stanchion node and whether or not SSL is enabled.
 
-The Stanchion settings reside in the Riak CS `app.config` file, which is located in the `/etc/Riak-CS` directory. The settings appear in the Riak CS config section of the file.
+The Stanchion settings reside in the Riak CS `app.config` file, which is
+located in the `/etc/Riak-CS` directory. The settings appear in the Riak
+CS config section of the file.
 
-* `stanchion_ip` --- Replace `127.0.0.1` with the IP address of the Stanchion node
+* `stanchion_ip` --- Replace `127.0.0.1` with the IP address of the
+  Stanchion node
 
-If you configured Stanchion to use a different port, you must change the following port setting:
+If you configured Stanchion to use a different port, you must change the
+following port setting:
 
-* `stanchion_port` --- Replace `8085` with the port number set in the variable `stanchion_port` in the Stanchion `app.config` file
+* `stanchion_port` --- Replace `8085` with the port number set in the
+  variable `stanchion_port` in the Stanchion `app.config` file
 
-The `stanchion_ssl` variable is set to `false` by default. If you want to use SSL, change this variable to `true`.
+The `stanchion_ssl` variable is set to `false` by default. If you want
+to use SSL, change this variable to `true`.
 
 ## Specifying the Node IP Address
 
-You can also set the IP address for the Riak CS node, which is helpful if you must debug code or identify the node from which requests originate. The Riak CS IP address setting resides in the Riak CS `vm.args` configuration file, which is located in the `/etc/riak-cs` directory.
+You can also set the IP address for the Riak CS node, which is helpful
+if you must debug code or identify the node from which requests
+originate. The Riak CS IP address setting resides in the Riak CS
+`vm.args` configuration file, which is located in the `/etc/riak-cs`
+directory.
 
-Initially, the line that specifies the Riak CS node IP address is set to `localhost`, as follows:
+Initially, the line that specifies the Riak CS node IP address is set to
+`localhost`, as follows:
 
 ```config
 ## Name of the riak node

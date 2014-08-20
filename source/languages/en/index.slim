@@ -21,7 +21,7 @@ h3.center-text Choose a project below
 div#select-project
   - version = $production ? "latest" : nil
   div.project
-    a href="/riak/#{version || $versions[:riak]}/"
+    a href="/riakee/#{version || $versions[:riakee]}/"
       span.big
         | Riak&nbsp;
         strong Enterprise
