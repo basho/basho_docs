@@ -114,8 +114,8 @@ Neo4j, on the other hand, excels at querying networks of information.
 Again, drawing from the Facebook example above, a graph database would
 make short work of finding all of the people who are friends of your
 friends. In relational parlance, if your queries start on a single row
-and explode into thousands of rows via recursive joins, then those 
-elations should likely be stored in a graph database.
+and explode into thousands of rows via recursive joins, then those
+relations should likely be stored in a graph database.
 
 Neo4j requires you to provide a starting node before you can perform any
 queries or traversals. The starting node can be the result of a previous
