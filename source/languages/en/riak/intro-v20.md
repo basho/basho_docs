@@ -91,8 +91,9 @@ Brown](https://github.com/russelldb).
 ## Riak Search 2.0 (codename: Yokozuna)
 
 Riak Search 2.0 is a complete, top-to-bottom replacement for Riak
-Search, integrating Riak with [Apache Solr](https://lucene.apache.org/solr/)'s
-full-text search capabilities and supporting Solr's client query APIs.
+Search, integrating Riak with [Apache
+Solr](https://lucene.apache.org/solr/)'s full-text search capabilities
+and supporting Solr's client query APIs.
 
 #### Relevant Docs
 

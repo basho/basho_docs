@@ -20,13 +20,14 @@ come in.
 
 ## Vector Clocks and Relationships Between Objects
 
-All Riak objects are stored in a location defined by the object's [[bucket|Buckets]]
-and [[key|Keys and Objects]], as well as by the [[bucket type|Using Bucket Types]]
-defining the bucket's properties. It is possible to [[configure Riak|Conflict Resolution]]
-to ensure that only one copy of an object ever exists in a specific
-location. This will ensure that _at most_ one object is returned when a
-read is performed on a bucket type/bucket/key location (and no objects
-if Riak returns `not found`).
+All Riak objects are stored in a location defined by the object's
+[[bucket|Buckets]] and [[key|Keys and Objects]], as well as by the
+[[bucket type|Using Bucket Types]] defining the bucket's properties. It
+is possible to [[configure Riak|Conflict Resolution]] to ensure that
+only one copy of an object ever exists in a specific location. This will
+ensure that _at most_ one object is returned when a read is performed on
+a bucket type/bucket/key location (and no objects if Riak returns `not
+found`).
 
 If Riak is configured this way, Riak may still make use of vector clocks
 behind the scenes to make intelligent decisions about which replica of
@@ -36,7 +37,7 @@ clocks will be a non-issue for clients connecting to Riak.
 ## Siblings
 
 It is also possible to configure Riak to store multiple objects in a
-single key, i.e. for an object to have different values on different 
+single key, i.e. for an object to have different values on different
 nodes. Objects stored this way are called **siblings**. You can instruct
 Riak to allow for sibling creation by setting the the `allow_mult`
 bucket property to `false` for a specific bucket, preferably [[using
@@ -59,16 +60,16 @@ replicas can be determined using vector clocks:
  * Whether the objects are unrelated in recent heritage
 
 Behind the scenes, Riak uses vector clocks as an essential element of
-its [[active anti-entropy]] subsystem and of its automatic
-[[read repair|Active Anti-Entropy#read-Repair-vs.-active-anti-entropy]]
+its [[active anti-entropy]] subsystem and of its automatic [[read
+repair|Active Anti-Entropy#read-Repair-vs.-active-anti-entropy]]
 capabilities.
 
 From the standpoint of application development, the difficulty with
 siblings is that they _by definition_ conflict with one another. When an
 application attempts to read an object that has siblings, multiple
-replicas will be stored in the location where the application is looking.
-This means that the application will need to develop a strategy for
-[[conflict resolution]]. 
+replicas will be stored in the location where the application is
+looking.  This means that the application will need to develop a
+strategy for [[conflict resolution]].
 
 ## More Information
 
