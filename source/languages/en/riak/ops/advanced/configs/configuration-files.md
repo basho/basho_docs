@@ -2052,7 +2052,7 @@ operations if set to <code>on</code>.</td>
 
 Unlike the `strong_consistency` setting, the settings listed below are
 available only in `advanced.config`, in the `riak_ensemble` section of
-that file. That section which looks like this:
+that file. That section looks like this:
 
 ```advancedconf
 {riak_ensemble, [
@@ -2063,7 +2063,7 @@ that file. That section which looks like this:
 ```
 
 Further instructions on setting parameters in `advanced.config` can be
-found in the [[advanced configuration|Configuration 
+found in the [[advanced configuration|Configuration
 Files#Advanced-Configuration]] section below.
 
 Using these settings properly demands a firm understanding of the basic
@@ -2086,7 +2086,7 @@ strong consistency before changing the defaults on these parameters.
 <td><code>ensemble_tick</code></td>
 <td>The rate at which leaders perform their periodic duties, including
 refreshing the leader lease, in milliseconds. This setting must be lower
-than both the <code>lease_duration</code> and 
+than both the <code>lease_duration</code> and
 <code>follower_timeout</code> settings (both listed below). Lower values
 mean that leaders perform their duties more frequently, which can allow
 for faster convergence if a leader goes offline and then returns to the
@@ -2196,7 +2196,7 @@ a simple majority of nodes to be online and reachable.</td>
 <tr>
 <td><code>synchronous_tree_updates</code></td>
 <td>Determines whether the metadata updates to follower Merkle trees are
-handled synchronously or not. When set to <code>true</code>, Riak 
+handled synchronously or not. When set to <code>true</code>, Riak
 equires two quorum round trips to occur before replying back to the
 client, the first quorum request to write the actual object and the
 second to write the Merkle tree data. When set to <code>false</code>,
@@ -2530,4 +2530,3 @@ hot spots.</td>
 
 </tbody>
 </table>
-
