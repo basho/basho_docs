@@ -7,13 +7,13 @@ audience: intermediate
 ---
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
-using a source install or in `/etc/riak` or `/usr/local/etc` if you
-used a binary install.
+using a source install or in `/etc/riak` or `/usr/local/etc` if you used
+a binary install.
 
-The `riak.conf` file is used to set a wide variety of attributes for
-the node, from the storage backend that the node will use to store data
-to the location of SSL-related files to sibling resolution parameters
-and beyond.
+The `riak.conf` file is used to set a wide variety of attributes for the
+node, from the storage backend that the node will use to store data to
+the location of SSL-related files to sibling resolution parameters and
+beyond.
 
 At any time, you can get a snapshot of currently applied configurations
 through the command line. For a listing of *all* of the configs
@@ -65,19 +65,18 @@ Below is a table listing the configurable parameters in `riak.conf`.
 #### The `advanced.config` file
 
 For most Riak installations, the `riak.conf` file should be sufficient
-for configuration management. But some installations, particularly
-those upgrading from an earlier version of Riak to version 2.0 or
-later, may need to make use of an `advanced.config` file to control
-some settings available only in versions prior to 2.0. If this applies
-to your installation, please see the [[Advanced
-Configuration|Configuration Files#advanced-configuration]] section
-below.
+for configuration management. But some installations, particularly those
+upgrading from an earlier version of Riak to version 2.0 or later, may
+need to make use of an `advanced.config` file to control some settings
+available only in versions prior to 2.0. If this applies to your
+installation, please see the [[Advanced Configuration|Configuration
+Files#advanced-configuration]] section below.
 
 ## Node Metadata
 
 Every Riak node has a name and a cookie used to facilitate inter-node
-communication. The following parameters enable you to customize the
-name and cookie.
+communication. The following parameters enable you to customize the name
+and cookie.
 
 <table class="riak-conf">
 <thead>
@@ -220,9 +219,9 @@ parameters below.
 
 <tr>
 <td><code>platform_data_dir</code></td>
-<td>The directory in which Riak stores its storage backend data, as
-well as [[ring state|Clusters]] data, [[active anti-entropy]] data,
-and [[cluster metadata]].</td>
+<td>The directory in which Riak stores its storage backend data, as well
+as [[ring state|Clusters]] data, [[active anti-entropy]] data, and
+[[cluster metadata]].</td>
 <td><code>./data</code></td>
 </tr>
 
@@ -242,10 +241,10 @@ Each of these directory parameters can be used to construct values for
 other parameters by placing it within a `$(...)`. Thus,
 `platform_log_dir` becomes `$(platform_log_dir)` and so on.
 
-To give an example, you can select the directory used by
-Riak's [[active anti-entropy|Configuration Files#active-anti-entropy]]
-system using the `anti_entropy.data_dir` parameter. When setting that
-parameter, you can specify an absolute directory, as below:
+To give an example, you can select the directory used by Riak's [[active
+anti-entropy|Configuration Files#active-anti-entropy]] system using the
+`anti_entropy.data_dir` parameter. When setting that parameter, you can
+specify an absolute directory, as below:
 
 ```riakconf
 anti_entropy.data_dir = /path/to/anti_entropy
@@ -321,8 +320,8 @@ Example: <code>XX:+UseCompressedStrings</code></td>
 <td>How long Riak will wait for Solr to start. The start sequence will
 be tried twice. If both attempts time out, the Riak node will be shut
 down. This may need to be increased as more data is indexed and Solr
-takes longer to start. Values lower than <code>1s</code> will be
-rounded up to the minimum <code>1s</code>.</td>
+takes longer to start. Values lower than <code>1s</code> will be rounded
+up to the minimum <code>1s</code>.</td>
 <td><code>30s</code></td>
 </tr>
 
@@ -380,8 +379,8 @@ compaction.</td>
 <tr>
 <td><code>leveldb.compaction.trigger.tombstone_count</code></td>
 <td>Controls when a background compaction initiates solely due to the
-number of delete tombstones within an individual <code>.sst</code>
-table file. A value of <code>off</code> disables the feature.</td>
+number of delete tombstones within an individual <code>.sst</code> table
+file. A value of <code>off</code> disables the feature.</td>
 <td><code>1000</code></td>
 </tr>
 
@@ -425,11 +424,10 @@ impact in favor of file cache. The value is set on a per-vnode basis.
 
 <tr>
 <td><code>leveldb.block.size_steps</code></td>
-<td>Defines the number of incremental adjustments to attempt between
-the <code>block.size</code> value and the maximum
-<code>block.size</code> for an <code>.sst</code> table file. A value of
-zero disables the underlying dynamic <code>block_size</code> feature.
-</td>
+<td>Defines the number of incremental adjustments to attempt between the
+<code>block.size</code> value and the maximum <code>block.size</code>
+for an <code>.sst</code> table file. A value of zero disables the
+underlying dynamic <code>block_size</code> feature.</td>
 <td><code>16</code></td>
 </tr>
 
@@ -454,8 +452,8 @@ index for a block. Most deployments should leave this parameter alone.
 <td>Each database <code>.sst</code> table file can include an optional
 "bloom filter" that is highly effective in shortcutting data queries
 that are destined to not find the requested key. The Bloom filter
-typically increases the size of an <code>.sst</code> table file by
-about 2%.</td>
+typically increases the size of an <code>.sst</code> table file by about
+2%.</td>
 <td><code>on</code></td>
 </tr>
 
@@ -489,10 +487,9 @@ performance measurements. This option overwrites values given to
 
 <tr>
 <td><code>leveldb.sync_on_write</code></td>
-<td>Whether LevelDB will flush after every write.
-<br /><br />
-<strong>Note</strong>: If you are familiar with fsync, this is
-analagous to calling fsync after every write.</td>
+<td>Whether LevelDB will flush after every write.<br /><br />
+<strong>Note</strong>: If you are familiar with fsync, this is analagous
+to calling fsync after every write.</td>
 <td><code>off</code></td>
 </tr>
 
@@ -545,8 +542,8 @@ Configurable parameters for Riak's [[Bitcask]] storage backend.
 <td><code>bitcask.io_mode</code></td>
 <td>Configure how Bitcask writes data to disk. If set to
 <code>erlang</code>, writes are made via Erlang's built-in file API; if
-set to <code>nif</code>, writes are made via direct calls to the POSIX
-C API. The <code>nif</code> mode provides higher throughput for certain
+set to <code>nif</code>, writes are made via direct calls to the POSIX C
+API. The <code>nif</code> mode provides higher throughput for certain
 workloads, but has the potential to negatively impact the Erlang VM,
 leading to higher worst-case latencies and possible throughput collapse
 </td>
@@ -566,12 +563,12 @@ purge data automatically after 1 day, set the value to <code>1d</code>.
 <tr>
 <td><code>bitcask.expiry.grace_time</code></td>
 <td>By default, Bitcask will trigger a merge whenever a data file
-contains an expired key. This may result in excessive merging under
-some usage patterns. To prevent this you can set the
+contains an expired key. This may result in excessive merging under some
+usage patterns. To prevent this you can set the
 <code>bitcask.expiry.grace_time</code> option. Bitcask will defer
 triggering a merge solely for key expiry by the configured number of
-seconds. Setting this to <code>1h</code> effectively limits each cask
-to merging for expiry once per hour.</td>
+seconds. Setting this to <code>1h</code> effectively limits each cask to
+merging for expiry once per hour.</td>
 <td><code>0</code></td>
 </tr>
 
@@ -579,8 +576,8 @@ to merging for expiry once per hour.</td>
 <td><code>bitcask.hintfile_checksums</code></td>
 <td>Whether to allow the CRC to be present at the end of hintfiles.
 Setting this to <code>allow_missing</code> runs Bitcask in a
-backwards-compatible mode in which old hint files will still be
-accepted without CRC signatures.</td>
+backwards-compatible mode in which old hint files will still be accepted
+without CRC signatures.</td>
 <td><code>strict</code></td>
 </tr>
 
@@ -614,10 +611,10 @@ merged, decreasing the value will cause more files to be merged.</td>
 
 <tr>
 <td><code>bitcask.merge.thresholds.dead_bytes</code></td>
-<td>Describes the minimum amount of data occupied by dead keys in a
-file to cause it to be included in the merge. Increasing the value will
-cause fewer files to be merged, whereas decreasing the value will cause
-more files to be merged.</td>
+<td>Describes the minimum amount of data occupied by dead keys in a file
+to cause it to be included in the merge. Increasing the value will cause
+fewer files to be merged, whereas decreasing the value will cause more
+files to be merged.</td>
 <td><code>128MB</code></td>
 </tr>
 
@@ -668,15 +665,15 @@ below.</td>
 
 <tr>
 <td><code>bitcask.merge.policy</code></td>
-<td>Lets you specify when during the day merge operations are allowed
-to be triggered. Valid options are: <code>always</code>, meaning no
+<td>Lets you specify when during the day merge operations are allowed to
+be triggered. Valid options are: <code>always</code>, meaning no
 restrictions; <code>never</code>, meaning that merging will never be
 attempted; and <code>window</code>, specifying the hours during which
 merging is permitted, where <code>bitcask.merge.window.start</code> and
 <code>bitcask.merge.window.end</code> are integers between 0 and 23. If
-merging has a significant impact on performance of your cluster, or
-your cluster has quiet periods in which little storage activity occurs,
-you may want to change this setting from the default.</td>
+merging has a significant impact on performance of your cluster, or your
+cluster has quiet periods in which little storage activity occurs, you
+may want to change this setting from the default.</td>
 <td><code>always</code></td>
 </tr>
 
@@ -707,10 +704,10 @@ expressed as a percentage of <code>bitcask.merge_check_interval</code>.
 
 <tr>
 <td><code>bitcask.max_file_size</code></td>
-<td>Describes the maximum permitted size for any single data file in
-the Bitcask directory. If a write causes the current file to exceed
-this size threshold then that file is closed, and a new file is opened
-for writes.</td>
+<td>Describes the maximum permitted size for any single data file in the
+Bitcask directory. If a write causes the current file to exceed this
+size threshold then that file is closed, and a new file is opened for
+writes.</td>
 <td><code>2GB</code></td>
 </tr>
 
@@ -728,17 +725,17 @@ data to disk. The default setting protects against data loss in the
 event of application failure (process death) but leaves open a small
 window in which data could be lost in the event of complete system
 failure (e.g. hardware, OS, or power). The default mode,
-<code>none</code>, writes data into operating system buffers which
-will be written to the disks when those buffers are flushed by the
-operating system. If the system fails, e.g. due power loss or crash,
-that data is lost before those buffers are flushed to stable storage.
-This is prevented by the setting <code>o_sync</code>, which forces the
-operating system to flush to stable storage at every write. The effect
-of flushing each write is better durability, however write throughput
-will suffer as each write will have to wait for the write to complete.
-Available sync strategies: <code>none</code>, which will let the
-operating system manage syncing writes; <code>o_sync</code>, which will
-uses the <code>O_SYNC</code> flag to force syncs on every write; and
+<code>none</code>, writes data into operating system buffers which will
+be written to the disks when those buffers are flushed by the operating
+system. If the system fails, e.g. due power loss or crash, that data is
+lost before those buffers are flushed to stable storage.  This is
+prevented by the setting <code>o_sync</code>, which forces the operating
+system to flush to stable storage at every write. The effect of flushing
+each write is better durability, however write throughput will suffer as
+each write will have to wait for the write to complete.  Available sync
+strategies: <code>none</code>, which will let the operating system
+manage syncing writes; <code>o_sync</code>, which will uses the
+<code>O_SYNC</code> flag to force syncs on every write; and
 <code>interval</code>, by which will force Bitcask to sync every
 <code>bitcask.sync.interval</code> seconds.</td>
 <td><code>none</code></td>
@@ -796,8 +793,8 @@ Configurable parameters for Riak's [[Multi]] backend, which enables you
 to utilize multiple data backends in a single Riak cluster.
 
 If you are using multiple backends, you can configure the backends
-individually by prepending the setting with `multi_backend.$name`,
-where `$name` is the name of the backend. `$name` can be any valid
+individually by prepending the setting with `multi_backend.$name`, where
+`$name` is the name of the backend. `$name` can be any valid
 configuration word, like `customer_data`, `my_data`, `foo_bar_backend`,
 etc.
 
@@ -849,9 +846,9 @@ multi_backend.customer_backend.maximum_memory.percent = 50
 ## Riak Control
 
 Riak Control is a web-based administrative console for inspecting and
-manipulating Riak clusters. The configurable parameters below enable
-you to turn the Riak Control subsystem on and off and to configure
-console authorization.
+manipulating Riak clusters. The configurable parameters below enable you
+to turn the Riak Control subsystem on and off and to configure console
+authorization.
 
 <table class="riak-conf">
 <thead>
@@ -943,10 +940,10 @@ toward this threshold.</td>
 
 <tr>
 <td><code>runtime_health.thresholds.busy_processes</code></td>
-<td>The threshold at which to warn a warning will be triggered about
-the number of processes that are overly busy. Processes with large
-heaps or that take a long time to garbage collect will count toward
-this threshold.</td>
+<td>The threshold at which to warn a warning will be triggered about the
+number of processes that are overly busy. Processes with large heaps or
+that take a long time to garbage collect will count toward this
+threshold.</td>
 <td><code>30</code></td>
 </tr>
 
@@ -989,8 +986,8 @@ report that the key is not found. Only used when
 <tr>
 <td><code>buckets.default.dw</code></td>
 <td>The number of replicas which must reply to a write request
-indicating that the write was committed to durable storage for the
-write to be deemed successful.</td>
+indicating that the write was committed to durable storage for the write
+to be deemed successful.</td>
 <td><code>quorum</code></td>
 </tr>
 
@@ -1005,10 +1002,10 @@ write to be deemed successful.</td>
 <td>The strategy used when merging objects that potentially have
 conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets
 and <code>1</code> for non-typed buckets. This setting reduces sibling
-creation through additional metadata on each sibling (also known as
-<a href="/theory/concepts/dotted-version-vectors">Dotted Version
-Vectors</a>). Setting this to <code>1</code> is the default for Riak
-1.4 and earlier, and may duplicate siblings that originated in the same
+creation through additional metadata on each sibling (also known as <a
+href="/theory/concepts/dotted-version-vectors">Dotted Version
+Vectors</a>). Setting this to <code>1</code> is the default for Riak 1.4
+and earlier, and may duplicate siblings that originated in the same
 write.</td>
 <td><code>1</code></td>
 </tr>
@@ -1168,9 +1165,9 @@ bound to a limited range of TCP ports. If this parameter is set, and
 <code>erlang.distribution.port_range.maximum</code> is not set, only
 this port will be used. If the minimum is unset, no restriction will be
 made on the port range. Instead, Erlang will listen on a random
-high-numbered port. More information
-<a href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and
-<a href="http://www.erlang.org/doc/man/kernel_app.html">here</a>.</td>
+high-numbered port. More information <a
+href="http://www.erlang.org/faq/how_do_i.html#id55090">here</a> and <a
+href="http://www.erlang.org/doc/man/kernel_app.html">here</a>.</td>
 <td></td>
 </tr>
 
@@ -1188,10 +1185,10 @@ high-numbered port. More information
 scanned each time period specified (in milliseconds). While there are
 sleeping schedulers in the system, one scheduler will be woken for each
 non-empty run queue found. An interval of zero disables this feature,
-which is the default. This feature is a workaround for lengthy
-executing native code, and native code that does not properly bump
-reductions. More information
-<a href="http://www.erlang.org/doc/man/erl.html#+sfwi">here</a>.</td>
+which is the default. This feature is a workaround for lengthy executing
+native code, and native code that does not properly bump reductions.
+More information <a
+href="http://www.erlang.org/doc/man/erl.html#+sfwi">here</a>.</td>
 <td></td>
 </tr>
 
@@ -1200,8 +1197,8 @@ reductions. More information
 <td>For nodes with many <code>busy_dist_port</code> events, Basho
 recommends raising the sender-side network distribution buffer size.
 32MB may not be sufficient for some workloads and is a suggested
-starting point. Erlangers may know this as <code>+zdbbl</code>. See
-more <a href="http://www.erlang.org/doc/man/erl.html#%2bzdbbl">here</a>
+starting point. Erlangers may know this as <code>+zdbbl</code>. See more
+<a href="http://www.erlang.org/doc/man/erl.html#%2bzdbbl">here</a>
 .</td>
 <td><code>32MB</code></td>
 </tr>
@@ -1229,8 +1226,8 @@ more <a href="http://www.erlang.org/doc/man/erl.html#%2bzdbbl">here</a>
 <td>A non-negative integer which indicates how many times generational
 garbage collections can be done without forcing a fullsweep collection.
 In low-memory systems (especially without virtual memory), setting the
-value to <code>0</code> can help to conserve memory. More information
-<a href="http://www.erlang.org/doc/man/erlang.html#system_flag-2">here</a>.
+value to <code>0</code> can help to conserve memory. More information <a
+href="http://www.erlang.org/doc/man/erlang.html#system_flag-2">here</a>.
 </td>
 <td><code>0</code></td>
 </tr>
@@ -1257,32 +1254,32 @@ More information <a href="http://erlang.org/doc/man/erl.html">here</a>.
 <td>Enables or disables the kernel poll functionality if the emulator
 supports it. If the emulator does not support kernel poll, and the
 <code>K</code> flag is passed to the emulator, a warning is issued at
-startup. Similar information
-<a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
+startup. Similar information <a
+href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
 <td><code>erlang.schedulers.total</code></td>
-<td>Sets the number of scheduler threads to create and scheduler
-threads to set online when <code>erlang.smp</code> support has been
-enabled. The maximum for both values is 1024. If the Erlang runtime
-system is able to determine the amount of logical processors configured
-and logical processors available, <code>schedulers.total</code> will
-default to logical processors configured, and
-<code>schedulers.online</code> will default to the number of logical
-processors available. Otherwise, the default values will be 1.
-Schedulers may be omitted if <code>schedulers.online</code> is not and
-vice versa. If <code>schedulers.total</code> or
-<code>schedulers.online</code> is specified as a negative number, the
-value is subtracted from the default number of logical processors
-configured or logical processors available, respectively. Specifying
-the value <code>0</code> for <code>Schedulers</code> or
-<code>SchedulersOnline</code> resets the number of scheduler threads or
-scheduler threads online respective to its default value. This option
-is ignored if the emulator doesn't have SMP support enabled (see the
-<code>erlang.smp</code> flag). More information
-<a href="http://erlang.org/doc/man/erl.html +S Schedulers:SchedulerOnline">here</a>.
+<td>Sets the number of scheduler threads to create and scheduler threads
+to set online when <code>erlang.smp</code> support has been enabled. The
+maximum for both values is 1024. If the Erlang runtime system is able to
+determine the amount of logical processors configured and logical
+processors available, <code>schedulers.total</code> will default to
+logical processors configured, and <code>schedulers.online</code> will
+default to the number of logical processors available. Otherwise, the
+default values will be 1.  Schedulers may be omitted if
+<code>schedulers.online</code> is not and vice versa. If
+<code>schedulers.total</code> or <code>schedulers.online</code> is
+specified as a negative number, the value is subtracted from the default
+number of logical processors configured or logical processors available,
+respectively. Specifying the value <code>0</code> for
+<code>Schedulers</code> or <code>SchedulersOnline</code> resets the
+number of scheduler threads or scheduler threads online respective to
+its default value. This option is ignored if the emulator doesn't have
+SMP support enabled (see the <code>erlang.smp</code> flag). More
+information <a href="http://erlang.org/doc/man/erl.html +S
+Schedulers:SchedulerOnline">here</a>.
 </td>
 <td></td>
 </tr>
@@ -1313,8 +1310,8 @@ is detected. A value of <code>disable</code> starts a runtime system
 without SMP support. <strong>Note</strong>: The runtime system with SMP
 support will not be available on all supported platforms. See also the
 <code>erlang.schedulers settings</code>. Some native extensions (NIFs)
-require use of the SMP emulator. More information
-<a href="http://erlang.org/doc/man/erl.html">here</a>.</td>
+require use of the SMP emulator. More information <a
+href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>enable</code></td>
 </tr>
 
@@ -1434,8 +1431,8 @@ can be disabled if no CRL is available.</td>
 
 <tr>
 <td><code>tls_protocols.sslv3</code></td>
-<td>Determine which SSL/TLS versions are allowed. By default, only
-TLS 1.2 is allowed, but other versions can be enabled if clients don't
+<td>Determine which SSL/TLS versions are allowed. By default, only TLS
+1.2 is allowed, but other versions can be enabled if clients don't
 support the latest TLS standard. It is strongly recommended that SSLv3
 not be enabled unless absolutely necessary. More than one protocol can
 be enabled at once. The <code>tls_protocols</code> parameters below can
@@ -1579,8 +1576,8 @@ Otherwise, an integer can be specified.</td>
 
 <tr>
 <td><code>log.crash.rotation</code></td>
-<td>The schedule on which to rotate the crash log. More information
-<a href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation">here</a>.
+<td>The schedule on which to rotate the crash log. More information <a
+href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation">here</a>.
 </td>
 <td><code>$D0</code></td>
 </tr>
@@ -1635,11 +1632,12 @@ written.</td>
 <td>Where to emit the default log messages (typically at
 <code>info</code> severity). Possible values: <code>off</code>, which
 disables console log messages; <code>file</code>, which specifies that
-log messages will be output to the file specified by <cod
->log.console.file</code>; <code>console</code>, which outputs messages
-to standard output (seen when using <code>riak attach-direct</code>);
-or <code>both</code>, which outputs messages both to the file specified
-in <code>log.console.file</code> and to standard out.</td>
+log messages will be output to the file specified by
+<code>log.console.file</code>; <code>console</code>, which outputs
+messages to standard output (seen when using <code>riak
+attach-direct</code>); or <code>both</code>, which outputs messages both
+to the file specified in <code>log.console.file</code> and to standard
+out.</td>
 <td><code>file</code></td>
 </tr>
 
@@ -1682,8 +1680,8 @@ enabled.</td>
 <td><code>anti_entropy.throttle.$tier.mailbox_size</code></td>
 <td>Sets the throttling tiers for Active Anti-Entropy. Each tier is a
 minimum vnode mailbox size and a time-delay that the throttle should
-observe at that size and above. For example, <cod
->anti_entropy.throttle.tier1.mailbox_size = 0</code>,
+observe at that size and above. For example,
+<cod>anti_entropy.throttle.tier1.mailbox_size = 0</code>,
 <code>anti_entropy.throttle.tier1.delay = 0ms</code>,
 <code>anti_entropy.throttle.tier2.mailbox_size = 40</code>,
 <code>anti_entropy.throttle.tier2.delay = 5ms</code>, etc. If
@@ -1777,8 +1775,8 @@ in which that number of builds occurs.</td>
 <td>Whether AAE is to use a background process to limit AAE tree
 rebuilds. If set to <code>on</code>, this will help to prevent system
 response degradation under times of heavy load from multiple background
-tasks that contend for the same system resources; setting this
-parameter to <code>off</code> can cut down on system resource usage.
+tasks that contend for the same system resources; setting this parameter
+to <code>off</code> can cut down on system resource usage.
 </td>
 <td><code>off</code></td>
 </tr>
@@ -1826,9 +1824,9 @@ handoff.</td>
 <td><code>handoff.use_background_manager</code></td>
 <td>Whether Riak will use a background manager to limit K/V handoff.
 This can help to prevent system response degradation during times of
-heavy load caused by multiple background tasks that contend for the
-same system resources; setting this parameter to <code>off</code> can
-cut down on system resource usage.</td>
+heavy load caused by multiple background tasks that contend for the same
+system resources; setting this parameter to <code>off</code> can cut
+down on system resource usage.</td>
 <td>off</td>
 </tr>
 
@@ -1960,10 +1958,10 @@ Protocol|SNMP]] \(SNMP) server built into
 <tr>
 <td><code>snmp.nodeGetTimeMeanThreshold</code></td>
 <td>The threshold for the SNMP gauge at which traps are sent. Set to
-<code>off</code> to disable traps for this gauge. When set to a
-positive integer in microseconds, the rising trap will be sent when the
-gauge crosses above the threshold, and the falling trap will be sent
-when the gauge crosses below the threshold. In the case of the
+<code>off</code> to disable traps for this gauge. When set to a positive
+integer in microseconds, the rising trap will be sent when the gauge
+crosses above the threshold, and the falling trap will be sent when the
+gauge crosses below the threshold. In the case of the
 <code>nodeGetTimeMean</code> gauge, the threshold is
 <code>nodeGetTimeMeanThreshold</code>, the rising trap is
 <code>nodeGetTimeMeanAlarmRising</code>, and the falling trap is
@@ -2058,14 +2056,13 @@ if the JMX server crashes.</td>
 
 <tr>
 <td><code>metadata_cache_size</code></td>
-<td>This setting controls the size of the metadata cache for each
-vnode. The cache can be disabled by setting it to <code>off</code>
-(this is the default). Enabling the cache should not be necessary in
-disk-based backends (i.e. LevelDB and Bitcask) but it can help
-performance in the Memory backend. Note that this setting adjusts
-the size of the ETS table rather than the actual data. Thus, more space
-may be used than the simple size * number-of-vnodes calculation would
-imply.
+<td>This setting controls the size of the metadata cache for each vnode.
+The cache can be disabled by setting it to <code>off</code> (this is the
+default). Enabling the cache should not be necessary in disk-based
+backends (i.e. LevelDB and Bitcask) but it can help performance in the
+Memory backend. Note that this setting adjusts the size of the ETS table
+rather than the actual data. Thus, more space may be used than the
+simple size * number-of-vnodes calculation would imply.
 <br /><br />
 <strong>Caution</strong>: This setting should not be changed without
 extensive benchmarking.</td>
@@ -2092,11 +2089,11 @@ package) and in R14B04 via a custom repository and branch.</td>
 
 <tr>
 <td><code>retry_put_coordinator_failure</code></td>
-<td>When a PUT (i.e. write) request fails, Riak will retry the
-operation if this setting is set to <code>on</code>, which is the
-default. Setting it to <code>off</code> will speed response times on
-PUT requests in general, but at the risk of potentially increasing the
-likelihood of write failure.</td>
+<td>When a PUT (i.e. write) request fails, Riak will retry the operation
+if this setting is set to <code>on</code>, which is the default. Setting
+it to <code>off</code> will speed response times on PUT requests in
+general, but at the risk of potentially increasing the likelihood of
+write failure.</td>
 <td><code>on</code></td>
 </tr>
 
@@ -2162,13 +2159,12 @@ replication process.</td>
 <tr>
 <td><code>max_fssource_cluster</code></td>
 <td>The hard limit of fullsync workers that will be running on the
-source side of a cluster across all nodes on that cluster for a
-fullsync to a sink cluster. This means that if you have configured
-fullsync for two different clusters, both with a
-<code>max_fssource_cluster</code> of 5, 10 fullsync workers can be in
-progress. This only affects nodes on the source cluster on which this
-parameter is defined, either via the configuration file or command
-line.</td>
+source side of a cluster across all nodes on that cluster for a fullsync
+to a sink cluster. This means that if you have configured fullsync for
+two different clusters, both with a <code>max_fssource_cluster</code> of
+5, 10 fullsync workers can be in progress. This only affects nodes on
+the source cluster on which this parameter is defined, either via the
+configuration file or command line.</td>
 <td><code>5</code></td>
 </tr>
 
@@ -2176,19 +2172,18 @@ line.</td>
 <td><code>max_fssource_node</code></td>
 <td>This setting limits the number of fullsync workers that will be
 running on each individual node in a source cluster. This is a hard
-limit for all fullsyncs enabled; additional fullsync configurations
-will not increase the number of fullsync workers allowed to run on any
-node. This only affects nodes on the source cluster on which this
-parameter is defined, either via the configuration file or command
-line.
+limit for all fullsyncs enabled; additional fullsync configurations will
+not increase the number of fullsync workers allowed to run on any node.
+This only affects nodes on the source cluster on which this parameter is
+defined, either via the configuration file or command line.
 </td>
 <td><code>1</code></td>
 </tr>
 
 <tr>
 <td><code>max_fssink_node</code></td>
-<td>This setting limits the number of fullsync workers allowed to run
-on each individual node in a sink cluster. This is a hard limit for all
+<td>This setting limits the number of fullsync workers allowed to run on
+each individual node in a sink cluster. This is a hard limit for all
 fullsyncs enabled; additional fullsync configurations will not increase
 the number of fullsync workers allowed to run on any node. This only
 affects nodes on the source cluster on which this parameter is defined,
@@ -2215,8 +2210,8 @@ replication.</td>
 <tr>
 <td><code>rtq_max_bytes</code></td>
 <td>The maximum size, in bytes, to which the realtime replication queue
-can grow before new objects are dropped. Dropped objects will need to
-be replicated with a fullsync.</td>
+can grow before new objects are dropped. Dropped objects will need to be
+replicated with a fullsync.</td>
 <td><code>104857600</code></td>
 </tr>
 
@@ -2297,12 +2292,12 @@ There are three non-`riak_repl` settings available in
 <td><code>add_paths</code></td>
 <td><code>riak_kv</code></td>
 <td>If you are <a href="/ops/advanced/install-custom-code">installing
-custom code</a> for Riak, e.g. for the purpose of running
-<a href="/dev/using/mapreduce">MapReduce</a> jobs or
-<a href="/dev/using/commit-hooks">commit hooks</a>, this setting
-specifies the paths to any compiled <code>.beam</code> files that you
-wish to use. This is expressed as a list of absolute paths on the
-node's filesystem, e.g. <code>[ "/tmp", "/other" ]</code>.</td>
+custom code</a> for Riak, e.g. for the purpose of running <a
+href="/dev/using/mapreduce">MapReduce</a> jobs or <a
+href="/dev/using/commit-hooks">commit hooks</a>, this setting specifies
+the paths to any compiled <code>.beam</code> files that you wish to use.
+This is expressed as a list of absolute paths on the node's filesystem,
+e.g. <code>[ "/tmp", "/other" ]</code>.</td>
 <td></td>
 </tr>
 
@@ -2310,30 +2305,24 @@ node's filesystem, e.g. <code>[ "/tmp", "/other" ]</code>.</td>
 <td><code>cluster_mgr</code></td>
 <td><code>riak_core</code></td>
 <td>The cluster manager listens for connections from remote clusters on
-the specified IP and port. Every node runs one cluster manager, but
-only the cluster manager running on the cluster leader will service
-requests. This can change as nodes enter and leave the cluster.</td>
+the specified IP and port. Every node runs one cluster manager, but only
+the cluster manager running on the cluster leader will service requests.
+This can change as nodes enter and leave the cluster.</td>
 <td><code>{"127.0.0.1", 9080}</code></td>
 </tr>
 
 <tr>
 <td><code>delete_mode</code></td>
 <td><code>riak_kv</code></td>
-<td>The <code>advanced.config</code> configuration file enables you to
-specify how Riak behaves after objects are marked for deletion with a
-tombstone. There are three possible options for the
-<code>delete_mode</code> setting: <code>keep</code> disables tombstone
-removal altogether; <code>immediate</code> removes objects' tombstones
-as soon as the delete request is received; and setting
-<code>delete_mode</code> to an integer value specifies the number of
-milliseconds to wait before removing tombstones. The default is
-<code>3000</code>, which instructs Riak to wait 3000 milliseconds (3
-seconds) to remove tombstones.
-<br /><br />
-More detailed information on this setting can be found in
-<a href="/ops/advanced/deletion">Object Deletion</a>.
-</td>
-<td><code>3000</code></td>
+<td>Specifies how Riak behaves after objects are marked for deletion
+with a tombstone. There are three possible settings: <code>keep</code>
+disables tombstone removal altogether; <code>immediate</code> removes
+objects' tombstones as soon as the delete request is received; and
+setting <code>delete_mode</code> to an integer value specifies the
+number of milliseconds to wait before removing tombstones. More
+information can be found in <a href="/ops/advanced/deletion">Object
+Deletion</a>.</td>
+<td><code>3000</code> (3 seconds)</td>
 </tr>
 
 </tbody>
