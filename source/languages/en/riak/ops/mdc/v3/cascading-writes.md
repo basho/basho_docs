@@ -14,13 +14,21 @@ moved: {
 
 ## Introduction
 
-Riak Enterprise includes a feature that cascades realtime writes across multiple clusters.
+Riak Enterprise includes a feature that cascades realtime writes across
+multiple clusters.
 
-Cascading Realtime Writes is enabled by default on new clusters running Riak Enterprise. On existing clusters, it will need to be manually enabled.
+Cascading Realtime Writes is enabled by default on new clusters running
+Riak Enterprise. It will need to be manually enabled on new clusters.
 
-Cascading realtime requires the `{riak_repl, rtq_meta}` capability to function.
+Cascading realtime requires the `{riak_repl, rtq_meta}` capability to
+function.
 
-<div class="note">Cascading tracking is a simple list of where an object has been written. This works well for most common configurations. Larger installations, however, may have writes cascade to clusters to which other clusters have already written.
+<div class="note">
+<div class="title">Note on cascading tracking</div>
+Cascading tracking is a simple list of where an object has been written.
+This works well for most common configurations. Larger installations,
+however, may have writes cascade to clusters to which other clusters
+have already written.
 </div>
 
 
@@ -36,9 +44,16 @@ Cascading realtime requires the `{riak_repl, rtq_meta}` capability to function.
 +---+     +---+     +---+
 ```
 
-In the diagram above, a write at cluster _A_ will begin two cascades. One goes to _B_, _C_, _D_, _E_, and finally _F_; and the other goes to _F_, _E_, _D_, _C_, and finally B. Each cascade will loop around to _A_ again, sending a replication request even if the same request has already occurred from the opposite direction, creating 3 extra write requests.
+In the diagram above, a write at cluster A will begin two cascades. One
+goes to B, C, D, E, and finally F; the other goes to F, E, D, C, and
+finally B. Each cascade will loop around to A again, sending a
+replication request even if the same request has already occurred from
+the opposite direction, creating 3 extra write requests.
 
-This can be mitigated by disabling cascading in a cluster. If cascading were disabled on cluster _D_, a write at _A_ would begin two cascades. One would go through _B_, _C_, and _D_, the other through _F_, _E_, and _D_. This reduces the number of extraneous write requests to 1.
+This can be mitigated by disabling cascading in a cluster. If cascading
+were disabled on cluster D, a write at A would begin two cascades. One
+would go through B, C, and D, the other through F, E, and D. This
+reduces the number of extraneous write requests to 1.
 
 A different topology can also prevent extra write requests:
 
@@ -56,11 +71,17 @@ A different topology can also prevent extra write requests:
 +---+                     +---+
 ```
 
-A write at _A_ will cascade to _C_ and _B_. _B_ will not cascade to _C_ because _A_ will have already added _C_ to the list of clusters where the write has occurred. _C_ will then cascade to _D_. _D_ then cascades to _E_ and _F_. _E_ and _F_ see that the other was sent a write request (by _D_), and so they do not cascade.
+A write at A will cascade to C and B. B will not cascade to C because
+A will have already added C to the list of clusters where the write has
+occurred. C will then cascade to D. D then cascades to E and F. E and F
+see that the other was sent a write request (by D), and so they do not
+cascade.
 
 ## Usage
 
-Riak Enterprise Cascading Writes can be enabled and disabled using the `riak-repl` command. Please see the [[Version 3 Operations guide|Multi Data Center Replication v3 Operations]] for more information.
+Riak Enterprise Cascading Writes can be enabled and disabled using the
+`riak-repl` command. Please see the [[Version 3 Operations guide|Multi
+Data Center Replication v3 Operations]] for more information.
 
 To show current the settings:
 
