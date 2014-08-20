@@ -152,4 +152,6 @@ CA-generated cert | `cert` | `cert_file` | `OpenSSL.crypto.X509`
 CRL | `crl` | `crl_file` | `OpenSSL.crypto.CRL`
 
 If you specify filepaths, the appropriate certs will be loaded and
-converted into the appropriate OpenSSL object.
+converted into the appropriate OpenSSL object. The functions used for
+this are `OpenSSL.crypto.load_privatekey()` for the private key and
+`OpenSSL.crypto.load_certificate` for the cert and CA cert.
