@@ -57,13 +57,6 @@ Public Key Infrastructure (PKI) based on
 foundation of your PKI should be a Certificate Authority (CA), created
 inside of a secure environment, that can be used to sign certificates.
 
-### Server-side Certificates
-
-Assuming that you control both the CA and the server, you should use
-your CA to generate a [private key](http://www.comodo.com/resources/small-business/digital-certificates2.php)
-and a [Certificate Signing Request](http://en.wikipedia.org/wiki/Certificate_signing_request) \(CSR)
-on behalf of the server. The certificate generated
-
 ### Default Names
 
 In Riak's [[configuration files|Configuration Files#Security]], the
@@ -76,8 +69,6 @@ Private key | `key.pem`
 CA-generated cert | `cert.pem`
 
 These filenames will be used in this document as well as in the
-client-library-specific tutorials.
-
-## Certificate Generation Example
-
-
+client-library-specific tutorials. Your client will need to have access
+to the CA at the very least, even if only password-based authentication
+is used, so that
