@@ -34,13 +34,6 @@ number of keys. For these reasons, we suggest using strong consistency
 in larger clusters. More information can be found in the section on
 [[fault tolerance|Managing Strong Consistency#Fault-Tolerance]].
 
-Strongly consistent operations will also fail if your cluster consists
-of more than three nodes and a network partition or other event cuts the
-cluster down to fewer than three running, reachable nodes. This is one
-reason, among others, why we recommend using strong consistency in
-larger clusters. More on that in the section on [[fault
-tolerance|Managing Strong Consistency#Fault-Tolerance]].
-
 ## Enabling Strong Consistency
 
 Strong consistency in Riak is disabled by default. You can enable it in
@@ -129,8 +122,10 @@ consistency guarantees.
 The `target_n_val` parameter sets the highest `n_val` that you intend to
 use in an entire cluster. The purpose of this parameter is to ensure
 that so-called "hot spots" don't occur, i.e. that data is never stored
-more than once on the same physical node, which can happen in rare cases
-if `target_n_val` is not set.
+more than once on the same physical node. This can happen when:
+
+* `target_n_val` is greater than the number of physical nodes, or
+* the `n_val` for a bucket is greater than `target_n_val`.
 
 A problem to be aware of if you're using strong consistency is that the
 default for `target_n_val` is 4, while our suggested minimum `n_val` for
@@ -171,9 +166,9 @@ tend to be more fault tolerant. Spreading ensembles across more nodes
 will decrease the number of ensembles active on each node and thus
 decrease the number of quorums affected when a node goes down.
 
-Imagine a 3-node cluster in which all ensembles are N=3 ensembles. If a
-single node goes down, _all_ ensembles will lose quorum and be unable to
-function. Strongly consistent operations on the entire keyspace will
+Imagine a 3-node cluster in which all ensembles are N=3 ensembles. If
+two nodes go down, _all_ ensembles will lose quorum and will be unable
+to function. Strongly consistent operations on the entire keyspace will
 fail until the node is brought back online.
 
 Now imagine a 50-node cluster with N=5 ensembles. In this cluster, each
@@ -232,17 +227,12 @@ size|Clusters#The-Ring]] allows for more independent consensus groups,
 which can provide for more concurrency and higher throughput, and thus
 better performance.
 
-<! -- SLF: I think it'd be helpful to have a note below clarifying -->
-<! --      that the incompatibility is temporary or permanent -->
-<! --      (temp = will be compatible in a future Riak version) -->
-
 <div class="note">
 <div class="title">Note on strong consistency and ring resizing</div>
-Strong consistency is currently incompatible with the
-<a href="/ops/advanced/ring-resizing">ring resizing</a> feature
-available in Riak versions 2.0 and later. Our recommendations concerning
-ring size should thus be taken into account <em>prior to</em> cluster
-creation.
+Strong consistency is incompatible with the <a
+href="/ops/advanced/ring-resizing">ring resizing</a> feature available
+in Riak versions 2.0 and later. Our recommendations concerning ring size
+should thus be taken into account <em>prior to</em> cluster creation.
 </div>
 
 Adding nodes to your cluster is another means of enhancing the
@@ -341,11 +331,8 @@ Leader ready: true
 -------------------------------------------------------------------------------
   1    following    yes             1            riak@riak1
   2     leading     yes             1            riak@riak2
-  3    following    yes             1            riak@riak2
+  3    following    yes             1            riak@riak3
 ```
-
-<! -- SLF: Table above: is that from real Riak output?  Three different -->
-<! --      peers on only two nodes looks ... very very strange. -->
 
 The table below provides a guide to the output:
 
@@ -405,31 +392,47 @@ handling|Using Strong Consistency#Error-Messages]].
 
 The main actors in Riak's implementation of strong consistency are
 **ensembles**, which are independent groups that watch over a portion of
-a Riak cluster's key space. In this regard they are somewhat like
-[[vnodes|Riak Glossary#vnode]], although with important differences.
+a Riak cluster's key space and coordinate strongly consistent operations
+across nodes. When watching over a given key space, ensembles must act
+upon multiple replicas of a given object, the number of which is
+specified by `n_val` (more on this in [[Replication Properties]]).
 
-Ensembles operate in terms of a **quorum** between object replicas,
-meaning that strongly consistent operations can succeed only if
-`n_val` / 2 + 1 primary replicas of an object are online and reachable.
-Thus, 4 replicas must be available in a 7-node cluster, 5 in a 9-node
-cluster, etc. If a quorum of replicas cannot be reached, then strongly
-consistent operations will fail. More can be found in the section on
-[[fault tolerance|Managing Strong Consistency#Fault-Tolerance]] above.
+Eventually consistent Riak can service requests even when only a single
+object replica is available, using mechanisms like [[vector clocks]] and
+[[dotted version vectors]]---or, in a different way, [[Riak Data
+Types|Data Types]])---to ensure eventual consistency between replicas.
+Strongly consistent Riak is different because it requires that a
+**quorum** of object replicas be online and reachable, where a quorum is
+defined as `n_val` / 2 + 1. **If a quorum is not available, all
+strongly consistent operations will fail**.
+
+Quorum requirements vary based on the number of nodes in a cluster. In a
+7-node cluster, 4 replicas must be available, 5 must be available in a
+9-node cluster, and son. More can be found in the section on [[fault
+tolerance|Managing Strong Consistency#fault-tolerance]] below.
 
 ### Peers, Leaders, Followers, and Workers
 
-All ensembles in strongly consistent Riak consist of **leaders** and
-**followers** that coordinate with one another on most requests. While
-leaders and followers coordinate on all puts and deletes, you can
-enable leaders to respond to gets without the need to coordinate with
-followers. This is known as granting a **leader lease**. Leader leases
-are granted at the cluster level and are turned on by default.
+All ensembles in strongly consistent Riak consist of agents called
+**peers**. The number of peers in an ensemble is defined by the `n_val`
+of that ensemble, i.e. the number of object replicas that the
+ensemble watches over. Amongst the peers in the ensemble, there are two
+basic actors: **leaders** and **followers**.
 
-Leaders and followers act as **peers** within an ensemble. In addition
-to leaders and followers, all ensembles rely upon **workers** to assist
-in servicing some requests.
+Leaders and followers coordinate with one another on most requests.
+While leaders and followers coordinate on all puts and deletes, i.e. all
+writes, you can enable leaders to respond to gets without the need to
+coordinate with followers. This is known as granting a **leader lease**.
+Leader leases are enabled by default, and are disabled (or re-enabled)
+at the cluster level. A more in-depth account of the ensemble behavior
+can be found in our [internal
+documentation](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
 
-These terms should be borne in mind in the following sections concerning
+In addition to leaders and followers, ensemble peers use **workers** to
+assist with servicing requests. Workers are lightweight Erlang processes
+that can be spawned by any peer when necessary.
+
+These terms should be borne in mind in the following sections on
 configuration.
 
 ### Integrity Checking
@@ -468,6 +471,21 @@ Files#Advanced-Configuration]]. That same document also contains a full
 listing of [[strong-consistency-related configuration
 parameters|Configuration Files#Strong-Consistency]].
 
+Please note that the sections below require a basic understanding of the
+following terms:
+
+* ensemble
+* peer
+* leader
+* follower
+* worker
+* integrity checking
+* Merkle tree
+
+For an explanation of these terms, see the [[Implementation
+Details|Managing Strong Consistency#Implementation-Details]] section
+above.
+
 #### Leader Behavior
 
 The `trust_lease` setting determines whether leader leases are used to
@@ -494,9 +512,6 @@ default is `ensemble_tick` * 3/2, i.e. if `ensemble_tick` is 400,
 `lease_duration` will default to 600.
 
 #### Worker Settings
-
-<! -- SLF: I'm a bit puzzled here, 'cause I have no idea what kind -->
-<! --      of work that these workers do. -->
 
 You can choose how many workers are assigned to ensembles using the
 `peer_workers` setting. Workers are lightweight processes spawned by
