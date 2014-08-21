@@ -194,7 +194,6 @@ With a ring size of 128, for example, we would recommend at least 12
 nodes, at least 7 with a ring size of 64, and so on.
 </div>
 
-
 ### Offline Node Recommendations
 
 In general, strongly consistent Riak is more sensitive to the number of
@@ -406,10 +405,8 @@ Strongly consistent Riak is different because it requires that a
 defined as `n_val` / 2 + 1. **If a quorum is not available, all
 strongly consistent operations will fail**.
 
-Quorum requirements vary based on the number of nodes in a cluster. In a
-7-node cluster, 4 replicas must be available, 5 must be available in a
-9-node cluster, and son. More can be found in the section on [[fault
-tolerance|Managing Strong Consistency#fault-tolerance]] below.
+More information can be found in the section on [[Fault
+Tolerance|Managing Strong Consistency#fault-tolerance]] below.
 
 ### Peers, Leaders, Followers, and Workers
 
