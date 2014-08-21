@@ -11,7 +11,7 @@ This tutorial shows you how to set up a Java Riak client to authenticate
 itself when connecting to Riak using all four of the [[avaliable
 security sources|Managing Security Sources]].
 
-* [[trust|Managing Security Sources#PAM-based-Authentication]]
+* [[trust|Managing Security Sources#Trust-based-Authentication]]
 * [[password|Managing Security Sources#Password-based-Authentication]]
 * [[certificates|Managing Security Sources#Certificate-based-Authentication]]
 * [[pluggable authentication modules (PAM)|Managing Security
