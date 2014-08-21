@@ -103,6 +103,15 @@ creds = SecurityCreds(username='riakuser',
                       password='rosebud')
 ```
 
+## PAM-based Authentication
+
+If you have specified that a specific client be authenticated using
+[[PAM|Managing Security Sources#PAM-based-Authentication]], you you will
+need to provide a CA as well as the username and password that you
+specified when creating the user in Riak. For more, see our
+documentation on [[User Management|Authentication and
+Authorization#User-Management]].
+
 ## Certificate-based Authentication
 
 Using certificated-based authentication requires us to specify the
