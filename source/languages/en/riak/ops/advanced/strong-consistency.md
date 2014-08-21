@@ -232,6 +232,10 @@ size|Clusters#The-Ring]] allows for more independent consensus groups,
 which can provide for more concurrency and higher throughput, and thus
 better performance.
 
+<! -- SLF: I think it'd be helpful to have a note below clarifying -->
+<! --      that the incompatibility is temporary or permanent -->
+<! --      (temp = will be compatible in a future Riak version) -->
+
 <div class="note">
 <div class="title">Note on strong consistency and ring resizing</div>
 Strong consistency is currently incompatible with the
@@ -340,12 +344,15 @@ Leader ready: true
   3    following    yes             1            riak@riak2
 ```
 
+<! -- SLF: Table above: is that from real Riak output?  Three different -->
+<! --      peers on only two nodes looks ... very very strange. -->
+
 The table below provides a guide to the output:
 
 Item | Meaning
 :----|:-------
 `Id` | The ID for the ensemble used internally by Riak, expressed as a 3-tuple. All ensembles are `kv`; the second element names the ring partition for which the ensemble is responsible; and the third element is the `n_val` for the keys for which the ensemble is responsible.
-`Leader` | Identifies the ensemble's leader. In this case, the leader is on node `riak@riak2` and is identified as leader `2` on that node.
+`Leader` | Identifies the ensemble's leader. In this case, the leader is on node `riak@riak2` and is identified as peer `2` on that node.
 `Leader ready` | States whether the ensemble's leader is ready to respond to requests. If not, requests to the ensemble will fail.
 `Peers` | A list of peer vnodes associated with the ensemble.<br /><ul><li><code>Peer</code> --- The ID of the peer</li><li><code>Status</code> --- Whether the peer is a leader or a follower</li><li><code>Trusted</code> --- Whether the peer's Merkle tree is currently considered trusted or not</li><li><code>Epoch</code> --- The current consensus epoch for the peer. The epoch is incremented each time the leader changes.</li><li><code>Node</code> --- The node on which the peer resides.</li></ul>
 
@@ -487,6 +494,9 @@ default is `ensemble_tick` * 3/2, i.e. if `ensemble_tick` is 400,
 `lease_duration` will default to 600.
 
 #### Worker Settings
+
+<! -- SLF: I'm a bit puzzled here, 'cause I have no idea what kind -->
+<! --      of work that these workers do. -->
 
 You can choose how many workers are assigned to ensembles using the
 `peer_workers` setting. Workers are lightweight processes spawned by
