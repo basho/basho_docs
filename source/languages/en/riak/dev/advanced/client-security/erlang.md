@@ -49,7 +49,7 @@ That information is specified as a list of options passed to the
 CertDir = "/ssl_dir",
 SecurityOptions = [
                    {credentials, "riakuser", ""},
-                   {cacertfile, filename:join(CertDir, "cacertfile.pem")}
+                   {cacertfile, filename:join([CertDir, "cacertfile.pem"])}
                   ],
 {ok, Pid} = riakc_pb_socket:start("127.0.0.1", 8087, SecurityOptions).
 ```
@@ -78,7 +78,7 @@ examples.
 CertDir = "/ssl_dir",
 SecurityOptions = [
                    {credentials, "riakuser", "rosebud"},
-                   {cacertfile, filename:join(CertDir, "cacertfile.pem")}
+                   {cacertfile, filename:join([CertDir, "cacertfile.pem"])}
                   ],
 {ok, Pid} = riakc_pb_socket:start("127.0.0.1", 8087, SecurityOptions).
 ```
