@@ -68,9 +68,7 @@ Now that you have an idea of how much RAM you'll need, it's time to
 think about disk space. Disk space needs are much easier to calculate
 and essentially boil down to this simple equation:
 
-```
-Estimated Total Objects * Average Object Size * n_val
-```
+#### Estimated Total Objects * Average Object Size * n_val
 
 For example, with
 
