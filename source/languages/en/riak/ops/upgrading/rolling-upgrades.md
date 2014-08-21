@@ -41,7 +41,7 @@ this process, see our documentation on [[capability negotiation]].
 When upgrading Riak, it is important to back up each node's `/etc` and
 `/data` directories. Following a successful upgrade, you may notice that
 disk usage has changed between versions, i.e. each node may end up
-storing more or less that it did in a previous version. Please be aware
+storing more or less than it did in a previous version. Please be aware
 that this is normal behavior. Any changes in disk usage are likely
 attributable to code changes made to [[Bitcask]] or [[LevelDB]] or to
 routine effects of automated processes such as [[active anti-entropy]].
