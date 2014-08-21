@@ -208,12 +208,12 @@ depending on the size of the cluster.
 
 If you're using strong consistency and you do need to reboot multiple
 nodes, we recommend rebooting them very carefully. Rebooting nodes too
-quickly in succession can force the cluster to lose quorum and thus to
-be unable to service strongly consistent operations. The best strategy
-is to reboot nodes one at a time and wait for each node to rejoin
-existing ensembles before continuing to the next node. At any point
-in time, the state of currently existing ensembles can be checked using
-`[[riak-admin ensemble-status|Managing Strong
+quickly in succession can force the cluster to lose quorum and thus be
+unable to service strongly consistent operations. The best strategy is
+to reboot nodes one at a time and wait for each node to rejoin existing
+ensembles before continuing to the next node. At any point in time, the
+state of currently existing ensembles can be checked using `[[riak-admin
+ensemble-status|Managing Strong
 Consistency#riak-admin-ensemble-status]]`.
 
 ## Performance
@@ -221,10 +221,13 @@ Consistency#riak-admin-ensemble-status]]`.
 If you are running into performance issues, bear in mind that the key
 space in a Riak cluster is spread across multiple [[consensus
 groups|Strong Consistency#Implementation-Details]], each of which
-manages a portion of that key space. Increasing the [[ring
-size|Clusters#The-Ring]] allows for more independent consensus groups,
+manages a portion of that key space. Larger [[ring
+sizes|Clusters#The-Ring]] allow for more independent consensus groups,
 which can provide for more concurrency and higher throughput, and thus
-better performance.
+better performance. The idea ring size, however, will also depend on the
+number of nodes in the cluster. General recommendations can be found in
+[[Cluster Capacity Planning|Cluster Capacity
+Planning#Ring-Size-Number-of-Partitions]].
 
 <div class="note">
 <div class="title">Note on strong consistency and ring resizing</div>
@@ -249,7 +252,7 @@ used for general node/cluster management has an `ensemble-status`
 command that provides insight into the current status of the consensus
 subsystem undergirding strong consistency.
 
-Running the command by itself will provide of the current state of the
+Running the command by itself will provide the current state of the
 strong consistency subsystem:
 
 ```bash
@@ -297,6 +300,9 @@ Item | Meaning
 **Note**: The **root ensemble**, designated by `root` in the sample
 output above, is a special ensemble that stores a list of nodes and
 ensembles in the cluster.
+
+More in-depth information on ensembles can be found in our [internal
+documentation](https://github.com/basho/riak_ensemble/blob/develop/doc/Readme.md).
 
 ### Inspecting Specific Ensembles
 
@@ -349,7 +355,7 @@ Consistency#Implementation-Details]] below.
 ## Implementation Details
 
 Strong consistency in Riak is handled by a subsystem called
-[`riak_ensemble`](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
+[`riak_ensemble`](https://github.com/basho/riak_ensemble/blob/develop/doc/Readme.md)
 This system functions differently from other systems in Riak in a number
 of ways, and many of these differences are important for operators
 configuring their cluster's usage of strong consistency.
@@ -376,8 +382,10 @@ of atomic operations on objects:
 * **Conditional modify** operations are compare-and-swap (CAS)
   operations that succeed only if the value of a key has not changed
   since it was previously read.
-* **Delete** operations work just as they do against
-  non-strongly-consistent keys.
+* **Delete** operations work mostly like they do against
+  non-strongly-consistent keys, with the exception that
+  [[tombstones|Object Deletion#Tombstones]] are not harvested, which is
+  the equivalent of having `delete_mode` set to `keep`.
 
 **From the standpoint of clients connecting to Riak, there is little
 difference between strongly and non-strongly consistent data**. The
@@ -425,27 +433,30 @@ at the cluster level. A more in-depth account of the ensemble behavior
 can be found in our [internal
 documentation](https://github.com/basho/riak_ensemble/tree/feature/add-docs/doc).
 
-In addition to leaders and followers, ensemble peers use **workers** to
-assist with servicing requests. Workers are lightweight Erlang processes
-that can be spawned by any peer when necessary.
+In addition to leaders and followers, ensemble peers use lightweight
+Erlang processes called **workers** to perform long-running K/V
+operations, allowing peers to remain responsive to requests. The number
+of workers assigned to each peer depends on your configuration.
 
 These terms should be borne in mind in the following sections on
 configuration.
 
 ### Integrity Checking
 
-An essential part of implementing a strong consistency subsystem in an
+An essential part of implementing a strong consistency subsystem in a
 distributed system is **integrity checking**, which is a process that
 guards against data corruption and inconsistency even in the face of
 network partitions and other adverse events that Riak was built to
 handle gracefully.
 
 Like Riak's [[active anti-entropy]] subsystem, strong consistency
-integrity checking utilizes [Merkle trees](http://en.wikipedia.org/wiki/Merkle_tree)
-that are persisted on disk. All peers in an ensemble, i.e. all leaders
-and followers, maintain their own Merkle trees and update those trees in
-the event of most strongly consistent operations. Those updates can
-happen synchronously or asynchronously, depending on the configuration.
+integrity checking utilizes [Merkle
+trees](http://en.wikipedia.org/wiki/Merkle_tree) that are persisted on
+disk. All peers in an ensemble, i.e. all leaders and followers, maintain
+their own Merkle trees and update those trees in the event of most
+strongly consistent operations. Those updates can occur synchronously or
+asynchronously from the standpoint of client operations, depending on
+the configuration.
 
 While integrity checking takes place automatically in Riak, there are
 important aspects of its behavior that you can configure. See the
@@ -508,13 +519,18 @@ be lower than `follower_timeout`, explained in the section below. The
 default is `ensemble_tick` * 3/2, i.e. if `ensemble_tick` is 400,
 `lease_duration` will default to 600.
 
+We would recommend setting `trust_lease` to `false` if the clocks on
+your Riak servers are not properly synchronized if the clocks on your
+Riak servers are not properly synchronized or if you have reason to
+suspect that they are not.
+
 #### Worker Settings
 
-You can choose how many workers are assigned to ensembles using the
+You can choose how many workers are assigned to each peer using the
 `peer_workers` setting. Workers are lightweight processes spawned by
 leaders and followers. While increasing the number of workers will make
 the strong consistency subsystem slightly more computationally
-expensive, more workers can mean improved performance in many cases,
+expensive, more workers can mean improved performance in some cases,
 depending on the workload. The default is 1.
 
 ### Timeouts
@@ -524,8 +540,9 @@ You can establish timeouts for both gets and puts using the
 are expressed in milliseconds and default to 60000 (i.e. 1 minute).
 
 Longer timeouts will decrease the likelihood that get or put operations
-will fail; shorter timeouts entail shorter wait times for connecting
-clients, but at a greater risk of failed operations.
+will fail due to long computation times; shorter timeouts entail shorter
+wait times for connecting clients, but at a greater risk of failed
+operations under heavy load.
 
 ### Merkle Tree Settings
 
@@ -547,17 +564,18 @@ it can reduce Riak availability by requiring more than a simple majority
 of nodes to be online and reachable when peers restart.
 
 If you are using ensembles with N=3, we strongly recommend setting
-`tree_validatio:` to `false`.
+`tree_validation` to `false`.
 
 #### Synchronous vs. Asynchronous Tree Updates
 
 Merkle tree updates can happen synchronously or asynchronously. This is
 determined by the `synchronous_tree_updates` parameter. When set to
 `false`, which is the default, Riak responds to the client after the
-first roundtrip when updating Merkle trees, allowing the update to
-happen asynchronously in the background; when set to `true`, Riak
-requires two quorum roundtrips to occur before replying back to the
-client, which can increase per-request latency.
+first roundtrip that updates the followers' data but before the second
+roundtrip required to update the followers' Merkle trees, allowing the
+Merkle tree update to happen asynchronously in the background; when set
+to `true`, Riak requires two quorum roundtrips to occur before replying
+back to the client, which can increase per-request latency.
 
 Please note that this setting applies only to Merkle tree updates sent
 to followers. Leaders _always_ update their local Merkle trees before
@@ -657,7 +675,7 @@ latest version of strong consistency.
 
 * **Consistent reads of never-written keys create tombstones** --- A
   [[tombstone|Object Deletion]] will be written if you perform a read
-  against a key that a majority of peers claims to not exist. This is
+  against a key that a majority of peers claims do not exist. This is
   necessary for certain corner cases in which offline or unreachable
   replicas containing partially written data need to be rolled back in
   the future.
