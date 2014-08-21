@@ -8,11 +8,11 @@ keywords: [developers, security, ssl, certificate]
 ---
 
 Versions of Riak 2.0 and later come equipped with a [[security
-subsystem|Authentication and Authorization]] that enables you to
-selectively provide access to a wide variety of Riak functionality. If
-you enable security in Riak, all connecting clients must authenticate
-themselves, over a secure SSL connection, using one of four [[security
-sources|Managing Security Sources]]:
+subsystem|Authentication and Authorization]] that enables you to choose
+(a) which Riak users/clients are authorized to perform a wide variety of
+Riak operations and (b) how those users/clients are required to
+authenticate themselves. The following four authentication mechanisms,
+aka [[security sources|Managing Security Sources]] are available:
 
 * [[Trust|Managing Security Sources#Trust-based-Authentication]]-based
   authentication enables you to specify trusted
@@ -53,9 +53,10 @@ officially supported clients:
 
 ## Certificates, Keys, and Authorities
 
-Regardless of which security source you use, even trust-based auth, Riak
-and all connecting clients will need to share a Certificate Authority
-(CA). This CA should be created inside of a secure environment.
+If Riak security is enabled, all client operations, regardless
+of the security source you choose for those clients, must be over a
+secure SSL connection. If you are using a self-generated Certificate
+Authority (CA), Riak and connecting clients will need to share that CA.
 
 To use certificate-based auth, you will need to create a Public Key
 Infrastructure (PKI) based on
@@ -65,6 +66,10 @@ inside of a secure environment, that can be used to sign certificates.
 In addition to a CA, your client will need to have access to a private
 key shared only by the client and Riak as well as a CA-generated
 certificate.
+
+To prevent so-called [Man-in-the-Middle
+attacks](http://en.wikipedia.org/wiki/Man-in-the-middle_attack), private
+keys should never be shared beyond Riak and connecting clients.
 
 <div class="note">
 <div class="title">HTTP not supported</div>
