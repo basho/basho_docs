@@ -16,31 +16,40 @@ moved: {
 }
 ---
 
-Riak should be installed from source if you are building on a platform for which a package does not exist or if you are interested in contributing to Riak.
+Riak should be installed from source if you are building on a platform
+for which a package does not exist or if you are interested in
+contributing to Riak.
 
 ## Dependencies
 
-Riak requires [[Erlang|http://www.erlang.org/]] R15B01.
+To install Riak, you will need to have Erlang installed. We strongly
+recommend using Basho's patched version of Erlang to install Riak 2.0.
+All of the patches in this version have been incorporated into later
+versions of the official Erlang/OTP release.
+
+If you do not have Erlang already installed, see [[Installing Erlang]].
+Don't worry, it's easy!
+
+Riak depends on source code located in multiple Git repositories; ensure
+that Git is also installed on the target system before attempting the
+build.
 
 <div class="note">
-<div class="title">Note</div>
-Don't use Erlang version R15B02 or R15B03 for the moment, as it causes an error with <a href="https://github.com/basho/riak/issues/227">riak-admin status</a> commands.
+<div class="title">Note on Clang</div>
+Riak will not compile with Clang. Please make sure your default C/C++
+compiler is GCC.
 </div>
-
-If you do not have Erlang already installed, see [[Installing Erlang]]. Don't worry, it's easy!
-
-Riak depends on source code located in multiple Git repositories; ensure that
-Git is also installed on the target system before attempting the build.
-
-<div class='note'>Riak will not compile with Clang. Please make sure your default C/C++ compiler is GCC.</div>
 
 ## Installation
 
-The following instructions generate a complete, self-contained build of Riak in `$RIAK/rel/riak` where `$RIAK` is the location of the unpacked or cloned source.
+The following instructions generate a complete, self-contained build of
+Riak in `$RIAK/rel/riak` where `$RIAK` is the location of the unpacked
+or cloned source.
 
 ### Installing from source package
 
-Download the Riak source package from the [[Download Center|http://basho.com/resources/downloads/]] and build:
+Download the Riak source package from the [[Download
+Center|http://basho.com/resources/downloads/]] and build:
 
 ```bash
 curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}.tar.gz
@@ -51,9 +60,11 @@ make rel
 
 ### Installing from GitHub
 
-The [[Riak Github repository|http://github.com/basho/riak]] has much more information on building and installing Riak from source. To clone and and build Riak from source, follow these steps:
+The [Riak Github respository](http://github.com/basho/riak) has much
+more information on building and installing Riak from source. To clone
+and build Riak from source, follow the steps below.
 
-Clone the repository using [[Git|http://git-scm.com/]] and build:
+Clone the repository using [Git](http://git-scm.com) and build:
 
 ```bash
 git clone git://github.com/basho/riak.git
@@ -70,7 +81,10 @@ For instructions about specific platforms, see:
   * [[Installing on RHEL and CentOS]]
   * [[Installing on SUSE]]
 
-If you are running Riak on a platform not in the list above and need some help getting it up and running, join The Riak Mailing List and inquire about it there. We are happy to help you get up and running with Riak.
+If you are running Riak on a platform not in the list above and need
+some help getting it up and running, join The Riak Mailing List and
+inquire about it there. We are happy to help you get up and running with
+Riak.
 
 ### Windows
 
@@ -80,5 +94,7 @@ Riak is not currently supported on Microsoft Windows.
 
 From here you might want to check out:
 
-* [[Post Installation Notes|Post Installation]]: for checking Riak health after installation
-* [[Five Minute Install]]: a guide that will show you how to go from one node to bigger than Google!
+* [[Post Installation Notes|Post Installation]]: for checking Riak
+  health after installation
+* [[Five Minute Install]]: a guide that will show you how to go from one
+  node to as many as you would like
