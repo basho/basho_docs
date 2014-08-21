@@ -11,26 +11,33 @@ moved: {
 }
 ---
 
-The following article discusses standard configurations and port
-settings to use when thinking about how to secure a Riak Cluster.
+<div class="info">
+<div class="title">Internal security</div>This document covers network-level
+security. For documentation on the authentication and authorization features
+introduced in Riak 2.0, see [[Authentication and Authorization]].
+</div>
+
+This article discusses standard configurations and port settings to use when
+providing network security for a Riak Cluster.
 
 There are two classes of access control for Riak:
 
 * Other Riak nodes participating in the cluster
 * Clients making use of the Riak cluster
 
-The settings for both access groups are located in `app.config`:
+The settings for both access groups are located in your cluster's
+configuration settings. If you are using the newer configuration system, you
+can set a host and port for each node in that node's `riak.conf` file, setting
+`listener.protobuf` if you are using Riak's Protocol Buffers interface or
+`listener.http` if you are using HTTP (or `listener.https` if you are using
+SSL). If you are using the older configuration system, adjust the settings of
+`pb`, `http`, or `https`, depending on which client interface you are using.
 
-* `pb_ip` {{1.4.0-}}
-* `pb_port` {{1.4.0-}}
-* `pb` {{1.4.0+}}
-* `http`
-* `https`
+Make note of these configurations and set up your firewall to allow incoming
+TCP access to those ports or IP address/port combinations. Exceptions to this
+are the `handoff_ip` and `handoff_port` directives. Those are for communication between Riak nodes only.
 
-Make note of those and configure your firewall to allow incoming TCP
-access to those ports or IP address and port combinations. Exceptions to
-this are the `handoff_ip` and `handoff_port` directives. Those are for
-communication between Riak nodes only.
+#### Inter-node Communication
 
 Riak uses the Erlang distribution mechanism for most inter-node
 communication. Riak identifies other machines in the ring using Erlang
@@ -77,15 +84,19 @@ at the same level as all the other applications (e.g. **riak\_core**).
 Then configure your firewall to allow incoming access to TCP ports 6000
 through 7999 from whichever network(s) contain your Riak nodes.
 
-**Riak nodes in a cluster need to be able to communicate freely with one
-another on the following ports:**
+#### Riak Node Ports
+
+Riak nodes in a cluster need to be able to communicate freely with one
+another on the following ports:
 
 * epmd listener: TCP:4369
 * handoff_port listener: TCP:8099
 * range of ports specified in `app.config` or `riak.conf`
 
-**Riak clients must be able to contact at least one machine in a Riak
-cluster on the following ports:**
+#### Riak Client Ports
+
+Riak clients must be able to contact at least one machine in a Riak
+cluster on the following ports:
 
 * web_port: TCP:8098
 * pb_port: TCP:8087
@@ -114,12 +125,13 @@ For example, Riak does not have fine-grained role-base security. Though it can b
 
 ### Notifying Basho
 
-If you discover a potential security issue, please email us at security@basho.com, and allow us 48 hours to reply.
+If you discover a potential security issue, please email us at **security@basho.com**, and allow us 48 hours to reply.
 
-We prefer to be contacted first, rather than searching for blog posts over the Internet. This allows us to open a
-dialog with the security community on how best to handle a possible exploit without putting any users at risk.
+We prefer to be contacted first, rather than searching for blog posts over the
+Internet. This allows us to open a dialogue with the security community on how
+best to handle a possible exploit without putting any users at risk.
 
-For sensitive topics, you may send a secure message. The security team's GPG key is:
+For sensitive topics, you may send a secure message. The security team has the following GPG key:
 
 
 <pre><tt>-----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -156,6 +168,10 @@ HtU5clY0rP8W/Nr7tC+ZGH2bjT1bmN1E9IM4wjBdyWGTosvY6ciIxuY5p5Iy/UhB
 
 ## Security Best Practices
 
+### Authentication and Authorization
+
+For instructions on how to apply permissions and to require client authentication, please see our documentation on [[Riak Security|Authentication and Authorization]]. 
+
 ### Network Configurations
 
 Being a distributed database means that much of Riak's security springs from how you configure your network. We have a few recommendations for [[Security and Firewalls]].
@@ -164,7 +180,7 @@ Being a distributed database means that much of Riak's security springs from how
 
 Many of the Riak drivers support HTTP basic auth, though this is not a role-based security solution. You might instead wish to connect over HTTPS or through a VPN.
 
-### Multi Data Center Replication
+### Multi-Datacenter Replication
 
 For those versions of Riak that support Multi Data Center (MDC) Replication, you can configure Riak 1.2+ to communicate over SSL, to seamlessly encrypt the message traffic.
 

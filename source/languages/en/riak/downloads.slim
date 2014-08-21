@@ -15,14 +15,6 @@ body_id: downloads
 
 h1 Download #{project.capitalize} #{version}
 
-| {{#1.4.8}}
-
-.info
-  .title AAE 1.4.8 Upgrade Warning
-  p Upgrading to 1.4.8 fixes a bug with anti-active entropy which existed from 1.4.3 to 1.4.7. If you're upgrading to 1.4.8 from 1.4.3 or greater, delete your `data/anti_entropy` directories on each node before upgrading. This will avoid potentially large amounts of repair activity once correct hashes start being added.
-
-| {{/1.4.8}}
-
 p You should be able to find your operating system in the choices below.
 p If your OS is unlisted, you may download the [[source|Downloads#source]] at the bottom of this page, and follow the instructions to [[build Riak|Installing Riak from Source]].
 
@@ -37,18 +29,14 @@ p If your OS is unlisted, you may download the [[source|Downloads#source]] at th
       - for arch, arch_data in osv_data["arch"]
         - next unless arch_data['file']
         tr
-          - unless os_data['simple']
-            td.arch==arch_data['name']
-          td
+          td.arch==arch_data['name']
+          td.link
             a href=downloads.file_url(os, osv, arch_data['file'], arch_data['static_file'])
               ==arch_data['file']
           td.size
             ==downloads.file_size(arch_data['file_size'])
-          - unless os_data['simple']
-            td.checksum
-              - if arch_data['csum'].present?
-                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])
-                  img src="/images/layout/hash.png" title="SHA1 Checksum"
+            | &nbsp;&nbsp;
+            - if arch_data['csum'].present?
+              a href="#{downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])}" hash
   - if os_data['install'].present?
     p.install_instruction Here are further instructions for [[#{os_data['install']}]]
-  

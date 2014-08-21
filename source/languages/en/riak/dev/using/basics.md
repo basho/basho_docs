@@ -31,7 +31,7 @@ The body of the response will contain the contents of the object (if it exists).
 
 Riak understands many HTTP-defined headers, like `Accept` for content-type negotiation (relevant when dealing with siblings, see [[the sibling examples for the HTTP API|HTTP Fetch Object#Siblings-examples]], and `If-None-Match`/`ETag` and `If-Modified-Since`/`Last-Modified` for conditional requests.
 
-Riak also accepts many query parameters, including `r` for setting the R-value for this GET request (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the the `r` query parameter, Riak defaults to `r=2`.
+Riak also accepts many query parameters, including `r` for setting the R-value for this GET request (R values describe how many replicas need to agree when retrieving an existing object in order to return a successful response). If you omit the `r` query parameter, Riak defaults to `r=2`.
 
 Normal response codes:
 

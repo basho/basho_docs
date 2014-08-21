@@ -292,7 +292,7 @@ Once all nodes are marked as down and our first node is listed as the claimant, 
 
 1.  On each of the remaining nodes, change `nodename` in `riak.conf`, or `-name` in `vm.args` as described above.
 
-2.  Move aside the ring directory. As in [[Multi-Node Clusters|Renaming Nodes|Multi-Node-Clusters]], we will save this ring directory as a backup until were finished.
+2.  Move aside the ring directory. As in [[Multi-Node Clusters|Renaming Nodes#Multi-Node-Clusters]], we will save this ring directory as a backup until were finished.
 
 3.  Start each node. They will start as if they are each a member of their own cluster, but will retain their restored data.
 

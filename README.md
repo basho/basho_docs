@@ -43,7 +43,7 @@ To make a change&mdash;be it as simple as a typo fix or as weighty as the creati
 
 	If you run into errors, [Middleman's install page](http://middlemanapp.com/basics/getting-started/) is a good place to start.
 
-	Now point a browser at `[http://0.0.0.0:4567](http://0.0.0.0:4567)`. Here you'll find Middleman serving up static HTML on the fly (generated from Markdown source files).
+	Now point a browser at [http://0.0.0.0:4567](http://0.0.0.0:4567). Here you'll find Middleman serving up static HTML on the fly (generated from Markdown source files).
 
 3. 	Create a new branch
 
@@ -236,6 +236,16 @@ riak:
 ```
 
 Running `bundle exec middleman build` after that should update `data/downloads_gen.yml`, which drives the downloads page.
+
+### Tagging
+
+You should provide a tag any time a new version is released, for the
+sake of future reference and for easing the co-existence of multiple
+long-running branches. To tag, say, version 1.2.3:
+
+```bash
+git tag -a 1.2.3
+```
 
 ## Deploying to S3
 

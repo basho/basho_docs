@@ -12,42 +12,49 @@ moved: {
 }
 ---
 
-Lists all known buckets (ones that have keys stored in them).
+Lists all known buckets, i.e. all buckets that have keys stored within
+them.
 
-<div class="note"><div class="title">Not for production use</div>
-Similar to the list keys operation, this requires traversing all keys stored
-in the cluster and should not be used in production.
+<div class="note">
+<div class="title">Not for production use</div>
+Similar to the list keys operation, this requires traversing all keys
+stored in the cluster and should not be used in production.
 </div>
 
 ## Request
 
-```bash
+```
 GET /buckets?buckets=true
 ```
 
-Required query parameter:
+Query parameters:
 
-* **buckets=true** - required to invoke the list-buckets functionality
+* `buckets=true` --- Sends the list of buckets as a JSON list
+* `buckets=stream` --- Sends the list of buckets to the clients as a
+  stream
 
 ## Response
 
 Normal status codes:
-* 200 OK
+
+* `200 OK`
 
 Important headers:
-* Content-Type - application/json
 
-The JSON object in the response will contain a single entry, "buckets", which
-will be an array of bucket names.
+* `Content-Type: application/json`
+
+The JSON object in the response will contain a single entry,
+`buckets`, which will be an array of bucket names.
 
 ## Example
 
 ```curl
-$ curl -i http://localhost:8098/buckets?buckets=true
+curl -i http://localhost:8098/buckets?buckets=true
+
 HTTP/1.1 200 OK
 Vary: Accept-Encoding
-Server: MochiWeb/1.1 WebMachine/1.9.0 (participate in the frantic)
-Date: Fri, 30 Sep 2011 15:24:35 GMT
+Server: <server info>
+Date: <current date>
 Content-Type: application/json
 Content-Length: 21
 

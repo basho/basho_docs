@@ -109,7 +109,7 @@ latency issues in your cluster, you can start by checking the following:
 
 * If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done. {{#2.0.0+}}**Note**: In Riak version 2.0 and later, `allow_mult` is set to `true` by default for all bucket types that you create and activate. If you wish to set `allow_mult` to `false` on a bucket type, you will have to do so explicitly.{{/2.0.0+}}
 * Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy. {{2.0.0-}}
-* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] (DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion. {{2.0.0+}}
+* Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] \(DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion. {{2.0.0+}}
 
 ## Compaction and Merging
 
@@ -181,7 +181,7 @@ be worthwhile to revisit your OS-specific configurations. The following
 guides may be of help:
 
 * [[Open files limit]]
-* General [[Linux performance tuning]]
+* General [[System performance tuning]]
 * [[AWS performance tuning]] if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
 
 ## I/O and Network Bottlenecks

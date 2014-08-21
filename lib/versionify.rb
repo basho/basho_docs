@@ -21,7 +21,7 @@ module Rack::Middleman
     def alter_route(env, var)
       unless env[var] =~ %r"\/((?:#{projects_regex}|shared)\/[^\/]+)\/?(index\.html)?$"
         if env.include?(var)
-          env[var] = env[var].sub(%r"\/(?:#{projects_regex}|shared)\/([\d\.]+(?:rc\d+|pre\d+)?|latest)", '')
+          env[var] = env[var].sub(%r"\/(?:#{projects_regex}|shared)\/([\d\.]+(?:rc\d+|pre\d+|beta\d+)?|latest)", '')
           # set as current page version
           version = $1 == 'latest' ? nil : $1
           SitemapRenderOverride.current_version = version
@@ -55,7 +55,7 @@ module VersionifyPaths
     def manipulate_resource_list(resources)
       resources.each do |resource|
         path = resource.destination_path
-        next if path =~ /^(?:#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+)?\/index\.html/
+        next if path =~ /^(?:#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+|beta\d+)?\/index\.html/
         resource.destination_path = path.sub(/^(#{projects_regex})\//, '')
       end
     end
@@ -127,6 +127,7 @@ module VersionDirs
             # $versions.values.uniq.each do |version|
             $only_versions.each do |version|
               # key = f.sub(/\.\/build\//, "shared/#{version}/")
+              version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
               move_to = f.sub(/\.\/build\//, "./build/shared/#{version}/")
               copy(f, move_to)
             end
@@ -135,6 +136,7 @@ module VersionDirs
           elsif f =~ /^\.\/build\/(?:fonts|js|css)\//
             $versions.each do |proj, version|
               next unless $only_versions.include?(version)
+              version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
               move_to = f.sub(/\.\/build\//, "./build/#{proj.to_s}/#{version}/")
               copy(f, move_to)
             end
@@ -147,13 +149,14 @@ module VersionDirs
             # if we don't include the latest, delete this
             next if include_latest?(project)
           # project root files should also copy to latest
-          elsif f =~ /\/(?:#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+)?\/index\.html?$/
+          elsif f =~ /\/(?:#{projects_regex})\/[\d\.]+(?:rc\d+|pre\d+|beta\d+)?\/index\.html?$/
             if include_latest?(project)
               copy(f, change_version_to_latest(f))
             end
             next
           else
             version = $versions[project.to_sym]
+            version = version.sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
             move_to = f.sub(/\.\/build\//, "./build/#{project}/#{version}/")
           end
 
