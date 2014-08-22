@@ -948,6 +948,27 @@ div[role="main"] {
     }
   }
 
+  table.compatibility-matrix {
+        // For use in the 2.0 feature compatibility table
+
+    thead {
+      border-bottom: 1px solid black;
+    }
+
+    tbody {
+      border-bottom: 1px solid black;
+    }
+
+    .grayed {
+      background-color: #F3F3F5;
+    }
+
+    .dark-grayed {
+      background-color: #DBDCE0;
+      border: 1px solid black;
+    }
+  }
+
   h1 a, h2 a {
     white-space : normal;
   }
