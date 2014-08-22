@@ -517,22 +517,6 @@ clock pruning process:
 
 ![Vclock Pruning](/images/vclock-pruning.png)
 
-## Conflict Resolution Example
-
-If `allow_mult` is set to `true` (which is the default for any created
-[[bucket types|Using Bucket Types]]) in Riak versions 2.0 and later,
-the occurrence of siblings can never be prevented, even if you use
-vector clocks or dotted version vectors. There is always a possibility
-that Riak will encounter a situation in which it can't decide which
-value is most causally recent, especially when it is confronted by many
-concurrent writes.
-
-How your application deals with siblings will _always_ depend on the
-goals of your application. If you're building a social network
-application and storing [[user profiles|Use Cases#User Accounts]], it
-might be best to choose the object with more user information rather
-than less.
-
 ## More Information
 
 Additional background information on vector clocks:
