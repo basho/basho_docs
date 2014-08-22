@@ -6,7 +6,7 @@ end
 
 def in_version_range?(range, version)
   range = range.gsub(/\s/, '')
-  
+
   # greater than range
   if range =~ /\+$/ || range =~ /^\>/
     if range.sub!(/(?:\>\=)|\+/, '')
