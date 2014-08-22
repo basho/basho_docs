@@ -187,11 +187,9 @@ at least N=5---as well as larger clusters.
 
 <div class="note">
 <div class="title">Note on cluster size</div>
-In general, we define large clusters as clusters in which no [[node|Riak
-Glossary#Node]] has more than 10 [[vnodes|Riak Glossary#vnode]]. Thus,
-the ideal cluster size depends on the [[ring size|Clusters#The-Ring]].
-With a ring size of 128, for example, we would recommend at least 12
-nodes, at least 7 with a ring size of 64, and so on.
+The 50-node cluster example above is used only to illustrate why we
+recommend larger clusters for strong consistency (and in general). For
+more specific recommendations, see [[Cluster Capacity PLanning]].
 </div>
 
 ### Offline Node Recommendations
@@ -224,7 +222,7 @@ groups|Strong Consistency#Implementation-Details]], each of which
 manages a portion of that key space. Larger [[ring
 sizes|Clusters#The-Ring]] allow for more independent consensus groups,
 which can provide for more concurrency and higher throughput, and thus
-better performance. The idea ring size, however, will also depend on the
+better performance. The ideal ring size, however, will also depend on the
 number of nodes in the cluster. General recommendations can be found in
 [[Cluster Capacity Planning|Cluster Capacity
 Planning#Ring-Size-Number-of-Partitions]].
@@ -519,10 +517,7 @@ be lower than `follower_timeout`, explained in the section below. The
 default is `ensemble_tick` * 3/2, i.e. if `ensemble_tick` is 400,
 `lease_duration` will default to 600.
 
-We would recommend setting `trust_lease` to `false` if the clocks on
-your Riak servers are not properly synchronized if the clocks on your
-Riak servers are not properly synchronized or if you have reason to
-suspect that they are not.
+We would recommend setting `trust_lease` to `false` if 
 
 #### Worker Settings
 
@@ -675,7 +670,7 @@ latest version of strong consistency.
 
 * **Consistent reads of never-written keys create tombstones** --- A
   [[tombstone|Object Deletion]] will be written if you perform a read
-  against a key that a majority of peers claims do not exist. This is
+  against a key that a majority of peers claims to not exist. This is
   necessary for certain corner cases in which offline or unreachable
   replicas containing partially written data need to be rolled back in
   the future.
