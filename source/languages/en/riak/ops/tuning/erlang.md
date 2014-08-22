@@ -7,35 +7,41 @@ audience: advanced
 keywords: [erlang, operator]
 ---
 
-[Erlang](http://www.erlang.org/) is the heart of Riak. Riak was written
-almost exclusively in Erlang and runs in an Erlang virtual machine (VM).
+[Erlang](http://www.erlang.org/) is the heart of Riak; Riak was written
+almost exclusively in Erlang and runs on an Erlang virtual machine (VM).
 Because of this, proper Erlang VM tuning is an important part of
 optimizing Riak performance.
 
-Some of the the Erlang-specific configurable parameters provided by Riak
-correspond directly to parameters that you can use when starting up any
-Erlang application via `erl`. A full listing of these parameters can be
-found on [this page](http://erlang.org/doc/man/erl.html).  The table
-below lists parameters that are available. More specific information on
-each can be found in the sections below.
+The Erlang VM provides a wide variety of [configurable
+parameters](http://erlang.org/doc/man/erl.html) that
+you can use to tune the performance of the VM. Riak enables you to set a
+subset of those parameters in each node's [[configuration
+files|Configuration Files#Erlang-VM]]. The table below lists some of the
+parameters that are available, showing both their names as used directly
+in Erlang and their names as Riak parameters.
 
 Erlang param | Riak param
 :------------|:----------
-`+A` | `erlang.async_threads`
-`+K` | `erlang.K`
-`+S` | `erlang.schedulers.total`, `erlang.schedulers.online`
-`+Q` | `erlang.max_ports`
-`+W` | `erlang.W`
-`-smp` | `erlang.smp`
-`+zdbbl` | `erlang.distribution_buffer_size`
+[`+A`](http://erlang.org/doc/man/erl.html#async_thread_pool_size) | `erlang.async_threads`
+[`+K`](http://erlang.org/doc/man/erl.html#emu_flags) | `erlang.K`
+[`+P`](http://erlang.org/doc/man/erl.html#+P) | `erlang.process_limit`
+[`+Q`](http://erlang.org/doc/man/erl.html#+Q) | `erlang.max_ports`
+[`+S`](http://erlang.org/doc/man/erl.html#+S) | `erlang.schedulers.total`, `erlang.schedulers.online`
+[`+W`](http://erlang.org/doc/man/erl.html#emu_flags) | `erlang.W`
+[`+e`](http://www.erlang.org/doc/man/ets.html#+e) | `erlang.max_ets_tables`
+[`-smp`](http://erlang.org/doc/man/erl.html#smp) | `erlang.smp`
+[`+sfwi`](http://www.erlang.org/doc/man/erl.html#+sfwi) | `erlang.schedulers.force_wakeup_interval`
+[`+zdbbl`](http://erlang.org/doc/man/erl.html#+zdbbl) | `erlang.distribution_buffer_size`
 
-A table listing all available configurable parameters can be found in
-our [[configuration files|Configuration Files#Erlang-VM]] documentation.
+The list above is not exhaustive of the available Erlang VM parameters.
+A full listing can be found in [[Erlang VM Settings|Configuration
+Files#Erlang-VM]].
 
 <div class="note">
 <div class="title">Note on upgrading to 2.0</div>
 In versions of Erlang prior to 2.0, Erlang VM-related parameters were
-specified in a `vm.args` file. If you're using
+specified in a `vm.args` file. If you're upgrading to 2.0 from an
+earlier version, you can still use your old `vm.args`.
 </div>
 
 ## SMP
@@ -44,7 +50,9 @@ Some operating systems are equipped to provide Erlang VMs with
 symmetric multiprocessing capabilities, aka
 [SMP](http://en.wikipedia.org/wiki/Symmetric_multiprocessing). SMP
 support can be turned on and off by setting the `erlang.smp` parameter
-to `enable` or `disable`. It is enabled by default.
+to `enable` or `disable`. It is enabled by default. Setting this to
+`auto` will instruct the Erlang VM to start with SMP support enabled
+if it is available _and_ more than one logical processor is detected.
 
 Riak is supported on some operating systems that do not provide SMP
 support. Make sure that you ensure that your OS supports SMP before
@@ -65,6 +73,7 @@ The total number of threads can be set using the
 online can be determined using `erlang.schedulers.online`. These
 parameters map directly onto `Schedulers` and `SchedulersOnline`, both
 of which are used by `[erl](http://www.erlang.org/doc/man/erl.html#+S)`.
+
 
 The maximum for both parameters is 1024. There is no universal default
 for either of these parameters. Instead, the Erlang VM will attempt to
@@ -146,6 +155,80 @@ high-numbered port.
 
 ### Maximum Ports
 
-You can set the maximum number of concurrent sockets used by the Erlang
+You can set the maximum number of concurrent ports/sockets used by the Erlang
 VM using the `erlang.max_ports` setting. Possible values range from 1024
-to 134217727.
+to 134217727. The default is 65536.
+
+## Asynchronous Thread Pool
+
+You can set the number of asynchronous threads in the Erlang VM's
+asynchronous thread pool using `erlang.async_threads` (`+A` in Erlang).
+The valid range is 0 to 1024. If thread support is available on your
+OS, the default is 64.
+
+```riakconf
+erlang.async_threads = xxx
+```
+
+```vmargs
++A xxx
+```
+
+## Kernel Polling
+
+Kernel poll is a means of checking for data . The more file descriptors
+are in use, the larger an effect kernel polling can have on performance.
+...
+
+## Warning Messages
+
+Erlang's
+[`error_logger`](http://www.erlang.org/doc/man/error_logger.html) is an
+event manager that registers error, warning, and info events from the
+Erlang runtime. By default, events from the `error_logger` are mapped as
+warnings, but you can also set messages to be mapped as errors or info
+reports. The possible values are `w` (warnings), `errors`, or `i` (info
+reports).
+
+## Process Limit
+
+The `erlang.process_limit` parameter can be used to set the maximum
+number of simultaneously existing system processes. The valid range is
+1024 to 134217727. The default is 256000.
+
+## Distribution Buffer
+
+`erlang.distribution_buffer_size`
+Useful on nodes with many `busy_dist_port` events
+The default is 32 MB, but this may be insufficient for some workloads
+A larger buffer limit will allow processes to buffer more outgoing
+messages; when the limit is reached, sending processes will be suspended
+until the buffer size has shrunk below the "buffer size" threshold; set
+on a per-disribution-channel basis; higher => lower latency and higher
+throughput, but higher memory usage; depends on available RAM
+Corresponds to `+zdbbl`; set in KB
+
+## Erlang Built-in Storage
+
+Erlang Term Storage; in a part of the VM where destructive updates are
+allowed and there is no GC; limited concurrency in reads/writes; avoid
+having more than one table per process (notice that the defaults for
+`erlang.max_ets_tables` and `erlang.distribution_size` are the same)
+
+Constant access time vs. logarithmic access time; ETS tables stored
+tuples, whatever you want; more ETS tables mean more quick access data
+storage, but at the cost of more RAM
+
+Erlang uses a built-in database called
+[ets](http://www.erlang.org/doc/man/ets.html)
+Enables fast access from memory
+`erlang.max_ets_tables` raises the ETS table limit; default is 256000
+The default limit on the Erlang VM is 1400
+
+## Crash Dumps
+
+By default, crash dumps deposited in `./log/erl_crash.dump`. You can
+change this location using `erlang.crash_dump`. This is the equivalent
+of setting the
+[`ERL_CRASH_DUMP`](http://www.erlang.org/doc/man/erl.html#environment_variables)
+environment variable.
