@@ -12,6 +12,12 @@ The ring resizing feature in Riak 2.0 and greater enables Riak operators
 to change the number of partitions in a Riak cluster's
 [[ring|Clusters#The-Ring]] during normal operations, under load.
 
+<div class="note">
+<div class="title">Note on feature incompatibility</div>
+Ring resizing cannot be used in clusters using the new [[Riak
+Search|Using Search]] or [[strong consistency]].
+</div>
+
 Previously, any Riak cluster was limited to having the number of
 partitions specified in its configuration throughout its entire
 lifespan. This number is determined by the `ring_size` parameter in the
@@ -27,11 +33,12 @@ this without disrupting operations more than necessary.
 
 <div class="note">
 <div class="title">Note on ring resizing and scalability</div>
-Ring resizing is <em>not</em> intended as a scaling feature for clusters
+Ring resizing is *not* intended as a scaling feature for clusters
 to add or remove concurrent processing ability. Since the number of
 partitions can limit the number of nodes in the cluster, ring resizing
 can be used to increase capacity in that regard. In short, the feature
-is intended for infrequent use in highly specific scenarios.
+is intended for infrequent use in highly specific scenarios. For more
+on our ring size recommendations, see [[Cluster Capacity Planning]].
 </div>
 
 There are a number of important considerations to bear in mind while
@@ -49,8 +56,8 @@ running a ring resizing process:
 * Resizing partitions can take up a lot of disk space. Make sure that
   you have sufficient storage to complete the resize operation.
 * Basho strongly recommends that you do _not_ use the `force-replace`
-  command that is part of the `[[riak-admin|riak-admin Command
-  Line#cluster-force-replace]]` interface during ring resizing.
+  command (part of the `[[riak-admin|riak-admin Command
+  Line#cluster-force-replace]]` interface) during ring resizing.
 
 ## Starting the Resize
 
@@ -136,6 +143,22 @@ changes using the `clear` command:
 riak-admin cluster clear
 ```
 
+<div class="note">
+<div class="title">Note on cluster operations</div>
+We do not recommend that you stage or commit other cluster operations
+while a ring resize is in process. Although this is unadvisable, Riak
+will allow you to commit other operations but will delay them until
+after the resize has completed. The one exception to this is the
+`[[force-replace|riak-admin Command Line#force-replace]]` command,
+which will not be delayed. We also do not recommend this command due to
+a [known issue](https://github.com/basho/basho_docs/pull/1285) that will
+be addressed in a future release.
+
+If a cluster-level change is necessary during a resize, we recommend
+aborting the resize as described above, making the necessary change, and
+then restarting the resize operation.
+</div>
+
 ## Monitoring Resize Progress
 
 With the new plan committed, the progress of the resizing operation can
@@ -207,7 +230,7 @@ riak-admin transfer-limit <node> <limit>
 ```
 
 Using `riak-admin transfers` will provide you more information about the
-partitions that are currently in progress. 
+partitions that are currently in progress.
 
 ```bash
 riak-admin transfers
@@ -231,10 +254,10 @@ last update: 2014-01-20 21:05:01 [1.21 s ago]
 total size: 111676327 bytes
 objects transferred: 122598
 
-                         1818 Objs/s                          
-     dev1@127.0.0.1        =======>       dev4@127.0.0.1      
-        |=========================                  |  58%    
-                         950.38 KB/s                          
+                         1818 Objs/s
+     dev1@127.0.0.1        =======>       dev4@127.0.0.1
+        |=========================                  |  58%
+                         950.38 KB/s
 
 transfer type: resize_transfer
 vnode type: riak_kv_vnode
@@ -244,10 +267,10 @@ last update: 2014-01-20 21:05:01 [1.29 s ago]
 total size: 100143148 bytes
 objects transferred: 130510
 
-                         1939 Objs/s                          
-     dev1@127.0.0.1        =======>       dev5@127.0.0.1      
-        |==============================             |  69%    
-                         1013.71 KB/s                         
+                         1939 Objs/s
+     dev1@127.0.0.1        =======>       dev5@127.0.0.1
+        |==============================             |  69%
+                         1013.71 KB/s
 
 transfer type: resize_transfer
 vnode type: riak_kv_vnode
@@ -257,10 +280,10 @@ last update: 2014-01-20 21:05:01 [1.19 s ago]
 total size: 82010614 bytes
 objects transferred: 37571
 
-                         2259 Objs/s                          
-     dev3@127.0.0.1        =======>       dev5@127.0.0.1      
-        |==========                                 |  24%    
-                          1.15 MB/s                           
+                         2259 Objs/s
+     dev3@127.0.0.1        =======>       dev5@127.0.0.1
+        |==========                                 |  24%
+                          1.15 MB/s
 
 transfer type: resize_transfer
 vnode type: riak_kv_vnode
@@ -270,10 +293,10 @@ last update: 2014-01-20 21:05:01 [898.81 ms ago]
 total size: 82012730 bytes
 objects transferred: 11864
 
-                         1870 Objs/s                          
-     dev3@127.0.0.1        =======>       dev2@127.0.0.1      
-        |===                                        |   7%    
-                         977.72 KB/s                          
+                         1870 Objs/s
+     dev3@127.0.0.1        =======>       dev2@127.0.0.1
+        |===                                        |   7%
+                         977.72 KB/s
 ```
 
 You can confirm that the resize operation is no longer running using the
@@ -353,3 +376,10 @@ Cluster changes committed
 
 If console output confirms that the changes have been committed, then
 your resize operation has been successfully aborted.
+
+## Secondary Indexes and MapReduce
+
+If you are using [[secondary indexes (2i)|Using Secondary Indexes]] or
+[[MapReduce|Using MapReduce]], there are some special steps that must be
+undertaken on each node.
+
