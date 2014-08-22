@@ -71,7 +71,7 @@ class Downloads
   def self.load_from_s3(project, version)
     root_version = version.sub(/\.\w+$/, '')
     base_uri = URI(BASE_DOWNLOAD_URL)
-    
+
     oss = {}
 
     # get Operating Systems

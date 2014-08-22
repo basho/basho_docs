@@ -91,8 +91,9 @@ Brown](https://github.com/russelldb).
 ## Riak Search 2.0 (codename: Yokozuna)
 
 Riak Search 2.0 is a complete, top-to-bottom replacement for Riak
-Search, integrating Riak with [Apache Solr](https://lucene.apache.org/solr/)'s
-full-text search capabilities and supporting Solr's client query APIs.
+Search, integrating Riak with [Apache
+Solr](https://lucene.apache.org/solr/)'s full-text search capabilities
+and supporting Solr's client query APIs.
 
 #### Relevant Docs
 
@@ -238,3 +239,88 @@ Language | Docs
 
 You will also notice that our documentation now features a wide variety
 of code samples from all four officially supported clients.
+
+## Incompatibilities
+
+Some 2.0-specific features are currently not compatible with one
+another. Incompatibilities are marked with a <abbr class="unsupported">✗</abbr>
+in the table below.
+
+<table class="compatibility-matrix">
+  <thead>
+    <tr>
+      <td></td>
+      <td>Search 2.0</td>
+      <td>Strong consistency</td>
+      <td>Data Types</td>
+      <td>Ring resizing</td>
+      <td>Secondary indexes</td>
+      <td>Legacy Search</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Strong consistency</td>
+      <td><abbr class="unsupported">&dagger;</abbr></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Data Types</td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Ring resizing</td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Secondary indexes</td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="unsupported">&Dagger;</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td class="dark-grayed"></td>
+      <td class="grayed"></td>
+    </tr>
+    <tr>
+      <td>Legacy Search</td>
+      <td><abbr class="unsupported">*</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+      <td class="dark-grayed"></td>
+    </tr>
+    <tr>
+      <td>Security</td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
+    </tr>
+  </tbody>
+</table>
+
+**&dagger;** &nbsp;&nbsp;&nbsp; The data indexed by Riak Search can be
+stored in a strongly consistent fashion, but indexes themselves are
+eventually consistent<br />
+**&Dagger;** &nbsp;&nbsp;&nbsp; If secondary indexes are attached to an
+object, you can perform strongly consistent operations on the object but
+the secondary indexes will be ignored<br />
+<strong>\*</strong> &nbsp;&nbsp;&nbsp; Legacy Search and Search 2.0
+_can_ be run side by side, but we do not recommend this

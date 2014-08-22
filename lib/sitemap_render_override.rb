@@ -4,7 +4,7 @@ require 'cgi'
 module SitemapRenderOverride
 
   @@_current_version = nil
-  
+
   def self.current_version=(v)
     @@_current_version = v
   end
@@ -88,7 +88,7 @@ module SitemapRenderOverride
 
   def strip_versions!(data)
     project = (metadata[:page]["project"] || $default_project).to_sym
-    
+
     raw_version_str = SitemapRenderOverride.current_version || $versions[project]
 
     if raw_version_str
@@ -170,7 +170,7 @@ module SitemapRenderOverride
     # data.gsub!(/(\<a\s.*?href\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*?>)/m) do
     data.gsub!(/\<a\s+([^\>]*?)\>/mu) do
       anchor = $1
-      
+
       href = (anchor.scan(/href\s*\=\s*['"]([^'"]+)['"]/u).first || []).first.to_s
 
       # XXX: This is a terrible way to get the # links in the API to work
