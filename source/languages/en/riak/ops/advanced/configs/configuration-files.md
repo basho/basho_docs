@@ -1525,9 +1525,9 @@ interface will bind.</td>
 </tbody>
 </table>
 
-## Lager
+## lager
 
-Configurable parameters for [Lager](https://github.com/basho/lager),
+Configurable parameters for [lager](https://github.com/basho/lager),
 Riak's logging system.
 
 <table class="riak-conf">
@@ -1542,9 +1542,9 @@ Riak's logging system.
 
 <tr>
 <td><code>sasl</code></td>
-<td>Whether to enable
-[sasl](http://www.erlang.org/doc/man/sasl_app.html), Erlang's built-in
-error logger</td>
+<td>Whether to enable <a
+href="http://www.erlang.org/doc/man/sasl_app.html">sasl</a>, Erlang's
+built-in error logger</td>
 <td><code>off</code></td>
 </tr>
 
@@ -1558,7 +1558,7 @@ second</td>
 <tr>
 <td><code>log.error.redirect</code></td>
 <td>Whether to redirect <code>error_logger</code> messages into
-Lager</td>
+lager</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1599,13 +1599,13 @@ href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation
 <tr>
 <td><code>log.crash.file</code></td>
 <td>If the crash log is enabled, the file where its messages will be
-written.</td>
+written</td>
 <td><code>./log/crash.log</code></td>
 </tr>
 
 <tr>
 <td><code>log.syslog</code></td>
-<td>When set to <code>on</code>, enables log output to syslog.</td>
+<td>When set to <code>on</code>, enables log output to syslog</td>
 <td><code>off</code></td>
 </tr>
 
