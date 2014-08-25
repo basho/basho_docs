@@ -50,10 +50,10 @@ above when installing and running Riak CS.
 
 ## Installing Riak
 
-Riak itself must be installed on each node in your cluster. The first
-step in installing Riak is to make sure that you have Erlang installed.
-Instructions for all supported operating systems can be found in
-[[Installing Erlang]].
+Before installing Riak CS, Riak itself must be installed on each node in
+your cluster. The first step in installing Riak is to make sure that you
+have Erlang installed. Instructions for all supported operating systems
+can be found in [[Installing Erlang]].
 
 Once Erlang has been installed on a node, you can install Riak either as
 part of an OS-specific package or from source.
@@ -78,6 +78,13 @@ your cluster. For future reference, you should make note of the
 installation directory that you have used. On Debian, Ubuntu, RHEL, and
 CentOS, for example, Riak is installed in `rel/riak` by default, whereas
 Mac OS X does not have a default install directory.
+
+<div class="note">
+<div class="title">Note on the Riak Five-Minute Install</div>
+While the [[Five-Minute Install]] for Riak can be helpful for setting up
+a development environment for Riak (and only Riak), we do not recommend
+following this guide for installing Riak for Riak CS.
+</div>
 
 ## Installing Riak CS on a Node
 
