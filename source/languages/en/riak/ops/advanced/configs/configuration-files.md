@@ -1542,13 +1542,15 @@ Riak's logging system.
 
 <tr>
 <td><code>sasl</code></td>
-<td>Whether to enable Erlang's built-in error logger.</td>
+<td>Whether to enable
+[sasl](http://www.erlang.org/doc/man/sasl_app.html), Erlang's built-in
+error logger</td>
 <td><code>off</code></td>
 </tr>
 
 <tr>
 <td><code>log.error.messages_per_second</code></td>
-<td>Maximum number of <code>error_logger</code> messages to handle in a
+<td>Maximum number of <code>error_logger</code> messages to handle per
 second</td>
 <td><code>100</code></td>
 </tr>
@@ -1556,13 +1558,13 @@ second</td>
 <tr>
 <td><code>log.error.redirect</code></td>
 <td>Whether to redirect <code>error_logger</code> messages into
-lager.</td>
+Lager</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
 <td><code>log.crash</code></td>
-<td>Whether to enable the crash log.</td>
+<td>Whether to enable the crash log</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1616,14 +1618,21 @@ written.</td>
 <tr>
 <td><code>log.console.file</code></td>
 <td>When <code>log.console</code> is set to <code>file</code> or
-<code>both</code>>, the file where console messages will be logged
-</td>
+<code>both</code>, this parameter determines the path of the file to
+which console messages will be logged.</td>
 <td><code>./log/console.log</code></td>
 </tr>
 
 <tr>
 <td><code>log.console.level</code></td>
-<td>The severity level of the console log.</td>
+<td>The severity level of the console log. Possible
+values:
+<ul>
+<li><code>debug</code></li>
+<li><code>info</code></li>
+<li><code>warning</code></li>
+<li><code>error</code></li>
+</ul></td>
 <td><code>info</code></td>
 </tr>
 
