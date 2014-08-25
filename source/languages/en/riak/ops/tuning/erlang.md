@@ -7,18 +7,17 @@ audience: advanced
 keywords: [erlang, operator]
 ---
 
-[Erlang](http://www.erlang.org/) is the heart of Riak; Riak was written
-almost exclusively in Erlang and runs on an Erlang virtual machine (VM).
-Because of this, proper Erlang VM tuning is an important part of
-optimizing Riak performance.
+Riak was written almost exclusively in [Erlang](http://www.erlang.org)
+and runs on the Erlang virtual machine (VM). Because of this, proper
+Erlang VM tuning is an important part of optimizing Riak performance.
 
-The Erlang VM provides a wide variety of [configurable
-parameters](http://erlang.org/doc/man/erl.html) that
-you can use to tune the performance of the VM. Riak enables you to set a
-subset of those parameters in each node's [[configuration
-files|Configuration Files#Erlang-VM]]. The table below lists some of the
-parameters that are available, showing both their names as used directly
-in Erlang and their names as Riak parameters.
+The Erlang VM itself provides a wide variety of [configurable
+parameters](http://erlang.org/doc/man/erl.html) that you can use to tune
+its performance; Riak enables you to tune a subset of those parameters
+in each node's [[configuration files|Configuration Files#Erlang-VM]].
+The table below lists some of the parameters that are available, showing
+both their names as used directly in Erlang and their names as Riak
+parameters.
 
 Erlang param | Riak param
 :------------|:----------
@@ -47,7 +46,7 @@ earlier version, you can still use your old `vm.args`.
 ## SMP
 
 Some operating systems are equipped to provide Erlang VMs with
-symmetric multiprocessing capabilities, aka
+Symmetric Multiprocessing Capabilities, aka
 [SMP](http://en.wikipedia.org/wiki/Symmetric_multiprocessing). SMP
 support can be turned on and off by setting the `erlang.smp` parameter
 to `enable` or `disable`. It is enabled by default. Setting this to
@@ -57,23 +56,22 @@ if it is available _and_ more than one logical processor is detected.
 Riak is supported on some operating systems that do not provide SMP
 support. Make sure that you ensure that your OS supports SMP before
 enabling it for use by Riak's Erlang VM. If it does not, you should set
-set `erlang.smp` to `disable` prior to starting up your cluster.
+`erlang.smp` to `disable` prior to starting up your cluster.
 
 ## Schedulers
 
 If [[SMP support|Erlang VM Tuning#SMP]] has been enabled on your Erlang
-VM, i.e. if the `erlang.smp` parameter is set to `enable`, you can
-configure the number of logical processors, or [scheduler
+VM, i.e. if `erlang.smp` is set to `enable`, you can configure the
+number of logical processors, or [scheduler
 threads](http://www.erlang.org/doc/man/erl.html#+S), that are created
-when starting Riak, as well as the number of available scheduler
-threads.
+when starting Riak, as well as the number of threads that are set
+online.
 
 The total number of threads can be set using the
 `erlang.schedulers.total` parameter, whereas the number of threads set
 online can be determined using `erlang.schedulers.online`. These
 parameters map directly onto `Schedulers` and `SchedulersOnline`, both
 of which are used by `[erl](http://www.erlang.org/doc/man/erl.html#+S)`.
-
 
 The maximum for both parameters is 1024. There is no universal default
 for either of these parameters. Instead, the Erlang VM will attempt to
@@ -96,13 +94,14 @@ then `schedulers.total` and `schedulers.online` will be ignored.
 
 ## Port Settings
 
-Riak uses the Erlang distribution mechanism for most inter-node
-communication, identifying other nodes in the [[cluster|Clusters]]
-using Erlang identifiers, e.g. `riak@10.9.8.7`. The Erlang Port Mapper
-Daemon ([epmd](http://www.erlang.org/doc/man/epmd.html)) running on each
-node resolves these node identifiers to a TCP port. You can specify a
-port or range of ports for Riak nodes to listen on as well as the
-maximum number of concurrent
+Riak uses [epmd](http://www.erlang.org/doc/man/epmd.html), the Erlang
+Port Mapper Daemon, for most inter-node communication, identifying other
+nodes in the [[cluster|Clusters]] using the Erlang identifiers specified
+by the `nodename` parameter, e.g.  `riak@10.9.8.7`. The Erlang Port
+Mapper Daemon ([epmd](http://www.erlang.org/doc/man/epmd.html)) running
+on each node resolves these node identifiers to a TCP port. You can
+specify a port or range of ports for Riak nodes to listen on as well as
+the maximum number of concurrent ports/sockets.
 
 ### Port Range
 
@@ -113,9 +112,10 @@ available port. This can make it difficult to configure
 [[firewalls|Security and Firewalls]].
 
 To make configuring firewalls easier, you can instruct the Erlang VM to
-use a limited range of TCP ports or a single TCP port. The minimum and
-maximum can be set using the `erlang.distribution.port_range.minimum`
-and `erlang.distribution.port.maximum` parameters, respectively. The
+use either a limited range of TCP ports or a single TCP port. The
+minimum and maximum can be set using the
+`erlang.distribution.port_range.minimum` and
+`erlang.distribution.port.maximum` parameters, respectively. The
 following would set the range to ports between 3000 and 5000:
 
 ```riakconf
