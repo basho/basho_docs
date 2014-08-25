@@ -8,9 +8,16 @@ audience: advanced
 keywords: [ops, ring, ring-resizing]
 ---
 
+<div class="note">
+<div class="title">Note on ring resizing and strong consistency</div>
+If you are using Riak's [[strong consistency]] feature, you will not be
+able to perform a ring resize. This will, however, be supported in a
+later version of Riak.
+</div>
+
 The ring resizing feature in Riak 2.0 and greater enables Riak operators
-to change the number of partitions in a Riak cluster's
-[[ring|Clusters#The-Ring]] during normal operations, under load.
+to change the number of partitions in a Riak cluster's ring during
+normal operations, under load.
 
 Previously, any Riak cluster was limited to having the number of
 partitions specified in its configuration throughout its entire

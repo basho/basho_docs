@@ -1833,32 +1833,6 @@ down on system resource usage.</td>
 </tbody>
 </table>
 
-## Strong Consistency
-
-The `strong_consistency` parameter enables you to turn Riak's [[strong
-consistency]] subsystem on and off.
-
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><code>strong_consistency</code></td>
-<td>Enables the consensus subsystem. Set to <code>on</code> to enable
-the consensus subsystem used for strongly consistent Riak operations.
-</td>
-<td><code>off</code></td>
-</tr>
-
-</tbody>
-</table>
-
 ## Riak Data Types
 
 <table class="riak-conf">
@@ -2041,6 +2015,206 @@ if the JMX server crashes.</td>
 
 </tbody>
 </table>
+
+## Strong Consistency
+
+Riak's strong consistency feature has a variety of tunable parameters
+that allow you to enable and disable strong consistency, modify the
+behavior of leaders and followers, set various timeouts, and more. More
+detailed information from an operations perspective can be found in our
+documentation on [[managing strong consistency]].
+
+Strong consistency is disabled by default. The `strong_consistency`
+parameter enables you to turn it on. This setting is available in each
+node's `riak.conf` file.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>strong_consistency</code></td>
+<td>Enables the consensus subsystem used for strongly consistent Riak
+operations if set to <code>on</code>.</td>
+<td><code>off</code></td>
+</tr>
+
+</tbody>
+</table>
+
+Unlike the `strong_consistency` setting, the settings listed below are
+available only in `advanced.config`, in the `riak_ensemble` section of
+that file. That section looks like this:
+
+```advancedconf
+{riak_ensemble, [
+		{parameter1, value},
+		{parameter2, value},
+		%% Other setting
+	]}
+```
+
+Further instructions on setting parameters in `advanced.config` can be
+found in the [[advanced configuration|Configuration
+Files#Advanced-Configuration]] section below.
+
+Using these settings properly demands a firm understanding of the basic
+architecture of Riak's implementation of strong consistency. We highly
+recommend reading our documentation on the [[implementation
+details|Managing Strong Consistency#Implementation-Details]] behind
+strong consistency before changing the defaults on these parameters.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>ensemble_tick</code></td>
+<td>The rate at which leaders perform their periodic duties, including
+refreshing the leader lease, in milliseconds. This setting must be lower
+than both the <code>lease_duration</code> and
+<code>follower_timeout</code> settings (both listed below). Lower values
+mean that leaders perform their duties more frequently, which can allow
+for faster convergence if a leader goes offline and then returns to the
+ensemble; higher values mean that leaders perform their duties less
+frequently, which can reduce network overhead.</td>
+<td><code>500</code></td>
+</tr>
+
+<tr>
+<td><code>lease_duration</code></td>
+<td>Determines how long a leader lease remains valid without being
+refreshed (in milliseconds). This should be set higher than the
+<code>ensemble_tick</code> setting (listed above) so that leaders have
+time to refresh their leases before they time out, and it must be set
+lower than the <code>follower_timeout</code> setting (listed below).
+</td>
+<td><code>ensemble_tick</code> * 3/2</td>
+</tr>
+
+<tr>
+<td><code>follower_timeout</code></td>
+<td>Determines how long a follower waits to hear from a leader before it
+abandons the leader (in milliseconds). This must be set greater than the
+<code>lease_duration</code> setting.</td>
+<td><code>lease_duration</code> * 4</td>
+</tr>
+
+<tr>
+<td><code>alive_tokens</code></td>
+<td>Determines the number of ticks the leader will wait to hear from its
+associated [[vnode|Riak Glossary#vnode]] before assuming that the vnode
+is unhealthy and stepping down as leader. If the vnode does not respond
+to the leader before <code>ensemble_tick</code> *
+<code>alive_tokens</code> milliseconds have elapsed, the leader will
+give up leadership. It may be necessary to raise this setting if your
+Riak vnodes are frequently stalling out on slow backend reads/writes. If
+this setting is too low, it may cause slow requests to time out earlier
+than the request timeout.</td>
+<td><code>2</code></td>
+</tr>
+
+<tr>
+<td><code>storage_delay</code></td>
+<td>Determines how long the consensus subsystem delays syncing to disk
+when performing certain metadata operations (in milliseconds). This
+delay allows multiple operations to be coalesced into a single disk
+write. We do not recommend that you change this setting.</td>
+<td><code>50</code></td>
+</tr>
+
+<tr>
+<td><code>storage_tick</code></td>
+<td>Determines how often the consensus subsystem writes data to disk
+that was requested to be written asynchronously (in milliseconds). We do
+not recommend that you change this setting.</td>
+<td><code>5000</code></td>
+</tr>
+
+<tr>
+<td><code>trust_lease</code></td>
+<td>Determines whether leader leases are used to optimize reads. When
+set to <code>true</code>, a leader with a valid lease will handle the
+read directly without contacting any followers; when set to
+<code>false</code>, the leader will always contact followers. For more
+information, see our internal documentation on
+<a href="https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md#leader-leases">
+leader leases</a>.</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>peer_get_timeout</code></td>
+<td>Determines the timeout used internally for reading consistent data,
+in milliseconds. This setting must be greater than the highest request
+timeout used by your application.</td>
+<td><code>60000</code> (1 minute)</td>
+</tr>
+
+<tr>
+<td><code>peer_put_timeout</code></td>
+<td>Determines the timeout, in milliseconds, used internally for writing
+consistent data. This setting must be greater than the highest request
+timeout used by your application.</td>
+<td><code>60000</code> (1 minute)</td>
+</tr>
+
+<tr>
+<td><code>peer_workers</code></td>
+<td>The number of concurrent workers used by the leader to service
+requests. Increasing this setting may boost performance depending on the
+workload.</td>
+<td><code>1</code></td>
+</tr>
+
+<tr>
+<td><code>tree_validation</code></td>
+<td>Determines whether Riak considers peer Merkle trees to be trusted
+after a node restart. When validation is enabled (the default), Riak
+does not trust peer trees after a restart, instead requiring the peer to
+sync with a trusted majority. This is the safest option, as it protects
+Riak against undetected corruption of the Merkle tree. However, this
+mode reduces Riak availability since it can sometimes require more than
+a simple majority of nodes to be online and reachable.</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>synchronous_tree_updates</code></td>
+<td>Determines whether the metadata updates to follower Merkle trees are
+handled synchronously or not. When set to <code>true</code>, Riak
+equires two quorum round trips to occur before replying back to the
+client, the first quorum request to write the actual object and the
+second to write the Merkle tree data. When set to <code>false</code>,
+Riak will respond back to the client after the first round trip, letting
+the metadata update happen asynchronously.<br /><br />It's important to
+note that the leader <em>always</em> updates its local Merkle tree
+before responding to the client. This setting only affects the metadata
+writes sent to followers.<br /><br />In principle, asynchronous updates
+are unsafe. If the leader crashes before sending the metadata updates
+and all followers that had acknowledged the object write somehow revert
+to the object value immediately prior to a write request, a future read
+could return the immediately preceding value without realizing that it
+was incorrect. Given that this scenario is unlikely, this setting
+defaults to <code>false</code> in the name of improved performance.</td>
+<td><code>false</code></td>
+</tr>
+
+</tbody>
+</table>
+
 
 ## Miscellaneous
 
@@ -2325,6 +2499,23 @@ Deletion</a>.</td>
 <td><code>3000</code> (3 seconds)</td>
 </tr>
 
+<tr>
+<td><code>target_n_val</code></td>
+<td><code>riak_core</code></td>
+<td>The highest <code>n_val</code> that you generally intend to use.
+This setting affects how partitions are distributed within the cluster,
+helping to ensure that "hot spots" don't occur, i.e. that data is never
+stored more than once on the same physical node. You will need to change
+this setting only in rare circumstances. Assuming that
+<code>ring_size</code> is a power of 2, the ideal value for this setting
+is both (a) greater than or equal to the largest <code>n_val</code> for
+any bucket type and (b) an even divisor of the number of partitions in
+the ring, i.e. <code>ring_size</code>. The default is <code>4</code>,
+and the number of physical nodes in your cluster must be greater than
+<code>target_n_val</code> for this setting to be effective at preventing
+hot spots.</td>
+<td><code>4</code></td>
+</tr>
+
 </tbody>
 </table>
-
