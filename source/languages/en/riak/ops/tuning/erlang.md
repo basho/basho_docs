@@ -1,4 +1,4 @@
----
+- --
 title: Erlang VM Tuning
 project: riak
 version: 2.0.0+
@@ -155,30 +155,36 @@ high-numbered port.
 
 ### Maximum Ports
 
-You can set the maximum number of concurrent ports/sockets used by the Erlang
-VM using the `erlang.max_ports` setting. Possible values range from 1024
-to 134217727. The default is 65536.
+You can set the maximum number of concurrent ports/sockets used by the
+Erlang VM using the `erlang.max_ports` setting. Possible values range
+from 1024 to 134217727. The default is 65536.
 
 ## Asynchronous Thread Pool
 
 You can set the number of asynchronous threads in the Erlang VM's
 asynchronous thread pool using `erlang.async_threads` (`+A` in Erlang).
 The valid range is 0 to 1024. If thread support is available on your
-OS, the default is 64.
+OS, the default is 64. Below is an example setting the number of async
+threads to 600:
 
 ```riakconf
-erlang.async_threads = xxx
+erlang.async_threads = 600
 ```
 
 ```vmargs
-+A xxx
++A 600
 ```
 
 ## Kernel Polling
 
-Kernel poll is a means of checking for data . The more file descriptors
-are in use, the larger an effect kernel polling can have on performance.
-...
+You can enable and disable kernel polling if the Erlang distribution on
+your OS supports it. Enabling kernel polling can improve performance if
+many file descriptors are in use; the more file descriptors, the larger
+an effect kernel polling may have on performance. Kernel polling is
+enabled by default on Riak's Erlang VM, i.e. the default for `erlang.K`
+is `on`.  This corresponds to the
+`[+K](http://erlang.org/doc/man/erl.html#emu_flags)` setting on the
+Erlang VM. You can disable it by setting `erlang.K` to `false`.
 
 ## Warning Messages
 
@@ -193,42 +199,45 @@ reports).
 ## Process Limit
 
 The `erlang.process_limit` parameter can be used to set the maximum
-number of simultaneously existing system processes. The valid range is
-1024 to 134217727. The default is 256000.
+number of simultaneously existing system processes (corresponding to
+Erlang's `+P` parameter). The valid range is 1024 to 134217727. The
+default is 256000.
 
 ## Distribution Buffer
 
-`erlang.distribution_buffer_size`
-Useful on nodes with many `busy_dist_port` events
-The default is 32 MB, but this may be insufficient for some workloads
-A larger buffer limit will allow processes to buffer more outgoing
-messages; when the limit is reached, sending processes will be suspended
-until the buffer size has shrunk below the "buffer size" threshold; set
-on a per-disribution-channel basis; higher => lower latency and higher
-throughput, but higher memory usage; depends on available RAM
-Corresponds to `+zdbbl`; set in KB
+You can set the size of the Erlang VM's distribution buffer busy limit
+(denoted by `+zdbbl` on the VM) using `erlang.distribution_buffer_size`.
+Modifying this setting can be useful on nodes with many `busy_dist_port`
+events, i.e. instances when the Erlang distribution is overloaded. The
+default is 32 MB (i.e. `32MB`), but this may be insufficient for some
+workloads. A larger buffer limit will allow processes to buffer more
+outgoing messages. When the limit is reached, sending processes will be
+suspended until the the buffer size has shrunk below the limit specified
+by `erlang.distribution_buffer_size`. Higher values will tend to produce
+lower latency and higher throughput but at the expense of higher RAM
+usage. You should evaluate your RAM resources prior to increasing this
+setting.
 
 ## Erlang Built-in Storage
 
-Erlang Term Storage; in a part of the VM where destructive updates are
-allowed and there is no GC; limited concurrency in reads/writes; avoid
-having more than one table per process (notice that the defaults for
-`erlang.max_ets_tables` and `erlang.distribution_size` are the same)
-
-Constant access time vs. logarithmic access time; ETS tables stored
-tuples, whatever you want; more ETS tables mean more quick access data
-storage, but at the cost of more RAM
-
 Erlang uses a built-in database called
-[ets](http://www.erlang.org/doc/man/ets.html)
-Enables fast access from memory
-`erlang.max_ets_tables` raises the ETS table limit; default is 256000
-The default limit on the Erlang VM is 1400
+[ets](http://www.erlang.org/doc/man/ets.html) \(Erlang Table Storage)
+for some processes that require fast access from memory in constant
+access time (rather than logarithmic access time).  The maximum number
+of tables can be set using the `erlang.max_ets_tables` setting. The
+default is 256000, which is higher than the default limit of 1400 on the
+Erlang VM.
+
+Higher values for `erlang.max_ets_tables` will tend to provide more
+quick-access data storage but at the cost of higher RAM usage. Please
+note that the default values for `erlang.max_ets_tables` and
+`erlang.distribution_size` (explained in the section [[above|Erlang VM
+Tuning#Distribution-Buffer]]) are the same.
 
 ## Crash Dumps
 
-By default, crash dumps deposited in `./log/erl_crash.dump`. You can
-change this location using `erlang.crash_dump`. This is the equivalent
-of setting the
+By default, crash dumps from Riak's Erlang distribution are deposited in
+`./log/erl_crash.dump`. You can change this location using
+`erlang.crash_dump`. This is the equivalent of setting the
 [`ERL_CRASH_DUMP`](http://www.erlang.org/doc/man/erl.html#environment_variables)
-environment variable.
+environment variable for the Erlang VM.
