@@ -41,12 +41,6 @@ comprise the cluster. This quantity impacts the scalability and
 performance of a cluster and, importantly, **it should established
 before the cluster starts receiving data**.
 
-In versions of Riak greater than 2.0, there is a [[ring resizing]] feature
-that enables you to change the ring size in a cluster on a node-by-node
-basis while the cluster is running, but we recommend using this feature
-only when necessary. Getting the ring size right from the beginning is
-the preferred approach.
-
 If the ring size is too large for the number of servers, disk I/O will
 be negatively impacted by the excessive number of concurrent databases
 running on each server; if the ring size is too small, the servers' other
