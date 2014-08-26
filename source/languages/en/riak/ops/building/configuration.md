@@ -58,12 +58,6 @@ Best Practices]] for more details on choosing a ring size.
 The steps involved in changing the ring size depend on whether the
 servers (nodes) in the cluster have already been joined together.
 
-### Cluster already in active use
-
-If you have a cluster in use and need to preserve its data while
-resizing the ring, you may perform a rolling [[ring resize|Ring Resizing]] on
-each node in your cluster.
-
 ### Cluster joined, but no data needs to be preserved
 
 1.  Change the ring creation size parameter by uncommenting it and then setting it to the desired value, for example 64:
