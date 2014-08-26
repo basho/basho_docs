@@ -9,7 +9,7 @@ keywords: [operator, security, authentication, authorization]
 ---
 
 <div class="info">
-<div class="title">Network security</div>
+<div class="title">Note on Network security</div>
 This document covers only the 2.0 authentication and authorization
 features. For a look at network security in Riak, see [[Security and
 Firewalls]].
@@ -20,26 +20,21 @@ access to a wide variety of Riak's functionality, including accessing,
 modifying, and deleting objects, changing bucket properties, and
 running MapReduce jobs.
 
-**Note**: Currently, Riak security commands can be run only through
-the command line using the `riak-admin security` command. In future
-versions of Riak, administrators may have the option of issuing
-those commands through the Protocol Buffers and HTTP interfaces.
-
 ## Terminology
 
 * **Authentication** is the process of identifying a user.
 
 * **Authorization** is verifying whether a user has access to perform
-    the requested operation.
+  the requested operation.
 
 * **Groups** can have permissions assigned to them, but cannot be
-    authenticated.
+  authenticated.
 
 * **Users** can be authenticated and authorized; permissions
-    (authorization) may be granted directly or via group membership.
+  (authorization) may be granted directly or via group membership.
 
 * **Sources** are used to define authentication mechanisms. A user
-    cannot be authenticated to Riak until a source is defined.
+  cannot be authenticated to Riak until a source is defined.
 
 ## Security Checklist
 
@@ -50,10 +45,12 @@ of the following **before** enabling security:
 
 1. Make certain that the original Riak Search (version 1) and link
    walking are not required. Enabling security will break this
-   functionality.
+   functionality. If you wish to use security and search together, you
+   will need to use the [[new Search feature|Using Search]].
 2. Because Riak security requires a secure SSL connection, you will need
    to generate appropriate SSL certs and make sure that each Riak node's
-   [[configuration files]] point to the [[right paths|Authentication and
+   [[configuration files|Configuration Files#Security]] point to the
+   [[right paths|Authentication and
    Authorization#Certificate-Configuration]] for those certs
 2. Define [[users|Authentication and Authorization#User-Management]]
    and, optionally, groups
@@ -73,14 +70,11 @@ of the following **before** enabling security:
       client to server
     * Code that uses Riak's deprecated [[Link Walking]] feature **will
       not work** with security enabled
-    * Code that uses Riak's now-deprecated original search feature
-      **will not work**. If you wish to use both security and Search,
-      you will need to use the [[new Search feature|Using Search]].
 
 Security should be enabled only after all of the above steps have been
 performed and your security setup has been properly vetted.
 
-Clients that use protocol buffers will typically have to be
+Clients that use [[Protocol Buffers|PBC API]] will typically have to be
 reconfigured/restarted with the proper credentials once security is
 enabled.
 
@@ -88,8 +82,13 @@ enabled.
 
 Riak security may be checked, enabled, or disabled by an administrator
 through the command line. This allows an administrator to change
-security settings for the whole cluster quickly, avoiding changing
-per-node configuration files.
+security settings for the whole cluster quickly without needing to
+change settings on a node-by-node basis.
+
+**Note**: Currently, Riak security commands can be run only through
+the command line, using the `riak-admin security` command. In future
+versions of Riak, administrators may have the option of issuing
+those commands through the Protocol Buffers and HTTP interfaces.
 
 ### Enabling Security
 
@@ -99,7 +98,8 @@ per-node configuration files.
 your applications interact with Riak.</strong> Once security is enabled,
 all client connections must be encrypted and all permissions will be
 denied by default. Do not enable this in production until you have
-worked through the security checklist above and tested everything in a
+worked through the [[security checklist|Authentication and
+Authorization#Security-Checklist]] above and tested everything in a
 non-production environment.
 </div>
 
@@ -115,22 +115,24 @@ taking the appropriate precautions.**
 All users, groups, authentication sources, and permissions can be
 configured while security is disabled, allowing you to create a
 security configuration of any level of complexity without prematurely
-impacting the service.
+impacting the service. This should be borne in mind when you are
+[[managing users|Authentication and Authorization#User-Management]] and
+[[managing sources|Authentication and Authorization#Managing-Sources]].
 
 ### Disabling Security
 
-Disabling security disables the various permissions checks that take
-place when executing operations against Riak. Users, groups, and other
-security attributes remain available for configuration while security
-is disabled, and will be applied if and when security is re-enabled.
-
-Clients will need to be reconfigured to no longer require TLS and send
-credentials while security is disabled.
-
+If you disable security, this means that you have disable all of the
+various permissions checks that take place when executing operations
+against Riak. Users, groups, and other security attributes remain
+available for configuration while security is disabled, and will be
+applied if and when security is re-enabled.
 
 ```bash
 riak-admin security disable
 ```
+
+While security is disabled, clients will need to be reconfigured to no
+longer require TLS and send credentials.
 
 ### Checking Security Status
 
@@ -149,7 +151,7 @@ but not yet available.
 ## User Management
 
 Riak security enables you to control _authorization_ by creating,
-modifying, and deleting user characteristics and to grant users
+modifying, and deleting user characteristics and granting users
 selective access to Riak functionality (and also to revoke access).
 Users can be assigned one or more of the following characteristics:
 
@@ -172,13 +174,14 @@ A list of currently existing users can be accessed at any time:
 riak-admin security print-users
 ```
 
-Same for groups:
+The same goes for groups:
 
 ```bash
 riak-admin security print-groups
 ```
 
-Example output, assuming one user with an assigned password:
+Example output, assuming user named `riakuser` with an assigned
+password:
 
 ```
 +----------+--------+----------------------+------------------------------+
@@ -188,10 +191,11 @@ Example output, assuming one user with an assigned password:
 +----------+--------+----------------------+------------------------------+
 ```
 
-**Note**: All passwords are displayed in encrypted form in console output.
+**Note**: All passwords are displayed in encrypted form in console
+output.
 
-If the user `riakuser` were assigned to the group `dev` and a `name`
-of `lucius`, the output would look like this:
+If the user `riakuser` were assigned to the group `dev` and a `name` of
+`lucius`, the output would look like this:
 
 ```bash
 +----------+----------------+----------------------+---------------------+
@@ -205,9 +209,9 @@ If you'd like to see which permissions have been assigned to
 `riakuser`, you would need to use the `print-grants` command, detailed
 below.
 
-`security print-user` or `security-print-group` (singular) can be used
-with a name as argument to see the same information as above, except
-for only that user or group.
+The `security print-user` or `security-print-group` (singular) commands
+can be used with a name as argument to see the same information as
+above, except for only that user or group.
 
 ### Permissions Grants For a Single User or Group
 
@@ -341,10 +345,8 @@ riak-admin alter-user jane_goodall groups=admin,archoverlord
 
 There is no way to incrementally add groups; even if `jane_goodall` was
 already an `admin`, it is necessary to list it again when adding the
-`archoverlord` group.
-
-Thus, to remove a group from a user, use `alter-user` and list all
-*other* groups.
+`archoverlord` group. Thus, to remove a group from a user, use
+`alter-user` and list all *other* groups.
 
 If the user should be removed from all groups, use `groups=` with no
 list:
@@ -378,7 +380,8 @@ riak-admin security del-group admin
 ### Adding or Deleting Multiple Users
 
 The `riak-admin security` command does not currently allow you to
-add or delete multiple users using a single command.
+add or delete multiple users using a single command. Instead, they must
+be added or deleted one by one.
 
 ## Managing Permissions
 
@@ -396,7 +399,8 @@ riak-admin security grant <permissions> on <bucket-type> to all|{<user>|<group>[
 riak-admin security grant <permissions> on <bucket-type> <bucket> to all|{<user>|<group>[,...]}
 ```
 
-The `revoke` command is the same, but with `from` instead of `to`:
+The `revoke` command is essentially the same, except that `to` is
+replaced with `from` of `to`:
 
 ```bash
 riak-admin security revoke <permissions> on any from all|{<user>|<group>[,...]}
@@ -405,15 +409,16 @@ riak-admin security revoke <permissions> on <bucket-type> <bucket> from all|{<us
 ```
 
 If you select `any`, this means that the permission (or set of
-permissions) is granted/revoked for all buckets and [[bucket
-types|Using Bucket Types]]. If you specify a bucket type only, then the
-permission is granted/revoked for all buckets of that type. If you
-specify a bucket type _and_ a bucket, the permission is granted/revoked
-only for that bucket type/bucket combination.
+permissions) is granted/revoked for all buckets and [[bucket types|Using
+Bucket Types]]. If you specify a bucket type only, then the permission
+is granted/revoked for all buckets of that type. If you specify a bucket
+type _and_ a bucket, the permission is granted/revoked only for that
+bucket type/bucket combination.
 
-**Note**: You cannot grant/revoke permissions with respect only to a
-bucket. You must specify either a bucket type by itself or a bucket type
-and bucket.
+**Note**: You cannot grant/revoke permissions with respect to a bucket
+alone. You must specify either a bucket type by itself or a bucket type
+and bucket. This limitation reflects the naming structure underlying
+buckets and bucket types.
 
 Selecting `all` grants or revokes a permission (or set of permissions)
 for all users in all groups. When specifying the user(s)/group(s) to
@@ -448,7 +453,8 @@ Permission | Operation |
 <div class="title">Note on Listing Keys and Buckets</div>
 <code>riak_kv.list_keys</code> and <code>riak_kv.list_buckets</code> are
 both very expensive operations that should be performed very rarely and
-never in production.
+never in production. Access to this functionality should be granted very
+carefully.
 </div>
 
 If you'd like to create, for example, a `client` account that is
@@ -461,7 +467,10 @@ riak-admin security grant riak_kv.get,riak_kv.put on any to client
 
 ### MapReduce Permissions
 
-Permission to perform MapReduce jobs can be assigned using `riak_kv.mapreduce`:
+Permission to perform [[MapReduce|Using MapReduce]] jobs can be assigned
+using `riak_kv.mapreduce`. The following example grants MapReduce
+permissions to the user `mapreduce-power-user` for all buckets and
+bucket types:
 
 ```bash
 riak-admin security grant riak_kv.mapreduce on any to mapreduce-power-user
@@ -474,36 +483,40 @@ Bucket Types]] in addition to setting bucket properties. `riak-admin
 security` allows you to manage the following bucket type-related
 permissions:
 
-Permission | Operation |
-:----------|:----------|
-`riak_core.get_bucket` | Retrieve the `props` associated with a bucket |
-`riak_core.set_bucket` | Modify the `props` associated with a bucket |
-`riak_core.get_bucket_type` | Retrieve the set of `props` associated with a bucket type |
-`riak_core.set_bucket_type` | Modify the set of `props` associated with a bucket type |
+Permission | Operation
+:----------|:---------
+`riak_core.get_bucket` | Retrieve the `props` associated with a bucket
+`riak_core.set_bucket` | Modify the `props` associated with a bucket
+`riak_core.get_bucket_type` | Retrieve the set of `props` associated with a bucket type
+`riak_core.set_bucket_type` | Modify the set of `props` associated with a bucket type
 
 ### Search Query Permission (Riak Search version 1)
 
-Security is incompatible with the original Riak Search. Riak Search
-version 1 will stop working if security is enabled.
+Security is incompatible with the original (and now deprecated) Riak
+Search. Riak Search version 1 will stop working if security is enabled.
 
 ### Search Query Permissions (Riak Search version 2, aka Yokozuna)
 
-If you are using the search capabilities included with Riak versions 2.0
-and greater, the following search-related permissions can be granted/revoked:
+If you are using the new Riak Search, i.e. the Solr-compatible search
+capabilities included with Riak versions 2.0 and greater, the following
+search-related permissions can be granted/revoked:
 
-Permission | Operation |
-:----------|:----------|
-`search.admin` | The ability to perform search admin-related tasks, such
-as creating and deleting indexes and adding and modifying search schemas |
-`search.query` | The ability to query an index |
+Permission | Operation
+:----------|:---------
+`search.admin` | The ability to perform search admin-related tasks, such as creating and deleting indexes and adding and modifying search schemas
+`search.query` | The ability to query an index
 
 <div class="note">
 <div class="title">Note on Search Permissions</div>
-Search must be enabled in order to successfully grant/revoke search
-permissions. If you attempt to grant/revoke permissions while search is
+Search must be enabled in order to successfully grant/revoke Search
+permissions. If you attempt to grant/revoke permissions while Search is
 disabled, you will get the following error:
-<code>{error,{unknown_permission,"search.query"}}</code>. More
-information on Riak Search and how to enable it can be found in the
+
+```
+{error,{unknown_permission,"search.query"}}
+```
+
+More information on Riak Search and how to enable it can be found in the
 [[Riak Search Settings]] document.
 </div>
 
@@ -557,6 +570,8 @@ Management|Authentication and Authorization#User-Management]] section,
 you will then need to define security sources required for
 authentication.
 
+An more in-depth tutorial can be found in [[Managing Security Sources]].
+
 ### Add Source
 
 Riak security sources may be applied to a specific user, multiple users,
@@ -564,12 +579,13 @@ or all users (`all`).
 
 #### Available Sources
 
-Source   | Description |
-:--------|:------------|
-`trust` | Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range |
-`password` | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2)-hashed password stored in Riak |
-`pam`  | Authenticate against the given pluggable authentication module (PAM) service |
-`certificate` | Authenticate using a client certificate |
+Source   | Description
+:--------|:-----------
+`trust` | Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range
+`password` | Check the user's password against the
+[PBKFD2](http://en.wikipedia.org/wiki/PBKDF2)-hashed password stored in Riak
+`pam`  | Authenticate against the given pluggable authentication module (PAM) service
+`certificate` | Authenticate using a client certificate
 
 ### Example: Adding a Trusted Source
 
@@ -638,10 +654,10 @@ both <code>all</code> and to the user <code>riakuser</code> on the
 network <code>127.0.0.1/32</code>, the following two-step process would
 be required to fully remove the source:
 
-<pre>
+```bash
 riak-admin security del-source all 127.0.0.1/32 password
 riak-admin security del-source riakuser 127.0.0.1/32 password
-</pre>
+```
 </div>
 
 ### More Usage Examples
@@ -660,7 +676,7 @@ preferences, use the `ciphers` command:
 riak-admin security ciphers
 ```
 
-That command will return a large list:
+That command by itself will return a large list of available ciphers:
 
 ```
 Configured ciphers
@@ -709,10 +725,10 @@ openssl ciphers
 That should return a list structured like this:
 
 ```
-DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DES-CBC3-SHA:DES-CBC3-MD5:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:AES128-SHA:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:SEED-SHA:RC2-CBC-MD5:RC4-SHA:RC4-MD5:RC4-MD5:EDH-RSA-DES-CBC-SHA:EDH-DSS-DES-CBC-SHA:DES-CBC-SHA:DES-CBC-MD5:EXP-EDH-RSA-DES-CBC-SHA:EXP-EDH-DSS-DES-CBC-SHA:EXP-DES-CBC-SHA:EXP-RC2-CBC-MD5:EXP-RC2-CBC-MD5:EXP-RC4-MD5:EXP-RC4-MD5
+DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA: # and so on
 ```
 
-Riak's cipher preferences were taken from [Mozilla's Server Side TLS
+Riak's cipher preferences were taken from [Mozilla's Server-Side TLS
 documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
 ## Certificate Configuration
@@ -741,6 +757,11 @@ on [[configuring directories|Configuration Files#Directories]].
   </thead>
   <tbody>
     <tr>
+      <td><strong>Signing authority</strong></td>
+      <td><code>ssl.cacertfile</code></td>
+      <td><code>#(platform_etc_dir)/cacertfile.pem</code></td>
+    </tr>
+    <tr>
       <td><strong>Cert</strong></td>
       <td><code>ssl.certfile</code></td>
       <td><code>#(platform_etc_dir)/cert.pem</code></td>
@@ -749,11 +770,6 @@ on [[configuring directories|Configuration Files#Directories]].
       <td><strong>Key file</strong></td>
       <td><code>ssl.keyfile</code></td>
       <td><code>#(platform_etc_dir)/key.pem</code></td>
-    </tr>
-    <tr>
-      <td><strong>Signing authority</strong></td>
-      <td><code>ssl.cacertfile</code></td>
-      <td><code>#(platform_etc_dir)/cacertfile.pem</code></td>
     </tr>
   </tbody>
 </table>
