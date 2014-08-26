@@ -11,137 +11,144 @@ moved: {
 }
 ---
 
-<div class="info">This document refers to the new Riak Search 2.0 with [[Solr|http://lucene.apache.org/solr/]] integration (codenamed Yokozuna). For information about the deprecated version of Riak Search, visit [[the old Riak Search Details|http://docs.basho.com/riak/1.4.8/dev/advanced/search/]].</div>
+<div class="info">
+<div class="title">Note on Search 2.0 vs. Legacy Search</div>
+This document refers to the new Riak Search 2.0 with
+[[Solr|http://lucene.apache.org/solr/]] integration (codenamed
+Yokozuna). For information about the deprecated Riak Search, visit [[the
+old Using Riak Search
+docs|http://docs.basho.com/riak/1.4.10/dev/using/search/]].
+</div>
 
-The project that implements Riak Search is called Yokozuna. This is a more detailed overview of the concepts and reasons behind the design of Yokozuna, for those interested. If you're simply looking to use Riak Search, you should check out the [[Using Search]] document. 
+The project that implements Riak Search is codenamed Yokozuna. This is a
+more detailed overview of the concepts and reasons behind the design of
+Yokozuna, for those interested. If you're simply looking to use Riak
+Search, you should check out the [[Using Search]] document.
 
 ![Yokozuna](/images/yokozuna.png)
 
-## Yokozuna is Erlang
+## Riak Search is Erlang
 
-In Erlang OTP an "application" is a group of modules and Erlang
-processes which together perform a specific task.  The word
-application is confusing because most people think of an application
-as an entire program such as Emacs or Photoshop.  But Yokozuna is just
-a sub-system in Riak itself.  Erlang applications are often
-stand-alone but Yokozuna is more like an appendage of Riak.  It
-requires other subsystems like Riak Core and KV, but also extends
-their functionality by providing search capabilities for KV data.
+In Erlang OTP, an "application" is a group of modules and Erlang
+processes which together perform a specific task. The word application
+is confusing because most people think of an application as an entire
+program such as Emacs or Photoshop. But Riak Search is just a sub-system
+in Riak itself. Erlang applications are often stand-alone, but Riak
+Search is more like an appendage of Riak. It requires other subsystems
+like Riak Core and KV, but also extends their functionality by providing
+search capabilities for KV data.
 
-The point of Yokozuna is to bring more sophisticated and robust query
-and search support to Riak.  Many people consider Lucene, and programs
-built on top of it such as Solr, as _the standard_ for open source
-search.  There are many successful stories built atop Lucene/Solr and
-it sets the bar for the feature set developers and users expect.
-Meanwhile, Riak has a great story as a highly-available, distributed,
-key-value store.  Yokozuna takes advantage of the fact that Riak
-already knows how to do the distributed bits, extending its feature
-set with that of Solr's.  It takes the strength of each, and combines
-them.
+The purpose of Riak Search is to bring more sophisticated and robust query
+and search support to Riak. Many people consider Lucene and programs
+built on top of it, such as Solr, as the standard for open-source
+search. There are many successful applications built on Lucene/Solr, and
+it sets the standard for the feature set that developers and users expect.
+Meanwhile, Riak has a great story as a highly-available, distributed
+key/value store. Riak Search takes advantage of the fact that Riak
+already knows how to do the distributed bits, combining its feature
+set with that of Solr, taking advantage of the strengths of each.
 
-Yokozuna is a mediator between Riak and Solr.  There is nothing
-stopping a user from deploying these two programs separately but then
-they would be responsible for the glue.  That glue can be tricky to
-write.  It needs to deal with monitoring, querying, indexing, and
-dissemination of information.
+Riak Search is a mediator between Riak and Solr. There is nothing
+stopping a user from deploying these two programs separately, but this
+would leave the user responsible for the glue between them.  That glue
+can be tricky to write. It requires dealing with monitoring, querying,
+indexing, and dissemination of information.
 
-Yokozuna knows how to listen for changes in KV data and make the
-appropriate changes to indexes that live in Solr.
+Unlike Solr by itself, Riak Search knows how to do all of the following:
 
-Yokozuna knows how to take a user query on any node and convert it to
-a Solr Distributed Search which will correctly cover the entire index
-without overlap in replicas.
-
-Yokozuna knows how to take index creation commands and disseminate
-that information across the cluster.
-
-Yokozuna knows how to communicate and monitor the Solr OS process.
-
-Etc.
-
+* Listen for changes in key/value (KV) data and to make the appropriate
+  changes to indexes that live in Solr. It also knows how to take a user
+  query on any node and convert it to a Solr distributed search, which
+  will correctly cover the entire index without overlap in replicas.
+* Take index creation commands and disseminate that information across
+  the cluster.
+* Communicate and monitor the Solr OS process.
+* Etc.
 
 ## Solr/JVM OS Process
 
-Every node in the Riak cluster has a corresponding operating system
-(OS) process running a JVM which is hosting Solr on the Jetty
-application server.  This OS process is a child of the Erlang OS
-process running Riak.
+Every node in the a Riak cluster has a corresponding operating system
+(OS) process running a JVM which hosts Solr on the Jetty application
+server. This OS process is a child of the Erlang OS process running
+Riak.
 
-Yokozuna has a `gen_server` process which monitors the JVM OS process.
-The code for this server is in `yz_solr_proc`.  When the JVM process
-crashes this server crashes, causing its supervisor to restart it.
-If there is more than 1 restart in 45 seconds, the entire Riak
-node will be shut down -- if Yokozuna is enabled and Solr cannot
-function for some reason then the Riak node needs to go down so that
-the user will notice and take corrective action.
+Riak Search has a `gen_server` process which monitors the JVM OS
+process. The code for this server is in `yz_solr_proc`. When the JVM
+process crashes, this server crashes, causing its supervisor to restart
+it.
 
-Conversely, the JVM process monitors the Riak process.  If for any
+If there is more than 1 restart in 45 seconds, the entire Riak node will
+be shut down. If Riak Search is enabled and Solr cannot function for
+some reason, the Riak node needs to go down so that the user will notice
+and take corrective action.
+
+Conversely, the JVM process monitors the Riak process. If for any
 reason Riak goes down hard (e.g. a segfault) the JVM process
-will also exit.  This double monitoring along with the crash semantics
-means that neither process may exist without the other.  They are either
+will also exit. This double monitoring along with the crash semantics
+means that neither process may exist without the other. They are either
 both up or both down.
 
-All other communication between Yokozuna and Solr is performed via
+All other communication between Riak Search and Solr is performed via
 HTTP, including querying, indexing, and administration commands.
 The ibrowse Erlang HTTP client is used to manage these communications
 as both it and the Jetty container hosting Solr pool HTTP connections,
 allowing for reuse. Moreover, since there is no `gen_server` involved
 in this communication, there's no serialization point to bottleneck.
 
-
 ## Indexes
 
-An index, stored as a set of files on disk, is a logical namespace
-that contains index entries for objects. Each such index maintains
-its own set of files on disk -- a critical difference from Riak KV in
-which a bucket is a purely logical entity, and not physically disjoint
-at all.
+An index, stored as a set of files on disk, is a logical namespace that
+contains index entries for objects. Each such index maintains its own
+set of files on disk---a critical difference from Riak KV, in which a
+bucket is a purely logical entity and not physically disjoint at all.
 
-Indices may be associated with zero or more buckets. At creation time,
-however, each index has no associated buckets -- unlike Riak Search
-Yokozuna indices do not implicitly create bucket associations, meaning
-that this must be done as a separate configuration step.
+Indexes may be associated with zero or more buckets. At creation time,
+however, each index has no associated buckets---unlike the legacy Riak
+Search, indexes in the new Riak Search do not implicitly create bucket
+associations, meaning that this must be done as a separate configuration
+step.
 
-To associate a bucket with an index the bucket property `yz_index`
-must be set to the name of the index you wish to associate.
-Conversely, in order to disassociate a bucket you use the sentinel
-value `_dont_index_`.
+To associate a bucket with an index, the bucket property `yz_index` must
+be set to the name of the index you wish to associate.  Conversely, in
+order to disassociate a bucket you use the sentinel value
+`_dont_index_`.
 
-Many buckets can be associated with the same index.  This is useful
-for logically partitioning data into different KV buckets which are of
-the same type of data, for example if a user wanted to store event objects
+Many buckets can be associated with the same index. This is useful for
+logically partitioning data into different KV buckets which are of the
+same type of data, for example if a user wanted to store event objects
 but logically partition them in KV by using a date as the bucket name.
 
-A bucket CANNOT be associated with many indexes -- the `yz_index`
+A bucket _cannot_ be associated with many indexes---the `yz_index`
 property must be a single name, not a list.
 
-See the [ADMIN][] page for details on creating an index.
-
-[ADMIN]: https://github.com/basho/yokozuna/blob/develop/docs/ADMIN.md
-
+See the
+[ADMIN](https://github.com/basho/yokozuna/blob/develop/docs/ADMIN.md)
+page for details on creating an index.
 
 ## Extractors
 
-There is a tension between Riak KV and Solr when it comes to data --
-Riak KV treats object values as opaque.  While KV does maintain an
-associated content-type, it is simply treated as metadata to be
-returned to the user to provide context for interpreting the returned
-object; otherwise the user wouldn't know what type of data it is!
-Solr, on the other hand, wants semi-structured data; specifically a
-flat collection of field-value pairs.  "Flat" here means that a
-field's value cannot be a nested structure of field-value pairs, the
-values are treated as-is (non-composite is another way to say it).
+There is a tension between Riak KV and Solr when it comes to data. Riak
+KV treats object values as mostly opaque, and while KV does maintain an
+associated content type, it is simply treated as metadata to be returned
+to the user to provide context for interpreting the returned object.
+Otherwise, the user wouldn't know what type of data it is!
 
-Because of this mismatch between KV and Solr, Yokozuna must act as a
-mediator between the two: it must have a way to inspect a KV object
-and create a structure which Solr can ingest for indexing.  In Solr
-this structure is called a _document_.  This task of creating a Solr
-document from a Riak object is the job of the _extractor_.  To perform
-this task two things must be considered.
+Solr, on the other hand, wants semi-structured data, more specifically a
+flat collection of field-value pairs. "Flat" here means that a field's
+value cannot be a nested structure of field-value pairs; the values are
+treated as-is (non-composite is another way to say it).
+
+Because of this mismatch between KV and Solr, Riak Search must act as a
+mediator between the two, meaning it must have a way to inspect a KV
+object and create a structure which Solr can ingest for indexing. In
+Solr this structure is called a **document**. This task of creating a
+Solr document from a Riak object is the job of the **extractor**. To
+perform this task two things must be considered.
 
 NOTE: This isn't quite right, the fields created by the extractor are
 only a subset of the fields created.  Special fields needed for
 Yokozuna to properly query data and tagging fields are also created.
+
 This call happens inside `yz_doc:make_doc`.
 
 1. Does an extractor exist to map the content-type of the object to a
@@ -155,13 +162,13 @@ The first question is answered by the _extractor mapping_.  By default
 Yokozuna ships with extractors for several common data types.  Below
 is a table of this default mapping:
 
-Content Type          |Erlang Module          
-----------------------|--------------------
-application/json      |`yz_json_extractor`    
-application/xml       |`yz_xml_extractor`     
-text/plain            |`yz_text_extractor`    
-text/xml              |`yz_xml_extractor`     
-N/A                   |`yz_noop_extractor`    
+Content Type | Erlang Module
+:------------|:-------------
+application/json      |`yz_json_extractor`
+application/xml       |`yz_xml_extractor`
+text/plain            |`yz_text_extractor`
+text/xml              |`yz_xml_extractor`
+N/A                   |`yz_noop_extractor`
 
 The answer to the second question is a function of the implementation
 of the extractor module.  Every extractor must conform to the
@@ -350,7 +357,6 @@ different ways, and custom analyzer chains may be built by stringing
 together XML in the schema file, allowing custom analysis for each
 field.  For more information on analysis see the
 [[Search Schema]].
-
 
 ## Tagging
 
