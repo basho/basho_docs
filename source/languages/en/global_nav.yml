@@ -317,7 +317,6 @@ riakcs:
     sub:
       - "[[Configuring Riak CS Overview]]"
       - "[[Configuring Riak|Configuring Riak for CS]]"
-      - "[[Configuring Stanchion]]"
       - "[[Configuring Riak CS]]"
       - "[[Configuring Stanchion]]"
       - "[[Riak CS Command-line Tools]]"
