@@ -92,6 +92,19 @@ the value for `schedulers.total` will be 50. Setting either parameter to
 If SMP support is not enabled, i.e. if `erlang.smp` is set to `disable`,
 then `schedulers.total` and `schedulers.online` will be ignored.
 
+### Scheduler Wakeup Interval
+
+Scheduler wakeup is an optional process whereby schedulers are periodically
+scanned to determine whether they have "fallen asleep," i.e. whether
+they have an empty [run queue](http://en.wikipedia.org/wiki/Run_queue).
+The interval at which this process occurs can be set, in milliseconds,
+using the `erlang.schedulers.force_wakeup_interval` parameter, which
+corresponds to the Erlang VM's `+swfi` flag. This parameter is set to 0
+by default, which disables scheduler wakeup.
+
+Erlang distributions like R15Bx have a tendency to put schedulers to
+sleep too often.
+
 ## Port Settings
 
 Riak uses [epmd](http://www.erlang.org/doc/man/epmd.html), the Erlang
@@ -210,10 +223,12 @@ You can set the size of the Erlang VM's distribution buffer busy limit
 Modifying this setting can be useful on nodes with many `busy_dist_port`
 events, i.e. instances when the Erlang distribution is overloaded. The
 default is 32 MB (i.e. `32MB`), but this may be insufficient for some
-workloads. A larger buffer limit will allow processes to buffer more
-outgoing messages. When the limit is reached, sending processes will be
-suspended until the the buffer size has shrunk below the limit specified
-by `erlang.distribution_buffer_size`. Higher values will tend to produce
+workloads. The maximum value is 2097151 KB.
+
+A larger buffer limit will allow processes to buffer more outgoing
+messages. When the limit is reached, sending processes will be suspended
+until the the buffer size has shrunk below the limit specified by
+`erlang.distribution_buffer_size`. Higher values will tend to produce
 lower latency and higher throughput but at the expense of higher RAM
 usage. You should evaluate your RAM resources prior to increasing this
 setting.
