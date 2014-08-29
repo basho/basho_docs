@@ -8,7 +8,7 @@ audience: beginner
 keywords: [developers, search, kv]
 ---
 
-<div class="info">
+<div class="note">
 <div class="title">Note on Search 2.0 vs. Legacy Search</div>
 This document refers to the new Riak Search 2.0 with
 [[Solr|http://lucene.apache.org/solr/]] integration (codenamed
