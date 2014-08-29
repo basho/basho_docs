@@ -16,11 +16,15 @@ moved: {
 }
 ---
 
-Riak can be installed on Debian or Ubuntu based systems with a binary package or by [[compiling Riak from source code|Installing Riak from Source]]. The following steps have been tested to work with Riak on **Debian version 6.05** and **Ubuntu version 12.04**.
+Riak can be installed on Debian- or Ubuntu-based systems with a binary
+package or by [[compiling Riak from source code|Installing Riak from
+Source]]. The following steps have been tested to work with Riak on
+**Debian version 6.05** and **Ubuntu version 12.04**.
 
 ## Installing From Apt-Get
 
-For the simplest installation process on LTS (Long Term Support) releases, use `apt-get`.
+For the simplest installation process on LTS (Long-Term Support)
+releases, use `apt-get`.
 
 First you must get the signing key.
 
@@ -28,7 +32,8 @@ First you must get the signing key.
 curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 ```
 
-Then add the Basho repository to your apt sources list (and update them).
+Then add the Basho repository to your apt sources list (and update
+them).
 
 ```bash
 sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
@@ -57,6 +62,18 @@ though, if you are running a non-LTS release (such as 12.10) it is
 safe to follow the below instructions for the LTS release prior to
 your release.  In the case of Ubuntu 12.10, follow the installation
 instructions for Ubuntu 12.04.
+
+### PAM Library Requirement for Ubuntu
+
+One dependency that may be missing on your machine is the `libpam0g-dev`
+package used for Pluggable Authentication Module (PAM) authentication,
+associated with [[Riak security|Authentication and Authorization]].
+
+To install:
+
+```bash
+sudo apt-get install libpam0g-dev
+```
 
 ### SSL Library Requirement for Ubuntu
 

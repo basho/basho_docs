@@ -16,7 +16,8 @@ moved: {
 }
 ---
 
-When installing Riak on CentOS or Red Hat you can install from source or from our custom .rpm package.
+When installing Riak on CentOS or Red Hat you can install from source or
+from our custom .rpm package.
 
 ## Notes
 
@@ -69,11 +70,12 @@ Building from source will require the following packages:
 * gcc-c++
 * glibc-devel
 * make
+* pam-devel
 
 You can install these with yum:
 
 ```bash
-sudo yum install gcc gcc-c++ glibc-devel make git
+sudo yum install gcc gcc-c++ glibc-devel make git pam-devel
 ```
 
 Now we can download and install Riak:
