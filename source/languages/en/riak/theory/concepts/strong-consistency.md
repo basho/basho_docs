@@ -136,7 +136,7 @@ documentation.
 A second trade-off regards performance. Riak's implementation of strong
 consistency involves a complex [[consensus subsystem|Strong
 Consistency#Implementation-Details]] that typically requires more
-communication between Riak nodes than eventually consistency operations,
+communication between Riak nodes than eventually consistent operations,
 which can entail a performance hit of varying proportions, depending on
 a variety of factors.
 
