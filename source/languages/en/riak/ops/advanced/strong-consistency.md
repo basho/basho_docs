@@ -7,6 +7,12 @@ audience: advanced
 keywords: [operators, strong-consistency]
 ---
 
+<div class="note">
+<div class="title">Note on commercial support</div>
+Riak's strong consistency feature is currently an open-source-only
+feature and is not yet commercially supported.
+</div>
+
 This document provides information on configuring and monitoring a Riak
 cluster's optional [[strong consistency]] subsystem. Documentation for
 developers building applications using Riak's strong consistency feature

@@ -2027,6 +2027,12 @@ if the JMX server crashes.</td>
 
 ## Strong Consistency
 
+<div class="note">
+<div class="title">Note on commercial support</div>
+Riak's strong consistency feature is currently an open-source-only
+feature and is not yet commercially supported.
+</div>
+
 Riak's strong consistency feature has a variety of tunable parameters
 that allow you to enable and disable strong consistency, modify the
 behavior of leaders and followers, set various timeouts, and more. More

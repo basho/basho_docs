@@ -7,6 +7,12 @@ audience: intermediate
 keyword: [appendix, concepts]
 ---
 
+<div class="note">
+<div class="title">Note on commercial support</div>
+Riak's strong consistency feature is currently an open-source-only
+feature and is not yet commercially supported.
+</div>
+
 Riak was originally designed as an [[eventually consistent|Eventual
 Consistency]] system, fundamentally geared toward providing partition
 (i.e. fault) tolerance and high read and write availability.
