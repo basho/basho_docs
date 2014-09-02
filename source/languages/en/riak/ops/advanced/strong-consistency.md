@@ -98,7 +98,7 @@ Replicas | Allowable missing replicas
 Thus, we recommend setting `n_val` higher than the default of 3 for
 strongly consistent operations. More on `n_val` in the section below.
 
-### `n_val` Recommendations
+### n_val Recommendations
 
 Due to the quorum requirements explained above, we recommend that you
 use _at least_ N=5 for strongly consistent data. You can set the value
