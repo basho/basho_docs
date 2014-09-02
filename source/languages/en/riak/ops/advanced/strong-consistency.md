@@ -8,11 +8,9 @@ keywords: [operators, strong-consistency]
 ---
 
 <div class="note">
-<div class="title">Warning: Not yet supported in Riak EE</div>
-The strong consistency feature available in Riak 2.0 is not yet
-supported in Riak <a
-href="http://docs.basho.com/riakee/latest/">Enterprise Edition</a>. This
-will change in a future release.
+<div class="title">Note on commercial support</div>
+Riak's strong consistency feature is currently an open-source-only
+feature and is not yet commercially supported.
 </div>
 
 This document provides information on configuring and monitoring a Riak
