@@ -255,7 +255,6 @@ in the table below.
       <td>Search 2.0</td>
       <td>Strong consistency</td>
       <td>Data Types</td>
-      <td>Ring resizing</td>
       <td>Secondary indexes</td>
       <td>Legacy Search</td>
     </tr>
@@ -268,22 +267,11 @@ in the table below.
       <td class="grayed"></td>
       <td class="grayed"></td>
       <td class="grayed"></td>
-      <td class="grayed"></td>
     </tr>
     <tr>
       <td>Data Types</td>
-      <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="unsupported">✗</abbr></td>
-      <td class="dark-grayed"></td>
-      <td class="grayed"></td>
-      <td class="grayed"></td>
-      <td class="grayed"></td>
-    </tr>
-    <tr>
-      <td>Ring resizing</td>
-      <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
       <td class="dark-grayed"></td>
       <td class="grayed"></td>
       <td class="grayed"></td>
@@ -293,7 +281,6 @@ in the table below.
       <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="unsupported">&Dagger;</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="supported">✓</abbr></td>
       <td class="dark-grayed"></td>
       <td class="grayed"></td>
     </tr>
@@ -302,13 +289,11 @@ in the table below.
       <td><abbr class="unsupported">*</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td class="dark-grayed"></td>
     </tr>
     <tr>
       <td>Security</td>
-      <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="supported">✓</abbr></td>

@@ -9,10 +9,9 @@ keywords: [ops, ring, ring-resizing]
 ---
 
 <div class="note">
-<div class="title">Note on ring resizing and strong consistency</div>
-If you are using Riak's [[strong consistency]] feature, you will not be
-able to perform a ring resize. This will, however, be supported in a
-later version of Riak.
+<div class="title">Technical Preview</div>
+The ring resizing feature is currently in technical preview mode. We
+recommend using it only in a development environment.
 </div>
 
 The ring resizing feature in Riak 2.0 and greater enables Riak operators
@@ -65,6 +64,13 @@ running a ring resizing process:
 * Basho strongly recommends that you do _not_ use the `force-replace`
   command (part of the `[[riak-admin|riak-admin Command
   Line#cluster-force-replace]]` interface) during ring resizing.
+
+<div class="note">
+<div class="title">Note on ring resizing and strong consistency</div>
+If you are using Riak's [[strong consistency]] feature, you will not be
+able to perform a ring resize. This will, however, be supported in a
+later version of Riak.
+</div>
 
 ## Starting the Resize
 

@@ -230,14 +230,6 @@ The ideal ring size, however, will also depend on the number of nodes in
 the cluster. General recommendations can be found in [[Cluster Capacity
 Planning|Cluster Capacity Planning#Ring-Size-Number-of-Partitions]].
 
-<div class="note">
-<div class="title">Note on strong consistency and ring resizing</div>
-Strong consistency is incompatible with the <a
-href="/ops/advanced/ring-resizing">ring resizing</a> feature available
-in Riak versions 2.0 and later. Our recommendations concerning ring size
-should thus be taken into account <em>prior to</em> cluster creation.
-</div>
-
 Adding nodes to your cluster is another means of enhancing the
 performance of strongly consistent operations. Instructions on doing so
 can be found in [[Adding and Removing Nodes]].
@@ -659,7 +651,6 @@ consistent buckets:
 
 * [[Secondary indexes|Using Secondary Indexes]]
 * [[Riak Data Types|Using Data Types]]
-* [[Ring resizing]]
 
 Strongly-consistent writes operate only on single keys. There is
 currently no support within Riak for strongly consistent operations
