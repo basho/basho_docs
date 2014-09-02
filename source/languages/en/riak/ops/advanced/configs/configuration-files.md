@@ -1193,6 +1193,19 @@ href="http://www.erlang.org/doc/man/erl.html#+sfwi">here</a>.</td>
 </tr>
 
 <tr>
+<td><code>erlang.schedulers.compaction_of_load</code></td>
+<td>Enables or disables the Erlang scheduler's compaction of load. When
+enabled (which is the default), load balancing will strive to establish
+a load distribution that causes as many scheduler threads as possible to
+be fully loaded, i.e. not to run out of scheduled work. This is
+accomplished by migrating load, such as running processes, into a
+smaller set of schedulers when schedulers frequently run out of work.
+When disabled, the frequency at which schedulers run out of work will
+not be taken into account by the load balancing logic.</td>
+<td><code>true</code> (enabled)</td>
+</tr>
+
+<tr>
 <td><code>erlang.distribution_buffer_size</code></td>
 <td>For nodes with many <code>busy_dist_port</code> events, Basho
 recommends raising the sender-side network distribution buffer size.
@@ -1319,7 +1332,7 @@ href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>erlang.shutdown_time</code></td>
 <td>Limits how long the Erlang VM spends shutting down. After the
 specified duration elapses, all existing processes are killed.</td>
-<td>10s</td>
+<td><code>10s</code></td>
 </tr>
 
 </tbody>
