@@ -7,6 +7,14 @@ audience: advanced
 keywords: [operators, strong-consistency]
 ---
 
+<div class="note">
+<div class="title">Warning: Not yet supported in Riak EE</div>
+The strong consistency feature available in Riak 2.0 is not yet
+supported in Riak <a
+href="http://docs.basho.com/riakee/latest/">Enterprise Edition</a>. This
+will change in a future release.
+</div>
+
 This document provides information on configuring and monitoring a Riak
 cluster's optional [[strong consistency]] subsystem. Documentation for
 developers building applications using Riak's strong consistency feature
