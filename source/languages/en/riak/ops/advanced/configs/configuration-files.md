@@ -1315,6 +1315,13 @@ href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>enable</code></td>
 </tr>
 
+<tr>
+<td><code>erlang.shutdown_time</code></td>
+<td>Limits how long the Erlang VM spends shutting down. After the
+specified duration elapses, all existing processes are killed.</td>
+<td>10s</td>
+</tr>
+
 </tbody>
 </table>
 
