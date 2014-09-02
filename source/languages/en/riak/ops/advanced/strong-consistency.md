@@ -118,7 +118,7 @@ If the `activate` command outputs `consistent_and_fault_tolerant has
 been activated`, the bucket type is now ready to provide strong
 consistency guarantees.
 
-#### Setting the `target_n_val` parameter
+#### Setting the target_n_val parameter
 
 The `target_n_val` parameter sets the highest `n_val` that you intend to
 use in an entire cluster. The purpose of this parameter is to ensure
