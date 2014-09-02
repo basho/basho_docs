@@ -8,6 +8,12 @@ audience: advanced
 keywords: [developers, strong-consistency]
 ---
 
+<div class="note">
+<div class="title">Note on commercial support</div>
+Riak's strong consistency feature is currently an open-source-only
+feature and is not yet commercially supported.
+</div>
+
 In versions 2.0 and later, Riak allows you to create buckets that
 provide [[strong consistency]] guarantees for the data stored within
 them, enabling you to use Riak as a CP system (consistent plus partition
