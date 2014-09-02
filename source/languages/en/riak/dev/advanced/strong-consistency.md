@@ -152,7 +152,7 @@ recommend bearing the following in mind:
 
 1. If you _know_ that a key does not yet exist, you can write to that
    key without supplying a [[context with the object|Using Strong
-   Consistency#Object-Context]]]. If you are unsure, then you should
+   Consistency#Object-Context]]. If you are unsure, then you should
    default to supplying a context object.
 2. If an object already exists under a key, strong consistency demands
    that you supply an [[object context|Using Strong
