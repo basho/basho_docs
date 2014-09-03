@@ -25,7 +25,7 @@ riak config effective
 
 This will output a long list of the following form:
 
-```bash
+```
 anti_entropy = active
 anti_entropy.bloomfilter = on
 anti_entropy.concurrency_limit = 2
@@ -62,7 +62,7 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 
 Below is a table listing the configurable parameters in `riak.conf`.
 
-#### The `advanced.config` file
+#### The advanced.config file
 
 For most Riak installations, the `riak.conf` file should be sufficient
 for configuration management. But some installations, particularly those
