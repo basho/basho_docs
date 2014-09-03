@@ -655,13 +655,23 @@ Active Anti-Entropy##Enabling-Active-Anti-Entropy]] in your cluster.
 The following Riak features are not currently available in strongly
 consistent buckets:
 
-* [[Secondary indexes|Using Secondary Indexes]]
-* [[Riak Data Types|Using Data Types]]
+* [[Secondary indexes|Using Secondary Indexes]] --- If you do attach
+  secondary index metadata to objects in strongly consistent buckets,
+  strongly consistent operations can still proceed, but that metadata
+  will be silently ignored.
+* [[Riak Data Types|Using Data Types]] --- Data Types can currently be
+  used only in an eventually consistent fashion
+* [[Commit hooks]] --- Neither pre- nor post-commit hooks are supported
+  in strongly consistent buckets. If you do associate a strongly
+  consistent bucket with one or more commit hooks, strongly consistent
+  operations can proceed as normal in that bucket, but all commit hooks
+  will be silently ignored.
 
-Strongly-consistent writes operate only on single keys. There is
-currently no support within Riak for strongly consistent operations
-against multiple keys, although it is always possible to incorporate
-write and read locks in an application that uses strong consistency.
+Furthermore, you should also be aware that strong consistency guarantees
+are applied only at the level of single keys. There is currently no
+support within Riak for strongly consistent operations against multiple
+keys, although it is always possible to incorporate client-side write
+and read locks in applications that use strong consistency.
 
 ## Known Issues
 
@@ -684,11 +694,6 @@ latest version of strong consistency.
   Consistency]] \(2i) at this time. Furthermore, any other metadata
   attached to objects, even if not related to 2i, will be silently
   ignored by Riak in strongly consistent buckets.
-* **Commit hooks not supported** --- [[Commit hooks]], whether pre or
-  post commit, are not supported in strongly consistent buckets. If you
-  associate a commit hook with a strongly consistent bucket [[using
-  bucket types]], strongly consistent operations can proceed as normal,
-  the hook will be silently ignored.
 * **Multi-Datacenter Replication not supported** --- At this time,
   consistent keys are *not* replicated across clusters using [[Multi-
   Datacenter Replication|Multi Data Center Replication: Architecture]]
