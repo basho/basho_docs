@@ -650,6 +650,20 @@ with silent on-disk corruption.
 To avoid these problems, you should [[enable active anti-entropy|Managing
 Active Anti-Entropy##Enabling-Active-Anti-Entropy]] in your cluster.
 
+## Strong Consistency and Bitcask
+
+One feature that is offered by Riak's optional [[Bitcask]] backend is
+[[object expiry|Bitcask#Configuring-Bitcask]]. If you are using strong
+consistency and Bitcask together, you should be aware that object
+metadata is often updated by the strong consistency subsystem during
+leader changes, which typically take place when nodes go down or during
+network partitions. When these metadata updates take place, the time to
+live (TTL) of the object is refreshed, which can lead to general
+unpreditably in objects' TTL. Although leader changes will be rare in
+many clusters, we nonetheless recommend that you use object expiry in
+strongly consistent buckets only in situations when these occasional
+irregularities are acceptable.
+
 ## Important Caveats
 
 The following Riak features are not currently available in strongly
