@@ -8,12 +8,6 @@ audience: advanced
 keywords: [ops, ring, ring-resizing]
 ---
 
-<div class="note">
-<div class="title">Technical Preview</div>
-The ring resizing feature is currently in technical preview mode. We
-recommend using it only in a development environment.
-</div>
-
 The ring resizing feature in Riak 2.0 and greater enables Riak operators
 to change the number of partitions in a Riak cluster's ring during
 normal operations, under load.
@@ -33,19 +27,21 @@ to change the number of partitions previously, a separate cluster would
 need to be spun up alongside the original cluster and the data migrated
 between the two.
 
-The purpose of the ring resizing feature is to support users who create
-a cluster with either too few or two many partitions and need to change
-this without disrupting operations more than necessary.
+A ring resizing operation can be useful in the following two cases:
 
-<div class="note">
-<div class="title">Note on ring resizing and scalability</div>
-Ring resizing is *not* intended as a scaling feature for clusters
-to add or remove concurrent processing ability. Since the number of
-partitions can limit the number of nodes in the cluster, ring resizing
-can be used to increase capacity in that regard. In short, the feature
-is intended for infrequent use in highly specific scenarios. For more
-on our ring size recommendations, see [[Cluster Capacity Planning]].
-</div>
+1. If a cluster has been created with either too few or too many
+   partitions
+2. If a cluster's capacity, in terms of the number of nodes, has changed
+   in such a way that the optimal ring size has changed
+
+You should consult our documentation on [[cluster capacity planning]]
+before committing to a ring resizing operations. Please note that there
+is an important difference between changing the ring size and adding and
+removing nodes. If you are looking to add or remove concurrent
+processing ability to/from a cluster, you are advised to do so by
+[[adding or removing nodes|Adding and Removing Nodes]].
+
+## Considerations Prior to Ring Resizing
 
 There are a number of important considerations to bear in mind while
 running a ring resizing process:
