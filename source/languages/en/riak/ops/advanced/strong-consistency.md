@@ -684,6 +684,11 @@ latest version of strong consistency.
   Consistency]] \(2i) at this time. Furthermore, any other metadata
   attached to objects, even if not related to 2i, will be silently
   ignored by Riak in strongly consistent buckets.
+* **Commit hooks not supported** --- [[Commit hooks]], whether pre or
+  post commit, are not supported in strongly consistent buckets. If you
+  associate a commit hook with a strongly consistent bucket [[using
+  bucket types]], strongly consistent operations can proceed as normal,
+  the hook will be silently ignored.
 * **Multi-Datacenter Replication not supported** --- At this time,
   consistent keys are *not* replicated across clusters using [[Multi-
   Datacenter Replication|Multi Data Center Replication: Architecture]]
