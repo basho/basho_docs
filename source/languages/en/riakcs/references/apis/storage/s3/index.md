@@ -37,7 +37,7 @@ Bucket Object Versions | <abbr title="Unsupported" class="unsupported">✗</abbr
 GET Bucket Info (HEAD) | <abbr title="Supported" class="supported">✓</abbr> | |
 Bucket Request Payment | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
 PUT Object | <abbr title="Supported" class="supported">✓</abbr> | |
-Put Object (Copy) {{1.5.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
+PUT Object (Copy) {{1.5.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
 PUT Object (Copy) {{1.3.0-1.5.0}} | <abbr title="Supported" class="supported">✓</abbr> | Support is limited to a 0 byte copy from an object to itself for the purpose of updating metadata. |
 PUT Object (Copy) {{1.3.0-}} | Coming Soon | Planned for future release |
 DELETE Object | <abbr title="Supported" class="supported">✓</abbr> | |
@@ -47,7 +47,6 @@ GET Object {{1.3.0-}} | <abbr title="Supported" class="supported">✓</abbr> | R
 Object ACLs (GET, PUT) | <abbr title="Supported" class="supported">✓</abbr> | |
 HEAD Object | <abbr title="Supported" class="supported">✓</abbr> | |
 POST Object | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
-Copy Object | <abbr title="Supported" class="supported">✓</abbr> | |
 Multipart Uploads {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | UploadPartCopy unimplemented |
 Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
 
