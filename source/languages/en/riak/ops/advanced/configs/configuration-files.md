@@ -89,17 +89,17 @@ and cookie.
 <tbody>
 
 <tr>
-<td><code>nodename</code></td>
-<td>The name of the Riak node.</td>
-<td><code>riak@127.0.0.1</code></td>
-</tr>
-
-<tr>
 <td><code>distributed_cookie</code></td>
 <td>Cookie for distributed node communication within a Riak cluster.
 All nodes in the same cluster should use the same cookie or they will
 not be able to communicate.</td>
 <td><code>riak</code></td>
+</tr>
+
+<tr>
+<td><code>nodename</code></td>
+<td>The name of the Riak node.</td>
+<td><code>riak@127.0.0.1</code></td>
 </tr>
 
 <tr>
@@ -128,17 +128,17 @@ Configurable parameters for your cluster's [[ring|Clusters#the-ring]].
 <tbody>
 
 <tr>
+<td><code>ring.state_dir</code></td>
+<td>Default location of ringstate.</td>
+<td><code>./data/ring</code></td>
+</tr>
+
+<tr>
 <td><code>ring_size</code></td>
 <td>Number of partitions in the cluster (only valid when first creating
 the cluster). Must be a power of 2. The minimum is 8 and the maximum is
 1024.</td>
 <td><code>64</code></td>
-</tr>
-
-<tr>
-<td><code>ring.state_dir</code></td>
-<td>Default location of ringstate.</td>
-<td><code>./data/ring</code></td>
 </tr>
 
 <tr>
@@ -198,23 +198,12 @@ parameters below.
 <tbody>
 
 <tr>
-<td><code>platform_log_dir</code></td>
-<td>The directory in which Riak's log files are stored, e.g.
-<code>console.log</code>, <code>erlang.log</code>, and
-<code>crash.log</code> files.</td>
-<td><code>./log</code></td>
-</tr>
-
-<tr>
-<td><code>platform_lib_dir</code></td>
-<td>The directory in which Riak's dependencies are housed.</td>
-<td><code>./lib</code></td>
-</tr>
-
-<tr>
-<td><code>platform_etc_dir</code></td>
-<td>The directory in which Riak's configuration files are stored.</td>
-<td><code>./etc</code></td>
+<td><code>platform_bin_dir</code></td>
+<td>The directory in which the <code>[[riak|riak Command Line]]</code>,
+<code>[[riak-admin|riak-admin Command Line]]</code>,
+<code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
+executables are stored.</td>
+<td><code>./bin</code></td>
 </tr>
 
 <tr>
@@ -226,12 +215,23 @@ as [[ring state|Clusters]] data, [[active anti-entropy]] data, and
 </tr>
 
 <tr>
-<td><code>platform_bin_dir</code></td>
-<td>The directory in which the <code>[[riak|riak Command Line]]</code>,
-<code>[[riak-admin|riak-admin Command Line]]</code>,
-<code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
-executables are stored.</td>
-<td><code>./bin</code></td>
+<td><code>platform_etc_dir</code></td>
+<td>The directory in which Riak's configuration files are stored.</td>
+<td><code>./etc</code></td>
+</tr>
+
+<tr>
+<td><code>platform_lib_dir</code></td>
+<td>The directory in which Riak's dependencies are housed.</td>
+<td><code>./lib</code></td>
+</tr>
+
+<tr>
+<td><code>platform_log_dir</code></td>
+<td>The directory in which Riak's log files are stored, e.g.
+<code>console.log</code>, <code>erlang.log</code>, and
+<code>crash.log</code> files.</td>
+<td><code>./log</code></td>
 </tr>
 
 </tbody>
@@ -277,6 +277,13 @@ Configuration parameters for [[Riak Search|Using Search]].
 </tr>
 
 <tr>
+<td><code>search.anti_entropy.data_dir</code></td>
+<td>The directory in which Search's Active Anti-Entropy data files are
+stored</td>
+<td><code>./data/yz_anti_entropy</code></td>
+</tr>
+
+<tr>
 <td><code>search.root_dir</code></td>
 <td>The root directory for Riak Search, under which index data and
 configuration is stored.</td>
@@ -284,10 +291,11 @@ configuration is stored.</td>
 </tr>
 
 <tr>
-<td><code>search.anti_entropy.data_dir</code></td>
-<td>The directory in which Search's Active Anti-Entropy data files are
-stored</td>
-<td><code>./data/yz_anti_entropy</code></td>
+<td><code>search.solr.jmx_port</code></td>
+<td>The port to which Solr JMX binds.
+<br /><br />
+<strong>Note</strong>: Binds on every interface.</td>
+<td><code>8985</code></td>
 </tr>
 
 <tr>
@@ -297,14 +305,6 @@ stored</td>
 Example: <code>XX:+UseCompressedStrings</code></td>
 <td><code>-d64 -Xms1g -Xmx1g -XX:+UseStringCache
 -XX:+UseCompressedOops</code></td>
-</tr>
-
-<tr>
-<td><code>search.solr.jmx_port</code></td>
-<td>The port to which Solr JMX binds.
-<br /><br />
-<strong>Note</strong>: Binds on every interface.</td>
-<td><code>8985</code></td>
 </tr>
 
 <tr>
@@ -343,27 +343,20 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 <tbody>
 
 <tr>
-<td><code>leveldb.data_root</code></td>
-<td>The directory in which LevelDB will store its data.</td>
-<td><code>./data/leveldb</code></td>
+<td><code>leveldb.block_cache_threshold</code></td>
+<td>This setting defines the limit past which block cache memory can no
+longer be released in favor of the page cache. This setting has no
+impact in favor of file cache. The value is set on a per-vnode basis.
+</td>
+<td><code>32MB</code></td>
 </tr>
 
 <tr>
-<td><code>leveldb.maximum_memory.percent</code></td>
-<td>This parameter defines the percentage of total server memory to
-assign to LevelDB. LevelDB will dynamically adjust its internal cache
-sizes to stay within this size. The memory size can alternately be
-assigned as a byte count via <code>leveldb.maximum_memory</code>
-instead.</td>
-<td><code>70</code></td>
-</tr>
-
-<tr>
-<td><code>leveldb.maximum_memory</code></td>
-<td>This parameter defines the server memory (in bytes) to assign to
-LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set
-LevelDB memory as a percentage of system total.</td>
-<td><code>80</code></td>
+<td><code>leveldb.compaction.trigger.tombstone_count</code></td>
+<td>Controls when a background compaction initiates solely due to the
+number of delete tombstones within an individual <code>.sst</code> table
+file. A value of <code>off</code> disables the feature.</td>
+<td><code>1000</code></td>
 </tr>
 
 <tr>
@@ -377,11 +370,9 @@ compaction.</td>
 </tr>
 
 <tr>
-<td><code>leveldb.compaction.trigger.tombstone_count</code></td>
-<td>Controls when a background compaction initiates solely due to the
-number of delete tombstones within an individual <code>.sst</code> table
-file. A value of <code>off</code> disables the feature.</td>
-<td><code>1000</code></td>
+<td><code>leveldb.data_root</code></td>
+<td>The directory in which LevelDB will store its data.</td>
+<td><code>./data/leveldb</code></td>
 </tr>
 
 <tr>
@@ -394,16 +385,27 @@ database size.</td>
 </tr>
 
 <tr>
-<td><code>leveldb.threads</code></td>
-<td>The number of worker threads performing LevelDB operations.</td>
-<td><code>71</code></td>
+<td><code>leveldb.maximum_memory</code></td>
+<td>This parameter defines the server memory (in bytes) to assign to
+LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set
+LevelDB memory as a percentage of system total.</td>
+<td><code>80</code></td>
 </tr>
 
 <tr>
-<td><code>leveldb.verify_compaction</code></td>
-<td>Enables or disables the verification of LevelDB data during
-compaction.</td>
-<td><code>on</code></td>
+<td><code>leveldb.maximum_memory.percent</code></td>
+<td>This parameter defines the percentage of total server memory to
+assign to LevelDB. LevelDB will dynamically adjust its internal cache
+sizes to stay within this size. The memory size can alternately be
+assigned as a byte count via <code>leveldb.maximum_memory</code>
+instead.</td>
+<td><code>70</code></td>
+</tr>
+
+<tr>
+<td><code>leveldb.threads</code></td>
+<td>The number of worker threads performing LevelDB operations.</td>
+<td><code>71</code></td>
 </tr>
 
 <tr>
@@ -414,12 +416,10 @@ LevelDB against internal checksums.</td>
 </tr>
 
 <tr>
-<td><code>leveldb.block_cache_threshold</code></td>
-<td>This setting defines the limit past which block cache memory can no
-longer be released in favor of the page cache. This setting has no
-impact in favor of file cache. The value is set on a per-vnode basis.
-</td>
-<td><code>32MB</code></td>
+<td><code>leveldb.verify_compaction</code></td>
+<td>Enables or disables the verification of LevelDB data during
+compaction.</td>
+<td><code>on</code></td>
 </tr>
 
 <tr>
