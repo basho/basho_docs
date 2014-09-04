@@ -1630,6 +1630,35 @@ written</td>
 </tr>
 
 <tr>
+<td><code>log.syslog.facility</code></td>
+<td>Sets the <a
+href="http://en.wikipedia.org/wiki/Syslog#Facility_levels">facility
+level</a> of syslog output if <code>log.syslog</code> is set to
+<code>on</code>. Possible values:
+<ul></ul></td>
+<td><code>daemon</code></td>
+</tr>
+
+<tr>
+<td><code>log.syslog.ident</code></td>
+<td>If <code>log.syslog</code> is set to <code>on</code>, this setting
+determines the prefix appended to each syslog message.</td>
+<td><code>riak</code></td>
+</tr>
+
+<tr>
+<td><code>log.syslog.level</code></td>
+<td>If <code>log.syslog</code> is set to <code>on</code>, this setting
+determines the log level of syslog output. Possible values:
+<ul><li><code>alert</code></li><li><code>critical</code></li>
+<li><code>debug</code></li><li><code>emergency</code></li>
+<li><code>error</code></li><li><code>info</code></li
+<li><code>none</code></li><li><code>notice</code></li>
+<li><code>warning</code></li></ul></td>
+<td><code>info</code></td>
+</tr>
+
+<tr>
 <td><code>log.error.file</code></td>
 <td>The file where error messages will be logged.</td>
 <td><code>./log/error.log</code></td>
@@ -1828,6 +1857,25 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 <tbody>
 
 <tr>
+<td><code>handoff.max_rejects</code></td>
+<td>The maximum number of times that a secondary system within Riak,
+such as <a href="/dev/using/search">Riak Search</a> can block handoff of
+primary key/value data. The approximate maximum duration that a vnode
+can be blocked can be determined by multiplying this setting by
+<code>vnode_management_timer</code>. If you want to prevent handoff from
+ever being blocked by a secondary system, set this parameter to
+<code>0</code>.</td>
+<td><code>6</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.port</code></td>
+<td>Specifies the TCP port that Riak uses for intra-cluster data
+handoff.</td>
+<td><code>8099</code></td>
+</tr>
+
+<tr>
 <td><code>handoff.ssl.certfile</code></td>
 <td>To encrypt <code>riak_core</code> intra-cluster data handoff
 traffic, uncomment this line and edit its path to an appropriate
@@ -1840,13 +1888,6 @@ certfile and keyfile.</td>
 <td>The keyfile paired with the certfile specified in
 <code>.certfile</code>.</td>
 <td></td>
-</tr>
-
-<tr>
-<td><code>handoff.port</code></td>
-<td>Specifies the TCP port that Riak uses for intra-cluster data
-handoff.</td>
-<td><code>8099</code></td>
 </tr>
 
 <tr>
@@ -2294,8 +2335,7 @@ package) and in R14B04 via a custom repository and branch.</td>
 <td><code>vnode_management_timer</code></td>
 <td>Sets the frequency with which <a
 href="/theory/concepts/glossary/#Vnode">vnodes</a> attempt to trigger
-handoff between this node and other nodes in the cluster.
-</td>
+handoff between this node and other nodes in the cluster.</td>
 <td><code>10s</code> (10 seconds)</td>
 </tr>
 
