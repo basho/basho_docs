@@ -49,6 +49,7 @@ HEAD Object | <abbr title="Supported" class="supported">✓</abbr> | |
 POST Object | <abbr title="Unsupported" class="unsupported">✗</abbr> | |
 Multipart Uploads {{1.3.0+}} | <abbr title="Supported" class="supported">✓</abbr> | UploadPartCopy unimplemented |
 Multipart Uploads {{1.3.0-}} | Coming Soon | Planned for future release |
+Multipart Uploads {{1.5.0+}} | <abbr title="Supported" class="supported">✓</abbr> | |
 
 ## Service-level Operations
 
