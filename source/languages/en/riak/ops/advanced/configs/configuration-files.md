@@ -2291,6 +2291,15 @@ package) and in R14B04 via a custom repository and branch.</td>
 </tr>
 
 <tr>
+<td><code>vnode_management_timer</code></td>
+<td>Sets the frequency with which <a
+href="/theory/concepts/glossary/#Vnode">vnodes</a> attempt to trigger
+handoff between this node and other nodes in the cluster.
+</td>
+<td><code>10s</code> (10 seconds)</td>
+</tr>
+
+<tr>
 <td><code>retry_put_coordinator_failure</code></td>
 <td>When a PUT (i.e. write) request fails, Riak will retry the operation
 if this setting is set to <code>on</code>, which is the default. Setting
