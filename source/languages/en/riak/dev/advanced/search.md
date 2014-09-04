@@ -100,7 +100,9 @@ this communication, there's no serialization point to bottleneck.
 An index, stored as a set of files on disk, is a logical namespace that
 contains index entries for objects. Each such index maintains its own
 set of files on disk---a critical difference from Riak KV, in which a
-bucket is a purely logical entity and not physically disjoint at all.
+bucket is a purely logical entity and not physically disjoint at all. A
+Solr index requires significantly less disk space than the corresponding
+legacy Riak Search index, depending on the Solr schema used.
 
 Indexes may be associated with zero or more buckets. At creation time,
 however, each index has no associated buckets---unlike the legacy Riak
