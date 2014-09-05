@@ -10,9 +10,9 @@ keywords: [developers, security, ssl, ruby]
 This tutorial shows you how to set up a Riak Ruby client to
 authenticate itself when connecting to Riak.
 
-If you are using [[trust-|Managing Security Sources]], [[PAM-|Managing
-Security Sources#PAM-based-authentication]], you can use the security
-setup described [[below|Client-side Security:
+If you are using [[trust-|Managing Security Sources]] or [[PAM|Managing
+Security Sources#PAM-based-authentication]]-based authentication, you
+can use the security setup described [[below|Client-side Security:
 Ruby#Ruby-Client-Basics]]. [[Password|Managing Security
 Sources#Password-based-Authentication]]-based authentication is covered
 in a [[later section|Client-side Security:
