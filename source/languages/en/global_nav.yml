@@ -76,8 +76,10 @@ riak:
           - title: "Client-side Security"
             sub:
               - "[[Introduction|Client-side Security]]"
+              - "[[Java|Client-side Security: Java]]"
               - "[[Ruby|Client-side Security: Ruby]]"
               - "[[Python|Client-side Security: Python]]"
+              - "[[Erlang|Client-side Security: Erlang]]"
           - title: "Reference"
             sub:
               - "[[Implementing a Client|Client Implementation Guide]]"
