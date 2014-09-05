@@ -392,3 +392,19 @@ If you are using [[secondary indexes (2i)|Using Secondary Indexes]] or
 [[MapReduce|Using MapReduce]], there are some special steps that must be
 undertaken on each node.
 
+First of all, you should absolutely not run _any_ coverage queries, i.e.
+[[list buckets|HTTP List Buckets]] or [[list keys|HTTP List Keys]]
+operations, during a ring resizing operation. While we do not recommend
+ever running coverage queries in production, it is especially important
+to avoid them during a ring resize.
+
+Second, there is a Riak environment variable called
+`fold_preflist_filter` that should be set to `true` on all nodes,
+**prior to the ring resizing operation**. Currently, that variable can
+only be set through each node's Erlang shell. To access the Erlang
+shell, run `[[riak console|riak Command Line#console]]`; once in the
+shell, you can set the environment variable using this command:
+
+```erlang
+application:set_env(riak_kv, fold_preflist_filter, true).
+```
