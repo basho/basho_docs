@@ -80,6 +80,13 @@ such as `http://localhost:8098`. The approriate value for `RIAK_HOST`
 will depend on your [[configuration|Configuration
 Files#Client-Interfaces]].
 
+```java
+YokozunaIndex famousIndex = new YokozunaIndex("famous");
+StoreSearchIndex storeSearchIndex = new StoreSearchIndex.Builder(famousIndex)
+        .build();
+client.execute(StoreSearchIndex);
+```
+
 ```ruby
 client.create_search_index("famous")
 ```
@@ -108,6 +115,13 @@ Install#setting-up-your-riak-client]].
 
 Note that the above command is exactly the same as the following, which
 explicitly defines the default schema.
+
+```java
+YokozunaIndex famousIndex = new YokozunaIndex("famous", "_yz_default");
+StoreSearchIndex storeSearchIndex = new StoreSearchIndex.Builder(famousIndex)
+        .build();
+client.execute(StoreSearchIndex);
+```
 
 ```ruby
 client.create_search_index("famous", "_yz_default")
