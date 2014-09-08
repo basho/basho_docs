@@ -1649,9 +1649,13 @@ written</td>
 href="http://en.wikipedia.org/wiki/Syslog#Facility_levels">facility
 level</a> of syslog output if <code>log.syslog</code> is set to
 <code>on</code>. Possible values:
-<ul><li>auth</li><li>authpriv</li><li>clock</li><li>cron</li>
-<li>daemon</li><li>ftp</li><li>kern</li><li>lpr</li><li>mail</li>
-<li>news</li><li>syslog</li><li>user</li><li>uucp</li></ul>
+<ul><li><code>auth</code></li><li><code>authpriv</code></li>
+<li><code>clock</code></li><li><code>cron</code></li>
+<li><code>daemon</code></li><li><code>ftp</code></li>
+<li><code>kern</code></li><li><code>lpr</code></li>
+<li><code>mail</code></li><li><code>news</code></li>
+<li><code>syslog</code></li><li><code>user</code></li>
+<li><code>uucp</code></li></ul>
 In addition to these settings, you may also select <code>local0</code>
 through <code>local7</code>.</td>
 <td><code>daemon</code></td>
