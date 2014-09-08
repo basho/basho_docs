@@ -1877,8 +1877,8 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 <tr>
 <td><code>handoff.max_rejects</code></td>
 <td>The maximum number of times that a secondary system within Riak,
-such as <a href="/dev/using/search">Riak Search</a> can block handoff of
-primary key/value data. The approximate maximum duration that a vnode
+such as <a href="/dev/using/search">Riak Search</a>, can block handoff
+of primary key/value data. The approximate maximum duration that a vnode
 can be blocked can be determined by multiplying this setting by
 <code>vnode_management_timer</code>. If you want to prevent handoff from
 ever being blocked by a secondary system, set this parameter to
@@ -2352,8 +2352,9 @@ package) and in R14B04 via a custom repository and branch.</td>
 <tr>
 <td><code>vnode_management_timer</code></td>
 <td>Sets the frequency with which <a
-href="/theory/concepts/glossary/#Vnode">vnodes</a> attempt to trigger
-handoff between this node and other nodes in the cluster.</td>
+href="/theory/concepts/glossary/#Vnode">vnodes</a> attempt to trigger <a
+href="/theory/concepts/glossary/#Hinted-Handoff">handoff</a> between
+this node and other nodes in the cluster.</td>
 <td><code>10s</code> (10 seconds)</td>
 </tr>
 
