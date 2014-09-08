@@ -1206,6 +1206,20 @@ not be taken into account by the load balancing logic.</td>
 </tr>
 
 <tr>
+<td><code>erlang.schedulers.utilization_balancing</code></td>
+<td>Enables or disables the Erlang scheduler's balancing of load. By
+default, scheduler utilization of balancing is disabled while scheduler
+compaction of load is enabled, i.e.
+<code>erlang.schedulers.compaction_of_load</code> is set to
+<code>true</code>. In this state, the Erlang VM will strive for a load
+distribution which causes as many scheduler threads as possible to be
+fully loaded, i.e. to not run out of work. When load balancing is
+enabled using this setting, the system will attempt to equally scheduler
+utilization between schedulers.</td>
+<td><code>false</code> (disabled)</td>
+</tr>
+
+<tr>
 <td><code>erlang.distribution_buffer_size</code></td>
 <td>For nodes with many <code>busy_dist_port</code> events, Basho
 recommends raising the sender-side network distribution buffer size.
@@ -1635,7 +1649,11 @@ written</td>
 href="http://en.wikipedia.org/wiki/Syslog#Facility_levels">facility
 level</a> of syslog output if <code>log.syslog</code> is set to
 <code>on</code>. Possible values:
-<ul></ul></td>
+<ul><li>auth</li><li>authpriv</li><li>clock</li><li>cron</li>
+<li>daemon</li><li>ftp</li><li>kern</li><li>lpr</li><li>mail</li>
+<li>news</li><li>syslog</li><li>user</li><li>uucp</li></ul>
+In addition to these settings, you may also select <code>local0</code>
+through <code>local7</code>.</td>
 <td><code>daemon</code></td>
 </tr>
 
