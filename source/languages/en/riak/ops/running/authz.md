@@ -70,6 +70,9 @@ of the following **before** enabling security:
       client to server
     * Code that uses Riak's deprecated [[Link Walking]] feature **will
       not work** with security enabled
+7. If you have applications that rely on an already existing Riak
+   cluster, make sure that those applications are prepared to gracefully
+   transition into using Riak security once security is enabled.
 
 Security should be enabled only after all of the above steps have been
 performed and your security setup has been properly vetted.
