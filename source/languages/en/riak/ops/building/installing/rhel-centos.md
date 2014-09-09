@@ -28,6 +28,29 @@ Source]]. The following steps have been tested to work with Riak on
 
 ## Installing with rpm
 
+For versions of Riak prior to 2.0, Basho used a self-hosted
+rpm repository
+for CentOS and RHEL packages. For versions 2.0 and later, Basho has
+moved those packages to the [packagecloud.io](https://packagecloud.io/)
+hosting service.
+
+For the simplest installation process on LTS (Long-Term Support)
+releases, use `yum`.
+
+First, you must install the `pypgme` package, which handles
+[gpg](https://www.gnupg.org/) key signatures.
+
+```bash
+sudo yum install pypgme
+```
+
+Next,
+First, you must retrieve the signing key:
+
+```curl
+
+```
+
 
 ### For Centos 5 / RHEL 5
 
