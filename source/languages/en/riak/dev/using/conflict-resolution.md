@@ -29,9 +29,9 @@ available in the section on client- and server-side resolution
 In general, we recommend one of the following options:
 
 1. If your data can be modeled as one of the currently available [[Riak
-   Data Types|Data Types]], we recommend using one of types, because all
-   of them have conflict resolution _built in_, completely relieving
-   applications of the need to engage in conflict resolution.
+   Data Types|Data Types]], we recommend using one of these types,
+   because all of them have conflict resolution _built in_, completely
+   relieving applications of the need to engage in conflict resolution.
 2. If your data cannot be modeled as one of the available Data Types,
    we recommend allowing Riak to generate [[siblings|Conflict
    Resolution#Siblings]] and to resolve conflicts on the application
