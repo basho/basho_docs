@@ -193,7 +193,7 @@ Erlang application and integrated into Riak for storage of key/value
 information on disk. The implementation of LevelDB is similar in spirit
 to the representation of a single Bigtable tablet (section 5.3).
 
-### How "Levels" Are Managed
+### How Levels Are Managed
 
 LevelDB is a memtable/sstable design. The set of sorted tables is
 organized into a sequence of levels. Each level stores approximately ten
