@@ -16,7 +16,7 @@ moved: {
 }
 ---
 
-Riak can be installed on Debian- or Ubuntu-based systems with a binary
+Riak can be installed on Debian- or Ubuntu-based systems using a binary
 package or by [[compiling Riak from source code|Installing Riak from
 Source]]. The following steps have been tested to work with Riak on
 **Debian version 6.05** and **Ubuntu version 14.04**.
@@ -26,13 +26,14 @@ Source]]. The following steps have been tested to work with Riak on
 For versions of Riak prior to 2.0, Basho used a self-hosted
 [apt](http://en.wikipedia.org/wiki/Advanced_Packaging_Tool) repository
 for Debian and Ubuntu packages. For versions 2.0 and later, Basho has
-moved those packages to the [packagecloud.io](https://packagecloud.io/)
-hosting service.
+moved those packages to the
+[packagecloud.io](https://packagecloud.io/basho/riak?filter=debs)
+hosting service. packagecloud has a Ruby-based [command-line
+tool](https://packagecloud.io/docs#cli) that can be used for managing
+packages, but the examples below will not use that interface.
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use `apt-get`.
-
-First, you must retrieve the signing key:
+releases, use `apt-get`. First, you must retrieve the signing key:
 
 ```curl
 curl https://packagecloud.io/gpg.key | sudo apt-key add -
@@ -67,7 +68,7 @@ curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.list?os=${OS}?dist=${DIST}$name=${HO
 ```
 
 The `name` that you submit to packagecloud can be anything you like. The
-`HOSTNAME` name used above was for example purposes. The resulting file
+`HOSTNAME` used above was for example purposes. The resulting file
 should hold contents like the following:
 
 ```
@@ -101,9 +102,9 @@ instructions.
 ### Installing on Non-LTS Ubuntu Releases
 
 Typically we only package Riak for LTS releases to keep our build and
-testing matrix focused.  In some cases such as Ubuntu 11.04 (Natty),
-there are changes that affect how Riak is packaged so we will release a
-separate package for that non-LTS release.  In most other cases though,
+testing matrix focused.  In some cases, such as Ubuntu 11.04 (Natty),
+there are changes that affect how Riak is packaged, so we will release a
+separate package for that non-LTS release. In most other cases, however,
 if you are running a non-LTS release (such as 12.10) it is safe to
 follow the below instructions for the LTS release prior to your release.
 In the case of Ubuntu 12.10, follow the installation instructions for
