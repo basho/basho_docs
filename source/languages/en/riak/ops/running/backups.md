@@ -47,8 +47,8 @@ directories for each of the supported operating systems is as follows:
 <div class="note">
 <div class="title">Note on upgrading</div>
 If you are upgrading to Riak version 2.0 or later from a pre-2.0
-release, you can use either your old <tt>app.config</tt> configuration
-file or the newer <tt>riak.conf</tt> if you wish.
+release, you can use either your old <code>app.config</code>
+configuration file or the newer <code>riak.conf</code> if you wish.
 
 If you have installed Riak 2.0 directly, you should use only
 <code>riak.conf</code>.
@@ -59,54 +59,54 @@ doc.
 
 #### Debian and Ubuntu
 
-* Bitcask data: `/var/lib/riak/bitcask`
-* LevelDB data: `/var/lib/riak/leveldb`
-* Ring data: `/var/lib/riak/ring`
-* Configuration: `/etc/riak`
-* Strong consistency data: `/var/lib/riak/ensembles`
+* Bitcask data --- `/var/lib/riak/bitcask`
+* LevelDB data --- `/var/lib/riak/leveldb`
+* Ring data --- `/var/lib/riak/ring`
+* Configuration --- `/etc/riak`
+* Strong consistency data --- `/var/lib/riak/ensembles`
 
 #### Fedora and RHEL
 
-* Bitcask data: `/var/lib/riak/bitcask`
-* LevelDB data: `/var/lib/riak/leveldb`
-* Ring data: `/var/lib/riak/ring`
-* Configuration: `/etc/riak`
-* Strong consistency data: `/var/lib/riak/ensembles`
+* Bitcask data --- `/var/lib/riak/bitcask`
+* LevelDB data --- `/var/lib/riak/leveldb`
+* Ring data --- `/var/lib/riak/ring`
+* Configuration --- `/etc/riak`
+* Strong consistency data --- `/var/lib/riak/ensembles`
 
 #### FreeBSD
 
-* Bitcask data: `/var/db/riak/bitcask`
-* LevelDB data: `/var/db/riak/leveldb`
-* Ring data: `/var/db/riak/ring`
-* Configuration: `/usr/local/etc/riak`
-* Strong consistency data: `/var/db/riak/ensembles`
+* Bitcask data --- `/var/db/riak/bitcask`
+* LevelDB data --- `/var/db/riak/leveldb`
+* Ring data --- `/var/db/riak/ring`
+* Configuration --- `/usr/local/etc/riak`
+* Strong consistency data --- `/var/db/riak/ensembles`
 
 #### OS X
 
-* Bitcask data: `./data/bitcask`
-* LevelDB data: `./data/leveldb`
-* Ring data: `./data/riak/ring`
-* Configuration: `./etc`
-* Strong consistency data: `./data/ensembles`
+* Bitcask data --- `./data/bitcask`
+* LevelDB data --- `./data/leveldb`
+* Ring data --- `./data/riak/ring`
+* Configuration --- `./etc`
+* Strong consistency data --- `./data/ensembles`
 
 **Note**: OS X paths are relative to the directory in which the package
 was extracted.
 
 #### SmartOS
 
-* Bitcask data: `/var/db/riak/bitcask`
-* LevelDB data: `/var/db/riak/leveldb`
-* Ring data: `/var/db/riak/ring`
-* Configuration: `/opt/local/etc/riak`
-* Strong consistency data: `/var/db/riak/ensembles`
+* Bitcask data --- `/var/db/riak/bitcask`
+* LevelDB data --- `/var/db/riak/leveldb`
+* Ring data --- `/var/db/riak/ring`
+* Configuration --- `/opt/local/etc/riak`
+* Strong consistency data --- `/var/db/riak/ensembles`
 
 #### Solaris
 
-* Bitcask data: `/opt/riak/data/bitcask`
-* LevelDB data: `/opt/riak/data/leveldb`
-* Ring data: `/opt/riak/ring`
-* Configuration: `/opt/riak/etc`
-* Strong consistency data: `/opt/riak/data/ensembles`
+* Bitcask data --- `/opt/riak/data/bitcask`
+* LevelDB data --- `/opt/riak/data/leveldb`
+* Ring data --- `/opt/riak/ring`
+* Configuration --- `/opt/riak/etc`
+* Strong consistency data --- `/opt/riak/data/ensembles`
 
 <div class="note">
 <div class="title">Note on strong consistency directories</div>
