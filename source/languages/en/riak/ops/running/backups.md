@@ -31,15 +31,15 @@ Due to Riak's eventually consistent nature, backups can become slightly
 inconsistent from node to node. Data could exist on some nodes and not
 others at the exact time a backup is made. Any inconsistency will be
 corrected once a backup is restored, either by Riak's [[active
-anti-entropy]] processes or when the object is read, via [[read repair|
-Replication#Read-Repair]].
+anti-entropy]] processes or when the object is read, via [[read
+repair|Active Anti-Entropy#Read-Repair-vs-Active-Anti-Entropy]].
 
 Additionally, backups must be performed on a stopped node to prevent
 data loss as a result of the background merging and compaction processes
 of Riak's backends. Downtime of a node can be significantly reduced by
 using an OS feature or filesystem that supports snapshotting.
 
-### OS-Specific Directory Locations
+## OS-Specific Directory Locations
 
 The default Riak data, ring, strong consistency, and configuration
 directories for each of the supported operating systems is as follows:
@@ -57,7 +57,7 @@ More on configuring Riak can be found in the [[configuration files]]
 doc.
 </div>
 
-**Debian and Ubuntu**
+#### Debian and Ubuntu
 
 * Bitcask data: `/var/lib/riak/bitcask`
 * LevelDB data: `/var/lib/riak/leveldb`
@@ -65,7 +65,7 @@ doc.
 * Configuration: `/etc/riak`
 * Strong consistency data: `/var/lib/riak/ensembles`
 
-**Fedora and RHEL**
+#### Fedora and RHEL
 
 * Bitcask data: `/var/lib/riak/bitcask`
 * LevelDB data: `/var/lib/riak/leveldb`
@@ -73,7 +73,7 @@ doc.
 * Configuration: `/etc/riak`
 * Strong consistency data: `/var/lib/riak/ensembles`
 
-**FreeBSD**
+#### FreeBSD
 
 * Bitcask data: `/var/db/riak/bitcask`
 * LevelDB data: `/var/db/riak/leveldb`
@@ -81,10 +81,7 @@ doc.
 * Configuration: `/usr/local/etc/riak`
 * Strong consistency data: `/var/db/riak/ensembles`
 
-**OS X**
-
-NOTE: OS X paths are relative to the directory in which the
-package was extracted.
+#### OS X
 
 * Bitcask data: `./data/bitcask`
 * LevelDB data: `./data/leveldb`
@@ -92,7 +89,10 @@ package was extracted.
 * Configuration: `./etc`
 * Strong consistency data: `./data/ensembles`
 
-**SmartOS**
+**Note**: OS X paths are relative to the directory in which the package
+was extracted.
+
+#### SmartOS
 
 * Bitcask data: `/var/db/riak/bitcask`
 * LevelDB data: `/var/db/riak/leveldb`
@@ -100,7 +100,7 @@ package was extracted.
 * Configuration: `/opt/local/etc/riak`
 * Strong consistency data: `/var/db/riak/ensembles`
 
-**Solaris**
+#### Solaris
 
 * Bitcask data: `/opt/riak/data/bitcask`
 * LevelDB data: `/opt/riak/data/leveldb`
@@ -117,7 +117,7 @@ if this feature is not being used. For more information, see [[Using
 Strong Consistency]] and [[Managing Strong Consistency]].
 </div>
 
-### Performing Backups
+## Performing Backups
 
 Backups of both Bitcask and LevelDB can be accomplished through a
 variety of common methods. Standard utilities such `cp`, `rsync`, and
@@ -130,21 +130,21 @@ creating a backup of your Bitcask or LevelDB data, ring, and Riak
 configuration directories for a binary package-based Riak Linux
 installation. The following examples use `tar`:
 
-#### Bitcask
+### Bitcask
 
 ```bash
 tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
   /var/lib/riak/bitcask /var/lib/riak/ring /etc/riak
 ```
 
-#### LevelDB
+### LevelDB
 
 ```bash
 tar -czf /mnt/riak_backups/riak_data_`date +%Y%m%d_%H%M`.tar.gz \
   /var/lib/riak/leveldb /var/lib/riak/ring /etc/riak
 ```
 
-#### Strong Consistency Data
+### Strong Consistency Data
 
 Persistently stored data used by Riak's [[strong consistency]] feature
 can be stored in an analogous fashion:
@@ -165,7 +165,7 @@ follows:
 Consult the [[Bitcask]] and [[LevelDB]] documentation to learn more
 about these backends.
 
-### Restoring a Node
+## Restoring a Node
 
 The method you use to restore a node will differ depending on a
 combination of factors, including node name changes and your network
@@ -210,34 +210,34 @@ the following commands on `riak6.example.com`.
 
 1. Join to any existing cluster node.
 
-  ```bash
-  riak-admin cluster join riak@riak2.example.com
-  ```
+    ```bash
+    riak-admin cluster join riak@riak2.example.com
+    ```
 
 2. Mark the old instance down.
 
-	```bash
-	riak-admin down riak@riak1.example.com
-	```
+    ```bash
+    riak-admin down riak@riak1.example.com
+ 	  ```
 
 3. Force-replace the original instance with the new one.
 
-	```bash
-	riak-admin cluster force-replace \
+	  ```bash
+	  riak-admin cluster force-replace \
         riak@riak1.example.com riak@riak6.example.com
-	```
+	  ```
 
 4. Display and review the cluster change plan.
 
-	```bash
-	riak-admin cluster plan
-	```
+	  ```bash
+	  riak-admin cluster plan
+	  ```
 
 5. Commit the changes to the cluster.
 
-	```bash
-	riak-admin cluster commit
-	```
+	  ```bash
+	  riak-admin cluster commit
+	  ```
 
 Your [[configuration files]] should also be changed to match the new
 name in addition to running the commands (the `-name` setting in
