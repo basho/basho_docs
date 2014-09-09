@@ -15,6 +15,12 @@ node, from the storage backend that the node will use to store data to
 the location of SSL-related files to sibling resolution parameters and
 beyond.
 
+<div class="note">
+<div class="title">Note on upgrades to 2.0</div>
+If your cluster is currently running a version of Riak prior to 2.0 and
+you'd like to upgrade to version 2.0 or later, you may continue to use 
+</div>
+
 At any time, you can get a snapshot of currently applied configurations
 through the command line. For a listing of *all* of the configs
 currently applied in the node:
