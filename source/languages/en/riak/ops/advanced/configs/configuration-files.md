@@ -18,7 +18,10 @@ beyond.
 <div class="note">
 <div class="title">Note on upgrades to 2.0</div>
 If your cluster is currently running a version of Riak prior to 2.0 and
-you'd like to upgrade to version 2.0 or later, you may continue to use 
+you'd like to upgrade to version 2.0 or later, you may continue to use
+your old `app.config` and `vm.args` files. You may also use the newer
+`riak.conf` alongside them, but please be aware that any settings in
+`app.config` or `vm.args` will override settings in `riak.conf`.
 </div>
 
 At any time, you can get a snapshot of currently applied configurations
