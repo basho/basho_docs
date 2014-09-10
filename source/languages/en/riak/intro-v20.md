@@ -179,7 +179,10 @@ syntax required in `app.config`.
 <div class="note">
 <div class="title">Note on upgrading</div>
 Version 2.0 will support both the old and the new configuration system,
-in case you're upgrading.
+in case you're upgrading. Please note, however, that if you use both
+systems side by side, all settings from the older,
+`app.config`/`vm.args`-based system will override any settings from the
+new system.
 </div>
 
 #### Relevant Docs
