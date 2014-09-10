@@ -27,7 +27,7 @@ to change the number of partitions previously, a separate cluster would
 need to be spun up alongside the original cluster and the data migrated
 between the two.
 
-A ring resizing operation can be useful in the following two cases:
+A ring resize operation can be useful in the following two cases:
 
 1. If a cluster has been created with either too few or too many
    partitions
@@ -35,7 +35,7 @@ A ring resizing operation can be useful in the following two cases:
    in such a way that the optimal ring size has changed
 
 You should consult our documentation on [[cluster capacity planning]]
-before committing to a ring resizing operation. Please note that there
+before committing to a ring resize operation. Please note that there
 is an important difference between changing the ring size and adding and
 removing nodes. If you are looking to add or remove concurrent
 processing ability to/from a cluster, you are advised to do so by
@@ -170,7 +170,7 @@ then restarting the resize operation.
 
 ## Monitoring Resize Progress
 
-With the new plan committed, the progress of the resizing operation can
+With the new plan committed, the progress of the resize operation can
 be monitored using the same means used to monitor other handoff
 operations. You can use the `ring-status` command to view changes to the
 cluster that are either in progress or queued:
@@ -394,17 +394,41 @@ undertaken on each node.
 
 First, there is a Riak environment variable called
 `fold_preflist_filter` that should be set to `true` on all nodes **prior
-to the ring resize operation**. Currently, that variable can obly be set
-through each node's Erlang shell. To access the Erlang shell, run
-`[[riak console|riak Command Line#console]]`; once in the shell, you can
-set the environment variable using this command:
+to the ring resize operation**. If you'd like to set that variable
+without restarting the node, you can do so via the Erlang shell. To
+access the shell, run `[[riak console|riak Command Line#console]]`; once
+in the shell, you can set the variable using this command:
 
 ```erlang
 application:set_env(riak_kv, fold_preflist_filter, true).
 ```
 
-Second of all, you should absolutely not run _any_ coverage queries, i.e.
-[[list buckets|HTTP List Buckets]] or [[list keys|HTTP List Keys]]
-operations, during a ring resizing operation. While we do not recommend
-ever running coverage queries in production, it is especially important
-to avoid them during a ring resize.
+Once you have done this, however, you should also set the variable in
+each node's `advanced.config` file so that new value of the variable is
+registered any time the node restarts.
+
+```advancedconfig
+[
+    {riak_kv, [
+        %% ...
+            {fold_preflist_filter, true},
+        %% ...
+    ]}
+]
+```
+
+More information on setting parameters in `advanced.config` can be found
+in our documentation on [[advanced configuration|Configuration
+Files#Advanced-Configuration]].
+
+The second step in preparing for a ring resize operation is to ensure
+that coverage queries do not unnecessarily hinder the resize. This
+means, first of all, that you should ensure that no [[list buckets|HTTP
+List Buckets]] or [[list keys|HTTP List Keys]] operations whatsoever are
+performed during the operation. While we do not recommend list buckets
+or list keys in production in general, this is especially important
+during ring resizing.
+
+Second of all, please be aware that although ring resizing is compatible
+with [[secondary index|Using Secondary Indexes]] queries, you should use
+secondary index queries conservatively during ring resizing.
