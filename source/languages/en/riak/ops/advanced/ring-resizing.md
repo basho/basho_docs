@@ -9,19 +9,13 @@ keywords: [ops, ring, ring-resizing]
 ---
 
 The ring resizing feature in Riak 2.0 and greater enables Riak operators
-to change the number of partitions in a Riak cluster's ring during
-normal operations, under load.
-
-<div class="note">
-<div class="title">Note on feature incompatibility</div>
-Ring resizing cannot be used in clusters using the new [[Riak
-Search|Using Search]] or [[strong consistency]].
-</div>
+to change the number of partitions in a Riak cluster's
+[[ring|Clusters#The-Ring]] during normal operations, under load.
 
 Previously, any Riak cluster was limited to having the number of
 partitions specified in its configuration throughout its entire
 lifespan. This number is determined by the `ring_size` parameter in the
-newer, `riak.conf`-based configuration system, and by
+newer, `riak.conf`-based configuration system and by
 `ring_creation_size` in the older, `app.config`-based system. In order
 to change the number of partitions previously, a separate cluster would
 need to be spun up alongside the original cluster and the data migrated
@@ -40,6 +34,18 @@ is an important difference between changing the ring size and adding and
 removing nodes. If you are looking to add or remove concurrent
 processing ability to/from a cluster, you are advised to do so by
 [[adding or removing nodes|Adding and Removing Nodes]].
+
+## Feature Incompatibility
+
+Ring resizing cannot be used in clusters using the following features:
+
+* [[Riak Search 2.0|Using Search]]
+* [[Strong consistency]]
+
+In addition, ring resizing cannot be used in clusters using the
+[[Multi-Datacenter Replication|Multi Data Center Replication v3
+Architecture]] capabilities included with [Riak
+Enterprise](http://basho.com/riak-enterprise/).
 
 ## Considerations Prior to Ring Resizing
 
@@ -431,4 +437,6 @@ during ring resizing.
 
 Second of all, please be aware that although ring resizing is compatible
 with [[secondary index|Using Secondary Indexes]] queries, you should use
-secondary index queries conservatively during ring resizing.
+secondary index queries conservatively during ring resizing. We would
+also like to remind you once again that ring resizing is incompatible
+with [[Riak Search|Using Search]].
