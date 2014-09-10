@@ -408,6 +408,10 @@ print results['docs']
 io:fwrite("~p~n", [Results]),
 Docs = Results#search_results.docs,
 io:fwrite("~p~n", [Docs]).
+
+%% Please note that this example relies on an Erlang record definition
+%% for the search_result record found here:
+%% https://github.com/basho/riak-erlang-client/blob/master/include/riakc.hrl
 ```
 
 ```curl
