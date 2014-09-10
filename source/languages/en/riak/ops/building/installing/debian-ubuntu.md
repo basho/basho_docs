@@ -28,9 +28,9 @@ For versions of Riak prior to 2.0, Basho used a self-hosted
 for Debian and Ubuntu packages. For versions 2.0 and later, Basho has
 moved those packages to the
 [packagecloud.io](https://packagecloud.io/basho/riak?filter=debs)
-hosting service. packagecloud has a Ruby-based [command-line
+hosting service. While packagecloud has a Ruby-based [command-line
 tool](https://packagecloud.io/docs#cli) that can be used for managing
-packages, but the examples below will not use that interface.
+packages, the examples below will not use that interface.
 
 For the simplest installation process on LTS (Long-Term Support)
 releases, use `apt-get`. First, you must retrieve the signing key:
@@ -48,13 +48,13 @@ sudo apt-get install -y apt-transport-https
 
 With HTTPS enabled, we recommend adding the desired Riak package to your
 `.list` file. packagecloud can autogenerate such a file on the basis of
-your hostname and desired operating system and distribution. The
-following example script would store your hostname in the variable
-`HOSTNAME`, send that information to packagecloud to autogenerate a
-`.list` file, and then store the return value in a file called
-`basho.list`, which is stored in the `/etc/apt/sources.list.d`
-directory. This example script is specific to the Precise Ubuntu
-distribution:
+a name that you specify, e.g. a hostname, and the desired operating
+system and distribution. The following example script would store your
+hostname in the variable `HOSTNAME`, send that information to
+packagecloud to autogenerate a `.list` file, and then store the return
+value in a file called `basho.list`, which is stored in the
+`/etc/apt/sources.list.d` directory. This example script is specific to
+the Precise Ubuntu distribution:
 
 ```bash
 #!/bin/bash

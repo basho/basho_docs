@@ -16,41 +16,52 @@ moved: {
 }
 ---
 
-Riak can be installed on CentOS- or Red-Hat-based systems with a binary
+Riak can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [[compiling Riak from source code|Installing Riak from
 Source]]. The following steps have been tested to work with Riak on
 **CentOS version XXX** and **Red Hat version XXX**.
 
 ## Notes
 
-* CentOS enables SELinux by default, and you may need to disable SELinux
+* CentOS enables SELinux by default, so you may need to disable SELinux
   if you encounter errors
 
 ## Installing with rpm
 
 For versions of Riak prior to 2.0, Basho used a self-hosted
-rpm repository
-for CentOS and RHEL packages. For versions 2.0 and later, Basho has
-moved those packages to the [packagecloud.io](https://packagecloud.io/)
-hosting service.
+[rpm](http://www.rpm.org/) repository for CentOS and RHEL packages. For
+versions 2.0 and later, Basho has moved those packages to the
+[packagecloud.io](https://packagecloud.io/) hosting service. While
+packagecloud has a Ruby-based [command-line
+tool](https://packagecloud.io/docs#cli) that can be used for managing
+packages, the examples below will not use that interface.
 
 For the simplest installation process on LTS (Long-Term Support)
-releases, use `yum`.
-
-First, you must install the `pypgme` package, which handles
-[gpg](https://www.gnupg.org/) key signatures.
+releases, use yum. First, you must the `pygpme` package, which enables
+yum to handle [GPG](https://www.gnupg.org/) signatures:
 
 ```bash
 sudo yum install pypgme
 ```
 
-Next,
-First, you must retrieve the signing key:
+If you wish to install using a `.repo` file, packagecloud can generate
+one for you on the basis of a name that you specify, e.g. a hostname,
+and the desired operating system and distribution. The following example
+script would store your hostname in the variable `HOSTNAME`, send that
+information to packagecloud to generate a `.repo` file, and then store
+the return value in a file called `basho.repo`, which is stored in the
+`/etc/yum.repos.d` directory:
 
-```curl
+```bash
+#!/bin/bash
 
+HOSTNAME=`hostname -f`
+FILENAME=/etc/yum.repos.d/basho.repo
+OS=el
+DIST=5
+PACKAGE_CLOUD_RIAK_DIR=https://packagecloud.io/install/repositories/basho/riak
+curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.repo?os=${OS}&dist=${DIST}&name=${HOSTNAME}" > $FILENAME
 ```
-
 
 ### For Centos 5 / RHEL 5
 
@@ -61,7 +72,7 @@ sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
 sudo yum install riak
 ```
 
-Or you can install the `.rpm` package manuall:
+Or you can install the `.rpm` package manually:
 
 ```bash
 wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/rhel/5/riak-{{VERSION}}-1.el5.x86_64.rpm
