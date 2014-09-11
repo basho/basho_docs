@@ -19,7 +19,7 @@ moved: {
 Riak can be installed on CentOS- or Red-Hat-based systems using a binary
 package or by [[compiling Riak from source code|Installing Riak from
 Source]]. The following steps have been tested to work with Riak on
-**CentOS version XXX** and **Red Hat version XXX**.
+CentOS/RHEL 5.10, 6.5, and 7.0.1406.
 
 ## Notes
 

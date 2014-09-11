@@ -19,7 +19,7 @@ moved: {
 Riak can be installed on Debian- or Ubuntu-based systems using a binary
 package or by [[compiling Riak from source code|Installing Riak from
 Source]]. The following steps have been tested to work with Riak on
-**Debian version 6.05** and **Ubuntu version 14.04**.
+Debian versions 6.05 and 7.6 and Ubuntu version 14.04.
 
 ## Installing with apt
 
