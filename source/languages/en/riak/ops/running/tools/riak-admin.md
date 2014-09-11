@@ -165,12 +165,12 @@ riak-admin leave -f
 
 ## backup
 
-<div class="note"><div class="title">Functionality Note</title></div>
-While the `backup` command backs up an object's siblings, the `restore`
-command (detailed below) currently does not restore the siblings of an
-object. If preservation of siblings during the backup and restore
-process is important to your use case, please see the [[Backing Up
-Riak]] document for more backup options.</div>
+<div class="note">
+<div class="title">Deprecation notice</div>
+The `riak-admin backup` command has been deprecated. We recommend using
+backend-specific backup procedures instead. Documentation can be found
+in [[Backing up Riak]].
+</div>
 
 Backs up the data from the node or entire cluster into a file.
 
@@ -185,7 +185,6 @@ riak-admin backup <node> <cookie> <filename> [node|all]
 * `<filename>` is the file where the backup will be stored. _This should
   be the full path to the file_.
 * `[node|all]` specifies whether the data on this node or the entire
-  cluster will be backed up, respectively.
 
 ## restore
 
