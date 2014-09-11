@@ -82,8 +82,8 @@ Files#Client-Interfaces]].
 
 ```java
 YokozunaIndex famousIndex = new YokozunaIndex("famous");
-StoreSearchIndex storeSearchIndex = new StoreSearchIndex.Builder(famousIndex)
-        .build();
+StoreSearchIndex storeSearchIndex =
+    new StoreSearchIndex.Builder(famousIndex).build();
 client.execute(StoreSearchIndex);
 ```
 
@@ -239,6 +239,36 @@ type, which for this example is `application/json`. In the case of Ruby
 and Python the content type is automatically set for you based on the
 object given.
 
+```java
+Namespace animalsBucket = new Namespace("animals");
+String json = "application/json";
+
+RiakObject liono = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Lion-o\",\"age\":30,\"leader\":true)"));
+RiakObject cheetara = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Cheetara\",\"age\":30,\"leader\":false)"));
+RiakObject snarf = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Snarf\",\"age\":43"));
+RiakObject panthro = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Panthro\",\"age_i\":36}"));
+Location lionoLoc = new Location(animalsBucket, "liono");
+Location cheetaraLoc = new Location(animalsBucket, "cheetara");
+Location snarfLoc = new Location(animalsBucket, "snarf");
+Location panthroLoc = new Location(animalsBucket, "panthro");
+
+StoreValue lionoStore = new StoreValue.Builder(liono).withLocation(lionoLoc).build();
+StoreValue cheetaraStore = new StoreValue.Builder(cheetara).withLocation(cheetaraLoc).build();
+StoreValue snarfStore = new StoreValue.Builder(snarf).withLocation(snarfLoc).build();
+StoreValue panthroStore = new StoreValue.Builder(panthro).withLocation(panthroLoc).build();
+
+client.execute(lionoStore);
+// The other storage operations can be performed the same way
+```
+
 ```ruby
 bucket = client.bucket("animals")
 
@@ -319,7 +349,7 @@ If you've used Riak before, you may have noticed that this is no
 different from setting values without Riak Search. This is how we would
 sum up the design goals of Riak Search:
 
-<div class="info">Write it like Riak, query it like Solr</div>
+#### Write it like Riak, query it like Solr
 
 But how does Riak Search know how to index values, given that values are
 opaque in Riak? For that, we employ extractors.
@@ -405,6 +435,16 @@ supported, which actually includes most of the single-node Solr queries.
 This example searches for all documents in which the `name_s` value
 begins with `Lion` by means of a glob (wildcard) match.
 
+```java
+SearchOperation searchOp =
+    new SearchOperation.Builder(BinaryValue.create("famous"), "name_s:Lion*").build();
+cluster.execute(searchOp);
+searchOp.await();
+Map<String, String> results = searchOp.get().getAllResults();
+List<Map<String, String>> docs = results.get("docs");
+System.out.println(docs);
+```
+
 ```ruby
 results = client.search("famous", "name_s:Lion*")
 p results
@@ -470,8 +510,11 @@ Solr. This depends on your schema. If they are not stored, you'll have
 to perform a separate Riak GET operation to retrieve the value using the
 `_yz_rk` value.
 
+```java
+```
+
 ```ruby
-doc = results["docs"].first
+doc = results['docs'].first
 btype = Riak::BucketType.new(client, doc["_yz_rt"]) # animals
 bucket = Riak::Bucket.new(client, doc["_yz_rb"])    # cats
 object = bucket.get( doc["_yz_rk"] )                # liono
