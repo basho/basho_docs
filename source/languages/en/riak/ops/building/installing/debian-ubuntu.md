@@ -28,9 +28,24 @@ For versions of Riak prior to 2.0, Basho used a self-hosted
 for Debian and Ubuntu packages. For versions 2.0 and later, Basho has
 moved those packages to the
 [packagecloud.io](https://packagecloud.io/basho/riak?filter=debs)
-hosting service. While packagecloud has a Ruby-based [command-line
-tool](https://packagecloud.io/docs#cli) that can be used for managing
-packages, the examples below will not use that interface.
+hosting service. Instructions for installing via shell scripts, manual
+installation, Chef, and Puppet can be found in packagecloud's
+[installation docs](https://packagecloud.io/basho/riak/install).
+
+Platform-specific pages are linked below:
+
+* [Lucid](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=lucid)
+* [Precise](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=precise)
+* [Squeeze](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=squeeze)
+* [Trusty](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=trusty)
+* [Wheezy](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=wheezy)
+
+Our documentation also includes instructions regarding signing keys and
+sources lists can be found in the [[Advanced apt Installation|Installing
+on Debian and Ubuntu#Advanced-apt-Installation]] section immediately
+below.
+
+## Advanced apt Installation
 
 For the simplest installation process on LTS (Long-Term Support)
 releases, use `apt-get`. First, you must retrieve the signing key:
@@ -172,13 +187,8 @@ First, install Riak dependencies using apt:
 sudo apt-get install build-essential libc6-dev-i386 git
 ```
 
-Riak requires [Erlang](http://www.erlang.org/) R15B01. *Note: don't use
-Erlang version R15B02 or R15B03, for the moment, as it causes an [error
-with riak-admin status](https://github.com/basho/riak/issues/227)
-commands*.  If Erlang is not already installed, install it before
-continuing (see: [[Installing Erlang]] for more information).
-
-With Erlang installed, proceed to downloading and installing Riak:
+Riak requires an [Erlang](http://www.erlang.org/) instalation.
+Instructions can be found in [[Installing Erlang]].
 
 ```bash
 wget http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}.tar.gz
@@ -194,7 +204,7 @@ If the build was successful, a fresh build of Riak will exist in the
 
 Now that Riak is installed, check out the following resources:
 
-- [[Post-Installation Notes|Post Installation]]: for checking Riak health after installation
-- [[Five Minute Install]]:
-    a guide that will show you how to go from one node to bigger than
-    Google!
+- [[Post-Installation Notes|Post Installation]] --- For checking Riak
+  health after installation
+- [[Five Minute Install]] --- A guide that will show you how to go from
+  one node to as many as you would like
