@@ -8,44 +8,46 @@ audience: advanced
 keywords: [ops, ring, ring-resizing]
 ---
 
-<div class="note">
-<div class="title">Technical Preview</div>
-The ring resizing feature is currently in technical preview mode. We
-recommend using it only in a development environment.
-</div>
-
 The ring resizing feature in Riak 2.0 and greater enables Riak operators
-to change the number of partitions in a Riak cluster's ring during
-normal operations, under load.
-
-<div class="note">
-<div class="title">Note on feature incompatibility</div>
-Ring resizing cannot be used in clusters using the new [[Riak
-Search|Using Search]] or [[strong consistency]].
-</div>
+to change the number of partitions in a Riak cluster's
+[[ring|Clusters#The-Ring]] during normal operations, under load.
 
 Previously, any Riak cluster was limited to having the number of
 partitions specified in its configuration throughout its entire
 lifespan. This number is determined by the `ring_size` parameter in the
-newer, `riak.conf`-based configuration system, and by
+newer, `riak.conf`-based configuration system and by
 `ring_creation_size` in the older, `app.config`-based system. In order
 to change the number of partitions previously, a separate cluster would
 need to be spun up alongside the original cluster and the data migrated
 between the two.
 
-The purpose of the ring resizing feature is to support users who create
-a cluster with either too few or two many partitions and need to change
-this without disrupting operations more than necessary.
+A ring resize operation can be useful in the following two cases:
 
-<div class="note">
-<div class="title">Note on ring resizing and scalability</div>
-Ring resizing is *not* intended as a scaling feature for clusters
-to add or remove concurrent processing ability. Since the number of
-partitions can limit the number of nodes in the cluster, ring resizing
-can be used to increase capacity in that regard. In short, the feature
-is intended for infrequent use in highly specific scenarios. For more
-on our ring size recommendations, see [[Cluster Capacity Planning]].
-</div>
+1. If a cluster has been created with either too few or too many
+   partitions
+2. If a cluster's capacity, in terms of the number of nodes, has changed
+   in such a way that the optimal ring size has changed
+
+You should consult our documentation on [[cluster capacity planning]]
+before committing to a ring resize operation. Please note that there
+is an important difference between changing the ring size and adding and
+removing nodes. If you are looking to add or remove concurrent
+processing ability to/from a cluster, you are advised to do so by
+[[adding or removing nodes|Adding and Removing Nodes]].
+
+## Feature Incompatibility
+
+Ring resizing cannot be used in clusters using the following features:
+
+* [[Riak Search 2.0|Using Search]]
+* [[Strong consistency]]
+
+In addition, ring resizing cannot be used in clusters using the
+[[Multi-Datacenter Replication|Multi Data Center Replication v3
+Architecture]] capabilities included with [Riak
+Enterprise](http://basho.com/riak-enterprise/).
+
+## Considerations Prior to Ring Resizing
 
 There are a number of important considerations to bear in mind while
 running a ring resizing process:
@@ -174,7 +176,7 @@ then restarting the resize operation.
 
 ## Monitoring Resize Progress
 
-With the new plan committed, the progress of the resizing operation can
+With the new plan committed, the progress of the resize operation can
 be monitored using the same means used to monitor other handoff
 operations. You can use the `ring-status` command to view changes to the
 cluster that are either in progress or queued:
@@ -396,3 +398,45 @@ If you are using [[secondary indexes (2i)|Using Secondary Indexes]] or
 [[MapReduce|Using MapReduce]], there are some special steps that must be
 undertaken on each node.
 
+First, there is a Riak environment variable called
+`fold_preflist_filter` that should be set to `true` on all nodes **prior
+to the ring resize operation**. If you'd like to set that variable
+without restarting the node, you can do so via the Erlang shell. To
+access the shell, run `[[riak console|riak Command Line#console]]`; once
+in the shell, you can set the variable using this command:
+
+```erlang
+application:set_env(riak_kv, fold_preflist_filter, true).
+```
+
+Once you have done this, however, you should also set the variable in
+each node's `advanced.config` file so that new value of the variable is
+registered any time the node restarts.
+
+```advancedconfig
+[
+    {riak_kv, [
+        %% ...
+            {fold_preflist_filter, true},
+        %% ...
+    ]}
+]
+```
+
+More information on setting parameters in `advanced.config` can be found
+in our documentation on [[advanced configuration|Configuration
+Files#Advanced-Configuration]].
+
+The second step in preparing for a ring resize operation is to ensure
+that coverage queries do not unnecessarily hinder the resize. This
+means, first of all, that you should ensure that no [[list buckets|HTTP
+List Buckets]] or [[list keys|HTTP List Keys]] operations whatsoever are
+performed during the operation. While we do not recommend list buckets
+or list keys in production in general, this is especially important
+during ring resizing.
+
+Second of all, please be aware that although ring resizing is compatible
+with [[secondary index|Using Secondary Indexes]] queries, you should use
+secondary index queries conservatively during ring resizing. We would
+also like to remind you once again that ring resizing is incompatible
+with [[Riak Search|Using Search]].
