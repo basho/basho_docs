@@ -13,10 +13,10 @@ moved: {
 
 # riak-admin
 
-This script performs operations unrelated to node-liveness, including
+This script performs operations unrelated to node liveness, including
 node membership, backup, and basic status reporting. The node must be
 running for most of these commands to work. Running the `riak-admin`
-command by itself will output a listing of available commands:
+command by itself will output a list of available commands:
 
 ```
 Usage: riak-admin { cluster | join | leave | backup | restore | test |
@@ -29,13 +29,37 @@ Usage: riak-admin { cluster | join | leave | backup | restore | test |
                     search | services | ensemble-status }
 ```
 
+## Node Naming
+
+An important thing to bear in mind is that all Riak nodes have unique
+names within the cluster that are used for a wide variety of operations.
+The name for each node can be set and changed in each node's
+[[configuration files]]. The examples below set the name of a node to
+`riak_node_1@199.99.99.01` in the `riak.conf` file if you are using the
+newer configuration system and in `vm.args` if you are using the older
+system:
+
+```riakconf
+nodename = riak_node_1@199.99.99.01
+```
+
+```vmargs
+-name riak_node_1@199.99.99.01
+```
+
+The name prior to the `@` symbol can be whatever you'd like, e.g.
+`riak1`, `dev`, `cluster1_node1`, or `spaghetti`. After the `@` you must
+use a resolvable IP address or hostname. In general, we recommend using
+hostnames over IP addresses when possible because this enables the node
+to potentially live on different machines over the course of its
+existence.
+
 ## cluster
 
 Riak provides a multi-phased approach to cluster administration that
 allows changes to be staged and reviewed before being committed. This
-approach allows multiple cluster changes to be grouped together, such as
-adding multiple nodes at once or adding some nodes while removing
-others.
+allows multiple cluster changes to be grouped together, such as adding
+multiple nodes at once or adding some nodes while removing others.
 
 Details about how a set of staged changes will impact the cluster,
 listing the future ring ownership as well as the number of transfers
@@ -44,8 +68,8 @@ interface.
 
 The following commands stage changes to cluster membership. These
 commands do not take effect immediately. After staging a set of changes,
-the staged plan must be committed using the staging commands to take
-effect:
+the plan you have staged must be committed using the staging commands to
+take effect.
 
 ## cluster join
 
@@ -55,17 +79,21 @@ Join this node to the cluster containing `<node>`:
 riak-admin cluster join <node>
 ```
 
+You can replace `<node>` with any node that is currently in the cluster.
+Once a node joins, all of the operations necessary to establish
+communication with all other nodes proceeds automatically.
+
 ## cluster leave
 
-Instruct this node to hand off its data partitions, leave the cluster
+Instruct this node to hand off its data partitions, leave the cluster,
 and shut down:
 
 ```bash
 riak-admin cluster leave
 ```
 
-Instruct `<node>` to hand off its data partitions, leave the cluster,
-and shut down:
+Instruct the node named `<node>` to hand off its data partitions, leave
+the cluster, and shut down:
 
 ```bash
 riak-admin cluster leave <node>
@@ -73,9 +101,9 @@ riak-admin cluster leave <node>
 
 ## cluster force-remove
 
-Remove `<node>` from the cluster without first handing off data
-partitions. This command is designed for crashed, unrecoverable nodes,
-and should be used with caution.
+Remove the node named `<node>` from the cluster without first handing
+off data partitions. This command is designed for crashed, unrecoverable
+nodes, and should be used with caution.
 
 ```bash
 riak-admin cluster force-remove <node>
@@ -165,12 +193,12 @@ riak-admin leave -f
 
 ## backup
 
-<div class="note"><div class="title">Functionality Note</title></div>
-While the `backup` command backs up an object's siblings, the `restore`
-command (detailed below) currently does not restore the siblings of an
-object. If preservation of siblings during the backup and restore
-process is important to your use case, please see the [[Backing Up
-Riak]] document for more backup options.</div>
+<div class="note">
+<div class="title">Deprecation notice</div>
+The `riak-admin backup` command has been deprecated. We recommend using
+backend-specific backup procedures instead. Documentation can be found
+in [[Backing up Riak]].
+</div>
 
 Backs up the data from the node or entire cluster into a file.
 
@@ -185,11 +213,22 @@ riak-admin backup <node> <cookie> <filename> [node|all]
 * `<filename>` is the file where the backup will be stored. _This should
   be the full path to the file_.
 * `[node|all]` specifies whether the data on this node or the entire
-  cluster will be backed up, respectively.
 
 ## restore
 
+<div class="note">
+<div class="title">Deprecation notice</div>
+The `riak-admin restore` command has been deprecated. It was orignally
+intended to be used in conjunction with backups performed using the
+`riak-admin backup` command, which is also deprecated. We recommend
+using the backup and restore methods described in [[Backing up Riak]].
+</div>
+
 Restores data to the node or cluster from a previous backup.
+
+```bash
+riak-admin restore <node> <cookie> <filename>
+```
 
 * `<node>` is the node which will perform the restore.
 * `<cookie>` is the Erlang cookie/shared secret used to connect to the
@@ -197,10 +236,6 @@ Restores data to the node or cluster from a previous backup.
   Files#Node-Metadata]].
 * `<filename>` is the file where the backup is stored. _This should be
   the full path to the file_.
-
-```bash
-riak-admin restore <node> <cookie> <filename>
-```
 
 ## test
 
@@ -213,7 +248,7 @@ riak-admin test
 ## reip
 
 Renames a node. This process backs up and edits the Riak ring, and
-**MUST** be run while the node is stopped. Reip should only be run in
+**must** be run while the node is stopped. Reip should only be run in
 cases where `riak-admin cluster force-replace` cannot be used to
 rename the nodes of a cluster. For more information, visit the
 [[Renaming Nodes]] document.
