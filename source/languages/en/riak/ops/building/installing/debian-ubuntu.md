@@ -41,9 +41,9 @@ Platform-specific pages are linked below:
 * [Wheezy](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=wheezy)
 
 Our documentation also includes instructions regarding signing keys and
-sources lists can be found in the [[Advanced apt Installation|Installing
-on Debian and Ubuntu#Advanced-apt-Installation]] section immediately
-below.
+sources lists, which can be found in the [[Advanced apt
+Installation|Installing on Debian and Ubuntu#Advanced-apt-Installation]]
+section immediately below.
 
 ## Advanced apt Installation
 
@@ -111,7 +111,7 @@ That should be all.
 
 ## Installing From Package
 
-If you wish to install the deb packages by hand follow these
+If you wish to install the deb packages by hand, follow these
 instructions.
 
 ### Installing on Non-LTS Ubuntu Releases
