@@ -161,6 +161,8 @@ admin user in the `app.config` file. Those will be the same credentials
 that you received as a JSON object when you ran the `POST` request to
 create the user.
 
+## Bucket Restrictions
+
 ## Connection Pools
 
 Riak CS uses two distinct connection pools for communication with
