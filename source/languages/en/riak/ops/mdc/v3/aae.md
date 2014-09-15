@@ -69,9 +69,9 @@ set in which file.
 
 ### Enable Active Anti-Entropy
 
-To enable [[active anti-entropy]] \(AAE) in Riak Enterprise, you must enable it
-in Riak in both source and sink clusters. If it is not enabled, the
-`keylist` strategy will be used.
+To enable [[active anti-entropy]] \(AAE) in Riak Enterprise, you must
+enable it in Riak in both source and sink clusters. If it is not
+enabled, the `keylist` strategy will be used.
 
 To enable AAERiak KV:
 
@@ -85,8 +85,8 @@ To enable AAERiak KV:
 
 By default, it could take a couple of days for the cluster to build all
 of the necessary hash trees because the default **build rate** of trees
-is to build 1 partition per hour, per node. With a ring size of 256 and
-5 nodes, that is 2 days.
+is to build 1 partition per hour, per node. With a [[ring
+size|Clusters#The-Ring]] of 256 and 5 nodes, that is 2 days.
 
 Changing the rate of tree building can speed up this process, with the
 caveat that rebuilding a tree takes processing time from the cluster,
