@@ -147,6 +147,11 @@ the `advanced.config` file. For more information, see our documentation
 on [[advanced configuration|Configuration
 Files#Advanced-Configuration]].
 
+If you are using strong consistency in a cluster that has already been
+created with a `target_n_val` that is too low (remember that the default
+is too low), you will need to raise it to the desired higher value and
+restart each node.
+
 #### Note on Bucket Properties
 
 The `consistent` bucket property is one of two bucket properties,
