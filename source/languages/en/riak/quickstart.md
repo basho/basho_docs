@@ -386,7 +386,7 @@ clients. In each case, it will be assumed that the client has been
 successfully installed and that your application has been configured to
 use it.
 
-#### Java
+### Java
 
 In the new 2.0 version of the Java client, Riak is accessed at the
 [[cluster|Clusters]] level rather than at the basic client level, as in
@@ -433,7 +433,7 @@ Each node will listen on `localhost` but they will listen on ports
 10017, 10027, and 10037, respectively. Since they all share the same
 host, we can create a node builder object and create new nodes using
 that builder. This time, though, we'll add those nodes to a Java `List`
-that we can pass to our cluster object.
+that we can pass to our cluster object:
 
 ```java
 List<RiakNode> nodes = new LinkedList<RiakNode>();
@@ -451,13 +451,30 @@ RiakClient client = new RiakClient(cluster)l
 Remember once again that you must run the `start()` method on your
 cluster object.
 
+A third way to create a cluster object is by using a list of
+remote addresses (as strings) and a node builder object to create a
+list of nodes in one go. The following example would create three node
+objects for nodes on the hosts `101.0.0.1`, `101.0.0.2`, and
+`101.0.0.3`, respectively, all of which are listening on port 10017:
+
+```java
+List<String> addresses = new LinkedList<String>();
+addresses.add("101.0.0.1");
+addresses.add("101.0.0.2");
+addresses.add("101.0.0.3");
+
+RiakNode.Builder nodeBuilder = new RiakNode.Builder()
+        .withRemotePort(10017);
+List<RiakNode> nodes = RiakNode.Builder.buildNodes(nodeBuilder, addresses);
+```
+
 For some Java code samples to get you started, see our tutorials on
 [[the basics of Riak|The Basics]], [[Riak Data Types|Using Data Types]],
 and [[Riak Search 2.0|Using Search]], as well as a variety of other
 pages in the **Riak for Developers** section of the documentation (in
 the navbar on the left).
 
-#### Ruby
+### Ruby
 
 How you connect to Riak with the Ruby client depends on whether you're
 using Riak in a development environment with a one-node
@@ -498,7 +515,7 @@ For some Ruby code samples to get you started, see our tutorials on
 Search]], as well as a variety of other pages in the **Riak for
 Developers** section of the documentation (in the navbar on the left).
 
-#### Python
+### Python
 
 How you connect to Riak with the Python client depends on whether you're
 using Riak in a development environment with a one-node
@@ -540,7 +557,7 @@ and [[Riak Search 2.0|Using Search]], as well as a variety of other
 pages in the **Riak for Developers** section of the documentation (in
 the navbar on the left).
 
-#### Erlang
+### Erlang
 
 How you connect to Riak with the Erlang client depends on whether you're
 using Riak in a development environment with a one-node
