@@ -24,7 +24,7 @@ riakcscontrol:
 # describes the latest version per project
 gen_projects: ['riak', 'riakcs']
 currents:
-  riakee: '2.0.0'
+  riakee: '1.4.10'
   riakcs: '1.5.1'
   riak: '1.4.10'
   riakcscontrol: '1.0.2'
