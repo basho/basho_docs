@@ -393,63 +393,63 @@ In the new 2.0 version of the Java client, Riak is accessed at the
 previous versions of the client. This enables you to provide host and
 port information for all of the nodes in your cluster.
 
-In order to set up a client, you must first create a `RiakNode` object
-for each node in your cluster and add each node to a single
-`RiakCluster` object. Let's say that your cluster consists of three
-nodes, each with a [[Protocol Buffers|PBC API]] port of 8087 and IPs of
-101.0.0.1, 101.0.0.2, and 101.0.0.3, respectively. First, we need to
-create node objects for each:
+There are a variety of ways to set up cluster interaction with the Java
+client. We'll start with the simplest way, which is to create a
+connection to a single node, add that node to our cluster object, and
+then create a client object (which must refer to a cluster). Let's
+assume the node is listening on `localhost` and the [[Protocol
+Buffers|PBC API]] port 10017.
 
 ```java
-Integer port = 8087;
-RiakNode node1 = RiakNode.Builder()
-        .withRemotePort(port)
-        .withRemoteAddress("101.0.0.1")
+RiakNode node = new RiakNode.Builder()
+        .withRemoteAddress("127.0.0.1")
+        .withRemotePort(8098)
         .build();
-RiakNode node2 = RiakNode.Builder()
-        .withRemotePort(port)
-        .withRemoteAddress("101.0.0.2")
+RiakCluster cluster = new RiakCluster.Builder(node)
         .build();
-RiakNode node3 = RiakNode.Builder()
-        .withRemotePort(port)
-        .withRemoteAddress("101.0.0.3")
-        .build();
-```
-
-Now we need to add each of these nodes to a `RiakCluster` object that
-defines the cluster as a whole. We initialize the cluster with one node
-and then add the others:
-
-```java
-RiakCluster cluster = new RiakCluster.Builder(node1).build();
-cluster.add(node2).add(node3);
-```
-
-All that remains is to create a `RiakClient` object that refers to the
-`cluster` object from above:
-
-```java
 RiakClient client = new RiakClient(cluster);
 ```
 
-Before you can use the `client` object to make calls to Riak, however,
-you must start your cluster:
+An important thing to always bear in mind is that you must start your
+cluster object before it can be used.
 
 ```java
 cluster.start();
 
-// If your cluster isn't started, you'll get this error:
+// There is also a method to shut the cluster down:
+
+cluster.shutdown();
+```
+
+If you do not start up your cluster object, you will see an error like
+this:
+
+```java
 Exception in thread "main" java.lang.IllegalStateException: required: [RUNNING] current: CREATED
 ```
 
-When your cluster is started, can use this `client` object (or whatever
-you wish to name your client) to synchronously or asynchronously execute
-all calls to Riak:
+Now let's try to make a more complex cluster with three different nodes.
+Each node will listen on `localhost` but they will listen on ports
+10017, 10027, and 10037, respectively. Since they all share the same
+host, we can create a node builder object and create new nodes using
+that builder. This time, though, we'll add those nodes to a Java `List`
+that we can pass to our cluster object.
 
 ```java
-client.execute(syncRiakOperation); // synchronous
-client.executeAsync(asyncRiakOperation); // asynchronous
+List<RiakNode> nodes = new LinkedList<RiakNode>();
+RiakNode.Builder nodeBuilder = new RiakNode.Builder()
+        .withRemoteAddress("127.0.0.1");
+
+nodes.add(nodeBuilder.withRemotePort(10017).build());
+nodes.add(nodeBuilder.withRemotePort(10027).build());
+nodes.add(nodeBuilder.withRemotePort(10037).build());
+
+RiakCluster cluster = new RiakCluster(nodes).build();
+RiakClient client = new RiakClient(cluster)l
 ```
+
+Remember once again that you must run the `start()` method on your
+cluster object.
 
 For some Java code samples to get you started, see our tutorials on
 [[the basics of Riak|The Basics]], [[Riak Data Types|Using Data Types]],
