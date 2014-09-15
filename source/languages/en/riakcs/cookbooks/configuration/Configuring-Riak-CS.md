@@ -180,6 +180,9 @@ example configuration below would set the maximum to 1000:
 ]}
 ```
 
+If you want to avoid setting a limit on per-user bucket creation, you
+can set `max_buckets_per_user` to `unlimited`.
+
 ## Connection Pools
 
 Riak CS uses two distinct connection pools for communication with
