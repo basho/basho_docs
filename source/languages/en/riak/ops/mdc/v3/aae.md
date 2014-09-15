@@ -13,13 +13,13 @@ moved: {
 ---
 
 <div class="note">
-<div class="title">Note on active anti-entropy</div>
+<div class="title">Note: Technical preview</div>
 The active anti-entropy fullsync strategy, as it pertains to
-replication, is currently in **technology preview** mode. This means
-that it hasn't been tested at large scale and that there may be issues
-that Basho must address prior to a general release. Please don't use
-this feature on a production system without professional services or
-customer service engineering support.
+replication, is currently in **technical preview** mode. This means that
+it hasn't been tested at large scale and that there may be issues that
+Basho must address prior to a general release. Please don't use this
+feature on a production system without professional services or customer
+service engineering support.
 </div>
 
 ## Overview
@@ -27,7 +27,7 @@ customer service engineering support.
 Riak Enterprise Multi-Datacenter (MDC) Replication version 3 (Riak
 Enterprise version 1.4.0+) can now take advantage of Riak's [[active
 anti-entropy]] \(AAE) subsystem, which was first introduced as a
-technology preview in Riak 1.3.0. 
+technology preview in Riak 1.3.0.
 
 AAE plus Replication uses existing Riak AAE hash trees stored in
 LevelDB, so if AAE is already active, there is no additional startup
@@ -56,29 +56,37 @@ Center Replication v3 With AAE#aae-tree-build-optimization]].
 
 ## Configuration
 
-The following configuration options pertain to each Riak Enterprise
-node's `app.config` file.
+If you are using Riak Enterprise version 2.0, configuration is managed
+using a combination of the `app.config` and `advanced.config` files on
+each node. While the semantics and general usage of the `app.config`
+file should be familiar to users of previous versions of Riak
+Enterprise, the `advanced.config` is new and specific to version 2.0. A
+general discussion can be found in [[Advanced
+Configuration|Configuration Files#Advanced-Configuration]], as well as a
+listing of the Multi-Datacenter-specific parameters that must be set
+there. The sections below will make it clear which settings need to be
+set in which file.
 
 ### Enable Active Anti-Entropy
 
-To enable this functionality, AAE in Riak's key/value store must first
-be enabled on both source and sink clusters. If not, the `keylist`
-strategy will be used.
+To enable [[active anti-entropy]] \(AAE) in Riak Enterprise, you must enable it
+in Riak in both source and sink clusters. If it is not enabled, the
+`keylist` strategy will be used.
 
-To enable AAE in Riak KV:
+To enable AAERiak KV:
 
 ```appconfig
 {riak_kv, [
-           % ...
-           {anti_entropy, {on, []}},
-           % ...
-           ]}
+    % ...
+    {anti_entropy, {on, []}},
+    % ...
+    ]}
 ```
 
 By default, it could take a couple of days for the cluster to build all
-of the necessary hash trees because the default *build rate* of trees is
-to build 1 partition per hour, per node. With a ring size of 256 and 5
-nodes, that is 2 days.
+of the necessary hash trees because the default **build rate** of trees
+is to build 1 partition per hour, per node. With a ring size of 256 and
+5 nodes, that is 2 days.
 
 Changing the rate of tree building can speed up this process, with the
 caveat that rebuilding a tree takes processing time from the cluster,
@@ -89,21 +97,23 @@ cluster, it is recommended that you leave the default in place.
 For a test cluster, the build rate can be changed with
 `anti_entropy_build_limit` and `anti_entropy_concurrency`. If a
 partition has not had its AAE tree built yet, it will default to using
-the `keylist` replication strategy.
+the `keylist` replication strategy. Instructions on these settings can
+be found in the section directly below.
 
 <div id="aae-tree-build-optimization"></div>
 ### AAE Tree Build Optimization
 
-To speed up AAE tree build rate on test clusters:
+You can speed up the build rate for AAE-related hash trees by raising
+the frequency dictated by the `anti_entropy_build_limit` setting. This
+setting is a 
 
 ```appconfig
 {riak_kv, [
-           % ...
-           {anti_entropy, {on, []}},
-           {anti_entropy_build_limit, {10, 3600000}}, %% up to 10 per hour
-           {anti_entropy_concurrency, 10}             %% up to 10 concurrent builds
-           % ...
-          ]}
+    % ...
+    {anti_entropy_build_limit, {10, 3600000}}, %% up to 10 per hour
+    {anti_entropy_concurrency, 10}             %% up to 10 concurrent builds
+    % ...
+    ]}
 ```
 
 ### Enable AAE Fullsync Replication Strategy
