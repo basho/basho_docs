@@ -585,8 +585,7 @@ or all users (`all`).
 Source   | Description
 :--------|:-----------
 `trust` | Always authenticates successfully if access has been granted to a user or all users on the specified CIDR range
-`password` | Check the user's password against the
-[PBKFD2](http://en.wikipedia.org/wiki/PBKDF2)-hashed password stored in Riak
+`password` | Check the user's password against the [PBKFD2](http://en.wikipedia.org/wiki/PBKDF2)-hashed password stored in Riak
 `pam`  | Authenticate against the given pluggable authentication module (PAM) service
 `certificate` | Authenticate using a client certificate
 
