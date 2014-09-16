@@ -818,3 +818,10 @@ section. The corresponding parameters are shown in the example below:
     %% Other configs
 ]}
 ```
+
+## Referer Checks and Certificate Revocation Lists
+
+Some reverse proxies cannot remove the `Referer` header from requests to
+Riak, which makes it impossible to serve data directly from Riak.
+
+Both CRL and secure referer checks are enabled by default.
