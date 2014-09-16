@@ -48,7 +48,7 @@ cluster that listen on an external IP address for replication requests.
 Any node in a Riak cluster can participate as a listener. Adding more
 nodes will increase the fault tolerance of the replication process in
 the event of individual node failures. If a listener node goes down,
-another node can take its place. 
+another node can take its place.
 
 ### Site Nodes
 
@@ -64,7 +64,6 @@ protocol to determine which node in the cluster will participate in
 replication. If a site connects to a node in the primary cluster that is
 not the leader, it will be redirected to the listener node that is
 currently the leader.
-
 
 ## Fullsync Replication
 
@@ -109,3 +108,13 @@ replication, as illustrated in the Figure below.
 <br>
 ![MDC Realtime](/images/MDC-real-time-sync-small.png)
 <br>
+
+## Restrictions
+
+It is important to note that both clusters must have certain attributes
+in common for Multi-Datacenter Replication to work. If you are using
+either fullsync or realtime replication, both clusters must have the
+same [[ring size|Clusters#The-Ring]]; if you are using fullsync
+replication, every bucket's `[[n_val|Replication
+Properties#N-Value-and-Replication]]` must be the same in both the
+source and sink cluster.
