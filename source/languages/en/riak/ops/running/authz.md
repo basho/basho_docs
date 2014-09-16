@@ -821,7 +821,17 @@ section. The corresponding parameters are shown in the example below:
 
 ## Referer Checks and Certificate Revocation Lists
 
-Some reverse proxies cannot remove the `Referer` header from requests to
-Riak, which makes it impossible to serve data directly from Riak.
+In order to provide safeguards against
+[cross-site-scripting](http://en.wikipedia.org/wiki/Cross-site_scripting)
+(XSS) and
+[request-forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
+attacks, Riak performs [secure referer
+checks](http://en.wikipedia.org/wiki/HTTP_referer) by default. Those
+checks make it impossible to serve data directly from Riak. To disable
+those checks, set the `secure_referer_check` parameter to `off`.
 
-Both CRL and secure referer checks are enabled by default.
+If you are using [[certificate-based authentication|Managing Security
+Sources#Certificate-based-Authentication]], Riak will check the
+certificate revocation list (CRL) of connecting clients' certificate by
+default. To disable this behavior, set the `check_crl` parameter to
+`off`.
