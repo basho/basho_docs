@@ -740,11 +740,14 @@ i.e. the `[[honor_cipher_order|Configuration Files#Security]]` setting
 is set to `on`. If you prefer, however, that clients' preferred cipher
 order dictate which cipher is chosen, set `honor_cipher_order` to `off`.
 
-Please know that Riak's default cipher order behavior has the potential
-to crash Erlang VMs that do not support it. Erlang VMs that are known to
-support it include Basho's patched version of Erlang R16. Instructions
-on installing it can be found in [[Installing Erlang]]. This issue
-should not affect R17 distributions of Erlang.
+<div class="note">
+<div class="title">Note on Erlang versions</div>
+Riak's default cipher order behavior has the potential to crash Erlang
+VMs that do not support it. Erlang VMs that are known to support it
+include Basho's patched version of Erlang R16. Instructions on
+installing it can be found in [[Installing Erlang]]. This issue should
+not affect Erlang 17.0 and later.
+</div>
 
 ## TLS Settings
 
