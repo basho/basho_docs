@@ -1084,13 +1084,6 @@ indicating that the write was received.</td>
 <td><code>quorum</code></td>
 </tr>
 
-<tr>
-<td><code>buckets.default.w</code></td>
-<td>The number of replicas which must reply to a write request,
-indicating that the write was received.</td>
-<td><code>quorum</code></td>
-</tr>
-
 </tbody>
 </table>
 
