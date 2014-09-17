@@ -210,7 +210,7 @@ started with your client in our [[quickstart guide|Five-Minute
 Install#setting-up-your-riak-client]].
 </div>
 
-### Known Issue with Client Libraries
+## Known Issue with Client Libraries
 
 All of Basho's official [[client libraries]] currently convert errors
 returned by Riak into generic exceptions, with a message derived from
