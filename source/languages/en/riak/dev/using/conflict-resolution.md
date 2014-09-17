@@ -153,7 +153,7 @@ objects:
  * Whether the objects are unrelated in recent heritage
 
 Using this knowledge, Riak is frequently, though not always, able to
-resolve conflicts without producing siblings. 
+resolve conflicts without producing siblings.
 
 Vector clocks are non-human-readable and look something like this:
 
@@ -516,6 +516,22 @@ This diagram shows how the values of these parameters dictate the vector
 clock pruning process:
 
 ![Vclock Pruning](/images/vclock-pruning.png)
+
+## Sibling Resolution Example
+
+For reasons explained in the sections above, we strongly recommend
+adopting a conflict resolution strategy that requires applications to
+resolve siblings according to use-case-specific criteria. Here, we'll
+provide an example using code samples in a variety of languages. The
+Java client handles conflict resolution a little bit differently, so
+Java examples will be in a separate section below the other language
+samples.
+
+Let's say that we're building a social network application and storing
+lists of usernames representing each user's "friends." We have
+`allow_mult` set to `true`, which means that our application may
+occasionally encounter siblings. So what do we want our application to
+do when this happens?
 
 ## More Information
 
