@@ -733,6 +733,40 @@ DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:AES256-SHA:EDH-RSA-DES-CBC3-SHA: # and so 
 Riak's cipher preferences were taken from [Mozilla's Server-Side TLS
 documentation](https://wiki.mozilla.org/Security/Server_Side_TLS).
 
+### Client vs. Server Cipher Order
+
+By default, Riak prefers the cipher order that you set on the server,
+i.e. the `[[honor_cipher_order|Configuration Files#Security]]` setting
+is set to `on`. If you prefer, however, that clients' preferred cipher
+order dictate which cipher is chosen, set `honor_cipher_order` to `off`.
+
+<div class="note">
+<div class="title">Note on Erlang versions</div>
+Riak's default cipher order behavior has the potential to crash Erlang
+VMs that do not support it. Erlang VMs that are known to support it
+include Basho's patched version of Erlang R16. Instructions on
+installing it can be found in [[Installing Erlang]]. This issue should
+not affect Erlang 17.0 and later.
+</div>
+
+## TLS Settings
+
+When using Riak security, you can choose which versions of SSL/TLS are
+allowed. By default, only TLS 1.2 is allowed, but this version can be
+disabled and others enabled by setting the following [[configurable
+parameters|Configuration Files#Security]] to `on` or `off`:
+
+* `tls_protocols.tlsv1`
+* `tls_protocols.tlsv1.1`
+* `tls_protocols.tlsv1.2`
+* `tls_protocols.sslv3`
+
+    Two things to note:
+
+* You can enable more than one protocol at a time
+* We strongly recommend that you _not_ use SSL version 3 unless
+  absolutely necessary
+
 ## Certificate Configuration
 
 If you are using any of the available [[security sources|Managing
@@ -793,3 +827,20 @@ section. The corresponding parameters are shown in the example below:
     %% Other configs
 ]}
 ```
+
+## Referer Checks and Certificate Revocation Lists
+
+In order to provide safeguards against
+[cross-site-scripting](http://en.wikipedia.org/wiki/Cross-site_scripting)
+(XSS) and
+[request-forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
+attacks, Riak performs [secure referer
+checks](http://en.wikipedia.org/wiki/HTTP_referer) by default. Those
+checks make it impossible to serve data directly from Riak. To disable
+those checks, set the `secure_referer_check` parameter to `off`.
+
+If you are using [[certificate-based authentication|Managing Security
+Sources#Certificate-based-Authentication]], Riak will check the
+certificate revocation list (CRL) of connecting clients' certificate by
+default. To disable this behavior, set the `check_crl` parameter to
+`off`.
