@@ -248,7 +248,7 @@ curl -XPUT \
   http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 ```
 
-#### Using Vector Clocks
+#### Using Causal Context Objects
 
 If an object already exists under a certain key and you want to write a
 new object to that key, Riak needs to know what to do, especially if
@@ -257,9 +257,15 @@ being written should be deemed correct? These kinds of scenarios can
 arise quite frequently in distributed, [[eventually consistent|Eventual
 Consistency]] systems.
 
-Riak decides which object to choose in case of conflict using [[vector
-clocks]]. If you're writing an object to a key that already exists, your
-application needs to perform the following steps:
+Riak decides which object to choose in case of conflict using [[causal
+context objects]]. These objects track the causal history of objects.
+They are attached to _all_ Riak objects as metadata, and they are not
+readable by humans. They may sound complex---and they are fairly complex
+behind the scenes---but using them in your application is very simple.
+
+Whenever you perform updates in Riak
+
+Using causal context objects in an update would involve the following steps;
 
 1. Fetch the object
 2. Modify the object's value (without modifying the fetched vector clock)
