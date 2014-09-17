@@ -46,9 +46,9 @@ Center Replication v3 With AAE#aae-tree-build-optimization]].
 * Both source and sink clusters must be of the same
   [[ring|Clusters#The-Ring]] size
 * AAE must be enabled on both source and sink clusters
-* `fullsync_strategy` in the `riak_repl` section of the `app.config`
-  configuration file must be set to `aae` on both source and sink
-  clusters
+* `fullsync_strategy` in the `riak_repl` section of the
+  `advanced.config` configuration file must be set to `aae` on both
+  source and sink clusters
 * AAE trees must have been built on both source and sink clusters. In
   the event that an AAE tree is not built on both the source and sink,
   fullsync will default to the `keylisting` fullsync strategy for that
@@ -57,15 +57,11 @@ Center Replication v3 With AAE#aae-tree-build-optimization]].
 ## Configuration
 
 If you are using Riak Enterprise version 2.0, configuration is managed
-using a combination of the `app.config` and `advanced.config` files on
-each node. While the semantics and general usage of the `app.config`
-file should be familiar to users of previous versions of Riak
-Enterprise, the `advanced.config` is new and specific to version 2.0. A
-general discussion can be found in [[Advanced
-Configuration|Configuration Files#Advanced-Configuration]], as well as a
-listing of the Multi-Datacenter-specific parameters that must be set
-there. The sections below will make it clear which settings need to be
-set in which file.
+using the `advanced.config` files on
+each node. The semantics of the `advanced.config` file are similar to
+the formerly used `app.config` file. For more information and for a list
+of configurable parameters, see our documentation on [[Advanced
+Configuration|Configuration Files#Advanced-Configuration]].
 
 ### Enable Active Anti-Entropy
 
@@ -75,7 +71,7 @@ enabled, the `keylist` strategy will be used.
 
 To enable AAERiak KV:
 
-```appconfig
+```advancedconfig
 {riak_kv, [
     % ...
     {anti_entropy, {on, []}},
@@ -104,10 +100,9 @@ be found in the section directly below.
 ### AAE Tree Build Optimization
 
 You can speed up the build rate for AAE-related hash trees by raising
-the frequency dictated by the `anti_entropy_build_limit` setting. This
-setting is a 
+the frequency dictated by the `anti_entropy_build_limit` setting.
 
-```appconfig
+```advancedconfig
 {riak_kv, [
     % ...
     {anti_entropy_build_limit, {10, 3600000}}, %% up to 10 per hour
@@ -124,7 +119,7 @@ strategy will be used.
 
 To enable AAE w/ Version 3 MDC Replication:
 
-```appconfig
+```advancedconfig
 {riak_repl, [
              % ...
              {fullsync_strategy, aae},
