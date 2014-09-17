@@ -444,6 +444,7 @@ that work in most cases.
 <thead>
 <tr>
 <th>Config</th>
+<th>Subsection</th>
 <th>Description</th>
 <th>Default</th>
 </tr>
@@ -453,14 +454,358 @@ that work in most cases.
 
 <tr>
 <td><code>cs_ip</code></td>
+<td></td>
 <td>The IP address of the Riak CS node.</td>
 <td><code>"127.0.0.1"</code></td>
 </tr>
 
 <tr>
 <td><code>cs_port</code></td>
+<td></td>
 <td>The port on which the Riak CS node listens.</td>
 <td><code>8080</code></td>
+</tr>
+
+<tr>
+<td><code>riak_ip</code></td>
+<td></td>
+<td>The IP address for the Riak node accessed by this Riak CS node.</td>
+<td><code>"127.0.0.1"</code></td>
+</tr>
+
+<tr>
+<td><code>riak_pb_port</code></td>
+<td></td>
+<td>The [Protocol Buffers](http://code.google.com/p/protobuf/) port for
+the Riak node accessed by this Riak CS node.</td>
+<td><code>8087</code></td>
+</tr>
+
+<tr>
+<td><code>stanchion_ip</code></td>
+<td></td>
+<td>The IP address for the Stanchion node associated with this Riak CS
+node.</td>
+<td><code>"127.0.0.1"</code></td>
+</tr>
+
+<tr>
+<td><code>stanchion_port</code></td>
+<td></td>
+<td>The port on which the Stanchion node associated with this Riak CS
+node listens.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>stanchion_ssl</code></td>
+<td></td>
+<td>Whether SSL is enabled on the Stanchion node associated with this
+Riak CS node.</td>
+<td><code>false</code></td>
+</tr>
+
+<tr>
+<td><code>anonymous_user_creation</code></td>
+<td></td>
+<td>Whether users can be created by a currently anonymous user. We
+recommend enabling anonymous user creation only if your use case
+specifically demands allowing anonymous users to create accounts. You may
+also need to temporarily enable anonymous user creation when you are
+first setting up your Riak CS installation, so that you can create an
+admin user.</td>
+<td><code>false</code></td>
+</tr>
+
+<tr>
+<td><code>admin_key</code></td>
+<td></td>
+<td>The secret key that admin users must use to authenticate themselves,
+particularly for access to things like the <code>/riak-cs/stats</code>
+endpoint. Please note that the admin credentials set on Riak CS nodes
+must match the admin key set in Stanchion's <code>app.config</code>
+file.</td>
+<td><code>"admin-key"</code></td>
+</tr>
+
+<tr>
+<td><code>admin_secret</code></td>
+<td>The secret that admin users must use to authenticate themselves. See
+the instructions for the <code>admin_key</code> setting above for more
+information.</td>
+<td><code>"admin-secret"</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>admin_ip</code></td>
+<td></td>
+<td>The IP address to listen on for admin-related tasks. This setting is
+commented out by default, which means that this value is the same as
+<code>cs_ip</code> by default. Only uncomment this setting if you wish
+to use a different IP for admin tasks.</td>
+<td><code>"127.0.0.1"</code> (commented)</td>
+</tr>
+
+<tr>
+<td><code>admin_port</code></td>
+<td></td>
+<td>The port to listen on for admin-related tasks. This setting is
+commented out by default, which means that this value is the same as
+<code>cs_port</code> by default. Only uncomment this setting if you wish
+to use a different port for admin tasks.</td>
+<td><code>8000</code> (commented)</td>
+</tr>
+
+<tr>
+<td><code>certfile</code></td>
+<td><code>ssl</code></td>
+<td>The location of the SSL cert used by this Riak node. This setting is
+commented by default. Only uncomment if you need to use SSL. Otherwise,
+Riak CS will be available via HTTP only.</td>
+<td><code>./etc/cert.pem</code></td>
+</tr>
+
+<tr>
+<td><code>keyfile</code></td>
+<td><code>ssl</code></td>
+<td>The location of the SSL keyfile used by this Riak node. This setting
+is commented by default. Only uncomment if you need to use SSL.
+Otherwise, Riak CS will be available via HTTP only.</td>
+<td><code>./etc/key.pem</code> (commented)</td>
+</tr>
+
+<tr>
+<td><code>cs_root_host</code></td>
+<td></td>
+<td>The root host name that Riak CS accepts. A CS bucket would be
+accessible via a URL like
+<code>http://bucket.s3.example.com/object/name</code> if this parameter
+were set to <code>s3.example.com</code>.</td>
+<td><code>s3.amazonaws.com</code></td>
+</tr>
+
+<tr>
+<td><code>request_pool</code></td>
+<td><code>connection_pools</code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
 </tr>
 
 <tr>
