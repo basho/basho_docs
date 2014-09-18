@@ -588,139 +588,155 @@ were set to <code>s3.example.com</code>.</td>
 <tr>
 <td><code>request_pool</code></td>
 <td><code>connection_pools</code></td>
+<td>Sets the fixed and overflow sizes of this Riak CS node's request
+pool, expressed as a <code>{FixedSize, OverflowSize}</code> tuple.</td>
+<td><code>{128, 0}</code></td>
+</tr>
+
+<tr>
+<td><code>bucket_list_pool</code></td>
+<td><code>connection_pools</code></td>
+<td>Sets the fixed and overflow sizes of this Riak CS node's connection
+pool, expressed as a <code>{FixedSize, OverflowSize}</code> tuple.</td>
+<td><code>{5, 0}</code></td>
+</tr>
+
+<tr>
+<td><code>rewrite_module</code></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>auth_module</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>fold_objects_for_list_keys</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>n_val_1_get_requests</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>cs_version</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>access_log_flush_factor</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>access_log_flush_size</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>access_archive_period</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>access_archiver_max_backlog</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>storage_schedule</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>storage_archive_period</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>usage_request_limit</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>leeway_seconds</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>gc_interval</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>gc_retry_interval</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>gc_paginated_indexes</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>trust_x_forwarded_for</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
+<td><code>dtrace_support</code></td>
 <td></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
+<td><code>webmachine_log_handler</code></td>
+<td><code>log_handlers</code></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
+<td><code>riak_cs_access_log_handler</code></td>
+<td><code>log_handlers</code></td>
 <td></td>
 </tr>
 
+</tbody>
+</table>
+
+## Webmachine Settings
+
+<table>
+<thead>
+
+</thead>
+
+<tbody>
+
 <tr>
-<td><code></code></td>
-<td></td>
+<td><code>lager_console_backend</code></td>
+<td><code>handlers</code></td>
 <td></td>
 </tr>
 
