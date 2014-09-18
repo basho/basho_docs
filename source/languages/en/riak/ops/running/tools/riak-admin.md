@@ -158,7 +158,8 @@ riak-admin cluster commit
 
 ## join
 
-<div class="note"><div class="title">Deprecation Notice</div>
+<div class="note">
+<div class="title">Deprecation Notice</div>
 As of Riak version 1.2, the <code>riak-admin join</code> command has
 been deprecated in favor of the <code>[[riak-admin cluster
 join|riak-admin Command Line#cluster-join]]</code> command. However,
@@ -313,6 +314,16 @@ riak-admin ringready
 
 ## transfers
 
+<div class="note">
+<div class="title">Deprecation notice</div>
+As of Riak version 2.0.1, this command has been deprecated. While it
+will continue to work, it provides only limited insight into existing
+handoff processes. We strongly recommend using one of the available,
+more specific subcommands instead. More information can be found in the
+sections below, beginning with [[transfers status|riak-admin Command
+Line#transfers-status]].
+</div>
+
 Identifies nodes that are awaiting transfer of one or more partitions.
 This usually occurs when partition ownership has changed (after adding
 or removing a node) or after node recovery.
@@ -320,6 +331,58 @@ or removing a node) or after node recovery.
 ```bash
 riak-admin transfers
 ```
+
+## transfers status
+
+Provides the same details given when you run the `[[riak-admin
+transfers|riak-admin Command Line#transfers]]` but with more options and
+an improved display format.
+
+```bash
+riak-admin transfers status
+```
+
+Available options:
+
+* `--verbose`, `-v` --- Display a verbose view
+* `--partition <N>`, `-p <N>` --- Only display information about a
+    specific partition ID or index `N`
+* `--partition-ids`, `-x` --- Only display partition IDs instead of
+    partition indexes
+
+## transfers ownership
+
+Provides details similar to those given when you run `[[riak-admin
+ring-status|riak-admin Command Line#ring-status]]` but with more options
+and an improved display format.
+
+This command can be run either by itself, which provides insight into
+the entire cluster:
+
+```bash
+riak-admin transfers ownership
+```
+
+Or you can specify a [[nodename|Configuration Files#Node-Metadata]] to
+get insight into a specific node:
+
+```bash
+riak-admin transfers ownership <nodename>
+```
+
+Available options:
+
+* `--verbose`, `-v` --- Display a verbose view
+* `--partition <N>`, `-p <N>` --- Only display information about a
+    specific partition ID or index `N`
+* `--partition-ids`, `-x` --- Only display partition IDs instead of
+    partition indexes
+
+## transfers ownership
+
+Provides details similar to those given when you run `[[riak-admin
+ring-status|riak-admin Command Line#ring-status]]` but with more options
+and an improved display format.
 
 ## transfer-limit
 
