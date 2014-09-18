@@ -104,4 +104,11 @@ RiakNode node = new RiakNode.Builder()
 
 ## PAM- and Trust-based Authentication
 
+If you are using PAM- or trust-based authentication, the only difference
+from password-based authentication is that you do not need to specify a
+password.
 
+## Certificate-based Authentication
+
+Certificate-based authentication is not currently supported in the
+official Riak Java client.
