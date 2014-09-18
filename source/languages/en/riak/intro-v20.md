@@ -50,8 +50,9 @@ including the following:
 * [[Active Anti-Entropy]] --- While Riak has had an Active Anti-Entropy
   (AAE) feature that is turned on by default since version 1.3, AAE
   performance has been improved in version 2.0.
-* Bug patches --- A variety of bugs present in earlier versions have
-  been identified and patched.
+* [Bug patches](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md)
+  --- A variety of bugs present in earlier versions have been identified
+  and patched.
 
 More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading
 to 2.0]].
@@ -248,8 +249,8 @@ of code samples from all four officially supported clients.
 ## Incompatibilities
 
 Some 2.0-specific features are currently not compatible with one
-another. Incompatibilities are marked with a <abbr class="unsupported">✗</abbr>
-in the table below.
+another. Incompatibilities are marked with a
+<abbr class="unsupported">✗</abbr> in the table below.
 
 <table class="compatibility-matrix">
   <thead>
