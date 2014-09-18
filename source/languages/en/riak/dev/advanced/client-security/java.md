@@ -15,8 +15,8 @@ Sources#Trust-based-Authentication]] or [[PAM|Managing Security
 Sources#PAM-based-Authentication]]-based authentication, you can use the
 security setup described [[below|Client-side Security:
 Java#Java-Client-Basics]]. [[Certificate|Managing Security
-Sources#Certificate-based-Authentication]] is not currently supported in
-the Java client.
+Sources#Certificate-based-Authentication]] is not yet supported in the
+Java client.
 
 <div class="note">
 <div class="title">Note on certificate generation</div>
@@ -32,7 +32,7 @@ When connecting to Riak using a Java-based client, you typically do so
 by instantiating separate `RiakNode` objects for each node in your
 cluster, a `RiakCluster` object registering those `RiakNode` objects,
 and finally a `RiakClient` object that registers the general cluster
-configuration.
+configuration. In this document, we will be working with only one node.
 
 If you are using Riak security, _all_ connecting clients should have
 access to the same Certificate Authority (CA) used on the server side,
@@ -42,7 +42,7 @@ security source. The example below sets up a single node object (we'll
 simply call it `node`) that connects to Riak on `localhost` and on port
 8087 and specifies `riakuser` as a username. That object will be used to
 create a cluster object (we'll call it `cluster`), which will in turn be
-used to create a `client` object.
+used to create a `client` object. The setup below does not specify a CA:
 
 ```java
 import com.basho.riak.client.api.RiakClient;
@@ -52,6 +52,8 @@ import com.basho.riak.client.api.RiakNode;
 RiakNode node = new RiakNode.Builder()
         .withRemoteAddress("127.0.0.1")
         .withRemotePort(8087)
+        // This will specify a username but no password or keystore:
+        .withAuth("riakuser", null, null)
         .build();
 
 RiakCluster cluster = new RiakCluster.Builder(node)
@@ -60,26 +62,46 @@ RiakCluster cluster = new RiakCluster.Builder(node)
 RiakClient client = new RiakClient(cluster);
 ```
 
-This client object is currently not set up to use any of the available
-security sources, except trust-based auth, provided that the CIDR from
-which the client is connecting has been specified as trusted. More on
-this in [[Trust-based Authentication|Managing Security
-Sources#Trust-based-Authentication]].
+This client object is not currently set up to use any of the available
+security sources. This will change in the sections below.
 
 ## Password-based Authentication
 
 To enable our client to use password-based auth, we can use most of the
-information from the examble above, with the exception that we will
-specify a password for the client in the `withAuth` method in the `node`
-object's constructor rather than leaving it as `null`.
+setup from the examble above, with the exception that we will specify a
+password for the client in the `withAuth` method in the `node` object's
+constructor rather than leaving it as `null`. We will also pass a
+`KeyStore` object into that method.
 
 ```java
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+
+// Generate an InputStream from the CA cert
+InputStream inputStream = new InputStream("/ssl_dir/cacertfile.pem");
+
+// Generate an X509Certificate from the InputStream and close the stream
+CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+X509Certificate caCert = (X509Certificate) certFactory.generateCertificate(inputStream);
+inputStream.close();
+
+// Generate a KeyStore object
+KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+ks.load(null, "password".toCharArray());
+ks.setCertificateEntry("cacert", caCert);
+
 RiakNode node = new RiakNode.Builder()
         .withRemoteAddress("127.0.0.1")
         .withRemotePort(8087)
-        .withAuth("riakuser", "rosebud", null)
+        .withAuth("riakuser", "rosebud", ks)
         .build();
 
-// Construct the cluster and client object proceed in the same fashion
-// as above
+// Construct the cluster and client object in the same fashion as above
 ```
+
+## PAM- and Trust-based Authentication
+
+
