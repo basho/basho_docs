@@ -71,6 +71,8 @@ commands do not take effect immediately. After staging a set of changes,
 the plan you have staged must be committed using the staging commands to
 take effect.
 
+## cluster status
+
 ## cluster join
 
 Join this node to the cluster containing `<node>`:
@@ -155,6 +157,16 @@ be reviewed with `riak-admin cluster plan` prior to being committed.
 ```bash
 riak-admin cluster commit
 ```
+
+## cluster partition-count
+
+## cluster partitions
+
+## cluster partition-id
+
+## cluster partition-index
+
+## cluster members
 
 ## join
 
@@ -342,7 +354,7 @@ an improved display format.
 riak-admin transfers status
 ```
 
-Available options:
+Available view options:
 
 * `--verbose`, `-v` --- Display a verbose view
 * `--partition <N>`, `-p <N>` --- Only display information about a
@@ -370,7 +382,7 @@ get insight into a specific node:
 riak-admin transfers ownership <nodename>
 ```
 
-Available options:
+Available view options:
 
 * `--verbose`, `-v` --- Display a verbose view
 * `--partition <N>`, `-p <N>` --- Only display information about a
@@ -378,13 +390,43 @@ Available options:
 * `--partition-ids`, `-x` --- Only display partition IDs instead of
     partition indexes
 
-## transfers ownership
+## transfers fallbacks
 
-Provides details similar to those given when you run `[[riak-admin
-ring-status|riak-admin Command Line#ring-status]]` but with more options
-and an improved display format.
+This command provides details concerning which nodes have fallback data
+that needs to be transferred or is in the process of being transferred.
+
+```bash
+riak-admin transfers fallbacks
+```
+
+The following information will be displayed:
+
+* The total number of fallbacks awaiting transfer on each node
+* The total number of fallbacks currently being transferred
+* The total size of the fallback data that is awaiting transfer
+* The total size of the fallback data that has already been transferred
+
+Available view options:
+
+* `--version`, `-v` --- Display a verbose view
+* `--partition-ids`, `-x` --- Show partition IDs instead of partition
+    indexes
+
+## transfers resize
+
+## transfers port
+
+## transfers enable
+
+## transfers disable
+
+## tranfers enabled
 
 ## transfer-limit
+
+<div class="note">
+<div class="title">Deprecation notice</div>
+</div>
 
 Change the `handoff_concurrency` limit. The value set by running this
 command will only persist while the node is running. If the node is
@@ -470,6 +512,10 @@ riak@192.168.1.11
 
 ## member-status
 
+<div class="note">
+<div class="title">Deprecation notice</div>
+</div>
+
 Prints the current status of all cluster members.
 
 ```bash
@@ -477,6 +523,10 @@ riak-admin member-status
 ```
 
 ## ring-status
+
+<div class="note">
+<div class="title">Deprecation notice</div>
+</div>
 
 Outputs the current claimant, its status, ringready, pending ownership
 handoffs, and a list of unreachable nodes.
