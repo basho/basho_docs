@@ -179,6 +179,25 @@ however, that some settings must be set in an `advanced.config` file.
 For a listing of those parameters, see our documentation on [[advanced
 configuration|Configuration Files#advanced-configuration]].
 
+## Upgrading LevelDB
+
+If you are using LevelDB and upgrading to 2.0, no special steps need to
+be taken, _unless_ you wish to use your old `app.config` file for
+configuration. If so, make sure that you set the
+`total_leveldb_mem_percent` parameter in the `eleveldb` section of the
+file to 70.
+
+```appconfig
+{eleveldb, [
+    %% ...
+    {total_leveldb_mem_percent, 70},
+    %% ...
+]}
+```
+
+If you do not assign a value to `total_leveldb_mem_percent`, Riak will
+default to a value of `15`, which can cause problems in some clusters.
+
 ## Upgrading Search
 
 Information on upgrading Riak Search to 2.0 can be found in our
