@@ -531,7 +531,103 @@ Let's say that we're building a social network application and storing
 lists of usernames representing each user's "friends." We have
 `allow_mult` set to `true`, which means that our application may
 occasionally encounter siblings. So what do we want our application to
-do when this happens?
+do when this happens? At this point, the decision depends on the
+requirements of our use case.
+
+```python
+class User:
+    def __init__(self, friends):
+        self.friends = friends
+
+bashobunny = User(['fred'])
+```
+
+```ruby
+class User
+  def initialize(friends)
+    @friends = friends
+  end
+
+  def to_json
+    return {
+      :friends => @friends
+    }.to_json
+end
+
+bashobunny = User.new(['fred'])
+```
+
+```ruby
+obj = client.bucket('users').get('bashobunny')
+
+if obj.siblings.length > 1
+  # perform resolution operation
+end
+```
+
+```python
+obj = client.bucket('users').get('bashobunny')
+
+if len(obj.siblings) > 1:
+    # perform resolution operation
+```
+
+```python
+if len(obj.siblings) > 1:
+  obj['friends']
+```
+
+### Java Example
+
+```java
+public class User {
+    public List<String> friends;
+
+    public User(List<String> friends) {
+        this.friends = friends;
+    }
+}
+
+List<String> friends = new LinkedList<String>();
+friends.add("fred");
+User bashobunny = new User(friends)l
+```
+
+```java
+import com.basho.riak.....
+
+public class UserResolver implements ConflictResolver<User> {
+    @Override
+    public User resolve(List<User> siblings) {
+        if (siblings.size == 0) {
+            return null;
+        } else if (siblings.size == 1) {
+            return siblings.get(0);
+        } else {
+            int longestList = 0;
+            for (User user : siblings) {
+                if (user.friends.size > longestList) {
+                    longestList = user.friends.size;
+                }
+                
+                user;
+                                                                                                        
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                                        return
+                                                                                        siblings.get(0);
+                                                                                                        
+                                                                                        }
+                                                                                                    
+                                                                                        }
+                                                                                                
+                                                                                        }
+                                                                                            
+                                                                                        }
+
+}
+```
 
 ## More Information
 
@@ -540,4 +636,5 @@ Additional background information on vector clocks:
 * [[Vector Clocks on Wikipedia|http://en.wikipedia.org/wiki/Vector_clock]]
 * [[Why Vector Clocks are Easy|http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/]]
 * [[Why Vector Clocks are Hard|http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/]]
-* The vector clocks used in Riak are based on the [[work of Leslie Lamport|http://portal.acm.org/citation.cfm?id=359563]].
+* The vector clocks used in Riak are based on the [[work of Leslie
+  Lamport|http://portal.acm.org/citation.cfm?id=359563]].
