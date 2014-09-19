@@ -419,7 +419,7 @@ incoming write operations to allow compactions to catch up, as would be
 the case when using a single storage array.
 </div>
 
-### Configuration
+### Configuring Tiered Storage
 
 If you are using the newer, `riak.conf`-based configuration system, the
 following parameters can be used to configure LevelDB tiered storage:
