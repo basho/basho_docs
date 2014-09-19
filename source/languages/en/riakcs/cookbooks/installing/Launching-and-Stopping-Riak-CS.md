@@ -50,10 +50,10 @@ running.
 riak-cs ping
 ```
 
-Please note that `riak-cs ping` tests only the liveness of Riak CS does
-not test the connection between Riak CS and Riak. In order to test that,
-you can run a `GET` request against the `/ping` endpoint of a Riak CS
-node, as in the example below:
+Please note that `riak-cs ping` tests only the liveness of Riak CS and
+does not test the connection between Riak CS and Riak. In order to test
+that, you can run a `GET` request against the `/ping` endpoint of a Riak
+CS node, as in the example below:
 
 ```curl
 curl http://localhost:8080/ping
