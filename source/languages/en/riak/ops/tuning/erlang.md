@@ -118,7 +118,31 @@ won't need to enable scheduler wakeup.
 
 ### Scheduler Compaction and Balancing
 
+The Erlang scheduler offers two methods of distributing load across
+schedulers: **compaction** of load and **utilization balancing** of
+load.
 
+Compaction of load is used by default. When enabled, the Erlang VM will
+attempt to fully load as many scheduler threads as possible, i.e. it
+will attempt to ensure that scheduler threads do not run out of work. To
+do so, the VM will take into account the frequency with which schedulers
+run out of work when making decisions about which schedulers should be
+assigned work. You can disable compaction of load by setting the
+`erlang.schedulers.compaction_of_load` setting to `false`.
+
+The other option, utilization balancing, is disabled by default in favor
+of load balancing. When utilization balancing is enabled instead, the
+Erlang VM will strive to balance scheduler utilization as equally as
+possible between schedulers, without taking into account the frequency
+at which schedulers run out of work.  You can enable utilization
+balancing by setting the `erlang.schedulers.utilization_balancing`
+setting to `true`.
+
+At any given time, only compaction of load _or_ utilization balancing
+can be used. If you set both parameters to `false`, Riak will default to
+using compaction of load; if both are set to `true`, Riak will enable
+whichever setting is listed first in `riak.conf` (or `vm.args` if you're
+using the older configuration system).
 
 ## Port Settings
 
@@ -272,6 +296,12 @@ By default, crash dumps from Riak's Erlang distribution are deposited in
 [`ERL_CRASH_DUMP`](http://www.erlang.org/doc/man/erl.html#environment_variables)
 environment variable for the Erlang VM.
 
-## Kernel Ticktime
+## Net Kernel Tick Time
 
-
+The [net kernel](http://erlang.org/doc/man/net_kernel.html) is an Erlang
+system process that provides various forms of network monitoring. In a
+Riak cluster, one of the functions of the net kernel is to periodically
+check node liveness. **Tick time** is the frequency with which those
+checks happen. You can determine that frequency using the
+`erlang.distribution.net_ticktime`. The default is `60`, which will set
+the tick to take place once every minute.
