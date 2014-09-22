@@ -7,13 +7,24 @@ audience: intermediate
 keywords: [use-cases, developers, data-modeling, datatypes]
 ---
 
-In our [[tutorial on Riak Data Types|Using Data Types]], we show you how to create and perform a variety of operations on each of the CRDT-inspired [[Data Types]] available in Riak 2.0 and later: [[registers|Data Types#Registers]], [[flags|Data Types#Flags]], [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
+In our [[tutorial on Riak Data Types|Using Data Types]], we show you how
+to create and perform a variety of operations on each of the
+CRDT-inspired [[Data Types]] available in Riak 2.0 and later:
+[[registers|Data Types#Registers]], [[flags|Data Types#Flags]],
+[[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and
+[[maps|Data Types#Maps]].
 
-While that tutorial covers the basics of using Data Types, most real-world applications would need to use Data Types in a more structured and less ad hoc way. Here, we'll walk through a basic example of how an application might approach Data Types in conjunction with application-side data models, creating a `User` type as the basis for a CRM-style user information store.
+While that tutorial covers the basics of using Data Types, most
+real-world applications would need to use Data Types in a more
+structured and less ad hoc way. Here, we'll walk through a basic example
+of how an application might approach Data Types in conjunction with
+application-side data models, creating a `User` type as the basis for a
+CRM-style user information store.
 
 ## Creating the Basic Data Model
 
-We can begin by creating a new type, `User`, that will house the following information about each user:
+We can begin by creating a new type, `User`, that will house the
+following information about each user:
 
 * first name
 * last name
@@ -21,15 +32,30 @@ We can begin by creating a new type, `User`, that will house the following infor
 * visits to our site
 * whether the user has a paid account
 
-We can see from the above that a `User` is best modeled as a Riak map because maps can hold a variety of Data Types within them, in our case a few strings (best modeled as [[registers|Data Types#Registers]]), an array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best modeled as a [[flag|Data Types#Flags]]). Maps can also house other maps, but that will not be covered in this tutorial.
+We can see from the above that a `User` is best modeled as a Riak map
+because maps can hold a variety of Data Types within them, in our case a
+few strings (best modeled as [[registers|Data Types#Registers]]), an
+array (best modeled as a [[set|Data Types#Set]]), and a Boolean (best
+modeled as a [[flag|Data Types#Flags]]). Maps can also house other maps,
+but that will not be covered in this tutorial.
 
-Our basic modeling approach will be to create a `User` class that ties any given `User` object directly to a map in Riak. From there, we'll create class methods that define interactions with Riak, so that the map can be properly updated when updates are made to the `User` object.
+Our basic modeling approach will be to create a `User` class that ties
+any given `User` object directly to a map in Riak. From there, we'll
+create class methods that define interactions with Riak, so that the map
+can be properly updated when updates are made to the `User` object.
 
 ## Connecting Our Data Model to Riak
 
-The first step in connecting our data model to Riak is the same step that is always involved with using Riak maps. We need to create a bucket type suited for maps, i.e. with the `datatype` property set to `map`, which is covered in our tutorial on [[using bucket types]].
+The first step in connecting our data model to Riak is the same step
+that is always involved with using Riak maps. We need to create a bucket
+type suited for maps, i.e. with the `datatype` property set to `map`,
+which is covered in our tutorial on [[using bucket types]].
 
-Once the bucket type is ready (we'll name it `maps` for the sake of simplicity, although you can name yours whatever you'd like), we need to create a client to connect to Riak. For this tutorial, we'll use `localhost` as our host and `8087` as our [[protocol buffers|PBC API]] port:
+Once the bucket type is ready (we'll name it `maps` for the sake of
+simplicity, although you can name yours whatever you'd like), we need to
+create a client to connect to Riak. For this tutorial, we'll use
+`localhost` as our host and `8087` as our [[protocol buffers|PBC API]]
+port:
 
 ```ruby
 $client = Riak::Client.new(:host => 'localhost', :pb_port => 8087)
@@ -54,12 +80,22 @@ public class User {
 
 <div class="note">
 <div class="title">Getting started with Riak clients</div>
-If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting
-started with your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute
+Install#setting-up-your-riak-client]].
 </div>
 
-Now, we can begin connecting our data model to a Riak map. We can do that by creating a reference to a bucket type, bucket, and key. We already know which bucket type we're using (`maps`) from above. So from there we need to choose a bucket and key. In this tutorial, we'll assume that all user maps are stored in the bucket `maps`, and for the key we'll do something a bit more creative: we'll construct a key out of each user's first and last name, with an underscore in the middle. And so the map for the user Brian May would have the key `brian_may`. Below, we'll start building our class, initializing the class with a reference to the appropriate map:
+Now, we can begin connecting our data model to a Riak map. We can do
+that by creating a reference to a bucket type, bucket, and key. We
+already know which bucket type we're using (`maps`) from above. So from
+there we need to choose a bucket and key. In this tutorial, we'll assume
+that all user maps are stored in the bucket `maps`, and for the key
+we'll do something a bit more creative: we'll construct a key out of
+each user's first and last name, with an underscore in the middle. And
+so the map for the user Brian May would have the key `brian_may`. Below,
+we'll start building our class, initializing the class with a reference
+to the appropriate map:
 
 
 ```ruby
@@ -102,7 +138,10 @@ public class User {
 
 ## Storing An Object's Properties in Our Riak Map
 
-At this point, we have a Riak map associated with instantiations of our `User` type, but that map will be empty. Let's modify our initializer function to populate [[registers|Data Types#Registers]] in the map with first name and last name information:
+At this point, we have a Riak map associated with instantiations of our
+`User` type, but that map will be empty. Let's modify our initializer
+function to populate [[registers|Data Types#Registers]] in the map with
+first name and last name information:
 
 ```ruby
 class User
@@ -184,7 +223,9 @@ public class User {
 }
 ```
 
-Now, if we create a new user, that user will have a `map` instance variable attached to it, the `first_name` and `last_name` strings will be stored in Riak registers, and the key will be `Bruce_Wayne`:
+Now, if we create a new user, that user will have a `map` instance
+variable attached to it, the `first_name` and `last_name` strings will
+be stored in Riak registers, and the key will be `Bruce_Wayne`:
 
 ```ruby
 bruce = User.new 'Bruce', 'Wayne'
@@ -199,7 +240,10 @@ bruce = User('Bruce', 'Wayne')
 User bruce = new User("Bruce", "Wayne");
 ```
 
-So now we have our `first_name` and `last_name` variables stored in our map, but we still need to account for `interests` and `visits`. First, let's modify our class definition to store each user's interests in a set within the map:
+So now we have our `first_name` and `last_name` variables stored in our
+map, but we still need to account for `interests` and `visits`. First,
+let's modify our class definition to store each user's interests in a
+set within the map:
 
 ```ruby
 class User
@@ -218,7 +262,7 @@ class User
       end
     end
   end
-end  
+end
 ```
 
 ```python
@@ -243,7 +287,7 @@ public class User {
 		this.location = new Location(new Namespace(bucketType, bucket), key);
 		RegisterUpdate ru1 = new RegisterUpdate(BinaryValue.create(firstName));
 		RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create(lastName));
-		SetUpdate su = setIntoSetUpdate(rawSet);		
+		SetUpdate su = setIntoSetUpdate(rawSet);
 		MapUpdate mu = new MapUpdate()
 				.update("first_name", ru1)
 				.update("last_name", ru2)
@@ -266,7 +310,8 @@ public class User {
 }
 ```
 
-Now when we create new users, we need to specify their interests as a list:
+Now when we create new users, we need to specify their interests as a
+list:
 
 ```ruby
 joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
@@ -284,7 +329,12 @@ interests.add("Erlang");
 User joe = new User("Joe", "Armstrong", interests);
 ```
 
-Our `visits` variable will work a little bit differently, because when a new user is created the value will simply be zero. This is true of _all_ Riak counters. If you fetch the value of a counter that has not yet been modified, it will be zero, even if you query a counter in a random bucket and key. Let's create a new instance method that increments the `visits` counter by one every time it is called:
+Our `visits` variable will work a little bit differently, because when a
+new user is created the value will simply be zero. This is true of _all_
+Riak counters. If you fetch the value of a counter that has not yet been
+modified, it will be zero, even if you query a counter in a random
+bucket and key. Let's create a new instance method that increments the
+`visits` counter by one every time it is called:
 
 ```ruby
 class User
@@ -302,7 +352,7 @@ class User
   def visit_page
     @map.counters['visits'].increment
   end
-end 
+end
 ```
 
 ```python
@@ -358,9 +408,13 @@ joe.visit_page()
 joe.visitPage();
 ```
 
-The page visit counter did not exist prior to this method call, but the counter will be created (and incremented) all at once.
+The page visit counter did not exist prior to this method call, but the
+counter will be created (and incremented) all at once.
 
-Finally, we need to include `paid_account` in our map as a [[flag|Data Types#Flags]]. Each user will initially be added to Riak as a non-paying user, and we can create methods to upgrade and downgrade the user's account at will:
+Finally, we need to include `paid_account` in our map as a [[flag|Data
+Types#Flags]]. Each user will initially be added to Riak as a non-paying
+user, and we can create methods to upgrade and downgrade the user's
+account at will:
 
 ```ruby
 class User
@@ -430,7 +484,9 @@ public class User {
 }
 ```
 
-The problem with our `User` model so far is that we can't actually _retrieve_ any information about specific users from Riak. So let's create some getters to do that:
+The problem with our `User` model so far is that we can't actually
+_retrieve_ any information about specific users from Riak. So let's
+create some getters to do that:
 
 ```ruby
 class User
@@ -491,7 +547,7 @@ public class User {
      * to fetch current values for all of the fields of the map, as
      * in the methods below.
      */
-	
+
 	private RiakMap getMap() throws Exception {
 		FetchMap fetch = new FetchMap.Builder(location).build();
 		return client.execute(fetch).getDatatype();
@@ -524,7 +580,8 @@ public class User {
 }
 ```
 
-Now, we can create a new user and then access that user's characteristics directly from our Riak map:
+Now, we can create a new user and then access that user's
+characteristics directly from our Riak map:
 
 ```ruby
 joe = User.new('Joe', 'Armstrong', ['distributed systems', 'Erlang'])
@@ -563,7 +620,8 @@ joe.getVisits(); // 1
 joe.getAccountStatus(); // false
 ```
 
-We can also create instance methods that add and remove specific interests:
+We can also create instance methods that add and remove specific
+interests:
 
 ```ruby
 class User
@@ -618,7 +676,9 @@ public class User {
 
 ## Converting to JSON
 
-If we wanted to connect our application to an in-browser interface, we would probably need to be able to convert any given `User` to JSON. So let's add a JSON conversion method to our class:
+If we wanted to connect our application to an in-browser interface, we
+would probably need to be able to convert any given `User` to JSON. So
+let's add a JSON conversion method to our class:
 
 ```ruby
 require 'json'
@@ -665,7 +725,7 @@ class User {
 
     public String toJson() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
-        
+
         Map<String, Object> userJsonMap = new HashMap<String, Object>();
 
         RiakMap userRiakMap = getMap();
@@ -681,7 +741,8 @@ class User {
 }
 ```
 
-Now, we can instantly convert our `User` map into a stringified JSON object and pipe it to our client-side application:
+Now, we can instantly convert our `User` map into a stringified JSON
+object and pipe it to our client-side application:
 
 ```ruby
 bruce = User.new('Bruce', 'Wayne', ['crime fighting', 'climbing stuff'])
