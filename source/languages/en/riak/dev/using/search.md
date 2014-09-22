@@ -732,7 +732,8 @@ Riak Search's features and enhancements are numerous.
   Types|Using Data Types]]) for automatic data extraction
 * Support for [various
   language](https://cwiki.apache.org/confluence/display/solr/Language+Analysis)-specific
-  [analyzers, tokenizers, and filters](https://cwiki.apache.org/confluence/display/solr/Overview+of+Analyzers%2C+Tokenizers%2C+and+Filters)
+  [analyzers, tokenizers, and
+  filters](https://cwiki.apache.org/confluence/display/solr/Understanding+Analyzers%2C+Tokenizers%2C+and+Filters)
 * Robust, easy-to-use [query languages](https://cwiki.apache.org/confluence/display/solr/Other+Parsers)
   like Lucene (default) and DisMax.
 * Queries: exact match, globs, inclusive/exclusive range queries,
