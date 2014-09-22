@@ -28,19 +28,27 @@ Erlang param | Riak param
 [`+S`](http://erlang.org/doc/man/erl.html#+S) | `erlang.schedulers.total`, `erlang.schedulers.online`
 [`+W`](http://erlang.org/doc/man/erl.html#emu_flags) | `erlang.W`
 [`+e`](http://www.erlang.org/doc/man/ets.html#+e) | `erlang.max_ets_tables`
-[`-smp`](http://erlang.org/doc/man/erl.html#smp) | `erlang.smp`
+[`+scl`](http://www.erlang.org/doc/main/erl.html#+scl) | `erlang.schedulers.compaction_of_load`
 [`+sfwi`](http://www.erlang.org/doc/man/erl.html#+sfwi) | `erlang.schedulers.force_wakeup_interval`
+[`-smp`](http://erlang.org/doc/man/erl.html#smp) | `erlang.smp`
+[`+sub`](http://www.erlang.org/doc/man/erl.html#+sub) | `erlang.schedulers.utilization_balancing`
 [`+zdbbl`](http://erlang.org/doc/man/erl.html#+zdbbl) | `erlang.distribution_buffer_size`
+[`-kernel net_ticktime`](http://www.erlang.org/doc/man/kernel_app.html#net_ticktime) | `erlang.distribution.net_ticktime`
+[`-env FULLSWEEP_AFTER`](http://www.erlang.org/doc/man/erlang.html#system_flag-2) | `erlang.fullsweep_after`
+[`-env ERL_CRASH_DUMP`](http://www.erlang.org/doc/apps/erts/crash_dump.html) | `erlang.crash_dump`
+[`-env ERL_MAX_ETS_TABLES`]()
 
-The list above is not exhaustive of the available Erlang VM parameters.
-A full listing can be found in [[Erlang VM Settings|Configuration
-Files#Erlang-VM]].
+A full listing of Erlang-VM-related parameters can be found in [[Erlang
+VM Settings|Configuration Files#Erlang-VM]].
 
 <div class="note">
 <div class="title">Note on upgrading to 2.0</div>
 In versions of Erlang prior to 2.0, Erlang VM-related parameters were
 specified in a `vm.args` file. If you're upgrading to 2.0 from an
-earlier version, you can still use your old `vm.args`.
+earlier version, you can still use your old `vm.args` if you wish.
+Please note, however, that if you set one or more parameters in both
+`vm.args` and in `riak.conf`, the settings in `vm.args` will override
+those in `riak.conf`.
 </div>
 
 ## SMP
@@ -49,6 +57,7 @@ Some operating systems are equipped to provide Erlang VMs with
 Symmetric Multiprocessing Capabilities, aka
 [SMP](http://en.wikipedia.org/wiki/Symmetric_multiprocessing). SMP
 support can be turned on and off by setting the `erlang.smp` parameter
+
 to `enable` or `disable`. It is enabled by default. Setting this to
 `auto` will instruct the Erlang VM to start with SMP support enabled
 if it is available _and_ more than one logical processor is detected.
@@ -262,3 +271,7 @@ By default, crash dumps from Riak's Erlang distribution are deposited in
 `erlang.crash_dump`. This is the equivalent of setting the
 [`ERL_CRASH_DUMP`](http://www.erlang.org/doc/man/erl.html#environment_variables)
 environment variable for the Erlang VM.
+
+## Kernel Ticktime
+
+
