@@ -107,6 +107,23 @@ backend's `io_mode` setting to `nif`, you would do that as follows:
 multi_backend.leveldb.bloomfilter = off
 multi_backend.bitcask.io_mode = nif
 ```
+#### Worked example
+
+A fully worked example configuration with `leveldb`, and `bitcask` backends, defaulting to `bitcask` would look like the following:
+
+```
+storage_backend = multi
+
+multi_backend.bitcask_multi.storage_backend = bitcask
+multi_backend.bitcask_multi.bitcask.data_root = "/tmp/bitcask"
+
+multi_backend.leveldb_multi.storage_backend = leveldb
+multi_backend.leveldb_multi.bitcask.data_root = "/tmp/leveldb"
+
+multi_backend.default = bitcask_multi
+
+```
+
 
 #### Using the Older Configuration System
 
