@@ -1,4 +1,4 @@
-- --
+---
 title: Erlang VM Tuning
 project: riak
 version: 2.0.0+
