@@ -8,7 +8,7 @@ keywords: [erlang, operator]
 ---
 
 Riak was written almost exclusively in [Erlang](http://www.erlang.org)
-and runs on the Erlang virtual machine (VM). Because of this, proper
+and runs on an Erlang virtual machine (VM). Because of this, proper
 Erlang VM tuning is an important part of optimizing Riak performance.
 
 The Erlang VM itself provides a wide variety of [configurable
@@ -19,8 +19,8 @@ The table below lists some of the parameters that are available, showing
 both their names as used directly in Erlang and their names as Riak
 parameters.
 
-Erlang param | Riak param
-:------------|:----------
+Erlang parameter | Riak parameter
+:----------------|:--------------
 [`+A`](http://erlang.org/doc/man/erl.html#async_thread_pool_size) | `erlang.async_threads`
 [`+K`](http://erlang.org/doc/man/erl.html#emu_flags) | `erlang.K`
 [`+P`](http://erlang.org/doc/man/erl.html#+P) | `erlang.process_limit`
@@ -36,7 +36,7 @@ Erlang param | Riak param
 [`-kernel net_ticktime`](http://www.erlang.org/doc/man/kernel_app.html#net_ticktime) | `erlang.distribution.net_ticktime`
 [`-env FULLSWEEP_AFTER`](http://www.erlang.org/doc/man/erlang.html#system_flag-2) | `erlang.fullsweep_after`
 [`-env ERL_CRASH_DUMP`](http://www.erlang.org/doc/apps/erts/crash_dump.html) | `erlang.crash_dump`
-[`-env ERL_MAX_ETS_TABLES`]()
+[`-env ERL_MAX_ETS_TABLES`](http://learnyousomeerlang.com/ets) | `erlang.max_ets_tables`
 
 A full listing of Erlang-VM-related parameters can be found in [[Erlang
 VM Settings|Configuration Files#Erlang-VM]].
@@ -305,3 +305,12 @@ check node liveness. **Tick time** is the frequency with which those
 checks happen. You can determine that frequency using the
 `erlang.distribution.net_ticktime`. The default is `60`, which will set
 the tick to take place once every minute.
+
+## Shutdown Time
+
+You can determine how long the Erlang VM spends shutting down using the
+`erlang.shutdown_time` parameter. The default is `10s` (10 seconds).
+Once this duration elapses, all existing processes are killed.
+Decreasing shutdown time can be useful in situations in which you are
+frequently starting and stopping a cluster, e.g. in test clusters.
+
