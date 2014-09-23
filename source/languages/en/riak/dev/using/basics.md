@@ -268,14 +268,15 @@ Whenever you perform updates in Riak
 Using causal context objects in an update would involve the following steps;
 
 1. Fetch the object
-2. Modify the object's value (without modifying the fetched vector clock)
+2. Modify the object's value (without modifying the fetched [[context
+   object|Causal Context Objects]])
 3. Write the new object to Riak
 
 Step 2 is the most important here. All of Basho's official Riak clients
-enable you to modify an object's value without modifying its vector
-clock. Although a more detailed tutorial on vector clocks and object
-updates can be found in [[Conflict Resolution]], we'll walk you through
-a basic example here.
+enable you to modify an object's value without modifying its [[context
+object|Causal Context Objects]]. Although a more detailed tutorial on
+context objects and object updates can be found in [[Conflict
+Resolution]], we'll walk you through a basic example here.
 
 Let's say that the current NBA champion is the Washington Generals.
 We've stored that data in Riak under the key `champion` in the bucket
@@ -311,7 +312,7 @@ obj.data = 'Harlem Globetrotters'
 ```
 
 ```erlang
-%% In the Erlang client, you cannot view a vector clock directly, but it 
+%% In the Erlang client, you cannot view a context objectdirectly, but it
 %% will be included in the output when you fetch an object:
 
 {ok, Obj} = riakc_pb_socket:get(Pid,
@@ -322,7 +323,7 @@ UpdatedObj = riakc_obj:update_value(Obj, <<"Harlem Globetrotters">>),
 ```
 
 ```curl
-# When using curl, the vector clock is attached to the X-Riak-Vclock header
+# When using curl, the context object is attached to the X-Riak-Vclock header
 
 curl -i http://localhost:8098/types/sports/buckets/nba/keys/champion
 
@@ -331,13 +332,13 @@ curl -i http://localhost:8098/types/sports/buckets/nba/keys/champion
 X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 
 # When performing a write to the same key, that same header needs to
-# accompany the write for Riak to be able to use the vector clock
+# accompany the write for Riak to be able to use the context object
 ```
 
 In the samples above, we didn't need to actually interact with the
-vector clock, as retaining and passing along the vector clock was
+context object, as retaining and passing along the context object was
 accomplished automatically by the client. If, however, you do need
-access to an object's vector clock, the clients enable you to fetch it
+access to an object's context object, the clients enable you to fetch it
 from the object:
 
 ```java
@@ -346,7 +347,7 @@ from the object:
 Vclock vClock = obj.getVclock();
 System.out.println(vClock.asString());
 
-// The vector clock will look something like this:
+// The context object will look something like this:
 // a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
@@ -355,7 +356,7 @@ System.out.println(vClock.asString());
 
 obj.vclock
 
-# The vector clock will look something like this:
+# The context object will look something like this:
 # a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
@@ -364,7 +365,7 @@ obj.vclock
 
 obj.vclock
 
-# The vector clock will look something like this:
+# The context object will look something like this:
 # a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 ```
 
@@ -373,7 +374,7 @@ obj.vclock
 
 riakc_obj:vclock(Obj).
 
-%% The vector clock will look something like this in the Erlang shell:
+%% The context object will look something like this in the Erlang shell:
 %% <107,206,97,96,96,96,204,96,202,5,82,28,202,156,255,126,
 %% 6,175,157,255,57,131,41,145,49,143,149,225,240,...>>
 ```
