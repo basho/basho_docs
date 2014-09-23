@@ -511,6 +511,19 @@ to perform a separate Riak GET operation to retrieve the value using the
 `_yz_rk` value.
 
 ```java
+// Using the results object from above
+Map<String, String> doc = results.get(0);
+String bucketType = doc.get("_yz_rt");
+String bucket = doc.get("yz_rb");
+String key = doc.get("_yz_rk");
+Namespace namespace = new Namespace(bucketType, bucket);
+Location objectLocation = new Location(namespace, key);
+FetchValue fetchOp = new FetchValue.Builder(objectLocation)
+        .build();
+RiakObject obj = client.execute(fetchOp).getValue(RiakObject.class);
+System.out.println(obj.getValue());
+
+// {"name_s": "Lion-o", "age_i": 30, "leader_b": true}
 ```
 
 ```ruby
@@ -569,17 +582,28 @@ To find the ages of all famous cats who are 30 or younger: `age_i:[0 TO
 30]`. If you wanted to find all cats 30 or older, you could include a
 glob as a top end of the range: `age_i:[30 TO *]`.
 
-```curl
-curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
+```java
+String index = "famous";
+String query = "age_i:[30 TO *]";
+SearchOperation searchOp = new SearchOperation.Builder(BinaryValue.create(index), query)
+        .build();
+SearchOperation.Response result = cluster.execute(searchOp);
 ```
+
 ```ruby
 client.search("famous", "age_i:[30 TO *]")
 ```
+
 ```python
 client.fulltext_search('famous', 'age_i:[30 TO *]')
 ```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
+```
+
+```curl
+curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 ```
 
 <!-- TODO: pubdate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY] -->
@@ -591,6 +615,14 @@ operations on query elements as, repectively, `AND`, `OR`, and `NOT`.
 Let's say we want to see who is capable of being a US Senator (at least
 30 years old, and a leader). It requires a conjunctive query:
 `leader_b:true AND age_i:[25 TO *]`.
+
+```java
+String index = "famous";
+String query = "leader_b:true AND age_i:[30 TO *]";
+SearchOperation searchOp = new SearchOperation.Builder(BinaryValue.create(index), query)
+        .build();
+SearchOperation.Response result = cluster.execute(searchOp);
+```
 
 ```ruby
 client.search("famous", "leader_b:true AND age_i:[30 TO *]")
@@ -613,8 +645,11 @@ curl $RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%
 
 Indexes may be deleted if they have no buckets associated with them:
 
-```curl
-curl -XDELETE $RIAK_HOST/search/index/famous
+```java
+String index = "famous";
+YzDeleteIndexOperation deleteOp = new YzDeleteIndexOperation.Builder(BinaryValue.create(index))
+        .build();
+cluster.execute(deleteOp);
 ```
 
 ```ruby
@@ -627,6 +662,10 @@ client.delete_search_index('famous')
 
 ```erlang
 riakc_pb_socket:delete_search_index(Pid, <<"famous">>, []),
+```
+
+```curl
+curl -XDELETE $RIAK_HOST/search/index/famous
 ```
 
 If an does have a bucket associated with it, then that index's
