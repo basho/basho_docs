@@ -8,7 +8,7 @@ audience: intermediate
 keywords: [operator, installing]
 ---
 
-To launch Riak CS in the background, enter:
+To launch Riak CS in the background:
 
 ```bash
 sudo riak-cs start
@@ -20,7 +20,8 @@ To run Riak CS with an interactive Erlang console:
 sudo riak-cs console
 ```
 
-When Riak CS is running, the Riak CS process appears in the process list. To check for the Riak CS process, enter:
+When Riak CS is running, the Riak CS process appears in the process
+list. To check for the Riak CS process, enter:
 
 ```bash
 ps -ef | grep riak-cs
@@ -38,13 +39,22 @@ You can use the command
 sudo riak-cs attach
 ```
 
-to attach and obtain an interactive console to a running instance of Riak CS.
+to attach and obtain an interactive console to a running instance of
+Riak CS.
 
-You can check the liveness of your Riak CS installation with the `riak-cs ping` command, which should return `pong` if Riak CS is up and able to successfully communicate with Riak.
+You can check the liveness of your Riak CS installation with the
+`riak-cs ping` command, which should return `pong` if Riak CS is up and
+running.
 
 ```bash
 riak-cs ping
 ```
 
-<div class="note"><div class="title">Note</div>The <tt>riak-cs ping</tt> command will fail if the Riak CS node is not able to communicate with the supporting Riak node. Ensure that all components of the Riak CS system are running before checking liveness with <tt>riak-cs ping</tt>.
-</div>
+Please note that `riak-cs ping` tests only the liveness of Riak CS and
+does not test the connection between Riak CS and Riak. In order to test
+that, you can run a `GET` request against the `/ping` endpoint of a Riak
+CS node, as in the example below:
+
+```curl
+curl http://localhost:8080/ping
+```
