@@ -403,7 +403,7 @@ Buffers|PBC API]] port 10017.
 ```java
 RiakNode node = new RiakNode.Builder()
         .withRemoteAddress("127.0.0.1")
-        .withRemotePort(8098)
+        .withRemotePort(10017)
         .build();
 RiakCluster cluster = new RiakCluster.Builder(node)
         .build();
