@@ -46,7 +46,8 @@ them to buckets [[using bucket types]]. Assuming that the cluster has
 already been configured to use the `multi` backend, this process
 involves three steps:
 
-1. Creating a bucket type that enables buckets of that type to use the desired backends
+1. Creating a bucket type that enables buckets of that type to use the
+   desired backends
 2. Activating that bucket type
 3. Setting up your application to use that type
 
@@ -73,12 +74,13 @@ riak-admin bucket-type activate leveldb_backend
 riak-admin bucket-type activate memory_backend
 ```
 
-Once those types have been activated, any objects stored in buckets 
+Once those types have been activated, any objects stored in buckets
 bearing the type `leveldb_backend` will be stored in LevelDB, whereas
 all objects stored in buckets of the type `memory_backend` will be
 stored in the Memory backend.
 
-More information can be found in our documentation on [[using bucket types]].
+More information can be found in our documentation on [[using bucket
+types]].
 
 ## Configuring Multiple Backends
 
@@ -89,8 +91,9 @@ Multi backend.
 
 #### Using the Newer Configuration System
 
-If you are using the newer, `riak.conf`-based [[configuration system|Configuration Files]],
-you can configure the backends by prefacing each configuration with `multi_backend`.
+If you are using the newer, `riak.conf`-based [[configuration
+system|Configuration Files]], you can configure the backends by
+prefacing each configuration with `multi_backend`.
 
 Here is an example of the general form for configuring multiple
 backends:
@@ -174,12 +177,49 @@ you must specify which of the backends corresponds to that name, i.e.
 configurations for each named backend can be set as objects in an Erlang
 list.
 
+## Example Configuration
+
+Imagine that you are using both Bitcask and LevelDB in your cluster, and
+you would like storage to default to Bitcask. The following
+configuration would create two backend configurations, named
+`bitcask_mult` and `leveldb_mult`, respectively, while also setting the
+data directory for each backend and specifying that `bitcask_mult` is
+the default.
+
+```riakconf
+storage_backend = multi
+
+multi_backend.bitcask_mult.storage_backend = bitcask
+multi_backend.bitcask_mult.bitcask.data_root = "/var/lib/riak/bitcask"
+
+multi_backend.leveldb_mult.storage_backend = leveldb
+multi_backend.leveldb_mult.bitcask.data_root = "/var/lib/riak/leveldb"
+
+multi_backend.default = bitcask_mult
+```
+
+```appconfig
+{riak_kv, [
+    %% ...
+    {multi_backend_default, <<"bitcask_mult">>},
+    {multi_backend, [
+        {<<"bitcask_mult", riak_kv_bitcask_backend, [
+            {data_root, "/var/lib/riak/bitcask"}
+        ]},
+        {<<"leveldb_mult", riak_kv_eleveldb_backend, [
+            {data_root, "/var/lib/riak/leveldb"}
+        ]}
+    ]}
+    %% ...
+]}
+```
+
 ## Multi Backend Memory Use
 
 Each Riak storage backend has settings for configuring how much memory
 the backend can use, e.g. caching for LevelDB or for the entire set of
 data for the Memory backend. Each of these backends suggests allocating
 up to 50% of available memory for this purpose. When using the Multi
-backend, make sure that the sum of all backend memory use is at 50% 
+backend, make sure that the sum of all backend memory use is at 50%
 or less. For example, using three backends with each set to 50% memory
 usage will inevitably lead to memory problems.
