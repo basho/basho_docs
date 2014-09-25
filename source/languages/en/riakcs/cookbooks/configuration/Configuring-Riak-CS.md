@@ -708,50 +708,84 @@ triggered at 6 am and 7:45 pm UTC, etc.</td>
 <tr>
 <td><code>storage_archive_period</code></td>
 <td></td>
-<td></td>
-<td></td>
+<td>How large each storage archive object is. This should be chosen in
+such a way that each <code>storage_schedule</code> entry falls in a
+different period. Set as an integer number of seconds.</td>
+<td><code>86400</code> (1 day)</td>
 </tr>
 
 <tr>
 <td><code>usage_request_limit</code></td>
 <td></td>
-<td></td>
+<td>The number of archive periods a user can request in one usage read,
+applied independently to access and storage. Specified as an integer
+number of intervals. To give an example, <code>744</code> (the default)
+means one month at 1-hour intervals.</td>
+<td><code>744</code></td>
 </tr>
 
 <tr>
 <td><code>leeway_seconds</code></td>
 <td></td>
-<td></td>
+<td>The number of seconds that must elapse before an object version that
+has been explicitly deleted or overwritten is eligible for garbage
+collection. Set as an integer number of seconds.</td>
+<td><code>86400</code> (1 day)</td>
 </tr>
 
 <tr>
 <td><code>gc_interval</code></td>
 <td></td>
-<td></td>
+<td>The time interval, in seconds, at which the garbage collection
+daemon runs. This daemon searches for and reaps eligible object
+versions.</td>
+<td><code>900</code> (15 minutes)</td>
 </tr>
 
 <tr>
 <td><code>gc_retry_interval</code></td>
 <td></td>
-<td></td>
+<td>The number of seconds that must elapse before another attempt is
+made to write a record for an object manifest in the
+<code>pending_delete</code> state to the garbage collection eligiblity
+bucket. In general, this condition should be rare, but could happen if
+an error condition caused the original record in the garbage
+collection eligiblity bucket to be removed prior to the reaping process
+completing.</td>
+<td><code>21600</code> (6 hours)</td>
 </tr>
 
 <tr>
 <td><code>gc_paginated_indexes</code></td>
 <td></td>
-<td></td>
+<td>This option indicates whether the garbage collection daemon should
+use paginated secondary index (2i) queries when searching the garbage
+collection bucket for eligible records to reap. Setting this option to
+<code>true</code> (the default) is generally more efficient and is
+recommended for cases where the underlying Riak nodes are of version
+1.4.0 or above.</td>
+<td><code>true</code></td>
 </tr>
 
 <tr>
 <td><code>trust_x_forwarded_for</code></td>
 <td></td>
-<td></td>
+<td>If your load balancer adds an `X-Forwarded-For` header and it is
+reliable (i.e. it is able to guarantee that it is not added by a
+malicious user), set this option to <code>true</code>. Otherwise, Riak
+CS takes the source IP address as an input (which is the default).</td>
+<td><code>false</code></td>
 </tr>
 
 <tr>
 <td><code>dtrace_support</code></td>
 <td></td>
-<td></td>
+<td>If your Erlang VM supports <a
+href="http://www.erlang.org/doc/apps/runtime_tools/DTRACE.html">DTrace</a>
+or <a
+href="https://www.sourceware.org/systemtap/SystemTap_Beginners_Guide/userspace-probing.html">user-space
+SystemTamp</a>, set this option to <code>true</code>.</td>
+<td><code>false</code></td>
 </tr>
 
 <tr>
@@ -773,25 +807,25 @@ triggered at 6 am and 7:45 pm UTC, etc.</td>
 
 <table>
 <thead>
-
+<tr>
+<th>Config</th>
+<th>Subsection</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
 </thead>
 
 <tbody>
 
 <tr>
-<td><code>lager_console_backend</code></td>
-<td><code>handlers</code></td>
+<td><code>webmachine_log_handler</code></td>
+<td><code>log_handlers</code></td>
 <td></td>
 </tr>
 
 <tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
+<td><code>riak_cs_access_log_handler</code></td>
+<td><code>log_handlers</code></td>
 <td></td>
 <td></td>
 </tr>
