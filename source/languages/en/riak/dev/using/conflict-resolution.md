@@ -579,6 +579,15 @@ if len(obj.siblings) > 1:
 
 ### Java Example
 
+The official [Riak Java
+client](https://github.com/basho/riak-java-client) works somewhat
+differently from the others because it provides a `ConflictResolver`
+interface that requires you to implement a `resolve` method that will
+return a single correct value of the type of object that you are using.
+In this example, we'll create a standard POJO class `User`. Each `User`
+object will have one property: a list of strings in which each string is
+the username of one of that user's friends.
+
 ```java
 public class User {
     public List<String> friends;
@@ -588,13 +597,25 @@ public class User {
     }
 }
 
+// An example of instantiating a new User object
 List<String> friends = new LinkedList<String>();
 friends.add("fred");
-User bashobunny = new User(friends)l
+User bashobunny = new User(friends);
 ```
 
+So what happens if there are siblings and the user `bashobunny` has
+different friend lists in different object replicas? The Java client
+allows you to implement a `ConflictResolver` interface that enables you
+to create your own resolution logic. The `resolve` method takes a Java
+`List` of objects and must return a single object of that type, in this
+case `User`. The example resolver below will return `null` if there are
+no object replicas available, will return the lone value if only one
+replica is present, and if there is more than one replica present (i.e.
+if there are siblings), it will iterate through the existing siblings to
+determine which `User` object has the longest `friends` list.
+
 ```java
-import com.basho.riak.....
+import com.basho.riak.client.api.cap.ConflictResolver;
 
 public class UserResolver implements ConflictResolver<User> {
     @Override
@@ -605,29 +626,30 @@ public class UserResolver implements ConflictResolver<User> {
             return siblings.get(0);
         } else {
             int longestList = 0;
+            User userWithLongestList;
             for (User user : siblings) {
                 if (user.friends.size > longestList) {
+                    userWithLongestList = user;
                     longestList = user.friends.size;
+                } else {
+                    return siblings.get(0);
                 }
-                
-                user;
-                                                                                                        
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                                        return
-                                                                                        siblings.get(0);
-                                                                                                        
-                                                                                        }
-                                                                                                    
-                                                                                        }
-                                                                                                
-                                                                                        }
-                                                                                            
-                                                                                        }
-
+            }
+            return userWithLongestList;
+        }
+    }
 }
 ```
+
+To use a conflict resolver, you must register it:
+
+```java
+ConflictResolverFactory factory = ConflictResolverFactory.getInstance();
+ConflictResolver<User> userResolver = factory.getConflictResolver(User.class);
+```
+
+With the resolver registered, the resolution logic you have chosen will
+resolve siblings automatically upon read.
 
 ## More Information
 
