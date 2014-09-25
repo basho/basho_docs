@@ -687,14 +687,14 @@ ConflictResolver<User> userResolver = factory.getConflictResolver(User.class);
 ```
 
 With the resolver registered, the resolution logic you have chosen will
-resolve siblings automatically upon read.
+resolve siblings automatically upon read. Resolver registration can
+occur 
 
 ## More Information
 
 Additional background information on vector clocks:
 
-* [[Vector Clocks on Wikipedia|http://en.wikipedia.org/wiki/Vector_clock]]
-* [[Why Vector Clocks are Easy|http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/]]
-* [[Why Vector Clocks are Hard|http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/]]
-* The vector clocks used in Riak are based on the [[work of Leslie
-  Lamport|http://portal.acm.org/citation.cfm?id=359563]].
+* [Vector Clocks on Wikipedia](http://en.wikipedia.org/wiki/Vector_clock)
+* [Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
+* [Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
+* The vector clocks used in Riak are based on the [work of Leslie Lamport](http://portal.acm.org/citation.cfm?id=359563)
