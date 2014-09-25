@@ -476,8 +476,8 @@ that work in most cases.
 <tr>
 <td><code>riak_pb_port</code></td>
 <td></td>
-<td>The [Protocol Buffers](http://code.google.com/p/protobuf/) port for
-the Riak node accessed by this Riak CS node.</td>
+<td>The <a href="http://code.google.com/p/protobuf">Protocol Buffers</a>
+port for the Riak node accessed by this Riak CS node.</td>
 <td><code>8087</code></td>
 </tr>
 
@@ -530,6 +530,7 @@ file.</td>
 
 <tr>
 <td><code>admin_secret</code></td>
+<td></td>
 <td>The secret that admin users must use to authenticate themselves. See
 the instructions for the <code>admin_key</code> setting above for more
 information.</td>
@@ -617,53 +618,96 @@ pool, expressed as a <code>{FixedSize, OverflowSize}</code> tuple.</td>
 <tr>
 <td><code>fold_objects_for_list_keys</code></td>
 <td></td>
-<td></td>
+<td>Setting this option to <code>true</code> enables Riak CS to use a
+more efficient method of retrieving Riak CS bucket contents from Riak.
+Using this option provides improved performance and stability,
+especially for buckets that contain millions of objects or more. This
+option should not be enabled unless Riak 1.4.10 is being used.</td>
+<td><code>false</code></td>
 </tr>
 
 <tr>
 <td><code>n_val_1_get_requests</code></td>
 <td></td>
-<td></td>
+<td>This option, if set to <code>true</code>, causes Riak CS to use a
+special request option when retrieving the blocks of an object. More
+specifically, this option instructs Riak to send a request for the
+object block to a single eligible vnode instead of all eligible vnodes.
+This differs from a standard <code>r</code> request option in that
+<code>r</code> affects how many vnode responses to wait for before
+returning and has no effect on how many vnodes are actually contacted.
+Enabling this option has the effect of greatly reducing the
+intra-cluster bandwidth used by Riak when retrieving objects with Riak
+CS. This option is harmless if used with a version of Riak prior to
+1.4.0, but the option to disable it is provided as a safety measure.</td>
+<td><code>true</code></td>
 </tr>
 
 <tr>
 <td><code>cs_version</code></td>
 <td></td>
+<td>The Riak CS version in use on this node. This setting is used to
+selectively enable new features for the current version to better
+support rolling upgrades. If you're installing Riak CS anew you will not
+need to change this setting; if you're performing a rolling upgrade,
+keep the original value set in the old <code>app.config</code> until all
+nodes have been upgraded and then set to the new value. If this
+parameter is not defined, Riak CS will use <code>0</code>.</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>access_log_flush_factor</code></td>
 <td></td>
-<td></td>
+<td>How often the access log gets flushed. The value must be an integer:
+<code>1</code> means once per archive period, <code>2</code> means twice
+per period, etc. The length of archive periods is determined by the
+<code>access_archive_period</code> setting explained below.</td>
+<td><code>1</code></td>
 </tr>
 
 <tr>
 <td><code>access_log_flush_size</code></td>
 <td></td>
-<td></td>
+<td>You can also set the access log to be flushed when the log exceeds
+the number of accesses that you choose for this parameter.</td>
+<td><code>1000000</code></td>
 </tr>
 
 <tr>
 <td><code>access_archive_period</code></td>
 <td></td>
+<td>How long each archive access period lasts, set as an integer number
+of seconds. This setting should be a multiple of
+<code>access_log_flush_size</code>.</td>
+<td><code>3600</code> (one hour)</td>
 <td></td>
 </tr>
 
 <tr>
 <td><code>access_archiver_max_backlog</code></td>
 <td></td>
-<td></td>
+<td>The number of access logs that are allowed to accumulate in the
+archiver's log queue before it begins skipping to catch up. Set as an
+integer.</td>
+<td><code>2</code></td>
 </tr>
 
 <tr>
 <td><code>storage_schedule</code></td>
 <td></td>
-<td></td>
+<td>Determines when storage calculation batches are automatically
+started. This parameter takes a list of `HHMM` UTC times. If the list is
+empty, i.e. the parameter is set to `[]`, no automatic calculations will
+take place; otherwise, `["0600"]` will set calculations to be triggered
+at 6 am UTC every day, `["0600", "1945"]` will set calculations to be
+triggered at 6 am and 7:45 pm UTC, etc.</td>
+<td><code>[]</code></td>
 </tr>
 
 <tr>
 <td><code>storage_archive_period</code></td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
