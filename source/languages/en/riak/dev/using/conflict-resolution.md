@@ -525,22 +525,28 @@ resolve siblings according to use-case-specific criteria. Here, we'll
 provide an example using code samples in a variety of languages. The
 Java client handles conflict resolution a little bit differently, so
 Java examples will be in a separate section below the other language
-samples.
+samples. Ruby and Python examples can be found immediately below.
 
 Let's say that we're building a social network application and storing
-lists of usernames representing each user's "friends." We have
-`allow_mult` set to `true`, which means that our application may
-occasionally encounter siblings. So what do we want our application to
-do when this happens? At this point, the decision depends on the
-requirements of our use case.
+lists of usernames representing each user's "friends." All of the data
+for our application will be stored in buckets that bear the [[bucket
+type|Using Bucket Types]] `siblings`. In this bucket type, `allow_mult`
+is set to `true`, which means that Riak will generate siblings in
+certain cases, siblings that are application will need to be set up to
+resolve when they arise.
 
-```python
-class User:
-    def __init__(self, friends):
-        self.friends = friends
+As explained above, our application is storing objects that consist of
+lists of usernames. The question we now need to ask ourselves is this:
+if an object has siblings, which of the lists should be deemed correct?
+Let's keep it simple here for now and say that the following criterion
+will hold: if two lists are compared, the longer list will be considered
+"correct." While this might not make sense in real-world applications,
+it's a good jumping-off point.
 
-bashobunny = User(['fred'])
-```
+First, let's create a `User` type for storing our data. Each `User`
+object will house a `friends` property that lists the usernames of that
+user's friends. We'll also create a method to turn `User` objects into
+JSON (since we'll be storing them all as JSON).
 
 ```ruby
 class User
@@ -553,9 +559,39 @@ class User
       :friends => @friends
     }.to_json
 end
-
-bashobunny = User.new(['fred'])
 ```
+
+```python
+class User:
+    def __init__(self, friends):
+        self.friends = friends
+
+    def to_json(self):
+        return vars(self)
+```
+
+Now, we can create `User` objects and see what they look like as JSON:
+
+```ruby
+bashobunny = User.new(['captheorem238', 'siblingsrule572'])
+bashobunny.to_json
+
+# {:friends=>["captheorem238", "siblingsrule572"]}
+```
+
+```python
+bashobunny = User(['captheorem238', 'siblingsrule572'])
+
+bashobunny.to_json()
+# {'friends': ['captheorem238', 'siblingsrule572']}
+```
+
+Let's say that we've stored a bunch of `User` objects in Riak, and that
+a few concurrent writes have led to siblings. How is our application
+going to deal with that? Let's say that there's a `User` object stored
+in the bucket `users` (which is of the bucket type `siblings`, as noted
+above) under the key `bashobunny`. First, we can fetch the object that
+is stored there and see if it has siblings:
 
 ```ruby
 obj = client.bucket('users').get('bashobunny')
@@ -573,8 +609,10 @@ if len(obj.siblings) > 1:
 ```
 
 ```python
+obj = client.bucket_type('siblings').bucket('users').get('bashobunny')
+
 if len(obj.siblings) > 1:
-  obj['friends']
+
 ```
 
 ### Java Example
