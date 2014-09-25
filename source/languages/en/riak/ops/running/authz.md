@@ -761,8 +761,10 @@ parameters|Configuration Files#Security]] to `on` or `off`:
 * `tls_protocols.tlsv1.2`
 * `tls_protocols.sslv3`
 
-    Two things to note:
+Three things to note:
 
+* Among the four available options, only TLS version 1.2 is enabled by
+ default
 * You can enable more than one protocol at a time
 * We strongly recommend that you _not_ use SSL version 3 unless
   absolutely necessary
