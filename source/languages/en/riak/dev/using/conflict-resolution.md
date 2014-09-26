@@ -548,6 +548,18 @@ object will house a `friends` property that lists the usernames of that
 user's friends. We'll also create a method to turn `User` objects into
 JSON (since we'll be storing them all as JSON).
 
+```ruby
+class User
+  def initialize(friends)
+    @friends = friends
+  end
+
+  def to_json
+    return { :friends => @friends }
+  end
+end
+```
+
 ```python
 class User:
     def __init__(self, friends):
@@ -558,6 +570,13 @@ class User:
 ```
 
 Now, we can create `User` objects and see what they look like as JSON:
+
+```ruby
+bashobunny = User.new(['captheorem238', 'siblingsrule572'])
+
+bashobunny.to_json
+# {:friends=>["captheorem238", "siblingsrul572"]}
+```
 
 ```python
 bashobunny = User(['captheorem238', 'siblingsrule572'])
@@ -573,8 +592,18 @@ in the bucket `users` (which is of the bucket type `siblings`, as noted
 above) under the key `bashobunny`. First, we can fetch the object that
 is stored there and see if it has siblings:
 
+```ruby
+obj = client.bucket('users').get('bashobunny', type: 'siblings')
+
+# In the Ruby client. the "siblings" property of a Riak object is a list
+# of all siblings. If there are no siblings, the length of that list is
+# 1. This would check for the presence of siblings:
+
+p obj.siblings.length > 1
+```
+
 ```python
-obj = client.bucket('users').get('bashobunny')
+obj = client.bucket_type('siblings').bucket('users').get('bashobunny')
 
 # In the Python client, the "siblings" property of a Riak object is
 # a list of all siblings. If there are no siblings, the length of that
@@ -591,6 +620,19 @@ the list of values contained in its `siblings` property, and return a
 list with a single value. For our example use case, we'll return the
 sibling with the longest `friends` list:
 
+```ruby
+def longest_friends_list_resolver(riak_object)
+  if riak_object.conflict?
+    obj.siblings.max_by{ |user| user.data['friends'].length }
+  else
+    obj.content
+  end
+end
+
+# Using the object "obj" from above:
+object_with_longest_list = longest_friends_list_resolver(obj)
+```
+
 ```python
 def longest_friends_list_resolver(riak_object):
     # We'll specify a lambda function that operates on the length of
@@ -601,8 +643,8 @@ def longest_friends_list_resolver(riak_object):
     riak_object.siblings = [max(riak_object.siblings, key=lm), ]
 ```
 
-Resolver functions can be registered either at the object level, as in
-this example:
+In the Python client, resolver functions can be registered either at the
+object level, as in this example:
 
 ```python
 bucket = client.bucket_type('siblings').bucket('users')
@@ -637,6 +679,15 @@ instruct Riak which value is considered correct. That's a separate,
 optional step that involves writing the value that your application has
 deemed correct back to Riak. Here's an example:
 
+```ruby
+obj = client.bucket('users').get('bashobunny', type: 'siblings')
+object_with_longest_list = longest_friends_list_resolver(obj)
+
+# When we store that object, we store only the single value, not the
+# siblings:
+object_with_longest_list.store
+```
+
 ```python
 bucket = client.bucket_type('siblings').bucket('users')
 bucket.resolver = longest_friends_list_resolver
@@ -649,6 +700,14 @@ obj = bucket.get('bashobunny')
 # siblings:
 obj.store()
 ```
+
+At this point, our client is ready to (a) return a single value to the
+application when siblings are encounterd and (b) store that single value
+in Riak. Please note that this may not resolve _all_ siblings in this
+object. If multiple fetch/resolve/store operations happen concurrently,
+the result of that operation may produce unresolved siblings. But that's
+fine, because our application is now set up to handle those new
+conflicts as well.
 
 ### Java Example
 
