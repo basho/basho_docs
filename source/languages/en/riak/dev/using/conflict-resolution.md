@@ -688,7 +688,8 @@ ConflictResolver<User> userResolver = factory.getConflictResolver(User.class);
 
 With the resolver registered, the resolution logic you have chosen will
 resolve siblings automatically upon read. Resolver registration can
-occur 
+occur at any point in the application's lifecycle and will be applied on
+all reads that involve that object type.
 
 ## More Information
 
