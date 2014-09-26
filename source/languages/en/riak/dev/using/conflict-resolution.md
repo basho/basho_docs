@@ -595,10 +595,10 @@ sibling with the longest `friends` list:
 def longest_friends_list_resolver(riak_object):
     # We'll specify a lambda function that operates on the length of
     # each sibling's "friends" list:
-    resolver = lambda sibling: len(sibling.data['friends'])
+    lm = lambda sibling: len(sibling.data['friends'])
     # Then we'll return a list that contains only the object with the
     # maximum value for the friends list:
-    riak_object.siblings = [max(riak_object.siblings, key=resolver), ]
+    riak_object.siblings = [max(riak_object.siblings, key=lm), ]
 ```
 
 Resolver functions can be registered either at the object level, as in
