@@ -53,14 +53,14 @@ those in `riak.conf`.
 
 ## SMP
 
-Some operating systems are equipped to provide Erlang VMs with
-Symmetric Multiprocessing Capabilities, aka
-[SMP](http://en.wikipedia.org/wiki/Symmetric_multiprocessing). SMP
+Some operating systems are equipped to provide Erlang VMs with Symmetric
+Multiprocessing Capabilities
+([SMP](http://en.wikipedia.org/wiki/Symmetric_multiprocessing)). SMP
 support can be turned on and off by setting the `erlang.smp` parameter
-
-to `enable` or `disable`. It is enabled by default. Setting this to
-`auto` will instruct the Erlang VM to start with SMP support enabled
-if it is available _and_ more than one logical processor is detected.
+to `enable` or `disable`. It is enabled by default. Setting this
+parameter to `auto` will instruct the Erlang VM to start with SMP
+support enabled if it is available _and_ more than one logical processor
+is detected.
 
 Riak is supported on some operating systems that do not provide SMP
 support. Make sure that you ensure that your OS supports SMP before
@@ -80,23 +80,25 @@ The total number of threads can be set using the
 `erlang.schedulers.total` parameter, whereas the number of threads set
 online can be determined using `erlang.schedulers.online`. These
 parameters map directly onto `Schedulers` and `SchedulersOnline`, both
-of which are used by `[erl](http://www.erlang.org/doc/man/erl.html#+S)`.
+of which are used by
+<code>[erl](http://www.erlang.org/doc/man/erl.html#+S)</code>.
 
-The maximum for both parameters is 1024. There is no universal default
-for either of these parameters. Instead, the Erlang VM will attempt to
-determine the number of configured processors as well as the number of
-available processors. If the Erlang VM can make that determination,
+While the maximum for both parameters is 1024, there is no universal
+default for either. Instead, the Erlang VM will attempt to determine the
+number of configured processors as well as the number of available
+processors on its own. If the Erlang VM can make that determination,
 `schedulers.total` will default to the number of configured processors
 while `schedulers.online` will default to the number of processors
 available; tf the Erlang VM can't make that determination, both values
 will default to 1.
 
-If either parameter is set to a negative integer, this value will be
-subtracted from the default number of processors that are configured
-or available, depending on the parameter. For example, if there are 100
-configured processors and `schedulers.total` is set to `-50`, then
-the value for `schedulers.total` will be 50. Setting either parameter to
-0, on the other hand, will reset both values to their defaults.
+If either parameter is set to a negative integer, that value will be
+subtracted from the default number of processors that are configured or
+available, depending on the parameter. For example, if there are 100
+configured processors and `schedulers.total` is set to `-50`, then the
+calcualted value for `schedulers.total` will be 50. Setting either
+parameter to 0, on the other hand, will reset both values to their
+defaults.
 
 If SMP support is not enabled, i.e. if `erlang.smp` is set to `disable`,
 then `schedulers.total` and `schedulers.online` will be ignored.
@@ -106,7 +108,7 @@ then `schedulers.total` and `schedulers.online` will be ignored.
 Scheduler wakeup is an optional process whereby schedulers are
 periodically scanned to determine whether they have "fallen asleep,"
 i.e. whether they have an empty [run
-queue](http://en.wikipedia.org/wiki/Run_queue).  The interval at which
+queue](http://en.wikipedia.org/wiki/Run_queue). The interval at which
 this process occurs can be set, in milliseconds, using the
 `erlang.schedulers.force_wakeup_interval` parameter, which corresponds
 to the Erlang VM's `+sfwi` flag. This parameter is set to `0` by
@@ -313,4 +315,3 @@ You can determine how long the Erlang VM spends shutting down using the
 Once this duration elapses, all existing processes are killed.
 Decreasing shutdown time can be useful in situations in which you are
 frequently starting and stopping a cluster, e.g. in test clusters.
-
