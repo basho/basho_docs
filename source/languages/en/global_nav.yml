@@ -60,9 +60,9 @@ riak:
           - title: "Conflict Resolution"
             sub:
               - "[[Introduction|Conflict Resolution]]"
-              - "[[Java]]"
-              - "[[Ruby]]"
-              - "[[Erlang]]"
+              - "[[Java|Conflict Resolution: Java]]"
+              - "[[Ruby|Conflict Resolution: Ruby]]"
+              - "[[Python|Conflict Resolution: Python]]"
       - title: "Data Modeling"
         sub:
           - "[[Use Cases for Riak|Use Cases]]"
