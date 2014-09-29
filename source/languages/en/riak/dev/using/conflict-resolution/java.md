@@ -134,3 +134,66 @@ With the resolver registered, the resolution logic that we have created
 resolve siblings automatically upon read. Registering a custom conflict
 resolver can occur at any point in the application's lifecycle and will
 be applied on all reads that involve that object type.
+
+## Conflict Resolution and Writes
+
+In the above example, we create a conflict resolver that resolves a list
+of discrepant `User` objects and returns a single `User`. It's important
+to note, however, that this resolver will only provide the application
+with a single "correct" value; it will _not_ write that value back to
+Riak. That requires a separate step. One way to do that would be to
+modify the `UserResolver` class that we created above to also include a
+step that stores the `User` object with the longest `friends` list.
+Below is an example:
+
+```java
+public class UserResolver implements ConflictResolver<User> {
+    @Override
+    public User resolve(List<User> siblings) {
+    if (siblings.size == 0) {
+        return null;
+    } else if (siblings.size == 1) {
+        return siblings.get(0);
+    } else {
+        int longestList = 0;
+        User userWithLongestList;
+
+        for (User user : siblings) {
+            if (user.friends.size > longestList) {
+                userWithLongestList = user;
+                longestList = user.friends.size;
+            } else {
+                return siblings.get(0);
+            }
+            storeUser(userWithLongestList);
+            return userWithLongestList;
+        }
+    }
+
+    public void storeUser(User user, Location location) throws Exception {
+        StoreValue storeOp = new StoreValue.Builder(user)
+                .withLocation(location)
+                .build();
+        client.execute(storeOp.build());
+    }
+}
+```
+
+Now our resolver will both return a single `User` object to the
+application for further use _and_ notify Riak which value the
+application takes to be correct.
+
+The bad news is that this operation still bears the potential to create
+siblings, for example if the write is performed simultaneously with
+another write. The good news, however, is that that is perfectly okay.
+Our application is now designed to gracefully handle siblings whenever
+they arise, and the logic we choose will now be applied automatically
+every time object to the application for further use _and_ notify Riak
+which value the application takes to be correct.
+
+The bad news is that this operation still bears the potential to create
+siblings, for example if the write is performed simultaneously with
+another write. The good news, however, is that that is perfectly okay.
+Our application is now designed to gracefully handle siblings whenever
+they arise, and the logic we choose will now be applied automatically
+every time.
