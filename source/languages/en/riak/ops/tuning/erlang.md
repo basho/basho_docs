@@ -109,8 +109,8 @@ i.e. whether they have an empty [run
 queue](http://en.wikipedia.org/wiki/Run_queue).  The interval at which
 this process occurs can be set, in milliseconds, using the
 `erlang.schedulers.force_wakeup_interval` parameter, which corresponds
-to the Erlang VM's `+swfi` flag. This parameter is set to 0 by default,
-which disables scheduler wakeup.
+to the Erlang VM's `+sfwi` flag. This parameter is set to `0` by
+default, which disables scheduler wakeup.
 
 Erlang distributions like R15Bx have a tendency to put schedulers to
 sleep too often. If you are using a later distribution, you most likely
