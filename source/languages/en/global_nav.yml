@@ -57,6 +57,11 @@ riak:
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
+          - title: "Conflict Resolution"
+            - "[[Introduction|Conflict Resolution]]"
+            - "[[Java]]"
+            - "[[Ruby]]"
+            - "[[Erlang]]"
       - title: "Data Modeling"
         sub:
           - "[[Use Cases for Riak|Use Cases]]"
