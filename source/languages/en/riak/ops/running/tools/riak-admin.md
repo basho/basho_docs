@@ -70,7 +70,8 @@ The following commands stage changes to cluster membership. **These
 commands do not take effect immediately**. After staging a set of
 changes, you must do the following:
 
-* **plan** the changes by running `[[riak-admin cluster plan|riak-admin
+* **plan** the changes, i.e. see which changes are currently scheduled,
+  by running `[[riak-admin cluster plan|riak-admin
   Command Line#cluster-plan]]`
 * **commit** the changes by running `[[riak-admin cluster
   commit|riak-admin Command Line#cluster-commit]]`
