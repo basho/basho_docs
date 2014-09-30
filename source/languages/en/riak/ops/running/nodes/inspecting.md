@@ -317,7 +317,46 @@ Getting started with Riaknostic is easy, and instructions for installation and u
 
 {{#1.3.0+}}As of Riak version 1.3, Riaknostic is installed with Riak by default and exposed through the `riak-admin diag` command interface. It is an open source project developed by Basho Technologies and Riak community members. The code is available in the Riaknostic Github repository. {{/1.3.0+}}
 
-#### riak-admin diag
+
+## Strong Consistency Stats
+
+Riak tabulates a variety of stats related to Riak's optional [[strong
+consistency]] feature. The table below lists those stats.
+
+### GET-related stats
+
+Stat | Description
+:----|:-----------
+`consistent_gets` | Number of strongly consistent GETs coordinated by this node in the last minute
+`consistent_gets_total` | Total number of strongly consistent GETs coordinated by this node
+`consistent_get_objsize_mean` | Mean object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_median` | Median object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_99` | 99th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_time_mean` | Mean time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_median` | Median time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_95` | 95th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_99` | 99th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_100` | 100th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+
+### PUT-related stats
+
+Stat | Description
+:----|:-----------
+`consistent_puts` | Number of strongly consistent PUTs coordinated by this node in the last minute
+`consistent_puts_total` | Total number of strongly consistent PUTs coordinated by this node
+`consistent_put_objsize_mean` | Mean object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_median` | Median object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_95` | 95th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_99` | 99th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_100` | 100th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_time_mean` | Mean time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_median` | Median time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+## riak-admin diag
 
 Running `riak-admin diag` by itself will perform a check of all of the data partitions in your cluster. It will return a listing of partitions that have been checked, each of which looks something like this:
 

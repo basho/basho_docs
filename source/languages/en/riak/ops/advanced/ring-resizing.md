@@ -15,24 +15,39 @@ to change the number of partitions in a Riak cluster's
 Previously, any Riak cluster was limited to having the number of
 partitions specified in its configuration throughout its entire
 lifespan. This number is determined by the `ring_size` parameter in the
-newer, `riak.conf`-based configuration system, and by
+newer, `riak.conf`-based configuration system and by
 `ring_creation_size` in the older, `app.config`-based system. In order
-to change the number of partitions, a separate cluster would need to be
-spun up alongside the original cluster and the data migrated between
-the two.
+to change the number of partitions previously, a separate cluster would
+need to be spun up alongside the original cluster and the data migrated
+between the two.
 
-The purpose of the ring resizing feature is to support users who create
-a cluster with either too few or two many partitions and need to change
-this without disrupting operations more than necessary.
+A ring resize operation can be useful in the following two cases:
 
-<div class="note">
-<div class="title">Note on ring resizing and scalability</div>
-Ring resizing is <em>not</em> intended as a scaling feature for clusters
-to add or remove concurrent processing ability. Since the number of
-partitions can limit the number of nodes in the cluster, ring resizing
-can be used to increase capacity in that regard. In short, the feature
-is intended for infrequent use in highly specific scenarios.
-</div>
+1. If a cluster has been created with either too few or too many
+   partitions
+2. If a cluster's capacity, in terms of the number of nodes, has changed
+   in such a way that the optimal ring size has changed
+
+You should consult our documentation on [[cluster capacity planning]]
+before committing to a ring resize operation. Please note that there
+is an important difference between changing the ring size and adding and
+removing nodes. If you are looking to add or remove concurrent
+processing ability to/from a cluster, you are advised to do so by
+[[adding or removing nodes|Adding and Removing Nodes]].
+
+## Feature Incompatibility
+
+Ring resizing cannot be used in clusters using the following features:
+
+* [[Riak Search 2.0|Using Search]]
+* [[Strong consistency]]
+
+In addition, ring resizing cannot be used in clusters using the
+[[Multi-Datacenter Replication|Multi Data Center Replication v3
+Architecture]] capabilities included with [Riak
+Enterprise](http://basho.com/riak-enterprise/).
+
+## Considerations Prior to Ring Resizing
 
 There are a number of important considerations to bear in mind while
 running a ring resizing process:
@@ -49,8 +64,15 @@ running a ring resizing process:
 * Resizing partitions can take up a lot of disk space. Make sure that
   you have sufficient storage to complete the resize operation.
 * Basho strongly recommends that you do _not_ use the `force-replace`
-  command that is part of the `[[riak-admin|riak-admin Command
-  Line#cluster-force-replace]]` interface during ring resizing.
+  command (part of the `[[riak-admin|riak-admin Command
+  Line#cluster-force-replace]]` interface) during ring resizing.
+
+<div class="note">
+<div class="title">Note on ring resizing and strong consistency</div>
+If you are using Riak's [[strong consistency]] feature, you will not be
+able to perform a ring resize. This will, however, be supported in a
+later version of Riak.
+</div>
 
 ## Starting the Resize
 
@@ -136,9 +158,25 @@ changes using the `clear` command:
 riak-admin cluster clear
 ```
 
+<div class="note">
+<div class="title">Note on cluster operations</div>
+We do not recommend that you stage or commit other cluster operations
+while a ring resize is in process. Although this is unadvisable, Riak
+will allow you to commit other operations but will delay them until
+after the resize has completed. The one exception to this is the
+`[[force-replace|riak-admin Command Line#force-replace]]` command,
+which will not be delayed. We also do not recommend this command due to
+a [known issue](https://github.com/basho/basho_docs/pull/1285) that will
+be addressed in a future release.
+
+If a cluster-level change is necessary during a resize, we recommend
+aborting the resize as described above, making the necessary change, and
+then restarting the resize operation.
+</div>
+
 ## Monitoring Resize Progress
 
-With the new plan committed, the progress of the resizing operation can
+With the new plan committed, the progress of the resize operation can
 be monitored using the same means used to monitor other handoff
 operations. You can use the `ring-status` command to view changes to the
 cluster that are either in progress or queued:
@@ -207,7 +245,7 @@ riak-admin transfer-limit <node> <limit>
 ```
 
 Using `riak-admin transfers` will provide you more information about the
-partitions that are currently in progress. 
+partitions that are currently in progress.
 
 ```bash
 riak-admin transfers
@@ -231,10 +269,10 @@ last update: 2014-01-20 21:05:01 [1.21 s ago]
 total size: 111676327 bytes
 objects transferred: 122598
 
-                         1818 Objs/s                          
-     dev1@127.0.0.1        =======>       dev4@127.0.0.1      
-        |=========================                  |  58%    
-                         950.38 KB/s                          
+                         1818 Objs/s
+     dev1@127.0.0.1        =======>       dev4@127.0.0.1
+        |=========================                  |  58%
+                         950.38 KB/s
 
 transfer type: resize_transfer
 vnode type: riak_kv_vnode
@@ -244,10 +282,10 @@ last update: 2014-01-20 21:05:01 [1.29 s ago]
 total size: 100143148 bytes
 objects transferred: 130510
 
-                         1939 Objs/s                          
-     dev1@127.0.0.1        =======>       dev5@127.0.0.1      
-        |==============================             |  69%    
-                         1013.71 KB/s                         
+                         1939 Objs/s
+     dev1@127.0.0.1        =======>       dev5@127.0.0.1
+        |==============================             |  69%
+                         1013.71 KB/s
 
 transfer type: resize_transfer
 vnode type: riak_kv_vnode
@@ -257,10 +295,10 @@ last update: 2014-01-20 21:05:01 [1.19 s ago]
 total size: 82010614 bytes
 objects transferred: 37571
 
-                         2259 Objs/s                          
-     dev3@127.0.0.1        =======>       dev5@127.0.0.1      
-        |==========                                 |  24%    
-                          1.15 MB/s                           
+                         2259 Objs/s
+     dev3@127.0.0.1        =======>       dev5@127.0.0.1
+        |==========                                 |  24%
+                          1.15 MB/s
 
 transfer type: resize_transfer
 vnode type: riak_kv_vnode
@@ -270,10 +308,10 @@ last update: 2014-01-20 21:05:01 [898.81 ms ago]
 total size: 82012730 bytes
 objects transferred: 11864
 
-                         1870 Objs/s                          
-     dev3@127.0.0.1        =======>       dev2@127.0.0.1      
-        |===                                        |   7%    
-                         977.72 KB/s                          
+                         1870 Objs/s
+     dev3@127.0.0.1        =======>       dev2@127.0.0.1
+        |===                                        |   7%
+                         977.72 KB/s
 ```
 
 You can confirm that the resize operation is no longer running using the
@@ -291,8 +329,8 @@ No transfers active
 ```
 
 You can also verify that there are the expected number of partitions in
-the ring by opening the Erlang shell via the [[`riak attach`|riak
-Command Line#attach]] command and running this snippet:
+the ring by opening the Erlang shell via the `[[riak attach|riak
+Command Line#attach]]` command and running this snippet:
 
 ```erlang
 length(riak_core_ring:all_owners(2, riak_core_ring_manager:get_my_ring())).
@@ -353,3 +391,52 @@ Cluster changes committed
 
 If console output confirms that the changes have been committed, then
 your resize operation has been successfully aborted.
+
+## Secondary Indexes and MapReduce
+
+If you are using [[secondary indexes (2i)|Using Secondary Indexes]] or
+[[MapReduce|Using MapReduce]], there are some special steps that must be
+undertaken on each node.
+
+First, there is a Riak environment variable called
+`fold_preflist_filter` that should be set to `true` on all nodes **prior
+to the ring resize operation**. If you'd like to set that variable
+without restarting the node, you can do so via the Erlang shell. To
+access the shell, run `[[riak console|riak Command Line#console]]`; once
+in the shell, you can set the variable using this command:
+
+```erlang
+application:set_env(riak_kv, fold_preflist_filter, true).
+```
+
+Once you have done this, however, you should also set the variable in
+each node's `advanced.config` file so that new value of the variable is
+registered any time the node restarts.
+
+```advancedconfig
+[
+    {riak_kv, [
+        %% ...
+            {fold_preflist_filter, true},
+        %% ...
+    ]}
+]
+```
+
+More information on setting parameters in `advanced.config` can be found
+in our documentation on [[advanced configuration|Configuration
+Files#Advanced-Configuration]].
+
+The second step in preparing for a ring resize operation is to ensure
+that coverage queries do not unnecessarily hinder the resize. This
+means, first of all, that you should ensure that no [[list buckets|HTTP
+List Buckets]] or [[list keys|HTTP List Keys]] operations whatsoever are
+performed during the operation. While we do not recommend list buckets
+or list keys in production in general, this is especially important
+during ring resizing.
+
+Second of all, please be aware that although ring resizing is compatible
+with [[secondary index|Using Secondary Indexes]] queries, you should use
+secondary index queries conservatively during ring resizing. We would
+also like to remind you once again that ring resizing is incompatible
+with [[Riak Search|Using Search]].

@@ -670,6 +670,7 @@ bitcask.max_puts = 1000
 %% Each of these thresholds can be disabled by setting the value to -1
 ```
 
+<a name="Automatic-Expiration"></a>
 ### Automatic Expiration
 
 By default, Bitcask keeps all of your data. But if your data has limited

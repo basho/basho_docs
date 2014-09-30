@@ -108,6 +108,12 @@ default:
               name: "6.0 x86 64"
             src:
               name: "6.0 Source"
+        "7":
+          arch:
+            x86_64:
+              name: "7.0 x86 64"
+            src:
+              name: "7.0 Source"
     fedora:
       name: "Fedora"
       icon: "fedora.png"

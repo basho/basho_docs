@@ -76,10 +76,10 @@ There are three possible settings:
   [[vnodes|Riak Glossary#vnode]] while a fallback is either down or
   awaiting handoff
 * `immediate` --- The tombstone is removed as soon as the request is
-* received. 
+  received
 * Custom time interval --- How long to wait until the tombstone is
   removed, expressed in milliseconds. The default is `3000`, i.e. to
-  wait 3 seconds.
+  wait 3 seconds
 
 In general, we recommend setting the `delete_mode` parameter to `keep`
 if you plan to delete and recreate objects under the same key

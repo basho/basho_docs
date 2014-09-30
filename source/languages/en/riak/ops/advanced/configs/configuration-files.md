@@ -15,6 +15,15 @@ node, from the storage backend that the node will use to store data to
 the location of SSL-related files to sibling resolution parameters and
 beyond.
 
+<div class="note">
+<div class="title">Note on upgrades to 2.0</div>
+If your cluster is currently running a version of Riak prior to 2.0 and
+you'd like to upgrade to version 2.0 or later, you may continue to use
+your old `app.config` and `vm.args` files. You may also use the newer
+`riak.conf` alongside them, but please be aware that any settings in
+`app.config` or `vm.args` will override settings in `riak.conf`.
+</div>
+
 At any time, you can get a snapshot of currently applied configurations
 through the command line. For a listing of *all* of the configs
 currently applied in the node:
@@ -25,7 +34,7 @@ riak config effective
 
 This will output a long list of the following form:
 
-```bash
+```
 anti_entropy = active
 anti_entropy.bloomfilter = on
 anti_entropy.concurrency_limit = 2
@@ -62,7 +71,7 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 
 Below is a table listing the configurable parameters in `riak.conf`.
 
-#### The `advanced.config` file
+#### The advanced.config file
 
 For most Riak installations, the `riak.conf` file should be sufficient
 for configuration management. But some installations, particularly those
@@ -89,17 +98,17 @@ and cookie.
 <tbody>
 
 <tr>
-<td><code>nodename</code></td>
-<td>The name of the Riak node.</td>
-<td><code>riak@127.0.0.1</code></td>
-</tr>
-
-<tr>
 <td><code>distributed_cookie</code></td>
 <td>Cookie for distributed node communication within a Riak cluster.
 All nodes in the same cluster should use the same cookie or they will
 not be able to communicate.</td>
 <td><code>riak</code></td>
+</tr>
+
+<tr>
+<td><code>nodename</code></td>
+<td>The name of the Riak node.</td>
+<td><code>riak@127.0.0.1</code></td>
 </tr>
 
 <tr>
@@ -128,17 +137,17 @@ Configurable parameters for your cluster's [[ring|Clusters#the-ring]].
 <tbody>
 
 <tr>
+<td><code>ring.state_dir</code></td>
+<td>Default location of ringstate.</td>
+<td><code>./data/ring</code></td>
+</tr>
+
+<tr>
 <td><code>ring_size</code></td>
 <td>Number of partitions in the cluster (only valid when first creating
 the cluster). Must be a power of 2. The minimum is 8 and the maximum is
 1024.</td>
 <td><code>64</code></td>
-</tr>
-
-<tr>
-<td><code>ring.state_dir</code></td>
-<td>Default location of ringstate.</td>
-<td><code>./data/ring</code></td>
 </tr>
 
 <tr>
@@ -198,23 +207,12 @@ parameters below.
 <tbody>
 
 <tr>
-<td><code>platform_log_dir</code></td>
-<td>The directory in which Riak's log files are stored, e.g.
-<code>console.log</code>, <code>erlang.log</code>, and
-<code>crash.log</code> files.</td>
-<td><code>./log</code></td>
-</tr>
-
-<tr>
-<td><code>platform_lib_dir</code></td>
-<td>The directory in which Riak's dependencies are housed.</td>
-<td><code>./lib</code></td>
-</tr>
-
-<tr>
-<td><code>platform_etc_dir</code></td>
-<td>The directory in which Riak's configuration files are stored.</td>
-<td><code>./etc</code></td>
+<td><code>platform_bin_dir</code></td>
+<td>The directory in which the <code>[[riak|riak Command Line]]</code>,
+<code>[[riak-admin|riak-admin Command Line]]</code>,
+<code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
+executables are stored.</td>
+<td><code>./bin</code></td>
 </tr>
 
 <tr>
@@ -226,12 +224,23 @@ as [[ring state|Clusters]] data, [[active anti-entropy]] data, and
 </tr>
 
 <tr>
-<td><code>platform_bin_dir</code></td>
-<td>The directory in which the <code>[[riak|riak Command Line]]</code>,
-<code>[[riak-admin|riak-admin Command Line]]</code>,
-<code>riak-debug</code>, and now-deprecated <code>search-cmd</code>
-executables are stored.</td>
-<td><code>./bin</code></td>
+<td><code>platform_etc_dir</code></td>
+<td>The directory in which Riak's configuration files are stored.</td>
+<td><code>./etc</code></td>
+</tr>
+
+<tr>
+<td><code>platform_lib_dir</code></td>
+<td>The directory in which Riak's dependencies are housed.</td>
+<td><code>./lib</code></td>
+</tr>
+
+<tr>
+<td><code>platform_log_dir</code></td>
+<td>The directory in which Riak's log files are stored, e.g.
+<code>console.log</code>, <code>erlang.log</code>, and
+<code>crash.log</code> files.</td>
+<td><code>./log</code></td>
 </tr>
 
 </tbody>
@@ -277,6 +286,13 @@ Configuration parameters for [[Riak Search|Using Search]].
 </tr>
 
 <tr>
+<td><code>search.anti_entropy.data_dir</code></td>
+<td>The directory in which Search's Active Anti-Entropy data files are
+stored</td>
+<td><code>./data/yz_anti_entropy</code></td>
+</tr>
+
+<tr>
 <td><code>search.root_dir</code></td>
 <td>The root directory for Riak Search, under which index data and
 configuration is stored.</td>
@@ -284,10 +300,11 @@ configuration is stored.</td>
 </tr>
 
 <tr>
-<td><code>search.anti_entropy.data_dir</code></td>
-<td>The directory in which Search's Active Anti-Entropy data files are
-stored</td>
-<td><code>./data/yz_anti_entropy</code></td>
+<td><code>search.solr.jmx_port</code></td>
+<td>The port to which Solr JMX binds.
+<br /><br />
+<strong>Note</strong>: Binds on every interface.</td>
+<td><code>8985</code></td>
 </tr>
 
 <tr>
@@ -297,14 +314,6 @@ stored</td>
 Example: <code>XX:+UseCompressedStrings</code></td>
 <td><code>-d64 -Xms1g -Xmx1g -XX:+UseStringCache
 -XX:+UseCompressedOops</code></td>
-</tr>
-
-<tr>
-<td><code>search.solr.jmx_port</code></td>
-<td>The port to which Solr JMX binds.
-<br /><br />
-<strong>Note</strong>: Binds on every interface.</td>
-<td><code>8985</code></td>
 </tr>
 
 <tr>
@@ -332,6 +341,16 @@ up to the minimum <code>1s</code>.</td>
 
 Configurable parameters for Riak's [[LevelDB]] storage backend.
 
+<div class="note">
+<div class="title">Note on upgrading to 2.0</div>
+If you are upgrading to Riak 2.0+ from a 1.x version, using LevelDB, and
+wish to use your old configuration files, i.e. `app.config` and
+`vm.args`, please note that you must set the `total_leveldb_mem_percent`
+setting in the `eleveldb` section of `app.config`. We recommend setting
+it to `70`. If you do not set this parameter, it will default to 15,
+which can lead to problems in some clusters.
+</div>
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -343,27 +362,20 @@ Configurable parameters for Riak's [[LevelDB]] storage backend.
 <tbody>
 
 <tr>
-<td><code>leveldb.data_root</code></td>
-<td>The directory in which LevelDB will store its data.</td>
-<td><code>./data/leveldb</code></td>
+<td><code>leveldb.block_cache_threshold</code></td>
+<td>This setting defines the limit past which block cache memory can no
+longer be released in favor of the page cache. This setting has no
+impact in favor of file cache. The value is set on a per-vnode basis.
+</td>
+<td><code>32MB</code></td>
 </tr>
 
 <tr>
-<td><code>leveldb.maximum_memory.percent</code></td>
-<td>This parameter defines the percentage of total server memory to
-assign to LevelDB. LevelDB will dynamically adjust its internal cache
-sizes to stay within this size. The memory size can alternately be
-assigned as a byte count via <code>leveldb.maximum_memory</code>
-instead.</td>
-<td><code>70</code></td>
-</tr>
-
-<tr>
-<td><code>leveldb.maximum_memory</code></td>
-<td>This parameter defines the server memory (in bytes) to assign to
-LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set
-LevelDB memory as a percentage of system total.</td>
-<td><code>80</code></td>
+<td><code>leveldb.compaction.trigger.tombstone_count</code></td>
+<td>Controls when a background compaction initiates solely due to the
+number of delete tombstones within an individual <code>.sst</code> table
+file. A value of <code>off</code> disables the feature.</td>
+<td><code>1000</code></td>
 </tr>
 
 <tr>
@@ -377,11 +389,9 @@ compaction.</td>
 </tr>
 
 <tr>
-<td><code>leveldb.compaction.trigger.tombstone_count</code></td>
-<td>Controls when a background compaction initiates solely due to the
-number of delete tombstones within an individual <code>.sst</code> table
-file. A value of <code>off</code> disables the feature.</td>
-<td><code>1000</code></td>
+<td><code>leveldb.data_root</code></td>
+<td>The directory in which LevelDB will store its data.</td>
+<td><code>./data/leveldb</code></td>
 </tr>
 
 <tr>
@@ -394,16 +404,27 @@ database size.</td>
 </tr>
 
 <tr>
-<td><code>leveldb.threads</code></td>
-<td>The number of worker threads performing LevelDB operations.</td>
-<td><code>71</code></td>
+<td><code>leveldb.maximum_memory</code></td>
+<td>This parameter defines the server memory (in bytes) to assign to
+LevelDB. Also see <code>leveldb.maximum_memory.percent</code> to set
+LevelDB memory as a percentage of system total.</td>
+<td><code>80</code></td>
 </tr>
 
 <tr>
-<td><code>leveldb.verify_compaction</code></td>
-<td>Enables or disables the verification of LevelDB data during
-compaction.</td>
-<td><code>on</code></td>
+<td><code>leveldb.maximum_memory.percent</code></td>
+<td>This parameter defines the percentage of total server memory to
+assign to LevelDB. LevelDB will dynamically adjust its internal cache
+sizes to stay within this size. The memory size can alternately be
+assigned as a byte count via <code>leveldb.maximum_memory</code>
+instead.</td>
+<td><code>70</code></td>
+</tr>
+
+<tr>
+<td><code>leveldb.threads</code></td>
+<td>The number of worker threads performing LevelDB operations.</td>
+<td><code>71</code></td>
 </tr>
 
 <tr>
@@ -414,12 +435,10 @@ LevelDB against internal checksums.</td>
 </tr>
 
 <tr>
-<td><code>leveldb.block_cache_threshold</code></td>
-<td>This setting defines the limit past which block cache memory can no
-longer be released in favor of the page cache. This setting has no
-impact in favor of file cache. The value is set on a per-vnode basis.
-</td>
-<td><code>32MB</code></td>
+<td><code>leveldb.verify_compaction</code></td>
+<td>Enables or disables the verification of LevelDB data during
+compaction.</td>
+<td><code>on</code></td>
 </tr>
 
 <tr>
@@ -1075,13 +1094,6 @@ indicating that the write was received.</td>
 <td><code>quorum</code></td>
 </tr>
 
-<tr>
-<td><code>buckets.default.w</code></td>
-<td>The number of replicas which must reply to a write request,
-indicating that the write was received.</td>
-<td><code>quorum</code></td>
-</tr>
-
 </tbody>
 </table>
 
@@ -1190,6 +1202,33 @@ native code, and native code that does not properly bump reductions.
 More information <a
 href="http://www.erlang.org/doc/man/erl.html#+sfwi">here</a>.</td>
 <td></td>
+</tr>
+
+<tr>
+<td><code>erlang.schedulers.compaction_of_load</code></td>
+<td>Enables or disables the Erlang scheduler's compaction of load. When
+enabled (which is the default), load balancing will strive to establish
+a load distribution that causes as many scheduler threads as possible to
+be fully loaded, i.e. not to run out of scheduled work. This is
+accomplished by migrating load, such as running processes, into a
+smaller set of schedulers when schedulers frequently run out of work.
+When disabled, the frequency at which schedulers run out of work will
+not be taken into account by the load balancing logic.</td>
+<td><code>true</code> (enabled)</td>
+</tr>
+
+<tr>
+<td><code>erlang.schedulers.utilization_balancing</code></td>
+<td>Enables or disables the Erlang scheduler's balancing of load. By
+default, scheduler utilization of balancing is disabled while scheduler
+compaction of load is enabled, i.e.
+<code>erlang.schedulers.compaction_of_load</code> is set to
+<code>true</code>. In this state, the Erlang VM will strive for a load
+distribution which causes as many scheduler threads as possible to be
+fully loaded, i.e. to not run out of work. When load balancing is
+enabled using this setting, the system will attempt to equally scheduler
+utilization between schedulers.</td>
+<td><code>false</code> (disabled)</td>
 </tr>
 
 <tr>
@@ -1315,6 +1354,13 @@ href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 <td><code>enable</code></td>
 </tr>
 
+<tr>
+<td><code>erlang.shutdown_time</code></td>
+<td>Limits how long the Erlang VM spends shutting down. After the
+specified duration elapses, all existing processes are killed.</td>
+<td><code>10s</code></td>
+</tr>
+
 </tbody>
 </table>
 
@@ -1423,9 +1469,11 @@ security check.</td>
 
 <tr>
 <td><code>check_crl</code></td>
-<td>Whether to check the CRL of a client certificate. This defaults to
-<code>on</code> but some CAs may not maintain or define a CRL, so this
-can be disabled if no CRL is available.</td>
+<td>Whether to check the [certificate revocation
+list](http://en.wikipedia.org/wiki/Revocation_list) (CRL) of a client
+certificate. This defaults to <code>on</code> but some CAs may not
+maintain or define a CRL, so this can be disabled if no CRL is
+available.</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1525,9 +1573,9 @@ interface will bind.</td>
 </tbody>
 </table>
 
-## Lager
+## lager
 
-Configurable parameters for [Lager](https://github.com/basho/lager),
+Configurable parameters for [lager](https://github.com/basho/lager),
 Riak's logging system.
 
 <table class="riak-conf">
@@ -1542,13 +1590,15 @@ Riak's logging system.
 
 <tr>
 <td><code>sasl</code></td>
-<td>Whether to enable Erlang's built-in error logger.</td>
+<td>Whether to enable <a
+href="http://www.erlang.org/doc/man/sasl_app.html">sasl</a>, Erlang's
+built-in error logger</td>
 <td><code>off</code></td>
 </tr>
 
 <tr>
 <td><code>log.error.messages_per_second</code></td>
-<td>Maximum number of <code>error_logger</code> messages to handle in a
+<td>Maximum number of <code>error_logger</code> messages to handle per
 second</td>
 <td><code>100</code></td>
 </tr>
@@ -1556,13 +1606,13 @@ second</td>
 <tr>
 <td><code>log.error.redirect</code></td>
 <td>Whether to redirect <code>error_logger</code> messages into
-lager.</td>
+lager</td>
 <td><code>on</code></td>
 </tr>
 
 <tr>
 <td><code>log.crash</code></td>
-<td>Whether to enable the crash log.</td>
+<td>Whether to enable the crash log</td>
 <td><code>on</code></td>
 </tr>
 
@@ -1597,14 +1647,51 @@ href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation
 <tr>
 <td><code>log.crash.file</code></td>
 <td>If the crash log is enabled, the file where its messages will be
-written.</td>
+written</td>
 <td><code>./log/crash.log</code></td>
 </tr>
 
 <tr>
 <td><code>log.syslog</code></td>
-<td>When set to <code>on</code>, enables log output to syslog.</td>
+<td>When set to <code>on</code>, enables log output to syslog</td>
 <td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>log.syslog.facility</code></td>
+<td>Sets the <a
+href="http://en.wikipedia.org/wiki/Syslog#Facility_levels">facility
+level</a> of syslog output if <code>log.syslog</code> is set to
+<code>on</code>. Possible values:
+<ul><li><code>auth</code></li><li><code>authpriv</code></li>
+<li><code>clock</code></li><li><code>cron</code></li>
+<li><code>daemon</code></li><li><code>ftp</code></li>
+<li><code>kern</code></li><li><code>lpr</code></li>
+<li><code>mail</code></li><li><code>news</code></li>
+<li><code>syslog</code></li><li><code>user</code></li>
+<li><code>uucp</code></li></ul>
+In addition to these settings, you may also select <code>local0</code>
+through <code>local7</code>.</td>
+<td><code>daemon</code></td>
+</tr>
+
+<tr>
+<td><code>log.syslog.ident</code></td>
+<td>If <code>log.syslog</code> is set to <code>on</code>, this setting
+determines the prefix appended to each syslog message.</td>
+<td><code>riak</code></td>
+</tr>
+
+<tr>
+<td><code>log.syslog.level</code></td>
+<td>If <code>log.syslog</code> is set to <code>on</code>, this setting
+determines the log level of syslog output. Possible values:
+<ul><li><code>alert</code></li><li><code>critical</code></li>
+<li><code>debug</code></li><li><code>emergency</code></li>
+<li><code>error</code></li><li><code>info</code></li
+<li><code>none</code></li><li><code>notice</code></li>
+<li><code>warning</code></li></ul></td>
+<td><code>info</code></td>
 </tr>
 
 <tr>
@@ -1616,14 +1703,21 @@ written.</td>
 <tr>
 <td><code>log.console.file</code></td>
 <td>When <code>log.console</code> is set to <code>file</code> or
-<code>both</code>>, the file where console messages will be logged
-</td>
+<code>both</code>, this parameter determines the path of the file to
+which console messages will be logged.</td>
 <td><code>./log/console.log</code></td>
 </tr>
 
 <tr>
 <td><code>log.console.level</code></td>
-<td>The severity level of the console log.</td>
+<td>The severity level of the console log. Possible
+values:
+<ul>
+<li><code>debug</code></li>
+<li><code>info</code></li>
+<li><code>warning</code></li>
+<li><code>error</code></li>
+</ul></td>
 <td><code>info</code></td>
 </tr>
 
@@ -1799,6 +1893,25 @@ Configurable parameters for intra-cluster, i.e. inter-node, handoff.
 <tbody>
 
 <tr>
+<td><code>handoff.max_rejects</code></td>
+<td>The maximum number of times that a secondary system within Riak,
+such as <a href="/dev/using/search">Riak Search</a>, can block handoff
+of primary key/value data. The approximate maximum duration that a vnode
+can be blocked can be determined by multiplying this setting by
+<code>vnode_management_timer</code>. If you want to prevent handoff from
+ever being blocked by a secondary system, set this parameter to
+<code>0</code>.</td>
+<td><code>6</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.port</code></td>
+<td>Specifies the TCP port that Riak uses for intra-cluster data
+handoff.</td>
+<td><code>8099</code></td>
+</tr>
+
+<tr>
 <td><code>handoff.ssl.certfile</code></td>
 <td>To encrypt <code>riak_core</code> intra-cluster data handoff
 traffic, uncomment this line and edit its path to an appropriate
@@ -1814,13 +1927,6 @@ certfile and keyfile.</td>
 </tr>
 
 <tr>
-<td><code>handoff.port</code></td>
-<td>Specifies the TCP port that Riak uses for intra-cluster data
-handoff.</td>
-<td><code>8099</code></td>
-</tr>
-
-<tr>
 <td><code>handoff.use_background_manager</code></td>
 <td>Whether Riak will use a background manager to limit K/V handoff.
 This can help to prevent system response degradation during times of
@@ -1828,32 +1934,6 @@ heavy load caused by multiple background tasks that contend for the same
 system resources; setting this parameter to <code>off</code> can cut
 down on system resource usage.</td>
 <td>off</td>
-</tr>
-
-</tbody>
-</table>
-
-## Strong Consistency
-
-The `strong_consistency` parameter enables you to turn Riak's [[strong
-consistency]] subsystem on and off.
-
-<table class="riak-conf">
-<thead>
-<tr>
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><code>strong_consistency</code></td>
-<td>Enables the consensus subsystem. Set to <code>on</code> to enable
-the consensus subsystem used for strongly consistent Riak operations.
-</td>
-<td><code>off</code></td>
 </tr>
 
 </tbody>
@@ -2042,6 +2122,212 @@ if the JMX server crashes.</td>
 </tbody>
 </table>
 
+## Strong Consistency
+
+<div class="note">
+<div class="title">Note on commercial support</div>
+Riak's strong consistency feature is currently an open-source-only
+feature and is not yet commercially supported.
+</div>
+
+Riak's strong consistency feature has a variety of tunable parameters
+that allow you to enable and disable strong consistency, modify the
+behavior of leaders and followers, set various timeouts, and more. More
+detailed information from an operations perspective can be found in our
+documentation on [[managing strong consistency]].
+
+Strong consistency is disabled by default. The `strong_consistency`
+parameter enables you to turn it on. This setting is available in each
+node's `riak.conf` file.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>strong_consistency</code></td>
+<td>Enables the consensus subsystem used for strongly consistent Riak
+operations if set to <code>on</code>.</td>
+<td><code>off</code></td>
+</tr>
+
+</tbody>
+</table>
+
+Unlike the `strong_consistency` setting, the settings listed below are
+available only in `advanced.config`, in the `riak_ensemble` section of
+that file. That section looks like this:
+
+```advancedconf
+{riak_ensemble, [
+		{parameter1, value},
+		{parameter2, value},
+		%% Other setting
+	]}
+```
+
+Further instructions on setting parameters in `advanced.config` can be
+found in the [[advanced configuration|Configuration
+Files#Advanced-Configuration]] section below.
+
+Using these settings properly demands a firm understanding of the basic
+architecture of Riak's implementation of strong consistency. We highly
+recommend reading our documentation on the [[implementation
+details|Managing Strong Consistency#Implementation-Details]] behind
+strong consistency before changing the defaults on these parameters.
+
+<table class="riak-conf">
+<thead>
+<tr>
+<th>Config</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td><code>ensemble_tick</code></td>
+<td>The rate at which leaders perform their periodic duties, including
+refreshing the leader lease, in milliseconds. This setting must be lower
+than both the <code>lease_duration</code> and
+<code>follower_timeout</code> settings (both listed below). Lower values
+mean that leaders perform their duties more frequently, which can allow
+for faster convergence if a leader goes offline and then returns to the
+ensemble; higher values mean that leaders perform their duties less
+frequently, which can reduce network overhead.</td>
+<td><code>500</code></td>
+</tr>
+
+<tr>
+<td><code>lease_duration</code></td>
+<td>Determines how long a leader lease remains valid without being
+refreshed (in milliseconds). This should be set higher than the
+<code>ensemble_tick</code> setting (listed above) so that leaders have
+time to refresh their leases before they time out, and it must be set
+lower than the <code>follower_timeout</code> setting (listed below).
+</td>
+<td><code>ensemble_tick</code> * 3/2</td>
+</tr>
+
+<tr>
+<td><code>follower_timeout</code></td>
+<td>Determines how long a follower waits to hear from a leader before it
+abandons the leader (in milliseconds). This must be set greater than the
+<code>lease_duration</code> setting.</td>
+<td><code>lease_duration</code> * 4</td>
+</tr>
+
+<tr>
+<td><code>alive_tokens</code></td>
+<td>Determines the number of ticks the leader will wait to hear from its
+associated [[vnode|Riak Glossary#vnode]] before assuming that the vnode
+is unhealthy and stepping down as leader. If the vnode does not respond
+to the leader before <code>ensemble_tick</code> *
+<code>alive_tokens</code> milliseconds have elapsed, the leader will
+give up leadership. It may be necessary to raise this setting if your
+Riak vnodes are frequently stalling out on slow backend reads/writes. If
+this setting is too low, it may cause slow requests to time out earlier
+than the request timeout.</td>
+<td><code>2</code></td>
+</tr>
+
+<tr>
+<td><code>storage_delay</code></td>
+<td>Determines how long the consensus subsystem delays syncing to disk
+when performing certain metadata operations (in milliseconds). This
+delay allows multiple operations to be coalesced into a single disk
+write. We do not recommend that you change this setting.</td>
+<td><code>50</code></td>
+</tr>
+
+<tr>
+<td><code>storage_tick</code></td>
+<td>Determines how often the consensus subsystem writes data to disk
+that was requested to be written asynchronously (in milliseconds). We do
+not recommend that you change this setting.</td>
+<td><code>5000</code></td>
+</tr>
+
+<tr>
+<td><code>trust_lease</code></td>
+<td>Determines whether leader leases are used to optimize reads. When
+set to <code>true</code>, a leader with a valid lease will handle the
+read directly without contacting any followers; when set to
+<code>false</code>, the leader will always contact followers. For more
+information, see our internal documentation on
+<a href="https://github.com/basho/riak_ensemble/blob/wip/riak-2.0-user-docs/riak_consistent_user_docs.md#leader-leases">
+leader leases</a>.</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>peer_get_timeout</code></td>
+<td>Determines the timeout used internally for reading consistent data,
+in milliseconds. This setting must be greater than the highest request
+timeout used by your application.</td>
+<td><code>60000</code> (1 minute)</td>
+</tr>
+
+<tr>
+<td><code>peer_put_timeout</code></td>
+<td>Determines the timeout, in milliseconds, used internally for writing
+consistent data. This setting must be greater than the highest request
+timeout used by your application.</td>
+<td><code>60000</code> (1 minute)</td>
+</tr>
+
+<tr>
+<td><code>peer_workers</code></td>
+<td>The number of concurrent workers used by the leader to service
+requests. Increasing this setting may boost performance depending on the
+workload.</td>
+<td><code>1</code></td>
+</tr>
+
+<tr>
+<td><code>tree_validation</code></td>
+<td>Determines whether Riak considers peer Merkle trees to be trusted
+after a node restart. When validation is enabled (the default), Riak
+does not trust peer trees after a restart, instead requiring the peer to
+sync with a trusted majority. This is the safest option, as it protects
+Riak against undetected corruption of the Merkle tree. However, this
+mode reduces Riak availability since it can sometimes require more than
+a simple majority of nodes to be online and reachable.</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>synchronous_tree_updates</code></td>
+<td>Determines whether the metadata updates to follower Merkle trees are
+handled synchronously or not. When set to <code>true</code>, Riak
+equires two quorum round trips to occur before replying back to the
+client, the first quorum request to write the actual object and the
+second to write the Merkle tree data. When set to <code>false</code>,
+Riak will respond back to the client after the first round trip, letting
+the metadata update happen asynchronously.<br /><br />It's important to
+note that the leader <em>always</em> updates its local Merkle tree
+before responding to the client. This setting only affects the metadata
+writes sent to followers.<br /><br />In principle, asynchronous updates
+are unsafe. If the leader crashes before sending the metadata updates
+and all followers that had acknowledged the object write somehow revert
+to the object value immediately prior to a write request, a future read
+could return the immediately preceding value without realizing that it
+was incorrect. Given that this scenario is unlikely, this setting
+defaults to <code>false</code> in the name of improved performance.</td>
+<td><code>false</code></td>
+</tr>
+
+</tbody>
+</table>
+
+
 ## Miscellaneous
 
 <table class="riak-conf">
@@ -2085,6 +2371,15 @@ Do not enable unless your Erlang/OTP runtime is compiled to support
 DTrace, which is available in R15B01 (supported by the official source
 package) and in R14B04 via a custom repository and branch.</td>
 <td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>vnode_management_timer</code></td>
+<td>Sets the frequency with which <a
+href="/theory/concepts/glossary/#Vnode">vnodes</a> attempt to trigger <a
+href="/theory/concepts/glossary/#Hinted-Handoff">handoff</a> between
+this node and other nodes in the cluster.</td>
+<td><code>10s</code> (10 seconds)</td>
 </tr>
 
 <tr>
@@ -2325,6 +2620,23 @@ Deletion</a>.</td>
 <td><code>3000</code> (3 seconds)</td>
 </tr>
 
+<tr>
+<td><code>target_n_val</code></td>
+<td><code>riak_core</code></td>
+<td>The highest <code>n_val</code> that you generally intend to use.
+This setting affects how partitions are distributed within the cluster,
+helping to ensure that "hot spots" don't occur, i.e. that data is never
+stored more than once on the same physical node. You will need to change
+this setting only in rare circumstances. Assuming that
+<code>ring_size</code> is a power of 2, the ideal value for this setting
+is both (a) greater than or equal to the largest <code>n_val</code> for
+any bucket type and (b) an even divisor of the number of partitions in
+the ring, i.e. <code>ring_size</code>. The default is <code>4</code>,
+and the number of physical nodes in your cluster must be greater than
+<code>target_n_val</code> for this setting to be effective at preventing
+hot spots.</td>
+<td><code>4</code></td>
+</tr>
+
 </tbody>
 </table>
-

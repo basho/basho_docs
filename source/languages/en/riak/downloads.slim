@@ -18,6 +18,10 @@ h1 Download #{project.capitalize} #{version}
 p You should be able to find your operating system in the choices below.
 p If your OS is unlisted, you may download the [[source|Downloads#source]] at the bottom of this page, and follow the instructions to [[build Riak|Installing Riak from Source]].
 
+div.note
+  div.title Note for Bitcask users
+  p If you are a Bitcask user using Bitcask's [[object expiry|Bitcask#Automatic-Expiration]] feature, there is a bug affecting Bitcask merges. That bug can be addressed with <a href="http://s3.amazonaws.com/downloads.basho.com/patches/bitcask-2.0-merge-crash/riak_kv_bitcask_backend.beam">this patch</a> for version 2.0.0. This patch will be included in the 2.0.1 release of Riak. Add the linked <code>.beam</code> file to the <code>/lib/basho-patches</code> directory on each node and restart the node. Bitcask merges should proceed as normal after that.<br /><br />For more comprehensive documentation on using patches, see [[Basho Patches|Rolling Upgrades#Basho-Patches]].
+
 - for os, os_data in downloads
   - next unless downloads.files?(os_data)
   h3 id=os

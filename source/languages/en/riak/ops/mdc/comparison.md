@@ -17,13 +17,21 @@ Center Replication: Architecture]] and [[Version 3|Multi Data Center
 Replication v3 Architecture]] of Riak Enterprise's Multi-Datacenter
 Replication capabilities.
 
+<div class="note">
+<div class="title">Important note on mixing versions</div>
+If you are installing Riak Enterprise anew, you should use version 3
+replication. Under no circumstances should you mix version 2 and version
+3 replication. This comparison is meant only to list improvements
+introduced in version 3.
+</div>
+
 ## Version 2
 
 * Version 2 replication relies upon the twin concepts of **listeners**
   and **sites**. Listeners are the sources of replication data, while
   sites are the destination of replication data. Sites and listeners are
   manually configured on each node in a cluster. This can be a burden to
-  the administrator as clusters become larger. 
+  the administrator as clusters become larger.
 * A single connection tied to the **cluster leader** manages all
   replication communications. This can cause performance problems on the
   leader and is a bottleneck for realtime and fullsync replication data.
