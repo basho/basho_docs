@@ -253,7 +253,14 @@ Stat                      | Description
 `sys_thread_pool_size`    | Number of threads in the asynchronous thread pool
 `sys_wordsize`            | Size of Erlang term words in bytes as an integer, for examples, on 32-bit architectures 4 is returned and on 64-bit architectures 8 is returned
 
-## Riak Data Type Stats
+## Riak Data Type Statistics
+
+These statistics describe a wide variety of [[Riak Data Type|Data
+Types]]-specific operations, many of them specific to the currently
+available Data Types: [[counters|Data Types#Counters]], [[sets|Data
+Types#Sets]], and [[maps|Data Types#Maps]].
+
+### Counter-related Statistics
 
 `object_counter_merge`
 `object_counter_merge_total`
@@ -269,6 +276,40 @@ Stat                      | Description
 `vnode_counter_update_time_95`
 `vnode_counter_update_time_99`
 `vnode_counter_update_time_100`
+`node_gets_counter`
+`node_gets_counter_total`
+`node_get_fsm_counter_siblings_mean`
+`node_get_fsm_counter_siblings_median`
+`node_get_fsm_counter_siblings_95`
+`node_get_fsm_counter_siblings_99`
+`node_get_fsm_counter_siblings_100`
+`node_get_fsm_counter_time_mean`
+`node_get_fsm_counter_time_median`
+`node_get_fsm_counter_time_95`
+`node_get_fsm_counter_time_99`
+`node_get_fsm_counter_time_100`
+`node_get_fsm_counter_objsize_mean`
+`node_get_fsm_counter_objsize_median`
+`node_get_fsm_counter_objsize_95`
+`node_get_fsm_counter_objsize_99`
+`node_get_fsm_counter_objsize_100`
+`node_puts_counter`
+`node_puts_counter_total`
+`node_put_fsm_counter_time_mean`
+`node_put_fsm_counter_time_median`
+`node_put_fsm_counter_time_95`
+`node_put_fsm_counter_time_99`
+`node_put_fsm_counter_time_100`
+`read_repairs_counter`
+`read_repairs_counter_total`
+`counter_actor_counts_mean`
+`counter_actor_counts_median`
+`counter_actor_counts_95`
+`counter_actor_counts_99`
+`counter_actor_counts_100`
+
+### Set-related Statistics
+
 `object_set_merge`
 `object_set_merge_total`
 `object_set_merge_time_mean`
@@ -283,6 +324,40 @@ Stat                      | Description
 `vnode_set_update_time_95`
 `vnode_set_update_time_99`
 `vnode_set_update_time_100`
+`node_gets_set`
+`node_gets_set_total`
+`node_get_fsm_set_siblings_mean`
+`node_get_fsm_set_siblings_median`
+`node_get_fsm_set_siblings_95`
+`node_get_fsm_set_siblings_99`
+`node_get_fsm_set_siblings_100`
+`node_get_fsm_set_objsize_mean`
+`node_get_fsm_set_objsize_median`
+`node_get_fsm_set_objsize_95`
+`node_get_fsm_set_objsize_99`
+`node_get_fsm_set_objsize_100`
+`node_get_fsm_set_time_mean`
+`node_get_fsm_set_time_median`
+`node_get_fsm_set_time_95`
+`node_get_fsm_set_time_99`
+`node_get_fsm_set_time_100`
+`node_puts_set`
+`node_puts_set_total`
+`node_put_fsm_set_time_mean`
+`node_put_fsm_set_time_median`
+`node_put_fsm_set_time_95`
+`node_put_fsm_set_time_99`
+`node_put_fsm_set_time_100`
+`read_repairs_set`
+`read_repairs_set_total`
+`set_actor_counts_mean`
+`set_actor_counts_median`
+`set_actor_counts_95`
+`set_actor_counts_99`
+`set_actor_counts_100`
+
+### Map-related Statistics
+
 `object_map_merge`
 `object_map_merge_total`
 `object_map_merge_time_mean`
@@ -304,40 +379,6 @@ Stat                      | Description
 `vnode_map_update_time_95`
 `vnode_map_update_time_99`
 `vnode_map_update_time_100`
-`node_gets_counter`
-`node_gets_counter_total`
-`node_get_fsm_counter_siblings_mean`
-`node_get_fsm_counter_siblings_median`
-`node_get_fsm_counter_siblings_95`
-`node_get_fsm_counter_siblings_99`
-`node_get_fsm_counter_siblings_100`
-`node_get_fsm_counter_time_mean`
-`node_get_fsm_counter_time_median`
-`node_get_fsm_counter_time_95`
-`node_get_fsm_counter_time_99`
-`node_get_fsm_counter_time_100`
-`node_get_fsm_counter_objsize_mean`
-`node_get_fsm_counter_objsize_median`
-`node_get_fsm_counter_objsize_95`
-`node_get_fsm_counter_objsize_99`
-`node_get_fsm_counter_objsize_100`
-`node_gets_set`
-`node_gets_set_total`
-`node_get_fsm_set_siblings_mean`
-`node_get_fsm_set_siblings_median`
-`node_get_fsm_set_siblings_95`
-`node_get_fsm_set_siblings_99`
-`node_get_fsm_set_siblings_100`
-`node_get_fsm_set_objsize_mean`
-`node_get_fsm_set_objsize_median`
-`node_get_fsm_set_objsize_95`
-`node_get_fsm_set_objsize_99`
-`node_get_fsm_set_objsize_100`
-`node_get_fsm_set_time_mean`
-`node_get_fsm_set_time_median`
-`node_get_fsm_set_time_95`
-`node_get_fsm_set_time_99`
-`node_get_fsm_set_time_100`
 `node_gets_map`
 `node_gets_map_total`
 `node_get_fsm_map_siblings_mean`
@@ -350,20 +391,6 @@ Stat                      | Description
 `node_get_fsm_map_objsize_95`
 `node_get_fsm_map_objsize_99`
 `node_get_fsm_map_objsize_100`
-`node_puts_counter`
-`node_puts_counter_total`
-`node_put_fsm_counter_time_mean`
-`node_put_fsm_counter_time_median`
-`node_put_fsm_counter_time_95`
-`node_put_fsm_counter_time_99`
-`node_put_fsm_counter_time_100`
-`node_puts_set`
-`node_puts_set_total`
-`node_put_fsm_set_time_mean`
-`node_put_fsm_set_time_median`
-`node_put_fsm_set_time_95`
-`node_put_fsm_set_time_99`
-`node_put_fsm_set_time_100`
 `node_puts_map`
 `node_puts_map_total`
 `node_put_fsm_map_time_mean`
@@ -371,30 +398,21 @@ Stat                      | Description
 `node_put_fsm_map_time_95`
 `node_put_fsm_map_time_99`
 `node_put_fsm_map_time_100`
-`read_repairs_counter`
-`read_repairs_counter_total`
-`read_repairs_set`
-`read_repairs_set_total`
 `read_repairs_map`
 `read_repairs_map_total`
 `executing_mappers`
-`counter_actor_counts_mean`
-`counter_actor_counts_median`
-`counter_actor_counts_95`
-`counter_actor_counts_99`
-`counter_actor_counts_100`
-`set_actor_counts_mean`
-`set_actor_counts_median`
-`set_actor_counts_95`
-`set_actor_counts_99`
-`set_actor_counts_100`
 `map_actor_counts_mean`
 `map_actor_counts_median`
 `map_actor_counts_95`
 `map_actor_counts_100`
+
+
 `late_put_fsm_coordinator_ack`
 `sys_monitor_count`
 `sys_port_count`
+
+## Version Numbers
+
 `riak_auth_mods_version`
 `yokozuna_version`
 `ibrowse_version`
@@ -409,9 +427,6 @@ Stat                      | Description
 `ignored_gossip_total`
 `rings_reconciled_total`
 `rings_reconciled`
-`gossip_received`
-`rejected_handoffs`
-`handoff_timeouts`
 `dropped_vnode_requests_total`
 `converge_delay_min`
 `converge_delay_max`
@@ -432,6 +447,13 @@ Stat                      | Description
 `riak_pipe_vnodeq_median`
 `riak_pipe_vnodeq_max`
 `riak_pipe_vnodeq_total`
+
+## Handoff and Gossip Statistics
+
+`gossip_received`
+`rejected_handoffs`
+`handoff_timeouts`
+
 
 ### Miscellaneous Information
 
