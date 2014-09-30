@@ -18,7 +18,7 @@ You can install Riak CS on a single node or using an automated
 deployment tool. Any Riak CS installation involves three components, all
 of which must be installed separately:
 
-* [Riak](http://docs.basho.com/riak/latest/) --- The distributed
+* [Riak](http://docs.basho.com/riak/1.4.10/) --- The distributed
   database on top of which Riak CS is built
 * Riak CS itself
 * [Stanchion](https://github.com/basho/stanchion) --- An application
@@ -32,8 +32,8 @@ Minute Install]] documentation to do so.
 ## Installing Riak CS on a Node
 
 Riak CS and Stanchion packages are available on the [[Download Riak CS]]
-page. Similarly, Riak packages are available on the [Download Riak]
-(http://docs.basho.com/riak/latest/downloads/) page.
+page. Similarly, Riak packages are available on the [Download
+Riak](http://docs.basho.com/riak/1.4.10/downloads/) page.
 
 After downloading Riak CS, Stanchion, and Riak, install them using your
 operating system's package management commands.
@@ -50,7 +50,7 @@ the outside world.
 
 ### Installing Riak CS on Mac OS X
 
-To install Riak CS on OS X, first download the appropriate package from 
+To install Riak CS on OS X, first download the appropriate package from
 the [[downloads|Download Riak CS]] page:
 
 ```bash

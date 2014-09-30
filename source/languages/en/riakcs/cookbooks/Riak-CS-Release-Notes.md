@@ -8,6 +8,79 @@ audience: intermediate
 keywords: [developer]
 ---
 
+## Riak CS 1.5.1
+
+### Additions
+
+* Bucket restrictions --- Similar to S3, you can now limit the number of buckets created per user to prevent users from creating an unusually large number of buckets. More details are included [here](http://docs.basho.com/riakcs/latest/cookbooks/configuration/Configuring-Riak-CS/).
+
+### Changes
+
+* Add sleep interval after updating manifests to suppress sibling explosion [riak_cs/#959](https://github.com/basho/riak_cs/pull/959). In order to suppress sibling explosion, a sleep interval is added after updating manifests. The duration of the sleep interval depends on the number of siblings. The problem is documented in more detail [here](https://github.com/basho/riak_cs/pull/959).
+* Update `riak-cs-debug` to include information about bags in a multibag environment [riak_cs/#930](https://github.com/basho/riak_cs/issues/882). Bag listing and weight information are now included in the output of the `riak-cs-debug` command in order to help in investigating issues in a multibag environment.
+* More efficient bucket resolution [riak_cs/#951](https://github.com/basho/riak_cs/pull/951). Previously, sibling resolution logic was inefficient in cases where users had many buckets (> 1000). For the sake of optimization, resolution is now skipped entirely when no siblings are present (i.e. when there is a single value).
+* Similar to S3, add a limitation on the part number in a multipart upload [riak_cs/#957](https://github.com/basho/riak_cs/pull/957). Part numbers can now range from 1 to 10,000 (inclusive).
+
+### Fixes
+
+* GC may stall due to `riak_cs_delete_fsm` deadlock [riak_cs/#949](https://github.com/basho/riak_cs/pull/949)
+  * **Problem** --- Garbage collection can stall when a `riak_cs_delete_fsm` worker process encounters a deadlock condition.
+  * **Solution** --- One of the requirements in an internal data structure was violated. This fix satisfies the requirement so that deadlock does not happen.
+* Fix wrong log directory for gathering logs on `riak-cs-debug` [riak_cs/#953](https://github.com/basho/riak_cs/pull/953)
+  * **Problem** --- Directory structure of log files gathered by `riak-cs-debug` was different from `riak-debug`.
+  * **Solution** --- The directory structure is now the same as that of `riak-debug`.
+* Avoid DST-aware translation from local time to GMT [riak_cs/#954](https://github.com/basho/riak_cs/pull/954)
+  * **Problem** --- Transformation from local time to GMT is slow, especially when performed by multiple threads. One such transformation was in the path of the `GET Object` API call.
+  * **Solution** --- Eliminate the transformation.
+* Use new UUID for seed of canonical ID instead of secret [riak_cs/#956](https://github.com/basho/riak_cs/pull/956)
+  * **Problem** --- MD5-hashed value of secret access key was used in order to generate a canonical ID, which is public information. Although MD5 reverse is not realistic, it is unnecessary and avoidable to use a secret access key for canonical ID generation.
+  * **Solution** --- Use newly generated UUID for canonical ID.
+* Set timeout as `infinity` to replace the default of `5000ms` [riak_cs/#963](https://github.com/basho/riak_cs/pull/963)
+  * **Problem** --- In Riak CS 1.5.0, middleman process wrappers for Protocol Buffers sockets were introduced and call timeout to them was incorrectly set to a default of 5000 milliseconds.
+  * **Solution** --- Change the call timeout to `infinity` and actual timeout is controlled by Protocol Buffers processes.
+* Skip invalid state manifests in GC bucket [riak_cs/#964](https://github.com/basho/riak_cs/pull/964)
+  * **Problem** --- If there were active state manifests in the GC bucket the GC process crashed.
+  * **Solution** --- Skip active state manifests and make the GC process collect valid manifests.
+
+### Known Issues
+
+None
+
+### Platforms Tested
+
+* Ubuntu GNU / Linux 12.04
+
+### Installation and Upgrade Notes
+
+#### Per-user bucket creation restrictions
+
+Beginning with Riak CS 1.5.1, you can limit the number of buckets that can be created per user. The default maximum number is 100. While this limitation prohibits the creation of new buckets by users, users that exceed the limit can still perform other operations, including bucket deletion. To change the default limit, add the following line to the `riak_cs` section of `app.config`:
+
+```appconfig
+{riak_cs, [
+    %% ...
+    {max_buckets_per_user, 5000},
+    %% ...
+]}
+```
+
+To avoid having a limit, set `max_buckets_per_user_user` to `unlimited`.
+
+
+### Download
+
+Please see the [Riak CS Downloads Page](http://docs.basho.com/riakcs/latest/riakcs-downloads/).
+
+### Feedback
+
+We would love to hear from you. You can reach us at any of the following links:
+
+* http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com
+* https://github.com/basho/basho_docs
+* https://github.com/basho/riak_cs
+
+Or via email at **info@basho.com**.
+
 ## Riak CS 1.5.0
 
 ### Additions

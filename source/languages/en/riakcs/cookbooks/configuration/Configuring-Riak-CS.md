@@ -161,6 +161,28 @@ admin user in the `app.config` file. Those will be the same credentials
 that you received as a JSON object when you ran the `POST` request to
 create the user.
 
+## Bucket Restrictions
+
+If you wish, you can limit the number of buckets created per user. The
+default maximum is 100. Please note that if a user exceeds the bucket
+creation limit, they are still able to perform other actions, including
+bucket deletion. You can change the default limit using the
+`max_buckets_per_user` parameter in each node's `app.config` file. The
+example configuration below would set the maximum to 1000:
+
+```appconfig
+{riak_cs, [
+    %% Other configs
+
+    {max_buckets_per_user, 1000},
+
+    %% Other configs
+]}
+```
+
+If you want to avoid setting a limit on per-user bucket creation, you
+can set `max_buckets_per_user` to `unlimited`.
+
 ## Connection Pools
 
 Riak CS uses two distinct connection pools for communication with
