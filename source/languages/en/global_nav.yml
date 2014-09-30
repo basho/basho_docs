@@ -49,14 +49,20 @@ riak:
         sub:
           - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
-          - "[[Key/Values|The Basics]]"
+          - "[[Key/Value Operations|The Basics]]"
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"
-          - "[[Conflict Resolution]]"
+          # - "[[Conflict Resolution]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
+          - title: "Conflict Resolution"
+            sub:
+              - "[[Introduction|Conflict Resolution]]"
+              - "[[Java|Conflict Resolution: Java]]"
+              - "[[Ruby|Conflict Resolution: Ruby]]"
+              - "[[Python|Conflict Resolution: Python]]"
       - title: "Data Modeling"
         sub:
           - "[[Use Cases for Riak|Use Cases]]"

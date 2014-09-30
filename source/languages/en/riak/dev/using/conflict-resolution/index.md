@@ -153,7 +153,7 @@ objects:
  * Whether the objects are unrelated in recent heritage
 
 Using this knowledge, Riak is frequently, though not always, able to
-resolve conflicts without producing siblings. 
+resolve conflicts without producing siblings.
 
 Vector clocks are non-human-readable and look something like this:
 
@@ -517,11 +517,279 @@ clock pruning process:
 
 ![Vclock Pruning](/images/vclock-pruning.png)
 
+## Sibling Resolution Example
+
+For reasons explained in the sections above, we strongly recommend
+adopting a conflict resolution strategy that requires applications to
+resolve siblings according to use-case-specific criteria. Here, we'll
+provide an example using code samples in a variety of languages. The
+Java client handles conflict resolution a little bit differently, so
+Java examples will be in a separate section below the other language
+samples. Ruby and Python examples can be found immediately below.
+
+Let's say that we're building a social network application and storing
+lists of usernames representing each user's "friends." All of the data
+for our application will be stored in buckets that bear the [[bucket
+type|Using Bucket Types]] `siblings`. In this bucket type, `allow_mult`
+is set to `true`, which means that Riak will generate siblings in
+certain cases, siblings that are application will need to be set up to
+resolve when they arise.
+
+As explained above, our application is storing objects that consist of
+lists of usernames. The question we now need to ask ourselves is this:
+if an object has siblings, which of the lists should be deemed correct?
+Let's keep it simple here for now and say that the following criterion
+will hold: if two lists are compared, the longer list will be considered
+"correct." While this might not make sense in real-world applications,
+it's a good jumping-off point.
+
+First, let's create a `User` type for storing our data. Each `User`
+object will house a `friends` property that lists the usernames of that
+user's friends. We'll also create a method to turn `User` objects into
+JSON (since we'll be storing them all as JSON).
+
+```ruby
+class User
+  def initialize(friends)
+    @friends = friends
+  end
+
+  def to_json
+    return { :friends => @friends }
+  end
+end
+```
+
+```python
+class User:
+    def __init__(self, friends):
+        self.friends = friends
+
+    def to_json(self):
+        return vars(self)
+```
+
+Now, we can create `User` objects and see what they look like as JSON:
+
+```ruby
+bashobunny = User.new(['captheorem238', 'siblingsrule572'])
+
+bashobunny.to_json
+# {:friends=>["captheorem238", "siblingsrul572"]}
+```
+
+```python
+bashobunny = User(['captheorem238', 'siblingsrule572'])
+
+bashobunny.to_json()
+# {'friends': ['captheorem238', 'siblingsrule572']}
+```
+
+Let's say that we've stored a bunch of `User` objects in Riak, and that
+a few concurrent writes have led to siblings. How is our application
+going to deal with that? Let's say that there's a `User` object stored
+in the bucket `users` (which is of the bucket type `siblings`, as noted
+above) under the key `bashobunny`. First, we can fetch the object that
+is stored there and see if it has siblings:
+
+```ruby
+obj = client.bucket('users').get('bashobunny', type: 'siblings')
+
+# In the Ruby client. the "siblings" property of a Riak object is a list
+# of all siblings. If there are no siblings, the length of that list is
+# 1. This would check for the presence of siblings:
+
+p obj.siblings.length > 1
+```
+
+```python
+obj = client.bucket_type('siblings').bucket('users').get('bashobunny')
+
+# In the Python client, the "siblings" property of a Riak object is
+# a list of all siblings. If there are no siblings, the length of that
+# list is 1. This would check for the presence of siblings:
+
+print len(obj.siblings) > 1
+```
+
+So what do we do if there are siblings? The Python and Ruby clients
+enable you to register a conflict resolver function that will be
+triggered any time siblings are found. This function needs to take a
+single Riak object as its argument and then apply some sort of logic to
+the list of values contained in its `siblings` property, and return a
+list with a single value. For our example use case, we'll return the
+sibling with the longest `friends` list:
+
+```ruby
+def longest_friends_list_resolver(riak_object)
+  if riak_object.conflict?
+    obj.siblings.max_by{ |user| user.data['friends'].length }
+  else
+    obj.content
+  end
+end
+
+# Using the object "obj" from above:
+object_with_longest_list = longest_friends_list_resolver(obj)
+```
+
+```python
+def longest_friends_list_resolver(riak_object):
+    # We'll specify a lambda function that operates on the length of
+    # each sibling's "friends" list:
+    lm = lambda sibling: len(sibling.data['friends'])
+    # Then we'll return a list that contains only the object with the
+    # maximum value for the friends list:
+    riak_object.siblings = [max(riak_object.siblings, key=lm), ]
+```
+
+In the Python client, resolver functions can be registered either at the
+object level, as in this example:
+
+```python
+bucket = client.bucket_type('siblings').bucket('users')
+
+obj = RiakObject(client, bucket, 'bashobunny')
+obj.resolver = longest_friends_list_resolver
+
+# Now, when the object is reloaded, it will resolve to a single value
+# instead of multiple values:
+obj.reload()
+```
+
+Or resolvers can be registered at the bucket level, so that the
+resolution is applied to all objects in the bucket:
+
+```python
+bucket = client.bucket_type('siblings').bucket('users')
+bucket.resolver = longest_friends_list_resolver
+
+obj = RiakObject(client, bucket, 'bashobunny')
+obj.reload()
+
+# The resolver will also be applied if you perform operations using the
+# bucket:
+
+bucket.get('bashobunny')
+```
+
+Please note that sibling resolution functions of this kind choose a
+single value to be used by your application. What they do _not_ do is
+instruct Riak which value is considered correct. That's a separate,
+optional step that involves writing the value that your application has
+deemed correct back to Riak. Here's an example:
+
+```ruby
+obj = client.bucket('users').get('bashobunny', type: 'siblings')
+object_with_longest_list = longest_friends_list_resolver(obj)
+
+# When we store that object, we store only the single value, not the
+# siblings:
+object_with_longest_list.store
+```
+
+```python
+bucket = client.bucket_type('siblings').bucket('users')
+bucket.resolver = longest_friends_list_resolver
+
+# Because a conflict resolver has been registered, this object will
+# have a single value, and thus no siblings:
+obj = bucket.get('bashobunny')
+
+# When we store that object, we store only the single value, not the
+# siblings:
+obj.store()
+```
+
+At this point, our client is ready to (a) return a single value to the
+application when siblings are encounterd and (b) store that single value
+in Riak. Please note that this may not resolve _all_ siblings in this
+object. If multiple fetch/resolve/store operations happen concurrently,
+the result of that operation may produce unresolved siblings. But that's
+fine, because our application is now set up to handle those new
+conflicts as well.
+
+### Java Example
+
+The official [Riak Java
+client](https://github.com/basho/riak-java-client) works somewhat
+differently from the others because it provides a `ConflictResolver`
+interface that requires you to implement a `resolve` method that will
+return a single correct value of the type of object that you are using.
+In this example, we'll create a standard POJO class `User`. Each `User`
+object will have one property: a list of strings in which each string is
+the username of one of that user's friends.
+
+```java
+public class User {
+    public List<String> friends;
+
+    public User(List<String> friends) {
+        this.friends = friends;
+    }
+}
+
+// An example of instantiating a new User object
+List<String> friends = new LinkedList<String>();
+friends.add("fred");
+User bashobunny = new User(friends);
+```
+
+So what happens if there are siblings and the user `bashobunny` has
+different friend lists in different object replicas? The Java client
+allows you to implement a `ConflictResolver` interface that enables you
+to create your own resolution logic. The `resolve` method takes a Java
+`List` of objects and must return a single object of that type, in this
+case `User`. The example resolver below will return `null` if there are
+no object replicas available, will return the lone value if only one
+replica is present, and if there is more than one replica present (i.e.
+if there are siblings), it will iterate through the existing siblings to
+determine which `User` object has the longest `friends` list.
+
+```java
+import com.basho.riak.client.api.cap.ConflictResolver;
+
+public class UserResolver implements ConflictResolver<User> {
+    @Override
+    public User resolve(List<User> siblings) {
+        if (siblings.size == 0) {
+            return null;
+        } else if (siblings.size == 1) {
+            return siblings.get(0);
+        } else {
+            int longestList = 0;
+            User userWithLongestList;
+            for (User user : siblings) {
+                if (user.friends.size > longestList) {
+                    userWithLongestList = user;
+                    longestList = user.friends.size;
+                } else {
+                    return siblings.get(0);
+                }
+            }
+            return userWithLongestList;
+        }
+    }
+}
+```
+
+To use a conflict resolver, you must register it:
+
+```java
+ConflictResolverFactory factory = ConflictResolverFactory.getInstance();
+ConflictResolver<User> userResolver = factory.getConflictResolver(User.class);
+```
+
+With the resolver registered, the resolution logic you have chosen will
+resolve siblings automatically upon read. Resolver registration can
+occur at any point in the application's lifecycle and will be applied on
+all reads that involve that object type.
+
 ## More Information
 
 Additional background information on vector clocks:
 
-* [[Vector Clocks on Wikipedia|http://en.wikipedia.org/wiki/Vector_clock]]
-* [[Why Vector Clocks are Easy|http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/]]
-* [[Why Vector Clocks are Hard|http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/]]
-* The vector clocks used in Riak are based on the [[work of Leslie Lamport|http://portal.acm.org/citation.cfm?id=359563]].
+* [Vector Clocks on Wikipedia](http://en.wikipedia.org/wiki/Vector_clock)
+* [Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
+* [Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
+* The vector clocks used in Riak are based on the [work of Leslie Lamport](http://portal.acm.org/citation.cfm?id=359563)
