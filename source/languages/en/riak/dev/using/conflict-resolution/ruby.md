@@ -95,4 +95,77 @@ that is stored there and see if it has siblings:
 ```ruby
 bucket = client.bucket('users')
 obj = bucket.get('bashobunny', type: 'siblings')
+p obj.siblings.length > 1
 ```
+
+If we get `true`, then there are siblings. So what do we do in that
+case? At this point, we need to write a function that resolves the list
+of siblings, i.e. the `obj.siblings` array down to one. In our case, we
+need a function that takes a single Riak object (or `RObject` in the
+Ruby client) as its argument, applies some logic to the list of values
+contained in the `siblings` property of the object, and returns a single
+`RObject` in which `siblings` is an array of only one value. For our
+example use case here, we'll return the sibling with the longest
+`friends` list:
+
+```ruby
+def longest_friends_list_resolver(riak_object)
+  # The "conflict?" method is built into the Ruby client
+  if riak_object.conflict?
+    obj.siblings.max_by{ |user| user.data['friends'].length }
+  else
+    # If there are no siblings, simply return the object's "content" as is
+    obj.content
+  end
+end
+```
+
+We can then embed this function into a more general function for
+fetching objects from the `users` bucket:
+
+```ruby
+def fetch_user_by_username(username)
+  bucket = client.bucket('users')
+  user_object = bucket.get(username)
+  longest_friends_list_resolve(user_object)
+  user_object
+end
+```
+
+Now, when a `User` object is fetched (assuming that the username acts as
+a key for the object), a single value is returned for the `friends`
+list. This means that our application can now use a "correct" value
+instead of having to deal with multiple values.
+
+## Conflict Resolution and Writes
+
+In the above example, we created a conflict resolver that resolves a
+list of discrepant `User` objects and returns a single `User`. It's
+important to note, however, that this resolver will only provide the
+application with a single "correct" value; it will _not_ write that
+value back to Riak. That requires a separate step. One way to do that
+would be to modify our `longest_friends_list_resolver` function to
+include a step that stores the resolved object:
+
+```ruby
+def longest_friends_list_resolver(riak_object)
+  if riak_object.conflict?
+    obj.siblings.max_by{ |user| user.data['friends'].length }
+    obj.store
+    ob
+  else
+    obj.content
+  end
+end
+```
+
+Now our resolver function will both return a single `User` object to the
+application for further use _and_ notify Riak which value the
+application takes to be correct.
+
+The bad news is that this operation may still create siblings, for
+example if the write is performed concurrently with another write to the
+same key. The good news, however, is that that is perfectly okay. Our
+application is now designed to gracefully handle siblings whenever they
+are encountered, and the resolution logic we chose will now be applied
+automatically every time.
