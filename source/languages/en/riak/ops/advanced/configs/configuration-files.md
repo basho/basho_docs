@@ -943,9 +943,19 @@ Ports can represent open files or network sockets.</td>
 
 <tr>
 <td><code>runtime_health.triggers.process.garbage_collection</code></td>
+<td>A process will become busy when it exceeds this amount of time doing
+garbage collection. Set as an integer plus time unit, e.g. `50ms` for 50
+milliseconds, `5s` for 5 seconds, etc.<strong>Note</strong>: Enabling
+this setting can cause performance problems on multi-core systems.</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>runtime_health.triggers.process.long_schedule</code></td>
 <td>A process will become busy when it exceeds this amount of time
-doing garbage collection. <strong>Note</strong>: Enabling this setting
-can cause performance problems on multi-core systems.</td>
+during a single process scheduling and execution cyle. Set as an integer
+plus time unit, e.g. `50ms` for 50 milliseconds, `5s` for 5 seconds,
+etc.</td>
 <td><code>off</code></td>
 </tr>
 
