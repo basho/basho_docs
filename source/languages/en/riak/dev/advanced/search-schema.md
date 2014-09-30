@@ -11,46 +11,69 @@ moved: {
 }
 ---
 
-<div class="info">This document refers to the new Riak Search 2.0 with [[Solr|http://lucene.apache.org/solr/]] integration (codenamed Yokozuna). For information about the deprecated Riak Search Schema, visit [[the old Riak Search Schema|http://docs.basho.com/riak/1.4.8/dev/advanced/search-schema/]].</div>
+<div class="note">
+<div class="title">Note on Search 2.0 vs. Legacy Search</div>
+This document refers to the new Riak Search 2.0 with
+[[Solr|http://lucene.apache.org/solr/]] integration (codenamed
+Yokozuna). For information about the deprecated Riak Search, visit [[the
+old Using Riak Search
+docs|http://docs.basho.com/riak/1.4.10/dev/using/search/]].
+</div>
 
-Riak Search is built for ease-of-use, namely, the philosophy that you write values into Riak, and you query for values using Solr. Riak Search does a lot of work under the covers to convert your values (plain text, JSON, XML, datatypes) into something that can be indexed and searched later. However, you still have to explain to Riak/Solr how to index a value. Are you providing an array of strings? Or an integer? Or a date? Is your text in English or Russian? The way you explain to Riak Search how a value is to be indexed is by defining a **Solr schema**.
+Riak Search is built for ease of use, allowing you to write values into
+Riak and query for values using Solr. Riak Search does a lot of work
+under the hood to convert your values---plain text, JSON, XML, [[Riak
+Data Types|Using Data Types]]---into something that can be indexed and
+searched later. Nonetheless, you must still intruct Riak/Solr how to
+index a value. Are you providing and array of strings? An integer? A
+date? Is your text in English or Russian? You can provide such
+instructions to Riak Search by defining a **Solr schema**.
 
 ## Setting a Schema
 
-If you just want to get started quickly, and already know all about creating your own Riak Search schema (it's similar, but not exactly the same as a standard Solr schema, so read on).
+Here's how you can create a custom schema named `cartoons`, where the
+schema xml data is stored in a file named `cartoons.xml`
 
-Here's how you can create a custom schema named `cartoons`, where the schema xml data is stored in a file named `cartoons.xml`
-
-```curl
-curl -XPUT "http://localhost:8098/search/schema/cartoons" \
-  -H'content-type:application/xml' \
-  --data-binary @cartoons.xml
-```
 ```ruby
 schema_data = File.read("cartoons.xml")
 client.create_search_schema("cartoons", schema_data)
 ```
+
 ```python
 xml_file = open('cartoons.xml', 'r')
 schema_data = xml_file.read()
 client.create_search_schema('cartoons', schema_data)
 xml_file.close()
 ```
+
 ```erlang
 {ok, SchemaData} = file:read_file("cartoons.xml"),
 riakc_pb_socket:create_search_schema(Pid, <<"cartoons">>, SchemaData).
 ```
 
+```curl
+curl -XPUT "http://localhost:8098/search/schema/cartoons" \
+  -H'content-type:application/xml' \
+  --data-binary @cartoons.xml
+```
 
 ## Creating a Custom Schema
 
-The first step in creating a custom schema is to define exactly what fields you must index. Part of that step is understanding how Riak Search extractors function.
+The first step in creating a custom schema is to define exactly what
+fields you must index. Part of that step is understanding how Riak
+Search extractors function.
 
 ### Extractors
 
-The extractors of Riak Search are modules responsible for pulling out a list of fields and values from a Riak object. How this is achieved depends on the object's content type, but the two common cases are JSON and XML, which operate similarly, so our examples will use JSON.
+In Riak Search, extractors are modules responsible for pulling out a
+list of fields and values from a Riak object. How this is achieved
+depends on the object's content type, but the two common cases are JSON
+and XML, which operate similarly. Our examples here will use JSON.
 
-The following JSON object represents the character [Lion-o](http://en.wikipedia.org/wiki/List_of_ThunderCats_characters#Lion-O) from the Thundercats. He has a name, age, is the team leader, and has a list of aliases in other languages.
+The following JSON object represents the character
+[Lion-o](http://en.wikipedia.org/wiki/List_of_ThunderCats_characters#Lion-O)
+from the cartoon Thundercats. He has a name and age, he's the team
+leader, and he has a list of aliases in other languages.
 
 ```json
 {
@@ -64,7 +87,10 @@ The following JSON object represents the character [Lion-o](http://en.wikipedia.
 }
 ```
 
-The extractor will flatten the above objects into a list of field/value pairs. Nested objects will be seperated with a dot (`.`) and arrays will simply repeat the fields. The above object will be extracted to the following list of Solr document fields.
+The extractor will flatten the above objects into a list of field/value
+pairs. Nested objects will be seperated with a dot (`.`) and arrays will
+simply repeat the fields. The above object will be extracted to the
+following list of Solr document fields.
 
 ```
 name=Lion-o
@@ -76,13 +102,25 @@ aliases.name=Starlion
 aliases.desc_fr=Le jeune seigneur des Cosmocats
 ```
 
-This means that our schema should handle `name`, `age`, `leader`, `aliases.name` (a `dot` is a valid field character), and `aliases.desc_*` which is a description in the given language of the suffix (Spanish and French).
+This means that our schema should handle `name`, `age`, `leader`,
+`aliases.name` (a `dot` is a valid field character), and
+`aliases.desc_*` which is a description in the given language of the
+suffix (Spanish and French).
 
 ### Required Schema Fields
 
-Solr schemas can be very complex with many types and analyzers. Refer to the [Solr 4.7 reference guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.7.pdf) for a complete list. But Riak Search requires a few fields in order to properly distribute an object across a cluster. These fields are all prefixed with `_yz`, which stands for *Yokozuna*, the project name that makes Riak Search function.
+Solr schemas can be very complex, containing many types and analyzers.
+Refer to the [Solr 4.7 reference
+guide](http://archive.apache.org/dist/lucene/solr/ref-guide/apache-solr-ref-guide-4.7.pdf)
+for a complete list. You should be aware, however, that there are a few
+fields that are required by Riak Search in order to properly distribute
+an object across a [[cluster|Clusters]]. These fields are all prefixed
+with `_yz`, which stands for
+[Yokozuna](https://github.com/basho/yokozuna), the original code name
+for Riak Search.
 
-Here is a bare minimum skeleton Solr Schema. It won't do much for you other than allow Riak Search to properly manage your stored objects.
+Below is a bare minimum skeleton Solr Schema. It won't do much for you
+other than allow Riak Search to properly manage your stored objects.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -111,18 +149,19 @@ Here is a bare minimum skeleton Solr Schema. It won't do much for you other than
 ```
 
 If you're missing any of the above fields, Riak Search will reject your
-custom schema. The value for `<uniqueKey>` *must* be `_yz_id`.
+custom schema. The value for `<uniqueKey>` _must_ be `_yz_id`.
 
 In the table below, you'll find a description of the various required
-fields. You'll rarely need to use any fields other than `_yz_rt` (bucket
-type), `_yz_rb` (bucket) and `_yz_rk` (Riak key). On occasion `_yz_err`
-can be helpful if you suspect that your extractors are failing.
-Malformed JSON or XML will cause Riak Search to index a key and set
-`_yz_err` to 1, allowing you to reindex with proper values later.
+fields. You'll rarely need to use any fields other than `_yz_rt`
+([[bucket type||Using Bucket Types]]), `_yz_rb` (bucket) and `_yz_rk`
+(Riak key). On occasion, `_yz_err` can be helpful if you suspect that
+your extractors are failing. Malformed JSON or XML will cause Riak
+Search to index a key and set `_yz_err` to 1, allowing you to reindex
+with proper values later.
 
-Field   | Name |Description
---------|------|-----
-`_yz_id`  | ID   | Unique identifier of this Solr document
+Field   | Name | Description
+:-------|:-----|:-----------
+`_yz_id`  | ID | Unique identifier of this Solr document
 `_yz_ed`  | Entropy Data | Data related to anti-entropy
 `_yz_pn`  | Partition Number | Used as a filter query param to remove duplicate replicas across nodes
 `_yz_fpn` | First Partition Number | The first partition in this doc's preflist, used for further filtering on overlapping partitions
@@ -134,11 +173,22 @@ Field   | Name |Description
 
 ### Defining Fields
 
-With your required fields known, and the skeleton schema elements in place, it's time to add your own fields. Since you know your object structure, you need to map the name and type of each field (a string, integer, boolean, etc).
+With your required fields known and the skeleton schema elements in
+place, it's time to add your own fields. Since you know your object
+structure, you need to map the name and type of each field (a string,
+integer, boolean, etc).
 
-When creating fields you can either create specific fields via the `field` element, or an asterisk (`*`) wildcard field via `dynamicField`. Any field that matches a specific field name will win, and if not, it will attempt to match a dynamic field pattern.
+When creating fields you can either create specific fields via the
+`field` element or an asterisk (`*`) wildcard field via `dynamicField`.
+Any field that matches a specific field name will win, and if not, it
+will attempt to match a dynamic field pattern.
 
-Besides a field `type`, you also must decide if a value is to be `indexed` (usually `true`) and `stored`. When a value is `stored` that means that you can get the value back as a result of a query, but it also doubles the storage of the field (once in Riak, again in Solr). If a single Riak object can have more than one copy of the same matching field, you also must set `multiValued` to `true`.
+Besides a field `type`, you also must decide if a value is to be
+`indexed` (usually `true`) and `stored`. When a value is `stored` that
+means that you can get the value back as a result of a query, but it
+also doubles the storage of the field (once in Riak, again in Solr). If
+a single Riak object can have more than one copy of the same matching
+field, you also must set `multiValued` to `true`.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -166,9 +216,16 @@ Besides a field `type`, you also must decide if a value is to be `indexed` (usua
  <uniqueKey>_yz_id</uniqueKey>
 ```
 
-Next take note of the types you used in the fields, and ensure that each of the field types are defined as a `fieldType` under the `types` element. Basic types such as `string`, `boolean`, `int` have matching Solr classes. There are dozens more types, including many kinds of number (`float`, `tdouble`, `random`), `date` fields, and even geolocation types.
+Next, take note of the types you used in the fields and ensure that each
+of the field types are defined as a `fieldType` under the `types`
+element. Basic types such as `string`, `boolean`, `int` have matching
+Solr classes. There are dozens more types, including many kinds of
+number (`float`, `tdouble`, `random`), `date` fields, and even
+geolocation types.
 
-Besides simple field types, you can also customize analyzers for different languages. In our example, we mapped any field that ends with `*_es` to Spanish, and `*_de` to German.
+Besides simple field types, you can also customize analyzers for
+different languages. In our example, we mapped any field that ends with
+`*_es` to Spanish, and `*_de` to German.
 
 ```xml
  <types>
@@ -217,7 +274,8 @@ can be used in a custom schema as well.
 <dynamicField name="*" type="ignored"  />
 ```
 
-The following is required to be a child of the `types` element in the schema:
+The following is required to be a child of the `types` element in the
+schema:
 
 ```xml
 <fieldtype name="ignored" stored="false" indexed="false" multiValued="true" class="solr.StrField" />
@@ -225,12 +283,13 @@ The following is required to be a child of the `types` element in the schema:
 
 ### Dates
 
-The format of strings that represents a date/time is important as [Solr
-only understands ISO8601 UTC date/time
+The format of strings that represents a date/time is important as Solr
+only understands [ISO8601 UTC date/time
 values](http://lucene.apache.org/solr/4_6_1/solr-core/org/apache/solr/schema/DateField.html).
 An example of a correctly formatted date/time string is
 `1995-12-31T23:59:59Z`. If you provide an incorrectly formatted
-date/time value, an exception similar to this will be logged to `solr.log`:
+date/time value, an exception similar to this will be logged to
+`solr.log`:
 
 ```log
 2014-02-27 21:30:00,372 [ERROR] <qtp1481681868-421>@SolrException.java:108 org.apache.solr.common.SolrException: Invalid Date String:'Thu Feb 27 21:29:59 +0000 2014'
@@ -244,13 +303,19 @@ date/time value, an exception similar to this will be logged to `solr.log`:
         ...
 ```
 
-## Field Properties By Use-Case
+## Field Properties By Use Case
 
-Sometimes it can be tricky to decide whether a value should be `stored`, or whether `multiValued` is allowed. This handy table from the [Solr documentation](https://cwiki.apache.org/confluence/display/solr/Field+Properties+by+Use+Case) may help you pick field properties.
+Sometimes it can be tricky to decide whether a value should be `stored`,
+or whether `multiValued` is allowed. This handy table from the [Solr
+documentation](https://cwiki.apache.org/confluence/display/solr/Field+Properties+by+Use+Case)
+may help you pick field properties.
 
-An entry of `true` or `false` in the table indicates that the option must be set to the given value for the use case to function correctly. If no entry is provided, the setting of that attribute has no impact on the case.
+An entry of `true` or `false` in the table indicates that the option
+must be set to the given value for the use case to function correctly.
+If no entry is provided, the setting of that attribute has no impact on
+the case.
 
-<table class=schemausecase>
+<table class="schemausecase">
 <thead>
 <tr>
 <th>Use Case</th>
@@ -376,6 +441,14 @@ An entry of `true` or `false` in the table indicates that the option must be set
 
 ## The Default Schema
 
-Riak Search comes bundled with a default schema named `_yz_default`. It defaults to many dynamic field types, where the suffix defines its type. This is an easy path to start development, but we recommend in production that you define your own schema. Take special note of `dynamicField name="*"`, which is a catchall index for any value. Sufficiently sized objects can potentially take up tremendous disk space.
+Riak Search comes bundled with a default schema named `_yz_default`. It
+defaults to many dynamic field types, where the suffix defines its type.
+This is an easy path to start development, but we recommend that you
+define your own schema in production. Take special note of `dynamicField
+name="*"`, which is a catchall index for any value. Sufficiently sized
+objects can potentially take up tremendous disk space.
 
-You can find the [yokozuna default solr schema](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml) on github.
+You can find the [Yokozuna default solr
+schema](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml)
+on GitHub.
+

@@ -50,8 +50,9 @@ including the following:
 * [[Active Anti-Entropy]] --- While Riak has had an Active Anti-Entropy
   (AAE) feature that is turned on by default since version 1.3, AAE
   performance has been improved in version 2.0.
-* Bug patches --- A variety of bugs present in earlier versions have
-  been identified and patched.
+* [Bug patches](https://github.com/basho/riak/blob/2.0/RELEASE-NOTES.md)
+  --- A variety of bugs present in earlier versions have been identified
+  and patched.
 
 More on upgrading can be found in our [[Riak 2.0 upgrade guide|Upgrading
 to 2.0]].
@@ -126,6 +127,8 @@ some (or perhaps all) of your data.
   strongly consistent system differs from an [[eventually
   consistent|Eventual Consistency]] system, as well as details about how
   strong consistency is implemented in Riak
+* [[Managing Strong Consistency]] is a guide to strong consistency for
+  Riak operators
 
 #### Video
 
@@ -177,7 +180,10 @@ syntax required in `app.config`.
 <div class="note">
 <div class="title">Note on upgrading</div>
 Version 2.0 will support both the old and the new configuration system,
-in case you're upgrading.
+in case you're upgrading. Please note, however, that if you use both
+systems side by side, all settings from the older,
+`app.config`/`vm.args`-based system will override any settings from the
+new system.
 </div>
 
 #### Relevant Docs
@@ -243,8 +249,8 @@ of code samples from all four officially supported clients.
 ## Incompatibilities
 
 Some 2.0-specific features are currently not compatible with one
-another. Incompatibilities are marked with a <abbr class="unsupported">✗</abbr>
-in the table below.
+another. Incompatibilities are marked with a
+<abbr class="unsupported">✗</abbr> in the table below.
 
 <table class="compatibility-matrix">
   <thead>
@@ -253,7 +259,6 @@ in the table below.
       <td>Search 2.0</td>
       <td>Strong consistency</td>
       <td>Data Types</td>
-      <td>Ring resizing</td>
       <td>Secondary indexes</td>
       <td>Legacy Search</td>
     </tr>
@@ -266,22 +271,11 @@ in the table below.
       <td class="grayed"></td>
       <td class="grayed"></td>
       <td class="grayed"></td>
-      <td class="grayed"></td>
     </tr>
     <tr>
       <td>Data Types</td>
-      <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="unsupported">✗</abbr></td>
-      <td class="dark-grayed"></td>
-      <td class="grayed"></td>
-      <td class="grayed"></td>
-      <td class="grayed"></td>
-    </tr>
-    <tr>
-      <td>Ring resizing</td>
-      <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="supported">✓</abbr></td>
+      <td><abbr class="unsupported">✗</abbr></td>
       <td class="dark-grayed"></td>
       <td class="grayed"></td>
       <td class="grayed"></td>
@@ -291,7 +285,6 @@ in the table below.
       <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="unsupported">&Dagger;</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="supported">✓</abbr></td>
       <td class="dark-grayed"></td>
       <td class="grayed"></td>
     </tr>
@@ -300,13 +293,11 @@ in the table below.
       <td><abbr class="unsupported">*</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
-      <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="unsupported">✗</abbr></td>
       <td class="dark-grayed"></td>
     </tr>
     <tr>
       <td>Security</td>
-      <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="supported">✓</abbr></td>
       <td><abbr class="supported">✓</abbr></td>

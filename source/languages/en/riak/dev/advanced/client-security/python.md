@@ -10,7 +10,7 @@ keywords: [developers, security, ssl, python]
 This tutorial shows you how to set up a Riak Python client to
 authenticate itself when connecting to Riak.
 
-If you are using [[trust-|Managing Security Sources]], [[PAM-|Managing
+If you are using [[trust-|Managing Security Sources]] or [[PAM-|Managing
 Security Sources#PAM-based-authentication]], you can use the security
 setup described [[below|Client-side Security:
 Python#Python-Client-Basics]]. [[Password|Managing Security

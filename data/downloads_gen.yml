@@ -5463,6 +5463,7 @@ riak-cs:
               file: riak-cs-1.5.0.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.5/1.5.0/riak-cs-1.5.0.tar.gz
               file_size: 8617247
+  2.0.0: 
   1.5.1:
     debian:
       versions:
@@ -6756,6 +6757,7 @@ stanchion:
               file: stanchion-1.5.0.tar.gz
               static_file: http://s3.amazonaws.com/downloads.basho.com/stanchion/1.5/1.5.0/stanchion-1.5.0.tar.gz
               file_size: 3181301
+  1.5.1: 
 riak-cs-control:
   1.0.0:
     debian:
