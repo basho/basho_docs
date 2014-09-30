@@ -1310,25 +1310,25 @@ href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 
 <tr>
 <td><code>erlang.schedulers.total</code></td>
-<td>Sets the number of scheduler threads to create and scheduler threads
-to set online when <code>erlang.smp</code> support has been enabled. The
-maximum for both values is 1024. If the Erlang runtime system is able to
-determine the amount of logical processors configured and logical
-processors available, <code>schedulers.total</code> will default to
-logical processors configured, and <code>schedulers.online</code> will
-default to the number of logical processors available. Otherwise, the
-default values will be 1.  Schedulers may be omitted if
-<code>schedulers.online</code> is not and vice versa. If
-<code>schedulers.total</code> or <code>schedulers.online</code> is
-specified as a negative number, the value is subtracted from the default
-number of logical processors configured or logical processors available,
-respectively. Specifying the value <code>0</code> for
-<code>Schedulers</code> or <code>SchedulersOnline</code> resets the
-number of scheduler threads or scheduler threads online respective to
-its default value. This option is ignored if the emulator doesn't have
-SMP support enabled (see the <code>erlang.smp</code> flag). More
-information <a href="http://erlang.org/doc/man/erl.html +S
-Schedulers:SchedulerOnline">here</a>.
+<td>Sets the number of scheduler threads to create and scheduler
+threads to set online when <code>erlang.smp</code> support has been
+enabled. The maximum for both values is 1024. If the Erlang runtime
+system is able to determine the amount of logical processors configured
+and logical processors available, <code>schedulers.total</code> will
+default to logical processors configured, and
+<code>schedulers.online</code> will default to the number of logical
+processors available. Otherwise, the default values will be 1.
+Schedulers may be omitted if <code>schedulers.online</code> is not and
+vice versa. If <code>schedulers.total</code> or
+<code>schedulers.online</code> is specified as a negative number, the
+value is subtracted from the default number of logical processors
+configured or logical processors available, respectively. Specifying
+the value <code>0</code> for <code>Schedulers</code> or
+<code>SchedulersOnline</code> resets the number of scheduler threads or
+scheduler threads online respective to its default value. This option
+is ignored if the emulator doesn't have SMP support enabled (see the
+<code>erlang.smp</code> flag). More information
+<a href="http://www.erlang.org/doc/man/erl.html#+S">here</a>.
 </td>
 <td></td>
 </tr>

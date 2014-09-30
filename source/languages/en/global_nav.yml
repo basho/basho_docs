@@ -131,6 +131,7 @@ riak:
           - "[[AWS Performance Tuning]]"
           - "[[Latency Reduction|Latency Reduction Checklist]]"
           - "[[Managing Active Anti-Entropy]]"
+          - "[[Erlang VM Tuning]]"
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
