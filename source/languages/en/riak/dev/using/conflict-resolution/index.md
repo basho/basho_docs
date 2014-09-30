@@ -34,12 +34,17 @@ In general, we recommend one of the following options:
    relieving applications of the need to engage in conflict resolution.
 2. If your data cannot be modeled as one of the available Data Types,
    we recommend allowing Riak to generate [[siblings|Conflict
-   Resolution#Siblings]] and to resolve conflicts on the application
-   side. Developing your own **conflict resolution strategy** can be
-   tricky, but it has clear advantages over other approaches. While it's
-   difficult to generalize about resolution strategies, we offer an
-   example [[later in this document|Conflict
-   Resolution#Sibling-Resolution-Example]].
+   Resolution#Siblings]] and to design your application to resolve
+   conflicts in a way that fits your use case. Developing your own
+   **conflict resolution strategy** can be tricky, but it has clear
+   advantages over other approaches.
+
+For examples of application-side conflict resolution, we have tutorials
+available for the following client libraries:
+
+* [[Java|Conflict Resolution: Java]]
+* [[Ruby|Conflict Resolution: Ruby]]
+* [[Python|Conflict Resolution: Python]]
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
