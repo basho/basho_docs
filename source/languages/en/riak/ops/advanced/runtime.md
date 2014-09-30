@@ -37,6 +37,6 @@ triggered using the following parameters:
 * `runtime_health.triggers.process.garbage_collection` --- A process will be marked as busy when it exceeds this amount of time doing garbage collection. Enabling this setting can cause performance problems on multi-core systems.
   * Default: `off`
   * Example when enabled: `50ms`
-* `runtime_health.triggers.process.long_schedule` --- A process will become busy when it exceeds this amount of time during a single process scheduling & execution cycle.`
+* `runtime_health.triggers.process.long_schedule` --- A process will become busy when it exceeds this amount of time during a single process scheduling and execution cycle.
   * Default: `off`
   * Example when enabled: `20ms`
