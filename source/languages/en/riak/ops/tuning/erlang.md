@@ -16,8 +16,7 @@ parameters](http://erlang.org/doc/man/erl.html) that you can use to tune
 its performance; Riak enables you to tune a subset of those parameters
 in each node's [[configuration files|Configuration Files#Erlang-VM]].
 The table below lists some of the parameters that are available, showing
-both their names as used directly in Erlang and their names as Riak
-parameters.
+both their names as used in Erlang and their names as Riak parameters.
 
 Erlang parameter | Riak parameter
 :----------------|:--------------
@@ -38,17 +37,17 @@ Erlang parameter | Riak parameter
 [`-env ERL_CRASH_DUMP`](http://www.erlang.org/doc/apps/erts/crash_dump.html) | `erlang.crash_dump`
 [`-env ERL_MAX_ETS_TABLES`](http://learnyousomeerlang.com/ets) | `erlang.max_ets_tables`
 
-A full listing of Erlang-VM-related parameters can be found in [[Erlang
-VM Settings|Configuration Files#Erlang-VM]].
+A full listing of currently available Erlang-VM-related parameters can
+be found in [[Erlang VM Settings|Configuration Files#Erlang-VM]].
 
 <div class="note">
 <div class="title">Note on upgrading to 2.0</div>
-In versions of Erlang prior to 2.0, Erlang VM-related parameters were
-specified in a `vm.args` file. If you're upgrading to 2.0 from an
-earlier version, you can still use your old `vm.args` if you wish.
-Please note, however, that if you set one or more parameters in both
-`vm.args` and in `riak.conf`, the settings in `vm.args` will override
-those in `riak.conf`.
+In versions of Riak prior to 2.0, Erlang VM-related parameters were
+specified in a `vm.args` configuration file. If you're upgrading to 2.0
+from an earlier version, you can still use your old `vm.args` if you
+wish.  Please note, however, that if you set one or more parameters in
+both `vm.args` and in `riak.conf`, the settings in `vm.args` will
+override those in `riak.conf`.
 </div>
 
 ## SMP
@@ -59,13 +58,13 @@ Multiprocessing Capabilities
 support can be turned on and off by setting the `erlang.smp` parameter
 to `enable` or `disable`. It is enabled by default. Setting this
 parameter to `auto` will instruct the Erlang VM to start with SMP
-support enabled if it is available _and_ more than one logical processor
-is detected.
+support enabled if it is available on the operating system _and_ more
+than one logical processor is detected.
 
 Riak is supported on some operating systems that do not provide SMP
-support. Make sure that you ensure that your OS supports SMP before
-enabling it for use by Riak's Erlang VM. If it does not, you should set
-`erlang.smp` to `disable` prior to starting up your cluster.
+support. Make sure that your OS supports SMP before enabling it for use
+by Riak's Erlang VM. If it does not, you should set `erlang.smp` to
+`disable` prior to starting up your cluster.
 
 ## Schedulers
 
