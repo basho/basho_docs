@@ -18,7 +18,7 @@ client](https://github.com/basho/riak-python-client).
 
 In the official Python client, every object of the `RiakObject` class
 has a `siblings` property that provides access to a list of an object's
-sibling values.  If there are no siblings, that property will return a
+sibling values. If there are no siblings, that property will return a
 list with only one item. Here's an example of an object with siblings:
 
 ```python
@@ -26,7 +26,7 @@ bucket = client.bucket('seahawks')
 obj = bucket.get('coach')
 obj.siblings
 
-# The ouput:
+# The output:
 [<riak.content.RiakContent object at 0x106cc51d0>, <riak.content.RiakContent object at 0x108x1da62c1>]
 ```
 
@@ -47,7 +47,7 @@ application will be stored in buckets that bear the [[bucket type|Using
 Bucket Types]] `siblings`, and for this bucket type `allow_mult` is set
 to `true`, which means that Riak will generate siblings in certain
 cases---siblings that our application will need to be equipped to
-resolve when they arise.
+resolve when necessary.
 
 The question that we need to ask ourselves at this point is the
 following: if a given user has conflict lists, which list should be
