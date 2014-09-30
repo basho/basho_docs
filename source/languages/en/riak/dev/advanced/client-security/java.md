@@ -10,7 +10,7 @@ keywords: [developers, security, ssl, java]
 This tutorial shows you how to set up a Riak Java client to authenticate
 itself when connecting to Riak.
 
-If you are using [[trust-|Managed Security
+If you are using [[trust-|Managing Security
 Sources#Trust-based-Authentication]] or [[PAM|Managing Security
 Sources#PAM-based-Authentication]]-based authentication, you can use the
 security setup described [[below|Client-side Security:
