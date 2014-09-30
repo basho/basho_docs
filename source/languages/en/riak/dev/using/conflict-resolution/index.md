@@ -34,12 +34,17 @@ In general, we recommend one of the following options:
    relieving applications of the need to engage in conflict resolution.
 2. If your data cannot be modeled as one of the available Data Types,
    we recommend allowing Riak to generate [[siblings|Conflict
-   Resolution#Siblings]] and to resolve conflicts on the application
-   side. Developing your own **conflict resolution strategy** can be
-   tricky, but it has clear advantages over other approaches. While it's
-   difficult to generalize about resolution strategies, we offer an
-   example [[later in this document|Conflict
-   Resolution#Sibling-Resolution-Example]].
+   Resolution#Siblings]] and to design your application to resolve
+   conflicts in a way that fits your use case. Developing your own
+   **conflict resolution strategy** can be tricky, but it has clear
+   advantages over other approaches.
+
+For examples of application-side conflict resolution, we have tutorials
+available for the following client libraries:
+
+* [[Java|Conflict Resolution: Java]]
+* [[Ruby|Conflict Resolution: Ruby]]
+* [[Python|Conflict Resolution: Python]]
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
@@ -153,7 +158,7 @@ objects:
  * Whether the objects are unrelated in recent heritage
 
 Using this knowledge, Riak is frequently, though not always, able to
-resolve conflicts without producing siblings. 
+resolve conflicts without producing siblings.
 
 Vector clocks are non-human-readable and look something like this:
 
@@ -521,7 +526,7 @@ clock pruning process:
 
 Additional background information on vector clocks:
 
-* [[Vector Clocks on Wikipedia|http://en.wikipedia.org/wiki/Vector_clock]]
-* [[Why Vector Clocks are Easy|http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/]]
-* [[Why Vector Clocks are Hard|http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/]]
-* The vector clocks used in Riak are based on the [[work of Leslie Lamport|http://portal.acm.org/citation.cfm?id=359563]].
+* [Vector Clocks on Wikipedia](http://en.wikipedia.org/wiki/Vector_clock)
+* [Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
+* [Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
+* The vector clocks used in Riak are based on the [work of Leslie Lamport](http://portal.acm.org/citation.cfm?id=359563)

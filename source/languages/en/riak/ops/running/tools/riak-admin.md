@@ -66,10 +66,18 @@ listing the future ring ownership as well as the number of transfers
 necessary to implement the planned changes, are provided by this
 interface.
 
-The following commands stage changes to cluster membership. These
-commands do not take effect immediately. After staging a set of changes,
-the plan you have staged must be committed using the staging commands to
-take effect.
+The following commands stage changes to cluster membership. **These
+commands do not take effect immediately**. After staging a set of
+changes, you must do the following:
+
+* **plan** the changes, i.e. see which changes are currently scheduled,
+  by running `[[riak-admin cluster plan|riak-admin
+  Command Line#cluster-plan]]`
+* **commit** the changes by running `[[riak-admin cluster
+  commit|riak-admin Command Line#cluster-commit]]`
+
+Please note that you can stage multiple cluster-level changes prior to
+planning and committing those changes.
 
 ## cluster join
 
@@ -82,6 +90,13 @@ riak-admin cluster join <node>
 You can replace `<node>` with any node that is currently in the cluster.
 Once a node joins, all of the operations necessary to establish
 communication with all other nodes proceeds automatically.
+
+**Note**: As with all cluster-level actions, the changes made when you
+run the `cluster join` command will take effect only after you have both
+planned the changes by running `[[riak-admin cluster plan|riak-admin
+Command Line#cluster-plan]]` and committed the changes by running
+`[[riak-admin cluster commit|riak-admin Command Line#cluster-commit]]`.
+You can stage multiple cluster joins before planning/committing.
 
 ## cluster leave
 
@@ -99,6 +114,14 @@ the cluster, and shut down:
 riak-admin cluster leave <node>
 ```
 
+**Note**: As with all cluster-level actions, the changes made when you
+run the `cluster leave` command will take effect only after you have
+both planned the changes by running `[[riak-admin cluster
+plan|riak-admin Command Line#cluster-plan]]` and committed the changes
+by running `[[riak-admin cluster commit|riak-admin Command
+Line#cluster-commit]]`. You can stage multiple cluster leave operations
+before planning/committing.
+
 ## cluster force-remove
 
 Remove the node named `<node>` from the cluster without first handing
@@ -109,6 +132,14 @@ nodes, and should be used with caution.
 riak-admin cluster force-remove <node>
 ```
 
+**Note**: As with all cluster-level actions, the changes made when you
+run the `cluster force-remove` command will take effect only after you
+have both planned the changes by running `[[riak-admin cluster
+plan|riak-admin Command Line#cluster-plan]]` and committed the changes
+by running `[[riak-admin cluster commit|riak-admin Command
+Line#cluster-commit]]`. You can stage multiple force remove operations
+before planning/committing.
+
 ## cluster replace
 
 Instruct `<node1>` to transfer all data partitions to `<node2>`, then
@@ -118,6 +149,14 @@ leave the cluster and shutdown.
 riak-admin cluster replace <node1> <node2>
 ```
 
+**Note**: As with all cluster-level actions, the changes made when you
+run the `cluster replace` command will take effect only after you have
+both planned the changes by running `[[riak-admin cluster
+plan|riak-admin Command Line#cluster-plan]]` and committed the changes
+by running `[[riak-admin cluster commit|riak-admin Command
+Line#cluster-commit]]`. You can stage multiple replace operations before
+planning/committing.
+
 ## cluster force-replace
 
 Reassign all partitions owned by `<node1>` to `<node2>` without first
@@ -126,6 +165,14 @@ handing off data, and then remove `<node1>` from the cluster.
 ```bash
 riak-admin cluster force-replace <node1> <node2>
 ```
+
+**Note**: As with all cluster-level actions, the changes made when you
+run the `cluster force-replace` command will take effect only after you
+have both planned the changes by running `[[riak-admin cluster
+plan|riak-admin Command Line#cluster-plan]]` and committed the changes
+by running `[[riak-admin cluster commit|riak-admin Command
+Line#cluster-commit]]`. You can stage multiple replace operations before
+planning/committing.
 
 ## Staging Commands
 
@@ -243,6 +290,12 @@ Runs a test of a few standard Riak operations against the running node.
 
 ```bash
 riak-admin test
+```
+
+If the test is successful, you should see output like the following:
+
+```
+Successfully completed 1 read/write cycle to 'dev1@127.0.0.1'
 ```
 
 ## reip

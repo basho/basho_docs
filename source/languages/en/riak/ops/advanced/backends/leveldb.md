@@ -22,6 +22,15 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Note on upgrading to 2.0</div>
+If you are using LevelDB in a 1.x version of Riak, are upgrading to 2.0,
+and wish to keep using your old `app.config` file for configuration,
+make sure to follow the steps for setting the
+`total_leveldb_mem_percent` parameter in the [[2.0 upgrade
+guide|Upgrading to 2.0#Upgrading-LevelDB]].
+</div>
+
 [eLevelDB](https://github.com/basho/eleveldb) is an Erlang application
 that encapsulates [LevelDB](http://code.google.com/p/leveldb/), an
 open-source, on-disk key/value store created by Google Fellows Jeffrey
@@ -410,7 +419,7 @@ incoming write operations to allow compactions to catch up, as would be
 the case when using a single storage array.
 </div>
 
-### Configuration
+### Configuring Tiered Storage
 
 If you are using the newer, `riak.conf`-based configuration system, the
 following parameters can be used to configure LevelDB tiered storage:

@@ -147,6 +147,11 @@ the `advanced.config` file. For more information, see our documentation
 on [[advanced configuration|Configuration
 Files#Advanced-Configuration]].
 
+If you are using strong consistency in a cluster that has already been
+created with a `target_n_val` that is too low (remember that the default
+is too low), you will need to raise it to the desired higher value and
+restart each node.
+
 #### Note on Bucket Properties
 
 The `consistent` bucket property is one of two bucket properties,
@@ -650,18 +655,42 @@ with silent on-disk corruption.
 To avoid these problems, you should [[enable active anti-entropy|Managing
 Active Anti-Entropy##Enabling-Active-Anti-Entropy]] in your cluster.
 
+## Strong Consistency and Bitcask
+
+One feature that is offered by Riak's optional [[Bitcask]] backend is
+[[object expiry|Bitcask#Configuring-Bitcask]]. If you are using strong
+consistency and Bitcask together, you should be aware that object
+metadata is often updated by the strong consistency subsystem during
+leader changes, which typically take place when nodes go down or during
+network partitions. When these metadata updates take place, the time to
+live (TTL) of the object is refreshed, which can lead to general
+unpreditably in objects' TTL. Although leader changes will be rare in
+many clusters, we nonetheless recommend that you use object expiry in
+strongly consistent buckets only in situations when these occasional
+irregularities are acceptable.
+
 ## Important Caveats
 
 The following Riak features are not currently available in strongly
 consistent buckets:
 
-* [[Secondary indexes|Using Secondary Indexes]]
-* [[Riak Data Types|Using Data Types]]
+* [[Secondary indexes|Using Secondary Indexes]] --- If you do attach
+  secondary index metadata to objects in strongly consistent buckets,
+  strongly consistent operations can still proceed, but that metadata
+  will be silently ignored.
+* [[Riak Data Types|Using Data Types]] --- Data Types can currently be
+  used only in an eventually consistent fashion
+* [[Commit hooks]] --- Neither pre- nor post-commit hooks are supported
+  in strongly consistent buckets. If you do associate a strongly
+  consistent bucket with one or more commit hooks, strongly consistent
+  operations can proceed as normal in that bucket, but all commit hooks
+  will be silently ignored.
 
-Strongly-consistent writes operate only on single keys. There is
-currently no support within Riak for strongly consistent operations
-against multiple keys, although it is always possible to incorporate
-write and read locks in an application that uses strong consistency.
+Furthermore, you should also be aware that strong consistency guarantees
+are applied only at the level of single keys. There is currently no
+support within Riak for strongly consistent operations against multiple
+keys, although it is always possible to incorporate client-side write
+and read locks in applications that use strong consistency.
 
 ## Known Issues
 

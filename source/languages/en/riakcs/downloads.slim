@@ -43,9 +43,7 @@ p You should be able to find your operating system in the choices below.
           - unless os_data['simple']
             td.checksum
               - if arch_data['csum'].present?
-                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])
-                  img src="/images/layout/hash.png" title="SHA1 Checksum"
-
+                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum']) hash
 hr
 
 - project = 'stanchion'
@@ -77,8 +75,7 @@ p You should be able to find your operating system in the choices below.
           - unless os_data['simple']
             td.checksum
               - if arch_data['csum'].present?
-                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])
-                  img src="/images/layout/hash.png" title="SHA1 Checksum"
+                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum']) hash
 
 
 hr
@@ -112,5 +109,4 @@ p You should be able to find your operating system in the choices below.
           - unless os_data['simple']
             td.checksum
               - if arch_data['csum'].present?
-                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum'])
-                  img src="/images/layout/hash.png" title="SHA1 Checksum"
+                a href=downloads.file_url(os, osv, arch_data['csum'], arch_data['static_csum']) hash

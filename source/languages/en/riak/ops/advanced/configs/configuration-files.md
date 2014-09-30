@@ -341,6 +341,16 @@ up to the minimum <code>1s</code>.</td>
 
 Configurable parameters for Riak's [[LevelDB]] storage backend.
 
+<div class="note">
+<div class="title">Note on upgrading to 2.0</div>
+If you are upgrading to Riak 2.0+ from a 1.x version, using LevelDB, and
+wish to use your old configuration files, i.e. `app.config` and
+`vm.args`, please note that you must set the `total_leveldb_mem_percent`
+setting in the `eleveldb` section of `app.config`. We recommend setting
+it to `70`. If you do not set this parameter, it will default to 15,
+which can lead to problems in some clusters.
+</div>
+
 <table class="riak-conf">
 <thead>
 <tr>
@@ -933,9 +943,19 @@ Ports can represent open files or network sockets.</td>
 
 <tr>
 <td><code>runtime_health.triggers.process.garbage_collection</code></td>
+<td>A process will become busy when it exceeds this amount of time doing
+garbage collection. Set as an integer plus time unit, e.g. `50ms` for 50
+milliseconds, `5s` for 5 seconds, etc.<strong>Note</strong>: Enabling
+this setting can cause performance problems on multi-core systems.</td>
+<td><code>off</code></td>
+</tr>
+
+<tr>
+<td><code>runtime_health.triggers.process.long_schedule</code></td>
 <td>A process will become busy when it exceeds this amount of time
-doing garbage collection. <strong>Note</strong>: Enabling this setting
-can cause performance problems on multi-core systems.</td>
+during a single process scheduling and execution cyle. Set as an integer
+plus time unit, e.g. `50ms` for 50 milliseconds, `5s` for 5 seconds,
+etc.</td>
 <td><code>off</code></td>
 </tr>
 
@@ -1081,13 +1101,6 @@ indicating that the write was received.</td>
 <tr>
 <td><code>buckets.default.rw</code></td>
 <td>The number of replicas which must reply to a delete request.</td>
-<td><code>quorum</code></td>
-</tr>
-
-<tr>
-<td><code>buckets.default.w</code></td>
-<td>The number of replicas which must reply to a write request,
-indicating that the write was received.</td>
 <td><code>quorum</code></td>
 </tr>
 
@@ -1297,25 +1310,25 @@ href="http://erlang.org/doc/man/erl.html">here</a>.</td>
 
 <tr>
 <td><code>erlang.schedulers.total</code></td>
-<td>Sets the number of scheduler threads to create and scheduler threads
-to set online when <code>erlang.smp</code> support has been enabled. The
-maximum for both values is 1024. If the Erlang runtime system is able to
-determine the amount of logical processors configured and logical
-processors available, <code>schedulers.total</code> will default to
-logical processors configured, and <code>schedulers.online</code> will
-default to the number of logical processors available. Otherwise, the
-default values will be 1.  Schedulers may be omitted if
-<code>schedulers.online</code> is not and vice versa. If
-<code>schedulers.total</code> or <code>schedulers.online</code> is
-specified as a negative number, the value is subtracted from the default
-number of logical processors configured or logical processors available,
-respectively. Specifying the value <code>0</code> for
-<code>Schedulers</code> or <code>SchedulersOnline</code> resets the
-number of scheduler threads or scheduler threads online respective to
-its default value. This option is ignored if the emulator doesn't have
-SMP support enabled (see the <code>erlang.smp</code> flag). More
-information <a href="http://erlang.org/doc/man/erl.html +S
-Schedulers:SchedulerOnline">here</a>.
+<td>Sets the number of scheduler threads to create and scheduler
+threads to set online when <code>erlang.smp</code> support has been
+enabled. The maximum for both values is 1024. If the Erlang runtime
+system is able to determine the amount of logical processors configured
+and logical processors available, <code>schedulers.total</code> will
+default to logical processors configured, and
+<code>schedulers.online</code> will default to the number of logical
+processors available. Otherwise, the default values will be 1.
+Schedulers may be omitted if <code>schedulers.online</code> is not and
+vice versa. If <code>schedulers.total</code> or
+<code>schedulers.online</code> is specified as a negative number, the
+value is subtracted from the default number of logical processors
+configured or logical processors available, respectively. Specifying
+the value <code>0</code> for <code>Schedulers</code> or
+<code>SchedulersOnline</code> resets the number of scheduler threads or
+scheduler threads online respective to its default value. This option
+is ignored if the emulator doesn't have SMP support enabled (see the
+<code>erlang.smp</code> flag). More information
+<a href="http://www.erlang.org/doc/man/erl.html#+S">here</a>.
 </td>
 <td></td>
 </tr>
@@ -1466,9 +1479,11 @@ security check.</td>
 
 <tr>
 <td><code>check_crl</code></td>
-<td>Whether to check the CRL of a client certificate. This defaults to
-<code>on</code> but some CAs may not maintain or define a CRL, so this
-can be disabled if no CRL is available.</td>
+<td>Whether to check the [certificate revocation
+list](http://en.wikipedia.org/wiki/Revocation_list) (CRL) of a client
+certificate. This defaults to <code>on</code> but some CAs may not
+maintain or define a CRL, so this can be disabled if no CRL is
+available.</td>
 <td><code>on</code></td>
 </tr>
 

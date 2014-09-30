@@ -329,8 +329,8 @@ No transfers active
 ```
 
 You can also verify that there are the expected number of partitions in
-the ring by opening the Erlang shell via the [[`riak attach`|riak
-Command Line#attach]] command and running this snippet:
+the ring by opening the Erlang shell via the `[[riak attach|riak
+Command Line#attach]]` command and running this snippet:
 
 ```erlang
 length(riak_core_ring:all_owners(2, riak_core_ring_manager:get_my_ring())).

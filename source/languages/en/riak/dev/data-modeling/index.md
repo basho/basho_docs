@@ -23,8 +23,8 @@ How you structure your application to run on Riak should take into
 account the unique needs of your use case, including access patterns
 such as read/write distribution, latency differences between various
 operations, use of Riak features including [[Data Types]],
-[[MapReduce|Using MapReduce]], [[Search|Using Search]], 
-[[secondary indexes (2i)|Using Secondary Indexes]] and more. This guide 
+[[MapReduce|Using MapReduce]], [[Search|Using Search]],
+[[secondary indexes (2i)|Using Secondary Indexes]] and more. This guide
 is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
@@ -64,10 +64,10 @@ administrative changes to schemas.
 Riak has features that allow for more complex session storage use cases.
 The [[Bitcask]] storage backend, for example, supports automatic expiry
 of keys, which frees application developers from implementing manual
-session expiry. Riak's [[MapReduce|Using MapReduce]] system can also be 
-used to perform batch processing analysis on large bodies of session 
-data, for example to compute the average number of active users. If 
-sessions must be retrieved using multiple keys (e.g. a UUID or email 
+session expiry. Riak's [[MapReduce|Using MapReduce]] system can also be
+used to perform batch processing analysis on large bodies of session
+data, for example to compute the average number of active users. If
+sessions must be retrieved using multiple keys (e.g. a UUID or email
 address), [[using secondary indexes]] can provide an easy solution.
 
 #### Community Examples
@@ -269,10 +269,11 @@ modifying it, and writing back the new value.
 #### Community Examples
 
 <table class="links">
-    <tr>
-        <td><a href="http://player.vimeo.com/video/21598799" target="_blank" title="Riak at Yammer">
-           <img src="http://b.vimeocdn.com/ts/139/033/139033664_640.jpg"/>
-         </a></td>
+  <tr>
+    <td>
+      <a href="http://player.vimeo.com/video/21598799" target="_blank" title="Riak at Yammer">
+      <img src="http://b.vimeocdn.com/ts/139/033/139033664_640.jpg"/>
+</a></td>
         <td><a href="http://player.vimeo.com/video/21598799" target="_blank" title="Riak at Yammer">Riak at Yammer</a>
         <br>
     This video was recorded at the March 2012 San Francisco Riak Meetup and is worth every minute of your time. Coda Hale and Ryan Kennedy of Yammer give an excellent and in depth look into how they built “Streamie”, user notifications, why Riak was the right choice, and the lessons learned in the process. Read more and get the slides in the Riak blog <a href="http://basho.com/blog/technical/2011/03/28/Riak-and-Scala-at-Yammer/" target="_blank">here.</a>
