@@ -86,10 +86,10 @@ While the maximum for both parameters is 1024, there is no universal
 default for either. Instead, the Erlang VM will attempt to determine the
 number of configured processors as well as the number of available
 processors on its own. If the Erlang VM can make that determination,
-`schedulers.total` will default to the number of configured processors
-while `schedulers.online` will default to the number of processors
-available; tf the Erlang VM can't make that determination, both values
-will default to 1.
+`schedulers.total` will default to the total number of configured
+processors while `schedulers.online` will default to the number of
+processors available; if the Erlang VM can't make that determination,
+both values will default to 1.
 
 If either parameter is set to a negative integer, that value will be
 subtracted from the default number of processors that are configured or
@@ -114,8 +114,8 @@ to the Erlang VM's `+sfwi` flag. This parameter is set to `0` by
 default, which disables scheduler wakeup.
 
 Erlang distributions like R15Bx have a tendency to put schedulers to
-sleep too often. If you are using a later distribution, you most likely
-won't need to enable scheduler wakeup.
+sleep too often. If you are using a more recent distribution, you most
+likely won't need to enable scheduler wakeup.
 
 ### Scheduler Compaction and Balancing
 
@@ -128,14 +128,14 @@ attempt to fully load as many scheduler threads as possible, i.e. it
 will attempt to ensure that scheduler threads do not run out of work. To
 do so, the VM will take into account the frequency with which schedulers
 run out of work when making decisions about which schedulers should be
-assigned work. You can disable compaction of load by setting the
-`erlang.schedulers.compaction_of_load` setting to `false`.
+assigned work. This option is enabled by default. You can disable it by
+setting the `erlang.schedulers.compaction_of_load` setting to `false`.
 
 The other option, utilization balancing, is disabled by default in favor
 of load balancing. When utilization balancing is enabled instead, the
 Erlang VM will strive to balance scheduler utilization as equally as
 possible between schedulers, without taking into account the frequency
-at which schedulers run out of work.  You can enable utilization
+at which schedulers run out of work. You can enable utilization
 balancing by setting the `erlang.schedulers.utilization_balancing`
 setting to `true`.
 
@@ -150,11 +150,10 @@ using the older configuration system).
 Riak uses [epmd](http://www.erlang.org/doc/man/epmd.html), the Erlang
 Port Mapper Daemon, for most inter-node communication, identifying other
 nodes in the [[cluster|Clusters]] using the Erlang identifiers specified
-by the `nodename` parameter, e.g.  `riak@10.9.8.7`. The Erlang Port
-Mapper Daemon ([epmd](http://www.erlang.org/doc/man/epmd.html)) running
-on each node resolves these node identifiers to a TCP port. You can
-specify a port or range of ports for Riak nodes to listen on as well as
-the maximum number of concurrent ports/sockets.
+by the `nodename` parameter, e.g.  `riak@10.9.8.7`.  On each node, the
+daemon resolves these node identifiers to a TCP port. You can specify a
+port or range of ports for Riak nodes to listen on as well as the
+maximum number of concurrent ports/sockets.
 
 ### Port Range
 
@@ -179,6 +178,7 @@ erlang.distribution.port_range.maximum = 5000
 ```appconfig
 %% The older, app.config-based system uses different parameter names
 %% for specifying the minimum and maximum port
+
 {kernel, [
           % ...
           {inet_dist_listen_min, 3000},
@@ -230,12 +230,12 @@ erlang.async_threads = 600
 
 ## Kernel Polling
 
-You can enable and disable kernel polling if the Erlang distribution on
-your OS supports it. Enabling kernel polling can improve performance if
-many file descriptors are in use; the more file descriptors, the larger
-an effect kernel polling may have on performance. Kernel polling is
-enabled by default on Riak's Erlang VM, i.e. the default for `erlang.K`
-is `on`.  This corresponds to the
+You can utilize kernel polling in your Erlang distribution if your OS
+supports it. Kernel polling can improve performance if many file
+descriptors are in use; the more file descriptors, the larger an effect
+kernel polling may have on performance. Kernel polling is enabled by
+default on Riak's Erlang VM, i.e. the default for `erlang.K` is `on`.
+This corresponds to the
 `[+K](http://erlang.org/doc/man/erl.html#emu_flags)` setting on the
 Erlang VM. You can disable it by setting `erlang.K` to `false`.
 
