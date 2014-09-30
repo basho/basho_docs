@@ -82,6 +82,8 @@ friends.add("fred");
 User bashobunny = new User(friends);
 ```
 
+### Implementing a Conflict Resolution Interface
+
 So what happens if siblings are present and the user `bashobunny` has
 different friend lists in different object replicas? For that we can
 implement the `ConflictResolver` class described [[above|Conflict
@@ -123,6 +125,8 @@ public class UserResolver implements ConflictResolver<User> {
 }
 ```
 
+### Registering a Conflict Resolver Class
+
 To use a conflict resolver, we must register it:
 
 ```java
@@ -137,7 +141,7 @@ be applied on all reads that involve that object type.
 
 ## Conflict Resolution and Writes
 
-In the above example, we create a conflict resolver that resolves a list
+In the above example, we created a conflict resolver that resolves a list
 of discrepant `User` objects and returns a single `User`. It's important
 to note, however, that this resolver will only provide the application
 with a single "correct" value; it will _not_ write that value back to
@@ -183,17 +187,9 @@ Now our resolver will both return a single `User` object to the
 application for further use _and_ notify Riak which value the
 application takes to be correct.
 
-The bad news is that this operation still bears the potential to create
-siblings, for example if the write is performed simultaneously with
-another write. The good news, however, is that that is perfectly okay.
-Our application is now designed to gracefully handle siblings whenever
-they arise, and the logic we choose will now be applied automatically
-every time object to the application for further use _and_ notify Riak
-which value the application takes to be correct.
-
-The bad news is that this operation still bears the potential to create
-siblings, for example if the write is performed simultaneously with
-another write. The good news, however, is that that is perfectly okay.
-Our application is now designed to gracefully handle siblings whenever
-they arise, and the logic we choose will now be applied automatically
-every time.
+The bad news is that this operation may still create siblings, for
+example if the write is performed simultaneously with another write. The
+good news, however, is that that is perfectly okay.  Our application is
+now designed to gracefully handle siblings whenever they are
+encountered, and the resolution logic we choose will now be applied
+automatically every time.
