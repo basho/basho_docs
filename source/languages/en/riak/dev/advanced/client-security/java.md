@@ -15,8 +15,8 @@ Sources#Trust-based-Authentication]] or [[PAM|Managing Security
 Sources#PAM-based-Authentication]]-based authentication, you can use the
 security setup described [[below|Client-side Security:
 Java#Java-Client-Basics]]. [[Certificate|Managing Security
-Sources#Certificate-based-Authentication]] is not yet supported in the
-Java client.
+Sources#Certificate-based-Authentication]]-based authentication is not
+yet supported in the Java client.
 
 <div class="note">
 <div class="title">Note on certificate generation</div>
