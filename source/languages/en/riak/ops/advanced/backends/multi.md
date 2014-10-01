@@ -190,10 +190,10 @@ the default.
 storage_backend = multi
 
 multi_backend.bitcask_mult.storage_backend = bitcask
-multi_backend.bitcask_mult.bitcask.data_root = "/var/lib/riak/bitcask"
+multi_backend.bitcask_mult.bitcask.data_root = /var/lib/riak/bitcask_mult
 
 multi_backend.leveldb_mult.storage_backend = leveldb
-multi_backend.leveldb_mult.bitcask.data_root = "/var/lib/riak/leveldb"
+multi_backend.leveldb_mult.leveldb.data_root = /var/lib/riak/leveldb_mult
 
 multi_backend.default = bitcask_mult
 ```
