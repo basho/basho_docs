@@ -25,7 +25,7 @@ erl -pa CLIENT_LIBRARY_PATH/ebin/ CLIENT_LIBRARY_PATH/deps/*/ebin
 Now let’s create a link to the Riak node. If you are using a single local Riak node, use the following to create the link:
 
 ```erlang
-{ok, Pid} = riakc_pb_socket:start_link("127.0.0.1", 8087).
+{ok, Pid} = riakc_pb_socket:start("127.0.0.1", 8087).
 ```
 
 If you set up a local Riak cluster using the [[five-minute install]] method, use this code snippet instead:
