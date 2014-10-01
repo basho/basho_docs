@@ -436,8 +436,7 @@ This example searches for all documents in which the `name_s` value
 begins with `Lion` by means of a glob (wildcard) match.
 
 ```java
-SearchOperation searchOp =
-    new SearchOperation.Builder(BinaryValue.create("famous"), "name_s:Lion*").build();
+Search searchOp = new Search.Builder("famous", "name_s:Lion*").build();
 cluster.execute(searchOp);
 searchOp.await();
 Map<String, String> results = searchOp.get().getAllResults();
@@ -585,9 +584,8 @@ glob as a top end of the range: `age_i:[30 TO *]`.
 ```java
 String index = "famous";
 String query = "age_i:[30 TO *]";
-SearchOperation searchOp = new SearchOperation.Builder(BinaryValue.create(index), query)
-        .build();
-SearchOperation.Response result = cluster.execute(searchOp);
+Search searchOp = new Search.Builder(index, query).build();
+Search.Response result = cluster.execute(searchOp);
 ```
 
 ```ruby
@@ -619,9 +617,8 @@ Let's say we want to see who is capable of being a US Senator (at least
 ```java
 String index = "famous";
 String query = "leader_b:true AND age_i:[30 TO *]";
-SearchOperation searchOp = new SearchOperation.Builder(BinaryValue.create(index), query)
-        .build();
-SearchOperation.Response result = cluster.execute(searchOp);
+Search searchOp = new Search.Builder(index, query).build();
+Search.Response result = cluster.execute(searchOp);
 ```
 
 ```ruby
@@ -691,6 +688,19 @@ For example, assuming we want two results per page, getting the second
 page is easy, where `start` is calculated as _rows per page * (page
 number - 1)_.
 
+```java
+int rowsPerPage = 2;
+int page = 2;
+int start = rowsPerPage * (page - 1);
+
+Search searchOp = new Search.Builder("famous", "*:*")
+        .withStart(start)
+        .withRows(rowsPerPage)
+        .build();
+client.execute(searchOp);
+StoreOperation.Response response = searchOp.get();
+```
+
 ```ruby
 ROWS_PER_PAGE=2
 page = 2
@@ -726,7 +736,7 @@ curl $RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PA
 
 Just be careful what you sort by.
 
-##### A Pagination Warning
+####  Pagination Warning
 
 Distributed pagination in Riak Search cannot be used reliably when
 sorting on fields that can have different values per replica of the same
