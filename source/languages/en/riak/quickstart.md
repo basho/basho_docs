@@ -320,7 +320,7 @@ first object in Riak. Now attempt a `GET` request to the same HTTP
 endpoint:
 
 ```curl
-curl http://localhost:10018/buckets/hello/keys/german
+curl http://localhost:10018/buckets/welcome/keys/german
 ```
 
 You should get the following result:
