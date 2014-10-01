@@ -24,10 +24,67 @@ of which must be installed separately:
 * [Stanchion](https://github.com/basho/stanchion) --- An application
   used to manage globally unique entities, such as users and buckets
 
+[[Riak|Installing Riak CS#Installing-Riak]] and [[Riak CS|Installing
+Riak CS#Installing-Riak-CS-on-a-Node]] must be installed on each node in
+your cluster. [[Stanchion|Installing Riak
+CS#Installing-Stanchion-on-a-Node]], however, needs to be installed on
+only one node.
+
+## Version Compatibility
+
+The following combinations of Riak CS, Riak, and Stanchion are known to
+function well in production environments.
+
+Riak | Riak CS | Stanchion
+:----|:--------|:---------
+1.2.1 | 1.2.2 | 1.2.2
+1.2.1 | 1.3.0 | 1.3.0
+1.3.0 | 1.2.2 | 1.2.2
+1.4.0 | 1.4.0 | 1.4.0
+1.4.1 | 1.4.0 | 1.4.0
+1.4.8 | 1.4.3 | 1.4.5
+1.4.10 | 1.5.0 | 1.5.0
+
+We strongly recommend using only one of the version combinations listed
+above when installing and running Riak CS.
+
 ## Installing Riak
 
-If you have not yet installed Riak, follow the [[Riak Installation|Five-
-Minute Install]] documentation to do so.
+Before installing Riak CS, Riak itself must be installed on each node in
+your cluster. The first step in installing Riak is to make sure that you
+have Erlang installed. Instructions for all supported operating systems
+can be found in [[Installing Erlang]].
+
+Once Erlang has been installed on a node, you can install Riak either as
+part of an OS-specific package or from source.
+
+* [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
+* [[RHEL and CentOS|Installing on RHEL and CentOS]]
+* [[Mac OS X|Installing on Mac OS X]]
+* [[FreeBSD|Installing on FreeBSD]]
+* [[SmartOS|Installing on SmartOS]]
+* [[Solaris|Installing on Solaris]]
+* [[SUSE|Installing on SUSE]]
+* [[From Source|Installing Riak From Source]]
+
+Riak is also officially supported on the following public cloud
+infrastuctures:
+
+* [[Amazon Web Services|Installing on AWS Marketplace]]
+* [[Microsoft Azure|Installing on Windows Azure]]
+
+Remember that you must repeat this installation process on each node in
+your cluster. For future reference, you should make note of the
+installation directory that you have used. On Debian, Ubuntu, RHEL, and
+CentOS, for example, Riak is installed in `rel/riak` by default, whereas
+Mac OS X does not have a default install directory.
+
+<div class="note">
+<div class="title">Note on the Riak Five-Minute Install</div>
+While the [[Five-Minute Install]] for Riak can be helpful for setting up
+a development environment for Riak (and only Riak), we do not recommend
+following this guide for installing Riak for Riak CS.
+</div>
 
 ## Installing Riak CS on a Node
 
