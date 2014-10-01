@@ -163,10 +163,10 @@ the cluster). Must be a power of 2. The minimum is 8 and the maximum is
 
 Riak enables you to choose from the following storage backends:
 
-* [[Bitcask]] --- [[configuration|Configuration Files#bitcask]]
-* [[LevelDB]] --- [[configuration|Configuration Files#leveldb]]
-* [[Memory]] --- [[configuration|Configuration Files#memory-backend]]
-* [[Multi]] --- [[configuration|Configuration Files#multi-backend]]
+* [[Bitcask]] --- [[configuration|Configuration Files#Bitcask]]
+* [[LevelDB]] --- [[configuration|Configuration Files#LevelDB]]
+* [[Memory]] --- [[configuration|Configuration Files#Memory-Backend]]
+* [[Multi]] --- [[configuration|Configuration Files#Multi-Backend]]
 
 <table class="riak-conf">
 <thead>
