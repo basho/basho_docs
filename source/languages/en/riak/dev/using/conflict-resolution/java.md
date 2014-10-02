@@ -62,13 +62,14 @@ real-world applications, it's a good jumping-off point.
 
 We'll start by creating a `User` class for each user's data. Each `User`
 object will consist of a `friends` property that lists the usernames, as
-strings, of the user's friends.
+strings, of the user's friends. We'll use a `Set` for the `friends`
+property to avoid duplicates.
 
 ```java
 public class User {
-    public List<String> friends;
+    public Set<String> friends;
 
-    public User(List<String> friends) {
+    public User(Set<String> friends) {
         this.friends = friends;
     }
 }
@@ -77,7 +78,7 @@ public class User {
 Here's an example of instantiating a new `User` object:
 
 ```java
-List<String> friends = new LinkedList<String>();
+Set<String> friends = new HashSet<String>();
 friends.add("fred");
 User bashobunny = new User(friends);
 ```
@@ -113,9 +114,9 @@ public class UserResolver implements ConflictResolver<User> {
         // Iterate through the User objects to check for the longest
         // list
         for (User user : siblings) {
-            if (user.friends.size > longestList) {
+            if (user.friends.size() > longestList) {
                 userWithLongestList = user;
-                longestList = user.friends.size;
+                longestList = user.friends.size();
             } else {
                 return siblings.get(0);
             }
@@ -151,9 +152,9 @@ step that stores the `User` object with the longest `friends` list.
 Below is an example:
 
 ```java
-public class UserResolver implements ConflictResolver<User> {
+public class UserResolver implements ConflictResolver<User> throws Exception {
     @Override
-    public User resolve(List<User> siblings) {
+    public User resolve(List<User> siblings) throws Exception {
     if (siblings.size == 0) {
         return null;
     } else if (siblings.size == 1) {
@@ -163,9 +164,9 @@ public class UserResolver implements ConflictResolver<User> {
         User userWithLongestList;
 
         for (User user : siblings) {
-            if (user.friends.size > longestList) {
+            if (user.friends.size() > longestList) {
                 userWithLongestList = user;
-                longestList = user.friends.size;
+                longestList = user.friends.size();
             } else {
                 return siblings.get(0);
             }
@@ -193,3 +194,34 @@ good news, however, is that that is perfectly okay.  Our application is
 now designed to gracefully handle siblings whenever they are
 encountered, and the resolution logic we choose will now be applied
 automatically every time.
+
+## More Advanced Examples
+
+Resolving sibling `User` values on the basis of which `friends` list has
+the benefit of being simple but it's probably not a good resolution
+strategy for our social networking application because it means that
+unwanted data loss is inevitable. If one friends list contains `A`, `B`,
+and `C` and the other contains `D` and `E`, the list containing `A`,
+`B`, and `C` will be chosen. So what about friends `D` and `E`? Those
+usernames are essentially lost forever. To avoid losing data like this,
+a better strategy may be to merge the lists. We can modify our original
+`resolve` function in our `UserResolver` to accomplish precisely that:
+
+```java
+public class UserResolver implements ConflictResolver<User> {
+    @Override
+    public User resolve(List<User> siblings) {
+        if (siblings.size == 0) {
+            return null;
+        } else if (siblings.size == 1) {
+            return siblings.get(0);
+        } else {
+            Set<String> setBuilder = new HashSet<String>();
+            for (User user : siblings) {
+                setBuilder.addAll(user.friends);
+            }
+            return new User(setBuilder);
+        }
+    }
+}
+```
