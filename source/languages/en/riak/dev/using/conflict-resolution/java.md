@@ -203,9 +203,14 @@ strategy for our social networking application because it means that
 unwanted data loss is inevitable. If one friends list contains `A`, `B`,
 and `C` and the other contains `D` and `E`, the list containing `A`,
 `B`, and `C` will be chosen. So what about friends `D` and `E`? Those
-usernames are essentially lost forever. To avoid losing data like this,
-a better strategy may be to merge the lists. We can modify our original
-`resolve` function in our `UserResolver` to accomplish precisely that:
+usernames are essentially lost forever. In the sections below, we'll
+implement some other conflict resolution strategies as examples.
+
+### Merging the Lists
+
+To avoid losing data like this, a better strategy may be to merge the
+lists. We can modify our original `resolve` function in our
+`UserResolver` to accomplish precisely that:
 
 ```java
 public class UserResolver implements ConflictResolver<User> {
@@ -225,3 +230,15 @@ public class UserResolver implements ConflictResolver<User> {
     }
 }
 ```
+
+Since the `friends` list is a Java `Set`, we don't need to worry about
+duplicate usernames. 
+
+With a conflict resolution strategy like this, it's more or less
+inevitable that a user will remove a friend from their friends list, and
+that that that friend will end up back on the list during a conflict
+resolution operation. While that's certainly not desirable, that is
+likely better than the alternative proposed in the first example, which
+means usernames being dropped from friends lists.
+
+### 
