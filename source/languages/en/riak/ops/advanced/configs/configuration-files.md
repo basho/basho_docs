@@ -2568,12 +2568,16 @@ snippet to your `advanced.config` configuration to do so:
 
 ```advancedconfig
 [
-	{riak_search, [ {enabled, true} ]},
-	{merge_index, [
-		{data_root, "/var/lib/riak/merge_index"},
-		{buffer_rollover_size, 1048576},
-		{max_compact_segments, 20}
-	]}
+    %% Other configs
+
+    {riak_search, [ {enabled, true} ]},
+    {merge_index, [
+        {data_root, "/var/lib/riak/merge_index"},
+        {buffer_rollover_size, 1048576},
+        {max_compact_segments, 20}
+    ]},
+
+    %% Other configs
 ]
 ```
 
