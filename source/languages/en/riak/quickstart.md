@@ -25,12 +25,12 @@ installed on your machine already.
 If you wish to build Riak 2.0 from source, we strongly recommend using
 Basho's patched version of Erlang. The tar file for this version can be
 downloaded
-[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz).
+[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz).
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho4.tar.gz
-tar -xvf otp_src_R16B02-basho4.tar.gz
-cd otp_src_R16B02-basho4
+curl -O http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz
+tar -xvf otp_src_R16B02-basho5.tar.gz
+cd otp_src_R16B02-basho5
 ```
 
 Once you have unzipped the package, see our guide to [[installing
