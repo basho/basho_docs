@@ -21,7 +21,7 @@ Riak 2.0. All of the patches in this version have been incorporated into
 later versions of the official Erlang/OTP release.
 
 The tar file for this version of Erlang can be downloaded
-[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho5.tar.gz).
+[here](http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho6.tar.gz).
 **If you do not use this version, you will not be able to use Riak's
 [[security features|Authentication and Authorization]]**.
 
