@@ -24,6 +24,8 @@ your old `app.config` and `vm.args` files. You may also use the newer
 `app.config` or `vm.args` will override settings in `riak.conf`.
 </div>
 
+## Retrieving a Configuration Listing
+
 At any time, you can get a snapshot of currently applied configurations
 through the command line. For a listing of *all* of the configs
 currently applied in the node:
@@ -69,11 +71,13 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
    app.config   : riak_core.ring_creation_size
 ```
 
-Below is a table listing the configurable parameters in `riak.conf`.
+## Checking Your Configuration
 
-#### The advanced.config file
 
-For most Riak installations, the `riak.conf` file should be sufficient
+
+## The advanced.config file
+
+or most Riak installations, the `riak.conf` file should be sufficient
 for configuration management. But some installations, particularly those
 upgrading from an earlier version of Riak to version 2.0 or later, may
 need to make use of an `advanced.config` file to control some settings
