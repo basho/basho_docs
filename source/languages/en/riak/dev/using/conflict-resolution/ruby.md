@@ -112,10 +112,10 @@ example use case here, we'll return the sibling with the longest
 def longest_friends_list_resolver(riak_object)
   # The "conflict?" method is built into the Ruby client
   if riak_object.conflict?
-    obj.siblings.max_by{ |user| user.data['friends'].length }
+    riak_object.siblings.max_by{ |user| user.data['friends'].length }
   else
     # If there are no siblings, simply return the object's "content" as is
-    obj.content
+    riak_object.content
   end
 end
 ```
@@ -150,11 +150,11 @@ include a step that stores the resolved object:
 ```ruby
 def longest_friends_list_resolver(riak_object)
   if riak_object.conflict?
-    obj.siblings.max_by{ |user| user.data['friends'].length }
-    obj.store
-    ob
+    riak_object.siblings.max_by{ |user| user.data['friends'].length }
+    riak_object.store
+    riak_object
   else
-    obj.content
+    riak_object.content
   end
 end
 ```
@@ -169,3 +169,54 @@ same key. The good news, however, is that that is perfectly okay. Our
 application is now designed to gracefully handle siblings whenever they
 are encountered, and the resolution logic we chose will now be applied
 automatically every time.
+
+## More Advanced Example
+
+Resolving sibling User values on the basis of which user has the longest
+friends list has the benefit of being simple but it's probably not a
+good resolution strategy for our social networking application because
+it means that unwanted data loss is inevitable. If one friend list
+contains `A`, `B`, and `C` and the other contains `D` and `E`, the list
+containing `A`, `B`, and `C` will be chosen. So what about friends `D`
+and `E`? Those usernames are essentially lost. In the sections below,
+we'll implement an alternative strategy as an example.
+
+### Merging the Lists
+
+To avoid losing data like this, a better strategy would be to merge the
+lists. We can modify our original resolver function to accomplish
+precisely that and will also store the resulting `User` object:
+
+```ruby
+def longest_friends_list_resolver(riak_object)
+  friends_list = []
+  if riak_object.conflict?
+    riak_object.siblings.each do |sibling|
+      friends_list.push(sibling.data['friends'])
+    end
+    riak_object.content.data = friends_list.uniq
+  else
+    riak_object.content
+  end
+end
+```
+
+
+
+## Riak Data Types
+
+An important thing to always bear in mind when working with conflict
+resolution is that Riak offers a variety of [[Data Types]] that have
+specific conflict resolution mechanics built in. If you have data that
+can be modeled as a [[counter|Data Types#Counters]], [[set|Data
+Types#Sets]], or [[map|Data Types#Maps]], then you should seriously
+consider using those Data Types instead of creating your own
+application-side resolution logic.
+
+In the example above, we were dealing with conflict resolution within a
+set, in particular the `friends` list associated with each `User`
+object. The merge operation that we built to handle conflict resolution
+is analogous to the resolution logic that is built into Riak sets. For
+more information on how you could potentially replace the client-side
+resolution that we implemented above, see our [[tutorial on Riak
+sets|Using Data Types#Sets]].
