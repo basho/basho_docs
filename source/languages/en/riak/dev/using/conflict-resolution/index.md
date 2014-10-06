@@ -8,9 +8,9 @@ keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 ---
 
 One of Riak's central goals is high availability. It was built as a
-multi-node system in which any [[node|Riak Glossary#node]] is capable of
-receiving requests without requiring that each node participate in each
-request.
+[[clustered|Clusters]] system in which any [[node|Riak Glossary#node]]
+is capable of receiving requests without requiring that every node
+participate in every request.
 
 If you are using Riak in an [[eventually consistent|Eventual
 Consistency]] way, conflicts between object values on different nodes is
@@ -20,13 +20,14 @@ objects. Instructions on using vector clocks can be found in the section
 [[below|Conflict Resolution#Siblings]].
 
 But even when you use [[vector clocks]] \(or their close equivalent,
-[[dotted version vectors]]), Riak cannot always decide which value is
+[[dotted version vectors]]) Riak cannot always decide which value is
 most causally recent, especially in cases involving concurrent updates.
-How Riak behaves in that case is your choice. A list of options is
-available in the section on client- and server-side resolution
-[[below|Conflict Resolution#Client-and-Server-side-Resolution]].
-
-In general, we recommend one of the following options:
+How does Riak behave when vector clocks or dotted version vectors can't
+decide on a value? That is your choice. A full listing of available
+options can be found in the [[section below|Conflict
+Resolution#Client-and-Server-side-Conflict-Resolution]]. For the time
+being, please bear in mind that we strongly recommend one of the
+following two options:
 
 1. If your data can be modeled as one of the currently available [[Riak
    Data Types|Data Types]], we recommend using one of these types,
@@ -39,12 +40,9 @@ In general, we recommend one of the following options:
    **conflict resolution strategy** can be tricky, but it has clear
    advantages over other approaches.
 
-For examples of application-side conflict resolution, we have tutorials
-available for the following client libraries:
-
-* [[Java|Conflict Resolution: Java]]
-* [[Ruby|Conflict Resolution: Ruby]]
-* [[Python|Conflict Resolution: Python]]
+Because Riak allows for a mixed approach when it comes to how you store
+and manage data, you can apply multiple conflict resolution strategies
+within a cluster.
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
@@ -55,7 +53,8 @@ strong consistency feature, please refer to the following documents:
 
 * [[Using Strong Consistency]] --- A guide for developers<br />
 * [[Managing Strong Consistency]] --- A guide for operators<br />
-* [[Strong Consistency]] --- A theoretical treatment of strong consistency
+* [[Strong Consistency]] --- A more theoretical explication of strong
+  consistency
 </div>
 
 ## Client- and Server-side Conflict Resolution
@@ -142,6 +141,13 @@ to avoid client-side sibling resolution, you have a few options:
   cluster. If you set the `buckets.default.allow_mult` parameter to
   `false`, all bucket types that you create will have `allow_mult` set
   to `false` by default.
+
+For examples of application-side conflict resolution, we have tutorials
+available for the following client libraries:
+
+* [[Java|Conflict Resolution: Java]]
+* [[Ruby|Conflict Resolution: Ruby]]
+* [[Python|Conflict Resolution: Python]]
 
 ## Vector Clocks and Relationships Between Objects
 
