@@ -168,14 +168,13 @@ Below is the general form for your `app.config` file:
 ]},
 ```
 
-Note that in each of the subsections of the `multi_backend` setting,
-the name of each backend you wish to configure can be anything you would
-like as long as it ends in `_mult`. Directly after naming the backend,
-you must specify which of the backends corresponds to that name, i.e.
-`riak_kv_bitcask_backend`, `riak_kv_eleveldb_backend`, or
-`riak_kv_memory_backend`. Once you have done that, the various
-configurations for each named backend can be set as objects in an Erlang
-list.
+Note that in each of the subsections of the `multi_backend` setting, the
+name of each backend you wish to configure can be anything you would
+like. Directly after naming the backend, you must specify which of the
+backends corresponds to that name, i.e.  `riak_kv_bitcask_backend`,
+`riak_kv_eleveldb_backend`, or `riak_kv_memory_backend`. Once you have
+done that, the various configurations for each named backend can be set
+as objects in an Erlang list.
 
 ## Example Configuration
 
