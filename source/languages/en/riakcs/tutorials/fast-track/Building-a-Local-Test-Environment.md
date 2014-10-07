@@ -446,7 +446,7 @@ cluster commit` to complete the join process. More information is
 available in the [[Command Line Tools|riak-admin Command Line#cluster]]
 documentation.
 
-<div class="note"
+<div class="note">
 <div class="title">Note</div>
 <strong>Riak CS is not designed to function directly on TCP port 80, and
 should not be operated in a manner which exposes it directly to the
