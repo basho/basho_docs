@@ -7,26 +7,27 @@ audience: intermediate
 keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 ---
 
-One of Riak's central goals is high availability. It was built as a
-[[clustered|Clusters]] system in which any [[node|Riak Glossary#node]]
-is capable of receiving requests without requiring that every node
-participate in every request.
+One of Riak's [[central goals|Why Riak]] is high availability. It was
+built as a [[clustered|Clusters]] system in which any [[node|Riak
+Glossary#node]] is capable of receiving requests without requiring that
+every node participate in every request.
 
 If you are using Riak in an [[eventually consistent|Eventual
 Consistency]] way, conflicts between object values on different nodes is
 unavoidable. Often, Riak can resolve these conflicts on its own
-internally, especially if you use [[vector clocks]] when updating
-objects. Instructions on using vector clocks can be found in the section
-[[below|Conflict Resolution#Siblings]].
+internally, especially if you use context objects, i.e. [[vector
+clocks]] or [[dotted version vectors]], when updating objects.
+Instructions on this can be found in the section [[below|Conflict
+Resolution#Siblings]].
 
-But even when you use [[vector clocks]] \(or their close equivalent,
-[[dotted version vectors]]) Riak cannot always decide which value is
-most causally recent, especially in cases involving concurrent updates.
-How does Riak behave when vector clocks or dotted version vectors can't
-decide on a value? That is your choice. A full listing of available
-options can be found in the [[section below|Conflict
-Resolution#Client-and-Server-side-Conflict-Resolution]]. For the time
-being, please bear in mind that we strongly recommend one of the
+But even when you use vector clocks or dotted version vectors, Riak
+cannot always decide which value is most causally recent, especially in
+cases involving concurrent updates. So how does Riak behave when vector
+clocks or dotted version vectors can't decide on a value? That is your
+choice. A full listing of available options can be found in the
+[[section below|Conflict
+Resolution#Client-and-Server-side-Conflict-Resolution]]. For now,
+though, please bear in mind that we strongly recommend one of the
 following two options:
 
 1. If your data can be modeled as one of the currently available [[Riak
@@ -40,9 +41,8 @@ following two options:
    **conflict resolution strategy** can be tricky, but it has clear
    advantages over other approaches.
 
-Because Riak allows for a mixed approach when it comes to how you store
-and manage data, you can apply multiple conflict resolution strategies
-within a cluster.
+Because Riak allows for a mixed approach when storing and managing data,
+you can apply multiple conflict resolution strategies within a cluster.
 
 <div class="note">
 <div class="title">Note on strong consistency</div>
@@ -62,7 +62,7 @@ strong consistency feature, please refer to the following documents:
 Riak's eventual consistency model is powerful because Riak is
 fundamentally non-opinionated about how data resolution takes place.
 While Riak _does_ have a set of [[defaults|Replication
-Properties#available-parameters]], there is a variety of general
+Properties#available-parameters]], there are a variety of general
 approaches to conflict resolution that are available. In Riak, you can
 mix and match conflict resolution strategies at the bucket level,
 [[using bucket types]]. The most important [[bucket properties|Buckets]]
@@ -90,12 +90,12 @@ last-write-wins strategy, described directly below.
 ### Last-write-wins
 
 Another way to manage conflicts is to set `allow_mult` to `false`, as
-with timestamp-based resolution, and the `[[last_write_wins|Conflict
-Resolution#last-write-wins]]` parameter to `true`. This produces a
-so-called last-write-wins (LWW) strategy whereby all conflicts are
-resolved internally in Riak on the basis of [[vector clocks]]. While
-this strategy is preferred to timestamp-based strategies because it
-takes object update causality into account instead of timestamps, it
+with timestamp-based resolution, while also setting the
+`[[last_write_wins|Conflict Resolution#last-write-wins]]` parameter to
+`true`. This produces a so-called last-write-wins (LWW) strategy whereby
+all conflicts are resolved internally in Riak on the basis of [[vector
+clocks]]. While this strategy is preferred to timestamp-based strategies
+because it takes object update causality into account timestamps, it
 still bears the risk that writes will be lost.
 
 The problem is that LWW will necessarily drop some writes in the case of
@@ -120,64 +120,69 @@ setting `allow_mult` to `true` has the following benefits:
 
 * Riak will retain writes even in the case of concurrent updates to a
   key, which enables you to capture the benefits of high availability
-  with a lower risk of data loss
+  with a far lower risk of data loss
 * If your application encounters siblings, it can apply its own
-  use case-specific conflict resolution logic
+  use-case-specific conflict resolution logic
 
 Conflict resolution in Riak can be a complex business, but the presence
-of this variety of options means that all requests to Riak can always be
+of this variety of options means that requests to Riak can always be
 made in accordance with your data model(s), business needs, and use
-cases. For an example of client-side sibling resolution, see the
-[[section below|Conflict Resolution#Sibling-Resolution-Example]].
+cases. For examples of client-side sibling resolution, see the following
+client-library-specific docs:
+
+* [[Java|Conflict Resolution: Java]]
+* [[Ruby|Conflict Resolution: Ruby]]
+* [[Python|Conflict Resolution: Python]]
 
 In Riak versions 2.0 and later, `allow_mult` is set to `true` by default
-for any [[bucket types|Using Bucket Types]] that you create. If you wish
-to avoid client-side sibling resolution, you have a few options:
+for any [[bucket types|Using Bucket Types]] that you create. This means
+that if you wish to avoid client-side sibling resolution, you have a few
+options:
 
 * Explicitly create and activate [[bucket types|Using Bucket Types]]
-  that set `allow_mult` to `false`.
+  that set `allow_mult` to `false`
 * Use Riak's [[configuration files]] to change the [[default bucket
   properties|Configuration Files#Default-Bucket-Properties]] for your
   cluster. If you set the `buckets.default.allow_mult` parameter to
   `false`, all bucket types that you create will have `allow_mult` set
   to `false` by default.
 
-For examples of application-side conflict resolution, we have tutorials
-available for the following client libraries:
+## Context Objects
 
-* [[Java|Conflict Resolution: Java]]
-* [[Ruby|Conflict Resolution: Ruby]]
-* [[Python|Conflict Resolution: Python]]
+When a value is stored in Riak, it is tagged with a **context object**,
+i.e. either a [[vector clock|Vector Clocks]] or a [[dotted version
+vector|Dotted Version Vectors]], establishing the object's initial
+version. That vector clock changes value over time if the object is
+updated.
 
-## Vector Clocks and Relationships Between Objects
+Context objects enable Riak to compare the different values of objects
+stored in Riak and to determine a number of important things about those
+values:
 
-When a value is stored in Riak, it is tagged with a vector clock,
-establishing its initial version. That vector clock changes value over
-time if the object is updated.
+ * Whether one value is a direct descendant of the other
+ * Whether the values are direct descendants of a common parent
+ * Whether the values are unrelated in recent heritage
 
-Vector clocks enable Riak to compare objects stored in a key and
-determine a number of important aspects of the relationship between the
-objects:
+Using the information provided by a context object, Riak is frequently,
+though not always, able to resolve conflicts between values without
+producing siblings.
 
- * Whether one object is a direct descendant of the other
- * Whether the objects are direct descendants of a common parent
- * Whether the objects are unrelated in recent heritage
-
-Using this knowledge, Riak is frequently, though not always, able to
-resolve conflicts without producing siblings.
-
-Vector clocks are non-human-readable and look something like this:
+Vector clocks and dotted version vectors are non human readable and look
+something like this:
 
 ```
 a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 ```
 
-If `allow_mult` is set to `true`, you should _always_ [[use vector
-clocks|Conflict Resolution#Siblings]] when updating objects, _unless
-you are certain that no object exists under that key_. Failing to use
-vector clocks can lead to [[sibling explosion|Latency
-Reduction#Siblings]], which can produce a variety of problems in your
-cluster.
+If `allow_mult` is set to `true`, you should _always_ use context
+objects when updating objects, _unless you are certain that no object
+exists under that key_. Failing to use context objects with mutable
+data, especially for objects that are frequently updated, can lead to
+[[sibling explosion|Latency Reduction#Siblings]], which can produce a
+variety of problems in your cluster. Fortunately, much of the work
+involved with using context objects is handled automatically by Basho's
+official [[client libraries]]. Examples can be found in the section
+on siblings immediately below.
 
 ## Siblings
 
@@ -506,6 +511,7 @@ better performance. Some use cases where you might want to use
 (no updates).
 
 <div class="note">
+<div class="title">Note on combining <code>allow_mult</code> and <code>last_write_wins</code></div>
 The combination of setting both the <code>allow_mult</code> and
 <code>last_write_wins</code> properties to <code>true</code> leads to
 undefined behavior and should not be used.
@@ -518,9 +524,9 @@ parameters which can be set for any bucket type that you create:
 
 Parameter | Default value | Description
 :---------|:--------------|:-----------
-`small_vclock` | `50` | If the length of the vector clock list is smaller than this value, the list's entries will not be pruned.
+`small_vclock` | `50` | If the length of the vector clock list is smaller than this value, the list's entries will not be pruned
 `big_vclock` | `50` | If the length of the vector clock list is larger than this value, the list will be pruned
-`young_vclock` | `20` | If a vector clock entry is younger than this value (in milliseconds), it will not be pruned.
+`young_vclock` | `20` | If a vector clock entry is younger than this value (in milliseconds), it will not be pruned
 `old_vclock` | `86400` (one day) | If a vector clock entry is older than this value (in milliseconds), it will be pruned
 
 This diagram shows how the values of these parameters dictate the vector
