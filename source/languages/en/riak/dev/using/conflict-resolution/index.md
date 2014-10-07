@@ -187,31 +187,31 @@ on siblings immediately below.
 ## Siblings
 
 A **sibling** is created when Riak is unable to resolve the canonical
-version of an object being stored. The following scenarios can create
-siblings inside of a single object:
+version of an object being stored, i.e. when Riak is presented with
+multiple possible values for an object and can't figure out which one is
+most causally recent. The following scenarios can create sibling values
+inside of a single object:
 
 1. **Concurrent writes** --- If two writes occur simultaneously from
-   clients with the same vector clock value, Riak will not be able to
-   choose a single value to store, in which case the object will be
-   given a sibling. These writes could happen on the same node or on
-   different nodes.
-
+clients, Riak may not be able to choose a single value to store, in
+which case the object will be given a sibling. These writes could happen
+on the same node or on different nodes.
 2. **Stale Vector Clock** --- Writes from any client using a stale
-   vector clock value. This is a less likely scenario from a
-   well-behaved client that performs a read (to fetch the current vector
-   clock) before performing a write. A situation may occur, however, in
-   which a write happens from a different client while the read/write
-   cycle is taking place. This would cause the first client to issue the
-   write with an old vector clock value and a sibling to be created. A
-   misbehaving client could continually create siblings if it habitually
-   issued writes with a stale vector clock.
-
-3. **Missing Vector Clock** --- Writes to an existing object without a
-   vector clock. While the least likely scenario, it can happen when
-   manipulating an object using a client like `curl` and forgetting to
-   set the `X-Riak-Vclock` header or using a [[Riak client
-   library|Client Libraries]] and failing to take advantage of vector
-   clock-related functionality.
+context object value. This is a less likely scenario if a client updates
+the object by first reads an object, fetches the context object
+currently attached to the object, and then returns that context object
+to Riak when performing the update. However, even if a client follows
+this protocol when performing updates, a situation may occur in which an
+update happens from a different client while the read/write cycle is
+taking place. This may cause the first client to issue the write with an
+old context object value and for a sibling to be created. A client is
+"misbehaved" if it habitually updates objects with a stale or no context
+object.
+3. **Missing Context Object** --- If an object is updated with no
+context object attached, siblings are very likely to be created. This is
+an unlikely scenario if you're using a Basho client library, but it
+_can_ happen if you are manipulating objects using a client like `curl`
+and forgetting to set the `X-Riak-Vclock` header
 
 ### Siblings in Action
 
@@ -225,10 +225,10 @@ riak-admin bucket-type activate siblings_allowed
 riak-admin bucket-type status siblings_allowed
 ```
 
-If the type has been properly activated, the `status` command should
+If the type has been activated, running the `status` command should
 return `siblings_allowed is active`. Now, we'll create two objects and
 write both of them to the same key without first fetching the object
-(which obtains the vector clock):
+(which obtains the context object):
 
 ```java
 Location bestCharacterKey =
@@ -309,8 +309,9 @@ guide|Five-Minute Install#setting-up-your-riak-client]].
 
 ### V-tags
 
-At this point, multiple objects are stored in the same key. Let's see
-what happens if we try to read contents of the object:
+At this point, multiple objects have been stored in the same key without
+passing any context objects to Riak. Let's see what happens if we try to
+read contents of the object:
 
 ```java
 Location bestCharacterKey =
@@ -338,7 +339,7 @@ obj.siblings
 curl http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 ```
 
-We should get this response:
+Uh-oh! Siblings have been found. We should get this response:
 
 ```java
 com.basho.riak.client.cap.UnresolvedConflictException: Siblings found
@@ -358,12 +359,11 @@ Siblings:
 6zY2mUCFPEoL834vYCDmPe
 ```
 
-As you can see, reading an object with multiple values will result in
+As you can see, reading an object with sibling values will result in
 some form of "multiple choices" response (e.g. `300 Multiple Choices` in
-HTTP).
-
-If you want to view all objects using the HTTP interface, you can attach
-an `Accept: multipart/mixed` header to your request:
+HTTP). If you're using the HTTP interface and want to view all sibling
+values, you can attach an `Accept: multipart/mixed` header to your
+request:
 
 ```curl
 curl -H "Accept: multipart/mixed" \
@@ -383,7 +383,7 @@ stimpy
 If you select the first of the two siblings and retrieve its value, you
 should see `Ren` and not `Stimpy`.
 
-### Conflict Resolution Using Vector Clocks
+### Conflict Resolution Using Context Objects
 
 Once you are presented with multiple options for a single value, you
 must determine the correct value. In an application, this can be done
@@ -400,7 +400,7 @@ order to resolve the conflict, we need to do three things:
 3. Write the object back to the `best_character` key
 
 What happens when we fetch the object first, prior to the update, is
-that the object handled by the client has a vector clock attached. At
+that the object handled by the client has a context object attached. At
 that point, we can modify the object's value, and when we write the
 object back to Riak, _the vector clock will automatically be attached
 to it_. Let's see what that looks like in practice:
@@ -460,11 +460,10 @@ X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 
 <div class="note">
 <div class="title">Concurrent conflict resolution</div>
-It should be noted that if you are trying to resolve conflicts
-automatically, you can end up in a condition in which two clients are
-simultaneously resolving and creating new conflicts. To avoid a
-pathological divergence, you should be sure to limit the number of
-reconciliations and fail once that limit has been exceeded.
+It should be noted that it is possible to have two clients that are
+simultaneously engaging in conflict resolution. To avoid a pathological
+divergence, you should be sure to limit the number of reconciliations
+and fail once that limit has been exceeded.
 </div>
 
 ### Sibling Explosion
