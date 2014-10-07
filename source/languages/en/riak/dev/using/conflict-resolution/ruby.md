@@ -189,11 +189,16 @@ precisely that and will also store the resulting `User` object:
 
 ```ruby
 def longest_friends_list_resolver(riak_object)
+  # An empty array for use later on
   friends_list = []
   if riak_object.conflict?
+    # The "friends" arrays for all siblings will be merged into one
+    # array
     riak_object.siblings.each do |sibling|
       friends_list.push(sibling.data['friends'])
     end
+    # We'll invoke the "uniq" method to ensure that there are no
+    # duplicates in the "friends" array and then set that array
     riak_object.content.data = friends_list.uniq
   else
     riak_object.content
@@ -201,6 +206,7 @@ def longest_friends_list_resolver(riak_object)
 end
 ```
 
+Here, we've essentially
 
 
 ## Riak Data Types
