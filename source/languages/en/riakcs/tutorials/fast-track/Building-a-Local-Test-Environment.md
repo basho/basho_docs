@@ -267,7 +267,7 @@ for this or set hostnames. If you choose to set hostnames, you should
 ensure that the hostnames are resolvable by DNS or set in `/etc/hosts`
 on all nodes.
 
-<div class="note"
+<div class="note">
 <div class="title">Note</div>
 Service names require at least one period in the name
 </div>
