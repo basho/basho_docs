@@ -309,7 +309,8 @@ sudo stanchion start
 sudo riak-cs start
 ```
 
-<div class="info"><div class="title">Basho Tip</div
+<div class="info">
+<div class="title">Basho Tip</div>
 The order in which you start the services is important as each is a
 dependency for the next
 </div>
@@ -322,7 +323,7 @@ and able to successfully communicate with Riak.
 riak-cs ping
 ```
 
-<div class="note"
+<div class="note">
 <div class="title">Note</div>
 The <code>riak-cs ping</code> command will fail if the Riak CS node is not
 able to communicate with the supporting Riak node. Ensure all components
