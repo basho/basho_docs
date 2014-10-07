@@ -605,14 +605,15 @@ pool, expressed as a <code>{FixedSize, OverflowSize}</code> tuple.</td>
 <tr>
 <td><code>rewrite_module</code></td>
 <td></td>
-<td></td>
-<td></td>
+<td>The module used to handle object rewrites in Riak CS.</td>
+<td><code>riak_cs_s3_rewrite</code></td>
 </tr>
 
 <tr>
 <td><code>auth_module</code></td>
 <td></td>
-<td></td>
+<td>The module used to handle authentication in Riak CS.</td>
+<td><code>riak_cs_s3_auth</code></td>
 </tr>
 
 <tr>
@@ -787,19 +788,6 @@ href="https://www.sourceware.org/systemtap/SystemTap_Beginners_Guide/userspace-p
 SystemTamp</a>, set this option to <code>true</code>.</td>
 <td><code>false</code></td>
 </tr>
-
-<tr>
-<td><code>webmachine_log_handler</code></td>
-<td><code>log_handlers</code></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>riak_cs_access_log_handler</code></td>
-<td><code>log_handlers</code></td>
-<td></td>
-</tr>
-
 </tbody>
 </table>
 
@@ -821,6 +809,7 @@ SystemTamp</a>, set this option to <code>true</code>.</td>
 <td><code>webmachine_log_handler</code></td>
 <td><code>log_handlers</code></td>
 <td></td>
+<td></td>
 </tr>
 
 <tr>
@@ -968,31 +957,71 @@ SystemTamp</a>, set this option to <code>true</code>.</td>
 <td></td>
 </tr>
 
+</tbody>
+</table>
+
+## lager Settings
+
+[lager](https://github.com/basho/lager) is the logging framework used by
+Riak CS.
+
+<table>
+<thead>
 <tr>
-<td><code></code></td>
-<td></td>
-<td></td>
+<th>Config</th>
+<th>Subsection</th>
+<th>Description</th>
+<th>Default</th>
 </tr>
+</thead>
+
+<tbody>
 
 <tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td><code></code></td>
+<td><code>handlers</code></td>
 <td></td>
 <td></td>
 </tr>
 
 </tbody>
 </table>
+
+## SASL Settings
+
+[sasl](http://www.erlang.org/doc/man/sasl_app.html) is Erlang's built-in
+error logger.
+
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Subsection</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><code>sasl_error_logger</code></td>
+<td>Whether to use Erlang's built-in error logger. Set to
+<code>true</code> to enable it or <code>false</code> to disable it. It
+is disabled by default.</td>
+<td><code>false</code></td>
+</tr>
+
+</tbody>
+</table>
+
+<!--
+
+For use in constructing tables
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+-->
