@@ -200,28 +200,24 @@ precisely that and will also store the resulting `User` object:
 from riak.content import RiakContent
 
 def longest_friends_list_resolver(riak_object):
-    # We start with an empty list
-    friends_list_builder = []
+    # We start with an empty set
+    friends_list = set()
 
-    # Then we concatenate all the friends lists into one
+    # Then we add all the friends from all siblings to the set
     for user in riak_object.siblings:
-        for friend in user.data['friends']:
-            friends_list_builder.append(friend)
-
-    # Then we remove duplicates from the list
-    friends_list = list(set(friends_list_builder))
+        friends_list.update(user.data['friends'])
 
     # Then we make a new User object. First, we fetch the username from
     # any one of the siblings, then we pass in our new friends list.
-    username = riak_object.siblings[0].data['username']
-    new_user = User(username, friends_list)
+    username = riak_object.siblings[0].data['friends']
+    new_user = User(username, list(friends_list))
 
-    # Now we set the siblings property to include just one RiakContent
-    # object instead of multiple
-    riak_object.siblings = [RiakContent(riak_object, data=new_user.to_json())]
+    # Now we reuse the first sibling as a container for the merged data
+    riak_object.siblings[0].data = new_user.to_json()
 
-    # Then we store the resulting object
-    riak_object.store()
+    # And finally we set the siblings property to include just the
+    # single, resolved sibling
+    riak_object.siblings = [riak_object.siblings[0]]
 ```
 
 The drawback to this approach is the following: with a conflict
