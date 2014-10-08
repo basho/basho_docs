@@ -32,7 +32,7 @@ obj.siblings
 
 So what happens if the length of `obj.siblings` is greater than 1, as in
 the case above? The easiest way to resolve siblings automatically with
-the Python client is to create a conflict resolving function that takes
+the Python client is to create a conflict-resolving function that takes
 a list of sibling values and returns a single value. Such resolution
 functions can be registered either at the object level or the bucket
 level. A more complete explanation can be found in the section directly
@@ -67,7 +67,8 @@ as we'll be storing each `User` object as JSON:
 
 ```python
 class User(object):
-    def __init__(self, friends):
+    def __init__(self, username, friends):
+
         self.friends = friends
 
     def to_json(self):

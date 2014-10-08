@@ -54,27 +54,36 @@ siblings in certain cases---siblings that our application will need to
 be equipped to resolve when they arise.
 
 The question that we need to ask ourselves now is this: if a given user
-has conflict lists, which list should be deemed more "correct?" What
-criteria should be applied? Should the lists be merged? Should we pick a
-list at random and deem that correct? We'll keep it simple here and say
-that the following criterion will hold: if multiple conflict lists
-exist, _the longer list will be the one that our application deems
-correct_. While this might not make sense in real-world applications,
-it's a good jumping-off point.
+has sibling values, i.e. if there are multiple `friends` lists and Riak
+can't decide which one is most causally recent, which list should be
+deemed "correct" from the standpoint of the application? What criteria
+should be applied in making that decision? Should the lists be merged?
+Should we pick a `User` object at random?
 
-### Creating our Data Class
+This decision will always be yours to make. Here, though, we'll keep it
+simple and say that the following criterion will hold: if conflicting
+lists exist, _the longer list will be the one that our application deems
+correct_. So if the user `user1234` has a sibling conflict where one
+possible value has `friends` lists with 100, 75, and 10 friends,
+respectively, the list of 100 friends will win out.  While this might
+not make sense in real-world applications, it's a good jumping-off
+point. We'll explore the drawbacks of this approach, as well as a better
+alternative, in this document as well.
+
+### Creating Our Data Class
 
 We'll start by creating a `User` class for each user's data. Each `User`
-object will consist of a `friends` property that lists the usernames, as
-strings, of the user's friends. We'll use a `Set` for the `friends`
-property to avoid duplicates.
+object will consist of a `username` as well as a `friends` property that
+lists the usernames, as strings, of the user's friends. We'll use a
+`Set` for the `friends` property to avoid duplicates.
 
 ```java
 public class User {
     public String username;
     public Set<String> friends;
 
-    public User(Set<String> friends) {
+    public User(String username, Set<String> friends) {
+        this.username = username;
         this.friends = friends;
     }
 }
@@ -85,6 +94,7 @@ Here's an example of instantiating a new `User` object:
 ```java
 Set<String> friends = new HashSet<String>();
 friends.add("fred");
+friends.add("barney");
 User bashobunny = new User("bashobunny", friends);
 ```
 
@@ -113,21 +123,22 @@ public class UserResolver implements ConflictResolver<User> {
         // And if there are multiple User objects, return the object
         // with the longest list
         } else {
-        int longestList = 0;
-        User userWithLongestList;
+            int longestList = 0;
+            User userWithLongestList;
 
-        // Iterate through the User objects to check for the longest
-        // list
-        for (User user : siblings) {
-            if (user.friends.size() > longestList) {
-                userWithLongestList = user;
-                longestList = user.friends.size();
+            // Iterate through the User objects to check for the longest
+            // list
+            for (User user : siblings) {
+                if (user.friends.size() > longestList) {
+                    userWithLongestList = user;
+                    longestList = user.friends.size();
+                }
             }
+            // If all sibling User objects have a friends list with a length
+            // of 0, it doesn't matter which sibling is selected, so we'll
+            // simply select the first one in the list:
+            return userWithLongestList == null ? siblings.get(0) : userWithLongestList;
         }
-        // If all sibling User objects have a friends list with a length
-        // of 0, it doesn't matter which sibling is selected, so we'll
-        // simply select the first one in the list:
-        return userWithLongestList == null ? siblings.get(0) : userWithLongestList;
     }
 }
 ```
@@ -142,9 +153,9 @@ ConflictResolver<User> userResolver = factory.getConflictResolver(new UserResolv
 ```
 
 With the resolver registered, the resolution logic that we have created
-resolve siblings automatically upon read. Registering a custom conflict
-resolver can occur at any point in the application's lifecycle and will
-be applied on all reads that involve that object type.
+will resolve siblings automatically upon read. Registering a custom
+conflict resolver can occur at any point in the application's lifecycle
+and will be applied on all reads that involve that object type.
 
 ## Conflict Resolution and Writes
 
@@ -180,13 +191,13 @@ public class UserResolver implements ConflictResolver<User> throws Exception {
             storeUser(userWithLongestList, loc);
             return userWithLongestList;
         }
+    }
 
-        public void storeUser(User user, Location location) throws Exception {
-            StoreValue storeOp = new StoreValue.Builder(user)
-                    .withLocation(location)
-                    .build();
-            client.execute(storeOp.build());
-        }
+    public void storeUser(User user, Location location) throws Exception {
+        StoreValue storeOp = new StoreValue.Builder(user)
+                .withLocation(location)
+                .build();
+        client.execute(storeOp.build());
     }
 }
 ```
@@ -197,7 +208,7 @@ application takes to be correct.
 
 The bad news is that this operation may still create siblings, for
 example if the write is performed simultaneously with another write. The
-good news, however, is that that is perfectly okay.  Our application is
+good news, however, is that that is perfectly okay. Our application is
 now designed to gracefully handle siblings whenever they are
 encountered, and the resolution logic we choose will now be applied
 automatically every time.
@@ -210,9 +221,9 @@ not a good resolution strategy for our social networking application
 because it means that unwanted data loss is inevitable. If one friends
 list contains `A`, `B`, and `C` and the other contains `D` and `E`, the
 list containing `A`, `B`, and `C` will be chosen. So what about friends
-`D` and `E`? Those usernames are essentially lost forever. In the
-sections below, we'll implement some other conflict resolution
-strategies as examples.
+`D` and `E`? Those usernames are essentially lost. In the sections
+below, we'll implement some other conflict resolution strategies as
+examples.
 
 ### Merging the Lists
 
@@ -224,29 +235,51 @@ lists. We can modify our original `resolve` function in our
 public class UserResolver implements ConflictResolver<User> {
     @Override
     public User resolve(List<User> siblings) {
+        // We apply the same logic as before, returning null if the
+        // key is empty and returning the one sibling if there is only
+        // one User in the siblings list
         if (siblings.size == 0) {
             return null;
         } else if (siblings.size == 1) {
             return siblings.get(0);
         } else {
+            // We begin with an empty Set
             Set<String> setBuilder = new HashSet<String>();
+
+            // We know that all User objects in the List will have the
+            // same username, since we used the username for the key, so
+            // we can fetch the username of any User in the list:
+            String username = siblings.get(0).username;
+
+            // Now for each User object in the list we add the friends
+            // list to our empty Set
             for (User user : siblings) {
                 setBuilder.addAll(user.friends);
             }
-            return new User(setBuilder);
+
+            // Then we return a new User object that takes the Set we
+            // built as the friends list
+            return new User(username, setBuilder);
+
+            // Notice that we do not store the User object in this
+            // example. That can be accomplished in similar fashion to
+            // the example above
         }
     }
 }
 ```
 
 Since the `friends` list is a Java `Set`, we don't need to worry about
-duplicate usernames. With a conflict resolution strategy like this, it's
-more or less inevitable that a user will remove a friend from their
-friends list, and that that friend will end up back on the list during a
-conflict resolution operation. While that's certainly not desirable,
-that is likely better than the alternative proposed in the first
-example, which entails usernames being simply dropped from friends
-lists.
+duplicate usernames.
+
+The drawback to this approach is the following: with a conflict
+resolution strategy like this, it's more or less inevitable that a user
+will remove a friend from their friends list, and that that friend will
+end up back on the list during a conflict resolution operation. While
+that's certainly not desirable, that is likely better than the
+alternative proposed in the first example, which entails usernames being
+simply dropped from friends lists. Sibling resolution strategies almost
+always carry potential drawbacks of this sort.
 
 ## Riak Data Types
 
