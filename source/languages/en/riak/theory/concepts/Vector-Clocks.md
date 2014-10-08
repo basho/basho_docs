@@ -40,8 +40,10 @@ It is also possible to configure Riak to store multiple objects in a
 single key, i.e. for an object to have different values on different
 nodes. Objects stored this way are called **siblings**. You can instruct
 Riak to allow for sibling creation by setting the the `allow_mult`
-bucket property to `false` for a specific bucket, preferably [[using
-bucket types]].
+bucket property to `true` for a specific bucket, preferably [[using
+bucket types]].  Note that in Riak versions 2.0 and later, `allow_mult` 
+is set to `true` by default for any bucket types that you create, 
+unless otherwise specified.
 
 This is where vector clocks come in. Vector clocks are metadata attached
 to all Riak objects that enable Riak to determine the causal
