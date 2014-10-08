@@ -169,6 +169,7 @@ riak:
           - "[[Production Checklist]]"
           - "[[Rolling Upgrades]]"
           - "[[Rolling Downgrades]]"
+          - "[[Cold Upgrades and Downgrades]]"
 
 
   - title: "Theory & Concepts"
