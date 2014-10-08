@@ -17,11 +17,13 @@ client](https://github.com/basho/riak-java-client).
 ## How the Java Client Handles Conflict Resolution
 
 The official Riak Java client provides a `ConflictResolver` interface
-that requires you to implement a `resolve` method that takes a Java
-`List` of objects os a specific of type that are stored in Riak and
-produces a single object of that type. In other words, a `resolve`
-function must convert a `List<T>` into a single `T`. Here's an example
-for the class `Foo`:
+for handling sibling resolution. This interface requires that you
+implement a `resolve` method that takes a Java `List` of objects of a
+specific type that are stored in Riak and produces a single object of
+that type, i.e. converts a `List<T>` to a single `T`. Once that
+interface has been implemented, it can be registered as a singleton and
+thereby applied to all read operations on a specific data type. Below is
+an example resolver for the class `Foo`:
 
 ```java
 import com.basho.riak.client.api.cap.ConflictResolver;
@@ -35,28 +37,30 @@ public class FooResolver implements ConflictResolver<Foo> {
 ```
 
 What happens within the `resolve` method is up to you and will always
-depend on the use case at hand. In this tutorial, however, we'll provide
-a simple example to get you started.
+depend on the use case at hand. You can implement a resolver that
+selects a random `Foo` from the list, chooses the `Foo` with the most
+recent timestamp (if you've set up the class `Foo` to have timestamps),
+etc. In this tutorial we'll provide a simple example to get you started.
 
 ## Basic Conflict Resolution Example
 
 Let's say that we're building a social network application and storing
-lists of usernames representing each user's "friends." Each user will
-bear the class `User`, which we'll create below. All of the data for our
-application will be stored in buckets that bear the [[bucket type|Using
-Bucket Types]] `siblings`, and for this bucket type `allow_mult` is set
-to `true`, which means that Riak will generate siblings in certain
-cases---siblings that our application will need to be equipped to
-resolve when they arise.
+lists of usernames representing each user's "friends" in the network.
+Each user will bear the class `User`, which we'll create below. All of
+the data for our application will be stored in buckets that bear the
+[[bucket type|Using Bucket Types]] `siblings`, and for this bucket type
+`allow_mult` is set to `true`, which means that Riak will generate
+siblings in certain cases---siblings that our application will need to
+be equipped to resolve when they arise.
 
-The question that we need to ask ourselves at this point is the
-following: if a given user has conflict lists, which list should be
-deemed more "correct?" What criteria should be applied? Should the lists
-be merged? Should we pick a list at random and deem that correct? We'll
-keep it simple here and say that the following criterion will hold: if
-multiple conflict lists exist, _the longer list will be the one that our
-application deems correct_. While this might not make sense in
-real-world applications, it's a good jumping-off point.
+The question that we need to ask ourselves now is this: if a given user
+has conflict lists, which list should be deemed more "correct?" What
+criteria should be applied? Should the lists be merged? Should we pick a
+list at random and deem that correct? We'll keep it simple here and say
+that the following criterion will hold: if multiple conflict lists
+exist, _the longer list will be the one that our application deems
+correct_. While this might not make sense in real-world applications,
+it's a good jumping-off point.
 
 ### Creating our Data Class
 
