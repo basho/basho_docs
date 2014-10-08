@@ -197,25 +197,41 @@ lists. We can modify our original resolver function to accomplish
 precisely that and will also store the resulting `User` object:
 
 ```python
+from riak.content import RiakContent
+
 def longest_friends_list_resolver(riak_object):
-    friends_list = []
+    # We start with an empty list
+    friends_list_builder = []
+
+    # Then we concatenate all the friends lists into one
     for user in riak_object.siblings:
-        friends_list.append(user['friends'])
-    merged_friends_list = list(set(friends_list))
-    resolved_user = User(merged_friends_list)
-    riak_object.siblings = [resolved_user]
+        for friend in user.data['friends']:
+            friends_list_builder.append(friend)
+
+    # Then we remove duplicates from the list
+    friends_list = list(set(friends_list_builder))
+
+    # Then we make a new User object. First, we fetch the username from
+    # any one of the siblings, then we pass in our new friends list.
+    username = riak_object.siblings[0].data['username']
+    new_user = User(username, friends_list)
+
+    # Now we set the siblings property to include just one RiakContent
+    # object instead of multiple
+    riak_object.siblings = [RiakContent(riak_object, data=new_user.to_json())]
+
+    # Then we store the resulting object
     riak_object.store()
 ```
 
-Notice that the `merged_friends_list` is a Python `list` but a list
-constructed out of a Python `set`. The purpose of that operation is to
-eliminate duplicate usernames. With a conflict resolution strategy like
-this it's more or less inevitable that a user will remove a friend from
-their friends list and that that friend will end up back on the list
-during a conflict resolution operation. While that's certainly not
-desirable, that is likely better than the alternative proposed in the
-first example, which entails usernames being simply dropped from friends
-lists.
+The drawback to this approach is the following: with a conflict
+resolution strategy like this, it's more or less inevitable that a user
+will remove a friend from their friends list, and that that friend will
+end up back on the list during a conflict resolution operation. While
+that's certainly not desirable, that is likely better than the
+alternative proposed in the first example, which entails usernames being
+simply dropped from friends lists. Sibling resolution strategies almost
+always carry potential drawbacks of this sort.
 
 ## Riak Data Types
 
