@@ -57,7 +57,7 @@ net.ipv4.tcp_moderate_rcvbuf = 1
 Ideally, you should disable swap to ensure that Riak's process pages are
 not swapped. Disabling swap will allow Riak to crash in situations where
 it runs out of memory. This will leave a crash dump file, named
-`rel_crash.dump`, in the `/var/log/riak` directory which can be used to
+`erl_crash.dump`, in the `/var/log/riak` directory which can be used to
 determine the cause of the memory usage.
 
 In addition to swappiness, the below virtual memory settings help
