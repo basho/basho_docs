@@ -143,7 +143,7 @@ must be specified in the Riak configuration file for Riak CS to work:
 default['riak']['config']['riak_kv']['storage_backend'] = "riak_cs_kv_multi_backend"
 ```
 
-The Riak cookbook takes care of populating all of the other default rsequired
+The Riak cookbook takes care of populating all of the other default required
 for the `riak_cs_kv_multi_backend` to be configured correctly.
 
 ### Lager
