@@ -168,17 +168,18 @@ be undertaken depends on your application. In general, though, we
 recommend writing objects to Riak only when the application is ready to
 commit them, i.e. when all of the changes that need to be made to the
 object have been made and the application is ready to persist the state
-of the object on disk in Riak.
+of the object in Riak.
 
 Correspondingly, we recommend that updates to objects in Riak follow
 these steps:
 
-1. **Read** the object from Riak (like an HTTP `GET` request)
-2. **Resolve sibling conflicts** if they exist, allowing the application
-   to reason about one "correct" value for the object (this step is the
-   subject of this tutorial)
-3. **Modify** the object in accordance with the needs of the application
-4. **Write** the object to Riak
+1. **Read** the object from Riak
+2. **Resolving sibling conflicts** if the exist, allowing the
+application to reason about one "correct" value for the object (this
+step is the subject of this tutorial)
+3. **Modify** the object
+4. **Write** the object to Riak once the necessary changes have been
+made
 
 You can find more on writing objects to Riak, including examples from
 the official Java client library, in [[The Basics|The
