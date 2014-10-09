@@ -10,7 +10,7 @@ keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 One of Riak's [[central goals|Why Riak]] is high availability. It was
 built as a [[clustered|Clusters]] system in which any [[node|Riak
 Glossary#node]] is capable of receiving requests without requiring that
-every node participate in every request.
+every node participate in each request.
 
 If you are using Riak in an [[eventually consistent|Eventual
 Consistency]] way, conflicts between object values on different nodes is
@@ -20,12 +20,11 @@ clocks]] or [[dotted version vectors]], when updating objects.
 Instructions on this can be found in the section [[below|Conflict
 Resolution#Siblings]].
 
-But even when you use vector clocks or dotted version vectors, Riak
-cannot always decide which value is most causally recent, especially in
-cases involving concurrent updates. So how does Riak behave when vector
-clocks or dotted version vectors can't decide on a value? That is your
-choice. A full listing of available options can be found in the
-[[section below|Conflict
+But even when you use context objects, Riak cannot always decide which
+value is most causally recent, especially in cases involving concurrent
+updates. So how does Riak behave when vector clocks or dotted version
+vectors can't decide on a value? That is your choice. A full listing of
+available options can be found in the [[section below|Conflict
 Resolution#Client-and-Server-side-Conflict-Resolution]]. For now,
 though, please bear in mind that we strongly recommend one of the
 following two options:
@@ -196,7 +195,7 @@ inside of a single object:
 clients, Riak may not be able to choose a single value to store, in
 which case the object will be given a sibling. These writes could happen
 on the same node or on different nodes.
-2. **Stale Vector Clock** --- Writes from any client using a stale
+2. **Stale context object** --- Writes from any client using a stale
 context object value. This is a less likely scenario if a client updates
 the object by first reads an object, fetches the context object
 currently attached to the object, and then returns that context object
@@ -307,8 +306,6 @@ started with your client in our [[quickstart
 guide|Five-Minute Install#setting-up-your-riak-client]].
 </div>
 
-### V-tags
-
 At this point, multiple objects have been stored in the same key without
 passing any context objects to Riak. Let's see what happens if we try to
 read contents of the object:
@@ -383,17 +380,26 @@ stimpy
 If you select the first of the two siblings and retrieve its value, you
 should see `Ren` and not `Stimpy`.
 
-### Conflict Resolution Using Context Objects
+### Using Context Objects
 
 Once you are presented with multiple options for a single value, you
 must determine the correct value. In an application, this can be done
 either in an automatic fashion, using a use case-specific resolver, or
-by presenting the conflicting objects to the end user.
+by presenting the conflicting objects to the end user. For more
+information on application-side conflict resolution, see our
+client-library-specific documentation for the following languages:
 
-At the moment, we have two replicas with two different values, one with
-`Ren`, the other with `Stimpy`. But let's say that we decide that
-`Stimpy` is the correct value based on our application's use case. In
-order to resolve the conflict, we need to do three things:
+* [[Java|Conflict Resolution: Java]]
+* [[Ruby|Conflict Resolution: Ruby]]
+* [[Python|Conflict Resolution: Python]]
+
+We won't deal with conflict resolution in this section. Instead, we'll
+focus on how to use context objects.
+
+After having written several objects to Riak in the section above, we
+have values in our object: `Ren` and `Stimpy`. But let's say that we
+decide that `Stimpy` is the correct value based on our application's use
+case. In order to resolve the conflict, we need to do three things:
 
 1. Fetch the current object (which will return both siblings)
 2. Modify the value of the object, i.e. make the value `Stimpy`
@@ -402,7 +408,7 @@ order to resolve the conflict, we need to do three things:
 What happens when we fetch the object first, prior to the update, is
 that the object handled by the client has a context object attached. At
 that point, we can modify the object's value, and when we write the
-object back to Riak, _the vector clock will automatically be attached
+object back to Riak, _the context object will automatically be attached
 to it_. Let's see what that looks like in practice:
 
 ```java

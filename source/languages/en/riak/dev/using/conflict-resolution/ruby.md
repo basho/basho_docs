@@ -134,6 +134,8 @@ def fetch_user_by_username(username)
   longest_friends_list_resolve(user_object)
   user_object
 end
+
+bashobunny = fetch_user_by_username('bashobunny')
 ```
 
 Now, when a `User` object is fetched (assuming that the username acts as
@@ -196,17 +198,33 @@ def longest_friends_list_resolver(riak_object)
     riak_object.siblings.each do |sibling|
       friends_list.push(sibling.data['friends'])
     end
-    # We'll invoke the "uniq" method to ensure that there are no
-    # duplicates in the "friends" array and then set that array
-    riak_object.content.data = friends_list.uniq
+
+    # Then we make a new User object. First, we fetch the username from
+    # any one of the siblings, then we pass in our new friends list,
+    # calling the "uniq" method to eliminate duplicate usernames.
+    username = riak_object.siblings[0].data['username']
+    new_user = User.new(username, friends_list.uniq)
+
+    # Now we reuse the first sibling as a container for the merged data
+    riak_object.siblings[0].data = new_user.to_json
+
+    # And finally we set the siblings property to include just the
+    # single, resolved sibling
+    riak_object.siblings = [riak_object.siblings[0]]
   else
     riak_object.content
   end
 end
 ```
 
-Here, we've essentially
-
+The drawback to this approach is the following: with a conflict
+resolution strategy like this, it's more or less inevitable that a user
+will remove a friend from their friends list, and that that friend will
+end up back on the list during a conflict resolution operation. While
+that's certainly not desirable, that is likely better than the
+alternative proposed in the first example, which entails usernames being
+simply dropped from friends lists. Sibling resolution strategies almost
+always carry potential drawbacks of this sort.
 
 ## Riak Data Types
 
@@ -220,6 +238,7 @@ application-side resolution logic.
 
 In the example above, we were dealing with conflict resolution within a
 set, in particular the `friends` list associated with each `User`
+
 object. The merge operation that we built to handle conflict resolution
 is analogous to the resolution logic that is built into Riak sets. For
 more information on how you could potentially replace the client-side

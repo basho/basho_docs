@@ -209,7 +209,7 @@ def longest_friends_list_resolver(riak_object):
 
     # Then we make a new User object. First, we fetch the username from
     # any one of the siblings, then we pass in our new friends list.
-    username = riak_object.siblings[0].data['friends']
+    username = riak_object.siblings[0].data['username']
     new_user = User(username, list(friends_list))
 
     # Now we reuse the first sibling as a container for the merged data
