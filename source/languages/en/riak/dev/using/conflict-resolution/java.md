@@ -159,59 +159,30 @@ and will be applied on all reads that involve that object type.
 
 ## Conflict Resolution and Writes
 
-In the above example, we created a conflict resolver that resolves a list
-of discrepant `User` objects and returns a single `User`. It's important
-to note, however, that this resolver will only provide the application
-with a single "correct" value; it will _not_ write that value back to
-Riak. That requires a separate step. One way to do that would be to
-modify the `UserResolver` class that we created above to also include a
-step that stores the `User` object with the longest `friends` list.
-Below is an example:
+In the above example, we created a conflict resolver that resolves a
+list of discrepant `User` objects and returns a single `User`. It's
+important to note, however, that this resolver will only provide the
+application with a single "correct" value; it will _not_ write that
+value back to Riak. That requires a separate step. When this step should
+be undertaken depends on your application. In general, though, we
+recommend writing objects to Riak only when the application is ready to
+commit them, i.e. when all of the changes that need to be made to the
+object have been made and the application is ready to persist the state
+of the object on disk in Riak.
 
-```java
-public class UserResolver implements ConflictResolver<User> throws Exception {
-    @Override
-    public User resolve(List<User> siblings) throws Exception {
-        if (siblings.size == 0) {
-            return null;
-        } else if (siblings.size == 1) {
-            return siblings.get(0);
-        } else {
-            int longestList = 0;
-            User userWithLongestList;
+Correspondingly, we recommend that updates to objects in Riak follow
+these steps:
 
-            for (User user : siblings) {
-                if (user.friends.size() > longestList) {
-                    userWithLongestList = user;
-                    longestList = user.friends.size();
-                }
-            }
-            userWithLongestList = userWithLongestList == null ? siblings.get(0) : userWithLongestList;
-            Location loc = new Location(new Namespace("siblings", "users"), userWithLongestList.username);
-            storeUser(userWithLongestList, loc);
-            return userWithLongestList;
-        }
-    }
+1. **Read** the object from Riak (like an HTTP `GET` request)
+2. **Resolve sibling conflicts** if they exist, allowing the application
+   to reason about one "correct" value for the object (this step is the
+   subject of this tutorial)
+3. **Modify** the object in accordance with the needs of the application
+4. **Write** the object to Riak
 
-    public void storeUser(User user, Location location) throws Exception {
-        StoreValue storeOp = new StoreValue.Builder(user)
-                .withLocation(location)
-                .build();
-        client.execute(storeOp.build());
-    }
-}
-```
-
-Now our resolver will both return a single `User` object to the
-application for further use _and_ notify Riak which value the
-application takes to be correct.
-
-The bad news is that this operation may still create siblings, for
-example if the write is performed simultaneously with another write. The
-good news, however, is that that is perfectly okay. Our application is
-now designed to gracefully handle siblings whenever they are
-encountered, and the resolution logic we choose will now be applied
-automatically every time.
+You can find more on writing objects to Riak, including examples from
+the official Java client library, in [[The Basics|The
+Basics#Object-Key-Operations]].
 
 ## More Advanced Example
 
@@ -260,10 +231,6 @@ public class UserResolver implements ConflictResolver<User> {
             // Then we return a new User object that takes the Set we
             // built as the friends list
             return new User(username, setBuilder);
-
-            // Notice that we do not store the User object in this
-            // example. That can be accomplished in similar fashion to
-            // the example above
         }
     }
 }
