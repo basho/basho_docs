@@ -73,7 +73,41 @@ creating the cluster). Must be a power of 2, minimum 8 and maximum
 
 ## Checking Your Configuration
 
+The `[[riak|riak Command Line]]` command line tool has a
+`[[chkconfig|riak Command Line#chkconfig]]` command that enables you to
+determine whether the syntax in your configuration files is correct.
 
+```bash
+riak chkconfig
+```
+
+If your configuration files are syntactically sound, you should see the
+output `config is OK` followed by a listing of files that were checked.
+You can safely ignore this listing. If, however, something is
+syntactically awry, you'll see an error output that provides details
+about what is wrong. To give an example, the `search.solr.jmx_port`
+setting (in the [[Search|Configuration Files#Search]] section below)
+must be set as an integer. Imagine that we set it to something else:
+
+```riakconf
+search.solr.jmx_port = banana
+```
+
+If we run `riak chkconfig` now, we'll get an error:
+
+```
+[error] Error generating configuration in phase transform_datatypes
+[error] Error transforming datatype for: search.solr.jmx_port
+[error] "banana" can't be converted to an integer
+```
+
+The error message will specify which configurable parameters are
+syntactically unsound and attempt to provide an explanation why.
+
+Please note that the `chkconfig` command only checks for syntax. It will
+_not_ be able to discern if your configuration is otherwise unsound,
+e.g. if your configuration will cause problems on your operating system
+or doesn't activate subsystems that you would like to use.
 
 ## The advanced.config file
 
