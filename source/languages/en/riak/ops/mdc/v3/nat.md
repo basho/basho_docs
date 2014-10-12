@@ -29,17 +29,17 @@ NAT addresses must be configured *statically*.
 
 NAT rules can be configured at runtime, from the command line.
 
-* `nat-map show`
+* `riak-repl nat-map show`
 
     Shows the current NAT mapping table
 
-* `nat-map add <externalip>[:port] <internalip>`
+* `riak-repl nat-map add <externalip>[:port] <internalip>`
 
     Adds a NAT map from the external IP, with an optional port, to an
     internal IP. The port number refers to a port that is automatically
     mapped to the internal `cluster_mgr` port number.
 
-* `nat-map del <externalip>[:port] <internalip>`
+* `riak-repl nat-map del <externalip>[:port] <internalip>`
 
     Deletes a specific NAT map entry.
 
@@ -118,26 +118,26 @@ riak-repl clustername Server_B
 riak-repl clustername Server_C
 
 # on 50.16.238.120 of Cluster_B
-nat-map add 50.16.238.120:5555 192.168.2.40
+riak-repl nat-map add 50.16.238.120:5555 192.168.2.40
 # on 50.16.238.121 of Cluster_B
-nat-map add 50.16.238.121:5555 192.168.2.41
+riak-repl nat-map add 50.16.238.121:5555 192.168.2.41
 # on 50.16.238.122 of Cluster_B
-nat-map add 50.16.238.122:5555 192.168.2.42
+riak-repl nat-map add 50.16.238.122:5555 192.168.2.42
 # on 50.16.238.123 of Cluster_B
-nat-map add 50.16.238.123:5555 192.168.2.43
+riak-repl nat-map add 50.16.238.123:5555 192.168.2.43
 # on 50.16.238.124 of Cluster_B
-nat-map add 50.16.238.124:5555 192.168.2.44
+riak-repl nat-map add 50.16.238.124:5555 192.168.2.44
 
 # on 192.168.3.60 of Cluster_C
-nat-map add 50.16.238.200:5550 192.168.3.60
+riak-repl nat-map add 50.16.238.200:5550 192.168.3.60
 # on 192.168.3.61 of Cluster_C
-nat-map add 50.16.238.200:5551 192.168.3.61
+riak-repl nat-map add 50.16.238.200:5551 192.168.3.61
 # on 192.168.3.62 of Cluster_C
-nat-map add 50.16.238.200:5552 192.168.3.62
+riak-repl nat-map add 50.16.238.200:5552 192.168.3.62
 # on 192.168.3.63 of Cluster_C
-nat-map add 50.16.238.200:5553 192.168.3.63
+riak-repl nat-map add 50.16.238.200:5553 192.168.3.63
 # on 192.168.3.64 of Cluster_C
-nat-map add 50.16.238.200:5554 192.168.3.64
+riak-repl nat-map add 50.16.238.200:5554 192.168.3.64
 
 
 # Connect replication from Cluster_A to Cluster_B:
