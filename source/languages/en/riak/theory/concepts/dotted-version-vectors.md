@@ -103,6 +103,6 @@ found in our documentation on [[conflict resolution]].
 
 ## Resources
 
-* [Evaluating Dotted Version Vectors in Riak](http://asc.di.fct.unl.pt/~nmp/pubs/inforum-2011-2.pdf)
+* [DVV Paper: "Scalable and Accurate Causality Tracking for Eventually Consistent Stores"](http://haslab.uminho.pt/tome/files/dvvset-dais.pdf)
+* [DVV Github](https://github.com/ricardobcl/Dotted-Version-Vectors)
 * [Improving Logical Clocks in Riak with Dotted Version Vectors: A Case Study](http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf)
-* [Dotted Version Vector Sets](https://github.com/ricardobcl/Dotted-Version-Vectors)
