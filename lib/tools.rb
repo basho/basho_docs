@@ -30,7 +30,7 @@ def in_version_range?(range, version)
   # between range
   elsif range =~ /.+?\-.+?/
     a, b = range.split('-')
-    return Versionomy.parse(a) >= version && version <= Versionomy.parse(b)
+    return Versionomy.parse(a) <= version && version <= Versionomy.parse(b)
   end
   Versionomy.parse(range) == version
 end
