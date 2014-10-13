@@ -53,7 +53,7 @@ introduced in version 3.
   version 2 replication is the only method of replication available.
 * In the Riak 1.3 series, version 3 replication was provided as a
   technology preview and did not have feature parity with version 2.
-  This was provided in the Riak 1.4 seies.
+  This was provided in the Riak 1.4 series.
 
 ## Version 3
 
