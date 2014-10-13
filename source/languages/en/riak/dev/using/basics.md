@@ -67,7 +67,7 @@ obj = bucket.get('rufus')
 ```
 
 ```erlang
-{ok, Obj} = riakc_pb_socket(Pid,
+{ok, Obj} = riakc_pb_socket:get(Pid,
                             {<<"animals">>, <<"dogs">>},
                             <<"rufus">>).
 ```
