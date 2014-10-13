@@ -288,7 +288,7 @@ Some examples:
 * `$M1D0` --- rotate on the first day of every month at midnight (i.e. at the start of the day)
 * `$M5D6` --- rotate on every 5th day of the month at 6:00 hr
 
-## Configuring Your `vm.args`
+## Configuring Your vm.args
 
 Parameters for the Erlang node on which Riak runs are set in the `vm.args` file in the `/etc` directory (or `/etc/riak` with a binary install) of the embedded Erlang node. Most of these settings can be left at their defaults until you are ready to tune performance.
 
