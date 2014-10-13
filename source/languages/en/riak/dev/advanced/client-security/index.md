@@ -50,6 +50,7 @@ officially supported clients:
 
 * [[Ruby|Client-side Security: Ruby]]
 * [[Python|Client-side Security: Python]]
+* [[Erlang|Client-side Security: Erlang]]
 
 ## Certificates, Keys, and Authorities
 

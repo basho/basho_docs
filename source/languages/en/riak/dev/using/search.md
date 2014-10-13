@@ -80,6 +80,13 @@ such as `http://localhost:8098`. The approriate value for `RIAK_HOST`
 will depend on your [[configuration|Configuration
 Files#Client-Interfaces]].
 
+```java
+YokozunaIndex famousIndex = new YokozunaIndex("famous");
+StoreSearchIndex storeSearchIndex =
+    new StoreSearchIndex.Builder(famousIndex).build();
+client.execute(StoreSearchIndex);
+```
+
 ```ruby
 client.create_search_index("famous")
 ```
@@ -108,6 +115,13 @@ Install#setting-up-your-riak-client]].
 
 Note that the above command is exactly the same as the following, which
 explicitly defines the default schema.
+
+```java
+YokozunaIndex famousIndex = new YokozunaIndex("famous", "_yz_default");
+StoreSearchIndex storeSearchIndex = new StoreSearchIndex.Builder(famousIndex)
+        .build();
+client.execute(StoreSearchIndex);
+```
 
 ```ruby
 client.create_search_index("famous", "_yz_default")
@@ -225,6 +239,36 @@ type, which for this example is `application/json`. In the case of Ruby
 and Python the content type is automatically set for you based on the
 object given.
 
+```java
+Namespace animalsBucket = new Namespace("animals");
+String json = "application/json";
+
+RiakObject liono = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Lion-o\",\"age\":30,\"leader\":true)"));
+RiakObject cheetara = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Cheetara\",\"age\":30,\"leader\":false)"));
+RiakObject snarf = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Snarf\",\"age\":43"));
+RiakObject panthro = new RiakObject()
+        .setContentType(json)
+        .setValue(BinaryValue.create("{\"name_s\":\"Panthro\",\"age_i\":36}"));
+Location lionoLoc = new Location(animalsBucket, "liono");
+Location cheetaraLoc = new Location(animalsBucket, "cheetara");
+Location snarfLoc = new Location(animalsBucket, "snarf");
+Location panthroLoc = new Location(animalsBucket, "panthro");
+
+StoreValue lionoStore = new StoreValue.Builder(liono).withLocation(lionoLoc).build();
+StoreValue cheetaraStore = new StoreValue.Builder(cheetara).withLocation(cheetaraLoc).build();
+StoreValue snarfStore = new StoreValue.Builder(snarf).withLocation(snarfLoc).build();
+StoreValue panthroStore = new StoreValue.Builder(panthro).withLocation(panthroLoc).build();
+
+client.execute(lionoStore);
+// The other storage operations can be performed the same way
+```
+
 ```ruby
 bucket = client.bucket("animals")
 
@@ -305,7 +349,7 @@ If you've used Riak before, you may have noticed that this is no
 different from setting values without Riak Search. This is how we would
 sum up the design goals of Riak Search:
 
-<div class="info">Write it like Riak, query it like Solr</div>
+#### Write it like Riak, query it like Solr
 
 But how does Riak Search know how to index values, given that values are
 opaque in Riak? For that, we employ extractors.
@@ -391,6 +435,15 @@ supported, which actually includes most of the single-node Solr queries.
 This example searches for all documents in which the `name_s` value
 begins with `Lion` by means of a glob (wildcard) match.
 
+```java
+Search searchOp = new Search.Builder("famous", "name_s:Lion*").build();
+cluster.execute(searchOp);
+searchOp.await();
+Map<String, String> results = searchOp.get().getAllResults();
+List<Map<String, String>> docs = results.get("docs");
+System.out.println(docs);
+```
+
 ```ruby
 results = client.search("famous", "name_s:Lion*")
 p results
@@ -460,8 +513,24 @@ Solr. This depends on your schema. If they are not stored, you'll have
 to perform a separate Riak GET operation to retrieve the value using the
 `_yz_rk` value.
 
+```java
+// Using the results object from above
+Map<String, String> doc = results.get(0);
+String bucketType = doc.get("_yz_rt");
+String bucket = doc.get("yz_rb");
+String key = doc.get("_yz_rk");
+Namespace namespace = new Namespace(bucketType, bucket);
+Location objectLocation = new Location(namespace, key);
+FetchValue fetchOp = new FetchValue.Builder(objectLocation)
+        .build();
+RiakObject obj = client.execute(fetchOp).getValue(RiakObject.class);
+System.out.println(obj.getValue());
+
+// {"name_s": "Lion-o", "age_i": 30, "leader_b": true}
+```
+
 ```ruby
-doc = results["docs"].first
+doc = results['docs'].first
 btype = Riak::BucketType.new(client, doc["_yz_rt"]) # animals
 bucket = Riak::Bucket.new(client, doc["_yz_rb"])    # cats
 object = bucket.get( doc["_yz_rk"] )                # liono
@@ -516,17 +585,27 @@ To find the ages of all famous cats who are 30 or younger: `age_i:[0 TO
 30]`. If you wanted to find all cats 30 or older, you could include a
 glob as a top end of the range: `age_i:[30 TO *]`.
 
-```curl
-curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
+```java
+String index = "famous";
+String query = "age_i:[30 TO *]";
+Search searchOp = new Search.Builder(index, query).build();
+Search.Response result = cluster.execute(searchOp);
 ```
+
 ```ruby
 client.search("famous", "age_i:[30 TO *]")
 ```
+
 ```python
 client.fulltext_search('famous', 'age_i:[30 TO *]')
 ```
+
 ```erlang
 riakc_pb_socket:search(Pid, <<"famous">>, <<"age_i:[30 TO *]">>),
+```
+
+```curl
+curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 ```
 
 <!-- TODO: pubdate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY] -->
@@ -538,6 +617,13 @@ operations on query elements as, repectively, `AND`, `OR`, and `NOT`.
 Let's say we want to see who is capable of being a US Senator (at least
 30 years old, and a leader). It requires a conjunctive query:
 `leader_b:true AND age_i:[25 TO *]`.
+
+```java
+String index = "famous";
+String query = "leader_b:true AND age_i:[30 TO *]";
+Search searchOp = new Search.Builder(index, query).build();
+Search.Response result = cluster.execute(searchOp);
+```
 
 ```ruby
 client.search("famous", "leader_b:true AND age_i:[30 TO *]")
@@ -560,8 +646,11 @@ curl $RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%
 
 Indexes may be deleted if they have no buckets associated with them:
 
-```curl
-curl -XDELETE $RIAK_HOST/search/index/famous
+```java
+String index = "famous";
+YzDeleteIndexOperation deleteOp = new YzDeleteIndexOperation.Builder(BinaryValue.create(index))
+        .build();
+cluster.execute(deleteOp);
 ```
 
 ```ruby
@@ -574,6 +663,10 @@ client.delete_search_index('famous')
 
 ```erlang
 riakc_pb_socket:delete_search_index(Pid, <<"famous">>, []),
+```
+
+```curl
+curl -XDELETE $RIAK_HOST/search/index/famous
 ```
 
 If an does have a bucket associated with it, then that index's
@@ -598,6 +691,19 @@ to return in one go.
 For example, assuming we want two results per page, getting the second
 page is easy, where `start` is calculated as _rows per page * (page
 number - 1)_.
+
+```java
+int rowsPerPage = 2;
+int page = 2;
+int start = rowsPerPage * (page - 1);
+
+Search searchOp = new Search.Builder("famous", "*:*")
+        .withStart(start)
+        .withRows(rowsPerPage)
+        .build();
+client.execute(searchOp);
+StoreOperation.Response response = searchOp.get();
+```
 
 ```ruby
 ROWS_PER_PAGE=2
@@ -634,7 +740,7 @@ curl $RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PA
 
 Just be careful what you sort by.
 
-##### A Pagination Warning
+####  Pagination Warning
 
 Distributed pagination in Riak Search cannot be used reliably when
 sorting on fields that can have different values per replica of the same
@@ -732,7 +838,8 @@ Riak Search's features and enhancements are numerous.
   Types|Using Data Types]]) for automatic data extraction
 * Support for [various
   language](https://cwiki.apache.org/confluence/display/solr/Language+Analysis)-specific
-  [analyzers, tokenizers, and filters](https://cwiki.apache.org/confluence/display/solr/Overview+of+Analyzers%2C+Tokenizers%2C+and+Filters)
+  [analyzers, tokenizers, and
+  filters](https://cwiki.apache.org/confluence/display/solr/Understanding+Analyzers%2C+Tokenizers%2C+and+Filters)
 * Robust, easy-to-use [query languages](https://cwiki.apache.org/confluence/display/solr/Other+Parsers)
   like Lucene (default) and DisMax.
 * Queries: exact match, globs, inclusive/exclusive range queries,

@@ -88,11 +88,12 @@ coordinating node. This node then concatenates the list and passes that
 information over to a reduce phase on the same coordinating node, 
 assuming that the next phase in the list is a reduce phase.
 
-## Example
+The diagram below provides an illustration of how a coordinating vnode
+orchestrates a MapReduce job.
 
 ![MapReduce Diagram](/images/MapReduce-diagram.png)
 
-### Data object input commands
+## Example
 
 In this example, we'll create four objects with the text "caremad"
 repeated a varying number of times and store those objects in the bucket
@@ -106,31 +107,46 @@ For the sake of simplicity, we'll use [curl](http://curl.haxx.se/)
 in conjunction with Riak's [[HTTP API]] to store the objects:
 
 ```curl
-curl -XPUT http://localhost:8098/buckets/training/keys/foo -H 'Content-Type: text/plain' -d 'pizza data goes here'
+curl -XPUT http://localhost:8098/buckets/training/keys/foo \
+  -H 'Content-Type: text/plain' \
+  -d 'caremad data goes here'
 
-curl -XPUT http://localhost:8098/buckets/training/keys/bar -H 'Content-Type: text/plain' -d 'pizza pizza pizza pizza'
+curl -XPUT http://localhost:8098/buckets/training/keys/bar \
+  -H 'Content-Type: text/plain' \
+  -d 'caremad caremad caremad caremad'
 
-curl -XPUT http://localhost:8098/buckets/training/keys/baz -H 'Content-Type: text/plain' -d 'nothing to see here'
+curl -XPUT http://localhost:8098/buckets/training/keys/baz \
+  -H 'Content-Type: text/plain' \
+  -d 'nothing to see here'
 
-curl -XPUT http://localhost:8098/buckets/training/keys/bam -H 'Content-Type: text/plain' -d 'pizza pizza pizza'
+curl -XPUT http://localhost:8098/buckets/training/keys/bam \
+  -H 'Content-Type: text/plain' \
+  -d 'caremad caremad caremad'
 ```
 
-### MapReduce script and deployment
+### MapReduce invocation
 
-The code sample below runs a MapReduce job that returns a list of tuples. The first member of each tuple is the key of the object, while the second member states the number of times that the word "pizza" has occurred in the text body of that object.
+To invoke a MapReduce function from a compiled Erlang program requires
+that the function be compiled and distributed to all nodes.
 
-Here is the Erlang function:
+For interactive use, however, it's not necessary to do so; instead, we
+can invoke the client library from the
+[Erlang shell](http://www.erlang.org/doc/man/shell.html) and define
+functions to send to Riak on the fly.
+
+First we defined the map function, which specifies that we want to get 
+the key for each object in the bucket `training` that contains the text
+`caremad`.
+
+We're going to generalize and optimize it a bit by supplying a
+compiled regular expression when we invoke MapReduce; our function
+will expect that as the third argument.
 
 ```erlang
-%% Need an Erlang function here
-```
-
-Here is the HTTP call that 
-
-```curl
-curl -XPOST http://localhost:8098/mapred \
-  -H 'Content-Type: application/json' \
-  -d '{ function }'
+ReFun = fun(O, _, Re) -> case re:run(riak_object:get_value(O), Re, [global]) of
+    {match, Matches} -> [{riak_object:key(O), length(Matches)}];
+    nomatch -> [{riak_object:key(O), 0}]
+end end.
 ```
 
 Next, to call `ReFun` on all keys in the `training` bucket, we can do
@@ -138,7 +154,9 @@ the following in the Erlang shell. **Do not use this in a production
 environment; listing all keys to identify those in the `training` bucket 
 is a very expensive process.**
 
-The output is the key of each object, followed by the count of the word "pizza" for that object.  It looks like:
+```erlang
+{ok, Re} = re:compile("caremad").
+```
 
 That will return output along the following lines, verifying that
 compilation has completed:
@@ -183,6 +201,5 @@ counting the number of instances of the word.
 
 ## Advanced MapReduce Queries
 
-## Further Reading
-
-* [[Advanced MapReduce]]: Details on Riak's implementation of MapReduce, different ways to run queries, examples, and configuration details
+For more detailed information on MapReduce queries in Riak, we recommend
+checking out our [[Advanced MapReduce]] guide.
