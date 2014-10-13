@@ -1014,6 +1014,14 @@ is disabled by default.</td>
 </tbody>
 </table>
 
+## Erlang VM Settings in vm.args
+
+In addition to an `app.config` file, each Riak CS node has a `vm.args`
+file that you can use to pass arguments to the Erlang VM on which Riak
+runs. A full listing of configurable parameters for `vm.args` can be
+found in our [[configuration files|Configuration
+Files#Configuring-Your-vm.args]] documentation.
+
 <!--
 
 For use in constructing tables
