@@ -15,6 +15,46 @@ output. A compact listing of parameters can be found in our
 [[configuration files|Configuration Files#lager]] documentation. A more
 thorough explanation of these options can be found in this document.
 
+## Log Directory
+
+Riak's log files are stored in a `/log` directory on each node. The
+location of that directory differs from platform to platform. The table
+below shows you where log files are stored on all supported operating
+systems.
+
+OS | Directory
+:--|:---------
+Ubuntu, Debian, CentOS, RHEL | `/var/log/riak`
+Solaris, OpenSolaris | `/opt/riak/log`
+Source install | `./log` (where the `.` represents the root installation directory)
+
+## Log Files
+
+Below is a list of files that can be found in each node's `/log`
+directory:
+
+File | Significance
+:----|:------------
+`console.log` | Console log output
+`crash.log` | Crash logs
+`erlang.log` | Logs emitted by the [[Erlang VM|Erlang VM Tuning]] on which Riak runs
+`error.log` | [[Error messages]] emitted by Riak.
+`run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
+
+### Log File Rotation
+
+Riak maintains multiple separate files for `console.log`, `crash.log`,
+`erlang.log`, and `error.log`, which are rotated as each file reaches
+its maximum capacity of 100 KB. In each node's `/log` directory, you may
+see, for example, files name `console.log`, `console.log.0`,
+`console.log.1`, and so on. Riak's log rotation is somewhat non
+traditional, as it does not always log to `*.1` (e.g. `erlang.log.1`)
+but rather to the oldest log file.
+
+After, say, `erlang.log.1` is filled up, the logging system will begin
+writing to `erlang.log.2`, and so on. When `erlang.log.5` is filled up,
+it will loop back to `erlang.log.1`.
+
 ## Format
 
 `YYYY-MM-DD HH:MM:SS.SSS [<level>] <PID>@<system>:<function> Message`
