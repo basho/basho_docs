@@ -75,7 +75,10 @@ or to neither. This is determined by the value that you give to the
 * `file` --- Console logs will be emitted to a file. This is Riak's
     default behavior. The location of that file is determined by the
     `log.console.file` parameter. The default location is
-    `./log/console.log`.
+    `./log/console.log` on an installation from [[source|Installing Riak
+    from Source]], but will differ on platform-specific installation,
+    e.g.  `/var/log/riak` on Ubuntu, Debian, CentOS, and RHEL or
+    `/opt/riak/log` on Solaris-based platforms.
 * `console` --- Console logs will be emitted to standard output, which
     can be viewed by running the `[[riak attach-direct|riak Command
     Line#attach-direct]]` command
@@ -84,7 +87,8 @@ or to neither. This is determined by the value that you give to the
 * `off` --- Console log messages will be disabled
 
 In addition to the the placement of console logs, you can also choose
-the severity of those messages from the following four options:
+the severity of those messages using the `log.console.level` parameter.
+The following four options are available:
 
 * `info` (the default)
 * `debug`
@@ -93,4 +97,33 @@ the severity of those messages from the following four options:
 
 ## Enabling and Disabling Debug Logging
 
+If you'd like to enable debug logging on the current node, i.e. set the
+console log level to `debug`, you can do so without restarting the node
+by accessing the Erlang console directly using the `[[riak attach|riak
+Command Line#attach]]` command. Once you run this command and drop into
+the console, enter the following:
 
+```erlang
+lager:set_logleve(lager_file_backend, "/var/log/riak/console.log", debug).
+```
+
+You should replace the file location above (`/var/log/riak/console.log`)
+with your platform-specific location, e.g. `./log/console.log` for a
+source installation. This location is specified by the
+`log.console.file` parameter explained [[above|lager#Console-Logs]].
+
+If you'd like to enable debug logging on _all_ nodes instead of just one
+node, you can enter the Erlang console of any running by running `riak
+attach` and enter the following:
+
+```erlang
+rp(rpc:multicall(lager, set_loglevel, [lager_file_backend, "/var/log/riak/console.log", debug])).
+```
+
+As before, use the appropriate log file location for your cluster.
+
+At any time, you can set the log level back to `info`:
+
+```erlang
+rp(rpc:multicall(lager, set_loglevel, [lager_file_backend, "/var/log/riak/console.log", info])).
+```
