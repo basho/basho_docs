@@ -13,21 +13,40 @@ object replicas stored on different nodes are inevitable, particularly
 in cases when multiple connecting clients update an object at the same
 time.
 
+## The Problem of Conflict Values
+
 To illustrate this problem, imagine that you're building a
 [CRM](http://en.wikipedia.org/wiki/Customer_relationship_management)
 application and storing customer information in Riak. Now imagine that
 information about a user is being stored in the [[key|Keys and Objects]]
-`mariejohnston` in the [[bucket|Buckets]] 
+`mariejohnston` in the [[bucket|Buckets]] `customers`. What happens if
+Marie has two browser windows open and changes her phone number to
+555-1337 in one window and saves it, and also changes it to 555-1212 in
+another window?
 
-Riak was built
-to handle these conflicts gracefully by producing **siblings** when it
-cannot determine which value of an object is most causally recent.
+This means that two different values end up being stored in Riak. So
+what happens at that point? There are essentially three possible
+outcomes:
 
+1. The two different values end up being stored in Riak, but Riak is
+able to discern that one object is more causally recent than the other
+(in this case 555-1212) and chooses that value as the "correct"/most
+recent value
 
+2. The two different values end up being stored in Riak, but the two
+operations happen at roughly the same time, i.e. two **concurrent
+updates** have been attempted, and Riak is unable to determine which
+value "wins." In this scenario, one of two things can happen:
 
-In a system
-like this, it's important to keep track of which version of a value is
-the most current.
+    a. Riak creates sibling values, aka **siblings**, for the object
+
+    b. Riak chooses a value for you on the basis of timestamps or some
+       other mechanism.
+
+In the case of outcome 1 above, Riak uses **causal context objects** to
+make that decision. 
+
+The choice between **a** and **b** above is yours to make.
 
 One means of achieving this is to use a mechanism like
 [timestamps](http://en.wikipedia.org/wiki/Timestamp) to determine which
@@ -114,6 +133,7 @@ Additional information on vector clocks:
 * [[Why Vector Clocks are Easy|http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/]]
 * [[Why Vector Clocks are Hard|http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/]]
 * The vector clocks used in Riak are based on the [[work of Leslie Lamport|http://portal.acm.org/citation.cfm?id=359563]].
+
 ## Dotted Version Vectors
 
 In versions of Riak prior to 2.0, all causality-based conflict resolution, whether on the
