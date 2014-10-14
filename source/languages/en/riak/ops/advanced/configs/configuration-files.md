@@ -1637,11 +1637,85 @@ Riak's logging system.
 <tbody>
 
 <tr>
-<td><code>sasl</code></td>
-<td>Whether to enable <a
-href="http://www.erlang.org/doc/man/sasl_app.html">sasl</a>, Erlang's
-built-in error logger</td>
-<td><code>off</code></td>
+<td><code>log.console</code></td>
+<td>Where to emit the default log messages (typically at
+<code>info</code> severity). Possible values: <code>off</code>, which
+disables console log messages; <code>file</code>, which specifies that
+log messages will be output to the file specified by
+<code>log.console.file</code>; <code>console</code>, which outputs
+messages to standard output (seen when using <code>riak
+attach-direct</code>); or <code>both</code>, which outputs messages both
+to the file specified in <code>log.console.file</code> and to standard
+out.</td>
+<td><code>file</code></td>
+</tr>
+
+<tr>
+<td><code>log.console.file</code></td>
+<td>When <code>log.console</code> is set to <code>file</code> or
+<code>both</code>, this parameter determines the path of the file to
+which console messages will be logged.</td>
+<td><code>./log/console.log</code></td>
+</tr>
+
+<tr>
+<td><code>log.console.level</code></td>
+<td>The severity level of the console log. Possible
+values:
+<ul>
+<li><code>debug</code></li>
+<li><code>info</code></li>
+<li><code>warning</code></li>
+<li><code>error</code></li>
+</ul></td>
+<td><code>info</code></td>
+</tr>
+
+<tr>
+<td><code>log.crash</code></td>
+<td>Whether to enable the crash log</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>log.crash.file</code></td>
+<td>If the crash log is enabled, the file where its messages will be
+written</td>
+<td><code>./log/crash.log</code></td>
+</tr>
+
+<tr>
+<td><code>log.crash.maximum_message_size</code></td>
+<td>Maximum size of individual messages in the crash log</td>
+<td><code>64KB</code></td>
+</tr>
+
+<tr>
+<td><code>log.crash.rotation</code></td>
+<td>The schedule on which to rotate the crash log. More information <a
+href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation">here</a>.
+</td>
+<td><code>$D0</code></td>
+</tr>
+
+<tr>
+<td><code>log.crash.rotation.keep</code></td>
+<td>The number of rotated crash logs to keep. When set to
+<code>current</code>, only the current open log file is kept.
+Otherwise, an integer can be specified.</td>
+<td><code>5</code></td>
+</tr>
+
+<tr>
+<td><code>log.crash.size</code></td>
+<td>Maximum size of the crash log before it is rotated</td>
+<td><code>10MB</code></td>
+</tr>
+
+<tr>
+<td><code>log.error.file</code></td>
+<td>The file where error messages will be logged.</td>
+<td><code>./log/error.log</code></td>
 </tr>
 
 <tr>
@@ -1656,47 +1730,6 @@ second</td>
 <td>Whether to redirect <code>error_logger</code> messages into
 lager</td>
 <td><code>on</code></td>
-</tr>
-
-<tr>
-<td><code>log.crash</code></td>
-<td>Whether to enable the crash log</td>
-<td><code>on</code></td>
-</tr>
-
-<tr>
-<td><code>log.crash.rotation.keep</code></td>
-<td>The number of rotated crash logs to keep. When set to
-<code>current</code>, only the current open log file is kept.
-Otherwise, an integer can be specified.</td>
-<td><code>5</code></td>
-</tr>
-
-<tr>
-<td><code>log.crash.rotation</code></td>
-<td>The schedule on which to rotate the crash log. More information <a
-href="https://github.com/basho/lager/blob/master/README.md#internal-log-rotation">here</a>.
-</td>
-<td><code>$D0</code></td>
-</tr>
-
-<tr>
-<td><code>log.crash.size</code></td>
-<td>Maximum size of the crash log before it is rotated</td>
-<td><code>10MB</code></td>
-</tr>
-
-<tr>
-<td><code>log.crash.maximum_message_size</code></td>
-<td>Maximum size of individual messages in the crash log</td>
-<td><code>64KB</code></td>
-</tr>
-
-<tr>
-<td><code>log.crash.file</code></td>
-<td>If the crash log is enabled, the file where its messages will be
-written</td>
-<td><code>./log/crash.log</code></td>
 </tr>
 
 <tr>
@@ -1743,44 +1776,11 @@ determines the log level of syslog output. Possible values:
 </tr>
 
 <tr>
-<td><code>log.error.file</code></td>
-<td>The file where error messages will be logged.</td>
-<td><code>./log/error.log</code></td>
-</tr>
-
-<tr>
-<td><code>log.console.file</code></td>
-<td>When <code>log.console</code> is set to <code>file</code> or
-<code>both</code>, this parameter determines the path of the file to
-which console messages will be logged.</td>
-<td><code>./log/console.log</code></td>
-</tr>
-
-<tr>
-<td><code>log.console.level</code></td>
-<td>The severity level of the console log. Possible
-values:
-<ul>
-<li><code>debug</code></li>
-<li><code>info</code></li>
-<li><code>warning</code></li>
-<li><code>error</code></li>
-</ul></td>
-<td><code>info</code></td>
-</tr>
-
-<tr>
-<td><code>log.console</code></td>
-<td>Where to emit the default log messages (typically at
-<code>info</code> severity). Possible values: <code>off</code>, which
-disables console log messages; <code>file</code>, which specifies that
-log messages will be output to the file specified by
-<code>log.console.file</code>; <code>console</code>, which outputs
-messages to standard output (seen when using <code>riak
-attach-direct</code>); or <code>both</code>, which outputs messages both
-to the file specified in <code>log.console.file</code> and to standard
-out.</td>
-<td><code>file</code></td>
+<td><code>sasl</code></td>
+<td>Whether to enable <a
+href="http://www.erlang.org/doc/man/sasl_app.html">sasl</a>, Erlang's
+built-in error logger</td>
+<td><code>off</code></td>
 </tr>
 
 </tbody>

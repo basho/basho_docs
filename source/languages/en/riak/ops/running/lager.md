@@ -9,7 +9,11 @@ keywords: [operator, logging, lager]
 
 [lager](https://github.com/basho/lager) is a logging framework for
 [Erlang](http://www.erlang.org/) that is used as the logging
-infrastructure for Riak.
+infrastructure for Riak. lager provides a number of configuration
+options that you can use to fine-tune your Riak cluster's logging
+output. A compact listing of parameters can be found in our
+[[configuration files|Configuration Files#lager]] documentation. A more
+thorough explanation of these options can be found in this document.
 
 ## Format
 
@@ -31,7 +35,12 @@ File | Contents
 
 ## SASL
 
+[SASL](http://www.erlang.org/doc/man/sasl_app.html) (System Architecture
+Support Libraries) is Erlang's built-in error logger.
+
 ## Error Messages
+
+
 
 ## Crash Logs
 
