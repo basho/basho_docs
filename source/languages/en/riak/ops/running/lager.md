@@ -67,10 +67,29 @@ Level | Meaning
 
 ## Console Logs
 
-Levels:
+Riak console logs can be emitted to one of three places: to a log file
+(you can choose the name and location of that file), to standard output,
+or to neither. This is determined by the value that you give to the
+`log.console` parameter, which gives you one of four options:
 
-Level | Meaning
-:-----|:------
+* `file` --- Console logs will be emitted to a file. This is Riak's
+    default behavior. The location of that file is determined by the
+    `log.console.file` parameter. The default location is
+    `./log/console.log`.
+* `console` --- Console logs will be emitted to standard output, which
+    can be viewed by running the `[[riak attach-direct|riak Command
+    Line#attach-direct]]` command
+* `both` --- Console logs will be emitted both to a file and to standard
+    output
+* `off` --- Console log messages will be disabled
+
+In addition to the the placement of console logs, you can also choose
+the severity of those messages from the following four options:
+
+* `info` (the default)
+* `debug`
+* `warning`
+* `error`
 
 ## Enabling and Disabling Debug Logging
 
