@@ -50,6 +50,7 @@ riak:
           - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
           - "[[Key/Value Operations|The Basics]]"
+          - "[[Updating Values]]"
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"
@@ -220,7 +221,6 @@ riak:
           - "[[Monitoring|Multi Data Center Replication: Monitoring]]"
           - "[[Per Bucket|Multi Data Center Replication: Per Bucket]]"
           - "[[Repl Hooks|Multi Data Center Replication: Hooks]]"
-
 
   - title: "Theory & Concepts"
     sub:
