@@ -11,6 +11,24 @@ keywords: [operator, logging, lager]
 [Erlang](http://www.erlang.org/) that is used as the logging
 infrastructure for Riak.
 
+## Format
+
+`YYYY-MM-DD HH:MM:SS.SSS [<level>] <PID>@<system>:<function> Message`
+
+or
+
+`YYYY-MM-DD HH:MM:SS.SSS [<level>] <PID> <message>`
+
+## Log Files
+
+File | Contents
+:----|:--------
+`console.log`
+`crash.log`
+`erlang.log`
+`error.log`
+`run_erl.log`
+
 ## SASL
 
 ## Error Messages
@@ -44,4 +62,7 @@ Levels:
 
 Level | Meaning
 :-----|:------
+
+## Enabling and Disabling Debug Logging
+
 
