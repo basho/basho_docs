@@ -9,7 +9,23 @@ keywords: [appendix, concepts]
 
 Because Riak is an [[eventually consistent|Eventual Consistency]],
 [[clustered|Clusters]] system, [[conflicts|Conflict Resolution]] between
-object replicas stored on different nodes are inevitable. In a system
+object replicas stored on different nodes are inevitable, particularly
+in cases when multiple connecting clients update an object at the same
+time.
+
+To illustrate this problem, imagine that you're building a
+[CRM](http://en.wikipedia.org/wiki/Customer_relationship_management)
+application and storing customer information in Riak. Now imagine that
+information about a user is being stored in the [[key|Keys and Objects]]
+`mariejohnston` in the [[bucket|Buckets]] 
+
+Riak was built
+to handle these conflicts gracefully by producing **siblings** when it
+cannot determine which value of an object is most causally recent.
+
+
+
+In a system
 like this, it's important to keep track of which version of a value is
 the most current.
 
