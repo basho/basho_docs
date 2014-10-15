@@ -23,7 +23,17 @@ best practices for updating Riak objects and provide code examples for
 each of our official [[client libraries]]: Java, Ruby, Python, and
 Erlang.
 
+<div class="note">
+<div class="title">Note on immutable data</div>
+An important thing to bear in mind is that Riak almost always performs
+best with immutable data. If your use case allows for it, we suggest
+sticking to that. If not, this tutorial shows you how to work with
+mutable data in a way that is consistent with Riak's strengths.
+</div>
+
 ## The Ideal Object Update Cycle
+
+
 
 1. **Read** the object from Riak. This step is important for updates
 because this enables you to fetch the object's [[causal context
