@@ -25,6 +25,10 @@ from one storage backend to another.
 3. Start the new node and `cluster join`
 4. Cluster replace <cluster member> <new node>
 5. `cluster commit`
-6. Wait for transfers to complete, meanwhile adjusting transfer limits as necessary. Riak will stop on the replaced node once the transfer is complete.
-7. Return to step 2 and repeat for each other node in the cluster until all nodes have been replaced
-8. If a node was removed in step 1 (instead of `cluster leave`-ing a node), rejoin that node now using `cluster join`
+6. Wait for transfers to complete, meanwhile adjusting transfer limits
+   as necessary. Riak will stop on the replaced node once the transfer
+   is complete.
+7. Return to step 2 and repeat for each other node in the cluster until
+   all nodes have been replaced
+8. If a node was removed in step 1 (instead of `cluster leave`-ing a
+   node), rejoin that node now using `cluster join`
