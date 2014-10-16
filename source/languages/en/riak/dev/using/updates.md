@@ -13,8 +13,8 @@ we always recommend sticking to basic **C**reate, **R**read, **U**pdate,
 and **D**elete (CRUD) operations as much as possible, as these
 operations are generally the most performant and reliable operations
 that Riak offers. A complete guide to making decisions about Riak
-features can be found in our [[Application Guide|Application
-Guide#Which-Features-Should-You-Consider]].
+features can be found in our [[Application Guide|Building Applications
+with RiakWhich-Features-Should-You-Consider]].
 
 Amongst the four CRUD operations, object updates in Riak tend to be the
 least straightforward and to require a bit more subtle reasoning on the
@@ -31,9 +31,17 @@ sticking to that. If not, this tutorial shows you how to work with
 mutable data in a way that is consistent with Riak's strengths.
 </div>
 
-## The Ideal Object Update Cycle
+## The Object Update Cycle
 
+If you decide that your application requires mutable data in Riak, we
+recommend that you:
 
+* avoid high-frequency object updates to the same key (i.e. multiple
+  updates per second for long periods of time), as this will degrade
+  Riak performance; and that you
+* follow a read-modify-write cycle when performing updates.
+
+That cycle looks something like this:
 
 1. **Read** the object from Riak. This step is important for updates
 because this enables you to fetch the object's [[causal context
@@ -42,21 +50,28 @@ about which object values are most recent (this is especially useful
 for objects that are frequently updated). This context object needs to
 be passed back to Riak when you update the object. This step is handled
 for you by Basho's client libraries as long as you perform a read prior
-to an update.
-2. **Resolve sibling conflicts** if they exist.
-3. **Modify the object** on the application side.
-4. **Write** the new, modified object to Riak. Because you read the
+to an update. In addition, if you have chosen to allow Riak to generate
+[[siblings|Conflict Resolution#Siblings]] \(which we recommend), you
+should **resolve sibling conflicts** upon read if they exist. For more
+on this, please see our documentation on [[conflict resolution]], along
+with examples from our official client libraries:
+  * [[Java|Conflict Resolution: Java]]
+  * [[Ruby|Conflict Resolution: Ruby]]
+  * [[Python|Conflict Resolution: Python]]
+2. **Modify the object** on the application side.
+3. **Write** the new, modified object to Riak. Because you read the
 object first, Riak will receive the object's causal context metadata.
 Remember that this happens automatically.
 
-In general, you should read an object before modifying it. Thing of it
-as performing a `GET` prior to any `PUT`.
+In general, you should read an object before modifying it. Think of it
+as performing a `GET` prior to any `PUT` when interacting with a REST
+API.
 
 ### Updating Deleted Objects
 
 It may seem strange, but if an object existed in a particular bucket
 type/bucket/key location and was deleted, you should read the deleted
-object prior to updating it.
+object prior to updating it in order to fetch the 
 
 ## Example Update
 
