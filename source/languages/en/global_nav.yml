@@ -50,7 +50,7 @@ riak:
           - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
           - "[[Key/Value Operations|The Basics]]"
-          - "[[Updating Values]]"
+          - "[[Object Updates]]"
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"

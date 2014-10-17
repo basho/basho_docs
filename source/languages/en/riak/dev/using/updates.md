@@ -1,5 +1,5 @@
 ---
-title: Updating Values
+title: Object Updates
 project: riak
 version: 2.0.0+
 document: tutorials
