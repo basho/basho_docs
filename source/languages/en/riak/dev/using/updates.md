@@ -69,9 +69,17 @@ API.
 
 ### Updating Deleted Objects
 
-It may seem strange, but if an object existed in a particular bucket
-type/bucket/key location and was deleted, you should read the deleted
-object prior to updating it in order to fetch the 
+You should use the read-modify-write cycle explained above at all times,
+_even if you're updating deleted objects_. The reasons for that can be
+found in our documentation on [[tombstones|Object Deletion#Tombstones]].
+There are some modifications that you may need to make if you are
+updating objects that may have been deleted previously. If you are using
+the Java client, an explanation and examples are given in the
+[[Java-specific section below|Object Updates#Java-Client-Example]]. If
+you are using the Python client, causal context for deleted objects will
+be handled automatically.
+
+<!-- TODO -->
 
 ## Example Update
 
@@ -79,6 +87,47 @@ In this section, we'll provide an update example for Basho's official
 Ruby, Python, and Erlang clients. Because updates with the official Java
 client function somewhat differently, those examples can be found in the
 [[section below|Updating Values#Java-Client-Example]].
+
+For our example, imagine that you are storing information about NFL head
+coaches in the bucket `coaches`, which will bear the bucket type
+`siblings`, which sets `allow_mult` to `true`. The key for each object
+is the name of the team, e.g. `giants`, `broncos`, etc. Each object will
+consist of the name of the coach in plain text. Here's an example of
+creating and storing such an object:
+
+```python
+from riak import RiakObject
+
+bucket = client.bucket_type('siblings').bucket('coaches')
+obj = RiakObject(client, bucket, 'seahawks')
+obj.content_type = 'text/plain'
+obj.data = 'Pete Carroll'
+obj.store()
+```
+
+Every once in a while, though, head coaches change in the NFL, which
+means that our data would need to be updated. Below is an example
+function for updating such objects:
+
+
+```python
+def update_coach(team, new_coach):
+    bucket = client.bucket_type('siblings').bucket('coaches')
+    # The read phase
+    obj = bucket.get(team)
+    # The modify phase
+    obj.data = new_coach
+    # The write phase
+    obj.store()
+
+# Example usage
+update_coach('packers', 'Vince Lombardi')
+```
+
+In the example above, you can see the three steps in action: first, the
+object is read, which automatically fetches the object's causal context;
+then the object is modified, i.e. the object's value is set to the name
+of the new coach; and finally the object is written back to Riak.
 
 ## Java Client Example
 
@@ -113,16 +162,42 @@ public class UpdateUserName extends Update<User> {
 ```
 
 ```java
+import com.basho.riak.client.api.commands.kv.FetchValue;
+
 Location location = new Location(...);
 UpdateValue updateOp = new UpdateValue.Builder(location)
+        .withFetchOption(FetchValue.Option.DELETED_VCLOCK, true)
         .withUpdate(new UpdateUserName("cliffhuxtable1986"))
         .build();
 client.execute(updateOp);
 ```
+
+You may notice that a fetch option was added to our `UpdateValue`
+operation: `FetchValue.Option.DELETED_VCLOCK` was set to `true`.
+Remember from the section above that you should always read an object
+before modifying and writing it, _even if the object has been deleted_.
+Setting this option to `true` ensures that the causal context is fetched
+from Riak if the object has been deleted. We recommend always setting
+this option to `true` when constructing `UpdateValue` operations.
 
 ### Clobber Updates
 
 If you'd like to update an object by simply replacing it with an
 entirely new value (unlike in the section above, where only one property
 of the object was updated), the Java client provides you with a
-"clobber" update that you can use
+"clobber" update that you can use to replace the existing object with a
+new object of the same type rather than changing one or more properties
+of the object. Imagine that there is a `User` object stored in the
+bucket `users` in the key `cliffhuxtable1986`, as in the example above,
+and we simply want to replace the object with a brand new object:
+
+```java
+Location location = new Location(new Namespace("users"), "cliffhuxtable1986");
+User brandNewUser = new User(/* new user info */);
+UpdateValue updateOp = new UpdateValue.Builder(Location)
+        // As before, we set this option to true
+        .withFetchOption(FetchValue.Option.DELETED_VCLOCK, true)
+        .withUpdate(new UpdateUserName("cliffhuxtable1986"))
+        .build();
+client.execute(updateOp);
+```
