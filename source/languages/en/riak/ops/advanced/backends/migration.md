@@ -7,9 +7,9 @@ audience: advanced
 keywords: [backends, migration]
 ---
 
-Riak offers four storage backend options: [[Bitcask]] (the default),
-[[LevelDB]], [[Memory]], and [[Multi]] (which enables you to configure
-and use multiple backends in a single cluster).
+Riak offers four storage backend options: [[Bitcask]] \(the default),
+[[LevelDB]], [[Memory]], and the [[Multi]] backend (which enables you to
+configure and use multiple backends in a single cluster).
 
 Because each backend has its own strengths and weaknesses and because
 not all features are available in all backends---e.g.
@@ -17,6 +17,30 @@ not all features are available in all backends---e.g.
 LevelDB, while object expiry is available only in Bitcask---it may be
 necessary under certain conditions to migrate some or all of your data
 from one storage backend to another.
+
+## Basic Steps
+
+Much of the work behind backend migration is performed automatically by
+Riak itself. What you need to do is one of the following:
+
+1. Disconnect a node from the cluster, re-configure it to use the
+backend(s) you wish to use, and re-connect the node to the cluster.
+Apply this sequence to each node in your cluster.
+2. Stand up a new node, configure it to use the backend(s) you wish to
+use, and replace the new node with an existing node in your cluster.
+Apply this sequence to each node in your cluster.
+
+These steps are explained in more detail in the sections below.
+
+## New Node
+
+The first step is either creating a new node or disconnecting a node
+from the cluster. You can disconnect a node using the `cluster leave`
+command:
+
+```bash
+riak-admin cluster leave <nodename>
+```
 
 ## Basic Steps
 
