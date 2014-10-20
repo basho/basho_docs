@@ -7,6 +7,7 @@ header.masthead
     div#header-inner
       div#nav-toggle class="icon-reorder"
       div#top-nav
+        a href=(data.page.project == 'riakcs' ? "/riakcs-downloads/" : "/downloads/")
         a href="/downloads/"
           span.icon-download-alt
           == I18n.t(:downloads)
