@@ -20,22 +20,12 @@ h3.center-text Choose a project below
 
 div#select-project
   - version = $production ? "latest" : nil
-  div.project
-    a href="/riakee/#{version || $versions[:riakee]}/"
-      span.big
-        | Riak&nbsp;
-        strong Enterprise
-      span.small
-        | Multi-Datacenter Replication + Support
-
-  div.separator
-    div.vert-line
 
   div.project
     a href="/riak/#{version || $versions[:riak]}/"
       span.image
       span.small
-        | The Open-source, Distributed database
+        | Highly Available, Operationally<br />Simple, Distributed Database
 
   div.separator
     div.vert-line

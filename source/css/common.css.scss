@@ -112,7 +112,7 @@ html {
 }
 
 body {
-  
+
   aside#nav-container {
     @include size(232px, 100%);
     overflow   : auto;
@@ -121,7 +121,7 @@ body {
     left       : 0;
     z-index    : 1400;
     background : #eaecef;
-    
+
     #primary-nav {
       padding             : 0;
       height              : auto !important;
@@ -159,13 +159,13 @@ body {
             margin           : 0 2px 0 0;
             border           : 1px solid $darkGreen;
             text-decoration  : none;
-            
+
             &:hover {
               background : $orange;
               border     : 1px solid $darkOrange;
               color      : #fff;
             }
-            
+
             &:first-child {
               margin-top : 10px;
             }
@@ -197,7 +197,7 @@ body {
         }
       } 
     }
-    
+
     .submissions-note {
       border-width : 1px;
       padding      : 5px 12px;
@@ -221,20 +221,20 @@ body {
       height   : 100%;
       z-index  : 300;
       position : absolute;
-      
+
       float       : left;
       margin-left : -100%;
     }
   }
-  
+
   div[role="main"] {
     //@include bgPattern('content-bg.jpg', $subtleGray);
-    @include minSize(172px, 100%); // 172 is the width of #nav-container - this div's padding
+    @include minSize(172px, 100%); // 172 is the width of #nav-container
     padding  : 0 25px 0 65px;
     margin   : 0 0 0 232px;
     position : relative;
     z-index  : 200;
-    
+
     p, div {
       b, strong {
         font-weight: bold;
@@ -252,13 +252,13 @@ body {
        */
       margin  : 0 !important;
       z-index : -1;
-      
+
       padding : 0;
       width   : 100%;
       float   : left;
     }
   }
-  
+
   footer.mastfooter {
     @include size(730px, auto);
     padding       : 25px 25px 25px 65px;
@@ -367,7 +367,7 @@ td {
   &:first-child {
     @extend .serif;
   }
-  
+
   &:last-child {
     border-right : 0;
   }
@@ -417,7 +417,7 @@ iframe {
   @extend .sans;
   @include boxShadow(none);
   color : $subtleGray;
-  
+
   @media screen and (max-width: 768px) {
     @include boxShadow(none);
   }
@@ -428,7 +428,7 @@ iframe {
     padding         : 7px 18px;
     text-decoration : none;
     @include transitionAll(color 0.5s ease);
-    
+
     &:hover {
       color : $extraDarkGrey;
     }
@@ -476,7 +476,7 @@ iframe {
     margin-bottom : 8px;
     @extend .sans-bold;
   }
-  
+
   .nav-field-container {
     position   : relative;
 
@@ -517,9 +517,9 @@ iframe {
       color            : #fff;
       background-color : $darkGrey;
     }
-    
+
     #icon-container-search {
-   
+
       position : absolute;
       display  : block;
       top      : 9px;
@@ -571,10 +571,10 @@ iframe {
       display : block;
     }
   }
-  
+
   h3.responsive-link {
     display : none;
-    
+
     &.visit-basho {
       background : $orange; // fallback value for no rgba support
       //background : rgba(249, 157, 51, .2);
@@ -588,7 +588,7 @@ iframe {
       .nav-icon {
         color : #fff;
       }
-      
+
       a {
         color       : $darkOrange; // fallback value for no rgba support
         color       : rgba(255, 255, 255, 1);
@@ -600,12 +600,12 @@ iframe {
         margin-top : 13px;
       }
     }
-    
+
     @media screen and (max-width: 768px) {
       display : block;
     }
   }
-  
+
   h3, h4 {
     @include bgPattern('nav-bg.jpg', #4f4f50);
     @include transitionAll(color 0.5s ease);
@@ -614,39 +614,39 @@ iframe {
     overflow    : visible;
     color       : $darkGrey;
     cursor      : pointer;
-    
+
     a {
       background : none;
       padding    : 0;
       border     : 0;
-      
+
       &:hover {
         color      : $darkGrey;
         background : none;
       }
     }
-    
+
     span.menu-toggle {
       padding-right : 0;
     }
-    
+
     &:hover {
       span.menu-toggle {
         @include arrowVertical(top, bottom, 5px, $darkGrey);
-        
+
         &.open {
           @include arrowVertical(bottom, top, 5px, $darkGrey);
         }
       }
     }
   }
-  
+
   h3 {
     @extend .sans-bold;
     border-bottom : 1px solid $lightGrey;
     font-size     : 0.9rem;
   }
-  
+
   h3 span a {
     display : inline-block;
     width   : 100%;
@@ -663,7 +663,7 @@ iframe {
       color : $extraDarkGrey;
     }
   }
-  
+
   .depth-1 {
     @extend .clear;
   }
@@ -672,42 +672,42 @@ iframe {
   .depth-1 h4, .depth-2 h4, .depth-3 h4 {
     margin-right : 0;
   }
-  
+
   h2 {
     @extend .sans;
     margin-top  : 10px;
     color       : #fff;
     text-shadow : 0 1px 2px #000;
   }
-  
+
   h3 {
-    
+
     @media screen and (max-width: 768px) {
       font-size : 115%;
     }
-    
+
     &:first-child {
       margin-top : 25px;
-      
+
       @media screen and (max-width: 768px) {
         margin-top : 10px;
       }
     }
   }
-  
+
   h4 {
     @extend .sans;
     padding-left : 18px;
   }
-  
+
   ul {
     display : none;
-    
+
     &.depth-2, &.depth-3 {
       margin-right : 0;
     }
   }
-  
+
   .depth-1 li {
     @include bgPattern('nav-bg.jpg', #4f4f50);
 
@@ -719,11 +719,11 @@ iframe {
       }
     }
   }
-  
+
   .depth-1 li:last-child {
     border-bottom : 1px solid $lightGrey;
   }
-  
+
   .depth-2, .depth-3 {
     margin-left : 0px;
   }
@@ -743,7 +743,7 @@ iframe {
   .depth-2 li:last-child {
     border-bottom : 0;
   }
-  
+
   span.menu-toggle {
     @extend .block;
     @include size(1px, 0);
@@ -753,11 +753,11 @@ iframe {
     content       : '';
     @include arrowVertical(top, bottom, 5px, $grey);
     @include transitionAll(border-color 0.5s ease);
-    
+
     &.open {
       @include arrowVertical(bottom, top, 5px, $grey);
     }
-    
+
     &.extra-margin {
       margin-top : 10px;
     }
@@ -808,7 +808,7 @@ iframe {
 
 a.responsive-toggle, #nav-container a.responsive-toggle {
   display : none;
-  
+
   //@include layout-sprite(toggle-button);
   background-image : url(/shared/latest/images/layout/toggle-button.png); /* Temporary fix */
 
@@ -832,48 +832,48 @@ div[role="main"] {
   color     : $textColor;
   font-size : 110%;
   overflow  : visible;
-  
+
   &.closed {
     //@include boxShadow(-10px -10px 10px #333);
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     color       : $headerColor;
     line-height : 1.2;
     @extend .clear;
   }
-  
+
   h4, h5, h6 {
     @extend .sans-bold;
   }
-  
+
   p, li, footer {
     line-height : 1.5;
   }
-  
+
   h1 {
 
     @extend .sans-light;
     font-size : 285%;
-    
+
     &.extra-large {
       font-size   : 425%;
       line-height : 1.1;
       padding-top : .1em;
       letter-spacing : -0.036em;
-      
+
       @media screen and (max-width: 1300px) {
         font-size   : 325%;
         line-height : 1.1;
         padding-top : 0;
       }
-      
+
       @media screen and (max-width: 810px) {
         font-size   : 275%;
         padding-top : .2em;
       }
     }
-    
+
     div.small {
       font-size: 70%;
       line-height:1;
@@ -890,7 +890,7 @@ div[role="main"] {
   }
 
   }
-  
+
   h2 {
     @extend .sans;
     font-size   : 200%;
@@ -902,7 +902,7 @@ div[role="main"] {
       //text-decoration : underline;
     }
   }
-  
+
   h3 {
     @extend .sans;
     font-size   : 175%;
@@ -912,20 +912,20 @@ div[role="main"] {
       color : $headerColor;
     }
   }
-  
+
   h4 {
     font-size : 125%;
     padding-top: .8em;
-    
+
     a {
       color : $headerColor;
     }
   }
-  
+
   a {
     color           : $linkOrange;
     text-decoration : none;
-    
+
     &:hover {
       color : lighten($orange, 5%);
     }
@@ -941,7 +941,7 @@ div[role="main"] {
       padding-right : 16px;
     }
   }
-  
+
   table {
     a {
       white-space : normal;
@@ -972,7 +972,7 @@ div[role="main"] {
   h1 a, h2 a {
     white-space : normal;
   }
-  
+
   .masthead {
     position      : fixed;
     top           : 0;
@@ -1026,7 +1026,7 @@ div[role="main"] {
       color            : $lightGrey;
       font-size        : 1.5rem;
       @include transitionAll(all 0.5s ease);
-      
+
       &:hover {
         color : $darkGrey;
       }
@@ -1035,7 +1035,7 @@ div[role="main"] {
         display : none;
       }
     }
-    
+
     a.responsive-toggle {
       //@include layout-sprite(toggle-button-light);
       background-image : url(/shared/latest/images/layout/toggle-button-light.png); /* Temporary fix */
@@ -1049,7 +1049,7 @@ div[role="main"] {
       margin-top    : 11px;
       margin-left   : 78px;
       margin-bottom : 18px;
-      
+
       h1 {
         display:none;
       }
@@ -1057,11 +1057,11 @@ div[role="main"] {
       @media screen and (max-width: 1300px) {
         @include size(185px, 33px);
       }
-      
+
       @media screen and (max-width: 768px) {
         margin-top : auto;
       }
-      
+
     }
 
     @media screen and (max-width: 768px) {
@@ -1104,29 +1104,29 @@ div[role="main"] {
         display : block;
       }
     }
-    
+
     .tagline {
       display    : none;
       @extend .block;
       text-align : left;
       margin     : 4px 0 0 3px;
-      
+
       @media screen and (max-width: 768px) {
         display : none;
       }
     }
-    
+
     .shadow-divider {
       @include size(100%, 1px);
       padding       : 1.2em 0 0 .5em;
       border-bottom : 1px solid $subtleGray;
       margin-bottom : 1.2em;
-      
+
       @media screen and (max-width: 768px) {
         display : none;
       }
     }
-    
+
     #top-nav {
       position   : absolute;
       top        : 8px;
@@ -1137,7 +1137,7 @@ div[role="main"] {
       @media screen and (max-width: 768px) {
         right : 10px
       }
-      
+
       a,
       #nav-more {
         @extend .inline-block;
@@ -1194,7 +1194,7 @@ div[role="main"] {
         display : none;
       }
     }
-    
+
     #nav-menu {
       display       : none;
       position      : absolute;
@@ -1209,8 +1209,8 @@ div[role="main"] {
 
        @media screen and (max-width: 768px) {
         right : 10px;
-      }      
-      
+      }
+
       h2 {
         @extend .sans-bold;
         @extend .horizontal-rule;
@@ -1288,7 +1288,7 @@ div[role="main"] {
   #ricon-temp-banner-responsive a {
     display : none;
     @extend .sans-bold;
-    
+
     @media screen and (max-width: 768px) {
       display     : block;
       position    : relative;
@@ -1317,14 +1317,14 @@ div[role="main"] {
     color       : #616366;
     line-height : 1.5;
     position    : relative;
-    
+
     .title {
       @extend .sans-bold;
       font-style     : normal;
       font-size      : 135%;
       padding-bottom : 8px;
     }
-    
+
     .info-icon {
       @include size(24px, 24px);
       @include layout-sprite(info);
@@ -1349,14 +1349,14 @@ div[role="main"] {
         }
      }
   }
-    
+
   .mainarticle {
     position  : relative;
     padding   : 100px 0 0 20px;
     font-size : 110%;
     width     : 800px;
     z-index   : 400;
-    
+
     p, ol, ul, h2, h3, h4, h5, h6, table, blockquote, .info, .note, aside.secondary {
       max-width: 600px;
       &.center-text {
@@ -1399,7 +1399,7 @@ div[role="main"] {
       width : auto; /* Expand the full page width for the index page */
     }
   }
-  
+
   aside.secondary {
     @extend .box-green;
     padding       : 25px;
@@ -1411,13 +1411,13 @@ div[role="main"] {
       color       : $darkGrey;
       line-height : 1.2;
     }
-    
+
     ul {
       margin     : 5px 0 10px 0;
       list-style : square;
       padding    : 0 0 0 2em;
     }
-    
+
     .suggestions {
       .columns {
         -webkit-column-count : 2;
@@ -1464,7 +1464,7 @@ div[role="main"] {
     .keywords {
       border-top  : 1px solid $lightGrey;
       padding-top : 0.8em;
-     
+
       h4 {
         font-weight   : normal;
         display       : inline;
@@ -1474,23 +1474,19 @@ div[role="main"] {
       }
     }
   }
-  
+
   #select-project {
     @include size(96%, 250px);
     font-size : 110%;
     position  : relative;
     margin    : 7em auto 10em;
-    
+
     .project {
-      @include size(32%, 250px);
+      @include size(49%, 250px);
       float      : left;
       text-align : center;
       margin     : 0 auto;
-      
-      &:first-child {
-        background : url('/shared/latest/images/layout/enterprise-globe.png') center center no-repeat transparent;
-      }
-      
+
       &:last-child {
         background : url('/shared/latest/images/layout/cs-cloud.png') center center no-repeat transparent;
       }
@@ -1498,7 +1494,7 @@ div[role="main"] {
         display         : block;
         color           : $headerColor;
         text-decoration : none;
-        
+
         &:hover {
           color : $linkBlue;
         }
@@ -1625,7 +1621,7 @@ div[role="main"] {
 }
 
 nav#toc {
-  
+
   #toc-wrapper {
     width : auto;
 
@@ -1717,35 +1713,35 @@ div[role=main] {
     @media screen and (max-width: 709px) {
       min-width : 17em;
     }
-    
+
     h1 {
       font-size   : 225%;
       border-top  : 1px solid #c0c0c0;
       padding-top : .5em;
       line-height : 1.2;
     }
-    
+
     h2 {
       font-size      : 150%;
       line-height    : 1.2;
       padding-bottom : .5em;
     }
-    
+
     h3 {
       @extend .sans-bold;
       font-size   : 115%;
       line-height : 1.2;
     }
-    
+
     ul, ol {
       padding-left : 25px;
     }
-    
+
     > li {
       padding-bottom : 10px;
     }
   }
-  
+
   div.tab-content {
     max-width: 600px;
     font-size: 85%;
@@ -1764,7 +1760,7 @@ div[role=main] {
     border-top : 2px solid #d9dadd;
     width : auto;
   }
-  
+
   .info {
     .code {
       background:none;
@@ -1776,10 +1772,10 @@ div[role=main] {
 
   table.links {
     width : 100%;
-    
+
     td:first-child {
       width : 30%;
-      
+
       img {
         width : 100%;
       }
@@ -1825,7 +1821,7 @@ div[role=main] {
     }
   }
 }
-   
+
 
 /* =============================================================================
    Tutorial Nav
@@ -1835,34 +1831,34 @@ article {
   nav.tutorial {
     text-align : center;
     margin     : 25px 0 5px;
-    
+
     .up a {
       font-size       : 90%;
       text-decoration : none;
       color           : $linkBlue;
-      
+
       &:hover {
         color : $orange;
       }
     }
-    
+
     ul {
       padding    : 5px 5px 10px;
       border-top : 1px solid $subtleGray;
       //border-top : 1px dashed silver;
-      
+
       li {
         display : inline;
         padding : 5px 0;
-        
+
         &::before {
           content : ' | ';
         }
-        
+
         &:first-child::before {
-          content : ''; 
+          content : '';
         }
-        
+
         &:last-child {
           border-right : 0px;
         }
