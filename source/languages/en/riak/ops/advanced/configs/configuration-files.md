@@ -4,6 +4,9 @@ project: riak
 version: 1.0.0+
 document: reference
 audience: intermediate
+moved: {
+  '1.4.0-': '/references/Configuration-Files'
+}
 ---
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
