@@ -13,22 +13,28 @@ moved: {
 
 ## Configuring MapReduce
 
-[[MapReduce|Using MapReduce]] \(M/R) is always enabled, but configurable through the [[app.config|Configuration-Files#app-config]] file as follows under `riak_kv`
+[[MapReduce|Using MapReduce]] \(M/R) is always enabled, but configurable
+through the [[app.config|Configuration-Files#app-config]] file as
+follows under `riak_kv`
 
 ```erlang
 {riak_kv, [
 ```
 
-`mapred_name` is the URL directory used to submit M/R requests to Riak. By default `mapred`, making the command path, for example: `http://localhost:8091/mapred`
+`mapred_name` is the URL directory used to submit M/R requests to Riak.
+By default `mapred`, making the command path, for example:
+`http://localhost:8091/mapred`
 
 ```erlang
     {mapred_name, "mapred"},
 ```
 
 {{#<1.3.0}}
-`mapred_system` indicates which version of the MapReduce system should be used:
+`mapred_system` indicates which version of the MapReduce system should
+be used:
 
-* `pipe` means [riak_pipe](https://github.com/basho/riak_pipe) will power M/R queries
+* `pipe` means [riak_pipe](https://github.com/basho/riak_pipe) will
+  power M/R queries
 * `legacy` means that [luke](https://github.com/basho/luke) will be used
 
 ```erlang
@@ -36,9 +42,9 @@ moved: {
 ```
 {{/<1.3.0}}
 
-`mapred_2i_pipe` indicates whether [[2i|Using Secondary Indexes]] MapReduce inputs
-are queued in parallel in their own pipe (`true`), or serially through a helper
-process (`false` or undefined).
+`mapred_2i_pipe` indicates whether [[2i|Using Secondary Indexes]]
+MapReduce inputs are queued in parallel in their own pipe (`true`), or
+serially through a helper process (`false` or undefined).
 
 {{#1.1.0+}}
 _**Note**: Set to `false` or leave undefined during a rolling upgrade from 1.0._
@@ -49,18 +55,19 @@ _**Note**: Set to `false` or leave undefined during a rolling upgrade from 1.0._
 ```
 
 {{#<1.3.0}}
-`mapred_queue_dir` directory used to store a transient queue for pending map
-tasks.
+`mapred_queue_dir` directory used to store a transient queue for pending
+map tasks.
 
-_Only valid for `{mapred_system, legacy}`, used by [luke](https://github.com/basho/luke)._
+Only valid for `{mapred_system, legacy}`, used by
+[luke](https://github.com/basho/luke).
 
 ```erlang
     %% {mapred_queue_dir, "./data/mr_queue" },
 ```
 {{/<1.3.0}}
 
-Each of these entries control how many Javascript virtual machines
-are available for executing map, reduce, pre- and post-commit hook
+Each of these entries control how many Javascript virtual machines are
+available for executing map, reduce, pre- and post-commit hook
 functions.
 
 This is largely relevant only if you are writing JavaScript M/R jobs.
@@ -73,18 +80,19 @@ This is largely relevant only if you are writing JavaScript M/R jobs.
 
 {{#<1.3.0}}
 `mapper_batch_size` is the number of items the mapper will fetch in one
-request. Larger values can impact read/write performance for non-MapReduce
-requests.
+request. Larger values can impact read/write performance for
+non-MapReduce requests.
 
-_Only valid for `{mapred_system, legacy}`, used by [luke](https://github.com/basho/luke)._
+Only valid for `{mapred_system, legacy}`, used by
+[luke](https://github.com/basho/luke).
 
 ```erlang
     %% {mapper_batch_size, 5},
 ```
 {{/<1.3.0}}
 
-`js_max_vm_mem` is the maximum amount of memory, in megabytes, allocated to
-the Javascript VMs. If unset, the default is 8MB.
+`js_max_vm_mem` is the maximum amount of memory, in megabytes, allocated
+to the Javascript VMs. If unset, the default is 8MB.
 
 This is largely relevant only if you are writing JavaScript M/R jobs.
 

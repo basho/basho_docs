@@ -14,8 +14,10 @@ client updates, physical data loss and corruption, and other events that
 distributed systems are built to handle. These conflicts occur when
 objects are either
 
-* **missing**, as when one node holds a replica of the object and another node does not, or
-* **divergent**, as when the values of an existing object differ across nodes.
+* **missing**, as when one node holds a replica of the object and
+  another node does not, or
+* **divergent**, as when the values of an existing object differ across
+  nodes.
 
 Riak offers two means of resolving object conflicts: read repair and
 active anti-entropy (AAE). Both of these conflict resolution mechanisms
@@ -65,8 +67,9 @@ and monitoring AAE.
 ## Active Anti-Entropy and Hash Tree Exchange
 
 In order to compare object values between replicas without using more
-resources than necessary, Riak relies on [Merkle tree](http://en.wikipedia.org/wiki/Merkle_tree)
-hash exchanges between nodes.
+resources than necessary, Riak relies on [Merkle
+tree](http://en.wikipedia.org/wiki/Merkle_tree) hash exchanges between
+nodes.
 
 Using this type of exchange enables Riak to compare a balanced tree of
 Riak object hashes. Any difference at a higher level in the hierarchy
@@ -97,5 +100,6 @@ this regeneration is one week, but this can be adjusted in each node's
 
 ## Resources
 
-* [Active Anti-Entropy video](http://coffee.jtuple.com/video/AAE.html) by Basho engineer [Joseph Blomstedt](https://github.com/jtuple)
+* [Active Anti-Entropy video](http://coffee.jtuple.com/video/AAE.html)
+  by Basho engineer [Joseph Blomstedt](https://github.com/jtuple)
 * [Riak 1.3 Release Notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md#active-anti-entropy)

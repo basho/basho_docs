@@ -273,7 +273,7 @@ The `anti_entropy.trigger_interval` setting determines how often Riak's
 AAE subsystem looks for work to do, e.g. building or expiring hash
 trees, triggering information exchanges between nodes, etc. The default
 is every 15 seconds (`15s`). Raising this value may save resources, but
-at the risk of 
+at a slightly higher risk of data corruption.
 
 ### Hash Trees
 
@@ -290,7 +290,8 @@ In addition to specifying how often Riak expires hash trees after they
 are built, you can also specify how quickly and how many hash trees are
 built. You can set the frequency using the `anti_entropy.tree.build_limit.per_timespan`
 parameter, for which the default is every hour (`1h`); the number of
-hash trees
+hash tree builds is specified by `anti_entropy.tree.build_limit.number`,
+for which the default is 1.
 
 ### Write Buffer Size
 

@@ -1,22 +1,28 @@
 ---
 title: "Multi Data Center Replication: System Tuning"
-project: riakee
+project: riak
+header: riakee
 version: 1.0.0+
 document: cookbook
 toc: true
 audience: intermediate
 keywords: [mdc, repl, os]
+moved: {
+    '2.0.0-': 'riakee:/cookbooks/Multi-Data-Center-Replication-UpgradeV2toV3'
+}
 ---
 
-Depending on the size of your objects and your replication latency needs, you may need to configure your kernel settings to optimize throughput.
+Depending on the size of your objects and your replication latency
+needs, you may need to configure your kernel settings to optimize
+throughput.
 
 ## Linux
 
-Refer to our documentation on [[System Performance Tuning]].
+Refer to the [[System Performance Tuning]] document.
 
 ## Solaris
 
-On Solaris, the following settings are suggested.
+On Solaris, the following settings are suggested:
 
 ```bash
 /usr/sbin/ndd -set /dev/tcp tcp_ip_abort_interval 60000
