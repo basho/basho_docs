@@ -32,6 +32,12 @@ only one node.
 
 ## Version Compatibility
 
+<div class="note">
+<div class="title">Riak CS incompatible with Riak 2.0</div>
+Riak CS cannot currently be used with Riak versions 2.0 and later. A
+version compatibility table can be found immediately below.
+</div>
+
 The following combinations of Riak CS, Riak, and Stanchion are known to
 function well in production environments.
 
