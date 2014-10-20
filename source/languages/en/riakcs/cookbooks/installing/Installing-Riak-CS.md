@@ -111,7 +111,7 @@ To install Riak CS on OS X, first download the appropriate package from
 the [[downloads|Download Riak CS]] page:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.4/{{VERSION}}/osx/10.8/riak-cs-{{VERSION}}-OSX-x86_64.tar.gz
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.5/{{VERSION}}/osx/10.8/riak-cs-{{VERSION}}-OSX-x86_64.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
