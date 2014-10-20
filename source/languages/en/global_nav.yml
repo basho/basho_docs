@@ -49,6 +49,7 @@ riak:
         sub:
           - "[[The Basics]]"
           - "[[Client Libraries]]"
+          - "[[Application Guide|Building Applications with Riak]]"
           - "[[Key/Value Operations|The Basics]]"
           - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
