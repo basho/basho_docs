@@ -141,6 +141,7 @@ keywords: [tutorial, fast-track]
 prev: "[[Basic HTTP Operations]]"
 up:   "[[The Riak Fast Track]]"
 next: "[[Links and Link Walking]]"
+---
 ```
 
 The title will dictate the page name rather than relying on the old
