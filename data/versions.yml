@@ -25,7 +25,7 @@ riakcscontrol:
 gen_projects: ['riak', 'riakcs']
 currents:
   riakee: '2.0.1'
-  riakcs: '1.5.1'
+  riakcs: '1.5.2'
   riak: '2.0.1'
   riakcscontrol: '1.0.2'
   stanchion: '1.5.0'
