@@ -10,29 +10,49 @@ keywords: [developer]
 
 ## Riak CS 1.5.2
 
-### Additions
+### Changes
 
-* Improved logging around failures with Riak
-  [riak_cs/#987](https://github.com/basho/riak_cs/pull/987).
+* Improve logging around failures with Riak
+  [riak_cs/#987](http://docs.basho.com/riak/latest/dev/using/libraries/)
 * Add amendment log output when storing access stats into Riak failed
-  [riak_cs/#988](https://github.com/basho/riak_cs/pull/988). This
+  [riak_cs/#988](https://github.com/basho/riak_cs/pull/988). This change
   prevents losing access stats logs in cases of temporary connection
   failure between Riak and Riak CS. Access logs are stored in
   `console.log` at the `warning` level.
 * Add script to repair invalid garbage collection manifests
-  [riak_cs/#983](https://github.com/basho/riak_cs/pull/983). There is
-  a [known issue](https://github.com/basho/riak_cs/issues/827) where
-  an active manifest would be stored in the GC bucket. This script
-  changes invalid state to valid state.
+  [riak_cs/#983](https://github.com/basho/riak_cs/pull/983). There is a
+  known issue where an active manifest would be stored in the GC bucket.
+  This script changes invalid state to valid state.
 
-### Bugs Fixed
+### Fixes
 
 * Fix Protocol Buffers connection pool (`pbc_pool_master`) leak
-  [riak_cs/#986](https://github.com/basho/riak_cs/pull/986). Requests
-  for non-existent buckets without an authorization header and
-  requests for listing users make connections leak from the
-  pool, causing the pool to eventually go empty. This bug was introduced
-  in release 1.5.0.
+  [riak_cs/#986](https://github.com/basho/riak_cs/pull/986).
+  * **Problem**: Requests for non-existent buckets without an
+  authorization header and requests for listing users make connections
+  leak from the pool, causing the pool to eventually go empty. This bug
+  was introduced in release 1.5.0.
+  * **Solution**: Fix the leak by properly releasing connections.
+
+### Known Issues
+
+None
+
+### Download
+
+Please see the [Riak CS Downloads
+Page](http://docs.basho.com/riakcs/latest/riakcs-downloads)
+
+### Feedback
+
+We would love to hear from you. You can reach us in any of the following
+venues:
+
+* [Basho mailing
+  list](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
+* [The official Basho docs](https://github.com/basho/basho_docs)
+* [Riak CS on GitHub](https://github.com/basho/riak_cs)
+* Via email at **info@basho.com**
 
 ## Riak CS 1.5.1
 
