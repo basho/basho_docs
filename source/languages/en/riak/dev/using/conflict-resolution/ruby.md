@@ -78,7 +78,7 @@ end
 
 Now, we can create `User` objects and see what they look like as JSON:
 
-```python
+```ruby
 new_user = User.new('riakuser127', ['captheorem238', 'siblingsrule572'])
 
 new_user.to_json
