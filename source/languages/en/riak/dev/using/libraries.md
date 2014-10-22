@@ -14,12 +14,13 @@ moved: {
 
 ## Basho-Supported Libraries
 
-Basho officially supports a number of open-source client libraries for a variety of programming languages and environments.
+Basho officially supports a number of open-source client libraries for a
+variety of programming languages and environments.
 
-Language | Source | Documentation | Download      
+Language | Source | Documentation | Download
 :--------|:-------|:--------------|:--------
 Java | [riak-java-client](https://github.com/basho/riak-java-client) | [javadoc](http://basho.github.com/riak-java-client), [wiki](https://github.com/basho/riak-java-client/wiki) | [Maven Central](http://search.maven.org/?#search%7Cgav%7C1%7Cg%3A%22com.basho.riak%22%20AND%20a%3A%22riak-client%22) |
-Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [rdoc](http://rdoc.info/gems/riak-client/frames), [wiki](https://github.com/basho/riak-ruby-client/wiki) | [RubyGems](https://rubygems.org/gems/riak-client)
+Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [GitHub Pages](http://basho.github.io/riak-ruby-client/) | [RubyGems](https://rubygems.org/gems/riak-client)
 Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
 Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
 
