@@ -132,7 +132,28 @@ of the new coach; and finally the object is written back to Riak.
 ## Java Client Example
 
 As with the other official clients, object updates using the Java client
-will automatically fetch the object's causal context metadata.
+will automatically fetch the object's causal context metadata, modify
+the object, and then write the modified value back to Riak. You can
+update object values by creating your own `UpdateValue` operations that
+extend the abstract class `Update<T>`. An `UpdateValue` operation must
+have an `apply` method that returns a new `T`. In our case, the data
+class that we're dealing with is `User`. First, let's create a very
+basic `User` class:
+
+```java
+public class User {
+  public String username;
+  public List<String> hobbies;
+
+  public User(String username, List<String> hobbies) {
+    this.name = username;
+    this.hobbies = hobbies;
+  }
+}
+```
+
+In the example below, we'll create an update value operation called
+`UpdateUserName`:
 
 ```java
 import com.basho.riak.client.api.commands.kv.UpdateValue.Update;
@@ -145,21 +166,29 @@ public class UpdateUserName extends Update<User> {
 }
 ```
 
+In the example above, we didn't specify any actual update logic. Let's
+change that by creating an `UpdateValue` operation that changes a `User`
+object's `name` parameter:
+
 ```java
 public class UpdateUserName extends Update<User> {
-    private String newName;
+    private String newUsername;
 
-    public UpdateUserName(String newName) {
-        this.newName = newName;
+    public UpdateUserName(String newUsername) {
+        this.newUsername = newUsername;
     }
 
     @Override
     public User apply(User original) {
-        original.setName(newName);
+        original.username = newUsername;
         return original;
     }
 }
 ```
+
+Now, let's put our `UpdateUserName` operation into effect. In the
+example below, we'll change a `User` object's `username` from whatever
+it currently is to `cliffhuxtable1986`:
 
 ```java
 import com.basho.riak.client.api.commands.kv.FetchValue;
@@ -183,13 +212,14 @@ this option to `true` when constructing `UpdateValue` operations.
 ### Clobber Updates
 
 If you'd like to update an object by simply replacing it with an
-entirely new value (unlike in the section above, where only one property
-of the object was updated), the Java client provides you with a
-"clobber" update that you can use to replace the existing object with a
-new object of the same type rather than changing one or more properties
-of the object. Imagine that there is a `User` object stored in the
-bucket `users` in the key `cliffhuxtable1986`, as in the example above,
-and we simply want to replace the object with a brand new object:
+entirely new value of the same type (unlike in the section above, where
+only one property of the object was updated), the Java client provides
+you with a "clobber" update that you can use to replace the existing
+object with a new object of the same type rather than changing one or
+more properties of the object. Imagine that there is a `User` object
+stored in the bucket `users` in the key `cliffhuxtable1986`, as in the
+example above, and we simply want to replace the object with a brand new
+object:
 
 ```java
 Location location = new Location(new Namespace("users"), "cliffhuxtable1986");
@@ -197,7 +227,23 @@ User brandNewUser = new User(/* new user info */);
 UpdateValue updateOp = new UpdateValue.Builder(Location)
         // As before, we set this option to true
         .withFetchOption(FetchValue.Option.DELETED_VCLOCK, true)
-        .withUpdate(new UpdateUserName("cliffhuxtable1986"))
+        .withUpdate(Update.clobberUpdate(brandNewUser))
         .build();
 client.execute(updateOp);
 ```
+
+### No-operation Updates
+
+The Java client also enables you to construct **no-operation updates**
+that don't actually modify the object and simply write the original
+value back to Riak. What is the use of that, given that it isn't
+changing the value of the object at all? No-operation updates can be
+useful because they can help Riak resolve [[sibling conflicts|Conflict
+Resolution#Siblings]]. If you have an object---or many objects, for that
+matter---with siblings, a no-operation update will fetch the object _and
+its causal context_ and write the object back to Riak with the same,
+fetched context. This has the effect of telling Riak that you deem this
+value to be most current. Riak can then use this information in internal
+sibling resolution operations.
+
+<!-- TODO -->
