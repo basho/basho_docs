@@ -11,6 +11,11 @@ This document walks you through a number of failure scenarios that you
 may encounter, pointing to relevant documentation and suggesting ways of
 addressing the problem.
 
+## High Latency
+
+If your cluster is experiencing latency issues, we recommend consulting
+our [[Latency Reduction Checklist]].
+
 ## Node Has Crashed Unexpectedly
 
 For reasons that are not immediately clear, a node in your cluster has
