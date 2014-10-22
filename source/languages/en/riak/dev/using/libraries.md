@@ -24,16 +24,17 @@ Ruby | [riak-ruby-client](https://github.com/basho/riak-ruby-client) | [GitHub P
 Python | [riak-python-client](https://github.com/basho/riak-python-client) | [sphinx](http://basho.github.com/riak-python-client) | [PyPI](http://pypi.python.org/pypi?:action=display&name=riak#downloads)
 Erlang | [riak-erlang-client (riakc)](https://github.com/basho/riak-erlang-client) | [edoc](http://basho.github.com/riak-erlang-client/) | [GitHub](https://github.com/basho/riak-erlang-client)
 
-**Note**: All official clients use the integrated issue tracker on Github for bug reporting.
+**Note**: All official clients use the integrated issue tracker on
+Github for bug reporting.
 
 In addition to the official clients, Basho provides some unofficial
-client libraries, listed below. There are also many client libraries
-and related [[community projects]].
+client libraries, listed below. There are also many client libraries and
+related [[community projects]].
 
 Language | Source | Documentation
 :--------|:-------|:-------------
 C | [riak-c-client](https://github.com/basho/riak-c-client) | [C Client Documentation](http://basho.github.io/riak-c-client/index.html)
-Node.js | [riak-js](https://github.com/basho/riak-javascript-client) | [riak-js.org](http://riak-js.org/)
+Node.js | [Nodiak](https://github.com/nathanaschbacher/nodiak) | [GitHub README](https://github.com/nathanaschbacher/nodiak/blob/master/README.md)
 PHP | [riak-php-client](https://github.com/basho/riak-php-client) | [doxygen](http://basho.github.com/riak-php-client)
 
 ## Community Libraries
@@ -131,14 +132,15 @@ client process pool based on poolboy
 
 #### Node.js
 
-* [zukai](https://github.com/natural/zukai) --- Riak ODM for Node.js from Troy Melhase 
+* [zukai](https://github.com/natural/zukai) --- Riak ODM for Node.js from Troy Melhase
 * [riak-pb](https://github.com/CrowdProcess/riak-pb) --- Riak Protocol Buffers Client for Node.js from the team at [CrowdProcess](http://crowdprocess.com)
-* [node_riak](https://github.com/mranney/node_riak) --- Voxer's production Node.js client for Riak. 
+* [node_riak](https://github.com/mranney/node_riak) --- Voxer's production Node.js client for Riak.
 * [riakpbc](https://github.com/nlf/riakpbc) --- A simple Riak Protocol Buffer client library for Node.js
 * [nodiak](https://npmjs.org/package/nodiak) --- Supports bulk get/save/delete, sibling auto-resolution, MapReduce chaining, Search, and 2i's.
 * [resourceful-riak](https://github.com/admazely/resourceful-riak) --- A Riak engine to the [resourceful](https://github.com/flatiron/resourceful/) model framework from [flatiron](https://github.com/flatiron/).
 * [Connect-Riak](https://github.com/frank06/connect-riak) --- Riak Session Store for Connect backed by [[Riak-js|http://riakjs.org/]]
 * [Riak-js](http://riakjs.com) --- Node.js client for Riak with support for HTTP and Protocol Buffers
+* [riak-javascript-client](https://github.com/basho/riak-javascript-client) --- Node.js HTTP client from Basho (no longer supported)
 * [Riakjs-model](https://github.com/dandean/riakjs-model) --- a model abstraction around riak-js
 * [Node-Riak](http://github.com/orlandov/node-riak) --- A wrapper around Node's HTTP facilities for communicating with Riak
 * [Nori](https://github.com/sgonyea/nori) --- Experimental Riak HTTP Library for Node.js modeled after Ripple
