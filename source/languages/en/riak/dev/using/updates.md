@@ -77,9 +77,14 @@ updating objects that may have been deleted previously. If you are using
 the Java client, an explanation and examples are given in the
 [[Java-specific section below|Object Updates#Java-Client-Example]]. If
 you are using the Python client, causal context for deleted objects will
-be handled automatically.
+be handled automatically. If you are using the Ruby client, you will
+need to explicitly set the `deletedvclock` parameter to `true` when
+reading an object, like so:
 
-<!-- TODO -->
+```ruby
+bucket = client.bucket('fruits')
+obj = bucket.get('banana', deletedvclock: true)
+```
 
 ## Example Update
 
@@ -95,9 +100,15 @@ is the name of the team, e.g. `giants`, `broncos`, etc. Each object will
 consist of the name of the coach in plain text. Here's an example of
 creating and storing such an object:
 
-```python
-from riak import RiakObject
+```ruby
+bucket = client.bucket('coaches')
+obj = bucket.get_or_new('seahawks', type: 'siblings')
+obj.content_type = 'text/plain'
+obj.raw_data = 'Pete Carroll'
+obj.store
+```
 
+```python
 bucket = client.bucket_type('siblings').bucket('coaches')
 obj = RiakObject(client, bucket, 'seahawks')
 obj.content_type = 'text/plain'
@@ -109,6 +120,20 @@ Every once in a while, though, head coaches change in the NFL, which
 means that our data would need to be updated. Below is an example
 function for updating such objects:
 
+```ruby
+def update_coach(team, new_coach)
+  bucket = client.bucket('coaches')
+  # The read phase
+  obj = bucket.get_or_new(team, type: 'siblings')
+  # The modify phase
+  obj.data = new_coach
+  # The write phase
+  obj.store
+end
+
+# Example usage
+update_coach('packers', 'Vince Lombardi')
+```
 
 ```python
 def update_coach(team, new_coach):
@@ -276,3 +301,14 @@ User user = response.getValue(User.class);
 In general, you should use no-operation updates only on keys that you
 suspect may have accumulated siblings or on keys that are frequently
 updated (and thus bear the possibility of accumulating siblings).
+
+## Object Update Anti-patterns
+
+The most important thing to bear in mind when updating objects is this:
+you should always read an object prior to updating it _unless_ you are
+certain that no object is stored there. If you are storing [[sensor
+data|Use Cases#Sensor-Data]] in Riak and using timestamps as keys, for
+example, then you can be sure that keys are not repeated. In that case,
+making writes to Riak without first reading the object is fine. If
+you're not certain, however, then we recommend always reading the object
+first.
