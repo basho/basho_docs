@@ -26,7 +26,7 @@ OS | Directory
 :--|:---------
 Ubuntu, Debian, CentOS, RHEL | `/var/log/riak`
 Solaris, OpenSolaris | `/opt/riak/log`
-Source install | `./log` (where the `.` represents the root installation directory)
+Source install and Mac OS X | `./log` (where the `.` represents the root installation directory)
 
 ## Log Files
 
@@ -40,6 +40,14 @@ File | Significance
 `erlang.log` | Logs emitted by the [[Erlang VM|Erlang VM Tuning]] on which Riak runs
 `error.log` | [[Error messages]] emitted by Riak.
 `run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
+
+## Log Syntax
+
+Riak logs tend to be structured in one of the following ways:
+
+```log
+<date> <time> [<level>] <PID> <prefix>: 
+```
 
 ### Log File Rotation
 
