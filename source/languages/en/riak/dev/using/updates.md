@@ -246,4 +246,33 @@ fetched context. This has the effect of telling Riak that you deem this
 value to be most current. Riak can then use this information in internal
 sibling resolution operations.
 
-<!-- TODO -->
+Below is an example:
+
+```java
+Location loc = new Location(...);
+UpdateValue updateOp = new UpdateValue.Builder(loc)
+        .withUpdate(Update.noopUpdate())
+        .build();
+client.execute(updateOp);
+```
+
+The example above would update the object without fetching it. You
+could, however, use a no-operation update to _read_ an object as well if
+you set `return_body` to `true` in your request:
+
+```java
+// Using the Location object "loc" from above:
+UpdateValue updateOp = new UpdateValue.Builder(loc)
+        .withFetchOption(Option.RETURN_BODY, true)
+        .withUpdate(Update.noopUpdate())
+        .build();
+UpdateValue.Response response = client.execute(updateOp);
+RiakObject object = response.getValue(RiakObject.class);
+
+// Or to continue the User example from above:
+User user = response.getValue(User.class);
+```
+
+In general, you should use no-operation updates only on keys that you
+suspect may have accumulated siblings or on keys that are frequently
+updated (and thus bear the possibility of accumulating siblings).
