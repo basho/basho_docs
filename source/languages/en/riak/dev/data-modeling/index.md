@@ -33,20 +33,20 @@ The following are examples of Riak use cases that require high
 read/write performance without necessarily utilizing complex data
 structures:
 
-* [[Session Storage|Use Cases#session-storage]]
-* [[Serving Advertisements|Use Cases#serving-advertisements]]
-* [[Log Data|Use Cases#log-data]]
-* [[Sensor Data|Use Cases#sensor-data]]
+* [[Session Storage|Use Cases#Session-Storage]]
+* [[Serving Advertisements|Use Cases#Serving-Advertisements]]
+* [[Log Data|Use Cases#Log-Data]]
+* [[Sensor Data|Use Cases#Sensor-Data]]
 
 ## Content Management, Social Applications
 
 The following application types require more subtle relationships
 between objects, e.g. one-to-many and many-to-many relationships.
 
-* [[User Accounts|Use Cases#user-accounts]]
-* [[User Settings and Preferences|Use Cases#user-settings-and-preferences]]
-* [[User Events and Timelines|Use Cases#user-events-and-timelines]]
-* [[Articles, Blog Posts, and Other Content|Use Cases#articles-blog-posts-and-other-content]]
+* [[User Accounts|Use Cases#User-Accounts]]
+* [[User Settings and Preferences|Use Cases#User-Settings-and-Preferences]]
+* [[User Events and Timelines|Use Cases#User-Events-and-Timelines]]
+* [[Articles, Blog Posts, and Other Content|Use Cases#Articles-Blog-Posts-and-Other-Content]]
 
 ## Session Storage
 
