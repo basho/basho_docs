@@ -46,8 +46,44 @@ File | Significance
 Riak logs tend to be structured in one of the following ways:
 
 ```log
-<date> <time> [<level>] <PID> <prefix>: 
+<date> <time> [<level>] <PID> <prefix>: <message>
 ```
+
+The `date` segment is structured `YYYY-MM-DD`, `time` is structured
+`hh:mm:ss.sss`, `level` depends on which log levels are available in the
+file you are looking at (consult the sections below), the `PID` is the
+Erlang process identifier for the process in which the event occurred,
+and the message `prefix` will often identify the Riak subsystem
+involved, e.g. `riak_ensemble_peer` or `alarm_handler` (amongst many
+other possibilities).
+
+The exception to this syntax is in crash logs (stored in `crash.log`
+files). For crash logs, the syntax tends to be along the following
+lines:
+
+```log
+<date> <time> =<report title>====
+<message>
+```
+
+Here is an example crash report:
+
+```log
+2014-10-17 15:56:38 =ERROR REPORT====
+Error in process <0.4330.323> on node 'dev1@127.0.0.1' with exit value: ...
+```
+
+## Log Files
+
+In each node's `/log` directory, you will see at least one of each of
+the following:
+
+File | Contents
+:----|:--------
+`console.log` | General messages from all Riak subsystems
+`crash.log` | Catastrophic events, such as node failures, running out of disk space, etc.
+`erlang.log` | Events from the Erlang VM on which Riak runs
+`run_erl.log` | The command-line arguments used when starting Riak
 
 ### Log File Rotation
 
@@ -60,26 +96,8 @@ traditional, as it does not always log to `*.1` (e.g. `erlang.log.1`)
 but rather to the oldest log file.
 
 After, say, `erlang.log.1` is filled up, the logging system will begin
-writing to `erlang.log.2`, and so on. When `erlang.log.5` is filled up,
-it will loop back to `erlang.log.1`.
-
-## Format
-
-`YYYY-MM-DD HH:MM:SS.SSS [<level>] <PID>@<system>:<function> Message`
-
-or
-
-`YYYY-MM-DD HH:MM:SS.SSS [<level>] <PID> <message>`
-
-## Log Files
-
-File | Contents
-:----|:--------
-`console.log`
-`crash.log`
-`erlang.log`
-`error.log`
-`run_erl.log`
+writing to `erlang.log.2`, then `erlang.log.3`, and so on. When
+`erlang.log.5` is filled up, it will loop back to `erlang.log.1`.
 
 ## SASL
 
