@@ -102,11 +102,38 @@ writing to `erlang.log.2`, then `erlang.log.3`, and so on. When
 ## SASL
 
 [SASL](http://www.erlang.org/doc/man/sasl_app.html) (System Architecture
-Support Libraries) is Erlang's built-in error logger.
+Support Libraries) is Erlang's built-in error logger. You can enable it
+and disable it using the `sasl` parameter (which can be set to `on` or
+`off`). It is disabled by default.
+
+```riakconf
+sasl = on
+```
 
 ## Error Messages
 
+By default, Riak stores error messages in `./log/error.log` by default.
+You can change this using the `log.error.file` parameter. Here is an
+example, which uses the default:
 
+```riakconf
+log.error.file = ./log/error.log
+```
+
+By default, error messages are redirected into lager, i.e. the
+`log.error.redirect` parameter is set to `on`. The following would
+disable the redirect:
+
+```riakconf
+log.error.redirect = off
+```
+
+You can also throttle the number of error messages that are handled per
+second. The default is 100.
+
+```riakconf
+log.error.messages_per_second = 100
+```
 
 ## Crash Logs
 
