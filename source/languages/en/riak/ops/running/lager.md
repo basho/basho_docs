@@ -137,14 +137,64 @@ log.error.messages_per_second = 100
 
 ## Crash Logs
 
+Riak crash logs are stored in `./log/crash.log` by default. You can
+change this using the `log.crash.file` parameter. This example uses the
+default:
+
+```riakconf
+log.crash.file = ./log/crash.log
+```
+
+While crash logs are kept by default, i.e. the `log.crash` parameter is
+set to `on`, you can disable crash logs like this:
+
+```riakconf
+log.crash = off
+```
+
+### Crash Log Rotation
+
+Like other Riak logs, crash logs are rotated. You can set the crash logs
+to be rotated either when a certain size threshold is reached and/or at
+designated times.
+
+You can set the rotation time using the `log.crash.rotation` parameter.
+The default is `$D0`, which rotates the logs every day at midnight. You
+can also set the rotation to occur weekly, on specific days of the
+month, etc. Complete documentation of the syntax can be found
+[here](https://github.com/basho/lager/blob/master/README.md#internal-log-rotation).
+Below are some examples:
+
+* `$D0` --- Every night at midnight
+* `$D23` --- Every day at 23:00 (11 pm)
+* `$W0D20` --- Every week on Sunday at 20:00 (8 pm)
+* `$M1D0` --- On the first day of every month at midnight
+* `$M5D6` --- On the fifth day of the month at 6:00 (6 am)
+
+To set the maximum size of the crash log before it is rotated, use the
+`log.crash.size` parameter. You can specify the size in KB, MB, etc. The
+default is `10MB`.
+
+
+### Other Crash Log Settings
+
+The maximum size of individual crash log messages can be set using the
+`log.crash.maximum_message_size`, using any size denomination you wish,
+e.g. `KB` or `MB`  The default is 64 KB. The following would set that
+maximum message size to 1 MB:
+
+```riakconf
+log.crash.maximum_message_size = 1MB
+```
+
 ## Syslog
 
 Facility levels:
 
 Level | Meaning
 :-----|:-------
-`auth` |
-`authpriv`
+`auth` | Security/authorization messages
+`authpriv` | 
 `clock`
 `cron`
 `daemon`
