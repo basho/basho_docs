@@ -9,12 +9,12 @@ keywords: [developers, updating, kv]
 
 While Riak supports a variety of querying mechanisms, such as [[Riak
 Search|Using Search]] and [[secondary indexes|Using Secondary Indexes]],
-we always recommend sticking to basic **C**reate, **R**read, **U**pdate,
+we always recommend sticking to basic **C**reate, **R**ead, **U**pdate,
 and **D**elete (CRUD) operations as much as possible, as these
 operations are generally the most performant and reliable operations
-that Riak offers. A complete guide to making decisions about Riak
-features can be found in our [[Application Guide|Building Applications
-with RiakWhich-Features-Should-You-Consider]].
+that Riak offers. A complete guide to making decisions about which Riak
+features to use can be found in our [[Application Guide|Building
+Applications with Riak#Which-Features-Should-You-Consider]].
 
 Amongst the four CRUD operations, object updates in Riak tend to be the
 least straightforward and to require a bit more subtle reasoning on the
@@ -154,6 +154,37 @@ object is read, which automatically fetches the object's causal context;
 then the object is modified, i.e. the object's value is set to the name
 of the new coach; and finally the object is written back to Riak.
 
+## No-operation updates
+
+It may seem counterintuitive, but there are times when it can be useful
+to update an object without modifying it. Given the nature of
+[[siblings|Conflict Resolution#Siblings]] in Riak, it is possible for an
+object to have sibling values that are all the same. For example, it
+would be
+possible, under certain conditions, for the object storing information
+about the current Seahawks coach to have sibling values, all of which
+are `Pete Carroll`. This can come about due to a number of factors,
+including network partitions that
+are eventually healed or application errors that update objects
+without supplying a [[causal context]].
+
+If an object has sibling values that are all the same, then reading the
+object (and fetching the causal context along with it) and then writing
+the object back to Riak has the effect of informing Riak that you can
+consider this to be the most current value. In most cases, this will
+resolve the siblings on its own. Here is an example of a no-operation
+update for the key from the example above:
+
+```ruby
+bucket = client.bucket('coaches')
+# The read phase
+obj = bucket.get('seahawks', type: 'siblings')
+# The write phase
+obj.store
+```
+
+Notice that the object was not modified in this case.
+
 ## Java Client Example
 
 As with the other official clients, object updates using the Java client
@@ -257,7 +288,7 @@ UpdateValue updateOp = new UpdateValue.Builder(Location)
 client.execute(updateOp);
 ```
 
-### No-operation Updates
+### No-operation Updates in Java
 
 The Java client also enables you to construct **no-operation updates**
 that don't actually modify the object and simply write the original
@@ -301,6 +332,7 @@ User user = response.getValue(User.class);
 In general, you should use no-operation updates only on keys that you
 suspect may have accumulated siblings or on keys that are frequently
 updated (and thus bear the possibility of accumulating siblings).
+Otherwise, you're better off performing normal reads.
 
 ## Object Update Anti-patterns
 
