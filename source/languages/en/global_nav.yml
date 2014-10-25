@@ -132,6 +132,7 @@ riak:
           - "[[Latency Reduction|Latency Reduction Checklist]]"
           - "[[Managing Active Anti-Entropy]]"
           - "[[Erlang VM Tuning]]"
+          - "[[Common Failure Scenarios]]"
       - title: "Running a Cluster"
         sub:
           - "[[Backing up Riak]]"
