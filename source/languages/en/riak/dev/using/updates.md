@@ -76,10 +76,10 @@ There are some modifications that you may need to make if you are
 updating objects that may have been deleted previously. If you are using
 the Java client, an explanation and examples are given in the
 [[Java-specific section below|Object Updates#Java-Client-Example]]. If
-you are using the Python client, causal context for deleted objects will
-be handled automatically. If you are using the Ruby client, you will
-need to explicitly set the `deletedvclock` parameter to `true` when
-reading an object, like so:
+you are using the Python or Erlang clients, causal context for deleted
+objects will be handled automatically. If you are using the Ruby client,
+you will need to explicitly set the `deletedvclock` parameter to `true`
+when reading an object, like so:
 
 ```ruby
 bucket = client.bucket('fruits')
@@ -116,6 +116,14 @@ obj.data = 'Pete Carroll'
 obj.store()
 ```
 
+```erlang
+Obj = riakc_obj:new({<<"siblings">>, <<"coaches">>},
+                     <<"seahawks">>,
+                     <<"Pete Carroll">>,
+                     <<"text/plain">>).
+riakc_pb_socket:put(Pid, Obj).
+```
+
 Every once in a while, though, head coaches change in the NFL, which
 means that our data would need to be updated. Below is an example
 function for updating such objects:
@@ -147,6 +155,18 @@ def update_coach(team, new_coach):
 
 # Example usage
 update_coach('packers', 'Vince Lombardi')
+
+```
+```erlang
+update_coach(team, new_coach) ->
+    {ok, Obj} = riakc_pb_socket:get(Pid,
+                                    {<<"siblings">>, <<"coaches">>},
+                                    <<team>>),
+    ModifiedObj = riakc_obj:update(Obj, <<new_coach>>),
+    riakc_pb_socket:put(Pid, ModifiedObj).
+
+%% Example usage
+update_coach('packers', 'Vince Lombardi')
 ```
 
 In the example above, you can see the three steps in action: first, the
@@ -154,36 +174,16 @@ object is read, which automatically fetches the object's causal context;
 then the object is modified, i.e. the object's value is set to the name
 of the new coach; and finally the object is written back to Riak.
 
-## No-operation updates
+## Object Update Anti-patterns
 
-It may seem counterintuitive, but there are times when it can be useful
-to update an object without modifying it. Given the nature of
-[[siblings|Conflict Resolution#Siblings]] in Riak, it is possible for an
-object to have sibling values that are all the same. For example, it
-would be
-possible, under certain conditions, for the object storing information
-about the current Seahawks coach to have sibling values, all of which
-are `Pete Carroll`. This can come about due to a number of factors,
-including network partitions that
-are eventually healed or application errors that update objects
-without supplying a [[causal context]].
-
-If an object has sibling values that are all the same, then reading the
-object (and fetching the causal context along with it) and then writing
-the object back to Riak has the effect of informing Riak that you can
-consider this to be the most current value. In most cases, this will
-resolve the siblings on its own. Here is an example of a no-operation
-update for the key from the example above:
-
-```ruby
-bucket = client.bucket('coaches')
-# The read phase
-obj = bucket.get('seahawks', type: 'siblings')
-# The write phase
-obj.store
-```
-
-Notice that the object was not modified in this case.
+The most important thing to bear in mind when updating objects is this:
+you should always read an object prior to updating it _unless_ you are
+certain that no object is stored there. If you are storing [[sensor
+data|Use Cases#Sensor-Data]] in Riak and using timestamps as keys, for
+example, then you can be sure that keys are not repeated. In that case,
+making writes to Riak without first reading the object is fine. If
+you're not certain, however, then we recommend always reading the object
+first.
 
 ## Java Client Example
 
@@ -333,14 +333,3 @@ In general, you should use no-operation updates only on keys that you
 suspect may have accumulated siblings or on keys that are frequently
 updated (and thus bear the possibility of accumulating siblings).
 Otherwise, you're better off performing normal reads.
-
-## Object Update Anti-patterns
-
-The most important thing to bear in mind when updating objects is this:
-you should always read an object prior to updating it _unless_ you are
-certain that no object is stored there. If you are storing [[sensor
-data|Use Cases#Sensor-Data]] in Riak and using timestamps as keys, for
-example, then you can be sure that keys are not repeated. In that case,
-making writes to Riak without first reading the object is fine. If
-you're not certain, however, then we recommend always reading the object
-first.
