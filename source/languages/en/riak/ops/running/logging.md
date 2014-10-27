@@ -104,7 +104,7 @@ writing to `erlang.log.2`, then `erlang.log.3`, and so on. When
 [SASL](http://www.erlang.org/doc/man/sasl_app.html) (System Architecture
 Support Libraries) is Erlang's built-in error logger. You can enable it
 and disable it using the `sasl` parameter (which can be set to `on` or
-`off`). It is disabled by default.
+`off`). It is disabled by default. The following would enable it:
 
 ```riakconf
 sasl = on
@@ -189,13 +189,48 @@ log.crash.maximum_message_size = 1MB
 
 ## Syslog
 
-Facility levels:
+Riak log output does not go to syslog by default, i.e. the `log.syslog`
+setting is set to `off` by default. To enable syslog output:
+
+```riakconf
+log.syslog = on
+```
+
+If syslog output is enabled, you can choose a prefix to be appended to
+each syslog message. The prefix is `riak` by default.
+
+```riakconf
+log.syslog.ident = riak
+```
+
+### Syslog Level and Facility Level
+
+If syslog is enabled, i.e. if `log.syslog` is set to `on`, you can
+select the log level of syslog output from amongst the available levels,
+which are listed in the table below. The default is `info`.
+
+Level | Meaning
+:-----|:-------
+`alert` |
+`critical` |
+`debug` |
+`emergency` |
+`error` |
+`info` |
+`none` |
+`notice` |
+`warning` |
+
+In addition to a log level, you must also select a [facility
+level](http://en.wikipedia.org/wiki/Syslog#Facility_levels) for syslog
+messages amongst the available levels, which are listed in the table
+below. The default is `daemon`.
 
 Level | Meaning
 :-----|:-------
 `auth` | Security/authorization messages
-`authpriv` | 
-`clock`
+`authpriv` | Non-system authorization messages
+`clock` |
 `cron`
 `daemon`
 `ftp`
@@ -207,6 +242,8 @@ Level | Meaning
 `user`
 `uucp`
 
+In addition to these options, you may also choose one of `local0`
+through `local7`.
 
 ## Console Logs
 
