@@ -8,6 +8,7 @@ index: true
 audience: beginner
 keywords: []
 simple: true
+versions: true
 body_id: riakcs-index
 ---
 
