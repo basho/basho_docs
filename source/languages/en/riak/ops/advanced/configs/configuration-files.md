@@ -1621,7 +1621,7 @@ interface will bind.</td>
 </tbody>
 </table>
 
-## lager
+## Logging
 
 Configurable parameters for [lager](https://github.com/basho/lager),
 Riak's logging system.
