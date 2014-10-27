@@ -620,6 +620,13 @@ riakc_pb_socket:delete(Pid, {<<"quotes">>, <<"oscar_wilde">>}, <<"genius">>)
 curl -XDELETE http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 ```
 
+## Updating Objects
+
+Updating objects tends to be a bit trickier than reading and writing
+objects. We recommend checking out our [[Object Updates]] documentation
+for a full tutorial, including code samples from our [[client
+libraries]].
+
 ## Bucket Properties and Operations
 
 Buckets are essentially a flat namespace in Riak. They allow the same
