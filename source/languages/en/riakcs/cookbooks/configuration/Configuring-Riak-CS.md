@@ -13,8 +13,8 @@ A Riak CS node typically runs on the same server as its corresponding
 Riak node, which means that changes will only be necessary if Riak is
 configured using non-default settings.
 
-The settings reside in the Riak CS `app.config` file, which is typically
-located in the `/etc` directory on each node. Configurable parameters
+Riak CS's settings reside in CS node's `app.config` file, which is
+typically located in the `/etc` directory. Configurable parameters
 related to Riak CS specifically can be found in the `riak_cs` section of
 that file. That section looks something like this:
 
@@ -25,6 +25,12 @@ that file. That section looks something like this:
     %% and so on...
 ]},
 ```
+
+The sections below walk you through some of the main configuration
+categories that you will likely encounter while operating Riak CS. For a
+comprehensive listing of available parameters, see the [[Full
+Configuration Listing|Configuring Riak CS#Full-Configuring-Listing]]
+section below.
 
 ## Host and Port
 
@@ -40,19 +46,21 @@ set to the host and port used by Riak:
 <div class="title">Note on IP addresses</div>
 The IP address you enter here must match the IP address specified for
 the Protocol Buffers interface in the Riak <code>app.config</code> file
-unless Riak CS is running on a completely different network and address
-translation is required.
+unless Riak CS is running on a completely different network, in which
+case address translation is required.
 </div>
 
-After making any changes to the `app.config` file in Riak CS, restart
-the node if it is already running.
+After making any changes to the `app.config` file in Riak CS,
+[[restart|Riak CS Command-line Tools#riak-cs]] the node if it is already
+running.
 
 ## Specifying the Stanchion Node
 
-If you have a single node, you don't have to change the Stanchion
-settings because Stanchion runs on the local host. If your Riak CS
-system has multiple nodes, however, you must specify the IP address and
-port for the Stanchion node and whether or not SSL is enabled.
+If you're running a single Riak CS node, you don't have to change the
+[[Stanchion|Configuring Stanchion]] settings because Stanchion runs on
+the local host. If your Riak CS system has multiple nodes, however, you
+must specify the IP address and port for the Stanchion node and whether
+or not SSL is enabled.
 
 The Stanchion settings reside in the Riak CS `app.config` file, which is
 located in the `/etc` directory of each Riak CS node. The settings
@@ -67,11 +75,11 @@ To set the host and port for Stanchion, do the following:
 
 ## Enabling SSL
 
-SSL is turned off by default in Stanchion, i.e. the `stanchion_ssl`
+SSL is disabled by default in Stanchion, i.e. the `stanchion_ssl`
 variable is set to `false`. If Stanchion is configured to use SSL,
 change this variable to `true`. The following example configuration
-would set the host to `localhost`, the port to `8085` (the default), and
-set up Stanchion to use SSL:
+would set the Stanchion host to `localhost`, the port to `8085` (the
+default), and set up Stanchion to use SSL:
 
 ```appconfig
 {riak_cs, [
@@ -407,12 +415,13 @@ Riak CS are available in [[Garbage Collection]].
   5.
 {{/1.5.0+}}
 
-## Other Riak CS Settings
 
 There are two configuration options designed to provide improved
 performance for Riak CS when using Riak 1.4.0 or later. These options
 take advantage of additions to Riak that are not present prior to
 version 1.4.0.
+
+## Other Riak CS Settings
 
 * `fold_objects_for_list_keys` --- Setting this option to `true` enables
   Riak CS to use a more efficient method of retrieving Riak CS bucket
