@@ -40,7 +40,7 @@ Riak.
 Active Stats represent current activity on the node.
 
 Stat                    | Description
-------------------------|---------------------------------------------------
+:-----------------------|:--------------------------------------------------
 `pbc_active`            | Number of active Protocol Buffers connections
 `node_get_fsm_active`   | Number of active GET FSMs
 `node_put_fsm_active`   | Number of active PUT FSMs
@@ -58,7 +58,7 @@ Average Stats are reported by Sidejob - an Erlang library that
 implements a parallel, capacity-limited request pool.
 
 Stat                    | Description
-------------------------|---------------------------------------------------
+:-----------------------|:--------------------------------------------------
 `node_get_fsm_in_rate`  | Average number of GET FSMs enqueued by Sidejob
 `node_get_fsm_out_rate` | Average number of GET FSMs dequeued by Sidejob
 `node_put_fsm_in_rate`  | Average number of PUT FSMs enqueued by Sidejob
@@ -72,7 +72,7 @@ occurred within the last minute on this node.
 #### General One-Minute Stats
 
 Stat                                  | Description
---------------------------------------|---------------------------------------------------
+:-------------------------------------|:--------------------------------------------------
 `node_gets`                           | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
 `node_puts`                           | Number of PUTs coordinated by this node, where a PUT is sent to a local vnode in the last minute
 `vnode_gets`                          | Number of GET operations coordinated by local vnodes on this node in the last minute
@@ -108,7 +108,7 @@ effectively represents experienced latency. Mean, Median, and 95th-,
 one-minute stats.
 
 Stat                       | Description
----------------------------|---------------------------------------------------
+:--------------------------|:--------------------------------------------------
 `node_get_fsm_time_mean`   | Mean time between reception of client GET request and subsequent response to client
 `node_get_fsm_time_median` | Median time between reception of client GET request and subsequent response to client
 `node_get_fsm_time_95`     | 95th percentile time between reception of client GET request and subsequent response to client
@@ -127,7 +127,7 @@ encountered by this node on the occasion of a GET request. These are
 one-minute stats.
 
 Stat                           | Description
--------------------------------|---------------------------------------------------
+:------------------------------|:--------------------------------------------------
 `node_get_fsm_siblings_mean`   | Mean number of siblings encountered during all GET operations by this node within the last minute
 `node_get_fsm_siblings_median` | Median number of siblings encountered during all GET operations by this node within the last minute
 `node_get_fsm_siblings_95`     | 95th percentile of siblings encountered during all GET operations by this node within the last minute
@@ -143,7 +143,7 @@ value, and serialized metadata of each sibling. GET FSM Objsize and GET
 FSM Siblings are inextricably linked. These are one-minute stats.
 
 Stat                          | Description
-------------------------------|---------------------------------------------------
+:-----------------------------|:--------------------------------------------------
 `node_get_fsm_objsize_mean`   | Mean object size encountered by this node within the last minute
 `node_get_fsm_objsize_median` | Median object size encountered by this node within the last minute
 `node_get_fsm_objsize_95`     | 95th percentile object size encountered by this node within the last minute
@@ -155,7 +155,7 @@ Stat                          | Description
 Total Stats represent the total number of times a particular activity has occurred since this node was started.
 
 Stat                                   | Description
----------------------------------------|---------------------------------------------------
+:--------------------------------------|:--------------------------------------------------
 `node_gets_total`                      | Total number of GETs coordinated by this node, including GETs to non-local vnodes
 `node_puts_total`                      | Total number of PUTs coordinated by this node, including PUTs to non-local vnodes
 `vnode_gets_total`                     | Total number of GETs coordinated by local vnodes
@@ -186,7 +186,7 @@ Epoch time, the last time statistics for that application were
 generated.
 
 Stat                | Description
---------------------|---------------------------------------------------
+:-------------------|:--------------------------------------------------
 `riak_kv_stat_ts`   | The last time Riak KV stats were generated.
 `riak_pipe_stat_ts` | The last time Riak Pipe stats were generated.
 
@@ -195,7 +195,7 @@ Stat                | Description
 General ring information is reported in `riak-admin status`.
 
 Stat                 | Description
----------------------|---------------------------------------------------
+:--------------------|:--------------------------------------------------
 `ring_members`       | List of nodes that are members of the ring
 `ring_num_partitions`| The number of partitions in the ring
 `ring_ownership`     | List of all nodes in the ring and their associated partition ownership
@@ -208,7 +208,7 @@ Documentation for which can be found at [ErlDocs:
 cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
 
 Stat         | Description
--------------|---------------------------------------------------
+:------------|:--------------------------------------------------
 `cpu_nprocs` | Number of operating system processes
 `cpu_avg1`   | The average number of active processes for the last 1 minute (equivalent to top(1) command’s load average when divided by 256())
 `cpu_avg5`   | The average number of active processes for the last 5 minutes (equivalent to top(1) command’s load average when divided by 256())
@@ -219,7 +219,7 @@ Documentation for which can be found at [ErlDocs:
 Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0).
 
 Stat                    | Description
-------------------------|---------------------------------------------------
+:-----------------------|:--------------------------------------------------
 `memory_total`          | Total allocated memory (sum of processes and system)
 `memory_processes`      | Total amount of memory allocated for Erlang processes
 `memory_processes_used` | Total amount of memory used by Erlang processes
@@ -237,7 +237,7 @@ Stat                    | Description
 The below statistics describe properties of the Erlang VM.
 
 Stat                      | Description
---------------------------|---------------------------------------------------
+:-------------------------|:--------------------------------------------------
 `nodename`                | The name this node uses to identify itself
 `connected_nodes`         | A list of the nodes that this node is aware of at this time
 `sys_driver_version`      | String representing the Erlang driver version in use by the runtime system
@@ -588,6 +588,7 @@ Stat | Description
 `consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 `consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+
 ## riak-admin diag
 
 Running `riak-admin diag` by itself will perform a check of all of the
