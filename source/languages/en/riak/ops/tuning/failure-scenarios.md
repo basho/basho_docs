@@ -80,6 +80,18 @@ If, however, you need to reclaim disk space immediately, we recommend
 beginning in these two places:
 
 * [[Bitcask]] hintfiles --- These files are used by Bitcask to build an
-    in-memory representation of the current key space. They can be
-    deleted if absolutely necessary. You can find them in the node's
-    `/data` directory, in 
+    in-memory representation of the current key space. If you are using
+    Bitcask, they can be deleted if necessary; if you are not using
+    Bitcask, disregard this suggestion. You can find them in the node's
+    `/data` directory, in the `/bitcask` subdirectory. Within the
+    `/bitcask` directory you'll find a subdirectory for each
+    [[vnode|Riak Glossary#vnodes]] data partition within the node. Each
+    partition contains a `*.bitcask.hint` file, where the `*` is an
+    assigned number. Those are the files that you must remove. One
+    drawback to eliminating Bitcask hintfiles is that Bitcask will
+    likely take longer to start up when the node is restarted. If disk
+    space has become a serious issue, however, then deleting hintfiles
+    is probably worth the risk.
+* Active anti-entropy \(AAE) files --- These files are used by
+    Riak's [[active anti-entropy]] subsystem. By default, they reside in
+    each node's `/data` directory, in the `/anti_entropy` subdirectory
