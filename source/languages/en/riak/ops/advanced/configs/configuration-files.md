@@ -120,7 +120,7 @@ upgrading from an earlier version of Riak to version 2.0 or later, may
 need to make use of an `advanced.config` file to control some settings
 available only in versions prior to 2.0. If this applies to your
 installation, please see the [[Advanced Configuration|Configuration
-Files#advanced-configuration]] section below.
+Files#Advanced-Configuration]] section below.
 
 ## Node Metadata
 
