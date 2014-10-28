@@ -341,7 +341,8 @@ riakcs:
       - "[[Using Riak CS With Keystone]]"
   - title: "Theory & Concepts"
     sub:
-      - "[[Globally Unique Entities]]"
+      - "[[Stanchion]]"
+      # - "[[Globally Unique Entities]]"
       - "[[Multipart Upload Overview]]"
       - title: "Comparisons"
         sub:
