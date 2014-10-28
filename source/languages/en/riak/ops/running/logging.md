@@ -1,5 +1,5 @@
 ---
-title: lager
+title: Logging
 project: riak
 version: 2.0.0+
 document: reference
@@ -7,11 +7,11 @@ audience: intermediate
 keywords: [operator, logging, lager]
 ---
 
-[lager](https://github.com/basho/lager) is a logging framework for
-[Erlang](http://www.erlang.org/) that is used as the logging
-infrastructure for Riak. lager provides a number of configuration
-options that you can use to fine-tune your Riak cluster's logging
-output. A compact listing of parameters can be found in our
+Logging in Riak is handled by a Basho-produced logging framework for
+[Erlang](http://www.erlang.org) called
+[lager](https://github.com/basho/lager). lager provides a number of
+configuration options that you can use to fine-tune your Riak cluster's
+logging output. A compact listing of parameters can be found in our
 [[configuration files|Configuration Files#lager]] documentation. A more
 thorough explanation of these options can be found in this document.
 
@@ -37,13 +37,13 @@ File | Significance
 :----|:------------
 `console.log` | Console log output
 `crash.log` | Crash logs
-`erlang.log` | Logs emitted by the [[Erlang VM|Erlang VM Tuning]] on which Riak runs
-`error.log` | [[Error messages]] emitted by Riak.
+`erlang.log` | Logs emitted by the [[Erlang VM|Erlang VM Tuning]] on which Riak runs.
+`error.log` | [[Error messages|Common Errors]] emitted by Riak.
 `run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
 
 ## Log Syntax
 
-Riak logs tend to be structured in one of the following ways:
+Riak logs tend to be structured like this:
 
 ```log
 <date> <time> [<level>] <PID> <prefix>: <message>
