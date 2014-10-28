@@ -13,8 +13,8 @@ A Riak CS node typically runs on the same server as its corresponding
 Riak node, which means that changes will only be necessary if Riak is
 configured using non-default settings.
 
-The settings reside in the Riak CS `app.config` file, which is typically
-located in the `/etc` directory on each node. Configurable parameters
+Riak CS's settings reside in CS node's `app.config` file, which is
+typically located in the `/etc` directory. Configurable parameters
 related to Riak CS specifically can be found in the `riak_cs` section of
 that file. That section looks something like this:
 
@@ -25,6 +25,12 @@ that file. That section looks something like this:
     %% and so on...
 ]},
 ```
+
+The sections below walk you through some of the main configuration
+categories that you will likely encounter while operating Riak CS. For a
+comprehensive listing of available parameters, see the [[Full
+Configuration Listing|Configuring Riak CS#Full-Configuring-Listing]]
+section below.
 
 ## Host and Port
 
@@ -40,19 +46,21 @@ set to the host and port used by Riak:
 <div class="title">Note on IP addresses</div>
 The IP address you enter here must match the IP address specified for
 the Protocol Buffers interface in the Riak <code>app.config</code> file
-unless Riak CS is running on a completely different network and address
-translation is required.
+unless Riak CS is running on a completely different network, in which
+case address translation is required.
 </div>
 
-After making any changes to the `app.config` file in Riak CS, restart
-the node if it is already running.
+After making any changes to the `app.config` file in Riak CS,
+[[restart|Riak CS Command-line Tools#riak-cs]] the node if it is already
+running.
 
 ## Specifying the Stanchion Node
 
-If you have a single node, you don't have to change the Stanchion
-settings because Stanchion runs on the local host. If your Riak CS
-system has multiple nodes, however, you must specify the IP address and
-port for the Stanchion node and whether or not SSL is enabled.
+If you're running a single Riak CS node, you don't have to change the
+[[Stanchion|Configuring Stanchion]] settings because Stanchion runs on
+the local host. If your Riak CS system has multiple nodes, however, you
+must specify the IP address and port for the Stanchion node and whether
+or not SSL is enabled.
 
 The Stanchion settings reside in the Riak CS `app.config` file, which is
 located in the `/etc` directory of each Riak CS node. The settings
@@ -67,11 +75,11 @@ To set the host and port for Stanchion, do the following:
 
 ## Enabling SSL
 
-SSL is turned off by default in Stanchion, i.e. the `stanchion_ssl`
+SSL is disabled by default in Stanchion, i.e. the `stanchion_ssl`
 variable is set to `false`. If Stanchion is configured to use SSL,
 change this variable to `true`. The following example configuration
-would set the host to `localhost`, the port to `8085` (the default), and
-set up Stanchion to use SSL:
+would set the Stanchion host to `localhost`, the port to `8085` (the
+default), and set up Stanchion to use SSL:
 
 ```appconfig
 {riak_cs, [
@@ -407,12 +415,13 @@ Riak CS are available in [[Garbage Collection]].
   5.
 {{/1.5.0+}}
 
-## Other Riak CS Settings
 
 There are two configuration options designed to provide improved
 performance for Riak CS when using Riak 1.4.0 or later. These options
 take advantage of additions to Riak that are not present prior to
 version 1.4.0.
+
+## Other Riak CS Settings
 
 * `fold_objects_for_list_keys` --- Setting this option to `true` enables
   Riak CS to use a more efficient method of retrieving Riak CS bucket
@@ -437,3 +446,599 @@ version 1.4.0.
 The `app.config` file includes other settings, such as whether to create
 log files and where to store them. These settings have default values
 that work in most cases.
+
+## Full Configuration Listing
+
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Subsection</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><code>cs_ip</code></td>
+<td></td>
+<td>The IP address of the Riak CS node.</td>
+<td><code>"127.0.0.1"</code></td>
+</tr>
+
+<tr>
+<td><code>cs_port</code></td>
+<td></td>
+<td>The port on which the Riak CS node listens.</td>
+<td><code>8080</code></td>
+</tr>
+
+<tr>
+<td><code>riak_ip</code></td>
+<td></td>
+<td>The IP address for the Riak node accessed by this Riak CS node.</td>
+<td><code>"127.0.0.1"</code></td>
+</tr>
+
+<tr>
+<td><code>riak_pb_port</code></td>
+<td></td>
+<td>The <a href="http://code.google.com/p/protobuf">Protocol Buffers</a>
+port for the Riak node accessed by this Riak CS node.</td>
+<td><code>8087</code></td>
+</tr>
+
+<tr>
+<td><code>stanchion_ip</code></td>
+<td></td>
+<td>The IP address for the Stanchion node associated with this Riak CS
+node.</td>
+<td><code>"127.0.0.1"</code></td>
+</tr>
+
+<tr>
+<td><code>stanchion_port</code></td>
+<td></td>
+<td>The port on which the Stanchion node associated with this Riak CS
+node listens.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>stanchion_ssl</code></td>
+<td></td>
+<td>Whether SSL is enabled on the Stanchion node associated with this
+Riak CS node.</td>
+<td><code>false</code></td>
+</tr>
+
+<tr>
+<td><code>anonymous_user_creation</code></td>
+<td></td>
+<td>Whether users can be created by a currently anonymous user. We
+recommend enabling anonymous user creation only if your use case
+specifically demands allowing anonymous users to create accounts. You may
+also need to temporarily enable anonymous user creation when you are
+first setting up your Riak CS installation, so that you can create an
+admin user.</td>
+<td><code>false</code></td>
+</tr>
+
+<tr>
+<td><code>admin_key</code></td>
+<td></td>
+<td>The secret key that admin users must use to authenticate themselves,
+particularly for access to things like the <code>/riak-cs/stats</code>
+endpoint. Please note that the admin credentials set on Riak CS nodes
+must match the admin key set in Stanchion's <code>app.config</code>
+file.</td>
+<td><code>"admin-key"</code></td>
+</tr>
+
+<tr>
+<td><code>admin_secret</code></td>
+<td></td>
+<td>The secret that admin users must use to authenticate themselves. See
+the instructions for the <code>admin_key</code> setting above for more
+information.</td>
+<td><code>"admin-secret"</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>admin_ip</code></td>
+<td></td>
+<td>The IP address to listen on for admin-related tasks. This setting is
+commented out by default, which means that this value is the same as
+<code>cs_ip</code> by default. Only uncomment this setting if you wish
+to use a different IP for admin tasks.</td>
+<td><code>"127.0.0.1"</code> (commented)</td>
+</tr>
+
+<tr>
+<td><code>admin_port</code></td>
+<td></td>
+<td>The port to listen on for admin-related tasks. This setting is
+commented out by default, which means that this value is the same as
+<code>cs_port</code> by default. Only uncomment this setting if you wish
+to use a different port for admin tasks.</td>
+<td><code>8000</code> (commented)</td>
+</tr>
+
+<tr>
+<td><code>certfile</code></td>
+<td><code>ssl</code></td>
+<td>The location of the SSL cert used by this Riak node. This setting is
+commented by default. Only uncomment if you need to use SSL. Otherwise,
+Riak CS will be available via HTTP only.</td>
+<td><code>./etc/cert.pem</code></td>
+</tr>
+
+<tr>
+<td><code>keyfile</code></td>
+<td><code>ssl</code></td>
+<td>The location of the SSL keyfile used by this Riak node. This setting
+is commented by default. Only uncomment if you need to use SSL.
+Otherwise, Riak CS will be available via HTTP only.</td>
+<td><code>./etc/key.pem</code> (commented)</td>
+</tr>
+
+<tr>
+<td><code>cs_root_host</code></td>
+<td></td>
+<td>The root host name that Riak CS accepts. A CS bucket would be
+accessible via a URL like
+<code>http://bucket.s3.example.com/object/name</code> if this parameter
+were set to <code>s3.example.com</code>.</td>
+<td><code>s3.amazonaws.com</code></td>
+</tr>
+
+<tr>
+<td><code>request_pool</code></td>
+<td><code>connection_pools</code></td>
+<td>Sets the fixed and overflow sizes of this Riak CS node's request
+pool, expressed as a <code>{FixedSize, OverflowSize}</code> tuple.</td>
+<td><code>{128, 0}</code></td>
+</tr>
+
+<tr>
+<td><code>bucket_list_pool</code></td>
+<td><code>connection_pools</code></td>
+<td>Sets the fixed and overflow sizes of this Riak CS node's connection
+pool, expressed as a <code>{FixedSize, OverflowSize}</code> tuple.</td>
+<td><code>{5, 0}</code></td>
+</tr>
+
+<tr>
+<td><code>rewrite_module</code></td>
+<td></td>
+<td>The module used to handle object rewrites in Riak CS.</td>
+<td><code>riak_cs_s3_rewrite</code></td>
+</tr>
+
+<tr>
+<td><code>auth_module</code></td>
+<td></td>
+<td>The module used to handle authentication in Riak CS.</td>
+<td><code>riak_cs_s3_auth</code></td>
+</tr>
+
+<tr>
+<td><code>fold_objects_for_list_keys</code></td>
+<td></td>
+<td>Setting this option to <code>true</code> enables Riak CS to use a
+more efficient method of retrieving Riak CS bucket contents from Riak.
+Using this option provides improved performance and stability,
+especially for buckets that contain millions of objects or more. This
+option should not be enabled unless Riak 1.4.10 is being used.</td>
+<td><code>false</code></td>
+</tr>
+
+<tr>
+<td><code>n_val_1_get_requests</code></td>
+<td></td>
+<td>This option, if set to <code>true</code>, causes Riak CS to use a
+special request option when retrieving the blocks of an object. More
+specifically, this option instructs Riak to send a request for the
+object block to a single eligible vnode instead of all eligible vnodes.
+This differs from a standard <code>r</code> request option in that
+<code>r</code> affects how many vnode responses to wait for before
+returning and has no effect on how many vnodes are actually contacted.
+Enabling this option has the effect of greatly reducing the
+intra-cluster bandwidth used by Riak when retrieving objects with Riak
+CS. This option is harmless if used with a version of Riak prior to
+1.4.0, but the option to disable it is provided as a safety measure.</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>cs_version</code></td>
+<td></td>
+<td>The Riak CS version in use on this node. This setting is used to
+selectively enable new features for the current version to better
+support rolling upgrades. If you're installing Riak CS anew you will not
+need to change this setting; if you're performing a rolling upgrade,
+keep the original value set in the old <code>app.config</code> until all
+nodes have been upgraded and then set to the new value. If this
+parameter is not defined, Riak CS will use <code>0</code>.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>access_log_flush_factor</code></td>
+<td></td>
+<td>How often the access log gets flushed. The value must be an integer:
+<code>1</code> means once per archive period, <code>2</code> means twice
+per period, etc. The length of archive periods is determined by the
+<code>access_archive_period</code> setting explained below.</td>
+<td><code>1</code></td>
+</tr>
+
+<tr>
+<td><code>access_log_flush_size</code></td>
+<td></td>
+<td>You can also set the access log to be flushed when the log exceeds
+the number of accesses that you choose for this parameter.</td>
+<td><code>1000000</code></td>
+</tr>
+
+<tr>
+<td><code>access_archive_period</code></td>
+<td></td>
+<td>How long each archive access period lasts, set as an integer number
+of seconds. This setting should be a multiple of
+<code>access_log_flush_size</code>.</td>
+<td><code>3600</code> (one hour)</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>access_archiver_max_backlog</code></td>
+<td></td>
+<td>The number of access logs that are allowed to accumulate in the
+archiver's log queue before it begins skipping to catch up. Set as an
+integer.</td>
+<td><code>2</code></td>
+</tr>
+
+<tr>
+<td><code>storage_schedule</code></td>
+<td></td>
+<td>Determines when storage calculation batches are automatically
+started. This parameter takes a list of `HHMM` UTC times. If the list is
+empty, i.e. the parameter is set to `[]`, no automatic calculations will
+take place; otherwise, `["0600"]` will set calculations to be triggered
+at 6 am UTC every day, `["0600", "1945"]` will set calculations to be
+triggered at 6 am and 7:45 pm UTC, etc.</td>
+<td><code>[]</code></td>
+</tr>
+
+<tr>
+<td><code>storage_archive_period</code></td>
+<td></td>
+<td>How large each storage archive object is. This should be chosen in
+such a way that each <code>storage_schedule</code> entry falls in a
+different period. Set as an integer number of seconds.</td>
+<td><code>86400</code> (1 day)</td>
+</tr>
+
+<tr>
+<td><code>usage_request_limit</code></td>
+<td></td>
+<td>The number of archive periods a user can request in one usage read,
+applied independently to access and storage. Specified as an integer
+number of intervals. To give an example, <code>744</code> (the default)
+means one month at 1-hour intervals.</td>
+<td><code>744</code></td>
+</tr>
+
+<tr>
+<td><code>leeway_seconds</code></td>
+<td></td>
+<td>The number of seconds that must elapse before an object version that
+has been explicitly deleted or overwritten is eligible for garbage
+collection. Set as an integer number of seconds.</td>
+<td><code>86400</code> (1 day)</td>
+</tr>
+
+<tr>
+<td><code>gc_interval</code></td>
+<td></td>
+<td>The time interval, in seconds, at which the garbage collection
+daemon runs. This daemon searches for and reaps eligible object
+versions.</td>
+<td><code>900</code> (15 minutes)</td>
+</tr>
+
+<tr>
+<td><code>gc_retry_interval</code></td>
+<td></td>
+<td>The number of seconds that must elapse before another attempt is
+made to write a record for an object manifest in the
+<code>pending_delete</code> state to the garbage collection eligiblity
+bucket. In general, this condition should be rare, but could happen if
+an error condition caused the original record in the garbage
+collection eligiblity bucket to be removed prior to the reaping process
+completing.</td>
+<td><code>21600</code> (6 hours)</td>
+</tr>
+
+<tr>
+<td><code>gc_paginated_indexes</code></td>
+<td></td>
+<td>This option indicates whether the garbage collection daemon should
+use paginated secondary index (2i) queries when searching the garbage
+collection bucket for eligible records to reap. Setting this option to
+<code>true</code> (the default) is generally more efficient and is
+recommended for cases where the underlying Riak nodes are of version
+1.4.0 or above.</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><code>trust_x_forwarded_for</code></td>
+<td></td>
+<td>If your load balancer adds an `X-Forwarded-For` header and it is
+reliable (i.e. it is able to guarantee that it is not added by a
+malicious user), set this option to <code>true</code>. Otherwise, Riak
+CS takes the source IP address as an input (which is the default).</td>
+<td><code>false</code></td>
+</tr>
+
+<tr>
+<td><code>dtrace_support</code></td>
+<td></td>
+<td>If your Erlang VM supports <a
+href="http://www.erlang.org/doc/apps/runtime_tools/DTRACE.html">DTrace</a>
+or <a
+href="https://www.sourceware.org/systemtap/SystemTap_Beginners_Guide/userspace-probing.html">user-space
+SystemTamp</a>, set this option to <code>true</code>.</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+
+## Webmachine Settings
+
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Subsection</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><code>webmachine_log_handler</code></td>
+<td><code>log_handlers</code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>riak_cs_access_log_handler</code></td>
+<td><code>log_handlers</code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+</tbody>
+</table>
+
+## lager Settings
+
+[lager](https://github.com/basho/lager) is the logging framework used by
+Riak CS.
+
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Subsection</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><code>handlers</code></td>
+<td></td>
+<td></td>
+</tr>
+
+</tbody>
+</table>
+
+## SASL Settings
+
+[sasl](http://www.erlang.org/doc/man/sasl_app.html) is Erlang's built-in
+error logger.
+
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Subsection</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><code>sasl_error_logger</code></td>
+<td>Whether to use Erlang's built-in error logger. Set to
+<code>true</code> to enable it or <code>false</code> to disable it. It
+is disabled by default.</td>
+<td><code>false</code></td>
+</tr>
+
+</tbody>
+</table>
+
+## Erlang VM Settings in vm.args
+
+In addition to an `app.config` file, each Riak CS node has a `vm.args`
+file that you can use to pass arguments to the Erlang VM on which Riak
+runs. A full listing of configurable parameters for `vm.args` can be
+found in our [[configuration files|Configuration
+Files#Configuring-Your-vm.args]] documentation.
+
+<!--
+
+For use in constructing tables
+
+<tr>
+<td><code></code></td>
+<td></td>
+<td></td>
+</tr>
+
+-->

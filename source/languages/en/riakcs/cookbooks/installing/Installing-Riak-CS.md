@@ -21,8 +21,10 @@ of which must be installed separately:
 * [Riak](http://docs.basho.com/riak/1.4.10/) --- The distributed
   database on top of which Riak CS is built
 * Riak CS itself
-* [Stanchion](https://github.com/basho/stanchion) --- An application
-  used to manage globally unique entities, such as users and buckets
+* [[Stanchion]] --- An application
+    used to manage [[globally unique
+    entities|Stanchion#Globally-Unique-Entities]] such as users and
+    buckets
 
 [[Riak|Installing Riak CS#Installing-Riak]] and [[Riak CS|Installing
 Riak CS#Installing-Riak-CS-on-a-Node]] must be installed on each node in
