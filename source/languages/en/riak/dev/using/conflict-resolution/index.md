@@ -92,16 +92,19 @@ Another way to manage conflicts is to set `allow_mult` to `false`, as
 with timestamp-based resolution, while also setting the
 `[[last_write_wins|Conflict Resolution#last-write-wins]]` parameter to
 `true`. This produces a so-called last-write-wins (LWW) strategy whereby
-all conflicts are resolved internally in Riak on the basis of [[vector
-clocks]]. While this strategy is preferred to timestamp-based strategies
-because it takes object update causality into account timestamps, it
-still bears the risk that writes will be lost.
+Riak foregoes the use of all internal conflict resolution strategies
+when making writes, effectively disregarding all previous writes.
 
-The problem is that LWW will necessarily drop some writes in the case of
-concurrent updates in the name of preventing sibling creation. If your
-use case requires that your application be able to reason about
+The problem with LWW is that it will necessarily drop some writes in the
+case of concurrent updates in the name of preventing sibling creation.
+If your use case requires that your application be able to reason about
 differing values produced in the case of concurrent updates, then we
-advise against LWW as a conflict resolution strategy.
+advise against LWW as a general conflict resolution strategy.
+
+However, LWW can be useful---and safe---if you are certain that there
+will be no concurrent updates. If you are storing immutable data in
+which each object is guaranteed to have its own key or engaging in
+operations related to bulk loading, you should consider LWW.
 
 <div class="note">
 <div class="title">Undefined behavior warning</div>
