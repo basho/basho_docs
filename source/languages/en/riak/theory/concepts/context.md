@@ -38,36 +38,31 @@ value "wins." In this scenario, one of two things can happen:
 
     a. Riak creates sibling values, aka **siblings**, for the object
 
-    b. Riak chooses a value for you on the basis of timestamps or some
-       other mechanism.
+    b. Riak chooses a single value for you on the basis of timestamps
 
 In the case of outcome 1 above, Riak uses **causal context** metadata to
 make that decision. This metadata is attached to every object in Riak.
+Causal context comes in two forms in Riak: **vector clocks** and
+**dotted version vectors**. More information in both can be found in the
+sections below.
 
-The choice between **a** and **b** above is yours to make.
+In the case of outcome 2, the choice between **a** and **b** is yours to
+to make. If you set the `allow_mult` parameter to `true` for a bucket,
+[[using bucket types]], all writes to that bucket will create siblings
+in the case of concurrent writes (and occasionally under other
+scenarios, e.g. healed network partitions).
 
-One means of achieving this is to use a mechanism like
-[timestamps](http://en.wikipedia.org/wiki/Timestamp) to determine which
-object is more **chronologically** recent. While Riak [[provides you
-this option|Conflict
-Resolution#Client-and-Server-side-Conflict-Resolution]], timestamps are
-a notoriously unreliable means of determining which object value is most
-current in distributed systems. A much more reliable means is to track
-the **causal** history of object updates.
-
-Riak current offers two mechanisms for tracking causality: [[vector
-clocks|Causal Context Objects#Vector-Clocks]] and [[dotted version
-vectors|Causal Context Objects#Dotted-Version-Vectors]]. You can find an
-explanation of both below, including usage information.
+If, however, `allow_mult` is set to `false`, then Riak will not generate
+siblings, instead relying on internal mechanisms to decide which value
+"wins." In general, we recommend _always_ setting `allow_mult` to
+`true`. A more complete discussion can be found in our documentation on
+[[conflict resolution|Conflict
+Resolution#Client-and-Server-side-Conflict-Resolution]].
 
 ## Vector Clocks
 
-One of Riak's central goals is high availability. It was built as a
-multi-node system in which any node is capable of receiving requests
-without requiring that each node participate in each request. In a
-system like this, it's important to be able to keep track of which
-version of a value is the most current. This is where vector clocks
-come in.
+In versions of Riak prior to 1.4, Riak used vector clocks as the sole
+means of tracking the history of object updates.
 
 ## Vector Clocks and Relationships Between Objects
 
