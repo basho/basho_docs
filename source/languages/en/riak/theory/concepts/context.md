@@ -62,41 +62,26 @@ Resolution#Client-and-Server-side-Conflict-Resolution]].
 ## Vector Clocks
 
 In versions of Riak prior to 1.4, Riak used vector clocks as the sole
-means of tracking the history of object updates.
+means of tracking the history of object updates. In Riak versions 2.0
+and later, we recommend using [[dotted version vectors|Causal
+Context#Dotted-Version-Vectors]] instead, for reasons that are explained
+in that section.
 
-## Vector Clocks and Relationships Between Objects
+Like dotted version vectors, vector clocks are a means of tracking a
+events in distributed systems. Unlike normal clocks, vector clocks have
+no sense of chronological time, i.e. they don't care if something
+happened at 6 pm today or back in 1972. They care only about sequences
+of events. More specifically, they keep track of who---i.e. which actor
+in the system---has modified an object and how many times they've done
+so.
 
-All Riak objects are stored in a location defined by the object's
-[[bucket|Buckets]] and [[key|Keys and Objects]], as well as by the
-[[bucket type|Using Bucket Types]] defining the bucket's properties. It
-is possible to [[configure Riak|Conflict Resolution]] to ensure that
-only one copy of an object ever exists in a specific location. This will
-ensure that _at most_ one object is returned when a read is performed on
-a bucket type/bucket/key location (and no objects if Riak returns `not
-found`).
-
-If Riak is configured this way, Riak may still make use of vector clocks
-behind the scenes to make intelligent decisions about which replica of
-an object should be deemed the most recent, but in that case vector
-clocks will be a non-issue for clients connecting to Riak.
-
-## Siblings
-
-It is also possible to configure Riak to store multiple objects in a
-single key, i.e. for an object to have different values on different
-nodes. Objects stored this way are called **siblings**. You can instruct
-Riak to allow for sibling creation by setting the the `allow_mult`
-bucket property to `false` for a specific bucket, preferably [[using
-bucket types]].
-
-This is where vector clocks come in. Vector clocks are metadata attached
-to all Riak objects that enable Riak to determine the causal
-relationship between two two objects. Vector clocks are non-human-
-readable and look something like this:
-
-```
-a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
-```
+In a distributed system like Riak, multiple replicas of each object are
+active in the cluster all the time. Because it's inevitable that objects
+will have conflicting values due to events like concurrent updates and
+healed network partitions, Riak needs a mechanism to keep track of which
+replica of an object is more current than another. In versions of Riak
+prior to 2.0, vector clocks were the means employed by Riak to do
+precisely that.
 
 A number of important aspects of the relationship between object
 replicas can be determined using vector clocks:
@@ -110,14 +95,43 @@ its [[active anti-entropy]] subsystem and of its automatic [[read
 repair|Active Anti-Entropy#read-Repair-vs.-active-anti-entropy]]
 capabilities.
 
+
+Vector clocks are non-human-readable metadata attached to all Riak
+objects. They look something like this:
+
+```
+a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
+```
+
+While vector clocks quite often resolve object conflicts without
+trouble, there are times when they can't, i.e. when it's unclear which
+value of an object is most current. When that happens, Riak, if
+configured to do so, will create **siblings**.
+
+## Siblings
+
+It is possible, though not recommendable, to [[configure Riak|Conflict
+Resolution]] to ensure that only one copy of an object ever exists in a
+specific location. This will ensure that _at most_ one value is returned
+when a read is performed on a bucket type/bucket/key location (and no
+value if Riak returns `not found`).
+
+It's also possible, however, to configure Riak to store multiple objects
+in a single key if necessary, i.e. for an object to have different
+values on different nodes. Objects stored this way have what are called
+sibling values. You can instruct Riak to allow for sibling creation by
+setting the the `allow_mult` bucket property to `false` for a specific
+bucket, preferably [[using bucket types]].
+
 From the standpoint of application development, the difficulty with
 siblings is that they _by definition_ conflict with one another. When an
 application attempts to read an object that has siblings, multiple
 replicas will be stored in the location where the application is
-looking.  This means that the application will need to develop a
-strategy for [[conflict resolution]].
+looking. This means that the application will need to develop a
+strategy for [[conflict resolution]], i.e. the application will need to
+decide which value is more correct depending on the use case.
 
-## More Information
+## More Information on Vector Clocks
 
 Additional information on vector clocks:
 
@@ -129,27 +143,37 @@ Additional information on vector clocks:
 
 ## Dotted Version Vectors
 
-In versions of Riak prior to 2.0, all causality-based conflict resolution, whether on the
-client side or in Riak, was achieved using [[vector clocks|Causal
-Context Objects#Vector-Clocks]]. In version 2.0, Riak added the option
-of using **dotted version vectors** (DVVs) instead.
+In versions of Riak prior to 2.0, all causality-based conflict
+resolution, whether on the client side or in Riak, was achieved using
+[[vector clocks|Causal Context Objects#Vector-Clocks]]. In version 2.0,
+Riak added the option of using **dotted version vectors** (DVVs)
+instead.
 
 Like vector clocks, dotted version vectors are a mechanism for tracking
 object update causality in terms of **logical time** rather than
 chronological time (as with timestamps), enabling Riak to make decisions
 about which objects are more current than others in cases of conflict.
 
+<div class="note">
+<div class="title">DVVs Recommended Over Vector Clocks</div>
+If you are using Riak version 2.0 or later, we strongly recommend using
+dotted version vectors instead of vector clocks, as DVVs are far better
+at limiting the number of siblings produced in a cluster, which can
+prevent a wide variety of potential issues.
+</div>
+
 ## DVVs Versus Vector Clocks
 
 The role that DVVs play in Riak is directly analogous to that of
-[[vector clocks|Causal Context Objects#Vector-Clocks]], as both are used to resolve object conflicts, whether
-during background operations like [[active anti-entropy]] or [[read
-repair|Riak Glossary#read-repair]], or when applications engage in
-client-side [[conflict resolution]]. The crucial difference between
-them, however, lies in the way that they handle concurrent updates.
+[[vector clocks|Causal Context Objects#Vector-Clocks]], as both are used
+to resolve object conflicts, whether during background operations like
+[[active anti-entropy]] or [[read repair|Riak Glossary#read-repair]], or
+when applications engage in client-side [[conflict resolution]]. The
+crucial difference between them, however, lies in the way that they
+handle concurrent updates.
 
-Vector clocks can detect concurrent updates to the same object but do
-not identify which value was associated with each update. If an object
+Vector clocks can detect concurrent updates to the same object but they
+can't identify which value was associated with each update. If an object
 stored in the bucket `frequent_updates` with the key `update_me` is
 updated by five different clients concurrently and tagged with the same
 vector clock, then five values should be created as siblings.  However,
@@ -187,11 +211,11 @@ sequence in interacting with Riak:
 * pass that opaque context object back to Riak when you update the
   object.
 
-There's a good chance that you will not need to modify your application
-code when switching from vector clocks to DVVs, even if you choose to
-switch all Riak objects in your cluster to DVVs. You should make sure,
-however, that the right bucket types and buckets are being targeted by
-your application after the `dvv_enabled` parameter has been changed.
+You will not need to modify your application code when switching from
+vector clocks to DVVs, even if you choose to switch all Riak objects in
+your cluster to DVVs. You should make sure, however, that the right
+bucket types and buckets are being targeted by your application after
+the `dvv_enabled` parameter has been changed.
 
 For compatibility's sake, DVVs contained in Riak objects' metadata are
 still labeled `X-Riak-Vclock` if you're using the [[HTTP API]] and
