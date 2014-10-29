@@ -95,3 +95,61 @@ beginning in these two places:
 * Active anti-entropy \(AAE) files --- These files are used by
     Riak's [[active anti-entropy]] subsystem. By default, they reside in
     each node's `/data` directory, in the `/anti_entropy` subdirectory
+
+First turn off AAE using `rpc:multicall`, then delete all the
+`/anti_entropy` directories
+
+```erlang
+k_core_util:rpc_every_member_ann(riak_kv_entropy_manager,disable,[],infinity).
+
+%% To verify that it's off
+riak_core_util:rpc_every_member_ann(riak_kv_entropy_manager,enabled,[],infinity).
+```
+
+## Transfers Won't Complete
+
+Riak relies heavily on inter-node transfers of data for its normal
+functioning. If those transfers won't complete for some reason, we
+recommend the following:
+
+* Turn all transfers off and then back on again using the `[[riak-admin
+    transfer-limit|riak-admin Command Line]]` interface. You can disable
+    transfers by setting the limit to zero:
+
+    ```bash
+    riak-admin transfer-limit <nodename> 0
+    ```
+
+    You can then re-enable transfers by setting the limit to a non-zero
+    integer. The following would set the limit to 2:
+
+    ```bash
+    riak-admin transfer-limit <nodename> 2
+    ```
+
+    You should repeat this process for all nodes in your cluster that
+    are experiencing this issue.
+* Check your firewall and/or
+    [iptables](http://en.wikipedia.org/wiki/Iptables) to see if there is
+    a networking issue external to Riak that is causing transfers to
+    hang.
+* Check your [[logs|Logging]] to see if there are corrupted or repeated
+    handoff attempts. From the logs you should be able to discern which
+    partitions are experiencing problems.
+
+## Replication is Slow or Stalled
+
+If you're using [Riak Enterprise](http://basho.com/riak-enterprise/)'s
+[[Multi-Datacenter Replication|Multi Data Center Replication v3
+Architecture]] capabilities, you might experience cases where
+replication between source and sink clusters is laggy or outright
+stalled. If this happens to you, we recommend the following:
+
+* Your replication queue may be full. You can check for this using the
+    `[[riak-repl status|Multi Data Center Replication v3
+    Operations##-code-riak-repl-code-Status-Output]]` command. In the
+    [[output|Multi Data Center Replication: Statistics]] of that
+    command, there is a `drops` stat that displays the number of objects
+    dropped from the realtime queue as a result of the queue being full.
+    If this number of greater than zero for several minutes or longer,
+    then this is a good indicator that the queue is full.
