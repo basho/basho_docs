@@ -140,27 +140,21 @@ echo 1024 > /sys/block/sda/queue/nr_requests
 ### Filesystem
 
 Advanced journaling filesystems like [ZFS](http://zfsonlinux.org/) and
-[XFS](http://xfs.org/index.php/Main_Page) are recommended for greater
-reliability and recoverability.
+[XFS](http://xfs.org/index.php/Main_Page) are recommended on some
+operating systems for greater reliability and recoverability.
 
 At this time, Basho can recommend using ZFS on Solaris, SmartOS, and
 OmniOS. ZFS may work well with Riak on direct Solaris clones like
-IllumOS, but we cannot yet recommend this. ZFS on Linux is still too
-early in its project lifetime to be recommendable for production use due
-to concerns that have been raised about excessive memory use. ZFS on
-FreeBSD is more mature than ZFS on Linux, but Basho has not yet
-performed sufficient performance and reliability testing to recommend
-using ZFS and Riak on FreeBSD.
+IllumOS, but we cannot yet recommend this. [ZFS on
+Linux](http://zfsonlinux.org) is still too early in its project lifetime
+to be recommendable for production use due to concerns that have been
+raised about excessive memory use. ZFS on FreeBSD is more mature than
+ZFS on Linux, but Basho has not yet performed sufficient performance and
+reliability testing to recommend using ZFS and Riak on FreeBSD.
 
 In the meantime, the [ext3](http://en.wikipedia.org/wiki/Ext3) and
 [ext4](http://en.wikipedia.org/wiki/Ext4) filesystems are sufficient on
 operating systems on which ZFS or XFS are not available or recommended.
-
-<div class="note">
-<div class="title">Note on ZFS</div>
-Production use of the <a href="http://zfsonlinux.org/">ZFS On Linux</a>
-project is currently <strong>NOT</strong> recommended.
-</div>
 
 The ext4 file system defaults include two options that increase
 integrity but slow performance. Because Riak's integrity is based on
