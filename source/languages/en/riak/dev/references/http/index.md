@@ -29,6 +29,54 @@ the [[vector clock|Vector Clocks]].</p>
 a URL-escaping library or replace slashes with `%2F`.</p>
 </div>
 
+## API Method Quick Reference
+
+* Bucket related methods
+..* GET /types/{{ type_name }}/buckets/{{ bucket_name }}/props
+... Fetches bucket properties. [[HTTP Get Bucket Properties]]
+..* PUT /types/{{ type_name }}/buckets/{{ bucket_name }}/props
+... Sets bucket properties. [[HTTP Set Bucket Properties]]
+..* DELETE /types/{{ type_name }}/buckets/{{ bucket_name }}/props
+... Resets the buckets back to default properties.
+..* GET /types/{{ type_name }}/buckets?buckets=true
+... Lists all of the buckets within the node [[HTTP List Buckets]]
+..* GET /types/{{ type_name }}/buckets/{{ bucket_name }}/keys?keys
+... Lists all of the keys within the bucket [[HTTP List Keys]]
+
+* Object related methods
+..* GET /types/{{ type_name }}/buckets/{{ bucket_name }}/keys/{{ key_name }}
+... Fetch an object by bucket and key. [[HTTP Fetch Object]]
+..* POST /types/{{ type_name }}/buckets/{{ bucket_name }}/keys
+... Store a new object within Riak, letting Riak generate a key. [[HTTP Store Object]]
+..* PUT /types/{{ type_name }}/buckets/{{ bucket_name }}/keys/{{ key_name }}
+... Store a new object within Riak, with user providing a key. [[HTTP Store Object]]
+..* DELETE /types/{{ type_name }}/buckets/{{ bucket_name }}/keys/{{ key_name }}
+... Delete an object at the specified location [[HTTP Delete Object]]
+
+* Datatype related methods
+..* GET /types/{{ type_name }}/buckets/{{ bucket_name }}/counters/{{ key_name }}
+... Fetch a counter by bucket and key. [[HTTP Counters]]
+..* POST /types/{{ type_name }}/buckets/{{ bucket_name }}/counters/{{ key_name }}
+... Insert to a counter by bucket and key. [[HTTP Counters]]
+
+* Query related methods
+..* GET /types/{{ type_name }}/buckets/{{ bucket_name }}/keys/{{ key_name }}/{{ bucket_name|tag|keep }}
+... Traverse links of an object. [[HTTP Link Walking]]
+..* POST /mapred
+... Perform a map reduce query. [[HTTP MapReduce]]
+..* GET /types/{{ type_name }}/buckets/{{ bucket_name }}/index/{{ index_bin }}/{{ value }}
+... Use secondary indexes to find objects with exact match. [[HTTP Secondary Indexes]]
+..* GET /types/{{ type_name }}/buckets/{{ bucket_name }}/index/{{ index_bin }}/{{ start }}/{{ end }}
+... Use secondary indexes to find objects matching the range. [[HTTP Secondary Indexes]]
+
+* Server related methods
+..* GET /ping
+... Checks to verify the server is alive. [[HTTP Ping]]
+..* GET /stats
+... Get the servers status. [[HTTP Status]]
+..* GET /
+... List the servers resources. [[HTTP List Resources]]
+
 ## Bucket Operations
 
 Buckets in Riak are a virtual concept. They exist primarily as a namespace
