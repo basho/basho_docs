@@ -315,20 +315,19 @@ dependency for the next
 </div>
 
 Finally, you can check the liveness of your Riak CS installation, and its
-connection to the supporting Riak node.
-
-To check that the Riak CS node is running, the following `riak-cs ping`
-command should return `pong`.
+connection to the supporting Riak node. If the Riak CS node is running, the
+following command should return "`pong`".
 
 ```bash
 riak-cs ping
 ```
 
 To check that the Riak CS node is communicating with its supporting Riak node,
-run a `GET` request against the `/ping` endpoint of the Riak CS node.
+run a `GET` request against the `riak-cs/ping` endpoint of the Riak CS node. For
+example:
 
 ```curl
-curl http://localhost:8080/ping
+curl http://localhost:8080/riak-cs/ping
 ```
 
 ### Step 4: Create the admin user
