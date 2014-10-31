@@ -20,9 +20,9 @@ changes to take effect.
 <div class="note">
 <div class="title">Note</div>
 If you are upgrading to Riak version 2.0 or later from an pre-2.0 release, you can use either your old <code>app.config</code> configuration file or the newer <code>riak.conf</code> if you wish.
- 
+
 If you have installed Riak 2.0 directly, you should use only <code>riak.conf</code>.
- 
+
 More on configuring Riak can be found in the [[configuration files]] doc.
 </div>
 
@@ -33,6 +33,28 @@ complete the clustering process.
 
 Use `[[riak-admin member-status|riak-admin Command Line#member-status]]`
 to determine whether any given node is a member of a cluster.
+
+## Erlang VM Tunings
+
+Prior to building and starting a cluster, there are some
+Erlang-VM-related changes that you should make to your configuration
+files. If you are using the older, `vm.args`-based Erlang VM tunings,
+you should set the following:
+
+```vmargs
++sfwi 500
++scl false
+```
+
+If you are using the newer, `riak.conf`-based configuration system, we
+recommend the following settings:
+
+```riakconf
+erlang.schedulers.force_wakeup_interval = 500
+erlang.schedulers.compaction_of_load = false
+```
+
+More information can be found in [[Erlang VM Tuning]].
 
 ## Ring Size
 
