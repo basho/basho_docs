@@ -152,7 +152,7 @@ originating from that framework, and can appear whether you use KV,
 Search, or any Core implementation.
 
 Error | Message | Description | Resolution
-:-----|:--------|:------------|----:------
+:-----|:--------|:------------|:----------
 `behavior` | | Attempting to execute an unknown behavior | Ensure that your configuration file choices (e.g. backends) support the behaviors you're attempting to use, such as configuring LevelDB to use secondary indexes
 `already_leaving` | `Node is already in the process of leaving the cluster` | An error marking a node to leave when it is already leaving | No need to duplicate the `leave` command
 `already_replacement` |  | This node is already in the replacements request list | You cannot replace the same node twice
