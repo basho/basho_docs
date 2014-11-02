@@ -152,7 +152,7 @@ An `n_val` value of 3 (the default) means that each object is replicated
 3 times. When an object's key is mapped onto a given node, Riak will
 continue on and automatically replicate the data onto two more nodes.
 This parameter enables you to replicate values to 7 nodes in a 10-node
-cluster, 10 nodes in a 15-node cluster, and son on.
+cluster, 10 nodes in a 15-node cluster, and so on.
 
 ## When Things Go Wrong
 
