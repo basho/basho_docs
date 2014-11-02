@@ -37,8 +37,8 @@ File | Significance
 :----|:------------
 `console.log` | Console log output
 `crash.log` | Crash logs
-`erlang.log` | Logs emitted by the [[Erlang VM|Erlang VM Tuning]] on which Riak runs.
-`error.log` | [[Error messages|Common Errors]] emitted by Riak.
+`erlang.log` | Logs emitted by the <a href="/ops/tuning/erlang">Erlang VM</a> on which Riak runs.
+`error.log` | <a href="/ops/running/recovery/errors">Common errors</a> emitted by Riak.
 `run_erl.log` | The log file for an Erlang process called `run_erl`. This file can typically be ignored.
 
 ## Log Syntax
@@ -209,38 +209,34 @@ If syslog is enabled, i.e. if `log.syslog` is set to `on`, you can
 select the log level of syslog output from amongst the available levels,
 which are listed in the table below. The default is `info`.
 
-Level | Meaning
-:-----|:-------
-`alert` |
-`critical` |
-`debug` |
-`emergency` |
-`error` |
-`info` |
-`none` |
-`notice` |
-`warning` |
+* `alert`
+* `critical`
+* `debug`
+* `emergency`
+* `error`
+* `info`
+* `none`
+* `notice`
+* `warning`
 
 In addition to a log level, you must also select a [facility
 level](http://en.wikipedia.org/wiki/Syslog#Facility_levels) for syslog
 messages amongst the available levels, which are listed in the table
 below. The default is `daemon`.
 
-Level | Meaning
-:-----|:-------
-`auth` | Security/authorization messages
-`authpriv` | Non-system authorization messages
-`clock` |
-`cron`
-`daemon`
-`ftp`
-`kern`
-`lpr`
-`mail`
-`news`
-`syslog`
-`user`
-`uucp`
+* `auth`
+* `authpriv`
+* `clock`
+* `cron`
+* `daemon`
+* `ftp`
+* `kern`
+* `lpr`
+* `mail`
+* `news`
+* `syslog`
+* `user`
+* `uucp`
 
 In addition to these options, you may also choose one of `local0`
 through `local7`.
