@@ -193,8 +193,7 @@ themselves if that is a better fit for your use case.
 ### Riak Data Types
 
 If you are not interested in dealing with version conflicts on the
-application side, [[Riak Data Types|Using Data Types]] offer a powerful
-yet easy-to-use means of storing certain types of data while allowing
+application side, [[Riak Data Types|Using Data Types]] offer a powerful-yet-easy-to-use means of storing certain types of data while allowing
 Riak to handle merge conflicts. These conflicts are resolved
 automatically by Riak using Data Type-specific algorithms inspired by
 research into [convergent replicated data
