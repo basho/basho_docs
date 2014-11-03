@@ -1039,8 +1039,8 @@ the bucket properties that are used when no bucket type is specified.
 <td><code>buckets.default.allow_mult</code></td>
 <td>Whether or not siblings are allowed
 <br /><br />
-<strong>Note</strong>: See <a href="/theory/concepts/Vector-Clocks">
-Vector Clocks</a> for a discussion of sibling resolution.</td>
+<strong>Note</strong>: See <a href="/dev/using/conflict-resolution/">
+Conflict Resolution</a> for a discussion of siblings.</td>
 <td><code>true</code></td>
 </tr>
 
@@ -1073,10 +1073,10 @@ to be deemed successful.</td>
 conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets
 and <code>1</code> for non-typed buckets. This setting reduces sibling
 creation through additional metadata on each sibling (also known as <a
-href="/theory/concepts/dotted-version-vectors">Dotted Version
-Vectors</a>). Setting this to <code>1</code> is the default for Riak 1.4
-and earlier, and may duplicate siblings that originated in the same
-write.</td>
+href="/theory/concepts/causal-context#Dotted-Version-Vectors">Dotted
+Version Vectors</a>). Setting this to <code>1</code> is the default for
+Riak 1.4 and earlier, and may duplicate siblings that originated in the
+same write.</td>
 <td><code>1</code></td>
 </tr>
 
@@ -1151,7 +1151,7 @@ indicating that the write was received.</td>
 ## Object Settings
 
 Configurable parameters for [[conflict resolution]] and dealing with
-[[sibling explosion|Conflict Resolution#sibling-explosion]].
+[[sibling explosion|Causal Context#Sibling-Explosion]].
 
 <table class="riak-conf">
 <thead>

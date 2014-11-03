@@ -51,9 +51,10 @@ already reached all nodes in the previous set of members.
 All cluster metadata is eventually stored both in memory and on disk,
 but it should be noted that reads are only from memory, while writes are
 made both to memory and to disk. Logical clocks, namely [[dotted version
-vectors]], are used in place of [[vector clocks]] or timestamps to
-resolve value conflicts. Values stored as cluster metadata are opaque
-Erlang terms addressed by both prefix and a key.
+vectors|Causal Context#Dotted-Version-Vectors]], are used in place of
+[[vector clocks|Causal Context#Vector-Clocks]] or timestamps to resolve
+value conflicts. Values stored as cluster metadata are opaque Erlang
+terms addressed by both prefix and a key.
 
 ## Erlang Code Interface
 

@@ -149,10 +149,10 @@ options:
 ## Context Objects
 
 When a value is stored in Riak, it is tagged with a **context object**,
-i.e. either a [[vector clock|Vector Clocks]] or a [[dotted version
-vector|Dotted Version Vectors]], establishing the object's initial
-version. That vector clock changes value over time if the object is
-updated.
+i.e. either a [[vector clock|Causal Context#Vector- Clocks]] or a
+[[dotted version vector|Causal Context#Dotted-Version- Vectors]],
+establishing the object's initial version. That vector clock changes
+value over time if the object is updated.
 
 Context objects enable Riak to compare the different values of objects
 stored in Riak and to determine a number of important things about those
@@ -212,7 +212,7 @@ an unlikely scenario if you're using a Basho client library, but it
 _can_ happen if you are manipulating objects using a client like `curl`
 and forgetting to set the `X-Riak-Vclock` header
 
-### Siblings in Action
+## Siblings in Action
 
 Let's have a more concrete look at how siblings work in Riak. First,
 we'll create a bucket type called `siblings_allowed` with `allow_mult`

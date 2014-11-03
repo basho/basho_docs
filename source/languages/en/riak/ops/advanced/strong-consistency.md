@@ -409,13 +409,15 @@ upon multiple replicas of a given object, the number of which is
 specified by `n_val` (more on this in [[Replication Properties]]).
 
 Eventually consistent Riak can service requests even when only a single
-object replica is available, using mechanisms like [[vector clocks]] and
-[[dotted version vectors]]---or, in a different way, [[Riak Data
-Types|Data Types]])---to ensure eventual consistency between replicas.
-Strongly consistent Riak is different because it requires that a
-**quorum** of object replicas be online and reachable, where a quorum is
-defined as `n_val` / 2 + 1. **If a quorum is not available for a key,
-all strongly consistent operations against that key will fail**.
+object replica is available, using mechanisms like [[vector
+clocks|Causal Context#Vector-Clocks]] and [[dotted version
+vectors|Causal Context#Dotted-Version-Vectors]]---or, in a different
+way, [[Riak Data Types|Data Types]])---to ensure eventual consistency
+between replicas.  Strongly consistent Riak is different because it
+requires that a **quorum** of object replicas be online and reachable,
+where a quorum is defined as `n_val` / 2 + 1. **If a quorum is not
+available for a key, all strongly consistent operations against that key
+will fail**.
 
 More information can be found in the section on [[Fault
 Tolerance|Managing Strong Consistency#fault-tolerance]] above.
