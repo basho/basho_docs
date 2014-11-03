@@ -17,8 +17,8 @@ moved: {
 * [riak_node (for Munin)](https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_node) --- Munin plugin for monitoring GET and PUT traffic
 * [riak_memory (for Munin)](https://github.com/munin-monitoring/contrib/blob/master/plugins/riak/riak_memory) --- Munin plugin for monitoring memory allocation
 * [Nagios Plugins for Riak](https://github.com/xb95/nagios-plugins)
-* [Riak-Console](https://github.com/lucaspiller/riak-console) --- An interactive command line interface to Riak 
-* [Rekon](https://github.com/basho/rekon) --- Riak Node Data Browser 
+* [Riak-Console](https://github.com/lucaspiller/riak-console) --- An interactive command line interface to Riak
+* [Rekon](https://github.com/basho/rekon) --- Riak Node Data Browser
 * [Gmond Python Modules for Riak](http://github.com/jnewland/gmond_python_modules/tree/master/riak) --- Ganglia Module for connecting to Riak
 * [riak-admin](https://github.com/pentium10/riak-admin) --- Admin panel written in PHP (supports delete bucket via keys stream)
 * [riak-admin](http://bitbucket.org/harmen/riak-admin/) --- A Java program with GUI to browse and update a Riak database
@@ -28,7 +28,7 @@ moved: {
 * [Briak](http://github.com/johnthethird/Briak) --- A Sinatra-based web front-end browser for Riak
 * [riak_stats](https://gist.github.com/4064937) --- A shell script to ship `riak-admin` statistics to [[Librato|https://metrics.librato.com/]]
 * [riak_graphite_stats](https://gist.github.com/4064990) --- A shell script to ship `riak-admin` statistics to [[Graphite|http://graphite.wikidot.com/]]
-        
+
 ## Backup Tools
 
 * [Brackup](http://code.google.com/p/brackup/) --- A modern net-based backup system that supports de-duplication, intelligent chunking, and [GPG](http://en.wikipedia.org/wiki/GNU_Privacy_Guard)-based-encryption
@@ -36,22 +36,22 @@ moved: {
 ## `riak_core`
 
 * [Misultin `riak_core` Vnode Dispatcher](https://github.com/jbrisbin/misultin-riak-core-vnode-dispatcher) --- An example of how to dispatch a web request into a `riak_core` vnode
-* [ecnty](https://github.com/benmmurphy/ecnty) --- Partitioned counter based on Riak Core 
+* [ecnty](https://github.com/benmmurphy/ecnty) --- Partitioned counter based on Riak Core
 * [`rebar_riak_core`](https://github.com/websterclay/rebar_riak_core) --- Rebar templates for generating `riak_core` applications
 * [Try Try Try](https://github.com/rzezeski/try-try-try/) --- Ryan Zezeski's working blog that explores many aspects of `riak_core` (this is an amazing resource)
-* [riak_zab](https://github.com/jtuple/riak_zab) --- An extension for `riak_core` that provides totally ordered atomic broadcast capabilities 
+* [riak_zab](https://github.com/jtuple/riak_zab) --- An extension for `riak_core` that provides totally ordered atomic broadcast capabilities
 * [riak_zab_example](https://github.com/jtuple/riak_zab_example) --- An example application that allows you to build a multi-node cluster using `riak_zab`
 
 
-## Riak and RabbitMQ 
+## Riak and RabbitMQ
 
 * [Riak/RabbitMQ Commit Hook](https://github.com/jbrisbin/riak-rabbitmq-commit-hooks) --- A post-commit hook that sends entries into a RabbitMQ broker using the Erlang AMQP client
-* [riak-exchange](https://github.com/jbrisbin/riak-exchange) --- Custom RabbitMQ exchange type for sticking messages in Riak 
+* [riak-exchange](https://github.com/jbrisbin/riak-exchange) --- Custom RabbitMQ exchange type for sticking messages in Riak
 * [rabbit_riak_queue](https://github.com/jbrisbin/rabbit_riak_queue) --- Riak-backed RabbitMQ persistent queue implementation
 * [msg_store_bitcask_index](https://github.com/videlalvaro/msg_store_bitcask_index) --- RabbitMQ message store index with Bitcask Backend
 * [RabbitMQ riak_core Vnode Dispatcher](https://github.com/jbrisbin/rabbitmq-riak_core-vnode-dispatcher) --- An example of how to dispatch a web request into a riak_core Vnode
 
-## lager 
+## lager
 
 * [Lager AMQP Backend](https://github.com/jbrisbin/lager_amqp_backend) --- AMQP RabbitMQ Lager backend
 
@@ -99,7 +99,7 @@ moved: {
 
 This a collection of sample applications built on Riak and Riak Core.
 
-### Riak 
+### Riak
 
 * [yakriak](http://github.com/seancribbs/yakriak) --- Riak-powered Ajax-polling chatroom
 * [riaktant](https://github.com/basho/riaktant) --- A full-blown NodejS app that stores and makes syslog messages searchable in Riak Search

@@ -8,22 +8,37 @@ audience: intermediate
 keywords: [developers, data-types]
 ---
 
-In versions of 2.0 and greater, Riak users can make use of a variety of Riak-specific data types inspired by research on convergent replicated data types ([[Data Types]]), more commonly known as CRDTs.
+In versions of 2.0 and greater, Riak users can make use of a variety of
+Riak-specific data types inspired by research on convergent replicated
+data types ([[Data Types]]), more commonly known as CRDTs.
 
-While Riak was originally built as a mostly data-agnostic key/value store, Riak Data Types enable you to use Riak as a _data-aware_ system and thus to perform a variety of transactions on five CRDT-inspired data types: flags, registers, [[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
+While Riak was originally built as a mostly data-agnostic key/value
+store, Riak Data Types enable you to use Riak as a _data-aware_ system
+and thus to perform a variety of transactions on five CRDT-inspired data
+types: flags, registers, [[counters|Data Types#Counters]], [[sets|Data
+Types#Sets]], and [[maps|Data Types#Maps]].
 
-Of those five types, counters, sets, and maps can be used as bucket-level data types, whereas flags and registers must be embedded in maps (more on that [[below|Using Data Types#Maps]]).
+Of those five types, counters, sets, and maps can be used as
+bucket-level data types, whereas flags and registers must be embedded in
+maps (more on that [[below|Using Data Types#Maps]]).
 
 <div class="note">
 <div class="title">Note on counters in earlier versions of Riak</div>
-Counters are the one Riak Data Type available in versions prior to 2.0, introduced in version 1.4. The implentation of counters in version 2.0 has been almost completely revamped, and so if you are using Riak version 2.0 or later, we strongly recommend that you follow the usage documentation here rather than documentation for the older version of counters.
-</div>
+Counters are the one Riak Data Type available in versions prior to 2.0,
+introduced in version 1.4. The implentation of counters in version 2.0
+has been almost completely revamped, and so if you are using Riak
+version 2.0 or later, we strongly recommend that you follow the usage
+documentation here rather than documentation for the older version of
+counters.  </div>
 
 ## Setting Up Buckets to Use Riak Data Types
 
-In order to use Riak Data Types, you must first create a [[bucket type|Using Bucket Types]] that sets the `datatype` bucket parameter to either `counter`, `map`, or `set`.
+In order to use Riak Data Types, you must first create a [[bucket
+type|Using Bucket Types]] that sets the `datatype` bucket parameter to
+either `counter`, `map`, or `set`.
 
-The following would create a separate bucket type for each of the three bucket-level data types:
+The following would create a separate bucket type for each of the three
+bucket-level data types:
 
 ```bash
 riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
@@ -31,37 +46,55 @@ riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
 riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
 ```
 
-**Note**: The names `maps`, `sets`, and `counters` are _not_ reserved terms. You are always free to name bucket types whatever you like, with the exception of `default`.
+**Note**: The names `maps`, `sets`, and `counters` are _not_ reserved
+terms. You are always free to name bucket types whatever you like, with
+the exception of `default`.
 
-Once you've created a Riak Data Type-specific bucket type, you can check to make sure that the bucket property configuration associated with that type is correct. This can be done through the `riak-admin` interface.
+Once you've created a Riak Data Type-specific bucket type, you can check
+to make sure that the bucket property configuration associated with that
+type is correct. This can be done through the `riak-admin` interface.
 
 ```bash
 riak-admin bucket-type status maps
 ```
 
-This will return a list of bucket properties and their associated values in the form of `property: value`. If our `maps` bucket type has been set properly, we should see the following pair in our console output:
+This will return a list of bucket properties and their associated values
+in the form of `property: value`. If our `maps` bucket type has been set
+properly, we should see the following pair in our console output:
 
 ```
 datatype: map
 ```
 
-If a bucket type has been properly constructed, it needs to be activated to be usable in Riak. This can also be done using the `bucket-type` command interface:
+If a bucket type has been properly constructed, it needs to be activated
+to be usable in Riak. This can also be done using the `bucket-type`
+command interface:
 
 ```bash
 riak-admin bucket-type activate maps
 ```
 
-To check whether activation has been successful, simply use the same `bucket-type status` command shown above.
+To check whether activation has been successful, simply use the same
+`bucket-type status` command shown above.
 
 ## Usage Examples
 
-The examples below show you how to use Riak Data Types at the application level using each of Basho's officially supported Riak clients. All examples will use the bucket type names from above (`counters`, `sets`, and `maps`).
+The examples below show you how to use Riak Data Types at the
+application level using each of Basho's officially supported Riak
+clients. All examples will use the bucket type names from above
+(`counters`, `sets`, and `maps`).
 
 ## Counters
 
-Counters are a bucket-level Riak Data Type that can be used either by themselves, i.e. associated with a bucket/key pair, or [[within a map|Using Data Types#Maps]]. The examples in this section will show you how to use counters on their own.
+Counters are a bucket-level Riak Data Type that can be used either by
+themselves, i.e. associated with a bucket/key pair, or [[within a
+map|Using Data Types#Maps]]. The examples in this section will show you
+how to use counters on their own.
 
-First, we need to point our client to the bucket type/bucket/key location that will house our counter. We'll keep it simple and use the `counters` bucket type created and activated above and a bucket called `counters`.
+First, we need to point our client to the bucket type/bucket/key
+location that will house our counter. We'll keep it simple and use the
+`counters` bucket type created and activated above and a bucket called
+`counters`.
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified
@@ -100,12 +133,14 @@ curl http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
 
 <div class="note">
 <div class="title">Getting started with Riak clients</div>
-If you are connecting to Riak using one of Basho's official
-[[client libraries]], you can find more information about getting started with
-your client in our [[quickstart guide|Five-Minute Install#setting-up-your-riak-client]].
+If you are connecting to Riak using one of Basho's official [[client
+libraries]], you can find more information about getting started with
+your client in our [[quickstart guide|Five-Minute
+Install#setting-up-your-riak-client]].
 </div>
 
-To create a counter, you need to specify a bucket/key pair to hold that counter. Here is the general syntax for doing so:
+To create a counter, you need to specify a bucket/key pair to hold that
+counter. Here is the general syntax for doing so:
 
 ```java
 // Here, we'll use the Namespace object that we created above and
@@ -148,7 +183,10 @@ curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/<key
   -d 0
 ```
 
-Let's say that we want to create a counter called `traffic_tickets` in our `counters` bucket to keep tabs on our legal misbehavior. We can create this counter and ensure that the `counters` bucket will use our `counters` bucket type like this:
+Let's say that we want to create a counter called `traffic_tickets` in
+our `counters` bucket to keep tabs on our legal misbehavior. We can
+create this counter and ensure that the `counters` bucket will use our
+`counters` bucket type like this:
 
 ```java
 // Using the countersBucket Namespace object from above:
@@ -188,7 +226,9 @@ curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traf
   -d 0
 ```
 
-Now that our client knows which bucket/key pairing to use for our counter, `traffic_tickets` will start out at 0 by default. If we happen to get a ticket that afternoon, we would need to increment the counter:
+Now that our client knows which bucket/key pairing to use for our
+counter, `traffic_tickets` will start out at 0 by default. If we happen
+to get a ticket that afternoon, we would need to increment the counter:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -221,7 +261,10 @@ curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traff
   -d 1
 ```
 
-The default value of an increment operation is 1, but you can increment by more than one if you'd like (but always by an integer). Let's say that we decide to spend an afternoon flaunting traffic laws and manage to rack up five tickets:
+The default value of an increment operation is 1, but you can increment
+by more than one if you'd like (but always by an integer). Let's say
+that we decide to spend an afternoon flaunting traffic laws and manage
+to rack up five tickets:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -250,7 +293,8 @@ curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traff
   -d 5
 ```
 
-If we're curious about how many tickets we have accumulated, we can simply retrieve the value of the counter at any time:
+If we're curious about how many tickets we have accumulated, we can
+simply retrieve the value of the counter at any time:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -308,7 +352,10 @@ curl http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tic
 {"type":"counter", "value": <value>}
 ```
 
-Any good counter needs to decrement in addition to increment, and Riak counters allow you to do precisely that. Let's say that we hire an expert lawyer who manages to get a traffic ticket stricken from our record:
+Any good counter needs to decrement in addition to increment, and Riak
+counters allow you to do precisely that. Let's say that we hire an
+expert lawyer who manages to get a traffic ticket stricken from our
+record:
 
 ```java
 // Using the "trafficTickets" Location from above:
@@ -360,9 +407,12 @@ curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traff
 
 ## Sets
 
-As with counters (and maps, as shown below), using sets involves setting up a bucket/key pair to house a set and running set-specific operations on that pair.
+As with counters (and maps, as shown below), using sets involves setting
+up a bucket/key pair to house a set and running set-specific operations
+on that pair.
 
-Here is the general syntax for setting up a bucket type/bucket/key combination to handle a set:
+Here is the general syntax for setting up a bucket type/bucket/key
+combination to handle a set:
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified

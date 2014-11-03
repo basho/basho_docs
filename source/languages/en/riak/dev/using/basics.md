@@ -258,25 +258,25 @@ arise quite frequently in distributed, [[eventually consistent|Eventual
 Consistency]] systems.
 
 Riak decides which object to choose in case of conflict using [[causal
-context objects]]. These objects track the causal history of objects.
+context]]. These objects track the causal history of objects.
 They are attached to _all_ Riak objects as metadata, and they are not
 readable by humans. They may sound complex---and they are fairly complex
 behind the scenes---but using them in your application is very simple.
 
 Whenever you perform updates in Riak
 
-Using causal context objects in an update would involve the following steps;
+Using causal context in an update would involve the following steps;
 
 1. Fetch the object
 2. Modify the object's value (without modifying the fetched [[context
-   object|Causal Context Objects]])
+   object|Causal Context]])
 3. Write the new object to Riak
 
 Step 2 is the most important here. All of Basho's official Riak clients
-enable you to modify an object's value without modifying its [[context
-object|Causal Context Objects]]. Although a more detailed tutorial on
-context objects and object updates can be found in [[Conflict
-Resolution]], we'll walk you through a basic example here.
+enable you to modify an object's value without modifying its [[causal
+context]]. Although a more detailed tutorial on context objects and
+object updates can be found in [[Conflict Resolution]], we'll walk you
+through a basic example here.
 
 Let's say that the current NBA champion is the Washington Generals.
 We've stored that data in Riak under the key `champion` in the bucket
@@ -338,8 +338,8 @@ X-Riak-Vclock: a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
 In the samples above, we didn't need to actually interact with the
 context object, as retaining and passing along the context object was
 accomplished automatically by the client. If, however, you do need
-access to an object's context object, the clients enable you to fetch it
-from the object:
+access to an object's context, the clients enable you to fetch it from
+the object:
 
 ```java
 // Using the RiakObject obj from above:

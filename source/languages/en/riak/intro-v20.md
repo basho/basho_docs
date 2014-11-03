@@ -35,9 +35,9 @@ that all of the new features listed below are purely optional:
 * **Bucket Types** --- While we strongly recommend [[using bucket
   types]] when creating new buckets, they are not required.
 * **Dotted Version Vectors (DVVs)** --- This alternative to traditional
-  [[vector clocks]] is enabled by default in all [[bucket types|Using
-  Bucket Types]], but DVVs can be disabled by setting the `dvv_enabled`
-  property to `false` on any bucket type.
+  [[vector clocks|Causal Context#Vector-Clocks]] is enabled by default
+  in all [[bucket types|Using Bucket Types]], but DVVs can be disabled
+  by setting the `dvv_enabled` property to `false` on any bucket type.
 
 In a nutshell, upgrading to 2.0 will change how you use Riak only if you
 want it to. But even if you don't plan on using the new features, there
@@ -222,11 +222,12 @@ and [Jordan West](https://github.com/jrwest).
 ## Dotted Version Vectors
 
 In prior versions of Riak, [[conflict resolution]] was managed using
-[[vector clocks]], which are a mechanism for tracking object update
-causality. Riak 2.0 has added support for dotted version vectors (DVVs).
-DVVs serve an analogous role to vector clocks but are more effective at
-containing [[sibling explosion|Vector Clocks#sibing-explosion]] and can
-thus reduce Riak cluster latency. The [[dotted version vectors]] doc
+[[vector clocks|Causal Context#Vector-Clocks]], which are a mechanism
+for tracking object update causality. Riak 2.0 has added support for
+dotted version vectors (DVVs).  DVVs serve an analogous role to vector
+clocks but are more effective at containing [[sibling explosion|Causal
+Context#sibing-explosion]] and can thus reduce Riak cluster latency. The
+[[dotted version vectors|Causal Context#Dotted-Version-Vectors]] doc
 explains some of the theoretical nuances behind the distinction between
 DVVs and vector clocks and offers instructions on implementing DVVs.
 

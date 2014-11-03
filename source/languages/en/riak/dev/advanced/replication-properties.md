@@ -491,8 +491,8 @@ In case the above explanations were a bit too abstract for your tastes,
 the following table lays out a number of possible scenarios for reads
 and writes in Riak and how Riak is likely to respond. Some of these
 scenarios involve issues surrounding conflict resolution, vector clocks,
-and siblings, so we recommend reading the [[Vector Clocks]]
-documentation for more information.
+and siblings, so we recommend reading the [[Vector Clocks|Causal
+Context#Vector-Clocks]] documentation for more information.
 
 #### Read Scenarios
 
