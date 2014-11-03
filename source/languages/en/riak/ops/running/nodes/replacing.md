@@ -23,11 +23,16 @@ scenario, we'll call the node `riak4`:
     sudo tar -czf riak_backup.tar.gz /var/lib/riak /etc/riak
     ```
 
+    If you have any unforeseen issues at any point in the node
+    replacement process, you can restore the node's data from this
+    backup.
+
 2. Download and install Riak on the new node you wish to bring into the
 cluster and have it replace the `riak4` node. We'll call the new node
 `riak7` for the purpose of this example.
 
-3. Start the new `riak7` node with `[[riak start|Command Line Tools#start]]`:
+3. Start the new `riak7` node with `[[riak start|Command Line
+Tools#start]]`:
 
     ```bash
     riak start
