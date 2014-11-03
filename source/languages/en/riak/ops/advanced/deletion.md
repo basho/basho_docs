@@ -99,11 +99,11 @@ network connectivity is an issue.
 
 If you are updating an object that has been deleted---or if you suspect
 that an update might target a deleted object---it is recommended that
-you first fetch the [[vector clock|Vector Clocks]] of the object prior
-to updating. This can be done by setting the `deletedvclock` parameter 
-to `true` as part of the [[fetch operation|PBC Fetch Object]]. This can
-also be done with the official Riak clients for Ruby, Java, and Erlang,
-as in the example below:
+you first fetch the [[causal context]] of the object prior to updating.
+This can be done by setting the `deletedvclock` parameter to `true` as
+part of the [[fetch operation|PBC Fetch Object]]. This can also be done
+with the official Riak clients for Ruby, Java, and Erlang, as in the
+example below:
 
 
 ```ruby
@@ -113,7 +113,7 @@ deleted_object.vclock
 ```
 
 ```python
-# It is not currently possible to fetch the vector clock for a deleted
+# It is not currently possible to fetch the causal context for a deleted
 # key in the Python client
 ```
 
@@ -140,4 +140,5 @@ System.out.println(response.getVclock().asString());
 
 ## Resources
 
-* [Discussion on the Riak mailing list](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-October/006048.html)
+* [Discussion on the Riak mailing
+  list](http://lists.basho.com/pipermail/riak-users_lists.basho.com/2011-October/006048.html)

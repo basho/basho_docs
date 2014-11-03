@@ -462,7 +462,10 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # which end in /keys/<key>
 ```
 
-Let's say that we want to use a set to store a list of cities that we want to visit. Let's create a Riak set stored in the key `cities` in the bucket `travel` (using the `sets` bucket type we created in the previous section):
+Let's say that we want to use a set to store a list of cities that we
+want to visit. Let's create a Riak set stored in the key `cities` in the
+bucket `travel` (using the `sets` bucket type we created in the previous
+section):
 
 ```java
 // In the Java client, you specify the location of Data Types
@@ -513,7 +516,8 @@ CitiesSet = riakc_set:new().
 # be created when an element is added to them, as in the examples below.
 ```
 
-Upon creation, our set is empty. We can verify that it is empty at any time:
+Upon creation, our set is empty. We can verify that it is empty at any
+time:
 
 ```java
 // Using our "cities" Location from above:
@@ -553,7 +557,8 @@ curl http://localhost:8098/types/sets/buckets/travel/datatypes/cities
 not found
 ```
 
-But let's say that we read a travel brochure saying that Toronto and Montreal are nice places to go. Let's add them to our `cities` set:
+But let's say that we read a travel brochure saying that Toronto and
+Montreal are nice places to go. Let's add them to our `cities` set:
 
 ```java
 // Using our "cities" Location from above:
@@ -587,7 +592,9 @@ curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
   -d '{"add_all":["Toronto", "Montreal"]}'
 ```
 
-Later on, we hear that Hamilton and Ottawa are nice cities to visit in Canada, but if we visit them, we won't have time to visit Montreal. Let's remove Montreal and add the others:
+Later on, we hear that Hamilton and Ottawa are nice cities to visit in
+Canada, but if we visit them, we won't have time to visit Montreal.
+Let's remove Montreal and add the others:
 
 ```java
 // Using our "cities" Location from above:
@@ -758,11 +765,17 @@ riakc_set:size(CitiesSet5).
 
 ## Maps
 
-The map is in many ways the richest of the Riak Data Types because all of the other Data Types can be embedded within them, _including maps themselves_, to create arbitrarily complex custom Data Types out of a few basic building blocks.
+The map is in many ways the richest of the Riak Data Types because all
+of the other Data Types can be embedded within them, _including maps
+themselves_, to create arbitrarily complex custom Data Types out of a
+few basic building blocks.
 
-The semantics of dealing with counters, sets, and maps within maps are usually very similar to working with those types at the bucket level, and so usage is usually very intuitive.
+The semantics of dealing with counters, sets, and maps within maps are
+usually very similar to working with those types at the bucket level,
+and so usage is usually very intuitive.
 
-The general syntax for creating a Riak map is directly analogous to the syntax for creating other data types:
+The general syntax for creating a Riak map is directly analogous to the
+syntax for creating other data types:
 
 ```java
 // In the Java client, a bucket/bucket type combination is specified
@@ -801,7 +814,12 @@ curl http://localhost:8098/types/<bucket_type>/buckets/<bucket>/datatypes/<key>
 # which end in /keys/<key>
 ```
 
-Let's say that we want to use Riak to store information about our company's customers. We'll use the bucket `customers` to do so. Each customer's data will be contained in its own key in the `customers` bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our bucket and simply call it `map` for simplicity's sake (we'll use the `maps` bucket type from above):
+Let's say that we want to use Riak to store information about our
+company's customers. We'll use the bucket `customers` to do so. Each
+customer's data will be contained in its own key in the `customers`
+bucket. Let's create a map for the user Ahmed (`ahmed_info`) in our
+bucket and simply call it `map` for simplicity's sake (we'll use the
+`maps` bucket type from above):
 
 ```java
 // In the Java client, you specify the location of Data Types
@@ -846,11 +864,13 @@ Map = riakc_map:new().
 
 ### Registers and Flags
 
-Registers and flags cannot be used on their own in Riak. You cannot use a bucket/key pair as a register or flag directly.
+Registers and flags cannot be used on their own in Riak. You cannot use
+a bucket/key pair as a register or flag directly.
 
 #### Registers Within Maps
 
-The first piece of info we want to store in our map is Ahmed's name and phone number, both of which are best stored as registers:
+The first piece of info we want to store in our map is Ahmed's name and
+phone number, both of which are best stored as registers:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -908,11 +928,14 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }'
 ```
 
-This will work even though registers `first_name` and `phone_number` did not previously exist, as Riak will create those registers for you.
+This will work even though registers `first_name` and `phone_number` did
+not previously exist, as Riak will create those registers for you.
 
 #### Flags Within Maps
 
-Now let's say that we add an Enterprise plan to our pricing model. We'll create an `enterprise_customer` flag to track whether Ahmed has signed up for the new plan. He hasn't yet, so we'll set it to `false`:
+Now let's say that we add an Enterprise plan to our pricing model. We'll
+create an `enterprise_customer` flag to track whether Ahmed has signed
+up for the new plan. He hasn't yet, so we'll set it to `false`:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -986,7 +1009,9 @@ curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info
 
 #### Counters Within Maps
 
-We also want to know how many times Ahmed has visited our website. We'll use a `page_visits` counter for that and run the following operation when Ahmed visits our page for the first time:
+We also want to know how many times Ahmed has visited our website. We'll
+use a `page_visits` counter for that and run the following operation
+when Ahmed visits our page for the first time:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1029,11 +1054,16 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }'
 ```
 
-Even though the `page_visits` counter did not exist previously, the above operation will create it (with a default starting point of 0) and the increment operation will bump the counter up to 1.
+Even though the `page_visits` counter did not exist previously, the
+above operation will create it (with a default starting point of 0) and
+the increment operation will bump the counter up to 1.
 
 #### Sets Within Maps
 
-We'd also like to know what Ahmed's interests are so that we can better design a user experience for him. Through his purchasing decisions, we find out that Ahmed likes robots, opera, and motorcyles. We'll store that information in a set inside of our map:
+We'd also like to know what Ahmed's interests are so that we can better
+design a user experience for him. Through his purchasing decisions, we
+find out that Ahmed likes robots, opera, and motorcyles. We'll store
+that information in a set inside of our map:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1089,7 +1119,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   }'
 ```
 
-We can then verify that the `interests` set includes these three interests:
+We can then verify that the `interests` set includes these three
+interests:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1127,7 +1158,9 @@ riakc_map:dirty_value(Map6).
 curl http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_info?include_context=false
 ```
 
-We learn from a recent purchasing decision that Ahmed actually doesn't seem to like opera. He's much more keen on indie pop. Let's change the `interests` set to reflect that:
+We learn from a recent purchasing decision that Ahmed actually doesn't
+seem to like opera. He's much more keen on indie pop. Let's change the
+`interests` set to reflect that:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1180,11 +1213,18 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
 
 #### Maps Within Maps (Within Maps?)
 
-We've stored a wide of variety of information---of a wide variety of types---within the `ahmed_info` map thus far, but we have yet to explore recursively storing maps within maps (which can be nested as deeply as you wish).
+We've stored a wide of variety of information---of a wide variety of
+types---within the `ahmed_info` map thus far, but we have yet to explore
+recursively storing maps within maps (which can be nested as deeply as
+you wish).
 
-Our company is doing well and we have lots of useful information about Ahmed, but now we want to store information about Ahmed's contacts as well. We'll start with storing some information about Ahmed's colleague Annika inside of a map called `annika_info`.
+Our company is doing well and we have lots of useful information about
+Ahmed, but now we want to store information about Ahmed's contacts as
+well. We'll start with storing some information about Ahmed's colleague
+Annika inside of a map called `annika_info`.
 
-First, we'll store Annika's first name, last name, and phone number in registers:
+First, we'll store Annika's first name, last name, and phone number in
+registers:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1221,19 +1261,19 @@ map.store()
 Map12 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"first_name">>, register}, 
+        {<<"first_name">>, register},
         fun(R) -> riakc_register:set(<<"Annika">>, R) end, M) end,
     Map11),
 Map13 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"last_name">>, register}, 
+        {<<"last_name">>, register},
         fun(R) -> riakc_register:set(<<"Weiss">>, R) end, M) end,
     Map12),
 Map14 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"phone_number">>, register}, 
+        {<<"phone_number">>, register},
         fun(R) -> riakc_register:set(<<"5559876543">>, R) end, M) end,
     Map13).
 ```
@@ -1256,7 +1296,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   '
 ```
 
-The value of a register in a map can be obtained without a special method:
+The value of a register in a map can be obtained without a special
+method:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1341,7 +1382,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   '
 ```
 
-Now, we'll store whether Annika is subscribed to a variety of plans within the company as well:
+Now, we'll store whether Annika is subscribed to a variety of plans
+within the company as well:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1378,24 +1420,24 @@ map.store()
 Map16 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"enterprise_plan">>, flag}, 
+        {<<"enterprise_plan">>, flag},
         fun(F) -> riakc_flag:disable(F) end,
         M) end,
     Map15),
 Map17 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"family_plan">>, flag}, 
+        {<<"family_plan">>, flag},
         fun(F) -> riakc_flag:disable(F) end,
         M) end,
     Map16),
 Map18 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"free_plan">>, flag}, 
+        {<<"free_plan">>, flag},
         fun(F) -> riakc_flag:enable(F) end,
         M) end,
-    Map17).                
+    Map17).
 ```
 
 ```curl
@@ -1448,7 +1490,8 @@ riakc_map:dirty_value(Map18).
 # matter), cannot be obtained directly through the HTTP interface.
 ```
 
-It's also important to track the number of purchases that Annika has made with our company. Annika just made her first widget purchase:
+It's also important to track the number of purchases that Annika has
+made with our company. Annika just made her first widget purchase:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1475,7 +1518,7 @@ map.store()
 Map19 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"widget_purchases">>, counter}, 
+        {<<"widget_purchases">>, counter},
         fun(C) -> riakc_counter:increment(1, C) end,
         M) end,
     Map18).
@@ -1525,7 +1568,7 @@ map.store()
 Map20 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"interests">>, set}, 
+        {<<"interests">>, set},
         fun(S) -> riakc_set:add_element(<<"tango dancing">>, S) end,
         M) end,
     Map19).
@@ -1578,7 +1621,7 @@ map.store()
 Map21 = riakc_map:update(
     {<<"annika_info">>, map},
     fun(M) -> riakc_map:update(
-        {<<"interests">>, set}, 
+        {<<"interests">>, set},
         fun(S) -> riakc_set:del_element(<<"tango dancing">>, S) end,
         M) end,
     Map20).
@@ -1600,7 +1643,8 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   '
 ```
 
-If we wanted to add store information about one of Annika's specific purchases, we could do so within a map:
+If we wanted to add store information about one of Annika's specific
+purchases, we could do so within a map:
 
 ```java
 // Using our "ahmedMap" location from above:
@@ -1672,11 +1716,20 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
 
 ## Data Types and Context
 
-When performing normal key/value updates in Riak, we advise that you use [[vector clocks]], which enable Riak to make intelligent decisions behind the scenes about which objects should be considered more causally recent. In some of the examples above, you saw references to **context** metadata included with each Data Type stored in Riak.
+When performing normal key/value updates in Riak, we advise that you use
+[[vector clocks]], which enable Riak to make intelligent decisions
+behind the scenes about which objects should be considered more causally
+recent. In some of the examples above, you saw references to **context**
+metadata included with each Data Type stored in Riak.
 
-Data Type contexts are similar to [[vector clocks]] in that they are opaque (i.e. not readable by humans) and also perform a similar function to that of vector clocks, i.e. they inform Riak which version of the Data Type a client is attempting to modify. This information is required by Riak when making decisions about convergence.
+Data Type contexts are similar to [[vector clocks]] in that they are
+opaque (i.e. not readable by humans) and also perform a similar function
+to that of vector clocks, i.e. they inform Riak which version of the
+Data Type a client is attempting to modify. This information is required
+by Riak when making decisions about convergence.
 
-In the example below, we'll fetch the context from the user data map we created for Ahmed:
+In the example below, we'll fetch the context from the user data map we
+created for Ahmed:
 
 
 ```java
@@ -1714,18 +1767,26 @@ ahmed_map.context
 
 <div class="note">
 <div class="title">Context and the Ruby, Python, and Erlang clients</div>
-In the Ruby, Python, and Erlang clients, you will not need to manually handle context when making Data Type updates. The clients will do it all for you. The one exception amongst the official clients is the Java client. We'll explain how to use Data Type contexts with the Java client directly below.
+In the Ruby, Python, and Erlang clients, you will not need to manually
+handle context when making Data Type updates. The clients will do it all
+for you. The one exception amongst the official clients is the Java
+client. We'll explain how to use Data Type contexts with the Java client
+directly below.
 </div>
 
 #### Context and the Java Client
 
-With the Java client, you'll need to manually fetch and return Data Type contexts for the following operations:
+With the Java client, you'll need to manually fetch and return Data Type
+contexts for the following operations:
 
 * Disabling a flag within a map
 * Removing an item from a set (whether the set is on its own or within a map)
 * Removing a field from a map
 
-Without context, these operations simply will not succeed due to the convergence logic driving Riak Data Types. The example below shows you how to fetch a Data Type's context and then pass it back to Riak. More specifially, we'll remove the `paid_account` flag from the map:
+Without context, these operations simply will not succeed due to the
+convergence logic driving Riak Data Types. The example below shows you
+how to fetch a Data Type's context and then pass it back to Riak. More
+specifially, we'll remove the `paid_account` flag from the map:
 
 ```java
 // This example uses our "ahmedMap" location from above:
@@ -1741,3 +1802,4 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .build();
 client.execute(update);
 ```
+
