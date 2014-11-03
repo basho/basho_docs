@@ -116,8 +116,8 @@ The output should look like this:
     "pr": 0,
     "precommit": [
       {
-        "fun": "validate_json",
-        "mod": "validate"
+        "mod": "validate_json",
+        "fun": "validate"
       }
     ],
     "pw": 0,

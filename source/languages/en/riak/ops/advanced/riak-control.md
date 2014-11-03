@@ -42,7 +42,7 @@ Uncomment the `https` line, and change the port to `8069`. You can choose any
 unused port, but be sure and change it from the default, which is configured
 to be the same as the standard `http` port for accessing Riak.
 
-```erlang
+```appconfig
 {https, [{ "127.0.0.1", 8069 }]},
 ```
 
@@ -53,19 +53,30 @@ one.
 Next, uncomment the entire `ssl` section.  Point the `keyfile` and `certfile`
 paths at your SSL certificate.
 
-```erlang
+```appconfig
 {ssl, [
        {certfile, "./etc/cert.pem"},
        {keyfile, "./etc/key.pem"}
       ]},
 ```
 
+<div class="note">
+<div class="title">Note on SHA-1 and SSL</div>
+R15B01, the Erlang distribution that ships with Riak 1.4.x by default,
+supports only a limited set of hash functions. Because of this, only
+[SHA-1](http://en.wikipedia.org/wiki/SHA-1) should be used when creating
+and signing SSL certificates. Support for additional hashing functions
+has been provided in [R15B02](http://www.erlang.org/download/otp_src_R15B02.readme),
+so you will need to use an Erlang version later than R15B01 to use
+hashing functions beyond SHA-1.
+</div>
+
 #### SSL with Intermediate Authorities
 
 If you are using a certificate that includes an intermediate authority, add
 the `cacertfile` key and value:
 
-```erlang
+```appconfig
 {ssl, [
        {certfile, "./etc/cert.pem"},
        {cacertfile, "./etc/cacert.pem"},

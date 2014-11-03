@@ -7,9 +7,14 @@ header.masthead
     div#header-inner
       div#nav-toggle class="icon-reorder"
       div#top-nav
-        a href="/downloads/"
-          span.icon-download-alt
-          == I18n.t(:downloads)
+        - if data.page.project == 'riakcs'
+          a href="/riakcs-downloads/" class="riakcs"
+            span.icon-download-alt
+            == I18n.t(:downloads)
+        - else
+          a href="/downloads/" class="riak"
+            span.icon-download-alt
+            == I18n.t(:downloads)
         div id="nav-more"
           span.icon-more
       a.responsive-toggle

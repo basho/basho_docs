@@ -41,6 +41,13 @@ default:
               name: "10.04 (Lucid) i386"
             amd64:
               name: "10.04 (Lucid) AMD 64"
+        trusty:
+          name: "(Trusty Tahr)"
+          arch:
+            i386:
+              name: "14.04 (Trusty) i386"
+            amd64:
+              name: "14.04 (Trusty) AMD 64"
     freebsd:
       name: "FreeBSD"
       icon: "freebsd.png"
@@ -101,6 +108,12 @@ default:
               name: "6.0 x86 64"
             src:
               name: "6.0 Source"
+        "7":
+          arch:
+            x86_64:
+              name: "7.0 x86 64"
+            src:
+              name: "7.0 Source"
     fedora:
       name: "Fedora"
       icon: "fedora.png"
@@ -163,6 +176,17 @@ default:
               name: "10 i386"
             x86_64:
               name: "10 x86 64"
+    sles:
+      name: "SUSE"
+      icon: "suse.png"
+      install: "Installing on SUSE"
+      versions:
+        "11":
+          arch:
+            x86_64:
+              name: "11 x86 64"
+            src:
+              name: "10 Source"
     source:
       name: "Source"
       icon: "targz.png"

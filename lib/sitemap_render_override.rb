@@ -4,7 +4,7 @@ require 'cgi'
 module SitemapRenderOverride
 
   @@_current_version = nil
-  
+
   def self.current_version=(v)
     @@_current_version = v
   end
@@ -88,7 +88,7 @@ module SitemapRenderOverride
 
   def strip_versions!(data)
     project = (metadata[:page]["project"] || $default_project).to_sym
-    
+
     raw_version_str = SitemapRenderOverride.current_version || $versions[project]
 
     if raw_version_str
@@ -134,7 +134,7 @@ module SitemapRenderOverride
 
       # if it's in a list in a different version, remove the entire <li></li>
       # data.gsub!(/(\<li(?:\s[^\>]*?)?\>.*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/) do
-      data.gsub!(/(\<li(?:\s[^\>]*?)?\>(?:(?!\<li).)*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/m) do
+      data.gsub!(/(\<li(?:\s[^\>]*?)?\>(?:(?!\<li|tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/li\>)/m) do
         startli, liversion, endli = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
         if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
@@ -145,12 +145,12 @@ module SitemapRenderOverride
       end
 
       data.gsub!(/(\<tr(?:\s[^\>]*?)?\>(?:(?!\<tr).)*?)\{\{([^\}]+?)\}\}(.*?<\/tr\>)/m) do
-        startli, liversion, endli = $1, $2, $3
+        starttr, liversion, endtr = $1, $2, $3
         liversion = liversion.sub(/\&lt\;/, '<').sub(/\&gt\;/, '>')
         if liversion =~ /^(?:[\<\>][\=]?)?[\d\.\-]+?(?:rc\d+|pre\d+|beta\d+)?[\+\-]?$/
-          in_version_range?(liversion, version) ? startli + endli : ''
+          in_version_range?(liversion, version) ? starttr + endtr : ''
         else
-          startli + endli
+          starttr + endtr
         end
       end
     end
@@ -170,7 +170,7 @@ module SitemapRenderOverride
     # data.gsub!(/(\<a\s.*?href\s*\=\s*["'])(\/[^"'>]+)(["'][^\>]*?>)/m) do
     data.gsub!(/\<a\s+([^\>]*?)\>/mu) do
       anchor = $1
-      
+
       href = (anchor.scan(/href\s*\=\s*['"]([^'"]+)['"]/u).first || []).first.to_s
 
       # XXX: This is a terrible way to get the # links in the API to work
@@ -225,7 +225,7 @@ module SitemapRenderOverride
 
     # shared resources (css, js, images, etc) are put under /shared/version
     if version_str || project == :root
-      version_str ||= $versions[:riak]
+      version_str = (version_str || $versions[:riak]).sub(/(\d+[.]\d+[.]\d+).*/, "\\1")
       data.gsub!(/(\<(?:script|link)\s.*?(?:href|src)\s*\=\s*["'])([^"'>]+)(["'][^\>]*>)/mu) do
         base, href, cap = $1, $2, $3
         href.gsub!(/\.{2}\//, '')
@@ -301,13 +301,13 @@ module SitemapRenderOverride
         when "curl"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1bash\\2')
         when "appconfig"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])appconfig(["']\>)/, '\\1erlang\\2')
         when "advancedconfig"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1erlang\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])advancedconfig(["']\>)/, '\\1erlang\\2')
         when "riakconf"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])riakconf(["']\>)/, '\\1matlab\\2')
         when "vmargs"
-          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])curl(["']\>)/, '\\1ini\\2')
+          code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])vmargs(["']\>)/, '\\1ini\\2')
         when "protobuf"
           code = code.gsub(/(<code(?:\s.*?)?class\s*\=\s*["'])protobuf(["']\>)/, '\\1objectivec\\2')
         else

@@ -105,4 +105,4 @@ These pages contain videos, slides, and publications from the community and Riak
 
 ## Professional Support
 
-If you run into an issue you just can't crack, [Basho](http://basho.com) sells support for Riak, as well as licenses for [[Riak Enterprise]]. Please [contact Basho](http://basho.com/contact/) at any time for more information.
+If you run into an issue you just can't crack, [Basho](http://basho.com) sells support for Riak, as well as licenses for [Riak Enterprise](http://basho.com/riak-enterprise/). Please [contact Basho](http://basho.com/contact/) at any time for more information.

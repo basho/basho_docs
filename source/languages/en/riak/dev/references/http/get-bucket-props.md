@@ -17,8 +17,7 @@ Reads the bucket properties.
 ## Request
 
 ```bash
-GET /riak/bucket                # Old format
-GET /buckets/bucket/props       # New format
+GET /buckets/bucket/props
 ```
 
 Optional query parameters (only valid for the old format):

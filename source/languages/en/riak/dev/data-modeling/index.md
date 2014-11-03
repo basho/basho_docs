@@ -22,9 +22,10 @@ provide links to videos and documentation for further exploration.
 How you structure your application to run on Riak should take into
 account the unique needs of your use case, including access patterns
 such as read/write distribution, latency differences between various
-operations, use of Riak features including [[Data Types]], [[MapReduce]],
-[[Search|Using Search]], [[secondary indexes (2i)|Using Secondary Indexes]]
-and more. This guide is intended to be illustrative only.
+operations, use of Riak features including [[Data Types]],
+[[MapReduce|Using MapReduce]], [[Search|Using Search]],
+[[secondary indexes (2i)|Using Secondary Indexes]] and more. This guide
+is intended to be illustrative only.
 
 ## High Read/Write, Simple Applications
 
@@ -32,20 +33,20 @@ The following are examples of Riak use cases that require high
 read/write performance without necessarily utilizing complex data
 structures:
 
-* [[Session Storage|Use Cases#session-storage]]
-* [[Serving Advertisements|Use Cases#serving-advertisements]]
-* [[Log Data|Use Cases#log-data]]
-* [[Sensor Data|Use Cases#sensor-data]]
+* [[Session Storage|Use Cases#Session-Storage]]
+* [[Serving Advertisements|Use Cases#Serving-Advertisements]]
+* [[Log Data|Use Cases#Log-Data]]
+* [[Sensor Data|Use Cases#Sensor-Data]]
 
 ## Content Management, Social Applications
 
 The following application types require more subtle relationships
 between objects, e.g. one-to-many and many-to-many relationships.
 
-* [[User Accounts|Use Cases#user-accounts]]
-* [[User Settings and Preferences|Use Cases#user-settings-and-preferences]]
-* [[User Events and Timelines|Use Cases#user-events-and-timelines]]
-* [[Articles, Blog Posts, and Other Content|Use Cases#articles-blog-posts-and-other-content]]
+* [[User Accounts|Use Cases#User-Accounts]]
+* [[User Settings and Preferences|Use Cases#User-Settings-and-Preferences]]
+* [[User Events and Timelines|Use Cases#User-Events-and-Timelines]]
+* [[Articles, Blog Posts, and Other Content|Use Cases#Articles-Blog-Posts-and-Other-Content]]
 
 ## Session Storage
 
@@ -63,11 +64,11 @@ administrative changes to schemas.
 Riak has features that allow for more complex session storage use cases.
 The [[Bitcask]] storage backend, for example, supports automatic expiry
 of keys, which frees application developers from implementing manual
-session expiry. Riak's [[MapReduce]] system can also be used to perform
-batch processing analysis on large bodies of session data, for example
-to compute the average number of active users. If sessions must be
-retrieved using multiple keys (e.g. a UUID or email address),
-[[using secondary indexes]] can provide an easy solution.
+session expiry. Riak's [[MapReduce|Using MapReduce]] system can also be
+used to perform batch processing analysis on large bodies of session
+data, for example to compute the average number of active users. If
+sessions must be retrieved using multiple keys (e.g. a UUID or email
+address), [[using secondary indexes]] can provide an easy solution.
 
 #### Community Examples
 
@@ -122,7 +123,7 @@ involves serving reads.
 ## Log Data
 
 A common use case for Riak is storing large amounts of log data, either
-for analysis using [[MapReduce]] or as a storage system used in
+for analysis [[using MapReduce]] or as a storage system used in
 conjunction with a secondary analytics cluster used to perform more
 advanced analytics tasks. To store log data, you can use a bucket called
 `logs` (just to give an example) and use a unique value, such as a date,
@@ -172,7 +173,7 @@ That data could then be queried on the basis of the interval.
 Alternatively, a timestamp could be attached to each object as a
 [[secondary index|Using Secondary Indexes]], which would allow you to
 perform queries on specific time interval ranges or to perform
-[[MapReduce]] queries against the indexes.
+[[MapReduce|Using MapReduce]] queries against the indexes.
 
 #### Complex Case
 
@@ -268,10 +269,11 @@ modifying it, and writing back the new value.
 #### Community Examples
 
 <table class="links">
-    <tr>
-        <td><a href="http://player.vimeo.com/video/21598799" target="_blank" title="Riak at Yammer">
-           <img src="http://b.vimeocdn.com/ts/139/033/139033664_640.jpg"/>
-         </a></td>
+  <tr>
+    <td>
+      <a href="http://player.vimeo.com/video/21598799" target="_blank" title="Riak at Yammer">
+      <img src="http://b.vimeocdn.com/ts/139/033/139033664_640.jpg"/>
+</a></td>
         <td><a href="http://player.vimeo.com/video/21598799" target="_blank" title="Riak at Yammer">Riak at Yammer</a>
         <br>
     This video was recorded at the March 2012 San Francisco Riak Meetup and is worth every minute of your time. Coda Hale and Ryan Kennedy of Yammer give an excellent and in depth look into how they built “Streamie”, user notifications, why Riak was the right choice, and the lessons learned in the process. Read more and get the slides in the Riak blog <a href="http://basho.com/blog/technical/2011/03/28/Riak-and-Scala-at-Yammer/" target="_blank">here.</a>
@@ -302,7 +304,7 @@ In Riak, you can store content of any kind, from HTML files to plain
 text to JSON or XML or another document type entirely. Keep in mind that
 data in Riak is opaque, with the exception of [[Riak Data Types|Data Types]],
 and so Riak won't "know" about the object unless it is indexed
-[[using Riak Search]] or [[using secondary indexes]].
+[[using Riak Search|Using Search]] or [[using secondary indexes]].
 
 #### Complex Case
 
@@ -321,9 +323,9 @@ with comments would require your application to call from the posts
 and comments buckets to assemble the view.
 
 Other possible cases may involve performing operations on content beyond
-key/value pairs. [[Using Riak Search]] is recommended for use cases
+key/value pairs. [[Riak Search|Using Search]] is recommended for use cases
 involving full-text search. For lighter-weight querying,
-[[using secondary indexes]] (2i) enables you to add metadata to objects to
+[[using secondary indexes]] \(2i) enables you to add metadata to objects to
 either query for exact matches or to perform range queries. 2i also
 enables you to tag posts with dates, timestamps, topic areas, or other
 pieces of information useful for later retrieval.

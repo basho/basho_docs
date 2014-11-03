@@ -12,13 +12,15 @@ moved: {
 }
 ---
 
-This is a description of the Riak command-line tools and their subcommands.
-These tools are located in the `bin` directory of an embedded node, and the
-path when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
+This is a description of the Riak command-line tools and their
+subcommands. These tools are located in the `bin` directory of an
+embedded node, and the path when installed from a package (usually
+`/usr/sbin` or `/usr/local/sbin`).
 
-This is a description of the Riak command-line tools and their subcommands.
-These tools are located in the `bin` directory of an embedded node, and the
-path when installed from a package (usually `/usr/sbin` or `/usr/local/sbin`).
+This is a description of the Riak command-line tools and their
+subcommands. These tools are located in the `bin` directory of an
+embedded node, and the path when installed from a package (usually
+`/usr/sbin` or `/usr/local/sbin`).
 
 ## riak
 
@@ -45,7 +47,8 @@ Riak node process. The following subcommands are available:
 ## riak-admin
 
 `[[riak-admin|riak-admin Command Line]]` performs operations not related
-to node liveness, including node membership, backup, and basic status reporting. The node must be running for most of these commands to work.
+to node liveness, including node membership, backup, and basic status
+reporting. The node must be running for most of these commands to work.
 The following subcommands are supported:
 
 * [[cluster|riak-admin Command Line#cluster]]
@@ -57,6 +60,9 @@ The following subcommands are supported:
   * [[cluster plan|riak-admin Command Line#cluster-plan]]
   * [[cluster clear|riak-admin Command Line#cluster-clear]]
   * [[cluster commit|riak-admin Command Line#cluster-commit]]
+  * [[cluster plan|riak-admin Command Line#cluster-plan ]]
+  * [[cluster clear|riak-admin Command Line#cluster-clear]]
+  * [[cluster commit|riak-admin Command Line#cluster-commit]]
 * [[join|riak-admin Command Line#join]]
 * [[leave|riak-admin Command Line#leave]]
 * [[backup|riak-admin Command Line#backup]]
@@ -64,7 +70,6 @@ The following subcommands are supported:
 * [[test|riak-admin Command Line#test]]
 * [[reip|riak-admin Command Line#reip]]
 * [[status|riak-admin Command Line#status]]
-* [[reip|riak-admin Command Line#reip]]
 * [[js-reload|riak-admin Command Line#js-reload]]
 * [[erl-reload|riak-admin Command Line#erl-reload]]
 * [[services|riak-admin Command Line#services]]
@@ -86,3 +91,6 @@ The following subcommands are supported:
 * [[security|riak-admin Command Line#security]]
 * [[bucket-type|riak-admin Command Line#bucket-type]]
 * [[repair-2i|riak-admin Command Line#repair-2i]]
+* [[search|riak-admin Command Line#search]]
+* [[ensemble-status|riak-admin Command Line#ensemble-status]]
+

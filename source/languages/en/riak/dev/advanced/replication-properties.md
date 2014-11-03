@@ -4,10 +4,9 @@ project: riak
 version: 0.10.0+
 document: tutorial
 audience: beginner
-keywords: [developers, cap, replication]
+keywords: [cap, replication]
 interest: [
 "[[Installing and Upgrading]]",
-"[[Concepts]]",
 "[[Planning for a Riak System]]",
 "[[Cluster Capacity Planning]]",
 "[[Use Cases]]"
@@ -186,7 +185,7 @@ System.out.println(obj.getValue().toString());
 ```
 
 ```python
-bucket = client.bucket('animal_facts', bucket_type='r_equals_1')
+bucket = client.bucket_type('r_equals_1').bucket('animal_facts')
 bucket.get('chimpanzee')
 ```
 
@@ -249,7 +248,7 @@ client.execute(store);
 ```
 
 ```python
-bucket = client.bucket('animal_facts', bucket_type='w_equals_3')
+bucket = client.bucket_type('w_equals_3').bucket('animal_facts')
 obj = RiakObject(client, bucket, 'giraffe')
 obj.content_type = 'text/plain'
 obj.data = 'The species name of the giraffe is Giraffa camelopardalis'
@@ -279,7 +278,7 @@ seeks to write the object to is unavailable.
 
 ## Primary Reads and Writes with PR and PW
 
-In Riak's replication model, there are N [[vnodes|Riak Glossay#vnodes]],
+In Riak's replication model, there are N [[vnodes|Riak Glossary#vnodes]],
 called *primary vnodes*, that hold primary responsibility for any given
 key. Riak will attempt reads and writes to primary vnodes first, but in
 case of failure, those operations will go to failover nodes in order to
@@ -492,8 +491,8 @@ In case the above explanations were a bit too abstract for your tastes,
 the following table lays out a number of possible scenarios for reads
 and writes in Riak and how Riak is likely to respond. Some of these
 scenarios involve issues surrounding conflict resolution, vector clocks,
-and siblings, so we recommend reading the [[Vector Clocks]]
-documentation for more information.
+and siblings, so we recommend reading the [[Vector Clocks|Causal
+Context#Vector-Clocks]] documentation for more information.
 
 #### Read Scenarios
 

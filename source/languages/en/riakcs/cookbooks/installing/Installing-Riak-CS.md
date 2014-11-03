@@ -9,129 +9,317 @@ audience: beginner
 keywords: [installing]
 ---
 
-A fully functional Riak CS system is comprised of Riak CS, Stanchion, and Riak. The supported operating systems include Ubuntu, CentOS, Fedora, Solaris, SmartOS, FreeBSD, and OS X. Riak CS is *not* supported on Microsoft Windows. You can install Riak CS on a single node or using an automated deployment tool.
+A fully functional Riak CS system is comprised of Riak CS, Stanchion,
+and Riak. The supported operating systems include Ubuntu, CentOS,
+Fedora, Solaris, SmartOS, FreeBSD, and OS X. Riak CS is *not* supported
+on Microsoft Windows.
+
+You can install Riak CS on a single node or using an automated
+deployment tool. Any Riak CS installation involves three components, all
+of which must be installed separately:
+
+* [Riak](http://docs.basho.com/riak/1.4.10/) --- The distributed
+  database on top of which Riak CS is built
+* Riak CS itself
+* [[Stanchion]] --- An application
+    used to manage [[globally unique
+    entities|Stanchion#Globally-Unique-Entities]] such as users and
+    buckets
+
+[[Riak|Installing Riak CS#Installing-Riak]] and [[Riak CS|Installing
+Riak CS#Installing-Riak-CS-on-a-Node]] must be installed on each node in
+your cluster. [[Stanchion|Installing Riak
+CS#Installing-Stanchion-on-a-Node]], however, needs to be installed on
+only one node.
+
+## Version Compatibility
+
+<div class="note">
+<div class="title">Riak CS incompatible with Riak 2.0</div>
+Riak CS cannot currently be used with Riak versions 2.0 and later. A
+version compatibility table can be found immediately below.
+</div>
+
+The following combinations of Riak CS, Riak, and Stanchion are known to
+function well in production environments.
+
+Riak CS | Riak  | Stanchion
+:-------|:------|:---------
+1.2.2   | 1.2.1 | 1.2.2
+1.2.2   | 1.3.0 | 1.2.2
+1.3.0   | 1.2.1 | 1.2.2
+1.4.0   | 1.4.0 | 1.4.0
+1.4.0   | 1.4.1 | 1.4.0
+1.4.3   | 1.4.8 | 1.4.5
+1.5.0   | 1.4.10 | 1.5.0
+1.5.1   | 1.4.10 | 1.5.0
+1.5.2   | 1.4.10 | 1.5.0
+
+We strongly recommend using only one of the version combinations listed
+above when installing and running Riak CS.
+
+## Installing Riak
+
+Before installing Riak CS, Riak itself must be installed on each node in
+your cluster. The first step in installing Riak is to make sure that you
+have Erlang installed. Instructions for all supported operating systems
+can be found in [[Installing Erlang]].
+
+Once Erlang has been installed on a node, you can install Riak either as
+part of an OS-specific package or from source.
+
+* [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
+* [[RHEL and CentOS|Installing on RHEL and CentOS]]
+* [[Mac OS X|Installing on Mac OS X]]
+* [[FreeBSD|Installing on FreeBSD]]
+* [[SmartOS|Installing on SmartOS]]
+* [[Solaris|Installing on Solaris]]
+* [[SUSE|Installing on SUSE]]
+* [[From Source|Installing Riak From Source]]
+
+Riak is also officially supported on the following public cloud
+infrastuctures:
+
+* [[Amazon Web Services|Installing on AWS Marketplace]]
+* [[Microsoft Azure|Installing on Windows Azure]]
+
+Remember that you must repeat this installation process on each node in
+your cluster. For future reference, you should make note of the
+installation directory that you have used. On Debian, Ubuntu, RHEL, and
+CentOS, for example, Riak is installed in `rel/riak` by default, whereas
+Mac OS X does not have a default install directory.
+
+<div class="note">
+<div class="title">Note on the Riak Five-Minute Install</div>
+While the [[Five-Minute Install]] for Riak can be helpful for setting up
+a development environment for Riak (and only Riak), we do not recommend
+following this guide for installing Riak for Riak CS.
+</div>
 
 ## Installing Riak CS on a Node
 
-Riak CS and Stanchion packages are available on the [[Download Riak CS]] page. Similarly, Riak packages are available on the [Download Riak](http://docs.basho.com/riak/latest/downloads/) page.
+Riak CS and Stanchion packages are available on the [[Download Riak CS]]
+page. Similarly, Riak packages are available on the [Download
+Riak](http://docs.basho.com/riak/1.4.10/downloads/) page.
 
-After downloading Riak CS, Stanchion, and Riak, install them using your operating system's package management commands.
+After downloading Riak CS, Stanchion, and Riak, install them using your
+operating system's package management commands.
 
-<div class="note"><div class="title">Note</div><strong>Riak CS is not designed to function directly on TCP port 80, and it should not be operated in a manner that exposes it directly to the public internet</strong>. Instead, consider a load-balancing solution, such as a dedicated device <a href="http://haproxy.1wt.eu">HAProxy</a> or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and the outside world.
+<div class="note">
+<div class="title">Note on Riak CS and public ports</div>
+<strong>Riak CS is not designed to function directly on TCP port 80, and
+it should not be operated in a manner that exposes it directly to the
+public internet</strong>. Instead, consider a load-balancing solution
+such as a dedicated device <a href="http://haproxy.1wt.eu">HAProxy</a>
+or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and
+the outside world.
 </div>
 
 ### Installing Riak CS on Mac OS X
 
-To install Riak CS on OS X, first download the appropriate package from the [[downloads|Download Riak CS]] page:
+To install Riak CS on OS X, first download the appropriate package from
+the [[downloads|Download Riak CS]] page:
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/<riak-cs-os-x.tar.gz>
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak-cs/1.5/{{VERSION}}/osx/10.8/riak-cs-{{VERSION}}-OSX-x86_64.tar.gz
 ```
 
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvzf <riak-cs-os-x.tar.gz>
+tar -xvzf riak-cs-{{VERSION}}-OSX-x86_64.tar.gz
 ```
 
-Replace `<riak-cs-os-x.tar.gz>` with the actual filename for the package you are installing.
+At this point, you can move on to [[configuring Riak CS]].
 
 ### Installing Riak CS on Debian or Ubuntu
 
-On Debian or Ubuntu, you can either use `apt` or install the `.deb` package manually.
+On Debian and Ubuntu, Riak CS packages are hosted on
+[packagecloud.io](https://packagecloud.io/basho/riak-cs). Instructions
+for installing via shell scripts, manual installation, Chef, and Puppet
+can be found in packagecloud's [installation
+docs](https://packagecloud.io/basho/riak/install).
 
-#### Installing Using `apt` (recommended)
+Platform-specific pages are linked below:
 
-First, install the signing key:
+* [Lucid](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=lucid)
+* [Precise](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=precise)
+* [Squeeze](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=squeeze)
+* [Trusty](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=trusty)
+* [Wheezy](https://packagecloud.io/basho/riak-cs/riak-cs_{{VERSION}}-1_amd64.deb?distro=wheezy)
+
+#### Advanced apt Installation
+
+For the simplest installation process on LTS (Long-Term Support)
+releases, use `apt-get`. First, you must retrieve the signing key:
 
 ```curl
-curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+curl https://packagecloud.io/gpg.key | sudo apt-key add -
 ```
 
-Then, add the Basho repository to your `apt` sources list (and update them):
+Second, you must install the `apt-transport-https` package in order to
+be able to fetch packages over HTTPS:
+
+```curl
+sudo apt-get install -y apt-transport-https
+```
+
+With HTTPS enabled, we recommend adding the desired Riak CS package to
+your `.list` file. packagecloud can autogenerate such a file on the
+basis of a name that you specify, e.g. a hostname, and the desired
+operating system and distribution. The following example script would
+store your hostname in the variable `HOSTNAME`, send that information to
+packagecloud to autogenerate a `.list` file, and then store the return
+value in a file called `basho.list`, which is stored in the
+`/etc/apt/sources.list.d` directory. This example script is specific to
+the Precise Ubuntu distribution:
 
 ```bash
-sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
+#!/bin/bash
+
+HOSTNAME=`hostname -f`
+FILENAME=/etc/apt/sources.list.d/basho.list
+OS=ubuntu
+DIST=precise
+PACKAGE_CLOUD_RIAK_CS_DIR=https://packagecloud.io/install/repositories/basho/riak_cs
+curl "${PACKAGE_CLOUD_RIAK_CS_DIR}/config_file.list?os=${OS}&dist=${DIST}&name=${HOSTNAME}" > $FILENAME
+```
+
+The `name` that you submit to packagecloud can be anything you like. The
+`HOSTNAME` used above was for example purposes. The resulting file
+should hold contents like the following:
+
+```
+# this file was generated by packagecloud.io for
+# the repository at https://packagecloud.io/basho/riak
+
+deb https://packagecloud.io/basho/riak_cs/ubuntu/ precise main
+deb-src https://packagecloud.io/basho/riak_cs/ubuntu/ precise main
+```
+
+With your `basho.list` file populated, you can update your apt sources
+list:
+
+```bash
 sudo apt-get update
 ```
 
-Now, install Riak CS:
+Now install the `riak-cs` package:
 
 ```bash
 sudo apt-get install riak-cs
 ```
 
-#### Installing the `.deb` Package Manually (not recommended)
-
-To install manually, use `dpkg`:
-
-```bash
-sudo dpkg -i <riak-cs-package.deb>
-```
-
-Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
-
 ### Installing Riak CS on RHEL or CentOS
 
-On RHEL or CentOS, you can either use `yum` or install the `.rpm` package manually.
 
-#### Installing Using `yum` (recommended)
+On RHEL or CentOS, Riak CS packages are hosted on
+[packagecloud.io](https://packagecloud.io/basho/riak-cs). Instructions
+for installing via shell scripts, manual installation, Chef, and Puppet
+can be found in packagecloud's [installation
+docs](https://packagecloud.io/basho/riak-cs/install).
 
-For CentOS/RHEL 6:
+Platform-specific pages are linked below:
 
-```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-6-1.noarch.rpm
-```
+* [el5](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=5)
+* [el6](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=6)
+* [el7](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=7)
+* [Fedora 19](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.fc19.x86_64.rpm?distro=19)
 
-For CentOS/RHEL 5:
+#### Advanced rpm Installation
 
-```bash
-sudo yum install http://yum.basho.com/gpg/basho-release-5-1.noarch.rpm
-```
-
-Once the `.rpm` package has been installed, install Riak CS:
-
-```bash
-sudo yum install riak-cs
-```
-
-#### Installing the `.rpm` Package Manually (not recommended)
+For the simplest installation process on LTS (Long-Term Support)
+releases, use yum. First, you must install the `pygpme` package, which
+enables yum to handle [GPG](https://www.gnupg.org/) signatures:
 
 ```bash
-rpm -Uvh <riak-cs-package.rpm>
+sudo yum install pypgme
 ```
 
-Replace `<riak-cs-package.rpm>` with the actual filename for the package you are installing.
+If you wish to install using a `.repo` file, packagecloud can generate
+one for you on the basis of a name that you specify, e.g. a hostname,
+and the desired operating system and distribution. The following example
+script would store your hostname in the variable `HOSTNAME`, send that
+information to packagecloud to generate a `.repo` file, and then store
+the return value in a file called `basho.repo`, which is stored in the
+`/etc/yum.repos.d` directory:
 
-## Installing Stanchion
+```bash
+#!/bin/bash
 
-Stanchion is an application that ensures unique user accounts and bucket names across the whole system.
+HOSTNAME=`hostname -f`
+FILENAME=/etc/yum.repos.d/basho.repo
+OS=el
+DIST=5
+PACKAGE_CLOUD_RIAK_CS_DIR=https://packagecloud.io/install/repositories/basho/riak-cs
+curl "${PACKAGE_CLOUD_RIAK_CS_DIR}/config_file.repo?os=${OS}&dist=${DIST}&name=${HOSTNAME}" > $FILENAME
+```
 
-Problems can occur if all Riak CS nodes are not configured to communicate with a single Stanchion node. Although Stanchion instances may be installed and running on each node, only one may be actively used by the cluster.  This could mean the inability to create user accounts and buckets, or the inability to enforce their uniqueness.
+The `name` that you submit to packagecloud can be anything you like. The
+`HOSTNAME` used above was for example purposes. The resulting file
+should hold contents like the following:
 
-As only a single instance of Stanchion can be used by the Riak CS cluster at any time, it's not uncommon for a load balancer to be used to handle Stanchion failover in the event the primary Stachion node becomes unavailable.  This can be accomplished by specifying a load balancer IP as the Stanchion IP in the Riak CS app.config.  This load balancer must be configured to send all requests to a single Stanchion node, failing over to a secondary Stanchion node if the primary is unavailable.  Details on specifying the Stanchion IP can be found in the [[Specifying the Stanchion Node|Configuring Riak CS#Specifying-the-Stanchion-Node]] section of [[Configuring Riak CS]].
+```
+[basho_riak-cs]
+name=basho_riak-cs
+baseurl=https://packagecloud.io/basho/riak-cs/el/5/$basesearch
+repo_gpgcheck=1
+gpgcheck=0
+enabled=1
+gpgkey=https://packagecloud.io/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+```
 
-Use the commands in the section for your operating system to install a pre-built Stanchion package on the node you choose for Stanchion.
+With your `basho.repo` file populated, you can update your rpm sources
+list.
+
+## Installing Stanchion on a Node
+
+Stanchion is an application that manages globally unique entities within
+a Riak CS cluster. It performs actions such as ensuring unique user
+accounts and bucket names across the whole system. **Riak CS cannot be
+used without Stanchion**.
+
+All Riak CS nodes must be configured to communicate with a single
+Stanchion node. Although multiple Stanchion instances may be installed
+and running within a cluster, even one on each node, only one may be
+actively used by the cluster. Running multiple instances of Stanchion
+simultaneously can produce a variety of problems such as the inability
+to create user accounts and buckets or the inability to enfore their
+uniqueness.
+
+Because only one Stanchion instance can be used at any given time, it's
+not uncommon for a load balancer to be used to handle Stanchion failover
+in the event that the primary Stanchion node becomes unavailable. You
+can achieve this by specifying a load balancer IP as the Stanchion UP
+in each Riak CS node's `app.config`. This load balancer must be
+configured to send all requests to a single Stanchion node, failing over
+to a secondary Stanchion node if the primary is unavailable. More
+details can be found in [[Specifying the Stanchion Node|Configuring Riak
+CS#Specifying-the-Stanchion-Node]].
 
 ### Installing Stanchion on Mac OS X
 
-To install Stanchion on OS X, first download the appropriate package from the [[downloads|Download Riak CS]] page:
+First, download the appropriate package from the [[downloads|Download
+Riak CS#Stanchion-1-4-3]] page.
 
 ```bash
-curl -O http://s3.amazonaws.com/downloads.basho.com/<stanchion-os-x.tar.gz>
+curl -O http://s3.amazonaws.com/downloads.basho.com/stanchion/1.4/1.4.3/osx/10.8/stanchion-1.4.3-OSX-x86_64.tar.gz
 ```
-
-Replace `<stanchion-os-x.tar.gz>` with the actual filename for the package you are installing.
 
 Then, unpack the downloaded tarball:
 
 ```bash
-tar -xvzf <stanchion-os-x.tar.gz>
+stanchion-1.4.3-OSX-x86_64.tar.gz
 ```
+
+At this point, you can move on to [[configuring Riak CS]].
 
 ### Installing Stanchion on Debian or Ubuntu
 
-On Debian or Ubuntu, you can either use `apt` or install the `.deb` package manually.
+On Debian or Ubuntu, you can either use `apt` or install the `.deb`
+package manually.
 
 #### Installing Using `apt` (recommended)
 
@@ -141,7 +329,8 @@ First, install the signing key:
 curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
 ```
 
-If the signing key and `apt` repository have already been added, add the Basho repository to your `apt` sources list (and update them):
+If the signing key and `apt` repository have already been added, add
+the Basho repository to your `apt` sources list (and update them):
 
 ```bash
 sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
@@ -154,17 +343,23 @@ Now, install Riak CS:
 sudo apt-get install stanchion
 ```
 
+At this point, you can move on to [[configuring Riak CS]].
+
 #### Installing the `.deb` Package Manually (not recommended)
 
 ```bash
 sudo dpkg -i <stanchion-package.deb>
 ```
 
-Replace `<riak-cs-package.deb>` with the actual filename for the package you are installing.
+Replace `<riak-cs-package.deb>` with the actual filename for the package
+you are installing.
+
+At this point, you can move on to [[configuring Riak CS]].
 
 ### Installing Stanchion on RHEL or CentOS
 
-On RHEL or CentOS, you can either use `yum` or install the `.rpm` package manually.
+On RHEL or CentOS, you can either use `yum` or install the `.rpm`
+package manually.
 
 #### Installing Using `yum` (recommended)
 
@@ -186,20 +381,26 @@ Once the `.rpm` package has been installed, install Stanchion:
 sudo yum install stanchion
 ```
 
+At this point, you can move on to [[configuring Riak CS]].
+
 #### Installing the `.rpm` Package Manually (not recommended)
 
 ```bash
 sudo rpm -Uvh <stanchion-package.rpm>
 ```
 
-Replace `<stanchion-package.rpm>` with the actual filename for the package you are installing.
+Replace `<stanchion-package.rpm>` with the actual filename for the
+package you are installing.
 
-<div class="note"><div class="title">Note</div>CentOS enables Security-Enhanced Linux (SELinux) by default. If you encounter errors during installation, try disabling SELinux.</div>
+At this point, you can move on to [[configuring Riak CS]].
 
-## Installing Riak
-
-If you have not yet installed Riak, follow the [[Riak Installation|Installing and Upgrading]] documentation to do so.
+<div class="note">
+<div class="title">Note on SELinux</div>
+CentOS enables Security-Enhanced Linux (SELinux) by default. If you
+encounter errors during installation, try disabling SELinux.
+</div>
 
 ## What's Next?
 
-Once you've completed installation of Riak CS and Riak, you're ready to learn more about [[Configuring Riak CS]].
+Once you've completed installation of Riak CS and Riak, you're ready to
+learn more about [[Configuring Riak CS]].

@@ -10,3 +10,6 @@ moved: {
   '1.4.0-': '/cookbooks/use-cases/user-events-timelines'
 }
 ---
+
+This page no longer valid. We recommend taking a look at [[Use Cases]]
+or [[Building Applications with Riak]] instead.

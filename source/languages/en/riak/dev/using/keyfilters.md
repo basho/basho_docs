@@ -11,8 +11,6 @@ moved: {
 }
 ---
 
-<div class="info"><div class="title">Deprecation Notice</div>Key Filters are a deprecated feature of Riak and will eventually be removed. Please refrain from using it, and instead model your data where related data are multi-step lookups, or consider an alternative query option such as [[Riak Search|Using Search]] or [[MapReduce|Using MapReduce]].</div>
-
 Key filters are a way to pre-process [[MapReduce|Using MapReduce]] inputs from a full bucket query simply by examining the key without loading the object first. This is especially useful if your keys are composed of domain-specific information that can be analyzed at query-time.
 
 ## Understanding key filters

@@ -16,11 +16,7 @@ moved: {
 }
 ---
 
-<div class="warning">
-This is a warning, yo.
-</div>
-
-The following steps are known to work with Mac OS X 10.8 and 10.9 (Mavericks). You can install from source or download a precompiled tarball.
+The following steps are known to work with Mac OS X {{#1.4.0-}}10.5 and 10.6{{/1.4.0-}}{{#1.4.0+}}10.8 and 10.9 (Mavericks){{/1.4.0+}}. You can install from source or download a precompiled tarball.
 
 ## Install Types
 
@@ -28,11 +24,98 @@ The following steps are known to work with Mac OS X 10.8 and 10.9 (Mavericks). Y
 * Homebrew
 * Source
 
-<div class="note"><div class="title"><tt>ulimit</tt> on OS X</div>OS X gives you a very small limit on open file handles, so even with a backend that uses very few file handles, it's possible to run out. See [[Open Files Limit]] for more information about changing the limit.</div>
+<div class="note"><div class="title">ulimit on OS X</div>OS X gives you a very small limit on open file handles, so even with a backend that uses very few file handles, it's possible to run out. See [[Open Files Limit]] for more information about changing the limit.</div>
 
 ## From Precompiled Tarballs
 
 To run Riak from our precompiled tarball, run these commands for the appropriate platform:
+
+{{#1.2.0-}}
+
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{V.V}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
+```
+
+{{/1.2.0-}}
+{{#1.2.0}}
+
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
+```
+
+{{/1.2.0}}
+{{#1.2.1}}
+
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.4/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
+```
+
+{{/1.2.1}}
+{{#1.3.0-1.3.2}}
+
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.6/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.6/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
+```
+
+{{/1.3.0-1.3.2}}
+{{#1.3.2-1.3.9}}
+
+### 64-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.8/riak-{{VERSION}}-osx-x86_64.tar.gz
+tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
+```
+
+### 32-bit
+
+```bash
+curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx/10.8/riak-{{VERSION}}-osx-i386.tar.gz
+tar xzvf riak-{{VERSION}}-osx-i386.tar.gz
+```
+
+{{/1.3.2-1.3.9}}
+{{#1.4.0+}}
 
 ### 64-bit
 
@@ -41,36 +124,20 @@ curl -O http://s3.amazonaws.com/downloads.basho.com/riak/{{V.V}}/{{VERSION}}/osx
 tar xzvf riak-{{VERSION}}-osx-x86_64.tar.gz
 ```
 
+{{/1.4.0+}}
 After the release is untarred, you will be able to `cd` into the riak directory and execute `bin/riak start` to start the Riak node.
 
 ## Homebrew
 
-<div class="note">
-<div class="title">Warning: Homebrew not always up to date</div>
-Homebrew's Riak recipe is community supported, and thus is not always up to date with the latest Riak package. Please ensure that the current recipe is using the latest supported code (and don't be scared to update it if it's not).
-</div>
+<div class="note">Homebrew's Riak recipe is community supported, and thus is not always up to date with the latest Riak package. Please ensure that the current recipe is using the latest supported code (and don't be scared to update it if it's not).</div>
 
-Installing Riak 2.0 with [Homebrew](http://brew.sh/) is easy:
+Installing with Homebrew is easy:
 
 ```bash
-brew install --devel riak
+brew install riak
 ```
 
-By default, this will place a `{{VERSION}}` folder in `/usr/local/Cellar/riak`.
-
-Be aware that you will most likely see the following message after running `brew install`:
-
-```
-Error: The `brew link` step did not complete successfully
-The formula built, but is not symlinked into /usr/local
-
-You can try again using:
-  brew link riak
-```
-
-We do not recommend using `brew link` with Riak. Instead, we recommend either copying that directory to a desired location on your machine, aliasing the executables in the `/bin` directory, or interacting with the Riak installation directory via environment variables.
-
-**Note**: Homebrew will install Erlang if you don't have it already.
+Homebrew will install Erlang if you don't have it already.
 
 ## From Source
 

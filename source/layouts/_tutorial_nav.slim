@@ -9,9 +9,9 @@
     ul
       - if data.page.prev.present?
         li.prev
-          span.label== I18n.t(:previous) 
+          span.label== I18n.t(:previous)
           == data.page.prev
       - if data.page.next.present?
         li.next
-          span.label == I18n.t(:next) 
+          span.label == I18n.t(:next)
           == data.page.next

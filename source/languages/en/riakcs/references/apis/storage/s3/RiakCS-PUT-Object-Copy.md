@@ -13,10 +13,13 @@ moved: {
 
 The `PUT Object (Copy)` creates a copy of an object that is already stored in Riak CS. Adding the `x-amz-copy-source` HTTP header makes the PUT operation copy the source object into the destination bucket.
 
+{{#1.5.0-}}
+
 <div class="note">
 <div class="title">Note</div>
-PUT Object (Copy) is currently only supported when the source and destination object are the same. This can be used as a mechanism to update the user-defined metadata of an object. In order to modify user-defined metadata, all user configured metadata must be included – even if you are only modifying one of the attributes.
+PUT Object (Copy) is currently only supported when the source and destination object are the same. This can be used as a mechanism to update the user-defined metadata of an object. In order to modify user-defined metadata, all user configured metadata must be included, even if you are only modifying one of the attributes.
 </div>
+{{/1.5.0-}}
 
 ## Access Permissions
 

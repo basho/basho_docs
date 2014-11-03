@@ -11,38 +11,52 @@ moved: {
 }
 ---
 
-The recommended best practice for operating Riak in production is to place 
-Riak behind a load-balancing or proxy solution, either hardware- or software-
-based, while never directly exposing Riak to public network interfaces.
+The recommended best practice for operating Riak in production is to
+place Riak behind a load-balancing or proxy solution, either hardware-
+or software- based, while never directly exposing Riak to public network
+interfaces.
 
 Riak users have reported success in using Riak with a variety of load-
 balancing and proxy solutions. Common solutions include proprietary
-hardware-based load balancers, cloud-based load balancing options, such as Amazon's Elastic Load Balancer, and open-source software based projects like HAProxy and Nginx.
+hardware-based load balancers, cloud-based load balancing options, such
+as Amazon's Elastic Load Balancer, and open-source software based
+projects like HAProxy and Nginx.
 
 This guide briefly explores the commonly used open-source software-based
-solutions HAProxy and Nginx, and provides some configuration and operational
-tips gathered from community users and operations oriented engineers at Basho.
+solutions HAProxy and Nginx, and provides some configuration and
+operational tips gathered from community users and operations oriented
+engineers at Basho.
 
-While it is by no means an exhaustive overview of the topic, this guide should
-provide a starting point for choosing and implementing your own solution.
+While it is by no means an exhaustive overview of the topic, this guide
+should provide a starting point for choosing and implementing your own
+solution.
 
 ## HAProxy
 
-[HAProxy](http://haproxy.1wt.eu/) is a fast and reliable open-source solution
-for load balancing and proxying of HTTP- and TCP-based application traffic.
+[HAProxy](http://haproxy.1wt.eu/) is a fast and reliable open-source
+solution for load balancing and proxying of HTTP- and TCP-based
+application traffic.
 
-Users have reported success in using HAProxy in combination with Riak in a
-number of configurations and scenarios. Much of the information and example
-configuration for this section is drawn from experiences of users in the
-Riak community in addition to suggestions from Basho engineering.
+Users have reported success in using HAProxy in combination with Riak in
+a number of configurations and scenarios. Much of the information and
+example configuration for this section is drawn from experiences of
+users in the Riak community in addition to suggestions from Basho
+engineering.
 
 ### Example Configuration
 
-The following is an example starting-point configuration for HAProxy to act as
-a load balancer. The example cluster has 4 nodes and will be accessed by Riak
-clients using both the Protocol Buffers and HTTP interfaces.
+The following is an example starting-point configuration for HAProxy to
+act as a load balancer. The example cluster has 4 nodes and will be
+accessed by Riak clients using both the Protocol Buffers and HTTP
+interfaces.
 
-<div class="info">The operating system's open files limits need to be greater than 256000 for the example configuration that follows. Consult the [[Open Files Limit]] documentation for details on configuring the value for different operating systems.</div>
+<div class="note">
+<div class="title">Note on open files limits</div>
+The operating system's open files limits need to be greater than 256000
+for the example configuration that follows. Consult the [[Open Files
+Limit]] documentation for details on configuring the value for different
+operating systems.
+</div>
 
 ```config
 global
@@ -76,6 +90,8 @@ backend riak_rest_backend
 
 frontend riak_rest
        bind               127.0.0.1:8098
+       # Example bind for SSL termination
+       # bind             127.0.0.1:8443 ssl crt /opt/local/haproxy/etc/data.pem
        mode               http
        option             contstats
        default_backend    riak_rest_backend
@@ -103,63 +119,77 @@ frontend riak_protocol_buffer
        default_backend    riak_protocol_buffer_backend
 ```
 
-Note that the above example is considered a starting point and is a work
-in progress based on [this example](https://gist.github.com/1507077). You
-should carefully examine the configuration and change it according to your
-specific environment.
+A specific configuration detail worth noting from the example is the
+commented option for SSL termination. HAProxy supports SSL directly as
+of version 1.5. Provided that your HAProxy instance was built with
+OpenSSL support, you can enable it by uncommenting the example line and
+modifying it to suit your environment. More information is available in
+the [HAProxy
+documentation](http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#5-ssl).
+
+Also note that the above example is considered a starting point and is a
+work in progress based upon [this
+example](https://gist.github.com/1507077). You should carefully examine
+the configuration and change it according to your specific environment.
 
 ### Maintaining Nodes Behind HAProxy
 
-When using HAProxy with Riak, you can instruct HAProxy to ping each node in
-the cluster and automatically remove nodes that do not respond.
+When using HAProxy with Riak, you can instruct HAProxy to ping each node
+in the cluster and automatically remove nodes that do not respond.
 
-You can also specify a round-robin configuration in HAProxy and have your
-application handle connection failures by retrying after a timeout, thereby
-reaching a functioning node upon retrying the connection attempt.
+You can also specify a round-robin configuration in HAProxy and have
+your application handle connection failures by retrying after a timeout,
+thereby reaching a functioning node upon retrying the connection
+attempt.
 
-HAPproxy also has a standby system you can use to remove a node from rotation
-while allowing existing requests to finish. You can remove nodes from
-HAProxy directly from the command line by interacting with the HAProxy stats
-socket with a utility such as [socat](http://www.dest-unreach.org/socat/):
+HAPproxy also has a standby system you can use to remove a node from
+rotation while allowing existing requests to finish. You can remove
+nodes from HAProxy directly from the command line by interacting with
+the HAProxy stats socket with a utility such as
+[socat](http://www.dest-unreach.org/socat/):
 
 ```bash
 echo "disable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
 ```
 
-At this point, you can perform maintenance on the node, down the node, and
-so on. When you've finished working with the node and it is again available
-for requests, you can re-enable it:
+At this point, you can perform maintenance on the node, down the node,
+and so on. When you've finished working with the node and it is again
+available for requests, you can re-enable it:
 
 ```bash
 echo "enable server <backend>/<riak_node>" | socat stdio /etc/haproxy/haproxysock
 ```
 
-Consult the following HAProxy documentation resources for more information on
-configuring HAProxy in your environment:
+Consult the following HAProxy documentation resources for more
+information on configuring HAProxy in your environment:
 
 * [HAProxy Documentation](http://code.google.com/p/haproxy-docs/w/list)
 * [HAProxy Architecture](http://haproxy.1wt.eu/download/1.2/doc/architecture.txt)
 
 ## Nginx
 
-Some users have reported success in using the [Nginx](http://nginx.org/) HTTP
-server to proxy requests for Riak clusters. An example that provides access
-to a Riak cluster *through GET requests only* is provided here for reference.
+Some users have reported success in using the [Nginx](http://nginx.org/)
+HTTP server to proxy requests for Riak clusters. An example that
+provides access to a Riak cluster *through GET requests only* is
+provided here for reference.
 
 ### Example Configuration
 
-The following is an example starting point configuration for Nginx to act
-as a front-end proxy to a 5-node Riak cluster.
+The following is an example starting point configuration for Nginx to
+act as a front-end proxy to a 5-node Riak cluster.
 
-This example forwards all GET requests to Riak nodes while rejecting all other
-HTTP operations.
+This example forwards all GET requests to Riak nodes while rejecting all
+other HTTP operations.
 
-<div class="note"><div class="title">Nginx version notes</div>This example
-configuration was verified on <strong>Nginx version 1.2.3</strong>. Please be
-aware that earlier versions of Nginx did not support any HTTP 1.1 semantics for
-upstream communication to backends. You should carefully examine this
-configuration and make changes appropriate to your specific environment
-before attempting to use it.</div>
+<div class="note">
+<div class="title">Nginx version notes</div
+This example configuration was verified on <strong>Nginx version
+1.2.3</strong>. Please be aware that earlier versions of Nginx did not
+support any HTTP 1.1 semantics for upstream communication to backends.
+You should carefully examine this configuration and make changes
+appropriate to your specific environment before attempting to use
+it
+</div>
 
 Here is an example `nginx.conf` file:
 
@@ -218,11 +248,11 @@ server {
 ```
 
 <div class="note">
-<div class="title">Note</div>
-Even when filtering and limiting requests to GETs only as done in the example,
-you should strongly consider additional access controls beyond what Nginx can
-provide directly, such as specific firewall rules to limit inbound connections
-to trusted sources.
+<div class="title">Note on access controls</div>
+Even when filtering and limiting requests to GETs only as done in the
+example, you should strongly consider additional access controls beyond
+what Nginx can provide directly, such as specific firewall rules to
+limit inbound connections to trusted sources.
 </div>
 
 ### Querying Secondary Indexes Over HTTP
@@ -231,10 +261,10 @@ When accessing Riak over HTTP and issuing Secondary Index queries, you
 can encounter an issue due to the default Nginx handling of HTTP header
 names containing underscore (`_`) characters.
 
-By default, Nginx will issue errors for such queries, but you can instruct
-Nginx to handle such header names when doing Secondary Index queries over
-HTTP by adding the following directive to the appropriate `server` section
-of `nginx.conf`:
+By default, Nginx will issue errors for such queries, but you can
+instruct Nginx to handle such header names when doing Secondary Index
+queries over HTTP by adding the following directive to the appropriate
+`server` section of `nginx.conf`:
 
 ```
 underscores_in_headers on;

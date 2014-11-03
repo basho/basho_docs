@@ -15,8 +15,7 @@ When inspection of a Riak node to gather metrics on performance or potential iss
 
 This guide provides starting points and details on some of the available tools for inspecting a Riak node.
 
-riak-admin status
------------------
+## riak-admin status
 
 `riak-admin status` is a subcommand of the `riak-admin` command that is included with every installation of Riak. The `status` subcommand provides data related to the current operating status for a node. The output of `riak-admin status` is categorized and detailed below.
 
@@ -70,12 +69,12 @@ One-Minute Stats represent the number of times a particular activity has occurre
 Stat                                  | Description
 --------------------------------------|---------------------------------------------------
 `node_gets`                           | Number of GETs coordinated by this node, including GETs to non-local vnodes in the last minute
-`node_puts`                           | Number of PUTs coordinated by this node, including PUTs to non-local vnodes in the last minute
+`node_puts`                           | Number of PUTs coordinated by this node, where a PUT is sent to a local vnode in the last minute
 `vnode_gets`                          | Number of GET operations coordinated by local vnodes on this node in the last minute
 `vnode_puts`                          | Number of PUT operations coordinated by local vnodes on this node in the last minute
 `vnode_index_refreshes`               | Number of secondary indexes refreshed on this node during secondary index anti-entropy in the last minute
 `vnode_index_reads`                   | Number of local replicas participating in secondary index reads in the last minute
-`vnode_index_writes`                  | Number of local replcias participating in secondary index writes in the last minute
+`vnode_index_writes`                  | Number of local replicas participating in secondary index writes in the last minute
 `vnode_index_writes_postings`         | Number of individual secondary index values written in the last minute
 `vnode_index_deletes`                 | Number of local replicas participating in secondary index deletes in the last minute
 `vnode_index_deletes_postings`        | Number of individual secondary index values deleted in the last minute
@@ -251,8 +250,8 @@ Stat                            | Description
 `pipeline_active`               | The number of pipelines active in the last 60 seconds
 `pipeline_create_count`         | The total number of pipelines created since the node was started
 `pipeline_create_error_count`   | The total number of pipeline creation errors since the node was started
-`pipeline_create_error_one`     | The number of pipelines created in the last 60 seconds
-`pipeline_create_one`           | The number of pipeline creation errors in the last 60 seconds
+`pipeline_create_error_one`     | The number of pipeline creation errors in the last 60 seconds
+`pipeline_create_one`           | The number of pipelines created in the last 60 seconds
 {{/1.2.0+}}
 
 ### Application and Subsystem Versions
@@ -308,29 +307,131 @@ Stat                         | Description
 Note that under ideal operation and with the exception of `riak_search_vnodes_running` these statistics should contain low values (e.g., 0-10). Presence of higher values could be indicative of an issue.
 {{/1.2.0+}}
 
-Riaknostic
-----------
+## Riaknostic
 
-[Riaknostic](http://riaknostic.basho.com/) is a small suite of diagnostic checks that can be run against a Riak node to discover common problems, and recommend how to resolve them. These checks are derived from the experience of the Basho Client Services Team as well as numerous public discussions on the mailing list, `#riak` IRC channel, and other online media.
+[Riaknostic](http://riaknostic.basho.com/) is a small suite of diagnostic checks that can be run against a Riak node to discover common problems. It often offers recommendations about how to resolve those problems as well. These checks are derived from the experience of the Basho Client Services Team as well as numerous public discussions on the mailing list, `#riak` IRC channel, and other online media.
 
-{{#1.3.0-}}
-Riaknostic is an open source project developed by Basho Technologies and Riak community members. The code is available in the [Riaknostic Github repository](https://github.com/basho/riaknostic).
+{{#1.3.0-}}Riaknostic is an open source project developed by Basho Technologies and Riak community members. The code is available in the Riaknostic Github repository.
 
-Getting started with Riaknostic is easy, and instructions for installation and use are provided on the Riaknostic website. Once downloaded and installed, Riaknostic adds a `diag` subcommand to the `riak-admin` command.
+Getting started with Riaknostic is easy, and instructions for installation and use are provided on the [Riaknostic website](http://riaknostic.basho.com/). Once downloaded and installed, Riaknostic adds a `diag` subcommand to the `riak-admin` command.{{/1.3.0-}}
 
-Executing `riak-admin diag` will provide information on any node problems as detected by Riaknostic, and also recommendations for resolution of the problems. Riaknostic can be extremely handy for diagnosing a range of configuration issues and is strongly recommended as a first step when inspecting a problematic node or cluster issue.
-{{/1.3.0-}}
-
-{{#1.3.0+}}
-As of Riak version 1.3, Riaknostic is installed by default.
-
-Riaknostic is included with Riak and exposed through the `riak-admin diag` command. It is an open source project developed by Basho Technologies and Riak community members. The code is available in the [Riaknostic Github repository](https://github.com/basho/riaknostic).
-{{/1.3.0+}}
+{{#1.3.0+}}As of Riak version 1.3, Riaknostic is installed with Riak by default and exposed through the `riak-admin diag` command interface. It is an open source project developed by Basho Technologies and Riak community members. The code is available in the Riaknostic Github repository. {{/1.3.0+}}
 
 
-Related Resources
------------------
+## Strong Consistency Stats
 
--   [Configuration and Management: Command Line Tools: riak-admin](http://docs.basho.com/riak/1.2.0/references/riak-admin Command Line/)
+Riak tabulates a variety of stats related to Riak's optional [[strong
+consistency]] feature. The table below lists those stats.
+
+### GET-related stats
+
+Stat | Description
+:----|:-----------
+`consistent_gets` | Number of strongly consistent GETs coordinated by this node in the last minute
+`consistent_gets_total` | Total number of strongly consistent GETs coordinated by this node
+`consistent_get_objsize_mean` | Mean object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_median` | Median object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_95` | 95th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_99` | 99th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_objsize_100` | 100th-percentile object size for strongly consistent GETs on this node in the last minute
+`consistent_get_time_mean` | Mean time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_median` | Median time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_95` | 95th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_99` | 99th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+`consistent_get_time_100` | 100th-percentile time between reception of client GETs to strongly consistent keys and subsequent response
+
+### PUT-related stats
+
+Stat | Description
+:----|:-----------
+`consistent_puts` | Number of strongly consistent PUTs coordinated by this node in the last minute
+`consistent_puts_total` | Total number of strongly consistent PUTs coordinated by this node
+`consistent_put_objsize_mean` | Mean object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_median` | Median object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_95` | 95th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_99` | 99th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_objsize_100` | 100th-percentile object size for strongly consistent PUTs on this node in the last minute
+`consistent_put_time_mean` | Mean time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_median` | Median time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_95` | 95th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_99` | 99th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+`consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
+## riak-admin diag
+
+Running `riak-admin diag` by itself will perform a check of all of the data partitions in your cluster. It will return a listing of partitions that have been checked, each of which looks something like this:
+
+```
+{1392993748081016843912887106182707253109560705024, % the partition checked
+ 'dev-rel@127.0.0.1'},                              % that partition's nodename
+```
+
+At the end of that (potentially very long) listing of checked partitions, it will print notices, warnings, and other pieces of information about issues that it has found, including date/time, message type, and a detailed description. Here's an example:
+
+```
+15:34:52.736 [warning] Riak crashed at Wed, 07 Dec 2011 21:47:50 GMT, leaving crash dump in /srv/riak/log/erl_crash.dump. Please inspect or remove the file.
+15:34:52.736 [notice] Data directory /srv/riak/data/bitcask is not mounted with 'noatime'. Please remount its disk with the 'noatime' flag to improve performance.
+```
+
+Messages bear the following types (derived from [syslog](http://en.wikipedia.org/wiki/Syslog) security levels):
+
+* `debug`
+* `info`
+* `notice`
+* `warning`
+* `error`
+* `critical`
+* `alert`
+* `emergency`
+
+#### Command flags
+
+Attaching the `--help` flag will return a list of flags and commands that can be used with Riaknostic:
+
+```
+Usage: riak-admin diag [-d <level>] [-l] [-h] [--export] [check_name ...]
+
+-h, --help            Display help/usage dialogue
+-d, --level           Minimum message severity level (default: notice)
+-l, --list            Describe available diagnostic tasks
+--export              Package system info in '/export.zip'
+check_name            A specific check to run
+```
+
+Running `riak-admin diag`  with the `--list` flag will return a list of available diagnostic checks. The following checks are available:
+
+Check | Description
+:-----|:-----------
+`disk` | Data directory permissions and atime
+`dumps` | Find crash dumps
+`memory_use` | Measure memory usage
+`nodes_connected` | Cluster node liveness
+`ring_membership` | Cluster membership validity
+`ring_preflists` | Check if the ring satisfies `n_val`
+`ring_size` | Check if the ring size valid
+`search` | Check whether Riak Search is enabled on all nodes
+
+The `--level` flag enables you to specify the log level and thus to filter messages based on type. You can pass in any of the message types listed above (`debug`, `info`, etc.).
+
+The `--level` flag can be used when running `riak-admin diag` with or without specifying a diagnostic check.
+
+#### Contributing
+
+Do you have an idea that would help us improve Riaknostic? If so, fork the [GitHub repository](https://github.com/basho/riaknostic) and send us a pull request with your changes. The code is documented with [edoc](http://riaknostic.basho.com/edoc/index.html), so give the API Docs a read before you contribute.
+
+If you want to run the Riaknostic script while developing and you don't have it hooked up to your local Riak installation, you can invoke it directly like so:
+
+```bash
+./riaknostic --etc ~/code/riak/rel/riak/etc --base ~/code/riak/rel/riak --user `whoami` [other options]
+```
+
+Those extra options are usually assigned by the `riak-admin` script for you, but here's how to set them:
+
+* `--etc` --- The location of your Riak configuration directory (usually `/etc`). In the example above, configuration is in the generated directory of a source checkout of Riak.
+* `--base` --- The "base" directory of Riak, usually the root of the generated directory or `/usr/lib/riak` on Linux. Scan the `riak-admin` script for how the `RUNNER_BASE_DIR` variable is assigned on your platform.
+* `--user` --- The user/UID as which the Riak node runs. In a source checkout, it's the current user; on most systems, it's `riak`.
+
+## Related Resources
+
+-   [[The riak-admin configuration management tool|riak-admin Command Line]]
 -   [Riaknostic](http://riaknostic.basho.com/)
 -   [[HTTP API Status|HTTP Status]]
