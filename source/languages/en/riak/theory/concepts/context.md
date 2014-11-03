@@ -179,7 +179,7 @@ updated by five different clients concurrently and tagged with the same
 vector clock, then five values should be created as siblings.  However,
 depending on the order of delivery of those updates to the different
 replicas, sibling values may be duplicated, which can in turn lead to
-[[sibling explosion|Vector Clocks#sibling-explosion]] and thus undue
+[[sibling explosion|Causal Context#Sibling-Explosion]] and thus undue
 [[latency|Latency Reduction Checklist]].
 
 DVVs, on the other hand, identify each value with the update that
@@ -240,6 +240,24 @@ create a bucket type that uses traditional vector clocks, you will need
 to explicitly set <code>dvv_enabled</code> to <code>false</code> for
 that bucket type.
 </div>
+
+## Sibling Explosion
+
+Sibling explosion occurs when an object rapidly collects siblings that
+are not reconciled. This can lead to a variety of problems, including
+degraded performance, especially if many objects in a cluster suffer
+from siblings explosion. At the extreme, having an enormous object in a
+node can cause reads of that object to crash the entire node. Other
+issues include [[undue latency|Latency Reduction Checklist]] and
+out-of-memory errors.
+
+To prevent sibling explosion, we recommend the following:
+
+1. Use [[dotted version vectors|Causal Context#Dotted-Version-Vectors]]
+instead of [[vector clocks|Causal Context#Vector-Clocks]] for causal
+context.
+2. Always update mutable objects within a read/modify/write cycle. More
+information can be found in the [[Object Updates]] doc.
 
 ## Resources
 
