@@ -1,7 +1,7 @@
 ---
 title: "Taste of Riak: Java"
 project: riak
-version: 1.4.0+
+version: 2.0.0+
 document: guide
 toc: true
 audience: beginner
@@ -13,12 +13,20 @@ If you haven't set up a Riak Node and started it, please visit the
 
 To try this flavor of Riak, a working installation of Java is required.
 
-###Client Setup
+## Client Setup
 
+To include the Riak Java client in your project, add it to your
+project's dependencies. Here is a Maven example:
 
-Download the [all-in-one Riak Java client
-jar](http://riak-java-client.s3.amazonaws.com/riak-client-1.1.4-jar-with-dependencies.jar)
-to your working directory.
+```xml
+<dependencies>
+  <dependency>
+    <groupId>com.basho.riak</groupId>
+    <artifactId>riak-client</artifactId>
+    <version>2.0.0</version>
+  </dependency
+</dependencies>
+```
 
 Next, download
 [`TasteOfRiak.java`](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java)
