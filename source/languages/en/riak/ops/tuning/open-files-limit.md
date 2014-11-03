@@ -201,9 +201,9 @@ The last two columns are the soft and hard limits, respectively.
 ### Adjusting Open File Limits in Yosemite
 
 To adjust open files limits on a system-wide basis in Mac OS X Yosemite,
-you must first create a property list file in
-`/Library/LaunchDaemons/limit.maxfiles.plist` which contains the
-following XML configuration:
+you must create two configuration files. The first is a property list
+(aka plist) file in `/Library/LaunchDaemons/limit.maxfiles.plist` that
+contains the following XML configuration:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -228,7 +228,54 @@ following XML configuration:
   </plist>
 ```
 
+This will set the open files limit to 65536. The second plist
+configuration file should be stored in
+`/Library/LaunchDaemons/limit.maxproc.plist` with the following
+contents:
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple/DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+  <plist version="1.0">
+    <dict>
+      <key>Label</key>
+        <string>limit.maxproc</string>
+      <key>ProgramArguments</key>
+        <array>
+          <string>launchctl</string>
+          <string>limit</string>
+          <string>maxproc</string>
+          <string>2048</string>
+          <string>2048</string>
+        </array>
+      <key>RunAtLoad</key>
+        <true />
+      <key>ServiceIPC</key>
+        <false />
+    </dict>
+  </plist>
+```
+
+Both plist files must be owned by `root:wheel` and have permissions
+`-rw-r--r--`. This permissions _should_ be in place by default, but you
+can ensure that they are in place by running `sudo chmod 644
+<filename>`. While the steps explained above will cause system-wide open
+file limits to be correctly set upon restart, you can apply them
+manually by running `launchctl limit`.
+
+In addition to setting these limits at the system level, we recommend
+setting the at the session level as well by appending the following
+lines to your `bashrc`, `bashprofile`, or analogous file:
+
+```bash
+ulimit -n 65536
+uliit -u 2048
+```
+
+Like the plist files, your `bashrc` or similar file should have
+`-rw-r--r--` permissions. At this point, you can restart your computer
+and enter `ulimit -n` into your terminal. If your system is configured
+correctly, you should see that `maxfiles` has been set to 65536.
 
 ### Adjusting Open File Limits in Older Versions of OS X
 
