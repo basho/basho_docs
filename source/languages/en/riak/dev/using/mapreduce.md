@@ -11,6 +11,17 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Use MapReduce sparingly</div>
+In Riak, MapReduce is the primary method for non-primary-key-based
+querying. Although useful for a limited range of purposes, such as batch
+processing jobs, MapReduce operations can be very computationally
+expensive, sometimes to the extent that they can degrade performance in
+production clusters operating under load. Thus, we recommend running
+MapReduce operations in a controlled, rate-limited fashion and never for
+realtime querying purposes.
+</div>
+
 MapReduce (M/R) is a technique for dividing data processing work across
 a distributed system. It takes advantage of the parallel processing
 power of distributed systems and also reduces network bandwidth, as the
@@ -38,18 +49,28 @@ time querying.
 ## Features
 
 * Map phases execute in parallel with data locality
-* Reduce phases execute in parallel on the node where the job was submitted
+* Reduce phases execute in parallel on the node where the job was
+  submitted
 * MapReduce queries written in Erlang
 
 ## When to Use MapReduce
 
-* When you know the set of objects over which you want to MapReduce (i.e. the locations of the objects, as specified by [[bucket type|Using Bucket Types]], bucket, and key)
-* When you want to return actual objects or pieces of objects and not just the keys. [[Search|Using Search]] and [[secondary indexes|Using Secondary Indexes]] are other means of returning objects based on non-key-based queries, but they only return lists of keys and not whole objects.
-* When you need the utmost flexibility in querying your data. MapReduce gives you full access to your object and lets you pick it apart any way you want.
+* When you know the set of objects over which you want to MapReduce
+  (i.e. the locations of the objects, as specified by [[bucket
+  type|Using Bucket Types]], bucket, and key)
+* When you want to return actual objects or pieces of objects and not
+  just the keys. [[Search|Using Search]] and [[secondary indexes|Using
+  Secondary Indexes]] are other means of returning objects based on
+  non-key-based queries, but they only return lists of keys and not
+  whole objects.
+* When you need the utmost flexibility in querying your data. MapReduce
+  gives you full access to your object and lets you pick it apart any
+  way you want.
 
 ## When Not to Use MapReduce
 
-* When you want to query data over an entire bucket. MapReduce uses a list of keys, which can place a lot of demand on the cluster.
+* When you want to query data over an entire bucket. MapReduce uses a
+  list of keys, which can place a lot of demand on the cluster.
 * When you want latency to be as predictable as possible.
 
 ## How it Works
@@ -60,8 +81,13 @@ separate physical hosts.
 
 There are two steps in a MapReduce query:
 
-* **Map** --- The data collection phase, which breaks up large chunks of work into smaller ones and then takes action on each chunk. Map phases consist of a function and a list of objects on which the map operation will operate.
-* **Reduce** --- The data collation or processing phase, which combines the results from the map step into a single output. The reduce phase is optional.
+* **Map** --- The data collection phase, which breaks up large chunks of
+  work into smaller ones and then takes action on each chunk. Map
+  phases consist of a function and a list of objects on which the map
+  operation will operate.
+* **Reduce** --- The data collation or processing phase, which combines
+  the results from the map step into a single output. The reduce phase
+  is optional.
 
 Riak MapReduce queries have two components:
 
@@ -78,14 +104,13 @@ node that the client contacts to make the request becomes the
 **coordinating node** responsible for the MapReduce job. As described
 above, each job consists of a list of phases, where each phase is either
 a map or a reduce phase. The coordinating node uses the list of phases
-to route the object keys and the function that will operate
-over the objects stored in those keys and instruct the proper
-[[vnode|Riak Glossary#Vnode]] to run that function over the right 
-objects.
+to route the object keys and the function that will operate over the
+objects stored in those keys and instruct the proper [[vnode|Riak
+Glossary#Vnode]] to run that function over the right objects.
 
 After running the map function, the results are sent back to the
 coordinating node. This node then concatenates the list and passes that
-information over to a reduce phase on the same coordinating node, 
+information over to a reduce phase on the same coordinating node,
 assuming that the next phase in the list is a reduce phase.
 
 The diagram below provides an illustration of how a coordinating vnode
@@ -134,7 +159,7 @@ can invoke the client library from the
 [Erlang shell](http://www.erlang.org/doc/man/shell.html) and define
 functions to send to Riak on the fly.
 
-First we defined the map function, which specifies that we want to get 
+First we defined the map function, which specifies that we want to get
 the key for each object in the bucket `training` that contains the text
 `caremad`.
 
@@ -150,7 +175,7 @@ end end.
 ```
 
 Next, to call `ReFun` on all keys in the `training` bucket, we can do
-the following in the Erlang shell. **Do not use this in a production 
+the following in the Erlang shell. **Do not use this in a production
 environment; listing all keys to identify those in the `training` bucket 
 is a very expensive process.**
 
