@@ -103,7 +103,7 @@ bucket type.
 
 One of the biggest changes in version 2.0 from the standpoint of
 application development involves Riak's default behavior regarding
-[[siblings|Vector Clocks#siblings]]. In versions prior to 2.0, the
+[[siblings|Causal Context#Siblings]]. In versions prior to 2.0, the
 `allow_mult` setting was set to `false` by default for all buckets,
 which means that Riak's default behavior was to resolve
 object replica [[conflicts|Conflict Resolution]] between nodes on its
@@ -113,8 +113,8 @@ conflicts.
 **In 2.0, `allow_mult` is set to `true` for any bucket type that you
 create and activate.** This means that the default when [[using bucket
 types]] is to handle [[conflict resolution]] on the client side using
-either traditional [[vector clocks]] or the newer [[dotted version
-vectors]].
+either traditional [[vector clocks|Causal Context#Vector-Clocks]] or the
+newer [[dotted version vectors|Causal Context#Dotted-Version-Vector]].
 
 If you wish to set `allow_mult` to `false` in version 2.0, you have two
 options:
