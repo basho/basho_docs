@@ -11,6 +11,17 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Use MapReduce sparingly</div>
+In Riak, MapReduce is the primary method for non-primary-key-based
+querying. Although useful for a limited range of purposes, such as batch
+processing jobs, MapReduce operations can be very computationally
+expensive, sometimes to the extent that they can degrade performance in
+production clusters operating under load. Thus, we recommend running
+MapReduce operations in a controlled, rate-limited fashion and never for
+realtime querying purposes.
+</div>
+
 MapReduce, the data processing paradigm popularized by
 [Google](http://research.google.com/archive/mapreduce.html), is provided
 by Riak to aggregate results as background batch processes.
@@ -42,7 +53,8 @@ bring the data to the computation.
 
 "Map" and "Reduce" are phases in the query process. Map functions take
 one piece of data as input and produce zero or more results as output.
-If you're familiar with [mapping over a list](http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map)
+If you're familiar with [mapping over a
+list](http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:map)
 in functional programming languages, you're already familiar with the
 "Map" steps in a MapReduce query.
 
@@ -314,7 +326,10 @@ end.
 1. *ValueList*: the list of values produced by the preceding phase in the MapReduce query.
 2. *Arg* : a static argument for the entire phase that was submitted with the query.
 
-*A reduce function should produce a list of values*, but it must also be true that the function is commutative, associative, and idempotent. That is, if the input list `[a,b,c,d]` is valid for a given F, then all of the following must produce the same result:
+*A reduce function should produce a list of values*, but it must also be
+true that the function is commutative, associative, and idempotent. That
+is, if the input list `[a,b,c,d]` is valid for a given F, then all of
+the following must produce the same result:
 
 
 ```erlang
@@ -326,7 +341,8 @@ end.
 
 #### Reduce function examples
 
-These reduce functions assume the values in the input are numbers and sum them:
+These reduce functions assume the values in the input are numbers and
+sum them:
 
 ```erlang
 fun(ValueList, _Arg) ->
@@ -352,9 +368,10 @@ Erlang client.
 <div class="title">Distributing Erlang MapReduce Code</div>
 Any modules and functions you use in your Erlang MapReduce calls must be
 available on all nodes in the cluster. You can add them in Erlang
-applications by specifying the <code>-pz</code> option in [[vm.args|Configuration Files]]
-or by adding the path to the <code>add_paths</code> setting in your
-<code>app.config</code> configuration file.
+applications by specifying the <code>-pz</code> option in
+[[vm.args|Configuration Files]] or by adding the path to the
+<code>add_paths</code> setting in your <code>app.config</code>
+configuration file.
 </div>
 
 ### Erlang Example
@@ -448,11 +465,16 @@ final phase will return results.
 `FunTerm` is a reference to the function that the phase will execute and
 takes any of the following forms:
 
-* `{modfun, Module, Function}` where `Module` and `Function` are atoms that name an Erlang function in a specific module.
-* `{qfun,Fun}` where `Fun` is a callable fun term (closure or anonymous function).
-* `{jsfun,Name}` where `Name` is a binary that, when evaluated in Javascript, points to a built-in Javascript function.
-* `{jsanon, Source}` where `Source` is a binary that, when evaluated in Javascript is an anonymous function.
-* `{jsanon, {Bucket, Key}}` where the object at `{Bucket, Key}` contains the source for an anonymous Javascript function.
+* `{modfun, Module, Function}` where `Module` and `Function` are atoms
+  that name an Erlang function in a specific module
+* `{qfun,Fun}` where `Fun` is a callable fun term (closure or anonymous
+  function)
+* `{jsfun,Name}` where `Name` is a binary that, when evaluated in
+  Javascript, points to a built-in Javascript function
+* `{jsanon, Source}` where `Source` is a binary that, when evaluated in
+  Javascript is an anonymous function
+* `{jsanon, {Bucket, Key}}` where the object at `{Bucket, Key}` contains
+  the source for an anonymous Javascript function
 
 <div class="info">
 <div class="title">qfun Note</div>
@@ -492,9 +514,9 @@ and reduce phases.
 
 <div class="info">
 There is a small group of prebuilt Erlang MapReduce functions available
-with Riak. Check them out [on GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
+with Riak. Check them out [on
+GitHub](https://github.com/basho/riak_kv/blob/master/src/riak_kv_mapreduce.erl).
 </div>
-
 
 ## Bigger Data Examples
 
@@ -562,7 +584,8 @@ the stock's high for the day was above $600.
 Now we'll use `mapred_bucket/3` to send that function to the cluster.
 
 ```erlang
-> riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, HighFun}, 600, true}]).                                                                       {ok,[{0,
+> riakc_pb_socket:mapred_bucket(Riak, <<"goog">>, [{map, {qfun, HighFun}, 600, true}]).
+    {ok,[{0,
       [<<"2007-11-29">>,<<"2008-01-02">>,<<"2008-01-17">>,
        <<"2010-01-08">>,<<"2007-12-05">>,<<"2007-10-24">>,
        <<"2007-10-26">>,<<"2007-10-11">>,<<"2007-11-09">>,
