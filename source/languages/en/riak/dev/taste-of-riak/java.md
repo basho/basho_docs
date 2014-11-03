@@ -34,106 +34,100 @@ source code for this tutorial, and save it to your working directory.
 
 <div class="note">
 <div class="title">Configuring for a local cluster</div>
-
-If you set up a local Riak cluster using the [[five-minute install]]
-method, open up the `TasteOfRiak.java` file in an editor, comment out
-line 20, uncomment line 23, and save the file.  This code section should
-now look like:
-
-```java
-//IRiakClient client = RiakFactory.pbcClient();
-
-// Note: Use this line instead of the former if using a local devrel cluster
-IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
-```
+The `TasteOfRiak.java` file that you downloaded is set up to communicate
+with a one-node Riak cluster listening on `localhost` port 10017. We
+recommend modifying the connection info directly within the
+`setUpCluster()` method.
 </div>
 
-You can now compile and run this via the command line, or in your
-favorite IDE.
-
-```bash
-javac -cp riak-client-1.1.0-jar-with-dependencies.jar TasteOfRiak.java
-java -ea -cp riak-client-1.1.0-jar-with-dependencies.jar:.  TasteOfRiak
-```
-
-Running it should return:
+If you execute the `TasteOfRiak.java` file within your IDE, you should
+see the following:
 
 ```
-Creating Objects In Riak...
-Reading Objects From Riak...
-Updating Objects In Riak...
-Deleting Objects From Riak...
-Working With Complex Objects...
-Serialized Object:
-	{"Title":"Moby Dick","Author":"Herman Melville","Body":"Call me Ishmael. Some years ago...","ISBN":"1111979723","CopiesOwned":3}
+Basic object created
+Location object created for quote object
+StoreValue operation created
+Client object successfully created
+Object storage operation successfully completed
+Success! The object we created and the object we fetched have the same value
+Quote object successfully deleted
+Book object created
+Moby Dick information now stored in Riak
+Book object successfully fetched
+Success! All of our tests check out
 ```
 
-Since Java doesn’t have a REPL environment, we shall now walk through
-the code to see what it actually did at each step.
+Since Java doesn’t have a REPL environment, let's walk through the code
+to see what it actually did at each step.
 
-## Creating Objects In Riak
+## Setting Up the Cluster
 
-The first thing we do in our code is initialize a new Riak client
-through the `RiakFactory` class.  Next we fetch the information for a
-bucket named “test”, and then store our first key/value pair.
+The first step in using the Riak Java client is to create a cluster
+object to facilitate all interactions with Riak. You'll see this on line
+72:
 
 ```java
-IRiakClient client = RiakFactory.pbcClient();
-
-// Note: Use this line instead of the former if using a local devrel cluster
-// IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
-
-Bucket myBucket = client.fetchBucket("test").execute();
-
-int val1 = 1;
-myBucket.store("one", val1).execute();
+RiakCluster cluster = setUpCluster();
 ```
 
-In this first example we have stored the integer 1 with the lookup key
-of ‘one’.  Next let’s store a simple string value of “two” with a
-matching key.
+This calls the private `setUpCluster` method which begins on line 25.
+Using that `cluster` object, we can instantiate a client object which
+will execute all Riak interactions:
 
 ```java
-String val2 = "two";
-myBucket.store("two", val2).execute();
+RiakClient client = new RiakClient(cluster);
 ```
 
-That was easy. Finally, let’s store something more complex, an instance
-of a class that extends `HashMap<String,Integer>`.  You will probably
-recognize the pattern by now.
+## Creating Objects in Riak
+
+The first object that we create is a very basic object with a content
+type of `text/plain`. Once that object is created, we create a
+`StoreValue` operation that will store the object later on down the line
 
 ```java
-StringIntMap val3 = new StringIntMap();
-val3.put("value", 3);
-myBucket.store("three", val3).execute();
+RiakObject quoteObject = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(BinaryValue.create("You're dangerous, Maverick"));
+Namespace quotesBucket = new Namespace("quotes");
+Location quoteObjectLocation = new Location(quotesBucket, "Icemand");
+StoreValue storeOp = new StoreValue.Builder(quoteObject)
+        .withLocation(quoteObjectLocation)
+        .build();
 ```
 
-## Reading Objects From Riak
-kk
-Now that we have a few objects stored, let’s retrieve them and make sure
-they contain the values we expect.
+In line 76 we use our `client` object to execute the storage operation:
 
 ```java
-Integer fetched1 = myBucket.fetch("one", Integer.class).execute();
-IRiakObject fetched2 = myBucket.fetch("two").execute();
-StringIntMap fetched3 = myBucket.fetch("three", StringIntMap.class).execute();
-
-assert(fetched1 == val1);
-assert(fetched2.getValueAsString().compareTo(val2) == 0);
-assert(fetched3.equals(val3));
+StoreValue.Response response = client.execute(storeOp);
 ```
 
-That was easy. We simply request the objects by key, and include a
-`Class` object of the type we want it to be cast into. If your value is
-a simple string, you can also omit the `Class` and just use
-`IRiakObject`’s `getValueAsString()` method.
+## Reading Objects from Riak
 
-## Updating Objects In Riak
+After that, we check to make sure that the stored object has the same
+value as the object that we created. This requires us to fetch the
+object by way of a `FetchValue` operation:
 
-While some data may be static, other forms of data may need to be
-updated.  This is also easy to accomplish.  Let’s update the value of
-myValue Hashmap entry to 42.
+```java
+FetchValue fetchOp = new FetchValue.Builder(quoteObjectLocation)
+        .build();
+RiakObject fetchedObject = client.execute(fetchOp).getValue(RiakObject.class);
+assert(fetchedObject.getValue.equals(quoteObject.getValue()));
+```
 
+If the values are equal, as they should be, the Java client will say
+`Success!  The object we created and the object we fetched have the same
+value`. If not, then the client will throw an exception.
+
+## Deleting Objects
+
+Now that we've stored and then fetched the object, we can deleted by
+creating and executing a `DeleteValue` operation:
+
+```java
+DeleteValue deleteOp = new DeleteValue.Builder(quoteObjectLocation)
+        .build();
+client.execute(deleteOp);
+```
 ```java
 fetched3.put("myValue", 42);
 myBucket.store("three", fetched3).execute();
