@@ -680,11 +680,11 @@ consistent buckets:
   will be silently ignored.
 * [[Riak Data Types|Using Data Types]] --- Data Types can currently be
   used only in an eventually consistent fashion
-* [[Commit hooks]] --- Neither pre- nor post-commit hooks are supported
-  in strongly consistent buckets. If you do associate a strongly
-  consistent bucket with one or more commit hooks, strongly consistent
-  operations can proceed as normal in that bucket, but all commit hooks
-  will be silently ignored.
+* [[Using commit hooks]] --- Neither pre- nor post-commit hooks are
+  supported in strongly consistent buckets. If you do associate a
+  strongly consistent bucket with one or more commit hooks, strongly
+  consistent operations can proceed as normal in that bucket, but all
+  commit hooks will be silently ignored.
 
 Furthermore, you should also be aware that strong consistency guarantees
 are applied only at the level of single keys. There is currently no

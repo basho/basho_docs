@@ -59,7 +59,7 @@ The examples below show you how to use Riak Data Types at the application level 
 
 ## Counters
 
-Counters are a bucket-level Riak Data Type that can be used either by themselves, i.e. associated with a bucket/key pair, or [[within a map|Using Data Types#maps]]. The examples in this section will show you how to use counters on their own.
+Counters are a bucket-level Riak Data Type that can be used either by themselves, i.e. associated with a bucket/key pair, or [[within a map|Using Data Types#Maps]]. The examples in this section will show you how to use counters on their own.
 
 First, we need to point our client to the bucket type/bucket/key location that will house our counter. We'll keep it simple and use the `counters` bucket type created and activated above and a bucket called `counters`.
 

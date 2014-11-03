@@ -4,6 +4,9 @@ project: riak
 version: 1.0.0+
 document: reference
 audience: intermediate
+moved: {
+  '1.4.0-': '/references/Configuration-Files'
+}
 ---
 
 Riak has a `riak.conf` configuration file located in `/etc` if you are
@@ -111,7 +114,7 @@ or doesn't activate subsystems that you would like to use.
 
 ## The advanced.config file
 
-or most Riak installations, the `riak.conf` file should be sufficient
+For most Riak installations, the `riak.conf` file should be sufficient
 for configuration management. But some installations, particularly those
 upgrading from an earlier version of Riak to version 2.0 or later, may
 need to make use of an `advanced.config` file to control some settings

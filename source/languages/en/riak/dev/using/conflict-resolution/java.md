@@ -149,7 +149,7 @@ To use a conflict resolver, we must register it:
 
 ```java
 ConflictResolverFactory factory = ConflictResolverFactory.getInstance();
-ConflictResolver<User> userResolver = factory.getConflictResolver(new UserResolver());
+factory.registerConflictResolver(User.class, new UserResolver());
 ```
 
 With the resolver registered, the resolution logic that we have created
