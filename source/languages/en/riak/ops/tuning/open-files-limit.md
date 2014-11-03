@@ -269,7 +269,7 @@ lines to your `bashrc`, `bashprofile`, or analogous file:
 
 ```bash
 ulimit -n 65536
-uliit -u 2048
+ulimit -u 2048
 ```
 
 Like the plist files, your `bashrc` or similar file should have
