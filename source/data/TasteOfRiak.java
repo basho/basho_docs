@@ -22,7 +22,7 @@ public class TasteOfRiak {
     }
 
     // This will create a client object that we can use to interact with Riak
-    public static RiakCluster setUpCluster() throws UnknownHostException {
+    private static RiakCluster setUpCluster() throws UnknownHostException {
         // This example will use only one node listening on localhost:10017
         RiakNode node = new RiakNode.Builder()
                 .withRemoteAddress("127.0.0.1")
