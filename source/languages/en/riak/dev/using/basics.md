@@ -248,7 +248,7 @@ curl -XPUT \
   http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 ```
 
-#### Using Causal Context Objects
+#### Using Causal Context
 
 If an object already exists under a certain key and you want to write a
 new object to that key, Riak needs to know what to do, especially if
@@ -630,8 +630,8 @@ curl -XDELETE http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
 ## Updating Objects
 
 Updating objects tends to be a bit trickier than reading and writing
-objects. We recommend checking out our [[Object Updates]] documentation
-for a full tutorial, including code samples from our [[client
+objects. We recommend checking out our documentation on [[object
+updates]] for a full tutorial, including code samples from our [[client
 libraries]].
 
 ## Bucket Properties and Operations
