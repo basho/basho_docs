@@ -1,109 +1,133 @@
 ---
 title: "Taste of Riak: Java"
 project: riak
-version: 1.4.0+
+version: 2.0.0+
 document: guide
 toc: true
 audience: beginner
 keywords: [developers, client, java]
 ---
 
-If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
+If you haven't set up a Riak Node and started it, please visit the
+[[Prerequisites|Taste of Riak: Prerequisites]] first.
 
-To try this flavor of Riak, a working installation of Java is required. 
+To try this flavor of Riak, a working installation of Java is required.
 
-###Client Setup
+## Client Setup
 
+To include the Riak Java client in your project, add it to your
+project's dependencies. Here is a Maven example:
 
-Download the [all-in-one Riak Java client jar](http://riak-java-client.s3.amazonaws.com/riak-client-1.1.4-jar-with-dependencies.jar) to your working directory. 
+```xml
+<dependencies>
+  <dependency>
+    <groupId>com.basho.riak</groupId>
+    <artifactId>riak-client</artifactId>
+    <version>2.0.0</version>
+  </dependency
+</dependencies>
+```
 
-Next, download [TasteOfRiak.java](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java) source code for this tutorial, and save it to your working directory.
+Next, download
+[`TasteOfRiak.java`](https://github.com/basho/basho_docs/raw/master/source/data/TasteOfRiak.java)
+source code for this tutorial, and save it to your working directory.
 
 <div class="note">
 <div class="title">Configuring for a local cluster</div>
-
-If you set up a local Riak cluster using the [[five minute install]] method, open up the `TasteOfRiak.java` file in an editor, comment out line 20, uncomment line 23, and save the file.  This code section should now look like:
-
-```java
-//IRiakClient client = RiakFactory.pbcClient();
-
-// Note: Use this line instead of the former if using a local devrel cluster
-IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
-```
-
+The `TasteOfRiak.java` file that you downloaded is set up to communicate
+with a one-node Riak cluster listening on `localhost` port 10017. We
+recommend modifying the connection info directly within the
+`setUpCluster()` method.
 </div>
 
-You can now compile and run this via the command line, or in your favorite IDE.
+If you execute the `TasteOfRiak.java` file within your IDE, you should
+see the following:
 
-```bash
-$ javac -cp riak-client-1.1.0-jar-with-dependencies.jar TasteOfRiak.java
-$ java -ea -cp riak-client-1.1.0-jar-with-dependencies.jar:.  TasteOfRiak
+```
+Basic object created
+Location object created for quote object
+StoreValue operation created
+Client object successfully created
+Object storage operation successfully completed
+Success! The object we created and the object we fetched have the same value
+Quote object successfully deleted
+Book object created
+Moby Dick information now stored in Riak
+Book object successfully fetched
+Success! All of our tests check out
 ```
 
-Running it should return:
+Since Java doesn’t have a REPL environment, let's walk through the code
+to see what it actually did at each step.
 
-```text
-Creating Objects In Riak...
-Reading Objects From Riak...
-Updating Objects In Riak...
-Deleting Objects From Riak...
-Working With Complex Objects...
-Serialized Object:
-	{"Title":"Moby Dick","Author":"Herman Melville","Body":"Call me Ishmael. Some years ago...","ISBN":"1111979723","CopiesOwned":3}
-```
+## Setting Up the Cluster
 
-Since Java doesn’t have a REPL environment, we shall now walk through the code to see what it actually did at each step.  
-
-###Creating Objects In Riak
-The first thing we do in our code is initialize a new Riak client through the `RiakFactory` class.  
-Next we fetch the information for a bucket named “test”, and then store our first key/value pair.
+The first step in using the Riak Java client is to create a cluster
+object to facilitate all interactions with Riak. You'll see this on line
+72:
 
 ```java
-IRiakClient client = RiakFactory.pbcClient();
-
-// Note: Use this line instead of the former if using a local devrel cluster
-// IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
-
-Bucket myBucket = client.fetchBucket("test").execute();
-
-int val1 = 1;
-myBucket.store("one", val1).execute();
+RiakCluster cluster = setUpCluster();
 ```
 
-In this first example we have stored the integer 1 with the lookup key of ‘one’.  Next let’s store a simple string value of “two” with a matching key.
+This calls the private `setUpCluster` method which begins on line 25.
+Using that `cluster` object, we can instantiate a client object which
+will execute all Riak interactions:
 
 ```java
-String val2 = "two";
-myBucket.store("two", val2).execute();
+RiakClient client = new RiakClient(cluster);
 ```
 
-That was easy.  Finally, let’s store something more complex, an instance of a class that extends `HashMap<String,Integer>`.
-You will probably recognize the pattern by now.
+## Creating Objects in Riak
+
+The first object that we create is a very basic object with a content
+type of `text/plain`. Once that object is created, we create a
+`StoreValue` operation that will store the object later on down the line
 
 ```java
-StringIntMap val3 = new StringIntMap();
-val3.put("value", 3);  
-myBucket.store("three", val3).execute();
+RiakObject quoteObject = new RiakObject()
+        .setContentType("text/plain")
+        .setValue(BinaryValue.create("You're dangerous, Maverick"));
+Namespace quotesBucket = new Namespace("quotes");
+Location quoteObjectLocation = new Location(quotesBucket, "Icemand");
+StoreValue storeOp = new StoreValue.Builder(quoteObject)
+        .withLocation(quoteObjectLocation)
+        .build();
 ```
 
-###Reading Objects From Riak
-Now that we have a few objects stored, let’s retrieve them and make sure they contain the values we expect.
+In line 76 we use our `client` object to execute the storage operation:
 
 ```java
-Integer fetched1 = myBucket.fetch("one", Integer.class).execute();
-IRiakObject fetched2 = myBucket.fetch("two").execute();
-StringIntMap fetched3 = myBucket.fetch("three", StringIntMap.class).execute();
-
-assert(fetched1 == val1);
-assert(fetched2.getValueAsString().compareTo(val2) == 0);
-assert(fetched3.equals(val3));
+StoreValue.Response response = client.execute(storeOp);
 ```
 
-That was easy.  We simply request the objects by key, and include a `Class` object of the type we want it to be cast into. If your value is a simple string, you can also omit the `Class` and just use `IRiakObject`’s `getValueAsString()` method.  
+## Reading Objects from Riak
 
-###Updating Objects In Riak
-While some data may be static, other forms of data may need to be updated.  This is also easy to accomplish.  Let’s update the value of myValue Hashmap entry to 42.
+After that, we check to make sure that the stored object has the same
+value as the object that we created. This requires us to fetch the
+object by way of a `FetchValue` operation:
 
+```java
+FetchValue fetchOp = new FetchValue.Builder(quoteObjectLocation)
+        .build();
+RiakObject fetchedObject = client.execute(fetchOp).getValue(RiakObject.class);
+assert(fetchedObject.getValue.equals(quoteObject.getValue()));
+```
+
+If the values are equal, as they should be, the Java client will say
+`Success!  The object we created and the object we fetched have the same
+value`. If not, then the client will throw an exception.
+
+## Deleting Objects
+
+Now that we've stored and then fetched the object, we can deleted by
+creating and executing a `DeleteValue` operation:
+
+```java
+DeleteValue deleteOp = new DeleteValue.Builder(quoteObjectLocation)
+        .build();
+client.execute(deleteOp);
+```
 ```java
 fetched3.put("myValue", 42);
 myBucket.store("three", fetched3).execute();
@@ -111,7 +135,8 @@ myBucket.store("three", fetched3).execute();
 
 To update we simply just store the new value with the same key.
 
-###Deleting Objects From Riak
+## Deleting Objects From Riak
+
 Nothing is complete without a delete.
 
 ```java
@@ -120,8 +145,12 @@ myBucket.delete("two").execute();
 myBucket.delete("three").execute();
 ```
 
-###Working With Complex Objects
-Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects.  Take for example, this plain old Java object (POJO) that encapsulates some knowledge about a book.
+## Working With Complex Objects
+
+Since the world is a little more complicated than simple integers and
+bits of strings, let’s see how we can work with more complex objects.
+Take for example, this plain old Java object (POJO) that encapsulates
+some knowledge about a book.
 
 ```java
 class Book
@@ -141,14 +170,17 @@ book.Body = "Call me Ishmael. Some years ago...";
 book.CopiesOwned = 3;
 ```
 
-Ok, so we have some information about our Moby Dick collection that we want to save.  Storing this to Riak should look familiar by now:
+Ok, so we have some information about our Moby Dick collection that we
+want to save.  Storing this to Riak should look familiar by now:
 
 ```java
 Bucket booksBucket = client.fetchBucket("books").execute();
 booksBucket.store(book.ISBN, book).execute();
 ```
 
-Some of you may be thinking “But how does the Riak client encode/decode my object”?  If we fetch our book back and print the encoded value as a string, we shall know:
+Some of you may be thinking “But how does the Riak client encode/decode
+my object”?  If we fetch our book back and print the encoded value as a
+string, we shall know:
 
 ```java
 IRiakObject riakObject = booksBucket.fetch(book.ISBN).execute();
@@ -156,24 +188,29 @@ System.out.println(riakObject.getValueAsString());
 ```
 
 ```json
-{"Title":"Moby Dick",
- "Author":"Herman Melville",
- "Body":"Call me Ishmael. Some years ago...",
- "ISBN":"1111979723",
- "CopiesOwned":3}
+{
+  "Title": "Moby Dick",
+  "Author": "Herman Melville",
+  "Body": "Call me Ishmael. Some years ago...",
+  "ISBN": "1111979723",
+  "CopiesOwned": 3
+}
 ```
 
-JSON! The library encodes POJOs as JSON strings.  If we wanted to get a Book object back we could use `bookBucket.fetch(book.ISBN, Book.class);` to have the client create the proper object type for us. 
-Now that we’ve ruined the magic of object encoding, let’s clean up our mess:
+JSON! The library encodes POJOs as JSON strings. If we wanted to get a
+`Book` object back we could use `bookBucket.fetch(book.ISBN,
+Book.class);` to have the client create the proper object type for us.
+Now that we’ve ruined the magic of object encoding, let’s clean up our
+mess:
 
 ```java
 booksBucket.delete(book.ISBN).execute();
 client.shutdown();
 ```
 
-###Next Steps
-More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [[In the next chapter|Taste of Riak: Querying]] we will look at how to store and query more complicated and interconnected data, such as documents.  
+## Next Steps
 
-
-
-
+More complex use cases can be composed from these initial create, read,
+update, and delete (CRUD) operations. [[In the next chapter|Taste of
+Riak: Querying]], we will look at how to store and query more
+complicated and interconnected data, such as documents.

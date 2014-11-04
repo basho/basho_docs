@@ -78,12 +78,13 @@ Reduction Checklist#Siblings]].
 
 In Riak, object conflicts are handled by keeping multiple versions of
 the object in the cluster either until a client takes action to resolve
-the conflict or until [[active anti-entropy|Riak Glossary#active-anti-entropy]]
-resolves the conflict without client intervention. While sibling
-production is normal, [[sibling explosion|Vector Clocks#sibling-explosion]]
-is a problem that can come about if many siblings of an object are
-produced. The negative effects are the same as those associated with
-[[large objects|Latency Reduction Checklist#Large-Objects]].
+the conflict or until [[active anti-entropy|Riak
+Glossary#active-anti-entropy]] resolves the conflict without client
+intervention. While sibling production is normal, [[sibling
+explosion|Causal Context#Sibling-Explosion]] is a problem that can come
+about if many siblings of an object are produced. The negative effects
+are the same as those associated with [[large objects|Latency Reduction
+Checklist#Large-Objects]].
 
 ### Mitigation
 
@@ -214,7 +215,7 @@ these maximums.
 
 In version 2.0 and later, Riak enables you to configure a variety of
 settings regarding Riak objects, including allowable object sizes, how
-many [[siblings|Vector Clocks#siblings]] to allow, and so on. If you 
+many [[siblings|Causal Context#Siblings]] to allow, and so on. If you
 suspect that undue latency in your cluster stems from object size or
 related factors, you may consider adjusting these settings.
 
@@ -246,12 +247,13 @@ succeed but will register a warning in the logs, you can adjust the
 
 ### Sibling Explosion Management
 
-In order to prevent or cut down on [[sibling explosion|Vector Clocks#sibling explosion]],
-you can either prevent Riak from storing additional siblings when a
-specified sibling count is reached or set a warning threshold past which
-Riak logs an error (or both). This can be done using the `object.siblings.maximum`
-and `object.siblings.warning_threshold` settings. The default maximum is
-100 and the default warning threshold is 25. 
+In order to prevent or cut down on [[sibling explosion|Causal
+Context#sibling explosion]], you can either prevent Riak from storing
+additional siblings when a specified sibling count is reached or set a
+warning threshold past which Riak logs an error (or both). This can be
+done using the `object.siblings.maximum` and
+`object.siblings.warning_threshold` settings. The default maximum is 100
+and the default warning threshold is 25.
 
 ### Object Storage Format
 

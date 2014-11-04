@@ -425,7 +425,7 @@ associated with the `default` bucket type:
 
 ## Bucket Types and the `allow_mult` Setting
 
-Prior to Riak 2.0, Riak created [[siblings|Vector Clocks#Siblings]] in
+Prior to Riak 2.0, Riak created [[siblings|Causal Context#Siblings]] in
 the case of conflicting updates only when explicitly instructed to do
 so, i.e. when `allow_mult` is to `true`. The default `allow_mult`
 setting was `false`.

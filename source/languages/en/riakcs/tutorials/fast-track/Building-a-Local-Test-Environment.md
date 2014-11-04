@@ -309,26 +309,26 @@ sudo stanchion start
 sudo riak-cs start
 ```
 
-<div class="info"><div class="title">Basho Tip</div
+<div class="info"><div class="title">Basho Tip</div>
 The order in which you start the services is important as each is a
 dependency for the next
 </div>
 
-Finally, you can check the liveness of your Riak CS installation with
-the `riak-cs ping` command, which should return `pong` if Riak CS is up
-and able to successfully communicate with Riak.
+Finally, you can check the liveness of your Riak CS installation, and its
+connection to the supporting Riak node. If the Riak CS node is running, the
+following command should return "`pong`".
 
 ```bash
 riak-cs ping
 ```
 
-<div class="note"
-<div class="title">Note</div>
-The <code>riak-cs ping</code> command will fail if the Riak CS node is not
-able to communicate with the supporting Riak node. Ensure all components
-of the Riak CS system are running before checking liveness with
-<code>riak-cs ping</code>.
-</div>
+To check that the Riak CS node is communicating with its supporting Riak node,
+run a `GET` request against the `riak-cs/ping` endpoint of the Riak CS node. For
+example:
+
+```curl
+curl http://localhost:8080/riak-cs/ping
+```
 
 ### Step 4: Create the admin user
 
