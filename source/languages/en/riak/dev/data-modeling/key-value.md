@@ -39,11 +39,12 @@ three basic locators:
 * The [[bucket type|Using Bucket Types]] that determines the bucket's
   [[replication|Replication Properties]] and other properties
 
-It may be useful to think of this system as being analogous to a nested
-key/value [hash](http://en.wikipedia.org/wiki/Hash_function). Below is
-an example from [Ruby](http://www.ruby-doc.org/core-2.1.2/Hash.html).
-The hash `simpsons` contains keys for all of the available seasons,
-while each key houses a hash for each episode of that season:
+It may be useful to think of this system as analogous to a nested
+key/value [hash](http://en.wikipedia.org/wiki/Hash_function) as you
+would find in most programming languages. Below is an example from
+[Ruby](http://www.ruby-doc.org/core-2.1.2/Hash.html). The hash
+`simpsons` contains keys for all of the available seasons, while each
+key houses a hash for each episode of that season:
 
 ```ruby
 simpsons = {
@@ -82,9 +83,9 @@ GET/PUT/DELETE /bucket/<season>/keys/<episode number>
 The most important benefit of sorting Riak objects this way is that
 these types of lookup operations are extremely fast. Riak doesn't need
 to search through columns or tables to find an object. If it knows the
-bucket/key address of the object, so to speak, it can locate that object
-just about as quickly with billions of objects in a cluster as when the
-cluster holds only a handful of objects.
+bucket/key "address" of the object, so to speak, it can locate that
+object just about as quickly with billions of objects in a cluster as
+when the cluster holds only a handful of objects.
 
 ## Overcoming the Limitations of Key/Value Operations
 

@@ -13,4 +13,3 @@ moved: {
 
 This page no longer valid. We recommend taking a look at [[Use Cases]]
 or [[Building Applications with Riak]] instead.
-
