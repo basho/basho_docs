@@ -248,45 +248,6 @@ connections may not receive notification until they are used to service
 a user's request.  This manifests as an `{error, disconnected}` message
 in the Riak CS logs and an error to returned to the user.
 
-## Specifying the Stanchion Node
-
-If you have a single node, you don't have to change the Stanchion
-settings because Stanchion runs on the local host. If your Riak CS
-system has multiple nodes, you must set the IP address and port for the
-Stanchion node and whether or not SSL is enabled.
-
-The Stanchion settings reside in the Riak CS `app.config` file, which is
-located in the `/etc/Riak-CS` directory. The settings appear in the Riak
-CS config section of the file.
-
-* `stanchion_ip` --- Replace `127.0.0.1` with the IP address of the
-  Stanchion node
-
-If you configured Stanchion to use a different port, you must change the
-following port setting:
-
-* `stanchion_port` --- Replace `8085` with the port number set in the
-  variable `stanchion_port` in the Stanchion `app.config` file
-
-The `stanchion_ssl` variable is set to `false` by default. If you want
-to use SSL, change this variable to `true`.
-
-## Specifying the Node IP Address
-
-You can also set the IP address for the Riak CS node, which is helpful
-if you must debug code or identify the node from which requests
-originate. The Riak CS IP address setting resides in the Riak CS
-`vm.args` configuration file, which is located in the `/etc/riak-cs`
-directory.
-
-Initially, the line that specifies the Riak CS node IP address is set to
-`localhost`, as follows:
-
-```config
-## Name of the riak node
--name riak_cs@127.0.0.1
-```
-
 ## Enabling SSL in Riak CS
 
 ```appconfig
@@ -300,6 +261,25 @@ Then replace the text in quotes with the path and filename for your SSL
 encryption files. By default, there's a `cert.pem` and a `key.pem` in
 each node's `/etc` directory. You're free to use those or to supply your
 own.
+
+Please note that you must also provide a [certificate
+authority](http://en.wikipedia.org/wiki/Certificate_authority), aka a CA
+cert and specify its location using the `cacertfile` parameter.  Unlike
+`certfile` and `keyfile`, the `cacertfile` parameter is not commented
+out. You will need to add it yourself. Here's an example configuration
+with this parameter included:
+
+```appconfig
+{ssl, [
+       {certfile, "./etc/cert.pem"},
+       {keyfile, "./etc/key.pem"},
+       {cacertfile, "./etc/cacert.pem"}
+      ]},
+      %% Other configs
+```
+
+Instructions on creating your own CA cert can be found
+[here](http://www.akadia.com/services/ssh_test_certificate.html).
 
 ## Proxy vs. Direct Configuration
 

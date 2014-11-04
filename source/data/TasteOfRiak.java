@@ -1,100 +1,130 @@
-import com.basho.riak.client.*;
-import com.basho.riak.client.bucket.*;
+import com.basho.riak.client.api.RiakClient;
+import com.basho.riak.client.api.commands.kv.DeleteValue;
+import com.basho.riak.client.api.commands.kv.FetchValue;
+import com.basho.riak.client.api.commands.kv.StoreValue;
+import com.basho.riak.client.core.RiakCluster;
+import com.basho.riak.client.core.RiakNode;
+import com.basho.riak.client.core.query.Location;
+import com.basho.riak.client.core.query.Namespace;
+import com.basho.riak.client.core.query.RiakObject;
+import com.basho.riak.client.core.util.BinaryValue;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.net.UnknownHostException;
 
-public class TasteOfRiak
-{
-    public static void main( String[] args )
-    {
-        try{
-		    // Wrap our generics so we can use .class
-		    class StringIntMap extends HashMap<String,Integer> {}
+public class TasteOfRiak {
+    // A basic POJO class to demonstrate typed exchanges with Riak
+    public static class Book {
+        public String title;
+        public String author;
+        public String body;
+        public String isbn;
+        public Integer copiesOwned;
+    }
 
-        	// Creating Objects In Riak
-            System.out.println("Creating Objects In Riak...");
+    // This will create a client object that we can use to interact with Riak
+    private static RiakCluster setUpCluster() throws UnknownHostException {
+        // This example will use only one node listening on localhost:10017
+        RiakNode node = new RiakNode.Builder()
+                .withRemoteAddress("127.0.0.1")
+                .withRemotePort(10017)
+                .build();
 
-            IRiakClient client = RiakFactory.pbcClient();
+        // This cluster object takes our one node as an argument
+        RiakCluster cluster = new RiakCluster.Builder(node)
+                .build();
 
-            // Note: Use this line instead of the former if using a local devrel cluster
-            // IRiakClient client = RiakFactory.pbcClient("127.0.0.1", 10017);
+        // The cluster must be started to work, otherwise you will see errors
+        cluster.start();
 
-            Bucket myBucket = client.fetchBucket("test").execute();
+        return cluster;
+    }
 
-            int val1 = 1;
-            myBucket.store("one", val1).execute();
+    public static void main( String[] args ) {
+        try {
+            // First, we'll create a basic object storing a movie quote
+            RiakObject quoteObject = new RiakObject()
+                    // We tell Riak that we're storing plaintext, not JSON, HTML, etc.
+                    .setContentType("text/plain")
+                            // Objects are ultimately stored as binaries
+                    .setValue(BinaryValue.create("You're dangerous, Maverick"));
+            System.out.println("Basic object created");
 
-            String val2 = "two";
-            myBucket.store("two", val2).execute();
+            // In the new Java client, instead of buckets you interact with Namespace
+            // objects, which consist of a bucket AND a bucket type; if you don't
+            // supply a bucket type, "default" is used; the Namespace below will set
+            // only a bucket, without supplying a bucket type
+            Namespace quotesBucket = new Namespace("quotes");
 
-            StringIntMap val3 = new StringIntMap();
-            val3.put("myValue", 3);
-            myBucket.store("three", val3).execute();
+            // With our Namespace object in hand, we can create a Location object,
+            // which allows us to pass in a key as well
+            Location quoteObjectLocation = new Location(quotesBucket, "Iceman");
+            System.out.println("Location object created for quote object");
 
-            
-            // Reading Objects From Riak
-            System.out.println("Reading Objects From Riak...");
+            // With our RiakObject in hand, we can create a StoreValue operation
+            StoreValue storeOp = new StoreValue.Builder(quoteObject)
+                    .withLocation(quoteObjectLocation)
+                    .build();
+            System.out.println("StoreValue operation created");
 
-            Integer fetched1 = myBucket.fetch("one", Integer.class).execute();
-            IRiakObject fetched2 = myBucket.fetch("two").execute();
-            StringIntMap fetched3 = myBucket.fetch("three", StringIntMap.class).execute();
+            // And now we can use our setUpCluster() function to create a cluster
+            // object which we can then use to create a client object and then
+            // execute our storage operation
+            RiakCluster cluster = setUpCluster();
+            RiakClient client = new RiakClient(cluster);
+            System.out.println("Client object successfully created");
 
-            assert(fetched1 == val1);
-            assert(fetched2.getValueAsString().compareTo(val2) == 0);
-            assert(fetched3.equals(val3));
+            StoreValue.Response storeOpResp = client.execute(storeOp);
+            System.out.println("Object storage operation successfully completed");
 
-            
-            // Updating Objects In Riak
-            System.out.println("Updating Objects In Riak");
+            // Now we can verify that the object has been stored properly by
+            // creating and executing a FetchValue operation
+            FetchValue fetchOp = new FetchValue.Builder(quoteObjectLocation)
+                    .build();
+            RiakObject fetchedObject = client.execute(fetchOp).getValue(RiakObject.class);
+            assert(fetchedObject.getValue().equals(quoteObject.getValue()));
+            System.out.println("Success! The object we created and the object we fetched have the same value");
 
-            fetched3.put("myValue", 42);
-            myBucket.store("three", fetched3).execute();
+            // And we'll delete the object
+            DeleteValue deleteOp = new DeleteValue.Builder(quoteObjectLocation)
+                    .build();
+            client.execute(deleteOp);
+            System.out.println("Quote object successfully deleted");
 
+            Book mobyDick = new Book();
+            mobyDick.title = "Moby Dick";
+            mobyDick.author = "Herman Melville";
+            mobyDick.body = "Call me Ishmael. Some years ago...";
+            mobyDick.isbn = "1111979723";
+            mobyDick.copiesOwned = 3;
+            System.out.println("Book object created");
 
-            // Deleting Objects From Riak
-            System.out.println("Deleting Objects From Riak...");
+            // Now we'll assign a Location for the book, create a StoreValue
+            // operation, and store the book
+            Namespace booksBucket = new Namespace("books");
+            Location mobyDickLocation = new Location(booksBucket, "moby_dick");
+            StoreValue storeBookOp = new StoreValue.Builder(mobyDick)
+                    .withLocation(mobyDickLocation)
+                    .build();
+            client.execute(storeOp);
+            System.out.println("Moby Dick information now stored in Riak");
 
-            myBucket.delete("one").execute();
-            myBucket.delete("two").execute();
-            myBucket.delete("three").execute();
+            // And we'll verify that we can fetch the info about Moby Dick and
+            // that that info will match the object we created initially
+            FetchValue fetchMobyDickOp = new FetchValue.Builder(mobyDickLocation)
+                    .build();
+            Book fetchedBook = client.execute(fetchMobyDickOp).getValue(Book.class);
+            System.out.println("Book object successfully fetched");
 
-            
-            // Working With Complex Objects
-            System.out.println("Working With Complex Objects...");
+            assert(mobyDick.getClass() == fetchedBook.getClass());
+            assert(mobyDick.title.equals(fetchedBook.title));
+            assert(mobyDick.author.equals(fetchedBook.author));
+            // And so on...
+            System.out.println("Success! All of our tests check out");
 
-            class Book
-            {
-                public String Title;
-                public String Author;
-                public String Body;
-                public String ISBN;
-                public Integer CopiesOwned;
-            }
+            // Now that we're all finished, we should shut our cluster object down
+            cluster.shutdown();
 
-            Book book = new Book();
-            book.ISBN = "1111979723";
-            book.Title = "Moby Dick";
-            book.Author = "Herman Melville";
-            book.Body = "Call me Ishmael. Some years ago...";
-            book.CopiesOwned = 3;
-
-            Bucket booksBucket = client.fetchBucket("books").execute();
-            booksBucket.store(book.ISBN, book).execute();
-
-            IRiakObject riakObject = booksBucket.fetch(book.ISBN).execute();
-            System.out.println("Serialized Object:");
-            System.out.println("\t" + riakObject.getValueAsString());
-
-            booksBucket.delete(book.ISBN).execute();
-
-            client.shutdown();
-
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

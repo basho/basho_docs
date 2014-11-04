@@ -29,7 +29,7 @@ Only the message code is required.
 ## Response
 
 
-```bash
+```protobuf
 message RpbListBucketsResp {
     repeated bytes buckets = 1;
 }
@@ -42,7 +42,7 @@ Values
 
 ## Example
 
-Request
+#### Request
 
 ```bash
 Hex      00 00 00 01 0F
@@ -52,7 +52,7 @@ RpbListBucketsReq - only message code defined
 ```
 
 
-Response
+#### Response
 
 ```bash
 Hex      00 00 00 2A 10 0A 02 62 31 0A 02 62 35 0A 02 62

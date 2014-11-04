@@ -126,11 +126,13 @@ at least 5. More on why we make this recommendation can be found in
 
 ## Object Context
 
-Riak uses context objects called [[vector clocks]] to determine the
-causal history of objects. In Riak versions 2.0 and later, there is an
-option to use [[dotted version vectors]], which function much like
-vector clocks from the standpoint of clients. Here, we'll refer to both
-as an object's **context**.
+Riak uses [[causal context]] to determine the causal history of objects.
+In versions of Riak prior to 2.0, [[vector clocks|Causal
+Context#Vector-Clocks]] were used to provide objects with causal context
+metadata.  In Riak versions 2.0 and later, there is an option to use
+[[dotted version vectors]], which function much like vector clocks from
+the standpoint of clients, but with important advantages over vector
+clocks.
 
 While we strongly recommend attaching context to objects for all
 updates---whether traditional vector clocks or the newer dotted version
@@ -179,8 +181,8 @@ writes are performed. Strongly consistent buckets cannot allow siblings
 by definition, and so all writes to existing keys must include a context
 with the object.
 
-If you attempt a write to a non-empty key without including a vector
-clock, you will receive the following error:
+If you attempt a write to a non-empty key without including causal
+context, you will receive the following error:
 
 ```ruby
 Riak::Conflict: The object is in conflict (has siblings) and cannot be treated singly or saved:
