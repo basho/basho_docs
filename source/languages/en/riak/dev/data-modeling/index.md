@@ -44,9 +44,11 @@ The following application types require more subtle relationships
 between objects, e.g. one-to-many and many-to-many relationships.
 
 * [[User Accounts|Use Cases#User-Accounts]]
-* [[User Settings and Preferences|Use Cases#User-Settings-and-Preferences]]
+* [[User Settings and Preferences|Use
+  Cases#User-Settings-and-Preferences]]
 * [[User Events and Timelines|Use Cases#User-Events-and-Timelines]]
-* [[Articles, Blog Posts, and Other Content|Use Cases#Articles-Blog-Posts-and-Other-Content]]
+* [[Articles, Blog Posts, and Other
+  Content|Use Cases#Articles-Blog-Posts-and-Other-Content]]
 
 ## Session Storage
 
@@ -59,7 +61,7 @@ content-type agnosticism also imposes no restrictions on the value, so
 session data can be encoded in many ways and can evolve without
 administrative changes to schemas.
 
-#### Complex Case
+### Complex Session Storage Case
 
 Riak has features that allow for more complex session storage use cases.
 The [[Bitcask]] storage backend, for example, supports automatic expiry
@@ -70,7 +72,7 @@ data, for example to compute the average number of active users. If
 sessions must be retrieved using multiple keys (e.g. a UUID or email
 address), [[using secondary indexes]] can provide an easy solution.
 
-#### Community Examples
+### Session Storage Community Examples
 
 <table class="links">
     <tr>
@@ -92,7 +94,7 @@ of this sort, e.g. images or text, can be stored in Riak using unique
 generated either by the application or by Riak. Keys can be created
 based on, for example, a campaign or company ID for easy retrieval.
 
-#### Complex Case
+### Serving Advertisements Complex Case
 
 In the advertising industry, being able to serve ads quickly to many
 users and platforms is often the most important factor in selecting and
@@ -103,7 +105,7 @@ lower read latency than an R value equal to the number of replicas
 (i.e. R=N). This is ideal for advertising traffic, which primarily
 involves serving reads.
 
-#### Community Examples
+### Serving Advertisements Community Examples
 
 <table class="links">
   <tr>
@@ -137,7 +139,7 @@ analyze that data, you could use Riak's MapReduce system for aggregation
 tasks, such as summing the counts of records for a date or Riak Search
 for a more robust, text-based queries.
 
-#### Complex Case
+### Log Data Complex Case
 
 For storing a large amount of log data that is frequently written to
 Riak, some users might consider doing primary storage of logs in a
@@ -149,7 +151,7 @@ something like a MapReduce job, which iterates over many keys,
 separating the write workload from the analytics workload will let you
 maintain higher performance and yield more predictable latency.
 
-#### Community Examples
+### Log Data Community Examples
 
 <table class="links">
   <tr>
@@ -175,7 +177,7 @@ Alternatively, a timestamp could be attached to each object as a
 perform queries on specific time interval ranges or to perform
 [[MapReduce|Using MapReduce]] queries against the indexes.
 
-#### Complex Case
+### Sensor Data Complex Case
 
 If you are dealing with thousands or millions of sensors yet with very
 small data sets, storing all of a single device's updates as unique keys
@@ -212,7 +214,7 @@ would be to use a UUID-type key for the user and store the user's
 username as a [[secondary index|Using Secondary Indexes]] for efficient
 lookup.
 
-#### Complex Case
+### User Accounts Complex Case
 
 For simple retrieval of a specific account, a user ID (plus perhaps a
 secondary index on a username or email) is enough. If you foresee the
@@ -221,7 +223,7 @@ user type, or region), plan ahead and either set up additional secondary
 indexes or consider using [[Riak Search|Using Search]] to index the JSON
 contents of the user account.
 
-#### Community Examples
+### User Accounts Community Examples
 
 <table class="links">
   <tr>
@@ -242,7 +244,7 @@ storing it in the user object itself. Another common pattern is to
 create a companion user settings-type of object, with keys based on
 user ID for easy one-read retrieval.
 
-#### Complex Case
+### User Settings and Preferences Complex Case
 
 If you find your application frequently writing to the user account or
 have dynamically growing user-related data such as bookmarks,
@@ -266,7 +268,7 @@ Note than in Riak you cannot append information to an object, so adding
 events in the timeline would necessarily involve reading the full object,
 modifying it, and writing back the new value.
 
-#### Community Examples
+### User Events and Timelines Community Examples
 
 <table class="links">
   <tr>
@@ -306,7 +308,7 @@ data in Riak is opaque, with the exception of [[Riak Data Types|Data Types]],
 and so Riak won't "know" about the object unless it is indexed
 [[using Riak Search|Using Search]] or [[using secondary indexes]].
 
-#### Complex Case
+### Articles et al Complex Case
 
 Setting up a data model for content becomes more complex based on the
 querying and search requirements of your application. For example, you
@@ -330,7 +332,7 @@ either query for exact matches or to perform range queries. 2i also
 enables you to tag posts with dates, timestamps, topic areas, or other
 pieces of information useful for later retrieval.
 
-#### Community Examples
+### Articles et al Community Examples
 
 <table class="links">
   <tr>
