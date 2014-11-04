@@ -68,6 +68,16 @@ by Riak's Erlang VM. If it does not, you should set `erlang.smp` to
 
 ## Schedulers
 
+<div class="note">
+<div class="title">Note on missing scheduler flags</div>
+We recommend that _all_ users set the `+sfwi` to `500` and the `+scl`
+flag to `false` if using the older, `vm.args`-based configuration
+system. If you are using the new, `riak.conf`-based configuration
+system, the corresponding parameters are
+`erlang.schedulers.force_wakeup_interval` and
+`erlang.schedulers.compaction_of_load`.
+</div>
+
 If [[SMP support|Erlang VM Tuning#SMP]] has been enabled on your Erlang
 VM, i.e. if `erlang.smp` is set to `enable`, you can configure the
 number of logical processors, or [scheduler

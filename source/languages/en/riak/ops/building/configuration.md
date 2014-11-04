@@ -38,6 +38,28 @@ Cluster Setup]] to complete the clustering process.
 Use `[[riak-admin member-status|riak-admin Command Line#member-status]]`
 to determine whether any given node is a member of a cluster.
 
+## Erlang VM Tunings
+
+Prior to building and starting a cluster, there are some
+Erlang-VM-related changes that you should make to your configuration
+files. If you are using the older, `vm.args`-based Erlang VM tunings,
+you should set the following:
+
+```vmargs
++sfwi 500
++scl false
+```
+
+If you are using the newer, `riak.conf`-based configuration system, we
+recommend the following settings:
+
+```riakconf
+erlang.schedulers.force_wakeup_interval = 500
+erlang.schedulers.compaction_of_load = false
+```
+
+More information can be found in [[Erlang VM Tuning]].
+
 ## Ring Size
 
 The ring size, in Riak parlance, is the number of data partitions that
