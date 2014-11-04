@@ -262,14 +262,16 @@ Types#Sets]], and [[maps|Data Types#Maps]].
 
 ### Counter-related Statistics
 
-`object_counter_merge`
-`object_counter_merge_total`
-`object_counter_merge_time_mean`
-`object_counter_merge_time_median`
-`object_counter_merge_time_95`
-`object_counter_merge_time_99`
-`object_counter_merge_time_100`
-`vnode_counter_update`
+Stat | Description
+:----|:-----------
+`object_counter_merge` | The number of merges performed on objects containing counters in the last minute
+`object_counter_merge_total` | The total number of merges performed on objects containing counters
+`object_counter_merge_time_mean` | The mean time required for merges performed on objects containing counters
+`object_counter_merge_time_median` | The median time required for merges performed on objects containing counters
+`object_counter_merge_time_95` | The 95th percentile time required for merges performed on objects containing counters
+`object_counter_merge_time_99` | The 99th percentile time required for merges performed on objects containing counters
+`object_counter_merge_time_100` | The 100th percentile time required for merges performed on objects containing counters
+`vnode_counter_update` |
 `vnode_counter_update_total`
 `vnode_counter_update_time_mean`
 `vnode_counter_update_time_median`
@@ -310,13 +312,15 @@ Types#Sets]], and [[maps|Data Types#Maps]].
 
 ### Set-related Statistics
 
-`object_set_merge`
-`object_set_merge_total`
-`object_set_merge_time_mean`
-`object_set_merge_time_median`
-`object_set_merge_time_95`
-`object_set_merge_time_99`
-`object_set_merge_time_100`
+Stat | Description
+:----|:-----------
+`object_set_merge` | The number of merges performed on objects containing sets in the last minute
+`object_set_merge_total` | The total number of merges performed on objects containing sets
+`object_set_merge_time_mean` | The mean time required for merges performed on objects containing sets
+`object_set_merge_time_median` | The median time required for merges performed on objects containing sets
+`object_set_merge_time_95` | The 95th percentile time required for merges performed on objects containing sets
+`object_set_merge_time_99` | The 99th percentile time required for merges performed on objects containing sets
+`object_set_merge_time_100` | The 100th percentile time required for merges performed on objects containing sets
 `vnode_set_update`
 `vnode_set_update_total`
 `vnode_set_update_time_mean`
@@ -358,13 +362,15 @@ Types#Sets]], and [[maps|Data Types#Maps]].
 
 ### Map-related Statistics
 
-`object_map_merge`
-`object_map_merge_total`
-`object_map_merge_time_mean`
-`object_map_merge_time_median`
-`object_map_merge_time_95`
-`object_map_merge_time_99`
-`object_map_merge_time_100`
+Stat | Description
+:----|:-----------
+`object_map_merge` | The number of merges performed on maps in the last minute
+`object_map_merge_total` | The total number of merges performed on maps
+`object_map_merge_time_mean` | The mean time required for merges performed on maps
+`object_map_merge_time_median` | The median time required for merges performed on maps
+`object_map_merge_time_95` | The 95th percentile time required for merges performed on maps
+`object_map_merge_time_99` | The 99th percentile time required for merges performed on maps
+`object_map_merge_time_100` | The 100th percentile time required for merges performed on maps
 `object_merge`
 `object_merge_total`
 `object_merge_time_mean`
@@ -411,18 +417,7 @@ Types#Sets]], and [[maps|Data Types#Maps]].
 `sys_monitor_count`
 `sys_port_count`
 
-## Version Numbers
 
-`riak_auth_mods_version`
-`yokozuna_version`
-`ibrowse_version`
-`riak_pb_version`
-`protobuffs_version`
-`riak_dt_version`
-`poolboy_version`
-`pbkdf2_version`
-`eleveldb_version`
-`asn1_version`
 `riak_core_stat_ts`
 `ignored_gossip_total`
 `rings_reconciled_total`
@@ -460,8 +455,8 @@ Types#Sets]], and [[maps|Data Types#Maps]].
 Miscellaneous Information provide additional details particular to this
 node.
 
-Stat                       | Description
----------------------------|---------------------------------------------------
+Stat | Description
+:----|:-----------
 `leveldb_read_block_error` | The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.
 `disk`                     | Information about the disk, taken from Erlang's disksup module.  Reported as [{"ID",KBytes_Used,Percent_Util}].
 `storage_backend`          | The storage backend currently in use.
@@ -471,8 +466,8 @@ Stat                       | Description
 The following metrics from from riak_pipe are generated during MapReduce
 operations.
 
-Stat                            | Description
---------------------------------|---------------------------------------------------
+Stat | Description
+:----|:-----------
 `pipeline_active`               | The number of pipelines active in the last 60 seconds
 `pipeline_create_count`         | The total number of pipelines created since the node was started
 `pipeline_create_error_count`   | The total number of pipeline creation errors since the node was started
@@ -485,8 +480,18 @@ The specific version of each Erlang application and subsystem which
 makes up a Riak node is present in the `riak-admin status` output.  Each
 application is linked below next to it's version identifier.
 
-Stat                    | Description
-------------------------|---------------------------------------------------
+Stat | Description
+:----|:-----------
+`riak_auth_mods_version` | [Riak Security auth modules](https://github.com/basho/riak_auth_mods)
+`yokozuna_version` | [Riak Search](https://github.com/basho/yokozuna)
+`ibrowse_version` | 
+`riak_pb_version` | [Riak Protocol Buffers Messages](https://github.com/basho/riak_pb)
+`protobuffs_version` |
+`riak_dt_version` |
+`poolboy_version` | [poolboy](https://github.com/basho/poolboy)
+`pbkdf2_version` |
+`eleveldb_version` | [eleveldb](https://github.com/basho/eleveldb)
+`asn1_version` |
 `erlydtl_version`       | [ErlyDTL](http://github.com/erlydtl/erlydtl)
 `riak_control_version`  | [Riak Control](http://github.com/basho/riak_control)
 `cluster_info_version`  | [Cluster Information](http://github.com/basho/cluster_info)
@@ -499,7 +504,7 @@ Stat                    | Description
 `riak_core_version`     | [Riak Core](http://github.com/basho/riak_core)
 `bitcask_version`       | [Bitcask](http://github.com/basho/bitcask)
 `basho_stats_version`   | [Basho Stats](http://github.com/basho/basho_stats) {{#<1.3.0}}
- `webmachine_version`   | [Webmachine](http://github.com/basho/webmachine)
+`webmachine_version`    | [Webmachine](http://github.com/basho/webmachine)
 `mochiweb_version`      | [MochiWeb](http://github.com/basho/mochiweb)
 `inets_version`         | [inets](http://erlang.org/doc/apps/inets/)
 `erlang_js_version`     | [Erlang JS](http://github.com/basho/erlang_js)
