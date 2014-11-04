@@ -120,7 +120,7 @@ guaranteed.
 
 #### Operations
 
-Counters are subject to two operations, incremement and decrement,
+Counters are subject to two operations, increment and decrement,
 whether they are used on their own or in a map.
 
 #### Examples
