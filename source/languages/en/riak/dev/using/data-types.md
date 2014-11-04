@@ -1717,20 +1717,20 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
 ## Data Types and Context
 
 When performing normal key/value updates in Riak, we advise that you use
-[[vector clocks]], which enable Riak to make intelligent decisions
-behind the scenes about which objects should be considered more causally
-recent. In some of the examples above, you saw references to **context**
-metadata included with each Data Type stored in Riak.
+[[causal context]], which enables Riak to make intelligent decisions
+behind the scenes about which object values should be considered more
+causally recent than others in cases of conflict. In some of the
+examples above, you saw references to **context** metadata included with
+each Data Type stored in Riak.
 
-Data Type contexts are similar to [[vector clocks]] in that they are
+Data Type contexts are similar to [[causal context]] in that they are
 opaque (i.e. not readable by humans) and also perform a similar function
-to that of vector clocks, i.e. they inform Riak which version of the
+to that of causal context, i.e. they inform Riak which version of the
 Data Type a client is attempting to modify. This information is required
 by Riak when making decisions about convergence.
 
 In the example below, we'll fetch the context from the user data map we
-created for Ahmed:
-
+created for Ahmed, just to see what it looks like:
 
 ```java
 // Using the "ahmedMap" Location from above:
@@ -1780,7 +1780,8 @@ With the Java client, you'll need to manually fetch and return Data Type
 contexts for the following operations:
 
 * Disabling a flag within a map
-* Removing an item from a set (whether the set is on its own or within a map)
+* Removing an item from a set (whether the set is on its own or within a
+  map)
 * Removing a field from a map
 
 Without context, these operations simply will not succeed due to the
