@@ -153,3 +153,32 @@ stalled. If this happens to you, we recommend the following:
     dropped from the realtime queue as a result of the queue being full.
     If this number of greater than zero for several minutes or longer,
     then this is a good indicator that the queue is full.
+
+## Queries are Timing Out
+
+While Riak offers a variety of complex query tools, such as [[secondary
+indexes (2i)|Using Secondary Indexes]], [[Riak Search|Using Search]],
+and [[MapReduce|Using MapReduce]], Riak always performs best and most
+predictably when you restrict your application to key/value operations,
+i.e. reads and writes. If, however, your use case does require a complex
+querying tool, there are some things to be aware of and some problems
+that you may run into.
+
+### Issues with MapReduce and Listing Operations
+
+In general, MapReduce should be used only for batch processing purposes
+and _never_ for realtime querying. Overusing MapReduce in production
+clusters will invariably lead to performance issues, many of them
+difficult to trace and address. In many cases the key to properly
+addressing MapReduce-related issues is to curtail its usage and restrict
+MapReduce operations to times of relatively light load.
+
+If you suspect that MapReduce operations are producing problems, you can
+verify this by checking your error logs for `riak_pipe`-related errors.
+If you see such errors popping up frequently, that may be an indicator
+that you should re-examine your MapReduce usage.
+
+The same goes for [[list buckets|PBC List Buckets]] and [[list keys|PBC
+List Keys]] operations. These operations can be useful for certain
+testing purposes but should _never_ be used in production and were never
+intended as a normal querying tool.
