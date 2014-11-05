@@ -126,6 +126,7 @@ riak:
           - "[[Managing Security Sources]]"
       - title: "Tuning"
         sub:
+          - "[[Troubleshooting Tools]]"
           - "[[Open Files Limit]]"
           - "[[System Performance Tuning]]"
           - "[[AWS Performance Tuning]]"
