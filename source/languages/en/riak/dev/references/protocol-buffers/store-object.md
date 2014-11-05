@@ -12,7 +12,15 @@ moved: {
 }
 ---
 
-Stores an object under the specified location. A bucket must always be specified (via `bucket`). If no key is specified, Riak will assign a random key to the object. If no [[bucket type|Using Bucket Types]] is assigned, Riak will use the `default` bucket type.
+Stores an object under the specified location, as determined by the
+intended [[key|Keys and Objects]], [[bucket|Buckets]], and [[bucket
+type|Using Bucket Types]]. A bucket must always be specified (via
+`bucket`), whereas key (`key`) and bucket type (`type`) are optional. If
+no key is specified, Riak will assign a random key to the object. If no
+[[bucket type|Using Bucket Types]] is assigned, Riak will assign
+`default`, which means that the [[default bucket
+configuration|Configuration Files#Default-Bucket-Properties]] will be
+used.
 
 #### Request
 
@@ -49,11 +57,18 @@ Parameter | Description
 <div class="note">
 <div class="title">Note on defaults and special values</div>
 All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+per-bucket basis. Please refer to the documentation on <a
+href="/dev/references/protocol-buffers/set-bucket-props">setting bucket
+properties</a> for more information.
 
-Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt>pr</tt>, and <tt>pw</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
+Furthermore, you can assign an integer value to the `w`, `dw`, `pr`, and
+`pw`, provided that that integer value is less than or equal to N, _or_
+a special value denoting `one` (`4294967295-1`), `quorum`
+(`4294967295-2`), `all` (`4294967295-3`), or `default` (`4294967295-4`).
 </div>
 
+Parameter | Description
+:---------|:-----------
 `key` | The key to create/update. If not specified, Riak will generate a random key and return that key as part of the requests's
 `vclock` | Opaque vector clock provided by an earlier `[[RpbGetResp|PBC Fetch Object]]` message. Omit if this is a new key or if you deliberately want to create a sibling.
 `w` | Write quorum, i.e. how many replicas to write to before returning a successful response
@@ -65,7 +80,9 @@ Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, <tt
 `sloppy_quorum` | If this parameter is set to `true`, the next available node in the ring will accept requests if any primary node is unavailable
 `n_val` | The number of nodes on which the value is to be stored
 
-The `if_not_modified`, `if_none_match`, and `asis` parameters are set only for messages sent between nodes in a Riak cluster and should not be set by Riak clients.
+The `if_not_modified`, `if_none_match`, and `asis` parameters are set
+only for messages sent between nodes in a Riak cluster and should not be
+set by Riak clients.
 
 #### Response
 
@@ -77,9 +94,14 @@ message RpbPutResp {
 }
 ```
 
-If `return_body` is set to `true` on the PUT request, the `RpbPutResp` will contain the current object after the PUT completes, in `contents`, as well as the object's [[vector clock|Vector Clocks]], in the `vclock` field. The `key` will be sent only if the server generated a random key for the object.
+If `return_body` is set to `true` on the PUT request, the `RpbPutResp`
+will contain the current object after the PUT completes, in `contents`,
+as well as the object's [[vector clock|Vector Clocks]], in the `vclock`
+field. The `key` will be sent only if the server generated a random key
+for the object.
 
-If `return_body` is not set and no key is generated, the PUT response will be empty.
+If `return_body` is not set and no key is generated, the PUT response
+will be empty.
 
 ## Example
 
