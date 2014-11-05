@@ -483,7 +483,7 @@ any production environment.
 
 If you're developing using a single-node cluster, you can create a
 `client` object and specify the host and [[Protocol Buffers|PBC API]]
-port. The below example connects the Ruby client to a one-node cluster
+port. The example below connects the Ruby client to a one-node cluster
 running on the host 101.0.0.1 and the port 8087:
 
 ```ruby
@@ -524,8 +524,8 @@ any production environment.
 
 If you're developing using a single-node cluster, you can create a
 `client` object and specify the host and [[Protocol Buffers|PBC API]]
-port. The below example connects the Ruby client to a one-node cluster
-running on the host 101.0.0.1 and the port 8087:
+port. The example below connects the Python client to a one-node cluster
+running on host 101.0.0.1 and port 8087:
 
 ```python
 from riak import RiakClient
