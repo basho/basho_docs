@@ -210,7 +210,21 @@ the same buckets and/or keys, then Riak might not be a good fit.
 * ETOOMANYBACKENDS
 * Configs can be changed on the fly using `riak attach`. But make sure
     to also register those changes in the config files so that they are
-    activated on node restart.
+    activated on node restart. Example:
+
+    ```erlang
+    application:set_env(bitcask, merge_window, never).
+    ```
 
 ## Open Files Limit Issues
 
+* Check the limit: `os:cmd('ulimit -n')`
+* [[Open Files Limit]]
+* [[System Performance Tuning]]
+
+## Common Erlang VM Problems
+
+* [[Erlang VM Tuning]]
+* Process counts
+* ETS tables (we recommend 8192)
+* `+zdbbl`/`erlang.distribution_buffer_size`

@@ -263,7 +263,7 @@ You can set the size of the Erlang VM's distribution buffer busy limit
 Modifying this setting can be useful on nodes with many `busy_dist_port`
 events, i.e. instances when the Erlang distribution is overloaded. The
 default is 32 MB (i.e. `32MB`), but this may be insufficient for some
-workloads. The maximum value is 2097151 KB.
+workloads. The maximum value is 2097151 KB (2 GB).
 
 A larger buffer limit will allow processes to buffer more outgoing
 messages. When the limit is reached, sending processes will be suspended
