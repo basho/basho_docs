@@ -30,10 +30,11 @@ If your use case requires large objects, we recommend checking out
 ### Mitigation
 
 The best way to find out if large objects are impacting latency is to
-monitor each node's object size stats. If you run `[[riak-admin status|riak-admin Command Line#status]]`
-or make an HTTP `GET` request to Riak's `/stats` endpoint, you will see
-the results for the following metrics related to object size, all of
-which are calculated only for `GET` operations (i.e. reads):
+monitor each node's object size stats. If you run `[[riak-admin
+status|riak-admin Command Line#status]]` or make an HTTP `GET` request
+to Riak's `/stats` endpoint, you will see the results for the following
+metrics related to object size, all of which are calculated only for
+`GET` operations (i.e. reads):
 
 Metric                        | Explanation
 :-----------------------------|:-----------
@@ -88,10 +89,11 @@ Checklist#Large-Objects]].
 
 ### Mitigation
 
-The best way to monitor siblings is through the same `[[riak-admin status|riak-admin Command Line#status]]`
-interface used to monitor object size (or via an HTTP `GET` request to
-`/stats`). In the output of `riak-admin status` in each node, you'll see
-the following sibling-related statistics:
+The best way to monitor siblings is through the same `[[riak-admin
+status|riak-admin Command Line#status]]` interface used to monitor
+object size (or via an HTTP `GET` request to `/stats`). In the output of
+`riak-admin status` in each node, you'll see the following
+sibling-related statistics:
 
 Metric                         | Explanation
 :------------------------------|:-----------
@@ -108,9 +110,28 @@ spikes?
 If you believe that sibling creation problems could be responsible for
 latency issues in your cluster, you can start by checking the following:
 
-* If `allow_mult` is set to `true` for some or all of your buckets, be sure that your application is correctly resolving siblings. Be sure to read our documentation on [[conflict resolution]] for a fuller picture of how this can be done. {{#2.0.0+}}**Note**: In Riak version 2.0 and later, `allow_mult` is set to `true` by default for all bucket types that you create and activate. If you wish to set `allow_mult` to `false` on a bucket type, you will have to do so explicitly.{{/2.0.0+}}
-* {{2.0.0-}} Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's conflict resolution strategy.
-* {{2.0.0+}} Application errors are a common source of problems with siblings. Updating the same key over and over without passing a [[vector clock|Vector Clocks]] to Riak can cause sibling explosion. If this seems to be the issue, modify your application's [[conflict resolution]] strategy. Another possibility worth exploring is using [[dotted version vectors]] \(DVVs) in place of traditional vector clocks. DVVs can be enabled [[using bucket types]] by setting the `dvv_enabled` parameter to `true` for buckets that seem to be experiencing sibling explosion.
+* If `allow_mult` is set to `true` for some or all of your buckets, be
+  sure that your application is correctly resolving siblings. Be sure to
+  read our documentation on [[conflict resolution]] for a fuller picture
+  of how this can be done. {{#2.0.0+}}**Note**: In Riak versions 2.0 and
+  later, `allow_mult` is set to `true` by default for all bucket types
+  that you create and activate. If you wish to set `allow_mult` to
+  `false` on a bucket type, you will have to do so
+  explicitly.{{/2.0.0+}}
+* {{2.0.0-}} Application errors are a common source of problems with
+  siblings. Updating the same key over and over without passing a
+  [[causal context]] to Riak can cause sibling explosion. If this seems
+  to be the issue, modify your application's conflict resolution
+  strategy.
+* {{2.0.0+}} Application errors are a common source of problems with
+  siblings. Updating the same key over and over without passing a
+  [[causal context]] to Riak can cause sibling explosion. If this seems
+  to be the issue, modify your application's [[conflict resolution]]
+  strategy. Another possibility worth exploring is using [[dotted
+  version vectors|Causal Context#Dotted-Version-Vectors]] \(DVVs) in
+  place of traditional vector clocks. DVVs can be enabled [[using bucket
+  types]] by setting the `dvv_enabled` parameter to `true` for buckets
+  that seem to be experiencing sibling explosion.
 
 ## Compaction and Merging
 
@@ -128,12 +149,12 @@ latency, keep an eye on on your `console.log` files (and LevelDB `LOG`
 files if you're using LevelDB). Do Bitcask merging and/or LevelDB
 compaction events overlap with increased latencies?
 
-If so, our first recommendation is to examine your [[replication properties]]
-to make sure that neither R nor W are set to N, i.e. that you're not
-requiring that reads or writes go to all nodes in the cluster. The
-problem with setting `R=N` or `W=N` is that any request will only
-respond as quickly as the slowest node amongst the N nodes involved in
-the request.
+If so, our first recommendation is to examine your [[replication
+properties]] to make sure that neither R nor W are set to N, i.e. that
+you're not requiring that reads or writes go to all nodes in the
+cluster. The problem with setting `R=N` or `W=N` is that any request
+will only respond as quickly as the slowest node amongst the N nodes
+involved in the request.
 
 Beyond checking for `R=N` or `W=N` for requests, the recommended
 mitigation strategy depends on the backend:
@@ -152,9 +173,8 @@ Instructions on how to accomplish both can be found in our guide to
 
 It's also important that you adjust your maximum file size and merge
 threshold settings appropriately. This setting is labeled
-`bitcask.max_file_size` in the newer, `riak.conf`-based
-[[configuration files]] and `max_file_size` in the
-older, `app.config`-based system.
+`bitcask.max_file_size` in the newer, `riak.conf`-based [[configuration
+files]] and `max_file_size` in the older, `app.config`-based system.
 
 Setting the maximum file size lower will cause Bitcask to merge more
 often (with less I/O churn), while setting it higher will induce less
@@ -183,7 +203,8 @@ guides may be of help:
 
 * [[Open files limit]]
 * General [[System performance tuning]]
-* [[AWS performance tuning]] if you're running Riak on [Amazon Web Services](http://aws.amazon.com/)
+* [[AWS performance tuning]] if you're running Riak on [Amazon Web
+ Services](http://aws.amazon.com/)
 
 ## I/O and Network Bottlenecks
 
@@ -195,7 +216,8 @@ immediately when they arise.
 ### Mitigation
 
 To diagnose potential I/O bottlenecks, there are a number of Linux tools
-at your disposal, including [iowait](http://www.linuxquestions.org/questions/linux-newbie-8/what-is-iowait-415961/)
+at your disposal, including
+[iowait](http://www.linuxquestions.org/questions/linux-newbie-8/what-is-iowait-415961/)
 and [netstat](http://en.wikipedia.org/wiki/Netstat).
 
 To diagnose potential overloads, Riak versions 1.3.2 and later come
@@ -203,41 +225,48 @@ equipped with an overload protection feature designed to prevent
 cascading failures in overly busy nodes. This feature limits the number
 of GET and PUT finite state machines (FSMs) that can exist
 simultaneously on a single Riak node. Increased latency can result if a
-node is frequently running up against
-these maximums.
+node is frequently running up against these maximums.
 
-* Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an idea of how many operations your nodes are coordinating. If you see non-zero values in `node_get_fsm_rejected` or `node_get_fsm_rejected_60s`, that means that some of your requests are being discarded due to overload protection.  
-* The FSM limits can be increased, but disabling overload protection entirely is not recommended. More details on these settings are available in the [release notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for Riak version 1.3.
+* Monitor `node_get_fsm_active` and `node_get_fsm_active_60s` to get an
+  idea of how many operations your nodes are coordinating. If you see
+  non-zero values in `node_get_fsm_rejected` or
+  `node_get_fsm_rejected_60s`, that means that some of your requests are
+  being discarded due to overload protection.
+* The FSM limits can be increased, but disabling overload protection
+  entirely is not recommended. More details on these settings are
+  available in the [release
+  notes](https://github.com/basho/riak/blob/1.3/RELEASE-NOTES.md) for
+  Riak version 1.3.
 
 {{#2.0.0+}}
 
 ## Object Settings
 
-In version 2.0 and later, Riak enables you to configure a variety of
+In versions 2.0 and later, Riak enables you to configure a variety of
 settings regarding Riak objects, including allowable object sizes, how
 many [[siblings|Causal Context#Siblings]] to allow, and so on. If you
 suspect that undue latency in your cluster stems from object size or
 related factors, you may consider adjusting these settings.
 
-A concise listing of object-related settings can be found in the
-[[Riak configuration|Configuration Files#object-settings]]
-documentation. The sections below explain these settings in detail.
+A concise listing of object-related settings can be found in the [[Riak
+configuration|Configuration Files#object-settings]] documentation. The
+sections below explain these settings in detail.
 
 <div class="note">
 <div class="title">Note on configuration files in 2.0</div>
-The object settings listed below are only available using the new
-system for [[configuration files]] specific to Riak 2.0. If you are
-using the older, <tt>app.config</tt>-based system, you will not have
-access to these settings.
+The object settings listed below are only available using the new system
+for [[configuration files]] specific to Riak 2.0. If you are using the
+older, `app.config`-based system, you will not have access to
+these settings.
 </div>
 
 ### Object Size
 
 As stated above, Basho recommends _always_ keeping objects below 1-2 MB
 and preferably below 100 KB if possible. If you want to ensure that
-objects above a certain size do not get stored in Riak, you can do so
-by setting the `object.size.maximum` parameter lower than the default
-of `50MB`, which is far above the ideal object size. If you set this
+objects above a certain size do not get stored in Riak, you can do so by
+setting the `object.size.maximum` parameter lower than the default of
+`50MB`, which is far above the ideal object size. If you set this
 parameter to, say, `1MB` and attempt to store a 2 MB object, the write
 will fail and an error message will be returned to the client.
 
@@ -260,8 +289,10 @@ and the default warning threshold is 25.
 There are currently two possible binary representations for objects
 stored in Riak:
 
-* Erlang's native `term_to_binary` format, which tends to have a higher space overhead
-* A newer, Riak-specific format developed for more compact storage of smaller values
+* Erlang's native `term_to_binary` format, which tends to have a higher
+  space overhead
+* A newer, Riak-specific format developed for more compact storage of
+  smaller values
 
 You can set the object storage format using the `object.format`
 parameter: `0` selects Erlang's `term_to_binary` format while `1` (the
