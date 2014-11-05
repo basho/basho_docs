@@ -96,7 +96,7 @@ message RpbPutResp {
 
 If `return_body` is set to `true` on the PUT request, the `RpbPutResp`
 will contain the current object after the PUT completes, in `contents`,
-as well as the object's [[vector clock|Vector Clocks]], in the `vclock`
+as well as the object's [[causal context]], in the `vclock`
 field. The `key` will be sent only if the server generated a random key
 for the object.
 
