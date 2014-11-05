@@ -105,7 +105,7 @@ public class TasteOfRiak {
             StoreValue storeBookOp = new StoreValue.Builder(mobyDick)
                     .withLocation(mobyDickLocation)
                     .build();
-            client.execute(storeOp);
+            client.execute(storeBookOp);
             System.out.println("Moby Dick information now stored in Riak");
 
             // And we'll verify that we can fetch the info about Moby Dick and
