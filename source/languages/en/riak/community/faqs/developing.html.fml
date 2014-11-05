@@ -370,7 +370,7 @@ A:
 
   It is possible to get siblings with the same vtag during vector clock pruning and read/repair.
 
-  See [[vector clocks]] for more information.
+  See [[vector clocks|Causal Context#Vector-Clocks]] for more information.
 
 
 Q: How should I structure larger data objects?
