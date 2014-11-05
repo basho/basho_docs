@@ -191,3 +191,26 @@ have different values on different nodes, which is a scenario that Riak
 is designed to handle, then queries can return differing results. If
 your use case demands completely consistent results across queries over
 the same buckets and/or keys, then Riak might not be a good fit.
+
+## Backend Corruption
+
+* Nodes fail to start; fold operations failing
+* `console.log` notes, e.g. `bad_arg`, `crc_error`, `io`, `db_open`
+* Delete [[Bitcask]] hintfiles, i.e. `/data/bitcask/<partition>/*.hint`
+* Check logs for LevelDB errors, whether AAE or normal LevelDB backend
+
+## Riak Search Issues
+
+* `merge_index` can suffer from corruption
+* Manual compaction
+
+## Configuration Issues
+
+* `riak chkconfig` for syntactic and other issues
+* ETOOMANYBACKENDS
+* Configs can be changed on the fly using `riak attach`. But make sure
+    to also register those changes in the config files so that they are
+    activated on node restart.
+
+## Open Files Limit Issues
+
