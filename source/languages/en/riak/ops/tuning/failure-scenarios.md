@@ -182,3 +182,12 @@ The same goes for [[list buckets|PBC List Buckets]] and [[list keys|PBC
 List Keys]] operations. These operations can be useful for certain
 testing purposes but should _never_ be used in production and were never
 intended as a normal querying tool.
+
+## Query Results are Inconsistent
+
+MapReduce and secondary index queries are `r=1` queries, which means
+that a result will be returned as soon as one node responds. If objects
+have different values on different nodes, which is a scenario that Riak
+is designed to handle, then queries can return differing results. If
+your use case demands completely consistent results across queries over
+the same buckets and/or keys, then Riak might not be a good fit.
