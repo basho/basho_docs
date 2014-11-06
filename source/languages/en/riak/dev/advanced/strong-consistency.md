@@ -152,9 +152,7 @@ we recommend doing this only if you are certain that the key does not
 yet exist.
 
 Instructions on using context objects can be found in our documentation
-on [[siblings|Conflict Resolution#Siblings]]. More theoretical
-treatments can be found in [[Vector Clocks]] and [[Dotted Version
-Vectors]].
+on [[object updates]].
 
 ## Strongly Consistent Writes
 
