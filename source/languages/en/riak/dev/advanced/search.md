@@ -110,7 +110,7 @@ Search, indexes in the new Riak Search do not implicitly create bucket
 associations, meaning that this must be done as a separate configuration
 step.
 
-To associate a bucket with an index, the bucket property `yz_index` must
+To associate a bucket with an index, the bucket property `search_index` must
 be set to the name of the index you wish to associate. Conversely, in
 order to disassociate a bucket you use the sentinel value
 `_dont_index_`.
@@ -120,7 +120,7 @@ logically partitioning data into different KV buckets which are of the
 same type of data, for example if a user wanted to store event objects
 but logically partition them in KV by using a date as the bucket name.
 
-A bucket _cannot_ be associated with many indexes---the `yz_index`
+A bucket _cannot_ be associated with many indexes---the `search_index`
 property must be a single name, not a list.
 
 See the
