@@ -230,7 +230,7 @@ riak:
           # - "[[Bucket Types]]"
           - "[[Buckets]]"
           - "[[Clusters]]"
-          - "[[Causal Context Objects]]"
+          - "[[Causal Context]]"
           - "[[Data Types]]"
           - "[[Eventual Consistency]]"
           - "[[Strong Consistency]]"
