@@ -17,24 +17,40 @@ cluster, and what happens when you add or remove nodes.
 
 ## Preconditions
 
-For most operations you need to access configuration files, whose
+First, you will need to install Riak. Use one of our OS- or
+cloud-platform-specific installation docs to do so:
+
+* [[Debian and Ubuntu|Installing on Debian and Ubuntu]]
+* [[RHEL and CentOS|Installing on RHEL and CentOS]]
+* [[Mac OS X|Installing on Mac OS X]]
+* [[FreeBSD|Installing on FreeBSD]]
+* [[SmartOS|Installing on SmartOS]]
+* [[Solaris|Installing on Solaris]]
+* [[SUSE|Installing on SUSE]]
+* [[Windows Azure|Installing on Windows Azure]]
+* [[Amazon Web Services|Installing on AWS Marketplace]]
+
+You may also install Riak [[from source|Installing Riak from Source]].
+
+For most operations you need to access [[configuration files]], whose
 location depends on your mode of installation and the operating system.
-Check the [[Configuration Files]] page for details on where to find them.
+You may want to have any configuration files open throughout this
+process.
 
 ## Creating the First Node
 
 After installing Riak on a system using either the binary packages or
-from source, there's some initial configuration steps you need to take
-that depend on your networking infrastructure and security measures.
+from source, there are some initial configuration steps you need to take
+that depend on your networking infrastructure and desired security
+measures.
 
-Your node should not be running. If it is, stop it using `[[riak
-stop|riak Command Line#stop]]` or `/etc/init.d/riak stop`). Before you
-can start up the node again, a couple of changes need to made. If your
-new node was already running before making the configuration changes
-outlined below, it's best to delete your ring directory before starting
-it up again. Just delete the directory ring/ in your Riak data
-directory. In general, the steps outlined below should be taken before
-you bring up a new node.
+First, your node should not be running. If it is, stop it using `[[riak
+stop|riak Command Line#stop]]`. But before you can start up the node
+again, a couple of changes need to made. If your new node was already
+running before making the configuration changes outlined below, it's
+best to delete your ring directory before starting it up again. Just
+delete the directory `/ring` in your Riak `/data` directory. In general,
+the steps outlined below should be taken before you bring up a new node.
 
 ## Change the Node Name
 
@@ -44,8 +60,8 @@ the Erlang application and the host name on the network. All nodes in
 the Riak cluster need these node names to communicate and coordinate
 with each other.
 
-In your configuration files, the node name defaults to
-`riak@127.0.0.1`. To change the node name, change the following line:
+In your configuration files, the node name defaults to `riak@127.0.0.1`.
+To change the node name, change the following line:
 
 ```riakconf
 nodename = riak@127.0.0.1
@@ -143,27 +159,46 @@ it will create a new ring file based on the initially configured
 itself. Once this process completes, the node will be ready to serve
 requests.
 
-
 ## Add a Node to an Existing Cluster
 
-When the node is running, it can be added to an existing cluster. Note
+Once the node is running, it can be added to an existing cluster. Note
 that this step isn't necessary for the first node; it's necessary only
-for nodes that you want to add later. Pick a random node in your
-existing cluster and use the `riak-admin cluster join` command to stage
-a join request from the new node. The example shown below uses the IP
-192.168.2.2:
+for nodes that you want to add later.
+
+To join the node to an existing cluster, use the `cluster join` command:
 
 ```bash
-riak-admin cluster join riak@192.168.2.2
+bin/riak-admin cluster join <node_in_cluster>
 ```
 
-This should result in a message similar to the following:
+The `<node_in_cluster>` in the example above can be _any_ node in the
+cluster you want to join to. So if the existing cluster consists of
+nodes `A`, `B`, and `C`, any of the following commands would join the
+new node:
+
+```bash
+bin/riak-admin cluster join A
+bin/riak-admin cluster join B
+bin/riak-admin cluster join C
+```
+
+To give a more realistic example, let's say that you have an isolated
+node named `riak@192.168.2.5` and you want to join it to an existing
+cluster that contains a node named `riak@192.168.2.2`. This command
+would stage a join to that cluster:
+
+```bash
+bin/riak-admin cluster join riak@192.168.2.2
+```
+
+If the join request is successful, you should see the following:
 
 ```
 Success: staged join request for 'riak@192.168.2.5' to 'riak@192.168.2.2'
 ```
 
-Repeat this process on each new node that will joined to form the cluster.
+If you have multiple nodes that you would like to join to an existing
+cluster, repeat this process for each of them.
 
 ## Joining Nodes to Form a Cluster
 
@@ -172,9 +207,9 @@ staging the proposed cluster nodes, reviewing the cluster plan, and
 committing the changes.
 
 After staging each of the cluster nodes with `riak-admin cluster join`
-commands, the next step in forming a cluster is to review the proposed
-plan of changes. This can be done with the `riak-admin cluster plan`
-command, which is shown in the example below.
+commands, as in the section above, the next step in forming a cluster is
+to review the proposed plan of changes. This can be done with the
+`riak-admin cluster plan` command, which is shown in the example below.
 
 ```
 =============================== Staged Changes ================================
@@ -223,7 +258,6 @@ distribution of partitions, the plan can be cleared. Clearing a cluster
 plan with `riak-admin cluster clear` and running `riak-admin cluster
 plan` again will produce a slightly different ring.
 </div>
-
 
 ## Removing a Node From a Cluster
 
