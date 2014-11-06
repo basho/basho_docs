@@ -17,9 +17,13 @@ feature and is not yet commercially supported.
 In versions 2.0 and later, Riak allows you to create buckets that
 provide [[strong consistency]] guarantees for the data stored within
 them, enabling you to use Riak as a CP system (consistent plus partition
-tolerant) for some or all of you data. This option was added to
-complement Riak's standard [[eventually consistent|Eventual
-Consistency]], high availability mode.
+tolerant) for all of the data in that bucket. You can store just some of
+your data in strongly consistent buckets or all of your data, depending
+on your use case. Strong consistency was added to complement Riak's
+standard [[eventually consistent|Eventual Consistency]], high
+availability mode.
+
+## Tradeoffs
 
 When data is stored in a bucket with strong consistency guarantees, a
 value is guaranteed readable by any client _immediately_ after a
@@ -47,9 +51,9 @@ bucket-by-bucket basis, meaning that you can use some buckets in an
 eventually consistent fashion and others in a strongly consistent
 fashion, depending on your use case.
 
-To apply strong consistency to a bucket, you must create a [[bucket type
-|Using Bucket Types]] that sets the `consistent` bucket property to
-`true`, activate the type, and then apply that type to specific
+To apply strong consistency to a bucket, you must create a [[bucket
+type|Using Bucket Types]] that sets the `consistent` bucket property to
+`true`, activate that type, and then apply that type to specific
 bucket/key pairs.
 
 To give an example, we'll create a bucket type called
