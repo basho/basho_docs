@@ -173,11 +173,17 @@ Command Line]]` command interface. The `riak-admin` script, like the
 `riak` script used above, is found in the `bin` directory of each Riak
 node.
 
-The command below will link `dev1` to `dev2`, `dev3`, `dev4`, and
-`dev5`:
+First, try joining the node `dev2` to `dev1`:
 
 ```bash
 dev2/bin/riak-admin cluster join dev1@127.0.0.1
+```
+
+If there is no response, then the join is successful. We still have
+three running nodes that have not yet been joined, so let's join those
+as well:
+
+```bash
 dev3/bin/riak-admin cluster join dev1@127.0.0.1
 dev4/bin/riak-admin cluster join dev1@127.0.0.1
 dev5/bin/riak-admin cluster join dev1@127.0.0.1
@@ -186,18 +192,18 @@ dev5/bin/riak-admin cluster join dev1@127.0.0.1
 Or alternatively:
 
 ```bash
-for n in {2..5}; do dev$n/bin/riak-admin cluster join dev1@127.0.0.1; done
+for n in {3..5}; do dev$n/bin/riak-admin cluster join dev1@127.0.0.1; done
 ```
 
-Notice that you don't need to connect every node to every single other
+Notice that you don't need to join every node to every single other
 node. Once two nodes have been joined, they will share all the
 information necessary to join _all_ of the nodes into a unity. Thus, if
 `dev1` is joined to `dev2` and also to `dev5`, `dev2` and `dev5` will be
 able to communicate with one another.
 
-At this point, the nodes have not yet been joined. Instead, the join
-operations have been _staged_ and are ready to be committed. To make
-those joins take effect, you first must review the planned cluster
+At this point, the nodes have not yet been actually joined. Instead, the
+join operations have been _staged_ and are ready to be committed. To
+make those joins take effect, you first must review the planned cluster
 changes:
 
 ```bash
@@ -256,13 +262,13 @@ dev2/bin/riak-admin cluster commit
 **Note**: Changes to a cluster can be committed from any node.
 
 <div class="info">
-<div class="title">About <code>riak-admin</code></div>
-<code>riak-admin</code> is Riak's administrative tool. It's used to
-perform any operational tasks beyond starting and stopping a node (e.g.
-to make a node join and leave a cluster), to back up data, and to manage
-general cluster operations. You can read more about the
-<code>riak-admin</code> command in the [[riak-admin command line]]
-documentation.  </div>
+<div class="title">About `riak-admin`</div>
+`riak-admin` is Riak's administrative tool. It's used to perform any
+operational tasks beyond starting and stopping a node (e.g.  to make a
+node join and leave a cluster), to back up data, and to manage general
+cluster operations. You can read more about the `riak-admin` command in
+the [[riak-admin command line]] documentation.
+</div>
 
 ## Test the Cluster
 
