@@ -18,9 +18,9 @@ moved: {
 [Bitcask](https://github.com/basho/bitcask) is an Erlang application
 that provides an API for storing and retrieving key/value data using
 log-structured hash tables that provide very fast access. The
-[design](http://downloads.basho.com/papers/bitcask-intro.pdf) of Bitcask
-was inspired, in part, by log-structured filesystems and log file
-merging.
+[design](https://github.com/basho/basho_docs/raw/master/source/data/bitcask-intro.pdf)
+of Bitcask was inspired, in part, by log-structured filesystems and log
+file merging.
 
 ## Bitcask's Strengths
 
@@ -36,7 +36,7 @@ merging.
     bandwidth, which is a good thing from a performance perspective.
     This saturation occurs for two reasons: because (1) data that is
     written to Bitcask doesn't need to be ordered on disk, and (2) the
-    log-structured design of Bitcask allows for minimal disk head 
+    log-structured design of Bitcask allows for minimal disk head
     movement during writes.
 
 * **Ability to handle datasets larger than RAM without degradation**
@@ -122,9 +122,10 @@ filesystem sync strategy to merge settings and more.
 
 <div class="note">
 <div class="title">Note on configuration systems</div>
-Riak 2.0 enables you to use either the newer [[configuration system|Configuration Files]]
-based on a single <code>riak.conf</code> file or the older system, based
-on an <code>app.config</code> configuration file.
+Riak 2.0 enables you to use either the newer [[configuration
+system|Configuration Files]] based on a single <code>riak.conf</code>
+file or the older system, based on an <code>app.config</code>
+configuration file.
 
 Instructions for both systems will be included below. Narrative
 descriptions of the various settings will be tailored to the newer
@@ -201,9 +202,12 @@ complete.
 
 The following sync strategies are available:
 
-  * `none` --- lets the operating system manage syncing writes (default)
-  * `o_sync` --- uses the `O_SYNC` flag, which forces syncs on every write
-  * Time interval --- Riak will force Bitcask to sync at specified intervals
+  * `none` --- lets the operating system manage syncing writes
+    (default)
+  * `o_sync` --- uses the `O_SYNC` flag, which forces syncs on every
+    write
+  * Time interval --- Riak will force Bitcask to sync at specified
+    intervals
 
 The following are possible configurations:
 
@@ -269,11 +273,12 @@ from the disk during startup, thereby also reducing the time required to
 start up. You can configure Bitcask to either disregard `.hint` files
 that don't contain a CRC value or to use them anyway.
 
-If you are using the newer, `riak.conf`-based configuration system,
-you can instruct Bitcask to disregard `.hint` files that do not contain
-a CRC value by setting the `hintfile_checksums` setting to `strict` (the
+If you are using the newer, `riak.conf`-based configuration system, you
+can instruct Bitcask to disregard `.hint` files that do not contain a
+CRC value by setting the `hintfile_checksums` setting to `strict` (the
 default). To use Bitcask in a backward-compatible mode that allows for
-`.hint` files without CRC signatures, change the setting to `allow_missing`.
+`.hint` files without CRC signatures, change the setting to
+`allow_missing`.
 
 The following example sets the parameter to `strict`:
 
@@ -321,9 +326,10 @@ leading to higher worst-case latencies and possible throughput collapse.
 
 ### `O_SYNC` on Linux
 
-Synchronous file I/O via [`o_sync`](http://linux.about.com/od/commands/l/blcmdl2_open.htm)
-is supported in Bitcask if `io_mode` is set to `nif` and is not
-supported in the `erlang` mode.
+Synchronous file I/O via
+[`o_sync`](http://linux.about.com/od/commands/l/blcmdl2_open.htm) is
+supported in Bitcask if `io_mode` is set to `nif` and is not supported
+in the `erlang` mode.
 
 If you enable `o_sync` by setting `io_mode` to `nif`, however, you will
 still get an incorrect warning along the following lines:
@@ -346,9 +352,9 @@ following to the `riak_kv` section of your `app.config`:
 
 ### Disk Usage and Merging Settings
 
-Riak stores each [[vnode|Riak Glossary#vnodes]] of the [[ring|Clusters#the-ring]]
-as a separate Bitcask directory within the configured Bitcask data
-directory.
+Riak stores each [[vnode|Riak Glossary#vnodes]] of the
+[[ring|Clusters#the-ring]] as a separate Bitcask directory within the
+configured Bitcask data directory.
 
 Each of these directories will contain multiple files with key/value
 data, one or more "hint" files that record where the various keys exist
@@ -369,15 +375,16 @@ current key/value pairs to a new set of files within the directory.
 
 The merge process is affected by all of the settings described in the
 sections below. In those sections, "dead" refers to keys that no longer
-contain the most up-to-date values, while "live" refers to keys that
-do contain the most up-to-date value and have not been deleted.
+contain the most up-to-date values, while "live" refers to keys that do
+contain the most up-to-date value and have not been deleted.
 
 ### Merge Policy
 
 Bitcask enables you to select a merge policy, i.e. when during the day
 merge operations are allowed to be triggered. The valid options are:
 
-* `always` --- No restrictions on when merge operations can occur (default)
+* `always` --- No restrictions on when merge operations can occur
+  (default)
 * `never` --- Merge will never be attempted
 * Start and end time --- Hours during which merging is permitted
 
@@ -462,12 +469,12 @@ invoked. These conditions fall into two basic categories:
   When either of these constraints are met by any file in the directory,
   Bitcask will attempt to merge files.
 
-You can set the triggers described above using `merge.triggers.fragmentation`
-and `merge.triggers.dead_bytes`, respectively. The former is expressed
-as an integer between 0 and 100, whereas the latter can be expressed in
-terms of kilobytes, megabytes, gigabytes, etc. The following example
-sets the dead bytes threshold to 55% and the fragmentation threshold to
-1 GB:
+You can set the triggers described above using
+`merge.triggers.fragmentation` and `merge.triggers.dead_bytes`,
+respectively. The former is expressed as an integer between 0 and 100,
+whereas the latter can be expressed in terms of kilobytes, megabytes,
+gigabytes, etc. The following example sets the dead bytes threshold to
+55% and the fragmentation threshold to 1 GB:
 
 ```riakconf
 bitcask.merge.fragmentation = 55
