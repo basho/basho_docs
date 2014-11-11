@@ -152,8 +152,8 @@ options:
 ## Context Objects
 
 When a value is stored in Riak, it is tagged with a **context object**,
-i.e. either a [[vector clock|Causal Context#Vector- Clocks]] or a
-[[dotted version vector|Causal Context#Dotted-Version- Vectors]],
+i.e. either a [[vector clock|Causal Context#Vector-Clocks]] or a
+[[dotted version vector|Causal Context#Dotted-Version-Vectors]],
 establishing the object's initial version. That vector clock changes
 value over time if the object is updated.
 
@@ -180,11 +180,11 @@ If `allow_mult` is set to `true`, you should _always_ use context
 objects when updating objects, _unless you are certain that no object
 exists under that key_. Failing to use context objects with mutable
 data, especially for objects that are frequently updated, can lead to
-[[sibling explosion|Latency Reduction#Siblings]], which can produce a
-variety of problems in your cluster. Fortunately, much of the work
-involved with using context objects is handled automatically by Basho's
-official [[client libraries]]. Examples can be found in the section
-on siblings immediately below.
+[[sibling explosion|Latency Reduction Checklist#Siblings]], which can
+produce a variety of problems in your cluster. Fortunately, much of
+the work involved with using context objects is handled automatically
+by Basho's official [[client libraries]]. Examples can be found in the
+section on siblings immediately below.
 
 ## Siblings
 
@@ -547,6 +547,6 @@ clock pruning process:
 Additional background information on vector clocks:
 
 * [Vector Clocks on Wikipedia](http://en.wikipedia.org/wiki/Vector_clock)
-* [Why Vector Clocks are Easy](http://blog.basho.com/2010/01/29/why-vector-clocks-are-easy/)
-* [Why Vector Clocks are Hard](http://blog.basho.com/2010/04/05/why-vector-clocks-are-hard/)
+* [Why Vector Clocks are Easy](http://basho.com/why-vector-clocks-are-easy/)
+* [Why Vector Clocks are Hard](http://basho.com/why-vector-clocks-are-hard/)
 * The vector clocks used in Riak are based on the [work of Leslie Lamport](http://portal.acm.org/citation.cfm?id=359563)

@@ -15,7 +15,7 @@ moved: {
 
 While pre-packaged versions of Riak include an
 [Erlang](http://erlang.org) installation, you will need to install
-Erlang on your own if you wish to build and run Riak from souce. We
+Erlang on your own if you wish to build and run Riak from source. We
 strongly recommend using Basho's patched version of Erlang to install
 Riak 2.0. All of the patches in this version have been incorporated into
 later versions of the official Erlang/OTP release.

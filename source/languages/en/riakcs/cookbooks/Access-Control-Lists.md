@@ -59,7 +59,7 @@ Example XML representation of an ACL:
 
 ## Buckets
 
-Bucket names **must** be globally unique. To avoid conflicts, all bucket creation requests are made to an application called [[Stanchion|Configuring Stanchion]]; therefore, all requests for modification of a bucket ACL should be serialized through Stanchion. While this will cause undesirable serialization of these requests, we believe it is appropriate based on the following statement from this [documentation on bucket restrictions](http://docs.amazonwebservices.com/AmazonS3/2006-03-01/dev/BucketRestrictions.html) from Amazon regarding restrictions on bucket operations:
+Bucket names **must** be globally unique. To avoid conflicts, all bucket creation requests are made to an application called [[Stanchion|Configuring Stanchion]]; therefore, all requests for modification of a bucket ACL should be serialized through Stanchion. While this will cause undesirable serialization of these requests, we believe it is appropriate based on the following statement from this [documentation on bucket restrictions](http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html) from Amazon regarding restrictions on bucket operations:
 
 <blockquote>Because bucket operations work against a centralized, global resource space, it is not appropriate to make bucket create or delete calls on the high availability code path of your application.</blockquote>
 
