@@ -233,7 +233,7 @@ riak-admin status
 riak-admin wait-for-service riak_kv <target_node>
 ```
 
-* `<target_node>` is the node which you have just upgraded (e.g.
+`<target_node>` is the node which you have just upgraded (e.g.
 `riak@192.168.1.11`)
 
 7\. Wait for any hinted handoff transfers to complete
@@ -242,7 +242,7 @@ riak-admin wait-for-service riak_kv <target_node>
 riak-admin transfers
 ```
 
-* While the node was offline, other nodes may have accepted writes on its
+While the node was offline, other nodes may have accepted writes on its
 behalf. This data is transferred to the node when it becomes available.
 
 8\. Repeat the process for the remaining nodes in the cluster
@@ -259,8 +259,14 @@ notes](https://github.com/basho/riak/blob/master/RELEASE-NOTES.md).
 
 ## Rolling Upgrade to Enterprise
 
-1. Back up your `etc` (`app.config` and `vm.args`) and `data` directories.
-2. Shutdown the node you are going to upgrade.
+If you would like to upgrade an existing Riak cluster to a commercially
+supported [Riak Enterprise](http://basho.com/riak-enterprise/) cluster
+with [[Multi-Datacenter Replication|Multi Data Center Replication v3
+Architecture]], undertake the following steps:
+
+1. Back up your `etc` (`app.config` and `vm.args`) and `data`
+directories.
+2. Shut down the node you are going to upgrade.
 3. Uninstall your Riak package.
 4. Install the `riak_ee` package.
 5. A standard package uninstall should not have removed your data
