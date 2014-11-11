@@ -44,13 +44,13 @@ recommend that you:
 That cycle looks something like this:
 
 1. **Read** the object from Riak. This step is important for updates
-because this enables you to fetch the object's [[causal context
-object]], which is the information that Riak uses to make decisions
-about which object values are most recent (this is especially useful
-for objects that are frequently updated). This context object needs to
-be passed back to Riak when you update the object. This step is handled
-for you by Basho's client libraries as long as you perform a read prior
-to an update. In addition, if you have chosen to allow Riak to generate
+because this enables you to fetch the object's [[causal context]], which
+is the information that Riak uses to make decisions about which object
+values are most recent (this is especially useful for objects that are
+frequently updated). This context object needs to be passed back to Riak
+when you update the object. This step is handled for you by Basho's
+client libraries as long as you perform a read prior to an update. In
+addition, if you have chosen to allow Riak to generate
 [[siblings|Conflict Resolution#Siblings]] \(which we recommend), you
 should **resolve sibling conflicts** upon read if they exist. For more
 on this, please see our documentation on [[conflict resolution]], along
@@ -91,7 +91,7 @@ obj = bucket.get('banana', deletedvclock: true)
 In this section, we'll provide an update example for Basho's official
 Ruby, Python, and Erlang clients. Because updates with the official Java
 client function somewhat differently, those examples can be found in the
-[[section below|Updating Values#Java-Client-Example]].
+[[section below|Object Updates#Java-Client-Example]].
 
 For our example, imagine that you are storing information about NFL head
 coaches in the bucket `coaches`, which will bear the bucket type
