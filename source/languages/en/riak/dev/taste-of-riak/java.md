@@ -120,29 +120,13 @@ value`. If not, then the client will throw an exception.
 
 ## Deleting Objects
 
-Now that we've stored and then fetched the object, we can deleted by
+Now that we've stored and then fetched the object, we can delete it by
 creating and executing a `DeleteValue` operation:
 
 ```java
 DeleteValue deleteOp = new DeleteValue.Builder(quoteObjectLocation)
         .build();
 client.execute(deleteOp);
-```
-```java
-fetched3.put("myValue", 42);
-myBucket.store("three", fetched3).execute();
-```
-
-To update we simply just store the new value with the same key.
-
-## Deleting Objects From Riak
-
-Nothing is complete without a delete.
-
-```java
-myBucket.delete("one").execute();
-myBucket.delete("two").execute();
-myBucket.delete("three").execute();
 ```
 
 ## Working With Complex Objects
@@ -153,59 +137,50 @@ Take for example, this plain old Java object (POJO) that encapsulates
 some knowledge about a book.
 
 ```java
-class Book
-{
-    public String Title;
-    public String Author;
-    public String Body;
-    public String ISBN;
-    public Integer CopiesOwned;
+public class Book {
+    public String title;
+    public String author;
+    public String body;
+    public String isbn;
+    publict Integer copiesOwned;
 }
-
-Book book = new Book();
-book.ISBN = "1111979723";
-book.Title = "Moby Dick";
-book.Author = "Herman Melville";
-book.Body = "Call me Ishmael. Some years ago...";
-book.CopiesOwned = 3;
 ```
 
-Ok, so we have some information about our Moby Dick collection that we
-want to save.  Storing this to Riak should look familiar by now:
+By default, the Java Riak client serializes POJOs as JSON. Let's create
+a new `Book` object to store:
 
 ```java
-Bucket booksBucket = client.fetchBucket("books").execute();
-booksBucket.store(book.ISBN, book).execute();
+Book mobyDick = new Book();
+modyDick.title = "Moby Dick";
+mobyDick.author = "Herman Melville";
+mobyDick.body = "Call me Ishmael. Some years ago...";
+mobyDick.isbn = "11119799723";
+mobyDick.copiesOwned = 3;
 ```
 
-Some of you may be thinking “But how does the Riak client encode/decode
-my object”?  If we fetch our book back and print the encoded value as a
-string, we shall know:
+Now we can store that POJO object just like we stored the more simple
+object earlier:
 
 ```java
-IRiakObject riakObject = booksBucket.fetch(book.ISBN).execute();
-System.out.println(riakObject.getValueAsString());
+Namespace booksBucket = new Namespace("books");
+Location mobyDickLocation = new Location(booksBucket, "moby_dick");
+StoreValue storeBookOp = new StoreValue.Builder(mobyDick)
+        .withLocation(mobyDickLocation)
+        .build();
+client.execute(storeBookOp);
 ```
+
+If we fetch the object (using the same method we showed up above and in
+`TasteOfRiak.java`), we should get the following:
 
 ```json
 {
-  "Title": "Moby Dick",
-  "Author": "Herman Melville",
-  "Body": "Call me Ishmael. Some years ago...",
-  "ISBN": "1111979723",
-  "CopiesOwned": 3
+  "title": "Moby Dick",
+  "author": "Herman Melville",
+  "body": "Call me Ishmael. Some years ago...",
+  "isbn": "1111979723",
+  "copiesOwned": 3
 }
-```
-
-JSON! The library encodes POJOs as JSON strings. If we wanted to get a
-`Book` object back we could use `bookBucket.fetch(book.ISBN,
-Book.class);` to have the client create the proper object type for us.
-Now that we’ve ruined the magic of object encoding, let’s clean up our
-mess:
-
-```java
-booksBucket.delete(book.ISBN).execute();
-client.shutdown();
 ```
 
 ## Next Steps
