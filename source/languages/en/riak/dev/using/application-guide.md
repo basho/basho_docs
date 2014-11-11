@@ -115,6 +115,19 @@ using the Solr API.
 * [[Search Schema]] --- How to create custom schemas for extracting data
   from Riak Search
 
+#### When to use Search
+
+* When you need access to Solr's rich API, which enables you to query on
+    the basis of a wide variety of data types, including text, booleans,
+    ranges, and more
+
+#### When not to use Search
+
+* **When querying on the basis of object metadata will suffice** --- If
+    you don't need access to the actual contents of objects but still
+    wish to mark objects with queryable metadata, we recommend [[using
+    secondary indexes]] instead.
+
 ### Riak Data Types
 
 Basic key/value operations in Riak are agnostic toward the data stored
@@ -139,6 +152,28 @@ convergence on their own.
 * [[Data Modeling with Riak Data Types]] --- An object modeling example
   that relies on Riak Data Types
 
+#### When to use Riak Data Types
+
+* **When your data fits** --- If the data that you're storing can be
+  modeled as one of the five available types, Riak Data Types could be a
+  very good option. Please note that in many cases there may not be a
+  1:1 correspondence between the five available types and the data that
+  you'd like to store, but there may be workarounds to close the gap.
+  Most things that can be stored as JSON, for example, can be stored as
+  maps (though with modifications).
+
+#### When not to use Riak Data Types
+
+* **When you need to provide your own convergence logic** --- If your
+    application needs to have access to all sibling values, then Riak
+    Data Types are not a good choice because they by definition do not
+    produce siblings.
+* **When your data doesn't fit** --- While the five existing Data Types
+    allow for a great deal of flexibility and a wide range of use cases,
+    they don't cover all use cases. If you have data that requires a
+    modeling solution that can't be covered, you should stick to
+    standard K/V operations.
+
 ### MapReduce
 
 Riak's MapReduce feature enables you to perform powerful batch
@@ -153,6 +188,10 @@ you can employ, or you can write and run your own MapReduce jobs in
 * [[Advanced MapReduce]] --- A more in-depth guide to MapReduce,
   including code samples and implementation details
 
+#### When to use MapReduce
+
+#### When not to use MapReduce
+
 ### Secondary Indexes (2i)
 
 Using basic key/value operations in Riak sometimes leads to the
@@ -161,12 +200,16 @@ indexes (2i) provide a solution to this problem, enabling you to tag
 objects with either binary or integer metadata and then query Riak for
 all of the keys that share specific tags. 2i is especially useful if
 you're storing binary data that is opaque to features like [[Riak
-Search|Using Search]]. 
+Search|Using Search]].
 
 * [[Using Secondary Indexes]] --- A general guide to using 2i, along
   with code samples and information on 2i features like pagination,
   streaming, and sorting
 * [[Advanced Secondary Indexes]] --- Implementation details behind 2i
+
+#### When to use secondary indexes
+
+#### When not to use secondary indexes
 
 ### Mixed Approach
 
