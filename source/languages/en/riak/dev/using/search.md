@@ -84,7 +84,7 @@ Files#Client-Interfaces]].
 YokozunaIndex famousIndex = new YokozunaIndex("famous");
 StoreSearchIndex storeSearchIndex =
     new StoreSearchIndex.Builder(famousIndex).build();
-client.execute(StoreSearchIndex);
+client.execute(storeSearchIndex);
 ```
 
 ```ruby
