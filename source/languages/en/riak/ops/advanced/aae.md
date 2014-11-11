@@ -83,14 +83,14 @@ anti_entropy = active-debug
 
 {{/2.0.0+}}
 
-Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
-for any configuration-related changes to take effect.
+Remember that you will need to [[restart the node|riak-admin Command
+Line#restart]] for any configuration-related changes to take effect.
 
 ## Disabling Active Anti-Entropy
 
 Alternatively, AAE can be switched off if you would like to repair
-object inconsistencies using [[read repair|Active Anti-Entropy#read-repair]]
-alone:
+object inconsistencies using [[read repair|Active
+Anti-Entropy#read-repair]] alone:
 
 {{#2.0.0-}}
 
@@ -135,8 +135,8 @@ The default directory for AAE data is `./data/anti_entropy`, as in the
 example above, but this can be changed. See the section below titled
 **Data Directory**.
 
-Remember that you will need to [[restart the node|riak-admin Command Line#restart]]
-for any configuration-related changes to take effect.
+Remember that you will need to [[restart the node|riak-admin Command
+Line#restart]] for any configuration-related changes to take effect.
 
 The directory deletion method above can also be used to force a
 rebuilding of hash trees.
@@ -184,8 +184,8 @@ Index                                                Last      Mean      Max
 
 ```
 
-Each of these three tables contains information for each [[vnode|Riak Glossary#vnode]]
-in your cluster in these three categories:
+Each of these three tables contains information for each [[vnode|Riak
+Glossary#vnode]] in your cluster in these three categories:
 
 Category | Measures | Description
 :--------|:---------|:-----------
@@ -210,9 +210,9 @@ processes should be run, etc.
 
 ### Data Directory
 
-By default, data related to AAE operations is stored in the `./data/anti_entropy`
-directory in each Riak node. This can be changed by setting the `anti_entropy.data_dir`
-parameter to a different value.
+By default, data related to AAE operations is stored in the
+`./data/anti_entropy` directory in each Riak node. This can be changed
+by setting the `anti_entropy.data_dir` parameter to a different value.
 
 {{#2.0.0+}}
 
@@ -222,8 +222,8 @@ AAE has a built-in throttling mechanism that can insert delays between
 AAE repair operations when [[vnode|Riak Glossary#vnode]] mailboxes reach
 the length specified by the `anti_entropy.throttle.$tier.delay`
 parameter (more on that in the section below). Throttling can be
-switched on and off using the `anti_entropy.throttle` parameter. The 
-default is `on`. 
+switched on and off using the `anti_entropy.throttle` parameter. The
+default is `on`.
 
 #### Throttling Tiers
 
@@ -253,10 +253,10 @@ respectively:
 ```riakconf
 anti_entropy.throttle.tier1.mailbox_size = 0
 anti_entropy.throttle.tier1.delay = 5ms
-anti_entropy.throttle.tier1.mailbox_size = 50
-anti_entropy.throttle.tier1.delay = 10ms
-anti_entropy.throttle.tier1.mailbox_size = 100
-anti_entropy.throttle.tier1.delay = 15ms
+anti_entropy.throttle.tier2.mailbox_size = 50
+anti_entropy.throttle.tier2.delay = 10ms
+anti_entropy.throttle.tier3.mailbox_size = 100
+anti_entropy.throttle.tier3.delay = 15ms
 ```
 
 ### Bloom Filters
@@ -281,23 +281,25 @@ As a fallback measure in addition to the normal operation of AAE on-disk
 hash trees, Riak periodically clears and regenerates all hash trees
 stored on disk to ensure that hash trees correspond to the key/value
 data stored in Riak. This enables Riak to detect silent data corruption
-resulting from disk failure or faulty hardware. The `anti_entropy.tree.expiry`
-setting enables you to determine how often that takes place. The default
-is once a week (`1w`). You can set up this process to run once a day
-(`1d`), twice a day (`12h`), once a month (`4w`), and so on.
+resulting from disk failure or faulty hardware. The
+`anti_entropy.tree.expiry` setting enables you to determine how often
+that takes place. The default is once a week (`1w`). You can set up this
+process to run once a day (`1d`), twice a day (`12h`), once a month
+(`4w`), and so on.
 
 In addition to specifying how often Riak expires hash trees after they
 are built, you can also specify how quickly and how many hash trees are
-built. You can set the frequency using the `anti_entropy.tree.build_limit.per_timespan`
-parameter, for which the default is every hour (`1h`); the number of
-hash tree builds is specified by `anti_entropy.tree.build_limit.number`,
-for which the default is 1.
+built. You can set the frequency using the
+`anti_entropy.tree.build_limit.per_timespan` parameter, for which the
+default is every hour (`1h`); the number of hash tree builds is
+specified by `anti_entropy.tree.build_limit.number`, for which the
+default is 1.
 
 ### Write Buffer Size
 
-While you are free to choose the backend for data storage in Riak, 
+While you are free to choose the backend for data storage in Riak,
 background AAE processes use [[LevelDB]]. You can adjust the size of the
-write buffer used by LevelDB for hash tree generation using the 
+write buffer used by LevelDB for hash tree generation using the
 `anti_entropy.write_buffer_size` parameter. The default is `4MB`.
 
 ### Open Files and Concurrency Limits
@@ -312,11 +314,13 @@ used in operating systems. The default is `20`.
 
 ## AAE and Riak Search
 
-Riak's AAE subsystem works to repair object inconsistencies both with for
-normal key/value objects as well as data related to [[Riak Search|Using Search]].
-In particular, AAE acts on indexes stored in [Solr](http://lucene.apache.org/solr/),
-the search platform that drives Riak Search.
+Riak's AAE subsystem works to repair object inconsistencies both with
+for normal key/value objects as well as data related to [[Riak
+Search|Using Search]].  In particular, AAE acts on indexes stored in
+[Solr](http://lucene.apache.org/solr/), the search platform that drives
+Riak Search.
 
-More information on AAE and Search can be found in the [[Search Details|Search Details#active-anti-entropy-AAE-]] documentation.
+More information on AAE and Search can be found in the [[Search
+Details|Search Details#active-anti-entropy-AAE-]] documentation.
 
 {{/2.0.0+}}
