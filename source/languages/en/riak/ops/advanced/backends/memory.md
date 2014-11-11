@@ -66,9 +66,15 @@ be taken into account when planning for memory usage with the Memory
 backend, as the total memory used will be max memory times the number
 of vnodes in the cluster.
 
-You can configure maximum memory using the `memory_backend.max_memory_per_vnode`
-setting. You can specify `max_memory_per_vnode` however you'd like,
-using kilobytes, megabytes, or even gigabytes.
+When the threshold value that you set has been met in a particular
+vnode, Riak will begin discarding objects, beginning with the oldest
+object and proceeding until memory usage returns below the allowable
+threshold.
+
+You can configure maximum memory using the
+`memory_backend.max_memory_per_vnode` setting. You can specify
+`max_memory_per_vnode` however you'd like, using kilobytes, megabytes,
+or even gigabytes.
 
 The following are all possible settings:
 
@@ -99,9 +105,8 @@ documentation on [[LevelDB cache size|LevelDB#Cache-Size]].
 
 ### TTL
 
-The time-to-live parameter (`ttl`) specifies the amount of time an
-object remains in memory before it expires. The minimum time is one
-second.
+The time-to-live (TTL) parameter specifies the amount of time an object
+remains in memory before it expires. The minimum time is one second.
 
 In the newer, `riak.conf`-based configuration system, you can specify
 `ttl` in seconds, minutes, hours, days, etc. The following are all
@@ -118,17 +123,17 @@ memory_backend.ttl = 3h
 %% seconds:
 
 {memory_backend, [
-    ...,
+    %% other settings
         {ttl, 86400}, %% Set to 1 day
-    ...
+    %% other settings
     ]}
 ```
 
 <div class="note">
 <div class="title">Dynamically Changing <code>ttl</code></div>
-There is currently no way to dynamically change the <code>ttl</code>
-setting for a bucket or bucket type. The current workaround would be to
-define multiple Memory backends using the Multi backend, each with
-different <code>ttl</code> values. For more information, consult the
-documentation on the [[Multi]] backend.
+There is currently no way to dynamically change the `ttl` setting for a
+bucket or bucket type. The current workaround would be to define
+multiple Memory backends using the Multi backend, each with different
+`ttl` values. For more information, consult the documentation on the
+[[Multi]] backend.
 </div>
