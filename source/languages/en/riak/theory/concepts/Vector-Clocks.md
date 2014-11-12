@@ -12,6 +12,5 @@ moved: {
 ---
 
 This page is no longer valid. We recommend taking a look at our
-documentation on [[Causal Context Objects]], in particular the section
-that deals with [[vector clocks|Causal Context Objects#Vector-Clocks]]
-specifically.
+documentation on [[Causal Context]], in particular the section that
+deals with [[vector clocks|Causal Context#Vector-Clocks]] specifically.
