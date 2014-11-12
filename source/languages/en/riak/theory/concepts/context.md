@@ -145,7 +145,7 @@ Additional information on vector clocks:
 
 In versions of Riak prior to 2.0, all causality-based conflict
 resolution, whether on the client side or in Riak, was achieved using
-[[vector clocks|Causal Context Objects#Vector-Clocks]]. In version 2.0,
+[[vector clocks|Causal Context#Vector-Clocks]]. In version 2.0,
 Riak added the option of using **dotted version vectors** (DVVs)
 instead.
 
@@ -165,7 +165,7 @@ prevent a wide variety of potential issues.
 ## DVVs Versus Vector Clocks
 
 The role that DVVs play in Riak is directly analogous to that of
-[[vector clocks|Causal Context Objects#Vector-Clocks]], as both are used
+[[vector clocks|Causal Context#Vector-Clocks]], as both are used
 to resolve object conflicts, whether during background operations like
 [[active anti-entropy]] or [[read repair|Riak Glossary#read-repair]], or
 when applications engage in client-side [[conflict resolution]]. The
