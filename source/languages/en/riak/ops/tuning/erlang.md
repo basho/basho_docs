@@ -26,6 +26,7 @@ Erlang parameter | Riak parameter
 [`+Q`](http://erlang.org/doc/man/erl.html#+Q) | `erlang.max_ports`
 [`+S`](http://erlang.org/doc/man/erl.html#+S) | `erlang.schedulers.total`, `erlang.schedulers.online`
 [`+W`](http://erlang.org/doc/man/erl.html#emu_flags) | `erlang.W`
+[`+a`](http://erlang.org/doc/man/erl.html#async_thread_stack_size) | `erlang.async_threads.stack_size`
 [`+e`](http://www.erlang.org/doc/man/ets.html#+e) | `erlang.max_ets_tables`
 [`+scl`](http://www.erlang.org/doc/main/erl.html#+scl) | `erlang.schedulers.compaction_of_load`
 [`+sfwi`](http://www.erlang.org/doc/man/erl.html#+sfwi) | `erlang.schedulers.force_wakeup_interval`
@@ -224,11 +225,11 @@ from 1024 to 134217727. The default is 65536.
 
 ## Asynchronous Thread Pool
 
-You can set the number of asynchronous threads in the Erlang VM's
-asynchronous thread pool using `erlang.async_threads` (`+A` in Erlang).
-The valid range is 0 to 1024. If thread support is available on your
-OS, the default is 64. Below is an example setting the number of async
-threads to 600:
+If thread support is available in your Erlang VM, you can set the number
+of asynchronous threads in the Erlang VM's asynchronous thread pool
+using `erlang.async_threads` (`+A` in Erlang).  The valid range is 0 to
+1024. If thread support is available on your OS, the default is 64.
+Below is an example setting the number of async threads to 600:
 
 ```riakconf
 erlang.async_threads = 600
@@ -237,6 +238,24 @@ erlang.async_threads = 600
 ```vmargs
 +A 600
 ```
+
+### Stack Size
+
+In addition to the number of asynchronous threads, you can also
+determine the memory allocated to each thread using the
+`erlang.async_threads.stack_size` parameter, which corresponds to the
+`+a` Erlang flag. You can determine that size in Riak using KB, MB, GB,
+etc.  The valid range is 16-8192 kilowords, which translates to 64-32768
+KB on 32-bit architectures. While there is no default, we suggest a
+stack size of 16 kilowords, which translates to 64 KB. We suggest such a
+small size because the number of asynchronous threads, as determine by
+`erlang.async_threads` might be quite large in your Erlang VM. The 64 KB
+default is enough for drivers delivered with Erlang/OTP but might not be
+large enough to accommodate drivers that use the `driver_async()`
+functionality, documented
+[here](http://www.erlang.org/doc/man/erl_driver.html). We recommend
+setting higher values with caution, always keeping the number of threads
+in mind.
 
 ## Kernel Polling
 
@@ -314,8 +333,10 @@ system process that provides various forms of network monitoring. In a
 Riak cluster, one of the functions of the net kernel is to periodically
 check node liveness. **Tick time** is the frequency with which those
 checks happen. You can determine that frequency using the
-`erlang.distribution.net_ticktime`. The default is `60`, which will set
-the tick to take place once every minute.
+`erlang.distribution.net_ticktime`. The tick will occur every N seconds,
+where N is the value set. Thus, setting
+`erlang.distribution.net_ticktime` to `60` will make the tick occur once
+every minute.
 
 ## Shutdown Time
 

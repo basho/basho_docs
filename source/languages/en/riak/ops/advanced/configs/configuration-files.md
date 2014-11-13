@@ -1226,7 +1226,7 @@ table below.
 <td>The number of threads in the Erlang VM's asynchronous thread pool.
 The valid range is 0-1024. If thread support is not available, this
 parameter will have no impact; if thread support is available, the
-default value is 64. This is the equivalent of the <code>+a</code> flag.
+default value is 64. This is the equivalent of the <code>+A</code> flag.
 More information can be found <a
 href="http://erlang.org/doc/man/erl.html#async_thread_stack_size">here</a>.
 </td>
@@ -1237,14 +1237,15 @@ href="http://erlang.org/doc/man/erl.html#async_thread_stack_size">here</a>.
 <td><code>erlang.async_threads.stack_size</code></td>
 <td>If thread support is available in your Erlang VM, this parameter
 sets the amount of memory allocated to each asynchronous thread, which
-you can set as KB, MB, GB, etc. The valid range is 16-8192 KB. Although
-there is no default, we suggest a stack size of 16 kilowords, which
-translates to 64 KB on 32-bit architectures. This small default size has
-been chosen because the number of asynchronous threads, set using the
-<code>erlang.async_threads</code> parameter explained above, might be
-quite large. The 64 KB default is enough for drivers delivered with
-Erlang/OTP but might not be large enough to accommodate drivers that use
-the <code>driver_async()</code> functionality, documented <a
+you can set as KB, MB, GB, etc. The valid range is 16-8192 kilowords,
+which translates to 64-32768 KB on 32-bit architectures. Although there
+is no default, we suggest a stack size of 16 kilowords, which translates
+to 64 KB. This small default size has been chosen because the number of
+asynchronous threads, set using the <code>erlang.async_threads</code>
+parameter explained above, might be quite large. The 64 KB default is
+enough for drivers delivered with Erlang/OTP but might not be large
+enough to accommodate drivers that use the <code>driver_async()</code>
+functionality, documented <a
 href="http://www.erlang.org/doc/man/erl_driver.html">here</a>.</td>
 <td></td>
 </tr>
