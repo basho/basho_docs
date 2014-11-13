@@ -117,9 +117,11 @@ using the Solr API.
 
 #### When to use Search
 
-* When you need access to Solr's rich API, which enables you to query on
-    the basis of a wide variety of data types, including text, booleans,
-    ranges, and more
+* **When you need a rich querying API** --- Riak Search gives you access
+  to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
+  broad API, which enables you to query wilcards, strings, booleans,
+  ranges, and far more. You can even use Search in conjunction with
+  [[Riak Data Types|Using Data Types]].
 
 #### When not to use Search
 
@@ -152,6 +154,10 @@ convergence on their own.
 * [[Data Modeling with Riak Data Types]] --- An object modeling example
   that relies on Riak Data Types
 
+**Note**: Riak Data Types can be used in conjunction with Riak Search,
+meaning that the data stored in counters, sets, and maps can be indexed
+and search just like any other data in Riak.
+
 #### When to use Riak Data Types
 
 * **When your data fits** --- If the data that you're storing can be
@@ -161,6 +167,10 @@ convergence on their own.
   you'd like to store, but there may be workarounds to close the gap.
   Most things that can be stored as JSON, for example, can be stored as
   maps (though with modifications).
+* **When you don't need to reason about siblings** --- If your use case
+  doesn't require that your application have access to siblings and
+  allows for sibling convergence logic to take place at the Riak level
+  rather than at the application level
 
 #### When not to use Riak Data Types
 
@@ -190,7 +200,24 @@ you can employ, or you can write and run your own MapReduce jobs in
 
 #### When to use MapReduce
 
+* **Batch processing only** --- You should use MapReduce only when truly
+  truly necessary. MapReduce jobs are very computationally expensive and
+  can degrade performance in production clusters. You should restrict
+  MapReduce usage to infrequent batch processing operations, preferably
+  carried out at times when your cluster is experiencing load that is
+  well below average.
+
 #### When not to use MapReduce
+
+* **When another tool is necessary** --- Riak MapReduce should not be
+  thought of as, for example, Hadoop within Riak. It can be useful for
+  certain types of non-primary-key-based queries but should not be
+  thought of as a "Big Data" processing tool or as an indexing mechanism
+  or replacement for [[Riak Search|Using Search]].
+* **When another Riak feature will do** --- Before even considering
+  using MapReduce, you should thoroughly investigate [[Riak Search|Using
+  Search]] and [[secondary indexes|Using Secondary Indexes]] as possible
+  solutions to your needs.
 
 ### Secondary Indexes (2i)
 
@@ -209,7 +236,11 @@ Search|Using Search]].
 
 #### When to use secondary indexes
 
+* **When a small amount of metadata will do** ---
+
 #### When not to use secondary indexes
+
+* **When you require complex indexing** ---
 
 ### Mixed Approach
 
