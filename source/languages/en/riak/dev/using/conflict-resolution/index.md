@@ -9,21 +9,22 @@ keywords: [developers, conflict-resolution, vclocks, vector-clocks]
 
 One of Riak's [[central goals|Why Riak]] is high availability. It was
 built as a [[clustered|Clusters]] system in which any [[node|Riak
-Glossary#node]] is capable of receiving requests without requiring that
+Glossary#Node]] is capable of receiving requests without requiring that
 every node participate in each request.
 
 If you are using Riak in an [[eventually consistent|Eventual
 Consistency]] way, conflicts between object values on different nodes is
 unavoidable. Often, Riak can resolve these conflicts on its own
-internally, especially if you use context objects, i.e. [[vector
-clocks]] or [[dotted version vectors]], when updating objects.
-Instructions on this can be found in the section [[below|Conflict
+internally if you use causal context, i.e. [[vector clocks|Causal
+Context#Vector-Clocks]] or [[dotted version vectors|Causal
+Context#Dotted-Version-Vectors]], when updating objects.  Instructions
+on this can be found in the section [[below|Conflict
 Resolution#Siblings]].
 
-But even when you use context objects, Riak cannot always decide which
+But even when you use causal context, Riak cannot always decide which
 value is most causally recent, especially in cases involving concurrent
-updates. So how does Riak behave when vector clocks or dotted version
-vectors can't decide on a value? That is your choice. A full listing of
+updates to an object. So how does Riak behave when it can't decide on a
+single most-up-to-date value? **That is your choice**. A full listing of
 available options can be found in the [[section below|Conflict
 Resolution#Client-and-Server-side-Conflict-Resolution]]. For now,
 though, please bear in mind that we strongly recommend one of the
@@ -149,42 +150,44 @@ options:
   `false`, all bucket types that you create will have `allow_mult` set
   to `false` by default.
 
-## Context Objects
+## Causal Context
 
-When a value is stored in Riak, it is tagged with a **context object**,
-i.e. either a [[vector clock|Causal Context#Vector-Clocks]] or a
-[[dotted version vector|Causal Context#Dotted-Version-Vectors]],
-establishing the object's initial version. That vector clock changes
-value over time if the object is updated.
+When a value is stored in Riak, it is tagged with a piece of metadata
+called a **causal context** which establishes the object's initial
+version. Causal context comes in one of two possible forms, depending
+on what value you set for `dvv_enabled`. If set to `true`, [[dotted
+version vectors|Causal Context#Dotted-Version-Vectors]] will be used; if
+set to `false` (the default), [[vector clocks|Causal
+Context#Vector-Clocks]] will be used.
 
-Context objects enable Riak to compare the different values of objects
-stored in Riak and to determine a number of important things about those
-values:
+Causal context essentially enables Riak to compare the different values
+of objects stored in Riak and to determine a number of important things
+about those values:
 
  * Whether one value is a direct descendant of the other
  * Whether the values are direct descendants of a common parent
  * Whether the values are unrelated in recent heritage
 
-Using the information provided by a context object, Riak is frequently,
+Using the information provided by causal context, Riak is frequently,
 though not always, able to resolve conflicts between values without
 producing siblings.
 
-Vector clocks and dotted version vectors are non human readable and look
-something like this:
+Both vector clocks and dotted version vectors are non human readable and
+look something like this:
 
 ```
 a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 ```
 
-If `allow_mult` is set to `true`, you should _always_ use context
-objects when updating objects, _unless you are certain that no object
+If `allow_mult` is set to `true`, you should _always_ use causal context
+when updating objects, _unless you are certain that no object
 exists under that key_. Failing to use context objects with mutable
 data, especially for objects that are frequently updated, can lead to
 [[sibling explosion|Latency Reduction Checklist#Siblings]], which can
 produce a variety of problems in your cluster. Fortunately, much of
 the work involved with using context objects is handled automatically
-by Basho's official [[client libraries]]. Examples can be found in the
-section on siblings immediately below.
+by Basho's official [[client libraries]]. Examples can be found for each
+client library in the [[Object Updates]] document.
 
 ## Siblings
 
@@ -213,7 +216,7 @@ object.
 context object attached, siblings are very likely to be created. This is
 an unlikely scenario if you're using a Basho client library, but it
 _can_ happen if you are manipulating objects using a client like `curl`
-and forgetting to set the `X-Riak-Vclock` header
+and forgetting to set the `X-Riak-Vclock` header.
 
 ## Siblings in Action
 
