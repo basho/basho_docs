@@ -1222,6 +1222,46 @@ table below.
 <tbody>
 
 <tr>
+<td><code>erlang.async_threads</code></td>
+<td>The number of threads in the Erlang VM's asynchronous thread pool.
+The valid range is 0-1024. If thread support is not available, this
+parameter will have no impact; if thread support is available, the
+default value is 64. This is the equivalent of the <code>+a</code> flag.
+More information can be found <a
+href="http://erlang.org/doc/man/erl.html#async_thread_stack_size">here</a>.
+</td>
+<td><code>64</code> (if thread support is available)</td>
+</tr>
+
+<tr>
+<td><code>erlang.async_threads.stack_size</code></td>
+<td>If thread support is available in your Erlang VM, this parameter
+sets the amount of memory allocated to each asynchronous thread, which
+you can set as KB, MB, GB, etc. The valid range is 16-8192 KB. Although
+there is no default, we suggest a stack size of 16 kilowords, which
+translates to 64 KB on 32-bit architectures. This small default size has
+been chosen because the number of asynchronous threads, set using the
+<code>erlang.async_threads</code> parameter explained above, might be
+quite large. The 64 KB default is enough for drivers delivered with
+Erlang/OTP but might not be large enough to accommodate drivers that use
+the <code>driver_async()</code> functionality, documented <a
+href="http://www.erlang.org/doc/man/erl_driver.html">here</a>.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>erlang.distribution.net_ticktime</code></td>
+<td>The net kernel is an Erlang system process that provides various
+forms of network monitoring. In a Riak cluster, one of the functions of
+the net kernel is to periodically check node liveness. <strong>Tick
+time</strong> is the frequency with which those checks happen. This
+parameter determines that frequency for every <code>N</code>. If you set
+this parameter to <code>10</code>, for example, the tick will occur once
+every 10 seconds.</td>
+<td></td>
+</tr>
+
+<tr>
 <td><code>erlang.distribution.port_range.minimum</code></td>
 <td>For ease of firewall configuration, the Erlang distribution can be
 bound to a limited range of TCP ports. If this parameter is set, and
