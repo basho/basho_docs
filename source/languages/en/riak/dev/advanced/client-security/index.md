@@ -48,6 +48,7 @@ For managing security in Riak itself, see the following documents:
 We also provide client-library-specific guides for the following
 officially supported clients:
 
+* [[Java|Client-side Security: Java]]
 * [[Ruby|Client-side Security: Ruby]]
 * [[Python|Client-side Security: Python]]
 * [[Erlang|Client-side Security: Erlang]]
