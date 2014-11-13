@@ -764,6 +764,37 @@ successive page queries may use a different plan, and thus calculate
 alternate `score`s or filter different `_yz_id` values. We have plans to
 fix this shortcoming in the next version of Riak.
 
+## Riak Data Types and Search
+
+Although [[Riak Data Types|Data Types]] function differently from other
+Riak objects behind the scenes, when you're using Search you can think
+of them as normal Riak objects with special metadata attached (metadata
+that you can ignore). Riak's [[counters|Data Types#Counters]],
+[[sets|Data Types#Sets]], and [[maps|Data Types#Maps]] can be indexed
+and have their contents searched just like other Riak objects, although
+with some important differences to be aware of.
+
+### Data Type Schemas
+
+The default schemas for the three Data Types look like this:
+
+```xml
+<!-- counters -->
+<field name="counter" type="int" indexed="true" stored="true" multiValued="false" />
+
+<!-- sets -->
+<field name="set" type="string" indexed="true" stored="false" multiValued="false" />
+```
+
+```xml
+<!-- flags -->
+<dynamicField name="*_flag" type="boolean" indexed="true" stored="true" multiValued="false" />
+<dynamicField name="*_counter" type="int" indexed="true" stored="true" multiValued="false" />
+<dynamicField name="*_register" type="string" indexed="true" stored="true" multiValued="false" />
+<dynamicField name="*_set" type="string" indexed="true" stored="true" multiValued="true" />
+```
+
+
 ### MapReduce
 
 Riak Search allows for piping search results as inputs for
@@ -822,7 +853,7 @@ Functions](https://cwiki.apache.org/confluence/display/solr/Function+Queries#Fun
 ```curl
 curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i,7)" | jsonpp
 ```
- -->
+-->
 
 ## Feature List
 
