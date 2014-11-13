@@ -776,23 +776,66 @@ with some important differences to be aware of.
 
 ### Data Type Schemas
 
-The default schemas for the three Data Types look like this:
+There are two types of schemas related to Riak Data Types:
+
+* **Top-level schemas** relate to Data Types that are stored at the key
+    level (counters and sets)
+* **Embedded schemas** relate to Data Types nested inside of maps
+    (flags, counters, registers, and sets)
+
+You may notice that there are no schemas available for maps. This is
+because maps are essentially holders for other Data Types. Even when
+maps are embedded within other maps, all of the data that you might wish
+to index and search is contained in counters, sets, registers, and
+flags, which means that there's no need for schemas for maps.
+
+#### Top-level Schemas
+
+The default schema for counters indexes each counter as an integer.
 
 ```xml
-<!-- counters -->
 <field name="counter" type="int" indexed="true" stored="true" multiValued="false" />
-
-<!-- sets -->
-<field name="set" type="string" indexed="true" stored="false" multiValued="false" />
 ```
 
+The schema for sets indexes each element of a set as a string and
+indexes the set itself as multi-valued.
+
 ```xml
-<!-- flags -->
+<field name="set" type="string" indexed="true" stored="false" multiValued="true" />
+```
+
+#### Embedded Schemas
+
+For searching within [[maps|Data Types#Maps]], there are four schemas for
+embedded fields. Flags are indexed as booleans:
+
+```xml
 <dynamicField name="*_flag" type="boolean" indexed="true" stored="true" multiValued="false" />
+```
+
+Counters, like their top-level counterparts, are indexed as integers:
+
+```xml
 <dynamicField name="*_counter" type="int" indexed="true" stored="true" multiValued="false" />
+```
+
+Registers are indexed as strings, but unlike sets they are not
+multi-valued.
+
+```xml
 <dynamicField name="*_register" type="string" indexed="true" stored="true" multiValued="false" />
+```
+
+Finally, sets at the embedded level are indexed as multi-valued strings.
+
+```xml
 <dynamicField name="*_set" type="string" indexed="true" stored="true" multiValued="true" />
 ```
+
+### Indexing
+
+## Data Types and Search Example
+
 
 
 ### MapReduce
