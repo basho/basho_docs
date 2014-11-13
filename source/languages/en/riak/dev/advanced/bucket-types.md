@@ -376,7 +376,7 @@ bucket2.get('my_key')
                                  {<<"default">>, <<"my_bucket">>},
                                  <<"my_key">>),
 {ok, Obj2} = riakc_pb_socket:get(Pid,
-                                 {<<"my_bucket">>},
+                                 <<"my_bucket">>,
                                  <<"my_key">>).
 ```
 
