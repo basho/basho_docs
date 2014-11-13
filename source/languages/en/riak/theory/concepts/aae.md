@@ -37,7 +37,7 @@ can be found in the documentation on [[using strong consistency]].
 
 ## Read Repair vs. Active Anti-Entropy
 
-In versions of Riak prior to 1.3, replica conflicts were were healed via
+In versions of Riak prior to 1.3, replica conflicts were healed via
 [[read repair|Riak Glossary#read-repair]] alone, which is a _passive_
 anti-entropy mechanism that heals object conflicts only when a read
 request reaches Riak from a client. Under read repair, if the
