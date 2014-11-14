@@ -152,18 +152,17 @@ If you're missing any of the above fields, Riak Search will reject your
 custom schema. The value for `<uniqueKey>` _must_ be `_yz_id`.
 
 In the table below, you'll find a description of the various required
-fields. You'll rarely need to use any fields other than `_yz_rt`
-([[bucket type||Using Bucket Types]]), `_yz_rb` (bucket) and `_yz_rk`
-(Riak key). On occasion, `_yz_err` can be helpful if you suspect that
-your extractors are failing. Malformed JSON or XML will cause Riak
-Search to index a key and set `_yz_err` to 1, allowing you to reindex
-with proper values later.
+fields. You'll rarely need to use any fields other than `_yz_rt` (bucket
+type), `_yz_rb` (bucket) and `_yz_rk` (Riak key). On occasion, `_yz_err`
+can be helpful if you suspect that your extractors are failing.
+Malformed JSON or XML will cause Riak Search to index a key and set
+`_yz_err` to 1, allowing you to reindex with proper values later.
 
 Field   | Name | Description
 :-------|:-----|:-----------
 `_yz_id`  | ID | Unique identifier of this Solr document
-`_yz_ed`  | Entropy Data | Data related to anti-entropy
-`_yz_pn`  | Partition Number | Used as a filter query param to remove duplicate replicas across nodes
+`_yz_ed`  | Entropy Data | Data related to [[active anti-entropy]]
+`_yz_pn`  | Partition Number | Used as a filter query parameter to remove duplicate replicas across nodes
 `_yz_fpn` | First Partition Number | The first partition in this doc's preflist, used for further filtering on overlapping partitions
 `_yz_vtag`| VTag | If there is a sibling, use vtag to differentiate them
 `_yz_rk`  | Riak Key | The key of the Riak object this doc corresponds to
