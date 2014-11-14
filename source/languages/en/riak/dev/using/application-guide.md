@@ -104,8 +104,8 @@ well as relevant links to Basho documentation.
 Riak Search provides you with [Apache
 Solr](http://lucene.apache.org/solr/)-powered full-text indexing and
 querying on top of the scalability, fault tolerance, and operational
-simplicity of Riak. Our motto for Riak Search: "Write it like Riak.
-Query it like Solr." That is, you can store objects in Riak [[like
+simplicity of Riak. Our motto for Riak Search: **Write it like Riak.
+Query it like Solr**. That is, you can store objects in Riak [[like
 normal|The Basics]] and run full-text queries on those objects later on
 using the Solr API.
 
@@ -119,16 +119,30 @@ using the Solr API.
 
 * **When you need a rich querying API** --- Riak Search gives you access
   to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
-  broad API, which enables you to query wilcards, strings, booleans,
-  ranges, and far more. You can even use Search in conjunction with
-  [[Riak Data Types|Using Data Types]].
+  broad API, which enables you to query on the basis of wilcards,
+  strings, booleans, geolocation, ranges, language-specific fulltext,
+  and far more. You can even use Search in conjunction with [[Riak Data
+  Types|Using Data Types]] \(documentation coming soon).
+
+<div class="note">
+<div class="title">Search is preferred for querying</div>
+In general, you should consider Search to be the default choice for
+nearly all querying needs that go beyond basic CRUD/KV operations. If
+your use case demands some sort of querying mechanism and you're in
+doubt about what to use, you should assume that Search is the right tool
+for you.
+</div>
 
 #### When not to use Search
 
 * **When querying on the basis of object metadata will suffice** --- If
     you don't need access to the actual contents of objects but still
     wish to mark objects with queryable metadata, we recommend [[using
-    secondary indexes]] instead.
+    secondary indexes]] instead of Search.
+* **In large clusters** --- In clusters larger than 8-10 nodes, you may
+    experience slower performance. In those clusters, we would recommend
+    either using Search in a limited fashion, setting up a separate,
+    dedicated cluster for Search data, or finding another solution.
 
 ### Riak Data Types
 
@@ -240,6 +254,7 @@ Search|Using Search]].
 
 #### When not to use secondary indexes
 
+* **Basically always** ---
 * **When you require complex indexing** ---
 
 ### Mixed Approach
