@@ -250,12 +250,17 @@ Search|Using Search]].
 
 #### When to use secondary indexes
 
-* **When a small amount of metadata will do** ---
+* **When you require deep pagination** --- At the moment, 2i's
+    deep pagination capabilities are more performant than those offered
+    by Search if you require pagination of more than 3-5 pages. This
+    will change, however, in the future, at which point we will
+    recommend using Search instead.
 
 #### When not to use secondary indexes
 
-* **Basically always** ---
-* **When you require complex indexing** ---
+* **For all other querying purposes** --- If your use case does not
+    involve deep pagination, we recommend Search over 2i for _all_
+    querying purposes.
 
 ### Mixed Approach
 
