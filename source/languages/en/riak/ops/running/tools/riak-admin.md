@@ -330,9 +330,9 @@ riak-admin ringready
 <div class="title">Deprecation notice</div>
 As of Riak version 2.0.1, this command has been deprecated. While it
 will continue to work, it provides only limited insight into existing
-handoff processes. We strongly recommend using one of the available,
-more specific subcommands instead. More information can be found in the
-sections below, beginning with [[transfers status|riak-admin Command
+handoff processes. We strongly recommend using one of the more specific
+subcommands instead. More information can be found in the sections
+below, beginning with [[transfers status|riak-admin Command
 Line#transfers-status]].
 </div>
 
@@ -347,8 +347,8 @@ riak-admin transfers
 ## transfers status
 
 Provides the same details given when you run the `[[riak-admin
-transfers|riak-admin Command Line#transfers]]` but with more options and
-an improved display format.
+transfers|riak-admin Command Line#transfers]]` command, but with more
+options and an improved display format.
 
 ```bash
 riak-admin transfers status
@@ -361,6 +361,14 @@ Available view options:
     specific partition ID or index `N`
 * `--partition-ids`, `-x` --- Only display partition IDs instead of
     partition indexes
+
+When you run this command, you will see a list of transfers by kind. The
+kinds are:
+
+* Ownership
+* Repair
+* Resize
+* Fallback
 
 ## transfers ownership
 
@@ -382,7 +390,8 @@ get insight into a specific node:
 riak-admin transfers ownership <nodename>
 ```
 
-Available view options:
+Both the cluster- and node-level commands have the following view
+options:
 
 * `--verbose`, `-v` --- Display a verbose view
 * `--partition <N>`, `-p <N>` --- Only display information about a
