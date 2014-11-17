@@ -826,6 +826,33 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i
 
 ## Custom Search Extractors
 
+Solr has default extractors for a wide variety of data types, including
+JSON, XML, and plaintext. Riak Search ships with the following
+extractors:
+
+Content Type | Erlang Module
+:------------|:-------------
+`application/json` | `yz_json_extractor`
+`application/xml` | `yz_xml_extractor`
+`text/plain` | `yz_text_extractor`
+`text/xml` | `yz_xml_extractor`
+No specified type | `yz_noop_extractor`
+
+If you're working with a data format that does not have a default Solr
+extractor, you can create your own and register it with Riak Search.
+We'll show you how to do so by way of example.
+
+### An Extractor for HTTP Headers
+
+Let's say that we're storing HTTP header packet data in Riak. Here's an
+example of such a packet:
+
+```
+GET http://www.google.com HTTP/1.1
+```
+
+### Basic Extractor Interface
+
 Basic interface:
 
 ```erlang
@@ -853,6 +880,67 @@ snippet in the Erlang shell:
 ```erlang
 search_test_extractor:extract("hello").
 ```
+
+Upon running this command, the value `hello` would be indexed in Solr
+under the fieldname `text`.
+
+### A Custom Extractor
+
+```erlang
+-module(yz_httpheader_extractor).
+-compile(export_all).
+
+%% The extract/1 function should return only the original Value and an
+%% empty list, since no Opts are provided:
+extract(Value) ->
+    extract(Value, []).
+
+%% If an Opts variable is provided to our extract/2 function, we should
+%% use the decode_packet function explained above to index the three
+%% fields:
+extract(Value, _Opts) ->
+    {ok,
+        {http_request,
+         Method,
+         {absoluteURI, http, Host, undefined, Uri},
+         _Version},
+        _Rest} = erlang:decode_packet(http, Value, []),
+    %% Finally, a list of three (atom, value) tuples is returned:
+    [{method, Method}, {host, list_to_binary(Host)}, {uri, list_to_binary(Uri)}].
+```
+
+### Registering Custom Extractors
+
+In order to use a custom extractor, you must create a compiled `.beam`
+file out of your `.erl` extractor file and then tell Riak where that
+file is located. Let's say that we have created a
+`search_test_extractor.erl` file in the directory `/opt/beams`. First,
+we need to compile that file:
+
+```bash
+
+erlc search_test_extractor.erl
+```
+
+To instruct Riak where to find the resulting
+`search_test_extractor.beam` file, we'll need to add a line to an
+`advanced.config` file in the node's `/etc` directory (more information
+can be found in our documentation on [[advanced
+configuration|Configuration Files#Advanced-Configuration]]). Here's an
+example:
+
+```advancedconfig
+[
+  %% Other configs
+  {vm_args, [
+    {"-pa /opt/beams", ""}
+  ]},
+  %% Other configs
+]
+```
+
+This will instruct the Erlang VM on which Riak runs to look for compiled
+`.beam` files in the proper directory.
 
 ## Feature List
 
