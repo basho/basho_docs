@@ -9,10 +9,13 @@ keywords: [developers, security, ssl, certificate]
 
 Versions of Riak 2.0 and later come equipped with a [[security
 subsystem|Authentication and Authorization]] that enables you to choose
-(a) which Riak users/clients are authorized to perform a wide variety of
-Riak operations and (b) how those users/clients are required to
-authenticate themselves. The following four authentication mechanisms,
-aka [[security sources|Managing Security Sources]] are available:
+
+* which Riak users/clients are authorized to perform a wide variety of
+  Riak operations, and
+* how those users/clients are required to authenticate themselves.
+
+The following four authentication mechanisms, aka [[security
+sources|Managing Security Sources]] are available:
 
 * [[Trust|Managing Security Sources#Trust-based-Authentication]]-based
   authentication enables you to specify trusted
@@ -39,8 +42,8 @@ operations to use certificate auth, while clients performing [[K/V
 Operations|The Basics]] have to use username and password. The approach
 that you adopt will depend on your security needs.
 
-This document is an introduction to client-side authentication in Riak.
-For managing security in Riak itself, see the following documents:
+This document provides a general overview of how that works. For
+managing security in Riak itself, see the following documents:
 
 * [[Authentication and Authorization]]
 * [[Managing Security Sources]]
@@ -55,10 +58,10 @@ officially supported clients:
 
 ## Certificates, Keys, and Authorities
 
-If Riak security is enabled, all client operations, regardless
-of the security source you choose for those clients, must be over a
-secure SSL connection. If you are using a self-generated Certificate
-Authority (CA), Riak and connecting clients will need to share that CA.
+If Riak security is enabled, all client operations, regardless of the
+security source you choose for those clients, must be over a secure SSL
+connection. If you are using a self-generated Certificate Authority
+(CA), Riak and connecting clients will need to share that CA.
 
 To use certificate-based auth, you will need to create a Public Key
 Infrastructure (PKI) based on

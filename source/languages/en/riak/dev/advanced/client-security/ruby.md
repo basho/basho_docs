@@ -7,19 +7,19 @@ audience: advanced
 keywords: [developers, security, ssl, ruby]
 ---
 
-This tutorial shows you how to set up a Riak Ruby client to
-authenticate itself when connecting to Riak.
+This tutorial shows you how to set up a Riak Ruby client to authenticate
+itself when connecting to Riak.
 
 If you are using [[trust-|Managing Security Sources]] or [[PAM|Managing
 Security Sources#PAM-based-authentication]]-based authentication, you
-can use the security setup described [[below|Client-side Security:
-Ruby#Ruby-Client-Basics]]. [[Password|Managing Security
+can use the security setup described in the [[Ruby Client
+Basics|Client-side Security: Ruby#Ruby-Client-Basics]] section.
+[[Password|Managing Security
 Sources#Password-based-Authentication]]-based authentication is covered
 in a [[later section|Client-side Security:
-Ruby#Password-based-Authentication]]. If you are using
-[[certificate|Managing Security
-Sources#Certificate-based-Authentication]]-based authentication, follow
-the instructions in the [[section below|Client-side Security:
+Ruby#Password-based-Authentication]], while [[certificate|Managing
+Security Sources#Certificate-based-Authentication]]-based authentication
+is covered [[further down|Client-side Security:
 Ruby#Certificate-Based-Authentication]].
 
 <div class="note">
@@ -32,11 +32,12 @@ example purposes.
 
 ## Ruby Client Basics
 
-When connecting to Riak using a Ruby-based client, you typically
-instantiate an object from the `Riak::Client` class that then handles
-all interactions with Riak. All authentication-related information that
-needs to be used by the client object can be passed to the object upon
-instantiation in an `authentication` hash.
+When connecting to Riak using a Ruby-based client, you must instantiate
+an object from the `Riak::Client` class that then handles interactions
+with Riak (you may have more than one client object active in an
+application if you wish). All authentication-related information that
+needs to be used can be passed to the object upon instantiation in an
+`authentication` hash.
 
 If you are using Riak Security, _all_ connecting clients should have
 access to the same Certificate Authority (CA) used on the server side,
