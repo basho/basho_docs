@@ -771,8 +771,7 @@ Riak objects behind the scenes, when you're using Search you can think
 of them as normal Riak objects with special metadata attached (metadata
 that you can ignore). Riak's [[counters|Data Types#Counters]],
 [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]] can be indexed
-and have their contents searched just like other Riak objects, although
-with some important differences to be aware of.
+and have their contents searched just like other Riak objects.
 
 ### Data Type Schemas
 
@@ -789,25 +788,43 @@ maps are embedded within other maps, all of the data that you might wish
 to index and search is contained in counters, sets, registers, and
 flags, which means that there's no need for schemas for maps.
 
+The sections immediately below will provide the default schemas for each
+Riak Data Type. These need to be added to the `fields` list in your XML
+schema, which looks like this:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="my_custom_schema" version="1.5">
+  <fields>
+    <!-- insert field definitions here -->
+  </fields>
+
+  <!-- other schema info -->
+</schema>
+```
+
 #### Top-level Schemas
 
-The default schema for counters indexes each counter as an integer.
+The default schema for [[counters|Data Types#Counters]] indexes each
+counter as an integer.
 
 ```xml
 <field name="counter" type="int" indexed="true" stored="true" multiValued="false" />
 ```
 
-The schema for sets indexes each element of a set as a string and
-indexes the set itself as multi-valued.
+The schema for [[sets|Data Types#Sets]] indexes each element of a set as
+a string and indexes the set itself as multi-valued.
 
 ```xml
 <field name="set" type="string" indexed="true" stored="false" multiValued="true" />
 ```
 
+As explained above, there are no top-level schemas for maps.
+
 #### Embedded Schemas
 
-For searching within [[maps|Data Types#Maps]], there are four schemas for
-embedded fields. Flags are indexed as booleans:
+For searching within [[maps|Data Types#Maps]], there are four schemas
+for embedded, aka dynamic, fields. Flags are indexed as booleans:
 
 ```xml
 <dynamicField name="*_flag" type="boolean" indexed="true" stored="true" multiValued="false" />
