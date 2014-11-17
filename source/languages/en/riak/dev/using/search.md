@@ -824,6 +824,36 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i
 ```
  -->
 
+## Custom Search Extractors
+
+Basic interface:
+
+```erlang
+-module(search_test_extractor).
+-include("yokozuna.hrl").
+-compile(export_all).
+
+extract(Value) ->
+    extract(Value, []).
+
+extract(Value, Opts) ->
+    FieldName = field_name(Opts),
+    [{FieldName, Value}].
+
+-spec field_name(proplist()) -> any().
+field_name(Opts) ->
+    proplists:get_value(field_name, Opts, text).
+```
+
+This extractor takes the contents of a `Value` and returns a proplist
+with a single field name and the single value associated with that name.
+By default, the field name is `text`. If you ran the following Erlang
+snippet in the Erlang shell:
+
+```erlang
+search_test_extractor:extract("hello").
+```
+
 ## Feature List
 
 Riak Search 2.0 is more than a distributed search engine like
