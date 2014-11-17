@@ -10,8 +10,6 @@ moved: {
 }
 ---
 
-# Keys and Objects
-
 In an RDBMS, data is organized by tables that are individually
 identifiable entities. Within those tables exist rows of a data
 organized into columns. It is possible to retrieve or update entire
