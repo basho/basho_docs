@@ -146,7 +146,7 @@ sudo apt-get install libwxbase2.8 libwxgtk2.8-dev libqt4-opengl-dev
 Use this command to install the required dependency packages:
 
 ```bash
-sudo yum install gcc glibc-devel make ncurses-devel openssl-devel autoconf
+sudo yum install gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoconf java-1.8.0-openjdk-devel
 ```
 
 ### Erlang
@@ -159,6 +159,21 @@ tar zxvf otp_src_R16B02-basho5.tar.gz
 cd otp_src_R16B02-basho5
 ./configure && make && sudo make install
 ```
+
+<div class="note">
+<div class="title">Note for RHEL6/CentOS6</div>
+In certain versions of RHEL6 and CentO6 the `openSSL-devel` package
+ships with Elliptical Curve Cryptography partially disabled. To
+communicate this to Erlang and prevent compile- and run-time errors, the
+environment variable `CFLAGS="-DOPENSSL_NO_EC=1"` needs to be added to
+Erlang's `./configure` call.
+
+The full `make` invocation then becomes
+
+```bash
+CFLAGS="-DOPENSSL_NO_EC=1" ./configure && make && sudo make install
+```
+</div>
 
 ## Installing on Mac OS X
 
