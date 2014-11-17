@@ -162,16 +162,17 @@ cd otp_src_R16B02-basho5
 
 <div class="note">
 <div class="title">Note for RHEL6/CentOS6</div>
-In certain versions of RHEL6 and CentO6 the openSSL-devel package ships with
-Elliptical Curve Cryptography (partially?) disabled. To communicate this to
-Erlang and prevent compile- and run-time errors, the environment variable
-`CFLAGS="-DOPENSSL_NO_EC=1"` needs to be added to Erlang's `./configure` call.
+In certain versions of RHEL6 and CentO6 the `openSSL-devel` package
+ships with Elliptical Curve Cryptography partially disabled. To
+communicate this to Erlang and prevent compile- and run-time errors, the
+environment variable `CFLAGS="-DOPENSSL_NO_EC=1"` needs to be added to
+Erlang's `./configure` call.
 
 The full `make` invocation then becomes
 
-````bash
+```bash
 CFLAGS="-DOPENSSL_NO_EC=1" ./configure && make && sudo make install
-````
+```
 </div>
 
 ## Installing on Mac OS X
