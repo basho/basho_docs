@@ -61,7 +61,7 @@ doc.
 
 Data | Directory
 :----|:---------
-Bitcask | `var/lib/riak/bitcask`
+Bitcask | `/var/lib/riak/bitcask`
 LevelDB | `/var/lib/riak/leveldb`
 Ring | `/var/lib/riak/ring`
 Configuration | `/etc/riak`
