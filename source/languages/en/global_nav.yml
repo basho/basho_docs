@@ -238,6 +238,7 @@ riak:
           - "[[Active Anti-Entropy]]"
           - "[[Replication]]"
           - "[[Capability Negotiation]]"
+          - "[[Vnodes]]"
       - title: "Riak Compared to"
         sub:
           # - "[[Riak Comparisons Overview|Riak Comparisons]]"
