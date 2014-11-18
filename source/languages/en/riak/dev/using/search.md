@@ -849,20 +849,106 @@ Finally, sets at the embedded level are indexed as multi-valued strings.
 <dynamicField name="*_set" type="string" indexed="true" stored="true" multiValued="true" />
 ```
 
-### Indexing
-
-
-
-## Data Types and Search Example
+## Data Types and Search Examples
 
 In this section, we'll start with two simple examples, one involving
-sets and the other involving counters. Later on, we'll introduce a
+counters and the other involving sets. Later on, we'll introduce a
 slightly more complex map example.
+
+### Counters Example
+
+Let's say that we're storing scores in a multiplayer online game in
+Riak. The game is called Boulderdash and it involves smashing digital
+boulders armed with nothing but witty retorts and arcane trivia
+knowledge. We'll create and activate a [[bucket type|Using Bucket
+Types]] for [[storing counters|Using Data Types#Counters]] simply called
+`counters`, like so:
+
+```bash
+riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
+riak-admin bucket-type activate counters
+```
+
+Now, we'll create a search index called `scores` that uses the default
+schema (as in some of the examples above):
+
+```bash
+curl -XPUT $RIAK_HOST/search/index/hobbies \
+  -H 'Content-Type: application/json' \
+  -d '{"schema":"_yz_default"}'
+```
+
+Now, we can modify our `counters` bucket type to associate that bucket
+type with our `scores` index:
+
+```bash
+riak-admin bucket-type update counters '{"props":{"search_index":"scores"}}'
+```
+
+At this point, all of the counters that we stored in any bucket with the
+bucket type `counters` will be indexed in our `scores` index. So let's
+start playing with some counters. All counters will be stored in the
+bucket `players`, while the key for each counter will be the username of
+each player:
+
+```python
+from riak.datatypes import Counter
+
+bucket = client.bucket_type('counters').bucket('people')
+
+christopher_hitchens_counter = Counter(bucket, 'chris_hitchens')
+christopher_hitchens_counter.increment(10)
+christopher_hitchens_counter.store()
+
+joan_rivers_counter = Counter(bucket, 'joan_rivers')
+joan_rivers_counter.increment(25)
+joan_rivers_counter.store()
+```
+
+So now we have two counters, one with a value of 10 and the other with a
+value of 25. Let's query to see how many counters have a value greater
+than 20, just to be sure:
+
+```python
+results = client.fulltext_search('scores', 'counter:[20 TO *]')
+# This should return a dict with fields like 'num_found' and 'docs'
+
+results['num_found']
+# 1
+```
+
+And there we are: only one of our two stored sets has a value over 20.
+To find out which set that is, we can dig into our results:
+
+```python
+doc = results['docs'][0]
+
+# The key
+doc['_yz_rk'] # 'joan_rivers'
+
+# The bucket
+doc['_yz_rb'] # 'people'
+
+# The bucket type
+doc['_yz_rt'] # 'counters'
+```
+
+Alternatively, we can see how many counters have values below 15:
+
+```python
+results = client.fulltext_search('scores', 'counter:[* TO 15]')
+```
+
+Or we can see how many counters have a value of 17 exactly:
+
+```python
+results = client.fulltext_search('scores', 'counter:17')
+```
 
 ### Sets Example
 
 Let's say that we're storing information about the hobbies of a group of
-people in sets. We've created and activated a [[bucket type|Using Bucket
+people in sets. We'll create and activate a [[bucket type|Using Bucket
 Types]] for [[storing sets|Using Data Types#Sets]] simply called `sets`,
 like so:
 
@@ -880,8 +966,8 @@ curl -XPUT $RIAK_HOST/search/index/hobbies \
   -d '{"schema": "_yz_default"}'
 ```
 
-Now, we can modify our `sets` bucket type to associate it that bucket
-type with our `hobbies` index:
+Now, we can modify our `sets` bucket type to associate that bucket type
+with our `hobbies` index:
 
 ```bash
 riak-admin bucket-type update sets '{"props":{"search_index":"hobbies"}}'
@@ -936,22 +1022,51 @@ results['num_found']
 
 Just as expected, both sets we stored contain the element `winning`.
 
-
-
+### Maps Example
 
 This example will build on the example in the [[Using Data Types]]
 tutorial. That tutorial walks you through storing CMS-style user data in
-core': 0.3068528175354004, ''Riak [[maps|Using Data Types#Maps]], and we'd suggest that you familiar
-yourself with that tutorial first. More specifically, user data is
-stored in the following fields in each users's map:
+Riak [[maps|Using Data Types#Maps]], and we'd suggest that you
+familiarize yourself with that tutorial first. More specifically, user
+data is stored in the following fields in each users's map:
 
 * first name in a `first_name` register
 * last name in a `last_name` register
-* whether the user is an enterprise customer in an `enterprise_customer` flag
-* the number of times the user has visited the company page in a `page_visits` counter
+* whether the user is an enterprise customer in an `enterprise_customer`
+  flag
+* the number of times the user has visited the company page in a
+  `page_visits` counter
 * a list of the user's interests in an `interests` set
 
-That example also walks through
+First, let's create and activate a bucket type simply called `maps` that
+is set up to store Riak maps:
+
+```bash
+riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
+riak-admin bucket-type activate maps
+```
+
+Now, let's create a search index called `customers` using the default
+schema:
+
+```curl
+curl -XPUT $RIAK_HOST/search/index/customers \
+  -H 'Content-Type: application/json' \
+  -d '{"schema":"_yz_default"}'
+```
+
+With our index created, we can associate our new `customers` index with
+our `maps` bucket type:
+
+```bash
+riak-admin bucket-type update maps '{"props":{"search_index":"customers"}}'
+```
+
+Now we can create some maps along the lines suggested above:
+
+```python
+cumberbatc
+```
 
 ### MapReduce
 
