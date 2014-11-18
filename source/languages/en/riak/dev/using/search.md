@@ -851,9 +851,107 @@ Finally, sets at the embedded level are indexed as multi-valued strings.
 
 ### Indexing
 
+
+
 ## Data Types and Search Example
 
+In this section, we'll start with two simple examples, one involving
+sets and the other involving counters. Later on, we'll introduce a
+slightly more complex map example.
 
+### Sets Example
+
+Let's say that we're storing information about the hobbies of a group of
+people in sets. We've created and activated a [[bucket type|Using Bucket
+Types]] for [[storing sets|Using Data Types#Sets]] simply called `sets`,
+like so:
+
+```bash
+riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
+riak-admin bucket-type activate sets
+```
+
+Now, we'll create a Search index called `hobbies` that uses the default
+schema (as in some of the examples above):
+
+```bash
+curl -XPUT $RIAK_HOST/search/index/hobbies \
+  -H 'Content-Type: application/json' \
+  -d '{"schema": "_yz_default"}'
+```
+
+Now, we can modify our `sets` bucket type to associate it that bucket
+type with our `hobbies` index:
+
+```bash
+riak-admin bucket-type update sets '{"props":{"search_index":"hobbies"}}'
+```
+
+Now, all of the sets that we store in any bucket with the bucket type
+`sets` will be automatically indexed as a set. So let's say that we
+store three sets for two different people describing their respective
+hobbies, in the bucket `people`:
+
+```python
+from riak.datatypes import Set
+
+people_bucket = client.bucket_type('sets').bucket('people')
+mike_ditka_set = Set(people_bucket, 'ditka')
+mike_ditka_set.add('football')
+mike_ditka_set.add('winning')
+mike_ditka_set.store()
+
+ronnie_james_dio_set = Set(people_bucket, 'dio')
+ronnie_james_dio_set.add('wailing')
+ronnie_james_dio_set.add('rocking')
+ronnie_james_dio_set.add('winning')
+mike_ditka_set.store()
+```
+
+Now, we can query our `hobbies` index to see if anyone has the hobby
+`football`:
+
+```python
+results = client.fulltext_search('hobbies', 'set:football')
+# This should return a dict with fields like 'num_found' and 'docs'
+```
+
+Let's see how many sets contain the element `football`:
+
+```python
+results['num_found']
+
+# 1
+```
+
+Success! We stored two sets, only one of which contains the element
+`football`. Now, let's see how many sets contain the element `winning`:
+
+```python
+results = client.fulltext_search('hobbies', 'set:winning')
+results['num_found']
+
+# 2
+```
+
+Just as expected, both sets we stored contain the element `winning`.
+
+
+
+
+This example will build on the example in the [[Using Data Types]]
+tutorial. That tutorial walks you through storing CMS-style user data in
+core': 0.3068528175354004, ''Riak [[maps|Using Data Types#Maps]], and we'd suggest that you familiar
+yourself with that tutorial first. More specifically, user data is
+stored in the following fields in each users's map:
+
+* first name in a `first_name` register
+* last name in a `last_name` register
+* whether the user is an enterprise customer in an `enterprise_customer` flag
+* the number of times the user has visited the company page in a `page_visits` counter
+* a list of the user's interests in an `interests` set
+
+That example also walks through
 
 ### MapReduce
 
