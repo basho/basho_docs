@@ -264,3 +264,4 @@ information can be found in the [[Object Updates]] doc.
 * [Evaluating Dotted Version Vectors in Riak](http://asc.di.fct.unl.pt/~nmp/pubs/inforum-2011-2.pdf)
 * [Improving Logical Clocks in Riak with Dotted Version Vectors: A Case Study](http://paginas.fe.up.pt/~prodei/dsie12/papers/paper_19.pdf)
 * [Dotted Version Vector Sets](https://github.com/ricardobcl/Dotted-Version-Vectors)
+* [A History of Time in Riak](https://www.youtube.com/watch?v=3SWSw3mKApM)

@@ -21,6 +21,17 @@ Context#Dotted-Version-Vectors]], when updating objects.  Instructions
 on this can be found in the section [[below|Conflict
 Resolution#Siblings]].
 
+<div class="note">
+<div class="title">Important note on terminology</div>
+In versions of Riak prior to 2.0, vector clocks were the only causal
+context mechanism available in Riak, which changed with the introduction
+of dotted version vectors in 2.0. Please note that you may frequent find
+terminology in client library APIs, internal Basho documentation, and
+more that uses the term "vector clock" interchangeably with causal
+context in general. Riak's HTTP API still uses a `X-Riak-Vclock` header,
+for example, even if you are using dotted version vectors.
+</div>
+
 But even when you use causal context, Riak cannot always decide which
 value is most causally recent, especially in cases involving concurrent
 updates to an object. So how does Riak behave when it can't decide on a
@@ -180,13 +191,13 @@ a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 ```
 
 If `allow_mult` is set to `true`, you should _always_ use causal context
-when updating objects, _unless you are certain that no object
-exists under that key_. Failing to use context objects with mutable
-data, especially for objects that are frequently updated, can lead to
+when updating objects, _unless you are certain that no object exists
+under that key_. Failing to use causal context with mutable data,
+especially for objects that are frequently updated, can lead to
 [[sibling explosion|Latency Reduction Checklist#Siblings]], which can
-produce a variety of problems in your cluster. Fortunately, much of
-the work involved with using context objects is handled automatically
-by Basho's official [[client libraries]]. Examples can be found for each
+produce a variety of problems in your cluster. Fortunately, much of the
+work involved with using causal context is handled automatically by
+Basho's official [[client libraries]]. Examples can be found for each
 client library in the [[Object Updates]] document.
 
 ## Siblings
@@ -201,22 +212,23 @@ inside of a single object:
 clients, Riak may not be able to choose a single value to store, in
 which case the object will be given a sibling. These writes could happen
 on the same node or on different nodes.
-2. **Stale context object** --- Writes from any client using a stale
-context object value. This is a less likely scenario if a client updates
-the object by first reads an object, fetches the context object
-currently attached to the object, and then returns that context object
-to Riak when performing the update. However, even if a client follows
+2. **Stale causal context** --- Writes from any client using a stale
+[[causal context]]. This is a less likely scenario if a client updates
+the object by reading the object first, fetching the causal context
+currently attached to the object, and then returning that causal context
+to Riak when performing the update (fortunately, our client libraries
+handle much of this automatically). However, even if a client follows
 this protocol when performing updates, a situation may occur in which an
 update happens from a different client while the read/write cycle is
 taking place. This may cause the first client to issue the write with an
-old context object value and for a sibling to be created. A client is
+old causal context value and for a sibling to be created. A client is
 "misbehaved" if it habitually updates objects with a stale or no context
 object.
-3. **Missing Context Object** --- If an object is updated with no
-context object attached, siblings are very likely to be created. This is
-an unlikely scenario if you're using a Basho client library, but it
-_can_ happen if you are manipulating objects using a client like `curl`
-and forgetting to set the `X-Riak-Vclock` header.
+3. **Missing causal context** --- If an object is updated with no causal
+context attached, siblings are very likely to be created. This is an
+unlikely scenario if you're using a Basho client library, but it _can_
+happen if you are manipulating objects using a client like `curl` and
+forgetting to set the `X-Riak-Vclock` header.
 
 ## Siblings in Action
 
@@ -233,7 +245,7 @@ riak-admin bucket-type status siblings_allowed
 If the type has been activated, running the `status` command should
 return `siblings_allowed is active`. Now, we'll create two objects and
 write both of them to the same key without first fetching the object
-(which obtains the context object):
+(which obtains the causal context):
 
 ```java
 Location bestCharacterKey =
@@ -313,7 +325,7 @@ guide|Five-Minute Install#setting-up-your-riak-client]].
 </div>
 
 At this point, multiple objects have been stored in the same key without
-passing any context objects to Riak. Let's see what happens if we try to
+passing any causal context to Riak. Let's see what happens if we try to
 read contents of the object:
 
 ```java
@@ -386,7 +398,7 @@ stimpy
 If you select the first of the two siblings and retrieve its value, you
 should see `Ren` and not `Stimpy`.
 
-### Using Context Objects
+### Using Causal Context
 
 Once you are presented with multiple options for a single value, you
 must determine the correct value. In an application, this can be done
@@ -400,7 +412,7 @@ client-library-specific documentation for the following languages:
 * [[Python|Conflict Resolution: Python]]
 
 We won't deal with conflict resolution in this section. Instead, we'll
-focus on how to use context objects.
+focus on how to use causal context.
 
 After having written several objects to Riak in the section above, we
 have values in our object: `Ren` and `Stimpy`. But let's say that we
@@ -412,9 +424,9 @@ case. In order to resolve the conflict, we need to do three things:
 3. Write the object back to the `best_character` key
 
 What happens when we fetch the object first, prior to the update, is
-that the object handled by the client has a context object attached. At
+that the object handled by the client has a causal context attached. At
 that point, we can modify the object's value, and when we write the
-object back to Riak, _the context object will automatically be attached
+object back to Riak, _the causal context will automatically be attached
 to it_. Let's see what that looks like in practice:
 
 ```java
@@ -462,7 +474,8 @@ new_obj.store(vclock=vclock)
 ```curl
 curl -i http://localhost:8098/types/siblings_allowed/buckets/nickolodeon/keys/best_character
 
-# In the HTTP interface, the vector clock can be found in the "X-Riak-Vclock" header. That will look something like this:
+# In the HTTP interface, the causal context can be found in the
+# "X-Riak-Vclock" header. That will look something like this:
 
 X-Riak-Vclock: a85hYGBgzGDKBVIcR4M2cgczH7HPYEpkzGNlsP/VfYYvCwA=
 
@@ -522,7 +535,8 @@ better performance. Some use cases where you might want to use
 (no updates).
 
 <div class="note">
-<div class="title">Note on combining <code>allow_mult</code> and <code>last_write_wins</code></div>
+<div class="title">Note on combining <code>allow_mult</code> and
+<code>last_write_wins</code></div>
 The combination of setting both the <code>allow_mult</code> and
 <code>last_write_wins</code> properties to <code>true</code> leads to
 undefined behavior and should not be used.
