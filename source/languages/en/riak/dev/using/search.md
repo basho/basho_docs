@@ -824,7 +824,7 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i
 ```
  -->
 
-## Custom Search Extractors
+ ## Custom Search Extractors
 
 Solr has default extractors for a wide variety of data types, including
 JSON, XML, and plaintext. Riak Search ships with the following
@@ -842,18 +842,10 @@ If you're working with a data format that does not have a default Solr
 extractor, you can create your own and register it with Riak Search.
 We'll show you how to do so by way of example.
 
-### An Extractor for HTTP Headers
+### Basic Example Extractor
 
-Let's say that we're storing HTTP header packet data in Riak. Here's an
-example of such a packet:
-
-```
-GET http://www.google.com HTTP/1.1
-```
-
-### Basic Extractor Interface
-
-Basic interface:
+Let's start with a basic example that takes a string and extracts it
+into a field called `text`:
 
 ```erlang
 -module(search_test_extractor).
@@ -873,9 +865,8 @@ field_name(Opts) ->
 ```
 
 This extractor takes the contents of a `Value` and returns a proplist
-with a single field name and the single value associated with that name.
-By default, the field name is `text`. If you ran the following Erlang
-snippet in the Erlang shell:
+with a single field name (in this case `text`) and the single value. Run
+the 
 
 ```erlang
 search_test_extractor:extract("hello").
@@ -884,7 +875,19 @@ search_test_extractor:extract("hello").
 Upon running this command, the value `hello` would be indexed in Solr
 under the fieldname `text`.
 
-### A Custom Extractor
+### An Example Custom Extractor
+
+Let's say that we're storing HTTP header packet data in Riak. Here's an
+example of such a packet:
+
+```
+GET http://www.google.com HTTP/1.1
+```
+
+We want to store the HTTP method in a `method` field, the host in a
+`host` field, and the URI in a field called `uri`. In this case, the
+`method` field should have the value `GET`, the `host` field
+`www.google.com`, and the `uri` field `/`.
 
 ```erlang
 -module(yz_httpheader_extractor).
@@ -918,7 +921,6 @@ file is located. Let's say that we have created a
 we need to compile that file:
 
 ```bash
-
 erlc search_test_extractor.erl
 ```
 
