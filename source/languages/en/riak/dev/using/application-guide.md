@@ -184,19 +184,26 @@ and search just like any other data in Riak.
 * **When you don't need to reason about siblings** --- If your use case
   doesn't require that your application have access to siblings and
   allows for sibling convergence logic to take place at the Riak level
-  rather than at the application level
+  rather than at the application level, then Riak Data Types are well
+  worth exploring.
 
 #### When not to use Riak Data Types
 
 * **When you need to provide your own convergence logic** --- If your
-    application needs to have access to all sibling values, then Riak
-    Data Types are not a good choice because they by definition do not
-    produce siblings.
-* **When your data doesn't fit** --- While the five existing Data Types
-    allow for a great deal of flexibility and a wide range of use cases,
-    they don't cover all use cases. If you have data that requires a
-    modeling solution that can't be covered, you should stick to
-    standard K/V operations.
+  application needs to have access to all sibling values, then Riak Data
+  Types are not a good choice because they by definition do not produce
+  siblings.
+* **When your data just doesn't fit** --- While the five existing Data
+  Types allow for a great deal of flexibility and a wide range of use
+  cases, they don't cover all use cases. If you have data that requires
+  a modeling solution that can't be covered, you should stick to
+  standard K/V operations.
+* **When object size is of significant concern** --- Riak Data Types
+  behave much like other Riak objects, but they tend to carry more
+  metadata than normal Riak objects, especially maps. In most cases the
+  metadata payload will be a small percentage of the object's total
+  size, but if you want to keep objects as lean as possible, it may be
+  better to stick to normal K/V operations.
 
 ### MapReduce
 
