@@ -11,24 +11,23 @@ So you've decided to build an application using Riak as a data store. We
 think that this is a wise choice for a broad variety of use cases. But
 using Riak isn't always straightforward, especially if you're used to
 developing with RDBMSs like MySQL or PostgreSQL or non-persistent
-key/value stores like Redis.
-
-In this guide, we'll walk you through a set of questions that should be
-asked about your use case before getting started. The answer to those
-questions may inform decisions about which Riak features you should use,
-what kind of replication and conflict resolution strategies you should
-employ, and perhaps even how parts of your application should be built.
+key/value stores like Redis. So in this guide, we'll walk you through a
+set of questions that should be asked about your use case before getting
+started. The answer to those questions may inform decisions about which
+Riak features you should use, what kind of replication and conflict
+resolution strategies you should employ, and perhaps even how parts of
+your application should be built.
 
 ## What Kind of Data Are You Storing?
 
 This is an important initial question for two reasons:
 
 1. Not all data is a good fit for Riak. If your data isn't a good fit,
-   we would advise that you seek out a storage system that better suits
-   your needs.
-2. The kind of data you're storing should guide your decision about
-   _how_ to store and access your data in Riak and which Riak features
-   would be helpful (and which ones might even be harmful).
+we would advise that you seek out a storage system that better suits
+your needs.
+2. The kind of data you're storing should guide your decision both about
+_how_ to store and access your data in Riak and about which Riak
+features would be helpful (and which ones might even be harmful).
 
 ### Good Fits for Riak
 
@@ -67,9 +66,9 @@ following:
 
 ### Not-so-good Fits for Riak
 
-Riak may not such be a good choice if you use it with the following:
+Riak may not such be a good choice if you use it to store:
 
-* **Objects stored that exceed 1-2MB in size** --- If you will be
+* **Objects that exceed 1-2MB in size** --- If you will be
   storing a lot of objects over that size, we would recommend checking
   out [Riak CS](http://docs.basho.com/riakcs/latest/) instead, as Riak
   CS was built to solve this problem. Storing large objects in Riak will
@@ -135,20 +134,22 @@ for you.
 
 #### When not to use Search
 
-* **When querying on the basis of object metadata will suffice** --- If
-    you don't need access to the actual contents of objects but still
-    wish to mark objects with queryable metadata, we recommend [[using
-    secondary indexes]] instead of Search.
+* **When deep pagination is needed** --- At the moment, you should
+    consider [[secondary indexes|Using Secondary Indexes]] instead of
+    Search if your use case requires deep pagination. This will be
+    changed, however, in a future release of Riak, at which point you
+    should consider Search the default choice for _all_ querying needs.
 * **In large clusters** --- In clusters larger than 8-10 nodes, you may
-    experience slower performance. In those clusters, we would recommend
-    either using Search in a limited fashion, setting up a separate,
-    dedicated cluster for Search data, or finding another solution.
+    experience slower performance when using Search. In clusters of that
+    size, we would recommend using Search in a limited fashion, setting
+    up a separate, dedicated cluster for Search data, or finding another
+    solution.
 
 ### Riak Data Types
 
-Basic key/value operations in Riak are agnostic toward the data stored
-within objects. Beginning with Riak 2.0, however, you now have access to
-operations-based objects based on academic research on
+When performing basic K/V operations, Riak is agnostic toward the actual
+data stored within objects. Beginning with Riak 2.0, however, you now
+have access to operations-based objects based on academic research on
 [CRDTs](http://hal.upmc.fr/docs/00/55/55/88/PDF/techreport.pdf). Riak
 Data Types enable you to update and read [[counters|Using Data
 Types#counters]], [[sets|Using Data Types#sets]], and [[maps|Using Data
@@ -156,9 +157,11 @@ Types#maps]] directly in Riak, as well as [[registers|Data Types#maps]]
 and [[flags|Data Types#maps]] inside of Riak maps.
 
 The beauty of Riak Data Types is that all convergence logic is handled
-by Riak itself according to deterministic, Data Type-specific rules. In
-many cases, this can unburden applications of the need to handle object
-convergence on their own.
+by Riak itself according to deterministic, Data Type-specific rules,
+which means that your application doesn't need to reason about
+[[siblings|Conflict Resolution#Siblings]]. In many cases, this can
+unburden applications of the need to handle object convergence on their
+own.
 
 * [[Using Data Types]] --- A guide to setting up Riak to use Data Types,
   including a variety of code samples for all of the Basho's official
@@ -170,7 +173,8 @@ convergence on their own.
 
 **Note**: Riak Data Types can be used in conjunction with Riak Search,
 meaning that the data stored in counters, sets, and maps can be indexed
-and search just like any other data in Riak.
+and searched just like any other data in Riak. Documentation on Data
+Types and Search is coming soon.
 
 #### When to use Riak Data Types
 
@@ -207,12 +211,12 @@ and search just like any other data in Riak.
 
 ### MapReduce
 
-Riak's MapReduce feature enables you to perform powerful batch
-processing jobs in a way that fully leverages Riak's distributed nature.
-When a MapReduce job is sent to Riak, Riak automatically distributes the
-processing work to where the target data lives, which can reduce network
-bandwidth. Riak comes equipped with a set of default MapReduce jobs that
-you can employ, or you can write and run your own MapReduce jobs in
+Riak's MapReduce feature enables you to perform batch processing jobs in
+a way that leverages Riak's distributed nature. When a MapReduce job is
+sent to Riak, Riak automatically distributes the processing work to
+where the target data lives, which can reduce network bandwidth. Riak
+comes equipped with a set of default MapReduce jobs that you can employ,
+or you can write and run your own MapReduce jobs in
 [Erlang](http://www.erlang.org/).
 
 * [[Using MapReduce]] --- A general guide to using MapReduce
@@ -230,15 +234,18 @@ you can employ, or you can write and run your own MapReduce jobs in
 
 #### When not to use MapReduce
 
-* **When another tool is necessary** --- Riak MapReduce should not be
-  thought of as, for example, Hadoop within Riak. It can be useful for
-  certain types of non-primary-key-based queries but should not be
-  thought of as a "Big Data" processing tool or as an indexing mechanism
-  or replacement for [[Riak Search|Using Search]].
 * **When another Riak feature will do** --- Before even considering
   using MapReduce, you should thoroughly investigate [[Riak Search|Using
-  Search]] and [[secondary indexes|Using Secondary Indexes]] as possible
+  Search]] or [[secondary indexes|Using Secondary Indexes]] as possible
   solutions to your needs.
+
+In general, you should not think of MapReduce as, for example, Hadoop
+within Riak. While it can be useful for certain types of
+non-primary-key-based queries, it is neither a "Big Data" processing
+tool nor an indexing mechanism nor a replacement for [[Riak Search|Using
+Search]]. If you do need a tool like Hadoop or Apache Spark, you should
+consider using Riak in conjunction with a more suitable data processing
+tool.
 
 ### Secondary Indexes (2i)
 
@@ -265,18 +272,21 @@ Search|Using Search]].
 
 #### When not to use secondary indexes
 
-* **For all other querying purposes** --- If your use case does not
+* **For most querying purposes** --- If your use case does not
     involve deep pagination, we recommend Search over 2i for _all_
     querying purposes.
+* **If you're using Bitcask** --- 2i is available only in the
+    [[LevelDB]] backend. If you'd like to use [[Bitcask]] or the
+    [[Memory]] backend, you will not be able to use 2i.
 
-### Mixed Approach
+## Mixed Approach
 
 One thing to always bear in mind is that Riak enables you to mix and
 match a wide variety of approaches in a single cluster. You can use
-basic CRUD operations for some of your data, attach secondary indexes
-to a handful of objects, run occasional MapReduce operations over a
-subset of your buckets, etc. You are always free to use a wide array of
-features---or you can use none at all and stick to key/value operations.
+basic CRUD operations for some of your data, index some of your data to
+be queried by Riak Search, use Riak Data Types for another subset, etc.
+You are always free to use a wide array of Riak features---or you can
+use none at all and stick to key/value operations.
 
 ## How Should You Model Your Data?
 
@@ -343,6 +353,7 @@ normal occurrence in Riak. For more implementation details, we recommend
 checking out the following docs:
 
 * [[Conflict Resolution]]
+* [[Object Updates]]
 * [[Replication Properties]]
 
 ## Getting Started
@@ -356,7 +367,7 @@ will help you get up and running:
 * [[Client Libraries]] --- A listing of official and non-official client
   libraries for building applications with Riak
 * [[Getting Started with Client
-  Libraries|Five-Minute Install#setting-up-your-riak-client]] --- How to
+  Libraries|Five-Minute Install#Setting-Up-Your-Riak-Client]] --- How to
   get up and going with one of Basho's official client libraries (Java,
   Ruby, Python, and Erlang)
 * [[The Basics]] --- A guide to basic key/value operations in Riak
