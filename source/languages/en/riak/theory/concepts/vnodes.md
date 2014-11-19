@@ -36,6 +36,13 @@ vnodes on the node
 functionality; nodes are essentially a passive container for very active
 vnodes
 
+It's important to note that different nodes will have differing numbers
+of vnodes if ring size / number of nodes leaves a remainder. So if your
+ring size is 64 and you're running a 5-node cluster, 4 of those nodes
+will have 13 vnodes, while one node will have only 12, which means that
+4 nodes will claim roughly 20.3% of the ring a piece while the fifth node
+will claim roughly 18.8%.
+
 
 If you're navigating through the file system of a Riak node, you'll
 notice that each node's `/data` directory holds a variety of
@@ -48,5 +55,29 @@ each house the data from a particular partition.
 
 ## Vnodes and Partitioning
 
-1:1 correspondence between vnodes and partitions; there are always
-`ring_size` vnodes in a cluster
+Consistent hashing -> distribution of the key space
+
+The relationship between vnodes and the Riak ring is simple: there will
+always be a 1:1 correspondence between the number of vnodes and the size
+of the ring. A ring size of 64 means 64 vnodes, 128 means 128, and so
+on. At all times, the different nodes in the cluster are aware of which
+nodes own which vnodes, which is essentialy to processes like [[hinted
+handoff|Riak Glossary#Hinted-Handoff]] and, by extension, to Riak's
+high availability architecture.
+
+## Vnodes and Replication Properties
+
+In our documentation on [[replication properties]], we make frequent
+mention of users' ability to choose how many nodes store copies of
+data, how many nodes must respond for a read request to succeed, and so
+on. This is slightly misleading, as the fundamental units of replication
+are not nodes but rather vnodes.
+
+This can be illustrated by way of a potential user error.
+If you store an object and set N=5, this means that you want the object
+to be stored on 5 different nodes. But imagine that your cluster only
+has 3 nodes. Setting N=5 on a 3-node cluster is actually just fine. The
+data will be managed by 5 vnodes, but some of that data may end up being
+stored more than once on different nodes. A likely scenario is that two
+nodes will store two copies of the data a piece, while the third node
+will store only one.
