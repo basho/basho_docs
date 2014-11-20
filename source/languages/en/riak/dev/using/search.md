@@ -436,12 +436,13 @@ This example searches for all documents in which the `name_s` value
 begins with `Lion` by means of a glob (wildcard) match.
 
 ```java
-Search searchOp = new Search.Builder("famous", "name_s:Lion*").build();
+SearchOperation searchOp = new SearchOperation.Builder("famous", "name_s:Lion*")
+        .build();
 cluster.execute(searchOp);
-searchOp.await();
-Map<String, String> results = searchOp.get().getAllResults();
-List<Map<String, String>> docs = results.get("docs");
-System.out.println(docs);
+// This will display the actual results as a List of Maps:
+List<Map<String, String> results = searchOp.get().getAllResults();
+// This will display the number of results:
+System.out.println(results);
 ```
 
 ```ruby
