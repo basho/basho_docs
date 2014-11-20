@@ -99,6 +99,15 @@ will store only one.
     tasks are handled by the `riak_core_vnode_manager`
     ([link](https://github.com/basho/riak_core/blob/master/src/riak_core_vnode_manager.erl)),
     which
+* While each vnode has a main Erlang process undergirding it, vnodes may
+    also spin up new worker processes (actors in Erlang) to perform
+    asynchronous tasks on behalf of the vnode
+* You'll see many references in our documentation to vnodes having a
+    _claim_ on a data partition
+* Riak has an experimental [[ring resizing]] feature that enables you to
+    change the ring size of a cluster, and hence to change the number of
+    data partitions/vnodes, but we do not yet recommend using this
+    feature.
 
 ## The Vnode Interface
 
@@ -107,3 +116,29 @@ GitHub](https://github.com/basho/riak_core/blob/develop/src/riak_core_vnode.erl)
 To implement a vnode for a specific use/application, you need to define
 a series of callback functions, e.g.
 [`init`](https://github.com/basho/riak_core/blob/develop/src/riak_core_vnode.erl#L71),
+
+## Vnode Status
+
+You can check the current status of all vnodes in your cluster using the
+`[[riak-admin vnode-status|riak-admin Command Line#vnode-status]]`
+command. When you run that command, you will see a series of reports on
+each of the vnodes active on the local node. The output of this command
+consists of a series of reports on each active vnode. The report for a
+specific vnode should look something like this:
+
+```
+VNode: 1278813932664540053428224228626747642198940975104
+Backend: riak_kv_bitcask_backend
+Status:
+[{key_count, 275},
+ {status,[{"./data/bitcask/1278813932664540053428224228626747642198940975104/2.bitcask.data",
+           0,0,335}]}]
+Status:
+{vnodeid,<<"ÅR±\vi80\f">>}
+```
+
+The meaning of each field is given in the table below.
+
+Field | Description
+:-----|:-----------
+`VNode` | The ID of the vnode in question, as calculated based on the 
