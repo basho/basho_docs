@@ -436,11 +436,12 @@ This example searches for all documents in which the `name_s` value
 begins with `Lion` by means of a glob (wildcard) match.
 
 ```java
-SearchOperation searchOp = new SearchOperation.Builder("famous", "name_s:Lion*")
+SearchOperation searchOp = new SearchOperation
+        .Builder(BinaryValue.create("famous"), "name_s:Lion*")
         .build();
 cluster.execute(searchOp);
 // This will display the actual results as a List of Maps:
-List<Map<String, String> results = searchOp.get().getAllResults();
+List<Map<String, List<String> results = searchOp.get().getAllResults();
 // This will display the number of results:
 System.out.println(results);
 ```
@@ -516,10 +517,10 @@ to perform a separate Riak GET operation to retrieve the value using the
 
 ```java
 // Using the results object from above
-Map<String, String> doc = results.get(0);
-String bucketType = doc.get("_yz_rt");
-String bucket = doc.get("yz_rb");
-String key = doc.get("_yz_rk");
+Map<String, List<String> doc = results.get(0);
+String bucketType = doc.get("_yz_rt").get(0);
+String bucket = doc.get("yz_rb").get(0);
+String key = doc.get("_yz_rk").get(0);
 Namespace namespace = new Namespace(bucketType, bucket);
 Location objectLocation = new Location(namespace, key);
 FetchValue fetchOp = new FetchValue.Builder(objectLocation)
@@ -589,8 +590,11 @@ glob as a top end of the range: `age_i:[30 TO *]`.
 ```java
 String index = "famous";
 String query = "age_i:[30 TO *]";
-Search searchOp = new Search.Builder(index, query).build();
-Search.Response result = cluster.execute(searchOp);
+SearchOperation searchOp = new SearchOperation
+        .Builder(BinaryValue.create(index), query)
+        .build();
+cluster.execute(searchOp);
+SearchOperation.Response results = searchOp.get();
 ```
 
 ```ruby
@@ -623,7 +627,8 @@ Let's say we want to see who is capable of being a US Senator (at least
 String index = "famous";
 String query = "leader_b:true AND age_i:[30 TO *]";
 Search searchOp = new Search.Builder(index, query).build();
-Search.Response result = cluster.execute(searchOp);
+cluster.execute(searchOp);
+SearchOperation.Response results = searchOp.get();
 ```
 
 ```ruby
@@ -649,7 +654,7 @@ Indexes may be deleted if they have no buckets associated with them:
 
 ```java
 String index = "famous";
-YzDeleteIndexOperation deleteOp = new YzDeleteIndexOperation.Builder(BinaryValue.create(index))
+YzDeleteIndexOperation deleteOp = new YzDeleteIndexOperation.Builder(index)
         .build();
 cluster.execute(deleteOp);
 ```
@@ -698,9 +703,10 @@ int rowsPerPage = 2;
 int page = 2;
 int start = rowsPerPage * (page - 1);
 
-Search searchOp = new Search.Builder("famous", "*:*")
+SearchOperation searchOp = new SearchOperation
+        .Builder(BinaryValue.create("famous"), "*:*")
         .withStart(start)
-        .withRows(rowsPerPage)
+        .withNumRows(rowsPerPage)
         .build();
 client.execute(searchOp);
 StoreOperation.Response response = searchOp.get();
