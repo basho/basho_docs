@@ -81,3 +81,29 @@ data will be managed by 5 vnodes, but some of that data may end up being
 stored more than once on different nodes. A likely scenario is that two
 nodes will store two copies of the data a piece, while the third node
 will store only one.
+
+## Notes
+
+* Think of vnodes as long-running _processes_
+* Vnodes are actually an interface that is exposed so that any
+    applications built on top of Riak can implement; an example is
+    `riak_ensemble`; there is a definition of what a vnode needs to be
+    able to do, and developers inside or outside of Basho have access to
+    the vnode abstraction, and thus to much of the core bits of Riak;
+    more specifically, the vnode interface dictates that there is a set
+    of commands that each vnode needs to be able to complete, and then
+    each application that uses the vnode abstraction has to specify what
+    those commands are
+* What vnodes do _not_ need to do is distribute load to themselves via
+    hinted handoff, assign themselves portions of the ring, etc.; those
+    tasks are handled by the `riak_core_vnode_manager`
+    ([link](https://github.com/basho/riak_core/blob/master/src/riak_core_vnode_manager.erl)),
+    which
+
+## The Vnode Interface
+
+The code is [on
+GitHub](https://github.com/basho/riak_core/blob/develop/src/riak_core_vnode.erl).
+To implement a vnode for a specific use/application, you need to define
+a series of callback functions, e.g.
+[`init`](https://github.com/basho/riak_core/blob/develop/src/riak_core_vnode.erl#L71),
