@@ -1065,8 +1065,111 @@ riak-admin bucket-type update maps '{"props":{"search_index":"customers"}}'
 Now we can create some maps along the lines suggested above:
 
 ```python
-cumberbatc
+bucket = client.bucket_type('maps').bucket('customers')
+
+idris_elba = Map(bucket, 'idris_elba')
+idris_elba.registers['first_name'].assign('Idris')
+idris_elba.registers['last_name'].assign('Elba')
+idris_elba.flags['enterprise_customer'].enable()
+idris_elba.counters['page_visits'].increment(10)
+for interest in ['acting', 'being Stringer Bell']:
+    idris_elba.sets['interests'].add(interest)
+idris_elba.store()
+
+joan_jett = Map(bucket, 'joan_jett')
+joan_jett.registers['first_name'].assign('Joan')
+joan_jett.registers['last_name'].assign('Jett')
+# Joan Jett is not an enterprise customers, so we don't need to
+# explictly this flag to enable, as all flags are disabled by default
+idris_elba.counters['page_visits'].increment(25)
+for interest in ['loving rock and roll', 'being in the Blackhearts']:
+    joan_jett.sets['interests'].add(interest)
+joan_jett.store()
 ```
+
+#### Searching counters within maps
+
+We now have two maps stored in Riak that we can query. Let's query to
+see how many users have page visit counters above 15. Unlike the
+counters example above, we have to specify _which_ counter we're
+querying:
+
+```python
+results = client.fulltext_search('customers', 'page_visits_counter:[15 TO *]')
+results['num_found']
+# 1
+```
+
+As expected, one of our two stored maps has a `page_visits` counter
+above 15. Let's make sure that we have the right result:
+
+```python
+results['docs'][0]['first_name_register']
+# u'Joan'
+```
+
+Success! Now we can test out searching sets.
+
+#### Searching sets within maps
+
+Each of the maps we stored thus far had an `interests` set. First, let's
+see how many of our maps even _have_ sets called `interests` using a
+wildcard query:
+
+```python
+results = client.fulltext_search('customers', 'interests_set:*')
+results['num_found']
+# 2
+```
+
+As expected, both stored maps have an `interests` set. Now let's see how
+many maps have items in `interests` sets that begin with `loving`:
+
+```python
+results = client.fulltext_search('customers', 'interests_set:loving*')
+results['num_found'] # 1
+results['docs'][0]['first_name_registers'] # u'Joan'
+```
+
+As expected, only our Joan Jett map has an item in its `interests` set
+that starts with `loving`.
+
+#### Searching maps within maps
+
+Before we can try to search maps within maps, we need to actually store
+some. Let's add a `alter_ego` map to both of the maps we've stored thus
+far. Each person's alter ego will have a first name only.
+
+```python
+idris_elba.maps['alter_ego'].registers['name'].assign('John Luther')
+idris_elba.store()
+
+joan_jett.maps['alter_ego'].registers['name'].assign('Robert Plant')
+joan_jett.store()
+```
+
+Querying maps within maps involves construct queries that separate the
+different levels of depth with a single dot. Here's an example query for
+finding maps that have a `name` register embedded within an `alter_ego`
+map:
+
+```python
+results = client.fulltext_search('customers', 'alter_ego_map.name_register:*')
+results['num_found'] # 1
+```
+
+Once we know how to query embedded fields like this, we can query those
+just like any other. Let's find out which maps have an `alter_ego`
+sub-map that contains a `name` register that ends with `PLant`, and
+display that customer's first name:
+
+```python
+results = client.fulltext_search('customers', 'alter_ego_map.name_register:*Plant')
+results['num_found'] # 1
+results['docs'][0]['first_name_register'] # u'Joan
+```
+
+Success! We've now queried not just maps but also maps within maps.
 
 ### MapReduce
 
