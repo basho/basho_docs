@@ -1041,7 +1041,6 @@ Let's see how many sets contain the element `football`:
 
 ```python
 results['num_found']
-
 # 1
 ```
 
@@ -1051,7 +1050,6 @@ Success! We stored two sets, only one of which contains the element
 ```python
 results = client.fulltext_search('hobbies', 'set:winning')
 results['num_found']
-
 # 2
 ```
 
