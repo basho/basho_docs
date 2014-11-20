@@ -1026,7 +1026,7 @@ ronnie_james_dio_set = Set(people_bucket, 'dio')
 ronnie_james_dio_set.add('wailing')
 ronnie_james_dio_set.add('rocking')
 ronnie_james_dio_set.add('winning')
-mike_ditka_set.store()
+ronnie_james_dio_set.store()
 ```
 
 Now, we can query our `hobbies` index to see if anyone has the hobby
