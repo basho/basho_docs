@@ -768,10 +768,23 @@ fix this shortcoming in the next version of Riak.
 
 Although [[Riak Data Types|Data Types]] function differently from other
 Riak objects behind the scenes, when you're using Search you can think
-of them as normal Riak objects with special metadata attached (metadata
-that you can ignore). Riak's [[counters|Data Types#Counters]],
-[[sets|Data Types#Sets]], and [[maps|Data Types#Maps]] can be indexed
-and have their contents searched just like other Riak objects.
+of them as normal Riak objects with special metadata attached . Riak's
+[[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and
+[[maps|Data Types#Maps]] can be indexed and have their contents searched
+just like other Riak objects.
+
+### Data Type Content Types
+
+Like all objects stored in Riak, Riak Data Types are assigned content
+types. Unlike other Riak objects, this happens automaticalls. When
+storing Data Types, Riak assigns them the following [content
+types](https://github.com/basho/yokozuna/blob/develop/src/yz_extractor.erl#L31):
+
+Data Type | Content Type
+:---------|:------------
+Counters | `application/riak_counter`
+Sets | `application/riak_set`
+Maps | `application/riak_map`
 
 ### Data Type Schemas
 
@@ -782,26 +795,26 @@ There are two types of schemas related to Riak Data Types:
 * **Embedded schemas** relate to Data Types nested inside of maps
     (flags, counters, registers, and sets)
 
+As you can see from the [default
+schema](https://github.com/basho/yokozuna/blob/develop/priv/default_schema.xml#L96),
+each of the Data Types has its own default schema, with the exception of
+maps, which means that the `_yz_default` schema will automatically index
+Data Types on the basis of their assigned content type (remember that
+these content types are assigned automatically). In essence, this means
+that there is no extra work involved in indexing Riak Data Types. You
+can simply store them and begin querying, provided that they are
+properly indexed, which is covered in the [[examples|Using
+Search#Riak-Data-Types-and-Search]] section below.
+
 You may notice that there are no schemas available for maps. This is
-because maps are essentially holders for other Data Types. Even when
+because maps are essentially carriers for other Data Types. Even when
 maps are embedded within other maps, all of the data that you might wish
 to index and search is contained in counters, sets, registers, and
-flags, which means that there's no need for schemas for maps.
+flags, which means that there's no need to query maps directly.
 
 The sections immediately below will provide the default schemas for each
-Riak Data Type. These need to be added to the `fields` list in your XML
-schema, which looks like this:
-
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<schema name="my_custom_schema" version="1.5">
-  <fields>
-    <!-- insert field definitions here -->
-  </fields>
-
-  <!-- other schema info -->
-</schema>
-```
+Riak Data Type. You will not need to manipulate these default schemas to
+search Data Types. They are provided only for reference.
 
 #### Top-level Schemas
 
@@ -820,6 +833,15 @@ a string and indexes the set itself as multi-valued.
 ```
 
 As explained above, there are no top-level schemas for maps.
+Constructing queries for counters at the top level involves prefacing
+the query with `counter`. Below are some example queries:
+
+Query | Syntax
+:-----|:------
+Counters with a value over 10 | `counter:[10 TO *]`
+Counters with a value below 10 and above 50 | `counter:[* TO 10] AND counter:[50 TO *]`
+Counters with a value of 15 | `counter:15`
+All counters within the index | `counter:*`
 
 #### Embedded Schemas
 
@@ -848,6 +870,19 @@ Finally, sets at the embedded level are indexed as multi-valued strings.
 ```xml
 <dynamicField name="*_set" type="string" indexed="true" stored="true" multiValued="true" />
 ```
+
+To query embedded fields, you must provide the name of the field. The
+table below provides some examples:
+
+Query | Syntax
+:-----|:------
+Maps containing a set called `hobbies` | `hobbies_set:*`
+Maps containing a `score` counter over 50 | `score_counter:[50 TO *]`
+Maps containing disabled `advanced` flags | `advanced_flag:false`
+Maps containing enabled `advanced` flags and `score` counters under 10 | `advanced_flag:true AND score_counter:[* TO 10]`
+
+You can also query maps within maps, which is covered in the **Querying
+maps within maps** section below.
 
 ## Data Types and Search Examples
 
