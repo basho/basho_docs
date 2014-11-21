@@ -767,24 +767,29 @@ fix this shortcoming in the next version of Riak.
 ## Riak Data Types and Search
 
 Although [[Riak Data Types|Data Types]] function differently from other
-Riak objects behind the scenes, when you're using Search you can think
-of them as normal Riak objects with special metadata attached . Riak's
-[[counters|Data Types#Counters]], [[sets|Data Types#Sets]], and
-[[maps|Data Types#Maps]] can be indexed and have their contents searched
-just like other Riak objects.
+Riak objects in some respects, when you're using Search you can think of
+them as normal Riak objects with special metadata attached (metadata
+that you don't need to worry about as a user). Riak's [[counters|Data
+Types#Counters]], [[sets|Data Types#Sets]], and [[maps|Data Types#Maps]]
+can be indexed and have their contents searched just like other Riak
+objects.
 
 ### Data Type Content Types
 
 Like all objects stored in Riak, Riak Data Types are assigned content
-types. Unlike other Riak objects, this happens automaticalls. When
-storing Data Types, Riak assigns them the following [content
-types](https://github.com/basho/yokozuna/blob/develop/src/yz_extractor.erl#L31):
+types. Unlike other Riak objects, this happens automatically. When you
+store, say, a counter in Riak, it will automatically be assigned the
+type `application/riak_counter`. The table below provides the full list
+of content types:
 
 Data Type | Content Type
 :---------|:------------
 Counters | `application/riak_counter`
 Sets | `application/riak_set`
 Maps | `application/riak_map`
+
+When using Search, you won't need to worry about this, as Riak Data
+Types are automatically indexed on the basis of these content types.
 
 ### Data Type Schemas
 
@@ -795,26 +800,25 @@ There are two types of schemas related to Riak Data Types:
 * **Embedded schemas** relate to Data Types nested inside of maps
     (flags, counters, registers, and sets)
 
-As you can see from the [default
+As you can see from the [default Search
 schema](https://github.com/basho/yokozuna/blob/develop/priv/default_schema.xml#L96),
 each of the Data Types has its own default schema, with the exception of
 maps, which means that the `_yz_default` schema will automatically index
-Data Types on the basis of their assigned content type (remember that
-these content types are assigned automatically). In essence, this means
-that there is no extra work involved in indexing Riak Data Types. You
-can simply store them and begin querying, provided that they are
-properly indexed, which is covered in the [[examples|Using
+Data Types on the basis of their assigned content type. This means that
+there is no extra work involved in indexing Riak Data Types. You can
+simply store them and begin querying, provided that they are properly
+indexed, which is covered in the [[examples|Using
 Search#Riak-Data-Types-and-Search]] section below.
 
-You may notice that there are no schemas available for maps. This is
-because maps are essentially carriers for other Data Types. Even when
-maps are embedded within other maps, all of the data that you might wish
-to index and search is contained in counters, sets, registers, and
-flags, which means that there's no need to query maps directly.
+As mentioned above, there are no default schemas available for maps.
+This is because maps are essentially carriers for the other Data Types.
+Even when maps are embedded within other maps, all of the data that you
+might wish to index and search is contained in counters, sets,
+registers, and flags.
 
-The sections immediately below will provide the default schemas for each
-Riak Data Type. You will not need to manipulate these default schemas to
-search Data Types. They are provided only for reference.
+The sections immediately below provide the default schemas for each Riak
+Data Type. Because you will not need to manipulate these default schemas
+to search Data Types, they are provided only for reference.
 
 #### Top-level Schemas
 
@@ -825,16 +829,8 @@ counter as an integer.
 <field name="counter" type="int" indexed="true" stored="true" multiValued="false" />
 ```
 
-The schema for [[sets|Data Types#Sets]] indexes each element of a set as
-a string and indexes the set itself as multi-valued.
-
-```xml
-<field name="set" type="string" indexed="true" stored="false" multiValued="true" />
-```
-
-As explained above, there are no top-level schemas for maps.
-Constructing queries for counters at the top level involves prefacing
-the query with `counter`. Below are some example queries:
+Constructing queries for counters involves prefacing the query with
+`counter`. Below are some examples:
 
 Query | Syntax
 :-----|:------
@@ -842,6 +838,23 @@ Counters with a value over 10 | `counter:[10 TO *]`
 Counters with a value below 10 and above 50 | `counter:[* TO 10] AND counter:[50 TO *]`
 Counters with a value of 15 | `counter:15`
 All counters within the index | `counter:*`
+
+The schema for [[sets|Data Types#Sets]] indexes each element of a set as
+a string and indexes the set itself as multi-valued.
+
+```xml
+<field name="set" type="string" indexed="true" stored="false" multiValued="true" />
+```
+
+To query sets, preface the query with `set`. The table below shows some
+examples:
+
+Query | Syntax
+:-----|:------
+Sets that contain the value `apple` | `set:apple`
+Sets that contain an item beginning with `level` | `set:level*`
+Sets that contain both `apple` and `orange` | `set:apple AND set:orange`
+All sets within the index | `set:*`
 
 #### Embedded Schemas
 
