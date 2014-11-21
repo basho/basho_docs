@@ -10,13 +10,13 @@ keywords: [developers, applications]
 So you've decided to build an application using Riak as a data store. We
 think that this is a wise choice for a broad variety of use cases. But
 using Riak isn't always straightforward, especially if you're used to
-developing with RDBMSs like MySQL or PostgreSQL or non-persistent
-key/value stores like Redis. So in this guide, we'll walk you through a
-set of questions that should be asked about your use case before getting
-started. The answer to those questions may inform decisions about which
-Riak features you should use, what kind of replication and conflict
-resolution strategies you should employ, and perhaps even how parts of
-your application should be built.
+developing with relational databases like like MySQL or PostgreSQL or
+non-persistent key/value stores like Redis. So in this guide, we'll walk
+you through a set of questions that should be asked about your use case
+before getting started. The answer to those questions may inform
+decisions about which Riak features you should use, what kind of
+replication and conflict resolution strategies you should employ, and
+perhaps even how parts of your application should be built.
 
 ## What Kind of Data Are You Storing?
 
@@ -25,8 +25,8 @@ This is an important initial question for two reasons:
 1. Not all data is a good fit for Riak. If your data isn't a good fit,
 we would advise that you seek out a storage system that better suits
 your needs.
-2. The kind of data you're storing should guide your decision both about
-_how_ to store and access your data in Riak and about which Riak
+2. The kinds of data that you're storing should guide your decision both
+about _how_ to store and access your data in Riak and about which Riak
 features would be helpful (and which ones might even be harmful).
 
 ### Good Fits for Riak
