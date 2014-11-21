@@ -54,9 +54,8 @@ i.e. `<<>>`.
 When a delete request is sent to Riak, the following process is set in
 motion:
 
-1. A tombstone object (`<<>>`) is written to N [[vnodes|Riak
-   Glossary#vnode]], with N defined by `[[n_val|Replication
-   Properties#n-value-and-replication]]`
+1. A tombstone object (`<<>>`) is written to N [[vnodes]], with N
+   defined by `[[n_val|Replication Properties#n-value-and-replication]]`
 2. If all N vnodes store the tombstone, the object is removed
 3. If fallback vnodes are in use, the object will not be immediately
    removed
@@ -73,8 +72,7 @@ There are three possible settings:
 
 * `keep` --- Disables tombstone removal; protects against an edge case
   in which an object is deleted and recreated on the owning
-  [[vnodes|Riak Glossary#vnode]] while a fallback is either down or
-  awaiting handoff
+  [[vnodes]] while a fallback is either down or awaiting handoff
 * `immediate` --- The tombstone is removed as soon as the request is
   received
 * Custom time interval --- How long to wait until the tombstone is

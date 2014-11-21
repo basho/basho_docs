@@ -314,12 +314,9 @@ determine certain attributes of the data.
 ## Vnode
 
 Vnodes, or "virtual nodes," are responsible for claiming a partition in
-the Riak Ring, and they coordinate requests for these partitions. Vnodes
-reside on physical nodes in a Riak cluster, and the number of vnodes per
-physical node is determined by the total number of vnodes and the number
-of active physical nodes in the cluster. Riak balances the assignment of
-vnodes across the active physical nodes.
+the Riak Ring, and they coordinate requests for these partitions.
 
+* [[Vnodes]]
 * [[Clusters]]
 * [[Dynamo]]
 

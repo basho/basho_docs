@@ -139,12 +139,12 @@ phase.
 The input list to a map phase must be a list of (possibly annotated)
 bucket-key pairs. For each pair, Riak will send the request to evaluate
 the map function to the partition that is responsible for storing the
-data for that bucket-key. The [[vnode|Riak Glossary#vnode]] hosting that
-partition will look up the object stored under that bucket-key and
-evaluate the map function with the object as an argument. The other
-arguments to the function will be the annotation, if any is included,
-with the bucket-key, and the static data for the phase, as specified in
-the query.
+data for that bucket-key. The [[vnode|Vnodes]] hosting that partition
+will look up the object stored under that bucket-key and evaluate the
+map function with the object as an argument. The other arguments to the
+function will be the annotation, if any is included, with the
+bucket-key, and the static data for the phase, as specified in the
+query.
 
 <div class="note">
 <div class="title">Tombstones</div>

@@ -53,7 +53,7 @@ A number of changes have been introduced in the LevelDB backend in Riak
 * There is now only _one_ performance-related setting that Riak users
   need to define---`leveldb.total_mem_percent`---as LevelDB now
   dynamically sizes the file cache and block sizes based upon active
-  [[vnodes|Riak Glossary#vnode]] assigned to the node.
+  [[vnodes]] assigned to the node.
 * The LevelDB backend in Riak 2.0 utilizes a new, faster threading model
   for background compaction work on `.sst` table files. The new model
   has increased throughput by at least 10% in all test scenarios.
@@ -125,7 +125,7 @@ The configuration values that can be set in your
 Config | Description | Default
 :------|:------------|:-------
 `leveldb.data_root` | LevelDB data root | `./data/leveldb`
-`leveldb.maximum_memory.percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates vnodes on this server to stay within this size. | `70`
+`leveldb.maximum_memory.percent` | Defines the percentage (between 1 and 100) of total server memory to assign to LevelDB. LevelDB will dynamically adjust its internal cache sizes as Riak activates/inactivates [[vnodes]] on this server to stay within this size. | `70`
 
 If you are using the older, `app.config`-based system, the equivalent to
 the `leveldb.data_root` is the `data_root` setting, as in the following

@@ -184,8 +184,8 @@ Index                                                Last      Mean      Max
 
 ```
 
-Each of these three tables contains information for each [[vnode|Riak
-Glossary#vnode]] in your cluster in these three categories:
+Each of these three tables contains information for each
+[[vnode|Vnodes]] in your cluster in these three categories:
 
 Category | Measures | Description
 :--------|:---------|:-----------
@@ -219,11 +219,10 @@ by setting the `anti_entropy.data_dir` parameter to a different value.
 ### Throttling
 
 AAE has a built-in throttling mechanism that can insert delays between
-AAE repair operations when [[vnode|Riak Glossary#vnode]] mailboxes reach
-the length specified by the `anti_entropy.throttle.$tier.delay`
-parameter (more on that in the section below). Throttling can be
-switched on and off using the `anti_entropy.throttle` parameter. The
-default is `on`.
+AAE repair operations when [[vnode|Vnodes]] mailboxes reach the length
+specified by the `anti_entropy.throttle.$tier.delay` parameter (more on
+that in the section below). Throttling can be switched on and off using
+the `anti_entropy.throttle` parameter. The default is `on`.
 
 #### Throttling Tiers
 

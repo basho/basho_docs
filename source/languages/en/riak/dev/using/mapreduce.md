@@ -105,8 +105,8 @@ node that the client contacts to make the request becomes the
 above, each job consists of a list of phases, where each phase is either
 a map or a reduce phase. The coordinating node uses the list of phases
 to route the object keys and the function that will operate over the
-objects stored in those keys and instruct the proper [[vnode|Riak
-Glossary#Vnode]] to run that function over the right objects.
+objects stored in those keys and instruct the proper [[vnode|Vnodes]] to
+run that function over the right objects.
 
 After running the map function, the results are sent back to the
 coordinating node. This node then concatenates the list and passes that

@@ -236,6 +236,7 @@ riak:
           - "[[Strong Consistency]]"
           - "[[Keys and Objects]]"
           - "[[Active Anti-Entropy]]"
+          - "[[Vnodes]]"
           - "[[Replication]]"
           - "[[Capability Negotiation]]"
       - title: "Riak Compared to"
