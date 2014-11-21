@@ -939,6 +939,16 @@ start playing with some counters. All counters will be stored in the
 bucket `players`, while the key for each counter will be the username of
 each player:
 
+```ruby
+bucket = client.bucket('people')
+
+christopher_hitchens_counter = Riak::Crdt::Counter.new(bucket, 'chris_hitchens', 'counters')
+christopher_hitchens_counter.increment(10)
+
+joan_rivers_counter = Riak::Crdt::Counter.new(bucket, 'joan_rivers', 'counters')
+joan_rivers_counter.increment(25)
+```
+
 ```python
 from riak.datatypes import Counter
 
@@ -957,6 +967,14 @@ So now we have two counters, one with a value of 10 and the other with a
 value of 25. Let's query to see how many counters have a value greater
 than 20, just to be sure:
 
+```ruby
+results = client.search('scores', 'counter:[20 TO *]')
+# This should return a Hash with fields like 'num_found' and 'docs'
+
+results['num_found']
+# 2
+```
+
 ```python
 results = client.fulltext_search('scores', 'counter:[20 TO *]')
 # This should return a dict with fields like 'num_found' and 'docs'
@@ -967,6 +985,19 @@ results['num_found']
 
 And there we are: only one of our two stored sets has a value over 20.
 To find out which set that is, we can dig into our results:
+
+```ruby
+doc = results['docs'][0]
+
+# The key
+doc['_yz_rk'] # 'joan_rivers'
+
+# The bucket
+doc['_yz_rb'] # 'people'
+
+# The bucket type
+doc['_yz_rt'] # 'counters'
+```
 
 ```python
 doc = results['docs'][0]
@@ -983,11 +1014,19 @@ doc['_yz_rt'] # 'counters'
 
 Alternatively, we can see how many counters have values below 15:
 
+```ruby
+results = client.search('scores', 'counter:[* TO 15]')
+```
+
 ```python
 results = client.fulltext_search('scores', 'counter:[* TO 15]')
 ```
 
 Or we can see how many counters have a value of 17 exactly:
+
+```ruby
+results = client.search('scores', 'counter:17')
+```
 
 ```python
 results = client.fulltext_search('scores', 'counter:17')
@@ -1026,16 +1065,30 @@ Now, all of the sets that we store in any bucket with the bucket type
 store three sets for two different people describing their respective
 hobbies, in the bucket `people`:
 
+```ruby
+bucket = client.bucket('people')
+
+mike_ditka_set = Riak::Crdt::Set.new(bucket, 'ditka', 'sets')
+mike_ditka_set.add('football')
+mike_ditka_set.add('winning')
+
+ronnie_james_dio_set = Riak::Crdt::Set.new(bucket, 'dio', 'sets')
+ronnie_james_dio_set.add('wailing')
+ronnie_james_dio_set.add('rocking')
+ronnie_james_dio_set.add('winning')
+```
+
 ```python
 from riak.datatypes import Set
 
-people_bucket = client.bucket_type('sets').bucket('people')
-mike_ditka_set = Set(people_bucket, 'ditka')
+bucket = client.bucket_type('sets').bucket('people')
+
+mike_ditka_set = Set(bucket, 'ditka')
 mike_ditka_set.add('football')
 mike_ditka_set.add('winning')
 mike_ditka_set.store()
 
-ronnie_james_dio_set = Set(people_bucket, 'dio')
+ronnie_james_dio_set = Set(bucket, 'dio')
 ronnie_james_dio_set.add('wailing')
 ronnie_james_dio_set.add('rocking')
 ronnie_james_dio_set.add('winning')
@@ -1045,12 +1098,22 @@ ronnie_james_dio_set.store()
 Now, we can query our `hobbies` index to see if anyone has the hobby
 `football`:
 
+```ruby
+results = client.search('hobbies', 'set:football')
+# This should return a dict with fields like 'num_found' and 'docs'
+```
+
 ```python
 results = client.fulltext_search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
 ```
 
 Let's see how many sets contain the element `football`:
+
+```ruby
+results['num_found']
+# 1
+```
 
 ```python
 results['num_found']
@@ -1059,6 +1122,12 @@ results['num_found']
 
 Success! We stored two sets, only one of which contains the element
 `football`. Now, let's see how many sets contain the element `winning`:
+
+```ruby
+results = client.search('hobbies', 'set:winning')
+results['num_found']
+# 2
+```
 
 ```python
 results = client.fulltext_search('hobbies', 'set:winning')
@@ -1110,6 +1179,34 @@ riak-admin bucket-type update maps '{"props":{"search_index":"customers"}}'
 
 Now we can create some maps along the lines suggested above:
 
+```ruby
+bucket = client.bucket('customers')
+
+idris_elba = Riak::Crdt::Map.new(bucket, 'idris_elba', 'maps')
+
+idris_elba.batch do |ie|
+  ie.registers['first_name'] = 'Idris'
+  ie.registers['last_name'] = 'Elba'
+  ie.flags['enterprise_customer'] = true
+  ie.counters['page_visits'].increment(10)
+  ['acting', 'being Stringer Bell'].each do |interest|
+    ie.sets['interests'].add(interest)
+  end
+end
+
+joan_jett = Riak::Crdt::Map.new(bucket, 'joan_jett', 'maps')
+joan_jett.batch do |jj|
+  jj.registers['first_name'] = 'Joan'
+  jj.registers['last_name'] = 'Jett'
+  ## Joan Jett is not an enterprise customers, so we don't need to
+  ## explicitly disable this flag, as all flags are disabled by default
+  jj.counters['page_visits'].increment(10)
+  ['loving rock and roll', 'being in the Blackhearts'].each do |interest|
+    jj.sets['interests'].add(interest)
+  end
+end
+```
+
 ```python
 bucket = client.bucket_type('maps').bucket('customers')
 
@@ -1126,7 +1223,7 @@ joan_jett = Map(bucket, 'joan_jett')
 joan_jett.registers['first_name'].assign('Joan')
 joan_jett.registers['last_name'].assign('Jett')
 # Joan Jett is not an enterprise customers, so we don't need to
-# explictly this flag to enable, as all flags are disabled by default
+# explictly disable this flag, as all flags are disabled by default
 idris_elba.counters['page_visits'].increment(25)
 for interest in ['loving rock and roll', 'being in the Blackhearts']:
     joan_jett.sets['interests'].add(interest)
@@ -1140,6 +1237,12 @@ see how many users have page visit counters above 15. Unlike the
 counters example above, we have to specify _which_ counter we're
 querying:
 
+```ruby
+results = client.search('customers', 'page_visits_counter:[15 TO *')
+results['num_found']
+# 1
+```
+
 ```python
 results = client.fulltext_search('customers', 'page_visits_counter:[15 TO *]')
 results['num_found']
@@ -1148,6 +1251,11 @@ results['num_found']
 
 As expected, one of our two stored maps has a `page_visits` counter
 above 15. Let's make sure that we have the right result:
+
+```ruby
+results['docs'][0]['first_name_register']
+# 'Joan'
+```
 
 ```python
 results['docs'][0]['first_name_register']
@@ -1162,6 +1270,11 @@ Each of the maps we stored thus far had an `interests` set. First, let's
 see how many of our maps even _have_ sets called `interests` using a
 wildcard query:
 
+```ruby
+results = client.search('customers', 'interests_set:*')
+# 2
+```
+
 ```python
 results = client.fulltext_search('customers', 'interests_set:*')
 results['num_found']
@@ -1171,10 +1284,16 @@ results['num_found']
 As expected, both stored maps have an `interests` set. Now let's see how
 many maps have items in `interests` sets that begin with `loving`:
 
+```ruby
+results = client.search('customers', 'interests:set:loving*')
+results['num_found'] # 1
+results['docs'][0]['first_name_register'] # 'Joan'
+```
+
 ```python
 results = client.fulltext_search('customers', 'interests_set:loving*')
 results['num_found'] # 1
-results['docs'][0]['first_name_registers'] # u'Joan'
+results['docs'][0]['first_name_register'] # u'Joan'
 ```
 
 As expected, only our Joan Jett map has an item in its `interests` set
@@ -1185,6 +1304,12 @@ that starts with `loving`.
 Before we can try to search maps within maps, we need to actually store
 some. Let's add a `alter_ego` map to both of the maps we've stored thus
 far. Each person's alter ego will have a first name only.
+
+```ruby
+idris_elba.maps['alter_ego'].registers['name'] = 'John Luther'
+
+joan_jett.maps['alter_ego'].registers['name'] = 'Robert Plant'
+```
 
 ```python
 idris_elba.maps['alter_ego'].registers['name'].assign('John Luther')
@@ -1199,6 +1324,11 @@ different levels of depth with a single dot. Here's an example query for
 finding maps that have a `name` register embedded within an `alter_ego`
 map:
 
+```ruby
+results = client.search('customers', 'alter_ego_map.name_register:*')
+results['num_found'] # 1
+```
+
 ```python
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*')
 results['num_found'] # 1
@@ -1208,6 +1338,12 @@ Once we know how to query embedded fields like this, we can query those
 just like any other. Let's find out which maps have an `alter_ego`
 sub-map that contains a `name` register that ends with `PLant`, and
 display that customer's first name:
+
+```ruby
+results = client.search('customers', 'alter_ego_map.name_register:*Plant')
+results['num_found'] # 1
+results['docs'][0]['first_name_register'] # 'Joan'
+```
 
 ```python
 results = client.fulltext_search('customers', 'alter_ego_map.name_register:*Plant')
