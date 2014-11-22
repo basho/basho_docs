@@ -81,22 +81,22 @@ will depend on your [[configuration|Configuration
 Files#Client-Interfaces]].
 
 ```java
-YokozunaIndex famousIndex = new YokozunaIndex("famous");
-StoreSearchIndex storeSearchIndex =
-    new StoreSearchIndex.Builder(famousIndex).build();
-client.execute(storeSearchIndex);
+YokozunaIndex famousIndex = new YokozunaIndex("famous", "_yz_default");
+StoreIndex storeIndex =
+    new StoreIndex.Builder(famousIndex).build();
+client.execute(storeIndex);
 ```
 
 ```ruby
-client.create_search_index("famous")
+client.create_search_index('famous', '_yz_default')
 ```
 
 ```python
-client.create_search_index('famous')
+client.create_search_index('famous', '_yz_default')
 ```
 
 ```erlang
-riakc_pb_socket:create_search_index(Pid, <<"famous">>)
+riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
 ```
 
 ```curl
@@ -118,9 +118,9 @@ explicitly defines the default schema.
 
 ```java
 YokozunaIndex famousIndex = new YokozunaIndex("famous", "_yz_default");
-StoreSearchIndex storeSearchIndex = new StoreSearchIndex.Builder(famousIndex)
+StoreIndex storeIndex = new StoreIndex.Builder(famousIndex)
         .build();
-client.execute(StoreSearchIndex);
+client.execute(storeIndex);
 ```
 
 ```ruby
@@ -922,9 +922,9 @@ schema (as in some of the examples above):
 
 ```java
 YokozunaIndex scoresIndex = new YokozunaIndex("scores", "_yz_default");
-StoreSearchIndex storeSearchIndex = new StoreSearchIndex.Builder(scoresIndex)
+StoreIndex storeIndex = new StoreIndex.Builder(scoresIndex)
         .build();
-client.execute(storeSearchIndex);
+client.execute(storeIndex);
 ```
 
 ```ruby
@@ -1008,7 +1008,7 @@ String query = "counter:[20 TO *]";
 SearchOperation searchOp = new SearchOperation.Builder(BinaryValue.create(index), query)
         .build();
 cluster.execute(searchOp);
-
+SearchOperation.Response results = searchOp.get();
 ```
 
 ```ruby
@@ -1029,6 +1029,15 @@ results['num_found']
 
 And there we are: only one of our two stored sets has a value over 20.
 To find out which set that is, we can dig into our results:
+
+```java
+// Using the "results" object from above:
+int numberFound = results.numResults();
+Map<String, List<String>> foundObject = results.getAllResults().get(0);
+String key = foundObject.get("_yz_rk").get(0); // "joan_rivers"
+String bucket = foundObject.get("_yz_rb").get(0); // "people"
+String bucketType = foundObject.get("_yz_rt").get(0); // "counters"
+```
 
 ```ruby
 doc = results['docs'][0]
@@ -1058,6 +1067,16 @@ doc['_yz_rt'] # 'counters'
 
 Alternatively, we can see how many counters have values below 15:
 
+```java
+String index = "scores";
+String query = "counter:[* TO 15]";
+SearchOperation searchOp = new SearchOperation
+        .Builder(BinaryValue.create("scores"), "counter:[* TO 15]")
+        .build();
+cluster.execute(searchOp);
+SearchOperation.Response results = searchOp.get();
+```
+
 ```ruby
 results = client.search('scores', 'counter:[* TO 15]')
 ```
@@ -1067,6 +1086,11 @@ results = client.fulltext_search('scores', 'counter:[* TO 15]')
 ```
 
 Or we can see how many counters have a value of 17 exactly:
+
+```java
+// Using the same method as above, just changing the query:
+String query = "counter:17";
+```
 
 ```ruby
 results = client.search('scores', 'counter:17')
@@ -1091,6 +1115,17 @@ riak-admin bucket-type activate sets
 Now, we'll create a Search index called `hobbies` that uses the default
 schema (as in some of the examples above):
 
+```java
+YokozunaIndex hobbiesIndex = new YokozunaIndex("hobbies");
+StoreIndex storeIndex =
+  new StoreIndex.Builder(hobbiesIndex).build();
+client.execute(storeIndex);
+```
+
+```ruby
+client.create_search_index('hobbies', '_yz_default')
+```
+
 ```bash
 curl -XPUT $RIAK_HOST/search/index/hobbies \
   -H 'Content-Type: application/json' \
@@ -1108,6 +1143,26 @@ Now, all of the sets that we store in any bucket with the bucket type
 `sets` will be automatically indexed as a set. So let's say that we
 store three sets for two different people describing their respective
 hobbies, in the bucket `people`:
+
+```java
+Namespace peopleBucket = new Namespace("sets", "people");
+
+Location mikeDitkaSet = new Location(peopleBucket, "ditka");
+SetUpdate su1 = new SetUpdate()
+        .add("football")
+        .add("winning");
+UpdateSet update1 = new UpdateSet.Builder(mikeDitkaSet, su1).build();
+
+Location ronnieJamesDioSet = new Location(peopleBucket, "dio");
+SetUpdate su2 = new SetUpdate()
+        .add("wailing")
+        .add("rocking")
+        .add("winning");
+UpdateSet update2 = new UpdateSet.Builder(ronnieJamesDioSet, su2).build();
+
+client.execute(update1);
+client.execute(update2);
+```
 
 ```ruby
 bucket = client.bucket('people')
@@ -1142,6 +1197,11 @@ ronnie_james_dio_set.store()
 Now, we can query our `hobbies` index to see if anyone has the hobby
 `football`:
 
+```java
+// Using the same method explained above, just changing the query:
+String query = "set:football";
+```
+
 ```ruby
 results = client.search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
@@ -1153,6 +1213,11 @@ results = client.fulltext_search('hobbies', 'set:football')
 ```
 
 Let's see how many sets contain the element `football`:
+
+```java
+// Using the same method explained above for getting search results:
+int numberFound = results.numResults(); // 1
+```
 
 ```ruby
 results['num_found']
@@ -1166,6 +1231,14 @@ results['num_found']
 
 Success! We stored two sets, only one of which contains the element
 `football`. Now, let's see how many sets contain the element `winning`:
+
+```java
+// Using the same method explained above, just changing the query:
+String query = "set:winning";
+
+// Again using the same method from above:
+int numberFound = results.numResults(); // 2
+```
 
 ```ruby
 results = client.search('hobbies', 'set:winning')
@@ -1208,6 +1281,21 @@ riak-admin bucket-type activate maps
 Now, let's create a search index called `customers` using the default
 schema:
 
+```java
+YokozunaIndex customersIndex = new YokozunaIndex("customers", "_yz_default");
+StoreIndex storeIndex =
+  new StoreIndex.Builder(customersIndex).build();
+client.execute(storeIndex);
+```
+
+```ruby
+client.create_search_index('customers', '_yz_default')
+```
+
+```python
+client.create_search_index('customers', '_yz_default')
+```
+
 ```curl
 curl -XPUT $RIAK_HOST/search/index/customers \
   -H 'Content-Type: application/json' \
@@ -1222,6 +1310,31 @@ riak-admin bucket-type update maps '{"props":{"search_index":"customers"}}'
 ```
 
 Now we can create some maps along the lines suggested above:
+
+```java
+Namespace customersBucket = new Namespace("maps", "customers");
+
+Location idrisElbaMap = new Location(customersBucket, "idris_elba");
+MapUpdate mu = new MapUpdate()
+        .update("first_name", new RegisterUpdate("Idris"))
+        .update("last_name", new RegisterUpdate("Elba"))
+        .update("enterprise_customer", new FlagUpdate(false))
+        .update("page_visits", new CounterUpdate(10))
+        .update("interests", new SetUpdate().add("acting", "being Stringer Bell"));
+
+Location joanJettMap = new Location(customersBucket, "joan_jett");
+MapUpdate mu2 = new MapUpdate()
+        .update("first_name", new RegisterUpdate("Joan"))
+        .update("last_name", new RegisterUpdate("Jett"))
+        // Joan Jett is not an enterprise customer, so we don't need to
+        // explicitly disable the "enterprise_customer" flag, as all
+        // flags are disabled by default
+        .update("page_visits", new CounterUpdate(25))
+        .update("interests", new SetUpdate().add("loving rock and roll").add("being in the Blackhearts"));
+
+UpdateMap update1 = new UpdateMap.Builder(idrisElbaMap, mu1).build();
+UpdateMap update2 = new UpdateMap.Builder(joanJettMap, mu2).build();
+```
 
 ```ruby
 bucket = client.bucket('customers')
@@ -1281,8 +1394,16 @@ see how many users have page visit counters above 15. Unlike the
 counters example above, we have to specify _which_ counter we're
 querying:
 
+```java
+// Using the same method explained above, just changing the query:
+String query = "page_visits_counter:[15 TO *]";
+
+// Again using the same method from above:
+int numberFound = results.numResults(); // 1
+```
+
 ```ruby
-results = client.search('customers', 'page_visits_counter:[15 TO *')
+results = client.search('customers', 'page_visits_counter:[15 TO *]')
 results['num_found']
 # 1
 ```
@@ -1295,6 +1416,10 @@ results['num_found']
 
 As expected, one of our two stored maps has a `page_visits` counter
 above 15. Let's make sure that we have the right result:
+
+```java
+// Using the same method from above:
+```
 
 ```ruby
 results['docs'][0]['first_name_register']
