@@ -920,6 +920,25 @@ riak-admin bucket-type activate counters
 Now, we'll create a search index called `scores` that uses the default
 schema (as in some of the examples above):
 
+```java
+YokozunaIndex scoresIndex = new YokozunaIndex("scores", "_yz_default");
+StoreSearchIndex storeSearchIndex = new StoreSearchIndex.Builder(scoresIndex)
+        .build();
+client.execute(storeSearchIndex);
+```
+
+```ruby
+client.create_search_index('scores', '_yz_default')
+```
+
+```python
+client.create_search_index('scores', '_yz_default')
+```
+
+```erlang
+riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
+```
+
 ```bash
 curl -XPUT $RIAK_HOST/search/index/hobbies \
   -H 'Content-Type: application/json' \
@@ -938,6 +957,22 @@ bucket type `counters` will be indexed in our `scores` index. So let's
 start playing with some counters. All counters will be stored in the
 bucket `players`, while the key for each counter will be the username of
 each player:
+
+```java
+Namespace peopleBucket = new Namespace("counters", "people");
+
+Location christopherHitchensCounter = new Location(peopleBucket, "christ_hitchens");
+CounterUpdate cu = new CounterUpdate(10);
+UpdateCounter update = new UpdateCounter.Builder(christopherHitchensCounter, cu)
+        .build();
+client.execute(update);
+
+Location joanRiversCounter = new Location(peopleBucket, "joan_rivers");
+CounterUpdate cu = new CounterUpdate(25);
+UpdateCounter update = new UpdateCounter.Builder(joanRiversCounter, cu)
+        .build();
+client.execute(update);
+```
 
 ```ruby
 bucket = client.bucket('people')
@@ -966,6 +1001,15 @@ joan_rivers_counter.store()
 So now we have two counters, one with a value of 10 and the other with a
 value of 25. Let's query to see how many counters have a value greater
 than 20, just to be sure:
+
+```java
+String index = "scores";
+String query = "counter:[20 TO *]";
+SearchOperation searchOp = new SearchOperation.Builder(BinaryValue.create(index), query)
+        .build();
+cluster.execute(searchOp);
+
+```
 
 ```ruby
 results = client.search('scores', 'counter:[20 TO *]')
