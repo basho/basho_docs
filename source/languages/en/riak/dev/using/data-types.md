@@ -564,8 +564,8 @@ Montreal are nice places to go. Let's add them to our `cities` set:
 // Using our "cities" Location from above:
 
 SetUpdate su = new SetUpdate()
-        .add(BinaryValue.create("Toronto"))
-        .add(BinaryValue.create("Montreal"));
+        .add("Toronto")
+        .add("Montreal");
 UpdateSet update = new UpdateSet.Builder(citiesSet, su)
         .build();
 client.execute(update);
@@ -600,9 +600,9 @@ Let's remove Montreal and add the others:
 // Using our "cities" Location from above:
 
 SetUpdate su = new SetUpdate()
-        .remove(BinaryValue.create("Montreal"))
-        .add(BinaryValue.create("Hamilton"))
-        .add(BinaryValue.create("Ottawa"));
+        .remove("Montreal")
+        .add("Hamilton")
+        .add("Ottawa");
 UpdateSet update = new UpdateSet.Builder(citiesSet, su)
         .build();
 client.execute(update);
@@ -640,9 +640,9 @@ Now, we can check on which cities are currently in our set:
 FetchSet fetch = new FetchSet.Builder(citiesSet)
         .build();
 FetchSet.Response response = client.execute(fetch);
-Set<BinaryValue> binarySet = response.getDatatype().viewAsSet();
+Set<BinaryValue> binarySet = response.getDatatype().view();
 for (BinaryValue city : binarySet) {
-  System.out.println(city.toString());
+  System.out.println(city.toStringUtf8());
 }
 ```
 
@@ -705,8 +705,8 @@ Or we can see whether our set includes a specific member:
 ```java
 // Using our "citiesSet" from above:
 
-System.out.println(citiesSet.contains(BinaryValue.create("Vancouver")));
-System.out.println(citiesSet.contains(BinaryValue.create("Ottawa")));
+System.out.println(citiesSet.contains(("Vancouver"));
+System.out.println(citiesSet.contains("Ottawa"));
 ```
 
 ```ruby
@@ -875,8 +875,8 @@ phone number, both of which are best stored as registers:
 ```java
 // Using our "ahmedMap" location from above:
 
-RegisterUpdate ru1 = new RegisterUpdate(BinaryValue.create("Ahmed"));
-RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create("5551234567"));
+RegisterUpdate ru1 = new RegisterUpdate("Ahmed");
+RegisterUpdate ru2 = new RegisterUpdate("5551234567");
 MapUpdate mu = new MapUpdate()
         .update("first_name", ru1)
         .update("phone_number", ru2);
@@ -940,9 +940,8 @@ up for the new plan. He hasn't yet, so we'll set it to `false`:
 ```java
 // Using our "ahmedMap" location from above:
 
-FlagUpdate setToFalse = new FlagUpdate().set(false);
 MapUpdate mu = new MapUpdate()
-        .update("enterprise_customer", setToFalse);
+        .update("enterprise_customer", new FlagUpdate(false));
 UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
         .build();
 client.execute(update);
@@ -1016,10 +1015,9 @@ when Ahmed visits our page for the first time:
 ```java
 // Using our "ahmedMap" location from above:
 
-CounterUpdate cu = new CounterUpdate(1);
 MapUpdate mu = new MapUpdate()
         .update("page_visits", cu);
-UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
+UpdateMap update = new UpdateMap.Builder(ahmedMap, new CounterUpdate(1))
         .build();
 client.execute(update);
 ```
@@ -1069,9 +1067,9 @@ that information in a set inside of our map:
 // Using our "ahmedMap" location from above:
 
 SetUpdate su = new SetUpdate()
-        .add(BinaryValue.create("robots"))
-        .add(BinaryValue.create("opera"))
-        .add(BinaryValue.create("motorcycles"));
+        .add("robots")
+        .add("opera")
+        .add("motorcycles");
 MapUpdate mu = new MapUpdate()
         .update("interests", su);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
@@ -1130,7 +1128,7 @@ FetchMap fetch = new FetchMap.Builder(ahmedMap)
 FetchMap.Response response = client.execute(fetch);
 RiakMap map = response.getDatatype();
 RiakSet interestSet = map.getSet("interests");
-Set<BinaryValue> interests = interestSet.viewAsSet();
+Set<BinaryValue> interests = interestSet.view();
 System.out.println(interests.contains(BinaryValue.create("robots")));
 
 // Checking for "opera" and "motorcycles" works the same way
@@ -1166,7 +1164,7 @@ seem to like opera. He's much more keen on indie pop. Let's change the
 // Using our "ahmedMap" location from above:
 
 SetUpdate su = new SetUpdate()
-        .remove(BinaryValue.create("opera"));
+        .remove("opera");
 MapUpdate mu = new MapUpdate()
         .update("interests", su);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, mu)
@@ -1229,9 +1227,9 @@ registers:
 ```java
 // Using our "ahmedMap" location from above:
 
-RegisterUpdate ru1 = new RegisterUpdate(BinaryValue.create("Annika"));
-RegisterUpdate ru2 = new RegisterUpdate(BinaryValue.create("Weiss"));
-RegisterUpdate ru3 = new RegisterUpdate(BinaryValue.create("5559876543"));
+RegisterUpdate ru1 = new RegisterUpdate("Annika");
+RegisterUpdate ru2 = new RegisterUpdate("Weiss");
+RegisterUpdate ru3 = new RegisterUpdate("5559876543");
 
 MapUpdate annikaUpdate = new MapUpdate()
         .update("first_name", ru1)
@@ -1358,7 +1356,7 @@ map.maps['annika_info'].registers.remove('phone_number')
 ```python
 del map.maps['annika_info'].registers['phone_number']
 map.store()
-```
+``
 
 ```erlang
 Map15 = riakc_map:update({<<"annika_info">>, map},
@@ -1392,9 +1390,9 @@ FetchMap fetch = new FetchMap.Builder(ahmedMap).build();
 FetchMap.Response response = client.execute(fetch);
 Context ctx = response.getContext();
 MapUpdate annikaUpdate = new MapUpdate()
-        .update("enterprise_plan", new FlagUpdate().set(false))
-        .update("family_plan", FlagUpdate setToFalse = new FlagUpdate().set(false))
-        .update("free_plan", FlagUpdate setToTrue = new FlagUpdate().set(true));
+        .update("enterprise_plan", new FlagUpdate((false))
+        .update("family_plan", new FlagUpdate(false))
+        .update("free_plan", new FlagUpdate(true));
 MapUpdate ahmedUpdate = new MapUpdate()
         .update("annika_info", annikaUpdate);
 UpdateMap update = new UpdateMap.Builder(ahmedMap, ahmedUpdate)
@@ -1545,7 +1543,7 @@ Now let's store Annika's interests in a set:
 ```java
 // Using our "ahmedMap" location from above:
 
-SetUpdate su = new SetUpdate().add(BinaryValue.create("tango dancing"));
+SetUpdate su = new SetUpdate().add("tango dancing");
 MapUpdate annikaUpdate = new MapUpdate()
         .update("widget_purchases", su);
 MapUpdate ahmedUpdate = new MapUpdate()
@@ -1597,7 +1595,7 @@ We can remove that interest in just the way that we would expect:
 ```java
 // Using our "ahmedMap" location from above:
 
-SetUpdate su = new SetUpdate().remove(BinaryValue.create("tango dancing"));
+SetUpdate su = new SetUpdate().remove("tango dancing");
 MapUpdate annikaUpdate = new MapUpdate()
         .update("widget_purchases", su);
 MapUpdate ahmedUpdate = new MapUpdate()
@@ -1650,9 +1648,9 @@ purchases, we could do so within a map:
 // Using our "ahmedMap" location from above:
 
 MapUpdate purchaseUpdate = new MapUpdate()
-        .update("first_purchase", new FlagUpdate().set(true))
-        .update("amount", new RegisterUpdate().set(BinaryValue.create("1271")))
-        .update("items", new SetUpdate().add(BinaryValue.create("large widget")));
+        .update("first_purchase", new FlagUpdate(true)
+        .update("amount", new RegisterUpdate("1271"))
+        .update("items", new SetUpdate().add("large widget"));
 MapUpdate annikaUpdate = new MapUpdate()
         .update("purchase", purchaseUpdate);
 MapUpdate ahmedUpdate = new MapUpdate()
