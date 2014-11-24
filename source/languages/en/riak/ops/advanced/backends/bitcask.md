@@ -552,11 +552,11 @@ bitcask.merge.thresholds.small_file = 25MB
 
 <div class="note">
 <div class="title">Note on choosing threshold values</div>
-The values for <code>frag_threshold</code> and
-<code>dead_bytes_threshold</code> <em>must be equal to or less than
-their corresponding trigger values</em>. If they are set higher,
-Bitcask will trigger merges where no files meet the thresholds, and thus
-never resolve the conditions that triggered merging.
+The values for the fragmentation and dead bytes thresholds _must be
+equal to or less than their corresponding trigger values_. If they are
+set higher, Bitcask will trigger merges in cases where no files meet the
+threshold, which means that Bitcask will never resolve the conditions
+that triggered merging in the first place.
 </div>
 
 ### Merge Interval
@@ -682,7 +682,8 @@ bitcask.max_puts = 1000
 
 By default, Bitcask keeps all of your data. But if your data has limited
 time value or if you need to purge data for space reasons, you can
-configure object expiry. This feature is disabled by default.
+configure object expiration, aka expiry. This feature is disabled by
+default.
 
 You can enable and configure object expiry using the `expiry` setting
 and either specifying a time interval in seconds, minutes, hours, etc.,
@@ -739,6 +740,19 @@ bitcask.expiry.grace_time = 1h
     ...
     ]}
 ```
+
+#### Automatic expiration and Riak Search
+
+If you are using [[Riak Search|Using Search]] in conjunction with
+Bitcask, please be aware that automatic expiry does not apply to Search
+[[indexes|Search Details#Indexes]]. If objects are indexed using Search,
+those objects can be expired by Bitcask yet still registered in Search
+indexes, which means that Search queries may return keys that no longer
+exist. Riak's [[active anti-entropy]] \(AAE) subsystem will eventually
+catch this discrepancy, but this depends on AAE being enabled (which is
+the default) and could take some time. If search queries returning
+expired keys is a problem for your use case, then we would recommend not
+using automatic expiration.
 
 ## Tuning Bitcask
 
