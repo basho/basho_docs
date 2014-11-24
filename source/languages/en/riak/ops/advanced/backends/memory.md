@@ -54,7 +54,7 @@ the [[Multi backend documentation|Multi]].
 ## Configuring the Memory Backend
 
 The Memory backend enables you to configure two fundamental aspects of
-object storage: maximum memory usage per [[vnode|Riak Glossary#vnode]]
+object storage: maximum memory usage per [[vnode|Vnodes]]
 and object expiry.
 
 ### Max Memory

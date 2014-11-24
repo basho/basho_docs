@@ -830,14 +830,13 @@ possible and to minimize latency and maximize throughput.
 
 ## Bitcask Implementation Details
 
-Riak will create a Bitcask database directory for each [[vnode|Riak
-Glossary#vnodes]] in a [[cluster|Clusters]]. In each of those
-directories, at most one database file will be open for writing at any
-given time. The file being written to will grow until it exceeds a
-specified size threshold, at which time it is closed and a new file is
-created for additional writes. Once a file is closed, whether purposely
-or due to server exit, it is considered immutable and will never again
-be opened for writing.
+Riak will create a Bitcask database directory for each [[vnode|Vnodes]]
+in a [[cluster|Clusters]]. In each of those directories, at most one
+database file will be open for writing at any given time. The file being
+written to will grow until it exceeds a specified size threshold, at
+which time it is closed and a new file is created for additional writes.
+Once a file is closed, whether purposely or due to server exit, it is
+considered immutable and will never again be opened for writing.
 
 The file currenlty open for writes is only written by appending, which
 means that sequential writes do not require disk seeking, which can
@@ -886,9 +885,9 @@ The result:
 981946412581700398168100746981252653831329677312
 ```
 
-Note that when starting up the directories are created for each vnode
-partition's data. At this point, however, there are not yet any
-Bitcask-specific files.
+Note that when starting up the directories are created for each
+[[vnode|Vnode]] partition's data. At this point, however, there are not
+yet any Bitcask-specific files.
 
 After performing one PUT (write) into the Riak cluster running Bitcask:
 

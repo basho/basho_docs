@@ -213,7 +213,7 @@ the cluster.
 ### Ring View
 
 One level deeper than the cluster view is the ring view. This is where you can
-see the health of each vnode.
+see the health of each [[vnode|Vnodes]].
 
 {{#1.4.0-}}
 ![Ring View](/images/control_ring.png)
