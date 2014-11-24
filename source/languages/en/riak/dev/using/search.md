@@ -1334,6 +1334,8 @@ MapUpdate mu2 = new MapUpdate()
 
 UpdateMap update1 = new UpdateMap.Builder(idrisElbaMap, mu1).build();
 UpdateMap update2 = new UpdateMap.Builder(joanJettMap, mu2).build();
+client.execute(update1);
+client.execute(update2);
 ```
 
 ```ruby
@@ -1419,6 +1421,11 @@ above 15. Let's make sure that we have the right result:
 
 ```java
 // Using the same method from above:
+String query = "page_visits_counter:[15 TO *]";
+
+// Again using the same method from above:
+String registerValue =
+  results.getAllResults().get(0).get("first_name_register").get(0); // Joan
 ```
 
 ```ruby
@@ -1439,6 +1446,11 @@ Each of the maps we stored thus far had an `interests` set. First, let's
 see how many of our maps even _have_ sets called `interests` using a
 wildcard query:
 
+```java
+// Using the same method from above:
+String query = "interests_set:*";
+```
+
 ```ruby
 results = client.search('customers', 'interests_set:*')
 # 2
@@ -1453,8 +1465,18 @@ results['num_found']
 As expected, both stored maps have an `interests` set. Now let's see how
 many maps have items in `interests` sets that begin with `loving`:
 
+```java
+// Using the same method from above:
+String query = "interests_set:loving*";
+
+// Again using the same method from above:
+int numberFound = results.numResults(); // 1
+String registerValue =
+  results.getAllResults().get(0).get("first_name_register").get(0); // Joan
+```
+
 ```ruby
-results = client.search('customers', 'interests:set:loving*')
+results = client.search('customers', 'interests_set:loving*')
 results['num_found'] # 1
 results['docs'][0]['first_name_register'] # 'Joan'
 ```
@@ -1465,7 +1487,7 @@ results['num_found'] # 1
 results['docs'][0]['first_name_register'] # u'Joan'
 ```
 
-As expected, only our Joan Jett map has an item in its `interests` set
+As expected, only our Joan Jett map has one item in its `interests` set
 that starts with `loving`.
 
 #### Searching maps within maps
@@ -1473,6 +1495,14 @@ that starts with `loving`.
 Before we can try to search maps within maps, we need to actually store
 some. Let's add a `alter_ego` map to both of the maps we've stored thus
 far. Each person's alter ego will have a first name only.
+
+```java
+Location idrisElbaMap = new Location(customersBucket, "idris_elba");
+MapUpdate alterEgoUpdate = new MapUpdate()
+        .update("name", new RegisterUpdate("John Luther"));
+UpdateMap addSubMap = new UpdateMap.Builder(idrisElbaMap, alterEgoUpdate);
+client.execute(addSubMap);
+```
 
 ```ruby
 idris_elba.maps['alter_ego'].registers['name'] = 'John Luther'
@@ -1493,6 +1523,14 @@ different levels of depth with a single dot. Here's an example query for
 finding maps that have a `name` register embedded within an `alter_ego`
 map:
 
+```java
+// Using the same method from above:
+String query = "alter_ego_map.name_register:*";
+
+// Again using the same method from above:
+int numberFound = results.numResults(); // 1
+```
+
 ```ruby
 results = client.search('customers', 'alter_ego_map.name_register:*')
 results['num_found'] # 1
@@ -1507,6 +1545,16 @@ Once we know how to query embedded fields like this, we can query those
 just like any other. Let's find out which maps have an `alter_ego`
 sub-map that contains a `name` register that ends with `PLant`, and
 display that customer's first name:
+
+```java
+// Using the same method from above:
+String query = "alter_ego_map.name_register:*Plant";
+
+// Again using the same method from above:
+int numberFound = results.numResults(); // 1
+String registerValue =
+  results.getAllResults().get(0).get("first_name_register").get(0); // Joan
+```
 
 ```ruby
 results = client.search('customers', 'alter_ego_map.name_register:*Plant')
