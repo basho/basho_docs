@@ -67,6 +67,17 @@ In general, you should read an object before modifying it. Think of it
 as performing a `GET` prior to any `PUT` when interacting with a REST
 API.
 
+<div class="note">
+<div class="title">Note on strong consistency</div>
+If you are using Riak's [[strong consistency|Using Strong Consistency]]
+feature, it is not only desirable but also necessary to use the
+read/modify/write cycle explained in the section above. If you attempt
+to update an object without fetching the object first, your update
+operation will necessarily fail. More information can be found in the
+[[strong consistency documentation|Using Strong
+Consistency#Strongly-Consistent-Writes]].
+</div>
+
 ### Updating Deleted Objects
 
 You should use the read-modify-write cycle explained above at all times,

@@ -128,12 +128,12 @@ We also recommend setting the `n_val` on strongly consistent buckets to
 at least 5. More on why we make this recommendation can be found in
 [[Fault Tolerance|Managing Strong Consistency#Fault-Tolerance]].
 
-## Object Context
+## Causal Context
 
 Riak uses [[causal context]] to determine the causal history of objects.
 In versions of Riak prior to 2.0, [[vector clocks|Causal
 Context#Vector-Clocks]] were used to provide objects with causal context
-metadata.  In Riak versions 2.0 and later, there is an option to use
+metadata. In Riak versions 2.0 and later there is an option to use
 [[dotted version vectors]], which function much like vector clocks from
 the standpoint of clients, but with important advantages over vector
 clocks.
@@ -143,7 +143,7 @@ updates---whether traditional vector clocks or the newer dotted version
 vectors---they are purely [[optional|Conflict Resolution]] for all
 eventually consistent operations in Riak. This is not the case for
 strongly consistent operations. **When modifying strongly consistent
-objects in Riak, you _must_ attach a context object**.
+objects in Riak, you _must_ attach a causal context**.
 
 If you attempt to modify a strongly consistent object without attaching
 a context to the request, the request will always fail. And while it is
@@ -151,7 +151,7 @@ possible to make writes to non-existing keys without attaching context,
 we recommend doing this only if you are certain that the key does not
 yet exist.
 
-Instructions on using context objects can be found in our documentation
+Instructions on using causal context can be found in our documentation
 on [[object updates]].
 
 ## Strongly Consistent Writes
