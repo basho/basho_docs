@@ -77,6 +77,16 @@ riak-admin bucket-type activate maps
 To check whether activation has been successful, simply use the same
 `bucket-type status` command shown above.
 
+## Data Types and Search
+
+Riak Data Types can be searched just like any other object, but with the
+added benefit that you Data Type is indexed as a different type by Solr,
+the search platform undergirding Riak Search. In our Search
+documentation we offer a [[full tutorial|Using
+Search#Riak-Data-Types-and-Search]] as well as a variety of
+[[examples|Using Search#Data-Types-and-Search-Examples]], including code
+samples from each of our official client libraries.
+
 ## Usage Examples
 
 The examples below show you how to use Riak Data Types at the
