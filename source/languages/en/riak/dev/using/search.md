@@ -1005,13 +1005,13 @@ extractors. It should look like this:
 
 Now that Riak Search knows how to decode and extract HTTP header packet
 data, let's store some in Riak and then query it. We'll put the example
-packet data from above in a `testdata.bin` file. Then, we'll `PUT` that
-binary to Riak's `/search/extract` endpoint:
+packet data from above in a `google_packet.bin` file. Then, we'll `PUT`
+that binary to Riak's `/search/extract` endpoint:
 
 ```curl
 curl -XPUT $RIAK_HOST/search/extract \
      -H 'Content-Type: application/httpheader' \ # Note that we used our custom MIME type
-     --data-binary @testdata.bin
+     --data-binary @google_packet.bin
 ```
 
 That should return the following JSON:
@@ -1036,7 +1036,109 @@ yz_extractor:run(<<"GET http://www.google.com HTTP/1.1\n">>, yz_httpheader_extra
 
 ### Indexing and Searching HTTP Header Packet Data
 
+Now that Solr knows how to extract HTTP header packet data, we need to
+create a schema that extends the [[default schema|Search
+Schema#Creating-a-Custom-Schema]]. The following fields should be added
+to `<fields>` in the schema, which we'll name `http_header_schema` and
+store in a `http_header_schema.xml` file:
 
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="http_header_schema" version="1.5">
+<fields>
+  <!-- other required fields here -->
+
+  <field name="method" type="string" indexed="true" stored="true" multiValued="false"/>
+  <field name="host" type="string" indexed="true" stored="true" multiValued="false"/>
+  <field name="uri" type="string" indexed="true" stored="true" multiValued="false"/>
+</fields>
+```
+
+Now, we can store the schema:
+
+```java
+import org.apache.commons.io.FileUtils
+
+File xml = new File("http_header_schema.xml");
+String xmlString = FileUtils.readFileToString(xml);
+YokozunaSchema schema = new YokozunaSchema("http_header_schema", xmlString);
+StoreSchema storeSchemaOp = new StoreSchema.Builder(schema).build();
+client.execute(storeSchemaOp);
+```
+
+```ruby
+schema_xml = File.read('http_header_schema.xml')
+client.create_search_schema('http_header_schema', schema_xml)
+```
+
+```python
+import io
+
+schema_xml = open('http_header_schema.xml').read()
+client.create_search_schema('http_header_schema', schema_xml)
+```
+
+```curl
+curl -XPUT $RIAK_HOST/search/schema/http_header_schema \
+     -H 'Content-Type: application/xml' \
+     --data-binary @http_header_schema.xml
+```
+
+Riak now has our schema stored and ready for use. Let's create a search
+index called `header_data` that's associated with our new schema:
+
+```curl
+curl -XPUT $RIAK_HOST/search/index/header_data \
+     -H 'Content-Type: application/json' \
+     -d '{"schema":"http_header_schema"}'
+```
+
+Now, we can create and activate a [[bucket type|Using Bucket Types]]
+for all of the HTTP header data that we plan to store. Any bucket that
+bears this type will be associated with our `header_data` search index.
+We'll call our bucket type `http_data_store`.
+
+```bash
+riak-admin bucket-type create http_data_store '{"props":{"search_index":"header_data"}}'
+riak-admin bucket-type activate http_data_store
+```
+
+Let's use the same `google_packet.bin` file that we used previously and
+store it in a bucket with the `http_data_store` bucket type, making sure
+to use our custom `application/httpheader` MIME type:
+
+```java
+Location key = new Location(new Namespace("http_data_store", "packets"), "google");
+File packetData = new File("google_packet.bin");
+byte[] packetBinary = FileUtils.readFileToByteArray(packetData);
+
+RiakObject packetObject = new RiakObject()
+        .setContentType("application/httpheader")
+        .setValue(BinaryValue.create(packetBinary));
+
+StoreValue storeOp = new StoreValue.Builder(packetObject)
+        .setLocation(key)
+        .build();
+client.execute(storeOp);
+```
+
+```curl
+curl -XPUT $RIAK_HOST/types/http_data_store/buckets/packets/keys/google \
+     -H 'Content-Type: application/httpheader' \
+     --data-binary @google_packet.bin
+```
+
+Now that we have some header packet data stored, we can query our
+`header_data` index on whatever basis we'd like. First, let's verify
+that we'll get one result if we query for objects that have the HTTP
+method `GET`:
+
+```curl
+curl "$RIAK_HOST/search/query/header_data?wt=json&q=method:GET"
+```
+
+That should return a fairly large JSON object. Check the `numFound`
+field. The value of that field should be `1`.
 
 ## Feature List
 
