@@ -824,7 +824,7 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&fl=_yz_rk,age_i:product(age_i
 ```
  -->
 
- ## Custom Search Extractors
+## Custom Search Extractors
 
 Solr has default extractors for a wide variety of data types, including
 JSON, XML, and plaintext. Riak Search ships with the following
@@ -838,14 +838,26 @@ Content Type | Erlang Module
 `text/xml` | `yz_xml_extractor`
 No specified type | `yz_noop_extractor`
 
+There are also built-in extractors for [[Riak Data Types|Using
+Search#Riak-Data-Types-and-Search]].
+
 If you're working with a data format that does not have a default Solr
 extractor, you can create your own and register it with Riak Search.
 We'll show you how to do so by way of example.
 
-### Basic Example Extractor
+### The Extractor Interface
 
-Let's start with a basic example that takes a string and extracts it
-into a field called `text`:
+Creating a custom extract involves creating an Erlang interface that
+implements two functions:
+
+* `extract/1` --- Takes the contents of the object and returns the
+    same contents and an empty list
+* `extract/2` --- Takes the contents of the object and returns an Erlang
+    [proplist](http://www.erlang.org/doc/man/proplists.html) with a
+    single field name and a single value associated with that name
+
+The following extractor shows how a pure text extractor implements those
+two functions:
 
 ```erlang
 -module(search_test_extractor).
@@ -865,15 +877,21 @@ field_name(Opts) ->
 ```
 
 This extractor takes the contents of a `Value` and returns a proplist
-with a single field name (in this case `text`) and the single value. Run
-the 
+with a single field name (in this case `text`) and the single value.
+This function can be run in the Erlang shell. Let's run it providing the
+text `hello`:
 
 ```erlang
-search_test_extractor:extract("hello").
+> search_test_extractor:extract("hello").
+
+%% Console output:
+[[text, "hello"]]
 ```
 
 Upon running this command, the value `hello` would be indexed in Solr
-under the fieldname `text`.
+under the fieldname `text`. If you wanted to find all objects with a
+`text` field that begins with `Fourscore`, you could use the
+Solr query `text:Fourscore*`.
 
 ### An Example Custom Extractor
 
@@ -884,23 +902,28 @@ example of such a packet:
 GET http://www.google.com HTTP/1.1
 ```
 
-We want to store the HTTP method in a `method` field, the host in a
-`host` field, and the URI in a field called `uri`. In this case, the
-`method` field should have the value `GET`, the `host` field
-`www.google.com`, and the `uri` field `/`.
+We want to register the following information in Solr:
+
+Field name | Value | Extracted value in this example
+:----------|:------|:-------------------------------
+`method` | The HTTP method | `GET`
+`host` | The URL's host | `www.google.com`
+`uri` | The URI, i.e. what comes after the host | `/`
+
+The example extractor below would provide the three desired
+fields/values. It relies on the
+[`decode_packet`](http://www.erlang.org/doc/man/erlang.html#decode_packet-3)
+function from Erlang's standard library.
 
 ```erlang
 -module(yz_httpheader_extractor).
 -compile(export_all).
 
-%% The extract/1 function should return only the original Value and an
-%% empty list, since no Opts are provided:
 extract(Value) ->
     extract(Value, []).
 
-%% If an Opts variable is provided to our extract/2 function, we should
-%% use the decode_packet function explained above to index the three
-%% fields:
+%% In this example, we can ignore the Opts variable from the example
+%% above, hence the underscore:
 extract(Value, _Opts) ->
     {ok,
         {http_request,
@@ -908,9 +931,13 @@ extract(Value, _Opts) ->
          {absoluteURI, http, Host, undefined, Uri},
          _Version},
         _Rest} = erlang:decode_packet(http, Value, []),
-    %% Finally, a list of three (atom, value) tuples is returned:
     [{method, Method}, {host, list_to_binary(Host)}, {uri, list_to_binary(Uri)}].
 ```
+
+This file will be stored in a `yz_httpheader_extractor.erl` file (as
+Erlang filenames must match the module name). Now that our extractor has
+been written, it must be compileda and registered in Riak before it can
+be used.
 
 ### Registering Custom Extractors
 
@@ -942,7 +969,74 @@ example:
 ```
 
 This will instruct the Erlang VM on which Riak runs to look for compiled
-`.beam` files in the proper directory.
+`.beam` files in the proper directory. You should re-start the node at
+this point. Once the node has been re-started, you can use the node's
+Erlang shell to register the `yz_httpheader_extractor`. First, attach to
+the shell:
+
+```bash
+riak attach
+```
+
+Once you're in the shell:
+
+```erlang
+%% We'll name the extractor "application/httpheader":
+
+> yz_extractor:register("application/httpheader", yz_httpheader_extractor).
+```
+
+If successful, this command will return a list of currently registered
+extractors. It should look like this:
+
+```erlang
+[{default,yz_noop_extractor},
+ {"application/httpheader",yz_httpheader_extractor},
+ {"application/json",yz_json_extractor},
+ {"application/riak_counter",yz_dt_extractor},
+ {"application/riak_map",yz_dt_extractor},
+ {"application/riak_set",yz_dt_extractor},
+ {"application/xml",yz_xml_extractor},
+ {"text/plain",yz_text_extractor},
+ {"text/xml",yz_xml_extractor}]
+```
+
+### Verifying Our Custom Extractor
+
+Now that Riak Search knows how to decode and extract HTTP header packet
+data, let's store some in Riak and then query it. We'll put the example
+packet data from above in a `testdata.bin` file. Then, we'll `PUT` that
+binary to Riak's `/search/extract` endpoint:
+
+```curl
+curl -XPUT $RIAK_HOST/search/extract \
+     -H 'Content-Type: application/httpheader' \ # Note that we used our custom MIME type
+     --data-binary @testdata.bin
+```
+
+That should return the following JSON:
+
+```json
+{
+  "method": "GET",
+  "host": "www.google.com",
+  "uri": "/"
+}
+```
+
+We can also verify this in the Erlang shell (whether in a Riak node's
+Erlang shell or otherwise):
+
+```erlang
+yz_extractor:run(<<"GET http://www.google.com HTTP/1.1\n">>, yz_httpheader_extractor).
+
+%% Console output:
+[{method,'GET'},{host,<<"www.google.com">>},{uri,<<"/">>}]
+```
+
+### Indexing and Searching HTTP Header Packet Data
+
+
 
 ## Feature List
 
