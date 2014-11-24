@@ -239,6 +239,14 @@ Stat                       | Description
 `leveldb_read_block_error` | The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.
 `disk`                     | Information about the disk, taken from Erlang's disksup module.  Reported as [{"ID",KBytes_Used,Percent_Util}].
 `storage_backend`          | The storage backend currently in use.
+`handoff_timeouts`         | Number of handoff timeouts encountered by this node.
+`rejected_handoffs`        | Number of recent ownership handoff operations rejected by the node.
+`rings_reconciled`         | Number of recent ring reconciliation operations.
+`rings_reconciled_total`   | Total number of ring reconciliation operations since node was started.
+`converge_delay_min`       | Minimum time in milliseconds describing time taken for the ring to converge after ring changes.
+`converge_delay_max`       | Maximum time in milliseconds describing time taken for the ring to converge after ring changes.
+`converge_delay_mean`      | Mean time in milliseconds describing time taken for the ring to converge after ring changes.
+`converge_delay_last`      | Last observed histogram value in milliseconds describing time taken for the ring to converge after ring changes.
 
 {{#1.2.0+}}
 ### Pipeline Metrics
