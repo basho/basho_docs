@@ -423,7 +423,7 @@ associated with the `default` bucket type:
 }
 ```
 
-## Bucket Types and the `allow_mult` Setting
+## Bucket Types and the allow_mult Setting
 
 Prior to Riak 2.0, Riak created [[siblings|Causal Context#Siblings]] in
 the case of conflicting updates only when explicitly instructed to do

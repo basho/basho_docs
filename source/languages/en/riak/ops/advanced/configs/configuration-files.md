@@ -1561,11 +1561,11 @@ security check.</td>
 
 <tr>
 <td><code>check_crl</code></td>
-<td>Whether to check the [certificate revocation
-list](http://en.wikipedia.org/wiki/Revocation_list) (CRL) of a client
-certificate. This defaults to <code>on</code> but some CAs may not
-maintain or define a CRL, so this can be disabled if no CRL is
-available.</td>
+<td>Whether to check the <a
+href="http://en.wikipedia.org/wiki/Revocation_list">certificate
+revocation list</a> (CRL) of a client certificate. This defaults to
+<code>on</code> but some CAs may not maintain or define a CRL, so this
+can be disabled if no CRL is available.</td>
 <td><code>on</code></td>
 </tr>
 
