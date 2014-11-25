@@ -65,8 +65,7 @@ Parameter | Common name | Default value | Description
 `n_val` | N | `3` | Replication factor, i.e. the number of nodes in the cluster on which an object is to be stored
 `r` | R | `quorum` | The number of servers that must respond to a read request
 `w` | W | `quorum` | Number of servers that must respond to a write request
-`pr` | PR | `0` | The number of primary <a
-href="/latest/theory/concepts/vnodes">vnodes</a> that must respond to a read request
+`pr` | PR | `0` | The number of primary <a href="/latest/theory/concepts/vnodes">vnodes</a> that must respond to a read request
 `pw` | PW | `0` | The number of primary <a href="/latest/theory/concepts/glossary#vnode">vnodes</a> that must respond to a write request
 `dw` | DW | `quorum` | The number of servers that must report that a write has been successfully written to disk
 
