@@ -63,11 +63,11 @@ riak:
               - "[[Ruby|Conflict Resolution: Ruby]]"
               - "[[Python|Conflict Resolution: Python]]"
       - title: "Riak Search"
-          - "[[Using Search]]"
+        sub:
+          - "[[Search Basics|Using Search]]"
           - "[[Search Details]]"
           - "[[Search Schema]]"
-          - "[[Upgrading Search from 1.x to 2.x]]"
-          - "[[Search Settings]]"
+          - "[[Custom Search Extractors]]"
       - title: "Data Modeling"
         sub:
           - "[[Use Cases for Riak|Use Cases]]"
