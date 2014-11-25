@@ -41,6 +41,33 @@ stored in a Riak cluster, while holding true to Riak's core strengths.
 
 ![Yokozuna](/images/yokozuna.png)
 
+## Feature List
+
+Riak Search 2.0 is more than a distributed search engine like
+[SolrCloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud)
+or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable
+integration with Riak. This greatly simplifies usage by offloading the
+task of indexing values to Riak.
+
+Riak Search's features and enhancements are numerous.
+
+* Support for various MIME types (JSON, XML, plain text, [[Riak Data
+  Types|Using Data Types]]) for automatic data extraction
+* Support for [various
+  language](https://cwiki.apache.org/confluence/display/solr/Language+Analysis)-specific
+  [analyzers, tokenizers, and
+  filters](https://cwiki.apache.org/confluence/display/solr/Understanding+Analyzers%2C+Tokenizers%2C+and+Filters)
+* Robust, easy-to-use [query languages](https://cwiki.apache.org/confluence/display/solr/Other+Parsers)
+  like Lucene (default) and DisMax.
+* Queries: exact match, globs, inclusive/exclusive range queries,
+  AND/OR/NOT, prefix matching, proximity searches, term boosting,
+  sorting, pagination
+* Protocol Buffer interface and Solr interface via HTTP
+* Scoring and ranking for most relevant results
+* Query result [highlighting](https://cwiki.apache.org/confluence/display/solr/Highlighting)
+* Search queries as input for MapReduce jobs
+* [[Active Anti-Entropy]] for automatic index repair
+
 ## Simple Setup
 
 Riak Search 2.0 is an integration of Solr (for indexing and querying)
@@ -261,9 +288,7 @@ Location snarfLoc = new Location(animalsBucket, "snarf");
 Location panthroLoc = new Location(animalsBucket, "panthro");
 
 StoreValue lionoStore = new StoreValue.Builder(liono).withLocation(lionoLoc).build();
-StoreValue cheetaraStore = new StoreValue.Builder(cheetara).withLocation(cheetaraLoc).build();
-StoreValue snarfStore = new StoreValue.Builder(snarf).withLocation(snarfLoc).build();
-StoreValue panthroStore = new StoreValue.Builder(panthro).withLocation(panthroLoc).build();
+// The other StoreValue operations can be built the same way
 
 client.execute(lionoStore);
 // The other storage operations can be performed the same way
@@ -354,9 +379,9 @@ sum up the design goals of Riak Search:
 But how does Riak Search know how to index values, given that values are
 opaque in Riak? For that, we employ extractors.
 
-### Extractors
+## Extractors
 
-*Extractors* are modules in Riak that accept a Riak value with a certain
+Extractors are modules in Riak that accept a Riak value with a certain
 content type, and convert it into a list of fields capable of being
 indexed by Solr. This is done transparently and automatically as part of
 the indexing process.
@@ -404,6 +429,10 @@ Lists of values are assumed to be Solr multi-valued fields.
 
 The above JSON will insert a list of three values into Solr to be
 indexed: `people_ss=Ryan`, `people_ss=Eric`, `people_ss=Brett`.
+
+You can also create your own custom extractors if your data doesn't fit
+one of the default types. A full tutorial can be found in [[Custom
+Search Extractors|Using Search#Custom-Search-Extractors]] below.
 
 ### Automatic Fields
 
@@ -751,7 +780,7 @@ Just be careful what you sort by.
 
 Distributed pagination in Riak Search cannot be used reliably when
 sorting on fields that can have different values per replica of the same
-object, namely: `score`, `_yz_id`. In the case of sorting by these
+object, namely `score` and `_yz_id`. In the case of sorting by these
 fields, you may receive redundant objects. In the case of `score`, the
 top-N can return different results over multiple runs.
 
@@ -2005,30 +2034,3 @@ curl "$RIAK_HOST/search/query/header_data?wt=json&q=method:GET"
 # This should return a fairly large JSON object with a "num_found" field
 # The value of that field should be 1
 ```
-
-## Feature List
-
-Riak Search 2.0 is more than a distributed search engine like
-[SolrCloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud)
-or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable
-integration with Riak. This greatly simplifies usage by offloading the
-task of indexing values to Riak.
-
-Riak Search's features and enhancements are numerous.
-
-* Support for various MIME types (JSON, XML, plain text, [[Riak Data
-  Types|Using Data Types]]) for automatic data extraction
-* Support for [various
-  language](https://cwiki.apache.org/confluence/display/solr/Language+Analysis)-specific
-  [analyzers, tokenizers, and
-  filters](https://cwiki.apache.org/confluence/display/solr/Understanding+Analyzers%2C+Tokenizers%2C+and+Filters)
-* Robust, easy-to-use [query languages](https://cwiki.apache.org/confluence/display/solr/Other+Parsers)
-  like Lucene (default) and DisMax.
-* Queries: exact match, globs, inclusive/exclusive range queries,
-  AND/OR/NOT, prefix matching, proximity searches, term boosting,
-  sorting, pagination
-* Protocol Buffer interface and Solr interface via HTTP
-* Scoring and ranking for most relevant results
-* Query result [highlighting](https://cwiki.apache.org/confluence/display/solr/Highlighting)
-* Search queries as input for MapReduce jobs
-* [[Active Anti-Entropy]] for automatic index repair
