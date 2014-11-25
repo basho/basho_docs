@@ -51,7 +51,6 @@ riak:
           - "[[Client Libraries]]"
           - "[[Key/Value Operations|The Basics]]"
           - "[[Object Updates]]"
-          - "[[Search|Using Search]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[Data Types|Using Data Types]]"
           # - "[[Conflict Resolution]]"
@@ -64,6 +63,11 @@ riak:
               - "[[Java|Conflict Resolution: Java]]"
               - "[[Ruby|Conflict Resolution: Ruby]]"
               - "[[Python|Conflict Resolution: Python]]"
+      - title: "Riak Search"
+          - "[[Using Search]]"
+          - "[[Search Details]]"
+          - "[[Search Schema]]"
+          - "[[Upgrading Search from 1.x to 2.x]]"
       - title: "Data Modeling"
         sub:
           - "[[Use Cases for Riak|Use Cases]]"
@@ -72,8 +76,6 @@ riak:
           - "[[Migrating from an SQL Database to Riak]]"
       - title: "Advanced"
         sub:
-          - "[[Search Details]]"
-          - "[[Search Schema]]"
           - "[[MapReduce|Advanced MapReduce]]"
           - "[[Secondary Indexes|Advanced Secondary Indexes]]"
           - "[[Commit Hooks|Advanced Commit Hooks]]"
