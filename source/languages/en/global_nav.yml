@@ -52,7 +52,6 @@ riak:
           - "[[Key/Value Operations|The Basics]]"
           - "[[Object Updates]]"
           - "[[Bucket Types|Using Bucket Types]]"
-          - "[[Data Types|Using Data Types]]"
           - "[[MapReduce|Using MapReduce]]"
           - "[[Secondary Indexes|Using Secondary Indexes]]"
           - "[[Commit Hooks|Using Commit Hooks]]"
@@ -69,11 +68,14 @@ riak:
           - "[[Search Schema]]"
           - "[[Riak Data Types and Search]]"
           - "[[Custom Search Extractors]]"
+      - title: "Riak Data Types"
+        sub:
+          - "[[Data Types Basics|Using Data Types]]"
+          - "[[Data Modeling with Riak Data Types]]"
       - title: "Data Modeling"
         sub:
           - "[[Use Cases for Riak|Use Cases]]"
           - "[[Key/Value Modeling]]"
-          - "[[Data Types|Data Modeling with Riak Data Types]]"
           - "[[Migrating from an SQL Database to Riak]]"
       - title: "Advanced"
         sub:
