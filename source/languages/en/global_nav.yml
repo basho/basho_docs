@@ -67,6 +67,7 @@ riak:
           - "[[Search Basics|Using Search]]"
           - "[[Search Details]]"
           - "[[Search Schema]]"
+          - "[[Riak Data Types and Search]]"
           - "[[Custom Search Extractors]]"
       - title: "Data Modeling"
         sub:
