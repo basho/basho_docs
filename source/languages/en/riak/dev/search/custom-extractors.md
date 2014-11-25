@@ -26,7 +26,7 @@ If you're working with a data format that does not have a default Solr
 extractor, you can create your own and register it with Riak Search.
 We'll show you how to do so by way of example.
 
-### The Extractor Interface
+## The Extractor Interface
 
 Creating a custom extract involves creating an Erlang interface that
 implements two functions:
@@ -74,7 +74,7 @@ under the fieldname `text`. If you wanted to find all objects with a
 `text` field that begins with `Fourscore`, you could use the
 Solr query `text:Fourscore*`.
 
-### An Example Custom Extractor
+## An Example Custom Extractor
 
 Let's say that we're storing HTTP header packet data in Riak. Here's an
 example of such a packet:
@@ -120,7 +120,7 @@ Erlang filenames must match the module name). Now that our extractor has
 been written, it must be compileda and registered in Riak before it can
 be used.
 
-### Registering Custom Extractors
+## Registering Custom Extractors
 
 In order to use a custom extractor, you must create a compiled `.beam`
 file out of your `.erl` extractor file and then tell Riak where that
@@ -184,7 +184,7 @@ extractors. It should look like this:
 If the `application/httpheader` extractor is part of that list, then the
 extractor has been successfully registered.
 
-### Verifying Our Custom Extractor
+## Verifying Our Custom Extractor
 
 Now that Riak Search knows how to decode and extract HTTP header packet
 data, let's store some in Riak and then query it. We'll put the example
@@ -217,7 +217,7 @@ yz_extractor:run(<<"GET http://www.google.com HTTP/1.1\n">>, yz_httpheader_extra
 [{method,'GET'},{host,<<"www.google.com">>},{uri,<<"/">>}]
 ```
 
-### Indexing and Searching HTTP Header Packet Data
+## Indexing and Searching HTTP Header Packet Data
 
 Now that Solr knows how to extract HTTP header packet data, we need to
 create a schema that extends the [[default schema|Search
