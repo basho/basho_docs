@@ -978,11 +978,10 @@ the shell:
 riak attach
 ```
 
-Once you're in the shell:
+At this point, we need to choose a MIME type for our extractor. Let's
+call it `application/httpheader`. Once you're in the shell:
 
 ```erlang
-%% We'll name the extractor "application/httpheader":
-
 > yz_extractor:register("application/httpheader", yz_httpheader_extractor).
 ```
 
@@ -1000,6 +999,9 @@ extractors. It should look like this:
  {"text/plain",yz_text_extractor},
  {"text/xml",yz_xml_extractor}]
 ```
+
+If the `application/httpheader` extractor is part of that list, then the
+extractor has been successfully registered.
 
 ### Verifying Our Custom Extractor
 
@@ -1087,6 +1089,21 @@ curl -XPUT $RIAK_HOST/search/schema/http_header_schema \
 Riak now has our schema stored and ready for use. Let's create a search
 index called `header_data` that's associated with our new schema:
 
+```java
+YokozunaIndex headerDataIndex = new YokozunaIndex("header_data", "http_header_schema");
+StoreSearchIndex storeIndex = new StoreSearchIndex.Builder(headerDataIndex)
+        .build();
+client.execute(storeIndex);
+```
+
+```ruby
+client.create_search_index('header_data', 'http_header_schema')
+```
+
+```python
+client.create_search_index('header_data', 'http_header_schema')
+```
+
 ```curl
 curl -XPUT $RIAK_HOST/search/index/header_data \
      -H 'Content-Type: application/json' \
@@ -1122,6 +1139,24 @@ StoreValue storeOp = new StoreValue.Builder(packetObject)
 client.execute(storeOp);
 ```
 
+```ruby
+packet_data = File.read('google_packet.bin')
+bucket = client.bucket('packets')
+obj = Riak::Robject.new(bucket, 'google')
+obj.content_type = 'application/httpheader'
+obj.raw_data = packetData
+obj.store(type: 'http_data_store')
+```
+
+```python
+packet_data = open('google_packet.bin').read()
+bucket = client.bucket_type('http_data_store').bucket('packets')
+obj = RiakObject(client, bucket, 'google')
+obj.content_type = 'application/httpheader'
+obj.data = packet_data
+obj.store()
+```
+
 ```curl
 curl -XPUT $RIAK_HOST/types/http_data_store/buckets/packets/keys/google \
      -H 'Content-Type: application/httpheader' \
@@ -1133,12 +1168,30 @@ Now that we have some header packet data stored, we can query our
 that we'll get one result if we query for objects that have the HTTP
 method `GET`:
 
-```curl
-curl "$RIAK_HOST/search/query/header_data?wt=json&q=method:GET"
+```java
+// Using the same method from above:
+String query = "method:GET";
+
+// Again using the same method from above:
+int numberFound = results.numResults(); // 1
 ```
 
-That should return a fairly large JSON object. Check the `numFound`
-field. The value of that field should be `1`.
+```ruby
+results = client.search('http_header_schema', 'method:GET')
+results['num_found'] # 1
+```
+
+```python
+results = client.fulltext_search('http_header_schema', 'method:GET')
+results['num_found'] # 1
+```
+
+```curl
+curl "$RIAK_HOST/search/query/header_data?wt=json&q=method:GET"
+
+# This should return a fairly large JSON object with a "num_found" field
+# The value of that field should be 1
+```
 
 ## Feature List
 
