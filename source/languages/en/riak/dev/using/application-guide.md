@@ -98,7 +98,7 @@ of features that may be just what you're looking for. In the sections
 immediately below, you can find brief descriptions of those features as
 well as relevant links to Basho documentation.
 
-### Search
+## Search
 
 Riak Search provides you with [Apache
 Solr](http://lucene.apache.org/solr/)-powered full-text indexing and
@@ -114,7 +114,7 @@ using the Solr API.
 * [[Search Schema]] --- How to create custom schemas for extracting data
   from Riak Search
 
-#### When to use Search
+### When to Use Search
 
 * **When you need a rich querying API** --- Riak Search gives you access
   to the entirety of [Solr](http://lucene.apache.org/solr/)'s extremely
@@ -132,7 +132,7 @@ doubt about what to use, you should assume that Search is the right tool
 for you.
 </div>
 
-#### When not to use Search
+### When Not to Use Search
 
 * **When deep pagination is needed** --- At the moment, you should
     consider [[secondary indexes|Using Secondary Indexes]] instead of
@@ -145,7 +145,7 @@ for you.
     up a separate, dedicated cluster for Search data, or finding another
     solution.
 
-### Riak Data Types
+## Riak Data Types
 
 When performing basic K/V operations, Riak is agnostic toward the actual
 data stored within objects. Beginning with Riak 2.0, however, you now
@@ -176,7 +176,7 @@ meaning that the data stored in counters, sets, and maps can be indexed
 and searched just like any other data in Riak. Documentation on Data
 Types and Search is coming soon.
 
-#### When to use Riak Data Types
+### When to Use Riak Data Types
 
 * **When your data fits** --- If the data that you're storing can be
   modeled as one of the five available types, Riak Data Types could be a
@@ -191,7 +191,7 @@ Types and Search is coming soon.
   rather than at the application level, then Riak Data Types are well
   worth exploring.
 
-#### When not to use Riak Data Types
+### When Not to Use Riak Data Types
 
 * **When you need to provide your own convergence logic** --- If your
   application needs to have access to all sibling values, then Riak Data
@@ -209,7 +209,7 @@ Types and Search is coming soon.
   size, but if you want to keep objects as lean as possible, it may be
   better to stick to normal K/V operations.
 
-### MapReduce
+## MapReduce
 
 Riak's MapReduce feature enables you to perform batch processing jobs in
 a way that leverages Riak's distributed nature. When a MapReduce job is
@@ -223,7 +223,7 @@ or you can write and run your own MapReduce jobs in
 * [[Advanced MapReduce]] --- A more in-depth guide to MapReduce,
   including code samples and implementation details
 
-#### When to use MapReduce
+### When to Use MapReduce
 
 * **Batch processing only** --- You should use MapReduce only when truly
   truly necessary. MapReduce jobs are very computationally expensive and
@@ -232,7 +232,7 @@ or you can write and run your own MapReduce jobs in
   carried out at times when your cluster is experiencing load that is
   well below average.
 
-#### When not to use MapReduce
+### When Not to Use MapReduce
 
 * **When another Riak feature will do** --- Before even considering
   using MapReduce, you should thoroughly investigate [[Riak Search|Using
@@ -247,7 +247,7 @@ Search]]. If you do need a tool like Hadoop or Apache Spark, you should
 consider using Riak in conjunction with a more suitable data processing
 tool.
 
-### Secondary Indexes (2i)
+## Secondary Indexes (2i)
 
 Using basic key/value operations in Riak sometimes leads to the
 following problem: how do I know which keys I should look for? Secondary
@@ -262,7 +262,7 @@ Search|Using Search]].
   streaming, and sorting
 * [[Advanced Secondary Indexes]] --- Implementation details behind 2i
 
-#### When to use secondary indexes
+### When to Use Secondary Indexes
 
 * **When you require deep pagination** --- At the moment, 2i's
     deep pagination capabilities are more performant than those offered
@@ -270,7 +270,7 @@ Search|Using Search]].
     will change, however, in the future, at which point we will
     recommend using Search instead.
 
-#### When not to use secondary indexes
+### When Not to Use Secondary Indexes
 
 * **For most querying purposes** --- If your use case does not
     involve deep pagination, we recommend Search over 2i for _all_
