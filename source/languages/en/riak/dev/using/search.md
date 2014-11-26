@@ -127,7 +127,7 @@ riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
 ```
 
 ```curl
-export RIAK_HOST="http://localhost:8098"
+export "RIAK_HOST="http://localhost:8098"
 
 curl -XPUT $RIAK_HOST/search/index/famous
 ```
@@ -224,7 +224,7 @@ if you have existing data with a type-free bucket (or under the
 bucket using the [[HTTP API]].
 
 ```curl
-curl -XPUT "$RIAK_HOST/buckets/cats/props" \
+curl -XPUT $RIAK_HOST/buckets/cats/props \
      -H'content-type:application/json' \
      -d'{"props":{"search_index":"famous"}}'
 ```
@@ -353,21 +353,21 @@ riakc_pb_socket:put(Pid, C3),
 ```
 
 ```curl
-curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/liono" \
-     -H'content-type:application/json' \
-     -d'{"name_s":"Lion-o", "age_i":30, "leader_b":true}'
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/liono \
+     -H 'Content-Type: application/json' \
+     -d '{"name_s":"Lion-o", "age_i":30, "leader_b":true}'
 
-curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/cheetara" \
-     -H'content-type:application/json' \
-     -d'{"name_s":"Cheetara", "age_i":28, "leader_b":false}'
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/cheetara \
+     -H 'Content-Type: application/json' \
+     -d '{"name_s":"Cheetara", "age_i":28, "leader_b":false}'
 
-curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/snarf" \
-     -H'content-type:application/json' \
-     -d'{"name_s":"Snarf", "age_i":43}'
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/snarf \
+     -H 'Content-Type: application/json' \
+     -d '{"name_s":"Snarf", "age_i":43}'
 
-curl -XPUT "$RIAK_HOST/types/animals/buckets/cats/keys/panthro" \
-     -H'content-type:application/json' \
-     -d'{"name_s":"Panthro", "age_i":36}'
+curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/panthro \
+     -H 'Content-Type: application/json' \
+     -d '{"name_s":"Panthro", "age_i":36}'
 ```
 
 If you've used Riak before, you may have noticed that this is no
@@ -499,7 +499,7 @@ io:fwrite("~p~n", [Docs]).
 ```
 
 ```curl
-curl $RIAK_HOST/search/query/famous?wt=json&q=name_s:Lion* | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=name_s:Lion*" | jsonpp
 ```
 
 The response to a query will be an object containing details about the
@@ -592,7 +592,7 @@ io:fwrite("~s~n", [Val]).
 ```
 
 ```curl
-curl "$RIAK_HOST/types/animals/buckets/cats/keys/liono"
+curl $RIAK_HOST/types/animals/buckets/cats/keys/liono
 
 # Response:
 
@@ -673,7 +673,7 @@ riakc_pb_socket:search(Pid, <<"famous">>, <<"leader_b:true AND age_i:[30 TO *]">
 ```
 
 ```curl
-curl $RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=leader_b:true%20AND%20age_i:%5B25%20TO%20*%5D" | jsonpp
 ```
 
 
@@ -710,8 +710,8 @@ or to the sentinel value `_dont_index_`.
 
 ```curl
 curl -XPUT $RIAK_HOST/types/animals/buckets/cats/props \
-  -H 'Content-Type: application/json' \
-  -d '{"props":{"search_index":"_dont_index_"}}'
+     -H 'Content-Type: application/json' \
+     -d '{"props":{"search_index":"_dont_index_"}}'
 ```
 
 #### Pagination
@@ -771,7 +771,8 @@ ROWS_PER_PAGE=2
 PAGE=2
 START=$(($ROWS_PER_PAGE * ($PAGE-1)))
 
-curl $RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE | jsonpp
+curl
+"$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
 ```
 
 Just be careful what you sort by.
@@ -843,8 +844,8 @@ reduce. It should return the reduced sum of `[3]`.
 
 ```curl
 curl -XPOST $RIAK_HOST/mapred \
-  -H 'Content-Type: application/json' \
-  -d '{"inputs":{"module":"yokozuna","function":"mapred_search","arg":["famous","NOT leader_b:true"]},"query":[{"map":{"language":"javascript","keep":false,"source":"function(v) { return [1]; }"}},{"reduce":{"language":"javascript","keep":true,"name":"Riak.reduceSum"}}]}'
+     -H 'Content-Type: application/json' \
+     -d '{"inputs":{"module":"yokozuna","function":"mapred_search","arg":["famous","NOT leader_b:true"]},"query":[{"map":{"language":"javascript","keep":false,"source":"function(v) { return [1]; }"}},{"reduce":{"language":"javascript","keep":true,"name":"Riak.reduceSum"}}]}'
 ```
 
 <!--

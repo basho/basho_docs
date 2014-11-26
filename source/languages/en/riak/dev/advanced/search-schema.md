@@ -52,9 +52,9 @@ riakc_pb_socket:create_search_schema(Pid, <<"cartoons">>, SchemaData).
 ```
 
 ```curl
-curl -XPUT "http://localhost:8098/search/schema/cartoons" \
-  -H'content-type:application/xml' \
-  --data-binary @cartoons.xml
+curl -XPUT http://localhost:8098/search/schema/cartoons \
+     -H 'Content-Type:application/xml' \
+     --data-binary @cartoons.xml
 ```
 
 ## Creating a Custom Schema
