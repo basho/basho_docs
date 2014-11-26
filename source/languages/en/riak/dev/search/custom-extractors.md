@@ -117,7 +117,7 @@ extract(Value, _Opts) ->
 
 This file will be stored in a `yz_httpheader_extractor.erl` file (as
 Erlang filenames must match the module name). Now that our extractor has
-been written, it must be compileda and registered in Riak before it can
+been written, it must be compiled and registered in Riak before it can
 be used.
 
 ## Registering Custom Extractors
