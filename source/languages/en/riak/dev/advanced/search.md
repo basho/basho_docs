@@ -123,9 +123,8 @@ but logically partition them in KV by using a date as the bucket name.
 A bucket _cannot_ be associated with many indexes---the `search_index`
 property must be a single name, not a list.
 
-See the
-[ADMIN](https://github.com/basho/yokozuna/blob/develop/docs/ADMIN.md)
-page for details on creating an index.
+See the [[main Search doc|Using Search#Simple-Setup]] for details on
+creating an index.
 
 ## Extractors
 
