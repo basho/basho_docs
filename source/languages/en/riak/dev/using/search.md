@@ -127,7 +127,7 @@ riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
 ```
 
 ```curl
-export "RIAK_HOST="http://localhost:8098"
+export RIAK_HOST="http://localhost:8098
 
 curl -XPUT $RIAK_HOST/search/index/famous
 ```
@@ -772,7 +772,7 @@ PAGE=2
 START=$(($ROWS_PER_PAGE * ($PAGE-1)))
 
 curl
-"$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
+curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
 ```
 
 Just be careful what you sort by.

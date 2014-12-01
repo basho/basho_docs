@@ -176,14 +176,14 @@ client.create_search_index('scores', '_yz_default')
 client.create_search_index('scores', '_yz_default')
 ```
 
-```erlang
-riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
-```
-
 ```bash
 curl -XPUT $RIAK_HOST/search/index/hobbies \
   -H 'Content-Type: application/json' \
   -d '{"schema":"_yz_default"}'
+```
+
+```erlang
+riakc_pb_socket:create_search_index(Pid, <<"scores">>, <<"_yz_default">>, []).
 ```
 
 Now, we can modify our `counters` bucket type to associate that bucket
@@ -239,6 +239,26 @@ joan_rivers_counter.increment(25)
 joan_rivers_counter.store()
 ```
 
+```erlang
+ChristopherHitchensCounter = riakc_counter:new(),
+HitchensCounter1 = riakc_counter:increment(10, ChristopherHitchensCounter),
+JoanRiversCounter = riakc_counter:new(),
+RiversCounter1 = riakc_counter:increment(25, JoanRiversCounter),
+riakc_pb_socket:update_type(Pid,
+                            {<<"counters">>, <<"people">>},
+                            <<"chris_hitchens">>,
+                            riakc_counter:to_op(HitchensCounter1)),
+riakc_pb_socket:update_type(Pid,
+                            {<<"counters">>, <<"people">>},
+                            <<"joan_rivers">>,
+                            riakc_counter:to_op(RiversCounter1)).
+```
+
+```curl
+# We do not recommend working with Riak Data Types via curl. Try using
+# one of our client libraries instead.
+```
+
 So now we have two counters, one with a value of 10 and the other with a
 value of 25. Let's query to see how many counters have a value greater
 than 20, just to be sure:
@@ -266,6 +286,12 @@ results = client.fulltext_search('scores', 'counter:[20 TO *]')
 
 results['num_found']
 # 1
+```
+
+```erlang
+{ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:[20 TO *]">>),
+NumberFound = Results#search_results.num_found.
+%% 1
 ```
 
 And there we are: only one of our two stored sets has a value over 20.
@@ -306,6 +332,13 @@ doc['_yz_rb'] # 'people'
 doc['_yz_rt'] # 'counters'
 ```
 
+```erlang
+Doc = lists:nth(1, Docs),
+Key = proplists:get_value(<<"_yz_rk">>, Doc),
+Bucket = proplists:get_value(<<"_yz_rb">>, Doc),
+BucketType = proplists:get_value(<<"_yz_rt", Doc).
+```
+
 Alternatively, we can see how many counters have values below 15:
 
 ```java
@@ -326,6 +359,10 @@ results = client.search('scores', 'counter:[* TO 15]')
 results = client.fulltext_search('scores', 'counter:[* TO 15]')
 ```
 
+```erlang
+{ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:[* TO 15]").
+```
+
 Or we can see how many counters have a value of 17 exactly:
 
 ```java
@@ -339,6 +376,14 @@ results = client.search('scores', 'counter:17')
 
 ```python
 results = client.fulltext_search('scores', 'counter:17')
+```
+
+```erlang
+{ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:17">>).
+```
+
+```curl
+curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:17" | jsonpp
 ```
 
 ## Sets Example
@@ -365,6 +410,14 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('hobbies', '_yz_default')
+```
+
+```python
+client.create_search_index('hobbies', '_yz_default')
+```
+
+```erlang
+riakc_pb_socket:create_search_index(Pid, <<"hobbies">>, <<"_yz_default">>).
 ```
 
 ```bash
@@ -435,6 +488,25 @@ ronnie_james_dio_set.add('winning')
 ronnie_james_dio_set.store()
 ```
 
+```erlang
+MikeDitkaSet = riakc_set:new(),
+riakc_set:add_element(<<"football">>, MikeDitkaSet),
+riakc_set:add_element(<<"winning">>, MikeDitkaSet),
+RonnieJamesDioSet = riakc_set:new(),
+riakc_set:add_element(<<"wailing">>, RonnieJamesDioSet),
+riakc_set:add_element(<<"rocking">>, RonnieJamesDioSet),
+riakc_set:add_element(<<"winning">>, RonnieJamesDioSet),
+
+riakc_pb_socket:update_type(Pid,
+                            {<<"sets">>, <<"people">>},
+                            <<"ditka">>,
+                            riakc_set:to_op(MikeDitkaSet)),
+riakc_pb_socket:update_type(Pid,
+                            {<<"sets">>, <<"people">>},
+                            <<"dio">>,
+                            riakc_set:to_op(RonnieJamesDioSet)).
+```
+
 Now, we can query our `hobbies` index to see if anyone has the hobby
 `football`:
 
@@ -453,6 +525,14 @@ results = client.fulltext_search('hobbies', 'set:football')
 # This should return a dict with fields like 'num_found' and 'docs'
 ```
 
+```erlang
+{ok, Results} = riakc_pb_socket:search(Pid, <<"hobbies">>, <<"set:football">>).
+```
+
+```curl
+curl "$RIAK_HOST/search/query/hobbies?wt=json&q=set:football" | jsonpp
+```
+
 Let's see how many sets contain the element `football`:
 
 ```java
@@ -468,6 +548,11 @@ results['num_found']
 ```python
 results['num_found']
 # 1
+```
+
+```erlang
+NumberFound = Results#search_results.num_found.
+%% 1
 ```
 
 Success! We stored two sets, only one of which contains the element
@@ -491,6 +576,10 @@ results['num_found']
 results = client.fulltext_search('hobbies', 'set:winning')
 results['num_found']
 # 2
+```
+
+```erlang
+
 ```
 
 Just as expected, both sets we stored contain the element `winning`.
