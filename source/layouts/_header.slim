@@ -1,6 +1,12 @@
 header.masthead
   #header
-    - if I18n.t(:banner_ad, :default=>"").present? && latest_version?(:riak)
+    - if I18n.t(:marketing_ad, :default=>"").present? && latest_version?(:riak)
+      div#marketing-banner
+        div.hugs
+        div.temp-banner-text
+          == I18n.t(:marketing_ad)
+        a.more href="http://info.basho.com/DocsBanner.html"
+    - else
       div#ricon-temp-banner
         div.temp-banner-text
           == I18n.t(:banner_ad)
