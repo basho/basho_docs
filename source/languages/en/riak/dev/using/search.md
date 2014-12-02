@@ -132,34 +132,25 @@ will depend on your [[configuration|Configuration
 Files#Client-Interfaces]].
 
 Let's start by creating an index called `famous` that uses the default
-schema, named `_yz_default`. You can also use the default schema by not
-specifying any schema.
+schema.
 
 ```java
-YokozunaIndex famousIndex = new YokozunaIndex("famous", "_yz_default");
-// This is equivalent to:
-// YokozunaIndex famousIndex = new YokozunaIndex("famous");
+YokozunaIndex famousIndex = new YokozunaIndex("famous");
 StoreIndex storeIndex =
     new StoreIndex.Builder(famousIndex).build();
 client.execute(storeIndex);
 ```
 
 ```ruby
-client.create_search_index('famous', '_yz_default')
-# This is equivalent to:
-# client.create_search_index('famous')
+client.create_search_index('famous')
 ```
 
 ```python
-client.create_search_index('famous', '_yz_default')
-# This is equivalent to:
-# client.create_search_index('famous')
+client.create_search_index('famous')
 ```
 
 ```erlang
-riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
-%% This is equivalent to:
-%% riakc_pb_socket:create_search_index(Pid, <<"famous">>).
+riakc_pb_socket:create_search_index(Pid, <<"famous">>).
 ```
 
 ```curl
@@ -204,22 +195,23 @@ curl -XPUT $RIAK_HOST/search/index/famous \
      -d '{"schema":"_yz_default"}'
 ```
 
-The last setup item you need to perform is to associate either a bucket
-or a [[bucket type|Using Bucket Types]] with a Solr index. You only need
-do this once per bucket type, and all buckets within that type will use
-the same Solr index. For example, to associate a bucket type named
-`animals` with the `famous` index, you can set the bucket type property
-`search_index`. If a Solr index is to be used by only *one* Riak bucket,
-you can set the `search_index` property on that bucket. If more than one
-bucket is to share a Solr index, a bucket type should be used. More on
-bucket types in the section directly below.
+The last setup item that you need to perform is to associate either a
+bucket or a [[bucket type|Using Bucket Types]] with a Solr index. You
+only need do this once per bucket type, and all buckets within that type
+will use the same Solr index. For example, to associate a bucket type
+named `animals` with the `famous` index, you can set the bucket type
+property `search_index` to `animals`. If a Solr index is to be used by
+only *one* Riak bucket, you can set the `search_index` property on that
+bucket. If more than one bucket is to share a Solr index, a bucket type
+should be used. More on bucket types in the section directly below.
 
 ### Bucket Types
 
-Since Riak 2.0, Basho suggests that you [[use bucket types|Using Bucket
-Types]] to namespace all buckets you create. Bucket types have a lower
-overhead within the cluster than the default bucket namespace, but
-require an additional setup step on the command line.
+In Riak versions 2.0 and later, Basho suggests that you [[use bucket
+types|Using Bucket Types]] to namespace and configure all buckets you
+use. Bucket types have a lower overhead within the cluster than the
+default bucket namespace but require an additional setup step on the
+command line.
 
 When creating a new bucket type, you can create a bucket type without
 any properties and set individual buckets to be indexed. The step below
@@ -249,15 +241,36 @@ riak-admin bucket-type activate animals
 ```
 
 If you ever need to turn off indexing for a bucket, set the
-`search_index` property to the `_dont_index_` sentinel.
-
+`search_index` property to the `_dont_index_` sentinel value.
 
 ### Bucket Properties
 
 Although we recommend that you use all new buckets under a bucket type,
-if you have existing data with a type-free bucket (or under the
+if you have existing data with a type-free bucket (i.e. under the
 `default` bucket type) you can set the `search_index` property for a
-bucket using the [[HTTP API]].
+specific bucket.
+
+```java
+Namespace catsBucket = new Namespace("cats");
+StoreBucketPropsOperation storePropsOp = new StoreBucketPropsOperation.Builder(catsBucket)
+        .withSearchIndex("famous")
+        .build();
+client.execute(storePropsOp);
+```
+
+```ruby
+bucket = client.bucket('cats')
+bucket.properties = {'search_index' => 'famous'}
+```
+
+```python
+bucket = client.bucket('cats')
+bucket.set_properties({'search_index': 'famous'})
+```
+
+```erlang
+riakc_pb_socket:set_search_index(Pid, <<"cats">>, <<"famous">>).
+```
 
 ```curl
 curl -XPUT $RIAK_HOST/buckets/cats/props \
@@ -265,14 +278,14 @@ curl -XPUT $RIAK_HOST/buckets/cats/props \
      -d'{"props":{"search_index":"famous"}}'
 ```
 
-### Security
+## Riak Search Security Setup
 
-Security is a new feature of Riak that lets an administrator limit
-access to certain resources. In the case of search, your options are to
-limit administration of schemas or indexes (permission `search.admin`)
-to certain users, and to limit querying (permission `search.query`) to
-any index or a specific one. The example below shows the various
-options.
+[[Security|Authentication and Authorization]] is a new feature as of
+Riak 2.0 that lets an administrator limit access to certain resources.
+In the case of search, your options are to limit administration of
+schemas or indexes (the `search.admin` permission) to certain users, and
+to limit querying (the `search.query` permission) to any index or to a
+specific index. The example below shows the various options.
 
 ```bash
 riak-admin security grant search.admin on schema to username
@@ -292,10 +305,10 @@ riak-admin security revoke search.query on index famous from username
 
 ## Indexing Values
 
-With a Solr schema, index, and association in place, we're ready to
-start using Riak Search. First, populate the `cat` bucket with values,
-in this case information about four cats: Liono, Cheetara, Snarf, and
-Panthro.
+With a Solr schema, index, and association in place (and possibly a
+security setup as well), we're ready to start using Riak Search. First,
+populate the `cat` bucket with values, in this case information about
+four cats: Liono, Cheetara, Snarf, and Panthro.
 
 Depending on the driver you use, you may have to specify the content
 type, which for this example is `application/json`. In the case of Ruby
@@ -407,20 +420,20 @@ curl -XPUT $RIAK_HOST/types/animals/buckets/cats/keys/panthro \
 ```
 
 If you've used Riak before, you may have noticed that this is no
-different from setting values without Riak Search. This is how we would
-sum up the design goals of Riak Search:
+different from storing values without Riak Search. That's because we
+designed Riak Search with the following design goal in mind:
 
 #### Write it like Riak, query it like Solr
 
-But how does Riak Search know how to index values, given that values are
-opaque in Riak? For that, we employ extractors.
+But how does Riak Search know how to index values, given that you can
+store opaque values in Riak? For that, we employ extractors.
 
 ## Extractors
 
 Extractors are modules in Riak that accept a Riak value with a certain
-content type, and convert it into a list of fields capable of being
-indexed by Solr. This is done transparently and automatically as part of
-the indexing process.
+content type and convert it into a list of fields that can be indexed by
+Solr. This is done transparently and automatically as part of the
+indexing process.
 
 Our current example uses the JSON extractor, but Riak Search also
 extracts indexable fields from the following content types:
@@ -433,6 +446,8 @@ extracts indexable fields from the following content types:
   * map (`application/riak_map`)
   * set (`application/riak_set`)
 * noop (unknown content type)
+
+More on Riak Data Types can be found in [[Riak Data Types and Search]].
 
 In the examples we've seen, the JSON field `name_s` is translated to a
 Solr index document field insert. Solr will index any field that it
@@ -454,10 +469,9 @@ you have this XML:
 </person>
 ```
 
-XML The extractor will convert it to the Solr field
-`person.pets.pet.name_s` with value `Spot`.
-
-Lists of values are assumed to be Solr multi-valued fields.
+The extractor will convert it to the Solr field `person.pets.pet.name_s`
+with value `Spot`. Lists of values are assumed to be Solr multi-valued
+fields.
 
 ```json
 {"people_ss":["Ryan", "Eric", "Brett"]}
@@ -468,7 +482,7 @@ indexed: `people_ss=Ryan`, `people_ss=Eric`, `people_ss=Brett`.
 
 You can also create your own custom extractors if your data doesn't fit
 one of the default types. A full tutorial can be found in [[Custom
-Search Extractors]] below.
+Search Extractors]].
 
 ### Automatic Fields
 
@@ -482,23 +496,26 @@ However, there are a few fields which you may find useful:
 - `_yz_rb` (Riak bucket)
 - `_yz_err` (extraction error)
 
-You can query by these fields, just like any other normal Solr fields.
-But most of the time you'll use `_yz_rk` as a query result, which tells
-you the Riak key that matches the query you just ran. Let's see this in
-detail by running some queries in the next section.
+You can query on the basis of these fields, just like any other normal
+Solr fields. Most of the time, however, you'll use `_yz_rk` as a query
+result, which tells you the Riak key that matches the query you just
+ran. Let's see this in detail by running some queries in the next
+section.
 
 ## Querying
 
-After the schema, index, association, population/extraction/indexing has
-taken place, comes the fun part of querying for data.
+After the schema, index, association, and population/extraction/indexing
+are taken care of, you can get down to the fun part of querying your
+data.
 
 ### Simple Query
 
 The basic query parameter is `q` via HTTP, or the first parameter of
-your chosen driver's `search` function. All distributed Solr queries are
-supported, which actually includes most of the single-node Solr queries.
-This example searches for all documents in which the `name_s` value
-begins with `Lion` by means of a glob (wildcard) match.
+your chosen driver's `search` function (there are examples from all of
+our client libraries below). All distributed Solr queries are supported,
+which actually includes most of the single-node Solr queries. This
+example searches for all documents in which the `name_s` value begins
+with `Lion` by means of a glob (wildcard) match.
 
 ```java
 SearchOperation searchOp = new SearchOperation
@@ -506,7 +523,7 @@ SearchOperation searchOp = new SearchOperation
         .build();
 cluster.execute(searchOp);
 // This will display the actual results as a List of Maps:
-List<Map<String, List<String> results = searchOp.get().getAllResults();
+List<Map<String, List<String>>> results = searchOp.get().getAllResults();
 // This will display the number of results:
 System.out.println(results);
 ```
