@@ -17,11 +17,6 @@ old Using Riak Search
 docs|http://docs.basho.com/riak/1.4.10/dev/using/search/]].
 </div>
 
-You must first [[enable Riak Search|Riak Search Settings]] in your
-environment to use it.
-
-## Introduction
-
 Riak Search 2.0 is a new open-source project integrated with Riak. It
 allows for distributed, scalable, fault-tolerant, transparent indexing
 and querying of Riak values. It's easy to use. After connecting a bucket
@@ -30,43 +25,67 @@ write values (such as JSON, XML, plain text, [[Riak Data Types|Using
 Data Types]], etc.) into Riak as normal, and then query those indexed
 values using the Solr API.
 
-### Why Riak Search
+Once you have covered some of the basics, we recommend checking out one
+of the following advanced documents:
+
+* [[Search Details]] --- Implementation details behind Yokozuna, the
+    Riak subsystem that ties Solr to Riak and undergirds Riak Search
+* [[Search Schema]] --- A tutorial on creating and using your own custom
+    Solr schemas in Riak Search
+* [[Riak Data Types and Search]] --- How to index and query [[Riak Data
+    Types|Using Data Types]] in Riak Search
+* [[Custom Search Extractors]] --- How to build Solr extractors that go
+    beyond the default extractors that come with Riak Search by default
+
+If you are looking for more operations-oriented documentation, see
+[[Riak Search Settings]] for configuration options and more.
+
+<div class="note">
+<div class="title">Note: Riak Search must be enabled</div>
+Although Riak Search comes bundled with Riak versions 2.0 and later by
+default, you must first first [[enable it|Riak Search Settings]] in your
+environment to use it.
+</div>
+
+## Why Riak Search
 
 Some of Riak's core strengths lie in its scalability, fault tolerance,
-and ease of operations. However, Riak models its data in key/value
-objects, and a key/value store is something that few would claim is easy
-to query. This is the driving force behind Riak Search: to provide an
-integrated, scalable mechanism to build ad hoc queries against values
-stored in a Riak cluster, while holding true to Riak's core strengths.
+and ease of operations. Because Riak is primarily a key/value store,
+with one [[important exception|Data Types]], it is not always easy to
+query, even when following [[key/value best practices|Key/Value
+Modeling]]. The driving force behind Riak Search is to overcome this by
+providing an integrated, scalable mechanism for building ad hoc queries
+against any values stored in a Riak cluster, while holding true to
+Riak's core strengths.
 
 ![Yokozuna](/images/yokozuna.png)
 
 ## Feature List
 
-Riak Search 2.0 is more than a distributed search engine like
+Riak Search 2.0 is far more than a distributed search engine like
 [SolrCloud](https://cwiki.apache.org/confluence/display/solr/SolrCloud)
-or [ElasticSearch](http://www.elasticsearch.org/). It's a searchable
-integration with Riak. This greatly simplifies usage by offloading the
+or [ElasticSearch](http://www.elasticsearch.org/), because it's directly
+integrated with Riak. This greatly simplifies usage by offloading the
 task of indexing values to Riak.
 
 Riak Search's features and enhancements are numerous.
 
 * Support for various MIME types (JSON, XML, plain text, [[Riak Data
-  Types|Using Data Types]]) for automatic data extraction
+  Types|Using Data Types]]) for automatic data extraction, along with
+  support for [[custom Search extractors]]
 * Support for [various
   language](https://cwiki.apache.org/confluence/display/solr/Language+Analysis)-specific
   [analyzers, tokenizers, and
   filters](https://cwiki.apache.org/confluence/display/solr/Understanding+Analyzers%2C+Tokenizers%2C+and+Filters)
 * Robust, easy-to-use [query languages](https://cwiki.apache.org/confluence/display/solr/Other+Parsers)
-  like Lucene (default) and DisMax.
+  like Lucene (default) and DisMax
 * Queries: exact match, globs, inclusive/exclusive range queries,
-  AND/OR/NOT, prefix matching, proximity searches, term boosting,
-  sorting, pagination
-* Protocol Buffer interface and Solr interface via HTTP
+  `AND`/`OR`/`NOT`, prefix matching, proximity searches, term boosting,
+  sorting, pagination, and more
+* [[Protocol Buffer|PBC API]] interface for Riak and Solr interface via HTTP
 * Scoring and ranking for most relevant results
 * Query result [highlighting](https://cwiki.apache.org/confluence/display/solr/Highlighting)
-* Search queries as input for MapReduce jobs
-* [[Active Anti-Entropy]] for automatic index repair
+* [[Active anti-entropy]] for automatic index repair
 
 ## Simple Setup
 
@@ -78,19 +97,24 @@ to properly store and later query for values.
 1. **Schemas** explain to Solr how to index fields
 2. **Indexes** are named Solr indexes against which you will query
 3. **Bucket-index association** signals to Riak *when* to index values
+   (this also includes bucket type-index association)
 
-Riak Search must first be configured with a Solr *schema* so that Solr
+Riak Search must first be configured with a Solr schema so that Solr
 knows how to index value fields. If you don't define one, you're
-provided with a default schema named `_yz_default`. The examples in this
-document will presume the default. You can read more about creating a
-custom schema in [[Search Schema]], which you'll want to do in a
-production environment.
+provided with a default schema named `_yz_default`, which can be found
+[on
+GitHub](https://raw.githubusercontent.com/basho/yokozuna/develop/priv/default_schema.xml).
+The examples in this document will presume the default. You can read
+more about creating custom schemas in [[Search Schema]], which you'll
+likely want to use in a production environment.
 
 Next, you must create a named Solr index through Riak Search. This index
 represents a collection of similar data that you connect with to perform
 queries. When creating an index, you can optionally provide a schema. If
 you do not, the default schema will be used. Here we'll `curl` create an
 index named `famous` with the default schema.
+
+Both schema and index creation will be covered immediately below.
 
 <div class="note">
 <div class="title">Note on index names</div>
@@ -107,8 +131,14 @@ such as `http://localhost:8098`. The approriate value for `RIAK_HOST`
 will depend on your [[configuration|Configuration
 Files#Client-Interfaces]].
 
+Let's start by creating an index called `famous` that uses the default
+schema, named `_yz_default`. You can also use the default schema by not
+specifying any schema.
+
 ```java
 YokozunaIndex famousIndex = new YokozunaIndex("famous", "_yz_default");
+// This is equivalent to:
+// YokozunaIndex famousIndex = new YokozunaIndex("famous");
 StoreIndex storeIndex =
     new StoreIndex.Builder(famousIndex).build();
 client.execute(storeIndex);
@@ -116,14 +146,20 @@ client.execute(storeIndex);
 
 ```ruby
 client.create_search_index('famous', '_yz_default')
+# This is equivalent to:
+# client.create_search_index('famous')
 ```
 
 ```python
 client.create_search_index('famous', '_yz_default')
+# This is equivalent to:
+# client.create_search_index('famous')
 ```
 
 ```erlang
 riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
+%% This is equivalent to:
+%% riakc_pb_socket:create_search_index(Pid, <<"famous">>).
 ```
 
 ```curl
@@ -159,7 +195,7 @@ client.create_search_index('famous', '_yz_default')
 ```
 
 ```erlang
-riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, [])
+riakc_pb_socket:create_search_index(Pid, <<"famous">>, <<"_yz_default">>, []).
 ```
 
 ```curl
