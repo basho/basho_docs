@@ -108,3 +108,39 @@ Context#Vector-Clocks]] for [[conflict resolution]]. Default: `false`.
 
 These settings involve features that have been deprecated. You will not
 need to adjust these values.
+
+## Fetching Bucket Properties
+
+If you'd like to see how a particular bucket has been configured, you
+can do so using our official client libraries or through Riak's [[HTTP
+API]]. The following would fetch the properties for the bucket
+`animals` if that bucket had a default configuration, i.e. the `default`
+bucket type:
+
+```java
+Namespace animalsBucket = new Namespace("animals");
+FetchBucketPropsOperation fetchProps =
+    new FetchBucketPropsOperation.Builder(animalsBucket).build();
+```
+
+```curl
+# Assuming that Riak is running on "localhost" and port 8087:
+
+curl http://localhost:8087/types/default/buckets/animals/props
+```
+
+If the bucket `animals` had a different type that you had created and
+activated,  e.g. `my_custom_type`, you could fetch the bucket properties
+like so:
+
+```curl
+curl http://localhost:8087/types/my_custom_type/buckets/animals/props
+```
+
+You can also see which configuration is associated with a particular
+bucket type using the HTTP API. This would show us the configuration for
+`my_custom_type`:
+
+```curl
+curl http://localhost:8087/types/my_custom_type/props
+```
