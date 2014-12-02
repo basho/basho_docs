@@ -315,11 +315,21 @@ used in operating systems. The default is `20`.
 
 Riak's AAE subsystem works to repair object inconsistencies both with
 for normal key/value objects as well as data related to [[Riak
-Search|Using Search]].  In particular, AAE acts on indexes stored in
+Search|Using Search]]. In particular, AAE acts on indexes stored in
 [Solr](http://lucene.apache.org/solr/), the search platform that drives
-Riak Search.
+Riak Search. Implementation details for AAE and Search can be found in
+the [[Search Details|Search Details#Active-Anti-Entropy-AAE-]]
+documentation.
 
-More information on AAE and Search can be found in the [[Search
-Details|Search Details#active-anti-entropy-AAE-]] documentation.
+You can check on the status of Search-related AAE using the following
+command:
+
+```bash
+riak-admin search aae-status
+```
+
+The output from that command can be interpreted just like the output
+discussed in the section on [[monitoring|Managing Active
+Anti-Entropy#Monitoring-AAE]] above.
 
 {{/2.0.0+}}
