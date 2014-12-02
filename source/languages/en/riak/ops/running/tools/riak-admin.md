@@ -194,6 +194,9 @@ Clear the currently staged cluster changes.
 riak-admin cluster clear
 ```
 
+**Note**: Running this command will also stop the current node in
+addition to clearing any staged changes.
+
 ## cluster commit
 
 Commit the currently staged cluster changes. Staged cluster changes must
