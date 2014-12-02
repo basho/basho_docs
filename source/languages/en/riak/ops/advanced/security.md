@@ -75,7 +75,7 @@ at the same level as all the other applications (e.g. `riak_core`).
 Then configure your firewall to allow incoming access to TCP ports 6000
 through 7999 from whichever network(s) contain your Riak nodes.
 
-#### Riak Node Ports
+### Riak Node Ports
 
 Riak nodes in a cluster need to be able to communicate freely with one
 another on the following ports:
@@ -84,13 +84,31 @@ another on the following ports:
 * handoff_port listener: TCP:8099
 * range of ports specified in `app.config` or `riak.conf`
 
-#### Riak Client Ports
+### Riak Client Ports
 
 Riak clients must be able to contact at least one machine in a Riak
-cluster on the following ports:
+cluster on the following TCP ports:
 
-* web_port: TCP:8098
-* pb_port: TCP:8087
+Protocol | Port
+:--------|:----
+[[HTTP|HTTP API]] | TCP port 8098
+[[Protocol Buffers|PBC API]] | TCP port 8087
+
+### Riak Search Ports
+
+Riak's [[search|Using Search]] feature relies on [Apache
+Solr](http://lucene.apache.org/solr/), which runs on each Riak node if
+security has been [[enabled|Riak Search Settings#Enabling-Riak-Search]].
+When Riak's Search subsystem starts up,
+[JMX](http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html)
+opens a well-known port as well as some ephemeral ports. The well-known
+port is determined by the value of the `search.solr.jmx_port` in each
+node's [[Search configuration|Configuration Files#Search]]. The default
+is 8985.
+
+In addition to JMX ports, Solr also binds to a well-known port of its
+own, as determined by each node's `search.solr.port` setting, which is
+also located in each node's Search configuration. The default is 8093.
 
 ---
 
