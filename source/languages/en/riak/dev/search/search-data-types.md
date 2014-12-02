@@ -176,14 +176,14 @@ client.create_search_index('scores', '_yz_default')
 client.create_search_index('scores', '_yz_default')
 ```
 
-```bash
+```erlang
+riakc_pb_socket:create_search_index(Pid, <<"scores">>, <<"_yz_default">>, []).
+```
+
+```curl
 curl -XPUT $RIAK_HOST/search/index/hobbies \
   -H 'Content-Type: application/json' \
   -d '{"schema":"_yz_default"}'
-```
-
-```erlang
-riakc_pb_socket:create_search_index(Pid, <<"scores">>, <<"_yz_default">>, []).
 ```
 
 Now, we can modify our `counters` bucket type to associate that bucket
@@ -294,6 +294,10 @@ NumberFound = Results#search_results.num_found.
 %% 1
 ```
 
+```curl
+curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:[20 TO *]" | jsonpp
+```
+
 And there we are: only one of our two stored sets has a value over 20.
 To find out which set that is, we can dig into our results:
 
@@ -339,6 +343,11 @@ Bucket = proplists:get_value(<<"_yz_rb">>, Doc),
 BucketType = proplists:get_value(<<"_yz_rt", Doc).
 ```
 
+```curl
+# Use the JSON object from above to locate bucket, key, and bucket type
+# information
+```
+
 Alternatively, we can see how many counters have values below 15:
 
 ```java
@@ -361,6 +370,10 @@ results = client.fulltext_search('scores', 'counter:[* TO 15]')
 
 ```erlang
 {ok, Results} = riakc_pb_socket:search(Pid, <<"scores">>, <<"counter:[* TO 15]").
+```
+
+```curl
+curl "$RIAK_HOST/search/query/scores?wt=json&q=counter:[* TO 15]" | jsonpp
 ```
 
 Or we can see how many counters have a value of 17 exactly:
@@ -420,7 +433,7 @@ client.create_search_index('hobbies', '_yz_default')
 riakc_pb_socket:create_search_index(Pid, <<"hobbies">>, <<"_yz_default">>).
 ```
 
-```bash
+```curl
 curl -XPUT $RIAK_HOST/search/index/hobbies \
   -H 'Content-Type: application/json' \
   -d '{"schema": "_yz_default"}'
@@ -555,6 +568,10 @@ NumberFound = Results#search_results.num_found.
 %% 1
 ```
 
+```curl
+
+```
+
 Success! We stored two sets, only one of which contains the element
 `football`. Now, let's see how many sets contain the element `winning`:
 
@@ -579,7 +596,9 @@ results['num_found']
 ```
 
 ```erlang
-
+{ok, Results} = riakc_pb_socket:search(Pid, <<"hobbies">>, <<"set:winning">>).
+NumberFound = Results#search_results.num_found.
+%% 2
 ```
 
 Just as expected, both sets we stored contain the element `winning`.
@@ -624,6 +643,10 @@ client.create_search_index('customers', '_yz_default')
 
 ```python
 client.create_search_index('customers', '_yz_default')
+```
+
+```erlang
+riakc_pb_socket:create_search_index(Pid, <<"customers">>, <<"_yz_default">>).
 ```
 
 ```curl
