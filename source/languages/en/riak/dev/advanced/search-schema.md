@@ -23,16 +23,31 @@ docs|http://docs.basho.com/riak/1.4.10/dev/using/search/]].
 Riak Search is built for ease of use, allowing you to write values into
 Riak and query for values using Solr. Riak Search does a lot of work
 under the hood to convert your values---plain text, JSON, XML, [[Riak
-Data Types|Using Data Types]]---into something that can be indexed and
-searched later. Nonetheless, you must still intruct Riak/Solr how to
-index a value. Are you providing and array of strings? An integer? A
-date? Is your text in English or Russian? You can provide such
-instructions to Riak Search by defining a **Solr schema**.
+Data Types|Using Data Types]], and [[more|Custom Search
+Extractors]]---into something that can be indexed and searched later.
+Nonetheless, you must still intruct Riak/Solr how to index a value. Are
+you providing and array of strings? An integer? A date? Is your text in
+English or Russian? You can provide such instructions to Riak Search by
+defining a Solr **schema**.
 
-## Setting a Schema
+## The Default Schema
 
-Here's how you can create a custom schema named `cartoons`, where the
-schema xml data is stored in a file named `cartoons.xml`
+Riak Search comes bundled with a default schema named `_yz_default`. The
+default schema covers a wide range of possible field types. You can find
+the default schema [on
+GitHub](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml).
+While using the default schema provides an easy path to starting
+development, we recommend that you define your own schema in production.
+Take note of `dynamicField name="*"`, which is a catch-all index for any
+value. Sufficiently sized objects can potentially take up tremendous
+amounts of disk space, so pay special attention to those indexes.
+
+## Custom Schemas
+
+We'll show you how you can create custom schemas by way of example.
+Let's say that you have already created a schema named `cartoons` in a
+file named `cartoons.xml`. This would register the custom schema in Riak
+Search:
 
 ```ruby
 schema_data = File.read("cartoons.xml")
@@ -432,20 +447,4 @@ the case.
 {analyzer_factory, {erlang, text_analyzers, noop_analyzer_factory}}}
 ```
 
-## Custom Analyzers
-
-You can create your own custom analyzers in Erlang.
-
-Some tips:
-
-Riak Search comes bundled with a default schema named `_yz_default`. It
-defaults to many dynamic field types, where the suffix defines its type.
-This is an easy path to start development, but we recommend that you
-define your own schema in production. Take special note of `dynamicField
-name="*"`, which is a catchall index for any value. Sufficiently sized
-objects can potentially take up tremendous disk space.
-
-You can find the [Yokozuna default solr
-schema](https://raw.github.com/basho/yokozuna/develop/priv/default_schema.xml)
-on GitHub.
 
