@@ -559,9 +559,9 @@ The response to a query will be an object containing details about the
 response, such as a query's max score and a list of documents which
 match the given query. It's worth noting two things:
 
-- The documents returned are search documents (a set of Solr
+* The documents returned are Search documents (a set of Solr
   field/values), not a Riak value
-- The HTTP response is a direct Solr response, while the drivers use
+* The HTTP response is a direct Solr response, while the drivers use
   Protocol Buffers and are encoded with different field names
 
 This is a common HTTP `response` value:
@@ -657,9 +657,9 @@ more complete list of which can be found by digging into [searching
 Solr](https://cwiki.apache.org/confluence/display/solr/Searching). Let's
 look at a few others.
 
-#### Range Queries
+### Range Queries
 
-Searches within a
+Range queries are searches within a
 [range](https://cwiki.apache.org/confluence/display/solr/The+Standard+Query+Parser#TheStandardQueryParser-DifferencesbetweenLuceneQueryParserandtheSolrStandardQueryParser)
 of numerical or
 date/[datemath](http://lucene.apache.org/solr/4_6_0/solr-core/org/apache/solr/util/DateMathParser.html)
@@ -697,7 +697,7 @@ curl "$RIAK_HOST/search/query/famous?wt=json&q=age_i:%5B30%20TO%20*%5D" | jsonpp
 
 <!-- TODO: pubdate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY] -->
 
-#### Boolean
+### Boolean
 
 You can perform logical conjunctive, disjunctive, and negative
 operations on query elements as, repectively, `AND`, `OR`, and `NOT`.
@@ -757,7 +757,7 @@ riakc_pb_socket:delete_search_index(Pid, <<"famous">>, []),
 curl -XDELETE $RIAK_HOST/search/index/famous
 ```
 
-If an does have a bucket associated with it, then that index's
+If an index does have a bucket associated with it, then that index's
 `search_index` property must be changed to either a different index name
 or to the sentinel value `_dont_index_`.
 
@@ -777,8 +777,8 @@ documents to skip over (the offset) and `rows` are the number of results
 to return in one go.
 
 For example, assuming we want two results per page, getting the second
-page is easy, where `start` is calculated as _rows per page * (page
-number - 1)_.
+page is easy, where `start` is calculated as (rows per page) * (page
+number - 1).
 
 ```java
 int rowsPerPage = 2;
@@ -828,9 +828,7 @@ curl
 curl "$RIAK_HOST/search/query/famous?wt=json&q=*:*&start=$START&rows=$ROWS_PER_PAGE" | jsonpp
 ```
 
-Just be careful what you sort by.
-
-####  Pagination Warning
+###  Pagination Warning
 
 Distributed pagination in Riak Search cannot be used reliably when
 sorting on fields that can have different values per replica of the same
@@ -848,11 +846,11 @@ will match before running the query.
 
 [This issue](https://github.com/basho/yokozuna/issues/355) is caused by
 the way Search must minimally distribute a query across multiple Solr
-nodes (called a *coverage plan*), and then filter duplicate results to
+nodes (called a *coverage plan*) and then filter duplicate results to
 retrieve a full result set. Since this plan is frequently recalculated,
 successive page queries may use a different plan, and thus calculate
 alternate `score`s or filter different `_yz_id` values. We have plans to
-fix this shortcoming in the next version of Riak.
+fix this shortcoming in a future version of Riak.
 
 ### MapReduce
 
