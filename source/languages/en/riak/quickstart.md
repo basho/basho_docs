@@ -550,7 +550,7 @@ this information in the hash that we pass to the client:
 protocol = 'pbc'
 port = 8087
 
-client = Riak::Client.new(nodes=[
+client = RiakClient(nodes=[
   { 'host': '127.0.0.1', 'protocol': protocol, 'pb_port': port },
   { 'host': '127.0.0.2', 'protocol': protocol, 'pb_port': port },
   { 'host': '127.0.0.3', 'protocol': protocol, 'pb_port': port }
