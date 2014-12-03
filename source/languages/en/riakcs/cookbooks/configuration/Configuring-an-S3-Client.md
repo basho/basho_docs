@@ -8,22 +8,33 @@ audience: intermediate
 keywords: [operator, configuration]
 ---
 
-<div class="note">
-<div class="title">Configuration Update</div>
-A previous version of the following sample `.s3cfg` files omitted the following line:
+This tutorial will use [s3cmd](http://s3tools.org/s3cmd) as an S3
+client. If you would like to use a different S3 client, we recommend
+consulting the documentation for that client.
 
-<tt>enable_multipart = False</tt>
+To use s3cmd in conjunction with Riak CS, you must configure it to
+interact with your Riak CS system. One way to do so is to create a
+`.s3cfg` file and store it in your home directory. When you run any
+s3cmd-related command, the contents of that file will be read by default.
+Alternatively, you can specify a configuration file using the `-c` flag.
+Here's an example:
 
-Without this setting, <tt>s3cmd</tt> will fail to upload files greater than approximately 10MB in size.
-</div>
+```bash
+s3cmd -c /PATH/TO/CONFIG/FILE <command>
+```
 
-If you use `s3cmd` as your S3 client, you must configure the application to interact with your Riak CS system. The `s3cmd` configuration file is named `.s3cfg` and resides in the home directory of the user. The settings to change depend on your Riak CS system.
+Another way to configure s3cmd is to run `s3cmd --configure`, which
+launches an interactive tool that will assemble a configuration file for
+you on the basis of what you input.
 
-`s3cmd` uses a configuration file `.s3cfg` which should be located in the user's home directory. Running `s3cmd --configure` launches an interactive tool to generate a configuration. A configuration file may also be specified using the` -c` option. Here are a couple of sample `.s3cfg` files that can be used to configure `s3cmd` to interact with Riak CS.
+Below are a few sample `.s3cfg` files that can be used to configure
+s3cmd to interact with Riak CS.
 
-## Sample `.s3cfg` File for Local Use
+## Sample s3cmd Configuration File for Local Use
 
-Use this `.s3cfg` configuration file example to interact with Riak CS locally via port `8080` with `s3cmd`:
+Use this `.s3cfg` configuration file example to interact with Riak CS
+locally via port `8080` with s3cmd (remember to use information specific
+to your Riak CS installation where necessary):
 
 ```config
 [default]
@@ -67,9 +78,10 @@ use_https = False
 verbosity = WARNING
 ```
 
-### Sample `.s3cfg` File for Production Use
+## Sample s3cmd Configuration File for Production Use
 
-Use this `.s3cfg` configuration file example to interact with Riak CS running in a production configuration with `s3cmd`:
+Use this `.s3cfg` configuration file example to interact with Riak CS
+using s3cmd in a production system:
 
 ```config
 [default]
@@ -113,17 +125,20 @@ use_https = True
 verbosity = WARNING
 ```
 
-### Specifying User Credentials
+To configure the s3cmd client for the user, you must change the
+`access_key` and `secret_key` settings.
 
-To configure the `s3cmd` client for the user, you must change the `access_key` and `secret_key` settings.
+## Specifying Storage Location
 
-### Specifying Storage Location
+By default, the `.s3cfg` file uses the Amazon S3 service as the storage
+backend. For a Riak CS system, change the following settings to point to
+your storage system:
 
-By default, the `.s3cfg` file uses the Amazon S3 service as the storage backend. For a Riak CS system, change the following settings to point to your storage system:
+* `host_base` --- Specify the domain name or the path to your data
+  storage, such as `data.example.com`
+* `host_bucket` --- Specify the bucket location, such as
+  `my_cs_bucket.data.example.com`.
 
-* `host_base` --- Specify the domain name or the path to your data storage, such as data.example.com.
-* `host_bucket` --- Specify the bucket location, such as `%(bucket)s.data.example.com`.
-
-### Enabling SSL in the Client
+## Enabling SSL in the Client
 
 If you are using SSL, set `use_https` equal to `True`.
