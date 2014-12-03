@@ -354,8 +354,8 @@ riakcs:
       - "[[Release Notes|Riak CS Release Notes]]"
   - title: "Riak CS Enterprise"
     sub:
-      - "[[Overview|Riak CS Multi Data Center Overview]]"
-      - "[[Configuration|Configuring Riak CS Multi Data Center]]"
+      - "[[Overview|Riak CS Multi-Datacenter Overview]]"
+      - "[[Configuration|Configuring Riak CS Multi-Datacenter]]"
 
 java:
   - title: "Shortcuts"
