@@ -417,7 +417,7 @@ iframe {
   @extend .sans;
   @include boxShadow(none);
   color : $subtleGray;
-  
+
   @media screen and (max-width: 768px) {
     @include boxShadow(none);
   }
@@ -428,7 +428,7 @@ iframe {
     padding         : 7px 18px;
     text-decoration : none;
     @include transitionAll(color 0.5s ease);
-    
+
     &:hover {
       color : $extraDarkGrey;
     }
@@ -1268,16 +1268,70 @@ div[role="main"] {
 
     .temp-banner-text {
       padding-top : 15px;
-      font-size   : 0.9rem;
+      font-size   : 0.9em;
     }
 
     .register {
       @extend .button-light-green;
-      font-family    : 'OpenSans', verdana, arial, sans-serif;
-      padding        : 0.65em 1.5em 0.8em 1.5em;
-      line-height    : 1em;
-      margin-left    : 1em;
-      text-shadow    : 1px 1px 1px #fff;
+      font-family: 'OpenSans', verdana, arial, sans-serif;
+      padding: 0.65em 1.5em 0.8em 1.5em;
+      line-height: 1em;
+      margin-left: 1em;
+      text-shadow: 1px 1px 1px #fff;
+    }
+
+    @media screen and (max-width : 768px) {
+      display : none; /* Hide the push-down ad on tablet and mobile */
+    }
+}
+
+  #marketing-banner {
+    position     : relative;
+    height       : 56px;
+    background   : #bed8dc url('/shared/latest/images/bg-banner.png') no-repeat 60% 50%;
+    text-align   : left;
+    @extend .sans;
+
+    //font-family  : 'OpensSans','GandhiSerif';
+    padding-left : 100px;
+    color        : #3c6c72;
+    text-decoration: none;
+    //@extend .sans-bold;
+    overflow     : hidden;
+    white-space  : nowrap;
+    //color : rgb(68, 93, 90); /* Fallback for non-rgba browsers */
+    //color : rgba(68, 93, 90, 1.0);
+    //rgba(209, 227, 229, 1.0)
+
+    strong {
+      @extend .sans-bold;
+    }
+
+    .hugs {
+      background : url('/shared/latest/images/hugs.png') no-repeat;
+      border-style: none;
+      width      : 53px;
+      height     : 53px;
+      position   : absolute;
+      bottom     : 0;
+      left       : 7px;
+    }
+
+    .more {
+      background: url('/shared/latest/images/link-more.png') no-repeat;
+      overflow: hidden;
+      position: absolute;
+      width: 30px;
+      text-indent: -9999px;
+      height: 30px;
+      right: 21px;
+      top: 50%;
+      margin-top: -15px;
+    }
+
+    .temp-banner-text {
+      padding-top : 15px;
+      font-size   : 1.2em;
     }
 
     @media screen and (max-width : 768px) {
