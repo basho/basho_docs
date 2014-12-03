@@ -4,7 +4,7 @@
     <!-- The dynamic, named fields in each map -->
     <dynamicField name="title_register"   type="string"   indexed="true" stored="true" />
     <dynamicField name="author_register"  type="string"   indexed="true" stored="true" />
-    <dynamicField name="content_register" type="text"     indexed="true" stored="true" />
+    <dynamicField name="content_register" type="text_en"  indexed="true" stored="true" />
     <dynamicField name="keywords_set"     type="string"   indexed="true" stored="true" multiValued="true" />
     <dynamicField name="date_register"    type="datetime" indexed="true" stored="true" />
     <dynamicField name="published_flag"   type="boolean"  indexed="true" stored="true" />
@@ -25,6 +25,34 @@
 
   <types>
     <!-- Used for non-analyzed fields -->
-    <fieldType name="_yz_str" class="solr.SolrStrField" sortMissingLast="true" />
+    <fieldType name="_yz_str"  class="solr.StrField" sortMissingLast="true" />
+    <fieldType name="string"   class="solr.StrField" />
+    <fieldType name="datetime" class="solr.DateField" />
+    <fieldType name="boolean"  class="solr.BoolField" />
+    <fieldType name="text_en"  class="solr.TextField">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory" />
+        <filter class="solr.StopFilterFactory"
+                ignoreCase="true"
+                words="lang/stopwords_en.txt"
+                />
+        <filter class="solr.LowerCaseFilterFactory" />
+        <filter class="solr.EnglishPossessiveFilterFactory" />
+        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+        <filter class="solr.PorterStemFilterFactory" />
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory" />
+        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.StopFilterFactory"
+                ignoreCase="true"
+                words="lang/stopwords_en.txt"
+                />
+        <filter class="solr.LowerCaseFilterFactory" />
+        <filter class="solr.EnglishPossessiveFilterFactory" />
+        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt" />
+        <filter class="solr.PorterStemFilterFactory" />
+      </analyzer>
+    </fieldType>
   </types>
 </schema>
