@@ -110,6 +110,26 @@ will refuse to start if <code>allow_mult</code> is set to
 <code>false</code>.
 </div>
 
+## Specifying the Nodename and IP Address
+
+Every Riak node has a name that can be specified in `vm.args`, using
+the `-name` flag. The `vm.args` configuration file can be found in the
+same directory as your `app.config` file (which varies based on
+operating system). We recommend providing nodes a name of the form
+`<name>@<host>`. So if you have three nodes running on the host
+`100.0.0.1`, you could name them `riak1@100.0.0.1`, `riak2@100.0.0.1`,
+and `riak3@100.0.0.1`, or you could give them names that are more
+specific, such as `test_cluster1@100.0.0.1`, `user_data3@100.0.0.1`, and
+so on. The example below demonstrates changing a node's name to
+`riak1@127.0.0.1`, which would work for a node running on `localhost`:
+
+```vmargs
+-name riak1@127.0.0.1
+```
+
+You should name _all_ nodes prior to starting them and connecting them
+to a cluster.
+
 ## Testing the Configuration
 
 Now that the necessary changes have been made to the Riak node's
