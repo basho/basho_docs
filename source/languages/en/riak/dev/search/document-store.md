@@ -79,9 +79,10 @@ list:
 <dynamicField name="published_flag" type="boolean" indexed="true" stored="true" />
 ```
 
-You can see the full schema [here](NEED URL FOR THIS). Let's store that
-schema in a field call `blog_post_schema.xml` and upload that schema to
-Riak:
+You can see the full schema [on
+GitHub](https://github.com/basho/basho_docs/raw/master/source/data/blog_post_schema.xml).
+Let's store that schema in a file called `blog_post_schema.xml` and
+upload that schema to Riak:
 
 ```curl
 curl -XPUT $RIAK_HOST/search/schema/blog_post_schema \
@@ -122,7 +123,7 @@ First, let's create our `cms` bucket type and associate it with the
 `blog_posts` index:
 
 ```bash
-riak-admin bucket-type create cms '{"search_index": "blog_posts"}'
+riak-admin bucket-type create cms '{"props":{"datatype":"map","search_index": "blog_posts"}}'
 riak-admin bucket-type activate cms
 ```
 
@@ -131,16 +132,88 @@ as part of our "collection."
 
 ## Storing Blog Posts as Maps
 
+Now that we know how each element of a blog post can be translated into
+one of the Riak Data Types, we can create an interface in our
+application to serve as that translation layer. Using the method
+described in [[Data Modeling with Riak Data Types]], we can construct a
+class that looks like this:
+
 ```java
 import java.util.Set;
 
 public class BlogPost {
-    public String title;
-    public String author;
-    public String content;
-    public Set<String> keywords;
-    public DateTime datePosted;
-    public Boolean published;
+    private String title;
+    private String author;
+    private String content;
+    private Set<String> keywords;
+    private DateTime datePosted;
+    private Boolean published;
+    private static final String bucketType = "cms";
+
+    private Location location;
+
+    private RiakClient client;
+
+    public BlogPost(RiakClient client
+                    String bucketName,
+                    String title,
+                    String author,
+                    Set<String> keywords,
+                    DateTime datePosted,
+                    Boolean published) {
+      this.client = client;
+      this.location = new Location(new Namespace(bucketType, bucketName), null);
+      this.title = title;
+      this.author = author;
+      this.keywords = keywords;
+      this.datePosted = datePosted;
+      this.published = published;
+    }
+
+    public void store() throws Exception {
+        RegisterUpdate titleUpdate = new RegisterUpdate(title);
+        RegisterUpdate authorUpdate = new RegisterUpdate(author);
+        SetUpdate keywordsUpdate = new SetUpdate();
+        for (String keyword : keywords) {
+            keywordsUpdate.add(keyword);
+        }
+        RegisterUpdate dateUpdate =
+            new RegisterUpdate(datePosted.toString("YYYY-MM-DD HH:MM:SS"));
+        if (published) {
+            FlagUpdate published = new FlagUpdate(published);
+        }
+        FlagUpdate publishedUpdate = new FlagUpdate(published);
+        MapUpdate mapUpdate = new MapUpdate()
+            .update("title", titleUpdate)
+            .update("author", authorUpdate)
+            .update("keywords", keywordsUpdate)
+            .update("date", dateUpdate)
+            .update("published", publishedUpdate);
+        UpdateMap storeBlogPost = new UpdateMap.Builder(location)
+            .build();
+        client.execute(storeBlogPost);
+    }
+}
+```
+
+Now, we can store some blog posts. We'll start with just one:
+
+```java
+Set<String> keywords = new HashSet<String>();
+keywords.add("adorbs");
+keywords.add("cheshire");
+
+BlogPost post1 = new BlogPost(client, // client object
+                              "cat_pics_quarterly", // bucket
+                              "This one is so lulz!", // title
+                              "Cat Stevens", // author
+                              keywords, // keywords
+                              new DateTime(), // date posted
+                              true); // published
+try {
+    post1.store();
+} catch (Exception e) {
+    System.out.println(e);
 }
 ```
 
