@@ -547,13 +547,12 @@ IPs of 101.0.0.1, 101.0.0.2, and 101.0.0.3, respectively. We can specify
 this information in the hash that we pass to the client:
 
 ```python
-protocol = 'pbc'
 port = 8087
 
-client = RiakClient(nodes=[
-  { 'host': '127.0.0.1', 'protocol': protocol, 'pb_port': port },
-  { 'host': '127.0.0.2', 'protocol': protocol, 'pb_port': port },
-  { 'host': '127.0.0.3', 'protocol': protocol, 'pb_port': port }
+client = RiakClient(protocol='pbc',nodes=[
+  { 'host': '127.0.0.1', 'pb_port': port },
+  { 'host': '127.0.0.2', 'pb_port': port },
+  { 'host': '127.0.0.3', 'pb_port': port }
 ])
 ```
 
