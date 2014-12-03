@@ -42,7 +42,7 @@ body class=classnames.join(' ') id=data.page.body_id
         header
           - title = data.page.title
           - if title =~ /Multi.Data.Center.Replication.?\:?(.*)/
-            - title = "<div class=small>Multi-Datacenter Replication:</div> #{$1}" 
+            - title = "<div class=small>Multi-Datacenter Replication:</div> #{$1}"
           h1== title
       - unless data.page.simple
         - if data.page.header == 'riakee'
@@ -80,7 +80,7 @@ body class=classnames.join(' ') id=data.page.body_id
       g.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
       s.parentNode.insertBefore(g, s);
       })(document, 'script');
-    
+
     | <!-- Start Alexa Certify Javascript -->
     | <script type="text/javascript">
     | _atrk_opts = { atrk_acct:"BgVif1aMIw00Wl", domain:"basho.com",dynamic: true};
