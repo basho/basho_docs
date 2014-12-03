@@ -1541,10 +1541,6 @@ div[role="main"] {
       text-align : center;
       margin     : 0 auto;
       
-      &:first-child {
-        background : url('/shared/latest/images/layout/enterprise-globe.png') center center no-repeat transparent;
-      }
-      
       &:last-child {
         background : url('/shared/latest/images/layout/cs-cloud.png') center center no-repeat transparent;
       }
