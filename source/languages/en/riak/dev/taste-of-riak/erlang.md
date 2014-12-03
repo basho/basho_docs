@@ -8,13 +8,19 @@ audience: beginner
 keywords: [developers, client, erlang]
 ---
 
-If you haven't set up a Riak Node and started it, please visit the [[Prerequisites|Taste of Riak: Prerequisites]] first.
+If you haven't set up a Riak node and started it, please visit the
+[[Prerequisites|Taste of Riak: Prerequisites]] first.
 
-To try this flavor of Riak, a working installation of Erlang is required. You can also use the "erts" Erlang installation that comes with Riak. 
+To try this flavor of Riak, a working installation of Erlang is
+required. You can also use the `erts` Erlang installation that comes
+with Riak.
 
 ## Client Setup
 
-Download the latest Erlang client from GitHub ([zip](https://github.com/basho/riak-erlang-client/archive/master.zip), [Github repository](https://github.com/basho/riak-erlang-client/)), and extract it to your working directory.
+Download the latest Erlang client from GitHub
+([zip](https://github.com/basho/riak-erlang-client/archive/master.zip),
+[GitHub repository](https://github.com/basho/riak-erlang-client/)) and
+extract it to your working directory.
 
 Next, open the Erlang console with the client library paths included.
 
@@ -22,13 +28,15 @@ Next, open the Erlang console with the client library paths included.
 erl -pa CLIENT_LIBRARY_PATH/ebin/ CLIENT_LIBRARY_PATH/deps/*/ebin
 ```
 
-Now let’s create a link to the Riak node. If you are using a single local Riak node, use the following to create the link:
+Now let’s create a link to the Riak node. If you are using a single
+local Riak node, use the following to create the link:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start("127.0.0.1", 8087).
 ```
 
-If you set up a local Riak cluster using the [[five-minute install]] method, use this code snippet instead:
+If you set up a local Riak cluster using the [[five-minute install]]
+method, use this code snippet instead:
 
 ```erlang
 {ok, Pid} = riakc_pb_socket:start_link("127.0.0.1", 10017).
@@ -38,7 +46,8 @@ We are now ready to start interacting with Riak.
 
 ## Creating Objects In Riak
 
-First, let’s create a few Riak objects. For these examples we'll be using the bucket `test`.
+First, let’s create a few Riak objects. For these examples we'll be
+using the bucket `test`.
 
 ```erlang
 MyBucket = <<"test">>.
@@ -48,7 +57,9 @@ Obj1 = riakc_obj:new(MyBucket, <<"one">>, Val1).
 riakc_pb_socket:put(Pid, Obj1).
 ```
 
-In this first example we have stored the integer 1 with the lookup key of `one`. Next, let’s store a simple string value of `two` with a matching key.
+In this first example, we have stored the integer 1 with the lookup key
+of `one`. Next, let’s store a simple string value of `two` with a
+matching key.
 
 ```erlang
 Val2 = <<"two">>.
@@ -56,7 +67,8 @@ Obj2 = riakc_obj:new(MyBucket, <<"two">>, Val2).
 riakc_pb_socket:put(Pid, Obj2).
 ```
 
-That was easy. Finally, let’s store something more complex, a tuple this time. You will probably recognize the pattern by now.
+That was easy. Finally, let’s store something more complex, a tuple this
+time. You will probably recognize the pattern by now.
 
 ```erlang
 Val3 = {value, 3}.
@@ -66,7 +78,8 @@ riakc_pb_socket:put(Pid, Obj3).
 
 ## Reading Objects From Riak
 
-Now that we have a few objects stored, let’s retrieve them and make sure they contain the values we expect.
+Now that we have a few objects stored, let’s retrieve them and make sure
+they contain the values we expect.
 
 ```erlang
 {ok, Fetched1} = riakc_pb_socket:get(Pid, MyBucket, <<"one">>).
@@ -78,11 +91,13 @@ Val2 =:= binary_to_term(riakc_obj:get_value(Fetched2)). %% true
 Val3 =:= binary_to_term(riakc_obj:get_value(Fetched3)). %% true
 ```
 
-That was easy. We simply request the objects by bucket and key. 
+That was easy. We simply request the objects by bucket and key.
 
 ## Updating Objects In Riak
 
-While some data may be static, other forms of data may need to be updated. This is also easy to do. Let’s update the value in the third example to 42, update the RiakObject, and then save it.  
+While some data may be static, other forms of data may need to be
+updated. This is also easy to do. Let’s update the value in the third
+example to 42, update the Riak object, and then save it.
 
 ```erlang
 NewVal3 = setelement(2, Val3, 42).
@@ -90,7 +105,8 @@ UpdatedObj3 = riakc_obj:update_value(Fetched3, NewVal3).
 {ok, NewestObj3} = riakc_pb_socket:put(Pid, UpdatedObj3, [return_body]).
 ```
 
-We can verify that our new value was saved by looking at the value returned.
+We can verify that our new value was saved by looking at the value
+returned.
 
 ```erlang
 rp(binary_to_term(riakc_obj:get_value(NewestObj3))).
@@ -98,7 +114,8 @@ rp(binary_to_term(riakc_obj:get_value(NewestObj3))).
 
 ## Deleting Objects From Riak
 
-Nothing is complete without a delete, as they say. Fortunately, that's easy too.
+Nothing is complete without a delete, as they say. Fortunately, that's
+easy too.
 
 ```erlang
 riakc_pb_socket:delete(Pid, MyBucket, <<"one">>).
@@ -116,33 +133,39 @@ Now we can verify that the objects have been removed from Riak.
 
 ## Working With Complex Objects
 
-Since the world is a little more complicated than simple integers and bits of strings, let’s see how we can work with more complex objects. Take, for example, this record that encapsulates some information about a book.
+Since the world is a little more complicated than simple integers and
+bits of strings, let’s see how we can work with more complex objects.
+Take, for example, this record that encapsulates some information about
+a book.
 
 ```erlang
 rd(book, {title, author, body, isbn, copies_owned}).
 
-MobyDickBook = #book{title="Moby Dick", 
-                     isbn="1111979723", 
-                     author="Herman Melville", 
-                     body="Call me Ishmael. Some years ago...", 
+MobyDickBook = #book{title="Moby Dick",
+                     isbn="1111979723",
+                     author="Herman Melville",
+                     body="Call me Ishmael. Some years ago...",
                      copies_owned=3}.
 ```
 
-So we have some information about our Moby Dick collection that we want to save. Storing this to Riak should look familiar by now:
+So we have some information about our Moby Dick collection that we want
+to save. Storing this to Riak should look familiar by now:
 
 ```erlang
-MobyObj = riakc_obj:new(<<"books">>, 
-                        list_to_binary(MobyDickBook#book.isbn), 
+MobyObj = riakc_obj:new(<<"books">>,
+                        list_to_binary(MobyDickBook#book.isbn),
                         MobyDickBook).
 
 riakc_pb_socket:put(Pid, MobyObj).
 ```
 
-Some of you may be thinking: "How does the Erlang Riak client encode/decode my object?" If we fetch our book back and print the value, we shall know:
+Some of you may be thinking: "How does the Erlang Riak client
+encode/decode my object?" If we fetch our book back and print the value,
+we shall know:
 
 ```erlang
-{ok, FetchedBook} = riakc_pb_socket:get(Pid, 
-                                        <<"books">>, 
+{ok, FetchedBook} = riakc_pb_socket:get(Pid,
+                                        <<"books">>,
                                         <<"1111979723">>).
 
 rp(riakc_obj:get_value(FetchedBook)).
@@ -159,7 +182,9 @@ The response:
   10,49,49,49,49,57,55,57,55,50,51,97,3>>
 ```
 
-Erlang binaries! The Riak Erlang client library encodes everything as binaries. If we wanted to get a `book` object back we could use `binary_to_term/1` to get our original object back:
+Erlang binaries! The Riak Erlang client library encodes everything as
+binaries. If we wanted to get a `book` object back we could use
+`binary_to_term/1` to get our original object back:
 
 ```erlang
 rp(binary_to_term(riakc_obj:get_value(FetchedBook))).
@@ -174,8 +199,7 @@ riakc_pb_socket:stop(Pid).
 
 ## Next Steps
 
-More complex use cases can be composed from these initial create, read, update, and delete (CRUD) operations. [[In the next chapter|Taste of Riak: Querying]] we will look at how to store and query more complicated and interconnected data, such as documents.  
-
-
-
-
+More complex use cases can be composed from these initial create, read,
+update, and delete (CRUD) operations. [[In the next chapter|Taste of
+Riak: Querying]] we will look at how to store and query more complicated
+and interconnected data, such as documents.
