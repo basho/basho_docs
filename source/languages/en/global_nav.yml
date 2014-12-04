@@ -311,6 +311,7 @@ riakcs:
       - "[[Usage and Billing Data]]"
     - title: "APIs"
       sub:
+      - "[[Riak CS Storage API]]"
       - title: "S3"
         sub:
         - "[[S3 API|RiakCS S3 Storage API]]"
