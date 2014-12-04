@@ -85,15 +85,15 @@ after restarting, execute the following command:
 riak-admin wait-for-service riak_kv <node>
 ```
 
-Replace the `node` 
-<p><tt>riak-admin wait-for-service riak_kv &lt;target_node&gt;</tt></p>
-<p>where &lt;target-node&gt; is the node name of the node based on the
-<tt>-name</tt> setting in <tt>vm.args</tt>.</p></div>
+Replace the `node` variable above with the nodename specified in the
+`vm.args` configuration file.
+</div>
 
 ## Stanchion Configuration
 
 Though there is no specific configuration for Stanchion, note that
-*Stanchion should be a single, globally unique process* to which every
-Riak CS sends requests, even if there are multiple replicated
-sites. This is because Stanchion manages updates on globally unique
-attributes.
+Stanchion should be a single, globally unique process to which every
+Riak CS sends requests, even if there are multiple replicated sites.
+Unlike Riak and Riak CS, Stanchion should run on only one node in a
+given cluster, perhaps on its own, dedicated hardware if you wish. This
+is because Stanchion manages updates on globally unique attributes.
