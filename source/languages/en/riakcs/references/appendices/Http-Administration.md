@@ -8,11 +8,11 @@ audience: intermediate
 keywords: [api]
 ---
 
-Riak CS exposes the following administrative capabilities over HTTP above and
-beyond those associated with Riak itself:
+Riak CS exposes the following administrative capabilities over HTTP
+above and beyond those associated with Riak itself:
 
-| Task                 | CS URI           | Further reading
-:----------------------|:---------------- |:---------------
+Task | CS URI | Further reading
+:----|:-------|:---------------
 User management        | `/riak-cs/user`  | [[Account Management]]
 User access statistics | `/riak-cs/usage` | [[Querying Access Statistics]]
 Storage statistics     | `/riak-cs/usage` | [[Querying Storage Statistics]]
@@ -25,8 +25,8 @@ authentication.
 ## Output format
 
 For these requests, results are available as either JSON or XML. Request
-the appropriate one by using the HTTP `Accept` header with either
-`application/json` or `application/xml`, respectively.
+the appropriate data format by using the HTTP `Accept` header with
+either `application/json` or `application/xml`, respectively.
 
 ## URLs
 
@@ -38,7 +38,7 @@ administrative commands.
 Only the admin user can view other users' details unless the
 `admin_auth_enabled` config is set to `false`.
 
-## Retrieving statistics via S3 objects
+## Retrieving Statistics Via S3 Objects
 
 As an alternative to raw HTTP requests, the administrative requests can
 be issued via the S3 API. See the GitHub documents linked below for more
@@ -48,11 +48,11 @@ details.
 
 * [[Configuring Riak CS]]
 * [[Querying Access Statistics]]
-    - [[Usage and Billing Data]]
-    - [Github wiki](https://github.com/basho/riak_cs/wiki/Querying-Access-Stats)
+    * [[Usage and Billing Data]]
+    * [Github wiki](https://github.com/basho/riak_cs/wiki/Querying-Access-Stats)
 * [[Querying Storage Statistics]]
-    - [Enabling storage statistics](https://github.com/basho/riak_cs/wiki/Logging-Storage-Stats)
-    - [Github wiki](https://github.com/basho/riak_cs/wiki/Logging-Storage-Stats)
+    * [Enabling storage statistics](https://github.com/basho/riak_cs/wiki/Logging-Storage-Stats)
+    * [Github wiki](https://github.com/basho/riak_cs/wiki/Logging-Storage-Stats)
 * [[Account Management]]
-    - [Github wiki](https://github.com/basho/riak_cs/wiki/User-Management)
+    * [Github wiki](https://github.com/basho/riak_cs/wiki/User-Management)
 * [[Monitoring and Metrics]]
