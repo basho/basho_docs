@@ -404,6 +404,20 @@ performance for Riak CS when using Riak 1.4.0 or later. These options
 take advantage of additions to Riak that are not present prior to
 version 1.4.0.
 
+## Concurrency and Buffering
+
+There are two parameters related to concurrency and buffering that you
+may wish to add to your Riak CS settings if you are having issues with
+PUT requests.
+
+Config | Description | Default
+:------|:------------|:-------
+`put_concurrency` | The number of threads inside of Riak CS that are used to write blocks to Riak. | `1`
+`put_buffer_factor` | The number of blocks that will be buffered in-memory in Riak CS before it begins to slow down reading from the HTTP client. | `1`
+
+Raising the value of both of these parameters may provide higher
+single-client throughput.
+
 ## Other Riak CS Settings
 
 * `fold_objects_for_list_keys` --- Setting this option to `true` enables
@@ -783,178 +797,9 @@ SystemTamp</a>, set this option to <code>true</code>.</td>
 </tbody>
 </table>
 
-## Webmachine Settings
+## Lager Settings
 
-<table>
-<thead>
-<tr>
-<th>Config</th>
-<th>Subsection</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td><code>webmachine_log_handler</code></td>
-<td><code>log_handlers</code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code>riak_cs_access_log_handler</code></td>
-<td><code>log_handlers</code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
-</tbody>
-</table>
-
-## lager Settings
-
-[lager](https://github.com/basho/lager) is the logging framework used by
+[Lager](https://github.com/basho/lager) is the logging framework used by
 Riak CS.
 
 <table>
@@ -1005,23 +850,3 @@ is disabled by default.</td>
 
 </tbody>
 </table>
-
-## Erlang VM Settings in vm.args
-
-In addition to an `app.config` file, each Riak CS node has a `vm.args`
-file that you can use to pass arguments to the Erlang VM on which Riak
-runs. A full listing of configurable parameters for `vm.args` can be
-found in our [[configuration files|Configuration
-Files#Configuring-Your-vm.args]] documentation.
-
-<!--
-
-For use in constructing tables
-
-<tr>
-<td><code></code></td>
-<td></td>
-<td></td>
-</tr>
-
--->
