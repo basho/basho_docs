@@ -26,6 +26,13 @@ trial|http://info.basho.com/RiakCS1.1_DeveloperTrialRequest.html]] of
 Riak CS Enterprise or [[contact us|http://basho.com/contact/]] for more
 information.
 
+<div class="note">
+<div class="title">Riak CS Enterprise requires a separate download</div>
+Please note that Riak CS Enterprise requires a download separate from
+the open-source Riak CS, which will not work in conjunction with Riak
+Enterprise.
+</div>
+
 ## Multi-Datacenter Replication
 
 Multi-Datacenter Replication in Riak CS provides two modes of object

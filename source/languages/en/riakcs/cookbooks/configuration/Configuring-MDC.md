@@ -12,6 +12,13 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Riak CS Enterprise requires a separate download</div>
+Please note that Riak CS Enterprise requires a download separate from
+the open-source Riak CS, which will not work in conjunction with Riak
+Enterprise.
+</div>
+
 Configuration of Multi-Datacenter Replication in Riak CS requires the
 addition of a new setting to the `app.config` configuration file for all
 Riak CS and Riak Enterprise nodes which are part of the Riak CS cluster.
