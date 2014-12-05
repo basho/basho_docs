@@ -1228,7 +1228,7 @@ The valid range is 0-1024. If thread support is not available, this
 parameter will have no impact; if thread support is available, the
 default value is 64. This is the equivalent of the <code>+A</code> flag.
 More information can be found <a
-href="http://erlang.org/doc/man/erl.html#async_thread_stack_size">here</a>.
+href="http://erlang.org/doc/man/erl.html#async_thread_pool_size)">here</a>.
 </td>
 <td><code>64</code> (if thread support is available)</td>
 </tr>
@@ -1371,16 +1371,6 @@ href="http://www.erlang.org/doc/man/erlang.html#system_flag-2">here</a>.
 </tr>
 
 <tr>
-<td><code>erlang.async_threads</code></td>
-<td>Sets the number of threads in the async thread pool. The valid
-range is 0 to 1024. If thread support is available, the default is 64.
-More information <a href="http://erlang.org/doc/man/erl.html">here</a>.
-</td>
-<td><code>64</code></td>
-</tr>
-
-
-<tr>
 <td><code>erlang.K</code></td>
 <td>Enables or disables the kernel poll functionality if the emulator
 supports it. If the emulator does not support kernel poll, and the
@@ -1442,7 +1432,7 @@ without SMP support. <strong>Note</strong>: The runtime system with SMP
 support will not be available on all supported platforms. See also the
 <code>erlang.schedulers settings</code>. Some native extensions (NIFs)
 require use of the SMP emulator. More information <a
-href="http://erlang.org/doc/man/erl.html">here</a>.</td>
+href="http://erlang.org/doc/man/erl.html#smp">here</a>.</td>
 <td><code>enable</code></td>
 </tr>
 
