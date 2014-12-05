@@ -347,12 +347,12 @@ riakcs:
           - "[[Rolling Upgrades|Rolling Upgrades For Riak CS]]"
           - "[[Monitoring and Metrics]]"
           - "[[Riak CS Control]]"
-          - "[[Garbage Collection]]"
           - "[[Riak CS Multibag Support]]"
   - title: "Theory & Concepts"
     sub:
       - "[[Stanchion]]"
       - "[[Multipart Upload Overview]]"
+      - "[[Garbage Collection]]"
       - title: "Comparisons"
         sub:
             - "[[CS Compared to Swift|Riak CS Compared to Swift]]"

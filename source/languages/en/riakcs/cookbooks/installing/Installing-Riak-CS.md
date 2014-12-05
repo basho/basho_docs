@@ -9,22 +9,20 @@ audience: beginner
 keywords: [installing]
 ---
 
-A fully functional Riak CS system is comprised of Riak CS, Stanchion,
-and Riak. The supported operating systems include Ubuntu, CentOS,
-Fedora, Solaris, SmartOS, FreeBSD, and OS X. Riak CS is *not* supported
-on Microsoft Windows.
+Riak CS is supported on a variety of operating systems, including
+Ubuntu, CentOS, Fedora, Solaris, SmartOS, FreeBSD, and OS X. Riak CS is
+*not* supported on Microsoft Windows.
 
-You can install Riak CS on a single node or using an automated
-deployment tool. Any Riak CS installation involves three components, all
-of which must be installed separately:
+You can install Riak CS on a single node (for development purposes) or
+using an automated deployment tool. Any Riak CS installation involves
+three components, all of which must be installed separately:
 
-* [Riak](http://docs.basho.com/riak/1.4.10/) --- The distributed
+* [Riak](http://docs.basho.com/riak/1.4.12/) --- The distributed
   database on top of which Riak CS is built
 * Riak CS itself
-* [[Stanchion]] --- An application
-    used to manage [[globally unique
-    entities|Stanchion#Globally-Unique-Entities]] such as users and
-    buckets
+* [[Stanchion]] --- An application used to manage [[globally unique
+  entities|Stanchion#Globally-Unique-Entities]] such as users and
+  buckets
 
 [[Riak|Installing Riak CS#Installing-Riak]] and [[Riak CS|Installing
 Riak CS#Installing-Riak-CS-on-a-Node]] must be installed on each node in
@@ -55,8 +53,8 @@ Riak CS | Riak  | Stanchion
 1.5.1   | 1.4.10 | 1.5.0
 1.5.2   | 1.4.10 | 1.5.0
 
-We strongly recommend using only one of the version combinations listed
-above when installing and running Riak CS.
+We strongly recommend using one of the version combinations listed above
+when installing and running Riak CS.
 
 ## Installing Riak
 

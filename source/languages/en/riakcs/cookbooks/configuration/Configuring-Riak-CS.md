@@ -340,7 +340,10 @@ Riak CS are available in [[Garbage Collection]].
   86400 (24 hours).
 * `gc_interval` --- The interval, in seconds, that the garbage
   collection daemon runs at to search for and reap eligible object
-  versions. The default value is 900 seconds (15 minutes).
+  versions. The default value is 900 seconds (15 minutes). It is
+  important that you have only _one_ garbage collection daemon running
+  in a cluster at any point in time. To disable the daemon on a node,
+  set the `gc_interval` parameter to `infinity`.
 * `gc_retry_interval` --- The number of seconds that must elapse
   before another attempt is made to write a record for an object
   manifest in the `pending_delete` state to the garbage collection

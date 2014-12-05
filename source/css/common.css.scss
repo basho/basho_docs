@@ -1288,7 +1288,7 @@ div[role="main"] {
   #marketing-banner {
     position     : relative;
     height       : 56px;
-    background   : #bed8dc url('/shared/latest/images/bg-banner.png') no-repeat 60% 50%;
+    background   : #bed8dc url('/shared/latest/images/bg_banner.png') no-repeat 60% 50%;
     text-align   : left;
     @extend .sans;
 
@@ -1318,7 +1318,7 @@ div[role="main"] {
     }
 
     .more {
-      background: url('/shared/latest/images/link-more.png') no-repeat;
+      background: url('/shared/latest/images/link_more.png') no-repeat;
       overflow: hidden;
       position: absolute;
       width: 30px;

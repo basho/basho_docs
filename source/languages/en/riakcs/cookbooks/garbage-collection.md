@@ -243,6 +243,15 @@ particular key in the `riak-cs-gc` bucket have been deleted, the key
 is deleted from the `riak-cs-gc` bucket.
 {{/1.5.0+}}
 
+### One Daemon per Cluster
+
+We recommend using only _one_ active garbage collection daemon in any
+Riak CS cluster. If multiple daemons are currently being used, you can
+disable the others by setting the `gc_interval` parameter to `infinity`
+on those nodes. More information on how to do that can be found in the
+[[CS configuration doc|Configuring Riak
+CS#Garbage-Collection-Settings]].
+
 ## Controlling the GC Daemon
 
 The garbage collection daemon may be queried and manipulated using the
@@ -308,3 +317,9 @@ Riak CS's garbage collection implementation gives the deployer several
 knobs to adjust for fine-tuning system performace. More information
 can be found in our documentation on [[configuring Riak CS|Configuring
 Riak CS#Garbage-Collection-Settings]].
+
+## More Information
+
+If you'd like more in-depth material on garbage collection in Riak CS,
+we recommend consulting the [Riak CS
+wiki](https://github.com/basho/riak_cs/wiki/Object-Chunking-and-Garbage-Collection)

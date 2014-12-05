@@ -14,8 +14,8 @@ next: "[[Building a Virtual Testing Environment]]"
 
 The following instructions will guide you through installing a Riak CS
 test environment. This guide does not cover system/service tuning and it
-does not attempt to optimize your installation given your particular
-architecture.  This procedure is ideal only for building a test
+does not attempt to optimize your installation for your particular
+architecture. This procedure is ideal only for building a development
 environment either on local or remote hardware that allows for durable,
 repeatable testing.
 
@@ -25,11 +25,14 @@ Environment]].
 
 ## Installing Your First Node
 
+You should complete the following preparatory steps _before_ installing
+and running Riak and Riak CS.
+
 ### Step 1: Raise your system's open file limits
 
 Riak can consume a large number of open file handles during normal
-operation. See the [[Open Files Limit|Open-Files-Limit]] documentation
-for more information on how to increase your system's open files limit.
+operation. See the [[Open Files Limit]] documentation for more
+information on how to increase your system's open files limit.
 
 If you are the root user, you can increase the system's open files limit
 *for the current session* with this command:
@@ -50,17 +53,20 @@ riak soft nofile 65536
 riak hard nofile 65536
 ```
 
-For Mac OS X, consult the [[open files limit|Open Files Limit#Mac-OX-X]]
+For Mac OS X, consult the [[open files limit|Open Files Limit#Mac-OS-X]]
 documentation.
 
 ### Step 2: Download and install packages
 
 This guide uses `curl` for downloading packages and interacting with the
-Riak CS API so let's make sure that it's installed:
+Riak CS API, so let's make sure that it's installed:
 
 ```bash
 sudo apt-get install -y curl
 ```
+
+**Note**: If you're running Riak CS on a non-Debian/Ubuntu OS,
+substitute the appropriate CLI commands.
 
 If you are running Ubuntu 11.10 or later, you will also need the
 `libssl0.9.8` package. See [[Installing on Debian and Ubuntu]] for more
