@@ -1386,7 +1386,7 @@ More information <a href="http://erlang.org/doc/man/erl.html">here</a>.
 supports it. If the emulator does not support kernel poll, and the
 <code>K</code> flag is passed to the emulator, a warning is issued at
 startup. Similar information <a
-href="http://erlang.org/doc/man/erl.html">here</a>.</td>
+href="http://erlang.org/doc/man/erl.html#emu_flags">here</a>.</td>
 <td><code>on</code></td>
 </tr>
 
