@@ -63,16 +63,19 @@ This function can be run in the Erlang shell. Let's run it providing the
 text `hello`:
 
 ```erlang
+> c(search_test_extractor).
+%% {ok, search_test_extractor}
+
 > search_test_extractor:extract("hello").
 
 %% Console output:
-[[text, "hello"]]
+[{text, "hello"}]
 ```
 
 Upon running this command, the value `hello` would be indexed in Solr
 under the fieldname `text`. If you wanted to find all objects with a
 `text` field that begins with `Fourscore`, you could use the
-Solr query `text:Fourscore*`.
+Solr query `text:Fourscore*`, to give just one example.
 
 ## An Example Custom Extractor
 
