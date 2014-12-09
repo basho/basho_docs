@@ -8,16 +8,18 @@ audience: intermediate
 keywords: [operator, configuration]
 ---
 
-This tutorial will use [s3cmd](http://s3tools.org/s3cmd) as an S3
-client. If you would like to use a different S3 client, we recommend
-consulting the documentation for that client.
+This tutorial will show you how to use [s3cmd](http://s3tools.org/s3cmd)
+as an S3 client. While it won't cover all of the client's features, it
+will show you how to create a configuration and run some basic commands.
+
+## Initial Setup
 
 To use s3cmd in conjunction with Riak CS, you must configure it to
 interact with your Riak CS system. One way to do so is to create a
 `.s3cfg` file and store it in your home directory. When you run any
-s3cmd-related command, the contents of that file will be read by default.
-Alternatively, you can specify a configuration file using the `-c` flag.
-Here's an example:
+s3cmd-related command, the contents of that file will be read by
+default.  Alternatively, you can specify a non-default configuration
+file location using the `-c` flag.  Here's an example:
 
 ```bash
 s3cmd -c /PATH/TO/CONFIG/FILE <command>
@@ -25,10 +27,10 @@ s3cmd -c /PATH/TO/CONFIG/FILE <command>
 
 Another way to configure s3cmd is to run `s3cmd --configure`, which
 launches an interactive tool that will assemble a configuration file for
-you on the basis of what you input.
+you on the basis of what you enter.
 
-Below are a few sample `.s3cfg` files that can be used to configure
-s3cmd to interact with Riak CS.
+In the next section you'll find a few sample `.s3cfg` files that can be
+used to configure s3cmd to interact with Riak CS.
 
 ## Sample s3cmd Configuration File for Local Use
 

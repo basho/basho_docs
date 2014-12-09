@@ -19,9 +19,10 @@ the open-source Riak CS, which will not work in conjunction with Riak
 Enterprise.
 </div>
 
-Configuration of Multi-Datacenter Replication in Riak CS requires the
-addition of a new setting to the `app.config` configuration file for all
-Riak CS and Riak Enterprise nodes which are part of the Riak CS cluster.
+Configuratin Multi-Datacenter Replication in Riak CS requires the
+addition of a new group of settings to the `app.config` configuration
+file for all Riak CS and Riak Enterprise nodes that are part of the Riak
+CS cluster.
 
 ## Riak Enterprise Configuration
 
@@ -38,10 +39,12 @@ the following example.
 
 ```erlang
 {riak_repl, [
+             %% Other configs
              {fullsync_on_connect, true},
              {fullsync_interval, 360},
              {data_root, "/var/lib/riak/data/riak_repl"},
              {proxy_get, enabled}
+             %% Other configs
             ]}
 ```
 
@@ -70,14 +73,13 @@ the `app.config` by appending the `{proxy_get, enabled}` setting as
 shown in the following example.
 
 ```erlang
-%% Riak CS config
 {riak_cs, [
            %% Other configs
            {cs_ip, "127.0.0.1"},
-            {cs_port, 8080 },
-            {proxy_get, enabled},
-            %% Other configs
-           ]}
+           {cs_port, 8080 },
+           {proxy_get, enabled},
+           %% Other configs
+          ]}
 ```
 
 <div class ="note">
@@ -89,7 +91,7 @@ restarting the next node. To check the status of `riak_kv` on a node
 after restarting, execute the following command:
 
 ```bash
-riak-admin wait-for-service riak_kv <node>
+riak-admin wait-for-service riak_kv <nodename>
 ```
 
 Replace the `node` variable above with the nodename specified in the
@@ -98,9 +100,11 @@ Replace the `node` variable above with the nodename specified in the
 
 ## Stanchion Configuration
 
-Though there is no specific configuration for Stanchion, note that
+Though there is no specific configuration for [[Stanchion]], note that
 Stanchion should be a single, globally unique process to which every
-Riak CS sends requests, even if there are multiple replicated sites.
-Unlike Riak and Riak CS, Stanchion should run on only one node in a
-given cluster, perhaps on its own, dedicated hardware if you wish. This
-is because Stanchion manages updates on globally unique attributes.
+Riak CS node sends requests, even if there are multiple replicated
+sites.  Unlike Riak and Riak CS, Stanchion should run on _only one node
+in a given cluster_, perhaps on its own, dedicated hardware if you wish.
+Stanchion runs on only one node because it manages strongly consistent
+updates to [[globally unique
+entities|Stanchion#Globally-Unique-Entities]] like users and buckets.
