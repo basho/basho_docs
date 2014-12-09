@@ -71,12 +71,12 @@ baseline schema here and add the following fields to the `<fields>`
 list:
 
 ```xml
-<dynamicField name="title_register" type="string" indexed="true" stored="true" />
-<dynamicField name="author_register" type="string" indexed="true" stored="true" />
-<dynamicField name="content_register" type="text" indexed="true" stored="true" />
-<dynamicField name="keywords_set" type="string" indexed="true" stored="true" multiValued="true" />
-<dynamicField name="date_register" type="datetime" indexed="true" stored="true" />
-<dynamicField name="published_flag" type="boolean" indexed="true" stored="true" />
+<dynamicField name="title_register"   type="string"   indexed="true" stored="true" />
+<dynamicField name="author_register"  type="string"   indexed="true" stored="true" />
+<dynamicField name="content_register" type="text"     indexed="true" stored="true" />
+<dynamicField name="keywords_set"     type="string"   indexed="true" stored="true" multiValued="true" />
+<dynamicField name="date_register"    type="datetime" indexed="true" stored="true" />
+<dynamicField name="published_flag"   type="boolean"  indexed="true" stored="true" />
 ```
 
 You can see the full schema [on
@@ -248,10 +248,4 @@ Post bodies containing the words `furry` and `jumping` | `content_register:[furr
 
 ## Creating an Interface
 
-While one way to
-
-## Conclusion
-
-The nice thing about this approach is that we don't have to limit
-ourselves to normal K/V operations. We didn't even have to concern
-ourselves with keys. All we had to do 
+In the section above, we ran some ad hoc queries 
