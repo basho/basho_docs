@@ -138,7 +138,7 @@ example:
 ```curl
 curl -H 'Content-Type: application/json' \
   -XPOST http://localhost:8080/riak-cs/user \
-  --data '{"email":"foobar@example.com", "name":"admin user"}'
+  --data '{"email":"foobar@example.com", "name":"admin_user"}'
 ```
 
 The JSON response will look something like this:
@@ -149,7 +149,7 @@ The JSON response will look something like this:
   "DisplayName": "adminuser",
   "KeyId": "324ABC0713CD0B420EFC086821BFAE7ED81442C",
   "KeySecret": "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7",
-  "Name": "admin user",
+  "Name": "admin_user",
   "Id":"8d6f05190095117120d4449484f5d87691aa03801cc4914411ab432e6ee0fd6b",
   "Buckets": []
 }
@@ -168,7 +168,7 @@ variable, as shown here:
 
 ```appconfig
 %% Admin user credentials
-{admin_key, "LXAAII1MVLI93IN2ZMDD"},
+{admin_key, "324ABC0713CD0B420EFC086821BFAE7ED81442C"},
 {admin_secret, "5BE84D7EEA1AEEAACF070A1982DDA74DA0AA5DA7"},
 ```
 
