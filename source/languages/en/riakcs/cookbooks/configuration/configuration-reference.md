@@ -1,10 +1,10 @@
 ---
-Riak CS Configuration Reference
+title: Riak CS Configuration Reference
 project: riakcs
 version: 1.5.0+
 document: reference
 audience: intermediate
-keywords: [riak-cs, operator, configuration]
+keywords: [cs, operator, configuration]
 ---
 
 This document is intended as a reference listing of all configurable
@@ -18,9 +18,8 @@ directory. The `vm.args` file houses settings related to the [Erlang
 VM](http://www.erlang.org/) on which both Riak and Riak CS run. These
 settings are listed in the [Riak
 documentation](http://docs.basho.com/riak/1.4.12/ops/advanced/configs/configuration-files/#Configuring-Your-code-vm-args-code-)
-Reference#Erlang-VM-Settings]] section below. All other settings are
-managed through `app.config`, which is divided up into the following
-sections:
+section below. All other settings are managed through `app.config`,
+which is divided up into the following sections:
 
 * `riak_cs` --- Most settings are housed in this section of the file
 * `webmachine` --- Settings related to
@@ -35,20 +34,85 @@ sections:
 
 ## Connection Information
 
-Config | Description | Default
-:------|:------------|:-------
-`cs_ip`
-`cs_port`
-`riak_ip`
-`riak_pb_port`
-`cs_root_host`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>cs_ip</code></td>
+<td>The IP address for the Riak CS node</td>
+<td><code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td><code>cs_port</code></td>
+<td>The TCP port for the Riak CS node (whether HTTP or HTTPS)</td>
+<td><code>8087</code></td>
+</tr>
+<tr>
+<td><code>riak_pb_port</code></td>
+<td>The TCP port for the Riak CS node's corresponding Riak node (used by
+Riak's [[Protocol Buffers|PBC API]] interface)
+<td><code>127.0.0.1</code></td>
+</tr>
+<tr>
+<td><code>cs_root_host</code></td>
+<td>The root host name accepted by Riak CS.  Changing this setting to,
+for example, <code>my_cs_host</code> would enable users to make requests
+to a URL such as <code>http://bucket.my_cs_host/object/</code> (or to the
+corresponding HTTP host).</td>
+<td><code>s3.amazonaws.com</code></td>
+</tr>
+</tbody>
+</table>
 
 ## Connection Pools
 
-Config | Description | Default
-:------|:------------|:-------
-`request_pool`
-`bucket_list_pool`
+Riak CS enables you to establish connection pools for normal requests
+(such as `GET` and `PUT`) as well as for bucket listing requests. Each
+pool is specified as a nested tuple of the following form:
+
+```appconfig
+{riak_cs, [
+           {Name, {FixedSize, OverflowSize}}
+          ]}
+```
+
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>request_pool</code></td>
+<td></td>
+<td><code>{128, 0}</code></td>
+</tr>
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Stanchion
 
