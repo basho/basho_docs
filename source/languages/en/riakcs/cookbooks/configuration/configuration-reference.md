@@ -103,104 +103,292 @@ pool is specified as a nested tuple of the following form:
 <tbody>
 <tr>
 <td><code>request_pool</code></td>
-<td></td>
+<td>Settings for the general request pool for Riak CS. Please note that
+we recommend setting Riak's <code>pb_backlog</code> setting higher than
+<code>request_pool</code>'s fixed size, i.e. higher than 128. The
+default for <code>pb_backlog</code> is 64.</td>
 <td><code>{128, 0}</code></td>
 </tr>
 <tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
+<td><code>bucket_list_pool</code></td>
+<td>Settings for the bucket listing request pool for Riak CS.</td>
+<td><code>{5, 0}</code></td>
 </tr>
 </tbody>
 </table>
 
 ## Stanchion
 
-Config | Description | Default
-:------|:------------|:-------
-`stanchion_ip`
-`stanchion_port`
-`stanchion_ssl`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>stanchion_ip</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>stanchion_port</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>stanchion_ssl</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Admin and Authentication Settings
 
-Config | Description | Default
-:------|:------------|:-------
-`admin_key`
-`admin_secret`
-`admin_ip`
-`admin_port`
-`anonymous_user_creation`
-`rewrite_module`
-`auth_module`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>admin_ip</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>admin_port</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>admin_key</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>admin_secret</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>anonymous_user_creation</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>auth_module</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>rewrite_module</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Access Settings
 
-Config | Description | Default
-:------|:------------|:-------
-`access_archive_period`
-`access_archiver_max_backlog`
-`access_log_flush_factor`
-`access_log_flush_size`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>access_archive_period</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>access_archive_max_backlog</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>access_log_flush_size</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>access_log_flush_size</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## User Settings
 
-Config | Description | Default
-:------|:------------|:-------
-`usage_request_limit`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>usage_request_limit</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Storage Settings
 
-Config | Description | Default
-:------|:------------|:-------
-`storage_schedule`
-`storage_archive_period`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>storage_schedule</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>storage_archive_period</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Garbage Collection
 
-Config | Description | Default
-:------|:------------|:-------
-`gc_interval`
-`gc_paginated_indexes`
-`gc_retry_interval`
-`leeway_seconds`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>gc_interval</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>gc_paginated_indexes</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>gc_retry_interval</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>leeway_seconds</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Miscellaneous Settings
 
-Config | Description | Default
-:------|:------------|:-------
-`fold_objects_for_list_keys`
-`n_val_1_get_requests`
-`cs_version`
-`trust_x_forwarded_for`
-`dtrace_support`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>cs_version</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>dtrace_support</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>fold_objects_for_list_keys</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>n_val_1_get_requests</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>trust_x_forwarded_for</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Webmachine
 
-Config | Description | Default
-:------|:------------|:-------
-`server_name` |
-`webmachine_log_handler`
-`riak_cs_access_log_handler`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>server_name</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>webmachine_log_handler</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>riak_cs_access_log_handler</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## Logging
 
-Config | Description | Default
-:------|:------------|:-------
-`lager_console_backend`
-`lager_file_backend`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>lager_console_backend</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>lager_file_backend</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
-Config | Description | Default
-:------|:------------|:-------
-`crash_log`
-`crash_log_msg_size`
-`crash_log_size`
-`crash_log_date`
-`crash_log_count`
-`error_logger_redirect`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>crash_log</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>crash_log_count</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>crash_log_date</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>crash_log_msg_size</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>crash_log_size</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code>error_logger_redirect</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
 
 ## SASL
 
-Config | Description | Default
-:------|:------------|:-------
-`sasl_error_logger`
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>sasl_error_lager</code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
