@@ -142,33 +142,15 @@ CS is not installed on the server). In spite of this error, make sure
 that you do not change the backend from `riak_cs_kv_multi_backend` to
 `riak_kv_multi_backend`.
 
-## Specifying the Riak IP Address
-
-By setting the Riak IP address you ensure that your Riak nodes have
-unique IP addresses, whether you're working with a single node or adding
-additional nodes to the system. The Riak IP address setting resides in
-the Riak `vm.args` configuration file, which is located in the same
-`/etc/riak` folder as `app.config` (or in `/opt/riak/etc` on some
-operating systems).
-
-Initially, the line that specifies the riak node IP address is set to
-the local host, as follows:
-
-```vmargs
--name riak@127.0.0.1
-```
-
-Replace `127.0.0.1` with the appropriate IP address or hostname for the
-Riak node.
-
 ## Setting Up Riak to Use Protocol Buffers
 
 The Riak [[Protocol Buffers|PBC API]] settings reside in the Riak
 `app.config` file, which is located in the `/etc/riak` folder. The
-settings appear in the `riak_api` section of the file.
-
-First, replace `127.0.0.1` with the IP address of the Riak node and
-`8087` with the port:
+settings appear in the `riak_api` section of the file. The default host
+is 127.0.0.1 while the default port is 8087. You will need to change
+this if you plan on running Riak and Riak CS in a non-local environment.
+Replace `127.0.0.1` with the IP address of the Riak node and `8087` with
+the port:
 
 ```appconfig
 {riak_api, [
@@ -192,8 +174,8 @@ proxy server.
 It is also recommended that you increase the size of Riak's `pb_backlog`
 to be greater than the size of `request_pool` specified in the Riak CS
 `app.config` file. At minimum, `pb_backlog` should be set to `64`. The
-default value is `5`. To do so, replace the `{pb_backlog, 5}` line with
-this:
+default value is `5`. To do so, uncomment the appropriate line and
+replace `{pb_backlog, 5}` with this:
 
 ```appconfig
 {riak_api, [
@@ -203,17 +185,35 @@ this:
            ]}
 ```
 
-If you need to use a different port, replace `8087` with the port number
-you want to use.
-
-And if the `request_pool` value in Riak CS is changed, the `pb_backlog`
+If the `request_pool` value in Riak CS is changed, the `pb_backlog`
 value in Riak should be updated as well.
 
 ## Other Riak Settings
 
 The `app.config` file includes other settings, such as turning on the
 creation of log files and specifying where to store them. These
-settings have default values that should work in most cases.
+settings have default values that should work in most cases. For more
+information, we recommend reading our [configuration files](:w
+) doc
+
+## Specifying the Riak IP Address
+
+By setting the Riak IP address you ensure that your Riak nodes have
+unique IP addresses, whether you're working with a single node or adding
+additional nodes to the system. The Riak IP address setting resides in
+the Riak `vm.args` configuration file, which is located in the same
+`/etc/riak` folder as `app.config` (or in `/opt/riak/etc` on some
+operating systems).
+
+Initially, the line that specifies the riak node IP address is set to
+the local host, as follows:
+
+```vmargs
+-name riak@127.0.0.1
+```
+
+Replace `127.0.0.1` with the appropriate IP address or hostname for the
+Riak node.
 
 ### Performance and Capacity settings
 

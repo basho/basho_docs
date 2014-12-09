@@ -42,6 +42,14 @@ set to the host and port used by Riak:
 * `riak_pb_port` --- Replace `8087` with the port number set in the
   variable `pb_port` in the Riak `app.config` file
 
+You will also need to set the host and port for Riak CS:
+
+* `cs_ip` --- Replace `127.0.0.1` with the IP address of the Riak CS
+  node if you are running CS non-locally
+* `cs_port` --- Replace `8080` with the appropriate port number. Make
+  sure that this number does not conflict with `riak_pb_port` if the
+  Riak node and Riak CS node are running on the same machine.
+
 <div class="note">
 <div class="title">Note on IP addresses</div>
 The IP address you enter here must match the IP address specified for
