@@ -8,12 +8,14 @@ audience: intermediate
 keywords: [operator, troubleshooting]
 ---
 
-Storage statistics are tracked on a per-user basis, as rollups for slices of time. Querying these statistics is done via the {{#1.3.0-}}`/usage/$USER_KEY_ID`{{/1.3.0-}}{{#1.3.0+}}`/riak-cs/usage/$USER_KEY_ID`{{/1.3.0+}} resource.
+Storage statistics are tracked on a per-user basis, as rollups for
+slices of time. Querying these statistics is done via the
+`/riak-cs/usage/$USER_KEY_ID` resource.
 
 <div class="note">
 <div class="title">Note on terminology</div>
 In this and other documents in the Riak CS documentation, the terms
-"storage" and "billing" are used interchangeably. THe same goes for the
+"storage" and "billing" are used interchangeably. The same goes for the
 terms "usage" and access.
 </div>
 

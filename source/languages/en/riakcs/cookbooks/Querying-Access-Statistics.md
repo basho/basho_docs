@@ -14,7 +14,7 @@ of time. Querying these statistics is done via the {{#1.3.0-}}`/usage/$USER_KEY_
 <div class="note">
 <div class="title">Note on terminology</div>
 In this and other documents in the Riak CS documentation, the terms
-"storage" and "billing" are used interchangeably. THe same goes for the
+"storage" and "billing" are used interchangeably. The same goes for the
 terms "usage" and access.
 </div>
 
