@@ -13,6 +13,13 @@ Like many other object storage systems, Riak CS gathers a variety of
 usage statistics and makes them available through its administrative
 API.
 
+<div class="note">
+<div class="title">Note on terminology</div>
+In this and other documents in the Riak CS documentation, the terms
+"storage" and "billing" are used interchangeably. THe same goes for the
+terms "usage" and access.
+</div>
+
 ## Access Statistics
 
 Access stats are tracked on a per-user basis, as rollups for slices of

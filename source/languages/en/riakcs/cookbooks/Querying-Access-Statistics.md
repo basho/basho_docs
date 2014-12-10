@@ -11,6 +11,13 @@ keywords: [operator, troubleshooting]
 Access statistics are tracked on a per-user basis as rollups for slices
 of time. Querying these statistics is done via the {{#1.3.0-}}`/usage/$USER_KEY_ID`{{/1.3.0-}}{{#1.3.0+}}`/riak-cs/usage/$USER_KEY_ID`{{/1.3.0+}} resource.
 
+<div class="note">
+<div class="title">Note on terminology</div>
+In this and other documents in the Riak CS documentation, the terms
+"storage" and "billing" are used interchangeably. THe same goes for the
+terms "usage" and access.
+</div>
+
 For information about how access statistics are logged, please read [[Usage and Billing Data]].
 
 The following sections discuss accessing the access statistics using bare HTTP requests. Query parameters are used to specify the types and date ranges of information to include. For information on using `s3cmd` (or other tools) to fetch statistics as S3 objects, skip to the [The Magic `usage` Bucket](#The-Magic-usage-Bucket) section.

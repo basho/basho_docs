@@ -10,6 +10,14 @@ keywords: [operator, troubleshooting]
 
 Storage statistics are tracked on a per-user basis, as rollups for slices of time. Querying these statistics is done via the {{#1.3.0-}}`/usage/$USER_KEY_ID`{{/1.3.0-}}{{#1.3.0+}}`/riak-cs/usage/$USER_KEY_ID`{{/1.3.0+}} resource.
 
+<div class="note">
+<div class="title">Note on terminology</div>
+In this and other documents in the Riak CS documentation, the terms
+"storage" and "billing" are used interchangeably. THe same goes for the
+terms "usage" and access.
+</div>
+
+
 **Note**: Storage statistics are not calculated by default. Please read [[Usage and Billing Data]] for details about how to enable storage calculation archiving.
 
 The basics of querying storage statistics, including the URL used and the parameters for specifying the time slice, are the same as they are for [[Querying Access Statistics]].
