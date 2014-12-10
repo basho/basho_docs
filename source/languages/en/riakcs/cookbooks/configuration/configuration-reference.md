@@ -38,28 +38,6 @@ which is divided up into the following sections:
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><code></code></td>
-<td></td>
-<td><code></code></td>
-</tr>
-</tbody>
-</table>
-
-
-<table class="riak-conf">
-<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
-<tbody>
-<tr>
 <td><code>cs_ip</code></td>
 <td>The IP address for the Riak CS node</td>
 <td><code>127.0.0.1</code></td>
@@ -77,10 +55,10 @@ Riak's [[Protocol Buffers|PBC API]] interface)
 </tr>
 <tr>
 <td><code>cs_root_host</code></td>
-<td>The root host name accepted by Riak CS.  Changing this setting to,
+<td>The root host name accepted by Riak CS. Changing this setting to,
 for example, <code>my_cs_host</code> would enable users to make requests
-to a URL such as <code>http://bucket.my_cs_host/object/</code> (or to the
-corresponding HTTP host).</td>
+to a URL such as <code>http://bucket.my_cs_host/object/</code> (or to
+the corresponding HTTP host).</td>
 <td><code>s3.amazonaws.com</code></td>
 </tr>
 </tbody>
@@ -111,7 +89,7 @@ default for <code>pb_backlog</code> is 64.</td>
 </tr>
 <tr>
 <td><code>bucket_list_pool</code></td>
-<td>Settings for the bucket listing request pool for Riak CS.</td>
+<td>Settings for the bucket listing request pool for Riak CS</td>
 <td><code>{5, 0}</code></td>
 </tr>
 </tbody>
@@ -124,18 +102,20 @@ default for <code>pb_backlog</code> is 64.</td>
 <tbody>
 <tr>
 <td><code>stanchion_ip</code></td>
-<td></td>
-<td><code></code></td>
+<td>The IP address for the Stanchion node in the cluster. Please note
+that there should be only one Stanchion node in the cluster.</td>
+<td><code>127.0.0.1</code></td>
 </tr>
 <tr>
 <td><code>stanchion_port</code></td>
-<td></td>
-<td><code></code></td>
+<td>The TCP port used by the Stancion node in the cluster</td>
+<td><code>8085</code></td>
 </tr>
 <tr>
 <td><code>stanchion_ssl</code></td>
-<td></td>
-<td><code></code></td>
+<td>Whether SSL is enabled for connections between the Riak CS node and
+Stanchion</td>
+<td><code>false</code></td>
 </tr>
 </tbody>
 </table>
@@ -147,66 +127,96 @@ default for <code>pb_backlog</code> is 64.</td>
 <tbody>
 <tr>
 <td><code>admin_ip</code></td>
-<td></td>
-<td><code></code></td>
+<td>You have the option to provide a special endpoint for performing
+systems administration tasks in Riak CS. This setting sets the IP
+address for that endpoint. If you leave this setting and
+<code>admin_port</code> commented, then administrative tasks use the
+IP and port as all other Riak CS traffic.</td>
+<td><code>8000</code></td>
 </tr>
 <tr>
 <td><code>admin_port</code></td>
-<td></td>
-<td><code></code></td>
+<td>The port used for performing systems administration tasks. See the
+description for <code>admin_ip</code> above for more information.</td>
+<td><code>8000</code></td>
 </tr>
 <tr>
 <td><code>admin_key</code></td>
-<td></td>
+<td>The admin key used for administrative access to Riak CS, e.g. usage
+of the <code>/riak-cs/stats</code> endpoint. Please note that both
+<code>admin_key</code> and <code>admin_secret</code> must match the
+corresponding settings in the [[Stanchion]] node's
+<code>app.config</code>.</td>
 <td><code></code></td>
 </tr>
 <tr>
 <td><code>admin_secret</code></td>
-<td></td>
+<td>The admin secret used for administrative access to Riak CS. See the
+description for <code>admin_key</code> above for more information.</td>
 <td><code></code></td>
 </tr>
 <tr>
 <td><code>anonymous_user_creation</code></td>
-<td></td>
-<td><code></code></td>
+<td>You will need to set this parameter to <code>true</code> to allow
+for the creation of an admin user when setting up a new Riak CS cluster.
+We recommend, however, that you enable anonymous user creation only
+temporarily, <em>unless</em> your use case specifically dictates that
+anonymous users should be able to create accounts.</td>
+<td><code>false</code></td>
 </tr>
 <tr>
 <td><code>auth_module</code></td>
-<td></td>
-<td><code></code></td>
+<td>The module used by Riak CS for authentication. We do not recommend
+changing this setting unless you implement a custom authentication
+scheme.</td>
+<td><code>riak_cs_s3_auth</code></td>
 </tr>
 <tr>
 <td><code>rewrite_module</code></td>
-<td></td>
-<td><code></code></td>
+<td>A rewrite module contains a set of rules for translating requests
+made using a particular API to requests in the the native [[Riak CS
+storage API]]. We do not recommend changing this setting unless you
+implement a custom module.</td>
+<td><code>riak_cs_s3_rewrite</code></td>
 </tr>
 </tbody>
 </table>
 
-## Access Settings
+## Access Log Settings
+
+These settings relate to Riak CS's [[access logs|Usage and Billing
+Data]].
 
 <table class="riak-conf">
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
 <td><code>access_archive_period</code></td>
-<td></td>
-<td><code></code></td>
+<td>How large each access archive object is. This setting should be a
+multiple of <code>access_log_flush_interval</code>. Expressed as an
+integer number of seconds (e.g. 3600 translates to 1 hour).</td>
+<td><code>3600</code></td>
 </tr>
 <tr>
 <td><code>access_archive_max_backlog</code></td>
-<td></td>
-<td><code></code></td>
+<td>The number of access logs that are allowed to accumulate in the
+archiver's queue before it begins skipping to catch up. Expressed as an
+integer number of logs.</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>access_log_flush_factor</code></td>
+<td>How often the access log should be flushed, as a factor of
+<code>access_archive_period</code>, where <code>1</code> means once per
+period, <code>2</code> means twice per period, etc.</td>
+<td><code>1</code></td>
 </tr>
 <tr>
 <td><code>access_log_flush_size</code></td>
-<td></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><code>access_log_flush_size</code></td>
-<td></td>
-<td><code></code></td>
+<td>The additional access log flush trigger. After this many accesses
+have been recorded, the log will be flushed, even if the flush interval
+has not expired. Expressed as an integer number of accesses.</td>
+<td><code>1000000</code></td>
 </tr>
 </tbody>
 </table>
@@ -392,3 +402,26 @@ default for <code>pb_backlog</code> is 64.</td>
 </tr>
 </tbody>
 </table>
+
+<!--
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+<tr>
+<td><code></code></td>
+<td></td>
+<td><code></code></td>
+</tr>
+</tbody>
+</table>
+-->
