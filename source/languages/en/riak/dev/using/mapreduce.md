@@ -11,6 +11,17 @@ moved: {
 }
 ---
 
+<div class="note">
+<div class="title">Use MapReduce sparingly</div>
+In Riak, MapReduce is the primary method for non-primary-key-based
+querying. Although useful for a limited range of purposes, such as batch
+processing jobs, MapReduce operations can be very computationally
+expensive, sometimes to the extent that they can degrade performance in
+production clusters operating under load. Thus, we recommend running
+MapReduce operations in a controlled, rate-limited fashion and never for
+realtime querying purposes.
+</div>
+
 MapReduce (M/R) is a technique for dividing data processing work across
 a distributed system. It takes advantage of the parallel processing
 power of distributed systems and also reduces network bandwidth, as the
@@ -71,9 +82,9 @@ separate physical hosts.
 There are two steps in a MapReduce query:
 
 * **Map** --- The data collection phase, which breaks up large chunks of
-  work into smaller ones and then takes action on each chunk. Map phases
-  consist of a function and a list of objects on which the map operation
-  will operate.
+  work into smaller ones and then takes action on each chunk. Map
+  phases consist of a function and a list of objects on which the map
+  operation will operate.
 * **Reduce** --- The data collation or processing phase, which combines
   the results from the map step into a single output. The reduce phase
   is optional.
@@ -94,8 +105,8 @@ node that the client contacts to make the request becomes the
 above, each job consists of a list of phases, where each phase is either
 a map or a reduce phase. The coordinating node uses the list of phases
 to route the object keys and the function that will operate over the
-objects stored in those keys and instruct the proper [[vnode|Riak
-Glossary#Vnode]] to run that function over the right objects.
+objects stored in those keys and instruct the proper [[vnode|Vnodes]] to
+run that function over the right objects.
 
 After running the map function, the results are sent back to the
 coordinating node. This node then concatenates the list and passes that
