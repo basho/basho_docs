@@ -9,7 +9,16 @@ audience: beginner
 keywords: [installing]
 ---
 
-Access Control Lists (ACLs) are a means of granting and denying access to buckets and objects. Each bucket and object will have an ACL associated with it. A default ACL is created when a bucket or object is created that grants full control to the creating party and denies access to all other parties. The Riak CS ACLs are modeled after S3 ACLs. For more information, see the Amazon [Access Control List Overview](http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html) documentation.
+Access Control Lists (ACLs) are a means of granting and denying access
+to buckets and objects. Each bucket and object in a Riak CS cluster will
+have an ACL associated with it. When a bucket or object is created, a
+default ACL will be created alongside it that grants full control to the
+creating party and denies access to all other parties.
+
+Riak CS ACLs are modeled after S3 ACLs. For more information, see the
+Amazon [Access Control List
+Overview](http://docs.amazonwebservices.com/AmazonS3/latest/dev/ACLOverview.html)
+documentation.
 
 <div class="note">
 <div class="title">ACL Limit</div>
@@ -18,7 +27,8 @@ An ACL can have up to 100 grants.
 
 ## Representations
 
-XML is the only supported external format for ACLs. In the future, other formats such as [[JSON|http://www.json.org]] may be supported.
+XML is the only supported external format for ACLs. In the future, other
+formats such as [JSON](http://www.json.org) may be supported.
 
 Example XML representation of an ACL:
 
@@ -43,30 +53,59 @@ Example XML representation of an ACL:
 
 ## Permissions
 
+Riak CS permissions are split into two types: **bucket permissions** and
+**object permissions**.
+
 ### Bucket Permissions
 
 * `READ` --- Grantee may list the objects in the bucket
 * `READ_ACP` --- Grantee may read the bucket ACL
-* `WRITE` --- Grantee may create, overwrite, and delete any object in the bucket
+* `WRITE` --- Grantee may create, overwrite, and delete any object in
+  the bucket
 * `WRITE_ACP` --- Grantee may write the ACL for the applicable bucket
-* `FULL_CONTROL` --- Grantee has `READ`, `WRITE`, `READ_ACP`, and `WRITE_ACP` permissions on the bucket
+* `FULL_CONTROL` --- Grantee has `READ`, `WRITE`, `READ_ACP`, and
+  `WRITE_ACP` permissions on the bucket
 
 ### Object Permissions
+
 * `READ` --- Grantee may read the object data and its metadata
-* `READ_ACP` --- Grantee may read the object ACL. **Note:** The object owner may read the object ACL even if not explicitly granted `READ_ACP` permission.
-* `WRITE_ACP` --- Grantee may write the ACL for the applicable object. **Note:** The object owner may write the object ACL even if not explicitly granted `WRITE_ACP` permission.
-* `FULL_CONTROL` --- Grantee has `READ`, `READ_ACP`, and `WRITE_ACP` permissions on the object.
+* `READ_ACP` --- Grantee may read the object ACL. **Note:** The object
+  owner may read the object ACL even if not explicitly granted
+  `READ_ACP` permission.
+* `WRITE_ACP` --- Grantee may write the ACL for the applicable object.
+  **Note:** The object owner may write the object ACL even if not
+  explicitly granted `WRITE_ACP` permission.
+* `FULL_CONTROL` --- Grantee has `READ`, `READ_ACP`, and `WRITE_ACP`
+  permissions on the object.
 
 ## Buckets
 
-Bucket names **must** be globally unique. To avoid conflicts, all bucket creation requests are made to an application called [[Stanchion|Configuring Stanchion]]; therefore, all requests for modification of a bucket ACL should be serialized through Stanchion. While this will cause undesirable serialization of these requests, we believe it is appropriate based on the following statement from this [documentation on bucket restrictions](http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html) from Amazon regarding restrictions on bucket operations:
+Bucket names **must** be [[globally
+unique|Stanchion#Globally-Unique-Entities]]. To avoid conflicts, all
+bucket creation requests are made to an application called
+[[Stanchion|Configuring Stanchion]]. This means that all requests for
+modification of a bucket ACL should be serialized through Stanchion.
+While this may cause undesirable serialization of these requests, we
+believe it is appropriate based on the following statement from this
+[documentation on bucket
+restrictions](http://docs.amazonwebservices.com/AmazonS3/latest/dev/BucketRestrictions.html)
+from Amazon regarding restrictions on bucket operations:
 
-<blockquote>Because bucket operations work against a centralized, global resource space, it is not appropriate to make bucket create or delete calls on the high availability code path of your application.</blockquote>
+> Because bucket operations work against a centralized, global
+resource space, it is not appropriate to make bucket create or delete
+calls on the high availability code path of your
+application.
 
-This statement only directly references create or delete calls, but we have taken a more broad interpretation to include requests that modify the ACL.
+This statement only directly references create or delete calls, but we
+have taken a more broad interpretation to include requests that modify
+the ACL.
 
 ## Objects
 
-The object ACL is stored with each object as a metadata field. If no ACL information is present in the object creation request, a default ACL is created granting the creator both ownership and full access control and denying access to all other parties.
+The object ACL is stored with each object as a metadata field. If no ACL
+information is present in the object creation request, a default ACL is
+created granting the creator both ownership and full access control and
+denying access to all other parties.
 
-For information on specifying an ACL when making a `PUT` request, see [[RiakCS PUT Object ACL]].
+For information on specifying an ACL when making a `PUT` request, see
+[[RiakCS PUT Object ACL]].
