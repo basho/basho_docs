@@ -290,33 +290,75 @@ Expressed as an integer number of seconds.</td>
 <tbody>
 <tr>
 <td><code>cs_version</code></td>
-<td></td>
+<td>The Riak CS version number. This number is used to selectively
+enable new features for the current version to better support [[rolling
+upgrades]]. New installs shouldn't need to modify this. If you're
+performing a rolling upgrade, keep the original value (if not defined,
+Riak CS uses <code>0</code>) of the old <code>app.config</code> until
+all nodes have been upgraded. At that point, set to the new value.</td>
 <td><code></code></td>
 </tr>
 <tr>
 <td><code>dtrace_support</code></td>
-<td></td>
-<td><code></code></td>
+<td>If you're Erlang VM supports <a
+href="http://erlang.org/doc/apps/runtime_tools/DTRACE.html">DTrace</a>
+or <a
+href="http://www.erlang.org/doc/apps/runtime_tools/SYSTEMTAP.html">SystemTap</a>,
+set this parameter to <code>true</code>.</td>
+<td><code>false</code></td>
 </tr>
 <tr>
 <td><code>fold_objects_for_list_keys</code></td>
-<td></td>
-<td><code></code></td>
+<td>If you're Riak CS cluster is running Riak nodes prior to version
+1.4.0, set this parameter to <code>false</code>. Otherwise, you will not
+need to modify it.</td>
+<td><code>true</code></td>
 </tr>
 <tr>
 <td><code>n_val_1_get_requests</code></td>
-<td></td>
-<td><code></code></td>
+<td>If set to <code>true</code>, Riak CS will use a special request
+option when retrieving the blocks of an object. This special option
+instructs Riak to only send a request for the object block to a single
+eligible virtual node (vnode) instead of to all eligible vnodes. This
+differs from the standard <code>r</code> request option provided by Riak
+in that <code>r</code> affects how many vnode responses to wait for
+before returning and has no effect on how many vnodes are actually
+contacted. Enabling this option (is the default) has the effect of
+greatly reducing the intra-cluster bandwidth used by Riak when
+retrieving objects with Riak CS. This option is harmless when used with
+a version of Riak prior to 1.4.0, but the option to disable is provided
+as a safety measure.</td>
+<td><code>true</code></td>
 </tr>
 <tr>
 <td><code>trust_x_forwarded_for</code></td>
-<td></td>
-<td><code></code></td>
+<td>If your load balancer adds an <code>X-Forwarded-For</code>
+header and is reliable, i.e. the load balancer is able to guarantee that
+it is not added by a malicious user, set this option to
+<code>true</code>. Otherwise, Riak CS takes the source IP address as an
+input (which is the default).</td>
+<td><code>false</code></td>
 </tr>
 </tbody>
 </table>
 
 ## Webmachine
+
+Settings specific to [Webmachine](https://github.com/basho/webmachine),
+the web server that handles all HTTP and HTTPS connections to Riak CS.
+The `riak_cs_access_log_handler` and `webmachine_log_handler` settings
+are part of a `log_handlers` sub-grouping:
+
+```appconfig
+{webmachine, [
+              %% Other configs
+              {log_handlers, [
+                              {riak_cs_access_log_handler, ...},
+                              {webmachine_log_handler, ...},
+                              ]},
+              %% Other configs
+             ]}
+```
 
 <table class="riak-conf">
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
@@ -328,30 +370,53 @@ Expressed as an integer number of seconds.</td>
 </tr>
 <tr>
 <td><code>webmachine_log_handler</code></td>
-<td></td>
-<td><code></code></td>
+<td>If this setting is commented out or removed, access to Webmachine
+log handling will be disabled.</td>
+<td><code>["./log"]</code></td>
 </tr>
 <tr>
 <td><code>riak_cs_access_log_handler</code></td>
-<td></td>
-<td><code></code></td>
+<td>We do not recommend changing or removing this setting.</td>
+<td><code>[]</code></td>
 </tr>
 </tbody>
 </table>
 
 ## Logging
 
+These settings relate to [lager](https://github.com/basho/lager), the
+Erlang logging framework used by Riak CS. They are included in the
+`lager` settings in `app.config`.
+
+The `lager_console_backend` and `lager_file_backend` settings are part
+of a `handlers` sub-group:
+
+```appconfig
+{lager, [
+         %% Other configs
+         {handlers, [
+                     {lager_console_backend, ...},
+                     {lager_file_backend, ...}
+                    ]},
+         %% Other configs
+        ]}
+```
+
 <table class="riak-conf">
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
 <td><code>lager_console_backend</code></td>
-<td></td>
+<td>See the <a
+href="https://github.com/basho/lager/blob/master/README.md#configuration">lager
+documentation</a> for more details.</td>
 <td><code></code></td>
 </tr>
 <tr>
 <td><code>lager_file_backend</code></td>
-<td></td>
+<td>See the <a
+href="https://github.com/basho/lager/blob/master/README.md#configuration">lager
+documentation</a> for more details.</td>
 <td><code></code></td>
 </tr>
 </tbody>
