@@ -193,7 +193,7 @@ Data]].
 <tr>
 <td><code>access_archive_period</code></td>
 <td>How large each access archive object is. This setting should be a
-multiple of <code>access_log_flush_interval</code>. Expressed as an
+multiple of <code>access_log_flush_factor</code>. Expressed as an
 integer number of seconds (e.g. 3600 translates to 1 hour).</td>
 <td><code>3600</code></td>
 </tr>
