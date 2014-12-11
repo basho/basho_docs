@@ -40,17 +40,16 @@ your [[configuration files]] or a pre-condition for running Riak in your
 environment that is not being met.
 
 * Check for configuration errors by running the `[[riak chkconfig|riak
-    Command Line#chkconfig]]` command. If the output is `config is OK`,
-    then your configuration files are syntactically correct. Please
-    note, though, that there may be other configuration issues involved
-    that are not syntactic. More information can be found in [[Checking
-    Your Configuration|Configuration
-    Files#Checking-Your-Configuration]].
+  Command Line#chkconfig]]` command. If the output is `config is OK`,
+  then your configuration files are syntactically correct. Please note,
+  though, that there may be other configuration issues involved that are
+  not syntactic. More information can be found in [[Checking Your
+  Configuration|Configuration Files#Checking-Your-Configuration]].
 * Riak tends to require a lot of open files. Some operating systems, in
-    particular Mac OS X, have an open files limit that is below what
-    Riak requires. If this is a problem in your OS, Riak will provide a
-    warning when you attempt to start the node. See our [[Open Files
-    Limit]] documentation for more information.
+  particular Mac OS X, have an open files limit that is below what Riak
+  requires. If this is a problem in your OS, Riak will provide a warning
+  when you attempt to start the node. See our [[Open Files Limit]]
+  documentation for more information.
 
 ## Node Won't Stop
 
@@ -190,7 +189,8 @@ that a result will be returned as soon as one node responds. If objects
 have different values on different nodes, which is a scenario that Riak
 is designed to handle, then queries can return differing results. If
 your use case demands completely consistent results across queries over
-the same buckets and/or keys, then Riak might not be a good fit.
+the same buckets and/or keys, then [[Riak Search|Using Search]] might be
+a better fit for your use case.
 
 ## Backend Corruption
 
@@ -241,16 +241,38 @@ important to first ensure that your configuration files are
 
 ## Open Files Limit Issues
 
-* Check the limit: `os:cmd('ulimit -n')`
-* [[Open Files Limit]]
-* [[System Performance Tuning]]
+Riak tends to use a lot of open files as part of its normal operations.
+If your system's open files limits are set too low, this can lead to a
+wide variety of problems in your cluster, from undue latency to failed
+operations. We recommend consulting our documentation on [[open files
+limits|Open Files Limit]] and [[system performance tuning]] _prior_ to
+building and starting a new cluster. Those documents should be useful
+even if you're working with an already built and running cluster.
+
+At any time, you can check the open files limit under which a Riak
+node's Erlang VM is operating by running the `[[riak attach|riak Command
+Line#riak-attach]]` and accessing the node's Erlang shell. In the shell,
+run this command:
+
+```
+> os:cmd('ulimit -n').
+```
+
+The output should be something along the lines of `"65536'n"`. Use that
+figure when making judgments about what to do next.
 
 ## Common Erlang VM Problems
 
-* [[Erlang VM Tuning]]
+Because Riak runs in an [Erlang
+VM](http://www.erlang.org/faq/implementations.html), a variety of
+problems can arise from an improperly tuned VM. We recommend reading
+through our [[Erlang VM Tuning]] document _prior_ to building and
+running a cluster.
+
+Commonly encountered Erlang VM problems include the following:
+
+* **Insufficient ETS tables** --- We recommend setting the
+  `erlang.max_ets_tables` setting to at least 8192 (or the `+e` setting
+  in `vm.args` if you're using the older configuration system).
 * Process counts
-* ETS tables (we recommend 8192)
 * `+zdbbl`/`erlang.distribution_buffer_size`
-
-## General
-
