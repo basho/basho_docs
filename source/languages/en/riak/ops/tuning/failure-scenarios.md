@@ -194,17 +194,40 @@ the same buckets and/or keys, then Riak might not be a good fit.
 
 ## Backend Corruption
 
-* Nodes fail to start; fold operations failing
-* `console.log` notes, e.g. `bad_arg`, `crc_error`, `io`, `db_open`
-* Delete [[Bitcask]] hintfiles, i.e. `/data/bitcask/<partition>/*.hint`
-* Check logs for LevelDB errors, whether AAE or normal LevelDB backend
+If data or other auxiliary files have become corrupted in one or more of
+your backends, this can cause nodes to fail to start and for other Riak
+operations to fail behind the scenes. If you suspect that backend
+corruption may be an issue in your cluster, we recommend checking the
+`console.log` files location in the `/log` directory of each node. In
+particular, be on the lookout for log messages that begin with one of
+the following atoms:
+
+* `bad_arg`
+* `crc_error`
+* `io`
+* `db_open`
+
+If you're using [[Bitcask]], one way to address corruption is to delete
+Bitcask's hintfiles. Each Bitcask partition directory in which data is
+stored will have a `.hint` file that can be deleted.
+
+If you're using [[LevelDB]], you should check the logs for
+LevelDB-specific errors, whether stemming from [[active anti-entropy]]
+problems or from normal LevelDB backend operations.
 
 ## Riak Search Issues
+
+Failures specific to [[Riak Search|Using Search]] include index
+corruption. Riak Search stores data associated with each index in your
+cluster in `/data/yz/`. Each index will have its own subdirectory.
 
 * `merge_index` can suffer from corruption
 * Manual compaction
 
 ## Configuration Issues
+
+While configuration problems can arise for a variety of reasons, it's
+important to first ensure that your configuration files are
 
 * `riak chkconfig` for syntactic and other issues
 * ETOOMANYBACKENDS
@@ -228,3 +251,6 @@ the same buckets and/or keys, then Riak might not be a good fit.
 * Process counts
 * ETS tables (we recommend 8192)
 * `+zdbbl`/`erlang.distribution_buffer_size`
+
+## General
+
