@@ -182,7 +182,7 @@ implement a custom module.</td>
 </tbody>
 </table>
 
-## Access Log Settings
+## Usage Recording
 
 These settings relate to Riak CS's [[access logs|Usage and Billing
 Data]].
@@ -218,64 +218,67 @@ have been recorded, the log will be flushed, even if the flush interval
 has not expired. Expressed as an integer number of accesses.</td>
 <td><code>1000000</code></td>
 </tr>
-</tbody>
-</table>
-
-## User Settings
-
-<table class="riak-conf">
-<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
-<tbody>
 <tr>
 <td><code>usage_request_limit</code></td>
-<td></td>
-<td><code></code></td>
+<td>How many archive periods a user can request in one usage read,
+applied independently to access/usage and billing/storage. Expressed as
+an integer number of intervals. The default of 744 thus translates to
+one month at one-hour intervals.
+of 744</td>
+<td><code>744</code></td>
 </tr>
-</tbody>
-</table>
-
-## Storage Settings
-
-<table class="riak-conf">
-<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
-<tbody>
 <tr>
 <td><code>storage_schedule</code></td>
-<td></td>
-<td><code></code></td>
+<td>When to automatically start storage calculation batches. Expressed
+as a list of <code>HHMM</code> UTC times. For example,
+<code>["0600"]</code> would calculate at 6 am UTC every day,
+<code>["0600", "1945"]</code> would calculate at 6 am and 7:45 pm UTC
+every day, and so on.</td>
+<td><code>[]</code></td>
 </tr>
 <tr>
 <td><code>storage_archive_period</code></td>
-<td></td>
-<td><code></code></td>
+<td>The size of each storage archive object. Should be chosen such
+that each <code>storage_schedule</code>-based calculation falls in a
+different period. Expressed as an integer number of seconds. The default
+of <code>86400</code> translates to 1 day.</td>
+<td><code>86400</code></td>
 </tr>
 </tbody>
 </table>
 
 ## Garbage Collection
 
+Settings related to Riak CS's [[garbage collection]] \(GC) process.
+
 <table class="riak-conf">
 <thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
 <tbody>
 <tr>
 <td><code>gc_interval</code></td>
-<td></td>
-<td><code></code></td>
+<td>How often the GC daemon waits between GC batch operations. Expressed
+as an integer number of seconds.</td>
+<td><code>900</code> (15 minutes)</td>
 </tr>
 <tr>
 <td><code>gc_paginated_indexes</code></td>
-<td></td>
-<td><code></code></td>
+<td>If you're running Riak nodes that are of a version prior to 1.4.0,
+set this to <code>false</code>. Otherwise, you will not need to adjust
+this setting.</td>
+<td><code>true</code></td>
 </tr>
 <tr>
 <td><code>gc_retry_interval</code></td>
-<td></td>
-<td><code></code></td>
+<td>How long a move to the GC to-do list can remain failed before it is
+re-attempted. Expressed as an integer number of seconds.</td>
+<td><code>21600</code> (6 hours)</td>
 </tr>
 <tr>
-<td><code>leeway_seconds</code></td>
-<td></td>
-<td><code></code></td>
+<td><code>leeway_seconds</code></td> <td>The number of seconds to retain
+the block for an object after it has been deleted. This leeway time is
+set to give the delete indication time to propagate to all replicas.
+Expressed as an integer number of seconds.</td>
+<td><code>86400 (24 hours)</code></td>
 </tr>
 </tbody>
 </table>
