@@ -316,5 +316,5 @@ client process pool based on poolboy
 
 #### Smalltalk
 
-* [[Phriak|http://www.squeaksource.com/Phriak/]] --- A Riak client for Pharo Smalltalk based on Runar Jordan's EpigentRiakInterface
-* [[EpigentRiakInterface|http://www.squeaksource.com/EpigentRiakInterface/]] --- A Pharo Smalltalk interface to Riak. (There is also a blog post with some additional info about the client [[here|http://blog.epigent.com/2011/03/riak-interface-for-pharo-smalltalk.html]].)
+* [[Phriak|http://www.squeaksource.com/Phriak/]] --- A Riak client for Pharo Smalltalk based on Runar Jordahl's EpigentRiakInterface
+* [[EpigentRiakInterface|http://www.squeaksource.com/EpigentRiakInterface/]] --- A Pharo Smalltalk interface to Riak written by Runar Jordahl. (There is also a blog post with some additional info about the client [[here|http://blog.epigent.com/2011/03/riak-interface-for-pharo-smalltalk.html]].)
