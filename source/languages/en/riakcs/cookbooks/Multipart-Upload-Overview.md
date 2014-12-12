@@ -11,15 +11,21 @@ keywords: [operator, developer]
 
 Multipart upload allows users of Riak CS to do the following:
 
-* upload large objects as a set of smaller parts
+* upload large objects, potentially multiple terabytes, as a set of
+  smaller parts
 * pause and resume the upload of a large object
 * begin an upload without prior knowledge of the total size of the whole
   object
 
-In general, this multipart uploads allow tend to be more efficient
-because parts may be uploaded in parallel. In Riak CS they are designed
-to both behave in the same way as multipart uploads to Amazon S3 and to
-utilize the same API.
+In general, multipart uploads tend to be more efficient because parts
+may be uploaded in parallel. In Riak CS they are designed to both behave
+like Amazon S3 multipart uploads and to utilize the same user-facing
+API.
+
+<div class="note">
+<div class="title">Note on file size limit</div>
+The size limit on individual parts of a multipart upload is 5 gigabytes.
+</div>
 
 There are three phases to a multipart upload: **initiation**, **parts
 upload**, and **completion**. Each phase is described in more detail
