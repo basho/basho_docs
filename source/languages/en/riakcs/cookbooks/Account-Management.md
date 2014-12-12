@@ -161,7 +161,7 @@ The <tt>new_key_secret</tt> field may be combined with other user update fields 
 </div>
 
 ## Retrieving a List of All Users
-The admin user may retrieve a list of all user accounts on the system. This accomplished via a properly signed HTTP `GET` request to the `/riak-cs/users` resource. Any non-admin user request for the user list is rejected and a `403 Forbidden` error is returned. This request does not properly work with s3cmd, but can be performed using a less dogmatic tool such as `[s3-curl](http://aws.amazon.com/code/128)`.
+The admin user may retrieve a list of all user accounts on the system. This accomplished via a properly signed HTTP `GET` request to the `/riak-cs/users` resource. Any non-admin user request for the user list is rejected and a `403 Forbidden` error is returned. This request does not properly work with s3cmd, but can be performed using a less dogmatic tool such as [s3-curl](http://aws.amazon.com/code/128).
 
 <div class="info"><div class="title">Note</div>You must modify the <tt>@endpoints</tt> variable in the <tt>s3curl.pl</tt> script to include your Riak CS hostname so that the following example will return the list of users.
 </div>
