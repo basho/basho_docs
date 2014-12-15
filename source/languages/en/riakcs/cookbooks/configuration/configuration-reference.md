@@ -427,33 +427,41 @@ documentation</a> for more details.</td>
 <tbody>
 <tr>
 <td><code>crash_log</code></td>
-<td></td>
-<td><code></code></td>
+<td>Whether to write to a crash log and where. If commented out,
+omitted, or undefined, no crash logging will take place.</td>
+<td><code>./log/crash.log</code></td>
 </tr>
 <tr>
 <td><code>crash_log_count</code></td>
-<td></td>
-<td><code></code></td>
+<td>The number of crash logs to keep. Setting this parameter to
+<code>0</code> (the default) means that only the current log will be
+kept.</td>
+<td><code>0</code></td>
 </tr>
 <tr>
 <td><code>crash_log_date</code></td>
-<td></td>
-<td><code></code></td>
+<td>When to rotate the crash log. The default is no time rotation. For
+documentation on the syntax of this parameter, see <a
+href="https://github.com/basho/lager/blob/master/README.org">here</a>.</td>
+<td><code>$D0</code></td>
 </tr>
 <tr>
 <td><code>crash_log_msg_size</code></td>
-<td></td>
-<td><code></code></td>
+<td>The maximum size of events in the crash log, expressed as a number
+of bytes.</td>
+<td><code>65536</code></td>
 </tr>
 <tr>
 <td><code>crash_log_size</code></td>
-<td></td>
-<td><code></code></td>
+<td>The maximum size of the crash log, in bytes, before it is rotated.
+Setting this parameter to <code>0</code> disables rotation.</td>
+<td><code>10485760</code></td>
 </tr>
 <tr>
 <td><code>error_logger_redirect</code></td>
-<td></td>
-<td><code></code></td>
+<td>Whether to redirect <code>error_logger</code> messages into
+lager.</td>
+<td><code>true</code></td>
 </tr>
 </tbody>
 </table>
@@ -465,8 +473,10 @@ documentation</a> for more details.</td>
 <tbody>
 <tr>
 <td><code>sasl_error_lager</code></td>
-<td></td>
-<td><code></code></td>
+<td>Whether to enable <a
+href="http://www.erlang.org/doc/man/sasl_app.html">, Erlang's built-in
+error logger.</td>
+<td><code>false</code></td>
 </tr>
 </tbody>
 </table>

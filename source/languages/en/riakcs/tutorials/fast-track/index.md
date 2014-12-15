@@ -28,10 +28,10 @@ The Riak CS Fast Track aims to get you up and running with Riak as
 quickly as possible, so that you can learn by doing.  It presents
 alternatives to configuration and deployment of a local test environment
 and enumerates performing basic operations that illustrate Riak CS core
-concepts. 
+concepts.
 
 The Fast Track is designed for people with little or no experience with
-Riak CS, but can still be useful for more experienced users as well. 
+Riak CS, but can still be useful for more experienced users as well.
 
 ## What does the Fast Track Cover?
 

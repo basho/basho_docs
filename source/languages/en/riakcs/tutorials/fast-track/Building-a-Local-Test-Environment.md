@@ -15,9 +15,7 @@ next: "[[Building a Virtual Testing Environment]]"
 The following instructions will guide you through installing a Riak CS
 test environment. This guide does not cover system/service tuning and it
 does not attempt to optimize your installation for your particular
-architecture. This procedure is ideal only for building a development
-environment either on local or remote hardware that allows for durable,
-repeatable testing.
+architecture.
 
 If you want to build a testing environment with a minimum of
 configuration, there is an option for [[Building a Virtual Testing
@@ -31,8 +29,8 @@ and running Riak and Riak CS.
 ### Step 1: Raise your system's open file limits
 
 Riak can consume a large number of open file handles during normal
-operation. See the [[Open Files Limit]] documentation for more
-information on how to increase your system's open files limit.
+operation. See the [[Open Files Limit]] document for more information on
+how to increase your system's open files limit.
 
 If you are the root user, you can increase the system's open files limit
 *for the current session* with this command:
@@ -162,35 +160,42 @@ package you are installing.
 
 ### Step 3: Set service configurations and start the services
 
-We need to make changes to several configuration files.
+You will need to make changes to several configuration files.
 
 #### `/etc/riak/app.config`
 
-First, we need to add this line to the `riak_core` section, which starts
-off like this:
+First, add this line to the `riak_core` section, which looks like this:
 
-```erlang
+```appconfig
 {riak_core, [
+             %% Settings go here
+            ]}
 ```
 
-We'll add this line to that section:
+Add this line to that section:
 
-```erlang
-{default_bucket_props, [{allow_mult, true}]},
+```appconfig
+
+{riak_core, [
+             {default_bucket_props, [{allow_mult, true}]}
+            ]}
 ```
 
-Next, Riak ships with Bitcask as the default backend. We need to change
-this to the custom Riak CS backend.
+Riak ships with Bitcask as the default backend. You'll need to change
+this to the custom Riak CS backend by changing the following line in
+`/etc/riak/app.config`:
 
-Change the following line in `/etc/riak/app.config`
-
-```erlang
-{storage_backend, riak_kv_bitcask_backend}
+```appconfig
+{riak_core, [
+             %% Other configs
+             {storage_backend, riak_kv_bitcask_backend}
+             %% Other configs
+            ]}
 ```
 
 to
 
-```erlang
+```appconfig
 {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-{{VERSION}}/ebin"]},
 {storage_backend, riak_cs_kv_multi_backend},
 {multi_backend_prefix_list, [{<<"0b:">>, be_blocks}]},
@@ -207,26 +212,25 @@ to
 ```
 
 <div class="note">
-<div class="title">Note</div>
+<div class="title">Note on OS-specific paths</div>
 The path for `add_paths` may be `/usr/lib/riak-cs` or
 `/usr/lib64/riak-cs` depending on your operating system.
 </div>
 
-Next, we set our interface IP addresses in the `app.config` files. In a
-production environment, you will likely have multiple NICs, but for this
-test cluster, we are going to assume one NIC with an example IP address
-of 10.0.2.10.
+Next, set your interface IP addresses in the `app.config` file. In a
+production environment, you'd likely have multiple NICs, but for this
+test cluster, assume one NIC with an example IP address of 10.0.2.10.
 
 Change the following lines in `/etc/riak/app.config`
 
-```erlang
+```appconfig
 {http, [ {"127.0.0.1", 8098 } ]}
 {pb,   [ {"127.0.0.1", 8087 } ]}
 ```
 
 to
 
-```erlang
+```appconfig
 {http, [ {"10.0.2.10", 8098 } ]}
 {pb,   [ {"10.0.2.10", 8087 } ]}
 ```
@@ -235,7 +239,7 @@ to
 
 Change the following lines in `/etc/riak-cs/app.config`
 
-```erlang
+```appconfig
 {cs_ip, "127.0.0.1"}
 {riak_ip, "127.0.0.1"}
 {stanchion_ip, "127.0.0.1"}
@@ -243,7 +247,7 @@ Change the following lines in `/etc/riak-cs/app.config`
 
 to
 
-```erlang
+```appconfig
 {cs_ip, "10.0.2.10"}
 {riak_ip, "10.0.2.10"}
 {stanchion_ip, "10.0.2.10"}
@@ -254,60 +258,66 @@ listen on all interfaces.
 
 Change the following lines in `/etc/stanchion/app.config`
 
-```erlang
+```appconfig
     {stanchion_ip, "127.0.0.1"}
     {riak_ip, "127.0.0.1"}
 ```
 
 to
 
-```erlang
+```appconfig
 {stanchion_ip, "10.0.2.10"}
 {riak_ip, "10.0.2.10"}
 ```
 
 #### Service names
 
-Next, we set our service names. You can either use the local IP address
-for this or set hostnames. If you choose to set hostnames, you should
-ensure that the hostnames are resolvable by DNS or set in `/etc/hosts`
-on all nodes.
-
-<div class="note">
-<div class="title">Note</div>
-Service names require at least one period in the name.
-</div>
+Next, set your service names, using either use the local IP address for
+this or set hostnames. If you choose to set hostnames, you should ensure
+that the hostnames are resolvable by DNS or set in `/etc/hosts` on all
+nodes. **Note**: Service names require at least one period in the name.
 
 Change the following line in `/etc/riak/vm.args`
 
-    -name riak@127.0.0.1
+```vmargs
+-name riak@127.0.0.1
+```
 
 to
 
-    -name riak@10.0.2.10
+```vmargs
+-name riak@10.0.2.10
+```
 
+Then change the following line in `/etc/riak-cs/vm.args`
 
-Change the following line in `/etc/riak-cs/vm.args`
-
-    -name riak-cs@127.0.0.1
+```vmargs
+-name riak-cs@127.0.0.1
+```
 
 to
 
-    -name riak-cs@10.0.2.10
-
+```vmargs
+-name riak-cs@10.0.2.10
+```
 
 Change the following line in `/etc/stanchion/vm.args`
 
-    -name stanchion@127.0.0.1
+```vmargs
+-name stanchion@127.0.0.1
+```
 
 to
 
-    -name stanchion@10.0.2.10
+```vmargs
+-name stanchion@10.0.2.10
+```
 
 #### Start the services
 
 That is the minimum amount of service configuration required to start a
-complete node. To start the services, run the following commands:
+complete node. To start the services, run the following commands in the
+appropriate `/bin` directories:
 
 ```bash
 sudo riak start
@@ -315,22 +325,21 @@ sudo stanchion start
 sudo riak-cs start
 ```
 
-<div class="info"><div class="title">Basho Tip</div>
-The order in which you start the services is important as each is a
-dependency for the next
-</div>
+The order in which you start the services is important, as each is a
+dependency for the next. Make sure that you successfully start Riak
+before Stanchion and Stanchion before Riak CS.
 
-Finally, you can check the liveness of your Riak CS installation, and its
-connection to the supporting Riak node. If the Riak CS node is running, the
-following command should return "`pong`".
+You can check the liveness of your Riak CS installation and its
+connection to the supporting Riak node. If the Riak CS node is running,
+the following command should return `PONG`.
 
 ```bash
 riak-cs ping
 ```
 
-To check that the Riak CS node is communicating with its supporting Riak node,
-run a `GET` request against the `riak-cs/ping` endpoint of the Riak CS node. For
-example:
+To check that the Riak CS node is communicating with its supporting Riak
+node, run a `GET` request against the `riak-cs/ping` endpoint of the
+Riak CS node. For example:
 
 ```curl
 curl http://localhost:8080/riak-cs/ping
@@ -338,17 +347,20 @@ curl http://localhost:8080/riak-cs/ping
 
 ### Step 4: Create the admin user
 
-Creating the admin user is an optional step, but it's a good test of our new services. Creating a Riak CS user requires two inputs:
+Creating the admin user is an optional step, but it's a good test of our
+new services. Creating a Riak CS user requires two inputs:
 
-1. Name --- A URL-encoded string. Example: `admin%20user`
-2. Email --- A unique email address. Example: `admin@admin.com`
+1. **Name** --- A URL-encoded string, e.g. `admin%20user`
+2. **Email** --- A unique email address, e.g. `admin@admin.com`
 
-To create an admin user, we need to grant permission to create new
-users to the "anonymous" user. This configuration setting is only required on a single Riak CS node.
+To create an admin user, we need to grant permission to create new users
+to the `anonymous` user. This configuration setting is only required on
+a single Riak CS node.
 
-Add this entry to `/etc/riak-cs/app.config` immediately before the `{cs_ip, ...}` entry:
+Add this entry to `/etc/riak-cs/app.config` immediately before the
+`{cs_ip, ...}` entry:
 
-```erlang
+```appconfig
 {anonymous_user_creation, true},
 ```
 
@@ -377,45 +389,52 @@ The output of this command will be a JSON object that looks something like this:
 }
 ```
 
-The user's access key and secret key are returned in the `key_id` and `key_secret` fields respectively. Take note of these keys as they will be required in the testing step.
+The user's access key and secret key are returned in the `key_id` and
+`key_secret` fields respectively. Take note of these keys as they will
+be required in the testing step.
 
 In this case, those keys are:
 
-    Access key: 5N2STDSXNV-US8BWF1TH
-    Secret key: RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==
+* **Access key** --- `5N2STDSXNV-US8BWF1TH`
+* **Secret key** -- `RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw==`
 
-You can use this same process to create additional Riak CS users. To make this user the admin user, we set these keys in the Riak CS and Stanchion `app.config` files.
+You can use this same process to create additional Riak CS users. To
+make this user the admin user, we set these keys in the Riak CS and
+Stanchion `app.config` files.
 
-<div class="note"><div class="title">Note</div>The same admin keys will need to be set on all nodes of the cluster.
+<div class="note">
+<div class="title">Note on admin keys</div>
+The same admin keys will need to be set on all nodes of the cluster.
 </div>
 
-Change the following lines in `/etc/riak-cs/app.config` on all Riak CS machines:
+Change the following lines in `/etc/riak-cs/app.config` on all Riak CS
+machines:
 
-```erlang
+```appconfig
 {admin_key, "admin-key"}
 {admin_secret, "admin-secret"}
 ```
 
 to
 
-```erlang
+```appconfig
 {admin_key, "5N2STDSXNV-US8BWF1TH"}
 {admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
 ```
 
-<div class="note"><div class="title">Note</div>Do not forget to remove
-the <code>anonymous_user_creation</code> setting!</div>
+**Note**: Make sure to remove the `anonymous_user_creation` setting at
+this point.
 
 Change the following lines in `/etc/stanchion/app.config`
 
-```erlang
+```appconfig
 {admin_key, "admin-key"}
 {admin_secret, "admin-secret"}
 ```
 
 to
 
-```erlang
+```appconfig
 {admin_key, "5N2STDSXNV-US8BWF1TH"}
 {admin_secret, "RF7WD0b3RjfMK2cTaPfLkpZGbPDaeALDtqHeMw=="}
 ```
@@ -454,13 +473,13 @@ documentation.
 
 <div class="note">
 <div class="title">Note</div>
-<strong>Riak CS is not designed to function directly on TCP port 80, and
+**Riak CS is not designed to function directly on TCP port 80, and
 should not be operated in a manner which exposes it directly to the
-public internet</strong>. Instead, consider a load balancing solution,
-such as dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a>,
+public internet**. Instead, consider a load balancing solution,
+such as a dedicated device, <a href="http://haproxy.1wt.eu">HAProxy</a>,
 or <a href="http://wiki.nginx.org/Main">Nginx</a> between Riak CS and
 the outside world.
 </div>
 
-Once you have completed this step, You can progress to [[Testing the
-Riak CS Installation]] using s3cmd.
+Once you have completed this step, You can progress to [[testing the
+Riak CS installation]] using s3cmd.
