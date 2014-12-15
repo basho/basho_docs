@@ -49,7 +49,7 @@ riak:
         sub:
           - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
-          - "[[Key/Value Operations|The Basics]]"
+          - "[[Key/Value Operations|The Basi]]"
           - "[[Object Updates]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[MapReduce|Using MapReduce]]"
@@ -302,47 +302,58 @@ riakcs:
       - "[[The Riak CS Fast Track]]"
   - title: "Riak CS for Developers"
     sub:
-      - "[[Account Management]]"
+    - title: "Accounts and Admin"
+      sub:
       - "[[HTTP Administration Overview]]"
-      - "[[S3 API|RiakCS S3 Storage API]]"
-      - "[[OpenStack API|RiakCS OpenStack Storage API]]"
-      - "[[Access Control Lists]]"
+      - "[[Account Management]]"
       - "[[Authentication]]"
-      - "[[Querying Access Statistics]]"
-      - "[[Querying Storage Statistics]]"
+      - "[[Access Control Lists]]"
       - "[[Usage and Billing Data]]"
-
+    - title: "APIs"
+      sub:
+      - "[[Riak CS Storage API]]"
+      - title: "S3"
+        sub:
+        - "[[S3 API|RiakCS S3 Storage API]]"
+        - "[[Configuring an S3 client]]"
+        - "[[Ruby Fog|Fog on Riak CS]]"
+        - "[[Configuring DragonDisk]]"
+        - "[[Configuring Transmit]]"
+      - title: "OpenStack"
+        sub:
+        - "[[OpenStack API|RiakCS OpenStack Storage API]]"
+        - "[[Using Riak CS With Keystone]]"
+    - title: "Statistics"
+      sub:
+      - "[[Access Statistics|Querying Access Statistics]]"
+      - "[[Storage Statistics|Querying Storage Statistics]]"
   - title: "Riak CS for Operators"
     sub:
-      - "[[Configuring Riak CS Overview]]"
-      - "[[Configuring Riak|Configuring Riak for CS]]"
-      - "[[Configuring Stanchion]]"
-      - "[[Configuring Riak CS]]"
-      - "[[Riak CS Command-line Tools]]"
-      - "[[Designating an Admin User]]"
-      - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
-      - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
-      - "[[Monitoring and Metrics]]"
-      - "[[Garbage Collection]]"
-      - "[[Rolling Upgrades For Riak CS]]"
-      - "[[Riak CS Control]]"
-      - "[[Riak CS Multibag Support]]"
-      - "[[Riak CS Logging]]"
-  - title: "S3 Clients"
-    sub:
-      - "[[Configuring an S3 client]]"
-      - "[[Ruby Fog|Fog on Riak CS]]"
-      - "[[Configuring DragonDisk]]"
-      - "[[Configuring Transmit]]"
-  - title: "OpenStack Integration"
-    sub:
-      - "[[OpenStack API|RiakCS OpenStack Storage API]]"
-      - "[[Using Riak CS With Keystone]]"
+      - title: "Configuring CS"
+        sub:
+          - "[[Configuration Overview|Configuring Riak CS Overview]]"
+          - "[[Configuring Riak|Configuring Riak for CS]]"
+          - "[[Configuring Stanchion]]"
+          - "[[Configuring Riak CS]]"
+          - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
+          - "[[Configuration Reference|Riak CS Configuration Reference]]"
+      - title: "Running CS"
+        sub:
+          - "[[Command-line Tools|Riak CS Command-line Tools]]"
+          - "[[Designating an Admin User]]"
+          - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
+          - "[[Logging|Riak CS Logging]]"
+      - title: "Advanced"
+        sub:
+          - "[[Rolling Upgrades|Rolling Upgrades For Riak CS]]"
+          - "[[Monitoring and Metrics]]"
+          - "[[Riak CS Control]]"
+          - "[[Riak CS Multibag Support]]"
   - title: "Theory & Concepts"
     sub:
       - "[[Stanchion]]"
-      # - "[[Globally Unique Entities]]"
       - "[[Multipart Upload Overview]]"
+      - "[[Garbage Collection]]"
       - title: "Comparisons"
         sub:
             - "[[CS Compared to Swift|Riak CS Compared to Swift]]"
@@ -354,8 +365,8 @@ riakcs:
       - "[[Release Notes|Riak CS Release Notes]]"
   - title: "Riak CS Enterprise"
     sub:
-      - "[[Overview|Riak CS Multi Data Center Overview]]"
-      - "[[Configuration|Configuring Riak CS Multi Data Center]]"
+      - "[[Overview|Riak CS Multi-Datacenter Overview]]"
+      - "[[Configuration|Configuring Riak CS Multi-Datacenter]]"
 
 java:
   - title: "Shortcuts"

@@ -18,16 +18,16 @@ throughout the entire cluster.
 ## The Role of Stanchion in a Riak CS Cluster
 
 Unlike Riak and Riak CS, which both run on multiple nodes in your
-cluster, there should be only one running Stanchion instance in your
+cluster, there should be only _one_ running Stanchion instance in your
 Riak CS cluster at any time. Correspondingly, your Stanchion
 installation must be managed and configured separately. For more
 information, see the following documents:
 
 * [[Configuring Stanchion]]
 * [[Installing Stanchion|Installing Riak
-    CS#Installing-Stanchion-on-a-Node]]
+  CS#Installing-Stanchion-on-a-Node]]
 * [[The Stantion Command-line Interface|Riak CS Command-line
-    Tools#stanchion]]
+  Tools#stanchion]]
 
 For a more in-depth discussion of implementation details, see the
 project's
