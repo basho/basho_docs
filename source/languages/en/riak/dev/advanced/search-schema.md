@@ -49,6 +49,16 @@ Let's say that you have already created a schema named `cartoons` in a
 file named `cartoons.xml`. This would register the custom schema in Riak
 Search:
 
+```java
+import org.apache.commons.io.FileUtils;
+
+File xml = new File("cartoons.xml");
+String xmlString = FileUtils.readFileToString(xml);
+YokozunaSchema schema = new YokozunaSchema("cartoons", xmlString);
+StoreSchema storeSchemaOp = new StoreSchema.Builder(schema).build();
+client.execute(storeSchemaOp);
+```
+
 ```ruby
 schema_data = File.read("cartoons.xml")
 client.create_search_schema("cartoons", schema_data)
