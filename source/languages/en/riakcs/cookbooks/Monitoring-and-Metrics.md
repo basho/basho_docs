@@ -8,17 +8,27 @@ audience: intermediate
 keywords: [operator, troubleshooting]
 ---
 
-Riak CS provides operational statistics that can be useful for monitoring through the Folsom statistics library, and initial probes for analysis of the running system with [DTrace](http://dtrace.org/blogs/about/).
+Riak CS provides operational statistics that can be useful for
+monitoring through the Folsom statistics library, and initial probes for
+analysis of the running system with
+[DTrace](http://dtrace.org/blogs/about/).
 
 ## Operational Statistics
 
-Much like Riak, Riak CS exposes statistics on critical operations that are commonly used for monitoring, alerting, and trend analysis. These statistics can be accessed through HTTP requests to the following resource:
+Much like Riak, Riak CS exposes statistics on critical operations that
+are commonly used for monitoring, alerting, and trend analysis. These
+statistics can be accessed through HTTP requests to the following
+resource:
 
 ```http
 /riak-cs/stats
 ```
 
-That will return a JSON object containing a series of latency histograms and counters for a variety of operations, e.g. `object_get` and `block_put`. Alongside each operation there will be a list showing the count and rate for the operation, as well as a latency histogram showing mean, median, and 95th and 99th percentiles:
+That will return a JSON object containing a series of latency histograms
+and counters for a variety of operations, e.g. `object_get` and
+`block_put`. Alongside each operation there will be a list showing the
+count and rate for the operation, as well as a latency histogram showing
+mean, median, and 95th and 99th percentiles:
 
 ```json
 <operation_name>: [MeterCount, MeterRate, LatencyMean, LatencyMedian, Latency95, Latency99]
@@ -26,7 +36,7 @@ That will return a JSON object containing a series of latency histograms and cou
 
 You will see a list of that form for each of the following operations:
 
-Operation | Description 
+Operation | Description
 :---------|:-----------
 `block_get` | Total BLOCK GET operations performed
 `block_put` | Total BLOCK GET operations performed
@@ -46,11 +56,14 @@ Operation | Description
 
 ## DTrace Probes
 
-Riak CS is built with some probes for use with [[DTrace|http://dtrace.org/blogs/about/]] to inspect certain operations in the live system, which can be helpful in diagnosing issues.
+Riak CS is built with some probes for use with
+[[DTrace|http://dtrace.org/blogs/about/]] to inspect certain operations
+in the live system, which can be helpful in diagnosing issues.
 
 ### Usage Examples
 
-The following are examples of using DTrace for inspecting various components of a running Riak CS installation.
+The following are examples of using DTrace for inspecting various
+components of a running Riak CS installation.
 
 #### Trace User Object Requests
 
@@ -64,4 +77,10 @@ dtrace -qn 'erlang*:::user_trace* /arg2 == 703/ {printf("pid %s: mod %s op %s: u
 dtrace -qn 'erlang*:::user_trace* /arg2 == 705/ {printf("pid %s: %s:%s\n", copyinstr(arg0), copyinstr(arg6), copyinstr(arg7));}'
 ```
 
-<div class="info"><div class="title">DTrace Support</div> Work on packaging of Riak CS for SmartOS and other operating systems with DTrace support is ongoing with the goal of providing enhanced ability to diagnose low-level issues in instances of Riak CS running on such operating systems.</div>
+<div class="info">
+<div class="title">Note on DTrace Support</div>
+Work on packaging of Riak CS for SmartOS and other operating systems
+with DTrace support is ongoing with the goal of providing enhanced
+ability to diagnose low-level issues in instances of Riak CS running on
+such operating systems.
+</div>

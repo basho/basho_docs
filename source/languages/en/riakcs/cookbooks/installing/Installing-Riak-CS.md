@@ -87,6 +87,9 @@ installation directory that you have used. On Debian, Ubuntu, RHEL, and
 CentOS, for example, Riak is installed in `rel/riak` by default, whereas
 Mac OS X does not have a default install directory.
 
+If you want to fully configure Riak prior to installing Riak CS, see our
+documentation on [[configuring Riak for CS]].
+
 <div class="note">
 <div class="title">Note on the Riak Five-Minute Install</div>
 While the [[Five-Minute Install]] for Riak can be helpful for setting up

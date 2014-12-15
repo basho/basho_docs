@@ -33,8 +33,8 @@ your Riak CS server to handle communication to different services.
 
 ### Setup
 
-First, create a new instance of the provisioning object (capitalized constants
-are to be set by you).
+First, create a new instance of the provisioning object (capitalized
+constants are to be set by you).
 
 ```ruby
 client = Fog::RiakCS::Provisioning.new(
@@ -144,4 +144,5 @@ response = client.get_usage(requested_key_id,
                  :end_time   => end_time)
 ```
 
-If user access is denied, it will return a `Excon::Errors::Forbidden` error.
+If user access is denied, it will return a `Excon::Errors::Forbidden`
+error.
