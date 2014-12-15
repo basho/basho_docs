@@ -433,7 +433,8 @@ store opaque values in Riak? For that, we employ extractors.
 Extractors are modules in Riak that accept a Riak value with a certain
 content type and convert it into a list of fields that can be indexed by
 Solr. This is done transparently and automatically as part of the
-indexing process.
+indexing process. You can even create your own [[custom
+extractors|Custom Search Extractors]].
 
 Our current example uses the JSON extractor, but Riak Search also
 extracts indexable fields from the following content types:
