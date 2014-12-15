@@ -175,13 +175,6 @@ The following settings are minimally sufficient to improve many aspects
 of Riak usage on Linux, and should be added or updated in
 `/etc/sysctl.conf`:
 
-<div class="note">
-<div class="title">Note on system default</div>
-In general, these recommended values should be compared with the system
-defaults and only changed if benchmarks or other performance metrics
-indicate that networking is the bottleneck.
-</div>
-
 ```config
 net.ipv4.tcp_max_syn_backlog = 40000
 net.core.somaxconn=40000
@@ -192,6 +185,13 @@ net.ipv4.tcp_keepalive_intvl = 30
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_moderate_rcvbuf = 1
 ```
+
+<div class="note">
+<div class="title">Note on system default</div>
+In general, these recommended values should be compared with the system
+defaults and only changed if benchmarks or other performance metrics
+indicate that networking is the bottleneck.
+</div>
 
 The following settings are optional, but may improve performance on a
 10Gb network:
@@ -209,8 +209,9 @@ Certain network interfaces ship with on-board features that have been
 shown to hinder Riak network performance. These features can be disabled
 via `ethtool`.
 
-For an Intel chipset NIC using the "ixgbe" driver running as `eth0`, for
-example, run the following command:
+For an Intel chipset NIC using the
+[ixgbe](http://www.intel.com/support/network/adapter/pro100/sb/CS-032530.htm)
+driver running as `eth0`, for example, run the following command:
 
 ```bash
 ethtool -K eth0 lro off
@@ -226,10 +227,27 @@ ethtool -K eth0 tso off
 command to the `/etc/rc.local` script.
 
 <div class="info">
-<div class="title">Tip</div>
+<div class="title">Pro tip</div>
 Tuning these values will be required if they are changed, as they affect
 all network operations.
 </div>
+
+## Optional I/O Settings
+
+If your cluster is experiencing excessive I/O blocking, the following
+settings may help:
+
+```config
+vm.dirty_background_ratio = 0
+vm.dirty_background_bytes = 209715200
+vm.dirty_ratio = 40
+vm.dirty_bytes = 0
+vm.dirty_writeback_centisecs = 100
+vm.dirty_expire_centisecs = 200
+```
+
+These settings have been tested and benchmarked by Basho in nodes with
+16 GB of RAM.
 
 ## Open Files Limit
 
@@ -238,6 +256,9 @@ handles during normal operation. For stability, increasing the number of
 open files limit is necessary. See [[Open Files Limit]] for more
 details.
 
-## References
+## Other Tuning Docs
 
 * [[AWS Performance Tuning]]
+* [[Erlang VM Tuning]]
+* [[Latency Reduction|Latency Reduction Checklist]]
+* [[Open Files Limit]]
