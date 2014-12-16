@@ -50,11 +50,11 @@ Navigate to the `/basho_docs` directory and execute the following
 instructions. This should install Middleman and launch the Middleman
 API:
 
-	```shell
-	$ sudo gem install bundler
-	$ bundle install
-	$ bundle exec middleman
-	```
+    ```shell
+    $ sudo gem install bundler
+    $ bundle install
+    $ bundle exec middleman
+    ```
 
 If you run into errors, [Middleman's install
 page](http://middlemanapp.com/basics/getting-started/) is a good place
