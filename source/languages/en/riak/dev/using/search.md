@@ -87,6 +87,15 @@ Riak Search's features and enhancements are numerous.
 * Query result [highlighting](https://cwiki.apache.org/confluence/display/solr/Highlighting)
 * [[Active anti-entropy]] for automatic index repair
 
+<div class="note">
+<div class="title">Note on Solr UI tools</div>
+We do not recommend using the [Solr Administration User
+Interface](https://cwiki.apache.org/confluence/display/solr/Using+the+Solr+Administration+User+Interface).
+Because each running instance of Solr is connected only to a single Riak
+node, the information obtained through the UI will be necessarily out of
+step with what's going on cluster wide and thus of little use.
+</div>
+
 ## Simple Setup
 
 Riak Search 2.0 is an integration of Solr (for indexing and querying)
