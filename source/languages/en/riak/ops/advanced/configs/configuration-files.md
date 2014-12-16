@@ -1073,7 +1073,7 @@ to be deemed successful.</td>
 conflicts. The default is <code>2</code> in Riak 2.0 for typed buckets
 and <code>1</code> for non-typed buckets. This setting reduces sibling
 creation through additional metadata on each sibling (also known as <a
-href="/theory/concepts/causal-context#Dotted-Version-Vectors">Dotted
+href="/theory/concepts/context#Dotted-Version-Vectors">Dotted
 Version Vectors</a>). Setting this to <code>1</code> is the default for
 Riak 1.4 and earlier, and may duplicate siblings that originated in the
 same write.</td>
