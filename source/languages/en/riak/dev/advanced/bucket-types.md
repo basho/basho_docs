@@ -308,10 +308,10 @@ client.execute(fetch2);
 ```
 
 ```ruby
-bucket = client.bucket('my_bucket')
-
-bucket.get('my_key', type: 'type1')
-bucket.get('my_key', type: 'type2')
+bucket1 = client.bucket_type('type1').bucket('my_bucket')
+bucket2 = client.bucket_type('type2').bucket('my_bucket')
+bucket1.get('my_key')
+bucket2.get('my_key')
 ```
 
 ```python
@@ -358,10 +358,10 @@ client.execute(fetch2);
 ```
 
 ```ruby
-bucket = client.bucket('my_bucket')
-
-bucket.get('my_key')
-bucket.get('my_key', type: 'default')
+bucket1 = client.bucket_type('default').bucket('my_bucket')
+bucket2 = client.bucket('my_bucket')
+bucket1.get('my_key')
+bucket2.get('my_key')
 ```
 
 ```python
@@ -566,11 +566,11 @@ client.execute(store);
 ```
 
 ```ruby
-bucket = client.bucket('sensitive_user_data')
+bucket = client.bucket_type('no_siblings').bucket('sensitive_user_data')
 obj = Riak::RObject.new(bucket, 'user19735')
 obj.content_type = 'application/json'
 obj.raw_data = '{ ... user data ... }'
-obj.store(type: 'no_siblings')
+obj.store
 ```
 
 ```python
@@ -626,11 +626,11 @@ client.execute(store);
 ```
 
 ```ruby
-bucket = client.bucket('old_memes')
+bucket = client.bucket_type('no_siblings').bucket('old_memes')
 obj = Riak::RObject.new(bucket, 'all_your_base')
 obj.content_type = 'text/plain'
 obj.raw_data = 'all your base are belong to us'
-obj.store(type: 'no_siblings')
+obj.store
 ```
 
 ```python

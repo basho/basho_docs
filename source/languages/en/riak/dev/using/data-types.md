@@ -116,13 +116,7 @@ Namespace countersBucket = new Namespace("counters", "counters");
 ```
 
 ```ruby
-bucket = client.bucket('counters')
-
-# In the Ruby client, buckets are no instantiated bearing a bucket type.
-# Instead, bucket types are specified when the bucket performs operations.
-# Here is an example using our "counters" type:
-
-bucket.get('<key>', type: 'counters')
+bucket = client.bucket_type('counters').bucket('counters')
 ```
 
 ```python

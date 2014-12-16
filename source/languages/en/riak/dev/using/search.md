@@ -344,23 +344,23 @@ client.execute(lionoStore);
 ```
 
 ```ruby
-bucket = client.bucket("animals")
+bucket = client.bucket_type('cats').bucket("animals")
 
 cat = bucket.get_or_new("liono")
 cat.data = {"name_s" => "Lion-o", "age_i" => 30, "leader_b" => true}
-cat.store(type: "cats")
+cat.store
 
 cat = bucket.get_or_new("cheetara")
 cat.data = {"name_s" => "Cheetara", "age_i" => 28, "leader_b" => false}
-cat.store(type: "cats")
+cat.store
 
 cat = bucket.get_or_new("snarf")
 cat.data = {"name_s" => "Snarf", "age_i" => 43}
-cat.store(type: "cats")
+cat.store
 
 cat = bucket.get_or_new("panthro")
 cat.data = {"name_s" => "Panthro", "age_i" => 36}
-cat.store(type: "cats")
+cat.store
 ```
 
 ```python

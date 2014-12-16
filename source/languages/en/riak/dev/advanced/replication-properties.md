@@ -171,8 +171,8 @@ riak-admin bucket-type activate r_equals_1
 Here's an example read request using the `r_equals_1` bucket type:
 
 ```ruby
-bucket = client.bucket('animal_facts')
-obj = bucket.get('chimpanzee', type: 'r_equals_1')
+bucket = client.bucket_type('r_equals_1').bucket('animal_facts')
+obj = bucket.get('chimpanzee')
 ```
 
 ```java
@@ -228,11 +228,11 @@ riak-admin activate w_equals_3
 Now, we can attempt a write to a bucket bearing the type `w_equals_3`:
 
 ```ruby
-bucket = client.bucket('animal_facts')
+bucket = client.bucket_type('w_equals_3').bucket('animal_facts')
 obj = Riak::RObject.new(bucket, 'giraffe')
 obj.raw_data = 'The species name of the giraffe is Giraffa camelopardalis'
 obj.content_type = 'text/plain'
-obj.store(type: 'w_equals_3')
+obj.store
 ```
 
 ```java

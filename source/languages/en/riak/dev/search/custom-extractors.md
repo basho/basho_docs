@@ -325,11 +325,11 @@ client.execute(storeOp);
 
 ```ruby
 packet_data = File.read('google_packet.bin')
-bucket = client.bucket('packets')
+bucket = client.bucket_type('http_data_store').bucket('packets')
 obj = Riak::Robject.new(bucket, 'google')
 obj.content_type = 'application/httpheader'
 obj.raw_data = packetData
-obj.store(type: 'http_data_store')
+obj.store
 ```
 
 ```python

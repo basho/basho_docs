@@ -57,8 +57,8 @@ Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
 
 ```ruby
-bucket = client.bucket('dogs')
-obj = bucket.get('rufus', type: 'animals')
+bucket = client.bucket_type('animals').bucket('dogs')
+obj = bucket.get('rufus')
 ```
 
 ```python
@@ -141,8 +141,8 @@ RiakObject obj = response.getValue(RiakObject.class);
 ```
 
 ```ruby
-bucket = client.bucket('dogs')
-obj = bucket.get('rufus', type: 'animals', r: 3)
+bucket = client.bucket_type('animals').bucket('dogs')
+obj = bucket.get('rufus', r: 3)
 ```
 
 ```python
@@ -218,11 +218,11 @@ client.execute(store);
 ```
 
 ```ruby
-bucket = client.bucket('oscar_wilde')
+bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 obj = Riak::RObject.new(bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.raw_data = 'I have nothing to declare but my genius'
-obj.store(type: 'quotes')
+obj.store
 ```
 
 ```python
@@ -299,8 +299,8 @@ obj.setValue(BinaryValue.create("Harlem Globetrotters"))
 ```
 
 ```ruby
-bucket = client.bucket('nba')
-obj = bucket.get('champion', type: 'sports')
+bucket = client.bucket_type('sports').bucket('nba')
+obj = bucket.get('champion')
 obj.raw_data = 'Harlem Globetrotters'
 obj.store
 ```
@@ -408,11 +408,11 @@ client.execute(store);
 ```
 
 ```ruby
-bucket = client.bucket('dodge')
+bucket = client.bucket_type('cars').bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(type: 'cars', r: 3)
+obj.store(r: 3)
 ```
 
 ```python
@@ -468,11 +468,11 @@ client.execute(store);
 ```
 
 ```ruby
-bucket = client.bucket('dodge')
+bucket = client.bucket_type('cars').bucket('dodge')
 obj = Riak::RObject.new(bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.raw_data = 'vroom'
-obj.store(type: 'cars', r: 3, returnbody: true)
+obj.store(r: 3, returnbody: true)
 ```
 
 ```python
@@ -538,12 +538,12 @@ String key = client.execute(store).getLocation().getKeyAsString();
 ```
 
 ```ruby
-bucket = client.bucket('random_user_keys')
+bucket = client.bucket_type('users').bucket('random_user_keys')
 obj = Riak::RObject.new(bucket)
 obj.content_type = 'application/json'
 obj.raw_data = '{"user":"data"}'
 
-obj.store(type: 'users')
+obj.store
 
 # The client will assign a key like the following:
 obj.key
@@ -610,8 +610,8 @@ client.execute(delete);
 ```
 
 ```ruby
-bucket = client.bucket('oscar_wilde')
-bucket.delete('genius', type: 'quotes')
+bucket = client.bucket_type('quotes').bucket('oscar_wilde')
+bucket.delete('genius')
 ```
 
 ```python
@@ -688,9 +688,8 @@ with our bucket type (and, by extension, any bucket that bears that
 type):
 
 ```ruby
-# You cannot currently fetch a bucket type's properties in the Ruby
-# client. We suggest using curl instead. See the example in the code
-# tab to the right.
+bt = client.bucket_type('n_val_of_5')
+bt.props
 ```
 
 ```java

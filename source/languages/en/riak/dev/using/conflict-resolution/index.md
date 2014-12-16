@@ -268,16 +268,16 @@ client.execute(store2);
 ```
 
 ```ruby
-bucket = client.bucket('nickolodeon')
+bucket = client.bucket_type('siblings_allowed').bucket('nickolodeon')
 obj1 = Riak::RObject.new(bucket, 'best_character')
 obj1.content_type = 'text/plain'
 obj1.raw_data = 'Ren'
-obj1.store(type: 'siblings_allowed')
+obj1.store
 
 obj2 = Riak::RObject.new(bucket, 'best_character')
 obj2.content_type = 'text/plain'
 obj2.raw_data = 'Stimpy'
-obj2.store(type: 'siblings_allowed')
+obj2.store
 ```
 
 ```python
@@ -339,8 +339,8 @@ System.out.println(obj.getValue().toString());
 ```
 
 ```ruby
-bucket = client.bucket('nickolodeon')
-obj = bucket.get('best_character', type: 'siblings_allowed')
+bucket = client.bucket_type('siblings_allowed').bucket('nickolodeon')
+obj = bucket.get('best_character')
 obj
 ```
 
