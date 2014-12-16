@@ -45,3 +45,15 @@ curl -v -XPUT http://127.0.0.1:8091/riak/my_bucket \
   -H "Content-Type: application/json" \
   -d '{"props":{"repl":true}}'
 ```
+
+## How Bucket Properties Work in Riak Enterprise
+
+When using Multi-Datacenter Replication, each bucket's write properties
+are derived from the bucket's properties in the destination cluster. If
+the bucket doesn't exist, the default properties of the destination
+cluster are used.
+
+It's important to note that this goes for properties such as `backend`.
+If the bucket doesn't exist in the destination cluster, Riak will create
+it with the default backend and _not_ with the backend used in the
+source cluster.
