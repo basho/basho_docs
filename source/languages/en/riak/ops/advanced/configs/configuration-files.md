@@ -2602,9 +2602,10 @@ filter.</td>
 <tr>
 <td><code>rt_heartbeat_interval</code></td>
 <td>A heartbeat message is sent from the source to the sink every
-<code>rt_heartbeat_interval</code>. Setting <code>rt_heartbeat_interval
-</code> to <code>undefined</code> disables the realtime heartbeat. This
-feature is available only in Riak Enterprise 1.3.2 and later.</td>
+<code>rt_heartbeat_interval</code> seconds. Setting
+<code>rt_heartbeat_interval </code> to <code>undefined</code> disables
+the realtime heartbeat. This feature is available only in Riak
+Enterprise 1.3.2 and later.</td>
 <td><code>15</code></td>
 </tr>
 

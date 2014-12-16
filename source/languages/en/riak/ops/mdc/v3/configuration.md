@@ -83,7 +83,6 @@ Setting | Options | Default | Description
 `rt_heartbeat_interval` | `seconds` (integer) | `15` | A heartbeat message is sent from the source to the sink every `rt_heartbeat_interval` seconds. Setting `rt_heartbeat_interval` to `undefined` disables the realtime heartbeat. This feature is only available in Riak Enterprise 1.3.2+.
 `rt_heartbeat_timeout` | `seconds` (integer) | `15` | If a heartbeat response is not received in `rt_heartbeat_timeout` seconds, then the source connection exits and will be re-established. This feature is only available in Riak Enterprise 1.3.2+.
 
-
 ---
 
 Riak Multi-Datacenter Replication `app.config` settings, `riak_core`
