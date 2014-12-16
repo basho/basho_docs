@@ -128,8 +128,6 @@ riak:
           - "[[Basic Configuration]]"
           - "[[Basic Cluster Setup]]"
           - "[[Benchmarking|Basho Bench]]"
-          - "[[Authentication and Authorization]]"
-          - "[[Managing Security Sources]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
@@ -167,6 +165,11 @@ riak:
               - "[[Riak Monitoring with collectd]]"
               - "[[JMX Monitoring]]"
               - "[[SNMP]]"
+      - title: "Security"
+        sub:
+          - "[[Authentication and Authorization]]"
+          - "[[Managing Security Sources]]"
+          - "[[Security and Firewalls]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
