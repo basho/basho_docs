@@ -38,7 +38,10 @@ Riak CS is open source and [[free for download|Download Riak CS]].
 support, which means that you can both use existing S3 tools and
 frameworks to manage your data and also import and extract data from
 Amazon directly. The HTTP REST API supports service, bucket, and
-object-level operations to easily store and retrieve data.</p>
+object-level operations to easily store and retrieve data. There is also
+support for the <a
+href="http://docs.basho.com/riakcs/latest/references/appendices/comparisons/Riak-Compared-to-Swift/">OpenStack
+Swift</a> API.</p>
 </td>
 </tr>
 <tr>
