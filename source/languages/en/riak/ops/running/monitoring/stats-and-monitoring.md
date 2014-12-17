@@ -95,9 +95,11 @@ the occasion of a GET request.
 * Load average
 
 We also recommend tracking your system's virtual and writebacks. Things
-like massive flushes of dirty pages or steadily climbing writeback volumes
-can indicate poor virtual memory tuning. More information can be found
-[here](https://www.kernel.org/doc/Documentation/sysctl/vm.txt).
+like massive flushes of dirty pages or steadily climbing writeback
+volumes can indicate poor virtual memory tuning. More information can be
+found [here](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) and
+in our documentation on [[system tuning|System Performance
+Tuning#Storage-and-File-System-Tuning]].
 
 ## Statistics and Monitoring Tools
 
