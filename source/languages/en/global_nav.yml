@@ -343,7 +343,6 @@ riakcs:
       - title: "Running CS"
         sub:
           - "[[Command-line Tools|Riak CS Command-line Tools]]"
-          - "[[Designating an Admin User]]"
           - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
           - "[[Logging|Riak CS Logging]]"
       - title: "Advanced"
