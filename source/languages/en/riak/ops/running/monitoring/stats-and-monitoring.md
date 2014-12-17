@@ -87,15 +87,17 @@ the occasion of a GET request.
 
 ## Systems Metrics To Graph
 
-Metric                 |
----------------------- |
-Available Disk Space   |
-IOWait                 |
-Read Operations        |
-Write Operations       |
-Network Throughput     |
-Load Average           |
+* Available disk space
+* IOWait
+* Read operations
+* Write operations
+* Network throughput
+* Load average
 
+We also recommend tracking your system's virtual and writebacks. Things
+like massive flushes of dirty pages or steadily climbing writeback volumes
+can indicate poor virtual memory tuning. More information can be found
+[here](https://www.kernel.org/doc/Documentation/sysctl/vm.txt).
 
 ## Statistics and Monitoring Tools
 
