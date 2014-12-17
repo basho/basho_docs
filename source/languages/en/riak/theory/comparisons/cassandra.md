@@ -14,18 +14,29 @@ moved: {
 This is intended to be a brief, objective, and technical comparison of
 Riak and Cassandra. The Cassandra version described is 1.2.x. The Riak
 version described is Riak 2.x. If you feel this comparison is unfaithful
-for whatever reason, please [submit an issue](https://github.com/basho/basho_docs/issues/new)
-or send an email to **docs@basho.com**.
+for whatever reason, please [submit an
+issue](https://github.com/basho/basho_docs/issues/new) or send an email
+to **docs@basho.com**.
 
 ## At A Very High Level
 
-* Both Riak and Cassandra are Apache 2.0-licensed databases based on Amazon’s Dynamo paper.
-* Riak is a faithful implementation of Dynamo, with the addition of functionality like links, MapReduce, indexes, full-text Search. Cassandra departs from the Dynamo paper slightly by omitting vector clocks and moving from partition-based consistent hashing to key ranges, while adding functionality like order-preserving partitioners and range queries.
-* Riak is written primarily in Erlang with some bits in C. Cassandra is written in Java.
+* Both Riak and Cassandra are Apache 2.0-licensed databases based on
+  Amazon’s Dynamo paper
+* Riak is a faithful implementation of Dynamo, with the addition of
+  functionality like links, MapReduce, indexes, full-text Search.
+  Cassandra departs from the Dynamo paper slightly by omitting vector
+  clocks and moving from partition-based consistent hashing to key
+  ranges, while adding functionality like order-preserving partitioners
+  and range queries.
+* Riak is written primarily in Erlang with some bits in C.
+  Cassandra is written in Java.
 
 ## Feature/Capability Comparison
 
-The table below gives a high level comparison of Riak and Cassandra features/capabilities.  To keep this page relevant in the face of rapid development on both sides, low level details are found in links to Riak and Cassandra online documentation.
+The table below provides a high-level comparison of Riak and Cassandra
+features/capabilities. To keep this page relevant in the face of rapid
+development on both sides, low-level details are found in links to Riak
+and Cassandra online documentation.
 
 <table>
     <tr>
@@ -70,10 +81,10 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 			</ul>
 			Riak [[client libraries]] are wrappers around these APIs, and client support exists for dozens of languages. Basho currently has officially supported clients for [[Java|https://github.com/basho/riak-java-client]], [[Ruby|https://github.com/basho/riak-ruby-client]], [[Python|https://github.com/basho/riak-python-client]], and [[Erlang|https://github.com/basho/riak-erlang-client]].
 		</td>
-        <td>Cassandra provides various access methods including a Thrift API, CQL (Cassandra Query Language), and a command-line interface, as well as officially supported clients for Java, Python, and PHP. 
+        <td>Cassandra provides various access methods including a Thrift API, CQL (Cassandra Query Language), and a command-line interface, as well as officially supported clients for Java, Python, and PHP.
 			<ul>
 			  <li><a href="http://www.datastax.com/docs/1.1/dml/about_clients">Cassandra Client APIs</a></li>
-			</ul>		
+			</ul>
 	 </td>
     </tr>
     <tr>
@@ -107,7 +118,7 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
             <li>[[Why Vector Clocks Are Easy|http://basho.com/blog/technical/2010/01/29/why-vector-clocks-are-easy/]]</li>
             <li>[[Why Vector Clocks Are Hard|http://basho.com/blog/technical/2010/04/05/why-vector-clocks-are-hard/]]</li>
         </ul>
-        
+
         In addition, as of version 2.0 you can use Riak in a [[strongly consistent|Strong Consistency]] fashion.
         </td>
 
@@ -148,7 +159,8 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
 
             Like in Riak, Cassandra lets developers configure the consistency and availability requirements at the request level via various APIs.
             <ul>
-                <li><a href="http://www.datastax.com/docs/1.1/dml/data_consistency#tunable-consistency">Tunable Consistency</a>
+                <li><a
+                href="http://www.datastax.com/documentation/cassandra/2.0/cassandra/dml/dml_config_consistency_c.html">Tunable Consistency</a>
             </ul>
 
      </td>
@@ -159,7 +171,8 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
         </td>
         <td>Cassandra allows you to add new nodes dynamically with the exception of manually calculating a node's token (though users can elect to let Cassandra calculate this). It's recommended that you double the size of your cluster to add capacity. If this isn't feasible, you can elect to either add a number of nodes (which requires token recalculation for all existing nodes), or to add one node at a time, which means leaving the initial token blank and "will probably not result in a perfectly balanced ring but it will alleviate hot spots".
             <ul>
-              <li>[[Adding Capacity to an Existing Cluster|http://www.datastax.com/docs/1.1/operations/cluster_management#adding-capacity-to-an-existing-cluster]]</li>
+              <li>[Adding Capacity to an Existing
+              Cluster](http://www.datastax.com/documentation/cassandra/2.0/cassandra/operations/ops_add_node_to_cluster_t.html)</li>
             </ul>
     	</td>
     </tr>
@@ -175,7 +188,8 @@ The table below gives a high level comparison of Riak and Cassandra features/cap
         </td>
         <td>Cassandra has the ability to spread nodes over multiple datacenters via various configuration parameters.
             <ul>
-              <li>[[Multiple Datacenters|http://www.datastax.com/docs/1.1/initialize/cluster_init_multi_dc]]</li>
+              <li>[Multiple
+              Datacenters](http://www.datastax.com/documentation/cassandra/2.0/cassandra/initialize/initializeMultipleDS.html)</li>
             </ul>
 
     </td>
