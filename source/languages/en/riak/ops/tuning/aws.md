@@ -102,7 +102,7 @@ EBS volumes have considerably less bandwidth than hardware disks.  To
 avoid saturating EBS bandwidth and inducing IO latency spikes, it is
 recommended to tune the Linux virtual memory subsystem to flush smaller
 amounts of data more often. To do so, please see [[Linux system
-performance tuning|System Performance Tuning#Optional I/O Settings]].
+performance tuning|System Performance Tuning#Optional-I-O-Settings]].
 
 ### Forensics
 
