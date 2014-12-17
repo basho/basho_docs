@@ -79,6 +79,8 @@ changes, you must do the following:
 Please note that you can stage multiple cluster-level changes prior to
 planning and committing those changes.
 
+## cluster status
+
 ## cluster join
 
 Join this node to the cluster containing `<node>`:
@@ -203,9 +205,20 @@ be reviewed with `riak-admin cluster plan` prior to being committed.
 riak-admin cluster commit
 ```
 
+## cluster partition-count
+
+## cluster partitions
+
+## cluster partition-id
+
+## cluster partition-index
+
+## cluster members
+
 ## join
 
-<div class="note"><div class="title">Deprecation Notice</div>
+<div class="note">
+<div class="title">Deprecation Notice</div>
 As of Riak version 1.2, the <code>riak-admin join</code> command has
 been deprecated in favor of the <code>[[riak-admin cluster
 join|riak-admin Command Line#cluster-join]]</code> command. However,
@@ -366,6 +379,16 @@ riak-admin ringready
 
 ## transfers
 
+<div class="note">
+<div class="title">Deprecation notice</div>
+As of Riak version 2.0.1, this command has been deprecated. While it
+will continue to work, it provides only limited insight into existing
+handoff processes. We strongly recommend using one of the more specific
+subcommands instead. More information can be found in the sections
+below, beginning with [[transfers status|riak-admin Command
+Line#transfers-status]].
+</div>
+
 Identifies nodes that are awaiting transfer of one or more partitions.
 This usually occurs when partition ownership has changed (after adding
 or removing a node) or after node recovery.
@@ -374,7 +397,98 @@ or removing a node) or after node recovery.
 riak-admin transfers
 ```
 
+## transfers status
+
+Provides the same details given when you run the `[[riak-admin
+transfers|riak-admin Command Line#transfers]]` command, but with more
+options and an improved display format.
+
+```bash
+riak-admin transfers status
+```
+
+Available view options:
+
+* `--verbose`, `-v` --- Display a verbose view
+* `--partition <N>`, `-p <N>` --- Only display information about a
+    specific partition ID or index `N`
+* `--partition-ids`, `-x` --- Only display partition IDs instead of
+    partition indexes
+
+When you run this command, you will see a list of transfers by kind. The
+kinds are:
+
+* Ownership
+* Repair
+* Resize
+* Fallback
+
+## transfers ownership
+
+Provides details similar to those given when you run `[[riak-admin
+ring-status|riak-admin Command Line#ring-status]]` but with more options
+and an improved display format.
+
+This command can be run either by itself, which provides insight into
+the entire cluster:
+
+```bash
+riak-admin transfers ownership
+```
+
+Or you can specify a [[nodename|Configuration Files#Node-Metadata]] to
+get insight into a specific node:
+
+```bash
+riak-admin transfers ownership <nodename>
+```
+
+Both the cluster- and node-level commands have the following view
+options:
+
+* `--verbose`, `-v` --- Display a verbose view
+* `--partition <N>`, `-p <N>` --- Only display information about a
+    specific partition ID or index `N`
+* `--partition-ids`, `-x` --- Only display partition IDs instead of
+    partition indexes
+
+## transfers fallbacks
+
+This command provides details concerning which nodes have fallback data
+that needs to be transferred or is in the process of being transferred.
+
+```bash
+riak-admin transfers fallbacks
+```
+
+The following information will be displayed:
+
+* The total number of fallbacks awaiting transfer on each node
+* The total number of fallbacks currently being transferred
+* The total size of the fallback data that is awaiting transfer
+* The total size of the fallback data that has already been transferred
+
+Available view options:
+
+* `--version`, `-v` --- Display a verbose view
+* `--partition-ids`, `-x` --- Show partition IDs instead of partition
+    indexes
+
+## transfers resize
+
+## transfers port
+
+## transfers enable
+
+## transfers disable
+
+## tranfers enabled
+
 ## transfer-limit
+
+<div class="note">
+<div class="title">Deprecation notice</div>
+</div>
 
 Change the `handoff_concurrency` limit. The value set by running this
 command will only persist while the node is running. If the node is
@@ -460,6 +574,10 @@ riak@192.168.1.11
 
 ## member-status
 
+<div class="note">
+<div class="title">Deprecation notice</div>
+</div>
+
 Prints the current status of all cluster members.
 
 ```bash
@@ -467,6 +585,10 @@ riak-admin member-status
 ```
 
 ## ring-status
+
+<div class="note">
+<div class="title">Deprecation notice</div>
+</div>
 
 Outputs the current claimant, its status, ringready, pending ownership
 handoffs, and a list of unreachable nodes.
