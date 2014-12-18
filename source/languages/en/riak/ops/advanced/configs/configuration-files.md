@@ -862,6 +862,8 @@ Below is the general form for setting multi-backend parameters:
 
 ```riakconf
 multi_backend.$name.(existing_setting) = <setting>
+# or
+multi_backend.$name.$backend_type.(backend_specific_setting) = <setting>
 ```
 
 Below is a listing of the available paramaters:
@@ -899,8 +901,8 @@ do so as follows:
 
 ```riakconf
 multi_backend.customer_backend.storage_backend = leveldb
-multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
-multi_backend.customer_backend.maximum_memory.percent = 50
+multi_backend.customer_backend.leveldb.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
+multi_backend.customer_backend.leveldb.maximum_memory.percent = 50
 ```
 
 ## Riak Control
