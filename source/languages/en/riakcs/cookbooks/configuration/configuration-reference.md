@@ -172,6 +172,13 @@ scheme.</td>
 <td><code>riak_cs_s3_auth</code></td>
 </tr>
 <tr>
+<tr>
+<td><code>max_buckets_per_user</code></td>
+<td>The number of buckets that can be created by each user. If a user
+exceeds the bucket creation limit, they are still able to perform other
+actions, including bucket deletion.</td>
+<td><code>100</code></td>
+</tr>
 <td><code>rewrite_module</code></td>
 <td>A rewrite module contains a set of rules for translating requests
 made using a particular API to requests in the the native [[Riak CS
@@ -278,9 +285,34 @@ re-attempted. Expressed as an integer number of seconds.</td>
 the block for an object after it has been deleted. This leeway time is
 set to give the delete indication time to propagate to all replicas.
 Expressed as an integer number of seconds.</td>
-<td><code>86400 (24 hours)</code></td>
+<td><code>86400</code> (24 hours)</td>
 </tr>
 </tbody>
+</table>
+
+## Concurrency and Buffering
+
+There are two parameters related to concurrency and buffering that you
+should consider adding to your Riak CS settings if you are having issues
+with PUT requests. Raising the value of both of these settings may
+provide higher single-client throughput.
+
+<table class="riak-conf">
+<thead><tr><th>Config</th><th>Description</th><th>Default</th></tr></thead>
+<tbody>
+<tr>
+<td><code>put_buffer_factor</code></td>
+<td>The number of blocks that will be buffered in-memory in Riak CS
+before it begins to slow down reading from the HTTP client.</td>
+<td><code>1</code></td>
+<tr>
+<tr>
+<td><code>put_concurrency</code></td>
+<td>The number of threads inside of Riak CS that are used to write
+blocks to Riak.</td>
+<td><code>1</code></td>
+<tr>
+</tbody?
 </table>
 
 ## Miscellaneous Settings
