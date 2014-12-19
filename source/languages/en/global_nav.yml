@@ -49,7 +49,7 @@ riak:
         sub:
           - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
-          - "[[Key/Value Operations|The Basi]]"
+          - "[[Key/Value Operations|The Basics]]"
           - "[[Object Updates]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[MapReduce|Using MapReduce]]"
