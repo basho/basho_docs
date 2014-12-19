@@ -185,6 +185,8 @@ object is read, which automatically fetches the object's causal context;
 then the object is modified, i.e. the object's value is set to the name
 of the new coach; and finally the object is written back to Riak.
 
+## Conditional Requests
+
 ## Object Update Anti-patterns
 
 The most important thing to bear in mind when updating objects is this:
