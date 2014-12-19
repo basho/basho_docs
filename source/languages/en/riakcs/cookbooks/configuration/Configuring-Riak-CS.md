@@ -242,8 +242,8 @@ case.
 ### Tuning
 
 We strongly recommend you that you increase the value of the
-[[`pb_backlog` setting|Configuring
-Riak#Setting-Up-Riak-to-Use-Protocol-Buffers]] in Riak. When a Riak CS
+[[`pb_backlog` setting|Configuring Riak for
+CS#Setting-Up-Riak-to-Use-Protocol-Buffers]] in Riak. When a Riak CS
 node is started, each connection pool begins to establish connections to
 Riak. This can result in a [[thundering herd
 problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]] in which
@@ -251,8 +251,8 @@ connections in the pool believe they are connected to Riak, but in
 reality some of the connections have been reset. Due to TCP `RST` packet
 rate limiting (controlled by `net.inet.icmp.icmplim`) some of the
 connections may not receive notification until they are used to service
-a user's request.  This manifests as an `{error, disconnected}` message
-in the Riak CS logs and an error to returned to the user.
+a user's request. This manifests itself as an `{error, disconnected}`
+message in the Riak CS logs and an error to returned to the user.
 
 ## Enabling SSL in Riak CS
 
