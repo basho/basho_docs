@@ -305,14 +305,14 @@ provide higher single-client throughput.
 <td>The number of blocks that will be buffered in-memory in Riak CS
 before it begins to slow down reading from the HTTP client.</td>
 <td><code>1</code></td>
-<tr>
+</tr>
 <tr>
 <td><code>put_concurrency</code></td>
 <td>The number of threads inside of Riak CS that are used to write
 blocks to Riak.</td>
 <td><code>1</code></td>
-<tr>
-</tbody?
+</tr>
+</tbody>
 </table>
 
 ## Miscellaneous Settings
