@@ -140,6 +140,8 @@ riak:
         sub:
           - "[[Backing up Riak]]"
           - "[[Logging]]"
+          - "[[Cluster Administration]]"
+          - "[[Handoff]]"
           - title: "Node Operations"
             sub:
               - "[[Adding/Removing|Adding and Removing Nodes]]"

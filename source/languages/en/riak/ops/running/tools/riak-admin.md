@@ -23,10 +23,11 @@ Usage: riak-admin { cluster | join | leave | backup | restore | test |
                     reip | js-reload | erl-reload | wait-for-service |
                     ringready | transfers | force-remove | down |
                     cluster-info | member-status | ring-status | vnode-status |
-                    aae-status | diag | status | transfer-limit | reformat-indexes |
+                    aae-status | diag | stat | status | transfer-limit | reformat-indexes |
                     top [-interval N] [-sort reductions|memory|msg_q] [-lines N] |
                     downgrade-objects | security | bucket-type | repair-2i |
-                    search | services | ensemble-status }
+                    search | services | ensemble-status | handoff | set |
+                    show | describe }
 ```
 
 ## Node Naming
@@ -785,3 +786,27 @@ riak-admin ensemble-status <group id>
 
 Complete documentation of this command can be found in [[Managing Strong
 Consistency|Managing Strong Consistency#ensemble-status]].
+
+{{#2.0.4+}}
+## handoff
+
+Documentation for the `handoff` command can be found in [[Handoff]].
+
+## set
+
+## show
+
+Whereas the `[[riak-admin status|riak-admin Command Line#stats]]`
+command will display all currently available statistics for your Riak
+cluster, the `show` command enables you to view only some of those
+statistics.
+
+```bash
+riak-admin show <variable>
+```
+
+
+
+## describe
+
+{{/2.0.4+}}

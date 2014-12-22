@@ -1,11 +1,14 @@
 ---
-title: Hinted Handoff
+title: Handoff
 project: riak
 version: 2.0.4+
 document: reference
 audience: intermediate
 keywords: [operator, handoff, admin]
 ---
+
+
+## Configuring Handoff
 
 ## The Handoff Command-line Interface
 
@@ -74,13 +77,38 @@ about each node in your cluster;
 
 Header | Description
 :------|:-----------
-`Node` | The nodename of the node
-`Total` | The total number of active transfers throughout the entire cluster
-`Ownership` |
-`Resize` |
-`Hinted` |
+`Node` | Nodename of the node
+`Total` | Total number of active transfers throughout the entire cluster
+`Ownership` | Total number of ownership exchanges
+`Resize` | Total handoffs related to [[ring resizing]] operations
+`Hinted` | [[Hinted handoff|Riak Glossary#Hinted-Handoff]] total
 `Repair` |
 
 ### details
 
 This command provides information only about active transfers.
+
+```bash
+riak-admin handoff details
+```
+
+If no transfers are currently underway, this command will output `No
+ongoing transfers`. Otherwise, you will something like this:
+
+```
+
+```
+
+### config
+
+This command displays the values for all handoff-specific [[configurable
+parameters|Configuration Files#Intra-Cluster-Handoff]] on each node in
+the cluster. The table below lists and describes those parameters:
+
+Config | Description | Default
+:------|:------------|:-------
+`transfer_limit` | The number of concurrent node-to-node transfers that are allowed | `2`
+`handoff.outbound` | Whether outbound handoff is enabled on the node. Possible values are `on` or `off`. | `on`
+`handoff.inbound` | Whether inbound handoff is enabled on the node | `on`
+`handoff.port` | The port used by the node for handoff-related traffic |
+

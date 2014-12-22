@@ -1987,6 +1987,20 @@ ever being blocked by a secondary system, set this parameter to
 </tr>
 
 <tr>
+<td><code>handoff.inbound</code></td>
+<td>Whether inbound handoff is enabled on the node. Possible values are
+<code>on</code> or <code>off</code>.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.outbound</code></td>
+<td>Whether outbound handoff is enabled on the node. Possible values are
+<code>on</code> or <code>off</code>.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
 <td><code>handoff.port</code></td>
 <td>Specifies the TCP port that Riak uses for intra-cluster data
 handoff.</td>
