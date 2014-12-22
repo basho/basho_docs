@@ -112,6 +112,20 @@ _not_ be able to discern if your configuration is otherwise unsound,
 e.g. if your configuration will cause problems on your operating system
 or doesn't activate subsystems that you would like to use.
 
+## Debugging Your Configuration
+
+If there is a problem with your configuration but you're having trouble
+identifying the problem, there is a command that you can use to debug
+your configuration:
+
+```bash
+riak config generate -l debug
+```
+
+If there are issues with your configuration, you will see detailed
+output that might provide a better sense of what has gone wrong in the
+config generation process.
+
 ## The advanced.config file
 
 For most Riak installations, the `riak.conf` file should be sufficient
