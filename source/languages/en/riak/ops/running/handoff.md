@@ -7,8 +7,14 @@ audience: intermediate
 keywords: [operator, handoff, admin]
 ---
 
+Riak is a distributed system that is built to gracefully hand a wide
+variety of failure scenarios, including but not limited to [[node
+failure|Recovering a Failed Node]].
 
 ## Configuring Handoff
+
+Config | Description | Default
+:------|:------------|:-------
 
 ## The Handoff Command-line Interface
 

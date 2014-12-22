@@ -1962,7 +1962,7 @@ to <code>off</code> can cut down on system resource usage.
 
 ## Intra-Cluster Handoff
 
-Configurable parameters for intra-cluster, i.e. inter-node, handoff.
+Configurable parameters for intra-cluster, i.e. inter-node, [[handoff]].
 
 <table class="riak-conf">
 <thead>
