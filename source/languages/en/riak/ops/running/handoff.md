@@ -47,13 +47,108 @@ handoff behavior. More information can be found below.
 
 ## Configuring Handoff
 
-Config | Description | Default
-:------|:------------|:-------
+A full listing of configurable parameters can be found in our
+[[configuration files|Configuring Files#Intra-Cluster-Handoff]]
+document. The sections below provide a more narrative description of
+handoff configuration.
 
+### SSL
 
-## The Handoff Command-line Interface
+If you want to encrypt handoff behavior within a Riak cluster, you need
+to provide each node with appropriate paths for an SSL certfile (and
+potentially a keyfile). The configuration below would designate a
+certfile at `/ssl_dir/cert.pem` keyfile at `/ssl_dir/key.pem`:
 
-### enable
+```riakconf
+handoff.ssl.certfile = /ssl_dir/cert.pem
+handoff.ssl.keyfile = /ssl_dir/key.pem
+```
+
+```appconfig
+{riak_core, [
+    %% Other configs
+    {handoff_ssl_options, [
+        {certfile, "/ssl_dir/cert.pem"},
+        {keyfile, "/ssl_dir/key.pem"}
+    ]},
+    %% Other configs
+]}
+```
+
+### Port
+
+You can set the port used by Riak for handoff-related interactions using
+the `handoff.port` parameter. The default is 8099. This would change the
+port to 9000:
+
+```riakconf
+handoff.port = 9000
+```
+
+```appconfig
+{riak_core, [
+    %% Other configs
+    {handoff_port, 9000},
+    %% Other configs
+]}
+```
+
+### Background Manager
+
+Riak has an optional background manager that limits handoff activity in
+the name of saving resources. The manager can help prevent system
+response degradation during times of heavy load, when multiple
+background tasks may contend for the same system resources. The
+background manager is disabled by default. The following will enable it:
+
+```riakconf
+handoff.use_background_manager = on
+```
+
+```appconfig
+{riak_kv, [
+    %% Other configs
+    {handoff_use_background_manager, on},
+    %% Other configs
+]}
+```
+
+### Maximum Rejects
+
+If you're using Riak features such as [[Riak Search|Using Search]],
+those subsystems can block handoff of primary key/value data, i.e. data
+that you interact with via normal reads and writes.
+
+The `handoff.max_rejects` setting enables you to set the maximum
+duration that a [[vnode|Vnodes]] can be blocked by multiplying the
+`handoff.max_rejects` setting by the value of
+`[[vnode_management_timer|Configuration Files#Miscellaneous]]`.  Thus,
+if you set `handoff.max_rejects` to 10 and `vnode_management_timer` to 5
+seconds (i.e. `5s`), non-K/V subsystems can block K/V handoff for a
+maximum of 50 seconds. The default for `handoff.max_rejects` is 6, while
+the default for `vnode_management_timer` is `10s`. This would set
+`max_rejects` to 10:
+
+```riakconf
+handoff.max_rejects = 10
+```
+
+```appconfig
+{riak_kv, [
+    %% Other configs
+    {handoff_rejected_max, 10},
+    %% Other configs
+]}
+```
+
+## Enabling and Disabling Handoff
+
+Handoff can be enabled and disabled in two ways: via configuration and
+on the command line.
+
+### Enabling and Disabling via Configuration
+
+### Enabling and Disabling Through the Command Line
 
 ```bash
 riak-admin handoff enable

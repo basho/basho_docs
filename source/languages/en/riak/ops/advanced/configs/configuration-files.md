@@ -2029,7 +2029,7 @@ This can help to prevent system response degradation during times of
 heavy load caused by multiple background tasks that contend for the same
 system resources; setting this parameter to <code>off</code> can cut
 down on system resource usage.</td>
-<td>off</td>
+<td><code>off</code></td>
 </tr>
 
 </tbody>
