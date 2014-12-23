@@ -57,7 +57,8 @@ a Node|Inspecting a Node#riak-admin-status]] document.
 
 The `riak-admin stat` command is related to the `riak-admin status`
 command but provides a more fine-grained interface for interacting with
-stats and information.
+stats and information. Full documentation of this command can be found
+in the [[Inspecting a Node|Inspecting a Node#riak-admin-stat]] document.
 
 ### Counters
 
