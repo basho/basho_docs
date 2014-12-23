@@ -7,27 +7,49 @@ audience: intermediate
 keywords: [operator, handoff, admin]
 ---
 
-Riak is a distributed system that is built to gracefully hand a wide
-variety of failure scenarios, including but not limited to [[node
-failure|Recovering a Failed Node]].
+Riak is a distributed system built with two essential goals in mind:
+
+* **fault tolerance**, whereby a Riak cluster can withstand node
+    failure, network partitions, and other events in a way that does not
+    disrupt normal functioning, and
+* **scalability**, whereby operators can gracefully add and remove nodes
+    to/from a Riak cluster
+
+Both of these goals demand that Riak is able to either temporarily or
+permanently re-assign responsibility for portions of the keyspace. That
+re-assigning is referred to as **intra-cluster handoff** (or simply
+**handoff** in our documentation).
 
 ## Types of Handoff
 
 Intra-cluster handoff typically takes one of two forms: **hinted
 handoff** and **ownership transfer**.
 
-Hinted handoff occurs when a
+Hinted handoff occurs when a [[vnode|Vnodes]] temporarily takes over
+responsibility for some data and then returns that data to its original
+"owner." Imagine a three-node cluster with nodes A, B, and C. If node C
+goes offline, e.g. during a network partition, nodes A and B will pick
+up the slack, so to speak, assuming responsibility for node C's
+operations. When node C comes back online, responsibility will be handed
+back to the original vnodes.
 
-Ownership transfer occurs when a [[vnode|Vnodes]] no longer belongs to
-the node on which it's running. This typically happens when a new node
-joins the cluster
+Ownership transfer is different because it is meant to be permanent.
+It occurs when a [[vnode|Vnodes]] no longer belongs to
+the node on which it's running. This typically happens when the very
+makeup of a cluster changes, e.g. when nodes are added or removed from
+the cluster. In this case, responsibility for portions of the keyspace
+needs to be fundamentally re-assigned.
 
-There is a third type of handoff, **repair**
+Both types of handoff are handled automatically by Riak. Operators do
+have the option, however, of enabling and disabling handoff on
+particular nodes or all nodes and of configuring key aspects of Riak's
+handoff behavior. More information can be found below.
 
 ## Configuring Handoff
 
 Config | Description | Default
 :------|:------------|:-------
+
 
 ## The Handoff Command-line Interface
 
