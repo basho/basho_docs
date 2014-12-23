@@ -11,6 +11,19 @@ Riak is a distributed system that is built to gracefully hand a wide
 variety of failure scenarios, including but not limited to [[node
 failure|Recovering a Failed Node]].
 
+## Types of Handoff
+
+Intra-cluster handoff typically takes one of two forms: **hinted
+handoff** and **ownership transfer**.
+
+Hinted handoff occurs when a
+
+Ownership transfer occurs when a [[vnode|Vnodes]] no longer belongs to
+the node on which it's running. This typically happens when a new node
+joins the cluster
+
+There is a third type of handoff, **repair**
+
 ## Configuring Handoff
 
 Config | Description | Default
