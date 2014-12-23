@@ -541,6 +541,18 @@ like to run, which types of diagnostic messages you wish to see, and so
 on. More comprehensive information can be found in the documentation on
 [[inspecting a node]].
 
+## stat
+
+Provides an interface for interacting with a variety of cluster-level
+metrics and information.
+
+```bash
+riak-admin stat
+```
+
+Full documentation of this command can be found in [[Statistics and
+Monitoring]].
+
 ## status
 
 Prints status information, including performance statistics, system

@@ -148,7 +148,7 @@ riak:
               - "[[Renaming Nodes]]"
               - "[[Replacing Nodes|Replacing a Node]]"
               - "[[Inspecting Nodes|Inspecting a Node]]"
-          - title: "Command Line Tools"
+          - title: "Command-line Tools"
             sub:
               - "[[riak|riak Command Line]]"
               - "[[riak-admin|riak-admin Command Line]]"
