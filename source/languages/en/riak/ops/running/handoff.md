@@ -141,24 +141,66 @@ handoff.max_rejects = 10
 ]}
 ```
 
+### Transfer Limit
+
+You can adjust the number of node-to-node transfers (which includes
+handoff) using the `transfer_limit` parameter. The default is 2. Setting
+this higher will increase node-to-node communication but at the expense
+of higher resource intensity. This would set `transfer_limit` to 5:
+
+```riakconf
+transfer_limit = 5
+```
+
+```appconfig
+{riak_core, [
+    %% Other configs
+    {handoff_concurrency, 5},
+    %% Other configs
+]}
+```
+
 ## Enabling and Disabling Handoff
 
-Handoff can be enabled and disabled in two ways: via configuration and
+Handoff can be enabled and disabled in two ways: via configuration or
 on the command line.
 
 ### Enabling and Disabling via Configuration
 
+You can enable and disable both outbound and inbound handoff on a node
+using the `handoff.outbound` and `handoff.inbound` settings,
+respectively. Both are enabled by default. The following would disable
+both:
+
+```riakconf
+handoff.outbound = off
+handoff.inbound = on
+```
+
+```appconfig
+{riak_core, [
+    %% Other configs
+    {disable_outbound_handoff, true},
+    {disable_inbound_handoff, true},
+    %% Other configs
+]}
+```
+
 ### Enabling and Disabling Through the Command Line
 
+Riak also provides a command-line interface for enabling and disabling
+handoff on the fly, without needing to set your configuration and
+restart the node. To enable handoff:
+
 ```bash
-riak-admin handoff enable
+riak-admin handoff enable <inbound|outbound|both> <nodename>
 ```
 
 You must specify two things when enabling handoff:
 
-* the node(s) to be targeted by the command
 * whether you'd like to enable inbound handoff, outbound handoff, or
     both
+* the node(s) to be targeted by the command (or all nodes)
 
 You can select a target node using either the `--node` or the `-n` flag.
 You can select a direction by specifying `inbound`, `outbound`, or
@@ -186,8 +228,6 @@ inbound and outbound handoff on all nodes:
 riak-admin handoff enable both --all
 ```
 
-### disable
-
 As for enabling handoff, the `riak-admin disable` command requires that
 you specify both both a node or nodes to be targeted by the command and
 whether you'd like to disbale inbound handoff, outbound handoff, or
@@ -199,6 +239,12 @@ example:
 riak-admin handoff disable both --all
 ```
 
+## Other Command-line Tools
+
+In addition to enabling and disabling handoff, the
+`[[riak-admin|riak-admin Command Line]]` interface enables you to
+retrieve a summary of handoff-related activity and other information.
+
 ### summary
 
 The `summary` command provides high-level information about active
@@ -209,7 +255,7 @@ riak-admin handoff summary
 ```
 
 This will return a table that will provide the following information
-about each node in your cluster;
+about each node in your cluster:
 
 Header | Description
 :------|:-----------
@@ -240,11 +286,3 @@ ongoing transfers`. Otherwise, you will something like this:
 This command displays the values for all handoff-specific [[configurable
 parameters|Configuration Files#Intra-Cluster-Handoff]] on each node in
 the cluster. The table below lists and describes those parameters:
-
-Config | Description | Default
-:------|:------------|:-------
-`transfer_limit` | The number of concurrent node-to-node transfers that are allowed | `2`
-`handoff.outbound` | Whether outbound handoff is enabled on the node. Possible values are `on` or `off`. | `on`
-`handoff.inbound` | Whether inbound handoff is enabled on the node | `on`
-`handoff.port` | The port used by the node for handoff-related traffic |
-
