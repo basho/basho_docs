@@ -271,3 +271,78 @@ prints that information for the current node:
 riak-admin cluster partitions
 ```
 
+This would print the partition information for a different node in the
+cluster:
+
+```bash
+riak-admin cluster partitions --node=<node>
+```
+
+Partition information is contained in a table like this:
+
+```
+Partitions owned by 'dev1@127.0.0.1':
++---------+-------------------------------------------------+--+
+|  type   |                      index                      |id|
++---------+-------------------------------------------------+--+
+| primary |                        0                        |0 |
+| primary | 91343852333181432387730302044767688728495783936 |4 |
+| primary |182687704666362864775460604089535377456991567872 |8 |
+|   ...   |                      ....                       |..|
+| primary |1438665674247607560106752257205091097473808596992|63|
+|secondary|                       --                        |--|
+| stopped |                       --                        |--|
++---------+-------------------------------------------------+--+
+```
+
+## partition-count
+
+Displays the current partition count either for the whole cluster or for
+a particular node. This would display the partition count for the
+cluster:
+
+```bash
+riak-admin cluster partition-count
+```
+
+This would display the count for a node:
+
+```bash
+riak-admin cluster partition-count --node=<node>
+```
+
+When retrieving the partition count for a node, you'll see a table like
+this:
+
+```
++--------------+----------+-----+
+|     node     |partitions| pct |
++--------------+----------+-----+
+|dev1@127.0.0.1|    22    | 34.4|
++--------------+----------+-----+
+```
+
+The `partitions` column displays the number of partitions claimed by the
+node, while the `pct` column displays the percentage of the
+[[ring|Clusters#The-Ring]] claimed.
+
+## partition
+
+The `cluster partition` command enables you to convert partition IDs to
+indexes and vice versa using the `partition id` and `partition index`
+commands, respectively. Let's say that you run the `riak-admin cluster
+partitions` command and see that you have a variety of partitions, one
+of which has an index of
+`1004782375664995756265033322492444576013453623296`. You can convert
+that index to an ID like this:
+
+```bash
+riak-admin cluster partition index=1004782375664995756265033322492444576013453623296
+```
+
+Conversely, if you have a partition with an ID of 20, you can retrieve
+the corresponding index:
+
+```bash
+riak-admin cluster partition id=20
+```
