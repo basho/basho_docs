@@ -263,7 +263,7 @@ Header | Description
 `Total` | Total number of active transfers throughout the entire cluster
 `Ownership` | Total number of ownership exchanges
 `Resize` | Total handoffs related to [[ring resizing]] operations
-`Hinted` | [[Hinted handoff|Riak Glossary#Hinted-Handoff]] total
+`Hinted` |
 `Repair` |
 
 ### details
@@ -277,12 +277,15 @@ riak-admin handoff details
 If no transfers are currently underway, this command will output `No
 ongoing transfers`. Otherwise, you will something like this:
 
-```
-
-```
-
 ### config
 
-This command displays the values for all handoff-specific [[configurable
+This command displays the values for handoff-specific [[configurable
 parameters|Configuration Files#Intra-Cluster-Handoff]] on each node in
-the cluster. The table below lists and describes those parameters:
+the cluster, including:
+
+* `transfer_limit`
+* `handoff.outbound`
+* `handoff.inbound`
+* `handoff.port`
+
+Descriptions of those parameters can be found in the sections above.
