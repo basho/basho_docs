@@ -51,11 +51,14 @@ The following information is then displayed for each node, by nodename
 (in this case `dev1@127.0.0.1`, etc.):
 
 * `status` --- There are five possible values for status:
-  * `valid` ---
-  * `leaving` ---
-  * `exiting` ---
-  * `joining` ---
-  * `down` ---
+  * `valid` --- The node has begun participating in cluster operations
+  * `leaving` --- The node is is currently unloading ownership of its
+    [[data partitions|Clusters#The-Ring]] to other nodes
+  * `exiting` --- The node's ownership transfers are complete and it is
+    currently shutting down
+  * `joining` --- The node is in the process of joining the cluster but
+    but has not yet completed the join process
+  * `down` --- The node is not currently responding
 * `avail` --- There are two possible values: `up` if the node is
     available and taking requests and `down!` if the node is unavailable
 * `ring` --- What percentage of the Riak [[ring|Clusters#The-Ring]] the
@@ -152,6 +155,26 @@ by running `[[riak-admin cluster commit|riak-admin Command
 Line#cluster-commit]]`. You can stage multiple replace actions before
 planning/committing.
 
+## force-replace
+
+Reassigns all [[data partitions|Clusters#The-Ring]] owned by one node to
+another node _without_ first handing off data.
+
+```bash
+riak-admin force-replace <node_being_replaced> <replacement_node>
+```
+
+Once the data partitions have been reassigned, the node that is being
+replaced will be removed from the cluster.
+
+**Note**: As with all cluster-level actions, the changes made when you
+run the `cluster force-replace` command will take effect only after you
+have both planned the changes by running `[[riak-admin cluster
+plan|riak-admin Command Line#cluster-plan]]` and committed the changes
+by running `[[riak-admin cluster commit|riak-admin Command
+Line#cluster-commit]]`. You can stage multiple force-replace actions
+before planning/committing.
+
 ## plan
 
 Displays the currently staged cluster changes.
@@ -213,14 +236,38 @@ Valid:2 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 WARNING: Not all replicas will be on distinct nodes
 ```
 
-Notice that there are distinc sections of the output for each of the
+Notice that there are distinct sections of the output for each of the
 transitions that the cluster will undergo, including warnings, planned
 data transfers, etc.
 
-## partition
+## commit
 
+Commits the currently staged cluster changes. Staged cluster changes
+must be reviewed using `[[riak-admin cluster plan|Cluster
+Administration#plan]]` prior to being committed.
 
+```bash
+riak-admin cluster commit
+```
+
+## clear
+
+Clears the currently staged cluster changes.
+
+```bash
+riak-admin cluster clear
+```
+
+**Note**: Running this command will also stop the current node in
+addition to clearing any staged changes.
 
 ## partitions
 
+Prints primary, secondary, and stopped partition indices and IDs either
+for the current node or for another, specified node. The following
+prints that information for the current node:
+
+```bash
+riak-admin cluster partitions
+```
 
