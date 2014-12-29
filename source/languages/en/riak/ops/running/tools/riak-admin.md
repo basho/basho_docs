@@ -57,16 +57,6 @@ existence.
 
 ## cluster
 
-Riak provides a multi-phased approach to cluster administration that
-allows changes to be staged and reviewed before being committed. This
-allows multiple cluster changes to be grouped together, such as adding
-multiple nodes at once or adding some nodes while removing others.
-
-Details about how a set of staged changes will impact the cluster,
-listing the future ring ownership as well as the number of transfers
-necessary to implement the planned changes, are provided by this
-interface.
-
 The following commands stage changes to cluster membership. **These
 commands do not take effect immediately**. After staging a set of
 changes, you must do the following:

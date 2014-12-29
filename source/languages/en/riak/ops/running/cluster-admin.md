@@ -2,11 +2,34 @@
 title: Cluster Administration
 project: riak
 version: 2.0.4+
+document: reference
+audience: beginner
+keywords: [command-line, cluster-admin, cluster]
 ---
 
 This document explains usage of the `[[riak-admin cluster|riak-admin
 Command Line#cluster]]` interface, which enables you to perform a wide
 variety of cluster-level actions.
+
+## How Cluster Administration Works
+
+Riak provides a multi-phased approach to cluster administration that
+enables you to stage and review cluster-level changes prior to
+committing them. This allows you to group multiple changes together,
+such as adding multiple nodes at once, adding some nodes and removing
+others, etc.
+
+Enacting cluster-level changes typically follows this set of steps:
+
+1. Choose an action or set of actions, such as adding a node, removing
+multiple nodes, etc. These actions will be **staged** rather than
+executed immediately.
+1. **Plan** the changes using the `[[cluster plan|Cluster
+Administration#plan]]` command. This will return a list of staged
+commands that you can review.
+1. **Commit** the changes using the `[[cluster commit|Cluster
+Administration#commit]]` command. This will execute the changes that
+have been staged and reviewed.
 
 <div class="note">
 <div class="title">Note on command names</div>
