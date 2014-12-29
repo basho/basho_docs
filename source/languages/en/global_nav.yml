@@ -138,9 +138,9 @@ riak:
           - "[[Erlang VM Tuning]]"
       - title: "Running a Cluster"
         sub:
+          - "[[Cluster Administration]]"
           - "[[Backing up Riak]]"
           - "[[Logging]]"
-          - "[[Cluster Administration]]"
           - "[[Handoff]]"
           - title: "Node Operations"
             sub:

@@ -57,154 +57,16 @@ existence.
 
 ## cluster
 
-The following commands stage changes to cluster membership. **These
-commands do not take effect immediately**. After staging a set of
-changes, you must do the following:
-
-* **plan** the changes, i.e. see which changes are currently scheduled,
-  by running `[[riak-admin cluster plan|riak-admin
-  Command Line#cluster-plan]]`
-* **commit** the changes by running `[[riak-admin cluster
-  commit|riak-admin Command Line#cluster-commit]]`
-
-Please note that you can stage multiple cluster-level changes prior to
-planning and committing those changes.
-
-## cluster join
-
-Join this node to the cluster containing `<node>`:
-
-```bash
-riak-admin cluster join <node>
-```
-
-You can replace `<node>` with any node that is currently in the cluster.
-Once a node joins, all of the operations necessary to establish
-communication with all other nodes proceeds automatically.
-
-**Note**: As with all cluster-level actions, the changes made when you
-run the `cluster join` command will take effect only after you have both
-planned the changes by running `[[riak-admin cluster plan|riak-admin
-Command Line#cluster-plan]]` and committed the changes by running
-`[[riak-admin cluster commit|riak-admin Command Line#cluster-commit]]`.
-You can stage multiple cluster joins before planning/committing.
-
-## cluster leave
-
-Instruct this node to hand off its data partitions, leave the cluster,
-and shut down:
-
-```bash
-riak-admin cluster leave
-```
-
-Instruct the node named `<node>` to hand off its data partitions, leave
-the cluster, and shut down:
-
-```bash
-riak-admin cluster leave <node>
-```
-
-**Note**: As with all cluster-level actions, the changes made when you
-run the `cluster leave` command will take effect only after you have
-both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple cluster leave operations
-before planning/committing.
-
-## cluster force-remove
-
-Remove the node named `<node>` from the cluster without first handing
-off data partitions. This command is designed for crashed, unrecoverable
-nodes, and should be used with caution.
-
-```bash
-riak-admin cluster force-remove <node>
-```
-
-**Note**: As with all cluster-level actions, the changes made when you
-run the `cluster force-remove` command will take effect only after you
-have both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple force remove operations
-before planning/committing.
-
-## cluster replace
-
-Instruct `<node1>` to transfer all data partitions to `<node2>`, then
-leave the cluster and shutdown.
-
-```bash
-riak-admin cluster replace <node1> <node2>
-```
-
-**Note**: As with all cluster-level actions, the changes made when you
-run the `cluster replace` command will take effect only after you have
-both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple replace operations before
-planning/committing.
-
-## cluster force-replace
-
-Reassign all partitions owned by `<node1>` to `<node2>` without first
-handing off data, and then remove `<node1>` from the cluster.
-
-```bash
-riak-admin cluster force-replace <node1> <node2>
-```
-
-**Note**: As with all cluster-level actions, the changes made when you
-run the `cluster force-replace` command will take effect only after you
-have both planned the changes by running `[[riak-admin cluster
-plan|riak-admin Command Line#cluster-plan]]` and committed the changes
-by running `[[riak-admin cluster commit|riak-admin Command
-Line#cluster-commit]]`. You can stage multiple replace operations before
-planning/committing.
-
-## Staging Commands
-
-The following commands are used to work with staged changes:
-
-## cluster plan
-
-Display the currently staged cluster changes.
-
-```bash
-riak-admin cluster plan
-```
-
-## cluster clear
-
-Clear the currently staged cluster changes.
-
-```bash
-riak-admin cluster clear
-```
-
-**Note**: Running this command will also stop the current node in
-addition to clearing any staged changes.
-
-## cluster commit
-
-Commit the currently staged cluster changes. Staged cluster changes must
-be reviewed with `riak-admin cluster plan` prior to being committed.
-
-```bash
-riak-admin cluster commit
-```
+Documentation for the `riak-admin cluster` command interface can be
+found in [[Cluster Administration]].
 
 ## join
 
 <div class="note"><div class="title">Deprecation Notice</div>
 As of Riak version 1.2, the <code>riak-admin join</code> command has
-been deprecated in favor of the <code>[[riak-admin cluster
-join|riak-admin Command Line#cluster-join]]</code> command. However,
-this command can still be used by providing a <code>-f</code> option
-(which forces the command).
+been deprecated in favor of the <code>[[riak-admin cluster join|Cluster
+Administration#join]]</code> command. However, this command can still be
+used by providing a <code>-f</code> option (which forces the command).
 </div>
 
 Joins the running node to another running node so that they participate
@@ -219,9 +81,9 @@ riak-admin join -f <node>
 <div class="note"><div class="title">Deprecation Notice</div>
 As of Riak version 1.2, the <code>riak-admin leave</code> command has
 been deprecated in favor of the new <code>[[riak-admin cluster
-leave|riak-admin Command Line#cluster-leave]]</code> command. However,
-this command can still be used by providing a <code>-f</code> option
-(which forces the command).</p>
+leave|Cluster Administration#leave]]</code> command. However, this
+command can still be used by providing a <code>-f</code> option (which
+forces the command).
 </div>
 
 Causes the node to leave the cluster in which it participates. After
@@ -399,7 +261,7 @@ information from all nodes or a subset of nodes and output the data to a
 single text file.
 
 ```bash
-riak-admin cluster_info <output file> [<node list>]
+riak-admin cluster-info <output file> [<node list>]
 ```
 
 The following information is collected:

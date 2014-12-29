@@ -296,7 +296,7 @@ application is linked below next to it's version identifier.
 
 Stat                    | Description
 ------------------------|---------------------------------------------------
-`erlydtl_version`       | [ErlyDTL](http://github.com/erlydtl/erlydtl) 
+`erlydtl_version`       | [ErlyDTL](http://github.com/erlydtl/erlydtl)
 `riak_control_version`  | [Riak Control](http://github.com/basho/riak_control)
 `cluster_info_version`  | [Cluster Information](http://github.com/basho/cluster_info)
 `riak_search_version`   | [Riak Search](http://github.com/basho/riak_search)
@@ -487,7 +487,8 @@ directly like so:
 ./riaknostic --etc ~/code/riak/rel/riak/etc --base ~/code/riak/rel/riak --user `whoami` [other options]
 ```
 
-Those extra options are usually assigned by the `riak-admin` script for you, but here's how to set them:
+Those extra options are usually assigned by the `riak-admin` script for
+you, but here's how to set them:
 
 * `--etc` --- The location of your Riak configuration directory (usually
     `/etc`). In the example above, configuration is in the generated
@@ -498,20 +499,6 @@ Those extra options are usually assigned by the `riak-admin` script for you, but
     assigned on your platform.
 * `--user` --- The user/UID as which the Riak node runs. In a source
     checkout, it's the current user; on most systems, it's `riak`.
-
-## riak-admin stat
-
-The `stat` interface enables you to interact with the
-
-### show
-
-### enable
-
-### disable
-
-### reset
-
-### info
 
 ## Related Resources
 
