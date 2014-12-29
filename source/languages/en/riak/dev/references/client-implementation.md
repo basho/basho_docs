@@ -24,6 +24,28 @@ the protocols from applications, presenting a uniform interface. This
 will reduce the amount of code changes needed to select a different
 transport mechanism for operational reasons.
 
+## Protocol Buffers API
+
+While Riak continues to have a fully featured [[HTTP API]] for the sake
+of backwards compatibility, we strongly recommend building new clients
+to use the [[Protocol Buffers|PBC API]] API instead, primarily because
+internal tests at Basho have shown performance gains of 25% or more when
+using Protocol Buffers instead of HTTP.
+
+For a general introduction to Protocol Buffers, we recommend checking
+out [Google's official
+documentation](http://code.google.com/p/protobuf/). In essence, using
+Protocol Buffers involves the following steps:
+
+1. Finding a Protocol Buffers message generator in the language of your
+choice and converting Riak's [`.proto`
+files](https://github.com/basho/riak_pb/tree/develop/src) to native
+code.
+1. Once you've generated all of the necessary messages, you'll need to
+implement a transport layer to interface with Riak. A full list of
+Riak-specific Protocol Buffers messages can be found on the [[PBC API]]
+page.
+
 ## Retry Requests
 
 As described in the [[Eventual Consistency]] document, there are many
