@@ -658,6 +658,20 @@ Documentation for the `handoff` command can be found in [[Handoff]].
 
 ## set
 
+Enables you to change the value of one of Riak's configuration
+parameters on the fly, without needing to stop and restart the node.
+
+```bash
+riak-admin set <variable>=<value>
+```
+
+At the moment, the `set` command can only be used for the following
+parameters:
+
+* `transfer_limit`
+* `handoff.outbound`
+* `handoff.inbound`
+
 ## show
 
 Whereas the `[[riak-admin status|riak-admin Command Line#stats]]`
@@ -669,8 +683,26 @@ statistics.
 riak-admin show <variable>
 ```
 
-
-
 ## describe
 
+Provides a brief description of one of Riak's [[configurable
+parameters|Configuration Files]].
+
+```bash
+riak-admin describe <variable>
+```
+
+If you want to know the meaning of the `nodename` parameter:
+
+```bash
+riak-admin describe nodename
+```
+
+That will produce the following output:
+
+```
+Number of partitions in the cluster (only valid when first
+creating the cluster). Must be a power of 2, minimum 8 and maximum
+1024.
+```
 {{/2.0.4+}}
