@@ -429,7 +429,9 @@ Location set =
 ```
 
 ```ruby
-# Note: both the Riak Ruby Client and Ruby the language have a class called Set. Make sure that you refer to the Ruby version as ::Set and the Riak client version as Riak::Crdt::Set
+# Note: both the Riak Ruby Client and Ruby the language have a class
+# called Set. Make sure that you refer to the Ruby version as ::Set and
+# the Riak client version as Riak::Crdt::Set
 
 set = Riak::Crdt::Set.new(bucket, key, bucket_type)
 ```
@@ -890,10 +892,16 @@ client.execute(update);
 ```
 
 ```ruby
-map.registers['first_name'] = 'Ahmed'
-map.registers['phone_number'] = '5551234567'
+# The Ruby client enables you to batch operations together if you're
+# performing them on one Data Type.
 
-# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+map.batch do |m|
+  m.registers['first_name'] = 'Ahmed'
+  m.registers['phne_number'] = '5551234567'
+end
+
+# Integers need to be stored as strings and then converted back when
+# the data is retrieved. The following would work as well:
 map.registers['phone_number'] = 5551234567.to_s
 ```
 
@@ -901,7 +909,8 @@ map.registers['phone_number'] = 5551234567.to_s
 map.registers['first_name'].assign('Ahmed')
 map.registers['phone_number'].assign('5551234567')
 
-# Integers need to be stored as strings and then converted back when the data is retrieved. The following would work as well:
+# Integers need to be stored as strings and then converted back when the
+# data is retrieved. The following would work as well:
 map.registers['phone_number'].assign(str(5551234567))
 
 map.store()
@@ -909,7 +918,7 @@ map.store()
 
 ```erlang
 Map1 = riakc_map:update({<<"first_name">>, register},
-                        fun(R) -> riakc_register:set(<<"Ahmed">>, R) end, 
+                        fun(R) -> riakc_register:set(<<"Ahmed">>, R) end,
                         Map),
 Map2 = riakc_map:update({<<"phone_number">>, register},
                         fun(R) -> riakc_register:set(<<"5551234567">>, R) end,
@@ -1082,8 +1091,10 @@ client.execute(update);
 ```
 
 ```ruby
-%w{ robots opera motorcycles }.each do |interest|
-  map.sets['interests'].add interest
+map.batch do |m|
+  %{ robots opera motorcycles }.each do |interest|
+    m.sets['interests'].add(interest)
+  end
 end
 ```
 
@@ -1139,8 +1150,10 @@ System.out.println(interests.contains(BinaryValue.create("robots")));
 ```
 
 ```ruby
-%w{ robots opera motorcycles }.each do |interest|
-  map.sets['interests'].include? interest
+map.batch do |m|
+  %w{ robots opera motorcycles }.each do |interest|
+    m.sets['interests'].include? interest
+  end
 end
 
 # This will return three Boolean values
@@ -1177,11 +1190,10 @@ client.execute(update);
 ```
 
 ```ruby
-map.sets['interests'].remove('opera')
-
-# This operation may return false even if successful
-
-map.sets['interests'].add('indie pop')
+map.batch do |m|
+  m.sets['interests'].remove('opera')
+  m.sets['interests'].add('indie pop')
+end
 ```
 
 ```python
@@ -1247,9 +1259,11 @@ client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].registers['first_name'] = 'Annika'
-map.maps['annika_info'].registers['last_name'] = 'Weiss'
-map.maps['annika_info'].registers['phone_number'] = 5559876543.to_s
+map.maps['annika_info'].batch do |m|
+  m.registers['first_name'] = 'Annika'
+  m.registers['last_name'] = 'Weiss'
+  m.registers['phone_number'] = 5559876543.to_s
+end
 ```
 
 ```python
@@ -1406,9 +1420,11 @@ client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].flags['enterprise_plan'] = false
-map.maps['annika_info'].flags['family_plan'] = false
-map.maps['annika_info'].flags['free_plan'] = true
+map.maps['annika_info'].batch do |m|
+  m.flags['enterprise_plan'] = false
+  m.flags['family_plan'] = false
+  m.flags['free_plan'] = true
+end
 ```
 
 ```python
@@ -1666,10 +1682,11 @@ client.execute(update);
 ```
 
 ```ruby
-map.maps['annika_info'].maps['purchase'].flags['first_purchase'] = true
-map.maps['annika_info'].maps['purchase'].register['amount'] = 1271.to_s
-map.maps['annika_info'].maps['purchase'].sets['items'].add('large widget')
-# and so on
+map.maps['annika_info'].maps['purchase'].batch do |m|
+  m.flags['first_purchase'] = true
+  m.register['amount'] = 1271.to_s
+  m.sets['items'].add('large widget')
+end
 ```
 
 ```python
