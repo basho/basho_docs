@@ -139,9 +139,9 @@ riak:
       - title: "Running a Cluster"
         sub:
           - "[[Cluster Administration]]"
-          - "[[Backing up Riak]]"
           - "[[Logging]]"
           - "[[Handoff]]"
+          - "[[Backing up Riak]]"
           - title: "Node Operations"
             sub:
               - "[[Adding/Removing|Adding and Removing Nodes]]"
