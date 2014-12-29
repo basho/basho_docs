@@ -6,7 +6,7 @@
  * Won't produce an error if jQuery doesn't load
  */
 (typeof jQuery !== 'function') ? null : jQuery(function () {
-  
+
   var $ = jQuery, contentMargin, defaultNavState = 1, i;
 
   /*
@@ -19,14 +19,14 @@
     }
     return output;
   };
-  
+
   /*
    * Global config options
    * Make a few recurring selections up front just to speed up the jQuery
    * process every time we select them
    */
   var options = {
-    
+
     selectors : {
       navContainer     : '#nav-container',
       navContent       : '#primary-nav',
@@ -38,20 +38,20 @@
       responsiveToggle : '.responsive-toggle'
     },
 
-    
+
     params : {
       closedNavMargin : '12px',
       navSpeed        : 174,
       responsiveWidth : 700
     }
   };
-  
+
   /*
    * Default value for the version alert arrow
    */
   var version_box_scroll_off = false;
-  
-  
+
+
   /*
    * Create real selections from the items contained in options.selectors
    */
@@ -64,11 +64,11 @@
 
 
 
-  
+
   /*----------------------------------------------------------*/
   // Code for opening and closing the sidebar
   /*----------------------------------------------------------*/
-  
+
   /*
    * getContentMargin()
    * Since the screen size can change, we need a way of figuring out how wide
@@ -80,7 +80,7 @@
   }
   // Call this the first time on the docready to get the initial value
   getContentMargin();
-  
+
   /*
    * reverseToggle()
    * Makes the arrows on the nav opener/closer flip back and forth
@@ -122,7 +122,7 @@
     var item = String($.localItem.get('navstate'));
     return item ? parseInt(item) : defaultNavState;
   }
-  
+
   /*
    * closeNav()
    * Animates the sidebar nav into the closed position.
@@ -141,7 +141,7 @@
     options.jq.watermark.animate({marginLeft: options.params.closedNavMargin}, config || animConfig());
     setNavState(0);
   }
-  
+
   /*
    * openNav()
    * Animates the sidebar nav into the open position
@@ -161,8 +161,8 @@
     options.jq.watermark.animate({marginLeft: cm}, config || animConfig());
     setNavState(1);
   }
-  
-  
+
+
   /*
    * openNav_responsive()
    * Animates the sidebar nav into the open position in the responsive layout
@@ -181,7 +181,7 @@
     }));
     setNavState(1);
   }
-  
+
   /*
    * closeNav_responsive()
    * Animates the sidebar nav into the closed position in the responsive layout
@@ -194,7 +194,7 @@
     }));
     setNavState(0);
   }
-  
+
   /*
    * determineNavAction()
    * Determines whether the nav should be opened or closed
@@ -207,7 +207,7 @@
       closeNav();
     }
   }
-  
+
   /*
    * determineNavAction_responsive()
    * The same as devermineNavAction but for the responsive layout
@@ -219,7 +219,7 @@
       openNav_responsive();
     }
   }
-  
+
   /*
    * fixResponsiveArtifacts()
    * Animations in the resopnsive layout sometimes hide elements.
@@ -236,13 +236,13 @@
       options.jq.navToggle.removeClass('open, closed');
     }
   }
-  
+
   /*
    * Any time the screen is resized, re-assess how wide
    * the nav should be able to open
    */
   $(window).on('resize', getContentMargin);
-  
+
   /*
    * Any time the screen is resized, check to see if there are
    * any responsiveness artifacts to be removed
@@ -254,7 +254,7 @@
    * open or close the nav as appropriate.
    */
   $(document).on('click', options.selectors.navToggle, determineNavAction);
-  
+
   /*
    * We use .click instead of .on('click') here because mobile Safari
    * doesn't register live click handlers.
@@ -280,7 +280,7 @@
   /*----------------------------------------------------------*/
   // Code for the animations in the left side bar
   /*----------------------------------------------------------*/
-  
+
   /*
    * openMenu()
    * Animates the a nav menu into the open position
@@ -289,8 +289,8 @@
     menu.slideDown('fast');
     toggler.toggleClass('open');
   }
-  
-  
+
+
   /*
    * closeMenu()
    * Animates the a nav menu into the closed position
@@ -299,7 +299,7 @@
     menu.slideUp('fast');
     toggler.toggleClass('open');
   }
-  
+
   /*
    * determineMenuAction()
    * Determines whether a nav menu should be opened or closed
@@ -314,8 +314,8 @@
       closeMenu(that, correspondingUl);
     }
   }
-  
-  
+
+
   /*
    * checkOpenMenu()
    * Checks menu titles to see if they should be open at page load
@@ -326,7 +326,7 @@
     if(correspondingUl.prev('.active').length){return true;}
     return false;
   }
-  
+
   /*
    * addNavMenuToggles()
    * For every h3 or h4, check if the corresponding nav menu has items in it.
@@ -349,8 +349,8 @@
   }
   // Call this on the docready to add nav menu toggle buttons where needed
   options.jq.navContent.find('h3, h4').each(addNavMenuToggles);
-  
-  
+
+
   /*
    * checkForToggler()
    * Determines whether a nav header is open-able or not.
@@ -362,7 +362,7 @@
       determineMenuAction.call(toggler[0]);
     }
   }
-  
+
   /*
    * Any time a nav header or menu toggle button gets clicked
    * check to see if it is open-able.  Then open or close as needed.
@@ -370,23 +370,23 @@
    * live click handlers.
    */
   $(options.selectors.navContent + ' h3, ' + options.selectors.navContent + ' h4').click(checkForToggler);
-  
-  
+
+
 
   /*----------------------------------------------------------*/
   // Extra helpers
   /*----------------------------------------------------------*/
-  
+
   /*
    * Disable linking to the page you're already on.
    */
   $(document).on('click', '.current > a', function () {return false;});
-  
+
   /*
    * Don't let people jack up tables
    */
   $('table, tr, th, td, tbody, thead, tfoot').removeAttr('style');
-  
+
   /*
    * Put the info icons inside the info boxes.
    * Doing this with JavaScript because the box requires two background images
@@ -394,7 +394,7 @@
    * to build extra html just to get the icon in there.
    */
   // $(options.selectors.contentWell + ' .info, ' + options.selectors.contentWell + ' .note').prepend('<span class="info-icon"></span>');
-  
+
   // if this is a "dual style" screen, use as much as we can
 
   if($('body.dual').length > 0) {
@@ -441,11 +441,11 @@
   function hideVersionAlert() {
 
     if ($(window).scrollTop() > 0) {
-        
+
       if (version_box_scroll_off) {
         return;
       }
-      
+
       $('#alert-version').addClass('version_box_scroll_off');
       version_box_scroll_off = true;
 
@@ -485,7 +485,7 @@
     // If the version alert box exists in the DOM then
     // hide it during scroll
     /*----------------------------------------------------------*/
-    
+
     if ($('#alert-version').length) {
       $(window).scroll(function() {
         hideVersionAlert();
