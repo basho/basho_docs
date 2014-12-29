@@ -11,15 +11,23 @@ moved: {
 }
 ---
 
-When inspection of a Riak node to gather metrics on performance or potential issues is desired, a number of tools are available to help, and are either included with Riak itself or made available through the Riak community.
+When inspection of a Riak node to gather metrics on performance or
+potential issues is desired, a number of tools are available to help,
+and are either included with Riak itself or made available through the
+Riak community.
 
-This guide provides starting points and details on some of the available tools for inspecting a Riak node.
+This guide provides starting points and details on some of the available
+tools for inspecting a Riak node.
 
 ## riak-admin status
 
-`riak-admin status` is a subcommand of the `riak-admin` command that is included with every installation of Riak. The `status` subcommand provides data related to the current operating status for a node. The output of `riak-admin status` is categorized and detailed below.
+`riak-admin status` is a subcommand of the `riak-admin` command that is
+included with every installation of Riak. The `status` subcommand
+provides data related to the current operating status for a node. The
+output of `riak-admin status` is categorized and detailed below.
 
-Please note, for some counters such as `node_get_fsm_objsize` a minimum of 5 transactions is required for statistics to be generated.
+Please note, for some counters, such as `node_get_fsm_objsize`, a
+minimum of 5 transactions is required for statistics to be generated.
 
 #### Performance
 
@@ -51,7 +59,11 @@ Stat                    | Description
 
 ### Average Stats
 
-Average Stats represent an average calculated as (total occurrences / number of samples) since this node was started.  In the below stats the sample time is 1s, giving us a per-second average.  Currently, the only Average Stats are reported by Sidejob - an Erlang library that implements a parallel, capacity-limited request pool.
+Average Stats represent an average calculated as (total occurrences /
+number of samples) since this node was started.  In the below stats the
+sample time is 1s, giving us a per-second average.  Currently, the only
+Average Stats are reported by Sidejob - an Erlang library that
+implements a parallel, capacity-limited request pool.
 
 Stat                    | Description
 ------------------------|---------------------------------------------------
@@ -62,7 +74,8 @@ Stat                    | Description
 
 ### One-Minute Stats
 
-One-Minute Stats represent the number of times a particular activity has occurred within the last minute on this node.
+One-Minute Stats represent the number of times a particular activity has
+occurred within the last minute on this node.
 
 #### General One-Minute Stats
 
@@ -95,7 +108,12 @@ Stat                                  | Description
 
 #### FSM Time
 
-FSM Time Stats represent the amount of time in microseconds required to traverse the GET or PUT Finite State Machine code, offering a picture of general node health. From your application's perspective, FSM Time effectively represents experienced latency. Mean, Median, and 95th-, 99th-, and 100th-percentile (Max) counters are displayed. These are one-minute stats.
+FSM Time Stats represent the amount of time in microseconds required to
+traverse the GET or PUT Finite State Machine code, offering a picture of
+general node health. From your application's perspective, FSM Time
+effectively represents experienced latency. Mean, Median, and 95th-,
+99th-, and 100th-percentile (Max) counters are displayed. These are
+one-minute stats.
 
 Stat                       | Description
 ---------------------------|---------------------------------------------------
@@ -112,7 +130,9 @@ Stat                       | Description
 
 #### GET FSM Siblings
 
-GET FSM Sibling Stats offer a count of the number of siblings encountered by this node on the occasion of a GET request. These are one-minute stats.
+GET FSM Sibling Stats offer a count of the number of siblings
+encountered by this node on the occasion of a GET request. These are
+one-minute stats.
 
 Stat                           | Description
 -------------------------------|---------------------------------------------------
@@ -124,7 +144,11 @@ Stat                           | Description
 
 #### GET FSM Objsize
 
-GET FSM Objsize Stats represent a view of the sizes of objects flowing through this node's GET FSMs. The size of an object is obtained by summing the length of the bucket name, key, serialized vector clock, value, and serialized metadata of each sibling. GET FSM Objsize and GET FSM Siblings are inextricably linked. These are one-minute stats.
+GET FSM Objsize Stats represent a view of the sizes of objects flowing
+through this node's GET FSMs. The size of an object is obtained by
+summing the length of the bucket name, key, serialized vector clock,
+value, and serialized metadata of each sibling. GET FSM Objsize and GET
+FSM Siblings are inextricably linked. These are one-minute stats.
 
 Stat                          | Description
 ------------------------------|---------------------------------------------------
@@ -136,7 +160,8 @@ Stat                          | Description
 
 ### Total Stats
 
-Total Stats represent the total number of times a particular activity has occurred since this node was started.
+Total Stats represent the total number of times a particular activity
+has occurred since this node was started.
 
 Stat                                   | Description
 ---------------------------------------|---------------------------------------------------
@@ -149,9 +174,9 @@ Stat                                   | Description
 `vnode_index_refreshes_total`          | Total number of indexes refreshed during secondary index anti-entropy
 `vnode_index_reads_total`              | Total number of local replicas participating in secondary index reads
 `vnode_index_writes_total`             | Total number of local replicas participating in secondary index writes
-`vnode_index_writes_postings_total`    | Total number of individual secondary index values written 
+`vnode_index_writes_postings_total`    | Total number of individual secondary index values written
 `vnode_index_deletes_total`            | Total number of local replicas participating in secondary index deletes
-`vnode_index_deletes_postings_total`   | Total number of individual secondary index values deleted 
+`vnode_index_deletes_postings_total`   | Total number of individual secondary index values deleted
 `pbc_connects_total`                   | Total number of Protocol Buffers connections made
 `precommit_fail`                       | Total number of pre-commit hook failures
 `postcommit_fail`                      | Total number of post-commit hook failures
@@ -164,7 +189,10 @@ Stat                                   | Description
 
 ### Timestamps
 
-Some of the Erlang applications that Riak is comprised of contribute statistics to `riak-admin status`.  The below timestamps record, in Epoch time, the last time statistics for that application were generated.
+Some of the Erlang applications that Riak is comprised of contribute
+statistics to `riak-admin status`.  The below timestamps record, in
+Epoch time, the last time statistics for that application were
+generated.
 
 Stat                | Description
 --------------------|---------------------------------------------------
@@ -184,7 +212,9 @@ Stat                 | Description
 
 ### CPU and Memory
 
-CPU statistics are taken directly from Erlang’s cpu_sup module. Documentation for which can be found at [ErlDocs: cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
+CPU statistics are taken directly from Erlang’s cpu_sup module.
+Documentation for which can be found at [ErlDocs:
+cpu_sup](http://erldocs.com/R14B04/os_mon/cpu_sup.html).
 
 Stat         | Description
 -------------|---------------------------------------------------
@@ -193,7 +223,9 @@ Stat         | Description
 `cpu_avg5`   | The average number of active processes for the last 5 minutes (equivalent to top(1) command’s load average when divided by 256())
 `cpu_avg15`  | The average number of active processes for the last 15 minutes (equivalent to top(1) command’s load average when divided by 256())
 
-Memory statistics are taken directly from the Erlang virtual machine. Documentation for which can be found at [ErlDocs: Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0).
+Memory statistics are taken directly from the Erlang virtual machine.
+Documentation for which can be found at [ErlDocs:
+Memory](http://erldocs.com/R14B04/erts/erlang.html?i=0&search=erlang:memory#memory/0).
 
 Stat                    | Description
 ------------------------|---------------------------------------------------
@@ -232,26 +264,20 @@ Stat                      | Description
 
 ### Miscellaneous Information
 
-Miscellaneous Information provide additional details particular to this node.
+Miscellaneous Information provide additional details particular to this
+node.
 
 Stat                       | Description
 ---------------------------|---------------------------------------------------
 `leveldb_read_block_error` | The number of LevelDB read block errors.  Will read as undefined if LevelDB is not being used.
 `disk`                     | Information about the disk, taken from Erlang's disksup module.  Reported as [{"ID",KBytes_Used,Percent_Util}].
 `storage_backend`          | The storage backend currently in use.
-`handoff_timeouts`         | Number of handoff timeouts encountered by this node.
-`rejected_handoffs`        | Number of recent ownership handoff operations rejected by the node.
-`rings_reconciled`         | Number of recent ring reconciliation operations.
-`rings_reconciled_total`   | Total number of ring reconciliation operations since node was started.
-`converge_delay_min`       | Minimum time in milliseconds describing time taken for the ring to converge after ring changes.
-`converge_delay_max`       | Maximum time in milliseconds describing time taken for the ring to converge after ring changes.
-`converge_delay_mean`      | Mean time in milliseconds describing time taken for the ring to converge after ring changes.
-`converge_delay_last`      | Last observed histogram value in milliseconds describing time taken for the ring to converge after ring changes.
 
 {{#1.2.0+}}
 ### Pipeline Metrics
 
-The following metrics from from riak_pipe are generated during MapReduce operations.
+The following metrics from from riak_pipe are generated during MapReduce
+operations.
 
 Stat                            | Description
 --------------------------------|---------------------------------------------------
@@ -264,11 +290,13 @@ Stat                            | Description
 
 ### Application and Subsystem Versions
 
-The specific version of each Erlang application and subsystem which makes up a Riak node is present in the `riak-admin status` output.  Each application is linked below next to it's version identifier.
+The specific version of each Erlang application and subsystem which
+makes up a Riak node is present in the `riak-admin status` output.  Each
+application is linked below next to it's version identifier.
 
 Stat                    | Description
 ------------------------|---------------------------------------------------
-`erlydtl_version`       | [ErlyDTL](http://github.com/erlydtl/erlydtl) 
+`erlydtl_version`       | [ErlyDTL](http://github.com/erlydtl/erlydtl)
 `riak_control_version`  | [Riak Control](http://github.com/basho/riak_control)
 `cluster_info_version`  | [Cluster Information](http://github.com/basho/cluster_info)
 `riak_search_version`   | [Riak Search](http://github.com/basho/riak_search)
@@ -298,10 +326,10 @@ Stat                    | Description
 `stdlib_version`        | [Standard Library](http://erlang.org/doc/apps/stdlib/)
 `kernel_version`        | [Kernel](http://erlang.org/doc/apps/kernel/)
 
-{{#1.2.0+}}
 ### Riak Search Statistics
 
-The following statistics related to Riak Search message queues are available.
+The following statistics related to Riak Search message queues are
+available.
 
 Stat                         | Description
 -----------------------------|---------------------------------------------------
@@ -312,19 +340,29 @@ Stat                         | Description
 `riak_search_vnodeq_total`   | Total number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node since it was started
 `riak_search_vnodes_running` | Total number of vnodes currently running in the Riak Search subsystem
 
-Note that under ideal operation and with the exception of `riak_search_vnodes_running` these statistics should contain low values (e.g., 0-10). Presence of higher values could be indicative of an issue.
-{{/1.2.0+}}
+Note that under ideal operation and with the exception of
+`riak_search_vnodes_running` these statistics should contain low values
+(e.g., 0-10). Presence of higher values could be indicative of an issue.
 
 ## Riaknostic
 
-[Riaknostic](http://riaknostic.basho.com/) is a small suite of diagnostic checks that can be run against a Riak node to discover common problems. It often offers recommendations about how to resolve those problems as well. These checks are derived from the experience of the Basho Client Services Team as well as numerous public discussions on the mailing list, `#riak` IRC channel, and other online media.
+[Riaknostic](http://riaknostic.basho.com/) is a small suite of
+diagnostic checks that can be run against a Riak node to discover common
+problems. It often offers recommendations about how to resolve those
+problems as well. These checks are derived from the experience of the
+Basho Client Services Team as well as numerous public discussions on the
+mailing list, `#riak` IRC channel, and other online media.
 
-{{#1.3.0-}}Riaknostic is an open source project developed by Basho Technologies and Riak community members. The code is available in the Riaknostic Github repository.
+Getting started with Riaknostic is easy, and instructions for
+installation and use are provided on the [Riaknostic
+website](http://riaknostic.basho.com/). Once downloaded and installed,
+Riaknostic adds a `diag` subcommand to the `riak-admin`
+command.{{/1.3.0-}}
 
-Getting started with Riaknostic is easy, and instructions for installation and use are provided on the [Riaknostic website](http://riaknostic.basho.com/). Once downloaded and installed, Riaknostic adds a `diag` subcommand to the `riak-admin` command.{{/1.3.0-}}
-
-{{#1.3.0+}}As of Riak version 1.3, Riaknostic is installed with Riak by default and exposed through the `riak-admin diag` command interface. It is an open source project developed by Basho Technologies and Riak community members. The code is available in the Riaknostic Github repository. {{/1.3.0+}}
-
+Riaknostic is installed with Riak by default and exposed through the
+`riak-admin diag` command interface. It is an open source project
+developed by Basho Technologies and Riak community members. The code is
+available in the Riaknostic Github repository.
 
 ## Strong Consistency Stats
 
@@ -366,21 +404,27 @@ Stat | Description
 `consistent_put_time_100` | 100th-percentile time between reception of client PUTs to strongly consistent keys and subsequent response
 ## riak-admin diag
 
-Running `riak-admin diag` by itself will perform a check of all of the data partitions in your cluster. It will return a listing of partitions that have been checked, each of which looks something like this:
+Running `riak-admin diag` by itself will perform a check of all of the
+data partitions in your cluster. It will return a listing of partitions
+that have been checked, each of which looks something like this:
 
 ```
 {1392993748081016843912887106182707253109560705024, % the partition checked
  'dev-rel@127.0.0.1'},                              % that partition's nodename
 ```
 
-At the end of that (potentially very long) listing of checked partitions, it will print notices, warnings, and other pieces of information about issues that it has found, including date/time, message type, and a detailed description. Here's an example:
+At the end of that (potentially very long) listing of checked
+partitions, it will print notices, warnings, and other pieces of
+information about issues that it has found, including date/time, message
+type, and a detailed description. Here's an example:
 
 ```
 15:34:52.736 [warning] Riak crashed at Wed, 07 Dec 2011 21:47:50 GMT, leaving crash dump in /srv/riak/log/erl_crash.dump. Please inspect or remove the file.
 15:34:52.736 [notice] Data directory /srv/riak/data/bitcask is not mounted with 'noatime'. Please remount its disk with the 'noatime' flag to improve performance.
 ```
 
-Messages bear the following types (derived from [syslog](http://en.wikipedia.org/wiki/Syslog) security levels):
+Messages bear the following types (derived from
+[syslog](http://en.wikipedia.org/wiki/Syslog) security levels):
 
 * `debug`
 * `info`
@@ -393,7 +437,8 @@ Messages bear the following types (derived from [syslog](http://en.wikipedia.org
 
 #### Command flags
 
-Attaching the `--help` flag will return a list of flags and commands that can be used with Riaknostic:
+Attaching the `--help` flag will return a list of flags and commands
+that can be used with Riaknostic:
 
 ```
 Usage: riak-admin diag [-d <level>] [-l] [-h] [--export] [check_name ...]
@@ -405,7 +450,8 @@ Usage: riak-admin diag [-d <level>] [-l] [-h] [--export] [check_name ...]
 check_name            A specific check to run
 ```
 
-Running `riak-admin diag`  with the `--list` flag will return a list of available diagnostic checks. The following checks are available:
+Running `riak-admin diag`  with the `--list` flag will return a list of
+available diagnostic checks. The following checks are available:
 
 Check | Description
 :-----|:-----------
@@ -418,28 +464,45 @@ Check | Description
 `ring_size` | Check if the ring size valid
 `search` | Check whether Riak Search is enabled on all nodes
 
-The `--level` flag enables you to specify the log level and thus to filter messages based on type. You can pass in any of the message types listed above (`debug`, `info`, etc.).
+The `--level` flag enables you to specify the log level and thus to
+filter messages based on type. You can pass in any of the message types
+listed above (`debug`, `info`, etc.).
 
-The `--level` flag can be used when running `riak-admin diag` with or without specifying a diagnostic check.
+The `--level` flag can be used when running `riak-admin diag` with or
+without specifying a diagnostic check.
 
 #### Contributing
 
-Do you have an idea that would help us improve Riaknostic? If so, fork the [GitHub repository](https://github.com/basho/riaknostic) and send us a pull request with your changes. The code is documented with [edoc](http://riaknostic.basho.com/edoc/index.html), so give the API Docs a read before you contribute.
+Do you have an idea that would help us improve Riaknostic? If so, fork
+the [GitHub repository](https://github.com/basho/riaknostic) and send us
+a pull request with your changes. The code is documented with
+[edoc](http://riaknostic.basho.com/edoc/index.html), so give the API
+Docs a read before you contribute.
 
-If you want to run the Riaknostic script while developing and you don't have it hooked up to your local Riak installation, you can invoke it directly like so:
+If you want to run the Riaknostic script while developing and you don't
+have it hooked up to your local Riak installation, you can invoke it
+directly like so:
 
 ```bash
 ./riaknostic --etc ~/code/riak/rel/riak/etc --base ~/code/riak/rel/riak --user `whoami` [other options]
 ```
 
-Those extra options are usually assigned by the `riak-admin` script for you, but here's how to set them:
+Those extra options are usually assigned by the `riak-admin` script for
+you, but here's how to set them:
 
-* `--etc` --- The location of your Riak configuration directory (usually `/etc`). In the example above, configuration is in the generated directory of a source checkout of Riak.
-* `--base` --- The "base" directory of Riak, usually the root of the generated directory or `/usr/lib/riak` on Linux. Scan the `riak-admin` script for how the `RUNNER_BASE_DIR` variable is assigned on your platform.
-* `--user` --- The user/UID as which the Riak node runs. In a source checkout, it's the current user; on most systems, it's `riak`.
+* `--etc` --- The location of your Riak configuration directory (usually
+    `/etc`). In the example above, configuration is in the generated
+    directory of a source checkout of Riak.
+* `--base` --- The "base" directory of Riak, usually the root of the
+    generated directory or `/usr/lib/riak` on Linux. Scan the
+    `riak-admin` script for how the `RUNNER_BASE_DIR` variable is
+    assigned on your platform.
+* `--user` --- The user/UID as which the Riak node runs. In a source
+    checkout, it's the current user; on most systems, it's `riak`.
 
 ## Related Resources
 
--   [[The riak-admin configuration management tool|riak-admin Command Line]]
--   [Riaknostic](http://riaknostic.basho.com/)
--   [[HTTP API Status|HTTP Status]]
+* [[The riak-admin configuration management tool|riak-admin Command
+  Line]]
+* [Riaknostic](http://riaknostic.basho.com/)
+* [[HTTP API Status|HTTP Status]]

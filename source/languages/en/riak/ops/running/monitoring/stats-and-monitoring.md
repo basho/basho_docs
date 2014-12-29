@@ -14,8 +14,8 @@ moved: {
 Riak provides data related to current operating status, which includes
 statistics in the form of counters and histograms. These statistics are
 made available through the HTTP API via the `[[/stats|HTTP Status]]`
-endpoint, or through the `[[riak-admin status|Inspecting a
-Node#riak-admin-status]]` command.
+endpoint, or through the `[[riak-admin|riak-admin Command Line]]`
+interface, in particular the `stat` and `status` commands.
 
 This page presents the most commonly monitored and gathered statistics,
 as well as numerous solutions for monitoring and gathering statistics
@@ -23,6 +23,42 @@ that our customers and community report using successfully in Riak
 cluster environments. You can learn more about the specific Riak
 statistics provided in the [[Inspecting a Node]] and [[HTTP Status]]
 documentation.
+
+## Command-line Interface
+
+The `[[riak-admin|riak-admin Command Line]]` tool provides two
+interfaces for retrieving statistics and other information: `status` and
+`stat`.
+
+### status
+
+Running the `riak-admin status` command will return all of the currently
+available information from a running node.
+
+```bash
+riak-admin status
+```
+
+This will return a list of over 300 key/value pairs, like this:
+
+```
+1-minute stats for 'dev1@127.0.0.1'
+-------------------------------------------
+connected_nodes : ['dev2@127.0.0.1','dev3@127.0.0.1']
+consistent_get_objsize_100 : 0
+consistent_get_objsize_195 : 0
+... etc ...
+```
+
+A comprehensive list of available stats can be found in the [[Inspecting
+a Node|Inspecting a Node#riak-admin-status]] document.
+
+### stat
+
+The `riak-admin stat` command is related to the `riak-admin status`
+command but provides a more fine-grained interface for interacting with
+stats and information. Full documentation of this command can be found
+in the [[Inspecting a Node|Inspecting a Node#riak-admin-stat]] document.
 
 ### Counters
 

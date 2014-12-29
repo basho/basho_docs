@@ -1976,7 +1976,7 @@ to <code>off</code> can cut down on system resource usage.
 
 ## Intra-Cluster Handoff
 
-Configurable parameters for intra-cluster, i.e. inter-node, handoff.
+Configurable parameters for intra-cluster, i.e. inter-node, [[handoff]].
 
 <table class="riak-conf">
 <thead>
@@ -1998,6 +1998,20 @@ can be blocked can be determined by multiplying this setting by
 ever being blocked by a secondary system, set this parameter to
 <code>0</code>.</td>
 <td><code>6</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.inbound</code></td>
+<td>Whether inbound handoff is enabled on the node. Possible values are
+<code>on</code> or <code>off</code>.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.outbound</code></td>
+<td>Whether outbound handoff is enabled on the node. Possible values are
+<code>on</code> or <code>off</code>.</td>
+<td><code>on</code></td>
 </tr>
 
 <tr>
@@ -2029,7 +2043,7 @@ This can help to prevent system response degradation during times of
 heavy load caused by multiple background tasks that contend for the same
 system resources; setting this parameter to <code>off</code> can cut
 down on system resource usage.</td>
-<td>off</td>
+<td><code>off</code></td>
 </tr>
 
 </tbody>

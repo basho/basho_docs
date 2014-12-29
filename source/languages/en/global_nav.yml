@@ -138,15 +138,17 @@ riak:
           - "[[Erlang VM Tuning]]"
       - title: "Running a Cluster"
         sub:
+          - "[[Cluster Administration]]"
           - "[[Backing up Riak]]"
           - "[[Logging]]"
+          - "[[Handoff]]"
           - title: "Node Operations"
             sub:
               - "[[Adding/Removing|Adding and Removing Nodes]]"
               - "[[Renaming Nodes]]"
               - "[[Replacing Nodes|Replacing a Node]]"
               - "[[Inspecting Nodes|Inspecting a Node]]"
-          - title: "Command Line Tools"
+          - title: "Command-line Tools"
             sub:
               - "[[riak|riak Command Line]]"
               - "[[riak-admin|riak-admin Command Line]]"
