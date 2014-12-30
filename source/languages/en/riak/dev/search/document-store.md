@@ -127,7 +127,11 @@ client.execute(storeIndex);
 ```
 
 ```ruby
+client.create_search_index('blog_posts', 'blog_post_schema')
+```
 
+```python
+client.create_search_index('blog_posts', 'blog_post_schema')
 ```
 
 ```curl
@@ -277,11 +281,38 @@ cluster.execute(searchOp);
 List<Map<String, List<String>>> results = searchOp.get().getAllResults();
 ```
 
+```ruby
+results = client.search('blog_posts', 'keywords_set:funny')
+```
+
+```python
+results = client.fulltext_search('blog_posts', 'keywords_set:funny')
+```
+
 ```curl
 curl "$RIAK_HOST/search/query/blog_posts?wt=json&q=keywords_set:funny"
 ```
 
 Or we can find posts that contain the word `furry`:
+
+```java
+String index = "blog_posts";
+String query = "content_register:furry";
+
+SearchOperation searchOp = new SearchOperation
+    .Builder(BinaryValue.create(index), query)
+    .build();
+cluster.execute(searchOp);
+List<Map<String, List<String>>> results = searchOp.get().getAllResults();
+```
+
+```ruby
+results = client.search('blog_posts', 'content_register:furry')
+```
+
+```python
+results = client.fulltext_search('blog_posts', 'content_register:furry')
+```
 
 ```curl
 curl "$RIAK_HOST/search/query/blog_posts?wt=json&q=content_register:furry"
