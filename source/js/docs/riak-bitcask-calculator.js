@@ -6,9 +6,9 @@
 if(window.pageInVersion("1.4.0+")) {
     // ~32 bytes for the OS/malloc + khash overhead @ 50M keys (amortized, so bigger for fewer keys, smaller for more keys).
     // + 16 bytes of erlang allocator overhead
-    // + 22 bytes for the NIF C structure 
+    // + 44.5 bytes for the NIF C structure
     // + 8 bytes for the entry pointer stored in the khash
-    // + 13 bytes of kv overhead 
+    // + 13 bytes of kv overhead
     REST_API = 91;
     PB_API = 91;
 } else {
@@ -112,7 +112,7 @@ var sizeof_PTR = function () {
 }
 
 var sizeof_NullBKP = function () {
-    return 22 + 13 + sizeof_PTR();
+    return 44.5 + 13 + sizeof_PTR();
 }
 
 var NumEntries = function () {
