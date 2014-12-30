@@ -224,7 +224,7 @@ public class BlogPost {
             keywordsUpdate.add(keyword);
         }
         RegisterUpdate dateUpdate =
-            new RegisterUpdate(datePosted.toString("YYYY-MM-DD HH:MM:SS"));
+            new RegisterUpdate(datePosted.toString("YYYY-MM-DD HH:MM"));
         if (published) {
             FlagUpdate published = new FlagUpdate(published);
         }
@@ -246,7 +246,7 @@ public class BlogPost {
 class BlogPost
   def initialize(bucket_name, title, author, content, keywords, date_posted, published)
     bucket = client.bucket_type('cms').bucket(bucket_name)
-    map = Riak::Crdt::Map.new(bucket, null)
+    map = Riak::Crdt::Map.new(bucket, nil)
     map.batch do |m|
       m.registers['title'] = title
       m.registers['author'] = author
@@ -259,6 +259,24 @@ class BlogPost
       end
   end
 end
+```
+
+```python
+from riak.datatypes import Map
+
+class BlogPost:
+    def __init__(bucket_name, title, author, content, keywords, date_posted, published):
+        bucket = client.bucket_type('cms').bucket(bucket_name)
+        map = Map(bucket, None)
+        self.map.registers['title'].assign(title)
+        self.map.registers['author'].assign(author)
+        self.map.registers['content'].assign(content)
+        for k in keywords:
+            self.map.sets['keywords'].add(k)
+        self.map.registers['date'] = date_posted
+        if published:
+            self.map.flags['published'].enable()
+        self.map.store()
 ```
 
 
@@ -281,6 +299,30 @@ try {
 } catch (Exception e) {
     System.out.println(e);
 }
+```
+
+```ruby
+keywords = ['adorbs', 'cheshire']
+date = Time.now.strftime('%Y-%m-%d %H:%M')
+blog_post1 = BlogPost.new('cat_pics_quarterly',
+                          'This one is so lulz!',
+                          'Cat Stevens',
+                          keywords,
+                          date,
+                          true)
+```
+
+```python
+import datetime
+
+keywords = ['adorbs', 'cheshire']
+date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+blog_post1 = BlogPost('cat_pics_quarterly',
+                      'This one is so lulz!',
+                      'Cat Stevens',
+                      keywords,
+                      date,
+                      true)
 ```
 
 To store each blog post as a map, follow the example in [[Data Modeling
@@ -349,7 +391,3 @@ Info | Query
 Unpublished posts | `published_flag:false`
 Titles that begin with `Loving*` | `title_register:Loving*`
 Post bodies containing the words `furry` and `jumping` | `content_register:[furry AND jumping]`
-
-## Creating an Interface
-
-In the section above, we ran some ad hoc queries 
