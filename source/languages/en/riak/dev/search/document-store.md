@@ -27,8 +27,8 @@ You can think of these Search indexes as **collections**. Each indexed
 will have a document ID generated automatically by Search, and because
 we're not interested in running normal [[key/value queries|Key/Value
 Modeling]] on these objects, we'll allow Riak to assign [[keys|Keys and
-Object]] automatically. This means that all we have to do is worry about
-the bucket type and/or bucket when storing objects.
+Objects]] automatically. This means that all we have to do is worry
+about the bucket type and/or bucket when storing objects.
 
 ## Use Case
 
@@ -134,6 +134,10 @@ client.create_search_index('blog_posts', 'blog_post_schema')
 client.create_search_index('blog_posts', 'blog_post_schema')
 ```
 
+```erlang
+riakc_pb_socket:create_search_index(Pid, <<"blog_posts">>, <<"blog_post_schema">>, []).
+```
+
 ```curl
 curl -XPUT $RIAK_HOST/search/index/blog_posts \
      -H 'Content-Type: application/json' \
@@ -237,6 +241,26 @@ public class BlogPost {
     }
 }
 ```
+
+```ruby
+class BlogPost
+  def initialize(bucket_name, title, author, content, keywords, date_posted, published)
+    bucket = client.bucket_type('cms').bucket(bucket_name)
+    map = Riak::Crdt::Map.new(bucket, null)
+    map.batch do |m|
+      m.registers['title'] = title
+      m.registers['author'] = author
+      keywords.each do |k|
+        m.sets['keywords'].add(k)
+      end
+      m.registers['date'] = date_posted
+      if published
+        m.flags['published'] = true
+      end
+  end
+end
+```
+
 
 Now, we can store some blog posts. We'll start with just one:
 
