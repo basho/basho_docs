@@ -84,6 +84,33 @@ GitHub](https://github.com/basho/basho_docs/raw/master/source/data/blog_post_sch
 Let's store that schema in a file called `blog_post_schema.xml` and
 upload that schema to Riak:
 
+```java
+import org.apache.commons.io.FileUtils;
+
+File xml = new File("blog_post_schema.xml");
+String xmlString = FileUtils.readFileToString(xml);
+YokozunaSchema schema = new YokozunaSchema("blog_post_schema", xmlString);
+StoreSchema storeSchemaOp = new StoreSchema.Builder(schema).build();
+client.execute(storeSchemaOp);
+```
+
+```ruby
+schema_data = File.read('blog_post_schema.xml')
+client.create_search_schema('blog_post_schema', schema_data)
+```
+
+```python
+xml_file = open('blog_post_schema.xml', 'r')
+schema_data = xml_file.read()
+client.create_search_schema('blog_post_schema', schema_data)
+xml_file.close()
+```
+
+```erlang
+{ok, SchemaData} = file:read_file("blog_post_schema.xml"),
+riakc_pb_socket:create_search_schema(Pid, <<"blog_post_schema">>, SchemaData).
+```
+
 ```curl
 curl -XPUT $RIAK_HOST/search/schema/blog_post_schema \
      -H 'Content-Type: application/xml' \
@@ -92,6 +119,16 @@ curl -XPUT $RIAK_HOST/search/schema/blog_post_schema \
 
 With our schema uploaded, we can create an index called `blog_posts` and
 associate that index with our schema:
+
+```java
+YokozunaIndex blogPostIndex = new YokozunaIndex("blog_posts", "blog_post_schema");
+StoreIndex storeIndex = new StoreIndex.Builder(blogPostIndex).build();
+client.execute(storeIndex);
+```
+
+```ruby
+
+```
 
 ```curl
 curl -XPUT $RIAK_HOST/search/index/blog_posts \
@@ -123,7 +160,8 @@ First, let's create our `cms` bucket type and associate it with the
 `blog_posts` index:
 
 ```bash
-riak-admin bucket-type create cms '{"props":{"datatype":"map","search_index": "blog_posts"}}'
+riak-admin bucket-type create cms \
+  '{"props":{"datatype":"map","search_index":"blog_posts"}}'
 riak-admin bucket-type activate cms
 ```
 
@@ -226,7 +264,18 @@ layer between blog objects and Riak maps.
 Now that we have some blog posts stored in our "collection," we can
 start querying for whatever we'd like. Let's say that we want to find
 all blog posts with the keyword `funny` (after all, some cat pics are
-quite serious).
+quite serious, and we may not want those).
+
+```java
+String index = "blog_posts";
+String query = "keywords_set:funny";
+
+SearchOperation searchOp = new SearchOperation
+    .Builder(BinaryValue.create(index), query)
+    .build();
+cluster.execute(searchOp);
+List<Map<String, List<String>>> results = searchOp.get().getAllResults();
+```
 
 ```curl
 curl "$RIAK_HOST/search/query/blog_posts?wt=json&q=keywords_set:funny"
