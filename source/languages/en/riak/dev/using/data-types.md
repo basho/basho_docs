@@ -292,7 +292,7 @@ Counter2 = riakc_counter:increment(5, Counter1).
 ```
 
 ```curl
-curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
   -d 5
 ```
