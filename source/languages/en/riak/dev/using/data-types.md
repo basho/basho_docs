@@ -260,7 +260,7 @@ Counter1 = riakc_counter:increment(Counter).
 ```
 
 ```curl
-curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
   -d 1
 ```
@@ -292,7 +292,7 @@ Counter2 = riakc_counter:increment(5, Counter1).
 ```
 
 ```curl
-curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
   -d 5
 ```
@@ -404,7 +404,7 @@ riakc_pb_socket:update_type(Pid, {<<"counters">>,<<"counters">>},
 ```
 
 ```curl
-curl -XPUT http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
+curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
   -d -3
 ```
@@ -1389,9 +1389,7 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
   {
     "update": {
       "annika_info_map": {
-        "update": {
-          "remove": "phone_number_register"
-        }
+        "remove": "phone_number_register"
       }
     }
   }
@@ -1720,10 +1718,12 @@ curl -XPOST http://localhost:8098/types/maps/buckets/customers/datatypes/ahmed_i
       "annika_info_map": {
         "update": {
           "purchase_map": {
-            "first_purchase_flag": "enable",
-            "amount_register": "1271",
-            "items_set": {
-              "add": "large widget"
+            "update": {
+              "first_purchase_flag": "enable",
+              "amount_register": "1271",
+              "items_set": {
+                "add": "large widget"
+              }
             }
           }
         }
