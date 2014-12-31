@@ -68,6 +68,7 @@ riak:
           - "[[Search Schema]]"
           - "[[Riak Data Types and Search]]"
           - "[[Custom Search Extractors]]"
+          - "[[Riak as a Document Store|Using Riak as a Document Store]]"
       - title: "Riak Data Types"
         sub:
           - "[[Data Types Basics|Using Data Types]]"
