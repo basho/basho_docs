@@ -259,12 +259,12 @@ about each node in your cluster:
 
 Header | Description
 :------|:-----------
-`Node` | Nodename of the node
+`Node` | The name of the node
 `Total` | Total number of active transfers throughout the entire cluster
 `Ownership` | Total number of ownership exchanges
 `Resize` | Total handoffs related to [[ring resizing]] operations
-`Hinted` |
-`Repair` |
+`Hinted` | Total [[hinted handoffs|Handoff#Types-of-Handoff|]]
+`Repair` | Total repair-related handoffs. More information can be found [here](https://github.com/basho/riak_core/commit/036e409eb83903315dd43a37c7a93c9256863807)
 
 ### details
 
