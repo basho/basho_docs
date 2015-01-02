@@ -51,7 +51,8 @@ Here is an example of a read performed on the key `rufus` in the bucket
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
-// Location object that can be used as a reference for further operations.
+// Location object that can be used as a reference for further
+// operations:
 
 Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
@@ -64,6 +65,11 @@ obj = bucket.get('rufus')
 ```python
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
+```
+
+```php
+$bucket = $client->bucketType('animals')->bucket('dogs');
+$obj = $bucket->get('rufus');
 ```
 
 ```erlang
@@ -97,6 +103,10 @@ Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found
 
 ```python
 riak.RiakError: 'no_type'
+```
+
+```php
+
 ```
 
 ```erlang
@@ -149,6 +159,11 @@ obj = bucket.get('rufus', r: 3)
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r=3)
 obj.data
+```
+
+```php
+$bucket = $client->bucketType('animals')->bucket('dogs');
+$obj = $bucket->get('rufus', $r => 3);
 ```
 
 ```erlang
