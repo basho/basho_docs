@@ -147,7 +147,7 @@ cluster is perfectly healthy would bear responsibility for that key.
 
 When that node failed, using `R=2` as we've discussed or even `R=3` for
 a read request would still work properly: a failover node (sloppy quorum
-again) would be tasks to take responsibility for that key, and when it
+again) would be tasked to take responsibility for that key, and when it
 receives a request for it, it would reply that it doesn't have any such
 key, but the two surviving primary nodes still know who the
 `manchester-manager` is.
