@@ -74,7 +74,7 @@ Manchester United, which is stored in the key `manchester-manager` in
 the bucket `premier-league-managers`. This bucket has `allow_mult` set
 to `false`, which means that Riak will resolve all conflicts by itself.
 
-Now let's stay that a node in this cluster has recently recovered from
+Now let's say that a node in this cluster has recently recovered from
 failure and has an old copy of the key `manchester-manager` stored in
 it, with the value `Alex Ferguson`. The problem is that Sir Ferguson
 stepped down in 2013 and is no longer the manager. Fortunately, the
