@@ -103,11 +103,6 @@ the client. In this case, it _is_ possible that the client will receive
 the outdated value `Alex Ferguson` because it is only waiting for a
 response from one node.
 
-If we keep the above scenario the same but tweak the request slightly
-with `r=1`, perhaps to allow for a faster response to the client, it
-_is_ possible that the client will be fed `Alex Ferguson` as the
-response, if the recently recovered node is the first to reply.
-
 However, the read repair mechanism will kick in and fix the value, so
 the next time someone asks for the value of `manchester-manager`, `David
 Moyes` will indeed be the answer.
