@@ -314,6 +314,13 @@ riak-admin security revoke search.query on index famous from username
 
 ## Indexing Values
 
+<div class="note">
+<div class="title">Note on indexing and lag times</div>
+There is typically a one-second delay between storing an object in Riak
+and that object being available in Search queries. You should take this
+into account when writing Riak client tests, benchmarking, and so on.
+</div>
+
 With a Solr schema, index, and association in place (and possibly a
 security setup as well), we're ready to start using Riak Search. First,
 populate the `cat` bucket with values, in this case information about
