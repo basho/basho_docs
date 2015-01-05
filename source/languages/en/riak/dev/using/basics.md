@@ -458,6 +458,14 @@ obj.data = 'vroom'
 obj.store(w=3)
 ```
 
+```php
+$bucket = $client->bucketType("cars")->bucket("dodge");
+$obj = new Basho\Riak\Object($client, $bucket, "viper");
+$obj->setContentType("text/plain");
+$obj->setData("vroom");
+$obj->store(3);
+```
+
 ```erlang
 Object = riakc_obj:new({<<"cars">>, <<"dodge">>},
                        <<"viper">>,
@@ -516,6 +524,14 @@ obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
 obj.store(w=3, return_body=True)
+```
+
+```php
+$bucket = $client->bucketType("cars")->bucket("dodge");
+$obj = new Basho\Riak\Object($client, $bucket, "viper");
+$obj->setContentType("text/plain");
+$obj->setData("vroom");
+$obj->store(3);
 ```
 
 ```erlang
@@ -598,6 +614,14 @@ obj.key
 'ZPFF18PUqGW9efVou7EHhfE6h8a'
 ```
 
+```php
+$bucket = $client->bucketType("users")->bucket("random_user_keys");
+// The newObject() convenience method creates a JSON object by default
+// and automatically sets the content type to application/json:
+$obj = $bucket->newObject(null, array('user' => "data"));
+$obj->store();
+```
+
 ```erlang
 Object = riakc_obj:new({<<"users">>, <<"random_user_keys">>}, undefined, <<"{'user':'data'}">>, <<"application/json">>).
 riakc_pb_socket:put(Pid, Object).
@@ -652,6 +676,11 @@ bucket.delete('genius')
 ```python
 bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 bucket.delete('genius')
+```
+
+```php
+$bucket = $client->bucketType("quotes")->bucket("oscar_wilde");
+$bucket->delete("genius");
 ```
 
 ```erlang
@@ -722,11 +751,6 @@ Once the type is activated, we can see which properties are associated
 with our bucket type (and, by extension, any bucket that bears that
 type):
 
-```ruby
-bt = client.bucket_type('n_val_of_5')
-bt.props
-```
-
 ```java
 // Fetching the bucket properties of a bucket type/bucket combination
 // must be done using a RiakCluster object rather than a RiakClient.
@@ -738,9 +762,18 @@ cluster.execute(fetchProps);
 BucketProperties props = fetchProps.get().getBucketProperties();
 ```
 
+```ruby
+bt = client.bucket_type('n_val_of_5')
+bt.props
+```
+
 ```python
 bt = BucketType(client, 'n_val_of_5')
 bt.get_properties()
+```
+
+```php
+// TODO
 ```
 
 ```erlang
