@@ -319,6 +319,8 @@ riak-admin security revoke search.query on index famous from username
 There is typically a one-second delay between storing an object in Riak
 and that object being available in Search queries. You should take this
 into account when writing Riak client tests, benchmarking, and so on.
+More information can be found in the [Solr
+documentation](http://wiki.apache.org/solr/SolrPerformanceFactors).
 </div>
 
 With a Solr schema, index, and association in place (and possibly a
