@@ -248,6 +248,14 @@ obj.data = 'I have nothing to declare but my genius'
 obj.store()
 ```
 
+```php
+$bucket = $client->bucketType("quotes")->bucket("oscar_wilde");
+$obj = new Basho\Riak\Object($client, $bucket, "genius");
+$obj->setContentType("text/plain");
+$obj->setData("I have nothing to declare but my genius");
+$obj->store();
+```
+
 ```erlang
 Object = riakc_obj:new({<<"quotes">>, <<"oscar_wilde">>},
                        <<"genius">>,
@@ -326,6 +334,12 @@ obj = bucket.get('champion')
 obj.data = 'Harlem Globetrotters'
 ```
 
+```php
+$bucket = $client->bucketType("sports")->bucket("nba");
+$obj = $bucket->get("champion");
+$obj->setData("Harlem Globetrotters");
+```
+
 ```erlang
 %% In the Erlang client, you cannot view a context objectdirectly, but it
 %% will be included in the output when you fetch an object:
@@ -380,8 +394,14 @@ obj.vclock
 
 obj.vclock
 
-# The context object will look something like this:
+# The causal context will look something like this:
 # a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
+```php
+// Using the object from above:
+
+$obj->vclock();
 ```
 
 ```erlang
