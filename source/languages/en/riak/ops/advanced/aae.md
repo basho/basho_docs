@@ -190,7 +190,7 @@ Each of these three tables contains information for each
 Category | Measures | Description
 :--------|:---------|:-----------
 **Exchanges** | `Last` | When the most recent exchange between a data partition and one of its replicas was performed
-  | `All` | How long it has been since a partition exchanged will all of its replicas
+  | `All` | How long it has been since a partition exchanged with all of its replicas
 **Entropy Trees** | `Built` | When the hash trees for a given partition were created
 **Keys Repaired** | `Last` | The number of keys repaired during all key exchanges since the last node restart
   | `Mean` | The mean number of keys repaired during all key exchanges since the last node restart
