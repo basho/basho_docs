@@ -74,7 +74,7 @@ Manchester United, which is stored in the key `manchester-manager` in
 the bucket `premier-league-managers`. This bucket has `allow_mult` set
 to `false`, which means that Riak will resolve all conflicts by itself.
 
-Now let's stay that a node in this cluster has recently recovered from
+Now let's say that a node in this cluster has recently recovered from
 failure and has an old copy of the key `manchester-manager` stored in
 it, with the value `Alex Ferguson`. The problem is that Sir Ferguson
 stepped down in 2013 and is no longer the manager. Fortunately, the
@@ -102,11 +102,6 @@ the request and set R to 1, perhaps because you want faster responses to
 the client. In this case, it _is_ possible that the client will receive
 the outdated value `Alex Ferguson` because it is only waiting for a
 response from one node.
-
-If we keep the above scenario the same but tweak the request slightly
-with `r=1`, perhaps to allow for a faster response to the client, it
-_is_ possible that the client will be fed `Alex Ferguson` as the
-response, if the recently recovered node is the first to reply.
 
 However, the read repair mechanism will kick in and fix the value, so
 the next time someone asks for the value of `manchester-manager`, `David
@@ -152,7 +147,7 @@ cluster is perfectly healthy would bear responsibility for that key.
 
 When that node failed, using `R=2` as we've discussed or even `R=3` for
 a read request would still work properly: a failover node (sloppy quorum
-again) would be tasks to take responsibility for that key, and when it
+again) would be tasked to take responsibility for that key, and when it
 receives a request for it, it would reply that it doesn't have any such
 key, but the two surviving primary nodes still know who the
 `manchester-manager` is.
