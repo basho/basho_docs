@@ -76,6 +76,20 @@ increase it, you might need to force read repair (more on that below).
 Overwritten objects and newly stored objects will automatically be
 replicated to the correct number of nodes.  </div>
 
+## Changing the N value (`n_val`)
+
+While raising the value of N for a bucket or object shouldn't cause
+problems, it's important that you never lower N. If you do so, you can
+wind up with dead, i.e. unreachable data. This can happen because
+objects' preflists, i.e. lists of [[vnodes]] responsible for the object,
+can end up 
+
+Unreachable data is a problem because it can negatively impact coverage
+queries, e.g. [[secondary index|Using Secondary Indexes]] and
+[[MapReduce|Using MapReduce]] queries. Lowering an object or bucket's
+`n_val` will likely mean that objects that you would expect to
+be returned from those queries will no longer be returned.
+
 ## Active Anti-Entropy
 
 Riak's active anti-entropy (AAE) subsystem is a continuous background
@@ -146,10 +160,10 @@ partitions and storing an object on a partition.
 
   * Assume we have 3 nodes
   * Assume we store 3 replicas per object (N=3)
-  * Assume we have 8 partitions in our [[ring|Clusters#the-ring]](ring_creation_size=8)
+  * Assume we have 8 partitions in our [[ring|Clusters#The-Ring]](ring_creation_size=8)
 
-**It is not recommended that you use such a small ring size. This is for
-    demonstration purposes only.**
+**Note**: It is not recommended that you use such a small ring size.
+This is for demonstration purposes only.
 
 With only 8 partitions our ring will look approximately as follows
 (response from `riak_core_ring_manager:get_my_ring/0` truncated for
