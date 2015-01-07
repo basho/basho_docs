@@ -1374,7 +1374,7 @@ map.maps['annika_info'].registers.remove('phone_number')
 ```python
 del map.maps['annika_info'].registers['phone_number']
 map.store()
-``
+```
 
 ```erlang
 Map15 = riakc_map:update({<<"annika_info">>, map},
