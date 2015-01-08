@@ -60,6 +60,21 @@ command but provides a more fine-grained interface for interacting with
 stats and information. Full documentation of this command can be found
 in the [[Inspecting a Node|Inspecting a Node#riak-admin-stat]] document.
 
+<div class="note">
+<div class="title">Note on versions and other information</div>
+While most stats available through <code>riak-admin status</code> can be
+accessed through <code>riak-admin stat</code>, there are a number of
+stats that cannot. Version information, e.g.
+<code>bitcask_version</code> or <code>ssl_version</code>, is
+<em>not</em> available and must be accessed via <code>riak-admin
+status</code> instead.
+
+Because it can be a bit unwieldy to read the full output of
+<code>riak-admin status</code> when you need only one piece of
+information, we recommend using a tool like <code>grep</code> in
+conjunction with <code>riak-admin status</code>.
+</div>
+
 ### show
 
 Displays the value associated with a particular stats key:
@@ -81,20 +96,11 @@ Example output from that command:
 node_get_fsm_active: 0 ([riak,riak_kv.get_fsm,sidejob]/usage)
 ```
 
-<div class="note">
-<div class="title">Note on versions and other information</div>
-While most stats available through <code>riak-admin status</code> can be
-accessed through <code>riak-admin stat</code>, there are a number of
-stats that cannot. Version information, e.g.
-<code>bitcask_version</code> or <code>ssl_version</code>, is
-<em>not</em> available and must be accessed via <code>riak-admin
-status</code> instead.
+### enable
 
-Because it can be a bit unwieldy to read the full output of
-<code>riak-admin status</code> when you need only one piece of
-information, we recommend using a tool like <code>grep</code> in
-conjunction with <code>riak-admin status</code>.
-</div>
+### disable
+
+### info
 
 ## Available Statistics
 
