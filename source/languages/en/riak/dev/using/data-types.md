@@ -8,28 +8,30 @@ audience: intermediate
 keywords: [developers, data-types]
 ---
 
-In versions of 2.0 and greater, Riak users can make use of a variety of
+In versions 2.0 and greater, Riak users can make use of a variety of
 Riak-specific data types inspired by research on convergent replicated
-data types ([[Data Types]]), more commonly known as CRDTs.
+data types, more commonly known as **CRDTs**. For a more theoretical
+treatment of how CRDTs work in Riak, see our [[Data Types]] doc.
 
 While Riak was originally built as a mostly data-agnostic key/value
 store, Riak Data Types enable you to use Riak as a _data-aware_ system
-and thus to perform a variety of transactions on five CRDT-inspired data
-types: flags, registers, [[counters|Data Types#Counters]], [[sets|Data
-Types#Sets]], and [[maps|Data Types#Maps]].
+in which you can perform a variety of transactions on five CRDT-inspired
+data types: flags, registers, [[counters|Data Types#Counters]],
+[[sets|Data Types#Sets]], and [[maps|Data Types#Maps]].
 
 Of those five types, counters, sets, and maps can be used as
-bucket-level data types, whereas flags and registers must be embedded in
-maps (more on that [[below|Using Data Types#Maps]]).
+bucket-level data types, i.e. types that you can interact with directly.
+Flags and registers, however, must be embedded in maps (more on that
+[[below|Using Data Types#Maps]]).
 
 <div class="note">
 <div class="title">Note on counters in earlier versions of Riak</div>
-Counters are the one Riak Data Type available in versions prior to 2.0,
-introduced in version 1.4. The implentation of counters in version 2.0
-has been almost completely revamped, and so if you are using Riak
-version 2.0 or later, we strongly recommend that you follow the usage
-documentation here rather than documentation for the older version of
-counters.  </div>
+Counters are the one CRDT available in versions prior to 2.0, introduced
+in version 1.4. The implementation of counters in version 2.0 has been
+almost completely revamped, so if you are using Riak version 2.0 or
+later we strongly recommend that you follow the usage documentation here
+rather than documentation for the older version of counters.
+</div>
 
 ## Setting Up Buckets to Use Riak Data Types
 
@@ -50,7 +52,7 @@ riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
 terms. You are always free to name bucket types whatever you like, with
 the exception of `default`.
 
-Once you've created a Riak Data Type-specific bucket type, you can check
+Once you've created a Riak-Data-Type-specific bucket type, you can check
 to make sure that the bucket property configuration associated with that
 type is correct. This can be done through the `riak-admin` interface.
 
@@ -92,7 +94,8 @@ samples from each of our official client libraries.
 The examples below show you how to use Riak Data Types at the
 application level using each of Basho's officially supported Riak
 clients. All examples will use the bucket type names from above
-(`counters`, `sets`, and `maps`).
+(`counters`, `sets`, and `maps`). You're free to substitute your own
+bucket type names if you wish.
 
 ## Counters
 
@@ -113,6 +116,7 @@ location that will house our counter. We'll keep it simple and use the
 // done below.
 
 Namespace countersBucket = new Namespace("counters", "counters");
+Location location = new Location(countersBucket, "<insert_key_here>");
 ```
 
 ```ruby
@@ -120,19 +124,19 @@ bucket = client.bucket_type('counters').bucket('counters')
 ```
 
 ```python
-bucket = client.bucket_type('counter_bucket').bucket('counters')
+bucket = client.bucket_type('counters').bucket('counters')
 ```
 
 ```erlang
-%% Buckets are simply named binaries in the Erlang client.
-%% See below for more information.
+%% Buckets are simply named binaries in the Erlang client. See the
+%% examples below for more information
 ```
 
 ```curl
 curl http://localhost:8098/types/counters/buckets/counters/datatypes/<key>
 
-# Note that this differs from the URL structure for non-Data Type requests,
-# which end in /keys/<key>
+# Note that this differs from the URL structure for non-Data-Type
+# requests, which end in /keys/<key>
 ```
 
 <div class="note">
@@ -149,46 +153,50 @@ counter. Here is the general syntax for doing so:
 ```java
 // Here, we'll use the Namespace object that we created above and
 // incorporate it into a Location object that includes the key (as yet
-// unspecified) for our counter.
+// unspecified) for our counter
 
 // Using the countersBucket Namespace object from above:
-
 Location counter = new Location(countersBucket, "<key>");
 
 // Or we can specify the Location all at once:
-
 Location counter = new Location(new Namespace("counters", "counters"), "<key>");
 ```
 
 ```ruby
 counter = Riak::Crdt::Counter.new(bucket, key, bucket_type)
+
+# Or you can specify a bucket and bucket type all at once and pass that
+# into the constructor
+bucket = client.bucket_type(bucket_type).bucket(bucket)
+counter = Riak::Crdt::Counter.new(bucket, key)
 ```
 
 ```python
-# The client detects the bucket-type's datatype and automatically
-# returns the right datatype for you, in this case a Counter.
+# The client detects the bucket-type's Data Type and automatically
+# returns the right datatype for you, in this case a counter
 counter = bucket.new(key)
 
 # This way is also acceptable:
 from riak.datatypes import Counter
+
 counter = Counter(bucket, key)
 ```
 
 ```erlang
 %% Counters are not encapsulated with the bucket/key in the Erlang
-%% client. See below for more information.
+%% client. See the examples below for more information.
 ```
 
 ```curl
 # This will create a counter with an initial value of 0
 
-curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/<key> \
+curl -XPOST http://localhost:8098/types/counters/buckets/<bucket>/datatypes/<key> \
   -H "Content-Type: application/json" \
   -d 0
 ```
 
 Let's say that we want to create a counter called `traffic_tickets` in
-our `counters` bucket to keep tabs on our legal misbehavior. We can
+our `counters` bucket to keep track of our legal misbehavior. We can
 create this counter and ensure that the `counters` bucket will use our
 `counters` bucket type like this:
 
@@ -201,27 +209,28 @@ Location trafficTickets = new Location(countersBucket, "traffic_tickets");
 ```ruby
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets', 'counters')
 
-# Alternatively, the Ruby client enables you to set a bucket type as being
-# globally associated with a Riak Data Type. The following would set all
-# counter buckets to use the counters bucket type:
+# Alternatively, the Ruby client enables you to set a bucket type as
+# being globally associated with a Riak Data Type. The following would
+# set all counter buckets to use the counters bucket type:
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:counter] = 'counters'
 
-# This would enable us to create our counter without specifying a bucket type:
-
+# This would enable us to create our counter either without specifying a
+# bucket type or if the bucket type is part of the bucket definition:
 counter = Riak::Crdt::Counter.new(bucket, 'traffic_tickets')
 ```
 
 ```python
+bucket = client.bucket_type('counters').bucket('traffic_tickets')
 counter = bucket.new('traffic_tickets')
 ```
 
 ```erlang
 Counter = riakc_counter:new().
 
-%% Counters in the Erlang client are opaque data structures that
-%% collect operations as you mutate them. We will associate the data
-%% structure with a bucket type, bucket, and key later on.
+%% Counters in the Erlang client are opaque data structures that collect
+%% operations as you mutate them. We will associate the data structure
+%% with a bucket type, bucket, and key later on.
 ```
 
 ```curl
