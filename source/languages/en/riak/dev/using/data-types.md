@@ -599,31 +599,42 @@ curl -XPOST http://localhost:8098/types/sets/buckets/travel/datatypes/cities \
 ```
 
 Later on, we hear that Hamilton and Ottawa are nice cities to visit in
-Canada, but if we visit them, we won't have time to visit Montreal.
-Let's remove Montreal and add the others:
+Canada, but if we visit them, we won't have time to visit Montreal, so
+we need to remove it from the list. It needs to be noted here that
+removing an element from a set is a bit tricker than adding elements. In
+order to remove an item (or multiple items), we need to first fetch the
+set, which provides our client access to the set's [[causal context]].
+Once we've fetched the set, we can remove the element `Montreal` and
+store the set.
 
 ```java
-// Using our "cities" Location from above:
+// Using our "citiesSet" Location from above
 
+// First, we get a response
+FetchSet fetch = new FetchSet.Builder(citiesSet).build();
+FetchSet.Response response = client.execute(fetch);
+
+// Then we can fetch the set's causal context
+Context ctx = response.getContext();
+
+// Now we build a SetUpdate operation
 SetUpdate su = new SetUpdate()
-        .remove("Montreal")
-        .add("Hamilton")
-        .add("Ottawa");
+        .remove("Montreal");
+
+// Finally, we update the set, specifying the context
 UpdateSet update = new UpdateSet.Builder(citiesSet, su)
+        .withContext(ctx)
         .build();
 client.execute(update);
 ```
 
 ```ruby
 cities_set.remove('Montreal')
-cities_set.add('Hamilton')
-cities_set.add('Ottawa')
 ```
 
 ```python
 cities_set.discard('Montreal')
-cities_set.add('Hamilton')
-cities_set.add('Ottawa')
+cities_set.store()
 ```
 
 ```erlang
