@@ -263,8 +263,8 @@ Header | Description
 `Total` | Total number of active transfers throughout the entire cluster
 `Ownership` | Total number of ownership exchanges
 `Resize` | Total handoffs related to [[ring resizing]] operations
-`Hinted` | Total [[hinted handoffs|Handoff#Types-of-Handoff]]
-`Repair` | Total repair-related handoffs. More information can be found [here](https://github.com/basho/riak_core/commit/036e409eb83903315dd43a37c7a93c9256863807)
+`Hinted` | Total number of <a href="/ops/running/handoff#Types-of-Handoff">hinted handoffs</a>
+`Repair` | Total repair-related handoffs. More information can be found [here](https://github.com/basho/riak_core/commit/036e409eb83903315dd43a37c7a93c9256863807).
 
 ### details
 
