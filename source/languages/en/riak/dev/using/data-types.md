@@ -192,7 +192,7 @@ counter = Counter(bucket, key)
 
 curl -XPOST http://localhost:8098/types/counters/buckets/<bucket>/datatypes/<key> \
   -H "Content-Type: application/json" \
-  -d 0
+  -d '{"increment": 0}'
 ```
 
 Let's say that we want to create a counter called `traffic_tickets` in
@@ -236,7 +236,7 @@ Counter = riakc_counter:new().
 ```curl
 curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d 0
+  -d '{"increment": 0}'
 ```
 
 Now that our client knows which bucket/key pairing to use for our
@@ -254,6 +254,9 @@ client.execute(update);
 
 ```ruby
 counter.increment
+
+# This will increment the counter both on the application side and in
+Riak
 ```
 
 ```python
@@ -271,7 +274,7 @@ Counter1 = riakc_counter:increment(Counter).
 ```curl
 curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d 1
+  -d '{"increment": 1}'
 ```
 
 The default value of an increment operation is 1, but you can increment
@@ -281,7 +284,6 @@ to rack up five tickets:
 
 ```java
 // Using the "trafficTickets" Location from above:
-
 CounterUpdate cu = new CounterUpdate(5);
 UpdateCounter update = new UpdateCounter.Builder(trafficTickets, cu)
 		.build();
@@ -303,7 +305,7 @@ Counter2 = riakc_counter:increment(5, Counter1).
 ```curl
 curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d 5
+  -d '{"increment": 5}'
 ```
 
 If we're curious about how many tickets we have accumulated, we can
@@ -311,7 +313,6 @@ simply retrieve the value of the counter at any time:
 
 ```java
 // Using the "trafficTickets" Location from above:
-
 FetchCounter fetch = new FetchCounter.Builder(trafficTickets)
 		.build();
 FetchCounter.Response response = client.execute(fetch);
@@ -330,13 +331,14 @@ counter.dirty_value
 # The value fetched from Riak is always immutable, whereas the "dirty
 # value" takes into account local modifications that have not been
 # sent to the server. For example, whereas the call above would return
-# '6', the call below will return '0' since we started with an empty
+# 6, the call below will return 0' since we started with an empty
 # counter:
 
 counter.value
 
 # To fetch the value stored on the server, use the call below. Note
-# that this will clear any unsent increments.
+# that this will clear any changes to the counter that have not yet been
+# sent to Riak
 counter.reload()
 ```
 
@@ -354,8 +356,8 @@ riakc_counter:value(Counter2).
 %% To fetch the value stored on the server, use the call below:
 
 {ok, CounterX} = riakc_pb_socket:fetch_type(Pid,
-                                    {<<"counters">>,<<"counters">>},
-                                    <<"traffic_tickets">>).
+                                            {<<"counters">>, <<"counters">>},
+                                            <<"traffic_tickets">>).
 ```
 
 ```curl
@@ -365,14 +367,13 @@ curl http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tic
 {"type":"counter", "value": <value>}
 ```
 
-Any good counter needs to decrement in addition to increment, and Riak
-counters allow you to do precisely that. Let's say that we hire an
-expert lawyer who manages to get a traffic ticket stricken from our
-record:
+For a counter to be useful, you need to be able to decrement it in
+addition to incrementing it. Riak counters enable you to do precisely
+that. Let's say that we hire an expert lawyer who manages to get one of
+our traffic tickets stricken from our record:
 
 ```java
 // Using the "trafficTickets" Location from above:
-
 CounterUpdate cu = new CounterUpdate(-1);
 UpdateCounter update = new UpdateCounter.Builder(trafficTickets, cu)
         .build();
@@ -382,16 +383,14 @@ client.execute(update);
 ```ruby
 counter.decrement
 
-# Just like incrementing you can also decrement by more than one, e.g.:
-
+# Just like incrementing, you can also decrement by more than one, e.g.:
 counter.decrement(3)
 ```
 
 ```python
 counter.decrement()
 
-# Just like incrementing you can also decrement by more than one, e.g.:
-
+# Just like incrementing, you can also decrement by more than one, e.g.:
 counter.decrement(3)
 ```
 
@@ -415,7 +414,7 @@ riakc_pb_socket:update_type(Pid, {<<"counters">>,<<"counters">>},
 ```curl
 curl -XPOST http://localhost:8098/types/counters/buckets/counters/datatypes/traffic_tickets \
   -H "Content-Type: application/json" \
-  -d -3
+  -d '{"decrement": 3}'
 ```
 
 ## Sets
