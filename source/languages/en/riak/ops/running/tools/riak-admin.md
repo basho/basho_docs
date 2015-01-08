@@ -402,8 +402,8 @@ metrics and information.
 riak-admin stat
 ```
 
-Full documentation of this command can be found in [[Statistics and
-Monitoring]].
+Full documentation for this command can be found in the [[Statistics and
+Monitoring|Statistics and Monitoring#riak-admin-stat]] document.
 
 ## status
 
