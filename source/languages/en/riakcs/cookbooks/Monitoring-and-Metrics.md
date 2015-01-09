@@ -24,6 +24,16 @@ resource:
 /riak-cs/stats
 ```
 
+<div class="note">
+<div class="title">Note on signed requests</div>
+In order to access statistics from the <code>/stats</code> endpoint, you
+must issue signed requests containing the admin user's access key and
+secret key. The interface used by Riak CS is directly analogous to that
+of Amazon S3. For more information on signed requests, see <a
+href="http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html">Amazon's
+documentation</a>.
+</div>
+
 That will return a JSON object containing a series of latency histograms
 and counters for a variety of operations, e.g. `object_get` and
 `block_put`. Alongside each operation there will be a list showing the
