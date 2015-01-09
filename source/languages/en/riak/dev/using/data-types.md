@@ -493,13 +493,14 @@ Location citiesSet =
 travel = client.bucket('travel')
 cities_set = Riak::Crdt::Set.new(travel, 'cities', 'sets')
 
-# Alternatively, the Ruby client enables you to set a bucket type as being
-# globally associated with a Riak Data Type. The following would set all
-# set buckets to use the sets bucket type:
+# Alternatively, the Ruby client enables you to set a bucket type as
+# being globally associated with a Riak Data Type. The following would
+# set all set buckets to use the sets bucket type:
 
 Riak::Crdt::DEFAULT_BUCKET_TYPES[:set] = 'sets'
 
-# This would enable us to create our set without specifying a bucket type:
+# This would enable us to create our set without specifying a bucket
+# type:
 
 cities_set = Riak::Crdt::Set.new(travel, 'cities')
 ```
@@ -526,8 +527,9 @@ CitiesSet = riakc_set:new().
 ```
 
 ```curl
-# You cannot create an empty set through the HTTP interface. Sets can only
-# be created when an element is added to them, as in the examples below.
+# You cannot create an empty set through the HTTP interface. Sets can
+# only be created when an element is added to them, as in the examples
+# below.
 ```
 
 Upon creation, our set is empty. We can verify that it is empty at any
@@ -545,14 +547,10 @@ boolean isEmpty = set.viewAsSet().isEmpty();
 
 ```ruby
 cities_set.empty?
-
-# true
 ```
 
 ```python
 len(cities_set) == 0
-
-# true
 ```
 
 ```erlang
