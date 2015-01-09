@@ -32,6 +32,8 @@ secret key. The interface used by Riak CS is directly analogous to that
 of Amazon S3. For more information on signed requests, see <a
 href="http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html">Amazon's
 documentation</a>.
+
+Unsigned requests will yield a <code>403 Forbidden</code> error.
 </div>
 
 That will return a JSON object containing a series of latency histograms
