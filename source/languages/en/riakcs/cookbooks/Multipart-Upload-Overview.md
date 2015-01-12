@@ -116,3 +116,15 @@ complete multipart upload request. The proper procedure is to record the
 part numbers and the associated `ETag` values returned with part upload
 responses and use that information when completing a multipart upload.
 
+## Storage Calculation
+
+As with [Amazon
+S3](http://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html),
+once you initiate a multipart upload, Riak CS retains all of the parts
+of the upload until it is either completed or aborted. If the upload is
+aborted, Riak CS deletes all upload artifacts and they will no longer be
+
+For example, if a user has uploaded a 10 GB object via multipart upload without
+completing the request, the object won't appear in the list objects
+result but its object size _will_ be included in the user's usage
+statistics.
