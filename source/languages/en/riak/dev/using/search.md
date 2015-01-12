@@ -884,24 +884,24 @@ the Riak Search hook to MapReduce).
 
 ```json
 {
-  "inputs":{
-    "module":"yokozuna",
-    "function":"mapred_search",
-    "arg":["famous","NOT leader_b:true"]
+  "inputs": {
+    "module": "yokozuna",
+    "function": "mapred_search",
+    "arg": ["famous","NOT leader_b:true"]
   },
-  "query":[
+  "query": [
     {
-      "map":{
-        "language":"javascript",
-        "keep":false,
-        "source":"function(v) { return [1]; }"
+      "map": {
+        "language": "javascript",
+        "keep": false,
+        "source": "function(v) { return [1]; }"
       }
     },
     {
-      "reduce":{
-        "language":"javascript",
-        "keep":true,
-        "name":"Riak.reduceSum"
+      "reduce": {
+        "language": "javascript",
+        "keep": true,
+        "name": "Riak.reduceSum"
       }
     }
   ]
