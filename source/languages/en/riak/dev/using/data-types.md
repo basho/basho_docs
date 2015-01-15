@@ -26,11 +26,12 @@ Flags and registers, however, must be embedded in maps (more on that
 
 <div class="note">
 <div class="title">Note on counters in earlier versions of Riak</div>
-Counters are the one CRDT available in versions prior to 2.0, introduced
-in version 1.4. The implementation of counters in version 2.0 has been
-almost completely revamped, so if you are using Riak version 2.0 or
-later we strongly recommend that you follow the usage documentation here
-rather than documentation for the older version of counters.
+Counters are the one CRDT that was available in Riak prior to 2.0
+(introduced in version 1.4). The implementation of counters in version 2.0
+has been almost completely revamped, so if you are using Riak version
+2.0 or later we strongly recommend that you follow the usage
+documentation here rather than documentation for the older version of
+counters.
 </div>
 
 ## Setting Up Buckets to Use Riak Data Types
@@ -632,6 +633,9 @@ UpdateSet update = new UpdateSet.Builder(citiesSet, su)
         .withContext(ctx)
         .build();
 client.execute(update);
+
+// More information on using causal context with the Java client can be
+// found at the bottom of this document
 ```
 
 ```ruby
@@ -1839,4 +1843,3 @@ UpdateMap update = new UpdateMap.Builder(ahmedMap, removePaidAccountField)
         .build();
 client.execute(update);
 ```
-
