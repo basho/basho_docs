@@ -502,7 +502,8 @@ activate created bucket types.
 riak-admin bucket-type <command>
 ```
 
-More on bucket types can be found in [[Using Bucket Types]].
+More on bucket types can be found in [[Using Bucket Types|Using Bucket
+Types#Setting-Up-Buckets-to-Use-Riak-Data-Types]].
 
 ## repair-2i
 
