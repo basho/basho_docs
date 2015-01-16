@@ -120,7 +120,7 @@ It's also possible, however, to configure Riak to store multiple objects
 in a single key if necessary, i.e. for an object to have different
 values on different nodes. Objects stored this way have what are called
 sibling values. You can instruct Riak to allow for sibling creation by
-setting the the `allow_mult` bucket property to `false` for a specific
+setting the the `allow_mult` bucket property to `true` for a specific
 bucket, preferably [[using bucket types]].
 
 From the standpoint of application development, the difficulty with
