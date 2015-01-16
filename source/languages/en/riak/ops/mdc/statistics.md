@@ -42,6 +42,8 @@ endpoint.
 ## Realtime Replication Statistics
 
 Statistics for both the source or sink sides of realtime replication.
+These values can be found under either `sources.source_stats` or
+`sinks.sink_stats`.
 
 Field | Description
 ------|------------
@@ -49,9 +51,8 @@ Field | Description
 `realtime_started` {{1.3.0+}} | A list of all realtime sinks that are started
 `rt_dirty` | The number of errors detected that can prevent objects from being replicated via realtime. These include errors on the source or sink connection, or realtime queue overload resulting in objects being dropped from the queue. *This value will persist across restarts until a fullsync is complete.*
 `rt_sink_errors` | A sink error has been detected on the source node. This value will be reset to 0 after a node restarts.
+`rt_sink_connected_to.source_drops` |  The number of dropped put transfers from the perspective of the sink cluster
 `rt_source_errors` | A source error has been detected on the source node. This value will be reset to 0 after a node restarts.
-
-These are values under `sources` then `source_stats` or `sinks` then `sink_stats`.
 
 Field | Description
 ------|------------
@@ -63,7 +64,7 @@ Field | Description
 `acked_seq` | The last realtime queue sequence number that has been acknowledged
 `expect_seq` | The next realtime queue sequence number that is expected
 `hb_rtt`  {{1.3.2+}} | Realtime replication heartbeat round-trip time in milliseconds, recorded on the replication source
-`hb_last` {{1.3.2+}} | `{MegaSeconds, Seconds, MicroSeconds}` since a heartbeat message was received on the realtime sink 
+`hb_last` {{1.3.2+}} | `{MegaSeconds, Seconds, MicroSeconds}` since a heartbeat message was received on the realtime sink
 
 
 These values are under `realtime_queue_stats`.
@@ -71,11 +72,13 @@ These values are under `realtime_queue_stats`.
 Field | Description
 ------|------------
 `bytes` | The size in bytes of all objects currently in the realtime queue
-`consumers | A li`st of source consumers of the realtime queue
-`sinkclustername` | A consumer of the realtime queue
+`consumers` | A list of source consumers of the realtime queue
+`consumers.<clustername>.drops` | The number of dropped realtime sync put transfers per sink cluster, from the perspective of the source cluster ("dropped" in this context meaning either that the outgoing data queue was full or that there was a connection error)
 `drops` | The number of objects dropped from the realtime queue as the result of the queue being full or other errors
 `errs` | The number of errors while pushing/popping from the realtime queue
+`overload_drops` | The number of put transfers that have been dropped due to an overload of the message queue of the Erlang process responsible for processing outgoing transfers
 `pending` | The number of objects waiting to be sent to the sink cluster
+`sinkclustername` | A consumer of the realtime queue
 `unacked` | The number of objects waiting to be acknowledged by a queue consumer
 
 
