@@ -44,20 +44,39 @@ code.
 1. Once you've generated all of the necessary messages, you'll need to
 implement a transport layer to interface with Riak. A full list of
 Riak-specific Protocol Buffers messages can be found on the [[PBC API]]
-page.
+page. The official [Python
+client](https://github.com/basho/riak-python-client), for example, has a
+single
+[`RiakPbcTransport`](https://github.com/basho/riak-python-client/blob/3c7530f047a3b29)
+class that handles all message building, sending, and receiving, while
+the official [Java client](https://github.com/basho/riak-java-client)
+takes a more piecemeal approach to messages (as shown by the
+[`FetchOperation`](https://github.com/basho/riak-java-client/blob/a74a9b99eda5e5f79c4be16dd432e04317b45e84/src/main/java/com/basho/riak/client/core/operations/FetchOperation.java))
+class, which handles reads from Riak.
+1. Once the transport layer is in place, you can begin building
+higher-level abstractions for your client.
+
+The drawback behind using Protocol Buffers is that it's not as widely
+known as HTTP and has a bit of a learning curve for those who aren't
+used to it. The good news, however, is that Google offers official
+support for C++, Java, and Python and [many other
+languages](https://github.com/google/protobuf/wiki/Third-Party-Add-ons)
+have strong community support.
 
 ## Retry Requests
 
 As described in the [[Eventual Consistency]] document, there are many
 scenarios that can result in temporary inconsistency, which may cause
-the appearance of stale data or sibling objects. To react appropriately
-to unexpected or unsuccessful results, clients should retry requests a
-small number of times before failing to the caller. For example, when
-fetching a key that might be inconsistent among its replicas, this gives
-[[read repair|Replication#Read-Repair]] a chance to update the stale
-copies. Retries also may give the client an opportunity to reconnect to
-the Riak node (or a different node in the cluster) when the original
-connection is lost for whatever reason. A number of operations in Riak
+the appearance of stale data or [[sibling objects|Causal
+Context#Siblings]]. To react appropriately to unexpected or unsuccessful
+results, clients should enable users to retry requests a specifiable
+number of times before failing to the caller. For example, when fetching
+a key that might be inconsistent among its replicas, this gives [[read
+repair|Active Anti-Entropy#Read-Repair-vs-Active-Anti-Entropy]] a chance
+to update the stale copies. Retries also may give the client an
+opportunity to reconnect to the Riak node (or a different node in the
+cluster) when the original connection is lost for whatever reason. A
+number of operations in Riak
 are idempotent and thus can be retried without side-effects.
 
 ## Sibling Resolution
@@ -109,3 +128,15 @@ of Nagle on either end of the connection.  If the client application has
 significant round-trip latency to the Riak cluster, disabling Nagle will
 have little effect, but for well-connected clients it can significantly
 reduce latency.
+
+## Compatibility with Riak 2.0
+
+The release of [[Riak 2.0]] has brought a variety of fundamental changes
+to Riak that client builders and maintainers should be aware of,
+including a variety of new features, such as [[security|Authentication
+and Authorization]] and [[Riak Data Types|Using Data Types]. The
+sections below will list some of those changes and suggest approaches to
+addressing them, including some examples from our official [[client
+libraries]].
+
+###
