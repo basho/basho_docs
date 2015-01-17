@@ -66,6 +66,9 @@ bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
 ```
 
+```csharp
+```
+
 ```erlang
 {ok, Obj} = riakc_pb_socket:get(Pid,
                             {<<"animals">>, <<"dogs">>},
