@@ -47,22 +47,21 @@ of the following **before** enabling security:
    walking are not required. Enabling security will break this
    functionality. If you wish to use security and search together, you
    will need to use the [[new Search feature|Using Search]].
-2. Because Riak security requires a secure SSL connection, you will need
-   to generate appropriate SSL certs and make sure that each Riak node's
-   [[configuration files|Configuration Files#Security]] point to the
-   [[right paths|Authentication and
-   Authorization#Certificate-Configuration]] for those certs
-2. Define [[users|Authentication and Authorization#User-Management]]
+1. Because Riak security requires a secure SSL connection, you will need
+   to generate appropriate SSL certs and establish a [[certification
+   configuration|Authentication and
+   Authorization#Certificate-Configuration]] on each node
+1. Define [[users|Authentication and Authorization#User-Management]]
    and, optionally, groups
-3. Define an [[authentication source|Authentication and
+1. Define an [[authentication source|Authentication and
    Authorization#Managing-Sources]] for each user
-4. Grant the necessary [[permissions|Authentication and
+1. Grant the necessary [[permissions|Authentication and
    Authorization#Managing-Permissions]] to each user (and/or group)
-5. Check any Erlang MapReduce code for invocations of Riak modules other
+1. Check any Erlang MapReduce code for invocations of Riak modules other
    than `riak_kv_mapreduce`. Enabling security will prevent those from
    succeeding unless those modules are available via the `add_path`
    mechanism documented in [[Installing Custom Code]].
-6. Make sure that your client software will work properly:
+1. Make sure that your client software will work properly:
     * It must pass authentication information with each request
     * It must support HTTPS or encrypted [[Protocol Buffers|PBC API]]
       traffic
@@ -749,6 +748,37 @@ installing it can be found in [[Installing Erlang]]. This issue should
 not affect Erlang 17.0 and later.
 </div>
 
+## Enabling SSL
+
+In order to use any authentication or authorization features, you must
+enable SSL for Riak. **SSL is disabled by default**. If you are using
+[[Protocol Buffers|PBC API]] as a transport protocol for Riak (which we
+strongly recommend), enabling SSL on a given node requires only that you
+specify a [[host and port|Configuration Files#Client-Interfaces]] for
+the node as well as a [[certificate configuration|Authenticate and
+Authorization#Certificate-Configuration]].
+
+If, however, you are using the [[HTTP API]] for Riak and would like to
+configure HTTPS, you will need to not only establish a [[certificate
+configuration|Authentication and
+Authorization#Certificate-Configuration]] but also specify an HTTPS host
+and port. The following configuration would establish port 8088 on
+`localhost` as the HTTPS port:
+
+```riakconf
+listener.https.$name = 127.0.0.1:8088
+
+# By default, "internal" is used as the "name" setting
+```
+
+```appconfig
+{riak_core, [
+             %% Other configs
+             {https, [{"127.0.0.1", 8088}]},
+             %% Other configs
+            ]}
+```
+
 ## TLS Settings
 
 When using Riak security, you can choose which versions of SSL/TLS are
@@ -764,9 +794,9 @@ parameters|Configuration Files#Security]] to `on` or `off`:
 Three things to note:
 
 * Among the four available options, only TLS version 1.2 is enabled by
- default
+  default
 * You can enable more than one protocol at a time
-* We strongly recommend that you _not_ use SSL version 3 unless
+* We strongly recommend that you do _not_ use SSL version 3 unless
   absolutely necessary
 
 ## Certificate Configuration
