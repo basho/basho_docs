@@ -314,6 +314,15 @@ riak-admin security revoke search.query on index famous from username
 
 ## Indexing Values
 
+<div class="note">
+<div class="title">Note on indexing and lag times</div>
+There is typically a one-second delay between storing an object in Riak
+and that object being available in Search queries. You should take this
+into account when writing Riak client tests, benchmarking, and so on.
+More information can be found in the [Solr
+documentation](http://wiki.apache.org/solr/SolrPerformanceFactors).
+</div>
+
 With a Solr schema, index, and association in place (and possibly a
 security setup as well), we're ready to start using Riak Search. First,
 populate the `cat` bucket with values, in this case information about
@@ -875,24 +884,24 @@ the Riak Search hook to MapReduce).
 
 ```json
 {
-  "inputs":{
-    "module":"yokozuna",
-    "function":"mapred_search",
-    "arg":["famous","NOT leader_b:true"]
+  "inputs": {
+    "module": "yokozuna",
+    "function": "mapred_search",
+    "arg": ["famous","NOT leader_b:true"]
   },
-  "query":[
+  "query": [
     {
-      "map":{
-        "language":"javascript",
-        "keep":false,
-        "source":"function(v) { return [1]; }"
+      "map": {
+        "language": "javascript",
+        "keep": false,
+        "source": "function(v) { return [1]; }"
       }
     },
     {
-      "reduce":{
-        "language":"javascript",
-        "keep":true,
-        "name":"Riak.reduceSum"
+      "reduce": {
+        "language": "javascript",
+        "keep": true,
+        "name": "Riak.reduceSum"
       }
     }
   ]

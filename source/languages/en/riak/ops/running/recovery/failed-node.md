@@ -34,21 +34,21 @@ your control, you'll want to notify the cluster of its *new* name using the
 following steps:
 
 1. Stop the node you wish to rename:
-    
+
     ```bash
     riak stop
     ```
-    
+
 
 2. Mark the node down from another node in the cluster:
-    
+
     ```bash
     riak-admin down <previous_node_name>
     ```
 
 3. Update the node name in Riak's configuration files:
 
-    ```appconfig
+    ```riakconf
     nodename = <updated_node_name>
     ```
 
@@ -65,7 +65,7 @@ following steps:
     ```
 
 6. Ensure that the node comes up as a single instance:
-    
+
     ```bash
     riak-admin member-status
     ```

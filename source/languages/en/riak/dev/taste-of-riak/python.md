@@ -22,6 +22,20 @@ port install py-distribute`. `setuptools` and `pip` are included in the
 Homebrew formula for Python on OS X as well. Just run `brew install
 python`.
 
+## Prerequisites
+
+First, you must install some packages needed by the Riak Python client:
+
+* `python-dev` --- Header files and a static library for Python
+* `libffi-dev` --- Foreign function interface library
+* `libssl-dev` --- libssl and libcrypto development libraries
+
+### Ubuntu (12.04 & 14.04)
+
+```bash
+sudo apt-get install python-dev libffi-dev libssl-dev
+```
+
 ## Client Setup
 
 The easiest way to install the client is with `easy_install` or `pip`.

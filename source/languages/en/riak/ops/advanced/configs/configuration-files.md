@@ -112,6 +112,20 @@ _not_ be able to discern if your configuration is otherwise unsound,
 e.g. if your configuration will cause problems on your operating system
 or doesn't activate subsystems that you would like to use.
 
+## Debugging Your Configuration
+
+If there is a problem with your configuration but you're having trouble
+identifying the problem, there is a command that you can use to debug
+your configuration:
+
+```bash
+riak config generate -l debug
+```
+
+If there are issues with your configuration, you will see detailed
+output that might provide a better sense of what has gone wrong in the
+config generation process.
+
 ## The advanced.config file
 
 For most Riak installations, the `riak.conf` file should be sufficient
@@ -862,6 +876,8 @@ Below is the general form for setting multi-backend parameters:
 
 ```riakconf
 multi_backend.$name.(existing_setting) = <setting>
+# or
+multi_backend.$name.$backend_type.(backend_specific_setting) = <setting>
 ```
 
 Below is a listing of the available paramaters:
@@ -899,8 +915,8 @@ do so as follows:
 
 ```riakconf
 multi_backend.customer_backend.storage_backend = leveldb
-multi_backend.customer_backend.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
-multi_backend.customer_backend.maximum_memory.percent = 50
+multi_backend.customer_backend.leveldb.data_root = $(platform_data_dir)/leveldb_backends/customer_backend
+multi_backend.customer_backend.leveldb.maximum_memory.percent = 50
 ```
 
 ## Riak Control
@@ -1962,7 +1978,7 @@ to <code>off</code> can cut down on system resource usage.
 
 ## Intra-Cluster Handoff
 
-Configurable parameters for intra-cluster, i.e. inter-node, handoff.
+Configurable parameters for intra-cluster, i.e. inter-node, [[handoff]].
 
 <table class="riak-conf">
 <thead>
@@ -1984,6 +2000,20 @@ can be blocked can be determined by multiplying this setting by
 ever being blocked by a secondary system, set this parameter to
 <code>0</code>.</td>
 <td><code>6</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.inbound</code></td>
+<td>Whether inbound handoff is enabled on the node. Possible values are
+<code>on</code> or <code>off</code>.</td>
+<td><code>on</code></td>
+</tr>
+
+<tr>
+<td><code>handoff.outbound</code></td>
+<td>Whether outbound handoff is enabled on the node. Possible values are
+<code>on</code> or <code>off</code>.</td>
+<td><code>on</code></td>
 </tr>
 
 <tr>
@@ -2015,7 +2045,7 @@ This can help to prevent system response degradation during times of
 heavy load caused by multiple background tasks that contend for the same
 system resources; setting this parameter to <code>off</code> can cut
 down on system resource usage.</td>
-<td>off</td>
+<td><code>off</code></td>
 </tr>
 
 </tbody>

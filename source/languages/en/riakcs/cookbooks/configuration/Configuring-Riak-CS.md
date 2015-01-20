@@ -241,18 +241,18 @@ case.
 
 ### Tuning
 
-We strongly recommend you that you [[increase the value of the
-`pb_backlog` setting|Configuring Riak for
+We strongly recommend you that you increase the value of the
+[[`pb_backlog` setting|Configuring Riak for
 CS#Setting-Up-Riak-to-Use-Protocol-Buffers]] in Riak. When a Riak CS
 node is started, each connection pool begins to establish connections to
-Riak.  This can result in a [[thundering herd
+Riak. This can result in a [[thundering herd
 problem|http://en.wikipedia.org/wiki/Thundering_herd_problem]] in which
 connections in the pool believe they are connected to Riak, but in
 reality some of the connections have been reset. Due to TCP `RST` packet
 rate limiting (controlled by `net.inet.icmp.icmplim`) some of the
 connections may not receive notification until they are used to service
-a user's request.  This manifests as an `{error, disconnected}` message
-in the Riak CS logs and an error to returned to the user.
+a user's request. This manifests itself as an `{error, disconnected}`
+message in the Riak CS logs and an error to returned to the user.
 
 ## Enabling SSL in Riak CS
 
@@ -410,42 +410,7 @@ performance for Riak CS when using Riak 1.4.0 or later. These options
 take advantage of additions to Riak that are not present prior to
 version 1.4.0.
 
-## Concurrency and Buffering
-
-There are two parameters related to concurrency and buffering that you
-may wish to add to your Riak CS settings if you are having issues with
-PUT requests.
-
-Config | Description | Default
-:------|:------------|:-------
-`put_concurrency` | The number of threads inside of Riak CS that are used to write blocks to Riak. | `1`
-`put_buffer_factor` | The number of blocks that will be buffered in-memory in Riak CS before it begins to slow down reading from the HTTP client. | `1`
-
-Raising the value of both of these parameters may provide higher
-single-client throughput.
-
 ## Other Riak CS Settings
 
-* `fold_objects_for_list_keys` --- Setting this option to `true` enables
-  Riak CS to use a more efficient method of retrieving Riak CS bucket
-  contents from Riak. Using this option provides improved performance
-  and stability, especially for buckets that contain millions of objects
-  or more. This option should not be enabled unless Riak 1.4.0 or
-  greater is being used. The default value for this option is `false`.
-
-* `n_val_1_get_requests` --- This option causes Riak CS to use a special
-  request option when retrieving the blocks of an object. This option
-  instructs Riak to only send a request for the object block to a single
-  eligible virtual node (vnode) instead of all eligible vnodes. This
-  differs from the standard `r` request option that Riak provides in
-  that `r` affects how many vnode responses to wait for before returning
-  and has no effect on how many vnodes are actually contacted. Enabling
-  this option has the effect of greatly reducing the intra-cluster
-  bandwidth used by Riak when retrieving objects with Riak CS. This
-  option is harmless when used with a version of Riak prior to 1.4.0,
-  but the option to disable it is provided as a safety measure. The
-  default value for this option is `true`.
-
-The `app.config` file includes other settings, such as whether to create
-log files and where to store them. These settings have default values
-that work in most cases.
+For a complete listing of configurable parameters for Riak CS, see the
+[[configuration reference|Riak CS Configuration Reference]] document.

@@ -8,6 +8,51 @@ audience: intermediate
 keywords: [developer]
 ---
 
+## Riak CS 1.5.3
+
+### Changes
+
+* Add `read_before_last_manifest_write` option to help avoid sibling
+  explosion for use cases involving high churn and concurrency on a
+  fixed set of keys. When sibling explosion occurs, the objects stored in
+  Riak can become very large and severely impair the functioning of the
+  system. The trade-off in enabling this option is a latency penalty of
+  doing an extra read before the final write of an object's manifest to
+  Riak. However, for use cases matching the description, the minor
+  latency penalty is preferable to consequences of sibling explosion.
+  [riak_cs/#1011](https://github.com/basho/riak_cs/pull/1011)
+* Add configurable timeouts for all Riak CS interactions with Riak to
+  provide more flexibility in operational situations.
+  [riak_cs/#1021](https://github.com/basho/riak_cs/pull/1021)
+
+### Fixes
+
+* Fix storage calculation
+    [riak_cs/#996](https://github.com/basho/riak_cs/pull/996)
+  * **Problem**: Data for deleted buckets would be included in the
+      calculation results
+  * **Solution**: Storage calculations no longer include deleted buckets
+
+### Known Issues
+
+None
+
+### Download
+
+Please see the [Riak CS Downloads
+Page](http://docs.basho.com/riakcs/latest/riakcs-downloads/).
+
+### Feedback
+
+We would love to hear from you. You can reach us in any of the following
+venues:
+
+* [Basho mailing
+  list](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
+* [The official Basho docs](https://github.com/basho/basho_docs)
+* [Riak CS on GitHub](https://github.com/basho/riak_cs)
+* Via email at **info@basho.com**
+
 ## Riak CS 1.5.2
 
 ### Changes

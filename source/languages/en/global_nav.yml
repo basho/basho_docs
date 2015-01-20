@@ -49,7 +49,7 @@ riak:
         sub:
           - "[[Application Guide|Building Applications with Riak]]"
           - "[[Client Libraries]]"
-          - "[[Key/Value Operations|The Basi]]"
+          - "[[Key/Value Operations|The Basics]]"
           - "[[Object Updates]]"
           - "[[Bucket Types|Using Bucket Types]]"
           - "[[MapReduce|Using MapReduce]]"
@@ -68,6 +68,7 @@ riak:
           - "[[Search Schema]]"
           - "[[Riak Data Types and Search]]"
           - "[[Custom Search Extractors]]"
+          - "[[Riak as a Document Store|Using Riak as a Document Store]]"
       - title: "Riak Data Types"
         sub:
           - "[[Data Types Basics|Using Data Types]]"
@@ -128,8 +129,6 @@ riak:
           - "[[Basic Configuration]]"
           - "[[Basic Cluster Setup]]"
           - "[[Benchmarking|Basho Bench]]"
-          - "[[Authentication and Authorization]]"
-          - "[[Managing Security Sources]]"
       - title: "Tuning"
         sub:
           - "[[Open Files Limit]]"
@@ -140,15 +139,17 @@ riak:
           - "[[Erlang VM Tuning]]"
       - title: "Running a Cluster"
         sub:
-          - "[[Backing up Riak]]"
+          - "[[Cluster Administration]]"
           - "[[Logging]]"
+          - "[[Handoff]]"
+          - "[[Backing up Riak]]"
           - title: "Node Operations"
             sub:
               - "[[Adding/Removing|Adding and Removing Nodes]]"
               - "[[Renaming Nodes]]"
               - "[[Replacing Nodes|Replacing a Node]]"
               - "[[Inspecting Nodes|Inspecting a Node]]"
-          - title: "Command Line Tools"
+          - title: "Command-line Tools"
             sub:
               - "[[riak|riak Command Line]]"
               - "[[riak-admin|riak-admin Command Line]]"
@@ -167,6 +168,11 @@ riak:
               - "[[Riak Monitoring with collectd]]"
               - "[[JMX Monitoring]]"
               - "[[SNMP]]"
+      - title: "Security"
+        sub:
+          - "[[Authentication and Authorization]]"
+          - "[[Managing Security Sources]]"
+          - "[[Security and Firewalls]]"
       - title: "Advanced"
         sub:
           - "[[Riak Control]]"
@@ -332,7 +338,7 @@ riakcs:
       - title: "Configuring CS"
         sub:
           - "[[Configuration Overview|Configuring Riak CS Overview]]"
-          - "[[Configuring Riak|Configuring Riak for CS]]"
+          - "[[Configuring Riak for CS]]"
           - "[[Configuring Stanchion]]"
           - "[[Configuring Riak CS]]"
           - "[[Load Balancing and Proxy Configuration|Load Balancing and Proxy Configuration for CS]]"
@@ -340,7 +346,6 @@ riakcs:
       - title: "Running CS"
         sub:
           - "[[Command-line Tools|Riak CS Command-line Tools]]"
-          - "[[Designating an Admin User]]"
           - "[[Launching and Stopping|Launching and Stopping Riak CS]]"
           - "[[Logging|Riak CS Logging]]"
       - title: "Advanced"

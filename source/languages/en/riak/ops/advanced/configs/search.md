@@ -82,3 +82,18 @@ minimum of 6GB of RAM per node.
 Concerning ports, be sure to take the necessary [[security|Security and
 Firewalls]] precautions to prevent exposing the extra solr and JMX ports
 to the outside world.
+
+## Solr for Operators
+
+For further information on Solr monitoring, tuning, and performance, we
+recommend the following documents for getting started:
+
+* [Solr Monitoring](https://wiki.apache.org/solr/SolrMonitoring)
+* [Solr Performance
+    Factors](https://wiki.apache.org/solr/SolrPerformanceFactors)
+* [Solr Performance
+    Problems](https://wiki.apache.org/solr/SolrPerformanceProblems)
+* [JConsole](http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html)
+
+A wide variety of other documentation is available from the Solr OSS
+community.

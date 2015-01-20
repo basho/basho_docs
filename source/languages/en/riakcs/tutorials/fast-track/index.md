@@ -18,6 +18,7 @@ reliable storage to power applications and services. It features:
 * Highly available, fault-tolerant storage
 * Large object support and multipart upload
 * S3-compatible API and authentication
+* OpenStack Swift API (not covered in this fast track)
 * Multi-tenancy and per-user reporting
 * Simple operational model for adding capacity
 * Robust stats for monitoring and metrics

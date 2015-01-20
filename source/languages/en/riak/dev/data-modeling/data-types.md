@@ -148,8 +148,10 @@ class User
   def initialize(first_name, last_name)
     key = "#{first_name}_#{last_name}"
     @map = Riak::Crdt::Map.new($client.bucket 'users', key)
-    @map.registers['first_name'] = first_name
-    @map.registers['last_name'] = last_name
+    @map.batch do |m|
+      m.registers['first_name'] = first_name
+      m.registers['last_name'] = last_name
+    end
   end
 end
 ```

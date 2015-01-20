@@ -60,16 +60,6 @@ it runs out of memory. This will leave a crash dump file, named
 `erl_crash.dump`, in the `/var/log/riak` directory which can be used to
 determine the cause of the memory usage.
 
-In addition to swappiness, the below virtual memory settings help
-prevent disks from being overwhelmed during periods of high write
-activity at the expense of peak performance for spiky workloads, and can
-be added or updated in `/etc/sysctl.conf`:
-
-```config
-vm.dirty_bytes = 209715200
-vm.dirty_background_bytes = 104857600
-```
-
 ### Mounts
 
 Riak makes heavy use of disk I/O for its storage operations. It is
@@ -235,7 +225,9 @@ all network operations.
 ## Optional I/O Settings
 
 If your cluster is experiencing excessive I/O blocking, the following
-settings may help:
+settings may help prevent disks from being overwhelmed during periods of
+high write activity at the expense of peak performance for spiky
+workloads:
 
 ```config
 vm.dirty_background_ratio = 0

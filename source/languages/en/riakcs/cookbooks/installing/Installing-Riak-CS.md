@@ -223,8 +223,8 @@ docs](https://packagecloud.io/basho/riak-cs/install).
 Platform-specific pages are linked below:
 
 * [el5](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=5)
-* [el6](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=6)
-* [el7](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=7)
+* [el6](https://packagecloud.io/basho/riak-cs/packages/el/6/riak-cs-{{VERSION}}-1.el6.x86_64.rpm)
+<!-- * [el7](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.x86_64.rpm?distro=7) -->
 * [Fedora 19](https://packagecloud.io/basho/riak-cs/riak-cs-{{VERSION}}-1.fc19.x86_64.rpm?distro=19)
 
 #### Advanced rpm Installation

@@ -38,6 +38,15 @@ that can be divided into two essential phases:
 
 These two phases are described in more detail in the following sections.
 
+<div class="note">
+<div class="title">Note on manifest pruning</div>
+A Riak CS object's manifest is updated any time a write, i.e. a `PUT` or
+`DELETE` request, is issued, which means that manifest sizes can grow
+significantly over time. This can lead to latency problems. Riak CS's GC
+subsystem will prune these manifests. If you're experiencing
+manifest-related issues, we would recommend using GC.
+</div>
+
 ## Synchronous GC Actions
 
 Riak CS users can undertake two actions to initiate garbage collection
