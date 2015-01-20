@@ -48,10 +48,9 @@ of the following **before** enabling security:
    functionality. If you wish to use security and search together, you
    will need to use the [[new Search feature|Using Search]].
 2. Because Riak security requires a secure SSL connection, you will need
-   to generate appropriate SSL certs and make sure that each Riak node's
-   [[configuration files|Configuration Files#Security]] point to the
-   [[right paths|Authentication and
-   Authorization#Certificate-Configuration]] for those certs
+   to generate appropriate SSL certs and establish a [[certification
+   configuration|Authentication and
+   Authorization#Certificate-Configuration]] on each node
 2. Define [[users|Authentication and Authorization#User-Management]]
    and, optionally, groups
 3. Define an [[authentication source|Authentication and
@@ -757,8 +756,7 @@ enable SSL for Riak. **SSL is disabled by default**. If you are using
 strongly recommend), enabling SSL on a given node requires only that you
 specify a [[host and port|Configuration Files#Client-Interfaces]] for
 the node as well as a [[certificate configuration|Authentication and
-Authorization#Certificate-Configuration]]. If you [[enable
-security|Authentication and Authorization#Security-Basics]]
+Authorization#Certificate-Configuration]].
 
 If, however, you are using the [[HTTP API]] for Riak and would like to
 configure HTTPS, you will need to not only establish a [[certificate
