@@ -758,13 +758,28 @@ strongly recommend), enabling SSL on a given node requires only that you
 specify a [[host and port|Configuration Files#Client-Interfaces]] for
 the node as well as a [[certificate configuration|Authentication and
 Authorization#Certificate-Configuration]]. If you [[enable
-security|Authentication and Authentication#Security-Basics]]
+security|Authentication and Authorization#Security-Basics]]
 
 If, however, you are using the [[HTTP API]] for Riak and would like to
 configure HTTPS, you will need to not only establish a [[certificate
 configuration|Authentication and
 Authorization#Certificate-Configuration]] but also specify an HTTPS
-host and port. The following configuration would establish port
+host and port. The following configuration would establish port 8088 on
+`localhost` as the HTTPS port:
+
+```riakconf
+listener.https.$name = 127.0.0.1:8088
+
+# By default, "internal" is used as the "name" setting
+```
+
+```appconfig
+{riak_core, [
+             %% Other configs
+             {https, [{"127.0.0.1", 8088}]},
+             %% Other configs
+            ]}
+```
 
 ## TLS Settings
 
