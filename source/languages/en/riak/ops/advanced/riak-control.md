@@ -25,14 +25,54 @@ additional installation steps.
 <div class="title">Note on SSL</div>
 We strongly recommend that you enable SSL for Riak Control. It is
 enabled by default, but if you wish to disable it you must do so
-explicitly. More information can be found [[below|]]
+explicitly. More information can be found in the document below.
 </div>
 
-It is strongly recommended that SSL be enabled for Riak Control. SSL is
-required unless you explicitly set `{auth, none}`. SSL can be enabled in
-the [[configuration files]].
+## Enabling and Disabling Riak Control
+
+Riak Control is disabled by default, meaning that you should see the
+following in your [[configuration files]]:
+
+```riakconf
+riak_control = off
+```
+
+```appconfig
+{riak_control, [
+                %% Other configs
+                {enabled, false},
+                %% Other configs
+               ]}
+```
+
+Enabling Riak Control is simple:
+
+```riakconf
+riak_control = on
+```
+
+```appconfig
+{riak_control, [
+                %% Other configs
+                {enabled, true},
+                %% Other configs
+               ]}
+```
+
+Make sure to restart the node once you have enabled Riak Control for the
+change to take effect.
+
+## Enabling SSL and HTTPS
+
+In order to use SSL in conjunction with Riak Control, SSL must be
+enabled in each Riak node. For more information, see our [[security
+documentation|Authentication and
+Authorization#Certificate-Configuration]].
 
 ## Setting up Riak Control
+
+Riak Control has a small set of configurable parameters available for
+oeprators
 
 ### Enabling SSL and HTTPS
 
