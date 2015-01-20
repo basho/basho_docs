@@ -749,6 +749,8 @@ installing it can be found in [[Installing Erlang]]. This issue should
 not affect Erlang 17.0 and later.
 </div>
 
+## Enabling SSL
+
 ## TLS Settings
 
 When using Riak security, you can choose which versions of SSL/TLS are
