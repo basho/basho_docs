@@ -34,11 +34,11 @@ installation, Chef, and Puppet can be found in packagecloud's
 
 Platform-specific pages are linked below:
 
-* [Lucid](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=lucid)
-* [Precise](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=precise)
-* [Squeeze](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=squeeze)
-* [Trusty](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=trusty)
-* [Wheezy](https://packagecloud.io/basho/riak/riak_2.0.0-1_amd64.deb?distro=wheezy)
+* [Lucid](https://packagecloud.io/basho/riak/riak_2.0.4-1_amd64.deb?distro=lucid)
+* [Precise](https://packagecloud.io/basho/riak/riak_2.0.4-1_amd64.deb?distro=precise)
+* [Squeeze](https://packagecloud.io/basho/riak/riak_2.0.4-1_amd64.deb?distro=squeeze)
+* [Trusty](https://packagecloud.io/basho/riak/riak_2.0.4-1_amd64.deb?distro=trusty)
+* [Wheezy](https://packagecloud.io/basho/riak/riak_2.0.4-1_amd64.deb?distro=wheezy)
 
 Our documentation also includes instructions regarding signing keys and
 sources lists, which can be found in the [[Advanced apt
