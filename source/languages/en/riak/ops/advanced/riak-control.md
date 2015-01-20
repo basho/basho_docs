@@ -14,22 +14,23 @@ moved: {
 Riak Control is a web-based administrative console for inspecting and
 manipulating Riak clusters.
 
-{{#1.4.0-}}
-See the below video for a quick introduction to Riak Control and its features.
-
-<div style="display:none" class="iframe-video" id="http://player.vimeo.com/video/38345840"></div>
-{{/1.4.0-}}
-
 ## Requirements
 
 Though Riak Control [is maintained as a separate
-application](https://github.com/basho/riak_control), the necessary code for
-Control ships with versions of Riak 1.1 and above, and requires no additional
-installation steps.
+application](https://github.com/basho/riak_control), the necessary code
+for it ships with versions of Riak 1.1 and above and requires no
+additional installation steps.
+
+<div class="note">
+<div class="title">Note on SSL</div>
+We strongly recommend that you enable SSL for Riak Control. It is
+enabled by default, but if you wish to disable it you must do so
+explicitly. More information can be found [[below|]]
+</div>
 
 It is strongly recommended that SSL be enabled for Riak Control. SSL is
-required unless you explicitly set `{auth, none}`. SSL can be enabled in the
-[[configuration files]].
+required unless you explicitly set `{auth, none}`. SSL can be enabled in
+the [[configuration files]].
 
 ## Setting up Riak Control
 
