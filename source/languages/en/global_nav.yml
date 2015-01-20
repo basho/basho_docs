@@ -177,7 +177,6 @@ riak:
         sub:
           - "[[Riak Control]]"
           - "[[Installing Custom Code]]"
-          - "[[Security and Firewalls]]"
           # - "[[Ring Resizing]]"
           - "[[Object Deletion]]"
           - "[[Runtime Interaction]]"
