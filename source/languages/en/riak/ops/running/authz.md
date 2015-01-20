@@ -751,6 +751,21 @@ not affect Erlang 17.0 and later.
 
 ## Enabling SSL
 
+In order to use any authentication or authorization features, you must
+enable SSL for Riak. **SSL is disabled by default**. If you are using
+[[Protocol Buffers|PBC API]] as a transport protocol for Riak (which we
+strongly recommend), enabling SSL on a given node requires only that you
+specify a [[host and port|Configuration Files#Client-Interfaces]] for
+the node as well as a [[certificate configuration|Authentication and
+Authorization#Certificate-Configuration]]. If you [[enable
+security|Authentication and Authentication#Security-Basics]]
+
+If, however, you are using the [[HTTP API]] for Riak and would like to
+configure HTTPS, you will need to not only establish a [[certificate
+configuration|Authentication and
+Authorization#Certificate-Configuration]] but also specify an HTTPS
+host and port. The following configuration would establish port
+
 ## TLS Settings
 
 When using Riak security, you can choose which versions of SSL/TLS are
