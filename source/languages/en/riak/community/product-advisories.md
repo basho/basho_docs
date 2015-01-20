@@ -2,6 +2,7 @@
 title: Product Advisories
 project: riak
 version: 2.0.0+
+versions: false
 document: reference
 audience: beginner
 keywords: [product-advisories]

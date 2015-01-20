@@ -2,6 +2,7 @@
 title: Riak CS Pool Leak
 project: riak
 version: 1.0.0+
+versions: false
 document: reference
 ---
 
