@@ -39,7 +39,7 @@ Tools#start]]`:
     ```
 
 4. Plan the join of the new `riak7` node to an existing node already
-participating in he cluster; for example `riak0` with the `[[riak-admin
+participating in the cluster; for example `riak0` with the `[[riak-admin
 cluster join|riak-admin Command Line#cluster]]` command executed on the
 new `riak7` node:
 
