@@ -23,16 +23,12 @@ running MapReduce jobs.
 ## Terminology
 
 * **Authentication** is the process of identifying a user.
-
 * **Authorization** is verifying whether a user has access to perform
   the requested operation.
-
 * **Groups** can have permissions assigned to them, but cannot be
   authenticated.
-
 * **Users** can be authenticated and authorized; permissions
   (authorization) may be granted directly or via group membership.
-
 * **Sources** are used to define authentication mechanisms. A user
   cannot be authenticated to Riak until a source is defined.
 
@@ -48,7 +44,8 @@ of the following **before** enabling security:
    functionality. If you wish to use security and search together, you
    will need to use the [[new Search feature|Using Search]].
 1. Because Riak security requires a secure SSL connection, you will need
-   to generate appropriate SSL certs and establish a [[certification
+   to generate appropriate SSL certs, [[enable SSL|Authentication and
+   Authorization#Enabling-SSL]] and establish a [[certification
    configuration|Authentication and
    Authorization#Certificate-Configuration]] on each node
 1. Define [[users|Authentication and Authorization#User-Management]]
