@@ -135,6 +135,10 @@ bucket = client.bucket('animals')
 bucket.get_properties()
 ```
 
+```erlang
+{ok, Props} = riakc_pb_socket:get_bucket(Pid, <<"animals">>).
+```
+
 ```curl
 # Assuming that Riak is running on "localhost" and port 8087:
 
@@ -142,7 +146,7 @@ curl http://localhost:8087/types/default/buckets/animals/props
 ```
 
 If the bucket `animals` had a different type that you had created and
-activated,  e.g. `my_custom_type`, you could fetch the bucket properties
+activated, e.g. `my_custom_type`, you could fetch the bucket properties
 like so:
 
 ```java
@@ -161,6 +165,10 @@ bucket.properties
 ```python
 bucket = client.bucket_type('my_custom_type').bucket('animals')
 bucket.get_properties()
+```
+
+```erlang
+{ok, Props} = riakc_pb_socket:get_bucket(Pid, {<<"my_custom_type">>, <<"animals">>}).
 ```
 
 ```curl
