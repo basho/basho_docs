@@ -72,7 +72,7 @@ cd riak
 make rel
 ```
 
-## Platform Specific Instructions
+## Platform-Specific Instructions
 
 For instructions about specific platforms, see:
 
