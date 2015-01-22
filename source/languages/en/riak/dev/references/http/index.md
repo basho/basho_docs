@@ -65,6 +65,17 @@ Method | URL | Doc
 `GET` | `/stats` | [[HTTP Status]]
 `GET` | `/` | [[HTTP List Resources]]
 
+## Search-related Operations
+
+Method | URL | Doc
+:------|:----|:---
+`GET` | `/search/query/<index_name>` | [[HTTP Search Query]]
+`GET` | `/search/index/<index_name>` | [[HTTP Fetch Search Index]]
+`PUT` | `/search/index/<index_name>` | [[HTTP Store Search Index]]
+`GET` | `/search/schema/<schema_name>` | [[HTTP Fetch Search Schema]]
+`PUT` | `/search/schema/<schema_name>` | [[HTTP Store Search Schema]]
+
+
 ## Bucket Operations
 
 Buckets in Riak are a virtual concept. They exist primarily as a

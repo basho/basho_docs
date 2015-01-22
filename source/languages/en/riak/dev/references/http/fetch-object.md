@@ -12,7 +12,7 @@ moved: {
 }
 ---
 
-Reads an object from the specified bucket / key.
+Reads an object from the specified bucket/key.
 
 ## Request
 
