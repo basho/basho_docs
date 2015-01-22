@@ -70,10 +70,13 @@ Method | URL | Doc
 Method | URL | Doc
 :------|:----|:---
 `GET` | `/search/query/<index_name>` | [[HTTP Search Query]]
+`GET` | `/search/index` | [[HTTP Search Index Info]]
 `GET` | `/search/index/<index_name>` | [[HTTP Fetch Search Index]]
 `PUT` | `/search/index/<index_name>` | [[HTTP Store Search Index]]
+`DELETE` | `/search/index/<index_name>` | [[HTTP Delete Search Index]]
 `GET` | `/search/schema/<schema_name>` | [[HTTP Fetch Search Schema]]
 `PUT` | `/search/schema/<schema_name>` | [[HTTP Store Search Schema]]
+`DELETE` | `/search/schema/<schema_name>` | [[HTTP Delete Search Schema]]
 
 
 ## Bucket Operations
