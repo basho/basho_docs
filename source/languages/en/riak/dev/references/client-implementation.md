@@ -239,3 +239,52 @@ complient, not just for the data stored in objects but also for things
 like bucket, key, and bucket type names. In other words, your client
 should be able to store an object in the bucket `Möbelträgerfüße` with
 the key `tête-à-tête`.
+
+## Conflict Resolution
+
+If you're using either [[Riak Data Types|Data Types]] or Riak's [[strong
+consistency]] subsystem, you don't have to worry about
+[[siblings|Conflict Resolution#Siblings]] because those features by
+definition do not involve sibling creation or resolution. But many users
+of your client will want to use Riak as an [[eventually
+consistent|Eventual Consistency]] system, which means that they will
+need to be able to create their own [[conflict resolution logic|Conflict
+Resolution]].
+
+In essence, your users' applications will need to be able to make
+intelligent, use-case-specific decisions about what to do when the
+application is confronted with [[siblings|Conflict
+Resolution#Siblings]]. Most fundamentally, this means that your client
+needs to enable objects to have multiple sibling values instead of just
+a single value. In the official Python client, for example, each object
+of the class
+`[RiakObject](https://github.com/basho/riak-python-client/blob/master/riak/riak_object.py#L107)`
+has parameters that you'd expect, like `content_type`, `bucket`, and
+`data`, but it also has a `siblings` parameter that returns a list of
+sibling values.
+
+In addition to enabling objects to have multiple values, we also
+strongly recommend providing some kind of helper logic that enables
+users to easily apply their own sibling resolution logic, i.e. some
+means of paring the list of sibling values down to a single value. What
+kind of interface should be provided? That will depend heavily on the
+language. In a functional language, for example, that might mean
+enabling users to specify filtering functions that whittle the siblings
+list down to a single "correct" value. To see conflict resolution in our
+official clients in action, see our tutorials for [[Java|Conflict
+Resolution: Java]], [[Ruby|Conflict Resolution: Ruby]], and
+[[Python|Conflict Resolution: Python]].
+
+## Riak Data Types
+
+In version 2.0, Riak added support for conflict-free replicated data
+types (aka [CRDTs](http://dl.acm.org/citation.cfm?id=2050642)), which we
+call [[Riak Data Types|Data Types]]. These five special Data
+Types---flags, registers, counters, sets, and maps---enable you to forgo
+things like application-side conflict resolution because Riak handles
+the resolution logic for you (provided that your data can be modeled as
+one of the five types). What separates Riak Data Types from other Riak
+objects is that you interact with them _transactionally_, meaning that
+changing Data Types involves sending messages to Riak about what changes
+should be made rather than fetching the object and modifying it on the
+client side.
