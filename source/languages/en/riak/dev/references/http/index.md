@@ -76,8 +76,6 @@ Method | URL | Doc
 `DELETE` | `/search/index/<index_name>` | [[HTTP Delete Search Index]]
 `GET` | `/search/schema/<schema_name>` | [[HTTP Fetch Search Schema]]
 `PUT` | `/search/schema/<schema_name>` | [[HTTP Store Search Schema]]
-`DELETE` | `/search/schema/<schema_name>` | [[HTTP Delete Search Schema]]
-
 
 ## Bucket Operations
 
