@@ -118,7 +118,7 @@ the occasion of a GET request.
 
 * `memory_processes_used`
 * `sys_process_count`
-* `pbc_connect`
+* `pbc_connects`
 * `pbc_active`
 
 ## Systems Metrics To Graph
