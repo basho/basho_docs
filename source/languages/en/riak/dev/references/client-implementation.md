@@ -301,3 +301,27 @@ function that sends all client-side changes to Riak at once, plus a
 function that fetches the current value of the type from Riak with no
 regard for client-side changes (in fact, reloading the type will
 actually wipe out all client-side changes).
+
+## Security
+
+One of the most important features introduced in Riak 2.0 is
+[[security|Authentication and Authorization]]. When enabled, all clients
+connecting to Riak, regardless of which [[security source|Managing
+Security Sources]] is chosen, must communicate with Riak over a secure
+SSL connection rooted in an
+[x.509](http://en.wikipedia.org/wiki/X.509)-certificate-based Public Key
+Infrastructure (PKI). If you want your client's users to be able to take
+advantage of Riak security, you'll need to create an SSL interface.
+Fortunately, there are [OpenSSL](https://www.openssl.org/) and other
+libraries for all major languages. To see SSL in action in our official
+clients, see our tutorials for [[Java|Client-side Security: Java]],
+[[Ruby|Client-side Security: Ruby]], [[Python|Client-side Security:
+Python]], and [[Erlang|Client-side Security: Erlang]].
+
+Although not strictly necessary, we also recommend enabling users to
+specify [certificate revocation
+lists](http://docs.basho.com/riak/latest/dev/advanced/client-security/python/#Specifying-a-Certificate-Revocation-List),
+[OCSP
+checking](http://docs.basho.com/riak/latest/dev/advanced/client-security/ruby/#Online-Certificate-Status-Protocol),
+and [cipher
+lists](http://docs.basho.com/riak/latest/dev/advanced/client-security/python/#Specifying-Ciphers).
