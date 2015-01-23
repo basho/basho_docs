@@ -138,7 +138,7 @@ reduce latency.
 The release of [[Riak 2.0]] has brought a variety of fundamental changes
 to Riak that client builders and maintainers should be aware of,
 including a variety of new features, such as [[security|Authentication
-and Authorization]] and [[Riak Data Types|Using Data Types]. The
+and Authorization]] and [[Riak Data Types|Using Data Types]]. The
 sections below will list some of those changes and suggest approaches to
 addressing them, including some examples from our official [[client
 libraries]].
@@ -146,7 +146,7 @@ libraries]].
 ## Nodes and Clusters
 
 When writing Riak clients, it's important to remember that Riak _always_
-functions as a [[clustered|Clusters]] (i.e. [[multi-node|Riak
+functions as a [[clustered|Clusters]] \(i.e. [[multi-node|Riak
 Glossary#Node]]) system, and connecting clients need to be built to
 interact with all nodes in the cluster on the basis of each node's host
 and port.
@@ -202,9 +202,10 @@ client.bucket_type('default').bucket('fruits').get('apple')
 
 One of the trickier things about dealing with objects in Riak is that
 objects can be of any data type you choose (Riak Data Types are a
-different matter, and covered in the [[section below]]). You can store
-JSON, XML, raw binaries, strings, mp3s, MPEGs (though you should
-probably consider [Riak
+different matter, and covered in the [[section below|Client
+Implementation Guide#Riak-Data-Types]]). You can store JSON, XML, raw
+binaries, strings, mp3s, MPEGs (though you should probably consider
+[Riak
 CS](http://docs.basho.com/riak/latest/dev/references/protocol-buffers/get-bucket-type/)
 for larger files like that), and so on. While this makes Riak an
 extremely flexible database, it means that clients need to be able to
@@ -258,7 +259,7 @@ Resolution#Siblings]]. Most fundamentally, this means that your client
 needs to enable objects to have multiple sibling values instead of just
 a single value. In the official Python client, for example, each object
 of the class
-`[RiakObject](https://github.com/basho/riak-python-client/blob/master/riak/riak_object.py#L107)`
+[`RiakObject`](https://github.com/basho/riak-python-client/blob/master/riak/riak_object.py#L107)
 has parameters that you'd expect, like `content_type`, `bucket`, and
 `data`, but it also has a `siblings` parameter that returns a list of
 sibling values.
@@ -295,9 +296,9 @@ committing those changes to Riak. So if an application needs to add five
 counters to a map and then remove items from three different sets within
 that map, it should be able to commit those changes with _one_ message
 to Riak. The official Python client, for example, has a
-`[store()](https://github.com/basho/riak-python-client/blob/master/riak/datatypes/datatype.py#L118)`
+[`store()`](https://github.com/basho/riak-python-client/blob/master/riak/datatypes/datatype.py#L118)
 function that sends all client-side changes to Riak at once, plus a
-`[reload()](https://github.com/basho/riak-python-client/blob/master/riak/datatypes/datatype.py#L64)`
+[`reload()`](https://github.com/basho/riak-python-client/blob/master/riak/datatypes/datatype.py#L64)
 function that fetches the current value of the type from Riak with no
 regard for client-side changes (in fact, reloading the type will
 actually wipe out all client-side changes).
