@@ -163,7 +163,7 @@ riakc_pb_socket:create_search_index(Pid, <<"famous">>).
 ```
 
 ```curl
-export RIAK_HOST="http://localhost:8098
+export RIAK_HOST="http://localhost:8098"
 
 curl -XPUT $RIAK_HOST/search/index/famous
 ```
