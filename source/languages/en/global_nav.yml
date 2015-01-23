@@ -287,8 +287,8 @@ riak:
       - "[[Release Notes]]"
   - title: "APIs"
     sub:
-      - "[[HTTP API]]"
       - "[[Protocol Buffers|PBC API]]"
+      - "[[HTTP API]]"
 
 riakcs:
   #- title: "Shortcuts"
