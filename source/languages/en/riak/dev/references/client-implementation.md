@@ -325,3 +325,29 @@ lists](http://docs.basho.com/riak/latest/dev/advanced/client-security/python/#Sp
 checking](http://docs.basho.com/riak/latest/dev/advanced/client-security/ruby/#Online-Certificate-Status-Protocol),
 and [cipher
 lists](http://docs.basho.com/riak/latest/dev/advanced/client-security/python/#Specifying-Ciphers).
+
+## Features That Don't Require Client Changes
+
+The following features that became available in [[Riak 2.0]] shouldn't
+require any changes to client libraries:
+
+* [[Strong consistency]] --- While adding strong consistency has
+    entailed a lot of changes within Riak itself, K/V operations
+    involving strongly consistent data function just like their
+    eventually consistent counterparts in most respects. The one small
+    exception is that performing object updates without first fetching
+    the object will _necessarily_ fail because the initial fetched
+    object contains the object's [[causal context]], which is necssary
+    for strongly consistent operations. It may be a good idea to add
+    this requirement to your client documentation.
+* [[New configuration system|Configuration Files]] --- Configuration has
+    been drastically simplified in Riak 2.0, but these changes won't
+    have a direct impact on client interfaces.
+* [[Dotted version vectors|Causal Context#Dotted-Version-Vectors]] ---
+    While dotted version vectors (DVVs) are superior to the older
+    [[vector clocks|Causal Context#Vector-Clocks]] in preventing
+    problems like [[sibling explosion|Causal
+    Context#Sibling-Explosion]], client libraries interact with DVVs
+    just like they interact with vector clocks. In fact, our Protocol
+    Buffers messages still use a `vclock` field for both vector clocks
+    _and_ DVVs, for the sake of backward compatibility.
