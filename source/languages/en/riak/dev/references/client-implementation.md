@@ -288,3 +288,16 @@ objects is that you interact with them _transactionally_, meaning that
 changing Data Types involves sending messages to Riak about what changes
 should be made rather than fetching the object and modifying it on the
 client side.
+
+This means that your client interface needs to enable users to modify
+the Data Types as much as they need to on the client side before
+committing those changes to Riak. So if an application needs to add five
+counters to a map and then remove items from three different sets within
+that map, it should be able to commit those changes with _one_ message
+to Riak. The official Python client, for example, has a
+`[store()](https://github.com/basho/riak-python-client/blob/master/riak/datatypes/datatype.py#L118)`
+function that sends all client-side changes to Riak at once, plus a
+`[reload()](https://github.com/basho/riak-python-client/blob/master/riak/datatypes/datatype.py#L64)`
+function that fetches the current value of the type from Riak with no
+regard for client-side changes (in fact, reloading the type will
+actually wipe out all client-side changes).
