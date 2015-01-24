@@ -4,6 +4,7 @@ project: riak
 version: 2.0.0+
 document: api
 audience: advanced
+group_by: "Search-related Operations"
 keywords: [http, api, search, schema, yokozuna]
 ---
 

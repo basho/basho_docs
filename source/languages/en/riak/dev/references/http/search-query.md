@@ -4,6 +4,7 @@ project: riak
 version: 2.0.0+
 document: api
 audience: advanced
+group_by: "Search-related Operations"
 keywords: [api, http, search, yokozuna]
 ---
 
@@ -40,9 +41,23 @@ Typical error codes:
 
 ## Response
 
-If a `200 OK` is returned, then the Search query has been successful,
-and a payload like the following should be returned:
+If a `200 OK` is returned, then the Search query has been successful.
+Below is an example JSON response from querying an index that currently
+has no documents associated with it:
 
 ```json
-
+{
+  "response": {
+    "docs": [],
+    "maxScore": 0.0,
+    "numFound": 0,
+    "start": 0
+  },
+  "responseHeader": {
+    "QTime": 10,
+    "params": { /* internal info from the query */ },
+    "wt": "json"
+  },
+  "status": 0
+}
 ```
