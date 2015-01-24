@@ -4,8 +4,8 @@ project: riak
 version: 2.0.0+
 document: api
 audience: advanced
-group_by: "Search-related Operations"
 keywords: [api, http, search, yokozuna]
+group_by: "Search-related Operations"
 ---
 
 Performs a [[Riak Search|Using Search]] query.

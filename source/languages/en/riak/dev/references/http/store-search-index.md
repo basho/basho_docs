@@ -4,8 +4,8 @@ project: riak
 version: 2.0.0+
 document: api
 audience: advanced
-group_by: "Search-related Operations"
 keywords: [http, api, search, index, yokozuna]
+group_by: "Search-related Operations"
 ---
 
 Creates a new Riak Search [[index|Using Search#Simple-Setup]].

@@ -6,7 +6,7 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
-group_by: "Object/Key Operations"
+group_by: "Object-related Operations"
 moved: {
   '1.4.0-': '/references/apis/http/HTTP-Fetch-Object'
 }
