@@ -45,7 +45,7 @@ If you want to read more about what the keydir is and what it entails,
 as well as more about Bitcask in general, see the [Hello
 Bitcask](http://blog.basho.com/2010/04/27/hello-bitcask/) article from
 the Basho blog as well as Basho's [Introduction to
-Bitcask](http://downloads.basho.com/papers/bitcask-intro.pdf) paper.
+Bitcask](http://basho.com/assets/bitcask-intro.pdf) paper.
 
 
 When you calculate that your RAM needs will exceed your hardware
