@@ -6,15 +6,17 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
-group_by: "Bucket Operations"
+group_by: "Bucket-related Operations"
 moved: {
   '1.4.0-': '/references/apis/http/HTTP-Reset-Bucket-Properties'
 }
 ---
 
-Resets the bucket properties like "n_val" and "allow_mult" back to the default settings.
+Resets bucket properties like `n_val` and `allow_mult` back to the
+default settings.
 
 ## Request
+
 ```bash
 DELETE /buckets/bucket/props
 ```
