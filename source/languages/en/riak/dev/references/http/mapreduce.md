@@ -6,7 +6,7 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
-group_by: "Query Operations"
+group_by: "Query-related Operations"
 moved: {
   '1.4.0-': '/references/apis/http/HTTP-MapReduce'
 }
