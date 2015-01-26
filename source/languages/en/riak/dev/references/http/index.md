@@ -23,9 +23,7 @@ Buckets, keys, and link specifications may not contain unescaped
 slashes. Use a URL-escaping library or replace slashes with `%2F`.
 </div>
 
-## API Method Quick Reference
-
-### Bucket-related Operations
+## Bucket-related Operations
 
 Method | URL | Doc
 :------|:----|:---
@@ -35,7 +33,7 @@ Method | URL | Doc
 `GET` | `/types/<type>/buckets?buckets=true` | [[HTTP List Buckets]]
 `GET` | `/types/<type>/buckets/<bucket>/keys?keys=true` | [[HTTP List Keys]]
 
-### Object-related Operations
+## Object-related Operations
 
 Method | URL | Doc
 :------|:----|:---
@@ -44,12 +42,12 @@ Method | URL | Doc
 `PUT` | `/types/<type>/buckets/<bucket>/keys/<key>` | [[HTTP Store Object]]
 `DELETE` | `/types/<type>/buckets/<bucket>/keys/<key>` | [[HTTP Delete Object]]
 
-### Riak-Data-Type-related Operations
+## Riak-Data-Type-related Operations
 
 For documentation on the HTTP API for [[Riak Data Types|Data Types]],
 see the `curl` examples in [[Using Data Types]].
 
-### Query-related Operations
+## Query-related Operations
 
 Method | URL | Doc
 :------|:----|:---
@@ -57,7 +55,7 @@ Method | URL | Doc
 `GET` | `/types/<type>/buckets/<bucket>/index/<index>/<value>` | [[HTTP Secondary Indexes]]
 `GET` | `/types/<type>/buckets/<bucket>/index/<index>/<start>/<end>` | [[HTTP Secondary Indexes]]
 
-### Server-related Operations
+## Server-related Operations
 
 Method | URL | Doc
 :------|:----|:---
@@ -76,22 +74,3 @@ Method | URL | Doc
 `DELETE` | `/search/index/<index_name>` | [[HTTP Delete Search Index]]
 `GET` | `/search/schema/<schema_name>` | [[HTTP Fetch Search Schema]]
 `PUT` | `/search/schema/<schema_name>` | [[HTTP Store Search Schema]]
-
-## Bucket Operations
-
-Buckets in Riak are a virtual concept. They exist primarily as a
-namespace mechanism and as a mechanism to isolate specific behavior
-changes that deviate from the default bucket settings. For example, you
-may augment the [[number of
-replicas|Replication#Selecting-an-N-value-(n_val)]], the specific
-storage backend and [[commit hooks|Using Commit Hooks]] at the bucket
-level.
-
-<div class="note">
-<div class="title">How Many Buckets Can I Have?</div>
-Currently, buckets come with virtually no cost except for when you
-modify the default bucket properties. Modified Bucket properties are
-gossiped around the cluster and therefore add to the amount of data sent
-around the network. In other words, buckets using the default bucket
-properties are free.
-</div>
