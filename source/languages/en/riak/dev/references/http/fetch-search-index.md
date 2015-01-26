@@ -17,6 +17,16 @@ Search#Simple-Setup]].
 GET /search/index/<index_name>
 ```
 
+## Normal Response Codes
+
+* `200 OK`
+
+## Typical Error Codes
+
+* `404 Object Not Found` --- No Search index with that name is currently
+    available
+* `503 Service Unavailable` --- The request timed out internally
+
 ## Response
 
 If the index is found, Riak will output a JSON object describing the
@@ -31,11 +41,3 @@ schema]] used by the index. Here is an example:
   "schema": "_yz_default"
 }
 ```
-
-## Normal Response Codes
-
-* `200 OK`
-
-## Typical Error Codes
-
-* `404 Object Not Found`

@@ -43,3 +43,4 @@ Below is the example output if there is one Search index, called
 
 * `404 Object Not Found` --- Typically returned if Riak Search is not
     currently enabled on the node
+* `503 Service Unavailable` --- The request timed out internally

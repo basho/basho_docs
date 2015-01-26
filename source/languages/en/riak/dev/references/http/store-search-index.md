@@ -44,3 +44,4 @@ More information can be found in [[Using Search]].
 
 * `409 Conflict` --- The index cannot be created because there is
     already an index with that name
+* `503 Service Unavailable` --- The request timed out internally

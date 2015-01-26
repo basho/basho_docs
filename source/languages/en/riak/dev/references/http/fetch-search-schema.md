@@ -16,11 +16,6 @@ Retrieves a Riak [[search schema]].
 GET /search/schema/<schema_name>
 ```
 
-## Response
-
-If the schema is found, Riak will return the contents of the schema as
-XML (all Riak Search schemas are XML).
-
 ## Normal Response Codes
 
 * `200 OK`
@@ -28,3 +23,9 @@ XML (all Riak Search schemas are XML).
 ## Typical Error Codes
 
 * `404 Object Not Found`
+* `503 Service Unavailable` --- The request timed out internally
+
+## Response
+
+If the schema is found, Riak will return the contents of the schema as
+XML (all Riak Search schemas are XML).

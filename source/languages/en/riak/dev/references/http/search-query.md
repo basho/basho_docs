@@ -31,7 +31,7 @@ GET /search/query/<index_name>
 
 * `200 OK`
 
-Typical error codes:
+## Typical Error Codes
 
 * `400 Bad Request` --- Returned when, for example, a malformed query is
     supplied
