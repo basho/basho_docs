@@ -221,6 +221,11 @@ Number of nodes | Number of data partitions
 By extension, a ring size of 1024 is advisable only in clusters with
 more than 20 nodes, 2048 in clusters with more than 40 nodes, etc.
 
+If you're unsure about the best number of partitions to use, consult the
+[Riak mailing
+list](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
+for suggestions from the Riak community.
+
 ## Other Factors
 
 Riak is built to run in a clustered environment, and while it will
