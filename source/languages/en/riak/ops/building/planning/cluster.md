@@ -199,12 +199,27 @@ a power of 2. The minimum number of partitions recommended per node is
 allocated per node by dividing the number of partitions by the number of
 nodes.
 
-For most moderately sized Riak clusters (8-16 nodes), 128, 256, and 512
-partitions are excellent options that will allow you to incrementally
-grow (or shrink) your cluster. If you're unsure about the best number of
-partitions to use, [consult the Riak Mailing
-List](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
-for some suggestions.
+Because Riak clusters vary so greatly in terms of the features that are
+used, the use cases that are served, and so on, there are no
+hard-and-fast rules regarding the ideal partitions-per-node ratio. A
+good rule of thumb, however, is that you should have between 10 and 50
+data partitions per node. So if you're running a 3-node development
+cluster, a ring size of 64 or 128 should work just fine, while a 10-node
+cluster should work well with a ring size of 256 (128 is too small while
+512 is likely too large).
+
+The table below provides some suggested combinations:
+
+Number of nodes | Number of data partitions
+:---------------|:-------------------------
+3, 4, 5 | 64, 128
+5 | 64, 128
+6 | 64, 128, 256
+7, 8, 9, 10 | 128, 256
+11, 12 | 128, 256, 512
+
+By extension, a ring size of 1024 is advisable only in clusters with
+more than 20 nodes, 2048 in clusters with more than 40 nodes, etc.
 
 ## Other Factors
 
