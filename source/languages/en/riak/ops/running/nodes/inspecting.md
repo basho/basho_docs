@@ -52,10 +52,10 @@ Stat                    | Description
 ### Average Stats
 
 Average Stats represent an average calculated as (total occurrences /
-number of samples) since this node was started.  In the below stats the
-sample time is 1s, giving us a per-second average.  Currently, the only
-Average Stats are reported by Sidejob - an Erlang library that
-implements a parallel, capacity-limited request pool.
+number of samples) since this node was started. In the below stats the
+sample time is 1s, giving us a per-second average. Currently, the only
+Average Stats are reported by Sidejob, an Erlang library that implements
+a parallel, capacity-limited request pool.
 
 Stat                    | Description
 :-----------------------|:--------------------------------------------------
@@ -445,10 +445,13 @@ Stat | Description
 
 ## Handoff and Gossip Statistics
 
+Statistics for Riak's [[handoff]] subsystem.
+
+Stat | Description
+:----|:-----------
 `gossip_received`
 `rejected_handoffs`
 `handoff_timeouts`
-
 
 ### Miscellaneous Information
 
@@ -477,50 +480,50 @@ Stat | Description
 ### Application and Subsystem Versions
 
 The specific version of each Erlang application and subsystem which
-makes up a Riak node is present in the `riak-admin status` output.  Each
-application is linked below next to it's version identifier.
+makes up a Riak node is present in the `riak-admin status` output. Each
+application is linked below next to its version identifier.
 
 Stat | Description
 :----|:-----------
 `riak_auth_mods_version` | [Riak Security auth modules](https://github.com/basho/riak_auth_mods)
-`yokozuna_version` | [Riak Search](https://github.com/basho/yokozuna)
-`ibrowse_version` | 
-`riak_pb_version` | [Riak Protocol Buffers Messages](https://github.com/basho/riak_pb)
-`protobuffs_version` |
-`riak_dt_version` |
-`poolboy_version` | [poolboy](https://github.com/basho/poolboy)
-`pbkdf2_version` |
-`eleveldb_version` | [eleveldb](https://github.com/basho/eleveldb)
-`asn1_version` |
-`erlydtl_version`       | [ErlyDTL](http://github.com/erlydtl/erlydtl)
-`riak_control_version`  | [Riak Control](http://github.com/basho/riak_control)
-`cluster_info_version`  | [Cluster Information](http://github.com/basho/cluster_info)
-`riak_search_version`   | [Riak Search](http://github.com/basho/riak_search)
-`merge_index_version`   | [Merge Index](http://github.com/basho/merge_index)
-`riak_kv_version`       | [Riak KV](http://github.com/basho/riak_kv)
-`sidejob_version`       | [Sidejob](http://github.com/basho/sidejob)
-`riak_api_version`      | [Riak API](http://github.com/basho/riak_api)
-`riak_pipe_version`     | [Riak Pipe](http://github.com/basho/riak_pipe)
-`riak_core_version`     | [Riak Core](http://github.com/basho/riak_core)
-`bitcask_version`       | [Bitcask](http://github.com/basho/bitcask)
-`basho_stats_version`   | [Basho Stats](http://github.com/basho/basho_stats) {{#<1.3.0}}
-`webmachine_version`    | [Webmachine](http://github.com/basho/webmachine)
-`mochiweb_version`      | [MochiWeb](http://github.com/basho/mochiweb)
-`inets_version`         | [inets](http://erlang.org/doc/apps/inets/)
-`erlang_js_version`     | [Erlang JS](http://github.com/basho/erlang_js)
-`runtime_tools_version` | [Erlang Runtime Tools](http://erlang.org/doc/apps/runtime_tools/)
-`os_mon_version`        | [Erlang Operating System Monitor](http://erlang.org/doc/apps/os_mon/)
-`riak_sysmon_version`   | [Riak System Monitor](http://github.com/basho/riak_sysmon)
-`ssl_version`           | [Erlang Secure Sockets Layer (SSL)](http://erlang.org/doc/apps/ssl/)
-`public_key_version`    | [Erlang Public Key](http://erlang.org/doc/apps/public_key/)
-`crypto_version`        | [Erlang crypto](http://erlang.org/doc/apps/crypto/)
-`sasl_version`          | [SASL](http://erlang.org/doc/apps/sasl/)
-`lager_version`         | [Lager](http://github.com/DeadZen/lager)
-`goldrush_version`      | [Goldrush](http://github.com/DeadZen/goldrush)
-`compiler_version`      | [Erlang Compiler](http://erlang.org/doc/apps/compiler/)
-`syntax_tools_version`  | [Erlang Syntax Tools](http://www.erlang.org/doc/apps/syntax_tools/)
-`stdlib_version`        | [Standard Library](http://erlang.org/doc/apps/stdlib/)
-`kernel_version`        | [Kernel](http://erlang.org/doc/apps/kernel/)
+`yokozuna_version`       | [Riak Search](https://github.com/basho/yokozuna)
+`ibrowse_version`        | [ibrowse HTTP client for Erlang](https://github.com/cmullaparthi/ibrowse)
+`riak_pb_version`        | [Riak Protocol Buffers Messages](https://github.com/basho/riak_pb)
+`protobuffs_version`     | [erlang_protobuffs](https://github.com/basho/erlang_protobuffs)
+`riak_dt_version`        | [riak_dt](https://github.com/basho/riak_dt)
+`poolboy_version`        | [poolboy](https://github.com/basho/poolboy)
+`pbkdf2_version`         | [PBKDF2](http://en.wikipedia.org/wiki/PBKDF2)
+`eleveldb_version`       | [eleveldb](https://github.com/basho/eleveldb)
+`asn1_version`           | [ASN.1](http://www.erlang.org/doc/apps/asn1/asn1_ug.html)
+`erlydtl_version`        | [ErlyDTL](http://github.com/erlydtl/erlydtl)
+`riak_control_version`   | [Riak Control](http://github.com/basho/riak_control)
+`cluster_info_version`   | [Cluster Information](http://github.com/basho/cluster_info)
+`riak_search_version`    | [Riak Search](http://github.com/basho/riak_search)
+`merge_index_version`    | [Merge Index](http://github.com/basho/merge_index)
+`riak_kv_version`        | [Riak KV](http://github.com/basho/riak_kv)
+`sidejob_version`        | [Sidejob](http://github.com/basho/sidejob)
+`riak_api_version`       | [Riak API](http://github.com/basho/riak_api)
+`riak_pipe_version`      | [Riak Pipe](http://github.com/basho/riak_pipe)
+`riak_core_version`      | [Riak Core](http://github.com/basho/riak_core)
+`bitcask_version`        | [Bitcask](http://github.com/basho/bitcask)
+`basho_stats_version`    | [Basho Stats](http://github.com/basho/basho_stats)
+`webmachine_version`     | [Webmachine](http://github.com/basho/webmachine)
+`mochiweb_version`       | [MochiWeb](http://github.com/basho/mochiweb)
+`inets_version`          | [inets](http://erlang.org/doc/apps/inets/)
+`erlang_js_version`      | [Erlang JS](http://github.com/basho/erlang_js)
+`runtime_tools_version`  | [Erlang Runtime Tools](http://erlang.org/doc/apps/runtime_tools/)
+`os_mon_version`         | [Erlang Operating System Monitor](http://erlang.org/doc/apps/os_mon/)
+`riak_sysmon_version`    | [Riak System Monitor](http://github.com/basho/riak_sysmon)
+`ssl_version`            | [Erlang Secure Sockets Layer (SSL)](http://erlang.org/doc/apps/ssl/)
+`public_key_version`     | [Erlang Public Key](http://erlang.org/doc/apps/public_key/)
+`crypto_version`         | [Erlang crypto](http://erlang.org/doc/apps/crypto/)
+`sasl_version`           | [SASL](http://erlang.org/doc/apps/sasl/)
+`lager_version`          | [Lager](http://github.com/DeadZen/lager)
+`goldrush_version`       | [Goldrush](http://github.com/DeadZen/goldrush)
+`compiler_version`       | [Erlang Compiler](http://erlang.org/doc/apps/compiler/)
+`syntax_tools_version`   | [Erlang Syntax Tools](http://www.erlang.org/doc/apps/syntax_tools/)
+`stdlib_version`         | [Standard Library](http://erlang.org/doc/apps/stdlib/)
+`kernel_version`         | [Kernel](http://erlang.org/doc/apps/kernel/)
 
 ### Riak Search Statistics
 
@@ -528,7 +531,7 @@ The following statistics related to Riak Search message queues are
 available.
 
 Stat                         | Description
------------------------------|---------------------------------------------------
+:----------------------------|:--------------------------------------------------
 `riak_search_vnodeq_max`     | Maximum number of unprocessed messages all virtual node (vnode) message queues in the Riak Search subsystem have received on this node in the last minute
 `riak_search_vnodeq_mean`    | Mean number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
 `riak_search_vnodeq_median`  | Median number of unprocessed messages all vnode message queues in the Riak Search subsystem have received on this node in the last minute
