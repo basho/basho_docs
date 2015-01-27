@@ -12,7 +12,11 @@ moved: {
 }
 ---
 
-Fetch an object from the specified bucket type/bucket/key location (specified by `bucket`, `type`, and `key`, respectively). If the bucket type is not specified, the `default` bucket type will be used, as is the case for all messages sent to Riak that have the bucket type as an optional parameter.
+Fetch an object from the specified bucket type/bucket/key location
+(specified by `bucket`, `type`, and `key`, respectively). If the bucket
+type is not specified, the `default` bucket type will be used, as is the
+case for all messages sent to Riak that have the bucket type as an
+optional parameter.
 
 ## Request
 
@@ -40,10 +44,16 @@ message RpbGetReq {
 <div class="note">
 <div class="title">Note on defaults and special values</div>
 All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+per-bucket basis. Please refer to the documentation on <a
+href="/dev/references/protocol-buffers/set-bucket-props">setting bucket
+properties</a> for more information.
 
-Furthermore, you can assign an integer value to the <tt>r</tt> and <tt>pr</tt> parameters, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
-</div>
+Furthermore, you can assign an integer value to the <code>r</code> and
+<code>pr</code> parameters, provided that that integer value is less than or
+equal to N, <em>or</em> a special value denoting <code>one</code>
+(<code>4294967295-1</code>), <code>quorum</code> (<code>4294967295-2</code>),
+<code>all</code> (<code>4294967295-3</code>), or <code>default</code>
+(<code>4294967295-4</code>).  </div>
 
 Parameter | Description |
 :---------|:------------|
@@ -70,12 +80,13 @@ message RpbGetResp {
 Value | Description
 :-----|:-----------
 `content` | The value plus metadata entries for the object. If there are siblings, there will be more than one entry. If the key is not found, the content will be empty.
-`vclock` | The opaque vector clock that must be included in the `RpbPutReq`
-to resolve the siblings
-`unchanged` | If `if_modified` was specified in the GET request but the object
-has not been modified, this will be set to `true`
+`vclock` | The opaque vector clock that must be included in the `RpbPutReq` to resolve the siblings
+`unchanged` | If `if_modified` was specified in the GET request but the object has not been modified, this will be set to `true`
 
-The <tt>content</tt> entries hold the object value and any metadata. Below is the structure of a <tt>RpbContent</tt> message, which is included in GET/PUT responses (`RpbGetResp` (above) and `[[RpbPutResp|PBC Store Object]]`, respectively):
+The <code>content</code> entries hold the object value and any metadata.
+Below is the structure of a <code>RpbContent</code> message, which is
+included in GET/PUT responses (`RpbGetResp` (above) and
+`[[RpbPutResp|PBC Store Object]]`, respectively):
 
 ```protobuf
 message RpbContent {
@@ -93,16 +104,25 @@ message RpbContent {
 }
 ```
 
-From the above, we can see that an `RpbContent` message will always contain the binary `value` of the object. But it could also contain any of the following optional parameters:
+From the above, we can see that an `RpbContent` message will always
+contain the binary `value` of the object. But it could also contain any
+of the following optional parameters:
 
-* `content_type` --- The content type of the object, e.g. `text/plain` or `application/json`
+* `content_type` --- The content type of the object, e.g. `text/plain`
+  or `application/json`
 * `charset` --- The character encoding of the object, e.g. `utf-8`
-* `content_encoding` --- The content encoding of the object, e.g. `video/mp4`
+* `content_encoding` --- The content encoding of the object, e.g.
+  `video/mp4`
 * `vtag` --- The object's [[vtag|Vector Clocks]]
-* `links` --- This parameter is associated with the now-deprecated link walking feature and should not be used by Riak clients.
-* `last_mod` | A timestamp for when the object was last modified, in [ISO 8601 time](http://en.wikipedia.org/wiki/ISO_8601)
-* `last_mod_usecs` | A timestamp for when the object was last modified, in [Unix time](http://en.wikipedia.org/wiki/Unix_time)
-* `usermeta` --- This field stores user-specified key/value metadata pairs to be associated with the object. `RpbPair` messages used to send metadata of this sort are structured like this:
+* `links` --- This parameter is associated with the now-deprecated link
+  walking feature and should not be used by Riak clients
+* `last_mod` --- A timestamp for when the object was last modified, in
+  [ISO 8601 time](http://en.wikipedia.org/wiki/ISO_8601)
+* `last_mod_usecs` --- A timestamp for when the object was last modified,
+  in [Unix time](http://en.wikipedia.org/wiki/Unix_time)
+* `usermeta` --- This field stores user-specified key/value metadata
+  pairs to be associated with the object. `RpbPair` messages used to
+  send metadata of this sort are structured like this:
 
     ```protobuf
     message RpbPair {
@@ -110,13 +130,20 @@ From the above, we can see that an `RpbContent` message will always contain the 
         optional bytes value = 2;
     }
     ```
-    Notice that both a key and value can be stored or just a key. `RpbPair` messages are also used to attach [[secondary indexes|Using Secondary Indexes]] to objects (in the optional `indexes` field).
-* `deleted` | Whether the object has been deleted (i.e. whether a tombstone for the object has been found under the specified key)
+    Notice that both a key and value can be stored or just a key.
+    `RpbPair` messages are also used to attach [[secondary
+    indexes|Using Secondary Indexes]] to objects (in the optional
+    `indexes` field).
+* `deleted` --- Whether the object has been deleted (i.e. whether a
+  tombstone for the object has been found under the specified key)
 
 <div class="note">
 <div class="title">Note on missing keys</div>
-Remember: if a key is not stored in Riak, an <tt>RpbGetResp</tt> response
-without the <tt>content</tt> and <tt>vclock</tt> fields will be returned. This should be mapped to whatever convention the client language uses to return not found. The Erlang client, for example, returns the atom <tt>{error, notfound}</tt>.
+Remember: if a key is not stored in Riak, an <code>RpbGetResp</code>
+response without the <code>content</code> and <code>vclock</code> fields
+will be returned. This should be mapped to whatever convention the
+client language uses to return not found. The Erlang client, for
+example, returns the atom <code>{error, notfound}</code>.
 </div>
 
 ## Example

@@ -9,7 +9,8 @@ keywords: [api, protocol-buffer, datatypes]
 group_by: "Object/Key Operations"
 ---
 
-An operation to update a set, either on its own (at the bucket/key level) or [[inside of a map|PBC Data Type Map Store]].
+An operation to update a set, either on its own (at the bucket/key
+level) or [[inside of a map|PBC Data Type Map Store]].
 
 ## Request
 
@@ -20,4 +21,6 @@ message SetOp {
 }
 ```
 
-Set members are binary values that can only be added (`adds`) or removed (`removes`) from a set. You can add and/or remove as many members of a set in a single message as you would like.
+Set members are binary values that can only be added (`adds`) or removed
+(`removes`) from a set. You can add and/or remove as many members of a
+set in a single message as you would like.

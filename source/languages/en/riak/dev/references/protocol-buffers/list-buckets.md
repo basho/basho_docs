@@ -12,13 +12,13 @@ moved: {
 }
 ---
 
-List all of the bucket names available
+List all of the bucket names available.
 
 <div class="note">
 <div class="title">Caution</div>
 
-This call can be expensive for the server - do not use in performance sensitive code
-
+This call can be expensive for the server. Do not use in
+performance-sensitive code.
 </div>
 
 
@@ -38,7 +38,7 @@ message RpbListBucketsResp {
 
 Values
 
-* **buckets** - buckets on the server
+* `buckets` --- Buckets on the server
 
 ## Example
 
@@ -72,5 +72,4 @@ buckets: "b9"
 buckets: "b2"
 buckets: "b6"
 buckets: "b7"
-
 ```

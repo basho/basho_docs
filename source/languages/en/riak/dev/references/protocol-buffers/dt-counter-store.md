@@ -19,4 +19,8 @@ message CounterOp {
 }
 ```
 
-The `increment` value specifies how much the counter will be incremented or decremented, depending on whether the `increment` value is positive or negative. This operation can be used to update counters that are stored on their own in a key or [[within a map|PBC Data Type Map Store]].
+The `increment` value specifies how much the counter will be incremented
+or decremented, depending on whether the `increment` value is positive
+or negative. This operation can be used to update counters that are
+stored on their own in a key or [[within a map|PBC Data Type Map
+Store]].

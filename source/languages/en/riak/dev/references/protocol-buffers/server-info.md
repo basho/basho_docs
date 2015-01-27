@@ -12,11 +12,14 @@ moved: {
 }
 ---
 
-A message from Riak that contains two pieces of information about the server: the name of the node and the version of Riak in use on that node.
+A message from Riak that contains two pieces of information about the
+server: the name of the node and the version of Riak in use on that
+node.
 
 ## Request
 
-A request consists only of the `RpbGetServerInfoReq` message code. No request message is defined.
+A request consists only of the `RpbGetServerInfoReq` message code. No
+request message is defined.
 
 ## Response
 
