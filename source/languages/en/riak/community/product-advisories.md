@@ -11,7 +11,7 @@ keywords: [product-advisories]
 This page contains product advisories that are periodically issued for
 Riak and Riak CS.
 
-* [[Riak CS Pool Leak]]
+* [[SSL 3.0 Vulnerability and POODLE Attack]]
 
 ## Questions
 

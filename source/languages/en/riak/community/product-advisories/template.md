@@ -8,7 +8,6 @@ document: reference
 
 Info | Value
 :----|:-----
-Author |
 Date issued |
 Product |
 Affected versions
