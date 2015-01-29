@@ -215,7 +215,9 @@ The following are possible configurations:
 ```riakconf
 bitcask.sync.strategy = none
 bitcask.sync.strategy = o_sync
-bitcask.sync.interval = 10s
+
+bitcask.sync.strategy = interval
+bitcask.sync.interval = 65s
 ```
 
 ```appconfig
