@@ -228,6 +228,17 @@ bitcask.sync.interval = 10s
     ]}
 ```
 
+<div class="note">
+  <div class="title"> Sync strategy interval limitations</div>
+  Setting the sync interval to a value lower or equal to
+  `riak_core.vnode_inactivity_timeout` (default: 60 seconds), will
+  prevent Riak from performing handoffs. A vnode must be inactive
+  (not receive any messages) for a certain amount of time before the
+  handoff process can start. The sync mechanism causes a message to be
+  sent to the vnode for every sync, thus preventing the vnode from ever
+  becoming inactive.
+</div>
+
 ### Max File Size
 
 The `max_file_size` setting describes the maximum permitted size for any
