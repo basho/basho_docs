@@ -8,6 +8,56 @@ audience: intermediate
 keywords: [developer]
 ---
 
+## Riak CS 1.5.4
+
+### Fixes
+
+* Disable backpressure sleep
+    [riak_cs/#1041](https://github.com/basho/riak_cs/pull/1041)
+  * **Problem**: When backpressure sleep is triggered due to the
+      presence of many siblings, this can lead to even more siblings.
+  * **Solution**: This change prevents unnecessary siblings growth in
+      cases where (a) backpressure is triggered under high upload
+      concurrency and (b) uplaods are interleaved during backpressure
+      sleep. This issue does not affect multipart uploads.
+* Fix an incorrect path rewrite in the S3 API caused by unnecessary URL
+    decoding [riak_cs/#1040](https://github.com/basho/riak_cs/pull/1040)
+    * **Problem**: Due to the incorrect handling of URL
+        encoding/decoding, object keys including
+        `%[0-9a-fA-F][0-9a-fA-F]` (as a regular expression) or `+` had
+        been mistakenly decoded. As a consequence, the former case was
+        decoded to some other binary, while in the latter case `+` was
+        replaced with a space. In both cases, there was a possibility of
+        an implicit data overwrite. For the latter case, an overwrite
+        occurs for an object including `+` in its key, e.g. `foo+bar`,
+        by a different object with a name that is largely similar but
+        replaced with space, e.g. `foo bar`, and vice versa.
+    * **Solution**: Fix the incorrent handling of URL encoding/decoding.
+        This fix also addresses
+        [riak_cs/#910](https://github.com/basho/riak_cs/pull/910) and
+        [riak_cs/#977](https://github.com/basho/riak_cs/pull/977).
+
+### Notes on Upgrading
+
+After upgrading to Riak CS 1.5.4, objects including
+`%[0-9a-fA-F][0-9a-fA-F]` (as a regular expression) or `+` in their key,
+e.g.`foo+bar`, become invisible and can be seen as objects with a
+different name. For the former case, objects will be referred to with
+the unnecessarily decoded key; in the latter case, those objects will
+be referred to with keys in which `+` is replaced with a space, e.g.
+`foo bar`, by default.
+
+The table below provides examples for URLs including
+`%[0-9a-fA-F][0-9a-fA-F]` and how they will work before and after the
+upgrade.
+
+  | Before upgrade | After upgrade
+:-|:---------------|:-------------
+written as | `a%2Fkey` | `-`
+read as | `a%2Fkey` or `a/key` | `a/key`
+listed as | `a/key` | `a/key`
+
+
 ## Riak CS 1.5.3
 
 ### Changes
