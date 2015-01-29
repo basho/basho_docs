@@ -344,8 +344,8 @@ Riak CS are available in [[Garbage Collection]].
   elapse before an object version that has been explicitly deleted or
   overwritten is eligible for garbage collection. The default value is
   86400 (24 hours).
-* `gc_interval` --- The interval, in seconds, that the garbage
-  collection daemon runs at to search for and reap eligible object
+* `gc_interval` --- The interval, in seconds, at which the garbage
+  collection daemon runs to search for and reap eligible object
   versions. The default value is 900 seconds (15 minutes). It is
   important that you have only _one_ garbage collection daemon running
   in a cluster at any point in time. To disable the daemon on a node,
@@ -356,30 +356,28 @@ Riak CS are available in [[Garbage Collection]].
   eligibility bucket. In general, this condition should be rare, but
   could happen if an error condition caused the original record in the
   garbage collection eligibility bucket to be removed prior to the
-  reaping process completing. The default value is 21600 seconds (6 hours).
+  reaping process completing. The default value is 21600 seconds (6
+  hours).
 * `epoch_start` --- The time that the garbage collection daemon uses
   to begin collecting keys from the garbage collection eligibility
   bucket. Records in this bucket use keys based on the epoch time the
   record is created + `leeway_seconds`. The default is 0 and should be
-  sufficient for general use. A case for adjusting this value is if
-  the secondary index query run by the garbage collection daemon
-  continually times out. Raising the starting value can decrease the
-  range of the query and make it more likely the query will
-  succeed. The value must be specified in Erlang binary format. *e.g.*
-  To set it to 10, specify `<<"10">>`.
-{{#1.4.2+}}
+  sufficient for general use. A case for adjusting this value is if the
+  secondary index query run by the garbage collection daemon continually
+  times out. Raising the starting value can decrease the range of the
+  query and make it more likely the query will succeed. The value must
+  be specified in Erlang binary format. *e.g.* To set it to 10, specify
+  `<<"10">>`.
 * `initial_gc_delay` --- The number of seconds to wait in addition to
   the `gc_interval` value before the first execution of the garbage
-  collection daemon when the Riak CS node is started. This is option
-  could be used in order stagger the execution of garbage collection
-  on multiple nodes since there is currently no coordination among
-  Riak CS nodes. to The default value is 0.
-{{/1.4.2+}}
-{{#1.4.3+}}
+  collection daemon when the Riak CS node is started. **Note**:
+  Originally, this setting was used to stagger the execution of GC on
+  multiple nodes; we no longer recommend running multiple GC daemons.
+  Correspondingly, we do not recommend setting `initial_gc_delay`.
 * `max_scheduled_delete_manifests` --- The maximum number of
   manifests (representative of object versions) that can be in the
-  `scheduled_delete` state for a given key. A value of `unlimited`
-  means there is no maximum, and pruning will not happen based on
+  `scheduled_delete` state for a given key. A value of `unlimited` means
+  there is no maximum, and pruning will not happen based on
   count. An example of where this option is useful is a use case
   involving a lot of churn on a fixed set of keys in a time frame that
   is relatively short compared to the `leeway_seconds` value. This can
@@ -396,14 +394,10 @@ Riak CS are available in [[Garbage Collection]].
   `gc_paginated_indexes` is set to `true`. It represents the size used
   for paging the results of the secondary index query. The default
   value is 1000.
-{{/1.4.3+}}
-{{#1.5.0+}}
 * `gc_max_workers` --- The maximum number of worker processes that may
   be started by the garbage collection daemon to use for concurrent
   reaping of garbage-collection-eligible objects. The default value is
   5.
-{{/1.5.0+}}
-
 
 There are two configuration options designed to provide improved
 performance for Riak CS when using Riak 1.4.0 or later. These options
