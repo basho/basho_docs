@@ -51,7 +51,8 @@ Here is an example of a read performed on the key `rufus` in the bucket
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
-// Location object that can be used as a reference for further operations.
+// Location object that can be used as a reference for further
+// operations:
 
 Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
@@ -64,6 +65,11 @@ obj = bucket.get('rufus')
 ```python
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus')
+```
+
+```php
+$bucket = $client->bucketType('animals')->bucket('dogs');
+$obj = $bucket->get('rufus');
 ```
 
 ```erlang
@@ -97,6 +103,10 @@ Riak::ProtobuffsFailedRequest: Expected success from Riak but received not_found
 
 ```python
 riak.RiakError: 'no_type'
+```
+
+```php
+
 ```
 
 ```erlang
@@ -149,6 +159,11 @@ obj = bucket.get('rufus', r: 3)
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r=3)
 obj.data
+```
+
+```php
+$bucket = $client->bucketType('animals')->bucket('dogs');
+$obj = $bucket->get('rufus', $r => 3);
 ```
 
 ```erlang
@@ -233,6 +248,14 @@ obj.data = 'I have nothing to declare but my genius'
 obj.store()
 ```
 
+```php
+$bucket = $client->bucketType("quotes")->bucket("oscar_wilde");
+$obj = new Basho\Riak\Object($client, $bucket, "genius");
+$obj->setContentType("text/plain");
+$obj->setData("I have nothing to declare but my genius");
+$obj->store();
+```
+
 ```erlang
 Object = riakc_obj:new({<<"quotes">>, <<"oscar_wilde">>},
                        <<"genius">>,
@@ -311,6 +334,12 @@ obj = bucket.get('champion')
 obj.data = 'Harlem Globetrotters'
 ```
 
+```php
+$bucket = $client->bucketType("sports")->bucket("nba");
+$obj = $bucket->get("champion");
+$obj->setData("Harlem Globetrotters");
+```
+
 ```erlang
 %% In the Erlang client, you cannot view a context objectdirectly, but it
 %% will be included in the output when you fetch an object:
@@ -365,8 +394,14 @@ obj.vclock
 
 obj.vclock
 
-# The context object will look something like this:
+# The causal context will look something like this:
 # a85hYGBgzGDKBVIcWu/1S4OVPaIymBIZ81gZbskuOMOXBQA=
+```
+
+```php
+// Using the object from above:
+
+$obj->vclock();
 ```
 
 ```erlang
@@ -421,6 +456,14 @@ obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
 obj.store(w=3)
+```
+
+```php
+$bucket = $client->bucketType("cars")->bucket("dodge");
+$obj = new Basho\Riak\Object($client, $bucket, "viper");
+$obj->setContentType("text/plain");
+$obj->setData("vroom");
+$obj->store(3);
 ```
 
 ```erlang
@@ -481,6 +524,14 @@ obj = RiakObject(client, bucket, 'viper')
 obj.content_type = 'text/plain'
 obj.data = 'vroom'
 obj.store(w=3, return_body=True)
+```
+
+```php
+$bucket = $client->bucketType("cars")->bucket("dodge");
+$obj = new Basho\Riak\Object($client, $bucket, "viper");
+$obj->setContentType("text/plain");
+$obj->setData("vroom");
+$obj->store(3);
 ```
 
 ```erlang
@@ -563,6 +614,14 @@ obj.key
 'ZPFF18PUqGW9efVou7EHhfE6h8a'
 ```
 
+```php
+$bucket = $client->bucketType("users")->bucket("random_user_keys");
+// The newObject() convenience method creates a JSON object by default
+// and automatically sets the content type to application/json:
+$obj = $bucket->newObject(null, array('user' => "data"));
+$obj->store();
+```
+
 ```erlang
 Object = riakc_obj:new({<<"users">>, <<"random_user_keys">>}, undefined, <<"{'user':'data'}">>, <<"application/json">>).
 riakc_pb_socket:put(Pid, Object).
@@ -617,6 +676,11 @@ bucket.delete('genius')
 ```python
 bucket = client.bucket_type('quotes').bucket('oscar_wilde')
 bucket.delete('genius')
+```
+
+```php
+$bucket = $client->bucketType("quotes")->bucket("oscar_wilde");
+$bucket->delete("genius");
 ```
 
 ```erlang
@@ -687,11 +751,6 @@ Once the type is activated, we can see which properties are associated
 with our bucket type (and, by extension, any bucket that bears that
 type):
 
-```ruby
-bt = client.bucket_type('n_val_of_5')
-bt.props
-```
-
 ```java
 // Fetching the bucket properties of a bucket type/bucket combination
 // must be done using a RiakCluster object rather than a RiakClient.
@@ -703,9 +762,18 @@ cluster.execute(fetchProps);
 BucketProperties props = fetchProps.get().getBucketProperties();
 ```
 
+```ruby
+bt = client.bucket_type('n_val_of_5')
+bt.props
+```
+
 ```python
 bt = BucketType(client, 'n_val_of_5')
 bt.get_properties()
+```
+
+```php
+// TODO
 ```
 
 ```erlang

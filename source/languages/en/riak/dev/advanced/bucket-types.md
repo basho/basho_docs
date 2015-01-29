@@ -279,6 +279,11 @@ bucket = client.bucket('my_bucket')
 bucket.get('my_key')
 ```
 
+```php
+$bucket = $client->bucket('my_bucket');
+$obj = $bucket->get('my_key');
+```
+
 ```erlang
 {ok, Object} = riakc_pb_socket:get(Pid,
                                    <<"my_bucket">>,
@@ -319,6 +324,13 @@ bucket1 = client.bucket_type('type1').bucket('my_bucket')
 bucket2 = client.bucket_type('type2').bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```php
+$bucket1 = $client->bucketType('type1')->bucket('my_bucket');
+$bucket2 = $client->bucketType('type2')->bucket('my_bucket');
+$obj1 = $bucket1->get('my_key');
+$obj2 = $bucket->get('my_key');
 ```
 
 ```erlang
@@ -369,6 +381,13 @@ bucket1 = client.bucket_type('default').bucket('my_bucket')
 bucket2 = client.bucket('my_bucket')
 bucket1.get('my_key')
 bucket2.get('my_key')
+```
+
+```php
+$bucket1 = $client->bucketType('default')->bucket('my_bucket');
+$bucket2 = $client->bucket('my_bucket');
+$obj1 = $bucket1->get('my_key');
+$obj2 = $bucket2->get('my_key');
 ```
 
 ```erlang
@@ -579,6 +598,12 @@ obj = RiakObject(client, bucket, 'user19735')
 obj.content_type = 'application/json'
 obj.data = '{ ... user data ... }'
 obj.store()
+```
+
+```php
+$bucket = $client->bucketType('no_siblings')->bucket('sensitive_user_data');
+$obj = $bucket->newObject('user19735', array('user data' => '...'))
+$obj->store();
 ```
 
 ```erlang
