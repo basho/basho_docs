@@ -127,6 +127,12 @@ obj.data = 'Pete Carroll'
 obj.store()
 ```
 
+```php
+$bucket = $client->bucketType('siblings')->bucket('coaches');
+$obj = $bucket->newObject('seahawks')->setData('Pete Carroll');
+$obj->store();
+```
+
 ```erlang
 Obj = riakc_obj:new({<<"siblings">>, <<"coaches">>},
                      <<"seahawks">>,
@@ -166,8 +172,17 @@ def update_coach(team, new_coach):
 
 # Example usage
 update_coach('packers', 'Vince Lombardi')
-
 ```
+
+```php
+function updateCoach($team, $newCoach) {
+  $bucket = $client->bucketType('siblings')->bucket('coaches');
+  $obj = $bucket->get($team);
+  $obj->setData($newCoach);
+  $obj->store();
+}
+```
+
 ```erlang
 update_coach(team, new_coach) ->
     {ok, Obj} = riakc_pb_socket:get(Pid,

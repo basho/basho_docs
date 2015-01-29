@@ -17,9 +17,9 @@ client](https://github.com/basho/riak-ruby-client).
 ## How the Ruby Client Handles Conflict Resolution
 
 In the official Ruby client, every Riak object has a `siblings` property
-that provides access to a list of that object's sibling values. If there
-are no siblings, that property will return an array with only one item.
-Here's an example of an object with siblings:
+that provides access to a array of that object's sibling values. If
+there are no siblings, that property will return an array with only one
+item. Here's an example of an object with siblings:
 
 ```ruby
 bucket = client.bucket('seahawks')
