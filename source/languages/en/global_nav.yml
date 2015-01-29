@@ -259,6 +259,7 @@ riak:
           - "[[MongoDB|Riak Compared to MongoDB]]"
           - "[[Neo4j|Riak Compared to Neo4j]]"
           - "[[DynamoDB|Riak Compared to DynamoDB]]"
+      - "[[Recommended Reading List]]"
       - "[[Riak Glossary]]"
       - "[[Dynamo Paper|Dynamo]]"
 
