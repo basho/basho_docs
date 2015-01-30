@@ -202,3 +202,26 @@ default to a value of `15`, which can cause problems in some clusters.
 
 Information on upgrading Riak Search to 2.0 can be found in our
 [[Search upgrade guide|Upgrading Search from 1.x to 2.x]].
+
+## Migrating From Shortnames
+
+Although undocumented, versions of Riak prior to 2.0 did not prevent 
+the use of the Erlang VM's `-sname` configuration parameter. As of 
+2.0 this is no longer permitted. Permitted in 2.0 are `nodename` in 
+`riak.conf` and `-name` in `vm.args`. If you are upgrading 
+from a previous version of Riak to 2.0 and are using `-sname` in
+your `vm.args`, the below steps are required to migrate away from 
+`-sname`.
+
+1. Upgrade to Riak 1.4.12.
+2. Back up the ring directory on each node, typically located 
+in `/var/lib/riak/ring`.
+3. Stop all nodes in your cluster.
+4. Run `riak-admin reip <old nodename> <new nodename>` on each 
+node in your cluster, for each node in your cluster. For example, 
+in a 5 node cluster this will be run 25 total times, 5 times on 
+each node. The `<old nodename>` is the current shortname, and 
+the `<new nodename>` is the new fully qualified hostname.
+5. Change `riak.conf`, or `vm.args`, to use the new fully 
+qualified hostname on each node.
+6. Start each node in your cluster.
