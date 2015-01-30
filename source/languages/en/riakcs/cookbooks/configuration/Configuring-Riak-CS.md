@@ -366,7 +366,7 @@ Riak CS are available in [[Garbage Collection]].
   secondary index query run by the garbage collection daemon continually
   times out. Raising the starting value can decrease the range of the
   query and make it more likely the query will succeed. The value must
-  be specified in Erlang binary format. *e.g.* To set it to 10, specify
+  be specified in Erlang binary format. *e.g.* to set it to 10, specify
   `<<"10">>`.
 * `initial_gc_delay` --- The number of seconds to wait in addition to
   the `gc_interval` value before the first execution of the garbage
@@ -392,7 +392,7 @@ Riak CS are available in [[Garbage Collection]].
   {{#1.5.0+}}`true`{{/1.5.0+}}.
 * `gc_batch_size` --- This option is only used when
   `gc_paginated_indexes` is set to `true`. It represents the size used
-  for paging the results of the secondary index query. The default
+  for paginating the results of the secondary index query. The default
   value is 1000.
 * `gc_max_workers` --- The maximum number of worker processes that may
   be started by the garbage collection daemon to use for concurrent
