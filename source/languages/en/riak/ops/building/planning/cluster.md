@@ -205,8 +205,8 @@ hard-and-fast rules regarding the ideal partitions-per-node ratio. A
 good rule of thumb, however, is that you should have between 10 and 50
 data partitions per node. So if you're running a 3-node development
 cluster, a ring size of 64 or 128 should work just fine, while a 10-node
-cluster should work well with a ring size of 256 (128 is too small while
-512 is likely too large).
+cluster should work well with a ring size of 128 or 256 (64 is too small
+while 512 is likely too large).
 
 The table below provides some suggested combinations:
 
