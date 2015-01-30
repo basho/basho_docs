@@ -205,8 +205,8 @@ hard-and-fast rules regarding the ideal partitions-per-node ratio. A
 good rule of thumb, however, is that you should have between 10 and 50
 data partitions per node. So if you're running a 3-node development
 cluster, a ring size of 64 or 128 should work just fine, while a 10-node
-cluster should work well with a ring size of 256 (128 is too small while
-512 is likely too large).
+cluster should work well with a ring size of 128 or 256 (64 is too small
+while 512 is likely too large).
 
 The table below provides some suggested combinations:
 
@@ -220,6 +220,11 @@ Number of nodes | Number of data partitions
 
 By extension, a ring size of 1024 is advisable only in clusters with
 more than 20 nodes, 2048 in clusters with more than 40 nodes, etc.
+
+If you're unsure about the best number of partitions to use, consult the
+[Riak mailing
+list](http://lists.basho.com/mailman/listinfo/riak-users_lists.basho.com)
+for suggestions from the Riak community.
 
 ## Other Factors
 
