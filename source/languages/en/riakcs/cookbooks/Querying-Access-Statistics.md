@@ -339,8 +339,7 @@ The operation types that are currently tracked are the following:
 Operation | Description
 :---------|:-----------
 `ListBuckets` | Lists a user's buckets (`GET /`)
-`UsageRead` | Reads a user's usage statistics (`GET
-  /riak-cs/usage/user/*`)
+`UsageRead` | Reads a user's usage statistics (`GET /riak-cs/usage/user/*`)
 `BucketRead` | Lists the files in a bucket (`GET /bucket`)
 `BucketStat` | Checks for the existence of a bucket (`HEAD /bucket`)
 `BucketCreate` | Creates a bucket (`PUT /bucket`)
