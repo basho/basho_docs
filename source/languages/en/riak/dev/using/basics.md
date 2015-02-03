@@ -147,7 +147,6 @@ Here is an example of attempting a read with `r` set to `3`:
 
 ```java
 // Using the "myKey" location specified above:
-
 FetchValue fetch = new FetchValue.Builder(myKey)
         .withOption(FetchOption.R, new Quorum(3))
         .build();
@@ -205,12 +204,6 @@ is easy. The basic request looks like this.
 PUT /types/TYPE/buckets/BUCKET/keys/KEY
 ```
 
-<div class="note">
-<div class="title">Note</div>
-If you're using HTTP, <tt>POST</tt> is also a valid method, for
-compatibility's sake.
-</div>
-
 There is no need to intentionally create buckets in Riak. They pop into
 existence when keys are added to them, and disappear when all keys have
 been removed from them. If you don't specify a bucket's type, the type
@@ -261,6 +254,9 @@ curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "I have nothing to declare but my genius" \
   http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
+
+# Please note that POST is also a valid method for writes, for the sake
+# of compatibility
 ```
 
 #### Using Causal Context
