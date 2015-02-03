@@ -10,40 +10,55 @@ moved: {
 }
 ---
 
-Interacting with objects in Riak typically involves the same CRUD
-(**C**reate, **R**ead, **U**pdate, **D**elete) operations that you'd
-find in any key/value store.
+While Riak offers a wide variety of features and querying options, from
+[[Riak Data Types|Using Data Types]] to [[Riak Search|Using Search]] and
+beyond, Riak almost always performs best and most predictably when you
+use the basic CRUD operations---**C**reate, **R**ead, **U**pdate,
+**D**elete---that you'd find in any key/value store. Learning these
+operations is a great place to start when learning how to develop
+applications that use Riak.
 
 ## Object/Key Operations
 
-Riak organizes data into bucket types, buckets, keys, and values, with
-[[bucket types|Using Bucket Types]] acting as an additional namespace in
-Riak versions 2.0 and greater. Values (or objects) are identifiable by a
-unique key, and each key/value pair is stored in a bucket.
+Riak organizes data into buckets, keys, and values, with [[bucket
+types|Using Bucket Types]] acting as an additional namespace in Riak
+versions 2.0 and greater. Values (also referred to simply as objects in
+this tutorial) are identifiable by a unique key, and each key/value pair
+is stored in a bucket. Objects can be any data type you wish, e.g. JSON,
+XML, binary data, plaintext, and more.
 
 Buckets are essentially a flat namespace in Riak. You can name them
 whatever you'd like, even `bucket` or `a90bf521c` or `___` or `:)`. They
 have no intrinsic significance beyond allowing you to store objects with
-the same key in different buckets (the same goes for naming keys).
-Buckets do, however, enable you to provide common configurations to the
-keys and values within them, such as [[replication properties]] and
-[[commit hooks|Using Commit Hooks]]. Such [[properties|Buckets]] are
-managed using bucket types.
+the same key in different buckets. The same goes for naming keys: many
+objects can have the same key as long as they're in different buckets.
 
-Most of the interactions you'll have with Riak will involve setting or
+[[Bucket Types|Using Bucket Types]] enable you to provide common
+configurations for buckets (as many buckets as you wish). This means
+that you can easily enable buckets to share common configurations, i.e.
+identical [[replication properties]] or [[commit hooks|Using Commit
+Hooks]].
+
+Many of the interactions you'll have with Riak will involve setting or
 retrieving the value of a key. Riak has [[supported client
-libraries|Client Libraries]] for Erlang, Java, PHP, Python, Ruby and
-C/C++. In addition, there are [[community-supported projects|Client
+libraries|Client Libraries]] for Java, Ruby, Python, and Erlang.  In
+addition, there are [[community-supported projects|Client
 Libraries#Community-Libraries]] for .NET, Node.js, Python, Perl,
 Clojure, Scala, Smalltalk, and many others.
 
-### Read an Object
+## Reading Objects
+
+You can think of reads in Riak of analogous to HTTP `GET` requests. You
+specify a bucket type, bucket, and key, and Riak either returns the
+object that's stored there---including its [[siblings|The
+Basics#Siblings]] \(more on that later)---or it returns `not found` (the
+equivalent of an HTTP `404 Object Not Found`).
 
 Here is the basic command form for retrieving a specific key from a
 bucket:
 
 ```
-GET /types/TYPE/buckets/BUCKET/keys/KEY
+GET /types/<type>/buckets/<bucket>/keys/<key>
 ```
 
 Here is an example of a read performed on the key `rufus` in the bucket
@@ -143,7 +158,6 @@ Here is an example of attempting a read with `r` set to `3`:
 
 ```java
 // Using the "myKey" location specified above:
-
 FetchValue fetch = new FetchValue.Builder(myKey)
         .withOption(FetchOption.R, new Quorum(3))
         .build();
@@ -209,12 +223,6 @@ is easy. The basic request looks like this.
 PUT /types/TYPE/buckets/BUCKET/keys/KEY
 ```
 
-<div class="note">
-<div class="title">Note</div>
-If you're using HTTP, <tt>POST</tt> is also a valid method, for
-compatibility's sake.
-</div>
-
 There is no need to intentionally create buckets in Riak. They pop into
 existence when keys are added to them, and disappear when all keys have
 been removed from them. If you don't specify a bucket's type, the type
@@ -272,6 +280,9 @@ curl -XPUT \
   -H "Content-Type: text/plain" \
   -d "I have nothing to declare but my genius" \
   http://localhost:8098/types/quotes/buckets/oscar_wilde/keys/genius
+
+# Please note that POST is also a valid method for writes, for the sake
+# of compatibility
 ```
 
 #### Using Causal Context
