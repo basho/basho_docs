@@ -667,7 +667,8 @@ riak-admin set <variable>=<value>
 ```
 
 At the moment, the `set` command can only be used for the following
-parameters:
+parameters, all three of which are related to Riak's [[handoff]]
+subsystem:
 
 * `transfer_limit`
 * `handoff.outbound`

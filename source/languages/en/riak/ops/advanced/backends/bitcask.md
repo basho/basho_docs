@@ -18,7 +18,7 @@ moved: {
 [Bitcask](https://github.com/basho/bitcask) is an Erlang application
 that provides an API for storing and retrieving key/value data using
 log-structured hash tables that provide very fast access. The
-[design](https://github.com/basho/basho_docs/raw/master/source/data/bitcask-intro.pdf)
+[design](http://basho.com/assets/bitcask-intro.pdf)
 of Bitcask was inspired, in part, by log-structured filesystems and log
 file merging.
 

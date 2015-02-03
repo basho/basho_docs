@@ -13,7 +13,8 @@ Fetch a [[search schema]] from Riak Search.
 
 ## Request
 
-In a request message, you only need to specify the name of the schema as a binary (under `name`);
+In a request message, you only need to specify the name of the schema as
+a binary (under `name`);
 
 ```protobuf
 message RpbYokozunaSchemaGetReq {

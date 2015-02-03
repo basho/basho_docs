@@ -39,7 +39,11 @@ work together.
 4. If you are upgrading from a version prior to 1.3, take note of the
    value of `cs_version` in `/etc/riak-cs/app.config`.
 
-5. Upgrade Riak, Riak CS, and Stanchion:
+5. Upgrade Riak, Riak CS, and Stanchion. See the <a
+   href="http://docs.basho.com/riakcs/latest/riakcs-downloads">Riak
+   CS Downloads</a> and <a
+   href="http://docs.basho.com/riak/latest/downloads">Riak Downloads</a>
+   pages to find the appropriate packages.
 
     **Mac OS X**
 
@@ -73,7 +77,22 @@ work together.
     the new one.
     </div>
 
-6. Examine the differences between your backed up `app.config` files and
+6. The `add_paths` setting in the `riak_kv` section of each Riak node's
+   `app.config` configuration file must be changed to reflect the new
+   path of the node's `/ebin` directory. To give an example, if the
+   previous `/ebin` directory was located at
+   `/usr/lib/riak-cs/lib/riak_cs-1.5.2/ebin` and you're upgrading to
+   version 1.5.3, you will need to change the value in `add_paths`:
+
+   ```appconfig
+   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-1.5.2/ebin"]}
+
+   %% should be changed to:
+
+   {add_paths, ["/usr/lib/riak-cs/lib/riak_cs-1.5.3/ebin"]}
+   ```
+
+7. Examine the differences between your backed up `app.config` files and
    the newly installed copies in `etc/riak`, `etc/riak-cs`, and
    `etc/stanchion`. There may be new settings in the new `app.config`
    files. Make any changes that are specific to your installation.
@@ -86,12 +105,12 @@ work together.
 	  ```appconfig
 	  {add_paths, ["/old/path/to/beam/files"]},
 
- 	  # should be changed to:
+ 	  %% should be changed to:
 
 	  {add_paths, ["/new/path/to/beam/files"]},
 	  ```
 
-7. If you are upgrading from a version prior to 1.3, locate the
+8. If you are upgrading from a version prior to 1.3, locate the
    following setting in the `/etc/riak-cs/app.config` file for Riak CS:
 
 	```erlang
@@ -105,14 +124,14 @@ work together.
     If your previous `app.config` had no value for `cs_version`, use a
     value of `0`.
 
-8. If you are upgrading from a version prior to 1.3, change `cs_version`
+9. If you are upgrading from a version prior to 1.3, change `cs_version`
    to its previous value:
 
 	```erlang
 	{cs_version, <previous_value>},
 	```
 
-9. Start the node:
+10. Start the node:
 
 	```bash
 	riak start
@@ -120,16 +139,16 @@ work together.
 	riak-cs start
 	```
 
-10. Wait for any handoff to complete:
+11. Wait for any handoff to complete:
 
 	```bash
 	riak-admin transfers
 	```
 
-11. Move on to the next node and repeat this process throughout the
+12. Move on to the next node and repeat this process throughout the
    cluster.
 
-12. If you are upgrading from a version prior to 1.3, once all nodes
+13. If you are upgrading from a version prior to 1.3, once all nodes
     have been upgraded and restarted in this manner, once again locate
     the `/etc/riak-cs/app.config` file's `cs_version` setting and change
     it back to its upgraded value, as listed here:
@@ -138,7 +157,7 @@ work together.
 	{cs_version, 10300},
 	```
 
-13. Restart all Riak CS nodes with this new setting in the same rolling
+14. Restart all Riak CS nodes with this new setting in the same rolling
     fashion as before:
 
 	```bash

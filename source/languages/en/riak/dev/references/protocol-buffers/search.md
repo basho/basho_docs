@@ -12,7 +12,8 @@ moved: {
 }
 ---
 
-Send a Search request to retrieve a list of documents, along with a few stats.
+Send a Search request to retrieve a list of documents, along with a few
+stats.
 
 ## Request
 
@@ -34,39 +35,45 @@ message RpbSearchQueryReq {
 
 Required Parameters
 
-* **q** - the bucket the index is for
-* **index** - the name of the index to search
+* `q` --- The contents of the query
+* `index` --- The name of the index to search
 
 Optional Parameters
 
-* **rows** - the maximum number of rows to return
-* **start** - a start offset. the number of keys to skip before returning values
-* **sort** - how the search results are to be sorted
-* **filter** - filters search with additional query scoped to inline fields
-* **df** - override the `default_field` setting in the schema file
-* **op** - "and" or "or", to override the `default_op` operation setting in the schema file
-* **fl** - return the fields limit
-* **presort** - presort (key / score)
+* `rows` --- The maximum number of rows to return
+* `start` --- A start offset, i.e. the number of keys to skip before
+  returning values
+* `sort` --- How the search results are to be sorted
+* `filter` --- Filters search with additional query scoped to inline
+  fields
+* `df` --- Override the `default_field` setting in the schema file
+* `op` --- `and` or `or`, to override the `default_op` operation setting
+  in the schema file
+* `fl` --- Return the fields limit
+* `presort` --- Presort. The options are `key` or `score`
 
 
 ## Response
 
-The results of a search query are returned as a repeating list of
-0 or more RpbSearchDocs. RpbSearchDocs themselves are composed of
-0 or more key/value pairs (RpbPair) that match the given request
-parameters. It also returns the maximum search score and the number
-of results.
+The results of a search query are returned as a repeating list of 0 or
+more `RpbSearchDoc`s. `RpbSearchDoc`s themselves are composed of 0 or
+more key/value pairs (`RpbPair`) that match the given request
+parameters. It also returns the maximum search score and the number of
+results.
 
 
 ```protobuf
-// RbpPair is a generic key/value pair datatype used for other message types
+// RbpPair is a generic key/value pair datatype used for
+// other message types
 message RpbPair {
   required bytes key = 1;
   optional bytes value = 2;
 }
+
 message RpbSearchDoc {
   repeated RpbPair fields = 1;
 }
+
 message RpbSearchQueryResp {
   repeated RpbSearchDoc docs      = 1;
   optional float        max_score = 2;
@@ -76,9 +83,10 @@ message RpbSearchQueryResp {
 
 Values
 
-* **docs** - a list of docs that match the search request
-* **max_score** - the top score returned
-* **num_found** - returns the total number of values matched by this search
+* `docs` --- A list of docs that match the search request
+* `max_score` --- The top score returned
+* `num_found` --- Returns the total number of values matched by this
+  search
 
 
 ## Example

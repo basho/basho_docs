@@ -108,7 +108,9 @@ Code | Message |
 
 <div class="info">
 <div class="title">Message Definitions</div>
-All Protocol Buffers messages are defined in the <tt>riak.proto</tt> and other <tt>.proto</tt> files in the <tt>/src</tt> directory of the <a href="https://github.com/basho/riak_pb">RiakPB</a> project.
+All Protocol Buffers messages are defined in the <code>riak.proto</code>
+and other <code>.proto</code> files in the <code>/src</code> directory
+of the <a href="https://github.com/basho/riak_pb">RiakPB</a> project.
 </div>
 
 ### Error Response
@@ -133,7 +135,8 @@ message RpbErrorResp {
 ### Values
 
 * `errmsg` --- A string representation of what went wrong
-* `errcode` --- A numeric code. Currently, only `RIAKC_ERR_GENERAL=1` is defined.
+* `errcode` --- A numeric code. Currently, only `RIAKC_ERR_GENERAL=1`
+  is defined.
 
 ## Bucket Operations
 

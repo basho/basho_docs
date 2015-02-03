@@ -119,8 +119,24 @@ bucket type:
 
 ```java
 Namespace animalsBucket = new Namespace("animals");
-FetchBucketPropsOperation fetchProps =
-    new FetchBucketPropsOperation.Builder(animalsBucket).build();
+FetchBucketProperties fetchProps =
+    new FetchBucketProperties.Builder(animalsBucket).build();
+FetchBucketProperties.Response response = client.execute(fetchProps);
+BucketProperties props = response.getProperties();
+```
+
+```ruby
+bucket = client.bucket('animals')
+bucket.properties
+```
+
+```python
+bucket = client.bucket('animals')
+bucket.get_properties()
+```
+
+```erlang
+{ok, Props} = riakc_pb_socket:get_bucket(Pid, <<"animals">>).
 ```
 
 ```curl
@@ -130,17 +146,31 @@ curl http://localhost:8087/types/default/buckets/animals/props
 ```
 
 If the bucket `animals` had a different type that you had created and
-activated,  e.g. `my_custom_type`, you could fetch the bucket properties
+activated, e.g. `my_custom_type`, you could fetch the bucket properties
 like so:
+
+```java
+Namespace customTypedBucket = new Namespace("my_custom_type", "animals");
+FetchBucketProperties fetchProps =
+    new FetchBucketProperties.Builder(customTypedBucket).build();
+FetchBucketProperties.Response response = client.execute(fetchProps);
+BucketProperties props = response.getProperties();
+```
+
+```ruby
+bucket = client.bucket_type('my_custom_type').bucket('animals')
+bucket.properties
+```
+
+```python
+bucket = client.bucket_type('my_custom_type').bucket('animals')
+bucket.get_properties()
+```
+
+```erlang
+{ok, Props} = riakc_pb_socket:get_bucket(Pid, {<<"my_custom_type">>, <<"animals">>}).
+```
 
 ```curl
 curl http://localhost:8087/types/my_custom_type/buckets/animals/props
-```
-
-You can also see which configuration is associated with a particular
-bucket type using the HTTP API. This would show us the configuration for
-`my_custom_type`:
-
-```curl
-curl http://localhost:8087/types/my_custom_type/props
 ```

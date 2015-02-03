@@ -13,9 +13,13 @@ A request to update the value of a [[Riak Data Type|Using Data Types]].
 
 ## Request
 
-A `DtUpdateReq` message requires that you specify the location of the Data Type in Riak, which operations are to be performed, and whether the Data Type's opaque context should be returned in the resulting `DtUpdateResp`.
+A `DtUpdateReq` message requires that you specify the location of the
+Data Type in Riak, which operations are to be performed, and whether the
+Data Type's opaque context should be returned in the resulting
+`DtUpdateResp`.
 
-The `DtOp` value specifies which Data Type-specific operation is being performed. More on that in the [[PBC Data Type Union]] document.
+The `DtOp` value specifies which Data Type-specific operation is being
+performed. More on that in the [[PBC Data Type Union]] document.
 
 ```protobuf
 message DtUpdateReq {
@@ -42,7 +46,10 @@ Parameter | Description
 `bucket` | The name of the bucket in which the Data Type is stored
 `type` | The bucket type of the bucket in which the Data Type is stored, _not_ the type of Data Type (i.e. counter, set, or map). Learn more about [[using bucket types]].
 
-Also required is a `DtOp` message that specifies which operation is to be performed, depending on whether the Data Type being updated is a [[counter|PBC Data Type Counter Store]], [[set|PBC Data Type Set Store]], or [[map|PBC Data Type Map Store]].
+Also required is a `DtOp` message that specifies which operation is to
+be performed, depending on whether the Data Type being updated is a
+[[counter|PBC Data Type Counter Store]], [[set|PBC Data Type Set
+Store]], or [[map|PBC Data Type Map Store]].
 
 ```protobuf
 message DtOp {
@@ -57,9 +64,17 @@ message DtOp {
 <div class="note">
 <div class="title">Note on defaults and special values</div>
 All of the optional parameters below have default values determined on a
-per-bucket basis. Please refer to the documentation on <a href="/dev/references/protocol-buffers/set-bucket-props">setting bucket properties</a> for more information.
+per-bucket basis. Please refer to the documentation on <a
+href="/dev/references/protocol-buffers/set-bucket-props">setting bucket
+properties</a> for more information.
 
-Furthermore, you can assign an integer value to the <tt>w</tt>, <tt>dw</tt>, and <tt>pw</tt>, provided that that integer value is less than or equal to N, <em>or</em> a special value denoting <tt>one</tt> (<tt>4294967295-1</tt>), <tt>quorum</tt> (<tt>4294967295-2</tt>), <tt>all</tt> (<tt>4294967295-3</tt>), or <tt>default</tt> (<tt>4294967295-4</tt>).
+Furthermore, you can assign an integer value to the <code>w</code>,
+<code>dw</code>, and <code>pw</code>, provided that that integer value
+is less than or equal to N, <em>or</em> a special value denoting
+<code>one</code> (<code>4294967295-1</code>), <code>quorum</code>
+(<code>4294967295-2</code>), <code>all</code>
+(<code>4294967295-3</code>), or <code>default</code>
+(<code>4294967295-4</code>).
 </div>
 
 Parameter | Description
@@ -78,7 +93,14 @@ Defaults to `false`.
 
 ## Response
 
-The response to a Data Type update request is analogous to `[[RpbPutResp|PBC Store Object]]` for KV operations. If the `return_body` is set in the update request message (as explained above), the message will include the opaque context of the Data Type (`context`) and the new value of the Data Type _after_ the update has completed (depending on whether the Data Type is a counter, set, or map). If no key was specified in the update request, it will include the Riak-assigned key (`key`).
+The response to a Data Type update request is analogous to
+`[[RpbPutResp|PBC Store Object]]` for KV operations. If the
+`return_body` is set in the update request message (as explained above),
+the message will include the opaque context of the Data Type (`context`)
+and the new value of the Data Type _after_ the update has completed
+(depending on whether the Data Type is a counter, set, or map). If no
+key was specified in the update request, it will include the
+Riak-assigned key (`key`).
 
 ```protobuf
 message DtUpdateResp {
@@ -90,7 +112,11 @@ message DtUpdateResp {
 }
 ```
 
-Assuming `return_body` is set to `true`: if a counter is updated, the response will include an integer as the `counter_value`; if a set is updated, a list of binaries will be return as the `set_value`; and if a map is updated, the returned `map_value` will be a `MapEntry` message. That message takes the following form:
+Assuming `return_body` is set to `true`: if a counter is updated, the
+response will include an integer as the `counter_value`; if a set is
+updated, a list of binaries will be return as the `set_value`; and if a
+map is updated, the returned `map_value` will be a `MapEntry` message.
+That message takes the following form:
 
 ```protobuf
 message MapEntry {

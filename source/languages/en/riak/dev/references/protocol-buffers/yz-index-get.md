@@ -23,7 +23,9 @@ message RpbYokozunaIndexGetReq {
 
 ## Response
 
-If a `name` is passed through the `RpbYokozunaIndexGetReq` request, zero or one `index` objects are returned. If `name` is empty, then a list of all indexes will be returned.
+If a `name` is passed through the `RpbYokozunaIndexGetReq` request, zero
+or one `index` objects are returned. If `name` is empty, then a list of
+all indexes will be returned.
 
 Both requests will return a response of this form.
 
@@ -33,7 +35,8 @@ message RpbYokozunaIndexGetResp {
 }
 ```
 
-This message will contain any number of `RpbYokozunaIndex` messages, depending on how many indexes are returned.
+This message will contain any number of `RpbYokozunaIndex` messages,
+depending on how many indexes are returned.
 
 ```protobuf
 message RpbYokozunaIndex {
@@ -43,4 +46,9 @@ message RpbYokozunaIndex {
 }
 ```
 
-Each message specifying an index must include the index's name as a binary (as `name`). Optionally, you can specify a `[[schema|search schema]]` name and/or an `n_val`, i.e. the number of nodes on which the index is stored (for GET requests) or on which you wish the index to be stored (for PUT requests). An index's `n_val` must match the associated bucket's `n_val`.
+Each message specifying an index must include the index's name as a
+binary (as `name`). Optionally, you can specify a `[[schema|search
+schema]]` name and/or an `n_val`, i.e. the number of nodes on which the
+index is stored (for GET requests) or on which you wish the index to be
+stored (for PUT requests). An index's `n_val` must match the associated
+bucket's `n_val`.

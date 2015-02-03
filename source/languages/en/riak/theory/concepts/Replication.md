@@ -92,7 +92,7 @@ number of nodes have responded, as determined by R---but not all
 replicas of the object agree on the value. There are two possibilities
 here for the errant nodes:
 
-1. The node responded with a `not found` for the object, meaning tha
+1. The node responded with a `not found` for the object, meaning that
    it doesn't have a copy.
 2. The node responded with a [[vector clock|Vector Clocks]] that is an
    ancestor of the vector clock of the successful read.

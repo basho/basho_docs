@@ -6,7 +6,7 @@ document: api
 toc: true
 audience: advanced
 keywords: [api, http]
-group_by: "Server Operations"
+group_by: "Server-related Operations"
 moved: {
   '1.4.0-': '/references/apis/http/HTTP-Ping'
 }

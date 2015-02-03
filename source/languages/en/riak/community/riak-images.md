@@ -18,4 +18,5 @@ Want to tell the world about your Riak usage?
 ![riak powered dark](/images/riak-powered-dark.png)
 ![riak powered light](/images/riak-powered-light.png)
 
-More [Riak images](http://basho.com/design-assets-hub/) can be found on our company site.
+More [Riak images](http://basho.com/design-assets-hub/) can be found on
+our company site.
