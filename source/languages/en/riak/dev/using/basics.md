@@ -51,8 +51,8 @@ Here is an example of a read performed on the key `rufus` in the bucket
 
 ```java
 // In the Java client, it is best to specify a bucket type/bucket/key
-// Location object that can be used as a reference for further operations.
-
+// Location object that can be used as a reference for further
+// operations
 Location myKey = new Location(new Namespace("animals", "dogs"), "rufus");
 ```
 
@@ -67,6 +67,10 @@ obj = bucket.get('rufus')
 ```
 
 ```csharp
+// In the C# client, it is best to specify a bucket type/bucket/key
+// RiakObjectId object that can be used as a reference for further
+// operations
+var objectId = new RiakObjectId("animals", "dogs", "rufus");
 ```
 
 ```erlang
@@ -106,6 +110,10 @@ riak.RiakError: 'no_type'
 {error,notfound}
 ```
 
+```csharp
+Unable to find value in RIak
+```
+
 ```curl
 not found
 ```
@@ -141,17 +149,19 @@ FetchValue fetch = new FetchValue.Builder(myKey)
         .build();
 FetchValue.Response response = client.execute(fetch);
 RiakObject obj = response.getValue(RiakObject.class);
+System.out.println(obj.getValue());
 ```
 
 ```ruby
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r: 3)
+p obj.data
 ```
 
 ```python
 bucket = client.bucket_type('animals').bucket('dogs')
 obj = bucket.get('rufus', r=3)
-obj.data
+print obj.data
 ```
 
 ```erlang
@@ -159,6 +169,12 @@ obj.data
                                 {<<"animals">>, <<"dogs">>},
                                 <<"rufus">>,
                                 [{r, 3}]).
+```
+
+```csharp
+var objectId = new RiakObjectId("animals", "dogs", "rufus");
+var object = client.Get(objectId, new RiakGetOptions.SetR(3));
+Console.Write(object.Value);
 ```
 
 ```curl
@@ -234,6 +250,13 @@ obj = RiakObject(client, bucket, 'genius')
 obj.content_type = 'text/plain'
 obj.data = 'I have nothing to declare but my genius'
 obj.store()
+```
+
+```csharp
+var objectId = new RiakObjectId("quotes", "oscar_wilde", "genius");
+var object = new RiakObject(objectId);
+object.SetObject("I have nothing to declare but my genius", "text/plain");
+Client.Put(object);
 ```
 
 ```erlang
@@ -312,6 +335,10 @@ obj.store
 bucket = client.bucket_type('sports').bucket('nba')
 obj = bucket.get('champion')
 obj.data = 'Harlem Globetrotters'
+```
+
+```csharp
+var objectId = new RiakObjectId()
 ```
 
 ```erlang
